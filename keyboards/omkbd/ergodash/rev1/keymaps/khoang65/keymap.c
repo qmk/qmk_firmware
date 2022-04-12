@@ -23,7 +23,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
    /* Keymap: BASE layer
-   * ,----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | ESC     | !1      | @2      | #3      | $4      | %5      |---------.          ,---------| ^6      | &7      | *8      | (9      | )0      | _-      |
    * |---------+---------+---------+---------+---------+---------| {[      |          | }]      |---------+---------+---------+---------+---------+---------|
    * | Tab     | Q       | W       | E       | R       | T       |---------|          |---------| Y       | U       | I       | O       | P       | LEADER  |
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
 
    /* Keymap: F layer
-   * ,----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | TRNS    | F1      | F2      | F3      | F4      | F5      |---------.          ,---------| F6      | F7      | F8      | F9      | F10     | TRNS    |
    * |---------+---------+---------+---------+---------+---------| F11     |          | F12     |---------+---------+---------+---------+---------+---------|
    * | TRNS    | TRNS    | TRNS    | TRNS    | TRNS    | TRNS    |---------|          |---------| TRNS    | TRNS    | TRNS    | TRNS    | TRNS    | TRNS    |
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       
       
    /* Keymap: VIM layer
-   * ,----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * |         |         |         |         |         |         |---------.          ,---------|Prev Trac|         |         |Next Trac|         |         |
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
    * |         |         |Ctrl righ|         | Again   |         |---------|          |---------|Ctrl C   |Ctrl Z   |         |         |Ctrl V   |         |
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      
      
    /* Keymap: VIM Shift Layer
-   * ,----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * |         |         |         |         |         |         |---------.          ,---------|         |         |         |         |         |         |
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
    * |         |         |         |         |         |         |---------|          |---------|Ctrl     |         |         |         |Ctrl     |         |
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       
       
    /* Keymap: NUMPAD Layer
-   * ,----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | Esc     | !       | @       | #       | $       | %       |---------.          ,---------| ^       | &       | Num Lk  | *       | /       | -       |
    * |---------+---------+---------+---------+---------+---------| {[      |          | }]      |---------+---------+---------+---------+---------+---------|
    * | Tab     |         |         |         |         |         |---------|          |---------|         | &7      | *8      | (9      | +       | TRNS    |
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
   
    /* Keymap: SYMBOL Layer
-   * ,----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | Esc     | !       | @       | #       | $       | %       |---------.          ,---------|         |         |         |         |         |         |
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
    * |         | ^       | &       | *       | (       | -       |---------|          |---------|         |         |         |         |         | TRNS    |
@@ -178,30 +178,70 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [5] = LAYOUT_4key_2u_inner(KC_ESC, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_LBRC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_UNDS, KC_PMNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_COLN, KC_LT, KC_LCBR, KC_DQUO, KC_TILD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PDOT, KC_PLUS, KC_EQL, KC_PSLS, KC_BSLS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0))
 };
 
-// Need LEADER_EXTERNS line directly above matrix_scasn_user()
-LEADER_EXTERNS();
+// ***** LEADER ***** //
+#ifdef LEADER_ENABLE
+
+/* LEADER Key functions, use to repeat a macro for two different sequences */
+/* Wrap cursor */
+/* (▌) */
+void ldr_send_parenthesis_cursor_wrap(void) {
+    SEND_STRING("()" SS_TAP(X_LEFT));
+}
+
+/* [▌] */
+void ldr_send_bracket_cursor_wrap(void) {
+    SEND_STRING("[]" SS_TAP(X_LEFT));
+}
+
+/* '▌' */
+void ldr_send_quotesingle_cursor_wrap(void) {
+    SEND_STRING("''" SS_TAP(X_LEFT));
+}
+
+/* "▌" */
+void ldr_send_quotedouble_cursor_wrap(void) {
+    SEND_STRING("""" SS_TAP(X_LEFT));
+}
+
+LEADER_EXTERNS(); // Keep this line above matrix_scan_user
+
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
-    
-    SEQ_ONE_KEY(KC_LPRN) {
-      // When I press KC_LEAD and then T, this sends CTRL + SHIFT + T
-      SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "(" SS_LCTL(SS_TAP(X_RIGHT)) ")");
-    }
+
     // Note: This is not an array, you don't need to put any commas
     // or semicolons between sequences.
+    
+    /* (▌) */
     SEQ_TWO_KEYS(KC_LSFT, KC_9) {
-      // When I press KC_LEAD and then Shift followed by 9, this wraps cursor around ()
-      SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "(" SS_LCTL(SS_TAP(X_RIGHT)) ")");
+      ldr_send_parenthesis_cursor_wrap();
     }
+    
+    /* [▌] */
+    SEQ_ONE_KEY(KC_LBRC) {
+      ldr_send_bracket_cursor_wrap();
+    }
+    
+    /* '▌' */
+    SEQ_ONE_KEY(KC_QUOT) {
+      ldr_send_quotesingle_cursor_wrap();
+    }
+    
+    /* "▌" */
+    SEQ_TWO_KEYS(KC_LSFT, KC_QUOT) {
+      ldr_send_quotedouble_cursor_wrap();
+    }
+    
     leader_end();
   }
 }
 
+#endif /* LEADER_ENABLE */
+
 
 
    /* Keymap: Empty layer
-   * ,----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * ,-----------------------------------------------------------.                               ,-----------------------------------------------------------.
    * |         |         |         |         |         |         |---------.          ,---------|         |         |         |         |         |         |
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
    * |         |         |         |         |         |         |---------|          |---------|         |         |         |         |         |         |
