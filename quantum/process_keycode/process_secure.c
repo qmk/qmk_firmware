@@ -3,8 +3,9 @@
 
 #include "secure.h"
 #include "process_secure.h"
+#include "quantum_keycodes.h"
 
-bool process_secure(uint16_t keycode, keyrecord_t *record) {
+bool preprocess_secure(uint16_t keycode, keyrecord_t *record) {
     if (secure_is_unlocking()) {
         if (!record->event.pressed) {
             secure_keypress_event(record->event.key.row, record->event.key.col);
@@ -14,5 +15,25 @@ bool process_secure(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    return true;
+}
+
+bool process_secure(uint16_t keycode, keyrecord_t *record) {
+#ifndef SECURE_DISABLE_KEYCODES
+    if (!record->event.pressed) {
+        if (keycode == SECURE_LOCK) {
+            secure_lock();
+            return false;
+        }
+        if (keycode == SECURE_UNLOCK) {
+            secure_lock();
+            return false;
+        }
+        if (keycode == SECURE_TOGGLE) {
+            secure_is_locked() ? secure_unlock() : secure_lock();
+            return false;
+        }
+    }
+#endif
     return true;
 }

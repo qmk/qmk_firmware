@@ -212,6 +212,12 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+#if defined(SECURE_ENABLE)
+    if (!preprocess_secure(keycode, record)) {
+        return false;
+    }
+#endif
+
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
@@ -246,10 +252,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
+            process_record_kb(keycode, record) &&
 #if defined(SECURE_ENABLE)
             process_secure(keycode, record) &&
 #endif
-            process_record_kb(keycode, record) &&
 #if defined(SEQUENCER_ENABLE)
             process_sequencer(keycode, record) &&
 #endif
