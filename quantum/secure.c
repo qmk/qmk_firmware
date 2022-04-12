@@ -58,7 +58,7 @@ void secure_keypress_event(uint8_t row, uint8_t col) {
         offset++;
         if (offset == sequence_len) {
             offset = 0;
-        secure_unlock();
+            secure_unlock();
         }
     } else {
         offset = 0;
