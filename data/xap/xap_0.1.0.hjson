@@ -171,6 +171,7 @@
                         * 2 means secure routes are allowed
                         * any other value should be interpreted as disabled
                         '''
+                    permissions: ignore
                     return_type: u8
                     return_execute: secure_status
                 }
@@ -185,6 +186,7 @@
                     type: command
                     name: Secure Lock
                     define: SECURE_LOCK
+                    permissions: ignore
                     description: Disable secure routes
                     return_execute: secure_lock
                 }
@@ -301,7 +303,7 @@
                     type: command
                     name: Jump to bootloader
                     define: BOOTLOADER_JUMP
-                    secure: true
+                    permissions: secure
                     enable_if_preprocessor: defined(BOOTLOADER_JUMP_SUPPORTED)
                     description:
                         '''

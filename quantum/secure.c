@@ -27,10 +27,6 @@ secure_status_t secure_get_status(void) {
     return secure_status;
 }
 
-bool secure_is_unlocking(void) {
-    return secure_status == SECURE_PENDING;
-}
-
 void secure_lock(void) {
     secure_status = SECURE_LOCKED;
 }

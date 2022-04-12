@@ -43,9 +43,17 @@ typedef enum xap_route_type_t {
 
 #define XAP_ROUTE_TYPE_BIT_COUNT 3
 
+typedef enum xap_route_secure_t {
+    ROUTE_PERMISSIONS_INSECURE,
+    ROUTE_PERMISSIONS_SECURE,
+    ROUTE_PERMISSIONS_IGNORE,
+} xap_route_secure_t;
+
+#define XAP_ROUTE_SECURE_BIT_COUNT 2
+
 typedef struct __attribute__((packed)) xap_route_flags_t {
-    xap_route_type_t type : XAP_ROUTE_TYPE_BIT_COUNT;
-    uint8_t          is_secure : 1;
+    xap_route_type_t   type : XAP_ROUTE_TYPE_BIT_COUNT;
+    xap_route_secure_t secure : XAP_ROUTE_SECURE_BIT_COUNT;
 } xap_route_flags_t;
 
 _Static_assert(TOTAL_XAP_ROUTE_TYPES <= (1 << (XAP_ROUTE_TYPE_BIT_COUNT)), "Number of XAP route types is too large for XAP_ROUTE_TYPE_BITS.");
@@ -77,6 +85,24 @@ struct __attribute__((packed)) xap_route_t {
 
 #include <xap_generated.inl>
 
+bool xap_pre_execute_route(xap_token_t token, const xap_route_t *route) {
+#ifdef SECURE_ENABLE
+    if (!secure_is_unlocked() && (route->flags.secure == ROUTE_PERMISSIONS_SECURE)) {
+        xap_respond_failure(token, XAP_RESPONSE_FLAG_SECURE_FAILURE);
+        return true;
+    }
+
+    if (secure_is_unlocking() && (route->flags.type != XAP_ROUTE) && (route->flags.secure != ROUTE_PERMISSIONS_IGNORE)) {
+        xap_respond_failure(token, XAP_RESPONSE_FLAG_UNLOCK_IN_PROGRESS);
+        return true;
+    }
+
+    // TODO: XAP messages extend unlocked timeout?
+    secure_activity_event();
+#endif
+    return false;
+}
+
 void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_routes, const uint8_t *data, size_t data_len) {
     if (data_len == 0) return;
     xap_identifier_t id = data[0];
@@ -85,22 +111,9 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
         xap_route_t route;
         memcpy_P(&route, &routes[id], sizeof(xap_route_t));
 
-#ifdef SECURE_ENABLE
-        if (route.flags.is_secure && secure_get_status() != SECURE_UNLOCKED) {
-            xap_respond_failure(token, XAP_RESPONSE_FLAG_SECURE_FAILURE);
+        if (xap_pre_execute_route(token, &route)) {
             return;
         }
-
-        // TODO: All other subsystems are disabled during unlock.
-        //       how to flag status route as still allowed?
-        // if (!route.flags.is_secure && secure_get_status() == SECURE_PENDING) {
-        //     xap_respond_failure(token, XAP_RESPONSE_FLAG_UNLOCK_IN_PROGRESS);
-        //     return;
-        // }
-
-        // TODO: XAP messages extend timeout?
-        secure_activity_event();
-#endif
 
         switch (route.flags.type) {
             case XAP_ROUTE:

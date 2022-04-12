@@ -125,10 +125,17 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
 
 def _append_routing_table_entry_flags(lines, container, container_id, route_stack):
-    is_secure = 1 if ('secure' in container and container['secure'] is True) else 0
+    pem_map = {
+        None: 'ROUTE_PERMISSIONS_INSECURE',
+        'secure': 'ROUTE_PERMISSIONS_SECURE',
+        'ignore': 'ROUTE_PERMISSIONS_IGNORE',
+    }
+
+    is_secure = pem_map[container.get('permissions', None)]
+
     lines.append('        .flags = {')
     lines.append(f'            .type = {_get_route_type(container)},')
-    lines.append(f'            .is_secure = {is_secure},')
+    lines.append(f'            .secure = {is_secure},')
     lines.append('        },')
 
 

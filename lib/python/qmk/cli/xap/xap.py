@@ -93,7 +93,7 @@ def _xap_transaction(device, sub, route, *args):
 def _query_device(device):
     ver_data = _xap_transaction(device, 0x00, 0x00)
     if not ver_data:
-        return {'xap': 'UNKNOWN'}
+        return {'xap': 'UNKNOWN', 'secure': 'UNKNOWN'}
 
     # to u32 to BCD string
     a = (ver_data[3] << 24) + (ver_data[2] << 16) + (ver_data[1] << 8) + (ver_data[0])
