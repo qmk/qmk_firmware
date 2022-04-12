@@ -30,10 +30,9 @@ For example, for one layer:
 
 # The structure of the keymap. Tuples describing row sizes.
 # (<Keys upto and including (one-indexed) keycount x> <are in half rows of y>)
-ROW_SIZES = [(24, 6),
-             (38, 7),
-             (50, 6),
-             (56, 3),
+ROW_SIZES = [(24, 6), # top and middle alphas
+             (38, 7), # bottom alpha and lower row
+             (52, 7), # thumb arch
              ]
 
 ###
