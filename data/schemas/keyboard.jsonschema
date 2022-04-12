@@ -5,6 +5,7 @@
     "type": "object",
     "properties": {
         "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "keyboard_folder": {"$ref": "qmk.definitions.v1#/keyboard"},
         "maintainer": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "manufacturer": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "url": {

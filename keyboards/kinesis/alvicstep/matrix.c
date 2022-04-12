@@ -158,15 +158,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
-}
-
 static matrix_row_t read_row(uint8_t row)
 {
 	_delay_us(30);  // without this wait read unstable value.
