@@ -52,9 +52,9 @@
 
 #define MOUSEKEY_INTERVAL 16        //Time between cursor movements in milliseconds.
                                     //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 8        //Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_MAX_SPEED 10         //Maximum cursor speed at which acceleration stops
 #define MOUSEKEY_TIME_TO_MAX 110    //Time until maximum scroll speed is reached
 #define MOUSEKEY_DELAY 0            //Delay between pressing a movement key and cursor movement
-#define MOUSEKEY_MOVE_DELTA 10      //Step size
+#define MOUSEKEY_MOVE_DELTA 15      //Step size
 #define MOUSEKEY_WHEEL_DELAY 0      //Delay between pressing a movement key and wheel scroll movement
 #define MK_KINETIC_SPEED            //Enable kinetic mode, acceleration follows quadratic curve
