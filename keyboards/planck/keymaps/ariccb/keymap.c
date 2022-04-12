@@ -270,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------------------------------------------.
  * |Esc,Fn| Ms3 | Ms2 |MsUp | Ms1  |  Hue+| Hue-  |AU_ON|AU_OFF|     |     |RESET |
  * |------------------------------------------------------------------------------|
- * |      | MWL | MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsRhgt|MsMid|     |RGBTog|
+ * |      | MWL | MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsMid|MsRhgt|     |RGBTog|
  * |------------------------------------------------------------------------------|
  * |      |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |DEBUG |
  * |------------------------------------------------------------------------------|
@@ -279,7 +279,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
   FNESC,   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,   AU_ON,   AU_OFF,  KC_TRNS, KC_TRNS, RESET,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
-  KC_TRNS, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN2, KC_BTN3, KC_TRNS, RGB_TOG,
+  KC_TRNS, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN3, KC_BTN2, KC_TRNS, RGB_TOG,
   KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DEBUG,
   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
 )
