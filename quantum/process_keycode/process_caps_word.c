@@ -70,9 +70,11 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 tapped = true;
 #    ifdef TAPPING_TERM_PER_KEY
                 uint16_t tapping_term = get_tapping_term(keycode, record);
+#    elif defined(DYNAMIC_TAPPING_TERM_ENABLE)
+                uint16_t tapping_term = g_tapping_term;
 #    else
                 uint16_t tapping_term = TAPPING_TERM;
-#    endif // TAPPING_TERM_PER_KEY
+#    endif
                 timer = record->event.time + tapping_term;
             } else {
                 tapped = false; // Reset when any other key is pressed.
