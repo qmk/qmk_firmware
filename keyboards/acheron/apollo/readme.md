@@ -1,6 +1,6 @@
 # Acheron Apollo QMK firmware
 
-![apollo](https://acheronproject.com/images/apollo/delta-pictures/delta1.jpeg)
+![apollo](https://acheronproject.com/images/apollo/delta-pictures/delta1_small.jpeg)
 
 The Apollo is Acheron Project's family of open-source, freely available tenkeyless (TKL) keyboard Printed Circuit Boards (PCB) which main feature is the per-key RGB lighting.
 
