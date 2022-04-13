@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_SPECIAL(code) ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_SYSTEM(code) (KC_PWR <= (code) && (code) <= KC_WAKE)
 #define IS_CONSUMER(code) (KC_MUTE <= (code) && (code) <= KC_BRID)
+#define IS_APPLE_FN(code) (KC_APFN == (code))
 
 #define IS_MOUSEKEY(code) (KC_MS_UP <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code) (KC_MS_UP <= (code) && (code) <= KC_MS_RIGHT)
@@ -205,6 +206,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_MRWD KC_MEDIA_REWIND
 #define KC_BRIU KC_BRIGHTNESS_UP
 #define KC_BRID KC_BRIGHTNESS_DOWN
+
+/* Apple Fn */
+#define KC_APFN KC_APPLE_FN
 
 /* System Specific */
 #define KC_BRMU KC_PAUSE
@@ -502,7 +506,10 @@ enum internal_special_keycodes {
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,
     KC_BRIGHTNESS_UP,
-    KC_BRIGHTNESS_DOWN
+    KC_BRIGHTNESS_DOWN,
+
+    /* Apple Fn */
+    KC_APPLE_FN,
 };
 
 enum mouse_keys {
