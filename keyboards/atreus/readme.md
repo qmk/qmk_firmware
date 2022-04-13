@@ -8,7 +8,7 @@ Keyboard Maintainer: [Phil Hagelberg](https://github.com/technomancy)
 Hardware Supported: Atreus, PCB-based or hand-wired  
 Hardware Availability: https://atreus.technomancy.us
 
-These configuration files are specifically for the Atreus keyboards created by Phil Hagelberg (@technomancy). This keyboard is available in two variants: one powered by a Teensy 2 (usually hand-wired), one powered by an A-Star (usually using a PCB). You will need to use different `make` commands depending on the variant you have; see examples below.
+These configuration files are specifically for the Atreus keyboards created by Phil Hagelberg (@technomancy). This keyboard is available in several variants: powered by a Teensy 2 or STM32F103C8T6 based MCU board (usually hand-wired), powered by an A-Star or ProMicro (usually using a PCB). You will need to use different `make` commands depending on the variant you have; see examples below.
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -19,6 +19,7 @@ If you would like to use one of the alternative controllers:
     make atreus/astar:default:flash
     make atreus/teensy2:default:flash
     make atreus/promicro:default:flash
+    make atreus/f103:default:flash
 
 If your keyboard layout is a mirror image of what you expected (i.e. you do not get QWERTY on the left but YTREWQ on the right), then you have an A-Star powered Atreus (older than March 2016) with PCB labels facing *down* instead of up. Specify that by adding `PCBDOWN=yes` to your `make` commands, e.g.
 
