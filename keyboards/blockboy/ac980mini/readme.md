@@ -1,6 +1,6 @@
 # blockboy/ac980mini
 
-![AC980mini](https://ae01.alicdn.com/kf/H2955001a66544ee1ac38a42b0632fe41m.png)
+![AC980mini](https://i.imgur.com/1ZAROm2h.png)
 ![AC980mini kle](https://imgur.com/prgMVo2h.jpg)
 
 
