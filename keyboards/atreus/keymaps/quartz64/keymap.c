@@ -138,7 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  
 	  case PWD3:
       if (record->event.pressed) {
-        SEND_STRING("Q123qQ123q"SS_TAP(X_ENTER));
+        SEND_STRING("Q123qQ123q\n");
       }
       return false;
       break;
