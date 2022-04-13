@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #	undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 # undef RGB_MATRIX_STARTUP_SAT
 #	undef RGB_MATRIX_LED_FLUSH_LIMIT
-#	define RGB_MATRIX_STARTUP_MODE RGB_MODE_PLAIN
+//#	define RGB_MATRIX_STARTUP_MODE RGB_MODE_PLAIN
 #	define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 # define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
 #	define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 
