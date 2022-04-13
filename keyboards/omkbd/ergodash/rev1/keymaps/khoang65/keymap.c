@@ -211,6 +211,18 @@ void ldr_send_grave_cursor_wrap(void) {
 void ldr_send_forward_slash_cursor_wrap(void) {
     SEND_STRING("//" SS_TAP(X_LEFT));
 }
+/* *▌* ASTERISK */
+void ldr_send_asterisk_cursor_wrap(void) {
+    SEND_STRING("**" SS_TAP(X_LEFT));
+}
+/* @▌@ AT */
+void ldr_send_at_cursor_wrap(void) {
+    SEND_STRING("@@" SS_TAP(X_LEFT));
+}
+/* %▌% PERCENT */
+void ldr_send_percent_cursor_wrap(void) {
+    SEND_STRING("%%" SS_TAP(X_LEFT));
+}
 
 // ***** Selection Wrap Functions(?) ***** //
 
@@ -224,11 +236,12 @@ void matrix_scan_user(void) {
     // don't need to put any commasor semicolons between sequences.
     
     /* Capslock */
+    // Double tap LDR for CAPS
     SEQ_ONE_KEY(KC_LEAD) {
       tap_code(KC_CAPS);
     }
     
-    // ***** Macro by Symbol ***** //
+    // ***** Macros by Symbol ***** //
     /* (▌) PARENTHESIS */
     SEQ_TWO_KEYS(KC_LSFT, KC_9) {
       ldr_send_parenthesis_cursor_wrap();
@@ -246,10 +259,26 @@ void matrix_scan_user(void) {
       ldr_send_quotedouble_cursor_wrap();
     }
     
-    // ***** Macro by Comfort ***** //
+    // ***** Macros by Comfort ***** //
     // Use symbol layer as a reference
     
-    /* Home Row */
+    /* R4; Number Row*/
+    /* @▌@ AT */
+    SEQ_ONE_KEY(KC_2) {
+      ldr_send_at_cursor_wrap();
+    }
+    /* %▌% PERCENT */
+    SEQ_ONE_KEY(KC_5) {
+      ldr_send_percent_cursor_wrap();
+    }
+    
+    /* R3; Alpha */
+    /* *▌* ASTERISK */
+    SEQ_ONE_KEY(KC_E) {
+      ldr_send_asterisk_cursor_wrap();
+    }
+    
+    /* R2; Home Row */
     /* '▌' SINGLE QUOTE */
     SEQ_ONE_KEY(KC_F4) {
       ldr_send_quotesingle_cursor_wrap();
@@ -275,14 +304,13 @@ void matrix_scan_user(void) {
       ldr_send_quotedouble_cursor_wrap();
     }
     
-    /* Above */
-    
-    
-    /* Below */
+    /* R1; Alpha */
     /* /▌/ FORWARD SLASH */
     SEQ_ONE_KEY(KC_V) {
       ldr_send_forward_slash_cursor_wrap();
     }
+    
+    /* R0; Mod */
     
     leader_end();
   }
