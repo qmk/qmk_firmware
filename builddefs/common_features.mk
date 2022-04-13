@@ -648,6 +648,15 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
+VALID_CUSTOM_ENCODER_TYPES:= yes no
+CUSTOM_ENCODER ?= no
+ifneq ($(strip $(CUSTOM_ENCODER)), no)
+    ifeq ($(filter $(CUSTOM_ENCODER),$(VALID_CUSTOM_MATRIX_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid CUSTOM_ENCODER,CUSTOM_ENCODER="$(CUSTOM_ENCODER)" is not a valid custom encoder type)
+    endif
+    OPT_DEFS += -DCUSTOM_ENCODER
+endif
+
 # Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
 DEBOUNCE_TYPE ?= sym_defer_g
 ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
