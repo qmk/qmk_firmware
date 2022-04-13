@@ -23,4 +23,4 @@ AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 ENCODER_ENABLE = no
 # Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRU
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
