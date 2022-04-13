@@ -1,4 +1,8 @@
+# RGB Issues
+- https://github.com/qmk/qmk_firmware/issues/8789
+- Flash Master + Slave first, then flash Slave
 
+# Empty Layer ASCII
 
    /* Keymap: Empty layer
    * ,-----------------------------------------------------------.                               ,-----------------------------------------------------------.
