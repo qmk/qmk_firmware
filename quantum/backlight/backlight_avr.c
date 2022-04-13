@@ -405,7 +405,7 @@ ISR(TIMERx_OVF_vect)
     uint16_t interval = (uint16_t)get_breathing_period() * breathing_ISR_frequency / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
     breathing_counter = (breathing_counter + 1) % (get_breathing_period() * breathing_ISR_frequency);
-    uint8_t index = breathing_counter / interval;
+    uint8_t index     = breathing_counter / interval;
     // limit index to max step value
     if (index >= BREATHING_STEPS) {
         index = BREATHING_STEPS - 1;
