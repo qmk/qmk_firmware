@@ -1,6 +1,6 @@
 # SharkPCB QMK firmware
 
-![sharkpcb](https://acheronproject.com/images/shark/shark_beta_pic3.jpg)
+![sharkpcb](https://acheronproject.com/images/shark/shark_beta_pic3_small.jpg)
 
 The SharkPCB is an open-source ortholinear 40% layout designed by Gondolindrim for the AcheronProject.
 
