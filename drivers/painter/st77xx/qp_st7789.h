@@ -10,8 +10,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter ST7789 configurables (add to your keyboard's config.h)
 
-// The number of ST7789 devices we're going to be talking to. If you have more than one display you need to increase it.
 #ifndef ST7789_NUM_DEVICES
+/**
+ * @def This controls the maximum number of ST7789 devices that Quantum Painter can communicate with at any one time.
+ *      Increasing this number allows for multiple displays to be used.
+ */
 #    define ST7789_NUM_DEVICES 1
 #endif
 
@@ -25,6 +28,17 @@
 // Quantum Painter ST7789 device factories
 
 #ifdef QUANTUM_PAINTER_ST7789_SPI_ENABLE
-// Factory method for an ST7789 SPI device
+/**
+ * Factory method for an ST7789 SPI LCD device.
+ *
+ * @param panel_width[in] the width of the display panel
+ * @param panel_height[in] the height of the display panel
+ * @param chip_select_pin[in] the GPIO pin used for SPI chip select
+ * @param dc_pin[in] the GPIO pin used for D/C control
+ * @param reset_pin[in] the GPIO pin used for RST
+ * @param spi_divisor[in] the SPI divisor to use when communicating with the display
+ * @param spi_mode[in] the SPI mode to use when communicating with the display
+ * @return the device handle used with all drawing routines in Quantum Painter
+ */
 painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
 #endif // QUANTUM_PAINTER_ST7789_SPI_ENABLE
