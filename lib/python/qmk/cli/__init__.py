@@ -17,6 +17,7 @@ import_names = {
     'pep8-naming': 'pep8ext_naming',
     'pyusb': 'usb.core',
     'qmk-dotty-dict': 'dotty_dict',
+    'pillow': 'PIL',
     'Jinja2': 'jinja2'
 }
 
@@ -69,6 +70,7 @@ subcommands = [
     'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',
     'qmk.cli.new.keymap',
+    'qmk.cli.painter',
     'qmk.cli.pyformat',
     'qmk.cli.pytest',
     'qmk.cli.via2json',
