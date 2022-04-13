@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Tyler Thrailkill <@snowe/@snowe2010>
+Copyright 2022 sporewoh
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,29 +15,28 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
-#include QMK_KEYBOARD_H
 
-#ifndef QMK_FIRMWARE_SNOWE_H
-#    define QMK_FIRMWARE_SNOWE_H ;
-#endif  // QMK_FIRMWARE_SNOWE_H
+#include "config_common.h"
 
-#include "wrappers.h"
-#include "keycode_aliases.h"
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xBEAF
+#define PRODUCT_ID      0x0001
+#define DEVICE_VER      0x0000
+#define MANUFACTURER    sporewoh
+#define PRODUCT         banime40
 
-#define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
+/* key matrix size */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 10
 
-//#if defined(RGBLIGHT_ENABLE)
-//#    include "rgb_stuff.h"
-//#endif
-//#if defined(RGB_MATRIX_ENABLE)
-//#    include "rgb_matrix_stuff.h"
-//#endif
-#ifdef OLED_ENABLE
-#    include "oled_setup.h"
-#endif
+/* pin-out for PCB */
+#define MATRIX_ROW_PINS { E6, D7, C6, D4 }
+#define MATRIX_COL_PINS { B4, B5, B6, B2, B3, B1, F7, F6, F5, F4 }
 
+#define UNUSED_PINS
 
-enum layers { _MAIN, _GAMING, _LOWER, _UPPER, _ADJUST };
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10
