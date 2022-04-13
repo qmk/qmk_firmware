@@ -26,7 +26,7 @@ bool process_secure(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         if (keycode == SECURE_UNLOCK) {
-            secure_lock();
+            secure_unlock();
             return false;
         }
         if (keycode == SECURE_TOGGLE) {
