@@ -1,9 +1,9 @@
 // Copyright 2022 Daniel Osipishin (@subrezon)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "config_common.h"
-
 #pragma once
+
+#include "config_common.h"
 
 // USB device parameters
 #define VENDOR_ID       0xFEED
