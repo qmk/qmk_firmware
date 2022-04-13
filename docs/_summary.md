@@ -94,6 +94,7 @@
 
   * Hardware Features
     * Displays
+      * [Quantum Painter](quantum_painter.md)
       * [HD44780 LCD Driver](feature_hd44780.md)
       * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)

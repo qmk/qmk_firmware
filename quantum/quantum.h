@@ -188,6 +188,10 @@ extern layer_state_t layer_state;
 #    include "st7565.h"
 #endif
 
+#ifdef QUANTUM_PAINTER_ENABLE
+#    include "qp.h"
+#endif
+
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
 #endif
