@@ -1,6 +1,6 @@
 # Acheron Apollo87H QMK firmware
 
-![apollo](https://acheronproject.com/images/apollo/delta-pictures/delta1.jpeg)
+![apollo](https://acheronproject.com/images/apollo/delta-pictures/delta1_small.jpeg)
 
 The Apollo87H is Acheron Project's open-source, freely available tenkeyless (TKL) keyboard Printed Circuit Boards (PCB) which features:
 
