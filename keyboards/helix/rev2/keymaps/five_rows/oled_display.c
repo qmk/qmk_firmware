@@ -25,6 +25,8 @@
 #include <string.h>
 #include "layer_number.h"
 
+#include "pseudo_sprintf.h"
+
 extern int current_default_layer;
 
 void init_helix_oled(void) {
@@ -64,54 +66,9 @@ void matrix_update(struct CharacterMatrix *dest,
 }
 #    endif
 
-static char *sprint_decimal(char *buf, int data) {
-    if (data > 9) {
-        buf = sprint_decimal(buf, data/10);
-    }
-    *buf++ = "0123456789"[data%10];
-    *buf = '\0';
-    return buf;
-}
-
-static char *sprint_hex(char *buf, uint32_t data) {
-    if (data > 0xf) {
-        buf = sprint_hex(buf, data/0x10);
-    }
-    *buf++ = "0123456789abcdef"[data & 0xf];
-    *buf = '\0';
-    return buf;
-}
-
-char *sprints(char *buf, char *src) {
-    while (*src) {
-        *buf++ = *src++;
-    }
-    *buf = '\0';
-    return buf;
-}
-
-char *sprintx(char *buf, char *leadstr, uint32_t data) {
-    buf = sprints(buf, leadstr);
-    buf = sprint_hex(buf, data);
-    return buf;
-}
-
-char *sprintd(char *buf, char *leadstr, int data) {
-    buf = sprints(buf, leadstr);
-    buf = sprint_decimal(buf, data);
-    return buf;
-}
-
-char *sprint2d(char *buf, char *leadstr, int data) {
-    buf = sprints(buf, leadstr);
-    if (data > 99) {
-        return sprint_decimal(buf, data);
-    }
-    if (data < 10) {
-        *buf++ = ' ';
-    }
-    return sprint_decimal(buf, data);
-}
+#ifndef PSEUDO_SPRINTF_DEFINED
+#include "pseudo_sprintf.c"
+#endif
 
 #    ifdef SSD1306OLED
 static void render_logo(struct CharacterMatrix *matrix) {
@@ -125,8 +82,10 @@ static void render_logo(void) {
         0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
         0};
     oled_write_P(helix_logo, false);
+#    if defined(RGBLIGHT_ENABLE) || defined(DEBUG_MATRIX_SCAN_RATE)
     char buf[30];
     char *bufp;
+#    endif
 #    ifdef RGBLIGHT_ENABLE
     if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
         bufp = sprint2d(buf, " LED ", rgblight_get_mode());

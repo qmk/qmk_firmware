@@ -25,9 +25,7 @@
 #include <string.h>
 #include "layer_number.h"
 
-char *sprints(char *buf, char *src);
-char *sprintd(char *buf, char *leadstr, int data);
-char *sprint2d(char *buf, char *leadstr, int data);
+#include "pseudo_sprintf.h"
 
 extern int current_default_layer;
 
@@ -68,6 +66,10 @@ void matrix_update(struct CharacterMatrix *dest,
 }
 #    endif
 
+#ifndef PSEUDO_SPRINTF_DEFINED
+#include "pseudo_sprintf.c"
+#endif
+
 #    ifdef SSD1306OLED
 static void render_logo(struct CharacterMatrix *matrix) {
 #    else
@@ -80,8 +82,10 @@ static void render_logo(void) {
         0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
         0};
     oled_write_P(helix_logo, false);
+#    if defined(RGBLIGHT_ENABLE) || defined(DEBUG_MATRIX_SCAN_RATE)
     char buf[30];
     char *bufp;
+#    endif
 #    ifdef RGBLIGHT_ENABLE
     if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
         bufp = sprint2d(buf, " LED ", rgblight_get_mode());
