@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "SawnsProjects",
     "layouts": {
-        "LAYOUT_tkl_ansi": {
+        "LAYOUT_all": {
             "layout": [
                 { "label": "K00 (B1,F4)", "x": 0, "y": 0 },
                 { "label": "K10 (B2,F4)", "x": 1.25, "y": 0 },
