@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Swiftrax <swiftrax@gmail.com>
+Copyright 2022 Swiftrax <swiftrax@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEA53
+#define PRODUCT_ID      0xE785
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kikos Lab
 #define PRODUCT         Formula1800
@@ -37,16 +37,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { F4, F5 }
-#define ENCODERS_PAD_B { A2, A1 }
+#define ENCODERS_PAD_A { A2, A1 }
+#define ENCODERS_PAD_B { F4, F5 }
 
-#define EMCODER_DIRECTION_FLIP
+//#define ENCODER_DIRECTION_FLIP
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/*EEPROM for via*/
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
