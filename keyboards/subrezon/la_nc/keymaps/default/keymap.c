@@ -61,34 +61,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-
-#ifdef OLED_ENABLE
-
-bool oled_task_user(void) {
-       oled_write_P(PSTR("Layer:\n"), false);
-
-       switch (get_highest_layer(layer_state)) {
-              case _QWE :
-                     oled_write_P(PSTR("QWERTY\n"), false);
-                     break;
-
-              case _NUM :
-                     oled_write_P(PSTR("Numbers\n"), false);
-                     break;
-
-              case _SYM :
-                     oled_write_P(PSTR("Symbols\n"), false);
-                     break;
-
-              case _OPT :
-                     oled_write_P(PSTR("Options\n"), false);
-                     break;
-
-              default :
-                     oled_write_P(PSTR("Undefined\n"), false);
-       }
-
-       return false;
-};
-
-#endif
