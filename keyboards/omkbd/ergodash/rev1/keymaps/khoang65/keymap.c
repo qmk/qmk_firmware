@@ -1,8 +1,3 @@
-/* 
- * 2022 April 11
- */
- 
-
 #include QMK_KEYBOARD_H
 
 // Clean up with enums later lol
@@ -16,7 +11,7 @@
 };
 
 enum custom_keycodes {
-  MACRO1 = SAFE_RANGE,
+  CUSTOMKEY1 = SAFE_RANGE,
   MO_LYR_LEADER
 };
 
@@ -161,10 +156,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | Esc     | !       | @       | #       | $       | %       |---------.          ,---------|         |         |         |         |         |         |
    * |---------+---------+---------+---------+---------+---------| {[      |          |         |---------+---------+---------+---------+---------+---------|
-   * |         | ^       | &       | *       | (       | -       |---------|          |---------| Hue-    | Bright- | Bright+ | Hue+    |         | TRNS    |
-   * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
-   * |         | :       | <       | {       | "       | ~       |---------|          |---------|<RGB_MODE| RGB_TOG |RGB_PLAIN|RGB_MODE>|         |         |
-   * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------|---------|
+   * |         | ^       | &       | *       | -       | _       |---------|          |---------| Hue-    | Bright- | Bright+ | Hue+    |         | TRNS    |
+   * |---------+---------+---------+---------+---------+---------| '       |          |         |---------+---------+---------+---------+---------+---------|
+   * | ~       | "       | <       | {       | (       | `       |---------|          |---------|<RGB_MODE| RGB_TOG |RGB_PLAIN|RGB_MODE>|         |         |
+   * |---------+---------+---------+---------+---------+---------| :       |          |         |---------+---------+---------+---------+---------|---------|
    * |         | .       | +       | =       | /       | \       |---------'          `---------|         |         |         |         |         |         |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
    * |         |         |         ||         |                                                                    |         ||         |         | TO(0)   |
@@ -177,64 +172,143 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */ 
   [5] = LAYOUT_4key_2u_inner(
       KC_ESC,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_LBRC,             KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
-      KC_NO,    KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_UNDS,  KC_PMNS,             KC_NO,    RGB_HUD,  RGB_VAD,  RGB_VAI,  RGB_HUI,  KC_NO,    KC_TRNS, 
-      KC_NO,    KC_COLN,  KC_LT,    KC_LCBR,  KC_DQUO,  KC_TILD,  KC_NO,               KC_NO,    RGB_RMOD, RGB_TOG,  RGB_M_P,  RGB_MOD,  KC_NO,    KC_NO, 
-      KC_NO,    KC_PDOT,  KC_PLUS,  KC_EQL,   KC_PSLS,  KC_BSLS,  KC_NO,               KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
+      KC_NO,    KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_MINS,  KC_UNDS,  KC_PMNS,             KC_NO,    RGB_HUD,  RGB_VAD,  RGB_VAI,  RGB_HUI,  KC_NO,    KC_TRNS, 
+      KC_TILD,  KC_DQUO,  KC_LT,    KC_LCBR,  KC_LPRN,  KC_DQUO,  KC_QUOT,             KC_NO,    RGB_RMOD, RGB_TOG,  RGB_M_P,  RGB_MOD,  KC_NO,    KC_NO, 
+      KC_NO,    KC_PDOT,  KC_PLUS,  KC_EQL,   KC_PSLS,  KC_BSLS,  KC_COLN,             KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    TO(0))
 };
 
-// ***** LEADER ***** //
+// ************************************************ //
+// **************** RGB INDICATORS **************** //
+// ************************************************ //
+void rgb_matrix_indicators_user(void) { 
+  #ifdef RGB_MATRIX_ENABLE
+  
+  /* CapsLock Underglow Indicator */
+  
+  /* Leader Underglow Indicator*/
+  
+  #endif /* RGB_MATRIX_ENABLE/ */
+}
+
+
+
+// ************************************************ //
+// ******************** LEADER ******************** //
+// ************************************************ //
 #ifdef LEADER_ENABLE
 
-/* LEADER Key functions, use to repeat a macro for two different sequences */
-/* Wrap cursor */
-/* (▌) */
+// ***** LEADER KEY FUNCTIONS` ***** //
+// used to repeat a macro for two different sequences 
+
+// ***** Wrap Cursor Functions ***** //
+/* (▌) PARENTHESIS */
 void ldr_send_parenthesis_cursor_wrap(void) {
     SEND_STRING("()" SS_TAP(X_LEFT));
 }
-
-/* [▌] */
+/* [▌] SQUARE BRACKET */
 void ldr_send_bracket_cursor_wrap(void) {
     SEND_STRING("[]" SS_TAP(X_LEFT));
 }
-
-/* '▌' */
+/* '▌' SINGLE QUOTE */
 void ldr_send_quotesingle_cursor_wrap(void) {
     SEND_STRING("''" SS_TAP(X_LEFT));
 }
-
-/* "▌" */
+/* "▌" DOUBLE QUOTE */
 void ldr_send_quotedouble_cursor_wrap(void) {
     SEND_STRING("\"\"" SS_TAP(X_LEFT));
 }
+/* {▌} CURLY BRACE */
+void ldr_send_curly_brace_cursor_wrap(void) {
+    SEND_STRING("{}" SS_TAP(X_LEFT));
+}
+/* [▌] SQUARE BRACKET */
+void ldr_send_squarebracket_cursor_wrap(void) {
+    SEND_STRING("[]" SS_TAP(X_LEFT));
+}
+/* <▌> ANGLE BRACKET */
+void ldr_send_angle_bracket_cursor_wrap(void) {
+    SEND_STRING("<>" SS_TAP(X_LEFT));
+}
+/* `▌` GRAVE */
+void ldr_send_grave_cursor_wrap(void) {
+    SEND_STRING("``" SS_TAP(X_LEFT));
+}
+/* /▌/ FORWARD SLASH */
+void ldr_send_forward_slash_cursor_wrap(void) {
+    SEND_STRING("//" SS_TAP(X_LEFT));
+}
+
+// ***** Wrap Selection Functions(?) ***** //
 
 LEADER_EXTERNS(); // Keep this line above matrix_scan_user
 
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
-
-    // Note: This is not an array, you don't need to put any commas
-    // or semicolons between sequences.
     
-    /* (▌) */
+    // Note: These sequence functions aren't arrays, you 
+    // don't need to put any commasor semicolons between sequences.
+    
+    /* Capslock */
+    SEQ_ONE_KEY(KC_LEAD) {
+      tap_code(KC_CAPS);
+    }
+    
+    // ***** Macro by Symbol ***** //
+    /* (▌) PARENTHESIS */
     SEQ_TWO_KEYS(KC_LSFT, KC_9) {
       ldr_send_parenthesis_cursor_wrap();
     }
-    
-    /* [▌] */
+    /* [▌] SQUARE BRACKET */
     SEQ_ONE_KEY(KC_LBRC) {
       ldr_send_bracket_cursor_wrap();
     }
-    
-    /* '▌' */
+    /* '▌' SINGLE QUOTE */
     SEQ_ONE_KEY(KC_QUOT) {
       ldr_send_quotesingle_cursor_wrap();
     }
-    
-    /* "▌" */
+    /* "▌" DOUBLE QUOTE */
     SEQ_TWO_KEYS(KC_LSFT, KC_QUOT) {
       ldr_send_quotedouble_cursor_wrap();
+    }
+    
+    // ***** Macro by Comfort ***** //
+    // Use symbol layer as a reference
+    
+    /* Home Row */
+    /* '▌' SINGLE QUOTE */
+    SEQ_ONE_KEY(KC_F4) {
+      ldr_send_quotesingle_cursor_wrap();
+    }
+    /* `▌` GRAVE */
+    SEQ_ONE_KEY(KC_G) {
+      ldr_send_grave_cursor_wrap();
+    }
+    /* (▌) PARENTHESIS */
+    SEQ_ONE_KEY(KC_F) {
+      ldr_send_parenthesis_cursor_wrap();
+    }
+    /* {▌} CURLY BRACE */
+    SEQ_ONE_KEY(KC_D) {
+      ldr_send_curly_brace_cursor_wrap();
+    }
+    /* <▌> ANGLE BRACKET */
+    SEQ_ONE_KEY(KC_S) {
+      ldr_send_angle_bracket_cursor_wrap();
+    }
+    /* "▌" DOUBLE QUOTE */
+    SEQ_ONE_KEY(KC_A) {
+      ldr_send_quotedouble_cursor_wrap();
+    }
+    
+    /* Above */
+    
+    
+    /* Below */
+    /* /▌/ FORWARD SLASH */
+    SEQ_ONE_KEY(KC_V) {
+      ldr_send_forward_slash_cursor_wrap();
     }
     
     leader_end();
@@ -243,23 +317,3 @@ void matrix_scan_user(void) {
 
 #endif /* LEADER_ENABLE */
 
-
-
-   /* Keymap: Empty layer
-   * ,-----------------------------------------------------------.                               ,-----------------------------------------------------------.
-   * |         |         |         |         |         |         |---------.          ,---------|         |         |         |         |         |         |
-   * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
-   * |         |         |         |         |         |         |---------|          |---------|         |         |         |         |         |         |
-   * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
-   * |         |         |         |         |         |         |---------|          |---------|         |         |         |         |         |         |
-   * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------|---------|
-   * |         |         |         |         |         |         |---------'          `---------|         |         |         |         |         |         |
-   * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
-   * |         |         |         ||         |                                                                    |         ||         |         |         |
-   * `-----------------------------'`---------'        ,-------------------.          ,-------------------.        `---------'`-----------------------------'
-   *                                                   |         |         |          |         |         |       
-   *                                                   |         |         |          |         |         |
-   *                                         ,---------|         |         |          |         |         +---------.
-   *                                         |         |         |         |          |         |         |         |
-   *                                         `-----------------------------'          `-----------------------------'
-   */ 

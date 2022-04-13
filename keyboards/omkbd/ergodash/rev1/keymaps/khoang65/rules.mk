@@ -2,3 +2,6 @@ BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = yes
 AUDIO_ENABLE = no
 LEADER_ENABLE = yes
+
+# Firmware Size Optimization
+SPACE_CADET_ENABLE = no
