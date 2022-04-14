@@ -1,6 +1,6 @@
-# RESUME1800
+# Resume1800
 
-![Resume1800](/images/resume1800_plus_layout.jpg)
+![Resume1800](https://imgur.com/gallery/xhek59o)
 
 An 1800 compact keyboard that is built with soley through-hole components
 
@@ -14,5 +14,10 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make crimsonkeyboards/resume1800:default:flash
+
+How to enter the bootloader:
+* 1) Press and hold BOOT
+* 2) Press and release RESET
+* 3) Release BOOT
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

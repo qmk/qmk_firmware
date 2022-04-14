@@ -17,8 +17,6 @@
 #pragma once
 
 #define _x_ KC_NO
-#define LED_NUM_LOCK	B5
-#define LED_CAPS_LOCK	B6
 
 #include "quantum.h"
 
