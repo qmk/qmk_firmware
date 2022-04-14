@@ -37,8 +37,6 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 /* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
 
