@@ -5,11 +5,20 @@
     "type": "object",
     "properties": {
         "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "keyboard_folder": {"$ref": "qmk.definitions.v1#/keyboard"},
         "maintainer": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "manufacturer": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "url": {
             "type": "string",
             "format": "uri"
+        },
+        "development_board": {
+            "type": "string",
+            "enum": ["promicro", "elite_c", "proton_c", "bluepill", "blackpill_f401", "blackpill_f411"]
+        },
+        "pin_compatible": {
+            "type": "string",
+            "enum": ["promicro"]
         },
         "processor": {
             "type": "string",
