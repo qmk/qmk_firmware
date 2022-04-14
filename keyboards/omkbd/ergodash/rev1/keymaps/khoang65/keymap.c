@@ -15,7 +15,7 @@ enum layer_names { // Enum over macro definition to optimize memory, i.e. #defin
  * - will fire F14 when tapped
  */
 #define MEH_F13  MEH_T(KC_F13)
-#define LT1_DEL  LT(1,KC_DEL) // Remove
+#define LT1_DEL  LT(1,KC_DEL) // Unused
 #define LT1_PSCR LT(1,KC_PSCR)
 #define CS_F14   C_S_T(KC_F14)
 #define ALL_     ALL_T(KC_NO)
@@ -34,7 +34,7 @@ enum layer_names { // Enum over macro definition to optimize memory, i.e. #defin
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE,
-  KC_CAPSLED
+  SELWORD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------+---------+---------+---------+---------+---------| {[      |          |         |---------+---------+---------+---------+---------+---------|
    * |         | ^       | &       | *       | -       | _       |---------|          |---------| Hue-    | Bright- | Bright+ | Hue+    |         |         |
    * |---------+---------+---------+---------+---------+---------| '       |          |         |---------+---------+---------+---------+---------+---------|
-   * | ~       | "       | <       | {       | (       | `       |---------|          |---------|<RGB_MODE| RGB_TOG |RGB_PLAIN|RGB_MODE>|         |         |
+   * | ~       | "       | <       | {       | (       | `       |---------|          |---------|<RGB_MODE| RGB_TOG |         |RGB_MODE>|         |         |
    * |---------+---------+---------+---------+---------+---------| :       |          |         |---------+---------+---------+---------+---------|---------|
    * |         | .       | +       | =       | /       | \       |---------'          `---------|         |         |         |         | EEP_RST |         |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ADJUST] = LAYOUT_4key_2u_inner(
       KC_ESC,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_LBRC,             KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
       KC_NO,    KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_MINS,  KC_UNDS,  KC_QUOT,             KC_NO,    RGB_HUD,  RGB_VAD,  RGB_VAI,  RGB_HUI,  KC_NO,    KC_NO, 
-      KC_TILD,  KC_DQUO,  KC_LT,    KC_LCBR,  KC_LPRN,  KC_DQUO,  KC_COLN,             KC_NO,    RGB_RMOD, RGB_TOG,  RGB_M_P,  RGB_MOD,  KC_NO,    KC_NO, 
+      KC_TILD,  KC_DQUO,  KC_LT,    KC_LCBR,  KC_LPRN,  KC_DQUO,  KC_COLN,             KC_NO,    RGB_RMOD, RGB_TOG,  KC_NO,    RGB_MOD,  KC_NO,    KC_NO, 
       KC_NO,    KC_PDOT,  KC_PLUS,  KC_EQL,   KC_PSLS,  KC_BSLS,  KC_NO,               KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    EEP_RST,  KC_NO, 
       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    CS_F14,              KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    TO(0))
 };
@@ -186,12 +186,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // Do something else when released
         }
         return false; // Skip all further processing of this key
-      case KC_CAPSLED:
-        // turn on Underglow when caps is pressed
+      case SELWORD:
         if (pressed) {
-          // RGB_* keycodes cannot be used with functions like tap_code16(RGB_HUI) as they're not USB HID keycodes
         }
-        return true; // Let QMK send the caps press/release events
+        return true; // Let QMK send the press/release events
       default:
         return true;
     }
@@ -212,15 +210,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // ************************************************ //
 // **************** RGB INDICATORS **************** //
 // ************************************************ //
-
-// ***** RGB Helper FUNCTIONS ***** //
-
-void rgb_matrix_indicators_user(void) { 
-  #ifdef RGB_MATRIX_ENABLE
-  /* Blinking LED during Dynamic Macro Recording */
-  
-  #endif // !RGB_MATRIX_ENABLE
+/*
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case BASE:
+        rgblight_sethsv_noeeprom(HSV_GOLD);
+        break;
+    case ADJUST:
+        rgblight_sethsv_noeeprom(HSV_RED);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_sethsv_noeeprom(HSV_OFF);
+        break;
+    }
+  return state;
 }
+*/
 
 // ************************************************ //
 // ******************** LEADER ******************** //
@@ -294,7 +299,7 @@ void matrix_scan_user(void) {
     // Double tap LDR for CAPS
     SEQ_ONE_KEY(KC_LEAD) {
       tap_code(KC_CAPS);
-      if(IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) { // Used to check CAPS desync
+      if(IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) { // Used to counter a CAPS and LED desync
         rgblight_enable_noeeprom();
       } else {
         rgblight_disable_noeeprom();

@@ -6,6 +6,9 @@
 Disconnect both keyboard halves from one another, and flash them separately.
 After flashing both halves, disconnect them from USB, connect them again with the TRRS cable and plug it back into your computer.
 
+# Potential Changes
+- ; , . / keys as Layer toggles/dual-role keys
+
 # Empty Layer ASCII
 
    /* Keymap: Empty layer
