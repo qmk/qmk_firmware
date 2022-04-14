@@ -24,7 +24,7 @@
 | LDR | Leader Key |
 | SFT | Shift key |
 | CTL | Control key |
-| █ | Text cursor position |
+| ⬜️ | Text cursor position |
 ### Cursor Wrapping Macros
 | Output | Sequence | Description |
 | :--- | :--- | :--- |
