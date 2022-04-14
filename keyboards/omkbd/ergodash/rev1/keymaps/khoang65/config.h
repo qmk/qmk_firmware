@@ -35,9 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Defines what is considered a hold vs tap, affects both Mod Tap and Tap Dance */
 #undef TAPPING_TERM
 #define TAPPING_TERM 120 // QMK default 200; omkb/ergodash/rev1 default 120
-#define TAPPING_TERM_PER_KEY // Used in conjunction with get_tapping_term to finetune
+#define TAPPING_TERM_PER_KEY // Used in conjunction with get_tapping_term() to finetune
 
+/* Slightly changes dual-role keys, more responsive for faster keystrokes */
 #define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD_PER_KEY // Used in conjuction with get_permissive_hold() to finetune
 
 /* Select Leader Key Timeout (ms) */
 #undef LEADER_TIMEOUT
