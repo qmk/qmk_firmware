@@ -351,7 +351,9 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case QK_CLEAR_EEPROM:
                 eeconfig_init();
+#ifndef NO_RESET
                 soft_reset_keyboard();
+#endif
                 return false;
 #ifdef VELOCIKEY_ENABLE
             case VLK_TOG:
