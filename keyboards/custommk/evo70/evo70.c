@@ -24,8 +24,6 @@
 //in rules.mk 
 #define BONGOCAT
 
-#define ADVANCED_BREATHING_TECHNIQUES
-
 /* Placement information for display elements */
 #define ENC_DISPLAY_X 0
 #define ENC_DISPLAY_Y 0
@@ -99,11 +97,6 @@ uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, 0, 
 uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_U };
 #endif //bongocat
 
-
-
-
-
-
 uint8_t num_enc_modes = 10;
 
 uint8_t enc_mode_str_startpos[] = {0, 49, 28, 49, 7, 10, 7, 25, 22, 31};
@@ -111,7 +104,6 @@ uint8_t enc_mode_str_startpos[] = {0, 49, 28, 49, 7, 10, 7, 25, 22, 31};
 uint8_t prev_layer = 255;
 uint8_t prev_capslock = 255;
 uint8_t prev_numlock = 255;
-
 
 typedef union {
     uint32_t raw;
