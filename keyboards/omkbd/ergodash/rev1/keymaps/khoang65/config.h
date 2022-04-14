@@ -26,26 +26,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define MASTER_LEFT
 
+/* Defines what is considered a hold vs tap, affects both Mod Tap and Tap Dance */
+#undef TAPPING_TERM
+#define TAPPING_TERM 120 // QMK default 200; omkb/ergodash/rev1 default 120
+#define TAPPING_TERM_PER_KEY // Used in conjunction with get_tapping_term to finetune
+
 /* Select Leader Key Timeout (ms) */
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 250
 //#define LEADER_PER_KEY_TIMING 75 // fickle
 
 #ifdef RGB_MATRIX_ENABLE
-
 #	undef RGB_MATRIX_STARTUP_MODE
 #	undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-# undef RGB_MATRIX_STARTUP_SAT
+#   undef RGB_MATRIX_STARTUP_SAT
 #	undef RGB_MATRIX_LED_FLUSH_LIMIT
-//#	define RGB_MATRIX_STARTUP_MODE RGB_MODE_PLAIN
+//#	define RGB_MATRIX_STARTUP_MODE RGB_MODE_PLAIN // This causes RGB issues
 #	define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
-# define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
+#   define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
 #	define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 
                                        // 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
                                        // default: 26
 
 /* Active RGB Matrix Effects */
 // None
+
 /* Disabling to optimize firmware size */
 /* Inactive RGB Matrix Effects */
 #	define DISABLE_RGB_MATRIX_ALPHAS_MODS               // Static dual hue, speed is hue for secondary hue

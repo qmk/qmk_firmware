@@ -1,6 +1,7 @@
-# RGB Issues
+# RGB Issue
+- RGB_MODE_PLAIN / RGB_M_P causes rgb issues
 - https://github.com/qmk/qmk_firmware/issues/8789
-- Flash Master + Slave first, then flash Slave
+- Flash Master, then Slave SEPERATELY if running into RGB issues
 
 # Empty Layer ASCII
 
@@ -22,3 +23,6 @@
    *                                         |         |         |         |          |         |         |         |
    *                                         `-----------------------------'          `-----------------------------'
    */ 
+
+
+ 
