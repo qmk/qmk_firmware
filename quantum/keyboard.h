@@ -74,7 +74,7 @@ static inline bool IS_RELEASED(keyevent_t event) {
 #define MAKE_KEYEVENT(row_num, col_num, press) ((keyevent_t){.key = MAKE_KEYPOS((row_num), (col_num)), .pressed = (press), .time = (timer_read() | 1)})
 
 /* Tick event */
-#define TICK MAKE_KEYEVENT(KEYLOC_TICK, KEYLOC_TICK, false)
+#define TICK_EVENT MAKE_KEYEVENT(KEYLOC_TICK, KEYLOC_TICK, false)
 
 #ifdef ENCODER_MAP_ENABLE
 /* Encoder events */
