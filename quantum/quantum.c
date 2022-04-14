@@ -335,6 +335,9 @@ bool process_record_quantum(keyrecord_t *record) {
             case QK_BOOTLOADER:
                 reset_keyboard();
                 return false;
+            case QK_REBOOT:
+                soft_reset_keyboard();
+                return false;
 #endif
 #ifndef NO_DEBUG
             case QK_DEBUG_TOGGLE:
@@ -348,9 +351,6 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case QK_CLEAR_EEPROM:
                 eeconfig_init();
-                soft_reset_keyboard();
-                return false;
-            case QK_REBOOT:
                 soft_reset_keyboard();
                 return false;
 #ifdef VELOCIKEY_ENABLE
