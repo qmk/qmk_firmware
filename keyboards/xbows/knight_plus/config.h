@@ -18,7 +18,7 @@
 #include "config_common.h"
 
 #define VENDOR_ID    0x5842
-#define PRODUCT_ID   0x4b50
+#define PRODUCT_ID   0x4B50
 #define DEVICE_VER   0x0001
 #define MANUFACTURER X-BOWS
 #define PRODUCT      KNIGHT_PLUS
