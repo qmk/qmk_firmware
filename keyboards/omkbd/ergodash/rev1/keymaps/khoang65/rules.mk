@@ -1,5 +1,10 @@
+# Bootloader Mode
+BOOTMAGIC_ENABLE = no
 BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = yes
+# Underglow
+RGBLIGHT_ENABLE = yes#
+# Per-key RGB
+RGB_MATRIX_ENABLE = no
 LEADER_ENABLE = yes
 
 # Firmware Size Optimizations

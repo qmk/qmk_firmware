@@ -1,7 +1,10 @@
 # RGB Issue
 - RGB_MODE_PLAIN / RGB_M_P causes rgb issues
 - https://github.com/qmk/qmk_firmware/issues/8789
-- Flash Master, then Slave SEPERATELY if running into RGB issues
+
+# Flashing Instructions
+Disconnect both keyboard halves from one another, and flash them separately.
+After flashing both halves, disconnect them from USB, connect them again with the TRRS cable and plug it back into your computer.
 
 # Empty Layer ASCII
 
