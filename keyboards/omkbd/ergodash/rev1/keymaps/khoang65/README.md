@@ -1,4 +1,4 @@
-(https://raw.githubusercontent.com/khoang65/qmk_firmware/master/keyboards/omkbd/ergodash/rev1/keymaps/khoang65/keyboard-layout-editor/khoang_BASE-FN-VIM.png)
+![khoang65 Layout Image - MAIN](https://raw.githubusercontent.com/khoang65/qmk_firmware/master/keyboards/omkbd/ergodash/rev1/keymaps/khoang65/keyboard-layout-editor/khoang_BASE-FN-VIM.png)
 # khoang65's omkbd/ergodash/rev1 ANSI QWERTY Layout
 
 - [LAYERS](#LAYERS)
@@ -15,6 +15,16 @@
 - Encase cursor with various symbols i.e. (), [], {}, "", etc., outside of your IDE
 
 ## LAYERS
+### Layer 0: BASE
+[img]
+### Layer 1: Function
+[img]
+### Layer 2: VIM
+[img]
+### Layer 3: Numpad
+[img]
+### Layer 4: Adjust
+[img]
 
 ## LEADER Key Bindings
 ### Legend:
@@ -25,20 +35,39 @@
 | SFT | Shift key |
 | CTL | Control key |
 | ⬜️ | Text cursor position |
+```
+,-----------------------------------------------------------.          
+|         |         | 2=> @   |         |         | 5=> %   |---------.
+|---------+---------+---------+---------+---------+---------| [=> [   |
+|         |         |         | E=> *   |         |         |---------|   
+|---------+---------+---------+---------+---------+---------| F4=> '  |    
+|         | A=> "   | S=> <   | D=> {   | F=> (   | G=> `   |---------|    
+|---------+---------+---------+---------+---------+---------|         |    
+|         |         |         |         | /       |         |---------'   
+|---------+---------+---------+-----------------------------'            
+|         |         |         ||         |                              
+`-----------------------------'`---------'        ,-------------------. 
+                                                  |         |         |
+                                                  |         |         |
+                                        ,---------|         |         |
+                                        |         |         |         |
+                                        `-----------------------------'
+```
+
 ### Cursor Wrapping Macros
 | Output | Sequence | Description |
 | :--- | :--- | :--- |
-| `(`▌`)` | `LDR  ` | Will wrap cursor between a set of parenthesis |
-| `[`▌`]` | `LDR  ` | Will wrap cursor between a set of square brackets |
-| `{`▌`}` | `LDR  ` | Will wrap cursor between a set of curly braces |
-| `"`▌`"` | `LDR  ` | Will wrap cursor between a set of double quotes |
-| `'`▌`'` | `LDR  ` | Will wrap cursor between a set of single quotes |
-| `<`▌`>` | `LDR  ` | Will wrap cursor between a set of angle brackets |
-| ` `\`▌ ` `  ` | `LDR  ` | Will wrap cursor between a set of grave symbols |
-| `*`▌`*` | `LDR  ` | Will wrap cursor between a set of asterisks |
-| `/`▌`/` | `LDR  ` | Will wrap cursor between a set of forward slashes |
-| `@`▌`@` | `LDR  ` | Will wrap cursor between a set of at symbols |
-| `%`▌`%` | `LDR  ` | Will wrap cursor between a set of percent symbols |
+| `(`⬜️`)` | `LDR F ` | Will wrap cursor between a set of parenthesis |
+| `[`⬜️`]` | `LDR [ ` | Will wrap cursor between a set of square brackets |
+| `{`⬜️`}` | `LDR D ` | Will wrap cursor between a set of curly braces |
+| `"`⬜️`"` | `LDR A ` | Will wrap cursor between a set of double quotes |
+| `'`⬜️`'` | `LDR F4 ` | Will wrap cursor between a set of single quotes |
+| `<`⬜️`>` | `LDR S ` | Will wrap cursor between a set of angle brackets |
+| ` `\`⬜️ ` `  ` | `LDR G ` | Will wrap cursor between a set of grave symbols |
+| `*`⬜️`*` | `LDR E ` | Will wrap cursor between a set of asterisks |
+| `/`⬜️`/` | `LDR V ` | Will wrap cursor between a set of forward slashes |
+| `@`⬜️`@` | `LDR 2 ` | Will wrap cursor between a set of at symbols |
+| `%`⬜️`%` | `LDR 5 ` | Will wrap cursor between a set of percent symbols |
 
 
 ## FLASH INSTRUCTIONS
