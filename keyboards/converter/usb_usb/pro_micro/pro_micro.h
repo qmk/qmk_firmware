@@ -1,6 +1,3 @@
-#ifndef PRO_MICRO_H
-#define PRO_MICRO_H
+#pragma once
 
-#include QMK_KEYBOARD_H
-
-#endif
+#include "usb_usb.h"
