@@ -106,33 +106,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_1, LT(3,KC_DEL), LT(1,KC_SPC), KC_TAB, KC_2,         KC_3, KC_ESC, KC_BSPC, LT(2,KC_ENT), KC_4
 ),
 };
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { // Left roller
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
-        }
-    } else if (index == 1) { // Left encoder
-        if (clockwise) {
-            tap_code16(S(KC_TAB));
-        } else {
-            tap_code(KC_TAB);
-        }
-    } else if (index == 2) { // Right roller
-        if (clockwise) {
-            tap_code16(S(KC_MS_WH_DOWN));
-        } else {
-            tap_code16(S(KC_MS_WH_UP));
-        }
-    } else if (index == 3) { // Right encoder
-        if (clockwise) {
-            tap_code(KC_RIGHT);
-        } else {
-            tap_code(KC_LEFT);
-        }
-    }
-
-    return true;
-}
