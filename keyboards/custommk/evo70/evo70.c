@@ -19,7 +19,12 @@
 #include "matrix.h"
 #include OLED_FONT_H
 
-#define BONGOCAT 
+//If Bongo cat not undefined, Scroll wheel will be enabled,
+//but for scroll wheel to work, you must also set MOUSEKEY_ENABLE = yes
+//in rules.mk 
+#define BONGOCAT
+
+#define ADVANCED_BREATHING_TECHNIQUES
 
 /* Placement information for display elements */
 #define ENC_DISPLAY_X 0
@@ -35,7 +40,11 @@
 #define NUMLOCK_DISPLAY_Y 19
 
 /* Encoder Parameters */
-uint8_t enc_mode = 0;
+static bool OLED_awakened = false;
+static bool OLED_redraw = false;
+static bool startup_complete = false;
+static bool startup_delay = false;
+static bool starting_up = false;
 
 #define ENCODER_MATRIX_ROW 5
 #define ENCODER_MATRIX_COL 6
@@ -51,14 +60,15 @@ uint8_t enc_mode = 0;
 #define ENC_RGB_COLOR 8
 #define ENC_SCROLL 9
 #ifdef BONGOCAT
-#define ENC_BONGO 10
+#define ENC_BONGO 9
 #endif //bongocat
+
 
 extern matrix_row_t matrix[MATRIX_ROWS];
 
 char* enc_mode_str[] = {
 #ifdef BONGOCAT
-    "Splash", \
+    /* Splash */ "", \
     "Volume", \
     "Media Control", \
     "Custom", \
@@ -67,10 +77,13 @@ char* enc_mode_str[] = {
     "Underglow Brightness", \
     "Underglow Mode", \
     "Underglow Color", \
-    "Scroll Wheel", \
-    "BongoCat"
+    "" // Bongo Cat
+};
+
+uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, 0, KC_VOLU };
+uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, KC_VOLD };
 #else
-    "Splash", \
+    /* Splash */ "", \
     "Volume", \
     "Media Control", \
     "Custom", \
@@ -80,23 +93,38 @@ char* enc_mode_str[] = {
     "Underglow Mode", \
     "Underglow Color", \
     "Scroll Wheel"
-#endif //bongocat
 };
 
-#ifdef BONGOCAT
-uint8_t num_enc_modes = 11;
-#else
-uint8_t num_enc_modes = 10;
+uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_D };
+uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_U };
 #endif //bongocat
-uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_D, KC_VOLU };
-uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_U, KC_VOLD };
-uint8_t enc_mode_str_startpos[] = {0, 49, 28, 49, 7, 10, 7, 25, 22, 31, 0};
+
+
+
+
+
+
+uint8_t num_enc_modes = 10;
+
+uint8_t enc_mode_str_startpos[] = {0, 49, 28, 49, 7, 10, 7, 25, 22, 31};
 
 uint8_t prev_layer = 255;
 uint8_t prev_capslock = 255;
 uint8_t prev_numlock = 255;
-uint8_t prev_encodermode = 255;
-uint8_t current_enc_mode = 1;
+
+
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t enc_mode;
+        uint8_t breathingperiod;
+        bool oled_is_on : 1;
+    };
+} user_config_t;
+
+user_config_t user_config;
+
+
 
 /* OLED Draw Functions */
 /* TODO: Reimplement using Quantum Painter when available  */
@@ -167,31 +195,25 @@ void draw_rect_filled_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, 
     }
 }
 
-void draw_rect_filled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
-    for (int i = x; i < x + width; i++) {
-        draw_line_v(i, y, height, on);
-    }
-}
-
 void draw_text_rectangle(uint8_t x, uint8_t y, uint8_t width, char* str, bool filled) {
     if (filled) {
         draw_rect_filled_soft(x, y, width, 11, true);
         write_chars_at_pixel_xy(x+3, y+2, str, true);
     } else {
-        draw_rect_filled_soft(x, y, width, 11, false);
         draw_rect_soft(x, y, width, 11, true);
         write_chars_at_pixel_xy(x+3, y+2, str, false);
     }
 }
 
 void draw_keyboard_layer(void){
-    draw_rect_filled_soft(LAYER_DISPLAY_X, LAYER_DISPLAY_Y, 48, 11, false);
-    draw_rect_filled_soft(LAYER_DISPLAY_X + get_highest_layer(layer_state)*12, LAYER_DISPLAY_Y, 11, 11, true);
+    uint8_t highest_layer;
+    highest_layer = get_highest_layer(layer_state);
+    draw_rect_filled_soft(LAYER_DISPLAY_X + highest_layer*12, LAYER_DISPLAY_Y, 11, 11, true);
 
-    write_chars_at_pixel_xy(LAYER_DISPLAY_X+3, LAYER_DISPLAY_Y+2, "0", get_highest_layer(layer_state) == 0);
-    write_chars_at_pixel_xy(LAYER_DISPLAY_X+3+12, LAYER_DISPLAY_Y+2, "1", get_highest_layer(layer_state) == 1);
-    write_chars_at_pixel_xy(LAYER_DISPLAY_X+3+24, LAYER_DISPLAY_Y+2, "2", get_highest_layer(layer_state) == 2);
-    write_chars_at_pixel_xy(LAYER_DISPLAY_X+3+36, LAYER_DISPLAY_Y+2, "3", get_highest_layer(layer_state) == 3);
+    write_char_at_pixel_xy(LAYER_DISPLAY_X+3,  LAYER_DISPLAY_Y+2, '0', highest_layer == 0);
+    write_char_at_pixel_xy(LAYER_DISPLAY_X+3+12, LAYER_DISPLAY_Y+2, '1', highest_layer == 1);
+    write_char_at_pixel_xy(LAYER_DISPLAY_X+3+24, LAYER_DISPLAY_Y+2, '2', highest_layer == 2);
+    write_char_at_pixel_xy(LAYER_DISPLAY_X+3+36, LAYER_DISPLAY_Y+2, '3', highest_layer == 3);
 
     draw_line_h(0, 14, 128, true);
 }
@@ -231,7 +253,7 @@ static const uint8_t splash[] PROGMEM = { \
     0x40, 0x40, 0x43, 0x43, 0x43, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x41, 0x43, 0x43, 0x43, 0x40, \
     0x40, 0x40, 0x60, 0x30, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-uint32_t splash_timeout_timer = 0;
+uint32_t startup_timer = 0;
 bool redrawn_splash = false;
 
 
@@ -308,9 +330,9 @@ static const uint8_t bongofont[] PROGMEM = { \
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; 
 
 
-uint8_t bongo_line_x[] = {51, 49, 48, 57};
-uint8_t bongo_line_y[] = {0, 8, 16, 24};
-uint8_t bongo_line_len[] = {5, 7, 8, 6};
+static const uint8_t bongo_line_x[] = {51, 49, 48, 57};
+static const uint8_t bongo_line_y[] = {0, 8, 16, 24};
+static const uint8_t bongo_line_len[] = {5, 7, 8, 6};
 
 const uint8_t bongo_line_data[8][26] PROGMEM = {
     { //idle1
@@ -548,34 +570,24 @@ void draw_splash(void) {
     }
 }
 
-void blank_oled(void) {
-    int i, j;
-    for (i = 0; i < 32 ; i++) {
-        for (j = 0; j < 128; j++) {
-            oled_write_pixel(j, i, false);
-        }
-    }
-}
-
 void draw_media_arrow(uint8_t x, uint8_t y, bool fwd) {
     draw_line_v(x, y, 7, true);
     draw_line_v(x+4, y, 7, true);
     draw_line_v(x+2, y+2, 3, true);
     if (fwd) {
         draw_line_v(x+1, y+1, 5, true);
-        draw_line_v(x+3, y+3, 1, true);
+        oled_write_pixel(x+3, y+3, true);
     } else {
         draw_line_v(x+3, y+1, 5, true);
-        draw_line_v(x+1, y+3, 1, true);
+        oled_write_pixel(x+1, y+3, true);
     }
 }
 
 void draw_enc_mode(void){
-    draw_rect_filled(ENC_DISPLAY_X, ENC_DISPLAY_Y, 128, 11, false);
-    write_chars_at_pixel_xy(enc_mode_str_startpos[enc_mode], ENC_DISPLAY_Y + 2, enc_mode_str[enc_mode], false);
-    if (enc_mode == ENC_MEDIA) {
-        draw_media_arrow(enc_mode_str_startpos[enc_mode] - 16, ENC_DISPLAY_Y + 2, false);
-        draw_media_arrow(enc_mode_str_startpos[enc_mode] + 88, ENC_DISPLAY_Y + 2, true);
+    write_chars_at_pixel_xy(enc_mode_str_startpos[user_config.enc_mode], ENC_DISPLAY_Y + 2, enc_mode_str[user_config.enc_mode], false);
+    if (user_config.enc_mode == ENC_MEDIA) {
+        draw_media_arrow(enc_mode_str_startpos[user_config.enc_mode] - 16, ENC_DISPLAY_Y + 2, false);
+        draw_media_arrow(enc_mode_str_startpos[user_config.enc_mode] + 88, ENC_DISPLAY_Y + 2, true);
     }
 }
 
@@ -585,30 +597,43 @@ void draw_keyboard_locks(void) {
     draw_text_rectangle(NUMLOCK_DISPLAY_X, NUMLOCK_DISPLAY_Y, 5 + (3 * 6), "NUM", led_state.num_lock);
 }
 
+
 /* Encoder handling functions */
 
+void update_kb_eeprom(void) {
+    eeconfig_update_kb(user_config.raw);
+}
+
+void update_breathing(void);
 void matrix_init_kb(void) {
-    prev_layer = 255;
-    prev_capslock = 255;
-    prev_numlock = 255;
-    prev_encodermode = 255;
-    current_enc_mode = 255;
-    oled_on();
+
+    user_config.raw = eeconfig_read_kb();
+    if (user_config.enc_mode == 0xFF) { //EEPROM was cleared
+        user_config.enc_mode = 0;
+        user_config.oled_is_on = true;
+        user_config.breathingperiod = 1;
+        update_kb_eeprom();
+
+    }
+    startup_delay = true;
     matrix_init_user();
 }
 
 __attribute__((weak)) void set_custom_encoder_mode_user(bool custom_encoder_mode) {}
 
+
 void handle_encoder_switch_process_record(keyrecord_t *record) {
-    static bool OLED_awakened = false;
+
     static uint32_t encoder_press_timer = 0;
     if (record->event.pressed) {
-        if (!is_oled_on()) {
+        if (!user_config.oled_is_on) {
             oled_on();
+            user_config.oled_is_on = true;
             OLED_awakened = true;
-        } else {
-            encoder_press_timer = timer_read32();
+            OLED_redraw = true;
+            update_kb_eeprom();
         }
+        encoder_press_timer = timer_read32();
     } else {
         if (OLED_awakened == true) {
             OLED_awakened = false;
@@ -616,13 +641,18 @@ void handle_encoder_switch_process_record(keyrecord_t *record) {
             if (timer_elapsed32(encoder_press_timer) < 300) {
 
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    enc_mode = (enc_mode + (num_enc_modes- 1)) % num_enc_modes;
+                    user_config.enc_mode = (user_config.enc_mode + (num_enc_modes- 1)) % num_enc_modes;
                 } else {
-                    enc_mode = (enc_mode + 1) % num_enc_modes;
+                    user_config.enc_mode = (user_config.enc_mode + 1) % num_enc_modes;
                 }
-                set_custom_encoder_mode_user(enc_mode == ENC_CUSTOM);
+                OLED_redraw = true;
+                set_custom_encoder_mode_user(user_config.enc_mode == ENC_CUSTOM);
+                update_kb_eeprom();
             } else {
-                oled_off();
+                OLED_redraw = false;
+                oled_clear();
+                user_config.oled_is_on = false;
+                update_kb_eeprom();
             }
         }
     }
@@ -636,54 +666,60 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
-#ifdef ADVANCED_BREATHING_TECHNIQUES
-uint16_t my_breathing_period = 0;
-void backlight_breath_change(bool increase) { //increase period or decrease period
-    uint8_t modulus = 0;
-    if (increase) {
-        my_breathing_period++;
-    }
-    else {
-        my_breathing_period--;
-    }
-    modulus = my_breathing_period % 255;
-    if (modulus == 0) {
+void update_breathing(void) {
+    if (user_config.breathingperiod == 1) {
         breathing_disable();
     }
     else {
-        breathing_period_set(modulus);
+        breathing_period_set(user_config.breathingperiod);
         breathing_enable();
     }
+    update_kb_eeprom();
 }
-#endif //ADVANCED_BREATHING_TECHNIQUES
+
+
+void backlight_breath_change(bool increase) { //increase period or decrease period
+    if ((increase) && (user_config.breathingperiod < 15)) {
+        user_config.breathingperiod++;
+        update_breathing();
+    }
+    if (!increase) {
+        if (user_config.breathingperiod > 2) {
+            user_config.breathingperiod--;
+            update_breathing();
+        } 
+        else {
+            user_config.breathingperiod = 1;
+            update_breathing();
+
+            
+        }
+    }
+}
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) return false;
-    if (enc_mode == ENC_RGB_MODE) {
+    if (user_config.enc_mode == ENC_RGB_MODE) {
         if (clockwise) {
             rgblight_step();
         } else {
             rgblight_step_reverse();
         }
-    } else if (enc_mode == ENC_RGB_BRIGHT) {
+    } else if (user_config.enc_mode == ENC_RGB_BRIGHT) {
         if (clockwise) {
             rgblight_increase_val();
         } else {
             rgblight_decrease_val();
         }
-    } else if (enc_mode == ENC_BL_BRIGHT) {
+    } else if (user_config.enc_mode == ENC_BL_BRIGHT) {
         if (clockwise) {
             backlight_increase();
         } else {
             backlight_decrease();
         }
-    } else if (enc_mode == ENC_BL_BREATH) {
-        #ifdef ADVANCED_BREATHING_TECHNIQUES
-            backlight_breath_change(clockwise);
-        #else
-            breathing_toggle();
-        #endif //ADVANCED_BREATHING_TECHNIQUES
-    } else if (enc_mode == ENC_RGB_COLOR) {
+    } else if (user_config.enc_mode == ENC_BL_BREATH) {
+        backlight_breath_change(clockwise);
+    } else if (user_config.enc_mode == ENC_RGB_COLOR) {
         if (clockwise) {
             rgblight_increase_hue();
         } else {
@@ -691,9 +727,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         }
     } else {
         if (clockwise) {
-            tap_code(enc_cw[enc_mode]);
+            tap_code(enc_cw[user_config.enc_mode]);
         } else {
-            tap_code(enc_ccw[enc_mode]);
+            tap_code(enc_ccw[user_config.enc_mode]);
         }
     }
     return true;
@@ -702,57 +738,70 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 void matrix_scan_kb(void) {
     matrix_scan_user();
-
     led_t current_led_state = host_keyboard_led_state();
     uint8_t current_layer = get_highest_layer(layer_state);
-    
-    if (enc_mode == ENC_SPLASH) {
-
-        if (current_enc_mode != 0) {
-            current_enc_mode = 0;
-            //Wait to draw splash, drawing it immediately does not work
-            splash_timeout_timer = timer_read32();
-            redrawn_splash = false;
-        }
-        else if (redrawn_splash == false) {
-            if (timer_elapsed32(splash_timeout_timer) >= 200) {
-                redrawn_splash = true;
-                draw_splash();
+    if (startup_delay) {
+        startup_timer = timer_read32();
+        startup_delay = false;
+        startup_complete = false;
+        starting_up = true;
+        OLED_redraw = false;
+    }
+    else if (starting_up) {
+        if (timer_elapsed32(startup_timer) >= 200) {
+            update_breathing();
+            startup_complete = true;
+            starting_up = false;
+            if (user_config.oled_is_on) {
+                oled_on();
+                OLED_redraw = true;
+            } else
+            {
+                oled_clear();
+                user_config.oled_is_on = false;
             }
         }
     }
-#ifdef BONGOCAT
-    else if (enc_mode == ENC_BONGO) {
-        if (current_enc_mode != 2) {
-            current_enc_mode = 2;
-            blank_oled();
-            last_bongo_frame = 12; //force a redraw
-            draw_bongo_table();
+    if (startup_complete) {
+        if (user_config.enc_mode == ENC_SPLASH) {
+            if (user_config.oled_is_on && OLED_redraw) {
+                draw_splash();
+            }
         }
-        draw_bongocat();
+    #ifdef BONGOCAT
+        else if (user_config.enc_mode == ENC_BONGO) {
+            if (user_config.oled_is_on) {
+                if (OLED_redraw) {
+                    oled_clear();
+                    last_bongo_frame = 12; //force a redraw
+                    draw_bongo_table();
+                    OLED_redraw = false;
+                }
+                draw_bongocat();
+
+            }
+
+        }
+    #endif //BONGOCAT
+        else  {        
+            if (user_config.oled_is_on && (
+                    OLED_redraw
+                    || (prev_layer != current_layer)
+                    || (prev_capslock != current_led_state.caps_lock)
+                    || (prev_numlock != current_led_state.num_lock))) {
+
+                prev_layer = current_layer;
+                prev_capslock = current_led_state.caps_lock;
+                prev_numlock = current_led_state.num_lock;
+
+                oled_clear();
+                draw_keyboard_layer();
+                draw_keyboard_locks();
+                draw_enc_mode();
+            }
+        }
+        OLED_redraw = false;
     }
-#endif //BONGOCAT
-    else  {        
-        if (current_enc_mode != 1) {
-            current_enc_mode = 1;
-            blank_oled();
-            draw_keyboard_layer();
-            draw_keyboard_locks();
-            draw_enc_mode();
-        }
-        if (prev_layer != current_layer) {
-            prev_layer = current_layer;
-            draw_keyboard_layer();
-        }
-        if (prev_capslock != current_led_state.caps_lock || prev_numlock != current_led_state.num_lock) {
-            prev_capslock = current_led_state.caps_lock;
-            prev_numlock = current_led_state.num_lock;
-            draw_keyboard_locks();
-        }
-        if (prev_encodermode != enc_mode) {
-            prev_encodermode = enc_mode;
-            draw_enc_mode();
-        }
-    }
+    
 }
 
