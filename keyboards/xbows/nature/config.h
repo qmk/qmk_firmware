@@ -18,7 +18,7 @@
 #include "config_common.h"
 
 #define VENDOR_ID    0x5842
-#define PRODUCT_ID   0x4e61
+#define PRODUCT_ID   0x4E61
 #define DEVICE_VER   0x0001
 #define MANUFACTURER X-BOWS
 #define PRODUCT      NATURE
