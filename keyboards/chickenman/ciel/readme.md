@@ -13,6 +13,8 @@ Group Buy ran October 7th to October 31st in 2021. Fulfilled early March.
 Make example for this keyboard (after setting up your build environment):
 
     make chickenman/ciel:default
+    
+To get to the bootloader, simply press the reset button located at the back of the PCB. You can then flash new firmware onto it.
 
 Flashing example for this keyboard:
 
