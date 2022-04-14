@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0042
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Prime Keyboards
-#define PRODUCT         obro
+#define PRODUCT         Meridian RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -48,6 +48,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LIMIT_VAL 200
+
+#define LED_NUM_LOCK_PIN B0
+#define LED_CAPS_LOCK_PIN B1
+#define LED_SCROLL_LOCK_PIN B2
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
