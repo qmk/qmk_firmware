@@ -29,13 +29,12 @@ enum layer_names {
 #define MC3 COMP_NBSP
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  COMP_FR_QUOTES,		  // Compose: french quotes
-  COMP_NBSP_EM_DASH,	// Compose: nbsp followed by em dash
-  COMP_NBSP,		    	// Compose: nbsp
-  PWD1,
-  PWD2,
-  PWD3,				      	// KP password
+    COMP_FR_QUOTES = SAFE_RANGE, // Compose: french quotes
+    COMP_NBSP_EM_DASH,	         // Compose: nbsp followed by em dash
+    COMP_NBSP,		    	     // Compose: nbsp
+    PWD1,
+    PWD2,
+    PWD3,				      	 // KP password
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,12 +49,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|   ~  |  Tab |   -  |  GUI |Spc/LW|------'`------|Ent/RS|  |\  |   [  |   ]  |  "'  |
 	`----------------------------------'              `----------------------------------'
 */
-  [_QW] = LAYOUT( /* Qwerty */
+    [_QW] = LAYOUT( /* QWERTY */
     LALT_T(KC_Q),   KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,            KC_U,    KC_I,    KC_O,    KC_P,
     LCTL_T(KC_A),   KC_S,    KC_D,    KC_F,    KC_G,                             KC_H,            KC_J,    KC_K,    KC_L,    RCTL_T(KC_SCLN),
     LSFT_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B,                             KC_N,            KC_M,    KC_COMM, KC_DOT,  RSFT_T(KC_SLSH),
     KC_GRV,         KC_TAB,  KC_MINS, KC_LGUI, LT(_LW, KC_SPC), KC_BSPC, KC_DEL, LT(_RS, KC_ENT), KC_BSLS, KC_LBRC, KC_RBRC, KC_QUOT
-  ),
+    ),
   
 /*
 	,----------------------------------.              ,----------------------------------.
@@ -69,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	`----------------------------------'              `----------------------------------'
 */
 
-  [_RS] = LAYOUT( /* RAISE  */
+    [_RS] = LAYOUT( /* RAISE  */
     KC_PSCR, PWD1,           KC_UP,   PWD2,    KC_PGUP,                   KC_HOME, KC_F7,   KC_F8,  KC_F9,  _______,
     _______, KC_LEFT,        KC_DOWN, KC_RGHT, KC_PGDN,                   KC_END,  KC_F4,   KC_F5,  KC_F6,  _______,
     _______, MC2,            MC3,     KC_LPRN, KC_RPRN,                   KC_RALT, KC_F1,   KC_F2,  KC_F3,  _______,
@@ -88,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	`----------------------------------'              `----------------------------------'
 */
 
-  [_LW] = LAYOUT( /* LOWER */
+    [_LW] = LAYOUT( /* LOWER */
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_PSLS, KC_7, KC_8,    KC_9,   KC_PDOT,
     _______, KC_CIRC, KC_AMPR, KC_ASTR, PWD3,                      KC_PAST, KC_4, KC_5,    KC_6,   _______,
     _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,                   KC_PPLS, KC_1, KC_2,    KC_3,   _______,
@@ -97,51 +96,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-	  case MC1:
-      // French quotes
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_RALT)"<<"SS_TAP(X_RALT)">>"SS_TAP(X_LEFT));
-      }
-      return false;
-      break;
+    switch (keycode) {
+    case MC1: /* French quotes */
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_RALT) SS_DELAY(100) "<<" SS_DELAY(100) SS_TAP(X_RALT) SS_DELAY(100) ">>" SS_TAP(X_LEFT));
+        }
+        break;
 	  
-	  case MC2:
-      // NB-space + mdash + space
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_RALT)"  "SS_TAP(X_RALT)"--- ");
-      }
-      return false;
-      break;
+	case MC2: /* NB-space + mdash + space */
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_RALT) SS_DELAY(100) "  " SS_DELAY(100) SS_TAP(X_RALT) SS_DELAY(100) "--- ");
+        }
+        break;
 	  
-	  case MC3:
-      // NB-space
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_RALT)"  ");
-      }
-      return false;
-      break;
+	case MC3: /* NB-space */
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_RALT) SS_DELAY(100) "  ");
+        }
+        break;
 	  
-	  case PWD1:
-      if (record->event.pressed) {
-        SEND_STRING("NakedLunch1991"SS_TAP(X_ENTER));
-      }
-      return false;
-      break;
+	case PWD1:
+        if (record->event.pressed) {
+            SEND_STRING("NakedLunch1991\n");
+        }
+        break;
 	  
-	  case PWD2:
-      if (record->event.pressed) {
-        SEND_STRING("O94nx4sUWHc4akud"SS_TAP(X_ENTER));
-      }
-      return false;
-      break;
+    case PWD2:
+        if (record->event.pressed) {
+            SEND_STRING("O94nx4sUWHc4akud\n");
+        }
+        break;
 	  
-	  case PWD3:
-      if (record->event.pressed) {
-        SEND_STRING("Q123qQ123q\n");
-      }
-      return false;
-      break;
-  }
-  return true;
-}
+	case PWD3:
+        if (record->event.pressed) {
+            SEND_STRING("Q123qQ123q\n");
+        }
+        break;
+    }
+    return true;
+};
