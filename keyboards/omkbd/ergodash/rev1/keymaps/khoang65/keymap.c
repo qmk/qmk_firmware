@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
- enum layer_names {
+enum layer_names { // Enum over macro definition to optimize memory, i.e. #define BASE 0
     BASE = 0,
     FUNCTION, 
     VIM,
@@ -8,9 +8,20 @@
     ADJUST
 };
 
+/**
+ * Macro definitions for tap/hold functionality. Keys will fire first keycode when held, and second keycode when tapped, e.g.
+ *  CST_F14
+ * - will fire Ctrl + Shift when held
+ * - will fire F14 when tapped
+ */
+#define MEH_F13  MEH_T(KC_F13)
+#define LT1_DEL  LT(1,KC_DEL)
+#define CS_F14   C_S_T(KC_F14)
+#define ALL_     ALL_T(KC_NO)
+
 enum custom_keycodes {
-  CUSTOMKC1 = SAFE_RANGE,
-  MO_LYR_LEADER
+  PLACEHOLDER = SAFE_RANGE,
+  KC_CAPSLED
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -25,12 +36,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------+---------+---------+---------+---------+---------| PSCR    |          | |\      |---------+---------+---------+---------+---------|---------|
    * | LShift  | Z       | X       | C       | V       | B       |---------'          `---------| N       | M       | <,      | >.      | ?/      | RShift  |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
-   * | LCtrl   | Meh(F13)| OS      || LAlt    |                                                                    | All()   || F15     | Ins     | TT(3)   |
+   * | LCtrl   | Meh/F13 | OS      || LAlt    |                                                                    | All()   || F15     | Ins     | TT(3)   |
    * `-----------------------------'`---------'        ,-------------------.          ,-------------------.        `---------'`-----------------------------'
    *                                                   |         |         |          |         |         |       
    *                                                   | LT(1),  |_________|          | MO(2)   | Enter   |
-   *                                         ,---------| Del     |         |          |         |         +---------.
-   *                                         | Space   |         | CST(F14)|          |         |         | BckSpc  |
+   *                                         ,---------| Del     | CS/F14  |          |         |         +---------.
+   *                                         | Space   |         |         |          |         |         | BckSpc  |
    *                                         `-----------------------------'          `-----------------------------'
    */
 	[BASE] = LAYOUT_4key_2u_inner(
@@ -38,11 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_F4,               KC_EQL,   KC_Y,     KC_U,     KC_I,      KC_O,     KC_P,    KC_LEAD, 
       KC_GRV,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_PSCR,             KC_BSLS,  KC_H,     KC_J,     KC_K,      KC_L,     KC_SCLN, KC_QUOT, 
       KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_NO,               KC_NO,    KC_N,     KC_M,     KC_COMM,   KC_DOT,   KC_SLSH, KC_RSFT, 
-      KC_LCTL,  MEH_T(KC_F13), KC_LGUI, KC_LALT, KC_SPC,  LT(1,KC_DEL), C_S_T(KC_F14),   MO(2),    KC_ENT,   KC_BSPC,  ALL_T(KC_NO), KC_F15, KC_INS, TT(3)
+      KC_LCTL,  MEH_F13, KC_LGUI, KC_LALT, KC_SPC,  LT(1,KC_DEL), C_S_T(KC_F14),   MO(2),    KC_ENT,   KC_BSPC,  ALL_T(KC_NO), KC_F15, KC_INS, TT(3)
       ),
   
 
-   /* Keymap 1: F layer
+   /* Keymap 1: FUNCTION layer
    * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | TRNS    | F1      | F2      | F3      | F4      | F5      |---------.          ,---------| F6      | F7      | F8      | F9      | F10     | TRNS    |
    * |---------+---------+---------+---------+---------+---------| F11     |          | F12     |---------+---------+---------+---------+---------+---------|
@@ -79,11 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------+---------+---------+---------+---------+---------|         |          | Mute    |---------+---------+---------+---------+---------|---------|
    * | LShift  | Undo    | Cut     | Copy    | Paste   |Ctrl left|---------'          `---------| Prev Tra| Vol -   | Vol +   | Next Tra| Ctrl F  |         |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
-   * | LCtrl   | Meh(F13)| N/A     || N/A     |                                                                    |         ||         |         | TO(0)   |
+   * | LCtrl   | Meh/F13 | N/A     || N/A     |                                                                    |         ||         |         | TO(0)   |
    * `-----------------------------'`---------'        ,-------------------.          ,-------------------.        `---------'`-----------------------------'
    *                                                   |         |         |          | TRNS    |         |       
    *                                                   | Del     |_________|          |_________| Enter   |
-   *                                         ,---------|         | CST(F14)|          | TRNS    |         +---------.
+   *                                         ,---------|         | CS/F14  |          | TRNS    |         +---------.
    *                                         | Spc     |         |         |          |         |         | BckSpc  |
    *                                         `-----------------------------'          `-----------------------------'
    */     
@@ -92,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO,    KC_NO,    LCTL(KC_RGHT), KC_NO, KC_AGIN, KC_NO,   KC_NO,               KC_MPLY,  LCTL(KC_C), LCTL(KC_Z), KC_NO,  KC_NO,      LCTL(KC_V), KC_NO, 
       KC_NO,    KC_NO,    KC_NO,    LCTL(KC_X), KC_FIND, KC_NO,   KC_NO,               KC_MUTE,  KC_LEFT,    KC_DOWN,  KC_UP,    KC_RGHT,    KC_NO,    KC_CALC, 
       KC_LSFT,  KC_UNDO,  KC_CUT,   KC_COPY,  KC_PSTE,  LCTL(KC_LEFT), KC_NO,          KC_TRNS,  KC_MPRV,    KC_VOLD,  KC_VOLU,  KC_MNXT,    LCTL(KC_F), KC_NO, 
-      KC_LCTL,  MEH_T(KC_F13), KC_NO, KC_NO,    KC_SPC,   KC_DEL,   C_S_T(KC_F14),       KC_TRNS,  KC_ENT,     KC_BSPC,  KC_NO,    KC_NO,      KC_NO, TO(0)
+      KC_LCTL,  MEH_F13,  KC_NO, KC_NO,    KC_SPC,   KC_DEL,   C_S_T(KC_F14),       KC_TRNS,  KC_ENT,     KC_BSPC,  KC_NO,    KC_NO,      KC_NO, TO(0)
       ),
       
       
@@ -106,11 +117,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------+---------+---------+---------+---------+---------| Meh()   |          | |\      |---------+---------+---------+---------+---------|---------|
    * | LShift  |         |         |         |         |         |---------'          `---------|         | !1      | @2      | #3      | =       | RShift  |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
-   * | LCtrl   | Meh(F13)|         || LAlt    |                                                                    | .       || F15     | Ins     | TO(0)   |
+   * | LCtrl   | Meh/F13 |         || LAlt    |                                                                    | .       || F15     | Ins     | TO(0)   |
    * `-----------------------------'`---------'        ,-------------------.          ,-------------------.        `---------'`-----------------------------'
    *                                                   |         |         |          |         |         |       
    *                                                   | Del     |_________|          |         | Enter   |
-   *                                         ,---------|         | CST(F14)|          | MO(2)   |         +---------.
+   *                                         ,---------|         | CS/F14  |          | MO(2)   |         +---------.
    *                                         | Spc     |         |         |          |         |         | BckSpc  |
    *                                         `-----------------------------'          `-----------------------------'
    */     
@@ -119,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   TO(4),               KC_EQL,   KC_NO,    KC_7,     KC_8,     KC_9,     KC_PPLS,  KC_NO, 
       KC_GRV,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   MEH(KC_NO),          KC_BSLS,  KC_NO,    KC_4,     KC_5,     KC_6,     KC_PCMM,  KC_QUOT,
       KC_LSFT, KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   KC_NO,               KC_NO,    KC_P0,    KC_1,     KC_2,     KC_3,     KC_PEQL,  KC_RSFT, 
-      KC_LCTL, MEH_T(KC_F13), KC_NO,  KC_LALT,   KC_SPC,   KC_DEL,  C_S_T(KC_F14),       MO(2),    KC_ENT,   KC_BSPC,  KC_PDOT,  KC_F15,   KC_INS,    TO(0)
+      KC_LCTL, MEH_F13,   KC_NO,  KC_LALT,   KC_SPC,   KC_DEL,  C_S_T(KC_F14),       MO(2),    KC_ENT,   KC_BSPC,  KC_PDOT,  KC_F15,   KC_INS,    TO(0)
       ),
 	
   
@@ -137,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------'`---------'        ,-------------------.          ,-------------------.        `---------'`-----------------------------'
    *                                                   |         |         |          |         |         |       
    *                                                   |         |_________|          |         |         |
-   *                                         ,---------|         | CST(F14)|          |         |         +---------.
+   *                                         ,---------|         | CS/F14  |          |         |         +---------.
    *                                         |         |         |         |          |         |         |         |
    *                                         `-----------------------------'          `-----------------------------'
    */ 
@@ -150,14 +161,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // ************************************************ //
+// ************** CUSTOM KEY HANDLING ************* //
+// ************************************************ //
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    bool pressed = record->event.pressed;
+    switch (keycode) {
+      case PLACEHOLDER:
+        if (pressed) {
+          // Do something when pressed
+        } else {
+          // Do something else when released
+        }
+        return false; // Skip all further processing of this key
+      case KC_CAPSLED:
+        // turn on Underglow when caps is pressed
+        if (pressed) {
+          // RGB_* keycodes cannot be used with functions like tap_code16(RGB_HUI) as they're not USB HID keycodes
+        }
+        return true; // Let QMK send the caps press/release events
+      default:
+        return true;
+    }
+
+} 
+
+// ************************************************ //
 // **************** RGB INDICATORS **************** //
 // ************************************************ //
+
+// ***** RGB Helper FUNCTIONS ***** //
+
 void rgb_matrix_indicators_user(void) { 
   #ifdef RGB_MATRIX_ENABLE
-  
-  /* CapsLock Underglow Indicator */
-  
-  /* Leader Underglow Indicator*/
+  /* Blinking LED during Dynamic Macro Recording */
   
   #endif // !RGB_MATRIX_ENABLE
 }
@@ -169,7 +205,7 @@ void rgb_matrix_indicators_user(void) {
 // ************************************************ //
 #ifdef LEADER_ENABLE
 
-// ***** LEADER KEY FUNCTIONS` ***** //
+// ***** LEADER KEY FUNCTIONS ***** //
 // used to repeat a macro for two different sequences 
 
 // ***** Cursor Wrap Functions ***** //
@@ -229,7 +265,6 @@ LEADER_EXTERNS(); // Keep this line above matrix_scan_user
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
-    
     // Note: These sequence functions aren't arrays, you 
     // don't need to put any commasor semicolons between sequences.
     
@@ -237,6 +272,11 @@ void matrix_scan_user(void) {
     // Double tap LDR for CAPS
     SEQ_ONE_KEY(KC_LEAD) {
       tap_code(KC_CAPS);
+      if(IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) { // Used to check CAPS desync
+        rgblight_enable_noeeprom();
+      } else {
+        rgblight_disable_noeeprom();
+      }
     }
     
     // ***** Macros by Symbol ***** //
