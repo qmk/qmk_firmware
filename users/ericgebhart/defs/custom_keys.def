@@ -49,6 +49,9 @@
 // core 6 thumb keys for combo reference layer
  CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6,
  CB2_TH1, CB2_TH2, CB2_TH3, CB2_TH4, CB2_TH5, CB2_TH6,
+ // for the extra thumb keys on the kyria
+ CB_0TH1 , CB_0TH2, CB_0TH3, CB_0TH4,
+ CB_THA, CB_THB, _6_xs, CB_THC, CB_THD,
 
 // edge keys for the combo reference layer
  L0_CB, L1_CB, L2_CB, L3_CB,

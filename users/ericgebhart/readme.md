@@ -1,12 +1,24 @@
 Overview
 ========
 
-An easily configurable keymap for keymap exploration. It is for
-primarily for minimalist,
-ortho split keyboards but does support some rectangles.
+This is as much a keymap framework as it is a keymap. It can take many
+shapes with just a few configuration choices. Base layers, Mods, thumb clusters, 
+edge_keys, all can be changed with just a configuration option.
+There are over 25 base layouts to choose from, as well as multiple 
+choices of navigation, mouse, media, 
+symbols, and keypads. Home row mods come in a few flavors or none,
+in a mod layer which is easily understandable and can be turned on
+or off, or switched. There are Miryoku options for everything if
+that is your thing.  
 
-It is Language
-agnostic, has Multiple layouts (20+ base layers), multiple mods or
+This is an easily configurable keymap for keymap exploration. It is for
+primarily for minimalist, ortho split keyboards but does support some rectangles.
+It´s first keyboard was an Ergodox-ez many years ago. My daily driver
+is now a Kyria or a Corne, but I still use an original dactyl, rebound 
+and ergodox-ez regularly.
+
+The framework is Language
+agnostic, has Multiple layouts (25+ base layers), multiple mods or
 not, home row mods or not, a variety of thumb layouts, mouse/no mouse,
 smart lock layers and mods, N-Shot mods like callum's, swapper. Combos,
 tap_hold, accented keys, alternate shifted keys, automatic custom
@@ -40,13 +52,17 @@ Edit _config.h_,
   
   ** do not turn off extensions until you know them **
   It will likely cause a stream of errors for the keycodes that
-  go missing when something is turned off. 
+  go missing when something is turned off. There are known
+  interactions between combos, smart locks, and alt local keys.
+  Turning encoders or oled on and off certainly won´t break
+  anything.
   
-  There are interactions between your choices.
+  There are other interactions between your choices.
   Edge keys, thumbs, combos, other extensions, 
   may use the extensions that are enabled.
   
 ### Look here to see the parts
+  * Everything can be turned on and off in *config.h*
   * Base layers are in *base_layers/*
   * Edge keys are in *layers/edge_keys.h*
   * Thumbs can be reviewed in *layers/thumbs.h*

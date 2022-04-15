@@ -61,11 +61,11 @@
   ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, ACCENTS_RALT
 
 #define ___6_ERGO_THUMBS_mod_layers_nav___                      \
-  SML_NAV, BSPC_SYMB, GUI_ESC,  ENT_NAV, SPC_TOPR, ACCENTS_RALT
+  S(KC_TAB), BSPC_SYMB, GUI_ESC,  ENT_NAV, SPC_TOPR, KC_TAB
 
 // for keymaps that need a letter on the thumb.
 #define ___6_ERGO_THUMBS_left_letter___                                 \
-  BSPC_ALT, TH_LTR_SYM, GUI_ESC,  ENT_NAV, SPC_TOPR, ACCENTS_RALT
+  BSPC_ALT, TH_LTR_SYM, GUI_ESC,  ENT_NAV, SPC_TOPR, KC_TAB
 
 // an attempt at an approximation of the HD thumbs as they are on the site.
 // really should be expected to be a starting point that doesnt strand you.
@@ -133,6 +133,10 @@
 #define SYMB_THUMBS_EXT _symb___
 
 #define ___6_ERGO_THUMBS___ CAT2(___6_ERGO_THUMBS, THUMB_EXT)
+// for the kyria, mostly for the combo reference layers.
+#define ___10_ERGO_THUMBS___ CATR(___10_ERGO_THUMBS, EXP_THUMB_EXT)
+#define ___4_THUMBS___ CAT2(___4_THUMBS, EXP_THUMB_EXT)
+
 /* #define ___6_ERGO_THUMBS___ ___6_ERGO_THUMBS_def___ */
 
 /* #define ___ERGODOX_THUMB_LEFT___                \ */
@@ -181,5 +185,46 @@
     ___6_ERGO_THUMBS___
 
 // For the Kyria
-#define ___4_THUMBS___       TG(_LAYERS), SML_KEYPAD, OSL_ACCENTS, OSL(LN_TOPROWS)
-#define ___10_ERGO_THUMBS___ KC_LALT, KC_LCTL, ___6_ERGO_THUMBS___, KC_RALT, KC_RCTL
+#define ___4_THUMBS_def___       OSLALT_ALT, OSLCTL_CTL, SML_NAV, OSLSFT_SFT
+#define ___10_ERGO_THUMBS_def___ _X_, _X_, ___6_ERGO_THUMBS___, _X_, _X_
+//#define ___10_ERGO_THUMBS_def___ _X_, _X_, _6_xs, _X_, _X_
+
+#define _6_xs _X_, _X_,_X_,_X_,_X_,_X_
+// combo reference layer thumbs for the kyria.
+// for the kyria, note the odd numbering...a 0 row, and a,b,c,d for the extras
+// on either side of the central 6 thumbs.
+#define ___4_THUMBS_COMBO___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
+#define ___10_ERGO_THUMBS_COMBO___ CB_THA,    CB_THB,  ___6_ERGO_THUMBS___, CB_THC, CB_THD
+#define ___4_THUMBS_COMBO2___       CB2_0TH1, CB2_0TH2, CB2_0TH3, CB2_0TH4
+#define ___10_ERGO_THUMBS_COMBO2___ CB2_THA,  CB2_THB, ___6_ERGO_THUMBS___, CB2_THC, CB2_THD
+
+// Basically give the same 4 top thumbs and bottom outer 4 thumbs for everyone.
+// Could be different for every one, but the core 6 is enough for now I think.
+// Everyone is the same except the combo reference layers.
+// Let 6 ERGO_THUMBS do it´s thing inside.
+#define EXP_THUMB_EXT CAT(THUMBS_ARE, _EXP_EXT)
+#define WI_EXP_EXT _def___
+#define WIa_EXP_EXT _def___
+#define DEFAULT_EXP_EXT _def___
+#define TEST_EXP_EXT _def___
+#define TRNS_EXP_EXT _def___
+#define MODS_EXP_EXT _def___
+#define LAYERS_EXP_EXT _def___
+#define MODS_LAYERS_EXP_EXT _def___
+#define MODS_LAYERS_NAV_EXP_EXT _def___
+#define MIRYOKU_EXP_EXT _def___
+#define MIRYOKU_TR_EXP_EXT _def___
+#define MIRYOKU_LTR_EXP_EXT _def___
+#define MIRYOKU_TR_LTR_EXP_EXT _def___
+#define TH_LTR_EXP_EXT _def___
+#define HD_DASH_EXP_EXT _def___
+#define HD_EXP_EXT _def___
+#define HDA_EXP_EXT _def___
+#define HD_SIMPLE_EXP_EXT _def___
+// for the function layers
+#define COMBO_EXP_EXT _COMBO___
+#define COMBO2_EXT _COMBO2___
+#define MEDIA_THUMBS_EXP_EXT _def___
+#define MOUSE_THUMBS_EXP_EXT _def___
+#define KEYPAD_THUMBS_EXP_EXT _def___
+#define SYMB_THUMBS_EXP_EXT _def___

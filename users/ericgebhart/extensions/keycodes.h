@@ -292,6 +292,12 @@ enum userspace_custom_keycodes {
 #define GUI_ESC     GUI_T(KC_ESC)       // Gui or escape
 #define ALGR_SYMB   ALGR_T(TG(LANG_N(_SYMB))) // Alt gre or toggle symbol layer
 
+// one shot on tap, or hold like usual
+#define OSLCTL_CTL CTL_T(OS_LCTL)
+#define OSLSFT_SFT SFT_T(OS_LSFT)
+#define OSLALT_ALT ALT_T(OS_LALT)
+#define OSLGUI_GUI GUI_T(OS_LGUI)
+
 /* miryoku */
 /*   esc_media, space_navnm, tab_navm,  ENT_SYM, BSPC_TOPR, del_fun */
 /* hands down */
