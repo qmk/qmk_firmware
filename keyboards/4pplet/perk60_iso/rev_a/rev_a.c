@@ -113,7 +113,7 @@ led_config_t g_led_config = {
     }
 };
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+__attribute__((weak)) void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock && CAPS_LOCK_ENABLE) {
         for (uint8_t i = led_min; i <= led_max; i++) {
             if (g_led_config.flags[i] & CAPS_LED_GROUP) {
