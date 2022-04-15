@@ -14,6 +14,8 @@
     #include "rev5.h"
 #elif defined(KEYBOARD_keebio_iris_rev6)
     #include "rev6.h"
+#elif defined(KEYBOARD_keebio_iris_rev6a)
+    #include "rev6a.h"
 #endif
 
 #include "quantum.h"
