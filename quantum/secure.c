@@ -20,8 +20,8 @@
 #endif
 
 static secure_status_t secure_status = SECURE_LOCKED;
-static uint32_t unlock_time   = 0;
-static uint32_t idle_time     = 0;
+static uint32_t        unlock_time   = 0;
+static uint32_t        idle_time     = 0;
 
 secure_status_t secure_get_status(void) {
     return secure_status;
