@@ -3,7 +3,7 @@
     "url": "https://www.rmkeebs.com/product/rm-numpad/",
     "maintainer": "RuckerMachine",
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_numpad_6x4": {
             "layout": [
                 {"label": "Pause", "x": 0, "y": 0.25},
                 {"label": "Prev", "x": 1, "y": 0.25},
@@ -33,7 +33,7 @@
                 {"label": ".", "x": 2, "y": 5.25}
             ]
         },
-        "LAYOUT_split_plus": {
+        "LAYOUT_split_plus_6x4": {
             "layout": [
                 {"label": "Pause", "x": 0, "y": 0.25},
                 {"label": "Prev", "x": 1, "y": 0.25},
@@ -64,7 +64,7 @@
                 {"label": ".", "x": 2, "y": 5.25}
             ]
         },
-        "LAYOUT_ortho": {
+        "LAYOUT_ortho_6x4": {
             "layout": [
                 {"label": "Pause", "x": 0, "y": 0.25},
                 {"label": "Prev", "x": 1, "y": 0.25},
