@@ -60,3 +60,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  debug_mouse=true;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+
+    // if (mouse_report.x != 0 || mouse_report.y != 0)
+    // {
+    //     dprintf("x:%d y:%d \n", mouse_report.x, mouse_report.y);
+    //     mouse_report.x *= 10;
+    //     mouse_report.y *= 10;
+    // }
+
+    return mouse_report;
+
+}
