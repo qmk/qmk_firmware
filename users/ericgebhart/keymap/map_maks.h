@@ -14,21 +14,21 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifdef DVORAK_LAYER_ENABLE
-  B_LAYER(LANG_N(_DVORAK), ___10_NUMBERS___, ___DVORAK___),
-#endif
 #ifdef COLEMAK_LAYER_ENABLE
-  B_LAYER(LANG_N(_COLEMAK), ___10_NUMBERS___, ___COLEMAK___),
+B_LAYER(LANG_N(_COLEMAK), ___10_NUMBERS___, ___COLEMAK___),
 #endif
 #ifdef COLEMAK_DH_LAYER_ENABLE
-    B_LAYER(LANG_N(_COLEMAK_DH), ___10_NUMBERS___, ___COLEMAK_DH___),
+  B_LAYER(LANG_N(_COLEMAK_DH), ___10_NUMBERS___, ___COLEMAK_DH___),
 #endif
-#ifdef QWERTY_LAYER_ENABLE
-    B_LAYER(LANG_N(_QWERTY), ___10_NUMBERS___, ___QWERTY___),
+#ifdef HALMAK_LAYER_ENABLE
+  B_LAYER(LANG_N(_HALMAK), ___10_NUMBERS___, ___HALMAK___),
 #endif
-#ifdef NORMAN_LAYER_ENABLE
-  B_LAYER(LANG_N(_NORMAN), ___10_NUMBERS___, ___NORMAN___),
+#ifdef MINIMAK_LAYER_ENABLE
+  B_LAYER(LANG_N(_MINIMAK), ___10_NUMBERS___, ___MINIMAK___),
 #endif
-#ifdef WORKMAN_LAYER_ENABLE
-  B_LAYER(LANG_N(_WORKMAN), ___10_NUMBERS___, ___WORKMAN___),
+#ifdef MINIMAK_8_LAYER_ENABLE
+  B_LAYER(LANG_N(_MINIMAK_8), ___10_NUMBERS___, ___MINIMAK___),
+#endif
+#ifdef MINIMAK_12_LAYER_ENABLE
+  B_LAYER(LANG_N(_MINIMAK_12), ___10_NUMBERS___, ___MINIMAK___),
 #endif

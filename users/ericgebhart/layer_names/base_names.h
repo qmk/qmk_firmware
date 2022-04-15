@@ -17,15 +17,48 @@
 #ifdef DVORAK_LAYER_ENABLE
       LANG_N(_DVORAK),
 #endif
+#ifdef BOO_LAYER_ENABLE
+        LANG_N(_BOO),
+#endif
+#ifdef CAPEWELL_DVORAK_LAYER_ENABLE
+        LANG_N(_CAPEWELL_DVORAK),
+#endif
+#ifdef AHEI_LAYER_ENABLE
+        LANG_N(_AHEI),
+#endif
+
+
 #ifdef QWERTY_LAYER_ENABLE
       LANG_N(_QWERTY),
 #endif
+#ifdef WORKMAN_LAYER_ENABLE
+      LANG_N(_WORKMAN),
+#endif
+#ifdef NORMAN_LAYER_ENABLE
+      LANG_N(_NORMAN),
+#endif
+
+
 #ifdef COLEMAK_LAYER_ENABLE
       LANG_N(_COLEMAK),
 #endif
 #ifdef COLEMAK_DH_LAYER_ENABLE
       LANG_N(_COLEMAK_DH),
 #endif
+#ifdef HALMAK_LAYER_ENABLE
+      LANG_N(_COLEMAK),
+#endif
+#ifdef MINIMAK_LAYER_ENABLE
+      LANG_N(_MINIMAK),
+#endif
+#ifdef MINIMAK_8_LAYER_ENABLE
+      LANG_N(_MINIMAK_8),
+#endif
+#ifdef MINIMAK_12_LAYER_ENABLE
+      LANG_N(_MINIMAK_12),
+#endif
+
+
 #ifdef BEAKL15_LAYER_ENABLE
       LANG_N(_BEAKL15),
 #endif
@@ -38,30 +71,63 @@
 #ifdef BEAKLWI_LAYER_ENABLE
       LANG_N(_BEAKLWI),
 #endif
-#ifdef WORKMAN_LAYER_ENABLE
-      LANG_N(_WORKMAN),
-#endif
-#ifdef NORMAN_LAYER_ENABLE
-      LANG_N(_NORMAN),
-#endif
+
 #ifdef MALTRON_LAYER_ENABLE
-      LANG_N(_MALTRON),
+        LANG_N(_MALTRON),
 #endif
 #ifdef EUCALYN_LAYER_ENABLE
-      LANG_N(_EUCALYN),
+        LANG_N(_EUCALYN),
 #endif
-#ifdef CARPLAX_LAYER_ENABLE
-      LANG_N(_CARPLAX),
+#ifdef RSTHD_LAYER_ENABLE
+        LANG_N(_RSTHD),
 #endif
-#ifdef APT_LAYER_ENABLE
-      LANG_N(_APT),
+#ifdef HANDS_UP_LAYER_ENABLE
+        LANG_N(_HANDS_UP),
 #endif
+#ifdef WHITE_LAYER_ENABLE
+        LANG_N(_WHITE),
+#endif
+#ifdef ISRT_LAYER_ENABLE
+        LANG_N(_ISRT),
+#endif
+#ifdef SOUL_LAYER_ENABLE
+        LANG_N(_SOUL),
+#endif
+#ifdef NIRO_LAYER_ENABLE
+        LANG_N(_NIRO),
+#endif
+#ifdef ASSET_LAYER_ENABLE
+        LANG_N(_ASSET),
+#endif
+#ifdef WHORF_LAYER_ENABLE
+        LANG_N(_WHORF),
+#endif
+#ifdef WHORF6_LAYER_ENABLE
+        LANG_N(_WHORF6),
+#endif
+
+#ifdef CARPALX_QFMLWY_LAYER_ENABLE
+        LANG_N(_CARPALX_QFMLWY),
+#endif
+#ifdef CARPALX_QGMLWB_LAYER_ENABLE
+        LANG_N(_CARPALX_QGMLWB),
+#endif
+#ifdef CARPALX_QGMLWY_LAYER_ENABLE
+        LANG_N(_CARPALX_QGMLWY),
+#endif
+
+
 #ifdef MTGAP_LAYER_ENABLE
         LANG_N(_MTGAP),
 #endif
 #ifdef CTGAP_LAYER_ENABLE
         LANG_N(_CTGAP),
 #endif
+#ifdef APT_LAYER_ENABLE
+        LANG_N(_APT),
+#endif
+
+
 #ifdef HD_NEU_LAYER_ENABLE
         LANG_N(_HD_NEU),
 #endif
@@ -89,14 +155,9 @@
 #ifdef HD_REF_LAYER_ENABLE
         LANG_N(_HD_REF),
 #endif
-#ifdef RSTHD_LAYER_ENABLE
-        LANG_N(_RSTHD),
-#endif
-#ifdef HANDS_UP_LAYER_ENABLE
-        LANG_N(_HANDS_UP),
-#endif
+
 #ifdef BEPO_LAYER_ENABLE  // Bepo only works on bepo.
-      LANG_N(_BEPO),
+        LANG_N(_BEPO),
 #endif
 #ifdef OPTIMOT_LAYER_ENABLE  // only works on bepo.
       LANG_N(_OPTIMOT),

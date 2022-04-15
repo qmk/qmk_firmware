@@ -15,32 +15,32 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#define CARTE_CARPLAX_QFMLWY                    \
+#define CARTE_CARPALX_QFMLWY                    \
   carte_de_map("   qfmlw  yuobj",               \
                "   dstnr  iaeh;",               \
                "   zvgcx  pk,./")
 
-#define ___CARPLAX_QFMLWY___                                            \
+#define ___CARPALX_QFMLWY___                                            \
   LANG_MAP(_Q, _F, _M, _L, _W,   _Y, _U, _O,      _B,     _J,           \
            _D, _S, _T, _N, _R,   _I, _A, _E,      _H,     TL_SCLN,      \
            _Z, _V, _G, _C, _X,   _P, _K, TL_COMM, TL_DOT, TL_SLSH)
 
-#define CARTE_CARPLAX_QFMLWB                    \
+#define CARTE_CARPALX_QFMLWB                    \
   carte_de_map("   qgmlw  byuv;",               \
                "   dstnr  iaeoh",               \
                "   zxcfj  kp,./")
 
-#define ___CARPLAX_QGMLWB___                                            \
+#define ___CARPALX_QGMLWB___                                            \
   LANG_MAP(_Q, _G, _M, _L, _W,   _B, _Y, _U,      _V,     TL_SCLN,      \
            _D, _S, _T, _N, _R,   _I, _A, _E,      _O,     _H,           \
            _Z, _X, _C, _F, _J,   _K, _P, TL_COMM, TL_DOT, TL_SLSH)
 
-#define CARTE_CARPLAX_QFMLWY2                   \
+#define CARTE_CARPALX_QGMLWY                    \
   carte_de_map("   qgmlw  yfub;",               \
                "   dstnr  iaeoh",               \
                "   zxcvj  kp,./")
 
-#define ___CARPLAX_QGMLWY2___                                           \
+#define ___CARPALX_QGMLWY___                                            \
   LANG_MAP(_Q, _G, _M, _L, _W,   _Y, _F, _U,      _B,     TL_SCLN,      \
            _D, _S, _T, _N, _R,   _I, _A, _E,      _O,     _H,           \
            _Z, _X, _C, _V, _J,   _K, _P, TL_COMM, TL_DOT, TL_SLSH)

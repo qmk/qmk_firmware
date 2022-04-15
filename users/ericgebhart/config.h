@@ -149,11 +149,25 @@
 
 
 // Turn on the layers
+// dvorak and relatives
 #define DVORAK_LAYER_ENABLE
+//#define CAPEWELL_DVORAK_LAYER_ENABLE
+//#define AHEI_LAYER_ENABLE
+//#define BOO_LAYER_ENABLE
+
+// qwerty and derivitives
 //#define QWERTY_LAYER_ENABLE
 //#define AZERTY_LAYER_ENABLE
+//#define WORKMAN_LAYER_ENABLE
+//#define NORMAN_LAYER_ENABLE
+
+// COLEMAK and relatives
 //#define COLEMAK_LAYER_ENABLE
 //#define COLEMAK_DH_LAYER_ENABLE
+//#define HALMAK_LAYER_ENABLE
+//#define MINIMAK_LAYER_ENABLE
+//#define MINIMAK_8_LAYER_ENABLE
+//#define MINIMAK_12_LAYER_ENABLE
 
 // BEAKL
 // #define BEAKL15_LAYER_ENABLE
@@ -161,17 +175,29 @@
 //#define BEAKL27_LAYER_ENABLE
 //#define BEAKLWI_LAYER_ENABLE
 
+// carpalx layouts
+//#define CARPALX_QFMLWY_LAYER_ENABLE
+//#define CARPALX_QGMLWB_LAYER_ENABLE
+//#define CARPALX_QGMLWY_LAYER_ENABLE
+
 // alternate layouts
-//#define CARPLAX_LAYER_ENABLE
-//#define WORKMAN_LAYER_ENABLE
-//#define NORMAN_LAYER_ENABLE
 //#define MALTRON_LAYER_ENABLE
 //#define EUCALYN_LAYER_ENABLE
-//#define APT_LAYER_ENABLE
+//#define HANDS_UP_LAYER_ENABLE
 //#define RSTHD_LAYER_ENABLE
+//#define HANDS_UP_LAYER_ENABLE
+//#define WHITE_LAYER_ENABLE
+//#define ISRT_LAYER_ENABLE
+//#define SOUL_LAYER_ENABLE
+//#define NIRO_LAYER_ENABLE
+//#define ASSET_LAYER_ENABLE
+//#define WHORF_LAYER_ENABLE
+//#define WHORF6_LAYER_ENABLE
+
+// mtgap and relatives
 //#define MTGAP_LAYER_ENABLE
 //#define CTGAP_LAYER_ENABLE
-//#define HANDS_UP_LAYER_ENABLE
+//#define APT_LAYER_ENABLE
 
 // Hands down
 //#define HD_NEU_NARROW_LAYER_ENABLE
@@ -190,7 +216,7 @@
 // additionally all these have accent characters on base layer.
 //#define BEPO_LAYER_ENABLE
 //#define OPTIMOT_LAYER_ENABLE
-// #define BEAKL19bis_LAYER_ENABLE
+//#define BEAKL19bis_LAYER_ENABLE
 
 
 // enable transient function layers.

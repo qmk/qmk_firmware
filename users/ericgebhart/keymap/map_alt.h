@@ -14,9 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifdef EUCALYN_LAYER_ENABLE
-  B_LAYER(LANG_N(_EUCALYN), ___10_NUMBERS___, ___EUCALYN___),
-#endif
+
 #ifdef MALTRON_LAYER_ENABLE
 #undef THUMBS_ARE
 #define THUMBS_ARE MALTRON_LTR_THUMBS_ARE
@@ -28,21 +26,7 @@
 #undef THUMB_LETTER
 #endif
 
-#ifdef CARPLAX_LAYER_ENABLE
-  B_LAYER(LANG_N(_CARPLAX), ___10_NUMBERS___, ___CARPLAX_QGMLWY___),
-#endif
 
-#ifdef MTGAP_LAYER_ENABLE
-    B_LAYER(LANG_N(_MTGAP), ___10_NUMBERS___, ___MTGAP___),
-#endif
-
-#ifdef CTGAP_LAYER_ENABLE
-    B_LAYER(LANG_N(_CTGAP), ___10_NUMBERS___, ___CTGAP___),
-#endif
-
-#ifdef APT_LAYER_ENABLE
-    B_LAYER(LANG_N(_APT), ___10_NUMBERS___, ___APT___),
-#endif
 
 #ifdef RSTHD_LAYER_ENABLE
 #undef THUMBS_ARE
@@ -53,4 +37,33 @@
 #undef THUMBS_ARE
 #define THUMBS_ARE DEFAULT_THUMBS
 #undef THUMB_LETTER
+#endif
+
+#ifdef EUCALYN_LAYER_ENABLE
+    B_LAYER(LANG_N(_EUCALYN), ___10_NUMBERS___, ___EUCALYN___),
+#endif
+
+#ifdef HANDS_UP_LAYER_ENABLE
+    B_LAYER(LANG_N(_HANDS_UP), ___10_NUMBERS___, ___HANDS_UP___),
+#endif
+#ifdef WHITE_LAYER_ENABLE
+    B_LAYER(LANG_N(_WHITE), ___10_NUMBERS___, ___WHITE___),
+#endif
+#ifdef ISRT_LAYER_ENABLE
+    B_LAYER(LANG_N(_ISRT), ___10_NUMBERS___, ___ISRT___),
+#endif
+#ifdef SOUL_LAYER_ENABLE
+    B_LAYER(LANG_N(_SOUL), ___10_NUMBERS___, ___SOUL___),
+#endif
+#ifdef NIRO_LAYER_ENABLE
+    B_LAYER(LANG_N(_NIRO), ___10_NUMBERS___, ___NIRO___),
+#endif
+#ifdef ASSET_LAYER_ENABLE
+    B_LAYER(LANG_N(_ASSET), ___10_NUMBERS___, ___ASSET___),
+#endif
+#ifdef WHORF_LAYER_ENABLE
+    B_LAYER(LANG_N(_WHORF), ___10_NUMBERS___, ___WHORF___),
+#endif
+#ifdef WHORF6_LAYER_ENABLE
+    B_LAYER(LANG_N(_WHORF6), ___10_NUMBERS___, ___WHORF6___),
 #endif

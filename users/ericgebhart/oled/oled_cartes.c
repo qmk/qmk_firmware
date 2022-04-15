@@ -34,13 +34,30 @@ void oled_render_layer_map(void) {
 #ifdef COLEMAK_LAYER_ENABLE
         SHOW_MAP(_COLEMAK)
 #endif
-
-#ifdef APT_LAYER_ENABLE
-        SHOW_MAP(_APT)
+#ifdef HALMAK_LAYER_ENABLE
+        SHOW_MAP(_HALMAK)
+#endif
+#ifdef MINIMAK_LAYER_ENABLE
+        SHOW_MAP(_MINIMAK)
+#endif
+#ifdef MINIMAK_8_LAYER_ENABLE
+        SHOW_MAP(_MINIMAK_8)
+#endif
+#ifdef MINIMAK_12_LAYER_ENABLE
+        SHOW_MAP(_MINIMAK_12)
 #endif
 
 #ifdef DVORAK_LAYER_ENABLE
         SHOW_MAP(_DVORAK)
+#endif
+#ifdef BOO_LAYER_ENABLE
+        SHOW_MAP(_BOO),
+#endif
+#ifdef CAPEWELL_DVORAK_LAYER_ENABLE
+        SHOW_MAP(_CAPEWELL_DVORAK),
+#endif
+#ifdef AHEI_LAYER_ENABLE
+        SHOW_MAP(_AHEI),
 #endif
 
 #ifdef BEAKL27_LAYER_ENABLE
@@ -59,6 +76,18 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_BEAKLWI)
 #endif
 
+#ifdef CARPALX_QFMLWY_LAYER_ENABLE
+        SHOW_MAP(_CARPALX_QFMLWY)
+#endif
+
+#ifdef CARPALX_QGMLWB_LAYER_ENABLE
+        SHOW_MAP(_CARPALX_QGMLWB)
+#endif
+
+#ifdef CARPALX_QGMLWY_LAYER_ENABLE
+        SHOW_MAP(_CARPALX_QGMLWY)
+#endif
+
 #ifdef MTGAP_LAYER_ENABLE
         SHOW_MAP(_MTGAP)
 #endif
@@ -66,6 +95,11 @@ void oled_render_layer_map(void) {
 #ifdef CTGAP_LAYER_ENABLE
         SHOW_MAP(_CTGAP)
 #endif
+
+#ifdef APT_LAYER_ENABLE
+        SHOW_MAP(_APT)
+#endif
+
 
 #ifdef HD_NEU_LAYER_ENABLE
         SHOW_MAP(_HD_NEU)
@@ -109,6 +143,27 @@ void oled_render_layer_map(void) {
 
 #ifdef HANDS_UP_LAYER_ENABLE
         SHOW_MAP(_HANDS_UP)
+#endif
+#ifdef WHITE_LAYER_ENABLE
+        SHOW_MAP(_WHITE),
+#endif
+#ifdef ISRT_LAYER_ENABLE
+        SHOW_MAP(_ISRT),
+#endif
+#ifdef SOUL_LAYER_ENABLE
+        SHOW_MAP(_SOUL),
+#endif
+#ifdef NIRO_LAYER_ENABLE
+        SHOW_MAP(_NIRO),
+#endif
+#ifdef ASSET_LAYER_ENABLE
+        SHOW_MAP(_ASSET),
+#endif
+#ifdef WHORF_LAYER_ENABLE
+        SHOW_MAP(_WHORF),
+#endif
+#ifdef WHORF6_LAYER_ENABLE
+        SHOW_MAP(_WHORF6),
 #endif
 
 #ifdef BEPO_LAYER_ENABLE

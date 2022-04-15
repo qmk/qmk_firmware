@@ -394,7 +394,7 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 │   ├── base_layers.h
 │   ├── beakl.h
 │   ├── bepo.h
-│   ├── carplax.h
+│   ├── carpalx.h
 │   ├── hands_down.h
 │   ├── keymaps.txt
 │   ├── norm.h

@@ -49,10 +49,14 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// Default, EN, Qwerty based Base layers
-#include "map_norm.h"
+  // Default lang, Base layers
+#include "map_dvorak.h"
+#include "map_maks.h"
+#include "map_qwerty.h"
 #include "map_beakl.h"
 #include "map_alt.h"
+#include "map_gap.h"
+#include "map_carpalx.h"
 #include "map_hd.h"
 #include "map_bepo.h"
 
@@ -69,8 +73,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #undef ALT_TARGET_IS
 #define ALT_TARGET_IS DV // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.
 
-#include "map_norm.h"
+#include "map_dvorak.h"
+#include "map_maks.h"
+#include "map_qwerty.h"
 #include "map_alt.h"
+#include "map_gap.h"
+#include "map_carpalx.h"
 #include "map_hd.h"
 
 #undef ALT_TARGET_IS

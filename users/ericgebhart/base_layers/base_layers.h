@@ -34,18 +34,24 @@
 /*            _, _, _, _, _,   _, _, _, _, _)        */
 
 
-// dvorak, qwerty, colemak, workman, norman,
-#include "norm.h"
-// mtgap, apt, eucalyn, maltron
+// dvorak, capewell-dvorak, ahei, and boo.
+#include "dvorak.h"
+//qwerty, workman, norman,
+#include "qwerty.h"
+// Colemak, halmak, minimak, etc.
+#include "maks.h"
+// eucalyn, maltron
 #include "alt.h"
+// mtgap, ctgap, apt
+#include "gap.h"
 // some hands down.
 #include "hands_down.h"
 // some beakls.
 #include "beakl.h"
 // bepo, optimot, beakl19bis, godox-fr?.
 #include "bepo.h"
-// some carplaxs.
-#include "carplax.h"
+// some carpalxs.
+#include "carpalx.h"
 // The symbol, number function rows for all the above.
 #include "toprows.h"
 // some layers with accents and dead keys.

@@ -15,31 +15,12 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/********************************************************************/
-/**  The Core rows of each given layout.                           **/
-/********************************************************************/
-//Dvorak on a qwerty software layer in the OS
-// Alt target keycodes.
-//KC_QUOT,    KC_COMM,     KC_DOT,     KC_SCLN
-//BP_DV_QUOT, BP_DV_COMM,  BP_DV_DOT,  BP_DV_SCLN
-// The TL macros take care of their resolution.
-
 
 // Layer for combo reference. Make more than one by changing lang is.
 #define ___COMBO_REF___                                                 \
   LANG_MAP(_1L1,  _1L2, _1L3, _1L4,  _1L5,   _1R1, _1R2, _1R3, _1R4, _1R5, \
            _2L1,  _2L2, _2L3, _2L4,  _2L5,   _2R1, _2R2, _2R3, _2R4, _2R5, \
            _3L1,  _3L2, _3L3, _3L4,  _3L5,   _3R1, _3R2, _3R3, _3R4, _3R5)
-
-#define CARTE_DVORAK                            \
-  carte_de_map(" ',.py fgcrl ",                 \
-               " aoeui dhtns ",                 \
-               " ;qjkx bmwvz ")
-
-#define ___DVORAK___                                                    \
-  LANG_MAP(TL_QUOT,  TL_COMM, TL_DOT, _P,  _Y,   _F, _G, _C, _R, _L,               \
-           _A,       _O,      _E,     _U,  _I,   _D, _H, _T, _N, _S,    \
-           TL_SCLN,  _Q,      _J,     _K,  _X,   _B, _M, _W, _V, _Z)
 
 
 #define CARTE_QWERTY                            \
@@ -66,27 +47,6 @@
            _Q, _S, _D, _F, _G, _H,  _J,  _K,      _L,     TL_SCLN,      \
            _W, _X, _C, _V, _B, _N,  _M,  TL_COMM, TL_DOT, TL_SLSH)
 
-
-#define CARTE_COLEMAK                           \
-  carte_de_map("   qwfpg  jluy;",               \
-               "   arstd  hneio",               \
-               "   zxcvb  km,./")
-
-#define ___COLEMAK___                                                   \
-  LANG_MAP(_Q, _W, _F, _P, _G,    _J, _L,  _U,      _Y,     TL_SCLN,    \
-           _A, _R, _S, _T, _D,    _H, _N,  _E,      _I,     _O,         \
-           _Z, _X, _C, _V, _B,    _K, _M,  TL_COMM, TL_DOT, TL_SLSH)
-
-
-#define CARTE_COLEMAK_DH                        \
-  carte_de_map("   qwfpb  jluy;",               \
-               "   arstg  mneio",               \
-               "   zxcdv  kh,./")
-
-#define ___COLEMAK_DH___                                                \
-  LANG_MAP(_Q, _W, _F, _P, _B,    _J, _L, _U,      _Y,     TL_SCLN,     \
-           _A, _R, _S, _T, _G,    _M, _N, _E,      _I,     _O,          \
-           _Z, _X, _C, _D, _V,    _K, _H, TL_COMM, TL_DOT, TL_SLSH)
 
 
 #define CARTE_WORKMAN                           \
