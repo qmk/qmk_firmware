@@ -103,6 +103,14 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_HD_REF)
 #endif
 
+#ifdef RSTHD_LAYER_ENABLE
+        SHOW_MAP(_RSTHD)
+#endif
+
+#ifdef HANDS_UP_LAYER_ENABLE
+        SHOW_MAP(_HANDS_UP)
+#endif
+
 #ifdef BEPO_LAYER_ENABLE
         SHOW_MAP(_BEPO)
 #endif

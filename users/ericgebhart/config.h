@@ -171,6 +171,7 @@
 //#define RSTHD_LAYER_ENABLE
 //#define MTGAP_LAYER_ENABLE
 //#define CTGAP_LAYER_ENABLE
+//#define HANDS_UP_LAYER_ENABLE
 
 // Hands down
 //#define HD_NEU_NARROW_LAYER_ENABLE

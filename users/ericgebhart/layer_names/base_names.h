@@ -87,7 +87,13 @@
         LANG_N(_HD_DASH),
 #endif
 #ifdef HD_REF_LAYER_ENABLE
-      LANG_N(_HD_REF),
+        LANG_N(_HD_REF),
+#endif
+#ifdef RSTHD_LAYER_ENABLE
+        LANG_N(_RSTHD),
+#endif
+#ifdef HANDS_UP_LAYER_ENABLE
+        LANG_N(_HANDS_UP),
 #endif
 #ifdef BEPO_LAYER_ENABLE  // Bepo only works on bepo.
       LANG_N(_BEPO),

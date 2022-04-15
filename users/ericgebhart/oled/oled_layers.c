@@ -102,6 +102,12 @@ void oled_render_default_layer_state(void) {
 #ifdef APT_LAYER_ENABLE
       WRITE_STR_LAYER(_APT, "Apt")
 #endif
+#ifdef RSTHD_LAYER_ENABLE
+      WRITE_STR_LAYER(_RSTHD, "Rsthd")
+#endif
+#ifdef HAND_UP_LAYER_ENABLE
+      WRITE_STR_LAYER(_HANDS_UP, "Hands up")
+#endif
       // these only exist as Non _bp, non _en.
 #ifdef OPTIMOT_LAYER_ENABLE
       WRITE_STR_LAYER(_OPTIMOT, "Optimot")

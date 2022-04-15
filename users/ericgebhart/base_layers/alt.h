@@ -91,6 +91,16 @@
                "   /vgpb  xw.;' e")
 
 #define ___RSTHD___                                                     \
-  LANG_MAP("_J, _C, _Y, _F, _K,   _Z, _L, TL_COMM, _U, _Q",             \
-           "_R, _S, _T, _H, _D,  _M, _N, _A, _I, _O,",                  \
-           "_/, _V, _G, _P, _B,  _X, _W, TL_DOT, TL_SCLN, TL_QUOT")
+  LANG_MAP(_J, _C, _Y, _F, _K,   _Z, _L, TL_COMM, _U,      _Q,          \
+           _R, _S, _T, _H, _D,   _M, _N, _A,      _I,      _O,          \
+           _/, _V, _G, _P, _B,   _X, _W, TL_DOT,  TL_SCLN, TL_QUOT)
+
+#define CARTE_HANDS_UP                    \
+  carte_de_map("  fyou,  kwclp",          \
+               "  hiea.  dtsrn",          \
+               "  bj'z;  vmgxq")
+
+#define ___HANDS_UP___                                         \
+  LANG_MAP(_F, _Y, _O,      _U, TL_COMM,   _K, _W, _C, _L, _P, \
+           _H, _I, _E,      _A, TL_DOT ,   _D, _T, _S, _R, _N, \
+           _B, _J, TL_QUOT, _Z, TL_SCLN,   _V, _M, _G, _X, _Q)

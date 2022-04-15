@@ -4,28 +4,33 @@ Overview
 This is as much a keymap framework as it is a keymap. It can take many
 shapes with just a few configuration choices. Base layers, Mods, thumb clusters, 
 edge_keys, all can be changed with just a configuration option.
-There are over 25 base layouts to choose from, as well as multiple 
+There are over 35 base base layouts to choose from, as well as multiple 
 choices of navigation, mouse, media, 
 symbols, and keypads. Home row mods come in a few flavors or none,
 in a mod layer which is easily understandable and can be turned on
 or off, or switched. There are Miryoku options for everything if
-that is your thing.  
+that is your thing.
+
+If there is a oled of 64x128 the maps of each layer will be displayed, which
+helps a lot in remembering and learning.
 
 This is an easily configurable keymap for keymap exploration. It is for
 primarily for minimalist, ortho split keyboards but does support some rectangles.
 It´s first keyboard was an Ergodox-ez many years ago. My daily driver
 is now a Kyria or a Corne, but I still use an original dactyl, rebound 
-and ergodox-ez regularly.
+and ergodox-ez regularly although most of the love goes to the Kyria and Corne.
 
 The framework is Language
-agnostic, has Multiple layouts (25+ base layers), multiple mods or
+agnostic, it supports having layers for different locales which can be
+cycled through.
+There are multiple mods layers to choose or
 not, home row mods or not, a variety of thumb layouts, mouse/no mouse,
 smart lock layers and mods, N-Shot mods like callum's, swapper. Combos,
 tap_hold, accented keys, alternate shifted keys, automatic custom
-keys, key overrides. Minimal or no C-code. Language, mods, layouts
-and extensions are encapsulated, so that they do not interact in the
-configuration which makes it much easier to modify and grow. Mods and
-combos are by key location.
+keys, key overrides. Minimal or no C-code required for most things. 
+Language, mods, layouts and extensions are encapsulated, so that they 
+do not interact in the configuration which makes it much easier to modify 
+and grow. Mods and combos are by key location rather than specific key codes.
 
 Quick start
 -------------
@@ -36,7 +41,8 @@ independently and easily.
 
 If you don't mind dvorak, beakl or hands down, you can probably 
 just use what is configured. Or just change it to a base layer
-of your choice.
+of your choice. The fastest way to get started is to just change
+the base layers to the ones you want, compile and flash. 
 
 Edit _config.h_,
   * Set the lang_is, probably to EN.
@@ -679,6 +685,7 @@ Here are some or most of the base layers..
  * Beakl 27
  * Beakl WI
  * Qwerty
+ * Azerty
  * Colemak
  * Colemak_DH
  * Workman
@@ -698,6 +705,7 @@ Here are some or most of the base layers..
  * Mtgap
  * Ctgap
  * Rsthd
+ * Hands Up
  
  These need an OS keymap which can provide Latin Accents.
  US-intl works reasonably, fr-bepo works better.
