@@ -1,0 +1,14 @@
+{
+  "name": "Triskaidekaphilia",
+  "vendorId": "0x6D77",
+  "productId": "0x170D",
+  "lighting": "vialrgb",
+  "matrix": { "rows": 3, "cols": 5 },
+  "layouts": {
+    "keymap": [
+		["0,1\n\n\n\n\n\n\n\n\ne",{"x":13.5},"1,1\n\n\n\n\n\n\n\n\ne"],
+        [{"y":-0.5,"x":1.25},"0,0","0,1","0,2","0,3","0,4","1,0","1,1","1,2","1,3","1,4","2,0","2,1","2,2"],
+        [{"y":-0.5},"0,0\n\n\n\n\n\n\n\n\ne",{"x":13.5},"1,0\n\n\n\n\n\n\n\n\ne"]
+		]
+  }
+}
