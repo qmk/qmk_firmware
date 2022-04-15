@@ -20,7 +20,7 @@
 
 
 
-enum layer_names {_QWERTY, _SYMBOLS, _VIM, _NAV, _KEYPAD, _FUNCTION};
+enum layer_names {_QWERTY, _NUMSHIFT, _SYMBOLS, _VIM, _NAV, _KEYPAD, _FUNCTION};
 enum my_keycodes {
     APP_NAV = SAFE_RANGE,
     ESC_STS,
@@ -87,6 +87,8 @@ enum {
   ISPT,
   SLQU,
   GVES,
+  SLSH,
+  LPINKY,
 //   INACTIVE Declarations
 //   GVTL,
 //   ADJ,
@@ -132,13 +134,17 @@ typedef struct {
 } td_tap_t;
 
 // Functions associated with specific advanced tap dances
-void full_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
-#define FULL_TAP_DANCE(kc1, kc2, kc3, kc4, kc5, kc6) \
-         { .fn = {NULL, full_td_finished, full_td_reset}, .user_data = (void *)&((qk_tap_dance_full_t){kc1, kc2, kc3, kc4, kc5, kc6}), }
+// void full_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// #define FULL_TAP_DANCE(kc1, kc2, kc3, kc4, kc5, kc6) \
+//          { .fn = {NULL, full_td_finished, full_td_reset}, .user_data = (void *)&((qk_tap_dance_full_t){kc1, kc2, kc3, kc4, kc5, kc6}), }
 
 void window_td_finished(qk_tap_dance_state_t *state, void *user_data);
 void window_td_reset(qk_tap_dance_state_t *state, void *user_data);
+void lpinky_td_finished(qk_tap_dance_state_t *state, void *user_data);
+void lpinky_td_reset(qk_tap_dance_state_t *state, void *user_data);
+void shft_td_finished(qk_tap_dance_state_t *state, void *user_data);
+void shft_td_reset(qk_tap_dance_state_t *state, void *user_data);
 
 
 // Triple Tap Dance function definition for period key
@@ -200,7 +206,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [PDAG] = ACTION_TAP_DANCE_FN(triple_tap_dance_period), // Dot on a single-tap, right angle bracket on a double-tap, three dots on a triple tap
     [SLQU] = ACTION_TAP_DANCE_FN(triple_tap_dance_slash), // Slash on a single-tap, two slashes on a double-tap, question mark on a triple tap
     [GVES] = ACTION_TAP_DANCE_FN(triple_tap_dance_esc), // Esc on a single-tap, grave on a double-tap, tilde on a triple tap
-    [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
+    // [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
+    [SLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slsh_td_finished, slsh_td_reset),
+    [LPINKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lpinky_td_finished, lpinky_td_reset),
     [WIND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, window_td_finished, window_td_reset)
 };
 
@@ -254,7 +262,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ESC_STS, KC_F1,   KC_F2,   TO(_QWERTY),  TG(_SYMBOLS),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  KC_F8,  KC_F9, KC_F10, KC_F11, SH_TT,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_APFN,
   TD(GVES), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
-  TD(NVUD),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),RCTL_T(KC_SCLN),TD(APQU),
+  TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),RCTL_T(KC_SCLN),TD(APQU),
   OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLQU), OSM(MOD_RSFT),
            TD(PLEQ),TD(MNUN),TD(LBCB),TD(RBCB),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                                   SAGR(KC_ENT), KC_LAPO,                   KC_RCPC, LT(_NAV, KC_BSLS),
@@ -320,7 +328,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 
-[_SYMBOLS] = LAYOUT_pretty(
+[_NUMSHIFT] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
@@ -331,6 +339,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                  _______,                   _______,
                                                _______, _______, _______,                   _______, _______, _______
 ),
+
+
+/* Symbols (mostly for coding purposes)
+,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
+|      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
+`--------------------------------------------------------------'                                     `--------------------------------------------------------------'
+,------------------------------------------------------.                                                     ,------------------------------------------------------.
+|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |        |        |   {    |   }    |        |                                                     |        |   "    |        |        |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |   +    |   -    |   (    |   )    |   *    |                                                     |        |   _    |   =    |   #    |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |        |        |   [    |   ]    |   /    |                                                     |        |   /    |        |        |        |         |
+`---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
+          |        |        |        |        |                                                                       |        |        |        |        |
+          `-----------------------------------'                                                                       `-----------------------------------'
+	                                                   ,-----------------.                 ,-----------------.
+	                                                   |        |        |                 |        |        |
+	                                          ,--------+--------+--------|                 |--------+--------+--------.
+	                                          |        |        |        |                 |        |        |        |
+	                                          |        |        |--------|                 |--------|        |        |
+	                                          |        |        |        |                 |        |        |        |
+	                                          `--------------------------'                 `--------------------------'
+* Most commonly used symbols = / # command+/ _ * ' " X:
+Next +-
+Next<>!
+^`???
+\|$@???
+*/
+
+[_SYMBOLS] = LAYOUT_pretty(
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
+                                                        _______, _______,                   _______, _______,
+                                                                 _______,                   _______,
+                                               _______, _______, _______,                   _______, _______, _______
+),
+
+
+
+
+
 
 /*  VIM
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
@@ -524,7 +579,6 @@ Navigation Layer
 
 // END of Keymaps
 
-
 /*
 This is the Stapelberg matrix as published at
 https://github.com/stapelberg/kinesis-firmware/blob/master/kb_kinesis/config.kspec
@@ -548,85 +602,6 @@ PC5 kDx Row: F1  F4  F7  F10 PRT PRG --
 PC6 kEx Row: F2  F5  F8  F11 SLK KEY --
 */
 
-/*
-const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
-    {{11, 0},  {11, 1},  {11, 2},  {11, 3},   ___,     ___,     ___   }, \
-    {{10, 0},  {10, 1},  {10, 2},  {10, 3},  {10, 4},  ___,     ___   }, \
-    {{9, 0},   {9, 1},   {9, 2},   {9, 3},   {9, 4},  {6, 6},   ___   }, \
-    {{8, 0},   {8, 1},   {8, 2},   {8, 3},   {8, 4},  {8, 6},  {6, 5} }, \
-    {{7, 0},   {7, 1},   {7, 2},   {7, 3},    ___,     ___,    {7, 5} }, \
-    {{6, 0},   {6, 1},   {6, 2},   {6, 3},   {5, 4},  {9, 6},  {8, 5} }, \
-    {{5, 0},   {5, 1},   {5, 2},   {5, 3},   {5, 4},  {3, 6},  {2, 5} }, \
-    {{4, 0},   {4, 1},   {4, 2},   {4, 3},    ___,    {4, 6},   ___   }, \
-    {{3, 0},   {3, 1},   {3, 2},   {3, 3},   {3, 4},  {5, 6},  {3, 5} }, \
-    {{2, 0},   {2, 1},   {2, 2},   {2, 3},   {2, 4},   ___,    {5, 5} }, \
-    {{1, 0},   {1, 1},   {1, 2},   {1, 3},   {1, 4},   ___,     ___ }, \
-    {{0, 0},   {0, 1},   {0, 2},   {0, 3},    ___,     ___,     ___ }, \
-    {{12, 0},  {12, 1},  {12, 2},  {12, 3},  {12, 4},  {12, 5},   ___ }, \
-    {{13, 0},  {13, 1},  {13, 2},  {13, 3},  {13, 4},  {13, 5},   ___ }, \
-    {{14, 0},  {14, 1},  {14, 2},  {14, 3},  {14, 4},  {14, 5},   ___ }  \
-};
-
-*/
-
-
-// Default mapping of keys
-/*
-{                                              \
-    { {0,0},  {0,1},  {0,2},  {0,3}, }, \
-    { {1,0},  {1,1},  {1,2},  {1,3},  {1,4}, }, \
-    { {2,0},  {2,1},  {2,2},  {2,3},  {2,4},  {2,5}, }, \
-    { {3,0},  {3,1},  {3,2},  {3,3},  {3,4},  {3,5},  {3,6} }, \
-    { {4,0},  {4,1},  {4,2},  {4,3}, {4,6} }, \
-    { {5,0},  {5,1},  {5,2},  {5,3},  {5,4},  {5,5},  {5,6} }, \
-    { {6,0},  {6,1},  {6,2},  {6,3},  {6,4},  {6,5},  {6,6} }, \
-    { {7,0},  {7,1},  {7,2},  {7,3},    {7,5}, }, \
-    { {8,0},  {8,1},  {8,2},  {8,3},  {8,4},  {8,5},  {8,6} }, \
-    { {9,0},  {9,1},  {9,2},  {9,3},  {9,4},    {9,6} }, \
-    { {10,0},  {10,1},  {10,2},  {10,3},  {10,4}, }, \
-    { {11,0},  {11,1},  {11,2},  {11,3}, }, \
-    { {12,0},  {12,1},  {12,2},  {12,3},  {12,4},  {12,5},   }, \
-    { {13,0},  {13,1},  {13,2},  {13,3},  {13,4},  {13,5},   }, \
-    { {14,0},  {14,1},  {14,2},  {14,3},  {14,4},  {14,5},   }  \
-};
-
-
-const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = 
-{
-    {{11, 0},  {11, 1},  {11, 2},  {11, 3}}, \
-    {{10, 0},  {10, 1},  {10, 2},  {10, 3},  {10, 4}}, \
-    {{9, 0},   {9, 1},   {9, 2},   {9, 3},   {9, 4},  {6, 6}}, \
-    {{8, 0},   {8, 1},   {8, 2},   {8, 3},   {8, 4},  {8, 6},  {6, 5}}, \
-    {{7, 0},   {7, 1},   {7, 2},   {7, 3}, {7, 5}}, \
-    {{6, 0},   {6, 1},   {6, 2},   {6, 3},   {5, 4},  {9, 6},  {8, 5}}, \
-    {{5, 0},   {5, 1},   {5, 2},   {5, 3},   {5, 4},  {3, 6},  {2, 5}}, \
-    {{4, 0},   {4, 1},   {4, 2},   {4, 3},  {4, 6}}, \
-    {{3, 0},   {3, 1},   {3, 2},   {3, 3},   {3, 4},  {5, 6},  {3, 5}}, \
-    {{2, 0},   {2, 1},   {2, 2},   {2, 3},   {2, 4},  {5, 5}}, \
-    {{1, 0},   {1, 1},   {1, 2},   {1, 3},   {1, 4}}, \
-    {{0, 0},   {0, 1},   {0, 2},   {0, 3}}, \
-    {{12, 0},  {12, 1},  {12, 2},  {12, 3},  {12, 4},  {12, 5}}, \
-    {{13, 0},  {13, 1},  {13, 2},  {13, 3},  {13, 4},  {13, 5}}, \
-    {{14, 0},  {14, 1},  {14, 2},  {14, 3},  {14, 4},  {14, 5}}  \
-
-
-    { {0,0},  {1,0},  {2,0},  {3,0}, }, \(
-    { {0,1},  {1,1},  {2,1},  {3,1},  {4,1}, }, \
-    { {0,2},  {1,2},  {2,2},  {3,2},  {4,2},  {5,2}, }, \
-    { {0,3},  {1,3},  {2,3},  {3,3},  {4,3},  {5,3},  {6,3} }, \
-    { {0,4},  {1,4},  {2,4},  {3,4}, {6,4} }, \
-    { {0,5},  {1,5},  {2,5},  {3,5},  {4,5},  {5,5},  {6,5} }, \
-    { {0,6},  {1,6},  {2,6},  {3,6},  {4,6},  {5,6},  {6,6} }, \
-    { {0,7},  {1,7},  {2,7},  {3,7},    {5,7}, }, \
-    { {0,8},  {1,8},  {2,8},  {3,8},  {4,8},  {5,8},  {6,8} }, \
-    { {0,9},  {1,9},  {2,9},  {3,9},  {4,9},    {6,9} }, \
-    { {0,10},  {1,10},  {2,10},  {3,10},  {4,10}, }, \
-    { {0,11},  {1,11},  {2,11},  {3,11}, }, \
-    { {0,12},  {1,12},  {2,12},  {3,12},  {4,12},  {5,12},   }, \
-    { {0,13},  {1,13},  {2,13},  {3,13},  {4,13},  {5,13},   }, \
-    { {0,14},  {1,14},  {2,14},  {3,14},  {4,14},  {5,14},   }  \)
-};
-*/
 
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = { \
     {{0, 11},  {1, 11},  {2, 11},  {3, 11}}, \
@@ -646,25 +621,6 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = { \
     {{0, 14},  {1, 14},  {2, 14},  {3, 14},  {4, 14},  {5, 14}}  \
 };
 
-/*
-{
-    {{((11)), 0},  {(11), 1},  {(11), 2},  {(11), 3}}, \
-    {{(10), 0},  {(10), 1},  {(10), 2},  {(10), 3},  {(10), 4}}, \
-    {{9, 0},   {9, 1},   {9, 2},   {9, 3},   {9, 4},  {6, 6}}, \
-    {{8, 0},   {8, 1},   {8, 2},   {8, 3},   {8, 4},  {8, 6},  {6, 5}}, \
-    {{7, 0},   {7, 1},   {7, 2},   {7, 3}, {7, 5}}, \
-    {{6, 0},   {6, 1},   {6, 2},   {6, 3},   {5, 4},  {9, 6},  {8, 5}}, \
-    {{5, 0},   {5, 1},   {5, 2},   {5, 3},   {5, 4},  {3, 6},  {2, 5}}, \
-    {{4, 0},   {4, 1},   {4, 2},   {4, 3},  {4, 6}}, \
-    {{3, 0},   {3, 1},   {3, 2},   {3, 3},   {3, 4},  {5, 6},  {3, 5}}, \
-    {{2, 0},   {2, 1},   {2, 2},   {2, 3},   {2, 4},  {5, 5}}, \
-    {{1, 0},   {1, 1},   {1, 2},   {1, 3},   {1, 4}}, \
-    {{0, 0},   {0, 1},   {0, 2},   {0, 3}}, \
-    {{(12), 0},  {(12), 1},  {(12), 2},  {(12), 3},  {(12), 4},  {(12), 5}}, \
-    {{(13), 0},  {(13), 1},  {(13), 2},  {(13), 3},  {(13), 4},  {(13), 5}}, \
-    {{(14), 0},  {(14), 1},  {(14), 2},  {(14), 3},  {(14), 4},  {(14), 5}}  \
-};
-*/
 
 
 // Changes the LEDs on Keyboard to indicate active layers
@@ -749,38 +705,111 @@ int hold_cur_dance (qk_tap_dance_state_t *state) {
 
 // Caps Lock Replacement Tap Dance 
 // Create an instance of 'td_tap_t' for the 'full' tap dance.
-static td_tap_t full_td_state = {
+// [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
+
+// static td_tap_t full_td_state = {
+//   .is_press_action = true,
+//   .state = TD_NONE
+// };
+
+// void full_td_finished (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+//   full_td_state.state = hold_cur_dance(state);
+//   switch (full_td_state.state) {
+//     case SINGLE_TAP: register_code16(keycodes->kc1); break;
+//     case SINGLE_HOLD: layer_on(keycodes->kc2); break;
+//     case DOUBLE_TAP: layer_invert(keycodes->kc3); break;
+//     case DOUBLE_HOLD: register_code16(keycodes->kc4); break;
+//     case TRIPLE_TAP: layer_invert(keycodes->kc5); break;
+//     case TRIPLE_HOLD: register_code16(keycodes->kc6); break;
+//     default: break;
+//   }
+// }
+
+// void full_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+//   switch (full_td_state.state) {
+//     case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
+//     case SINGLE_HOLD: layer_off(keycodes->kc2); break;
+//     // case DOUBLE_TAP: unregister_code16(keycodes->kc3); break;
+//     case DOUBLE_HOLD: unregister_code16(keycodes->kc4); break;
+//     // case TRIPLE_TAP: unregister_code16(keycodes->kc5); break;
+//     case TRIPLE_HOLD: unregister_code16(keycodes->kc6); break;
+//     default: break;
+//   }
+//   full_td_state.state = 0;
+// }
+
+// SLSH Tap Dance
+// Create an instance of 'td_tap_t' for the 'slsh' tap dance.
+static td_tap_t slsh_td_state = {
   .is_press_action = true,
   .state = TD_NONE
 };
 
-void full_td_finished (qk_tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
-  full_td_state.state = hold_cur_dance(state);
-  switch (full_td_state.state) {
-    case SINGLE_TAP: register_code16(keycodes->kc1); break;
-    case SINGLE_HOLD: layer_on(keycodes->kc2); break;
-    case DOUBLE_TAP: layer_invert(keycodes->kc3); break;
-    case DOUBLE_HOLD: register_code16(keycodes->kc4); break;
-    case TRIPLE_TAP: layer_invert(keycodes->kc5); break;
-    case TRIPLE_HOLD: register_code16(keycodes->kc6); break;
+void slsh_td_finished (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+  slsh_td_state.state = hold_cur_dance(state);
+  switch (slsh_td_state.state) {
+    case SINGLE_TAP: tap_code(KC_SLSH); break;  // One slash
+    case SINGLE_HOLD: tap_code16(G(KC_SLSH)); break;    // Command + / shortcut for commenting a line
+    case DOUBLE_TAP: tap_code16(KC_SLSH); tap_code16(KC_SLSH); break;   // Double slash
+    case DOUBLE_HOLD: SEND_STRING("/**/"); tap_code(KC_LEFT); tap_code(KC_LEFT); tap_code(KC_ENT); break;    // HTML multiline comment
+    case TRIPLE_TAP: tap_code16(KC_QUES); break;    // Question mark
+    // case TRIPLE_HOLD: register_code16(C(KC_C)); break;   // Nothing
     default: break;
   }
 }
 
-void full_td_reset (qk_tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
-  switch (full_td_state.state) {
-    case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
-    case SINGLE_HOLD: layer_off(keycodes->kc2); break;
-    // case DOUBLE_TAP: unregister_code16(keycodes->kc3); break;
-    case DOUBLE_HOLD: unregister_code16(keycodes->kc4); break;
-    // case TRIPLE_TAP: unregister_code16(keycodes->kc5); break;
-    case TRIPLE_HOLD: unregister_code16(keycodes->kc6); break;
+void lpinky_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+//   switch (lpinky_td_state.state) {
+    // case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
+    // case SINGLE_HOLD: layer_off(_NAV); break;
+    // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
+    // case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
+    // case TRIPLE_TAP: layer_invert(_NUMPAD); break;
+    // case TRIPLE_HOLD: unregister_code16(C(KC_C)); break;
+    // default: break;
+//   }
+  lpinky_td_state.state = 0;
+}
+
+// LPINKY Tap Dance
+// Create an instance of 'td_tap_t' for the 'lpinky' tap dance.
+static td_tap_t lpinky_td_state = {
+  .is_press_action = true,
+  .state = TD_NONE
+};
+
+void lpinky_td_finished (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+  lpinky_td_state.state = hold_cur_dance(state);
+  switch (lpinky_td_state.state) {
+    case SINGLE_TAP: registercode16(OSL(_SYMBOLS)); break;              // One shot coding symbols layer
+    case SINGLE_HOLD: layer_on(_NAV); break;                            // Navigation layer while holding
+    case DOUBLE_TAP: layer_invert(_NAV); break;                         // Navigation layer toggle
+    case DOUBLE_HOLD: registercode16(KC_CAPS); break;    // Caps Word
+    case TRIPLE_TAP: layer_invert(_NUMPAD); break;                      // Toggle Numpad
+    case TRIPLE_HOLD: register_code16(C(KC_C)); break;                  // Control+C to end running program in terminal
     default: break;
   }
-  full_td_state.state = 0;
 }
+
+void lpinky_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+  switch (lpinky_td_state.state) {
+    // case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
+    case SINGLE_HOLD: layer_off(_NAV); break;
+    // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
+    case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
+    // case TRIPLE_TAP: layer_invert(_NUMPAD); break;
+    case TRIPLE_HOLD: unregister_code16(C(KC_C)); break;
+    default: break;
+  }
+  lpinky_td_state.state = 0;
+}
+
 
 // Window Management Tap Dance
 // Create an instance of 'td_tap_t' for the 'window' tap dance.
