@@ -4,7 +4,7 @@ Overview
 This is as much a keymap framework as it is a keymap. It can take many
 shapes with just a few configuration choices. Base layers, Mods, thumb clusters, 
 edge_keys, all can be changed with just a configuration option.
-There are over 35 base base layouts to choose from, as well as multiple 
+There are over 50 base layouts to choose from, as well as multiple 
 choices of navigation, mouse, media, 
 symbols, and keypads. Home row mods come in a few flavors or none,
 in a mod layer which is easily understandable and can be turned on
@@ -243,8 +243,9 @@ The parts of a keymap
       * US - US-intl (US_)
       * EN - US-en (KC_), 
       * BEPO - fr-bepo (BP_).
-    * Choosing dvorak, and enabling bepo, will produce two base layers
-    to choose from on the keyboard. Dvorak on US and BEPO.
+    * Choosing dvorak, and enabling bepo as the second locale, 
+    will produce two base layers to choose from on the keyboard. 
+    Dvorak on US and BEPO.
    
  * Base layers
    * Simple and compact definitions.
@@ -254,7 +255,7 @@ The parts of a keymap
    * Language agnostic.
    * Core layer chunks are 3x10.
      * Except for few exceptions which are 3x12
-   * More than 25 base layers to choose from.
+   * More than 50 base layers to choose from.
    
    **Caution: Choosing too many base layers will result in toprows or keypad layer LT's 
    to stop working. If bepo is enabled, all base layers are doubled so it's
@@ -378,6 +379,10 @@ The idea here is that most things don't change, and the things that do are
 easy to understand and change. The defs directory is where all the extras are,
 tap_hold, alternate shift keys, combos, keycodes, smart lock, one shot mods,etc.
 
+If layers exist that you want and like, then all other behaviors are defined in
+def files which are much nicer than working directly with C code. If there is
+need there is always the copy pasta way too.
+
 Things that are likely to be changed when adapting a layout to personal preferences
 are *layers/thumbs.h* and *mod_layers/*.  The function layers are all in the
 layers folder and should be easy to understand. Once added, it is only necessary to
@@ -395,9 +400,12 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 │   ├── beakl.h
 │   ├── bepo.h
 │   ├── carpalx.h
+│   ├── dvorak.h
+│   ├── gap.h
 │   ├── hands_down.h
 │   ├── keymaps.txt
-│   ├── norm.h
+│   ├── maks.h
+│   ├── qwerty.h
 │   └── toprows.h
 ├── config.h
 ├── defs
@@ -465,10 +473,14 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 │   ├── map_alt.h
 │   ├── map_beakl.h
 │   ├── map_bepo.h
+│   ├── map_carpalx.h
+│   ├── map_dvorak.h
 │   ├── map_funcs.h
+│   ├── map_gap.h
 │   ├── map_hd.h
 │   ├── map_keypads.h
-│   ├── map_norm.h
+│   ├── map_maks.h
+│   ├── map_qwerty.h
 │   ├── map_symbols.h
 │   └── map_toprows.h
 ├── lang
@@ -498,6 +510,7 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 │   ├── hrm_gacs_miryoku.h
 │   ├── hrm_gasc.h
 │   ├── hrm_sacg.h
+│   ├── hrs_nav.h
 │   ├── mod_layer.h
 │   └── trns_mods.h
 ├── oled
@@ -509,7 +522,7 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 ├── readme.md
 └── rules.mk
 
-10 directories, 110 files
+10 directories, 118 files
 ```
 
 Locales
@@ -677,42 +690,64 @@ Tap the ring finger to set it to eeprom if you want it to stick.
 
 The left index finger will cycle through locales if you have them.
 
-Here are some or most of the base layers..
+Here is a list of some of the base layers..
 
- * Dvorak
- * Beakl 15
- * Beakl 19
- * Beakl 27
- * Beakl WI
- * Qwerty
- * Azerty
- * Colemak
- * Colemak_DH
- * Workman
- * Norman
- * Carpalx
- * Eucalyn
- * Hands Down Neu
- * Hands Down Gold
- * Hands Down Platinum
- * Hands Down Silver
- * Hands Down Bronze
- * Hands Down Elan
- * Hands Down Dash
- * Hands Down Ref
- * Maltron
- * Apt
- * Mtgap
- * Ctgap
- * Rsthd
- * Hands Up
- 
- These need an OS keymap which can provide Latin Accents.
- US-intl works reasonably, fr-bepo works better.
- These are also all 3x12.
- * Bepo
- * Optimot
- * Beakl19bis
+ * Dvorakish
+    * Dvorak
+    * Capewell-Dvorak
+    * Ahei
+    * Boo
+ * Beakl
+    * 15
+    * 19
+    * 27
+    * WI
+ * Qwertyish
+    * Qwerty
+    * Azerty
+    * Workman
+    * Norman
+ * Maks
+    * Colemak
+    * Colemak_DH
+    * Halmak
+    * Minimak
+    * Minimak 8
+    * Minimak 12
+ * Carpalx 
+    * QFMLWY
+    * QGMLWB
+    * QGMLWY
+ * Hands Down
+    * Neu
+    * Neu narrow
+    * Gold
+    * Platinum
+    * Silver
+    * Bronze
+    * Elan
+    * Dash
+    * Ref
+ * MTGAP
+    * Mtgap
+    * Ctgap
+    * Apt
+ * Others
+    * Maltron
+    * Eucalyn
+    * Rsthd
+    * Isrt
+    * Hands Up
+    * White
+    * Soul
+    * Niro
+    * Asset
+    * Whorf
+    * Whorf6
+ * Bepo, layers with accented letters.
+    * Bepo
+    * Optimot
+    * Beakl19bis
 
 ### Adding a new base layer, or any layer 
 
