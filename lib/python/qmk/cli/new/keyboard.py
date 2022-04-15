@@ -10,7 +10,7 @@ from dotty_dict import dotty
 from milc import cli
 from milc.questions import choice, question
 
-from qmk.commands import git_get_username
+from qmk.git import git_get_username
 from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder

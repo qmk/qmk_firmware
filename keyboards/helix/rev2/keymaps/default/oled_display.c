@@ -74,9 +74,6 @@ void matrix_update(struct CharacterMatrix *dest,
 
 #    ifdef SSD1306OLED
 static void render_logo(struct CharacterMatrix *matrix) {
-#    else
-static void render_logo(void) {
-#    endif
 
     static const char helix_logo[] PROGMEM ={
         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -85,6 +82,7 @@ static void render_logo(void) {
         0};
     oled_write_P(helix_logo, false);
 }
+#    endif
 
 #    ifdef SSD1306OLED
 static void render_rgbled_status(bool full, struct CharacterMatrix *matrix) {
@@ -219,7 +217,7 @@ bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();
     } else {
-        render_logo();
+        render_helix_logo();
         render_rgbled_status(false);
         render_layer_status();
     }

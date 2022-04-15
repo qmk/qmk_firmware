@@ -15,6 +15,12 @@
   #define INDICATOR_PIN_2 D4
 #endif
 
+#ifdef KEYBOARD_mechlovin_adelais_standard_led_arm_rev4_stm32f303
+  #define INDICATOR_PIN_0 B2
+  #define INDICATOR_PIN_1 C15
+  #define INDICATOR_PIN_2 B9
+#endif
+
 #ifdef KEYBOARD_boardsource_the_mark
   #define RGB_MATRIX_KEYPRESSES
 #endif
