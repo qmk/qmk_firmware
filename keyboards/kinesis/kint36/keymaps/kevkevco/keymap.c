@@ -133,18 +133,20 @@ typedef struct {
     td_state_t state;
 } td_tap_t;
 
-// Functions associated with specific advanced tap dances
-// void full_td_finished(qk_tap_dance_state_t *state, void *user_data);
-// void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
-// #define FULL_TAP_DANCE(kc1, kc2, kc3, kc4, kc5, kc6) \
-//          { .fn = {NULL, full_td_finished, full_td_reset}, .user_data = (void *)&((qk_tap_dance_full_t){kc1, kc2, kc3, kc4, kc5, kc6}), }
+/*
+Functions associated with specific advanced tap dances
+void full_td_finished(qk_tap_dance_state_t *state, void *user_data);
+void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
+#define FULL_TAP_DANCE(kc1, kc2, kc3, kc4, kc5, kc6) \
+         { .fn = {NULL, full_td_finished, full_td_reset}, .user_data = (void *)&((qk_tap_dance_full_t){kc1, kc2, kc3, kc4, kc5, kc6}), }
+*/
 
 void window_td_finished(qk_tap_dance_state_t *state, void *user_data);
 void window_td_reset(qk_tap_dance_state_t *state, void *user_data);
 void lpinky_td_finished(qk_tap_dance_state_t *state, void *user_data);
 void lpinky_td_reset(qk_tap_dance_state_t *state, void *user_data);
-void shft_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void shft_td_reset(qk_tap_dance_state_t *state, void *user_data);
+void slsh_td_finished(qk_tap_dance_state_t *state, void *user_data);
+void slsh_td_reset(qk_tap_dance_state_t *state, void *user_data);
 
 
 // Triple Tap Dance function definition for period key
@@ -761,9 +763,9 @@ void slsh_td_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void lpinky_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+void slsh_td_reset (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
-//   switch (lpinky_td_state.state) {
+//   switch (slsh_td_state.state) {
     // case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
     // case SINGLE_HOLD: layer_off(_NAV); break;
     // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
@@ -772,7 +774,7 @@ void lpinky_td_reset (qk_tap_dance_state_t *state, void *user_data) {
     // case TRIPLE_HOLD: unregister_code16(C(KC_C)); break;
     // default: break;
 //   }
-  lpinky_td_state.state = 0;
+  slsh_td_state.state = 0;
 }
 
 // LPINKY Tap Dance
@@ -786,11 +788,11 @@ void lpinky_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
   lpinky_td_state.state = hold_cur_dance(state);
   switch (lpinky_td_state.state) {
-    case SINGLE_TAP: registercode16(OSL(_SYMBOLS)); break;              // One shot coding symbols layer
+    case SINGLE_TAP: register_code16(OSL(_SYMBOLS)); break;              // One shot coding symbols layer
     case SINGLE_HOLD: layer_on(_NAV); break;                            // Navigation layer while holding
     case DOUBLE_TAP: layer_invert(_NAV); break;                         // Navigation layer toggle
-    case DOUBLE_HOLD: registercode16(KC_CAPS); break;    // Caps Word
-    case TRIPLE_TAP: layer_invert(_NUMPAD); break;                      // Toggle Numpad
+    case DOUBLE_HOLD: register_code16(KC_CAPS); break;    // Caps Word
+    case TRIPLE_TAP: layer_invert(_KEYPAD); break;                      // Toggle Numpad
     case TRIPLE_HOLD: register_code16(C(KC_C)); break;                  // Control+C to end running program in terminal
     default: break;
   }
