@@ -17,6 +17,7 @@
 
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "features/caps_word.h"
 
 
 
@@ -284,7 +285,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 |         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         | QMK Web|        |Terminal|        |Todoist |                                                     |SystPref|QuikNote|KrbnrEvt|Spotify |Photoshp|         |
+|         | QMK Web|        |Terminal| Chrome |Todoist |                                                     |SystPref|QuikNote|KrbnrEvt|Spotify |Photoshp|         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |         |PastePal| Safari | Drive  | Finder | Gmail  |                                                     |Spotlght|        |Desktop |LaunchPd|        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
@@ -851,6 +852,9 @@ void window_td_reset (qk_tap_dance_state_t *state, void *user_data) {
 // This function holds the main switch statement for keycode definitions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
+    // Caps word
+    if (!process_caps_word(keycode, record)) { return false; }
+
     // Store the current modifier state in a variable for later reference
     mod_state = get_mods();
 
@@ -860,7 +864,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(G(KC_X)); // Intercept hold function to send CMD+X
                 return false;
             }
-            return true;             // Return true for normal processing of tap keycode
+            return true;             // Return true for normal processing of tap key code
         case LT(0,KC_C):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(G(KC_C)); // Intercept hold function to send CMD+C
