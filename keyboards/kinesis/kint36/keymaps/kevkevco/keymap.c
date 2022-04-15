@@ -85,7 +85,7 @@ enum {
   NVUD,
   WIND,
   ISPT,
-  SLQU,
+//   SLQU,
   GVES,
   SLSH,
   LPINKY,
@@ -206,7 +206,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
     // Advanced Tap Dance functions
     [PDAG] = ACTION_TAP_DANCE_FN(triple_tap_dance_period), // Dot on a single-tap, right angle bracket on a double-tap, three dots on a triple tap
-    [SLQU] = ACTION_TAP_DANCE_FN(triple_tap_dance_slash), // Slash on a single-tap, two slashes on a double-tap, question mark on a triple tap
+    // [SLQU] = ACTION_TAP_DANCE_FN(triple_tap_dance_slash), // Slash on a single-tap, two slashes on a double-tap, question mark on a triple tap
     [GVES] = ACTION_TAP_DANCE_FN(triple_tap_dance_esc), // Esc on a single-tap, grave on a double-tap, tilde on a triple tap
     // [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
     [SLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slsh_td_finished, slsh_td_reset),
@@ -265,7 +265,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(GVES), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
   TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),RCTL_T(KC_SCLN),TD(APQU),
-  OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLQU), OSM(MOD_RSFT),
+  OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLSH), OSM(MOD_RSFT),
            TD(PLEQ),TD(MNUN),TD(LBCB),TD(RBCB),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                                   SAGR(KC_ENT), KC_LAPO,                   KC_RCPC, LT(_NAV, KC_BSLS),
                                                                 G(KC_SPC),                 TD(WIND),
@@ -756,7 +756,7 @@ void slsh_td_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: tap_code(KC_SLSH); break;  // One slash
     case SINGLE_HOLD: tap_code16(G(KC_SLSH)); break;    // Command + / shortcut for commenting a line
     case DOUBLE_TAP: tap_code16(KC_SLSH); tap_code16(KC_SLSH); break;   // Double slash
-    case DOUBLE_HOLD: SEND_STRING("/**/"); tap_code(KC_LEFT); tap_code(KC_LEFT); tap_code(KC_ENT); break;    // HTML multiline comment
+    case DOUBLE_HOLD: SEND_STRING("/**/"); tap_code(KC_LEFT); tap_code(KC_LEFT); tap_code(KC_ENT); tap_code(KC_ENT); tap_code(KC_UP); break;    // HTML multiline comment
     case TRIPLE_TAP: tap_code16(KC_QUES); break;    // Question mark
     // case TRIPLE_HOLD: register_code16(C(KC_C)); break;   // Nothing
     default: break;
@@ -788,7 +788,7 @@ void lpinky_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
   lpinky_td_state.state = hold_cur_dance(state);
   switch (lpinky_td_state.state) {
-    case SINGLE_TAP: register_code16(OSL(_SYMBOLS)); break;              // One shot coding symbols layer
+    case SINGLE_TAP: layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break;              // One shot coding symbols layer
     case SINGLE_HOLD: layer_on(_NAV); break;                            // Navigation layer while holding
     case DOUBLE_TAP: layer_invert(_NAV); break;                         // Navigation layer toggle
     case DOUBLE_HOLD: register_code16(KC_CAPS); break;    // Caps Word
@@ -801,7 +801,7 @@ void lpinky_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 void lpinky_td_reset (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
   switch (lpinky_td_state.state) {
-    // case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
+    case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
     case SINGLE_HOLD: layer_off(_NAV); break;
     // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
     case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
