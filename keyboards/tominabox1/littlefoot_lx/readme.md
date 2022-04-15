@@ -1,6 +1,6 @@
 # Littlefoot LX
 
-![littlefoot_lx](https://i.imgur.com/0WhgT5y.jpeg)
+![littlefoot_lx](https://i.imgur.com/0WhgT5yh.jpeg)
 
 *A short description of the keyboard/project*
 
