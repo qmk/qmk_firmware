@@ -9,8 +9,8 @@ v13uからはnaginata_v14.cとrules.mkを差し替えればアップグレード
 
 ## 薙刀式とは
 
-【薙刀式】v14集大成版
-http://oookaworks.seesaa.net/article/484704326.html
+【薙刀式】v15fix版（仮）
+http://oookaworks.seesaa.net/article/486333027.html
 
 ## OSの設定
 
