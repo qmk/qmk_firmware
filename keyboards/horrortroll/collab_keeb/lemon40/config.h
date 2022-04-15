@@ -47,3 +47,22 @@
 
 /* Larger keys per scan */
 #define QMK_KEYS_PER_SCAN 12
+
+/* RGB light config */
+#ifdef RGBLIGHT_ENABLE
+   
+    /* RGB light pin */
+    #define RGB_DI_PIN B6
+    #define RGBLED_NUM 15
+
+    /* RGB light effect */
+    #define RGBLIGHT_EFFECT_BREATHING
+    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    #define RGBLIGHT_EFFECT_SNAKE
+    #define RGBLIGHT_EFFECT_KNIGHT
+    #define RGBLIGHT_EFFECT_CHRISTMAS
+    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    #define RGBLIGHT_EFFECT_ALTERNATING
+    #define RGBLIGHT_EFFECT_TWINKLE
+#endif

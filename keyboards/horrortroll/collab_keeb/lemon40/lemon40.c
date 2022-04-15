@@ -17,7 +17,7 @@
 #include "lemon40.h"
 
 // OLED animation
-#include "oled/bongocat.h"
+#include "lib/bongocat.h"
 
 #ifdef OLED_ENABLE
     bool oled_task_kb(void) {
