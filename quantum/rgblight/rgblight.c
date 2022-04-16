@@ -826,6 +826,21 @@ void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t ti
     _repeat_timer = sync_timer_read() + duration_ms;
 }
 
+void rgblight_unblink_layer(uint8_t layer) {
+    rgblight_set_layer_state(layer, false);
+    _blinking_layer_mask &= ~((rgblight_layer_mask_t)1 << layer);
+}
+
+void rgblight_unblink_all_but_layer(uint8_t layer) {
+    for (uint8_t i = 0; i < RGBLIGHT_MAX_LAYERS; i++) {
+        if (i != layer) {
+            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << i) != 0) {
+                rgblight_unblink_layer(i);
+            }
+        }
+    }
+}
+
 void rgblight_blink_layer_repeat_helper(void) {
     if (_blinking_layer_mask != 0 && timer_expired(sync_timer_read(), _repeat_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
