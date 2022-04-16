@@ -48,13 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define NO_ACTION_ONESHOT
 #undef NO_ACTION_ONESHOT
 
-/* disable old style macro handling */
-#define NO_ACTION_MACRO
-
-/* disable calling of action_function() from the fn_actions array */
-// #define NO_ACTION_FUNCTION
-#undef NO_ACTION_FUNCTION
-
 /* PERMISSIVE_HOLD
  * when off: tap-hold keys are both tapped when typed fast (within tapping term)
  *  - (shift/A down), (X down), (X up), (shift/A up) = ax
