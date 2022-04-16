@@ -1,12 +1,13 @@
 #include QMK_KEYBOARD_H
 
 // Layer definitions
-#define _COLEMAK 0
-#define _FUNCTION 1
+enum custom_layers {
+    _COLEMAK,
+    _FUNCTION,
+};
 
 // Custom keycodes, implemented later, in function: process_record_user()
-enum custom_keycodes
-{
+enum custom_keycodes {
     CTL_ESC = SAFE_RANGE,   // mod tap: left control / esc
     SFT_ENT,                // mod tap: left shift / enter
     LST_PRN,                // mod tap: left shift / left parenthesis
