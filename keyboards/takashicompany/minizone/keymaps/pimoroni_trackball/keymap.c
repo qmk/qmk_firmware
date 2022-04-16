@@ -78,120 +78,163 @@ int16_t sign(int16_t num) {
     return 1;
 }
 
+int16_t max(int16_t a, int16_t b) {
+    if (a > b) {
+        return a;
+    }
+
+    return b;
+}
+
+int16_t min(int16_t a, int16_t b) {
+    if (a < b) {
+        return a;
+    }
+
+    return b;
+}
+
+
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-//   debug_enable=true;
-//   debug_matrix=true;
+  debug_enable=true;
+  debug_matrix=true;
   //debug_keyboard=true;
   // debug_mouse=true;
 }
 
-int16_t mouse_x;
-int16_t mouse_y;
+int16_t current_x;
+int16_t current_y;
 
-int16_t count;
-
-int mag = 30;
+int16_t mag = 5;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     dprintf("x:%d y:%d \n", mouse_report.x, mouse_report.y);
 
-    int16_t x = mouse_report.x;
-    int16_t y = mouse_report.y;
+    // int16_t x = mouse_report.x;
+    // int16_t y = mouse_report.y;
 
-    mouse_report.x = 0;
-    mouse_report.y = 0;
-    
-    int16_t sign_x = sign(x);
-    int16_t sign_y = sign(y);
+    // // やりたいこととしては
+    // // 
 
-    int16_t abs_x = my_abs(x);
-    int16_t abs_y = my_abs(y);
-
-    if (abs_x < abs_y) {
-        if (count + abs_x >= mag) {
-            abs_x = count - mag;
-            
-            mouse_x += (count - mag) * sign_x;
-
-            mouse_report.x = mouse_x;
-            mouse_report.y = mouse_y;
-
-            mouse_x = abs_x * sign_x;
-            mouse_y += y;
-            count = 0;
-
-            return mouse_report;
-        }
-
-        count += abs_x;
-        mouse_x += x;
-
-        if (count + abs_y >= mag) {
-            abs_y = count - mag;
-            
-            mouse_y += (count - mag) * sign_y;
-
-            mouse_report.y = mouse_y;
-            mouse_report.x = mouse_x;
-
-            mouse_y = abs_y * sign_y;
-            //mouse_x += x;
-            count = 0;
-
-            return mouse_report;
-        }
-
-        count += abs_y;
-        mouse_y += y;
-
-    } else {
-
-         if (count + abs_y >= mag) {
-            abs_y = count - mag;
-            
-            mouse_y += (count - mag) * sign_y;
-
-            mouse_report.y = mouse_y;
-            mouse_report.x = mouse_x;
-
-            mouse_y = abs_y * sign_y;
-            mouse_x += x;
-            count = 0;
-
-            return mouse_report;
-        }
-
-        count += abs_y;
-        mouse_y += y;
-
-        if (count + abs_x >= mag) {
-            abs_x = count - mag;
-            
-            mouse_x += (count - mag) * sign_x;
-
-            mouse_report.x = mouse_x;
-            mouse_report.y = mouse_y;
-
-            mouse_x = abs_x * sign_x;
-            //mouse_y += y;
-            count = 0;
-
-            return mouse_report;
-        }
-
-        count += abs_x;
-        mouse_x += x;
-    }
-
-
-    // if (mouse_report.x != 0 || mouse_report.y != 0)
+    // if (x == 0)
     // {
-    //     dprintf("x:%d y:%d \n", mouse_report.x, mouse_report.y);
-    //     mouse_report.x *= 10;
-    //     mouse_report.y *= 10;
+    //     if (current_x != 0)
+    //     {
+    //         current_x -= sign(current_x);
+    //     }
     // }
+    // else
+    // {
+    //     if (x > 0)
+    //     {
+    //         if (current_x < 0)
+    //         {
+    //             current_x = x;
+    //         }
+    //         else if (current_x > 0)
+    //         {
+    //             current_x = max(x, current_x);
+    //         }
+    //         else
+    //         {
+    //             current_x = x;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         if (current_x < 0)
+    //         {
+    //             current_x = min(x, current_x);
+    //         }
+    //         else if (current_x > 0)
+    //         {
+    //             current_x = x;
+    //         }
+    //         else
+    //         {
+    //             current_x = x;
+    //         }  
+    //     }
+    // }
+
+    // if (y == 0)
+    // {
+    //     if (current_y != 0)
+    //     {
+    //         current_y -= sign(current_y);
+    //     }
+    // }
+    // else
+    // {
+    //     if (y > 0)
+    //     {
+    //         if (current_y < 0)
+    //         {
+    //             current_y = y;
+    //         }
+    //         else if (current_y > 0)
+    //         {
+    //             current_y = max(y, current_y);
+    //         }
+    //         else
+    //         {
+    //             current_y = y;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         if (current_y < 0)
+    //         {
+    //             current_y = min(y, current_y);
+    //         }
+    //         else if (current_y > 0)
+    //         {
+    //             current_y = y;
+    //         }
+    //         else
+    //         {
+    //             current_y = y;
+    //         }  
+    //     }
+    // }
+
+    // mouse_report.x = current_x;
+    // mouse_report.y = current_y;
+
+
+////
+    // int16_t x = mouse_report.x;
+    // int16_t y = mouse_report.y;
+
+    // int16_t result_x = 0;
+    // int16_t result_y = 0;
+
+    // while (my_abs(current_x + x) + my_abs(current_y) >= mag)
+    // {
+    //     result_x += current_x + x;
+    //     result_y += current_y * 2;
+    //     x = 0;
+    //     current_x = 0;
+    //     current_y = 0;
+    // }
+    
+    // current_x += x;
+
+    // while (my_abs(current_y + y) + my_abs(current_x) >= mag)
+    // {
+    //     result_x += current_x * 2;
+    //     result_y += current_y + y;
+    //     y = 0;
+    //     current_x = 0;
+    //     current_y = 0;
+    // }
+
+    // current_y += y;
+
+    // mouse_report.x = result_x;
+    // mouse_report.y = result_y;
 
     return mouse_report;
 
