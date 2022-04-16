@@ -42,11 +42,10 @@ static const SerialConfig ble_uart_config = {
 
 static uint8_t led_mcu_wakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
 
-static uint8_t led_enabled = 1;
-
 ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
 
 #ifdef RGB_MATRIX_ENABLE
+static uint8_t led_enabled = 1;
 static uint8_t current_rgb_row = 0;
 #endif
 
@@ -227,7 +226,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if(rgb_matrix_is_enabled()) ap2_led_disable();
                 else ap2_led_enable();
                 return true;
-            #endif
 
             case KC_AP_RGB_VAI:
                 if (record->event.pressed) {
@@ -290,6 +288,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     }
                 }
                 return true;
+            #endif
 
             default:
                 break;
