@@ -21,7 +21,7 @@
 #define MATRIX_ROW_PINS \
     { GP26, GP5, GP4, GP9 }
 #define MATRIX_COL_PINS \
-    { GP28, GP15, GP6, GP7, GP8 }
+    { GP27, GP28, GP15, GP6, GP7, GP8 }
 
 /* Handedness. */
 #define MASTER_RIGHT

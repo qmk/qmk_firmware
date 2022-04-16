@@ -6,7 +6,7 @@ BOOTLOADER = rp2040
 
 # RP2040-specific options
 ALLOW_WARNINGS = yes
-PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS!
+PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
 
 # Build Options
 #   change yes to no to disable
@@ -26,14 +26,9 @@ RGB_MATRIX_SUPPORTED = yes  # RGB matrix is supported and enabled by default
 RGBLIGHT_SUPPORTED = yes    # RGB underglow is supported, but not enabled by default
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
-WS2812_DRIVER = pio
 
-# Charybdis nano is a split 3x5 keyboard with a maximum of 3 thumb keys (2 on
-# the trackball side).
 SPLIT_KEYBOARD = yes
-SERIAL_DRIVER = pio
-LAYOUTS = split_3x5_3 # Support community layout, in particular Manna-Harbour's Miryoku layout
+LAYOUTS = split_3x5_3
 
-#POINTING_DEVICE_ENABLE = yes # Enable trackball
-#POINTING_DEVICE_DRIVER = pmw3360
-# https://qmk.fm/changes/2018-11-16-use-a-single-endpoint-for-hid-reports
+SERIAL_DRIVER = pio
+WS2812_DRIVER = pio
