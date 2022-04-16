@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Anne Pro 2",
     "url": "https://openannepro.github.io/",
-    "maintainer": "community",
+    "maintainer": "bwisn",
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
