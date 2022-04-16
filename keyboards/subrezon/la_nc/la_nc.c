@@ -12,7 +12,10 @@ enum layer_id {
     _OPT
 };
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
        oled_write_P(PSTR("Layer:\n"), false);
 
        switch (get_highest_layer(layer_state)) {
