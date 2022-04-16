@@ -1,6 +1,6 @@
 # subrezon/la_nc
 
-![subrezon/la_nc](https://i.imgur.com/xYDcTts.jpg)
+![subrezon/la_nc](https://i.imgur.com/xYDcTtsh.jpg)
 
 *Loosely based on the Planck keyboard, la_nc aims to deliver a lightly split, ortho typing experience in a similar footprint, as well as an easy build process.*
 
