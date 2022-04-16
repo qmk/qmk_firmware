@@ -61,15 +61,130 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  //debug_keyboard=true;
-  debug_mouse=true;
+// 自前の絶対数を返す関数
+int16_t my_abs(int16_t num) {
+    if (num < 0) {
+        num = -num;
+    }
+
+    return num;
 }
 
+int16_t sign(int16_t num) {
+    if (num < 0) {
+        return -1;
+    }
+
+    return 1;
+}
+
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+//   debug_enable=true;
+//   debug_matrix=true;
+  //debug_keyboard=true;
+  // debug_mouse=true;
+}
+
+int16_t mouse_x;
+int16_t mouse_y;
+
+int16_t count;
+
+int mag = 30;
+
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    dprintf("x:%d y:%d \n", mouse_report.x, mouse_report.y);
+
+    int16_t x = mouse_report.x;
+    int16_t y = mouse_report.y;
+
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+    
+    int16_t sign_x = sign(x);
+    int16_t sign_y = sign(y);
+
+    int16_t abs_x = my_abs(x);
+    int16_t abs_y = my_abs(y);
+
+    if (abs_x < abs_y) {
+        if (count + abs_x >= mag) {
+            abs_x = count - mag;
+            
+            mouse_x += (count - mag) * sign_x;
+
+            mouse_report.x = mouse_x;
+            mouse_report.y = mouse_y;
+
+            mouse_x = abs_x * sign_x;
+            mouse_y += y;
+            count = 0;
+
+            return mouse_report;
+        }
+
+        count += abs_x;
+        mouse_x += x;
+
+        if (count + abs_y >= mag) {
+            abs_y = count - mag;
+            
+            mouse_y += (count - mag) * sign_y;
+
+            mouse_report.y = mouse_y;
+            mouse_report.x = mouse_x;
+
+            mouse_y = abs_y * sign_y;
+            //mouse_x += x;
+            count = 0;
+
+            return mouse_report;
+        }
+
+        count += abs_y;
+        mouse_y += y;
+
+    } else {
+
+         if (count + abs_y >= mag) {
+            abs_y = count - mag;
+            
+            mouse_y += (count - mag) * sign_y;
+
+            mouse_report.y = mouse_y;
+            mouse_report.x = mouse_x;
+
+            mouse_y = abs_y * sign_y;
+            mouse_x += x;
+            count = 0;
+
+            return mouse_report;
+        }
+
+        count += abs_y;
+        mouse_y += y;
+
+        if (count + abs_x >= mag) {
+            abs_x = count - mag;
+            
+            mouse_x += (count - mag) * sign_x;
+
+            mouse_report.x = mouse_x;
+            mouse_report.y = mouse_y;
+
+            mouse_x = abs_x * sign_x;
+            //mouse_y += y;
+            count = 0;
+
+            return mouse_report;
+        }
+
+        count += abs_x;
+        mouse_x += x;
+    }
+
 
     // if (mouse_report.x != 0 || mouse_report.y != 0)
     // {
