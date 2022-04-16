@@ -1,3 +1,19 @@
+/* Copyright 2022 elliotpatros
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */ 
+
 #include QMK_KEYBOARD_H
 
 // Layer definitions
@@ -19,8 +35,8 @@ enum custom_keycodes {
 #define LT_BSFN LT(_FUNCTION, KC_BSLS)
 
 // The layout
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
-{
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    
     // Default layer
     [_COLEMAK] = LAYOUT (
 
@@ -55,13 +71,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 
 };
 
-static inline bool dualfunckey_was_tapped(const uint16_t time_when_pressed)
-{
+static inline bool dualfunckey_was_tapped(const uint16_t time_when_pressed) {
     return timer_elapsed(time_when_pressed) < TAPPING_TERM;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    
     // Static variables
     static uint16_t timer_control_escape = 0;
     static uint16_t timer_shift_enter = 0;
@@ -73,41 +88,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     static bool shift_enter_is_pressed = false;
     static bool shift_lparen_is_pressed = false;
 
-    // Was this function called to handle a keydown key (ie a key down)? If not,
-    // it was called by a key up.
+    // Was this function called to handle a keydown? If not, it was called by a 
+    // key up.
     const bool pressed = record->event.pressed;
 
     // Any keydown (at all) spends a pending dual function key check. Why? If,
     // for example, you use shift to type a capital letter, and shift keys down
     // and up faster than the tapping term, did you mean to call shift's tapping
     // key? No. You just meant to call shift.
-    if (pressed)
-    {
+    if (pressed) {
         dualfunckey_pending = false;
     }
 
     // Only keycodes >= SAFE_RANGE are handled in this function
-    if (keycode < SAFE_RANGE)
-    {
-        return true;    // this keypress was not handled
+    if (keycode < SAFE_RANGE) {
+        // This keypress was not handled
+        return true;
     }
 
     // Handle custom keypresses here
-    switch (keycode)
-    {
+    switch (keycode) {
 
     // -------------------------------------------------------------------------
     // Dual function key (hold: left shift; tap: enter)
     // -------------------------------------------------------------------------
     case SFT_ENT:
-    {
+            
         // There are multiple keys that are mapped to left shift. Keep track of
         // which are pressed
         shift_enter_is_pressed = pressed;
 
         // Handle keypress routine
-        if (pressed)
-        {
+        if (pressed) {
             // The [left shift/enter] key was pressed
             register_code(KC_LSFT);
 
@@ -116,22 +128,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
-        }
-        else
-        {
+        } else {
+            
             // The [left shift/enter] key was unpressed
             // Note: unregister shift before pressing ENT so that ENT registers
             // correctly
 
             // If no other left shift keys are currently pressed, unregister it
-            if (! shift_lparen_is_pressed)
-            {
+            if (! shift_lparen_is_pressed) {
                 unregister_code(KC_LSFT);
             }
 
             // If a pending dual function key hasn't been used yet, use it here
-            if (dualfunckey_pending && dualfunckey_was_tapped(timer_shift_enter))
-            {
+            if (dualfunckey_pending && dualfunckey_was_tapped(timer_shift_enter)) {
                 tap_code(KC_ENT);
                 dualfunckey_pending = false;
             }
@@ -139,16 +148,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
         // This keypress was handled
         return false;
-    }
 
     // -------------------------------------------------------------------------
     // Dual function key (hold: left control; tap: escape)
     // -------------------------------------------------------------------------
     case CTL_ESC:
-    {
+
         // Handle keypress routine
-        if (pressed)
-        {
+        if (pressed) {
             // Control/escape key was pressed
             register_code(KC_LCTL);
 
@@ -157,15 +164,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
-        }
-        else
-        {
+        } else {
+            
             // Control/escape key was unpressed
             unregister_code(KC_LCTL);
 
             // If a pending dual function key hasn't been used yet, use it here
-            if (dualfunckey_pending && dualfunckey_was_tapped(timer_control_escape))
-            {
+            if (dualfunckey_pending && dualfunckey_was_tapped(timer_control_escape)) {
                 tap_code(KC_ESC);
                 dualfunckey_pending = false;
             }
@@ -173,20 +178,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
         // This keypress was handled
         return false;
-    }
 
     // -------------------------------------------------------------------------
     // Dual function key (hold: left shift; tap: left parenthesis)
     // -------------------------------------------------------------------------
     case LST_PRN:
-    {
+
         // There are multiple keys that are mapped to left shift. Keep track of
         // which are pressed
         shift_lparen_is_pressed = pressed;
 
         // Handle keypress routine
-        if (pressed)
-        {
+        if (pressed) {
             // The [left shift/left parenthesis] key was pressed
             register_code(KC_LSFT);
 
@@ -195,39 +198,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
-        }
-        else
-        {
+        } else {
+            
             // The [left shift/left parenthesis] key was unpressed
             // Note: unregister shift after tapping 9 so that left parenthesis
             // registers correctly
 
             // If a pending dual function key hasn't been used yet, use it here
-            if (dualfunckey_pending && dualfunckey_was_tapped(timer_shift_lparen))
-            {
+            if (dualfunckey_pending && dualfunckey_was_tapped(timer_shift_lparen)) {
                 tap_code(KC_9);
                 dualfunckey_pending = false;
             }
 
             // If no other left shift keys are currently pressed, unregister it
-            if (! shift_enter_is_pressed)
-            {
+            if (! shift_enter_is_pressed) {
                 unregister_code(KC_LSFT);
             }
         }
 
         // This keypress was handled
         return false;
-    }
 
     // -------------------------------------------------------------------------
     // Dual function key (hold: right shift; tap: right parenthesis)
     // -------------------------------------------------------------------------
     case RST_PRN:
-    {
+
         // Handle keypress routine
-        if (pressed)
-        {
+        if (pressed) {
             // The [right shift/right parenthesis] key was pressed
             register_code(KC_RSFT);
 
@@ -236,9 +234,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
-        }
-        else
-        {
+        } else {
+            
             // The [right shift/right parenthesis] key was unpressed
             // Note: unregister shift after tapping 0 so that right parenthesis
             // registers correctly
@@ -262,14 +259,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
         // This keypress was handled
         return false;
-    }
 
     // -------------------------------------------------------------------------
     // Some other key was pressed (this shouldn't happen)
     // -------------------------------------------------------------------------
     default:
-    {
-        return true;        // this keypress was not handled
-    }
+        // This keypress was not handled
+        return true;        
     }
 }
