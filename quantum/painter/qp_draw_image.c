@@ -131,6 +131,12 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
     // Ensure we aren't reusing any palette
     qp_internal_invalidate_palette();
 
+    if (!qp_internal_bpp_capable(info->bpp)) {
+        qp_dprintf("qp_drawimage_recolor: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE)\n", (int)info->bpp);
+        qp_comms_stop(device);
+        return false;
+    }
+
     // Handle palette if needed
     const uint16_t palette_entries  = 1u << info->bpp;
     bool           needs_pixconvert = false;
@@ -144,12 +150,6 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
     } else {
         // Interpolate from fg/bg
         needs_pixconvert = qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, palette_entries);
-    }
-
-    if (!qp_internal_bpp_capable(info->bpp)) {
-        qp_dprintf("qp_drawimage_recolor: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE)\n", (int)info->bpp);
-        qp_comms_stop(device);
-        return false;
     }
 
     if (needs_pixconvert) {
