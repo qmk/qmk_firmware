@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Use I2C or Serial, not both */
+#undef USE_I2C
 #define USE_SERIAL
-// #define USE_I2C
 
 /* Select hand configuration */
 #undef MASTER_LEFT
@@ -37,44 +37,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // #ifndef NO_PRINT
 
 /* force n-key rollover to be enabled every boot */
-// #define FORCE_NKRO
 #undef FORCE_NKRO
 
 /* disable tap dance and other tapping features */
-// #define NO_ACTION_TAPPING
 #undef NO_ACTION_TAPPING
 
 /* disable one-shot modifiers */
-// #define NO_ACTION_ONESHOT
 #undef NO_ACTION_ONESHOT
 
 /* PERMISSIVE_HOLD
- * when off: tap-hold keys are both tapped when typed fast (within tapping term)
- *  - (shift/A down), (X down), (X up), (shift/A up) = ax
  * when on: tap-hold keys are held when typed fast, so long as the modifier key
- * is pressed before and released after the rodified key(s)
- *  - (shift/A down), (X down), (X up), (shift/A up) = shift X
+ *          is pressed before and released after the rodified key(s)
+ * when off: tap-hold keys are both tapped when typed fast (within tapping term)
  */
-// #define PERMISSIVE_HOLD
 #undef PERMISSIVE_HOLD
 
 /* IGNORE_MOD_TAP_INTERRUPT
- * when off: rolling tap-hold keys modifies keys
- *  - (shift/A down), (X down), (shift/A up), (X up) = shift X
  * when on: rolling tap-hold keys taps all keys
- *  - (shift/A down), (X down), (shift/A up), (X up) = ax
- */
-// #define IGNORE_MOD_TAP_INTERRUPT
+ * when off: rolling tap-hold keys modifies keys
+*/
 #undef IGNORE_MOD_TAP_INTERRUPT
 
 /* TAPPING_TERM x (ms)
- * how long before a tap becomes a hold, if set above 500, a key tapped during
+ * how long before a tap becomes a hold. if set above 500, a key tapped during
  * the tapping term will turn it into a hold too
  */
 #define TAPPING_TERM 200
 
 /* TAPPING_TOGGLE x (count)
- * If you hold the key down, layer is activated, and then is de-activated when
+ * If you hold a TT key down, layer is activated, and then is de-activated when
  * you let go (like MO()). If you repeatedly tap it, the layer will be toggled
  * on or off (like TG()). It needs 5 taps by default, but you can change this by
  * defining TAPPING_TOGGLE to another number.
@@ -85,7 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * tap anyway, even after TAPPING_TERM, if there was no other key interruption
  * between press and release
  */
-// #define RETRO_TAPPING
 #undef RETRO_TAPPING
 
 /* ONESHOT_TIMEOUT x (ms)
