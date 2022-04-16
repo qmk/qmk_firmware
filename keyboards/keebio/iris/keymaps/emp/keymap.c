@@ -1,18 +1,18 @@
 /* Copyright 2022 elliotpatros
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
+ * 
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 2 of the License, or 
+ * (at your option) any later version. 
+ * 
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details. 
+ * 
+ * You should have received a copy of the GNU General Public License 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ */ 
 
 #include QMK_KEYBOARD_H
 
@@ -120,6 +120,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
         // Handle keypress routine
         if (pressed) {
+            
             // The [left shift/enter] key was pressed
             register_code(KC_LSFT);
 
@@ -128,6 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
+            
         } else {
             
             // The [left shift/enter] key was unpressed
@@ -156,6 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
         // Handle keypress routine
         if (pressed) {
+            
             // Control/escape key was pressed
             register_code(KC_LCTL);
 
@@ -164,6 +167,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
+            
         } else {
             
             // Control/escape key was unpressed
@@ -190,6 +194,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
         // Handle keypress routine
         if (pressed) {
+            
             // The [left shift/left parenthesis] key was pressed
             register_code(KC_LSFT);
 
@@ -198,6 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
+            
         } else {
             
             // The [left shift/left parenthesis] key was unpressed
@@ -226,6 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
         // Handle keypress routine
         if (pressed) {
+            
             // The [right shift/right parenthesis] key was pressed
             register_code(KC_RSFT);
 
@@ -234,6 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
             // Pressing a dual function key requires a hold/tap check on key up
             dualfunckey_pending = true;
+            
         } else {
             
             // The [right shift/right parenthesis] key was unpressed
@@ -241,12 +249,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             // registers correctly
 
             // If a pending dual function key hasn't been used yet, use it here
-            if (dualfunckey_pending && dualfunckey_was_tapped(timer_shift_rparen))
-            {
+            if (dualfunckey_pending && dualfunckey_was_tapped(timer_shift_rparen)) {
+                
                 // Space cadet shift: If the [left shift/left parenthesis] key
                 // is currently pressed, then tap the sequence ()
-                if (shift_lparen_is_pressed)
-                {
+                if (shift_lparen_is_pressed) {
                     tap_code(KC_9);
                 }
 
