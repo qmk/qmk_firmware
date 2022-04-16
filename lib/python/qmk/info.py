@@ -171,8 +171,8 @@ def _extract_pins(pins):
     return [_pin_name(pin) for pin in pins.split(',')]
 
 
-def _parse_2d_array(raw):
-    """Return a 2d array of ints
+def _extract_2d_array(raw):
+    """Return a 2d array of strings
     """
     out_array = []
 
@@ -189,33 +189,28 @@ def _parse_2d_array(raw):
         out_array.append([])
 
         for val in row.split(','):
-            out_array[-1].append(int(val))
+            out_array[-1].append(val)
 
     return out_array
 
 
+def _extract_2d_int_array(raw):
+    """Return a 2d array of ints
+    """
+    ret = _extract_2d_array(raw)
+
+    return [list(map(int, x)) for x in ret]
+
+
 def _extract_direct_matrix(direct_pins):
+    """extract direct_matrix
     """
-    """
-    direct_pin_array = []
+    direct_pin_array = _extract_2d_array(direct_pins)
 
-    while direct_pins[-1] != '}':
-        direct_pins = direct_pins[:-1]
-
-    for row in direct_pins.split('},{'):
-        if row.startswith('{'):
-            row = row[1:]
-
-        if row.endswith('}'):
-            row = row[:-1]
-
-        direct_pin_array.append([])
-
-        for pin in row.split(','):
-            if pin == 'NO_PIN':
-                pin = None
-
-            direct_pin_array[-1].append(pin)
+    for i in range(len(direct_pin_array)):
+        for j in range(len(direct_pin_array[i])):
+            if direct_pin_array[i][j] == 'NO_PIN':
+                direct_pin_array[i][j] = None
 
     return direct_pin_array
 
@@ -238,7 +233,7 @@ def _extract_secure_unlock(info_data, config_c):
     """
     unlock = config_c.get('SECURE_UNLOCK_SEQUENCE', '').replace(' ', '')[1:-1]
     if unlock:
-        unlock_array = _parse_2d_array(unlock)
+        unlock_array = _extract_2d_int_array(unlock)
         if 'secure' not in info_data:
             info_data['secure'] = {}
 
