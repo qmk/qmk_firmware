@@ -216,7 +216,7 @@ extern const rgblight_segment_t *const *rgblight_layers;
 #    ifdef RGBLIGHT_LAYER_BLINK
 #        define RGBLIGHT_USE_TIMER
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms);
-void rgblight_blink_layer_repeat(uint8_t layer, uint16_ duration_ms, uint8_t times);
+void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times);
 /**
  * \brief Stop blinking on one layer.
  *
