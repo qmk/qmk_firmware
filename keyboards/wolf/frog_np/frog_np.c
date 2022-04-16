@@ -12,3 +12,14 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "frog_np.h"
+
+void matrix_scan_kb(void) {
+    encoder_action_unregister();
+    matrix_scan_user();
+}
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+//    if (!encoder_update_user(index, clockwise)) return false;
+    encoder_action_register(index, clockwise);
+    return true;
+};
