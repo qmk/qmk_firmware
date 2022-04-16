@@ -38,3 +38,7 @@ VIRTSER_ENABLE = no
 COMBO_ENABLE = no
 BOOTLOADER = custom
 PROGRAM_CMD = annepro2_tools --boot $(BUILD_DIR)/$(TARGET).bin
+
+# Custom RGB matrix handling
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = custom
