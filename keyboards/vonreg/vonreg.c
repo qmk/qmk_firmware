@@ -16,3 +16,23 @@
 
 #include "vonreg.h"
 
+char _down;
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        writePinHigh(C13);
+        _down++;
+    } else {
+        _down--;
+        if (_down == 0) {
+            writePinLow(C13);
+        }      
+    }
+    //process_record_user(keycode, record);
+    return true;
+}
+
+void keyboard_post_init_kb(void) { 
+    setPinOutput(C13);
+    //keyboard_post_init_user();
+}
