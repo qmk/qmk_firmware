@@ -34,7 +34,7 @@ Largest in size is "magic" -- the QMK magic keycodes -- which control things lik
 
 If you've done all of that, and you don't want to disable features like RGB, Audio, OLEDs, etc, there are some additional options that you can add to your config.h that can help.
 
-Starting with Lock Key support. If you have an Cherry MX Lock switch (lucky you!), you don't want to do this. But chances are, you don't. In that case, add this to your `config.h`:
+Starting with Lock Key support. If you have a Cherry MX Lock switch (lucky you!), you don't want to do this. But chances are, you don't. In that case, add this to your `config.h`:
 ```c
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
@@ -147,6 +147,7 @@ For RGB Matrix, these need to be explicitly enabled as well. To disable any that
 #undef ENABLE_RGB_MATRIX_HUE_PENDULUM
 #undef ENABLE_RGB_MATRIX_HUE_WAVE
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP

@@ -3,6 +3,7 @@
 *.swp
 *~
 .DS_Store
+._*
 
 # Build artifacts
 .clang_complete
@@ -18,7 +19,6 @@
 
 # QMK-specific
 api_data/v1
-doxygen/
 quantum/version.h
 *.bin
 *.eep
@@ -91,3 +91,6 @@ user_song_list.h
 compile_commands.json
 .clangd/
 .cache/
+
+# VIA(L) json files that don't belong in QMK repo
+via*.json

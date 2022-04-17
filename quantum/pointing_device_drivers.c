@@ -101,7 +101,7 @@ const pointing_device_driver_t pointing_device_driver = {
 #        ifdef TAPPING_TERM_PER_KEY
 #            include "action.h"
 #            include "action_tapping.h"
-#            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, NULL)
+#            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, &(keyrecord_t){})
 #        else
 #            ifdef TAPPING_TERM
 #                define CIRQUE_PINNACLE_TAPPING_TERM TAPPING_TERM
@@ -120,7 +120,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     int8_t          report_x = 0, report_y = 0;
     static bool     is_z_down = false;
 
-    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());  // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale()); // Scale coordinates to arbitrary X, Y resolution
 
     if (x && y && touchData.xValue && touchData.yValue) {
         report_x = (int8_t)(touchData.xValue - x);
@@ -165,14 +165,13 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
-report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
-    static fast_timer_t throttle      = 0;
-    static uint16_t     debounce      = 0;
-    static uint8_t      error_count   = 0;
-    pimoroni_data_t     pimoroni_data = {0};
-    static int16_t      x_offset = 0, y_offset = 0;
+report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
+    static uint16_t debounce      = 0;
+    static uint8_t  error_count   = 0;
+    pimoroni_data_t pimoroni_data = {0};
+    static int16_t  x_offset = 0, y_offset = 0;
 
-    if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT && timer_elapsed_fast(throttle) >= PIMORONI_TRACKBALL_INTERVAL_MS) {
+    if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
         i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
 
         if (status == I2C_STATUS_SUCCESS) {
@@ -195,26 +194,26 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
         } else {
             error_count++;
         }
-        throttle = timer_read_fast();
     }
     return mouse_report;
 }
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = pimironi_trackball_device_init,
-    .get_report = pimorono_trackball_get_report,
-    .set_cpi    = NULL,
-    .get_cpi    = NULL
+    .init       = pimoroni_trackball_device_init,
+    .get_report = pimoroni_trackball_get_report,
+    .set_cpi    = pimoroni_trackball_set_cpi,
+    .get_cpi    = pimoroni_trackball_get_cpi
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
-
-static void init(void) { pmw3360_init(); }
+static void pmw3360_device_init(void) {
+    pmw3360_init();
+}
 
 report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
     report_pmw3360_t data        = pmw3360_read_burst();
-    static uint16_t  MotionStart = 0;  // Timer for accel, 0 is resting state
+    static uint16_t  MotionStart = 0; // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
@@ -239,17 +238,59 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = init,
+    .init       = pmw3360_device_init,
     .get_report = pmw3360_get_report,
     .set_cpi    = pmw3360_set_cpi,
     .get_cpi    = pmw3360_get_cpi
 };
 // clang-format on
+#elif defined(POINTING_DEVICE_DRIVER_pmw3389)
+static void pmw3389_device_init(void) {
+    pmw3389_init();
+}
+
+report_mouse_t pmw3389_get_report(report_mouse_t mouse_report) {
+    report_pmw3389_t data        = pmw3389_read_burst();
+    static uint16_t  MotionStart = 0; // Timer for accel, 0 is resting state
+
+    if (data.isOnSurface && data.isMotion) {
+        // Reset timer if stopped moving
+        if (!data.isMotion) {
+            if (MotionStart != 0) MotionStart = 0;
+            return mouse_report;
+        }
+
+        // Set timer if new motion
+        if ((MotionStart == 0) && data.isMotion) {
+#    ifdef CONSOLE_ENABLE
+            if (debug_mouse) dprintf("Starting motion.\n");
+#    endif
+            MotionStart = timer_read();
+        }
+        mouse_report.x = constrain_hid(data.dx);
+        mouse_report.y = constrain_hid(data.dy);
+    }
+
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = pmw3389_device_init,
+    .get_report = pmw3389_get_report,
+    .set_cpi    = pmw3389_set_cpi,
+    .get_cpi    = pmw3389_get_cpi
+};
+// clang-format on
 #else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
-__attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
-__attribute__((weak)) uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
-__attribute__((weak)) void           pointing_device_driver_set_cpi(uint16_t cpi) {}
+__attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
+    return mouse_report;
+}
+__attribute__((weak)) uint16_t pointing_device_driver_get_cpi(void) {
+    return 0;
+}
+__attribute__((weak)) void pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {

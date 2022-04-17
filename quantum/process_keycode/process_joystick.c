@@ -74,7 +74,9 @@ void restorePinState(pin_t pin, uint16_t restoreState) {
 #endif
 }
 
-__attribute__((weak)) bool process_joystick_analogread() { return process_joystick_analogread_quantum(); }
+__attribute__((weak)) bool process_joystick_analogread() {
+    return process_joystick_analogread_quantum();
+}
 
 bool process_joystick_analogread_quantum() {
 #if JOYSTICK_AXES_COUNT > 0
