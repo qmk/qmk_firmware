@@ -18,6 +18,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "features/caps_word.h"
+#include "features/select_word.h"
 
 
 
@@ -25,6 +26,7 @@ enum layer_names {_QWERTY, _NUMSHIFT, _SYMBOLS, _VIM, _NAV, _KEYPAD, _FUNCTION};
 enum my_keycodes {
     APP_NAV = SAFE_RANGE,
     ESC_STS,
+    SELWORD
 };
 
 // For more readable LED control code
@@ -235,14 +237,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |   Tab   |    Q   |    W   |    E   |    R   |    T   |                                                     |    Y   |   U    |   I    |   O    |   P    |  Bksp   |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-| FULLTAP | A/LCTL | S/LOPT | D/LGUI | F/LSHF |    G   |                                                     |    H   | J/RSHF | K/RGUI | L/ROPT | ;|:/CT |  '|"    |
+| LPINKY  | A/LCTL | S/LOPT | D/LGUI | F/LSHF |    G   |                                                     |    H   | J/RSHF | K/RGUI | L/ROPT | ;|:/CT |  '|"    |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 | OS:SHFT |    Z   |    X   |    C   |    V   |    B   |                                                     |    N   |   M    |  ,|<   |  .|>   |  /^?   | OS:SHFT |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
           |   =|+  |   -|_  |  [|{   |  ]|}   |                                                                       |   Up   |  Down  |  Left  |  Rght |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
-	                                                   | Ent/$1 | (/LALT |                 | )/RCTL | $2/Nav |
+	                                                   |SELWORD | (/LALT |                 | )/RCTL | LPINKY |
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
 	                                          |  BkSp  |  Del   | SPOT|{ |                 |WINDOWTD|  Enter |  Space |
 	                                          | ^Del / |   /    |--------|                 |--------|    /   |    /   |
@@ -254,10 +256,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     APPNAV opens application switcher for a renewable 1sec timeout, second press of key and all after presses right arrow. Add shift to press move left.
     ^ Triggered With Shift
     # Triggered With Command
-    $1 Command and Shift
-    $2 \ on tap, | with shift
     --- Command+` is mapped to "Move focus to next window" by MacOS
     * Tap and hold SwapHands for momentary swap, double tap for toggle on/off
+    * Tap both shifts at same time for as long as their modtap length and CAPSWORD is activated
 
 */
 
@@ -268,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),RCTL_T(KC_SCLN),TD(APQU),
   OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLSH), OSM(MOD_RSFT),
            TD(PLEQ),TD(MNUN),TD(LBCB),TD(RBCB),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-                                                  SAGR(KC_ENT), KC_LAPO,                   KC_RCPC, LT(_NAV, KC_BSLS),
+                                                  SELWORD, KC_LAPO,                   KC_RCPC, LT(_NAV, KC_BSLS),
                                                                 G(KC_SPC),                 TD(WIND),
                                 LGUI_T(KC_BSPC), SFT_T(KC_DEL), APP_NAV,                   OSM(MOD_MEH), LT(_KEYPAD, KC_ENT), RGUI_T(KC_SPC)
 ),
@@ -351,11 +352,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 |         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |   {    |   }    |        |                                                     |        |   '    |   "    |        |        |         |
+|         |        |   @    |   {    |   }    |   !    |                                                     |   `    |   '    |   "    |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |         |   +    |   -    |   (    |   )    |   *    |                                                     |        |   _    |   =    |   #    |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |   [    |   ]    |   /    |                                                     |        |        |        |        |        |         |
+|         |        |        |   [    |   ]    |   /    |                                                     |   \    |   |    |        |        |        |         |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
           |        |        |        |        |                                                                       |        |        |        |        |
           `-----------------------------------'                                                                       `-----------------------------------'
@@ -376,9 +377,9 @@ Next<>!
 [_SYMBOLS] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, KC_LCBR, KC_RCBR, _______,                                                       _______, KC_QUOT, KC_DQUO, _______, _______, _______,
+  _______, _______, KC_AT,   KC_LCBR, KC_RCBR, KC_EXLM,                                                       KC_GRV,  KC_QUOT, KC_DQUO, _______, _______, _______,
   _______, KC_PLUS, KC_MINS, KC_LPRN, KC_RPRN, KC_ASTR,                                                       _______, KC_UNDS, KC_EQL, KC_HASH, _______, _______,
-  _______, _______, _______, KC_LBRC, KC_RBRC, KC_SLSH,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_LBRC, KC_RBRC, KC_SLSH,                                                       KC_BSLS, KC_PIPE, _______, _______, _______, _______,
            _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
                                                         _______, _______,                   _______, _______,
                                                                  _______,                   _______,
@@ -789,12 +790,12 @@ void lpinky_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
   lpinky_td_state.state = hold_cur_dance(state);
   switch (lpinky_td_state.state) {
-    case SINGLE_TAP: layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break;              // One shot coding symbols layer
-    case SINGLE_HOLD: layer_on(_NAV); break;                            // Navigation layer while holding
-    case DOUBLE_TAP: layer_invert(_NAV); break;                         // Navigation layer toggle
-    case DOUBLE_HOLD: register_code16(KC_CAPS); break;    // Caps Word
-    case TRIPLE_TAP: layer_invert(_KEYPAD); break;                      // Toggle Numpad
-    case TRIPLE_HOLD: register_code16(C(KC_C)); break;                  // Control+C to end running program in terminal
+    case SINGLE_TAP: layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break; // One shot coding symbols layer
+    case SINGLE_HOLD: layer_on(_NAV); break;                                                // Navigation layer while holding
+    case DOUBLE_TAP: layer_invert(_NAV); break;                                             // Navigation layer toggle
+    case DOUBLE_HOLD: register_code16(KC_CAPS); break;                                      // Caps Word
+    case TRIPLE_TAP: layer_invert(_KEYPAD); break;                                          // Toggle Numpad
+    case TRIPLE_HOLD: register_code16(C(KC_C)); break;                                      // Control+C to end running program in terminal
     default: break;
   }
 }
@@ -854,6 +855,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Caps word
     if (!process_caps_word(keycode, record)) { return false; }
+    
+    // Select word macro from https://getreuer.info/posts/keyboards/select-word/index.html
+    if (!process_select_word(keycode, record, SELWORD)) { return false; }
 
     // Store the current modifier state in a variable for later reference
     mod_state = get_mods();

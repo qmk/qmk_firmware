@@ -13,3 +13,6 @@ APPLE_FN_ENABLE = yes       # Enable Apple Fn key functionality
 SRC += features/caps_word.c # Add caps_word files
 # OPT_DEFS += -DCAPS_WORD_ENABLE # From Drashna
 # CAPS_WORD_ENABLE = yes
+
+// Enable Select Word Macro from https://getreuer.info/posts/keyboards/select-word/index.html
+SRC += features/select_word.c

@@ -37,3 +37,6 @@
 #define VENDOR_ID 0x05AC
 #undef PRODUCT_ID
 #define PRODUCT_ID 0x0267
+
+// Activate Command with Left Ctrl + Right Ctrl (and B key) because using both shift keys plus B is intercepted by the CAPSWORD module.
+#define IS_COMMAND() (get_mods() == MOD_MASK_CTRL)
