@@ -45,7 +45,7 @@ combo_t key_combos[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWERTY] = LAYOUT_moonlander(
-        KC_ESC,  KC_TD1N,  KC_TD2N,  KC_TD3N,  KC_TD4N,  KC_TD5N, SW_OS,              SW_GM,   KC_TD6N,  KC_TD7N,  KC_TD8N,  KC_TD9N,  KC_TD0N,  KC_TDLG,
+        KC_TDEC, KC_TD1N,  KC_TD2N,  KC_TD3N,  KC_TD4N,  KC_TD5N, SW_OS,              SW_GM,   KC_TD6N,  KC_TD7N,  KC_TD8N,  KC_TD9N,  KC_TD0N,  KC_TDLG,
         KC_TDUH, KC_Q,     KC_W,     KC_TDE,   KC_R,     KC_T,    SW_PG,              SW_SY,   KC_Y,     KC_TDU,   KC_TDI,   KC_TDO,   KC_P,     KC_TDSL,
         KC_TDDE, KC_TDA,   KC_S,     KC_D,     KC_F,     KC_G,    SW_LY,              _______, KC_H,     KC_J,     KC_K,     KC_L,     KC_TDEP,  KC_TDQT,
         KC_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                 KC_N,     KC_M,     KC_TDCL,  KC_TDDG,  KC_TDCN,  KC_TDLN,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [WORKMAN] = LAYOUT_moonlander(
-        KC_ESC,  KC_TD1N,  KC_TD2N,  KC_TD3N,  KC_TD4N,  KC_TD5N,  SW_OS,             SW_GM,   KC_TD6N,  KC_TD7N,  KC_TD8N,  KC_TD9N,  KC_TD0N,  KC_TDLG,
+        KC_TDEC, KC_TD1N,  KC_TD2N,  KC_TD3N,  KC_TD4N,  KC_TD5N,  SW_OS,             SW_GM,   KC_TD6N,  KC_TD7N,  KC_TD8N,  KC_TD9N,  KC_TD0N,  KC_TDLG,
         KC_TDUH, KC_Q,     KC_D,     KC_R,     KC_W,     KC_B,     SW_PG,             SW_SY,   KC_J,     KC_F,     KC_TDU,   KC_P,     KC_TDCN,  KC_TDSL,
         KC_TDDE, KC_TDA,   KC_S,     KC_H,     KC_T,     KC_G,     SW_LY,             _______, KC_Y,     KC_N,     KC_TDE,   KC_TDO,   KC_TDI,   KC_TDQT,
         KC_LSFT, KC_Z,     KC_X,     KC_M,     KC_C,     KC_V,                                 KC_K,     KC_L,     KC_TDCL,  KC_TDDG,  KC_TDEP,  KC_TDLN,
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [QWERTY_PG] = LAYOUT_moonlander(
-        KC_ESC,  KC_TDN1,  KC_TDN2,  KC_TDN3,  KC_TDN4,  KC_TDN5, SW_OS,              KC_UNDX, KC_TDN6,  KC_TDN7,  KC_TDN8,  KC_TDN9,  KC_TDN0,  KC_TDLG,
+        KC_TDEC, KC_TDN1,  KC_TDN2,  KC_TDN3,  KC_TDN4,  KC_TDN5, SW_OS,              KC_UNDX, KC_TDN6,  KC_TDN7,  KC_TDN8,  KC_TDN9,  KC_TDN0,  KC_TDLG,
         KC_TDUH, KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,    SW_PG,              KC_REDX, KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_TDSL,
         KC_TDDE, KC_A,     KC_S,     KC_D,     KC_F,     KC_G,    SW_LY,              KC_LEAD, KC_H,     KC_J,     KC_K,     KC_L,     KC_TDEP,  KC_TDQT,
         KC_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                 KC_N,     KC_M,     KC_TDCL,  KC_TDDG,  KC_TDCN,  KC_TDLN,
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [WORKMAN_PG] = LAYOUT_moonlander(
-        KC_ESC,  KC_TDN1,  KC_TDN2,  KC_TDN3,  KC_TDN4,  KC_TDN5,  SW_OS,             KC_UNDX, KC_TDN6,  KC_TDN7,  KC_TDN8,  KC_TDN9,  KC_TDN0,  KC_TDLG,
+        KC_TDEC, KC_TDN1,  KC_TDN2,  KC_TDN3,  KC_TDN4,  KC_TDN5,  SW_OS,             KC_UNDX, KC_TDN6,  KC_TDN7,  KC_TDN8,  KC_TDN9,  KC_TDN0,  KC_TDLG,
         KC_TDUH, KC_Q,     KC_D,     KC_R,     KC_W,     KC_B,     SW_PG,             KC_REDX, KC_J,     KC_F,     KC_U,     KC_P,     KC_TDCN,  KC_TDSL,
         KC_TDDE, KC_A,     KC_S,     KC_H,     KC_T,     KC_G,     SW_LY,             KC_LEAD, KC_Y,     KC_N,     KC_E,     KC_O,     KC_I,     KC_TDQT,
         KC_LSFT, KC_Z,     KC_X,     KC_M,     KC_C,     KC_V,                                 KC_K,     KC_L,     KC_TDCL,  KC_TDDG,  KC_TDEP,  KC_TDLN,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void set_autoshift(void) {
-    clear_mods();
+    clear_keyboard();
     if (layer_state_is(QWERTY) || layer_state_is(WORKMAN))
         autoshift_enable();
     else
@@ -130,9 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if(keycode == KC_REDX)
                     register_mods(MOD_LSFT);
                 register_code(KC_Z);
-            }
-
-            else {
+            } else {
                 unregister_mods(to_press);
                 if(keycode == KC_REDX)
                     unregister_mods(MOD_LSFT);

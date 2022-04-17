@@ -47,7 +47,7 @@ enum {
     X_FIND_REPL,
 };
 
-
+#define KC_TDEC TD(X_ESC_CAPSL)
 #define KC_TDLG TD(X_LOGIC)
 #define KC_TDSL TD(X_SLASHES)
 #define KC_TDUH TD(X_PGUP_HOME)
