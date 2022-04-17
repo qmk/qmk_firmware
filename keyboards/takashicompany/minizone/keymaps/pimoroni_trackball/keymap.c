@@ -107,134 +107,30 @@ void keyboard_post_init_user(void) {
 int16_t current_x;
 int16_t current_y;
 
+int history_length = 100;
+
+int16_t history_x[100] = {};
+int16_t history_y[100] = {};
+
 int16_t mag = 5;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    dprintf("x:%d y:%d \n", mouse_report.x, mouse_report.y);
+    dprintf("time:%d x:%d y:%d \n", timer_elapsed(0), mouse_report.x, mouse_report.y);
 
-    // int16_t x = mouse_report.x;
-    // int16_t y = mouse_report.y;
+    int16_t current_x = history_x[0];
+    int16_t current_y = history_y[0];
 
-    // // やりたいこととしては
-    // // 
+    for (int i = 1; i < history_length; i++)
+    {
+        history_x[i - 1] = history_x[i];
+        history_y[i - 1] = history_y[i];
+    }
 
-    // if (x == 0)
-    // {
-    //     if (current_x != 0)
-    //     {
-    //         current_x -= sign(current_x);
-    //     }
-    // }
-    // else
-    // {
-    //     if (x > 0)
-    //     {
-    //         if (current_x < 0)
-    //         {
-    //             current_x = x;
-    //         }
-    //         else if (current_x > 0)
-    //         {
-    //             current_x = max(x, current_x);
-    //         }
-    //         else
-    //         {
-    //             current_x = x;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (current_x < 0)
-    //         {
-    //             current_x = min(x, current_x);
-    //         }
-    //         else if (current_x > 0)
-    //         {
-    //             current_x = x;
-    //         }
-    //         else
-    //         {
-    //             current_x = x;
-    //         }  
-    //     }
-    // }
+    history_x[history_length - 1] = mouse_report.x;
+    history_y[history_length - 1] = mouse_report.y;
 
-    // if (y == 0)
-    // {
-    //     if (current_y != 0)
-    //     {
-    //         current_y -= sign(current_y);
-    //     }
-    // }
-    // else
-    // {
-    //     if (y > 0)
-    //     {
-    //         if (current_y < 0)
-    //         {
-    //             current_y = y;
-    //         }
-    //         else if (current_y > 0)
-    //         {
-    //             current_y = max(y, current_y);
-    //         }
-    //         else
-    //         {
-    //             current_y = y;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (current_y < 0)
-    //         {
-    //             current_y = min(y, current_y);
-    //         }
-    //         else if (current_y > 0)
-    //         {
-    //             current_y = y;
-    //         }
-    //         else
-    //         {
-    //             current_y = y;
-    //         }  
-    //     }
-    // }
-
-    // mouse_report.x = current_x;
-    // mouse_report.y = current_y;
-
-
-////
-    // int16_t x = mouse_report.x;
-    // int16_t y = mouse_report.y;
-
-    // int16_t result_x = 0;
-    // int16_t result_y = 0;
-
-    // while (my_abs(current_x + x) + my_abs(current_y) >= mag)
-    // {
-    //     result_x += current_x + x;
-    //     result_y += current_y * 2;
-    //     x = 0;
-    //     current_x = 0;
-    //     current_y = 0;
-    // }
-    
-    // current_x += x;
-
-    // while (my_abs(current_y + y) + my_abs(current_x) >= mag)
-    // {
-    //     result_x += current_x * 2;
-    //     result_y += current_y + y;
-    //     y = 0;
-    //     current_x = 0;
-    //     current_y = 0;
-    // }
-
-    // current_y += y;
-
-    // mouse_report.x = result_x;
-    // mouse_report.y = result_y;
+    mouse_report.x = current_x;
+    mouse_report.y = current_y;
 
     return mouse_report;
 
