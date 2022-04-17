@@ -112,37 +112,85 @@ int16_t history_x[100] = {};
 int16_t history_y[100] = {};
 int16_t history_t[100] = {};
 
+int16_t record_start;
+bool is_recording;
+int history_index = 0;
+
+int16_t move_x;
+int16_t move_y;
+int16_t remain_move;
+
+
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    dprintf("time:%d x:%d y:%d \n", timer_elapsed(0), mouse_report.x, mouse_report.y);
 
-    int16_t current_x = history_x[0];
-    int16_t current_y = history_y[0];
+    int16_t current_x = mouse_report.x;
+    int16_t current_y = mouse_report.y;
 
-    int start = 1;
-    int read_count = 10;
+    mouse_report.x = 0;
+    mouse_report.y = 0;
 
     if (current_x != 0 || current_y != 0)
     {
-        for (int i = start; i < start + read_count && i < history_length; i++)
+        history_x[history_index] = current_x;
+        history_y[history_index] = current_y;
+        history_t[history_index] = timer_read();
+
+        history_index++;
+        if (!is_recording)
         {
-            current_x += history_x[i];
-            current_y += history_y[i];
-            start = i;
+            is_recording = true;
+            record_start = timer_read();
         }
     }
 
-    for (int i = start; i < history_length; i++)
+    if (is_recording)
     {
-        history_x[i - start] = history_x[i];
-        history_y[i - start] = history_y[i];
+        if (timer_elapsed(record_start) > 20)
+        {
+            // move_x *= remain_move;
+            // move_y *= remain_move;
+
+            for (int i = 0; i < history_index; i++)
+            {
+                move_x += history_x[i] * 10;
+                move_y += history_y[i] * 10;
+                history_x[i] = 0;
+                history_y[i] = 0;
+            }
+
+            double rad = atan2(move_y, move_x);
+            double length = sqrt(pow(move_x, 2) + pow(move_y, 2));
+
+            move_x = (int16_t)(length * cos(rad));
+            move_y = (int16_t)(length * sin(rad));
+
+            // remain_move += 20;
+            // move_x /= remain_move;
+            // move_y /= remain_move;
+
+            mouse_report.x = move_x;
+            mouse_report.y = move_y;
+
+            move_x = 0;
+            move_y = 0;
+
+            is_recording = false;
+            history_index = 0;
+
+            dprintf("fire: %d x:%d y:%d \n", timer_elapsed(record_start), move_x, move_y);
+        }
     }
 
-    history_x[history_length - 1] = mouse_report.x;
-    history_y[history_length - 1] = mouse_report.y;
+   
 
-    mouse_report.x = current_x * 2;
-    mouse_report.y = current_y * 2;
+    // if (remain_move > 0)
+    // {
+    //     mouse_report.x = move_x;
+    //     mouse_report.y = move_y;
+
+    //     remain_move--;
+    // }
 
     return mouse_report;
 
