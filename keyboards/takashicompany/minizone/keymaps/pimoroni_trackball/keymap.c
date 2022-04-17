@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "math.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -104,15 +105,13 @@ void keyboard_post_init_user(void) {
   // debug_mouse=true;
 }
 
-int16_t current_x;
-int16_t current_y;
 
 int history_length = 100;
 
 int16_t history_x[100] = {};
 int16_t history_y[100] = {};
+int16_t history_t[100] = {};
 
-int16_t mag = 5;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     dprintf("time:%d x:%d y:%d \n", timer_elapsed(0), mouse_report.x, mouse_report.y);
@@ -120,17 +119,30 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     int16_t current_x = history_x[0];
     int16_t current_y = history_y[0];
 
-    for (int i = 1; i < history_length; i++)
+    int start = 1;
+    int read_count = 10;
+
+    if (current_x != 0 || current_y != 0)
     {
-        history_x[i - 1] = history_x[i];
-        history_y[i - 1] = history_y[i];
+        for (int i = start; i < start + read_count && i < history_length; i++)
+        {
+            current_x += history_x[i];
+            current_y += history_y[i];
+            start = i;
+        }
+    }
+
+    for (int i = start; i < history_length; i++)
+    {
+        history_x[i - start] = history_x[i];
+        history_y[i - start] = history_y[i];
     }
 
     history_x[history_length - 1] = mouse_report.x;
     history_y[history_length - 1] = mouse_report.y;
 
-    mouse_report.x = current_x;
-    mouse_report.y = current_y;
+    mouse_report.x = current_x * 2;
+    mouse_report.y = current_y * 2;
 
     return mouse_report;
 
