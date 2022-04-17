@@ -16,7 +16,6 @@
 
 #pragma once
 #include "quantum.h"
-#include "encoder_actions.h"
 
 #define LAYOUT( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008,       K010, K011, K012, K013, K014, \
