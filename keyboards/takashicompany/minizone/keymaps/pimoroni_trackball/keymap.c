@@ -105,7 +105,7 @@ void keyboard_post_init_user(void) {
   // debug_mouse=true;
 }
 
-
+/*
 int history_length = 100;
 
 int16_t history_x[100] = {};
@@ -146,34 +146,34 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     if (is_recording)
     {
-        if (timer_elapsed(record_start) > 20)
+        if (timer_elapsed(record_start) > 10)
         {
             // move_x *= remain_move;
             // move_y *= remain_move;
 
             for (int i = 0; i < history_index; i++)
             {
-                move_x += history_x[i] * 10;
-                move_y += history_y[i] * 10;
+                move_x += history_x[i];
+                move_y += history_y[i];
                 history_x[i] = 0;
                 history_y[i] = 0;
             }
 
-            double rad = atan2(move_y, move_x);
-            double length = sqrt(pow(move_x, 2) + pow(move_y, 2));
+            // double rad = atan2(move_y, move_x);
+            // // double length = sqrt(pow(move_x, 2) + pow(move_y, 2));
 
-            move_x = (int16_t)(length * cos(rad));
-            move_y = (int16_t)(length * sin(rad));
+            // move_x = (int16_t)(cos(rad) * 2);
+            // move_y = (int16_t)(sin(rad) * 2);
 
-            // remain_move += 20;
+            remain_move += 3;
             // move_x /= remain_move;
             // move_y /= remain_move;
 
-            mouse_report.x = move_x;
-            mouse_report.y = move_y;
+            // mouse_report.x = move_x;
+            // mouse_report.y = move_y;
 
-            move_x = 0;
-            move_y = 0;
+            // move_x = 0;
+            // move_y = 0;
 
             is_recording = false;
             history_index = 0;
@@ -184,13 +184,57 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
    
 
-    // if (remain_move > 0)
-    // {
-    //     mouse_report.x = move_x;
-    //     mouse_report.y = move_y;
+    if (remain_move > 0)
+    {
+        mouse_report.x = move_x;
+        mouse_report.y = move_y;
 
-    //     remain_move--;
-    // }
+        remain_move--;
+    }
+
+    return mouse_report;
+
+}
+*/
+
+
+int history_length = 10;
+
+int16_t history_x[10] = {};
+int16_t history_y[10] = {};
+int16_t history_t[10] = {};
+
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    dprintf("time:%d x:%d y:%d \n", timer_elapsed(0), mouse_report.x, mouse_report.y);
+
+    int16_t current_x = history_x[0];
+    int16_t current_y = history_y[0];
+
+    int start = 1;
+    int read_count = 10;
+
+    if (current_x != 0 || current_y != 0)
+    {
+        for (int i = start; i < start + read_count && i < history_length; i++)
+        {
+            current_x += history_x[i];
+            current_y += history_y[i];
+            start = i;
+        }
+    }
+
+    for (int i = start; i < history_length; i++)
+    {
+        history_x[i - start] = history_x[i];
+        history_y[i - start] = history_y[i];
+    }
+
+    history_x[history_length - 1] = mouse_report.x;
+    history_y[history_length - 1] = mouse_report.y;
+
+    mouse_report.x = current_x * 2;
+    mouse_report.y = current_y * 2;
 
     return mouse_report;
 
