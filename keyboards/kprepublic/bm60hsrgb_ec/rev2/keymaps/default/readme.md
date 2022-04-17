@@ -1,4 +1,4 @@
-![KPRepublic BM60EC Rev 2 Layout Image](https://imgur.com/a/0ZdxDV0)
+![KPRepublic BM60EC Rev 2 Layout Image](https://i.imgur.com/pCNnmh8.png)
 
 # Default BM60EC Rev 2 Layout
 
