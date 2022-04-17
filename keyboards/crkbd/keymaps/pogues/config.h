@@ -52,6 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // leader timeout is for the whole sequence by default.  to have it per key set:
 // #define LEADER_PER_KEY_TIMING
 
+// disable macro / functions as we are not using them
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
 #ifdef RGBLIGHT_ENABLE
     // enable light change on layer change
     #define RGBLIGHT_LAYERS
