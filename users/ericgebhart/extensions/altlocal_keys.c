@@ -72,7 +72,7 @@ void send_keycode(uint16_t kc){
 
 bool process_alt_local_key(uint16_t keycode, keyrecord_t* record) {
   switch(keycode){
-  case ALT_LOCAL_KEYS_START+1 ... ALT_LOCAL_KEYS_END-1:
+  case ALT_LOCAL_KEYS_START ... ALT_LOCAL_KEYS_END:
     if(record->event.pressed)
       send_keycode(keycode);
     unregister_code(keycode);

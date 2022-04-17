@@ -19,7 +19,7 @@
 #define USERSPACE_CONFIG_H
 
 // pro-micro v3's don't always detect otherwise.
-#define SPLIT_USB_DETECT
+/* #define SPLIT_USB_DETECT */
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
@@ -106,13 +106,14 @@
 
 // layout io, matrix size.
 // a reasonable default for most keyboards.
-// give a 3x10 and get a 3x12
+// give a 3x10 and get a 3x12, managed in keyboards/keyboards.h
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
 
 // OLED STUFF.
 #define OLED_CUSTOM_ENABLE // custom oled here.
 //#define OLED_LOGO_ENABLE // turn on/off the logo.
 #define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
+#define SPLIT_LAYER_STATE_ENABLE  // to sync state between sides.
 
 // EXTENSIONS
 
@@ -148,10 +149,13 @@
 //#define SEND_UNICODE_ENABLE // Unicode must be enabled for this to work.
 
 
-// Turn on the layers
+// Turn on the base layers do not exceed 4 if doing two locales.
+// That will likely push a layer past 15 and then it will
+// no longer work with the LT macro.
+
 // dvorak and relatives
 #define DVORAK_LAYER_ENABLE
-//#define CAPEWELL_DVORAK_LAYER_ENABLE
+#define CAPEWELL_DVORAK_LAYER_ENABLE
 //#define AHEI_LAYER_ENABLE
 //#define BOO_LAYER_ENABLE
 
@@ -172,7 +176,7 @@
 // BEAKL
 // #define BEAKL15_LAYER_ENABLE
 //#define BEAKL19_LAYER_ENABLE
-//#define BEAKL27_LAYER_ENABLE
+#define BEAKL27_LAYER_ENABLE
 //#define BEAKLWI_LAYER_ENABLE
 
 // carpalx layouts
@@ -207,7 +211,7 @@
 //#define HD_BRONZE_LAYER_ENABLE
 //#define HD_SILVER_LAYER_ENABLE
 //#define HD_PLATINUM_LAYER_ENABLE
-#define HD_GOLD_LAYER_ENABLE
+//#define HD_GOLD_LAYER_ENABLE
 
 // 3x12 sized base layers
 //--------------------------
@@ -282,7 +286,7 @@
 // is a functionpad on the left and normal keypad on the right.
 
 // funcpad from miryoku
-#define FUNCPAD_MIRYOKU
+// #define FUNCPAD_MIRYOKU
 
 
 /* symbols */

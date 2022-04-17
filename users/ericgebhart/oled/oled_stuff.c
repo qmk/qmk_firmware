@@ -96,6 +96,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #ifdef OLED_DISPLAY_128X64
   return OLED_ROTATION_180;
 #endif
+  // rotate the slave side of the corne to be bottom side in.
+  if (!is_keyboard_master()) {
+    return OLED_ROTATION_180;
+  }
 
   return oled_init_keymap(rotation);
 }
@@ -137,16 +141,16 @@ __attribute__((weak)) void oled_render_logo(void) {
 }
 
 
-#ifdef KEYLOGGER_ENABLE
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
+#ifdef KEYLOGGER_ENABLE
   if (record->event.pressed) {
     //oled_timer = timer_read32();
     add_keylog(keycode, record);
     //add_keylog(keycode);
   }
+#endif
   return true;
 }
-#endif
 
 bool oled_task_user(void) {
   //oled_clear();
@@ -167,11 +171,14 @@ bool oled_task_user(void) {
 
   // slave side display.
   } else {
+    oled_clear();
 #ifdef OLED_LOGO_ENABLE
     oled_render_logo();
 #endif
     oled_render_default_layer_state();
     oled_render_locale();
+    oled_write_ln_P(PSTR(" "), false);
+    oled_render_layer_map();
   }
   return(false);
 

@@ -181,6 +181,7 @@ Layout shape and keyboard choices.
    In all cases these keyboards are defined in a matrix which is
    a set of rows. Maybe like so, or less. Kinesis has one more row.
                                                        
+``` 
    -------------------------|------------------------ */
    | Left0 | Numbers L | mid|dle0 | numbers R | Right0 |
    | Left1 | keys0-5   | mid|dle1 | Keys6-10  | Right1 |
@@ -189,6 +190,7 @@ Layout shape and keyboard choices.
    | Row5L                  |                    Row5R |
    |               ThumbsL  | ThumbsR                  |
    -------------------------|------------------------ 
+```
 
 Generally speaking, the keys on the right and left and middle don't change.
 Neither do the bottom row or the thumbs, unless asked. Frequently the numbers 
@@ -216,7 +218,7 @@ Matrix size + thumbs.
  * dactyl - Morpho handwire
    4x6 + 5 + 6
  * ergodox_ez
-   4x6 + 5 + 6 + 3 pairs of center keys.
+   4x6 + 5 + 6 & 3 pairs of center keys.
  * crkbd - corne
    3x6 + 3 or 3x5 + 3
  * xiudi/xd75

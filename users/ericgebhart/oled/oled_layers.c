@@ -30,13 +30,13 @@ void oled_render_default_layer_state(void) {
     WRITE_STR_LAYER(_DVORAK, "Dvorak")
 #endif
 #ifdef BOO_LAYER_ENABLE
-      WRITE_STR_LAYER(_BOO, "Boo"),
+      WRITE_STR_LAYER(_BOO, "Boo")
 #endif
 #ifdef CAPEWELL_DVORAK_LAYER_ENABLE
-      WRITE_STR_LAYER(_CAPEWELL_DVORAK, "Capewell Dvorak"),
+      WRITE_STR_LAYER(_CAPEWELL_DVORAK, "Capewell Dvorak")
 #endif
 #ifdef AHEI_LAYER_ENABLE
-      WRITE_STR_LAYER(_AHEI, "Ahei"),
+      WRITE_STR_LAYER(_AHEI, "Ahei")
 #endif
 
 #ifdef QWERTY_LAYER_ENABLE
@@ -56,16 +56,16 @@ void oled_render_default_layer_state(void) {
       WRITE_STR_LAYER(_COLEMAK_DH, "Colemak")
 #endif
 #ifdef HALMAK_LAYER_ENABLE
-      WRITE_STR_LAYER(_HALMAK, "Halmak"),
+      WRITE_STR_LAYER(_HALMAK, "Halmak")
 #endif
 #ifdef MINIMAK_LAYER_ENABLE
-      WRITE_STR_LAYER(_MINIMAK, "Minimak"),
+      WRITE_STR_LAYER(_MINIMAK, "Minimak")
 #endif
 #ifdef MINIMAK_8_LAYER_ENABLE
-      WRITE_STR_LAYER(_MINIMAK_8, "Minimak 8"),
+      WRITE_STR_LAYER(_MINIMAK_8, "Minimak 8")
 #endif
 #ifdef MINIMAK_12_LAYER_ENABLE
-      WRITE_STR_LAYER(_MINIMAK_12, "Minimak 12"),
+      WRITE_STR_LAYER(_MINIMAK_12, "Minimak 12")
 #endif
 
 #ifdef BEAKL15_LAYER_ENABLE
@@ -144,25 +144,25 @@ void oled_render_default_layer_state(void) {
       WRITE_STR_LAYER(_HANDS_UP, "Hands up")
 #endif
 #ifdef WHITE_LAYER_ENABLE
-      WRITE_STR_LAYER(_WHITE, "White"),
+      WRITE_STR_LAYER(_WHITE, "White")
 #endif
 #ifdef ISRT_LAYER_ENABLE
-      WRITE_STR_LAYER(_ISRT, "Isrt"),
+      WRITE_STR_LAYER(_ISRT, "Isrt")
 #endif
 #ifdef SOUL_LAYER_ENABLE
-      WRITE_STR_LAYER(_SOUL, "Soul"),
+      WRITE_STR_LAYER(_SOUL, "Soul")
 #endif
 #ifdef NIRO_LAYER_ENABLE
-      WRITE_STR_LAYER(_NIRO, "Niro"),
+      WRITE_STR_LAYER(_NIRO, "Niro")
 #endif
 #ifdef ASSET_LAYER_ENABLE
-      WRITE_STR_LAYER(_ASSET, "Asset"),
+      WRITE_STR_LAYER(_ASSET, "Asset")
 #endif
 #ifdef WHORF_LAYER_ENABLE
-      WRITE_STR_LAYER(_WHORF, "Whorf"),
+      WRITE_STR_LAYER(_WHORF, "Whorf")
 #endif
 #ifdef WHORF6_LAYER_ENABLE
-      WRITE_STR_LAYER(_WHORF6, "Whorf 6"),
+      WRITE_STR_LAYER(_WHORF6, "Whorf 6")
 #endif
 
 #ifdef OPTIMOT_LAYER_ENABLE

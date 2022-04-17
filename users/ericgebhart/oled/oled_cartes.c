@@ -51,13 +51,13 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_DVORAK)
 #endif
 #ifdef BOO_LAYER_ENABLE
-        SHOW_MAP(_BOO),
+        SHOW_MAP(_BOO)
 #endif
 #ifdef CAPEWELL_DVORAK_LAYER_ENABLE
-        SHOW_MAP(_CAPEWELL_DVORAK),
+        SHOW_MAP(_CAPEWELL_DVORAK)
 #endif
 #ifdef AHEI_LAYER_ENABLE
-        SHOW_MAP(_AHEI),
+        SHOW_MAP(_AHEI)
 #endif
 
 #ifdef BEAKL27_LAYER_ENABLE
@@ -145,25 +145,25 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_HANDS_UP)
 #endif
 #ifdef WHITE_LAYER_ENABLE
-        SHOW_MAP(_WHITE),
+        SHOW_MAP(_WHITE)
 #endif
 #ifdef ISRT_LAYER_ENABLE
-        SHOW_MAP(_ISRT),
+        SHOW_MAP(_ISRT)
 #endif
 #ifdef SOUL_LAYER_ENABLE
-        SHOW_MAP(_SOUL),
+        SHOW_MAP(_SOUL)
 #endif
 #ifdef NIRO_LAYER_ENABLE
-        SHOW_MAP(_NIRO),
+        SHOW_MAP(_NIRO)
 #endif
 #ifdef ASSET_LAYER_ENABLE
-        SHOW_MAP(_ASSET),
+        SHOW_MAP(_ASSET)
 #endif
 #ifdef WHORF_LAYER_ENABLE
-        SHOW_MAP(_WHORF),
+        SHOW_MAP(_WHORF)
 #endif
 #ifdef WHORF6_LAYER_ENABLE
-        SHOW_MAP(_WHORF6),
+        SHOW_MAP(_WHORF6)
 #endif
 
 #ifdef BEPO_LAYER_ENABLE
