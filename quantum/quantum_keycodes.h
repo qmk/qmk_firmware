@@ -597,9 +597,13 @@ enum quantum_keycodes {
 
     QK_MAKE,
 
-    // Caps Word
-    CAPS_WORD,
+    SECURE_LOCK,
+    SECURE_UNLOCK,
+    SECURE_TOGGLE,
 
+      // Caps Word
+    CAPS_WORD,
+  
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };

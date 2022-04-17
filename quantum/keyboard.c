@@ -152,7 +152,7 @@ void matrix_scan_perf_task(void) {
     matrix_scan_count++;
 
     uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
+    if (TIMER_DIFF_32(timer_now, matrix_timer) >= 1000) {
 #    if defined(CONSOLE_ENABLE)
         dprintf("matrix scan frequency: %lu\n", matrix_scan_count);
 #    endif
@@ -568,6 +568,10 @@ void quantum_task(void) {
 
 #ifdef CAPS_WORD_ENABLE
     caps_word_task();
+#endif
+
+#ifdef SECURE_ENABLE
+    secure_task();
 #endif
 }
 

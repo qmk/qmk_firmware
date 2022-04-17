@@ -98,17 +98,9 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    ifndef CIRQUE_PINNACLE_TAPPING_TERM
-#        ifdef TAPPING_TERM_PER_KEY
-#            include "action.h"
-#            include "action_tapping.h"
-#            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, &(keyrecord_t){})
-#        else
-#            ifdef TAPPING_TERM
-#                define CIRQUE_PINNACLE_TAPPING_TERM TAPPING_TERM
-#            else
-#                define CIRQUE_PINNACLE_TAPPING_TERM 200
-#            endif
-#        endif
+#        include "action.h"
+#        include "action_tapping.h"
+#        define CIRQUE_PINNACLE_TAPPING_TERM GET_TAPPING_TERM(KC_BTN1, &(keyrecord_t){})
 #    endif
 #    ifndef CIRQUE_PINNACLE_TOUCH_DEBOUNCE
 #        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
