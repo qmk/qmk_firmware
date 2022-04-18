@@ -1,7 +1,7 @@
 // Copyright 2022 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-// For some reason this bit isn't actually defined in some headers.
+// For some reason this bit is undocumented for some AVR parts and not defined in their avr-libc IO headers
 // See https://stackoverflow.com/questions/12350914/how-to-read-atmega-32-signature-row
 #ifndef SIGRD
 #    define SIGRD 5
