@@ -21,7 +21,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: qmkfm/base_container
+    container: qmkfm/qmk_cli
     strategy:
       fail-fast: false
 # Start of build matrix
@@ -36,10 +36,8 @@ jobs:
     steps:
 
     - name: Checkout QMK
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
-        fetch-depth: 1
-        persist-credentials: false
         submodules: recursive
 
     - name: Build firmware
@@ -50,15 +48,14 @@ jobs:
         echo "::set-output name=artifact-name::${TARGET}"
 
     - name: Archive firmware
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
+      continue-on-error: true
       with:
         name: ${{ steps.build.outputs.artifact-name }}
-        retention-days: 30
         path: |
           *.hex
           *.bin
           *.uf2
-      continue-on-error: true
 ```
 
 ### Customising the build matrix
