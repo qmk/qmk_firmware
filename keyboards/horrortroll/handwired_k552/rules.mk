@@ -1,11 +1,11 @@
 # MCU name
 MCU = STM32F103
 
-# Custom loader configuration
-MCU_LDSCRIPT = STM32F103xC_stm32duino_bootloader
+# Custom bootloader configuration
+BOOTLOADER_TYPE = stm32duino
 OPT_DEFS += -DBOOTLOADER_STM32DUINO
+MCU_LDSCRIPT = STM32F103xC_stm32duino_bootloader
 BOARD = STM32_F103XC_STM32DUINO
-STM32_BOOTLOADER_ADDRESS = 0x80000000
 DFU_ARGS = -d 1EAF:0003 -a 2 -R
 DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 
@@ -21,7 +21,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-NO_USB_STARTUP_CHECK = yes
+
 LTO_ENABLE = yes
 
 # RGB Matrix enabled
