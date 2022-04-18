@@ -9,4 +9,3 @@ milc>=1.4.2
 pygments
 pyusb
 qmk-dotty-dict
-pillow

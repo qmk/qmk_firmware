@@ -24,9 +24,7 @@ jobs:
         persist-credentials: false
 
     - name: Generate API Data
-      run: |
-        python3 -m pip install -r requirements-dev.txt
-        qmk generate-api
+      run: qmk generate-api
 
     - name: Upload API Data
       uses: jakejarvis/s3-sync-action@master
