@@ -1,5 +1,7 @@
  SPLIT_KEYBOARD = yes
 
+SRC += wait_test.c
+
  CONSOLE_ENABLE = no        # Console for debug
  COMMAND_ENABLE = no        # Commands for debug and configuration
  # CONSOLE_ENABLE and COMMAND_ENABLE
