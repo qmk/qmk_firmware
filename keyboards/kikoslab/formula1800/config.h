@@ -47,3 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
+
+/* bootmagic row col assignment */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 2

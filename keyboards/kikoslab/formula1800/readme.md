@@ -6,6 +6,14 @@ Southpaw 1800 With Dual Encoder Option
 * Hardware Supported: Formula 1800 PCB
 * Hardware Availability: https://www.kikoslab.com
 
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,2) in the matrix (Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB 
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+
 Make example for this keyboard (after setting up your build environment):
 
     make kikoslab/formula1800:default
