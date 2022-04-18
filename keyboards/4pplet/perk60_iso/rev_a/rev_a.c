@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "rev_a.h"
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_2,  J_2,  L_2 }, //D402
     { 0, K_3,  J_3,  L_3 }, //D403
