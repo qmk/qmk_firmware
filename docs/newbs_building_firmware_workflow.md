@@ -71,7 +71,7 @@ mkdir -p ~/qmk_keymap/.github/workflows
 touch ~/qmk_keymap/.github/workflows/build.yml
 touch ~/qmk_keymap/config.h
 echo "SRC += source.c" > ~/qmk_keymap/rules.mk
-echo "#include QMK_KEYBOARD_H" > source.c
+echo "#include QMK_KEYBOARD_H" > ~/qmk_keymap/source.c
 ```
 
 ?> For Windows user running MSYS, those commands will create the folder `qmk_keymap/` and its content in the `C:\Users\<windows_username>\qmk_keymap\` path location.
@@ -95,7 +95,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: qmkfm/base_container
+    container: qmkfm/qmk_cli
     strategy:
       fail-fast: false
       matrix:
@@ -107,35 +107,28 @@ jobs:
     steps:
 
     - name: Checkout QMK
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: qmk/qmk_firmware
-# Uncomment the following for develop branch
-#        ref: develop
-        fetch-depth: 1
-        persist-credentials: false
         submodules: recursive
 
     - name: Checkout userspace
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: users/${{ github.actor }}
-        fetch-depth: 1
-        persist-credentials: false
 
     - name: Build firmware
       run: qmk compile "users/${{ github.actor }}/${{ matrix.file }}"
 
     - name: Archive firmware
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
+      continue-on-error: true
       with:
         name: ${{ matrix.file }}_${{ github.actor }}
-        retention-days: 5
         path: |
           *.hex
           *.bin
           *.uf2
-      continue-on-error: true
 ```
 Replace `username.json` with the JSON file name that was downloaded from [QMK Configurator](https://config.qmk.fm/#/) in the previous step.
 
