@@ -318,7 +318,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 For an option to interrupt force hold, add the following to `config.h`:
 
 ```c
-#define TAPPING_RELEASE_HOLD_TERM TAPPING_TERM - 100
+#define TAPPING_RELEASE_HOLD_TERM 100
 ```
 
 When a tap-hold key is held again after tapping within `TAPPING_RELEASE_HOLD_TERM` in milliseconds, force hold will be interrupted. This will provide user the ability to deliberately override force hold with quick tap and hold action to auto-repeat a key. `TAPPING_RELEASE_HOLD_TERM` must be less than `TAPPING_TERM` or tapping force hold will be disabled.
