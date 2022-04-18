@@ -17,10 +17,18 @@
 */
 
 // probably best to have e and é on different fingers.
+
+// doesnt work, oled displays garbage
+/* #define CARTE_ACCENTED                          \ */
+/*   carte_de_map(" æœêùì  ¿ïüöë ",                \ */
+/*                " àôèéî  ûçñß^",                 \ */
+/*                " âöíúí       ") */
+
+// need to figure out a better way to display these on the oled.
 #define CARTE_ACCENTED                          \
-  carte_de_map(" æœêùì  ¿ïüöë ",                \
-               " àôèéî  ûçñß^",                 \
-               " âöíúí       ")
+  carte_de_map(" aoeui  ?iuoe ",                \
+               " aoeei  ucnS^",                 \
+               " aoiúi       ")
 
 #define ___ACCENTED___                                                  \
   LANG_MAP(_AE,   _OE,   _ECIR, _UGRV, _IGRV,   _IQUE, _IIAE, _UIAE, _OIAE, _EIAE, \
@@ -43,10 +51,16 @@
 // Just taking a guess and putting the things I know are most
 // used in easy to use places., not sure about ntil and ss, put
 // them in their dvorak spots on the home row.
+
+/* #define CARTE_ACCENTS_MORTE                     \ */
+/*   carte_de_map(" æœêùì  ¿`^´ë ",                \ */
+/*                " àôèéî  ¸çñß~",                 \ */
+/*                " âö,úí   ¨ˇ°   ") */
+
 #define CARTE_ACCENTS_MORTE                     \
-  carte_de_map(" æœêùì  ¿`^´ë ",                \
-               " àôèéî  ¸çñß~",                 \
-               " âö,úí   ¨ˇ°   ")
+  carte_de_map(" aoeui  ?`^'e ",                \
+               " aoeei  ,cnS~",                 \
+               " ao,ui   \"^o")
 
 #define ___ACCENTS_MORTE___                                             \
   LANG_MAP(_AE,   _OE,    _ECIR,  _UGRV,  _IGRV,    _IQUE, _DGRV, _DCIR, _ACUT, _EIAE, \

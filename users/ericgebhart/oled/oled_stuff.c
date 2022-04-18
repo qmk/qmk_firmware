@@ -178,7 +178,10 @@ bool oled_task_user(void) {
     oled_render_default_layer_state();
     oled_render_locale();
     oled_write_ln_P(PSTR(" "), false);
+#ifdef SPLIT_LAYER_STATE_ENABLE
+    oled_render_layer_state();
     oled_render_layer_map();
+#endif
   }
   return(false);
 
