@@ -37,6 +37,15 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
  * @return false Stop process keycode and do not send to host
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef ENCODER_ENABLE // some debouncing for weird issues
+    if (IS_ENCODEREVENT(record->event)) {
+        static bool ignore_first = true;
+        if (ignore_first) {
+            ignore_first = false;
+            return false;
+        }
+    }
+#endif
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
