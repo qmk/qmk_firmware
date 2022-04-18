@@ -1,0 +1,4 @@
+# Copyright 2022 Hector Galindo <hi@hsuchil.com>
+
+RGBLIGHT_SLEEP = yes
+RGBLIGHT_DEFAULT_MODE = RGBLIGHT_MODE_RAINBOW_SWIRL
