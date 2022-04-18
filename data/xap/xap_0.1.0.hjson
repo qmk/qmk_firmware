@@ -317,6 +317,14 @@
                     return_type: u8
                     return_execute: request_bootloader_jump
                 }
+                0x08: {
+                    type: command
+                    name: info.json
+                    define: HARDWARE_ID
+                    description: Retrieves a unique identifier for the board.
+                    return_type: u32[4]
+                    return_execute: get_hardware_id
+                }
             }
         },
 

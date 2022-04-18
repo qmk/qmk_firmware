@@ -150,8 +150,10 @@ def _append_route_types(lines, container, container_id=None, route_stack=None):
 
     elif 'return_type' in container:
         return_type = container['return_type']
-        if return_type == 'u8[32]':
-            lines.append(f'typedef struct {{ uint8_t x[32]; }} {route_name}_t;')
+        found = re.search(r'(u\d+)\[(\d+)\]', return_type)
+        if found:
+            return_type, size = found.groups()
+            lines.append(f'typedef struct {{ {_get_c_type(return_type)} x[{size}]; }} {route_name}_t;')
         else:
             lines.append(f'typedef {_get_c_type(return_type)} {route_name}_t;')
 

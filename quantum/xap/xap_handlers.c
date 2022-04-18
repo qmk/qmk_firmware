@@ -17,6 +17,7 @@
 #include <quantum.h>
 #include <xap.h>
 
+#include "hardware_id.h"
 #include "secure.h"
 #ifndef SECURE_ENABLE
 #    define secure_get_status() SECURE_UNLOCKED
@@ -97,6 +98,11 @@ bool xap_respond_request_bootloader_jump(xap_token_t token, const void *data, si
     return res;
 }
 #endif
+
+bool xap_respond_get_hardware_id(xap_token_t token, const void *data, size_t length) {
+    hardware_id_t ret = get_hardware_id();
+    return xap_respond_data(token, &ret, sizeof(ret));
+}
 
 #if ((defined(DYNAMIC_KEYMAP_ENABLE)))
 bool xap_respond_dynamic_keymap_get_keycode(xap_token_t token, const void *data, size_t length) {

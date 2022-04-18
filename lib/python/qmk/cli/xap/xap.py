@@ -35,6 +35,9 @@ def print_dotted_output(kb_info_json, prefix=''):
             continue
         elif key == 'layouts' and prefix == '':
             cli.echo('    {fg_blue}layouts{fg_reset}: %s', ', '.join(sorted(kb_info_json['layouts'].keys())))
+        elif isinstance(kb_info_json[key], bytes):
+            conv = "".join(["{:02X}".format(b) for b in kb_info_json[key]])
+            cli.echo('    {fg_blue}%s{fg_reset}: %s', new_prefix, conv)
         elif isinstance(kb_info_json[key], dict):
             print_dotted_output(kb_info_json[key], new_prefix)
         elif isinstance(kb_info_json[key], list):
@@ -105,6 +108,10 @@ def _query_device(device):
     return {'xap': ver, 'secure': secure}
 
 
+def _query_device_id(device):
+    return _xap_transaction(device, 0x01, 0x08)
+
+
 def _query_device_info_len(device):
     len_data = _xap_transaction(device, 0x01, 0x05)
     if not len_data:
@@ -146,6 +153,7 @@ def _list_devices():
         if cli.config.general.verbose:
             # TODO: better formatting like "lsusb -v"?
             data = _query_device_info(device)
+            data["_id"] = _query_device_id(device)
             print_dotted_output(data)
 
 
