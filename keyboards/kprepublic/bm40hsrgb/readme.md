@@ -1,6 +1,6 @@
 # bm40hsrgb
 
-![BM40 RGB](https://imgur.com/eOqXMlN.jpeg)
+![BM40 RGB](https://imgur.com/eOqXMlNh.jpeg)
 
 An ortholinear 40% hotswap keyboard with per-key RGB in-switch LEDs and RGB Backlighting, from KP Republic.
 
