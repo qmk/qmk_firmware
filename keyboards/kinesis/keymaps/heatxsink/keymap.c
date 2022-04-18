@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-    _DEFAULT = SAFE_RANGE,
+    _DEFAULT,
     _QWERTY,
     _COLEMAK_MOD_DH,
     _WORKMAN,
