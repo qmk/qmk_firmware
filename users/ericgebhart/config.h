@@ -112,8 +112,8 @@
 // OLED STUFF.
 #define OLED_CUSTOM_ENABLE // custom oled here.
 //#define OLED_LOGO_ENABLE // turn on/off the logo.
-#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
-#define SPLIT_LAYER_STATE_ENABLE  // to sync state between sides.
+//#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
+//#define SPLIT_LAYER_STATE_ENABLE  // to sync state between sides.
 
 // EXTENSIONS
 
@@ -176,7 +176,7 @@
 // BEAKL
 // #define BEAKL15_LAYER_ENABLE
 //#define BEAKL19_LAYER_ENABLE
-#define BEAKL27_LAYER_ENABLE
+//#define BEAKL27_LAYER_ENABLE
 //#define BEAKLWI_LAYER_ENABLE
 
 // carpalx layouts

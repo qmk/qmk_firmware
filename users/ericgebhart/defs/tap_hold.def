@@ -27,6 +27,7 @@ TP_TPL(US_CWCQ, LCTL(US_W), LCTL(US_Q))
 TP_TPL(US_XM_PORD, LGUI(US_E), LGUI(US_T))
 
 TP_TPL(US_C_CCED, US_C, US_CCED)
+TP_TPL(ENTNAV, KC_ENTER, SML_NAV)
 #endif
 
 // Open on tap and Open with close and back arrow on hold.

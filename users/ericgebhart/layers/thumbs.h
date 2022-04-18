@@ -185,7 +185,7 @@
     ___6_ERGO_THUMBS___
 
 // For the Kyria
-#define ___4_THUMBS_def___       OSLALT_ALT, OSLCTL_CTL, SML_NAV, OSLSFT_SFT
+#define ___4_THUMBS_def___       OS_LALT, OS_LCTL, SML_NAV, OS_LSFT
 #define ___10_ERGO_THUMBS_def___ _X_, _X_, ___6_ERGO_THUMBS___, _X_, _X_
 //#define ___10_ERGO_THUMBS_def___ _X_, _X_, _6_xs, _X_, _X_
 
