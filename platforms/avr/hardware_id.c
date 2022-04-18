@@ -1,6 +1,12 @@
 // Copyright 2022 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+// For some reason this bit isn't actually defined in some headers.
+// See https://stackoverflow.com/questions/12350914/how-to-read-atmega-32-signature-row
+#ifndef SIGRD
+#    define SIGRD 5
+#endif // SIGRD
+
 #include <avr/boot.h>
 #include "hardware_id.h"
 
