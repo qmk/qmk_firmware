@@ -1,7 +1,7 @@
 # Game Roy ADVANCE
 
-![Game Roy ADVANCE](https://imgur.com/N6RI4fU)
-![GRALAYOUTS](https://imgur.com/lHjTRQK)
+![Game Roy ADVANCE](https://i.imgur.com/N6RI4fU.jpg)
+![GRALAYOUTS](https://i.imgur.com/lHjTRQK.png)
 
 A one-handed, expandable game pad designed to take your pc gaming to the next level. Designed by [Keystone Caps](https://keystonecaps.store).
 
