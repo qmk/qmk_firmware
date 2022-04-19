@@ -1,6 +1,26 @@
-# PROG_QGMLWB
+# PROG-QGMLWB
 
-A qmk firmware layout for the planck keyboard
+A qmk firmware layout for the planck keyboard.
+
+The layout uses the optimized qgmlwb layout from the [Carpalx project](http://mkweb.bcgsc.ca/carpalx) for letter placement.
+
+> The carpalx project introduces a quantitative model for typing effort and applies it to (a) evaluate QWERTY and popular alternatives, such as Dvorak and Colemak and (b) find the keyboard layouts that minimize typing effort for a given set of input documents.
+
+Carpalx named "QGMLWB" as the fully optimized layout according to the English alphabet, with an effort reduction of approximately 44.4%.
+
+The programming part of the name is inspired by the modified version of dvorak, [Programmer dvorak](http://programmer-dvorak.appspot.com), where the symbols have been adjucsted logically for developers.
+
+The final layout swaps some of the the dvorak symbols and combines it with the qgmlwb letters, giving it the name **prog-qgmlwb**.
+
+The layout includes an english and norwegian layer of the layout, where the norwegian one only adds the three letter; æ, ø, and å.
+
+## Typing layers
+
+![Default layout](./print_layout/layout_df.png)
+
+## Adjuct layer
+
+![Default layout](./print_layout/layout_adjust.png)
 
 ## Usage
 
@@ -49,5 +69,5 @@ The file `build/layers.json` is used for printing the keymap.
 
 ## Print layout
 
-The folder `print_layouts` contain all layouts designed using pimpmykeyboard's layout editor.  
+The folder `print_layouts` contain all layouts designed using the [pimpmykeyboard layout editor](http://www.keyboard-layout-editor.com).  
 Each file can be imported into the editor using the `Raw Data` field
