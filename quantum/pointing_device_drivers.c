@@ -200,11 +200,11 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 static void pmw3360_device_init(void) {
-    pmw3360_init();
+    pmw3360_init(0);
 }
 
 report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
-    report_pmw3360_t data        = pmw3360_read_burst();
+    report_pmw3360_t data        = pmw3360_read_burst(0);
     static uint16_t  MotionStart = 0; // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
