@@ -130,15 +130,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
-}
-
 /* Column pin configuration
  * col: 0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15
  * pin: F7  F6  F5  F4  F1  F0  E6  D7  D6  D5  D1  D0  B7  B6  B0  C7

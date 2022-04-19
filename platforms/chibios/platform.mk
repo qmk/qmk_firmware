@@ -39,7 +39,6 @@ ifeq ($(strip $(MCU)), risc-v)
     STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
     PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-ECLIC/compilers/GCC/mk/port.mk
     RULESPATH = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC
-    PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/GD/GD32VF103/platform.mk
 else
     # ARM Support
     CHIBIOS_PORT ?=
@@ -82,10 +81,15 @@ ifeq ("$(PLATFORM_NAME)","")
     PLATFORM_NAME = platform
 endif
 
+# If no MCU port name was specified, use the family instead
+ifeq ("$(MCU_PORT_NAME)","")
+    MCU_PORT_NAME = $(MCU_FAMILY)
+endif
+
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-    PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     ifeq ("$(wildcard $(PLATFORM_MK))","")
-        PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+        PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     endif
 endif
 
@@ -344,7 +348,7 @@ ifeq ($(strip $(MCU)), risc-v)
             ifneq ($(shell which riscv64-unknown-elf-gcc 2>/dev/null),)
                 TOOLCHAIN = riscv64-unknown-elf-
             else
-                $(error "No RISC-V toolchain found. Can't find riscv32-unknown-elf-gcc or riscv64-unknown-elf-gcc found in your systems PATH variable. Please install a valid toolchain and make it accessible!")
+                $(call CATASTROPHIC_ERROR,Missing toolchain,No RISC-V toolchain found. Can't find riscv32-unknown-elf-gcc or riscv64-unknown-elf-gcc found in your systems PATH variable. Please install a valid toolchain and make it accessible!)
             endif
         endif
     endif

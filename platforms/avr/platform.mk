@@ -18,6 +18,13 @@ COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
+COMPILEFLAGS += -mcall-prologues
+
+# Linker relaxation is only possible if
+# link time optimizations are not enabled.
+ifeq ($(strip $(LTO_ENABLE)), no)
+	COMPILEFLAGS += -mrelax
+endif
 
 ASFLAGS += $(AVR_ASFLAGS)
 
@@ -28,7 +35,7 @@ CFLAGS += -fno-strict-aliasing
 CXXFLAGS += $(COMPILEFLAGS)
 CXXFLAGS += -fno-exceptions -std=c++11
 
-LDFLAGS +=-Wl,--gc-sections
+LDFLAGS += -Wl,--gc-sections
 
 OPT_DEFS += -DF_CPU=$(F_CPU)UL
 
@@ -159,7 +166,7 @@ endif
 
 bootloader:
 ifeq ($(strip $(QMK_BOOTLOADER_TYPE)),)
-	$(error Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
+	$(call CATASTROPHIC_ERROR,Invalid BOOTLOADER,Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
 else
 	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean
 	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Keyboard.h

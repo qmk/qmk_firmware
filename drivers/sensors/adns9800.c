@@ -77,7 +77,9 @@
 #define MSB1              0x80
 // clang-format on
 
-void adns9800_spi_start(void) { spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR); }
+void adns9800_spi_start(void) {
+    spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR);
+}
 
 void adns9800_write(uint8_t reg_addr, uint8_t data) {
     adns9800_spi_start();
@@ -135,10 +137,8 @@ void adns9800_init() {
     wait_us(15);
 
     // send all bytes of the firmware
-    unsigned char c;
-    for (int i = 0; i < FIRMWARE_LENGTH; i++) {
-        c = (unsigned char)pgm_read_byte(adns9800_firmware_data + i);
-        spi_write(c);
+    for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
+        spi_write(pgm_read_byte(firmware_data + i));
         wait_us(15);
     }
 

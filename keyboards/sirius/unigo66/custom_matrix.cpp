@@ -166,7 +166,7 @@ extern "C"
             // restore LED state when keyboard comes up
             if (usb_state == USB_STATE_RUNNING) {
                 dprintf("speed: %s\n", usb_host.getVbusState()==FSHOST ? "full" : "low");
-                keyboard_set_leds(host_keyboard_leds());
+                led_set(host_keyboard_leds());
             }
         }
         return 1;
@@ -203,18 +203,6 @@ extern "C"
             }
         }
         return row_bits;
-    }
-
-    uint8_t matrix_key_count(void) {
-        uint8_t count = 0;
-
-        count += bitpop(local_keyboard_report.mods);
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            if (IS_ANY(local_keyboard_report.keys[i])) {
-                count++;
-            }
-        }
-        return count;
     }
 
     void matrix_print(void) {

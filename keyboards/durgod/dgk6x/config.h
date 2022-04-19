@@ -22,7 +22,6 @@
 #define VENDOR_ID       0xD60D
 #define MANUFACTURER    Hoksi Technology
 
-#define USB_POLLING_INTERVAL_MS 1
 #define WAIT_US_TIMER           GPTD3
 
 /* COL2ROW, ROW2COL*/
