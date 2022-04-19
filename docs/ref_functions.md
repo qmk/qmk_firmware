@@ -1,6 +1,6 @@
 # List of Useful Core Functions To Make Your Keyboard Better
 
-There are a lot of hidden functions in QMK that are incredible useful, or may add a bit of functionality that you've been wanting.  Functions that are specific to certain features are not included here, as those will be on their respective feature page.
+There are a lot of hidden functions in QMK that are incredibly useful, or may add a bit of functionality that you've been wanting.  Functions that are specific to certain features are not included here, as those will be on their respective feature page.
 
 ## (OLKB) Tri Layers :id=olkb-tri-layers
 
@@ -85,7 +85,7 @@ To configure the default layer sounds, you would want to define this in your `co
 
 ?> There are a large number of predefined songs in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) that you can use.
 
-## Reseting the keyboard
+## Resetting the keyboard
 
 There is the `RESET` quantum keycode that you can use. But if you want to reset the board as part of a macro, rather than hitting a key separately, you can do that.
 

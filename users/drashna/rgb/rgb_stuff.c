@@ -1,18 +1,5 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifdef RGBLIGHT_ENABLE
 
@@ -36,7 +23,27 @@ static bool     is_enabled;
 static bool     is_rgblight_startup;
 static HSV      old_hsv;
 static uint8_t  old_mode;
-static uint16_t rgblight_startup_loop_timer;
+deferred_token rgb_startup_token;
+
+uint32_t rgb_startup_animation(uint32_t triger_time, void *cb_arg) {
+    if (is_rgblight_startup && is_keyboard_master()) {
+        static uint8_t counter = 0;
+        counter++;
+        rgblight_sethsv_noeeprom((counter + old_hsv.h) % 255, 255, 255);
+        if (counter >= 255) {
+            is_rgblight_startup = false;
+            if (userspace_config.rgb_layer_change) {
+                layer_state_set_rgb_light(layer_state);
+            } else {
+                rgblight_set_hsv_and_mode(old_hsv.h, old_hsv.s, old_hsv.v, old_mode);
+            }
+            if (!is_enabled) {
+                rgblight_disable_noeeprom();
+            }
+        }
+    }
+    return is_rgblight_startup ? 10 : 0;
+}
 #    endif
 
 void keyboard_post_init_rgb_light(void) {
@@ -49,34 +56,12 @@ void keyboard_post_init_rgb_light(void) {
     old_mode = rgblight_get_mode();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     is_rgblight_startup = true;
+    rgb_startup_token = defer_exec(300, rgb_startup_animation, NULL);
 #    endif
     if (userspace_config.rgb_layer_change) {
         layer_state_set_rgb_light(layer_state);
     }
-}
 
-void matrix_scan_rgb_light(void) {
-#    if defined(RGBLIGHT_STARTUP_ANIMATION)
-    if (is_rgblight_startup && is_keyboard_master()) {
-        if (sync_timer_elapsed(rgblight_startup_loop_timer) > 10) {
-            static uint8_t counter;
-            counter++;
-            rgblight_sethsv_noeeprom((counter + old_hsv.h) % 255, 255, 255);
-            rgblight_startup_loop_timer = sync_timer_read();
-            if (counter == 255) {
-                is_rgblight_startup = false;
-                if (userspace_config.rgb_layer_change) {
-                    layer_state_set_rgb_light(layer_state);
-                } else {
-                    rgblight_set_hsv_and_mode(old_hsv.h, old_hsv.s, old_hsv.v, old_mode);
-                }
-                if (!is_enabled) {
-                    rgblight_disable_noeeprom();
-                }
-            }
-        }
-    }
-#    endif
 }
 
 layer_state_t layer_state_set_rgb_light(layer_state_t state) {

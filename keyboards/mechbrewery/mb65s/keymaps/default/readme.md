@@ -1,1 +1,1 @@
-# The default keymap for kbd67
+# The default keymap for the MB65S

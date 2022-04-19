@@ -20,6 +20,10 @@
         "type": "string",
         "pattern": "^0x[0-9A-F]{4}$"
     },
+    "bcd_version": {
+        "type": "string",
+        "pattern": "^[0-9]{1,2}\\.[0-9]\\.[0-9]$"
+    },
     "text_identifier": {
         "type": "string",
         "minLength": 1,
@@ -29,7 +33,33 @@
         "oneOf": [
             {
                 "type": "string",
-                "enum": ["LAYOUT", "LAYOUT_planck_1x2uC"]
+                "enum": [
+                    "LAYOUT",
+                    "LAYOUT_1x2uC",
+                    "LAYOUT_1x2uL",
+                    "LAYOUT_1x2uR",
+                    "LAYOUT_2x2uC",
+                    "LAYOUT_2x3uC",
+                    "LAYOUT_625uC",
+                    "LAYOUT_ANSI_DEFAULT",
+                    "LAYOUT_JP",
+                    "LAYOUT_ortho_3x12_1x2uC",
+                    "LAYOUT_ortho_4x12_1x2uC",
+                    "LAYOUT_ortho_4x12_1x2uL",
+                    "LAYOUT_ortho_4x12_1x2uR",
+                    "LAYOUT_ortho_5x12_1x2uC",
+                    "LAYOUT_ortho_5x12_2x2uC",
+                    "LAYOUT_ortho_5x14_1x2uC",
+                    "LAYOUT_ortho_5x14_1x2uL",
+                    "LAYOUT_ortho_5x14_1x2uR",
+                    "LAYOUT_planck_1x2uC",
+                    "LAYOUT_planck_1x2uL",
+                    "LAYOUT_planck_1x2uR",
+                    "LAYOUT_preonic_1x2uC",
+                    "LAYOUT_preonic_1x2uL",
+                    "LAYOUT_preonic_1x2uR",
+                    "LAYOUT_reviung34_2uL"
+                ]
             },
             {
                 "type": "string",
@@ -41,12 +71,32 @@
         "type": "number",
         "min": 0.25
     },
+    "keyboard": {
+        "oneOf": [
+            {
+                "type": "string",
+                "enum": [
+                    "converter/numeric_keypad_IIe",
+                    "emptystring/NQG",
+                    "maple_computing/christmas_tree/V2017"
+                ]
+            },
+            {
+                "type": "string",
+                "pattern": "^[0-9a-z][0-9a-z_/]*$"
+            }
+        ]
+    },
     "mcu_pin_array": {
         "type": "array",
         "items": {"$ref": "#/mcu_pin"}
     },
     "mcu_pin": {
         "oneOf": [
+            {
+                "type": "string",
+                "enum": ["NO_PIN"]
+            },
             {
                 "type": "string",
                 "pattern": "^[A-K]\\d{1,2}$"
@@ -70,13 +120,13 @@
     "signed_int": {
         "type": "number",
         "multipleOf": 1
-    }
+    },
     "signed_int_8": {
         "type": "number",
         "min": -127,
         "max": 127,
         "multipleOf": 1
-    }
+    },
     "string_array": {
         "type": "array",
         "items": {
@@ -97,7 +147,7 @@
         "type": "number",
         "min": 0,
         "multipleOf": 1
-    }
+    },
     "unsigned_int_8": {
         "type": "number",
         "min": 0,
