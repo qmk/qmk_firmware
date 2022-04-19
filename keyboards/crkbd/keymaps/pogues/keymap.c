@@ -24,27 +24,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*******************************************************************************
  * TODO.
- * add tristate layer to the motion layer... 
- *      should alt be added on the outer right thumb key?
- * add tab, esc, ctl, del, enter, leader to the keymap to simulate a 36 key 
+ * mouse layer.  should the layout match the arrow layer.
+ * remove outer column to force a 36 key
  * sort out oled display
  *******************************************************************************/
 
 enum userspace_layers {
     LCMK = 0,
-    LNUM = 1,
-    LFUN = 2,
-    LMOV = 3,
-    LSYM = 4,
+    LSYM = 1,
+    LNUM = 2,
+    LFUN = 3,
+    LMOV = 4,
     LMSE = 5,
 };
 
 // the layer mask
 #define L_COLEMAK LCMK
-#define LMASK_NUM (1 << LNUM)
-#define LMASK_MOV (1 << LMOV)
 #define LMASK_SYM (1 << LSYM)
+#define LMASK_NUM (1 << LNUM)
 #define LMASK_FUN (1 << LFUN)
+#define LMASK_MOV (1 << LMOV)
 #define LMASK_MSE (1 << LMSE)
 
 #define MY_CESC MT(MOD_LCTL, KC_ESC)
@@ -69,6 +68,7 @@ enum userspace_layers {
 #define OSM_GUI OSM(MOD_LGUI)
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_SFT OSM(MOD_LSFT)
+#define OSL_FUN OSL(LFUN)
 
 enum custom_keycodes {
     LLOCK = SAFE_RANGE,
@@ -86,57 +86,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
     [LCMK] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-             KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_UNDS,  KC_DEL,
+             KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_LEAD,  KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, MY_CENT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             KC_LEAD,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_LEAD,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                       OSM_GUI, OSL(LNUM), SFT_T(KC_SPC),    SFT_T(KC_BSPC), OSL(LSYM), OSL(LMOV)
-                                            //`--------------------------'  `--------------------------'
-    ),
-    [LNUM] = LAYOUT_split_3x6_3(
-        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, XXXXXXX,TO(LFUN), XXXXXXX, XXXXXXX,                      KC_PLUS,    KC_7,    KC_8,    KC_9, KC_PERC, XXXXXXX,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_COMM,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR,  KC_ENT,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,TO(LFUN), XXXXXXX, XXXXXXX,  KC_DOT, XXXXXXX,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
-        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            TO(LFUN), TO(LCMK),  _______,    KC_BSPC,  KC_0, LLOCK
-                                            //`--------------------------'  `--------------------------'
-    ),
-    [LFUN] = LAYOUT_split_3x6_3(
-        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F10,   KC_F7,   KC_F8,   KC_F9,  KC_DEL, XXXXXXX,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,  KC_ENT, XXXXXXX,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX, 
-        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               XXXXXXX,TO(LCMK), XXXXXXX,    XXXXXXX,  KC_F10, XXXXXXX
-                                            //`--------------------------'  `--------------------------'
-    ),
-    [LMOV] = LAYOUT_split_3x6_3(
-        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            ALT_TAB, XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX,                       MY_CUT, MY_COPY, MY_PSTE, MY_REDO, MY_UNDO, _______,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END,                      XXXXXXX, OSM_SFT, OSM_CTL, OSM_GUI, OSM_ALT, _______,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX,
-        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              LLOCK, TO(LCMK),  TO(LMSE),     KC_BSPC,  XXXXXXX, _______
+                                       OSM_GUI, OSL(LNUM), CTL_T(KC_SPC),    SFT_T(KC_BSPC), OSL(LSYM), OSM_ALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            _______, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, MY_TILD,   MY_AT, KC_NUBS, _______,                       
+            _______,  KC_TAB, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, MY_TILD,   MY_AT, KC_NUBS, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______, KC_AMPR, KC_UNDS, KC_LBRC, KC_RBRC, KC_UNDS,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN,  _______,
+            _______,  KC_ESC, KC_AMPR, KC_LBRC, KC_RBRC, KC_UNDS,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, XXXXXXX,  MY_GBP, KC_LCBR, KC_RCBR,  KC_GRV,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
+            XXXXXXX,   LLOCK,  MY_GBP, KC_LCBR, KC_RCBR,  KC_GRV,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                 LLOCK, TO(LCMK), KC_SPC,    KC_BSPC,  _______, XXXXXXX
+                                                // note that this is a momentary layer for the num layer. this is so the
+                                                // tri state layer change will work as we are in the symbol layer here
+                                               _______, MO(LNUM), _______,    _______,  _______, _______
+                                            //`--------------------------'  `--------------------------'
+    ),
+    [LNUM] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            XXXXXXX, XXXXXXX, XXXXXXX,TO(LFUN), KC_PERC, KC_SLSH,                      KC_PLUS,    KC_7,    KC_8,    KC_9,  KC_DEL, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT,  KC_ENT,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX,   LLOCK, XXXXXXX, KC_COMM,  KC_DOT, XXXXXXX,                       KC_EQL,    KC_1,    KC_2,    KC_3,  KC_TAB, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                                // note that this is a momentary layer for the symbol layer. this is so the
+                                                // tri state layer change will work as we are in the num layer here
+                                              XXXXXXX, _______,  KC_SPC,    KC_0,  MO(LSYM), XXXXXXX
+                                            //`--------------------------'  `--------------------------'
+    ),
+    [LFUN] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F10,   KC_F7,   KC_F8,   KC_F9,  KC_DEL, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,  KC_ENT, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX,TO(LCMK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                               XXXXXXX,TO(LCMK), XXXXXXX,     KC_F10,  XXXXXXX, XXXXXXX
+                                            //`--------------------------'  `--------------------------'
+    ),
+    [LMOV] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            XXXXXXX, ALT_TAB, XXXXXXX,TO(LMSE), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX,   LLOCK, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                              XXXXXXX, _______,  XXXXXXX,     XXXXXXX,  _______, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
@@ -145,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, KC_WH_U,            KC_MS_BTN1, OSM_SFT, OSM_CTL, OSM_GUI, OSM_ALT, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, XXXXXXX,KC_MS_BTN3,KC_MS_BTN2, KC_MS_BTN1, KC_WH_D,            KC_MS_BTN2,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX,TO(LCMK),KC_MS_BTN3,KC_MS_BTN2, KC_MS_BTN1, KC_WH_D,            KC_MS_BTN2,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                _______, TO(LCMK),_______,    _______,  TO(LCMK), XXXXXXX
+                                                XXXXXXX, TO(LCMK),XXXXXXX,    XXXXXXX,  TO(LCMK), XXXXXXX
                                             //`--------------------------'  `--------------------------'
     )
 };
@@ -227,7 +231,7 @@ void matrix_scan_user(void) {
         }
 
         /**********************************************************************
-        // qzdev 
+        // qzdev
         **********************************************************************/
         // diff current
         SEQ_TWO_KEYS(KC_D, KC_C) {
@@ -378,10 +382,10 @@ const rgblight_segment_t PROGMEM layer_no_lights[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     layer_no_lights,
     layer_default_lights,
-    layer_numpad_lights,
-    layer_motion_lights,
     layer_symbols_lights,
+    layer_numpad_lights,
     layer_functions_lights,
+    layer_motion_lights,
     layer_mouse_lights,
     caps_word_lights
 );
@@ -389,16 +393,19 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_user(void) {
     //enable the LED layers
     rgblight_layers = my_rgb_layers;
-    //rgblight_mode(10);
     rgblight_set_layer_state(0, true);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    // check for the tristate layre
+    state = update_tri_layer_state(state, LNUM, LSYM, LMOV);
+
+    // set the led status to indicate layer
     rgblight_set_layer_state(1, layer_state_cmp(state, LCMK));
-    rgblight_set_layer_state(2, layer_state_cmp(state, LNUM));
-    rgblight_set_layer_state(3, layer_state_cmp(state, LMOV));
-    rgblight_set_layer_state(4, layer_state_cmp(state, LSYM));
-    rgblight_set_layer_state(5, layer_state_cmp(state, LFUN));
+    rgblight_set_layer_state(2, layer_state_cmp(state, LSYM));
+    rgblight_set_layer_state(3, layer_state_cmp(state, LNUM));
+    rgblight_set_layer_state(4, layer_state_cmp(state, LFUN));
+    rgblight_set_layer_state(5, layer_state_cmp(state, LMOV));
     rgblight_set_layer_state(6, layer_state_cmp(state, LMSE));
     return state;
 }
