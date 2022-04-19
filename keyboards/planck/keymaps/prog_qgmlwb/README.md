@@ -16,11 +16,11 @@ The layout includes an english and norwegian layer of the layout, where the norw
 
 ## Typing layers
 
-![Default layout](./print_layout/layout_df.png)
+![Typing layers](./print_layout/layout_df.png)
 
 ## Adjuct layer
 
-![Default layout](./print_layout/layout_adjust.png)
+![Adjust layer](./print_layout/layout_adjust.png)
 
 ## Usage
 
