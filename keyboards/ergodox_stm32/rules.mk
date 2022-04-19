@@ -3,6 +3,9 @@ MCU = STM32F103
 MCU_LDSCRIPT = stm32f103_bootloader
 BOARD = ST_NUCLEO64_F103RB
 
+# Bootloader selection
+BOOTLOADER = custom
+
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control

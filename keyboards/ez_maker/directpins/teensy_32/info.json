@@ -4,6 +4,7 @@
     "maintainer": "skullydazed",
     "debounce": 5,
     "processor": "MK20DX256",
+    "bootloader": "halfkay",
     "features": {
         "bootmagic": true,
         "extrakey": true,

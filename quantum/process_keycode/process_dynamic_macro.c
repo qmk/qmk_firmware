@@ -29,13 +29,21 @@ void dynamic_macro_led_blink(void) {
 
 /* User hooks for Dynamic Macros */
 
-__attribute__((weak)) void dynamic_macro_record_start_user(void) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_start_user(void) {
+    dynamic_macro_led_blink();
+}
 
-__attribute__((weak)) void dynamic_macro_play_user(int8_t direction) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_play_user(int8_t direction) {
+    dynamic_macro_led_blink();
+}
 
-__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record, bool success) { if(!success) dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record, bool success) {
+    if (!success) dynamic_macro_led_blink();
+}
 
-__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) {
+    dynamic_macro_led_blink();
+}
 
 /* Convenience macros used for retrieving the debug info. All of them
  * need a `direction` variable accessible at the call site.
@@ -82,7 +90,7 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
 
     clear_keyboard();
 
-    layer_state = saved_layer_state;
+    layer_state_set(saved_layer_state);
 
     dynamic_macro_play_user(direction);
 }
@@ -113,13 +121,13 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
         *macro_pointer += direction;
     } else {
         dprint("dynamic macro: end of buffer. New key record not added to buffer.\n");
-		success = false;
-		dynamic_macro_record_key_user(direction, record, success);
+        success = false;
+        dynamic_macro_record_key_user(direction, record, success);
     }
 
     dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
     success = true;
-	dynamic_macro_record_key_user(direction, record, success);
+    dynamic_macro_record_key_user(direction, record, success);
 }
 
 /**

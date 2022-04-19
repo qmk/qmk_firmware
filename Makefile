@@ -275,7 +275,7 @@ define PARSE_KEYMAP
     # Specify the variables that we are passing forward to submake
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY) QMK_BIN=$$(QMK_BIN)
     # And the first part of the make command
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
     MAKE_MSG := $$(MSG_MAKE_KB)
     # We run the command differently, depending on if we want more output or not
@@ -317,7 +317,7 @@ define BUILD_TEST
     TEST_NAME := $$(notdir $$(TEST_PATH))
     MAKE_TARGET := $2
     COMMAND := $1
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_test.mk $$(MAKE_TARGET)
     MAKE_VARS := TEST=$$(TEST_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
@@ -339,7 +339,7 @@ define PARSE_TEST
     TESTS :=
     TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
-    include $(ROOT_DIR)/testlist.mk
+    include $(BUILDDEFS_PATH)/testlist.mk
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else

@@ -17,7 +17,6 @@
 #include QMK_KEYBOARD_H
 
 #ifdef JOYSTICK_ENABLE
-#   include "joystick.h"
 #   include "analog.h"
 #endif
 

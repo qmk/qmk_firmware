@@ -157,7 +157,15 @@ void deferred_exec_advanced_task(deferred_executor_t *table, size_t table_count,
 static uint32_t            last_deferred_exec_check                = 0;
 static deferred_executor_t basic_executors[MAX_DEFERRED_EXECUTORS] = {0};
 
-deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg) { return defer_exec_advanced(basic_executors, MAX_DEFERRED_EXECUTORS, delay_ms, callback, cb_arg); }
-bool           extend_deferred_exec(deferred_token token, uint32_t delay_ms) { return extend_deferred_exec_advanced(basic_executors, MAX_DEFERRED_EXECUTORS, token, delay_ms); }
-bool           cancel_deferred_exec(deferred_token token) { return cancel_deferred_exec_advanced(basic_executors, MAX_DEFERRED_EXECUTORS, token); }
-void           deferred_exec_task(void) { deferred_exec_advanced_task(basic_executors, MAX_DEFERRED_EXECUTORS, &last_deferred_exec_check); }
+deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg) {
+    return defer_exec_advanced(basic_executors, MAX_DEFERRED_EXECUTORS, delay_ms, callback, cb_arg);
+}
+bool extend_deferred_exec(deferred_token token, uint32_t delay_ms) {
+    return extend_deferred_exec_advanced(basic_executors, MAX_DEFERRED_EXECUTORS, token, delay_ms);
+}
+bool cancel_deferred_exec(deferred_token token) {
+    return cancel_deferred_exec_advanced(basic_executors, MAX_DEFERRED_EXECUTORS, token);
+}
+void deferred_exec_task(void) {
+    deferred_exec_advanced_task(basic_executors, MAX_DEFERRED_EXECUTORS, &last_deferred_exec_check);
+}

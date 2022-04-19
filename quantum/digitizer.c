@@ -24,9 +24,13 @@ __attribute__((weak)) void digitizer_send(void) {
     }
 }
 
-__attribute__((weak)) void digitizer_task(void) { digitizer_send(); }
+__attribute__((weak)) void digitizer_task(void) {
+    digitizer_send();
+}
 
-digitizer_t digitizer_get_report(void) { return digitizerReport; }
+digitizer_t digitizer_get_report(void) {
+    return digitizerReport;
+}
 
 void digitizer_set_report(digitizer_t newDigitizerReport) {
     digitizerReport = newDigitizerReport;

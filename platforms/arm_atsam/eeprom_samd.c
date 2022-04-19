@@ -155,7 +155,9 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
     }
 }
 
-void eeprom_update_byte(uint8_t *addr, uint8_t value) { eeprom_write_byte(addr, value); }
+void eeprom_update_byte(uint8_t *addr, uint8_t value) {
+    eeprom_write_byte(addr, value);
+}
 
 void eeprom_update_word(uint16_t *addr, uint16_t value) {
     uint8_t *p = (uint8_t *)addr;

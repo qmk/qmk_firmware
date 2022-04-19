@@ -5,8 +5,9 @@ MCU = STM32F303
 BOOTLOADER = stm32-dfu
 
 # Touch encoder needs
-SRC += ../common/touch_encoder.c
-SRC += ../common/common_oled.c
+VPATH += keyboards/rgbkb/common
+SRC += touch_encoder.c
+SRC += common_oled.c
 QUANTUM_LIB_SRC += i2c_master.c
 
 # Build Options
@@ -35,8 +36,7 @@ SERIAL_DRIVER = usart
 LTO_ENABLE = yes
 OPT = 3
 
-OPT_DEFS += -DOLED_FONT_H=\"../common/glcdfont.c\"
-OPT_DEFS += -Ikeyboards/rgbkb/common
+OPT_DEFS += -DOLED_FONT_H=\"keyboards/rgbkb/common/glcdfont.c\"
 
 # matrix optimisations
 SRC += matrix.c

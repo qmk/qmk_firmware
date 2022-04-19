@@ -61,6 +61,8 @@ This is a C header file that is one of the first things included, and will persi
   * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
   * define is matrix has ghost (unlikely)
+* `#define MATRIX_UNSELECT_DRIVE_HIGH`
+  * On un-select of matrix pins, rather than setting pins to input-high, sets them to output-high.
 * `#define DIODE_DIRECTION COL2ROW`
   * COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.
 * `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
@@ -129,6 +131,8 @@ If you define these options you will disable the associated feature, which can s
 
 If you define these options you will enable the associated feature, which may increase your code size.
 
+* `#define ENABLE_COMPILE_KEYCODE`
+  * Enables the `QK_MAKE` keycode
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`

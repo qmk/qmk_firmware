@@ -8,10 +8,11 @@ from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
-from qmk.c_parse import find_layouts
+from qmk.c_parse import find_layouts, parse_config_h_file
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
-from qmk.keymap import list_keymaps
+from qmk.keymap import list_keymaps, locate_keymap
+from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
@@ -68,8 +69,9 @@ def info_json(keyboard):
 
     # Merge in the data from info.json, config.h, and rules.mk
     info_data = merge_info_jsons(keyboard, info_data)
-    info_data = _extract_rules_mk(info_data)
-    info_data = _extract_config_h(info_data)
+    info_data = _process_defaults(info_data)
+    info_data = _extract_rules_mk(info_data, rules_mk(str(keyboard)))
+    info_data = _extract_config_h(info_data, config_h(str(keyboard)))
 
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
@@ -166,28 +168,46 @@ def _extract_pins(pins):
     return [_pin_name(pin) for pin in pins.split(',')]
 
 
-def _extract_direct_matrix(direct_pins):
+def _extract_2d_array(raw):
+    """Return a 2d array of strings
     """
-    """
-    direct_pin_array = []
+    out_array = []
 
-    while direct_pins[-1] != '}':
-        direct_pins = direct_pins[:-1]
+    while raw[-1] != '}':
+        raw = raw[:-1]
 
-    for row in direct_pins.split('},{'):
+    for row in raw.split('},{'):
         if row.startswith('{'):
             row = row[1:]
 
         if row.endswith('}'):
             row = row[:-1]
 
-        direct_pin_array.append([])
+        out_array.append([])
 
-        for pin in row.split(','):
-            if pin == 'NO_PIN':
-                pin = None
+        for val in row.split(','):
+            out_array[-1].append(val)
 
-            direct_pin_array[-1].append(pin)
+    return out_array
+
+
+def _extract_2d_int_array(raw):
+    """Return a 2d array of ints
+    """
+    ret = _extract_2d_array(raw)
+
+    return [list(map(int, x)) for x in ret]
+
+
+def _extract_direct_matrix(direct_pins):
+    """extract direct_matrix
+    """
+    direct_pin_array = _extract_2d_array(direct_pins)
+
+    for i in range(len(direct_pin_array)):
+        for j in range(len(direct_pin_array[i])):
+            if direct_pin_array[i][j] == 'NO_PIN':
+                direct_pin_array[i][j] = None
 
     return direct_pin_array
 
@@ -203,6 +223,21 @@ def _extract_audio(info_data, config_c):
 
     if audio_pins:
         info_data['audio'] = {'pins': audio_pins}
+
+
+def _extract_secure_unlock(info_data, config_c):
+    """Populate data about the secure unlock sequence
+    """
+    unlock = config_c.get('SECURE_UNLOCK_SEQUENCE', '').replace(' ', '')[1:-1]
+    if unlock:
+        unlock_array = _extract_2d_int_array(unlock)
+        if 'secure' not in info_data:
+            info_data['secure'] = {}
+
+        if 'unlock_sequence' in info_data['secure']:
+            _log_warning(info_data, 'Secure unlock sequence is specified in both config.h (SECURE_UNLOCK_SEQUENCE) and info.json (secure.unlock_sequence) (Value: %s), the config.h value wins.' % info_data['secure']['unlock_sequence'])
+
+        info_data['secure']['unlock_sequence'] = unlock_array
 
 
 def _extract_split_main(info_data, config_c):
@@ -270,14 +305,16 @@ def _extract_split_transport(info_data, config_c):
 
         info_data['split']['transport']['protocol'] = 'i2c'
 
-    elif 'protocol' not in info_data.get('split', {}).get('transport', {}):
+    # Ignore transport defaults if "SPLIT_KEYBOARD" is unset
+    elif 'enabled' in info_data.get('split', {}):
         if 'split' not in info_data:
             info_data['split'] = {}
 
         if 'transport' not in info_data['split']:
             info_data['split']['transport'] = {}
 
-        info_data['split']['transport']['protocol'] = 'serial'
+        if 'protocol' not in info_data['split']['transport']:
+            info_data['split']['transport']['protocol'] = 'serial'
 
 
 def _extract_split_right_pins(info_data, config_c):
@@ -400,18 +437,16 @@ def _extract_device_version(info_data):
             info_data['usb']['device_version'] = f'{major}.{minor}.{revision}'
 
 
-def _extract_config_h(info_data):
+def _extract_config_h(info_data, config_c):
     """Pull some keyboard information from existing config.h files
     """
-    config_c = config_h(info_data['keyboard_folder'])
-
     # Pull in data from the json map
     dotty_info = dotty(info_data)
     info_config_map = json_load(Path('data/mappings/info_config.json'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        key_type = info_dict.get('value_type', 'raw')
 
         try:
             if config_key in config_c and info_dict.get('to_json', True):
@@ -443,6 +478,9 @@ def _extract_config_h(info_data):
                 elif key_type == 'int':
                     dotty_info[info_key] = int(config_c[config_key])
 
+                elif key_type == 'str':
+                    dotty_info[info_key] = config_c[config_key].strip('"')
+
                 elif key_type == 'bcd_version':
                     major = int(config_c[config_key][2:4])
                     minor = int(config_c[config_key][4])
@@ -461,6 +499,7 @@ def _extract_config_h(info_data):
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
+    _extract_secure_unlock(info_data, config_c)
     _extract_split_main(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
@@ -469,10 +508,21 @@ def _extract_config_h(info_data):
     return info_data
 
 
-def _extract_rules_mk(info_data):
+def _process_defaults(info_data):
+    """Process any additional defaults based on currently discovered information
+    """
+    defaults_map = json_load(Path('data/mappings/defaults.json'))
+    for default_type in defaults_map.keys():
+        thing_map = defaults_map[default_type]
+        if default_type in info_data:
+            for key, value in thing_map.get(info_data[default_type], {}).items():
+                info_data[key] = value
+    return info_data
+
+
+def _extract_rules_mk(info_data, rules):
     """Pull some keyboard information from existing rules.mk files
     """
-    rules = rules_mk(info_data['keyboard_folder'])
     info_data['processor'] = rules.get('MCU', info_data.get('processor', 'atmega32u4'))
 
     if info_data['processor'] in CHIBIOS_PROCESSORS:
@@ -491,7 +541,7 @@ def _extract_rules_mk(info_data):
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        key_type = info_dict.get('value_type', 'raw')
 
         try:
             if rules_key in rules and info_dict.get('to_json', True):
@@ -523,6 +573,9 @@ def _extract_rules_mk(info_data):
                 elif key_type == 'int':
                     dotty_info[info_key] = int(rules[rules_key])
 
+                elif key_type == 'str':
+                    dotty_info[info_key] = rules[rules_key].strip('"')
+
                 else:
                     dotty_info[info_key] = rules[rules_key]
 
@@ -549,6 +602,11 @@ def _matrix_size(info_data):
         elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['cols'])
             info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['rows'])
+
+        # Assumption of split common
+        if 'split' in info_data:
+            if info_data['split'].get('enabled', False):
+                info_data['matrix_size']['rows'] *= 2
 
     return info_data
 
@@ -748,10 +806,43 @@ def find_info_json(keyboard):
 
     # Add in parent folders for least specific
     for _ in range(5):
-        info_jsons.append(keyboard_parent / 'info.json')
-        if keyboard_parent.parent == base_path:
+        if keyboard_parent == base_path:
             break
+        info_jsons.append(keyboard_parent / 'info.json')
         keyboard_parent = keyboard_parent.parent
 
     # Return a list of the info.json files that actually exist
     return [info_json for info_json in info_jsons if info_json.exists()]
+
+
+def keymap_json_config(keyboard, keymap):
+    """Extract keymap level config
+    """
+    keymap_folder = locate_keymap(keyboard, keymap).parent
+
+    km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
+    return km_info_json.get('config', {})
+
+
+def keymap_json(keyboard, keymap):
+    """Generate the info.json data for a specific keymap.
+    """
+    keymap_folder = locate_keymap(keyboard, keymap).parent
+
+    # Files to scan
+    keymap_config = keymap_folder / 'config.h'
+    keymap_rules = keymap_folder / 'rules.mk'
+    keymap_file = keymap_folder / 'keymap.json'
+
+    # Build the info.json file
+    kb_info_json = info_json(keyboard)
+
+    # Merge in the data from keymap.json
+    km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
+    deep_update(kb_info_json, km_info_json)
+
+    # Merge in the data from config.h, and rules.mk
+    _extract_rules_mk(kb_info_json, parse_rules_mk_file(keymap_rules))
+    _extract_config_h(kb_info_json, parse_config_h_file(keymap_config))
+
+    return kb_info_json

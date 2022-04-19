@@ -60,19 +60,19 @@
 
 // Minimum EEPROM Endurance
 // ------------------------
-#    if (EEPROM_SIZE == 2048)  // 35000 writes/byte or 70000 writes/word
+#    if (EEPROM_SIZE == 2048) // 35000 writes/byte or 70000 writes/word
 #        define EEESIZE 0x33
-#    elif (EEPROM_SIZE == 1024)  // 75000 writes/byte or 150000 writes/word
+#    elif (EEPROM_SIZE == 1024) // 75000 writes/byte or 150000 writes/word
 #        define EEESIZE 0x34
-#    elif (EEPROM_SIZE == 512)  // 155000 writes/byte or 310000 writes/word
+#    elif (EEPROM_SIZE == 512) // 155000 writes/byte or 310000 writes/word
 #        define EEESIZE 0x35
-#    elif (EEPROM_SIZE == 256)  // 315000 writes/byte or 630000 writes/word
+#    elif (EEPROM_SIZE == 256) // 315000 writes/byte or 630000 writes/word
 #        define EEESIZE 0x36
-#    elif (EEPROM_SIZE == 128)  // 635000 writes/byte or 1270000 writes/word
+#    elif (EEPROM_SIZE == 128) // 635000 writes/byte or 1270000 writes/word
 #        define EEESIZE 0x37
-#    elif (EEPROM_SIZE == 64)  // 1275000 writes/byte or 2550000 writes/word
+#    elif (EEPROM_SIZE == 64) // 1275000 writes/byte or 2550000 writes/word
 #        define EEESIZE 0x38
-#    elif (EEPROM_SIZE == 32)  // 2555000 writes/byte or 5110000 writes/word
+#    elif (EEPROM_SIZE == 32) // 2555000 writes/byte or 5110000 writes/word
 #        define EEESIZE 0x39
 #    endif
 
@@ -88,9 +88,9 @@ void eeprom_initialize(void) {
     if (FTFL->FCNFG & FTFL_FCNFG_RAMRDY) {
         // FlexRAM is configured as traditional RAM
         // We need to reconfigure for EEPROM usage
-        FTFL->FCCOB0 = 0x80;     // PGMPART = Program Partition Command
-        FTFL->FCCOB4 = EEESIZE;  // EEPROM Size
-        FTFL->FCCOB5 = 0x03;     // 0K for Dataflash, 32K for EEPROM backup
+        FTFL->FCCOB0 = 0x80;    // PGMPART = Program Partition Command
+        FTFL->FCCOB4 = EEESIZE; // EEPROM Size
+        FTFL->FCCOB5 = 0x03;    // 0K for Dataflash, 32K for EEPROM backup
         __disable_irq();
         // do_flash_cmd() must execute from RAM.  Luckily the C syntax is simple...
         (*((void (*)(volatile uint8_t *))((uint32_t)do_flash_cmd | 1)))(&(FTFL->FSTAT));
@@ -98,7 +98,7 @@ void eeprom_initialize(void) {
         status = FTFL->FSTAT;
         if (status & (FTFL_FSTAT_RDCOLERR | FTFL_FSTAT_ACCERR | FTFL_FSTAT_FPVIOL)) {
             FTFL->FSTAT = (status & (FTFL_FSTAT_RDCOLERR | FTFL_FSTAT_ACCERR | FTFL_FSTAT_FPVIOL));
-            return;  // error
+            return; // error
         }
     }
     // wait for eeprom to become ready (is this really necessary?)
@@ -162,7 +162,9 @@ void eeprom_read_block(void *buf, const void *addr, uint32_t len) {
  *
  * FIXME: needs doc
  */
-int eeprom_is_ready(void) { return (FTFL->FCNFG & FTFL_FCNFG_EEERDY) ? 1 : 0; }
+int eeprom_is_ready(void) {
+    return (FTFL->FCNFG & FTFL_FCNFG_EEERDY) ? 1 : 0;
+}
 
 /** \brief flexram wait
  *
@@ -486,7 +488,9 @@ void eeprom_read_block(void *buf, const void *addr, uint32_t len) {
     }
 }
 
-int eeprom_is_ready(void) { return 1; }
+int eeprom_is_ready(void) {
+    return 1;
+}
 
 void eeprom_write_word(uint16_t *addr, uint16_t value) {
     uint8_t *p = (uint8_t *)addr;
@@ -515,7 +519,9 @@ void eeprom_write_block(const void *buf, void *addr, uint32_t len) {
 #endif /* chip selection */
 // The update functions just calls write for now, but could probably be optimized
 
-void eeprom_update_byte(uint8_t *addr, uint8_t value) { eeprom_write_byte(addr, value); }
+void eeprom_update_byte(uint8_t *addr, uint8_t value) {
+    eeprom_write_byte(addr, value);
+}
 
 void eeprom_update_word(uint16_t *addr, uint16_t value) {
     uint8_t *p = (uint8_t *)addr;

@@ -12,6 +12,15 @@ fix_expr = re.compile(r'fix', flags=re.IGNORECASE)
 clean1_expr = re.compile(r'\[(develop|keyboard|keymap|core|cli|bug|docs|feature)\]', flags=re.IGNORECASE)
 clean2_expr = re.compile(r'^(develop|keyboard|keymap|core|cli|bug|docs|feature):', flags=re.IGNORECASE)
 
+ignored_titles = ["Format code according to conventions"]
+
+
+def _is_ignored(title):
+    for ignore in ignored_titles:
+        if ignore in title:
+            return True
+    return False
+
 
 def _get_pr_info(cache, gh, pr_num):
     pull = cache.get(f'pull:{pr_num}')
@@ -81,7 +90,9 @@ def generate_develop_pr_list(cli):
             else:
                 normal_collection.append(info)
 
-        if "dependencies" in commit_info['pr_labels']:
+        if _is_ignored(commit_info['title']):
+            return
+        elif "dependencies" in commit_info['pr_labels']:
             fix_or_normal(commit_info, pr_list_bugs, pr_list_dependencies)
         elif "core" in commit_info['pr_labels']:
             fix_or_normal(commit_info, pr_list_bugs, pr_list_core)
