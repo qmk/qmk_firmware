@@ -1,6 +1,7 @@
 {
     "keyboard_name": "%KEYBOARD%",
     "maintainer": "%USER_NAME%",
+    "manufacturer": "%REAL_NAME%",
     "processor": "%MCU%",
     "bootloader": "%BOOTLOADER%",
     "diode_direction": "COL2ROW",
@@ -11,10 +12,10 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
-        "device_ver": "0x0001"
+        "device_version": "1.0.0"
     },
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,

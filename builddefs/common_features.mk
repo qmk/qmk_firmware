@@ -149,6 +149,11 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     endif
 endif
 
+QUANTUM_PAINTER_ENABLE ?= no
+ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
+    include $(QUANTUM_DIR)/painter/rules.mk
+endif
+
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
@@ -217,6 +222,21 @@ else
       SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
     endif
   endif
+endif
+
+VALID_FLASH_DRIVER_TYPES := spi
+FLASH_DRIVER ?= no
+ifneq ($(strip $(FLASH_DRIVER)), no)
+    ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
+        $(error FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid FLASH driver)
+    else
+        OPT_DEFS += -DFLASH_ENABLE
+        ifeq ($(strip $(FLASH_DRIVER)), spi)
+            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
+            COMMON_VPATH += $(DRIVER_PATH)/flash
+            SRC += flash_spi.c
+        endif
+    endif
 endif
 
 RGBLIGHT_ENABLE ?= no
@@ -631,8 +651,9 @@ ifeq ($(strip $(HAPTIC_ENABLE)),yes)
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
-    SRC += platforms/avr/drivers/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/lcd
+    SRC += hd44780.c
 endif
 
 VALID_OLED_DRIVER_TYPES := SSD1306 custom
@@ -680,7 +701,8 @@ endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
     OPT_DEFS += -DUNICODE_COMMON_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
+           $(QUANTUM_DIR)/utf8.c
 endif
 
 MAGIC_ENABLE ?= yes

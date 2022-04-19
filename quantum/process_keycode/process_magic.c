@@ -76,7 +76,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                         keymap_config.swap_backslash_backspace = true;
                         break;
                     case MAGIC_HOST_NKRO:
-                        clear_keyboard();  // clear first buffer to prevent stuck keys
+                        clear_keyboard(); // clear first buffer to prevent stuck keys
                         keymap_config.nkro = true;
                         break;
                     case MAGIC_SWAP_ALT_GUI:
@@ -119,7 +119,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                         keymap_config.swap_backslash_backspace = false;
                         break;
                     case MAGIC_UNHOST_NKRO:
-                        clear_keyboard();  // clear first buffer to prevent stuck keys
+                        clear_keyboard(); // clear first buffer to prevent stuck keys
                         keymap_config.nkro = false;
                         break;
                     case MAGIC_UNSWAP_ALT_GUI:
@@ -157,7 +157,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
 #endif
                         break;
                     case MAGIC_TOGGLE_NKRO:
-                        clear_keyboard();  // clear first buffer to prevent stuck keys
+                        clear_keyboard(); // clear first buffer to prevent stuck keys
                         keymap_config.nkro = !keymap_config.nkro;
                         break;
                     case MAGIC_EE_HANDS_LEFT:
@@ -175,7 +175,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                 }
 
                 eeconfig_update_keymap(keymap_config.raw);
-                clear_keyboard();  // clear to prevent stuck keys
+                clear_keyboard(); // clear to prevent stuck keys
 
                 return false;
         }

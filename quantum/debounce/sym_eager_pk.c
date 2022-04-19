@@ -131,7 +131,7 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
                 if (*debounce_pointer == DEBOUNCE_ELAPSED) {
                     *debounce_pointer    = DEBOUNCE;
                     counters_need_update = true;
-                    existing_row ^= col_mask;  // flip the bit.
+                    existing_row ^= col_mask; // flip the bit.
                 }
             }
             debounce_pointer++;

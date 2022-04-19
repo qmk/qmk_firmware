@@ -560,9 +560,13 @@ uint16_t EEPROM_ReadDataWord(uint16_t Address) {
 /*****************************************************************************
  *  Bind to eeprom_driver.c
  *******************************************************************************/
-void eeprom_driver_init(void) { EEPROM_Init(); }
+void eeprom_driver_init(void) {
+    EEPROM_Init();
+}
 
-void eeprom_driver_erase(void) { EEPROM_Erase(); }
+void eeprom_driver_erase(void) {
+    EEPROM_Erase();
+}
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
     const uint8_t *src  = (const uint8_t *)addr;

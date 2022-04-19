@@ -64,13 +64,17 @@ __attribute__((weak)) void led_set_user(uint8_t usb_led) {}
  *
  * \deprecated Use led_update_kb() instead.
  */
-__attribute__((weak)) void led_set_kb(uint8_t usb_led) { led_set_user(usb_led); }
+__attribute__((weak)) void led_set_kb(uint8_t usb_led) {
+    led_set_user(usb_led);
+}
 
 /** \brief Lock LED update callback - keymap/user level
  *
  * \return True if led_update_kb() should run its own code, false otherwise.
  */
-__attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
+__attribute__((weak)) bool led_update_user(led_t led_state) {
+    return true;
+}
 
 /** \brief Lock LED update callback - keyboard level
  *
@@ -156,7 +160,9 @@ void led_suspend(void) {
 
 /** \brief Trigger behaviour on transition from suspend
  */
-void led_wakeup(void) { led_set(host_keyboard_leds()); }
+void led_wakeup(void) {
+    led_set(host_keyboard_leds());
+}
 
 /** \brief set host led state
  *

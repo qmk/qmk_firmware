@@ -1,8 +1,7 @@
 #pragma once
 
-#include "quantum.h"
-
 #include <stdint.h>
+#include "gpio.h"
 
 #ifndef JOYSTICK_BUTTON_COUNT
 #    define JOYSTICK_BUTTON_COUNT 8
@@ -58,5 +57,7 @@ typedef struct {
 
 extern joystick_t joystick_status;
 
-// to be implemented in the hid protocol library
-void send_joystick_packet(joystick_t *joystick);
+void joystick_flush(void);
+
+void register_joystick_button(uint8_t button);
+void unregister_joystick_button(uint8_t button);

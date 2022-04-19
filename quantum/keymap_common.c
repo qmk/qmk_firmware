@@ -77,7 +77,7 @@ action_t action_for_keycode(uint16_t keycode) {
         case QK_MODS ... QK_MODS_MAX:;
             // Has a modifier
             // Split it up
-            action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);  // adds modifier to key
+            action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
             break;
 #ifndef NO_ACTION_LAYER
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
@@ -148,6 +148,15 @@ action_t action_for_keycode(uint16_t keycode) {
 
 // translates key to keycode
 __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
-    // Read entire word (16bits)
-    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        return pgm_read_word(&keymaps[layer][key.row][key.col]);
+    }
+#ifdef ENCODER_MAP_ENABLE
+    else if (key.row == KEYLOC_ENCODER_CW && key.col < NUM_ENCODERS) {
+        return pgm_read_word(&encoder_map[layer][key.col][0]);
+    } else if (key.row == KEYLOC_ENCODER_CCW && key.col < NUM_ENCODERS) {
+        return pgm_read_word(&encoder_map[layer][key.col][1]);
+    }
+#endif // ENCODER_MAP_ENABLE
+    return KC_NO;
 }
