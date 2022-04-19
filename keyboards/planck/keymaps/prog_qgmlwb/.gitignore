@@ -1,2 +1,2 @@
-build/import.json
+!build/.gitkeep
 !print_layout/*.png
