@@ -25,7 +25,7 @@
         { "f": 4, "fa":[0,2,2], "c":"#cccccc", "t":"#000000\n#009dc9\n#ff6500" },
             "\nSleep\nF7\n\n\n\n\n\n\nZ", "\nScrollL\nF8\n\n\n\n\n\n\nX", "\nCapsL\nF9\n\n\n\n\n\n\nC", "\nNumL\nF10\n\n\n\n\n\n\nF", "\nPrtScr\nF11\n\n\n\n\n\n\nJ", "\nInsert\nF12\n\n\n\n\n\n\nK",
         { "t":"#000000\n#009dc9\n#ff6500\n#a800e3" },
-            "\nHome\nPgUp\n1\n\n\n\n\n\nP", ";\nEnd\nPgDn\n2\n\n\n\n\n\n,",
+            "\nEnd\nPgDn\n1\n\n\n\n\n\nP", ";\nHome\nPgUp\n2\n\n\n\n\n\n,",
         { "fa":[0,4] },
             ":\nÆ\n\n3\n\n\n\n\n\n.", "_\nØ\n\n-\n\n\n\n\n\n-", "|\nÅ\n\n\n\n\n\n\n\n\\"
     ],
@@ -43,6 +43,6 @@
         { "c":"#ff6500", "t":"#000000\n\n\n#a800e3", "a":4 },
             "\n\n\n0\n\n\n\n\n\nRaise",
         { "f": 4, "fa":[0,2,2], "c":"#007c00", "t":"#000000\n#009dc9\n#ff6500\n#a800e3" },
-            "\nStop\nPrev\n,\n\n\n\n\n\n&larr;", "\nBriDn\nVolDn\n.\n\n\n\n\n\n&darr;", "\nBriUp\nVolUp\n+\n\n\n\n\n\n&uarr;", "\nPlay\nNext\n\n\n\n\n\n\n&rarr;"
+            "\nBri-\nPrev\n,\n\n\n\n\n\n&larr;", "\nVol-\nStop\n.\n\n\n\n\n\n&darr;", "\nVol+\nPlay\n+\n\n\n\n\n\n&uarr;", "\nBri+\nNext\n\n\n\n\n\n\n&rarr;"
     ]
 ]

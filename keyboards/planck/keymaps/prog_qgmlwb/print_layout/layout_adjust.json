@@ -21,9 +21,7 @@
         { "c":"#007c00", "t":"#000000" },
             "Voice-", "Voice+", "Mus on", "Mus off", "MIDI on", "MIDI off", "Term on", "Term off",
         { "c":"#929292", "f":6 },
-            "", "",
-        { "c":"#3c3c3c", "t":"#ffffff", "f":3 },
-            "Plover"
+            "", "", ""
     ],
     [
         { "c":"#929292", "t":"#ffffff" },

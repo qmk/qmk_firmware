@@ -71,3 +71,7 @@ The file `build/layers.json` is used for printing the keymap.
 
 The folder `print_layouts` contain all layouts designed using the [pimpmykeyboard layout editor](http://www.keyboard-layout-editor.com).  
 Each file can be imported into the editor using the `Raw Data` field
+
+## Future additions
+
+Audio and plover mode has been disabled due to the lack of storage space in the planck pcb ver 5.
