@@ -43,8 +43,8 @@ flash_cli() {
 
 flash_toolbox() {
     build="$repo/.build/${keyboard}_${pcb}_$keymap.hex"
-    cp $build build/out.hex
-    out="$(echo "$(pwd)/build/out.hex")"
+    cp $build $build_hex
+    out="$(realpath "$build_hex")"
     echo -e "\n\e[1mOpen file in qmk toolbox:\e[m\n$out"
 
 }

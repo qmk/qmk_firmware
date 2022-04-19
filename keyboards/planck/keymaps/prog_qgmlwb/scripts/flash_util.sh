@@ -6,7 +6,7 @@ col_gre="\e[32m"
 
 parse_args() {
     repo="$(
-        cd ../../../..
+        cd ../../../../..
         pwd
     )"
     SHORT=i,c,C,f,F,p:,b:,h
