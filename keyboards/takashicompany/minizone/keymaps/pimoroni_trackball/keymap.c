@@ -4,7 +4,6 @@
 #include QMK_KEYBOARD_H
 
 #include "pointing_device.h"
-#include "paw3204.h"
 
 enum custom_keycodes {
     KC_MY_BTN1 = SAFE_RANGE,
@@ -77,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     LAYOUT(
-        KC_ESC, KC_TAB, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_UP, KC_NO, KC_NO, 
+        KC_ESC, KC_TAB, KC_NO, KC_NO, KC_NO, KC_MS_BTN1, KC_MS_BTN2, KC_UP, KC_NO, KC_NO, 
         KC_LCTL, KC_TRNS, KC_QUES, KC_EXLM, KC_NO, KC_WH_U, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, 
         KC_LSFT, KC_LGUI, KC_LALT, KC_LANG2, KC_TRNS, KC_WH_D, KC_LANG1, KC_NO, KC_NO, KC_DEL, 
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
@@ -91,8 +90,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MY_BTN1, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS,
+        RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, KC_NO, KC_NO, DF(0), DF(2), 
+        RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+        RGB_M_K, RGB_M_X, RGB_M_G, KC_NO, KC_NO, RESET, KC_NO, KC_NO, KC_NO, KC_NO, 
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+     LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MY_BTN1, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_MY_SCR, KC_MY_BTN1, KC_TRNS, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
@@ -159,6 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MY_BTN2:
         case KC_MY_BTN3:
         {
+            dprintf("my_btn: %d \n", keycode);
             report_mouse_t currentReport = pointing_device_get_report();
 
             // どこのビットを対象にするか
@@ -212,6 +226,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     int16_t current_x = history_x[0];
     int16_t current_y = history_y[0];
+    int16_t current_h = 0;
+    int16_t current_v = 0;
 
     int start = 1;
     int read_count = 10;
@@ -238,19 +254,20 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
    
     // dprintf("x:%4d y:%4d \n", mouse_report.x,  mouse_report.y);
     
-    if (mouse_report.x != 0 || mouse_report.y != 0) {
 
+    if (current_x != 0 || current_y != 0) {
+        
         switch (state) {
             case CLICKABLE:
                 click_timer = timer_read();
                 break;
 
             case CLICKING:
-                after_click_lock_movement -= my_abs(mouse_report.x) + my_abs(mouse_report.y);
+                after_click_lock_movement -= my_abs(current_x) + my_abs(current_y);
 
                 if (after_click_lock_movement > 0) {
-                    mouse_report.x = 0;
-                    mouse_report.y = 0;
+                    current_x = 0;
+                    current_y = 0;
                 }
 
                 break;
@@ -261,9 +278,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                 int8_t rep_h = 0;
 
                 // 垂直スクロールの方の感度を高める
-                if (my_abs(mouse_report.y) * 2 > my_abs(mouse_report.x)) {
+                if (my_abs(current_y) * 2 > my_abs(current_x)) {
 
-                    scroll_v_counter += mouse_report.y;
+                    scroll_v_counter += current_y;
                     while (my_abs(scroll_v_counter) > scroll_v_threshold) {
                         if (scroll_v_counter < 0) {
                             //tap_code16(KC_WH_U);
@@ -278,7 +295,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                     }
                 } else {
 
-                    scroll_h_counter += mouse_report.x;
+                    scroll_h_counter += current_x;
 
                     while (my_abs(scroll_h_counter) > scroll_h_threshold) {
                         if (scroll_h_counter < 0) {
@@ -293,10 +310,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                     }
                 }
 
-                mouse_report.h = rep_h / scroll_h_threshold;
-                mouse_report.v = -rep_v / scroll_v_threshold;
-                mouse_report.x = 0;
-                mouse_report.y = 0;
+                current_h = rep_h / scroll_h_threshold;
+                current_v = -rep_v / scroll_v_threshold;
+                current_x = 0;
+                current_y = 0;
             }
                 break;
 
@@ -310,8 +327,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                 click_timer = timer_read();
                 state = WAITING;
         }
-
-        pointing_device_set_report(mouse_report);
     }
     else
     {
@@ -340,6 +355,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     mouse_report.x = current_x * 2;
     mouse_report.y = current_y * 2;
+    mouse_report.h = current_h * 2;
+    mouse_report.v = current_v * 2;
 
     
     return mouse_report;
@@ -350,7 +367,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
   debug_enable=true;
-  debug_matrix=true;
+  //debug_matrix=true;
   //debug_keyboard=true;
   // debug_mouse=true;
 }
