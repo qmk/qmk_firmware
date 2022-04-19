@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 tap_code(KC_VOLD);
             }
         }
-        return true;
+        return false;
     }
 #endif
 
