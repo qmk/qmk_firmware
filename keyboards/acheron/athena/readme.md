@@ -1,6 +1,6 @@
 # Acheron Athena QMK firmware
 
-![athena](https://acheronproject.com/images/athena/IMG-9653.jpg)
+![athena](https://acheronproject.com/images/athena/IMG_9653.jpg)
 
 The Athena is Acheron Project's open-source, freely available tenkeyless (TKL) keyboard Printed Circuit Boards (PCB) which features:
 
