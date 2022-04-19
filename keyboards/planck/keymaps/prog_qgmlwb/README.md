@@ -24,10 +24,10 @@ The layout includes an english and norwegian layer of the layout, where the norw
 
 ## Usage
 
-### Clone QMK Firmware repo fork
+### Clone the QMK Firmware repo
 
 ```bash
-git clone --recurse-submodules https://github.com/davidkristoffersen/qmk_firmware.git <path/name>
+git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git <path/name>
 ```
 
 ### Move into this keymap
@@ -62,16 +62,13 @@ Change the `pcb` and `bootloader` variables in `scripts/config.sh` if it does no
 
 Found in the QMK docs: <https://docs.qmk.fm>
 
-## QMK configurator
+## Printing layout
 
-This keymap uses macros such that qmk configurator cannot exactly match its behavior.  
-The file `build/layers.json` is used for printing the keymap.
-
-## Print layout
-
-The folder `print_layouts` contain all layouts designed using the [pimpmykeyboard layout editor](http://www.keyboard-layout-editor.com).  
-Each file can be imported into the editor using the `Raw Data` field
+This keymap uses macros such that [qmk configurator](https://config.qmk.fm) cannot exactly match its behavior. Instead, the images are designed using the [pimpmykeyboard layout editor](http://www.keyboard-layout-editor.com). The folder `print_layouts` contains the image source json files that can be imported into the editor using the `Raw Data` field.
 
 ## Future additions
 
-Audio and plover mode has been disabled due to the lack of storage space in the planck pcb ver 5.
+Features disabled due to the lack of storage space in the planck pcb ver 5:
+
+- Audio
+- Plover mode
