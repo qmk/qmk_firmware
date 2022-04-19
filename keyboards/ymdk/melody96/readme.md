@@ -10,7 +10,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make melody96:default
+    make ymdk/melody96:default
 
 Flashing example for this keyboard:
 
