@@ -270,6 +270,9 @@ void send_keyboard_report(void) {
     keyboard_report->mods |= weak_override_mods;
 #endif
 
+#ifdef PROTOCOL_VUSB
+    host_keyboard_send(keyboard_report);
+#else
     static report_keyboard_t last_report;
 
     /* Only send the report if there are changes to propagate to the host. */
@@ -277,6 +280,7 @@ void send_keyboard_report(void) {
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
         host_keyboard_send(keyboard_report);
     }
+#endif
 }
 
 /** \brief Get mods
