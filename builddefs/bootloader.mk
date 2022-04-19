@@ -202,6 +202,10 @@ ifeq ($(strip $(BOOTLOADER)), md-boot)
     OPT_DEFS += -DBOOTLOADER_MD_BOOT
     BOOTLOADER_TYPE = md_boot
 endif
+ifeq ($(strip $(BOOTLOADER)), wb32-dfu)
+    OPT_DEFS += -DBOOTLOADER_WB32_DFU
+    BOOTLOADER_TYPE = wb32_dfu
+endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
     $(call CATASTROPHIC_ERROR,Invalid BOOTLOADER,No bootloader specified. Please set an appropriate 'BOOTLOADER' in your keyboard's 'rules.mk' file.)
