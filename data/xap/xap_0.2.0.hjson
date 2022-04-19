@@ -38,6 +38,7 @@
                     define: GET_KEYMAP_KEYCODE
                     description: TODO
                     request_type: struct
+                    request_struct_length: 3
                     request_struct_members: [
                         {
                             type: u8
@@ -61,6 +62,7 @@
                     define: SET_KEYMAP_KEYCODE
                     description: TODO
                     request_type: struct
+                    request_struct_length: 5
                     request_struct_members: [
                         {
                             type: u8

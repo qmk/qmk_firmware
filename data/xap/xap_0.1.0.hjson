@@ -83,6 +83,7 @@
             name: Broadcast Header
             description: Packet format for broadcast messages.
             type: struct
+            struct_length: 4
             struct_members: [
                 {
                     type: token
@@ -240,6 +241,7 @@
                         Retrieves the set of identifying information for the board.
                         '''
                     return_type: struct
+                    return_struct_length: 10
                     return_struct_members: [
                         {
                             type: u16

@@ -133,6 +133,9 @@ def _append_route_types(lines, container, container_id=None, route_stack=None):
             lines.append(f'    {member_type} {member_name};')
         lines.append(f'}} __attribute__((__packed__)) {route_name}_arg_t;')
 
+        req_len = container['request_struct_length']
+        lines.append(f'_Static_assert(sizeof({route_name}_arg_t)  == {req_len}, "{route_name}_arg_t needs to be {req_len} bytes in size");')
+
     elif 'request_type' in container:
         request_type = container['request_type']
         found = re.search(r'(u\d+)\[(\d+)\]', request_type)
@@ -152,6 +155,9 @@ def _append_route_types(lines, container, container_id=None, route_stack=None):
             member_name = f'{qualifier} {to_snake(member["name"])}'
             lines.append(f'    {member_type} {member_name};')
         lines.append(f'}} __attribute__((__packed__)) {route_name}_t;')
+
+        req_len = container['return_struct_length']
+        lines.append(f'_Static_assert(sizeof({route_name}_t)  == {req_len}, "{route_name}_t needs to be {req_len} bytes in size");')
 
     elif 'return_type' in container:
         return_type = container['return_type']
@@ -213,6 +219,9 @@ def _append_internal_types(lines, container):
                     member_type = additional_types[member["type"]]
                 lines.append(f'  {member_type} {member_name};')
             lines.append(f'}} __attribute__((__packed__)) xap_{key}_t;')
+
+            req_len = value['struct_length']
+            lines.append(f'_Static_assert(sizeof(xap_{key}_t)  == {req_len}, "xap_{key}_t needs to be {req_len} bytes in size");')
         else:
             lines.append(f'typedef {data_type} xap_{key}_t;')
 

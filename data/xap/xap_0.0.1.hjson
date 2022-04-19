@@ -142,6 +142,7 @@
             name: Request Header
             description: Packet format for inbound data.
             type: struct
+            struct_length: 3
             struct_members: [
                 {
                     type: token
@@ -158,6 +159,7 @@
             name: Response Header
             description: Packet format for inbound data.
             type: struct
+            struct_length: 4
             struct_members: [
                 {
                     type: token
