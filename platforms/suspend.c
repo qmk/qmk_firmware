@@ -18,7 +18,9 @@ __attribute__((weak)) void suspend_power_down_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
+__attribute__((weak)) void suspend_power_down_kb(void) {
+    suspend_power_down_user();
+}
 
 /** \brief run user level code immediately after wakeup
  *
@@ -30,7 +32,9 @@ __attribute__((weak)) void suspend_wakeup_init_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+__attribute__((weak)) void suspend_wakeup_init_kb(void) {
+    suspend_wakeup_init_user();
+}
 
 /** \brief suspend wakeup condition
  *

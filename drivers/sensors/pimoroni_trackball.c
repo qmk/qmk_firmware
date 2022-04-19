@@ -33,7 +33,9 @@
 
 static uint16_t precision = 128;
 
-uint16_t pimoroni_trackball_get_cpi(void) { return (precision * 125); }
+uint16_t pimoroni_trackball_get_cpi(void) {
+    return (precision * 125);
+}
 /**
  * @brief Sets the scaling value for pimoroni trackball
  *

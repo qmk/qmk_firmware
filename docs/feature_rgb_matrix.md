@@ -171,6 +171,7 @@ Configure the hardware via your `config.h`:
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3737B only | 0 |
 | `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
@@ -361,6 +362,8 @@ Configure the hardware via your `config.h`:
 #define DRIVER_LED_TOTAL 70
 ```
 
+?> There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](ws2812_driver.md) for more information.
+
 ---
 
 ### APA102 :id=apa102
@@ -526,7 +529,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 `RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MODE_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped.
 
-?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions-idfunctions) should be used instead.
+?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
 
 
 !> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
@@ -654,16 +657,17 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 
 ### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
 
-This effect will color the RGB matrix according to a heatmap of recently pressed
-keys. Whenever a key is pressed its "temperature" increases as well as that of
-its neighboring keys. The temperature of each key is then decreased
-automatically every 25 milliseconds by default.
+This effect will color the RGB matrix according to a heatmap of recently pressed keys. Whenever a key is pressed its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
 
-In order to change the delay of temperature decrease define
-`RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
 
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
+
+Heatmap effect may not light up the correct adjacent LEDs for certain key matrix layout such as split keyboards. The following define will limit the effect to pressed keys only:
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_SLIM
 ```
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects

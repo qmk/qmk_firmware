@@ -70,7 +70,7 @@ enum steno_keycodes {
     STN_NB,
     STN_NC,
     STN_ZR,
-    STN__MAX = STN_ZR,  // must be less than QK_STENO_BOLT
+    STN__MAX = STN_ZR, // must be less than QK_STENO_BOLT
 };
 
 #ifdef STENO_COMBINEDMAP

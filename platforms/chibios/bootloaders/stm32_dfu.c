@@ -72,7 +72,7 @@ void enter_bootloader_mode_if_requested(void) {}
 #    define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
 
 __attribute__((weak)) void bootloader_jump(void) {
-    *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
+    *MAGIC_ADDR = BOOTLOADER_MAGIC; // set magic flag => reset handler will jump into boot loader
     NVIC_SystemReset();
 }
 

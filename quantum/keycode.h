@@ -251,7 +251,7 @@ enum hid_keyboard_keypad_usage {
     KC_J,
     KC_K,
     KC_L,
-    KC_M,  // 0x10
+    KC_M, // 0x10
     KC_N,
     KC_O,
     KC_P,
@@ -267,7 +267,7 @@ enum hid_keyboard_keypad_usage {
     KC_Z,
     KC_1,
     KC_2,
-    KC_3,  // 0x20
+    KC_3, // 0x20
     KC_4,
     KC_5,
     KC_6,
@@ -283,7 +283,7 @@ enum hid_keyboard_keypad_usage {
     KC_MINUS,
     KC_EQUAL,
     KC_LEFT_BRACKET,
-    KC_RIGHT_BRACKET,  // 0x30
+    KC_RIGHT_BRACKET, // 0x30
     KC_BACKSLASH,
     KC_NONUS_HASH,
     KC_SEMICOLON,
@@ -299,7 +299,7 @@ enum hid_keyboard_keypad_usage {
     KC_F4,
     KC_F5,
     KC_F6,
-    KC_F7,  // 0x40
+    KC_F7, // 0x40
     KC_F8,
     KC_F9,
     KC_F10,
@@ -315,7 +315,7 @@ enum hid_keyboard_keypad_usage {
     KC_END,
     KC_PAGE_DOWN,
     KC_RIGHT,
-    KC_LEFT,  // 0x50
+    KC_LEFT, // 0x50
     KC_DOWN,
     KC_UP,
     KC_NUM_LOCK,
@@ -331,7 +331,7 @@ enum hid_keyboard_keypad_usage {
     KC_KP_5,
     KC_KP_6,
     KC_KP_7,
-    KC_KP_8,  // 0x60
+    KC_KP_8, // 0x60
     KC_KP_9,
     KC_KP_0,
     KC_KP_DOT,
@@ -347,7 +347,7 @@ enum hid_keyboard_keypad_usage {
     KC_F18,
     KC_F19,
     KC_F20,
-    KC_F21,  // 0x70
+    KC_F21, // 0x70
     KC_F22,
     KC_F23,
     KC_F24,
@@ -363,7 +363,7 @@ enum hid_keyboard_keypad_usage {
     KC_PASTE,
     KC_FIND,
     KC_KB_MUTE,
-    KC_KB_VOLUME_UP,  // 0x80
+    KC_KB_VOLUME_UP, // 0x80
     KC_KB_VOLUME_DOWN,
     KC_LOCKING_CAPS_LOCK,
     KC_LOCKING_NUM_LOCK,
@@ -379,7 +379,7 @@ enum hid_keyboard_keypad_usage {
     KC_INTERNATIONAL_7,
     KC_INTERNATIONAL_8,
     KC_INTERNATIONAL_9,
-    KC_LANGUAGE_1,  // 0x90
+    KC_LANGUAGE_1, // 0x90
     KC_LANGUAGE_2,
     KC_LANGUAGE_3,
     KC_LANGUAGE_4,
@@ -395,7 +395,7 @@ enum hid_keyboard_keypad_usage {
     KC_PRIOR,
     KC_RETURN,
     KC_SEPARATOR,
-    KC_OUT,  // 0xA0
+    KC_OUT, // 0xA0
     KC_OPER,
     KC_CLEAR_AGAIN,
     KC_CRSEL,
@@ -488,7 +488,7 @@ enum internal_special_keycodes {
     KC_MEDIA_STOP,
     KC_MEDIA_PLAY_PAUSE,
     KC_MEDIA_SELECT,
-    KC_MEDIA_EJECT,  // 0xB0
+    KC_MEDIA_EJECT, // 0xB0
     KC_MAIL,
     KC_CALCULATOR,
     KC_MY_COMPUTER,
@@ -514,7 +514,7 @@ enum mouse_keys {
 #endif
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT,  // 0xF0
+    KC_MS_RIGHT, // 0xF0
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
@@ -539,7 +539,7 @@ enum mouse_keys {
     /* Acceleration */
     KC_MS_ACCEL0,
     KC_MS_ACCEL1,
-    KC_MS_ACCEL2  // 0xFF
+    KC_MS_ACCEL2 // 0xFF
 };
 
 #include "keycode_legacy.h"

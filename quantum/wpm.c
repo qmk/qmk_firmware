@@ -55,12 +55,20 @@ static uint8_t  prev_wpm        = 0;
 static uint8_t  next_wpm        = 0;
 #endif
 
-void    set_current_wpm(uint8_t new_wpm) { current_wpm = new_wpm; }
-uint8_t get_current_wpm(void) { return current_wpm; }
+void set_current_wpm(uint8_t new_wpm) {
+    current_wpm = new_wpm;
+}
+uint8_t get_current_wpm(void) {
+    return current_wpm;
+}
 
-bool wpm_keycode(uint16_t keycode) { return wpm_keycode_kb(keycode); }
+bool wpm_keycode(uint16_t keycode) {
+    return wpm_keycode_kb(keycode);
+}
 
-__attribute__((weak)) bool wpm_keycode_kb(uint16_t keycode) { return wpm_keycode_user(keycode); }
+__attribute__((weak)) bool wpm_keycode_kb(uint16_t keycode) {
+    return wpm_keycode_user(keycode);
+}
 
 __attribute__((weak)) bool wpm_keycode_user(uint16_t keycode) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
@@ -122,7 +130,7 @@ void decay_wpm(void) {
     uint32_t duration = (((periods)*PERIOD_DURATION) + elapsed);
     int32_t  wpm_now  = (60000 * presses) / (duration * WPM_ESTIMATED_WORD_SIZE);
 
-    if (wpm_now < 0)  // set some reasonable WPM measurement limits
+    if (wpm_now < 0) // set some reasonable WPM measurement limits
         wpm_now = 0;
     if (wpm_now > 240) wpm_now = 240;
 
@@ -133,7 +141,7 @@ void decay_wpm(void) {
         elapsed                        = 0;
         wpm_timer                      = timer_read32();
     }
-    if (presses < 2)  // don't guess high WPM based on a single keypress.
+    if (presses < 2) // don't guess high WPM based on a single keypress.
         wpm_now = 0;
 
 #if defined(WPM_LAUNCH_CONTROL)
@@ -150,7 +158,7 @@ void decay_wpm(void) {
         wpm_now           = 0;
         period_presses[0] = 0;
     }
-#endif  // WPM_LAUNCH_CONTROL
+#endif // WPM_LAUNCH_CONTROL
 
 #if defined(WPM_UNFILTERED)
     current_wpm = wpm_now;

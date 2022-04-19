@@ -29,11 +29,17 @@ extern report_keyboard_t *keyboard_report;
 void send_keyboard_report(void);
 
 /* key */
-inline void add_key(uint8_t key) { add_key_to_report(keyboard_report, key); }
+inline void add_key(uint8_t key) {
+    add_key_to_report(keyboard_report, key);
+}
 
-inline void del_key(uint8_t key) { del_key_from_report(keyboard_report, key); }
+inline void del_key(uint8_t key) {
+    del_key_from_report(keyboard_report, key);
+}
 
-inline void clear_keys(void) { clear_keys_from_report(keyboard_report); }
+inline void clear_keys(void) {
+    clear_keys_from_report(keyboard_report);
+}
 
 /* modifier */
 uint8_t get_mods(void);
