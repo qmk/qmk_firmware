@@ -27,11 +27,11 @@ __attribute__((weak)) void bootloader_jump(void) {
     // disable all peripherals
     // a shutdown call might make sense here
     UDCON  = 1;
-    USBCON = (1 << FRZCLK);  // disable USB
+    USBCON = (1 << FRZCLK); // disable USB
     UCSR1B = 0;
     _delay_ms(5);
 
-#if defined(__AVR_AT90USB162__)  // Teensy 1.0
+#if defined(__AVR_AT90USB162__) // Teensy 1.0
     EIMSK  = 0;
     PCICR  = 0;
     SPCR   = 0;
@@ -47,7 +47,7 @@ __attribute__((weak)) void bootloader_jump(void) {
     PORTC  = 0;
     PORTD  = 0;
     asm volatile("jmp 0x3E00");
-#elif defined(__AVR_ATmega32U4__)   // Teensy 2.0
+#elif defined(__AVR_ATmega32U4__)  // Teensy 2.0
     EIMSK  = 0;
     PCICR  = 0;
     SPCR   = 0;
@@ -72,7 +72,7 @@ __attribute__((weak)) void bootloader_jump(void) {
     PORTE  = 0;
     PORTF  = 0;
     asm volatile("jmp 0x7E00");
-#elif defined(__AVR_AT90USB646__)   // Teensy++ 1.0
+#elif defined(__AVR_AT90USB646__)  // Teensy++ 1.0
     EIMSK  = 0;
     PCICR  = 0;
     SPCR   = 0;
@@ -98,7 +98,7 @@ __attribute__((weak)) void bootloader_jump(void) {
     PORTE  = 0;
     PORTF  = 0;
     asm volatile("jmp 0xFC00");
-#elif defined(__AVR_AT90USB1286__)  // Teensy++ 2.0
+#elif defined(__AVR_AT90USB1286__) // Teensy++ 2.0
     EIMSK  = 0;
     PCICR  = 0;
     SPCR   = 0;

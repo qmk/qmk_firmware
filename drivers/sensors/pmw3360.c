@@ -21,7 +21,7 @@
 #include "wait.h"
 #include "debug.h"
 #include "print.h"
-#include PMW3360_FIRMWARE_H
+#include "pmw3360_firmware.h"
 
 // Registers
 // clang-format off
@@ -78,19 +78,23 @@
 #define CPI_STEP          100
 // clang-format on
 
+// limits to 0--119, resulting in a CPI range of 100 -- 12000 (as only steps of 100 are possible).
 #ifndef MAX_CPI
-#    define MAX_CPI 0x77  // limits to 0--119, should be max cpi/100
+#    define MAX_CPI 0x77
 #endif
 
 bool _inBurst = false;
 
 #ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
+void print_byte(uint8_t byte) {
+    dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0'));
+}
 #endif
 #define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
 bool pmw3360_spi_start(void) {
     bool status = spi_start(PMW3360_CS_PIN, PMW3360_SPI_LSBFIRST, PMW3360_SPI_MODE, PMW3360_SPI_DIVISOR);
+    // tNCS-SCLK, 120ns
     wait_us(1);
     return status;
 }
@@ -106,12 +110,12 @@ spi_status_t pmw3360_write(uint8_t reg_addr, uint8_t data) {
     spi_status_t status = spi_write(reg_addr | 0x80);
     status              = spi_write(data);
 
-    // tSCLK-NCS for write operation
+    // tSCLK-NCS for write operation is 35us
     wait_us(35);
+    spi_stop();
 
     // tSWW/tSWR (=180us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
     wait_us(145);
-    spi_stop();
     return status;
 }
 
@@ -119,15 +123,16 @@ uint8_t pmw3360_read(uint8_t reg_addr) {
     pmw3360_spi_start();
     // send adress of the register, with MSBit = 0 to indicate it's a read
     spi_write(reg_addr & 0x7f);
+    // tSRAD (=160us)
+    wait_us(160);
     uint8_t data = spi_read();
 
     // tSCLK-NCS for read operation is 120ns
     wait_us(1);
+    spi_stop();
 
     //  tSRW/tSRR (=20us) minus tSCLK-NCS
     wait_us(19);
-
-    spi_stop();
     return data;
 }
 
@@ -141,7 +146,7 @@ bool pmw3360_init(void) {
     pmw3360_spi_start();
     spi_stop();
 
-    pmw3360_write(REG_Shutdown, 0xb6);  // Shutdown first
+    pmw3360_write(REG_Shutdown, 0xb6); // Shutdown first
     wait_ms(300);
 
     pmw3360_spi_start();
@@ -149,7 +154,7 @@ bool pmw3360_init(void) {
     spi_stop();
     wait_us(40);
 
-    // reboot
+    // power up, need to first drive NCS high then low, see above.
     pmw3360_write(REG_Power_Up_Reset, 0x5a);
     wait_ms(50);
 
@@ -190,6 +195,9 @@ bool pmw3360_init(void) {
 }
 
 void pmw3360_upload_firmware(void) {
+    // Datasheet claims we need to disable REST mode first, but during startup
+    // it's already disabled and we're not turning it on ...
+    // pmw3360_write(REG_Config2, 0x00);  // disable REST mode
     pmw3360_write(REG_SROM_Enable, 0x1d);
 
     wait_ms(10);
@@ -200,11 +208,11 @@ void pmw3360_upload_firmware(void) {
     spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
 
-    unsigned char c;
-    for (int i = 0; i < FIRMWARE_LENGTH; i++) {
-        c = (unsigned char)pgm_read_byte(firmware_data + i);
-        spi_write(c);
+    for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
+        spi_write(pgm_read_byte(firmware_data + i));
+#ifndef PMW3360_FIRMWARE_UPLOAD_FAST
         wait_us(15);
+#endif
     }
     wait_us(200);
 
@@ -216,7 +224,7 @@ bool pmw3360_check_signature(void) {
     uint8_t pid      = pmw3360_read(REG_Product_ID);
     uint8_t iv_pid   = pmw3360_read(REG_Inverse_Product_ID);
     uint8_t SROM_ver = pmw3360_read(REG_SROM_ID);
-    return (pid == firmware_signature[0] && iv_pid == firmware_signature[1] && SROM_ver == firmware_signature[2]);  // signature for SROM 0x04
+    return (pid == firmware_signature[0] && iv_pid == firmware_signature[1] && SROM_ver == firmware_signature[2]); // signature for SROM 0x04
 }
 
 uint16_t pmw3360_get_cpi(void) {
@@ -242,14 +250,19 @@ report_pmw3360_t pmw3360_read_burst(void) {
 
     pmw3360_spi_start();
     spi_write(REG_Motion_Burst);
-    wait_us(35);  // waits for tSRAD
+    wait_us(35); // waits for tSRAD_MOTBR
 
     report.motion = spi_read();
-    spi_write(0x00);  // skip Observation
+    spi_read(); // skip Observation
+    // delta registers
     report.dx  = spi_read();
     report.mdx = spi_read();
     report.dy  = spi_read();
     report.mdy = spi_read();
+
+    if (report.motion & 0b111) { // panic recovery, sometimes burst mode works weird.
+        _inBurst = false;
+    }
 
     spi_stop();
 
@@ -270,10 +283,6 @@ report_pmw3360_t pmw3360_read_burst(void) {
     report.dx = report.dx * -1;
     report.dy |= (report.mdy << 8);
     report.dy = report.dy * -1;
-
-    if (report.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
-        _inBurst = false;
-    }
 
     return report;
 }

@@ -22,7 +22,9 @@
 
 enum usb_device_state usb_device_state = USB_DEVICE_STATE_NO_INIT;
 
-__attribute__((weak)) void notify_usb_device_state_change_kb(enum usb_device_state usb_device_state) { notify_usb_device_state_change_user(usb_device_state); }
+__attribute__((weak)) void notify_usb_device_state_change_kb(enum usb_device_state usb_device_state) {
+    notify_usb_device_state_change_user(usb_device_state);
+}
 
 __attribute__((weak)) void notify_usb_device_state_change_user(enum usb_device_state usb_device_state) {}
 

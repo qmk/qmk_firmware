@@ -1,5 +1,5 @@
 /*
-Copyright 2020 ipetepete, 2021 deadolus
+Copyright 2020 ipetepete, 2021 deadolus, 2022 p4yne
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
+
+/* Force NKRO */
 #define FORCE_NKRO
 
 /*
@@ -105,8 +107,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_BAND_SAT
-#    define RGBLIGHT_SLEEP /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-                           /*== all animations enable ==*/
+/* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#    define RGBLIGHT_SLEEP 
+/*== all animations enable ==*/
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

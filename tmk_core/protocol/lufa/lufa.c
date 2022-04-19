@@ -67,9 +67,9 @@ extern keymap_config_t keymap_config;
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
-#    ifdef MODULE_ADAFRUIT_BLE
-#        include "adafruit_ble.h"
-#    elif MODULE_RN42
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+#        include "bluefruit_le.h"
+#    elif BLUETOOTH_RN42
 #        include "rn42.h"
 #    endif
 #endif
@@ -256,7 +256,8 @@ static void Console_Task(void) {
     }
 
     // fill empty bank
-    while (Endpoint_IsReadWriteAllowed()) Endpoint_Write_8(0);
+    while (Endpoint_IsReadWriteAllowed())
+        Endpoint_Write_8(0);
 
     // flush sendchar packet
     if (Endpoint_IsINReady()) {
@@ -296,7 +297,7 @@ void send_joystick_packet(joystick_t *joystick) {
           joystick->axes[5],
 #        endif
         },
-#    endif  // JOYSTICK_AXES_COUNT>0
+#    endif // JOYSTICK_AXES_COUNT>0
 
 #    if JOYSTICK_BUTTON_COUNT > 0
         .buttons = {
@@ -312,14 +313,15 @@ void send_joystick_packet(joystick_t *joystick) {
             joystick->buttons[3],
 #        endif
         }
-#    endif  // JOYSTICK_BUTTON_COUNT>0
+#    endif // JOYSTICK_BUTTON_COUNT>0
     };
 
     /* Select the Joystick Report Endpoint */
     Endpoint_SelectEndpoint(JOYSTICK_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    while (timeout-- && !Endpoint_IsReadWriteAllowed())
+        _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     /* Write Joystick Report Data */
@@ -414,9 +416,11 @@ void EVENT_USB_Device_WakeUp() {
 
 #ifdef CONSOLE_ENABLE
 static bool console_flush = false;
-#    define CONSOLE_FLUSH_SET(b)                                     \
-        do {                                                         \
-            ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { console_flush = b; } \
+#    define CONSOLE_FLUSH_SET(b)                \
+        do {                                    \
+            ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { \
+                console_flush = b;              \
+            }                                   \
         } while (0)
 
 /** \brief Event USB Device Start Of Frame
@@ -634,7 +638,9 @@ void EVENT_USB_Device_ControlRequest(void) {
  *
  * FIXME: Needs doc
  */
-static uint8_t keyboard_leds(void) { return keyboard_led_state; }
+static uint8_t keyboard_leds(void) {
+    return keyboard_led_state;
+}
 
 /** \brief Send Keyboard
  *
@@ -645,9 +651,9 @@ static void send_keyboard(report_keyboard_t *report) {
 
 #ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif MODULE_RN42
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
+#    elif BLUETOOTH_RN42
         rn42_send_keyboard(report);
 #    endif
         return;
@@ -665,7 +671,8 @@ static void send_keyboard(report_keyboard_t *report) {
 #endif
     Endpoint_SelectEndpoint(ep);
     /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    while (timeout-- && !Endpoint_IsReadWriteAllowed())
+        _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
@@ -691,10 +698,10 @@ static void send_mouse(report_mouse_t *report) {
 
 #    ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef MODULE_ADAFRUIT_BLE
+#        ifdef BLUETOOTH_BLUEFRUIT_LE
         // FIXME: mouse buttons
-        adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
-#        elif MODULE_RN42
+        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
+#        elif BLUETOOTH_RN42
         rn42_send_mouse(report);
 #        endif
         return;
@@ -705,7 +712,8 @@ static void send_mouse(report_mouse_t *report) {
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    while (timeout-- && !Endpoint_IsReadWriteAllowed())
+        _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     /* Write Mouse Report Data */
@@ -725,7 +733,8 @@ static void send_report(void *report, size_t size) {
     Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    while (timeout-- && !Endpoint_IsReadWriteAllowed())
+        _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     Endpoint_Write_Stream_LE(report, size, NULL);
@@ -763,9 +772,9 @@ static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
 #    ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_consumer_key(data);
-#        elif MODULE_RN42
+#        ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_consumer_key(data);
+#        elif BLUETOOTH_RN42
         rn42_send_consumer(data);
 #        endif
         return;
@@ -876,9 +885,13 @@ USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface = {
 
 // clang-format on
 
-void send_midi_packet(MIDI_EventPacket_t *event) { MIDI_Device_SendEventPacket(&USB_MIDI_Interface, event); }
+void send_midi_packet(MIDI_EventPacket_t *event) {
+    MIDI_Device_SendEventPacket(&USB_MIDI_Interface, event);
+}
 
-bool recv_midi_packet(MIDI_EventPacket_t *const event) { return MIDI_Device_ReceiveEventPacket(&USB_MIDI_Interface, event); }
+bool recv_midi_packet(MIDI_EventPacket_t *const event) {
+    return MIDI_Device_ReceiveEventPacket(&USB_MIDI_Interface, event);
+}
 
 #endif
 
@@ -934,7 +947,8 @@ void virtser_send(const uint8_t byte) {
             return;
         }
 
-        while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+        while (timeout-- && !Endpoint_IsReadWriteAllowed())
+            _delay_us(40);
 
         Endpoint_Write_8(byte);
         CDC_Device_Flush(&cdc_device);
@@ -957,7 +971,8 @@ void send_digitizer(report_digitizer_t *report) {
     Endpoint_SelectEndpoint(DIGITIZER_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    while (timeout-- && !Endpoint_IsReadWriteAllowed())
+        _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     Endpoint_Write_Stream_LE(report, sizeof(report_digitizer_t), NULL);
@@ -1013,7 +1028,7 @@ void protocol_pre_init(void) {
     setup_usb();
     sei();
 
-#if defined(MODULE_RN42)
+#if defined(BLUETOOTH_RN42)
     rn42_init();
 #endif
 
@@ -1033,7 +1048,9 @@ void protocol_pre_init(void) {
 #endif
 }
 
-void protocol_post_init(void) { host_set_driver(&lufa_driver); }
+void protocol_post_init(void) {
+    host_set_driver(&lufa_driver);
+}
 
 void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
@@ -1066,8 +1083,8 @@ void protocol_post_task(void) {
     MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-#ifdef MODULE_ADAFRUIT_BLE
-    adafruit_ble_task();
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+    bluefruit_le_task();
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -1084,4 +1101,6 @@ void protocol_post_task(void) {
 #endif
 }
 
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint16_t wIndex, const void **const DescriptorAddress) { return get_usb_descriptor(wValue, wIndex, DescriptorAddress); }
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint16_t wIndex, const void **const DescriptorAddress) {
+    return get_usb_descriptor(wValue, wIndex, DescriptorAddress);
+}
