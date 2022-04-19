@@ -64,7 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-/* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming*/
 #define QMK_KEYS_PER_SCAN 12
 
 #define RGB_DI_PIN C7
