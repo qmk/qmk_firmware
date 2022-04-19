@@ -23,9 +23,9 @@
 extern uint32_t __ram0_end__;
 
 /* This code should be checked whether it runs correctly on platforms */
-#    define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
-#    define BOOTLOADER_MAGIC 0xDEADBEEF
-#    define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
+#define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
+#define BOOTLOADER_MAGIC 0xDEADBEEF
+#define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
 
 __attribute__((weak)) void bootloader_jump(void) {
     *MAGIC_ADDR = BOOTLOADER_MAGIC; // set magic flag => reset handler will jump into boot loader
