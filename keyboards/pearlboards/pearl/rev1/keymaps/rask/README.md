@@ -1,4 +1,4 @@
-# rask's Pearl 40%
+# rask's pearl 40%
 
 ## Layout
 

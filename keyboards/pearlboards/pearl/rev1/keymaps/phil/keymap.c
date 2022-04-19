@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2022 Koobaczech
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,12 +16,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Layer shorthand
-#define COLEMAK 0
-#define QWERTY 1
-#define WIN 2
-#define _FN1 3
-#define _FN2 4
-#define LIGHT 5
+enum custom_layers {
+    COLEMAK,
+    QWERTY,
+    WIN,
+    _FN1,
+    _FN2,
+    LIGHT,
+};
 
 #include QMK_KEYBOARD_H
 

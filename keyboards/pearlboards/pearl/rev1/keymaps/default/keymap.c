@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2022 Koobaczech
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,4 +31,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_MOD, BL_TOGG, KC_LGUI, KC_LSFT, KC_SPC,  KC_SPC,  KC_APP,  KC_TRNS
       ),
 };
-
