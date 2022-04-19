@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define NO_ACTION_LAYER             // Disable layers
 // #define NO_ACTION_TAPPING           // Disable tap dance and other tapping features
 // #define NO_ACTION_ONESHOT           // Disable one-shot modifiers
-// #define NO_ACTION_MACRO             // Disable old style macro handling: MACRO() & action_get_macro
 // #define TERMINAL_HELP
 // #define MOUSEKEY_INTERVAL 20
 // #define MOUSEKEY_DELAY 0
