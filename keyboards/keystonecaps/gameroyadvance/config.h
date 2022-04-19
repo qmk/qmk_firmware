@@ -63,8 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 /* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming*/
 #define USB_POLLING_INTERVAL_MS 1
