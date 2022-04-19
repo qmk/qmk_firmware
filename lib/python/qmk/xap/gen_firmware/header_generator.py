@@ -131,11 +131,16 @@ def _append_route_types(lines, container, container_id=None, route_stack=None):
             member_type = _get_c_type(member['type'])
             member_name = to_snake(member['name'])
             lines.append(f'    {member_type} {member_name};')
-        lines.append(f'}} {route_name}_arg_t;')
+        lines.append(f'}} __attribute__((__packed__)) {route_name}_arg_t;')
 
     elif 'request_type' in container:
         request_type = container['request_type']
-        lines.append(f'typedef {_get_c_type(request_type)} {route_name}_arg_t;')
+        found = re.search(r'(u\d+)\[(\d+)\]', request_type)
+        if found:
+            request_type, size = found.groups()
+            lines.append(f'typedef struct __attribute__((__packed__)) {{ {_get_c_type(request_type)} x[{size}]; }} {route_name}_arg_t;')
+        else:
+            lines.append(f'typedef {_get_c_type(request_type)} {route_name}_arg_t;')
 
     # Outbound
     qualifier = 'const' if 'return_constant' in container else ''
@@ -146,14 +151,14 @@ def _append_route_types(lines, container, container_id=None, route_stack=None):
             member_type = _get_c_type(member['type'])
             member_name = f'{qualifier} {to_snake(member["name"])}'
             lines.append(f'    {member_type} {member_name};')
-        lines.append(f'}} {route_name}_t;')
+        lines.append(f'}} __attribute__((__packed__)) {route_name}_t;')
 
     elif 'return_type' in container:
         return_type = container['return_type']
         found = re.search(r'(u\d+)\[(\d+)\]', return_type)
         if found:
             return_type, size = found.groups()
-            lines.append(f'typedef struct {{ {_get_c_type(return_type)} x[{size}]; }} {route_name}_t;')
+            lines.append(f'typedef struct __attribute__((__packed__)) {{ {_get_c_type(return_type)} x[{size}]; }} {route_name}_t;')
         else:
             lines.append(f'typedef {_get_c_type(return_type)} {route_name}_t;')
 
@@ -207,7 +212,7 @@ def _append_internal_types(lines, container):
                 if member_type == 'unknown':
                     member_type = additional_types[member["type"]]
                 lines.append(f'  {member_type} {member_name};')
-            lines.append(f'}} xap_{key}_t;')
+            lines.append(f'}} __attribute__((__packed__)) xap_{key}_t;')
         else:
             lines.append(f'typedef {data_type} xap_{key}_t;')
 
