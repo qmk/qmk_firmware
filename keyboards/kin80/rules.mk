@@ -1,4 +1,4 @@
-DEFAULT_FOLDER = kinesis80/blackpill401
+DEFAULT_FOLDER = kin80/blackpill401
 
 # Build Options
 #   change yes to no to disable
