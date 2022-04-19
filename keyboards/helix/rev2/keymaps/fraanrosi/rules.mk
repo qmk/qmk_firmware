@@ -5,7 +5,8 @@
 #   See TOP/keyboards/helix/rules.mk for a list of options that can be set.
 #   See TOP/docs/config_options.md for more information.
 #
-LTO_ENABLE = no  # if firmware size over limit, try this option
+SPLIT_KEYBOARD = yes
+LTO_ENABLE = yes         # if firmware size over limit, try this option
 MOUSEKEY_ENABLE = yes    # Mouse keys
 EXTRAKEY_ENABLE = yes    # Audio control and System control
 # AUDIO_ENABLE = yes       # Audio output on port C6
@@ -22,7 +23,3 @@ LED_ANIMATIONS = yes        # LED animations
 
 LED_BACK_ENABLE = no
 LED_UNDERGLOW_ENABLE = yes
-
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

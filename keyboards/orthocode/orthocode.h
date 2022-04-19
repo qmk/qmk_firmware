@@ -17,6 +17,7 @@
 #pragma once
 
 #define _x_ KC_NO
+#define KC_SHSP SHIFTSPACE
 
 #include "quantum.h"
 
@@ -34,3 +35,16 @@
 {   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, _x_, K3D, _x_ }, \
 {   _x_, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B, K4C, K4D, K4E}   \
 }
+
+enum custom_keycodes {
+#ifdef VIA_ENABLE
+    SHIFTSPACE = USER00,
+#else
+    SHIFTSPACE = SAFE_RANGE,
+#endif
+#ifdef VIA_ENABLE
+    QWERTY = SAFE_RANGE
+#else
+    QWERTY
+#endif
+};

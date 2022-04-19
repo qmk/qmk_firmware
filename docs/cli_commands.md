@@ -54,7 +54,7 @@ or in keymap directory
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
 $ qmk compile
-Ψ Compiling keymap with make make gh60/satan:colemak
+Ψ Compiling keymap with make gh60/satan:colemak
 ...
 ```
 
@@ -310,7 +310,7 @@ Any arguments that are not provided will prompt for input. If `-u` is not passed
 **Usage**:
 
 ```
-qmk new-keyboard [-kb KEYBOARD] [-t {avr,ps2avrgb}] -u USERNAME
+qmk new-keyboard [-kb KEYBOARD] [-t {atmega32u4,STM32F303,etc}] [-l {60_ansi,75_iso,etc}] -u USERNAME
 ```
 
 ## `qmk new-keymap`
@@ -333,6 +333,23 @@ This command cleans up the `.build` folder. If `--all` is passed, any .hex or .b
 
 ```
 qmk clean [-a]
+```
+
+## `qmk via2json`
+
+This command an generate a keymap.json from a VIA keymap backup. Both the layers and the macros are converted, enabling users to easily move away from a VIA-enabled firmware without writing any code or reimplementing their keymaps in QMK Configurator.
+
+**Usage**:
+
+```
+qmk via2json -kb KEYBOARD [-l LAYOUT] [-km KEYMAP] [-o OUTPUT] filename
+```
+
+**Example:**
+
+```
+$ qmk via2json -kb ai03/polaris -o polaris_keymap.json polaris_via_backup.json
+Ψ Wrote keymap to /home/you/qmk_firmware/polaris_keymap.json
 ```
 
 ---
@@ -381,6 +398,33 @@ qmk format-c
 ```
 qmk format-c -b branch_name
 ```
+
+## `qmk generate-compilation-database`
+
+**Usage**:
+
+```
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
+```
+
+Creates a `compile_commands.json` file.
+
+Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! The qmk tool can build this for you.
+
+This command needs to know which keyboard and keymap to build. It uses the same configuration options as the `qmk compile` command: arguments, current directory, and config files.
+
+**Example:**
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk generate-compilation-database
+Ψ Making clean
+Ψ Gathering build instructions from make -n gh60/satan:colemak
+Ψ Found 50 compile commands
+Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
+```
+
+Now open your dev environment and live a squiggly-free life.
 
 ## `qmk docs`
 
@@ -454,5 +498,20 @@ This command runs the python test suite. If you make changes to python code you 
 **Usage**:
 
 ```
-qmk pytest
+qmk pytest [-t TEST]
 ```
+
+**Examples**:
+
+Run entire test suite:
+
+    qmk pytest
+
+Run test group:
+
+    qmk pytest -t qmk.tests.test_cli_commands
+
+Run single test:
+
+    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+    qmk pytest -t qmk.tests.test_qmk_path

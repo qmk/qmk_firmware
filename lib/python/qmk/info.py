@@ -122,11 +122,6 @@ def _extract_features(info_data, rules):
     if rules.get('BOOTMAGIC_ENABLE') == 'full':
         rules['BOOTMAGIC_ENABLE'] = 'on'
 
-    # Skip non-boolean features we haven't implemented special handling for
-    for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
-        if rules.get(feature):
-            del rules[feature]
-
     # Process the rest of the rules as booleans
     for key, value in rules.items():
         if key.endswith('_ENABLE'):
@@ -392,6 +387,19 @@ def _extract_matrix_info(info_data, config_c):
     return info_data
 
 
+# TODO: kill off usb.device_ver in favor of usb.device_version
+def _extract_device_version(info_data):
+    if info_data.get('usb'):
+        if info_data['usb'].get('device_version') and not info_data['usb'].get('device_ver'):
+            (major, minor, revision) = info_data['usb']['device_version'].split('.', 3)
+            info_data['usb']['device_ver'] = f'0x{major.zfill(2)}{minor}{revision}'
+        if not info_data['usb'].get('device_version') and info_data['usb'].get('device_ver'):
+            major = int(info_data['usb']['device_ver'][2:4])
+            minor = int(info_data['usb']['device_ver'][4])
+            revision = int(info_data['usb']['device_ver'][5])
+            info_data['usb']['device_version'] = f'{major}.{minor}.{revision}'
+
+
 def _extract_config_h(info_data):
     """Pull some keyboard information from existing config.h files
     """
@@ -435,6 +443,13 @@ def _extract_config_h(info_data):
                 elif key_type == 'int':
                     dotty_info[info_key] = int(config_c[config_key])
 
+                elif key_type == 'bcd_version':
+                    major = int(config_c[config_key][2:4])
+                    minor = int(config_c[config_key][4])
+                    revision = int(config_c[config_key][5])
+
+                    dotty_info[info_key] = f'{major}.{minor}.{revision}'
+
                 else:
                     dotty_info[info_key] = config_c[config_key]
 
@@ -449,6 +464,7 @@ def _extract_config_h(info_data):
     _extract_split_main(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
+    _extract_device_version(info_data)
 
     return info_data
 
@@ -533,6 +549,11 @@ def _matrix_size(info_data):
         elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['cols'])
             info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['rows'])
+
+        # Assumption of split common
+        if 'split' in info_data:
+            if info_data['split'].get('enabled', False):
+                info_data['matrix_size']['rows'] *= 2
 
     return info_data
 
@@ -627,10 +648,7 @@ def arm_processor_rules(info_data, rules):
     info_data['protocol'] = 'ChibiOS'
 
     if 'bootloader' not in info_data:
-        if 'STM32' in info_data['processor']:
-            info_data['bootloader'] = 'stm32-dfu'
-        else:
-            info_data['bootloader'] = 'unknown'
+        info_data['bootloader'] = 'unknown'
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
@@ -735,9 +753,9 @@ def find_info_json(keyboard):
 
     # Add in parent folders for least specific
     for _ in range(5):
-        info_jsons.append(keyboard_parent / 'info.json')
-        if keyboard_parent.parent == base_path:
+        if keyboard_parent == base_path:
             break
+        info_jsons.append(keyboard_parent / 'info.json')
         keyboard_parent = keyboard_parent.parent
 
     # Return a list of the info.json files that actually exist

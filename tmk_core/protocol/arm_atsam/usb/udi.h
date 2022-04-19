@@ -130,4 +130,4 @@ typedef struct {
 #ifdef __cplusplus
 }
 #endif
-#endif  // _UDI_H_
+#endif // _UDI_H_
