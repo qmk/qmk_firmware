@@ -11,11 +11,11 @@ A 60% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make amj60:default
+    make amjkeyboard/amj60:default
 
 Flashing example for this keyboard:
 
-    make amj60:default:flash
+    make amjkeyboard/amj60:default:flash
 
 To reset the board into bootloader mode, tap the Reset switch mounted on the bottom side of the PCB.
 
