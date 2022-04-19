@@ -18,3 +18,4 @@ This is the primary reason this patch has not been integrated into upstream QMK 
 See https://github.com/qmk/qmk_firmware/issues/2179 for a little more info and discussion.
 
 <sup>\* It appears that the functionality of certain F keys can differ depending on the PID, likely because they have evolved over time on real Apple keyboards.</sup>
+

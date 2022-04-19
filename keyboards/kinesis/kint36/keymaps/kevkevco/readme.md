@@ -1,12 +1,88 @@
-# Dave's Kinesis Advantage keymap
-
-Kinesis Advantage keymap aiming to emulate the stock controller. QWERTY, DVORAK,
-WIN, MAC, PC, program and keypad layers are all supported, along with the
-keypad LED and RESET + STATUS keys.
+# Kevin's Kinesis Advantage keymap
 
 Tested with a Kinesis Advantage2, kinT (stapelberg) keyboard controller built
-with a Teensy 3.6 microcontroller and a UK system layout. Originally based upon
-the xyvers keymap.
+with a Teensy 3.6 microcontroller and a USA system layout.
+
+## CAPSWORD and NUMWORD from replicaJunction
+The concept here is simple: more often than you'd think, you need to type a single word in ALL CAPS. An easy example for me, as a programmer, is a constant value; in most programming languages, constants are typed in all caps by convention.
+
+You typically have a few choices, but each one comes with a drawback. Here are the options I'm aware of:
+
+* Use proper typing technique and alternate which hand holds Shift for each keypress
+    * This can often end up requiring you to switch / re-press Shift again and again, making this a tedious process
+* Hold a single Shift key down
+    * This can lead to uncomfortable finger gymnastics
+* Hit the Caps Lock key, then hit it again when you're done
+    * Requires you to remember to hit it again, meaning a higher cognitive load
+    * In some layouts for smaller keyboards, Caps Lock is not easily accessible (sometimes not mapped at all)
+    
+The solution to this problem is CAPSWORD. When enabled, it activates Caps Lock and begins running an additional callback on each keypress. If the keypress is an alphanumeric key or one of a specific few symbols (such as the underscore), nothing happens. Otherwise, before processing the keypress, Caps Lock is disabled again.
+
+NUMWORD is a similar concept, but has a slightly more elaborate implementation. There's a bit of extra logic in the NUMWORD code that allows the keycode to act as a tap/hold key as well. Tapping enables NUMWORD while number keys are in use, while holding the key enables a number layer for the duration of the key hold and disables it again afterwards.
+
+**Note:** The implementation of NUMWORD requires that the keyboard's layer definitions be accessible in a header file. In my case, since I use a fairly standard set of layers, I've declared it in my userspace.
+
+
+# Credits
+
+numword from replicaJunction
+
+[bpruitt-goddard](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/bpruitt-goddard/readme.md)
+* Dynamic macro tap-dance
+
+
+
+// Inactive Aliases
+// #define NUMPAD  TG(_NUMPAD)
+// #define ADJUST  MO(_ADJUST2)
+// #define SPCFN   LT(_FUNCTION, KC_SPC)
+// #define BSPCFN  LT(_FUNCTION2, KC_BSPC)
+// #define ENTNS   LT(_NUMBERS, KC_ENT)
+// #define DELNS   LT(_NUMBERS2, KC_DEL)
+// #define CTLESC  CTL_T(KC_ESC)
+// #define ALTAPP  ALT_T(KC_APP)
+// #define CTL_A   LCTL(KC_A)
+// #define CTL_C   LCTL(KC_C)
+// #define CTL_V   LCTL(KC_V)
+// #define CTL_X   LCTL(KC_X)
+// #define CTL_Z   LCTL(KC_Z)
+// #define CTL_Y   LCTL(KC_Y)
+// #define CA_TAB  LCA(KC_TAB)
+// #define HYPER   ALL_T(KC_NO)
+// #define TD_ADJ  TD(ADJ)
+// #define TD_LBCB TD(LBCB)
+// #define TD_RBCB TD(RBCB)
+// #define TD_EQPL TD(EQPL)
+// #define TD_PLEQ TD(PLEQ)
+// #define TD_MNUN TD(MNUN)
+// #define TD_SLAS TD(SLAS)
+// #define TD_GVTL TD(GVTL)
+// #define TD_PPEQ TD(PPEQ)
+// #define TD_PMUN TD(PMUN)
+// #define TD_PSPA TD(PSPA)
+// #define NKROTG  MAGIC_TOGGLE_NKRO
+
+
+
+
+    case PRG_EQ: {
+            if (record->event.pressed) {
+                SEND_STRING("==");
+            }
+            return false;
+        }
+        case PRG_NE: {
+            if (record->event.pressed) {
+                SEND_STRING("!=");
+            }
+            return false;
+        }
+
+        case QK_MAKE: {
+            if (record->event.pressed)
+                SEND_STRING("qmk compile --keyboard " QMK_KEYBOARD " --keymap " QMK_KEYMAP);
+            return false;
+        }
 
 
 <!-- 

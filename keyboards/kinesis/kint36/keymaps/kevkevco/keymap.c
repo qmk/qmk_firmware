@@ -17,17 +17,12 @@
 
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "my_keycodes.h"
+#include "my_layers.h"
 #include "features/caps_word.h"
+#include "features/num_word.h"
 #include "features/select_word.h"
 
-
-
-enum layer_names {_QWERTY, _NUMSHIFT, _SYMBOLS, _VIM, _NAV, _KEYPAD, _FUNCTION};
-enum my_keycodes {
-    APP_NAV = SAFE_RANGE,
-    ESC_STS,
-    SELWORD
-};
 
 // For more readable LED control code
 #define LED_KEYPAD E26
@@ -35,35 +30,6 @@ enum my_keycodes {
 //Aliases for longer keycodes
 #define QWERTY TO(_QWERTY)
 
-// Inactive Aliases
-// #define NUMPAD  TG(_NUMPAD)
-// #define ADJUST  MO(_ADJUST2)
-// #define SPCFN   LT(_FUNCTION, KC_SPC)
-// #define BSPCFN  LT(_FUNCTION2, KC_BSPC)
-// #define ENTNS   LT(_NUMBERS, KC_ENT)
-// #define DELNS   LT(_NUMBERS2, KC_DEL)
-// #define CTLESC  CTL_T(KC_ESC)
-// #define ALTAPP  ALT_T(KC_APP)
-// #define CTL_A   LCTL(KC_A)
-// #define CTL_C   LCTL(KC_C)
-// #define CTL_V   LCTL(KC_V)
-// #define CTL_X   LCTL(KC_X)
-// #define CTL_Z   LCTL(KC_Z)
-// #define CTL_Y   LCTL(KC_Y)
-// #define CA_TAB  LCA(KC_TAB)
-// #define HYPER   ALL_T(KC_NO)
-// #define TD_ADJ  TD(ADJ)
-// #define TD_LBCB TD(LBCB)
-// #define TD_RBCB TD(RBCB)
-// #define TD_EQPL TD(EQPL)
-// #define TD_PLEQ TD(PLEQ)
-// #define TD_MNUN TD(MNUN)
-// #define TD_SLAS TD(SLAS)
-// #define TD_GVTL TD(GVTL)
-// #define TD_PPEQ TD(PPEQ)
-// #define TD_PMUN TD(PMUN)
-// #define TD_PSPA TD(PSPA)
-// #define NKROTG  MAGIC_TOGGLE_NKRO
 
 // Initialize variable holding the binary representation of active modifiers.
 uint8_t mod_state;
@@ -79,9 +45,9 @@ enum {
   LBCB = 0,
   RBCB,
   PLEQ,
-  MNUN,
-  APQU,
-  SMCL,
+  UNMN,
+//   APQU,
+//   SMCL,
   CMAG,
   SPOT,
   PDAG,
@@ -92,15 +58,7 @@ enum {
   GVES,
   SLSH,
   LPINKY,
-//   INACTIVE Declarations
-//   GVTL,
-//   ADJ,
-//   MNQM,
-//   SLAS,
-//   EQPL,
-//   PPEQ,
-//   PMUN,
-//   PSPA,
+  RPINKY,
 };
 
 
@@ -144,12 +102,15 @@ void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
          { .fn = {NULL, full_td_finished, full_td_reset}, .user_data = (void *)&((qk_tap_dance_full_t){kc1, kc2, kc3, kc4, kc5, kc6}), }
 */
 
-void window_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void window_td_reset(qk_tap_dance_state_t *state, void *user_data);
-void lpinky_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void lpinky_td_reset(qk_tap_dance_state_t *state, void *user_data);
-void slsh_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void slsh_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// void window_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void window_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// void lpinky_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void lpinky_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// void rpinky_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void rpinky_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// void slsh_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void slsh_td_reset(qk_tap_dance_state_t *state, void *user_data);
+
 
 
 // Triple Tap Dance function definition for period key
@@ -194,33 +155,6 @@ void triple_tap_dance_esc (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Declare the functions to be used with tap dance key(s)
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [LBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
-    [RBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
-    [PLEQ] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Equal sign on a single-tap, plus sign on a double-tap
-    [MNUN] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, KC_UNDS),  // Minus sign on a single-tap, underscore on a double-tap
-    [SMCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),   // Semicolon on a single-tap, colon on a double-tap
-    [APQU] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQUO),  // Single quote on a single-tap, double quote on a double-tap
-    [CMAG] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_LABK),  // Comma on a single-tap, left angle bracket on a double-tap
-    [SPOT] = ACTION_TAP_DANCE_DOUBLE(G(KC_SPC), KC_RBRC),  // Command+Space (Spotlight) on a single-tap, Right brace on a double-tap
-    [ISPT] = ACTION_TAP_DANCE_DOUBLE(KC_I, G(KC_SPC)),  // I key on a single-tap, Command+Space (Spotlight) on a double-tap
-
-
-    // Advanced Tap Dance functions
-    [PDAG] = ACTION_TAP_DANCE_FN(triple_tap_dance_period), // Dot on a single-tap, right angle bracket on a double-tap, three dots on a triple tap
-    // [SLQU] = ACTION_TAP_DANCE_FN(triple_tap_dance_slash), // Slash on a single-tap, two slashes on a double-tap, question mark on a triple tap
-    [GVES] = ACTION_TAP_DANCE_FN(triple_tap_dance_esc), // Esc on a single-tap, grave on a double-tap, tilde on a triple tap
-    // [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
-    [SLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slsh_td_finished, slsh_td_reset),
-    [LPINKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lpinky_td_finished, lpinky_td_reset),
-    [WIND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, window_td_finished, window_td_reset)
-};
-
-// Inactive Tap Dance functions
-// [SLAS] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_ASTR),  // Slash in a single-tap, asterisk in a double-tap INACTIVE
-// [EQPL] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Plus sign on a single-tap, equal sign on a double-tap INACTIVE
-
 // Keymaps
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -230,23 +164,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY Layout (Default Layer)
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
-|ESC^ST|  F1  |  F2  |QWERTY|SYMBLS|FUNCTN|KEYPAD| NAV  |  F8  |                                     |  F9  |  F10 |  F11 |SWPHND| Mute | VolDn| VolUp|Keypad|  Fn  |
+|ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  |  F8  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|  Fn  |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 | ESC^~#` |   1^!  |   2^@  |   3^#  |   4^$  |   5^%  |                                                     |   6^^  |  7^&   |  8^*   |  9^(   |   0^)  |  NAV    |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |   Tab   |    Q   |    W   |    E   |    R   |    T   |                                                     |    Y   |   U    |   I    |   O    |   P    |  Bksp   |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-| LPINKY  | A/LCTL | S/LOPT | D/LGUI | F/LSHF |    G   |                                                     |    H   | J/RSHF | K/RGUI | L/ROPT | ;|:/CT |  '|"    |
+| LPINKY  | A/LCTL | S/LOPT | D/LGUI | F/LSHF |    G   |                                                     |    H   | J/RSHF | K/RGUI | L/ROPT | :/RCTL |  RPINKY |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 | OS:SHFT |    Z   |    X   |    C   |    V   |    B   |                                                     |    N   |   M    |  ,|<   |  .|>   |  /^?   | OS:SHFT |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |   =|+  |   -|_  |  [|{   |  ]|}   |                                                                       |   Up   |  Down  |  Left  |  Rght |
+          |   ***  |  ****  |  ***   |   _|-  |                                                                       |   Up   |  Down  |  Left  |  Right |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
-	                                                   |SELWORD | (/LALT |                 | )/RCTL | LPINKY |
+	                                                   |SELWORD |CAPSWORD|                 | NUMWORD| LPINKY |
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
-	                                          |  BkSp  |  Del   | SPOT|{ |                 |WINDOWTD|  Enter |  Space |
+	                                          |  BkSp  |  Del   |  SPOT  |                 |WINDOWTD|  Enter |  Space |
 	                                          | ^Del / |   /    |--------|                 |--------|    /   |    /   |
 	                                          |  LGUI  |  LSHFT | APPNAV |                 |  OSMeh |  Keypad|  RGUI  |
 	                                          `--------------------------'                 `--------------------------'
@@ -259,18 +193,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     --- Command+` is mapped to "Move focus to next window" by MacOS
     * Tap and hold SwapHands for momentary swap, double tap for toggle on/off
     * Tap both shifts at same time for as long as their modtap length and CAPSWORD is activated
+    * SELWORD selects current word, extends to next word on subsequent presses. Add shift and it selects line and adds next line with subsequent presses.
+    *   Tap ESC or right arrow to deselect and move cursor to end of seelction. Or, tap left arrow to move cursor to beginning of selection.
+    * LPINKY {1:One shot SYMBOLS layer, 1hold: NAV layer while holding, 2: NAV toggle, 2hold: Caps Word, 3: Numpad Toggle, 3hold: Control+C to end program running}
+    * RPINKY: {1:One shot SYMBOLS layer, 1hold: ', 2: ", 2hold: Caps Word, 3: NUMSHIFT layer toggle, 3hold: ***}
 
+    Wishes:
+    * I might want ( moved to top layer
+    * I want semicolon and colon switched using a magic key? or just switched.
+    * Bottom for LH keys are now pointless - minus key could swap the shifted and unshifted values
+    * SpaceCadet paranthesis are now silly becuase of home row mods. Turn into full tap dances or something?
+    * Holding down tab could do something, same with holding down Backspace on RH
+    * Space and Enter for LH?
+    * Double hold on space should make Shift mod...
+    * Top right NAV button is not well used
+    * Should I add an OSMeh to LH?
+    * Top Right Thumb can be customized more beyond a copy of LPINKY
+    *     
+    * LPINKY triple tap should bring up Left numpad
+    * RPINKY Triple tap hold macro
+    
+    Usage work:
+    * Work on using left thumb shift
+    * Work on using home row mods
+    * 
 */
 
 [_QWERTY] = LAYOUT_pretty(
-  ESC_STS, KC_F1,   KC_F2,   TO(_QWERTY),  TG(_SYMBOLS),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  KC_F8,  KC_F9, KC_F10, KC_F11, SH_TT,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_APFN,
+  ESC_STS, SH_TT,   KC_F2,   TO(_QWERTY),  TG(_NUMSHIFT),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  KC_F8,  CLEAR, DM_PLY1, DM_REC1, DM_RSTP,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_APFN,
   TD(GVES), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
-  TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),RCTL_T(KC_SCLN),TD(APQU),
+  TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),RCTL_T(KC_COLN),TD(RPINKY),
   OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLSH), OSM(MOD_RSFT),
-           TD(PLEQ),TD(MNUN),TD(LBCB),TD(RBCB),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-                                                  SELWORD, KC_LAPO,                   KC_RCPC, LT(_NAV, KC_BSLS),
-                                                                G(KC_SPC),                 TD(WIND),
+           _______, _______, _______,TD(UNMN),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+                                                  SELWORD, CAPWORD,                   NUMWORD, LT(_NAV, KC_BSLS),
+                                                                TD(SPOT),                 TD(WIND),
                                 LGUI_T(KC_BSPC), SFT_T(KC_DEL), APP_NAV,                   OSM(MOD_MEH), LT(_KEYPAD, KC_ENT), RGUI_T(KC_SPC)
 ),
 
@@ -345,53 +302,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* Symbols (mostly for coding purposes)
+/* Symbols
+    Mostly for coding, optimized currently for my use of Python
+    Note: Best accessed through a oneshot layer key: LPINKY, RPINKY currently
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
 |      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 |         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |   @    |   {    |   }    |   !    |                                                     |   `    |   '    |   "    |        |        |         |
+|         |        |        |        |   {    |        |                                                     |        |   }    |        |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |   +    |   -    |   (    |   )    |   *    |                                                     |        |   _    |   =    |   #    |        |         |
+|         |        |        |   #    |   (    |        |                                                     |        |   )    |        |        |    ;   |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |   [    |   ]    |   /    |                                                     |   \    |   |    |        |        |        |         |
+|         |        |        |        |   [    |        |                                                     |        |   ]    |        |        |    \   |         |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |        |        |        |        |                                                                       |        |        |        |        |
+          |        |        |        |        |                                                                       |   |    |        |        |        |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
-	                                                   |        |        |                 |        |        |
+	                                                   |   +    |        |                 |        |   `    |
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
-	                                          |        |        |        |                 |        |        |        |
-	                                          |        |        |--------|                 |--------|        |        |
-	                                          |        |        |        |                 |        |        |        |
+	                                          |        |        |   *    |                 |        |        |        |
+	                                          |   =    |   -    |--------|                 |--------|   "    |   _    |
+	                                          |        |        |TDSLSH  |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
-* Most commonly used symbols = / # command+/ _ * ' " X:
-Next +-
-Next<>!
-^`???
-\|$@???
+
 */
 
 [_SYMBOLS] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-  _______, _______, KC_AT,   KC_LCBR, KC_RCBR, KC_EXLM,                                                       KC_GRV,  KC_QUOT, KC_DQUO, _______, _______, _______,
-  _______, KC_PLUS, KC_MINS, KC_LPRN, KC_RPRN, KC_ASTR,                                                       _______, KC_UNDS, KC_EQL, KC_HASH, _______, _______,
-  _______, _______, _______, KC_LBRC, KC_RBRC, KC_SLSH,                                                       KC_BSLS, KC_PIPE, _______, _______, _______, _______,
-           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
-                                                        _______, _______,                   _______, _______,
-                                                                 _______,                   _______,
-                                               _______, _______, _______,                   _______, _______, _______
+  _______, _______, _______, _______, KC_LCBR, _______,                                                       _______, KC_RCBR, _______, _______, _______, _______,
+  _______, _______, _______, KC_HASH, KC_LPRN, _______,                                                       _______, KC_RPRN, _______, _______, KC_SCLN, _______,
+  _______, _______, _______, _______, KC_LBRC, _______,                                                       _______, KC_RBRC, _______, _______, KC_BSLS, _______,
+           _______, _______, _______, _______,                                                                         KC_PIPE, _______, _______, _______,
+                                                        KC_PLUS, _______,                   _______, KC_GRV,
+                                                                 KC_ASTR,                   _______,
+                                               KC_EQL,  KC_MINS, TD(SLSH),                   _______, KC_DQUO, KC_UNDS
 ),
 
+/*  VIM - Holding spot for future implementation
 
-
-
-
-
-/*  VIM
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
 |      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
@@ -414,6 +365,7 @@ Next<>!
 	                                          |        |        |        |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 */
+
 [_VIM] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
@@ -465,7 +417,6 @@ Navigation Layer
                                                                  _______,                   _______,
                                                KC_BTN1, KC_BTN2, QWERTY,                    QWERTY,  KC_BTN2, KC_BTN1
 ),
-
  
 /*  Keypad Layer
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
@@ -474,7 +425,7 @@ Navigation Layer
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 |         |        |        |        |        |        |                                                     |        | QWERTY |  KP =  |  KP /  |  KP *  |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|SwapHands|        |        |        |        |        |                                                     |        |   7    |   8    |   9    |  KP -  |         |
+| KPSWAP  |        |        |        |        |        |                                                     |        |   7    |   8    |   9    |  KP -  |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |         |        |        |        |        |        |                                                     |        |   4    |   5    |   6    |  KP +  |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
@@ -493,10 +444,44 @@ Navigation Layer
 
 [_KEYPAD] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                                                       _______, QWERTY,  KC_PEQL, KC_PSLS, KC_PAST, _______,
+  KPSWAP,  _______, _______, _______, _______, _______,                                                       _______, QWERTY,  KC_PEQL, KC_PSLS, KC_PAST, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, KC_7,    KC_8,    KC_9,    KC_PMNS, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, KC_4,    KC_5,    KC_6,    KC_PPLS, _______,
   _______, _______, _______, _______, _______, _______,                                                       KC_0,    KC_1,    KC_2,    KC_3,    KC_PDOT, _______,
+           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
+                                                        _______, _______,                   _______, _______,
+                                                                 _______,                   _______,
+                                               _______, _______, _______,                   _______, _______, _______
+),
+/*  LH Keypad
+,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
+|      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
+`--------------------------------------------------------------'                                     `--------------------------------------------------------------'
+,------------------------------------------------------.                                                     ,------------------------------------------------------.
+|         |        | QWERTY |  KP =  |  KP /  |  KP *  |                                                     |        |        |        |        |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+| KPSWAP  |        |   7    |   8    |   9    |  KP -  |                                                     |        |        |        |        |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |        |   4    |   5    |   6    |  KP +  |                                                     |        |        |        |        |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |    0   |   1    |   2    |   3    |  KP .  |                                                     |        |        |        |        |        |         |
+`---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
+          |        |        |        |        |                                                                       |        |        |        |        |
+          `-----------------------------------'                                                                       `-----------------------------------'
+	                                                   ,-----------------.                 ,-----------------.
+	                                                   |        |        |                 |        |        |
+	                                          ,--------+--------+--------|                 |--------+--------+--------.
+	                                          |        |        |        |                 |        |        |        |
+	                                          |        |        |--------|                 |--------|        |        |
+	                                          |        |        |        |                 |        |        |        |
+	                                          `--------------------------'                 `--------------------------'
+*/
+[_LKEYPAD] = LAYOUT_pretty(
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  KPSWAP,  _______, QWERTY,  KC_PEQL, KC_PSLS, KC_PAST,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, KC_7,    KC_8,    KC_9,    KC_PMNS,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, KC_4,    KC_5,    KC_6,    KC_PPLS,                                                       _______, _______, _______, _______, _______, _______,
+  _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_PDOT,                                                       _______, _______, _______, _______, _______, _______,
            _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
                                                         _______, _______,                   _______, _______,
                                                                  _______,                   _______,
@@ -570,7 +555,7 @@ Navigation Layer
 [_FUNCTION] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  TO(_QWERTY),
-  _______, KC_F11,  KC_F12,  _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
            _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
@@ -625,18 +610,78 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = { \
     {{0, 14},  {1, 14},  {2, 14},  {3, 14},  {4, 14},  {5, 14}}  \
 };
 
+// Matrix scan function constantly running => Similar to "do () while (keyboard is powered on)"
+// void rgb_matrix_indicators_user(void) 
+// {	
+//     if (isRecording)
+//     {
+//         // timer_elapsed() is a built-in function in qmk => it calculates in ms the time elapsed with timer_read()
+//         if (timer_elapsed(recording_timer) > 500) 
+//         {
+//             isRecordingLedOn = !isRecordingLedOn;
+//             recording_timer = timer_read();
+//         }
+//         if (isRecordingLedOn)
+//         {
+//             writePin(LED_KEYPAD, 1);
+//             writePin(LED_NUM_LOCK_PIN, 1);
+//             writePin(LED_SCROLL_LOCK_PIN, 1);
+//             writePin(LED_CAPS_LOCK_PIN, 1);
+//         }
+//     }
+// }
 
+bool isRecording = false;
+bool isRecordingLedOn = false;
+uint16_t recording_timer = 0;
+
+// Listener function => Triggered when you start recording a macro.
+void dynamic_macro_record_start_user(void) 
+{
+    isRecording = true;
+    isRecordingLedOn = true;
+    // timer_read() is a built-in function in qmk. => It read the current time
+    recording_timer = timer_read();
+}
+
+// Listener function => Triggered when the macro recording is stopped.
+void dynamic_macro_record_end_user(int8_t direction) 
+{
+    isRecording = false;
+    isRecordingLedOn = false;
+    layer_on(0); // Dummy call to get layer_state_set_user to update
+}
+
+// Turn on all LEDs to indicate CAPSWORD is active
+void caps_word_set_user(bool active) {
+    if (active) {
+        // Do something when Caps Word activates.
+        writePin(LED_KEYPAD, 0);
+        writePin(LED_NUM_LOCK_PIN, 0);
+        writePin(LED_SCROLL_LOCK_PIN, 0);
+        writePin(LED_CAPS_LOCK_PIN, 0);
+    }
+    else {
+        // Do something when Caps Word deactivates.
+        writePin(LED_KEYPAD, 1);
+        writePin(LED_NUM_LOCK_PIN, 1);
+        writePin(LED_SCROLL_LOCK_PIN, 1);
+        writePin(LED_CAPS_LOCK_PIN, 1);
+    }
+}
 
 // Changes the LEDs on Keyboard to indicate active layers
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // LED Labelled: Keypad Symbol
-    writePin(LED_KEYPAD, !layer_state_cmp(state, _KEYPAD));
-    // LED Labelled: "1"
-    writePin(LED_NUM_LOCK_PIN, !layer_state_cmp(state, _SYMBOLS));
-    // LED Labelled: "↓"
-    writePin(LED_SCROLL_LOCK_PIN, !layer_state_cmp(state, _NAV));
-    // LED Labelled: "A"
-    writePin(LED_CAPS_LOCK_PIN, !layer_state_cmp(state, _FUNCTION));
+    if (!caps_word_get() && !isRecording) { // Let Macro and CapsWord LED settings override standard ones
+        // LED Labelled: Keypad Symbol
+        writePin(LED_KEYPAD, !layer_state_cmp(state, _KEYPAD));
+        // LED Labelled: "1"
+        writePin(LED_NUM_LOCK_PIN, !layer_state_cmp(state, _SYMBOLS));
+        // LED Labelled: "↓"
+        writePin(LED_SCROLL_LOCK_PIN, !layer_state_cmp(state, _NAV));
+        // LED Labelled: "A"
+        writePin(LED_CAPS_LOCK_PIN, !layer_state_cmp(state, _FUNCTION));
+    }
     return state;
 }
 
@@ -652,6 +697,29 @@ void matrix_scan_user(void) {
         if (timer_elapsed(cmd_tab_timer) > 1000) {
             unregister_code(KC_LGUI);
             is_cmd_tab_active = false;
+        }
+    }
+
+
+    // Dynamic Macro Recording LED flash
+    if (isRecording)
+    {
+        // timer_elapsed() is a built-in function in qmk => it calculates in ms the time elapsed with timer_read()
+        if (timer_elapsed(recording_timer) > 500) 
+        {
+            isRecordingLedOn = !isRecordingLedOn;
+            recording_timer = timer_read();
+            writePin(LED_KEYPAD, 1);
+            writePin(LED_NUM_LOCK_PIN, 1);
+            writePin(LED_SCROLL_LOCK_PIN, 1);
+            writePin(LED_CAPS_LOCK_PIN, 1);
+        }
+        if (isRecordingLedOn)
+        {
+            writePin(LED_KEYPAD, 0);
+            writePin(LED_NUM_LOCK_PIN, 0);
+            writePin(LED_SCROLL_LOCK_PIN, 0);
+            writePin(LED_CAPS_LOCK_PIN, 0);
         }
     }
 }
@@ -779,6 +847,41 @@ void slsh_td_reset (qk_tap_dance_state_t *state, void *user_data) {
   slsh_td_state.state = 0;
 }
 
+// RPINKY Tap Dance
+// Create an instance of 'td_tap_t' for the 'rpinky' tap dance.
+static td_tap_t rpinky_td_state = {
+  .is_press_action = true,
+  .state = TD_NONE
+};
+
+void rpinky_td_finished (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+  rpinky_td_state.state = hold_cur_dance(state);
+  switch (rpinky_td_state.state) {
+    case SINGLE_TAP: tap_code(KC_QUOT); break;                                             // Single Quote
+    case SINGLE_HOLD: layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break; // One shot coding symbols layer
+    case DOUBLE_TAP: tap_code16(KC_DQUO); break;                                            // Double Quote
+    case DOUBLE_HOLD: caps_word_set(true); break;                                           // Caps Word
+    case TRIPLE_TAP: layer_invert(_NUMSHIFT); break;                                        // Toggle NUMSHIFT layer
+    case TRIPLE_HOLD: layer_invert(_KEYPAD); break;                                         // Toggle KEYPAD layer
+    default: break;
+  }
+}
+
+void rpinky_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+  switch (rpinky_td_state.state) {
+    case SINGLE_TAP: layer_off(_NAV); break;
+    case SINGLE_HOLD: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+    // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
+    // case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
+    // case TRIPLE_TAP: layer_invert(_NUMPAD); break;
+    // case TRIPLE_HOLD: unregister_code16(C(KC_C)); break;
+    default: break;
+  }
+  rpinky_td_state.state = 0;
+}
+
 // LPINKY Tap Dance
 // Create an instance of 'td_tap_t' for the 'lpinky' tap dance.
 static td_tap_t lpinky_td_state = {
@@ -788,13 +891,13 @@ static td_tap_t lpinky_td_state = {
 
 void lpinky_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
-  lpinky_td_state.state = hold_cur_dance(state);
+  lpinky_td_state.state = cur_dance(state);
   switch (lpinky_td_state.state) {
     case SINGLE_TAP: layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break; // One shot coding symbols layer
     case SINGLE_HOLD: layer_on(_NAV); break;                                                // Navigation layer while holding
     case DOUBLE_TAP: layer_invert(_NAV); break;                                             // Navigation layer toggle
-    case DOUBLE_HOLD: register_code16(KC_CAPS); break;                                      // Caps Word
-    case TRIPLE_TAP: layer_invert(_KEYPAD); break;                                          // Toggle Numpad
+    case DOUBLE_HOLD: caps_word_set(true); break;                                           // Caps Word
+    case TRIPLE_TAP: layer_invert(_LKEYPAD); break;                                         // Toggle Numpad
     case TRIPLE_HOLD: register_code16(C(KC_C)); break;                                      // Control+C to end running program in terminal
     default: break;
   }
@@ -806,7 +909,7 @@ void lpinky_td_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
     case SINGLE_HOLD: layer_off(_NAV); break;
     // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
-    case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
+    // case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
     // case TRIPLE_TAP: layer_invert(_NUMPAD); break;
     case TRIPLE_HOLD: unregister_code16(C(KC_C)); break;
     default: break;
@@ -850,12 +953,40 @@ void window_td_reset (qk_tap_dance_state_t *state, void *user_data) {
   window_td_state.state = 0;
 }
 
+
+// Declare the functions to be used with tap dance key(s)
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [LBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
+    [RBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
+    [PLEQ] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Equal sign on a single-tap, plus sign on a double-tap
+    [UNMN] = ACTION_TAP_DANCE_DOUBLE(KC_UNDS, KC_MINS),  // Underscore sign on a single-tap, minus on a double-tap
+    // [SMCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),   // Semicolon on a single-tap, colon on a double-tap
+    // [APQU] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQUO),  // Single quote on a single-tap, double quote on a double-tap
+    [CMAG] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_LABK),  // Comma on a single-tap, left angle bracket on a double-tap
+    [SPOT] = ACTION_TAP_DANCE_DOUBLE(G(KC_SPC), KC_RBRC),  // Command+Space (Spotlight) on a single-tap, Right brace on a double-tap
+    [ISPT] = ACTION_TAP_DANCE_DOUBLE(KC_I, G(KC_SPC)),  // I key on a single-tap, Command+Space (Spotlight) on a double-tap
+
+
+    // Advanced Tap Dance functions
+    [PDAG] = ACTION_TAP_DANCE_FN(triple_tap_dance_period), // Dot on a single-tap, right angle bracket on a double-tap, three dots on a triple tap
+    // [SLQU] = ACTION_TAP_DANCE_FN(triple_tap_dance_slash), // Slash on a single-tap, two slashes on a double-tap, question mark on a triple tap
+    [GVES] = ACTION_TAP_DANCE_FN(triple_tap_dance_esc), // Esc on a single-tap, grave on a double-tap, tilde on a triple tap
+    // [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
+    [SLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slsh_td_finished, slsh_td_reset),
+    [RPINKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rpinky_td_finished, rpinky_td_reset),
+    [LPINKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lpinky_td_finished, lpinky_td_reset),
+    [WIND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, window_td_finished, window_td_reset),
+};
+
 // This function holds the main switch statement for keycode definitions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Caps word
     if (!process_caps_word(keycode, record)) { return false; }
-    
+
+    // Num word
+    if (!process_record_num_word(keycode, record)) { return false; }
+
     // Select word macro from https://getreuer.info/posts/keyboards/select-word/index.html
     if (!process_select_word(keycode, record, SELWORD)) { return false; }
 
@@ -880,13 +1011,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(G(KC_V)); // Intercept hold function to send CMD+V
                 return false;
             }
-            return true;             // Return true for normal processing of tap keycode;
+            return true;             // Return true for normal processing of tap keycode
         case LT(0,KC_Z):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(G(KC_Z)); // Intercept hold function to send CMD+Z
                 return false;
             }
-            return true;             // Return true for normal processing of tap keycode;
+            return true;             // Return true for normal processing of tap keycode
+        case CLEAR:                  // Clears all keycodes currently pressed, including modifiers
+            if (!record->tap.count && record->event.pressed) {
+                clear_keyboard();
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+        case RCTL_T(KC_COLN):
+            if (record->tap.count && record->event.pressed) {
+                // Detect the activation of either shift keys
+                if (mod_state & MOD_MASK_SHIFT || get_oneshot_mods() & MOD_MASK_SHIFT) {
+                    // First temporarily canceling both shifts so that
+                    // shift isn't applied to the KC_SCLN keycode
+                    del_mods(MOD_MASK_SHIFT);
+                    tap_code(KC_LNUM); // Dummy keypress to get rid of lingering one shot modifier shift that seems to be a bug
+                    tap_code(KC_SCLN);
+                    // Reapplying modifier state so that the held shift key(s)
+                    // still work even after having tapped the colon key.
+                    set_mods(mod_state);
+                }
+                else{
+                    tap_code16(KC_COLN); // Send KC_COLN on single tap
+                }
+                return false;        // Return false to ignore further processing of key
+            }
+            break;
         case LGUI_T(KC_BSPC):
         case HYPR_T(KC_BSPC):
             {
@@ -924,12 +1080,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             // Let QMK process the KC_BSPC keycode as usual outside of shift
             return true;
-        // case QWERTY:
-        //     if (record->event.pressed) {
-        //         tap_code16(TO(0));
-        //         return false;
-        //     }
-        //     return true;             // Return true for normal processing of tap keycode
+        case CAPWORD: // Caps Word
+            if (record->event.pressed) {
+                    caps_word_set(true);
+                    break;
+            }
         case APP_NAV:
             // Super cmd↯TAB modified for MacOS to CMD_TAB
             // This macro will register KC_LGUI and tap KC_TAB, then wait for 1000ms. 
@@ -946,7 +1101,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 unregister_code(KC_TAB);
             }
-            break;
+            return true;
+        case KPSWAP:
+            if (record->event.pressed) {
+                layer_invert(_KEYPAD);
+                layer_invert(_LKEYPAD);
+                return false;
+            }
+            return true;
         case(ESC_STS):
             if (mod_state & MOD_MASK_GUI) {
                         tap_code(KC_ESC);
@@ -992,6 +1154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+        default: break;
     }
     return true;  // Return true for normal processing of tap keycode
 }
