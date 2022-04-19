@@ -8,9 +8,9 @@ These configuration files use a completely different 'matrix scan' system than o
 Run the following command in your terminal:
 
 ```
-make honeycomb:default
+make keyhive/honeycomb:default
 # or use this to automatically flash the controller
-make honeycomb:default:avrdude
+make keyhive/honeycomb:default:avrdude
 ```
 
 Follow the QMK guide for this or ask in Discord.
