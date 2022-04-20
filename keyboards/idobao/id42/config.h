@@ -130,17 +130,3 @@
         #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
     #endif
 #endif
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable action features */
-//#define NO_ACTION_LAYER     // disable layers
-//#define NO_ACTION_TAPPING   // disable tap dance and other tapping features
-//#define NO_ACTION_ONESHOT   // disable one-shot modifiers
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO     // disable old-styel macro handling
-#define NO_ACTION_FUNCTION  // disable old-style function handling
