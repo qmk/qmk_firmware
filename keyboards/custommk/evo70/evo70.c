@@ -486,15 +486,14 @@ void draw_bongocat_frame(int framenumber) {
 
 bool is_new_tap(void) {
     static matrix_row_t old_matrix[] = { 0, 0, 0, 0, 0, 0 };
+    bool new_tap = false;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] ^ old_matrix[i]) { //there was a change in the matrix
-            if (matrix[i] > old_matrix[i]) { // more 1's detected, there was a new tap
-                return true;
-            }
-            old_matrix[i] = matrix[i];
+        if (matrix[i] > old_matrix[i]) { // more 1's detected, there was a new tap
+            new_tap = true;
         }
+        old_matrix[i] = matrix[i];
     }
-    return false;
+    return new_tap;
 }
 
 void draw_bongocat(void) {
