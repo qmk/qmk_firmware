@@ -93,7 +93,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         static char layer_names[NUMBER_OF_LAYERS][10] = {"Default", "Lower", "Raise", "Adjust"};
         static char l1[] = "                \x94\x95\x96\x97";
@@ -121,5 +121,7 @@ void oled_task_user(void) {
 
         oled_write_ln_P(logo, false);
     }
+
+    return false;
 }
 #endif
