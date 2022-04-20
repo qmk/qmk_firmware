@@ -212,6 +212,12 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+#if defined(SECURE_ENABLE)
+    if (!preprocess_secure(keycode, record)) {
+        return false;
+    }
+#endif
+
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
@@ -247,6 +253,9 @@ bool process_record_quantum(keyrecord_t *record) {
             process_record_via(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
+#if defined(SECURE_ENABLE)
+            process_secure(keycode, record) &&
+#endif
 #if defined(SEQUENCER_ENABLE)
             process_sequencer(keycode, record) &&
 #endif
@@ -357,6 +366,26 @@ bool process_record_quantum(keyrecord_t *record) {
             case ONESHOT_DISABLE:
                 oneshot_disable();
                 break;
+#endif
+#ifdef ENABLE_COMPILE_KEYCODE
+            case QK_MAKE: // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            {
+#    ifdef NO_ACTION_ONESHOT
+                const uint8_t temp_mod = mod_config(get_mods());
+#    else
+                const uint8_t temp_mod = mod_config(get_mods() | get_oneshot_mods());
+                clear_oneshot_mods();
+#    endif
+                clear_mods();
+
+                SEND_STRING_DELAY("qmk", TAP_CODE_DELAY);
+                if (temp_mod & MOD_MASK_SHIFT) { // if shift is held, flash rather than compile
+                    SEND_STRING_DELAY(" flash ", TAP_CODE_DELAY);
+                } else {
+                    SEND_STRING_DELAY(" compile ", TAP_CODE_DELAY);
+                }
+                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER), TAP_CODE_DELAY);
+            }
 #endif
         }
     }

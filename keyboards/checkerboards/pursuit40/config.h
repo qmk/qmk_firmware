@@ -61,8 +61,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // ws2812 options
 #define RGB_DI_PIN F0 // pin the DI on the ws2812 is hooked-up to
