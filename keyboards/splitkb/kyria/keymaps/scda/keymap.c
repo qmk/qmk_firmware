@@ -24,9 +24,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
-        HYPA,    KC_X,        TD(DOT_COL),     KC_O,        TD(COM_SEM),     KC_Y,                                                KC_V,   KC_G,        KC_C,        KC_L,        KC_J,        KC_NO,
+        HYPA,    KC_X,        TD(DOT_COL), KC_O,        TD(COM_SEM), KC_Y,                                                KC_V,   KC_G,        KC_C,        KC_L,        KC_J,        KC_NO,
         KC_ESC,  CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,                                                KC_D,   SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
-        G(KC_Z), KC_K,        KC_Q,        DE_AE,       DE_UE,       DE_OE,  KC_NO,    KC_NO,           KC_NO,   KC_NO,   KC_P,   KC_B,        KC_W,        KC_M,        KC_Z,        DE_SS,
+        G(KC_Z), KC_K,        KC_Q,        DE_AE,       DE_UE,       DE_OE,  KC_NO,    KC_NO,           KC_NO,   KC_NO,   KC_B,   KC_P,        KC_W,        KC_M,        KC_Z,        DE_SS,
                                             NUM,        SYM,         KC_TAB, KC_SPACE, KC_ENT,          KC_LSFT, KC_BSPC, KC_DEL, NUM,         SYM),
     [_HYPER] = LAYOUT(
         XOY,   HYPR(KC_X), HYPR(KC_DOT), HYPR(KC_O),  HYPR(KC_COMM), HYPR(KC_Y),                                      HYPR(KC_V), HYPR(KC_G), HYPR(KC_C), HYPR(KC_L), HYPR(KC_J), HYPR(KC_NO),
@@ -34,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, HYPR(KC_K), HYPR(KC_Q),   HYPR(DE_AE), HYPR(DE_UE),   HYPR(DE_OE), KC_NO, KC_NO,         KC_NO, KC_NO, HYPR(KC_B), HYPR(KC_P), HYPR(KC_W), HYPR(KC_M), HYPR(KC_Z), HYPR(DE_SS),
                                             NUM,      SYM,           KC_NO,       KC_NO, KC_NO,         KC_NO, KC_NO, KC_NO,      NUM,        SYM),
     [_SYMBOLS] = LAYOUT(
-        KC_TRNS, KC_NO,   KC_AT,   KC_LT,   KC_GT,    KC_CIRC,                                               KC_PERC, KC_LCBR, KC_RCBR, KC_PLUS, KC_DQT,  KC_TRNS,
-        XOY,     KC_DLR,  KC_EQL,  KC_QUES, KC_EXLM,  KC_HASH,                                               KC_ASTR, KC_LPRN, KC_RPRN, KC_MINS, KC_QUOT, KC_NO,
-        KC_TRNS, DE_EURO, KC_AMPR, KC_TILD, KC_SLASH, KC_PIPE, KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   KC_LBRC, KC_RBRC, KC_UNDS, KC_GRV,  KC_NO,
+        KC_TRNS, KC_NO,   KC_AT,   KC_LT,   KC_GT,    KC_CIRC,                                               KC_PERC, KC_LCBR, KC_RCBR, KC_PLUS, KC_GRV,  KC_TRNS,
+        XOY,     KC_DLR,  KC_EQL,  KC_QUES, KC_EXLM,  KC_HASH,                                               KC_ASTR, KC_LPRN, KC_RPRN, KC_MINS, KC_DQT,  KC_NO,
+        KC_TRNS, DE_EURO, KC_AMPR, KC_TILD, KC_SLASH, KC_PIPE, KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   KC_LBRC, KC_RBRC, KC_UNDS, KC_QUOT, KC_NO,
                                 KC_TRNS,    NAV,      ALT_TAB, CMD_SPC, SFT_ENT,           KC_LSFT, CMD_BSP, ALT_DEL, KC_TRNS, NAV),
     [_NUMBERS] = LAYOUT(
         KC_TRNS, KC_NO, KC_F7, KC_F8, KC_F9,   KC_F12,                                                       KC_DOT,  KC_7, KC_8, KC_9, KC_EQL,  KC_TRNS,
@@ -44,14 +44,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_NO, KC_F1, KC_F2, KC_F3,   KC_F10,  KC_NO,   KC_NO,                    KC_NO,   KC_NO,   KC_COMM, KC_1, KC_2, KC_3, KC_MINS, KC_SLASH,
                                 MECO, KC_TRNS, ALT_TAB, CMD_SPC, SFT_ENT,                  KC_LSFT, CMD_BSP, ALT_DEL, MECO, KC_TRNS),
     [_NAV] = LAYOUT(
-        KC_TRNS, KC_ACL2, KC_WH_D, C(KC_UP),   KC_WH_U, G(KC_PLUS),                                          C(KC_LEFT),    G(A(KC_LEFT)), G(A(KC_UP)), G(A(KC_RIGHT)), C(KC_RIGHT), G(KC_NUBS),
-        XOY,     KC_ACL1, KC_MS_L, KC_MS_UP,   KC_MS_R, G(KC_0),                                             KC_HOME,       KC_LEFT,       KC_UP,       KC_RIGHT,       KC_END,      KC_PGUP,
-        KC_TRNS, KC_ACL0, KC_BTN2, KC_MS_DOWN, KC_BTN1, G(KC_MINS), KC_NO,   KC_NO,        KC_NO,   KC_NO,   KC_ENT,  C(S(KC_TAB)),  KC_DOWN,     C(KC_TAB),      KC_NO,       KC_PGDN,
-                                    KC_TRNS,   KC_TRNS, ALT_TAB,    CMD_SPC, SFT_ENT,      KC_LSFT, CMD_BSP, ALT_DEL, KC_TRNS,       KC_TRNS),
+        KC_TRNS, KC_ACL2, KC_WH_D, C(KC_UP),   KC_WH_U, G(KC_PLUS),                                          C(KC_LEFT), G(A(KC_LEFT)), G(A(KC_UP)), G(A(KC_RIGHT)), C(KC_RIGHT), G(KC_NUBS),
+        XOY,     KC_ACL1, KC_MS_L, KC_MS_UP,   KC_MS_R, G(KC_0),                                             KC_HOME,    KC_LEFT,       KC_UP,       KC_RIGHT,       KC_END,      KC_PGUP,
+        KC_TRNS, KC_ACL0, KC_BTN2, KC_MS_DOWN, KC_BTN1, G(KC_MINS), KC_NO,   KC_NO,        KC_NO,   KC_NO,   KC_ENT,     C(S(KC_TAB)),  KC_DOWN,     C(KC_TAB),      KC_NO,       KC_PGDN,
+                                    KC_TRNS,   KC_TRNS, ALT_TAB,    CMD_SPC, SFT_ENT,      KC_LSFT, CMD_BSP, ALT_DEL,    KC_TRNS,       KC_TRNS),
     [_MEDIA_CODE] = LAYOUT(
-        KC_TRNS, KC_NO, KC_BRIU, KC_VOLU, KC_MNXT, KC_NO,                                                    KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_TRNS,
-        XOY,     KC_NO, KC_NO,   KC_MUTE, KC_MPLY, G(C(KC_SPACE)),                                           KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
-        KC_TRNS, KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
+        KC_TRNS, KC_NO, KC_BRID, KC_NO,   KC_BRIU, KC_NO,                                                    KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_TRNS,
+        XOY,     KC_NO, KC_MPRV, KC_MPLY, KC_MNXT, G(C(KC_SPACE)),                                           KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
+        KC_TRNS, KC_NO, KC_VOLD, KC_MUTE, KC_VOLU, KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
                                 KC_TRNS,  KC_TRNS, ALT_TAB, CMD_SPC, SFT_ENT,              KC_LSFT, CMD_BSP, ALT_DEL, KC_TRNS,    KC_TRNS),
     [_KBD_CTRL] = LAYOUT(
         KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                    KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_TRNS,
