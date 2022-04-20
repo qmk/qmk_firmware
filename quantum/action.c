@@ -404,7 +404,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 dprint("MODS_TAP: Toggling oneshot");
                                 clear_oneshot_mods();
-                                set_oneshot_locked_mods(mods);
+                                set_oneshot_locked_mods(mods | get_oneshot_locked_mods());
                                 register_mods(mods);
 #        endif
                             } else {
@@ -418,8 +418,8 @@ void process_action(keyrecord_t *record, action_t action) {
                                 // Retain Oneshot mods
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                                 if (mods & get_mods()) {
-                                    clear_oneshot_locked_mods();
                                     clear_oneshot_mods();
+                                    set_oneshot_locked_mods(~mods & get_oneshot_locked_mods());
                                     unregister_mods(mods);
                                 }
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
@@ -623,7 +623,6 @@ void process_action(keyrecord_t *record, action_t action) {
 #            if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                         do_release_oneshot = false;
                         if (event.pressed) {
-                            del_mods(get_oneshot_locked_mods());
                             if (get_oneshot_layer_state() == ONESHOT_TOGGLED) {
                                 reset_oneshot_layer();
                                 layer_off(action.layer_tap.val);
@@ -633,10 +632,8 @@ void process_action(keyrecord_t *record, action_t action) {
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                             }
                         } else {
-                            add_mods(get_oneshot_locked_mods());
                             if (tap_count >= ONESHOT_TAP_TOGGLE) {
                                 reset_oneshot_layer();
-                                clear_oneshot_locked_mods();
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_TOGGLED);
                             } else {
                                 clear_oneshot_layer_state(ONESHOT_PRESSED);

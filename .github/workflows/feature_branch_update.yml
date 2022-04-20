@@ -19,6 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
+        token: ${{ secrets.QMK_BOT_TOKEN }}
         fetch-depth: 0
 
     - name: Checkout branch
