@@ -72,6 +72,7 @@ layer_names base_layer = _LETTER;
 #define OSFT OSM(MOD_LSFT)
 #define OCTL OSM(MOD_LCTL)
 #define OALT OSM(MOD_LALT)
+#define OGUI OSM(MOD_LGUI)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SPECIAL] = LAYOUT(
         KC_TRNS,       XXXXXXX,      KC_SCRL,   KC_PSCR,   XXXXXXX,    KC_NUM,
-        KC_TRNS,       KC_LEFT,      XXXXXXX,   XXXXXXX,   KC_LGUI,    KC_RIGHT,
+        KC_TRNS,       KC_LEFT,      XXXXXXX,   XXXXXXX,   OGUI,       KC_RIGHT,
         KC_TRNS,       XXXXXXX,      XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,
         KC_TRNS,       KC_TRNS,      KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS
     ),
@@ -110,8 +111,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_JUMP] = LAYOUT(
         KC_UP,         KC_HOME,      KC_PGUP,   G(KC_7),   G(KC_8),    G(KC_9),
         KC_DOWN,       KC_END,       KC_PGDN,   G(KC_4),   G(KC_5),    G(KC_6),
-        XXXXXXX,       XXXXXXX,      XXXXXXX,   G(KC_1),   G(KC_2),    G(KC_3),
-        XXXXXXX,       KC_LOCK,      KC_LSFT,   G(KC_0),   XXXXXXX,    XXXXXXX
+        XXXXXXX,       XXXXXXX,      OGUI,      G(KC_1),   G(KC_2),    G(KC_3),
+        XXXXXXX,       KC_LOCK,      KC_LSFT,   G(KC_0),   KC_LALT,    KC_TAB
     ),
 
 };

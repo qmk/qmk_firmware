@@ -16,6 +16,7 @@ COMB(sU_PU,       KC_PGUP,        KC_SPACE, KC_U)
 COMB(sI_PD,       KC_PGDN,        KC_SPACE, KC_I)
 COMB(sN_K,        KC_K,           KC_SPACE, KC_N)
 COMB(sS_G,        KC_G,           KC_SPACE, KC_S)
+COMB(sY_X,        KC_X,           KC_SPACE, KC_Y)
 COMB(sEnt_Dot,    KC_DOT,         KC_SPACE, KC_ENT)
 //COMB(sSft_Lock,   KC_SHIFT_LOCK,  KC_SPACE, TD_SHIFT)
 
