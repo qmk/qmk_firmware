@@ -26,6 +26,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+// clang-format off
 #define LAYOUT( \
     k00, k01, k02, k03, k04, k05, \
     k10, k11, k12, k13, k14, k15, \
@@ -37,9 +38,9 @@
     { k20, k21,   k22, k23, k24, k25 }, \
     { k30, k31,   k32, k33, k34, k35 }, \
 }
+// clang-format on
 
-typedef enum
-{
+typedef enum {
     TD_NONE,
     TD_UNKNOWN,
     TD_SINGLE_TAP,
@@ -52,11 +53,9 @@ typedef enum
     TD_QUAD_TAP,
 } td_state_t;
 
-typedef struct
-{
-    bool is_pressed_action;
+typedef struct {
+    bool       is_pressed_action;
     td_state_t state;
 } td_tap_t;
 
-td_state_t cur_dance(
-    qk_tap_dance_state_t *state);
+td_state_t cur_dance(qk_tap_dance_state_t *state);

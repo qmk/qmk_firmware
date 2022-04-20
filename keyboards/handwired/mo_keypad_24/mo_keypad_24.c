@@ -17,14 +17,12 @@
 #include "mo_keypad_24.h"
 
 #define MO_BUTTON_MAPS_MAX 2
-typedef struct _mo_pad_t
-{
-    int current;
+typedef struct _mo_pad_t {
+    int            current;
     const uint16_t codes[MO_BUTTON_MAPS_MAX][2];
 } mo_pad_t;
 
-mo_pad_t button_layers[2] =
-{
+mo_pad_t button_layers[2] = {
     {
         0,
         {
@@ -41,38 +39,26 @@ mo_pad_t button_layers[2] =
     },
 };
 
-bool
-encoder_update_kb(
-    uint8_t index,
-    bool clockwise)
-{
-    if (0 <= index && index <= 1)
-    {
-        mo_pad_t *ptr = &(button_layers[index]);
-        uint8_t turn_index = (clockwise ? 0 : 1);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (0 <= index && index <= 1) {
+        mo_pad_t *ptr        = &(button_layers[index]);
+        uint8_t   turn_index = (clockwise ? 0 : 1);
         tap_code(ptr->codes[ptr->current][turn_index]);
     }
 
     return false;
 }
 
-bool
-dip_switch_update_kb(
-    uint8_t index,
-    bool active)
-{
-    if (!active)
-    {
+bool dip_switch_update_kb(uint8_t index, bool active) {
+    if (!active) {
         return true;
     }
 
-    switch (index)
-    {
+    switch (index) {
         case 0: // left encoder
-        case 1:
-        {
+        case 1: {
             mo_pad_t *ptr = &button_layers[index];
-            ptr->current = (ptr->current + 1) % MO_BUTTON_MAPS_MAX;
+            ptr->current  = (ptr->current + 1) % MO_BUTTON_MAPS_MAX;
             break;
         }
     }
@@ -80,20 +66,14 @@ dip_switch_update_kb(
     return true;
 }
 
-__attribute__((weak)) bool
-led_update_user(led_t led_state)
-{
+__attribute__((weak)) bool led_update_user(led_t led_state) {
     return true;
 }
 
-bool
-led_update_kb(
-    led_t led_state)
-{
+bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
 
-    if (res)
-    {
+    if (res) {
         writePin(B0, !led_state.num_lock);
         writePin(D5, !led_state.caps_lock);
     }
@@ -101,23 +81,14 @@ led_update_kb(
     return res;
 }
 
-
-td_state_t cur_dance(
-    qk_tap_dance_state_t *state)
-{
-    if (state->count == 1)
-    {
-        if (state->interrupted || !state->pressed)
-        {
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) {
             return TD_SINGLE_TAP;
-        }
-        else
-        {
+        } else {
             return TD_SINGLE_HOLD;
         }
-    }
-    else if (state->count == 2)
-    {
+    } else if (state->count == 2) {
         if (state->interrupted) {
             return TD_DOUBLE_SINGLE_TAP;
         } else if (state->pressed) {
@@ -125,21 +96,15 @@ td_state_t cur_dance(
         } else {
             return TD_DOUBLE_TAP;
         }
-    }
-    else if (state->count == 3)
-    {
+    } else if (state->count == 3) {
         if (state->interrupted || !state->pressed) {
             return TD_TRIPLE_TAP;
         } else {
             return TD_TRIPLE_HOLD;
         }
-    }
-    else if (state->count == 4)
-    {
+    } else if (state->count == 4) {
         return TD_QUAD_TAP;
-    }
-    else
-    {
+    } else {
         return TD_UNKNOWN;
     }
 }
