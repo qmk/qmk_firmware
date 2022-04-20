@@ -151,7 +151,7 @@ void write_char_at_pixel_xy(uint8_t x, uint8_t y, const char data, bool invert) 
     uint8_t i, j, temp;
     uint8_t cast_data = (uint8_t)data;
     
-    const uint8_t *glyph = &font[(cast_data - OLED_FONT_START) * OLED_FONT_WIDTH];
+    const uint8_t *glyph = &font[((uint8_t)cast_data - OLED_FONT_START) * OLED_FONT_WIDTH];
     temp = pgm_read_byte(glyph);
     for (i = 0; i < OLED_FONT_WIDTH ; i++) {
         for (j = 0; j < OLED_FONT_HEIGHT; j++) {
@@ -245,7 +245,7 @@ static const uint8_t splash[] PROGMEM = { \
     0x40, 0x40, 0x43, 0x43, 0x43, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x41, 0x43, 0x43, 0x43, 0x40, \
     0x40, 0x40, 0x60, 0x30, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-uint32_t startup_timer = 0;
+uint16_t startup_timer = 0;
 bool redrawn_splash = false;
 
 
@@ -486,16 +486,15 @@ void draw_bongocat_frame(int framenumber) {
 
 bool is_new_tap(void) {
     static matrix_row_t old_matrix[] = { 0, 0, 0, 0, 0, 0 };
-    bool tapped = false;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         if (matrix[i] ^ old_matrix[i]) { //there was a change in the matrix
             if (matrix[i] > old_matrix[i]) { // more 1's detected, there was a new tap
-                tapped = true;
+                return true;
             }
             old_matrix[i] = matrix[i];
         }
     }
-    return tapped;
+    return false;
 }
 
 void draw_bongocat(void) {
@@ -592,6 +591,9 @@ void draw_keyboard_locks(void) {
 
 /* Encoder handling functions */
 
+__attribute__((weak)) void set_custom_encoder_mode_user(bool custom_encoder_mode) {}
+
+
 void update_kb_eeprom(void) {
     eeconfig_update_kb(user_config.raw);
 }
@@ -608,11 +610,9 @@ void matrix_init_kb(void) {
 
     }
     startup_delay = true;
+    set_custom_encoder_mode_user(user_config.enc_mode == ENC_CUSTOM);
     matrix_init_user();
 }
-
-__attribute__((weak)) void set_custom_encoder_mode_user(bool custom_encoder_mode) {}
-
 
 void handle_encoder_switch_process_record(keyrecord_t *record) {
 
@@ -691,38 +691,44 @@ void backlight_breath_change(bool increase) { //increase period or decrease peri
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) return false;
-    if (user_config.enc_mode == ENC_RGB_MODE) {
-        if (clockwise) {
-            rgblight_step();
-        } else {
-            rgblight_step_reverse();
-        }
-    } else if (user_config.enc_mode == ENC_RGB_BRIGHT) {
-        if (clockwise) {
-            rgblight_increase_val();
-        } else {
-            rgblight_decrease_val();
-        }
-    } else if (user_config.enc_mode == ENC_BL_BRIGHT) {
-        if (clockwise) {
-            backlight_increase();
-        } else {
-            backlight_decrease();
-        }
-    } else if (user_config.enc_mode == ENC_BL_BREATH) {
-        backlight_breath_change(clockwise);
-    } else if (user_config.enc_mode == ENC_RGB_COLOR) {
-        if (clockwise) {
-            rgblight_increase_hue();
-        } else {
-            rgblight_decrease_hue();
-        }
-    } else {
-        if (clockwise) {
-            tap_code(enc_cw[user_config.enc_mode]);
-        } else {
-            tap_code(enc_ccw[user_config.enc_mode]);
-        }
+    switch (user_config.enc_mode) {
+        case ENC_RGB_MODE :
+            if (clockwise) {
+                rgblight_step();
+            } else {
+                rgblight_step_reverse();
+            }
+            break;
+        case ENC_RGB_BRIGHT :
+            if (clockwise) {
+                rgblight_increase_val();
+            } else {
+                rgblight_decrease_val();
+            }
+            break;
+        case ENC_BL_BRIGHT :
+            if (clockwise) {
+                backlight_increase();
+            } else {
+                backlight_decrease();
+            }
+            break;
+        case ENC_BL_BREATH :
+            backlight_breath_change(clockwise);
+            break;
+        case ENC_RGB_COLOR :
+            if (clockwise) {
+                rgblight_increase_hue();
+            } else {
+                rgblight_decrease_hue();
+            }
+            break;
+        default:
+            if (clockwise) {
+                tap_code(enc_cw[user_config.enc_mode]);
+            } else {
+                tap_code(enc_ccw[user_config.enc_mode]);
+            }
     }
     return true;
 }
@@ -733,14 +739,14 @@ void matrix_scan_kb(void) {
     led_t current_led_state = host_keyboard_led_state();
     uint8_t current_layer = get_highest_layer(layer_state);
     if (startup_delay) {
-        startup_timer = timer_read32();
+        startup_timer = timer_read();
         startup_delay = false;
         startup_complete = false;
         starting_up = true;
         OLED_redraw = false;
     }
     else if (starting_up) {
-        if (timer_elapsed32(startup_timer) >= 200) {
+        if (timer_elapsed(startup_timer) >= 200) {
             update_breathing();
             startup_complete = true;
             starting_up = false;
