@@ -26,9 +26,7 @@ typedef enum _layer_names {
     _LAYER_COUNT
 } layer_names;
 
-
-typedef enum dancy_
-{
+typedef enum dancy_ {
     ESC_LAYER = 0,
     BS_LAYER,
     LAYERED,
@@ -69,6 +67,7 @@ layer_names base_layer = _BASE;
 #define MPASTE LGUI(KC_V)
 #define LSG_T_SPACE LSG_T(KC_SPACE)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
@@ -105,9 +104,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
+// clang-format on
 
-#define CTRL_B \
-    register_code(KC_LCTL); register_code(KC_B); unregister_code(KC_B); unregister_code(KC_LCTL);
+#define CTRL_B              \
+    register_code(KC_LCTL); \
+    register_code(KC_B);    \
+    unregister_code(KC_B);  \
+    unregister_code(KC_LCTL);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -225,66 +228,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-
 // tap-dance code here
-typedef enum elayer_direction
-{
+typedef enum elayer_direction {
     _DIRECTION_UP,
     _DIRECTION_DOWN,
     _DIRECTION_COUNT,
 } layer_direction;
 
-layer_names
-get_next_layer(
-    layer_direction direction)
-{
+layer_names get_next_layer(layer_direction direction) {
     layer_names result = base_layer;
 
     // don't allow wrapping
-    if (direction == _DIRECTION_DOWN)
-    {
-        if (result > _BASE)
-        {
+    if (direction == _DIRECTION_DOWN) {
+        if (result > _BASE) {
             result -= 1;
         }
-    }
-    else
-    {
-        if (result < _FN)
-        {
+    } else {
+        if (result < _FN) {
             result += 1;
         }
     }
     return result;
 }
 
-static td_tap_t dancy_tap_state[DANCE_COUNT] =
-{
-    { // ESC_LAYER
-        .is_pressed_action = true,
-        .state = TD_NONE
-    },
-    { // BS_LAYER
-        .is_pressed_action = true,
-        .state = TD_NONE
-    },
-    { // LAYERED
-        .is_pressed_action = true,
-        .state = TD_NONE
-    },
+static td_tap_t dancy_tap_state[DANCE_COUNT] = {
+    {// ESC_LAYER
+     .is_pressed_action = true,
+     .state             = TD_NONE},
+    {// BS_LAYER
+     .is_pressed_action = true,
+     .state             = TD_NONE},
+    {// LAYERED
+     .is_pressed_action = true,
+     .state             = TD_NONE},
 };
 
-void
-escl_finished(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
-    td_tap_t *tap_state =  &(dancy_tap_state[0]);
+void escl_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_tap_t *tap_state = &(dancy_tap_state[0]);
 
     tap_state->state = cur_dance(state);
 
-    switch (tap_state->state)
-    {
+    switch (tap_state->state) {
         case TD_SINGLE_TAP:
             tap_code(KC_ESC);
             break;
@@ -293,13 +277,10 @@ escl_finished(
             break;
         case TD_DOUBLE_TAP:
             // check to see if the layer is already set
-            if (layer_state_is(_FN))
-            {
+            if (layer_state_is(_FN)) {
                 // if already set, then switch it off
                 layer_off(_FN);
-            }
-            else
-            {
+            } else {
                 // if not already set, switch the layer on
                 layer_on(_FN);
             }
@@ -309,33 +290,23 @@ escl_finished(
     }
 }
 
-void
-escl_reset(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
+void escl_reset(qk_tap_dance_state_t *state, void *user_data) {
     // get the correct button
     td_tap_t *tap_state = &(dancy_tap_state[0]);
 
-    if (tap_state->state == TD_SINGLE_HOLD)
-    {
+    if (tap_state->state == TD_SINGLE_HOLD) {
         layer_off(_FN);
     }
 
     tap_state->state = TD_NONE;
 }
 
-void
-bsl_finished(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
+void bsl_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_tap_t *tap_state = &(dancy_tap_state[1]);
 
     tap_state->state = cur_dance(state);
 
-    switch (tap_state->state)
-    {
+    switch (tap_state->state) {
         case TD_SINGLE_TAP:
             tap_code(KC_BSPACE);
             break;
@@ -344,13 +315,10 @@ bsl_finished(
             break;
         case TD_DOUBLE_TAP:
             // check to see if the layer is already set
-            if (layer_state_is(_FN))
-            {
+            if (layer_state_is(_FN)) {
                 // if already set, then switch it off
                 layer_off(_FN);
-            }
-            else
-            {
+            } else {
                 // if not already set, switch the layer on
                 layer_on(_FN);
             }
@@ -360,16 +328,11 @@ bsl_finished(
     }
 }
 
-void
-bsl_reset(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
+void bsl_reset(qk_tap_dance_state_t *state, void *user_data) {
     // get the correct button
     td_tap_t *tap_state = &(dancy_tap_state[1]);
 
-    if (tap_state->state == TD_SINGLE_HOLD)
-    {
+    if (tap_state->state == TD_SINGLE_HOLD) {
         layer_off(_FN);
     }
 
@@ -377,29 +340,23 @@ bsl_reset(
 }
 
 bool bHeld = false;
-void
-layers_finished(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
-    td_tap_t *tap_state =  &(dancy_tap_state[0]);
+void layers_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_tap_t *tap_state = &(dancy_tap_state[0]);
 
     tap_state->state = cur_dance(state);
-    layer_names next = get_next_layer(_DIRECTION_UP);;
+    layer_names next = get_next_layer(_DIRECTION_UP);
+    ;
 
-    switch (tap_state->state)
-    {
+    switch (tap_state->state) {
         case TD_SINGLE_TAP:
-            if (next != base_layer)
-            {
+            if (next != base_layer) {
                 set_oneshot_layer(next, ONESHOT_START);
             }
             break;
 
         case TD_SINGLE_HOLD:
             // only do something if we're still going up
-            if (next != base_layer)
-            {
+            if (next != base_layer) {
                 bHeld = true;
                 layer_on(next);
                 base_layer = next;
@@ -407,8 +364,7 @@ layers_finished(
             break;
         case TD_DOUBLE_TAP:
             // if we hit the top, stop
-            if (next != base_layer)
-            {
+            if (next != base_layer) {
                 layer_on(next);
                 base_layer = next;
             }
@@ -417,8 +373,7 @@ layers_finished(
             next = get_next_layer(_DIRECTION_DOWN);
 
             // if we hit the bottom, stop
-            if (next != base_layer)
-            {
+            if (next != base_layer) {
                 layer_on(next);
                 layer_off(base_layer);
                 base_layer = next;
@@ -435,26 +390,17 @@ layers_finished(
     }
 }
 
-void
-layers_reset(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
+void layers_reset(qk_tap_dance_state_t *state, void *user_data) {
     // get the correct button
-    td_tap_t *tap_state = &(dancy_tap_state[0]);
-    layer_names next = get_next_layer(_DIRECTION_DOWN);
+    td_tap_t *  tap_state = &(dancy_tap_state[0]);
+    layer_names next      = get_next_layer(_DIRECTION_DOWN);
 
-    if (tap_state->state == TD_SINGLE_TAP)
-    {
-        if (base_layer != get_next_layer(_DIRECTION_UP))
-        {
+    if (tap_state->state == TD_SINGLE_TAP) {
+        if (base_layer != get_next_layer(_DIRECTION_UP)) {
             clear_oneshot_layer_state(ONESHOT_PRESSED);
         }
-    }
-    else if (tap_state->state == TD_SINGLE_HOLD)
-    {
-        if (bHeld)
-        {
+    } else if (tap_state->state == TD_SINGLE_HOLD) {
+        if (bHeld) {
             layer_off(base_layer);
             base_layer = next;
         }
@@ -464,9 +410,7 @@ layers_reset(
     tap_state->state = TD_NONE;
 }
 
-
-qk_tap_dance_action_t tap_dance_actions[] =
-{
+qk_tap_dance_action_t tap_dance_actions[] = {
     [ESC_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, escl_finished, escl_reset, 275),
-    [BS_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, bsl_finished, bsl_reset, 275),
+    [BS_LAYER]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, bsl_finished, bsl_reset, 275),
 };

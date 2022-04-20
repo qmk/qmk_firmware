@@ -69,8 +69,11 @@ layer_names base_layer = _LETTER;
 #define ONUM OSL(_NUMBER)
 #define OSYM OSL(_SYMBOL)
 #define OSPEC OSL(_SPECIAL)
-#define OSFT  OSM(MOD_LSFT)
+#define OSFT OSM(MOD_LSFT)
+#define OCTL OSM(MOD_LCTL)
+#define OALT OSM(MOD_LALT)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Letter */
     [_LETTER] = LAYOUT(
@@ -87,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FUNCTION] = LAYOUT(
         KC_TRNS,       KC_ESC,       KC_HOME,   KC_END,    KC_PAUSE,   KC_PGUP,
-        KC_TRNS,       KC_INS,       KC_LCTL,   KC_LALT,   KC_UP,      KC_PGDN,
+        KC_TRNS,       KC_INS,       OCTL,      OALT,   KC_UP,      KC_PGDN,
         KC_TRNS,       KC_DEL,       KC_BSPC,   KC_LEFT,   KC_DOWN,    KC_RIGHT,
         KC_TRNS,       KC_TRNS,      KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS
     ),
@@ -112,27 +115,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
+// clang-format on
 
-#define CTRL_B \
-    register_code(KC_LCTL); register_code(KC_B); unregister_code(KC_B); unregister_code(KC_LCTL);
-
-uint8_t mod_state;
+uint8_t  mod_state;
 uint16_t shift_count = 0;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool     process_record_user(uint16_t keycode, keyrecord_t *record) {
     // we need to process the shift+number differently
     mod_state = get_mods();
 
     switch (keycode) {
-        // if we a
-    case KC_SYMBOL: {
-        if (record->event.pressed) {
-            layer_invert(_SYMBOL);
-        } else {
-
+            // if we a
+        case KC_SYMBOL: {
+            if (record->event.pressed) {
+                layer_invert(_SYMBOL);
+            } else {
+            }
+            return false;
+            break;
         }
-        return false;
-        break;
-    }
 
             // handle KC_NUMBER presses (toggle the _NUMBER layer with _LETTER if pressed)
             // if held, either go to _FUNCTION (from _LETTER/_NUMBER) or _SPECIAL (from _SYMBOL)
@@ -143,16 +143,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 number_timer = timer_read();
 
                 // go to _NUMBER/_FUNCTION/_SPECIAL
-                if (IS_LAYER_ON(_SYMBOL))
-                {
+                if (IS_LAYER_ON(_SYMBOL)) {
                     layer_on(_SPECIAL);
                 } else {
                     layer_on(_FUNCTION);
                 }
             } else {
                 // turn off the held layer bits
-                if (IS_LAYER_ON(_SPECIAL))
-                {
+                if (IS_LAYER_ON(_SPECIAL)) {
                     layer_off(_SPECIAL);
                 } else if (IS_LAYER_ON(_FUNCTION)) {
                     layer_off(_FUNCTION);
@@ -180,49 +178,40 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void
-shift_finished(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
+void shift_finished(qk_tap_dance_state_t *state, void *user_data) {
     // get the correct state
     td_state_t *tap_state = &(states[TD_SHIFT]);
-    *tap_state = cur_dance(state);
+    *tap_state            = cur_dance(state);
     switch (*tap_state) {
-    case TD_SINGLE_TAP:
-        // set one-shot modifier
-        set_oneshot_mods(MOD_BIT(KC_LSFT));
-        break;
+        case TD_SINGLE_TAP:
+            // set one-shot modifier
+            set_oneshot_mods(MOD_BIT(KC_LSFT));
+            break;
 
-    case TD_DOUBLE_TAP:
-        // turn on caps-lock
-        tap_code(KC_CAPS);
-        break;
-    default:
-        break;
+        case TD_DOUBLE_TAP:
+            // turn on caps-lock
+            tap_code(KC_CAPS);
+            break;
+        default:
+            break;
     }
 }
 
-void
-shift_reset(
-    qk_tap_dance_state_t *state,
-    void *user_data)
-{
+void shift_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state_t *tap_state = &(states[TD_SHIFT]);
     switch (*tap_state) {
-    case TD_SINGLE_TAP:
-        // clear_oneshot_mods();
-        break;
-    case TD_DOUBLE_TAP:
-        break;
-    default:
-        break;
+        case TD_SINGLE_TAP:
+            // clear_oneshot_mods();
+            break;
+        case TD_DOUBLE_TAP:
+            break;
+        default:
+            break;
     }
     *tap_state = TD_NONE;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] =
-{
+qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_RESET] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, safe_reset, NULL, 600),
     [TD_SHIFT] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, shift_finished, shift_reset, 200),
 };
