@@ -15,13 +15,12 @@ MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
 
 LAYOUTS = 60_hhkb
 
 # Disable bluetooth until the UART code is merged
-# BLUETOOTH = AdafruitBLE_UART
+BLUETOOTH_DRIVER = BluefruitLE
 
 # Custom matrix file for the HHKB
 CUSTOM_MATRIX = lite

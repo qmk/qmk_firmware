@@ -19,9 +19,11 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-#define BASE 0
-#define HHKB 1
-#define MOUSE 2
+enum custom_layers {
+    BASE,
+    HHKB,
+    MOUSE,
+};
 
 #define BATTERY_FULL 550
 #define BATTERY_EMPTY 326
