@@ -128,3 +128,28 @@ bool xap_respond_dynamic_keymap_set_keycode(xap_token_t token, const void *data,
     return true;
 }
 #endif
+
+#if ((defined(ENCODER_MAP_ENABLE)))
+bool xap_respond_dynamic_encoder_get_keycode(xap_token_t token, const void *data, size_t length) {
+    if (length != sizeof(xap_route_dynamic_encoder_get_encoder_keycode_arg_t)) {
+        return false;
+    }
+
+    xap_route_dynamic_encoder_get_encoder_keycode_arg_t *arg = (xap_route_dynamic_encoder_get_encoder_keycode_arg_t *)data;
+
+    uint16_t keycode = dynamic_keymap_get_encoder(arg->layer, arg->encoder, arg->clockwise);
+    return xap_respond_data(token, &keycode, sizeof(keycode));
+}
+
+bool xap_respond_dynamic_encoder_set_keycode(xap_token_t token, const void *data, size_t length) {
+    if (length != sizeof(xap_route_dynamic_encoder_set_encoder_keycode_arg_t)) {
+        return false;
+    }
+
+    xap_route_dynamic_encoder_set_encoder_keycode_arg_t *arg = (xap_route_dynamic_encoder_set_encoder_keycode_arg_t *)data;
+
+    dynamic_keymap_set_encoder(arg->layer, arg->encoder, arg->clockwise, arg->keycode);
+    xap_respond_success(token);
+    return true;
+}
+#endif

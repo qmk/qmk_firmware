@@ -157,26 +157,34 @@ def _list_devices():
             print_dotted_output(data)
 
 
-def xap_doit():
-    print("xap_doit")
+def xap_dump_keymap(device):
     # get layer count
-    # layers = _xap_transaction(device, 0x04, 0x01)
-    # layers = int.from_bytes(layers, "little")
-    # print(f'layers:{layers}')
+    layers = _xap_transaction(device, 0x04, 0x01)
+    layers = int.from_bytes(layers, "little")
+    print(f'layers:{layers}')
 
     # get keycode [layer:0, row:0, col:0]
     # keycode = _xap_transaction(device, 0x04, 0x02, b"\x00\x00\x00")
-    # keycode = int.from_bytes(keycode, "little")
-    # keycode_map = {
-    #     # TODO: this should be data driven...
-    #     0x04: 'KC_A',
-    #     0x05: 'KC_B',
-    #     0x29: 'KC_ESCAPE'
-    # }
-    # print('keycode:' + keycode_map.get(keycode, 'unknown'))
 
+    # get encoder [layer:0, index:0, clockwise:0]
+    keycode = _xap_transaction(device, 0x05, 0x02, b"\x00\x00\x00")
+
+    keycode = int.from_bytes(keycode, "little")
+    keycode_map = {
+        # TODO: this should be data driven...
+        0x04: 'KC_A',
+        0x05: 'KC_B',
+        0x29: 'KC_ESCAPE',
+        0xF9: 'KC_MS_WH_UP',
+    }
+    print(f'keycode:{keycode_map.get(keycode, "unknown")}')
+
+
+def xap_doit():
+    print("xap_doit")
     # Reboot
     # _xap_transaction(device, 0x01, 0x07)
+    exit(1)
 
 
 def xap_broadcast_listen(device):
@@ -226,6 +234,9 @@ def xap(cli):
     if cli.args.action == 'unlock':
         xap_unlock(device)
         cli.log.info("Done")
+
+    elif cli.args.action == 'dump':
+        xap_dump_keymap(device)
 
     elif cli.args.action == 'listen':
         xap_broadcast_listen(device)

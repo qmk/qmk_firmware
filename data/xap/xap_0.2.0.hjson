@@ -81,7 +81,6 @@
                             name: Keycode
                         }
                     ]
-                    return_type: u8
                     return_execute: dynamic_keymap_set_keycode
                 }
             }
@@ -108,6 +107,57 @@
                     return_type: u32
                     return_purpose: capabilities
                     return_constant: XAP_ROUTE_DYNAMIC_ENCODER_CAPABILITIES
+                }
+                0x02: {
+                    type: command
+                    name: Get Keycode
+                    define: GET_ENCODER_KEYCODE
+                    description: TODO
+                    request_type: struct
+                    request_struct_length: 3
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Encoder
+                        },
+                        {
+                            type: u8
+                            name: Clockwise
+                        }
+                    ]
+                    return_type: u16
+                    return_execute: dynamic_encoder_get_keycode
+                }
+                0x03: {
+                    type: command
+                    name: Set Keycode
+                    define: SET_ENCODER_KEYCODE
+                    description: TODO
+                    request_type: struct
+                    request_struct_length: 5
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Encoder
+                        },
+                        {
+                            type: u8
+                            name: Clockwise
+                        },
+                        {
+                            type: u16
+                            name: Keycode
+                        }
+                    ]
+                    return_execute: dynamic_encoder_set_keycode
                 }
             }
         }
