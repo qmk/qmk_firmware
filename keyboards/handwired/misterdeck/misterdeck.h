@@ -1,4 +1,5 @@
-/* Copyright 2021 Chris Broekema (broekema@gmail.com)
+/*
+ * Copyright 2021 Chris Broekema (broekema@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +20,11 @@
 #include "quantum.h"
 
 #define LAYOUT( \
-  k00, k01, k02, k03, \
-  k10, k11, k12, k13, \
-  k20, k21, k22, k23  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23 \
 ) { \
     { k00, k01, k02, k03 }, \
     { k10, k11, k12, k13 }, \
-    { k20, k21, k22, k23 }  \
+    { k20, k21, k22, k23 } \
 }

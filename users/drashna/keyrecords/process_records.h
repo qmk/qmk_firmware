@@ -4,8 +4,10 @@
 #pragma once
 #include "drashna.h"
 
-#if defined(KEYBOARD_handwired_tractyl_manuform)
+#if defined(KEYBOARD_handwired_tractyl_manuform) && defined(POINTING_DEVICE_ENABLE)
 #    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#elif defined(KEYBOARD_bastardkb_charybdis)
+#    define PLACEHOLDER_SAFE_RANGE CHARYBDIS_SAFE_RANGE
 #else
 #    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
 #endif
