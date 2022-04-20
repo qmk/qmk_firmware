@@ -80,7 +80,8 @@ OTHER_OPTION_NAMES = \
   LED_MIRRORED \
   RGBLIGHT_FULL_POWER \
   LTO_ENABLE \
-  PROGRAMMABLE_BUTTON_ENABLE
+  PROGRAMMABLE_BUTTON_ENABLE \
+  SECURE_ENABLE
 
 define NAME_ECHO
        @printf "  %-30s = %-16s # %s\\n" "$1" "$($1)" "$(origin $1)"
