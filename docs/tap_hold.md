@@ -112,7 +112,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-The reason being that `TAPPING_TERM` is a macro that expands to a constant integer and thus cannot be changed at runtime whereas `g_tapping_term` is a variable whose value can be changed at runtime. If you want, you can temporarily enable `DYNAMIC_TAPPING_TERM_ENABLE` to find a suitable tapping term value and then disable that feature and revert back to using the classic syntax for per-key tapping term settings.
+The reason being that `TAPPING_TERM` is a macro that expands to a constant integer and thus cannot be changed at runtime whereas `g_tapping_term` is a variable whose value can be changed at runtime. If you want, you can temporarily enable `DYNAMIC_TAPPING_TERM_ENABLE` to find a suitable tapping term value and then disable that feature and revert back to using the classic syntax for per-key tapping term settings. In case you need to access the tapping term from elsewhere in your code, you can use the `GET_TAPPING_TERM(keycode, record)` macro. This macro will expand to whatever is the appropriate access pattern given the current configuration.
 
 ## Tap-Or-Hold Decision Modes
 
