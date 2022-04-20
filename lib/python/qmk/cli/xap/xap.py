@@ -177,7 +177,10 @@ def xap_dump_keymap(device):
         0x29: 'KC_ESCAPE',
         0xF9: 'KC_MS_WH_UP',
     }
-    print(f'keycode:{keycode_map.get(keycode, "unknown")}')
+    print(f'keycode:{keycode_map.get(keycode, "unknown")}[{keycode}]')
+
+    # set encoder [layer:0, index:0, clockwise:0, keycode:KC_A]
+    _xap_transaction(device, 0x05, 0x03, b"\x00\x00\x00\x04\00")
 
 
 def xap_doit():
