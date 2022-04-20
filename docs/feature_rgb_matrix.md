@@ -657,16 +657,17 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 
 ### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
 
-This effect will color the RGB matrix according to a heatmap of recently pressed
-keys. Whenever a key is pressed its "temperature" increases as well as that of
-its neighboring keys. The temperature of each key is then decreased
-automatically every 25 milliseconds by default.
+This effect will color the RGB matrix according to a heatmap of recently pressed keys. Whenever a key is pressed its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
 
-In order to change the delay of temperature decrease define
-`RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
 
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
+
+Heatmap effect may not light up the correct adjacent LEDs for certain key matrix layout such as split keyboards. The following define will limit the effect to pressed keys only:
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_SLIM
 ```
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects

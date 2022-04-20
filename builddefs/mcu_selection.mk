@@ -680,7 +680,6 @@ ifneq ($(findstring WB32F3G71, $(MCU)),)
   USE_FPU ?= no
 
   # Bootloader address for WB32 DFU
-  STM32_BOOTLOADER_ADDRESS ?= 0x1FFFE000
   WB32_BOOTLOADER_ADDRESS ?= 0x1FFFE000
 endif
 
