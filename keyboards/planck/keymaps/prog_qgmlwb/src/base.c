@@ -1,8 +1,10 @@
-// clang-format off
+// Copyright 2022 David Kristoffersen (@davidkristoffersen)
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "base.h"
 
 const uint16_t PROGMEM keymaps [][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Qgmlw
+    /* QGMLW
      * ,-----------------------------------------------------------------------------------.
      * | Tab  |   Q  |   G  |   M  |   L  |   W  |   B  |   Y  |   U  |   V  |   '" | Bksp |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -15,9 +17,9 @@ const uint16_t PROGMEM keymaps [][MATRIX_ROWS][MATRIX_COLS] = {
      */
      /* Norwegian Layout */
      [QGMLW_NO] = LAYOUT_ortho_4x12(
-         KC_TAB,  KC_Q,    KC_G,    KC_M,    KC_L,    KC_W,    KC_B,    KC_Y,    KC_U,    KC_V,    NO_QUOT, KC_BSPC, // BSLS
+         KC_TAB,  KC_Q,    KC_G,    KC_M,    KC_L,    KC_W,    KC_B,    KC_Y,    KC_U,    KC_V,    NO_QUOT, KC_BSPC,
          KC_ESC,  KC_D,    KC_S,    KC_T,    KC_N,    KC_R,    KC_I,    KC_A,    KC_E,    KC_O,    KC_H,    KC_ENT,
-         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_F,    KC_J, 	  KC_K,    KC_P,    KC_COMM, KC_DOT,  NO_MINS, NO_BSLS, // EQL
+         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_F,    KC_J, 	  KC_K,    KC_P,    KC_COMM, KC_DOT,  NO_MINS, NO_BSLS,
          KC_LCTL, KC_LALT, numpad,  KC_LGUI, QNLower, KC_SPC,  KC_SPC,  QNRaise, KC_LEFT, KC_DOWN, KC_UP,   SPACE_TRI
      ),
     /* English Layout */
