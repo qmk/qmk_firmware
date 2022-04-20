@@ -1,0 +1,38 @@
+// This one is for a reset
+COMB(farw_Reset,  TD_RESET,       KC_F, KC_A, KC_R, KC_W)
+
+// These are just the letter combos
+COMB(sF_Tab,      KC_TAB,         KC_SPACE, KC_F)
+COMB(sA_Quot,     KC_QUOT,        KC_SPACE, KC_A)
+COMB(sR_B,        KC_B,           KC_SPACE, KC_R)
+COMB(sW_M,        KC_M,           KC_SPACE, KC_W)
+COMB(sP_J,        KC_J,           KC_SPACE, KC_P)
+COMB(sO_Q,        KC_Q,           KC_SPACE, KC_O)
+COMB(sE_Z,        KC_Z,           KC_SPACE, KC_E)
+COMB(sH_L,        KC_L,           KC_SPACE, KC_H)
+COMB(sT_C,        KC_C,           KC_SPACE, KC_T)
+COMB(sD_V,        KC_V,           KC_SPACE, KC_D)
+COMB(sU_PU,       KC_PGUP,        KC_SPACE, KC_U)
+COMB(sI_PD,       KC_PGDN,        KC_SPACE, KC_I)
+COMB(sN_K,        KC_K,           KC_SPACE, KC_N)
+COMB(sS_G,        KC_G,           KC_SPACE, KC_S)
+COMB(sEnt_Dot,    KC_DOT,         KC_SPACE, KC_ENT)
+//COMB(sSft_Lock,   KC_SHIFT_LOCK,  KC_SPACE, TD_SHIFT)
+
+// These are just the symbol combos
+COMB(sQu_Tab,     KC_TAB,         KC_SPACE, KC_QUES)
+COMB(sAmp_Plus,   KC_PLUS,        KC_SPACE, KC_AMPR)
+
+
+// These are just the number combos
+COMB(sA_strTab,   KC_TAB,      KC_SPACE, KC_ASTR)
+COMB(s7_F7,       KC_F7,       KC_SPACE, KC_7)
+COMB(s8_F8,       KC_F8,       KC_SPACE, KC_8)
+COMB(s9_F9,       KC_F9,       KC_SPACE, KC_9)
+COMB(sMinus_Apos, KC_Quot,     KC_SPACE, KC_MINUS)
+
+
+// These are the extra combos
+COMB(spaceSymComma,  KC_COMMA,    KC_SPACE, KC_SYMBOL)
+
+SUBS(helloWorld, "QMK is pretty rad eh?", KC_H, KC_N)
