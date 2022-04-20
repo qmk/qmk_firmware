@@ -19,8 +19,6 @@
 typedef enum _layer_names {
     _BASE,
     _FN,
-    _OHK_R, // one-handed keyboard (right side)
-    _OHK_L, // one-handed keyboard (left side)
     // add new ones above here
     _JUMP,
     _LAYER_COUNT
@@ -35,9 +33,7 @@ typedef enum dancy_ {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    QMK_YGID = SAFE_RANGE,
-    QMK_BYE_BOO,
-    TMUX_N,
+    TMUX_N = SAFE_RANGE,
     TMUX_L,
     TMUX_R,
     TMUX_U,
@@ -48,8 +44,6 @@ enum custom_keycodes {
     VIM_J,
     VIM_K,
     VIM_L,
-    OHK_R,
-    OHK_L,
     LOWER,
     RAISE,
     TO_BASE,
@@ -82,19 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,       KC_TRNS,      XXXXXXX,   KC_F1,     KC_F2,      KC_F3,
         LOWER,         RAISE,        KC_TRNS,   KC_F10,    KC_RGUI,    KC_RALT
     ),
-    // one-handed keyboard
-    [_OHK_R] = LAYOUT(
-        KC_Y,          KC_U,         KC_I,      KC_O,       KC_P,       KC_BSPC,
-        KC_H,          KC_J,         KC_K,      KC_L,       KC_COLON,   KC_ENTER,
-        KC_N,          KC_M,         KC_COMM,   KC_DOT,     KC_SLSH,    KC_RSHIFT,
-        KC_SPACE,      RAISE,        LOWER,     KC_RGUI,    KC_RALT,    KC_RCTL
-    ),
-    [_OHK_L] = LAYOUT(
-        KC_T,          KC_R,         KC_E,      KC_W,       KC_Q,       KC_ESC,
-        KC_G,          KC_F,         KC_D,      KC_S,       KC_A,       KC_TAB,
-        KC_B,          KC_V,         KC_C,      KC_X,       KC_Z,       KC_LSFT,
-        KC_SPACE,      RAISE,        LOWER,     KC_LGUI,    KC_LALT,    KC_LCTL
-    ),
     // one-off for jumping
     [_JUMP] = LAYOUT(
         XXXXXXX,       XXXXXXX,      XXXXXXX,   G(KC_7),   G(KC_8),    G(KC_9),
@@ -114,22 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QMK_YGID:
-            if (record->event.pressed) {
-                // when keycode is pressed
-                SEND_STRING(":you-got-it-dude:");
-            } else {
-                // when keycode is released
-            }
-            break;
-        case QMK_BYE_BOO:
-            if (record->event.pressed) {
-                // when keycode is pressed
-                SEND_STRING(":bye-boo:");
-            } else {
-                // when keycode is released
-            }
-            break;
         case TMUX_N:
             if (record->event.pressed) {
                 // when keycode is pressed
