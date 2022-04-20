@@ -27,5 +27,3 @@ ENCODER_ENABLE = yes
 # enable dip-switch, which allows the push-button on encoders
 DIP_SWITCH_ENABLE = yes
 
-# enable midi, so we can send some midi keys
-MIDI_ENABLE = yes
