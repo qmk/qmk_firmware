@@ -52,7 +52,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (is_keyboard_master() && is_keyboard_left()) {
         return OLED_ROTATION_90;
     } else {
