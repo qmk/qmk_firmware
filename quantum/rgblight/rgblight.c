@@ -813,6 +813,10 @@ void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
 }
 
 void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times) {
+    if (times > UINT8_MAX / 2) {
+        times = UINT8_MAX / 2;
+    }
+
     _times_remaining = times * 2;
     _dur             = duration_ms;
 
