@@ -189,33 +189,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    writePinHigh(LED_NUM_LOCK_PIN);
+    writePinHigh(LED_SCROLL_LOCK_PIN);
+    writePinHigh(LED_COMPOSE_PIN);
+    writePinHigh(LED_CAPS_LOCK_PIN);
     switch (get_highest_layer(state)) {
         case _QWERTY:
             // Caps Lock Lit
             writePinLow(LED_CAPS_LOCK_PIN);
-            writePinHigh(LED_NUM_LOCK_PIN);
-            writePinHigh(LED_SCROLL_LOCK_PIN);
-            writePinHigh(LED_COMPOSE_PIN);
             break;
         case _COLEMAK_MOD_DH:
-            writePinHigh(LED_CAPS_LOCK_PIN);
             // Num Lock Lit
             writePinLow(LED_NUM_LOCK_PIN);
-            writePinHigh(LED_SCROLL_LOCK_PIN);
-            writePinHigh(LED_COMPOSE_PIN);
             break;
         case _WORKMAN:
-            writePinHigh(LED_CAPS_LOCK_PIN);
-            writePinHigh(LED_NUM_LOCK_PIN);
             // Scroll Lock Lit
             writePinLow(LED_SCROLL_LOCK_PIN);
-            writePinHigh(LED_COMPOSE_PIN);
-
             break;
         case _KEYPAD:
-            writePinHigh(LED_CAPS_LOCK_PIN);
-            writePinHigh(LED_NUM_LOCK_PIN);
-            writePinHigh(LED_SCROLL_LOCK_PIN);
             // Compose Lit
             writePinLow(LED_COMPOSE_PIN);
             break;
@@ -225,13 +216,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             writePinLow(LED_NUM_LOCK_PIN);
             writePinLow(LED_CAPS_LOCK_PIN);
             writePinLow(LED_COMPOSE_PIN);
-            break;
-        default:
-            // Default layer
-            writePinHigh(LED_NUM_LOCK_PIN);
-            writePinHigh(LED_SCROLL_LOCK_PIN);
-            writePinHigh(LED_COMPOSE_PIN);
-            writePinHigh(LED_CAPS_LOCK_PIN);
             break;
     }
   return state;
