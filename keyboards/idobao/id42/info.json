@@ -1,27 +1,10 @@
 {
   "keyboard_name": "Abacus ID42",
-  "manufacturer": "IDOBAO",
   "url": "https://idobao.net",
   "maintainer": "tw59420",
-  "debounce": 5,
-  "diode_direction": "COL2ROW",
   "bootloader": "atmel-dfu",
-  "features": {
-    "bootmagic": true,
-    "command": false,
-    "console": false,
-    "extrakey": true,
-    "mousekey": true,
-    "nkro": true
-  },
   "processor": "atmega32u4",
-  "matrix_pins": {
-    "cols": [ "B4", "D7", "D6", "D4", "B5", "C7", "F0", "F7", "F6", "F1", "F4", "F5" ],
-    "rows": [ "D5", "C6", "B6", "E6" ]
-  },
   "usb": {
-    "vid": "0x416D",
-    "pid": "0x4E45",
     "device_version": "1.0.0"
   },
   "layouts": {
