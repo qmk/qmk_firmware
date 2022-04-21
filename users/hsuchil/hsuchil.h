@@ -43,3 +43,13 @@ enum custom_user_keycodes {
 
 #define LCT_ESC LCTL_T(KC_ESC) // ESC if tapped, LCTL if held.
 #define RCT_ESC RCTL_T(KC_ESC) // ESC if tapped, RCTL if held.
+
+#define RSFT_UP RSFT_T(KC_UP)
+
+// Tap Dance
+
+enum tap_dance_keycodes {
+    _TD_RSHIFT_UP
+};
+
+#define TD_RSFTUP TD(_TD_RSHIFT_UP)

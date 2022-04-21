@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Hector Galindo <hi@hsuchil.com>
+Copyright 2011 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,16 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <avr/io.h>
+#include "stdint.h"
+#include "led.h"
 
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 4
 
-// Redefine number of LED
-#ifdef RGBLED_NUM
-#    undef RGBLED_NUM
-#endif // DEBUG
-#define RGBLED_NUM 10
+void led_set_user(uint8_t usb_led)
+{
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // output high
+        DDRD |= (1<<5);
+        PORTD |= (1<<5);
+    } else {
+        // output low
+        DDRD  |=  (1<<5);
+        PORTD &= ~(1<<5);
+    }
+}
 
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_SLEEP
+

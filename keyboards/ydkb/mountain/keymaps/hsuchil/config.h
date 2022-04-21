@@ -17,14 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 4
+#ifdef TAPPING_TERM
+#undef TAPPING_TERM
+#endif
 
-// Redefine number of LED
-#ifdef RGBLED_NUM
-#    undef RGBLED_NUM
-#endif // DEBUG
-#define RGBLED_NUM 10
-
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_SLEEP
+#define TAPPING_TERM 150
