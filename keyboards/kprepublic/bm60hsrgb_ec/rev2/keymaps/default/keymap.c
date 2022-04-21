@@ -34,29 +34,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (IS_LAYER_ON(1)){
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-  } else {
-      // ctrl
-      if (get_mods() & MOD_BIT(KC_LCTRL)) {
-        if (clockwise) {
-          tap_code(KC_WH_R);
-        } else {
-          tap_code(KC_WH_L);
-        }
-      } else {
-        if (clockwise) {
-          tap_code(KC_WH_D);
-        } else {
-          tap_code(KC_WH_U);
-        }
-      }
-  }
-
-  return false;
-}
