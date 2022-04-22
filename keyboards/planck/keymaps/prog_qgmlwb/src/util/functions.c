@@ -5,11 +5,11 @@
 
 // Get current language layer
 inline int get_language() {
-    if (layer_state_cmp(default_layer_state, QGMLW_NO)) {
-        return QGMLW_NO;
+    if (layer_state_cmp(default_layer_state, QGMLWB_NO)) {
+        return QGMLWB_NO;
     }
-    if (layer_state_cmp(default_layer_state, QGMLW_US)) {
-        return QGMLW_US;
+    if (layer_state_cmp(default_layer_state, QGMLWB_US)) {
+        return QGMLWB_US;
     }
     return -1;
 }
