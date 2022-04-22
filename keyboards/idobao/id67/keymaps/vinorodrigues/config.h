@@ -1,5 +1,5 @@
 /*
- * Idobao ID67 Keymap for a ID67 Bestype, built for Mac use
+ * IDOBAO ID67 Keymap for a ID67 Bestype, built for Mac use
  * Copyright (C) 2022  Vino Rodrigues
  *
  * This program is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@
     //// #define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN           // Full gradient scrolling top to bottom
     //// #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN            // Full gradient scrolling out to in
     //// #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL       // Full dual gradients scrolling out to in
-    //// #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Full gradent Chevron shapped scrolling left to right
+    //// #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Full gradient Chevron shaped scrolling left to right
     //// #define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL          // Full gradient spinning pinwheel around center of keyboard
     //// #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL            // Full gradient spinning spiral around center of keyboard
     //// #define ENABLE_RGB_MATRIX_DUAL_BEACON             // Full gradient spinning around center of keyboard
@@ -54,9 +54,9 @@
     //// #define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS       // Full dual gradients spinning two halfs of keyboard
     //// #define ENABLE_RGB_MATRIX_RAINDROPS               // Randomly changes a single key's hue
     //// #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS     // Randomly changes a single key's hue and saturation
-    //// #define ENABLE_RGB_MATRIX_HUE_BREATHING           // Hue shifts up a slight ammount at the same time, then shifts back
-    //// #define ENABLE_RGB_MATRIX_HUE_PENDULUM            // Hue shifts up a slight ammount in a wave to the right, then back to the left
-    //// #define ENABLE_RGB_MATRIX_HUE_WAVE                // Hue shifts up a slight ammount and then back down in a wave to the right
+    //// #define ENABLE_RGB_MATRIX_HUE_BREATHING           // Hue shifts up a slight amount at the same time, then shifts back
+    //// #define ENABLE_RGB_MATRIX_HUE_PENDULUM            // Hue shifts up a slight amount in a wave to the right, then back to the left
+    //// #define ENABLE_RGB_MATRIX_HUE_WAVE                // Hue shifts up a slight amount and then back down in a wave to the right
 
     #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
     #undef ENABLE_RGB_MATRIX_PIXEL_FLOW
