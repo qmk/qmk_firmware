@@ -340,10 +340,10 @@ static usb_driver_configs_t drivers = {
 #endif
 #ifdef RAW_ENABLE
 #    ifndef RAW_IN_CAPACITY
-#       define RAW_IN_CAPACITY 4
+#        define RAW_IN_CAPACITY 4
 #    endif
 #    ifndef RAW_OUT_CAPACITY
-#       define RAW_OUT_CAPACITY 4
+#        define RAW_OUT_CAPACITY 4
 #    endif
 #    define RAW_IN_MODE USB_EP_MODE_TYPE_INTR
 #    define RAW_OUT_MODE USB_EP_MODE_TYPE_INTR
