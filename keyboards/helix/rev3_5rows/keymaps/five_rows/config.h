@@ -35,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_UPDATE_INTERVAL 50
 #endif
 
+#define PSEUDO_SPRINTF_DEFINED
+
 // place overrides here
 
 // If you need more program area, try select and reduce rgblight modes to use.
