@@ -138,31 +138,6 @@ bool is_clickable_mode(void) {
     return state == CLICKABLE || state == CLICKING || state == SCROLLING;
 }
 
-int16_t sign(int16_t num) {
-    if (num < 0) {
-        return -1;
-    }
-
-    return 1;
-}
-
-int16_t max(int16_t a, int16_t b) {
-    if (a > b) {
-        return a;
-    }
-
-    return b;
-}
-
-int16_t min(int16_t a, int16_t b) {
-    if (a < b) {
-        return a;
-    }
-
-    return b;
-}
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     switch (keycode) {
