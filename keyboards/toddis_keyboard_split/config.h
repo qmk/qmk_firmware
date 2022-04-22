@@ -11,7 +11,7 @@
 #define DEVICE_VER   0x0001
 #define MANUFACTURER torbjorn rasmusson
 #define PRODUCT      toddis_keyboard_split
- 
+
 
 /* key matrix size */
 /* Rows are doubled up */
@@ -47,6 +47,9 @@
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_SPLIT
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 200
 
 #define UNICODE_SELECTED_MODES UC_WINC
