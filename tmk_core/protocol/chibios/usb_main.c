@@ -339,8 +339,12 @@ static usb_driver_configs_t drivers = {
     .console_driver = QMK_USB_DRIVER_CONFIG(CONSOLE, 0, true),
 #endif
 #ifdef RAW_ENABLE
-#    define RAW_IN_CAPACITY 4
-#    define RAW_OUT_CAPACITY 4
+#    ifndef RAW_IN_CAPACITY
+#       define RAW_IN_CAPACITY 4
+#    endif
+#    ifndef RAW_OUT_CAPACITY
+#       define RAW_OUT_CAPACITY 4
+#    endif
 #    define RAW_IN_MODE USB_EP_MODE_TYPE_INTR
 #    define RAW_OUT_MODE USB_EP_MODE_TYPE_INTR
     .raw_driver = QMK_USB_DRIVER_CONFIG(RAW, 0, false),
