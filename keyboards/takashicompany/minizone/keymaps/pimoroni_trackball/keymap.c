@@ -12,7 +12,6 @@ enum custom_keycodes {
     KC_MY_SCR,
 };
 
-report_mouse_t mouse_report;
 
 enum click_state {
     NONE = 0,
@@ -105,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MY_BTN1, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_MY_SCR, KC_MY_BTN1, KC_TRNS, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_MY_SCR, KC_MS_BTN1, KC_TRNS, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
@@ -181,17 +180,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
                 currentReport.buttons |= btn;
-                mouse_report.buttons |= btn;
                 state = CLICKING;
                 after_click_lock_movement = 30;
             } else {
                 // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
                 currentReport.buttons &= ~btn;
-                mouse_report.buttons &= ~btn;
                 enable_click_layer();
             }
 
             pointing_device_set_report(currentReport);
+            pointing_device_send();
             return false;
         }
 
@@ -357,8 +355,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     mouse_report.y = current_y * 2;
     mouse_report.h = current_h * 2;
     mouse_report.v = current_v * 2;
+    //mouse_report.buttons = 0;
 
-    
     return mouse_report;
 
 }
