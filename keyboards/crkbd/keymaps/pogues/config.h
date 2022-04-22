@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define CAPS_WORD_IDLE_TIMEOUT 5000
 
 // set the leader key timeout
-#define LEADER_TIMEOUT 400
+#define LEADER_TIMEOUT 600
 // leader timeout is for the whole sequence by default.  to have it per key set:
 // #define LEADER_PER_KEY_TIMING
 
@@ -60,9 +60,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // enable light change on layer change
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_SPLIT
+    
+    // increase the number of light layers
+    #define RGBLIGHT_MAX_LAYERS 12
 
 
     // turn off unused lighting effects
+    #undef RGBLIGHT_ANIMATIONS
     #undef RGBLIGHT_EFFECT_BREATHING
     #undef RGBLIGHT_EFFECT_RAINBOW_MOOD
     #undef RGBLIGHT_EFFECT_RAINBOW_SWIRL

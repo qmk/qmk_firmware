@@ -24,7 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*******************************************************************************
  * TODO.
- * mouse layer.  should the layout match the arrow layer.
+ * indicate the success of the leader key with lights
+ * should the d key on the numpad be divide, p is percent.
  * remove outer column to force a 36 key
  *******************************************************************************/
 
@@ -47,13 +48,6 @@ enum userspace_layers {
 
 #define MY_CESC MT(MOD_LCTL, KC_ESC)
 #define MY_CENT MT(MOD_LCTL, KC_ENT)
-#define MY_S_SL MT(MOD_LSFT, KC_SLSH)
-#define MY_S_Z  MT(MOD_LSFT, KC_Z)
-#define MY_UNDO C(KC_Z)
-#define MY_REDO C(KC_Y)
-#define MY_COPY C(KC_C)
-#define MY_PSTE C(KC_V)
-#define MY_CUT  C(KC_X)
 
 // rename some keys here to allow for the difference in keymap between US and GB
 #define MY_PIPE LSFT(KC_NUBS)
@@ -63,11 +57,13 @@ enum userspace_layers {
 #define MY_GBP KC_HASH      // just shift-3
 #define ALT_TAB ALT_T(KC_TAB)
 
+// one shot mod and layer keys to make the map shorter
 #define OSM_ALT OSM(MOD_LALT)
 #define OSM_GUI OSM(MOD_LGUI)
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_SFT OSM(MOD_LSFT)
-#define OSL_FUN OSL(LFUN)
+#define OSL_FUN OSL(LFUN) 
+
 
 enum custom_keycodes {
     LLOCK = SAFE_RANGE,
@@ -91,20 +87,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             KC_LEAD,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_LEAD,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                       OSM_GUI, OSL(LNUM), CTL_T(KC_SPC),    SFT_T(KC_BSPC), OSL(LSYM), OSM_ALT
+                                       //OSM_GUI, OSL(LNUM), CTL_T(KC_SPC),    SFT_T(KC_BSPC), OSL(LSYM), OSM_ALT
+                                       KC_LGUI, KC_LCTL, LT(LNUM, KC_SPC),    LT(LSYM, KC_BSPC), KC_LSFT, OSM_ALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            _______,  KC_TAB, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, MY_TILD,   MY_AT, KC_NUBS, _______,
+            _______,  KC_TAB, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, KC_NUBS, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______,  KC_ESC, KC_AMPR, KC_LBRC, KC_RBRC, KC_UNDS,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, _______,
+            _______,  KC_ESC, KC_AMPR, KC_LBRC, KC_RBRC, MY_TILD,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   LLOCK,  MY_GBP, KC_LCBR, KC_RCBR,  KC_GRV,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                 // note that this is a momentary layer for the num layer. this is so the
                                                 // tri state layer change will work as we are in the symbol layer here
-                                               _______, MO(LNUM), _______,    _______,  _______, _______
+                                               //_______, MO(LNUM), _______,    _______,  _______, _______
+                                               _______, _______, _______,    _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
@@ -117,7 +115,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                 // note that this is a momentary layer for the symbol layer. this is so the
                                                 // tri state layer change will work as we are in the num layer here
-                                              XXXXXXX, _______,  KC_SPC,    KC_0,  MO(LSYM), XXXXXXX
+                                              //XXXXXXX, _______,  KC_SPC,    KC_0,  MO(LSYM), XXXXXXX
+                                              XXXXXXX, _______,  _______,    _______,  KC_0, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
@@ -128,7 +127,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               XXXXXXX,TO(LCMK), XXXXXXX,     KC_F10,  XXXXXXX, XXXXXXX
+                                               //XXXXXXX,TO(LCMK), XXXXXXX,     KC_F10,  XXXXXXX, XXXXXXX
+                                               XXXXXXX, XXXXXXX,TO(LCMK),     XXXXXXX,  KC_F10, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
@@ -139,18 +139,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   LLOCK, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              XXXXXXX, _______,  XXXXXXX,     XXXXXXX,  _______, XXXXXXX
+                                              XXXXXXX, _______, TO(LCMK),     XXXXXXX,  _______, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, RESET,   XXXXXXX,  KC_MS_UP,    XXXXXXX, XXXXXXX,             KC_MS_BTN3,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX,   RESET, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN3,                      XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, KC_WH_U,            KC_MS_BTN1, OSM_SFT, OSM_CTL, OSM_GUI, OSM_ALT, _______,
+            XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_BTN1,                      KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,TO(LCMK),KC_MS_BTN3,KC_MS_BTN2, KC_MS_BTN1, KC_WH_D,            KC_MS_BTN2,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX,TO(LCMK), KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN2,                      KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                XXXXXXX, TO(LCMK),XXXXXXX,    XXXXXXX,  TO(LCMK), XXXXXXX
+                                                XXXXXXX, KC_BTN1, TO(LCMK), TO(LCMK),  KC_BTN2, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     )
 };
