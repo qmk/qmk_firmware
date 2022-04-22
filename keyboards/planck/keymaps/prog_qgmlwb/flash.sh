@@ -1,8 +1,8 @@
 #!/bin/bash
 
 main() {
-    . lib/config.sh
-    . lib/parse.sh
+    . util/config.sh
+    . util/parse.sh
     parse_args $@
 
     $do_init_qmk && init_qmk
