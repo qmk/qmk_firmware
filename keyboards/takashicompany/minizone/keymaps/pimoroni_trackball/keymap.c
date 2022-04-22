@@ -32,11 +32,10 @@ uint16_t click_layer = 9;   // マウス入力が可能になった際に有効�
 int16_t scroll_v_counter;   // 垂直スクロールの入力をカウントする
 int16_t scroll_h_counter;   // 水平スクロールの入力をカウントする
 
-int16_t scroll_v_threshold = 30;    // この閾値を超える度に垂直スクロールが実行される
-int16_t scroll_h_threshold = 30;    // この閾値を超える度に水平スクロールが実行される
+int16_t scroll_v_threshold = 15;    // この閾値を超える度に垂直スクロールが実行される
+int16_t scroll_h_threshold = 15;    // この閾値を超える度に水平スクロールが実行される
 
 int16_t after_click_lock_movement = 0;      // クリック入力後の移動量を測定する変数
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -104,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MY_BTN1, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_MY_SCR, KC_MS_BTN1, KC_TRNS, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_MY_SCR, KC_MY_BTN1, KC_TRNS, KC_MY_SCR, KC_MY_BTN2, KC_MY_BTN3, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
@@ -171,7 +170,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MY_BTN2:
         case KC_MY_BTN3:
         {
-            dprintf("my_btn: %d \n", keycode);
             report_mouse_t currentReport = pointing_device_get_report();
 
             // どこのビットを対象にするか
@@ -222,8 +220,8 @@ int16_t history_t[10] = {};
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
-    int16_t current_x = history_x[0];
-    int16_t current_y = history_y[0];
+    int16_t current_x = state == SCROLLING ? mouse_report.x : history_x[0];
+    int16_t current_y = state == SCROLLING ? mouse_report.y : history_y[0];
     int16_t current_h = 0;
     int16_t current_v = 0;
 
@@ -248,10 +246,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     history_x[history_length - 1] = mouse_report.x;
     history_y[history_length - 1] = mouse_report.y;
-
-   
-    // dprintf("x:%4d y:%4d \n", mouse_report.x,  mouse_report.y);
-    
 
     if (current_x != 0 || current_y != 0) {
         
@@ -297,11 +291,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
                     while (my_abs(scroll_h_counter) > scroll_h_threshold) {
                         if (scroll_h_counter < 0) {
-                            // tap_code16(KC_WH_L);
                             scroll_h_counter += scroll_h_threshold;
                             rep_h += scroll_h_threshold;
                         } else {
-                            // tap_code16(KC_WH_R);
                             scroll_h_counter -= scroll_h_threshold;
                             rep_h -= scroll_h_threshold;
                         }
@@ -355,112 +347,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     mouse_report.y = current_y * 2;
     mouse_report.h = current_h * 2;
     mouse_report.v = current_v * 2;
-    //mouse_report.buttons = 0;
 
     return mouse_report;
 
 }
-
-
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  //debug_matrix=true;
-  //debug_keyboard=true;
-  // debug_mouse=true;
-}
-
-/*
-int history_length = 100;
-
-int16_t history_x[100] = {};
-int16_t history_y[100] = {};
-int16_t history_t[100] = {};
-
-int16_t record_start;
-bool is_recording;
-int history_index = 0;
-
-int16_t move_x;
-int16_t move_y;
-int16_t remain_move;
-
-
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-
-    int16_t current_x = mouse_report.x;
-    int16_t current_y = mouse_report.y;
-
-    mouse_report.x = 0;
-    mouse_report.y = 0;
-
-    if (current_x != 0 || current_y != 0)
-    {
-        history_x[history_index] = current_x;
-        history_y[history_index] = current_y;
-        history_t[history_index] = timer_read();
-
-        history_index++;
-        if (!is_recording)
-        {
-            is_recording = true;
-            record_start = timer_read();
-        }
-    }
-
-    if (is_recording)
-    {
-        if (timer_elapsed(record_start) > 10)
-        {
-            // move_x *= remain_move;
-            // move_y *= remain_move;
-
-            for (int i = 0; i < history_index; i++)
-            {
-                move_x += history_x[i];
-                move_y += history_y[i];
-                history_x[i] = 0;
-                history_y[i] = 0;
-            }
-
-            // double rad = atan2(move_y, move_x);
-            // // double length = sqrt(pow(move_x, 2) + pow(move_y, 2));
-
-            // move_x = (int16_t)(cos(rad) * 2);
-            // move_y = (int16_t)(sin(rad) * 2);
-
-            remain_move += 3;
-            // move_x /= remain_move;
-            // move_y /= remain_move;
-
-            // mouse_report.x = move_x;
-            // mouse_report.y = move_y;
-
-            // move_x = 0;
-            // move_y = 0;
-
-            is_recording = false;
-            history_index = 0;
-
-            dprintf("fire: %d x:%d y:%d \n", timer_elapsed(record_start), move_x, move_y);
-        }
-    }
-
-   
-
-    if (remain_move > 0)
-    {
-        mouse_report.x = move_x;
-        mouse_report.y = move_y;
-
-        remain_move--;
-    }
-
-    return mouse_report;
-
-}
-*/
 
 
 
