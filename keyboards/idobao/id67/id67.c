@@ -56,6 +56,6 @@ led_config_t g_led_config = { {
 __attribute__ ((weak))
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(ID67_CAPS_LOCK_KEY_INDEX, 0xFF, 0xFF, 0xFF);
+        rgb_matrix_set_color(23, 0xFF, 0xFF, 0xFF);
     }
 }
