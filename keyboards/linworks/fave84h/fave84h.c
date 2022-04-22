@@ -102,4 +102,3 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
 }
 
 #endif // defined(VIA_ENABLE) && defined(VIA_CUSTOM_LIGHTING_ENABLE)
-#endif // defined(VIA_ENABLE) && defined(VIA_CUSTOM_LIGHTING_ENABLE)
