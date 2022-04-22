@@ -40,3 +40,5 @@ enum keyboard_layouts {
 #define QERaise MO(QGMLW_US_RAISE)
 
 #define adjust MO(ADJUST)
+
+extern const uint16_t PROGMEM keymaps [][MATRIX_ROWS][MATRIX_COLS];

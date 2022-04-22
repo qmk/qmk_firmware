@@ -1,7 +1,7 @@
 // Copyright 2022 David Kristoffersen (@davidkristoffersen)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "base.h"
+#include "layouts.h"
 
 const uint16_t PROGMEM keymaps [][MATRIX_ROWS][MATRIX_COLS] = {
     /* QGMLW

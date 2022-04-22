@@ -1,5 +1,5 @@
 # Compiler source files
-SRC += src/base.c src/base/functions.c src/macros/macros.c src/macros/static.c src/macros/dynamic.c
+SRC += src/keymap/layouts.c src/util/functions.c src/macros/macros.c src/macros/static.c src/macros/dynamic.c
 
 # Firmware size optimizations
 CONSOLE_ENABLE	= no	# 1646: Console for debug
