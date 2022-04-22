@@ -37,6 +37,15 @@ CXXFLAGS += -fno-exceptions -std=c++11
 
 LDFLAGS += -Wl,--gc-sections
 
+# Use AVR's libc minimal printf implementation which has less features
+# and thus can shave ~400 bytes. Usually we use the xprintf
+# implementation but keyboards that use s(n)printf automatically
+# pull in the AVR libc implementation, which is ~900 bytes heavy.
+AVR_USE_MINIMAL_PRINTF ?= no
+ifeq ($(strip $(AVR_USE_MINIMAL_PRINTF)), yes)
+	LDFLAGS += -Wl,--whole-archive -lprintf_min -Wl,--no-whole-archive
+endif
+
 OPT_DEFS += -DF_CPU=$(F_CPU)UL
 
 MCUFLAGS = -mmcu=$(MCU)
