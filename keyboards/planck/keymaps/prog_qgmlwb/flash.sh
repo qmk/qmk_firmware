@@ -1,12 +1,8 @@
 #!/bin/bash
 
-do_init_qmk=false
-do_compile=true
-do_flash_cli=false
-
 main() {
-    . config.sh
-    . flash_util.sh
+    . lib/config.sh
+    . lib/parse.sh
     parse_args $@
 
     $do_init_qmk && init_qmk

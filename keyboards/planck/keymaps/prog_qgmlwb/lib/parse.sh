@@ -1,14 +1,11 @@
 #!/bin/bash
 
-col_res="\e[m"
-col_yel="\e[33m"
-col_gre="\e[32m"
-
 parse_args() {
-    repo="$(
-        cd ../../../../..
-        pwd
-    )"
+    # Default values
+    do_init_qmk=false
+    do_compile=true
+    do_flash_cli=false
+
     SHORT=i,c,C,f,F,p:,b:,h
     LONG=init,compile,no-compile,flash-cli,no-flash-cli,pcb:,bootloader:,help
     OPTS=$(getopt -a -n flash.sh --options $SHORT --longoptions $LONG -- "$@")
@@ -61,10 +58,10 @@ parse_args() {
 }
 
 help() {
-    echo -e "${col_yel}USAGE:$col_res"
+    echo -e "${col_yellow}USAGE:$col_reset"
     echo -e "\tflash.sh [OPTIONS]"
     echo
-    echo -e "${col_yel}OPTINOS:$col_res"
+    echo -e "${col_yellow}OPTINOS:$col_reset"
     out="$(col_opt i init "Initialize qmk config")"
     out="$out\n$(col_opt p pcb "Set pcb version")"
     out="$out\n$(col_opt b bootloader "Set bootloader type")"
@@ -78,5 +75,5 @@ help() {
 }
 
 col_opt() {
-    echo -e "\t$col_gre-$1$col_res, $col_gre--$2$col_res\t$3"
+    echo -e "\t$col_green-$1$col_reset, $col_green--$2$col_reset\t$3"
 }

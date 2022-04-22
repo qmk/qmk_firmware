@@ -9,7 +9,12 @@ keyboard_type="$keyboard/$pcb"
 keymap="prog_qgmlwb"
 layout="LAYOUT_ortho_4x12"
 
-build_dir="../build"
+repo="$(realpath $PWD/../../../..)"
+build_dir="build"
 build_hex="$build_dir/keymap.hex"
 build_import="$build_dir/import.json"
 build_layers="$build_dir/layers.json"
+
+col_reset="\e[m"
+col_yellow="\e[33m"
+col_green="\e[32m"

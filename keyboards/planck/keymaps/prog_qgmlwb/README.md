@@ -39,7 +39,7 @@ cd <path/name>/keyboards/planck/keymaps/prog_qgmlwb
 ### Initialize QMK the first time
 
 ```bash
-./scripts/flash.sh --init --no-compile
+./flash.sh --init --no-compile
 ```
 
 ### Compile and flash keyboard
@@ -47,16 +47,16 @@ cd <path/name>/keyboards/planck/keymaps/prog_qgmlwb
 - QMK toolbox
 
 ```bash
-./scripts/flash.sh
+./flash.sh
 ```
 
 - Terminal
 
 ```bash
-./scripts/flash.sh -f
+./flash.sh --flash-cli
 ```
 
-Change the `pcb` and `bootloader` variables in `scripts/config.sh` if it does not match your keyboard.
+Change the `pcb` and `bootloader` variables in `lib/config.sh` if it does not match your keyboard.
 
 ## QMK documentation
 
@@ -64,7 +64,7 @@ Found in the QMK docs: <https://docs.qmk.fm>
 
 ## Printing layout
 
-This keymap uses macros such that [qmk configurator](https://config.qmk.fm) cannot match its behavior. Instead, the images are designed using the [pimpmykeyboard layout editor](http://www.keyboard-layout-editor.com). The folder `print_layouts` contains the image source JSON files that can be imported into the editor using the `Raw Data` field.
+This keymap uses macros such that [qmk configurator](https://config.qmk.fm) cannot match its behavior. Instead, the images are designed using the [pimpmykeyboard layout editor](http://www.keyboard-layout-editor.com). The folder `printout` contains the image source JSON files that can be imported into the editor using the `Raw Data` field.
 
 ## Future additions
 
