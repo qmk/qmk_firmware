@@ -1,5 +1,4 @@
 /* Copyright 2021 Tybera
- * Copyright 2022 thewerther
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * NB!  THIS VARIANT DISABLES THE UNDERGLOW LEDs
+ *      FOR BOARDS WITH A SOLID (NON-ACRILIC) BOTTOM
+ */
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -26,11 +30,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LGUI,   KC_LALT,                       KC_SPC,                              MO(1),     KC_RCTL,   KC_LEFT,   KC_DOWN,    KC_RGHT
     ),
     [1] = LAYOUT_65_ansi_blocker(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,          _______,
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,          _______,
         _______,     RGB_TOG, KC_UP,   RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______,      _______,
         _______,       KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______,             _______,
-        _______,           RESET,  RGB_SPI,  RGB_SPD, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, KC_DEL,  KC_END,  KC_PGDN, _______,         _______,
+        _______,            RESET,   BL_DEC,  BL_TOGG, BL_INC,  KC_VOLD, KC_MUTE, KC_VOLU, _______, KC_DEL,  KC_END,  KC_PGDN, _______,        _______,
         _______,   _______,   _______,                      _______,                              _______,   _______,   _______,   _______,    _______
     ),
-
+	[2] = LAYOUT_65_ansi_blocker(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,
+        _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______,
+        _______,            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,        _______,
+        _______,   _______,   _______,                      _______,                              _______,   _______,   _______,   _______,    _______
+    ),
+	[3] = LAYOUT_65_ansi_blocker(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,
+        _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______,
+        _______,            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,        _______,
+        _______,   _______,   _______,                      _______,                              _______,   _______,   _______,   _______,    _______
+    ),
 };

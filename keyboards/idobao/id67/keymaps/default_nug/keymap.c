@@ -15,6 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * NB!  THIS VARIANT DISABLES THE UNDERGLOW LEDs
+ *      FOR BOARDS WITH A SOLID (NON-ACRILIC) BOTTOM
+ */
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
