@@ -121,7 +121,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (host_keyboard_led_state().caps_lock) {
         if (isRGBOff) {
-            rgb_matrix_set_color(ID67_CAPS_LOCK_KEY_INDEX, v, v, v);  // white
+            rgb_matrix_set_color(23, v, v, v);  // white
         } else {
             // Caps Lock key/LED
             if (timer_elapsed(recording_timer) > 500) {
@@ -129,7 +129,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 recording_timer = timer_read();
             }
             if (isCapsBlink) {
-                rgb_matrix_set_color(ID67_CAPS_LOCK_KEY_INDEX, v, v, v);  // white
+                rgb_matrix_set_color(23, v, v, v);  // white
             }
 
             // Alpha keys/LEDs
@@ -144,7 +144,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         uint8_t g = 0;
         uint8_t b = 0;
 
-        if ((g_led_config.flags[ID67_CAPS_LOCK_KEY_INDEX] & LED_FLAG_LAYER_IND) != 0) {
+        if ((g_led_config.flags[23] & LED_FLAG_LAYER_IND) != 0) {
             switch (current_layer) {
                 case LAYER_1: b = v; break;  // blue
                 case LAYER_2: g = v; break;  // green
@@ -152,7 +152,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
 
-        rgb_matrix_set_color(ID67_CAPS_LOCK_KEY_INDEX, r, g, b);  // off
+        rgb_matrix_set_color(23, r, g, b);  // off
     }
 
     // Layer indicator stuff
