@@ -171,7 +171,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 state = SCROLLING;
             } else {
                 // disable_click_layer(); // スクロールキーを離したらクリックレイヤーを無効にする
-
                 enable_click_layer();   // スクロールキーを離した時に再度クリックレイヤーを有効にする
             }
          return false;
@@ -250,11 +249,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                     scroll_v_counter += current_y;
                     while (my_abs(scroll_v_counter) > scroll_v_threshold) {
                         if (scroll_v_counter < 0) {
-                            //tap_code16(KC_WH_U);
                             scroll_v_counter += scroll_v_threshold;
                             rep_v += scroll_v_threshold;
                         } else {
-                            //tap_code16(KC_WH_D);
                             scroll_v_counter -= scroll_v_threshold;
                             rep_v -= scroll_v_threshold;
                         }
