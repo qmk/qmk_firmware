@@ -813,6 +813,10 @@ void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
 }
 
 void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times) {
+    if (times > UINT8_MAX / 2) {
+        times = UINT8_MAX / 2;
+    }
+
     _times_remaining = times * 2;
     _dur             = duration_ms;
 
@@ -825,18 +829,19 @@ void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t ti
 void rgblight_blink_layer_repeat_helper(void) {
     if (_blinking_layer_mask != 0 && timer_expired(sync_timer_read(), _repeat_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0 && _times_remaining > 0) {
+            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
                 if (_times_remaining % 2 == 1) {
                     rgblight_set_layer_state(layer, false);
                 } else {
                     rgblight_set_layer_state(layer, true);
                 }
-                _times_remaining--;
-                _repeat_timer = sync_timer_read() + _dur;
             }
         }
+        _times_remaining--;
         if (_times_remaining <= 0) {
             _blinking_layer_mask = 0;
+        } else {
+            _repeat_timer = sync_timer_read() + _dur;
         }
     }
 }
