@@ -1,6 +1,6 @@
 # Krush65 Hotswap
 
-![Krush65](https://imgur.com/56ZvWUm.jpg)
+![Krush65](https://imgur.com/56ZvWUmh.jpg)
 
 A 65% keyboard PCB made and sold by SawnsProjects with Nuxros in [mechkey.store](https://mechkey.store/blogs/store-updates/introducing-krush-65). 
 
