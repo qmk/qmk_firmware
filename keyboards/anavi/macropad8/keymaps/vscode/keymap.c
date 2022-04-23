@@ -18,12 +18,14 @@
 
 enum layers {
     _BASIC,
+    _BRACKETS,
     _FN,
 };
 
 
 #define KC_X0 LT(_FN, KC_ESC)
 
+static char current_alpha_oled [12] = "None";
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* _BASIC Layer
@@ -33,24 +35,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Comment | Comment |        |         |
  * |---------+---------+--------+---------+
  * |         |         |        |   TO    |
- * |  Cut    |   Copy  |  Paste |   _FN   |   
+ * |  Cut    |   Copy  |  Paste |   _FN   |
  * |         |         |        |         |
- *  `-------------------------------------' 
+ *  `-------------------------------------'
  */ 
   [_BASIC] = LAYOUT_ortho_2x4(
      RCS(KC_A), C(KC_SLASH), C(KC_Z),  C(KC_Y),
-     C(KC_X),   C(KC_C),     C(KC_V),  TO(_FN)
+     C(KC_X),   C(KC_C),     C(KC_V),  TO(_BRACKETS)
+  ),
+/* _BRACKETS Layer
+ * ,-------------------------------------.
+ * |         |         |        |         |
+ * |  (      |   [     |   {    |   Bksp  |
+ * |         |         |        |         |
+ * |---------+---------+--------+---------+
+ * |         |         |        |   TO    |
+ * |  Del    |   Copy  |  Paste |   _FN   |
+ * |         |         |        |         |
+ *  `-------------------------------------'
+ */ 
+  [_BRACKETS] = LAYOUT_ortho_2x4(
+     S(KC_9), KC_LBRC, S(KC_LBRC), KC_BACKSPACE,
+     KC_DEL, C(KC_C), C(KC_V),    TO(_FN)
   ),
 /* _FN Layer
  * ,--------------------------------------------.
  * | RGB       |  RGB      |  RGB      | RGB     |
  * | Toggle    |  Mode     |  Mode     | Snake   |
- * |           |  Forward  | Reverse   | Mode    |         
+ * |           |  Forward  | Reverse   | Mode    |
  * |-----------+-----------+-----------+---------+
  * |           |  Cycle    |  Toggle   |  TO     |
- * | BackLight | BackLight | BackLight |  _BASIC |  
- * |  Toggle   |   Levels  |           |         |
- *  `--------------------------------------------' 
+ * | BackLight | BackLight | BackLight |  _BASIC |
+ * |  Toggle   |   Levels  | Breathing |         |
+ *  `--------------------------------------------'
  */ 
   [_FN] = LAYOUT_ortho_2x4(
      RGB_TOG, RGB_MOD, RGB_M_R, RGB_M_SN,
@@ -63,6 +80,84 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        char string [33];
+        switch(keycode)
+        {
+            //First Layer with Basic Keys
+            case 283:
+                strncpy(current_alpha_oled, "Cut", sizeof(current_alpha_oled));
+                break;
+            case 284:
+                strncpy(current_alpha_oled, "Redo", sizeof(current_alpha_oled));
+                break;
+            case 285:
+                strncpy(current_alpha_oled, "Undo", sizeof(current_alpha_oled));
+                break;
+            case 262:
+                strncpy(current_alpha_oled, "Copy", sizeof(current_alpha_oled));
+                break;
+            case 281:
+                strncpy(current_alpha_oled, "Paste", sizeof(current_alpha_oled));
+                break;
+            case 4868:
+                strncpy(current_alpha_oled, "Block cmt.", sizeof(current_alpha_oled));
+                break;
+            case 312:
+                strncpy(current_alpha_oled, "Line cmt.", sizeof(current_alpha_oled));
+                break;
+            //Second Layer with Brackets
+            case 550:
+                strncpy(current_alpha_oled, "()", sizeof(current_alpha_oled));
+                break;
+            case 47:
+                strncpy(current_alpha_oled, "[]", sizeof(current_alpha_oled));
+                break;
+            case 559:
+                strncpy(current_alpha_oled, "{}", sizeof(current_alpha_oled));
+                break;
+            case 42:
+                strncpy(current_alpha_oled, "Backspace", sizeof(current_alpha_oled));
+                break;
+            case 76:
+                strncpy(current_alpha_oled, "DEL", sizeof(current_alpha_oled));
+                break;
+            // FN Layer keys
+            case 23747:
+                strncpy(current_alpha_oled, "RGB Toggle", sizeof(current_alpha_oled));
+                break;
+            case 23748:
+                strncpy(current_alpha_oled, "RGB Fwd", sizeof(current_alpha_oled));
+                break;
+            case 23760:
+                strncpy(current_alpha_oled, "RGB Rev", sizeof(current_alpha_oled));
+                break;
+            case 23762:
+                strncpy(current_alpha_oled, "RGB Snk", sizeof(current_alpha_oled));
+                break;
+            case 23744:
+                strncpy(current_alpha_oled, "BkLgt Tog", sizeof(current_alpha_oled));
+                break;
+            case 23745:
+                strncpy(current_alpha_oled, "BkLgt Lvl", sizeof(current_alpha_oled));
+                break;
+            case 23746:
+                strncpy(current_alpha_oled, "BkLgt Brth", sizeof(current_alpha_oled));
+                break;
+            //FN Key keycodes
+            case 20496: 
+            case 20497:
+            case 20498:
+               strncpy(current_alpha_oled, "Switcher", sizeof(current_alpha_oled));
+               break;
+            default:
+               strncpy(current_alpha_oled, itoa(keycode, string, 10), sizeof(current_alpha_oled));
+               break;
+        }
+    }
+    return true;
+}
 
 bool oled_task_user(void) {
   // Host Keyboard Layer Status
@@ -72,6 +167,9 @@ bool oled_task_user(void) {
   switch (get_highest_layer(layer_state)) {
     case _BASIC:
       oled_write_ln_P(PSTR("Basic"), false);
+      break;
+    case _BRACKETS:
+      oled_write_ln_P(PSTR("Brkts"), false);
       break;
     case _FN:
       oled_write_ln_P(PSTR("FN"), false);
@@ -90,6 +188,8 @@ bool oled_task_user(void) {
   oled_write_ln_P(led_state.caps_lock ? PSTR("On") : PSTR("Off"), false);
   oled_write_P(PSTR("Backlit: "), false);
   oled_write_ln_P(is_backlight_enabled() ? PSTR("On") : PSTR("Off"), false);
+  oled_write_P(PSTR("Last Key: "), false);
+  oled_write_ln(current_alpha_oled, false);
 #ifdef RGBLIGHT_ENABLE
   static char rgbStatusLine1[26] = {0};
   snprintf(rgbStatusLine1, sizeof(rgbStatusLine1), "RGB Mode: %d", rgblight_get_mode());
