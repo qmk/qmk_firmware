@@ -23,6 +23,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_IC_SSD1306 0
 #define OLED_IC_SH1106 1
 
+#define OLED_BUS_I2C 0
+#define OLED_BUS_SPI 1
+
+// Define the bus for the chip
+#ifndef OLED_BUS
+#   define OLED_BUS OLED_BUS_I2C //Defaults to I2C
+#endif
+
+#if (OLED_BUS == OLED_BUS_SPI)
+#   ifndef OLED_DC_PIN
+#       error "The OLED driver in SPI needs a D/C pin defined"
+#   endif
+#   ifndef OLED_CS_PIN
+#       error "The OLED driver in SPI needs a CS pin defined"
+#   endif
+#endif
+
 #if defined(OLED_DISPLAY_CUSTOM)
 // Expected user to implement the necessary defines
 #elif defined(OLED_DISPLAY_128X64)

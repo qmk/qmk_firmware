@@ -14,8 +14,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "i2c_master.h"
 #include "oled_driver.h"
+
+#if (OLED_BUS == OLED_BUS_I2C)
+#   include "i2c_master.h"
+#endif
+#if (OLED_BUS == OLED_BUS_SPI)
+#   include "spi_master.h"
+#endif
+
+#include <quantum.h>
 #include OLED_FONT_H
 #include "timer.h"
 #include "print.h"
@@ -92,16 +100,126 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_ALL_BLOCKS_MASK (((((OLED_BLOCK_TYPE)1 << (OLED_BLOCK_COUNT - 1)) - 1) << 1) | 1)
 
-// i2c defines
-#define I2C_CMD 0x00
-#define I2C_DATA 0x40
+#define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
+
+#if OLED_BUS == OLED_BUS_I2C // i2c defines
+#   define I2C_CMD 0x00
+#   define I2C_DATA 0x40
+#   define OLED_STATUS_SUCCESS I2C_STATUS_SUCCESS
+#else // spi defines
+#   define OLED_STATUS_SUCCESS SPI_STATUS_SUCCESS
+
+    void oled_spi_init(void) {
+        spi_init();
+
+        setPinOutput(OLED_CS_PIN);
+        writePinHigh(OLED_CS_PIN);
+
+        setPinOutput(OLED_DC_PIN);
+        writePinLow(OLED_DC_PIN);
+
+        spi_start(OLED_CS_PIN, false, 2, 10);
+    }
+
+    void oled_spi_start(void) {
+        spi_start(OLED_CS_PIN, false, 3, 8); /* MSB first, mode 3 */
+    }
+
+    void oled_spi_stop(void) {
+        spi_stop();
+    }
+#endif
+
+// Internal variables to reduce math instructions
 #if defined(__AVR__)
-#    define I2C_TRANSMIT_P(data) i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), OLED_I2C_TIMEOUT)
-#else // defined(__AVR__)
-#    define I2C_TRANSMIT_P(data) i2c_transmit((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), OLED_I2C_TIMEOUT)
-#endif // defined(__AVR__)
-#define I2C_TRANSMIT(data) i2c_transmit((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), OLED_I2C_TIMEOUT)
-#define I2C_WRITE_REG(mode, data, size) i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), mode, data, size, OLED_I2C_TIMEOUT)
+// identical to i2c_transmit, but for PROGMEM since all initialization is in PROGMEM arrays currently
+// probably should move this into i2c_master...
+static i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout) {
+    i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
+
+    for (uint16_t i = 0; i < length && status >= 0; i++) {
+        status = i2c_write(pgm_read_byte((const char *)data++), timeout);
+        if (status) break;
+    }
+
+    i2c_stop();
+
+    return status;
+}
+#endif
+
+// Transmit/Write Funcs.
+bool oled_cmd(const uint8_t *data, uint16_t size) {
+#if (OLED_BUS == OLED_BUS_I2C)
+    // Send the I2C command
+    if(i2c_transmit((OLED_DISPLAY_ADDRESS << 1), I2C_CMD, 1, OLED_I2C_TIMEOUT) != OLED_STATUS_SUCCESS){
+        return false;
+    }
+    // Send the commands
+    if(i2c_transmit((OLED_DISPLAY_ADDRESS << 1), data, size, OLED_I2C_TIMEOUT) != OLED_STATUS_SUCCESS){
+        return false;
+    }
+
+    return true;
+#else
+    oled_spi_start();
+    // Command Mode
+    writePinLow(OLED_DC_PIN);
+    wait_ms(10);
+    // Send the commands
+    if(spi_transmit(data, size) != OLED_STATUS_SUCCESS){
+        oled_spi_stop();
+        return false;
+    }
+    oled_spi_stop();
+    return true;
+#endif // (OLED_BUS == OLED_BUS_I2C)
+}
+
+bool oled_cmd_p(const uint8_t *data, uint16_t size) {
+#if (OLED_BUS == OLED_BUS_I2C && defined(__AVR__))
+    // Send the I2C command
+    if(i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), I2C_CMD, 1, OLED_I2C_TIMEOUT) != OLED_STATUS_SUCCESS){
+        return false;
+    }
+    // Send the commands
+    if(i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), I2C_CMD, size, OLED_I2C_TIMEOUT) != OLED_STATUS_SUCCESS){
+        return false;
+    }
+
+    return true;
+#else
+    return oled_cmd(data, size);
+#endif // (OLED_BUS == OLED_BUS_I2C) && defined(__AVR__)
+}
+
+bool oled_write_reg(const uint8_t *data, uint16_t size)
+{
+#if (OLED_BUS == OLED_BUS_I2C)
+    // Send the I2C command
+    if(i2c_transmit((OLED_DISPLAY_ADDRESS << 1), I2C_CMD, 1, OLED_I2C_TIMEOUT) != OLED_STATUS_SUCCESS){
+        return false;
+    }
+    // Send the data
+    if(i2c_transmit((OLED_DISPLAY_ADDRESS << 1), data, size, OLED_I2C_TIMEOUT) != OLED_STATUS_SUCCESS){
+        return false;
+    }
+
+    return true;
+#else
+    oled_spi_start();
+    // Command Mode
+    writePinHigh(OLED_DC_PIN);
+    wait_ms(10);
+    // Send the commands
+    if(spi_transmit(data, size) != OLED_STATUS_SUCCESS){
+        oled_spi_stop();
+        return false;
+    }
+    oled_spi_stop();
+    return true;
+#endif // (OLED_BUS == OLED_BUS_I2C)
+}
 
 #define HAS_FLAGS(bits, flags) ((bits & flags) == flags)
 
@@ -132,25 +250,6 @@ uint32_t oled_scroll_timeout;
 uint16_t oled_update_timeout;
 #endif
 
-// Internal variables to reduce math instructions
-
-#if defined(__AVR__)
-// identical to i2c_transmit, but for PROGMEM since all initialization is in PROGMEM arrays currently
-// probably should move this into i2c_master...
-static i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
-
-    for (uint16_t i = 0; i < length && status >= 0; i++) {
-        status = i2c_write(pgm_read_byte((const char *)data++), timeout);
-        if (status) break;
-    }
-
-    i2c_stop();
-
-    return status;
-}
-#endif
-
 // Flips the rendering bits for a character at the current cursor position
 static void InvertCharacter(uint8_t *cursor) {
     const uint8_t *end = cursor + OLED_FONT_WIDTH;
@@ -173,10 +272,23 @@ bool oled_init(oled_rotation_t rotation) {
     } else {
         oled_rotation_width = OLED_DISPLAY_HEIGHT;
     }
+
+#if (OLED_BUS == OLED_BUS_I2C)
     i2c_init();
+#else
+    oled_spi_init();
+#endif
+
+#ifdef OLED_RST_PIN
+    /* Reset device */
+    setPinOutput(OLED_RST_PIN);
+    writePinLow(OLED_RST_PIN);
+    wait_ms(20);
+    writePinHigh(OLED_RST_PIN);
+    wait_ms(20);
+#endif
 
     static const uint8_t PROGMEM display_setup1[] = {
-        I2C_CMD,
         DISPLAY_OFF,
         DISPLAY_CLOCK,
         0x80,
@@ -193,27 +305,28 @@ bool oled_init(oled_rotation_t rotation) {
         0x00, // Horizontal addressing mode
 #endif
     };
-    if (I2C_TRANSMIT_P(display_setup1) != I2C_STATUS_SUCCESS) {
+
+    if (!oled_cmd_p(display_setup1, ARRAY_SIZE(display_setup1))) {
         print("oled_init cmd set 1 failed\n");
         return false;
     }
 
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_180)) {
-        static const uint8_t PROGMEM display_normal[] = {I2C_CMD, SEGMENT_REMAP_INV, COM_SCAN_DEC};
-        if (I2C_TRANSMIT_P(display_normal) != I2C_STATUS_SUCCESS) {
+        static const uint8_t PROGMEM display_normal[] = {SEGMENT_REMAP_INV, COM_SCAN_DEC};
+        if (!oled_cmd_p(display_normal, ARRAY_SIZE(display_normal))) {
             print("oled_init cmd normal rotation failed\n");
             return false;
         }
     } else {
-        static const uint8_t PROGMEM display_flipped[] = {I2C_CMD, SEGMENT_REMAP, COM_SCAN_INC};
-        if (I2C_TRANSMIT_P(display_flipped) != I2C_STATUS_SUCCESS) {
+        static const uint8_t PROGMEM display_flipped[] = {SEGMENT_REMAP, COM_SCAN_INC};
+        if (!oled_cmd_p(display_flipped, ARRAY_SIZE(display_flipped))) {
             print("display_flipped failed\n");
             return false;
         }
     }
 
-    static const uint8_t PROGMEM display_setup2[] = {I2C_CMD, COM_PINS, OLED_COM_PINS, CONTRAST, OLED_BRIGHTNESS, PRE_CHARGE_PERIOD, 0xF1, VCOM_DETECT, 0x20, DISPLAY_ALL_ON_RESUME, NORMAL_DISPLAY, DEACTIVATE_SCROLL, DISPLAY_ON};
-    if (I2C_TRANSMIT_P(display_setup2) != I2C_STATUS_SUCCESS) {
+    static const uint8_t PROGMEM display_setup2[] = {COM_PINS, OLED_COM_PINS, CONTRAST, OLED_BRIGHTNESS, PRE_CHARGE_PERIOD, 0xF1, VCOM_DETECT, 0x20, DISPLAY_ALL_ON_RESUME, NORMAL_DISPLAY, DEACTIVATE_SCROLL, DISPLAY_ON};
+    if (!oled_cmd_p(display_setup2, ARRAY_SIZE(display_setup2))) {
         print("display_setup2 failed\n");
         return false;
     }
@@ -308,22 +421,22 @@ void oled_render(void) {
     }
 
     // Set column & page position
-    static uint8_t display_start[] = {I2C_CMD, COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1, PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1};
+    static uint8_t display_start[] = {COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1, PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1};
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
-        calc_bounds(update_start, &display_start[1]); // Offset from I2C_CMD byte at the start
+        calc_bounds(update_start, display_start);
     } else {
-        calc_bounds_90(update_start, &display_start[1]); // Offset from I2C_CMD byte at the start
+        calc_bounds_90(update_start, display_start);
     }
 
     // Send column & page position
-    if (I2C_TRANSMIT(display_start) != I2C_STATUS_SUCCESS) {
+    if (!oled_cmd(display_start, ARRAY_SIZE(display_start))) {
         print("oled_render offset command failed\n");
         return;
     }
 
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
         // Send render data chunk as is
-        if (I2C_WRITE_REG(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
+        if (!oled_write_reg(&oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE)) {
             print("oled_render data failed\n");
             return;
         }
@@ -339,7 +452,7 @@ void oled_render(void) {
         }
 
         // Send render data chunk after rotating
-        if (I2C_WRITE_REG(I2C_DATA, &temp_buffer[0], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
+        if (!oled_write_reg(temp_buffer, OLED_BLOCK_SIZE)) {
             print("oled_render90 data failed\n");
             return;
         }
@@ -563,13 +676,13 @@ bool oled_on(void) {
 
     static const uint8_t PROGMEM display_on[] =
 #ifdef OLED_FADE_OUT
-        {I2C_CMD, FADE_BLINK, 0x00};
+        {FADE_BLINK, 0x00};
 #else
-        {I2C_CMD, DISPLAY_ON};
+        {DISPLAY_ON};
 #endif
 
     if (!oled_active) {
-        if (I2C_TRANSMIT_P(display_on) != I2C_STATUS_SUCCESS) {
+        if (!oled_cmd_p(display_on, ARRAY_SIZE(display_on))) {
             print("oled_on cmd failed\n");
             return oled_active;
         }
@@ -585,13 +698,13 @@ bool oled_off(void) {
 
     static const uint8_t PROGMEM display_off[] =
 #ifdef OLED_FADE_OUT
-        {I2C_CMD, FADE_BLINK, ENABLE_FADE | OLED_FADE_OUT_INTERVAL};
+        {FADE_BLINK, ENABLE_FADE | OLED_FADE_OUT_INTERVAL};
 #else
-        {I2C_CMD, DISPLAY_OFF};
+        {DISPLAY_OFF};
 #endif
 
     if (oled_active) {
-        if (I2C_TRANSMIT_P(display_off) != I2C_STATUS_SUCCESS) {
+        if (!oled_cmd_p(display_off, ARRAY_SIZE(display_off))) {
             print("oled_off cmd failed\n");
             return oled_active;
         }
@@ -609,9 +722,9 @@ uint8_t oled_set_brightness(uint8_t level) {
         return oled_brightness;
     }
 
-    uint8_t set_contrast[] = {I2C_CMD, CONTRAST, level};
+    uint8_t set_contrast[] = { CONTRAST, level};
     if (oled_brightness != level) {
-        if (I2C_TRANSMIT(set_contrast) != I2C_STATUS_SUCCESS) {
+        if (!oled_cmd(set_contrast, ARRAY_SIZE(set_contrast))) {
             print("set_brightness cmd failed\n");
             return oled_brightness;
         }
@@ -657,8 +770,8 @@ bool oled_scroll_right(void) {
     // Dont enable scrolling if we need to update the display
     // This prevents scrolling of bad data from starting the scroll too early after init
     if (!oled_dirty && !oled_scrolling) {
-        uint8_t display_scroll_right[] = {I2C_CMD, SCROLL_RIGHT, 0x00, oled_scroll_start, oled_scroll_speed, oled_scroll_end, 0x00, 0xFF, ACTIVATE_SCROLL};
-        if (I2C_TRANSMIT(display_scroll_right) != I2C_STATUS_SUCCESS) {
+        uint8_t display_scroll_right[] = {SCROLL_RIGHT, 0x00, oled_scroll_start, oled_scroll_speed, oled_scroll_end, 0x00, 0xFF, ACTIVATE_SCROLL};
+        if (!oled_cmd(display_scroll_right, ARRAY_SIZE(display_scroll_right))) {
             print("oled_scroll_right cmd failed\n");
             return oled_scrolling;
         }
@@ -675,8 +788,8 @@ bool oled_scroll_left(void) {
     // Dont enable scrolling if we need to update the display
     // This prevents scrolling of bad data from starting the scroll too early after init
     if (!oled_dirty && !oled_scrolling) {
-        uint8_t display_scroll_left[] = {I2C_CMD, SCROLL_LEFT, 0x00, oled_scroll_start, oled_scroll_speed, oled_scroll_end, 0x00, 0xFF, ACTIVATE_SCROLL};
-        if (I2C_TRANSMIT(display_scroll_left) != I2C_STATUS_SUCCESS) {
+        uint8_t display_scroll_left[] = {SCROLL_LEFT, 0x00, oled_scroll_start, oled_scroll_speed, oled_scroll_end, 0x00, 0xFF, ACTIVATE_SCROLL};
+        if (!oled_cmd(display_scroll_left, ARRAY_SIZE(display_scroll_left))) {
             print("oled_scroll_left cmd failed\n");
             return oled_scrolling;
         }
@@ -691,8 +804,8 @@ bool oled_scroll_off(void) {
     }
 
     if (oled_scrolling) {
-        static const uint8_t PROGMEM display_scroll_off[] = {I2C_CMD, DEACTIVATE_SCROLL};
-        if (I2C_TRANSMIT_P(display_scroll_off) != I2C_STATUS_SUCCESS) {
+        static const uint8_t PROGMEM display_scroll_off[] = {DEACTIVATE_SCROLL};
+        if (!oled_cmd_p(display_scroll_off, ARRAY_SIZE(display_scroll_off))) {
             print("oled_scroll_off cmd failed\n");
             return oled_scrolling;
         }
@@ -712,15 +825,15 @@ bool oled_invert(bool invert) {
     }
 
     if (invert && !oled_inverted) {
-        static const uint8_t PROGMEM display_inverted[] = {I2C_CMD, INVERT_DISPLAY};
-        if (I2C_TRANSMIT_P(display_inverted) != I2C_STATUS_SUCCESS) {
+        static const uint8_t PROGMEM display_inverted[] = {INVERT_DISPLAY};
+        if (!oled_cmd_p(display_inverted, ARRAY_SIZE(display_inverted))) {
             print("oled_invert cmd failed\n");
             return oled_inverted;
         }
         oled_inverted = true;
     } else if (!invert && oled_inverted) {
-        static const uint8_t PROGMEM display_normal[] = {I2C_CMD, NORMAL_DISPLAY};
-        if (I2C_TRANSMIT_P(display_normal) != I2C_STATUS_SUCCESS) {
+        static const uint8_t PROGMEM display_normal[] = {NORMAL_DISPLAY};
+        if (!oled_cmd_p(display_normal, ARRAY_SIZE(display_normal))) {
             print("oled_invert cmd failed\n");
             return oled_inverted;
         }

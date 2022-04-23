@@ -2,7 +2,7 @@
 
 ## Supported Hardware
 
-OLED modules using SSD1306 or SH1106 driver ICs, communicating over I2C.
+OLED modules using SSD1306 or SH1106 driver ICs, communicating over I2C or SPI.
 Tested combinations:
 
 |IC       |Size  |Platform|Notes                   |
@@ -18,7 +18,7 @@ Hardware configurations using Arm-based microcontrollers or different sizes of O
 
 ## Usage
 
-To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
+To enable the OLED feature, there are typically two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
 ```make
 OLED_ENABLE = yes
@@ -32,6 +32,17 @@ OLED_ENABLE = yes
 e.g.
 ```make
 OLED_DRIVER = SSD1306
+```
+
+## OLED bus
+|OLED Bus           |Tested Device              |
+|-------------------|---------------------------|
+|I2C (default)      |SSD1306 and SH1106         |
+|SPI                |SH1106                     |
+
+e.g.
+```make
+OLED_DRIVER_BUS = i2c
 ```
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
@@ -174,6 +185,16 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
 |`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
+
+## Configuring a SPI OLED
+
+If using a SPI OLED display, you'll need to define the following pins in your board's `config.h` and configure the (SPI Master Driver)[spi_driver.md]`
+
+|Defines            |Description                                                     |
+|-------------------|----------------------------------------------------------------|
+|OLED_DC_PIN        |Pin that determines whether the data pins are data or command   |
+|OLED_CS_PIN        |Pin that is used to select the chip                             |
+|OLED_RST_PIN       |Pin to reset the display                                        |
  ## 128x64 & Custom sized OLED Displays
 
  The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added a define, `OLED_DISPLAY_128X64`, to switch all the values to be used in a 128x64 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.
