@@ -3,6 +3,7 @@
 
 #include "static.h"
 
+
 // Replace key records with macros
 bool handle_dead_keys(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -20,8 +21,6 @@ bool handle_dead_keys(uint16_t keycode, keyrecord_t* record) {
 };
 
 bool process_static(uint16_t keycode, keyrecord_t* record) {
-    if (!handle_dead_keys(keycode, record)) {
-        return false;
-    }
+    handle_false(handle_dead_keys(keycode, record));
     return true;
 }

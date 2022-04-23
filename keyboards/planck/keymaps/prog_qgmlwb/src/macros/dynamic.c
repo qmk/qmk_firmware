@@ -50,8 +50,6 @@ bool handle_special_characters(uint16_t keycode, keyrecord_t* record) {
 }
 
 bool process_dynamic(uint16_t keycode, keyrecord_t* record) {
-    if (!handle_special_characters(keycode, record)) {
-        return false;
-    }
+    handle_false(handle_special_characters(keycode, record));
     return true;
 }
