@@ -2,7 +2,7 @@
 
 ![littlefoot_lx](https://i.imgur.com/0WhgT5yh.jpeg)
 
-*A short description of the keyboard/project*
+The Littlefoot LX is a premium, integrated pcb version of the Littlefoot by The_Royal. 
 
 * Keyboard Maintainer: [tominabox1](https://github.com/tominabox1)
 * Hardware Supported: *Littlefoot LX integrated ATMega32u4*
