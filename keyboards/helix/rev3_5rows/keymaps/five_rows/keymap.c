@@ -422,5 +422,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    INIT_HELIX_OLED(); /* define in layer_number.h */
 }

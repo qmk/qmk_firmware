@@ -17,10 +17,3 @@ enum layer_number {
     _PADFUNC,
     _ADJUST,
 };
-
-#if defined(SSD1306OLED)
-extern void init_helix_oled(void);
-#   define INIT_HELIX_OLED() init_helix_oled();
-#else
-#   define INIT_HELIX_OLED()
-#endif
