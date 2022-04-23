@@ -195,6 +195,13 @@ If using a SPI OLED display, you'll need to define the following pins in your bo
 |OLED_DC_PIN        |Pin that determines whether the data pins are data or command   |
 |OLED_CS_PIN        |Pin that is used to select the chip                             |
 |OLED_RST_PIN       |Pin to reset the display                                        |
+
+You can also define the mode and divisor using the following defines:
+
+|Define                     |Default          |Description                                                |
+|---------------------------|-----------------|-----------------------------------------------------------|
+|`OLED_SPI_MODE`            |`3`              |The SPI mode to use with the OLED Display                  |
+|`OLED_SPI_DIVISOR`         |`2`              |The SPI clock divisoR to be used with the OLED Display     |
  ## 128x64 & Custom sized OLED Displays
 
  The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added a define, `OLED_DISPLAY_128X64`, to switch all the values to be used in a 128x64 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.

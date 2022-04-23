@@ -38,6 +38,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   ifndef OLED_CS_PIN
 #       error "The OLED driver in SPI needs a CS pin defined"
 #   endif
+#   ifndef OLED_CS_PIN
+#       error "The OLED driver in SPI needs a CS pin defined"
+#   endif
+#   ifndef OLED_SPI_MODE
+#       define OLED_SPI_MODE 3
+#   endif
+#   ifndef OLED_SPI_DIVISOR
+#       define OLED_SPI_DIVISOR 2
+#   endif
 #endif
 
 #if defined(OLED_DISPLAY_CUSTOM)

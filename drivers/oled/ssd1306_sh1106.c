@@ -117,12 +117,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         setPinOutput(OLED_DC_PIN);
         writePinLow(OLED_DC_PIN);
-
-        spi_start(OLED_CS_PIN, false, 2, 10);
     }
 
     void oled_spi_start(void) {
-        spi_start(OLED_CS_PIN, false, 3, 8); /* MSB first, mode 3 */
+        spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
     }
 
     void oled_spi_stop(void) {
@@ -165,7 +163,6 @@ bool oled_cmd(const uint8_t *data, uint16_t size) {
     oled_spi_start();
     // Command Mode
     writePinLow(OLED_DC_PIN);
-    wait_ms(10);
     // Send the commands
     if(spi_transmit(data, size) != OLED_STATUS_SUCCESS){
         oled_spi_stop();
@@ -210,7 +207,6 @@ bool oled_write_reg(const uint8_t *data, uint16_t size)
     oled_spi_start();
     // Command Mode
     writePinHigh(OLED_DC_PIN);
-    wait_ms(10);
     // Send the commands
     if(spi_transmit(data, size) != OLED_STATUS_SUCCESS){
         oled_spi_stop();
