@@ -64,11 +64,11 @@
 #if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
     #define DRIVER_LED_TOTAL 42
 
-    #define RGBLIGHT_ANIMATIONS
+    // #define RGBLIGHT_ANIMATIONS             // don't use, please explicitly define
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS     // enable framebuffer effects
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended
-    #define RGB_MATRIX_KEYPRESSES
+    #define RGB_MATRIX_KEYPRESSES              // enable key press effects
 
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
