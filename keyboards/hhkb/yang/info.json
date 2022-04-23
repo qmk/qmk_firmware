@@ -2,8 +2,6 @@
   "keyboard_name": "YANG HHKB BLE",
   "url": "",
   "maintainer": "qmk",
-  "width": 15,
-  "height": 5,
   "layouts": {
     "LAYOUT_60_hhkb": {
       "layout": [
