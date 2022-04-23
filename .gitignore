@@ -92,6 +92,5 @@ compile_commands.json
 .clangd/
 .cache/
 
-# kevkevco added
-# Kevkevco-alias
-# keyboards/kinesis/kint36/keymaps/kevkevco/qmk.code-workspace
+# VIA(L) json files that don't belong in QMK repo
+via*.json

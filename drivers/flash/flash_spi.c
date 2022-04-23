@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Mode setting comands */
 #define FLASH_CMD_DP 0xB9  /* DP (Deep Power Down) */
-#define FLASH_CMD_RDP 0xAB /* RDP (Release form Deep Power Down) */
+#define FLASH_CMD_RDP 0xAB /* RDP (Release from Deep Power Down) */
 
 /* Status register */
 #define FLASH_FLAG_WIP 0x01 /* Write in progress bit */
