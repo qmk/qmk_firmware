@@ -59,6 +59,7 @@ enum {
   SLSH,
   LPINKY,
   RPINKY,
+  COLON
 };
 
 
@@ -112,49 +113,6 @@ void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
 // void slsh_td_reset(qk_tap_dance_state_t *state, void *user_data);
 
 
-
-// Triple Tap Dance function definition for period key
-void triple_tap_dance_period (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        tap_code(KC_DOT);
-    } else if (state->count == 2) {
-        tap_code16(KC_RABK);
-    } else if (state->count == 3) {
-        tap_code(KC_DOT);
-        tap_code(KC_DOT);
-        tap_code(KC_DOT);
-    } else {
-        reset_tap_dance(state);
-    }
-}
-
-// Triple Tap Dance function definition for / and ? key
-void triple_tap_dance_slash (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        tap_code(KC_SLSH);
-    } else if (state->count == 2) {
-        tap_code16(KC_SLSH);
-        tap_code16(KC_SLSH);
-    } else if (state->count == 3) {
-        tap_code16(KC_QUES);
-    } else {
-        reset_tap_dance(state);
-    }
-}
-
-// Triple Tap Dance function definition for Esc key
-void triple_tap_dance_esc (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        tap_code(KC_ESC);
-    } else if (state->count == 2) {
-        tap_code16(KC_GRV);
-    } else if (state->count == 3) {
-        tap_code16(KC_TILD);
-    } else {
-        reset_tap_dance(state);
-    }
-}
-
 // Keymaps
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -167,66 +125,112 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  |  F8  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|  Fn  |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
-| ESC^~#` |   1^!  |   2^@  |   3^#  |   4^$  |   5^%  |                                                     |   6^^  |  7^&   |  8^*   |  9^(   |   0^)  |  NAV    |
+| ESC|`\~ |   1^!  |   2^@  |   3^#  |   4^$  |   5^%  |                                                     |   6^^  |  7^&   |  8^*   |  9^(   |   0^)  |  NAV    |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |   Tab   |    Q   |    W   |    E   |    R   |    T   |                                                     |    Y   |   U    |   I    |   O    |   P    |  Bksp   |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-| LPINKY  | A/LCTL | S/LOPT | D/LGUI | F/LSHF |    G   |                                                     |    H   | J/RSHF | K/RGUI | L/ROPT | :/RCTL |  RPINKY |
+| LPINKY* | A/LCTL | S/LOPT | D/LGUI | F/LSHF |    G   |                                                     |    H   | J/RSHF | K/RGUI | L/ROPT | COLON* | RPINKY* |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-| OS:SHFT |    Z   |    X   |    C   |    V   |    B   |                                                     |    N   |   M    |  ,|<   |  .|>   |  /^?   | OS:SHFT |
+| :LSHFT  |    Z   |    X   |    C   |    V   |    B   |                                                     |    N   |   M    |  ,|<   |  .|>   |  /^?   | :RSHFT  |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |   ***  |  ****  |  ***   |   _|-  |                                                                       |   Up   |  Down  |  Left  |  Right |
+          |WINDOW* | OSMeh  |  ***   |   _|-  |                                                                       |   Up   |  Down  |  Left  |  Right |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
-	                                                   |SELWORD |CAPSWORD|                 | NUMWORD| LPINKY |
+	                                                   |SELWORD |CAPSWORD|                 | NUMWORD| ( / NAV|
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
-	                                          |  BkSp  |  Del   |  SPOT  |                 |WINDOWTD|  Enter |  Space |
+	                                          |  BkSp  |  Del   |  SPOT  |                 |WINDOW* |  Enter |  Space |
 	                                          | ^Del / |   /    |--------|                 |--------|    /   |    /   |
 	                                          |  LGUI  |  LSHFT | APPNAV |                 |  OSMeh |  Keypad|  RGUI  |
 	                                          `--------------------------'                 `--------------------------'
     Notes:
-    / indicate: key-when-tapped/key-when-held
-    | Triggered with Double Tap
-    APPNAV opens application switcher for a renewable 1sec timeout, second press of key and all after presses right arrow. Add shift to press move left.
-    ^ Triggered With Shift
-    # Triggered With Command
-    --- Command+` is mapped to "Move focus to next window" by MacOS
-    * Tap and hold SwapHands for momentary swap, double tap for toggle on/off
+    * / indicates key-when-tapped/key-when-held
+    * | indicates triggered with double tap
+    * \ indicates triggered with triple tap
+    * : indicates one shot
+    * APPNAV opens application switcher for a renewable timeout. Press key again to move right; add shift to move left.
+    * ^ Triggered With Shift
+    * # Triggered With Command
+    * Tap and hold SwapHands for momentary swap, double tap for toggle on/off (currently configured to not swap top row of keyboard)
     * Tap both shifts at same time for as long as their modtap length and CAPSWORD is activated
     * SELWORD selects current word, extends to next word on subsequent presses. Add shift and it selects line and adds next line with subsequent presses.
-    *   Tap ESC or right arrow to deselect and move cursor to end of seelction. Or, tap left arrow to move cursor to beginning of selection.
-    * LPINKY {1:One shot SYMBOLS layer, 1hold: NAV layer while holding, 2: NAV toggle, 2hold: Caps Word, 3: Numpad Toggle, 3hold: Control+C to end program running}
-    * RPINKY: {1:One shot SYMBOLS layer, 1hold: ', 2: ", 2hold: Caps Word, 3: NUMSHIFT layer toggle, 3hold: ***}
+        * Tap ESC or right arrow to deselect and move cursor to end of seelction. Or, tap left arrow to move cursor to beginning of selection.
+    * Configured in MacOS: Double tapping any command key brings up dictation so you can dictate text
+    * Manually exit CAPS word by pressing any modifier or holding a Modtap to the mod activation point
+    * Window Tap Dance is configured for Rectangle Pro
+    
+    Tap Dance Details:
+    * WINDOW 1:  One shot NAV layer with CTL+OPT active
+             1h: NAV layer while holding with CTL+OPT active
+             2:  Switch between windows of same app (CMD+`)
+             2h: NAV layer while holding with CMD+CTL+OPT active
+             3:  TODO
+             3h: Hide Window (CMD+H)
+    * LPINKY 1:  One shot SYMBOLS layer
+             1h: NAV layer while holding
+             2:  NAV layer toggle
+             2h: Caps Word
+             3:  Toggle LKEYPAD
+             3h: End Running Program (CTL+C)
+    * RPINKY 1:  '
+             1h: One shot SYMBOLS layer
+             2:  "
+             2h: TODO
+             3:  Toggle NUMSHIFT layer
+             3h: TODO
+    * COLON  1:  One shot SYMBOLS layer
+             1h: Modtap RCTL
+             2:  :
+             2h: TODO
+             3:  TODO
+             3h: TODO
+    * SLSH   1:  /
+             1h: Command+/
+             2:  //
+             2h: HTML style multiline comment
+             3:  ?
+             3h: TODO
 
     Wishes:
-    * I might want ( moved to top layer
-    * I want semicolon and colon switched using a magic key? or just switched.
-    * Bottom for LH keys are now pointless - minus key could swap the shifted and unshifted values
-    * SpaceCadet paranthesis are now silly becuase of home row mods. Turn into full tap dances or something?
-    * Holding down tab could do something, same with holding down Backspace on RH
+    * Holding down tab could do something
     * Space and Enter for LH?
     * Double hold on space should make Shift mod...
     * Top right NAV button is not well used
-    * Should I add an OSMeh to LH?
-    * Top Right Thumb can be customized more beyond a copy of LPINKY
-    *     
-    * LPINKY triple tap should bring up Left numpad
-    * RPINKY Triple tap hold macro
+    * Top Right Thumb can be customized more
+    * LPINKY triple tap? way to bring up Left numpad
+    * double/triple tap features are lacking...
+    * numword and numpad toggle and numpad hold should all be combined if possible to call a custom macro from another? - toggle is double hold. word is double tap.
     
     Usage work:
     * Work on using left thumb shift
     * Work on using home row mods
-    * 
+    * Practice using shifts as OSM
+    * CAPSWORD activate using two index home row mods
+
+
+    Eventually reconstitute the below using #define aliases;
+
+[_QWERTY] = LAYOUT_pretty(
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
+                                                        _______, _______,                   _______, _______,
+                                                                 _______,                   _______,
+                                               _______, _______, _______,                   _______, _______, _______
+),
+
 */
 
 [_QWERTY] = LAYOUT_pretty(
   ESC_STS, SH_TT,   KC_F2,   TO(_QWERTY),  TG(_NUMSHIFT),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  KC_F8,  CLEAR, DM_PLY1, DM_REC1, DM_RSTP,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_APFN,
   TD(GVES), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
-  TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),RCTL_T(KC_COLN),TD(RPINKY),
+  TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),TD(COLON),TD(RPINKY),
   OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLSH), OSM(MOD_RSFT),
-           _______, _______, _______,TD(UNMN),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-                                                  SELWORD, CAPWORD,                   NUMWORD, LT(_NAV, KC_BSLS),
+        TD(WIND), OSM(MOD_MEH), _______,TD(UNMN),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+                                                  SELWORD, CAPWORD,                   NUMWORD, LT(_NAV, KC_LPRN),
                                                                 TD(SPOT),                 TD(WIND),
                                 LGUI_T(KC_BSPC), SFT_T(KC_DEL), APP_NAV,                   OSM(MOD_MEH), LT(_KEYPAD, KC_ENT), RGUI_T(KC_SPC)
 ),
@@ -237,6 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     using a successive alphanumeric key (first letter of application name,
     or second/third/... letter if first letter is taken) as follows:
 
+    Application Launching:
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
 |      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
@@ -302,7 +307,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* Symbols
+/*  
+    Symbols Layer
     Mostly for coding, optimized currently for my use of Python
     Note: Best accessed through a oneshot layer key: LPINKY, RPINKY currently
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
@@ -323,7 +329,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                                                   |   +    |        |                 |        |   `    |
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
 	                                          |        |        |   *    |                 |        |        |        |
-	                                          |   =    |   -    |--------|                 |--------|   "    |   _    |
+	                                          |   -    |   =    |--------|                 |--------|   "    |   _    |
 	                                          |        |        |TDSLSH  |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 
@@ -338,7 +344,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______,                                                                         KC_PIPE, _______, _______, _______,
                                                         KC_PLUS, _______,                   _______, KC_GRV,
                                                                  KC_ASTR,                   _______,
-                                               KC_EQL,  KC_MINS, TD(SLSH),                   _______, KC_DQUO, KC_UNDS
+                                               KC_MINS, KC_EQL, TD(SLSH),                   _______, KC_DQUO, KC_UNDS
 ),
 
 /*  VIM - Holding spot for future implementation
@@ -634,6 +640,9 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = { \
 bool isRecording = false;
 bool isRecordingLedOn = false;
 uint16_t recording_timer = 0;
+uint16_t wave_timer = 0;
+bool wave_active = false;
+int cycle = 1;
 
 // Listener function => Triggered when you start recording a macro.
 void dynamic_macro_record_start_user(void) 
@@ -690,22 +699,81 @@ bool led_update_user(led_t led_state) {
     return false;
 }
 
+void led_wave(bool state) {
+    if (state == true) {
+        writePin(LED_KEYPAD, 1);
+        writePin(LED_NUM_LOCK_PIN, 1);
+        writePin(LED_SCROLL_LOCK_PIN, 1);
+        writePin(LED_CAPS_LOCK_PIN, 1);
+        wave_active = true;
+        wave_timer = timer_read();
+    }
+    else {
+        wave_active = false;
+        layer_on(0); // Dummy call to get layer_state_set_user to update
+
+    }
+}
+
 void matrix_scan_user(void) {
 
     // CMD_TAB Timer Timed Out
     if (is_cmd_tab_active) {
-        if (timer_elapsed(cmd_tab_timer) > 1000) {
+        if (timer_elapsed(cmd_tab_timer) > 800) {
             unregister_code(KC_LGUI);
             is_cmd_tab_active = false;
         }
     }
 
+    if (wave_active && timer_elapsed(wave_timer) > 100) {
+        switch (cycle) {
+            case 1:
+                writePin(LED_CAPS_LOCK_PIN, 0);
+                SEND_STRING("1");
+                break;
+            case 2:
+                writePin(LED_NUM_LOCK_PIN, 0);
+                SEND_STRING("2");
+                break;
+            case 3:
+                writePin(LED_CAPS_LOCK_PIN, 1);
+                SEND_STRING("3");
+                break;
+            case 4:
+                writePin(LED_SCROLL_LOCK_PIN, 0);
+                SEND_STRING("4");
+                break;
+            case 5:
+                writePin(LED_NUM_LOCK_PIN, 1);
+                SEND_STRING("5");
+                break;
+            case 6:
+                writePin(LED_KEYPAD, 0);
+                SEND_STRING("6");
+                break;
+            case 7:
+                writePin(LED_SCROLL_LOCK_PIN, 1);
+                SEND_STRING("7");
+                break;
+            case 8:
+                writePin(LED_KEYPAD, 1);
+                SEND_STRING("8");
+                cycle = 0; // Code below switch block will increment this up to 1
+                break;
+            // case 9:
+            //     SEND_STRING("9");
+            //     break;
+        }
+        wave_timer = timer_read();
+        cycle++;
+    }
+
+
 
     // Dynamic Macro Recording LED flash
-    if (isRecording)
-    {
+    if (isRecording) {
         // timer_elapsed() is a built-in function in qmk => it calculates in ms the time elapsed with timer_read()
-        if (timer_elapsed(recording_timer) > 500) 
+        if (timer_elapsed(recording_timer) > 333) 
         {
             isRecordingLedOn = !isRecordingLedOn;
             recording_timer = timer_read();
@@ -723,6 +791,7 @@ void matrix_scan_user(void) {
         }
     }
 }
+
 
 // Tap Dance processing function option 1
 // This tap dance favors keys that are used frequently in typing like 'f'
@@ -775,7 +844,7 @@ int hold_cur_dance (qk_tap_dance_state_t *state) {
   else return UNKNOWN;
 }
 
-// Caps Lock Replacement Tap Dance 
+// Input Variables Tap Dance 
 // Create an instance of 'td_tap_t' for the 'full' tap dance.
 // [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
 
@@ -812,6 +881,48 @@ int hold_cur_dance (qk_tap_dance_state_t *state) {
 //   full_td_state.state = 0;
 // }
 
+// Triple Tap Dance function definition for period key
+void triple_tap_dance_period (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        tap_code(KC_DOT);
+    } else if (state->count == 2) {
+        tap_code16(KC_RABK);
+    } else if (state->count == 3) {
+        tap_code(KC_DOT);
+        tap_code(KC_DOT);
+        tap_code(KC_DOT);
+    } else {
+        reset_tap_dance(state);
+    }
+}
+
+// Triple Tap Dance function definition for / and ? key
+void triple_tap_dance_slash (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        tap_code(KC_SLSH);
+    } else if (state->count == 2) {
+        tap_code16(KC_SLSH);
+        tap_code16(KC_SLSH);
+    } else if (state->count == 3) {
+        tap_code16(KC_QUES);
+    } else {
+        reset_tap_dance(state);
+    }
+}
+
+// Triple Tap Dance function definition for Esc key
+void triple_tap_dance_esc (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        tap_code(KC_ESC);
+    } else if (state->count == 2) {
+        tap_code16(KC_GRV);
+    } else if (state->count == 3) {
+        tap_code16(KC_TILD);
+    } else {
+        reset_tap_dance(state);
+    }
+}
+
 // SLSH Tap Dance
 // Create an instance of 'td_tap_t' for the 'slsh' tap dance.
 static td_tap_t slsh_td_state = {
@@ -845,6 +956,41 @@ void slsh_td_reset (qk_tap_dance_state_t *state, void *user_data) {
     // default: break;
 //   }
   slsh_td_state.state = 0;
+}
+
+// COLON Tap Dance
+// Create an instance of 'td_tap_t' for the 'colon' tap dance.
+static td_tap_t colon_td_state = {
+  .is_press_action = true,
+  .state = TD_NONE
+};
+
+void colon_td_finished (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+  colon_td_state.state = hold_cur_dance(state);
+  switch (colon_td_state.state) {
+    case SINGLE_TAP: layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break; // One shot coding symbols layer
+    case SINGLE_HOLD: set_mods(MOD_BIT(KC_RCTL)); break;                                     // Mod tap RCTRL
+    case DOUBLE_TAP: tap_code16(KC_COLN); break;                                            // Colon
+    case DOUBLE_HOLD: caps_word_set(true); break;                                           // Caps Word
+    // case TRIPLE_TAP: layer_invert(_KEYPAD); break;                                         // Toggle KEYPAD layer
+    case TRIPLE_HOLD: led_wave(true); break;                                       // 
+    default: break;
+  }
+}
+
+void colon_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+  switch (colon_td_state.state) {
+    case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+    case SINGLE_HOLD: unregister_mods(MOD_BIT(KC_RCTL)); break;
+    // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
+    // case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
+    // case TRIPLE_TAP: layer_invert(_NUMPAD); break;
+    case TRIPLE_HOLD: led_wave(false); break;
+    default: break;
+  }
+  colon_td_state.state = 0;
 }
 
 // RPINKY Tap Dance
@@ -929,7 +1075,7 @@ void window_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
   window_td_state.state = hold_cur_dance(state);
   switch (window_td_state.state) {
-    case SINGLE_TAP: add_oneshot_mods(MOD_MASK_CSAG); break;            // One shot Hyper key
+    case SINGLE_TAP: add_oneshot_mods(MOD_MASK_CA); layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break;            // One shot Nav layer with CTL+OPT active
     case SINGLE_HOLD: layer_on(_NAV); set_mods(MOD_MASK_CA); break;     // Navigation layer while holding, with CTL+OPT active
     case DOUBLE_TAP: register_code16(G(KC_GRV)); break;                 // Switch between open windows of the same application
     case DOUBLE_HOLD: layer_on(_NAV); set_mods(MOD_MASK_CAG); break;    // Navigation layer while holding, with CMD+CTL+OPT active 
@@ -942,7 +1088,7 @@ void window_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 void window_td_reset (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
   switch (window_td_state.state) {
-    // case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
+    case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
     case SINGLE_HOLD: layer_off(_NAV); clear_mods(); break;
     case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
     case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
@@ -973,6 +1119,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [GVES] = ACTION_TAP_DANCE_FN(triple_tap_dance_esc), // Esc on a single-tap, grave on a double-tap, tilde on a triple tap
     // [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
     [SLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slsh_td_finished, slsh_td_reset),
+    [COLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, colon_td_finished, colon_td_reset),
     [RPINKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rpinky_td_finished, rpinky_td_reset),
     [LPINKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lpinky_td_finished, lpinky_td_reset),
     [WIND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, window_td_finished, window_td_reset),
@@ -1089,7 +1236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Super cmd↯TAB modified for MacOS to CMD_TAB
             // This macro will register KC_LGUI and tap KC_TAB, then wait for 1000ms. 
             // If the key is tapped again, it will send another KC_TAB and restart timer.
-            // If there is no tap within 1000m, KC_LGUI will be unregistered, thus allowing you to cycle through windows.
+            // If there is no tap within 800ms, KC_LGUI will be unregistered, thus allowing you to cycle through windows.
             // Press shift key with APP_NAV key to send Shift+Cmd+Tab which iterates through the application switcher window backwards.
             if (record->event.pressed) {
                 if (!is_cmd_tab_active) {

@@ -91,3 +91,7 @@ user_song_list.h
 compile_commands.json
 .clangd/
 .cache/
+
+# kevkevco added
+# Kevkevco-alias
+# keyboards/kinesis/kint36/keymaps/kevkevco/qmk.code-workspace
