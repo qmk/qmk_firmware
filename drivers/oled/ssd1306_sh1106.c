@@ -106,6 +106,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define I2C_CMD 0x00
 #   define I2C_DATA 0x40
 #   define OLED_STATUS_SUCCESS I2C_STATUS_SUCCESS
+
+// Internal variables to reduce math instructions
+#   if defined(__AVR__)
+// identical to i2c_transmit, but for PROGMEM since all initialization is in PROGMEM arrays currently
+// probably should move this into i2c_master...
+static i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout) {
+    i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
+
+    for (uint16_t i = 0; i < length && status >= 0; i++) {
+        status = i2c_write(pgm_read_byte((const char *)data++), timeout);
+        if (status) break;
+    }
+
+    i2c_stop();
+
+    return status;
+}
+#   endif
 #else // spi defines
 #   define OLED_STATUS_SUCCESS SPI_STATUS_SUCCESS
 
@@ -128,23 +146,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
 #endif
 
-// Internal variables to reduce math instructions
-#if defined(__AVR__)
-// identical to i2c_transmit, but for PROGMEM since all initialization is in PROGMEM arrays currently
-// probably should move this into i2c_master...
-static i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
-
-    for (uint16_t i = 0; i < length && status >= 0; i++) {
-        status = i2c_write(pgm_read_byte((const char *)data++), timeout);
-        if (status) break;
-    }
-
-    i2c_stop();
-
-    return status;
-}
-#endif
 
 // Transmit/Write Funcs.
 bool oled_cmd(const uint8_t *data, uint16_t size) {
