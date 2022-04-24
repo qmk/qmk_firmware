@@ -348,14 +348,28 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
 
 #ifdef JOYSTICK_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
-    HID_RI_USAGE_PAGE(8, 0x01),         // Generic Desktop
-    HID_RI_USAGE(8, 0x04),              // Joystick
-    HID_RI_COLLECTION(8, 0x01),         // Application
-        HID_RI_COLLECTION(8, 0x00),     // Physical
+    HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
+    HID_RI_USAGE(8, 0x04),          // Joystick
+    HID_RI_COLLECTION(8, 0x01),     // Application
+        HID_RI_COLLECTION(8, 0x00), // Physical
 #    if JOYSTICK_AXES_COUNT > 0
             HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
-            HID_RI_USAGE_MINIMUM(8, 0x30), // X
-            HID_RI_USAGE_MAXIMUM(8, 0x30 + (JOYSTICK_AXES_COUNT - 1)),
+            HID_RI_USAGE(8, 0x30),      // X
+#        if JOYSTICK_AXES_COUNT > 1
+            HID_RI_USAGE(8, 0x31),      // Y
+#        endif
+#        if JOYSTICK_AXES_COUNT > 2
+            HID_RI_USAGE(8, 0x32),      // Z
+#        endif
+#        if JOYSTICK_AXES_COUNT > 3
+            HID_RI_USAGE(8, 0x33),      // Rx
+#        endif
+#        if JOYSTICK_AXES_COUNT > 4
+            HID_RI_USAGE(8, 0x34),      // Ry
+#        endif
+#        if JOYSTICK_AXES_COUNT > 5
+            HID_RI_USAGE(8, 0x35),      // Rz
+#        endif
 #        if JOYSTICK_AXES_RESOLUTION == 8
             HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_RESOLUTION),
             HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_RESOLUTION),
