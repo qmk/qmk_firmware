@@ -74,7 +74,7 @@
     #define DRIVER_LED_UNDERGLOW 10
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150   // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 
     #define RGB_MATRIX_KEYPRESSES
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS          // Static dual hue, speed is hue for secondary hue
@@ -104,18 +104,25 @@
     #define ENABLE_RGB_MATRIX_HUE_PENDULUM         // Hue shifts up a slight amount in a wave to the right, then back to the left
     #define ENABLE_RGB_MATRIX_HUE_WAVE             // Hue shifts up a slight amount and then back down in a wave to the right
 
-    #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE// Pulses keys hit to hue & value then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE       // Static single hue, pulses keys hit to shifted hue then fades to current hue
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE       // Hue & value pulse near a single key hit then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Hue & value pulse near multiple key hits then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS      // Hue & value pulse the same column and row of a single key hit then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS // Hue & value pulse the same column and row of multiple key hits then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS      // Hue & value pulse away on the same column and row of a single key hit then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS // Hue & value pulse away on the same column and row of multiple key hits then fades value out
-        #define ENABLE_RGB_MATRIX_SPLASH               // Full gradient & value pulse away from a single key hit then fades value out
-        #define ENABLE_RGB_MATRIX_MULTISPLASH          // Full gradient & value pulse away from multiple key hits then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_SPLASH         // Hue & value pulse away from a single key hit then fades value out
-        #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH    // Hue & value pulse away from multiple key hits then fades value out
-    #endif // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+    // don't need `#if`, animation modes themselves check defines
+    // #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+    // #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+    // #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+    // #endif // #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+
+    // don't need `#if`, animation modes themselves check defines
+    // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE// Pulses keys hit to hue & value then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE       // Static single hue, pulses keys hit to shifted hue then fades to current hue
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE       // Hue & value pulse near a single key hit then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Hue & value pulse near multiple key hits then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS      // Hue & value pulse the same column and row of a single key hit then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS // Hue & value pulse the same column and row of multiple key hits then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS      // Hue & value pulse away on the same column and row of a single key hit then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS // Hue & value pulse away on the same column and row of multiple key hits then fades value out
+    #define ENABLE_RGB_MATRIX_SPLASH               // Full gradient & value pulse away from a single key hit then fades value out
+    #define ENABLE_RGB_MATRIX_MULTISPLASH          // Full gradient & value pulse away from multiple key hits then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_SPLASH         // Hue & value pulse away from a single key hit then fades value out
+    #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH    // Hue & value pulse away from multiple key hits then fades value out
+    // #endif // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
 #endif // #if defined(RGB_MATRIX_ENABLE)
