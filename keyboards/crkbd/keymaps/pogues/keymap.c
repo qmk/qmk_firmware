@@ -62,6 +62,9 @@ enum userspace_layers {
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_SFT OSM(MOD_LSFT)
 
+#define LNUM_SPC LT(LNUM, KC_SPC)
+#define LSYM_BSP LT(LSYM, KC_BSPC)
+
 enum custom_keycodes {
     MY_LLCK = SAFE_RANGE,   // layer lock key
     MY_COMP,
@@ -70,7 +73,9 @@ enum custom_keycodes {
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_DOT , KC_COLN}, // Shift . is :
     {KC_COMM, KC_SCLN}, // Shift , is ;
-    {KC_2, KC_DQUO}     // need shift 2 to be " for win+shift+2 to work in dwm
+    {KC_2, KC_DQUO},    // need shift 2 to be " for win+shift+2 to work in dwm
+    {LNUM_SPC, KC_TAB},   // shift space is tab
+    {LSYM_BSP, KC_DEL}   // shift backspace is delete
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
@@ -85,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                       KC_LCTL, KC_LSFT, LT(LNUM, KC_SPC),    LT(LSYM, KC_BSPC), KC_RSFT, KC_RCTL
+                                              KC_LCTL, KC_LSFT, LNUM_SPC,    LSYM_BSP, KC_RSFT, KC_RCTL
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
