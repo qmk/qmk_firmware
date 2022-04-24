@@ -60,7 +60,7 @@
 #define RGBLIGHT_VAL_STEP   8
 
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define DRIVER_ADDR_1 0b1010000
 
 #define RGB_MATRIX_KEYPRESSES
