@@ -8,6 +8,14 @@ A 65% keyboard PCB made and sold by SawnsProjects with Nuxros in [mechkey.store]
 * Hardware Supported: Krush65
 * Hardware Availability: [Facebook](https://mechkey.store/products/krush-65-hotswap-pcb)
 
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+
 Make example for this keyboard (after setting up your build environment):
 
     make sawnsprojects/krush65/Hotswap:default
