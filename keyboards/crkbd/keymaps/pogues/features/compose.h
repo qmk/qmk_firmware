@@ -8,10 +8,17 @@
 #define COMPOSE_LEN 3
 #endif
 
+enum compose_return_state {
+    COMPOSE_OK = 0,   
+    COMPOSE_PARTIAL,
+    COMPOSE_CANCELLED,
+    COMPOSE_ERROR,
+};
+
 bool process_compose(uint16_t keycode, keyrecord_t* record, uint16_t compose_keycode);
-bool compose_mapping(uint16_t* sequence, uint8_t len);
+uint8_t compose_mapping(uint16_t* sequence, uint8_t len);
 void compose_start(void);
-void compose_end(void);
+void compose_end(uint8_t state);
 
 /// Compares the first `len` keycode (uint16_t) of the first two arguments
 /// and returns the index at which they start to differ or `len` if they are equal.
@@ -31,9 +38,9 @@ int compose_compare_input(uint16_t* input, uint8_t input_len, uint16_t* seq, uin
     int res = compose_compare_input(input, input_len, sequence, sequence_len); \
     if (res == -1) { \
         ACTION \
-        return false; \
+        return COMPOSE_OK; \
     } else if (res == 1) { \
-        return true; \
+        return COMPOSE_PARTIAL; \
     } \
 }
 

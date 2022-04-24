@@ -5,7 +5,7 @@
     //return false;
 //}
 __attribute__((weak)) void compose_start(void) {}
-__attribute__((weak)) void compose_end(void) {}
+__attribute__((weak)) void compose_end(uint8_t state) {}
 
 static bool composing = false;
 static uint16_t compose_sequence[COMPOSE_LEN] = {0, 0, 0};
@@ -18,9 +18,9 @@ void qk_compose_start(void) {
     compose_start();
 }
 
-void qk_compose_end(void) {
+void qk_compose_end(uint8_t state) {
     composing = false;
-    compose_end();
+    compose_end(state);
 }
 
 bool process_compose(uint16_t keycode, keyrecord_t* record, uint16_t compose_keycode) {
@@ -46,19 +46,20 @@ bool process_compose(uint16_t keycode, keyrecord_t* record, uint16_t compose_key
     // we are composing and a non-layer-modifying key was pressed
 
     if (keycode == compose_keycode) {
-        qk_compose_end();
+        qk_compose_end(COMPOSE_CANCELLED);
         return false;
     }
 
     // this shouldn't happen, but check it for safety reasons
     if (compose_len >= COMPOSE_LEN) {
-        qk_compose_end();
+        qk_compose_end(COMPOSE_ERROR);
     }
 
     compose_sequence[compose_len] = keycode;
     compose_len += 1;
-    if (!compose_mapping(compose_sequence, compose_len)) {
-        qk_compose_end();
+    uint8_t state = compose_mapping(compose_sequence, compose_len);
+    if (state != COMPOSE_PARTIAL) { // the only continuation state is partial
+        qk_compose_end(state);
     }
 
     return false;

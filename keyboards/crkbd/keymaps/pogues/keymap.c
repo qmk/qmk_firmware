@@ -170,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 /******************************************************************************
  * compose key mapping function
  ******************************************************************************/
-bool compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
+uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // NOTE that the COMPOSE_MAPPING will return if there is a full or partial
     // match to the sequence.
 
@@ -259,16 +259,21 @@ bool compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         { SEND_STRING(SS_LCTL(SS_TAP(X_F9))); }
     )
 
-    return false;
+    return COMPOSE_ERROR;
 }
 
 void compose_start(void) {
     rgblight_set_layer_state(8, true);
 }
 
-void compose_end(void) {
+void compose_end(uint8_t state) {
     rgblight_set_layer_state(8, false);
-    rgblight_blink_layer(9, 500);
+    if (state == COMPOSE_ERROR) {
+        rgblight_blink_layer(9, 900);
+    } else if (state == COMPOSE_CANCELLED) {
+        rgblight_blink_layer(10, 900);
+    }
+    // other state is OK.
 }
 
 /*******************************************************************************
@@ -348,22 +353,17 @@ void matrix_scan_user(void) {
 );
 
 const rgblight_segment_t PROGMEM layer_default_lights[] = THUMB_KEYS(OFF)
-
 const rgblight_segment_t PROGMEM layer_numpad_lights[] = THUMB_KEYS(ORANGE)
-
 const rgblight_segment_t PROGMEM layer_symbols_lights[] = THUMB_KEYS(GREEN)
-
 const rgblight_segment_t PROGMEM layer_motion_lights[] = THUMB_KEYS(BLUE)
-
 const rgblight_segment_t PROGMEM layer_functions_lights[] = THUMB_KEYS(PURPLE)
-
 const rgblight_segment_t PROGMEM layer_mouse_lights[] = THUMB_KEYS(MAGENTA)
 
 const rgblight_segment_t PROGMEM caps_word_lights[] = INNER_KEYS(GREEN)
 
 const rgblight_segment_t PROGMEM compose_mode_lights[] = INNER_KEYS(ORANGE)
-
 const rgblight_segment_t PROGMEM compose_fail_lights[] = INNER_KEYS(RED)
+const rgblight_segment_t PROGMEM compose_cancel_lights[] = INNER_KEYS(BLUE)
 
 const rgblight_segment_t PROGMEM layer_no_lights[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 54, HSV_OFF}
@@ -380,7 +380,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     layer_mouse_lights,
     caps_word_lights,
     compose_mode_lights,
-    compose_fail_lights
+    compose_fail_lights,
+    compose_cancel_lights
 );
 
 void keyboard_post_init_user(void) {
