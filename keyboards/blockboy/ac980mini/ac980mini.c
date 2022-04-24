@@ -50,15 +50,5 @@ led_config_t g_led_config = { {
 } };
 /*
 
-// Enable to manually toggle Num / Caps
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(13, 0xFF, 0xFF, 0xFF);
-    }
-	if (host_keyboard_led_state().num_lock) {
-        rgb_matrix_set_color(34, 0xFF, 0xFF, 0xFF);
-   }
-}
 */
 #endif
