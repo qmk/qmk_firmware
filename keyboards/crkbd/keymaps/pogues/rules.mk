@@ -11,10 +11,7 @@ EXTRAKEY_ENABLE = no
 # link time optimization to make the binary smaller
 LTO_ENABLE      = yes
 
-#TAP_DANCE_ENABLE = yes
-
-LEADER_ENABLE   = yes
-
 SRC += features/caps_word.c
 SRC += features/layer_lock.c
 SRC += features/custom_shift_keys.c	
+SRC += features/compose.c

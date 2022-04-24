@@ -42,15 +42,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_TERM 100
 
 #define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 2000
+#define ONESHOT_TIMEOUT 3000
 
 // Turn off Caps Word after 5 seconds.
 //#define CAPS_WORD_IDLE_TIMEOUT 5000
-
-// set the leader key timeout
-#define LEADER_TIMEOUT 600
-// leader timeout is for the whole sequence by default.  to have it per key set:
-// #define LEADER_PER_KEY_TIMING
 
 // disable macro / functions as we are not using them
 #define NO_ACTION_MACRO
@@ -64,6 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // increase the number of light layers
     #define RGBLIGHT_MAX_LAYERS 12
 
+    #define RGBLIGHT_LAYER_BLINK
+    #define SPLIT_LAYER_STATE_ENABLE
 
     // turn off unused lighting effects
     #undef RGBLIGHT_ANIMATIONS
