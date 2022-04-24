@@ -97,6 +97,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(LED4_PIN, layer_state_cmp(state, _L2));
+    writePin(LED4_PIN, layer_state_cmp(state, _NM));
   return state;
 }
