@@ -1,1 +1,1 @@
-# The default keymap for krush65 solder
+# The default keymap for krush65 Hotswap
