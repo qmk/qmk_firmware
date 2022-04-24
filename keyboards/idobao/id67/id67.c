@@ -17,6 +17,8 @@
 
 #include "id67.h"
 
+#if defined(RGB_MATRIX_ENABLE)
+
 #define __ NO_LED
 
 /* NB!!: Indices are reversed on the physical board, top left is bottom right.
@@ -54,6 +56,8 @@ led_config_t g_led_config = { {
     , 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     #endif
 } };
+
+#endif  // #ifdef RGB_MATRIX_ENABLE
 
 
 /* Use `#define ID67_CAPS_LOCK_KEY_INDEX 36` in `keymaps/yourkeymap/config.h`
