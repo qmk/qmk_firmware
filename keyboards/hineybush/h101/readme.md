@@ -4,7 +4,7 @@
 
 F13 full-size PCB with 1.25u function row Spacing.
 
-* Keyboard Maintainer: hineybush](https://github.com/hineybush)
+* Keyboard Maintainer: [hineybush](https://github.com/hineybush)
 * Hardware Supported: h101 using STM32F072
 * Hardware Availability: hiney.cc
 
