@@ -19,6 +19,7 @@
 enum layers {
     _BASIC,
     _BRACKETS,
+    _SELECTORS,
     _FN,
 };
 
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Comment | Comment |        |         |
  * |---------+---------+--------+---------+
  * |         |         |        |   TO    |
- * |  Cut    |   Copy  |  Paste |   _FN   |
+ * |  Cut    |   Copy  |  Paste | _BASIC  |
  * |         |         |        |         |
  *  `-------------------------------------'
  */ 
@@ -44,19 +45,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      C(KC_X),   C(KC_C),     C(KC_V),  TO(_BRACKETS)
   ),
 /* _BRACKETS Layer
- * ,-------------------------------------.
- * |         |         |        |         |
- * |  (      |   [     |   {    |   Bksp  |
- * |         |         |        |         |
- * |---------+---------+--------+---------+
- * |         |         |        |   TO    |
- * |  Del    |   Copy  |  Paste |   _FN   |
- * |         |         |        |         |
- *  `-------------------------------------'
+ * ,-----------------------------------------.
+ * |         |         |        |            |
+ * |  (      |   [     |   {    |   Bksp     |
+ * |         |         |        |            |
+ * |---------+---------+--------+------------+
+ * |         |         |        |   TO       |
+ * |  Del    |   Copy  |  Paste | _SELECTORS |
+ * |         |         |        |            |
+ *  `----------------------------------------'
  */ 
   [_BRACKETS] = LAYOUT_ortho_2x4(
      S(KC_9), KC_LBRC, S(KC_LBRC), KC_BACKSPACE,
-     KC_DEL, C(KC_C), C(KC_V),    TO(_FN)
+     KC_DEL, C(KC_C), C(KC_V),    TO(_SELECTORS)
+  ),
+/* _SELECTORS Layer
+* ,-------------------------------------.
+* |         |         |        |         |
+* | Select  |  Save   |  Undo  |   Bksp  |
+* |   All   |         |        |         |
+* |---------+---------+--------+---------+
+* |         |         |        |   TO    |
+* |  Cut    |   Copy  |  Paste |   _FN   |
+* |         |         |        |         |
+*  `-------------------------------------'
+*/ 
+ [_SELECTORS] = LAYOUT_ortho_2x4(
+   C(KC_A), C(KC_S),  C(KC_Z), KC_BACKSPACE,
+   C(KC_X), C(KC_C), C(KC_V),  TO(_FN)
   ),
 /* _FN Layer
  * ,--------------------------------------------.
@@ -121,7 +137,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 strncpy(current_alpha_oled, "Backspace", sizeof(current_alpha_oled));
                 break;
             case 76:
-                strncpy(current_alpha_oled, "DEL", sizeof(current_alpha_oled));
+                strncpy(current_alpha_oled, "Del", sizeof(current_alpha_oled));
+                break;
+            // Selector Layer keys
+            case 260:
+                strncpy(current_alpha_oled, "Select All", sizeof(current_alpha_oled));
+                break;
+            case 278:
+                strncpy(current_alpha_oled, "Save", sizeof(current_alpha_oled));
                 break;
             // FN Layer keys
             case 23747:
@@ -170,6 +193,9 @@ bool oled_task_user(void) {
       break;
     case _BRACKETS:
       oled_write_ln_P(PSTR("Brkts"), false);
+      break;
+    case _SELECTORS:
+      oled_write_ln_P(PSTR("Selct"), false);
       break;
     case _FN:
       oled_write_ln_P(PSTR("FN"), false);
