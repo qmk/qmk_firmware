@@ -1,16 +1,18 @@
 # h101
 
-![h101](imgur.com image replace me!)
+![h101](https://i.imgur.com/LqmvjS1.png)
 
-*A short description of the keyboard/project*
+F13 full-size PCB with 1.25u function row Spacing.
 
-* Keyboard Maintainer: [Josh Hinnebusch](https://github.com/hineybush)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: hineybush](https://github.com/hineybush)
+* Hardware Supported: h101 using STM32F072
+* Hardware Availability: hiney.cc
 
 Make example for this keyboard (after setting up your build environment):
 
     make hineybush/h101:default
+    
+    make hineybush/h101:via
 
 Flashing example for this keyboard:
 

@@ -19,7 +19,7 @@
     "processor": "STM32F072",
     "url": "",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "0.0.1",
         "vid": "0x3369",
         "pid": "0xA101"
     },
