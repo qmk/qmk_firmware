@@ -2,7 +2,7 @@
 
 ![IDOBAO Abacus ID42](https://idobao.github.io/assets/img/idobao-id42.png)
 
-*Sized just right at 40% — with a compact configuration the IDOBAO Abacus ID42 makes a great fit for any desk.*
+Sized just right at 40% — with a compact configuration the IDOBAO Abacus ID42 makes a great fit for any desk.
 
 * Keyboard Maintainer: [TW59420](https://github.com/tw59420)
 * Hardware Supported: **IDOBAO Abacus ID42**
