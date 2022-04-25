@@ -1,6 +1,29 @@
 // This one is for a reset
 COMB(farw_Reset,  TD_RESET,       KC_F, KC_A, KC_R, KC_W)
 
+// Convenience combos
+// need an o-e combo to do a backslash, because we already have space-slash for f11
+COMB(oe_Bsls,     KC_BSLS,          KC_O, KC_E)
+
+// backspace
+COMB(wP_BS,       KC_BSPC,          KC_W, KC_P)
+// tmux
+SUBS(uI_TMUX,     SS_LCTL("b"),     KC_U, KC_I)
+SUBS(iN_TMUX_LB,  SS_LCTL("b") "[", KC_I, KC_N)
+// emacs
+SUBS(sY_CX,       SS_LCTL("x"),     KC_S, KC_Y)
+SUBS(nY_CX,       SS_LCTL("s"),     KC_N, KC_Y)
+// quotes
+COMB(fA_Quot,     KC_QUOT,          KC_F, KC_A)
+COMB(fR_Dquo,     KC_DQUO,          KC_F, KC_R)
+// brackets (including parens)
+COMB(eH_Lbrc,     KC_LBRC,          KC_E, KC_H)
+COMB(eT_Rbrc,     KC_RBRC,          KC_E, KC_T)
+COMB(hT_Lcbr,     KC_LCBR,          KC_H, KC_T)
+COMB(hD_Rcbr,     KC_RCBR,          KC_H, KC_D)
+COMB(eD_Lprn,     KC_LPRN,          KC_E, KC_D)
+COMB(tD_Rprn,     KC_RPRN,          KC_T, KC_D)
+
 // These are just the letter combos
 COMB(sF_Tab,      KC_TAB,         KC_SPACE, KC_F)
 COMB(sA_Quot,     KC_QUOT,        KC_SPACE, KC_A)
@@ -18,12 +41,23 @@ COMB(sN_K,        KC_K,           KC_SPACE, KC_N)
 COMB(sS_G,        KC_G,           KC_SPACE, KC_S)
 COMB(sY_X,        KC_X,           KC_SPACE, KC_Y)
 COMB(sEnt_Dot,    KC_DOT,         KC_SPACE, KC_ENT)
-//COMB(sSft_Lock,   KC_SHIFT_LOCK,  KC_SPACE, TD_SHIFT)
 
 // These are just the symbol combos
 COMB(sQu_Tab,     KC_TAB,         KC_SPACE, KC_QUES)
 COMB(sAmp_Plus,   KC_PLUS,        KC_SPACE, KC_AMPR)
-
+COMB(sAstr_Eq,    KC_EQUAL,       KC_SPACE, KC_ASTR)
+COMB(sCln_Hash,   KC_HASH,        KC_SPACE, KC_COLON)
+COMB(sScln_Hash,  KC_HASH,        KC_SPACE, KC_SCLN)
+COMB(sSlsh_Bsls,  KC_BSLS,        KC_SPACE, KC_SLASH)
+COMB(sExlm_Perc,  KC_PERC,        KC_SPACE, KC_EXLM)
+COMB(sMns_Pipe,   KC_PIPE,        KC_SPACE, KC_MINUS)
+COMB(sAt_Tilde,   KC_TILDE,       KC_SPACE, KC_AT)
+COMB(sUnds_Circ,  KC_CIRC,        KC_SPACE, KC_UNDS)
+COMB(sDquo_Grv,   KC_GRAVE,       KC_SPACE, KC_DQUO)
+COMB(sLt_Gt,      KC_GT,          KC_SPACE, KC_LT)
+COMB(sLprn_Rprn,  KC_RPRN,        KC_SPACE, KC_LPRN)
+COMB(sLbrc_Rbrc,  KC_RBRC,        KC_SPACE, KC_LBRC)
+COMB(sLcbr_Rcbr,  KC_RCBR,        KC_SPACE, KC_LCBR)
 
 // These are just the number combos
 COMB(sAstr_Tab,   KC_TAB,      KC_SPACE, KC_ASTR)
