@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for macOS Italian ISO layouts
+// Sendstring lookup tables for Programmer Dvorak layouts
 
 #pragma once
 
-#include "keymap_italian_osx_iso.h"
+#include "keymap_dvorak_programmer.h"
 #include "quantum.h"
 
 // clang-format off
@@ -29,38 +29,18 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 1, 1, 0, 1, 1, 1, 0),
-    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
+    KCLUT_ENTRY(0, 0, 1, 0, 0, 1, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 0, 1, 0, 1, 1),
     KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 1, 1),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 0, 0)
-};
-
-const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-
-    KCLUT_ENTRY(0, 0, 0, 1, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 0, 1, 0, 0),
-    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 0, 1, 1, 0)
+    KCLUT_ENTRY(0, 0, 0, 0, 1, 0, 1, 0)
 };
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
@@ -74,27 +54,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  IT_1,    IT_2,    IT_AGRV, IT_4,    IT_5,    IT_6,    IT_QUOT,
+    KC_SPC,  DP_EXLM, DP_QUOT, DP_HASH, DP_DLR,  DP_AMPR, DP_AMPR, DP_QUOT,
     // (     )        *        +        ,        -        .        /
-    IT_8,    IT_9,    IT_PLUS, IT_PLUS, IT_COMM, IT_MINS, IT_DOT,  IT_7,
+    DP_LPRN, DP_RPRN, DP_ASTR, DP_PLUS, DP_COMM, DP_MINS, DP_DOT,  DP_SLSH,
     // 0     1        2        3        4        5        6        7
-    IT_0,    IT_1,    IT_2,    IT_3,    IT_4,    IT_5,    IT_6,    IT_7,
+    DP_ASTR, DP_LPRN, DP_RPRN, DP_RCBR, DP_PLUS, DP_LCBR, DP_RBRC, DP_LBRC,
     // 8     9        :        ;        <        =        >        ?
-    IT_8,    IT_9,    IT_DOT,  IT_COMM, IT_LABK, IT_0,    IT_LABK, IT_QUOT,
+    DP_EXLM, DP_EQL,  DP_SCLN, DP_SCLN, DP_COMM, DP_EQL,  DP_DOT,  DP_SLSH,
     // @     A        B        C        D        E        F        G
-    IT_OGRV, IT_A,    IT_B,    IT_C,    IT_D,    IT_E,    IT_F,    IT_G,
+    DP_AT,   DP_A,    DP_B,    DP_C,    DP_D,    DP_E,    DP_F,    DP_G,
     // H     I        J        K        L        M        N        O
-    IT_H,    IT_I,    IT_J,    IT_K,    IT_L,    IT_M,    IT_N,    IT_O,
+    DP_H,    DP_I,    DP_J,    DP_K,    DP_L,    DP_M,    DP_N,    DP_O,
     // P     Q        R        S        T        U        V        W
-    IT_P,    IT_Q,    IT_R,    IT_S,    IT_T,    IT_U,    IT_V,    IT_W,
+    DP_P,    DP_Q,    DP_R,    DP_S,    DP_T,    DP_U,    DP_V,    DP_W,
     // X     Y        Z        [        \        ]        ^        _
-    IT_X,    IT_Y,    IT_Z,    IT_EGRV, IT_BSLS, IT_PLUS, IT_IGRV, IT_MINS,
+    DP_X,    DP_Y,    DP_Z,    DP_LBRC, DP_BSLS, DP_RBRC, DP_AT,   DP_MINS,
     // `     a        b        c        d        e        f        g
-    IT_BSLS, IT_A,    IT_B,    IT_C,    IT_D,    IT_E,    IT_F,    IT_G,
+    DP_HASH, DP_A,    DP_B,    DP_C,    DP_D,    DP_E,    DP_F,    DP_G,
     // h     i        j        k        l        m        n        o
-    IT_H,    IT_I,    IT_J,    IT_K,    IT_L,    IT_M,    IT_N,    IT_O,
+    DP_H,    DP_I,    DP_J,    DP_K,    DP_L,    DP_M,    DP_N,    DP_O,
     // p     q        r        s        t        u        v        w
-    IT_P,    IT_Q,    IT_R,    IT_S,    IT_T,    IT_U,    IT_V,    IT_W,
+    DP_P,    DP_Q,    DP_R,    DP_S,    DP_T,    DP_U,    DP_V,    DP_W,
     // x     y        z        {        |        }        ~        DEL
-    IT_X,    IT_Y,    IT_Z,    IT_EGRV, IT_BSLS, IT_PLUS, IT_5,    KC_DEL
+    DP_X,    DP_Y,    DP_Z,    DP_LCBR, DP_BSLS, DP_RCBR, DP_DLR,  KC_DEL
 };

@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#include "keymap_br_abnt2.h"
+#include "keymap_brazilian_abnt2.h"
 
 enum { 
     LAYER_BASE, 

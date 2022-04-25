@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Portuguese layouts
+// Sendstring lookup tables for Swiss German layouts
 
 #pragma once
 
-#include "keymap_portuguese_osx_iso.h"
+#include "keymap_swiss_de.h"
 #include "quantum.h"
 
 // clang-format off
@@ -29,18 +29,18 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 0),
-    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
+    KCLUT_ENTRY(0, 1, 1, 0, 0, 1, 1, 0),
+    KCLUT_ENTRY(1, 1, 1, 1, 0, 0, 0, 1),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
     KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 0, 0)
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
 };
 
 const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
@@ -56,11 +56,11 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 0, 1, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 0, 1, 0, 0)
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
 };
 
 const uint8_t ascii_to_dead_lut[16] PROGMEM = {
@@ -94,27 +94,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  PT_1,    PT_2,    PT_3,    PT_4,    PT_5,    PT_6,    PT_QUOT,
+    KC_SPC,  CH_DIAE, CH_2,    CH_3,    CH_DLR,  CH_5,    CH_6,    CH_QUOT,
     // (     )        *        +        ,        -        .        /
-    PT_8,    PT_9,    PT_PLUS, PT_PLUS, PT_COMM, PT_MINS, PT_DOT,  PT_7,
+    CH_8,    CH_9,    CH_3,    CH_1,    CH_COMM, CH_MINS, CH_DOT,  CH_7,
     // 0     1        2        3        4        5        6        7
-    PT_0,    PT_1,    PT_2,    PT_3,    PT_4,    PT_5,    PT_6,    PT_7,
+    CH_0,    CH_1,    CH_2,    CH_3,    CH_4,    CH_5,    CH_6,    CH_7,
     // 8     9        :        ;        <        =        >        ?
-    PT_8,    PT_9,    PT_DOT,  PT_COMM, PT_LABK, PT_0,    PT_LABK, PT_QUOT,
+    CH_8,    CH_9,    CH_DOT,  CH_COMM, CH_LABK, CH_0,    CH_LABK, CH_QUOT,
     // @     A        B        C        D        E        F        G
-    PT_2,    PT_A,    PT_B,    PT_C,    PT_D,    PT_E,    PT_F,    PT_G,
+    CH_2,    CH_A,    CH_B,    CH_C,    CH_D,    CH_E,    CH_F,    CH_G,
     // H     I        J        K        L        M        N        O
-    PT_H,    PT_I,    PT_J,    PT_K,    PT_L,    PT_M,    PT_N,    PT_O,
+    CH_H,    CH_I,    CH_J,    CH_K,    CH_L,    CH_M,    CH_N,    CH_O,
     // P     Q        R        S        T        U        V        W
-    PT_P,    PT_Q,    PT_R,    PT_S,    PT_T,    PT_U,    PT_V,    PT_W,
+    CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // X     Y        Z        [        \        ]        ^        _
-    PT_X,    PT_Y,    PT_Z,    PT_8,    PT_BSLS, PT_9,    PT_TILD, PT_MINS,
+    CH_X,    CH_Y,    CH_Z,    CH_UDIA, CH_LABK, CH_DIAE, CH_CIRC, CH_MINS,
     // `     a        b        c        d        e        f        g
-    PT_ACUT, PT_A,    PT_B,    PT_C,    PT_D,    PT_E,    PT_F,    PT_G,
+    CH_CIRC, CH_A,    CH_B,    CH_C,    CH_D,    CH_E,    CH_F,    CH_G,
     // h     i        j        k        l        m        n        o
-    PT_H,    PT_I,    PT_J,    PT_K,    PT_L,    PT_M,    PT_N,    PT_O,
+    CH_H,    CH_I,    CH_J,    CH_K,    CH_L,    CH_M,    CH_N,    CH_O,
     // p     q        r        s        t        u        v        w
-    PT_P,    PT_Q,    PT_R,    PT_S,    PT_T,    PT_U,    PT_V,    PT_W,
+    CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // x     y        z        {        |        }        ~        DEL
-    PT_X,    PT_Y,    PT_Z,    PT_8,    PT_BSLS, PT_9,    PT_TILD, KC_DEL
+    CH_X,    CH_Y,    CH_Z,    CH_ADIA, CH_7,    CH_DLR,  CH_CIRC, KC_DEL
 };
