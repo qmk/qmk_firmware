@@ -484,10 +484,10 @@
 #define X_ALT_ERASE      X_ALTERNATE_ERASE
 #define X_SYSREQ         X_SYSTEM_REQUEST
 
-#define X_LCTRL          X_LEFT_CTRL
-#define X_LSHIFT         X_LEFT_SHIFT
-#define X_RCTRL          X_RIGHT_CTRL
-#define X_RSHIFT         X_RIGHT_SHIFT
+#define X_LCTRL  X_LEFT_CTRL
+#define X_LSHIFT X_LEFT_SHIFT
+#define X_RCTRL  X_RIGHT_CTRL
+#define X_RSHIFT X_RIGHT_SHIFT
 
 #define X_ZKHK X_GRAVE
 #define X_RO   X_INTERNATIONAL_1
