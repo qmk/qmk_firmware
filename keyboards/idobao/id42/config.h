@@ -34,9 +34,6 @@
 // #define UNUSED_PINS {}
 #define DIODE_DIRECTION COL2ROW
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* Other settings */
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if
