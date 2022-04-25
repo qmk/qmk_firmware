@@ -648,7 +648,6 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #else  /* NKRO_ENABLE */
                             if (keyboard_idle) {
 #endif /* NKRO_ENABLE */
-                            if (keyboard_idle) {
                                 /* arm the idle timer if boot protocol & idle */
                                 osalSysLockFromISR();
                                 chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
