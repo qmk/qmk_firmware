@@ -2,6 +2,7 @@
   "keyboard_name": "Abacus ID42",
   "url": "https://idobao.net",
   "maintainer": "tw59420",
+  "manufacturer": "IDOBAO",
   "bootloader": "atmel-dfu",
   "processor": "atmega32u4",
   "usb": {
