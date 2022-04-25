@@ -23,8 +23,6 @@
 
 #define PRODUCT GMMK 2 96
 
-#define PRODUCT_ID 0x505A
-
 /* key matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 8
