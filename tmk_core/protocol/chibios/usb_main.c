@@ -510,6 +510,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
         case USB_EVENT_RESET:
+            keyboard_protocol = 1;
             usb_event_queue_enqueue(event);
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
                 chSysLockFromISR();
@@ -638,12 +639,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                     case HID_SET_PROTOCOL:
                         if ((usbp->setup[4] == KEYBOARD_INTERFACE) && (usbp->setup[5] == 0)) { /* wIndex */
                             keyboard_protocol = ((usbp->setup[2]) != 0x00);                    /* LSB(wValue) */
-#ifdef NKRO_ENABLE
-                            keymap_config.nkro = !!keyboard_protocol;
-                            if (!keymap_config.nkro && keyboard_idle) {
-#else  /* NKRO_ENABLE */
                             if (keyboard_idle) {
-#endif /* NKRO_ENABLE */
                                 /* arm the idle timer if boot protocol & idle */
                                 osalSysLockFromISR();
                                 chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
