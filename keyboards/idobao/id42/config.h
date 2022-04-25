@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964  /* "id" */
-#define PRODUCT_ID      0x0042
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IDOBAO
-#define PRODUCT         ID42
-
 /* Key Matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
