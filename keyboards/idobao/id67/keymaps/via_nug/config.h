@@ -24,5 +24,4 @@
 #if defined(RGB_MATRIX_ENABLE)
     #define VIA_QMK_RGBLIGHT_ENABLE
     #define ID67_DISABLE_UNDERGLOW
-    #define ID67_CAPS_LOCK_KEY_INDEX 36  // position of Caps Lock key
 #endif

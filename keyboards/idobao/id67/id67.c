@@ -17,9 +17,9 @@
 
 #include "id67.h"
 
-#if defined(RGB_MATRIX_ENABLE)
-
 #define __ NO_LED
+
+#if defined(RGB_MATRIX_ENABLE)
 
 /* NB!!: Indices are reversed on the physical board, top left is bottom right.
  * These "LED Index to *" arrays are in that reversed order!
