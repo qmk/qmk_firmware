@@ -87,8 +87,8 @@
 #define BR_SCLN KC_SLSH // ;
 #define BR_SLSH KC_INT1 // /
 // Numpad
-#define BR_PDOT KC_PCMM    // .
-#define BR_PCMM KC_PDOT    // ,
+#define BR_PDOT KC_PCMM // .
+#define BR_PCMM KC_PDOT // ,
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
