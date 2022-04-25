@@ -5,10 +5,18 @@
 
 #ifndef JOYSTICK_BUTTON_COUNT
 #    define JOYSTICK_BUTTON_COUNT 8
+#elif JOYSTICK_BUTTON_COUNT > 32
+#    error Joystick feature only supports up to 32 buttons
 #endif
 
 #ifndef JOYSTICK_AXES_COUNT
 #    define JOYSTICK_AXES_COUNT 4
+#elif JOYSTICK_AXES_COUNT > 6
+#    error Joystick feature only supports up to 6 axes
+#endif
+
+#if JOYSTICK_AXES_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
+#    error Joystick feature requires at least one axis or button
 #endif
 
 #ifndef JOYSTICK_AXES_RESOLUTION
