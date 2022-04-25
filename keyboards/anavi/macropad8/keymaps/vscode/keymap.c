@@ -172,6 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case 20496: 
             case 20497:
             case 20498:
+            case 20499:
                strncpy(current_alpha_oled, "Switcher", sizeof(current_alpha_oled));
                break;
             default:
