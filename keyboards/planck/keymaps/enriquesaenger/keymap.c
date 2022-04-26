@@ -37,6 +37,7 @@ enum planck_keycodes {
   EXT_PLV
 };
 
+// custom layers
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
