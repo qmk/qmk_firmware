@@ -203,6 +203,12 @@ bool encoder_read(void) {
     return changed;
 }
 
+void encoder_insert_state(uint8_t index) {
+    encoder_state[index] <<= 2;
+    encoder_state[index] |= (readPin(encoders_pad_a[index]) << 0) | (readPin(encoders_pad_b[index]) << 1);
+    encoder_pulses[index] += encoder_LUT[encoder_state[index] & 0xF];
+}
+
 #ifdef SPLIT_KEYBOARD
 void last_encoder_activity_trigger(void);
 
