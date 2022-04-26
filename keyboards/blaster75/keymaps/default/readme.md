@@ -1,4 +1,4 @@
-![Blaster75 Layout Image](https://i.imgur.com/qrvNWCo.png)
+![Blaster75 Layout Image](https://i.imgur.com/qrvNWCoh.png)
 
 This is the default keymap intended for Blaster 75 Custom Keyboard by Altain Studio. 
 This layout overall follows ANSI layout except the bottom rows.
