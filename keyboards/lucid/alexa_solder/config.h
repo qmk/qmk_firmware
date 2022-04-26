@@ -20,10 +20,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x7667 // Lucid
+#define VENDOR_ID    0x7667 // Maker Keyboards
 #define PRODUCT_ID   0x0006 // Alexa
 #define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    Lucid
+#define MANUFACTURER    Maker Keyboards
 #define PRODUCT         Alexa
 
 /* key matrix size */
