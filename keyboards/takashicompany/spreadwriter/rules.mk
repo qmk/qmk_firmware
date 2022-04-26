@@ -1,1 +1,5 @@
-# This file intentionally left blank
+
+# Bootloader selection
+BOOTLOADER = caterina
+
+RGBLIGHT_ENABLE = yes           # Enable keyboard RGB underglow
