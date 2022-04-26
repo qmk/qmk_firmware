@@ -18,15 +18,19 @@ void keyboard_post_init_user(void) {
 
 ## Debugging Tools
 
-There are two different tools you can use to debug your keyboard.
+Various tools are available to debug your keyboard.
 
 ### Debugging With QMK Toolbox
 
 For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can be used to display debug messages from your keyboard.
 
+### Debugging with QMK CLI
+
+Prefer a terminal based solution? The [QMK CLI console command](cli_commands.md#qmk-console) can be used to display debug messages from your keyboard.
+
 ### Debugging With hid_listen
 
-Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
+Something stand-alone? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
 
 ## Sending Your Own Debug Messages :id=debug-api
 

@@ -16,5 +16,5 @@ iso Keymap for XD60.
 
 To build the default keymap, simply run:
 
-    make xd60/rev2:iso  # XD60 rev2
-    make xd60/rev3:iso  # XD60 rev3
+    make xiudi/xd60/rev2:iso  # XD60 rev2
+    make xiudi/xd60/rev3:iso  # XD60 rev3

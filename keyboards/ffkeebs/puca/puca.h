@@ -16,26 +16,86 @@
 
 #pragma once
 
-// K24 is 2U Plus
-// K44 is 2u Enter
-// K54 is 2u 0
-
-
 #include "quantum.h"
 
-#define LAYOUT( \
-        K00,          K02,   K03,       \
-        K10,   K11,   K12,   K13,       \
-        K20,   K21,   K22,   K23,   K24,\
-        K30,   K31,   K32,   K33,       \
-        K40,   K41,   K42,   K43,   K44,\
-        K50,   K51,   K52,   K53,       \
-        K54                             \
+/* Keycodes defined here can be used by any keymap. If you wish to
+ * define additional keycodes for your personal keymap only, assign
+ * your first custom keycode to `= NEW_SAFE_RANGE`.
+ *
+ * See `process_record_kb()` in `puca.c`.
+ */
+enum keyboard_keycodes {
+    MC_00 = SAFE_RANGE,
+    NEW_SAFE_RANGE,
+};
+
+#define XXX KC_NO
+
+/*
+ *   ┌───┐ ┌───┬───┐
+ *   │00 │ │02 │03 │
+ *   └───┘ └───┴───┘
+ * ┌───┬───┬───┬───┐
+ * │10 │11 │12 │13 │
+ * ├───┼───┼───┼───┤   ┌───┐
+ * │20 │21 │22 │23 │   │   │
+ * ├───┼───┼───┼───┤   │24 │ 2u Plus
+ * │30 │31 │32 │33 │   │   │
+ * ├───┼───┼───┼───┤   ├───┤
+ * │40 │41 │42 │43 │   │   │
+ * ├───┼───┼───┼───┤   │44 │ 2u Enter
+ * │50 │51 │52 │53 │   │   │
+ * └───┴───┴───┴───┘   └───┘
+ * ┌───────┐
+ * │54     │ 2u 0
+ * └───────┘
+ */
+
+#define LAYOUT_all( \
+      K00,    K02, K03,      \
+    K10, K11, K12, K13,      \
+    K20, K21, K22, K23,  K24,\
+    K30, K31, K32, K33,      \
+    K40, K41, K42, K43,  K44,\
+    K50, K51, K52, K53,      \
+      K54                    \
 ) { \
-      { K00,   KC_NO, K02,   K03,   KC_NO },    \
-      { K10,   K11,   K12,   K13,   KC_NO },    \
-      { K20,   K21,   K22,   K23,   K24   },    \
-      { K30,   K31,   K32,   K33,   KC_NO },    \
-      { K40,   K41,   K42,   K43,   K44   },    \
-      { K50,   K51,   K52,   K53,   K54   },    \
+    { K00, XXX, K02, K03, XXX }, \
+    { K10, K11, K12, K13, XXX }, \
+    { K20, K21, K22, K23, K24 }, \
+    { K30, K31, K32, K33, XXX }, \
+    { K40, K41, K42, K43, K44 }, \
+    { K50, K51, K52, K53, K54 }, \
+}
+
+#define LAYOUT_numpad( \
+      K00,    K02, K03, \
+    K10, K11, K12, K13, \
+    K20, K21, K22,      \
+    K30, K31, K32, K24, \
+    K40, K41, K42,      \
+      K54,    K52, K44  \
+) { \
+    { K00, XXX, K02, K03, XXX }, \
+    { K10, K11, K12, K13, XXX }, \
+    { K20, K21, K22, XXX, K24 }, \
+    { K30, K31, K32, XXX, XXX }, \
+    { K40, K41, K42, XXX, K44 }, \
+    { XXX, XXX, K52, XXX, K54 }, \
+}
+
+#define LAYOUT_ortho( \
+      K00,    K02, K03, \
+    K10, K11, K12, K13, \
+    K20, K21, K22, K23, \
+    K30, K31, K32, K33, \
+    K40, K41, K42, K43, \
+    K50, K51, K52, K53  \
+) { \
+    { K00, XXX, K02, K03, XXX }, \
+    { K10, K11, K12, K13, XXX }, \
+    { K20, K21, K22, K23, XXX }, \
+    { K30, K31, K32, K33, XXX }, \
+    { K40, K41, K42, K43, XXX }, \
+    { K50, K51, K52, K53, XXX }, \
 }

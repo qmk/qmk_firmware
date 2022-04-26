@@ -37,7 +37,7 @@ void matrix_scan_user(void) {
 }
 ```
 
-As you can see, you have a few function. You can use `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS`, `SEQ_THREE_KEYS` up to `SEQ_FIVE_KEYS` for longer sequences.
+As you can see, you have a few functions. You can use `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS`, `SEQ_THREE_KEYS` up to `SEQ_FIVE_KEYS` for longer sequences.
 
 Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
 
@@ -74,9 +74,9 @@ SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
 
 ## Infinite Leader key timeout
 
-Sometimes your leader key is not on a comfortable places as the rest of keys on your sequence. Imagine that your leader key is one of your outer top right keys, you may need to reposition your hand just to reach your leader key.
+Sometimes your leader key is not on a comfortable place as the rest of keys on your sequence. Imagine that your leader key is one of your outer top right keys, you may need to reposition your hand just to reach your leader key.
 This can make typing the entire sequence on time hard even if you are able to type most of the sequence fast. For example, if your sequence is `Leader + asd` typing `asd` fast is very easy once you have your hands in your home row. However starting the sequence in time after moving your hand out of the home row to reach the leader key and back is not.
-To remove the stress this situation produces to your hands you can enable an infinite timeout just for the leader key. This mean that, after you hit the leader key you will have an infinite amount of time to start the rest of the sequence, allowing you to proper position your hands on the best position to type the rest of the sequence comfortably.
+To remove the stress this situation produces to your hands you can enable an infinite timeout just for the leader key. This means that after you hit the leader key you will have an infinite amount of time to start the rest of the sequence, allowing you to proper position your hands on the best position to type the rest of the sequence comfortably.
 This infinite timeout only affects the leader key, so in our previous example of `Leader + asd` you will have an infinite amount of time between `Leader` and `a`, but once you start the sequence the timeout you have configured (global or per key) will work normally.
 This way you can configure a very short `LEADER_TIMEOUT` but still have plenty of time to position your hands.
 
@@ -89,11 +89,11 @@ In order to enable this, place this in your `config.h`:
 
 By default, the Leader Key feature will filter the keycode out of [`Mod-Tap`](mod_tap.md) and [`Layer Tap`](feature_layers.md#switching-and-toggling-layers) functions when checking for the Leader sequences. That means if you're using `LT(3, KC_A)`, it will pick this up as `KC_A` for the sequence, rather than `LT(3, KC_A)`, giving a more expected behavior for newer users.
 
-While, this may be fine for most, if you want to specify the whole keycode (eg, `LT(3, KC_A)` from the example above) in the sequence, you can enable this by added `#define LEADER_KEY_STRICT_KEY_PROCESSING` to your `config.h` file.  This will then disable the filtering, and you'll need to specify the whole keycode.
+While, this may be fine for most, if you want to specify the whole keycode (eg, `LT(3, KC_A)` from the example above) in the sequence, you can enable this by adding `#define LEADER_KEY_STRICT_KEY_PROCESSING` to your `config.h` file.  This will then disable the filtering, and you'll need to specify the whole keycode.
 
 ## Customization 
 
-The Leader Key feature has some additional customization to how the Leader Key feature works.  It has two functions that can be called at certain parts of the process.  Namely `leader_start()` and `leader_end()`.
+The Leader Key feature has some additional customization to how the Leader Key feature works. It has two functions that can be called at certain parts of the process. Namely `leader_start()` and `leader_end()`.
 
 The `leader_start()` function is called when you tap the `KC_LEAD` key, and the `leader_end()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
 

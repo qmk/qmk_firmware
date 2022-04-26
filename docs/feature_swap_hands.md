@@ -27,5 +27,20 @@ Note that the array indices are reversed same as the matrix and the values are o
 |`SH_MON`   |Swaps hands when pressed, returns to normal when released (momentary).   |
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
-|`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+|`SH_TT`    |Momentary swap when held, toggles with repeated taps (see below).        |
 |`SH_OS`    |One shot swap hands: toggles while pressed or until next key press.      |
+
+`SH_TT` swap-hands tap-toggle key is similar to [layer tap-toggle](feature_layers.md?id=switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.
+
+## Encoder Mapping
+
+When using an encoder mapping, it's also able to handle swapping encoders between sides, too.
+
+Encoder indexes are defined as left-to-right, and the extent of the array needs to match the number of encoders on the keyboard.
+
+As an example, if a split keyboard has a single encoder per side, you can swap the order by using the following code in your keymap:
+```c
+#if defined(SWAP_HANDS_ENABLE) && defined(ENCODER_MAP_ENABLE)
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 1, 0 };
+#endif
+```

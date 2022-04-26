@@ -36,7 +36,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 //common oled support.
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
@@ -44,7 +44,7 @@ bool oled_task_kb(void) {
     if (is_keyboard_master()) {
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state)) {
-            case _QWERTY:
+            case 0:
                 oled_write_ln_P(PSTR("Default"), false);
                 break;
             default:

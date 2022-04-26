@@ -22,6 +22,8 @@ On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is n
 RGBLIGHT_ENABLE = yes
 ```
 
+?> There are additional configuration options for ARM controllers that offer increased performance over the default WS2812 bitbang driver. Please see [WS2812 Driver](ws2812_driver.md) for more information.
+
 For APA102 LEDs, add the following to your `rules.mk`:
 
 ```make
@@ -76,8 +78,10 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
 |`RGB_MODE_TWINKLE` |`RGB_M_TW`|Twinkle animation mode                                              |
 
-!> By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix.md) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUI)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
 
+
+!> By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix.md) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
 ## Configuration
 
@@ -202,7 +206,7 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 
 ## Lighting Layers
 
-?> **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix.md?indicators) for details on how to do so.
+?> **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix.md#indicators) for details on how to do so.
 
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
@@ -322,6 +326,21 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
 
+Blinking accumulates layers so if multiple layers are set blinking at the same time they will all blink for the duration and repeat times of the last layer to be blinked.
+To stop these other layers from blinking use `rgblight_unblink_layer` or `rgblight_unblink_all_but_layer`:
+
+```c
+rgblight_blink_layer(1, 500);
+rgblight_unblink_all_but_layer(1);
+```
+
+```c
+rgblight_unblink_layer(3);
+rgblight_blink_layer(2, 500);
+```
+
+!> Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
+
 ### Overriding RGB Lighting on/off status
 
 Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
@@ -344,7 +363,7 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 ### Low level Functions
 |Function                                    |Description                                |
 |--------------------------------------------|-------------------------------------------|
-|`rgblight_set()`                            |Flash out led buffers to LEDs              |
+|`rgblight_set()`                            |Flush out led buffers to LEDs              |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
 
 Example:

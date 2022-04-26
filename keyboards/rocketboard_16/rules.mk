@@ -8,7 +8,7 @@ MCU = STM32F103
 MCU_LDSCRIPT = STM32F103xB_stm32duino_bootloader
 OPT_DEFS += -DBOOTLOADER_STM32DUINO
 BOARD = STM32_F103_STM32DUINO
-STM32_BOOTLOADER_ADDRESS = 0x80000000
+BOOTLOADER_TYPE = stm32duino
 DFU_ARGS = -d 1EAF:0003 -a 2 -R
 DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 
@@ -23,10 +23,7 @@ MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE = yes           # USB Nkey Rollover
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB backlit keys
 AUDIO_ENABLE = no           # Audio output

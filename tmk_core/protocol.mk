@@ -1,5 +1,3 @@
-PROTOCOL_DIR = protocol
-
 TMK_COMMON_SRC +=	\
 	$(PROTOCOL_DIR)/host.c \
 	$(PROTOCOL_DIR)/report.c \
@@ -27,6 +25,11 @@ endif
 
 ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     TMK_COMMON_DEFS += -DEXTRAKEY_ENABLE
+    SHARED_EP_ENABLE = yes
+endif
+
+ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DPROGRAMMABLE_BUTTON_ENABLE
     SHARED_EP_ENABLE = yes
 endif
 

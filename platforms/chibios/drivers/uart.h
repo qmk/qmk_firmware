@@ -68,6 +68,22 @@
 #    define SD1_CR3 0
 #endif
 
+#ifndef SD1_WRDLEN
+#    define SD1_WRDLEN 3
+#endif
+
+#ifndef SD1_STPBIT
+#    define SD1_STPBIT 0
+#endif
+
+#ifndef SD1_PARITY
+#    define SD1_PARITY 0
+#endif
+
+#ifndef SD1_ATFLCT
+#    define SD1_ATFLCT 0
+#endif
+
 void uart_init(uint32_t baud);
 
 void uart_write(uint8_t data);

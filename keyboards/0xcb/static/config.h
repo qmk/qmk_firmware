@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 // clang-format off
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB00
-#define PRODUCT_ID      0xA455
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    0xCB
-#define PRODUCT         Static
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -48,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define TAP_CODE_DELAY 10
-#define ENCODER_DIRECTION_FLIP
 #define ENCODER_RESOLUTION 4
 #define ENCODERS_PAD_A { D0 }
 #define ENCODERS_PAD_B { D1 }

@@ -4,7 +4,7 @@ on:
   push:
     branches:
     - master
-    - future
+    - develop
   pull_request:
     paths:
     - 'lib/python/**'

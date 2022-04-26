@@ -2,7 +2,7 @@
 
 * Keyboard Maintainer: [Sleepdealer](https://github.com/Sleepdealr)
 * Hardware Supported: Puca Pad
-* Hardware Availability: Puca GB
+* Hardware Availability: [Puca GB](https://ffkeebs.com/collections/puca)
 
 ## Bootloader
 

@@ -73,6 +73,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_DEFAULT_LEVEL 6
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

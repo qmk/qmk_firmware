@@ -1,5 +1,5 @@
 #include "satisfaction75.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 
 void pre_encoder_mode_change(){
   if(encoder_mode == ENC_MODE_CLOCK_SET){
