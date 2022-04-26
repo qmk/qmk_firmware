@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:tests/tap_hold_configurations/retro_tapping/config.h
 /* Copyright 2021 Stefan Kerkmann
+========
+/* Copyright 2020 QMK
+>>>>>>>> qmk-develop:keyboards/mode/m65hi_alpha/halconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +20,12 @@
 
 #pragma once
 
+<<<<<<<< HEAD:tests/tap_hold_configurations/retro_tapping/config.h
 #include "test_common.h"
 
 #define RETRO_TAPPING
+========
+#define HAL_USE_I2C TRUE
+
+#include_next <halconf.h>
+>>>>>>>> qmk-develop:keyboards/mode/m65hi_alpha/halconf.h

@@ -17,6 +17,7 @@ from qmk.errors import CppError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
+__INCLUDES__
 
 /* THIS FILE WAS GENERATED!
  *
@@ -27,6 +28,7 @@ DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__
 };
+
 """
 
 
@@ -156,7 +158,7 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
             return True
 
 
-def generate_json(keymap, keyboard, layout, layers):
+def generate_json(keymap, keyboard, layout, layers, macros=None):
     """Returns a `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -171,19 +173,25 @@ def generate_json(keymap, keyboard, layout, layers):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        macros
+            A sequence of strings containing macros to implement for this keyboard.
     """
     new_keymap = template_json(keyboard)
     new_keymap['keymap'] = keymap
     new_keymap['layout'] = layout
     new_keymap['layers'] = layers
+    if macros:
+        new_keymap['macros'] = macros
 
     return new_keymap
 
 
-def generate_c(keyboard, layout, layers):
-    """Returns a `keymap.c` or `keymap.json` for the specified keyboard, layout, and layers.
+def generate_c(keymap_json):
+    """Returns a `keymap.c`.
 
-    Args:
+    `keymap_json` is a dictionary with the following keys:
+
         keyboard
             The name of the keyboard
 
@@ -192,18 +200,88 @@ def generate_c(keyboard, layout, layers):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        macros
+            A sequence of strings containing macros to implement for this keyboard.
     """
-    new_keymap = template_c(keyboard)
+    new_keymap = template_c(keymap_json['keyboard'])
     layer_txt = []
-    for layer_num, layer in enumerate(layers):
+
+    for layer_num, layer in enumerate(keymap_json['layers']):
         if layer_num != 0:
             layer_txt[-1] = layer_txt[-1] + ','
         layer = map(_strip_any, layer)
         layer_keys = ', '.join(layer)
-        layer_txt.append('\t[%s] = %s(%s)' % (layer_num, layout, layer_keys))
+        layer_txt.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
 
     keymap = '\n'.join(layer_txt)
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
+
+    if keymap_json.get('macros'):
+        macro_txt = [
+            'bool process_record_user(uint16_t keycode, keyrecord_t *record) {',
+            '    if (record->event.pressed) {',
+            '        switch (keycode) {',
+        ]
+
+        for i, macro_array in enumerate(keymap_json['macros']):
+            macro = []
+
+            for macro_fragment in macro_array:
+                if isinstance(macro_fragment, str):
+                    macro_fragment = macro_fragment.replace('\\', '\\\\')
+                    macro_fragment = macro_fragment.replace('\r\n', r'\n')
+                    macro_fragment = macro_fragment.replace('\n', r'\n')
+                    macro_fragment = macro_fragment.replace('\r', r'\n')
+                    macro_fragment = macro_fragment.replace('\t', r'\t')
+                    macro_fragment = macro_fragment.replace('"', r'\"')
+
+                    macro.append(f'"{macro_fragment}"')
+
+                elif isinstance(macro_fragment, dict):
+                    newstring = []
+
+                    if macro_fragment['action'] == 'delay':
+                        newstring.append(f"SS_DELAY({macro_fragment['duration']})")
+
+                    elif macro_fragment['action'] == 'beep':
+                        newstring.append(r'"\a"')
+
+                    elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
+                        last_keycode = macro_fragment['keycodes'].pop()
+
+                        for keycode in macro_fragment['keycodes']:
+                            newstring.append(f'SS_DOWN(X_{keycode})')
+
+                        newstring.append(f'SS_TAP(X_{last_keycode})')
+
+                        for keycode in reversed(macro_fragment['keycodes']):
+                            newstring.append(f'SS_UP(X_{keycode})')
+
+                    else:
+                        for keycode in macro_fragment['keycodes']:
+                            newstring.append(f"SS_{macro_fragment['action'].upper()}(X_{keycode})")
+
+                    macro.append(''.join(newstring))
+
+            new_macro = "".join(macro)
+            new_macro = new_macro.replace('""', '')
+            macro_txt.append(f'            case MACRO_{i}:')
+            macro_txt.append(f'                SEND_STRING({new_macro});')
+            macro_txt.append('                return false;')
+
+        macro_txt.append('        }')
+        macro_txt.append('    }')
+        macro_txt.append('\n    return true;')
+        macro_txt.append('};')
+        macro_txt.append('')
+
+        new_keymap = '\n'.join((new_keymap, *macro_txt))
+
+    if keymap_json.get('host_language'):
+        new_keymap = new_keymap.replace('__INCLUDES__', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n')
+    else:
+        new_keymap = new_keymap.replace('__INCLUDES__', '')
 
     return new_keymap
 
@@ -217,7 +295,7 @@ def write_file(keymap_filename, keymap_content):
     return keymap_filename
 
 
-def write_json(keyboard, keymap, layout, layers):
+def write_json(keyboard, keymap, layout, layers, macros=None):
     """Generate the `keymap.json` and write it to disk.
 
     Returns the filename written to.
@@ -235,19 +313,19 @@ def write_json(keyboard, keymap, layout, layers):
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
-    keymap_json = generate_json(keyboard, keymap, layout, layers)
+    keymap_json = generate_json(keyboard, keymap, layout, layers, macros=None)
     keymap_content = json.dumps(keymap_json)
     keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.json'
 
     return write_file(keymap_file, keymap_content)
 
 
-def write(keyboard, keymap, layout, layers):
+def write(keymap_json):
     """Generate the `keymap.c` and write it to disk.
 
     Returns the filename written to.
 
-    Args:
+    `keymap_json` should be a dict with the following keys:
         keyboard
             The name of the keyboard
 
@@ -259,9 +337,12 @@ def write(keyboard, keymap, layout, layers):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        macros
+            A list of macros for this keymap.
     """
-    keymap_content = generate_c(keyboard, layout, layers)
-    keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
+    keymap_content = generate_c(keymap_json)
+    keymap_file = qmk.path.keymap(keymap_json['keyboard']) / keymap_json['keymap'] / 'keymap.c'
 
     return write_file(keymap_file, keymap_content)
 
