@@ -36,7 +36,7 @@
  *
  * Note: the LED config simulates 36 LEDs instead of the actual 35 to prevent
  * confusion when testing LEDs during assembly when handedness is not set
- * correctly.  Those fake LEDs are bound to the physical bottom-left corner.
+ * correctly.  Those fake LEDs are bound to the physical top-left corner.
  */
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
