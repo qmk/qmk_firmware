@@ -94,7 +94,8 @@
 
   * Hardware Features
     * Displays
-      * [HD44780 LCD Controller](feature_hd44780.md)
+      * [Quantum Painter](quantum_painter.md)
+      * [HD44780 LCD Driver](feature_hd44780.md)
       * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
     * Lighting
@@ -147,7 +148,7 @@
       * [EEPROM Driver](eeprom_driver.md)
       * ['serial' Driver](serial_driver.md)
       * [UART Driver](uart_driver.md)
-    * [GPIO Controls](internals_gpio_control.md)
+    * [GPIO Controls](gpio_control.md)
     * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
 
   * Python Development
@@ -183,10 +184,10 @@
     * [Understanding QMK](understanding_qmk.md)
 
   * QMK Internals (In Progress)
-    * [Defines](internals_defines.md)
-    * [Input Callback Reg](internals_input_callback_reg.md)
-    * [Midi Device](internals_midi_device.md)
-    * [Midi Device Setup Process](internals_midi_device_setup_process.md)
-    * [Midi Util](internals_midi_util.md)
-    * [Send Functions](internals_send_functions.md)
-    * [Sysex Tools](internals_sysex_tools.md)
+    * [Defines](internals/defines.md)
+    * [Input Callback Reg](internals/input_callback_reg.md)
+    * [Midi Device](internals/midi_device.md)
+    * [Midi Device Setup Process](internals/midi_device_setup_process.md)
+    * [Midi Util](internals/midi_util.md)
+    * [Send Functions](internals/send_functions.md)
+    * [Sysex Tools](internals/sysex_tools.md)

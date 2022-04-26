@@ -826,6 +826,21 @@ void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t ti
     _repeat_timer = sync_timer_read() + duration_ms;
 }
 
+void rgblight_unblink_layer(uint8_t layer) {
+    rgblight_set_layer_state(layer, false);
+    _blinking_layer_mask &= ~((rgblight_layer_mask_t)1 << layer);
+}
+
+void rgblight_unblink_all_but_layer(uint8_t layer) {
+    for (uint8_t i = 0; i < RGBLIGHT_MAX_LAYERS; i++) {
+        if (i != layer) {
+            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << i) != 0) {
+                rgblight_unblink_layer(i);
+            }
+        }
+    }
+}
+
 void rgblight_blink_layer_repeat_helper(void) {
     if (_blinking_layer_mask != 0 && timer_expired(sync_timer_read(), _repeat_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
@@ -1259,19 +1274,19 @@ void rgblight_effect_snake(animation_status_t *anim) {
     }
     rgblight_set();
     if (increment == 1) {
-        if (pos - 1 < 0) {
+        if (pos - RGBLIGHT_EFFECT_SNAKE_INCREMENT < 0) {
             pos = rgblight_ranges.effect_num_leds - 1;
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
             anim->pos = 0;
 #    endif
         } else {
-            pos -= 1;
+            pos -= RGBLIGHT_EFFECT_SNAKE_INCREMENT;
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
             anim->pos = 1;
 #    endif
         }
     } else {
-        pos = (pos + 1) % rgblight_ranges.effect_num_leds;
+        pos = (pos + RGBLIGHT_EFFECT_SNAKE_INCREMENT) % rgblight_ranges.effect_num_leds;
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
         anim->pos = pos;
 #    endif
@@ -1285,7 +1300,7 @@ __attribute__((weak)) const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63
 void rgblight_effect_knight(animation_status_t *anim) {
     static int8_t low_bound  = 0;
     static int8_t high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
-    static int8_t increment  = 1;
+    static int8_t increment  = RGBLIGHT_EFFECT_KNIGHT_INCREMENT;
     uint8_t       i, cur;
 
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)

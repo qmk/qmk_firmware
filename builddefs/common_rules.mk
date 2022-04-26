@@ -316,7 +316,7 @@ gccversion :
 	@$(BUILD_CMD)
 
 %.uf2: %.hex
-	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 -c -f $(UF2_FAMILY) >/dev/null 2>&1)
+	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex --output $(BUILD_DIR)/$(TARGET).uf2 --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
