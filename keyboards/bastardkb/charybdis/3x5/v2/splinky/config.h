@@ -38,6 +38,7 @@
 #define RGB_DI_PIN GP0
 
 /* PMW3360 settings. */
+#define SPI_DRIVER SPID0
 #define PMW3360_CS_PIN GP14
 
 /* Reset. */
