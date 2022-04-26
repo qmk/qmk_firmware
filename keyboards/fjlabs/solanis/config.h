@@ -73,7 +73,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_LIMIT_VAL 86
+#define RGBLIGHT_LIMIT_VAL 172
 #define RGB_VAL_STEP 12
 
 /* Define less important options */
@@ -114,5 +114,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
