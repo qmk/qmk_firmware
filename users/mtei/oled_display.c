@@ -79,9 +79,15 @@ static void render_logo(void) {
 }
 
 static const char Qwerty_name[]  PROGMEM = " Qwerty";
+#ifdef ENABLE_COLEMAK
 static const char Colemak_name[] PROGMEM = " Colemak";
+#endif
+#ifdef ENABLE_DVORAK
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
+#endif
+#ifdef ENABLE_EUCALYN
 static const char Eucalyn_name[] PROGMEM = " Eucalyn";
+#endif
 static const char Keypad_name[]  PROGMEM = " Keypad";
 
 static const char AUX_name[]     PROGMEM = ":AUX";
@@ -93,9 +99,15 @@ static const char Adjust_name[]  PROGMEM = ":Adjust";
 
 static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
+#ifdef ENABLE_COLEMAK
     [_COLEMAK] = Colemak_name,
+#endif
+#ifdef ENABLE_DVORAK
     [_DVORAK] = Dvorak_name,
+#endif
+#ifdef ENABLE_EUCALYN
     [_EUCALYN]= Eucalyn_name,
+#endif
     [_KEYPAD] = Keypad_name,
     [_AUX]    = AUX_name,
     [_KAUX]   = KAUX_name,

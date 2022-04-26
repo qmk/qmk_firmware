@@ -88,6 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower|Lower|Caps | Alt | GUI |Space|  BS |Enter|Space| GUI | Alt |Menu |Lower|Lower|
    * `-----------------------------------------------------------------------------------'
    */
+#ifdef ENABLE_COLEMAK
   [_COLEMAK] = LAYOUT_wrapper(
     KC_ESC,  _1_____2_____3_____4_____5,               _6_____7_____8_____9_____0,   KC_BSPC,
     KC_TAB,   Q_____W_____F_____P_____G,                J_____L_____U_____Y____SCLN, KC_BSLS,
@@ -95,6 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  Z_____X_____C_____V_____B,   GRV__QUOT,   K_____M____COMM__DOT___SLSH, KC_RSFT,
      LOWER__LOWER__CAPS__LALT__LGUI__SPC__RABS, RAEN___SPC___RGUI__RALT__APP___LOWER__LOWER
    ),
+#endif
 
   /* Dvorak */
 #define GRV__SLSH KC_GRV,  KC_SLSH
@@ -110,6 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower|Lower|Caps | Alt | GUI |Space|  BS |Enter|Space| GUI | Alt |Menu |Lower|Lower|
    * `-----------------------------------------------------------------------------------'
    */
+#ifdef ENABLE_DVORAK
   [_DVORAK] = LAYOUT_wrapper(
     KC_ESC,  _1_____2_____3_____4_____5,               _6_____7_____8_____9_____0,   KC_BSPC,
     KC_TAB,  QUOT_COMM___DOT____P_____Y,                F_____G_____C_____R_____L,   KC_BSLS,
@@ -117,6 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, SCLN___Q_____J_____K_____X,   GRV__SLSH,   B_____M_____W_____V_____Z,   KC_RSFT,
      LOWER__LOWER__CAPS__LALT__LGUI__SPC__RABS, RAEN___SPC___RGUI__RALT__APP___LOWER__LOWER
    ),
+#endif
 
   /* Eucalyn (http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout) */
   /* ,-----------------------------------.           ,-----------------------------------.
@@ -131,6 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower|Lower|Caps | Alt | GUI |Space|  BS |Enter|Space| GUI | Alt |Menu |Lower|Lower|
    * `-----------------------------------------------------------------------------------'
    */
+#ifdef ENABLE_EUCALYN
   [_EUCALYN] = LAYOUT_wrapper(
     KC_ESC,  _1_____2_____3_____4_____5,               _6_____7_____8_____9_____0,   KC_BSPC,
     KC_TAB,   Q_____W___COMM___DOT__SCLN,               M_____R_____D_____Y_____P,   KC_BSLS,
@@ -138,6 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  Z_____X_____C_____V_____F,   GRV__QUOT,   B_____H_____J_____L____SLSH, KC_RSFT,
      LOWER__LOWER__CAPS__LALT__LGUI__SPC__RABS, RAEN___SPC___RGUI__RALT__APP___LOWER__LOWER
    ),
+#endif
 
   /* Keypad */
 #define KP_TAB__PSLS_PAST  KC_TAB,  KC_PSLS, KC_PAST
@@ -356,21 +362,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case COLEMAK:
+#ifdef ENABLE_COLEMAK
       if (record->event.pressed) {
         update_base_layer(_COLEMAK);
       }
+#endif
       return false;
       break;
     case DVORAK:
+#ifdef ENABLE_DVORAK
       if (record->event.pressed) {
         update_base_layer(_DVORAK);
       }
+#endif
       return false;
       break;
     case EUCALYN:
+#ifdef ENABLE_EUCALYN
       if (record->event.pressed) {
         update_base_layer(_EUCALYN);
       }
+#endif
       return false;
       break;
     case KEYPAD:
@@ -419,7 +431,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}
-
-void matrix_init_user(void) {
 }

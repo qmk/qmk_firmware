@@ -6,9 +6,15 @@
 // entirely and just use numbers.
 enum layer_number {
     _QWERTY = 0,
+#ifdef ENABLE_COLEMAK
     _COLEMAK,
+#endif
+#ifdef ENABLE_DVORAK
     _DVORAK,
+#endif
+#ifdef ENABLE_EUCALYN
     _EUCALYN,
+#endif
     _KEYPAD,
     _AUX,
     _KAUX,
