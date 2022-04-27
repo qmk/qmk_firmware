@@ -18,10 +18,12 @@
 
 #define MAC_FN 2
 #define WIN_FN 3
+#ifndef RAW_EPSIZE
+#    define RAW_EPSIZE 32
+#endif
 
-static void timer_3000ms_task(void);
-static void timer_250ms_task(void);
-static void factory_test_send(uint8_t *payload, uint8_t length);
+static void timer_3s_task(void);
+static void timer_300ms_task(void);
 
 #define KEY_PRESS_FN    (0x1<<0)
 #define KEY_PRESS_J     (0x1<<1)
@@ -51,12 +53,12 @@ enum {
 };
 
 uint16_t key_press_status = 0;
-uint32_t timer_3000ms_buffer = 0;
-uint32_t timer_250ms_buffer = 0;
+uint32_t timer_3s_buffer = 0;
+uint32_t timer_300ms_buffer = 0;
 uint8_t factory_reset_count = 0;
 bool report_os_sw_state = false;
 
-void process_other_record(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(MAC_FN):
         case MO(WIN_FN):
@@ -64,31 +66,31 @@ void process_other_record(uint16_t keycode, keyrecord_t *record) {
                 key_press_status |= KEY_PRESS_FN;
             } else {
                 key_press_status &= ~KEY_PRESS_FN;
-                timer_3000ms_buffer = 0;
+                timer_3s_buffer = 0;
             }
-            break;
+            return true;
         case KC_J:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_J;
                 if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
+                    timer_3s_buffer = sync_timer_read32() | 1;
                 }
             } else {
                 key_press_status &= ~KEY_PRESS_J;
-                timer_3000ms_buffer = 0;
+                timer_3s_buffer = 0;
             }
-            break;
+            return true;
         case KC_Z:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_Z;
                 if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
+                    timer_3s_buffer = sync_timer_read32() | 1;
                 }
             } else {
                 key_press_status &= ~KEY_PRESS_Z;
-                timer_3000ms_buffer = 0;
+                timer_3s_buffer = 0;
             }
-            break;
+            return true;
         case KC_RGHT:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_RIGHT;
@@ -97,46 +99,52 @@ void process_other_record(uint16_t keycode, keyrecord_t *record) {
                         led_test_mode = LED_TEST_MODE_WHITE;
                     }
                 } else if (key_press_status == KEY_PRESS_LED_TEST) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
+                    timer_3s_buffer = sync_timer_read32() | 1;
                 }
             } else {
                 key_press_status &= ~KEY_PRESS_RIGHT;
-                timer_3000ms_buffer = 0;
+                timer_3s_buffer = 0;
             }
-            break;
-        case KC_PGDN:
+            return true;
+        case KC_HOME:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_HOME;
                 if (led_test_mode) {
                     led_test_mode = LED_TEST_MODE_OFF;
                 } else if (key_press_status == KEY_PRESS_LED_TEST) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
+                    timer_3s_buffer = sync_timer_read32() | 1;
                 }
             } else {
                 key_press_status &= ~KEY_PRESS_HOME;
-                timer_3000ms_buffer = 0;
+                timer_3s_buffer = 0;
             }
-            break;
+            return true;
+        default:
+            return process_record_user(keycode, record);
     }
 }
 
-void timer_task_start(void) {
-    if (timer_3000ms_buffer) {
-        timer_3000ms_task();
-    } else if (timer_250ms_buffer) {
-        timer_250ms_task();
+void matrix_scan_kb(void) {
+    if (timer_3s_buffer) {
+        timer_3s_task();
     }
+    if (timer_300ms_buffer) {
+        timer_300ms_task();
+    }
+
+    matrix_scan_user();
 }
 
-static void timer_3000ms_task(void) {
-    if (sync_timer_elapsed32(timer_3000ms_buffer) > 3000) {
-        timer_3000ms_buffer = 0;
+static void timer_3s_task(void) {
+    if (sync_timer_elapsed32(timer_3s_buffer) > 3000) {
+        timer_3s_buffer = 0;
         if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-            timer_250ms_buffer = sync_timer_read32() | 1;
+            timer_300ms_buffer = sync_timer_read32() | 1;
             factory_reset_count++;
             layer_state_t default_layer_tmp = default_layer_state;
             eeconfig_init();
             default_layer_set(default_layer_tmp);
+            led_test_mode = LED_TEST_MODE_OFF;
 #ifdef LED_MATRIX_ENABLE
             if (!led_matrix_is_enabled()) led_matrix_enable();
             led_matrix_init();
@@ -159,13 +167,13 @@ static void timer_3000ms_task(void) {
     }
 }
 
-static void timer_250ms_task(void) {
-    if (timer_250ms_buffer && sync_timer_elapsed32(timer_250ms_buffer) > 250) {
+static void timer_300ms_task(void) {
+    if (timer_300ms_buffer && sync_timer_elapsed32(timer_300ms_buffer) > 300) {
         if (factory_reset_count++ > 6) {
-            timer_250ms_buffer = 0;
+            timer_300ms_buffer = 0;
             factory_reset_count = 0;
         } else {
-            timer_250ms_buffer = sync_timer_read32() | 1;
+            timer_300ms_buffer = sync_timer_read32() | 1;
         }
     }
 }
@@ -232,13 +240,13 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
         switch (data[1]) {
             case FACTORY_TEST_CMD_BACKLIGHT:
                 led_test_mode = data[2];
-                timer_3000ms_buffer = 0;
+                timer_3s_buffer = 0;
                 break;
             case FACTORY_TEST_CMD_OS_SWITCH:
                 report_os_sw_state = data[2];
-                if (report_os_sw_state) {
-                    // dip_switch_read(true);
-                }
+                // if (report_os_sw_state) {
+                //     dip_switch_read(true);
+                // }
                 break;
             case FACTORY_TEST_CMD_JUMP_TO_BL:
                 if (memcmp(&data[2], "JumpToBootloader", strlen("JumpToBootloader")) == 0)
@@ -248,25 +256,23 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
    }
 }
 
-static void factory_test_send(uint8_t *payload, uint8_t length) {
+void system_switch_state_report(uint8_t index, bool active) {
     uint16_t checksum = 0;
     uint8_t data[RAW_EPSIZE] = {0};
-    uint8_t i = 0;
-    data[i++] = 0xAB;
-    memcpy(&data[i], payload, length);
-    i += length;
-    for (uint8_t i=1; i<RAW_EPSIZE-3; i++ ) {
-        checksum += data[i];
-    }
-    data[RAW_EPSIZE-2] = checksum & 0xFF;
-    data[RAW_EPSIZE-1] = (checksum >> 8) & 0xFF;
-    raw_hid_send(data, RAW_EPSIZE);
-}
+    uint8_t payload[3] = { 0 };
 
-void system_switch_state_report(uint8_t index, bool active) {
     if (report_os_sw_state) {
-        uint8_t payload[3] = {FACTORY_TEST_CMD_OS_SWITCH, OS_SWITCH, active};
-        factory_test_send(payload, 3);
+        payload[0] = FACTORY_TEST_CMD_OS_SWITCH;
+        payload[1] = OS_SWITCH;
+        payload[2] = active;
+        data[0] = 0xAB;
+        memcpy(&data[1], payload, 3);
+        for (uint8_t i=1; i<RAW_EPSIZE-3; i++ ) {
+            checksum += data[i];
+        }
+        data[RAW_EPSIZE-2] = checksum & 0xFF;
+        data[RAW_EPSIZE-1] = (checksum >> 8) & 0xFF;
+        raw_hid_send(data, RAW_EPSIZE);
     }
 }
 

@@ -148,12 +148,12 @@ uint16_t dpi_val = 0;
                 timer_3s_buffer = 0;
             }
             return false;  // Skip all further processing of this key
-        case KC_BTN4:
-            if (record->event.pressed) {
-                dpi_val = pointing_device_get_cpi();
-                uprintf("Current dpi value is %d\n", dpi_val);
-            }
-            return false;  // Skip all further processing of this key
+//        case KC_BTN4:
+//            if (record->event.pressed) {
+//                dpi_val = pointing_device_get_cpi();
+//                uprintf("Current dpi value is %d\n", dpi_val);
+//            }
+//            return false;  // Skip all further processing of this key
         default:
 /* If Mousekeys is disabled, then use handle the mouse button
  * keycodes.  This makes things simpler, and allows usage of
@@ -337,6 +337,23 @@ void led_all_off(void) {
 }
 
 void dpi_config_indicators(uint8_t dpi_config) {
+//    uint16_t current_dpi = pointing_device_get_cpi();
+//    switch (current_dpi) {
+//        case 1200:
+//            led_white_on();
+//            break;
+//        case 2400:
+//            led_blue_on();
+//            break;
+//        case 3600:
+//            led_green_on();
+//            break;
+//        case 5000:
+//            led_red_on();
+//            break;
+//        default:
+//            break;
+//    }
     switch (dpi_config) {
         case 0:
             led_white_on();

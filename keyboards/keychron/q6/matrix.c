@@ -33,8 +33,8 @@ static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif  // MATRIX_COL_PINS
 
-#ifndef PIN_IN_COL
-#    define PIN_IN_COL MATRIX_COLS
+#ifndef PIN_OFFSET
+#    define PIN_OFFSET 0
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -96,7 +96,7 @@ static bool select_col(uint8_t col) {
         setPinOutput_writeLow(pin);
         return true;
     } else {
-        SendTo595(~(0x1<<(PIN_IN_COL - col - 1)));
+        SendTo595(~(0x1<<((MATRIX_COLS - PIN_OFFSET) - col - 1)));
         return true;
     }
     return false;
