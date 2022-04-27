@@ -15,6 +15,7 @@ GRAVE_ESC_ENABLE      = no
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/keyrecords/secrets.c)","")
         SRC += $(USER_PATH)/keyrecords/secrets.c
+        SECURE_ENABLE = yes
     endif
     ifeq ($(strip $(NO_SECRETS)), lite)
         OPT_DEFS += -DNO_SECRETS
