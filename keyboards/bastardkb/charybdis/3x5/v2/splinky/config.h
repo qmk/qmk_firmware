@@ -39,9 +39,9 @@
 
 /* PMW3360 settings. */
 #define SPI_DRIVER SPID0
-#define SPI_SCK_PIN GP6
-#define SPI_MOSI_PIN GP8
-#define SPI_MISO_PIN GP7
+#define SPI_SCK_PIN GP18
+#define SPI_MOSI_PIN GP19
+#define SPI_MISO_PIN GP20
 #define PMW3360_CS_PIN GP14
 
 /* Reset. */
