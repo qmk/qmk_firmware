@@ -18,6 +18,7 @@
 
 #include "quantum.h"
 #include "oled_driver.h"
+extern deferred_token kittoken;
 
 void            oled_driver_render_logo(void);
 bool            process_record_user_oled(uint16_t keycode, keyrecord_t *record);
@@ -27,22 +28,28 @@ void            render_keylogger_status(void);
 void            render_default_layer_state(void);
 void            render_layer_state(void);
 void            render_keylock_status(uint8_t led_usb_state);
-void            render_matrix_scan_rate(void);
+void            render_matrix_scan_rate(uint8_t padding);
 void            render_mod_status(uint8_t modifiers);
 void            render_bootmagic_status(void);
 void            render_user_status(void);
 void            oled_driver_render_logo(void);
 void            render_wpm(uint8_t padding);
-void            render_pointing_dpi_status(uint8_t padding);
+void            render_pointing_dpi_status(uint16_t cpi, uint8_t padding);
 void            oled_driver_render_logo_left(void);
 void            oled_driver_render_logo_right(void);
+void            oled_render_large_display(void);
+void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset);
 
-#ifdef OLED_DISPLAY_128X64
+#if defined(OLED_DISPLAY_128X128) || defined(OLED_DISPLAY_128X64)
+#    define OLED_DISPLAY_VERBOSE
+
 #    define OLED_RENDER_KEYLOGGER         "Keylogger: "
-
+#    ifndef OLED_KEYLOGGER_LENGTH
+#        define OLED_KEYLOGGER_LENGTH         9
+#    endif
 #    define OLED_RENDER_LAYOUT_NAME       "Layout: "
 #    define OLED_RENDER_LAYOUT_QWERTY     "Qwerty"
-#    define OLED_RENDER_LAYOUT_COLEMAK_DH "Colemak-DH"
+#    define OLED_RENDER_LAYOUT_COLEMAK_DH "Colemak DH"
 #    define OLED_RENDER_LAYOUT_COLEMAK    "Colemak"
 #    define OLED_RENDER_LAYOUT_DVORAK     "Dvorak"
 #    define OLED_RENDER_LAYOUT_WORKMAN    "Workman"
@@ -58,11 +65,11 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_RENDER_LAYER_MODS        "Mods"
 
 #    define OLED_RENDER_LOCK_NAME         "Lock: "
-#    define OLED_RENDER_LOCK_NUML         "NUML"
+#    define OLED_RENDER_LOCK_NUML         "NUM"
 #    define OLED_RENDER_LOCK_CAPS         "CAPS"
 #    define OLED_RENDER_LOCK_SCLK         "SCLK"
 
-#    define OLED_RENDER_MODS_NAME         "Mods:"
+#    define OLED_RENDER_MODS_NAME         "Mods"
 #    define OLED_RENDER_MODS_SFT          "Sft"
 #    define OLED_RENDER_MODS_CTL          "Ctl"
 #    define OLED_RENDER_MODS_ALT          "Alt"
@@ -84,6 +91,9 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_RENDER_WPM_COUNTER       "WPM: "
 #else
 #    define OLED_RENDER_KEYLOGGER         "KLogr"
+#    ifndef OLED_KEYLOGGER_LENGTH
+#        define OLED_KEYLOGGER_LENGTH         5
+#    endif
 
 #    define OLED_RENDER_LAYOUT_NAME       "Lyout"
 #    define OLED_RENDER_LAYOUT_QWERTY     " QRTY"
@@ -127,5 +137,23 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_RENDER_USER_NUKE         "Nuke"
 
 #    define OLED_RENDER_WPM_COUNTER       "WPM: "
+#endif
 
+
+extern char                      keylog_str[OLED_KEYLOGGER_LENGTH];
+
+#ifndef OLED_WPM_GRAPH_MAX_WPM
+#    define OLED_WPM_GRAPH_MAX_WPM 120
+#endif
+#ifndef OLED_WPM_GRAPH_REFRESH_INTERVAL
+#    define OLED_WPM_GRAPH_REFRESH_INTERVAL 300
+#endif
+#ifndef OLED_WPM_GRAPH_AREA_FILL_INTERVAL
+#    define OLED_WPM_GRAPH_AREA_FILL_INTERVAL 3
+#endif
+#ifndef OLED_WPM_GRAPH_VERTCAL_LINE_INTERVAL
+#    define OLED_WPM_GRAPH_VERTCAL_LINE_INTERVAL 3
+#endif
+#ifndef OLED_WPM_GRAPH_GRAPH_LINE_THICKNESS
+#    define OLED_WPM_GRAPH_GRAPH_LINE_THICKNESS 2
 #endif

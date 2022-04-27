@@ -54,7 +54,7 @@ or in keymap directory
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
 $ qmk compile
-Ψ Compiling keymap with make make gh60/satan:colemak
+Ψ Compiling keymap with make gh60/satan:colemak
 ...
 ```
 
@@ -310,7 +310,7 @@ Any arguments that are not provided will prompt for input. If `-u` is not passed
 **Usage**:
 
 ```
-qmk new-keyboard [-kb KEYBOARD] [-t {avr,ps2avrgb}] -u USERNAME
+qmk new-keyboard [-kb KEYBOARD] [-t {atmega32u4,STM32F303,etc}] [-l {60_ansi,75_iso,etc}] -u USERNAME
 ```
 
 ## `qmk new-keymap`
@@ -333,6 +333,23 @@ This command cleans up the `.build` folder. If `--all` is passed, any .hex or .b
 
 ```
 qmk clean [-a]
+```
+
+## `qmk via2json`
+
+This command an generate a keymap.json from a VIA keymap backup. Both the layers and the macros are converted, enabling users to easily move away from a VIA-enabled firmware without writing any code or reimplementing their keymaps in QMK Configurator.
+
+**Usage**:
+
+```
+qmk via2json -kb KEYBOARD [-l LAYOUT] [-km KEYMAP] [-o OUTPUT] filename
+```
+
+**Example:**
+
+```
+$ qmk via2json -kb ai03/polaris -o polaris_keymap.json polaris_via_backup.json
+Ψ Wrote keymap to /home/you/qmk_firmware/polaris_keymap.json
 ```
 
 ---
@@ -498,3 +515,15 @@ Run single test:
 
     qmk pytest -t qmk.tests.test_cli_commands.test_c2json
     qmk pytest -t qmk.tests.test_qmk_path
+
+## `qmk painter-convert-graphics`
+
+This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+
+## `qmk painter-make-font-image`
+
+This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+
+## `qmk painter-convert-font-image`
+
+This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.

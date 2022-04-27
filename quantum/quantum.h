@@ -109,6 +109,10 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef UNICODE_COMMON_ENABLE
+#    include "process_unicode_common.h"
+#endif
+
 #ifdef KEY_OVERRIDE_ENABLE
 #    include "process_key_override.h"
 #endif
@@ -184,6 +188,10 @@ extern layer_state_t layer_state;
 #    include "st7565.h"
 #endif
 
+#ifdef QUANTUM_PAINTER_ENABLE
+#    include "qp.h"
+#endif
+
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
 #endif
@@ -192,8 +200,17 @@ extern layer_state_t layer_state;
 #    include "process_dynamic_macro.h"
 #endif
 
+#ifdef SECURE_ENABLE
+#    include "secure.h"
+#    include "process_secure.h"
+#endif
+
 #ifdef DYNAMIC_KEYMAP_ENABLE
 #    include "dynamic_keymap.h"
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
 #endif
 
 #ifdef VIA_ENABLE
@@ -244,11 +261,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-void led_set_user(uint8_t usb_led);
-void led_set_kb(uint8_t usb_led);
-bool led_update_user(led_t led_state);
-bool led_update_kb(led_t led_state);
 
 const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
 const char *get_u8_str(uint8_t curr_num, char curr_pad);

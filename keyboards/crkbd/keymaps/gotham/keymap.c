@@ -81,6 +81,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
     if (record->event.pressed) {
         oled_timer = timer_read();
+        is_key_processed = true;
         add_keylog(keycode);
     }
 #endif
