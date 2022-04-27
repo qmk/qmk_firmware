@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Hands swapped matrix, except the F key row is left as is.
 
 
-/* QWERTY Layout (Default Layer)
+/* QWERTY/Default Layer
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
 |ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  |  F8  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|  Fn  |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                                                   ,-----------------.                 ,-----------------.
 	                                                   |SELWORD |CAPSWORD|                 | NUMWORD| ( / NAV|
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
-	                                          |  BkSp  |  Del   |  SPOT  |                 |WINDOW* |  Enter |  Space |
+	                                          |  Bksp  |  Del   |  SPOT  |                 |WINDOW* |  Enter |  Space |
 	                                          | ^Del / |   /    |--------|                 |--------|    /   |    /   |
 	                                          |  LGUI  |  LSHFT | APPNAV |                 |  OSMeh |  Keypad|  RGUI  |
 	                                          `--------------------------'                 `--------------------------'
@@ -317,20 +317,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 |         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |   {    |        |                                                     |        |   }    |        |        |        |         |
+|         |        |        |   {    |   }    |        |                                                     |        |        |        |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |   #    |   (    |        |                                                     |        |   )    |        |        |    ;   |         |
+|         |        |        |   (    |   )    |        |                                                     |        |   :    |   ;    |   #    |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |   [    |        |                                                     |        |   ]    |        |        |    \   |         |
+|         |        |        |   [    |   ]    |   |    |                                                     |        |        |        |        |    \   |         |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |        |        |        |        |                                                                       |   |    |        |        |        |
+          |        |        |        |        |                                                                       |        |        |        |        |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
 	                                                   |   +    |        |                 |        |   `    |
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
 	                                          |        |        |   *    |                 |        |        |        |
 	                                          |   -    |   =    |--------|                 |--------|   "    |   _    |
-	                                          |        |        |TDSLSH  |                 |        |        |        |
+	                                          |        |        |   /    |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 
 */
@@ -338,13 +338,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYMBOLS] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, KC_LCBR, _______,                                                       _______, KC_RCBR, _______, _______, _______, _______,
-  _______, _______, _______, KC_HASH, KC_LPRN, _______,                                                       _______, KC_RPRN, _______, _______, KC_SCLN, _______,
-  _______, _______, _______, _______, KC_LBRC, _______,                                                       _______, KC_RBRC, _______, _______, KC_BSLS, _______,
-           _______, _______, _______, _______,                                                                         KC_PIPE, _______, _______, _______,
+  _______, _______, _______, KC_LCBR, KC_RCBR, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_LPRN, KC_RPRN, _______,                                                       _______, KC_COLN, KC_SCLN, KC_HASH, _______, _______,
+  _______, _______, _______, KC_LBRC, KC_RBRC, KC_PIPE,                                                       _______, _______, _______, _______, KC_BSLS, _______,
+           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
                                                         KC_PLUS, _______,                   _______, KC_GRV,
                                                                  KC_ASTR,                   _______,
-                                               KC_MINS, KC_EQL, TD(SLSH),                   _______, KC_DQUO, KC_UNDS
+                                               KC_MINS, KC_EQL,  KC_SLSH,                   _______, KC_DQUO, KC_UNDS
 ),
 
 /*  VIM - Holding spot for future implementation
@@ -409,7 +409,7 @@ Navigation Layer
 	                                          |   1    |   2    | QWERTY |                 | QWERTY |   2    |   1    |
 	                                          `--------------------------'                 `--------------------------'
     Note:
-    * QWERTY deactivates the layer and return to the main layout
+    * QWERTY deactivates the layer and returns to the main layout
 */
 
 [_NAV] = LAYOUT_pretty(
@@ -442,10 +442,13 @@ Navigation Layer
 	                                                   ,-----------------.                 ,-----------------.
 	                                                   |        |        |                 |        |        |
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
-	                                          |        |        |        |                 |        |        |        |
-	                                          |        |        |--------|                 |--------|        |        |
-	                                          |        |        |        |                 |        |        |        |
+	                                          |        |        |        |                 |        |++Enter |        |
+	                                          |        |        |--------|                 |--------|   /    |        |
+	                                          |        |        |        |                 |        | QWERTY |        |
 	                                          `--------------------------'                 `--------------------------'
+    Notes:
+    * ++ is from QWERTY layer, and a quick exit from Keypad Layer is what the LT hold function effectively becomes
+    * KPSWAP alternates between Keypad and LKeypad
 */
 
 [_KEYPAD] = LAYOUT_pretty(
@@ -493,44 +496,6 @@ Navigation Layer
                                                                  _______,                   _______,
                                                _______, _______, _______,                   _______, _______, _______
 ),
-
-/*  Function layer
-
-,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
-|      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
-`--------------------------------------------------------------'                                     `--------------------------------------------------------------'
-,------------------------------------------------------.                                                     ,------------------------------------------------------.
-|         |   F1   |   F2   |   F3   |   F4   |   F5   |                                                     |   F6   |   F7   |   F8   |   F9   |   F10  |         |
-|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                                     |  PgUp  |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                                     |  PgDn  |  Mute  |  Vol-  |  Vol+  |  Home  |  End    |
-`---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |        |        |        |        |                                                                       |  Prev  |  Play  |  Next  |  Stop  |
-          `-----------------------------------'                                                                       `-----------------------------------'
-	                                                   ,-----------------.                 ,-----------------.
-	                                                   |        |        |                 |        |        |
-	                                          ,--------+--------+--------|                 |--------+--------+--------.
-	                                          |        |        |        |                 |        |        |        |
-	                                          |        |        |--------|                 |--------|        |        |
-	                                          |        |        |        |                 | QWERTY |        |        |
-	                                          `--------------------------'                 `--------------------------'
-*/
-// [_FUNCTION] = LAYOUT_pretty(
-//   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-//   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-//   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-//   _______, _______, _______, _______, _______, _______,                                                       KC_PGUP, _______, _______, _______, _______, _______,
-//   _______, _______, _______, _______, _______, _______,                                                       KC_PGDN, KC_MUTE, KC_VOLD, KC_VOLU, KC_HOME, KC_END,
-//            _______, _______, _______, _______,                                                                         KC_MPRV, KC_MPLY, KC_MNXT, MEH(KC_O),
-//                                                         _______, _______,                   _______, _______,
-//                                                                  _______,                   _______,
-//                                                _______, _______, _______,                   QWERTY,  _______, _______
-// ),
-
-// };
 
  
 /*  Function layer
@@ -616,27 +581,6 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = { \
     {{0, 14},  {1, 14},  {2, 14},  {3, 14},  {4, 14},  {5, 14}}  \
 };
 
-// Matrix scan function constantly running => Similar to "do () while (keyboard is powered on)"
-// void rgb_matrix_indicators_user(void) 
-// {	
-//     if (isRecording)
-//     {
-//         // timer_elapsed() is a built-in function in qmk => it calculates in ms the time elapsed with timer_read()
-//         if (timer_elapsed(recording_timer) > 500) 
-//         {
-//             isRecordingLedOn = !isRecordingLedOn;
-//             recording_timer = timer_read();
-//         }
-//         if (isRecordingLedOn)
-//         {
-//             writePin(LED_KEYPAD, 1);
-//             writePin(LED_NUM_LOCK_PIN, 1);
-//             writePin(LED_SCROLL_LOCK_PIN, 1);
-//             writePin(LED_CAPS_LOCK_PIN, 1);
-//         }
-//     }
-// }
-
 bool isRecording = false;
 bool isRecordingLedOn = false;
 uint16_t recording_timer = 0;
@@ -664,39 +608,19 @@ void dynamic_macro_record_end_user(int8_t direction)
 // Turn on all LEDs to indicate CAPSWORD is active
 void caps_word_set_user(bool active) {
     if (active) {
-        // Do something when Caps Word activates.
+        // Turn on all LEDs when Caps Word activates.
         writePin(LED_KEYPAD, 0);
         writePin(LED_NUM_LOCK_PIN, 0);
         writePin(LED_SCROLL_LOCK_PIN, 0);
         writePin(LED_CAPS_LOCK_PIN, 0);
     }
     else {
-        // Do something when Caps Word deactivates.
+        // Turn off all LEDs when Caps Word deactivates.
         writePin(LED_KEYPAD, 1);
         writePin(LED_NUM_LOCK_PIN, 1);
         writePin(LED_SCROLL_LOCK_PIN, 1);
         writePin(LED_CAPS_LOCK_PIN, 1);
     }
-}
-
-// Changes the LEDs on Keyboard to indicate active layers
-layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!caps_word_get() && !isRecording) { // Let Macro and CapsWord LED settings override standard ones
-        // LED Labelled: Keypad Symbol
-        writePin(LED_KEYPAD, !layer_state_cmp(state, _KEYPAD));
-        // LED Labelled: "1"
-        writePin(LED_NUM_LOCK_PIN, !layer_state_cmp(state, _SYMBOLS));
-        // LED Labelled: "↓"
-        writePin(LED_SCROLL_LOCK_PIN, !layer_state_cmp(state, _NAV));
-        // LED Labelled: "A"
-        writePin(LED_CAPS_LOCK_PIN, !layer_state_cmp(state, _FUNCTION));
-    }
-    return state;
-}
-
-bool led_update_user(led_t led_state) {
-    // Disable led_update_kb() so that layer indication code doesn't get overridden.
-    return false;
 }
 
 void led_wave(bool state) {
@@ -711,9 +635,41 @@ void led_wave(bool state) {
     else {
         wave_active = false;
         layer_on(0); // Dummy call to get layer_state_set_user to update
+        cycle = 1; // Reset the wave to the beginning
 
     }
 }
+// Function called on startup
+// void keyboard_post_init_user(void) {
+//     // Could also implement using default_layer_state_set_user(layer_state_t state)
+//     layer_on(0); // Dummy call to get layer_state_set_user to update, in order to set startup state of LEDs
+// }
+
+// Changes the LEDs on Keyboard to indicate active layers
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (!caps_word_get() && !isRecording) { // Let Macro and CapsWord LED settings override standard ones
+        
+        // Basic LED settings
+        // LED Labelled: "A"
+        writePin(LED_CAPS_LOCK_PIN, !layer_state_cmp(state, _FUNCTION));
+        // LED Labelled: "1"
+        writePin(LED_NUM_LOCK_PIN, layer_state_cmp(state, _NUMSHIFT));
+        // LED Labelled: "↓"
+        writePin(LED_SCROLL_LOCK_PIN, !layer_state_cmp(state, _NAV));
+        // LED Labelled: Keypad Symbol
+        writePin(LED_KEYPAD, !layer_state_cmp(state, _KEYPAD));
+
+        // Symbols layer triggers wave
+        layer_state_cmp(state, _SYMBOLS) ? led_wave(true) : led_wave(false);
+    }
+    return state;
+}
+
+bool led_update_user(led_t led_state) {
+    // Disable led_update_kb() so that layer indication code doesn't get overridden.
+    return false;
+}
+
 
 void matrix_scan_user(void) {
 
