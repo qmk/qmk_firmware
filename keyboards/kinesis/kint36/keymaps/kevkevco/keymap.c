@@ -117,12 +117,9 @@ void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
-// Hands swapped matrix, except the F key row is left as is.
-
-
 /* QWERTY/Default Layer
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
-|ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  |  F8  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|  Fn  |
+|ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  | VIM  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|  Fn  |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 | ESC|`\~ |   1^!  |   2^@  |   3^#  |   4^$  |   5^%  |                                                     |   6^^  |  7^&   |  8^*   |  9^(   |   0^)  |  NAV    |
@@ -157,6 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Configured in MacOS: Double tapping any command key brings up dictation so you can dictate text
     * Manually exit CAPS word by pressing any modifier or holding a Modtap to the mod activation point
     * Window Tap Dance is configured for Rectangle Pro
+    * SWAPHD swap the hands of the keycode matrix, except the top small key row is left as is
     
     Tap Dance Details:
     * WINDOW 1:  One shot NAV layer with CTL+OPT active
@@ -224,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_QWERTY] = LAYOUT_pretty(
-  ESC_STS, SH_TT,   KC_F2,   TO(_QWERTY),  TG(_NUMSHIFT),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  KC_F8,  CLEAR, DM_PLY1, DM_REC1, DM_RSTP,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_APFN,
+  ESC_STS, SH_TT,   KC_F2,   TO(_QWERTY),  TG(_NUMSHIFT),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  TG(_VIM),  CLEAR, DM_PLY1, DM_REC1, DM_RSTP,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_APFN,
   TD(GVES), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
   TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),TD(COLON),TD(RPINKY),
@@ -581,12 +579,22 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = { \
     {{0, 14},  {1, 14},  {2, 14},  {3, 14},  {4, 14},  {5, 14}}  \
 };
 
+// LED function variables initializations
 bool isRecording = false;
 bool isRecordingLedOn = false;
 uint16_t recording_timer = 0;
-uint16_t wave_timer = 0;
+
 bool wave_active = false;
+uint16_t wave_timer = 0;
 int cycle = 1;
+
+bool flash_active = false;
+uint16_t flash_timer = 0;
+int flash_array[4][4] = {
+    {0, 1, 2, 3},
+    {0, 0, 0, 0}
+};
+int led_state = 0;
 
 // Listener function => Triggered when you start recording a macro.
 void dynamic_macro_record_start_user(void) 
@@ -605,9 +613,29 @@ void dynamic_macro_record_end_user(int8_t direction)
     layer_on(0); // Dummy call to get layer_state_set_user to update
 }
 
+void led_flash(int led, bool state) {
+    if (state == true) {
+        flash_active = true;
+        flash_timer = timer_read();
+        flash_array[led][1] = 1;
+    }
+    else {
+        flash_array[led][1] = 0;
+        // Check to make sure there aren't other flash instances still active
+        // for (int i = 0; i < 4; i++) {
+        //     if (flash_array[i][1] == 1) {
+        //         layer_on(0);
+        //         return;
+        // }
+        flash_active = false;
+        layer_on(0); // Dummy call to get layer_state_set_user to update
+    }
+}
+
 // Turn on all LEDs to indicate CAPSWORD is active
 void caps_word_set_user(bool active) {
     if (active) {
+        // led_flash(0, true);
         // Turn on all LEDs when Caps Word activates.
         writePin(LED_KEYPAD, 0);
         writePin(LED_NUM_LOCK_PIN, 0);
@@ -615,6 +643,7 @@ void caps_word_set_user(bool active) {
         writePin(LED_CAPS_LOCK_PIN, 0);
     }
     else {
+        // led_flash(0, false);
         // Turn off all LEDs when Caps Word deactivates.
         writePin(LED_KEYPAD, 1);
         writePin(LED_NUM_LOCK_PIN, 1);
@@ -639,28 +668,30 @@ void led_wave(bool state) {
 
     }
 }
-// Function called on startup
-// void keyboard_post_init_user(void) {
-//     // Could also implement using default_layer_state_set_user(layer_state_t state)
-//     layer_on(0); // Dummy call to get layer_state_set_user to update, in order to set startup state of LEDs
-// }
+
 
 // Changes the LEDs on Keyboard to indicate active layers
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!caps_word_get() && !isRecording) { // Let Macro and CapsWord LED settings override standard ones
+    // if (!caps_word_get() && !isRecording) { // Let Macro and CapsWord LED settings override standard ones
+    if (!isRecording) { // Let Macro LED settings override standard ones
         
+    
+        if (IS_LAYER_ON_STATE(state, _SYMBOLS)) {
+            led_wave(true);
+        } else if (wave_active) {
+            led_wave(false);
+        }
+
         // Basic LED settings
         // LED Labelled: "A"
-        writePin(LED_CAPS_LOCK_PIN, !layer_state_cmp(state, _FUNCTION));
+        writePin(LED_CAPS_LOCK_PIN, !layer_state_cmp(state, _VIM));
         // LED Labelled: "1"
-        writePin(LED_NUM_LOCK_PIN, layer_state_cmp(state, _NUMSHIFT));
+        writePin(LED_NUM_LOCK_PIN, !layer_state_cmp(state, _NUMSHIFT));
         // LED Labelled: "↓"
         writePin(LED_SCROLL_LOCK_PIN, !layer_state_cmp(state, _NAV));
         // LED Labelled: Keypad Symbol
         writePin(LED_KEYPAD, !layer_state_cmp(state, _KEYPAD));
 
-        // Symbols layer triggers wave
-        layer_state_cmp(state, _SYMBOLS) ? led_wave(true) : led_wave(false);
     }
     return state;
 }
@@ -681,39 +712,80 @@ void matrix_scan_user(void) {
         }
     }
 
+    if (flash_active) {
+        if (timer_elapsed(flash_timer) > 100) {
+            for (int i = 0; i < 4; i++) {
+                if (flash_array[i][1] == 1) {
+                    switch (i) {
+                        case 0:
+                            // LED Labelled: "A"
+                            // led_state = readPin(LED_CAPS_LOCK_PIN); // OR, function could set an arbitrary on/off starting point and update it each flash.
+                            // led_state = (led_state + 1) % 2; // Invert led_state
+                            // writePin(LED_CAPS_LOCK_PIN, led_state);
+                            // togglePin(LED_CAPS_LOCK_PIN);
+                            break;
+                        case 1:
+                            // LED Labelled: "1"
+                            // led_state = readPin(LED_NUM_LOCK_PIN);
+                            // led_state = (led_state + 1) % 2; // Invert led_state
+                            // writePin(LED_NUM_LOCK_PIN, led_state);
+                            togglePin(LED_NUM_LOCK_PIN);
+                            break;
+                        case 2:
+                            // LED Labelled: "↓"
+                            // led_state = readPin(LED_SCROLL_LOCK_PIN);
+                            // led_state = (led_state + 1) % 2; // Invert led_state
+                            // writePin(LED_SCROLL_LOCK_PIN, led_state);
+                            togglePin(LED_SCROLL_LOCK_PIN);
+                            break;
+                        case 3:
+                            // LED Labelled: Keypad Symbol
+                            // led_state = readPin(LED_KEYPAD);
+                            // led_state = (led_state + 1) % 2; // Invert led_state
+                            // writePin(LED_KEYPAD, led_state);
+                            togglePin(LED_KEYPAD);
+                            break;
+                    }
+                }
+            }
+
+            flash_timer = timer_read();
+        }
+    }
+
     if (wave_active && timer_elapsed(wave_timer) > 100) {
         switch (cycle) {
             case 1:
                 writePin(LED_CAPS_LOCK_PIN, 0);
-                SEND_STRING("1");
+                // SEND_STRING("1");
                 break;
             case 2:
                 writePin(LED_NUM_LOCK_PIN, 0);
-                SEND_STRING("2");
+                // SEND_STRING("2");
                 break;
             case 3:
                 writePin(LED_CAPS_LOCK_PIN, 1);
-                SEND_STRING("3");
+                // SEND_STRING("3");
                 break;
             case 4:
                 writePin(LED_SCROLL_LOCK_PIN, 0);
-                SEND_STRING("4");
+                // SEND_STRING("4");
                 break;
             case 5:
                 writePin(LED_NUM_LOCK_PIN, 1);
-                SEND_STRING("5");
+                // SEND_STRING("5");
                 break;
             case 6:
                 writePin(LED_KEYPAD, 0);
-                SEND_STRING("6");
+                // SEND_STRING("6");
                 break;
             case 7:
                 writePin(LED_SCROLL_LOCK_PIN, 1);
-                SEND_STRING("7");
+                // SEND_STRING("7");
                 break;
             case 8:
                 writePin(LED_KEYPAD, 1);
-                SEND_STRING("8");
+                // SEND_STRING("8");
                 cycle = 0; // Code below switch block will increment this up to 1
                 break;
             // case 9:
@@ -1182,6 +1254,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return true;
             }
             // Let QMK process the KC_BSPC keycode as usual outside of shift
+            return true;
+        // case TG(_FUNCTION):
+        //     if (record->event.pressed) {
+        //         if (flash_array[3][1] == 1) {
+        //             led_flash(3, false);
+        //         } else {
+        //             led_flash(3, true);
+        //         }
+        //     }
             return true;
         case CAPWORD: // Caps Word
             if (record->event.pressed) {
