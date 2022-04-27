@@ -118,8 +118,8 @@ __attribute__((weak)) void unicode_input_start(void) {
             tap_code(KC_U);
             break;
         case UC_EMACS:
-	    // The usual way to type unicode in emacs is C-x-8 <RET> then the unicode number in hex
-	    tap_code16(LCTL(KC_X));
+            // The usual way to type unicode in emacs is C-x-8 <RET> then the unicode number in hex
+            tap_code16(LCTL(KC_X));
             tap_code16(KC_8);
             tap_code16(KC_ENTER);
             break;
