@@ -18,7 +18,9 @@
 
 #include "test_common.h"
 
-#define SECURE_UNLOCK_SEQUENCE \
-    {                          \
-        { 0, 1 }, { 0, 2 }, { 0, 3 }, { 0, 4 } \
+#define SECURE_UNLOCK_SEQUENCE    \
+    {                             \
+        {0, 1}, {0, 2}, {0, 3}, { \
+            0, 4                  \
+        }                         \
     }
