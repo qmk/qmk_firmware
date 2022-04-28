@@ -39,18 +39,10 @@ void secure_unlock(void) {
     secure_hook_quantum(secure_status);
 }
 
-void clear_keyboard(void);
-void layer_clear(void);
-
 void secure_request_unlock(void) {
     if (secure_status == SECURE_LOCKED) {
         secure_status = SECURE_PENDING;
         unlock_time   = timer_read32();
-        // If keys are being held when this is triggered, they may not be released properly
-        // this can result in stuck keys, mods and layers.  To prevent that, manually
-        // clear these, when it is triggered.
-        clear_keyboard();
-        layer_clear();
     }
     secure_hook_quantum(secure_status);
 }

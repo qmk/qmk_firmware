@@ -214,6 +214,11 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #if defined(SECURE_ENABLE)
     if (!preprocess_secure(keycode, record)) {
+        // If keys are being held when this is triggered, they may not be released properly
+        // this can result in stuck keys, mods and layers.  To prevent that, manually
+        // clear these, when it is triggered.
+        clear_keyboard();
+        layer_clear();
         return false;
     }
 #endif
