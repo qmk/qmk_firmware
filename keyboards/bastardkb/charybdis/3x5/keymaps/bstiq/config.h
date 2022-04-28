@@ -19,31 +19,31 @@
 
 #ifdef VIA_ENABLE
 /* Via/Vial configuration. */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8
-#ifdef VIAL_ENABLE
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 8
+#    ifdef VIAL_ENABLE
 /** Vial-specific configuration. */
 
-#define VIAL_KEYBOARD_UID \
-  { 0x08, 0x7F, 0xDE, 0x7F, 0xFA, 0x71, 0xB7, 0x49 }
-#define VIAL_UNLOCK_COMBO_ROWS \
-  { 0, 4 }
-#define VIAL_UNLOCK_COMBO_COLS \
-  { 0, 0 }
+#        define VIAL_KEYBOARD_UID \
+            { 0x08, 0x7F, 0xDE, 0x7F, 0xFA, 0x71, 0xB7, 0x49 }
+#        define VIAL_UNLOCK_COMBO_ROWS \
+            { 0, 4 }
+#        define VIAL_UNLOCK_COMBO_COLS \
+            { 0, 0 }
 
-#ifndef __arm__
+#        ifndef __arm__
 /** Disable unused vial features. */
 
 // In addition to RGB Matrix effects, VialRGB also provides direct LED control
 // with a script running on your computer.  Remove to reenable.
-#define VIALRGB_NO_DIRECT
-#endif  // __arm__
-#endif  // VIAL_ENABLE
-#endif  // VIA_ENABLE
+#            define VIALRGB_NO_DIRECT
+#        endif // __arm__
+#    endif     // VIAL_ENABLE
+#endif         // VIA_ENABLE
 
 #ifndef __arm__
 /* Disable unused features. */
-#define NO_ACTION_ONESHOT
-#endif  // __arm__
+#    define NO_ACTION_ONESHOT
+#endif // __arm__
 
 /**
  * Configure the global tapping term (default: 200ms).
@@ -52,8 +52,8 @@
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-term
  */
 #ifndef TAPPING_TERM
-#define TAPPING_TERM 160
-#endif  // TAPPING_TERM
+#    define TAPPING_TERM 160
+#endif // TAPPING_TERM
 
 /**
  * Enable rapid switch from tap to hold.  Disable auto-repeat when pressing key
@@ -102,89 +102,83 @@
 /** Charybdis-specific features. */
 
 #ifdef POINTING_DEVICE_ENABLE
-// Enable pointer acceleration, which increases the speed by ~2x for large
-// displacement, while maintaining 1x speed for slow movements.  See also:
-// - `CHARYBDIS_POINTER_ACCELERATION_FACTOR`
-// #define CHARYBDIS_POINTER_ACCELERATION_ENABLE
-
 // Automatically enable the pointer layer when moving the trackball.  See also:
 // - `CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS`
 // - `CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD`
 // #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 // Flip horizontal direction for drag-scroll.
-#define CHARYBDIS_DRAGSCROLL_REVERSE_X
+#    define CHARYBDIS_DRAGSCROLL_REVERSE_X
 // #define CHARYBDIS_DRAGSCROLL_REVERSE_Y
-#endif  // POINTING_DEVICE_ENABLE
+#endif // POINTING_DEVICE_ENABLE
 
 /** RGB Matrix. */
 
 #ifdef RGB_MATRIX_ENABLE
-#ifdef __arm__
+#    ifdef __arm__
 // Enable all animations on ARM boards since they have plenty of memory
 // available for it.
-#define ENABLE_RGB_MATRIX_ALPHAS_MODS
-#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-#define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_BAND_SAT
-#define ENABLE_RGB_MATRIX_BAND_VAL
-#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-#define ENABLE_RGB_MATRIX_CYCLE_ALL
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#define ENABLE_RGB_MATRIX_DUAL_BEACON
-#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-#define ENABLE_RGB_MATRIX_RAINDROPS
-#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#define ENABLE_RGB_MATRIX_HUE_BREATHING
-#define ENABLE_RGB_MATRIX_HUE_PENDULUM
-#define ENABLE_RGB_MATRIX_HUE_WAVE
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#define ENABLE_RGB_MATRIX_SPLASH
-#define ENABLE_RGB_MATRIX_MULTISPLASH
-#define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#else
+#        define ENABLE_RGB_MATRIX_ALPHAS_MODS
+#        define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#        define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#        define ENABLE_RGB_MATRIX_BREATHING
+#        define ENABLE_RGB_MATRIX_BAND_SAT
+#        define ENABLE_RGB_MATRIX_BAND_VAL
+#        define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#        define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#        define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#        define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#        define ENABLE_RGB_MATRIX_CYCLE_ALL
+#        define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#        define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#        define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#        define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#        define ENABLE_RGB_MATRIX_DUAL_BEACON
+#        define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#        define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+#        define ENABLE_RGB_MATRIX_RAINDROPS
+#        define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#        define ENABLE_RGB_MATRIX_HUE_BREATHING
+#        define ENABLE_RGB_MATRIX_HUE_PENDULUM
+#        define ENABLE_RGB_MATRIX_HUE_WAVE
+#        define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#        define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#        define ENABLE_RGB_MATRIX_SPLASH
+#        define ENABLE_RGB_MATRIX_MULTISPLASH
+#        define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#    else
 // Disable control of RGB matrix by keycodes (must use firmware implementation
 // to control the feature).
-#define RGB_MATRIX_DISABLE_KEYCODES
-#endif
+#        define RGB_MATRIX_DISABLE_KEYCODES
+#    endif
 
 // Limit maximum brightness to keep power consumption reasonable, and avoid
 // disconnects.
-#undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 64
+#    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 64
 
 // Rainbow swirl as startup mode.
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 // Slow swirl at startup.
-#define RGB_MATRIX_STARTUP_SPD 32
+#    define RGB_MATRIX_STARTUP_SPD 32
 
 // Startup values.
-#define RGB_MATRIX_STARTUP_HUE 0
-#define RGB_MATRIX_STARTUP_SAT 255
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define RGB_MATRIX_STARTUP_HSV \
-  RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL
-#endif  // RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_STARTUP_HUE 0
+#    define RGB_MATRIX_STARTUP_SAT 255
+#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_STARTUP_HSV RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL
+#endif // RGB_MATRIX_ENABLE
