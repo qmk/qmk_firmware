@@ -7,7 +7,9 @@
 
 bool preprocess_secure(uint16_t keycode, keyrecord_t *record) {
     if (secure_is_unlocking()) {
-        if (!record->event.pressed) {
+        // !pressed will trigger on any already held keys (such as layer keys),
+        // and cause the request secure check to prematurely fail.
+        if (record->event.pressed) {
             secure_keypress_event(record->event.key.row, record->event.key.col);
         }
 
