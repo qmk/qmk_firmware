@@ -3,7 +3,7 @@
 
 #include "secure.h"
 #include "timer.h"
-#include "action_layer.h"
+
 
 #ifndef SECURE_UNLOCK_TIMEOUT
 #    define SECURE_UNLOCK_TIMEOUT 5000
@@ -38,6 +38,9 @@ void secure_unlock(void) {
     idle_time     = timer_read32();
     secure_hook_quantum(secure_status);
 }
+
+void clear_keyboard(void);
+void layer_clear(void);
 
 void secure_request_unlock(void) {
     if (secure_status == SECURE_LOCKED) {
@@ -94,3 +97,16 @@ void secure_task(void) {
     }
 #endif
 }
+
+#if defined(SECURE_ENABLE)
+__attribute__((weak)) bool secure_hook_user(secure_status_t secure_status) {
+    return true;
+}
+__attribute__((weak)) bool secure_hook_kb(secure_status_t secure_status) {
+    return secure_hook_user(secure_status);
+}
+
+__attribute__((weak)) void secure_hook_quantum(secure_status_t secure_status) {
+    secure_hook_kb(secure_status);
+}
+#endif
