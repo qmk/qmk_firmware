@@ -17,33 +17,48 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0101
-#define DEVICE_VER      0x0100
+#define PRODUCT_ID      0x0107
+#define DEVICE_VER      0x0200
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 15
+#define MATRIX_COLS 16
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { D3, D2, B3, B2, B1, B0 }
-#define MATRIX_COL_PINS { D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, F5, F4, F1, F0 }
+#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
+#define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 
 /* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {0,1} }
+#define DIP_SWITCH_MATRIX_GRID  { {5,4} }
 
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1011111
+#define DRIVER_ADDR_1 0b1110111
+#define DRIVER_ADDR_2 0b1110100
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 59
-#define DRIVER_2_LED_TOTAL 23
+#define DRIVER_1_LED_TOTAL 45
+#define DRIVER_2_LED_TOTAL 37
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
+/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
+#define PHASE_CHANNEL MSKPHASE_9CHANNEL
+
+/* Set the maxium brightness as 192 in order to limit the current to 450mA */
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24 * 8)  // 8 = RGB_MATRIX_VAL_STEP
+
+/* We have 2KB EEPROM size on STM32L432 */
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
 /* Encoder used pins */
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { B7 }
+#define ENCODERS_PAD_A { A10 }
+#define ENCODERS_PAD_B { A8 }
 
 /* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
+
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 45
+
+/* Total size of the EEPROM storage in bytes */
+#define TRANSIENT_EEPROM_SIZE 1024

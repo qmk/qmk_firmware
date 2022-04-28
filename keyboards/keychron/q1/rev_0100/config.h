@@ -16,14 +16,25 @@
 
 #pragma once
 
-
 /* USB Device descriptor parameter */
 #define PRODUCT_ID      0x0100
 #define DEVICE_VER      0x0100
 
+/* key matrix size */
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 15
+
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D3, D2, B3, B2, B1, B0 }
 #define MATRIX_COL_PINS { D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, F5, F4, F1, F0 }
+
+/* DIP switch */
+#define DIP_SWITCH_MATRIX_GRID  { {0,1} }
+
+/* RGB Matrix Driver Configuration */
+#define DRIVER_COUNT 2
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1011111
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 59
