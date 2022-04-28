@@ -15,8 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
-// This controls special press and hold keys.
-// Maps right arrow to F15 when held, to be used for push to talk.
+/* This controls special press and hold keys.
+ * Maps right arrow to F15 when held, to be used for push to talk.
+ */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(0, KC_RIGHT):
