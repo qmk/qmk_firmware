@@ -65,3 +65,15 @@ void secure_keypress_event(uint8_t row, uint8_t col);
 /** \brief Handle various secure subsystem background tasks
  */
 void secure_task(void);
+
+/** \brief quantum hook called when changing secure status device
+ */
+void secure_hook_quantum(secure_status_t secure_status);
+
+/** \brief user hook called when changing secure status device
+ */
+bool secure_hook_user(secure_status_t secure_status);
+
+/** \brief keyboard hook called when changing secure status device
+ */
+bool secure_hook_kb(secure_status_t secure_status);

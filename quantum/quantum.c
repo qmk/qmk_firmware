@@ -553,3 +553,16 @@ const char *get_u16_str(uint16_t curr_num, char curr_pad) {
     last_pad = curr_pad;
     return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
 }
+
+#if defined(SECURE_ENABLE)
+__attribute__((weak)) bool secure_hook_user(secure_status_t secure_status) {
+    return true;
+}
+__attribute__((weak)) bool secure_hook_kb(secure_status_t secure_status) {
+    return secure_hook_user(secure_status);
+}
+
+void secure_hook_quantum(secure_status_t secure_status) {
+    secure_hook_kb(secure_status);
+}
+#endif

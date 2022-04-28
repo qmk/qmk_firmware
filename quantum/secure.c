@@ -29,11 +29,13 @@ secure_status_t secure_get_status(void) {
 
 void secure_lock(void) {
     secure_status = SECURE_LOCKED;
+    secure_hook_quantum(secure_status);
 }
 
 void secure_unlock(void) {
     secure_status = SECURE_UNLOCKED;
     idle_time     = timer_read32();
+    secure_hook_quantum(secure_status);
 }
 
 void secure_request_unlock(void) {
@@ -41,6 +43,7 @@ void secure_request_unlock(void) {
         secure_status = SECURE_PENDING;
         unlock_time   = timer_read32();
     }
+    secure_hook_quantum(secure_status);
 }
 
 void secure_activity_event(void) {
