@@ -2,7 +2,7 @@
 
 ![hillside](https://imgur.com/XW0rX13.png)
 
-[Hillside](https://github.com/mmccoyd/hillside)
+[Hillside 48](https://github.com/mmccoyd/hillside)
  is a split ergonomic keyboard
  with 3x6+4+2 choc-spaced keys with aggressive column stagger,
  a longer thumb arc and a breakoff outer-pinky column.
@@ -13,11 +13,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/hillside/0_1:default
+    make handwired/hillside/48:default
 
 Flashing example for this keyboard:
 
-    make handwired/hillside/0_1:default:flash
+    make handwired/hillside/48:default:flash
 
 ## Bootloader
 

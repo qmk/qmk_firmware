@@ -4,7 +4,7 @@ This default keymap follows many of the norms seen in non-programmable keyboards
   to ease initial use of the Hillside keyboard.
 It is a starting point for you to tweak over time to better suit _your_ preferences.
 You can easily customize it with the
-  [QMK configurator](https://config.qmk.fm/#/hillside/0_1/LAYOUT)
+  [QMK configurator](https://config.qmk.fm/#/hillside/48/LAYOUT)
   or with the [via firmware](https://caniusevia.com).
 
 Some of its key features are:
@@ -200,7 +200,7 @@ Or, you can use the graphical configurator to edit the keymap. To do that:
 - Save the keymap using the green down arrow button.
 - Copy those changes back into your QMK repository and reformat for easy reading using the format script:
 ```
-./keyboards/handwired/hillside/0_1/keymaps/json2hill.py --input <Your download directory>/default.json > ./keyboards/handwired/hillside/0_1/keymaps/default/keymap.json
+./keyboards/handwired/hillside/48/keymaps/json2hill.py --input <Your download directory>/default.json > ./keyboards/handwired/hillside/48/keymaps/default/keymap.json
 ```
    You may need to make that script executable with ```chmod +x```. After your keymap is safely copied and formated, you may want to remove the keymap from your download directory so later downloads will automatically receive the same file name.
 
