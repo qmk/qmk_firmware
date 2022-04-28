@@ -48,11 +48,14 @@
 
 // RGB Matrix config
 #if defined(RGB_MATRIX_ENABLE)
-    #define DRIVER_LED_TOTAL 77
-    #define DRIVER_LED_UNDERGLOW 10
+    #ifndef ID67_DISABLE_UNDERGLOW
+        #define DRIVER_LED_TOTAL 77
+    #else
+        #define DRIVER_LED_TOTAL 67
+    #endif
 
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150   // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150    // limits maximum brightness of LEDs to x out of 255. If not defined maximum brightness is set to 255
 
     #define RGB_MATRIX_KEYPRESSES
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS          // Static dual hue, speed is hue for secondary hue

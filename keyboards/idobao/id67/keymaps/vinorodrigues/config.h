@@ -16,6 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #if defined(RGB_MATRIX_ENABLE)
     #define VIA_QMK_RGBLIGHT_ENABLE
     #define ID67_DISABLE_UNDERGLOW  // personal choice, I use a ID67 Bestype
@@ -23,9 +25,7 @@
     #ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
         #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #endif
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200  // // limits maximum brightness of LEDs to 200 out of 255
-
-    //// #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200  // limits maximum brightness of LEDs to x out of 255
 
     //// #define RGB_MATRIX_KEYPRESSES
 
