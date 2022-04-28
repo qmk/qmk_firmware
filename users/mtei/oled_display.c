@@ -18,8 +18,6 @@
 #include <string.h>
 #include QMK_KEYBOARD_H
 
-#include "layer_number.h"
-
 #include "pseudo_sprintf.h"
 
 extern int current_default_layer;
@@ -78,44 +76,8 @@ static void render_logo(void) {
 #    endif // RGBLIGHT_ENABLE
 }
 
-static const char Qwerty_name[]  PROGMEM = " Qwerty";
-#ifdef ENABLE_COLEMAK
-static const char Colemak_name[] PROGMEM = " Colemak";
-#endif
-#ifdef ENABLE_DVORAK
-static const char Dvorak_name[]  PROGMEM = " Dvorak";
-#endif
-#ifdef ENABLE_EUCALYN
-static const char Eucalyn_name[] PROGMEM = " Eucalyn";
-#endif
-static const char Keypad_name[]  PROGMEM = " Keypad";
-
-static const char AUX_name[]     PROGMEM = ":AUX";
-static const char KAUX_name[]    PROGMEM = ":00";
-static const char Padfunc_name[] PROGMEM = ":PadFunc";
-static const char Lower_name[]   PROGMEM = ":Func";
-static const char Raise_name[]   PROGMEM = ":Extra";
-static const char Adjust_name[]  PROGMEM = ":Adjust";
-
-static const char *layer_names[] = {
-    [_QWERTY] = Qwerty_name,
-#ifdef ENABLE_COLEMAK
-    [_COLEMAK] = Colemak_name,
-#endif
-#ifdef ENABLE_DVORAK
-    [_DVORAK] = Dvorak_name,
-#endif
-#ifdef ENABLE_EUCALYN
-    [_EUCALYN]= Eucalyn_name,
-#endif
-    [_KEYPAD] = Keypad_name,
-    [_AUX]    = AUX_name,
-    [_KAUX]   = KAUX_name,
-    [_LOWER]  = Lower_name,
-    [_RAISE]  = Raise_name,
-    [_PADFUNC]= Padfunc_name,
-    [_ADJUST] = Adjust_name
-};
+/* weak reference */ __attribute__((weak)) extern const char *layer_names[];
+/* weak reference */ __attribute__((weak)) extern const size_t num_of_layer_names;
 
 void render_status(void) {
     // Render to mode icon
@@ -131,21 +93,29 @@ void render_status(void) {
     }
 
     // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-    int name_num;
+    int name_num, max_name_num;
     uint32_t lstate;
-    oled_write_P(layer_names[current_default_layer], false);
-#    ifdef DEBUG_MATRIX_SCAN_RATE
     char buf[16];
+    max_name_num = 0;
+    if (layer_names != NULL) {
+        max_name_num = num_of_layer_names;
+        oled_write_P(layer_names[current_default_layer], false);
+    } else {
+        sprintd(buf, " layer:", current_default_layer);
+        oled_write(buf, false);
+    }
+#    ifdef DEBUG_MATRIX_SCAN_RATE
     sprintd(buf, " scan:", get_matrix_scan_rate());
     oled_write(buf, false);
 #    endif
     oled_write_P(PSTR("\n"), false);
-    for (lstate = layer_state, name_num = 0;
-         lstate && name_num < sizeof(layer_names)/sizeof(char *);
-         lstate >>=1, name_num++) {
+    for (lstate = layer_state, name_num = 0; lstate; lstate >>=1, name_num++) {
         if ((lstate & 1) != 0) {
-            if (layer_names[name_num]) {
+            if (name_num < max_name_num && layer_names[name_num]) {
                 oled_write_P(layer_names[name_num], false);
+            } else {
+                sprintd(buf, ":", name_num);
+                oled_write(buf, false);
             }
         }
     }

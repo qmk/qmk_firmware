@@ -17,7 +17,53 @@
 #include QMK_KEYBOARD_H
 
 #include <key_blocks.h>
-#include "layer_number.h"
+#include <layer_number_util.h>
+
+#ifdef ENABLE_COLEMAK
+#    define COLEMAK_Colemak (COLEMAK, " Colemak"),
+#else
+#    define COLEMAK_Colemak
+#endif
+#ifdef ENABLE_DVORAK
+#    define DVORAK_Dvorak (DVORAK, " Dvorak"),
+#else
+#    define DVORAK_Dvorak
+#endif
+#ifdef ENABLE_EUCALYN
+#    define EUCALYN_Eucalyn (EUCALYN, " Eucalyn"),
+#else
+#    define EUCALYN_Eucalyn
+#endif
+
+#define LAYER_NAME_LIST \
+    (QWERTY,  " Qwerty"),   \
+    COLEMAK_Colemak         \
+    DVORAK_Dvorak           \
+    EUCALYN_Eucalyn         \
+    (KEYPAD,  " Keypad"),   \
+    (AUX,     ":AUX"),      \
+    (KAUX,    ":00"),       \
+    (LOWER,   ":Func"),     \
+    (RAISE,   ":Extra"),    \
+    (PADFUNC, ":PadFunc"),  \
+    (ADJUST,  ":Adjust")
+
+enum layer_number {
+    // _QWERTY, _COLEMAK, ...
+    MAP(BUILD_LAYER_ENUM_NUMBER, LAYER_NAME_LIST)
+};
+
+#ifdef OLED_ENABLE
+// static const char QWERTY_name[]  PROGMEM = " Qwerty"; ...
+MAP(BUILD_LAYER_NAME_STR, LAYER_NAME_LIST)
+
+const char *layer_names[] = {
+    // [_QWERTY] = QWERTY_name, ...
+    MAP(BUILD_LAYER_NAME_TABLE, LAYER_NAME_LIST)
+};
+#endif
+
+const size_t num_of_layer_names = GET_ITEM_COUNT(LAYER_NAME_LIST);
 
 extern keymap_config_t keymap_config;
 
