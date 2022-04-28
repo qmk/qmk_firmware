@@ -183,15 +183,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-#ifdef _______
-#undef _______
-#define _______ {0, 0, 0}
-
 
 // layer color and type
 const uint8_t PROGMEM ledmap[][4] = {
   // LEDs off on Layer 0
-  //[_LVL0_] = _______,
+  //[_LVL0_] = {{0, 0, 0},       LYR_SOLID},
   [_LVL0_] = {C_HSV_WINERED,   LYR_SOLID},
   [_LVL1_] = {HSV_RED,         LYR_TRANS},
   [_LVL2_] = {HSV_MAGENTA,     LYR_BLACK},
@@ -201,11 +197,6 @@ const uint8_t PROGMEM ledmap[][4] = {
   [_LVL6_] = {HSV_BLUE,        LYR_TRANS},
   [_LVL7_] = {C_HSV_WINERED,   LYR_SOLID}
 };
-
-#undef _______
-#define _______ KC_TRNS
-#endif
-
 
 
 void keyboard_post_init_user(void) {
