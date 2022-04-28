@@ -177,9 +177,3 @@ void encoder_update_raw(uint8_t* slave_state) {
     if (changed) last_encoder_activity_trigger();
 }
 #endif
-
-void encoder_insert_state(uint8_t index) {
-    encoder_state[index] <<= 2;
-    encoder_state[index] |= (readPin(encoders_pad_a[index]) << 0) | (readPin(encoders_pad_b[index]) << 1);
-    encoder_pulses[index] += encoder_LUT[encoder_state[index] & 0xF];
-}
