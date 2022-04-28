@@ -1,0 +1,15 @@
+{
+  "keyboard_name": "Udon13",
+  "url": "instagram.com/the_mad_noodle",
+  "maintainer": "The-Mad-Noodle",
+  "width": 4,
+  "height": 4,
+  "layouts": {
+    "LAYOUT_ortho_3x4": {
+      "layout": [{"label":"ENC", "x":3, "y":0.25},
+         {"x":0, "y":1.75}, {"x":1, "y":1.75}, {"x":2, "y":1.75}, {"x":3, "y":1.75}, 
+         {"x":0, "y":2.75}, {"x":1, "y":2.75}, {"x":2, "y":2.75}, {"x":3, "y":2.75}, 
+         {"x":0, "y":3.75}, {"x":1, "y":3.75}, {"x":2, "y":3.75}, {"x":3, "y":3.75}]
+    }
+}
+}
