@@ -385,114 +385,113 @@ enum quantum_keycodes {
     UNICODE_MODE_WIN,     // 5CE4
     UNICODE_MODE_BSD,     // 5CE5
     UNICODE_MODE_WINC,    // 5CE6
-    UNICODE_MODE_EMACS,   // SCE7
 
     // Haptic
-    HPT_ON,   // 5CE8
-    HPT_OFF,  // 5CE9
-    HPT_TOG,  // 5CEA
-    HPT_RST,  // 5CEB
-    HPT_FBK,  // 5CEC
-    HPT_BUZ,  // 5CED
-    HPT_MODI, // 5CEE
-    HPT_MODD, // 5CEF
-    HPT_CONT, // 5CF0
-    HPT_CONI, // 5CF1
-    HPT_COND, // 5CF2
-    HPT_DWLI, // 5CF3
-    HPT_DWLD, // 5CF4
+    HPT_ON,   // 5CE7
+    HPT_OFF,  // 5CE8
+    HPT_TOG,  // 5CE9
+    HPT_RST,  // 5CEA
+    HPT_FBK,  // 5CEB
+    HPT_BUZ,  // 5CEC
+    HPT_MODI, // 5CED
+    HPT_MODD, // 5CEE
+    HPT_CONT, // 5CEF
+    HPT_CONI, // 5CF0
+    HPT_COND, // 5CF1
+    HPT_DWLI, // 5CF2
+    HPT_DWLD, // 5CF3
 
     // Space Cadet (continued)
-    KC_LCPO, // 5CF5
-    KC_RCPC, // 5CF6
-    KC_LAPO, // 5CF7
-    KC_RAPC, // 5CF8
+    KC_LCPO, // 5CF4
+    KC_RCPC, // 5CF5
+    KC_LAPO, // 5CF6
+    KC_RAPC, // 5CF7
 
     // Combos
-    CMB_ON,  // 5CF9
-    CMB_OFF, // 5CFA
-    CMB_TOG, // 5CFB
+    CMB_ON,  // 5CF8
+    CMB_OFF, // 5CF9
+    CMB_TOG, // 5CFA
 
     // Magic (continued)
-    MAGIC_SWAP_LCTL_LGUI,   // 5CFC
-    MAGIC_SWAP_RCTL_RGUI,   // 5CFD
-    MAGIC_UNSWAP_LCTL_LGUI, // 5CFE
-    MAGIC_UNSWAP_RCTL_RGUI, // 5CFF
-    MAGIC_SWAP_CTL_GUI,     // 5D00
-    MAGIC_UNSWAP_CTL_GUI,   // 5D01
-    MAGIC_TOGGLE_CTL_GUI,   // 5D02
-    MAGIC_EE_HANDS_LEFT,    // 5D03
-    MAGIC_EE_HANDS_RIGHT,   // 5D04
+    MAGIC_SWAP_LCTL_LGUI,   // 5CFB
+    MAGIC_SWAP_RCTL_RGUI,   // 5CFC
+    MAGIC_UNSWAP_LCTL_LGUI, // 5CFD
+    MAGIC_UNSWAP_RCTL_RGUI, // 5CFE
+    MAGIC_SWAP_CTL_GUI,     // 5CFF
+    MAGIC_UNSWAP_CTL_GUI,   // 5D00
+    MAGIC_TOGGLE_CTL_GUI,   // 5D01
+    MAGIC_EE_HANDS_LEFT,    // 5D02
+    MAGIC_EE_HANDS_RIGHT,   // 5D03
 
     // Dynamic Macros
-    DYN_REC_START1,  // 5D05
-    DYN_REC_START2,  // 5D06
-    DYN_REC_STOP,    // 5D07
-    DYN_MACRO_PLAY1, // 5D08
-    DYN_MACRO_PLAY2, // 5D09
+    DYN_REC_START1,  // 5D04
+    DYN_REC_START2,  // 5D05
+    DYN_REC_STOP,    // 5D06
+    DYN_MACRO_PLAY1, // 5D07
+    DYN_MACRO_PLAY2, // 5D08
 
     // Joystick
-    JS_BUTTON0,  // 5D0A
-    JS_BUTTON1,  // 5D0B
-    JS_BUTTON2,  // 5D0C
-    JS_BUTTON3,  // 5D0D
-    JS_BUTTON4,  // 5D0E
-    JS_BUTTON5,  // 5D0F
-    JS_BUTTON6,  // 5D10
-    JS_BUTTON7,  // 5D11
-    JS_BUTTON8,  // 5D12
-    JS_BUTTON9,  // 5D13
-    JS_BUTTON10, // 5D14
-    JS_BUTTON11, // 5D15
-    JS_BUTTON12, // 5D16
-    JS_BUTTON13, // 5D17
-    JS_BUTTON14, // 5D18
-    JS_BUTTON15, // 5D19
-    JS_BUTTON16, // 5D1A
-    JS_BUTTON17, // 5D1B
-    JS_BUTTON18, // 5D1C
-    JS_BUTTON19, // 5D1D
-    JS_BUTTON20, // 5D1E
-    JS_BUTTON21, // 5D1F
-    JS_BUTTON22, // 5D20
-    JS_BUTTON23, // 5D21
-    JS_BUTTON24, // 5D22
-    JS_BUTTON25, // 5D23
-    JS_BUTTON26, // 5D24
-    JS_BUTTON27, // 5D25
-    JS_BUTTON28, // 5D26
-    JS_BUTTON29, // 5D27
-    JS_BUTTON30, // 5D28
-    JS_BUTTON31, // 5D29
+    JS_BUTTON0,  // 5D09
+    JS_BUTTON1,  // 5D0A
+    JS_BUTTON2,  // 5D0B
+    JS_BUTTON3,  // 5D0C
+    JS_BUTTON4,  // 5D0D
+    JS_BUTTON5,  // 5D0E
+    JS_BUTTON6,  // 5D0F
+    JS_BUTTON7,  // 5D10
+    JS_BUTTON8,  // 5D11
+    JS_BUTTON9,  // 5D12
+    JS_BUTTON10, // 5D13
+    JS_BUTTON11, // 5D14
+    JS_BUTTON12, // 5D15
+    JS_BUTTON13, // 5D16
+    JS_BUTTON14, // 5D17
+    JS_BUTTON15, // 5D18
+    JS_BUTTON16, // 5D19
+    JS_BUTTON17, // 5D1A
+    JS_BUTTON18, // 5D1B
+    JS_BUTTON19, // 5D1C
+    JS_BUTTON20, // 5D1D
+    JS_BUTTON21, // 5D1E
+    JS_BUTTON22, // 5D1F
+    JS_BUTTON23, // 5D20
+    JS_BUTTON24, // 5D21
+    JS_BUTTON25, // 5D22
+    JS_BUTTON26, // 5D23
+    JS_BUTTON27, // 5D24
+    JS_BUTTON28, // 5D25
+    JS_BUTTON29, // 5D26
+    JS_BUTTON30, // 5D27
+    JS_BUTTON31, // 5D28
 
     // Leader Key
-    KC_LEAD, // 5D2A
+    KC_LEAD, // 5D29
 
     // Bluetooth: output selection (continued)
-    OUT_BT, // 5D2B
+    OUT_BT, // 5D2A
 
     // Lock Key
-    KC_LOCK, // 5D2C
+    KC_LOCK, // 5D2B
 
     // Terminal
-    TERM_ON,  // 5D2D
-    TERM_OFF, // 5D2E
+    TERM_ON,  // 5D2C
+    TERM_OFF, // 5D2D
 
     // Sequencer
-    SQ_ON,  // 5D2F
-    SQ_OFF, // 5D30
-    SQ_TOG, // 5D31
+    SQ_ON,  // 5D2E
+    SQ_OFF, // 5D2F
+    SQ_TOG, // 5D30
 
-    SQ_TMPD, // 5D32
-    SQ_TMPU, // 5D33
+    SQ_TMPD, // 5D31
+    SQ_TMPU, // 5D32
 
-    SQ_RESD, // 5D34
-    SQ_RESU, // 5D35
+    SQ_RESD, // 5D33
+    SQ_RESU, // 5D34
 
-    SQ_SALL, // 5D36
-    SQ_SCLR, // 5D37
+    SQ_SALL, // 5D35
+    SQ_SCLR, // 5D36
 
-    SEQUENCER_STEP_MIN, // 5D38
+    SEQUENCER_STEP_MIN, // 5D37
     SEQUENCER_STEP_MAX = SEQUENCER_STEP_MIN + SEQUENCER_STEPS,
 
     SEQUENCER_RESOLUTION_MIN,
