@@ -3,7 +3,7 @@
     "url": "http://www.fjlaboratories.com/",
     "maintainer": "FJLabs",
     "layouts": {
-        "LAYOUT_tkl_all": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
