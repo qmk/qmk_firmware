@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "keymap.h"
+#include "custom_keymap.h"
 #include "sendstring_german.h"
 
 #ifdef TAP_DANCE_ENABLE
