@@ -1,5 +1,4 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,16 +16,5 @@
 
 #pragma once
 
-#include "quantum.h"
-
-void encoder_init(void);
-bool encoder_read(void);
-
-bool encoder_update_kb(uint8_t index, bool clockwise);
-bool encoder_update_user(uint8_t index, bool clockwise);
-void encoder_insert_state(uint8_t index);
-
-#ifdef SPLIT_KEYBOARD
-void encoder_state_raw(uint8_t* slave_state);
-void encoder_update_raw(uint8_t* slave_state);
-#endif
+/* Set dynamic keymap layer counts to 5 */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
