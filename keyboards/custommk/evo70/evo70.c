@@ -78,8 +78,8 @@ char* enc_mode_str[] = {
     "" // Bongo Cat
 };
 
-uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, 0, KC_VOLU };
-uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, KC_VOLD };
+uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, KC_VOLU, 0, 0, 0, 0, 0, KC_VOLU };
+uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 0, 0, KC_VOLD };
 #else
     /* Splash */ "", \
     "Volume", \
@@ -93,8 +93,8 @@ uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, 
     "Scroll Wheel"
 };
 
-uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_D };
-uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_U };
+uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, KC_VOLU, 0, 0, 0, 0, 0, KC_WH_U };
+uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 0, 0, KC_WH_D };
 #endif //bongocat
 
 uint8_t num_enc_modes = 10;
@@ -592,6 +592,13 @@ void draw_keyboard_locks(void) {
 
 __attribute__((weak)) void set_custom_encoder_mode_user(bool custom_encoder_mode) {}
 
+void update_custom_encoder_mode_user(void) {
+#ifdef BONGOCAT
+    set_custom_encoder_mode_user((user_config.enc_mode == ENC_CUSTOM) || (user_config.enc_mode == ENC_SPLASH) || (user_config.enc_mode == ENC_BONGO));
+#else
+    set_custom_encoder_mode_user((user_config.enc_mode == ENC_CUSTOM) || (user_config.enc_mode == ENC_SPLASH));
+#endif
+}
 
 void update_kb_eeprom(void) {
     eeconfig_update_kb(user_config.raw);
@@ -609,7 +616,7 @@ void matrix_init_kb(void) {
 
     }
     startup_delay = true;
-    set_custom_encoder_mode_user(user_config.enc_mode == ENC_CUSTOM);
+    update_custom_encoder_mode_user();
     matrix_init_user();
 }
 
@@ -637,7 +644,7 @@ void handle_encoder_switch_process_record(keyrecord_t *record) {
                     user_config.enc_mode = (user_config.enc_mode + 1) % num_enc_modes;
                 }
                 OLED_redraw = true;
-                set_custom_encoder_mode_user(user_config.enc_mode == ENC_CUSTOM);
+                update_custom_encoder_mode_user();
                 update_kb_eeprom();
             } else {
                 OLED_redraw = false;
