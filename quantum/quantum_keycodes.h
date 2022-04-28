@@ -610,6 +610,8 @@ enum quantum_keycodes {
     MAGIC_UNSWAP_ESCAPE_CAPSLOCK,
     MAGIC_TOGGLE_ESCAPE_CAPSLOCK,
 
+    UNICODE_MODE_EMACS,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
