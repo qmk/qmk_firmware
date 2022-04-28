@@ -56,3 +56,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   charybdis_set_pointer_dragscroll_enabled(current_layer == _DRAGSCRL);
   return state;
 }
+
+bool encoder_updqate_user(uint8_t index, bool clockwise) {
+  if (index == 0) {
+    if (clockwise) {
+      tap_code(KC_J);
+    } else {
+      tap_code(KC_K);
+    }
+  } else if (index == 1) {
+    if (clockwise) {
+      tap_code(KC_F);
+    } else {
+      tap_code(KC_G);
+    }
+  }
+  return false;
+}
