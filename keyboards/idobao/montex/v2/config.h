@@ -1,110 +1,115 @@
-/* Copyright 2021 NachoxMacho
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
-*/
+/* Copyright 2022 IBNobody & vinorodrigues
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
 
 #pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Idobao
-#define PRODUCT         Montex
+/* NB: VENDOR_ID & PRODUCT_ID et.al. moved to `info.json` */
+// #define VENDOR_ID       0x6964  // "id"
+// #define PRODUCT_ID      0x0227  // 0x0027 | 0x02 = v2 designator (for VIA)
+// #define DEVICE_VER      0x0002
+// #define MANUFACTURER    IDOBAO
+// #define PRODUCT         Montex ID27
 
-/* key matrix size */
+/* Key Matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
 
-/* key matrix pins */
+/* Keyboard Matrix Assignments */
+
 #define MATRIX_ROW_PINS { D4, D6, D7, B4, B5, C6 }
 #define MATRIX_COL_PINS { D5, D3, D2, D1, D0 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
+// #define UNUSED_PINS {}
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed */
+/* Other settings */
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if
+   debouncing is not needed */
 #define DEBOUNCE 5
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
+/* LED Matrix & Animations */
 #define RGB_DI_PIN B1
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 
-// Uncomment out to use the underbody LEDs, hidden by the aluminum case. Useful for the acrylic bottom.
-// #define MONTEX_USE_UNDERBODY
+#if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
+    #ifndef ID27_DISABLE_UNDERGLOW
+        #define DRIVER_LED_TOTAL 31  // The number of LEDs connected
+    #else
+        #define DRIVER_LED_TOTAL 27  // disable underglow LEDs
+    #endif
 
-/* CHAINED LED ORDER, INCLUDING UNDERBODY LIGHTING
- * (AS SEEN FROM ABOVE, NOT WITH THE PAD FLIPPED OVER)
- * ┌────┬────┬────┬────┬────┐ ┌──────────┬──────────┐
- * │ 04 │ 03 │ 02 │ 01 │ 00 │ │          │          │
- * ├────┼────┼────┼────┼────┤ │          │          │
- * │ 05 │ 06 │ 07 │ 08 │ 09 │ │    29    │    30    │
- * ├────┼────┼────┼────┼────┤ │          │          │
- * │ 14 │ 13 │ 12 │ 11 │    │ │          │          │
- * ├────┼────┼────┼────┤ 10 │ ├──────────┼──────────┤
- * │ 15 │ 16 │ 17 │ 18 │    │ │          │          │
- * ├────┼────┼────┼────┼────┤ │          │          │
- * │ 23 │ 22 │ 21 │ 20 │    │ │    28    │    27    │
- * ├────┼────┴────┼────┤ 19 │ │          │          │
- * │ 24 │   25    │ 26 │    │ │          │          │
- * └────┴─────────┴────┴────┘ └──────────┴──────────┘
- *
- * REMAPPED LED ORDER IN RGBLIGHT_LED_MAP
- * ┌────┬────┬────┬────┬────┐ ┌──────────┬──────────┐
- * │ 00 │ 01 │ 02 │ 03 │ 04 │ │          │          │
- * ├────┼────┼────┼────┼────┤ │          │          │
- * │ 09 │ 08 │ 07 │ 06 │ 05 │ │    29    │    30    │
- * ├────┼────┼────┼────┼────┤ │          │          │
- * │ 10 │ 11 │ 12 │ 13 │    │ │          │          │
- * ├────┼────┼────┼────┤ 14 │ ├──────────┼──────────┤
- * │ 18 │ 17 │ 16 │ 15 │    │ │          │          │
- * ├────┼────┼────┼────┼────┤ │          │          │
- * │ 19 │ 20 │ 21 │ 22 │    │ │    28    │    27    │
- * ├────┼────┴────┼────┤ 23 │ │          │          │
- * │ 26 │   25    │ 24 │    │ │          │          │
- * └────┴─────────┴────┴────┘ └──────────┴──────────┘
- */
+    // #define RGBLIGHT_ANIMATIONS  // don't use, please explicitly define
+    // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  // don't use, too few key to make it look good
+    #define RGB_MATRIX_KEYPRESSES
 
-#ifdef MONTEX_USE_UNDERBODY
-#define RGBLED_NUM 31
-#define RGBLIGHT_LED_MAP {4,3,2,1,0,9,8,7,6,5,14,13,12,11,10,18,17,16,15,23,22,21,20,19,26,25,24,29,30,28,27}
-#else
-#define RGBLED_NUM 27
-#define RGBLIGHT_LED_MAP {4,3,2,1,0,9,8,7,6,5,14,13,12,11,10,18,17,16,15,23,22,21,20,19,26,25,24}
-#endif
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED    // turn off effects when suspended
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 
+    // RGB Matrix Animation modes. Explicitly enabled
+    // For full list of effects, see:
+    // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
+    /* *** Items disabled are visually unappealing in a 5x6 key matrix *** */
+    #define ENABLE_RGB_MATRIX_SOLID_COLOR
+    #define ENABLE_RGB_MATRIX_ALPHAS_MODS
+    #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+    #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+    #define ENABLE_RGB_MATRIX_BREATHING
+    // #define ENABLE_RGB_MATRIX_BAND_SAT
+    // #define ENABLE_RGB_MATRIX_BAND_VAL
+    // #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+    // #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+    // #define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+    // #define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+    #define ENABLE_RGB_MATRIX_CYCLE_ALL
+    #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+    #define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+    // #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+    // #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+    #define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+    #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+    // #define ENABLE_RGB_MATRIX_DUAL_BEACON
+    #define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+    // #define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+    #define ENABLE_RGB_MATRIX_RAINDROPS
+    #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+    #define ENABLE_RGB_MATRIX_HUE_BREATHING
+    #define ENABLE_RGB_MATRIX_HUE_PENDULUM
+    #define ENABLE_RGB_MATRIX_HUE_WAVE
+    #define ENABLE_RGB_MATRIX_PIXEL_RAIN
+    #define ENABLE_RGB_MATRIX_PIXEL_FLOW
+    #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 
+    /* enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined */
+    // #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+    // #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+
+    /* enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined */
+    // #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+    // define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+    // #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+    // #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+    // #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+    #define ENABLE_RGB_MATRIX_SPLASH
+    // #define ENABLE_RGB_MATRIX_MULTISPLASH
+    #define ENABLE_RGB_MATRIX_SOLID_SPLASH
+    // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif

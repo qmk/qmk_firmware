@@ -14,6 +14,11 @@
  * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
  */
 
+/**
+ * NB!  THIS VARIANT DISABLES THE UNDERGLOW LEDs
+ *      FOR BOARDS WITH A SOLID (NON-ACRYLIC) BOTTOM
+ */
+
 #include QMK_KEYBOARD_H
 
 enum montex_layers {

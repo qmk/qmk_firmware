@@ -1,17 +1,29 @@
-# IDOBAO MONTEX
+# IDOBAO Montex V2
 
-A hotswap RGB numpad from IDOBAO. V2 added per-key RGB LEDs in addition to the 4 underglow RGB LEDs.
-    
-## Support:
+![MMONTEX V2](https://idobao.github.io/assets/img/idobao-id27.png)
 
-* Keyboard Maintainer: [IBNobody](https://github.com/IBNobody)
-* Hardware Supported: IDOBAO MONTEX
-* Hardware Availability: [IDOBAO](https://www.idobao.net/products/ldobao-montex-pad-hot-swappable-mechanical-keyboard-kit)
+A hotswap RGB numpad from IDOBAO.
 
-To jump to the bootloader, the default in the repository and stock on the board is to hold the 4th key on the top row and tap the first key in the top row. Alternate methods are to hold the upper-left key down when plugging in the keyboard or pressing the reset button. (The reset button is accessable from the underside of the keyboard through an access hole.)
+* Keyboard Maintainer:
+    - [IBNobody](https://github.com/IBNobody)
+    - [vinorodrigues](https://github.com/vinorodrigues)
+* Hardware Supported: IDOBAO Montex V2
+* Hardware Availability: https://idobao.net/products/idobao-montex-pad-hot-swappable-keyboard-kit-%E7%9A%84%E5%89%AF%E6%9C%AC
 
 Make example for this keyboard (after setting up your build environment):
 
     make idobao/montex/v2:default
 
+Flashing example for this keyboard:
+
+    make idobao/montex/v2:default:flash
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
