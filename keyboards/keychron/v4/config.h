@@ -35,6 +35,13 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
+/* RGB Matrix Driver Configuration */
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1110111
+
+/* DIP switch */
+#define DIP_SWITCH_MATRIX_GRID  { {4,4} }
+
 /* Disable DIP switch in matrix data */
 #define MATRIX_MASKED
 
@@ -44,25 +51,11 @@
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
-
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID \
-    {                          \
-        { 4, 4 }               \
-    }
-
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
+/* Set USB polling interval to 1 milliseconds */
+#define USB_POLLING_INTERVAL_MS 1
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-
-/* Set 5 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -112,8 +105,16 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define RGB_MATRIX_KEYPRESSES
 
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB
+
+/* Q4 uses single led controller chip, so define the LOW_CURRENT_MODE
+ * (effective in ckled2001.c) to set the current page individually. */
+#define LOW_CURRENT_MODE

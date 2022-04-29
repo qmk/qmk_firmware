@@ -17,9 +17,9 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x3434
-#define MANUFACTURER Keychron
-#define PRODUCT Keychron V1
+#define VENDOR_ID       0x3434
+#define MANUFACTURER    Keychron
+#define PRODUCT         Keychron V1
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -41,10 +41,7 @@
 #define MATRIX_MASKED
 
 /* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID \
-    {                          \
-        { 5, 4 }               \
-    }
+#define DIP_SWITCH_MATRIX_GRID  { {5,4} }
 
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 2
@@ -60,8 +57,8 @@
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-/* Set the maxium brightness as 190 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 190
+/* Set the maxium brightness to limit the current to 450mA */
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (28 * 8)  // 8 = RGB_MATRIX_VAL_STEP
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
@@ -117,8 +114,12 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define RGB_MATRIX_KEYPRESSES
 
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB

@@ -133,7 +133,7 @@ led_config_t g_led_config = {
         { 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, __, 44 },
         { 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, __, 57, __, 58 },
         { 59, __, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, __, 70, 71, __ },
-        { 72, 73, 74, __, __, __, 75, __, __, __, 76, 77, 78, 79, 80, 81 }
+        { 72, 73, 74, __, __, __, 75, __, __, __, 76, 77, 78, 79, 80, 81 },
     },
     {
         // LED Index to Physical Position
@@ -149,9 +149,9 @@ led_config_t g_led_config = {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    1,
         1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,    1,
         1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,
-        9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,    1,
+        8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,    1,
         1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1, 1,
-        1, 1, 1,          4,          1, 1, 1, 1, 1, 1
+        1, 1, 1,          4,          1, 1, 1, 1, 1, 1,
     }
 };
 
@@ -163,12 +163,27 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
+            tap_code_delay(KC_VOLU, TAP_CODE_DELAY);
         } else {
-            tap_code_delay(KC_VOLD, 10);
+            tap_code_delay(KC_VOLD, TAP_CODE_DELAY);
         }
     }
     return true;
+}
+
+void encoder0_pad_cb(void *param) {
+    (void)param;
+
+    insert_encoder_state(0);
+}
+
+void keyboard_post_init_kb(void) {
+    pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+    pin_t encoders_pad_b[] = ENCODERS_PAD_B;
+    palEnableLineEvent(encoders_pad_a[0], PAL_EVENT_MODE_BOTH_EDGES);
+    palEnableLineEvent(encoders_pad_b[0], PAL_EVENT_MODE_BOTH_EDGES);
+    palSetLineCallback(encoders_pad_a[0], encoder0_pad_cb, NULL);
+    palSetLineCallback(encoders_pad_b[0], encoder0_pad_cb, NULL);
 }
 
 #endif

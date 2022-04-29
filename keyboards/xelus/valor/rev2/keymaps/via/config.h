@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 
 // RGB Matrix
 #define VIA_QMK_RGBLIGHT_ENABLE
@@ -20,5 +21,4 @@
 // More layers
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
 
-#define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4

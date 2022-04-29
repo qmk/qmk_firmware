@@ -42,6 +42,9 @@
 #define ENCODERS_PAD_B { B0 }
 
 #define ENCODERS 1
+
+#define ENCODER_RESOLUTION 2
+
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 5, 4 } }
 #define ENCODERS_CCW_KEY { { 3, 4 } }

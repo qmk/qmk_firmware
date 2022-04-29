@@ -18,6 +18,8 @@
 
 #include "quantum.h"
 
+#define XXX KC_NO
+
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -26,17 +28,6 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
- 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-  #include <avr/io.h>
-  #include <avr/interrupt.h>
-#endif
-#endif
-
-#define XXX KC_NO
-
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, \
     L10, L11, L12, L13, L14, L15, L16, R10, R11, R12, R13, R14, R15, R16, \
@@ -56,6 +47,6 @@
     { R40, R41, R42, R43, R44, R45, XXX } \
 }
 
-extern void led_toggle(int id, bool on);
+void led_toggle(uint8_t id, bool on);
 void set_all_leds(bool leds[6]);
-extern void set_layer_indicators(uint8_t layer);
+void set_layer_indicators(uint8_t layer);

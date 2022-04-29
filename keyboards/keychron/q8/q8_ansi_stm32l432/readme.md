@@ -1,2 +1,1 @@
-# The ANSI variant of the Keychron Q2
-
+# The ANSI variant of the Keychron Q8

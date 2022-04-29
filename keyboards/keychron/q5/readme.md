@@ -1,6 +1,6 @@
 # Keychron Q5
 
-A customizable 100% keyboard.
+A customizable 100 keys keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q5

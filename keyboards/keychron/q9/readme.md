@@ -1,6 +1,6 @@
 # Keychron Q9
 
-A customizable 60% keyboard.
+A customizable 40% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q9

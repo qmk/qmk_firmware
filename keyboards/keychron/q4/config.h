@@ -35,10 +35,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110111
-
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {4,4} }
 
@@ -51,11 +47,8 @@
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-/* Set USB polling rate as 1 milliseconds */
+/* Set USB polling interval to 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
-
-/* Set 5 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
@@ -108,14 +101,12 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define RGB_MATRIX_KEYPRESSES
 
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
-// Just for testing RGB matrix
-// preventing inadvertent entry into dfu mode during power on
-#define RGB_MATRIX_KEYPRESSES
-#define BOOTMAGIC_LITE_ROW 4
-#define BOOTMAGIC_LITE_COLUMN 5
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB
