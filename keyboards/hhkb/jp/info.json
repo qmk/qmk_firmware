@@ -3,7 +3,7 @@
   "url": "",
   "maintainer": "qmk",
   "layouts": {
-    "LAYOUT_JP": {
+    "LAYOUT_jp": {
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "!", "x": 1, "y": 0 },
