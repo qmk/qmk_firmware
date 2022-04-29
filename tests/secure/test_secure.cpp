@@ -70,6 +70,19 @@ TEST_F(Secure, test_lock) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
+TEST_F(Secure, test_unlock_timeout) {
+    TestDriver driver;
+
+    // Allow any number of empty reports.
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+
+    secure_unlock();
+    idle_for(SECURE_UNLOCK_TIMEOUT+1);
+    EXPECT_FALSE(secure_is_locked());
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
 TEST_F(Secure, test_unlock_request) {
     TestDriver driver;
     auto       key_mo = KeymapKey(0, 0, 0, MO(1));
@@ -117,6 +130,21 @@ TEST_F(Secure, test_unlock_request_fail) {
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
+
+TEST_F(Secure, test_unlock_request_timeout) {
+    TestDriver driver;
+
+    // Allow any number of empty reports.
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+
+    secure_request_unlock();
+    EXPECT_TRUE(secure_is_unlocking());
+    idle_for(SECURE_IDLE_TIMEOUT+1);
+    EXPECT_FALSE(secure_is_locked() && secure_is_unlocking());
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
 
 TEST_F(Secure, test_unlock_request_fail_mid) {
     TestDriver driver;

@@ -24,3 +24,6 @@
             0, 4                  \
         }                         \
     }
+
+#define SECURE_UNLOCK_TIMEOUT 20
+#define SECURE_IDLE_TIMEOUT 50
