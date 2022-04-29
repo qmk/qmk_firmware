@@ -18,14 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* NB: VENDOR_ID & PRODUCT_ID et.al. moved to `info.json` */
-// #define VENDOR_ID       0x6964  // "id"
-// #define PRODUCT_ID      0x0227  // 0x0027 | 0x02 = v2 designator (for VIA)
-// #define DEVICE_VER      0x0002
-// #define MANUFACTURER    IDOBAO
-// #define PRODUCT         Montex ID27
-
 /* Key Matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
