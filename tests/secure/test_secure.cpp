@@ -140,7 +140,8 @@ TEST_F(Secure, test_unlock_request_timeout) {
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
     idle_for(SECURE_IDLE_TIMEOUT+1);
-    EXPECT_FALSE(secure_is_locked() && secure_is_unlocking());
+    EXPECT_FALSE(secure_is_locked());
+    EXPECT_FALSE(secure_is_unlocking());
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
