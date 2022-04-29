@@ -5,8 +5,8 @@
 The Littlefoot LX is a premium, integrated pcb version of the Littlefoot by The_Royal. 
 
 * Keyboard Maintainer: [tominabox1](https://github.com/tominabox1)
-* Hardware Supported: *Littlefoot LX integrated ATMega32u4*
-* Hardware Availability: *https://tachfactory.bigcartel.com*
+* Hardware Supported: Littlefoot LX integrated ATMega32u4
+* Hardware Availability: https://tachfactory.bigcartel.com
 
 There are two versions of this PCB:
     Rev1 is the PCB that shipped with the group buy run by RPMorrison on Tach Factory. These PCBs can be identified by the bodge wire on column 4.
