@@ -23,8 +23,6 @@
 #define KC_CSCLN    RCTL_T(KC_SCLN)
 
 /* Layer Tap */
-#define DRAG_V      LT(_DRAGSCRL, KC_V)
-#define DRAG_M      LT(_DRAGSCRL, KC_M)
 #define MISC_DEL    LT(_MISC, KC_DELETE)
 #define NAV_SPACE   LT(_NAV, KC_SPC)
 #define NAV_Z       LT(_NAV, KC_Z)
