@@ -16,9 +16,9 @@
 
 #pragma once
 
-#define HAL_USE_I2C TRUE
+#define CH_CFG_ST_TIMEDELTA 0
 
-#define HAL_USE_SPI TRUE
+#define CH_CFG_USE_CONDVARS_TIMEOUT FALSE
 
-#include_next <halconf.h>
+#include_next <chconf.h>
 
