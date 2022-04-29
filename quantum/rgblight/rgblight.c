@@ -560,7 +560,7 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
                 uint8_t delta     = rgblight_config.mode - rgblight_status.base_mode;
                 bool    direction = (delta % 2) == 0;
 
-                uint8_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[delta / 2]);
+                uint8_t range = pgm_read_byte(&RGBLED_GRADIENT_RANGES[delta / 2]);
                 for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
                     uint8_t _hue = ((uint16_t)i * (uint16_t)range) / rgblight_ranges.effect_num_leds;
                     if (direction) {
