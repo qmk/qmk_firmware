@@ -63,6 +63,7 @@ TEST_F(Secure, test_lock) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
 
     secure_unlock();
+    EXPECT_TRUE(secure_is_unlocked());
     run_one_scan_loop();
     secure_lock();
     EXPECT_TRUE(secure_is_locked());
@@ -140,8 +141,8 @@ TEST_F(Secure, test_unlock_request_timeout) {
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
     idle_for(SECURE_IDLE_TIMEOUT+1);
-    EXPECT_FALSE(secure_is_locked());
     EXPECT_FALSE(secure_is_unlocking());
+    EXPECT_FALSE(secure_is_unlocked());
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -167,6 +168,7 @@ TEST_F(Secure, test_unlock_request_fail_mid) {
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
     TapKeys(key_a, key_b, key_e, key_c, key_d);
+    EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -192,6 +194,7 @@ TEST_F(Secure, test_unlock_request_fail_out_of_order) {
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
     TapKeys(key_a, key_d, key_b, key_c);
+    EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
     testing::Mock::VerifyAndClearExpectations(&driver);
