@@ -18,12 +18,15 @@
 
 #include "test_common.h"
 
-#define SECURE_UNLOCK_SEQUENCE    \
-    {                             \
-        {0, 1}, {0, 2}, {0, 3}, { \
-            0, 4                  \
-        }                         \
+// clang-format off
+#define SECURE_UNLOCK_SEQUENCE \
+    {                          \
+        {0, 1},                \
+        {0, 2},                \
+        {0, 3},                \
+        {0, 4}                 \
     }
+// clang-format on
 
 #define SECURE_UNLOCK_TIMEOUT 20
 #define SECURE_IDLE_TIMEOUT 50
