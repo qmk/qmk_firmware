@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "gtest/gtest.h"
 #include "keyboard_report_util.hpp"
 #include "test_common.hpp"
@@ -92,6 +91,83 @@ TEST_F(Secure, test_unlock_request) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
+TEST_F(Secure, test_unlock_request_fail) {
+    TestDriver driver;
+    auto       key_e = KeymapKey(0, 0, 0, KC_E);
+    auto       key_a = KeymapKey(0, 1, 0, KC_A);
+    auto       key_b = KeymapKey(0, 2, 0, KC_B);
+    auto       key_c = KeymapKey(0, 3, 0, KC_C);
+    auto       key_d = KeymapKey(0, 4, 0, KC_D);
+
+    set_keymap({key_e, key_a, key_b, key_c, key_d});
+
+    // Allow any number of empty reports.
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    { // Expect the following reports in this order.
+        InSequence s;
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_D)));
+    }
+    secure_request_unlock();
+    EXPECT_TRUE(secure_is_unlocking());
+    TapKeys(key_e, key_a, key_b, key_c, key_d);
+    EXPECT_FALSE(secure_is_unlocked());
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+TEST_F(Secure, test_unlock_request_fail_mid) {
+    TestDriver driver;
+    auto       key_e = KeymapKey(0, 0, 0, KC_E);
+    auto       key_a = KeymapKey(0, 1, 0, KC_A);
+    auto       key_b = KeymapKey(0, 2, 0, KC_B);
+    auto       key_c = KeymapKey(0, 3, 0, KC_C);
+    auto       key_d = KeymapKey(0, 4, 0, KC_D);
+
+    set_keymap({key_e, key_a, key_b, key_c, key_d});
+
+    // Allow any number of empty reports.
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    { // Expect the following reports in this order.
+        InSequence s;
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_D)));
+    }
+    secure_request_unlock();
+    EXPECT_TRUE(secure_is_unlocking());
+    TapKeys(key_a, key_b, key_e, key_c, key_d);
+    EXPECT_FALSE(secure_is_unlocked());
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+TEST_F(Secure, test_unlock_request_fail_out_of_order) {
+    TestDriver driver;
+    auto       key_e = KeymapKey(0, 0, 0, KC_E);
+    auto       key_a = KeymapKey(0, 1, 0, KC_A);
+    auto       key_b = KeymapKey(0, 2, 0, KC_B);
+    auto       key_c = KeymapKey(0, 3, 0, KC_C);
+    auto       key_d = KeymapKey(0, 4, 0, KC_D);
+
+    set_keymap({key_e, key_a, key_b, key_c, key_d});
+
+    // Allow any number of empty reports.
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    { // Expect the following reports in this order.
+        InSequence s;
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
+    }
+    secure_request_unlock();
+    EXPECT_TRUE(secure_is_unlocking());
+    TapKeys(key_a, key_d, key_b, key_c);
+    EXPECT_FALSE(secure_is_unlocked());
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
 TEST_F(Secure, test_unlock_request_on_layer) {
     TestDriver driver;
     auto       key_mo = KeymapKey(0, 0, 0, MO(1));
@@ -143,14 +219,13 @@ TEST_F(Secure, test_unlock_request_mid_stroke) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-
 TEST_F(Secure, test_unlock_request_mods) {
     TestDriver driver;
     auto       key_lsft = KeymapKey(0, 0, 0, KC_LSFT);
-    auto       key_a = KeymapKey(0, 1, 0, KC_A);
-    auto       key_b = KeymapKey(0, 2, 0, KC_B);
-    auto       key_c = KeymapKey(0, 3, 0, KC_C);
-    auto       key_d = KeymapKey(0, 4, 0, KC_D);
+    auto       key_a    = KeymapKey(0, 1, 0, KC_A);
+    auto       key_b    = KeymapKey(0, 2, 0, KC_B);
+    auto       key_c    = KeymapKey(0, 3, 0, KC_C);
+    auto       key_d    = KeymapKey(0, 4, 0, KC_D);
 
     set_keymap({key_lsft, key_a, key_b, key_c, key_d});
 
