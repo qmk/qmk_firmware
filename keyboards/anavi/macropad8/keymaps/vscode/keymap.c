@@ -114,7 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case 262:
                 strncpy(current_alpha_oled, "Copy", sizeof(current_alpha_oled));
                 break;
-            case 281:
+            case LCTL(KC_V):
                 strncpy(current_alpha_oled, "Paste", sizeof(current_alpha_oled));
                 break;
             case 4868:
