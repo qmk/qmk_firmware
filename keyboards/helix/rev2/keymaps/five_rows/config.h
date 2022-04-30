@@ -16,4 +16,3 @@
 #    define OLED_UPDATE_INTERVAL 50
 #endif
 
-#endif /* CONFIG_KEYMAP_H */
