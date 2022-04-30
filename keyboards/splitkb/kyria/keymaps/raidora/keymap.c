@@ -19,6 +19,7 @@
 
 enum layers {
     _QWERTY = 0,
+    _COLEMAK_DH,
     _QWERTY_DOWN,
     _QWERTY_DOWN_RIGHT,
     _NAV,
@@ -62,37 +63,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //ctl+alt+k
     //ctl+alt+o
     //ctl+alt+l
-    //ctl+shift+nav
     //ctl+nav
     //alt+ins
     //dot, comma & space on num layer
 
+    [_COLEMAK_DH] = LAYOUT(
+     KC_TAB , KC_Q, KC_W, KC_F   , KC_P    , KC_B    ,                                         KC_J    , KC_L   , KC_U   , KC_Y  , KC_SCLN, KC_BSPC ,
+     KC_LCTL, KC_A, KC_R, KC_S   , KC_T    , KC_G    ,                                         KC_M    , KC_N   , KC_E   , KC_I  , KC_O   , KC_QUOT,
+     KC_LSFT, KC_Z, KC_X, KC_C   , KC_D    , KC_V    , KC_LBRC, KC_CAPS,     FKEYS  , KC_RBRC, KC_K    , KC_H   , KC_COMM , KC_DOT, KC_SLSH, KC_RSFT ,
+                          KC_LGUI, KC_LALT , NUMS_ENT, NAV_SPC, KC_ESC ,     KC_BSPC, SYM_SPC, FKEY_TAB, KC_RALT, KC_RGUI
+    ),
+
     [_QWERTY] = LAYOUT(
-     KC_TAB , KC_Q, KC_W, KC_E   , KC_R   , KC_T    ,                                        KC_Y    , KC_U   ,  KC_I   , KC_O  , KC_P   , KC_BSPC ,
-     KC_LCTL, KC_A, KC_S, KC_D   , KC_F   , KC_G    ,                                        KC_H    , KC_J   ,  KC_K   , KC_L  , KC_SCLN, CTL_QUOT,
-     KC_LSFT, KC_Z, KC_X, KC_C   , KC_V   , KC_B    , KC_LBRC, KC_ESC,     ADJUST , KC_RBRC, KC_N    , KC_M   , KC_COMM , KC_DOT, KC_SLSH, KC_RSFT ,
-                          KC_LGUI, KC_LALT, NUMS_ENT, NAV_SPC, KC_ESC,     KC_BSPC, SYM_SPC, FKEY_TAB, KC_RALT, KC_RGUI
+     KC_TAB , KC_Q, KC_W, KC_E   , KC_R   , KC_T    ,                                         KC_Y    , KC_U   ,  KC_I   , KC_O  , KC_P   , KC_BSPC ,
+     KC_LCTL, KC_A, KC_S, KC_D   , KC_F   , KC_G    ,                                         KC_H    , KC_J   ,  KC_K   , KC_L  , KC_SCLN, KC_QUOT,
+     KC_LSFT, KC_Z, KC_X, KC_C   , KC_V   , KC_B    , KC_LBRC, KC_CAPS,     ADJUST , KC_RBRC, KC_N    , KC_M   , KC_COMM  , KC_DOT, KC_SLSH, KC_RSFT ,
+                          KC_LGUI, KC_LALT, NUMS_ENT, NAV_SPC, KC_ESC ,     KC_BSPC, SYM_SPC, FKEY_TAB, KC_RALT, KC_RGUI
     ),
 
     [_NAV] = LAYOUT(
-      KC_ESC , _______, _______, _______ , _______  , _______,                                         KC_PGUP  , KC_HOME, KC_UP  , KC_END , KC_DEL  , KC_BSPC,
-      _______, KC_LGUI, KC_LALT, KC_LCTRL, KC_LSHIFT, _______,                                         KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC  , _______,
-      _______, _______, _______, _______ , _______  , _______, _______, KC_SLCK,     KC_NLCK, _______, KC_PAUSE , _______, KC_INS, _______ , KC_LBRC , KC_PSCR,
-                                 _______ , _______  , _______, _______, _______,     _______, _______, _______  , _______, _______
+      KC_ESC , _______, _______           , LCA(KC_B), RSFT(KC_TAB), KC_TAB,                                          KC_PGUP  , KC_HOME, KC_UP  , KC_END , KC_DEL  , KC_BSPC,
+      _______, KC_LGUI, KC_LALT           , KC_LCTRL , KC_LSHIFT   , _______,                                         KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC , _______,
+      _______, _______, LCTL(KC_KP_SLASH) , _______  , LALT(KC_ENT), _______, _______, KC_SLCK,     KC_NLCK, _______, KC_PAUSE , _______, KC_INS, _______ , KC_LBRC , KC_PSCR,
+                                            _______  , _______     , _______, _______, _______,     _______, _______, _______  , _______, _______
     ),
 
     [_NUMS] = LAYOUT(
-      KC_ESC , _______, _______, _______ , _______  , _______,                                                  KC_COMM, KC_7   , KC_8, KC_9, _______, _______,
-      _______, KC_LGUI, KC_LALT, KC_LCTRL, KC_LSHIFT, _______,                                                  KC_DOT , KC_4   , KC_5, KC_6, KC_LGUI, _______,
-      _______, _______, _______, _______ , _______  , _______, _______, _______,     _______, _______, _______, _______, KC_1   , KC_2, KC_3, _______,
+      KC_ESC , _______, _______, _______ , _______  , _______,                                         KC_COMM, KC_7   , KC_8   , KC_9, _______, _______,
+      _______, KC_LGUI, KC_LALT, KC_LCTRL, KC_LSHIFT, _______,                                         KC_DOT , KC_4   , KC_5   , KC_6, KC_SLSH, _______,
+      _______, _______, _______, _______ , _______  , _______, _______, _______,     _______, _______, KC_0, KC_1   , KC_2   , KC_3, KC_DOT, _______,
                                  _______ , _______  , _______, _______, _______,     _______, _______, KC_0   , KC_COMM, _______
     ),
 
     [_SYM] = LAYOUT(
-     _______     , RSFT(KC_5)   , RSFT(KC_BSLS), RALT(KC_2)   , RALT(KC_4), KC_NUBS   ,                                         RSFT(KC_NUBS), RSFT(KC_6)   , RSFT(KC_3)   , RSFT(KC_EQL), RALT(KC_QUOT), _______,
-     RSFT(KC_GRV), RALT(KC_NUBS), RSFT(KC_2)   , RSFT(KC_SLSH), RSFT(KC_8), RALT(KC_7),                                         RALT(KC_0)   , RSFT(KC_9)   , RSFT(KC_0)   , KC_BSLS     , KC_MINS      , KC_SLSH,
-     _______     , _______      , RSFT(KC_7)   , RALT(KC_MINS), RSFT(KC_1), RALT(KC_8), _______, _______,     _______, _______, RALT(KC_9)   , RSFT(KC_MINS), RSFT(KC_COMM), RSFT(KC_DOT), RSFT(KC_SLSH), _______,
-                                                 _______      , _______   , _______   , _______, _______,     _______, _______, _______      , _______      , _______
+     _______     , RSFT(KC_5)   , RALT(KC_2), RSFT(KC_BSLS), RALT(KC_4), KC_NUBS   ,                                         RSFT(KC_NUBS), RSFT(KC_6)   , RSFT(KC_3)   , RSFT(KC_EQL), RALT(KC_QUOT), _______,
+     RSFT(KC_GRV), RALT(KC_NUBS), RSFT(KC_2), RSFT(KC_SLSH), RSFT(KC_8), RALT(KC_7),                                         RALT(KC_0)   , RSFT(KC_9)   , RSFT(KC_0)   , KC_BSLS     , KC_MINS      , KC_SLSH,
+     _______     , _______      , RSFT(KC_7), RALT(KC_MINS), RSFT(KC_1), RALT(KC_8), _______, _______,     _______, _______, RALT(KC_9)   , RSFT(KC_MINS), RSFT(KC_COMM), RSFT(KC_DOT), RSFT(KC_SLSH), _______,
+                                              _______      , _______   , _______   , _______, _______,     _______, _______, _______      , _______      , _______
     ),
 
     [_FUNCTION] = LAYOUT(
@@ -246,13 +253,17 @@ bool oled_task_user(void) {
 
 
         switch (get_highest_layer(layer_state|default_layer_state)) {
+            case _COLEMAK_DH:
+                draw_my_default();
+                oled_write_P(PSTR("Kole-makk DH\n"), false);
+                break;
             case _QWERTY:
                 draw_my_default();
-                oled_write_P(PSTR("QWERTY\n"), false);
+                oled_write_P(PSTR("KVERTI\n"), false);
                 break;
             case _QWERTY_DOWN_RIGHT:
                 draw_my_default();
-                oled_write_P(PSTR("QWERTY DR\n"), false);
+                oled_write_P(PSTR("KVERTI DR\n"), false);
                 break;
             case _NAV:
                 oled_write_raw_P(epd_bitmap_nav, sizeof(epd_bitmap_nav));
@@ -260,7 +271,7 @@ bool oled_task_user(void) {
                 break;
             case _FUNCTION:
                 draw_my_default();
-                oled_write_P(PSTR("Fn+Num\n"), false);
+                oled_write_P(PSTR("Function\n"), false);
                 break;
             case _ADJUST:
                 draw_my_default();
@@ -272,7 +283,11 @@ bool oled_task_user(void) {
                 break;
             case _QWERTY_DOWN:
                 draw_my_default();
-                oled_write_P(PSTR("QWERTY Down\n"), false);
+                oled_write_P(PSTR("KVERTI Down\n"), false);
+                break;
+            case _NUMS:
+                draw_my_default();
+                oled_write_P(PSTR("Numpad\n"), false);
                 break;
             default:
                 draw_my_default();
