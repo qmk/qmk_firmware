@@ -3,8 +3,6 @@
 
 // See here for how to use this. (https://github.com/mtei/bare_metal_parts/tree/master/cpp/map)
 
-#ifndef CPP_MAP_H
-#define CPP_MAP_H
 #pragma once
 // clang-format off
 
