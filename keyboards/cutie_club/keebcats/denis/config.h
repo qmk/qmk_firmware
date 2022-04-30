@@ -23,7 +23,7 @@
 #define PRODUCT_ID 0xB260
 #define DEVICE_VER 0x0000
 #define MANUFACTURER Cutie Club
-#define PRODUCT Keebcats Denis 60%
+#define PRODUCT Keebcats Denis 60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
