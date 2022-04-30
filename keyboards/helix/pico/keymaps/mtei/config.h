@@ -18,4 +18,3 @@
 
 // If you need more program area, try select and reduce rgblight modes to use.
 
-#endif /* CONFIG_KEYMAP_H */
