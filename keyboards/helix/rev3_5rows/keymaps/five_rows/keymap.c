@@ -16,8 +16,8 @@
 
 #include QMK_KEYBOARD_H
 
-#include <key_blocks.h>
-#include <layer_number_util.h>
+#include "key_blocks.h"
+#include "layer_number_util.h"
 
 #ifdef ENABLE_COLEMAK
 #    define COLEMAK_Colemak (COLEMAK, " Colemak"),
