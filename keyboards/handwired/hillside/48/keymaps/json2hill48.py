@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-# Copyright 2020-2021 Pierre Viseu Chevalier, Michael McCoyd (@pierrechevalier83, @mmccoyd)
+# Copyright 2020-2022 Pierre Viseu Chevalier, Michael McCoyd (@pierrechevalier83, @mmccoyd)
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-"""Pretty print keymap json in more readable row/side organized format."""
+"""Pretty print keymap json in more readable row/side organized format, based on ROW_SIZES."""
 
 import argparse
 import json
@@ -28,14 +28,20 @@ For example, for one layer:
  ],
 """
 
-indent_level=4 # number of spaces of initial indent per output line
+# The structure of the keymap. Tuples describing row sizes.
+# (<Keys upto and including (one-indexed) keycount x> <are in half rows of y>)
+ROW_SIZES = [(24, 6),
+             (38, 7),
+             (48, 5),
+             ]
 
-# The structure of the keymap
-# [[Endpoint of sides with identical widths, side width, mapping to column],...]
-KEYS_TO_COL = [[24, 6, lambda n: n % 6],
-               [38, 7, lambda n: (n - 24) % 7],
-               [48, 5, lambda n: (n - 38) % 5]]
-LAST_KEY = KEYS_TO_COL[-1][0] - 1
+###
+### Below here should not need to changed for different keyboards
+###
+
+LAST_KEY = ROW_SIZES[-1][0] - 1
+
+indent_level=4 # number of spaces of initial indent per output line
 
 def parse_cli():
     parser = argparse.ArgumentParser(description='Hillside keymap formatter')
@@ -54,12 +60,15 @@ class Column(NamedTuple):
 
 def get_col(key_index):
     """Return Column for key_index."""
-    for keys, num_cols, col_fn in KEYS_TO_COL:
-        if key_index < keys:
-            col_num = col_fn(key_index)
-            return Column(col_num,
+    index_prior = 0 # index of last key in rows of the prior size
+    for keys_upto, num_cols in ROW_SIZES: # For row sizes from top
+        if key_index < keys_upto: # Find range key_index is in
+            col_num = (key_index - index_prior) % num_cols
+            return Column(col_num, # Return column plus side and row ends flags
                           ends_side=col_num == num_cols - 1,
-                          ends_row=(keys - 1 - key_index) % (2 * num_cols) == 0)
+                          ends_row=(keys_upto - 1 - key_index) %
+                          (2 * num_cols) == 0)
+        index_prior = keys_upto # Big O: row ranges * keys, but range is small
 
 def format_layers(layers):
     formatted = indent_level * " " + "\"layers\": [\n"
@@ -133,4 +142,5 @@ def main():
     keymap_json = json.loads(args.input.read())
     print(format_keymap(keymap_json))
 
-main()
+if __name__ == "__main__":
+    main()
