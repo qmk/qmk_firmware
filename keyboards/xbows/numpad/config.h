@@ -17,8 +17,8 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x1228
+#define VENDOR_ID    0x5842
+#define PRODUCT_ID   0x4E75
 #define DEVICE_VER   0x0001
 #define MANUFACTURER X-BOWS
 #define PRODUCT      NUMPAD
@@ -29,10 +29,6 @@
 #define MATRIX_COL_PINS { D4, D6, B2, B1 }
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 3
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18

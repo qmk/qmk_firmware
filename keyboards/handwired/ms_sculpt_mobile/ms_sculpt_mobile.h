@@ -26,6 +26,8 @@
 
 #define XXX KC_NO
 
+#define LAYOUT LAYOUT_mobile_xua
+
 //US layout, with vol-, vol+, mute in upper right, white Fn keys
 #define LAYOUT_mobile_xua( \
         k7Q, k6O, k6P, k6Q, k5O, k5P, k5Q, k7A, k7B, k7C, k7D, k7E, k7F, k1O, k1K, k1L, \

@@ -15,7 +15,7 @@ typedef union {
         bool audio_enable         :1;
         bool audio_clicky_enable  :1;
         bool tap_toggling         :1;
-        bool unicode_mode         :1;
+        uint8_t unicode_mode      :3;
         bool swap_hands           :1;
         bool host_driver_disabled :1;
     };

@@ -8,3 +8,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
 DEFAULT_FOLDER = handwired/ms_sculpt_mobile/8x18_arm
+

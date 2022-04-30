@@ -96,10 +96,8 @@ see `qmk_firmware/keyboards/helix/pico/keymaps/default/rules.mk`
 
 ```
 # Helix Spacific Build Options
-# you can uncomment and edit follows 6 Variables
-#  jp: 以下の6つの変数を必要に応じて編集し、コメントアウトをはずします。
-# OLED_ENABLE = no            # OLED_ENABLE
-# LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+# you can uncomment and edit follows 4 Variables
+#  jp: 以下の4つの変数を必要に応じて編集し、コメントアウトをはずします。
 # LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 # LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 # LED_ANIMATIONS = yes        # LED animations
