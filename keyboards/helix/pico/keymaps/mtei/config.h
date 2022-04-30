@@ -1,8 +1,6 @@
 // Copyright (c) 2022 Takeshi Ishii (mtei@github)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#ifndef CONFIG_KEYMAP_H
-#define CONFIG_KEYMAP_H
 #pragma once
 
 // place overrides here
