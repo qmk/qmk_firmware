@@ -1,20 +1,20 @@
-# IDOBAO MONTEX V2
+# IDOBAO MONTEX RGB
 
-![MONTEX V2](https://i.imgur.com/sfHhyAn.jpg)
+![MONTEX RGB](https://idobao.github.io/assets/img/idobao-id27.png)
 
 A hotswap RGB numpad from IDOBAO.
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
-* Hardware Supported: IDOBAO MONTEX V2
+* Hardware Supported: IDOBAO MONTEX RGB
 * Hardware Availability: https://idobao.net/collections/20-layout/products/idobao-montex-pad-hot-swappable-keyboard-kit-%E7%9A%84%E5%89%AF%E6%9C%AC
 
 Make example for this keyboard (after setting up your build environment):
 
-    make idobao/montex/v2:default
+    make idobao/montex/v1rgb:default
 
 Flashing example for this keyboard:
 
-    make idobao/montex/v2:default:flash
+    make idobao/montex/v1rgb:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
