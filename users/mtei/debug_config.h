@@ -4,8 +4,3 @@
 // clang-format off
 
 #pragma once
-
-#ifdef KEYBOARD_helix_rev3_5rows
-#endif
-
-#endif /* DEBUG_CONFIG_USER_MTEI_H */
