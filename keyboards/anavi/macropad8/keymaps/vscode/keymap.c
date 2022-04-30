@@ -162,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case BL_TOGG:
                 strncpy(current_alpha_oled, "BkLgt Tog", sizeof(current_alpha_oled));
                 break;
-            case 23745:
+            case BL_STEP:
                 strncpy(current_alpha_oled, "BkLgt Lvl", sizeof(current_alpha_oled));
                 break;
             case 23746:
