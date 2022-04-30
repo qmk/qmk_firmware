@@ -3,8 +3,6 @@
 
 // clang-format off
 
-#ifndef CONFIG_USER_MTEI_H
-#define CONFIG_USER_MTEI_H
 #pragma once
 
 // Selection of RGBLIGHT MODE to use.
