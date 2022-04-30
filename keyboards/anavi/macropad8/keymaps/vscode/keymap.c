@@ -108,7 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case LCTL(KC_F):
                 strncpy(current_alpha_oled, "Search", sizeof(current_alpha_oled));
                 break;
-            case 285:
+            case LCTL(KC_Z):
                 strncpy(current_alpha_oled, "Undo", sizeof(current_alpha_oled));
                 break;
             case 262:
