@@ -23,8 +23,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, MO(1)
     ),
     [1] = LAYOUT_macropad(
-        RGB_TOG, RGB_RMOD, RGB_MOD,
-        RGB_VAD, RGB_VAI, KC_NO,
+        RGB_TOG, RGB_RMOD, RGB_SAI,
+        RGB_VAD, RGB_VAI, RGB_SAD,
         RGB_HUD, RGB_HUI, KC_NO
     )
 };
