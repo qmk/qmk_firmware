@@ -18,4 +18,3 @@
 
 #define PSEUDO_SPRINTF_DEFINED
 
-#endif /* CONFIG_KEYMAP_H */
