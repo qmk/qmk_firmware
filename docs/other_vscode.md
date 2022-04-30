@@ -15,7 +15,7 @@ The purpose of this page is to document how to set up VS Code for developing QMK
 This guide covers how to configure everything needed on Windows and Ubuntu 18.04
 
 # Set up VS Code
-Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the the [Newbs Getting Started Guide](newbs_getting_started.md) to get things set up, if you haven't already.
+Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the [Newbs Getting Started Guide](newbs_getting_started.md) to get things set up, if you haven't already.
 
 ## Windows
 

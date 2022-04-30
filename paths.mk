@@ -2,7 +2,9 @@
 TOP_DIR = .
 TMK_DIR = tmk_core
 TMK_PATH = $(TMK_DIR)
-LIB_PATH = lib
+
+LIB_DIR = lib
+LIB_PATH = $(LIB_DIR)
 
 QUANTUM_DIR = quantum
 QUANTUM_PATH = $(QUANTUM_DIR)

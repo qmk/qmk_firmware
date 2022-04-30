@@ -5,6 +5,8 @@ It basically reflects my needs for both Delete and Insert being readily availabl
 
 The differences are as follows:
 
+- Dedicated MacOS and Windows/Linux layers
+  - Switching between them by pressing Fn + CAPS LOCK
 - Disabled Mouse Keys (to fix issues with KVM switches and also because they're not used here anyway)
 - Short DEBOUNCE time (5 ms)
 - Per-key debounce algorithm (sym_defer_pk)

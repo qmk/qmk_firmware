@@ -20,5 +20,6 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c
+QUANTUM_LIB_SRC += uart.c
 
 DEFAULT_FOLDER = converter/palm_usb/stowaway

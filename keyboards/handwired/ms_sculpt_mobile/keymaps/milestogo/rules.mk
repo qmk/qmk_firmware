@@ -14,4 +14,7 @@ RAW_ENABLE = no
 # virtual serial port
 VIRTSER_ENABLE = no
 
+# Keymap specific files
 USER_NAME := miles2go
+SRC = babblePaste.c
+
