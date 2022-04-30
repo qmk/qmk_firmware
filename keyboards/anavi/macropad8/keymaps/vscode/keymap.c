@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* _BASIC Layer
  * ,-------------------------------------.
  * | Toggle  | Toggle  |        |         |
- * | Block   | Line    |  Undo  |   Redo  |
+ * | Block   | Line    |  Undo  | Search  |
  * | Comment | Comment |        |         |
  * |---------+---------+--------+---------+
  * |         |         |        |   TO    |
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  `-------------------------------------'
  */ 
   [_BASIC] = LAYOUT_ortho_2x4(
-     RCS(KC_A), C(KC_SLASH), C(KC_Z),  C(KC_Y),
+     RCS(KC_A), C(KC_SLASH), C(KC_Z),  C(KC_F),
      C(KC_X),   C(KC_C),     C(KC_V),  TO(_BRACKETS)
   ),
 /* _BRACKETS Layer
@@ -105,8 +105,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case 283:
                 strncpy(current_alpha_oled, "Cut", sizeof(current_alpha_oled));
                 break;
-            case 284:
-                strncpy(current_alpha_oled, "Redo", sizeof(current_alpha_oled));
+            case 265:
+                strncpy(current_alpha_oled, "Search", sizeof(current_alpha_oled));
                 break;
             case 285:
                 strncpy(current_alpha_oled, "Undo", sizeof(current_alpha_oled));
