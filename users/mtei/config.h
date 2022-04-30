@@ -44,5 +44,3 @@
 #ifdef DEBUG_CONFIG
 #  include "debug_config.h"
 #endif
-
-#endif /* CONFIG_USER_MTEI_H */
