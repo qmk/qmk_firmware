@@ -159,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case 23762:
                 strncpy(current_alpha_oled, "RGB Snk", sizeof(current_alpha_oled));
                 break;
-            case 23744:
+            case BL_TOGG:
                 strncpy(current_alpha_oled, "BkLgt Tog", sizeof(current_alpha_oled));
                 break;
             case 23745:
