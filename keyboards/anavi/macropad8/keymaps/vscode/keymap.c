@@ -102,7 +102,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch(keycode)
         {
             //First Layer with Basic Keys
-            case 283:
+            case LCTL(KC_X):
                 strncpy(current_alpha_oled, "Cut", sizeof(current_alpha_oled));
                 break;
             case 265:
