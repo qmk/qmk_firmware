@@ -41,6 +41,8 @@ uint16_t savePinState(pin_t pin) {
         |unused|ODR|IDR|PUPDR|OSPEEDR|OTYPER|MODER|
         */
         return ((PAL_PORT(pin)->MODER >> (2 * PAL_PAD(pin))) & 0x3) | (((PAL_PORT(pin)->OTYPER >> (1 * PAL_PAD(pin))) & 0x1) << 2) | (((PAL_PORT(pin)->OSPEEDR >> (2 * PAL_PAD(pin))) & 0x3) << 3) | (((PAL_PORT(pin)->PUPDR >> (2 * PAL_PAD(pin))) & 0x3) << 5) | (((PAL_PORT(pin)->IDR >> (1 * PAL_PAD(pin))) & 0x1) << 7) | (((PAL_PORT(pin)->ODR >> (1 * PAL_PAD(pin))) & 0x1) << 8);
+#   else
+        return 0;
 #   endif
 #else
     return 0;
@@ -60,6 +62,8 @@ void restorePinState(pin_t pin, uint16_t restoreState) {
         PAL_PORT(pin)->PUPDR   = (PAL_PORT(pin)->PUPDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 5) & 0x3) << (2 * PAL_PAD(pin));
         PAL_PORT(pin)->IDR     = (PAL_PORT(pin)->IDR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 7) & 0x1) << (1 * PAL_PAD(pin));
         PAL_PORT(pin)->ODR     = (PAL_PORT(pin)->ODR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 8) & 0x1) << (1 * PAL_PAD(pin));
+#   else
+        return;
 #   endif
 #else
     return;
