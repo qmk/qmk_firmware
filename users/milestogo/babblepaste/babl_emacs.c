@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
+/*
 Emacs mode is probably most useful for people who don't usually use emacs
 
 https://www.ast.cam.ac.uk/~vasily/idl/emacs_commands_list.html
@@ -24,7 +24,7 @@ https://www.ast.cam.ac.uk/~vasily/idl/emacs_commands_list.html
 #include QMK_KEYBOARD_H
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste.h"
 
 #    ifdef BABL_EMACS
 
@@ -56,9 +56,9 @@ bool babblePaste_emacs(uint16_t keycode) {
 #        endif
 #        ifdef BABL_OSKEYS
     BABLM(BABL_UNDO, SS_LCTRL("x") "c");
-    BABLM(BABL_REDO, SS_LCTRL("x") "c");  // arguably
+    BABLM(BABL_REDO, SS_LCTRL("x") "c"); // arguably
     BABLM(BABL_CUT, SS_LCTRL("w"));
-    BABLM(BABL_COPY, SS_LALT("w"));  // really?
+    BABLM(BABL_COPY, SS_LALT("w")); // really?
     BABLM(BABL_PASTE, SS_LCTRL("y"));
     BABLM(BABL_SELECT_ALL, SS_LCTRL("x") "h");
     BABLM(BABL_FIND, SS_LCTRL("s"));
@@ -66,22 +66,27 @@ bool babblePaste_emacs(uint16_t keycode) {
     BABLM(BABL_FIND_PREV, SS_LCTRL("r"));
     BABLM(BABL_FIND_REPLACE, OMALT(IMSFT(X_5)));
     // BABLM( BABL_RUNAPP , 			//(SS_LALT("x") "shell")	 );// arguably
-    BABLM(BABL_RUNAPP, IMALT(X_X) "split-window" SS_TAP(X_ENTER));  // arguably
+    BABLM(BABL_RUNAPP, IMALT(X_X) "split-window" SS_TAP(X_ENTER)); // arguably
+                                                                   // Tab, buffer, they're kind of close. This matches ergoemacs.
+    BABLM(BABL_APPTAB_NEXT, IMCTL(X_PGDN));
+    BABLM(BABL_APPTAB_LAST, IMCTL(X_PGUP));
+    BABLM(BABL_APPTAB_NEW, SS_LCTRL('n'));
     BABLM(BABL_WINDOW_NEXT, SS_LCTRL("x") "o");
-    BABLM(BABL_WINDOW_PREV, SS_LCTRL("x") "o");  // arguably
+    BABLM(BABL_WINDOW_PREV, SS_LCTRL("x") "o"); // arguably
     //	BABLM( BABL_WINDOW_NEW,		IMCTL(X_X)"n" ); //
     BABLM(BABL_CLOSE_APP, SS_LCTRL("x") "c");
-    BABLM(BABL_HELP, SS_LCTRL("h") "a");  // start search in help
-                                          // BABLM( BABL_LOCK,		()	); // lock buffer? Too many options.
+    BABLM(BABL_HELP, SS_LCTRL("h") "a"); // start search in help
+                                         // BABLM( BABL_LOCK,		()	); // lock buffer? Too many options.
     // BABLM( BABL_SCREENCAPTURE,		()	); // requires plugin?
 
+    BABLM(BABL_LOCK, SS_LCTL(X_S) SS_LCTL(X_S)),
 #        endif
 #        ifdef BABL_BROWSER
 /* you get to figure w3 out */
 #        endif
 
 #        ifdef BABL_APP
-    BABLM(BABL_APP_SAVE, SS_LCTL("x") SS_LCTL("s"));
+        BABLM(BABL_APP_SAVE, SS_LCTL("x") SS_LCTL("s"));
     BABLM(BABL_APP_SET_MARK, IMCTL(X_SPACE));
     /// BABLM( BABL_APP_MULTI_SELECT, 	SS_LCTRL("x") "rt" ); // arguably
     BABLM(BABL_SPLIT_FRAME_VERT, SS_LCTRL("x") "3");

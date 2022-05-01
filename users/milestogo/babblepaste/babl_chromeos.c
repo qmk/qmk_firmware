@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ https://support.google.com/docs/answer/181110?co=GENIE.Platform%3DDesktop&hl=en
 #include QMK_KEYBOARD_H
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste.h"
 
 #    ifdef BABL_CHROMEOS
 
@@ -39,8 +39,8 @@ bool babblePaste_chromeos(uint16_t keycode) {
     BABLM(BABL_GO_END_DOC, IMCTL(X_END));
     BABLM(BABL_GO_NEXT_LINE, SS_TAP(X_DOWN));
     BABLM(BABL_GO_PREV_LINE, SS_TAP(X_UP));
-    BABLM(BABL_GO_PARA_START, IMCTL(X_UP));  // untested
-    BABLM(BABL_GO_PARA_END, IMCTL(X_DOWN));  // untested
+    BABLM(BABL_GO_PARA_START, IMCTL(X_UP)); // untested
+    BABLM(BABL_GO_PARA_END, IMCTL(X_DOWN)); // untested
     BABLM(BABL_PGDN, IMGUI(X_DOWN));
     BABLM(BABL_PGUP, IMGUI(X_UP));
     BABLM(BABL_DEL_RIGHT_1C, IMALT(X_BSPACE));
@@ -65,10 +65,14 @@ bool babblePaste_chromeos(uint16_t keycode) {
     // BABLM( BABL_RUNAPP, 	SS_TAP(X_LGUI) ); // not sure of this
     BABLM(BABL_SWITCH_APP_NEXT, IMALT(X_TAB));
     BABLM(BABL_SWITCH_APP_LAST, OMSFT(IMALT(X_TAB)));
+    BABLM(BABL_APPTAB_NEXT, IMCTL(X_TAB));
+    BABLM(BABL_APPTAB_LAST, OMSFT(IMCTL(X_TAB)));
+    BABLM(BABL_APPTAB_NEW, SS_LCTRL("t"));
     BABLM(BABL_CLOSE_APP, OMSFT(IMCTL(X_W)));
     // BABLM( BABL_HELP,		OMCTL(IMALT(X_SLASH))	); // general help
-    BABLM(BABL_HELP, IMCTL(X_SLASH));  // this is keyboard accelerator lookup
-    BABLM(BABL_LOCK, SS_LGUI("l"));    // should be caps?
+    BABLM(BABL_HELP, IMCTL(X_SLASH)); // this is keyboard accelerator lookup
+    BABLM(BABL_LOCK, SS_LGUI("l"));   // should be caps?
+    BABLM(BABL_LOCK, SS_LCTL(X_S),
     BABLM(BABL_SCREENCAPTURE, OMSFT(IMCTL(X_F5)));
     BABLM(BABL_SWITCH_KEYBOARD_LAYOUT, IMCTL(X_SPACE));
 #        endif
@@ -107,7 +111,7 @@ bool babblePaste_chromeos(uint16_t keycode) {
     BABLM(BABL_SELECT_ROW, IMSFT(X_SPACE));
     BABLM(BABL_DELETE_ROW, OMALT(IMCTL(X_KP_MINUS)));  // once selected
 //#endif // BABL_APP_CELLS
-#        endif  // BABL_APP
+#        endif // BABL_APP
 
     // Todo, ring bell, flash light, show user this isn't supported
     return false;

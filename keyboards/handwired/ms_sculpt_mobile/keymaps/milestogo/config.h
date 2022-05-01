@@ -20,9 +20,8 @@
 // Expect to get errors if you comment a feature out and leave it in your keymap.
 
 #ifdef USE_BABLPASTE
-//define BabblePaste maps
-// Windows.
-#define MAC_MODE   0
+//define BabblePaste map ordering
+#define MAC_MODE  0
 #define MS_MODE 1
 #define LINUX_MODE 2
 #define READMUX_MODE 3
@@ -48,4 +47,3 @@
 ///#define RGB_LIGHT_EFFECT_BREATHE_MAX 200
 //#define RGBLIGHT_RAINBOW_SWIRL_RANGE 127
 #endif // rgblight
-

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,82 +17,63 @@
 
 #include QMK_KEYBOARD_H
 #include "milestogo.h"
-//#include <print.h>
 
-__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
-//bool move_is_on = false;  // track if we are in _MOV layer
-//bool sym_is_on  = false;  // track if we are in _SYM layer
+__attribute__ ((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 
-// Defines actions for global custom keycodes
-// Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // static uint16_t spcmov_timer; // timer for spcmov key
 
 #ifdef USE_BABBLEPASTE
-    if (keycode > BABBLE_START && keycode < BABBLE_END_RANGE) {
-        if (record->event.pressed) {
-            babblePaste(keycode, 1);
-        } else {
-            babblePaste(keycode, 0);
-        }
-    }
+   if (!process_babblepaste(keycode, record)) { return false; }
 #endif
 
     switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
-                layer_on(_QWERTY);
-                default_layer_set(_QWERTY);
+                layer_off(_CDH);
+                //default_layer_set(_QWERTY);
             }
+            return false;
             break;
 
         case KC_CDH:
             if (record->event.pressed) {
                 layer_on(_CDH);
-                default_layer_set(_CDH);
             }
             break;
 
-            /* Colemak mod-dh moves the D key to the qwerty V position
-                        This hack makes apple-V_position do what I mean */
-        case DHPASTE:
-            if (get_mods() & MOD_BIT(KC_LGUI)) {
-                if (record->event.pressed) {
-                    clear_keyboard_but_mods();
-                    register_code(KC_V);
-                } else {
-                    unregister_code(KC_V);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_D);
-                } else {
-                    unregister_code(KC_D);
-                }
+        case VRSN:  // Prints firmware version
+            if (record->event.pressed) {
+                  send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);         
             }
             return false;
             break;
 
-        default:
-            return true;
-    }
-
-    // normal keycode
-    return process_record_keymap(keycode, record);
+   
+      }
+  return process_record_keymap(keycode, record) ;
 }
+    
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
 	case SFT_T(KC_Z):
-		return TAPPING_TERM + 150;
+		return TAPPING_TERM + 175;
 	case SFT_T(KC_SLASH):
-		return TAPPING_TERM + 150;
+		return TAPPING_TERM + 175;
+    case SMOVE:
+        return TAPPING_TERM + 150;
 	default:
 		return TAPPING_TERM;		
 		
     }
 
 }
+
+/// This only affects modifier keys, not layers. 
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -108,6 +89,30 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SMOVE:
+            return false; // less irritating to type space twice than to delete extra space after a move action
+        default:
+            return false;
+    }
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case ESCSYM:
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        case SMOVE: 
+            return false; // minimize fast typing probs
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
+
 
 void babble_modeswitch_user(uint8_t bmode) {
 #ifdef USE_BABBLEPASTE

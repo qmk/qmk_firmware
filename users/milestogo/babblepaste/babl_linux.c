@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*  
-* Linux defaults to gnome shortcuts. Some comments or  KDE substitutes are comented out. 
-*/
+/*
+ * Linux defaults to gnome shortcuts. Some comments or  KDE substitutes are comented out.
+ */
 
 #include QMK_KEYBOARD_H
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste.h"
 
 #    ifdef BABL_LINUX
 
@@ -45,8 +45,8 @@ bool babblePaste_linux(uint16_t keycode) {
     BABLM(BABL_DEL_RIGHT_1C, SS_TAP(X_DELETE));
     BABLM(BABL_DEL_LEFT_WORD, IMCTL(X_BSPACE));
     BABLM(BABL_DEL_RIGHT_WORD, IMCTL(X_DELETE));
-    BABLM(BABL_DEL_TO_LINE_END, IMSFT(X_HOME) SS_TAP(X_DELETE));
-    BABLM(BABL_DEL_TO_LINE_START, IMSFT(X_END) SS_TAP(X_DELETE));
+    BABLM(BABL_DEL_TO_LINE_END, IMSFT(X_END) SS_TAP(X_DELETE));
+    BABLM(BABL_DEL_TO_LINE_START, IMSFT(X_HOME) SS_TAP(X_DELETE));
     BABLM(BABL_MODE, "Linux ");
 #        endif
 #        ifdef BABL_OSKEYS
@@ -56,21 +56,32 @@ bool babblePaste_linux(uint16_t keycode) {
     BABLM(BABL_COPY, SS_LCTL("c"));
     BABLM(BABL_PASTE, SS_LCTL("v"));
     BABLM(BABL_SELECT_ALL, SS_LCTL("a"));
-    BABLM(BABL_FIND, SS_LCTL("f"));
+
     BABLM(BABL_CLOSE_APP, IMALT(X_F4));
     BABLM(BABL_HELP, SS_TAP(X_F1));
+    BABLM(BABL_FIND, SS_LCTL("f"));
+    BABLM(BABL_FIND_NEXT, SS_TAP(X_F3));
     // BABLM(BABL_FIND_NEXT  (SS_LALT(X_F3))	); //KDE */
-    BABLM(BABL_FIND_NEXT, SS_LCTL("g"));       // Gnome*/
-    BABLM(BABL_FIND_PREV, OMSFT(IMCTL(X_G)));  // Gnome*/
+    // BABLM(BABL_FIND_NEXT, SS_LCTL("g"));       // Gnome*/
+    BABLM(BABL_FIND_PREV, IMSFT(X_F3)); // Gnome*/
     /* BABLM( BABL_FIND_REPLACE , (SS_LCTL("r"))	); // KDE */
-    BABLM(BABL_FIND_REPLACE, SS_LCTL("h"));  // Gnome*/
-    BABLM(BABL_RUNAPP, IMALT(X_F2));         // Gnome
+    BABLM(BABL_FIND_REPLACE, SS_LCTL("h")); // Gnome*/
+    BABLM(BABL_RUNAPP, IMALT(X_F2));        // Gnome
     BABLM(BABL_SWITCH_APP_NEXT, IMALT(X_TAB));
     BABLM(BABL_SWITCH_APP_LAST, OMSFT(IMALT(X_TAB)));
+    BABLM(BABL_APPTAB_NEXT, IMCTL(X_PGDN));
+    BABLM(BABL_APPTAB_LAST, IMCTL(X_PGUP));
+    BABLM(BABL_APPTAB_NEW, OMSFT(IMCTL(X_T)));
+
+    BABLM(BABL_WINDOW_NEXT, IMCTL(X_TAB));
+    BABLM(BABL_WINDOW_PREV, OMSFT(IMCTL(X_TAB)));
+    /* Gnome sometimes
     BABLM(BABL_WINDOW_NEXT, OMCTL(IMALT(X_PGUP)));  // Gnome, sometimes
     BABLM(BABL_WINDOW_PREV, OMCTL(IMALT(X_PGDOWN)));
+    */
     BABLM(BABL_WINDOW_NEW, IMCTL(X_N));
     // BABLM( BABL_HELP,		(SS_TAP(X_F1))	); // NA?
+    BABLM(BABL_SAVE, SS_LCTL("s"));
     BABLM(BABL_LOCK, OMCTL(IMALT(X_L)));
     BABLM(BABL_SCREENCAPTURE, IMSFT(X_PSCREEN));
 #        endif
@@ -85,13 +96,13 @@ bool babblePaste_linux(uint16_t keycode) {
     BABLM(BABL_BROWSER_BACK, IMALT(X_LEFT));
     BABLM(BABL_BROWSER_FIND, SS_LCTL("f"));
     BABLM(BABL_BROWSER_BOOKMARK, SS_LCTL("d"));
-    BABLM(BABL_BROWSER_DEV_TOOLS, SS_LCTL("t"));  // Chrome
+    BABLM(BABL_BROWSER_DEV_TOOLS, SS_LCTL("t")); // Chrome
     // chrome
-    BABLM(BABL_BROWSER_RELOAD, IMCTL(X_F5));             // hard reload w/o cache
-    BABLM(BABL_BROWSER_FULLSCREEN, SS_TAP(X_F11));       // command shift F
-    BABLM(BABL_BROWSER_ZOOM_IN, OMSFT(IMCTL(X_EQUAL)));  // ctr+ +
+    BABLM(BABL_BROWSER_RELOAD, IMCTL(X_F5));            // hard reload w/o cache
+    BABLM(BABL_BROWSER_FULLSCREEN, SS_TAP(X_F11));      // command shift F
+    BABLM(BABL_BROWSER_ZOOM_IN, OMSFT(IMCTL(X_EQUAL))); // ctr+ +
     BABLM(BABL_BROWSER_ZOOM_OUT, IMCTL(X_MINUS));
-    BABLM(BABL_BROWSER_VIEWSRC, SS_LCTL("u"));  // Chrome or firefox
+    BABLM(BABL_BROWSER_VIEWSRC, SS_LCTL("u")); // Chrome or firefox
 #        endif
 #        ifdef BABL_APP
     BABLM(BABL_APP_SAVE, SS_LCTL("s"));

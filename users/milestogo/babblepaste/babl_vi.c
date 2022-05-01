@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /*
- * Vi is stateful, so you have to track the modes yourself. Otherwise motion is awful (bell, bell, bell)
-   Babble + Vi is probably most useful for remapping vi features in Colemak,Dvorak &etc. 
- */
+/*
+* Vi is stateful, so you have to track the modes yourself. Otherwise motion is awful (bell, bell, bell)
+  Babble + Vi is probably most useful for remapping vi features in Colemak,Dvorak &etc.
+*/
 
 #include QMK_KEYBOARD_H
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste.h"
 
 #    ifdef BABL_VI
 
@@ -56,18 +56,19 @@ bool babblePaste_vi(uint16_t keycode) {
     BABLM(BABL_CUT, "x");
     BABLM(BABL_COPY, "y");
     BABLM(BABL_PASTE, "p");
-    BABLM(BABL_SELECT_ALL, IMSFT(X_SCOLON) SS_TAP(X_5) "y");  // wrong but helpful?
+    BABLM(BABL_SELECT_ALL, IMSFT(X_SCOLON) SS_TAP(X_5) "y"); // wrong but helpful?
     BABLM(BABL_FIND, SS_TAP(X_SLASH));
     BABLM(BABL_FIND_NEXT, "n");
     BABLM(BABL_FIND_PREV, IMSFT(X_N));
     BABLM(BABL_FIND_REPLACE, OMALT(IMSFT(X_5)));
-    BABLM(BABL_RUNAPP, ":split");                // requires VIM, is vsplit better?
-    BABLM(BABL_SWITCH_APP_NEXT, IMCTL(X_DOWN));  // Or Right?
-    BABLM(BABL_SWITCH_APP_NEXT, IMCTL(X_UP));    // or Left?
+    BABLM(BABL_RUNAPP, ":split");               // requires VIM, is vsplit better?
+    BABLM(BABL_SWITCH_APP_NEXT, IMCTL(X_DOWN)); // Or Right?
+    BABLM(BABL_SWITCH_APP_NEXT, IMCTL(X_UP));   // or Left?
     BABLM(BABL_CLOSE_APP, IMCTL(X_SCOLON) "q");
-    BABLM(BABL_HELP, SS_LSFT(SS_TAP(X_SCOLON)) "h");  // start search in help
-                                                      // BABLM( BABL_LOCK,		()	); Perhaps VI is not an OS?
-                                                      // BABLM( BABL_SCREENCAPTURE,		()	); // capture a buffer?
+    BABLM(BABL_HELP, SS_LSFT(SS_TAP(X_SCOLON)) "h"); // start search in help
+                                                     // BABLM( BABL_LOCK,		()	); Perhaps VI is not an OS?
+
+    BABLM(BABL_SAVE, SS_TAP(X_ESCAPE) ":w"), // BABLM( BABL_SCREENCAPTURE,		()	); // capture a buffer?
 #        endif
 
 #        ifdef BABL_BROWSER
@@ -75,20 +76,20 @@ bool babblePaste_vi(uint16_t keycode) {
 #        endif
 
 #        ifdef BABL_APP
-    BABLM(BABL_APP_SAVE, SS_TAP(X_ESCAPE) ":w");
-    BABLM(BABL_APP_SET_MARK, SS_TAP(X_ESCAPE) "ma");  // real vi people probably want multiple marks,not just a
+        BABLM(BABL_APP_SAVE, SS_TAP(X_ESCAPE) ":w");
+    BABLM(BABL_APP_SET_MARK, SS_TAP(X_ESCAPE) "ma"); // real vi people probably want multiple marks,not just a
 #            ifdef BABL_APP_WINDOWSPLITTING
     BABLM(BABL_SPLIT_FRAME_VERT, SS_TAP(X_ESCAPE) ":vsplit");
-    BABLM(BABL_UNSPLIT_FRAME_VERT, SS_TAP(X_ESCAPE) ":hide");  // debatable.
+    BABLM(BABL_UNSPLIT_FRAME_VERT, SS_TAP(X_ESCAPE) ":hide"); // debatable.
     BABLM(BABL_SPLIT_FRAME_HORIZONTAL, SS_TAP(X_ESCAPE) ":vsplit");
     BABLM(BABL_UNSPLIT_FRAME_HORIZONTAL, SS_TAP(X_ESCAPE) ":hide");
     BABLM(BABL_NEXT_FRAME, SS_LCTRL("w") "w");
     BABLM(BABL_PREV_FRAME, SS_LCTRL("w") SS_LSFT("w"));
 #            endif
-#        endif  // app
+#        endif // app
     // Todo, ring bell, flash light, show user this isn't supported
     return false;
 }
 
-#    endif  // VI
-#endif      // Babblepaste
+#    endif // VI
+#endif     // Babblepaste

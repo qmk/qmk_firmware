@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* 
+/*
 Nano mode is probably most useful for people who don't usually use Nano, but
 sometimes find themselves using it.
 
@@ -25,7 +25,7 @@ https://www.nano-editor.org/dist/latest/cheatsheet.html
 #include QMK_KEYBOARD_H
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste.h"
 
 #    ifdef BABL_NANO
 
@@ -58,8 +58,8 @@ bool babblePaste_nano(uint16_t keycode) {
 #        ifdef BABL_OSKEYS
     BABLM(BABL_UNDO, SS_LALT("u"));
     BABLM(BABL_REDO, SS_LALT("e"));
-    BABLM(BABL_CUT, SS_LCTRL("k"));  // arguably b/c line based, not selection
-    BABLM(BABL_COPY, SS_LALT("6"));  // arguably
+    BABLM(BABL_CUT, SS_LCTRL("k")); // arguably b/c line based, not selection
+    BABLM(BABL_COPY, SS_LALT("6")); // arguably
     BABLM(BABL_PASTE, SS_LCTRL("u"));
     //  BABLM(BABL_SELECT_ALL, SS_LCTRL("x") "h");
     BABLM(BABL_FIND, SS_LCTRL("w"));
@@ -69,9 +69,10 @@ bool babblePaste_nano(uint16_t keycode) {
     BABLM(BABL_RUNAPP, SS_LCTL("t"));
     BABLM(BABL_WINDOW_NEXT, OMALT(IMSFT(X_DOT)));
     BABLM(BABL_WINDOW_PREV, OMALT(IMSFT(X_COMMA)));
-    BABLM(BABL_WINDOW_NEW, IMCTL(X_R) IMALT(X_F));  //
+    BABLM(BABL_WINDOW_NEW, IMCTL(X_R) IMALT(X_F)); //
     BABLM(BABL_CLOSE_APP, SS_LCTRL("x"));
-    BABLM(BABL_HELP, SS_LCTRL("g"));
+    BABLM(BABL_HELP, SS_LCTRL("g")),
+    BABLM(BABL_SAVE,  SS_LCTL("o"),
 
     // BABLM( BABL_LOCK,		()	); // lock buffer? Too many options.
     // BABLM( BABL_SCREENCAPTURE,		()	); // requires plugin?

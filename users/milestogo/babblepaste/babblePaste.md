@@ -4,53 +4,80 @@ The idea is to have one "paste" key do the right thing for any operating system.
 Put the keyboard in Windows mode, and  "paste" means Ctrl-v.
 Switch to Emacs and "Paste" means Ctrl-y.  Mac is GUI-v and so on.
 
-Currently supported modes are Windows, OS X, Gnome/KDE, Emacs, VI , ChromeOS, and Readline, with 70+ common macro actions.
+Currently supported modes are Windows, OS X, Gnome/KDE, Emacs, VI , ChromeOS, Nano and Readline, with 70+ common macro actions.
 
 The babblepaste library looks for the current OS in the babble_mode global variable.
 To switch modes, run the switch_babble_mode() function, or a pre defined BABL_DO_x macro.
 
+Babblepaste now includes functions to select the next/previous word or line. This is inspired by kakoune and Pascal Getruer's word selection key. Tap select previous line, then previous word twice, then click the cut key. Having this work in email and across OSes and apps is magic. 
+
 **BE CAREFUL**
   * Not all actions are defined for all OSes. The default is to do nothing.
   * Not all actions are _TESTED_ on all OSes.
-  * Keys can have very different meanings between windows in the same OS. If you switch apps without switching modes, bad things can happen.
+  * Be careful with Babblepaste application-specific keys. If you switch apps without switching modes, surprising things can happen. This is particularly true on OSes with no standards between applications. 
 
 ###To use the library
-#### Add #defines to your config.h.
+
+#### Include babblepaste in your build
+
+Add the include file to your keymap``` 
+```
+#include babblepaste.h
+```
+
+Update your rules.mk . You can save space by specifying which babl_x files you want. 
+```
+USE_BABBLEPASTE = yes
+VPATH += users/milestogo/babblepaste
+ifeq ($(strip $(USE_BABBLEPASTE)), yes)
+  ## comment out modes you wont use
+  SRC += babblepaste.c 
+  SRC += babl_mac.c babl_linux.c babl_readmux.c 
+  SRC += babl_windows.c babl_chromeos.c 
+  SRC += babl_emacs.c babl_kitty.c babl_nano.c babl_vi.c 
+  SRC += babl_select.c
+endif
+```
+
+
+
+#### Add #defines to your config.h to enable specific features
 ```
     #define USE_BABBLEPASTE
     
     //// Uncomment the modes you want to enable
-    #define BABL_WINDOWS
+    //#define BABL_WINDOWS
     #define BABL_READMUX
-    #define BABL_VI
+    //#define BABL_VI
     #define BABL_MAC
     #define BABL_LINUX
-    #define BABL_EMACS
+    //#define BABL_EMACS
     #define BABL_NANO
-    #define BABL_CHROMEOS
+    //#define BABL_CHROMEOS
     
     //// These enable subsets of babble macros. Disable options to save space
     #define BABL_MOVE // Uncomment to add basic cursor movement
+    #define BABL_SELECT // Adds selection keys to grab one word/line and add to selection
     #define BABL_OSKEYS // This adds Cut, paste, window movement and common OS shortcuts
-    #define BABL_BROWSER // Browser shortcuts
+    ..#define BABL_BROWSER // Browser shortcuts
     
-    //// What Browser shortcuts?
+    //// Which Browser shortcuts?
     #define BABL_BROWSER_CHROME // Chrome browser, Google apps
     //#define BABL_BROWSER_MS
     //#define BABL_BROWSER_SAFARI // Safari, Apple defaults.
     
     //// applications vary even more between OSes. We'll do our best.
-    #define BABL_APP
+    //#define BABL_APP
     // To enable specific App options.
-    #define BABL_APP_CELLS // spreadsheets and tables
-    #define BABL_APP_EDITOR // Fancy editor commands
-    #define BABL_APP_WINDOWSPLITTING // splitting frames & windows
+    //#define BABL_APP_CELLS // spreadsheets and tables
+    //#define BABL_APP_EDITOR // Fancy editor commands
+    //#define BABL_APP_WINDOWSPLITTING // splitting frames & windows
     
     //// What App keybinding is assumed?
     //#define BABL_APP_GOOGLE // Google office
     #define BABL_APP_MSOFFICE // MS office
     //#define BABL_APP_APPLE // Apple office
-    #define BABL_APP_SUBLIME
+    //#define BABL_APP_SUBLIME
 ```
 
 #### Enable Babblepaste in your Keymap
@@ -58,26 +85,14 @@ To switch modes, run the switch_babble_mode() function, or a pre defined BABL_DO
 Add the following to your keymap in process_record_user, before the main switch statement.
 ```
 #ifdef USE_BABBLEPASTE
-    if (keycode > BABBLE_START && keycode < BABBLE_END_RANGE) {
-        if (record->event.pressed) { 
-            babblePaste(keycode, 1);
-        } else {
-            babblePaste(keycode, 0);
-        }
-    }
+    if (!process_babblepaste(keycode, record)) { return false; }
 #endif
 ```
-
-#### Add makefile rules
-
-Update your rules.mk to include the modes you want.
-
-    `SRC += babblePaste.c babl_windows.c babl_mac.c  babl_nano babl_vi.c babl_readmux.c  babl_chromeos.c babl_emacs.c babl_linux.c`
 
 
 #### Custom Keycodes
 
-If you are using custom keycodes, update the safe range in your user.h
+If you are using custom keycodes, update the safe range in your user.h (Todo - added this to babblePaste.h, so this may not be needed, depending on the order of include files))
 ```
   #if defined(BABBLE_END_RANGE)
         #define USER_START BABBLE_END_RANGE
@@ -127,9 +142,14 @@ See the full list in babblePaste.h, or the list below
   #define B_DEL    BABL_DEL_RIGHT_1C
   #define B_DLW    BABL_DEL_LEFT_WORD
   #define B_DRW    BABL_DEL_RIGHT_WORD
-  #define B_DEOL  BABL_DEL_TO_LINE_END // delete from cursor to end of line
-  #define B_DSOL  BABL_DEL_TO_LINE_START // delete from cursor to begining line
+  #define B_DEOL   BABL_DEL_TO_LINE_END // delete from cursor to end of line
+  #define B_DSOL   BABL_DEL_TO_LINE_START // delete from cursor to begining line
   #define B_MODE   BABL_MODE //type out name of current mode.
+
+  #define B_S_WL     B_SEL_WORD_L
+  #define B_S_WR     B_SEL_WORD_R
+  #define B_S_LU     B_SEL_LINE_U
+  #define B_S_LD     B_SEL_LINE_D
 
   #define B_UNDO     BABL_UNDO
   #define B_REDO     BABL_REDO
@@ -145,6 +165,9 @@ See the full list in babblePaste.h, or the list below
   #define B_RUNAPP   BABL_RUNAPP
   #define B_NAPP  BABL_SWITCH_APP_NEXT
   #define B_PAPP  BABL_SWITCH_APP_LAST // previous
+  #define B_PAPTB BABL_APPTAB_NEXT
+  #define B_NAPTB BABL_APPTAB_LAST  // previous
+  #define B_NWTAB BABL_APPTAB_NEW  // new app tab
   #define B_CAPP  BABL_CLOSE_APP
   #define B_NWIN  BABL_WINDOW_NEXT
   #define B_PWIN  BABL_WINDOW_PREV
@@ -153,6 +176,7 @@ See the full list in babblePaste.h, or the list below
   #define B_SCAP  BABL_SCREENCAPTURE
   #define B_KEYB  BABL_SWITCH_KEYBOARD_LAYOUT
   #define B_LOCK  BABL_LOCK
+  #define B_SAVE  BABL_SAVE
   #define B_SCAP  BABL_SCREENCAPTURE
   #define B_NTAB  BABL_BROWSER_NEW_TAB
   #define B_CTAB  BABL_BROWSER_CLOSE_TAB
@@ -170,7 +194,7 @@ See the full list in babblePaste.h, or the list below
   #define B_ZIN   BABL_BROWSER_ZOOM_IN
   #define B_ZOUT  BABL_BROWSER_ZOOM_OUT
 
-  #define B_SAVE  BABL_APP_SAVE
+  #define B_SAAV  BABL_APP_SAVE
   #define B_PASTV BABL_APP_PASTE_VALUES
   #define B_CALN  BABL_APP_CENTER_ALIGN
   #define B_CFMT  BABL_APP_CLEAR_FORMATTING
@@ -193,7 +217,7 @@ See the full list in babblePaste.h, or the list below
   #define B_PRVFM   BABL_PREV_FRAME
 ```
 
-####Add babblepaste functions to your keyboard or userspace
+####Add babblepaste callback functions to your keyboard or userspace
 Functions babble_led_user() and babble_led_kb() are called when babble mode is changed. 
 ```
 void babble_modeswitch_kb(uint8_t mode){

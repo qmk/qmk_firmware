@@ -1,4 +1,4 @@
-/* Copyright 2020 milestogo
+/* Copyright 2022 milestogo
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,55 +15,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 #include "version.h"
 #include "eeprom.h"
+#include "print.h"
+ 
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste/babblepaste.h"
 #endif
+
 
 #ifdef RGBLIGHT_ENABLE
 #    include "rgbcolors.h"
 #endif
-
-#define USERSPACE_ACTIVE
 
 /* Define layer names */
 enum userspace_layers { _QWERTY = 0, _CDH, _MOV, _DMOV, _NUM, _SYM, _FN };
 
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
- */
+ 
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
+*/
 
-#if defined(BABBLE_END_RANGE)
-#    define USER_START BABBLE_END_RANGE
-#else
-#    if defined(KEYMAP_SAFE_RANGE)
-#        define USER_START KEYMAP_SAFE_RANGE
+
+// redefine the user_start range to be _after_ babblepaste
+/*
+#    if defined(BABBLE_END_RANGE)
+#        define USER_START BABBLE_END_RANGE
 #    else
-#        define USER_START SAFE_RANGE
+#        if defined(KEYMAP_SAFE_RANGE)
+#            define USER_START KEYMAP_SAFE_RANGE
+#        else
+#            define USER_START SAFE_RANGE
+#        endif
 #    endif
-#endif
 
-enum userspace_custom_keycodes {
-    EPRM = BABBLE_END_RANGE,  // Resets EEPROM do defaults (as in eeconfig_init)
-    VRSN,                     // Prints QMK Firmware and board info
+*/
+
+enum user_keycodes {
+    VRSN = SAFE_RANGE,  // print a version string
     KC_QWERTY,                // Sets default layer to QWERTY
     KC_CDH,                   // Sets default layer to COLEMAK DH
-    KC_MAKE,
-    VIBRK,          // escape :
-    DHPASTE,        // allow pasting via qwerty V,not colemak V
+    REBOOT,
     NEW_SAFE_RANGE  // Keymap specific codes come AFTER this
 };
 
 #define QWERTY KC_QWERTY
 #define COLEMAK KC_CDH
-#define KC_RESET RESET
+#define KC_RESET REBOOT
 
 // Shorter spacing
 #define XXXX KC_NO
@@ -73,6 +77,15 @@ enum userspace_custom_keycodes {
 #    define LAYOUT KEYMAP
 #endif
 
+
+/* Fn Keys */
+#define SSYM LT(_SYM, KC_SPC)
+#define SMOVE LT(_MOV, KC_SPC)
+#define MVTAB LT(_MOV, KC_TAB)
+#define ESCSYM LT(_SYM, KC_ESC)
+
+
+    
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 #define _________________QWERTY_L1_________________ KC_Q, KC_W, KC_E, KC_R, KC_T
@@ -87,11 +100,11 @@ enum userspace_custom_keycodes {
 
 #define ______________COLEMAK_MOD_DH_L1____________ KC_Q, KC_W, KC_F, KC_P, KC_B
 #define ______________COLEMAK_MOD_DH_L2____________ KC_A, KC_R, KC_S, KC_T, KC_G
-#define ______________COLEMAK_MOD_DH_L3____________ LSFT_T(KC_Z), KC_X, KC_C, KC_D, KC_V
+#define ______________COLEMAK_MOD_DH_L3____________ RSFT_T(KC_Z), KC_X, KC_C, KC_D, KC_V
 
 #define ______________COLEMAK_MOD_DH_R1____________ KC_J, KC_L, KC_U, KC_Y, KC_SCLN
 #define ______________COLEMAK_MOD_DH_R2____________ KC_M, KC_N, KC_E, KC_I, KC_O
-#define ______________COLEMAK_MOD_DH_R3____________ KC_K, KC_H, KC_COMM, KC_DOT, RSFT_T(KC_SLASH)
+#define ______________COLEMAK_MOD_DH_R3____________ KC_K, KC_H, KC_COMM, KC_DOT, LSFT_T(KC_SLASH)
 
 /// Standard
 
@@ -161,6 +174,55 @@ enum userspace_custom_keycodes {
 #define _________BABBLE_DELMOV_R2__________________ B_DLW, KC_BSPC, _______, B_DEL, B_DRW
 #define _________BABBLE_DELMOV_R3__________________ B_NAPP, B_ZOUT, B_WINN, B_ZIN, B_PAPP
 
+
+// Move and paste - 50%+.
+// if using caps to enable this mode, put shift on D key, Delmov on S (ring+pinky is easier than index+pinky with ring moving)
+// for thumb key, it may help to swap.
+// The right paren depends entirely on the keyboard.
+/*    ,--------------------------------------------.  ,--------------------------------------------.-------.
+ * 01 |  MAC   | vi     | Read   | Linux  |  Bmode |  | WIN    |        |SelLineU|   Vol- |  Vol+  |  Mute |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
+ * 02 |  ESC   |        | Undo   |  Redo  | {      |  | DHome  |LineStrt|   Up   |  EoL   |        |       |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
+ * 03 |    (   |  Save  |  Cut   | Copy   |  Paste |  | WrdLft | Left   | Down   | Right  | WrdRght|   `   |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
+ * 04 |  CDH   |        |        |   )    |   }    |  |   ~    | SelWL  |SelLineD|  SelWR | Up     | Enter |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
+ * 05 |        |        |        |        |        |  |        |        | Tab    |  Left  | Down   | Right |
+ *    `--------------------------------------------'  `----------------------------------------------------'
+ */
+
+#define __________50_______MOV_L1__________________ B_MAC,  B_VI, B_READ, B_LINUX,    B_MODE
+#define __________50_______MOV_L2__________________ KC_ESC,  XXXX, B_UNDO, B_REDO, KC_LCBR
+#define __________50_______MOV_L3__________________ KC_LPRN, B_SAVE, B_CUT,  B_COPY,  B_PASTE
+#define __________50_______MOV_L4__________________ KC_CDH, XXXX, XXXX, KC_RPRN,  KC_RCBR
+#define __________50_______MOV_L5__________________ ____, ____, ____, ____, ____ 
+
+#define __________50_______MOV_R1__________________ B_WIN    , XXXX,    B_S_LU, KC_VOLD, KC_VOLU, KC_MUTE
+#define __________50_______MOV_R2__________________ KC_PGDN,   B_GSOL,  B_UP,   B_GEOL,  XXXX,    XXXX
+#define __________50_______MOV_R3__________________ B_L1W,     B_L1C,   B_DOWN, B_R1C,   B_R1W,   KC_GRAVE
+#define __________50_______MOV_R4__________________ KC_TILDE,  B_S_WL,  B_S_LD, B_S_WR,  KC_PGDN, KC_ENTER
+#define __________50_______MOV_R5__________________ ____,       ____,   KC_TAB, KC__LEFT,KC_DOWN, KC_RIGHT
+
+// Window and App management, Unicode emoji for  50%+.
+ /*   ,--------------------------------------------.  ,--------------------------------------------.
+ * 01 |        | PreApp | Launch | NxtApp | Zoom++ |  | FireW  | ThumbU | Replace| THumbD | PgUp   |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 02 | Caps   | PreTab | Tab++  | NxtTab |        |  | Smile  | FindP  | Find   | FindN  | PgDn   |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 03 | Qwerty | PreWin | Win++  | WinNxt | Zoom-- |  | Fire   | Eyes   | 100%   | Hmm    |Nazar   | 
+ *    `--------------------------------------------'  `--------------------------------------------'
+ */
+
+#define __________50_______SYM_L1__________________ XXXX,     B_PAPP,   B_RUNAPP, B_NAPP,  B_ZIN
+#define __________50_______SYM_L2__________________ KC_CAPS,   B_PAPTB, B_NWTAB,  B_NAPTB, XXXX
+#define __________50_______SYM_L3__________________ KC_QWERTY, B_PWIN,   B_WINN,  B_NWIN,  B_ZOUT
+
+#define __________50_______SYM_R1__________________ X(FIREW), X(THUMBU), B_RPLACE, X(THUMBD), KC_PGUP
+#define __________50_______SYM_R2__________________ X(SMILE), B_FINDP,   B_FIND,   B_FINDN, KC_PGDN
+#define __________50_______SYM_R3__________________ X(FIRE),  X(EYES),   X(PCT100),X(HMM),   X(NAZAR)
+
+
 // Move and brackets - 40% optimization.
 // if using caps to enable this mode, put shift on D key, Delmov on S (ring+pinky is easier than index+pinky with ring moving)
 // for thumb key, it may help to swap.
@@ -185,9 +247,9 @@ enum userspace_custom_keycodes {
 // Move in a direction, deleting as we go, or do opposite of Mov layer action
 // Assumes thumb buttons to get here.
 /*    ,--------------------------------------------.  ,--------------------------------------------.
- * 01 |  Esc   | B_Print| BABL-  | B++    |        |  | PTab   |LineStrt|   Up   |  EOL   |  NTAB  |
+ * 01 |  Esc   | B_Print| BABL-  | B++    |        |  | PTab   |LineStrt|   Undo   |  EOL   |  NTAB  |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 02 |   Tab  | Do_DEL |  Find  | Redo   | FindP  |  | WrdLft | Bak    |   Down | Del    | WrdRght|
+ * 02 |   Tab  | Do_DEL |  Find  | Redo   | FindP  |  | WrdLft | Bak    |   Redo | Del    | WrdRght|
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
  * 03 |        |  FN    | Refind | Paste  | Paste  |  |   #    |   ;    |        |   @    |  `     |
  *    `--------------------------------------------'  `--------------------------------------------'
@@ -196,8 +258,8 @@ enum userspace_custom_keycodes {
 #define ____________40__DELMOV_L2__________________ KC_TAB, _______, B_FIND, B_REDO, B_FINDP
 #define ____________40__DELMOV_L3__________________ XXXXXXX, TO(_FN), B_FINDN, _______, B_PASTE
 
-#define ____________40__DELMOV_R1__________________ B_PTAB, B_DSOL, B_UP, B_DEOL, B_NXTB
-#define ____________40__DELMOV_R2__________________ B_DLW, KC_BSPC, B_DOWN, B_DEL, B_DRW
+#define ____________40__DELMOV_R1__________________ B_PTAB, B_DSOL, B_UNDO, B_DEOL, B_NXTB
+#define ____________40__DELMOV_R2__________________ B_DLW, KC_BSPC, B_REDO, B_DEL, B_DRW
 #define ____________40__DELMOV_R3__________________ KC_HASH, KC_SCLN, XXXXXXX, KC_AT, KC_GRAVE
 
 /// 30 percent numbers and characters that aren't handled elsewhere.

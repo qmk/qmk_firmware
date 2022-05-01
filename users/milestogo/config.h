@@ -33,6 +33,10 @@
 #define TAPPING_TOGGLE  3
 #endif
 
+// COMBO_ENABLE is defined in makefile for ease of conditional ifdefs
+#define EXTRA_SHORT_COMBOS
+#define COMBO_ONLY_FROM_LAYER 0
+
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
@@ -40,6 +44,8 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 //if no chord during tapping term, do the keystroke
 #define RETRO_TAPPING
+#define RETRO_TAPPING_PER_KEY
+
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
@@ -59,12 +65,13 @@
 #define BABL_APP // Application specific settings this has sub-options.
 //#define BABL_APP_CELLS // spreadsheets and tables
 //#define BABL_APP_EDITOR // Fancy editor commands 
-#define BABL_APP_WINDOWSPLITTING // splitting frames & windows
+//#define BABL_APP_WINDOWSPLITTING // splitting frames & windows
+#define BABL_SELECT
 
 //All OSes
 
 //#define BABL_WINDOWS
-//#define BABL_READMUX
+#define BABL_READMUX
 //#define BABL_VI
 #define BABL_MAC
 #define BABL_LINUX

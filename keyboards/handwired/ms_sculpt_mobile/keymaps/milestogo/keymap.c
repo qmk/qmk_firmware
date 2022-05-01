@@ -16,10 +16,15 @@
  */
 
 #include QMK_KEYBOARD_H
-
 #include "milestogo.h"
-#include "virtser.h"
-#include <print.h>
+#include "user_unicode.h"
+
+//#include "virtser.h"
+
+#ifdef COMBO_ENABLE
+#    include "g/keymap_combo.h"
+#endif
+
 
 #define LAYOUT_local LAYOUT_mobile_xua
 #define LAYOUT_local_wrap(...) LAYOUT_local(__VA_ARGS__)
@@ -30,15 +35,6 @@
 
 // Custom macros
 
-/* Fn Keys */
-#define LT_SYM LT(_SYM, KC_SPC)
-#define TT_SYM MO(_SYM)
-#define TT_MOV LT(_MOV, KC_BSPC)
-#define TT_NUM MO(_NUM)
-#define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
-#define SSYM LT(_SYM, KC_SPC)
-#define MVTAB LT(_MOV, KC_TAB)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  QWERTY
      *
@@ -48,34 +44,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ---------------------------------------------------------------------------
      * | tab  |  q |  w |  e |  r |  t |  y |  u |  i |  o |  p |  [ |  ] |  \    |    |
      *  -------------------------------------------------------------------------------'
-     * |Bak/Mov|  a |  s |  d |  f |  g |  h |  j |  k |  l |  ; |  ' | enter     |PgUp|
+     * |ESC/Sym|  a |  s |  d |  f |  g |  h |  j |  k |  l |  ; |  ' | enter     |PgUp|
      * --------------------------------------------------------------------------------
      * |Lsft    |  z |  x |  c |  v |  b |  n |  m |  , |  . |  / |      Rsft| Up| PgDn|
      * ---------------------------------------------------------------------------------
-     * |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
+     * |Lctl   |Lgui  |Lalt |       Space/Mov       | GUI |  Sym |  Rctl |Left|Down|Rght|
      * ---------------------------------------------------------------------------------
      */
 
     [_QWERTY] = LAYOUT_local_wrap(\
-    KC_ESC,  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_VOLD, KC_VOLU, TG(_CDH), \
+    KC_ESC,  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_VOLD, KC_VOLU, TO(_CDH), \
     KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
     KC_TAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_LBRC, KC_RBRC, KC_BSLS, \
-    TT_MOV, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT, KC_ENT, KC_PGUP, \
+    ESCSYM, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT, KC_ENT, KC_PGUP, \
     KC_LSFT,_________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_RSFT, KC_UP, KC_PGDN, \
-    KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM, KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+    KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT(_MOV), KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
     ),
 
     [_CDH] = LAYOUT_local_wrap(\
-    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
+    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, TO(_QWERTY), \
     ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,\
-    ____,    ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________, ____, ____, ____, \
-    TT_MOV,  ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________, ____, ____, ____, \
-    KC_LSFT, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________, ____, ____, ____, \
-     B_2ME, B_1ME, ____, LT_SYM, B_2ME, ____, B_1ME, ____, ____, ____
-     ),
+    ____, ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________, ____, ____, ____, \
+    ____, ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________, ____, ____, ____, \
+    ____, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________, ____, ____, ____, \
+    B_2ME, B_1ME, ____, SMOVE, ____, ____, ____, ____, ____, ____
+    ),
 
+    [_MOV] = LAYOUT_local_wrap(\
+    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, VRSN, ____, REBOOT, \
+    ____, __________50_______MOV_L1__________________, __________50_______MOV_R1__________________, ____, ____, ____,\
+    ____, __________50_______MOV_L2__________________, __________50_______MOV_R2__________________, ____, ____, \
+    ____, __________50_______MOV_L3__________________, __________50_______MOV_R3__________________, ____, ____, \
+    ____, __________50_______MOV_L4__________________, __________50_______MOV_R4__________________, ____, ____, \
+    B_2ME, B_1ME, ____, ____, ____, ____, ____, ____, ____, ____
+    ),
 
     [_SYM] = LAYOUT_local_wrap(\
+    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
+    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,\
+    ____, __________50_______SYM_L1__________________, __________50_______SYM_R1__________________, ____, ____, ____, \
+    ____, __________50_______SYM_L2__________________, __________50_______SYM_R2__________________, ____, ____, ____, \
+    ____, __________50_______SYM_L3__________________, __________50_______SYM_R3__________________, ____, ____, ____, \
+    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
+    ),
+
+
+    [_NUM] = LAYOUT_local_wrap(\
     ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
     ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,\
     ____, ________________30_NUM_L1__________________, ________________30_NUM_R1__________________, ____, ____, ____, \
@@ -84,43 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
-    /* MOVE simple version
-
-    * |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
-    *  -------------------------------------------------------------------------------'
-    * |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
-    * ---------------------------------------------------------------------------
-    * | tab  |    |    |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
-    *  -------------------------------------------------------------------------------'
-    * |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter   |PgUp|
-    * --------------------------------------------------------------------------------
-    * |Lsft    |Undo| Cut|Copy|Pste|    |    |    |    |    |  / |      Rsft| Up| PgDn|
-    * ---------------------------------------------------------------------------------
-    * |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
-    * ---------------------------------------------------------------------------------
-    */
-
-    [_MOV] = LAYOUT_local_wrap(\
-    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
-    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,\
-    ____, __________40_______MOV_L1__________________, __________40_______MOV_R1__________________, ____, ____, ____, \
-    ____, __________40_______MOV_L2__________________, __________40_______MOV_R2__________________, ____, ____, ____, \
-    ____, __________40_______MOV_L3__________________, __________40_______MOV_R3__________________, ____, ____, ____, \
-    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
-    ),
-
-    [_DMOV] = LAYOUT_local_wrap(\
-    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
-    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,\
-    ____, ____________40__DELMOV_L1__________________, ____________40__DELMOV_R1__________________, ____, ____, ____, \
-    ____, ____________40__DELMOV_L2__________________, ____________40__DELMOV_R2__________________, ____, ____, ____, \
-    ____, ____________40__DELMOV_L3__________________, ____________40__DELMOV_R3__________________, ____, ____, ____, \
-    ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
-    ),
-
-
-		   
-		    /*
+    /*
     [_TRAN] = LAYOUT_local(\
       ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
       ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
@@ -131,6 +109,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
     */
 };
+
+
+
+
 
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
@@ -143,7 +125,7 @@ void keyboard_post_init_user(void) {
 void matrix_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE
 #    ifdef RGB_DI_PIN
-    rgblight_setrgb(RGB_GREEN);
+    rgblight_setrgb(RGB_RED);
 #    endif
 #endif  // RGB_matrix
 }
@@ -153,6 +135,7 @@ void matrix_init_kb(void) {
 #define LED_LAYOUT 1  // qwerty , colemak, dv
 #define LED_CAPS 4    // caps on/off
 #define LED_MACRO 0   // babble os indicator: windows/chrome/mac/linux
+
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_kb(layer_state_t state) {
@@ -210,6 +193,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     return state;
 };
+
 
 #ifdef VIRTSER_ENABLE
 /* listen on serial for commands. Either a set of lower case letters mapped to colors,

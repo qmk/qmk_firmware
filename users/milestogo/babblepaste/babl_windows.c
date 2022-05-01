@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /*  Windows OS shortcuts. 
+/*  Windows OS shortcuts.
 
 */
 
 #include QMK_KEYBOARD_H
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste.h"
 
 #    ifdef BABL_WINDOWS
 
@@ -64,11 +64,15 @@ bool babblePaste_win(uint16_t keycode) {
     BABLM(BABL_RUNAPP, SS_LGUI("r"));
     BABLM(BABL_SWITCH_APP_NEXT, IMALT(X_TAB));
     BABLM(BABL_SWITCH_APP_LAST, OMSFT(IMALT(X_TAB)));
+    BABLM(BABL_APPTAB_NEXT, IMCTL(X_PGDN));
+    BABLM(BABL_APPTAB_LAST, IMCTL(X_PGUP));
+    BABLM(BABL_APPTAB_NEW, OMSFT(IMCTL(X_T)));
     BABLM(BABL_WINDOW_NEXT, IMCTL(X_TAB));
     BABLM(BABL_WINDOW_PREV, OMSFT(IMCTL(X_TAB)));
     BABLM(BABL_WINDOW_NEW, IMCTL(X_N));
     BABLM(BABL_CLOSE_APP, IMALT(X_F4));
     BABLM(BABL_HELP, SS_TAP(X_F1));
+    BABLM(BABL_SAVE, SS_LCTL("s"));
     BABLM(BABL_LOCK, SS_LGUI("l"));
     BABLM(BABL_SCREENCAPTURE, OMSFT(SS_LGUI("s")));
     BABLM(BABL_SWITCH_KEYBOARD_LAYOUT, IMGUI(X_SPACE));
@@ -88,15 +92,15 @@ bool babblePaste_win(uint16_t keycode) {
     BABLM(BABL_BROWSER_FIND, SS_LCTRL("f"));
     BABLM(BABL_BROWSER_BOOKMARK, SS_LCTRL("d"));
 #            ifdef BABL_BROWSER_MS
-    BABLM(BABL_BROWSER_DEV_TOOLS, IMCTL(X_F12));  // EDGE
+    BABLM(BABL_BROWSER_DEV_TOOLS, IMCTL(X_F12)); // EDGE
 #            else
-    BABLM(BABL_BROWSER_DEV_TOOLS, SS_LCTRL("t"));  // Chrome
-    BABLM(BABL_BROWSER_VIEWSRC, SS_LCTRL("u"));    // Chrome or firefox
+    BABLM(BABL_BROWSER_DEV_TOOLS, SS_LCTRL("t")); // Chrome
+    BABLM(BABL_BROWSER_VIEWSRC, SS_LCTRL("u"));   // Chrome or firefox
 #            endif
     // chrome
-    BABLM(BABL_BROWSER_RELOAD, IMCTL(X_F5));             // hard reload w/o cache
-    BABLM(BABL_BROWSER_FULLSCREEN, SS_TAP(X_F11));       // command shift F
-    BABLM(BABL_BROWSER_ZOOM_IN, OMSFT(IMCTL(X_EQUAL)));  // ctr+ +
+    BABLM(BABL_BROWSER_RELOAD, IMCTL(X_F5));            // hard reload w/o cache
+    BABLM(BABL_BROWSER_FULLSCREEN, SS_TAP(X_F11));      // command shift F
+    BABLM(BABL_BROWSER_ZOOM_IN, OMSFT(IMCTL(X_EQUAL))); // ctr+ +
     BABLM(BABL_BROWSER_ZOOM_OUT, IMCTL(X_MINUS));
 
 #        endif
@@ -106,10 +110,10 @@ bool babblePaste_win(uint16_t keycode) {
 #            ifdef BABL_APP_EDITOR
 #                ifdef BABL_APP_SUBLIME
     // http://sweetme.at/2013/08/08/sublime-text-keyboard-shortcuts/
-    BABLM(BABL_APP_MULTI_SELECT, IMALT(X_F3));        // add all occurences of current word to select.
-    BABLM(BABL_APP_PASTE_VALUES, OMSFT(IMCTL(X_V)));  // paste with proper indenting.
-#                endif                                // sublime
-#            endif                                    // editor
+    BABLM(BABL_APP_MULTI_SELECT, IMALT(X_F3));       // add all occurences of current word to select.
+    BABLM(BABL_APP_PASTE_VALUES, OMSFT(IMCTL(X_V))); // paste with proper indenting.
+#                endif                               // sublime
+#            endif                                   // editor
 
 #            ifdef BABL_APP_CELLS
 #                ifdef BABL_APP_MSOFFICE
@@ -135,19 +139,19 @@ bool babblePaste_win(uint16_t keycode) {
     BABLM(BABL_INSERT_COMMENT, IMSFT(X_F2));
     BABLM(BABL_APP_CLEAR_FORMATTING, IMCTL(X_BSLASH));
     BABLM(BABL_DELETE_ROW, IMALT(X_E) "d");
-    BABLM(BABL_INSERT_COL_LEFT, OMALT(IMCTL(X_I)) "c");  // o for to the right.
-    BABLM(BABL_INSERT_ROW, IMALT(IMCTL(X_I)) "w");       // r for above.
+    BABLM(BABL_INSERT_COL_LEFT, OMALT(IMCTL(X_I)) "c"); // o for to the right.
+    BABLM(BABL_INSERT_ROW, IMALT(IMCTL(X_I)) "w");      // r for above.
     BABLM(BABL_SELECT_COL, IMCTL(X_SPACE));
     BABLM(BABL_SELECT_ROW, IMSFT(X_SPACE));
-    BABLM(BABL_DELETE_ROW, OMALT(IMCTL(X_KP_MINUS)));  // once selected
+    BABLM(BABL_DELETE_ROW, OMALT(IMCTL(X_KP_MINUS))); // once selected
 #                endif
 
-#            endif  // BABL_APP_CELLS
+#            endif // BABL_APP_CELLS
 
     // BABLM( BABL_SPLIT_FRAME_VERT,		()  );// no windows way?
     // BABLM( BABL_UNSPLIT_FRAME_VERT,		()  );
-    BABLM(BABL_SPLIT_FRAME_HORIZONTAL, OMALT(IMCTL(X_S)));    // word only
-    BABLM(BABL_UNSPLIT_FRAME_HORIZONTAL, OMSFT(IMALT(X_C)));  // word
+    BABLM(BABL_SPLIT_FRAME_HORIZONTAL, OMALT(IMCTL(X_S)));   // word only
+    BABLM(BABL_UNSPLIT_FRAME_HORIZONTAL, OMSFT(IMALT(X_C))); // word
     // BABLM( BABL_NEXT_FRAME, () );//no windows way?
     // BABLM( BABL_PREV_FRAME, () );// no windows way?
 #        endif

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,11 +20,20 @@
 
 #ifdef USE_BABBLEPASTE
 
+extern uint8_t babble_mode;
+
+bool process_babblepaste(uint16_t keycode, keyrecord_t* record);
+
 void set_babble_mode(uint8_t id);
 void babble_mode_increment(void);
 void babble_mode_decrement(void);
 void babble_modeswitch_user(uint8_t mode);
 void babble_modeswitch_kb(uint8_t mode);
+
+bool do_ctl_or_alt(bool state, uint8_t lastmode);
+bool process_babble_select(uint16_t keycode, keyrecord_t* record);
+
+bool process_babble_modswap(uint16_t keycode, keyrecord_t* record);
 
 // manually re-order these if you want to set the order or default.
 enum babble_modes {
@@ -52,9 +61,11 @@ enum babble_modes {
 #    ifdef BABL_KITTY
     BABL_KITTY_MODE,
 #    endif
+#    ifdef BABL_NANO
+    BABL_NANO_MODE,
+#    endif
     BABL_MODEMAX
 };
-
 
 /// Hacks to make it easier to create sendstring macros
 
@@ -72,7 +83,7 @@ enum babble_modes {
 #    define BABLM(ent, ...)           \
         if (ent == keycode) {         \
             SEND_STRING(__VA_ARGS__); \
-            return true;              \
+            return false;             \
         }
 
 // BabblePaste should be loaded first (header in userspace .h file, before all else)
@@ -89,13 +100,13 @@ enum babble_modes {
 
 enum babble_keycodes {
     FIRST = BABBLE_START,
-    BABL_MODE_INCREMENT, 
+    BABL_MODE_INCREMENT,
     BABL_MODE_DECREMENT,
-#   ifdef BABL_MODSWAP
+#    ifdef BABL_MODSWAP
     BABL_PRIMARY_OS_MOD,
     BABL_SECONDARY_OS_MOD,
     BABL_TERTIARY_OS_MOD,
-#   endif 
+#    endif
 #    ifdef BABL_MOVE
     // Movement macros
     // left & right
@@ -123,6 +134,12 @@ enum babble_keycodes {
     BABL_DEL_TO_LINE_START,  // delete from cursor to begining line
     BABL_MODE,               // print out string saying what mode we're in.
 #    endif
+#    ifdef BABL_SELECT
+    B_SEL_WORD_L,
+    B_SEL_WORD_R,
+    B_SEL_LINE_U,
+    B_SEL_LINE_D,
+#    endif
 #    ifdef BABL_OSKEYS
     BABL_UNDO,
     BABL_REDO,
@@ -143,11 +160,15 @@ enum babble_keycodes {
     BABL_RUNAPP,
     BABL_SWITCH_APP_NEXT,
     BABL_SWITCH_APP_LAST,  // previous
+    BABL_APPTAB_NEXT,
+    BABL_APPTAB_LAST,  // previous
+    BABL_APPTAB_NEW,   // previous
     BABL_WINDOW_NEXT,
     BABL_WINDOW_PREV,
     BABL_WINDOW_NEW,
     BABL_CLOSE_APP,
     BABL_HELP,
+    BABL_SAVE,
     BABL_LOCK,
     BABL_SCREENCAPTURE,
     BABL_SWITCH_KEYBOARD_LAYOUT,
@@ -190,7 +211,7 @@ enum babble_keycodes {
 
     BABL_APP_MULTI_SELECT, /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
     BABL_APP_SET_MARK,
-#        endif             // BABL_APP_EDITOR
+#        endif  // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING
     // These aren't useful on most oses.
     BABL_SPLIT_FRAME_VERT,
@@ -225,61 +246,91 @@ enum babble_keycodes {
 #    ifdef BABL_CHROMEOS
     BABL_DO_CHROMEOS,
 #    endif
-#   ifdef BABL_KITTY
+#    ifdef BABL_KITTY
     BABL_DO_KITTY,
-#   endif
+#    endif
+#    ifdef BABL_NANO
+    BABL_DO_NANO,
+#    endif
     BABBLE_END_RANGE
 };
 
-// primary function.
+// primary BabblePaste function.
 bool babblePaste(uint16_t keycode, bool is_pressed);
 
 /****************************************************/
 /* All per-os includes and short mode switch macros*/
+/* Since this may be added/removed often, set safe defailts
+ * so keymap doesn't need changing */
+
 #    ifdef BABL_WINDOWS
 #        define B_WIN BABL_DO_WINDOWS
 bool babblePaste_win(uint16_t keycode);
+#    else
+#        define B_WIN KC_NO
 #    endif
 #    ifdef BABL_MAC
 #        define B_MAC BABL_DO_MAC
 bool babblePaste_mac(uint16_t keycode);
+#    else
+#        define B_MAC KC_NO
 #    endif
 #    ifdef BABL_LINUX
 #        define B_LINUX BABL_DO_LINUX
+#        define B_LNX BABL_DO_LINUX
 bool babblePaste_linux(uint16_t keycode);
+#    else
+#        define B_LINUX KC_NO
+#        define B_LNX KC_NO
 #    endif
 #    ifdef BABL_EMACS
 #        define B_EMACS BABL_DO_EMACS
 bool babblePaste_emacs(uint16_t keycode);
+#        define B_EMACS KC_NO
 #    endif
 #    ifdef BABL_VI
 #        define B_VI BABL_DO_VI
 bool babblePaste_vi(uint16_t keycode);
+#    else
+#        define B_VI KC_NO
 #    endif
 #    ifdef BABL_READMUX
 #        define B_READ BABL_DO_READMUX
 bool babblePaste_readmux(uint16_t keycode);
+#    else
+#        define B_READ KC_NO
 #    endif
 #    ifdef BABL_CHROMEOS
 #        define B_CROM BABL_DO_CHROMEOS
 bool babblePaste_chromeos(uint16_t keycode);
+#    else
+#        define B_CROM KC_NO
 #    endif
+
 #    ifdef BABL_KITTY
 #        define B_KITTY BABL_DO_KITTY
 bool babblePaste_kitty(uint16_t keycode);
+#    else
+#        define B_KITTY KC_NO
 #    endif
 
+#    ifdef BABL_NANO
+#        define B_NANO BABL_DO_NANO
+bool babblePaste_kitty(uint16_t keycode);
+#    else
+#        define B_NANO KC_NO
+#    endif
 
 /****************************************************
 **    All keyboard macros for Babble Actions
 *****************************************************/
-#       define B_INC BABL_MODE_INCREMENT
-#       define B_DEC BABL_MODE_DECREMENT
-#   ifdef BABL_MODSWAP
-#       define B_1ME BABL_PRIMARY_OS_MOD 
-#       define B_2ME BABL_SECONDARY_OS_MOD
-#       define B_3ME BABL_TERTIARY_OS_MOD
-#   endif
+#    define B_INC BABL_MODE_INCREMENT
+#    define B_DEC BABL_MODE_DECREMENT
+#    ifdef BABL_MODSWAP
+#        define B_1ME BABL_PRIMARY_OS_MOD
+#        define B_2ME BABL_SECONDARY_OS_MOD
+#        define B_3ME BABL_TERTIARY_OS_MOD
+#    endif
 
 #    ifdef BABL_MOVE
 #        define B_L1C BABL_GO_LEFT_1C
@@ -304,6 +355,17 @@ bool babblePaste_kitty(uint16_t keycode);
 #        define B_DSOL BABL_DEL_TO_LINE_START  // delete from cursor to begining line
 #        define B_MODE BABL_MODE               // type out name of current mode.
 #    endif
+#    ifdef BABL_SELECT
+#        define B_S_WL B_SEL_WORD_L
+#        define B_S_WR B_SEL_WORD_R
+#        define B_S_LU B_SEL_LINE_U
+#        define B_S_LD B_SEL_LINE_D
+#    else  // safe defaults to not break keymap.
+#        define B_S_WL KC_LEFT
+#        define B_S_WR KC_RIGHT
+#        define B_S_LU KC_UP
+#        define B_S_LD KC_DOWN
+#    endif
 
 #    ifdef BABL_OSKEYS
 #        define B_UNDO BABL_UNDO
@@ -320,11 +382,15 @@ bool babblePaste_kitty(uint16_t keycode);
 #        define B_RUNAPP BABL_RUNAPP
 #        define B_NAPP BABL_SWITCH_APP_NEXT
 #        define B_PAPP BABL_SWITCH_APP_LAST  // previous
+#        define B_NAPTB BABL_APPTAB_NEXT
+#        define B_PAPTB BABL_APPTAB_LAST  // previous
+#        define B_NWTAB BABL_APPTAB_NEW   // new app tab
 #        define B_NWIN BABL_WINDOW_NEXT
 #        define B_PWIN BABL_WINDOW_PREV
 #        define B_WINN BABL_WINDOW_NEW
 #        define B_CAPP BABL_CLOSE_APP
 #        define B_HELP BABL_HELP
+#        define B_SAVE BABL_SAVE
 #        define B_LOCK BABL_LOCK
 #        define B_SCAP BABL_SCREENCAPTURE
 #        define B_KEYB BABL_SWITCH_KEYBOARD_LAYOUT
@@ -346,10 +412,26 @@ bool babblePaste_kitty(uint16_t keycode);
 #        define B_BFULL BABL_BROWSER_FULLSCREEN
 #        define B_ZIN BABL_BROWSER_ZOOM_IN
 #        define B_ZOUT BABL_BROWSER_ZOOM_OUT
+#else  // safe defaults 
+#        define B_NTAB KC_NO
+#        define B_CTAB KC_NO
+#        define B_ROTB KC_NO
+#        define B_NXTB KC_NO
+#        define B_PTAB KC_NO
+#        define B_NURL KC_NO
+#        define B_BFWD KC_NO
+#        define B_BBAK KC_NO
+#        define B_BFND KC_NO
+#        define B_BOOK KC_NO
+#        define B_BDEV KC_NO
+#        define B_BRLD KC_NO
+#        define B_BFULL KC_NO
+#        define B_ZIN KC_NO
+#        define B_ZOUT KC_NO
 #    endif
 
 #    ifdef BABL_APP
-#        define B_SAVE BABL_APP_SAVE
+#        define B_SAAV BABL_APP_SAVE
 #        ifdef BABL_APP_CELLS  // spreadsheets and tables
 #            define B_PASTV BABL_APP_PASTE_VALUES
 #            define B_CALN BABL_APP_CENTER_ALIGN

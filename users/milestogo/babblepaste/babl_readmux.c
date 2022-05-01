@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 milestogo
+ * Copyright 2022 milestogo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,12 @@
  *  I haven't decided how much to do readline and how much tmux
  *  see https://tiswww.case.edu/php/chet/readline/rluserman.html for other possible
  * keybindings.
- */ 
+ */
 
 #include QMK_KEYBOARD_H
 
 #ifdef USE_BABBLEPASTE
-#    include "babblePaste.h"
+#    include "babblepaste.h"
 
 #    ifdef BABL_READMUX
 
@@ -35,8 +35,8 @@ bool babblePaste_readmux(uint16_t keycode) {
 #        ifdef BABL_MOVE
     BABLM(BABL_GO_LEFT_1C, SS_TAP(X_LEFT));
     BABLM(BABL_GO_RIGHT_1C, SS_TAP(X_RIGHT));
-    BABLM(BABL_GO_LEFT_WORD, SS_LALT("b"));
-    BABLM(BABL_GO_RIGHT_WORD, SS_LALT("f"));
+    BABLM(BABL_GO_LEFT_WORD, SS_RALT("b"));
+    BABLM(BABL_GO_RIGHT_WORD, SS_RALT("f"));
     BABLM(BABL_GO_START_LINE, SS_LCTL("a"));
     BABLM(BABL_GO_END_LINE, SS_LCTL("e"));
     // BABLM( BABL_GO_START_DOC		,END );// tmux?
@@ -49,29 +49,33 @@ bool babblePaste_readmux(uint16_t keycode) {
     BABLM(BABL_PGUP, SS_TAP(X_PGUP));
     BABLM(BABL_PGDN, SS_TAP(X_PGDOWN));
     BABLM(BABL_DEL_RIGHT_1C, SS_LCTL("d"));
-    BABLM(BABL_DEL_LEFT_WORD, SS_LCTL("w"));  // meta-DEL instead?
-    BABLM(BABL_DEL_RIGHT_WORD, SS_LALT("d"));
+    BABLM(BABL_DEL_LEFT_WORD, SS_LCTL("w")); // meta-DEL instead?
+    BABLM(BABL_DEL_RIGHT_WORD, SS_RALT("d"));
     BABLM(BABL_DEL_TO_LINE_END, SS_LCTL("k"));
     BABLM(BABL_DEL_TO_LINE_START, SS_LCTL("u"));
     BABLM(BABL_MODE, "Readline ");
 #        endif
 #        ifdef BABL_OSKEYS
-    BABLM(BABL_UNDO, SS_LALT("r"));
-    BABLM(BABL_REDO, SS_LCTL("x") "c");  // arguably
-    BABLM(BABL_CUT, SS_LCTL("k"));       // wrong half the time
+    BABLM(BABL_UNDO, SS_RALT("r"));
+    BABLM(BABL_REDO, SS_LCTL("x") "c"); // arguably
+    BABLM(BABL_CUT, SS_LCTL("k"));      // wrong half the time
     // BABLM( BABL_COPY		,END );
     BABLM(BABL_PASTE, SS_LCTL("y"));
     BABLM(BABL_SELECT_ALL, SS_LCTL("aky"));
-    BABLM(BABL_FIND, SS_LCTL("r"));  // search history
+    BABLM(BABL_FIND, SS_LCTL("r")); // search history
     BABLM(BABL_FIND_NEXT, SS_LCTL("r"));
     BABLM(BABL_FIND_PREV, SS_LCTL("s"));
     // BABLM( BABL_FIND_REPLACE		,END ); // not offered in readline
-    BABLM(BABL_RUNAPP, TMUX "c");           // tmux
-    BABLM(BABL_SWITCH_APP_NEXT, TMUX "n");  // tmux
-    BABLM(BABL_SWITCH_APP_LAST, TMUX "p");  // tmux
-    BABLM(BABL_CLOSE_APP, TMUX "d");        // usually what I want
+    BABLM(BABL_RUNAPP, TMUX "c");          // tmux
+    BABLM(BABL_SWITCH_APP_NEXT, TMUX "n"); // tmux
+    BABLM(BABL_SWITCH_APP_LAST, TMUX "p"); // tmux
+                                           //  Tabs aren't really a shell thing. But set useful defaults for an OS.
+    BABLM(BABL_APPTAB_NEXT, IMCTL(X_PGDN));
+    BABLM(BABL_APPTAB_LAST, IMCTL(X_PGUP));
+    BABLM(BABL_APPTAB_NEW, OMSFT(IMCTL(X_T)));
+    BABLM(BABL_CLOSE_APP, TMUX "d"); // usually what I want
     BABLM(BABL_HELP, TMUX IMSFT(X_SLASH));
-    BABLM(BABL_LOCK, TMUX "L");  // assuming you set up VLOCK yourself
+    BABLM(BABL_LOCK, TMUX "L"); // assuming you set up VLOCK yourself
     BABLM(BABL_SCREENCAPTURE, TMUX ":capture-pane");
 #        endif
 #        ifdef BABL_BROWSER
@@ -86,7 +90,7 @@ bool babblePaste_readmux(uint16_t keycode) {
 #            endif
 #        endif
 #        ifdef BABL_APP
-#           ifdef BABL_APP_WINDOWSPLITTING 
+#            ifdef BABL_APP_WINDOWSPLITTING
     // Save makes no sense here
     BABLM(BABL_SPLIT_FRAME_VERT, TMUX IMSFT(X_5));
     // BUG - misleading. This is currently set to convert frame to a window.
