@@ -764,12 +764,14 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
 
-    ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
-        OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
-        SRC += analog.c
-    endif
-    ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
-        OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
+    ifeq ($(shell expr $(JOYSTICK_AXES_COUNT) \> 0), 1)
+        ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
+            OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
+            SRC += analog.c
+        endif
+        ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
+            OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
+        endif
     endif
 endif
 

@@ -1,7 +1,11 @@
 #include "joystick.h"
 #include "process_joystick.h"
 
-#include "analog.h"
+#if JOYSTICK_AXES_COUNT > 0
+#   ifdef ANALOG_JOYSTICK_ENABLE
+#       include "analog.h"
+#   endif
+#endif
 
 #include <string.h>
 #include <math.h>
@@ -26,33 +30,37 @@ __attribute__((weak)) void joystick_task(void) {
 }
 
 uint16_t savePinState(pin_t pin) {
-#ifdef __AVR__
-    uint8_t pinNumber = pin & 0xF;
-    return ((PORTx_ADDRESS(pin) >> pinNumber) & 0x1) << 1 | ((DDRx_ADDRESS(pin) >> pinNumber) & 0x1);
-#elif defined(PROTOCOL_CHIBIOS)
-    /*
-    The pin configuration is backed up in the following format :
- bit  15    9  8   7   6  5  4   3     2    1 0
-      |unused|ODR|IDR|PUPDR|OSPEEDR|OTYPER|MODER|
-    */
-    return ((PAL_PORT(pin)->MODER >> (2 * PAL_PAD(pin))) & 0x3) | (((PAL_PORT(pin)->OTYPER >> (1 * PAL_PAD(pin))) & 0x1) << 2) | (((PAL_PORT(pin)->OSPEEDR >> (2 * PAL_PAD(pin))) & 0x3) << 3) | (((PAL_PORT(pin)->PUPDR >> (2 * PAL_PAD(pin))) & 0x3) << 5) | (((PAL_PORT(pin)->IDR >> (1 * PAL_PAD(pin))) & 0x1) << 7) | (((PAL_PORT(pin)->ODR >> (1 * PAL_PAD(pin))) & 0x1) << 8);
+#if JOYSTICK_AXES_COUNT > 0
+#   ifdef __AVR__
+        uint8_t pinNumber = pin & 0xF;
+        return ((PORTx_ADDRESS(pin) >> pinNumber) & 0x1) << 1 | ((DDRx_ADDRESS(pin) >> pinNumber) & 0x1);
+#   elif defined(PROTOCOL_CHIBIOS)
+        /*
+        The pin configuration is backed up in the following format :
+    bit  15    9  8   7   6  5  4   3     2    1 0
+        |unused|ODR|IDR|PUPDR|OSPEEDR|OTYPER|MODER|
+        */
+        return ((PAL_PORT(pin)->MODER >> (2 * PAL_PAD(pin))) & 0x3) | (((PAL_PORT(pin)->OTYPER >> (1 * PAL_PAD(pin))) & 0x1) << 2) | (((PAL_PORT(pin)->OSPEEDR >> (2 * PAL_PAD(pin))) & 0x3) << 3) | (((PAL_PORT(pin)->PUPDR >> (2 * PAL_PAD(pin))) & 0x3) << 5) | (((PAL_PORT(pin)->IDR >> (1 * PAL_PAD(pin))) & 0x1) << 7) | (((PAL_PORT(pin)->ODR >> (1 * PAL_PAD(pin))) & 0x1) << 8);
+#   endif
 #else
     return 0;
 #endif
 }
 
 void restorePinState(pin_t pin, uint16_t restoreState) {
-#if defined(PROTOCOL_LUFA)
-    uint8_t pinNumber  = pin & 0xF;
-    PORTx_ADDRESS(pin) = (PORTx_ADDRESS(pin) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
-    DDRx_ADDRESS(pin)  = (DDRx_ADDRESS(pin) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
-#elif defined(PROTOCOL_CHIBIOS)
-    PAL_PORT(pin)->MODER   = (PAL_PORT(pin)->MODER & ~(0x3 << (2 * PAL_PAD(pin)))) | (restoreState & 0x3) << (2 * PAL_PAD(pin));
-    PAL_PORT(pin)->OTYPER  = (PAL_PORT(pin)->OTYPER & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 2) & 0x1) << (1 * PAL_PAD(pin));
-    PAL_PORT(pin)->OSPEEDR = (PAL_PORT(pin)->OSPEEDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 3) & 0x3) << (2 * PAL_PAD(pin));
-    PAL_PORT(pin)->PUPDR   = (PAL_PORT(pin)->PUPDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 5) & 0x3) << (2 * PAL_PAD(pin));
-    PAL_PORT(pin)->IDR     = (PAL_PORT(pin)->IDR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 7) & 0x1) << (1 * PAL_PAD(pin));
-    PAL_PORT(pin)->ODR     = (PAL_PORT(pin)->ODR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 8) & 0x1) << (1 * PAL_PAD(pin));
+#if JOYSTICK_AXES_COUNT > 0
+#   if defined(PROTOCOL_LUFA)
+        uint8_t pinNumber  = pin & 0xF;
+        PORTx_ADDRESS(pin) = (PORTx_ADDRESS(pin) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
+        DDRx_ADDRESS(pin)  = (DDRx_ADDRESS(pin) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
+#   elif defined(PROTOCOL_CHIBIOS)
+        PAL_PORT(pin)->MODER   = (PAL_PORT(pin)->MODER & ~(0x3 << (2 * PAL_PAD(pin)))) | (restoreState & 0x3) << (2 * PAL_PAD(pin));
+        PAL_PORT(pin)->OTYPER  = (PAL_PORT(pin)->OTYPER & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 2) & 0x1) << (1 * PAL_PAD(pin));
+        PAL_PORT(pin)->OSPEEDR = (PAL_PORT(pin)->OSPEEDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 3) & 0x3) << (2 * PAL_PAD(pin));
+        PAL_PORT(pin)->PUPDR   = (PAL_PORT(pin)->PUPDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 5) & 0x3) << (2 * PAL_PAD(pin));
+        PAL_PORT(pin)->IDR     = (PAL_PORT(pin)->IDR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 7) & 0x1) << (1 * PAL_PAD(pin));
+        PAL_PORT(pin)->ODR     = (PAL_PORT(pin)->ODR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 8) & 0x1) << (1 * PAL_PAD(pin));
+#   endif
 #else
     return;
 #endif
