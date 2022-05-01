@@ -158,7 +158,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             sethsv_master(HSV_TEAL);
             break;
         case _GAME:
-            rgblight_sethsv_noeeprom(HSV_PURPLE);
+            rgblight_sethsv_noeeprom(HSV_OFF);
             break;
         case _KBD_CTRL:
             rgblight_sethsv_noeeprom_red();
