@@ -1,10 +1,8 @@
 #include "joystick.h"
 #include "process_joystick.h"
 
-#if JOYSTICK_AXES_COUNT > 0
-#   ifdef ANALOG_JOYSTICK_ENABLE
-#       include "analog.h"
-#   endif
+#if JOYSTICK_AXES_COUNT > 0 && defined(ANALOG_JOYSTICK_ENABLE)
+#   include "analog.h"
 #endif
 
 #include <string.h>
