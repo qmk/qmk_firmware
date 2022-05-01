@@ -30,6 +30,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RIGHT_HALF
 
+/* LED indicator lights
+ *
+ * Based off of the ps2avrGB pearl (/keyboards/pearl) and manually verified.
+ *
+ * See https://github.com/qmk/qmk_firmware/issues/9123#issuecomment-630235214.
+ */
+#define LED_CAPS_LOCK_PIN D1
+#define LED_NUM_LOCK_PIN D0
+#define LED_SCROLL_LOCK_PIN D6
+
 /* RGB underglow */
 #define RGBLED_NUM 12
 #define RGBLIGHT_HUE_STEP 8
