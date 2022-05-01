@@ -15,8 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _____ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT(
