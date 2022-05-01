@@ -23,7 +23,7 @@ typedef struct PACKED {
 
 // this maps encoders and then touch encoders to their respective electrical matrix entry
 // mapping is row (y) then column (x) when looking at the electrical layout
-const encodermap_t encoder_map[NUMBER_OF_ENCODERS][ENCODER_OPTIONS] = 
+const encodermap_t encoder_map[NUMBER_OF_ENCODERS][ENCODER_OPTIONS] =
 {
     { {  5, 0 }, {  5, 1 } }, // Encoder 0 matrix entries
     { {  5, 2 }, {  5, 3 } }, // Encoder 1 matrix entries
@@ -33,7 +33,7 @@ const encodermap_t encoder_map[NUMBER_OF_ENCODERS][ENCODER_OPTIONS] =
     { { 11, 4 }, { 11, 5 } }  // Encoder 5 matrix entries
 };
 
-const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPTIONS] = 
+const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPTIONS] =
 {
     { { 1, 7 }, { 0, 7 }, { 2, 7 }, {  5, 6 }, {  5, 7 }, }, // Touch Encoder 0 matrix entries
     { { 7, 7 }, { 6, 7 }, { 8, 7 }, { 11, 6 }, { 11, 7 }, }  // Touch Encoder 1 matrix entries
@@ -43,7 +43,7 @@ static bool limit_lightning = true;
 
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
     if (limit_lightning) hsv.v /= 2;
-    return hsv_to_rgb(hsv); 
+    return hsv_to_rgb(hsv);
 }
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -113,16 +113,18 @@ void matrix_slave_scan_kb() {
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
 led_config_t g_led_config = { {
-    {  41,  42,  43,  44,  45,  46,  47 },
-    {  54,  53,  52,  51,  50,  49,  48 },
-    {  55,  56,  57,  58,  59,  60,  61 },
-    {  68,  67,  66,  65,  64,  63,  62 },
+    {  41,  42,  43,  44,  45,  46,  47, NO_LED },
+    {  54,  53,  52,  51,  50,  49,  48, NO_LED },
+    {  55,  56,  57,  58,  59,  60,  61, NO_LED },
+    {  68,  67,  66,  65,  64,  63,  62, NO_LED },
     {  69,  70,  71,  72,  73,  74,  75,  76 },
-    { 119, 120, 121, 122, 123, 124, 125 },
-    { 132, 131, 130, 129, 128, 127, 126 },
-    { 133, 134, 135, 136, 137, 138, 139 },
-    { 146, 145, 144, 143, 142, 141, 140 },
-    { 147, 148, 149, 150, 151, 152, 153 }
+    {  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { 119, 120, 121, 122, 123, 124, 125, NO_LED  },
+    { 132, 131, 130, 129, 128, 127, 126, NO_LED  },
+    { 133, 134, 135, 136, 137, 138, 139, NO_LED  },
+    { 146, 145, 144, 143, 142, 141, 140, NO_LED  },
+    { 147, 148, 149, 150, 151, 152, 153, 154 },
+    {  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
 }, { // ALL XY VALUES DIVIDE BY 2, THEN ADD 5
     {   1,   6 }, {   1,  13 }, {   1,  19 }, {   1,  25 }, {   1,  31 }, {   1,  37 }, {   1,  43 }, {   1,  49 }, {   4,  52 }, {  11,  52 },
     {  17,  52 }, {  23,  52 }, {  29,  52 }, {  35,  52 }, {  41,  54 }, {  46,  57 }, {  52,  60 }, {  57,  63 }, {  62,  66 }, {  68,  69 },
@@ -194,7 +196,7 @@ void rgb_matrix_increase_flags(void)
 #endif
 
 
-__attribute__((weak)) 
+__attribute__((weak))
 void render_layer_status(void) {
     // Keymap specific, expected to be overridden
     // Host Keyboard Layer Status
@@ -250,7 +252,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 bool oled_task_kb(void) {
     if (!oled_task_user())
         return false;
-    
+
     if (is_keyboard_left()) {
         render_icon();
         oled_write_P(PSTR("     "), false);
