@@ -8,6 +8,7 @@ enum layers {
     _NUMBERS,
     _NAV,
     _MEDIA_CODE,
+    _GAME,
     _KBD_CTRL
 };
 
@@ -49,10 +50,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_ACL0, KC_BTN2, KC_MS_DOWN, KC_BTN1, G(KC_MINS), KC_NO,   KC_NO,        KC_NO,   KC_NO,   KC_ENT,     C(S(KC_TAB)),  KC_DOWN,     C(KC_TAB),      KC_NO,       KC_PGDN,
                                     KC_TRNS,   KC_TRNS, ALT_TAB,    CMD_SPC, SFT_ENT,      KC_LSFT, CMD_BSP, ALT_DEL,    KC_TRNS,       KC_TRNS),
     [_MEDIA_CODE] = LAYOUT(
-        KC_TRNS, KC_NO, KC_BRID, KC_NO,   KC_BRIU, KC_NO,                                                    KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_TRNS,
+        KC_TRNS, KC_NO, KC_BRID, KC_NO,   KC_BRIU, KC_NO,                                                    KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, GAME,
         XOY,     KC_NO, KC_MPRV, KC_MPLY, KC_MNXT, G(C(KC_SPACE)),                                           KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
         KC_TRNS, KC_NO, KC_VOLD, KC_MUTE, KC_VOLU, KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
                                 KC_TRNS,  KC_TRNS, ALT_TAB, CMD_SPC, SFT_ENT,              KC_LSFT, CMD_BSP, ALT_DEL, KC_TRNS,    KC_TRNS),
+    [_GAME] = LAYOUT(
+        KC_ESC, KC_1, KC_2,  KC_3, KC_4, KC_5,                                                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, XOY,
+        KC_T,   KC_Q, KC_A,  KC_W, KC_D, KC_E,                                                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_Z,   KC_X, KC_C,  KC_S, KC_R, KC_F,    KC_NO,   KC_NO,                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                            KC_M,  KC_P, KC_LCTL, KC_LSFT, KC_SPACE,                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
     [_KBD_CTRL] = LAYOUT(
         KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                    KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_TRNS,
         XOY,     KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                    KC_NO, RGB_VAI, RGB_TOG, KC_NO, KC_NO, KC_NO,
@@ -89,6 +95,9 @@ static void render_status(void) {
             break;
         case _MEDIA_CODE:
             oled_write_P(PSTR("<-- Media \n\n Code -->"), false);
+            break;
+        case _GAME:
+            oled_write_P(PSTR("\n\nGaming"), false);
             break;
         case _KBD_CTRL:
             oled_write_P(PSTR("\n\nKeeb Ctrl"), false);
@@ -147,6 +156,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _MEDIA_CODE:
             rgblight_sethsv_noeeprom(235, 249, 186);
             sethsv_master(HSV_TEAL);
+            break;
+        case _GAME:
+            rgblight_sethsv_noeeprom(HSV_PURPLE);
             break;
         case _KBD_CTRL:
             rgblight_sethsv_noeeprom_red();

@@ -17,6 +17,7 @@
 #define NUM      TO(_NUMBERS)
 #define NAV      TO(_NAV)
 #define MECO     TO(_MEDIA_CODE)
+#define GAME     TO(_GAME)
 #define HYPA     OSL(_HYPER)
 // #define CTL      TO(_KBD_CTRL) // todo: kbd ctrl layer
 
