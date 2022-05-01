@@ -2,11 +2,11 @@
 
 ![subrezon/la_nc](https://i.imgur.com/xYDcTtsh.jpg)
 
-*Loosely based on the Planck keyboard, la_nc aims to deliver a lightly split, ortho typing experience in a similar footprint, as well as an easy build process.*
+Loosely based on the Planck keyboard, la_nc aims to deliver a lightly split, ortho typing experience in a similar footprint, as well as an easy build process.
 
 * Keyboard Maintainer: [Daniel Osipishin](https://github.com/subrezon)
-* Hardware Supported: *la_nc PCB, with an atmega32u4-based ProMicro compatible controller board*
-* Hardware Availability: *https://github.com/subrezon/la_nc*
+* Hardware Supported: la_nc PCB, with an atmega32u4-based ProMicro compatible controller board
+* Hardware Availability: https://github.com/subrezon/la_nc
 
 Make example for this keyboard (after setting up your build environment):
 
