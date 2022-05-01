@@ -429,10 +429,22 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x95, 0x08, //   Report Count (8)
     0x75, 0x01, //   Report Size (1)
     0x81, 0x02, //   Input (Data, Variable, Absolute)
+
+#ifdef APPLE_FN_ENABLE
+    0x05, 0xFF,  //   Usage Page (AppleVendor Top Case)
+    0x09, 0x03,  //   Usage (KeyboardFn)
+    0x15, 0x00,  //   Logical Minimum (0)
+    0x25, 0x01,  //   Logical Maximum (1)
+    0x95, 0x01,  //   Report Count (1)
+    0x75, 0x08,  //   Report Size (8)
+    0x81, 0x02,  //   Input (Data, Variable, Absolute)
+#else
     // Reserved (1 byte)
     0x95, 0x01, //   Report Count (1)
     0x75, 0x08, //   Report Size (8)
     0x81, 0x03, //   Input (Constant)
+#endif
+
     // Keycodes (6 bytes)
     0x05, 0x07,       //   Usage Page (Keyboard/Keypad)
     0x19, 0x00,       //   Usage Minimum (0)
