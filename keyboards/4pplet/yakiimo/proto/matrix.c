@@ -1,19 +1,19 @@
 /*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+Copyright 2022 Stefan Sundin "4pplet" <4pplet@protonmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -24,16 +24,6 @@
 #include "debug.h"
 #include "matrix.h"
 
-/*
- *     col: { B11, B10, B2, B1, A7, B0 }
- *     row: { A10, A9, A8, B15, C13, C14, C15, A2 }
- * #define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
-#define MATRIX_COL_PINS { B0, A5, A4, A3, A2, A1, A0, C15, A9 }
-#define MATRIX_ROW_PINS { B10, B1, C13, C14, B14, B12, B9, B8, B5, B4, A15, B3 }
- */
-/* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_COLS];
 static bool         debouncing      = false;
@@ -48,10 +38,6 @@ __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
 
 void matrix_init(void) {
-    dprintf("matrix init\n");
-    // debug_matrix = true;
-
-    // actual matrix setup
     palSetPadMode(GPIOB, 0, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL);
@@ -85,8 +71,6 @@ uint8_t matrix_scan(void) {
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
         matrix_row_t data = 0;
-
-        // strobe col { B0, A5, A4, A3, A2, A1, A0, C15, A9 }
         switch (col) {
             case 0:
                 palSetPad(GPIOB, 0);
@@ -119,11 +103,8 @@ uint8_t matrix_scan(void) {
 
         // need wait to settle pin state
         wait_us(20);
-
         // read row data { B10, B1, C13, C14, B14, B12, B9, B8, B5, B4, A15, B3  }
-
         data = ((palReadPad(GPIOB, 10) << 0) | (palReadPad(GPIOB, 1) << 1) | (palReadPad(GPIOC, 13) << 2) | (palReadPad(GPIOC, 14) << 3) | (palReadPad(GPIOB, 14) << 4) | (palReadPad(GPIOB, 12) << 5) | (palReadPad(GPIOB, 9) << 6) | (palReadPad(GPIOB, 8) << 7) | (palReadPad(GPIOB, 5) << 8) | (palReadPad(GPIOB, 4) << 9) | (palReadPad(GPIOA, 15) << 10) | (palReadPad(GPIOB, 3) << 11));
-
         // unstrobe  col { B0, A5, A4, A3, A2, A1, A0, C15, A9 }
         switch (col) {
             case 0:

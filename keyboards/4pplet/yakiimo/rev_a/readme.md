@@ -1,7 +1,9 @@
-# Perk60 ISO Rev A
+# Yakiimo Rev A
 
 * Keyboard Maintainer: [4pplet](https://github.com/4pplet)
 * Hardware Supported: Yakiimo Rev A
+
+If your PCB is of revision A1, use the "proto" code in the Yakiimo directory
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x000A
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    4pplet
-#define PRODUCT         Yakiimo Rev A
+#define PRODUCT         Yakiimo Rev A1
 
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
