@@ -41,8 +41,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  `-------------------------------------'
  */ 
   [_BASIC] = LAYOUT_ortho_2x4(
-     RCS(KC_A), C(KC_SLASH), C(KC_Z),  C(KC_F),
-     C(KC_X),   C(KC_C),     C(KC_V),  TO(_BRACKETS)
+     RCS(KC_A),  LCTL(KC_SLASH), LCTL(KC_Z),  LCTL(KC_F),
+     LCTL(KC_X), LCTL(KC_C),     LCTL(KC_V),  TO(_BRACKETS)
   ),
 /* _BRACKETS Layer
  * ,-----------------------------------------.
@@ -102,77 +102,74 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch(keycode)
         {
             //First Layer with Basic Keys
-            case 283:
+            case LCTL(KC_X):
                 strncpy(current_alpha_oled, "Cut", sizeof(current_alpha_oled));
                 break;
-            case 265:
+            case LCTL(KC_F):
                 strncpy(current_alpha_oled, "Search", sizeof(current_alpha_oled));
                 break;
-            case 285:
+            case LCTL(KC_Z):
                 strncpy(current_alpha_oled, "Undo", sizeof(current_alpha_oled));
                 break;
-            case 262:
+            case LCTL(KC_C):
                 strncpy(current_alpha_oled, "Copy", sizeof(current_alpha_oled));
                 break;
-            case 281:
+            case LCTL(KC_V):
                 strncpy(current_alpha_oled, "Paste", sizeof(current_alpha_oled));
                 break;
-            case 4868:
+            case RCS(KC_A):
                 strncpy(current_alpha_oled, "Block cmt.", sizeof(current_alpha_oled));
                 break;
-            case 312:
+            case LCTL(KC_SLASH):
                 strncpy(current_alpha_oled, "Line cmt.", sizeof(current_alpha_oled));
                 break;
             //Second Layer with Brackets
-            case 550:
+            case S(KC_9):
                 strncpy(current_alpha_oled, "()", sizeof(current_alpha_oled));
                 break;
-            case 47:
+            case KC_LBRC:
                 strncpy(current_alpha_oled, "[]", sizeof(current_alpha_oled));
                 break;
-            case 559:
+            case S(KC_LBRC):
                 strncpy(current_alpha_oled, "{}", sizeof(current_alpha_oled));
                 break;
-            case 42:
+            case KC_BACKSPACE:
                 strncpy(current_alpha_oled, "Backspace", sizeof(current_alpha_oled));
                 break;
-            case 76:
+            case KC_DEL:
                 strncpy(current_alpha_oled, "Del", sizeof(current_alpha_oled));
                 break;
             // Selector Layer keys
-            case 260:
+            case C(KC_A):
                 strncpy(current_alpha_oled, "Select All", sizeof(current_alpha_oled));
                 break;
-            case 278:
+            case C(KC_S):
                 strncpy(current_alpha_oled, "Save", sizeof(current_alpha_oled));
                 break;
             // FN Layer keys
-            case 23747:
+            case RGB_TOG:
                 strncpy(current_alpha_oled, "RGB Toggle", sizeof(current_alpha_oled));
                 break;
-            case 23748:
+            case RGB_MOD:
                 strncpy(current_alpha_oled, "RGB Fwd", sizeof(current_alpha_oled));
                 break;
-            case 23760:
+            case RGB_M_R:
                 strncpy(current_alpha_oled, "RGB Rev", sizeof(current_alpha_oled));
                 break;
-            case 23762:
+            case RGB_MODE_SNAKE:
                 strncpy(current_alpha_oled, "RGB Snk", sizeof(current_alpha_oled));
                 break;
-            case 23744:
+            case BL_TOGG:
                 strncpy(current_alpha_oled, "BkLgt Tog", sizeof(current_alpha_oled));
                 break;
-            case 23745:
+            case BL_STEP:
                 strncpy(current_alpha_oled, "BkLgt Lvl", sizeof(current_alpha_oled));
                 break;
-            case 23746:
+            case BL_BRTG:
                 strncpy(current_alpha_oled, "BkLgt Brth", sizeof(current_alpha_oled));
                 break;
             //FN Key keycodes
-            case 20496: 
-            case 20497:
-            case 20498:
-            case 20499:
+            case TO(_BASIC) ... TO(_FN):
                strncpy(current_alpha_oled, "Switcher", sizeof(current_alpha_oled));
                break;
             default:
