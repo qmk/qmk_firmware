@@ -199,7 +199,7 @@ bool process_babblepaste(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (babble_mode == BABL_MAC_MODE) {
-                dprint("Mac ");
+        dprint("Mac ");
         babblePaste_mac(keycode);
     }
 #    endif

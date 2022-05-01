@@ -37,68 +37,66 @@ enum {
     STATE_SELECTING,
 };
 
-// Toggle modifier . 
-// CTRL for most things, Gui for mac, nothing for readline. 
+// Toggle modifier .
+// CTRL for most things, Gui for mac, nothing for readline.
 
 bool do_select_mod(bool state, uint8_t lastmode) {
-
 /// MAC is only mode that uses Alt for selection
-#       ifdef BABL_MAC
-        if (lastmode == BABL_MAC_MODE) {
+#    ifdef BABL_MAC
+    if (lastmode == BABL_MAC_MODE) {
         if (state) {
-                register_code(KC_LALT);
-            } else {
-                unregister_code(KC_LALT);
-            }            
-            return true;
+            register_code(KC_LALT);
+        } else {
+            unregister_code(KC_LALT);
         }
-#        endif
+        return true;
+    }
+#    endif
 
 // Most things use CTRL
-#        ifdef BABL_WINDOWS
-        if (lastmode == BABL_WINDOWS_MODE) {
-          if (state) {
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-            }
-            return true;
+#    ifdef BABL_WINDOWS
+    if (lastmode == BABL_WINDOWS_MODE) {
+        if (state) {
+            register_code(KC_LCTL);
+        } else {
+            unregister_code(KC_LCTL);
         }
-#        endif
-#        ifdef BABL_LINUX
-        if (lastmode == BABL_LINUX_MODE) {
-          if (state) {
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-            }
-            return true;
+        return true;
+    }
+#    endif
+#    ifdef BABL_LINUX
+    if (lastmode == BABL_LINUX_MODE) {
+        if (state) {
+            register_code(KC_LCTL);
+        } else {
+            unregister_code(KC_LCTL);
         }
-#        endif
-#        ifdef BABL_CHROMEOS
-        if (lastmode == BABL_CHROMEOS_MODE) {
-            if (state) {
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-            }
-            return true;
+        return true;
+    }
+#    endif
+#    ifdef BABL_CHROMEOS
+    if (lastmode == BABL_CHROMEOS_MODE) {
+        if (state) {
+            register_code(KC_LCTL);
+        } else {
+            unregister_code(KC_LCTL);
         }
-#        endif
+        return true;
+    }
+#    endif
 
 // Some things can't use word select at all
-#if defined  BABL_READLINE
-        if (lastmode == BABL_READLINE_MODE ) {
-            return true;
-        }
-#        endif
+#    if defined BABL_READLINE
+    if (lastmode == BABL_READLINE_MODE) {
+        return true;
+    }
+#    endif
 
-/// And some things can use word select, but they don't use arrow keys, so we've already trapped them in process_babble_select_key
+    /// And some things can use word select, but they don't use arrow keys, so we've already trapped them in process_babble_select_key
 
-// If we got here, we're probably in a mode like VI or emacs that should't need mods in the first place
-        return false;
+    // If we got here, we're probably in a mode like VI or emacs that should't need mods in the first place
+    return false;
 }
-
 
 // process_babble_select_keys - Provide keys to select previous or next word or line.
 // Function only works where Shift + arrow keys is a selection.
@@ -107,7 +105,7 @@ bool process_babble_select_keys(uint16_t keycode, keyrecord_t* record) {
     //   uint8_t        lastmode = 0;
     static uint8_t state = STATE_NONE;
 
-     switch (state) {
+    switch (state) {
         case STATE_NONE:
             if (record->event.pressed) {
                 switch (keycode) {
@@ -257,7 +255,7 @@ bool process_babble_select(uint16_t keycode, keyrecord_t* record) {
             case BABL_MAC_MODE:
 #        endif
 
-// We can handle modes that use arrow keys but don't allow selection. 
+// We can handle modes that use arrow keys but don't allow selection.
 #        ifdef BABL_NANO
             case BABL_NANO_MODE:
 #        endif
@@ -267,7 +265,7 @@ bool process_babble_select(uint16_t keycode, keyrecord_t* record) {
                 return (process_babble_select_keys(keycode, record));
 #    endif
                 /* Modes that have their own way of selecting, outside of arrow keys*/
-// Stub out for now, call local functions in babl_*  later. 
+                // Stub out for now, call local functions in babl_*  later.
 
 #    ifdef BABL_VI
             case BABL_VI_MODE:
@@ -277,8 +275,8 @@ bool process_babble_select(uint16_t keycode, keyrecord_t* record) {
             case BABL_EMACS_MODE:
                 return true;
 #    endif
-            /* Else, we're in a mode that doesn't really do selection
-                select button isn't going to do anything.  */
+                /* Else, we're in a mode that doesn't really do selection
+                    select button isn't going to do anything.  */
                 // BABL_KITY
             default:
                 return true;

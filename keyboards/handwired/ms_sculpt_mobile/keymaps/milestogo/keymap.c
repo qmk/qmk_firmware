@@ -25,7 +25,6 @@
 #    include "g/keymap_combo.h"
 #endif
 
-
 #define LAYOUT_local LAYOUT_mobile_xua
 #define LAYOUT_local_wrap(...) LAYOUT_local(__VA_ARGS__)
 
@@ -33,7 +32,7 @@
 #define XXXX KC_NO
 #define ____ KC_TRNS
 
-// Custom macros
+// clang-format off
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  QWERTY
@@ -110,9 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-
-
-
+// clang-format on
 
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
@@ -127,15 +124,14 @@ void matrix_init_kb(void) {
 #    ifdef RGB_DI_PIN
     rgblight_setrgb(RGB_RED);
 #    endif
-#endif  // RGB_matrix
+#endif // RGB_matrix
 }
 
 // Assign indicators to LEDs
-#define LED_LAYER 2   // layer: raise/Lower
-#define LED_LAYOUT 1  // qwerty , colemak, dv
-#define LED_CAPS 4    // caps on/off
-#define LED_MACRO 0   // babble os indicator: windows/chrome/mac/linux
-
+#define LED_LAYER 2  // layer: raise/Lower
+#define LED_LAYOUT 1 // qwerty , colemak, dv
+#define LED_CAPS 4   // caps on/off
+#define LED_MACRO 0  // babble os indicator: windows/chrome/mac/linux
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_kb(layer_state_t state) {
@@ -185,7 +181,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             rgblight_setrgb_at(RGBLIGHT_OFF, LED_LAYER);
             break;
     }
-#endif  // RGB
+#endif // RGB
 
 #ifdef VIRTSER_ENABLE
         // virtser_send(layer + 48); // ascii 0 is 48
@@ -193,7 +189,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     return state;
 };
-
 
 #ifdef VIRTSER_ENABLE
 /* listen on serial for commands. Either a set of lower case letters mapped to colors,
@@ -203,18 +198,18 @@ Command C takes 3-5octets of RGB settings. Numbers can be terminated with a comm
 3 octets = set all LED, 4th argument specfies specfic LED, 4+5 specify start and stop LEDs.
 */
 
-uint8_t ser_rgbByte[18];       // ascii string
-uint8_t ser_cmd_started  = 0;  // are we in process
-uint8_t ser_got_RGBbytes = 0;  // how many bytes we've recived.
-uint8_t rgb_r[6];              // R, g, b, P1, p2
-uint8_t bs = 0;                // how many bytes into our rgbBytestring.
+uint8_t ser_rgbByte[18];      // ascii string
+uint8_t ser_cmd_started  = 0; // are we in process
+uint8_t ser_got_RGBbytes = 0; // how many bytes we've recived.
+uint8_t rgb_r[6];             // R, g, b, P1, p2
+uint8_t bs = 0;               // how many bytes into our rgbBytestring.
 
 void virtser_recv(uint8_t serIn) {
 #    ifdef RGBLIGHT_ENABLE
-    if ((serIn == 10) || (serIn == 13) || ser_got_RGBbytes >= 5) {  // reached newline or max digits
+    if ((serIn == 10) || (serIn == 13) || ser_got_RGBbytes >= 5) { // reached newline or max digits
 
         if (ser_cmd_started) {
-            ser_cmd_started = 0;  // end loop at newline
+            ser_cmd_started = 0; // end loop at newline
             virtser_send('|');
 
             if (ser_got_RGBbytes == 3) {
@@ -222,31 +217,31 @@ void virtser_recv(uint8_t serIn) {
             }
 
             if (ser_got_RGBbytes == 4) {
-                if ((rgb_r[3] >= 0) && (rgb_r[3] <= RGBLED_NUM)) {  // is pos1 plausible
+                if ((rgb_r[3] >= 0) && (rgb_r[3] <= RGBLED_NUM)) { // is pos1 plausible
                     rgblight_setrgb_at(rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3]);
                 } else {
                     rgblight_setrgb(rgb_r[0], rgb_r[1], rgb_r[2]);
                 }
             }
 
-            if (ser_got_RGBbytes == 5) {  // are start and end positions plausible?
+            if (ser_got_RGBbytes == 5) { // are start and end positions plausible?
                 if ((rgb_r[4] > 0) && (rgb_r[4] <= RGBLED_NUM) && (rgb_r[4] > rgb_r[3]) && (rgb_r[3] >= 0) && (rgb_r[3] <= (RGBLED_NUM - 1))) {
                     rgblight_setrgb_range(rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3], rgb_r[4]);
                 } else {
                     rgblight_setrgb(rgb_r[0], rgb_r[1], rgb_r[2]);
                 }
             }
-        } else {  // newline outside of command loop, or something that can be ignored.
-                  // virtser_send('.');
+        } else { // newline outside of command loop, or something that can be ignored.
+                 // virtser_send('.');
         }
     }
 
-    if (1 == ser_cmd_started) {                                  // collecting bytes.
-        if (                                                     // it is time to compute a byte
-            (((serIn == ',') || (serIn == '.')) && (bs > 0)) ||  // signal done with the byte.
-            (bs == 2)) {                                         // or we know this is last.
+    if (1 == ser_cmd_started) {                                 // collecting bytes.
+        if (                                                    // it is time to compute a byte
+            (((serIn == ',') || (serIn == '.')) && (bs > 0)) || // signal done with the byte.
+            (bs == 2)) {                                        // or we know this is last.
 
-            if ((serIn <= '9') && (serIn >= '0')) {  // 3rd asci digit
+            if ((serIn <= '9') && (serIn >= '0')) { // 3rd asci digit
                 ser_rgbByte[bs] = serIn;
                 bs++;
                 //  virtser_send(serIn);
@@ -267,27 +262,27 @@ void virtser_recv(uint8_t serIn) {
             if (bs == 1) {
                 rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] - '0');
                 ser_got_RGBbytes++;
-            }  // {else wipe & start over}
+            } // {else wipe & start over}
 
             bs = 0;
             //  virtser_send(ser_got_RGBbytes+'0');
 
-        } else {                                     // haven't got enough for our byte / no terminal marker
-            if ((serIn <= '9') && (serIn >= '0')) {  // ascii only
+        } else {                                    // haven't got enough for our byte / no terminal marker
+            if ((serIn <= '9') && (serIn >= '0')) { // ascii only
                 ser_rgbByte[bs] = serIn;
                 bs++;
                 //    virtser_send(serIn);
             }
         }
-    } else {  // not in command loop - next is command w/o arguments, or start of one.
+    } else { // not in command loop - next is command w/o arguments, or start of one.
         switch (serIn) {
-            case 'C':  // color switch
+            case 'C': // color switch
                 ser_cmd_started  = 1;
                 ser_got_RGBbytes = bs = 0;
                 virtser_send('/');
                 break;
 
-            case 'r':  // red
+            case 'r': // red
                 rgblight_setrgb(RGB_RED);
                 break;
 
@@ -295,30 +290,30 @@ void virtser_recv(uint8_t serIn) {
                 rgblight_setrgb(RGB_GREEN);
                 break;
 
-            case 'b':  // color switch
+            case 'b': // color switch
                 rgblight_setrgb(RGB_BLUE);
                 break;
 
-            case 'w':  // color switch
+            case 'w': // color switch
                 rgblight_setrgb(RGB_WHITE);
                 break;
 
-            case 'o':  // color black/off
+            case 'o': // color black/off
                 rgblight_setrgb(0, 0, 0);
                 break;
 
-            case 'T':  // toggle
+            case 'T': // toggle
                 rgblight_toggle();
                 break;
 
-            case 'P':  // pulse led
+            case 'P': // pulse led
                 rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
                 break;
-            case 'S':  // Static
+            case 'S': // Static
                 rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
                 break;
 
-            case 'U':  // Rainbow
+            case 'U': // Rainbow
                 rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
                 break;
 
@@ -327,7 +322,7 @@ void virtser_recv(uint8_t serIn) {
                 break;
         }
     }
-#    endif  // RGBLIGHT_ENABLE
+#    endif // RGBLIGHT_ENABLE
 }
 
-#endif  // VirtSerial
+#endif // VirtSerial

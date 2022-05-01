@@ -19,12 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "eeprom.h"
 #include "print.h"
- 
 
 #ifdef USE_BABBLEPASTE
 #    include "babblepaste/babblepaste.h"
 #endif
-
 
 #ifdef RGBLIGHT_ENABLE
 #    include "rgbcolors.h"
@@ -35,13 +33,12 @@ enum userspace_layers { _QWERTY = 0, _CDH, _MOV, _DMOV, _NUM, _SYM, _FN };
 
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
- 
+
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 */
-
 
 // redefine the user_start range to be _after_ babblepaste
 /*
@@ -58,11 +55,11 @@ define modifiers here, since MOD_* doesn't seem to work for these
 */
 
 enum user_keycodes {
-    VRSN = SAFE_RANGE,  // print a version string
-    KC_QWERTY,                // Sets default layer to QWERTY
-    KC_CDH,                   // Sets default layer to COLEMAK DH
+    VRSN = SAFE_RANGE, // print a version string
+    KC_QWERTY,         // Sets default layer to QWERTY
+    KC_CDH,            // Sets default layer to COLEMAK DH
     REBOOT,
-    NEW_SAFE_RANGE  // Keymap specific codes come AFTER this
+    NEW_SAFE_RANGE // Keymap specific codes come AFTER this
 };
 
 #define QWERTY KC_QWERTY
@@ -77,15 +74,12 @@ enum user_keycodes {
 #    define LAYOUT KEYMAP
 #endif
 
-
 /* Fn Keys */
 #define SSYM LT(_SYM, KC_SPC)
 #define SMOVE LT(_MOV, KC_SPC)
 #define MVTAB LT(_MOV, KC_TAB)
 #define ESCSYM LT(_SYM, KC_ESC)
 
-
-    
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 #define _________________QWERTY_L1_________________ KC_Q, KC_W, KC_E, KC_R, KC_T
@@ -132,6 +126,7 @@ enum user_keycodes {
 #define ____________BABBLE_SWITCH_L________________ B_MAC, B_READ, B_LINUX, _______, _______
 #define ____________BABBLE_SWITCH_R________________ B_CROM, B_LINUX, B_WIN, QWERTY, COLEMAK
 
+// clang-format off
 /////////MOVE  - Full size  keyboard version
 
 /*    ,--------------------------------------------.  ,--------------------------------------------.
@@ -144,6 +139,7 @@ enum user_keycodes {
  * 03 |Vspli+  | Cut    | Copy   | Paste  | Paste  |  | WinPrv | Tab--  | NewTab | Tab++  | WinNxt |
  *    `--------------------------------------------'  `--------------------------------------------'
  */
+// clang-format on
 
 /* Movement layer  similar to Extend, but fully enriched with babblepaste */
 #define ____________BABBLE_MOV_LNUM________________ B_LOCK, B_PAPP, B_NAPP, B_PASTV, XXXX
@@ -157,6 +153,7 @@ enum user_keycodes {
 #define ____________BABBLE_MOV_R2__________________ B_L1W, B_L1C, B_DOWN, B_R1C, B_R1W
 #define ____________BABBLE_MOV_R3__________________ B_PWIN, B_PTAB, B_NTAB, B_NXTB, B_NWIN
 
+// clang-format off
 // Move in a direction, deleting as we go, or do opposite of Mov layer action */
 /*    ,--------------------------------------------.  ,--------------------------------------------.
  * 01 |  Esc   |        | mode?  |MultiSel|PasteVal|  |     .  |LineStrt|   .    |  EOL   |    .   |
@@ -166,6 +163,8 @@ enum user_keycodes {
  * 03 |Vsplit- | Cut    | Copy   | Paste  |Paste   |  |  App-- | ZoomOut| NewWin | ZoomIn | App+   |
  *    `--------------------------------------------'  `--------------------------------------------'
  */
+//clang-format on
+
 #define _________BABBLE_DELMOV_L1__________________ KC_ESC, _______, B_MODE, B_MSEL, B_PASTV
 #define _________BABBLE_DELMOV_L2__________________ XXXXXXX, _______, _______, B_REDO, B_HUNSPT
 #define _________BABBLE_DELMOV_L3__________________ B_VUNSPT, B_CUT, B_COPY, B_PASTE, B_PRVFM
@@ -174,6 +173,7 @@ enum user_keycodes {
 #define _________BABBLE_DELMOV_R2__________________ B_DLW, KC_BSPC, _______, B_DEL, B_DRW
 #define _________BABBLE_DELMOV_R3__________________ B_NAPP, B_ZOUT, B_WINN, B_ZIN, B_PAPP
 
+// clang-format off
 
 // Move and paste - 50%+.
 // if using caps to enable this mode, put shift on D key, Delmov on S (ring+pinky is easier than index+pinky with ring moving)
@@ -191,19 +191,20 @@ enum user_keycodes {
  * 05 |        |        |        |        |        |  |        |        | Tab    |  Left  | Down   | Right |
  *    `--------------------------------------------'  `----------------------------------------------------'
  */
+// clang-format on
+#define __________50_______MOV_L1__________________ B_MAC, B_VI, B_READ, B_LINUX, B_MODE
+#define __________50_______MOV_L2__________________ KC_ESC, XXXX, B_UNDO, B_REDO, KC_LCBR
+#define __________50_______MOV_L3__________________ KC_LPRN, B_SAVE, B_CUT, B_COPY, B_PASTE
+#define __________50_______MOV_L4__________________ KC_CDH, XXXX, XXXX, KC_RPRN, KC_RCBR
+#define __________50_______MOV_L5__________________ ____, ____, ____, ____, ____
 
-#define __________50_______MOV_L1__________________ B_MAC,  B_VI, B_READ, B_LINUX,    B_MODE
-#define __________50_______MOV_L2__________________ KC_ESC,  XXXX, B_UNDO, B_REDO, KC_LCBR
-#define __________50_______MOV_L3__________________ KC_LPRN, B_SAVE, B_CUT,  B_COPY,  B_PASTE
-#define __________50_______MOV_L4__________________ KC_CDH, XXXX, XXXX, KC_RPRN,  KC_RCBR
-#define __________50_______MOV_L5__________________ ____, ____, ____, ____, ____ 
+#define __________50_______MOV_R1__________________ B_WIN, XXXX, B_S_LU, KC_VOLD, KC_VOLU, KC_MUTE
+#define __________50_______MOV_R2__________________ KC_PGDN, B_GSOL, B_UP, B_GEOL, XXXX, XXXX
+#define __________50_______MOV_R3__________________ B_L1W, B_L1C, B_DOWN, B_R1C, B_R1W, KC_GRAVE
+#define __________50_______MOV_R4__________________ KC_TILDE, B_S_WL, B_S_LD, B_S_WR, KC_PGDN, KC_ENTER
+#define __________50_______MOV_R5__________________ ____, ____, KC_TAB, KC__LEFT, KC_DOWN, KC_RIGHT
 
-#define __________50_______MOV_R1__________________ B_WIN    , XXXX,    B_S_LU, KC_VOLD, KC_VOLU, KC_MUTE
-#define __________50_______MOV_R2__________________ KC_PGDN,   B_GSOL,  B_UP,   B_GEOL,  XXXX,    XXXX
-#define __________50_______MOV_R3__________________ B_L1W,     B_L1C,   B_DOWN, B_R1C,   B_R1W,   KC_GRAVE
-#define __________50_______MOV_R4__________________ KC_TILDE,  B_S_WL,  B_S_LD, B_S_WR,  KC_PGDN, KC_ENTER
-#define __________50_______MOV_R5__________________ ____,       ____,   KC_TAB, KC__LEFT,KC_DOWN, KC_RIGHT
-
+// clang-format off
 // Window and App management, Unicode emoji for  50%+.
  /*   ,--------------------------------------------.  ,--------------------------------------------.
  * 01 |        | PreApp | Launch | NxtApp | Zoom++ |  | FireW  | ThumbU | Replace| THumbD | PgUp   |
@@ -213,16 +214,16 @@ enum user_keycodes {
  * 03 | Qwerty | PreWin | Win++  | WinNxt | Zoom-- |  | Fire   | Eyes   | 100%   | Hmm    |Nazar   | 
  *    `--------------------------------------------'  `--------------------------------------------'
  */
-
-#define __________50_______SYM_L1__________________ XXXX,     B_PAPP,   B_RUNAPP, B_NAPP,  B_ZIN
-#define __________50_______SYM_L2__________________ KC_CAPS,   B_PAPTB, B_NWTAB,  B_NAPTB, XXXX
-#define __________50_______SYM_L3__________________ KC_QWERTY, B_PWIN,   B_WINN,  B_NWIN,  B_ZOUT
+// clang-format on
+#define __________50_______SYM_L1__________________ XXXX, B_PAPP, B_RUNAPP, B_NAPP, B_ZIN
+#define __________50_______SYM_L2__________________ KC_CAPS, B_PAPTB, B_NWTAB, B_NAPTB, XXXX
+#define __________50_______SYM_L3__________________ KC_QWERTY, B_PWIN, B_WINN, B_NWIN, B_ZOUT
 
 #define __________50_______SYM_R1__________________ X(FIREW), X(THUMBU), B_RPLACE, X(THUMBD), KC_PGUP
-#define __________50_______SYM_R2__________________ X(SMILE), B_FINDP,   B_FIND,   B_FINDN, KC_PGDN
-#define __________50_______SYM_R3__________________ X(FIRE),  X(EYES),   X(PCT100),X(HMM),   X(NAZAR)
+#define __________50_______SYM_R2__________________ X(SMILE), B_FINDP, B_FIND, B_FINDN, KC_PGDN
+#define __________50_______SYM_R3__________________ X(FIRE), X(EYES), X(PCT100), X(HMM), X(NAZAR)
 
-
+// clang-format off
 // Move and brackets - 40% optimization.
 // if using caps to enable this mode, put shift on D key, Delmov on S (ring+pinky is easier than index+pinky with ring moving)
 // for thumb key, it may help to swap.
@@ -235,7 +236,7 @@ enum user_keycodes {
  * 03 |    Undo| Cut    | Copy   | Paste  |   #    |  |   ~    |   \|   |    *   |  .     |  /     |
  *    `--------------------------------------------'  `--------------------------------------------'
  */
-
+// clang-format on
 #define __________40_______MOV_L1__________________ KC_ESC, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR
 #define __________40_______MOV_L2__________________ KC_LBRC, MO(_DMOV), KC_LSFT, B_UNDO, KC_RBRC
 #define __________40_______MOV_L3__________________ B_UNDO, B_CUT, B_COPY, B_PASTE, KC_HASH
@@ -244,6 +245,7 @@ enum user_keycodes {
 #define __________40_______MOV_R2__________________ B_L1W, B_L1C, B_DOWN, B_R1C, B_R1W
 #define __________40_______MOV_R3__________________ KC_TILDE, KC_PIPE, KC_ASTR, KC_DOT, KC_SLASH
 
+// clang-format off
 // Move in a direction, deleting as we go, or do opposite of Mov layer action
 // Assumes thumb buttons to get here.
 /*    ,--------------------------------------------.  ,--------------------------------------------.
@@ -254,6 +256,7 @@ enum user_keycodes {
  * 03 |        |  FN    | Refind | Paste  | Paste  |  |   #    |   ;    |        |   @    |  `     |
  *    `--------------------------------------------'  `--------------------------------------------'
  */
+// clang-format on
 #define ____________40__DELMOV_L1__________________ KC_ESC, B_MODE, B_DEC, B_INC, XXXXXXX
 #define ____________40__DELMOV_L2__________________ KC_TAB, _______, B_FIND, B_REDO, B_FINDP
 #define ____________40__DELMOV_L3__________________ XXXXXXX, TO(_FN), B_FINDN, _______, B_PASTE
@@ -262,6 +265,7 @@ enum user_keycodes {
 #define ____________40__DELMOV_R2__________________ B_DLW, KC_BSPC, B_REDO, B_DEL, B_DRW
 #define ____________40__DELMOV_R3__________________ KC_HASH, KC_SCLN, XXXXXXX, KC_AT, KC_GRAVE
 
+// clang-format off
 /// 30 percent numbers and characters that aren't handled elsewhere.
 // NUM
 /*    ,----------------------------------.  ,----------------------------------.
@@ -272,7 +276,7 @@ enum user_keycodes {
  * 03 | LSFT\|   @  |   :  |  &   |  FN  |  |   #  |   !  |  ,   | dot  |   /  |
  *    `----------------------------------'  `----------------------------------'
  */
-
+// clang-format on
 #define ________________30_NUM_L1__________________ ________________NUMBER_LEFT________________
 #define ________________30_NUM_L2__________________ KC_CIRC, KC_UNDS, KC_SCLN, KC_DLR, KC_1
 #define ________________30_NUM_L3__________________ MT(KC_LSFT, KC_BSLS), KC_AT, KC_COLN, KC_AMPR, TO(_FN)
@@ -281,6 +285,7 @@ enum user_keycodes {
 #define ________________30_NUM_R2__________________ KC_0, KC_MINS, KC_PLUS, KC_EQL, KC_PERC
 #define ________________30_NUM_R3__________________ KC_HASH, KC_EXLM, KC_COMM, KC_DOT, MT(MOD_LSFT, KC_SLASH)
 
+// clang-format off
 /* NUM  +  symbol / programming logic +=1 optimization*/
 /*    ,----------------------------------.  ,----------------------------------.
  * 01 |   1  |   2  |  3   |  4   |  5   |  | 6    | 7    | 8    | 9    | 0    |
@@ -295,7 +300,7 @@ enum user_keycodes {
  ~/ and is an outwards roll. / * is a roll.
  _ is hard to get to.
  */
-
+// clang-format on
 #define __________40___SYM_NUM_L1__________________ ________________NUMBER_LEFT________________
 #define __________40___SYM_NUM_L2__________________ KC_CIRC, KC_EXLM, KC_EQL, KC_0, KC_DLR
 #define __________40___SYM_NUM_L3__________________ KC_BSLS, KC_PERC, KC_AT, KC_AMPR, KC_UNDS
@@ -304,6 +309,7 @@ enum user_keycodes {
 #define __________40___SYM_NUM_R2__________________ KC_HASH, KC_1, KC_MINS, KC_PLUS, KC_GRAVE
 #define __________40___SYM_NUM_R3__________________ KC_TILDE, KC_PIPE, KC_ASTR, KC_DOT, KC_SLASH
 
+// clang-format off
 // NUM
 /*    ,----------------------------------.  ,----------------------------------.
  * 01 |   1  |   2  |  3   |  4   |  5   |  |   6  |  7   |  8   |   9  |  0   |
@@ -313,7 +319,7 @@ enum user_keycodes {
  * 03 |  F11 |  F12 |      |   CDH| QWERT|  |  0   |  1   |  2   |  3   |  .   |
  *    `----------------------------------'  `----------------------------------'
  */
-
+// clang-format on
 #define ___________________NUM_L1__________________ ________________NUMBER_LEFT________________
 #define ___________________NUM_L2__________________ ________________FKEYS__LEFT________________
 #define ___________________NUM_L3__________________ KC_F11, KC_F11, XXXXXXX, XXXXXXX, QWERTY
@@ -336,6 +342,7 @@ enum user_keycodes {
 #define _________________ADJUST_L2_________________ MU_TOG, CK_TOGG, AU_ON, AU_OFF, AG_NORM
 #define _________________ADJUST_L3_________________ RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_RGB_T
 
+// clang-format off
 /* excel centric symbol layer*/
 /*    ,--------------------------------------------.  ,--------------------------------------------.
 * 01 |  DelRow|InsCol  | SelCol |PasteVal|        |  |     .  |   1    |  2     |   3    |        |
@@ -344,8 +351,8 @@ enum user_keycodes {
 *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
 * 03 | Undo   |  Cut   | Copy   | Paste  |Paste   |  |    /   |   7    |  8     |   9    | Paste  |
 *    `--------------------------------------------'  `--------------------------------------------'
-
 */
+// clang-format on
 #define _________________EXCEL_L1__________________ B_DROW, B_ICOL, B_SELC, B_PASTV, XXXX
 #define _________________EXCEL_L2__________________ KC_MINS, B_ICOL, B_SELC, B_UNDO, KC_PLUS
 #define _________________EXCEL_L3__________________ B_UNDO, B_CUT, B_COPY, B_PASTE, B_PASTE

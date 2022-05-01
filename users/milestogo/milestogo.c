@@ -18,23 +18,22 @@
 #include QMK_KEYBOARD_H
 #include "milestogo.h"
 
-
-__attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
 #ifdef USE_BABBLEPASTE
-   if (!process_babblepaste(keycode, record)) { return false; }
+    if (!process_babblepaste(keycode, record)) {
+        return false;
+    }
 #endif
 
     switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
                 layer_off(_CDH);
-                //default_layer_set(_QWERTY);
+                // default_layer_set(_QWERTY);
             }
             return false;
             break;
@@ -45,35 +44,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case VRSN:  // Prints firmware version
+        case VRSN: // Prints firmware version
             if (record->event.pressed) {
-                  send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);         
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
             return false;
             break;
-
-   
-      }
-  return process_record_keymap(keycode, record) ;
+    }
+    return process_record_keymap(keycode, record);
 }
-    
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode){
-	case SFT_T(KC_Z):
-		return TAPPING_TERM + 175;
-	case SFT_T(KC_SLASH):
-		return TAPPING_TERM + 175;
-    case SMOVE:
-        return TAPPING_TERM + 150;
-	default:
-		return TAPPING_TERM;		
-		
+    switch (keycode) {
+        case SFT_T(KC_Z):
+            return TAPPING_TERM + 175;
+        case SFT_T(KC_SLASH):
+            return TAPPING_TERM + 175;
+        case SMOVE:
+            return TAPPING_TERM + 150;
+        default:
+            return TAPPING_TERM;
     }
-
 }
 
-/// This only affects modifier keys, not layers. 
+/// This only affects modifier keys, not layers.
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -90,7 +84,6 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SMOVE:
@@ -105,14 +98,13 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
         case ESCSYM:
             // Immediately select the hold action when another key is pressed.
             return true;
-        case SMOVE: 
+        case SMOVE:
             return false; // minimize fast typing probs
         default:
             // Do not select the hold action when another key is pressed.
             return false;
     }
 }
-
 
 void babble_modeswitch_user(uint8_t bmode) {
 #ifdef USE_BABBLEPASTE
@@ -158,5 +150,5 @@ void babble_modeswitch_user(uint8_t bmode) {
     }
 #        endif
 #    endif
-#endif  // bablepaste
+#endif // bablepaste
 }

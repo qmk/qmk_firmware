@@ -126,13 +126,13 @@ enum babble_keycodes {
     BABL_PGDN,
     BABL_PGUP,
     // And the delete options
-    BABL_DEL_LEFT_1C,   // == backspace, so why bother?
-    BABL_DEL_RIGHT_1C,  // usually = Del
+    BABL_DEL_LEFT_1C,  // == backspace, so why bother?
+    BABL_DEL_RIGHT_1C, // usually = Del
     BABL_DEL_LEFT_WORD,
     BABL_DEL_RIGHT_WORD,
-    BABL_DEL_TO_LINE_END,    // delete from cursor to end of line
-    BABL_DEL_TO_LINE_START,  // delete from cursor to begining line
-    BABL_MODE,               // print out string saying what mode we're in.
+    BABL_DEL_TO_LINE_END,   // delete from cursor to end of line
+    BABL_DEL_TO_LINE_START, // delete from cursor to begining line
+    BABL_MODE,              // print out string saying what mode we're in.
 #    endif
 #    ifdef BABL_SELECT
     B_SEL_WORD_L,
@@ -159,10 +159,10 @@ enum babble_keycodes {
     // GUI or app
     BABL_RUNAPP,
     BABL_SWITCH_APP_NEXT,
-    BABL_SWITCH_APP_LAST,  // previous
+    BABL_SWITCH_APP_LAST, // previous
     BABL_APPTAB_NEXT,
-    BABL_APPTAB_LAST,  // previous
-    BABL_APPTAB_NEW,   // previous
+    BABL_APPTAB_LAST, // previous
+    BABL_APPTAB_NEW,  // previous
     BABL_WINDOW_NEXT,
     BABL_WINDOW_PREV,
     BABL_WINDOW_NEW,
@@ -184,7 +184,7 @@ enum babble_keycodes {
     BABL_BROWSER_BACK,
     BABL_BROWSER_FIND,
     BABL_BROWSER_BOOKMARK,
-    BABL_BROWSER_DEV_TOOLS,  // hard one to remember
+    BABL_BROWSER_DEV_TOOLS, // hard one to remember
     BABL_BROWSER_RELOAD,
     BABL_BROWSER_FULLSCREEN,
     BABL_BROWSER_ZOOM_IN,
@@ -192,26 +192,26 @@ enum babble_keycodes {
     BABL_BROWSER_VIEWSRC,
 #    endif
 #    ifdef BABL_APP
-    BABL_APP_SAVE,                // save file blurs app & os. Move?
-    BABL_APP_PASTE_VALUES,        // paste only values, or with some special formatting. ctrl shift v chrome, // Ctrl+Alt+V, excel
-                                  // App hotkeys will be flawed, since you may use different spreadsheets across OSes.
-#        ifdef BABL_APP_CELLS     // spreadsheets and tables
-    BABL_APP_CENTER_ALIGN,        // Center align contents of a cell in table or spreadsheet.
-    BABL_APP_CLEAR_FORMATTING,    //
-    BABL_APP_SCROLL_ACTIVE_CELL,  // scroll to active cell.
-    BABL_NEWLINE_IN_CELL,         // newline inside cell of table,
-    BABL_INSERT_COMMENT,          // insert comment
-    BABL_INSERT_COL_LEFT,         // insert columns to the left
-    BABL_INSERT_ROW,              // insert row
-    BABL_DELETE_ROW,              // delete row // excel ctrl minus // chrome ctrl alt minus
-    BABL_SELECT_COL,              // select column - ctrl space //same in both
-    BABL_SELECT_ROW,              // select row shift spaced // same in both.
-#        endif                    // BABL_APP_CELLS
+    BABL_APP_SAVE,               // save file blurs app & os. Move?
+    BABL_APP_PASTE_VALUES,       // paste only values, or with some special formatting. ctrl shift v chrome, // Ctrl+Alt+V, excel
+                                 // App hotkeys will be flawed, since you may use different spreadsheets across OSes.
+#        ifdef BABL_APP_CELLS    // spreadsheets and tables
+    BABL_APP_CENTER_ALIGN,       // Center align contents of a cell in table or spreadsheet.
+    BABL_APP_CLEAR_FORMATTING,   //
+    BABL_APP_SCROLL_ACTIVE_CELL, // scroll to active cell.
+    BABL_NEWLINE_IN_CELL,        // newline inside cell of table,
+    BABL_INSERT_COMMENT,         // insert comment
+    BABL_INSERT_COL_LEFT,        // insert columns to the left
+    BABL_INSERT_ROW,             // insert row
+    BABL_DELETE_ROW,             // delete row // excel ctrl minus // chrome ctrl alt minus
+    BABL_SELECT_COL,             // select column - ctrl space //same in both
+    BABL_SELECT_ROW,             // select row shift spaced // same in both.
+#        endif                   // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
 
     BABL_APP_MULTI_SELECT, /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
     BABL_APP_SET_MARK,
-#        endif  // BABL_APP_EDITOR
+#        endif // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING
     // These aren't useful on most oses.
     BABL_SPLIT_FRAME_VERT,
@@ -348,19 +348,19 @@ bool babblePaste_kitty(uint16_t keycode);
 #        define B_PGDN BABL_PGDN
 #        define B_PGUP BABL_PGUP
 //#define B_BKSP  BABL_DEL_LEFT_1C == backspace so why bother.
-#        define B_DEL BABL_DEL_RIGHT_1C  // usually = Del
+#        define B_DEL BABL_DEL_RIGHT_1C // usually = Del
 #        define B_DLW BABL_DEL_LEFT_WORD
 #        define B_DRW BABL_DEL_RIGHT_WORD
-#        define B_DEOL BABL_DEL_TO_LINE_END    // delete from cursor to end of line
-#        define B_DSOL BABL_DEL_TO_LINE_START  // delete from cursor to begining line
-#        define B_MODE BABL_MODE               // type out name of current mode.
+#        define B_DEOL BABL_DEL_TO_LINE_END   // delete from cursor to end of line
+#        define B_DSOL BABL_DEL_TO_LINE_START // delete from cursor to begining line
+#        define B_MODE BABL_MODE              // type out name of current mode.
 #    endif
 #    ifdef BABL_SELECT
 #        define B_S_WL B_SEL_WORD_L
 #        define B_S_WR B_SEL_WORD_R
 #        define B_S_LU B_SEL_LINE_U
 #        define B_S_LD B_SEL_LINE_D
-#    else  // safe defaults to not break keymap.
+#    else // safe defaults to not break keymap.
 #        define B_S_WL KC_LEFT
 #        define B_S_WR KC_RIGHT
 #        define B_S_LU KC_UP
@@ -381,10 +381,10 @@ bool babblePaste_kitty(uint16_t keycode);
 #        define B_RPLACE BABL_FIND_REPLACE
 #        define B_RUNAPP BABL_RUNAPP
 #        define B_NAPP BABL_SWITCH_APP_NEXT
-#        define B_PAPP BABL_SWITCH_APP_LAST  // previous
+#        define B_PAPP BABL_SWITCH_APP_LAST // previous
 #        define B_NAPTB BABL_APPTAB_NEXT
-#        define B_PAPTB BABL_APPTAB_LAST  // previous
-#        define B_NWTAB BABL_APPTAB_NEW   // new app tab
+#        define B_PAPTB BABL_APPTAB_LAST // previous
+#        define B_NWTAB BABL_APPTAB_NEW  // new app tab
 #        define B_NWIN BABL_WINDOW_NEXT
 #        define B_PWIN BABL_WINDOW_PREV
 #        define B_WINN BABL_WINDOW_NEW
@@ -407,12 +407,12 @@ bool babblePaste_kitty(uint16_t keycode);
 #        define B_BBAK BABL_BROWSER_BACK
 #        define B_BFND BABL_BROWSER_FIND
 #        define B_BOOK BABL_BROWSER_BOOKMARK
-#        define B_BDEV BABL_BROWSER_DEV_TOOLS  // hard one to remember
+#        define B_BDEV BABL_BROWSER_DEV_TOOLS // hard one to remember
 #        define B_BRLD BABL_BROWSER_RELOAD
 #        define B_BFULL BABL_BROWSER_FULLSCREEN
 #        define B_ZIN BABL_BROWSER_ZOOM_IN
 #        define B_ZOUT BABL_BROWSER_ZOOM_OUT
-#else  // safe defaults 
+#    else // safe defaults
 #        define B_NTAB KC_NO
 #        define B_CTAB KC_NO
 #        define B_ROTB KC_NO
@@ -432,7 +432,7 @@ bool babblePaste_kitty(uint16_t keycode);
 
 #    ifdef BABL_APP
 #        define B_SAAV BABL_APP_SAVE
-#        ifdef BABL_APP_CELLS  // spreadsheets and tables
+#        ifdef BABL_APP_CELLS // spreadsheets and tables
 #            define B_PASTV BABL_APP_PASTE_VALUES
 #            define B_CALN BABL_APP_CENTER_ALIGN
 #            define B_CFMT BABL_APP_CLEAR_FORMATTING
@@ -444,11 +444,11 @@ bool babblePaste_kitty(uint16_t keycode);
 #            define B_DROW BABL_DELETE_ROW
 #            define B_SELC BABL_SELECT_COL
 #            define B_SELR BABL_SELECT_ROW
-#        endif  // BABL_APP_CELLS
+#        endif // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
 #            define B_MSEL BABL_APP_MULTI_SELECT
 /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
-#        endif  // BABL_APP_EDITOR
+#        endif // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING
 #            define B_VSPLIT BABL_SPLIT_FRAME_VERT
 #            define B_VUNSPT BABL_UNSPLIT_FRAME_VERT
@@ -456,7 +456,7 @@ bool babblePaste_kitty(uint16_t keycode);
 #            define B_HUNSPT BABL_UNSPLIT_FRAME_HORIZONTAL
 #            define B_NXTFM BABL_NEXT_FRAME
 #            define B_PRVFM BABL_PREV_FRAME
-#        endif  // BABL_APP_WINDOWSPLITTING
-#    endif      // BABL_APP
+#        endif // BABL_APP_WINDOWSPLITTING
+#    endif     // BABL_APP
 
 #endif
