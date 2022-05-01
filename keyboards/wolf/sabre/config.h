@@ -56,6 +56,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #define LED_CAPS_LOCK_PIN B3
 #define LED_SCROLL_LOCK_PIN B0
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
