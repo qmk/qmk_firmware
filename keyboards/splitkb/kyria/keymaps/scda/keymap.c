@@ -55,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_NO, KC_VOLD, KC_MUTE, KC_VOLU, KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
                                 KC_TRNS,  KC_TRNS, ALT_TAB, CMD_SPC, SFT_ENT,              KC_LSFT, CMD_BSP, ALT_DEL, KC_TRNS,    KC_TRNS),
     [_GAME] = LAYOUT(
-        KC_ESC, KC_1, KC_2,  KC_3, KC_4, KC_5,                                                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, XOY,
-        KC_T,   KC_Q, KC_A,  KC_W, KC_D, KC_E,                                                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_Z,   KC_X, KC_C,  KC_S, KC_R, KC_F,    KC_NO,   KC_NO,                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                            KC_M,  KC_P, KC_LCTL, KC_LSFT, KC_SPACE,                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
+        KC_ESC, KC_1,   KC_2,  KC_3, KC_4, KC_5,                                                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, XOY,
+        KC_M,   KC_Q,   KC_A,  KC_W, KC_D, KC_E,                                                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_B,   KC_TAB, KC_Z,  KC_S, KC_R, KC_F,    KC_NO,    KC_NO,                        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                              KC_P,  KC_C, KC_LSFT, KC_SPACE, KC_LCTL,                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
     [_KBD_CTRL] = LAYOUT(
         KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                    KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_TRNS,
         XOY,     KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                    KC_NO, RGB_VAI, RGB_TOG, KC_NO, KC_NO, KC_NO,
@@ -107,11 +107,7 @@ static void render_status(void) {
             break;
     }
 
-    // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    oled_write_P(PSTR("       "), false);
 }
 
 bool oled_task_user(void) {
