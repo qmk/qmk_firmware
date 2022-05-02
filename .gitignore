@@ -65,7 +65,6 @@ CMakeLists.txt
 .vscode/launch.json
 .vscode/tasks.json
 .vscode/temp.sql
-.ccls-cache
 tags
 
 # Ignore image files
