@@ -1,14 +1,17 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
+#include "keyrecords/wrappers.h"
+#include "keyrecords/process_records.h"
 
-#define QWE 0
-#define OSX 1
-#define SYM 2
-#define MED 3  // media keys
-#define MAX 4
+#define _BL 0
+#define QWE 1
+#define OSX 2
+#define SYM 3
+#define MED 4  // media keys
+#define MAX 5
 
-#define LG_TRNS LGUI(KC_TRANSPARENT)
+#define ____ KC_TRNS
 
 enum custom_keycodes {
     LK_QWE = SAFE_RANGE,
@@ -21,6 +24,3 @@ enum custom_keycodes {
     KC_SCT4,
     KC_SCT5,
 };
-
-bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);

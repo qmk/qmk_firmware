@@ -1,2 +1,3 @@
+TERMINAL_ENABLE = yes
 FORCE_NKRO = yes
 # AUDIO_ENABLE = yes

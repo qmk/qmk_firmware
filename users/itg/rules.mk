@@ -1,7 +1,8 @@
-SRC += itg.c
+SRC += $(USER_PATH)/itg.c \
+       $(USER_PATH)/keyrecords/process_records.c \
 
-ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-  SRC += secrets.c
+ifneq ("$(wildcard $(USER_PATH)/keyrecords/secrets.c)","")
+  SRC += $(USER_PATH)/keyrecords/secrets.c
 endif
 
 ifeq ($(strip $(NO_SECRETS)), yes)
