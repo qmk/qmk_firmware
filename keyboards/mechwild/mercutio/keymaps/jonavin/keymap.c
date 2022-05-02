@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     Defaults never changes if no encoder present to change it
 */
 typedef struct {
-     char keydesc[6];    // this will be displayed on OLED
+    char keydesc[6];    // this will be displayed on OLED
     uint16_t keycode;   // this is the keycode that will be sent when activted
 } keycodedescType;
 
@@ -201,15 +201,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             render_logo();
             oled_set_cursor(8,2);
-            char fn_str[12];
             switch(get_selected_layer()){
                 case 0:
                     oled_write_P(PSTR("BASE"), false);
                     break;
                 case 1:
-                    sprintf(fn_str, "FN %5s", selectedkey_rec.keydesc);
-                    oled_write(fn_str, false);
-                    //oled_write_P(PSTR("FN "), false);
+                    oled_write_P(PSTR("FN "), false);
+                    oled_write(selectedkey_rec.keydesc, false);
                     break;
                 case 2:
                     oled_write_P(PSTR("LOWER"), false);
@@ -230,8 +228,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                         oled_write_P(PSTR("Temp BASE"), false);
                         break;
                     case 1:
-                        sprintf(fn_str, "Temp FN %5s", selectedkey_rec.keydesc);
-                        oled_write(fn_str, false);
+                        oled_write_P(PSTR("Temp FN "), false);
+                        oled_write(selectedkey_rec.keydesc, false);
                         break;
                     case 2:
                         oled_write_P(PSTR("Temp LOWER"), false);
@@ -246,12 +244,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             led_t led_state = host_keyboard_led_state();
             oled_set_cursor(8,0);
             uint8_t wpm_count;
-            char wpm_str[10];
+            char wpm_str[4];
             wpm_count=get_current_wpm();
 
             if (wpm_count > 020) { // how wpm when > 20
-                 sprintf(wpm_str, " WPM: %03d", wpm_count);
-                oled_write(wpm_str, false);
+                oled_write_P(PSTR(" WPM: "), false);
+                oled_write(itoa(wpm_count, wpm_str, 10), false);
             } else {
                 oled_write_P(PSTR(" JONAVIN "), false); // otherwise display keymap name
             }
