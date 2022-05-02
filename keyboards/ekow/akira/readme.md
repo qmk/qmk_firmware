@@ -1,8 +1,5 @@
 # AKIRA
 
-![one](imgur.com image replace me!)
-
-
 * Keyboard Maintainer: [eugenepy](https://github.com/eugenepy)
 * Hardware Supported: ARKIA pcb, both Hotswap and solderable. *The PCBs, controllers supported*
 * Hardware Availability: Not yet on groupbuy *Links to where you can find this hardware*
