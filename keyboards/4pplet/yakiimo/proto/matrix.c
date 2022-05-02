@@ -30,11 +30,8 @@ static bool         debouncing      = false;
 static uint16_t     debouncing_time = 0;
 
 __attribute__((weak)) void matrix_init_user(void) {}
-
 __attribute__((weak)) void matrix_scan_user(void) {}
-
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
 
 void matrix_init(void) {
@@ -62,7 +59,6 @@ void matrix_init(void) {
     palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_PULLDOWN);
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
 
     matrix_init_quantum();
 }
@@ -158,21 +154,3 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
-bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col)); }
-
-matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
-
-void matrix_print(void) {
-    dprintf("\nr/c 01234567\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        dprintf("%X0: ", row);
-        matrix_row_t data = matrix_get_row(row);
-        for (int col = 0; col < MATRIX_COLS; col++) {
-            if (data & (1 << col))
-                dprintf("1");
-            else
-                dprintf("0");
-        }
-        dprintf("\n");
-    }
-}
