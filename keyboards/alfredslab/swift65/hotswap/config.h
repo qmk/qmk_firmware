@@ -20,7 +20,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xBBEB
-#define PRODUCT_ID      0xD4C5
+#define PRODUCT_ID      0xD4C4
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AlfredsLab
 #define PRODUCT         Swift65
