@@ -46,6 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { F6 }
 #define ENCODERS_PAD_B { F5 }
-#define ENCODER_RESOLUTION 3
+#define ENCODER_RESOLUTION 4
 
 #define DRIVER_LED_TOTAL 14

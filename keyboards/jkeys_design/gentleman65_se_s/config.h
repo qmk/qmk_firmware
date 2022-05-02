@@ -43,8 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 14
 #define RGBLIGHT_ANIMATIONS
 
-#define ENCODERS_PAD_A { F0 }
-#define ENCODERS_PAD_B { F1 }
+#define ENCODERS_PAD_A { B0 }
+#define ENCODERS_PAD_B { B1 }
 #define ENCODER_RESOLUTION 4
 
 #define DRIVER_LED_TOTAL 14

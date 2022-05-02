@@ -6,7 +6,7 @@ The Gentleman 65 combines the sleek look of natural wood, with the fun of froste
 
 
 * Keyboard Maintainer: [Omar Afzal](https://github.com/0marA)
-* Hardware Supported: Gentleman 65 PCB for Gentleman65
+* Hardware Supported: Gentleman 65 PCB for Gentleman65 & Gentleman 65 Suited Edition hotswap PCB
 * Hardware Availability: [Jkeys.Design](https://jkeys.design/)
 
 Getting the board into bootloader mode:
@@ -15,10 +15,10 @@ To flash firmware onto this board, you'll need to bring the PCB into bootloader 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gentleman65:default
+    make jkeys_design/gentleman65:default
 
 Flashing example for this keyboard:
 
-    make gentleman65:default:flash
+    make jkeys_design/gentleman65:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
