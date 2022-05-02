@@ -1,7 +1,5 @@
 {
-    "keyboard_name": "A201",
-    "url": "",
-    "maintainer": "qmk",
+    "keyboard_name": "IDOBAO MONTEX RGB",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -35,5 +33,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
