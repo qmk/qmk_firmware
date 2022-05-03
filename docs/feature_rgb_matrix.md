@@ -233,6 +233,115 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1` for now).
 
 ---
+### IS31FLCOMMON :id=is31flcommon
+
+There is basic support for addressable RGB matrix lighting with a selection of I2C ISSI Lumissil RGB controllers through a shared common driver. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = <driver name>
+```
+
+Where `<driver name>` is the applicable LED driver chip as below
+
+| Driver Name | Data Sheet | Capability |
+|-------------|------------|------------|
+| `IS31FL3742A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | 60 RGB, 30x6 Matrix |
+| `ISSIFL3743A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | 66 RGB, 18x11 Matrix |
+| `IS31FL3745` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | 48 RGB, 18x8 Matrix |
+| `IS31FL3746A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | 24 RGB, 18x4 Matrix |
+
+You can use between 1 and 4 IC's. Do not specify `DRIVER_ADDR_<N>` define for IC's if not present on your keyboard. The `DRIVER_ADDR_1` default assumes that all Address pins on the controller have been connected to GND. Drivers that have SYNC functionality have the default settings to disable if 1 driver. If more than 1 drivers then `DRIVER_ADDR_1` will be set to Master and the remaining ones set to Slave.
+
+Configure the hardware via your `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `DRIVER_ADDR_1` | (Optional) Address for the first RGB driver | |
+| `DRIVER_ADDR_<N>` | (Required) Address for the additional RGB drivers | |
+| `ISSI_SSR_<N>` | (Optional) Configuration for the Spread Spectrum Register | |
+| `ISSI_CONFIGURATION` | (Optional) Configuration for the Configuration Register | |
+| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
+| `ISSI_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | |
+| `ISSI_TEMP` | (Optional) Configuration for the Tempature Register | |
+| `ISSI_PWM_ENABLE` | (Optional) Configuration for the PWM Enable Register | |
+| `ISSI_PWM_SET` | (Optional) Configuration for the PWM Setting Register | |
+| `ISSI_SCAL_RED` | (Optional) Configuration for the RED LEDs in Scaling Registers | 0xFF |
+| `ISSI_SCAL_BLUE` | (Optional) Configuration for the BLUE LEDs in Scaling Registers | 0xFF |
+| `ISSI_SCAL_GREEN` | (Optional) Configuration for the GREEN LEDs in Scaling Registers | 0xFF |
+| `ISSI_MANUAL_SCALING` | (Optional) If you wish to configure the Scaling Registers manually | |
+
+
+Defaults
+
+| Variable | IS31FL3742A | IS31FL3743A | IS31FL3745 | IS31FL3746 |
+|----------|-------------|-------------|------------|------------|
+| `DRIVER_ADDR_1` | 0b0110000 | 0b0100000 | 0b0100000 | 0b1100000 |
+| `ISSI_SSR_1` | 0x00 | 0x00 / 0x60 | 0x00 / 0xC0 | 0x00 |
+| `ISSI_SSR_<2-4>` | 0x00 | 0x40 | 0x80 | 0x00 |
+| `ISSI_CONFIGURATION` | 0x31 | 0x01 | 0x31 | 0x01 |
+| `ISSI_PULLDOWNUP` | 0x55 | 0x33 | 0x33 | 0x33 |
+| `ISSI_TEMP` | N/A | 0x00 | 0x00 | 0x00 |
+| `ISSI_PWM_ENABLE` | N/A | N/A | N/A | 0x00 |
+| `ISSI_PWM_SET` | 0x00 | N/A | N/A | 0x00 |
+
+Here is an example using 2 drivers.
+
+```c
+#define DRIVER_ADDR_2 0b0100001
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 42
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+```
+
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Currently only 4 drivers are supported, but it would be trivial to support for more. Note that using a combination of different drivers is not supported. All drivers must be of the same model.
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+/* Refer to IS31 manual for these locations
+ *   driver
+ *   |  R location
+ *   |  |        G location
+ *   |  |        |        B location
+ *   |  |        |        | */
+    {0, CS1_SW1, CS2_SW1, CS3_SW1},
+    ....
+}
+```
+
+Where `CSx_SWx` is the location of the LED in the matrix defined by the datasheet. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
+
+`ISSI_MANUAL_SCALING` is used to override the Scaling for individual LED's. By default they will be set as per `ISSI_SCAL_<colour>`. In `config.h` set how many LED's you want to manually set scaling for.
+Eg `#define ISSI_MANUAL_SCALING 3`
+
+Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
+
+```c
+const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
+ *   LED Index
+ *   |  R scaling
+ *   |  |    G scaling
+ *   |  |    |    B scaling
+ *   |  |    |    | */
+    {5, 120, 155, 167},
+    {9, 120, 155, 167},
+    ....
+}
+```
+
+Where LED Index is the position of the LED in the `g_is31_leds` array. The `scaling` value between 0 and 255 to be written to the Scaling Register.
+
+---
 
 ### WS2812 :id=ws2812
 
@@ -251,6 +360,8 @@ Configure the hardware via your `config.h`:
 // The number of LEDs connected
 #define DRIVER_LED_TOTAL 70
 ```
+
+?> There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](ws2812_driver.md) for more information.
 
 ---
 
@@ -417,7 +528,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 `RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MODE_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped.
 
-?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions-idfunctions) should be used instead.
+?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
 
 
 !> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
@@ -457,6 +568,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
     RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right
     RGB_MATRIX_PIXEL_FRACTAL,       // Single hue fractal filled keys pulsing horizontally out to edges
+    RGB_MATRIX_PIXEL_FLOW,          // Pulsing RGB flow along LED wiring with random hues
     RGB_MATRIX_PIXEL_RAIN,          // Randomly light keys with random hues
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
@@ -512,6 +624,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_HUE_PENDULUM`              |Enables `RGB_MATRIX_HUE_PENDULUM`             |
 |`#define ENABLE_RGB_MATRIX_HUE_WAVE`                  |Enables `RGB_MATRIX_HUE_WAVE `                |
 |`#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL`             |Enables `RGB_MATRIX_PIXEL_FRACTAL`            |
+|`#define ENABLE_RGB_MATRIX_PIXEL_FLOW`                |Enables `RGB_MATRIX_PIXEL_FLOW`               |
 |`#define ENABLE_RGB_MATRIX_PIXEL_RAIN`                |Enables `RGB_MATRIX_PIXEL_RAIN`               |
 
 ?> These modes don't require any additional defines.
@@ -707,6 +820,7 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_decrease_speed_noeeprom()`      |Decrease the speed of the animations (not written to EEPROM) |
 |`rgb_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
 |`rgb_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
+|`rgb_matrix_reload_from_eeprom()`           |Reload the effect configuration (enabled, mode and color) from EEPROM |
 
 ### Change Color :id=change-color
 |Function                                    |Description  |

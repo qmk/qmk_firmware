@@ -1,3 +1,6 @@
+USER_NAME := mtei
+SPLIT_KEYBOARD = yes
+
  CONSOLE_ENABLE = no        # Console for debug
  COMMAND_ENABLE = no        # Commands for debug and configuration
  # CONSOLE_ENABLE and COMMAND_ENABLE
@@ -17,6 +20,7 @@ HELIX_ROWS = 5              # Helix Rows is 4 or 5
 # LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 # LED_ANIMATIONS = yes        # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
+OLED_SELECT = core
 
 CUSTOM_DELAY = yes
 
