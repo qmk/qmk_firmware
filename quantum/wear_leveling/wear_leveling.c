@@ -149,9 +149,9 @@
 /**
  * Storage area for the wear-leveling cache.
  */
-static struct {
-    uint8_t  cache[WEAR_LEVELING_LOGICAL_SIZE];
-    uint32_t write_address;
+static struct __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) {
+    __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) uint8_t cache[WEAR_LEVELING_LOGICAL_SIZE];
+    uint32_t                                                       write_address;
 } wear_leveling;
 
 /**
