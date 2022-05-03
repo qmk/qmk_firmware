@@ -14,7 +14,8 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-AUDIO_ENABLE = no           # There is no speaker on this PCB
+AUDIO_ENABLE = no           # Audio output
+AUDIO_SUPPORTED = no
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 CUSTOM_MATRIX = yes
 
