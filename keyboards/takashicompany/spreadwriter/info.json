@@ -41,7 +41,7 @@
         "vid": "0x7463"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_FROM_JSON": {
             "layout": [
                 {
                     "matrix": [
