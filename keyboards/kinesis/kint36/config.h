@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // The Teensy 3.6 consumes about 80 mA of current at its full speed of 180 MHz:
 // https://forum.pjrc.com/threads/47256-What-is-the-power-consumption-of-the-Teensy-3-6
 #define USB_MAX_POWER_CONSUMPTION 100
