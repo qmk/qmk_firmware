@@ -15,3 +15,23 @@
  */
 
 #include "spreadwriter.h"
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    keypos_t key;
+    if (index == 0) {
+        if (clockwise) {
+            key.row = 4;
+            key.col = 0;
+        } else {
+            key.row = 0;
+            key.col = 6;
+        }
+        uint8_t layer = layer_switch_get_layer(key);
+        uint16_t keycode = keymap_key_to_keycode(layer, key);
+
+        tap_code16(keycode);
+        return false;
+    }
+
+    return true;
+}
