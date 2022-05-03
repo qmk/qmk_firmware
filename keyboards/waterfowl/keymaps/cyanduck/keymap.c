@@ -18,7 +18,7 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _COLEMAKDH = 0,
+    _COLEMAKDH,
     _NAVNUM,
     _SYM,
     _FUNC,
