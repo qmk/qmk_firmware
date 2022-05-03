@@ -19,3 +19,4 @@
 #include "test_common.h"
 
 #define TAPPING_FORCE_HOLD
+#define TAPPING_RELEASE_HOLD_TERM 100
