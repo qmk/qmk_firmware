@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_7,      KC_8,    KC_9,             KC_BSPC,
                     KC_4,      KC_5,    KC_6,             KC_ESC,
                     KC_1,      KC_2,    KC_3,             KC_TAB,
-        KC_MPLY,    TT(1),     KC_0,    LSFT_T(KC_DOT),   KC_ENTER
+        KC_MUTE,    TT(1),     KC_0,    LSFT_T(KC_DOT),   KC_ENTER
     ),
     /*
             SUB LAYER
@@ -189,7 +189,7 @@ static void render_anim(void) {
 }
 
 // Used to draw on to the oled screen
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_anim();  // renders pixelart
 
     oled_set_cursor(0, 0);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
@@ -199,5 +199,7 @@ void oled_task_user(void) {
     led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
     oled_set_cursor(0, 1);
     oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("       "), false);
+
+    return false;
 }
 #endif
