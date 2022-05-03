@@ -2,7 +2,8 @@
 # khoang65's omkbd/ergodash/rev1 ANSI QWERTY Layout
 
 - [LAYERS](#LAYERS)
-- [LEADER KEY BINDINGS:](#LEADER-KEY-BINDINGS)
+- [LEADER KEY BINDINGS](#LEADER-KEY-BINDINGS)
+- [PRICE BREAKDOWN](#PRICE-BREAKDOWN)
 - [FLASH INSTRUCTIONS](#FLASH-INSTRUCTIONS)
 
 ## Overview
@@ -69,11 +70,13 @@
 | `@`⬜️`@` | `LDR 2 ` | Will wrap cursor between a set of at symbols |
 | `%`⬜️`%` | `LDR 5 ` | Will wrap cursor between a set of percent symbols |
 
+## PRICE BREAKDOWN
+-
 
 ## FLASH INSTRUCTIONS
 1. Build the firmware
    > qmk compile
-   - Approx. firmware size: 21682/28672 (75%, 6990 bytes free)
+   - Approx. firmware size: 21686/28672 (75%, 6990 bytes free)
 2. Flash firmware
    - Open QMK Toolbox App
    - Browse for *.hex file

@@ -176,6 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ************************************************ //
 // ************** CUSTOM KEY HANDLING ************* //
 // ************************************************ //
+// Currently unused
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
     switch (keycode) {
@@ -208,7 +209,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 // ************************************************ //
-// **************** RGB INDICATORS **************** //
+// ************ KEYBOARD POST INIT **************** //
+// ************************************************ //
+void keyboard_post_init_user(void) {
+  // Call the post init code.
+  rgblight_disable_noeeprom(); // disables RBG on startup, without saving settings
+}
+
+// ************************************************ //
+// ************* LAYER RGB INDICATORS ************* //
 // ************************************************ //
 /*
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -228,7 +237,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 */
 
 // ************************************************ //
-// ******************** LEADER ******************** //
+// ************** LEADER KEY FUNCTIONS ************ //
 // ************************************************ //
 #ifdef LEADER_ENABLE
 
