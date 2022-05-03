@@ -1,8 +1,8 @@
-# HHKB Lite 2
+# Mocha
 
-![HHKB Lite 2](https://deskthority.net/wiki/images/e/ed/HHKB_Lite_2.jpg)
+![Mocha](https://deskthority.net/wiki/images/e/ed/HHKB_Lite_2.jpg)
 
-This is for the [HHKB Lite 2](https://deskthority.net/wiki/HHKB_Lite)
+This is for the [Mocha](https://deskthority.net/wiki/HHKB_Lite)
 by PFU, identified by model numbers PD-KB200W/U or PD-KB200B/U. It
 uses the replacement Teensy 2.0 board from [my other
 project](https://github.com/thirteen37/HHKB-Lite-2-Teensy).
