@@ -49,8 +49,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC
 // Split settings
+#define DEBUG_MATRIX_SCAN_RATE
+
 #define USE_I2C
-#define MASTER_RIGHT
+// #define MASTER_RIGHT
 #define SPLIT_USB_DETECT
 
 // audio
