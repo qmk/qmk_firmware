@@ -41,6 +41,14 @@ keyboard_config_t keyboard_config;
 uint8_t qt_cmd_buf[3];
 bool    qt_cmd_new;
 
+uint8_t  encoder_modifier                = 0;
+uint16_t encoder_modifier_pressed_ms     = 0;
+bool     is_encoder_action               = false;
+
+#ifndef ENCODER_MODIFIER_TIMEOUT_MS
+#    define ENCODER_MODIFIER_TIMEOUT_MS 500
+#endif
+
 bool bmp_config_overwrite(bmp_api_config_t const *const config_on_storage,
                           bmp_api_config_t *const       keyboard_config) {
 
@@ -186,6 +194,12 @@ void matrix_scan_kb(void) {
             ble_led_indicator_recv = current;
             send_led_cmd(current);
         }
+    }
+
+    if (encoder_modifier != 0 && timer_elapsed(encoder_modifier_pressed_ms) >
+                                     ENCODER_MODIFIER_TIMEOUT_MS) {
+        unregister_mods(encoder_modifier);
+        encoder_modifier = 0;
     }
 
     matrix_scan_user();
@@ -410,6 +424,32 @@ MSCMD_USER_RESULT usrcmd_chparser(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
 }
 
 bool process_record_kb_bmp(uint16_t keycode, keyrecord_t *record) {
+    if (encoder_modifier != 0 && !is_encoder_action) {
+        unregister_mods(encoder_modifier);
+        encoder_modifier = 0;
+    }
+    switch (keycode) {
+        case QK_MODS ... QK_MODS_MAX:
+            if (is_encoder_action) {
+                if (record->event.pressed) {
+                    uint8_t current_mods        = keycode >> 8;
+                    encoder_modifier_pressed_ms = timer_read();
+                    if (current_mods != encoder_modifier) {
+                        del_mods(encoder_modifier);
+                        encoder_modifier = current_mods;
+                        add_mods(encoder_modifier);
+                    }
+                    register_code(keycode & 0xff);
+                } else {
+                    unregister_code(keycode & 0xff);
+                }
+                return false;
+            } else {
+                return true;
+            }
+            break;
+    }
+
     if (record->event.pressed) {
         switch (keycode) {
             case DISABLE_KEY_OVERRIDES:

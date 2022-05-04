@@ -46,6 +46,7 @@ typedef enum {
 extern bool          matrix_has_changed;
 extern matrix_row_t* matrix_mouse_dest;
 extern bool          mouse_send_flag;
+extern bool          is_encoder_action;
 
 static uint8_t spd_rate_num       = 1;
 static uint8_t spd_rate_den       = 1;
@@ -255,10 +256,12 @@ void mouse_report_hook(mouse_parse_result_t const* report) {
         wheel_move_v = report->v;
         key.row      = MATRIX_MSWHEEL_ROW;
         key.col = report->v > 0 ? MATRIX_MSWHEEL_COL : MATRIX_MSWHEEL_COL + 1;
+        is_encoder_action = true;
         action_exec((keyevent_t){
             .key = key, .pressed = true, .time = (timer_read() | 1)});
         action_exec((keyevent_t){
             .key = key, .pressed = false, .time = (timer_read() | 1)});
+        is_encoder_action = false;
     }
 
     if (report->h != 0) {
@@ -267,10 +270,12 @@ void mouse_report_hook(mouse_parse_result_t const* report) {
         key.row      = MATRIX_MSWHEEL_ROW;
         key.col =
             report->h > 0 ? MATRIX_MSWHEEL_COL + 2 : MATRIX_MSWHEEL_COL + 3;
+        is_encoder_action = true;
         action_exec((keyevent_t){
             .key = key, .pressed = true, .time = (timer_read() | 1)});
         action_exec((keyevent_t){
             .key = key, .pressed = false, .time = (timer_read() | 1)});
+        is_encoder_action = false;
     }
 
     //
