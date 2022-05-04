@@ -17,7 +17,7 @@
 #pragma once
 
 #include "tractyl_manuform.h"
-//#include "elite_c.h"
+#include "elite_c.h"
 #include "quantum.h"
 
 #define XXX KC_NO
