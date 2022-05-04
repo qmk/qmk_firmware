@@ -542,6 +542,17 @@ make keyboardio/atreus:manna-harbour_miryoku:flash
 #+END_SRC
 
 
+**** keyboardio/model01
+
+Only the main 5x3 alphas and the inner 3 thumb keys are used.
+
+To build for this keyboard,
+
+#+BEGIN_SRC sh :tangle no
+make keyboardio/model01:manna-harbour_miryoku:flash
+#+END_SRC
+
+
 **** lily58
 
 Only the main 5x3 alphas and the inner 3 thumb keys are used.
