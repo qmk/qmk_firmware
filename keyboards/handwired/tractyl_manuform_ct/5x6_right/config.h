@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 
+/*
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN D3
 #define DRIVER_LED_TOTAL 57
@@ -41,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 180
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_SOLID_COLOR
 #define RGBLIGHT_DEFAULT_COLOR HSV_BLUE
+*/
 
 // Data sync options
 #define SPLIT_TRANSPORT_MIRROR
