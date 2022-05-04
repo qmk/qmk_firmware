@@ -97,6 +97,10 @@ static bool pending_normal_kc_flag;
 static bool process_normal_kc_flag;
 bool        stop_reentrant_process_exkc = false;
 
+__attribute__((weak)) bool process_record_kb_bmp(uint16_t keycode, keyrecord_t *record) {
+    return process_record_user(keycode, record);
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     dprintf("Process KC:%d\n", keycode);
     if (stop_reentrant_process_exkc == false) {
@@ -105,7 +109,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
     }
-    return process_record_user(keycode, record);
+
+    return process_record_kb_bmp(keycode, record);
 }
 
 void bmp_check_timeout_extended_keycode() {

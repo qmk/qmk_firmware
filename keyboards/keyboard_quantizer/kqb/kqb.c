@@ -37,6 +37,7 @@ extern bool    ch559_update_mode;
 extern uint8_t device_cnt;
 extern uint8_t hid_info_cnt;
 
+keyboard_config_t keyboard_config;
 uint8_t qt_cmd_buf[3];
 bool    qt_cmd_new;
 
@@ -141,6 +142,16 @@ int send_led_cmd(uint8_t led) {
     } else {
         return 1;
     }
+}
+
+void eeconfig_init_kb(void) {
+    keyboard_config.raw = 0;
+    eeconfig_update_kb(keyboard_config.raw);
+}
+
+void matrix_init_kb(void) {
+    keyboard_config.raw = eeconfig_read_kb();
+    set_key_override(keyboard_config.override_mode);
 }
 
 void matrix_scan_kb(void) {
@@ -396,4 +407,36 @@ MSCMD_USER_RESULT usrcmd_chparser(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
     BMPAPI->app.set_config(&config);
 
     return 0;
+}
+
+bool process_record_kb_bmp(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case DISABLE_KEY_OVERRIDES:
+            case KEY_OVERRIDE_OFF: {
+                println("Disable key overrides");
+                keyboard_config.override_mode = DISABLE_OVERRIDE;
+                set_key_override(DISABLE_OVERRIDE);
+                eeconfig_update_kb(keyboard_config.raw);
+                return true;
+            }
+            case ENABLE_US_KEY_ON_JP_OS_OVERRIDE: {
+                println(
+                    "Perform as an US keyboard on the OS configured for JP");
+                keyboard_config.override_mode = US_KEY_ON_JP_OS_OVERRIDE;
+                set_key_override(US_KEY_ON_JP_OS_OVERRIDE);
+                eeconfig_update_kb(keyboard_config.raw);
+                return false;
+            } break;
+            case ENABLE_JP_KEY_ON_US_OS_OVERRIDE: {
+                println("Perform as a JP keyboard on the OS configured for US");
+                keyboard_config.override_mode = JP_KEY_ON_US_OS_OVERRIDE;
+                set_key_override(JP_KEY_ON_US_OS_OVERRIDE);
+                eeconfig_update_kb(keyboard_config.raw);
+                return false;
+            } break;
+        }
+    }
+
+    return process_record_user(keycode, record);
 }

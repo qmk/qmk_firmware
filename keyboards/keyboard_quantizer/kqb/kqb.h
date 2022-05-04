@@ -32,3 +32,16 @@ enum {
 
 void uart_recv_callback(uint8_t dat);
 void uart_buf_init(void);
+
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t override_mode;
+    };
+} keyboard_config_t;
+
+enum kb_keycodes {
+    DISABLE_KEY_OVERRIDES = KC_FN0,
+    ENABLE_US_KEY_ON_JP_OS_OVERRIDE,
+    ENABLE_JP_KEY_ON_US_OS_OVERRIDE,
+};
