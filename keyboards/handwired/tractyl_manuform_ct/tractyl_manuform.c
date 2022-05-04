@@ -340,7 +340,8 @@ void charybdis_config_sync_handler(uint8_t initiator2target_buffer_size, const v
 
 void keyboard_post_init_kb(void) {
     transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, charybdis_config_sync_handler);
-
+    debug_enable=true;
+    debug_matrix=true;
     keyboard_post_init_user();
 }
 
