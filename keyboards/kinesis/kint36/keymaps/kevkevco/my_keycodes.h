@@ -26,4 +26,5 @@ enum my_keycodes {
     KPSWAP,
     CAPWORD,
     NUMWORD,
+    PROGRAM,
 };

@@ -3,7 +3,12 @@
 Tested with a Kinesis Advantage2, kinT (stapelberg) keyboard controller built
 with a Teensy 3.6 microcontroller and a USA system layout.
 
+# FN patch
+Doesn't work using bt500 Bluetooth adapter.
 ## CAPSWORD and NUMWORD from replicaJunction
+/Users/kevin/Code/Github/qmk_firmware/users/drashna/keyrecords
+
+
 The concept here is simple: more often than you'd think, you need to type a single word in ALL CAPS. An easy example for me, as a programmer, is a constant value; in most programming languages, constants are typed in all caps by convention.
 
 You typically have a few choices, but each one comes with a drawback. Here are the options I'm aware of:
@@ -22,7 +27,6 @@ NUMWORD is a similar concept, but has a slightly more elaborate implementation. 
 
 **Note:** The implementation of NUMWORD requires that the keyboard's layer definitions be accessible in a header file. In my case, since I use a fairly standard set of layers, I've declared it in my userspace.
 
-
 # Credits
 
 numword from replicaJunction
@@ -30,7 +34,7 @@ numword from replicaJunction
 [bpruitt-goddard](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/bpruitt-goddard/readme.md)
 * Dynamic macro tap-dance
 
-
+# TODO
 
 // Inactive Aliases
 // #define NUMPAD  TG(_NUMPAD)
@@ -62,9 +66,6 @@ numword from replicaJunction
 // #define TD_PSPA TD(PSPA)
 // #define NKROTG  MAGIC_TOGGLE_NKRO
 
-
-
-
     case PRG_EQ: {
             if (record->event.pressed) {
                 SEND_STRING("==");
@@ -83,9 +84,7 @@ numword from replicaJunction
                 SEND_STRING("qmk compile --keyboard " QMK_KEYBOARD " --keymap " QMK_KEYMAP);
             return false;
         }
-
-
-<!-- 
+# Blank Keymap Templates
 
 ACTIVE
 
@@ -127,7 +126,7 @@ ACTIVE
 
 
 
-
+# Swap Hands
 
 // Swapping Hands Matrix starting on line numbers that end in 0 for quick counting
 
@@ -159,168 +158,3 @@ ACTIVE
     { kD0,  kD1,  kD2,  kD3,  kD4,  kD5,  ___ }, \
     { kE0,  kE1,  kE2,  kE3,  kE4,  kE5,  ___ }  \
 }
-INACTIVE
-
-
-
-
-/*
-        Blank layer:
-        ,-------------------------------------------------------------------------------.
-        |          |      |      |        |        |          |        |        |       |
-        `-------------------------------------------------------------------------------'
-        ,-------------------------------------------------------------------------------.
-        |          |      |      |        |        |          |        |        |       |
-        `-------------------------------------------------------------------------------'
-        ,-------------------------------------------.,-------------------------------------------.
-        |        |      |      |      |      |      ||      |      |      |      |      |        |
-        |--------+------+------+------+------+------||------+------+------+------+------+--------|
-        |        |      |      |      |      |      ||      |      |      |      |      |        |
-        |--------+------+------+------+------+------||------+------+------+------+------+--------|
-        |        |      |      |      |      |      ||      |      |      |      |      |        |
-        |--------+------+------+------+------+------||------+------+------+------+------+--------|
-        |        |      |      |      |      |      ||      |      |      |      |      |        |
-        `--------+------+------+------+------+------'`------+------+------+------+------+--------'
-                 |      |      |      |      |              |      |      |      |      |
-                 `---------------------------'              `---------------------------'
-                                      ,-------------.,-------------.
-                                      |      |      ||      |      |
-                               ,------|------|------||------+------+------.
-                               |      |      |      ||      |      |      |
-                               |      |      |------||------|      |      |
-                               |      |      |      ||      |      |      |
-                               `--------------------'`--------------------'
-*/
-/*
-[_BLANK] = LAYOUT_pretty (
-           // Left Hand
-           _______, _______, _______, _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-                    _______, _______, _______, _______,
-           // Left Thumb
-                    _______, _______,
-                             _______,
-           _______, _______, _______,
-
-           // Right Hand
-           _______, _______, _______, _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-                    _______, _______, _______, _______,
-           // Right Thumb
-           _______, _______,
-           _______,
-           _______, _______, _______
-    ),
-*/
-
-
-
-/*
-Compressed pretty layout
-
-,--------------------------------------------------------------.                      ,--------------------------------------------------------------.
-|      |      |      |      |      |      |      |      |      |                      |      |      |      |      |      |      |      |      |      |
-`--------------------------------------------------------------'                      `--------------------------------------------------------------'
-,------------------------------------------------------.                                      ,------------------------------------------------------.
-|         |        |        |        |        |        |                                      |        |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                      |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                      |        |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                      |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                      |        |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                      |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                      |        |        |        |        |        |         |
-`---------+--------+--------+--------+--------+--------'                                      `--------+--------+--------+--------+--------+---------'
-          |        |        |        |        |                                                        |        |        |        |        |
-          `-----------------------------------'                                                        `-----------------------------------'
-	                                                   ,-----------------.  ,-----------------.
-	                                                   |        |        |  |        |        |
-	                                          ,--------+--------+--------|  |--------+--------+--------.
-	                                          |        |        |        |  |        |        |        |
-	                                          |        |        |--------|  |--------|        |        |
-	                                          |        |        |        |  |        |        |        |
-	                                          `--------------------------'  `--------------------------'
-*/ 
-
-/* Archived Not Pretty Layout
-[_QWERTY] = LAYOUT (
-           // Left Hand
-           ESC_STATUS,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, TG(_FUNCTION),  TG(_VIM),
-           QK_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-           KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
-           OSM(MOD_LGUI),      LCTL_T(KC_A),    LOPT_T(KC_S),    LGUI_T(KC_D),    LSFT_T(KC_F),    KC_G,
-           OSM(MOD_LSFT), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
-                    TD(PLEQ),  TD(MNUN), KC_LEFT, KC_RGHT,
-
-                                              LCTL_T(KC_ESC), KC_LAPO,
-                                                                G(KC_SPC),
-                                              KC_BSPC, LGUI_T(KC_DEL), APP_NAV,
-
-           // Right Hand
-                    QWERTY,   KC_F10,  KC_F11,  TG(_SYMBOLS),  KC_MUTE, KC_VOLD, KC_VOLU, TG(_KEYPAD),  TG(_PROGRAM),
-                    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
-                    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-                    KC_H,    RSFT_T(KC_J),    RGUI_T(KC_K),    ROPT_T(KC_L),    RCTL_T(KC_SCLN), TD(APQU),
-                    KC_N,    KC_M,    TD(CMAG), TD(PDAG),  KC_SLSH, OSM(MOD_RSFT),
-                             KC_UP,   KC_DOWN, TD(LBCB), TD(RBCB),
-
-           KC_RCPC, KC_LEAD,
-           HYPR_T(KC_BSPC),
-           OSM(MOD_MEH), LT(_KEYPAD, KC_ENT), RGUI_T(KC_SPC)
-    ),
-*/
-
-
-// Triple Tap Tap Dance Function Definition
-
-
-// void triple_tap_dance_pair_on_each_tap(qk_tap_dance_state_t *state, void *user_data) {
-
-//     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
-
-//     if (state->count == 3) {
-//         // immediately finish on third press
-//         register_code16(pair->kc2);
-//         state->finished = true;
-//     }
-// }
-
-// void triple_tap_dance_pair_finished(qk_tap_dance_state_t *state, void *user_data) {
-//     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
-
-//     if (state->count == 1) {
-//         register_code16(pair->kc1);
-//     } else if (state->count == 2) {
-//         // tap plus hold
-//         tap_code16(pair->kc1);
-//         register_code16(pair->kc1);
-//     } else if (state->count == 3) {
-//         register_code16(pair->kc2);
-//     }
-// }
-
-// void triple_tap_dance_pair_reset(qk_tap_dance_state_t *state, void *user_data) {
-//     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
-
-//     if (state->count == 1 || state->count == 2) {
-//         // 1-tap and 2-tap both result in `kc1` pressed so release it
-//         unregister_code16(pair->kc1);
-//     } else if (state->count == 3) {
-//         unregister_code16(pair->kc2);
-//     }
-// // }
-
-
-//  #define TRIPLE_TAP_DANCE_DOUBLE(kc1, kc2) \
-//          { .fn = {
-//              triple_tap_dance_pair_on_each_tap, triple_tap_dance_pair_finished, triple_tap_dance_pair_reset
-//              }, 
-//              .user_data = (void *) & ( (qk_tap_dance_pair_t) {kc1, kc2} ), 
-//          } 
-
-// END Triple Tap Tap Dance Function Definition

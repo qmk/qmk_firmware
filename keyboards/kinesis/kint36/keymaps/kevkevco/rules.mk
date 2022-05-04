@@ -20,3 +20,6 @@ SRC += features/select_word.c
 
 # Enable numword
 SRC += features/num_word.c
+
+# Debugging
+CONSOLE_ENABLE = yes

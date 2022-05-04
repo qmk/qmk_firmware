@@ -22,7 +22,7 @@
 #include "features/caps_word.h"
 #include "features/num_word.h"
 #include "features/select_word.h"
-
+#include "print.h" // For debugging purposes
 
 // For more readable LED control code
 #define LED_KEYPAD E26
@@ -61,7 +61,6 @@ enum {
   RPINKY,
   COLON
 };
-
 
 
 // Define a type for as many tap dance states as needed
@@ -119,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY/Default Layer
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
-|ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  | VIM  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|  Fn  |
+|ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  | VIM  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|PROGRM|
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 | ESC|`\~ |   1^!  |   2^@  |   3^#  |   4^$  |   5^%  |                                                     |   6^^  |  7^&   |  8^*   |  9^(   |   0^)  |  NAV    |
@@ -130,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 | :LSHFT  |    Z   |    X   |    C   |    V   |    B   |                                                     |    N   |   M    |  ,|<   |  .|>   |  /^?   | :RSHFT  |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |WINDOW* | OSMeh  |  ***   |   _|-  |                                                                       |   Up   |  Down  |  Left  |  Right |
+          |WINDOW* | OSMeh  |  Fn   |   _|-  |                                                                       |   Up   |  Down  |  Left  |  Right |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
 	                                                   |SELWORD |CAPSWORD|                 | NUMWORD| ( / NAV|
@@ -155,6 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Manually exit CAPS word by pressing any modifier or holding a Modtap to the mod activation point
     * Window Tap Dance is configured for Rectangle Pro
     * SWAPHD swap the hands of the keycode matrix, except the top small key row is left as is
+    * PROGRAM puts board into program mode, using both control keys + b
     
     Tap Dance Details:
     * WINDOW 1:  One shot NAV layer with CTL+OPT active
@@ -222,12 +222,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_QWERTY] = LAYOUT_pretty(
-  ESC_STS, SH_TT,   KC_F2,   TO(_QWERTY),  TG(_NUMSHIFT),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  TG(_VIM),  CLEAR, DM_PLY1, DM_REC1, DM_RSTP,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_APFN,
+  ESC_STS, SH_TT,   KC_F2,   TO(_QWERTY),  TG(_NUMSHIFT),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  TG(_VIM),  CLEAR, DM_PLY1, DM_REC1, DM_RSTP,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), KC_SCRL,
   TD(GVES), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
+  KC_TAB,  LT(0,KC_Q), LT(0,KC_W),    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
   TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),TD(COLON),TD(RPINKY),
   OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLSH), OSM(MOD_RSFT),
-        TD(WIND), OSM(MOD_MEH), _______,TD(UNMN),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+        TD(WIND), OSM(MOD_MEH), KC_APFN,TD(UNMN),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                                   SELWORD, CAPWORD,                   NUMWORD, LT(_NAV, KC_LPRN),
                                                                 TD(SPOT),                 TD(WIND),
                                 LGUI_T(KC_BSPC), SFT_T(KC_DEL), APP_NAV,                   OSM(MOD_MEH), LT(_KEYPAD, KC_ENT), RGUI_T(KC_SPC)
@@ -244,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
-|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
+|         | Teensy |        |        |        |        |                                                     |        |        |        |        |        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |         | QMK Web|        |Terminal| Chrome |Todoist |                                                     |SystPref|QuikNote|KrbnrEvt|Spotify |Photoshp|         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
@@ -331,6 +331,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                                          |        |        |   /    |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 
+    TODO:
+    * consider adding < > %
+    * consider moving brackets again
 */
 
 [_SYMBOLS] = LAYOUT_pretty(
@@ -359,7 +362,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |        |        |        |        |                                                                       |        |        |        |        |
+          |        |        |  LEFT  | RIGHT  |                                                                       |   UP   |  DOWN  |        |        |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
 	                                                   |        |        |                 |        |        |
@@ -376,7 +379,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
+           _______, _______, KC_LEFT, KC_RGHT,                                                                         KC_UP,   KC_DOWN, _______, _______,
                                                         _______, _______,                   _______, _______,
                                                                  _______,                   _______,
                                                _______, _______, _______,                   _______, _______, _______
@@ -997,12 +1000,12 @@ void colon_td_finished (qk_tap_dance_state_t *state, void *user_data) {
 //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
   colon_td_state.state = hold_cur_dance(state);
   switch (colon_td_state.state) {
-    case SINGLE_TAP: layer_on(_SYMBOLS); set_oneshot_layer(_SYMBOLS, ONESHOT_START); break; // One shot coding symbols layer
+    case SINGLE_TAP: set_oneshot_layer(_SYMBOLS, ONESHOT_START); break; // One shot coding symbols layer
     case SINGLE_HOLD: set_mods(MOD_BIT(KC_RCTL)); break;                                     // Mod tap RCTRL
-    case DOUBLE_TAP: tap_code16(KC_COLN); break;                                            // Colon
-    case DOUBLE_HOLD: caps_word_set(true); break;                                           // Caps Word
+    // case DOUBLE_TAP: tap_code16(KC_COLN); break;                                            // Colon
+    case DOUBLE_HOLD: layer_on(_NAV); break;                                           // Caps Word
     // case TRIPLE_TAP: layer_invert(_KEYPAD); break;                                         // Toggle KEYPAD layer
-    case TRIPLE_HOLD: led_wave(true); break;                                       // 
+    // case TRIPLE_HOLD: led_wave(true); break;                                       // 
     default: break;
   }
 }
@@ -1013,9 +1016,9 @@ void colon_td_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
     case SINGLE_HOLD: unregister_mods(MOD_BIT(KC_RCTL)); break;
     // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
-    // case DOUBLE_HOLD: layer_off(_NAV); clear_mods(); break;
+    case DOUBLE_HOLD: layer_off(_NAV); break;
     // case TRIPLE_TAP: layer_invert(_NUMPAD); break;
-    case TRIPLE_HOLD: led_wave(false); break;
+    // case TRIPLE_HOLD: led_wave(false); break;
     default: break;
   }
   colon_td_state.state = 0;
@@ -1153,6 +1156,30 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [WIND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, window_td_finished, window_td_reset),
 };
 
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case TD(ISPT):
+            add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to the next key.
+            print("\nkeycodes that continue CW WITH shifting");
+
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_MINS:
+        case KC_UNDS:
+            print("\nkeycodes that continue CW without shifting");
+
+            return true;
+
+        default:
+            return false; // Deactivate Caps Word.
+    }
+}
+
 // This function holds the main switch statement for keycode definitions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -1175,49 +1202,101 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;             // Return true for normal processing of tap key code
+
         case LT(0,KC_C):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(G(KC_C)); // Intercept hold function to send CMD+C
                 return false;
             }
             return true;             // Return true for normal processing of tap keycode
+
         case LT(0,KC_V):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(G(KC_V)); // Intercept hold function to send CMD+V
                 return false;
             }
             return true;             // Return true for normal processing of tap keycode
+
         case LT(0,KC_Z):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(G(KC_Z)); // Intercept hold function to send CMD+Z
                 return false;
             }
             return true;             // Return true for normal processing of tap keycode
-        case CLEAR:                  // Clears all keycodes currently pressed, including modifiers
+
+        case LT(0,KC_Y):
             if (!record->tap.count && record->event.pressed) {
+                tap_code16(SGUI(KC_Z)); // Intercept hold function to send CMD+SHIFT+Z for MacOS standard redo
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+
+        case LT(0,KC_Q):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(SGUI(KC_Q)); // Intercept hold function to send CMD+Q
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+
+        case LT(0,KC_W):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(SGUI(KC_W)); // Intercept hold function to send CMD+W
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+            
+        case KC_SCRL:                // Shortcut for QMK compiling in terminal add command for all of that plus a shortcut to Teensy and activate program (flashing) mode
+            if (record->event.pressed) {
+                clear_mods();
+                tap_code16(MEH(KC_E));
+                SEND_STRING(SS_DELAY(500) "cd ~/code/github/qmk_firmware");
+                tap_code(KC_ENT);
+                SEND_STRING("qmk compile");
+                tap_code(KC_ENT);
+                SEND_STRING(SS_DELAY(2000));
+            }
+            if (record->event.pressed && (mod_state & MOD_MASK_GUI)) {
+                clear_mods();
+                SEND_STRING(SS_DELAY(300));
+                tap_code16(MEH(KC_1));
+                SEND_STRING(SS_DELAY(300));
+                set_mods(MOD_MASK_CTRL);
+                add_oneshot_mods(MOD_MASK_CTRL);
+                tap_code(KC_B);
+                // SEND_STRING(SS_DELAY(2000));
+                // clear_mods();
+                // tap_code16(LCAG(KC_2));
+                // SEND_STRING(SS_DELAY(2000));
+                // tap_code16(LCAG(KC_3));
+                return false;
+            }
+            return false;             // Return true for normal processing of tap keycode
+
+        case CLEAR:                  // Clears all keycodes currently pressed, including modifiers
+            if (record->event.pressed) {
                 clear_keyboard();
                 return false;
             }
             return true;             // Return true for normal processing of tap keycode
-        case RCTL_T(KC_COLN):
-            if (record->tap.count && record->event.pressed) {
-                // Detect the activation of either shift keys
-                if (mod_state & MOD_MASK_SHIFT || get_oneshot_mods() & MOD_MASK_SHIFT) {
-                    // First temporarily canceling both shifts so that
-                    // shift isn't applied to the KC_SCLN keycode
-                    del_mods(MOD_MASK_SHIFT);
-                    tap_code(KC_LNUM); // Dummy keypress to get rid of lingering one shot modifier shift that seems to be a bug
-                    tap_code(KC_SCLN);
-                    // Reapplying modifier state so that the held shift key(s)
-                    // still work even after having tapped the colon key.
-                    set_mods(mod_state);
-                }
-                else{
-                    tap_code16(KC_COLN); // Send KC_COLN on single tap
-                }
-                return false;        // Return false to ignore further processing of key
-            }
-            break;
+        
+        // case RCTL_T(_______):
+        //     if (record->tap.count == 1 && record->event.pressed) {
+        //             set_oneshot_layer(_SYMBOLS, ONESHOT_START);
+        //             return false;
+        //         } else if (record->tap.count == 2 && record->event.pressed) {
+        //             layer_on(_NAV);
+        //             return false;
+        //         }
+        //         else if (record->tap.count == 1) { // Key up event after single tap
+        //             clear_oneshot_layer_state(ONESHOT_PRESSED);
+        //             return false;
+        //         }
+        //         else if (record->tap.count == 2) { // Key up event after double tap
+        //             layer_off(_NAV);
+        //             return false;
+        //         }
+        //         else { return true; } // Return true for normal processing of tap keycode, as in case of normal modtap hold
+
         case LGUI_T(KC_BSPC):
         case HYPR_T(KC_BSPC):
             {
