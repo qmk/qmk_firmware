@@ -221,7 +221,7 @@ void user_transport_sync(void) {
             }
         } else {
             if (timer_elapsed32(watchdog_timer) > 3500) {
-                soft_reset_keyboard();
+                software_reset();
                 while (1) {
                 }
             }
