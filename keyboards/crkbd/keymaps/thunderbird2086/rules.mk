@@ -8,7 +8,6 @@ OLED_DRIVER = SSD1306
 LTO_ENABLE = yes
 
 TAP_DANCE_ENABLE = yes      # Enable Tap Dance.
-# COMBO_ENABLE = yes          # Enable Combos
 
 SRC += oled.c
 SRC += process_records.c

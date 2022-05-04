@@ -1,3 +1,6 @@
+// Copyright 2021 Allen Choi (@thunderbird2086)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #define EE_HANDS
@@ -7,8 +10,6 @@
 #undef USE_I2C
 #undef SSD1306OLED
 
-#define USE_SERIAL_PD2
-
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
@@ -16,26 +17,6 @@
 #   undef TAPPING_TERM
 #endif
 #define TAPPING_TERM 200
-
-#ifdef MOUSEKEY_ENABLE
-// Mouse Settings: Smoothing out mouse movement on keypress
-#   ifdef MOUSEKEY_INTERVAL
-#       undef MOUSEKEY_INTERVAL
-#   endif
-#   define MOUSEKEY_INTERVAL 16
-#endif
-
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_TIME_TO_MAX 60
-#define MOUSEKEY_MAX_SPEED 7
-#define MOUSEKEY_WHEEL_DELAY 0
-
-#ifdef COMBO_ENABLE
-#   undef COMBO_COUNT
-#   undef COMBO_TERM
-#   define COMBO_COUNT 5
-#   define COMBO_TERM 60
-#endif
 
 #define NO_ACTION_ONESHOT
 
@@ -45,7 +26,7 @@
 #   define SPLIT_MODS_ENABLE
 #   define SPLIT_OLED_ENABLE
 #   define OLED_FONT_H "keyboards/crkbd/keymaps/thunderbird2086/glcdfont.c"
-#   undef OLED_TIMEOUT
+#    undef OLED_TIMEOUT
         //  due to timer_read() for render_prompt(), we have own implementation of oled time out
 #   define OLED_KEY_TIMEOUT 30000
 #   define KEY_LOG_ENABLE
@@ -59,7 +40,6 @@
 #    define RGBLIGHT_SAT_STEP 32
 #    define RGBLIGHT_VAL_STEP 32
 
-#    define RGBBLIGHT_ANIMATIONS
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_KNIGHT

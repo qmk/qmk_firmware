@@ -1,9 +1,13 @@
+// Copyright 2021 Allen Choi (@thunderbird2086)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 // This is the 'classic' fixed-space bitmap font for Adafruit_GFX since 1.0.
 // See gfxfont.h for newer custom bitmap font info.
 // https://helixfonteditor.netlify.com/
 
 #include "progmem.h"
 
+// clang-format off
 // Standard ASCII 5x7 font
 static const unsigned char PROGMEM font[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -231,3 +235,4 @@ static const unsigned char PROGMEM font[] = {
     0x41, 0x22, 0x1C, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
+// clang-format on
