@@ -5,11 +5,11 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # options
-CONSOLE_ENABLE			= yes
+CONSOLE_ENABLE			= no        # Debugging things
 MOUSEKEY_ENABLE 		= yes       # Mouse keys
 EXTRAKEY_ENABLE 		= yes       # Audio control and System control
-NKRO_ENABLE 			= yes          # Enable N-Key Rollover
-#TAP_DANCE_ENABLE        = yes
+NKRO_ENABLE 			= yes       # Enable N-Key Rollover
+TAP_DANCE_ENABLE        = yes
 
 # space saving options
 LTO_SUPPORTED 			= yes
