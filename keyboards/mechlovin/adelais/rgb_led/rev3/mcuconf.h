@@ -145,12 +145,6 @@
 #define STM32_SPI_DMA_ERROR_HOOK(spip)      osalSysHalt("DMA failure")
 
 /*
- * ST driver system settings.
- */
-#define STM32_ST_IRQ_PRIORITY               8
-#define STM32_ST_USE_TIMER                  2
-
-/*
  * UART driver system settings.
  */
 #define STM32_UART_USE_USART1               FALSE
