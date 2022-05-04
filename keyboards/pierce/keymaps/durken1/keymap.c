@@ -1,3 +1,19 @@
+/* Copyright 2022 durken (https://github.com/durken1/)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
 
@@ -5,37 +21,44 @@
 #include "ps2_mouse.h"
 #endif
 
-//#if defined AUTO_BUTTONS
-//#include USER_NAME_H // for AUTO_BUTTONS_LAYER
-//#endif
-
 #if defined AUTO_BUTTONS && defined PS2_MOUSE_ENABLE 
 
 static uint16_t auto_buttons_timer;
 extern int tp_buttons; // mousekey button state set in action.c and used in ps2_mouse.c
 
 
-enum layers { BASE, MBO, SYM, NUM, FN, };
-enum combos { WF_ARNG, UK_ADIA, HC_ODIA };
+enum layers { 
+    BASE, 
+    MBO, 
+    SYM, 
+    NUM, 
+    FN
+};
+
+enum combos { 
+    WF_ARNG, 
+    EI_ADIA, 
+    UK_ODIA 
+};
 
 void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
-  if (auto_buttons_timer) {
-    auto_buttons_timer = timer_read();
-  } else {
-    if (!tp_buttons) {
-      layer_on(MBO);
-      auto_buttons_timer = timer_read();
+    if (auto_buttons_timer) {
+        auto_buttons_timer = timer_read();
+    } else {
+        if (!tp_buttons) {
+            layer_on(MBO);
+            auto_buttons_timer = timer_read();
+        }
     }
-  }
 }
 
 void matrix_scan_user(void) {
-  if (auto_buttons_timer && (timer_elapsed(auto_buttons_timer) > AUTO_BUTTONS_TIMEOUT)) {
-    if (!tp_buttons) {
-      layer_off(MBO);
-      auto_buttons_timer = 0;
+    if (auto_buttons_timer && (timer_elapsed(auto_buttons_timer) > AUTO_BUTTONS_TIMEOUT)) {
+        if (!tp_buttons) {
+            layer_off(MBO);
+            auto_buttons_timer = 0;
+        }
     }
-  }
 }
 
 #endif // defined AUTO_BUTTONS && defined PS2_MOUSE_ENABLE
@@ -59,15 +82,16 @@ void matrix_scan_user(void) {
 const uint16_t PROGMEM arng_combo[] = {ALT_R, SFT_S, COMBO_END};
 const uint16_t PROGMEM adia_combo[] = {SFT_E, ALT_I, COMBO_END};
 const uint16_t PROGMEM odia_combo[] = {SE_U, SE_K, COMBO_END};
+
 combo_t key_combos[COMBO_COUNT] = {
 	[WF_ARNG] = COMBO(arng_combo, SE_ARNG),
-	[UK_ADIA] = COMBO(adia_combo, SE_ADIA),
-	[HC_ODIA] = COMBO(odia_combo, SE_ODIA)
+	[EI_ADIA] = COMBO(adia_combo, SE_ADIA),
+	[UK_ODIA] = COMBO(odia_combo, SE_ODIA)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
- // Colemak Mod-DH
+ // BASE
   //,--------------------------------------------,                    ,--------------------------------------------.
          SE_Q,    SE_W,    SE_F,    SE_P,    SE_B,                         SE_Y,    SE_L,    SE_U,    SE_K, SE_QUOT,
   //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|

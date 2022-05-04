@@ -36,6 +36,6 @@ AUDIO_ENABLE ?= no
 RGBLIGHT_ENABLE ?= no
 CUSTOM_MATRIX = lite
 
+# project specific files
 SRC += matrix.c \
-       i2c_slave.c \
-       i2c_master.c
+       i2c_slave.c 
