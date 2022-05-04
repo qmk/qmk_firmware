@@ -1,12 +1,12 @@
 # hineybush/ibis
 
-![hineybush/ibis](imgur.com image replace me!)
+![hineybush/ibis](https://i.imgur.com/TaCryDr.png)
 
-*A short description of the keyboard/project*
+Duck Blackbird-layout PCB for the ibis keyboard.
 
 * Keyboard Maintainer: [Josh Hinnebusch](https://github.com/hineybush)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: ibis
+* Hardware Availability: hiney.cc
 
 Make example for this keyboard (after setting up your build environment):
 
