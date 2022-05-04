@@ -45,14 +45,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Data sync options
+//#define DEBUG_MATRIX_SCAN_RATE
 #define SPLIT_TRANSPORT_MIRROR
+
+// Split settings
 //#define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC
-// Split settings
-#define DEBUG_MATRIX_SCAN_RATE
-
-#define USE_I2C
-// #define MASTER_RIGHT
+#define SOFT_SERIAL_PIN D2
+// using serial, the keymap was reversed without forcing master_right /shrug
+#define MASTER_RIGHT
 #define SPLIT_USB_DETECT
 
 // audio
@@ -70,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_INVERT_X
 //#define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-#define PMW3389_LIFTOFF_DISTANCE 0x04
+#define PMW3360_LIFTOFF_DISTANCE 0x04
 
 // #define DYNAMIC_KEYMAP_LAYER_COUNT  16
 // #define LAYER_STATE_16BIT
