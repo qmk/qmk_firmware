@@ -269,7 +269,7 @@ static int str2ekc_combo(bmp_ex_keycode_t* const ek_res, const char* str, uint16
     const char* kc_str[3];
     uint16_t    kc_str_len[3];
 
-    get_element_array(str, len, kc_str, kc_str_len, 2);
+    get_element_array(str, len, kc_str, kc_str_len, 3);
 
     skip_space(&kc_str[0], &len);
     uint16_t kc1 = get_qkc_from_str(kc_str[0], kc_str_len[0], locale);
