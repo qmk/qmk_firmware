@@ -15,7 +15,7 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef OLED_ENABLE
+#if defined(OLED_ENABLE)
 __attribute__((weak))
 bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
     return true;
@@ -25,7 +25,6 @@ bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
-        // BEGIN: Layer macros
     case COLEMAK:
         if (record->event.pressed) {
             set_single_persistent_default_layer(_COLEMAK);
@@ -39,8 +38,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     return process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
-#   ifdef OLED_ENABLE
+#   if defined(OLED_ENABLE)
            && process_record_oled(keycode, record)
 #   endif
-           ; // Close return
+           ;
 }

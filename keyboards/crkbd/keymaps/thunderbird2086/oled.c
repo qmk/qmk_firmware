@@ -81,20 +81,20 @@ void render_layers(void) {
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
 extern rgb_config_t rgb_matrix_config;
 #endif
 
 void render_rgb_status(void) {
     static const char PROGMEM font_rgb_off[3] = {0xd1, 0xd2, 0};
     static const char PROGMEM font_rgb_on[3]  = {0xd3, 0xd4, 0};
-#    ifdef RGBLIGHT_ENABLE
+#    if defined(RGBLIGHT_ENABLE)
     bool rgb_enabled = rgblight_config.enable;
-#    elif RGB_MATRIX_ENABLE
+#    elif defined(RGB_MATRIX_ENABLE)
     bool rgb_enabled = rgb_matrix_config.enable;
 #    endif
     oled_write_P(rgb_enabled ? font_rgb_on : font_rgb_off, false);
@@ -132,7 +132,7 @@ void render_caps_lock(void) {
 // 5x2 Mod and feature indicator clusters
 
 void render_mod_status(void) {
-#ifdef NO_ACTION_ONESHOT
+#if defined(NO_ACTION_ONESHOT)
     uint8_t modifiers = get_mods();
 #else
     uint8_t modifiers = get_mods() | get_oneshot_mods();

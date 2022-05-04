@@ -13,14 +13,14 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
-#ifdef TAPPING_TERM
+#if defined(TAPPING_TERM)
 #   undef TAPPING_TERM
 #endif
 #define TAPPING_TERM 200
 
 #define NO_ACTION_ONESHOT
 
-#ifdef OLED_ENABLE
+#if defined(OLED_ENABLE)
 #   define SPLIT_LAYER_STATE_ENABLE
 #   define SPLIT_LED_STATE_ENABLE
 #   define SPLIT_MODS_ENABLE
@@ -34,7 +34,7 @@
 
 #define RGBLIGHT_SLEEP
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 #    define RGBLIGHT_LIMIT_VAL 150
 #    define RGBLIGHT_HUE_STEP 16
 #    define RGBLIGHT_SAT_STEP 32
@@ -45,7 +45,7 @@
 #    define RGBLIGHT_EFFECT_KNIGHT
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
 #    define RGB_MATRIX_KEYPRESSES               // reacts to keypresses
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED      // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
