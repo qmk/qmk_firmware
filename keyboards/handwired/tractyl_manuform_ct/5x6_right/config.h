@@ -59,11 +59,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Trackball - PMW3360 Settings
 #define PMW3360_CS_PIN F7
-#define SPLIT_POINTING_ENABLE
+// don't think we need this...did not fix the "one half only = no worky" issue; did not break trackball functionality tho - leave out
+// #define SPLIT_POINTING_ENABLE
 //#define POINTING_DEVICE_INVERT_Y
 #define POINTING_DEVICE_RIGHT
 #define PMW3360_CPI 400
-#define ROTATIONAL_TRANSFORM_ANGLE  -25
+#define ROTATIONAL_TRANSFORM_ANGLE  -75
 #define POINTING_DEVICE_INVERT_X
 //#define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
