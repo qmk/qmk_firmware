@@ -12,7 +12,6 @@ enum layers {
     _FUNCTION,
     _GAME,
     _GAME_FUN,
-    _GAME_NUM,
 };
 
 /* thumb mods */
@@ -21,7 +20,6 @@ enum layers {
 #define CMD_TAB CMD_T(KC_TAB)
 #define CMD_ENT CMD_T(KC_ENT)
 #define GFUN_SPC LT(_GAME_FUN,KC_SPC)
-#define GNUM_SPC LT(_GAME_NUM,KC_SPC)
 #define GOPT_ENT OPT_T(KC_ENT)
 
 /* misc mods */
@@ -86,14 +84,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
  '------'------'------'------'------'            '------'------'------'------'------'
                   .------.------.------.      .------.------.------.
-                  | ↓↓↓  | ↓↓↓  | ↓↓↓  |      | ESC  | ↓↓↓  | ↓↓↓  |
+                  | ↓↓↓  | ↓↓↓  | ↓↓↓  |      | DEL  | ↓↓↓  | ↓↓↓  |
                   |      |      |      |      |      |      |      |
                   '------'------'------'      '------'------'------'
 */
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
   HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QT,
   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, SFT_BSLS,
-                    KC_TRNS, KC_TRNS,  KC_TRNS,     KC_ESC,  KC_TRNS, KC_TRNS
+                    KC_TRNS, KC_TRNS,  KC_TRNS,     KC_DEL,  KC_TRNS, KC_TRNS
 ),
 
 [_FUNCTION] = LAYOUT_split_3x5_3(
@@ -109,14 +107,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | TGGL | RMOD | MOD  |      |      |            |      |      |      |      |      |
  '------'------'------'------'------'            '------'------'------'------'------'
                   .------.------.------.      .------.------.------.
-                  | ↓↓↓  |XESC  | DEL  |      | ↓↓↓  | ↓↓↓  | ↓↓↓  |
+                  | ↓↓↓  | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  | ↓↓↓  |
                   |      |      |      |      |      |      |      |
                   '------'------'------'      '------'------'------'
 */
   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,    KC_F8,   KC_F9,    KC_F10,
   KC_LSFT, KC_LCTL,  KC_LGUI, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
   RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_F11,  KC_F12,   XXXXXXX, XXXXXXX,  GAME,
-                     KC_TRNS, XXXXXXX, KC_DEL,       KC_TRNS, KC_TRNS,  KC_TRNS
+                     KC_TRNS, KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS,  KC_TRNS
 ),
 
 [_GAME] = LAYOUT_split_3x5_3(
@@ -163,29 +161,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_G,         XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
   KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_TRNS,
                      KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS
-),
-
-[_GAME_NUM] = LAYOUT_split_3x5_3(
-/*
- .------.------.------.------.------.            .------.------.------.------.------.
- | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
- |      |      |      |      |      |            |      |      |      |      |      |
- |------+------+------+------+------|            |------+------+------+------+------|
- | ` ~  |      |      |      |      |            |      |      |      |      | ' "  |
- | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
- |------+------+------+------+------|            |------+------+------+------+------|
- |      |      |      |      |      |            | - _  | = +  |      |      | ↓↓↓  |
- | ↓↓↓  |      |      |      |      |            |      |      |      |      |      |
- '------'------'------'------'------'            '------'------'------'------'------'
-                  .------.------.------.      .------.------.------.
-                  | ↓↓↓  | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  | ↓↓↓  |
-                  |      |      |      |      |      |      |      |
-                  '------'------'------'      '------'------'------'
-*/
-  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      XXXXXXX, KC_LCMD, KC_LOPT, KC_LCTL, HOME_QT,
-  KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,  XXXXXXX, XXXXXXX, KC_TRNS,
-                    KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 };
@@ -258,85 +233,85 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 }
 
 // https://precondition.github.io/home-row-mods#rolled-modifiers-cancellation
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    /*
-    This piece of code nullifies the effect of Shift when tapping
-    other same hand home row mod keys, especially for key rolls.
-    For example: rolling over LSFT_T(KC_A) and LOPT_T(KC_S)
-    will output the intended "as" instead of "S".
-    Consequently, capital S can only be obtained by tapping LOPT_T(KC_S)
-    and holding RSFT_T(KC_O) (which is the right Shift mod tap).
-    */
-    switch (keycode) {
-        case RCTL_T(KC_I):
-            if (record->event.pressed && record->tap.count > 0) {
-                if (get_mods() & MOD_BIT(KC_RSHIFT)) {
-                    unregister_mods(MOD_BIT(KC_RSHIFT));
-                    tap_code(KC_O);
-                    tap_code(KC_I);
-                    add_mods(MOD_BIT(KC_RSHIFT));
-                    return false;
-                }
-            }
-            return true;
-        case ROPT_T(KC_E):
-            if (record->event.pressed && record->tap.count > 0) {
-                if (get_mods() & MOD_BIT(KC_RSHIFT)) {
-                    unregister_mods(MOD_BIT(KC_RSHIFT));
-                    tap_code(KC_O);
-                    tap_code(KC_E);
-                    add_mods(MOD_BIT(KC_RSHIFT));
-                    return false;
-                }
-            }
-            return true;
-        case RCMD_T(KC_N):
-            if (record->event.pressed && record->tap.count > 0) {
-                if (get_mods() & MOD_BIT(KC_RSHIFT)) {
-                    unregister_mods(MOD_BIT(KC_RSHIFT));
-                    tap_code(KC_O);
-                    tap_code(KC_N);
-                    add_mods(MOD_BIT(KC_RSHIFT));
-                    return false;
-                }
-            }
-            return true;
-        case LCTL_T(KC_R):
-            if (record->event.pressed && record->tap.count > 0) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT)) {
-                    unregister_mods(MOD_BIT(KC_LSHIFT));
-                    tap_code(KC_A);
-                    tap_code(KC_R);
-                    add_mods(MOD_BIT(KC_LSHIFT));
-                    return false;
-                }
-            }
-            return true;
-        case LOPT_T(KC_S):
-            if (record->event.pressed && record->tap.count > 0) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT)) {
-                    unregister_mods(MOD_BIT(KC_LSHIFT));
-                    tap_code(KC_A);
-                    tap_code(KC_S);
-                    add_mods(MOD_BIT(KC_LSHIFT));
-                    return false;
-                }
-            }
-            return true;
-        case LCMD_T(KC_T):
-            if (record->event.pressed && record->tap.count > 0) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT)) {
-                    unregister_mods(MOD_BIT(KC_LSHIFT));
-                    tap_code(KC_A);
-                    tap_code(KC_T);
-                    add_mods(MOD_BIT(KC_LSHIFT));
-                    return false;
-                }
-            }
-            return true;
-    }
-    return true;
-};
+//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//    /*
+//    This piece of code nullifies the effect of Shift when tapping
+//    other same hand home row mod keys, especially for key rolls.
+//    For example: rolling over LSFT_T(KC_A) and LOPT_T(KC_S)
+//    will output the intended "as" instead of "S".
+//    Consequently, capital S can only be obtained by tapping LOPT_T(KC_S)
+//    and holding RSFT_T(KC_O) (which is the right Shift mod tap).
+//    */
+//    switch (keycode) {
+//        case RCTL_T(KC_I):
+//            if (record->event.pressed && record->tap.count > 0) {
+//                if (get_mods() & MOD_BIT(KC_RSHIFT)) {
+//                    unregister_mods(MOD_BIT(KC_RSHIFT));
+//                    tap_code(KC_O);
+//                    tap_code(KC_I);
+//                    add_mods(MOD_BIT(KC_RSHIFT));
+//                    return false;
+//                }
+//            }
+//            return true;
+//        case ROPT_T(KC_E):
+//            if (record->event.pressed && record->tap.count > 0) {
+//                if (get_mods() & MOD_BIT(KC_RSHIFT)) {
+//                    unregister_mods(MOD_BIT(KC_RSHIFT));
+//                    tap_code(KC_O);
+//                    tap_code(KC_E);
+//                    add_mods(MOD_BIT(KC_RSHIFT));
+//                    return false;
+//                }
+//            }
+//            return true;
+//        case RCMD_T(KC_N):
+//            if (record->event.pressed && record->tap.count > 0) {
+//                if (get_mods() & MOD_BIT(KC_RSHIFT)) {
+//                    unregister_mods(MOD_BIT(KC_RSHIFT));
+//                    tap_code(KC_O);
+//                    tap_code(KC_N);
+//                    add_mods(MOD_BIT(KC_RSHIFT));
+//                    return false;
+//                }
+//            }
+//            return true;
+//        case LCTL_T(KC_R):
+//            if (record->event.pressed && record->tap.count > 0) {
+//                if (get_mods() & MOD_BIT(KC_LSHIFT)) {
+//                    unregister_mods(MOD_BIT(KC_LSHIFT));
+//                    tap_code(KC_A);
+//                    tap_code(KC_R);
+//                    add_mods(MOD_BIT(KC_LSHIFT));
+//                    return false;
+//                }
+//            }
+//            return true;
+//        case LOPT_T(KC_S):
+//            if (record->event.pressed && record->tap.count > 0) {
+//                if (get_mods() & MOD_BIT(KC_LSHIFT)) {
+//                    unregister_mods(MOD_BIT(KC_LSHIFT));
+//                    tap_code(KC_A);
+//                    tap_code(KC_S);
+//                    add_mods(MOD_BIT(KC_LSHIFT));
+//                    return false;
+//                }
+//            }
+//            return true;
+//        case LCMD_T(KC_T):
+//            if (record->event.pressed && record->tap.count > 0) {
+//                if (get_mods() & MOD_BIT(KC_LSHIFT)) {
+//                    unregister_mods(MOD_BIT(KC_LSHIFT));
+//                    tap_code(KC_A);
+//                    tap_code(KC_T);
+//                    add_mods(MOD_BIT(KC_LSHIFT));
+//                    return false;
+//                }
+//            }
+//            return true;
+//    }
+//    return true;
+//};
 
 /* custom lighting configuration */
 // microcontroller leds
@@ -390,6 +365,5 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _GAME));
     rgblight_set_layer_state(3, layer_state_cmp(state, _GAME_FUN));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _GAME_NUM));
     return state;
 }
