@@ -6,8 +6,7 @@
 
 
 // 5x3 Logos
-void render_qmk_logo(void)
-{
+void render_qmk_logo(void) {
     static const char PROGMEM font_qmk_logo[16] = {
         0x80, 0x81, 0x82, 0x83, 0x84,
         0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
@@ -18,8 +17,7 @@ void render_qmk_logo(void)
 };
 
 // 5x2 Keyboard, Controller logos
-void render_kb_split(void)
-{
+void render_kb_split(void) {
     static const char PROGMEM font_kb_split[11] = {
         0xb5, 0xb6, 0xb7, 0xb8, 0xb9,
         0xd5, 0xd6, 0xd7, 0xd8, 0xd9,
@@ -30,8 +28,7 @@ void render_kb_split(void)
 
 // 5x1 Layer indicator
 
-void render_layer(void)
-{
+void render_layer(void) {
     static const char PROGMEM font_layer[4][6] = {
         {0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0},
         {0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0},
@@ -51,8 +48,7 @@ void render_layer(void)
 };
 
 
-void render_layers(void)
-{
+void render_layers(void) {
     static const char PROGMEM font_layers[4][16] = {
         {0x20, 0x85, 0x86, 0x87, 0x20,
          0x20, 0xa5, 0xa6, 0xa7, 0x20,
@@ -93,8 +89,7 @@ extern rgblight_config_t rgblight_config;
 extern rgb_config_t rgb_matrix_config;
 #endif
 
-void render_rgb_status(void)
-{
+void render_rgb_status(void) {
     static const char PROGMEM font_rgb_off[3] = {0xd1, 0xd2, 0};
     static const char PROGMEM font_rgb_on[3]  = {0xd3, 0xd4, 0};
 #    ifdef RGBLIGHT_ENABLE
@@ -108,32 +103,27 @@ void render_rgb_status(void)
 
 // 2x1 Ctrl, Alt, Shift, GUI, Caps
 
-void render_mod_ctrl(void)
-{
+void render_mod_ctrl(void) {
     static const char PROGMEM font_ctrl[3] = {0x91, 0x92, 0};
     oled_write_P(font_ctrl, false);
 };
 
-void render_mod_alt(void)
-{
+void render_mod_alt(void) {
     static const char PROGMEM font_alt[3] = {0xb1, 0xb2, 0};
     oled_write_P(font_alt, false);
 };
 
-void render_mod_shift(void)
-{
+void render_mod_shift(void) {
     static const char PROGMEM font_shift[3] = {0xb3, 0xb4, 0};
     oled_write_P(font_shift, false);
 };
 
-void render_mod_gui(void)
-{
+void render_mod_gui(void) {
     static const char PROGMEM font_gui[3] = {0x93, 0x94, 0};
     oled_write_P(font_gui, false);
 };
 
-void render_caps_lock(void)
-{
+void render_caps_lock(void) {
     static const char PROGMEM font_caps[3] = {0x9f, 0xbf, 0};
     oled_write_P(font_caps, false);
 };
@@ -141,8 +131,7 @@ void render_caps_lock(void)
 
 // 5x2 Mod and feature indicator clusters
 
-void render_mod_status(void)
-{
+void render_mod_status(void) {
 #ifdef NO_ACTION_ONESHOT
     uint8_t modifiers = get_mods();
 #else
@@ -161,8 +150,7 @@ void render_mod_status(void)
     (led_state.caps_lock) ? render_caps_lock() : oled_write_P(PSTR("  "), false);
 }
 
-void render_feature_status(void)
-{
+void render_feature_status(void) {
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
     render_rgb_status();
 #endif
@@ -194,26 +182,20 @@ static const char PROGMEM code_to_name[0xFF] = {
 
 
 #if defined(KEY_LOG_ENABLE)
-void add_keylog(uint16_t keycode)
-{
+void add_keylog(uint16_t keycode) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX)
         || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)
-        || (keycode >= QK_MODS && keycode <= QK_MODS_MAX))
-    {
+        || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
         keycode = keycode & 0xFF;
-    }
-    else if (keycode > 0xFF)
-    {
+    } else if (keycode > 0xFF) {
         keycode = 0;
     }
 
-    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i)
-    {
+    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
         keylog_str[i] = keylog_str[i - 1];
     }
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char)))
-    {
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
         keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
     }
 }
@@ -221,10 +203,8 @@ void add_keylog(uint16_t keycode)
 
 static uint16_t key_timer  = 0;
 static bool is_key_processed = true;
-bool process_record_oled(uint16_t keycode, keyrecord_t *record)
-{
-    if (record->event.pressed)
-    {
+bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
         key_timer = timer_read();
         is_key_processed = true;
 
@@ -237,37 +217,27 @@ bool process_record_oled(uint16_t keycode, keyrecord_t *record)
 }
 
 
-void render_keylogger_status(void)
-{
+void render_keylogger_status(void) {
     oled_write(keylog_str, false);
 }
 
 
-void render_prompt(void)
-{
+void render_prompt(void) {
     bool blink = (timer_read() % 1000) < 500;
 
-    if (layer_state_is(_FUNCTION))
-    {
+    if (layer_state_is(_FUNCTION)) {
         oled_write_ln_P(blink ? PSTR("> ft_") : PSTR("> ft "), false);
-    }
-    else if (layer_state_is(_CODE))
-    {
+    } else if (layer_state_is(_CODE)) {
         oled_write_ln_P(blink ? PSTR("> sy_") : PSTR("> sy "), false);
-    }
-    else if (layer_state_is(_ADJUST))
-    {
+    } else if (layer_state_is(_ADJUST)) {
         oled_write_ln_P(blink ? PSTR("> aj_") : PSTR("> aj "), false);
-    }
-    else
-    {
+    } else {
         oled_write_ln_P(blink ? PSTR("> _  ") : PSTR(">    "), false);
     }
 };
 
 
-void render_status_secondary(void)
-{
+void render_status_secondary(void) {
     oled_write_ln("", false);
     oled_write_ln("", false);
 
@@ -291,8 +261,7 @@ void render_status_secondary(void)
 };
 
 
-void render_status_main(void)
-{
+void render_status_main(void) {
     oled_write_ln("", false);
     oled_write_ln("", false);
 
@@ -314,28 +283,20 @@ void render_status_main(void)
 }
 
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation)
-{
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
 
-bool oled_task_user(void)
-{
-    if (is_keyboard_master())
-    {
-        if (is_key_processed && (timer_elapsed(key_timer) < OLED_KEY_TIMEOUT))
-        {
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
+        if (is_key_processed && (timer_elapsed(key_timer) < OLED_KEY_TIMEOUT)) {
             render_status_main();
-        }
-        else if (is_key_processed)
-        {
+        } else if (is_key_processed) {
             is_key_processed = false;
             oled_off();
         }
-    }
-    else
-    {
+    } else {
         render_status_secondary();
     }
 
