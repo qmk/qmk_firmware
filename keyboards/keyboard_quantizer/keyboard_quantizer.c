@@ -20,6 +20,8 @@
 #include "report_descriptor_parser.h"
 #include "report_parser.h"
 
+#include "jp_us_overrides.h"
+
 #include "print.h"
 #include "string.h"
 #include "uart.h"
@@ -339,4 +341,20 @@ bool process_packet(matrix_row_t current_matrix[]) {
     }
 
     return matrix_has_changed;
+}
+
+void set_key_override(OVERRIDE_MODE mode) {
+    switch (mode) {
+        case DISABLE_OVERRIDE:
+            key_override_off();
+            break;
+        case US_KEY_ON_JP_OS_OVERRIDE:
+            register_us_key_on_jp_os_overrides();
+            key_override_on();
+            break;
+        case JP_KEY_ON_US_OS_OVERRIDE:
+            register_jp_key_on_us_os_overrides();
+            key_override_on();
+            break;
+    }
 }

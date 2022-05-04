@@ -1,4 +1,6 @@
 SRC += report_parser.c report_descriptor_parser.c
+include users/sekigon/jp_us_overrides/rules.mk
+
 # Additional source
 CUSTOM_MATRIX = yes # This flag should be on for nrf52
 
@@ -6,12 +8,13 @@ CUSTOM_MATRIX = yes # This flag should be on for nrf52
 #   change yes to no to disable
 #
 POINTING_DEVICE_ENABLE = yes
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-MOUSE_SHARED_EP = no		# Should be disabled for BLE Micro Pro
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
+
+BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+MOUSE_SHARED_EP = no		# Should be disabled for BLE Micro Pro
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work

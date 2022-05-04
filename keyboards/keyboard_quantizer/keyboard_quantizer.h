@@ -69,6 +69,14 @@ void on_disconnect_device_user(uint8_t device);
 bool process_packet(matrix_row_t current_matrix[]);
 int  send_reset_cmd(void);
 
+typedef enum {
+    DISABLE_OVERRIDE,
+    US_KEY_ON_JP_OS_OVERRIDE,
+    JP_KEY_ON_US_OS_OVERRIDE,
+} OVERRIDE_MODE;
+
+void set_key_override(OVERRIDE_MODE mode);
+
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
