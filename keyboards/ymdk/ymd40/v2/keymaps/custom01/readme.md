@@ -1,1 +1,1 @@
-# The default keymap for YMD40 v2
+# Custom keymap for YMD40 v2
