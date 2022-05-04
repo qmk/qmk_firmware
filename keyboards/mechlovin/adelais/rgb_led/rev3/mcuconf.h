@@ -164,12 +164,10 @@
 #define STM32_UART_USART3_DMA_PRIORITY      0
 #define STM32_UART_DMA_ERROR_HOOK(uartp)    osalSysHalt("DMA failure")
 
-/*
- * USB driver system settings.
- */
-#define STM32_USB_USE_USB1                  TRUE
-#define STM32_USB_LOW_POWER_ON_SUSPEND      FALSE
-#define STM32_USB_USB1_HP_IRQ_PRIORITY      13
-#define STM32_USB_USB1_LP_IRQ_PRIORITY      14
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 FALSE
 
-#endif /* _MCUCONF_H_ */
+#undef STM32_I2C_USE_SPI1
+#define STM32_I2C_USE_SPI1 TRUE
+#undef STM32_I2C_USE_SPI2
+#define STM32_I2C_USE_SPI1 FALSE
