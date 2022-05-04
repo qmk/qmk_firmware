@@ -1,14 +1,32 @@
-# Kevin's Kinesis Advantage keymap
+# kevkevco's Kinesis Advantage2 keymap
 
 Tested with a Kinesis Advantage2, kinT (stapelberg) keyboard controller built
 with a Teensy 3.6 microcontroller and a USA system layout.
 
+# My Setup
+
+Using upgradekeyboards.com, they changed the switches in my board to Kailh box white switches for ease and clear clicky feedback. They added about a pound of weight to the board to make it stay put on the desk, feel more substantial and stable, and perhaps improve the acoustics.
+
+Furniture: I use a standing desk by Uplift as recommended by the NY Times, a keyboard tray from Humanscale, a Humanscale Leap v2 black leather chair
+Technology:
+- Kensington Slimblade
+- Kensington Expert
+- Evoluent Right Handed V4MDLW wireless large vertical mouse
+- Evoluent Left Handed wired vertical mouse
+- Monitors that can adjust to the right positioning
+- Logitech G915TKL Wireless Clicky Keyboard for variation
+
+# Other ergonomic considerations
+- Hand exercises/strengthening
+- Elbow compression sleeve seems to help
+# Keycaps
+I shuffled several of the keycaps around to my ergonomic preferences. I used a blank keycap set purchased from Kinesis in order to have the extra keycaps necessary for this.
+
+# BT500
+Sometimes it is more convenient for me to use my keyboard wirelessly, for example in my lap. For that purpose I used industrial strength velcro to temporarily attach a slim portable battery ~10,000mAh to the back of the keyboard. Mostly for aesthetics I had the native USB cord replaced with a shorter cord (that avoids having extra slack) that plugs into the BT500 which then plugs into the portable battery. There is a few inches of give and take in the cord to slide through the hole in the back of the board that was plugged using a rubber piece that upgradekeyboards.com found.
 # FN patch
 Doesn't work using bt500 Bluetooth adapter.
 ## CAPSWORD and NUMWORD from replicaJunction
-/Users/kevin/Code/Github/qmk_firmware/users/drashna/keyrecords
-
-
 The concept here is simple: more often than you'd think, you need to type a single word in ALL CAPS. An easy example for me, as a programmer, is a constant value; in most programming languages, constants are typed in all caps by convention.
 
 You typically have a few choices, but each one comes with a drawback. Here are the options I'm aware of:
@@ -26,15 +44,11 @@ The solution to this problem is CAPSWORD. When enabled, it activates Caps Lock a
 NUMWORD is a similar concept, but has a slightly more elaborate implementation. There's a bit of extra logic in the NUMWORD code that allows the keycode to act as a tap/hold key as well. Tapping enables NUMWORD while number keys are in use, while holding the key enables a number layer for the duration of the key hold and disables it again afterwards.
 
 **Note:** The implementation of NUMWORD requires that the keyboard's layer definitions be accessible in a header file. In my case, since I use a fairly standard set of layers, I've declared it in my userspace.
-
 # Credits
-
 numword from replicaJunction
-
+# TODO
 [bpruitt-goddard](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/bpruitt-goddard/readme.md)
 * Dynamic macro tap-dance
-
-# TODO
 
 // Inactive Aliases
 // #define NUMPAD  TG(_NUMPAD)

@@ -129,10 +129,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 | :LSHFT  |    Z   |    X   |    C   |    V   |    B   |                                                     |    N   |   M    |  ,|<   |  .|>   |  /^?   | :RSHFT  |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |WINDOW* | OSMeh  |  Fn   |   _|-  |                                                                       |   Up   |  Down  |  Left  |  Right |
+          |WINDOW* | OSMeh  |  Fn   |   _|-  |                                                                        |  Left  |  Down  |   Up   |  Right |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
-	                                                   |SELWORD |CAPSWORD|                 | NUMWORD| ( / NAV|
+	                                                   |SELWORD |ENT/COG*|                 | NUMWORD| ( / NAV|
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
 	                                          |  Bksp  |  Del   |  SPOT  |                 |WINDOW* |  Enter |  Space |
 	                                          | ^Del / |   /    |--------|                 |--------|    /   |    /   |
@@ -154,14 +154,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Manually exit CAPS word by pressing any modifier or holding a Modtap to the mod activation point
     * Window Tap Dance is configured for Rectangle Pro
     * SWAPHD swap the hands of the keycode matrix, except the top small key row is left as is
-    * PROGRAM puts board into program mode, using both control keys + b
+    * PROGRAM compiles qmk code; add command to key and it additionally opens Teensy and puts board in command/program mode ready for flashing
+    * Fn is the Apple Native Function key
+    * COG is short for Control+Option+Gui
     
     Tap Dance Details:
     * WINDOW 1:  One shot NAV layer with CTL+OPT active
              1h: NAV layer while holding with CTL+OPT active
              2:  Switch between windows of same app (CMD+`)
              2h: NAV layer while holding with CMD+CTL+OPT active
-             3:  TODO
+             3:  ______
              3h: Hide Window (CMD+H)
     * LPINKY 1:  One shot SYMBOLS layer
              1h: NAV layer while holding
@@ -172,21 +174,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * RPINKY 1:  '
              1h: One shot SYMBOLS layer
              2:  "
-             2h: TODO
+             2h: ______
              3:  Toggle NUMSHIFT layer
-             3h: TODO
+             3h: ______
     * COLON  1:  One shot SYMBOLS layer
              1h: Modtap RCTL
-             2:  :
-             2h: TODO
-             3:  TODO
-             3h: TODO
+             2:  NAV layer while holding
+             2h: ______
+             3:  ______
+             3h: ______
     * SLSH   1:  /
              1h: Command+/
              2:  //
              2h: HTML style multiline comment
              3:  ?
-             3h: TODO
+             3h: ______
 
     Wishes:
     * Holding down tab could do something
@@ -205,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * CAPSWORD activate using two index home row mods
 
 
-    Eventually reconstitute the below using #define aliases;
+    When my keymap change-rate settles, reconstitute the below using #define aliases;
 
 [_QWERTY] = LAYOUT_pretty(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -228,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),TD(COLON),TD(RPINKY),
   OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLSH), OSM(MOD_RSFT),
         TD(WIND), OSM(MOD_MEH), KC_APFN,TD(UNMN),                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-                                                  SELWORD, CAPWORD,                   NUMWORD, LT(_NAV, KC_LPRN),
+                                                  SELWORD, LCAG_T(KC_ENT),                   NUMWORD, LT(_NAV, S(KC_COMM)),
                                                                 TD(SPOT),                 TD(WIND),
                                 LGUI_T(KC_BSPC), SFT_T(KC_DEL), APP_NAV,                   OSM(MOD_MEH), LT(_KEYPAD, KC_ENT), RGUI_T(KC_SPC)
 ),
@@ -1233,14 +1235,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case LT(0,KC_Q):
             if (!record->tap.count && record->event.pressed) {
-                tap_code16(SGUI(KC_Q)); // Intercept hold function to send CMD+Q
+                tap_code16(G(KC_Q)); // Intercept hold function to send CMD+Q
                 return false;
             }
             return true;             // Return true for normal processing of tap keycode
 
         case LT(0,KC_W):
             if (!record->tap.count && record->event.pressed) {
-                tap_code16(SGUI(KC_W)); // Intercept hold function to send CMD+W
+                tap_code16(G(KC_W)); // Intercept hold function to send CMD+W
                 return false;
             }
             return true;             // Return true for normal processing of tap keycode
