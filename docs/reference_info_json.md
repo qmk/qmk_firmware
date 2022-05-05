@@ -108,6 +108,58 @@ Example:
 }
 ```
 
+### Non-RGB LED Lighting
+
+## Backlight
+
+This section controls basic 2-pin LEDs, such as soldered in-switch LEDs or one-color indicators.
+
+* `breathing`
+    * Enable backlight breathing, if supported
+* 'breathing_period`
+    * The length of one backlight “breath” in seconds
+* `levels`
+    * The number of brightness levels (maximum 31, excluding off)
+* `pin`
+    * The pin that controls the backlight LED(s)
+
+Example:
+
+```json
+{
+    "backlight": {
+        "breathing": TRUE,
+        "breathing_period": 5,
+        "levels": 15,
+        "pin": "B7"
+    }
+}
+```
+
+## LED Indicators
+
+Used for indicating Num Lock, Caps Lock, and Scroll Lock. May be soldered in-switch or in a dedicated area.
+
+* `num_lock`
+    * The pin that controls the `Num Lock` LED
+* 'caps_lock`
+    * The pin that controls the `Caps Lock` LED
+* `scroll_lock`
+    * The pin that controls the `Scroll Lock` LED
+
+Example:
+
+```json
+{
+    "indicators": {
+      "num_lock": "B6",
+      "caps_lock": "D2",
+      "scroll_lock": "A3"
+    },
+}
+
+```
+
 ### RGB Lighting
 
 This section controls the legacy WS2812 support in QMK. This should not be confused with the RGB Matrix feature, which can be used to control both WS2812 and ISSI RGB LEDs.
