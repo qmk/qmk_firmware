@@ -40,9 +40,10 @@ __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *r
 }
 #    endif
 
-#    ifdef TAPPING_FORCE_HOLD_PER_KEY
-__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-    return false;
+#    define WITHIN_QUICK_TAP_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_QUICK_TAP_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
+#    ifdef QUICK_TAP_TERM_PER_KEY
+__attribute__((weak)) uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    return QUICK_TAP_TERM;
 }
 #    endif
 
@@ -121,7 +122,7 @@ void action_tapping_process(keyrecord_t record) {
  * readable. The conditional definition of tapping_keycode and all the
  * conditional uses of it are hidden inside macros named TAP_...
  */
-#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(QUICK_TAP_TERM_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
 #        define TAP_DEFINE_KEYCODE uint16_t tapping_keycode = get_record_keycode(&tapping_key, false)
 #    else
 #        define TAP_DEFINE_KEYCODE
@@ -385,7 +386,7 @@ bool process_tapping(keyrecord_t *keyp) {
         if (WITHIN_TAPPING_TERM(event) || MAYBE_RETRO_SHIFTING(event)) {
             if (event.pressed) {
                 if (IS_TAPPING_RECORD(keyp)) {
-                    if (!TAP_GET_TAPPING_FORCE_HOLD && !tapping_key.tap.interrupted && tapping_key.tap.count > 0) {
+                    if (WITHIN_QUICK_TAP_TERM(event) && !tapping_key.tap.interrupted && tapping_key.tap.count > 0) {
                         // sequential tap.
                         keyp->tap = tapping_key.tap;
                         if (keyp->tap.count < 15) keyp->tap.count += 1;

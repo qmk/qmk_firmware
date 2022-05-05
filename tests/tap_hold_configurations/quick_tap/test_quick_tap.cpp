@@ -25,9 +25,9 @@
 using testing::_;
 using testing::InSequence;
 
-class TappingForceHold : public TestFixture {};
+class QuickTap : public TestFixture {};
 
-TEST_F(TappingForceHold, tap_regular_key_while_mod_tap_key_is_held) {
+TEST_F(QuickTap, tap_regular_key_while_mod_tap_key_is_held) {
     TestDriver driver;
     InSequence s;
     auto       mod_tap_hold_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
@@ -67,7 +67,7 @@ TEST_F(TappingForceHold, tap_regular_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-TEST_F(TappingForceHold, tap_mod_tap_key_while_mod_tap_key_is_held) {
+TEST_F(QuickTap, tap_mod_tap_key_while_mod_tap_key_is_held) {
     TestDriver driver;
     InSequence s;
     auto       first_mod_tap_hold_key  = KeymapKey(0, 1, 0, SFT_T(KC_P));
@@ -107,7 +107,7 @@ TEST_F(TappingForceHold, tap_mod_tap_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-TEST_F(TappingForceHold, tap_regular_key_while_layer_tap_key_is_held) {
+TEST_F(QuickTap, tap_regular_key_while_layer_tap_key_is_held) {
     TestDriver driver;
     InSequence s;
     auto       layer_tap_hold_key = KeymapKey(0, 1, 0, LT(1, KC_P));
@@ -144,7 +144,7 @@ TEST_F(TappingForceHold, tap_regular_key_while_layer_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-TEST_F(TappingForceHold, tap_mod_tap_hold_key_two_times) {
+TEST_F(QuickTap, tap_mod_tap_hold_key_two_times) {
     TestDriver driver;
     InSequence s;
     auto       mod_tap_hold_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
@@ -178,7 +178,7 @@ TEST_F(TappingForceHold, tap_mod_tap_hold_key_two_times) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-TEST_F(TappingForceHold, tap_mod_tap_hold_key_twice_and_hold_on_second_time) {
+TEST_F(QuickTap, tap_mod_tap_hold_key_twice_and_hold_on_second_time) {
     TestDriver driver;
     InSequence s;
     auto       mod_tap_hold_key = KeymapKey(0, 1, 0, SFT_T(KC_P));

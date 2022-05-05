@@ -22,6 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define TAPPING_TERM 200
 #endif
 
+/* period of quick tap(ms) */
+#if !defined(QUICK_TAP_TERM) || QUICK_TAP_TERM > TAPPING_TERM
+#    define QUICK_TAP_TERM TAPPING_TERM
+#endif
+
 /* tap count needed for toggling a feature */
 #ifndef TAPPING_TOGGLE
 #    define TAPPING_TOGGLE 5
@@ -52,4 +57,10 @@ extern uint16_t g_tapping_term;
 #    define GET_TAPPING_TERM(keycode, record) g_tapping_term
 #else
 #    define GET_TAPPING_TERM(keycode, record) (TAPPING_TERM)
+#endif
+
+#ifdef QUICK_TAP_TERM_PER_KEY
+#    define GET_QUICK_TAP_TERM(keycode, record) get_quick_tap_term(keycode, record)
+#else
+#    define GET_QUICK_TAP_TERM(keycode, record) (QUICK_TAP_TERM)
 #endif

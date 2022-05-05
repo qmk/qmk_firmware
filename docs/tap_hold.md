@@ -375,48 +375,49 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-## Tapping Force Hold
+## Quick Tap Term
 
-To enable `tapping force hold`, add the following to your `config.h`:
+When the user holds a key after tapping it, the tapping function is repeated by default, rather than activating the hold function. This allows keeping the ability to auto-repeat the tapping function of a dual-role key. `QUICK_TAP_TERM` enables fine tuning of that ability. If set to `0`, it will remove the auto-repeat ability and activate the hold function instead.
+
+`QUICK_TAP_TERM` is set to `TAPPING_TERM` by default, which is the maximum allowed value for `QUICK_TAP_TERM`. To override its value (in milliseconds) add the following to your `config.h`:
 
 ```c
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 120
 ```
-
-When the user holds a key after tapping it, the tapping function is repeated by default, rather than activating the hold function. This allows keeping the ability to auto-repeat the tapping function of a dual-role key. `TAPPING_FORCE_HOLD` removes that ability to let the user activate the hold function instead, in the case of holding the dual-role key after having tapped it.
 
 Example:
 
 - `SFT_T(KC_A)` Down
 - `SFT_T(KC_A)` Up
 - `SFT_T(KC_A)` Down
-- wait until the tapping term expires...
-- `SFT_T(KC_A)` Up
+- (wait until tapping term expires...)
 
-With default settings, `a` will be sent on the first release, then `a` will be sent on the second press allowing the computer to trigger its auto-repeat function.
+With default settings, `a` will be sent on the first release, then `a` will be sent on the second press allowing the computer to trigger its auto repeat function until the key is released.
 
-With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allowing to use it as a modifier shortly after having used it as a tap.
+With `QUICK_TAP_TERM` configured, the timing between `SFT_T(KC_A)` up and `SFT_T(KC_A)` down must be within `QUICK_TAP_TERM` to trigger auto repeat. Otherwise the second press will be sent as a Shift. If `QUICK_TAP_TERM` is set to `0`, the second press will always be sent as a Shift, effectively disabling auto-repeat.
 
-!> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
+!> `QUICK_TAP_TERM` timing will also impact anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
 ```c
-#define TAPPING_FORCE_HOLD_PER_KEY
+#define QUICK_TAP_TERM_PER_KEY
 ```
 
 You can then add the following function to your keymap:
 
 ```c
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(1, KC_BSPC):
-            return true;
+        case SFT_T(KC_SPC):
+            return QUICK_TAP_TERM - 20;
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
 ```
+
+?> If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
 
 ## Retro Tapping
 
