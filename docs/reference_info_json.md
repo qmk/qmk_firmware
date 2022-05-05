@@ -108,11 +108,10 @@ Example:
 }
 ```
 
-### Non-RGB LED Lighting
+## Non-RGB LED Lighting
 
-## Backlight
-
-This section controls basic 2-pin LEDs, such as soldered in-switch LEDs or one-color indicators.
+This section controls basic 2-pin LEDs, which typically pass through keyswitches and are soldered into the PCB, or are placed in PCB sockets.
+### Backlight
 
 * `breathing`
     * Enable backlight breathing, if supported
@@ -136,7 +135,7 @@ Example:
 }
 ```
 
-## LED Indicators
+### LED Indicators
 
 Used for indicating Num Lock, Caps Lock, and Scroll Lock. May be soldered in-switch or in a dedicated area.
 
