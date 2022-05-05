@@ -95,6 +95,7 @@ static void hexrgb_input(uint16_t keycode) {
     int8_t digit = key_hexdigit(keycode);
     /* exit input mode if an invalid key has been pressed */
     if (digit == -1) {
+        hexrgb.count = 0;
         hexrgb.active = false;
         return;
     }
