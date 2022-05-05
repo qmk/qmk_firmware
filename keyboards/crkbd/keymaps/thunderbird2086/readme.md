@@ -4,7 +4,7 @@ The concept is Mac and **baby finger** friendly keymap.
 
 ## Layers
 - Colemak-DH: base layer. The option(⌥) and command(⌘) keys are assigned to thumb blocks as well as home position keys on each side.  Also, far end two rows are assigned to shift(⇧) and control(⌃) keys.
-  ![colemak-dh](https://i.imgur.com/3BLzMSy.png)
+  ![colemak-dh](https://i.imgur.com/R7EzTTt.png)
 - QWERTY: same as Colemak-DH layer
   ![qwery](https://i.imgur.com/v9JBwQu.png)
 - CODE: numbers and symbols.  
