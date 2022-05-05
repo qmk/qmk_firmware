@@ -127,7 +127,7 @@ Example:
 ```json
 {
     "backlight": {
-        "breathing": TRUE,
+        "breathing": true,
         "breathing_period": 5,
         "levels": 15,
         "pin": "B7"
