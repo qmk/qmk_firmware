@@ -1,11 +1,20 @@
 """Interactions with compatible XAP devices
 """
+import cmd
 import json
 import random
 import gzip
 from platform import platform
 
 from milc import cli
+
+KEYCODE_MAP = {
+    # TODO: this should be data driven...
+    0x04: 'KC_A',
+    0x05: 'KC_B',
+    0x29: 'KC_ESCAPE',
+    0xF9: 'KC_MS_WH_UP',
+}
 
 
 def _is_xap_usage(x):
@@ -170,24 +179,10 @@ def xap_dump_keymap(device):
     keycode = _xap_transaction(device, 0x05, 0x02, b"\x00\x00\x00")
 
     keycode = int.from_bytes(keycode, "little")
-    keycode_map = {
-        # TODO: this should be data driven...
-        0x04: 'KC_A',
-        0x05: 'KC_B',
-        0x29: 'KC_ESCAPE',
-        0xF9: 'KC_MS_WH_UP',
-    }
-    print(f'keycode:{keycode_map.get(keycode, "unknown")}[{keycode}]')
+    print(f'keycode:{KEYCODE_MAP.get(keycode, "unknown")}[{keycode}]')
 
     # set encoder [layer:0, index:0, clockwise:0, keycode:KC_A]
     _xap_transaction(device, 0x05, 0x03, b"\x00\x00\x00\x04\00")
-
-
-def xap_doit():
-    print("xap_doit")
-    # Reboot
-    # _xap_transaction(device, 0x01, 0x07)
-    exit(1)
 
 
 def xap_broadcast_listen(device):
@@ -208,9 +203,67 @@ def xap_unlock(device):
     _xap_transaction(device, 0x00, 0x04)
 
 
+class XAPShell(cmd.Cmd):
+    intro = 'Welcome to the XAP shell.  Type help or ? to list commands.\n'
+    prompt = 'Ψ> '
+
+    def __init__(self, device):
+        cmd.Cmd.__init__(self)
+        self.device = device
+
+    def do_about(self, arg):
+        """Prints out the current version of QMK with a build date
+        """
+        data = _query_device(self.device)
+        print(data)
+
+    def do_unlock(self, arg):
+        """Initiate secure unlock
+        """
+        xap_unlock(self.device)
+        print("Done")
+
+    def do_listen(self, arg):
+        """Log out XAP broadcast messages
+        """
+        xap_broadcast_listen(self.device)
+
+    def do_keycode(self, arg):
+        """Prints out the keycode value of a certain layer, row, and column
+        """
+        data = bytes(map(int, arg.split()))
+        if len(data) != 3:
+            cli.log.error("Invalid args")
+            return
+
+        keycode = _xap_transaction(self.device, 0x04, 0x02, data)
+        keycode = int.from_bytes(keycode, "little")
+        print(f'keycode:{KEYCODE_MAP.get(keycode, "unknown")}[{keycode}]')
+
+    def do_exit(self, line):
+        """Quit shell
+        """
+        return True
+
+    def do_EOF(self, line):  # noqa: N802
+        """Quit shell (ctrl+D)
+        """
+        return True
+
+    def loop(self):
+        """Wrapper for cmdloop that handles ctrl+C
+        """
+        try:
+            self.cmdloop()
+            print('')
+        except KeyboardInterrupt:
+            print('^C')
+        return False
+
+
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>.')
-@cli.argument('-i', '--index', default=0, help='device index to select.')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available devices.')
+@cli.argument('-i', '--interactive', arg_only=True, action='store_true', help='Start interactive shell.')
 @cli.argument('action', nargs='?', arg_only=True)
 @cli.subcommand('Acquire debugging information from usb XAP devices.', hidden=False if cli.config.user.developer else True)
 def xap(cli):
@@ -233,16 +286,9 @@ def xap(cli):
     device = hid.Device(path=dev['path'])
     cli.log.info("Connected to:%04x:%04x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
 
-    # xap_doit(device)
-    if cli.args.action == 'unlock':
-        xap_unlock(device)
-        cli.log.info("Done")
+    # shell?
+    if cli.args.interactive:
+        XAPShell(device).loop()
+        return True
 
-    elif cli.args.action == 'dump':
-        xap_dump_keymap(device)
-
-    elif cli.args.action == 'listen':
-        xap_broadcast_listen(device)
-
-    elif not cli.args.action:
-        xap_broadcast_listen(device)
+    XAPShell(device).onecmd(cli.args.action or 'listen')
