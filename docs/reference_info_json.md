@@ -115,7 +115,7 @@ This section controls basic 2-pin LEDs, which typically pass through keyswitches
 
 * `breathing`
     * Enable backlight breathing, if supported
-* 'breathing_period`
+* `breathing_period`
     * The length of one backlight “breath” in seconds
 * `levels`
     * The number of brightness levels (maximum 31, excluding off)
