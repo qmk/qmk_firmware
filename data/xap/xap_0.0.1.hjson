@@ -46,7 +46,7 @@
 
             Communication generally follows a request/response pattern.
 
-            Each request needs to include a _token_ -- this `u16` value prefixes each outbound request from the host application and its corresponding response, allowing repsonse messages to be correlated with their request, even if multiple host applications are communicating with the firmware simultaneously. Host applications should randomly generate a token ID for **every** outbound request, unless using a reserved token defined below.
+            Each request needs to include a _token_ -- this `u16` value prefixes each outbound request from the host application and its corresponding response, allowing response messages to be correlated with their request, even if multiple host applications are communicating with the firmware simultaneously. Host applications should randomly generate a token ID for **every** outbound request, unless using a reserved token defined below.
 
             This token is followed by a `u8` signifying the length of data in the request.
             '''
@@ -157,7 +157,7 @@
 
         response_header: {
             name: Response Header
-            description: Packet format for inbound data.
+            description: Packet format for outbound data.
             type: struct
             struct_length: 4
             struct_members: [
