@@ -1,6 +1,6 @@
 # hineybush/ibis
 
-![hineybush/ibis](https://i.imgur.com/TaCryDr.png)
+![hineybush/ibis](https://i.imgur.com/TaCryDrh.png)
 
 Duck Blackbird-layout PCB for the ibis keyboard.
 
