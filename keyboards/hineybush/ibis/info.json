@@ -45,8 +45,10 @@
         "pid": "0xEAA9",
         "vid": "0x04D8"
     },
-    "LED_CAPS_LOCK_PIN": "D2",
-    "LED_NUM_LOCK_PIN": "B7",
+    "indicators": {
+      "num_lock": "B7",
+      "caps_lock": "D2"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
