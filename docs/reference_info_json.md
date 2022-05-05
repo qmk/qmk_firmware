@@ -159,7 +159,7 @@ Example:
 
 ```
 
-### RGB Lighting
+## RGB Lighting
 
 This section controls the legacy WS2812 support in QMK. This should not be confused with the RGB Matrix feature, which can be used to control both WS2812 and ISSI RGB LEDs.
 
@@ -203,7 +203,7 @@ Example:
 }
 ```
 
-#### RGBLight Animations
+### RGBLight Animations
 
 The following animations can be enabled:
 
