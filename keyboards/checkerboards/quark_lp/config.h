@@ -46,6 +46,8 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define TAPPING_TOGGLE 2
+
 // RGB Matrix
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -61,6 +63,7 @@
 #define RGBLED_NUM 51 // number of LEDs
 
 #ifdef RGB_MATRIX_ENABLE
+#define DRIVER_LED_TOTAL RGBLED_NUM
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
