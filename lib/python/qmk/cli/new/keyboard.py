@@ -225,7 +225,7 @@ def new_keyboard(cli):
 
     # TODO: detach community layout and rename to just "LAYOUT"
     if default_layout == 'none of the above':
-        default_layout = "ortho_4x4"
+        default_layout = "layout"
 
     # begin with making the deepest folder in the tree
     keymaps_path = keyboard(kb_name) / 'keymaps/'
