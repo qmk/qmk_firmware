@@ -141,7 +141,7 @@ Used for indicating Num Lock, Caps Lock, and Scroll Lock. May be soldered in-swi
 
 * `num_lock`
     * The pin that controls the `Num Lock` LED
-* 'caps_lock`
+* `caps_lock`
     * The pin that controls the `Caps Lock` LED
 * `scroll_lock`
     * The pin that controls the `Scroll Lock` LED
@@ -151,10 +151,10 @@ Example:
 ```json
 {
     "indicators": {
-      "num_lock": "B6",
-      "caps_lock": "D2",
-      "scroll_lock": "A3"
-    },
+        "num_lock": "B6",
+        "caps_lock": "D2",
+        "scroll_lock": "A3"
+    }
 }
 
 ```
