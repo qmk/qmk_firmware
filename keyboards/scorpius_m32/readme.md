@@ -1,6 +1,6 @@
 # Scorpius_m32
 
-![Scorpius_m32](https://deskthority.net/wiki/images/e/ed/HHKB_Lite_2.jpg)
+![Scorpius_m32](https://vencer-co.github.io/Mocha/images/m32.png)
 
 This is for the [Scorpius_m32](https://deskthority.net/wiki/HHKB_Lite)
 by PFU, identified by model numbers PD-KB200W/U or PD-KB200B/U. It

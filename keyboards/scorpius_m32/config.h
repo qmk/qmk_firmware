@@ -1,3 +1,6 @@
+
+// Copyright 2022 Vencer-Co (@Vencer-Co)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
 #include "config_common.h"
@@ -7,7 +10,7 @@
 #define PRODUCT_ID      0x88B2
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    PFU
-#define PRODUCT         HHKB Lite 2
+#define PRODUCT         scorpius_m32
 
 /* key matrix size */
 #define MATRIX_ROWS 8
