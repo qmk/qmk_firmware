@@ -2,7 +2,7 @@
 
 A macropad designed by dingusxmcgee_ and tominabox1.
 
-![bigboy](update .jpg)
+![bigboy](https://i.imgur.com/oqxx6sE.jpg)
 
 * Keyboard Maintainer: [tominabox1](https://github.com/tominabox1)
 * Hardware Supported: BigBoy
