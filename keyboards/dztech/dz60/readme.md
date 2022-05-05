@@ -15,6 +15,14 @@ There are two versions of the DZ60 PCB. Please use the appropriate firmware for 
 * V1: 1.6mm thickness PCB;
 * V2: 1.2mm thickness PCB
 
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix
+* **Physical reset button**: Briefly press the button on the back of the PCB
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+
 Make example for this keyboard (after setting up your build environment):
 
     make dztech/dz60/v1:default
