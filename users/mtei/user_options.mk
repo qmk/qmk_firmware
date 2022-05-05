@@ -19,6 +19,7 @@
 #                 type=no,ondemand
 #    enc:         ENCODER enable
 #    no-enc:      ENCODER disable
+#    debug-uart:  UART TX for debug enable
 #
 ifneq ($(strip $(USROPT)),)
   define USER_OPTION_PARSE
@@ -30,6 +31,10 @@ ifneq ($(strip $(USROPT)),)
     endif
     ifneq ($(filter nodebug no-debug no_debug,$(strip $1)),)
         DEBUG_CONFIG = no
+    endif
+    ifneq ($(filter debugbench debug-bench debug_bench,$(strip $1)),)
+        DEBUG_CONFIG = yes
+        DEBUG_ON_TEST_BENCH = yes
     endif
     ifeq ($(strip $1),dispoff)
         OLED_ENABLE = no
@@ -89,11 +94,23 @@ ifneq ($(strip $(USROPT)),)
     ifeq ($(filter mdelay_type=%,$1),mdelay_type=demand)
         CUSTOM_MATRIX_DELAY = on-demand
     endif
+    ifeq ($(filter mdelay_type=%,$1),mdelay_type=ipullup)
+        CUSTOM_MATRIX_DELAY = input-pullup
+    endif
+    ifeq ($(filter mdelay_type=%,$1),mdelay_type=time)
+        CUSTOM_MATRIX_DELAY = time
+    endif
+    ifeq ($(filter mdelay_type=%,$1),mdelay_type=adaptive)
+        CUSTOM_MATRIX_DELAY = adaptive
+    endif
     ifneq ($(filter mdelay=%,$1),)
         MDELAY = $(patsubst mdelay=%,%,$1)
     endif
     ifeq ($(strip $1),mdelay0)
         MDELAY = 0
+    endif
+    ifneq ($(filter moverride matrix-override,$(strip $1)),)
+        MATRIX_OVERRIDE = yes
     endif
     ifeq ($(strip $1),colemak)
          ENABLE_COLEMAK = yes
@@ -118,6 +135,15 @@ ifneq ($(strip $(USROPT)),)
     endif
     ifneq ($(filter debugenc debug-enc debug_enc,$(strip $1)),)
         DEBUG_ENCODER = yes
+    endif
+    ifneq ($(filter debug-uart debug_uart,$(strip $1)),)
+        DEBUG_UART = yes
+    endif
+    ifneq ($(filter nodebug-uart nodebug_uart,$(strip $1)),)
+        DEBUG_UART = no
+    endif
+    ifneq ($(filter diff-hand,$(strip $1)),)
+        DIFF_HAND = yes
     endif
   endef # end of USER_OPTION_PARSE
 
