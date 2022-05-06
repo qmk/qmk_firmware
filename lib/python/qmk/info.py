@@ -511,11 +511,11 @@ def _extract_config_h(info_data, config_c):
 def _process_defaults(info_data):
     """Process any additional defaults based on currently discovered information
     """
-    defaults_map = json_load(Path('data/mappings/defaults.json'))
+    defaults_map = json_load(Path('data/constants/hardware.json'))
     for default_type in defaults_map.keys():
         thing_map = defaults_map[default_type]
         if default_type in info_data:
-            for key, value in thing_map.get(info_data[default_type], {}).items():
+            for key, value in thing_map.get(info_data[default_type], {}).get("defaults", {}).items():
                 info_data[key] = value
     return info_data
 

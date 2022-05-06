@@ -15,16 +15,17 @@ from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import deep_update, json_load
-from qmk.constants import MCU2BOOTLOADER
 
 COMMUNITY = Path('layouts/default/')
 TEMPLATE = Path('data/templates/keyboard/')
 
 # defaults
 schema = dotty(load_jsonschema('keyboard'))
+hardware = json_load(Path('data/constants/hardware.json'))
 mcu_types = sorted(schema["properties.processor.enum"], key=str.casefold)
 dev_boards = sorted(schema["properties.development_board.enum"], key=str.casefold)
 available_layouts = sorted([x.name for x in COMMUNITY.iterdir() if x.is_dir()])
+bootloader_defaults = dict(map(lambda x: (x[0], x[1]['defaults']['bootloader']), hardware["processor"].items()))
 
 
 def mcu_type(mcu):
@@ -61,7 +62,7 @@ def validate_keyboard_name(name):
 def select_default_bootloader(mcu):
     """Provide sane defaults for bootloader
     """
-    return MCU2BOOTLOADER.get(mcu, "custom")
+    return bootloader_defaults.get(mcu, "custom")
 
 
 def replace_placeholders(src, dest, tokens):
@@ -210,8 +211,8 @@ def new_keyboard(cli):
 
     # Preprocess any development_board presets
     if mcu in dev_boards:
-        defaults_map = json_load(Path('data/mappings/defaults.json'))
-        board = defaults_map['development_board'][mcu]
+        defaults_map = json_load(Path('data/constants/hardware.json'))
+        board = defaults_map['development_board'][mcu]['defaults']
 
         mcu = board['processor']
         bootloader = board['bootloader']
