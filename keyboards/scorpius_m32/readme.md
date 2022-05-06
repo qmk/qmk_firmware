@@ -7,7 +7,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Details
 
 
-There are currently 2 ways to enter the Bootloader
-The 1st way: 1 SW2 appears on the PCB and enters the Bootloader when the USB (power) is plugged in when clicked
-2nd way: Use QMK Bootmagic
-Use Row:0 Col:0 =>ESC key to enter Bootloader when inserting USB (power) after pressing ESC key
+There are 2 methods to enter Bootloader
+
+Method 1  : press the key(SW2) and plug-in USB at the same time
+Method 2 : To use QMK Bootmagic way. 
+To press "ESC" key and then plug-in USB
