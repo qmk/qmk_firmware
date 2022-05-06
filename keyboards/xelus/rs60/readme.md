@@ -8,7 +8,8 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xelus/rs60:default
+    make xelus/rs60/rev1:default
+    make xelus/rs60/rev2:default
 
 Reset your keyboard in 3 ways:
 
