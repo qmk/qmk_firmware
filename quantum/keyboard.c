@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
-#ifdef STENO_ENABLE
+#if defined(STENO_ENABLE_ALL) || defined(STENO_ENABLE_GEMINI) || defined(STENO_ENABLE_TXBOLT)
 #    include "process_steno.h"
 #endif
 #ifdef POINTING_DEVICE_ENABLE
@@ -381,7 +381,7 @@ void keyboard_init(void) {
 #ifdef ENCODER_ENABLE
     encoder_init();
 #endif
-#ifdef STENO_ENABLE
+#ifdef STENO_ENABLE_ALL
     steno_init();
 #endif
 #ifdef POINTING_DEVICE_ENABLE
