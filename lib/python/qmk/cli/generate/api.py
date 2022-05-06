@@ -12,7 +12,8 @@ from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import json_load
 from qmk.keyboard import find_readme, list_keyboards
 
-TEMPLATE_PATH = Path('data/templates/api/')
+DATA_PATH = Path('data')
+TEMPLATE_PATH = DATA_PATH / 'templates/api/'
 BUILD_API_PATH = Path('.build/api_data/')
 
 
@@ -22,17 +23,18 @@ BUILD_API_PATH = Path('.build/api_data/')
 def generate_api(cli):
     """Generates the QMK API data.
     """
-    if BUILD_API_PATH.exists():
-        shutil.rmtree(BUILD_API_PATH)
-
-    shutil.copytree(TEMPLATE_PATH, BUILD_API_PATH)
-
     v1_dir = BUILD_API_PATH / 'v1'
     keyboard_all_file = v1_dir / 'keyboards.json'  # A massive JSON containing everything
     keyboard_list_file = v1_dir / 'keyboard_list.json'  # A simple list of keyboard targets
     keyboard_aliases_file = v1_dir / 'keyboard_aliases.json'  # A list of historical keyboard names and their new name
     keyboard_metadata_file = v1_dir / 'keyboard_metadata.json'  # All the data configurator/via needs for initialization
     usb_file = v1_dir / 'usb.json'  # A mapping of USB VID/PID -> keyboard target
+
+    if BUILD_API_PATH.exists():
+        shutil.rmtree(BUILD_API_PATH)
+
+    shutil.copytree(TEMPLATE_PATH, BUILD_API_PATH)
+    shutil.copytree(DATA_PATH, v1_dir)
 
     # Filter down when required
     keyboard_list = list_keyboards()

@@ -4,9 +4,6 @@ on:
   push:
     branches:
     - develop
-    paths:
-    - 'keyboards/**'
-    - 'layouts/community/**'
   workflow_dispatch:
 
 jobs:
