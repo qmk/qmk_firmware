@@ -114,14 +114,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctl|Gui|Alt|           Space               |Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|Ent|
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define LAYOUT_ansi( \
+#define LAYOUT_fullsize_ansi( \
     k29,      k3A, k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k45,  k46, k47, k48, \
 \
     k35, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k2D, k2E, k2A,  k49, k4A, k4B,  k53, k54, k55, k56, \
-    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k31,  k4C, k4D, k4E,  k5F, k60, k61, \
-    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34,      k28,                  k5C, k5D, k5E, k57, \
-    kE1,      k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38,      kE5,       k52,       k59, k5A, k5B, \
-    kE0, kE3, kE2,                k2C,                kE6, kE7, k65, kE4,  k50, k51, k4F,  k62,      k63, k58 \
+    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k31,  k4C, k4D, k4E,  k5F, k60, k61, k57, \
+    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34,      k28,                  k5C, k5D, k5E, \
+    kE1,      k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38,      kE5,       k52,       k59, k5A, k5B, k58, \
+    kE0, kE3, kE2,                k2C,                kE6, kE7, k65, kE4,  k50, k51, k4F,  k62,      k63, \
 ) { \
     { XXX, XXX, XXX, XXX, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
     { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
@@ -156,14 +156,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctl|Gui|Alt|           Space               |Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|   |
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define LAYOUT_iso( \
+#define LAYOUT_fullsize_iso( \
     k29,      k3A, k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k45,  k46, k47, k48, \
 \
     k35, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k2D, k2E, k2A,  k49, k4A, k4B,  k53, k54, k55, k56, \
-    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k28,  k4C, k4D, k4E,  k5F, k60, k61, k57, \
-    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34, k32,                       k5C, k5D, k5E, \
+    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30,       k4C, k4D, k4E,  k5F, k60, k61, k57, \
+    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34, k32, k28,                  k5C, k5D, k5E, \
     kE1, k64, k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38,      kE5,       k52,       k59, k5A, k5B, k58, \
-    kE0, kE3, kE2,           k2C,                     kE6, kE7, k65, kE4,  k50, k51, k4F,  k62,      k63 \
+    kE0, kE3, kE2,                k2C,                kE6, kE7, k65, kE4,  k50, k51, k4F,  k62,      k63 \
 ) { \
     { XXX, XXX, XXX, XXX, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
     { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
@@ -198,12 +198,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctl|Gui|Alt|MHEN|      Space      |HENK|KNA|Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|   |
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define LAYOUT_jis( \
+#define LAYOUT_fullsize_jis( \
     k29,      k3A, k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k45,       k46, k47, k48, \
 \
     k35, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k2D, k2E, k89, k2A,  k49, k4A, k4B,  k53, k54, k55, k56, \
-    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k28,       k4C, k4D, k4E,  k5F, k60, k61, k57, \
-    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34, k32,                            k5C, k5D, k5E, \
+    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30,            k4C, k4D, k4E,  k5F, k60, k61, k57, \
+    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34, k32, k28,                       k5C, k5D, k5E, \
     kE1,      k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38, k87, kE5,            k52,       k59, k5A, k5B, k58, \
     kE0, kE3, kE2, k8B,      k2C,           k8A, k88, kE6, kE7, k65, kE4,       k50, k51, k4F,  k62,      k63 \
 ) { \
