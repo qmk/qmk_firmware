@@ -15,7 +15,3 @@
  */
 
 #pragma once
-
-// default but important
-#define TAPPING_TERM 220
-

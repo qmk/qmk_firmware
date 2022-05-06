@@ -3,8 +3,6 @@ TRACKPOINT = yes
 AUTO_BUTTONS = yes
 COMBO_ENABLE = yes
 
-USER_NAME := durken1
-
 ifeq ($(strip $(TRACKPOINT)), yes)
   PS2_MOUSE_ENABLE = yes
   PS2_USE_USART = yes
