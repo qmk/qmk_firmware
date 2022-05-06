@@ -5,10 +5,9 @@
 
 #include "config_common.h"
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x88B2
-#define PRODUCT_ID      0x88B2
+#define VENDOR_ID       0x195D
+#define PRODUCT_ID      0x2086
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    PFU
 #define PRODUCT         scorpius_m32
