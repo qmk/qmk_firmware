@@ -1,1 +1,4 @@
 #define TAPPING_TERM 180
+#define LEADER_TIMEOUT 1000
+#define TAPPING_TOGGLE 2
+
