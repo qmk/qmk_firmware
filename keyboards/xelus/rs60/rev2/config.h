@@ -46,7 +46,6 @@
 #define LED_CAPS_LOCK_PIN A1
 
 // I2C config
-#define I2C_DRIVER          I2CD3
 #define I2C1_SCL_PIN        B8
 #define I2C1_SDA_PIN        B9
 #define I2C1_SCL_PAL_MODE   4
