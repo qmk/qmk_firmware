@@ -180,9 +180,9 @@
                "  ~!@#| ")
 
 #define ___SYMB_MIRYOKU_3x10___                         \
-  CHUNK_LANG_MAP(OCCBR, _AMPR, _DOT, OCPRN,    _CBR, \
-                 _COLN, _DLR, _PERC, _CIRC_ND, _PLUS,   \
-                 _TILD_ND, _EXLM, _AT, _HASH,     _PIPE)
+  CHUNK_LANG_MAP(_OCCBR,   _AMPR, _DOT,  _OCPRN,   _RCBR, ____5_,     \
+                 _COLN,    _DLR,  _PERC, _CIRC_ND, _PLUS, ____5_,     \
+                 _TILD_ND, _EXLM, _AT,   _HASH,    _PIPE, ____5_)
 
 // ---------------------------
 // WI: the Beakl Wi definition.
@@ -190,9 +190,9 @@
 #define ___SYMB_BKL_WI_L2___ ___,   _QUES, _EXLM, _SLSH, _PIPE
 #define ___SYMB_BKL_WI_L3___ ___,   _LT,   _GT,   _PERC, _AT
 
-#define ___SYMB_BKL_WI_R1___ _ASTR, _OCLBRC, _CIRC_ND, _RBRC, ___
-#define ___SYMB_BKL_WI_R2___ _QUES, _OCLPRN, _DLR ,    _RPRN, ___
-#define ___SYMB_BKL_WI_R3___ _PIPE, _OCLCBR, _HASH,    _RCBR, ___
+#define ___SYMB_BKL_WI_R1___ _ASTR, _OCBRC, _CIRC_ND, _RBRC, ___
+#define ___SYMB_BKL_WI_R2___ _QUES, _OCPRN, _DLR ,    _RPRN, ___
+#define ___SYMB_BKL_WI_R3___ _PIPE, _OCCBR, _HASH,    _RCBR, ___
 
 #define CARTE_SYMB_BEAKLWI                      \
   carte_de_map(" .*&+  *[^] ",                  \

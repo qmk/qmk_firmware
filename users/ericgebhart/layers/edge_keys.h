@@ -124,7 +124,11 @@
 #define LEFT0_EN_sml SML_NAV
 #define LEFT1_EN_sml SML_NAV
 #define LEFT2_EN_sml KC_TAB
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
 #define LEFT3_EN_sml TT(_ACCENTS_MORTE_EN)
+#else
+#define LEFT3_EN_sml ___
+#endif
 
 #define RIGHT0_EN_sml SML_KEYPAD
 #define RIGHT1_EN_sml SML_KEYPAD

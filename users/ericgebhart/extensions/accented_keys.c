@@ -42,7 +42,9 @@ static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
 
 bool process_accent_keys(uint16_t keycode, keyrecord_t* record) {
   switch(keycode){
+#ifdef ACCENTED_KEYS_ENABLE
 #include "accented_keys.def"
+#endif
   }
   return true;
 }

@@ -98,6 +98,12 @@
 #define ___6_ERGO_THUMBS_miryoku_tr_ltr___                      \
   ESC_MEDIA, TH_LTR_NAV, BSPC_NAVm,  ENT_SYM, SPC_TOPR, DEL_FUN
 
+#define ___6_ERGO_THUMBS_miryoku_ltr_tab___                      \
+  BSPC_MEDIA, TH_LTR_NAV, TAB_NAVM,    ENT_SYM, SPC_NUM, DEL_FUN
+
+#define ___6_ERGO_THUMBS_miryoku_tr_ltr_tab___                   \
+  BSPC_MEDIA, TH_LTR_NAV, TAB_NAVM,    ENT_SYM, SPC_TOPR, DEL_FUN
+
 // Give the right symbol suffix by the value of THUMBS_ARE
 // Basically we choose the right cluster here, so the layout
 // level doesn't know or care.
@@ -118,7 +124,9 @@
 #define MIRYOKU_EXT _miryoku___
 #define MIRYOKU_TR_EXT _miryoku_tr___
 #define MIRYOKU_LTR_EXT _miryoku_ltr___  // miryoku versions with a letter
+#define MIRYOKU_LTR_TAB_EXT _miryoku_ltr_tab___
 #define MIRYOKU_TR_LTR_EXT _miryoku_tr_ltr___
+#define MIRYOKU_TR_LTR_TAB_EXT _miryoku_tr_ltr_tab___
 #define TH_LTR_EXT _left_letter___ // takes a letter for the left thumb.
 #define HD_DASH_EXT _hd_dash___
 #define HD_EXT _hd___  // takes a letter for the left thumb.

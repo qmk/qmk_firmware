@@ -66,7 +66,7 @@
 #define HRM_SCAG_MOD _hrm_scag
 #define HRM_GACS_MOD _hrm_gacs
 #define HRM_GASC_MOD _hrm_gasc
-#define MIRYOKU_HRM_GASC_MOD miryoku_hrm_gasc
+#define MIRYOKU_HRM_GACS_MOD _miryoku_hrm_gacs
 #define ALT_MOD _alt
 #define HRS_NAV_MOD _hrs_nav
 

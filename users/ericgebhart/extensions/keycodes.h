@@ -337,25 +337,28 @@ enum userspace_custom_keycodes {
 #define TAB_NUM LT(LN_KEYPAD, KC_TAB)
 #define I_SYMB LT(LN_SYMB, KC_I)
 
-#define SPC_NAVm LT(_NAVm, KC_SPC)
-#define SPC_NAVnm LT(_NAVnm, KC_SPC)
-#define SPC_NAV  LT(_NAV, KC_SPC)
-#define SPC_SYMB LT(LN_SYMB, KC_SPC)
-#define SPC_TOPR LT(LN_TOPROWS, KC_SPC)
-#define SPC_LAYR LT(_LAYERS, KC_SPC)
-#define SPC_ADJ LT(_ADJUST, KC_SPC)
-#define SPC_NUM LT(LN_KEYPAD, KC_SPC)
+#define SPC_NAVm   LT(_NAVm, KC_SPC)
+#define SPC_NAVnm  LT(_NAVnm, KC_SPC)
+#define SPC_NAV    LT(_NAV, KC_SPC)
+#define SPC_SYMB   LT(LN_SYMB, KC_SPC)
+#define SPC_TOPR   LT(LN_TOPROWS, KC_SPC)
+#define SPC_LAYR   LT(_LAYERS, KC_SPC)
+#define SPC_ADJ    LT(_ADJUST, KC_SPC)
+#define SPC_NUM    LT(LN_KEYPAD, KC_SPC)
 
-#define BSPC_NAVm LT(_NAVm, KC_BSPC)
-#define BSPC_NAV LT(_NAV, KC_BSPC)
+#define BSPC_NAVm  LT(_NAVm, KC_BSPC)
+#define BSPC_NAV   LT(_NAV, KC_BSPC)
 #ifdef SYMBOL_LAYER_ENABLE
-#define BSPC_SYMB LT(LN_SYMB, KC_BSPC)
+#define BSPC_SYMB  LT(LN_SYMB, KC_BSPC)
 #else
-#define BSPC_SYMB KC_BSPC
+#define BSPC_SYMB  KC_BSPC
 #endif
-#define BSPC_TOPR LT(LN_TOPROWS, KC_BSPC)
-#define BSPC_NUM LT(LN_KEYPAD, KC_BSPC)
-#define BSPC_ALT MT(MOD_LALT, KC_BSPC)
+#define BSPC_TOPR  LT(LN_TOPROWS, KC_BSPC)
+#define BSPC_NUM   LT(LN_KEYPAD, KC_BSPC)
+#define BSPC_ALT   MT(MOD_LALT, KC_BSPC)
+#define BSPC_MEDIA LT(_MEDIA, KC_BSPC)
+
+#define KC_BKTAB    LSFT(KC_TAB)
 
 // layer toggles
 #define LAYER_OSL   OSL(_LAYERS)
@@ -438,7 +441,6 @@ enum {
 
 
 // Tap dance
-#define KC_BKTAB       LSFT(KC_TAB)
 #define TAB_BKTAB       TD(TD_TAB_BKTAB)  // Tab or backtab tapdance.
 #define MDIA_SYMB_KP_LAYERS TD(TD_MDIA_SYMB)  // MDIA, symb, keypad, layouts layer tapdance toggle.
 #define DEF_LAYER_SW    TD(TD_DEF_LAYER_SW)  // dvorak, dvorak_on_bepo, bepo default layer
@@ -471,6 +473,7 @@ enum {
 #undef ___ //kint defines it as KC_NO
 #define ___ KC_TRNS
 #define XXX KC_NO
+#define ____ _TRNS
 
 // Blocking keys
 #define _X_ XXX
@@ -493,6 +496,17 @@ enum {
 #define ___14___ ___5___, ___4___,  ___5___
 #define ___15___ ___5___, ___5___,  ___5___
 #define ___16___ ___15___, ___
+
+#define ____2_ ____, ____
+#define ____3_ ____2_, ____
+#define ____4_ ____3_, ____
+#define ____5_ ____4_, ____
+#define ____6_ ____5_, ____
+#define ____10_ ____6_, ____4_
+#define ____12_ ____6_, ____6_
+#define ____14_ ____5_, ____4_,  ____5_
+#define ____15_ ____5_, ____5_,  ____5_
+#define ____16_ ____15_, ____
 
 int on_qwerty(void);
 

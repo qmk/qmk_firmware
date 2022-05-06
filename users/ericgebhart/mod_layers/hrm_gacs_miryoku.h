@@ -56,7 +56,7 @@
 // ROW1
 // LEFT.
 #define ROW1L_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)       \
-  K01, K02, K03, K04, K05
+  K01, K02, K03, LT(_NAV, K04), K05
 // take and put an extra column in front. Mod K01 how you want it.
 #define ROW1L_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  K01,    \
     ROW1L_5_miryoku_hrm_gacs(K02, K03, K04, K05, K06)
@@ -67,7 +67,7 @@
 
 // RIGHT.
 #define ROW1R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)                       \
-  K01, K02, K03, K04, K05)                                  \
+  K01, K02, K03, K04, LT(_LAYERS, K05)                                  \
     // take and put an extra column in front. Mod K01 how you want it.
 #define ROW1R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
   ROW1R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05), K06
@@ -96,7 +96,7 @@
 
 // RIGHT.
 #define ROW2R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)                       \
-  K01, MT(MOD_RSFT, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RGUI, K05) \
+  K01, MT(MOD_RSFT, K02),  MT(MOD_RCTL, K03), MT(MOD_LALT, K04), MT(MOD_RGUI, K05) \
     // take and put an extra column in front. Mod K01 how you want it.
 #define ROW2R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
   ROW2R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05),  K06
@@ -115,7 +115,7 @@
     ROW3L_5_miryoku_hrm_gacs(K02, K03, K04, K05, K06)
 
 // 5 into 6, derivitive of the first two.
-#define ROW3L_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)             \
+#define ROW3L_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)     \
   ROW3L_6_miryoku_hrm_gacs(LEFT_3,  K01, K02, K03, K04, K05)
 
 // RIGHT.
@@ -126,5 +126,5 @@
     ROW3R_5_miryoku_hrm_gacs(K02, K03, K04, K05, K06)
 
 // 5 into 6, derivitive of the first two.
-#define ROW3R_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)             \
+#define ROW3R_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)     \
   ROW3R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_3)
