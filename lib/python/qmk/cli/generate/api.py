@@ -33,7 +33,7 @@ def _filtered_keyboard_list():
 
 
 def _resolve_xap_specs(output_folder):
-    """To make it easier for consumers, replace specs with pre-merged versions
+    """To make it easier for consumers, publish pre-merged spec files
     """
     overall = None
     for file in get_xap_definition_files():
@@ -44,7 +44,8 @@ def _resolve_xap_specs(output_folder):
             if str(n) not in overall['response_flags']['bits']:
                 overall['response_flags']['bits'][str(n)] = {'name': '', 'description': '', 'define': '-'}
 
-        hjson.dump(overall, (output_folder / file.name).open(mode='w', encoding='utf-8'))
+        output_file = output_folder / (file.stem + ".json")
+        output_file.write_text(json.dumps(overall, indent=4), encoding='utf-8')
 
 
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't write the data to disk.")
