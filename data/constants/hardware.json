@@ -1,0 +1,243 @@
+{
+    "bootloader": {
+        "atmel-dfu": {},
+        "lufa-dfu": {},
+        "qmk-dfu": {},
+        "qmk-hid": {},
+        "halfkay": {},
+        "caterina": {},
+        "bootloadhid": {},
+        "usbasploader": {},
+        "lufa-ms": {},
+        "stm32-dfu": {},
+        "apm32-dfu": {},
+        "gd32v-dfu": {},
+        "kiibohd": {},
+        "stm32duino": {},
+        "tinyuf2": {},
+        "md-boot": {},
+        "wb32-dfu": {}
+    },
+    "processor": {
+        "MKL26Z64": {
+            "defaults": {
+                "bootloader": "halfkay"
+            }
+        },
+        "MK20DX128": {
+            "defaults": {
+                "bootloader": "halfkay"
+            }
+        },
+        "MK20DX256": {
+            "defaults": {
+                "bootloader": "halfkay"
+            }
+        },
+        "MK66FX1M0": {
+            "defaults": {
+                "bootloader": "halfkay"
+            }
+        },
+        "STM32F042": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32F072": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32F103": {
+            "defaults": {
+                "bootloader": "stm32duino"
+            }
+        },
+        "STM32F303": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32F401": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32F405": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32F407": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32F411": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32F446": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32G431": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32G474": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32L412": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32L422": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32L432": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32L433": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32L442": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "STM32L443": {
+            "defaults": {
+                "bootloader": "stm32-dfu"
+            }
+        },
+        "GD32VF103": {
+            "defaults": {
+                "bootloader": "gd32v-dfu"
+            }
+        },
+        "WB32F3G71": {
+            "defaults": {
+                "bootloader": "wb32-dfu"
+            }
+        },
+        "atmega16u2": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "atmega32u2": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "atmega16u4": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "atmega32u4": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "at90usb162": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "at90usb646": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "at90usb647": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "at90usb1286": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "at90usb1287": {
+            "defaults": {
+                "bootloader": "atmel-dfu"
+            }
+        },
+        "atmega32a": {
+            "defaults": {
+                "bootloader": "bootloadhid"
+            }
+        },
+        "atmega328p": {
+            "defaults": {
+                "bootloader": "usbasploader"
+            }
+        },
+        "atmega328": {
+            "defaults": {
+                "bootloader": "usbasploader"
+            }
+        }
+    },
+    "development_board": {
+        "promicro": {
+            "defaults": {
+                "processor": "atmega32u4",
+                "bootloader": "caterina",
+                "pin_compatible": "promicro"
+            }
+        },
+        "elite_c": {
+            "defaults": {
+                "processor": "atmega32u4",
+                "bootloader": "atmel-dfu",
+                "pin_compatible": "promicro"
+            }
+        },
+        "proton_c": {
+            "defaults": {
+                "processor": "STM32F303",
+                "bootloader": "stm32-dfu",
+                "board": "QMK_PROTON_C",
+                "pin_compatible": "promicro"
+            }
+        },
+        "bluepill": {
+            "defaults": {
+                "processor": "STM32F103",
+                "bootloader": "stm32duino",
+                "board": "STM32_F103_STM32DUINO"
+            }
+        },
+        "blackpill_f401": {
+            "defaults": {
+                "processor": "STM32F401",
+                "bootloader": "stm32-dfu",
+                "board": "BLACKPILL_STM32_F401"
+            }
+        },
+        "blackpill_f411": {
+            "defaults": {
+                "processor": "STM32F411",
+                "bootloader": "stm32-dfu",
+                "board": "BLACKPILL_STM32_F411"
+            }
+        }
+    }
+}
