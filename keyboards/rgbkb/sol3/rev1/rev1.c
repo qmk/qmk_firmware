@@ -248,11 +248,11 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     // Sol 3 uses OLED_ROTATION_270 for default rotation on both halves
     return oled_init_user(OLED_ROTATION_270);
 }
-    
+
 bool oled_task_kb(void) {
     if (!oled_task_user())
         return false;
-
+    
     if (is_keyboard_left()) {
         render_icon();
         oled_write_P(PSTR("     "), false);
