@@ -1,5 +1,5 @@
 /* Copyright 2020 Purdea Andrei
- * Copyright 2021 Matthew J Wolf
+ * Copyright 2022 Matthew J Wolf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -706,7 +706,7 @@ void real_keyboard_init_basic(void)
     #if CAPSENSE_CAL_ENABLED
     #if CAPSENSE_CAL_DEBUG
     cal_time = timer_read();
-    #endif   
+    #endif
     calibration();
     #if CAPSENSE_CAL_DEBUG
     cal_time = timer_read() - cal_time;
@@ -784,7 +784,7 @@ void matrix_print_stats(void)
     {
         uint32_t time = timer_read32();
         if (time >= 10 * 1000UL) { // after 10 seconds
-            uprintf("Calibration took: %u ms\n", cal_time);		
+	    uprintf("Calibration took: %u ms\n", cal_time);	
             uprintf("Cal All Zero = %u, Cal All Ones = %u\n", cal_tr_allzero, cal_tr_allone);
             for (cal=0;cal<CAPSENSE_CAL_BINS;cal++)
             {

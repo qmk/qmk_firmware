@@ -667,8 +667,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 static pin_t extra_direct_pins[MATRIX_EXTRA_DIRECT_ROWS][MATRIX_COLS] = MATRIX_EXTRA_DIRECT_PINS;
 #endif
 
-#if MATRIX_EXTRA_DIRECT_ROWS
-static pin_t extra_direct_pins[MATRIX_EXTRA_DIRECT_ROWS][MATRIX_COLS] = MATRIX_EXTRA_DIRECT_PINS;
+#if CAPSENSE_CAL_ENABLED && CAPSENSE_CAL_DEBUG
+uint16_t cal_time;
 #endif
 
 void real_keyboard_init_basic(void)
@@ -784,7 +784,7 @@ void matrix_print_stats(void)
     {
         uint32_t time = timer_read32();
         if (time >= 10 * 1000UL) { // after 10 seconds
-	    uprintf("Calibration took: %u ms\n", cal_time);
+	    uprintf("Calibration took: %u ms\n", cal_time);	
             uprintf("Cal All Zero = %u, Cal All Ones = %u\n", cal_tr_allzero, cal_tr_allone);
             for (cal=0;cal<CAPSENSE_CAL_BINS;cal++)
             {
