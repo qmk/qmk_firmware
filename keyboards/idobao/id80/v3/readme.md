@@ -1,12 +1,12 @@
 # ID80v3
 
-![ID80v3](https://i.imgur.com/PGvZfQj.jpg)
+![ID80v3](https://idobao.github.io/assets/img/idobao-id80.png)
 
 A 75% hotswap in-switch RGB keyboard with an encoder.
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: ID80v3
-* Hardware Availability: Not avaliable yet
+* Hardware Availability: [ID80v3 PCB](https://idobao.net/products/idobao-id80-pcb-v3-kailh-hot-swap-socket-rgb-full-backlit)
 
 Make example for this keyboard (after setting up your build environment):
 
