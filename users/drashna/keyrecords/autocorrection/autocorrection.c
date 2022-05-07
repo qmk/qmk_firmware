@@ -10,6 +10,13 @@
 #    pragma GCC push_options
 #    pragma GCC optimize("O0")
 #    include "autocorrection_data.h"
+#    ifndef AUTOCORRECTION_MIN_LENGTH
+#        define AUTOCORRECTION_MIN_LENGTH AUTOCORRECT_MIN_LENGTH
+#    endif
+#    ifndef AUTOCORRECTION_MAX_LENGTH
+#        define AUTOCORRECTION_MAX_LENGTH AUTOCORRECT_MAX_LENGTH
+#    endif
+#    define autocorrection_data autocorrect_data
 #    if AUTOCORRECTION_MIN_LENGTH < 4
 #        error Minimum Length is too short and may cause overflows
 #    endif
@@ -128,7 +135,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     for (uint8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 
-        if (code & 64) {  // Check for match in node with multiple children.
+        if (code & 64) { // Check for match in node with multiple children.
             code &= 63;
             for (; code != key_i; code = pgm_read_byte(autocorrection_data + (state += 3))) {
                 if (!code) return true;
@@ -144,7 +151,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
 
         code = pgm_read_byte(autocorrection_data + state);
 
-        if (code & 128) {  // A typo was found! Apply autocorrection.
+        if (code & 128) { // A typo was found! Apply autocorrection.
             const uint8_t backspaces = code & 63;
             for (uint8_t i = 0; i < backspaces; ++i) {
                 tap_code(KC_BSPC);
@@ -166,5 +173,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
 #    pragma GCC pop_options
 #else
 #    pragma message "Warning!!! Autocorrect is not corretly setup!"
-bool process_autocorrection(uint16_t keycode, keyrecord_t* record) { return true; }
+bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
+    return true;
+}
 #endif
