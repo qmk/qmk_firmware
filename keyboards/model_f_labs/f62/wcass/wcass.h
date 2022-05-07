@@ -1,4 +1,5 @@
 /* Copyright 2020 Purdea Andrei
+ * Copyright 2022 Matthew J Wolf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +28,7 @@
  * represents the switch matrix.
  */
 
-// Note: unused columns 10..14 are not listed here. Column 15 is listed here as column 10
+// Note: unused columns 8..14 are not listed here. Column 15 is listed here as column 8
 // Note arguments representing the layout are named based on default F77 hhkb split backspace configuration, for other layouts argument naming might not make much sense
 // This was done for ease of implementation.
 
