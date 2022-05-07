@@ -791,7 +791,13 @@ void matrix_print_stats(void)
                 uprintf("Cal bin %u, Threshold=%u Assignments:\n", cal, cal_thresholds[cal]);
                 for (row=0;row<MATRIX_CAPSENSE_ROWS;row++)
                 {
-                    uprintf("0x%02X\n", assigned_to_threshold[cal][row]);
+                    #if MATRIX_COLS > 16
+                    uprintf("0x%06X\n", assigned_to_threshold[cal][row]);
+                    #elif MATRIX_COLS > 12
+                    uprintf("0x%04X\n", assigned_to_threshold[cal][row]);
+                    #else
+                    uprintf("0x%03X\n", assigned_to_threshold[cal][row]);
+                    #endif
                 }
             }
             cal_stats_printed = true;
