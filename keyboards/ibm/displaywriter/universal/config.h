@@ -1,6 +1,6 @@
 /*
 Copyright 2020 Purdea Andrei
-Copyright 2021 Matthew J Wolf
+Copyright 2022 Matthew J Wolf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -267,7 +267,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define CAPSENSE_CAL_DEBUG 0
 #define CAPSENSE_CAL_INIT_REPS 16
 #define CAPSENSE_CAL_EACHKEY_REPS 16
-#define CAPSENSE_CAL_BINS 5
+#define CAPSENSE_CAL_BINS 15
 #define CAPSENSE_CAL_THRESHOLD_OFFSET 120
 
 #if !CAPSENSE_CAL_ENABLED
