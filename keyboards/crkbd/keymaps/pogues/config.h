@@ -42,12 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_TERM 100
 
 #define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 3000
+#define ONESHOT_TIMEOUT 4000
 
 // Turn off Caps Word after 5 seconds.
 //#define CAPS_WORD_IDLE_TIMEOUT 5000
 
-// disable macro / functions as we are not using them
+// disable macro / functions as we are not using them and they are not compatible with
+// LTO (link time optimization)
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
@@ -57,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SPLIT
     
     // increase the number of light layers
-    #define RGBLIGHT_MAX_LAYERS 12
+    #define RGBLIGHT_MAX_LAYERS 16
 
     #define RGBLIGHT_LAYER_BLINK
     #define SPLIT_LAYER_STATE_ENABLE
@@ -81,4 +82,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+//#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+

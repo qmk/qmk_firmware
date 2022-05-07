@@ -23,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/custom_shift_keys.h"
 #include "features/layer_lock.h"
 
-/*******************************************************************************
- * TODO.
- * indicate the success of the leader key with lights
- *******************************************************************************/
-
 enum userspace_layers {
     LCMK = 0,
     LSYM = 1,
@@ -44,9 +39,6 @@ enum userspace_layers {
 #define LMASK_FUN (1 << LFUN)
 #define LMASK_MOV (1 << LMOV)
 #define LMASK_MSE (1 << LMSE)
-
-#define MY_CESC MT(MOD_LCTL, KC_ESC)
-#define MY_CENT MT(MOD_LCTL, KC_ENT)
 
 // rename some keys here to allow for the difference in keymap between US and GB
 #define MY_PIPE LSFT(KC_NUBS)
@@ -65,6 +57,9 @@ enum userspace_layers {
 #define LNUM_SPC LT(LNUM, KC_SPC)
 #define LSYM_BSP LT(LSYM, KC_BSPC)
 
+#define SFT_SPC SFT_T(KC_SPC)
+#define CTL_BSP CTL_T(KC_BSPC)
+
 enum custom_keycodes {
     MY_LLCK = SAFE_RANGE,   // layer lock key
     MY_COMP,
@@ -73,9 +68,10 @@ enum custom_keycodes {
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_DOT , KC_COLN}, // Shift . is :
     {KC_COMM, KC_SCLN}, // Shift , is ;
+    {KC_SLSH, KC_QUOT}, // Shift / is '
     {KC_2, KC_DQUO},    // need shift 2 to be " for win+shift+2 to work in dwm
-    {LNUM_SPC, KC_TAB},   // shift space is tab
-    {LSYM_BSP, KC_DEL}   // shift backspace is delete
+    {LSYM_BSP, KC_DEL}  // shift backspace is delete
+   // {LNUM_SPC, KC_TAB},   // shift space is tab     XXX removing owing to accidental tab activation too often.
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
@@ -90,14 +86,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KC_LCTL, KC_LSFT, LNUM_SPC,    LSYM_BSP, KC_RSFT, KC_RCTL
+                                           // KC_LCTL, KC_LSFT, LNUM_SPC,    LSYM_BSP, KC_RSFT, KC_RCTL
+                                              KC_LGUI, MO(LNUM), SFT_SPC,    CTL_BSP, MO(LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX,  KC_TAB, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, KC_NUBS, XXXXXXX,
+            XXXXXXX,  KC_ESC, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, KC_NUBS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-             KC_TAB,  KC_ESC, KC_AMPR, KC_LBRC, KC_RBRC, MY_TILD,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
+             KC_TAB, XXXXXXX, KC_AMPR, KC_LBRC, KC_RBRC, MY_TILD,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, MY_LLCK,  MY_GBP, KC_LCBR, KC_RCBR,  KC_GRV,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -112,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, MY_LLCK, XXXXXXX, KC_COMM,  KC_DOT, XXXXXXX,                       KC_EQL,    KC_1,    KC_2,    KC_3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              XXXXXXX, _______,  _______,    _______,  KC_0, XXXXXXX
+                                              XXXXXXX, _______,  _______,     KC_0,  _______, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
@@ -123,18 +120,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               XXXXXXX, XXXXXXX,TO(LCMK),     XXXXXXX,  KC_F10, XXXXXXX
+                                               XXXXXXX, TO(LCMK), _______,     KC_F10,  XXXXXXX, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, ALT_TAB, XXXXXXX,TO(LMSE), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, XXXXXXX,
+            ALT_TAB, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, MY_LLCK, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              XXXXXXX, _______, TO(LCMK),     XXXXXXX,  _______, XXXXXXX
+                                              XXXXXXX, _______, _______,     _______,  _______, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
@@ -145,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN2,                      KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                XXXXXXX, KC_BTN1, TO(LCMK),  XXXXXXX,  KC_BTN2, XXXXXXX
+                                                XXXXXXX,TO(LCMK), _______,   _______,  KC_BTN1, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     )
 };
@@ -171,6 +168,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
+
+/******************************************************************************
+ * combo keys
+ ******************************************************************************/
+enum combo_keys {
+    COMBO_L_RM_T_ESC,
+    COMBO_L_MI_B_TAB,
+    COMBO_R_RM_T_ENT,
+    COMBO_R_MI_B_ENT,
+    COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+// left hand, ring+middle finger, top row
+const uint16_t PROGMEM lh_rm_t_combo[] = {KC_W, KC_F, COMBO_END};
+// left hand, middle+index finger, bottom row
+const uint16_t PROGMEM lh_mi_b_combo[] = {KC_C, KC_D, COMBO_END};
+// right hand, ring+middle finger, top row
+const uint16_t PROGMEM rh_rm_t_combo[] = {KC_U, KC_Y, COMBO_END};
+// right hand, middle+index finger, bottom row
+const uint16_t PROGMEM rh_mi_b_combo[] = {KC_H, KC_COMM, COMBO_END};
+
+combo_t key_combos[] = {
+    [COMBO_L_RM_T_ESC] = COMBO(lh_rm_t_combo, KC_ESC),
+    [COMBO_L_MI_B_TAB] = COMBO(lh_mi_b_combo, KC_TAB),
+    [COMBO_R_RM_T_ENT] = COMBO(rh_rm_t_combo, KC_DEL),
+    [COMBO_R_MI_B_ENT] = COMBO(rh_mi_b_combo, KC_ENT),
+};
+ /******************************************************************************/
 
 /******************************************************************************
  * compose key mapping function
@@ -200,6 +226,10 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_A, KC_X),
         { SEND_STRING(SS_LCTL("ax")); }
+    )
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_A, KC_P),
+        { SEND_STRING(SS_LCTL("v")); }
     )
 
     /**********************************************************************
@@ -234,7 +264,7 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // diff against version
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_D, KC_V),
-        { SEND_STRING(SS_LCTL(SS_LSFT("v"))); }
+        { SEND_STRING(SS_LCTL(SS_LSFT("d"))); }
     )
 
     // test function
@@ -364,6 +394,11 @@ const rgblight_segment_t PROGMEM layer_motion_lights[] = THUMB_KEYS(BLUE)
 const rgblight_segment_t PROGMEM layer_functions_lights[] = THUMB_KEYS(PURPLE)
 const rgblight_segment_t PROGMEM layer_mouse_lights[] = THUMB_KEYS(MAGENTA)
 
+const rgblight_segment_t PROGMEM oneshot_ctrl_active[] = RGBLIGHT_LAYER_SEGMENTS({9, 1, HSV_BLUE});
+const rgblight_segment_t PROGMEM oneshot_shift_active[] = RGBLIGHT_LAYER_SEGMENTS({8, 1, HSV_GREEN});
+const rgblight_segment_t PROGMEM oneshot_gui_active[] = RGBLIGHT_LAYER_SEGMENTS({7, 1, HSV_ORANGE});
+const rgblight_segment_t PROGMEM oneshot_alt_active[] = RGBLIGHT_LAYER_SEGMENTS({6, 1, HSV_PURPLE});
+
 const rgblight_segment_t PROGMEM caps_word_lights[] = INNER_KEYS(GREEN)
 
 const rgblight_segment_t PROGMEM compose_mode_lights[] = INNER_KEYS(ORANGE)
@@ -386,7 +421,11 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     caps_word_lights,
     compose_mode_lights,
     compose_fail_lights,
-    compose_cancel_lights
+    compose_cancel_lights,
+    oneshot_ctrl_active,
+    oneshot_shift_active,
+    oneshot_gui_active,
+    oneshot_alt_active
 );
 
 void keyboard_post_init_user(void) {
@@ -407,6 +446,26 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(5, layer_state_cmp(state, LMOV));
     rgblight_set_layer_state(6, layer_state_cmp(state, LMSE));
     return state;
+}
+
+void oneshot_mods_changed_user(uint8_t mods) {
+    rgblight_set_layer_state(11, false);
+    rgblight_set_layer_state(12, false);
+    rgblight_set_layer_state(13, false);
+    rgblight_set_layer_state(14, false);
+
+    if (mods & MOD_MASK_SHIFT) {
+        rgblight_set_layer_state(12, true);
+    }
+    if (mods & MOD_MASK_CTRL) {
+        rgblight_set_layer_state(11, true);
+    }
+    if (mods & MOD_MASK_ALT) {
+        rgblight_set_layer_state(14, true);
+    }
+    if (mods & MOD_MASK_GUI) {
+        rgblight_set_layer_state(13, true);
+    }
 }
 /*******************************************************************************
  * END RGB lighting on layer change
