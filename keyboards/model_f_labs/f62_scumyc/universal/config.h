@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Model F Labs
 #define PRODUCT Reproduction IBM F62 Keyboard
-#define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
+#define DESCRIPTION Tom Wong-Cornall/Ellipse/universal/Purdea Andrei
 
 
 /* key matrix size */
@@ -317,21 +317,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keyboards/model_f_labs/xwhatsit/post_config.h"
 
-// ----- xwhatsit hardware configuration (type_f) -----
+// CONTROLLER_IS_THROUGH_HOLE_MODEL_F
+// ----- xwhatsit hardware configuration -----
 
-#define CAPSENSE_DAC_SCLK   B1
-#define CAPSENSE_DAC_DIN    B2
-#define CAPSENSE_DAC_SYNC_N B0
-#define CAPSENSE_DAC_MAX    1023
+#    define CAPSENSE_DAC_MCP4921
+#    define CAPSENSE_DAC_NCS F6
+#    define CAPSENSE_DAC_SCK B1
+#    define CAPSENSE_DAC_SDI B2
+#    define CAPSENSE_DAC_MAX 4095
 
-#define CAPSENSE_SHIFT_DIN  D4
-#define CAPSENSE_SHIFT_OE   D5
-#define CAPSENSE_SHIFT_SHCP D7
-#define CAPSENSE_SHIFT_STCP D6
-#define CAPSENSE_SHIFT_STCP_IO _SFR_IO_ADDR(PORTD)
-#define CAPSENSE_SHIFT_STCP_BIT 6
+#    define CAPSENSE_SHIFT_DIN  B2
+#    define CAPSENSE_SHIFT_OE   B6
+#    define CAPSENSE_SHIFT_SHCP B1
+#    define CAPSENSE_SHIFT_STCP F7
+#    define CAPSENSE_SHIFT_STCP_IO _SFR_IO_ADDR(PORTF)
+#    define CAPSENSE_SHIFT_STCP_BIT 7
 
-#define SETUP_ROW_GPIOS() do {} while (0)
+// Rows:
+// Physical position from left to right: (only the right-most are used for beamspring)
+// 1    2    3    4    5    6    7    8
+// TH schematic numbering (sense/row lines)
+// 8    6    7    5    4    3    2    1
+// F5,  B5,  F4,  B4,  D4,  C6,  D1,  D0
+
+// pull-ups are only necessary for some variants of the TH controller design:
+#if MATRIX_CAPSENSE_ROWS > 4
+#    define SETUP_ROW_GPIOS() \
+        do { \
+            PORTF |= (1 << 5) | (1 << 4); \
+            PORTB |= (1 << 5) | (1 << 4); \
+            PORTD |= (1 << 4) | (1 << 1) | (1 << 0); \
+            PORTC |= (1 << 6); \
+        } while (0)
+#else
+#    define SETUP_ROW_GPIOS() \
+        do { \
+            PORTD |= (1 << 4) | (1 << 1) | (1 << 0); \
+            PORTC |= (1 << 6); \
+        } while (0)
+#endif
 
 #if 1
 #define SETUP_UNUSED_PINS() do {} while (0)
@@ -339,37 +363,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // TODO ENABLE THIS ONCE TESTED
 #define SETUP_UNUSED_PINS() \
     do { \
-        PORTB |= ~(DDRB | 0x07); \
-        PORTC |= ~(DDRC | 0xf3); \
-        PORTD |= ~(DDRD | 0xff); \
+        PORTB |= ~(DDRB | 0x77); \
+        PORTC |= ~(DDRC | (1 << 6)); \
+        PORTD |= ~(DDRD | 0x33); \
+        PORTE |= ~(DDRE); \
+        PORTF |= ~(DDRF | 0xf0); \
     } while (0)
 #endif
 
-#define CAPSENSE_READ_ROWS_NUMBER_OF_BYTES_PER_SAMPLE 2
-#define CAPSENSE_READ_ROWS_PIN_1 _SFR_IO_ADDR(PINC)
-#define CAPSENSE_READ_ROWS_PIN_2 _SFR_IO_ADDR(PIND)
-#define CAPSENSE_READ_ROWS_ASM_INSTRUCTIONS "in %[dest_row_1], %[ioreg_row_1]\n\tin %[dest_row_2], %[ioreg_row_2]"
-#define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS \
-        "st %a[arr]+, %[dest_row_1]"       "\n\t" \
-        "st %a[arr]+, %[dest_row_2]"
-#define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS_FAKE \
-        "st %a[arr], %[dest_row_1]"       "\n\t" \
-        "st %a[arr], %[dest_row_2]"
-#define CAPSENSE_READ_ROWS_OUTPUT_CONSTRAINTS [dest_row_1] "=&r" (dest_row_1), [dest_row_2] "=&r" (dest_row_2)
-#define CAPSENSE_READ_ROWS_INPUT_CONSTRAINTS [ioreg_row_1] "I" (CAPSENSE_READ_ROWS_PIN_1), [ioreg_row_2] "I" (CAPSENSE_READ_ROWS_PIN_2)
-#define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2
-#define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; } while (0)
+#    if MATRIX_CAPSENSE_ROWS <= 4
+#        define CAPSENSE_READ_ROWS_NUMBER_OF_BYTES_PER_SAMPLE 2
+#        define CAPSENSE_READ_ROWS_PIN_1 _SFR_IO_ADDR(PINC)
+#        define CAPSENSE_READ_ROWS_PIN_2 _SFR_IO_ADDR(PIND)
+#        define CAPSENSE_READ_ROWS_ASM_INSTRUCTIONS "in %[dest_row_1], %[ioreg_row_1]\n\tin %[dest_row_2], %[ioreg_row_2]"
+#        define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS \
+            "st %a[arr]+, %[dest_row_1]"       "\n\t" \
+            "st %a[arr]+, %[dest_row_2]"
+#        define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS_FAKE \
+            "st %a[arr], %[dest_row_1]"       "\n\t" \
+            "st %a[arr], %[dest_row_2]"
+#        define CAPSENSE_READ_ROWS_OUTPUT_CONSTRAINTS [dest_row_1] "=&r" (dest_row_1), [dest_row_2] "=&r" (dest_row_2)
+#        define CAPSENSE_READ_ROWS_INPUT_CONSTRAINTS [ioreg_row_1] "I" (CAPSENSE_READ_ROWS_PIN_1), [ioreg_row_2] "I" (CAPSENSE_READ_ROWS_PIN_2)
+#        define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2
+#        define CAPSENSE_READ_ROWS_VALUE (((dest_row_1 >> 4) & 0x04) | (dest_row_2 & 0x03) | ((dest_row_2 >> 1) & 0x08))
+#        define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; } while (0)
+#    else
+#        define CAPSENSE_READ_ROWS_NUMBER_OF_BYTES_PER_SAMPLE 4
+#        define CAPSENSE_READ_ROWS_PIN_1 _SFR_IO_ADDR(PINC)
+#        define CAPSENSE_READ_ROWS_PIN_2 _SFR_IO_ADDR(PIND)
+#        define CAPSENSE_READ_ROWS_PIN_3 _SFR_IO_ADDR(PINB)
+#        define CAPSENSE_READ_ROWS_PIN_4 _SFR_IO_ADDR(PINF)
+#        define CAPSENSE_READ_ROWS_ASM_INSTRUCTIONS "in %[dest_row_1], %[ioreg_row_1]\n\tin %[dest_row_2], %[ioreg_row_2]\n\tin %[dest_row_3], %[ioreg_row_3]\n\tin %[dest_row_4], %[ioreg_row_4]"
+#        define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS \
+            "st %a[arr]+, %[dest_row_1]"       "\n\t" \
+            "st %a[arr]+, %[dest_row_2]"       "\n\t" \
+            "st %a[arr]+, %[dest_row_3]"       "\n\t" \
+            "st %a[arr]+, %[dest_row_4]"
+#        define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS_FAKE \
+            "st %a[arr], %[dest_row_1]"       "\n\t" \
+            "st %a[arr], %[dest_row_2]"       "\n\t" \
+            "st %a[arr], %[dest_row_3]"       "\n\t" \
+            "st %a[arr], %[dest_row_4]"
+#        define CAPSENSE_READ_ROWS_OUTPUT_CONSTRAINTS [dest_row_1] "=&r" (dest_row_1), [dest_row_2] "=&r" (dest_row_2), [dest_row_3] "=&r" (dest_row_3), [dest_row_4] "=&r" (dest_row_4)
+#        define CAPSENSE_READ_ROWS_INPUT_CONSTRAINTS [ioreg_row_1] "I" (CAPSENSE_READ_ROWS_PIN_1), [ioreg_row_2] "I" (CAPSENSE_READ_ROWS_PIN_2), [ioreg_row_3] "I" (CAPSENSE_READ_ROWS_PIN_3), [ioreg_row_4] "I" (CAPSENSE_READ_ROWS_PIN_4)
+#        define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2, dest_row_3, dest_row_4
+#        define CAPSENSE_READ_ROWS_VALUE (((dest_row_1 >> 4) & 0x04) | (dest_row_2 & 0x03) | ((dest_row_2 >> 1) & 0x08) | (dest_row_3 & 0x10) | ((dest_row_3 << 1) & 0x40) | ((dest_row_4 << 1) & 0x20) | ((dest_row_4 << 2) & 0x80))
+#        define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; dest_row_3 = array[p0++]; dest_row_4 = array[p0++]; } while (0)
+#    endif
 
-/*
-#ifndef CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL
-  #define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (col)
-#endif
-*/
+#    define CAPSENSE_KEYMAP_ROW_TO_PHYSICAL_ROW(row) (MATRIX_CAPSENSE_ROWS-1-(row))
+#    define CAPSENSE_PHYSICAL_ROW_TO_KEYMAP_ROW(row) (MATRIX_CAPSENSE_ROWS-1-(row))
+#    ifndef CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL
+#        define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (col)
+#    endif
 
-#if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
-  #define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS
-#endif
-#define CAPSENSE_KEYMAP_ROW_TO_PHYSICAL_ROW(row) (7-(row))
-#define CAPSENSE_PHYSICAL_ROW_TO_KEYMAP_ROW(row) (7-(row))
-#define CAPSENSE_READ_ROWS_VALUE ((dest_row_1 >> 4) | (dest_row_2 << 4))
+#    if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
+#        if defined(CONTROLLER_IS_THROUGH_HOLE_BEAMSPRING)
+#            define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS
+#        else
+#            define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS
+#        endif
+#    endif
 

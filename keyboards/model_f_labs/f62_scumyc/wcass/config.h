@@ -315,77 +315,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keyboards/model_f_labs/xwhatsit/post_config.h"
 
-// ----- xwhatsit hardware configuration (type_f) -----
+// CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F
+// ----- xwhatsit hardware configuration -----
 
-#define CAPSENSE_DAC_SCLK   B1
-#define CAPSENSE_DAC_DIN    B2
-#define CAPSENSE_DAC_SYNC_N B0
-#define CAPSENSE_DAC_MAX    1023
+#    define CAPSENSE_DAC_SCLK   B1
+#    define CAPSENSE_DAC_DIN    B2
+#    define CAPSENSE_DAC_SYNC_N B0
+#    define CAPSENSE_DAC_MAX    1023
 
-#define CAPSENSE_SHIFT_DIN  D4
-#define CAPSENSE_SHIFT_OE   D5
-#define CAPSENSE_SHIFT_SHCP D7
-#define CAPSENSE_SHIFT_STCP D6
-#define CAPSENSE_SHIFT_STCP_IO _SFR_IO_ADDR(PORTD)
-#define CAPSENSE_SHIFT_STCP_BIT 6
+#    define CAPSENSE_SHIFT_DIN  D4
+#    define CAPSENSE_SHIFT_OE   D5
+#    define CAPSENSE_SHIFT_SHCP D7
+#    define CAPSENSE_SHIFT_STCP D6
+#    define CAPSENSE_SHIFT_STCP_IO _SFR_IO_ADDR(PORTD)
+#    define CAPSENSE_SHIFT_STCP_BIT 6
 
-#define SETUP_ROW_GPIOS() do {} while (0)
-
-#if 1
-#define SETUP_UNUSED_PINS() do {} while (0)
-#else
-// TODO ENABLE THIS ONCE TESTED
-#define SETUP_UNUSED_PINS() \
-    do { \
-        PORTB |= ~(DDRB | 0x07); \
-        PORTC |= ~(DDRC | 0xf3); \
-        PORTD |= ~(DDRD | 0xff); \
-    } while (0)
-#endif
-
-#define CAPSENSE_READ_ROWS_NUMBER_OF_BYTES_PER_SAMPLE 2
-#define CAPSENSE_READ_ROWS_PIN_1 _SFR_IO_ADDR(PINC)
-#define CAPSENSE_READ_ROWS_PIN_2 _SFR_IO_ADDR(PIND)
-#define CAPSENSE_READ_ROWS_ASM_INSTRUCTIONS "in %[dest_row_1], %[ioreg_row_1]\n\tin %[dest_row_2], %[ioreg_row_2]"
-#define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS \
-        "st %a[arr]+, %[dest_row_1]"       "\n\t" \
-        "st %a[arr]+, %[dest_row_2]"
-#define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS_FAKE \
-        "st %a[arr], %[dest_row_1]"       "\n\t" \
-        "st %a[arr], %[dest_row_2]"
-#define CAPSENSE_READ_ROWS_OUTPUT_CONSTRAINTS [dest_row_1] "=&r" (dest_row_1), [dest_row_2] "=&r" (dest_row_2)
-#define CAPSENSE_READ_ROWS_INPUT_CONSTRAINTS [ioreg_row_1] "I" (CAPSENSE_READ_ROWS_PIN_1), [ioreg_row_2] "I" (CAPSENSE_READ_ROWS_PIN_2)
-#define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2
-#define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; } while (0)
-
-/*
-#ifndef CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL
-  #define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (col)
-#endif
-*/
-
-#if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
-  #define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS
-#endif
-#define CAPSENSE_KEYMAP_ROW_TO_PHYSICAL_ROW(row) (7-(row))
-#define CAPSENSE_PHYSICAL_ROW_TO_KEYMAP_ROW(row) (7-(row))
-#define CAPSENSE_READ_ROWS_VALUE ((dest_row_1 >> 4) | (dest_row_2 << 4))
-
-// ----- xwhatsit hardware configuration (type_f) -----
-
-#define CAPSENSE_DAC_SCLK   B1
-#define CAPSENSE_DAC_DIN    B2
-#define CAPSENSE_DAC_SYNC_N B0
-#define CAPSENSE_DAC_MAX    1023
-
-#define CAPSENSE_SHIFT_DIN  D4
-#define CAPSENSE_SHIFT_OE   D5
-#define CAPSENSE_SHIFT_SHCP D7
-#define CAPSENSE_SHIFT_STCP D6
-#define CAPSENSE_SHIFT_STCP_IO _SFR_IO_ADDR(PORTD)
-#define CAPSENSE_SHIFT_STCP_BIT 6
-
-#define SETUP_ROW_GPIOS() do {} while (0)
+#define SETUP_ROW_GPIOS() \
+        do { \
+            PORTC |= 0xF0; \
+            PORTD |= 0x0F; \
+        } while (0)
 
 #if 1
 #define SETUP_UNUSED_PINS() do {} while (0)
@@ -399,31 +348,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     } while (0)
 #endif
 
-#define CAPSENSE_READ_ROWS_NUMBER_OF_BYTES_PER_SAMPLE 2
-#define CAPSENSE_READ_ROWS_PIN_1 _SFR_IO_ADDR(PINC)
-#define CAPSENSE_READ_ROWS_PIN_2 _SFR_IO_ADDR(PIND)
-#define CAPSENSE_READ_ROWS_ASM_INSTRUCTIONS "in %[dest_row_1], %[ioreg_row_1]\n\tin %[dest_row_2], %[ioreg_row_2]"
-#define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS \
+#    define CAPSENSE_READ_ROWS_NUMBER_OF_BYTES_PER_SAMPLE 2
+#    define CAPSENSE_READ_ROWS_PIN_1 _SFR_IO_ADDR(PINC)
+#    define CAPSENSE_READ_ROWS_PIN_2 _SFR_IO_ADDR(PIND)
+#    define CAPSENSE_READ_ROWS_ASM_INSTRUCTIONS "in %[dest_row_1], %[ioreg_row_1]\n\tin %[dest_row_2], %[ioreg_row_2]"
+#    define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS \
         "st %a[arr]+, %[dest_row_1]"       "\n\t" \
         "st %a[arr]+, %[dest_row_2]"
-#define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS_FAKE \
+#    define CAPSENSE_READ_ROWS_STORE_TO_ARRAY_INSTRUCTIONS_FAKE \
         "st %a[arr], %[dest_row_1]"       "\n\t" \
         "st %a[arr], %[dest_row_2]"
-#define CAPSENSE_READ_ROWS_OUTPUT_CONSTRAINTS [dest_row_1] "=&r" (dest_row_1), [dest_row_2] "=&r" (dest_row_2)
-#define CAPSENSE_READ_ROWS_INPUT_CONSTRAINTS [ioreg_row_1] "I" (CAPSENSE_READ_ROWS_PIN_1), [ioreg_row_2] "I" (CAPSENSE_READ_ROWS_PIN_2)
-#define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2
-#define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; } while (0)
+#    define CAPSENSE_READ_ROWS_OUTPUT_CONSTRAINTS [dest_row_1] "=&r" (dest_row_1), [dest_row_2] "=&r" (dest_row_2)
+#    define CAPSENSE_READ_ROWS_INPUT_CONSTRAINTS [ioreg_row_1] "I" (CAPSENSE_READ_ROWS_PIN_1), [ioreg_row_2] "I" (CAPSENSE_READ_ROWS_PIN_2)
+#    define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2
+#    define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; } while (0)
 
-/*
-#ifndef CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL
-  #define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (col)
-#endif
-*/
+#    ifndef CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL
+#        define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (col)
+#    endif
 
-#if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
-  #define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS
-#endif
-#define CAPSENSE_KEYMAP_ROW_TO_PHYSICAL_ROW(row) (7-(row))
-#define CAPSENSE_PHYSICAL_ROW_TO_KEYMAP_ROW(row) (7-(row))
-#define CAPSENSE_READ_ROWS_VALUE ((dest_row_1 >> 4) | (dest_row_2 << 4))
+#    if defined(CONTROLLER_IS_XWHATSIT_DISPLAYWRITER)
+#        if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
+#            define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS
+#        endif
+#        define CAPSENSE_KEYMAP_ROW_TO_PHYSICAL_ROW(row) (row)
+#        define CAPSENSE_PHYSICAL_ROW_TO_KEYMAP_ROW(row) (row)
+#        define CAPSENSE_READ_ROWS_VALUE ( \
+                    (((dest_row_1 >> 4) & 1) << (7-1)) | \
+                    (((dest_row_1 >> 5) & 1) << (5-1)) | \
+                    (((dest_row_1 >> 6) & 1) << (3-1)) | \
+                    (((dest_row_1 >> 7) & 1) << (1-1)) | \
+                    (((dest_row_2 >> 0) & 1) << (2-1)) | \
+                    (((dest_row_2 >> 1) & 1) << (4-1)) | \
+                    (((dest_row_2 >> 2) & 1) << (6-1)) | \
+                    (((dest_row_2 >> 3) & 1) << (8-1)))
+#    else
+#        if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
+#            define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS
+#        endif
+#        define CAPSENSE_KEYMAP_ROW_TO_PHYSICAL_ROW(row) (7-(row))
+#        define CAPSENSE_PHYSICAL_ROW_TO_KEYMAP_ROW(row) (7-(row))
+#        define CAPSENSE_READ_ROWS_VALUE ((dest_row_1 >> 4) | (dest_row_2 << 4))
+#    endif
 
