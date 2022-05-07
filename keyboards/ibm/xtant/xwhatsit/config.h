@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x0002
 #define DEVICE_VER 0x0001
 #define MANUFACTURER wcass/Tom Wong-Cornall/Purdea Andrei
-#define PRODUCT IBM Model F XT
+#define PRODUCT IBM Model F XT/Bigfoot Xtant
 #define DESCRIPTION QMK firmware for the IBM Xtant keyboard using the original Xwhatsit model F controller PCB
 
 /* key matrix size */
