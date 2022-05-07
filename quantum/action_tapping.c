@@ -143,8 +143,8 @@ void action_tapping_process(keyrecord_t record) {
 #            define TAP_GET_RETRO_TAPPING true
 #        endif
 #        define MAYBE_RETRO_SHIFTING(ev) (TAP_GET_RETRO_TAPPING && (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16((ev).time, tapping_key.event.time) < (RETRO_SHIFT + 0))
-#        define TAP_IS_LT IS_LT(tapping_keycode)
-#        define TAP_IS_MT IS_MT(tapping_keycode)
+#        define TAP_IS_LT IS_QK_LAYER_TAP(tapping_keycode)
+#        define TAP_IS_MT IS_QK_MOD_TAP(tapping_keycode)
 #        define TAP_IS_RETRO IS_RETRO(tapping_keycode)
 #    else
 #        define TAP_GET_RETRO_TAPPING false
