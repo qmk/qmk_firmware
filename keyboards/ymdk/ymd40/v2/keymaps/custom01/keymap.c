@@ -1,15 +1,18 @@
-/* Customización teclado YMD40
+/* Customización teclado YMD40 por Santiago Intxausti <intxausti@gmail.com>
  * 
  *La capa _ADJUST no la consigo hacer funcionar por lo que he tenido que crear la capa _AJUSTES en su lugar
  */
 
 #include QMK_KEYBOARD_H
 
+
+// FUNCION PARA ACTIVAR EL NUMLOCK DE LA CAPA _NUM_PAD
 void led_set_user(uint8_t usb_led) {
   if (!(usb_led & (1<<USB_LED_NUM_LOCK))) {
     tap_code(KC_NLCK);
   }
 }
+
 
 // FUNCIONES TAP DANCE
 void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -72,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT_ortho_4x12(
 	KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,	KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_BSPC,
-	KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_F6,	KC_BSLS,	KC_MINS,	KC_EQL,		KC_LBRC,	KC_RBRC,	KC_BSLS,
-        KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,		KC_F12,	KC_NO,		KC_MUTE,	KC_NO,		KC_NO,		KC_NO,		KC_VOLU,
+	KC_F13,		KC_F14,		KC_F15,		KC_F16,		KC_F17,		KC_F18,	KC_BSLS,	KC_MINS,	KC_EQL,		KC_LBRC,	KC_RBRC,	KC_BSLS,
+        KC_F19,		KC_F20,		KC_F21,		KC_F22,		KC_F23,		KC_F24,	KC_NO,		KC_MUTE,	KC_NO,		KC_NO,		KC_NO,		KC_VOLU,
 	KC_LCTL,	KC_NO,		KC_LGUI,	KC_LALT,	KC_BSPC,	KC_SPC,	KC_SPC,		KC_TRNS,	KC_MRWD,	KC_MPLY,	KC_MFFD,	KC_VOLD
     ),
     
@@ -87,15 +90,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_AJUSTES] = LAYOUT_ortho_4x12(
 	RESET,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DEBUG,
 	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		LAG_NRM,	LAG_SWP,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DM_REC1,	DM_REC2,	DM_RSTP,	DM_RSTP,	DM_RSTP,
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS
     ),
 
     [_MOV] = LAYOUT_ortho_4x12(
-	KC_TAB,		KC_NO,	KC_NO,		KC_NO,		KC_NO,			KC_NO,		KC_NO,		KC_PGUP,	KC_INS,	KC_PSCR,	KC_SLCK,	KC_PAUS,
-	KC_TRNS,	KC_NO,	KC_LCTL,	KC_LALT,	KC_LSFT,		KC_HOME,	KC_LEFT,	KC_DOWN,	KC_UP,	KC_RGHT,	KC_NO,		KC_NO,
+	KC_TAB,		KC_NO,	KC_NO,		DM_PLY1,	DM_PLY2,			KC_NO,		KC_NO,		KC_PGUP,	KC_INS,	KC_PSCR,	KC_SLCK,	KC_PAUS,
+	KC_TRNS,	KC_NO,	KC_LCTL,	KC_LALT,	KC_LSFT,			KC_HOME,	KC_LEFT,	KC_DOWN,	KC_UP,	KC_RGHT,	KC_NO,		KC_NO,
 	KC_NO,		KC_NO,	KC_DEL,		KC_NO,		LCTL(KC_LEFT_GUI),	KC_END,		KC_END,		KC_PGDN,	KC_NO,	KC_NO,		KC_NO,		KC_NO,
-	KC_NO,		KC_NO,	KC_NO,		KC_NO,		KC_BSPC,		KC_TRNS,	KC_TRNS,	KC_ENT,		KC_NO,	KC_NO,		C(G(KC_LEFT)),	C(G(KC_RIGHT))
+	KC_NO,		KC_NO,	KC_NO,		KC_NO,		KC_BSPC,			KC_TRNS,	KC_TRNS,	KC_ENT,		KC_NO,	KC_NO,		C(G(KC_LEFT)),	C(G(KC_RIGHT))
     ),
 
     [_ONE_HAND] = LAYOUT_ortho_4x12(
@@ -124,6 +127,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+// FUNCION TECLA LEADER
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
