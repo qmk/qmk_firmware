@@ -1,6 +1,6 @@
 /*
 Copyright 2020 Purdea Andrei
-Copyright 2021 Matthew J Wolf
+Copyright 2021-2022 Matthew J Wolf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -146,7 +146,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPSENSE_SHIFT_STCP_IO _SFR_IO_ADDR(PORTD)
 #define CAPSENSE_SHIFT_STCP_BIT 6
 
-#define SETUP_ROW_GPIOS() do {} while (0)
+//#define SETUP_ROW_GPIOS() do {} while (0)
+// Enable pull-ups on row GPIOs. Newer controlers
+#define SETUP_ROW_GPIOS() \
+        do { \
+            PORTC |= 0xF0; \
+            PORTD |= 0x0F; \
+        } while (0)
+
 
 #if 1
 #define SETUP_UNUSED_PINS() do {} while (0)
