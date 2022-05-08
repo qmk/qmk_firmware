@@ -134,9 +134,13 @@ void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
     leader_end();
-
+    
+    SEQ_ONE_KEY(KC_H) {
+		SEND_STRING(SS_LALT(SS_TAP(X_HOME)));
+	}
+    
     SEQ_THREE_KEYS(KC_C, KC_A, KC_S) {
-      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+    	SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
     }
 
   }
