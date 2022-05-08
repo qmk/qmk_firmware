@@ -561,8 +561,8 @@ void secure_hook_quantum(secure_status_t secure_status) {
     // clear these, when it is triggered.
 
     if (secure_status == SECURE_PENDING) {
-            clear_keyboard();
-            layer_clear();
+        clear_keyboard();
+        layer_clear();
     }
 }
 #endif
