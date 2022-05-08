@@ -1,12 +1,22 @@
 # takashicompany/spreadwriter
 
-![takashicompany/spreadwriter](imgur.com image replace me!)
+![takashicompany/spreadwriter](https://dl.dropboxusercontent.com/s/c26r9bugx9xw5df/01.jpg)
 
 *A short description of the keyboard/project*
 
+"Spreadwriter" はGL516ケースに対応した50%キーボードです。  
+放射状のキーレイアウトは、手を自然な形で置くことができ、楽な姿勢での打鍵を可能にしています。  
+
+LEDを用いたキーの照明や、ロータリーエンコーダの搭載も可能です。
+---
+"Spreadwriter" is a 50% keyboard for the GL516 case.
+The radial key layout allows for a natural hand placement and comfortable typing posture.
+
+LED-based key illumination and a rotary encoder are also available.
+
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Spreadwriter PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/spreadwriter
 
 Make example for this keyboard (after setting up your build environment):
 
