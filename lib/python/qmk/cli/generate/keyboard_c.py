@@ -25,7 +25,7 @@ def _gen_led_config(info_data):
     if not led_config:
         return lines
 
-    matrix = [['NO_PIN'] * cols for i in range(rows)]
+    matrix = [['NO_LED'] * cols for i in range(rows)]
     pos = []
     flags = []
 
