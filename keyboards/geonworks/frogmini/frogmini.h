@@ -17,8 +17,8 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_frogmini_fmh)
+#if defined(KEYBOARD_geonworks_frogmini_fmh)
     #include "fmh.h"
-#elif defined(KEYBOARD_frogmini_fms)
+#elif defined(KEYBOARD_geonworks_frogmini_fms)
     #include "fms.h"
 #endif

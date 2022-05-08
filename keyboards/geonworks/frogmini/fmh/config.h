@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Gondolindrim
+Copyright 2022 Gondolindrim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -33,13 +33,13 @@ The DFU state in the bootloader can be accessed in 3 ways:
 
 After accessing the DFU state in your PCB, build the default layout using:
 
-    make frog_mini/fms:default
+    make geonworks/frogmini/fms:default
 
 ### FM-H (hotswap)
 
 After accessing the DFU state in your PCB, build the default layout using:
 
-    make frog_mini/fmh:default
+    make geonworks/frogmini/fmh:default
 
 Then download the resulting binary `*bin` file using `dfu-util` or QMK Toolbox.
 
