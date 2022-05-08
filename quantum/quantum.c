@@ -564,7 +564,5 @@ void secure_hook_quantum(secure_status_t secure_status) {
             clear_keyboard();
             layer_clear();
     }
-
-    secure_hook_kb(secure_status);
 }
 #endif
