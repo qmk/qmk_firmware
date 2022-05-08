@@ -89,7 +89,6 @@ void secure_task(void) {
 #endif
 }
 
-#if defined(SECURE_ENABLE)
 __attribute__((weak)) bool secure_hook_user(secure_status_t secure_status) {
     return true;
 }
@@ -100,4 +99,3 @@ __attribute__((weak)) bool secure_hook_kb(secure_status_t secure_status) {
 __attribute__((weak)) void secure_hook_quantum(secure_status_t secure_status) {
     secure_hook_kb(secure_status);
 }
-#endif
