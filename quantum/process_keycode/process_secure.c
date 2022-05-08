@@ -35,6 +35,10 @@ bool process_secure(uint16_t keycode, keyrecord_t *record) {
             secure_is_locked() ? secure_unlock() : secure_lock();
             return false;
         }
+        if (keycode == SECURE_REQUEST) {
+            secure_request_unlock();
+            return false;
+        }
     }
 #endif
     return true;
