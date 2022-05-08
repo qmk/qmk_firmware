@@ -40,6 +40,16 @@
         "pid": "0x0023",
         "vid": "0x7463"
     },
+    "rgblight": {
+        "led_count": 52,
+        "pin": "D3",
+        "hue_steps": 10,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+        "animations": {
+            "all": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
