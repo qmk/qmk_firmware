@@ -214,13 +214,6 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #if defined(SECURE_ENABLE)
     if (!preprocess_secure(keycode, record)) {
-        // If keys are being held when this is triggered, they may not be released properly
-        // this can result in stuck keys, mods and layers.  To prevent that, manually
-        // clear these, when it is triggered.
-        if (!record->event.pressed) {
-            clear_keyboard();
-            layer_clear();
-        }
         return false;
     }
 #endif
@@ -560,3 +553,18 @@ const char *get_u16_str(uint16_t curr_num, char curr_pad) {
     last_pad = curr_pad;
     return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
 }
+
+#if defined(SECURE_ENABLE)
+void secure_hook_quantum(secure_status_t secure_status) {
+    // If keys are being held when this is triggered, they may not be released properly
+    // this can result in stuck keys, mods and layers.  To prevent that, manually
+    // clear these, when it is triggered.
+
+    if (secure_status == SECURE_PENDING) {
+            clear_keyboard();
+            layer_clear();
+    }
+
+    secure_hook_kb(secure_status);
+}
+#endif
