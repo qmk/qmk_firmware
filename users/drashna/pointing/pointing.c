@@ -94,8 +94,10 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
             break;
+#if 0
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
             break;
+#endif
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (record->event.pressed || !record->tap.count) {
                 break;
