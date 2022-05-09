@@ -167,7 +167,7 @@ def _query_device(device):
         return {'xap': 'UNKNOWN', 'secure': 'UNKNOWN'}
 
     # to u32 to BCD string
-    a = _to_unsigned(ver_data[:4]])
+    a = _to_unsigned(ver_data[:4])
     ver = f'{a>>24}.{a>>16 & 0xFF}.{a & 0xFFFF}'
 
     secure = _from_bytes(_xap_transaction(device, SUB_0, 0x03))
