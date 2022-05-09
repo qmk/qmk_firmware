@@ -136,7 +136,6 @@ def _xap_transaction(device, sub, route, payload=b''):
     # prepend 0 on windows because reasons...
     if 'windows' in platform().lower():
         buffer = b"\x00" + buffer
-    # print(buffer.hex())
 
     device.write(buffer)
 
@@ -146,7 +145,6 @@ def _xap_transaction(device, sub, route, payload=b''):
     while token != array_alpha[:2]:
         # FIXME: Will consume and ignore all mismatching messages
         array_alpha = device.read(MAX_MSG_LEN, TIMEOUT)
-    # print(array_alpha.hex())
     if array_alpha[2] != FLAG_SUCCESS:
         raise ComError(f"Transaction unsuccesful, got response flag {hex(array_alpha[2])}")
 
@@ -305,7 +303,6 @@ def xap(cli):
     # xap_doit(device)
     if cli.args.action == CliAction.UNLOCK:
         ret = xap_unlock(device)
-        print(ret)
         cli.log.info("Done")
 
     elif cli.args.action == CliAction.DUMP:
