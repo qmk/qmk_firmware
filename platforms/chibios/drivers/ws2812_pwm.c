@@ -89,6 +89,9 @@
  * The duty cycle is calculated for a high period of 350 nS.
  */
 #define WS2812_DUTYCYCLE_0 (WS2812_PWM_FREQUENCY / (1000000000 / 350))
+#if (WS2812_DUTYCYCLE_0 > 255)
+    #error WS2812 PWM driver: High period for a 0 is more than a byte
+#endif
 
 /**
  * @brief   High period for a one, in ticks
@@ -105,6 +108,9 @@
  * This is in the middle of the specifications of the WS2812 and WS2812B.
  */
 #define WS2812_DUTYCYCLE_1 (WS2812_PWM_FREQUENCY / (1000000000 / 800))
+#if (WS2812_DUTYCYCLE_1 > 255)
+    #error WS2812 PWM driver: High period for a 1 is more than a byte
+#endif
 
 /* --- PRIVATE MACROS ------------------------------------------------------- */
 
@@ -247,7 +253,7 @@
 
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */
 
-static uint32_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
+uint8_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 
 /* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
 /*
@@ -288,7 +294,7 @@ void ws2812_init(void) {
     dmaStreamSetPeripheral(WS2812_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1])); // Ziel ist der An-Zeit im Cap-Comp-Register
     dmaStreamSetMemory0(WS2812_DMA_STREAM, ws2812_frame_buffer);
     dmaStreamSetTransactionSize(WS2812_DMA_STREAM, WS2812_BIT_N);
-    dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+    dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_BYTE | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
     // M2P: Memory 2 Periph; PL: Priority Level
 
 #if (STM32_DMA_SUPPORTS_DMAMUX == TRUE)
