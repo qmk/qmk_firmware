@@ -29,17 +29,18 @@ This list defines the terms used across the entire set of XAP protocol documenta
 | _Secure Route_ | A _route_ which has potentially destructive consequences, necessitating prior approval by the user before executing. |
 | _Subsystem_ | A high-level area of functionality within XAP. |
 | _Unlock sequence_ | A physical sequence initiated by the user to enable execution of  _secure routes_. |
+| _Broadcast Header_ | Packet format for broadcast messages. Takes the format:<br>`token` - token<br>`u8` - type<br>`u8` - length |
 | _ID_ | A single octet / 8-bit byte, representing Subsystem or Route index. |
 | _Request Header_ | Packet format for inbound data. Takes the format:<br>`token` - token<br>`u8` - length |
 | _Response Flags_ | An `u8` containing the status of the request. |
-| _Response Header_ | Packet format for inbound data. Takes the format:<br>`token` - token<br>`response_flags` - flags<br>`u8` - length |
+| _Response Header_ | Packet format for outbound data. Takes the format:<br>`token` - token<br>`response_flags` - flags<br>`u8` - length |
 | _Token_ | A `u16` associated with a specific request as well as its corresponding response. |
 
 ## Requests and Responses
 
 Communication generally follows a request/response pattern.
 
-Each request needs to include a _token_ -- this `u16` value prefixes each outbound request from the host application and its corresponding response, allowing repsonse messages to be correlated with their request, even if multiple host applications are communicating with the firmware simultaneously. Host applications should randomly generate a token ID for **every** outbound request, unless using a reserved token defined below.
+Each request needs to include a _token_ -- this `u16` value prefixes each outbound request from the host application and its corresponding response, allowing response messages to be correlated with their request, even if multiple host applications are communicating with the firmware simultaneously. Host applications should randomly generate a token ID for **every** outbound request, unless using a reserved token defined below.
 
 This token is followed by a `u8` signifying the length of data in the request.
 
