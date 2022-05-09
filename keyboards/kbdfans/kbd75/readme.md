@@ -10,11 +10,11 @@ The KBD75 was sold through various rounds, with various PCB changes between them
 
 **Firmware files are SPECIFIC to each board. Firmware files from one, will not work on the other.**
 
-* Keyboard Maintainer: QMK Community
-* Hardware Supported: KBD75 PCB rev 1 and 2
+* Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
+* Hardware Supported: KBD75 PCB [rev1](./rev1) and [rev2](./rev2)
 * Hardware Availability:
-    * https://kbdfans.com/collections/75-diy-kit/products/kbd75-keyboard-set
-    * https://kbdfans.com/collections/75-diy-kit/products/kbd75v2-custom-keyboard-diy-kit
+  * [KBD75 rev2 Kit – KBDfans.com](https://kbdfans.com/collections/75-diy-kit/products/kbd75v2-custom-keyboard-diy-kit)
+  * [KBD75 rev2 PCB – KBDfans.com](https://kbdfans.com/collections/pcb/products/kbdfans-75-pcb-75)
 
 Make example for this keyboard (after setting up your build environment):
 
