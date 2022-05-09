@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "Pikatea Macropad GB3",
+    "url": "http://www.pikatea.com",
+    "maintainer": "JackKester",
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                {"x":0, "y":0},
+                {"x":1, "y":0},
+                {"x":2, "y":0},
+                {"x":3, "y":0},
+                {"x":4, "y":0},
+                {"x":5, "y":0},
+                {"x":6, "y":0},
+                {"x":7, "y":0},
+                {"x":6.5, "y":1},
+                {"x":7.6, "y":1}
+            ]
+        }
+    }
+}
+
