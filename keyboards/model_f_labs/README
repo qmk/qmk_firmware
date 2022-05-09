@@ -1,4 +1,6 @@
-Matthew J Wolf 28-July-2021 model_f_labs
+Matthew J Wolf 09-May-2022 model_f_labs
+
+See change log for changes.
 
 The original source used Purdea Andrei xwhatsit code that was retrieved on
 24 June 2021.
@@ -98,7 +100,9 @@ have it's know repo.
 
 List of model_f_labs hex Files That Compile
 -------------------------------------------
-model_f_labs_f62_wcass_10t8or_spacefn.hex
+model_f_labs_beamspring_full_wcass_default.hex
+model_f_labs_beamspring_ssk_wcass_default.hex
+model_f_labs_f62_scumyc_wcass_default.hex
 model_f_labs_f62_wcass_ansi_hhkb_split_shift_regular_backspace.hex
 model_f_labs_f62_wcass_ansi_hhkb_split_shift_split_backspace.hex
 model_f_labs_f62_wcass_ansi_nonhhkb_split_shift_regular_backspace.hex

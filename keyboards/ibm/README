@@ -1,4 +1,6 @@
-Matthew J Wolf 11-July-2021 ibm
+Matthew J Wolf 09-May-2022 ibm
+
+See change log for changes.
 
 The original source used Purdea Andrei xwhatsit code that was retrieved on
 24 June 2021.
@@ -132,6 +134,8 @@ ibm_fext_xwhatsit_default.hex
 ibm_fssk_universal_default.hex
 ibm_fssk_wcass_default.hex
 ibm_fssk_xwhatsit_default.hex
+ibm_fxtal_universal_default.hex
+ibm_fxtal_xwhatsit_default.hex
 ibm_fxt_type_2_universal_default.hex
 ibm_fxt_type_2_wcass_default.hex
 ibm_fxt_type_2_xwhatsit_default.hex
