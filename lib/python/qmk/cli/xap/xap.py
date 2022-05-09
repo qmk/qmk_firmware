@@ -334,7 +334,7 @@ class XAPShell(cmd.Cmd):
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>.')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available devices.')
 @cli.argument('-i', '--interactive', arg_only=True, action='store_true', help='Start interactive shell.')
-@cli.argument('action', nargs='*', arg_only=True, default=["listen"], choices=list(map(str, CliAction)))
+@cli.argument('action', nargs='?', arg_only=True, default="listen", choices=list(map(str, CliAction)))
 @cli.subcommand('Acquire debugging information from usb XAP devices.', hidden=not cli.config.user.developer)
 def xap(cli):
     """Acquire debugging information from XAP devices
@@ -361,4 +361,4 @@ def xap(cli):
         XAPShell(device).loop()
         return True
 
-    XAPShell(device).onecmd(" ".join(cli.args.action))
+    XAPShell(device).onecmd(cli.args.action)
