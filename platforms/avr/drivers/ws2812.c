@@ -23,6 +23,7 @@
 #include "ws2812.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include <pin_defs.h>
 #include <util/delay.h>
 
 #define pinmask(pin) (_BV((pin)&0xF))
