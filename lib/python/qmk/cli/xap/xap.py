@@ -184,7 +184,7 @@ def _query_device_info_len(device):
     INFO_PAYLOAD_LEN = 4
     response_data = _xap_transaction(device, SUB_1, 0x05)
     if not response_data:
-        raise ValueError(f"Expected response data for info query, got {respsonse_data}")
+        raise ValueError(f"Expected response data for info query, got {response_data}")
     elif len(response_data) != INFO_PAYLOAD_LEN:
         raise IndexError(f"Expected response payload to be of size {INFO_PAYLOAD_LEN}, got size {len(response_data)} ({response_data})")
     return _to_unsigned(response_data)
