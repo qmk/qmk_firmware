@@ -253,7 +253,7 @@
 
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */
 
-uint8_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
+static uint8_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 
 /* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
 /*
