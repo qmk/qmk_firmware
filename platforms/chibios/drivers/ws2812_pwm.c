@@ -247,7 +247,7 @@
 
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */
 
-static uint32_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
+uint8_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 
 /* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
 /*
@@ -288,7 +288,7 @@ void ws2812_init(void) {
     dmaStreamSetPeripheral(WS2812_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1])); // Ziel ist der An-Zeit im Cap-Comp-Register
     dmaStreamSetMemory0(WS2812_DMA_STREAM, ws2812_frame_buffer);
     dmaStreamSetTransactionSize(WS2812_DMA_STREAM, WS2812_BIT_N);
-    dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+    dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_BYTE | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
     // M2P: Memory 2 Periph; PL: Priority Level
 
 #if (STM32_DMA_SUPPORTS_DMAMUX == TRUE)
