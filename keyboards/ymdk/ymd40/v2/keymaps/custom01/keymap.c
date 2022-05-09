@@ -1,6 +1,5 @@
-/* Customización teclado YMD40 por Santiago Intxausti <intxausti@gmail.com>
- * 
- *La capa _ADJUST no la consigo hacer funcionar por lo que he tenido que crear la capa _AJUSTES en su lugar
+/* 
+ * Customización teclado YMD40 por Santiago Intxausti <intxausti@gmail.com>
  */
 
 #include QMK_KEYBOARD_H
@@ -52,42 +51,34 @@ enum layer_names {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _AJUSTES,
   _MOV,
   _ONE_HAND,
   _NUM_PAD,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_ortho_4x12(
-       KC_TAB,			KC_Q,		KC_W,		KC_E,			KC_R,				KC_T,				KC_Y,				KC_U,			KC_I,		KC_O,		KC_P,		KC_BSPC,
-       LT(_MOV,KC_ESC),		KC_A,		KC_S,		KC_D,			KC_F,				KC_G,				KC_H,				KC_J,			KC_K,		KC_L,		KC_SCLN,	KC_QUOT,
-       TD(TD_SIFT_CAPSLOCK),	KC_Z,		KC_X,		KC_C,			KC_V,				KC_B,				TD(TD_ENE),			KC_M,			KC_COMM,	KC_DOT,		KC_SLSH,	KC_SFTENT,
-       KC_LCTL,			TT(_NUM_PAD),	KC_LGUI,	KC_LALT,		LT(_LOWER, KC_BSPC),		LT(_ONE_HAND, KC_SPACE),	LT(_ONE_HAND, KC_SPACE),	LT(_RAISE,KC_ENT),	KC_RALT,	KC_RGUI,	KC_APP,		KC_LEAD
-    ),
+	[_QWERTY]=LAYOUT_ortho_4x12(
+		KC_TAB,					KC_Q,			KC_W,		KC_E,			KC_R,					KC_T,					KC_Y,					KC_U,				KC_I,		KC_O,		KC_P,		KC_BSPC,
+		LT(_MOV,KC_ESC),		KC_A,			KC_S,		KC_D,			KC_F,					KC_G,					KC_H,					KC_J,				KC_K,		KC_L,		KC_SCLN,	KC_QUOT,
+		TD(TD_SIFT_CAPSLOCK),	KC_Z,			KC_X,		KC_C,			KC_V,					KC_B,					TD(TD_ENE),				KC_M,				KC_COMM,	KC_DOT,		KC_SLSH,	KC_SFTENT,
+		KC_LCTL,				TT(_NUM_PAD),	KC_LALT,	KC_LGUI,		LT(_LOWER,KC_BSPC),		LT(_ONE_HAND,KC_SPACE),	LT(_ONE_HAND,KC_SPACE),	LT(_RAISE,KC_ENT),	KC_RALT,	KC_RGUI,	KC_APP,		KC_LEAD
+	),
 
     [_RAISE] = LAYOUT_ortho_4x12(
-        KC_TILD,	KC_EXLM,	KC_AT,		KC_HASH,	KC_DLR,		KC_PERC,	KC_CIRC,	KC_AMPR,	KC_ASTR,	KC_LPRN,	KC_RPRN,	KC_BSPC,
-        KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_F6,		KC_PIPE,	KC_UNDS,	KC_PLUS,	KC_LCBR,	KC_RCBR,	KC_PIPE,
-        KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,		KC_F12,		KC_NO,		KC_MUTE,	KC_NO,		KC_LBRC,	KC_RBRC,	KC_VOLU,
-        KC_LCTL,	KC_NO,		KC_LGUI,	KC_LALT,	MO(_AJUSTES),	KC_SPC,		KC_SPC,		KC_ENT,		KC_MRWD,	KC_MPLY,	KC_MFFD,	KC_VOLD
+        KC_TILD,	KC_EXLM,	KC_AT,		KC_HASH,	KC_DLR,			KC_PERC,	KC_CIRC,	KC_AMPR,	KC_ASTR,	KC_LPRN,	KC_RPRN,	KC_BSPC,
+        KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,			KC_F6,		KC_PIPE,	KC_UNDS,	KC_PLUS,	KC_LCBR,	KC_RCBR,	KC_PIPE,
+        KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,			KC_F12,		KC_NO,		KC_MUTE,	KC_NO,		KC_LBRC,	KC_RBRC,	KC_VOLU,
+        KC_LCTL,	KC_NO,		KC_LGUI,	KC_LALT,	MO(_ADJUST),	KC_SPC,		KC_SPC,		KC_ENT,		KC_MRWD,	KC_MPLY,	KC_MFFD,	KC_VOLD
     ),
 
     [_LOWER] = LAYOUT_ortho_4x12(
 	KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,	KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_BSPC,
 	KC_F13,		KC_F14,		KC_F15,		KC_F16,		KC_F17,		KC_F18,	KC_BSLS,	KC_MINS,	KC_EQL,		KC_LBRC,	KC_RBRC,	KC_BSLS,
-        KC_F19,		KC_F20,		KC_F21,		KC_F22,		KC_F23,		KC_F24,	KC_NO,		KC_MUTE,	KC_NO,		KC_NO,		KC_NO,		KC_VOLU,
-	KC_LCTL,	KC_NO,		KC_LGUI,	KC_LALT,	KC_BSPC,	KC_SPC,	KC_SPC,		KC_TRNS,	KC_MRWD,	KC_MPLY,	KC_MFFD,	KC_VOLD
+    KC_F19,		KC_F20,		KC_F21,		KC_F22,		KC_F23,		KC_F24,	KC_NO,		KC_MUTE,	KC_NO,		KC_NO,		KC_NO,		KC_VOLU,
+	KC_LCTL,	KC_NO,		KC_LGUI,	KC_LALT,	KC_BSPC,	KC_SPC,	KC_SPC,		KC_TRNS,	KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_VOLD
     ),
     
     [_ADJUST] = LAYOUT_ortho_4x12(
-	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DEBUG,
-	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS
-    ),
-    
-    [_AJUSTES] = LAYOUT_ortho_4x12(
 	RESET,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DEBUG,
 	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		LAG_NRM,	LAG_SWP,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DM_REC1,	DM_REC2,	DM_RSTP,	DM_RSTP,	DM_RSTP,
@@ -106,8 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_QUOT,	KC_SCLN,	KC_L,	KC_K,		KC_J,	KC_H,		KC_G,		KC_F,	KC_D,	KC_S,	KC_A,	KC_ESC,
 	KC_SFTENT,	KC_SLSH,	KC_DOT,	KC_COMM,	KC_M,	TD(TD_ENE),	KC_B,		KC_V,	KC_C,	KC_X,	KC_Z,	TD(TD_SIFT_CAPSLOCK),
 	KC_LEAD,	KC_NO,		KC_NO,	KC_NO,		KC_NO,	KC_TRNS,	KC_TRNS,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO
-    ),  
-    
+    ),    
 
     [_NUM_PAD] = LAYOUT_ortho_4x12(
         KC_TAB,   		KC_7, 		KC_8,	KC_9, 		KC_NO, 		KC_NO,		KC_PSLS, 	KC_P7,		KC_P8,	KC_P9,		KC_PPLS,	KC_PAST,
@@ -118,14 +108,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-/*layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-*/
+/*
 
-uint32_t layer_state_set_user(uint32_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+  	layer_state_t layer_state_set_user(layer_state_t state) {
+  	return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+	}
+
+*/
 
 // FUNCION TECLA LEADER
 LEADER_EXTERNS();
