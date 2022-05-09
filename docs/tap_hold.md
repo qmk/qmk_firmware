@@ -6,7 +6,9 @@ These options let you modify the behavior of the Tap-Hold keys.
 
 ## Tapping Term
 
-The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  And the exact timing for this to feel natural can vary from keyboard to keyboard, from switch to switch, and from key to key.
+The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  The exact timing for this to feel natural can vary from keyboard to keyboard, from switch to switch, and from key to key.
+
+?> `DYNAMIC_TAPPING_TERM_ENABLE` enables three special keys that can help you quickly find a comfortable tapping term for you. See "Dynamic Tapping Term" for more details.
 
 You can set the global time for this by adding the following setting to your `config.h`:
 
@@ -35,6 +37,82 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 ```
+
+### Dynamic Tapping Term :id=dynamic-tapping-term
+
+`DYNAMIC_TAPPING_TERM_ENABLE` is a feature you can enable in `rules.mk` that lets you use three special keys in your keymap to configure the tapping term on the fly.
+
+| Key         | Description                                                                                                            |
+|-------------|------------------------------------------------------------------------------------------------------------------------|
+| `DT_PRNT`   | "Dynamic Tapping Term Print": Types the current tapping term, in milliseconds                                          |
+| `DT_UP`     | "Dynamic Tapping Term Up": Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default)   |
+| `DT_DOWN`   | "Dynamic Tapping Term Down": Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+
+Set the tapping term as usual with `#define TAPPING_TERM <value>` in `config.h` and add `DYNAMIC_TAPPING_TERM_ENABLE = yes` in `rules.mk`. Then, place the above three keys somewhere in your keymap and flash the new firmware onto your board.
+
+Now, you can try using your dual-role keys, such as layer-taps and mod-taps, and use `DT_DOWN` and `DT_UP` to adjust the tapping term immediately. If you find that you frequently trigger the modifier of your mod-tap(s) by accident for example, that's a sign that your tapping term may be too low so tap `DT_UP` a few times to increase the tapping term until that no longer happens. On the flip side, if you get superfluous characters when you actually intended to momentarily activate a layer, tap `DT_DOWN` to lower the tapping term. Do note that these keys affect the *global* tapping term, you cannot change the tapping term of a specific key on the fly.
+
+Once you're satisfied with the current tapping term value, open `config.h` and replace whatever value you first wrote for the tapping term by the output of the `DT_PRNT` key.
+
+It's important to update `TAPPING_TERM` with the new value because the adjustments made using `DT_UP` and `DT_DOWN` are not persistent.
+
+The value by which the tapping term increases or decreases when you tap `DT_UP` and `DT_DOWN` can be configured in `config.h` with `#define DYNAMIC_TAPPING_TERM_INCREMENT <new value>`. Note that the tapping term is *not* modified when holding down the tap term keys so if you need to, for example, decrease the current tapping term by 50ms, you cannot just press down and hold `DT_DOWN`; you will have to tap it 10 times in a row with the default increment of 5ms.
+
+If you need more flexibility, nothing prevents you from defining your own custom keys to dynamically change the tapping term.
+
+```c
+enum custom_dynamic_tapping_term_keys = {
+    DT_UP_50 = SAFE_RANGE,
+    DT_DOWN_50,
+    DT_UP_X2,
+    DT_DOWN_X2,
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case DT_UP_50:
+        if (record->event.pressed) {
+            g_tapping_term += 50;
+        }
+        break;
+    case DT_DOWN_50:
+        if (record->event.pressed) {
+            g_tapping_term -= 50;
+        }
+        break;
+    case DT_UP_X2:
+        if (record->event.pressed) {
+            g_tapping_term *= 2;
+        }
+        break;
+    case DT_DOWN_X2:
+        if (record->event.pressed) {
+            g_tapping_term /= 2;
+        }
+        break;
+    }
+    return true;
+};
+```
+
+In order for this feature to be effective if you use per-key tapping terms, you need to make a few changes to the syntax of the `get_tapping_term` function. All you need to do is replace every occurrence of `TAPPING_TERM` in the `get_tapping_term` function by lowercase `g_tapping_term`. If you don't do that, you will still see the value typed by `DT_PRNT` go up and down as you configure the tapping term on the fly but you won't feel those changes as they don't get applied. If you can go as low as 10ms and still easily trigger the tap function of a dual-role key, that's a sign that you forgot to make the necessary changes to your `get_tapping_term` function.
+
+For instance, here's how the example `get_tapping_term` shown earlier should look like after the transformation:
+
+```c
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SFT_T(KC_SPC):
+           return g_tapping_term + 1250;
+        case LT(1, KC_GRV):
+            return 130;
+        default:
+            return g_tapping_term;
+    }
+}
+```
+
+The reason being that `TAPPING_TERM` is a macro that expands to a constant integer and thus cannot be changed at runtime whereas `g_tapping_term` is a variable whose value can be changed at runtime. If you want, you can temporarily enable `DYNAMIC_TAPPING_TERM_ENABLE` to find a suitable tapping term value and then disable that feature and revert back to using the classic syntax for per-key tapping term settings.
 
 ## Tap-Or-Hold Decision Modes
 
@@ -67,7 +145,7 @@ An example of a sequence which is affected by the “permissive hold” mode:
 - `KC_L` Up
 - `LT(2, KC_A)` Up
 
-Normally, if you do all this within the `TAPPING_TERM` (default: 200ms), this will be registered as `al` by the firmware and host system.  With the `PERMISSIVE_HOLD` option enabled, the Layer Tap key is considered as a layer switch if another key is tapped, and the above sequence would be registered as `KC_RGHT` (the mapping of `L` on layer 2).
+Normally, if you do all this within the `TAPPING_TERM` (default: 200ms), this will be registered as `al` by the firmware and host system.  With the `PERMISSIVE_HOLD` option enabled, the Layer Tap key is considered as a layer switch if another key is tapped, and the above sequence would be registered as `KC_RGHT` (the mapping of `L` on layer 2). We could describe this sequence as a “nested press” (the modified key's key down and key up events are “nested” between the dual-role key's key down and key up events).
 
 However, this slightly different sequence will not be affected by the “permissive hold” mode:
 
@@ -76,7 +154,7 @@ However, this slightly different sequence will not be affected by the “permiss
 - `LT(2, KC_A)` Up
 - `KC_L` Up
 
-In the sequence above the dual-role key is released before the other key is released, and if that happens within the tapping term, the “permissive hold” mode will still choose the tap action for the dual-role key, and the sequence will be registered as `al` by the host.
+In the sequence above the dual-role key is released before the other key is released, and if that happens within the tapping term, the “permissive hold” mode will still choose the tap action for the dual-role key, and the sequence will be registered as `al` by the host. We could describe this as a “rolling press” (the two keys' key down and key up events behave as if you were rolling a ball across the two keys, first pressing each key down in sequence and then releasing them in the same order).
 
 ?> The `PERMISSIVE_HOLD` option also affects Mod Tap keys, but this may not be noticeable if you do not also enable the `IGNORE_MOD_TAP_INTERRUPT` option for those keys, because the default handler for Mod Tap keys also considers both the “nested press” and “rolling press” sequences like shown above as a modifier hold, not the tap action.  If you do not enable `IGNORE_MOD_TAP_INTERRUPT`, the effect of `PERMISSIVE_HOLD` on Mod Tap keys would be limited to reducing the delay before the key events are made visible to the host.
 
@@ -247,7 +325,7 @@ To enable `retro tapping`, add the following to your `config.h`:
 
 Holding and releasing a dual function key without pressing another key will result in nothing happening. With retro tapping enabled, releasing the key without pressing another will send the original keycode even if it is outside the tapping term.
 
-For instance, holding and releasing `LT(2, KC_SPACE)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPACE` instead.
+For instance, holding and releasing `LT(2, KC_SPC)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPC` instead.
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -260,13 +338,17 @@ You can then add the following function to your keymap:
 ```c
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(2, KC_SPACE):
+        case LT(2, KC_SPC):
             return true;
         default:
             return false;
     }
 }
 ```
+
+### Retro Shift
+
+[Auto Shift,](feature_auto_shift.md) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](feature_auto_shift.md#retro-shift) for more information.
 
 ## Why do we include the key record for the per key functions?
 

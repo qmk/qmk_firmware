@@ -230,14 +230,6 @@ if (i2c_transaction(SLAVE_I2C_ADDRESS_NUMPAD, 0x1FFFF, 11)) {
     return 1;
 }
 
-bool matrix_is_modified(void)
-{
-#if (DEBOUNCE > 0)
-    if (debouncing) return false;
-#endif
-    return true;
-}
-
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
@@ -419,7 +411,7 @@ static void unselect_cols(void)
 
 // Complete rows from other modules over i2c
 i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset) {
-    i2c_status_t status = i2c_start(address, 50);
+    i2c_status_t status = i2c_start(address, 5);
     if (status < 0) {
         goto error;
     }

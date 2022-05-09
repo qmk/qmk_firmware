@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "protocol/serial.h"
+#include "uart.h"
 #include "timer.h"
 
 
@@ -57,8 +57,6 @@ static uint16_t disconnect_counter = 0;
 #define ROW(code)    (( code & ROW_MASK ) >>3)
 #define COL(code)    ((code & COL_MASK) )
 #define KEYUP(code) ((code & KEY_MASK) >>7 )
-
-static bool is_modified = false;
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -166,7 +164,7 @@ uint8_t rts_reset(void) {
 uint8_t get_serial_byte(void) {
     static uint8_t code;
     while(1) {
-        code = serial_recv();
+        code = uart_read();
         if (code) { 
             debug_hex(code); debug(" ");
             return code;
@@ -242,7 +240,7 @@ void matrix_init(void)
     debug_enable = true;
     //debug_matrix =true;
     
-    serial_init(); // arguments all #defined 
+    uart_init(9600); // arguments all #defined 
  
 #if (HANDSPRING == 0)
     pins_init(); // set all inputs and outputs. 
@@ -292,7 +290,7 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     uint8_t code;
-    code = serial_recv();
+    code = uart_read();
     if (!code) {
 /*         
         disconnect_counter ++;
@@ -352,11 +350,6 @@ uint8_t matrix_scan(void)
 
     matrix_scan_quantum();
     return code;
-}
-
-bool matrix_is_modified(void)
-{
-    return is_modified;
 }
 
 inline

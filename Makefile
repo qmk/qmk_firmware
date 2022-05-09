@@ -19,6 +19,10 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+ifdef SKIP_VERSION
+    SKIP_GIT := yes
+endif
+
 ifndef SUB_IS_SILENT
 ifndef SKIP_GIT
     QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
@@ -30,11 +34,7 @@ endif
 endif
 
 # Determine which qmk cli to use
-ifeq (,$(shell which qmk))
-    QMK_BIN = bin/qmk
-else
-    QMK_BIN = qmk
-endif
+QMK_BIN := qmk
 
 # avoid 'Entering|Leaving directory' messages
 MAKEFLAGS += --no-print-directory
@@ -54,74 +54,13 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
-BUILD_DIR := $(ROOT_DIR)/.build
-TEST_DIR := $(BUILD_DIR)/test
+
+include paths.mk
+
+TEST_OUTPUT_DIR := $(BUILD_DIR)/test
 ERROR_FILE := $(BUILD_DIR)/error_occurred
 
-MAKEFILE_INCLUDED=yes
-
-# Helper function to process the newt element of a space separated path
-# It works a bit like the traditional functional head tail
-# so the CURRENT_PATH_ELEMENT will become the new head
-# and the PATH_ELEMENTS are the rest that are still unprocessed
-define NEXT_PATH_ELEMENT
-    $$(eval CURRENT_PATH_ELEMENT := $$(firstword  $$(PATH_ELEMENTS)))
-    $$(eval PATH_ELEMENTS := $$(wordlist  2,9999,$$(PATH_ELEMENTS)))
-endef
-
-# We change the / to spaces so that we more easily can work with the elements
-# separately
-PATH_ELEMENTS := $(subst /, ,$(STARTING_DIR))
-# Initialize the path elements list for further processing
-$(eval $(call NEXT_PATH_ELEMENT))
-
-
-# Phony targets to enable a few simple make commands outside the main processing below.
-.PHONY: list-keyboards
-list-keyboards:
-	util/list_keyboards.sh | sort -u | tr '\n' ' '
-
-.PHONY: generate-keyboards-file
-generate-keyboards-file:
-	util/list_keyboards.sh | sort -u
-
-.PHONY: clean
-clean:
-	echo -n 'Deleting .build/ ... '
-	rm -rf $(BUILD_DIR)
-	echo 'done.'
-
-.PHONY: distclean
-distclean: clean
-	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
-	rm -f *.bin *.hex *.uf2
-	echo 'done.'
-
-#Compatibility with the old make variables, anything you specify directly on the command line
-# always overrides the detected folders
-ifdef keyboard
-    KEYBOARD := $(keyboard)
-endif
-ifdef keymap
-    KEYMAP := $(keymap)
-endif
-
-# Uncomment these for debugging
-# $(info Keyboard: $(KEYBOARD))
-# $(info Keymap: $(KEYMAP))
-
-
-# Set the default goal depending on where we are running make from
-# this handles the case where you run make without any arguments
 .DEFAULT_GOAL := all:all
-ifneq ($(KEYMAP),)
-    .DEFAULT_GOAL := $(KEYBOARD):$(KEYMAP)
-else ifneq ($(KEYBOARD),)
-     # Inside a keyboard folder, build all keymaps for all subprojects
-     # Note that this is different from the old behaviour, which would
-     # build only the default keymap of the default keyboard
-    .DEFAULT_GOAL := $(KEYBOARD):all
-endif
 
 
 # Compare the start of the RULE variable with the first argument($1)
@@ -148,53 +87,20 @@ endef
 # a function that returns the value
 COMPARE_AND_REMOVE_FROM_RULE = $(eval $(call COMPARE_AND_REMOVE_FROM_RULE_HELPER,$1))$(RULE_FOUND)
 
-
-# Recursively try to find a match for the start of the rule to be checked
-# $1 The list to be checked
-# If a match is found, then RULE_FOUND is set to true
-# and MATCHED_ITEM to the item that was matched
-define TRY_TO_MATCH_RULE_FROM_LIST_HELPER3
-    ifneq ($1,)
-        ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,$$(firstword $1)),true)
-            MATCHED_ITEM := $$(firstword $1)
-        else
-            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$$(wordlist 2,9999,$1)))
-        endif
-    endif
-endef
-
-# A recursive helper function for finding the longest match
-# $1 The list to be checked
-# It works by always removing the currently matched item from the list
-define TRY_TO_MATCH_RULE_FROM_LIST_HELPER2
-    # Stop the recursion when the list is empty
-    ifneq ($1,)
-        RULE_BEFORE := $$(RULE)
-        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$1))
-        # If a match is found in the current list, otherwise just return what we had before
-        ifeq ($$(RULE_FOUND),true)
-            # Save the best match so far and call itself recursively
-            BEST_MATCH := $$(MATCHED_ITEM)
-            BEST_MATCH_RULE := $$(RULE)
-            RULE_FOUND := false
-            RULE := $$(RULE_BEFORE)
-            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER2,$$(filter-out $$(MATCHED_ITEM),$1)))
-        endif
-     endif
-endef
-
-
-# Recursively try to find the longest match for the start of the rule to be checked
+# Try to find a match for the start of the rule to be checked
 # $1 The list to be checked
 # If a match is found, then RULE_FOUND is set to true
 # and MATCHED_ITEM to the item that was matched
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
-    BEST_MATCH :=
-    $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER2,$1))
-    ifneq ($$(BEST_MATCH),)
+    # Split on ":", padding with empty strings to avoid indexing issues
+    TOKEN1:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
+    TOKENr:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[1])" $$(RULE))
+
+    FOUNDx:=$$(shell echo $1 | tr " " "\n" | grep -Fx $$(TOKEN1))
+    ifneq ($$(FOUNDx),)
+        RULE := $$(TOKENr)
         RULE_FOUND := true
-        RULE := $$(BEST_MATCH_RULE)
-        MATCHED_ITEM := $$(BEST_MATCH)
+        MATCHED_ITEM := $$(TOKEN1)
     else
         RULE_FOUND := false
         MATCHED_ITEM :=
@@ -245,10 +151,6 @@ define PARSE_RULE
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell util/list_keyboards.sh | sort -u)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
-    # Otherwise use the KEYBOARD variable, which is determined either by
-    # the current directory you run make from, or passed in as an argument
-    else ifneq ($$(KEYBOARD),)
-        $$(eval $$(call PARSE_KEYBOARD,$$(KEYBOARD)))
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
         $$(info |)
@@ -373,7 +275,7 @@ define PARSE_KEYMAP
     # Specify the variables that we are passing forward to submake
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY) QMK_BIN=$$(QMK_BIN)
     # And the first part of the make command
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
     MAKE_MSG := $$(MSG_MAKE_KB)
     # We run the command differently, depending on if we want more output or not
@@ -411,15 +313,16 @@ define PARSE_ALL_KEYMAPS
 endef
 
 define BUILD_TEST
-    TEST_NAME := $1
+    TEST_PATH := $1
+    TEST_NAME := $$(notdir $$(TEST_PATH))
     MAKE_TARGET := $2
     COMMAND := $1
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
-    MAKE_VARS := TEST=$$(TEST_NAME) FULL_TESTS="$$(FULL_TESTS)"
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_test.mk $$(MAKE_TARGET)
+    MAKE_VARS := TEST=$$(TEST_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
-        TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
+        TEST_EXECUTABLE := $$(TEST_OUTPUT_DIR)/$$(TEST_NAME).elf
         TESTS += $$(TEST_NAME)
         TEST_MSG := $$(MSG_TEST)
         $$(TEST_NAME)_COMMAND := \
@@ -436,10 +339,11 @@ define PARSE_TEST
     TESTS :=
     TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
+    include $(BUILDDEFS_PATH)/testlist.mk
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME), $$(notdir $$(TEST))), $$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef
@@ -458,7 +362,7 @@ define SET_SILENT_MODE
     endif
 endef
 
-include $(ROOT_DIR)/message.mk
+include $(BUILDDEFS_PATH)/message.mk
 
 ifeq ($(strip $(BREAK_ON_ERRORS)), yes)
 HANDLE_ERROR = exit 1
@@ -494,7 +398,6 @@ endef
 ifndef SKIP_GIT
 	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
 	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
 	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
 	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
 	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
@@ -528,14 +431,22 @@ git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
 
-# Generate the version.h file
-ifdef SKIP_GIT
-VERSION_H_FLAGS := --skip-git
-endif
-ifdef SKIP_VERSION
-VERSION_H_FLAGS := --skip-all
-SKIP_GIT := yes
-endif
-$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o quantum/version.h)
+.PHONY: list-keyboards
+list-keyboards:
+	util/list_keyboards.sh | sort -u | tr '\n' ' '
 
-include $(ROOT_DIR)/testlist.mk
+.PHONY: generate-keyboards-file
+generate-keyboards-file:
+	util/list_keyboards.sh | sort -u
+
+.PHONY: clean
+clean:
+	echo -n 'Deleting .build/ ... '
+	rm -rf $(BUILD_DIR)
+	echo 'done.'
+
+.PHONY: distclean
+distclean: clean
+	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
+	rm -f *.bin *.hex *.uf2
+	echo 'done.'

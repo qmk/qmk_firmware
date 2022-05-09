@@ -57,13 +57,33 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 
 !> Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
 
-### SparkFun PocketAVR / USBtinyISP / USBasp
+### SparkFun PocketAVR / USBtinyISP
 
 [SparkFun PocketAVR](https://www.sparkfun.com/products/9825)  
 [Adafruit USBtinyISP](https://www.adafruit.com/product/46)  
+
+!> SparkFun PocketAVR and USBtinyISP **DO NOT support** AVR chips with more than 64 KiB of flash (e.g., the AT90USB128 series). This limitation is mentioned on the [shop page for SparkFun PocketAVR](https://www.sparkfun.com/products/9825) and in the [FAQ for USBtinyISP](https://learn.adafruit.com/usbtinyisp/f-a-q#faq-2270879). If you try to use one of these programmers with AT90USB128 chips, you will get verification errors from `avrdude`, and the bootloader won't be flashed properly (e.g., see the [issue #3286](https://github.com/qmk/qmk_firmware/issues/3286)).
+
+**AVRDUDE Programmer**: `usbtiny`  
+**AVRDUDE Port**: `usb`
+
+#### Wiring
+
+|ISP      |Keyboard|
+|---------|--------|
+|`VCC`    |`VCC`   |
+|`GND`    |`GND`   |
+|`RST`    |`RESET` |
+|`SCLK`   |`SCLK`  |
+|`MOSI`   |`MOSI`  |
+|`MISO`   |`MISO`  |
+
+
+### USBasp
+
 [Thomas Fischl's USBasp](https://www.fischl.de/usbasp/)
 
-**AVRDUDE Programmer**: `usbtiny` / `usbasp`  
+**AVRDUDE Programmer**: `usbasp`  
 **AVRDUDE Port**: `usb`
 
 #### Wiring

@@ -15,7 +15,6 @@
  */
 
 #include "quantum.h"
-#include "magic.h"
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
@@ -23,10 +22,6 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
-#endif
-
-#ifdef API_ENABLE
-#    include "api.h"
 #endif
 
 #ifdef MIDI_ENABLE
@@ -51,10 +46,6 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
-#    include "process_auto_shift.h"
-#endif
-
 uint8_t extract_mod_bits(uint16_t code) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -65,24 +56,26 @@ uint8_t extract_mod_bits(uint16_t code) {
 
     uint8_t mods_to_send = 0;
 
-    if (code & QK_RMODS_MIN) {  // Right mod flag is set
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
+    if (code & QK_RMODS_MIN) { // Right mod flag is set
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RIGHT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RIGHT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RIGHT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RIGHT_GUI);
     } else {
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LEFT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LEFT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LEFT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LEFT_GUI);
     }
 
     return mods_to_send;
 }
 
-static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
+void do_code16(uint16_t code, void (*f)(uint8_t)) {
+    f(extract_mod_bits(code));
+}
 
-void register_code16(uint16_t code) {
+__attribute__((weak)) void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
@@ -91,7 +84,7 @@ void register_code16(uint16_t code) {
     register_code(code);
 }
 
-void unregister_code16(uint16_t code) {
+__attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
@@ -100,21 +93,31 @@ void unregister_code16(uint16_t code) {
     }
 }
 
-void tap_code16(uint16_t code) {
+__attribute__((weak)) void tap_code16(uint16_t code) {
     register_code16(code);
-#if TAP_CODE_DELAY > 0
-    wait_ms(TAP_CODE_DELAY);
-#endif
+    if (code == KC_CAPS_LOCK) {
+        wait_ms(TAP_HOLD_CAPS_DELAY);
+    } else if (TAP_CODE_DELAY > 0) {
+        wait_ms(TAP_CODE_DELAY);
+    }
     unregister_code16(code);
 }
 
-__attribute__((weak)) bool process_action_kb(keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
+    return true;
+}
 
-__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) { return process_record_user(keycode, record); }
+__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return process_record_user(keycode, record);
+}
 
-__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 
-__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) { post_process_record_user(keycode, record); }
+__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    post_process_record_user(keycode, record);
+}
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
@@ -130,7 +133,8 @@ void reset_keyboard(void) {
     uint16_t timer_start = timer_read();
     PLAY_SONG(goodbye_song);
     shutdown_user();
-    while (timer_elapsed(timer_start) < 250) wait_ms(1);
+    while (timer_elapsed(timer_start) < 250)
+        wait_ms(1);
     stop_all_notes();
 #else
     shutdown_user();
@@ -145,11 +149,12 @@ void reset_keyboard(void) {
 /* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
 #ifdef COMBO_ENABLE
-    if (record->keycode) { return record->keycode; }
+    if (record->keycode) {
+        return record->keycode;
+    }
 #endif
     return get_event_keycode(record->event, update_layer_cache);
 }
-
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
@@ -179,9 +184,9 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 bool pre_process_record_quantum(keyrecord_t *record) {
     if (!(
 #ifdef COMBO_ENABLE
-        process_combo(get_record_keycode(record, true), record) &&
+            process_combo(get_record_keycode(record, true), record) &&
 #endif
-        true)) {
+            true)) {
         return false;
     }
     return true; // continue processing
@@ -266,7 +271,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+#if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
 #endif
 #ifdef LEADER_ENABLE
@@ -277,6 +282,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
+#endif
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            process_dynamic_tapping_term(keycode, record) &&
 #endif
 #ifdef TERMINAL_ENABLE
             process_terminal(keycode, record) &&
@@ -296,6 +304,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef JOYSTICK_ENABLE
             process_joystick(keycode, record) &&
 #endif
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+            process_programmable_button(keycode, record) &&
+#endif
             true)) {
         return false;
     }
@@ -303,12 +314,12 @@ bool process_record_quantum(keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_RESET
-            case RESET:
+            case QK_BOOTLOADER:
                 reset_keyboard();
                 return false;
 #endif
 #ifndef NO_DEBUG
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 debug_enable ^= 1;
                 if (debug_enable) {
                     print("DEBUG: enabled.\n");
@@ -317,7 +328,7 @@ bool process_record_quantum(keyrecord_t *record) {
                 }
 #endif
                 return false;
-            case EEPROM_RESET:
+            case QK_CLEAR_EEPROM:
                 eeconfig_init();
                 return false;
 #ifdef VELOCIKEY_ENABLE
@@ -367,110 +378,16 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
     return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
 }
 
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) { layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3)); }
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
+}
 
+// TODO: remove legacy api
 void matrix_init_quantum() {
-    magic();
-    led_init_ports();
-#ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
-#endif
-#ifdef AUDIO_ENABLE
-    audio_init();
-#endif
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_init();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
-#endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-    unicode_input_mode_init();
-#endif
-#ifdef HAPTIC_ENABLE
-    haptic_init();
-#endif
-#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
-    set_output(OUTPUT_AUTO);
-#endif
-
     matrix_init_kb();
 }
-
 void matrix_scan_quantum() {
-#if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
-    // There are some tasks that need to be run a little bit
-    // after keyboard startup, or else they will not work correctly
-    // because of interaction with the USB device state, which
-    // may still be in flux...
-    //
-    // At the moment the only feature that needs this is the
-    // startup song.
-    static bool     delayed_tasks_run  = false;
-    static uint16_t delayed_task_timer = 0;
-    if (!delayed_tasks_run) {
-        if (!delayed_task_timer) {
-            delayed_task_timer = timer_read();
-        } else if (timer_elapsed(delayed_task_timer) > 300) {
-            audio_startup();
-            delayed_tasks_run = true;
-        }
-    }
-#endif
-
-#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-    music_task();
-#endif
-
-#ifdef KEY_OVERRIDE_ENABLE
-    key_override_task();
-#endif
-
-#ifdef SEQUENCER_ENABLE
-    sequencer_task();
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-    tap_dance_task();
-#endif
-
-#ifdef COMBO_ENABLE
-    combo_task();
-#endif
-
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_task();
-#endif
-
-#ifdef WPM_ENABLE
-    decay_wpm();
-#endif
-
-#ifdef HAPTIC_ENABLE
-    haptic_task();
-#endif
-
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_read(false);
-#endif
-
-#ifdef AUTO_SHIFT_ENABLE
-    autoshift_matrix_scan();
-#endif
-
     matrix_scan_kb();
-}
-
-#ifdef HD44780_ENABLED
-#    include "hd44780.h"
-#endif
-
-void api_send_unicode(uint32_t unicode) {
-#ifdef API_ENABLE
-    uint8_t chunk[4];
-    dword_to_bytes(unicode, chunk);
-    MT_SEND_DATA(DT_UNICODE, chunk, 5);
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -480,3 +397,130 @@ void api_send_unicode(uint32_t unicode) {
 __attribute__((weak)) void startup_user() {}
 
 __attribute__((weak)) void shutdown_user() {}
+
+void suspend_power_down_quantum(void) {
+    suspend_power_down_kb();
+#ifndef NO_SUSPEND_POWER_DOWN
+// Turn off backlight
+#    ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#    endif
+
+#    ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#    endif
+#    ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_task();
+#    endif
+
+    // Turn off LED indicators
+    led_suspend();
+
+// Turn off audio
+#    ifdef AUDIO_ENABLE
+    stop_all_notes();
+#    endif
+
+// Turn off underglow
+#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_suspend();
+#    endif
+
+#    if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(true);
+#    endif
+#    if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(true);
+#    endif
+
+#    ifdef OLED_ENABLE
+    oled_off();
+#    endif
+#    ifdef ST7565_ENABLE
+    st7565_off();
+#    endif
+#    if defined(POINTING_DEVICE_ENABLE)
+    // run to ensure scanning occurs while suspended
+    pointing_device_task();
+#    endif
+#endif
+}
+
+__attribute__((weak)) void suspend_wakeup_init_quantum(void) {
+// Turn on backlight
+#ifdef BACKLIGHT_ENABLE
+    backlight_init();
+#endif
+
+    // Restore LED indicators
+    led_wakeup();
+
+// Wake up underglow
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_wakeup();
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(false);
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(false);
+#endif
+    suspend_wakeup_init_kb();
+}
+
+/** \brief converts unsigned integers into char arrays
+ *
+ * Takes an unsigned integer and converts that value into an equivalent char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ */
+
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
+    buf[buf_len - 1] = '\0';
+    for (size_t i = 0; i < buf_len - 1; ++i) {
+        char c               = '0' + curr_num % 10;
+        buf[buf_len - 2 - i] = (c == '0' && i == 0) ? '0' : (curr_num > 0 ? c : curr_pad);
+        curr_num /= 10;
+    }
+    return buf;
+}
+
+/** \brief converts uint8_t into char array
+ *
+ * Takes an uint8_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u8_str(uint8_t curr_num, char curr_pad) {
+    static char    buf[4]   = {0};
+    static uint8_t last_num = 0xFF;
+    static char    last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
+}
+
+/** \brief converts uint16_t into char array
+ *
+ * Takes an uint16_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u16_str(uint16_t curr_num, char curr_pad) {
+    static char     buf[6]   = {0};
+    static uint16_t last_num = 0xFF;
+    static char     last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
+}

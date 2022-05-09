@@ -187,7 +187,7 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location

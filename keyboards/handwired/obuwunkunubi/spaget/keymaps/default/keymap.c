@@ -68,14 +68,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *      |   0   | . |   |
   *      `---------------'
   */
-  [BASE] = LAYOUT(                      \
-    KC_NLCK,                   KC_MPLY, \
-    KC_CALC, TO(ONE), KC_MPRV, KC_MNXT, \
-    KC_EQL,  KC_PSLS, KC_PAST, KC_MINS, \
-    KC_P7,   KC_P8,   KC_P9,            \
-    KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
-    KC_P1,   KC_P2,   KC_P3,            \
-             KC_P0,   KC_PDOT, KC_PENT  \
+  [BASE] = LAYOUT(
+    KC_NLCK,                   KC_MPLY,
+    KC_CALC, TO(ONE), KC_MPRV, KC_MNXT,
+    KC_EQL,  KC_PSLS, KC_PAST, KC_MINS,
+    KC_P7,   KC_P8,   KC_P9,
+    KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+    KC_P1,   KC_P2,   KC_P3,
+             KC_P0,   KC_PDOT, KC_PENT
   ),
 
   /* Keymap ONE: Util Layer
@@ -97,14 +97,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *      |  NO   | NO|   |
   *      `---------------'
   */
-  [ONE] = LAYOUT(                        \
-    RESET,                      KC_CAD,  \
-    TO(BASE), TO(TWO), MAKE1,   MAKE2,   \
-    DIR,      MAIL1,   MAIL2,   OBUWUN,  \
-    SELWP,    KC_AF4,  SELWN,            \
-    KC_CPY,   KC_UP,   KC_PST,  KC_PSCR, \
-    KC_LEFT,  KC_DOWN, KC_RGHT,          \
-              KC_P0,   KC_PDOT, KC_PENT  \
+  [ONE] = LAYOUT(
+    RESET,                      KC_CAD,
+    TO(BASE), TO(TWO), MAKE1,   MAKE2,
+    DIR,      MAIL1,   MAIL2,   OBUWUN,
+    SELWP,    KC_AF4,  SELWN,
+    KC_CPY,   KC_UP,   KC_PST,  KC_PSCR,
+    KC_LEFT,  KC_DOWN, KC_RGHT,
+              KC_P0,   KC_PDOT, KC_PENT
   ),
 
   /* Keymap TWO: Emoji Layer
@@ -126,14 +126,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *      |  NO   | NO|   |
   *      `---------------'
   */
-  [TWO] = LAYOUT(                        \
-    KC_NO,                      KC_NO,   \
-    TO(ONE), TO(BASE), KC_LBRC, KC_RBRC, \
-    KC_F13,  KC_F14,   KC_F15,  KC_F16,  \
-    EM7,     EM8,      EM9,              \
-    EM4,     EM5,      EM6,     KC_NO,   \
-    EM1,     EM2,      EM3,              \
-             KC_NO,    KC_NO,   KC_NO    \
+  [TWO] = LAYOUT(
+    KC_NO,                      KC_NO,
+    TO(ONE), TO(BASE), KC_LBRC, KC_RBRC,
+    KC_F13,  KC_F14,   KC_F15,  KC_F16,
+    EM7,     EM8,      EM9,
+    EM4,     EM5,      EM6,     KC_NO,
+    EM1,     EM2,      EM3,
+             KC_NO,    KC_NO,   KC_NO
   ),
 
 };
@@ -342,7 +342,7 @@ void matrix_init_user(void) {
     set_unicode_input_mode(UC_WINC);
 };
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
   oled_write_P(PSTR("       spaget v1\n\n"), false);
 
   // Host Keyboard Layer Status
@@ -368,6 +368,7 @@ void oled_task_user(void) {
   oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
   oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
   oled_write_P(led_state.scroll_lock ? PSTR("SCROLL ") : PSTR("       "), false);
+    return false;
 }
 #endif
 

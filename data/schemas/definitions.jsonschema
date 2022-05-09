@@ -20,6 +20,10 @@
         "type": "string",
         "pattern": "^0x[0-9A-F]{4}$"
     },
+    "bcd_version": {
+        "type": "string",
+        "pattern": "^[0-9]{1,2}\\.[0-9]\\.[0-9]$"
+    },
     "text_identifier": {
         "type": "string",
         "minLength": 1,
@@ -49,6 +53,10 @@
         "oneOf": [
             {
                 "type": "string",
+                "enum": ["NO_PIN"]
+            },
+            {
+                "type": "string",
                 "pattern": "^[A-K]\\d{1,2}$"
             },
             {
@@ -70,13 +78,13 @@
     "signed_int": {
         "type": "number",
         "multipleOf": 1
-    }
+    },
     "signed_int_8": {
         "type": "number",
         "min": -127,
         "max": 127,
         "multipleOf": 1
-    }
+    },
     "string_array": {
         "type": "array",
         "items": {
@@ -97,7 +105,7 @@
         "type": "number",
         "min": 0,
         "multipleOf": 1
-    }
+    },
     "unsigned_int_8": {
         "type": "number",
         "min": 0,

@@ -39,6 +39,7 @@
 #    include "led.h"
 #endif
 #include "wait.h"
+#include "usb_device_state.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
 
@@ -70,7 +71,12 @@ uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
 uint8_t                keyboard_led_state                            = 0;
 volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
-static void            keyboard_idle_timer_cb(void *arg);
+
+#if CH_KERNEL_MAJOR >= 7
+static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
+#elif CH_KERNEL_MAJOR <= 6
+static void keyboard_idle_timer_cb(void *arg);
+#endif
 
 report_keyboard_t keyboard_report_sent = {{0}};
 #ifdef MOUSE_ENABLE
@@ -412,6 +418,7 @@ static inline bool usb_event_queue_dequeue(usbevent_t *event) {
 }
 
 static inline void usb_event_suspend_handler(void) {
+    usb_device_state_set_suspend(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -419,6 +426,7 @@ static inline void usb_event_suspend_handler(void) {
 
 static inline void usb_event_wakeup_handler(void) {
     suspend_wakeup_init();
+    usb_device_state_set_resume(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
     // NOTE: converters may not accept this
@@ -439,6 +447,15 @@ void usb_event_queue_task(void) {
             case USB_EVENT_WAKEUP:
                 last_suspend_state = false;
                 usb_event_wakeup_handler();
+                break;
+            case USB_EVENT_CONFIGURED:
+                usb_device_state_set_configuration(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
+                break;
+            case USB_EVENT_UNCONFIGURED:
+                usb_device_state_set_configuration(false, 0);
+                break;
+            case USB_EVENT_RESET:
+                usb_device_state_set_reset();
                 break;
             default:
                 // Nothing to do, we don't handle it.
@@ -482,13 +499,14 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             if (last_suspend_state) {
                 usb_event_queue_enqueue(USB_EVENT_WAKEUP);
             }
+            usb_event_queue_enqueue(USB_EVENT_CONFIGURED);
             return;
         case USB_EVENT_SUSPEND:
-            usb_event_queue_enqueue(USB_EVENT_SUSPEND);
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
         case USB_EVENT_RESET:
+            usb_event_queue_enqueue(event);
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
                 chSysLockFromISR();
                 /* Disconnection event on suspend.*/
@@ -716,7 +734,7 @@ void init_usb_driver(USBDriver *usbp) {
      * after a reset.
      */
     usbDisconnectBus(usbp);
-    wait_ms(1500);
+    wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 
@@ -757,11 +775,18 @@ void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
 /* start-of-frame handler
  * TODO: i guess it would be better to re-implement using timers,
  *  so that this is not going to have to be checked every 1ms */
-void kbd_sof_cb(USBDriver *usbp) { (void)usbp; }
+void kbd_sof_cb(USBDriver *usbp) {
+    (void)usbp;
+}
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
+#if CH_KERNEL_MAJOR >= 7
+static void keyboard_idle_timer_cb(struct ch_virtual_timer *timer, void *arg) {
+    (void)timer;
+#elif CH_KERNEL_MAJOR <= 6
 static void keyboard_idle_timer_cb(void *arg) {
+#endif
     USBDriver *usbp = (USBDriver *)arg;
 
     osalSysLockFromISR();
@@ -792,7 +817,9 @@ static void keyboard_idle_timer_cb(void *arg) {
 }
 
 /* LED status */
-uint8_t keyboard_leds(void) { return keyboard_led_state; }
+uint8_t keyboard_leds(void) {
+    return keyboard_led_state;
+}
 
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
@@ -892,7 +919,9 @@ void send_mouse(report_mouse_t *report) {
 }
 
 #else  /* MOUSE_ENABLE */
-void send_mouse(report_mouse_t *report) { (void)report; }
+void send_mouse(report_mouse_t *report) {
+    (void)report;
+}
 #endif /* MOUSE_ENABLE */
 
 /* ---------------------------------------------------------
@@ -949,6 +978,35 @@ void send_system(uint16_t data) {
 void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
+
+void send_programmable_button(uint32_t data) {
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+    static report_programmable_button_t report = {
+        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
+    };
+
+    report.usage = data;
+
+    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report));
+    osalSysUnlock();
 #endif
 }
 
@@ -1055,7 +1113,9 @@ void raw_hid_task(void) {
 
 #ifdef MIDI_ENABLE
 
-void send_midi_packet(MIDI_EventPacket_t *event) { chnWrite(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t)); }
+void send_midi_packet(MIDI_EventPacket_t *event) {
+    chnWrite(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t));
+}
 
 bool recv_midi_packet(MIDI_EventPacket_t *const event) {
     size_t size = chnReadTimeout(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t), TIME_IMMEDIATE);
@@ -1076,7 +1136,11 @@ void midi_ep_task(void) {
 
 #ifdef VIRTSER_ENABLE
 
-void virtser_send(const uint8_t byte) { chnWrite(&drivers.serial_driver.driver, &byte, 1); }
+void virtser_init(void) {}
+
+void virtser_send(const uint8_t byte) {
+    chnWrite(&drivers.serial_driver.driver, &byte, 1);
+}
 
 __attribute__((weak)) void virtser_recv(uint8_t c) {
     // Ignore by default
@@ -1120,7 +1184,7 @@ void send_joystick_packet(joystick_t *joystick) {
           joystick->axes[5],
 #        endif
         },
-#    endif  // JOYSTICK_AXES_COUNT>0
+#    endif // JOYSTICK_AXES_COUNT>0
 
 #    if JOYSTICK_BUTTON_COUNT > 0
         .buttons = {
@@ -1136,7 +1200,7 @@ void send_joystick_packet(joystick_t *joystick) {
             joystick->buttons[3],
 #        endif
         }
-#    endif  // JOYSTICK_BUTTON_COUNT>0
+#    endif // JOYSTICK_BUTTON_COUNT>0
     };
 
     // chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));

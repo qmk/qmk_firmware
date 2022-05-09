@@ -166,14 +166,10 @@ extern "C"
             // restore LED state when keyboard comes up
             if (usb_state == USB_STATE_RUNNING) {
                 dprintf("speed: %s\n", usb_host.getVbusState()==FSHOST ? "full" : "low");
-                keyboard_set_leds(host_keyboard_leds());
+                led_set(host_keyboard_leds());
             }
         }
         return 1;
-    }
-
-    bool matrix_is_modified(void) {
-        return matrix_is_mod;
     }
 
     bool matrix_is_on(uint8_t row, uint8_t col) {

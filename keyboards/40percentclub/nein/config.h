@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x3430 // "40"
+#define VENDOR_ID       0x4025 // "40%", changed since 0x3430 is already officially registered
 #define PRODUCT_ID      0x9999
 #define DEVICE_VER      0x9999
 #define MANUFACTURER    di0ib

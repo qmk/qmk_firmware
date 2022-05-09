@@ -8,8 +8,6 @@ On some keyboards Bootmagic Lite is disabled by default. If this is the case, it
 BOOTMAGIC_ENABLE = yes
 ```
 
-?> You may see `lite` being used in place of `yes`.
-
 Additionally, you may want to specify which key to use. This is especially useful for keyboards that have unusual matrices. To do so, you need to specify the row and column of the key that you want to use. Add these entries to your `config.h` file:
 
 ```c

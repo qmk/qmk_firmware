@@ -76,7 +76,8 @@ static void render_name(void) {
     oled_write_P(mercutio_name, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_name();
+    return false;
 }
 #endif
