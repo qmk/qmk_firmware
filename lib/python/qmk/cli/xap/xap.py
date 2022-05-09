@@ -4,17 +4,17 @@ import cmd
 import json
 import random
 import gzip
+from pathlib import Path
 from platform import platform
 
 from milc import cli
 
-KEYCODE_MAP = {
-    # TODO: this should be data driven...
-    0x04: 'KC_A',
-    0x05: 'KC_B',
-    0x29: 'KC_ESCAPE',
-    0xF9: 'KC_MS_WH_UP',
-}
+from qmk.json_schema import json_load
+
+# TODO: get from xap "uses" for the current device
+keycode_version = '0.0.1'
+spec = json_load(Path(f'data/constants/keycodes_{keycode_version}.json'))
+KEYCODE_MAP = {int(k, 16): v.get('key') for k, v in spec['keycodes'].items()}
 
 
 def _is_xap_usage(x):

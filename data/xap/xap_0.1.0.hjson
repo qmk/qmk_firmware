@@ -1,6 +1,10 @@
 {
     version: 0.1.0
 
+    uses: {
+        keycodes: 0.0.1
+    }
+
     documentation: {
         order: [
             broadcast_messages
