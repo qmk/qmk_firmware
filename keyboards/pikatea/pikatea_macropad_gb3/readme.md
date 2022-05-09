@@ -16,4 +16,6 @@ Flashing example for this keyboard:
 
     make pikatea/pikatea_macropad_gb3:default:flash
 
+Reset the board into bootloader mode by pressing the small button on the backside of the device.
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
