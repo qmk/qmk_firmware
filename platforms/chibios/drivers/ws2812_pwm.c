@@ -90,7 +90,7 @@
  */
 #define WS2812_DUTYCYCLE_0 (WS2812_PWM_FREQUENCY / (1000000000 / 350))
 #if (WS2812_DUTYCYCLE_0 > 255)
-    #error WS2812 PWM driver: High period for a 0 is more than a byte
+#    error WS2812 PWM driver: High period for a 0 is more than a byte
 #endif
 
 /**
@@ -109,7 +109,7 @@
  */
 #define WS2812_DUTYCYCLE_1 (WS2812_PWM_FREQUENCY / (1000000000 / 800))
 #if (WS2812_DUTYCYCLE_1 > 255)
-    #error WS2812 PWM driver: High period for a 1 is more than a byte
+#    error WS2812 PWM driver: High period for a 1 is more than a byte
 #endif
 
 /* --- PRIVATE MACROS ------------------------------------------------------- */
