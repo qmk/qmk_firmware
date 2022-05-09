@@ -1,5 +1,5 @@
-# Default UM-70 Layout
+# Default UM-80 Layout
 
-![UM-70 Layout Image](https://i.imgur.com/5lucSbi.jpg)
+![UM-80 Layout Image](https://i.imgur.com/YsW6FSZ.jpeg)
 
-This is the default layout that comes flashed on every UM-70.
+This is the default layout that comes flashed on every UM-80.
