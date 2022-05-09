@@ -6,8 +6,6 @@
         "LAYOUT": "LAYOUT_7u_space",
         "LAYOUT_all": "LAYOUT_7u_space"
         },
-    "width": 16.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_7u_space": {
             "layout": [
