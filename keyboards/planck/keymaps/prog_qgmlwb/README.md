@@ -72,3 +72,4 @@ Features disabled due to the lack of storage space in the Planck PCB version 5:
 
 - Audio
 - Plover mode
+- Use alt codes to fix missing characters in the english layout
