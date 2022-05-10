@@ -29,7 +29,9 @@ SOFTWARE.
 #if defined(SPLIT_KEYBOARD) && !defined(DISABLE_SYNC_TIMER)
 volatile int32_t sync_timer_ms;
 
-void sync_timer_init(void) { sync_timer_ms = 0; }
+void sync_timer_init(void) {
+    sync_timer_ms = 0;
+}
 
 void sync_timer_update(uint32_t time) {
     if (is_keyboard_master()) return;

@@ -18,7 +18,7 @@
 #define MATRIX_COLS 4
 
 /* key matrix pins */
-#define DIRECT_PINS { \
+#define DIRECT_PINS {   \
     { D7, C6, D4, D1 }, \
     { B1, B4, B5, B3 }  \
 }
