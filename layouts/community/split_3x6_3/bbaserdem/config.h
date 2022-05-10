@@ -34,16 +34,6 @@
 #   undef USE_I2C
 #   undef SSD1306OLED
 
-    // Add state info transmission
-#   define SPLIT_LAYER_STATE_ENABLE
-#   define SPLIT_MODS_ENABLE
-#   define SPLIT_WPM_ENABLE
-
-    // Add state info transmission
-#   define SPLIT_LAYER_STATE_ENABLE
-#   define SPLIT_MODS_ENABLE
-#   define SPLIT_WPM_ENABLE
-
     // Audio output on pin A5 (actualy will be output on B1 using keymap init)
 #   ifdef AUDIO_ENABLE
 #       define AUDIO_PIN A5

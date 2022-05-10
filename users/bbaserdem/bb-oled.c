@@ -38,21 +38,6 @@ void oled_task_user(void) {
     }
 }
 
-// Make sure oled sleeps timely
-void housekeeping_task_oled(void) {
-    // If we are not master; sync the oled state
-    /*
-    if (!is_keyboard_master()) {
-        if ((userspace_runtime.oled_on) && (!is_oled_on())) {
-            oled_on();
-        } else if ((!userspace_runtime.oled_on) && (is_oled_on())) {
-            oled_off();
-        }
-    }
-    */
-}
-#endif
-
 /*-------------------------*\
 |*---RENDERING FUNCTIONS---*|
 \*-------------------------*/
@@ -169,7 +154,6 @@ void render_keymap(uint8_t row, uint8_t col, bool isLite) {
         oled_write(" ", false);
     }
 }
-#endif // !KEYBOARD_splitkb_kyria_rev1
 
 // Writes the currently used OLED display layout
 #ifdef RGB_MATRIX_ENABLE

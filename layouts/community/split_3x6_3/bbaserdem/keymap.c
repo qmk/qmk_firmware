@@ -21,22 +21,6 @@
 #   include "bb-oled-extra.h"
 #endif // KEYBOARD_crkbd_rev1
 
-#ifdef KEYBOARD_crkbd_rev1
-#   include "bb-oled-extra.h"
-#endif // KEYBOARD_crkbd_rev1
-//
-/* F layout
- * ┌───┬───┬───┬───┬───┬───┐         ┌───┬───┬───┬───┬───┬───┐
- * │+ *│ F │ G │ Ğ │ I │ O │         │ D │ R │ N │ H │ P │ Q │
- * ├───┼───┼───┼───┼───┼───┤         ├───┼───┼───┼───┼───┼───┤
- * │ X │ A │ S │ D │ F │ G │         │ T │ K │ M │ L │ Y │ Ş │
- * ├───┼───┼───┼───┼───┼───┤         ├───┼───┼───┼───┼───┼───┤
- * │< >│ J │ Ö │ V │ C │ Ç │         │ Z │ S │ B │. :│, ;│ W │
- * └───┴───┴───┴───┼───┼───┼───┐ ┌───┼───┼───┼───┴───┴───┴───┘
- *                 │Tab│Ent│Esc│ │Del│Spc│Bsp│
- *                 └───┴───┴───┘ └───┴───┴───┘
- */
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3_wrapper(
         BB_ENC0,_BL1_5_,_BR1_5_,BB_ENC1,
@@ -185,15 +169,6 @@ void keyboard_post_init_keymap(void) {
     OPAMP3->CSR = OPAMP3_CSR_VMSEL_1 | OPAMP3_CSR_VMSEL_0 | OPAMP3_CSR_VPSEL_0 | OPAMP3_CSR_OPAMP3EN;
 }
 #endif // AUDIO_ENABLE
-
-#ifdef OLED_ENABLE
-// Flip the display on the right half
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_left()) {
-        return OLED_ROTATION_180; 
-    }
-    return rotation;
-}
 
 #ifdef OLED_ENABLE
 // Flip the display on the right half

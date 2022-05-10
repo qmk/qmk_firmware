@@ -1,4 +1,4 @@
-This file contains my Kyria board layout.
+This folder contains my Kyria (`split_3x6_5`) board layout.
 Check out the [user readme](../../../../../users/bbaserdem/readme.md) for more info.
 
 # Kyria
