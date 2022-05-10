@@ -269,11 +269,11 @@
 #    if defined(WS2812_PWM_TIMER_32BIT)
 #        define WS2812_DMA_MEMORY_WIDTH STM32_DMA_CR_MSIZE_WORD
 #        define WS2812_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_WORD
-uint32_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
+static uint32_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 #    else
 #        define WS2812_DMA_MEMORY_WIDTH STM32_DMA_CR_MSIZE_HWORD
 #        define WS2812_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_HWORD
-uint16_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
+static uint16_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 #    endif
 #else
 #    define WS2812_DMA_MEMORY_WIDTH STM32_DMA_CR_MSIZE_BYTE
@@ -282,7 +282,7 @@ uint16_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 #    else
 #        define WS2812_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_HWORD
 #    endif
-uint8_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
+static uint8_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 #endif
 
 /* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
