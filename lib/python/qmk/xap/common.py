@@ -8,6 +8,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from qmk.constants import QMK_FIRMWARE
 from qmk.json_schema import json_load
+from qmk.decorators import lru_cache
 
 
 def _get_jinja2_env(data_templates_xap_subdir: str):
@@ -74,26 +75,28 @@ def update_xap_definitions(original, new):
     return _merge_ordered_dicts([original, new])
 
 
-def latest_xap_defs():
-    """Gets the latest version of the XAP definitions.
-    """
-    definitions = [hjson.load(file.open(encoding='utf-8')) for file in get_xap_definition_files()]
-    return _merge_ordered_dicts(definitions)
-
-
+@lru_cache(timeout=5)
 def get_xap_defs(version):
     """Gets the required version of the XAP definitions.
     """
     files = get_xap_definition_files()
 
     # Slice off anything newer than specified version
-    index = [idx for idx, s in enumerate(files) if version in str(s)][0]
-    files = files[:(index + 1)]
+    if version != 'latest':
+        index = [idx for idx, s in enumerate(files) if version in str(s)][0]
+        files = files[:(index + 1)]
 
     definitions = [hjson.load(file.open(encoding='utf-8')) for file in files]
     return _merge_ordered_dicts(definitions)
 
 
+def latest_xap_defs():
+    """Gets the latest version of the XAP definitions.
+    """
+    return get_xap_defs('latest')
+
+
+@lru_cache(timeout=5)
 def get_xap_keycodes(xap_version):
     """Gets keycode data for the required version of the XAP definitions.
     """

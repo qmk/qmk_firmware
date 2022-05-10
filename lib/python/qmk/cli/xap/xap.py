@@ -10,7 +10,7 @@ from milc import cli
 
 from qmk.xap.common import get_xap_keycodes
 
-KEYCODE_MAP = get_xap_keycodes('0.2.0')
+KEYCODE_MAP = get_xap_keycodes('latest')
 
 
 def _is_xap_usage(x):
