@@ -54,6 +54,10 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#ifdef DEFERRED_EXEC_ENABLE
+#    include "deferred_exec.h"
+#endif
+
 extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
@@ -105,6 +109,10 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef UNICODE_COMMON_ENABLE
+#    include "process_unicode_common.h"
+#endif
+
 #ifdef KEY_OVERRIDE_ENABLE
 #    include "process_key_override.h"
 #endif
@@ -119,6 +127,10 @@ extern layer_state_t layer_state;
 
 #ifdef AUTO_SHIFT_ENABLE
 #    include "process_auto_shift.h"
+#endif
+
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#    include "process_dynamic_tapping_term.h"
 #endif
 
 #ifdef COMBO_ENABLE
@@ -145,6 +157,10 @@ extern layer_state_t layer_state;
 
 #ifdef JOYSTICK_ENABLE
 #    include "process_joystick.h"
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "process_programmable_button.h"
 #endif
 
 #ifdef GRAVE_ESC_ENABLE
@@ -200,6 +216,10 @@ extern layer_state_t layer_state;
 #    include "encoder.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing_device.h"
+#endif
+
 // For tri-layer
 void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
@@ -229,9 +249,6 @@ void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
 
-void led_set_user(uint8_t usb_led);
-void led_set_kb(uint8_t usb_led);
-bool led_update_user(led_t led_state);
-bool led_update_kb(led_t led_state);
-
-void api_send_unicode(uint32_t unicode);
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
+const char *get_u8_str(uint8_t curr_num, char curr_pad);
+const char *get_u16_str(uint16_t curr_num, char curr_pad);

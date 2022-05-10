@@ -2,10 +2,11 @@
 
 ![mokey](https://rhmokey.github.io/update/index/64v13.jpg)
 
-Support STM32F401 keyboard.
+Support Atmega32u4 keyboard.
 
 * Keyboard Maintainer: [rhmokey](https://github.com/rhmokey)
-* Hardware Supported: STM32F401
+* Hardware Supported: Atmega32u4
+
 ## Bootloader
 * **Physical reset button**: Short press the button on the back of the PCB to enter the Bootloader and flash the firmware
 

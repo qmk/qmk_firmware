@@ -78,6 +78,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif // COLEMAK_LAYER_ENABLE
 };
 
+#if defined(ENCODER_ENABLE) && !defined(ENCODER_DEFAULTACTIONS_ENABLE)     // Encoder Functionality when not using userspace defaults
+    void encoder_action_rgbhue(bool clockwise) {
+        if (clockwise)
+            rgblight_increase_hue_noeeprom();
+        else
+            rgblight_decrease_hue_noeeprom();
+    }
+
+    bool encoder_update_user(uint8_t index, bool clockwise) {
+        uint8_t mods_state = get_mods();
+        if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+            encoder_action_layerchange(clockwise);
+        } else if (mods_state & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up/dn
+            unregister_mods(MOD_BIT(KC_RSFT));
+            encoder_action_navpage(clockwise);
+            register_mods(MOD_BIT(KC_RSFT));
+        } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
+            encoder_action_navword(clockwise);
+        } else if (mods_state & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, change rgb hue/colour
+            encoder_action_rgbhue(clockwise);
+        } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
+            encoder_action_mediatrack(clockwise);
+        } else  {
+            switch(get_highest_layer(layer_state)) {
+            case _FN1:
+                #ifdef IDLE_TIMEOUT_ENABLE
+                    timeout_update_threshold(clockwise);
+                #endif
+                break;
+            default:
+                encoder_action_volume(clockwise);       // Otherwise it just changes volume
+                break;
+            }
+        }
+        return true;
+    }
+#endif // ENCODER_ENABLE && !ENCODER_DEFAULTACTIONS_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
@@ -87,10 +124,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             rgb_matrix_set_color(LED_L1, RGB_GREEN);
             rgb_matrix_set_color(LED_L2, RGB_GREEN);
         }
-        if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
-            rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
-            rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
-        }
+
+        #ifdef INVERT_NUMLOCK_INDICATOR
+            if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
+                rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
+                rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
+            }
+        #else
+            if (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // Normal, on if NUM lock is ON
+                rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
+                rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
+            }
+        #endif // INVERT_NUMLOCK_INDICATOR
+
         if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
             rgb_matrix_set_color(LED_L5, RGB_RED);
             rgb_matrix_set_color(LED_L6, RGB_RED);
