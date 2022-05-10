@@ -46,35 +46,37 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 		oled_set_cursor(0,3);
 		oled_write_P(logo_4, false);
 	}
-
-	bool oled_task_user(void) {
+	bool oled_task_kb(void) {
+		if (!oled_task_user()) {
+			return false;
+		}
 		render_logo();
 		oled_set_cursor(0,6);
-
+		
 		oled_write_ln_P(PSTR("Layer"), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_ln_P(PSTR("Base"), false);
-            break;
-        case 1:
-            oled_write_ln_P(PSTR("FN 1"), false);
-            break;
-        case 2:
-            oled_write_ln_P(PSTR("FN 2"), false);
-            break;
-        case 3:
-            oled_write_ln_P(PSTR("FN 3"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
+		
+		switch (get_highest_layer(layer_state)) {
+			case 0:
+				oled_write_ln_P(PSTR("Base"), false);
+				break;
+			case 1:
+				oled_write_ln_P(PSTR("FN 1"), false);
+				break;
+			case 2:
+				oled_write_ln_P(PSTR("FN 2"), false);
+				break;
+			case 3:
+				oled_write_ln_P(PSTR("FN 3"), false);
+				break;
+			default:
+				oled_write_ln_P(PSTR("Undef"), false);
+		}
+		oled_write_ln_P(PSTR(""), false);
+		// Host Keyboard LED Status
+		led_t led_state = host_keyboard_led_state();
+		oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+		oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+		oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+		return false;
     }
-	oled_write_ln_P(PSTR(""), false);
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-    return false;
-	}
 #endif
