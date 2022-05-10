@@ -1,6 +1,10 @@
 {
     "groups": {
-        "basic": {}
+        "basic": {},
+        "media": {},
+        "modifiers": {},
+        "mouse": {}
+
     },
     "ranges": {
         "0x0000/0x00FF": {}
@@ -414,7 +418,8 @@
             "key": "KC_SCROLL_LOCK",
             "label": "Scroll Lock",
             "aliases": [
-                "KC_SCRL"
+                "KC_SCRL",
+                "KC_BRMD"
             ]
         },
         "0x0048": {
@@ -423,7 +428,8 @@
             "label": "Pause",
             "aliases": [
                 "KC_PAUS",
-                "KC_BRK"
+                "KC_BRK",
+                "KC_BRMU"
             ]
         },
         "0x0049": {
@@ -1070,8 +1076,214 @@
             ]
         },
 
+        "0x00a5": {
+            "group": "media",
+            "key": "KC_SYSTEM_POWER",
+            "label": "System Power Down",
+            "aliases": [
+                "KC_PWR"
+            ]
+        },
+        "0x00a6": {
+            "group": "media",
+            "key": "KC_SYSTEM_SLEEP",
+            "label": "System Sleep",
+            "aliases": [
+                "KC_SLEP"
+            ]
+        },
+        "0x00a7": {
+            "group": "media",
+            "key": "KC_SYSTEM_WAKE",
+            "label": "System Wake",
+            "aliases": [
+                "KC_WAKE"
+            ]
+        },
+        "0x00a8": {
+            "group": "media",
+            "key": "KC_AUDIO_MUTE",
+            "label": "Mute",
+            "aliases": [
+                "KC_MUTE"
+            ]
+        },
+        "0x00a9": {
+            "group": "media",
+            "key": "KC_AUDIO_VOL_UP",
+            "label": "Volume Up",
+            "aliases": [
+                "KC_VOLU"
+            ]
+        },
+        "0x00aa": {
+            "group": "media",
+            "key": "KC_AUDIO_VOL_DOWN",
+            "label": "Volume Down",
+            "aliases": [
+                "KC_VOLD"
+            ]
+        },
+        "0x00ab": {
+            "group": "media",
+            "key": "KC_MEDIA_NEXT_TRACK",
+            "label": "Next",
+            "aliases": [
+                "KC_MNXT"
+            ]
+        },
+        "0x00ac": {
+            "group": "media",
+            "key": "KC_MEDIA_PREV_TRACK",
+            "label": "Previous",
+            "aliases": [
+                "KC_MPRV"
+            ]
+        },
+        "0x00ad": {
+            "group": "media",
+            "key": "KC_MEDIA_STOP",
+            "label": "Stop",
+            "aliases": [
+                "KC_MSTP"
+            ]
+        },
+        "0x00ae": {
+            "group": "media",
+            "key": "KC_MEDIA_PLAY_PAUSE",
+            "label": "Mute",
+            "aliases": [
+                "KC_MPLY"
+            ]
+        },
+        "0x00af": {
+            "group": "media",
+            "key": "KC_MEDIA_SELECT",
+            "label": "Launch Player",
+            "aliases": [
+                "KC_MSEL"
+            ]
+        },
+        "0x00b0": {
+            "group": "media",
+            "key": "KC_MEDIA_EJECT",
+            "label": "Eject",
+            "aliases": [
+                "KC_EJCT"
+            ]
+        },
+        "0x00b1": {
+            "group": "media",
+            "key": "KC_MAIL",
+            "label": "Launch Mail"
+        },
+        "0x00b2": {
+            "group": "media",
+            "key": "KC_CALCULATOR",
+            "label": "Launch Calculator",
+            "aliases": [
+                "KC_CALC"
+            ]
+        },
+        "0x00b3": {
+            "group": "media",
+            "key": "KC_MY_COMPUTER",
+            "label": "Launch My Computer",
+            "aliases": [
+                "KC_MYCM"
+            ]
+        },
+        "0x00b4": {
+            "group": "media",
+            "key": "KC_WWW_SEARCH",
+            "label": "Browser Search",
+            "aliases": [
+                "KC_WSCH"
+            ]
+        },
+        "0x00b5": {
+            "group": "media",
+            "key": "KC_WWW_HOME",
+            "label": "Browser Home",
+            "aliases": [
+                "KC_WHOM"
+            ]
+        },
+        "0x00b6": {
+            "group": "media",
+            "key": "KC_WWW_BACK",
+            "label": "Browser Back",
+            "aliases": [
+                "KC_WBAK"
+            ]
+        },
+        "0x00b7": {
+            "group": "media",
+            "key": "KC_WWW_FORWARD",
+            "label": "Browser Forward",
+            "aliases": [
+                "KC_WFWD"
+            ]
+        },
+        "0x00b8": {
+            "group": "media",
+            "key": "KC_WWW_STOP",
+            "label": "Browser Stop",
+            "aliases": [
+                "KC_WSTP"
+            ]
+        },
+        "0x00b9": {
+            "group": "media",
+            "key": "KC_WWW_REFRESH",
+            "label": "Browser Refresh",
+            "aliases": [
+                "KC_WREF"
+            ]
+        },
+        "0x00ba": {
+            "group": "media",
+            "key": "KC_WWW_FAVORITES",
+            "label": "Browser Favorites",
+            "aliases": [
+                "KC_WREF"
+            ]
+        },
+        "0x00bb": {
+            "group": "media",
+            "key": "KC_MEDIA_FAST_FORWARD",
+            "label": "Browser Favorites",
+            "aliases": [
+                "KC_WREF"
+            ]
+        },
+        "0x00bc": {
+            "group": "media",
+            "key": "KC_MEDIA_REWIND",
+            "label": "Browser Favorites",
+            "aliases": [
+                "KC_WFAV"
+            ]
+        },
+        "0x00bd": {
+            "group": "media",
+            "key": "KC_BRIGHTNESS_UP",
+            "label": "Brightness Up",
+            "aliases": [
+                "KC_BRIU"
+            ]
+        },
+        "0x00be": {
+            "group": "media",
+            "key": "KC_BRIGHTNESS_DOWN",
+            "label": "Brightness Down",
+            "aliases": [
+                "KC_BRID"
+            ]
+        },
+
         "0x00e0": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_LEFT_CTRL",
             "label": "Left Control",
             "aliases": [
@@ -1079,7 +1291,7 @@
             ]
         },
         "0x00e1": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_LEFT_SHIFT",
             "label": "Left Shift",
             "aliases": [
@@ -1087,7 +1299,7 @@
             ]
         },
         "0x00e2": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_LEFT_ALT",
             "label": "Left Alt",
             "aliases": [
@@ -1096,7 +1308,7 @@
             ]
         },
         "0x00e3": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_LEFT_GUI",
             "label": "Left GUI",
             "aliases": [
@@ -1106,7 +1318,7 @@
             ]
         },
         "0x00e4": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_RIGHT_CTRL",
             "label": "Right Control",
             "aliases": [
@@ -1114,7 +1326,7 @@
             ]
         },
         "0x00e5": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_RIGHT_SHIFT",
             "label": "Right Shift",
             "aliases": [
@@ -1122,7 +1334,7 @@
             ]
         },
         "0x00e6": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_RIGHT_ALT",
             "label": "Right Alt",
             "aliases": [
@@ -1132,7 +1344,7 @@
             ]
         },
         "0x00e7": {
-            "group": "basic",
+            "group": "modifiers",
             "key": "KC_RIGHT_GUI",
             "label": "Right GUI",
             "aliases": [
@@ -1143,7 +1355,7 @@
         },
 
         "0x00ed": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_UP",
             "label": "Move cursor up",
             "aliases": [
@@ -1151,7 +1363,7 @@
             ]
         },
         "0x00ee": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_DOWN",
             "label": "Move cursor down",
             "aliases": [
@@ -1159,7 +1371,7 @@
             ]
         },
         "0x00ef": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_LEFT",
             "label": "Move cursor left",
             "aliases": [
@@ -1167,7 +1379,7 @@
             ]
         },
         "0x00f0": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_LEFT",
             "label": "Move cursor right",
             "aliases": [
@@ -1175,7 +1387,7 @@
             ]
         },
         "0x00f1": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN1",
             "label": "Press button 1",
             "aliases": [
@@ -1183,7 +1395,7 @@
             ]
         },
         "0x00f2": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN2",
             "label": "Press button 2",
             "aliases": [
@@ -1191,7 +1403,7 @@
             ]
         },
         "0x00f3": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN3",
             "label": "Press button 3",
             "aliases": [
@@ -1199,7 +1411,7 @@
             ]
         },
         "0x00f4": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN4",
             "label": "Press button 4",
             "aliases": [
@@ -1207,7 +1419,7 @@
             ]
         },
         "0x00f5": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN5",
             "label": "Press button 5",
             "aliases": [
@@ -1215,7 +1427,7 @@
             ]
         },
         "0x00f6": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN6",
             "label": "Press button 6",
             "aliases": [
@@ -1223,7 +1435,7 @@
             ]
         },
         "0x00f7": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN7",
             "label": "Press button 7",
             "aliases": [
@@ -1231,7 +1443,7 @@
             ]
         },
         "0x00f8": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_BTN8",
             "label": "Press button 8",
             "aliases": [
@@ -1239,7 +1451,7 @@
             ]
         },
         "0x00f9": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_WH_UP",
             "label": "Move wheel up",
             "aliases": [
@@ -1247,7 +1459,7 @@
             ]
         },
         "0x00fa": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_WH_DOWN",
             "label": "Move wheel down",
             "aliases": [
@@ -1255,7 +1467,7 @@
             ]
         },
         "0x00fb": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_WH_LEFT",
             "label": "Move wheel left",
             "aliases": [
@@ -1263,7 +1475,7 @@
             ]
         },
         "0x00fc": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_WH_RIGHT",
             "label": "Move wheel right",
             "aliases": [
@@ -1271,7 +1483,7 @@
             ]
         },
         "0x00fd": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_ACCEL0",
             "label": "Set speed to 0",
             "aliases": [
@@ -1279,7 +1491,7 @@
             ]
         },
         "0x00fe": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_ACCEL1",
             "label": "Set speed to 1",
             "aliases": [
@@ -1287,7 +1499,7 @@
             ]
         },
         "0x00ff": {
-            "group": "basic",
+            "group": "mouse",
             "key": "KC_MS_ACCEL2",
             "label": "Set speed to 2",
             "aliases": [

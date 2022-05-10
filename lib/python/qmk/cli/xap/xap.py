@@ -14,7 +14,7 @@ from qmk.json_schema import json_load
 # TODO: get from xap "uses" for the current device
 keycode_version = '0.0.1'
 spec = json_load(Path(f'data/constants/keycodes_{keycode_version}.json'))
-KEYCODE_MAP = {int(k, 16): v.get('key') for k, v in spec['keycodes'].items()}
+KEYCODE_MAP = {int(k, 16): v.get('aliases', [v.get('key')])[0] for k, v in spec['keycodes'].items()}
 
 
 def _is_xap_usage(x):
@@ -166,7 +166,7 @@ def _list_devices():
             print_dotted_output(data)
 
 
-def xap_dump_keymap(device):
+def xap_dummy(device):
     # get layer count
     layers = _xap_transaction(device, 0x04, 0x01)
     layers = int.from_bytes(layers, "little")
@@ -239,6 +239,27 @@ class XAPShell(cmd.Cmd):
         keycode = _xap_transaction(self.device, 0x04, 0x02, data)
         keycode = int.from_bytes(keycode, "little")
         print(f'keycode:{KEYCODE_MAP.get(keycode, "unknown")}[{keycode}]')
+
+    def do_keymap(self, arg):
+        """Prints out the keycode values of a certain layer
+        """
+        data = bytes(map(int, arg.split()))
+        if len(data) != 1:
+            cli.log.error("Invalid args")
+            return
+
+        info = _query_device_info(self.device)
+        rows = info['matrix_size']['rows']
+        cols = info['matrix_size']['cols']
+
+        # TODO: render like qmk info?
+        for r in range(rows):
+            for c in range(cols):
+                q = data + r.to_bytes(1, byteorder='little') + c.to_bytes(1, byteorder='little')
+                keycode = _xap_transaction(self.device, 0x04, 0x02, q)
+                keycode = int.from_bytes(keycode, "little")
+                print(f'| {KEYCODE_MAP.get(keycode, "unknown").ljust(7)} ', end='', flush=True)
+            print('|')
 
     def do_exit(self, line):
         """Quit shell
