@@ -1,2 +1,4 @@
 //   name            result           chord keys
 COMB(capsLock,       KC_CAPS,         KC_G, KC_M)
+COMB(altEscape,      KC_ESC,          KC_Q, KC_W)
+COMB(altBackspace,   KC_BSPC,         KC_Y, KC_SCLN)
