@@ -689,7 +689,7 @@
         },
         "0x006d": {
             "group": "basic",
-            "key": "KC_F17",
+            "key": "KC_F18",
             "label": "F18"
         },
         "0x006e": {
@@ -1380,7 +1380,7 @@
         },
         "0x00f0": {
             "group": "mouse",
-            "key": "KC_MS_LEFT",
+            "key": "KC_MS_RIGHT",
             "label": "Move cursor right",
             "aliases": [
                 "KC_MS_R"
