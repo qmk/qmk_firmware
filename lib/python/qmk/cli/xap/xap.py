@@ -4,17 +4,13 @@ import cmd
 import json
 import random
 import gzip
-from pathlib import Path
 from platform import platform
 
 from milc import cli
 
-from qmk.json_schema import json_load
+from qmk.xap.common import get_xap_keycodes
 
-# TODO: get from xap "uses" for the current device
-keycode_version = '0.0.1'
-spec = json_load(Path(f'data/constants/keycodes_{keycode_version}.json'))
-KEYCODE_MAP = {int(k, 16): v.get('aliases', [v.get('key')])[0] for k, v in spec['keycodes'].items()}
+KEYCODE_MAP = get_xap_keycodes('0.2.0')
 
 
 def _is_xap_usage(x):
@@ -210,6 +206,8 @@ class XAPShell(cmd.Cmd):
     def __init__(self, device):
         cmd.Cmd.__init__(self)
         self.device = device
+        # cache keycodes for this device
+        self.keycodes = get_xap_keycodes(_query_device(device)['xap'])
 
     def do_about(self, arg):
         """Prints out the current version of QMK with a build date
@@ -238,7 +236,7 @@ class XAPShell(cmd.Cmd):
 
         keycode = _xap_transaction(self.device, 0x04, 0x02, data)
         keycode = int.from_bytes(keycode, "little")
-        print(f'keycode:{KEYCODE_MAP.get(keycode, "unknown")}[{keycode}]')
+        print(f'keycode:{self.keycodes.get(keycode, "unknown")}[{keycode}]')
 
     def do_keymap(self, arg):
         """Prints out the keycode values of a certain layer
@@ -258,7 +256,7 @@ class XAPShell(cmd.Cmd):
                 q = data + r.to_bytes(1, byteorder='little') + c.to_bytes(1, byteorder='little')
                 keycode = _xap_transaction(self.device, 0x04, 0x02, q)
                 keycode = int.from_bytes(keycode, "little")
-                print(f'| {KEYCODE_MAP.get(keycode, "unknown").ljust(7)} ', end='', flush=True)
+                print(f'| {self.keycodes.get(keycode, "unknown").ljust(7)} ', end='', flush=True)
             print('|')
 
     def do_exit(self, line):
