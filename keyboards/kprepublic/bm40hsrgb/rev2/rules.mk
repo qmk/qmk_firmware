@@ -23,5 +23,5 @@ COMMON_VPATH += $(DRIVER_PATH)/led/issi
 SRC += is31fl3733.c
 QUANTUM_LIB_SRC += i2c_master.c
 
-LAYOUTS = planck_mit
+LAYOUTS = ortho_4x12_1x2uC
 LAYOUTS_HAS_RGB = yes
