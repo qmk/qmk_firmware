@@ -22,8 +22,8 @@
 // entirely and just use numbers.
 
 enum layer_names {
-    _BASE = 0,
-    _FN = 1
+    _BASE,
+    _FN,
 };
 
 // enum layer_keycodes { };
