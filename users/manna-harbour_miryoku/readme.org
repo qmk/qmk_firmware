@@ -91,7 +91,7 @@ The ~keyboard~ option specifies the keyboard and is required.  All other options
 
 The ~alphas~, ~nav~, ~clipboard~, and ~layers~ options correspond to the [[https://github.com/manna-harbour/miryoku/tree/master/docs/reference#alternative-layouts][alternative layout]] options.  The ~mapping~ option corresponds to the alternative [[#subset-mapping][mapping]] options.  Alternative layout and mapping options are given in the documentation in the form ~MIRYOKU_OPTION=VALUE~.  To use here, convert to the form specified above.  Use ~default~ to represent the default value.  Values for these five options are case-insensitive.  See the [[../../.github/workflows/test-all-configs.yml][Test All Configs workflow file]] for all supported values.
 
-The ~rules~ and ~config~ options can be used to specify values to be appended to ~custom_rules.mk~ and ~custom_config.h~, respectively.  Separate multiple lines with ~\n~.
+The ~rules~ and ~custom_config~ options can be used to specify values to be appended to ~custom_rules.mk~ and ~custom_config.h~, respectively.  Separate multiple lines with ~\n~.
 
 
 **** Build Inputs
