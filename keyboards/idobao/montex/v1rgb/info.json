@@ -1,7 +1,7 @@
 {
     "keyboard_name": "IDOBAO MONTEX RGB",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_numpad_6x5": {
             "layout": [
                 { "label": "K00 (D4,D5)", "x": 0, "y": 0 },
                 { "label": "K01 (D4,D3)", "x": 1, "y": 0 },

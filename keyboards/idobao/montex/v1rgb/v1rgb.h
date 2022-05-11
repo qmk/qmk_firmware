@@ -7,7 +7,7 @@
 
 #define ___ KC_NO
 
-#define LAYOUT( \
+#define LAYOUT_numpad_6x5( \
     K00, K01, K02, K03, K04, \
     K10, K11, K12, K13, K14, \
     K20, K21, K22, K23, K24, \

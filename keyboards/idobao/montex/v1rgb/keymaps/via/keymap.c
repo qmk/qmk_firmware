@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │MO1│ 0     │ . │   │
      * └───┴───────┴───┴───┘
      */
-    [_BASE] = LAYOUT(
+    [_BASE] = LAYOUT_numpad_6x5(
         KC_GESC,   KC_TAB,   KC_F1,   KC_CALC, KC_BSPC,
         KC_LCTRL,  KC_NLCK,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_LGUI,   KC_P7,    KC_P8,   KC_P9,   KC_PPLS,
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │mo1│Insert │Del│   │
      * └───┴───────┴───┘───┘
      */
-    [_FN] = LAYOUT(
+    [_FN] = LAYOUT_numpad_6x5(
         RESET,   RGB_TOG, RGB_MOD, KC_PSCR, KC_SLCK,
         RGB_HUI, XXXXXXX, RGB_SPD, RGB_SPI, RGB_VAD,
         RGB_HUD, KC_HOME, KC_UP,   KC_PGUP, RGB_VAI,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │   │       │   │   │
      * └───┴───────┴───┘───┘
      */
-    [_EMPTY2] = LAYOUT(
+    [_EMPTY2] = LAYOUT_numpad_6x5(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,           _______
     ),
 
-    [_EMPTY3] = LAYOUT(
+    [_EMPTY3] = LAYOUT_numpad_6x5(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
