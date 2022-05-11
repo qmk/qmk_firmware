@@ -10,6 +10,10 @@
 
 #define U_MACRO_VA_ARGS(macro, ...) macro(__VA_ARGS__)
 
+#if !defined (MIRYOKU_MAPPING)
+  #define MIRYOKU_MAPPING LAYOUT_miryoku
+#endif
+
 #define U_NP KC_NO // key is not present
 #define U_NA KC_NO // present but not available for use
 #define U_NU KC_NO // available but not used
