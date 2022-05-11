@@ -16,6 +16,16 @@ EXTRAKEY_ENABLE = yes        # Audio control and System control
 CONSOLE_ENABLE = no          # Console for debug
 COMMAND_ENABLE = no          # Commands for debug and configuration
 NKRO_ENABLE = yes            # Enable N-Key Rollover
-BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no            # Audio output
+
+ifeq ($(findstring no,$(BACKLIGHT)), no)
+  $(info NO BACKLIGHT)
+  BACKLIGHT_ENABLE = no
+  OPT_DEFS += -DID80_NO_BACKLIGHT
+else ifeq ($(findstring off,$(BACKLIGHT)), off)
+  $(info BACKLIGHT OFF)
+  BACKLIGHT_ENABLE = no
+  OPT_DEFS += -DID80_NO_BACKLIGHT
+else
+  BACKLIGHT_ENABLE = yes
+endif
