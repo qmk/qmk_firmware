@@ -29,8 +29,6 @@
 
 /* --- keyboard configuration macros --- */
 
-#define USB_POLLING_INTERVAL_MS 2
-
 #if CUSTOM_DEBUG
 #    define NO_DEBUG
 #    define NO_PRINT
