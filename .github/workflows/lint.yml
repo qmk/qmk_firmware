@@ -16,6 +16,9 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Install dependencies
+      run: pip3 install -r requirements-dev.txt
+
     - uses: trilom/file-changes-action@v1.2.4
       id: file_changes
       with:
