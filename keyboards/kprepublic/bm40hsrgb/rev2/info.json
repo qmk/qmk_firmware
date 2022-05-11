@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_planck_mit": {
+        "LAYOUT_ortho_4x12_1x2uC": {
             "layout": [
                 {"label":"K00 (B3,B6)", "x":0, "y":0},
                 {"label":"K01 (B3,C6)", "x":1, "y":0},
