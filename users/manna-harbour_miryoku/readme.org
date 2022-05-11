@@ -51,7 +51,7 @@ Build with the ~qmk~ command.  E.g.
 #+BEGIN_SRC sh :tangle no
 qmk compile -c -kb crkbd -km manna-harbour_miryoku # build for crkbd
 qmk flash -c -kb crkbd -km manna-harbour_miryoku # build for crkbd and flash
-qmk compile -c -kb crkbd -km manna-harbour_miryoku -e MIRYOKU_ALPHAS=QWERTY -e MIRYOKU_NAV=INVERTEDT -e MIRYOKU_CLIPBOARD=WIN -e MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
+qmk compile -c -kb crkbd -km manna-harbour_miryoku -e MIRYOKU_ALPHAS=QWERTY -e MIRYOKU_EXTRA=COLEMAKDH -e MIRYOKU_TAP=QWERTY-e MIRYOKU_NAV=INVERTEDT -e MIRYOKU_CLIPBOARD=WIN -e MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
 #+END_SRC
 
 
@@ -62,7 +62,7 @@ First ~cd~ to the repository root.  Then build with ~make~. E.g.
 #+BEGIN_SRC sh :tangle no
 make clean crkbd:manna-harbour_miryoku # build for crkbd
 make clean crkbd:manna-harbour_miryoku:flash # build for crkbd and flash
-make clean crkbd:manna-harbour_miryoku MIRYOKU_ALPHAS=QWERTY MIRYOKU_NAV=INVERTEDT MIRYOKU_CLIPBOARD=WIN MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
+make clean crkbd:manna-harbour_miryoku MIRYOKU_ALPHAS=QWERTY MIRYOKU_EXTRA=COLEMAKDH MIRYOKU_TAP=QWERTY MIRYOKU_NAV=INVERTEDT MIRYOKU_CLIPBOARD=WIN MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
 #+END_SRC
 
 
