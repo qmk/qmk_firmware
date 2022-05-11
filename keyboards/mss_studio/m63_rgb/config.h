@@ -1,4 +1,5 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2021 Mss Studio
+ * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +20,10 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x7516
-#define PRODUCT_ID      0x6002
+#define VENDOR_ID       0x4D4B
+#define PRODUCT_ID      0x6063
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    HorrorTroll
+#define MANUFACTURER    Mss Studio
 #define PRODUCT         M63 RGB
 
 /* key matrix size */
@@ -32,9 +33,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B3, B4, A0,  A2, A3 }
 #define MATRIX_COL_PINS { B0, B1, B2, B10, A7, A6, A5, A4, B5, B6, A1, B7, B8, B9 }
-
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 5
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
