@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            L_KEYPD, KC_APFN, KC_LEFT, KC_RIGHT,                                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                                         SELWORD, ENT_CAG,                   _______, COM_NAV,
                                                                  T_SPOT,                    T_WIND,
-                                               BSP_GUI, DEL_SFT, DEL_SFT,                   OS_MEH,  T_ENTR, SPC_GUI
+                                               BSP_GUI, DEL_SFT, APP_NAV,                   OS_MEH,  T_ENTR, SPC_GUI
 ),
 
 
