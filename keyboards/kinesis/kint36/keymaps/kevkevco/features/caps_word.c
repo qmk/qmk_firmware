@@ -1,4 +1,4 @@
-// Copyright 2022 kevkevco <hello@kevkev.co>
+// Copyright 2022 Kevin Goldberg @kevkevco <hello@kevkev.co>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "caps_word.h"
