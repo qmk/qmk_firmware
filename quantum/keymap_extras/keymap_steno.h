@@ -90,7 +90,7 @@ enum steno_combined_keycodes {
 };
 #endif
 
-#ifdef STENO_ENABLE_TXBOLT
+#ifdef STENO_ENABLE_BOLT
 // TxBolt Codes
 #    define TXB_NUL 0
 #    define TXB_S_L 0b00000001

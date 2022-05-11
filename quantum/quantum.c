@@ -277,7 +277,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
             process_backlight(keycode, record) &&
 #endif
-#if defined(STENO_ENABLE_ALL) || defined(STENO_ENABLE_GEMINI) || defined(STENO_ENABLE_TXBOLT)
+#if defined(STENO_ENABLE_ALL) || defined(STENO_ENABLE_GEMINI) || defined(STENO_ENABLE_BOLT)
             process_steno(keycode, record) &&
 #endif
 #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)

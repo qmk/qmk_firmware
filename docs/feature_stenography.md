@@ -58,7 +58,7 @@ Naturally, this option takes the most amount of firmware space as it needs to co
 Note that it is possible to compile the code for multiple protocols at once with something like:
 ```mk
 STENO_ENABLE_ALL = no
-STENO_ENABLE_TXBOLT = yes
+STENO_ENABLE_BOLT = yes
 STENO_ENABLE_GEMINI = yes
 ```
 However, that only leads to unnecessary bloat; your keyboard will only use Gemini PR because it isn't be possible to switch between protocols with `QK_STENO_BOLT` or `QK_STENO_GEMINI` unless `STENO_ENABLE_ALL` is turned on.

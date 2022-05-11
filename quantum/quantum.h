@@ -81,7 +81,7 @@ extern layer_state_t layer_state;
 #    endif
 #endif
 
-#if defined(STENO_ENABLE_ALL) || defined(STENO_ENABLE_GEMINI) || defined(STENO_ENABLE_TXBOLT)
+#if defined(STENO_ENABLE_ALL) || defined(STENO_ENABLE_GEMINI) || defined(STENO_ENABLE_BOLT)
 #    include "process_steno.h"
 #endif
 

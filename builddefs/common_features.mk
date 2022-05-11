@@ -95,7 +95,7 @@ endif
 # ifneq (, $(filter yes, $VAR1 $VAR2))
 # is a way to check if $VAR1 == yes || $VAR2 == yes
 # See https://stackoverflow.com/a/9802777
-ifneq (, $(filter yes, $(strip $(STENO_ENABLE)) $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_TXBOLT)) $(strip $(STENO_ENABLE_GEMINI))))
+ifneq (, $(filter yes, $(strip $(STENO_ENABLE)) $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_BOLT)) $(strip $(STENO_ENABLE_GEMINI))))
     OPT_DEFS += -DSTENO_ENABLE
     VIRTSER_ENABLE ?= yes
 	# STENO_ENABLE is deprecated in favour of STENO_ENABLE_ALL
@@ -108,8 +108,8 @@ ifneq (, $(filter yes, $(strip $(STENO_ENABLE)) $(strip $(STENO_ENABLE_ALL)) $(s
 	ifneq (, $(filter yes, $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_GEMINI))))
 		OPT_DEFS += -DSTENO_ENABLE_GEMINI
 	endif
-	ifneq (, $(filter yes, $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_TXBOLT))))
-		OPT_DEFS += -DSTENO_ENABLE_TXBOLT
+	ifneq (, $(filter yes, $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_BOLT))))
+		OPT_DEFS += -DSTENO_ENABLE_BOLT
 	endif
     SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
 endif

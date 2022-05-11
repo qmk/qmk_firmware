@@ -39,7 +39,7 @@ static int8_t n_pressed_keys = 0;
 static steno_mode_t mode;
 #elif defined(STENO_ENABLE_GEMINI)
 static const steno_mode_t mode = STENO_MODE_GEMINI;
-#elif defined(STENO_ENABLE_TXBOLT)
+#elif defined(STENO_ENABLE_BOLT)
 static const steno_mode_t mode = STENO_MODE_BOLT;
 #endif
 
@@ -80,7 +80,7 @@ bool update_chord_gemini(uint8_t key) {
 }
 #endif // STENO_ENABLE_GEMINI
 
-#ifdef STENO_ENABLE_TXBOLT
+#ifdef STENO_ENABLE_BOLT
 
 #    define TXB_GRP0 0b00000000
 #    define TXB_GRP1 0b01000000
@@ -118,7 +118,7 @@ static bool update_chord_bolt(uint8_t key) {
     chord[TXB_GET_GROUP(boltcode)] |= boltcode;
     return false;
 }
-#endif // STENO_ENABLE_TXBOLT
+#endif // STENO_ENABLE_BOLT
 
 #ifdef STENO_COMBINEDMAP
 /* Used to look up when pressing the middle row key to combine two consonant or vowel keys */
@@ -192,11 +192,11 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
             if (IS_PRESSED(record->event)) {
                 n_pressed_keys++;
                 switch (mode) {
-#ifdef STENO_ENABLE_TXBOLT
+#ifdef STENO_ENABLE_BOLT
                     case STENO_MODE_BOLT:
                         update_chord_bolt(keycode - QK_STENO);
                         break;
-#endif // STENO_ENABLE_TXBOLT
+#endif // STENO_ENABLE_BOLT
 #ifdef STENO_ENABLE_GEMINI
                     case STENO_MODE_GEMINI:
                         update_chord_gemini(keycode - QK_STENO);
@@ -224,11 +224,11 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
                 switch (mode) {
-#if defined(STENO_ENABLE_TXBOLT) && defined(VIRTSER_ENABLE)
+#if defined(STENO_ENABLE_BOLT) && defined(VIRTSER_ENABLE)
                     case STENO_MODE_BOLT:
                         send_steno_chord_bolt();
                         break;
-#endif // STENO_ENABLE_TXBOLT && VIRTSER_ENABLE
+#endif // STENO_ENABLE_BOLT && VIRTSER_ENABLE
 #if defined(STENO_ENABLE_GEMINI) && defined(VIRTSER_ENABLE)
                     case STENO_MODE_GEMINI:
                         send_steno_chord_gemini();
