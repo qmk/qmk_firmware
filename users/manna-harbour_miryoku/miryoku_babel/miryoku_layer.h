@@ -59,6 +59,9 @@
     #endif
   #endif
 #endif
+#if !defined(MIRYOKU_LAYERMAPPING_BASE)
+  #define MIRYOKU_LAYERMAPPING_BASE MIRYOKU_MAPPING
+#endif
 
 #if !defined(MIRYOKU_LAYER_EXTRA)
   #if defined (MIRYOKU_LAYERS_FLIP)
@@ -110,6 +113,9 @@
       #define MIRYOKU_LAYER_EXTRA MIRYOKU_ALTERNATIVES_BASE_QWERTY
     #endif
   #endif
+#endif
+#if !defined(MIRYOKU_LAYERMAPPING_EXTRA)
+  #define MIRYOKU_LAYERMAPPING_EXTRA MIRYOKU_MAPPING
 #endif
 
 #if !defined(MIRYOKU_LAYER_TAP)
@@ -163,9 +169,15 @@
     #endif
   #endif
 #endif
+#if !defined(MIRYOKU_LAYERMAPPING_TAP)
+  #define MIRYOKU_LAYERMAPPING_TAP MIRYOKU_MAPPING
+#endif
 
 #if !defined(MIRYOKU_LAYER_BUTTON)
   #define MIRYOKU_LAYER_BUTTON MIRYOKU_ALTERNATIVES_BUTTON
+#endif
+#if !defined(MIRYOKU_LAYERMAPPING_BUTTON)
+  #define MIRYOKU_LAYERMAPPING_BUTTON MIRYOKU_MAPPING
 #endif
 
 #if !defined(MIRYOKU_LAYER_NAV)
@@ -185,6 +197,9 @@
     #endif
   #endif
 #endif
+#if !defined(MIRYOKU_LAYERMAPPING_NAV)
+  #define MIRYOKU_LAYERMAPPING_NAV MIRYOKU_MAPPING
+#endif
 
 #if !defined(MIRYOKU_LAYER_MOUSE)
   #if defined (MIRYOKU_LAYERS_FLIP)
@@ -202,6 +217,9 @@
       #define MIRYOKU_LAYER_MOUSE MIRYOKU_ALTERNATIVES_MOUSE
     #endif
   #endif
+#endif
+#if !defined(MIRYOKU_LAYERMAPPING_MOUSE)
+  #define MIRYOKU_LAYERMAPPING_MOUSE MIRYOKU_MAPPING
 #endif
 
 #if !defined(MIRYOKU_LAYER_MEDIA)
@@ -221,6 +239,9 @@
     #endif
   #endif
 #endif
+#if !defined(MIRYOKU_LAYERMAPPING_MEDIA)
+  #define MIRYOKU_LAYERMAPPING_MEDIA MIRYOKU_MAPPING
+#endif
 
 #if !defined(MIRYOKU_LAYER_NUM)
   #if defined (MIRYOKU_LAYERS_FLIP)
@@ -228,6 +249,9 @@
   #else
     #define MIRYOKU_LAYER_NUM MIRYOKU_ALTERNATIVES_NUM
   #endif
+#endif
+#if !defined(MIRYOKU_LAYERMAPPING_NUM)
+  #define MIRYOKU_LAYERMAPPING_NUM MIRYOKU_MAPPING
 #endif
 
 #if !defined(MIRYOKU_LAYER_SYM)
@@ -237,6 +261,9 @@
     #define MIRYOKU_LAYER_SYM MIRYOKU_ALTERNATIVES_SYM
   #endif
 #endif
+#if !defined(MIRYOKU_LAYERMAPPING_SYM)
+  #define MIRYOKU_LAYERMAPPING_SYM MIRYOKU_MAPPING
+#endif
 
 #if !defined(MIRYOKU_LAYER_FUN)
   #if defined (MIRYOKU_LAYERS_FLIP)
@@ -244,4 +271,7 @@
   #else
     #define MIRYOKU_LAYER_FUN MIRYOKU_ALTERNATIVES_FUN
   #endif
+#endif
+#if !defined(MIRYOKU_LAYERMAPPING_FUN)
+  #define MIRYOKU_LAYERMAPPING_FUN MIRYOKU_MAPPING
 #endif
