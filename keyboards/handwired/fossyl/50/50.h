@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fossil.h"
+#include "fossyl.h"
 
 #define XXX KC_NO
 

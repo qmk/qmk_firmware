@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(KEYBOARD_handwired_fossil_50)
+#if defined(KEYBOARD_handwired_fossyl_50)
 #    include "50.h"
 #endif
 
