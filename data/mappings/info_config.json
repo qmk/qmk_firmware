@@ -7,6 +7,8 @@
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from config.h
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
+    # removed: Default `false`. Set to `true` to generate errors when a value exists
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
@@ -102,4 +104,8 @@
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
+
+    # Items we want flagged in lint
+    "NO_ACTION_MACRO": {"info_key": "_ignore.no_action_macro", "deprecated": true},
+    "NO_ACTION_FUNCTION": {"info_key": "_ignore.no_action_function", "removed": true},
 }
