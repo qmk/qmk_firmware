@@ -83,6 +83,7 @@ enum layer_names {
   _MOV,
   _ONE_HAND,
   _RIGHT_NUM_PAD,
+  _RIGHT_NUM_PAD2,
   _LEFT_NUM_PAD
 };
 
