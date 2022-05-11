@@ -60,13 +60,12 @@
 
     #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
     #undef ENABLE_RGB_MATRIX_PIXEL_FLOW
-    #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+    //// #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 
     // don't need `#if`, animation modes themselves check defines
     // #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     //// #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
     //// #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-    #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
     // #endif
 
     // don't need `#if`, animation modes themselves check defines
