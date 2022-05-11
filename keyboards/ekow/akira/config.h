@@ -1,5 +1,5 @@
 /*
-Copyright 2021 8bits4ever
+Copyright 2022 eugenepy
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,15 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFFFF
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    8bits4ever
-#define PRODUCT         MiSTress1200
+#define VENDOR_ID 0x4B59 // KY
+#define PRODUCT_ID 0x414B // AK
+#define DEVICE_VER 0x0000
+#define MANUFACTURER Keeboyzlab
+#define PRODUCT AKIRA
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
+// key matrix size
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
+
+// M60-A PCB default pin-out
+#define MATRIX_ROW_PINS \
+    { B0, B1, B2, B10, B11 }
+#define MATRIX_COL_PINS \
+    { B12, B13, B14, B15, A8, A9, A10, A15, B3, B4, B5, B6, B7, B8, B9 }
 
 /*
  * Keyboard Matrix Assignments
@@ -39,28 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
-*/
-#define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0, B1, B3 }
-#define MATRIX_COL_PINS { D0, D1, C7, D6, B7, B6, B5, B4, E6, D7, C6, D4, B2, D5, D3, D2 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
-#define LED_CAPS_LOCK_PIN B0
-#define LED_PIN_ON_STATE 0
-#define TAPPING_TOGGLE 3
-
-#undef LOCKING_SUPPORT_ENABLE
-#undef LOCKING_RESYNC_ENABLE
-#define LAYER_STATE_8BIT
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
+ */
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+#define DEBOUNCE 3
