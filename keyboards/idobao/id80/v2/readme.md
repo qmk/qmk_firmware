@@ -1,20 +1,20 @@
 # IDOBAO ID80
 
-![ID80](https://ae01.alicdn.com/kf/H0f617c6129c24cfaa26a8c9e8e54851aj.jpg)
+![ID80](https://idobao.github.io/assets/img/idobao-id80.png)
 
 A 75% hotswap keyboard from IDOBAO.
 
-## ANSI support:
+## ANSI support *(v1 & v2)*:
 
 * Keyboard Maintainer: [Sergey Vlasov](https://github.com/sigprof)
-* Hardware Supported: IDOBAO ID80
-* Hardware Availability: [AliExpress](https://www.aliexpress.com/item/4000590804514.html), [Drop](https://drop.com/buy/idobao-id80-75-hot-swappable-mechanical-keyboard-kit?mode=guest_open)
+* Hardware Supported: IDOBAO ID80v1, IDOBAO ID80v2
+* Hardware Availability: [IDOBAO](https://idobao.net/search?type=product&q=ID80*), [AliExpress](https://www.aliexpress.com/store/5072109/search?origin=y&SearchText=ID80)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make idobao/id80/v1/ansi:default
+    make idobao/id80/v2/ansi:default
     
-## ISO support:
+## ISO support *(v2-iso)*:
 
 * Keyboard Maintainer: [Carsten Rose](https://github.com/cwr10010)
 * Hardware Supported: IDOBAO ID80v2
@@ -22,6 +22,14 @@ Make example for this keyboard (after setting up your build environment):
 
 Make example for this keyboard (after setting up your build environment):
 
-    make idobao/id80/v1/iso:default
+    make idobao/id80/v2/iso:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the Escape key and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available

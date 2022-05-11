@@ -8,7 +8,9 @@ A 75% hotswap keyboard from IDOBAO.
 * Hardware Supported: IDOBAO ID80
 * Hardware Availability: [Drop](https://drop.com/buy/idobao-id80-75-hot-swappable-mechanical-keyboard-kit?mode=guest_open)
 
+---
 > &#x26a0; **Please note:** The source folder for this keyboard has moved to `../v2`.
+---
 
 Make example for this keyboard (after setting up your build environment):
 
