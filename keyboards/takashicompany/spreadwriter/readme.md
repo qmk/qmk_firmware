@@ -1,6 +1,6 @@
 # takashicompany/spreadwriter
 
-![takashicompany/spreadwriter](https://dl.dropboxusercontent.com/s/c26r9bugx9xw5df/01.jpg)
+![takashicompany/spreadwriter](https://i.imgur.com/mMAzyvU.jpg)
 
 "Spreadwriter" はGL516ケースに対応した50%キーボードです。  
 放射状のキーレイアウトは、手を自然な形で置くことができ、楽な姿勢での打鍵を可能にしています。  
