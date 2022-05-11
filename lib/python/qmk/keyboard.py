@@ -12,7 +12,7 @@ from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
 
-KEY_WIDTH = 4 if shutil.get_terminal_size().columns < 200 else 6
+KEY_WIDTH = 4 if shutil.get_terminal_size().columns < 160 else 6
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
         "tl": "┌",
