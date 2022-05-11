@@ -81,22 +81,16 @@ void render_layers(void) {
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
 
-#if defined(RGBLIGHT_ENABLE)
-extern rgblight_config_t rgblight_config;
-#endif
-
-#if defined(RGB_MATRIX_ENABLE)
-extern rgb_config_t rgb_matrix_config;
-#endif
-
 void render_rgb_status(void) {
     static const char PROGMEM font_rgb_off[3] = {0xd1, 0xd2, 0};
     static const char PROGMEM font_rgb_on[3]  = {0xd3, 0xd4, 0};
+    bool rgb_enabled = 
 #    if defined(RGBLIGHT_ENABLE)
-    bool rgb_enabled = rgblight_config.enable;
+        rgblight_is_enabled();
 #    elif defined(RGB_MATRIX_ENABLE)
-    bool rgb_enabled = rgb_matrix_config.enable;
+        rgb_matrix_is_enabled();
 #    endif
+
     oled_write_P(rgb_enabled ? font_rgb_on : font_rgb_off, false);
 };
 #endif
