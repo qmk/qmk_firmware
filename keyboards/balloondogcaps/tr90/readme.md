@@ -2,7 +2,7 @@
 
 ![balloondogcaps/tr90](https://imgur.com/a/mFn1Tek)
 
-*A short description of the keyboard/project*
+A 3x3 Pro Macropad with programmer pins
 
 * Keyboard Maintainer: [Balloondog](https://instagram.com/balloondogcaps)
 * Hardware Supported: Balloondog Play Rough series case(s)
