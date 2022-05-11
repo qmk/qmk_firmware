@@ -16,7 +16,7 @@
 
 // カーソルキー押しっぱなしの時の反応までのインターバル
 #undef  MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL 0
+#define MOUSEKEY_INTERVAL 3
 
 // カーソルの移動スピード
 #undef  MOUSEKEY_MAX_SPEED
