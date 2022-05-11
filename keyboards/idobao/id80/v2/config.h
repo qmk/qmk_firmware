@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#ifndef ID80_NO_BACKLIGHT
+#ifdef BACKLIGHT_ENABLE
     #define BACKLIGHT_PIN B6
     #define BACKLIGHT_BREATHING
     #define BACKLIGHT_LEVELS 3
