@@ -1,5 +1,4 @@
-nz64
-===
+# nz64
 
 A 64 keys keyboard with rgb (keys).
 This keyboard use 16mhz HSE and STM32F401 as MCU.
