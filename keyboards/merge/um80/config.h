@@ -50,7 +50,7 @@
 
 #define DEBOUNCE 5
 
-#define B6_AUDIO
+#define AUDIO_PIN B6
 
 #ifdef AUDIO_ENABLE
   #define STARTUP_SONG SONG(STARTUP_SOUND)
