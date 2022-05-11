@@ -71,6 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // Right encoder
     if (index == 0) {
@@ -89,6 +90,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
+#endif
 
 #ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
