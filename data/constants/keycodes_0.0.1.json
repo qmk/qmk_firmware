@@ -210,7 +210,7 @@
         "0x0028": {
             "group": "basic",
             "key": "KC_ENTER",
-            "label": "0",
+            "label": "Enter",
             "aliases": [
                 "KC_ENT"
             ]
@@ -218,7 +218,7 @@
         "0x0029": {
             "group": "basic",
             "key": "KC_ESCAPE",
-            "label": "0",
+            "label": "Esc",
             "aliases": [
                 "KC_ESC"
             ]
@@ -226,7 +226,7 @@
         "0x002a": {
             "group": "basic",
             "key": "KC_BACKSPACE",
-            "label": "0",
+            "label": "Backspace",
             "aliases": [
                 "KC_BSPC"
             ]

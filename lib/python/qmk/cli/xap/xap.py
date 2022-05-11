@@ -8,6 +8,7 @@ from platform import platform
 
 from milc import cli
 
+from qmk.keyboard import render_layout
 from qmk.xap.common import get_xap_keycodes
 
 KEYCODE_MAP = get_xap_keycodes('latest')
@@ -86,7 +87,7 @@ def _xap_transaction(device, sub, route, *args):
     device.write(buffer)
 
     # get resp
-    array_alpha = device.read(64, 100)
+    array_alpha = device.read(64, 250)
 
     # validate tok sent == resp
     if str(token) != str(array_alpha[:2]):
@@ -250,7 +251,6 @@ class XAPShell(cmd.Cmd):
         rows = info['matrix_size']['rows']
         cols = info['matrix_size']['cols']
 
-        # TODO: render like qmk info?
         for r in range(rows):
             for c in range(cols):
                 q = data + r.to_bytes(1, byteorder='little') + c.to_bytes(1, byteorder='little')
@@ -258,6 +258,29 @@ class XAPShell(cmd.Cmd):
                 keycode = int.from_bytes(keycode, "little")
                 print(f'| {self.keycodes.get(keycode, "unknown").ljust(7)} ', end='', flush=True)
             print('|')
+
+    def do_layer(self, arg):
+        """Renders keycode values of a certain layer
+        """
+        data = bytes(map(int, arg.split()))
+        if len(data) != 1:
+            cli.log.error("Invalid args")
+            return
+
+        info = _query_device_info(self.device)
+
+        # Assumptions on selected layout rather than prompt
+        first_layout = next(iter(info['layouts']))
+        layout = info['layouts'][first_layout]['layout']
+
+        keycodes = []
+        for item in layout:
+            q = data + bytes(item['matrix'])
+            keycode = _xap_transaction(self.device, 0x04, 0x02, q)
+            keycode = int.from_bytes(keycode, "little")
+            keycodes.append(self.keycodes.get(keycode, "???"))
+
+        print(render_layout(layout, False, keycodes))
 
     def do_exit(self, line):
         """Quit shell
