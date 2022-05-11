@@ -16,8 +16,8 @@
 
 #pragma once
 #include QMK_KEYBOARD_H
-#include "my_keycodes.h"
-#include "my_layers.h"
+#include "keycodes.h"
+#include "layers.h"
 
 bool is_num_word_enabled(void);
 void enable_num_word(void);

@@ -1,7 +1,13 @@
+// Copyright 2022 kevkevco <hello@kevkev.co>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "caps_word.h"
 #include "print.h" // For debugging purposes
+#include "layers.h"
+#include "keycodes.h"
+#include "tap_dances.h"
 
-static bool caps_word_active = false;
+bool caps_word_active = false; // kevkevco removed static keyword at beginning of line in order to use get_caps_word() in keymap.c
 
 #if CAPS_WORD_IDLE_TIMEOUT > 0
 #    if CAPS_WORD_IDLE_TIMEOUT < 100 || CAPS_WORD_IDLE_TIMEOUT > 30000
@@ -44,20 +50,39 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (!(mods & ~MOD_MASK_SHIFT)) {
-        
-        uprintf("keycode is %x", keycode);
-        
+        uprintf("\nkeycode is %x", keycode);
+
         // Custom section to tweak Caps Word behavior on select keys
-        if (keycode == 0x782c) {
-            print("\nspecial specified section?");
-            return true;
+        switch (keycode) {
+            case TD(GVES):
+                process_tap_dance(GVES, record);
+                caps_word_set(false);
+            case TD(ISPT): //
+                process_caps_word(KC_I, record);
+                return true;
+            case SFT_T(KC_DEL):
+                process_caps_word(KC_DEL, record);
+                return true;
+            case GUI_T(KC_BSPC):
+                clear_mods();
+                process_caps_word(KC_BSPC, record);
+                return true;
+            case TD(LPINKY):
+                clear_mods();
+                process_tap_dance(LPINKY, record);
+                return true;
+            case RGUI_T(KC_SPC):
+                clear_mods();
+                SEND_STRING(SS_DELAY(300));
+                if (IS_LAYER_ON(_SYMBOLS)) {
+                    process_caps_word(KC_UNDS, record);
+                    return true;
+                } else {
+                    caps_word_set(false);
+                    return true;
+                }
         }
-        if (keycode == 0x5709) {
-            add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to the next key.
-            print("\nspecial specified section?");
-            return true;
-        }
-        
+
         switch (keycode) {
             // Ignore MO, TO, TG, TT, and OSL layer switch keys.
             case QK_MOMENTARY ... QK_MOMENTARY_MAX:
@@ -84,7 +109,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #    ifndef NO_ACTION_LAYER
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
                 print("\nlayer tap section?");
-            
+
 #    endif // NO_ACTION_LAYER
                 if (record->tap.count == 0) {
                     return true;
@@ -144,10 +169,7 @@ __attribute__((weak)) bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
         // Keycodes that continue Caps Word, with shift applied.
         case KC_A ... KC_Z:
-        // case TD(ISPT):
             add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to the next key.
-            print("\nkeycodes that continue CW WITH shifting");
-
             return true;
 
         // Keycodes that continue Caps Word, without shifting.
@@ -155,8 +177,6 @@ __attribute__((weak)) bool caps_word_press_user(uint16_t keycode) {
         case KC_BSPC:
         case KC_MINS:
         case KC_UNDS:
-            print("\nkeycodes that continue CW without shifting");
-
             return true;
 
         default:

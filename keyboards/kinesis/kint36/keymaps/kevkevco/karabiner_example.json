@@ -1,0 +1,365 @@
+{
+    "description": "Launch common applications & URLs using MEH (left control, left shift, left alt) plus alphanumeric character",
+    "manipulators": [
+        {
+            "from": {
+                "key_code": "1",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a 'Teensy'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "r",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a 'Google Chrome'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "g",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open '/Users/kevin/Applications/Chrome Apps.localized/Gmail.app'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "i",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a karabiner-eventviewer"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "q",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open 'https://docs.qmk.fm/#/'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "e",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a terminal"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "t",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a todoist"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "y",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a 'system preferences'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "o",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a spotify"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "p",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a 'adobe photoshop 2022'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "s",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a 'safari'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "d",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open 'https://drive.google.com/drive/u/0/my-drive'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "f",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a finder"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "z",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a zoom.us"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "c",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a calendar"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "v",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a 'visual studio code'"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "b",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a bitwarden"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "n",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a notion"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "m",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a messages"
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "l",
+                "modifiers": {
+                    "mandatory": [
+                        "control",
+                        "shift",
+                        "option"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "shell_command": "open -a launchpad"
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}

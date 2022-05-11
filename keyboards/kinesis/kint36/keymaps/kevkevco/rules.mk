@@ -1,25 +1,25 @@
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = no
 COMMAND_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 NKRO_ENABLE = yes
 RGBLIGHT_ENABLE = no
 TAP_DANCE_ENABLE = yes
-# LEADER_ENABLE = yes
+LEADER_ENABLE = yes
 FIRMWARE_FORMAT = hex
 SWAP_HANDS_ENABLE = yes
-NKRO_ENABLE = no 			# For QMK Apple Fn Key patch by https://gist.github.com/fauxpark/010dcf5d6377c3a71ac98ce37414c6c4
+NKRO_ENABLE = no 			# For QMK Apple Fn Key patch
 APPLE_FN_ENABLE = yes       # Enable Apple Fn key functionality
 DYNAMIC_MACRO_ENABLE = yes
+CONSOLE_ENABLE = yes 		# Enable debugging
 
-SRC += features/caps_word.c # Add caps_word files
-# OPT_DEFS += -DCAPS_WORD_ENABLE # From Drashna
-# CAPS_WORD_ENABLE = yes
+SRC += ./process_records.c
 
-# Enable Select Word Macro from https://getreuer.info/posts/keyboards/select-word/index.html
+# Add features
+SRC += features/caps_word.c 
 SRC += features/select_word.c
-
-# Enable numword
 SRC += features/num_word.c
 
-# Debugging
-CONSOLE_ENABLE = yes
+# Tap dances
+SRC += ./tap_dances.c
+
+

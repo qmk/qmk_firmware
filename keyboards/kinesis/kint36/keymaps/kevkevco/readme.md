@@ -3,30 +3,57 @@
 Tested with a Kinesis Advantage2, kinT (stapelberg) keyboard controller built
 with a Teensy 3.6 microcontroller and a USA system layout.
 
+# Approach
 # My Setup
+This keymap is created to address my tendonitis/tennis elbow symptoms as well as enhance the ease and convenience of coding and generally using my MacBook. As such, I want to provide a bit of the setup that I've created for myself beyond my QMK keymap that has helped. Feel free to reach out to me for more details.
 
-Using upgradekeyboards.com, they changed the switches in my board to Kailh box white switches for ease and clear clicky feedback. They added about a pound of weight to the board to make it stay put on the desk, feel more substantial and stable, and perhaps improve the acoustics.
+## Keyboard:
+- Working with upgradekeyboards.com, they changed the switches in my board to Kailh box white switches for ease of use and clear clicky feedback.
+- They also installed a new KinT PCB with a Teensy 3.6 controller
+- They also added about a pound of weight to the board to make it stay put on the desk, feel more substantial and stable, and perhaps improve the acoustics.
+## Keycaps
+I shuffled several of the keycaps around to my ergonomic preferences. I used a blank keycap set purchased from Kinesis in order to have the extra keycaps necessary for this.
+## Furniture: 
+- Standing desk by Uplift (as recommended by Wirecutter)
+- Keyboard tray by Humanscale
+- Humanscale Leap v2 Chair
 
-Furniture: I use a standing desk by Uplift as recommended by the NY Times, a keyboard tray from Humanscale, a Humanscale Leap v2 black leather chair
-Technology:
+## Technology:
 - Kensington Slimblade
 - Kensington Expert
 - Evoluent Right Handed V4MDLW wireless large vertical mouse
 - Evoluent Left Handed wired vertical mouse
 - Monitors that can adjust to the right positioning
 - Logitech G915TKL Wireless Clicky Keyboard for variation
-
-# Other ergonomic considerations
-- Hand exercises/strengthening
-- Elbow compression sleeve seems to help
-# Keycaps
-I shuffled several of the keycaps around to my ergonomic preferences. I used a blank keycap set purchased from Kinesis in order to have the extra keycaps necessary for this.
-
-# BT500
+## BT500
 Sometimes it is more convenient for me to use my keyboard wirelessly, for example in my lap. For that purpose I used industrial strength velcro to temporarily attach a slim portable battery ~10,000mAh to the back of the keyboard. Mostly for aesthetics I had the native USB cord replaced with a shorter cord (that avoids having extra slack) that plugs into the BT500 which then plugs into the portable battery. There is a few inches of give and take in the cord to slide through the hole in the back of the board that was plugged using a rubber piece that upgradekeyboards.com found.
-# FN patch
-Doesn't work using bt500 Bluetooth adapter.
-## CAPSWORD and NUMWORD from replicaJunction
+Note: The Apple Fn key doesn't seem to work using BT500 Bluetooth adapter.
+## Other Ergonomic Considerations
+- Hand exercises/strengthening seem positive
+- Elbow compression sleeve seems to help
+
+# Software
+## Steermouse
+[Great MacOS software to customize the use of most mouses](http://plentycom.jp/en/steermouse/). You can import and export default profiles. I use this to swap the trackballs I use between my left and right hand but reflect the button assignments
+## Karabiner
+- I use this to launch applications using my keyboard
+- [I've provided my complex modification file as a template](karabiner_example.json)
+## Teensy Loader
+[This application](https://www.pjrc.com/teensy/loader.html) is what I use to flash my keyboard.
+# Features
+## Apple Fn Patch
+KC_APFN is created through the following Apple Fn patch: https://gist.github.com/fauxpark/010dcf5d6377c3a71ac98ce37414c6c4
+
+Please see the link and comment thread for installation instrucitons.
+
+## Home Row Mods
+Are inspired by [this article.](https://precondition.github.io/home-row-mods)
+## SELECT WORD
+Enable Select Word Macro from https://getreuer.info/posts/keyboards/select-word/index.html
+
+## CAPSWORD and NUMWORD
+**credit:** [replicaJunction](https://github.com/qmk/qmk_firmware/tree/906108fb486797ab2f3eb7c3a6f70e099c1199e6/users/replicaJunction#capsword-and-numword and Drashna
+
 The concept here is simple: more often than you'd think, you need to type a single word in ALL CAPS. An easy example for me, as a programmer, is a constant value; in most programming languages, constants are typed in all caps by convention.
 
 You typically have a few choices, but each one comes with a drawback. Here are the options I'm aware of:
@@ -43,132 +70,11 @@ The solution to this problem is CAPSWORD. When enabled, it activates Caps Lock a
 
 NUMWORD is a similar concept, but has a slightly more elaborate implementation. There's a bit of extra logic in the NUMWORD code that allows the keycode to act as a tap/hold key as well. Tapping enables NUMWORD while number keys are in use, while holding the key enables a number layer for the duration of the key hold and disables it again afterwards.
 
-**Note:** The implementation of NUMWORD requires that the keyboard's layer definitions be accessible in a header file. In my case, since I use a fairly standard set of layers, I've declared it in my userspace.
-# Credits
-numword from replicaJunction
-# TODO
-[bpruitt-goddard](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/bpruitt-goddard/readme.md)
-* Dynamic macro tap-dance
+**Note:** The implementation of NUMWORD requires that the keyboard's layer definitions be accessible in a header file.
+# Misc. Configuration Notes
+## Repeating Hold Function
+In order to get fast repeating hold function, as if holding down a key on a normal keyboard, on space, enter, delete, forward delete in default layout. Tap and release within tapping term and then immediately trigger same key with a hold right after. This works because I have opted not to use: https://docs.qmk.fm/#/tap_hold?id=tapping-force-hold
 
-// Inactive Aliases
-// #define NUMPAD  TG(_NUMPAD)
-// #define ADJUST  MO(_ADJUST2)
-// #define SPCFN   LT(_FUNCTION, KC_SPC)
-// #define BSPCFN  LT(_FUNCTION2, KC_BSPC)
-// #define ENTNS   LT(_NUMBERS, KC_ENT)
-// #define DELNS   LT(_NUMBERS2, KC_DEL)
-// #define CTLESC  CTL_T(KC_ESC)
-// #define ALTAPP  ALT_T(KC_APP)
-// #define CTL_A   LCTL(KC_A)
-// #define CTL_C   LCTL(KC_C)
-// #define CTL_V   LCTL(KC_V)
-// #define CTL_X   LCTL(KC_X)
-// #define CTL_Z   LCTL(KC_Z)
-// #define CTL_Y   LCTL(KC_Y)
-// #define CA_TAB  LCA(KC_TAB)
-// #define HYPER   ALL_T(KC_NO)
-// #define TD_ADJ  TD(ADJ)
-// #define TD_LBCB TD(LBCB)
-// #define TD_RBCB TD(RBCB)
-// #define TD_EQPL TD(EQPL)
-// #define TD_PLEQ TD(PLEQ)
-// #define TD_MNUN TD(MNUN)
-// #define TD_SLAS TD(SLAS)
-// #define TD_GVTL TD(GVTL)
-// #define TD_PPEQ TD(PPEQ)
-// #define TD_PMUN TD(PMUN)
-// #define TD_PSPA TD(PSPA)
-// #define NKROTG  MAGIC_TOGGLE_NKRO
-
-    case PRG_EQ: {
-            if (record->event.pressed) {
-                SEND_STRING("==");
-            }
-            return false;
-        }
-        case PRG_NE: {
-            if (record->event.pressed) {
-                SEND_STRING("!=");
-            }
-            return false;
-        }
-
-        case QK_MAKE: {
-            if (record->event.pressed)
-                SEND_STRING("qmk compile --keyboard " QMK_KEYBOARD " --keymap " QMK_KEYMAP);
-            return false;
-        }
-# Blank Keymap Templates
-
-ACTIVE
-
-/*
-,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
-|      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
-`--------------------------------------------------------------'                                     `--------------------------------------------------------------'
-,------------------------------------------------------.                                                     ,------------------------------------------------------.
-|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
-|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
-`---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          |        |        |        |        |                                                                       |        |        |        |        |
-          `-----------------------------------'                                                                       `-----------------------------------'
-	                                                   ,-----------------.                 ,-----------------.
-	                                                   |        |        |                 |        |        |
-	                                          ,--------+--------+--------|                 |--------+--------+--------.
-	                                          |        |        |        |                 |        |        |        |
-	                                          |        |        |--------|                 |--------|        |        |
-	                                          |        |        |        |                 |        |        |        |
-	                                          `--------------------------'                 `--------------------------'
-*/
-
-[_BLANK] = LAYOUT_pretty(
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
-                                                        _______, _______,                   _______, _______,
-                                                                 _______,                   _______,
-                                               _______, _______, _______,                   _______, _______, _______
-),
-
-
-
-# Swap Hands
-
-// Swapping Hands Matrix starting on line numbers that end in 0 for quick counting
-
-/*  ---------------- LEFT HAND -----------------   ---------------- RIGHT HAND ---------------- */
-#define LAYOUT_pretty(                                                                           \
-    kC0, kD0, kE0, kC1, kD1, kE1, kC2, kD2, kE2,   kC3, kD3, kE3, kC4, kD4, kE4, kC5, kE5, kD5,  \
-    k00, k10, k20, k30, k40, k50,                            k60, k70, k80, k90, kA0, kB0,       \
-    k01, k11, k21, k31, k41, k51,                            k61, k71, k81, k91, kA1, kB1,       \
-    k02, k12, k22, k32, k42, k52,                            k62, k72, k82, k92, kA2, kB2,       \
-    k03, k13, k23, k33, k43, k53,                            k63, k73, k83, k93, kA3, kB3,       \
-         k14, k24, k34, k54,                                      k64, k84, k94, kA4,            \
-                             k56, k55,                  k96, k85,                                \
-                                  k35,                  k86,                                     \
-                        k36, k46, k25,                  k66, k75, k65                            \
-) {                                              \
-    { k00,  k01,  k02,  k03,  ___,  ___,  ___ }, \
-    { k10,  k11,  k12,  k13,  k14,  ___,  ___ }, \
-    { k20,  k21,  k22,  k23,  k24,  k25,  ___ }, \
-    { k30,  k31,  k32,  k33,  k34,  k35,  k36 }, \
-    { k40,  k41,  k42,  k43,  ___,  ___,  k46 }, \
-    { k50,  k51,  k52,  k53,  k54,  k55,  k56 }, \
-    { k60,  k61,  k62,  k63,  k64,  k65,  k66 }, \
-    { k70,  k71,  k72,  k73,  ___,  k75,  ___ }, \
-    { k80,  k81,  k82,  k83,  k84,  k85,  k86 }, \
-    { k90,  k91,  k92,  k93,  k94,  ___,  k96 }, \
-    { kA0,  kA1,  kA2,  kA3,  kA4,  ___,  ___ }, \
-    { kB0,  kB1,  kB2,  kB3,  ___,  ___,  ___ }, \
-    { kC0,  kC1,  kC2,  kC3,  kC4,  kC5,  ___ }, \
-    { kD0,  kD1,  kD2,  kD3,  kD4,  kD5,  ___ }, \
-    { kE0,  kE1,  kE2,  kE3,  kE4,  kE5,  ___ }  \
-}
+## Custom MacOS App Shortcuts
+https://support.apple.com/guide/mac-help/create-keyboard-shortcuts-for-apps-mchlp2271/mac
+I created two specifically for QMK: Program and Reboot in the Teensy program for quick flashing.
