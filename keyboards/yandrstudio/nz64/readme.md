@@ -3,9 +3,9 @@
 A 64 keys keyboard with rgb (keys).
 This keyboard use 16mhz HSE and STM32F401 as MCU.
 
-Keyboard Maintainer: https://github.com/jiaxin96
-Hardware Supported: nz64
-Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
+- Keyboard Maintainer: https://github.com/jiaxin96
+- Hardware Supported: nz64
+- Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 
 Make example for this keyboard (after setting up your build environment):
 
