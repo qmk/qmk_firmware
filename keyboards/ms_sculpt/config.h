@@ -8,7 +8,6 @@
  *  These options are also useful to firmware size reduction.
  */
 
-//#define DEBUG_MATRIX_SCAN_RATE
 #define BOOTMAGIC_LITE_ROW 4
 #define BOOTMAGIC_LITE_COLUMN 13
 
