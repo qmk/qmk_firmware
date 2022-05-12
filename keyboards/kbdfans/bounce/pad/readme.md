@@ -8,7 +8,7 @@ A customizable pad keyboard, include hotswap and soldered version.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kbdfans/bonce/pad:default
+    make kbdfans/bounce/pad:default
 
 ## Bootloader
 
