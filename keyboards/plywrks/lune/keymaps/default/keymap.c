@@ -31,20 +31,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______,          _______, _______, _______,          _______, _______,                                              _______
     )
 };
-
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    // Host Keyboard Layer Status
-    sprintf(layer, "Layer :%u", get_highest_layer(layer_state));
-    oled_write(layer, false);
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_set_cursor(0, 1);
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-
-    return false;
-}
-#endif

@@ -22,9 +22,9 @@ bool oled_task_kb(void) {
         return false;
     }
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer :", false);
+    oled_write_P(PSTR("Layer :"), false);
     oled_write(get_u8_str(get_highest_layer(layer_state), ' '), false);
-    
+
     oled_advance_page(true);
 
         // Host Keyboard LED Status
