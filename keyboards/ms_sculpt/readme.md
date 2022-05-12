@@ -1,5 +1,7 @@
 # ms_sculpt
 
+![ms_sculpt_with_cold_dry_joints](https://user-images.githubusercontent.com/105235786/168012266-4e235bf5-8d34-4731-ab17-2308a9d9a29e.jpg)
+
 MS Sculpt Keyboard ISO-layout wired to STM32F401 / blackpill
 
 * Keyboard Maintainer: [Jean Bernard](https://github.com/jn-bernard)
