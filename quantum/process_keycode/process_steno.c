@@ -95,7 +95,7 @@ static const uint8_t boltmap[64] PROGMEM = {TXB_NUL, TXB_NUM, TXB_NUM, TXB_NUM, 
 #    ifdef VIRTSER_ENABLE
 static void send_steno_chord_bolt(void) {
     for (uint8_t i = 0; i < BOLT_STROKE_SIZE; ++i) {
-        // TX Bolt uses variable length packets where each byte corresponds to a bitfield of certain keys.
+        // TX Bolt uses variable length packets where each byte corresponds to a bit array of certain keys.
         // To mark the end of these variable length packets, 0x00 is used.
         // If a user chorded the keys of the first group with keys of the last group, for example, there
         // would be bytes of 0x00 in `chord` for the middle groups which we mustn't send.
@@ -159,6 +159,10 @@ __attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *rec
 bool process_steno(uint16_t keycode, keyrecord_t *record) {
     if (keycode < QK_STENO || keycode > QK_STENO_MAX) {
         return true; // Not a steno key, pass it further along the chain
+        /* 
+         * Clearing or sending the chord state is not necessary as we intentionally ignore whatever
+         * normal keyboard keys the user may have tapped while chording steno keys.
+         */
     }
     if (IS_NOEVENT(record->event)) {
         return false;
