@@ -7,7 +7,6 @@ MS Sculpt Keyboard ISO-layout wired to STM32F401 / blackpill
 * Keyboard Maintainer: [Jean Bernard](https://github.com/jn-bernard)
 * Hardware Supported: MS Sculpt Keyboard ISO-layout, STM32F401
 * Hardware Availability: Ebay
-* rgblight enabled
 
 Make example for this keyboard (after setting up your build environment):
 
