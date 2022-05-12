@@ -1,4 +1,4 @@
-MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
+MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
@@ -7,7 +7,7 @@ OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 LTO_ENABLE = yes
 
-TAP_DANCE_ENABLE = yes      # Enable Tap Dance.
+TAP_DANCE_ENABLE = yes
 
 SRC += oled.c
 SRC += process_records.c
