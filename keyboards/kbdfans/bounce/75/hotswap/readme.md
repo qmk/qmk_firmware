@@ -8,7 +8,7 @@ A customizable 75% HOTSWAP keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kbdfans/bonce/75/hotswap:default
+    make kbdfans/bounce/75/hotswap:default
 
 ## Bootloader
 
