@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x7001
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    KBDFANS
-#define PRODUCT         BONCE75_HOTSWAP
+#define PRODUCT         BOUNCE75_HOTSWAP
 
 /* key matrix size */
 #define MATRIX_ROWS 6
