@@ -1,7 +1,7 @@
 // Copyright 2022 Jean Bernard (@jn-bernard)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-##pragma once
+#pragma once
 
 /*
  * Feature disable options
