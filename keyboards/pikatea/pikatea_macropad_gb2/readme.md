@@ -1,6 +1,6 @@
 # pikatea/pikatea_macropad_gb2
 
-![pikatea](https://imgur.com/UpcSHLi)
+![pikatea](https://i.imgur.com/UpcSHLih.png)
 
 *5 keys and a knob mounted to an underside surface*
 
