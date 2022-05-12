@@ -65,13 +65,18 @@ enum custom_keycodes {
     MY_COMP,
 };
 
+// tap dance key enumaration
+enum {
+    TD_LNUM,
+    TD_LSYM,
+};
+
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_DOT , KC_COLN}, // Shift . is :
     {KC_COMM, KC_SCLN}, // Shift , is ;
     {KC_SLSH, KC_QUOT}, // Shift / is '
     {KC_2, KC_DQUO},    // need shift 2 to be " for win+shift+2 to work in dwm
     {LSYM_BSP, KC_DEL}  // shift backspace is delete
-   // {LNUM_SPC, KC_TAB},   // shift space is tab     XXX removing owing to accidental tab activation too often.
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
@@ -87,7 +92,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                            // KC_LCTL, KC_LSFT, LNUM_SPC,    LSYM_BSP, KC_RSFT, KC_RCTL
-                                              KC_LGUI, MO(LNUM), SFT_SPC,    CTL_BSP, MO(LSYM), KC_LALT
+                                           // KC_LGUI, MO(LNUM), SFT_SPC,    CTL_BSP, MO(LSYM), KC_LALT
+                                           // KC_LGUI, MO(LNUM), SFT_SPC,    LSYM_BSP, KC_LCTL, KC_LALT
+                                              KC_LGUI, TD(TD_LNUM), SFT_SPC,    LSYM_BSP, KC_LCTL, KC_LALT
+                                           // KC_LGUI, TD(TD_LNUM), SFT_SPC,    TD(TD_LSYM), KC_LCTL, KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
@@ -109,7 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, MY_LLCK, XXXXXXX, KC_COMM,  KC_DOT, XXXXXXX,                       KC_EQL,    KC_1,    KC_2,    KC_3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              XXXXXXX, _______,  _______,     KC_0,  _______, XXXXXXX
+                                            // XXXXXXX, _______,  _______,     KC_0,  _______, XXXXXXX
+                                              XXXXXXX, _______,  _______,     _______,  KC_0, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
@@ -120,7 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               XXXXXXX, TO(LCMK), _______,     KC_F10,  XXXXXXX, XXXXXXX
+                                            // XXXXXXX, TO(LCMK), _______,     KC_F10,  XXXXXXX, XXXXXXX
+                                               XXXXXXX, TO(LCMK), _______,     XXXXXXX,  KC_F10, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
@@ -142,7 +152,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN2,                      KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                XXXXXXX,TO(LCMK), _______,   _______,  KC_BTN1, XXXXXXX
+                                            //  XXXXXXX,TO(LCMK), _______,   _______,  KC_BTN1, XXXXXXX
+                                                XXXXXXX,TO(LCMK), _______,   KC_BTN1,  _______, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     )
 };
@@ -175,7 +186,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 enum combo_keys {
     COMBO_L_RM_T_ESC,
     COMBO_L_MI_B_TAB,
-    COMBO_R_RM_T_ENT,
+    //COMBO_R_RM_T_BSPC,
+    //COMBO_R_RM_B_DEL,
+    COMBO_R_RM_T_DEL,
     COMBO_R_MI_B_ENT,
     COMBO_LENGTH
 };
@@ -187,13 +200,17 @@ const uint16_t PROGMEM lh_rm_t_combo[] = {KC_W, KC_F, COMBO_END};
 const uint16_t PROGMEM lh_mi_b_combo[] = {KC_C, KC_D, COMBO_END};
 // right hand, ring+middle finger, top row
 const uint16_t PROGMEM rh_rm_t_combo[] = {KC_U, KC_Y, COMBO_END};
+// right hand, ring+middle finger, bottom row
+//const uint16_t PROGMEM rh_rm_b_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 // right hand, middle+index finger, bottom row
 const uint16_t PROGMEM rh_mi_b_combo[] = {KC_H, KC_COMM, COMBO_END};
 
 combo_t key_combos[] = {
     [COMBO_L_RM_T_ESC] = COMBO(lh_rm_t_combo, KC_ESC),
     [COMBO_L_MI_B_TAB] = COMBO(lh_mi_b_combo, KC_TAB),
-    [COMBO_R_RM_T_ENT] = COMBO(rh_rm_t_combo, KC_DEL),
+    //[COMBO_R_RM_T_BSPC] = COMBO(rh_rm_t_combo, KC_BSPC),
+    //[COMBO_R_RM_B_DEL] = COMBO(rh_rm_b_combo, KC_DEL),
+    [COMBO_R_RM_T_DEL] = COMBO(rh_rm_t_combo, KC_DEL),
     [COMBO_R_MI_B_ENT] = COMBO(rh_mi_b_combo, KC_ENT),
 };
  /******************************************************************************/
@@ -348,10 +365,107 @@ void matrix_scan_user(void) {
 
 }
 
+/*******************************************************************************
+* Tap Dance definitions
+*******************************************************************************/
+typedef struct {
+    bool is_press_action;
+    uint8_t step;
+} td_tap_t;
+
+static td_tap_t dance_state_lnum = {.is_press_action = true, .step = 0};
+static td_tap_t dance_state_lsym = {.is_press_action = true, .step = 0};
+
+// simplified dance steps to indicate held, one tap or two
+enum {
+    SINGLE_TAP = 1,
+    DOUBLE_TAP,
+    HELD,
+};
+
+uint8_t current_dance_step(qk_tap_dance_state_t *state) {
+    if (state->pressed) {
+        return HELD;
+    }
+    if (state->count == 1) {
+        return SINGLE_TAP;
+    } else {  // everything over one is taken as double
+        return DOUBLE_TAP;
+    }
+}
+
+void tapdance_lnum_finished(qk_tap_dance_state_t *state, void *user_data) {
+    dance_state_lnum.step = current_dance_step(state);
+    switch (dance_state_lnum.step) {
+        case SINGLE_TAP:
+            // if we are in the layer, exit, otherwise toggle the one shot mod
+            if (layer_state_is(LNUM)) {
+                layer_off(LNUM);
+            } else {
+                set_oneshot_layer(LNUM, ONESHOT_START);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+            break;
+        case DOUBLE_TAP:
+        case HELD:
+            layer_on(LNUM);
+            break;
+    }
+}
+
+void tapdance_lnum_reset(qk_tap_dance_state_t *state, void *user_data) {
+    wait_ms(10);
+    switch (dance_state_lnum.step) {
+        case SINGLE_TAP:
+        case DOUBLE_TAP:
+            break;
+        case HELD:
+            layer_off(LNUM);
+            break;
+    }
+    dance_state_lnum.step = 0;
+}
+
+void tapdance_lsym_finished(qk_tap_dance_state_t *state, void *user_data) {
+    dance_state_lsym.step = current_dance_step(state);
+    switch (dance_state_lsym.step) {
+        case SINGLE_TAP:
+            // if we are in the layer, exit, otherwise toggle the one shot mod
+            if (layer_state_is(LSYM)) {
+                layer_off(LSYM);
+            } else {
+                set_oneshot_layer(LSYM, ONESHOT_START);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+            break;
+        case DOUBLE_TAP:
+        case HELD:
+            layer_on(LSYM);
+            break;
+    }
+}
+
+void tapdance_lsym_reset(qk_tap_dance_state_t *state, void *user_data) {
+    wait_ms(10);
+    switch (dance_state_lsym.step) {
+        case SINGLE_TAP:
+        case DOUBLE_TAP:
+            break;
+        case HELD:
+            layer_off(LSYM);
+            break;
+    }
+    dance_state_lsym.step = 0;
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_LNUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lnum_finished, tapdance_lnum_reset),
+    [TD_LSYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lsym_finished, tapdance_lsym_reset)
+};
 
 /*******************************************************************************
  * RGB lighting on layer change
- * following are the LED numbers
+ * following are the LED numbers (in code it looks like we need to index one lower)
  * |------|------|------|------|------|------|            |------|------|------|------|------|
  * |  25  |  24  |  19  |  18  |  11  |  10  |            |      |      |      |      |      |
  * |------|------|------|------|------|------|            |------|------|------|------|------|
