@@ -8,12 +8,6 @@
  *  These options are also useful to firmware size reduction.
  */
 
-/* disable debug print */
-#define NO_DEBUG
-
-/* disable print */
-#define NO_PRINT
-
 //#define DEBUG_MATRIX_SCAN_RATE
 #define BOOTMAGIC_LITE_ROW 4
 #define BOOTMAGIC_LITE_COLUMN 13
