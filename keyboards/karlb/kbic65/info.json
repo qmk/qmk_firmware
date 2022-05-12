@@ -31,8 +31,11 @@
         "pid": "0xD87A",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},

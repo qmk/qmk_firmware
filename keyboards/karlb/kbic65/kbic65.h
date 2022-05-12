@@ -10,7 +10,7 @@
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT( \
+#define LAYOUT_all( \
          K10, K00, K11, K01, K12, K02, K13, K03, K14, K04, K15, K05, K16, K06, K17, K07, \
          K30, K20, K31, K21, K32, K22, K33, K23, K34, K24, K35, K25, K36, K26,      K37, \
          K50, K40, K51, K41, K52, K42, K53, K43, K54, K44, K55, K45, K56,           K47, \
