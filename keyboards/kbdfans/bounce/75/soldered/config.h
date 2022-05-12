@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x7000
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    KBDFANS
-#define PRODUCT         BONCE75_SOLDERED
+#define PRODUCT         BOUNCE75_SOLDERED
 
 /* key matrix size */
 #define MATRIX_ROWS 6
