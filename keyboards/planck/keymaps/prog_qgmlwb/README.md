@@ -16,11 +16,11 @@ The layout includes an English and Norwegian layer, whereas the Norwegian one on
 
 ## Typing layers
 
-![Typing layers](https://i.imgur.com/Ox0a87l.png)
+![Typing layers](https://i.imgur.com/QaHnqW8.png)
 
 ## Adjust layer
 
-![Adjust layer](https://i.imgur.com/RqHRlSI.png)
+![Adjust layer](https://i.imgur.com/63I69P0.png)
 
 ## Usage
 
