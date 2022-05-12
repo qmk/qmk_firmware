@@ -53,3 +53,13 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+/* Legacy UART setup from 0.15 QMK firmware version */
+//UART settings for communication with the RF microcontroller
+#define SERIAL_UART_BAUD 1000000
+#define SERIAL_UART_RXD_PRESENT (UCSR1A & _BV(RXC1))
+#define SERIAL_UART_INIT_CUSTOM       \
+    /* enable TX and RX */            \
+    UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
+    /* 8-bit data */                  \
+    UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);

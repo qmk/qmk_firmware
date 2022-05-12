@@ -19,5 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 
 # project specific files
-SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
+SRC += matrix.c serial_uart.c
