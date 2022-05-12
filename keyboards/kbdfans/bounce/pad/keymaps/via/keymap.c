@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,   KC_P2,   KC_P3, 
              KC_P0,   KC_PDOT, KC_PENT
   ),
-  [1] = LAYOUT_numpad(
+  [1] = LAYOUT_numpad_6x4(
     _______, _______, _______, _______,
     _______, _______, _______, _______,
     _______, _______, _______, 
