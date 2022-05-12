@@ -85,22 +85,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
     [LCMK] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, MY_COMP, XXXXXXX,
+            XXXXXXX, XXXXXXX,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
                KC_Q,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, MY_COMP,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           // KC_LCTL, KC_LSFT, LNUM_SPC,    LSYM_BSP, KC_RSFT, KC_RCTL
-                                           // KC_LGUI, MO(LNUM), SFT_SPC,    CTL_BSP, MO(LSYM), KC_LALT
-                                           // KC_LGUI, MO(LNUM), SFT_SPC,    LSYM_BSP, KC_LCTL, KC_LALT
                                               KC_LGUI, TD(TD_LNUM), SFT_SPC,    LSYM_BSP, KC_LCTL, KC_LALT
-                                           // KC_LGUI, TD(TD_LNUM), SFT_SPC,    TD(TD_LSYM), KC_LCTL, KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX,  KC_ESC, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, KC_NUBS, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
              KC_TAB, XXXXXXX, KC_AMPR, KC_LBRC, KC_RBRC, MY_TILD,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -111,31 +107,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LNUM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, XXXXXXX,TO(LFUN), KC_PERC, KC_SLSH,                      KC_PLUS,    KC_7,    KC_8,    KC_9,  KC_DEL, XXXXXXX,
+            XXXXXXX, XXXXXXX, XXXXXXX,TO(LFUN), KC_PERC, KC_SLSH,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT,  KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, MY_LLCK, XXXXXXX, KC_COMM,  KC_DOT, XXXXXXX,                       KC_EQL,    KC_1,    KC_2,    KC_3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            // XXXXXXX, _______,  _______,     KC_0,  _______, XXXXXXX
                                               XXXXXXX, _______,  _______,     _______,  KC_0, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F10,   KC_F7,   KC_F8,   KC_F9,  KC_DEL, XXXXXXX,
+            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F10,   KC_F7,   KC_F8,   KC_F9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,  KC_ENT,  KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            // XXXXXXX, TO(LCMK), _______,     KC_F10,  XXXXXXX, XXXXXXX
                                                XXXXXXX, TO(LCMK), _______,     XXXXXXX,  KC_F10, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, ALT_TAB, XXXXXXX,TO(LMSE), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, XXXXXXX,TO(LMSE), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             ALT_TAB, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -146,13 +140,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LMSE] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX,   RESET, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN3,                      XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,   RESET, XXXXXXX, XXXXXXX, KC_BTN1,                      XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_BTN1,                      KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN2,                      KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            //  XXXXXXX,TO(LCMK), _______,   _______,  KC_BTN1, XXXXXXX
                                                 XXXXXXX,TO(LCMK), _______,   KC_BTN1,  _______, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     )
@@ -186,8 +179,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 enum combo_keys {
     COMBO_L_RM_T_ESC,
     COMBO_L_MI_B_TAB,
-    //COMBO_R_RM_T_BSPC,
-    //COMBO_R_RM_B_DEL,
     COMBO_R_RM_T_DEL,
     COMBO_R_MI_B_ENT,
     COMBO_LENGTH
@@ -284,6 +275,43 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         { SEND_STRING(SS_LCTL(SS_LSFT("d"))); }
     )
 
+    // vc operations
+    // blame
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_V, KC_B),
+        { SEND_STRING(SS_LCTL(SS_LSFT("b"))); }
+    )
+
+    // log
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_V, KC_L),
+        { SEND_STRING(SS_LCTL(SS_LSFT("l"))); }
+    )
+
+    // commit
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_V, KC_C),
+        { SEND_STRING(SS_LCTL(SS_LSFT("c"))); }
+    )
+
+    // request review
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_V, KC_R),
+        { SEND_STRING(SS_LCTL(SS_LSFT("w"))); }
+    )
+
+    // push to
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_V, KC_P),
+        { SEND_STRING(SS_LCTL(SS_LSFT("s"))); }
+    )
+
+    // update
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_V, KC_U),
+        { SEND_STRING(SS_LCTL(SS_LSFT("u"))); }
+    )
+
     // test function
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_T, KC_F),
@@ -324,8 +352,10 @@ void compose_end(uint8_t state) {
         rgblight_blink_layer(9, 900);
     } else if (state == COMPOSE_CANCELLED) {
         rgblight_blink_layer(10, 900);
+    } else {
+        // the compose action was activated
+        rgblight_blink_layer(15, 900);
     }
-    // other state is OK.
 }
 
 /*******************************************************************************
@@ -517,7 +547,8 @@ const rgblight_segment_t PROGMEM caps_word_lights[] = INNER_KEYS(GREEN)
 
 const rgblight_segment_t PROGMEM compose_mode_lights[] = INNER_KEYS(ORANGE)
 const rgblight_segment_t PROGMEM compose_fail_lights[] = INNER_KEYS(RED)
-const rgblight_segment_t PROGMEM compose_cancel_lights[] = INNER_KEYS(BLUE)
+const rgblight_segment_t PROGMEM compose_cancel_lights[] = INNER_KEYS(PURPLE)
+const rgblight_segment_t PROGMEM compose_success_lights[] = INNER_KEYS(BLUE)
 
 const rgblight_segment_t PROGMEM layer_no_lights[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 54, HSV_OFF}
@@ -539,7 +570,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     oneshot_ctrl_active,
     oneshot_shift_active,
     oneshot_gui_active,
-    oneshot_alt_active
+    oneshot_alt_active,
+    compose_success_lights
 );
 
 void keyboard_post_init_user(void) {
