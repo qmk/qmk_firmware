@@ -41,7 +41,7 @@
         "vid": "0x7463"
     },
     "rgblight": {
-        "led_count": 52,
+        "led_count": 53,
         "pin": "D3",
         "hue_steps": 10,
         "saturation_steps": 17,
