@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 12
-#define BACKLIGHT_ON_STATE 1
 
 #define RGB_DI_PIN B0
  #ifdef RGB_DI_PIN
