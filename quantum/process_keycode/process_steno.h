@@ -28,8 +28,8 @@
 #endif
 
 typedef enum {
-    STENO_MODE_BOLT,
     STENO_MODE_GEMINI,
+    STENO_MODE_BOLT,
 } steno_mode_t;
 
 bool process_steno(uint16_t keycode, keyrecord_t *record);

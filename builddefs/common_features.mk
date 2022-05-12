@@ -92,26 +92,27 @@ ifeq ($(MUSIC_ENABLE), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
 endif
 
-# ifneq (, $(filter yes, $VAR1 $VAR2))
-# is a way to check if $VAR1 == yes || $VAR2 == yes
-# See https://stackoverflow.com/a/9802777
-ifneq (, $(filter yes, $(strip $(STENO_ENABLE)) $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_BOLT)) $(strip $(STENO_ENABLE_GEMINI))))
-    OPT_DEFS += -DSTENO_ENABLE
-    VIRTSER_ENABLE ?= yes
-	# STENO_ENABLE is deprecated in favour of STENO_ENABLE_ALL
-	ifeq ($(strip $(STENO_ENABLE)), yes)
-		STENO_ENABLE_ALL := yes
-	endif
-	ifeq ($(strip $(STENO_ENABLE_ALL)), yes)
-		OPT_DEFS += -DSTENO_ENABLE_ALL
-	endif
-	ifneq (, $(filter yes, $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_GEMINI))))
-		OPT_DEFS += -DSTENO_ENABLE_GEMINI
-	endif
-	ifneq (, $(filter yes, $(strip $(STENO_ENABLE_ALL)) $(strip $(STENO_ENABLE_BOLT))))
-		OPT_DEFS += -DSTENO_ENABLE_BOLT
-	endif
-    SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
+STENO_PROTOCOL ?= geminipr
+ifeq ($(strip $(STENO_ENABLE)), yes)
+    ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
+    else
+        OPT_DEFS += -DSTENO_ENABLE
+        VIRTSER_ENABLE ?= yes
+
+        ifeq ($(strip $(STENO_PROTOCOL)), geminipr)
+            OPT_DEFS += -DSTENO_ENABLE_GEMINI
+        endif
+        ifeq ($(strip $(STENO_PROTOCOL)), txbolt)
+            OPT_DEFS += -DSTENO_ENABLE_BOLT
+        endif
+        ifeq ($(strip $(STENO_PROTOCOL)), all)
+            OPT_DEFS += -DSTENO_ENABLE_ALL
+        endif
+
+        SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    endif
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)

@@ -20,52 +20,52 @@ When QMK speaks to Plover over a steno protocol, Plover will not use the keyboar
 
 In this mode, Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard.
 
-> Note: Due to hardware limitations, you may not be able to run both a virtual serial port and mouse emulation at the same time.
+> Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
+
+To enable stenography protocols, add the following lines to your `rules.mk`:
+```mk
+STENO_ENABLE = yes
+```
 
 ### TX Bolt :id=tx-bolt
 
-TX Bolt communicates the status of 24 keys over a very simple protocol in variable-sized (1-4 bytes) packets.
+TX Bolt communicates the status of 24 keys over a simple protocol in variable-sized (1&ndash;4 bytes) packets.
 
-To enable it, add the following line to your `rules.mk`:
+To select it, add the following lines to your `rules.mk`:
 ```mk
-STENO_ENABLE_BOLT = yes
+STENO_ENABLE = yes
+STENO_PROTOCOL = txbolt
 ```
 
 ### GeminiPR :id=geminipr
 
-GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including differentiating between top `S-` and bottom `S-`, and supporting non-English theories.
+GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including differentiating between top and bottom `S-`, and supporting non-English theories.
 
-To enable it, add the following line to your `rules.mk`:
+This is the default stenography protocol.
+
+To select it, add the following lines to your `rules.mk`:
 ```mk
-STENO_ENABLE_GEMINI = yes
+STENO_ENABLE = yes
+STENO_PROTOCOL = geminipr
 ```
 
 ### Switching protocols on the fly :id=switching-protocols-on-the-fly
 
 If you wish to switch the serial protocol used to transfer the steno chords without having to recompile your keyboard firmware every time, you can press the `QK_STENO_BOLT` and `QK_STENO_GEMINI` keycodes in order to switch protocols on the fly.
 
-To enable these special keycodes, add the following line to your `rules.mk`:
+To enable these special keycodes, add the following lines to your `rules.mk`:
 ```mk
-STENO_ENABLE_ALL = yes
+STENO_ENABLE = yes
+STENO_PROTOCOL = all
 ```
 
-?> To maintain backwards compatibility with older firmwares, the deprecated `STENO_ENABLE = yes` acts like `STENO_ENABLE_ALL = yes`.
+The default protocol is Gemini PR but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
 
-The default protocol is TX Bolt but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
-
-Naturally, this option takes the most amount of firmware space as it needs to compile the code for all the available stenography protocols. In most cases, compiling a single stenography protocol, by enabling the related `rules.mk` option, is sufficient.
-
-Note that it is possible to compile the code for multiple protocols at once with something like:
-```mk
-STENO_ENABLE_ALL = no
-STENO_ENABLE_BOLT = yes
-STENO_ENABLE_GEMINI = yes
-```
-However, that only leads to unnecessary bloat; your keyboard will only use Gemini PR because it isn't be possible to switch between protocols with `QK_STENO_BOLT` or `QK_STENO_GEMINI` unless `STENO_ENABLE_ALL` is turned on.
+Naturally, this option takes the most amount of firmware space as it needs to compile the code for all the available stenography protocols. In most cases, compiling a single stenography protocol is sufficient.
 
 ## Configuring QMK for Steno :id=configuring-qmk-for-steno
 
-Firstly, pick one of the `STENO_ENABLE_*` options to add to your `rules.mk`. You may also need disable mouse keys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
+After enabling stenography and optionally selecting a protocol, you may also need disable mouse keys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
 !> If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
 

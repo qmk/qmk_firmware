@@ -159,7 +159,7 @@ __attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *rec
 bool process_steno(uint16_t keycode, keyrecord_t *record) {
     if (keycode < QK_STENO || keycode > QK_STENO_MAX) {
         return true; // Not a steno key, pass it further along the chain
-        /* 
+        /*
          * Clearing or sending the chord state is not necessary as we intentionally ignore whatever
          * normal keyboard keys the user may have tapped while chording steno keys.
          */

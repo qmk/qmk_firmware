@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
-#if defined(STENO_ENABLE_ALL) || defined(STENO_ENABLE_GEMINI) || defined(STENO_ENABLE_BOLT)
+#ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif
 #ifdef POINTING_DEVICE_ENABLE
