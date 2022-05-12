@@ -1,6 +1,6 @@
 # balloondogcaps/tr90pm
 
-![balloondogcaps/tr90pm](https://imgur.com/AO5anzZ)
+![balloondogcaps/tr90pm](https://i.imgur.com/AO5anzZh.png)
 
 A 3x3 Pro Micro enabled Macropad
 
