@@ -192,7 +192,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KPSWAP:
             if (record->event.pressed) {
-                layer_invert(_KEYPAD);
+                layer_invert(_RKEYPAD);
                 layer_invert(_LKEYPAD);
                 return false;
             }

@@ -106,10 +106,10 @@ void entr_td_finished(qk_tap_dance_state_t *state, void *user_data) {
             tap_code(KC_ENT);
             break;
         case SINGLE_HOLD:
-            layer_on(_KEYPAD);
+            layer_on(_RKEYPAD);
             break;
         case DOUBLE_TAP:
-            layer_invert(_KEYPAD);
+            layer_invert(_RKEYPAD);
             break;
         case DOUBLE_HOLD:
             toggle_num_word();
@@ -125,7 +125,7 @@ void entr_td_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (entr_td_state.state) {
         // case SINGLE_TAP: break;
         case SINGLE_HOLD:
-            layer_off(_KEYPAD);
+            layer_off(_RKEYPAD);
             break;
         // case DOUBLE_TAP: break;
         // case DOUBLE_HOLD: break;

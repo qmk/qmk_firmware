@@ -9,7 +9,7 @@ enum layer_names {
     _SYMBOLS,
     _VIM,
     _NAV,
-    _KEYPAD,
+    _RKEYPAD,
     _LKEYPAD,
     _FUNCTION
 };

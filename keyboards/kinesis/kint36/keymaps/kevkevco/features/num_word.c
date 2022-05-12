@@ -13,13 +13,13 @@ bool is_num_word_enabled(void) {
 void enable_num_word(void) {
     if (is_num_word_on) return;
     is_num_word_on = true;
-    layer_on(_KEYPAD);
+    layer_on(_RKEYPAD);
 }
 
 void disable_num_word(void) {
     if (!is_num_word_on) return;
     is_num_word_on = false;
-    layer_off(_KEYPAD);
+    layer_off(_RKEYPAD);
 }
 
 void toggle_num_word(void) {
