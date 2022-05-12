@@ -19,7 +19,7 @@ enum {
     DOUBLE_SINGLE_TAP,
     MORE_TAPS
 };
-    
+
 uint8_t current_dance_step(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) 
@@ -83,7 +83,7 @@ void on_tap_hold_dance_reset(uint8_t step, uint16_t tap_key, uint16_t hold_key) 
     }
 }
 
-#define TD_TAP(name) static td_tap_t dance_state ##name = {.is_press_action = true, .step = 0};::
+#define TD_TAP(name) static td_tap_t dance_state ##name = {.is_press_action = true, .step = 0};
 
 #define TD_TAP_HOLD_FUNCTIONS(name, tap_key, hold_key) \
 static td_tap_t dance_state ##name = { .is_press_action = true, .step = 0 }; \
