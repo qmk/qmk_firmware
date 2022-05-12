@@ -22,6 +22,8 @@ In this mode, Plover expects to speak with a steno machine over a serial port so
 
 > Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
 
+!> Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers#atmel-avr).
+
 To enable stenography protocols, add the following lines to your `rules.mk`:
 ```mk
 STENO_ENABLE = yes
