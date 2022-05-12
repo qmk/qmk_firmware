@@ -7,7 +7,6 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x6D77 // mw = "MechWild"
-#define PRODUCT_ID   0x170B
 #define DEVICE_VER   0x0103
 #define MANUFACTURER MechWild
 #define PRODUCT      Mokulua
@@ -32,7 +31,7 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define OLED_FONT_H "keyboards/mechwild/mokulua/lib/mokulua.c"
+#define OLED_FONT_H "keyboards/mechwild/mokulua/glcdfont.c"
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -78,9 +77,6 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -131,5 +127,5 @@
 
 
 /* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+//#define BOOTMAGIC_LITE_ROW 0
+//#define BOOTMAGIC_LITE_COLUMN 0
