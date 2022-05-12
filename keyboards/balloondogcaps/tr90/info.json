@@ -1,6 +1,6 @@
 {
     "manufacturer": "Balloondog",
-    "keyboard_name": "balloondogcaps/tr90",
+    "keyboard_name": "TR90",
     "maintainer": "balloondogcaps",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
