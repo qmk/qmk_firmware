@@ -163,7 +163,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
          */
     }
     if (IS_NOEVENT(record->event)) {
-        return false;
+        return true;
     }
     if (!process_steno_user(keycode, record)) {
         return false; // User fully processed the steno key themselves
