@@ -61,7 +61,7 @@
   ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, ACCENTS_RALT
 
 #define ___6_ERGO_THUMBS_mod_layers_nav___                      \
-  S(KC_TAB), BSPC_SYMB, GUI_ESC,  ENT_NAV, SPC_TOPR, KC_TAB
+  ALT_DEL, BSPC_SYMB, GUI_ESC,  ENT_NAV, SPC_TOPR, ACCENTS_RALT
 
 // for keymaps that need a letter on the thumb.
 #define ___6_ERGO_THUMBS_left_letter___                                 \
