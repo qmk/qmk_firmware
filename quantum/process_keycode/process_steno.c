@@ -64,7 +64,7 @@ void send_steno_chord_gemini(void) {
 /**
  * @precondition: `key` is pressed
  */
-bool update_chord_gemini(uint8_t key) {
+bool add_gemini_key_to_chord(uint8_t key) {
     // Although each group of the packet is 8 bits long, the MSB is reserved
     // to indicate whether that byte is the first byte of the packet (MSB=1)
     // or one of the remaining five bytes of the packet (MSB=0).
@@ -111,7 +111,7 @@ static void send_steno_chord_bolt(void) {
 /**
  * @precondition: `key` is pressed
  */
-static bool update_chord_bolt(uint8_t key) {
+static bool add_bolt_key_to_chord(uint8_t key) {
     uint8_t boltcode = pgm_read_byte(boltmap + key);
     chord[TXB_GET_GROUP(boltcode)] |= boltcode;
     return false;
@@ -196,12 +196,12 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
                 switch (mode) {
 #ifdef STENO_ENABLE_BOLT
                     case STENO_MODE_BOLT:
-                        update_chord_bolt(keycode - QK_STENO);
+                        add_bolt_key_to_chord(keycode - QK_STENO);
                         break;
 #endif // STENO_ENABLE_BOLT
 #ifdef STENO_ENABLE_GEMINI
                     case STENO_MODE_GEMINI:
-                        update_chord_gemini(keycode - QK_STENO);
+                        add_gemini_key_to_chord(keycode - QK_STENO);
                         break;
 #endif // STENO_ENABLE_GEMINI
                     default:
