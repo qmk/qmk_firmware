@@ -1,3 +1,9 @@
+# A Basic QWERTY Layout
+
+The Contra layer was something that I didn't see widely utilized as a US standard so I tweaked the basic layout layout by Jack Humbert. It's closer to the standard layout you would get on a US keyboard. I also moved the rest of the special characters to the lower layer. 
+
+This is almost the same as my MechWild Marcuio keyboard.
+
 # A Basic Contra Layout
 
 The *default* layout currently (as of Mar 19, 2018) has a lot of components from Planck's default layout and is not very suitable for a basic Contra board. This basic layout is developed from Planck's default layout but has removed the parts that's irrelevant to a Contra board.  
@@ -7,27 +13,13 @@ My other keyboard is a HHKB and I don't use `Tab` or `Esc` key that much and hen
 ## QWERTY (Normal) Layer
 ```
 ,-----------------------------------------------------------------------------------.
- | `    |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  |------+------+------+------+------+-------------+------+------+------+------+------|
- | Ctrl |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
+ | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
  |------+------+------+------+------+------|------+------+------+------+------+------|
  | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  |------+------+------+------+------+------+------+------+------+------+------+------|
- | Esc  | Tab  | Alt  | GUI  |Lower |    Space    |Raise | Left |Right |  Up  |Down  |
- `-----------------------------------------------------------------------------------'
-```
-
-## Colemak Layer
-Switch from `Adjust` layer.
-```
-,-----------------------------------------------------------------------------------.
- | `    |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
- |------+------+------+------+------+-------------+------+------+------+------+------|
- | Ctrl |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
- |------+------+------+------+------+------|------+------+------+------+------+------|
- | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
- |------+------+------+------+------+------+------+------+------+------+------+------|
- | Esc  | Tab  | Alt  | GUI  |Lower |    Space    |Raise | Left |Right |  Up  |Down  |
+ | CAPS | Tab  | Alt  | GUI  |Lower |    Space    |Raise | Left |Right |  Up  |Down  |
  `-----------------------------------------------------------------------------------'
 ```
 
@@ -38,7 +30,7 @@ Switch from `Adjust` layer.
  |------+------+------+------+------+-------------+------+------+------+------+------|
  | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
  |------+------+------+------+------+------|------+------+------+------+------+------|
- |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | | Home | End  |      |
+ |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   -  |   =  |   [  |   ]  |  \   |
  |------+------+------+------+------+------+------+------+------+------+------+------|
  |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  `-----------------------------------------------------------------------------------'
@@ -63,7 +55,7 @@ Switch from `Adjust` layer.
 ,-----------------------------------------------------------------------------------.
  |      |      |      |      |      |      |      |      |      |      |      |  Del |
  |------+------+------+------+------+-------------+------+------+------+------+------|
- |      |      |      |      |      |AGnorm|AGswap|Qwerty|Colemk|      |      |      |
+ |      |      |      |      |      |AGnorm|AGswap|Qwerty|      |      |      |      |
  |------+------+------+------+------+------|------+------+------+------+------+------|
  |      |      |      |      |      |      |      |      |      |      |      |      |
  |------+------+------+------+------+------+------+------+------+------+------+------|
