@@ -1,2 +1,0 @@
-# The Default Contra Layout
-
