@@ -79,3 +79,95 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // #endif
 //   return true;
 // }
+
+//Lights https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
+const rgblight_segment_t PROGMEM QWERTY_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {24, 27, HSV_GREEN},
+    {58, 61, HSV_GREEN}
+);
+
+const rgblight_segment_t PROGMEM LOWER_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {24, 27, HSV_CYAN},
+    {58, 61, HSV_CYAN}
+);
+
+const rgblight_segment_t PROGMEM RAISE_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {24, 27, HSV_MAGENTA},
+    {58, 61, HSV_MAGENTA}
+);
+
+const rgblight_segment_t PROGMEM ADJUST_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {24, 27, HSV_RED},
+    {58, 61, HSV_RED}
+);
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    QWERTY_Layer,
+    LOWER_Layer,
+    RAISE_Layer,
+    ADJUST_Layer
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+}
+
+// Enable and disabling lighting layers
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    // Both layers will light up if both kb layers are active
+    rgblight_set_layer_state(0, layer_state_cmp(state, 0));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(3, layer_state_cmp(state, 3));
+    return state;
+}
+
+//Light time out: https://gist.github.com/aashreys/01cb34605a290a7cfb94a856bdabc94c
+static uint16_t key_timer; // timer to track the last keyboard activity
+static void refresh_rgb(void); // refreshes the activity timer and RGB, invoke whenever activity happens
+static void check_rgb_timeout(void); // checks if enough time has passed for RGB to timeout
+bool is_rgb_timeout = false; // store if RGB has timed out or not in a boolean
+
+
+void refresh_rgb() {
+  key_timer = timer_read(); // store time of last refresh
+  if (is_rgb_timeout) { // only do something if rgb has timed out
+    print("Activity detected, removing timeout\n");
+    is_rgb_timeout = false;
+    rgblight_wakeup();
+  }
+}
+
+void check_rgb_timeout() {
+  if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
+    rgblight_suspend();
+    is_rgb_timeout = true;
+  }
+}
+
+
+/* Then, call the above functions from QMK's built in post processing functions like so */
+
+/* Runs at the end of each scan loop, check if RGB timeout has occured */
+void housekeeping_task_user(void) {
+#ifdef RGBLIGHT_TIMEOUT
+  check_rgb_timeout();
+#endif
+
+  /* rest of the function code here */
+}
+
+/* Runs after each key press, check if activity occurred */
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef RGBLIGHT_TIMEOUT
+  if (record->event.pressed) refresh_rgb();
+#endif
+
+  /* rest of the function code here */
+}

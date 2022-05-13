@@ -22,3 +22,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 230
 #define IGNORE_MOD_TAP_INTERRUPT
+#define RGBLIGHT_LAYERS
+
+#undef RGBLIGHT_EFFECT_SNAKE
+
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+
+#undef RGBLIGHT_EFFECT_ALTERNATING
+
+//In progress
+
+#define RGBLIGHT_SLEEP  // allows us to use rgblight_suspend() and rgblight_wakeup() in keymap.c
+#define RGBLIGHT_TIMEOUT 60000  // 60 seconds
