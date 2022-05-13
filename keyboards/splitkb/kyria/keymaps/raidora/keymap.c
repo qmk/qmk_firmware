@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NAV] = LAYOUT(
-      KC_ESC , _______, _______           , LCA(KC_B), RSFT(KC_TAB), KC_TAB,                                          KC_PGUP  , KC_HOME, KC_UP  , KC_END , KC_DEL  , KC_BSPC,
+      KC_ESC , _______, LCTL(KC_B)           , LCA(KC_B), RSFT(KC_TAB), KC_TAB,                                          KC_PGUP  , KC_HOME, KC_UP  , KC_END , KC_DEL  , KC_BSPC,
       _______, KC_LGUI, KC_LALT           , KC_LCTRL , KC_LSHIFT   , _______,                                         KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC , _______,
       _______, _______, LCTL(KC_KP_SLASH) , _______  , LALT(KC_ENT), _______, _______, KC_SLCK,     KC_NLCK, _______, KC_PAUSE , _______, KC_INS, _______ , KC_LBRC , KC_PSCR,
                                             _______  , _______     , _______, _______, _______,     _______, _______, _______  , _______, _______
