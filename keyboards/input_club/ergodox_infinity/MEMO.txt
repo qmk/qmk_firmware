@@ -1,0 +1,385 @@
+flabbergast's TMK/ChibiOS port
+==============================
+2015/10/16
+
+
+Build
+-----
+$ git clone -b chibios https://github.com/flabbergast/tmk_keyboard.git
+
+$ cd tmk_keyboard
+$ git submodule add -f -b kinetis https://github.com/flabbergast/ChibiOS.git tmk_core/tool/chibios/chibios
+or
+$ cd tmk_keyboard/tmk_core/tool/chibios
+$ git clone -b kinetis https://github.com/flabbergast/ChibiOS.git tmk_core/tool/chibios/chibios
+
+$ cd tmk_keyboard/keyboard/infinity_chibios
+$ make
+
+
+
+
+Chibios Configuration
+---------------------
+halconf.h: for HAL configuration
+    placed in project directory
+    read in chibios/os/hal/hal.mk
+    included in chibios/os/hal/include/hal.h
+mcuconf.h: for MCU configuration
+    placed in project directory
+    included in halconf.h
+
+
+Chibios Term
+------------
+PAL = Port Abstraction Layer
+    palWritePad
+    palReadPad
+    palSetPad
+    chibios/os/hal/include/pal.h
+
+LLD = Low Level Driver
+
+
+Makefile
+--------
+    #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+    MCU_FAMILY = KINETIS
+    MCU_SERIES = KL2x
+
+    # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+    #   or <this_dir>/ld/
+    MCU_LDSCRIPT = MKL26Z64
+
+    #  - it should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
+    MCU_STARTUP = kl2x
+
+    # Board: it should exist either in <chibios>/os/hal/boards/
+    #  or <this_dir>/boards
+    BOARD = PJRC_TEENSY_LC
+
+    MCU  = cortex-m0
+
+    # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+    ARMV = 6
+
+
+halconf.h
+---------
+
+
+mcuconf.h
+---------
+
+
+chconf.h
+--------
+
+
+ld script
+---------
+--- ../../tmk_core/tool/chibios/chibios/os/common/ports/ARMCMx/compilers/GCC/ld/MKL26Z64.ld     2015-10-15 09:08:58.732904304 +0900
++++ ld/MKL26Z64.ld      2015-10-15 08:48:06.430215496 +0900
+@@ -27,7 +27,8 @@
+ {
+   flash0   :  org = 0x00000000,  len = 0xc0
+   flashcfg :  org = 0x00000400,  len = 0x10
+-  flash    :  org = 0x00000410,  len = 64k - 0x410
++  flash    :  org = 0x00000410,  len = 62k - 0x410
++  eeprom_emu : org = 0x0000F800, len = 2k
+   ram      :  org = 0x1FFFF800,  len = 8k
+ }
+
+@@ -35,6 +36,10 @@
+ __ram_size__            = LENGTH(ram);
+ __ram_end__             = __ram_start__ + __ram_size__;
+
++__eeprom_workarea_start__ = ORIGIN(eeprom_emu);
++__eeprom_workarea_size__  = LENGTH(eeprom_emu);
++__eeprom_workarea_end__   = __eeprom_workarea_start__ + __eeprom_workarea_size__;
++
+ SECTIONS
+ {
+   . = 0;
+
+
+
+Configuration/Startup for Infinity 60%
+--------------------------------------
+Configuration:
+
+
+Clock:
+Inifinity   
+    FEI(FLL Engaged Internal) mode with core clock:48MHz, bus clock:48MHz, flash clock:24MHz
+    Clock dividor:
+    SIM_CLKDIV1[OUTDIV1] = 0 divide-by-1 for core clock
+    SIM_CLKDIV1[OUTDIV2] = 0 divide-by-1 for bus clock
+    SIM_CLKDIV1[OUTDIV4] = 1 divide-by-2 for flash clock
+    Internal reference clock:
+    MCG_C1[IREFS] = 1 Internal Reference Select for clock source for FLL
+    MCG_C1[IRCLKEN] = 1 Internal Reference Clock Enable
+    FLL multipilication:
+    MCG_C4[DMX32] = 1
+    MCG_C4[DRST_DRS] = 01   FLL factor 1464 * 32.768kHz = 48MHz
+
+chibios/os/hal/ports/KINETIS/K20x/hal_lld.c
+    k20x_clock_init(): called in __early_init() defined in board.c
+        disable watchdog and configure clock
+
+        configurable macros:
+        KINETIS_NO_INIT: whether init or not
+        KINETIS_MCG_MODE: clock mode   
+            KINETIS_MCG_MODE_FEI
+            KINETIS_MCG_MODE_PEE
+                hal/ports/KINETIS/K20x/hal_lld.h
+            
+
+chibios/os/hal/boards/FREESCALE_FREEDOM_K20D50M/board.h
+    PALConfig pal_default_config
+    boardInit()
+    __early_init()
+    macro definitions for board infos, freq and mcu type
+
+chibios/os/hal/boards/FREESCALE_FREEDOM_K20D50M/board.c
+
+USB
+
+
+Startup
+-------
+    common/ports/ARMCMx/GCC/crt0_v[67]m.s
+        Reset_Handler: startup code
+    common/ports/ARMCMx/GCC/crt1.c
+        __core_init(): weak
+        __early_init(): weak
+        __late_init(): weak
+        __default_exit(): weak
+            called from Reset_Handler of crt0
+    common/ports/ARMCMx/GCC/vector.c
+    common/ports/ARMCMx/GCC/ld/*.ld
+
+chibios/os/common/ports/ARMCMx/compilers/GCC/
+├── crt0_v6m.s
+├── crt0_v7m.s
+├── crt1.c
+├── ld
+│   ├── MK20DX128BLDR3.ld
+│   ├── MK20DX128BLDR4.ld
+│   ├── MK20DX128.ld
+│   ├── MK20DX256.ld
+│   ├── MKL25Z128.ld
+│   ├── MKL26Z128.ld
+│   ├── MKL26Z64.ld
+│   └── STM32L476xG.ld
+├── mk
+│   ├── startup_k20x5.mk
+│   ├── startup_k20x7.mk
+│   ├── startup_k20x.mk
+│   ├── startup_kl2x.mk
+│   └── startup_stm32l4xx.mk
+├── rules.ld
+├── rules.mk
+└── vectors.c
+
+chibios/os/hal/
+├── boards
+│   ├── FREESCALE_FREEDOM_K20D50M
+│   │   ├── board.c
+│   │   ├── board.h
+│   │   └── board.mk
+│   ├── MCHCK_K20
+│   │   ├── board.c
+│   │   ├── board.h
+│   │   └── board.mk
+│   ├── PJRC_TEENSY_3
+│   │   ├── board.c
+│   │   ├── board.h
+│   │   └── board.mk
+│   ├── PJRC_TEENSY_3_1
+│   │   ├── board.c
+│   │   ├── board.h
+│   │   └── board.mk
+│   ├── PJRC_TEENSY_LC
+│   │   ├── board.c
+│   │   ├── board.h
+│   │   └── board.mk
+│   ├── readme.txt
+│   ├── simulator
+│   │   ├── board.c
+│   │   ├── board.h
+│   │   └── board.mk
+│   ├── ST_NUCLEO_F030R8
+│   │   ├── board.c
+│   │   ├── board.h
+│   │   ├── board.mk
+│   │   └── cfg
+│   │       └── board.chcfg
+├── hal.mk
+├── include
+│   ├── adc.h
+│   ├── can.h
+│   ├── dac.h
+│   ├── ext.h
+│   ├── gpt.h
+│   ├── hal_channels.h
+│   ├── hal_files.h
+│   ├── hal.h
+│   ├── hal_ioblock.h
+│   ├── hal_mmcsd.h
+│   ├── hal_queues.h
+│   ├── hal_streams.h
+│   ├── i2c.h
+│   ├── i2s.h
+│   ├── icu.h
+│   ├── mac.h
+│   ├── mii.h
+│   ├── mmc_spi.h
+│   ├── pal.h
+│   ├── pwm.h
+│   ├── rtc.h
+│   ├── sdc.h
+│   ├── serial.h
+│   ├── serial_usb.h
+│   ├── spi.h
+│   ├── st.h
+│   ├── uart.h
+│   └── usb.h
+├── lib
+│   └── streams
+│       ├── chprintf.c
+│       ├── chprintf.h
+│       ├── memstreams.c
+│       ├── memstreams.h
+│       ├── nullstreams.c
+│       └── nullstreams.h
+├── osal
+│   ├── nil
+│   │   ├── osal.c
+│   │   ├── osal.h
+│   │   └── osal.mk
+│   ├── os-less
+│   │   └── ARMCMx
+│   │       ├── osal.c
+│   │       ├── osal.h
+│   │       └── osal.mk
+│   └── rt
+│       ├── osal.c
+│       ├── osal.h
+│       └── osal.mk
+├── ports
+│   ├── AVR
+│   ├── common
+│   │   └── ARMCMx
+│   │       ├── mpu.h
+│   │       ├── nvic.c
+│   │       └── nvic.h
+│   ├── KINETIS
+│   │   ├── K20x
+│   │   │   ├── hal_lld.c
+│   │   │   ├── hal_lld.h
+│   │   │   ├── kinetis_registry.h
+│   │   │   ├── platform.dox
+│   │   │   ├── platform.mk
+│   │   │   ├── pwm_lld.c
+│   │   │   ├── pwm_lld.h
+│   │   │   ├── spi_lld.c
+│   │   │   └── spi_lld.h
+│   │   ├── KL2x
+│   │   │   ├── hal_lld.c
+│   │   │   ├── hal_lld.h
+│   │   │   ├── kinetis_registry.h
+│   │   │   ├── platform.mk
+│   │   │   ├── pwm_lld.c
+│   │   │   └── pwm_lld.h
+│   │   ├── LLD
+│   │   │   ├── adc_lld.c
+│   │   │   ├── adc_lld.h
+│   │   │   ├── ext_lld.c
+│   │   │   ├── ext_lld.h
+│   │   │   ├── gpt_lld.c
+│   │   │   ├── gpt_lld.h
+│   │   │   ├── i2c_lld.c
+│   │   │   ├── i2c_lld.h
+│   │   │   ├── pal_lld.c
+│   │   │   ├── pal_lld.h
+│   │   │   ├── serial_lld.c
+│   │   │   ├── serial_lld.h
+│   │   │   ├── st_lld.c
+│   │   │   ├── st_lld.h
+│   │   │   ├── usb_lld.c
+│   │   │   └── usb_lld.h
+│   │   └── README.md
+│   ├── LPC
+│   ├── simulator
+│   └── STM32
+├── src
+│   ├── adc.c
+│   ├── can.c
+│   ├── dac.c
+│   ├── ext.c
+│   ├── gpt.c
+│   ├── hal.c
+│   ├── hal_mmcsd.c
+│   ├── hal_queues.c
+│   ├── i2c.c
+│   ├── i2s.c
+│   ├── icu.c
+│   ├── mac.c
+│   ├── mmc_spi.c
+│   ├── pal.c
+│   ├── pwm.c
+│   ├── rtc.c
+│   ├── sdc.c
+│   ├── serial.c
+│   ├── serial_usb.c
+│   ├── spi.c
+│   ├── st.c
+│   ├── uart.c
+│   └── usb.c
+└── templates
+    ├── adc_lld.c
+    ├── adc_lld.h
+    ├── can_lld.c
+    ├── can_lld.h
+    ├── dac_lld.c
+    ├── dac_lld.h
+    ├── ext_lld.c
+    ├── ext_lld.h
+    ├── gpt_lld.c
+    ├── gpt_lld.h
+    ├── halconf.h
+    ├── hal_lld.c
+    ├── hal_lld.h
+    ├── i2c_lld.c
+    ├── i2c_lld.h
+    ├── i2s_lld.c
+    ├── i2s_lld.h
+    ├── icu_lld.c
+    ├── icu_lld.h
+    ├── mac_lld.c
+    ├── mac_lld.h
+    ├── mcuconf.h
+    ├── osal
+    │   ├── osal.c
+    │   ├── osal.h
+    │   └── osal.mk
+    ├── pal_lld.c
+    ├── pal_lld.h
+    ├── platform.mk
+    ├── pwm_lld.c
+    ├── pwm_lld.h
+    ├── rtc_lld.c
+    ├── rtc_lld.h
+    ├── sdc_lld.c
+    ├── sdc_lld.h
+    ├── serial_lld.c
+    ├── serial_lld.h
+    ├── spi_lld.c
+    ├── spi_lld.h
+    ├── st_lld.c
+    ├── st_lld.h
+    ├── uart_lld.c
+    ├── uart_lld.h
+    ├── usb_lld.c
+    └── usb_lld.h

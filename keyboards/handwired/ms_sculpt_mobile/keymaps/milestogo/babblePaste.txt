@@ -1,0 +1,123 @@
+ BabblePaste is a library of common macros used to make sure that
+you can have one "paste" button on one layer, and it will do the 
+right thing on any OS or app. Windows=Ctrl-V. Mac = Command-V and so on. 
+
+The babblepaste library looks for the current status in a babble_mode global variable. 
+To switch modes, run the switch_babble_mode() function, or a pre defined macro. 
+Currently supported  are Windows, OS X, Gnome/kde, Emacs, VI and readline, 
+across 42+ common macro actions. 
+
+
+###To use the library
+1) Paste the following into your config.h. 
+
+//////Begin//////
+#define USE_BABLPASTE 1 
+
+#ifdef USE_BABLPASTE
+/* define BabblePaste maps. Whatever = 0 will be the default. */
+// MAC_MODE   0
+// MS_MODE 1
+// LINUX_MODE 2 
+// EMACS_MODE 3
+// VI_MODE 3
+// Readline and tmux
+// READMUX_MODE 2 
+// WORDSTAR_MODE 5
+#endif
+
+// Uncomment these to remove options an free up  flash space
+
+// This removes everything but cursor movement
+// BABL_MOVEMENTONLY
+// and this just removes browser shortcuts
+// BABL_NOBROWSER
+///////End///////
+
+2) Add the following to your keymap in the action_get_macro
+
+//////Begin//////
+#ifdef USE_BABLPASTE
+
+   if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
+   		if (record->event.pressed)  { // is there a case where this isn't desired?
+  
+   			babblePaste ( record,  id );
+   			return MACRO_NONE;
+   		}
+   	}
+#endif
+///////End///////
+
+3) add Babbelpaste actions to your keymap. See the full list in babblePaste.h, or the
+list below
+B_L1C  // go left 1 char
+B_R1C  // go Right 1 char
+ B_L1W //GO_LEFT_1 WORD
+ B_R1W  //BABL_GO_RIGHT_1 WORD
+ B_GSOL  // BABL_GOTO_START of _LINE
+ B_GEOL  // BABL_GOTO_END_LINE
+ B_GTOP  //BABL_GOTO_START_DOC
+ B_GEND  //BABL_GO_END_DOC
+ B_DOWN  //BABL_GO_NEXT_LINE
+ B_UP   // BABL_GO_PREV_LINE
+ B_PGDN  //PGDN
+ B_PGUP  //PGUP
+// B_BKSP  //backspace so why bother. 
+ B_DEL  // DEL_RIGHT_1 Char // usually = Del
+ B_DLW  // DEL_LEFT_ 1 WORD)
+ B_DRW   //DEL_RIGHT_1 WORD
+ B_DEOL  // delete from cursor to end of line
+ B_DSOL  // delete from cursor to begining line
+ B_UNDO  //UNDO
+ B_REDO  // REDO
+ B_CUT  // CUT)
+ B_COPY  // COPY)
+ B_PAST  // PASTE)
+ B_SELA  // SELECT_ALL
+ B_FIND  // FIND)
+ B_FINDN  //FIND_NEXT)
+ B_FINDR  // FIND_REPLACE)
+ B_RAPP  // open application launcher
+ B_NAPP  // switch to next app
+ B_PAPP  // switch to previous app
+ B_CAPP  // CLOSE_APP)
+ B_HELP  // HELP)
+ B_NTAB  // BROWSER_NEW_TAB)
+ B_CTAB  //BROWSER_CLOSE_TAB)
+ B_ROTB  //BROWSER_REOPEN_LAST_TAB)
+ B_NXTB  //BROWSER_NEXT_TAB)
+ B_PTAB  //BROWSER_PREV_TAB)
+ B_NURL //BROWSER_jump to URL_BAR)
+ B_BFWD  // BROWSER_FORWARD (in history) 
+ B_BBAK  //BROWSER_BACK (in history)
+ B_BFND  // BROWSER_FIND)
+ B_BOOK  //BROWSER_New BOOKMARK)
+ B_BDEV  //BROWSER_ Open DEV_TOOLS) // hard one to remember
+ B_BRLD  // BROWSER_RELOAD Page
+ B_BFUlL // BROWSER_FULLSCREEN)
+ B_ZMIN  // BROWSER_ZOOM_IN)
+ B_ZMOT  //BROWSER_ZOOM_OUT)
+
+
+#### Development notes
+-Why a new function? Because it would make the keymap too ugly to put it there.  
+-Why not return the macro to action_get_macro? Because I kept running into scope problems
+and pointers to the wrong type. 
+-Why not an array of arrays as a lookup instead of a function? That would allow you 
+to store the lookup table in PROGMEM.  True, but that takes more pre-processor skill 
+than I had. 
+
+-Have you tested this on every platform? No. Submit a patch.  
+
+
+### Next steps for someone. 
+Make it easier to pair macros with modifiers. So key foo will jump to start of line, and 
+Shift(foo) will jump to the first tab in a browser. 
+
+## Thanks
+
+Thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
+and https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jeebak/keymap.c
+And of course QMK... 
+
