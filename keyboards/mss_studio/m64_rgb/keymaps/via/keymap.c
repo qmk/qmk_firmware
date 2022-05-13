@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <string.h>
-#include <math.h>
-
-#include <lib/lib8tion/lib8tion.h>
-
 #include QMK_KEYBOARD_H
+#include <lib/lib8tion/lib8tion.h>
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
