@@ -9,7 +9,7 @@ TP_TPL(KC_CWCQ, LCTL(KC_W), LCTL(KC_Q))
 // Xmonad scratch pads or desktop
 //TP_TPL(KC_XM_PORD, LGUI(KC_E), LGUI(KC_T))
 
-TP_SML(ENTNAV, KC_ENTER, SML_NAV)
+//TP_SML(ENTNAV, KC_ENTER, SML_NAV)
 
 
 #if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO) || (DEFAULT_LANG == BEPO)

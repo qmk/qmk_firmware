@@ -63,6 +63,18 @@
 /* COMBOS - z = jg, z=vg, q=uk, q=mp.  */
 
 
+// no z or q, use combos.
+#define CARTE_HD_TITANIUM                       \
+  carte_de_map("  jgmpv  ;./\"' ",              \
+               "  rsndb  ,aeih ",               \
+               "  xflcw  -uoyk  r")
+
+#define ___HD_TITANIUM___                                               \
+  LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
+           _C, _S, _N, _T, _W , TL_COMM, _A, _E, _I, _H,                \
+           _X, _F, _L, _D, _B , TL_MINS, _U, _O, _Y, _K)
+
+
 #define CARTE_HD_GOLD                                           \
   carte_de_map("  jgmpv  ;./\"' ",                              \
                "  rsndb  ,aeih ",                               \

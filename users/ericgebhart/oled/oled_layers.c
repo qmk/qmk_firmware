@@ -99,6 +99,9 @@ void oled_render_default_layer_state(void) {
 #ifdef HD_NEU_NARROW_LAYER_ENABLE
       WRITE_STR_LAYER(_HD_NEU_NARROW, "HD Neu N")
 #endif
+#ifdef HD_TITANIUM_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_TITANIUM, "HD Titanium")
+#endif
 #ifdef HD_GOLD_LAYER_ENABLE
       WRITE_STR_LAYER(_HD_GOLD, "HD Gold")
 #endif
@@ -167,6 +170,9 @@ void oled_render_default_layer_state(void) {
 
 #ifdef OPTIMOT_LAYER_ENABLE
       WRITE_STR_LAYER(_OPTIMOT, "Optimot")
+#endif
+#ifdef OPTIMOT_COMPACT_LAYER_ENABLE
+      WRITE_STR_LAYER(_OPTIMOT_COMPACT, "Optimot")
 #endif
 #ifdef BEAKL19bis_LAYER_ENABLE
       WRITE_STR_LAYER(_BEAKL19bis, "Beakl19bis")

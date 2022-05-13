@@ -212,12 +212,20 @@
 //#define HD_SILVER_LAYER_ENABLE
 //#define HD_PLATINUM_LAYER_ENABLE
 //#define HD_GOLD_LAYER_ENABLE
+//#define HD_TITANIUM_LAYER_ENABLE
+
+// A compact optimot for 3x10.
+// requires accent characters.
+//#define OPTIMOT_COMPACT_LAYER_ENABLE
 
 // 3x12 sized base layers
 //--------------------------
 //#define HD_NEU_LAYER_ENABLE
 
-// additionally all these have accent characters on base layer.
+// Optimized for french
+// All these have accent characters on base layer.
+// so these dont work for En, but do for US-international and Bepo.
+
 //#define BEPO_LAYER_ENABLE
 //#define OPTIMOT_LAYER_ENABLE
 //#define BEAKL19bis_LAYER_ENABLE

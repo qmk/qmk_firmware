@@ -109,6 +109,10 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_HD_NEU_NARROW)
 #endif
 
+#ifdef HD_TITANIUM_LAYER_ENABLE
+        SHOW_MAP(_HD_TITANIUM)
+#endif
+
 #ifdef HD_GOLD_LAYER_ENABLE
         SHOW_MAP(_HD_GOLD)
 #endif
@@ -172,6 +176,10 @@ void oled_render_layer_map(void) {
 
 #ifdef OPTIMOT_LAYER_ENABLE
         SHOW_MAP(_OPTIMOT)
+#endif
+
+#ifdef OPTIMOT_COMPACT_LAYER_ENABLE
+        SHOW_MAP(_OPTIMOT_COMPACT)
 #endif
 
 #ifdef BEAKL19bis_LAYER_ENABLE

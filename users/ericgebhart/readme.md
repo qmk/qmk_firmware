@@ -54,12 +54,14 @@ Edit _config.h_,
   * Choose a mod layer
   * Choose an edge key set if you need one.
   * Choose the layer flavors that you want.
-  * For Miryoku, choose everything miryoku or mix it up.
+  * For Miryoku, copy the `miryoku_hd_gold_config.h` over `config.h`
+    It is a complete config with miryoku choices. Choose the base
+    layers you wish if Hands Down Gold and Qwerty is not your thing.
   
   ** do not turn off extensions until you know them **
   It will likely cause a stream of errors for the keycodes that
   go missing when something is turned off. There are known
-  interactions between combos, smart locks, and alt local keys.
+  interactions between combos, smart locks, not_dead, and alt local keys.
   Turning encoders or oled on and off certainly won´t break
   anything.
   
@@ -133,6 +135,7 @@ Things which effect the thinking.
 
 
 Features:
+  * Everything is configurable from config.h and .def files.
   * Def files for most things.
   * Custom key codes are mostly defined automatically.
   * Everything is chosen or turned on and off in config.h
@@ -145,6 +148,7 @@ Features:
   * Multiple base layers to choose from.
   * Several variations of function layers to choose from
   * Miryoku layers, thumbs and mods if desired
+  * Miryoku hands down gold config can be swapped with config.h
   * Navigation and mouse layers
   * A selection of symbol, keypads, and other layers.
   * Regular and Beakl keypad and number rows
@@ -723,6 +727,7 @@ Here is a list of some of the base layers..
  * Hands Down
     * Neu
     * Neu narrow
+    * Titanium
     * Gold
     * Platinum
     * Silver
@@ -749,6 +754,7 @@ Here is a list of some of the base layers..
  * Bepo, layers with accented letters.
     * Bepo
     * Optimot
+    * Optimot compact
     * Beakl19bis
 
 ### Adding a new base layer, or any layer 
@@ -1352,6 +1358,20 @@ OPEN_OCL_ND(BP_OCQUOT, BP_QUOT, BP_QUOT)
 OPEN_OCL_ND(US_OCQUOT, US_QUOT, US_QUOT)
 ```
 
+It is also possible to trigger a smart lock with a hold.
+This example creates a keycode, `ENTNAV` which can be used
+to type enter, or smart lock the nav layer.
+Note that `SML_NAV` should be defined in `smart_lock.defs`.
+
+__Caveat:__
+This does have the unfortunate behavior of delaying the action
+until key up. So it may not be that useful. I did not like it
+for this particular example.
+
+```
+TP_SML(ENTNAV, KC_ENTER, SML_NAV)
+```
+
 Caps Word
 -------------
 This is a slightly modified version of caps word which adds a *CAPS_WORD_ON* keycode
@@ -1495,6 +1515,10 @@ The code scans the entries for matches on layer first, checking for a match for
 mods. If an encoder entry is not found it then scans for entries with
 layer set to LAYER_NONE.
 
+RGB light controls require calling the functions directly, for this
+there is a special macro and function that does this. The functions
+should take no arguments.
+
 ```
 // Layer/none, encoder index 0/1, CW_KC, CCW_KC, Qualifying mod or none
 // LAYER_NONE and MOD_NONE for a single use.
@@ -1508,6 +1532,11 @@ ENCODER_ACTION(LAYER_NONE, LEFT,  KC_PGDN, KC_PGUP, MOD_LSFT)
 
 // Symbol layer encoders.
 ENCODER_ACTION(_SYMB, LEFT, KC_LEFT, KC_RIGHT, MOD_NONE)
+
+// RGB function encoders
+ENCODER_FUNCTION(_RGB, LEFT,
+                rgb_matrix_increase_speed_noeeprom,
+                rgb_matrix_decrease_speed_noeeprom, MOD_NONE)
 ```
 
 

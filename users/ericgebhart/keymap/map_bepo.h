@@ -27,6 +27,10 @@
     B_LAYERt6(LANG_N(_OPTIMOT), ___12_SYMBOLS_BEPO___, ___OPTIMOT_3x12___),
 #endif
 
+#ifdef OPTIMOT_COMPACT_LAYER_ENABLE
+      B_LAYER(LANG_N(_OPTIMOT), ___10_SYMBOLS_BEPO___, ___OPTIMOT_3x10___),
+#endif
+
 #ifdef BEAKL19bis_LAYER_ENABLE
     B_LAYERt6(LANG_N(_BEAKL19bis), ___12_SYMBOLS_BEPO___, ___BEAKL19bis_3x12___),
 #endif

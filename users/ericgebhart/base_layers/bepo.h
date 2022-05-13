@@ -63,6 +63,18 @@
             _TAB,  _A,    _I, _E,    _U,    _COMM,  _P, _T, _S, _R,    _N,  _DCIR, \
             _ECIR, _K,    _Y, _EGRV, _DOT,  _W,     _G, _C, _M, _H,    _V,  _Z)
 
+// no z or x. combos exist for them.
+#define CARTE_OPTIMOT_COMPACT                  \
+  carte_de_map(" àjoéb fdl’q ",                \
+               " aieu, ptsrn ",                \
+               " kyè.w gcmhv ")
+
+#define ___OPTIMOT_3x10___                                             \
+  LANG_MAP6(                                                           \
+            _AGRV, _J, _O,    _EACU, _B,     _F, _D, _L, _QUOT, _Q,    \
+            _A,    _I, _E,    _U,    _COMM,  _P, _T, _S, _R,    _N,    \
+            _K,    _Y, _EGRV, _DOT,  _W,     _G, _C, _M, _H,    _V,)
+
 // Maybe Use this for C
 //BP_C_CCED = MT(BP_CCED, BP_C)
 
