@@ -58,6 +58,8 @@ enum userspace_custom_keycodes {
 #ifdef TAP_HOLD_ENABLE
 #undef TP_TPL
 #define TP_TPL KEY_NAME
+#undef TP_SML
+#define TP_SML KEY_NAME
 #undef OPEN_OCL
 #define OPEN_OCL KEY_NAME
 #undef OPEN_OCL_ND
@@ -66,6 +68,7 @@ enum userspace_custom_keycodes {
 #undef OPEN_OCL
 #undef OPEN_OCL_ND
 #undef TP_TPL
+#undef TP_SML
 #endif
 
 #ifdef UNICODE_ENABLE

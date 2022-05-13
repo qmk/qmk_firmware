@@ -24,6 +24,8 @@ typedef struct {
   uint16_t clockwise;
   uint16_t counter_clockwise;
   uint16_t mods;
+  void (*cw_func)(void);
+  void (*ccw_func)(void);
 } encoder_action_t;
 extern encoder_action_t encoder_actions[];
 extern uint8_t         NUM_ENCODER_ACTIONS;
@@ -36,6 +38,9 @@ extern uint8_t         NUM_ENCODER_ACTIONS;
 #define MOD_NONE 0x00
 
 #define ENCODER_ACTION(LAYER, INDEX, CW_KC, CCW_KC, MOD)        \
-  {LAYER, INDEX, CW_KC, CCW_KC, MOD},
+  {LAYER, INDEX, CW_KC, CCW_KC, MOD, NULL, NULL},
+
+#define ENCODER_FUNCTION(LAYER, INDEX, CW_FUNC, CCW_FUNC, MOD)  \
+  {LAYER, INDEX, 0, 0, MOD, CW_FUNC, CCW_FUNC},
 
 bool do_encoder_action(uint8_t index, bool clockwise, bool layer_actions);

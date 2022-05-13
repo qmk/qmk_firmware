@@ -42,7 +42,10 @@
 
 
 #include USERSPACE_H
+#include "stdint.h"
 #include "tap_hold.h"
+void update_smart_lock(uint16_t keycode);
+
 
 inline void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   if (record->event.pressed) {
@@ -56,6 +59,17 @@ inline void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   }
 }
 
+inline void tap_sml(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_taplong_timer = timer_read();
+  } else {
+    if (timer_elapsed(tap_taplong_timer) > TAP_HOLD_TERM) {
+      update_smart_lock(kc2);
+    } else {
+      tap_code16(kc1);
+    }
+  }
+}
 
 /* for (){}[]""''<>``. tap for open. Hold for open and close, ending inbetween. */
 /* Assumes a one character length.                                              */
@@ -82,7 +96,7 @@ inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
 
         set_mods(mod_state);
       }else{
-          tap_code16(kc1);
+        tap_code16(kc1);
       }
     }
   }
@@ -127,6 +141,11 @@ inline void open_openclose_not_dead(uint16_t kc1, uint16_t kc2, keyrecord_t *rec
 #define TP_TPL(KCKEY, KC01, KC02)               \
   case KCKEY:                                   \
   tap_taplong(KC01, KC02, record);              \
+  break;
+
+#define TP_SML(KCKEY, KC01, KC02)        \
+  case KCKEY:                            \
+  tap_sml(KC01, KC02, record);           \
   break;
 
 #define OPEN_OCL(KCKEY, KC01, KC02)             \

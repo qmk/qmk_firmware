@@ -64,11 +64,18 @@ bool do_encoder_action(uint8_t index, bool clockwise, bool layer_actions) {
 
     // found one.
     if (clockwise) {
-      tap_code16(action->clockwise);
+      if (action->clockwise != 0) {
+        tap_code16(action->clockwise);
+      } else if (action->cw_func != NULL) {
+        action->cw_func();
+      }
     } else {
-      tap_code16(action->counter_clockwise);
+      if (action->counter_clockwise != 0) {
+        tap_code16(action->counter_clockwise);
+      } else if (action->ccw_func != NULL) {
+        action->ccw_func();
+      }
     }
-    return true;
   }
   return false;
 }

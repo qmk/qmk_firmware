@@ -24,7 +24,6 @@
 /* uprintf("%s string", var) */
 
 bool ignore_key(uint16_t keycode,
-                keyrecord_t *record,
                 const uint16_t *cond_keys){
 
   // look for non-cancel condition.
@@ -37,23 +36,21 @@ bool ignore_key(uint16_t keycode,
   return false;
 }
 
-void deactivate_sml_layer(smart_lock_t *sml, keyrecord_t *record){
-  if (record->event.pressed) {
-    layer_off(sml->thing);
+void deactivate_sml_layer(smart_lock_t *sml){
+  layer_off(sml->thing);
     sml->active = false;
-  }
 }
-void deactivate_sml_mod(smart_lock_t *sml, keyrecord_t *record){
+void deactivate_sml_mod(smart_lock_t *sml){
   unregister_mods(sml->thing);
   sml->active = false;
 }
 
-void deactivate_sml(smart_lock_t *sml, keyrecord_t *record){
+void deactivate_sml(smart_lock_t *sml){
   switch(sml->type){
   case sml_layer:
-    deactivate_sml_layer(sml, record);
+    deactivate_sml_layer(sml);
   case sml_mod:
-    deactivate_sml_mod(sml, record);
+    deactivate_sml_mod(sml);
   }
 }
 
@@ -63,54 +60,58 @@ void sml_activate_layer(smart_lock_t *sml){
   layer_on(sml->thing);
 }
 
-void sml_maybe_activate_mod(smart_lock_t *sml, keyrecord_t *record){
+void sml_maybe_activate_mod(smart_lock_t *sml ){
   if (sml->active) {
     unregister_mods(sml->thing);
   } else {
     register_mods(sml->thing);
   }
-    sml->active = !sml->active;
+  sml->active = !sml->active;
 }
 
-void sml_activate(smart_lock_t *sml, keyrecord_t *record){
-  if (record->event.pressed) {
-    switch(sml->type){
-    case sml_layer:
-      sml_activate_layer(sml);
-      break;
-    case sml_mod:
-      sml_maybe_activate_mod(sml, record);
+void sml_activate(smart_lock_t *sml){
+  switch(sml->type){
+  case sml_layer:
+    sml_activate_layer(sml);
+    break;
+  case sml_mod:
+sml_maybe_activate_mod(sml);
       break;
     }
-  }
 }
 
-void process_smart_lock(uint16_t keycode, keyrecord_t *record) {
+
+
+void update_smart_lock(uint16_t keycode) {
 
 #ifdef SMART_LOCK_ENABLE
   bool deactivate = false;
   smart_lock_t *sml;
 
-  if (record->event.pressed) {
     for (int i = 0; i < SML_LEN; ++i){
       sml = &smart_locks[i];
 
       // if it's a match,
       // maybe activate/deactivate it if we got it's keycode.
       if (sml->keycode == keycode){
-        sml_activate(sml, record);
+        sml_activate(sml);
         return;
       }
 
       // deactivate what we need to.
       if(sml->active){
-        deactivate = !ignore_key(keycode, record, &sml->keys[0]);
+        deactivate = !ignore_key(keycode,  &sml->keys[0]);
         if (deactivate){
-          deactivate_sml(sml, record);
+          deactivate_sml(sml);
         }
       }
-    }
   }
 #endif
-return;
+  return;
+}
+
+void process_smart_lock(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    update_smart_lock(keycode);
+  }
 }
