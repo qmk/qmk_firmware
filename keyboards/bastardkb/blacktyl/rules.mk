@@ -22,3 +22,5 @@ SERIAL_DRIVER          = usart
 SPLIT_KEYBOARD         = yes
 # VIA_ENABLE             = no
 # WS2812_DRIVER          = pwm
+MOUSEKEY_ENABLE = yes 
+EXTRAKEY_ENABLE = yes
