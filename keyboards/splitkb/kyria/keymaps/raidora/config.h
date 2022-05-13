@@ -36,8 +36,8 @@
 #define FORCE_NKRO
 
 #undef TAPPING_TERM
-#define TAPPING_TERM    50
-#define RETRO_TAPPING
+#define TAPPING_TERM    200
+#define PERMISSIVE_HOLD
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
