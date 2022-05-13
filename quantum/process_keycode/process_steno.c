@@ -56,7 +56,6 @@ void send_steno_chord_gemini(void) {
     for (uint8_t i = 0; i < GEMINI_STROKE_SIZE; ++i) {
         virtser_send(chord[i]);
     }
-    steno_clear_chord();
 }
 #    else
 #        pragma message "VIRTSER_ENABLE = yes is required for Gemini PR to work properly out of the box!"
@@ -104,7 +103,6 @@ static void send_steno_chord_bolt(void) {
         }
     }
     virtser_send(0); // terminating byte
-    steno_clear_chord();
 }
 #    else
 #        pragma message "VIRTSER_ENABLE = yes is required for TX Bolt to work properly out of the box!"
@@ -239,8 +237,9 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
                         break;
 #endif // STENO_ENABLE_GEMINI && VIRTSER_ENABLE
                     default:
-                        return false;
+                        break;
                 }
+                steno_clear_chord();
             }
             break;
     }
