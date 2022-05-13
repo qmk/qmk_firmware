@@ -313,8 +313,8 @@ U_NP,              U_NP,              U_NA,              U_NA,              U_NA
 
 
 #define MIRYOKU_ALTERNATIVES_MEDIA_INVERTEDT_FLIP \
-RGB_SAI,           RGB_HUI,           KC_VOLU,           RGB_MOD,           RGB_TOG,           U_NA,              DF(BASE),          DF(EXTRA),         DF(TAP),           RESET,             \
-RGB_VAI,           KC_MPRV,           KC_VOLD,           KC_MNXT,           U_NU,              U_NA,              KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI,           \
+RGB_HUI,           RGB_SAI,           KC_VOLU,           RGB_VAI,           RGB_TOG,           U_NA,              DF(BASE),          DF(EXTRA),         DF(TAP),           RESET,             \
+RGB_MOD,           KC_MPRV,           KC_VOLD,           KC_MNXT,           U_NU,              U_NA,              KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI,           \
 U_NU,              U_NU,              U_NU,              U_NU,              OUT_AUTO,          U_NA,              DF(MEDIA),         DF(FUN),           KC_ALGR,           U_NA,              \
 U_NP,              U_NP,              KC_MUTE,           KC_MPLY,           KC_MSTP,           U_NA,              U_NA,              U_NA,              U_NP,              U_NP
 
