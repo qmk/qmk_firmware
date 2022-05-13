@@ -109,6 +109,8 @@ ifeq ($(strip $(STENO_ENABLE)), yes)
         endif
         ifeq ($(strip $(STENO_PROTOCOL)), all)
             OPT_DEFS += -DSTENO_ENABLE_ALL
+            OPT_DEFS += -DSTENO_ENABLE_GEMINI
+            OPT_DEFS += -DSTENO_ENABLE_BOLT
         endif
 
         SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
