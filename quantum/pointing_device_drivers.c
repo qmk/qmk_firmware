@@ -50,6 +50,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi      = adns5050_get_cpi,
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 
 report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
@@ -69,6 +70,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = adns9800_get_cpi
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
@@ -93,6 +95,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = NULL
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    ifndef CIRQUE_PINNACLE_TAPPING_TERM
 #        include "action.h"
@@ -109,17 +112,14 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     mouse_xy_report_t report_x = 0, report_y = 0;
     static bool       is_z_down = false;
 
-    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale()); // Scale coordinates to arbitrary X, Y resolution
-
-    if (x && y && touchData.xValue && touchData.yValue) {
-        report_x = (mouse_xy_report_t)(touchData.xValue - x);
-        report_y = (mouse_xy_report_t)(touchData.yValue - y);
+#    if CONSOLE_ENABLE
+    if (debug_mouse && touchData.touchDown) {
+        dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
     }
-    x = touchData.xValue;
-    y = touchData.yValue;
+#    endif
 
-    if ((bool)touchData.zValue != is_z_down) {
-        is_z_down = (bool)touchData.zValue;
+    if (touchData.touchDown != is_z_down) {
+        is_z_down = touchData.touchDown;
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
@@ -138,6 +138,16 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
         mouse_timer = 0;
     }
+
+    // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
+
+    if (x && y && touchData.xValue && touchData.yValue) {
+        report_x = (int8_t)(touchData.xValue - x);
+        report_y = (int8_t)(touchData.yValue - y);
+    }
+    x              = touchData.xValue;
+    y              = touchData.yValue;
     mouse_report.x = report_x;
     mouse_report.y = report_y;
 
@@ -210,6 +220,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pimoroni_trackball_get_cpi
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 static void pmw3360_device_init(void) {
     pmw3360_init(0);
@@ -248,6 +259,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pmw3360_get_cpi
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_pmw3389)
 static void pmw3389_device_init(void) {
     pmw3389_init();
@@ -286,6 +298,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pmw3389_get_cpi
 };
 // clang-format on
+
 #else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
 __attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
@@ -304,4 +317,5 @@ const pointing_device_driver_t pointing_device_driver = {
     .set_cpi    = pointing_device_driver_set_cpi
 };
 // clang-format on
+
 #endif

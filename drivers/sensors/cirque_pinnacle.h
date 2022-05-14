@@ -12,6 +12,10 @@ typedef struct {
     uint16_t zValue;
     uint8_t  buttonFlags;
     bool     touchDown;
+    uint8_t  xDelta;
+    uint8_t  yDelta;
+    uint8_t  wheelCount;
+    uint8_t  buttons;
 } pinnacle_data_t;
 
 void            cirque_pinnacle_init(void);
@@ -22,6 +26,12 @@ void            cirque_pinnacle_set_scale(uint16_t scale);
 
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20
+#endif
+
+#define CIRQUE_PINNACLE_ABSOLUTE_MODE 1
+#define CIRQUE_PINNACLE_RELATIVE_MODE 0
+#ifndef CIRQUE_PINNACLE_POSITION_MODE
+#    define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
 #endif
 
 // Coordinate scaling values
@@ -43,7 +53,10 @@ void            cirque_pinnacle_set_scale(uint16_t scale);
 #ifndef CIRQUE_PINNACLE_Y_RANGE
 #    define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
 #endif
-
+#if !defined(POINTING_DEVICE_TASK_THROTTLE_MS) || POINTING_DEVICE_TASK_THROTTLE_MS < 10
+#    undef POINTING_DEVICE_TASK_THROTTLE_MS
+#    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle at most will have fresh data every 10ms
+#endif
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
 #    include "i2c_master.h"
 // Cirque's 7-bit I2C Slave Address

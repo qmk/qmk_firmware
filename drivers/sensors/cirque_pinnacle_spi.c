@@ -25,7 +25,7 @@ void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
             }
         } else {
 #ifdef CONSOLE_ENABLE
-            dprintf("error right touchpad\n");
+            dprintf("error cirque_pinnacle spi_start\n");
 #endif
             touchpad_init = false;
         }
