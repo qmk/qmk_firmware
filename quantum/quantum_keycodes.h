@@ -596,6 +596,7 @@ enum quantum_keycodes {
     MAGIC_TOGGLE_CONTROL_CAPSLOCK,
 
     QK_MAKE,
+    QK_REBOOT,
 
     SECURE_LOCK,
     SECURE_UNLOCK,
@@ -717,6 +718,7 @@ enum quantum_keycodes {
 #define QK_BOOT QK_BOOTLOADER
 #define DB_TOGG QK_DEBUG_TOGGLE
 #define EE_CLR QK_CLEAR_EEPROM
+#define QK_RBT QK_REBOOT
 
 // Audio Clicky aliases
 #define CK_TOGG CLICKY_TOGGLE
