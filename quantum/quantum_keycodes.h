@@ -601,6 +601,7 @@ enum quantum_keycodes {
     SECURE_LOCK,
     SECURE_UNLOCK,
     SECURE_TOGGLE,
+    SECURE_REQUEST,
 
     CAPS_WORD,
 
