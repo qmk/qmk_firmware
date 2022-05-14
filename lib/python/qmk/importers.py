@@ -1,10 +1,8 @@
 from dotty_dict import dotty
 import json
 
-from milc import cli
-
-from qmk.json_schema import json_load, validate
-from qmk.path import keyboard, keymap, FileType
+from qmk.json_schema import validate
+from qmk.path import keyboard, keymap
 from qmk.constants import MCU2BOOTLOADER
 
 
@@ -22,7 +20,7 @@ def _gen_dummy_keymap(name, info_data):
     return json.dumps(keymap_data)
 
 
-def _import_keymap(keymap_data):
+def import_keymap(keymap_data):
     # Validate to ensure we don't have to deal with bad data - handles stdin/file
     validate(keymap_data, 'qmk.keymap.v1')
 
@@ -38,13 +36,10 @@ def _import_keymap(keymap_data):
     # Dump out all those lovely files
     keyboard_keymap.write_text(json.dumps(keymap_data))
 
-    cli.log.info(f'{{fg_green}}Imported a new keymap named {{fg_cyan}}{km_name}{{fg_green}}.{{fg_reset}}')
-    cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}keyboards/{kb_name}/keymaps/{km_name}{{fg_reset}},')
-    cli.log.info('or open the directory in your preferred text editor.')
-    cli.log.info(f"And build with {{fg_yellow}}qmk compile -kb {kb_name} -km {km_name}{{fg_reset}}.")
+    return km_name
 
 
-def _import_keyboard(info_data):
+def import_keyboard(info_data):
     # Validate to ensure we don't have to deal with bad data - handles stdin/file
     validate(info_data, 'qmk.api.keyboard.v1')
 
@@ -55,11 +50,10 @@ def _import_keyboard(info_data):
     kb_name = info_data['keyboard_name']
 
     # bail
-    if keyboard(kb_name).exists():
-        cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
-        return 1
-
     kb_folder = keyboard(kb_name)
+    if kb_folder.exists():
+        raise ValueError(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
+
     keyboard_info = kb_folder / 'info.json'
     keyboard_rules = kb_folder / 'rules.mk'
     keyboard_keymap = kb_folder / 'keymaps' / 'default' / 'keymap.json'
@@ -72,13 +66,10 @@ def _import_keyboard(info_data):
     keyboard_rules.write_text("# This file intentionally left blank")
     keyboard_keymap.write_text(_gen_dummy_keymap(kb_name, info_data))
 
-    cli.log.info(f'{{fg_green}}Imported a new keyboard named {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
-    cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}keyboards/{kb_name}{{fg_reset}},')
-    cli.log.info('or open the directory in your preferred text editor.')
-    cli.log.info(f"And build with {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
+    return kb_name
 
 
-def _import_kbfirmware(kbfirmware_data):
+def import_kbfirmware(kbfirmware_data):
     kbf_data = dotty(kbfirmware_data)
 
     diode_direction = ["COL2ROW", "ROW2COL"][kbf_data['keyboard.settings.diodeDirection']]
@@ -139,7 +130,9 @@ def _import_kbfirmware(kbfirmware_data):
 
     if kbf_data['keyboard.pins.rgb']:
         info_data['rgblight'] = {
-            'animations': {'all': True},
+            'animations': {
+                'all': True
+            },
             'led_count': kbf_data['keyboard.settings.rgbNum'],
             'pin': kbf_data['keyboard.pins.rgb'],
         }
@@ -150,44 +143,5 @@ def _import_kbfirmware(kbfirmware_data):
             'pin': kbf_data['keyboard.pins.led'],
         }
 
-    cli.log.warn("Support here is basic - Consider using 'qmk new-keyboard' instead")
-    _import_keyboard(info_data)
-
-
-def cli_subcommand_rename(newname):
-    """ Gross workaround to "import" being a keyword and mlic not providing a name override
-    """
-    def decorator(f):
-        f.__name__ = newname
-        return f
-    return decorator
-
-
-@cli.argument('filename', type=FileType('r'), nargs='+', arg_only=True, help='file')
-@cli.argument('-f', '--format', arg_only=True, help='Format to import (keyboard, keymap, kbfirmware) (Default: ducktype).')
-@cli.subcommand('Import some stuffs')
-@cli_subcommand_rename('import')
-def _import(cli):
-    fmt = cli.args.format
-    filename = cli.args.filename[0]
-
-    data = json_load(filename)
-
-    # guess at type
-    if not cli.args.format:
-        if 'keyboard' in data and 'bounds' in data['keyboard']:
-            fmt = "kbfirmware"
-        elif 'keymap' in data:
-            fmt = "keymap"
-        else:
-            fmt = "keyboard"
-
-    cli.log.info(f'{{style_bright}}Importing {filename.name} as type {fmt}.{{style_normal}}')
-    cli.echo('')
-
-    if fmt == "keyboard":
-        _import_keyboard(data)
-    elif fmt == "keymap":
-        _import_keymap(data)
-    elif fmt == "kbfirmware":
-        _import_kbfirmware(data)
+    # delegate as if it were a regular keyboard import
+    return import_keyboard(info_data)
