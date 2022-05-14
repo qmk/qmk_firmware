@@ -23,6 +23,7 @@ uint8_t mod_state;
 bool     is_cmd_tab_active;
 uint16_t cmd_tab_timer;
 
+
 // Aliases for longer keycodes
 // clang-format off
 
@@ -84,7 +85,7 @@ uint16_t cmd_tab_timer;
 #define KP6_OPT ROPT_T(KC_6)
 #define PLS_CTL RCTL_T(KC_PPLS)
 
-// Misc.
+// Misc.f
 #define OS_LSFT OSM(MOD_LSFT)
 #define OS_RSFT OSM(MOD_RSFT)
 #define OS_MEH  OSM(MOD_MEH)

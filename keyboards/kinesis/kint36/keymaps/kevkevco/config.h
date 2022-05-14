@@ -17,7 +17,6 @@
 #define MK_KINETIC_SPEED // Mouse key cursor motion customization
 
 // Redefine Product and Vendor IDs for Apple Fn Key patch to work
-// Anything from this list should work: https://usb-ids.gowdy.us/read/UD/05ac
 #undef VENDOR_ID
 #define VENDOR_ID 0x05AC
 #undef PRODUCT_ID

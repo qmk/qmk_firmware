@@ -1,0 +1,505 @@
+// Inactive Aliases
+// #define NUMPAD  TG(_NUMPAD)
+// #define ADJUST  MO(_ADJUST2)
+// #define SPCFN   LT(_FUNCTION, KC_SPC)
+// #define BSPCFN  LT(_FUNCTION2, KC_BSPC)
+// #define ENTNS   LT(_NUMBERS, KC_ENT)
+// #define DELNS   LT(_NUMBERS2, KC_DEL)
+// #define CTLESC  CTL_T(KC_ESC)
+// #define ALTAPP  ALT_T(KC_APP)
+// #define CTL_A   LCTL(KC_A)
+// #define CTL_C   LCTL(KC_C)
+// #define CTL_V   LCTL(KC_V)
+// #define CTL_X   LCTL(KC_X)
+// #define CTL_Z   LCTL(KC_Z)
+// #define CTL_Y   LCTL(KC_Y)
+// #define CA_TAB  LCA(KC_TAB)
+// #define HYPER   ALL_T(KC_NO)
+// #define TD_ADJ  TD(ADJ)
+// #define TD_LBCB TD(LBCB)
+// #define TD_RBCB TD(RBCB)
+// #define TD_EQPL TD(EQPL)
+// #define TD_PLEQ TD(PLEQ)
+// #define TD_MNUN TD(MNUN)
+// #define TD_SLAS TD(SLAS)
+// #define TD_GVTL TD(GVTL)
+// #define TD_PPEQ TD(PPEQ)
+// #define TD_PMUN TD(PMUN)
+// #define TD_PSPA TD(PSPA)
+// #define NKROTG  MAGIC_TOGGLE_NKRO
+
+# Swap Hands
+
+// Swapping Hands Matrix starting on line numbers that end in 0 for quick counting
+
+/*  ---------------- LEFT HAND -----------------   ---------------- RIGHT HAND ---------------- */
+#define LAYOUT_pretty(                                                                           \
+    kC0, kD0, kE0, kC1, kD1, kE1, kC2, kD2, kE2,   kC3, kD3, kE3, kC4, kD4, kE4, kC5, kE5, kD5,  \
+    k00, k10, k20, k30, k40, k50,                            k60, k70, k80, k90, kA0, kB0,       \
+    k01, k11, k21, k31, k41, k51,                            k61, k71, k81, k91, kA1, kB1,       \
+    k02, k12, k22, k32, k42, k52,                            k62, k72, k82, k92, kA2, kB2,       \
+    k03, k13, k23, k33, k43, k53,                            k63, k73, k83, k93, kA3, kB3,       \
+         k14, k24, k34, k54,                                      k64, k84, k94, kA4,            \
+                             k56, k55,                  k96, k85,                                \
+                                  k35,                  k86,                                     \
+                        k36, k46, k25,                  k66, k75, k65                            \
+) {                                              \
+    { k00,  k01,  k02,  k03,  ___,  ___,  ___ }, \
+    { k10,  k11,  k12,  k13,  k14,  ___,  ___ }, \
+    { k20,  k21,  k22,  k23,  k24,  k25,  ___ }, \
+    { k30,  k31,  k32,  k33,  k34,  k35,  k36 }, \
+    { k40,  k41,  k42,  k43,  ___,  ___,  k46 }, \
+    { k50,  k51,  k52,  k53,  k54,  k55,  k56 }, \
+    { k60,  k61,  k62,  k63,  k64,  k65,  k66 }, \
+    { k70,  k71,  k72,  k73,  ___,  k75,  ___ }, \
+    { k80,  k81,  k82,  k83,  k84,  k85,  k86 }, \
+    { k90,  k91,  k92,  k93,  k94,  ___,  k96 }, \
+    { kA0,  kA1,  kA2,  kA3,  kA4,  ___,  ___ }, \
+    { kB0,  kB1,  kB2,  kB3,  ___,  ___,  ___ }, \
+    { kC0,  kC1,  kC2,  kC3,  kC4,  kC5,  ___ }, \
+    { kD0,  kD1,  kD2,  kD3,  kD4,  kD5,  ___ }, \
+    { kE0,  kE1,  kE2,  kE3,  kE4,  kE5,  ___ }  \
+}
+
+
+
+
+[_QWERTY] = LAYOUT_pretty(
+  ESC_STS, SH_TT,   KC_LEAD,   TO(_QWERTY),  TG(_NUMSHIFT),TG(_FUNCTION),TG(_KEYPAD),TG(_NAV),  TG(_VIM),  CLEAR, DM_PLY1, DM_REC1, DM_RSTP,KC_MUTE,KC_VOLD,KC_VOLU,TG(_KEYPAD), QMK,
+  TD(GVES), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
+  MEH_T(KC_TAB),  LT(0,KC_Q), LT(0,KC_W),    KC_E,    KC_R, LT(0,KC_T),                                                          KC_Y,    KC_U,    TD(ISPT),KC_O,    KC_P,    HYPR_T(KC_BSPC),
+  TD(LPINKY),LCTL_T(KC_A),LOPT_T(KC_S),LGUI_T(KC_D),LSFT_T(KC_F),KC_G,                                          KC_H,RSFT_T(KC_J),RGUI_T(KC_K),ROPT_T(KC_L),TD(COLON),TD(RPINKY),
+  OSM(MOD_LSFT),LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),KC_B,                                            KC_N,    KC_M,    TD(CMAG),TD(PDAG),TD(SLSH), OSM(MOD_RSFT),
+         TG(_LKEYPAD),KC_APFN,  KC_LEFT, KC_RIGHT,                                                                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+                                                  SELWORD, LCAG_T(KC_ENT),                   _______, LT(_NAV, S(KC_COMM)),
+                                                                TD(SPOT),                 TD(WIND),
+                                LGUI_T(KC_BSPC), SFT_T(KC_DEL), APP_NAV,                   OSM(MOD_MEH), TD(ENTR), RGUI_T(KC_SPC)
+
+
+
+tuesdayjohn favorite
+
+https://github.com/qmk/qmk_firmware/tree/master/users/ericgebhart very detailed and involved...contains caps_word code
+
+    [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+    [TD_TAB_BKTAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, LSFT(KC_TAB)),
+    [TD_RIGHT_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT, KC_TAB),
+    [TD_LEFT_BACKTAB] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, LSFT(KC_TAB)),
+    [TD_UP_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_UP, KC_HOME),
+    [TD_DOWN_END] = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_END)
+    [TD_HOME_END]  = ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END),
+
+
+
+    // Caps Word, activated by pressing both shift keys at the same time.
+//
+// This library implements "Caps Word", which is like conventional Caps Lock,
+// but automatically disables itself at the end of the word. This is useful for
+// typing all-caps identifiers like `MOD_MASK_ALT`.
+//
+// Caps Word is activated by pressing the left and right shift keys at the same
+// time. This way you don't need a dedicated key for using Caps Word. I've
+// tested that this works as expected with one-shot mods and Space Cadet Shift.
+// If your shift keys are mod-taps, activate Caps Word by holding both shift
+// mod-tap keys until the tapping term, release them, then begin typing.
+//
+// For full documentation, see
+// https://getreuer.info/posts/keyboards/caps-word
+
+
+
+
+# Cap Words https://github.com/qmk/qmk_firmware/blob/c4551d7ef1ed2c1069f23cc8499b7c7fc30f3ecf/users/drashna/keyrecords/capwords.md
+
+This is taken from [Pascal Getreuer's implemenation](https://getreuer.info/posts/keyboards/caps-word/index.html), with a number of modifications. 
+
+To enable Caps Word, add `CAPS_WORD_ENABLE = yes` to your `rules.mk`.
+
+
+
+/* _SYMB2ol level, more ergodox like
+*
+* ,-------------------------------------------------------------------------------------------------------------------.
+* |        |      |      |      |      |      |      |      |      |      |      |      |      |      |      |        |
+* |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
+* |        |      |   *  |   #  |      |      |                           |      |      |      |      |      |        |
+* |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
+* |        |  /   |   <  |   >  |      |      |                           |      |      |   +  |   *  |      |        |
+* |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
+* |        |      |  {   |   }  |      |      |                           |      |      |   =  |   -  |      |        |
+* |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
+* |        |   =  |  (   |   )  |      |      |                           |      |      |      |   |  |      |        |
+* `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
+*          |      |      |GUI/L |L1/RT |                                         | L1/UP|GUI/DN|  {   |   }  |
+*          `---------------------------'                                         `---------------------------'
+*                                        ,-------------.         ,-------------.
+*                                        | CTRL |      |         | ALT  | GUI |
+*                                 ,------|------|------|         |------+------+------.
+*                                 |      |      |      |         |      |      |      |
+*                                 | BkSp | Del  |------|         |------|Mouse1|Mouse2|
+*                                 |      |      |Reset |         |      |LClick|Rclick|
+*                                 `--------------------'         `--------------------'
+*/
+
+
+
+[_SYMB2] = LAYOUT(
+         _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,
+         _______,  _______,  KC_ASTR,  KC_HASH,  _______,  _______,
+         _______,  KC_SLSH,  RSFT(KC_COMM), RSFT(KC_DOT),  _______,  _______,
+         _______,  _______,  RSFT(KC_LBRC),  RSFT(KC_RBRC),   _______,  _______,
+         _______,  KC_EQL,  RSFT(KC_9),  RSFT(KC_0),  _______,  _______,
+                   _______,  _______,  MT(MOD_LGUI,KC_LEFT), LT(_SYMB, KC_RIGHT),
+                             _______,  _______,
+                                       _______,
+                    _______, _______,  RESET,
+         _______,  _______,  _______,  _______,  _______,  _______, _______, TT(_MOUSE), KC_2,
+         _______,  _______,  _______,  KC_ASTR,  _______,  _______,
+         _______,  _______,  KC_PLUS,  KC_MINS,  _______,  _______,
+         _______,  _______,  KC_EQL,  KC_PIPE,  _______,  _______,
+         _______,  _______,  _______,  _______,  _______,  _______,
+                   LT(_SYMB, KC_UP), MT(MOD_LGUI,KC_DOWN),   _______,  _______,
+         _______,  _______,
+         _______,
+         _______,  _______,  _______
+    ),
+
+
+    /* Keymap 1: Symbol Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |  K/  |  K*  |  K-  |   =    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |   !  |   @  |   (  |   )  |   |  |      |           |      |      |  K7  |  K8  |  K9  |  K+  |   #    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |   #  |   $  |   {  |   }  |   `  |------|           |------|      |  K4  |  K5  |  K6  |  K+  |   '    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |      |  K1  |  K2  |  K3  |  K=  |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |  K0  |  K0  |  K.  |  K=  |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |  L2  |       |  L2  |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+// PROGRAMMING
+[PROG] = LAYOUT_ergodox(
+       // left hand
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, KC_TRNS,
+       KC_TRNS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,
+       KC_TRNS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                        KC_TRNS, KC_TRNS,
+                                      TO(NAVI),
+                               KC_TRNS, KC_TRNS, KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_NO,  KC_PSLS, KC_PAST, KC_PMNS, KC_EQUAL,
+       KC_TRNS, KC_TRNS, KC_P7,  KC_P8,   KC_P9,   KC_PPLS, KC_NUHS,
+                KC_TRNS, KC_P4,  KC_P5,   KC_P6,   KC_PPLS, KC_QUOT,
+       KC_TRNS, KC_TRNS, KC_P1,  KC_P2,   KC_P3,   KC_PENT, KC_TRNS,
+                         KC_P0,  KC_P0,   KC_PDOT, KC_PENT, KC_TRNS,
+       KC_TRNS, KC_TRNS,
+       TO(NAVI),
+       KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+
+
+/*
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    {{11, 0},  {11, 1},  {11, 2},  {11, 3},   ___,     ___,     ___   }, \
+    {{10, 0},  {10, 1},  {10, 2},  {10, 3},  {10, 4},  ___,     ___   }, \
+    {{9, 0},   {9, 1},   {9, 2},   {9, 3},   {9, 4},  {6, 6},   ___   }, \
+    {{8, 0},   {8, 1},   {8, 2},   {8, 3},   {8, 4},  {8, 6},  {6, 5} }, \
+    {{7, 0},   {7, 1},   {7, 2},   {7, 3},    ___,     ___,    {7, 5} }, \
+    {{6, 0},   {6, 1},   {6, 2},   {6, 3},   {5, 4},  {9, 6},  {8, 5} }, \
+    {{5, 0},   {5, 1},   {5, 2},   {5, 3},   {5, 4},  {3, 6},  {2, 5} }, \
+    {{4, 0},   {4, 1},   {4, 2},   {4, 3},    ___,    {4, 6},   ___   }, \
+    {{3, 0},   {3, 1},   {3, 2},   {3, 3},   {3, 4},  {5, 6},  {3, 5} }, \
+    {{2, 0},   {2, 1},   {2, 2},   {2, 3},   {2, 4},   ___,    {5, 5} }, \
+    {{1, 0},   {1, 1},   {1, 2},   {1, 3},   {1, 4},   ___,     ___ }, \
+    {{0, 0},   {0, 1},   {0, 2},   {0, 3},    ___,     ___,     ___ }, \
+    {{12, 0},  {12, 1},  {12, 2},  {12, 3},  {12, 4},  {12, 5},   ___ }, \
+    {{13, 0},  {13, 1},  {13, 2},  {13, 3},  {13, 4},  {13, 5},   ___ }, \
+    {{14, 0},  {14, 1},  {14, 2},  {14, 3},  {14, 4},  {14, 5},   ___ }  \
+};
+
+*/
+
+
+// Default mapping of keys
+/*
+{                                              \
+    { {0,0},  {0,1},  {0,2},  {0,3}, }, \
+    { {1,0},  {1,1},  {1,2},  {1,3},  {1,4}, }, \
+    { {2,0},  {2,1},  {2,2},  {2,3},  {2,4},  {2,5}, }, \
+    { {3,0},  {3,1},  {3,2},  {3,3},  {3,4},  {3,5},  {3,6} }, \
+    { {4,0},  {4,1},  {4,2},  {4,3}, {4,6} }, \
+    { {5,0},  {5,1},  {5,2},  {5,3},  {5,4},  {5,5},  {5,6} }, \
+    { {6,0},  {6,1},  {6,2},  {6,3},  {6,4},  {6,5},  {6,6} }, \
+    { {7,0},  {7,1},  {7,2},  {7,3},    {7,5}, }, \
+    { {8,0},  {8,1},  {8,2},  {8,3},  {8,4},  {8,5},  {8,6} }, \
+    { {9,0},  {9,1},  {9,2},  {9,3},  {9,4},    {9,6} }, \
+    { {10,0},  {10,1},  {10,2},  {10,3},  {10,4}, }, \
+    { {11,0},  {11,1},  {11,2},  {11,3}, }, \
+    { {12,0},  {12,1},  {12,2},  {12,3},  {12,4},  {12,5},   }, \
+    { {13,0},  {13,1},  {13,2},  {13,3},  {13,4},  {13,5},   }, \
+    { {14,0},  {14,1},  {14,2},  {14,3},  {14,4},  {14,5},   }  \
+};
+
+
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = 
+{
+    {{11, 0},  {11, 1},  {11, 2},  {11, 3}}, \
+    {{10, 0},  {10, 1},  {10, 2},  {10, 3},  {10, 4}}, \
+    {{9, 0},   {9, 1},   {9, 2},   {9, 3},   {9, 4},  {6, 6}}, \
+    {{8, 0},   {8, 1},   {8, 2},   {8, 3},   {8, 4},  {8, 6},  {6, 5}}, \
+    {{7, 0},   {7, 1},   {7, 2},   {7, 3}, {7, 5}}, \
+    {{6, 0},   {6, 1},   {6, 2},   {6, 3},   {5, 4},  {9, 6},  {8, 5}}, \
+    {{5, 0},   {5, 1},   {5, 2},   {5, 3},   {5, 4},  {3, 6},  {2, 5}}, \
+    {{4, 0},   {4, 1},   {4, 2},   {4, 3},  {4, 6}}, \
+    {{3, 0},   {3, 1},   {3, 2},   {3, 3},   {3, 4},  {5, 6},  {3, 5}}, \
+    {{2, 0},   {2, 1},   {2, 2},   {2, 3},   {2, 4},  {5, 5}}, \
+    {{1, 0},   {1, 1},   {1, 2},   {1, 3},   {1, 4}}, \
+    {{0, 0},   {0, 1},   {0, 2},   {0, 3}}, \
+    {{12, 0},  {12, 1},  {12, 2},  {12, 3},  {12, 4},  {12, 5}}, \
+    {{13, 0},  {13, 1},  {13, 2},  {13, 3},  {13, 4},  {13, 5}}, \
+    {{14, 0},  {14, 1},  {14, 2},  {14, 3},  {14, 4},  {14, 5}}  \
+
+
+    { {0,0},  {1,0},  {2,0},  {3,0}, }, \(
+    { {0,1},  {1,1},  {2,1},  {3,1},  {4,1}, }, \
+    { {0,2},  {1,2},  {2,2},  {3,2},  {4,2},  {5,2}, }, \
+    { {0,3},  {1,3},  {2,3},  {3,3},  {4,3},  {5,3},  {6,3} }, \
+    { {0,4},  {1,4},  {2,4},  {3,4}, {6,4} }, \
+    { {0,5},  {1,5},  {2,5},  {3,5},  {4,5},  {5,5},  {6,5} }, \
+    { {0,6},  {1,6},  {2,6},  {3,6},  {4,6},  {5,6},  {6,6} }, \
+    { {0,7},  {1,7},  {2,7},  {3,7},    {5,7}, }, \
+    { {0,8},  {1,8},  {2,8},  {3,8},  {4,8},  {5,8},  {6,8} }, \
+    { {0,9},  {1,9},  {2,9},  {3,9},  {4,9},    {6,9} }, \
+    { {0,10},  {1,10},  {2,10},  {3,10},  {4,10}, }, \
+    { {0,11},  {1,11},  {2,11},  {3,11}, }, \
+    { {0,12},  {1,12},  {2,12},  {3,12},  {4,12},  {5,12},   }, \
+    { {0,13},  {1,13},  {2,13},  {3,13},  {4,13},  {5,13},   }, \
+    { {0,14},  {1,14},  {2,14},  {3,14},  {4,14},  {5,14},   }  \)
+};
+*/
+
+/*
+{
+    {{((11)), 0},  {(11), 1},  {(11), 2},  {(11), 3}}, \
+    {{(10), 0},  {(10), 1},  {(10), 2},  {(10), 3},  {(10), 4}}, \
+    {{9, 0},   {9, 1},   {9, 2},   {9, 3},   {9, 4},  {6, 6}}, \
+    {{8, 0},   {8, 1},   {8, 2},   {8, 3},   {8, 4},  {8, 6},  {6, 5}}, \
+    {{7, 0},   {7, 1},   {7, 2},   {7, 3}, {7, 5}}, \
+    {{6, 0},   {6, 1},   {6, 2},   {6, 3},   {5, 4},  {9, 6},  {8, 5}}, \
+    {{5, 0},   {5, 1},   {5, 2},   {5, 3},   {5, 4},  {3, 6},  {2, 5}}, \
+    {{4, 0},   {4, 1},   {4, 2},   {4, 3},  {4, 6}}, \
+    {{3, 0},   {3, 1},   {3, 2},   {3, 3},   {3, 4},  {5, 6},  {3, 5}}, \
+    {{2, 0},   {2, 1},   {2, 2},   {2, 3},   {2, 4},  {5, 5}}, \
+    {{1, 0},   {1, 1},   {1, 2},   {1, 3},   {1, 4}}, \
+    {{0, 0},   {0, 1},   {0, 2},   {0, 3}}, \
+    {{(12), 0},  {(12), 1},  {(12), 2},  {(12), 3},  {(12), 4},  {(12), 5}}, \
+    {{(13), 0},  {(13), 1},  {(13), 2},  {(13), 3},  {(13), 4},  {(13), 5}}, \
+    {{(14), 0},  {(14), 1},  {(14), 2},  {(14), 3},  {(14), 4},  {(14), 5}}  \
+};
+*/
+
+
+
+/* Old version didn't feel as ergonomic for braces
+,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
+|      |      |      |      |      |      |      |      |      |                                     |      |      |      |      |      |      |      |      |      |
+`--------------------------------------------------------------'                                     `--------------------------------------------------------------'
+,------------------------------------------------------.                                                     ,------------------------------------------------------.
+|         |        |        |        |        |        |                                                     |        |        |        |        |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |        |        |   {    |   }    |        |                                                     |        |        |        |        |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |        |        |   (    |   )    |        |                                                     |        |   :    |   ;    |   #    |        |         |
+|---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
+|         |        |        |   [    |   ]    |   |    |                                                     |        |        |        |        |    \   |         |
+`---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
+          |        |        |        |        |                                                                       |        |        |        |        |
+          `-----------------------------------'                                                                       `-----------------------------------'
+	                                                   ,-----------------.                 ,-----------------.
+	                                                   |   +    |        |                 |        |   `    |
+	                                          ,--------+--------+--------|                 |--------+--------+--------.
+	                                          |        |        |   *    |                 |        |        |        |
+	                                          |   -    |   =    |--------|                 |--------|   "    |   _    |
+	                                          |        |        |   /    |                 |        |        |        |
+	                                          `--------------------------'                 `--------------------------'
+
+[_SYMBOLS] = LAYOUT_pretty(
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_LCBR, KC_RCBR, _______,                                                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_LPRN, KC_RPRN, _______,                                                       _______, KC_COLN, KC_SCLN, KC_HASH, _______, _______,
+  _______, _______, _______, KC_LBRC, KC_RBRC, KC_PIPE,                                                       _______, _______, _______, _______, KC_BSLS, _______,
+           _______, _______, _______, _______,                                                                         _______, _______, _______, _______,
+                                                        KC_PLUS, _______,                   _______, KC_GRV,
+                                                                 KC_ASTR,                   _______,
+                                               KC_MINS, KC_EQL,  KC_SLSH,                   _______, KC_DQUO, KC_UNDS
+),
+*/
+
+
+// Space Tap Dance
+// Create an instance of 'td_tap_t' for the 'space' tap dance.
+// static td_tap_t space_td_state = {
+//   .is_press_action = true,
+//   .state = TD_NONE
+// };
+
+// void space_td_finished (qk_tap_dance_state_t *state, void *user_data) {
+// //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+//   space_td_state.state = cur_dance(state);
+//   switch (space_td_state.state) {
+//     case SINGLE_TAP: tap_code(KC_SPC); break;      // Space
+//     case SINGLE_HOLD:
+//         dprintf("adding gui mods key down");
+//         add_mods(MOD_MASK_GUI);
+//         break; // Hold for Gui
+//     // case DOUBLE_TAP: register_code16(G(KC_GRV)); break;                 // Switch between open spaces of the same application
+//     case DOUBLE_HOLD: add_mods(MOD_BIT(KC_RSFT)); break;    // 
+//     // case TRIPLE_TAP: add_oneshot_mods(MOD_MASK_SA); layer_on(_NAV); set_oneshot_layer(_NAV, ONESHOT_START); break;              // 
+//     // case TRIPLE_HOLD: register_code16(G(KC_H)); break;                  // 
+//     default: break;
+//   }
+// }
+
+// void space_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+// //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+//   switch (space_td_state.state) {
+//     // case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+//     case SINGLE_HOLD: dprintf("deleting mods key up"); del_mods(MOD_MASK_GUI); break;
+//     // case DOUBLE_TAP: unregister_code16(G(KC_GRV)); break;
+//     case DOUBLE_HOLD: del_mods(MOD_BIT(KC_RSFT)); break;
+//     // case TRIPLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+//     // case TRIPLE_HOLD: unregister_code16(G(KC_H)); break;
+//     default: break;
+//   }
+//   space_td_state.state = 0;
+// }
+
+
+// [LBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
+    // [RBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
+    // [PLEQ] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Equal sign on a single-tap, plus sign on a double-tap
+    // [UNMN] = ACTION_TAP_DANCE_DOUBLE(KC_UNDS, KC_MINS),  // Underscore sign on a single-tap, minus on a double-tap
+    // [SMCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),   // Semicolon on a single-tap, colon on a double-tap
+    // [APQU] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQUO),  // Single quote on a single-tap, double quote on a double-tap
+
+        // [SLQU] = ACTION_TAP_DANCE_FN(triple_tap_dance_slash), // Slash on a single-tap, two slashes on a double-tap, question mark on a triple tap
+
+
+
+    // [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
+        // case TG(_FUNCTION):
+        //     if (record->event.pressed) {
+        //         if (flash_array[3][1] == 1) {
+        //             led_flash(3, false);
+        //         } else {
+        //             led_flash(3, true);
+        //         }
+        //     }
+            // return true;
+
+        // case CAPWORD: // Caps Word
+        //     if (record->event.pressed) {
+        //             caps_word_set(true);
+        //             break;
+        //     }
+
+
+
+        // case RGUI_T(KC_SPC):
+        //     if (record->tap.count == 2) {
+        //         if (record->event.pressed) {
+        //             add_mods(MOD_BIT(KC_RSFT));
+        //             return false;
+        //         }
+        //         else {
+        //             del_mods(KC_RSFT);
+        //             return false;
+        //         }
+        //     }
+        //     return true;
+
+
+    [SPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, space_td_finished, space_td_reset),
+
+
+
+// Structure to define input into full tap dance
+typedef struct {
+    uint16_t kc1;
+    uint16_t kc2;
+    uint16_t kc3;
+    uint16_t kc4;
+    uint16_t kc5;
+    uint16_t kc6;
+} qk_tap_dance_full_t;
+
+
+
+/*
+Functions associated with specific advanced tap dances
+void full_td_finished(qk_tap_dance_state_t *state, void *user_data);
+void full_td_reset(qk_tap_dance_state_t *state, void *user_data);
+#define FULL_TAP_DANCE(kc1, kc2, kc3, kc4, kc5, kc6) \
+         { .fn = {NULL, full_td_finished, full_td_reset}, .user_data = (void *)&((qk_tap_dance_full_t){kc1, kc2, kc3, kc4, kc5, kc6}), }
+*/
+
+// void window_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void window_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// void lpinky_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void lpinky_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// void rpinky_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void rpinky_td_reset(qk_tap_dance_state_t *state, void *user_data);
+// void slsh_td_finished(qk_tap_dance_state_t *state, void *user_data);
+// void slsh_td_reset(qk_tap_dance_state_t *state, void *user_data);
+
+
+
+// Input Variables Tap Dance 
+// Create an instance of 'td_tap_t' for the 'full' tap dance.
+// [NVUD] = FULL_TAP_DANCE(KC_UNDS, 3, 3, KC_CAPS, 4, C(KC_C)),
+
+// static td_tap_t full_td_state = {
+//   .is_press_action = true,
+//   .state = TD_NONE
+// };
+
+// void full_td_finished (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+//   full_td_state.state = hold_cur_dance(state);
+//   switch (full_td_state.state) {
+//     case SINGLE_TAP: register_code16(keycodes->kc1); break;
+//     case SINGLE_HOLD: layer_on(keycodes->kc2); break;
+//     case DOUBLE_TAP: layer_invert(keycodes->kc3); break;
+//     case DOUBLE_HOLD: register_code16(keycodes->kc4); break;
+//     case TRIPLE_TAP: layer_invert(keycodes->kc5); break;
+//     case TRIPLE_HOLD: register_code16(keycodes->kc6); break;
+//     default: break;
+//   }
+// }
+
+// void full_td_reset (qk_tap_dance_state_t *state, void *user_data) {
+//   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
+//   switch (full_td_state.state) {
+//     case SINGLE_TAP: unregister_code16(keycodes->kc1); break;
+//     case SINGLE_HOLD: layer_off(keycodes->kc2); break;
+//     // case DOUBLE_TAP: unregister_code16(keycodes->kc3); break;
+//     case DOUBLE_HOLD: unregister_code16(keycodes->kc4); break;
+//     // case TRIPLE_TAP: unregister_code16(keycodes->kc5); break;
+//     case TRIPLE_HOLD: unregister_code16(keycodes->kc6); break;
+//     default: break;
+//   }
+//   full_td_state.state = 0;
+// }

@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY/Default Layer
 ,--------------------------------------------------------------.                                     ,--------------------------------------------------------------.
-|ESC^ST|SWAPHD|  F2  |QWERTY|NUMSFT|FUNCTN|KEYPAD| NAV  | VIM  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|Keypad|PROGRM|
+|ESC^ST|SWAPHD|DEBUG |QWERTY|NUMSFT|FUNCTN|LKEYPD| NAV  | VIM  |                                     | CLEAR|MACROP|MACROR|MACROS| Mute | VolDn| VolUp|RKEYPD|PROGRM|
 `--------------------------------------------------------------'                                     `--------------------------------------------------------------'
 ,------------------------------------------------------.                                                     ,------------------------------------------------------.
 | ESC|`\~ |   1^!  |   2^@  |   3^#  |   4^$  |   5^%  |                                                     |   6^^  |  7^&   |  8^*   |  9^(   |   0^)  |  NAV    |
@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 | :LSHFT  |   Z~   |   X~   |   C~   |   V~   |   B~   |                                                     |   N~   |   M    |  ,|<   |  .|>   | SLSH*  | :RSHFT  |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
-          | LKEYPD |   Fn   |  Left  |  Rght  |                                                                       |  Down  |   Up   |  ????  | ????   |
+          | LKEYPD |   Fn   |  Left  |  Rght  |                                                                       |  Down  |   Up   |  ????  | Leader |
           `-----------------------------------'                                                                       `-----------------------------------'
 	                                                   ,-----------------.                 ,-----------------.
 	                                                   |SELWORD |Ent/COG*|                 | . /??? | , /NAV |
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              3:  Toggle LKEYPAD
              3h: End Running Program (CTL+C)
     [RPINKY] 1:  '
-             1h: One shot SYMBOLS layer
+             1h: One shot SYMBOLS layer, which also functions as active while holding
              2:  Toggle NUMSHIFT layer
              2h: Caps Word
              3:  ______
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
 |         |PastePal| Safari | Drive  | Finder | Gmail  |                                                     |Spotlght|MssnCtrl|Desktop |LaunchPd|        |         |
 |---------+--------+--------+--------+--------+--------|                                                     |--------+--------+--------+--------+--------+---------|
-|         |  Zoom  |        |Calendar| VSCode |Bitwardn|                                                     | Notion |Messages|        |        |        |         |
+|         |  Zoom  |QMKTlbox|Calendar| VSCode |Bitwardn|                                                     | Notion |Messages|        |        |        |         |
 `---------+--------+--------+--------+--------+--------'                                                     `--------+--------+--------+--------+--------+---------'
           |        |        |        |        |                                                                       |        |        |        |        |
           `-----------------------------------'                                                                       `-----------------------------------'
@@ -130,17 +130,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                                          `--------------------------'                 `--------------------------'
     Notes:
     * PastePal shortcut is configured in its own application
-    * Desktop, Quick Note, Launchpad (also in Karabiner), Mission Control shortcut is confifured in MacOS system preferences
+    * Desktop, Quick Note shortcuts are confifured in MacOS system preferences
     
 */
 
 [_QWERTY] = LAYOUT_pretty(
-  ESC_STS, SH_TT,   KC_LEAD, QWERTY,  NUMSHFT, FUNCTN,  L_KEYPD, NAV,     VIM,     CLEAR,   DM_PLY1, DM_REC1, DM_RSTP, KC_MUTE, KC_VOLD, KC_VOLU, R_KEYPD, QMK,
+  ESC_STS, SH_TT,   DB_TOGG, QWERTY,  NUMSHFT, FUNCTN,  L_KEYPD, NAV,     VIM,     CLEAR,   DM_PLY1, DM_REC1, DM_RSTP, KC_MUTE, KC_VOLD, KC_VOLU, R_KEYPD, QMK,
   T_GVES,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TG(_NAV),
   MEH_TAB, Q_HOLD,  W_HOLD,  KC_E,    R_HOLD,  T_HOLD,                                                        Y_HOLD,  KC_U,    T_ISPT,  KC_O,    KC_P,    BSP_HYP,
   T_LPNKY, A_CTL,   S_OPT,   D_GUI,   F_SFT,   KC_G,                                                          KC_H,    J_SFT,   K_GUI,   L_OPT,   T_COLON, T_RPNKY,  
   OS_LSFT, Z_HOLD,  X_HOLD,  C_HOLD,  V_HOLD,  B_HOLD,                                                        N_HOLD,  KC_M,    T_CMAG,  T_PDAG,  T_SLSH,  OS_RSFT, 
-           L_KEYPD, KC_APFN, KC_LEFT, KC_RIGHT,                                                                        KC_DOWN, KC_UP,   _______, _______,
+           L_KEYPD, KC_APFN, KC_LEFT, KC_RIGHT,                                                                        KC_DOWN, KC_UP,   _______, KC_LEAD,
                                                         SELWORD, ENT_CAG,                   KC_DOT,  COM_NAV,
                                                                  T_SPOT,                    T_WIND,
                                                BSP_GUI, DEL_SFT, APP_NAV,                   OS_MEH,  T_ENTR, SPC_GUI
@@ -287,7 +287,7 @@ Navigation Layer
 	                                          ,--------+--------+--------|                 |--------+--------+--------.
 	                                          | Mouse  | Mouse  |        |                 |        | Mouse  | Mouse  |
 	                                          | Button | Button |--------|                 |--------| Button | Button |
-	                                          |   1    |   2    | QWERTY |                 | QWERTY |   2    |   1    |
+	                                          |   1    |   2    |        |                 |        |   2    |   1    |
 	                                          `--------------------------'                 `--------------------------'
     Note:
     * QWERTY deactivates the layer and returns to the main layout
@@ -302,7 +302,7 @@ Navigation Layer
            KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,                                                                         KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,
                                                         _______, _______,                   _______, _______,
                                                                  _______,                   _______,
-                                               KC_BTN1, KC_BTN2, QWERTY,                    QWERTY,  KC_BTN2, KC_BTN1
+                                               KC_BTN1, KC_BTN2, _______,                   _______,  KC_BTN2, KC_BTN1
 ),
  
 /*  Keypad Layer
@@ -553,7 +553,7 @@ void led_wave(bool state) {
 // Callback functions that get called every time the layer changes
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (!isRecording) { // Let Macro LED settings override standard ones
-
+    dprintf("\ncallback func symbols layer is %x", IS_LAYER_ON(_SYMBOLS));
         // When _SYMBOLS Layer is activated, LED wave is activated
         if (IS_LAYER_ON_STATE(state, _SYMBOLS)) {
             led_wave(true);
@@ -599,11 +599,22 @@ void matrix_scan_user(void) {
         }
     }
 
+    if (oneshot_symbols_timer_state) {
+        if (timer_elapsed(oneshot_symbols_timer) > 500) {
+            dprintf("\n passed 500 threshold timer and oneshot_symbols_timer is -%x", oneshot_symbols_timer);
+            oneshot_symbols_timer_state = false;
+            dprintf("\n turned false oneshot_symbols_layer_state is %x", oneshot_symbols_timer_state);
+
+        }
+    }
+
     // CMD_TAB Timer Timed Out
     if (is_cmd_tab_active) {
         if (timer_elapsed(cmd_tab_timer) > 800) {
             unregister_code(KC_LGUI);
             is_cmd_tab_active = false;
+            dprint("turning nav off");
+            layer_off(_NAV);
         }
     }
 
@@ -718,7 +729,7 @@ bool caps_word_press_user(uint16_t keycode) {
         // Keycodes that continue Caps Word, with shift applied.
         case KC_A ... KC_Z:
             add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to the next key.
-            print("\nkeycodes that continue CW WITH shifting");
+           dprint("\nkeycodes that continue CW WITH shifting");
             return true;
 
         // Keycodes that continue Caps Word, without shifting.
@@ -727,17 +738,28 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_1 ... KC_0:
         case KC_BSPC:
         case KC_MINS:
-            print("\nkeycodes that continue CW without shifting");
+        case KC_DEL:
+           dprint("\nkeycodes that continue CW without shifting");
             return true;
 
         case KC_UNDS:
-            print("\nunds");
+           dprint("\nunds");
             return true;
 
         // case ESC_STS:
         // case KC_ESC:
         default:
-            print("\nkeycodes that end CW");
+            dprint("\nkeycodes that end CW");
             return false; // Deactivate Caps Word.
     }
+}
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+//   debug_enable=true;
+//   debug_matrix=true;
+  debug_enable=false;
+  debug_matrix=false;
+  //debug_keyboard=true;
+  //debug_mouse=true;
 }

@@ -2,14 +2,33 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "tap_dances.h"
+#include "print.h" // For debugging purposes
+
+
+bool oneshot_symbols_timer_state = false;
+uint16_t oneshot_symbols_timer = 0;
 
 // Tap Dance processing function option #1
 // This tap dance favors keys that are used frequently in typing like 'f'
 td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    dprint("\n---nohold_cur");
+    dprintf("\nkeycode is %x", state->keycode);
+    dprintf("\ninterrupted bool is %x", state->interrupted);
+    dprintf("\ninterrupting_keycode is %x", state->interrupting_keycode);
+    dprintf("\ninterrupting_keycode is %x", state
+    ->interrupting_keycode);
+    dprintf("\nsymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
+    
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return SINGLE_TAP;
         // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
         else
+            dprintf("\n right before sending single_hold...ssymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
+            dprintf("\n right before sending single_hold...oneshot_symbols_layer_state is %x", oneshot_symbols_timer_state);
+            if(oneshot_symbols_timer_state){
+                dprintf("\n right before sending single_hold...oneshot_symbols_layer_state is %x", oneshot_symbols_timer_state);
+                return UNKNOWN;
+            }
             return SINGLE_HOLD;
     } else if (state->count == 2) {
         // DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
@@ -37,6 +56,15 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
 // Tap Dance processing function option #2
 // This works well if you want this key to work as a "fast modifier". It favors being held over being tapped.
 int hold_cur_dance(qk_tap_dance_state_t *state) {
+    dprint("\n----hold_cur");
+    dprintf("\nkeycode is %x", state->keycode);
+    dprintf("\ncount is %x", state->count);
+    dprintf("\npressed is %x", state->pressed);
+    dprintf("\ninterrupted bool is %x", state->interrupted);
+    dprintf("\ninterrupting_keycode is %x", state->interrupting_keycode);
+    dprintf("\ninterrupting_keycode is %x", state->interrupting_keycode);
+    dprintf("\nsymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
+    
     if (state->count == 1) {
         if (state->interrupted) {
             if (!state->pressed)
@@ -47,6 +75,7 @@ int hold_cur_dance(qk_tap_dance_state_t *state) {
             if (!state->pressed)
                 return SINGLE_TAP;
             else
+                dprintf("\n right before sending single_hold...ssymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
                 return SINGLE_HOLD;
         }
     }
@@ -99,13 +128,27 @@ void triple_tap_dance_esc(qk_tap_dance_state_t *state, void *user_data) {
 static td_tap_t entr_td_state = {.is_press_action = true, .state = TD_NONE};
 
 void entr_td_finished(qk_tap_dance_state_t *state, void *user_data) {
-    //   qk_tap_dance_full_t *keycodes = (qk_tap_dance_full_t *)user_data;
-    entr_td_state.state = hold_cur_dance(state);
+    dprint("\nfinished enter function");
+    dprintf("\nkeycode is %x", state->keycode);
+    dprintf("\ncount is %x", state->count);
+    dprintf("\npressed is %x", state->pressed);
+    dprintf("\nsymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
+    dprintf("\n oneshot_symbols_layer_state is %x", oneshot_symbols_timer_state);
+    if (oneshot_symbols_timer_state) {
+            dprint("\ncould also truncate here?");
+            return;
+        }
+    dprintf("\ninterrupted bool is %x", state->interrupted);
+    dprintf("\ninterrupting_keycode is %x", state->interrupting_keycode);
+    dprintf("\ninterrupting_keycode is %x", state->interrupting_keycode);
+    entr_td_state.state = cur_dance(state);
     switch (entr_td_state.state) {
         case SINGLE_TAP:
+            dprint("go for single tap enter enterkey");
             tap_code(KC_ENT);
             break;
         case SINGLE_HOLD:
+            dprint("go for single hold enterkey");
             layer_on(_RKEYPAD);
             break;
         case DOUBLE_TAP:
@@ -122,6 +165,13 @@ void entr_td_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void entr_td_reset(qk_tap_dance_state_t *state, void *user_data) {
+    dprint("\reset enter function");
+    dprintf("\nkeycode is %x", state->keycode);
+    dprintf("\ncount is %x", state->count);
+    dprintf("\npressed is %x", state->pressed);
+    dprintf("\ninterrupted bool is %x", state->interrupted);
+    dprintf("\ninterrupting_keycode is %x", state->interrupting_keycode);
+    dprintf("\ninterrupting_keycode is %x", state->interrupting_keycode);
     switch (entr_td_state.state) {
         // case SINGLE_TAP: break;
         case SINGLE_HOLD:
@@ -276,10 +326,15 @@ static td_tap_t lpinky_td_state = {.is_press_action = true, .state = TD_NONE};
 
 void lpinky_td_finished(qk_tap_dance_state_t *state, void *user_data) {
     lpinky_td_state.state = cur_dance(state);
+    dprintf("\nsymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
     switch (lpinky_td_state.state) {
         case SINGLE_TAP:
+            dprint("go for single tap lpinky");
             layer_on(_SYMBOLS);
             set_oneshot_layer(_SYMBOLS, ONESHOT_START);
+            dprintf("\nsymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
+            oneshot_symbols_timer_state = true;
+            oneshot_symbols_timer = timer_read();
             break;
         case SINGLE_HOLD:
             layer_on(_NAV);
@@ -306,6 +361,8 @@ void lpinky_td_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (lpinky_td_state.state) {
         case SINGLE_TAP:
             clear_oneshot_layer_state(ONESHOT_PRESSED);
+            dprint("go for reset single tap tap lpinky");
+            dprintf("\nsymbols layer is %x", IS_LAYER_ON(_SYMBOLS));
             break;
         case SINGLE_HOLD:
             layer_off(_NAV);

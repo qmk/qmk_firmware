@@ -1,25 +1,26 @@
-# kevkevco's Kinesis Advantage2 keymap
+
+# kevkevco's Kinesis Advantage2 QMK Configuration
+## Video Demo: https://youtu.be/s9EsregvOKw
 Tested with a Kinesis Advantage2, kinT (stapelberg) keyboard controller built
 with a Teensy 3.6 microcontroller and a USA system layout.
 
 # Approach
 This keymap is created to address my tendonitis/tennis elbow symptoms as well as enhance the ease and convenience of coding and generally using my MacBook. As such, I want to provide a bit of the setup that I've created for myself beyond my QMK keymap that has helped. Feel free to reach out to me for more details.
 # My Setup
-## Keyboard
+## Keyboard:
 - Working with upgradekeyboards.com, they changed the switches in my board to Kailh box white switches for ease of use and clear clicky feedback.
 - They also installed a new KinT PCB with a Teensy 3.6 controller
 - They also added about a pound of weight to the board to make it stay put on the desk, feel more substantial and stable, and perhaps improve the acoustics.
 ## Keycaps
-- I shuffled several of the keycaps around to my ergonomic preferences.
-- I used a blank keycap set purchased from Kinesis in order to have the extra keycaps necessary for this.
-## Furniture
+I shuffled several of the keycaps around to my ergonomic preferences. I used a blank keycap set purchased from Kinesis in order to have the extra keycaps necessary for this.
+## Furniture: 
 - Standing desk by Uplift (as recommended by Wirecutter)
 - Keyboard tray by Humanscale
 - Humanscale Leap v2 Chair
 
-## Technology
-- Kensington Slimblade Trackball
-- Kensington Expert Trackball Wireless
+## Technology:
+- Kensington Slimblade
+- Kensington Expert
 - Evoluent Right Handed V4MDLW wireless large vertical mouse
 - Evoluent Left Handed wired vertical mouse
 - Monitors that can adjust to the right positioning
@@ -37,37 +38,13 @@ Note: The Apple Fn key doesn't seem to work using BT500 Bluetooth adapter.
 ## Karabiner
 - I use this to launch applications using my keyboard
 - [I've provided my complex modification file as a template](karabiner_example.json)
-## Rectangle Pro
-I use [this wonderful app](https://rectangleapp.com/pro) to manage my windows. I highly recommend it.
 ## Teensy Loader
 [This application](https://www.pjrc.com/teensy/loader.html) is what I use to flash my keyboard.
 # Features
-## Apple Fn Key
-### Please note: keycode KC_APFN is included in keymap but requires separate implementation.
-Included in this keymap is keycode `KC_APFN`, which emulates the native Apple Fn key. It is created using this [Apple Fn patch.](https://gist.github.com/fauxpark/010dcf5d6377c3a71ac98ce37414c6c4) If you do not want to use this keycode, simply remove `KC_APFN` from the "keymap.c" file and remove `APPLE_FN_ENABLE = yes` from the "rules.mk" file.
+## Apple Fn Patch
+KC_APFN is created through the following Apple Fn patch: https://gist.github.com/fauxpark/010dcf5d6377c3a71ac98ce37414c6c4
 
-
-**Please see the link and comment thread for more detailed instructions than the following summary:**
-
-This patch adds support for the Apple Fn key, which unlike most keyboards with Fn keys, is actually sent over the wire. It works by repurposing the reserved byte in the keyboard report to represent [the `KeyboardFn` usage of the `AppleVendor Top Case` usage page](https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-1035.70.7/IOHIDFamily/AppleHIDUsageTables.h.auto.html). When the Fn key is pressed, the value of this byte becomes `1`.
-
-To apply this patch, download the below file, `cd` to your `qmk_firmware` repository in your preferred terminal, and run `git apply /path/to/applefn.patch`. Then, add the `KC_APPLE_FN` (or `KC_APFN` for short) keycode to your keymap.
-
-There are a couple of caveats to this implementation that are important to be aware of. Firstly, it is not compatible with NKRO, as QMK's NKRO report format has no reserved byte - it is part of the 6KRO report for compatibility with the HID [boot protocol](https://deskthority.net/wiki/USB#Keyboard_Boot_Protocol). Thus you must set `NKRO_ENABLE = no` in your keymap's `rules.mk`.
-You will also need to redefine the USB Vendor and Product IDs in your keymap's `config.h` to that of a genuine Apple keyboard* in order for macOS to recognise the Fn key:
-```c
-#undef VENDOR_ID
-#define VENDOR_ID 0x05AC
-#undef PRODUCT_ID
-#define PRODUCT_ID <pid>
-```
-Any IDs from this list should work: https://usb-ids.gowdy.us/read/UD/05ac
-
-This is the primary reason this patch has not been integrated into upstream QMK - Apple would probably not be too happy about others using their vendor ID, and a feature that relies on the VID/PID pair being set to a specific value is not particularly ideal anyway.
-
-See https://github.com/qmk/qmk_firmware/issues/2179 for a little more info and discussion.
-
-<sup>\* It appears that the functionality of certain F keys can differ depending on the PID, likely because they have evolved over time on real Apple keyboards.</sup>
+Please see the link and comment thread for installation instrucitons.
 
 ## Home Row Mods
 Are inspired by [this article.](https://precondition.github.io/home-row-mods)

@@ -172,23 +172,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Let QMK process the KC_BSPC keycode as usual outside of shift
             return true;
 
+        // For Application Switcher moving left and down
+        // case D_GUI:
+        //     if (is_cmd_tab_active) {
+        //         if (record->event.pressed) { // Holding key down will not function as home row mod
+        //             tap_code(KC_DOWN);
+        //             cmd_tab_timer = timer_read();
+        //             return false;
+        //         }
+        //     } else {
+        //     return true;
+        //     }
+        // case S_OPT:
+        //     if (is_cmd_tab_active) {
+        //         if (record->event.pressed) { // Holding key down will not function as home row mod
+        //             tap_code(KC_LEFT);
+        //             cmd_tab_timer = timer_read();
+        //             return false;
+        //         }
+        //     } else {
+        //     return true;
+        //     }
+        case KC_UP:
+        case KC_LEFT:
+        case KC_DOWN:
+        case KC_RIGHT:
+            if (is_cmd_tab_active) {
+                    cmd_tab_timer = timer_read();
+                }
+            return true;
         case APP_NAV:
             // Super cmd↯TAB modified for MacOS to CMD_TAB
             // This macro will register KC_LGUI and tap KC_TAB, then wait for 1000ms.
             // If the key is tapped again, it will send another KC_TAB and restart timer.
             // If there is no tap within 800ms, KC_LGUI will be unregistered, thus allowing you to cycle through windows.
             // Press shift key with APP_NAV key to send Shift+Cmd+Tab which iterates through the application switcher window backwards.
+            dprintf("\n app nav pressed and tap count is %x", record->tap.count);
             if (record->event.pressed) {
                 if (!is_cmd_tab_active) {
                     is_cmd_tab_active = true;
                     register_code(KC_LGUI);
+                    dprintf("turning nav on");
+                    layer_on(_NAV);
                 }
                 cmd_tab_timer = timer_read();
+                // if (!record->tap.count) { tap_code16(S(KC_TAB)); } // Hold key for moving left within application switcher
                 register_code(KC_TAB);
             } else {
                 unregister_code(KC_TAB);
             }
-            return true;
+            return false;
 
         case KPSWAP:
             if (record->event.pressed) {

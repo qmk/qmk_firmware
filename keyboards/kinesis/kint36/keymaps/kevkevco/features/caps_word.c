@@ -50,7 +50,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (!(mods & ~MOD_MASK_SHIFT)) {
-        uprintf("\nkeycode is %x", keycode);
+        dprintf("\nkeycode is %x", keycode);
 
         // Custom section to tweak Caps Word behavior on select keys
         switch (keycode) {
@@ -65,7 +65,10 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 return true;
             case GUI_T(KC_BSPC):
                 clear_mods();
+                dprintf("get mods is %x", get_mods());
+                tap_code(KC_LNUM); // Dummy keypress to get rid of lingering shift modifier
                 process_caps_word(KC_BSPC, record);
+                dprintf("after sending kc_bspc caps word . get mods is %x", get_mods());
                 return true;
             case TD(LPINKY):
                 clear_mods();
@@ -73,7 +76,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 return true;
             case RGUI_T(KC_SPC):
                 clear_mods();
-                SEND_STRING(SS_DELAY(300));
+                // SEND_STRING(SS_DELAY(300));
                 if (IS_LAYER_ON(_SYMBOLS)) {
                     process_caps_word(KC_UNDS, record);
                     return true;
@@ -91,14 +94,14 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
             case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
             case QK_TAP_DANCE ... QK_TAP_DANCE_MAX: // Added by kevkevco to ignore tap dance keys
             case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
-                print("\nignore section?");
+               dprint("\nignore section?");
                 return true;
 
 #ifndef NO_ACTION_TAPPING
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-                print("\nmodtap section?");
+               dprint("\nmodtap section?");
                 if (record->tap.count == 0) {
-                    print("\ncancelling modtap section?");
+                   dprint("\ncancelling modtap section?");
                     // Deactivate if a mod becomes active through holding a mod-tap key.
                     caps_word_set(false);
                     return true;
@@ -108,7 +111,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 
 #    ifndef NO_ACTION_LAYER
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-                print("\nlayer tap section?");
+               dprint("\nlayer tap section?");
 
 #    endif // NO_ACTION_LAYER
                 if (record->tap.count == 0) {

@@ -49,3 +49,7 @@ typedef struct {
     bool is_press_action;
     td_state_t state;
 } td_tap_t;
+
+// Band-aid fix for oneshot timing issues
+bool oneshot_symbols_timer_state;
+uint16_t oneshot_symbols_timer;
