@@ -23,5 +23,6 @@ __attribute__((weak)) void bootloader_jump(void) {
 }
 
 __attribute__((weak)) void mcu_reset(void) {
-    // unknown method, ATM. Do nothing.
+    BKP->DR10 = RTC_BOOTLOADER_JUST_UPLOADED;
+    NVIC_SystemReset();
 }
