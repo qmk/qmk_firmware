@@ -70,7 +70,7 @@ TEST_F(Secure, test_unlock_timeout) {
     EXPECT_FALSE(secure_is_unlocked());
     secure_unlock();
     EXPECT_TRUE(secure_is_unlocked());
-    idle_for(SECURE_IDLE_TIMEOUT+1);
+    idle_for(SECURE_IDLE_TIMEOUT + 1);
     EXPECT_FALSE(secure_is_unlocked());
 
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -135,13 +135,12 @@ TEST_F(Secure, test_unlock_request_timeout) {
     EXPECT_FALSE(secure_is_unlocked());
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
-    idle_for(SECURE_UNLOCK_TIMEOUT+1);
+    idle_for(SECURE_UNLOCK_TIMEOUT + 1);
     EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
-
 
 TEST_F(Secure, test_unlock_request_fail_mid) {
     TestDriver driver;
