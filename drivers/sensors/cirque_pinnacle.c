@@ -12,6 +12,7 @@
 #define SYSCONFIG_1          0x03
 #define FEEDCONFIG_1         0x04
 #define FEEDCONFIG_2         0x05
+#define FEEDCONFIG_3         0x06
 #define CALIBRATION_CONFIG_1 0x07
 #define PS2_AU_CONTROL       0x08
 #define SAMPLE_RATE          0x09
@@ -49,6 +50,7 @@
 #define SYSCONFIG_1_VALUE    0x00
 #define FEEDCONFIG_1_VALUE   0x03  // 0x03 for absolute mode 0x01 for relative mode
 #define FEEDCONFIG_2_VALUE   0x1C  // 0x1F for normal functionality 0x1E for intellimouse disabled
+#define FEEDCONFIG_3_VALUE   0x02  // 0x02 to disable smoothing
 #define Z_IDLE_COUNT_VALUE   0x05
 #define STATUS_1_VALUE       0x04  // 0x04 for software data ready
 // clang-format on
@@ -214,6 +216,10 @@ void cirque_pinnacle_init(void) {
     // Host configures bits of registers 0x03 and 0x05
     RAP_Write(SYSCONFIG_1, SYSCONFIG_1_VALUE);
     RAP_Write(FEEDCONFIG_2, FEEDCONFIG_2_VALUE);
+
+#ifdef CIRQUE_PINNACLE_DISABLE_SMOOTHING
+    RAP_Write(FEEDCONFIG_3, FEEDCONFIG_3_VALUE);
+#endif
 
     // Host enables preferred output mode (absolute)
     RAP_Write(FEEDCONFIG_1, FEEDCONFIG_1_VALUE);
