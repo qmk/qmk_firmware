@@ -30,8 +30,9 @@ void babble_mode_decrement(void);
 void babble_modeswitch_user(uint8_t mode);
 void babble_modeswitch_kb(uint8_t mode);
 
-bool do_ctl_or_alt(bool state, uint8_t lastmode);
+bool do_select_mod(bool state, uint8_t lastmode);
 bool process_babble_select(uint16_t keycode, keyrecord_t* record);
+bool process_babble_select_keys(uint16_t keycode, keyrecord_t* record);
 
 bool process_babble_modswap(uint16_t keycode, keyrecord_t* record);
 
