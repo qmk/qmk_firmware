@@ -149,9 +149,9 @@ __attribute__((weak)) void unicode_input_finish(void) {
             tap_code(KC_ENTER);
             break;
         case UC_EMACS:
-		tap_code16(KC_ENTER);
-		break;
-        }
+            tap_code16(KC_ENTER);
+            break;
+    }
 
     set_mods(unicode_saved_mods); // Reregister previously set mods
 }
