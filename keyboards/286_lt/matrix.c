@@ -13,6 +13,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+sorry about my worst code, but  it works
+all in this file actualy nearly same with the defaults, only change iniit, select col. and un select col
 */
 
 #include <stdint.h>
@@ -28,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "gpio.h"
-#include "spi_master.h"
+#include "drivers/gpio/sn74hc595.h"
 
 #include "286_lt.h"
 
@@ -55,13 +58,6 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
 matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
-pin_t SS595 = A3;
-bool lsbFirst = false;
-uint8_t mode = 0;
-uint16_t divisor = 8; //stm43f401 is 84Mhz / hc595 is 10Mhz
-uint8_t spi_buffer[2];
-uint16_t buffer_length = 2;
-uint16_t pin595;
 pin_t ledPin = C13;
 
 
@@ -69,49 +65,6 @@ __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
 __attribute__((weak)) void matrix_init_user(void) {}
 __attribute__((weak)) void matrix_scan_user(void) {}
-
-void hc595_init(void){
-    spi_init();
-    pin595 = 0xFFFF; // set all pin high
-
-    setPinOutput(SS595);
-
-    spi_start(SS595, lsbFirst, mode, divisor);
-    writePinLow(SS595);
-
-    spi_buffer[0]=pin595 & 0xff;
-    spi_buffer[1]=(pin595 >> 8);
-    spi_transmit(spi_buffer,2);
-
-    //*spi_buffer = &pin595;
-    //spi_transmit(spi_buffer, buffer_length);
-
-    writePinHigh(SS595);
-    spi_stop();
-    printf("hc595 spi init");
-}
-
-void hc595_setpin(uint8_t position, bool value){
-    int mask = 1 << position;
-    pin595 = ((pin595 & ~mask ) | value <<  position);
-
-    spi_start(SS595, lsbFirst, mode, divisor);
-    writePinLow(SS595);
-
-    spi_buffer[1]=pin595 & 0xff;
-    spi_buffer[0]=(pin595 >> 8);
-    spi_transmit(spi_buffer,2);
-
-    //*spi_buffer = &pin595;
-    //spi_transmit(spi_buffer, buffer_length);
-
-    writePinHigh(SS595);
-    spi_stop();
-
-    //uprintf("HC595 pos: %02d, setVal: %d, trueVal: %04d [",position, value, pin595);
-    //print_bin16(pin595);
-    //print("] \r \n");
-}
 
 inline uint8_t matrix_rows(void) {
     return MATRIX_ROWS;
@@ -167,7 +120,7 @@ static bool select_col(uint8_t col) {
         return true;
     }
     return false;*/
-    hc595_setpin(col,0);
+    sn74hc595_setPin(col,0);
     return true;
 }
 
@@ -180,34 +133,21 @@ static void unselect_col(uint8_t col) {
         setPinInputHigh_atomic(pin);
   #            endif
     }*/
-    hc595_setpin(col,1);
+    sn74hc595_setPin(col,1);
 }
 
  static void unselect_cols(void) {
      /*for (uint8_t x = 0; x < MATRIX_COLS; x++) {
          unselect_col(x);
      }*/
-    pin595 = 0xFFFF; // set all pin high
-
-    spi_start(SS595, lsbFirst, mode, divisor);
-
-    writePinLow(SS595);
-
-    spi_buffer[0] = pin595 & 0xff;
-    spi_buffer[1] = (pin595 >> 8);
-    spi_transmit(spi_buffer,2);
-
-    //*spi_buffer = &pin595;
-    //spi_transmit(spi_buffer, buffer_length);
-
-    writePinHigh(SS595);
-
-    spi_stop();
+    sn74hc595_AllPin_High();
 }
 
 void matrix_init_pins(void) {
-    hc595_init();
+    sn74hc595_init();
     unselect_cols();
+
+    //set row to input
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
             setPinInputHigh_atomic(row_pins[x]);
@@ -279,8 +219,6 @@ void matrix_init(void) {
 }
 
 uint8_t matrix_scan(void) {
-    writePinLow(C13);
-
     matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
 
     // TODO: add matrix scanning routine here
@@ -297,7 +235,6 @@ uint8_t matrix_scan(void) {
     // This *must* be called for correct keyboard behavior
     matrix_scan_quantum();
 
-    return (uint8_t)changed;
-
     writePinHigh(C13);
+    return (uint8_t)changed;
 }

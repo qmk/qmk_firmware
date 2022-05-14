@@ -41,6 +41,8 @@
 #define SPI_MOSI_PIN A6
 #define SPI_MISO_PIN  A7
 
+#define SN74HC595_SPI_SLAVE_SELECT_PIN A3
+#define SN74HC595_LENGTH 2
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -48,7 +50,7 @@
 
 /* disable debug print */
 //#define NO_DEBUG
-//#define DEBUG_MATRIX_SCAN_RATE
+#define DEBUG_MATRIX_SCAN_RATE
 
 /* disable print */
 //#define NO_PRINT
