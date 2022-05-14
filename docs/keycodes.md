@@ -269,6 +269,14 @@ See also: [Bluetooth](feature_bluetooth.md)
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
 
+## Caps Word :id=caps-word
+
+See also: [Caps Word](feature_caps_word.md)
+
+|Key        |Aliases  |Description                   |
+|-----------|---------|------------------------------|
+|`CAPS_WORD`|`CAPSWRD`|Toggles Caps Word             |
+
 ## Dynamic Macros :id=dynamic-macros
 
 See also: [Dynamic Macros](feature_dynamic_macros.md)

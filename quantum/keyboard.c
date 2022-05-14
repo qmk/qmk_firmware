@@ -108,6 +108,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -547,6 +550,10 @@ void quantum_task(void) {
 
 #ifdef AUTO_SHIFT_ENABLE
     autoshift_matrix_scan();
+#endif
+
+#ifdef CAPS_WORD_ENABLE
+    caps_word_task();
 #endif
 
 #ifdef SECURE_ENABLE
