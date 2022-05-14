@@ -66,16 +66,11 @@ uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 /* milliseconds between the initial key press and first repeated motion event (0-2550) */
 uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY / 10;
 /* milliseconds between repeated motion events (0-255) */
-#    ifndef MK_KINETIC_SPEED
-uint8_t mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
-#    else  /* #ifndef MK_KINETIC_SPEED */
-float mk_wheel_interval = 1000.0f / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
-#    endif /* #ifndef MK_KINETIC_SPEED */
+uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
 #    ifndef MK_COMBINED
-#        ifndef MK_KINETIC_SPEED
 
 static uint8_t move_unit(void) {
     uint16_t unit;
@@ -113,7 +108,8 @@ static uint8_t wheel_unit(void) {
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
-#        else /* #ifndef MK_KINETIC_SPEED */
+#    else /* #ifndef MK_COMBINED */
+#        ifdef MK_KINETIC_SPEED
 
 /*
  * Kinetic movement  acceleration algorithm
@@ -133,7 +129,7 @@ const uint16_t mk_decelerated_speed = MOUSEKEY_DECELERATED_SPEED;
 const uint16_t mk_initial_speed     = MOUSEKEY_INITIAL_SPEED;
 
 static uint8_t move_unit(void) {
-    float speed = (float)mk_initial_speed;
+    float speed = mk_initial_speed;
 
     if (mousekey_accel & ((1 << 0) | (1 << 2))) {
         speed = mousekey_accel & (1 << 2) ? mk_accelerated_speed : mk_decelerated_speed;
@@ -150,6 +146,8 @@ static uint8_t move_unit(void) {
 
     return speed > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : speed;
 }
+
+float mk_wheel_interval = 1000.0f / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
 
 static uint8_t wheel_unit(void) {
     float speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
@@ -169,8 +167,7 @@ static uint8_t wheel_unit(void) {
     return 1;
 }
 
-#        endif /* #ifndef MK_KINETIC_SPEED */
-#    else      /* #ifndef MK_COMBINED */
+#        else /* #ifndef MK_KINETIC_SPEED */
 
 static uint8_t move_unit(void) {
     uint16_t unit;
@@ -208,7 +205,8 @@ static uint8_t wheel_unit(void) {
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
-#    endif /* #ifndef MK_COMBINED */
+#        endif /* #ifndef MK_KINETIC_SPEED */
+#    endif     /* #ifndef MK_COMBINED */
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently
