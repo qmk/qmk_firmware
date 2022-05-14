@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SFT_T(KC_Z):
-            return TAPPING_TERM + 175;
+            return TAPPING_TERM + 275;
         case SFT_T(KC_SLASH):
             return TAPPING_TERM + 175;
         case SMOVE:

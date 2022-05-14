@@ -176,53 +176,51 @@ enum user_keycodes {
 // clang-format off
 
 // Move and paste - 50%+.
-// if using caps to enable this mode, put shift on D key, Delmov on S (ring+pinky is easier than index+pinky with ring moving)
-// for thumb key, it may help to swap.
-// The right paren depends entirely on the keyboard.
+/// Why the 2 movement keys? BUG, left over from a keyboard with arrow keys in lower right. 
 /*    ,--------------------------------------------.  ,--------------------------------------------.-------.
- * 01 |  MAC   | vi     | Read   | Linux  |  Bmode |  | WIN    |        |SelLineU|   Vol- |  Vol+  |  Mute |
+ * 01 |  MAC   | vi     | Read   | Linux  |  Bmode |  | WIN    |        |        |   Vol- |  Vol+  |  Mute |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
- * 02 |  ESC   |        | Undo   |  Redo  | {      |  | DHome  |LineStrt|   Up   |  EoL   |        |       |
+ * 02 |  ESC   |        | Undo   |  Redo  | {      |  | DHome  |SelWd_L |   Up   |SelWd_R |        |       |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
- * 03 |    (   |  Save  |  Cut   | Copy   |  Paste |  | WrdLft | Left   | Down   | Right  | WrdRght|   `   |
+ * 03 |    (   |  Save  |  Cut   | Copy   |        |  | WrdLft | Left   | Down   | Right  | WrdRght|   `   |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
- * 04 |  CDH   |        |        |   )    |   }    |  |   ~    | SelWL  |SelLineD|  SelWR | Up     | Enter |
+ * 04 |  CDH   |        |        | Paste  |   }    |  |   ~    |S_Ln_UP |        |S_Ln_Dwn|   Up   | Enter |
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------|
  * 05 |        |        |        |        |        |  |        |        | Tab    |  Left  | Down   | Right |
  *    `--------------------------------------------'  `----------------------------------------------------'
  */
-// clang-format on
-#define __________50_______MOV_L1__________________ B_MAC, B_VI, B_READ, B_LINUX, B_MODE
-#define __________50_______MOV_L2__________________ KC_ESC, XXXX, B_UNDO, B_REDO, KC_LCBR
-#define __________50_______MOV_L3__________________ KC_LPRN, B_SAVE, B_CUT, B_COPY, B_PASTE
-#define __________50_______MOV_L4__________________ KC_CDH, XXXX, XXXX, KC_RPRN, KC_RCBR
-#define __________50_______MOV_L5__________________ ____, ____, ____, ____, ____
+// clang-format on 
+#define __________50_______MOV_L1__________________ B_MAC,  B_VI,   B_READ, B_LINUX, B_MODE
+#define __________50_______MOV_L2__________________ KC_ESC, XXXX,   B_UNDO, B_REDO,  KC_LCBR
+#define __________50_______MOV_L3__________________ KC_LPRN,B_SAVE, B_CUT,  B_COPY,  XXXX
+#define __________50_______MOV_L4__________________ KC_CDH, XXXX,   XXXX,   B_PASTE, KC_RCBR
+#define __________50_______MOV_L5__________________ ____,   ____,    ____,  ____,    ____
 
-#define __________50_______MOV_R1__________________ B_WIN, XXXX, B_S_LU, KC_VOLD, KC_VOLU, KC_MUTE
-#define __________50_______MOV_R2__________________ KC_PGDN, B_GSOL, B_UP, B_GEOL, XXXX, XXXX
-#define __________50_______MOV_R3__________________ B_L1W, B_L1C, B_DOWN, B_R1C, B_R1W, KC_GRAVE
-#define __________50_______MOV_R4__________________ KC_TILDE, B_S_WL, B_S_LD, B_S_WR, KC_PGDN, KC_ENTER
-#define __________50_______MOV_R5__________________ ____, ____, KC_TAB, KC__LEFT, KC_DOWN, KC_RIGHT
+#define __________50_______MOV_R1__________________ B_WIN,   XXXX,   B_S_LU, KC_VOLD,  KC_VOLU, KC_MUTE
+#define __________50_______MOV_R2__________________ B_GSOL, B_S_WL, B_UP,   B_S_WR,   B_GEOL,    XXXX
+#define __________50_______MOV_R3__________________ B_L1W,   B_L1C,  B_DOWN, B_R1C,    B_R1W,   KC_GRAVE
+#define __________50_______MOV_R4__________________ KC_TILDE,B_S_LU, XXXX,    B_S_LD,   KC_UP , KC_ENTER
+#define __________50_______MOV_R5__________________ ____,    ____,   KC_TAB, KC__LEFT, KC_DOWN, KC_RIGHT
 
 // clang-format off
 // Window and App management, Unicode emoji for  50%+.
  /*   ,--------------------------------------------.  ,--------------------------------------------.
- * 01 |        | PreApp | Launch | NxtApp | Zoom++ |  | FireW  | ThumbU | Replace| THumbD | PgUp   |
+ * 01 | FireW  | ThumbU | Replace| THumbD | PgUp   |  | Caps   | PreApp | Launch | NxtApp | Zoom++ |  
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 02 | Caps   | PreTab | Tab++  | NxtTab |        |  | Smile  | FindP  | Find   | FindN  | PgDn   |
+ * 02 | Smile  | FindP  | Find   | FindN  | PgDn   |  |CloseTab| PreTab | Tab++  | NxtTab |        |  
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 03 | Qwerty | PreWin | Win++  | WinNxt | Zoom-- |  | Fire   | Eyes   | 100%   | Hmm    |Nazar   | 
+ * 03 | Nazar  | Fire   | Eyes   | 100%   | Hmm    |  | Qwerty | PreWin | Win++  | WinNxt | Zoom-- |  
  *    `--------------------------------------------'  `--------------------------------------------'
  */
 // clang-format on
-#define __________50_______SYM_L1__________________ XXXX, B_PAPP, B_RUNAPP, B_NAPP, B_ZIN
-#define __________50_______SYM_L2__________________ KC_CAPS, B_PAPTB, B_NWTAB, B_NAPTB, XXXX
-#define __________50_______SYM_L3__________________ KC_QWERTY, B_PWIN, B_WINN, B_NWIN, B_ZOUT
+#define __________50_______SYM_L1__________________ X(FIREW), X(THUMBU), B_RPLACE, X(THUMBD), KC_PGUP
+#define __________50_______SYM_L2__________________ X(SMILE), B_FINDP, B_FIND, B_FINDN, KC_PGDN
+#define __________50_______SYM_L3__________________ X(NAZAR), X(FIRE), X(EYES), X(PCT100), X(HMM)
 
-#define __________50_______SYM_R1__________________ X(FIREW), X(THUMBU), B_RPLACE, X(THUMBD), KC_PGUP
-#define __________50_______SYM_R2__________________ X(SMILE), B_FINDP, B_FIND, B_FINDN, KC_PGDN
-#define __________50_______SYM_R3__________________ X(FIRE), X(EYES), X(PCT100), X(HMM), X(NAZAR)
-
+#define __________50_______SYM_R1__________________ KC_CAPS, B_PAPP, B_RUNAPP, B_NAPP, B_ZIN
+#define __________50_______SYM_R2__________________ XXXX,     B_PAPTB, B_NWTAB, B_NAPTB, XXXX
+#define __________50_______SYM_R3__________________ KC_QWERTY, B_PWIN, B_WINN, B_NWIN, B_ZOUT
+ 
 // clang-format off
 // Move and brackets - 40% optimization.
 // if using caps to enable this mode, put shift on D key, Delmov on S (ring+pinky is easier than index+pinky with ring moving)

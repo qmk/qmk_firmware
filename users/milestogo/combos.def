@@ -5,6 +5,12 @@
 COMB(JKL_ENT,  KC_ENT,   KC_J, KC_K, KC_L)
 COMB(WE_ESC,   KC_ESC,   KC_W, KC_E)
 
+
+// searching for the right del keys. 
+COMB(GH_BAK,   KC_BSPC, 	 KC_G, KC_H)
+COMB(FJ_DEL,   KC_DEL, KC_F, KC_J)
+COMB(SDF_BAK,  KC_BSPC, KC_S, KC_D, KC_F)
+
 COMB(NH_SCLN,  KC_SCLN,  KC_N, KC_H)
 COMB(DC_UNDS,  KC_UNDS,  KC_DOT, KC_COMMA)
 COMB(UIO_MINS,  KC_MINUS, KC_I, KC_O)
