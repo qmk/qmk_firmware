@@ -19,6 +19,7 @@
 #                 type=no,ondemand
 #    enc:         ENCODER enable
 #    no-enc:      ENCODER disable
+#    debug-uart:  UART TX for debug enable
 #
 ifneq ($(strip $(USROPT)),)
   define USER_OPTION_PARSE
@@ -118,6 +119,12 @@ ifneq ($(strip $(USROPT)),)
     endif
     ifneq ($(filter debugenc debug-enc debug_enc,$(strip $1)),)
         DEBUG_ENCODER = yes
+    endif
+    ifneq ($(filter debug-uart debug_uart,$(strip $1)),)
+        DEBUG_UART = yes
+    endif
+    ifneq ($(filter nodebug-uart nodebug_uart,$(strip $1)),)
+        DEBUG_UART = no
     endif
   endef # end of USER_OPTION_PARSE
 

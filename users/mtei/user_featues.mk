@@ -47,6 +47,11 @@ ifneq ($(strip $(SYNC_TIMER_ENABLE)),yes)
     OPT_DEFS += -DDISABLE_SYNC_TIMER
 endif
 
+ifeq ($(strip $(DEBUG_UART)),yes)
+    OPT_DEFS += -DAVR_UART_TX
+    SRC += avr_uart_tx.c
+endif
+
 ifneq ($(strip $(USROPT)),)
     $(info -)
     $(info -  CONSOLE_ENABLE      = $(CONSOLE_ENABLE))
