@@ -4,6 +4,7 @@ import json
 from qmk.json_schema import validate
 from qmk.path import keyboard, keymap
 from qmk.constants import MCU2BOOTLOADER
+from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
 
 
 def _gen_dummy_keymap(name, info_data):
@@ -17,7 +18,7 @@ def _gen_dummy_keymap(name, info_data):
         "layers": [["KC_NO" for _ in range(0, layout_length)]],
     }
 
-    return json.dumps(keymap_data)
+    return json.dumps(keymap_data, cls=KeymapJSONEncoder)
 
 
 def import_keymap(keymap_data):
@@ -34,7 +35,7 @@ def import_keymap(keymap_data):
     keyboard_keymap.parent.mkdir(parents=True, exist_ok=True)
 
     # Dump out all those lovely files
-    keyboard_keymap.write_text(json.dumps(keymap_data))
+    keyboard_keymap.write_text(json.dumps(keymap_data, cls=KeymapJSONEncoder))
 
     return (kb_name, km_name)
 
@@ -62,7 +63,7 @@ def import_keyboard(info_data):
     keyboard_keymap.parent.mkdir(parents=True, exist_ok=True)
 
     # Dump out all those lovely files
-    keyboard_info.write_text(json.dumps(info_data))
+    keyboard_info.write_text(json.dumps(info_data, cls=InfoJSONEncoder))
     keyboard_rules.write_text("# This file intentionally left blank")
     keyboard_keymap.write_text(_gen_dummy_keymap(kb_name, info_data))
 
