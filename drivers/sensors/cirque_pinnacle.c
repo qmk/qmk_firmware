@@ -43,6 +43,7 @@
 #define FEEDCONFIG_1_VALUE   0x03  // 0x03 for absolute mode 0x01 for relative mode
 #define FEEDCONFIG_2_VALUE   0x1C  // 0x1F for normal functionality 0x1E for intellimouse disabled
 #define Z_IDLE_COUNT_VALUE   0x05
+#define STATUS_1_VALUE       0x04  // 0x04 for software data ready
 // clang-format on
 
 bool     touchpad_init;
@@ -216,6 +217,14 @@ void cirque_pinnacle_init(void) {
     cirque_pinnacle_set_adc_attenuation(0xFF);
     cirque_pinnacle_tune_edge_sensitivity();
     cirque_pinnacle_enable_feed(true);
+}
+
+// Reads status register
+// Returns data readiness based on software data ready bit
+bool cirque_pinnacle_data_ready(void) {
+    uint8_t status;
+    RAP_ReadBytes(STATUS_1, &status, 1);
+    return !!(status & STATUS_1_VALUE);
 }
 
 // Reads XYZ data from Pinnacle registers 0x14 through 0x17

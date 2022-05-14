@@ -115,11 +115,18 @@ const pointing_device_driver_t pointing_device_driver = {
 #    endif
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
-    pinnacle_data_t touchData = cirque_pinnacle_read_data();
+    pinnacle_data_t touchData;
     static uint16_t x = 0, y = 0, mouse_timer = 0;
     int8_t          report_x = 0, report_y = 0;
     static bool     is_z_down = false;
 
+#    ifndef POINTING_DEVICE_MOTION_PIN
+    if (!cirque_pinnacle_data_ready()) {
+        return mouse_report;
+    }
+#    endif
+
+    touchData = cirque_pinnacle_read_data();
     cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale()); // Scale coordinates to arbitrary X, Y resolution
 
     if (x && y && touchData.xValue && touchData.yValue) {
