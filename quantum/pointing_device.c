@@ -177,7 +177,8 @@ __attribute__((weak)) void pointing_device_send(void) {
 report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report) {
     // Support rotation of the sensor data
 #if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
-    mouse_xy_report_t x = mouse_report.x, y = mouse_report.y;
+    mouse_xy_report_t x = mouse_report.x;
+    mouse_xy_report_t y = mouse_report.y;
 #    if defined(POINTING_DEVICE_ROTATION_90)
     mouse_report.x = y;
     mouse_report.y = -x;
@@ -405,7 +406,8 @@ report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, repor
 report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_report) {
     // Support rotation of the sensor data
 #    if defined(POINTING_DEVICE_ROTATION_90_RIGHT) || defined(POINTING_DEVICE_ROTATION_RIGHT) || defined(POINTING_DEVICE_ROTATION_RIGHT)
-    mouse_xy_report_t x = mouse_report.x, y = mouse_report.y;
+    mouse_xy_report_t x = mouse_report.x;
+    mouse_xy_report_t y = mouse_report.y;
 #        if defined(POINTING_DEVICE_ROTATION_90_RIGHT)
     mouse_report.x = y;
     mouse_report.y = -x;
