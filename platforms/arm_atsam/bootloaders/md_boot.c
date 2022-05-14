@@ -65,5 +65,5 @@ void bootloader_jump(void) {
 }
 
 __attribute__((weak)) void mcu_reset(void) {
-    // not certain how to setup wdt here
+    NVIC_SystemReset();
 }
