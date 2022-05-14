@@ -93,7 +93,7 @@ ifeq ($(MUSIC_ENABLE), yes)
 endif
 
 VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
-STENO_PROTOCOL ?= geminipr
+STENO_PROTOCOL ?= all
 ifeq ($(strip $(STENO_ENABLE)), yes)
     ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)

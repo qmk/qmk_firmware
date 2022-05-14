@@ -43,8 +43,6 @@ STENO_PROTOCOL = txbolt
 
 GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including differentiating between top and bottom `S-`, and supporting non-English theories.
 
-This is the default stenography protocol.
-
 To select it, add the following lines to your `rules.mk`:
 ```mk
 STENO_ENABLE = yes
@@ -66,6 +64,8 @@ If you want to switch protocols programatically, as part of a custom macro for e
 The default protocol is Gemini PR but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
 
 Naturally, this option takes the most amount of firmware space as it needs to compile the code for all the available stenography protocols. In most cases, compiling a single stenography protocol is sufficient.
+
+The default value for `STENO_PROTOCOL` is `all`.
 
 ## Configuring QMK for Steno :id=configuring-qmk-for-steno
 
