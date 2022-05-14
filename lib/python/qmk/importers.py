@@ -36,7 +36,7 @@ def import_keymap(keymap_data):
     # Dump out all those lovely files
     keyboard_keymap.write_text(json.dumps(keymap_data))
 
-    return km_name
+    return (kb_name, km_name)
 
 
 def import_keyboard(info_data):

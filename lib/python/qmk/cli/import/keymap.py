@@ -15,7 +15,7 @@ def import_keymap(cli):
     cli.log.info(f'{{style_bright}}Importing {filename.name}.{{style_normal}}')
     cli.echo('')
 
-    kb_name = _import_keymap(data)
+    kb_name, km_name = _import_keymap(data)
 
     cli.log.info(f'{{fg_green}}Imported a new keymap named {{fg_cyan}}{km_name}{{fg_green}}.{{fg_reset}}')
     cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}keyboards/{kb_name}/keymaps/{km_name}{{fg_reset}},')
