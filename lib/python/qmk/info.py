@@ -807,8 +807,11 @@ def merge_info_jsons(keyboard, info_data):
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)
             else:
-                layout['c_macro'] = False
-                info_data['layouts'][layout_name] = layout
+                if not all('matrix' in key_data.keys() or len(key_data) == 2 or all(isinstance(n, int) for n in key_data) for key_data in layout['layout']):
+                    _log_error(info_data, "Matrix positions for %s are missing" % layout_name)
+                else:
+                    layout['c_macro'] = False
+                    info_data['layouts'][layout_name] = layout
 
         # Update info_data with the new data
         if 'layouts' in new_info_data:
@@ -863,15 +866,22 @@ def keymap_json(keyboard, keymap):
     keymap_rules = keymap_folder / 'rules.mk'
     keymap_file = keymap_folder / 'keymap.json'
 
-    # Build the info.json file
-    kb_info_json = info_json(keyboard)
+    km_defaults = {
+        'keyboard_folder': f'{keyboard}/{keymap}',  # bodge for error text
+        'parse_errors': [],
+        'parse_warnings': [],
+    }
 
-    # Merge in the data from keymap.json
+    # Build the keyboard overrides from keymap.json file
     km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
-    deep_update(kb_info_json, km_info_json)
+    deep_update(km_info_json, km_defaults)
 
     # Merge in the data from config.h, and rules.mk
-    _extract_rules_mk(kb_info_json, parse_rules_mk_file(keymap_rules))
-    _extract_config_h(kb_info_json, parse_config_h_file(keymap_config))
+    _extract_rules_mk(km_info_json, parse_rules_mk_file(keymap_rules))
+    _extract_config_h(km_info_json, parse_config_h_file(keymap_config))
+
+    # Merge in the data from keymap.json with the info.json file
+    kb_info_json = info_json(keyboard)
+    deep_update(kb_info_json, km_info_json)
 
     return kb_info_json
