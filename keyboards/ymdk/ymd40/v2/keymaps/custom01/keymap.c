@@ -48,6 +48,7 @@ void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+
 void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(KC_N);
@@ -66,24 +67,25 @@ void dance_exclam_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_exclam_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        unregister_code16(KC_N);
+        unregister_code16(KC_EXLM);
     }
 }
 
 void dance_interrog_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        register_code16(KC_EXLM);
+        register_code16(KC_SLSH);
     } else {
-        SEND_STRING(SS_DOWN(X_RALT) SS_TAP(X_1));
+        SEND_STRING(SS_DOWN(X_RALT) SS_TAP(X_SLSH));
         clear_keyboard();
     }
 }
 
 void dance_interrog_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        unregister_code16(KC_N);
+        unregister_code16(KC_SLSH);
     }
 }
+
 
 //NOMBRES TAP DANCE
 enum {
@@ -216,8 +218,16 @@ void matrix_scan_user(void) {
     SEQ_ONE_KEY(KC_H) {
 		SEND_STRING(SS_LALT(SS_TAP(X_HOME)));
 	}
-    
-    SEQ_THREE_KEYS(KC_C, KC_A, KC_S) {
+
+     SEQ_ONE_KEY(KC_V) {
+    	SEND_STRING(SS_LCTRL(SS_LCTL(SS_LALT(SS_TAP(X_V)))));
+    }
+
+     SEQ_ONE_KEY(KC_K) {
+    	SEND_STRING(SS_LCTRL(SS_LCTL(SS_LALT(SS_TAP(X_C)))));
+    }
+   
+    SEQ_THREE_KEYS(KC_C, KC_A, KC_D) {
     	SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
     }
 
@@ -228,7 +238,7 @@ void matrix_scan_user(void) {
 td_state_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
         if (!state->pressed) return TD_SINGLE_TAP;
-        else return TD_SINGLE_HOLD;
+        else return TD_SINGLE_HOLD;	
     } else if (state->count == 2) return TD_DOUBLE_TAP;
     else return TD_UNKNOWN;
 }
