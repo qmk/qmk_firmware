@@ -91,6 +91,6 @@ void matrix_scan_user(void) {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
-    return true;
+    return false;
 };
 #endif
