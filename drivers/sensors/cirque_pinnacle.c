@@ -201,6 +201,21 @@ void cirque_pinnacle_tune_edge_sensitivity(void) {
     ERA_ReadBytes(0x0168, &temp, 1);
 }
 
+// Perform calibration
+void cirque_pinnacle_calibrate(void) {
+    uint8_t calconfig;
+
+    RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
+    calconfig |= 0x01;
+    RAP_Write(CALIBRATION_CONFIG_1, calconfig);
+
+    do {
+        RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
+    } while (calconfig & 0x01);
+
+    cirque_pinnacle_clear_flags();
+}
+
 /*  Pinnacle-based TM040040 Functions  */
 void cirque_pinnacle_init(void) {
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
@@ -228,6 +243,8 @@ void cirque_pinnacle_init(void) {
     RAP_Write(Z_IDLE_COUNT, Z_IDLE_COUNT_VALUE);
 
     cirque_pinnacle_set_adc_attenuation(ADC_ATTENUATION_VALUE);
+    // Perform manual calibration on initialization
+    cirque_pinnacle_calibrate();
     cirque_pinnacle_tune_edge_sensitivity();
     cirque_pinnacle_enable_feed(true);
 }
