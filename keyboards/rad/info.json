@@ -6,7 +6,7 @@
     "pid": "0x6060",
 },
   "layouts": {
-    "LAYOUT_horizontal": {
+    "LAYOUT": {
         "layout": [
         {
           "x": 1,
