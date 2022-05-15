@@ -1,6 +1,6 @@
 # Resume1800
 
-![Resume1800](https://i.imgur.com/IjP3Opw.jpg)
+![Resume1800](https://i.imgur.com/IjP3Opwh.jpg)
 
 An 1800 compact keyboard that is built with soley through-hole components
 
