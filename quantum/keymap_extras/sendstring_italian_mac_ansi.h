@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "keymap_italian_osx_ansi.h"
+#include "keymap_italian_mac_ansi.h"
 #include "quantum.h"
 
 // clang-format off
