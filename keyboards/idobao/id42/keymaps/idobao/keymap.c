@@ -1,14 +1,23 @@
 // Copyright 2022 Vino Rodrigues (@vinorodrigues)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+/* ------------------------------------------------------------------
+ * This is the IDOBAO factory default keymap ;)
+ * ------------------------------------------------------------------ */
+
 #include QMK_KEYBOARD_H
+#include "version.h"
+
+enum {
+    KB_VRSN = USER09   // debug, type version
+};
 
 #define SPC_FN1 LT(1, KC_SPC)
 #define SPC_FN2 LT(2, KC_SPC)
 #define SPC_FN3 LT(3, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
+    /* Layer 0
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │Esc│ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │BSp│
      * ├───┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
@@ -26,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,          SPC_FN2,          FN_MO13,                   KC_LEFT, KC_DOWN, KC_RIGHT
     ),
 
-    /*
+    /* Layer 1
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │ ~ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ▿ │
      * ├───┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
@@ -44,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,          MO(3),            _______,                   KC_HOME, KC_PGDN, KC_END
     ),
 
-    /*
+    /* Layer 2
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │Esc│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│ ▿ │
      * ├───┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
@@ -62,13 +71,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RCTL, KC_RGUI, KC_RALT,          _______,          _______,                   KC_MSTP, KC_VOLD, KC_MPLY
     ),
 
-    /*
+    /* Layer 3
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │ ▿ │   │   │   │Rst│   │   │   │   │   │   │ ▿ │
      * ├───┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
      * │ ▿  │Tog│Mod│Hu-│Hu+│St-│St+│   │   │   │  ▿   │
      * ├────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴──┬┴──┬───┤
-     * │  ▿  │mod│   │   │   │   │NRO│   │     │Br+│   │
+     * │  ▿  │mod│   │   │Ver│   │NRO│   │     │Br+│   │
      * ├────┬┴──┬┴───┼───┴───┴─┬─┴───┴───┼─┬───┼───┼───┤
      * │ ▿  │ ▿ │ ▿  │    ▿    │    ▿    │ │Sp-│Br-│Sp+│
      * └────┴───┴────┴─────────┴─────────┘ └───┴───┴───┘
@@ -76,7 +85,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [3] = LAYOUT(
         _______, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX,          _______,
-        _______,         RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, RGB_VAI, XXXXXXX,
+        _______,         RGB_RMOD, XXXXXXX, XXXXXXX, KB_VRSN, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, RGB_VAI, XXXXXXX,
         _______, _______, _______,          _______,          _______,                   RGB_SPD, RGB_VAD, RGB_SPI
     ),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // print firmware version
+        case KB_VRSN:
+            if (!get_mods()) {
+                if (!record->event.pressed) {
+                    SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " (v" QMK_VERSION ")");
+                }
+            }
+            return false;
+
+        default:
+            return true; /* Process all other keycodes normally */
+    }
+}
