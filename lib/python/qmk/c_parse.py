@@ -197,6 +197,8 @@ def _coerce_led_token(_type, value):
     }
     if _type is Token.Literal.Number.Integer:
         return int(value)
+    if _type is Token.Literal.Number.Float:
+        return float(value)
     if _type is Token.Literal.Number.Hex:
         return int(value, 0)
     if _type is Token.Name and value in value_map.keys():
@@ -233,7 +235,7 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
                 bracket_count -= 1
             else:
                 # Assume any non whitespace value here is important enough to stash
-                if _type in [Token.Literal.Number.Integer, Token.Literal.Number.Hex, Token.Name]:
+                if _type in [Token.Literal.Number.Integer, Token.Literal.Number.Float, Token.Literal.Number.Hex, Token.Name]:
                     if section == 1 and bracket_count == 3:
                         matrix_raw.append(_coerce_led_token(_type, value))
                     if section == 2 and bracket_count == 3:
