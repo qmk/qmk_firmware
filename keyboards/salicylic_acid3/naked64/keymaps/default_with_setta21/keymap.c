@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT_with_setta21( /* Base */
-     TG(_FLOCK),    RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,       KC_F10,        KC_F11,  KC_F12,     _______, _______, _______, _______,
+     TG(_FLOCK),    QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,       KC_F10,        KC_F11,  KC_F12,     _______, _______, _______, _______,
         _______,    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,       XXXXXXX, _______,    XXXXXXX, XXXXXXX, XXXXXXX, _______,
                     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    RGB_TOG, RGB_MOD, XXXXXXX, LCA(KC_DEL), LALT(KC_PSCR), KC_PSCR, XXXXXXX,    RGB_SAD, RGB_SAI, XXXXXXX,
                     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    RGB_VAD, RGB_VAI, RGB_HUD, RGB_HUI,     RGB_SAD,       RGB_SAI, XXXXXXX,    RGB_HUD, RGB_HUI, XXXXXXX, RGB_TOG,
