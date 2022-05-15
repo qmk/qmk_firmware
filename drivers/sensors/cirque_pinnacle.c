@@ -136,7 +136,8 @@ void cirque_pinnacle_enable_feed(bool feedEnable) {
 // Reads <count> bytes from an extended register at <address> (16-bit address),
 // stores values in <*data>
 void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
-    uint8_t ERAControlValue = 0xFF;
+    uint8_t  ERAControlValue = 0xFF;
+    uint16_t retry           = 0;
 
     cirque_pinnacle_enable_feed(false); // Disable feed
 
@@ -149,7 +150,7 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
         // Wait for status register 0x1E to clear
         do {
             RAP_ReadBytes(ERA_CONTROL, &ERAControlValue, 1);
-        } while (ERAControlValue != 0x00);
+        } while ((ERAControlValue != 0x00) && (++retry != 0));
 
         RAP_ReadBytes(ERA_VALUE, data + i, 1);
 
@@ -159,7 +160,8 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
 
 // Writes a byte, <data>, to an extended register at <address> (16-bit address)
 void ERA_WriteByte(uint16_t address, uint8_t data) {
-    uint8_t ERAControlValue = 0xFF;
+    uint8_t  ERAControlValue = 0xFF;
+    uint16_t retry           = 0;
 
     cirque_pinnacle_enable_feed(false); // Disable feed
 
@@ -173,7 +175,7 @@ void ERA_WriteByte(uint16_t address, uint8_t data) {
     // Wait for status register 0x1E to clear
     do {
         RAP_ReadBytes(ERA_CONTROL, &ERAControlValue, 1);
-    } while (ERAControlValue != 0x00);
+    } while ((ERAControlValue != 0x00) && (++retry != 0));
 
     cirque_pinnacle_clear_flags();
 }
@@ -203,7 +205,8 @@ void cirque_pinnacle_tune_edge_sensitivity(void) {
 
 // Perform calibration
 void cirque_pinnacle_calibrate(void) {
-    uint8_t calconfig;
+    uint8_t  calconfig;
+    uint16_t retry = 0;
 
     RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
     calconfig |= 0x01;
@@ -211,7 +214,7 @@ void cirque_pinnacle_calibrate(void) {
 
     do {
         RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
-    } while (calconfig & 0x01);
+    } while ((calconfig & 0x01) && (++retry != 0));
 
     cirque_pinnacle_clear_flags();
 }
