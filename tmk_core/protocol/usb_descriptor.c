@@ -148,6 +148,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_REPORT_SIZE(8, 0x10),
 #    endif
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
+
             // Vertical wheel (1 byte)
             HID_RI_USAGE(8, 0x38),         // Wheel
             HID_RI_LOGICAL_MINIMUM(8, -127),
