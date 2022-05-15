@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Swiss German layouts
+// Sendstring lookup tables for Swiss French layouts
 
 #pragma once
 
-#include "keymap_german_ch.h"
+#include "keymap_swiss_fr.h"
 #include "quantum.h"
 
 // clang-format off
@@ -33,10 +33,10 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 1, 1, 1, 0, 0, 0, 1),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
-    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 1),
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -49,7 +49,7 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -96,7 +96,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     //       !        "        #        $        %        &        '
     KC_SPC,  CH_DIAE, CH_2,    CH_3,    CH_DLR,  CH_5,    CH_6,    CH_QUOT,
     // (     )        *        +        ,        -        .        /
-    CH_8,    CH_9,    CH_3,    CH_1,    CH_COMM, CH_MINS, CH_DOT,  CH_7,
+    CH_8,    CH_9,    CH_3,    CH_0,    CH_COMM, CH_MINS, CH_DOT,  CH_7,
     // 0     1        2        3        4        5        6        7
     CH_0,    CH_1,    CH_2,    CH_3,    CH_4,    CH_5,    CH_6,    CH_7,
     // 8     9        :        ;        <        =        >        ?
@@ -108,7 +108,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // P     Q        R        S        T        U        V        W
     CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // X     Y        Z        [        \        ]        ^        _
-    CH_X,    CH_Y,    CH_Z,    CH_UDIA, CH_LABK, CH_DIAE, CH_CIRC, CH_MINS,
+    CH_X,    CH_Y,    CH_Z,    CH_EGRV, CH_LABK, CH_DIAE, CH_CIRC, CH_MINS,
     // `     a        b        c        d        e        f        g
     CH_CIRC, CH_A,    CH_B,    CH_C,    CH_D,    CH_E,    CH_F,    CH_G,
     // h     i        j        k        l        m        n        o
@@ -116,5 +116,5 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // p     q        r        s        t        u        v        w
     CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // x     y        z        {        |        }        ~        DEL
-    CH_X,    CH_Y,    CH_Z,    CH_ADIA, CH_7,    CH_DLR,  CH_CIRC, KC_DEL
+    CH_X,    CH_Y,    CH_Z,    CH_AGRV, CH_7,    CH_DLR,  CH_CIRC, KC_DEL
 };
