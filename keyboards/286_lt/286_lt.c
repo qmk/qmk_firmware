@@ -18,12 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "286_lt.h"
 #include "print.h"
 #include "debug.h"
-//#include "sn74hc595_spi.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    dprintf("col|row: %u|%u, kc: 0x%04X, pressed: %b, time: %u, interrupt: %b, count: %u\n", record->event.key.col, record->event.key.row, keycode, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
     writePinLow(C13);
     return true;
@@ -31,8 +30,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
-    debug_enable = true;
-    debug_matrix = true;
+    // debug_enable = true;
+    // debug_matrix = true;
     // debug_keyboard=true;
     // debug_mouse=true;
     setPinOutput(C13);

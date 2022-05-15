@@ -1,6 +1,6 @@
 {
     "keyboard_name": "80-286_lt",
-    "manufacturer": "sunny",
+    "manufacturer": "sunny, yesterday my life was filled with rain",
     "maintainer": "bimokn97",
     "url": "",
 
@@ -11,9 +11,9 @@
     "features": {
         "audio": false,
         "backlight": false,
-        "bootmagic": false,
-        "command": true,
-        "console": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

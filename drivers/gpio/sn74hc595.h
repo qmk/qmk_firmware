@@ -43,9 +43,9 @@
 */
 #ifndef SN74HC595_SPI_CLOCK_DIVISOR
 #    ifdef __AVR__
-#        define SN74HC595_SPI_CLOCK_DIVISOR 4
-#    else
 #        define SN74HC595_SPI_CLOCK_DIVISOR 8
+#    else
+#        define SN74HC595_SPI_CLOCK_DIVISOR 64
 #    endif
 #endif
 
@@ -69,7 +69,7 @@
     if you just using 1 chip, you can leave it
 */
 #ifndef SN74HC595_LENGTH
-#   define SN74HC595_LENGTH 1
+#    define SN74HC595_LENGTH 1
 #endif
 
 /*

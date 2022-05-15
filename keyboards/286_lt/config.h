@@ -29,7 +29,8 @@
 #define DEBOUNCE 5
 
 /* indicator leds */
-#define LED_CAPS_LOCK_PIN B10
+#define LED_NUM_LOCK_PIN B10
+#define LED_CAPS_LOCK_PIN B2
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -43,6 +44,16 @@
 
 #define SN74HC595_SPI_SLAVE_SELECT_PIN A3
 #define SN74HC595_LENGTH 2
+#define SN74HC595_SPI_CLOCK_DIVISOR 8
+
+#define EEPROM_SPI
+#define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
+#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 1
+#define EXTERNAL_EEPROM_BYTE_COUNT 1028
+#define EXTERNAL_EEPROM_PAGE_SIZE 256
+#define EXTERNAL_EEPROM_ADDRESS_SIZE 1
+
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -50,7 +61,8 @@
 
 /* disable debug print */
 //#define NO_DEBUG
-#define DEBUG_MATRIX_SCAN_RATE
+//#define DEBUG_MATRIX_SCAN_RATE
+//#define SN74HC595_DEBUG
 
 /* disable print */
 //#define NO_PRINT

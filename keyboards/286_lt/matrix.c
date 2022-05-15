@@ -183,7 +183,6 @@ void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col,
             // Pin HI, clear col bit
             current_matrix[row_index] &= ~row_shifter;
         }
-        //uprintf("scannning col|row: %d|%d \n", current_col, row_index);
     }
 
     // Unselect col
@@ -214,8 +213,6 @@ void matrix_init(void) {
 
     // This *must* be called for correct keyboard behavior
     matrix_init_quantum();
-
-    printf("matrix init");
 }
 
 uint8_t matrix_scan(void) {

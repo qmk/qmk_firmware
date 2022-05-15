@@ -3,10 +3,11 @@
 ![286_lt](imgur.com image replace me!)
 
 *A short description of the keyboard/project*
-
-* Keyboard Maintainer: [sny](https://github.com/bimokn97)
+ 
+* Keyboard Maintainer: [bimokn97](https://github.com/bimokn97)
 * Hardware Supported: *The PCBs, controllers supported*
 * Hardware Availability: *Links to where you can find this hardware*
+
 
 Make example for this keyboard (after setting up your build environment):
 

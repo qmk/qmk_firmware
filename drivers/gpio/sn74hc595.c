@@ -58,11 +58,17 @@ void sn74hc595_setPin(pin_t pin, bool set) {
     writePinHigh(SN74HC595_SPI_SLAVE_SELECT_PIN);
     spi_stop();
 
-#ifdef CONSOLE_ENABLE
+// pinstates debug
+#if defined(CONSOLE_ENABLE) && defined(SN74HC595_DEBUG)
     if (timer_elapsed32(timer_now) >= 1000) {
-        uprintf("PinStates: ");
+        uprintf("PinStates HEX: ");
         for (uint8_t x = 0; x < SN74HC595_LENGTH; x++) {
             uprintf("PS %i:[0x%02x]|", x, pinStates[x]);
+        }
+        uprintf("PinStates BIN: ");
+        for (uint8_t x = 0; x < SN74HC595_LENGTH; x++) {
+            uprintf("|");
+            print_bin_reverse8(pinStates[x]);
         }
         uprintf("\n");
         timer_now = timer_read32();
