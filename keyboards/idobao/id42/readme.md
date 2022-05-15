@@ -4,9 +4,17 @@
 
 Sized just right at 40% — with a compact configuration the IDOBAO Abacus ID42 makes a great fit for any desk.
 
-* Keyboard Maintainer: [TW59420](https://github.com/tw59420)
+## 42 Keys
+
+* Keyboard Maintainer: [Vino Rodrigues](https://github.com/vinorodrigues)
 * Hardware Supported: **IDOBAO Abacus ID42**
-* Hardware Availability: [IDOBAO Website](https://idobao.net/products/idobao-id42-40-hot-swappable-mechanical-keyboard-kit)
+* Hardware Availability: [IDOBAO.net](https://idobao.net/search?type=product&q=ID42*)
+
+## Layout
+
+![](https://cdn.jsdelivr.net/gh/Idobao/idobao.github.io/kle/idobao-id42.png)
+
+## Compiling and Flashing
 
 Make example for this keyboard (after setting up your build environment):
 
