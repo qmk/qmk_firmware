@@ -1,6 +1,6 @@
 # The rev41lp keyboard
 
-![The rev41lp keyboard by cyril279](https://imgur.com/nZNHSaW.jpg)
+![The rev41lp keyboard by cyril279](https://imgur.com/nZNHSaWh.jpg)
 
 Inspired by the REVIUNG series by Gtips, the rev41lp is 41-key column staggered keyboard designed for use with low-profile Kailh Choc (pg1350) switches.
 
