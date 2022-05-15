@@ -18,4 +18,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-Layouts = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_iso_split_bs_rshift 60_tsangan_hhkb
+Layouts = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_tsangan_hhkb

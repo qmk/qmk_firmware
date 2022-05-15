@@ -2,10 +2,16 @@
     "keyboard_name": "str.merro60",
     "url": "www.github.com/gaclee3b",
     "maintainer": "gaclee3b",
+    "layout_aliases": {
+        "LAYOUT_default": "LAYOUT_all",
+        "LAYOUT_hhkb": "LAYOUT_60_hhkb",
+        "LAYOUT_iso": "LAYOUT_60_iso_split_bs_rshift",
+        "LAYOUT_tsangan": "LAYOUT_60_tsangan_hhkb"
+    },
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_all": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
@@ -78,7 +84,7 @@
                 {"x": 13.75,  "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
@@ -150,7 +156,7 @@
                 {"x": 13.75,  "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_hhkb": {
+        "LAYOUT_60_hhkb": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
@@ -218,7 +224,7 @@
                 {"x": 12.5,   "y": 4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_60_iso_split_bs_rshift": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
@@ -290,7 +296,7 @@
                 {"x": 13.75,  "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_tsangan": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"x": 0,      "y": 0},
                 {"x": 1,      "y": 0},
@@ -362,4 +368,3 @@
         }
     }
 }
-
