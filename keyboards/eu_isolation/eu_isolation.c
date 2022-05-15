@@ -13,4 +13,4 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */ 
 
-#include "eu_isolation.c"
+#include "eu_isolation.h"

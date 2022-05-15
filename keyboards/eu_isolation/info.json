@@ -6,7 +6,6 @@
     "height": 4,
     "layouts": {
         "LAYOUT_euiso_ortho": {
-            "key_count": 52,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -64,7 +63,6 @@
         },
 
         "LAYOUT_euiso_mit": {
-            "key_count": 51,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -121,7 +119,6 @@
         },
 
         "LAYOUT_euiso_bigspace": {
-            "key_count": 45,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
