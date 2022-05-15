@@ -1,4 +1,4 @@
-/* Copyright 2020 Gondolindrim
+/* Copyright 2022 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,17 @@
 
 #include "fmh.h"
 
-
 void board_init(void) {
-    setPinInput(B6);
+    // B9 is configured as I2C1_SDA_PIN in the board file; that function must be
+    // disabled before using B7 as I2C1_SDA.
+    setPinInputHigh(B9);
+}
+
+void i2c_init(void) {
+    setPinInput(B6); // Try releasing special pins for a short time
     setPinInput(B7);
+    wait_ms(10); // Wait for the release to happen
+
+    palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_FLOATING); // Set B6 to I2C function
+    palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_FLOATING); // Set B7 to I2C function
 }
