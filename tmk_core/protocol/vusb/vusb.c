@@ -489,7 +489,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x81, 0x03, //     Input (Constant)
 #    endif
 
-    // X/Y position (2 bytes)
+    // X/Y position (2 or 4 bytes)
     0x05, 0x01, //     Usage Page (Generic Desktop)
     0x09, 0x30, //     Usage (X)
     0x09, 0x31, //     Usage (Y)
