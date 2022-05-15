@@ -79,9 +79,9 @@
 #    define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + 1)
 #endif
 
-// Sets the delay VIA macro send . Use TAP_CODE_DELAY if undefined this .
-#ifndef VIA_MACRO_DELAY
-#    define VIA_MACRO_DELAY TAP_CODE_DELAY
+// Sets the delay between sending macro keycodes . Use TAP_CODE_DELAY if undefined this .
+#ifndef DYNAMIC_KEYMAP_MACRO_DELAY
+#    define DYNAMIC_KEYMAP_MACRO_DELAY TAP_CODE_DELAY
 #endif
 
 uint8_t dynamic_keymap_get_layer_count(void) {
