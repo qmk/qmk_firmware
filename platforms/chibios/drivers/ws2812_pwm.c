@@ -33,9 +33,15 @@
  * figure out if we are using a 32bit timer. This is needed to setup the DMA controller correctly.
  * Ignore STM32H7XX and STM32U5XX as they are not supported by ChibiOS.
  */
-#if (WS2812_PWM_DRIVER == PWMD2) && (!defined(STM32F1XX) || !defined(STM32L0XX) || !defined(STM32L1XX))
-#    define WS2812_PWM_TIMER_32BIT
-#elif (WS2812_PWM_DRIVER == PWMD5) && (!defined(STM32F1XX))
+#if !defined(STM32F1XX) && !defined(STM32L0XX) && !defined(STM32L1XX)
+#    define WS2812_PWM_TIMER_32BIT_PWMD2 1
+#endif
+#if !defined(STM32F1XX)
+#    define WS2812_PWM_TIMER_32BIT_PWMD5 1
+#endif
+#define WS2812_CONCAT1(a, b) a##b
+#define WS2812_CONCAT(a, b) WS2812_CONCAT1(a, b)
+#if WS2812_CONCAT(WS2812_PWM_TIMER_32BIT_, WS2812_PWM_DRIVER)
 #    define WS2812_PWM_TIMER_32BIT
 #endif
 
