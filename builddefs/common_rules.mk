@@ -82,8 +82,8 @@ endif
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),CHIBIOS)
-        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+    ifeq ($(PLATFORM),ARM_ATSAM)
+        $(info Enabling LTO on arm_atsam-targeting boards is known to have a high likelihood of failure.)
         $(info If unsure, set LTO_ENABLE = no.)
     endif
     CDEFS += -flto
