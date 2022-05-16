@@ -108,8 +108,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * RGB Stuff
  */
 
-user_config_t user_config;
-
 #define ID63_CAPS_LOCK_KEY_INDEX 34  // position of Caps Lock key
 
 #define ID63_CAPS_LOCK_MAX_BRIGHTNESS 0xFF
@@ -123,6 +121,8 @@ user_config_t user_config;
     #undef ID63_CAPS_LOCK_VAL_STEP
     #define ID63_CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
 #endif
+
+user_config_t user_config;
 
 void id63_update_rgb_mode(void) {
     uint8_t flags = LED_FLAG_ALL;
@@ -242,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // let this one pass on
 
-        #endif
+        #endif  // RGB_MATRIX_ENABLE
 
         // print firmware version
         case KB_VRSN:
