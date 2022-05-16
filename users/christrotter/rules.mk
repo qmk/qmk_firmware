@@ -1,1 +1,2 @@
-SRC += 5x6.c
+SRC += christrotter.c
+CONSOLE_ENABLE			= yes
