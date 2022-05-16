@@ -28,7 +28,8 @@
         "device_version": "1.0.0"
     },
     "layout_aliases": {
-        "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi"
+        "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi",
+        "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso"
     },
     "layouts": {
         "LAYOUT_tkl_nofrow_ansi": {
@@ -106,7 +107,7 @@
                 { "matrix": [1, 7], "x": 17.5, "y": 4 }
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_tkl_nofrow_iso": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
