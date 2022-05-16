@@ -29,3 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_EFFECT_CHRISTMAS
 
 #undef RGBLIGHT_EFFECT_ALTERNATING
+
+
+
+#define MOUSEKEY_DELAY 20
+#define MOUSEKEY_INTERVAL 20
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_TIME_TO_MAX 40
+#define MOUSEKEY_WHEEL_MAX_SPEED 10

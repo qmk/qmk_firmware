@@ -4,12 +4,14 @@
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
-#define _ADJUST 3
+#define _MOUSE 3
+#define _ADJUST 4
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
+  MOUSE,
   ADJUST,
 };
 
@@ -53,7 +55,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_MUTE, KC_MSTP, KC_MPLY, KC_VOLD,  KC_BRID, _______, _______,          _______, _______, _______,  RGB_HUD, RGB_SAD, RGB_VAD, _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, TO(_QWERTY), _______,               _______, TO(_LOWER), _______
+                                    _______, TO(_QWERTY), _______,               _______, TO(_MOUSE), _______
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+
+  [_MOUSE] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX, XXXXXXX, XXXXXXX, KC_ACL0, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX, XXXXXXX, XXXXXXX, KC_ACL1, XXXXXXX, XXXXXXX,                            KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, XXXXXXX,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX, XXXXXXX, XXXXXXX, KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, XXXXXXX, XXXXXXX,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    XXXXXXX, TO(_QWERTY), KC_BTN2,              KC_BTN1, TO(_LOWER), XXXXXXX
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -72,14 +88,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   // If console is enabled, it will print the matrix position and status of each key pressed
-// #ifdef CONSOLE_ENABLE
-//   uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-// #endif
-//   return true;
-// }
-
 //Lights https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
 const rgblight_segment_t PROGMEM QWERTY_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {24, 4, HSV_GREEN},
@@ -96,6 +104,11 @@ const rgblight_segment_t PROGMEM RAISE_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {58, 4, HSV_MAGENTA}
 );
 
+const rgblight_segment_t PROGMEM MOUSE_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {24, 4, HSV_YELLOW},
+    {58, 4, HSV_YELLOW}
+);
+
 const rgblight_segment_t PROGMEM ADJUST_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {24, 4, HSV_RED},
     {58, 4, HSV_RED}
@@ -106,6 +119,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     QWERTY_Layer,
     LOWER_Layer,
     RAISE_Layer,
+    MOUSE_Layer,
     ADJUST_Layer
 );
 
@@ -117,13 +131,16 @@ void keyboard_post_init_user(void) {
 // Enable and disabling lighting layers
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     // Both layers will light up if both kb layers are active
-    rgblight_set_layer_state(0, layer_state_cmp(state, 0));
+    rgblight_set_layer_state(0, layer_state_cmp(state, _QWERTY));
+
     return state;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
-    rgblight_set_layer_state(3, layer_state_cmp(state, 3));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _LOWER));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _RAISE));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _MOUSE));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _ADJUST));
+
     return state;
 }
