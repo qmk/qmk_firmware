@@ -116,13 +116,29 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
 #        error Cirque Pinnacle with relative mode not implemented yet.
 #    endif
 
+    if (!touchData.valid) {
+        return mouse_report;
+    }
+
 #    if CONSOLE_ENABLE
     if (debug_mouse && touchData.touchDown) {
         dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
     }
 #    endif
 
-    if (touchData.valid && touchData.touchDown != is_z_down) {
+    // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
+
+    if (x && y && touchData.xValue && touchData.yValue) {
+        report_x = (int8_t)(touchData.xValue - x);
+        report_y = (int8_t)(touchData.yValue - y);
+    }
+    x              = touchData.xValue;
+    y              = touchData.yValue;
+    mouse_report.x = report_x;
+    mouse_report.y = report_y;
+
+    if (touchData.touchDown != is_z_down) {
         is_z_down = touchData.touchDown;
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
@@ -142,22 +158,6 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
         mouse_timer = 0;
     }
-
-    if (!touchData.valid) {
-        return mouse_report;
-    }
-
-    // Scale coordinates to arbitrary X, Y resolution
-    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
-
-    if (x && y && touchData.xValue && touchData.yValue) {
-        report_x = (int8_t)(touchData.xValue - x);
-        report_y = (int8_t)(touchData.yValue - y);
-    }
-    x              = touchData.xValue;
-    y              = touchData.yValue;
-    mouse_report.x = report_x;
-    mouse_report.y = report_y;
 
     return mouse_report;
 }
