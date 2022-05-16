@@ -122,7 +122,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     }
 #    endif
 
-    if (touchData.touchDown != is_z_down) {
+    if (touchData.valid && touchData.touchDown != is_z_down) {
         is_z_down = touchData.touchDown;
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
@@ -141,6 +141,10 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     }
     if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
         mouse_timer = 0;
+    }
+
+    if (!touchData.valid) {
+        return mouse_report;
     }
 
     // Scale coordinates to arbitrary X, Y resolution

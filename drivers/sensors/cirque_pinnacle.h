@@ -5,25 +5,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// Convenient way to store and access measurements
-typedef struct {
-    uint16_t xValue;
-    uint16_t yValue;
-    uint16_t zValue;
-    uint8_t  buttonFlags;
-    bool     touchDown;
-    uint8_t  xDelta;
-    uint8_t  yDelta;
-    uint8_t  wheelCount;
-    uint8_t  buttons;
-} pinnacle_data_t;
-
-void            cirque_pinnacle_init(void);
-pinnacle_data_t cirque_pinnacle_read_data(void);
-void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
-uint16_t        cirque_pinnacle_get_scale(void);
-void            cirque_pinnacle_set_scale(uint16_t scale);
-
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20
 #endif
@@ -85,3 +66,26 @@ void            cirque_pinnacle_set_scale(uint16_t scale);
 #        endif
 #    endif
 #endif
+
+// Convenient way to store and access measurements
+typedef struct {
+    bool valid; // true if valid data was read, false if no data was ready
+#if CIRQUE_PINNACLE_POSITION_MODE
+    uint16_t xValue;
+    uint16_t yValue;
+    uint16_t zValue;
+    uint8_t  buttonFlags;
+    bool     touchDown;
+#else
+    uint8_t xDelta;
+    uint8_t yDelta;
+    uint8_t wheelCount;
+    uint8_t buttons;
+#endif
+} pinnacle_data_t;
+
+void            cirque_pinnacle_init(void);
+pinnacle_data_t cirque_pinnacle_read_data(void);
+void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
+uint16_t        cirque_pinnacle_get_scale(void);
+void            cirque_pinnacle_set_scale(uint16_t scale);
