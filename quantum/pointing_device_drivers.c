@@ -112,6 +112,10 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     mouse_xy_report_t report_x = 0, report_y = 0;
     static bool       is_z_down = false;
 
+#    if !CIRQUE_PINNACLE_POSITION_MODE
+#        error Cirque Pinnacle with relative mode not implemented yet.
+#    endif
+
 #    if CONSOLE_ENABLE
     if (debug_mouse && touchData.touchDown) {
         dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
