@@ -8,7 +8,7 @@ from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
-from qmk.c_parse import find_layouts, parse_config_h_file
+from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps, locate_keymap
@@ -75,6 +75,9 @@ def info_json(keyboard):
 
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
+
+    # Merge in data from <keyboard.c>
+    info_data = _extract_led_config(info_data, str(keyboard))
 
     # Validate against the jsonschema
     try:
@@ -586,6 +589,46 @@ def _extract_rules_mk(info_data, rules):
 
     # Merge in config values that can't be easily mapped
     _extract_features(info_data, rules)
+
+    return info_data
+
+
+def find_keyboard_c(keyboard):
+    """Find all <keyboard>.c files
+    """
+    keyboard = Path(keyboard)
+    current_path = Path('keyboards/')
+
+    files = []
+    for directory in keyboard.parts:
+        current_path = current_path / directory
+        keyboard_c_path = current_path / f'{directory}.c'
+        if keyboard_c_path.exists():
+            files.append(keyboard_c_path)
+
+    return files
+
+
+def _extract_led_config(info_data, keyboard):
+    """Scan all <keyboard>.c files for led config
+    """
+    cols = info_data['matrix_size']['cols']
+    rows = info_data['matrix_size']['rows']
+
+    # Assume what feature owns g_led_config
+    feature = "rgb_matrix"
+    if info_data.get("features", {}).get("led_matrix", False):
+        feature = "led_matrix"
+
+    # Process
+    for file in find_keyboard_c(keyboard):
+        try:
+            ret = find_led_config(file, cols, rows)
+            if ret:
+                info_data[feature] = info_data.get(feature, {})
+                info_data[feature]["layout"] = ret
+        except Exception as e:
+            _log_warning(info_data, f'led_config: {file.name}: {e}')
 
     return info_data
 
