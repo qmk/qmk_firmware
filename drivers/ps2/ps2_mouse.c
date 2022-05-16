@@ -53,6 +53,7 @@ void ps2_mouse_init(void) {
     ps2_mouse_set_remote_mode();
 #else
     ps2_mouse_enable_data_reporting();
+    ps2_mouse_set_stream_mode();
 #endif
 
 #ifdef PS2_MOUSE_ENABLE_SCROLLING
