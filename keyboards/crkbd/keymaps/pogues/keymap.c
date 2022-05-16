@@ -75,7 +75,6 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_DOT , KC_COLN}, // Shift . is :
     {KC_COMM, KC_SCLN}, // Shift , is ;
     {KC_SLSH, KC_QUOT}, // Shift / is '
-    {KC_2, KC_DQUO},    // need shift 2 to be " for win+shift+2 to work in dwm
     {LSYM_BSP, KC_DEL}  // shift backspace is delete
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
