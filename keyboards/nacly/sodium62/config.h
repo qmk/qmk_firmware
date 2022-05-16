@@ -48,6 +48,7 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+#define OLED_BRIGHTNESS 128
 
 /* ws2812 RGB LED */
 //#define RGB_DI_PIN B1
