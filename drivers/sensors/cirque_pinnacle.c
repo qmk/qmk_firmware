@@ -113,16 +113,14 @@ void cirque_pinnacle_clear_flags() {
 // Enables/Disables the feed
 void cirque_pinnacle_enable_feed(bool feedEnable) {
     uint8_t temp;
-
     RAP_ReadBytes(FEEDCONFIG_1, &temp, 1); // Store contents of FeedConfig1 register
 
     if (feedEnable) {
         temp |= 0x01; // Set Feed Enable bit
-        RAP_Write(0x04, temp);
     } else {
         temp &= ~0x01; // Clear Feed Enable bit
-        RAP_Write(0x04, temp);
     }
+    RAP_Write(FEEDCONFIG_1, temp);
 }
 
 /*  ERA (Extended Register Access) Functions  */
