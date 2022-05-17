@@ -46,21 +46,10 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// RGB Matrix
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
 #define RGB_DI_PIN C2 // pin the DI on the ws2812 is hooked-up to
-#define RGBLED_NUM 51 // number of LEDs
 
 #ifdef RGB_MATRIX_ENABLE
+#define DRIVER_LED_TOTAL 51
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
