@@ -170,7 +170,7 @@ Now that your QMK build environment is set up, you can build a firmware for your
 
 For example, to build a firmware for a Clueboard 66% you would use:
 
-    qmk compile -kb clueboard/66/rev3 -km default
+    qmk compile -kb clueboard/66/rev4 -km default
 
 When it is done you should have a lot of output that ends similar to this:
 
