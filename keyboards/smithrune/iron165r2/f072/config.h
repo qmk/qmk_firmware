@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 5
 #define BACKLIGHT_ON_STATE 1
-#define LED_CAPS_LOCK_PIN A4
+
 #define RGB_DI_PIN B15
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
