@@ -16,3 +16,4 @@ LTO_ENABLE = no
 ENCODER_ENABLE = no
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRU
+DEFAULT_FOLDER = smithrune/iron165r2/f411

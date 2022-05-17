@@ -34,8 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN A4
-
 #define DEBOUNCE 5
 
 #define LOCKING_SUPPORT_ENABLE
@@ -45,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LINE_RGBS
 //#define RUNE_RGBS
 #define LUKE_RGBS
+#define RGBLED_NUM 22
 
 #define RGBLIGHT_LED_MAP {17 , 0  , 1  , 2  , 3  , 18 , 20 , 16 , 4  , 5  , 6  , 7  , 8  , 9  , 10 , 11 , 19 , 12 , 13 , 14 , 15 , 21}
 //                        D18, D19, D20, D21, D22, D23, D24, D25, D26, D27, D28, D29, D60, D61, D62, D63, D64, D65, D66, D67, D68, D69}

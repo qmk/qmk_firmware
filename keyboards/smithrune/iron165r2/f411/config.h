@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define STM32_HSECLK 8000000
 
+#define LED_CAPS_LOCK_PIN A4
 #define RGB_DI_PIN B15
-#define RGBLED_NUM 22
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
