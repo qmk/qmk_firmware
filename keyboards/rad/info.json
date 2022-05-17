@@ -1,6 +1,6 @@
 {
   "keyboard_name": "rad",
-  "maintainer": "anubhavd7",
+  "manufacturer": "anubhavd7",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x6060",
