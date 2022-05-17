@@ -6,7 +6,10 @@
 #include <stdbool.h>
 
 #ifndef CIRQUE_PINNACLE_TIMEOUT
-#    define CIRQUE_PINNACLE_TIMEOUT 20
+#    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
+#endif
+#ifndef CIRQUE_PINNACLE_RESET_ON_INIT_WAIT
+#    define CIRQUE_PINNACLE_RESET_ON_INIT_WAIT 30 // milliseconds to wait after setting reset bit. Pinnacle needs 15-20ms to boot, increase if needed. Set to 0 to skip reset-on-init.
 #endif
 
 #define CIRQUE_PINNACLE_ABSOLUTE_MODE 1
@@ -34,9 +37,9 @@
 #ifndef CIRQUE_PINNACLE_Y_RANGE
 #    define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
 #endif
-#if !defined(POINTING_DEVICE_TASK_THROTTLE_MS) || POINTING_DEVICE_TASK_THROTTLE_MS < 10
+#if !defined(POINTING_DEVICE_TASK_THROTTLE_MS)
 #    undef POINTING_DEVICE_TASK_THROTTLE_MS
-#    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle at most will have fresh data every 10ms
+#    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle in normal operation produces data every 10ms. Advanced configuration for pen/stylus usage might require lower values.
 #endif
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
 #    include "i2c_master.h"
