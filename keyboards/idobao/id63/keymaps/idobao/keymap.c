@@ -13,7 +13,9 @@ typedef union {
     uint32_t raw;
     struct {
         bool rgb_disable_perkey:1;
+        #ifndef ID63_DISABLE_UNDERGLOW
         bool rgb_disable_underglow:1;
+        #endif
     };
 } user_config_t;
 
@@ -28,9 +30,15 @@ enum {
     KC_MCON = USER00,  // macOS Open Mission Control
     KC_LPAD,           // macOS Open Launchpad
     RGB_TPK,           // Toggle Per-Key
+    #ifndef ID63_DISABLE_UNDERGLOW
     RGB_TUG,           // Toggle Underglow
+    #endif
     KB_VRSN = USER09   // debug, type version
 };
+
+#ifdef ID63_DISABLE_UNDERGLOW
+    #define RGB_TUG _______
+#endif
 
 enum macos_consumer_usages {
     _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
@@ -127,15 +135,25 @@ user_config_t user_config;
 void id63_update_rgb_mode(void) {
     uint8_t flags = LED_FLAG_ALL;
 
-    if (user_config.rgb_disable_perkey  &&  user_config.rgb_disable_underglow) {
+    if (user_config.rgb_disable_perkey
+        #ifndef ID63_DISABLE_UNDERGLOW
+        && user_config.rgb_disable_underglow
+        #endif
+        ) {
         flags = 0;  // All OFF Condition
     } else {
         if (user_config.rgb_disable_perkey) {
+            #ifndef ID63_DISABLE_UNDERGLOW
             flags = LED_FLAG_UNDERGLOW | 0xF0;
+            #else
+            flags = 0xF0;
+            #endif
         }
+        #ifndef ID63_DISABLE_UNDERGLOW
         if (user_config.rgb_disable_underglow) {
             flags = LED_FLAG_MODIFIER | LED_FLAG_KEYLIGHT | LED_FLAG_INDICATOR | 0xF0;
         }
+        #endif
     }
 
     if (flags == 0) {
@@ -199,24 +217,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case RGB_TOG:
             /* roll through the LED modes
-             * |    Level   | Per-key | Underglow |
-             * |------------|---------|-----------|
-             * | 0 (defalt) |   on    |    on     |
-             * |     1      |   OFF   |    on     |
-             * |     2      |   on    |    OFF    |
-             * |     3      |   OFF   |    OFF    |
+             * |    Level    | Per-key | Underglow |
+             * |-------------|---------|-----------|
+             * | 0 (default) |   on    |    on     |
+             * |     1       |   OFF   |    on     |
+             * |     2       |   on    |    OFF    |
+             * |     3       |   OFF   |    OFF    |
+             *
+             * for ID63_DISABLE_UNDERGLOW
+             * |    Level    | Per-key |
+             * |-------------|---------|
+             * | 0 (default) |   on    |
+             * |     1       |   OFF   |
              */
             if (record->event.pressed) {
-                if ( (!user_config.rgb_disable_perkey) && (!user_config.rgb_disable_underglow) ) {
+                if ( (!user_config.rgb_disable_perkey)
+                    #ifndef ID63_DISABLE_UNDERGLOW
+                    && (!user_config.rgb_disable_underglow)
+                    #endif
+                    ) {
                     user_config.rgb_disable_perkey = 1;
+
+                #ifndef ID63_DISABLE_UNDERGLOW
+
                 } else if ( user_config.rgb_disable_perkey && (!user_config.rgb_disable_underglow) ) {
                     user_config.rgb_disable_perkey = 0;
                     user_config.rgb_disable_underglow = 1;
+
                 } else if ( (!user_config.rgb_disable_perkey) && user_config.rgb_disable_underglow ) {
                     user_config.rgb_disable_perkey = 1;
+
+                #endif
+
                 } else {
                     user_config.rgb_disable_perkey = 0;
+                    #ifndef ID63_DISABLE_UNDERGLOW
                     user_config.rgb_disable_underglow = 0;
+                    #endif
                 }
                 id63_update_rgb_mode();
             }
@@ -229,12 +266,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        #ifndef ID63_DISABLE_UNDERGLOW
         case RGB_TUG:
             if (record->event.pressed) {
                 user_config.rgb_disable_underglow ^= 1;
                 id63_update_rgb_mode();
             }
             return false;
+        #endif
 
         case EE_CLR:
             if (!record->event.pressed) {  // on release
