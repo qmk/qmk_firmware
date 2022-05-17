@@ -44,9 +44,6 @@
 
 #define FORCE_NKRO
 
-/* 将USB 轮询速率更改为 1000hz 并为精英游戏每次扫描使用更大的密钥*/
-#define USB_POLLING_INTERVAL_MS  2
-#define QMK_KEYS_PER_SCAN  12
 
 #define RGB_DI_PIN B1
 
