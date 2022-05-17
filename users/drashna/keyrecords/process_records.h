@@ -45,7 +45,9 @@ enum userspace_custom_keycodes {
     KC_AUSSIE,
     KC_ZALGO,
     KC_ACCEL,
-    AUTO_CTN,                                 // Toggle Autocorrect status
+    AUTOCORRECT_ON,
+    AUTOCORRECT_OFF,
+    AUTOCORRECT_TOGGLE,
     REBOOT,
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
@@ -130,7 +132,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
-
+#define AUTO_CTN AUTOCORRECT_TOGGLE
 /*
 Custom Keycodes for Diablo 3 layer
 But since TD() doesn't work when tap dance is disabled
