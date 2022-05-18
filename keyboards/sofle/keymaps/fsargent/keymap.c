@@ -19,11 +19,22 @@
 
 enum layers { BASE, WIN, GAME, SYM, NAV, WINNAV, SHFT};
 
+bool is_alt_tab_active = false;    // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;        // we will be using them soon.
+
 #include "encoder.c"
 #include "oled.c"
 #include "rgb.c"
 #include "combos.c"
 
+
+// The very important timer.
+void matrix_scan_user(void) {
+  if (is_alt_tab_active && timer_elapsed(alt_tab_timer) > 500) {
+    unregister_code(KC_LALT);
+    is_alt_tab_active = false;
+  }
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Tab size 4
@@ -36,10 +47,10 @@ MT(MOD_MEH,KC_ESC),	KC_A,		KC_S,		KC_D,		KC_F,		KC_G,							KC_H,		KC_J,		KC_K,	
 		MT(MOD_LCTL, KC_LBRC),	MT(MOD_LALT, KC_RBRC),	LT(SYM,KC_DEL), MO(NAV),	CMD_T(KC_BSPC),		KC_SPC,		LT(SYM, KC_ENT),	MT(MOD_RGUI, KC_DEL),	MT(MOD_RALT, KC_MINS), 	MT(MOD_RCTL, KC_EQL)
 	),
 	// [CMK] = LAYOUT(
-	// 	KC_GRV,				KC_1,	KC_2,	KC_3,	KC_4,	KC_5,									KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,
+	// 	KC_GRV,			KC_1,	KC_2,	KC_3,	KC_4,	KC_5,									KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,
 	// 	LT(SYM,KC_TAB),		KC_Q,	KC_W,	KC_F,	KC_P,	KC_B,									KC_J,		KC_L,		KC_U,		KC_Y,		KC_SCLN,	KC_BSLS,
 	// 	MT(MOD_MEH,KC_ESC),	KC_A,	KC_R,	KC_S,	KC_T,	KC_G,									KC_M,		KC_N,		KC_E,		KC_I,		KC_O,		KC_QUOT,
-	// 	KC_LSFT,			KC_Z,	KC_X,	KC_C,	KC_D,	KC_V,	_______,			TO(WIN),	KC_K,		KC_H,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
+	// 	KC_LSFT,	s	KC_Z,	KC_X,	KC_C,	KC_D,	KC_V,	_______,			TO(WIN),	KC_K,		KC_H,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
 	// 	_______,	_______,	_______,	_______,	_______,						_______,	_______,	_______,	_______,	_______
 	// ),
 	[WIN] = LAYOUT(
@@ -72,15 +83,15 @@ MT(MOD_MEH,KC_ESC),	KC_G,		KC_A,		KC_S,		KC_D,		KC_F,								KC_H,		KC_J,		KC_K,
 		_______,		KC_0,		KC_NO,		_______,	_______,							_______,_______,	_______,	_______,	_______
 	),
 	[NAV]=LAYOUT(
-		C(KC_GRV),	KC_NO,		G(KC_UP),	KC_PGUP,	A(KC_UP),	KC_NO,							KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
+		C(KC_GRV),	KC_NO,		G(KC_UP),	KC_PGUP,	A(KC_UP),	KC_NO,							KC_APP,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
 		C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,		A(KC_RGHT),	A(KC_DEL),						KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_LBRC,	KC_RBRC,
 		KC_MEH,		G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),						KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_LCBR,	KC_RCBR,
 		KC_LSFT,	KC_HOME,	G(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		_______,	KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_LT,		KC_GT,
 		_______,	_______,	_______,	_______,	_______,							KC_BTN1,KC_BTN2,	_______,	_______,	_______
 	),
 	[WINNAV]=LAYOUT(
-		C(KC_GRV),	TO(WIN),	C(KC_UP),	KC_PGUP,	A(KC_UP),	KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
-		A(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,		C(KC_RGHT),	C(KC_DEL),							KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_LBRC,	KC_RBRC,
+		C(KC_GRV),	TO(WIN),	C(KC_UP),	KC_PGUP,	A(KC_UP),	KC_NO,								KC_APP,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
+		ALT_TAB,	C(KC_BSPC),	C(KC_LEFT),	KC_UP,		C(KC_RGHT),	C(KC_DEL),							KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_LBRC,	KC_RBRC,
 		KC_LGUI,	KC_HOME,	KC_LEFT,	KC_DOWN,	KC_RGHT,	KC_END,								KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_LCBR,	KC_RCBR,
 		KC_LSFT,	KC_HOME,	C(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,	_______,			KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_LT,		KC_GT,
 		_______,	_______,	_______,	_______,	_______,								KC_BTN1,KC_BTN2,	_______,	_______,	_______

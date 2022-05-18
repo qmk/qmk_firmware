@@ -28,6 +28,21 @@ enum encoder_modes { ARROWS, TASKS, MUSIC, PAGES, WHEEL };
 enum custom_keycodes { ALT_TAB = SAFE_RANGE, ENCODER_MODE, SELECT_COPY };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+	switch (keycode) {               // This will do most of the grunt work with the keycodes.
+		case ALT_TAB:
+		if (record->event.pressed) {
+			if (!is_alt_tab_active) {
+			is_alt_tab_active = true;
+			register_code(KC_LALT);
+			}
+			alt_tab_timer = timer_read();
+			register_code(KC_TAB);
+		} else {
+			unregister_code(KC_TAB);
+		}
+		break;
+	}
+  return true;
     switch (keycode) {
         case ENCODER_MODE:
             if (record->event.pressed) {
