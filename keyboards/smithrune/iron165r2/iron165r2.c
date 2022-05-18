@@ -1,4 +1,4 @@
-/* Copyright 2021 Mach Keyboards
+/* Copyright 2020 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,30 +13,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "mach3.h"
 
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-  // Key Matrix to LED Index
-  {  0,  1,  2 },
-  {  5,  4,  3 },
-  {  6,  7,  8 },
-}, {
-  // LED Index to Physical Position
-  { 0,  0 },   { 112,  0 },   { 224,  0 },
-  { 0,  112 }, { 112,  112 }, { 224,  112 },
-  { 0,  224 }, { 112,  224 }, { 224,  224 },
-}, {
-  // LED Index to Flag
-  4, 4, 4,
-  4, 4, 4,
-  4, 4, 4
-} };
+#include "iron165r2.h"
+
+void board_init(void) {
+    setPinInput(B6);
+    setPinInput(B7);
+#if defined (LINE_RGBS)
+    rgblight_set_effect_range(0,16);
+#elif defined (RUNE_RGBS)
+    rgblight_set_effect_range(0,5);
+#elif defined (LUKE_RGBS)
+    rgblight_set_effect_range(0,2);
 #endif
+}
 
-void keyboard_pre_init_kb(void) {
-  setPinOutput(F5);
-  writePinHigh(F5);
-  
-  keyboard_pre_init_user();
+#define LED_PIN_ON_STATE 1
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+    return res;
 }
