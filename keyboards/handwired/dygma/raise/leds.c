@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef RGB_MATRIX_ENABLE
+
 #include "quantum.h"
 #include "i2c_master.h"
 #include "led_tables.h"
@@ -99,3 +101,5 @@ static void flush(void) {
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {.init = init, .flush = flush, .set_color = set_color, .set_color_all = set_color_all};
+
+#endif
