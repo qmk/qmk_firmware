@@ -49,12 +49,15 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
     // Leader key set-up
     if (record->event.pressed) {
         if (leading) {
-            if (timer_elapsed(leader_time) < LEADER_TIMEOUT) {
+#    ifndef LEADER_NO_TIMEOUT
+            if (timer_elapsed(leader_time) < LEADER_TIMEOUT)
+#    endif // LEADER_NO_TIMEOUT
+            {
 #    ifndef LEADER_KEY_STRICT_KEY_PROCESSING
                 if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
                     keycode = keycode & 0xFF;
                 }
-#    endif  // LEADER_KEY_STRICT_KEY_PROCESSING
+#    endif // LEADER_KEY_STRICT_KEY_PROCESSING
                 if (leader_sequence_size < (sizeof(leader_sequence) / sizeof(leader_sequence[0]))) {
                     leader_sequence[leader_sequence_size] = keycode;
                     leader_sequence_size++;

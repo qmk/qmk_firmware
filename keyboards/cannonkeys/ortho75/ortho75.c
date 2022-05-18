@@ -11,7 +11,8 @@ uint32_t layer_state_set_kb(uint32_t state) {
   return state;
 }
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
   uint16_t mapped_code = 0;
   if (index == 0) {
     if (clockwise) {
@@ -46,4 +47,5 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
     while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
     unregister_code(mapped_code);
   }
+  return true;
 }

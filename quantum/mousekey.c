@@ -108,7 +108,7 @@ static uint8_t wheel_unit(void) {
 }
 
 #    else /* #ifndef MK_COMBINED */
-#        ifndef MK_KINETIC_SPEED
+#        ifdef MK_KINETIC_SPEED
 
 /*
  * Kinetic movement  acceleration algorithm
@@ -485,4 +485,8 @@ static void mousekey_debug(void) {
     print("/");
     print_dec(mousekey_accel);
     print(")\n");
+}
+
+report_mouse_t mousekey_get_report(void) {
+    return mouse_report;
 }

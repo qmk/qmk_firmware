@@ -25,6 +25,11 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` target in QMK (recommended command line)
+  ```
+  dfu-programmer <mcu> erase --force
+  dfu-programmer <mcu> flash --force <filename>
+  dfu-programmer <mcu> reset
+  ```
 
 Flashing sequence:
 
@@ -48,7 +53,7 @@ QMK maintains [a fork of the LUFA DFU bootloader](https://github.com/qmk/lufa/tr
 //#define QMK_LED E6
 //#define QMK_SPEAKER C6
 ```
-Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
 
 The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
 
@@ -73,8 +78,11 @@ BOOTLOADER = caterina
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](https://www.nongnu.org/avrdude/) with the `avr109` programmer / `:avrdude` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
+* [avrdude](https://www.nongnu.org/avrdude/) with the `avr109` programmer / `:avrdude` target in QMK (recommended command line)
+  ```
+  avrdude -p <mcu> -c avr109 -P <serialport> -U flash:w:<filename>:i
+  ```
 
 Flashing sequence:
 
@@ -106,8 +114,11 @@ BOOTLOADER = halfkay
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) / `:teensy` target in QMK (recommended command line)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
+* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) / `:teensy` target in QMK (recommended command line)
+  ```
+  teensy_loader_cli -v -mmcu=<mcu> <filename>
+  ```
 
 Flashing sequence:
 
@@ -127,14 +138,17 @@ To ensure compatibility with the USBasploader bootloader, make sure this block i
 
 ```make
 # Bootloader selection
-BOOTLOADER = USBasp
+BOOTLOADER = usbasploader
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](https://www.nongnu.org/avrdude/) with the `usbasp` programmer / `:usbasp` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
+* [avrdude](https://www.nongnu.org/avrdude/) with the `usbasp` programmer / `:usbasp` target in QMK (recommended command line)
+  ```
+  avrdude -p <mcu> -c usbasp -U flash:w:<filename>:i
+  ```
 
 Flashing sequence:
 
@@ -153,14 +167,17 @@ To ensure compatibility with the bootloadHID bootloader, make sure this block is
 
 ```make
 # Bootloader selection
-BOOTLOADER = bootloadHID
+BOOTLOADER = bootloadhid
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadHID` target in QMK (recommended command line)
 * [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash)
+* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadhid` target in QMK (recommended command line)
+  ```
+  bootloadHID -r <filename>
+  ```
 
 Flashing sequence:
 
@@ -170,6 +187,52 @@ Flashing sequence:
 2. Wait for the OS to detect the device
 3. Flash a .hex file
 4. Reset the device into application mode (may be done automatically)
+
+### QMK HID
+
+QMK maintains [a fork of the LUFA HID bootloader](https://github.com/qmk/lufa/tree/master/Bootloaders/HID), which uses a USB HID Endpoint for flashing in the way that the PJRC's Teensy Loader flasher and HalfKay bootloader work. Additionally, it performs a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening.
+
+To ensure compatibility with the QMK HID bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = qmk-hid
+```
+
+To enable the additional features, add the following defines to your `config.h`:
+
+```c
+#define QMK_ESC_OUTPUT F1  // COL pin if COL2ROW
+#define QMK_ESC_INPUT  D5  // ROW pin if COL2ROW
+// Optional:
+//#define QMK_LED E6
+//#define QMK_SPEAKER C6
+```
+
+Currently we do not recommend making `QMK_ESC` the same key as the one designated for [Bootmagic Lite](feature_bootmagic.md), as holding it down will cause the MCU to loop back and forth between entering and exiting the bootloader.
+
+The manufacturer and product strings are automatically pulled from `config.h`, with " Bootloader" appended to the product string.
+
+To generate this bootloader, use the `bootloader` target, eg. `make planck/rev4:default:bootloader`. To generate a production-ready .hex file (combining QMK and the bootloader), use the `production` target, eg. `make planck/rev4:default:production`.
+
+Compatible flashers:
+
+* TBD
+  * Currently, you need to either use the [Python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python), or compile [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp), from the LUFA repo. Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`).
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Press the `RESET` keycode
+    * Press the `RESET` button on the PCB if available
+    * short RST to GND quickly
+2. Wait for the OS to detect the device
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
+
+### `make` Targets
+
+* `:qmk-hid`: Checks every 5 seconds until a DFU device is available, and then flashes the firmware.
 
 ## STM32/APM32 DFU
 
@@ -186,6 +249,9 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 0 -d 0483:DF11 -s 0x8000000:leave -D <filename>
+  ```
 
 Flashing sequence:
 
@@ -219,6 +285,9 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 2 -d 1EAF:0003 -D <filename>
+  ```
 
 Flashing sequence:
 
@@ -240,12 +309,41 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 0 -d 1C11:B007 -D <filename>
+  ```
 
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode (this may only enter the MCU into a "secure" bootloader mode; see https://github.com/qmk/qmk_firmware/issues/6112)
+    * Tap the `RESET` keycode
     * Press the `RESET` button on the PCB
 2. Wait for the OS to detect the device
 3. Flash a .bin file
 4. Reset the device into application mode (may be done automatically)
+
+## tinyuf2
+
+Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F401/F411 blackpill.
+
+The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
+
+To ensure compatibility with the tinyuf2 bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = tinyuf2
+```
+
+Compatible flashers:
+
+* Any application able to copy a file from one place to another, such as _macOS Finder_ or _Windows Explorer_.
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode
+    * Double-tap the `nRST` button on the PCB.
+2. Wait for the OS to detect the device
+3. Copy the .uf2 file to the new USB disk
+4. Wait for the keyboard to become available

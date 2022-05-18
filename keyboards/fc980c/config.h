@@ -15,17 +15,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4853
 #define PRODUCT_ID      0x980C
 #define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         Leopold FC980C with QMK
+#define MANUFACTURER    Hasu
+#define PRODUCT         FC980C
+
+/* Maximum dynamic keymap layers (constrained by EEPROM space) */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -75,8 +77,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // higher value means deeper actuation point, less sensitive
 // be careful and only make small adjustments (steps of 1 or 2).
@@ -84,5 +84,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // test all keys before further adjustment.
 // this should probably stay in the range +/-5.
 // #define ACTUATION_DEPTH_ADJUSTMENT 0
-
-#endif

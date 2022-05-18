@@ -2,8 +2,6 @@
     "keyboard_name": "Orbit-X", 
     "url": "", 
     "maintainer": "ai03", 
-    "width": 13.5, 
-    "height": 4.38, 
     "layouts": {
         "LAYOUT": {
             "layout": [

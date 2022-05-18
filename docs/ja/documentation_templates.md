@@ -1,8 +1,8 @@
 # ドキュメントテンプレート
 
 <!---
-  original document: 0.9.19:docs/documentation_templates.md
-  git diff 0.9.19 HEAD -- docs/documentation_templates.md | cat
+  original document: 0.13.15:docs/documentation_templates.md
+  git diff 0.13.15 HEAD -- docs/documentation_templates.md | cat
 -->
 
 このページでは、新しいキーマップやキーボードを QMK に提出する際に使うべきテンプレートをまとめています。

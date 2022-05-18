@@ -2,8 +2,6 @@
   "keyboard_name": "Disarray (Ortholinear)",
   "url": "https://sneakbox.com",
   "maintainer": "mujimanic",
-  "width": 16,
-  "height": 6,
   "layouts": {
       "LAYOUT_all": {
           "layout": [

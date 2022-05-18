@@ -2,13 +2,9 @@
   "keyboard_name": "smd_milk",
   "url": "",
   "maintainer": "TheRoyalSweatshirt",
-  "width": 1,
-  "height": 2,
   "layouts": {
     "LAYOUT": {
-      "key_count": 2,
       "layout": [ {"x": 0, "y": 0 }, {"x": 0, "y": 1 }]
     }
   }
 }
-
