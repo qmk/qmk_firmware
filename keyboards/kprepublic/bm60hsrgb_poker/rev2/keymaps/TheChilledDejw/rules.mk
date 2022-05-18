@@ -18,7 +18,7 @@ AUDIO_ENABLE = no           # Audio output
 LAYOUTS = 60_ansi
 LTO_ENABLE = yes
 VIA_ENABLE = yes
-#DEBOUNCE_TYPE = sym_defer_g Unused because of debounce system applied in config.h of system.
+#DEBOUNCE_TYPE = sym_defer_g # Unused because of debounce system applied in config.h of system.
 
 # RGB Matrix is required to support per-key LEDs connected to IS31FL3733.
 RGB_MATRIX_ENABLE = yes
