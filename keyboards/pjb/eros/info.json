@@ -2,8 +2,11 @@
     "keyboard_name": "PJB eros",
     "url": "https://github.com/602studios",
     "maintainer": "PJB",
+    "layout_aliases": {
+        "LAYOUT_all_f13": "LAYOUT_tkl_f13_ansi_split_bs_rshift"
+    },
     "layouts": {
-        "LAYOUT_all_f13": {
+        "LAYOUT_tkl_f13_ansi_split_bs_rshift": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},
