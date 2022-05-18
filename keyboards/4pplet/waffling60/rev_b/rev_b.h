@@ -16,9 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-// defines to set RGB-led behaviour. Off by default
-#define CAPS_LOCK_ENABLE false
-#define CAPS_LOCK_COLOR HSV_ORANGE
+#define CAPS_LOCK_ENABLE true
+//#define CAPS_LOCK_COLOR HSV_ORANGE
 
 #include "quantum.h"
 

@@ -2,8 +2,6 @@
     "keyboard_name": "duckyPad",
     "url": "https://github.com/dekuNukem/",
     "maintainer": "M4cs",
-    "width": 3,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

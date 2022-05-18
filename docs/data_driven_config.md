@@ -74,7 +74,7 @@ Whenever QMK generates a complete `info.json` it extracts information from `conf
 
 If you are not sure how to edit this file or are not comfortable with Python [open an issue](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=) or [join #cli on Discord](https://discord.gg/heQPAgy) and someone can help you with this part.
 
-### Add code to generate it
+### Add code to generate it :id=add-code-to-generate-it
 
 The final piece of the puzzle is providing your new option to the build system. This is done by generating two files:
 

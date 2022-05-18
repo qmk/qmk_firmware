@@ -43,8 +43,6 @@ enum custom_keycodes {
   ADJUST
 };
 
-#define KC_ KC_TRNS
-
 #define SE_YEN ALGR(SE_6) //isn't in the swedish_keymap.h
 #define KC_CATDEL LCTL(LALT(KC_DEL)) // Ctrl alt del
 #define KC_TSKMGR LCTL(S(KC_ESC)) // Ctrl shift esc

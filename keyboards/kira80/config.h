@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Lorenz Wellmer
+Copyright 2020 kb-elmo<mail@elmo.space>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

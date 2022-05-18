@@ -164,7 +164,7 @@ bool TOG_STATUS = false;
 int RGB_current_mode;
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
       tap_code(KC_VOLU);
@@ -178,6 +178,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_VOLD);
     }
   }
+    return true;
 }
 #endif
 
@@ -260,7 +261,7 @@ void matrix_init_user(void) {
 
 
 // OLED Driver Logic
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!has_usb())
@@ -323,11 +324,13 @@ static void render_status(void) {
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master())
     render_status();
   else
     render_logo();
+
+    return false;
 }
 
 #endif

@@ -1,6 +1,6 @@
-# exent
+# Exent
 
-65% custom keyboard with large bezels. 
+65% custom keyboard with large bezels.
 
 * Keyboard Maintainer: [mechmerlin](https://github.com/mechmerlin)
 * Hardware Supported: Exent PCB

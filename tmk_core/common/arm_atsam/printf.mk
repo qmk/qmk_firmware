@@ -1,1 +1,0 @@
-TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c

@@ -27,53 +27,53 @@
 
 // Shift / Enter setup
 #ifndef SFTENT_KEY
-#    define SFTENT_KEY KC_ENT
+#    define SFTENT_KEY KC_ENTER
 #endif
 
 #ifdef DISABLE_SPACE_CADET_MODIFIER
 #    ifndef LSPO_MOD
-#        define LSPO_MOD KC_TRNS
+#        define LSPO_MOD KC_TRANSPARENT
 #    endif
 #    ifndef RSPC_MOD
-#        define RSPC_MOD KC_TRNS
+#        define RSPC_MOD KC_TRANSPARENT
 #    endif
 #else
 #    ifndef LSPO_MOD
-#        define LSPO_MOD KC_LSFT
+#        define LSPO_MOD KC_LEFT_SHIFT
 #    endif
 #    ifndef RSPC_MOD
-#        define RSPC_MOD KC_RSFT
+#        define RSPC_MOD KC_RIGHT_SHIFT
 #    endif
 #endif
 // **********************************************************
 
 // Shift / paren setup
 #ifndef LSPO_KEYS
-#    define LSPO_KEYS KC_LSFT, LSPO_MOD, LSPO_KEY
+#    define LSPO_KEYS KC_LEFT_SHIFT, LSPO_MOD, LSPO_KEY
 #endif
 #ifndef RSPC_KEYS
-#    define RSPC_KEYS KC_RSFT, RSPC_MOD, RSPC_KEY
+#    define RSPC_KEYS KC_RIGHT_SHIFT, RSPC_MOD, RSPC_KEY
 #endif
 
 // Control / paren setup
 #ifndef LCPO_KEYS
-#    define LCPO_KEYS KC_LCTL, KC_LSFT, KC_9
+#    define LCPO_KEYS KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_9
 #endif
 #ifndef RCPC_KEYS
-#    define RCPC_KEYS KC_RCTL, KC_RSFT, KC_0
+#    define RCPC_KEYS KC_RIGHT_CTRL, KC_RIGHT_SHIFT, KC_0
 #endif
 
 // Alt / paren setup
 #ifndef LAPO_KEYS
-#    define LAPO_KEYS KC_LALT, KC_LSFT, KC_9
+#    define LAPO_KEYS KC_LEFT_ALT, KC_LEFT_SHIFT, KC_9
 #endif
 #ifndef RAPC_KEYS
-#    define RAPC_KEYS KC_RALT, KC_RSFT, KC_0
+#    define RAPC_KEYS KC_RIGHT_ALT, KC_RIGHT_SHIFT, KC_0
 #endif
 
 // Shift / Enter setup
 #ifndef SFTENT_KEYS
-#    define SFTENT_KEYS KC_RSFT, KC_TRNS, SFTENT_KEY
+#    define SFTENT_KEYS KC_RIGHT_SHIFT, KC_TRANSPARENT, SFTENT_KEY
 #endif
 
 static uint8_t  sc_last  = 0;

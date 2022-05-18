@@ -63,8 +63,8 @@
  */
 
 //! Value for field bcdUSB
-#define USB_V2_0 0x0200  //!< USB Specification version 2.00
-#define USB_V2_1 0x0201  //!< USB Specification version 2.01
+#define USB_V2_0 0x0200 //!< USB Specification version 2.00
+#define USB_V2_1 0x0201 //!< USB Specification version 2.01
 
 /*! \name Generic definitions (Class, subclass and protocol)
  */
@@ -85,26 +85,26 @@
 /**
  * \brief USB request data transfer direction (bmRequestType)
  */
-#define USB_REQ_DIR_OUT (0 << 7)   //!< Host to device
-#define USB_REQ_DIR_IN (1 << 7)    //!< Device to host
-#define USB_REQ_DIR_MASK (1 << 7)  //!< Mask
+#define USB_REQ_DIR_OUT (0 << 7)  //!< Host to device
+#define USB_REQ_DIR_IN (1 << 7)   //!< Device to host
+#define USB_REQ_DIR_MASK (1 << 7) //!< Mask
 
 /**
  * \brief USB request types (bmRequestType)
  */
-#define USB_REQ_TYPE_STANDARD (0 << 5)  //!< Standard request
-#define USB_REQ_TYPE_CLASS (1 << 5)     //!< Class-specific request
-#define USB_REQ_TYPE_VENDOR (2 << 5)    //!< Vendor-specific request
-#define USB_REQ_TYPE_MASK (3 << 5)      //!< Mask
+#define USB_REQ_TYPE_STANDARD (0 << 5) //!< Standard request
+#define USB_REQ_TYPE_CLASS (1 << 5)    //!< Class-specific request
+#define USB_REQ_TYPE_VENDOR (2 << 5)   //!< Vendor-specific request
+#define USB_REQ_TYPE_MASK (3 << 5)     //!< Mask
 
 /**
  * \brief USB recipient codes (bmRequestType)
  */
-#define USB_REQ_RECIP_DEVICE (0 << 0)     //!< Recipient device
-#define USB_REQ_RECIP_INTERFACE (1 << 0)  //!< Recipient interface
-#define USB_REQ_RECIP_ENDPOINT (2 << 0)   //!< Recipient endpoint
-#define USB_REQ_RECIP_OTHER (3 << 0)      //!< Recipient other
-#define USB_REQ_RECIP_MASK (0x1F)         //!< Mask
+#define USB_REQ_RECIP_DEVICE (0 << 0)    //!< Recipient device
+#define USB_REQ_RECIP_INTERFACE (1 << 0) //!< Recipient interface
+#define USB_REQ_RECIP_ENDPOINT (2 << 0)  //!< Recipient endpoint
+#define USB_REQ_RECIP_OTHER (3 << 0)     //!< Recipient other
+#define USB_REQ_RECIP_MASK (0x1F)        //!< Mask
 
 /**
  * \brief Standard USB requests (bRequest)
@@ -149,8 +149,8 @@ enum usb_endpoint_status {
  * \note valid for SetFeature request.
  */
 enum usb_device_feature {
-    USB_DEV_FEATURE_REMOTE_WAKEUP         = 1,  //!< Remote wakeup enabled
-    USB_DEV_FEATURE_TEST_MODE             = 2,  //!< USB test mode
+    USB_DEV_FEATURE_REMOTE_WAKEUP         = 1, //!< Remote wakeup enabled
+    USB_DEV_FEATURE_TEST_MODE             = 2, //!< USB test mode
     USB_DEV_FEATURE_OTG_B_HNP_ENABLE      = 3,
     USB_DEV_FEATURE_OTG_A_HNP_SUPPORT     = 4,
     USB_DEV_FEATURE_OTG_A_ALT_HNP_SUPPORT = 5
@@ -261,7 +261,7 @@ enum usb_ep_type {
  * \brief Standard USB language IDs for string descriptors
  */
 enum usb_langid {
-    USB_LANGID_EN_US = 0x0409,  //!< English (United States)
+    USB_LANGID_EN_US = 0x0409, //!< English (United States)
 };
 
 /**
@@ -396,14 +396,14 @@ typedef struct {
  * \brief Standard USB Interface Association Descriptor structure
  */
 typedef struct {
-    uint8_t bLength;            //!< size of this descriptor in bytes
-    uint8_t bDescriptorType;    //!< INTERFACE descriptor type
-    uint8_t bFirstInterface;    //!< Number of interface
-    uint8_t bInterfaceCount;    //!< value to select alternate setting
-    uint8_t bFunctionClass;     //!< Class code assigned by the USB
-    uint8_t bFunctionSubClass;  //!< Sub-class code assigned by the USB
-    uint8_t bFunctionProtocol;  //!< Protocol code assigned by the USB
-    uint8_t iFunction;          //!< Index of string descriptor
+    uint8_t bLength;           //!< size of this descriptor in bytes
+    uint8_t bDescriptorType;   //!< INTERFACE descriptor type
+    uint8_t bFirstInterface;   //!< Number of interface
+    uint8_t bInterfaceCount;   //!< value to select alternate setting
+    uint8_t bFunctionClass;    //!< Class code assigned by the USB
+    uint8_t bFunctionSubClass; //!< Sub-class code assigned by the USB
+    uint8_t bFunctionProtocol; //!< Protocol code assigned by the USB
+    uint8_t iFunction;         //!< Index of string descriptor
 } usb_association_desc_t;
 
 /**
@@ -420,25 +420,25 @@ typedef struct {
     uint8_t bMaxPower;
 } usb_conf_desc_t;
 
-#define USB_CONFIG_ATTR_MUST_SET (1 << 7)       //!< Must always be set
-#define USB_CONFIG_ATTR_BUS_POWERED (0 << 6)    //!< Bus-powered
-#define USB_CONFIG_ATTR_SELF_POWERED (1 << 6)   //!< Self-powered
-#define USB_CONFIG_ATTR_REMOTE_WAKEUP (1 << 5)  //!< remote wakeup supported
+#define USB_CONFIG_ATTR_MUST_SET (1 << 7)      //!< Must always be set
+#define USB_CONFIG_ATTR_BUS_POWERED (0 << 6)   //!< Bus-powered
+#define USB_CONFIG_ATTR_SELF_POWERED (1 << 6)  //!< Self-powered
+#define USB_CONFIG_ATTR_REMOTE_WAKEUP (1 << 5) //!< remote wakeup supported
 
-#define USB_CONFIG_MAX_POWER(ma) (((ma) + 1) / 2)  //!< Max power in mA
+#define USB_CONFIG_MAX_POWER(ma) (((ma) + 1) / 2) //!< Max power in mA
 
 /**
  * \brief Standard USB association descriptor structure
  */
 typedef struct {
-    uint8_t bLength;            //!< Size of this descriptor in bytes
-    uint8_t bDescriptorType;    //!< Interface descriptor type
-    uint8_t bFirstInterface;    //!< Number of interface
-    uint8_t bInterfaceCount;    //!< value to select alternate setting
-    uint8_t bFunctionClass;     //!< Class code assigned by the USB
-    uint8_t bFunctionSubClass;  //!< Sub-class code assigned by the USB
-    uint8_t bFunctionProtocol;  //!< Protocol code assigned by the USB
-    uint8_t iFunction;          //!< Index of string descriptor
+    uint8_t bLength;           //!< Size of this descriptor in bytes
+    uint8_t bDescriptorType;   //!< Interface descriptor type
+    uint8_t bFirstInterface;   //!< Number of interface
+    uint8_t bInterfaceCount;   //!< value to select alternate setting
+    uint8_t bFunctionClass;    //!< Class code assigned by the USB
+    uint8_t bFunctionSubClass; //!< Sub-class code assigned by the USB
+    uint8_t bFunctionProtocol; //!< Protocol code assigned by the USB
+    uint8_t iFunction;         //!< Index of string descriptor
 } usb_iad_desc_t;
 
 /**

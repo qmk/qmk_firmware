@@ -2,8 +2,6 @@
     "keyboard_name": "MJ65",
     "url": "",
     "maintainer": "melgeek001365",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

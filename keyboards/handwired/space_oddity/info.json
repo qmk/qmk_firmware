@@ -2,8 +2,6 @@
   "keyboard_name": "Space Oddity",
   "url": "",
   "maintainer": "qmk",
-  "width": 14,
-  "height": 6,
   "layouts": {
     "LAYOUT": {
       "layout": [

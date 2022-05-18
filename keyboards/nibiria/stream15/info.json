@@ -2,8 +2,6 @@
     "keyboard_name": "Stream15",
     "url": "",
     "maintainer": "qmk",
-    "width": 5,
-    "height": 3,
     "layouts": {
         "LAYOUT_ortho_3x5": {
             

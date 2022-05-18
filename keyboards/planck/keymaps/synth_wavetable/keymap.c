@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
@@ -308,7 +308,7 @@ uint16_t dac_value_generate(void) {
   return value;
 }
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (clockwise) {
     dac_morph = (dac_morph + 1) % AUDIO_DAC_WAVETABLE_CUSTOM_LENGTH;
   } else {
@@ -317,4 +317,5 @@ void encoder_update(bool clockwise) {
     else
       dac_morph--;
   }
+    return true;
 }

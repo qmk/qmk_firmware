@@ -19,3 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 15
+
+#define RGBLIGHT_ANIMATIONS
+
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL+5
