@@ -19,9 +19,7 @@
 #include "debug.h"
 #include "timer.h"
 
-#ifdef CONSOLE_ENABLE
 uint32_t timer_now;
-#endif
 
 spi_status_t res;
 uint8_t      pinStates[SN74HC595_LENGTH];
