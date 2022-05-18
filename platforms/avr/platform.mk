@@ -12,6 +12,11 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105523
+ifneq ($(findstring 12.,$(shell avr-gcc --version 2>/dev/null)),)
+COMPILEFLAGS += --param=min-pagesize=0
+endif
+
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
 COMPILEFLAGS += -ffunction-sections
