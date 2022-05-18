@@ -1,14 +1,14 @@
-# IDOBAO *(Denwir 60)* ID63
+# IDOBAO ID63
 
 ![IDOBAO ID63](https://idobao.github.io/assets/img/idobao-id63.png)
 
-*The ID63 Keyboard Kit brings a tailored gasket-mounted build to an ultra-compact 60% layout.*
+*The ID63 Keyboard Kit brings a tailored gasket-mounted build to an ultra-compact 60% layout with a unique ribbed side texture.*
 
 ## ANSI Support
 
 * Keyboard Maintainer: [Vino Rodrigues](https://github.com/vinorodrigues)
 * Hardware Supported: **IDOBAO ID63**
-* Hardware Availability: [Drop](https://drop.com/buy/idobao-id63-60-gasket-hot-swappable-aluminum-mechanical-keyboard-kit) & [IDOBAO.net](https://idobao.net/search?type=product&q=id63*)
+* Hardware Availability: [Drop.com](https://drop.com/buy/idobao-id63-60-gasket-hot-swappable-aluminum-mechanical-keyboard-kit) & [IDOBAO.net](https://idobao.net/search?type=product&q=id63*)
 
 ## Layout
 
