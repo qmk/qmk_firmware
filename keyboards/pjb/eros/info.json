@@ -1,7 +1,7 @@
 {
     "keyboard_name": "PJB eros",
     "url": "https://github.com/602studios",
-    "maintainer": "PJB",
+    "maintainer": "602studios",
     "layout_aliases": {
         "LAYOUT_all_f13": "LAYOUT_tkl_f13_ansi_split_bs_rshift",
         "LAYOUT_tkl_ansi_f13": "LAYOUT_tkl_f13_ansi",
