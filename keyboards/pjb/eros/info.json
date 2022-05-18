@@ -4,7 +4,8 @@
     "maintainer": "PJB",
     "layout_aliases": {
         "LAYOUT_all_f13": "LAYOUT_tkl_f13_ansi_split_bs_rshift",
-        "LAYOUT_tkl_ansi_f13": "LAYOUT_tkl_f13_ansi"
+        "LAYOUT_tkl_ansi_f13": "LAYOUT_tkl_f13_ansi",
+        "LAYOUT_tkl_ansi_f13_split_back": "LAYOUT_tkl_f13_ansi_split_bs"
     },
     "layouts": {
         "LAYOUT_tkl_f13_ansi_split_bs_rshift": {
@@ -301,7 +302,7 @@
                 {"x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_f13_split_back": {
+        "LAYOUT_tkl_f13_ansi_split_bs": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},
