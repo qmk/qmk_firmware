@@ -47,25 +47,13 @@ struct __attribute__((packed)) cRGB {
 #define RIGHT 1
 
 static cRGB led_state[2 * LEDS_PER_HAND];
-
-void set_all_leds_to(uint8_t r, uint8_t g, uint8_t b) {
-    uint8_t buf[] = {TWI_CMD_LED_SET_ALL_TO, b, g, r};
-    i2c_transmit(I2C_ADDR(LEFT), buf, sizeof(buf), I2C_TIMEOUT);
-    wait_us(10);
-    i2c_transmit(I2C_ADDR(RIGHT), buf, sizeof(buf), I2C_TIMEOUT);
-    wait_us(10);
-}
-
-void set_led_to(int led, uint8_t r, uint8_t g, uint8_t b) {
-    int     sled  = led_map[led];
-    uint8_t buf[] = {TWI_CMD_LED_SET_ONE_TO, sled & 0x1f, b, g, r};
-    int     hand  = (sled >= LEDS_PER_HAND) ? RIGHT : LEFT;
-    i2c_transmit(I2C_ADDR(hand), buf, sizeof(buf), I2C_TIMEOUT);
-    wait_us(10);
-}
+static bool needs_flush;
 
 static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
     int sled = led_map[index];
+    if (led_state[sled].r != r || led_state[sled].g != g || led_state[sled].b != b) {
+        needs_flush = true;
+    }
 
     led_state[sled].r = r;
     led_state[sled].g = g;
@@ -76,9 +64,16 @@ static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) set_color(i, r, g, b);
 }
 
-static void init(void) {}
+static void init(void) {
+    needs_flush = true;
+    set_color_all(0,0,0);
+}
 
 static void flush(void) {
+    if (!needs_flush) {
+        return;
+    }
+    needs_flush = false;
     uint8_t  command[1 + LED_BYTES_PER_BANK];
 
     // SUBTLE(ibash) alternate hands when transmitting led data, otherwise the
