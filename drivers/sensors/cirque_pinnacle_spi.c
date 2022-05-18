@@ -25,6 +25,7 @@ void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
                     dprintf("trying to fetch data at this point\n");
                 #endif
                 data[i] = spi_write(FILLER_BYTE); // write filler, receive data on the third filler send
+                dprintf("%x", data[i]);
             }
         } else {
 #ifdef CONSOLE_ENABLE

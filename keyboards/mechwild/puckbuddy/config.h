@@ -1,27 +1,13 @@
-/*
-Copyright 2021 Kyle McCreery
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+// Copyright 2022 Kyle McCreery (@kylemccreery)
+// SPDX-License-Identifier: GPL-2.0-or-later
+ 
 #pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x6969
+#define PRODUCT_ID      0x170F
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    MechWild
 #define PRODUCT         PuckBuddy
@@ -31,9 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 4
 
 /* Define custom font */
-#define OLED_FONT_H "keyboards/mechwild/puckbuddy/lib/puckbuddy.c"
-
-//#define EEPROM_I2C_24LC64
+#define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
 /*
  * Keyboard Matrix Assignments
@@ -139,6 +123,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
+
 /* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+//#define BOOTMAGIC_LITE_ROW 0
+//#define BOOTMAGIC_LITE_COLUMN 0
