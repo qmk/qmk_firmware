@@ -1,4 +1,5 @@
-/* Copyright 2022 takishim
+/* Copyright 2020 kkatano
+   Copyright 2022 takishim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -98,10 +99,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

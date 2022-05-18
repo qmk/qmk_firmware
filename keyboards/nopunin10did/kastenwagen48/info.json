@@ -2,9 +2,8 @@
     "keyboard_name": "Kastenwagen 48",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/kastenwagen48",
     "maintainer": "NoPunIn10Did",
-    "manufacturer": "NoPunIn10Did",
     "layouts": {
-        "LAYOUT_48": {
+        "LAYOUT_all": {
             "layout": [
                 {"x":0   ,  "y":0,    "label":"Esc"},
                 {"x":1   ,  "y":0,    "label":"Q"},

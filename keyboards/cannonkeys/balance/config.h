@@ -32,6 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B4, A15, A14, A0, F0 }
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_CAPS_LOCK_PIN B12
+#define LED_NUM_LOCK_PIN B14
+#define LED_PIN_ON_STATE 0
+
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -48,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B6 }
 
 #define ENCODER_RESOLUTION 2
-#define TAP_CODE_DELAY 25 
+#define TAP_CODE_DELAY 25
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
@@ -67,5 +71,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

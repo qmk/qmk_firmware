@@ -109,7 +109,7 @@ Before opening a pull request, you can preview your changes if you have set up t
 
 or if you only have Python 3 installed:
 
-    python3 -m http.server 8936
+    python3 -m http.server 8936 --directory docs
 
 and navigating to `http://localhost:8936/`.
 
@@ -165,4 +165,4 @@ To maintain a clear vision of how things are laid out in QMK we try to plan out 
 
 # What Does the Code of Conduct Mean for Me?
 
-Our [Code of Conduct](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.
+Our [Code of Conduct](https://qmk.fm/coc/) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.

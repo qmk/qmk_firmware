@@ -2,9 +2,8 @@
     "keyboard_name": "Kastenwagen 1840",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/kastenwagen1840",
     "maintainer": "NoPunIn10Did",
-    "manufacturer": "NoPunIn10Did",
     "layouts": {
-        "LAYOUT_1840": {
+        "LAYOUT_all": {
             "layout": [
                 {"x":0   ,  "y":0,    "label":"Esc"},
                 {"x":1   ,  "y":0,    "label":"Q"},

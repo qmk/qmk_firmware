@@ -72,7 +72,7 @@ static uint8_t static_effect_table[] = {
 #define _RGBM_TMP_STATIC(sym, msym) RGBLIGHT_MODE_##msym,
 #define _RGBM_TMP_DYNAMIC(sym, msym) RGBLIGHT_MODE_##msym,
 static uint8_t mode_base_table[] = {
-    0,  // RGBLIGHT_MODE_zero
+    0, // RGBLIGHT_MODE_zero
 #include "rgblight_modes.h"
 };
 
@@ -96,7 +96,9 @@ static uint8_t mode_base_table[] = {
 #    define RGBLIGHT_DEFAULT_SPD 0
 #endif
 
-static inline int is_static_effect(uint8_t mode) { return memchr(static_effect_table, mode, sizeof(static_effect_table)) != NULL; }
+static inline int is_static_effect(uint8_t mode) {
+    return memchr(static_effect_table, mode, sizeof(static_effect_table)) != NULL;
+}
 
 #ifdef RGBLIGHT_LED_MAP
 const uint8_t led_map[] PROGMEM = RGBLIGHT_LED_MAP;
@@ -143,7 +145,9 @@ void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.effect_num_leds  = num_leds;
 }
 
-__attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
+__attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) {
+    return hsv_to_rgb(hsv);
+}
 
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
     HSV hsv = {hue, sat, val};
@@ -151,7 +155,9 @@ void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
     setrgb(rgb.r, rgb.g, rgb.b, led1);
 }
 
-void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) { sethsv_raw(hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val, led1); }
+void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
+    sethsv_raw(hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val, led1);
+}
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
     led1->r = r;
@@ -191,7 +197,9 @@ void eeconfig_update_rgblight(uint32_t val) {
 #endif
 }
 
-void eeconfig_update_rgblight_current(void) { eeconfig_update_rgblight(rgblight_config.raw); }
+void eeconfig_update_rgblight_current(void) {
+    eeconfig_update_rgblight(rgblight_config.raw);
+}
 
 void eeconfig_update_rgblight_default(void) {
     rgblight_config.enable = 1;
@@ -238,9 +246,9 @@ void rgblight_init(void) {
     }
     rgblight_check_config();
 
-    eeconfig_debug_rgblight();  // display current eeprom values
+    eeconfig_debug_rgblight(); // display current eeprom values
 
-    rgblight_timer_init();  // setup the timer
+    rgblight_timer_init(); // setup the timer
 
     if (rgblight_config.enable) {
         rgblight_mode_noeeprom(rgblight_config.mode);
@@ -254,13 +262,15 @@ void rgblight_reload_from_eeprom(void) {
     rgblight_config.raw = eeconfig_read_rgblight();
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     rgblight_check_config();
-    eeconfig_debug_rgblight();  // display current eeprom values
+    eeconfig_debug_rgblight(); // display current eeprom values
     if (rgblight_config.enable) {
         rgblight_mode_noeeprom(rgblight_config.mode);
     }
 }
 
-uint32_t rgblight_read_dword(void) { return rgblight_config.raw; }
+uint32_t rgblight_read_dword(void) {
+    return rgblight_config.raw;
+}
 
 void rgblight_update_dword(uint32_t dword) {
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
@@ -296,8 +306,12 @@ void rgblight_step_helper(bool write_to_eeprom) {
     }
     rgblight_mode_eeprom_helper(mode, write_to_eeprom);
 }
-void rgblight_step_noeeprom(void) { rgblight_step_helper(false); }
-void rgblight_step(void) { rgblight_step_helper(true); }
+void rgblight_step_noeeprom(void) {
+    rgblight_step_helper(false);
+}
+void rgblight_step(void) {
+    rgblight_step_helper(true);
+}
 void rgblight_step_reverse_helper(bool write_to_eeprom) {
     uint8_t mode = 0;
     mode         = rgblight_config.mode - 1;
@@ -306,8 +320,12 @@ void rgblight_step_reverse_helper(bool write_to_eeprom) {
     }
     rgblight_mode_eeprom_helper(mode, write_to_eeprom);
 }
-void rgblight_step_reverse_noeeprom(void) { rgblight_step_reverse_helper(false); }
-void rgblight_step_reverse(void) { rgblight_step_reverse_helper(true); }
+void rgblight_step_reverse_noeeprom(void) {
+    rgblight_step_reverse_helper(false);
+}
+void rgblight_step_reverse(void) {
+    rgblight_step_reverse_helper(true);
+}
 
 uint8_t rgblight_get_mode(void) {
     if (!rgblight_config.enable) {
@@ -346,9 +364,13 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
 }
 
-void rgblight_mode(uint8_t mode) { rgblight_mode_eeprom_helper(mode, true); }
+void rgblight_mode(uint8_t mode) {
+    rgblight_mode_eeprom_helper(mode, true);
+}
 
-void rgblight_mode_noeeprom(uint8_t mode) { rgblight_mode_eeprom_helper(mode, false); }
+void rgblight_mode_noeeprom(uint8_t mode) {
+    rgblight_mode_eeprom_helper(mode, false);
+}
 
 void rgblight_toggle(void) {
     dprintf("rgblight toggle [EEPROM]: rgblight_config.enable = %u\n", !rgblight_config.enable);
@@ -401,64 +423,98 @@ void rgblight_disable_noeeprom(void) {
     rgblight_set();
 }
 
-bool rgblight_is_enabled(void) { return rgblight_config.enable; }
+bool rgblight_is_enabled(void) {
+    return rgblight_config.enable;
+}
 
 void rgblight_increase_hue_helper(bool write_to_eeprom) {
     uint8_t hue = rgblight_config.hue + RGBLIGHT_HUE_STEP;
     rgblight_sethsv_eeprom_helper(hue, rgblight_config.sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_increase_hue_noeeprom(void) { rgblight_increase_hue_helper(false); }
-void rgblight_increase_hue(void) { rgblight_increase_hue_helper(true); }
+void rgblight_increase_hue_noeeprom(void) {
+    rgblight_increase_hue_helper(false);
+}
+void rgblight_increase_hue(void) {
+    rgblight_increase_hue_helper(true);
+}
 void rgblight_decrease_hue_helper(bool write_to_eeprom) {
     uint8_t hue = rgblight_config.hue - RGBLIGHT_HUE_STEP;
     rgblight_sethsv_eeprom_helper(hue, rgblight_config.sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_decrease_hue_noeeprom(void) { rgblight_decrease_hue_helper(false); }
-void rgblight_decrease_hue(void) { rgblight_decrease_hue_helper(true); }
+void rgblight_decrease_hue_noeeprom(void) {
+    rgblight_decrease_hue_helper(false);
+}
+void rgblight_decrease_hue(void) {
+    rgblight_decrease_hue_helper(true);
+}
 void rgblight_increase_sat_helper(bool write_to_eeprom) {
     uint8_t sat = qadd8(rgblight_config.sat, RGBLIGHT_SAT_STEP);
     rgblight_sethsv_eeprom_helper(rgblight_config.hue, sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_increase_sat_noeeprom(void) { rgblight_increase_sat_helper(false); }
-void rgblight_increase_sat(void) { rgblight_increase_sat_helper(true); }
+void rgblight_increase_sat_noeeprom(void) {
+    rgblight_increase_sat_helper(false);
+}
+void rgblight_increase_sat(void) {
+    rgblight_increase_sat_helper(true);
+}
 void rgblight_decrease_sat_helper(bool write_to_eeprom) {
     uint8_t sat = qsub8(rgblight_config.sat, RGBLIGHT_SAT_STEP);
     rgblight_sethsv_eeprom_helper(rgblight_config.hue, sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_decrease_sat_noeeprom(void) { rgblight_decrease_sat_helper(false); }
-void rgblight_decrease_sat(void) { rgblight_decrease_sat_helper(true); }
+void rgblight_decrease_sat_noeeprom(void) {
+    rgblight_decrease_sat_helper(false);
+}
+void rgblight_decrease_sat(void) {
+    rgblight_decrease_sat_helper(true);
+}
 void rgblight_increase_val_helper(bool write_to_eeprom) {
     uint8_t val = qadd8(rgblight_config.val, RGBLIGHT_VAL_STEP);
     rgblight_sethsv_eeprom_helper(rgblight_config.hue, rgblight_config.sat, val, write_to_eeprom);
 }
-void rgblight_increase_val_noeeprom(void) { rgblight_increase_val_helper(false); }
-void rgblight_increase_val(void) { rgblight_increase_val_helper(true); }
+void rgblight_increase_val_noeeprom(void) {
+    rgblight_increase_val_helper(false);
+}
+void rgblight_increase_val(void) {
+    rgblight_increase_val_helper(true);
+}
 void rgblight_decrease_val_helper(bool write_to_eeprom) {
     uint8_t val = qsub8(rgblight_config.val, RGBLIGHT_VAL_STEP);
     rgblight_sethsv_eeprom_helper(rgblight_config.hue, rgblight_config.sat, val, write_to_eeprom);
 }
-void rgblight_decrease_val_noeeprom(void) { rgblight_decrease_val_helper(false); }
-void rgblight_decrease_val(void) { rgblight_decrease_val_helper(true); }
+void rgblight_decrease_val_noeeprom(void) {
+    rgblight_decrease_val_helper(false);
+}
+void rgblight_decrease_val(void) {
+    rgblight_decrease_val_helper(true);
+}
 
 void rgblight_increase_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed < 3) rgblight_config.speed++;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
     }
 }
-void rgblight_increase_speed(void) { rgblight_increase_speed_helper(true); }
-void rgblight_increase_speed_noeeprom(void) { rgblight_increase_speed_helper(false); }
+void rgblight_increase_speed(void) {
+    rgblight_increase_speed_helper(true);
+}
+void rgblight_increase_speed_noeeprom(void) {
+    rgblight_increase_speed_helper(false);
+}
 
 void rgblight_decrease_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed > 0) rgblight_config.speed--;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
     }
 }
-void rgblight_decrease_speed(void) { rgblight_decrease_speed_helper(true); }
-void rgblight_decrease_speed_noeeprom(void) { rgblight_decrease_speed_helper(false); }
+void rgblight_decrease_speed(void) {
+    rgblight_decrease_speed_helper(true);
+}
+void rgblight_decrease_speed_noeeprom(void) {
+    rgblight_decrease_speed_helper(false);
+}
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
@@ -478,7 +534,7 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
             rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
         } else {
             // all LEDs in same color
-            if (1 == 0) {  // dummy
+            if (1 == 0) { // dummy
             }
 #ifdef RGBLIGHT_EFFECT_BREATHING
             else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
@@ -540,33 +596,51 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
     }
 }
 
-void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_eeprom_helper(hue, sat, val, true); }
+void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val) {
+    rgblight_sethsv_eeprom_helper(hue, sat, val, true);
+}
 
-void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_eeprom_helper(hue, sat, val, false); }
+void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val) {
+    rgblight_sethsv_eeprom_helper(hue, sat, val, false);
+}
 
-uint8_t rgblight_get_speed(void) { return rgblight_config.speed; }
+uint8_t rgblight_get_speed(void) {
+    return rgblight_config.speed;
+}
 
 void rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
     rgblight_config.speed = speed;
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
         dprintf("rgblight set speed [EEPROM]: %u\n", rgblight_config.speed);
     } else {
         dprintf("rgblight set speed [NOEEPROM]: %u\n", rgblight_config.speed);
     }
 }
 
-void rgblight_set_speed(uint8_t speed) { rgblight_set_speed_eeprom_helper(speed, true); }
+void rgblight_set_speed(uint8_t speed) {
+    rgblight_set_speed_eeprom_helper(speed, true);
+}
 
-void rgblight_set_speed_noeeprom(uint8_t speed) { rgblight_set_speed_eeprom_helper(speed, false); }
+void rgblight_set_speed_noeeprom(uint8_t speed) {
+    rgblight_set_speed_eeprom_helper(speed, false);
+}
 
-uint8_t rgblight_get_hue(void) { return rgblight_config.hue; }
+uint8_t rgblight_get_hue(void) {
+    return rgblight_config.hue;
+}
 
-uint8_t rgblight_get_sat(void) { return rgblight_config.sat; }
+uint8_t rgblight_get_sat(void) {
+    return rgblight_config.sat;
+}
 
-uint8_t rgblight_get_val(void) { return rgblight_config.val; }
+uint8_t rgblight_get_val(void) {
+    return rgblight_config.val;
+}
 
-HSV rgblight_get_hsv(void) { return (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val}; }
+HSV rgblight_get_hsv(void) {
+    return (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+}
 
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
     if (!rgblight_config.enable) {
@@ -648,14 +722,22 @@ void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start,
 }
 
 #ifndef RGBLIGHT_SPLIT
-void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b) { rgblight_setrgb_range(r, g, b, 0, (uint8_t)RGBLED_NUM / 2); }
+void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b) {
+    rgblight_setrgb_range(r, g, b, 0, (uint8_t)RGBLED_NUM / 2);
+}
 
-void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b) { rgblight_setrgb_range(r, g, b, (uint8_t)RGBLED_NUM / 2, (uint8_t)RGBLED_NUM); }
+void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b) {
+    rgblight_setrgb_range(r, g, b, (uint8_t)RGBLED_NUM / 2, (uint8_t)RGBLED_NUM);
+}
 
-void rgblight_sethsv_master(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_range(hue, sat, val, 0, (uint8_t)RGBLED_NUM / 2); }
+void rgblight_sethsv_master(uint8_t hue, uint8_t sat, uint8_t val) {
+    rgblight_sethsv_range(hue, sat, val, 0, (uint8_t)RGBLED_NUM / 2);
+}
 
-void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_range(hue, sat, val, (uint8_t)RGBLED_NUM / 2, (uint8_t)RGBLED_NUM); }
-#endif  // ifndef RGBLIGHT_SPLIT
+void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) {
+    rgblight_sethsv_range(hue, sat, val, (uint8_t)RGBLED_NUM / 2, (uint8_t)RGBLED_NUM);
+}
+#endif // ifndef RGBLIGHT_SPLIT
 
 #ifdef RGBLIGHT_LAYERS
 void rgblight_set_layer_state(uint8_t layer, bool enabled) {
@@ -693,18 +775,18 @@ static void rgblight_layers_write(void) {
     // For each layer
     for (const rgblight_segment_t *const *layer_ptr = rgblight_layers; i < RGBLIGHT_MAX_LAYERS; layer_ptr++, i++) {
         if (!rgblight_get_layer_state(i)) {
-            continue;  // Layer is disabled
+            continue; // Layer is disabled
         }
         const rgblight_segment_t *segment_ptr = pgm_read_ptr(layer_ptr);
         if (segment_ptr == NULL) {
-            break;  // No more layers
+            break; // No more layers
         }
         // For each segment
         while (1) {
             rgblight_segment_t segment;
             memcpy_P(&segment, segment_ptr, sizeof(rgblight_segment_t));
             if (segment.index == RGBLIGHT_END_SEGMENT_INDEX) {
-                break;  // No more segments
+                break; // No more segments
             }
             // Write segment.count LEDs
             LED_TYPE *const limit = &led[MIN(segment.index + segment.count, RGBLED_NUM)];
@@ -726,9 +808,15 @@ static uint16_t       _repeat_timer;
 static uint8_t        _times_remaining;
 static uint16_t       _dur;
 
-void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) { rgblight_blink_layer_repeat(layer, duration_ms, 1); }
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
+    rgblight_blink_layer_repeat(layer, duration_ms, 1);
+}
 
 void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times) {
+    if (times > UINT8_MAX / 2) {
+        times = UINT8_MAX / 2;
+    }
+
     _times_remaining = times * 2;
     _dur             = duration_ms;
 
@@ -741,18 +829,19 @@ void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t ti
 void rgblight_blink_layer_repeat_helper(void) {
     if (_blinking_layer_mask != 0 && timer_expired(sync_timer_read(), _repeat_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0 && _times_remaining > 0) {
+            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
                 if (_times_remaining % 2 == 1) {
                     rgblight_set_layer_state(layer, false);
                 } else {
                     rgblight_set_layer_state(layer, true);
                 }
-                _times_remaining--;
-                _repeat_timer = sync_timer_read() + _dur;
             }
         }
+        _times_remaining--;
         if (_times_remaining <= 0) {
             _blinking_layer_mask = 0;
+        } else {
+            _repeat_timer = sync_timer_read() + _dur;
         }
     }
 }
@@ -796,7 +885,9 @@ void rgblight_wakeup(void) {
 
 #endif
 
-__attribute__((weak)) void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { ws2812_setleds(start_led, num_leds); }
+__attribute__((weak)) void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
+    ws2812_setleds(start_led, num_leds);
+}
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 
@@ -848,9 +939,13 @@ void rgblight_set(void) {
 
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard master side */
-uint8_t rgblight_get_change_flags(void) { return rgblight_status.change_flags; }
+uint8_t rgblight_get_change_flags(void) {
+    return rgblight_status.change_flags;
+}
 
-void rgblight_clear_change_flags(void) { rgblight_status.change_flags = 0; }
+void rgblight_clear_change_flags(void) {
+    rgblight_status.change_flags = 0;
+}
 
 void rgblight_get_syncinfo(rgblight_syncinfo_t *syncinfo) {
     syncinfo->config = rgblight_config;
@@ -866,7 +961,7 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
 #    endif
     if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_MODE) {
         if (syncinfo->config.enable) {
-            rgblight_config.enable = 1;  // == rgblight_enable_noeeprom();
+            rgblight_config.enable = 1; // == rgblight_enable_noeeprom();
             rgblight_mode_eeprom_helper(syncinfo->config.mode, write_to_eeprom);
         } else {
             rgblight_disable_noeeprom();
@@ -945,12 +1040,12 @@ static void rgblight_effect_dummy(animation_status_t *anim) {
 void rgblight_task(void) {
     if (rgblight_status.timer_enabled) {
         effect_func_t effect_func   = rgblight_effect_dummy;
-        uint16_t      interval_time = 2000;  // dummy interval
+        uint16_t      interval_time = 2000; // dummy interval
         uint8_t       delta         = rgblight_config.mode - rgblight_status.base_mode;
         animation_status.delta      = delta;
 
         // static light mode, do nothing here
-        if (1 == 0) {  // dummy
+        if (1 == 0) { // dummy
         }
 #    ifdef RGBLIGHT_EFFECT_BREATHING
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
@@ -1016,7 +1111,7 @@ void rgblight_task(void) {
         if (animation_status.restart) {
             animation_status.restart    = false;
             animation_status.last_timer = sync_timer_read();
-            animation_status.pos16      = 0;  // restart signal to local each effect
+            animation_status.pos16      = 0; // restart signal to local each effect
         }
         uint16_t now = sync_timer_read();
         if (timer_expired(now, animation_status.last_timer)) {
@@ -1055,7 +1150,7 @@ void rgblight_task(void) {
 
 #    ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
 #        ifndef RGBLIGHT_BREATHE_TABLE_SIZE
-#            define RGBLIGHT_BREATHE_TABLE_SIZE 256  // 256 or 128 or 64
+#            define RGBLIGHT_BREATHE_TABLE_SIZE 256 // 256 or 128 or 64
 #        endif
 #        include <rgblight_breathe_table.h>
 #    endif
@@ -1131,7 +1226,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
     }
 
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
-    if (anim->pos == 0) {  // restart signal
+    if (anim->pos == 0) { // restart signal
         if (increment == 1) {
             pos = rgblight_ranges.effect_num_leds - 1;
         } else {
@@ -1194,7 +1289,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
     uint8_t       i, cur;
 
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
-    if (anim->pos == 0) {  // restart signal
+    if (anim->pos == 0) { // restart signal
         anim->pos  = 1;
         low_bound  = 0;
         high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
@@ -1347,8 +1442,12 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
     const uint8_t bottom = breathe_calc(0);
     const uint8_t top    = breathe_calc(127);
 
-    uint8_t frac(uint8_t n, uint8_t d) { return (uint16_t)255 * n / d; }
-    uint8_t scale(uint16_t v, uint8_t scale) { return (v * scale) >> 8; }
+    uint8_t frac(uint8_t n, uint8_t d) {
+        return (uint16_t)255 * n / d;
+    }
+    uint8_t scale(uint16_t v, uint8_t scale) {
+        return (v * scale) >> 8;
+    }
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);

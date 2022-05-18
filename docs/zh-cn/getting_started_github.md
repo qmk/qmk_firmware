@@ -1,6 +1,11 @@
 # 如何在QMK中使用GitHub
 
-GitHub can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.
+<!---
+  original document: 0.15.12:docs/getting_started_github.md
+  git diff 0.15.12 HEAD -- docs/getting_started_github.md | cat
+-->
+
+对不熟悉 GitHub 的人来说，使用GitHub 可能会有些难度。此教程会教您 fork 和 clone QMK，以及向 QMK 提交 pull request 。
 
 ?> 本教程假设您已安装GitHub，并且您喜欢使用命令行工作。
 
