@@ -2,8 +2,6 @@
     "keyboard_name": "EUISOlation",
     "url": "",
     "maintainer": "qmk",
-    "width": 14,
-    "height": 4,
     "layouts": {
         "LAYOUT_euiso_ortho": {
             "layout": [
