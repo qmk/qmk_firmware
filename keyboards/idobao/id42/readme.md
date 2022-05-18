@@ -12,7 +12,7 @@ Sized just right at 40% — with a compact configuration the IDOBAO Abacus ID42 
 
 ## Layout
 
-![](https://cdn.jsdelivr.net/gh/Idobao/idobao.github.io/kle/idobao-id42.png)
+![](https://cdn.jsdelivr.net/gh/Idobao/idobao.github.io/kle/idobao-id42-all.png)
 
 ## Compiling and Flashing
 
