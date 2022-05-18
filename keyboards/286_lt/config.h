@@ -32,8 +32,7 @@
 #define MATRIX_COLS 11
 #define MATRIX_ROW_PINS {B9, B8, B7, B6, B5, B4, B3, A15}
 //#define MATRIX_COL_PINS {A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, B2 }
-//#define DIRECT_PINS { { B9, B8, B7, B6, B5, B4, B3, A15 }, { null, null, null, null, null, null, null, null } }
-#define MATRIX_COL_PINS {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+#define MATRIX_COL_PINS {NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 
 #define UNUSED_PINS
 /* COL2ROW or ROW2COL */
@@ -58,7 +57,7 @@
 
 #define SN74HC595_SPI_SLAVE_SELECT_PIN A3
 #define SN74HC595_LENGTH 2
-#define SN74HC595_SPI_CLOCK_DIVISOR 8
+#define SN74HC595_SPI_CLOCK_DIVISOR 1
 
 #define EEPROM_SPI
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
@@ -66,6 +65,13 @@
 #define EXTERNAL_EEPROM_BYTE_COUNT 1028
 #define EXTERNAL_EEPROM_PAGE_SIZE 256
 #define EXTERNAL_EEPROM_ADDRESS_SIZE 1
+
+#define OLED_USE_SPI 4
+#define OLED_SPI_SLAVE_SELECT_PIN A4
+#define OLED_SPI_RESET_PIN C14
+#define OLED_SPI_DC_PIN C15
+#define OLED_DISPLAY_WIDTH 128
+#define OLED_DISPLAY_HEIGHT 64
 
 
 /*
@@ -76,7 +82,6 @@
 /* disable debug print */
 //#define NO_DEBUG
 //#define DEBUG_MATRIX_SCAN_RATE
-//#define SN74HC595_DEBUG
 
 /* disable print */
 //#define NO_PRINT

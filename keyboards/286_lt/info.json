@@ -9,14 +9,14 @@
     "board": "BLACKPILL_STM32_F401",
 
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": false,
-        "nkro": true
+        "audio"     : false,
+        "backlight" : false,
+        "bootmagic" : true,
+        "command"   : true,
+        "console"   : false,
+        "extrakey"  : true,
+        "mousekey"  : false,
+        "nkro"      : true
     },
 
     "layouts": {
