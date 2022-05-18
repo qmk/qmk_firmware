@@ -1,19 +1,5 @@
-/* Copyright 2021 Tybera
- * Copyright 2021 thewerther
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2021 Werther (@thewerther)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
@@ -36,14 +22,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,     _______,
         _______,     RGB_TOG, _______,  RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_MPLY, KC_MPRV, KC_MNXT, _______,     _______,
         _______,        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_HOME,
-        _______,           RESET,  RGB_SPI,  RGB_SPD, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______,  _______,  _______,  _______,      KC_END,
+        _______,         QK_BOOT,  RGB_SPI,  RGB_SPD, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______,  _______,  _______,  _______,      KC_END,
         _______,   _______,   _______,                      _______,                              _______,   _______,   _______,   _______,    _______
     )
 
 };
 
 void matrix_scan_user(void) {
-#   if defined(RGB_MATRIX_ENABLE)
+    #if defined(RGB_MATRIX_ENABLE)
     int current_effect = rgb_matrix_get_mode();
     if (current_effect >= RGB_MATRIX_SOLID_REACTIVE_SIMPLE && current_effect <= RGB_MATRIX_SOLID_MULTISPLASH) {
         // set all underglow leds to current color
@@ -52,6 +38,5 @@ void matrix_scan_user(void) {
             rgb_matrix_set_color(i, current_color.r, current_color.g, current_color.b);
         }
     }
-#   endif
+    #endif
 }
-
