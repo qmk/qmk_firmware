@@ -23,9 +23,9 @@
 uint32_t timer_now;
 #endif
 
-// uint8_t *data_buffer;
-uint8_t pinStates[SN74HC595_LENGTH];
-typedef enum { Low = 0, High = 1 } state;
+spi_status_t res;
+uint8_t      pinStates[SN74HC595_LENGTH];
+typedef enum { Low = 0, High = 1 } pinState;
 
 /* get length */
 uint8_t sn74hc595_length(void) {
@@ -35,14 +35,30 @@ uint8_t sn74hc595_length(void) {
     init first
 */
 void sn74hc595_init(void) {
-    setPinOutputPushPull(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    return spi_init();
+    spi_init();
+}
+
+spi_status_t sn74hc595_spi_transmit(void) {
+    res = spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR);
+    if (res < SPI_STATUS_SUCCESS) {
+        dprintf("sn74hc595 spi failed to start, msg: %x\n", res);
+        return res;
+    }
+
+    res = spi_transmit(pinStates, SN74HC595_LENGTH);
+    if (res != SPI_STATUS_SUCCESS) {
+        dprintf("sn7chc595 spi cant transmit, msg: %x \n", res);
+        return res;
+    }
+
+    spi_stop();
+    return res;
 }
 
 /*
     set pin number on sn74hc595
 */
-void sn74hc595_setPin(pin_t pin, bool set) {
+spi_status_t sn74hc595_setPin(pin_t pin, bool set) {
     // set pin state like binary 1000010
     for (int current = (SN74HC595_LENGTH - 1); current >= 0; current--) {
         if (pin < 8) {
@@ -51,73 +67,68 @@ void sn74hc595_setPin(pin_t pin, bool set) {
         }
         pin -= 8;
     }
-    // then send it using spi
-    spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR);
-    writePinLow(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_transmit(pinStates, SN74HC595_LENGTH);
-    writePinHigh(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_stop();
 
-// pinstates debug
-#if defined(CONSOLE_ENABLE) && defined(SN74HC595_DEBUG)
+    // pinstates debug
     if (timer_elapsed32(timer_now) >= 1000) {
-        uprintf("PinStates HEX: ");
+        dprintf("PinStates HEX: ");
         for (uint8_t x = 0; x < SN74HC595_LENGTH; x++) {
-            uprintf("PS %i:[0x%02x]|", x, pinStates[x]);
+            dprintf("PS %i:[0x%02x]|", x, pinStates[x]);
         }
-        uprintf("PinStates BIN: ");
+        dprintf("PinStates BIN: ");
         for (uint8_t x = 0; x < SN74HC595_LENGTH; x++) {
-            uprintf("|");
-            print_bin_reverse8(pinStates[x]);
+            dprintf("|");
+            debug_bin_reverse8(pinStates[x]);
         }
-        uprintf("\n");
+        dprintf("\n");
         timer_now = timer_read32();
     }
-#endif
+    // then send it using spi
+    return sn74hc595_spi_transmit();
 }
 
 /*
     for easy use
 */
-void sn74hc595_setPinHigh(pin_t pin) {
-    sn74hc595_setPin(pin, 1);
+spi_status_t sn74hc595_setPinHigh(pin_t pin) {
+    return sn74hc595_setPin(pin, High);
 }
 
-void sn74hc595_setPinLow(pin_t pin) {
-    sn74hc595_setPin(pin, 0);
+spi_status_t sn74hc595_setPinLow(pin_t pin) {
+    return sn74hc595_setPin(pin, Low);
 }
 
 /*
     make a shortcut, slightly faster then set pin one by one
 */
-/*
-void sn74hc595_setHex(uint8_t * hexValue) {
-    spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR);
-    writePinLow(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_transmit(&hexValue, SN74HC595_LENGTH);
-    writePinHigh(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_stop();
-}*/
 
-void sn74hc595_AllPin_High(void) {
+spi_status_t sn74hc595_set_raw(uint8_t* raw_value) {
+    res = spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR);
+    if (res < SPI_STATUS_SUCCESS) {
+        dprintf("sn74hc595 spi raw failed to start, msg: %x\n", res);
+        return res;
+    }
+
+    res = spi_transmit(raw_value, SN74HC595_LENGTH);
+    if (res != SPI_STATUS_SUCCESS) {
+        dprintf("sn7chc595 spi raw cant transmit, msg: %x\n", res);
+        return res;
+    }
+
+    spi_stop();
+    return SPI_STATUS_SUCCESS;
+}
+
+spi_status_t sn74hc595_AllPin_High(void) {
     for (uint8_t current = 0; current < SN74HC595_LENGTH; current++) {
         pinStates[current] = 0xFF;
     }
 
-    spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR);
-    writePinLow(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_transmit(pinStates, SN74HC595_LENGTH);
-    writePinHigh(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_stop();
+    return sn74hc595_spi_transmit();
 }
 
-void sn74hc595_AllPin_Low(void) {
+spi_status_t sn74hc595_AllPin_Low(void) {
     for (uint8_t current = 0; current < SN74HC595_LENGTH; current++) {
         pinStates[current] = 0x0;
     }
-    spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR);
-    writePinLow(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_transmit(pinStates, SN74HC595_LENGTH);
-    writePinHigh(SN74HC595_SPI_SLAVE_SELECT_PIN);
-    spi_stop();
+    return sn74hc595_spi_transmit();
 }

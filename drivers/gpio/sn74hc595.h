@@ -19,12 +19,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "spi_master.h"
 #include "gpio.h"
 
 /**
  * Driver for SN74HC595 8-bit shift registers with 3-state output registers
  * https://www.ti.com/document-viewer/SN74HC595/datasheet
  * use this as output
+ * note: i tested on st32f401cc blackpill, the matrix scan rate performance drop significanly from 28xxHz to 12xxHz.
  */
 
 /*
@@ -80,25 +82,27 @@ void sn74hc595_init(void);
 /*
     set pin number on sn74hc595
 */
-void sn74hc595_setPin(pin_t pin, bool set);
+spi_status_t sn74hc595_setPin(pin_t pin, bool set);
 
 /*
     for easy to use
-
+*/
+spi_status_t sn74hc595_set_raw(uint8_t* raw_value);
+/*
     set a pin high
 */
-void sn74hc595_setPinLow(pin_t pin);
+spi_status_t sn74hc595_setPinLow(pin_t pin);
 
 /*
     set a pin high
 */
-void sn74hc595_setPinLow(pin_t pin);
+spi_status_t sn74hc595_setPinLow(pin_t pin);
 /*
     set all pin high
 */
-void sn74hc595_AllPin_High(void);
+spi_status_t sn74hc595_AllPin_High(void);
 
 /*
     set all pin low
 */
-void sn74hc595_AllPin_Low(void);
+spi_status_t sn74hc595_AllPin_Low(void);
