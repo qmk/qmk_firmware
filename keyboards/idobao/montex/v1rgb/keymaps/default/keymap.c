@@ -5,7 +5,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-     * ┌───┌───┬───┬───┬───┐
+     * ┌───┬───┬───┬───┬───┐
      * │Esc│Tab│ F1│Cal│Bsp│
      * ├───┼───┼───┼───┼───┤
      * │Ctr│Num│ / │ * │ - │
@@ -29,22 +29,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-     * ┌───┌───┐───┬───┬───┐
+     * ┌───┬───┬───┬───┬───┐
      * │Rst│TOG│MOD│PSc│SLk│
-     * ├───┼───┘───┼───┼───┤
+     * ├───┼───┼───┼───┼───┤
      * │Hu+│   │Sp-│Sp+│Br-│
      * ├───┼───┼───┼───┼───┤
      * │Hu-│Hom│ ↑ │PgU│   │
      * ├───┼───┼───┼───┤Br+│
      * │St+│ ← │   │ → │   │
-     * ├───┼───┼───┼───┤───┤
+     * ├───┼───┼───┼───┼───┤
      * │St-│End│ ↓ │PgD│   │
      * ├───┼───┴───┼───┤Ent│
      * │mo1│Insert │Del│   │
-     * └───┴───────┴───┘───┘
+     * └───┴───────┴───┴───┘
      */
     [1] = LAYOUT_numpad_6x5(
-        RESET,   RGB_TOG, RGB_MOD, KC_PSCR, KC_SLCK,
+        QK_BOOT, RGB_TOG, RGB_MOD, KC_PSCR, KC_SLCK,
         RGB_HUI, XXXXXXX, RGB_SPD, RGB_SPI, RGB_VAD,
         RGB_HUD, KC_HOME, KC_UP,   KC_PGUP, RGB_VAI,
         RGB_SAI, KC_LEFT, XXXXXXX, KC_RGHT,
