@@ -6,7 +6,7 @@ Basic encoders are supported by adding this to your `rules.mk`:
 ENCODER_ENABLE = yes
 ```
 
-and this to your `config.h`:
+add this to your `config.h`:
 
 ```c
 #define ENCODERS_PAD_A { B12 }
