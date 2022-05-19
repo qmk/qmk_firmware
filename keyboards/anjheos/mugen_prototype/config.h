@@ -6,9 +6,9 @@
 #define PRODUCT         Mugen 75 Solder Prototype
 
 
-#define ENCODERS_PAD_A   { C14 }
-#define ENCODERS_PAD_B   { C13 }
-#define ENCODER_RESOLUTION 4
+#define ENCODERS_PAD_A   { C13 }
+#define ENCODERS_PAD_B   { C14 }
+#define ENCODER_RESOLUTION 2
 
 
 #define LOCKING_SUPPORT_ENABLE

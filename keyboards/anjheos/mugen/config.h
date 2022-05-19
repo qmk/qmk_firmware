@@ -8,9 +8,9 @@
 #define PRODUCT         Mugen 75 Ver 1.0
 
 
-#define ENCODER_PAD_A   { C14 }
-#define ENCODER_PAD_B   { C13 }
-#define ENCODER_RESOLUTION 4
+#define ENCODERS_PAD_A   { C14 }
+#define ENCODERS_PAD_B   { C13 }
+#define ENCODER_RESOLUTION 2
 
 
 #define LOCKING_SUPPORT_ENABLE

@@ -36,4 +36,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		
 };
 
+bool encoder_update_user(uint8_t index, bool clockwise) {
+	if (get_highest_layer(layer_state|default_layer_state) == 0) {
+		if (clockwise) {
+			tap_code_delay(KC_VOLU, 10);
+		} else {
+			tap_code_delay(KC_VOLD, 10);
+		}
+	} else {
+		if (clockwise) {
+			tap_code(KC_WH_U);
+		} else {
+			tap_code(KC_WH_D);
+		}
+	}
+	return false;
+}
+
 
