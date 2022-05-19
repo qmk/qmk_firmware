@@ -59,8 +59,10 @@ bool sn74hc595_spi_transmit(void) {
     set pin number on sn74hc595
 */
 bool sn74hc595_setPin(uint8_t pin, bool set) {
-    // set pin state like binary 1000010
+#ifdef CONSOLE_ENABLE
     uint8_t current_pin = pin;
+#endif
+    // set pin state like binary 1000010
     for (int current = (SN74HC595_LENGTH - 1); current >= 0; current--) {
         if (pin < 8) {
             int mask           = 1 << pin;
