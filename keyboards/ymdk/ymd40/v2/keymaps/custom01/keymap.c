@@ -5,6 +5,42 @@
 #include QMK_KEYBOARD_H
 
 
+
+// FUNCION TECLA LEADER
+LEADER_EXTERNS();
+
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+    
+// Chrome home page
+    SEQ_ONE_KEY(KC_H) {
+	SEND_STRING(SS_LALT(SS_TAP(X_HOME)));
+	}
+
+//windows calculator
+     SEQ_ONE_KEY(KC_K) {
+    	SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_C))));
+    }
+   
+    SEQ_THREE_KEYS(KC_C, KC_A, KC_D) {
+    	SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+    }
+
+// Close active windows
+    SEQ_THREE_KEYS(KC_C, KC_L, KC_S) {
+    	SEND_STRING(SS_LALT(SS_TAP(X_F4)));
+    }
+    
+// New Evernote note
+    SEQ_TWO_KEYS(KC_E, KC_N) {
+	SEND_STRING(SS_LALT(SS_LCTRL(SS_LGUI(SS_TAP(X_N)))));
+	}
+  }
+}
+
 // FUNCION PARA ACTIVAR EL NUMLOCK DE LA CAPA _NUM_PAD
 void led_set_user(uint8_t usb_led) {
   if (!(usb_led & (1<<USB_LED_NUM_LOCK))) {
@@ -38,7 +74,7 @@ td_state_t cur_dance(qk_tap_dance_state_t *state);
 void ql_finished(qk_tap_dance_state_t *state, void *user_data);
 void ql_reset(qk_tap_dance_state_t *state, void *user_data);
 
-
+/*
 void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code16(KC_N);
@@ -54,7 +90,7 @@ void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
         unregister_code16(KC_N);
     }
 }
-
+*/
 
 void dance_exclam_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
@@ -101,7 +137,7 @@ enum {
 // Tap Dance DEFINICIONES
 qk_tap_dance_action_t tap_dance_actions[] = {
     // 1 TOQUE PARA OPC 1 DOS PARA OPC 2
-    [TD_ENE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+    //[TD_ENE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
     [TD_SIFT_CAPSLOCK]  = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_SHIFT, KC_CAPS_LOCK),
     [TD_RHAND_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
     [TD_WIN_MENU]  = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_APP),
@@ -130,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY]=LAYOUT_ortho_4x12(
 		TD(TD_RHAND_LAYER),		KC_Q,			KC_W,			KC_E,			KC_R,					KC_T,					KC_Y,					KC_U,				KC_I,				KC_O,		KC_P,				KC_BSPC,
 		LT(_MOV,KC_ESC),		KC_A,			KC_S,			KC_D,			KC_F,					KC_G,					KC_H,					KC_J,				KC_K,				KC_L,		KC_SCLN,			KC_QUOT,
-		TD(TD_SIFT_CAPSLOCK),	KC_Z,			KC_X,			KC_C,			KC_V,					KC_B,					TD(TD_ENE),				KC_M,				KC_COMM,			KC_DOT,		TD(TD_INTERROG),	KC_SFTENT,
+		TD(TD_SIFT_CAPSLOCK),	KC_Z,			KC_X,			KC_C,			KC_V,					KC_B,					KC_N,				KC_M,				KC_COMM,			KC_DOT,		TD(TD_INTERROG),	KC_SFTENT,
 		OSM(MOD_LCTL),			OSM(MOD_LALT),	OSM(MOD_RALT),	OSM(MOD_LGUI),	LT(_LOWER,KC_BSPC),		LT(_ONE_HAND,KC_SPACE),	LT(_ONE_HAND,KC_SPACE),	LT(_RAISE,KC_ENT),	TD(TD_WIN_MENU),	KC_RALT,	KC_RCTL,			KC_LEAD
 	),
 
@@ -214,33 +250,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	}
 
 */
-
-// FUNCION TECLA LEADER
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-    
-    SEQ_ONE_KEY(KC_H) {
-		SEND_STRING(SS_LALT(SS_TAP(X_HOME)));
-	}
-
-     SEQ_ONE_KEY(KC_V) {
-    	SEND_STRING(SS_LCTRL(SS_LCTL(SS_LALT(SS_TAP(X_V)))));
-    }
-
-     SEQ_ONE_KEY(KC_K) {
-    	SEND_STRING(SS_LCTRL(SS_LCTL(SS_LALT(SS_TAP(X_C)))));
-    }
-   
-    SEQ_THREE_KEYS(KC_C, KC_A, KC_D) {
-    	SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
-    }
-
-  }
-}
 
 // Determine the current tap dance state
 td_state_t cur_dance(qk_tap_dance_state_t *state) {
