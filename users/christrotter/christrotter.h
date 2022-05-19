@@ -4,21 +4,18 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
-#include "eeprom.h"
-#include "keyrecords/wrappers.h"
+//#include "eeprom.h"
+//#include "keyrecords/wrappers.h"
 #include "keyrecords/process_records.h"
 #include "callbacks.h"
-
-#ifndef USERSPACE
-#define USERSPACE
-
+//#include "version.h"
 
 #ifdef TAP_DANCE_ENABLE
 #    include "keyrecords/tap_dances.h"
 #endif  // TAP_DANCE_ENABLE
-#if defined(RGBLIGHT_ENABLE)
-#    include "rgb/rgb_stuff.h"
-#endif
+// #if defined(RGBLIGHT_ENABLE)
+// #    include "rgb/rgb_stuff.h"
+// #endif
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb/rgb_matrix_stuff.h"
 #endif
@@ -29,17 +26,17 @@
 #    include "pointing/pointing.h"
 #endif
 
-/* Define layer names 
+//Define layer names 
+// the layers are broken after moving them here...why?
 enum userspace_layers {
     _QWERTY             = 0,
     FIRST_DEFAULT_LAYER = 0,
     _SYMBOLS,
     _MOUSE,
-};*/
+};
 
 #define _MACROS _MOUSE
 #define _DEFAULT_LAYER_1 FIRST_DEFAULT_LAYER
-// this....i have no idea why you need this
 #define _DEFAULT_LAYER_2 (FIRST_DEFAULT_LAYER + 1)
 #define _DEFAULT_LAYER_3 (FIRST_DEFAULT_LAYER + 2)
 #define _DEFAULT_LAYER_4 (FIRST_DEFAULT_LAYER + 3)
@@ -87,5 +84,3 @@ typedef union {
 // clang-format on
 
 extern userspace_config_t userspace_config;
-
-#endif

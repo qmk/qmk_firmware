@@ -27,7 +27,7 @@ __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t 
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // ohh here we are setting x and y to the mouse reports
-    print("entering report_mouse_t")
+    //print("entering report_mouse_t \n");
     int8_t x = mouse_report.x, y = mouse_report.y;
     // set mouse_report x and y to zero for future tasks
     mouse_report.x = 0;
@@ -35,7 +35,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // now, x and y will maybe have a non-zero value compared to mouse_report.x/y
     
     if (x != 0 && y != 0) {
-        print("detected non-zero mouse coords")
+        //print("detected non-zero mouse coords \n");
         // not sure how this works...if x/y are not zero??...but we just set them to zero two lines up???
         // yeah so x is our original mouse report...
         // if non-zero, then do this block
@@ -58,7 +58,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
             mouse_report.y = y;
             // if we're not already on the mouse layer, mouse layer on
             if (!layer_state_is(_MOUSE)) {
-                print("turning on mouse layer")
+                //print("turning on mouse layer \n");
                 layer_on(_MOUSE);
             }
         }
@@ -78,7 +78,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
     debug_enable=true;
     // debug_matrix=true;
-    dprintf("process_record_pointing activated");
+    //dprintf("process_record_pointing activated");
     //uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     switch (keycode) {
         // this is used if you just want to click one mouse button
@@ -154,7 +154,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
 layer_state_t layer_state_set_pointing(layer_state_t state) {
     // this seems very drashna-specific
     // if you are coming from those layers...do something w. state...???
-    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO) || layer_state_cmp(state, _DIABLOII)) {
+    if (layer_state_cmp(state, _SYMBOLS) || layer_state_cmp(state, _SYMBOLS) || layer_state_cmp(state, _SYMBOLS)) {
         state |= ((layer_state_t)1 << _MOUSE);
     }
     return state;

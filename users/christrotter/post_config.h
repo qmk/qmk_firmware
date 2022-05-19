@@ -4,34 +4,34 @@
 #pragma once
 
 // because layouts seem to not be respecting config.h order atm
-#ifdef RGBLIGHT_ENABLE
-#    undef RGBLIGHT_ANIMATIONS
-#    if defined(__AVR__) && (!defined(__AVR_AT90USB1286__) && !defined(RGBLIGHT_ALL_ANIMATIONS))
-#        define RGBLIGHT_EFFECT_BREATHING
-#        define RGBLIGHT_EFFECT_SNAKE
-#        define RGBLIGHT_EFFECT_KNIGHT
-#    else
-#        define RGBLIGHT_EFFECT_BREATHING
-#        define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#        define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#        define RGBLIGHT_EFFECT_SNAKE
-#        define RGBLIGHT_EFFECT_KNIGHT
-#        if defined(RGBLIGHT_ALL_ANIMATIONS)
-#            define RGBLIGHT_EFFECT_CHRISTMAS
-#            define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#            define RGBLIGHT_EFFECT_RGB_TEST
-#            define RGBLIGHT_EFFECT_ALTERNATING
-#        endif
-#        define RGBLIGHT_EFFECT_TWINKLE
-#    endif
-#endif
+// #ifdef RGBLIGHT_ENABLE
+// #    undef RGBLIGHT_ANIMATIONS
+// #    if defined(__AVR__) && (!defined(__AVR_AT90USB1286__) && !defined(RGBLIGHT_ALL_ANIMATIONS))
+// #        define RGBLIGHT_EFFECT_BREATHING
+// #        define RGBLIGHT_EFFECT_SNAKE
+// #        define RGBLIGHT_EFFECT_KNIGHT
+// #    else
+// #        define RGBLIGHT_EFFECT_BREATHING
+// #        define RGBLIGHT_EFFECT_RAINBOW_MOOD
+// #        define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+// #        define RGBLIGHT_EFFECT_SNAKE
+// #        define RGBLIGHT_EFFECT_KNIGHT
+// #        if defined(RGBLIGHT_ALL_ANIMATIONS)
+// #            define RGBLIGHT_EFFECT_CHRISTMAS
+// #            define RGBLIGHT_EFFECT_STATIC_GRADIENT
+// #            define RGBLIGHT_EFFECT_RGB_TEST
+// #            define RGBLIGHT_EFFECT_ALTERNATING
+// #        endif
+// #        define RGBLIGHT_EFFECT_TWINKLE
+// #    endif
+// #endif
 
 #ifdef RGB_MATRIX_ENABLE
 #    ifndef RGB_MATRIX_REST_MODE
 #        if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_moonlander)
-#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#            define RGB_MATRIX_REST_MODE RGB_MATRIX_SOLID_COLOR
 #        else
-#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#            define RGB_MATRIX_REST_MODE RGB_MATRIX_SOLID_COLOR
 #        endif
 #    endif
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
