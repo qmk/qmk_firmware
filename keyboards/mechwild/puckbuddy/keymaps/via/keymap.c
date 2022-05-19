@@ -41,8 +41,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN1] = LAYOUT(                                                                                   
     RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS,          RESET, 
-    KC_TRNS,                                     DPI_UP, 
-    KC_TRNS,                                     DPI_DN, 
+    RGB_MOD,                                     DPI_UP, 
+    RGB_RMOD,                                    DPI_DN, 
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [_FN2] = LAYOUT(                                                                                   
