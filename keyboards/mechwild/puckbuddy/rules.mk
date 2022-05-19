@@ -1,3 +1,9 @@
+# MCU name
+MCU = STM32F401
+
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Build Options
 #   change yes to no to disable
 #
@@ -13,7 +19,7 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Encoder Enabled
 OLED_ENABLE = yes           # OLED Enabled
 OLED_DRIVER = SSD1306       # OLED Driver
+DIP_SWITCH_ENABLE = yes     # Dip Switch Enabled
+
 POINTING_DEVICE_ENABLE = yes                    # Pointing Device Enabled
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi    # Pointing Device Driver
-
-DEFAULT_FOLDER = mechwild/puckbuddy/f401
