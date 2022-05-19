@@ -20,7 +20,6 @@
 #include <stdbool.h>
 
 #include "spi_master.h"
-#include "gpio.h"
 
 /**
  * Driver for SN74HC595 8-bit shift registers with 3-state output registers
@@ -82,7 +81,7 @@ void sn74hc595_init(void);
 /*
     set pin number on sn74hc595
 */
-spi_status_t sn74hc595_setPin(pin_t pin, bool set);
+spi_status_t sn74hc595_setPin(uint8_t pin, bool set);
 
 /*
     for easy to use
@@ -91,12 +90,12 @@ spi_status_t sn74hc595_set_raw(uint8_t* raw_value);
 /*
     set a pin high
 */
-spi_status_t sn74hc595_setPinLow(pin_t pin);
+spi_status_t sn74hc595_setPinLow(uint8_t pin);
 
 /*
     set a pin high
 */
-spi_status_t sn74hc595_setPinLow(pin_t pin);
+spi_status_t sn74hc595_setPinLow(uint8_t pin);
 /*
     set all pin high
 */

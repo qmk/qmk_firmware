@@ -56,7 +56,7 @@ spi_status_t sn74hc595_spi_transmit(void) {
 /*
     set pin number on sn74hc595
 */
-spi_status_t sn74hc595_setPin(pin_t pin, bool set) {
+spi_status_t sn74hc595_setPin(uint8_t pin, bool set) {
     // set pin state like binary 1000010
     for (int current = (SN74HC595_LENGTH - 1); current >= 0; current--) {
         if (pin < 8) {
@@ -87,11 +87,11 @@ spi_status_t sn74hc595_setPin(pin_t pin, bool set) {
 /*
     for easy use
 */
-spi_status_t sn74hc595_setPinHigh(pin_t pin) {
+spi_status_t sn74hc595_setPinHigh(uint8_t pin) {
     return sn74hc595_setPin(pin, High);
 }
 
-spi_status_t sn74hc595_setPinLow(pin_t pin) {
+spi_status_t sn74hc595_setPinLow(uint8_t pin) {
     return sn74hc595_setPin(pin, Low);
 }
 
