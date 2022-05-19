@@ -26,10 +26,13 @@ While the Blackpill is a great choice to use in your keyboard, there are a numbe
 ### Shared Usage
 * Pin `A0` is shared with the User Key (button) on the controller.  It can be used. 
 * Pin `C13` is shared with the onboard LED indicator, and is connected to +3.3V.  This can be used, but may cause the LED to blink intermittently, depending on activity on the pin. 
+  * 
 * Pins `A4`, `A5`, `A6` and `A7` are used by the SOI8 footprint on the back of the controller, that can be used for either an SPI Flash chip, or an SPI EEPROM chip.  `A4` is the Chip Select pin, and cannot be shared.  However, `A5`, `A6`, and `A7` are the `SCK`, `MISO`, and `MOSI` pins, respectively, and can be shared with other SPI devices. 
 
 ### Limited Usage
 * Pins `C13`, `C14`, and `C15` have limits on output current. They should be used only as input.   Eg, they should not be used for row pins in COL2ROW matrix configurations, but can be used as column pins.
+  * This is because the column pins (in COL2ROW) are pulled up (the pullup strength is independant of the current sourcing limitation) and the ROW is driven low and sinks current, then we check the state of the COLs to look for keypresses.
+
 * Pins `A0` and `B5` are not 5V tolerant, and should only be used with 3.3V compatible functionality. 
 
 ## Additional Information
