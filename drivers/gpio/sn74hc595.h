@@ -81,27 +81,27 @@ void sn74hc595_init(void);
 /*
     set pin number on sn74hc595
 */
-spi_status_t sn74hc595_setPin(uint8_t pin, bool set);
+bool sn74hc595_setPin(uint8_t pin, bool set);
 
 /*
     for easy to use
 */
-spi_status_t sn74hc595_set_raw(uint8_t* raw_value);
+bool sn74hc595_set_raw(uint8_t* raw_value);
 /*
     set a pin high
 */
-spi_status_t sn74hc595_setPinLow(uint8_t pin);
+bool sn74hc595_setPinLow(uint8_t pin);
 
 /*
     set a pin high
 */
-spi_status_t sn74hc595_setPinLow(uint8_t pin);
+bool sn74hc595_setPinLow(uint8_t pin);
 /*
     set all pin high
 */
-spi_status_t sn74hc595_AllPin_High(void);
+bool sn74hc595_AllPin_High(void);
 
 /*
     set all pin low
 */
-spi_status_t sn74hc595_AllPin_Low(void);
+bool sn74hc595_AllPin_Low(void);
