@@ -43,7 +43,7 @@ void matrix_scan_user(void) {
 	SEND_STRING(SS_LALT(SS_LCTRL(SS_TAP(X_H))));
 	}
 // Evernote Find
-    SEQ_TWO_KEYS(KC_E, KC_N) {
+    SEQ_TWO_KEYS(KC_E, KC_F) {
 	SEND_STRING(SS_LSFT(SS_LGUI(SS_TAP(X_F))));
 	}
   }
