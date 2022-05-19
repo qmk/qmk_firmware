@@ -16,13 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */ 
 
 #include "str_merro60.h"
-
-// Borrowed from hineybush h88
-void eeconfig_init_kb(void) {  // EEPROM is getting reset!
-  rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv(0, 255, 128);  // Set default HSV - red hue, full saturation, medium brightness
-  rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
-
-  eeconfig_update_kb(0);
-  eeconfig_init_user();
-}
