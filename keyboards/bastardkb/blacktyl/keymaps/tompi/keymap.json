@@ -38,10 +38,10 @@
       "KC_DOT",
       "KC_SLSH",
       "LT(6,KC_ESC)",
-      "LT(3,KC_BSPC)",
-      "KC_TAB",
-      "KC_DEL",
-      "LT(2,KC_SPC)",
+      "LT(3,KC_SPC)",
+      "LT(5,KC_TAB)",
+      "LT(1,KC_DEL)",
+      "LT(2,KC_BSPC)",
       "LT(4,KC_ENT)"
     ],
     [
