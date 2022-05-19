@@ -44,8 +44,6 @@
 #define ADAPTIVE_TERM 350
 #define IGNORE_MOD_TAP_INTERRUPT
 
-#define HOLD_ON_OTHER_KEY_PRESS
-
 
 
 
