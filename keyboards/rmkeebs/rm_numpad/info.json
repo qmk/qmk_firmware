@@ -3,7 +3,7 @@
     "url": "https://www.rmkeebs.com/product/rm-numpad/",
     "maintainer": "RuckerMachine",
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_numpad_6x4": {
             "layout": [
                 {"label": "Pause", "x": 0, "y": 0.25},
                 {"label": "Prev", "x": 1, "y": 0.25},
@@ -18,22 +18,22 @@
                 {"label": "7", "x": 0, "y": 2.25},
                 {"label": "8", "x": 1, "y": 2.25},
                 {"label": "9", "x": 2, "y": 2.25},
-                {"label": "+", "x": 3, "y": 2.25, "h": 2},
 		
                 {"label": "4", "x": 0, "y": 3.25},
                 {"label": "5", "x": 1, "y": 3.25},
                 {"label": "6", "x": 2, "y": 3.25},
+                {"label": "+", "x": 3, "y": 2.25, "h": 2},
 		
                 {"label": "1", "x": 0, "y": 4.25},
                 {"label": "2", "x": 1, "y": 4.25},
                 {"label": "3", "x": 2, "y": 4.25},
-                {"label": "Enter", "x": 3, "y": 4.25, "h": 2},
 		
                 {"label": "0", "x": 0, "y": 5.25, "w": 2},
-                {"label": ".", "x": 2, "y": 5.25}
+                {"label": ".", "x": 2, "y": 5.25},
+                {"label": "Enter", "x": 3, "y": 4.25, "h": 2}
             ]
         },
-        "LAYOUT_split_plus": {
+        "LAYOUT_split_plus_6x4": {
             "layout": [
                 {"label": "Pause", "x": 0, "y": 0.25},
                 {"label": "Prev", "x": 1, "y": 0.25},
@@ -58,13 +58,13 @@
                 {"label": "1", "x": 0, "y": 4.25},
                 {"label": "2", "x": 1, "y": 4.25},
                 {"label": "3", "x": 2, "y": 4.25},
-                {"label": "Enter", "x": 3, "y": 4.25, "h": 2},
 
                 {"label": "0", "x": 0, "y": 5.25, "w": 2},
-                {"label": ".", "x": 2, "y": 5.25}
+                {"label": ".", "x": 2, "y": 5.25},
+                {"label": "Enter", "x": 3, "y": 4.25, "h": 2}
             ]
         },
-        "LAYOUT_ortho": {
+        "LAYOUT_ortho_6x4": {
             "layout": [
                 {"label": "Pause", "x": 0, "y": 0.25},
                 {"label": "Prev", "x": 1, "y": 0.25},
