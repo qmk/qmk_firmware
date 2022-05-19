@@ -1,5 +1,6 @@
 # EU ISOlation
-![euisolation](https://i.imgur.com/5LGsiJZ.jpg)
+
+![euisolation](https://i.imgur.com/5LGsiJZh.jpg)
 
 EU ISOlation is an ortholinear 40% keyboard designed to use up your spare iso
 enters from you collection of keyboard kits.
