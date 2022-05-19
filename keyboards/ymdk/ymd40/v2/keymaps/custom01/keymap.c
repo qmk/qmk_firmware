@@ -38,6 +38,14 @@ void matrix_scan_user(void) {
     SEQ_TWO_KEYS(KC_E, KC_N) {
 	SEND_STRING(SS_LALT(SS_LCTRL(SS_LGUI(SS_TAP(X_N)))));
 	}
+// Evernote Quick note
+    SEQ_TWO_KEYS(KC_E, KC_H) {
+	SEND_STRING(SS_LALT(SS_LCTRL(SS_TAP(X_H))));
+	}
+// Evernote Find
+    SEQ_TWO_KEYS(KC_E, KC_N) {
+	SEND_STRING(SS_LSFT(SS_LGUI(SS_TAP(X_F))));
+	}
   }
 }
 
