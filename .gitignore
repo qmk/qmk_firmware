@@ -94,3 +94,6 @@ compile_commands.json
 
 # VIA(L) json files that don't belong in QMK repo
 via*.json
+.gitsecret/keys/random_seed
+!*.secret
+users/nunuzac/secrets.c

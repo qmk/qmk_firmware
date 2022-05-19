@@ -18,10 +18,12 @@
 
 #include "nunuzac.h"
 
-
 enum combo_events {
-  CAPS_COMBO,
-  COMBO_LENGTH
+    CAPS_COMBO,
+    LPWD_COMBO,
+    SPWD_COMBO,
+    MAIL_COMBO,
+    COMBO_LENGTH
 };
 
 enum custom_keycodes {
@@ -37,10 +39,16 @@ enum custom_keycodes {
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
-const uint16_t PROGMEM caps_combo[] = {KC_TAB, KC_ENT, COMBO_END};
+const uint16_t PROGMEM caps_combo[] = {KC_RGHT, KC_UP, COMBO_END};
+const uint16_t PROGMEM lpwd_combo[] = {KC_P, KC_W, KC_D, COMBO_END};
+const uint16_t PROGMEM spwd_combo[] = {KC_P, KC_W, COMBO_END};
+const uint16_t PROGMEM mail_combo[] = {KC_M, KC_L, COMBO_END};
 
 combo_t key_combos[] = {
-  [CAPS_COMBO] = COMBO_ACTION(caps_combo),
+    [CAPS_COMBO] = COMBO_ACTION(caps_combo),
+    [LPWD_COMBO] = COMBO_ACTION(lpwd_combo),
+    [SPWD_COMBO] = COMBO_ACTION(spwd_combo),
+    [MAIL_COMBO] = COMBO_ACTION(mail_combo),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TDEC, KC_TD1N,  KC_TD2N,  KC_TD3N,  KC_TD4N,  KC_TD5N, SW_OS,              SW_GM,   KC_TD6N,  KC_TD7N,  KC_TD8N,  KC_TD9N,  KC_TD0N,  KC_TDLG,
         KC_TDUH, KC_Q,     KC_W,     KC_TDE,   KC_R,     KC_T,    SW_PG,              SW_SY,   KC_Y,     KC_TDU,   KC_TDI,   KC_TDO,   KC_P,     KC_TDSL,
         KC_TDDE, KC_TDA,   KC_S,     KC_D,     KC_F,     KC_G,    SW_LY,              _______, KC_H,     KC_J,     KC_K,     KC_L,     KC_TDEP,  KC_TDQT,
-        KC_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                 KC_N,     KC_M,     KC_TDCL,  KC_TDDG,  KC_TDCN,  KC_TDLN,
+        KC_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                 KC_TDN,   KC_M,     KC_TDCL,  KC_TDDG,  KC_TDCN,  KC_TDLN,
         KC_PRIM, KC_SECN,  KC_LALT,  KC_LEFT,  KC_RGHT,           KC_TAB,             KC_ENT,            KC_UP,    KC_DOWN,  KC_TDCB,  KC_TDRB,  KC_TDSB,
                                                KC_SPC,   KC_TDCC, KC_TDPS,            KC_LEAD, KC_DEL,   KC_BSPC
     ),
@@ -56,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WORKMAN] = LAYOUT_moonlander(
         KC_TDEC, KC_TD1N,  KC_TD2N,  KC_TD3N,  KC_TD4N,  KC_TD5N,  SW_OS,             SW_GM,   KC_TD6N,  KC_TD7N,  KC_TD8N,  KC_TD9N,  KC_TD0N,  KC_TDLG,
         KC_TDUH, KC_Q,     KC_D,     KC_R,     KC_W,     KC_B,     SW_PG,             SW_SY,   KC_J,     KC_F,     KC_TDU,   KC_P,     KC_TDCN,  KC_TDSL,
-        KC_TDDE, KC_TDA,   KC_S,     KC_H,     KC_T,     KC_G,     SW_LY,             _______, KC_Y,     KC_N,     KC_TDE,   KC_TDO,   KC_TDI,   KC_TDQT,
+        KC_TDDE, KC_TDA,   KC_S,     KC_H,     KC_T,     KC_G,     SW_LY,             _______, KC_Y,     KC_TDN,   KC_TDE,   KC_TDO,   KC_TDI,   KC_TDQT,
         KC_LSFT, KC_Z,     KC_X,     KC_M,     KC_C,     KC_V,                                 KC_K,     KC_L,     KC_TDCL,  KC_TDDG,  KC_TDEP,  KC_TDLN,
         KC_PRIM, KC_SECN,  KC_LALT,  KC_LEFT,  KC_RGHT,            KC_TAB,            KC_ENT,            KC_UP,    KC_DOWN,  KC_TDCB,  KC_TDRB,  KC_TDSB,
                                                KC_SPC,   KC_TDCC,  KC_TDPS,           KC_LEAD, KC_DEL,  KC_BSPC
@@ -109,13 +117,24 @@ void set_autoshift(void) {
 
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case CAPS_COMBO:
-      if (pressed) {
-        caps_word_set(true);  // Activate Caps Word!
-      }
-      break;
-  }
+    switch(combo_index) {
+        case CAPS_COMBO:
+            if (pressed)
+                caps_word_set(true);
+        break;
+        case LPWD_COMBO:
+            if(!pressed)
+                send_long_password();
+        break;
+        case SPWD_COMBO:
+            if(!pressed)
+                send_short_password();
+        break;
+        case MAIL_COMBO:
+            if(!pressed)
+                send_mail();
+        break;
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -203,19 +222,12 @@ void matrix_scan_user(void) {
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
+        SEQ_ONE_KEY(KC_PRIM){
+            SEND_STRING("clear");
+            tap_code(KC_ENT);
+        }
         SEQ_ONE_KEY(KC_TAB) {
             SEND_STRING(SS_LCTL(SS_LSFT("t")));
-        }
-        SEQ_ONE_KEY(KC_TDCL) {
-            tap_code16(S(KC_COMM));
-            tap_code16(S(KC_DOT));
-            tap_code(KC_LEFT);
-        }
-        SEQ_ONE_KEY(KC_TDDG) {
-            tap_code16(S(KC_COMM));
-            tap_code16(KC_SLASH);
-            tap_code16(S(KC_DOT));
-            tap_code(KC_LEFT);
         }
         SEQ_TWO_KEYS(KC_TAB, KC_TAB) {
             SEND_STRING(SS_LCTL("t"));

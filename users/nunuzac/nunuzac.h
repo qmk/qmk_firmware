@@ -2,6 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "tap_dances.h"
 #include "caps_word.h"
+#include "secrets.h"
 
 typedef enum {
     WLX,

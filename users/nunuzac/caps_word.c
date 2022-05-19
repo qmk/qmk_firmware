@@ -21,10 +21,6 @@
 
 static bool caps_word_active = false;
 
-float rock_a_bye_baby[][2]  = SONG(ROCK_A_BYE_BABY);
-float basketcase[][2] = SONG(BASKET_CASE);
-float ode_to_joy[][2]  = SONG(ODE_TO_JOY);
-
 // Many keyboards enable the Command feature, which by default is also activated
 // by Left Shift + Right Shift. It can be configured to use a different key
 // combination by defining IS_COMMAND(). We make a non-fatal warning if Command
