@@ -6,4 +6,6 @@
     #include "rev1.h"
 #elif defined(KEYBOARD_aeboards_ext65_rev2)
     #include "rev2.h"
+#elif defined(KEYBOARD_aeboards_ext65_rev3)
+    #include "rev3.h"
 #endif
