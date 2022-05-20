@@ -39,4 +39,5 @@
 // Short tap threshold
 #define TAPPING_TERM 250
 
+// For homerow mods
 #define IGNORE_MOD_TAP_INTERRUPT
