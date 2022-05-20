@@ -6,7 +6,7 @@ A macropad with a Cirque Glidepoint Trackpad in the middle, powered by the STM32
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
 * Hardware Supported: PuckBuddy v1.0
-* Hardware Availability: [OBE on MechWild](https://mechwild.com/product/puckbuddy/)
+* Hardware Availability: [PuckBuddy on MechWild](https://mechwild.com/product/puckbuddy/)
 
 Make example for this keyboard (after setting up your build environment):
 
