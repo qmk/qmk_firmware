@@ -77,7 +77,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 
-/* Allow VIA to edit lighting */
-#ifdef VIA_ENABLE
-#    define VIA_QMK_RGBLIGHT_ENABLE
-#endif
