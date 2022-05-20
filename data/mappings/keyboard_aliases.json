@@ -167,6 +167,12 @@
     'gmmk/pro': {
           target: 'gmmk/pro/rev1/ansi'
     },
+    'gmmk/pro/ansi': {
+        target: 'gmmk/pro/rev1/ansi'
+    },
+    'gmmk/pro/iso': {
+        target: 'gmmk/pro/rev1/iso'
+    },
     'handwired/ferris': {
           target: 'ferris/0_1'
     },
