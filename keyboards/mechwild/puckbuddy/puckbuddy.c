@@ -176,6 +176,8 @@ void pointing_device_init_kb(void) {
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = GLIDEPOINT_DPI_DEFAULT;
     eeconfig_update_kb(keyboard_config.raw);
+    
+    eeconfig_init_user();
 }
 
 void matrix_init_kb(void) {
