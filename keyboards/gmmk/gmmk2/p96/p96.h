@@ -18,12 +18,8 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_gmmk_gmmk2_p65_ansi)
-#    include "p65/ansi/ansi.h"
-#elif defined(KEYBOARD_gmmk_gmmk2_p65_iso)
-#    include "p65/iso/iso.h"
-#elif defined(KEYBOARD_gmmk_gmmk2_p96_ansi)
-#    include "p96/ansi/ansi.h"
+#if defined(KEYBOARD_gmmk_gmmk2_p96_ansi)
+#    include "ansi/ansi.h"
 #elif defined(KEYBOARD_gmmk_gmmk2_p96_iso)
-#    include "p96/iso/iso.h"
+#    include "iso/iso.h"
 #endif  // GMMK V2 revisions
