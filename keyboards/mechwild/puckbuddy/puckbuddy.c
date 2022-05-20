@@ -96,41 +96,9 @@ static void render_logo(void) {     // Render MechWild "MW" Logo
 bool oled_task_kb(void) {
     if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && get_highest_layer(layer_state) == 0 ) {
         render_name();
-        oled_set_cursor(0,3);
-        switch (keyboard_config.dpi_config) {   // { 400, 800, 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4000 }
-            case 0:
-                oled_write_P(PSTR("      DPI: 400       "), false);
-                break;
-            case 1:
-                oled_write_P(PSTR("      DPI: 800       "), false);
-                break;
-            case 2:
-                oled_write_P(PSTR("      DPI: 1200      "), false);
-                break;
-            case 3:
-                oled_write_P(PSTR("      DPI: 1600      "), false);
-                break;
-            case 4:
-                oled_write_P(PSTR("      DPI: 2000      "), false);
-                break;
-            case 5:
-                oled_write_P(PSTR("      DPI: 2400      "), false);
-                break;
-            case 6:
-                oled_write_P(PSTR("      DPI: 2800      "), false);
-                break;
-            case 7:
-                oled_write_P(PSTR("      DPI: 3200      "), false);
-                break;
-            case 8:
-                oled_write_P(PSTR("      DPI: 3600      "), false);
-                break;
-            case 9:
-                oled_write_P(PSTR("      DPI: 4000      "), false);
-                break;
-            default:
-                oled_write_P(PSTR("      DPI: ????      "), false);    // Should never display, here as a catchall
-        }
+        oled_set_cursor(6,3);
+        oled_write_P(PSTR("DPI: "), false);
+        oled_write(get_u16_str(dpi_array[keyboard_config.dpi_config], ' '), false);
         clear_screen = true;
     } else {
         if (clear_screen == true) {
@@ -163,40 +131,8 @@ bool oled_task_kb(void) {
         oled_write_P(led_state.num_lock ? PSTR("NLCK ") : PSTR("     "), false);
         oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
         oled_set_cursor(8,3);
-        switch (keyboard_config.dpi_config) {   // 512, 1024, 2048, 3072, 4096
-            case 0:
-                oled_write_P(PSTR("DPI: 400 "), false);
-                break;
-            case 1:
-                oled_write_P(PSTR("DPI: 800 "), false);
-                break;
-            case 2:
-                oled_write_P(PSTR("DPI: 1200"), false);
-                break;
-            case 3:
-                oled_write_P(PSTR("DPI: 1600"), false);
-                break;
-            case 4:
-                oled_write_P(PSTR("DPI: 2000"), false);
-                break;
-            case 5:
-                oled_write_P(PSTR("DPI: 2400"), false);
-                break;
-            case 6:
-                oled_write_P(PSTR("DPI: 2800"), false);
-                break;
-            case 7:
-                oled_write_P(PSTR("DPI: 3200"), false);
-                break;
-            case 8:
-                oled_write_P(PSTR("DPI: 3600"), false);
-                break;
-            case 9:
-                oled_write_P(PSTR("DPI: 4000"), false);
-                break;
-            default:
-                oled_write_P(PSTR("DPI: ????"), false);    // Should never display, here as a catchall
-        }
+        oled_write_P(PSTR("DPI: "), false);
+        oled_write(get_u16_str(dpi_array[keyboard_config.dpi_config], ' '), false);
     }
     return false;
 }
