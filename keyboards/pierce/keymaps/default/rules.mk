@@ -1,4 +1,3 @@
-EXTRAKEY_ENABLE = no # Audio control and System control
+# Change to yes to enable feature
 TRACKPOINT = no
 AUTO_BUTTONS = no
-COMBO_ENABLE = no

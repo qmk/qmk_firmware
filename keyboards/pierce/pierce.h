@@ -29,5 +29,3 @@
 	{ K20,  K21,  K22,  K23,  K24,  K25,  K26,  K27,  K28,  K29 }, \
 	{ KC_NO, KC_NO, K32,  K33,  K34,  K35,  K36,  K37,  KC_NO, KC_NO }  \
 }
-
-#define LAYOUT LAYOUT_split_3x5_3

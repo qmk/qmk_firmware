@@ -21,7 +21,7 @@ enum layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT(
+  [BASE] = LAYOUT_split_3x5_3(
   // Base
   //,--------------------------------------------,                    ,--------------------------------------------.
          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,

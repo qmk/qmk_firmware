@@ -17,16 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
 
-#if defined PS2_MOUSE_ENABLE
-#include "ps2_mouse.h"
-#endif
-
-#if defined AUTO_BUTTONS && defined PS2_MOUSE_ENABLE 
-
-static uint16_t auto_buttons_timer;
-extern int tp_buttons; // mousekey button state set in action.c and used in ps2_mouse.c
-
-
 enum layers { 
     BASE, 
     MBO, 
@@ -40,6 +30,15 @@ enum combos {
     EI_ADIA, 
     UK_ODIA 
 };
+
+#if defined PS2_MOUSE_ENABLE
+#include "ps2_mouse.h"
+#endif
+
+#if defined AUTO_BUTTONS && defined PS2_MOUSE_ENABLE 
+
+static uint16_t auto_buttons_timer;
+extern int tp_buttons; // mousekey button state set in action.c and used in ps2_mouse.c
 
 void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
     if (auto_buttons_timer) {
@@ -63,13 +62,13 @@ void matrix_scan_user(void) {
 
 #endif // defined AUTO_BUTTONS && defined PS2_MOUSE_ENABLE
 
-// Left-hand home row mods colemak
+// Left-hand home row mods
 #define GUI_A LGUI_T(KC_A)
 #define ALT_R LALT_T(KC_R)
 #define SFT_S LSFT_T(KC_S)
 #define CTRL_T LCTL_T(KC_T)
 
-// Right-hand home row mods colemak
+// Right-hand home row mods
 #define CTL_N RCTL_T(KC_N)
 #define SFT_E RSFT_T(KC_E)
 #define ALT_I LALT_T(KC_I)
@@ -90,7 +89,7 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT(
+  [BASE] = LAYOUT_split_3x5_3(
  // BASE
   //,--------------------------------------------,                    ,--------------------------------------------.
          SE_Q,    SE_W,    SE_F,    SE_P,    SE_B,                         SE_Y,    SE_L,    SE_U,    SE_K, SE_QUOT,
@@ -105,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [MBO] = LAYOUT(
+  [MBO] = LAYOUT_split_3x5_3(
   // Mouse
   //,--------------------------------------------,                    ,--------------------------------------------.
       _______, _______, _______, _______, _______,                      KC_BTN1, KC_BTN2, _______, _______, _______,
@@ -119,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [SYM] = LAYOUT(
+  [SYM] = LAYOUT_split_3x5_3(
   // Symbols
   //,--------------------------------------------,                    ,--------------------------------------------.
       SE_SECT, SE_ACUT, SE_SLSH, SE_TILD, _______,                      _______, SE_PIPE, SE_BSLS, SE_DIAE, SE_CIRC,
@@ -132,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              //`--------------------------'  '--------------------------'
   ),
 
-  [NUM] = LAYOUT(
+  [NUM] = LAYOUT_split_3x5_3(
   // Numbers
   //,--------------------------------------------,                    ,--------------------------------------------.
       _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                      _______,    SE_7,    SE_8,    SE_9, SE_QUOT,
@@ -145,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              //`--------------------------'  '--------------------------'
   ),
 
-  [FN] = LAYOUT(
+  [FN] = LAYOUT_split_3x5_3(
   // FN
   //,--------------------------------------------,                    ,--------------------------------------------.
       _______, _______, _______, _______, _______,                      _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,
