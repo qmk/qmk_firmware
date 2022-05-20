@@ -17,7 +17,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum layers { BASE, WIN, GAME, SYM, NAV, WINNAV, SHFT};
+enum layers { BASE, WIN, GAME, SYM, NAV, WINNAV, SHFT, MEH};
 
 bool is_alt_tab_active = false;    // ADD this near the begining of keymap.c
 uint16_t alt_tab_timer = 0;        // we will be using them soon.
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[BASE] = LAYOUT(
 		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,							KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,
 		KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,							KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_EQL,
-MT(MOD_MEH,KC_ESC),	KC_A,		KC_S,		KC_D,		KC_F,		KC_G,							KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	KC_QUOT,
+LT(MEH,KC_ESC),	KC_A,		KC_S,		KC_D,		KC_F,		KC_G,							KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	KC_QUOT,
 		KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,	ENCODER_MODE,	TO(WIN),	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
 		MT(MOD_LCTL, KC_LBRC),	MT(MOD_LALT, KC_RBRC),	LT(SYM,KC_DEL), MO(NAV),	CMD_T(KC_BSPC),		KC_SPC,		LT(SYM, KC_ENT),	MT(MOD_RGUI, KC_DEL),	MT(MOD_RALT, KC_MINS), 	MT(MOD_RCTL, KC_EQL)
 	),
@@ -95,5 +95,12 @@ MT(MOD_MEH,KC_ESC),	KC_G,		KC_A,		KC_S,		KC_D,		KC_F,								KC_H,		KC_J,		KC_K,
 		KC_LGUI,	KC_HOME,	KC_LEFT,	KC_DOWN,	KC_RGHT,	KC_END,								KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_LCBR,	KC_RCBR,
 		KC_LSFT,	KC_HOME,	C(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,	_______,			KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_LT,		KC_GT,
 		_______,	_______,	_______,	_______,	_______,								KC_BTN1,KC_BTN2,	_______,	_______,	_______
-	)
+	),
+	[MEH]=LAYOUT(
+		_______,	MEH(KC_1),		MEH(KC_2),		MEH(KC_3),		MEH(KC_4),		MEH(KC_5),								_______,	_______,	_______,	_______,	_______,	_______,
+		_______,	MEH(KC_Q),		MEH(KC_W),		MEH(KC_E),		MEH(KC_R),		MEH(KC_T),								_______,	_______,	_______,	_______,	_______,	_______,
+		_______,	MEH(KC_A),		MEH(KC_S),		MEH(KC_D),		MEH(KC_F),		MEH(KC_G),								_______,	_______,	_______,	_______,	_______,	_______,
+		_______,	MEH(KC_Z),		MEH(KC_X),		MEH(KC_C),		MEH(KC_V),		MEH(KC_B),	_______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,
+								_______,	_______,	_______,	KC_ENT, 	KC_SPC,			_______,	_______,	_______,	_______,	_______
+	),
 };
