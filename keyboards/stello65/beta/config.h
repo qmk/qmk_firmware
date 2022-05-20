@@ -10,7 +10,7 @@
 #define PRODUCT_ID   0x0003
 #define DEVICE_VER   0x0001
 #define MANUFACTURER @wekey
-#define PRODUCT      Stelo65
+#define PRODUCT      Stello65
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -35,7 +35,7 @@
 
 #ifdef ENCODER_ENABLE
 #define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D2 } 
+#define ENCODERS_PAD_B { D2 }
 #define ENCODER_RESOLUTION 2
 
 #define ENCODERS 1

@@ -1,7 +1,7 @@
 // Copyright 2021 @wekey (@@wekey)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "stelo65.h"
+#include "beta.h"
 #include "encoder_actions.h"
 
 void matrix_scan_kb(void) {

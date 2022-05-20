@@ -1,20 +1,20 @@
-# stelo65
+# Stello65
 
-![stelo65](https://i.imgur.com/dvzVYH1h.png)
+![Stello65](https://i.imgur.com/dvzVYH1h.png)
 
-65% keyboard with encoder.
+Stello keyboard
 
 * Keyboard Maintainer: [@wekey](https://github.com/wekey-dev)
-* Hardware Supported: Stelo65 case, ATMEGA32U4
+* Hardware Supported: Stello65 case, ATMEGA32U4
 * Hardware Availability: Group buy
 
 Make example for this keyboard (after setting up your build environment):
 
-    make stelo65:default
+    make stello65/sl_rev1:default
 
 Flashing example for this keyboard:
 
-    make stelo65:default:flash
+    make stello65/sl_rev1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
