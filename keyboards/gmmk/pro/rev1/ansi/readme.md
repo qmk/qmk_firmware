@@ -8,11 +8,11 @@ A tenkeyless 75% keyboard made and sold by Glorious LLC. Equipped with the STM32
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gmmk/pro/ansi:default
+    make gmmk/pro/rev1/ansi:default
 
 Flashing example for this keyboard:
 
-    make gmmk/pro/ansi:default:flash
+    make gmmk/pro/rev1/ansi:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
