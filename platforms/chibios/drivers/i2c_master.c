@@ -47,6 +47,13 @@
 #    ifndef I2C1_DUTY_CYCLE
 #        define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
 #    endif
+#elif defined(WB32F3G71xx)
+#    ifndef I2C1_OPMODE
+#        define I2C1_OPMODE OPMODE_I2C
+#    endif
+#    ifndef I2C1_CLOCK_SPEED
+#        define I2C1_CLOCK_SPEED 100000 /* 400000 */
+#    endif
 #else
 // The default timing values below configures the I2C clock to 400khz assuming a 72Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html

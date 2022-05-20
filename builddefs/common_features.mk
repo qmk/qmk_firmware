@@ -230,6 +230,7 @@ ifneq ($(strip $(FLASH_DRIVER)), no)
             OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
             COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
+            QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
 endif
