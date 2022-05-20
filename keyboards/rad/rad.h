@@ -1,5 +1,4 @@
-/* Copyright 2021 s-ol
- *
+/* 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -13,22 +12,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "0xc_pad.h"
+#pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-    // indices
-    {     0,    6, KC_NO, KC_NO },
-    {     1,    5,     7, KC_NO },
-    {     2,    4,     8,    11 },
-    { KC_NO,    3,     9,    10 }
-}, {
-    // phys position
-    { 96, 110}, { 80, 83}, { 64,  55}, { 80, 28},
-    { 96,  55}, {112, 83}, {128, 110}, {144, 83},
-    {128,  55}, {112, 28}, {144,  28}, {160, 55}
-}, {
-    // flags
-    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
-} };
-#endif
+#include "quantum.h"
+
+#define LAYOUT( \
+         K01, K02, \
+    K10, K11, K12, \
+    K20, K21, K22, \
+    K30, K31, K32  \
+) { \
+    { KC_NO, K01,   K02 }, \
+    { K10,   K11,   K12 }, \
+    { K20,   K21,   K22 }, \
+    { K30,   K31,   K32 }  \
+}
