@@ -1,6 +1,6 @@
 # IDOBAO ID63
 
-![IDOBAO ID63](https://idobao.github.io/assets/img/idobao-id63.png)
+![IDOBAO ID63](https://i.imgur.com/DxlOr9x.png)
 
 *The ID63 Keyboard Kit brings a tailored gasket-mounted build to an ultra-compact 60% layout with a unique ribbed side texture.*
 
