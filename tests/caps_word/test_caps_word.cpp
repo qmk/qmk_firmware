@@ -212,6 +212,36 @@ TEST_F(CapsWord, SpaceTurnsOffCapsWord) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
+// Tests that typing "AltGr + A" produces "Shift + AltGr + A".
+TEST_F(CapsWord, ShiftsAltGrSymbols) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_altgr(0, 1, 0, KC_RALT);
+    set_keymap({key_a, key_altgr});
+
+    // Allow any number of reports with no keys or only modifiers.
+    // clang-format off
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
+                KeyboardReport(),
+                KeyboardReport(KC_RALT),
+                KeyboardReport(KC_LSFT, KC_RALT))))
+        .Times(AnyNumber());
+    // Expect "Shift + AltGr + A, Space".
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_RALT, KC_A)));
+    // clang-format on
+
+    // Turn on Caps Word and type "AltGr + A".
+    caps_word_on();
+
+    key_altgr.press();
+    run_one_scan_loop();
+    TapKeys(key_a);
+    run_one_scan_loop();
+    key_altgr.release();
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
 struct CapsWordBothShiftsParams {
     std::string name;
     uint16_t    left_shift_keycode;
