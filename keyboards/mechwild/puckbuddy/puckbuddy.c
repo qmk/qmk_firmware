@@ -25,7 +25,7 @@ void board_init(void) {
 }
 
 #ifdef DIP_SWITCH_ENABLE
-bool dip_switch_update_kb(uint8_t index, bool active) { 
+bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false; }
     switch (index) {
         case 0:
@@ -163,7 +163,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 pointing_device_set_cpi(dpi_array[0]);
             } else {
                 pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
-            }                
+            }
             return false;
     }
     return process_record_user(keycode, record);
@@ -176,7 +176,7 @@ void pointing_device_init_kb(void) {
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = GLIDEPOINT_DPI_DEFAULT;
     eeconfig_update_kb(keyboard_config.raw);
-    
+
     eeconfig_init_user();
 }
 
@@ -194,7 +194,7 @@ void keyboard_post_init_kb(void) {
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
 
     keyboard_post_init_user();
-    
+
     rgblight_toggle_noeeprom();     //double toggle post init removes the weirdness with rgb strips having a yellow first LED
     rgblight_toggle_noeeprom();
 
