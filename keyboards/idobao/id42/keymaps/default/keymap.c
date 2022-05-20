@@ -3,17 +3,10 @@
 
 #include QMK_KEYBOARD_H
 
-// extracted from `via.h`
-enum via_keycodes {
-    FN_MO13 = 0x5F10,
+enum custom_keycodes {
+    FN_MO13 = SAFE_RANGE,
     FN_MO23,
 };
-
-// extracted from `via_ensure_keycode.h`
-#ifndef VIA_HAS_BROKEN_KEYCODES
-_Static_assert(FN_MO13                == 0x5F10, "");
-_Static_assert(FN_MO23                == 0x5F11, "");
-#endif
 
 // more Layer Tap stuff
 #define SPC_FN1 LT(1, KC_SPC)
@@ -94,8 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// borrowing this from `via.c` as it's not in core.
-__attribute__((weak))
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case FN_MO13:
