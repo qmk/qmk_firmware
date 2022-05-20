@@ -8,8 +8,6 @@
         "LAYOUT_iso": "LAYOUT_60_iso_split_bs_rshift",
         "LAYOUT_tsangan": "LAYOUT_60_tsangan_hhkb"
     },
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
