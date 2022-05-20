@@ -1,6 +1,14 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
+Copyright 2020 Qurn
+Copyright 2022 Pascal Jaeger
+   ______     _____
+  |_   __ \  |_   _|
+    | |__) |   | |
+    |  ___/ _  | |
+   _| |_   | |_| |
+  |_____|  \.___.'
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -39,15 +47,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // wiring of each half
-#define MATRIX_COL_PINS { D6, D7, B4, D3, C6, C7 }
-#define MATRIX_ROW_PINS { D4, B7, F7, B6, B5, F6 }
+// left
+#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
+#define MATRIX_ROW_PINS { F6, F7, B1, B3, B2, B6 }
+// right
+#define MATRIX_COL_PINS_RIGHT { D6, D7, B4, D3, C6, C7 }
+#define MATRIX_ROW_PINS_RIGHT { D4, B7, F7, B6, B5, F6 }
 #define PMW3360_CS_PIN B0
+
+#define PMW3360_LIFTOFF_DISTANCE 0x0A
 
 #define DIODE_DIRECTION COL2ROW
 
 #define MASTER_RIGHT
 //#define USE_I2C
-#define SPLIT_USB_DETECT
+//#define SPLIT_USB_DETECT
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -61,5 +75,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB_POLLING_INTERVAL_MS 3
 #define TAPPING_TERM 200
 #define POLLING true
-
 #define COMBO_COUNT 3
+
+// your editing pleasure:
+#define PMW3360_CPI 700
+#define ROTATIONAL_TRANSFORM_ANGLE -30

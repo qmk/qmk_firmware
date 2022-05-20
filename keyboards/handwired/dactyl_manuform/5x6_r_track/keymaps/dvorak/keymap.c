@@ -181,7 +181,6 @@ enum custom_keycodes {
   KC_SCLN_INV,
   KC_QUOT_MY, // not US Int style
   KC_TILD_MY, // not US Int style
-  KC_BSPC_LCTL,
   KC_CPI_DOWN,
   KC_CPI_STD,
   KC_CPI_UP,
@@ -189,41 +188,41 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_DVORAK] = LAYOUT_5x6(
-KC_GRV,     KC_1,    KC_2,    KC_3 ,    KC_4 ,    KC_5,                  KC_6    ,    KC_7 ,       KC_8 ,      KC_9 ,      KC_0        ,KC_EQL,
-KC_TAB,     KC_QUOT, KC_COMM, KC_DOT  , KC_P    , KC_Y   ,               KC_F    ,    KC_G       , KC_C      , KC_R      , KC_L ,       KC_SLSH,
-KC_ESC,     KC_A ,   KC_O   , KC_E    , KC_U    , KC_I   ,               KC_D    ,    KC_H       , KC_T      , KC_N      , KC_S        ,KC_MINS,
-KC_NO,      KC_SCLN, KC_Q   , KC_J    , KC_K    , KC_X   ,               KC_B    ,    KC_M       , KC_W   ,    KC_V    ,   KC_Z     ,   KC_BSLS,
-                    KC_RBRC, KC_RBRC,                                                       KC_PGUP, KC_PGDN,
-                                       TD(GUI_TM),    TD(SFT_TM),        _______, KC_RSFT,
-                                       TD(CTL_TM),    KC_SPC,            _______, KC_BSPC,
-                                       TD(ALT_TM),    TD(LOW_TM),        KC_ENT, KC_RALT
-),
+  [_DVORAK] = LAYOUT_5x6(
+                         KC_GRV,     KC_1,    KC_2,    KC_3 ,    KC_4 ,    KC_5,                  KC_6    ,    KC_7 ,       KC_8 ,      KC_9 ,      KC_0        ,KC_EQL,
+                         KC_TAB,     KC_QUOT, KC_COMM, KC_DOT  , KC_P    , KC_Y   ,               KC_F    ,    KC_G       , KC_C      , KC_R      , KC_L ,       KC_SLSH,
+                         KC_ESC,     KC_A ,   KC_O   , KC_E    , KC_U    , KC_I   ,               KC_D    ,    KC_H       , KC_T      , KC_N      , KC_S        ,KC_MINS,
+                         KC_NO,      KC_SCLN, KC_Q   , KC_J    , KC_K    , KC_X   ,               KC_B    ,    KC_M       , KC_W   ,    KC_V    ,   KC_Z     ,   KC_BSLS,
+                                               KC_RBRC, KC_RBRC,                                                       KC_PGUP, KC_PGDN,
+                                                                TD(GUI_TM),    TD(SFT_TM),        _______, KC_RSFT,
+                                                                TD(CTL_TM),    KC_SPC,            _______, KC_BSPC,
+                                                                TD(ALT_TM),    TD(LOW_TM),        KC_ENT, KC_RALT
+                         ),
 
-[_LOWER] = LAYOUT_5x6(
+  [_LOWER] = LAYOUT_5x6(
 
-KC_TILD,     KC_F1,    KC_F2,    KC_F3,         KC_F4,     KC_F5,        KC_F6,   KC_F7,     KC_F8,     KC_F9,       KC_F10,     KC_DEL ,
-_______,    _______, _______,  _______,       _______,   KC_LCBR,        KC_RCBR, KC_BTN1,   _______,   _______  ,   _______ ,   _______,
-_______,    _______, _______,  TD(RAI_TM),     KC_DEL,   KC_LPRN,        KC_RPRN, KC_LEFT ,  KC_UP,     KC_DOWN,     KC_RGHT,    KC_PIPE,
-KC_CAPS ,   _______, _______,  LCTL(KC_X), LCTL(KC_C),LCTL(KC_V),        _______, KC_BTN2  , _______,   _______,     _______,    _______,
-                    _______,_______,                                                                  _______,_______,
-                                        _______,_______,                 _______,_______,
-                                        _______,_______,                 _______,_______,
-                                        _______,_______,                 _______,_______
-),
+                        KC_TILD,     KC_F1,    KC_F2,    KC_F3,         KC_F4,     KC_F5,        KC_F6,   KC_F7,     KC_F8,     KC_F9,       KC_F10,     KC_DEL ,
+                        _______,    _______, _______,  _______,       _______,   KC_LCBR,        KC_RCBR, KC_BTN1,   _______,   _______  ,   _______ ,   _______,
+                        _______,    _______, _______,  TD(RAI_TM),     KC_DEL,   KC_LPRN,        KC_RPRN, KC_LEFT ,  KC_UP,     KC_DOWN,     KC_RGHT,    KC_PIPE,
+                        KC_CAPS ,   _______, _______,  LCTL(KC_X), LCTL(KC_C),LCTL(KC_V),        _______, KC_BTN2  , _______,   _______,     _______,    _______,
+                                              _______,_______,                                                        _______,_______,
+                                                                     _______,_______,                 _______,_______,
+                                                                     _______,_______,                 _______,_______,
+                                                                     _______,_______,                 _______,_______
+                        ),
 
-[_RAISE] = LAYOUT_5x6(
+  [_RAISE] = LAYOUT_5x6(
 
-_______, _______, _______, _______, _______, _______,                    _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_CALC,
-_______, _______, _______, _______, _______, KC_LBRC,                    KC_RBRC, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_MUTE,
-_______, _______, _______, _______, _______, KC_LPRN,                    KC_RPRN, KC_P4,   KC_P5,   KC_P6,   _______, KC_VOLU,
-_______, _______, _______, _______, _______, _______,                    KC_P0,   KC_P1,   KC_P2,   KC_P3,   KC_PEQL, KC_VOLD,
-                             _______,_______,                                KC_DOT, KC_COMM,
-                                        _______,_______,             _______,_______,
-                                        _______,_______,             _______,_______,
-                                        _______,_______,             _______,_______
+                        _______, _______, _______, _______, _______, _______,                    _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_CALC,
+                        _______, _______, _______, _______, _______, KC_LBRC,                    KC_RBRC, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_MUTE,
+                        _______, _______, _______, _______, _______, KC_LPRN,                    KC_RPRN, KC_P4,   KC_P5,   KC_P6,   _______, KC_VOLU,
+                        _______, _______, _______, _______, _______, _______,                    KC_P0,   KC_P1,   KC_P2,   KC_P3,   KC_PEQL, KC_VOLD,
+                                             _______,_______,                                                         KC_DOT, KC_COMM,
+                                                                    _______,_______,             _______,_______,
+                                                                    _______,_______,             _______,_______,
+                                                                    _______,_______,             _______,_______
 
-),
+                        ),
 };
 
 /***************************
@@ -456,12 +455,12 @@ void lowtm_reset(qk_tap_dance_state_t *state, void *user_data) {
 // define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in
 // `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [ALT_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alttm_finished, alttm_reset),
-    [SFT_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sfttm_finished, sfttm_reset),
-    [CTL_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctltm_finished, ctltm_reset),
-    [GUI_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guitm_finished, guitm_reset),
-    [RAI_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, raitm_finished, raitm_reset),
-    [LOW_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lowtm_finished, lowtm_reset),
+  [ALT_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alttm_finished, alttm_reset),
+  [SFT_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sfttm_finished, sfttm_reset),
+  [CTL_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctltm_finished, ctltm_reset),
+  [GUI_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guitm_finished, guitm_reset),
+  [RAI_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, raitm_finished, raitm_reset),
+  [LOW_TM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lowtm_finished, lowtm_reset),
 };
 
 /***************************
@@ -472,6 +471,7 @@ void pointing_device_init(void) {
   if (!is_keyboard_master())
     return;
   pmw3360_init();
+  pmw3360_set_cpi(PMW3360_CPI);
 }
 
 int max(int num1, int num2) { return (num1 > num2) ? num1 : num2; }
@@ -624,7 +624,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-  // no repetitive ::: with holding
+    // no repetitive ::: with holding
   case KC_SCLN_INV:
     if (record->event.pressed) {
       if (is_sft_active) {
@@ -701,7 +701,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return false;
 
   case KC_CPI_STD:
-    cursor_multiplier = 250;
+    cursor_multiplier = PMW3360_CPI;
     return false;
 
   case KC_CPI_UP:

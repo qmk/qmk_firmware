@@ -181,7 +181,6 @@ enum custom_keycodes {
   KC_SCLN_INV,
   KC_QUOT_MY, // not US Int style
   KC_TILD_MY, // not US Int style
-  KC_BSPC_LCTL,
   KC_CPI_DOWN,
   KC_CPI_STD,
   KC_CPI_UP,
@@ -481,6 +480,7 @@ void pointing_device_init(void) {
   if (!is_keyboard_master())
     return;
   pmw3360_init();
+  pmw3360_set_cpi(PMW3360_CPI);
 }
 
 int max(int num1, int num2) { return (num1 > num2) ? num1 : num2; }
@@ -710,7 +710,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return false;
 
   case KC_CPI_STD:
-    cursor_multiplier = 250;
+    cursor_multiplier = PMW3360_CPI;
     return false;
 
   case KC_CPI_UP:
