@@ -38,7 +38,7 @@ extern keyboard_config_t keyboard_config;
 extern uint16_t          dpi_array[];
 
 enum keyboard_keycodes {
-#ifdef VIAL_ENABLE
+#ifdef VIA_ENABLE
     DPI_UP = USER00,
 #else
     DPI_UP = SAFE_RANGE,
