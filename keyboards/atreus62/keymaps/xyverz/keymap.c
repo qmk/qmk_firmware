@@ -31,6 +31,11 @@ CHANGELOG:
  0.7 - Brought code up to current standards.
  0.8 - Added MACLOCK macro.
  0.9 - Updated code to correspond to new setPinInput behaviour
+ 0.10 - Re-ordered the layers (swapped Destiny & WoW layers in the
+       list). Removed duplicated keys from RAISE and LOWER layers.
+       Updated readme.md and fixed an aesthetic typo in keymap.c.
+ 0.11 - Added DEL_GUI macro. Removed WOW layer since I'm no longer
+       supporting Blizzard in any way.
 
 TODO:
 
@@ -44,9 +49,9 @@ TODO:
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 #include QMK_KEYBOARD_H
 
-enum layer_names { _DVORAK, _QWERTY, _COLEMAK, _DESTINY, _WOW, _LOWER, _RAISE, _ADJUST };
+enum layer_names { _DVORAK, _QWERTY, _COLEMAK, _DESTINY, _LOWER, _RAISE, _ADJUST };
 
-enum atreus62_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, DESTINY, WOW, LOWER, RAISE, ADJUST };
+enum atreus62_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, DESTINY, LOWER, RAISE, ADJUST };
 
 // Aliases to make the keymap clearer.
 #define CTL_ENT CTL_T(KC_ENT)
@@ -90,14 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_DEL,  KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
   ),
 
-  [_WOW] = LAYOUT ( /* Dvorak with minor modifications for playing World of Warcraft */
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
-    KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
-    KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
-    KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LALT, CTL_ENT, KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
-  ),
-
   [_LOWER] = LAYOUT (
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
@@ -115,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT (
     _______, _______, _______, KC_F13,  KC_F14,  KC_F15,                    _______, _______, _______, _______, _______, _______,
     _______, RESET,   _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                   _______, QWERTY,  COLEMAK, DVORAK,  DESTINY, WOW,
+    _______, _______, _______, _______, _______, _______,                   _______, QWERTY,  COLEMAK, DVORAK,  DESTINY, _______,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
