@@ -67,9 +67,9 @@ uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY / 10;
 /* milliseconds between repeated motion events (0-255) */
 #    ifdef MK_KINETIC_SPEED
-float   mk_wheel_interval    = 1000.0f / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
+float mk_wheel_interval = 1000.0f / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
 #    else
-uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
+uint8_t mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
 #    endif
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
