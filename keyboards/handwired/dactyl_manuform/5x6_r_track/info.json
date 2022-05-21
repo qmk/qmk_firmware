@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Dactyl Manuform 5x6",
-    "url": "",
-    "maintainer": "qmk",
+    "url": "https://github.com/Schievel1/dactyl_manuform_r_track",
+    "maintainer": "Schievel",
     "layouts": {
         "LAYOUT_5x6": {
             "layout": [
@@ -70,13 +70,11 @@
                 {"x": 4, "y": 5},
                 {"x": 5, "y": 5},
 
-                {"x": 11, "y": 5},
                 {"x": 12, "y": 5},
 
                 {"x": 6, "y": 6},
                 {"x": 7, "y": 6},
 
-                {"x": 9, "y": 6},
                 {"x": 10, "y": 6},
 
                 {"x": 6, "y": 7},
