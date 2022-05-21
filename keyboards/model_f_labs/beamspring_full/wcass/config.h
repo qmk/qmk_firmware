@@ -309,7 +309,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LED_CAPS_LOCK_ACTIVE_LOW
 //#define LED_SCROLL_LOCK_ACTIVE_LOW
 
-#include "keyboards/model_f_labs/xwhatsit/post_config.h"
+#include "../../post_config.h"
 
 // CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F
 // ----- xwhatsit hardware configuration -----
