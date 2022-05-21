@@ -2,10 +2,8 @@
     "keyboard_name": "ColorLice",
     "url": "",
     "maintainer": "marhalloweenvt",
-    "width": 17.75,
-    "height": 5,
     "layouts": {
-      "LAYOUT": {
+      "LAYOUT_alice_split_bs": {
         "layout": [
           {"label":"K63", "x":0, "y":0},
           {"label":"K00", "x":1.25, "y":0},

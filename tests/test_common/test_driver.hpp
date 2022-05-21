@@ -14,35 +14,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTS_TEST_COMMON_TEST_DRIVER_H_
-#define TESTS_TEST_COMMON_TEST_DRIVER_H_
+#pragma once
 
 #include "gmock/gmock.h"
 #include <stdint.h>
 #include "host.h"
 #include "keyboard_report_util.hpp"
-
+#include "test_logger.hpp"
 
 class TestDriver {
-public:
+   public:
     TestDriver();
     ~TestDriver();
     void set_leds(uint8_t leds) { m_leds = leds; }
-    
-    MOCK_METHOD1(send_keyboard_mock, void (report_keyboard_t&));
-    MOCK_METHOD1(send_mouse_mock, void (report_mouse_t&));
-    MOCK_METHOD1(send_system_mock, void (uint16_t));
-    MOCK_METHOD1(send_consumer_mock, void (uint16_t));
-private:
-    static uint8_t keyboard_leds(void);
-    static void send_keyboard(report_keyboard_t *report);
-    static void send_mouse(report_mouse_t* report);
-    static void send_system(uint16_t data);
-    static void send_consumer(uint16_t data);
-    host_driver_t m_driver;
-    uint8_t m_leds = 0;
+
+    MOCK_METHOD1(send_keyboard_mock, void(report_keyboard_t&));
+    MOCK_METHOD1(send_mouse_mock, void(report_mouse_t&));
+    MOCK_METHOD1(send_system_mock, void(uint16_t));
+    MOCK_METHOD1(send_consumer_mock, void(uint16_t));
+
+   private:
+    static uint8_t     keyboard_leds(void);
+    static void        send_keyboard(report_keyboard_t* report);
+    static void        send_mouse(report_mouse_t* report);
+    static void        send_system(uint16_t data);
+    static void        send_consumer(uint16_t data);
+    host_driver_t      m_driver;
+    uint8_t            m_leds = 0;
     static TestDriver* m_this;
 };
-
-
-#endif /* TESTS_TEST_COMMON_TEST_DRIVER_H_ */

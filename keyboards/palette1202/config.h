@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER niltea
 #define PRODUCT      Palette1202
-#define DESCRIPTION  A left hand device with rotary encoder
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -49,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* Register custom font file */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #define OLED_FONT_H "lib/glcdfont.c"
 #endif
 

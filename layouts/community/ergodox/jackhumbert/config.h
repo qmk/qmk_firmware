@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D7
@@ -13,5 +10,3 @@
 
 #define RGB_MIDI
 #define RGBW_BB_TWI
-
-#endif

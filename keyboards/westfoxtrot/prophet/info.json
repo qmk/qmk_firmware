@@ -2,8 +2,6 @@
     "keyboard_name": "Prophet",
     "url": "",
     "maintainer": "westfoxtrot",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

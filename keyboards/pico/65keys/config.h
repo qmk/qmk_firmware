@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Kumao Kobo
 #define PRODUCT         Pico Keyboard
-#define DESCRIPTION     Split row staggered 5x7 keyboard (using kailh mid-height)
 
 /* key matrix size */
 // Rows are doubled-up
@@ -81,8 +80,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0

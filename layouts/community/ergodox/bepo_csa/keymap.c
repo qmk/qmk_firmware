@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LR_BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         BP_DLR,     KC_1,      KC_2,    KC_3,      KC_4,     KC_5,    KC_DEL,
-        KC_TAB,     BP_B,      BP_ECUT, BP_P,      BP_O,     BP_EGRV, KC_BSPC,
+        KC_TAB,     BP_B,      BP_EACU, BP_P,      BP_O,     BP_EGRV, KC_BSPC,
         BP_EQL,     BP_A,      BP_U,    BP_I,      BP_E,     BP_COMM,
         KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,      BP_DOT,   BP_K,    KC_ENT,
         KC_LCTL,    M(M_FNLR), KC_LGUI, M(M_NMAL), KC_LALT,
@@ -102,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_DEL,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,     BP_W,
-        KC_BSPC,   BP_DCRC,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
+        KC_BSPC,   BP_DCIR,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
                    BP_C,     BP_T,    BP_S,    BP_R,    BP_N,     BP_M,
-        KC_ENT,    BP_APOS,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
+        KC_ENT,    BP_QUOT,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
                              KC_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
 
         KC_LEFT, KC_RGHT,
@@ -116,10 +116,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA] = LAYOUT_ergodox(
         // left hand
-        KC_DLR,      CSA_DQOT,   CSA_LGIL,  CSA_RGIL,  KC_LPRN,  KC_RPRN,   KC_TRNS,
-        KC_TRNS,     KC_B,       CSA_ECUT,  KC_P,      KC_O,     CSA_EGRV,  KC_TRNS,
+        KC_DLR,      CA_DQUO,    CA_LDAQ,   CA_RDAQ,   KC_LPRN,  KC_RPRN,   KC_TRNS,
+        KC_TRNS,     KC_B,       CA_EACU,   KC_P,      KC_O,     CA_EGRV,   KC_TRNS,
         KC_EQL,      KC_A,       KC_U,      KC_I,      KC_E,     KC_COMM,
-        CSA(SFT),    CSA_AGRV,   KC_Y,      KC_X,      KC_DOT,   KC_K,      KC_TRNS,
+        CSA(SFT),    CA_AGRV,    KC_Y,      KC_X,      KC_DOT,   KC_K,      KC_TRNS,
         KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
 
                                                        KC_TRNS,  KC_TRNS,
@@ -127,11 +127,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_TRNS,   KC_TRNS,  KC_TRNS,
 
         // right hand
-        KC_TRNS,  KC_AT,     KC_PLUS,  KC_MINS,  CSA_SLSH,  KC_ASTR,   KC_W,
-        KC_TRNS,  CSA_DCRC,  KC_V,     KC_D,     KC_L,      KC_J,      KC_Z,
+        KC_TRNS,  KC_AT,     KC_PLUS,  KC_MINS,  CA_SLSH,   KC_ASTR,   KC_W,
+        KC_TRNS,  CA_CIRC,   KC_V,     KC_D,     KC_L,      KC_J,      KC_Z,
                   KC_C,      KC_T,     KC_S,     KC_R,      KC_N,      KC_M,
-        KC_TRNS,  CSA_APOS,  KC_Q,     KC_G,     KC_H,      KC_F,      CSA(SFT),
-                      MO(LR_CSA_AGR),  KC_PERC,  KC_TRNS,   CSA_CCED,  KC_LCTL, // RCTL has a special behaviour in CSA so use LCTL
+        KC_TRNS,  CA_QUOT,   KC_Q,     KC_G,     KC_H,      KC_F,      CSA(SFT),
+                      MO(LR_CSA_AGR),  KC_PERC,  KC_TRNS,   CA_CCED,   KC_LCTL, // RCTL has a special behaviour in CSA so use LCTL
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  M(M_6),    M(M_7),   M(M_8),   M(M_9),   M(M_0),   KC_TRNS,
         KC_TRNS,  KC_EXLM,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-        KC_TRNS,  CSA_QEST,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_TRNS,  CA_QUES,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                         CSA(SFT_AGR),  M(M_GRV), KC_TRNS,  KC_TRNS,  KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
@@ -205,10 +205,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA_AGR] = LAYOUT_ergodox(
         // left hand
-        MUC(NDSH),    MUC(MDSH),  CSA_LESS,  CSA_GRTR,  CSA_LBRC,   CSA_RBRC,  KC_TRNS,
-        KC_TRNS,      CSA_PIPE,   CSA_DACT,  KC_AMPR,   CSA_OE,     CSA_DGRV,  KC_TRNS,
-        KC_NO,        CSA_AE,     CSA_UGRV,  CSA_DTRM,  CSA_EURO,   CSA_RQOT,
-        CSA(AGR_SFT), CSA_BSLS,   CSA_LCBR,  CSA_RCBR,  MUC(ELPS),  CSA_TILD,  KC_TRNS,
+        MUC(NDSH),    MUC(MDSH),  CA_LABK,   CA_RABK,   CA_LBRC,    CA_RBRC,   KC_TRNS,
+        KC_TRNS,      CA_PIPE,    CA_ACUT,   KC_AMPR,   CA_OE,      CA_GRV,    KC_TRNS,
+        KC_NO,        CA_AE,      CA_UGRV,   CA_DIAE,   CA_EURO,    CA_RQSU,
+        CSA(AGR_SFT), CA_BSLS,    CA_LCBR,   CA_RCBR,   MUC(ELPS),  CA_TILD,   KC_TRNS,
         KC_TRNS,      KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
 
                                                       KC_TRNS,  KC_TRNS,
@@ -216,11 +216,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_UNDS, CSA(AGR_SFT),  KC_TRNS,
 
         // right hand
-        KC_TRNS,  M(M_CRC),  CSA_PSMS,  KC_NO,     CSA_DVSN, CSA_TIMS,  CSA_DBRV,
-        KC_TRNS,  CSA_IXLM,  CSA_DCAR,  CSA_ETH,   KC_NO,    CSA_IJ,    KC_NO,
-                  CSA_CPRT,  CSA_THRN,  CSA_SRPS,  CSA_RTM,  CSA_DTLD,  CSA_DMCR,
-        KC_TRNS,  CSA_IQST,  CSA_DRNG,  CSA_MU,    KC_NO,    CSA_DOGO,  CSA(AGR_SFT),
-                             KC_TRNS,   KC_NO,     KC_TRNS,  CSA_DCED,  KC_TRNS,
+        KC_TRNS,  M(M_CRC),  CA_PLMN,   KC_NO,     CA_DIV,   CA_MUL,    CA_BREV,
+        KC_TRNS,  CA_IEXL,   CA_CARN,   CA_ETH,    KC_NO,    CA_IJ,     KC_NO,
+                  CA_COPY,   CA_THRN,   CA_SS,     CA_REGD,  CA_DTIL,   CA_MACR,
+        KC_TRNS,  CA_IQUE,   CA_RNGA,   CA_MICR,   KC_NO,    CA_OGON,   CSA(AGR_SFT),
+                             KC_TRNS,   KC_NO,     KC_TRNS,  CA_CEDL,   KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
@@ -250,10 +250,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA_AGR_SFT] = LAYOUT_ergodox(
         // left hand
-        CSA_PARG,      KC_NO,     CSA_LDQT,    CSA_RDQT,  KC_NO,     KC_NO,     KC_TRNS,
-        KC_TRNS,       CSA_BPIP,  CSA_DDCT,    CSA_SECT,  S(CSA_OE), M(M_GRV),  KC_TRNS,
-        KC_NO,         S(CSA_AE), S(CSA_UGRV), CSA_DDTA,  KC_NO,     KC_NO,
-        CSA(AGR_SFT),  KC_NO,     CSA_LQOT,    CSA_RQOT,  KC_NO,     KC_NO,     KC_TRNS,
+        CA_PARA,       KC_NO,     CA_LDQU,     CA_RDQU,   KC_NO,     KC_NO,     KC_TRNS,
+        KC_TRNS,       CA_BRKP,   CA_DACU,     CA_SECT,   S(CA_OE),  M(M_GRV),  KC_TRNS,
+        KC_NO,         S(CA_AE),  S(CA_UGRV),  CA_DOTA,   KC_NO,     KC_NO,
+        CSA(AGR_SFT),  KC_NO,     CA_LSQU,     CA_RSQU,   KC_NO,     KC_NO,     KC_TRNS,
         KC_TRNS,       KC_TRNS,   KC_TRNS,     KC_TRNS,   KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
@@ -261,10 +261,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  CSA(AGR_SFT),  KC_TRNS,
 
         // right hand
-        KC_TRNS,  KC_NO,     CSA_NEGT,    CSA_1QRT,    CSA_1HLF,  CSA_3QRT,   KC_NO,
-        KC_TRNS,  KC_NO,     KC_NO,       S(CSA_ETH),  KC_NO,     S(CSA_IJ),  KC_NO,
-                  KC_NO,     S(CSA_THRN), S(CSA_SRPS), CSA_TM,    KC_NO,      CSA_ORDO,
-        KC_TRNS,  KC_NO,     KC_NO,       KC_NO,       KC_NO,     CSA_ORDA,   CSA(AGR_SFT),
+        KC_TRNS,  KC_NO,     CA_NOT,      CA_QRTR,     CA_HALF,   CA_TQTR,    KC_NO,
+        KC_TRNS,  KC_NO,     KC_NO,       S(CA_ETH),   KC_NO,     S(CA_IJ),   KC_NO,
+                  KC_NO,     S(CA_THRN),  S(CA_SS),    CA_TM,     KC_NO,      CA_MORD,
+        KC_TRNS,  KC_NO,     KC_NO,       KC_NO,       KC_NO,     CA_FORD,    CSA(AGR_SFT),
                         CSA(SFT_AGR),     KC_TRNS,     KC_TRNS,   KC_TRNS,    KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
@@ -450,7 +450,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                     case M_SCLN:
                         return MACRO(D(SCLN), END);
                     case M_GRV:
-                        return MACRO(I(75), DOWN(KC_ALGR), TYPE(CSA_DCRC), UP(KC_ALGR), T(SPACE), END);
+                        return MACRO(I(75), DOWN(KC_ALGR), TYPE(CA_CIRC), UP(KC_ALGR), T(SPACE), END);
                     case M_NBSP:
                         // use weak mod such that pressing another key will not be affected
                         add_weak_mods(MOD_BIT(KC_ALGR));
@@ -474,7 +474,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             break;
         case M_CRC:
             if (record->event.pressed) {
-                return MACRO(I(75), TYPE(CSA_DCRC), T(SPACE), END);
+                return MACRO(I(75), TYPE(CA_CIRC), T(SPACE), END);
             }
             break;
         case M_DBL0:

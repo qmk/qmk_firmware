@@ -5,9 +5,9 @@ Helix
 
 A compact split ortholinear keyboard.
 
-Keyboard Maintainer: [Makoto Kurauchi](https://github.com/MakotoKurauchi/) [@pluis9](https://twitter.com/pluis9)  
-Hardware Supported: Helix PCB Alpha, Beta, Pro Micro  
-Hardware Availability: [PCB & Case Data](https://github.com/MakotoKurauchi/helix), [Yushakobo Shop](https://yushakobo.jp/shop/), [Little Keyboards](https://littlekeyboards.com/collections/helix) 
+Keyboard Maintainer: [Makoto Kurauchi](https://github.com/MakotoKurauchi/) [@pluis9](https://twitter.com/pluis9) [yushakobo](https://github.com/yushakobo)
+Hardware Supported: Helix PCB Alpha, Beta, Rev3, Pro Micro  
+Hardware Availability: [PCB & Case Data](https://github.com/MakotoKurauchi/helix), [Yushakobo Shop](https://yushakobo.jp/shop/), [Little Keyboards](https://littlekeyboards.com/collections/helix)
 
 ## How to build
  * [Helix how to Customize and Compile](rev2/keymaps/default/readme.md#customize)

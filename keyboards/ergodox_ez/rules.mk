@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = halfkay
 
 # If you have Left LEDs (see
@@ -17,23 +10,21 @@ BOOTLOADER = halfkay
 # OPT_DEFS += -DLEFT_LEDS
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
-MOUSEKEY_ENABLE  = yes # Mouse keys
-EXTRAKEY_ENABLE  = yes # Audio control and System control
-CONSOLE_ENABLE   = no  # Console for debug
-COMMAND_ENABLE   = yes # Commands for debug and configuration
-CUSTOM_MATRIX    = yes # Custom matrix file for the ErgoDox EZ
-NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-UNICODE_ENABLE   = yes # Unicode
-SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
-SLEEP_LED_ENABLE = no
-API_SYSEX_ENABLE = no
-RGBLIGHT_ENABLE = yes
+BOOTMAGIC_ENABLE = no   # Enable Bootmagic Lite
+MOUSEKEY_ENABLE  = yes  # Mouse keys
+EXTRAKEY_ENABLE  = yes  # Audio control and System control
+CONSOLE_ENABLE   = no   # Console for debug
+COMMAND_ENABLE   = no   # Commands for debug and configuration
+CUSTOM_MATRIX    = lite # Custom matrix file for the ErgoDox EZ
+NKRO_ENABLE      = yes           # Enable N-Key Rollover
+UNICODE_ENABLE   = no  # Unicode
+SWAP_HANDS_ENABLE= no   # Allow swapping hands of keyboard
 
 RGB_MATRIX_ENABLE = no # enable later
-DEBOUNCE_TYPE = eager_pr
+RGB_MATRIX_DRIVER = IS31FL3731
+DEBOUNCE_TYPE = sym_eager_pr
 
 # project specific files
 SRC += matrix.c \
@@ -41,3 +32,9 @@ SRC += matrix.c \
 QUANTUM_LIB_SRC += i2c_master.c
 
 LAYOUTS = ergodox
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no
+
+MOUSE_SHARED_EP = no

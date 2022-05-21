@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x26BE
 #define MANUFACTURER    ishtob
 #define PRODUCT         Boston Meetup Board
-#define DESCRIPTION     A limited-run community meetup board
 
 //#define AUDIO_VOICES
 
@@ -56,5 +55,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

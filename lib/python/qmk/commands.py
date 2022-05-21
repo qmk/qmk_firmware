@@ -1,16 +1,60 @@
 """Helper functions for commands.
 """
-import json
 import os
-import platform
-import subprocess
-import shlex
+import sys
 import shutil
+from pathlib import Path
+
+from milc import cli
+import jsonschema
 
 import qmk.keymap
+from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.json_schema import json_load, validate
 
 
-def create_make_command(keyboard, keymap, target=None):
+def _find_make():
+    """Returns the correct make command for this environment.
+    """
+    make_cmd = os.environ.get('MAKE')
+
+    if not make_cmd:
+        make_cmd = 'gmake' if shutil.which('gmake') else 'make'
+
+    return make_cmd
+
+
+def create_make_target(target, dry_run=False, parallel=1, **env_vars):
+    """Create a make command
+
+    Args:
+
+        target
+            Usually a make rule, such as 'clean' or 'all'.
+
+        dry_run
+            make -n -- don't actually build
+
+        parallel
+            The number of make jobs to run in parallel
+
+        **env_vars
+            Environment variables to be passed to make.
+
+    Returns:
+
+        A command that can be run to make the specified keyboard and keymap
+    """
+    env = []
+    make_cmd = _find_make()
+
+    for key, value in env_vars.items():
+        env.append(f'{key}={value}')
+
+    return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
+
+
+def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1, **env_vars):
     """Create a make compile command
 
     Args:
@@ -24,63 +68,169 @@ def create_make_command(keyboard, keymap, target=None):
         target
             Usually a bootloader.
 
+        dry_run
+            make -n -- don't actually build
+
+        parallel
+            The number of make jobs to run in parallel
+
+        **env_vars
+            Environment variables to be passed to make.
+
     Returns:
 
         A command that can be run to make the specified keyboard and keymap
     """
     make_args = [keyboard, keymap]
-    make_cmd = 'gmake' if shutil.which('gmake') else 'make'
 
     if target:
         make_args.append(target)
 
-    return [make_cmd, ':'.join(make_args)]
+    return create_make_target(':'.join(make_args), dry_run=dry_run, parallel=parallel, **env_vars)
 
 
-def compile_configurator_json(user_keymap, bootloader=None):
-    """Convert a configurator export JSON file into a C file
+def get_make_parallel_args(parallel=1):
+    """Returns the arguments for running the specified number of parallel jobs.
+    """
+    parallel_args = []
+
+    if int(parallel) <= 0:
+        # 0 or -1 means -j without argument (unlimited jobs)
+        parallel_args.append('--jobs')
+    else:
+        parallel_args.append('--jobs=' + str(parallel))
+
+    if int(parallel) != 1:
+        # If more than 1 job is used, synchronize parallel output by target
+        parallel_args.append('--output-sync=target')
+
+    return parallel_args
+
+
+def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
+    """Convert a configurator export JSON file into a C file and then compile it.
 
     Args:
 
-        configurator_filename
-            The configurator JSON export file
+        user_keymap
+            A deserialized keymap export
 
         bootloader
             A bootloader to flash
+
+        parallel
+            The number of make jobs to run in parallel
 
     Returns:
 
         A command to run to compile and flash the C file.
     """
-    # Write the keymap C file
-    qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'])
+    # In case the user passes a keymap.json from a keymap directory directly to the CLI.
+    # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
+    user_keymap["keymap"] = user_keymap.get("keymap", "default_json")
+
+    # Write the keymap.c file
+    keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
+    target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
+    keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
+    keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
+    c_text = qmk.keymap.generate_c(user_keymap)
+    keymap_dir = keymap_output / 'src'
+    keymap_c = keymap_dir / 'keymap.c'
+
+    keymap_dir.mkdir(exist_ok=True, parents=True)
+    keymap_c.write_text(c_text)
 
     # Return a command that can be run to make the keymap and flash if given
-    if bootloader is None:
-        return create_make_command(user_keymap['keyboard'], user_keymap['keymap'])
-    return create_make_command(user_keymap['keyboard'], user_keymap['keymap'], bootloader)
+    verbose = 'true' if cli.config.general.verbose else 'false'
+    color = 'true' if cli.config.general.color else 'false'
+    make_command = [_find_make()]
+
+    if not cli.config.general.verbose:
+        make_command.append('-s')
+
+    make_command.extend([
+        *get_make_parallel_args(parallel),
+        '-r',
+        '-R',
+        '-f',
+        'builddefs/build_keyboard.mk',
+    ])
+
+    if bootloader:
+        make_command.append(bootloader)
+
+    for key, value in env_vars.items():
+        make_command.append(f'{key}={value}')
+
+    make_command.extend([
+        f'KEYBOARD={user_keymap["keyboard"]}',
+        f'KEYMAP={user_keymap["keymap"]}',
+        f'KEYBOARD_FILESAFE={keyboard_filesafe}',
+        f'TARGET={target}',
+        f'KEYBOARD_OUTPUT={keyboard_output}',
+        f'KEYMAP_OUTPUT={keymap_output}',
+        f'MAIN_KEYMAP_PATH_1={keymap_output}',
+        f'MAIN_KEYMAP_PATH_2={keymap_output}',
+        f'MAIN_KEYMAP_PATH_3={keymap_output}',
+        f'MAIN_KEYMAP_PATH_4={keymap_output}',
+        f'MAIN_KEYMAP_PATH_5={keymap_output}',
+        f'KEYMAP_C={keymap_c}',
+        f'KEYMAP_PATH={keymap_dir}',
+        f'VERBOSE={verbose}',
+        f'COLOR={color}',
+        'SILENT=false',
+        'QMK_BIN="qmk"',
+    ])
+
+    return make_command
 
 
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
-    # FIXME(skullydazed/anyone): Add validation here
-    user_keymap = json.load(configurator_file)
+    user_keymap = json_load(configurator_file)
+    # Validate against the jsonschema
+    try:
+        validate(user_keymap, 'qmk.keymap.v1')
+
+    except jsonschema.ValidationError as e:
+        cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
+        exit(1)
+
+    orig_keyboard = user_keymap['keyboard']
+    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+
+    if orig_keyboard in aliases:
+        if 'target' in aliases[orig_keyboard]:
+            user_keymap['keyboard'] = aliases[orig_keyboard]['target']
+
+        if 'layouts' in aliases[orig_keyboard] and user_keymap['layout'] in aliases[orig_keyboard]['layouts']:
+            user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
 
 
-def run(command, *args, **kwargs):
-    """Run a command with subprocess.run
+def in_virtualenv():
+    """Check if running inside a virtualenv.
+    Based on https://stackoverflow.com/a/1883251
     """
-    platform_id = platform.platform().lower()
+    active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
+    return active_prefix != sys.prefix
 
-    if isinstance(command, str):
-        raise TypeError('`command` must be a non-text sequence such as list or tuple.')
 
-    if 'windows' in platform_id:
-        safecmd = map(shlex.quote, command)
-        safecmd = ' '.join(safecmd)
-        command = [os.environ['SHELL'], '-c', safecmd]
+def dump_lines(output_file, lines, quiet=True):
+    """Handle dumping to stdout or file
+    Creates parent folders if required
+    """
+    generated = '\n'.join(lines) + '\n'
+    if output_file and output_file.name != '-':
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        if output_file.exists():
+            output_file.replace(output_file.parent / (output_file.name + '.bak'))
+        output_file.write_text(generated)
 
-    return subprocess.run(command, *args, **kwargs)
+        if not quiet:
+            cli.log.info(f'Wrote {output_file.name} to {output_file}.')
+    else:
+        print(generated)

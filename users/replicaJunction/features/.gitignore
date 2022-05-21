@@ -1,0 +1,2 @@
+# Do not include the secrets definitions
+secret_definitions.h

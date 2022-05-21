@@ -15,9 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "hal.h"
-#include "led.h"
-#include "printf.h"
+#include <hal.h>
+#include "print.h"
 
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
@@ -40,14 +39,3 @@ void backlight_set(uint8_t level) {
     }
 }
 #endif
-
-void led_set_kb(uint8_t usb_led) {
-    printf("led_set_kb(%d)\n", usb_led);
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // Turn capslock on
-        palSetPad(GPIOB, 7);
-    } else {
-        // Turn capslock off
-        palClearPad(GPIOB, 7);
-    }
-}

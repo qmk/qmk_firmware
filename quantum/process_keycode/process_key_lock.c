@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "inttypes.h"
-#include "stdint.h"
+#include <inttypes.h>
+#include <stdint.h>
 #include "process_key_lock.h"
 
 #define BV_64(shift) (((uint64_t)1) << (shift))
@@ -54,6 +54,11 @@ static inline uint16_t translate_keycode(uint16_t keycode) {
     } else {
         return keycode;
     }
+}
+
+void cancel_key_lock(void) {
+    watching = false;
+    UNSET_KEY_STATE(0x0);
 }
 
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {

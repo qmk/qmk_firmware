@@ -29,13 +29,21 @@ void dynamic_macro_led_blink(void) {
 
 /* User hooks for Dynamic Macros */
 
-__attribute__((weak)) void dynamic_macro_record_start_user(void) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_start_user(void) {
+    dynamic_macro_led_blink();
+}
 
-__attribute__((weak)) void dynamic_macro_play_user(int8_t direction) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_play_user(int8_t direction) {
+    dynamic_macro_led_blink();
+}
 
-__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) {
+    dynamic_macro_led_blink();
+}
 
-__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) {
+    dynamic_macro_led_blink();
+}
 
 /* Convenience macros used for retrieving the debug info. All of them
  * need a `direction` variable accessible at the call site.
@@ -82,7 +90,7 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
 
     clear_keyboard();
 
-    layer_state = saved_layer_state;
+    layer_state_set(saved_layer_state);
 
     dynamic_macro_play_user(direction);
 }
@@ -216,11 +224,13 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
+            case DYN_REC_START1:
+            case DYN_REC_START2:
             case DYN_REC_STOP:
                 /* Stop the macro recording. */
-                if (record->event.pressed) { /* Ignore the initial release
-                                              * just after the recoding
-                                              * starts. */
+                if (record->event.pressed ^ (keycode != DYN_REC_STOP)) { /* Ignore the initial release
+                                                                          * just after the recording
+                                                                          * starts for DYN_REC_STOP. */
                     switch (macro_id) {
                         case 1:
                             dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);

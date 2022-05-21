@@ -50,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐                ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
      _______ ,RGB_HUI ,RGB_HUD ,RGB_SAI ,RGB_SAD ,RGB_VAI ,RGB_VAD ,                 RGB_HUI ,RGB_HUD ,RGB_SAI ,RGB_SAD ,RGB_VAI ,RGB_VAD ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,RGB_M_P ,RGB_M_SW ,RGB_M_X,XXXXXXX ,XXXXXXX ,XXXXXXX ,                 RGB_M_P ,RGB_M_SW ,RGB_M_X ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     _______ ,RGB_M_P ,RGB_M_SW ,RGB_M_X,XXXXXXX ,XXXXXXX ,XXXXXXX ,                 RGB_M_P ,RGB_M_SW ,RGB_M_X,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┘                └────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,RGB_M_B ,RGB_M_SN ,RGB_M_G,XXXXXXX ,XXXXXXX ,                                   RGB_M_B ,RGB_M_SN ,RGB_M_G ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     _______ ,RGB_M_B ,RGB_M_SN ,RGB_M_G,XXXXXXX ,XXXXXXX ,                                   RGB_M_B ,RGB_M_SN,RGB_M_G ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                  ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,RGB_M_R ,RGB_M_K ,RGB_M_T ,XXXXXXX ,XXXXXXX ,                                   RGB_M_R ,RGB_M_K ,RGB_M_T ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                ┌────────┼────────┼────────┴────────┼────────┼────────┼────────┤
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef RGBLIGHT_ENABLE
-void keyboard_post_init_user(void) {
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
+void eeconfig_init_user(void) {
+    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 };
 #endif

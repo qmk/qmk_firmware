@@ -2,7 +2,7 @@
 
 [![QMK Configurator Screenshot](https://i.imgur.com/anw9cOL.png)](https://config.qmk.fm/)
 
-The [QMK Configurator](https://config.qmk.fm) is an online graphical user interface that generates QMK Firmware hex files.
+The [QMK Configurator](https://config.qmk.fm) is an online graphical user interface that generates QMK Firmware `.hex` or `.bin` files.
 
 Watch the [Video Tutorial](https://www.youtube.com/watch?v=-imgglzDMdY). Many people find that is enough information to start programming their own keyboard.
 

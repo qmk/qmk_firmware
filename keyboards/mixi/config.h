@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    gregorio
 #define PRODUCT         Mixi
-#define DESCRIPTION     Mixi macropad by gregorio
 
 /* key matrix size */
 #define MATRIX_ROWS 3

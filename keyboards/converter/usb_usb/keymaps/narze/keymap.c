@@ -130,17 +130,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // 1. Hold for LGUI, tap for Underscore
         case GUI_UNDS:
-            perform_space_cadet(record, KC_LGUI, KC_LSFT, KC_MINS);
+            perform_space_cadet(record, keycode, KC_LGUI, KC_LSFT, KC_MINS);
             return false;
 
         // 2. Hold for LSHIFT, tap for Parens open
         case LSFT_LPRN:
-            perform_space_cadet(record, KC_LSFT, KC_LSFT, KC_9);
+            perform_space_cadet(record, keycode, KC_LSFT, KC_LSFT, KC_9);
             return false;
 
         // 3. Hold for RSHIFT, tap for Parens close
         case RSFT_RPRN:
-            perform_space_cadet(record, KC_RSFT, KC_RSFT, KC_0);
+            perform_space_cadet(record, keycode, KC_RSFT, KC_RSFT, KC_0);
             return false;
 
         default:
@@ -153,7 +153,7 @@ void matrix_setup(void) {
     set_superduper_key_combos();
 }
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     if (pressed) {
         switch(combo_index) {
             case CB_SUPERDUPER:

@@ -1,8 +1,20 @@
-#include "drashna.h"
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
+#include "drashna.h"
 
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
@@ -37,76 +49,44 @@ enum planck_keycodes {
  * of use. K## is a placeholder to pass through the individual keycodes
  */
 // clang-format off
+#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ortho_4x12_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_DEL, \
-    LALT_T(KC_TAB), K11, K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    LALT_T(KC_TAB), K11, K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29, RCTL_T(K2A), KC_ENT,  \
     BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
-#define LAYOUT_ortho_4x12_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
+        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    ),
 
-  [_QWERTY] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
-  ),
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+        _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+        _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+    ),
 
-  [_COLEMAK] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
-    _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
-    _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
-  ),
-
-  [_DVORAK] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
-
-  [_WORKMAN] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-    _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-    _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-  ),
-
-  [_NORMAN] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-  ),
-
-  [_MALTRON] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-    _________________MALTRON_L3________________, _________________MALTRON_R3________________
-  ),
-
-  [_EUCALYN] = LAYOUT_ortho_4x12_base_wrapper(
-    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-  ),
-
-  [_CARPLAX] = LAYOUT_ortho_4x12_base_wrapper(
-    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
-  ),
-
-  [_MODS] = LAYOUT_ortho_4x12_wrapper(
-    _______, ___________________BLANK___________________, ___________________BLANK___________________, _______,
-    _______, ___________________BLANK___________________, ___________________BLANK___________________, _______,
-    KC_LSFT, ___________________BLANK___________________, ___________________BLANK___________________, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-  ),
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
+        _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+        _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+        _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+    ),
 
   [_LOWER] = LAYOUT_ortho_4x12_wrapper(
     KC_TILD, _________________LOWER_L1__________________, _________________LOWER_R1__________________, KC_BSPC,
@@ -126,10 +106,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
     VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
     TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
-    HPT_TOG, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
+    KEYLOCK, _______, _______, REBOOT,  _______, KC_NUKE, _______, _______, AUTO_CTN,_______, _______, TG_MODS
   )
 
 };
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   } },
+    [_DEFAULT_LAYER_2] = { { _______, _______ } },
+    [_DEFAULT_LAYER_3] = { { _______, _______ } },
+    [_DEFAULT_LAYER_4] = { { _______, _______ } },
+    [_GAMEPAD]         = { { _______, _______ } },
+    [_DIABLO]          = { { _______, _______ } },
+    [_MOUSE]           = { { KC_WH_D, KC_WH_U } },
+    [_MEDIA]           = { { _______, _______ } },
+    [_RAISE]           = { { KC_VOLD, KC_VOLU } },
+    [_LOWER]           = { { RGB_MOD, RGB_RMOD} },
+    [_ADJUST]          = { { CK_DOWN, CK_UP   } },
+};
+#endif
 // clang-format on
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -205,114 +201,52 @@ led_config_t g_led_config = {
 // clange-format on
 #    endif
 
-// clang-format off
-void suspend_power_down_keymap(void) {
-    rgb_matrix_set_suspend_state(true);
-}
 
-void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_set_suspend_state(false);
-}
-// clang-format on
-
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
-    bool    is_ez;
 #    ifdef KEYBOARD_planck_ez
-    is_ez = true;
-#    endif
-
-    if (g_suspend_state || !rgb_matrix_config.enable) return;
-
-#    if defined(RGBLIGHT_ENABLE)
-    if (!userspace_config.rgb_layer_change)
+#        define THUMB_LED 41
 #    else
-    if (userspace_config.rgb_layer_change)
+#        define THUMB_LED 42
 #    endif
-    {
-        switch (get_highest_layer(layer_state)) {
-            case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
-                break;
-            case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            default: {
-                bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (get_highest_layer(default_layer_state)) {
-                    case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                }
-                break;
-            }
-        }
-    }
+#    define RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(...) RGB_MATRIX_INDICATOR_SET_COLOR(__VA_ARGS__)
 
     switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF);
+        case _DEFAULT_LAYER_1:
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_1_RGB);
             break;
-        case _COLEMAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xFF, 0x00, 0xFF);
+        case _DEFAULT_LAYER_2:
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_2_RGB);
             break;
-        case _DVORAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0x00);
+        case _DEFAULT_LAYER_3:
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_3_RGB);
             break;
-        case _WORKMAN:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21);
+        case _DEFAULT_LAYER_4:
+            RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, DEFAULT_LAYER_4_RGB);
             break;
     }
 
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
         if (!layer_state_cmp(layer_state, _ADJUST)) {
-            rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(24, 0x00, 0xFF, 0x00);
         }
-        rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(36, 0x00, 0xFF, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_CTRL) {
-        rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(34, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(37, 0xFF, 0x00, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_GUI) {
-        rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(39, 0xFF, 0xD9, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_ALT) {
-        rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
+        RGB_MATRIX_INDICATOR_SET_COLOR(38, 0x00, 0x00, 0xFF);
     }
+
+    return true;
 }
 
 void matrix_init_keymap(void) {
@@ -335,7 +269,7 @@ void matrix_init_keymap(void) {
 #endif  // RGB_MATRIX_INIT
 
 #ifdef ENCODER_ENABLE
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _RAISE:
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
@@ -358,11 +292,12 @@ void encoder_update(bool clockwise) {
 #    ifdef AUDIO_CLICKY
     clicky_play();
 #    endif
+    return true;
 }
 #endif  // ENCODER_ENABLE
 
 #ifdef KEYBOARD_planck_rev6
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
@@ -385,6 +320,7 @@ void dip_update(uint8_t index, bool active) {
             userspace_config.nuke_switch = active;
             break;
     }
+    return true;
 }
 #endif  // KEYBOARD_planck_rev6
 

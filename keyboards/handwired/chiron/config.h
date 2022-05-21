@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Mike Hix
 #define PRODUCT chiron
-#define DESCRIPTION A custom keyboard
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7

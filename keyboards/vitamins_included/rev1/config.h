@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameters */
 #define DEVICE_VER      0x0001
-#define DESCRIPTION     A split keyboard for the cheapish makers
 
 /* key matrix size */
 // Rows are doubled-up
@@ -62,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
-    #define C6_AUDIO // Define this to enable the buzzer
+    #define AUDIO_PIN C6 // Define this to enable the buzzer
 #endif
 
 /*
@@ -80,5 +79,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

@@ -18,17 +18,27 @@ Hardware configurations using Arm-based microcontrollers or different sizes of O
 
 ## Usage
 
-To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
+To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
 ```make
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+```
+
+## OLED type
+|OLED Driver        |Supported Device           |
+|-------------------|---------------------------|
+|SSD1306 (default)  |For both SSD1306 and SH1106|
+
+e.g.
+```make
+OLED_DRIVER = SSD1306
 ```
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
 
@@ -52,6 +62,8 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    
+    return false;
 }
 #endif
 ```
@@ -72,12 +84,51 @@ static void render_logo(void) {
 }
 ```
 
+?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+
+## Buffer Read Example
+For some purposes, you may need to read the current state of the OLED display
+buffer. The `oled_read_raw` function can be used to safely read bytes from the
+buffer.
+
+In this example, calling `fade_display` in the `oled_task_user` function will
+slowly fade away whatever is on the screen by turning random pixels black over
+time.
+```c
+//Setup some mask which can be or'd with bytes to turn off pixels
+const uint8_t single_bit_masks[8] = {127, 191, 223, 239, 247, 251, 253, 254};
+
+static void fade_display(void) {
+    //Define the reader structure
+    oled_buffer_reader_t reader;
+    uint8_t buff_char;
+    if (random() % 30 == 0) {
+        srand(timer_read());
+        // Fetch a pointer for the buffer byte at index 0. The return structure
+        // will have the pointer and the number of bytes remaining from this
+        // index position if we want to perform a sequential read by
+        // incrementing the buffer pointer
+        reader = oled_read_raw(0);
+        //Loop over the remaining buffer and erase pixels as we go
+        for (uint16_t i = 0; i < reader.remaining_element_count; i++) {
+            //Get the actual byte in the buffer by dereferencing the pointer
+            buff_char = *reader.current_element;
+            if (buff_char != 0) {
+                oled_write_raw_byte(buff_char & single_bit_masks[rand() % 8], i);
+            }
+            //increment the pointer to fetch a new byte during the next loop
+            reader.current_element++;
+        }
+    }
+}
+```
+
 ## Other Examples
 
 In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -86,32 +137,42 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();  // Renders a static logo
         oled_scroll_left();  // Turns on scrolling
     }
+    return false;
 }
 #endif
 ```
 
 ## Basic Configuration
 
+These configuration options should be placed in `config.h`. Example:
+```c
+#define OLED_BRIGHTNESS 128
+```
+
 |Define                     |Default          |Description                                                                                                               |
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
 |`OLED_FONT_H`              |`"glcdfont.c"`   |The font code file to use for custom fonts                                                                                |
-|`OLED_FONT_START`          |`0`              |The starting characer index for custom fonts                                                                              |
-|`OLED_FONT_END`            |`223`            |The ending characer index for custom fonts                                                                                |
+|`OLED_FONT_START`          |`0`              |The starting character index for custom fonts                                                                             |
+|`OLED_FONT_END`            |`223`            |The ending character index for custom fonts                                                                               |
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
-|`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
+|`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of screen update inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.      |
+|`OLED_FADE_OUT`            |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
+|`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
 |`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
 |`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
+|`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
+|`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
  ## 128x64 & Custom sized OLED Displays
 
@@ -186,6 +247,7 @@ bool oled_init(oled_rotation_t rotation);
 // Called at the start of oled_init, weak function overridable by the user
 // rotation - the value passed into oled_init
 // Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_kb(oled_rotation_t rotation);
 oled_rotation_t oled_init_user(oled_rotation_t rotation);
 
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
@@ -222,10 +284,24 @@ void oled_write(const char *data, bool invert);
 void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
-// Useful for moving the screen in preparation for new drawing 
+// Useful for moving the screen in preparation for new drawing
 // oled_scroll_left or oled_scroll_right should be preferred for all cases of moving a static
 // image such as a logo or to avoid burn-in as it's much, much less cpu intensive
 void oled_pan(bool left);
+
+// Returns a pointer to the requested start index in the buffer plus remaining
+// buffer length as struct
+oled_buffer_reader_t oled_read_raw(uint16_t start_index);
+
+// Writes a string to the buffer at current cursor position
+void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
+void oled_write_raw_byte(const char data, uint16_t index);
+
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -238,12 +314,6 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
-// Writes a string to the buffer at current cursor position
-void oled_write_raw(const char *data, uint16_t size);
-
-// Writes a single byte into the buffer at the specified index
-void oled_write_raw_byte(const char data, uint16_t index);
-
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
 
@@ -255,11 +325,22 @@ bool oled_on(void);
 // Returns true if the screen was off or turns off
 bool oled_off(void);
 
+// Returns true if the oled is currently on, false if it is
+// not
+bool is_oled_on(void);
+
+// Sets the brightness level of the display
+uint8_t oled_set_brightness(uint8_t level);
+
+// Gets the current brightness level of the display
+uint8_t oled_get_brightness(void);
+
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);
 
 // Called at the start of oled_task, weak function overridable by the user
-void oled_task_user(void);
+bool oled_task_kb(void);
+bool oled_task_user(void);
 
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
@@ -286,6 +367,14 @@ bool oled_scroll_left(void);
 // Turns off display scrolling
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
+
+// Returns true if the oled is currently scrolling, false if it is
+// not
+bool is_oled_scrolling(void);
+
+// Inverts the display
+// Returns true if the screen was or is inverted
+bool oled_invert(bool invert);
 
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);

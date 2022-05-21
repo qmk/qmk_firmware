@@ -2,14 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xEEEE
-#define PRODUCT_ID      0x2019
-#define DEVICE_VER		0x0001
-#define MANUFACTURER    Elias Sjögreen
-#define PRODUCT         4by3
-#define DESCRIPTION     A small 12 key keypad
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4

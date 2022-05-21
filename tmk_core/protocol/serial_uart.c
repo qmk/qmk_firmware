@@ -40,6 +40,22 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <avr/interrupt.h>
 #include "serial.h"
 
+#ifndef SERIAL_UART_BAUD
+#    define SERIAL_UART_BAUD 9600
+#endif
+
+#define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
+#define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+#define SERIAL_UART_RXD_VECT USART1_RX_vect
+
+#ifndef SERIAL_UART_INIT_CUSTOM
+#    define SERIAL_UART_INIT_CUSTOM \
+        /* enable TX */             \
+        UCSR1B = _BV(TXEN1);        \
+        /* 8-bit data */            \
+        UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);
+#endif
+
 #if defined(SERIAL_UART_RTS_LO) && defined(SERIAL_UART_RTS_HI)
 // Buffer state
 //   Empty:           RBUF_SPACE == RBUF_SIZE(head==tail)
@@ -61,7 +77,14 @@ POSSIBILITY OF SUCH DAMAGE.
 #    define rbuf_check_rts_hi()
 #endif
 
-void serial_init(void) { SERIAL_UART_INIT(); }
+void serial_init(void) {
+    do {
+        // Set baud rate
+        UBRR1L = SERIAL_UART_UBRR;
+        UBRR1L = SERIAL_UART_UBRR >> 8;
+        SERIAL_UART_INIT_CUSTOM;
+    } while (0);
+}
 
 // RX ring buffer
 #define RBUF_SIZE 256

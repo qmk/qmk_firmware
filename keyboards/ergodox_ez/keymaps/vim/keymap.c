@@ -153,15 +153,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch(id) {
-    case 0:
-        if (record->event.pressed) { SEND_STRING (VERSION_STRING); }
-        break;
-  }
-return MACRO_NONE;
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) |
                  (keyboard_report->mods & MOD_BIT(KC_RSFT));

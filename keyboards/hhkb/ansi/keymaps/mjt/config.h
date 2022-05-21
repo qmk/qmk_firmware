@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    q.m.k
 #define PRODUCT         HHKB mod
-#define DESCRIPTION     q.m.k keyboard firmware for HHKB
 
 /* key matrix size */
 #ifdef HHKB_JP

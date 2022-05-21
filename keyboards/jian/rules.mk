@@ -1,1 +1,2 @@
 DEFAULT_FOLDER = jian/rev2
+LTO_ENABLE = yes

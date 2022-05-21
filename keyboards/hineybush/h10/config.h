@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER hineybush
 #define PRODUCT h10
-#define DESCRIPTION Custom numpad PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -116,10 +115,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 //#define FORCE_NKRO
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

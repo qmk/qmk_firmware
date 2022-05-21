@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER DMQ Design
 #define PRODUCT  SPIN
-#define DESCRIPTION The SPIN Macro Pad is a 12 key Macro Pad by DMQ Design with 3 rotary encoders, inspired by the Plaid & RoMac.
 
 /* key matrix size */
 #define MATRIX_ROWS 3

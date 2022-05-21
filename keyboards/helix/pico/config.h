@@ -1,6 +1,7 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
+Copyright 2018 MakotoKurauchi
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Yushakobo
 #define PRODUCT         HelixPico
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
@@ -42,12 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
-
-// Helix keyboard OLED support
-//      see ./rules.mk: OLED_ENABLE=yes or no
-#ifdef OLED_ENABLE
-  #define SSD1306OLED
-#endif
 
 /* key matrix size */
 // Rows are doubled-up
@@ -78,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B5_AUDIO
+  #define AUDIO_PIN B5
 #endif
 
 /* ws2812 RGB LED */
@@ -115,8 +109,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for Helix keyboard
-//  120  RGBoff, OLEDoff
-//  120  OLED
+//  120  RGBoff
 //  330  RGB 6
 //  300  RGB 32
 //  310  OLED & RGB 32
@@ -142,5 +135,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

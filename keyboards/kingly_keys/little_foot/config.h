@@ -11,7 +11,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.#pragma once 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kingly-Keys
 #define PRODUCT         The Little Foot
-#define DESCRIPTION     A Mighty Small, 45-Percent, Ortholinear Keyboard.
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -2,8 +2,6 @@
     "keyboard_name": "Hnah40", 
     "url": "https://github.com/vuhopkep/PCB/tree/master/Hnah40-Atmega328p/PCB_V1/PCB", 
     "maintainer": "HnahKB", 
-    "width": 12, 
-    "height": 4, 
     "layouts": {
         "LAYOUT": {
             "layout": [

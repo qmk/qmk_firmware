@@ -1,2 +1,2 @@
-# The Default Ext65 Layout
+# The Default Ext65Rev2 Layout
 

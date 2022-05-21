@@ -80,9 +80,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ______,   ______, ______,                 ______,         ______,                 ______, KC_HOME,KC_PGDN,KC_END \
       ),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  return MACRO_NONE;
-};

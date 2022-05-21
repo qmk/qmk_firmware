@@ -88,108 +88,6 @@ keyrecord_t record {
 }
 ```
 
-# LED Control
-
-QMK provides methods to read 5 of the LEDs defined in the HID spec:
-
-* Num Lock
-* Caps Lock
-* Scroll Lock
-* Compose
-* Kana
-
-There are two ways to get the lock LED state:
-
-* by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
-* by calling `led_t host_keyboard_led_state()`
-
-!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
-
-Two more deprecated functions exist that provide the LED state as a `uint8_t`:
-
-* `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
-* `uint8_t host_keyboard_leds()`
-
-## `led_update_user()`
-
-This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
-
-By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
-return `false` when you would prefer not to run the code in `led_update_kb()`.
-
-Some examples include:
-
-  - overriding the LEDs to use them for something else like layer indication
-    - return `false` because you do not want the `_kb()` function to run, as it would override your layer behavior.
-  - play a sound when an LED turns on or off.
-    - return `true` because you want the `_kb` function to run, and this is in addition to the default LED behavior.
-
-?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
-
-### Example `led_update_kb()` Implementation
-
-```c
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        // writePin sets the pin high for 1 and low for 0.
-        // In this example the pins are inverted, setting
-        // it low/0 turns it on, and high/1 turns the LED off.
-        // This behavior depends on whether the LED is between the pin
-        // and VCC or the pin and GND.
-        writePin(B0, !led_state.num_lock);
-        writePin(B1, !led_state.caps_lock);
-        writePin(B2, !led_state.scroll_lock);
-        writePin(B3, !led_state.compose);
-        writePin(B4, !led_state.kana);
-    }
-    return res;
-}
-```
-
-### Example `led_update_user()` Implementation
-
-This incomplete example would play a sound if Caps Lock is turned on or off. It returns `true`, because you also want the LEDs to maintain their state.
-
-```c
-#ifdef AUDIO_ENABLE
-  float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
-  float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
-#endif
-
-bool led_update_user(led_t led_state) {
-    #ifdef AUDIO_ENABLE
-    static uint8_t caps_state = 0;
-    if (caps_state != led_state.caps_lock) {
-        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
-        caps_state = led_state.caps_lock;
-    }
-    #endif
-    return true;
-}
-```
-
-### `led_update_*` Function Documentation
-
-* Keyboard/Revision: `bool led_update_kb(led_t led_state)`
-* Keymap: `bool led_update_user(led_t led_state)`
-
-## `host_keyboard_led_state()`
-
-Call this function to get the last received LED state as a `led_t`. This is useful for reading the LED state outside `led_update_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
-
-## Setting Physical LED State
-
-Some keyboard implementations provide convenience methods for setting the state of the physical LEDs.
-
-### Ergodox Boards
-
-The Ergodox implementations provide `ergodox_right_led_1`/`2`/`3_on`/`off()` to turn individual LEDs on or off, as well as `ergodox_right_led_on`/`off(uint8_t led)` to turn them on or off by their index.
-
-In addition, it is possible to specify the brightness level of all LEDs with `ergodox_led_all_set(uint8_t n)`; of individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`; or by index with `ergodox_right_led_set(uint8_t led, uint8_t n)`.
-
-Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).
-
 # Keyboard Initialization Code
 
 There are several steps in the keyboard initialization process.  Depending on what you want to do, it will influence which function you should use.
@@ -246,6 +144,14 @@ This is useful for setting up stuff that you may need elsewhere, but isn't hardw
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
 
+### Low-level Matrix Overrides Function Documentation :id=low-level-matrix-overrides
+
+* GPIO pin initialisation: `void matrix_init_pins(void)`
+  * This needs to perform the low-level initialisation of all row and column pins. By default this will initialise the input/output state of each of the GPIO pins listed in `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`, based on whether or not the keyboard is set up for `ROW2COL`, `COL2ROW`, or `DIRECT_PINS`. Should the keyboard designer override this function, no initialisation of pin state will occur within QMK itself, instead deferring to the keyboard's override.
+* `COL2ROW`-based row reads: `void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)`
+* `ROW2COL`-based column reads: `void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter)`
+* `DIRECT_PINS`-based reads: `void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)`
+  * These three functions need to perform the low-level retrieval of matrix state of relevant input pins, based on the matrix type. Only one of the functions should be implemented, if needed. By default this will iterate through `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`, configuring the inputs and outputs based on whether or not the keyboard is set up for `ROW2COL`, `COL2ROW`, or `DIRECT_PINS`. Should the keyboard designer override this function, no manipulation of matrix GPIO pin state will occur within QMK itself, instead deferring to the keyboard's override.
 
 ## Keyboard Post Initialization code
 
@@ -287,6 +193,14 @@ This function gets called at every matrix scan, which is basically as often as t
 
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LEDs or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
+# Keyboard housekeeping
+
+* Keyboard/Revision: `void housekeeping_task_kb(void)`
+* Keymap: `void housekeeping_task_user(void)`
+
+This function gets called at the end of all QMK processing, before starting the next iteration. You can safely assume that QMK has dealt with the last matrix scan at the time that these functions are invoked -- layer states have been updated, USB reports have been sent, LEDs have been updated, and displays have been drawn.
+
+Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throtting their behaviour if you do indeed require implementing something special.
 
 # Keyboard Idling/Wake Code
 
@@ -300,11 +214,11 @@ This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_
 
 ```c
 void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
+    // code will run multiple times while keyboard is suspended
 }
 
 void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
+    // code will run on keyboard wakeup
 }
 ```
 
@@ -319,7 +233,7 @@ This runs code every time that the layers get changed.  This can be useful for l
 
 ### Example `layer_state_set_*` Implementation
 
-This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example
+This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example.
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -343,6 +257,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 ```
+
+Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
+
+Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` and `IS_LAYER_OFF(layer)` macros to check global layer state.
+
 ### `layer_state_set_*` Function Documentation
 
 * Keyboard/Revision: `layer_state_t layer_state_set_kb(layer_state_t state)`
@@ -449,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // then immediately update the layer color
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
             if (user_config.rgb_layer_change) {        // only if this is enabled
@@ -463,7 +382,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued. 
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued.
 
 ```c
 void eeconfig_init_user(void) {  // EEPROM is getting reset!
@@ -486,3 +405,69 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 * Keymap: `void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
+
+### Deferred Execution :id=deferred-execution
+
+QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers. To enable this functionality, set `DEFERRED_EXEC_ENABLE = yes` in rules.mk.
+
+#### Deferred executor callbacks
+
+All _deferred executor callbacks_ have a common function signature and look like:
+
+```c
+uint32_t my_callback(uint32_t trigger_time, void *cb_arg) {
+    /* do something */
+    bool repeat = my_deferred_functionality();
+    return repeat ? 500 : 0;
+}
+```
+
+The first argument `trigger_time` is the intended time of execution. If other delays prevent executing at the exact trigger time, this allows for "catch-up" or even skipping intervals, depending on the required behaviour.
+
+The second argument `cb_arg` is the same argument passed into `defer_exec()` below, and can be used to access state information from the original call context.
+
+The return value is the number of milliseconds to use if the function should be repeated -- if the callback returns `0` then it's automatically unregistered. In the example above, a hypothetical `my_deferred_functionality()` is invoked to determine if the callback needs to be repeated -- if it does, it reschedules for a `500` millisecond delay, otherwise it informs the deferred execution background task that it's done, by returning `0`.
+
+?> Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
+
+#### Deferred executor registration
+
+Once a callback has been defined, it can be scheduled using the following API:
+
+```c
+deferred_token my_token = defer_exec(1500, my_callback, NULL);
+```
+
+The first argument is the number of milliseconds to wait until executing `my_callback` -- in the case above, `1500` milliseconds, or 1.5 seconds.
+
+The third parameter is the `cb_arg` that gets passed to the callback at the point of execution. This value needs to be valid at the time the callback is invoked -- a local function value will be destroyed before the callback is executed and should not be used. If this is not required, `NULL` should be used.
+
+The return value is a `deferred_token` that can consequently be used to cancel the deferred executor callback before it's invoked. If a failure occurs, the returned value will be `INVALID_DEFERRED_TOKEN`. Usually this will be as a result of supplying `0` to the delay, or a `NULL` for the callback. The other failure case is if there are too many deferred executions "in flight" -- this can be increased by changing the limit, described below.
+
+#### Extending a deferred execution
+
+The `deferred_token` returned by `defer_exec()` can be used to extend a the duration a pending execution waits before it gets invoked:
+```c
+// This will re-delay my_token's future execution such that it is invoked 800ms after the current time
+extend_deferred_exec(my_token, 800);
+```
+
+#### Cancelling a deferred execution
+
+The `deferred_token` returned by `defer_exec()` can be used to cancel a pending execution before it gets invoked:
+```c
+// This will cancel my_token's future execution
+cancel_deferred_exec(my_token);
+```
+
+Once a token has been canceled, it should be considered invalid. Reusing the same token is not supported.
+
+#### Deferred callback limits
+
+There are a maximum number of deferred callbacks that can be scheduled, controlled by the value of the define `MAX_DEFERRED_EXECUTORS`.
+
+If registrations fail, then you can increase this value in your keyboard or keymap `config.h` file, for example to 16 instead of the default 8:
+
+```c
+#define MAX_DEFERRED_EXECUTORS 16
+```

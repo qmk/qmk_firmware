@@ -7,6 +7,10 @@
 #define TAPPING_TOGGLE 2
 
 #ifdef AUDIO_ENABLE
+    #ifdef WORKMAN_SOUND
+        #undef WORKMAN_SOUND
+    #endif
+
     #define WORKMAN_SOUND \
         E__NOTE(_GS7),    \
         ED_NOTE(_E7),     \

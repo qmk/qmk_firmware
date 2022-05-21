@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x1901
 #define MANUFACTURER    Sirius
 #define PRODUCT         UniGo66
-#define DESCRIPTION     UniGo66 Wireless Split keyboard
 
 /* size of virtual matrix */
 #define MATRIX_ROWS 16
@@ -44,5 +43,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

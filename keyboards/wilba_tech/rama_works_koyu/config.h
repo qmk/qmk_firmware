@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA WORKS
 #define PRODUCT         RAMA WORKS KOYU
-#define DESCRIPTION     RAMA WORKS KOYU
 
 
 
@@ -67,8 +66,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_BACKLIGHT_ENABLED 1
 

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    emdarcher
 #define PRODUCT         LATTICE60
-#define DESCRIPTION     A HHKB layout keyboard using only through-hole components.
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -97,7 +96,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

@@ -4,7 +4,7 @@
 #include "quantum.h"
 #include "report.h"
 #include <util/delay.h>
-#include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
+#include <LUFA/Drivers/Peripheral/SPI.h>
 
 // Trackpad speed adjustments
 #define POINTER_SPEED_MULTIPLIER 2

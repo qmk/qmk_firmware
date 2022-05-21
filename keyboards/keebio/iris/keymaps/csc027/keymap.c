@@ -1,3 +1,20 @@
+/*
+Copyright 2020 Constantine Chen @csc027
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include QMK_KEYBOARD_H
 #include "csc027.h"
 
@@ -36,11 +53,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______,  _______,  _______,                   _______,  _______,  _______
     ),
 
-    [_GT] = LAYOUT_wrapper(
-        _______________________GIT_L1______________________,                            _______________________GIT_R1______________________,
-        _______________________GIT_L2______________________,                            _______________________GIT_R2______________________,
-        _______________________GIT_L3______________________,                            _______________________GIT_R3______________________,
-        _______________________GIT_L4______________________, _______,          _______, _______________________GIT_R4______________________,
+    [_WT] = LAYOUT_wrapper(
+        ________________WINDOWS_TERMINAL_L1________________,                            ________________WINDOWS_TERMINAL_R1________________,
+        ________________WINDOWS_TERMINAL_L2________________,                            ________________WINDOWS_TERMINAL_R2________________,
+        ________________WINDOWS_TERMINAL_L3________________,                            ________________WINDOWS_TERMINAL_R3________________,
+        ________________WINDOWS_TERMINAL_L4________________, _______,          _______, ________________WINDOWS_TERMINAL_R4________________,
                                    _______,  _______,  _______,                   _______,  _______,  _______
     ),
 

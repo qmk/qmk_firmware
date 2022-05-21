@@ -1,6 +1,8 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
+Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,10 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1307
+#define VENDOR_ID       0x3297
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ZSA Technology Labs Inc
+#define MANUFACTURER    ZSA Technology Labs
+#define PRODUCT_ID      0x4974
 #define PRODUCT         ErgoDox EZ
 
 /* key matrix size */
@@ -32,11 +34,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS 6
 
-#define MOUSEKEY_INTERVAL       20
-#define MOUSEKEY_DELAY          0
-#define MOUSEKEY_TIME_TO_MAX    60
-#define MOUSEKEY_MAX_SPEED      7
-#define MOUSEKEY_WHEEL_DELAY 0
+#define COL_EXPANDED { true, true, true, true, true, true, true, false, false, false, false, false, false, false }
+#define MATRIX_ONBOARD_ROW_PINS { 0, 0, 0, 0, 0, 0, 0, B0,  B1,  B2,  B3,  D2,  D3,  C6 }
+#define MATRIX_ONBOARD_COL_PINS { F0,  F1,  F4,  F5,  F6,  F7 }
+#define DIODE_DIRECTION COL2ROW
+#define EXPANDER_COL_REGISTER GPIOB
+#define EXPANDER_ROW_REGISTER GPIOA
+#define MATRIX_EXPANDER_COL_PINS { 5, 4, 3, 2, 1, 0 }
+#define MATRIX_EXPANDER_ROW_PINS { 0, 1, 2, 3, 4, 5, 6 }
+
+#define MOUSEKEY_INTERVAL           20
+#define MOUSEKEY_DELAY              0
+#define MOUSEKEY_TIME_TO_MAX        60
+#define MOUSEKEY_MAX_SPEED          7
+#define MOUSEKEY_WHEEL_DELAY        400
+#define MOUSEKEY_WHEEL_INTERVAL     MOUSEKEY_INTERVAL
+#define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX
 
 #define DEBOUNCE 30
 
@@ -105,7 +119,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * manufacturer specs.
  */
 
-#define USB_MAX_POWER_CONSUMPTION 500
 
 // RGB backlight
 #define DRIVER_ADDR_1 0b1110100
@@ -118,7 +131,55 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_LED_PROCESS_LIMIT 5
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+// RGB Matrix Animation modes. Explicitly enabled
+// For full list of effects, see:
+// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
+#define ENABLE_RGB_MATRIX_ALPHAS_MODS
+#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_BREATHING
+#define ENABLE_RGB_MATRIX_BAND_SAT
+#define ENABLE_RGB_MATRIX_BAND_VAL
+#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#define ENABLE_RGB_MATRIX_CYCLE_ALL
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#define ENABLE_RGB_MATRIX_DUAL_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+#define ENABLE_RGB_MATRIX_RAINDROPS
+#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#define ENABLE_RGB_MATRIX_HUE_BREATHING
+#define ENABLE_RGB_MATRIX_HUE_PENDULUM
+#define ENABLE_RGB_MATRIX_HUE_WAVE
+#define ENABLE_RGB_MATRIX_PIXEL_RAIN
+#define ENABLE_RGB_MATRIX_PIXEL_FLOW
+#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#define ENABLE_RGB_MATRIX_SPLASH
+#define ENABLE_RGB_MATRIX_MULTISPLASH
+#define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 // #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */
@@ -144,6 +205,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
 //#define DEBUG_MATRIX_SCAN_RATE

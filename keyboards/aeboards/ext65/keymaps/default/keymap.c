@@ -1,4 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
+/* Copyright 2020 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,11 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap BASE: (Base Layer) Default Layer
-   * ,-------------------.  ,-------------------------------------------------------------------.     
+   * ,-------------------.  ,-------------------------------------------------------------------.
    * |-   | *  | /  |NmLK|  |Esc| 1 |  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|pipe| ~  | Pscr|
-   * |-------------------|  |-------------------------------------------------------------------| 
+   * |-------------------|  |-------------------------------------------------------------------|
    * |    | 9  | 8  | 7  |  |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]| BSPC  | Del |
-   * |  + |--------------|  |-------------------------------------------------------------------| 
+   * |  + |--------------|  |-------------------------------------------------------------------|
    * |    | 6  | 5  | 4  |  |Caps   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return   | Pgup|
    * |-------------------|  |-------------------------------------------------------------------|
    * |    | 3  | 2  | 1  |  |Shift    |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up | Pgdn|
@@ -38,10 +38,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_ext65(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,
+    KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          EEP_RST,
+    KC_TRNS, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   DEBUG,
+    KC_TRNS, RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                   KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
@@ -62,42 +62,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
+#ifdef OLED_ENABLE
 
-  // Set our LED pins as output
-  setPinOutput(D5);
-  setPinOutput(D3);
-  setPinOutput(D2);
-  setPinOutput(D1);
+void render_layer_state(void) {
+    oled_write_ln(PSTR("LAYER"), false);
+    oled_write_ln(PSTR("L1"), layer_state_is(1));
+    oled_write_ln(PSTR("L2"), layer_state_is(2));
+    oled_write_ln(PSTR("L3"), layer_state_is(3));
+    oled_write_ln(PSTR(" "), false);
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(D5);
-    } else {
-        writePinLow(D5);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(D3);
-    } else {
-        writePinLow(D3);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinHigh(D2);
-    } else {
-        writePinLow(D2);
-    }
+void render_keylock_status(led_t led_state) {
+    oled_write_ln(PSTR("Lock:"), false);
+    oled_write(PSTR("N"), led_state.num_lock);
+    oled_write(PSTR("C"), led_state.caps_lock);
+    oled_write_ln(PSTR("S"), led_state.scroll_lock);
+    oled_write_ln(PSTR(" "), false);
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-      case 1:
-        writePinHigh(D1);
-        break;
-      default: //  for any other layers, or the default layer
-        writePinLow(D1);
-        break;
-      }
-    return state;
+void render_mod_status(uint8_t modifiers) {
+    oled_write_ln(PSTR("Mods:"), false);
+    oled_write(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+    oled_write(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+    oled_write(PSTR("A"), (modifiers & MOD_MASK_ALT));
+    oled_write_ln(PSTR("G"), (modifiers & MOD_MASK_GUI));
+    oled_write_ln(PSTR(" "), false);
 }
+
+bool oled_task_user(void) {
+    render_layer_state();
+    render_keylock_status(host_keyboard_led_state());
+    render_mod_status(get_mods()|get_oneshot_mods());
+    return false;
+}
+
+#endif

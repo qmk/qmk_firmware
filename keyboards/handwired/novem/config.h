@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Jose I. Martinez
 #define PRODUCT novem
-#define DESCRIPTION A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3

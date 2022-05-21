@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#define XXX KC_NO
+
 /* IBM XT keyboard layout
  * ,-------.  ,--------------------------------------------------------------------------.
  * | F1| F2|  |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  BS  |NumLck |ScrLck |
@@ -44,28 +46,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-------'  `--------------------------------------------------------------------------'
  */
 #define LAYOUT_xt( \
-    K3B,K3C,  K01,K02,K03,K04,K05,K06,K07,K08,K09,K0A,K0B,K0C,K0D,K0E,    K45,    K46, \
-    K3D,K3E,  K0F,K10,K11,K12,K13,K14,K15,K16,K17,K18,K19,K1A,K1B,    K47,K48,K49,K4A, \
-    K3F,K40,  K1D,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K28,K29,K1C,K4B,K4C,K4D,     \
-    K41,K42,  K2A,K2B,K2C,K2D,K2E,K2F,K30,K31,K32,K33,K34,K35,K36,K37,K4F,K50,K51,K4E, \
-    K43,K44,  K38,                    K39,                    K3A,    K52,    K53      \
+    k3B, k3C,   k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k45,      k46, \
+    k3D, k3E,   k0F, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B,      k47, k48, k49, k4A, \
+    k3F, k40,   k1D, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k1C, k4B, k4C, k4D, \
+    k41, k42,   k2A, k2B, k2C, k2D, k2E, k2F, k30, k31, k32, k33, k34, k35, k36, k37, k4F, k50, k51, k4E, \
+    k43, k44,   k38,                          k39,                     k3A,      k52,      k53 \
 ) { \
-    { KC_NO, K01,   K02,   K03,   K04,   K05,   K06,   K07   }, \
-    { K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F   }, \
-    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17   }, \
-    { K18,   K19,   K1A,   K1B,   K1C,   K1D,   K1E,   K1F   }, \
-    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27   }, \
-    { K28,   K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F   }, \
-    { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37   }, \
-    { K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E,   K3F   }, \
-    { K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47   }, \
-    { K48,   K49,   K4A,   K4B,   K4C,   K4D,   K4E,   K4F   }, \
-    { K50,   K51,   K52,   K53,   KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }  \
+    { XXX, k01, k02, k03, k04, k05, k06, k07 }, \
+    { k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17 }, \
+    { k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27 }, \
+    { k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37 }, \
+    { k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, k45, k46, k47 }, \
+    { k48, k49, k4A, k4B, k4C, k4D, k4E, k4F }, \
+    { k50, k51, k52, k53, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
 }
 
 /* Extended keyboard layout
@@ -105,28 +107,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * *: special handling codes
  */
 #define LAYOUT( \
-            K64,K65,K66,K67,K68,K69,K6A,K6B,K6C,K6D,K6E,K76,                                     \
-    K01,    K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K57,K58,      K54,K46,K55,      K5D,K5E,K5F, \
-    K29,K02,K03,K04,K05,K06,K07,K08,K09,K0A,K0B,K0C,K0D,K7D,K0E,  K71,K74,K77,  K45,K7F,K37,K4A, \
-    K0F,K10,K11,K12,K13,K14,K15,K16,K17,K18,K19,K1A,K1B,    K2B,  K72,K75,K78,  K47,K48,K49,K4E, \
-    K3A,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K28,    K00,K1C,                K4B,K4C,K4D,K7E, \
-    K2A,K56,K2C,K2D,K2E,K2F,K30,K31,K32,K33,K34,K35,    K73,K36,      K60,      K4F,K50,K51,K6F, \
-    K1D,K5A,K38,K7B,        K39,        K79,K70,K7C,K5B,K5C,K7A,  K61,K62,K63,      K52,K53,K59  \
+              k64, k65, k66, k67, k68, k69, k6A, k6B, k6C, k6D, k6E, k76, \
+    k01,      k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k57, k58,        k54, k46, k55,        k5D, k5E, k5F, \
+    k29, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k7D, k0E,   k71, k74, k77,   k45, k7F, k37, k4A, \
+    k0F, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k2B,        k72, k75, k78,   k47, k48, k49, k4E, \
+    k3A, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k28, k00, k1C,                         k4B, k4C, k4D, k7E, \
+    k2A, k56, k2C, k2D, k2E, k2F, k30, k31, k32, k33, k34, k35, k73, k36,             k60,        k4F, k50, k51, k6F, \
+    k1D, k5A, k38, k7B,           k39,      k79, k70, k7C, k5B, k5C, k7A,        k61, k62, k63,   k52,      k53, k59 \
 ) { \
-    { K00, K01, K02, K03, K04, K05, K06, K07 }, \
-    { K08, K09, K0A, K0B, K0C, K0D, K0E, K0F }, \
-    { K10, K11, K12, K13, K14, K15, K16, K17 }, \
-    { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
-    { K20, K21, K22, K23, K24, K25, K26, K27 }, \
-    { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
-    { K30, K31, K32, K33, K34, K35, K36, K37 }, \
-    { K38, K39, K3A, K3B, K3C, K3D, K3E, K3F }, \
-    { K40, K41, K42, K43, K44, K45, K46, K47 }, \
-    { K48, K49, K4A, K4B, K4C, K4D, K4E, K4F }, \
-    { K50, K51, K52, K53, K54, K55, K56, K57 }, \
-    { K58, K59, K5A, K5B, K5C, K5D, K5E, K5F }, \
-    { K60, K61, K62, K63, K64, K65, K66, K67 }, \
-    { K68, K69, K6A, K6B, K6C, K6D, K6E, K6F }, \
-    { K70, K71, K72, K73, K74, K75, K76, K77 }, \
-    { K78, K79, K7A, K7B, K7C, K7D, K7E, K7F }  \
+    { k00, k01, k02, k03, k04, k05, k06, k07 }, \
+    { k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17 }, \
+    { k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27 }, \
+    { k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37 }, \
+    { k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, k45, k46, k47 }, \
+    { k48, k49, k4A, k4B, k4C, k4D, k4E, k4F }, \
+    { k50, k51, k52, k53, k54, k55, k56, k57 }, \
+    { k58, k59, k5A, k5B, k5C, k5D, k5E, k5F }, \
+    { k60, k61, k62, k63, k64, k65, k66, k67 }, \
+    { k68, k69, k6A, k6B, k6C, k6D, k6E, k6F }, \
+    { k70, k71, k72, k73, k74, k75, k76, k77 }, \
+    { k78, k79, k7A, k7B, k7C, k7D, k7E, k7F } \
 }

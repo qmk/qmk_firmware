@@ -19,6 +19,10 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+ifdef SKIP_VERSION
+    SKIP_GIT := yes
+endif
+
 ifndef SUB_IS_SILENT
 ifndef SKIP_GIT
     QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
@@ -28,6 +32,9 @@ ifneq ($(QMK_VERSION),)
 $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
+
+# Determine which qmk cli to use
+QMK_BIN := qmk
 
 # avoid 'Entering|Leaving directory' messages
 MAKEFLAGS += --no-print-directory
@@ -47,132 +54,13 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
-BUILD_DIR := $(ROOT_DIR)/.build
-TEST_DIR := $(BUILD_DIR)/test
+
+include paths.mk
+
+TEST_OUTPUT_DIR := $(BUILD_DIR)/test
 ERROR_FILE := $(BUILD_DIR)/error_occurred
 
-MAKEFILE_INCLUDED=yes
-
-# Helper function to process the newt element of a space separated path
-# It works a bit like the traditional functional head tail
-# so the CURRENT_PATH_ELEMENT will become the new head
-# and the PATH_ELEMENTS are the rest that are still unprocessed
-define NEXT_PATH_ELEMENT
-    $$(eval CURRENT_PATH_ELEMENT := $$(firstword  $$(PATH_ELEMENTS)))
-    $$(eval PATH_ELEMENTS := $$(wordlist  2,9999,$$(PATH_ELEMENTS)))
-endef
-
-# We change the / to spaces so that we more easily can work with the elements
-# separately
-PATH_ELEMENTS := $(subst /, ,$(STARTING_DIR))
-# Initialize the path elements list for further processing
-$(eval $(call NEXT_PATH_ELEMENT))
-
-# This function sets the KEYBOARD; KEYMAP and SUBPROJECT to the correct
-# variables depending on which directory you stand in.
-# It's really a very simple if else chain, if you squint enough,
-# but the makefile syntax makes it very verbose.
-# If we are in a subfolder of keyboards
-#
-# *** No longer needed **
-#
-# ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
-#     $(eval $(call NEXT_PATH_ELEMENT))
-#     KEYBOARD := $(CURRENT_PATH_ELEMENT)
-#     $(eval $(call NEXT_PATH_ELEMENT))
-#     # If we are in a subfolder of keymaps, or in other words in a keymap
-#     # folder
-#     ifeq ($(CURRENT_PATH_ELEMENT),keymaps)
-#         $(eval $(call NEXT_PATH_ELEMENT))
-#         KEYMAP := $(CURRENT_PATH_ELEMENT)
-#      # else if we are not in the keyboard folder itself
-#     else ifneq ($(CURRENT_PATH_ELEMENT),)
-#         # the we can assume it's a subproject, as no other folders
-#         # should have make files in them
-#         SUBPROJECT := $(CURRENT_PATH_ELEMENT)
-#         $(eval $(call NEXT_PATH_ELEMENT))
-#         # if we are inside a keymap folder of a subproject
-#         ifeq ($(CURRENT_PATH_ELEMENT),keymaps)
-#             $(eval $(call NEXT_PATH_ELEMENT))
-#             KEYMAP := $(CURRENT_PATH_ELEMENT)
-#         endif
-#     endif
-# endif
-
-define GET_KEYBOARDS
-ifndef ALT_GET_KEYBOARDS
-    All_RULES_MK := $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/rules.mk))
-    All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
-    All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/rules.mk))
-    All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/*/rules.mk))
-
-    KEYMAPS_MK := $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/keymaps/*/rules.mk))
-    KEYMAPS_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/keymaps/*/rules.mk))
-    KEYMAPS_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/keymaps/*/rules.mk))
-    KEYMAPS_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/*/keymaps/*/rules.mk))
-
-    KEYBOARDS := $$(sort $$(filter-out $$(KEYMAPS_MK), $$(All_RULES_MK)))
-else
-    KEYBOARDS := $(shell find keyboards/ -type f -iname "rules.mk" | grep -v keymaps | sed 's!keyboards/\(.*\)/rules.mk!\1!' | sort | uniq)
-endif
-endef
-
-$(eval $(call GET_KEYBOARDS))
-
-# Only consider folders with makefiles, to prevent errors in case there are extra folders
-#KEYBOARDS += $(patsubst $(ROOD_DIR)/keyboards/%/rules.mk,%,$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
-
-.PHONY: list-keyboards
-list-keyboards:
-	echo $(KEYBOARDS)
-
-define PRINT_KEYBOARD
-	$(info $(PRINTING_KEYBOARD))
-endef
-
-.PHONY: generate-keyboards-file
-generate-keyboards-file:
-	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
-
-.PHONY: clean
-clean:
-	echo -n 'Deleting .build/ ... '
-	rm -rf $(BUILD_DIR)
-	echo 'done.'
-
-.PHONY: distclean
-distclean: clean
-	echo -n 'Deleting *.bin and *.hex ... '
-	rm -f *.bin *.hex
-	echo 'done.'
-
-#Compatibility with the old make variables, anything you specify directly on the command line
-# always overrides the detected folders
-ifdef keyboard
-    KEYBOARD := $(keyboard)
-endif
-ifdef keymap
-    KEYMAP := $(keymap)
-endif
-
-# Uncomment these for debugging
-# $(info Keyboard: $(KEYBOARD))
-# $(info Keymap: $(KEYMAP))
-# $(info Subproject: $(SUBPROJECT))
-# $(info Keyboards: $(KEYBOARDS))
-
-
-# Set the default goal depending on where we are running make from
-# this handles the case where you run make without any arguments
 .DEFAULT_GOAL := all:all
-ifneq ($(KEYMAP),)
-    .DEFAULT_GOAL := $(KEYBOARD):$(KEYMAP)
-else ifneq ($(KEYBOARD),)
-     # Inside a keyboard folder, build all keymaps for all subprojects
-     # Note that this is different from the old behaviour, which would
-     # build only the default keymap of the default keyboard
-    .DEFAULT_GOAL := $(KEYBOARD):all
-endif
 
 
 # Compare the start of the RULE variable with the first argument($1)
@@ -199,54 +87,20 @@ endef
 # a function that returns the value
 COMPARE_AND_REMOVE_FROM_RULE = $(eval $(call COMPARE_AND_REMOVE_FROM_RULE_HELPER,$1))$(RULE_FOUND)
 
-
-# Recursively try to find a match for the start of the rule to be checked
-# $1 The list to be checked
-# If a match is found, then RULE_FOUND is set to true
-# and MATCHED_ITEM to the item that was matched
-define TRY_TO_MATCH_RULE_FROM_LIST_HELPER3
-    ifneq ($1,)
-        ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,$$(firstword $1)),true)
-            MATCHED_ITEM := $$(firstword $1)
-        else
-            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$$(wordlist 2,9999,$1)))
-        endif
-    endif
-endef
-
-# A recursive helper function for finding the longest match
-# $1 The list to be checked
-# It works by always removing the currently matched item from the list
-# and call itself recursively, until a match is found
-define TRY_TO_MATCH_RULE_FROM_LIST_HELPER2
-    # Stop the recursion when the list is empty
-    ifneq ($1,)
-        RULE_BEFORE := $$(RULE)
-        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$1))
-        # If a match is found in the current list, otherwise just return what we had before
-        ifeq ($$(RULE_FOUND),true)
-            # Save the best match so far and call itself recursively
-            BEST_MATCH := $$(MATCHED_ITEM)
-            BEST_MATCH_RULE := $$(RULE)
-            RULE_FOUND := false
-            RULE := $$(RULE_BEFORE)
-            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER2,$$(filter-out $$(MATCHED_ITEM),$1)))
-        endif
-     endif
-endef
-
-
-# Recursively try to find the longest match for the start of the rule to be checked
+# Try to find a match for the start of the rule to be checked
 # $1 The list to be checked
 # If a match is found, then RULE_FOUND is set to true
 # and MATCHED_ITEM to the item that was matched
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
-    BEST_MATCH :=
-    $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER2,$1))
-    ifneq ($$(BEST_MATCH),)
+    # Split on ":", padding with empty strings to avoid indexing issues
+    TOKEN1:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
+    TOKENr:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[1])" $$(RULE))
+
+    FOUNDx:=$$(shell echo $1 | tr " " "\n" | grep -Fx $$(TOKEN1))
+    ifneq ($$(FOUNDx),)
+        RULE := $$(TOKENr)
         RULE_FOUND := true
-        RULE := $$(BEST_MATCH_RULE)
-        MATCHED_ITEM := $$(BEST_MATCH)
+        MATCHED_ITEM := $$(TOKEN1)
     else
         RULE_FOUND := false
         MATCHED_ITEM :=
@@ -272,30 +126,48 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
+    REQUIRE_PLATFORM_KEY :=
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
         KEYBOARD_RULE=all
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-avr),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := avr
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-chibios),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := chibios
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-arm_atsam),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := arm_atsam
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell util/list_keyboards.sh | sort -u)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
-    # Otherwise use the KEYBOARD variable, which is determined either by
-    # the current directory you run make from, or passed in as an argument
-    else ifneq ($$(KEYBOARD),)
-        $$(eval $$(call PARSE_KEYBOARD,$$(KEYBOARD)))
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
         $$(info |)
-        $$(info |  QMK's make format recently changed to use folder locations and colons:)
-        $$(info |     make project_folder:keymap[:target])
-        $$(info |  Examples:)
-        $$(info |     make dz60:default)
-        $$(info |     make planck/rev6:default:flash)
+        $$(info | QMK's make format is:)
+        $$(info |     make keyboard_folder:keymap_folder[:target])
+        $$(info |)
+        $$(info | Where `keyboard_folder` is the path to the keyboard relative to)
+        $$(info | `qmk_firmware/keyboards/`, and `keymap_folder` is the name of the)
+        $$(info | keymap folder under that board's `keymaps/` directory.)
+        $$(info |)
+        $$(info | Examples:)
+        $$(info |     keyboards/dz60, keyboards/dz60/keymaps/default)
+        $$(info |       -> make dz60:default)
+        $$(info |       -> qmk compile -kb dz60 -km default)
+        $$(info |     keyboards/planck/rev6, keyboards/planck/keymaps/default)
+        $$(info |       -> make planck/rev6:default:flash)
+        $$(info |       -> qmk flash -kb planck/rev6 -km default)
         $$(info |)
     endif
 endef
@@ -333,37 +205,8 @@ define PARSE_KEYBOARD
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
-    # this might be needed, but in a different form
-    #KEYMAPS := $$(sort $$(filter-out $$(KEYBOARD_FOLDER_1) $$(KEYBOARD_FOLDER_2) \
-        $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
 
-    KEYBOARD_LAYOUTS :=
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-
+    KEYBOARD_LAYOUTS := $(shell $(QMK_BIN) list-layouts --keyboard $1)
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
 
@@ -398,25 +241,8 @@ endef
 # if we are going to compile all keyboards, match the rest of the rule
 # for each of them
 define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(KEYBOARDS)))
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell util/list_keyboards.sh noci | sort -u)))
 endef
-
-# $1 Subproject
-# When entering this, the keyboard and subproject are known, so now we need
-# to determine which keymaps are going to get compiled
-# define PARSE_SUBPROJECT
-
-# endef
-
-# If we want to parse all subprojects, but the keyboard doesn't have any,
-# then use defaultsp instead
-# define PARSE_ALL_SUBPROJECTS
-#     ifeq ($$(SUBPROJECTS),)
-#         $$(eval $$(call PARSE_SUBPROJECT,defaultsp))
-#     else
-#         $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$$(SUBPROJECTS)))
-#     endif
-# endef
 
 # Prints a list of all known keymaps for the given keyboard
 define LIST_ALL_KEYMAPS
@@ -447,9 +273,9 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY) QMK_BIN=$$(QMK_BIN)
     # And the first part of the make command
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
     MAKE_MSG := $$(MSG_MAKE_KB)
     # We run the command differently, depending on if we want more output or not
@@ -466,6 +292,8 @@ define BUILD
         LOG=$$$$($$(MAKE_CMD) $$(MAKE_VARS) SILENT=true 2>&1) ; \
         if [ $$$$? -gt 0 ]; \
             then $$(PRINT_ERROR_PLAIN); \
+        elif [ "$$$$LOG" = "skipped" ] ; \
+            then $$(PRINT_SKIPPED_PLAIN); \
         elif [ "$$$$LOG" != "" ] ; \
             then $$(PRINT_WARNING_PLAIN); \
         else \
@@ -485,15 +313,16 @@ define PARSE_ALL_KEYMAPS
 endef
 
 define BUILD_TEST
-    TEST_NAME := $1
+    TEST_PATH := $1
+    TEST_NAME := $$(notdir $$(TEST_PATH))
     MAKE_TARGET := $2
     COMMAND := $1
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
-    MAKE_VARS := TEST=$$(TEST_NAME) FULL_TESTS="$$(FULL_TESTS)"
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_test.mk $$(MAKE_TARGET)
+    MAKE_VARS := TEST=$$(TEST_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
-        TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
+        TEST_EXECUTABLE := $$(TEST_OUTPUT_DIR)/$$(TEST_NAME).elf
         TESTS += $$(TEST_NAME)
         TEST_MSG := $$(MSG_TEST)
         $$(TEST_NAME)_COMMAND := \
@@ -510,10 +339,11 @@ define PARSE_TEST
     TESTS :=
     TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
+    include $(BUILDDEFS_PATH)/testlist.mk
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME), $$(notdir $$(TEST))), $$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef
@@ -532,7 +362,7 @@ define SET_SILENT_MODE
     endif
 endef
 
-include $(ROOT_DIR)/message.mk
+include $(BUILDDEFS_PATH)/message.mk
 
 ifeq ($(strip $(BREAK_ON_ERRORS)), yes)
 HANDLE_ERROR = exit 1
@@ -557,18 +387,17 @@ if [ $$error_occurred -gt 0 ]; then $(HANDLE_ERROR); fi;
 
 endef
 
-# Let's match everything, we handle all the rule parsing ourselves
+# Catch everything and parse the command line ourselves.
 .PHONY: %
 %:
 	# Check if we have the CMP tool installed
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	# Ensure that bin/qmk works. This will be a failing check after the next develop merge on 2020 Aug 29.
-	if ! bin/qmk hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
+	# Ensure that $(QMK_BIN) works.
+	if ! $(QMK_BIN) hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
 	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
 	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
 	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
 	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
 	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
@@ -593,25 +422,6 @@ endif
 	$(foreach TEST,$(sort $(TESTS)),$(RUN_TEST))
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 
-# These no longer work because of the colon system
-
-# All should compile everything
-# .PHONY: all
-# all: all-keyboards test-all
-
-# Define some shortcuts, mostly for compatibility with the old syntax
-# .PHONY: all-keyboards
-# all-keyboards: all\:all\:all
-
-# .PHONY: all-keyboards-defaults
-# all-keyboards-defaults: all\:default
-
-# .PHONY: test
-# test: test-all
-
-# .PHONY: test-clean
-# test-clean: test-all-clean
-
 lib/%:
 	git submodule sync $?
 	git submodule update --init $?
@@ -621,28 +431,22 @@ git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
 
-ifdef SKIP_VERSION
-SKIP_GIT := yes
-endif
+.PHONY: list-keyboards
+list-keyboards:
+	util/list_keyboards.sh | sort -u | tr '\n' ' '
 
-# Generate the version.h file
-ifndef SKIP_GIT
-    GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-    CHIBIOS_VERSION := $(shell cd lib/chibios && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-    CHIBIOS_CONTRIB_VERSION := $(shell cd lib/chibios-contrib && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-else
-    GIT_VERSION := NA
-    CHIBIOS_VERSION := NA
-    CHIBIOS_CONTRIB_VERSION := NA
-endif
-ifndef SKIP_VERSION
-BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
-$(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
-else
-BUILD_DATE := NA
-endif
+.PHONY: generate-keyboards-file
+generate-keyboards-file:
+	util/list_keyboards.sh | sort -u
 
-include $(ROOT_DIR)/testlist.mk
+.PHONY: clean
+clean:
+	echo -n 'Deleting .build/ ... '
+	rm -rf $(BUILD_DIR)
+	echo 'done.'
+
+.PHONY: distclean
+distclean: clean
+	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
+	rm -f *.bin *.hex *.uf2
+	echo 'done.'

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Yiancar-Designs
 #define PRODUCT MC-76K
-#define DESCRIPTION O-Ring suspended 60% with F-row keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -96,7 +95,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

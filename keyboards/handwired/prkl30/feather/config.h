@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Ergorius & Tooni Skyy
 #define PRODUCT         PRKL30
-#define DESCRIPTION     30% Mechanical keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -36,9 +35,6 @@
 #define ENCODERS_PAD_A { F7 }
 #define ENCODERS_PAD_B { F6 }
 #define ENCODER_RESOLUTION 4
-#define AdafruitBleResetPin D4
-#define AdafruitBleCSPin B4
-#define AdafruitBleIRQPin E6
 #define UNUSED_PINS
 
 /* RGB Light Configuration */

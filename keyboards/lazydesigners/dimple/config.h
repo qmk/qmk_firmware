@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LazyDesigners
 #define PRODUCT         Dimple
-#define DESCRIPTION     A 40% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -58,3 +57,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	/* #define RGBLIGHT_SAT_STEP 8 */
 	/* #define RGBLIGHT_VAL_STEP 8 */
 #endif
+

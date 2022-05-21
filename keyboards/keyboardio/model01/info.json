@@ -1,10 +1,7 @@
 {
   "keyboard_name": "model01",
-  "keyboard_folder": "keyboardio/model01",
   "url": "https://keyboard.io",
   "maintainer": "qmk",
-  "width": 18.5,
-  "height": 7.5,
   "layouts": {
     "LAYOUT": {
       "layout": [

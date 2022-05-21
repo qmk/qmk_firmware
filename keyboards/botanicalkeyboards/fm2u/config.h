@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER botanicalkeyboards
 #define PRODUCT fm2u
-#define DESCRIPTION A 1 key macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 1

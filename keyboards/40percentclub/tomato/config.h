@@ -2,14 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    40 Percent Club
-#define PRODUCT         Tomato
-#define DESCRIPTION     A 30 key ortholinear keyboard with RGB backlighting
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 6

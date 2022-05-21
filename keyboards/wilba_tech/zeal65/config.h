@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ZealPC
 #define PRODUCT         Zeal65
-#define DESCRIPTION     Zeal65
 
 // key matrix size
 #define MATRIX_ROWS 5
@@ -64,8 +63,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_BACKLIGHT_ENABLED 1
 

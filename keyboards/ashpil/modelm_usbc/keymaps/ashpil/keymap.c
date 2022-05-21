@@ -36,7 +36,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [CTRL_PAUS_RESET] = COMBO_ACTION(reset_combo),
 };
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case CTRL_PAUS_RESET:
       if (pressed) {

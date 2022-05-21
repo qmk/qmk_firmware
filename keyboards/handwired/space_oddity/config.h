@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    James Taylor
 #define PRODUCT         Space Odyssey
-#define DESCRIPTION     Keyboard
 
 #define MOUSEKEY_INTERVAL 16
 #define MOUSEKEY_DELAY 0

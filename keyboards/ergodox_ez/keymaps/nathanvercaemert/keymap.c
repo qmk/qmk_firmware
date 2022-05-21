@@ -20,21 +20,25 @@
 #define KC_PC_CUT LCTL(KC_X)
 #define KC_PC_COPY LCTL(KC_C)
 #define KC_PC_PASTE LCTL(KC_V)
-#define ES_LESS_MAC KC_GRAVE
-#define ES_GRTR_MAC LSFT(KC_GRAVE)
+#define ES_LABK_MAC KC_GRAVE
+#define ES_RABK_MAC LSFT(KC_GRAVE)
 #define ES_BSLS_MAC ALGR(KC_6)
 #define NO_PIPE_ALT KC_GRAVE
 #define NO_BSLS_ALT KC_EQUAL
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
+  MS_WH_UP,
+  MS_WH_DOWN,
+  MS_WH_RIGHT,
+  MS_WH_LEFT,
 };
 
 // tapdance keycodes
 enum td_keycodes {
   CTRL_TO12,
   SHIFT_TO13,
-  ALT_TO11
+  ALT_TO11,
 };
 
 // define a type containing as many tapdance states as you need
@@ -58,6 +62,7 @@ void altto11_finished (qk_tap_dance_state_t *state, void *user_data);
 void altto11_reset (qk_tap_dance_state_t *state, void *user_data);
 void shiftto13_finished (qk_tap_dance_state_t *state, void *user_data);
 void shiftto13_reset (qk_tap_dance_state_t *state, void *user_data);
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
@@ -162,9 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [10] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_MS_BTN2,     KC_NO,          KC_NO,          KC_TRANSPARENT,                                 MT(MOD_RCTL, KC_A), KC_NO,      KC_NO,          KC_MS_UP,       KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_MS_BTN2,     KC_ACL2,        KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_MS_UP,       KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, TD(SHIFT_TO13), TD(CTRL_TO12),  TD(ALT_TO11),   KC_MS_BTN1,     KC_NO,                                                                          KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_NO,          KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_NO,          MT(MOD_LGUI | MOD_LCTL,KC_NO),  KC_NO, KC_NO,   KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          MT(MOD_LGUI | MOD_LCTL,KC_NO),  KC_ACL0, KC_NO, KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
@@ -182,9 +187,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [12] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_HYPR,        KC_NO,          KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_MS_WH_UP,    KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_HYPR,        KC_ACL2,        KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_MS_WH_UP,    KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_LSHIFT,      KC_LCTRL,       KC_LALT,        KC_NO,          KC_NO,                                                                          KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_RIGHT, KC_NO,          KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_NO,          MT(MOD_LGUI | MOD_LCTL,KC_NO),  KC_NO, KC_NO,   KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          MT(MOD_LGUI | MOD_LCTL,KC_NO),  MO(14), KC_NO,  KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
@@ -200,17 +205,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, TO(0)
   ),
+  [14] = LAYOUT_ergodox_pretty(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          MS_WH_UP,   KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                                                          KC_NO,          MS_WH_LEFT,     MS_WH_DOWN, MS_WH_RIGHT,    KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,      KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                                                                                                    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                                                                                                                    KC_TRANSPARENT, KC_TRANSPARENT,
+                                                                                    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+  ),
 };
 
-
-/* Commenting out for debug purposes */
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   switch (keycode) {
-//   }
-//   return true;
-// }
-
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = biton32(state);
   ergodox_board_led_off();
   ergodox_right_led_1_off();
@@ -252,11 +259,31 @@ uint32_t layer_state_set_user(uint32_t state) {
 // determine the tapdance state to return
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
-    if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
+    if (state->interrupted && state->pressed && state->interrupting_keycode == KC_MS_BTN1) {return SINGLE_HOLD;}
+    if (state->interrupted && state->pressed && state->interrupting_keycode == 22273) {return SINGLE_HOLD;}
+    if (state->interrupted && state->pressed && state->interrupting_keycode == 22272) {return SINGLE_HOLD;}
+    if (state->interrupted && state->pressed && state->interrupting_keycode == KC_TAB) {return SINGLE_HOLD;}
+    else if (state->interrupted || !state->pressed) {
+        // if (state->interrupted) {
+        //     print("interrupted\n");
+        //     uprintf("Shift: %u\n", KC_LSHIFT);
+        //     uprintf("Control: %u\n", KC_LCTRL);
+        //     uprintf("%u\n",state->interrupting_keycode);
+        // }
+        return SINGLE_TAP;
+    }
     else { return SINGLE_HOLD; }
   }
   else { return 2; } // any number higher than the maximum state value you return above
 }
+// /* Backup in case previous code is hard to piece together. */
+// int cur_dance (qk_tap_dance_state_t *state) {
+//   if (state->count == 1) {
+//     if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
+//     else { return SINGLE_HOLD; }
+//   }
+//   else { return 2; } // any number higher than the maximum state value you return above
+// }
 
 void ctrlto12_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
@@ -265,7 +292,14 @@ void ctrlto12_finished (qk_tap_dance_state_t *state, void *user_data) {
       layer_on(12);
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22273 || state->interrupting_keycode == 43)) {
+        register_mods(MOD_BIT(KC_LCTRL));
+        break;
+      }
       register_mods(MOD_BIT(KC_LCTRL)); // for a layer-tap key, use `layer_on(_MY_LAYER)` here
+      if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
+        register_code16(LCTL(KC_MS_BTN1));
+      }
       break;
   }
 }
@@ -275,7 +309,14 @@ void ctrlto12_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP:
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22273 || state->interrupting_keycode == 43) ) {
+        unregister_mods(MOD_BIT(KC_LCTRL));
+        break;
+      }
       unregister_mods(MOD_BIT(KC_LCTRL)); // for a layer-tap key, use `layer_off(_MY_LAYER)` here
+      if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
+        unregister_code16(LCTL(KC_MS_BTN1));
+      }
       break;
   }
 }
@@ -287,7 +328,14 @@ void shiftto13_finished (qk_tap_dance_state_t *state, void *user_data) {
       layer_on(13);
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22272 || state->interrupting_keycode == 43) ) {
+        register_mods(MOD_BIT(KC_LSHIFT));
+        break;
+      }
       register_mods(MOD_BIT(KC_LSHIFT)); // for a layer-tap key, use `layer_on(_MY_LAYER)` here
+      if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
+        register_code16(LSFT(KC_MS_BTN1));
+      }
       break;
   }
 }
@@ -297,7 +345,14 @@ void shiftto13_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP:
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22272 || state->interrupting_keycode == 43) ) {
+        unregister_mods(MOD_BIT(KC_LSHIFT));
+        break;
+      }
       unregister_mods(MOD_BIT(KC_LSHIFT)); // for a layer-tap key, use `layer_off(_MY_LAYER)` here
+      if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
+        unregister_code16(LSFT(KC_MS_BTN1));
+      }
       break;
   }
 }
@@ -310,6 +365,9 @@ void altto11_finished (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LALT)); // for a layer-tap key, use `layer_on(_MY_LAYER)` here
+      if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
+        register_code16(LALT(KC_MS_BTN1));
+      }
       break;
   }
 }
@@ -320,6 +378,9 @@ void altto11_reset (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       unregister_mods(MOD_BIT(KC_LALT)); // for a layer-tap key, use `layer_off(_MY_LAYER)` here
+      if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
+        unregister_code16(LALT(KC_MS_BTN1));
+      }
       break;
   }
 }
@@ -328,7 +389,7 @@ void altto11_reset (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CTRL_TO12] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrlto12_finished, ctrlto12_reset),
   [SHIFT_TO13] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftto13_finished, shiftto13_reset),
-  [ALT_TO11] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altto11_finished, altto11_reset)
+  [ALT_TO11] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altto11_finished, altto11_reset),
 };
 
 /* Debugging functions */
@@ -342,10 +403,32 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // If console is enabled, it will print the matrix position and status of each key pressed
-// #ifdef CONSOLE_ENABLE
-//     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-// #endif
-  return true;
+    // If console is enabled, it will print the matrix position and status of each key pressed
+    // #ifdef CONSOLE_ENABLE
+    //     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    // #endif
+    switch (keycode) {
+    case MS_WH_DOWN:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_MS_WH_DOWN));
+        }
+        break;
+    case MS_WH_UP:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_MS_WH_UP));
+        }
+        break;
+    case MS_WH_LEFT:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_MS_WH_LEFT));
+        }
+        break;
+    case MS_WH_RIGHT:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_MS_WH_RIGHT));
+        }
+        break;
+    }
+    return true;
 }
 

@@ -1,4 +1,6 @@
 /* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ez.h"
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 keyboard_config_t keyboard_config;
-
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -105,16 +106,6 @@ led_config_t g_led_config = { {
     1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_color_all(0, 0, 0);
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
- void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif
 
 /* Left B9   Right B8 */
@@ -258,7 +249,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case PLANCK_EZ_LED_LOWER:
             planck_ez_left_led_on();

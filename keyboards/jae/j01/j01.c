@@ -1,4 +1,4 @@
-/* Copyright Maarten Dekkers <maartenwut@gmail.com>
+/* Copyright Evy Dekkers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,20 +27,6 @@ void matrix_init_kb(void) {
 
     matrix_init_user();
     setPinOutput(E6);
-}
-
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
-
-    return process_record_user(keycode, record);
 }
 
 bool led_update_kb(led_t led_state) {

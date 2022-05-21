@@ -265,13 +265,6 @@ uint32_t layer_state_set_user_keymap(uint32_t state) {
     return state;
 }
 
-// extra keys
-// const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-// switch (id) {
-// }
-// return MACRO_NONE;
-// }
-
 // tap dances
 
 // flash keyboard on 4x tap, with leds

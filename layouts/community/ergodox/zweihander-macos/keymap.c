@@ -137,18 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 

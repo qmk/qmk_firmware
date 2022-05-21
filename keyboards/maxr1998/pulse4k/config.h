@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maxr1998
 #define PRODUCT         Pulse 4k
-#define DESCRIPTION     A four-key macropad
 
 /* Key matrix size */
 #define MATRIX_ROWS 2
@@ -71,5 +70,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

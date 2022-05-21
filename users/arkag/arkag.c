@@ -1,4 +1,5 @@
 #include "arkag.h"
+#include "eeprom.h"
 
 /*
  Current Layout and Keeb:
@@ -40,6 +41,7 @@ uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
 }
 // End: Written by Chris Lewis
 
+static int shift_int = 0;
 uint8_t       current_os,
               mod_primary_mask,
               fade_interval,
@@ -53,6 +55,8 @@ fadeState     fade_state    = add_fade;
 activityState state         = boot;
 bool          aesthetic     = false,
               shifty        = false;
+
+float song_ussr[][2]     = SONG(USSR_ANTHEM);
 
 void set_color (Color new, bool update) {
   rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
@@ -68,14 +72,14 @@ void reset_color(void) {
 
 Color mod_color(Color current_color, bool should_add, uint8_t change_amount) {
   save_color(underglow);
-  int addlim = 359 - change_amount;
+  int addlim = HUE_MAX - change_amount;
   int sublim = change_amount;
   int leftovers;
   if (should_add) {
     if (current_color.h <= addlim) {
       current_color.h += change_amount;
     } else {
-      leftovers = (359 + change_amount) % 359;
+      leftovers = (HUE_MAX + change_amount) % HUE_MAX;
       current_color.h  = 0 + leftovers;
     }
   } else {
@@ -83,7 +87,7 @@ Color mod_color(Color current_color, bool should_add, uint8_t change_amount) {
       current_color.h -= change_amount;
     } else {
       leftovers = change_amount - current_color.h;
-      current_color.h  = 359 - leftovers;
+      current_color.h  = HUE_MAX - leftovers;
     }
   }
   return current_color;
@@ -99,7 +103,6 @@ void check_state (void) {
       if (slept) {rgblight_mode_noeeprom(1);}
       activated = true;
       deactivated = false;
-      slept = false;
     }
     fade_interval = velocikey_match_speed(1, 25);
     if (timer_elapsed(active_timer) < INACTIVE_DELAY) {return;}
@@ -111,21 +114,9 @@ void check_state (void) {
     if (!deactivated) {
       deactivated = true;
       activated = false;
-      slept = false;
     }
     velocikey_decelerate();
     fade_interval = velocikey_match_speed(1, 25);
-    if (timer_elapsed(active_timer) < SLEEP_DELAY) {return;}
-    state = sleeping;
-    return;
-
-  case sleeping:
-    if (!slept) {
-      rgblight_mode_noeeprom(5);
-      slept = true;
-      activated = false;
-      deactivated = false;
-    }
     return;
 
   case boot:
@@ -140,7 +131,7 @@ void fade_rgb (void) {
   if (timer_elapsed(fade_timer) < fade_interval) {return;}
   switch (fade_state) {
   case add_fade:
-    if (underglow.h == 359) {
+    if (underglow.h == HUE_MAX) {
       fade_state = sub_fade;
       return;
     }
@@ -200,22 +191,18 @@ void set_os (uint8_t os, bool update) {
   switch (os) {
   case OS_MAC:
     set_unicode_input_mode(UC_OSX);
-    underglow = (Color){ 300, 255, 255 };
-    mod_primary_mask = MOD_GUI_MASK;
+    underglow = (Color){ 213, 255, 255 };
     break;
   case OS_WIN:
     set_unicode_input_mode(UC_WINC);
-    underglow = (Color){ 180, 255, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
+    underglow = (Color){ 128, 255, 255 };
     break;
   case OS_NIX:
     set_unicode_input_mode(UC_LNX);
-    underglow = (Color){ 60, 255, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
+    underglow = (Color){ 43, 255, 255 };
     break;
   default:
     underglow = (Color){ 0, 0, 255 };
-    mod_primary_mask = MOD_CTL_MASK;
   }
   set_color(underglow, update);
   flash_color           = underglow;
@@ -258,7 +245,18 @@ void sec_mod(bool press) {
   }
 }
 
-void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
+// register Meh if Win or Hyper if other
+// KC_MEH/HYPR registers both sides, causes issues with some apps
+// I'll do it myself, then
+void meh_hyper(bool press) {
+  if (current_os == OS_WIN) {
+    (press) ? register_mods(L_BIT_MEH) : unregister_mods(L_BIT_MEH);
+  } else {
+    (press) ? register_mods(L_BIT_HYPR) : unregister_mods(L_BIT_HYPR);
+  }
+}
+
+void multi_tap(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
   if (use_shift) {
     register_code(KC_LSFT);
   }
@@ -268,9 +266,25 @@ void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
   if (use_shift) {
     unregister_code(KC_LSFT);
   }
-  for (int i = 0; i < (num_of_chars/2); i++) {
+}
+
+void pair_surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
+  for (int i = 0; i < num_of_chars; i++) {
+    (use_shift) ? register_mods(MOD_BIT( KC_LSFT)) : NULL;  
+    tap_code(keycode);
+    tap_code((keycode == KC_LCBR) ? KC_RCBR : (keycode == KC_LBRC) ? KC_RBRC : (keycode == KC_LPRN) ? KC_RPRN : KC_NO);
+    (use_shift) ? unregister_mods(MOD_BIT( KC_LSFT)) : NULL;
     tap_code(KC_LEFT);
   }
+}
+
+void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
+  for (int i = 0; i < num_of_chars; i++) {
+    (use_shift) ? register_mods(MOD_BIT( KC_LSFT)) : NULL;
+    tap_code(keycode);
+    (use_shift) ? unregister_mods(MOD_BIT( KC_LSFT)) : NULL;
+  }
+  multi_tap(num_of_chars / 2, KC_LEFT, false);
 }
 
 void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
@@ -283,100 +297,10 @@ void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
   }
 }
 
-void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_code(KC_GRV);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-  } else if (state->count == 2) {
-    surround_type(2, KC_GRAVE, false);
-  } else {
-    surround_type(6, KC_GRAVE, false);
-  }
-}
-
-void dance_quot (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_code(KC_QUOT);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-  } else if (state->count == 2) {
-    surround_type(2, KC_QUOTE, false);
-  } else if (state->count == 3) {
-    surround_type(2, KC_QUOTE, true);
-  }
-}
-
-void dance_hyph (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_code(KC_MINS);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-  } else if (state->count == 2) {
-    register_code(KC_LSFT);
-    tap_code(KC_MINS);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-    unregister_code(KC_LSFT);
-  } else if (state->count == 3) {
-    send_unicode_hex_string("2014");
-  }
-}
-
-void dance_obrck (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_code(KC_LBRC);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-  } else if (state->count == 2) {
-    register_code(KC_LSFT);
-    tap_code(KC_9);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-    unregister_code(KC_LSFT);
-  }
-}
-
-void dance_cbrck (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_code(KC_RBRC);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-  } else if (state->count == 2) {
-    register_code(KC_LSFT);
-    tap_code(KC_0);
-    if (aesthetic) {
-      tap_code(KC_SPACE);
-    }
-    unregister_code(KC_LSFT);
-  }
-}
-
-void dance_game (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-
-  } else if (state->count == 2) {
-
-  } else if (state->count == 3) {
-    uint8_t layer = biton32(layer_state);
-    if (layer == _QWERTY) {
-        layer_off(_QWERTY);
-        layer_on(_GAMING);
-        // swirling rgb
-        rgblight_mode_noeeprom(12);
-    } else {
-        layer_off(_GAMING);
-        layer_on(_QWERTY);
-        rgblight_mode_noeeprom(1);
-    }
-  }
+void pri_mod_keystroke(uint16_t key) {
+  pri_mod(true);
+  tap_code(key);
+  pri_mod(false);
 }
 
 void matrix_init_user(void) {
@@ -402,12 +326,6 @@ void matrix_scan_user(void) {
         return;
       }
     }
-    SEQ_TWO_KEYS(KC_LSFT, M_PMOD) {
-      if (current_os == OS_WIN) {
-        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LSFT, KC_ESC});
-      } else {
-      }
-    }
     SEQ_TWO_KEYS(KC_S, KC_S) {
       if (current_os == OS_MAC) {
         long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
@@ -423,21 +341,20 @@ void matrix_scan_user(void) {
       } else {
       }
     }
-    SEQ_FOUR_KEYS(KC_C, KC_A, KC_L, KC_C) {
+    SEQ_THREE_KEYS(KC_C, KC_A, KC_E) {
       if (current_os == OS_WIN) {
-        SEND_STRING(SS_TAP(X_CALCULATOR));
-      } else if (current_os == OS_MAC) {
-        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI) "calculator" SS_TAP(X_ENTER));
+        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LALT, KC_END});
+      } else {
       }
     }
     // end OS functions
 
     // begin format functions
     SEQ_ONE_KEY(KC_B) {
-      surround_type(4, KC_8, true);
+      surround_type(2, KC_8, true);
     }
     SEQ_ONE_KEY(KC_I) {
-      surround_type(2, KC_8, true);
+      surround_type(2, KC_MINS, true);
     }
     SEQ_ONE_KEY(KC_U) {
       surround_type(4, KC_MINS, true);
@@ -446,7 +363,19 @@ void matrix_scan_user(void) {
       surround_type(4, KC_GRAVE, true);
     }
     SEQ_ONE_KEY(KC_C) {
-      send_unicode_hex_string("00E7");
+      register_unicode(0x00E7); // ç
+    }
+    SEQ_TWO_KEYS(KC_A, KC_V) {
+      surround_type(2, KC_QUOT, true);
+      pair_surround_type(2, KC_LCBR, true);
+      surround_type(2, KC_SPC, false);
+    }
+    SEQ_TWO_KEYS(KC_M, KC_L) {
+      pair_surround_type(1, KC_LBRC, false);
+      SEND_STRING("LINK_NAME");
+      tap_code(KC_RGHT);
+      pair_surround_type(1, KC_LPRN, true);
+      pri_mod_keystroke(KC_V);
     }
     SEQ_TWO_KEYS(KC_C, KC_C) {
       surround_type(2, KC_GRAVE, false);
@@ -455,56 +384,61 @@ void matrix_scan_user(void) {
       surround_type(6, KC_GRAVE, false);
     }
     SEQ_ONE_KEY(KC_E) {
-      send_unicode_hex_string("00E8");
+      register_unicode(0x00E8); // è
     }
     SEQ_TWO_KEYS(KC_E, KC_E) {
-      send_unicode_hex_string("00E9");
+      register_unicode(0x00E9); // é
     }
     // end format functions
 
     // start fancy functions
+    SEQ_TWO_KEYS(KC_V, KC_P) {
+      SEND_STRING("ggvG}x:set paste\ni");
+      pri_mod_keystroke(KC_V);
+    }
     SEQ_THREE_KEYS(KC_C, KC_C, KC_ENT) {
       surround_type(6, KC_GRAVE, false);
-      pri_mod(true);
-      tap_code(KC_V);
-      pri_mod(false);
-      tap_code(KC_RGHT);
-      tap_code(KC_RGHT);
-      tap_code(KC_RGHT);
+      pri_mod_keystroke(KC_V);
+      multi_tap(3, KC_RGHT, false);
       tap_code(KC_ENTER);
+    }
+    SEQ_THREE_KEYS(KC_T, KC_C, KC_ENT) {
+      multi_tap(3, KC_GRAVE, false);
+      pri_mod_keystroke(KC_V);
+      multi_tap(2, KC_ENTER, false);
     }
     // end fancy functions
 
     // start typing functions
     SEQ_TWO_KEYS(KC_T, KC_M) {
-      // ™
-      send_unicode_hex_string("2122");
+      register_unicode(0x2122); // ™
     }
     SEQ_TWO_KEYS(KC_D, KC_D) {
       SEND_STRING(".\\Administrator");
     }
-    SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
-      // ಠ__ಠ
-      send_unicode_hex_string("0CA0 005F 005F 0CA0");
+    SEQ_THREE_KEYS(KC_D, KC_D, KC_D) {
+      SEND_STRING(".\\Administrator");
+      tap_code(KC_TAB);
+      pri_mod_keystroke(KC_V);
+      tap_code(KC_ENTER);
     }
-    SEQ_FOUR_KEYS(KC_R, KC_E, KC_P, KC_O) {
+    SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
+      send_unicode_string("ಠ__ಠ");
+    }
+    SEQ_THREE_KEYS(KC_M, KC_A, KC_P) {
       SEND_STRING("https://github.com/qmk/qmk_firmware/tree/master/users/arkag");
     }
-    SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
-      // (╯‵Д′)╯彡┻━┻
-      send_unicode_hex_string("0028 256F 2035 0414 2032 0029 256F 5F61 253B 2501 253B");
+    SEQ_TWO_KEYS(KC_F, KC_F) {
+      send_unicode_string("(╯‵Д′)╯彡┻━┻");
     }
-    SEQ_FIVE_KEYS(KC_U, KC_F, KC_L, KC_I, KC_P) {
-      // ┬─┬ノ( º _ º ノ)
-      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
+    SEQ_THREE_KEYS(KC_F, KC_F, KC_F) {
+      send_unicode_string("┬─┬ノ( º _ º ノ)");
     }
-    SEQ_FIVE_KEYS(KC_L, KC_E, KC_N, KC_N, KC_Y) {
-      // ( ͡° ͜ʖ ͡°)
-      send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
+    SEQ_THREE_KEYS(KC_L, KC_O, KC_L) {
+      send_unicode_string("( ͡° ͜ʖ ͡°)");
     }
-    SEQ_FIVE_KEYS(KC_S, KC_H, KC_R, KC_U, KC_G) {
-      // ¯\_(ツ)_/¯
-      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+    SEQ_THREE_KEYS(KC_S, KC_S, KC_S) {
+      send_unicode_string("¯\\_(ツ)_/¯");
     }
     // end typing functions
 
@@ -541,16 +475,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case KC_A ... KC_Z:
       if (record->event.pressed) {
-        int shift = rand() % 2;
+        shift_int += (rand() % 5);
+        int shift = ((shift_int % 2) == 1) ? true : false;
         state = active;
         velocikey_accelerate();
-        if (shift == 1){
-          register_code(KC_LSFT);
-        }
+        (shift) ? register_code(KC_LSFT) : NULL;
         tap_code(keycode);
-        if (shift == 1){
-          unregister_code(KC_LSFT);
-        }
+        (shift) ? unregister_code(KC_LSFT) : NULL;
       }
       return false;
     case KC_SPC:
@@ -566,46 +497,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-  case M_PMOD:
-    pri_mod(record->event.pressed);
-    return false;
-
-  case M_SMOD:
-    sec_mod(record->event.pressed);
-    return false;
+  #ifdef AUDIO_ENABLE
+        case M_USSR:
+            PLAY_SONG(song_ussr);
+            return false;
+  #endif
 
   case M_OS:
     if (record->event.pressed){
       set_os((current_os+1) % _OS_COUNT, true);
     }
-
     return false;
 
-  case M_SPC:
+  case M_DASH:
+    if (record->event.pressed){
+      register_unicode(0x2014); // —
+    }
+    return false;
+  case M_LMHYP:
+  case M_EHYPR:
+    (keycode = M_LMHYP) ? (record->event.pressed) ? layer_on(_ARROW) : layer_off(_ARROW) : NULL;
+    meh_hyper(record->event.pressed);
+    return false;
+
+  case M_SFTY:
     if(record->event.pressed){
-      if (aesthetic) {
-        aesthetic = false;
-        rgblight_mode_noeeprom(1);
-      } else {
-        aesthetic = true;
-        shifty = false;
-        // snake mode
-        rgblight_mode_noeeprom(20);
-      }
+      num_extra_flashes_off = (shifty) ?  1 : 0;
+      shifty = !shifty;
+      flash_color = underglow;
+      flash_state = flash_off;
       return false;
     }
 
-  case M_SFT:
+  case M_AEST:
     if(record->event.pressed){
-      if (shifty) {
-        shifty = false;
-        rgblight_mode_noeeprom(1);
-      } else {
-        shifty = true;
-        aesthetic = false;
-        // knight mode
-        rgblight_mode_noeeprom(23);
-      }
+      num_extra_flashes_off = (aesthetic) ? 1 : 0;
+      aesthetic = !aesthetic;
+      flash_color = underglow;
+      flash_state = flash_off;
       return false;
     }
 
@@ -617,14 +546,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
   }
 }
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
-  [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
-  [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_FN (dance_hyph),
-  [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_FN (dance_obrck),
-  [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_FN (dance_cbrck),
-  [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
-  [TD_GAME]           = ACTION_TAP_DANCE_FN (dance_game),
-};

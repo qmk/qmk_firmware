@@ -6,12 +6,12 @@ The SPI Master drivers used in QMK have a set of common functions to allow porta
 
 No special setup is required - just connect the `SS`, `SCK`, `MOSI` and `MISO` pins of your SPI devices to the matching pins on the MCU:
 
-|MCU            |`SS`|`SCK`|`MOSI`|`MISO`|
-|---------------|----|-----|------|------|
-|ATMega16/32U2/4|`B0`|`B1` |`B2`  |`B3`  |
-|AT90USB64/128  |`B0`|`B1` |`B2`  |`B3`  |
-|ATmega32A      |`B4`|`B7` |`B5`  |`B6`  |
-|ATmega328/P    |`B2`|`B5` |`B3`  |`B4`  |
+|MCU              |`SS`|`SCK`|`MOSI`|`MISO`|
+|-----------------|----|-----|------|------|
+|ATmega16/32U2/4  |`B0`|`B1` |`B2`  |`B3`  |
+|AT90USB64/128/162|`B0`|`B1` |`B2`  |`B3`  |
+|ATmega32A        |`B4`|`B7` |`B5`  |`B6`  |
+|ATmega328/P      |`B2`|`B5` |`B3`  |`B4`  |
 
 You may use more than one slave select pin, not just the `SS` pin. This is useful when you have multiple devices connected and need to communicate with them individually.
 `SPI_SS_PIN` can be passed to `spi_start()` to refer to `SS`.
@@ -20,22 +20,34 @@ You may use more than one slave select pin, not just the `SS` pin. This is usefu
 
 You'll need to determine which pins can be used for SPI -- as an example, STM32 parts generally have multiple SPI peripherals, labeled SPI1, SPI2, SPI3 etc.
 
-To enable SPI, modify your board's `halconf.h` to enable SPI - both `HAL_USE_SPI` and `SPI_USE_WAIT` should be `TRUE`, and `SPI_SELECT_MODE` should be `SPI_SELECT_MODE_PAD`.
-Then, modify your board's `mcuconf.h` to enable the SPI peripheral you've chosen -- in the case of using SPI2, modify `STM32_SPI_USE_SPI2` to be `TRUE`.
+To enable SPI, modify your board's `halconf.h` to enable SPI:
 
-As per the AVR configuration, you may select any other standard GPIO as a slave select pin, and can be supplied to `spi_start()`.
+```c
+#define HAL_USE_SPI TRUE
+#define SPI_USE_WAIT TRUE
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+```
+
+Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
+
+```c
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 TRUE
+```
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
-`config.h` override         | Description                                                   | Default Value
-----------------------------|---------------------------------------------------------------|--------------
-`#define SPI_DRIVER`        | SPI peripheral to use - SPI1 => `SPID1`, SPI2 => `SPID2` etc. | `SPID2`
-`#define SPI_SCK_PIN`       | The pin to use for the SCK                                    | `B13`
-`#define SPI_SCK_PAL_MODE`  | The alternate function mode for the SCK pin                   | `5`
-`#define SPI_MOSI_PIN`      | The pin to use for the MOSI                                   | `B15`
-`#define SPI_MOSI_PAL_MODE` | The alternate function mode for the MOSI pin                  | `5`
-`#define SPI_MISO_PIN`      | The pin to use for the MISO                                   | `B14`
-`#define SPI_MISO_PAL_MODE` | The alternate function mode for the MISO pin                  | `5`
+|`config.h` Override|Description                                                  |Default|
+|-------------------|-------------------------------------------------------------|-------|
+|`SPI_DRIVER`       |SPI peripheral to use - SPI1 -> `SPID1`, SPI2 -> `SPID2` etc.|`SPID2`|
+|`SPI_SCK_PIN`      |The pin to use for SCK                                       |`B13`  |
+|`SPI_SCK_PAL_MODE` |The alternate function mode for SCK                          |`5`    |
+|`SPI_MOSI_PIN`     |The pin to use for MOSI                                      |`B15`  |
+|`SPI_MOSI_PAL_MODE`|The alternate function mode for MOSI                         |`5`    |
+|`SPI_MISO_PIN`     |The pin to use for MISO                                      |`B14`  |
+|`SPI_MISO_PAL_MODE`|The alternate function mode for MISO                         |`5`    |
+
+As per the AVR configuration, you may choose any other standard GPIO as a slave select pin, which should be supplied to `spi_start()`.
 
 ## Functions
 
@@ -112,7 +124,7 @@ Send multiple bytes to the selected SPI device.
 
 #### Return Value
 
-`SPI_STATUS_TIMEOUT` if the timeout period elapses, `SPI_STATUS_SUCCESS` on success, or `SPI_STATUS_ERROR` otherwise.
+`SPI_STATUS_TIMEOUT` if the timeout period elapses, `SPI_STATUS_ERROR` if some other error occurs, otherwise `SPI_STATUS_SUCCESS`.
 
 ---
 
@@ -129,7 +141,7 @@ Receive multiple bytes from the selected SPI device.
 
 #### Return Value
 
-`SPI_STATUS_TIMEOUT` if the internal transmission timeout period elapses, `SPI_STATUS_SUCCESS` on success, or `SPI_STATUS_ERROR` otherwise.
+`SPI_STATUS_TIMEOUT` if the timeout period elapses, `SPI_STATUS_ERROR` if some other error occurs, otherwise `SPI_STATUS_SUCCESS`.
 
 ---
 

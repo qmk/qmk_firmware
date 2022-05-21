@@ -136,7 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   switch (biton32(state)) {
     case _RAISE:
       #ifdef RGBLIGHT_ENABLE

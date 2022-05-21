@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0002
 #define MANUFACTURER Montsinger
 #define PRODUCT Rebound
-#define DESCRIPTION "A conjoined Let's Split"
 
 /* key matrix size */
 

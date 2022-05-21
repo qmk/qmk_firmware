@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Exclusive / E-Team
 #define PRODUCT         E6-V2
-#define DESCRIPTION     E6-V2 QMK PCB (Mid-Port)
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -55,5 +53,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
-
-#endif
