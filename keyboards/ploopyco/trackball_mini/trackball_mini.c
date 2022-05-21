@@ -37,9 +37,16 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 
-#define PLOOPY_DPI_OPTIONS \
-    { 375, 750, 1375 }
-#define PLOOPY_DPI_DEFAULT 2
+#ifndef PLOOPY_DPI_OPTIONS
+#    define PLOOPY_DPI_OPTIONS \
+        { 375, 750, 1375 }
+#    ifndef PLOOPY_DPI_DEFAULT
+#       define PLOOPY_DPI_DEFAULT 1
+#    endif
+#endif
+#ifndef PLOOPY_DPI_DEFAULT
+#    define PLOOPY_DPI_DEFAULT 0
+#endif
 
 #ifndef PLOOPY_DRAGSCROLL_DPI
 #    define PLOOPY_DRAGSCROLL_DPI 375  // Fixed-DPI Drag Scroll
