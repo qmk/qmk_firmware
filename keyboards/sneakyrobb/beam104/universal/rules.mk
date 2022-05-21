@@ -48,5 +48,5 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 RAW_ENABLE = yes
 
 CUSTOM_MATRIX=lite
-SRC += keyboards/sneakyrobb/xwhatsit/capsense_matrix.c keyboards/sneakyrobb/xwhatsit/util_comm.c
+SRC += ../../xwhatsit_capsense_matrix.c ../../xwhatsit_util_comm.c
 HAPTIC_ENABLE += SOLENOID
