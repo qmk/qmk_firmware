@@ -159,22 +159,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 
 /***************************
- * Custom Keycodes and Layers
- **************************/
-enum custom_keycodes {
-  KC_INTE = SAFE_RANGE,
-  KC_RAISE,
-  KC_LOWER,
-  KC_SCLN_INV,
-  KC_QUOT_MY, // not US Int style
-  KC_TILD_MY, // not US Int style
-  KC_CPI_DOWN,
-  KC_CPI_STD,
-  KC_CPI_UP,
-  KC_SMO_SC
-};
-
-/***************************
  * Tap dance 2 of 2
  **************************/
 

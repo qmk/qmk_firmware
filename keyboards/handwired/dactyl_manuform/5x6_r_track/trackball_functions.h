@@ -44,3 +44,19 @@ void lowtm_finished(qk_tap_dance_state_t *state, void *user_data);
 void lowtm_reset(qk_tap_dance_state_t *state, void *user_data);
 void esctm_finished(qk_tap_dance_state_t *state, void *user_data);
 void esctm_reset(qk_tap_dance_state_t *state, void *user_data);
+
+/***************************
+ * Custom Keycodes and Layers
+ **************************/
+enum custom_keycodes {
+  KC_INTE = SAFE_RANGE,
+  KC_RAISE,
+  KC_LOWER,
+  KC_SCLN_INV,
+  KC_QUOT_MY, // not US Int style
+  KC_TILD_MY, // not US Int style
+  KC_CPI_DOWN,
+  KC_CPI_STD,
+  KC_CPI_UP,
+  KC_SMO_SC
+};
