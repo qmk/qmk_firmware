@@ -58,6 +58,17 @@ QWERTY layout with 7 Layers.
 Similar to Default but adds support for the [Via](https://www.caniusevia.com/) keymap configurator. Reduces the number of layers to 4 to comply with Via defaults, and remaps
 some keys to accomodate that constraint.
 
+### [Keymaps 5x6_r_track](/keyboards/handwired/dactyl_manuform/5x6_r_track/keymaps)
+
+#### Default
+QWERTY layout with 3 layers, 4 trackball modes.
+
+#### Dvorak
+Similar to the default but with US Dvorak layout in the base layer.
+
+#### Colemaka
+Colemak layout with 4 trackball modes.
+
 ### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
 
 #### Default

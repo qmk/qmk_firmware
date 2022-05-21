@@ -78,5 +78,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_COUNT 3
 
 // your editing pleasure:
-#define PMW3360_CPI 700
+#define PMW3360_CPI 250
+#define CPI_STEP_SENS 20
 #define ROTATIONAL_TRANSFORM_ANGLE -30
+#define CURSOR_MODE_SENS 500
+#define SCROLL_MODE_SENS 50
+#define CARRET_MODE_SENS 24
+#define CURSOR_INTE_SENS 5
+#define SCROLL_INTE_SENS 10000
+#define CARRET_INTE_SENS 2000
+#define TRACK_MODE_ALT SCROLL_MODE
+#define TRACK_MODE_CTRL CURSOR_MODE
+#define TRACK_MODE_SHIFT CARRET_MODE
+#define TRACK_MODE_GUI SND_BRIGHT_MODE

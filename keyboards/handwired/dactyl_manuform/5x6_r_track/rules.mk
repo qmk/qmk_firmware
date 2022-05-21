@@ -26,3 +26,4 @@ DEBOUNCE_TYPE = sym_eager_pk
 # Add trackball support
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = pmw3360
+SRC += trackball_functions.c

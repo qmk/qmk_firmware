@@ -1,9 +1,11 @@
-# Dactyl Manuform r track
+# Dactyl Manuform r_track
 
-A split keyboard with trackball support.
+The r_track version of the Dactyl Manuform is a Dactyl Manuform with a trackball in the right thumb cluster. 
+The [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard.
+
 
 * Keyboard Maintainer: [Schievel]https://github.com/Schievel1
-* Hardware Supported: Dactyl Manuform using an [PMW3360 and breakout board for mouse](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/),Arduino Micro (right half), Arduino Pro Micro (left half) 
+* Hardware Supported: Dactyl Manuform using an [PMW3360 and breakout board for the trackball](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/), Arduino Micro (right half), Arduino Pro Micro (left half) 
 * Hardware Availability: [Schievel]https://github.com/Schievel1
 * Building guide: https://github.com/Schievel1/dactyl_manuform_r_track/blob/main/README.org
 
