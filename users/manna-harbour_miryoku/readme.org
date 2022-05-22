@@ -93,6 +93,8 @@ The ~alphas~, ~nav~, ~clipboard~, and ~layers~ options correspond to the [[https
 
 The ~rules~ and ~custom_config~ options can be used to specify values to be appended to ~custom_rules.mk~ and ~custom_config.h~, respectively.  Separate multiple lines with ~\n~.
 
+The ~merge~ option can be used to merge branches at build time. Branches are specified in the form ~<user>/<repo>/<branch>~. E.g. QMK ~master~ and ~develop~ would be specified as ~qmk/qmk_firmware/master~ and ~qmk/qmk_firmware/develop~ respectively. Multiple space separated branches can be specified. For no merges, leave as ~default~.
+
 
 **** Build Inputs
 
@@ -105,6 +107,8 @@ The ~Keyboard~ option specifies the keyboard and is required.  All other options
 The ~Miryoku Alphas~, ~Miryoku Nav~, ~Miryoku Clipboard~, and ~Miryoku Layers~ options correspond to the [[https://github.com/manna-harbour/miryoku/tree/master/docs/reference#alternative-layouts][alternative layout]] options.  The ~Miryoku Mapping~ option corresponds to the alternative [[#subset-mapping][mapping]] options.  Alternative layout and mapping options are given in the documentation in the form ~MIRYOKU_OPTION=VALUE~.  To use here, enter the ~value~ in the corresponding ~Miryoku Option~ field.  Use ~default~ to represent the default value.  Values for these five options are case-insensitive.
 
 The ~custom_rules.mk~ and ~custom_config.h~ options can be used to specify values to be appended to the corresponding files.  Join multiple lines with ~\n~.
+
+The ~Merge QMK Branches~ option can be used to merge branches at build time. Branches are specified in the form ~<user>/<repo>/<branch>~. E.g. QMK ~master~ and ~develop~ would be specified as ~qmk/qmk_firmware/master~ and ~qmk/qmk_firmware/develop~ respectively. Multiple space separated branches can be specified. For no merges, leave as ~default~.
 
 
 ** Subset Mapping
