@@ -254,10 +254,6 @@ void dynamic_keymap_macro_send(uint8_t id) {
                 break;
             }
         }
-#if DYNAMIC_KEYMAP_MACRO_DELAY > 0
         send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);
-#else
-        send_string(data);
-#endif
     }
 }
