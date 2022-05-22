@@ -147,8 +147,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPSENSE_SHIFT_STCP_IO _SFR_IO_ADDR(PORTD)
 #define CAPSENSE_SHIFT_STCP_BIT 6
 
-//#define SETUP_ROW_GPIOS() do {} while (0)
-// Enable pull-ups on row GPIOs. Newer controlers
 #define SETUP_ROW_GPIOS() \
         do { \
             PORTC |= 0xF0; \
