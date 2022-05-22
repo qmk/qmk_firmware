@@ -1,4 +1,4 @@
-Matthew J Wolf 09-May-2022 ibm
+Matthew J Wolf 21-May-2022 ibm
 
 See change log for changes.
 
@@ -14,10 +14,12 @@ Changes to Source Files
 -----------------------
 
 - File System
--- Changed directory "brand_new_model_f" to "model_f_labs".
--- Changed matrix.c to capsense_matrix.c
--- Changed matrix_manipulate.h capsense_matrix.h
--- Updated all of the rules.mk
+-- Changed matrix.c to xwhatsit_capsense_matrix.c
+-- Changed matrix_manipulate.h to xwhatsit_capsense_matrix.h
+-- Changed util_comm.c to xwhatsit_util_comm.c
+-- Changed util_comm.h to xwhatsit_util_comm.h
+-- Updated all of the keyboard config.h
+-- Updated all of the keyboard rules.mk
 
 - Source Changes
 -- Moved defines from source to headers
