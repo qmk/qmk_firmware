@@ -1,6 +1,6 @@
 /*
 Copyright 2020 Purdea Andrei
-Copyright 2021 Matthew J Wolf
+Copyright 2021-2022 Matthew J Wolf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -309,7 +309,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LED_CAPS_LOCK_ACTIVE_LOW
 //#define LED_SCROLL_LOCK_ACTIVE_LOW
 
-#include "keyboards/ibm/xwhatsit/post_config.h"
+#include "../../post_config.h"
 
 // ----- xwhatsit hardware configuration (type_f) -----
 

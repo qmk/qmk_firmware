@@ -1,4 +1,5 @@
 # Copyright 2020 Purdea Andrei
+# Copyright 2021-2022 Matthew J Wolf
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,5 +49,5 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 RAW_ENABLE = yes
 
 CUSTOM_MATRIX=lite
-SRC += keyboards/ibm/xwhatsit/capsense_matrix.c keyboards/ibm/xwhatsit/util_comm.c
+SRC += ../xwhatsit_capsense_matrix.c ../xwhatsit_util_comm.c
 HAPTIC_ENABLE += SOLENOID

@@ -1,5 +1,5 @@
 /* Copyright 2020 Purdea Andrei
- * Copyright 2021 Matthew J Wolf
+ * Copyright 2021-2022 Matthew J Wolf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
 
 #include "quantum.h"
 #include "raw_hid.h"
-#include "util_comm.h"
-#include "capsense_matrix.h"
+#include "xwhatsit_util_comm.h"
+#include "xwhatsit_capsense_matrix.h"
 #include <string.h>
 #include <tmk_core/common/eeprom.h>
 
