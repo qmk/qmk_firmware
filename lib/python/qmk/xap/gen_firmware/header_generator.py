@@ -7,7 +7,7 @@ from qmk.casing import to_snake
 from qmk.commands import dump_lines
 from qmk.git import git_get_version
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
-from qmk.xap.common import latest_xap_defs, route_conditions
+from qmk.xap.common import merge_xap_defs, route_conditions
 
 
 def _get_c_type(xap_type):
@@ -233,10 +233,10 @@ def _append_internal_types(lines, container):
             lines.append(f'typedef {data_type} xap_{key}_t;')
 
 
-def generate_header(output_file, keyboard):
+def generate_header(output_file, keyboard, keymap):
     """Generates the XAP protocol header file, generated during normal build.
     """
-    xap_defs = latest_xap_defs()
+    xap_defs = merge_xap_defs(keyboard, keymap)
 
     # Preamble
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']

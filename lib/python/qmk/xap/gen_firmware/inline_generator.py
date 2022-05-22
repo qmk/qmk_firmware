@@ -3,7 +3,7 @@
 from qmk.casing import to_snake
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
-from qmk.xap.common import latest_xap_defs, route_conditions
+from qmk.xap.common import merge_xap_defs, route_conditions
 
 
 def _get_c_type(xap_type):
@@ -268,10 +268,10 @@ def _append_broadcast_messages(lines, container):
             lines.append(f'void {name}(const void *data, size_t length){{ xap_broadcast({key}, data, length); }}')
 
 
-def generate_inline(output_file):
+def generate_inline(output_file, keyboard, keymap):
     """Generates the XAP protocol header file, generated during normal build.
     """
-    xap_defs = latest_xap_defs()
+    xap_defs = merge_xap_defs(keyboard, keymap)
 
     # Preamble
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '']

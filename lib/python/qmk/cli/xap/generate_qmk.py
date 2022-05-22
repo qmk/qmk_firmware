@@ -10,25 +10,43 @@ from qmk.xap.gen_firmware.header_generator import generate_header
 
 
 @cli.argument('-o', '--output', type=normpath, help='File to write to')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Name of the keyboard')
+@cli.argument('-km', '--keymap', help='The keymap\'s name')
 @cli.subcommand('Generates the XAP protocol include.', hidden=False if cli.config.user.developer else True)
 def xap_generate_qmk_inc(cli):
     """Generates the XAP protocol inline codegen file, generated during normal build.
     """
-    generate_inline(cli.args.output)
+    # Determine our keyboard/keymap
+    if not cli.args.keyboard:
+        cli.log.error('Missing parameter: --keyboard')
+        cli.subcommands['xap-generate-info-h'].print_help()
+        return False
+    if not cli.args.keymap:
+        cli.log.error('Missing parameter: --keymap')
+        cli.subcommands['xap-generate-info-h'].print_help()
+        return False
+
+    generate_inline(cli.args.output, cli.args.keyboard, cli.args.keymap)
 
 
 @cli.argument('-o', '--output', type=normpath, help='File to write to')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Name of the keyboard')
+@cli.argument('-km', '--keymap', help='The keymap\'s name')
 @cli.subcommand('Generates the XAP protocol include.', hidden=False if cli.config.user.developer else True)
 def xap_generate_qmk_h(cli):
     """Generates the XAP protocol header file, generated during normal build.
     """
-    # Determine our keyboard
+    # Determine our keyboard/keymap
     if not cli.args.keyboard:
         cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['xap-generate-qmk-h'].print_help()
+        cli.subcommands['xap-generate-info-h'].print_help()
         return False
-    generate_header(cli.args.output, cli.args.keyboard)
+    if not cli.args.keymap:
+        cli.log.error('Missing parameter: --keymap')
+        cli.subcommands['xap-generate-info-h'].print_help()
+        return False
+
+    generate_header(cli.args.output, cli.args.keyboard, cli.args.keymap)
 
 
 @cli.argument('-o', '--output', type=normpath, help='File to write to')

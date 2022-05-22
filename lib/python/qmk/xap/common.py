@@ -9,6 +9,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from qmk.constants import QMK_FIRMWARE
 from qmk.json_schema import json_load
 from qmk.decorators import lru_cache
+from qmk.keymap import locate_keymap
+from qmk.path import keyboard
 
 
 def _get_jinja2_env(data_templates_xap_subdir: str):
@@ -33,7 +35,7 @@ def _merge_ordered_dicts(dicts):
     result = OrderedDict()
 
     def add_entry(target, k, v):
-        if k in target and isinstance(v, OrderedDict):
+        if k in target and isinstance(v, (OrderedDict, dict)):
             if "!reset!" in v:
                 target[k] = v
             else:
@@ -94,6 +96,44 @@ def latest_xap_defs():
     """Gets the latest version of the XAP definitions.
     """
     return get_xap_defs('latest')
+
+
+def _find_kb_spec(kb):
+    base_path = Path('keyboards')
+    keyboard_parent = keyboard(kb)
+
+    for _ in range(5):
+        if keyboard_parent == base_path:
+            break
+
+        spec = keyboard_parent / 'xap.json'
+        if spec.exists():
+            return spec
+
+        keyboard_parent = keyboard_parent.parent
+
+    # Just return something we know doesn't exist
+    return keyboard(kb) / 'xap.json'
+
+
+def _find_km_spec(kb, km):
+    return locate_keymap(kb, km).parent / 'xap.json'
+
+
+def merge_xap_defs(kb, km):
+    """Gets the latest version of the XAP definitions and merges in optional keyboard/keymap specs
+    """
+    definitions = [get_xap_defs('latest')]
+
+    kb_xap = _find_kb_spec(kb)
+    if kb_xap.exists():
+        definitions.append({'routes': {'0x02': hjson.load(kb_xap.open(encoding='utf-8'))}})
+
+    km_xap = _find_km_spec(kb, km)
+    if km_xap.exists():
+        definitions.append({'routes': {'0x03': hjson.load(km_xap.open(encoding='utf-8'))}})
+
+    return _merge_ordered_dicts(definitions)
 
 
 @lru_cache(timeout=5)
