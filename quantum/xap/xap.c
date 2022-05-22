@@ -158,15 +158,3 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
 void xap_receive(xap_token_t token, const uint8_t *data, size_t length) {
     xap_execute_route(token, xap_route_table, sizeof(xap_route_table) / sizeof(xap_route_t), data, length);
 }
-
-void xap_event_task(void) {
-#ifdef SECURE_ENABLE
-    static secure_status_t last_status = -1;
-
-    secure_status_t status = secure_get_status();
-    if (last_status != status) {
-        last_status = status;
-        xap_broadcast_secure_status(status);
-    }
-#endif
-}

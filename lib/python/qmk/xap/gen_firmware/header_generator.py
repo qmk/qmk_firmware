@@ -194,7 +194,14 @@ def _append_internal_types(lines, container):
     broadcast_prefix = broadcast_messages['define_prefix']
     for key, value in broadcast_messages['messages'].items():
         define = value.get('define')
+        name = to_snake(f'{broadcast_prefix}_{define}')
+
         lines.append(f'#define {broadcast_prefix}_{define} {key}')
+        if 'return_type' in value:
+            ret_type = _get_c_type(value['return_type'])
+            lines.append(f'void {name}({ret_type} value);')
+        else:
+            lines.append(f'void {name}(const void *data, size_t length);')
 
     # Add special
     lines.append(f'#define {broadcast_prefix}_TOKEN 0xFFFF')

@@ -559,10 +559,6 @@ void quantum_task(void) {
 #ifdef SECURE_ENABLE
     secure_task();
 #endif
-
-#ifdef XAP_ENABLE
-    xap_event_task();
-#endif
 }
 
 /** \brief Keyboard task: Do keyboard routine jobs

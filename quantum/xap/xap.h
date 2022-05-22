@@ -36,5 +36,3 @@ bool xap_respond_data_P(xap_token_t token, const void *data, size_t length);
 
 void xap_send(xap_token_t token, xap_response_flags_t response_flags, const void *data, size_t length);
 void xap_broadcast(uint8_t type, const void *data, size_t length);
-
-void xap_event_task(void);
