@@ -15,7 +15,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-    RMT = SAFE_RANGE,
+    RMT = USER00,
     RMS,
     RMIH,
     RMDH,
