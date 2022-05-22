@@ -6,7 +6,7 @@
 | Name | Route | Definition |
 | -- | -- | -- |
 {%- for subid, subroute in route.routes | dictsort %}
-| {{ subroute.name }} | `{{ id }} {{ subid }}` | {{ subroute.description.split('\n')[0] }} |
+| {{ subroute.name }} | `{{ id }} {{ subid }}` | {% if 'secure' == subroute.permissions %}__Secure unlock required__ {% endif %}{{ subroute.description.split('\n')[0] }} |
 {%- endfor %}
 {% endif %}
 {%- endfor %}

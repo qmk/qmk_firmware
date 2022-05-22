@@ -110,7 +110,7 @@ This subsystem is always present, and provides the ability to address QMK-specif
 | Product Name | `0x01 0x04` | Retrieves the product name |
 | info.json length | `0x01 0x05` | Retrieves the length of info.json |
 | info.json | `0x01 0x06` | Retrieves a chunk of info.json |
-| Jump to bootloader | `0x01 0x07` | Jump to bootloader |
+| Jump to bootloader | `0x01 0x07` | __Secure unlock required__ Jump to bootloader |
 | info.json | `0x01 0x08` | Retrieves a unique identifier for the board. |
 
 ### Keyboard - `0x02`
@@ -139,5 +139,12 @@ Log message payloads include a `u8` signifying the length of the text, followed 
 | **Purpose** | Token | Token | Broadcast Type | Length | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload |
 | **Value** | `0xFF` | `0xFF` | `0x00` | `0x0A`(10) | `0x48`(H) | `0x65`(e) | `0x6C`(l) | `0x6C`(l) | `0x6F`(o) | `0x20`(&nbsp;) | `0x51`(Q) | `0x4D`(M) | `0x4B`(K) | `0x21`(!) |
 ### Secure Status - `0x01`
-Secure status has changed.
+Secure status has changed. Payloads include a `u8` matching a 'Secure Status' request.
+
+**Example Secure Status Broadcast** -- secure "Unlocking"
+
+| Byte | 0 | 1 | 2 | 3 |
+| --- | --- | --- | --- | --- |
+| **Purpose** | Token | Token | Broadcast Type | Secure Status |
+| **Value** | `0xFF` | `0xFF` | `0x01` | `0x01` |
 

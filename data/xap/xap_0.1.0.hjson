@@ -119,7 +119,7 @@
                     Log message payloads include a `u8` signifying the length of the text, followed by the `u8[Length]` containing the text itself.
 
                     **Example Log Broadcast** -- log message "Hello QMK!"
-                    
+
                     | Byte | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 |
                     | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
                     | **Purpose** | Token | Token | Broadcast Type | Length | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload |
@@ -131,7 +131,14 @@
                 define: SECURE_STATUS
                 description:
                     '''
-                    Secure status has changed.
+                    Secure status has changed. Payloads include a `u8` matching a 'Secure Status' request.
+
+                    **Example Secure Status Broadcast** -- secure "Unlocking"
+
+                    | Byte | 0 | 1 | 2 | 3 |
+                    | --- | --- | --- | --- | --- |
+                    | **Purpose** | Token | Token | Broadcast Type | Secure Status |
+                    | **Value** | `0xFF` | `0xFF` | `0x01` | `0x01` |
                     '''
                 return_type: u8
             }
