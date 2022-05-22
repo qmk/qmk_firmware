@@ -61,6 +61,7 @@
                     name: Set Keycode
                     define: SET_KEYMAP_KEYCODE
                     description: TODO
+                    permissions: secure
                     request_type: struct
                     request_struct_length: 5
                     request_struct_members: [
@@ -136,6 +137,7 @@
                     type: command
                     name: Set Keycode
                     define: SET_ENCODER_KEYCODE
+                    permissions: secure
                     description: TODO
                     request_type: struct
                     request_struct_length: 5

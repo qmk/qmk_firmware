@@ -88,30 +88,30 @@ This is the primary method for determining if a subsystem has been enabled in th
 This subsystem is always present, and provides the ability to query information about the XAP protocol of the connected device.
 
 
-| Name | Route | Definition |
-| -- | -- | -- |
-| Version Query | `0x00 0x00` | XAP protocol version query. |
-| Capabilities Query | `0x00 0x01` | XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
-| Enabled subsystem query | `0x00 0x02` | XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying. |
-| Secure Status | `0x00 0x03` | Query secure route status |
-| Secure Unlock | `0x00 0x04` | Initiate secure route unlock sequence |
-| Secure Lock | `0x00 0x05` | Disable secure routes |
+| Name | Route | Tags | Definition |
+| -- | -- | -- | -- |
+| Version Query | `0x00 0x00` |  | XAP protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.<br>* Response:<br>    * `u32` value. |
+| Capabilities Query | `0x00 0x01` |  | XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Enabled subsystem query | `0x00 0x02` |  | XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying. |
+| Secure Status | `0x00 0x03` |  | Query secure route status<br><br>* 0 means secure routes are disabled<br>* 1 means unlock sequence initiated but incomplete<br>* 2 means secure routes are allowed<br>* any other value should be interpreted as disabled |
+| Secure Unlock | `0x00 0x04` |  | Initiate secure route unlock sequence |
+| Secure Lock | `0x00 0x05` |  | Disable secure routes |
 
 ### QMK - `0x01`
 This subsystem is always present, and provides the ability to address QMK-specific functionality.
 
 
-| Name | Route | Definition |
-| -- | -- | -- |
-| Version Query | `0x01 0x00` | QMK protocol version query. |
-| Capabilities Query | `0x01 0x01` | QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
-| Board identifiers | `0x01 0x02` | Retrieves the set of identifying information for the board. |
-| Board Manufacturer | `0x01 0x03` | Retrieves the name of the manufacturer |
-| Product Name | `0x01 0x04` | Retrieves the product name |
-| info.json length | `0x01 0x05` | Retrieves the length of info.json |
-| info.json | `0x01 0x06` | Retrieves a chunk of info.json |
-| Jump to bootloader | `0x01 0x07` | __Secure unlock required__ Jump to bootloader |
-| info.json | `0x01 0x08` | Retrieves a unique identifier for the board. |
+| Name | Route | Tags | Definition |
+| -- | -- | -- | -- |
+| Version Query | `0x01 0x00` |  | QMK protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.<br>* Response:<br>    * `u32` value. |
+| Capabilities Query | `0x01 0x01` |  | QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Board identifiers | `0x01 0x02` |  | Retrieves the set of identifying information for the board. |
+| Board Manufacturer | `0x01 0x03` |  | Retrieves the name of the manufacturer |
+| Product Name | `0x01 0x04` |  | Retrieves the product name |
+| info.json length | `0x01 0x05` |  | Retrieves the length of info.json |
+| info.json | `0x01 0x06` |  | Retrieves a chunk of info.json |
+| Jump to bootloader | `0x01 0x07` | __Secure__ | Jump to bootloader<br><br>May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader |
+| info.json | `0x01 0x08` |  | Retrieves a unique identifier for the board. |
 
 ### Keyboard - `0x02`
 This subsystem is always present, and reserved for user-specific functionality. No routes are defined by XAP.
@@ -125,30 +125,30 @@ This subsystem is always present, and reserved for user-specific functionality. 
 This subsystem allows for live modifications of the keymap, allowing keys to be reassigned without rebuilding the firmware.
 
 
-| Name | Route | Definition |
-| -- | -- | -- |
-| Capabilities Query | `0x04 0x00` | Dynamic Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
-| Get Layer Count | `0x04 0x01` | TODO |
-| Get Keycode | `0x04 0x02` | TODO |
-| Set Keycode | `0x04 0x03` | TODO |
+| Name | Route | Tags | Definition |
+| -- | -- | -- | -- |
+| Capabilities Query | `0x04 0x00` |  | Dynamic Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Get Layer Count | `0x04 0x01` |  | TODO |
+| Get Keycode | `0x04 0x02` |  | TODO |
+| Set Keycode | `0x04 0x03` | __Secure__ | TODO |
 
 ### Dynamic Encoders - `0x05`
 This subsystem allows for live modifications of the keymap, allowing encoder functionality to be reassigned without rebuilding the firmware.
 
 
-| Name | Route | Definition |
-| -- | -- | -- |
-| Capabilities Query | `0x05 0x00` | Dynamic Encoders subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
-| Get Keycode | `0x05 0x02` | TODO |
-| Set Keycode | `0x05 0x03` | TODO |
+| Name | Route | Tags | Definition |
+| -- | -- | -- | -- |
+| Capabilities Query | `0x05 0x00` |  | Dynamic Encoders subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Get Keycode | `0x05 0x02` |  | TODO |
+| Set Keycode | `0x05 0x03` | __Secure__ | TODO |
 
 ### Lighting - `0x06`
 This subsystem allows for control over the lighting subsystem.
 
 
-| Name | Route | Definition |
-| -- | -- | -- |
-| Capabilities Query | `0x06 0x00` | Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Name | Route | Tags | Definition |
+| -- | -- | -- | -- |
+| Capabilities Query | `0x06 0x00` |  | Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
 
 
 ## Broadcast messages
