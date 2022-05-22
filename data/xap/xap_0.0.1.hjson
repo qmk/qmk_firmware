@@ -17,6 +17,8 @@
             response_flags
             !response_flags.md.j2
             example_conversation
+            routes
+            !routes.md.j2
         ]
 
         page_header:
@@ -64,16 +66,26 @@
             ### Example "conversation":
 
             **Request** -- version query:
+
             | Byte | 0 | 1 | 2 | 3 | 4 |
             | --- | --- | --- | --- | --- | --- |
             | **Purpose** | Token | Token | Payload Length | Route | Route |
             | **Value** | `0x43` | `0x2B` | `0x02` | `0x00` | `0x00` |
 
             **Response** -- matching token, successful flag, payload of `0x03170192` = 3.17.192:
+            
             | Byte | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
             | --- | --- | --- | --- | --- | --- | --- | --- | --- |
             | **Purpose** | Token | Token | Response Flags | Payload Length | Payload | Payload | Payload | Payload |
             | **Value** | `0x43` | `0x2B` | `0x01` | `0x04` | `0x92` | `0x01` | `0x17` | `0x03` |
+            '''
+
+        routes:
+            '''
+            ## Routes
+
+            Subsystem validity should be queried through the “Enabled-in-firmware subsystem query” under the QMK subsystem (route=0x00,0x01).
+            This is the primary method for determining if a subsystem has been enabled in the running firmware.
             '''
     }
 

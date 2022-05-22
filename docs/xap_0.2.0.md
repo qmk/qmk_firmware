@@ -65,18 +65,108 @@ Response messages will always be prefixed by the originating request _token_, di
 ### Example "conversation":
 
 **Request** -- version query:
+
 | Byte | 0 | 1 | 2 | 3 | 4 |
 | --- | --- | --- | --- | --- | --- |
 | **Purpose** | Token | Token | Payload Length | Route | Route |
 | **Value** | `0x43` | `0x2B` | `0x02` | `0x00` | `0x00` |
 
 **Response** -- matching token, successful flag, payload of `0x03170192` = 3.17.192:
+
 | Byte | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Purpose** | Token | Token | Response Flags | Payload Length | Payload | Payload | Payload | Payload |
 | **Value** | `0x43` | `0x2B` | `0x01` | `0x04` | `0x92` | `0x01` | `0x17` | `0x03` |
 
+## Routes
+
+Subsystem validity should be queried through the “Enabled-in-firmware subsystem query” under the QMK subsystem (route=0x00,0x01).
+This is the primary method for determining if a subsystem has been enabled in the running firmware.
+
+
+### XAP - `0x00`
+This subsystem is always present, and provides the ability to query information about the XAP protocol of the connected device.
+
+
+| Name | Route | Definition |
+| -- | -- | -- |
+| Version Query | `0x00 0x00` | XAP protocol version query. |
+| Capabilities Query | `0x00 0x01` | XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Enabled subsystem query | `0x00 0x02` | XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying. |
+| Secure Status | `0x00 0x03` | Query secure route status |
+| Secure Unlock | `0x00 0x04` | Initiate secure route unlock sequence |
+| Secure Lock | `0x00 0x05` | Disable secure routes |
+
+### QMK - `0x01`
+This subsystem is always present, and provides the ability to address QMK-specific functionality.
+
+
+| Name | Route | Definition |
+| -- | -- | -- |
+| Version Query | `0x01 0x00` | QMK protocol version query. |
+| Capabilities Query | `0x01 0x01` | QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Board identifiers | `0x01 0x02` | Retrieves the set of identifying information for the board. |
+| Board Manufacturer | `0x01 0x03` | Retrieves the name of the manufacturer |
+| Product Name | `0x01 0x04` | Retrieves the product name |
+| info.json length | `0x01 0x05` | Retrieves the length of info.json |
+| info.json | `0x01 0x06` | Retrieves a chunk of info.json |
+| Jump to bootloader | `0x01 0x07` | Jump to bootloader |
+| info.json | `0x01 0x08` | Retrieves a unique identifier for the board. |
+
+### Keyboard - `0x02`
+This subsystem is always present, and reserved for user-specific functionality. No routes are defined by XAP.
+
+
+### User - `0x03`
+This subsystem is always present, and reserved for user-specific functionality. No routes are defined by XAP.
+
+
+### Dynamic Keymap - `0x04`
+This subsystem allows for live modifications of the keymap, allowing keys to be reassigned without rebuilding the firmware.
+
+
+| Name | Route | Definition |
+| -- | -- | -- |
+| Capabilities Query | `0x04 0x00` | Dynamic Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Get Layer Count | `0x04 0x01` | TODO |
+| Get Keycode | `0x04 0x02` | TODO |
+| Set Keycode | `0x04 0x03` | TODO |
+
+### Dynamic Encoders - `0x05`
+This subsystem allows for live modifications of the keymap, allowing encoder functionality to be reassigned without rebuilding the firmware.
+
+
+| Name | Route | Definition |
+| -- | -- | -- |
+| Capabilities Query | `0x05 0x00` | Dynamic Encoders subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+| Get Keycode | `0x05 0x02` | TODO |
+| Set Keycode | `0x05 0x03` | TODO |
+
+### Lighting - `0x06`
+This subsystem allows for control over the lighting subsystem.
+
+
+| Name | Route | Definition |
+| -- | -- | -- |
+| Capabilities Query | `0x06 0x00` | Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
+
+
 ## Broadcast messages
 
 Broadcast messages may be sent by the firmware to the host, without a corresponding inbound request. Each broadcast message uses the token `0xFFFF`, and does not expect a response from the host. Tokens are followed by an _ID_ signifying the type of broadcast, with corresponding _payload_.
+
+
+### Log message - `0x00`
+Replicates and replaces the same functionality as if using the standard QMK `CONSOLE_ENABLE = yes` in `rules.mk`. Normal prints within the firmware will manifest as log messages broadcast to the host. `hid_listen` will not be functional with XAP enabled.
+
+Log message payloads include a `u8` signifying the length of the text, followed by the `u8[Length]` containing the text itself.
+
+**Example Log Broadcast** -- log message "Hello QMK!"
+
+| Byte | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Purpose** | Token | Token | Broadcast Type | Length | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload |
+| **Value** | `0xFF` | `0xFF` | `0x00` | `0x0A`(10) | `0x48`(H) | `0x65`(e) | `0x6C`(l) | `0x6C`(l) | `0x6F`(o) | `0x20`(&nbsp;) | `0x51`(Q) | `0x4D`(M) | `0x4B`(K) | `0x21`(!) |
+### Secure Status - `0x01`
+Secure status has changed.
 

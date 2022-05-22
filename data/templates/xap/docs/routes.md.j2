@@ -1,0 +1,12 @@
+{%- for id, route in xap.routes | dictsort %}
+### {{ route.name }} - `{{ id }}`
+{{ route.description }}
+
+{% if route.routes %}
+| Name | Route | Definition |
+| -- | -- | -- |
+{%- for subid, subroute in route.routes | dictsort %}
+| {{ subroute.name }} | `{{ id }} {{ subid }}` | {{ subroute.description.split('\n')[0] }} |
+{%- endfor %}
+{% endif %}
+{%- endfor %}

@@ -52,14 +52,31 @@ Response messages will always be prefixed by the originating request _token_, di
 ### Example "conversation":
 
 **Request** -- version query:
+
 | Byte | 0 | 1 | 2 | 3 | 4 |
 | --- | --- | --- | --- | --- | --- |
 | **Purpose** | Token | Token | Payload Length | Route | Route |
 | **Value** | `0x43` | `0x2B` | `0x02` | `0x00` | `0x00` |
 
 **Response** -- matching token, successful flag, payload of `0x03170192` = 3.17.192:
+
 | Byte | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Purpose** | Token | Token | Response Flags | Payload Length | Payload | Payload | Payload | Payload |
 | **Value** | `0x43` | `0x2B` | `0x01` | `0x04` | `0x92` | `0x01` | `0x17` | `0x03` |
+
+## Routes
+
+Subsystem validity should be queried through the “Enabled-in-firmware subsystem query” under the QMK subsystem (route=0x00,0x01).
+This is the primary method for determining if a subsystem has been enabled in the running firmware.
+
+
+### XAP - `0x00`
+This subsystem is always present, and provides the ability to query information about the XAP protocol of the connected device.
+
+
+| Name | Route | Definition |
+| -- | -- | -- |
+| Version Query | `0x00 0x00` | XAP protocol version query. |
+
 
