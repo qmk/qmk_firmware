@@ -40,6 +40,7 @@ typedef union {
 
 /* Local copy of led_mask, used to override colors on the board */
 extern ap2_led_t led_mask[KEY_COUNT];
+extern ap2_led_t led_colors[KEY_COUNT];
 extern uint8_t rgb_row_changed[NUM_ROW];
 
 /* Handle incoming messages */
@@ -65,6 +66,18 @@ void ap2_led_mask_set_all(void);
 
 /* Set all keys to a given color */
 void ap2_led_mask_set_mono(ap2_led_t color);
+
+/* Set single key to a given color; alpha controls which is displayed */
+void ap2_led_colors_set_key(uint8_t row, uint8_t col, ap2_led_t color);
+/* Push a whole local row to the shine */
+void ap2_led_colors_set_row(uint8_t row);
+/* Synchronize all rows */
+void ap2_led_colors_set_all(void);
+
+/* Set all keys to a given color */
+void ap2_led_colors_set_mono(ap2_led_t color);
+
+void ap2_led_set_manual_control(uint8_t manual);
 
 /* Blink given key `count` times by masking it with a `color`. Blink takes `hundredths` of a second */
 void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uint8_t hundredths);

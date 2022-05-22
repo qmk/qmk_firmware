@@ -42,6 +42,12 @@ enum {
     CMD_LED_KEY_UP     = 0x23, /* TODO */
     CMD_LED_IAP        = 0x24,
 
+    /* Manual color control */
+    CMD_LED_SET_MANUAL = 0x30,
+    CMD_LED_COLOR_SET_KEY = 0x31,
+    CMD_LED_COLOR_SET_ROW = 0x32,
+    CMD_LED_COLOR_SET_MONO = 0x33,
+
     /* LED -> Main */
     /* Payload with data to send over HID */
     CMD_LED_DEBUG = 0x40,
