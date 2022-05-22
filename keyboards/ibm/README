@@ -82,20 +82,14 @@ have it's know repo.
 List of ibm hex Files That Compile
 ----------------------------------
 ibm_3101_3727_3278_87key_universal_default.hex
-ibm_3101_3727_3278_87key_xwhatsit_rev4_default.hex
 ibm_3178_universal_default.hex
 ibm_3178_wcass_default.hex
 ibm_3178_xwhatsit_default.hex
 ibm_3276_3278_75key_universal_10t8or_spacefn.hex
 ibm_3276_3278_75key_universal_default.hex
-ibm_3276_3278_75key_xwhatsit_rev4_10t8or_spacefn.hex
-ibm_3276_3278_75key_xwhatsit_rev4_default.hex
 ibm_3277_66key_universal_default.hex
-ibm_3277_66key_xwhatsit_rev4_default.hex
 ibm_3277_78key_universal_default.hex
-ibm_3277_78key_xwhatsit_rev4_default.hex
 ibm_3277_split_66key_universal_default.hex
-ibm_3277_split_66key_xwhatsit_rev4_default.hex
 ibm_3278_3279_led_78key_universal_default.hex
 ibm_4978_universal_default.hex
 ibm_5251_fake_temp_universal_default.hex
@@ -103,11 +97,7 @@ ibm_5251_fake_temp_universal_pandrew.hex
 ibm_5251_universal_10t8or_spacefn.hex
 ibm_5251_universal_default.hex
 ibm_5251_universal_pandrew.hex
-ibm_5251_xwhatsit_rev4_10t8or_spacefn.hex
-ibm_5251_xwhatsit_rev4_default.hex
-ibm_5251_xwhatsit_rev4_pandrew.hex
 ibm_bigfoot_fxt_type_1_universal_default.hex
-ibm_bigfoot_fxt_type_1_xwhatsit_rev4_default.hex
 ibm_displaywriter_universal_default.hex
 ibm_displaywriter_xwhatsit_default.hex
 ibm_f104_universal_default.hex
@@ -145,4 +135,5 @@ ibm_typewriter_65_85_95_universal_default.hex
 ibm_xtant_universal_default.hex
 ibm_xtant_wcass_default.hex
 ibm_xtant_xwhatsit_default.hex
+
 
