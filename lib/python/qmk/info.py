@@ -753,9 +753,9 @@ def find_info_json(keyboard):
 
     # Add in parent folders for least specific
     for _ in range(5):
-        info_jsons.append(keyboard_parent / 'info.json')
-        if keyboard_parent.parent == base_path:
+        if keyboard_parent == base_path:
             break
+        info_jsons.append(keyboard_parent / 'info.json')
         keyboard_parent = keyboard_parent.parent
 
     # Return a list of the info.json files that actually exist

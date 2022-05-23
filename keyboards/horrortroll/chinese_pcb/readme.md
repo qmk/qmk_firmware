@@ -6,9 +6,9 @@ This is a folder for collection code of Chinese PCB, where they only sold one-ti
 <details>
   <summary>Click to expand!</summary>
 
-  | Keyboard name | MCU           | Layout        | Hotswap | LED  | OLED | Other |
-  | ------------- | ------------- | ------------- | ------- | ---- | ---- | ----- |
-  | Devil68 Pro   | Atmega32U4    | 68 Keys (65%) | Yes     | RGB  | No   | No    |
-  | M63 RGB       | STM32F072CBU6 | 63 Keys (60%) | Yes     | RGB  | No   | No    |
-  |               |               |               |         |      |      |       |
+  | Keyboard name | MCU           | Layout        | Hotswap | LED                      | OLED | Other |
+  | ------------- | ------------- | ------------- | ------- | ------------------------ | ---- | ----- |
+  | Black E6.5    | Atmega32U4    | 68 Keys (65%) | No      | Backlight & RGB Lighting | No   | No    |
+  | Devil68 Pro   | Atmega32U4    | 68 Keys (65%) | Yes     | RGB Matrix               | No   | No    |
+  |               |               |               |         |                          |      |       |
 </details>
