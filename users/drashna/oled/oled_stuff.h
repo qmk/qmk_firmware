@@ -28,15 +28,17 @@ void            render_keylogger_status(void);
 void            render_default_layer_state(void);
 void            render_layer_state(void);
 void            render_keylock_status(uint8_t led_usb_state);
-void            render_matrix_scan_rate(void);
+void            render_matrix_scan_rate(uint8_t padding);
 void            render_mod_status(uint8_t modifiers);
 void            render_bootmagic_status(void);
 void            render_user_status(void);
 void            oled_driver_render_logo(void);
 void            render_wpm(uint8_t padding);
-void            render_pointing_dpi_status(uint8_t padding);
+void            render_pointing_dpi_status(uint16_t cpi, uint8_t padding);
 void            oled_driver_render_logo_left(void);
 void            oled_driver_render_logo_right(void);
+void            oled_render_large_display(void);
+void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset);
 
 #if defined(OLED_DISPLAY_128X128) || defined(OLED_DISPLAY_128X64)
 #    define OLED_DISPLAY_VERBOSE
@@ -47,7 +49,7 @@ void            oled_driver_render_logo_right(void);
 #    endif
 #    define OLED_RENDER_LAYOUT_NAME       "Layout: "
 #    define OLED_RENDER_LAYOUT_QWERTY     "Qwerty"
-#    define OLED_RENDER_LAYOUT_COLEMAK_DH "ColemkDH"
+#    define OLED_RENDER_LAYOUT_COLEMAK_DH "Colemak DH"
 #    define OLED_RENDER_LAYOUT_COLEMAK    "Colemak"
 #    define OLED_RENDER_LAYOUT_DVORAK     "Dvorak"
 #    define OLED_RENDER_LAYOUT_WORKMAN    "Workman"
@@ -139,3 +141,19 @@ void            oled_driver_render_logo_right(void);
 
 
 extern char                      keylog_str[OLED_KEYLOGGER_LENGTH];
+
+#ifndef OLED_WPM_GRAPH_MAX_WPM
+#    define OLED_WPM_GRAPH_MAX_WPM 120
+#endif
+#ifndef OLED_WPM_GRAPH_REFRESH_INTERVAL
+#    define OLED_WPM_GRAPH_REFRESH_INTERVAL 300
+#endif
+#ifndef OLED_WPM_GRAPH_AREA_FILL_INTERVAL
+#    define OLED_WPM_GRAPH_AREA_FILL_INTERVAL 3
+#endif
+#ifndef OLED_WPM_GRAPH_VERTCAL_LINE_INTERVAL
+#    define OLED_WPM_GRAPH_VERTCAL_LINE_INTERVAL 3
+#endif
+#ifndef OLED_WPM_GRAPH_GRAPH_LINE_THICKNESS
+#    define OLED_WPM_GRAPH_GRAPH_LINE_THICKNESS 2
+#endif

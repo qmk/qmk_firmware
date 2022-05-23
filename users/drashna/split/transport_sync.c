@@ -8,7 +8,7 @@
 #    include <avr/wdt.h>
 #endif
 
-#ifdef CUSTOM_UNICODE_ENABLE
+#ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
 extern unicode_config_t unicode_config;
 #endif
@@ -57,8 +57,8 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
 void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { watchdog_ping_done = true; }
 #endif
 
-#ifdef OLED_ENABLE
-#include "oled/oled_stuff.h"
+#ifdef CUSTOM_OLED_DRIVER
+#    include "oled/oled_stuff.h"
 void keylogger_string_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
     if (initiator2target_buffer_size == OLED_KEYLOGGER_LENGTH) {
         memcpy(&keylog_str, initiator2target_buffer, initiator2target_buffer_size);
@@ -71,7 +71,7 @@ void keyboard_post_init_transport_sync(void) {
     transaction_register_rpc(RPC_ID_USER_STATE_SYNC, user_state_sync);
     transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
     transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
-#ifdef OLED_ENABLE
+#ifdef CUSTOM_OLED_DRIVER
     transaction_register_rpc(RPC_ID_USER_KEYLOG_STR, keylogger_string_sync);
 #endif
 
@@ -92,10 +92,10 @@ void user_transport_update(void) {
         user_state.audio_enable        = is_audio_on();
         user_state.audio_clicky_enable = is_clicky_on();
 #endif
-#if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
+#if defined(CUSTOM_POINTING_DEVICE)
         user_state.tap_toggling = tap_toggling;
 #endif
-#ifdef UNICODE_ENABLE
+#ifdef UNICODE_COMMON_ENABLE
         user_state.unicode_mode = unicode_config.input_mode;
 #endif
 #ifdef SWAP_HANDS_ENABLE
@@ -108,10 +108,10 @@ void user_transport_update(void) {
         keymap_config.raw    = transport_keymap_config;
         userspace_config.raw = transport_userspace_config;
         user_state.raw       = transport_user_state;
-#ifdef UNICODE_ENABLE
+#ifdef UNICODE_COMMON_ENABLE
         unicode_config.input_mode = user_state.unicode_mode;
 #endif
-#if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
+#if defined(CUSTOM_POINTING_DEVICE)
         tap_toggling = user_state.tap_toggling;
 #endif
 #ifdef SWAP_HANDS_ENABLE
@@ -127,8 +127,8 @@ void user_transport_sync(void) {
         static uint16_t last_keymap = 0;
         static uint32_t last_config = 0, last_sync[4], last_user_state = 0;
         bool            needs_sync = false;
-#ifdef OLED_ENABLE
-        static char     keylog_temp[OLED_KEYLOGGER_LENGTH] = { 0 };
+#ifdef CUSTOM_OLED_DRIVER
+        static char keylog_temp[OLED_KEYLOGGER_LENGTH] = {0};
 #endif
 
         // Check if the state values are different
@@ -187,7 +187,7 @@ void user_transport_sync(void) {
             needs_sync = false;
         }
 
-#ifdef OLED_ENABLE
+#ifdef CUSTOM_OLED_DRIVER
         // Check if the state values are different
         if (memcmp(&keylog_str, &keylog_temp, OLED_KEYLOGGER_LENGTH)) {
             needs_sync = true;
@@ -228,7 +228,6 @@ void user_transport_sync(void) {
         }
     }
 #endif
-
 }
 
 void housekeeping_task_user(void) {
