@@ -1,30 +1,17 @@
-/* Copyright 2020 Nick Brassel (tzarc)
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Nick Brassel (tzarc)
+// Copyright 2022 Stefan Kerkmann (KarlK90)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "spi_master.h"
 
 #include "timer.h"
 
-static pin_t currentSlavePin = NO_PIN;
+// TODO HANDLE KINETIS CASE
+// TODO static SPIConfig spi_config = {.end_cb = NULL, 0, 0, 0};
 
-#if defined(K20x) || defined(KL2x)
-static SPIConfig spiConfig = {NULL, 0, 0, 0};
-#else
-static SPIConfig spiConfig = {false, NULL, 0, 0, 0, 0};
-#endif
+static SPIConfig spi_config = {false, NULL, 0, 0, 0, 0};
+
+static pin_t current_slave_pin = NO_PIN;
 
 __attribute__((weak)) void spi_init(void) {
     static bool is_initialised = false;
@@ -37,6 +24,8 @@ __attribute__((weak)) void spi_init(void) {
         setPinInput(SPI_MISO_PIN);
 
         chThdSleepMilliseconds(10);
+
+        // TODO REFACTOR THIS?!
 #if defined(USE_GPIOV1)
         palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), SPI_SCK_PAL_MODE);
         palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), SPI_MOSI_PAL_MODE);
@@ -49,192 +38,47 @@ __attribute__((weak)) void spi_init(void) {
     }
 }
 
-bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
+int32_t round_clock_divisor(uint16_t clock_divisor) {
+    uint16_t rounded_divisor = 2;
+    while (rounded_divisor < clock_divisor) {
+        rounded_divisor <<= 1;
+    }
+
+    if (rounded_divisor < 2 || rounded_divisor > 256) {
+        return -1;
+    }
+
+    return rounded_divisor;
+}
+
+bool spi_start(const pin_t slave_pin, const bool lsb_first, const uint8_t spi_mode, const uint16_t clock_divisor) {
+    if (current_slave_pin != NO_PIN || slave_pin == NO_PIN) {
         return false;
     }
 
-#ifndef WB32F3G71xx
-    uint16_t roundedDivisor = 2;
-    while (roundedDivisor < divisor) {
-        roundedDivisor <<= 1;
-    }
-
-    if (roundedDivisor < 2 || roundedDivisor > 256) {
-        return false;
-    }
-#endif
-
-#if defined(K20x) || defined(KL2x)
-    spiConfig.tar0 = SPIx_CTARn_FMSZ(7) | SPIx_CTARn_ASC(1);
-
-    if (lsbFirst) {
-        spiConfig.tar0 |= SPIx_CTARn_LSBFE;
-    }
-
-    switch (mode) {
-        case 0:
-            break;
-        case 1:
-            spiConfig.tar0 |= SPIx_CTARn_CPHA;
-            break;
-        case 2:
-            spiConfig.tar0 |= SPIx_CTARn_CPOL;
-            break;
-        case 3:
-            spiConfig.tar0 |= SPIx_CTARn_CPHA | SPIx_CTARn_CPOL;
-            break;
-    }
-
-    switch (roundedDivisor) {
-        case 2:
-            spiConfig.tar0 |= SPIx_CTARn_BR(0);
-            break;
-        case 4:
-            spiConfig.tar0 |= SPIx_CTARn_BR(1);
-            break;
-        case 8:
-            spiConfig.tar0 |= SPIx_CTARn_BR(3);
-            break;
-        case 16:
-            spiConfig.tar0 |= SPIx_CTARn_BR(4);
-            break;
-        case 32:
-            spiConfig.tar0 |= SPIx_CTARn_BR(5);
-            break;
-        case 64:
-            spiConfig.tar0 |= SPIx_CTARn_BR(6);
-            break;
-        case 128:
-            spiConfig.tar0 |= SPIx_CTARn_BR(7);
-            break;
-        case 256:
-            spiConfig.tar0 |= SPIx_CTARn_BR(8);
-            break;
-    }
-
-#elif defined(HT32)
-    spiConfig.cr0 = SPI_CR0_SELOEN;
-    spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
-
-    if (lsbFirst) {
-        spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
-    }
-
-    switch (mode) {
-        case 0:
-            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
-            break;
-        case 1:
-            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE1;
-            break;
-        case 2:
-            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE2;
-            break;
-        case 3:
-            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE3;
-            break;
-    }
-
-    spiConfig.cpr = (roundedDivisor - 1) >> 1;
-
-#elif defined(WB32F3G71xx)
-    if (!lsbFirst) {
-        osalDbgAssert(lsbFirst != FALSE, "unsupported lsbFirst");
-    }
-
-    if (divisor < 1) {
+    if (!spi_start_lld(&spi_config, lsb_first, spi_mode, clock_divisor)) {
         return false;
     }
 
-    spiConfig.SPI_BaudRatePrescaler = (divisor << 2);
+    current_slave_pin = slave_pin;
+    spi_config.ssport = PAL_PORT(slave_pin);
+    spi_config.sspad  = PAL_PAD(slave_pin);
 
-    switch (mode) {
-        case 0:
-            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
-            spiConfig.SPI_CPOL = SPI_CPOL_Low;
-            break;
-        case 1:
-            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
-            spiConfig.SPI_CPOL = SPI_CPOL_Low;
-            break;
-        case 2:
-            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
-            spiConfig.SPI_CPOL = SPI_CPOL_High;
-            break;
-        case 3:
-            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
-            spiConfig.SPI_CPOL = SPI_CPOL_High;
-            break;
-    }
-
-#else
-    spiConfig.cr1 = 0;
-
-    if (lsbFirst) {
-        spiConfig.cr1 |= SPI_CR1_LSBFIRST;
-    }
-
-    switch (mode) {
-        case 0:
-            break;
-        case 1:
-            spiConfig.cr1 |= SPI_CR1_CPHA;
-            break;
-        case 2:
-            spiConfig.cr1 |= SPI_CR1_CPOL;
-            break;
-        case 3:
-            spiConfig.cr1 |= SPI_CR1_CPHA | SPI_CR1_CPOL;
-            break;
-    }
-
-    switch (roundedDivisor) {
-        case 2:
-            break;
-        case 4:
-            spiConfig.cr1 |= SPI_CR1_BR_0;
-            break;
-        case 8:
-            spiConfig.cr1 |= SPI_CR1_BR_1;
-            break;
-        case 16:
-            spiConfig.cr1 |= SPI_CR1_BR_1 | SPI_CR1_BR_0;
-            break;
-        case 32:
-            spiConfig.cr1 |= SPI_CR1_BR_2;
-            break;
-        case 64:
-            spiConfig.cr1 |= SPI_CR1_BR_2 | SPI_CR1_BR_0;
-            break;
-        case 128:
-            spiConfig.cr1 |= SPI_CR1_BR_2 | SPI_CR1_BR_1;
-            break;
-        case 256:
-            spiConfig.cr1 |= SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0;
-            break;
-    }
-#endif
-
-    currentSlavePin  = slavePin;
-    spiConfig.ssport = PAL_PORT(slavePin);
-    spiConfig.sspad  = PAL_PAD(slavePin);
-
-    setPinOutput(slavePin);
-    spiStart(&SPI_DRIVER, &spiConfig);
+    setPinOutput(slave_pin);
+    spiStart(&SPI_DRIVER, &spi_config);
     spiSelect(&SPI_DRIVER);
 
     return true;
 }
 
-spi_status_t spi_write(uint8_t data) {
-    uint8_t rxData;
-    spiExchange(&SPI_DRIVER, 1, &data, &rxData);
+uint8_t spi_write(uint8_t data) {
+    uint8_t rx_data;
+    spiExchange(&SPI_DRIVER, 1, &data, &rx_data);
 
-    return rxData;
+    return rx_data;
 }
 
-spi_status_t spi_read(void) {
+uint8_t spi_read(void) {
     uint8_t data = 0;
     spiReceive(&SPI_DRIVER, 1, &data);
 
@@ -252,9 +96,9 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 }
 
 void spi_stop(void) {
-    if (currentSlavePin != NO_PIN) {
+    if (current_slave_pin != NO_PIN) {
         spiUnselect(&SPI_DRIVER);
         spiStop(&SPI_DRIVER);
-        currentSlavePin = NO_PIN;
+        current_slave_pin = NO_PIN;
     }
 }

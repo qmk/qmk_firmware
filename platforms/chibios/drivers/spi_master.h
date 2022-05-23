@@ -1,18 +1,6 @@
-/* Copyright 2020 Nick Brassel (tzarc)
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Nick Brassel (tzarc)
+// Copyright 2022 Stefan Kerkmann (KarlK90)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -22,72 +10,105 @@
 
 #include "gpio.h"
 #include "chibios_config.h"
+#include "spi_lld.h"
 
-#ifndef SPI_DRIVER
-#    define SPI_DRIVER SPID2
+typedef enum {
+    SPI_STATUS_SUCCESS = 0,
+    SPI_STATUS_ERROR   = -1,
+    SPI_STATUS_TIMEOUT = -2,
+} spi_status_t;
+
+/**======================
+ *!    SPI DRIVER
+ *========================**/
+
+#if !defined(SPI_DRIVER_LLD)
+#    define SPI_DRIVER_LLD SPID2
 #endif
 
-#ifndef SPI_SCK_PIN
-#    define SPI_SCK_PIN B13
+#if !defined(SPI_DRIVER)
+#    define SPI_DRIVER SPI_DRIVER_LLD
 #endif
 
-#ifndef SPI_SCK_PAL_MODE
+/**======================
+ *!    SPI CLOCK PIN
+ *========================**/
+
+#if !defined(SPI_SCK_PIN_LLD)
+#    define SPI_SCK_PIN_LLD B13
+#endif
+
+#if !defined(SPI_SCK_PIN)
+#    define SPI_SCK_PIN SPI_SCK_PIN_LLD
+#endif
+
+#if !defined(SPI_SCK_PAL_MODE_LLD)
 #    if defined(USE_GPIOV1)
-#        define SPI_SCK_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#        define SPI_SCK_PAL_MODE_LLD PAL_MODE_ALTERNATE_PUSHPULL
 #    else
-#        define SPI_SCK_PAL_MODE 5
+#        define SPI_SCK_PAL_MODE_LLD 5
 #    endif
 #endif
 
-#ifndef SPI_MOSI_PIN
-#    define SPI_MOSI_PIN B15
+#if !defined(SPI_SCK_PAL_MODE)
+#    define SPI_SCK_PAL_MODE SPI_SCK_PAL_MODE_LLD
 #endif
 
-#ifndef SPI_MOSI_PAL_MODE
+/**======================
+ *!    SPI MOSI PIN
+ *========================**/
+
+#if !defined(SPI_MOSI_PIN_LLD)
+#    define SPI_MOSI_PIN_LLD B15
+#endif
+
+#if !defined(SPI_MOSI_PIN)
+#    define SPI_MOSI_PIN SPI_MOSI_PIN_LLD
+#endif
+
+#if !defined(SPI_MOSI_PAL_MODE_LLD)
 #    if defined(USE_GPIOV1)
-#        define SPI_MOSI_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#        define SPI_MOSI_PAL_MODE_LLD PAL_MODE_ALTERNATE_PUSHPULL
 #    else
-#        define SPI_MOSI_PAL_MODE 5
+#        define SPI_MOSI_PAL_MODE_LLD 5
 #    endif
 #endif
 
-#ifndef SPI_MISO_PIN
-#    define SPI_MISO_PIN B14
+#if !defined(SPI_MOSI_PAL_MODE)
+#    define SPI_MOSI_PAL_MODE SPI_MOSI_PAL_MODE_LLD
 #endif
 
-#ifndef SPI_MISO_PAL_MODE
+/**======================
+ *!    SPI MISO PIN
+ *========================**/
+
+#if !defined(SPI_MISO_PIN_LLD)
+#    define SPI_MISO_PIN_LLD B14
+#endif
+
+#if !defined(SPI_MISO_PIN)
+#    define SPI_MISO_PIN SPI_MISO_PIN_LLD
+#endif
+
+#if !defined(PI_MISO_PAL_MODE_LLD)
 #    if defined(USE_GPIOV1)
-#        define SPI_MISO_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#        define SPI_MISO_PAL_MODE_LLD PAL_MODE_ALTERNATE_PUSHPULL
 #    else
-#        define SPI_MISO_PAL_MODE 5
+#        define SPI_MISO_PAL_MODE_LLD 5
 #    endif
 #endif
 
-typedef int16_t spi_status_t;
-
-#define SPI_STATUS_SUCCESS (0)
-#define SPI_STATUS_ERROR (-1)
-#define SPI_STATUS_TIMEOUT (-2)
-
-#define SPI_TIMEOUT_IMMEDIATE (0)
-#define SPI_TIMEOUT_INFINITE (0xFFFF)
-
-#ifdef __cplusplus
-extern "C" {
+#if !defined(SPI_MISO_PAL_MODE)
+#    define SPI_MISO_PAL_MODE SPI_MISO_PAL_MODE_LLD
 #endif
-void spi_init(void);
 
-bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor);
-
-spi_status_t spi_write(uint8_t data);
-
-spi_status_t spi_read(void);
-
+void         spi_init(void);
+bool         spi_start(const pin_t slave_pin, const bool lsb_first, const uint8_t spi_mode, const uint16_t clock_divisor);
+uint8_t      spi_write(uint8_t data);
+uint8_t      spi_read(void);
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length);
-
 spi_status_t spi_receive(uint8_t *data, uint16_t length);
+void         spi_stop(void);
 
-void spi_stop(void);
-#ifdef __cplusplus
-}
-#endif
+bool    spi_start_lld(SPIConfig *const spi_config, const bool lsb_first, const uint8_t spi_mode, const uint16_t clock_divisor);
+int32_t round_clock_divisor(uint16_t clock_divisor);

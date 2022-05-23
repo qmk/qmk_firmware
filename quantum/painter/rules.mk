@@ -103,7 +103,7 @@ $(foreach qp_driver,$(QUANTUM_PAINTER_DRIVERS),$(eval $(call handle_quantum_pain
 # If SPI comms is needed, set up the required files
 ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_SPI)), yes)
     OPT_DEFS += -DQUANTUM_PAINTER_SPI_ENABLE
-    QUANTUM_LIB_SRC += spi_master.c
+    SPI_ENABLE = yes
     VPATH += $(DRIVER_PATH)/painter/comms
     SRC += \
         $(QUANTUM_DIR)/painter/qp_comms.c \
@@ -113,4 +113,3 @@ ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_SPI)), yes)
         OPT_DEFS += -DQUANTUM_PAINTER_SPI_DC_RESET_ENABLE
     endif
 endif
-

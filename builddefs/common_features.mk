@@ -124,7 +124,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
-            QUANTUM_LIB_SRC += spi_master.c
+            SPI_ENABLE = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
             OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
             LIB_SRC += analog.c
@@ -135,16 +135,16 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             SRC += drivers/sensors/cirque_pinnacle.c
-            QUANTUM_LIB_SRC += spi_master.c
+            SPI_ENABLE = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
             QUANTUM_LIB_SRC += i2c_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
-            QUANTUM_LIB_SRC += spi_master.c
+            SPI_ENABLE = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3389)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
-            QUANTUM_LIB_SRC += spi_master.c
+            SPI_ENABLE = yes
         endif
     endif
 endif
@@ -175,7 +175,7 @@ else
     # External SPI EEPROM implementation
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
-    QUANTUM_LIB_SRC += spi_master.c
+    SPI_ENABLE = yes
     SRC += eeprom_driver.c eeprom_spi.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
     # Transient EEPROM implementation -- no data storage but provides runtime area for it
@@ -359,7 +359,7 @@ endif
         OPT_DEFS += -DAW20216 -DSTM32_SPI -DHAL_USE_SPI=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += aw20216.c
-        QUANTUM_LIB_SRC += spi_master.c
+        SPI_ENABLE = yes
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3731)
@@ -677,7 +677,7 @@ ifeq ($(strip $(ST7565_ENABLE)), yes)
     OPT_DEFS += -DST7565_ENABLE
     COMMON_VPATH += $(DRIVER_PATH)/oled # For glcdfont.h
     COMMON_VPATH += $(DRIVER_PATH)/lcd
-    QUANTUM_LIB_SRC += spi_master.c
+    SPI_ENABLE = yes
     SRC += st7565.c
 endif
 
@@ -812,12 +812,21 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE
         SRC += analog.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
-        QUANTUM_LIB_SRC += spi_master.c
+        SPI_ENABLE = yes
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
         OPT_DEFS += -DBLUETOOTH_RN42
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
         QUANTUM_LIB_SRC += uart.c
+    endif
+endif
+
+SPI_ENABLE ?= no
+ifeq ($(strip $(SPI_ENABLE)), yes)
+    QUANTUM_LIB_SRC +=  spi_master.c
+
+    ifeq ($(PLATFORM),CHIBIOS)
+       SRC += vendor_lld/$(MCU_FAMILY)/spi_lld.c
     endif
 endif

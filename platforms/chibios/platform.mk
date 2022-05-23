@@ -279,7 +279,8 @@ EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(HALCONFDIR) $(CHCONFDIR) \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+         $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH) \
+         $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/vendor_lld/$(MCU_FAMILY)
 
 #
 # ChibiOS-Contrib
