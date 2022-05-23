@@ -45,6 +45,7 @@ static uint8_t led_mcu_wakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0
 ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
 
 #ifdef RGB_MATRIX_ENABLE
+static uint8_t led_enabled = 1;
 static uint8_t current_rgb_row = 0;
 #endif
 
@@ -224,6 +225,68 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case RGB_TOG:
                 if(rgb_matrix_is_enabled()) ap2_led_disable();
                 else ap2_led_enable();
+                return true;
+
+            case KC_AP_RGB_VAI:
+                if (record->event.pressed) {
+                    if (get_mods() & MOD_MASK_SHIFT) {
+                        rgb_matrix_increase_hue();
+                        return false;
+                    } else if (get_mods() & MOD_MASK_CTRL) {
+                        rgb_matrix_decrease_hue();
+                        return false;
+                    } else {
+                        rgb_matrix_increase_val();
+                    }
+                }
+                return true;
+
+            case KC_AP_RGB_VAD:
+                if (record->event.pressed) {
+                    if (get_mods() & MOD_MASK_SHIFT) {
+                        rgb_matrix_increase_sat();
+                        return false;
+                    } else if (get_mods() & MOD_MASK_CTRL) {
+                        rgb_matrix_decrease_sat();
+                        return false;
+                    } else {
+                        rgb_matrix_decrease_val();
+                    }
+                }
+                return true;
+
+            case KC_AP_RGB_TOG:
+                if (record->event.pressed) {
+                    if (get_mods() & MOD_MASK_SHIFT) {
+                        rgb_matrix_increase_speed();
+                        return false;
+                    } else if (get_mods() & MOD_MASK_CTRL) {
+                        rgb_matrix_decrease_speed();
+                        return false;
+                    } else {
+                        if (led_enabled) {
+                            ap2_led_disable();
+                            rgb_matrix_disable();
+                            led_enabled = 0;
+                        } else {
+                            ap2_led_enable();
+                            rgb_matrix_enable();
+                            led_enabled = 1;
+                        }
+                        return true;
+                    }
+                }
+                return true;
+
+            case KC_AP_RGB_MOD:
+                if (record->event.pressed) {
+                    if (get_mods() & MOD_MASK_CTRL) {
+                        rgb_matrix_step_reverse();
+                        return false;
+                    } else {
+                        rgb_matrix_step();
+                    }
+                }
                 return true;
             #endif
 
