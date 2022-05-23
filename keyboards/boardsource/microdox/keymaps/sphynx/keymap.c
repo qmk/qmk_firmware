@@ -303,9 +303,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		key_timer = timer_read();
 	} else {
 		if (timer_elapsed(key_timer) > LONGPRESS_DELAY) {
-			SEND_STRING("gale#1C{") ;
-		} else {
 			SEND_STRING("hypnU^5}") ;
+		} else {
+			SEND_STRING("impaV!6;") ;
 		}
 	}
 	break;	
