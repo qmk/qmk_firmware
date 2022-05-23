@@ -3,6 +3,14 @@
     "$id": "qmk.xap.v1",
     "title": "XAP Spec",
     "definitions": {
+        "int_key": {
+            "type": "string",
+            "pattern": "^[0-8]$"
+        },
+        "constant": {
+            "type": "string",
+            "pattern": "^[A-Z_]*$"
+        },
         "data_type": {
             "oneOf": [
                 {
@@ -68,7 +76,7 @@
                         "type": "string"
                     },
                     "define": {
-                        "type": "string"
+                        "$ref": "#/definitions/constant"
                     },
                     "permissions": {
                         "$ref": "#/definitions/permission"
@@ -126,7 +134,7 @@
             "$ref": "qmk.definitions.v1#/bcd_version"
         },
         "define": {
-            "type": "string"
+            "$ref": "#/definitions/constant"
         },
         "uses": {
             "type": "object",
@@ -189,12 +197,12 @@
             "additionalProperties": false,
             "properties": {
                 "define_prefix": {
-                    "type": "string"
+                    "$ref": "#/definitions/constant"
                 },
                 "bits": {
                     "type": "object",
                     "propertyNames": {
-                        "type": "string"
+                        "$ref": "#/definitions/int_key"
                     },
                     "additionalProperties": {
                         "type": "object",
@@ -204,7 +212,7 @@
                                 "type": "string"
                             },
                             "define": {
-                                "type": "string"
+                                "$ref": "#/definitions/constant"
                             },
                             "description": {
                                 "type": "string"
@@ -219,7 +227,7 @@
             "additionalProperties": false,
             "properties": {
                 "define_prefix": {
-                    "type": "string"
+                    "$ref": "#/definitions/constant"
                 },
                 "messages": {
                     "type": "object",
@@ -234,7 +242,7 @@
                                 "type": "string"
                             },
                             "define": {
-                                "type": "string"
+                                "$ref": "#/definitions/constant"
                             },
                             "description": {
                                 "type": "string"
