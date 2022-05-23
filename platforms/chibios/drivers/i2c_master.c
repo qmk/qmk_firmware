@@ -47,7 +47,7 @@
 #    ifndef I2C1_DUTY_CYCLE
 #        define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
 #    endif
-#elif defined(WB32F3G71xx)
+#elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
 #    ifndef I2C1_OPMODE
 #        define I2C1_OPMODE OPMODE_I2C
 #    endif
