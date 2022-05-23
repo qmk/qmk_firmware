@@ -2,12 +2,13 @@
 """
 import os
 import hjson
+import jsonschema
 from pathlib import Path
 from typing import OrderedDict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from qmk.constants import QMK_FIRMWARE
-from qmk.json_schema import json_load
+from qmk.json_schema import json_load, validate
 from qmk.decorators import lru_cache
 from qmk.keymap import locate_keymap
 from qmk.path import keyboard
@@ -135,7 +136,16 @@ def merge_xap_defs(kb, km):
     if km_xap.exists():
         definitions.append({'routes': {'0x03': hjson.load(km_xap.open(encoding='utf-8'))}})
 
-    return _merge_ordered_dicts(definitions)
+    defs = _merge_ordered_dicts(definitions)
+
+    try:
+        validate(defs, 'qmk.xap.v1')
+
+    except jsonschema.ValidationError as e:
+        print(f'Invalid XAP spec: {e.message}')
+        exit(1)
+
+    return defs
 
 
 @lru_cache(timeout=5)
