@@ -16,7 +16,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_tkl( \
+#define LAYOUT_tkl_ansi( \
     K0_0,       K0_2, K0_3, K0_4, K0_5, K0_6,K0_7, K0_8, K0_9,   K0_A, K0_B, K0_C, K0_D,      K0_E, K0_F, K0_10, \
     K1_0, K1_1, K1_2, K1_3, K1_4, K1_5, K1_6, K1_7, K1_8, K1_9, K1_A, K1_B, K1_C,    K1_D,    K1_E, K1_F, K1_10, \
      K2_0,   K2_1, K2_2, K2_3, K2_4, K2_5, K2_6, K2_7, K2_8, K2_9, K2_A, K2_B, K2_C,   K2_D,  K2_E, K2_F, K2_10, \
