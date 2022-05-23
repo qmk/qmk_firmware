@@ -12,6 +12,8 @@ from qmk.decorators import lru_cache
 from qmk.keymap import locate_keymap
 from qmk.path import keyboard
 
+XAP_SPEC = 'xap.hjson'
+
 
 def _get_jinja2_env(data_templates_xap_subdir: str):
     templates_dir = os.path.join(QMK_FIRMWARE, 'data', 'templates', 'xap', data_templates_xap_subdir)
@@ -22,6 +24,28 @@ def _get_jinja2_env(data_templates_xap_subdir: str):
 def render_xap_output(data_templates_xap_subdir, file_to_render, defs):
     j2 = _get_jinja2_env(data_templates_xap_subdir)
     return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs))
+
+
+def _find_kb_spec(kb):
+    base_path = Path('keyboards')
+    keyboard_parent = keyboard(kb)
+
+    for _ in range(5):
+        if keyboard_parent == base_path:
+            break
+
+        spec = keyboard_parent / XAP_SPEC
+        if spec.exists():
+            return spec
+
+        keyboard_parent = keyboard_parent.parent
+
+    # Just return something we know doesn't exist
+    return keyboard(kb) / XAP_SPEC
+
+
+def _find_km_spec(kb, km):
+    return locate_keymap(kb, km).parent / XAP_SPEC
 
 
 def _merge_ordered_dicts(dicts):
@@ -96,28 +120,6 @@ def latest_xap_defs():
     """Gets the latest version of the XAP definitions.
     """
     return get_xap_defs('latest')
-
-
-def _find_kb_spec(kb):
-    base_path = Path('keyboards')
-    keyboard_parent = keyboard(kb)
-
-    for _ in range(5):
-        if keyboard_parent == base_path:
-            break
-
-        spec = keyboard_parent / 'xap.json'
-        if spec.exists():
-            return spec
-
-        keyboard_parent = keyboard_parent.parent
-
-    # Just return something we know doesn't exist
-    return keyboard(kb) / 'xap.json'
-
-
-def _find_km_spec(kb, km):
-    return locate_keymap(kb, km).parent / 'xap.json'
 
 
 def merge_xap_defs(kb, km):
