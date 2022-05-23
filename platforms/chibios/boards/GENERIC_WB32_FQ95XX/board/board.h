@@ -1,6 +1,6 @@
 #pragma once
 /*
-    Copyright (C) 2021 Westberry Technology (ChangZhou) Corp., Ltd
+    Copyright (C) 2022 Westberry Technology (ChangZhou) Corp., Ltd
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -34,12 +34,12 @@
 /*
  * Board identifier.
  */
-#if !(defined(WB32F3G71x9) || defined(WB32F3G71xB) || defined(WB32F3G71xC))
-  #define WB32F3G71x9
+#if !(defined(WB32FQ95x9) || defined(WB32FQ95xB) || defined(WB32FQ95xC))
+  #define WB32FQ95xB
 #endif
 
-#if !defined(WB32F3G71xx)
-  #define WB32F3G71xx
+#if !defined(WB32FQ95xx)
+  #define WB32FQ95xx
 #endif
 
 /*===========================================================================*/
