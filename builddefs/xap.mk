@@ -8,6 +8,24 @@ $(KEYMAP_OUTPUT)/src/info_json_gz.h: $(INFO_JSON_FILES)
 	@$(BUILD_CMD)
 
 XAP_FILES := $(shell ls -1 data/xap/* | sort | xargs echo)
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/xap.json)","")
+	XAP_FILES += $(KEYBOARD_PATH_1)/xap.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/xap.json)","")
+	XAP_FILES += $(KEYBOARD_PATH_2)/xap.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/xap.json)","")
+	XAP_FILES += $(KEYBOARD_PATH_3)/xap.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/xap.json)","")
+	XAP_FILES += $(KEYBOARD_PATH_4)/xap.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/xap.json)","")
+	XAP_FILES += $(KEYBOARD_PATH_5)/xap.json
+endif
+ifneq ("$(wildcard $(KEYMAP_PATH)/xap.json)","")
+	XAP_FILES += $(KEYMAP_PATH)/xap.json
+endif
 
 $(KEYMAP_OUTPUT)/src/xap_generated.inl: $(XAP_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
