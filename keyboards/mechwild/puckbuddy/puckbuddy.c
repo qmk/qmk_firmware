@@ -66,6 +66,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool clear_screen = false;          // used to manage singular screen clears to prevent display glitch
+bool clear_screen_art = false;      // used to manage singular screen clears to prevent display glitch
 static void render_name(void) {     // Render Puckbuddy "Get Puck'd" text
     static const char PROGMEM name_1[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0xB6, 0xB6, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92};
     static const char PROGMEM name_2[] = {0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xB6, 0xB6, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2};
@@ -95,6 +96,11 @@ static void render_logo(void) {     // Render MechWild "MW" Logo
 
 bool oled_task_kb(void) {
     if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && get_highest_layer(layer_state) == 0 ) {
+        if (clear_screen_art == true) {
+            oled_clear();
+            oled_render();
+            clear_screen_art = false;
+        }
         render_name();
         oled_set_cursor(6,3);
         oled_write_P(PSTR("DPI: "), false);
@@ -133,6 +139,7 @@ bool oled_task_kb(void) {
         oled_set_cursor(8,3);
         oled_write_P(PSTR("DPI: "), false);
         oled_write(get_u16_str(dpi_array[keyboard_config.dpi_config], ' '), false);
+        clear_screen_art = true;
     }
     return false;
 }
@@ -192,10 +199,7 @@ void matrix_init_kb(void) {
 
 void keyboard_post_init_kb(void) {
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
-
     keyboard_post_init_user();
-
     rgblight_toggle_noeeprom();     //double toggle post init removes the weirdness with rgb strips having a yellow first LED
     rgblight_toggle_noeeprom();
-
 }
