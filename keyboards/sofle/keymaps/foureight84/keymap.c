@@ -15,6 +15,7 @@ enum sofle_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _MOUSE,
 };
 
 enum custom_keycodes {
@@ -28,7 +29,13 @@ enum custom_keycodes {
     KC_LSTRT,
     KC_LEND,
     KC_DLINE,
+    KC_MOUSE,
+    KC_MOUSE_BTN1,
+    KC_MOUSE_BTN2
 };
+
+uint8_t MOUSE_BUTTONS;
+uint16_t trackball_led_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -83,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TAB  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
+ * | MOUSE|   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * | Shift|  =   |  -   |  +   |   {  |   }  |-------|    |-------|   [  |   ]  |   ;  |   :  |   \  | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -94,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT( \
    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                       KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, KC_F12, \
   KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  _______, \
-  KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, \
+  KC_MOUSE, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, \
   _______,  KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, _______, \
                        _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______\
 ),
@@ -138,6 +145,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RESET  , XXXXXXX,KC_QWERTY,KC_COLEMAK,CG_TOGG,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
+                   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
+  ),
+  /* MOUSE
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------.    ,-------|MS_BT1|MS_BT2|      |      |      |      |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *             `----------------------------------'           '------''---------------------------'
+ */
+  [_MOUSE] = LAYOUT( \
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     KC_MS_BTN1, KC_MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
   )
 };
@@ -192,6 +220,9 @@ static void print_status_narrow(void) {
             break;
         case _ADJUST:
             oled_write_P(PSTR("Adj\n"), false);
+            break;
+        case _MOUSE:
+            oled_write_P(PSTR("Mouse\n"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
@@ -517,6 +548,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
+        case KC_MOUSE_BTN1:
+            if (record->event.pressed) {
+                MOUSE_BUTTONS |= (1 << 0);
+            } else {
+                MOUSE_BUTTONS &= ~(1 << 0);
+            }
+            return false;
+        case KC_MOUSE_BTN2:
+            if (record->event.pressed) {
+                MOUSE_BUTTONS |= (1 << 1);
+            } else {
+                MOUSE_BUTTONS &= ~(1 << 1);
+            }
+            return false;
     }
     return true;
 }
@@ -550,6 +595,44 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #endif
+
+static uint32_t       last_mouse_activity = 0;
+static report_mouse_t last_mouse_report   = {0};
+static bool           is_scrolling        = false;
+
+report_mouse_t smooth_mouse_movement(report_mouse_t mouse_report) {
+    // Linear interpolation and ease-in-out
+    static fract8 fract = 0.5;
+    int8_t        x     = 0;
+    int8_t        y     = 0;
+    int8_t        h     = 0;
+    int8_t        v     = 0;
+
+    if (!is_scrolling) {
+        x = ease8InOutApprox(lerp8by8(last_mouse_report.x, mouse_report.x, fract));
+        y = ease8InOutApprox(lerp8by8(last_mouse_report.y, mouse_report.y, fract));
+    } else {
+        h = ease8InOutApprox(lerp8by8(last_mouse_report.x, mouse_report.x, fract));
+        v = ease8InOutApprox(lerp8by8(last_mouse_report.y, mouse_report.y, fract));
+    }
+
+    // update the new smoothed report
+    mouse_report.x = x;
+    mouse_report.y = y;
+    mouse_report.h = h;
+    mouse_report.v = v;
+
+    return mouse_report;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (has_mouse_report_changed(last_mouse_report, mouse_report)) {
+        last_mouse_activity = timer_read32();
+        memcpy(&last_mouse_report, &mouse_report, sizeof(mouse_report));
+    }
+
+    return smooth_mouse_movement(mouse_report);
+}
 
 void keyboard_post_init_kb(void) {
 
