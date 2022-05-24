@@ -18,9 +18,9 @@
 
 // place overrides here
 #define FORCE_NKRO
+#define USB_POLLING_INTERVAL_MS 1
 #ifdef TAPPING_TOGGLE
     #undef TAPPING_TOGGLE
 #endif
-#define TAPPING_TOGGLE 2
-#define LSPO_KEYS KC_LSFT, KC_TRNS, KC_LBRC
-#define RSPC_KEYS KC_RSFT, KC_TRNS, KC_RBRC
+#define TAPPING_TOGGLE 3
+
