@@ -10,6 +10,9 @@ RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 #            define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40
 #        endif
 
+#        ifndef RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT
+#            define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16
+#        endif
 void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
 #        ifdef RGB_MATRIX_TYPING_HEATMAP_SLIM
     // Limit effect to pressed keys
@@ -26,7 +29,10 @@ void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
 #            define I_LED_Y g_led_config.point[g_led_config.matrix_co[i_row][i_col]].y
                 uint8_t distance = sqrt16(((I_LED_X - CURRENT_LED_X) * (I_LED_X - CURRENT_LED_X)) + ((I_LED_Y - CURRENT_LED_Y) * (I_LED_Y - CURRENT_LED_Y)));
                 if (distance <= RGB_MATRIX_TYPING_HEATMAP_SPREAD) {
-                    uint8_t amount                   = RGB_MATRIX_TYPING_HEATMAP_SPREAD - distance > 24 ? 24 : RGB_MATRIX_TYPING_HEATMAP_SPREAD - distance;
+                    uint8_t amount = qsub8(RGB_MATRIX_TYPING_HEATMAP_SPREAD, distance);
+                    if (amount > RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT) {
+                        amount = RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT;
+                    }
                     g_rgb_frame_buffer[i_row][i_col] = qadd8(g_rgb_frame_buffer[i_row][i_col], amount);
                 }
             }
