@@ -548,18 +548,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
-        case KC_MOUSE_BTN1:
+        case KC_MOUSE:
             if (record->event.pressed) {
-                MOUSE_BUTTONS |= (1 << 0);
+                layer_on(_MOUSE);
             } else {
-                MOUSE_BUTTONS &= ~(1 << 0);
-            }
-            return false;
-        case KC_MOUSE_BTN2:
-            if (record->event.pressed) {
-                MOUSE_BUTTONS |= (1 << 1);
-            } else {
-                MOUSE_BUTTONS &= ~(1 << 1);
+                layer_off(_MOUSE);
             }
             return false;
     }
