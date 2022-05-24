@@ -23,11 +23,9 @@ void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
             if (i_row == row && i_col == col) {
                 g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], 32);
             } else {
-#            define CURRENT_LED_X g_led_config.point[g_led_config.matrix_co[row][col]].x
-#            define CURRENT_LED_Y g_led_config.point[g_led_config.matrix_co[row][col]].y
-#            define I_LED_X g_led_config.point[g_led_config.matrix_co[i_row][i_col]].x
-#            define I_LED_Y g_led_config.point[g_led_config.matrix_co[i_row][i_col]].y
-                uint8_t distance = sqrt16(((I_LED_X - CURRENT_LED_X) * (I_LED_X - CURRENT_LED_X)) + ((I_LED_Y - CURRENT_LED_Y) * (I_LED_Y - CURRENT_LED_Y)));
+#            define LED_DISTANCE(led_a, led_b) sqrt16(((int8_t)(led_a.x - led_b.x) * (int8_t)(led_a.x - led_b.x)) + ((int8_t)(led_a.y - led_b.y) * (int8_t)(led_a.y - led_b.y)))
+                uint8_t distance = LED_DISTANCE(g_led_config.point[g_led_config.matrix_co[row][col]], g_led_config.point[g_led_config.matrix_co[i_row][i_col]]);
+#            undef LED_DISTANCE
                 if (distance <= RGB_MATRIX_TYPING_HEATMAP_SPREAD) {
                     uint8_t amount = qsub8(RGB_MATRIX_TYPING_HEATMAP_SPREAD, distance);
                     if (amount > RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT) {
