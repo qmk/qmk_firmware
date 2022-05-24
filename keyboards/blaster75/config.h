@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xA122
-#define PRODUCT_ID      0xB075
-#define DEVICE_VER      0x0001
+#define VENDOR_ID       0xA122  
+#define PRODUCT_ID      0xB075  
+#define DEVICE_VER      0x0001  
 #define MANUFACTURER    Altain
 #define PRODUCT         Blaster75
 

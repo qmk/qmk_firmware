@@ -33,7 +33,7 @@ ANSI Layout :
  * |---------------------------------------------------------------|
  * | LSHIFT | Z | X | C | V | B | N | M | , | . | / |RSHFT | ↑ |   |
  * |---------------------------------------------------------------|
- * |LCTL|LWIN|LALT|          SPACE          |RALT|RCTL|  ← | ↓ | → |
+ * |LCTL|LWIN|LALT|       6.25U SPACE       |RALT|RCTL|  ← | ↓ | → |
  * `----------------------------------------------------------------
  * 
  * 
@@ -51,13 +51,16 @@ ANSI Layout :
  * |---------------------------------------------------------------|
  * | LSHIFT | Z | X | C | V | B | N | M | , | . | / |RSHFT | ↑ |   |
  * |---------------------------------------------------------------|
- * | LCTL |LWIN| LALT |         7USPACE        | RCTL |  ← | ↓ | → |
+ * | LCTL |LWIN| LALT |        7U SPACE        | RCTL |  ← | ↓ | → |
  * `----------------------------------------------------------------
  * 
  * */
 
 #define XXX KC_NO
 
+// BLASTER75 DEFAULT ANSI LAYOUT
+// 6.25U SPACEBAR
+// BOTTOM ROW 1.25 , 1.25 , 1.25 , 6.25 , 1.25 , 1.25 CONFIGURATION
 #define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, \
@@ -74,23 +77,10 @@ ANSI Layout :
     { K50, K51, K52, XXX, XXX, K55, XXX, XXX, XXX, K59, XXX, K5B, K5C, K5D, K5E }  \
 }
 
-#define LAYOUT_blaster_75_ansi( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, \
-	K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E, \
-	K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      K3E, \
-	K40, K41, K42, K43, K44, K45, K46, K47, K48, K49,      K4B, K4C, K4D,      \
-	K50, K51, K52,           K55,                K59,      K5B, K5C, K5D, K5E  \
-) { \
-    { K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E }, \
-    { K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E }, \
-    { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E }, \
-    { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, XXX, K3E }, \
-    { K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, XXX, K4B, K4C, K4D, XXX }, \
-    { K50, K51, K52, XXX, XXX, K55, XXX, XXX, XXX, K59, XXX, K5B, K5C, K5D, K5E }  \
-}
-
-#define LAYOUT_blaster_75_7u( \
+// BLASTER75 7U LAYOUT
+// 7U SPACEBAR
+// BOTTOM ROW 1.5 , 1 , 1.5 , 7 , 1.5 CONFIGURATION
+#define LAYOUT_7u( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, \
 	K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E, \
