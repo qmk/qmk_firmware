@@ -1,12 +1,6 @@
 # Copyright 2022 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-# XAP embedded info.json
-$(KEYMAP_OUTPUT)/src/info_json_gz.h: $(INFO_JSON_FILES)
-	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) xap-generate-info-h -o "$(KEYMAP_OUTPUT)/src/info_json_gz.h" -kb $(KEYBOARD) -km $(KEYMAP))
-	@$(BUILD_CMD)
-
 XAP_FILES := $(shell ls -1 data/xap/* | sort | xargs echo)
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/xap.hjson)","")
 	XAP_FILES += $(KEYBOARD_PATH_1)/xap.hjson
@@ -26,6 +20,11 @@ endif
 ifneq ("$(wildcard $(KEYMAP_PATH)/xap.hjson)","")
 	XAP_FILES += $(KEYMAP_PATH)/xap.hjson
 endif
+
+$(KEYMAP_OUTPUT)/src/info_json_gz.h: $(INFO_JSON_FILES)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) xap-generate-info-h -o "$(KEYMAP_OUTPUT)/src/info_json_gz.h" -kb $(KEYBOARD) -km $(KEYMAP))
+	@$(BUILD_CMD)
 
 $(KEYMAP_OUTPUT)/src/xap_generated.inl: $(XAP_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
