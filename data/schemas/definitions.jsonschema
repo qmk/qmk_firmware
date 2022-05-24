@@ -12,6 +12,12 @@
         "minLength": 1,
         "pattern": "^[0-9a-z_]*$"
     },
+    "define": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 50,
+        "pattern": "^[A-Z_]*$"
+    },
     "hex_number_2d": {
         "type": "string",
         "pattern": "^0x[0-9A-F]{2}$"
@@ -23,6 +29,10 @@
     "bcd_version": {
         "type": "string",
         "pattern": "^[0-9]{1,2}\\.[0-9]\\.[0-9]$"
+    },
+    "text_unsigned_int": {
+        "type": "string",
+        "pattern": "^[0-8]+$"
     },
     "text_identifier": {
         "type": "string",

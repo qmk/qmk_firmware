@@ -3,14 +3,6 @@
     "$id": "qmk.xap.v1",
     "title": "XAP Spec",
     "definitions": {
-        "int_key": {
-            "type": "string",
-            "pattern": "^[0-8]$"
-        },
-        "constant": {
-            "type": "string",
-            "pattern": "^[A-Z_]*$"
-        },
         "data_type": {
             "oneOf": [
                 {
@@ -47,6 +39,10 @@
             "items": {
                 "type": "object",
                 "additionalProperties": false,
+                "required": [
+                    "name",
+                    "type"
+                ],
                 "properties": {
                     "name": {
                         "type": "string"
@@ -64,6 +60,10 @@
             },
             "additionalProperties": {
                 "type": "object",
+                "required": [
+                    "type",
+                    "define"
+                ],
                 "additionalProperties": false,
                 "properties": {
                     "type": {
@@ -76,7 +76,7 @@
                         "type": "string"
                     },
                     "define": {
-                        "$ref": "#/definitions/constant"
+                        "$ref": "qmk.definitions.v1#/define"
                     },
                     "permissions": {
                         "$ref": "#/definitions/permission"
@@ -134,7 +134,7 @@
             "$ref": "qmk.definitions.v1#/bcd_version"
         },
         "define": {
-            "$ref": "#/definitions/constant"
+            "$ref": "qmk.definitions.v1#/define"
         },
         "uses": {
             "type": "object",
@@ -197,12 +197,12 @@
             "additionalProperties": false,
             "properties": {
                 "define_prefix": {
-                    "$ref": "#/definitions/constant"
+                    "$ref": "qmk.definitions.v1#/define"
                 },
                 "bits": {
                     "type": "object",
                     "propertyNames": {
-                        "$ref": "#/definitions/int_key"
+                        "$ref": "qmk.definitions.v1#/text_unsigned_int"
                     },
                     "additionalProperties": {
                         "type": "object",
@@ -212,7 +212,7 @@
                                 "type": "string"
                             },
                             "define": {
-                                "$ref": "#/definitions/constant"
+                                "$ref": "qmk.definitions.v1#/define"
                             },
                             "description": {
                                 "type": "string"
@@ -227,7 +227,7 @@
             "additionalProperties": false,
             "properties": {
                 "define_prefix": {
-                    "$ref": "#/definitions/constant"
+                    "$ref": "qmk.definitions.v1#/define"
                 },
                 "messages": {
                     "type": "object",
@@ -242,7 +242,7 @@
                                 "type": "string"
                             },
                             "define": {
-                                "$ref": "#/definitions/constant"
+                                "$ref": "qmk.definitions.v1#/define"
                             },
                             "description": {
                                 "type": "string"
