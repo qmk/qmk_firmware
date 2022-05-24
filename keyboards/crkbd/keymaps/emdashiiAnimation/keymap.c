@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LYR1SPC LT(1, KC_SPC)
 #define LYR2SPC LT(2, KC_SPC)
 #define CTRLSPC LCTL_T(KC_SPC)
+#define CTRLSFT C(KC_LSFT)
 
 //OSM(MOD_LSFT) One Shot Modifer Shift Key
 
@@ -73,13 +74,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,   TO(3),  KC_INS,   KC_UP, KC_HOME, KC_PGUP,                      KC_VOLU,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_BSPC,
+       KC_TAB,  KC_INS, KC_HOME,   KC_UP, KC_END,  KC_PGUP,                       KC_ESC,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        TO(0), C(KC_A), KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                      KC_VOLD,   KC_F4,   KC_F5,   KC_F6,  KC_F11,  KC_DEL,
+        TO(0), C(KC_A), KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                      KC_LALT,   KC_F4,   KC_F5,   KC_F6,  KC_F11,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, C(KC_Z), C(KC_X), C(KC_C), C(KC_V),  KC_ESC,                      KC_MUTE,   KC_F1,   KC_F2,   KC_F3,  KC_F12,  KC_ENT,
+      KC_LSFT, C(KC_Z), C(KC_X), C(KC_C), C(KC_V),  KC_ESC,                        TO(3),   KC_F1,   KC_F2,   KC_F3,  KC_F12,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, CTRLSPC, S(KC_TAB),    TO(2), CTRLSPC, KC_LALT
+                                          KC_LGUI, CTRLSPC, CTRLSFT,      TO(2), CTRLSPC,  KC_ENT
                                       //`--------------------------'  `--------------------------'
   ),
 
