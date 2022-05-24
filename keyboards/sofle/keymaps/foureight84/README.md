@@ -1,0 +1,1 @@
+For more information on integrating the Pimoroni Trackball, pkease see: https://github.com/foureight84/sofle-keyboard-pimoroni
