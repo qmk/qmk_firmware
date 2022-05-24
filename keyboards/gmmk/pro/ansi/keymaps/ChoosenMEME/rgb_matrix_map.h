@@ -137,6 +137,6 @@
 
     const uint8_t LED_SIDE_RIGHT[] = { LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED_R6, LED_R7, LED_R8};
 
-    const uint8_t LED_LIST_UML[] = { LED_A, LED_S, LED_U, LED_O};
+    const uint8_t LED_LIST_UML[] = { LED_A, LED_S, LED_U, LED_O, LED_END};
 
 #endif
