@@ -12,10 +12,12 @@ LTO_ENABLE = yes
 
 SPLIT_KEYBOARD = yes
 
-VIA_ENABLE = yes
+VIA_ENABLE = no
 
-ifeq ($(PROMICRO), yes)
-  BOOTLOADER = caterina
-else ifeq ($(ELITEC), yes)
-  BOOTLOADER = atmel-dfu
-endif
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = pimoroni_trackball
+
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no 
+MAGIC_ENABLE = no
+MUSIC_ENABLE = no
