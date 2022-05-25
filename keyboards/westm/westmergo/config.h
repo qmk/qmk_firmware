@@ -43,7 +43,7 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN A8
-#define RGBLED_NUM 19
+#define RGBLED_NUM 16
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
