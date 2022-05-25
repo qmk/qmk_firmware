@@ -26,6 +26,8 @@ enum preonic_layers {
   _ADJUST
 };
 
+test
+
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
