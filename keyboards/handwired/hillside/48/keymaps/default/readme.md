@@ -82,7 +82,7 @@ Holding down the Nav/Edit key accesses the navigation, editing, number and funct
 ```
 |       |QWERT|DVORK|COLMK|AG_SWAP|CTR_SWAP|----------------------|     | F11 | F12 |PR_SCR|    |       |
 |       |     |     |     |AG_NORM|CTR_NORM|----------------------|MOD+ |BRI+ |HUE+ |SAT+ |     |       |
-|       | GUI | ALT |CTRL |SHIFT|     |     |--------------|RGBTOG|MOD- |BRI- |HUE- |SAT- |     |QK_BOOT|
+|       | GUI | ALT |CTRL |SHIFT|     |     |--------------|RGBTOG|MOD- |BRI- |HUE- |SAT- |     | BOOT  |
 --------------|     |-----|     |     | *** |     |---| *** |     |     |     |-----|     |--------------
 ```
 Simultaneously holding down the Sym and Nav/Edit keys enables keys to adjust keyboard settings:
@@ -90,7 +90,7 @@ Simultaneously holding down the Sym and Nav/Edit keys enables keys to adjust key
 - The base layer can be set to QWERTY, Colemak-DH or Dvorak, although the keyboard reverts to QWERTY each time it is plugged in.
 - Alt/option and GUI/command can be swapped for mac users or restored to the windows norm.
 - The backlight LEDs can be enabled, disabled, and controlled.
-- Reset allows loading new firmware, such as for keymap changes.
+- BOOT allows loading new firmware, such as for keymap changes.
 - The remaining Fn keys are here with modifiers to use with them.
 
 ## Make it Yours
