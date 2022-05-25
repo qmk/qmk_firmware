@@ -296,7 +296,8 @@ void backlight_task(void) {}
 #    define BREATHING_NO_HALT 0
 #    define BREATHING_HALT_OFF 1
 #    define BREATHING_HALT_ON 2
-#    define BREATHING_STEPS 128
+#    define BREATHING_STEPS 120
+//#    define BREATHING_STEPS 128
 
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
@@ -374,11 +375,20 @@ void breathing_self_disable(void) {
         breathing_halt = BREATHING_HALT_ON;
 }
 
+#if BREATHING_STEPS == 128
 /* To generate breathing curve in python:
  * from math import sin, pi; [int(sin(x/128.0*pi)**4*255) for x in range(128)]
  */
 static const uint8_t breathing_table[BREATHING_STEPS] PROGMEM = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 17, 20, 24, 28, 32, 36, 41, 46, 51, 57, 63, 70, 76, 83, 91, 98, 106, 113, 121, 129, 138, 146, 154, 162, 170, 178, 185, 193, 200, 207, 213, 220, 225, 231, 235, 240, 244, 247, 250, 252, 253, 254, 255, 254, 253, 252, 250, 247, 244, 240, 235, 231, 225, 220, 213, 207, 200, 193, 185, 178, 170, 162, 154, 146, 138, 129, 121, 113, 106, 98, 91, 83, 76, 70, 63, 57, 51, 46, 41, 36, 32, 28, 24, 20, 17, 15, 12, 10, 8, 6, 5, 4, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+#elif BREATHING_STEPS == 120
+/* To generate breathing curve in python:
+ * from math import sin, pi; [int(sin(x/120.0*pi)**4*255) for x in range(120)]
+ */
+static const uint8_t breathing_table[BREATHING_STEPS] PROGMEM = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6, 8, 10, 13, 15, 19, 22, 26, 30, 35, 39, 45, 51, 57, 63, 70, 77, 85, 93, 101, 109, 117, 126, 134, 143, 152, 160, 169, 177, 185, 193, 201, 208, 215, 221, 227, 233, 238, 242, 246, 249, 251, 253, 254, 255, 254, 253, 251, 249, 246, 242, 238, 233, 227, 221, 215, 208, 201, 193, 185, 177, 169, 160, 152, 143, 134, 126, 117, 109, 101, 93, 85, 77, 70, 63, 57, 51, 45, 39, 35, 30, 26, 22, 19, 15, 13, 10, 8, 6, 5, 4, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+#else
+#        error "BREATHING_STEPS:out of range"
+#endif
 // Use this before the cie_lightness function.
 static inline uint16_t scale_backlight(uint16_t v) {
     return v / BACKLIGHT_LEVELS * get_backlight_level();
@@ -412,7 +422,12 @@ ISR(TIMERx_OVF_vect)
     }
 
     // Set PWM to a brightnessvalue scaled to the configured resolution
-    set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * ICRx / 255))));
+    //set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * ICRx / 255))));
+
+    uint16_t val = cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * (ICRx / 255))));
+    //uint16_t val = cie_lightness(rescale_limit_val(scale_backlight((uint16_t)((uint32_t)pgm_read_byte(&breathing_table[index]) * ICRx / 255))));
+    set_pwm(val);
+    dprintf("breathing_counter=%3u  index=%3u  val(OCRxx)=%u\n", breathing_counter, index, val);
 }
 
 #endif // BACKLIGHT_BREATHING
