@@ -1,10 +1,12 @@
 # SNOP60 
 
+![SNOP60](https://i.imgur.com/2aBmgMa.png)
+
 60% Universal PCB feauturing Tsangan bottom row, 2x3u bar support, backlighting, RGB underglow, rotary encoder support, and two flex cutouts. 
 
 - Keyboard Maintainer: [Nasp](https://github.com/npspears)
 - Hardware Supported: SNOP60 PCB
-- Hardware Availability: www.checkerboards.xyz
+- Hardware Availability:https://www.checkerboards.xyz/SNOP60_p_65.html
 
 Make example for this keyboard (after setting up your build environment):
 
