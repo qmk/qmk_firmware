@@ -77,7 +77,7 @@
          "RGB_MOD"   , "RGB_VAI" , "RGB_HUI", "RGB_SAI", "KC_NO"        , "KC_NO",
 
          "KC_NO"     , "KC_LGUI" , "KC_LALT", "KC_LCTL", "KC_LSFT"      , "KC_NO"     , "KC_NO",
-         "RGB_TOG"   , "RGB_RMOD", "RGB_VAD", "RGB_HUD", "RGB_SAD"      , "KC_NO"     , "RESET",
+         "RGB_TOG"   , "RGB_RMOD", "RGB_VAD", "RGB_HUD", "RGB_SAD"      , "KC_NO"     , "QK_BOOT",
 
          "KC_NO"     , "KC_NO"   , "KC_NO"  , "KC_TRNS", "KC_NO",
          "KC_TRNS"   , "KC_NO"   , "KC_NO"  , "KC_NO"  , "KC_NO"
