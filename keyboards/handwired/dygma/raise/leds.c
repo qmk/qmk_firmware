@@ -26,16 +26,17 @@
 #include "print.h"
 #include "leds.h"
 
-struct __attribute__((packed)) cRGB {
+// Color order of LEDs is Green, Red, Blue.
+typedef struct PACKED {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-};
+} raiseRGB;
 
 #define LEDS_PER_HAND 72
 #define LED_BANKS 9
 #define LEDS_PER_BANK 8
-#define LED_BYTES_PER_BANK (sizeof(cRGB) * LEDS_PER_BANK)
+#define LED_BYTES_PER_BANK (sizeof(raiseRGB) * LEDS_PER_BANK)
 
 // shifting << 1 is because drivers/chibios/i2c_master.h expects the address
 // shifted.
@@ -46,8 +47,8 @@ struct __attribute__((packed)) cRGB {
 #define LEFT 0
 #define RIGHT 1
 
-static cRGB led_pending[2 * LEDS_PER_HAND];
-static cRGB led_state[2 * LEDS_PER_HAND];
+static raiseRGB led_pending[2 * LEDS_PER_HAND];
+static raiseRGB led_state[2 * LEDS_PER_HAND];
 
 static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
     int sled = led_map[index];
