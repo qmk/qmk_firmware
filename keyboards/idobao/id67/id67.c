@@ -19,7 +19,11 @@
 
 #define __ NO_LED
 
-// Indices are reveresed on the physical board, top left is bottom right.
+#if defined(RGB_MATRIX_ENABLE)
+
+/* NB!!: Indices are reversed on the physical board, top left is bottom right.
+ * These "LED Index to *" arrays are in that reversed order!
+ * i.e., Space row on top, listed right to left */
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
     {66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52},
@@ -47,15 +51,46 @@ led_config_t g_led_config = { {
     1,    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9,  // third row
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,  // fourth row
     1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4   // fifth row
-    // underglow leds
+    // underglow LEDs
     #ifndef ID67_DISABLE_UNDERGLOW
     , 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     #endif
 } };
 
-__attribute__ ((weak))
+#endif  // #ifdef RGB_MATRIX_ENABLE
+
+
+/* Use `#define ID67_CAPS_LOCK_KEY_INDEX 36` in `keymaps/yourkeymap/config.h`
+ * if you want to enable Caps-Lock LED mode */
+#if defined(RGB_MATRIX_ENABLE) && defined(ID67_CAPS_LOCK_KEY_INDEX)
+
+#define ID67_CAPS_LOCK_MAX_BRIGHTNESS 0xFF
+#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #undef ID67_CAPS_LOCK_MAX_BRIGHTNESS
+    #define ID67_CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#define ID67_CAPS_LOCK_VAL_STEP 8
+#ifdef RGB_MATRIX_VAL_STEP
+    #undef ID67_CAPS_LOCK_VAL_STEP
+    #define ID67_CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
+#endif
+
+/* This function is defined as weak, so if you create your own in keymap then
+ * that will compile, not this */
+__attribute__((weak))
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(23, 0xFF, 0xFF, 0xFF);
+        uint8_t b = rgb_matrix_get_val();
+        if (b < ID67_CAPS_LOCK_VAL_STEP) {
+            b = ID67_CAPS_LOCK_VAL_STEP;
+        } else if (b < (ID67_CAPS_LOCK_MAX_BRIGHTNESS - ID67_CAPS_LOCK_VAL_STEP)) {
+            b += ID67_CAPS_LOCK_VAL_STEP;  // one step more than current brightness
+        } else {
+            b = ID67_CAPS_LOCK_MAX_BRIGHTNESS;
+        }
+        rgb_matrix_set_color(ID67_CAPS_LOCK_KEY_INDEX, b, b, b);  // white, with the adjusted brightness
     }
 }
+
+#endif // #ifdef ID67_CAPS_LOCK_KEY_INDEX
