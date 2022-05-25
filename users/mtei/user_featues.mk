@@ -37,10 +37,30 @@ endif
 
 ifeq ($(strip $(ENCODER_ENABLE)),yes)
     SRC += encoder_update_user.c
-endif
-
-ifeq ($(strip $(DEBUG_ENCODER)),yes)
-    OPT_DEFS += -DENCODER_DETECT_OVER_SPEED
+    ifeq ($(KEYBOARD),helix/rev3_5rows)
+        ifeq ($(strip $(DEBUG_ENCODER)),slave)
+          ENCODER_ENABLE = no
+          RGBLIGHT_ENABLE = no
+          LED_BACK_ENABLE = no
+          LED_UNDERGLOW_ENABLE = no
+          SRC += encoder_debug.c
+          OPT_DEFS += -DDEBUG_CONFIG
+          OPT_DEFS += -DENCODER_ENABLE
+          OPT_DEFS += -DENCODER_DETECT_OVER_SPEED
+          OPT_DEFS += -DENCODER_DEBUG_PIN=D3
+        endif
+        ifeq ($(strip $(DEBUG_ENCODER)),check-over-speed)
+          ENCODER_ENABLE = no
+          RGBLIGHT_ENABLE = no
+          LED_BACK_ENABLE = no
+          LED_UNDERGLOW_ENABLE = no
+          DEBUG_UART = yes
+          SRC += encoder_debug.c
+          OPT_DEFS += -DDEBUG_CONFIG
+          OPT_DEFS += -DENCODER_ENABLE
+          OPT_DEFS += -DENCODER_DETECT_OVER_SPEED
+        endif
+    endif
 endif
 
 ifneq ($(strip $(SYNC_TIMER_ENABLE)),yes)
@@ -54,6 +74,8 @@ endif
 
 ifneq ($(strip $(USROPT)),)
     $(info -)
+    $(info -  KEYBOARD            = $(KEYBOARD))
+    $(info -  KEYMAP              = $(KEYMAP))
     $(info -  CONSOLE_ENABLE      = $(CONSOLE_ENABLE))
     $(info -  OLED_ENABLE         = $(OLED_ENABLE))
     $(info -  RGBLIGHT_ENABLE     = $(RGBLIGHT_ENABLE))

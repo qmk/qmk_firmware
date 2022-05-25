@@ -117,8 +117,11 @@ ifneq ($(strip $(USROPT)),)
     ifneq ($(filter noenc no-enc no_enc,$(strip $1)),)
         ENCODER_ENABLE = no
     endif
-    ifneq ($(filter debugenc debug-enc debug_enc,$(strip $1)),)
-        DEBUG_ENCODER = yes
+    ifneq ($(filter enc-slave,$(strip $1)),)
+        DEBUG_ENCODER = slave
+    endif
+    ifneq ($(filter enc-over,$(strip $1)),)
+        DEBUG_ENCODER = check-over-speed
     endif
     ifneq ($(filter debug-uart debug_uart,$(strip $1)),)
         DEBUG_UART = yes

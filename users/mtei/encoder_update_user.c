@@ -1,6 +1,16 @@
 // Copyright (c) 2022 Takeshi Ishii (mtei@github)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#ifdef ENCODER_DEBUG_PIN
+#  define DEBUG_PIN_ON()    writePinHigh(ENCODER_DEBUG_PIN)
+#  define DEBUG_PIN_OFF()   writePinLow(ENCODER_DEBUG_PIN)
+#  define DEBUG_PIN_WAIT(n) wait_cpuclock(n);
+#else
+#  define DEBUG_PIN_ON()
+#  define DEBUG_PIN_OFF()
+#  define DEBUG_PIN_WAIT(n)
+#endif
+
 #include QMK_KEYBOARD_H
 
 #define TAP_CODE(x) if (is_keyboard_master()) { tap_code(x); }
@@ -9,6 +19,14 @@
 int get_encoder_over_count(void);
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
+#ifdef AVR_UART_TX
+    static bool debug_log_init = false;
+    if (!debug_log_init) {
+        DEBUG_UART_LOG_INIT(0);
+        debug_log_init = true;
+    }
+#endif
+    DEBUG_PIN_ON();
 #ifndef ENCODER_DETECT_OVER_SPEED
     switch (index) {
     /* Left side encoder */
@@ -19,14 +37,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #else
     // Is there a get_encoder_over_count() in quantum/encoder.c
     if (get_encoder_over_count != NULL) {
-        int enc_over = get_encoder_over_count();
-#if 0
-        for (; enc_over > 0; enc_over--) {
-            TAP_CODE(KC_MINUS);
-        }
-#elsd
-        // other debug dump [WIP]
-#endif
+#    ifdef AVR_UART_TX
+        DEBUG_UART_LOG(get_encoder_over_count());
+#    endif
     }
     switch (index) {
     case 0: TAP_CODE(clockwise ? KC_A : KC_B); break;
@@ -35,5 +48,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     case 3: TAP_CODE(clockwise ? KC_G : KC_H); break;
     }
 #endif
+    DEBUG_PIN_OFF();
     return true;
 }
