@@ -18,11 +18,12 @@ Some of its key features are:
 --------------|CTRL |-----| GUI | ALT | Sym |SHIFT|---| Nav |SPACE| ALT | GUI |-----|  '  |--------------
 ```
 
-The base layer provides a very standard key layout with four differences:
+The base layer provides a very standard key layout with five differences:
 
 - Numbers, functions and most symbols are accessed with number and symbol shift keys.
-- Escape and caps lock are on the thumbs.
+- Escape is on the left thumb.
 - The left thumb has a shift key that affects the next key pressed. So to get 'A', press and release the thumb shift key, press 'a'. You can also hold the key down, and it will work like a standard shift key. There are still standard shift keys at either end of the keyboard.
+- The right upper thumb turns on a mode that capitalizes all letters until something other than a letter, digit, dash, underscore, delete or backspace is typed. The caps word mode also times out after five seconds of no key presses.
 - The Menu and AltGr keys are on a layer.
 
 The default layout is QWERTY with alternatives of Dvorak and Colemak-DH, and the alt/option and the win/command key locations are swappable for windows or mac.
