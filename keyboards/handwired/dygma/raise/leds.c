@@ -46,18 +46,14 @@ struct __attribute__((packed)) cRGB {
 #define LEFT 0
 #define RIGHT 1
 
+static cRGB led_pending[2 * LEDS_PER_HAND];
 static cRGB led_state[2 * LEDS_PER_HAND];
-static bool needs_flush;
 
 static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
     int sled = led_map[index];
-    if (led_state[sled].r != r || led_state[sled].g != g || led_state[sled].b != b) {
-        needs_flush = true;
-    }
-
-    led_state[sled].r = r;
-    led_state[sled].g = g;
-    led_state[sled].b = b;
+    led_pending[sled].r = r;
+    led_pending[sled].g = g;
+    led_pending[sled].b = b;
 }
 
 static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
@@ -65,15 +61,10 @@ static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 static void init(void) {
-    needs_flush = true;
     set_color_all(0,0,0);
 }
 
 static void flush(void) {
-    if (!needs_flush) {
-        return;
-    }
-    needs_flush = false;
     uint8_t  command[1 + LED_BYTES_PER_BANK];
 
     // SUBTLE(ibash) alternate hands when transmitting led data, otherwise the
@@ -83,10 +74,17 @@ static void flush(void) {
         for (int hand = 0; hand < 2; hand++) {
             int addr = I2C_ADDR(hand);
             int i = (hand * LEDS_PER_HAND) + (bank * LEDS_PER_BANK);
-            uint8_t *bank_data = (uint8_t *)&led_state[i];
+
+            if (memcmp(&led_state[i], &led_pending[i], LED_BYTES_PER_BANK) == 0) {
+                // No change.
+                continue;
+            }
+
+            // Update LED state
+            memcpy(&led_state[i], &led_pending[i], LED_BYTES_PER_BANK);
 
             command[0] = TWI_CMD_LED_BASE + bank;
-            memcpy(&command[1], bank_data, LED_BYTES_PER_BANK);
+            memcpy(&command[1], &led_pending[i], LED_BYTES_PER_BANK);
             i2c_transmit(addr, command, sizeof(command), I2C_TIMEOUT);
 
             // delay to prevent issues with the i2c bus
