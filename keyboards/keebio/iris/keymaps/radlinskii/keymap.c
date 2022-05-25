@@ -81,28 +81,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //Lights https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
 const rgblight_segment_t PROGMEM QWERTY_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {24, 4, HSV_GREEN},
-    {58, 4, HSV_GREEN}
+    {0, 6, 117, 255, 255},
+    {6, 6, 107, 255, 255},
+    {12, 6, 97, 255, 255},
+    {18, 6, 90, 255, 255},
+    {24, 4, 85, 255, 255},
+
+    {34, 6, 117, 255, 255},
+    {40, 6, 107, 255, 255},
+    {46, 6, 97, 255, 255},
+    {52, 6, 90, 255, 255},
+    {58, 4, 85, 255, 255}
 );
 
 const rgblight_segment_t PROGMEM LOWER_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {24, 4, HSV_BLUE},
-    {58, 4, HSV_BLUE}
+    {0, 6, 201, 255, 255},
+    {6, 6, 191, 255, 255},
+    {12, 6, 181, 255, 255},
+    {18, 6, 171, 255, 255},
+    {24, 4, 169, 255, 255},
+
+    {34, 6, 201, 255, 255},
+    {40, 6, 191, 255, 255},
+    {46, 6, 181, 255, 255},
+    {52, 6, 171, 255, 255},
+    {58, 4, 169, 255, 255}
 );
 
 const rgblight_segment_t PROGMEM RAISE_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {24, 4, HSV_MAGENTA},
-    {58, 4, HSV_MAGENTA}
+    {0, 6, 248, 255, 255},
+    {6, 6, 240, 255, 255},
+    {12, 6, 225, 255, 255},
+    {18, 6, 210, 255, 255},
+    {24, 4, 201, 255, 255},
+
+    {34, 6, 248, 255, 255},
+    {40, 6, 240, 255, 255},
+    {46, 6, 225, 255, 255},
+    {52, 6, 210, 255, 255},
+    {58, 4, 201, 255, 255}
 );
 
 const rgblight_segment_t PROGMEM MOUSE_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {24, 4, HSV_YELLOW},
-    {58, 4, HSV_YELLOW}
+    {0, 6, 11, 255, 255},
+    {6, 6, 19, 255, 255},
+    {12, 6, 27, 255, 255},
+    {18, 6, 35, 255, 255},
+    {24, 4, 43, 255, 255},
+
+    {34, 6, 11, 255, 255},
+    {40, 6, 19, 255, 255},
+    {46, 6, 27, 255, 255},
+    {52, 6, 35, 255, 255},
+    {58, 4, 43, 255, 255}
 );
 
 const rgblight_segment_t PROGMEM ADJUST_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {24, 4, HSV_RED},
-    {58, 4, HSV_RED}
+    {0, 62, HSV_RED}
 );
 
 // Now define the array of layers. Later layers take precedence
