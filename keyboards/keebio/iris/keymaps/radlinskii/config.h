@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 #define EE_HANDS
 
+#define TAPPING_TOGGLE 1 // tap just once for TT() to toggle the layer
+
 #define TAPPING_TERM 230
 #define IGNORE_MOD_TAP_INTERRUPT
 
