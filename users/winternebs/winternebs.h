@@ -4,9 +4,10 @@
 #    define LAYOUT KEYMAP
 #endif
 
-   // clang-format off
+// clang-format off
 #define LAYOUT_gergoplex_wrapper(...)   LAYOUT_gergoplex(__VA_ARGS__)
 #define LAYOUT_ferris_wrapper(...)   LAYOUT(__VA_ARGS__)
+#define LAYOUT_nyquist_wrapper(...)   LAYOUT_ortho_5x12(__VA_ARGS__)
 
 
 #define RAISE LT(_RAISE, KC_ENT)

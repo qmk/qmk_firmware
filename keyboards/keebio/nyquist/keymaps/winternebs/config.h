@@ -29,14 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-
-#define MOUSEKEY_DELAY 80
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_MAXSPEED 6
-#define MOUSEKEY_TIME_TO_MAX 10
-#define MOUSEKEY_WHEEL_MAX_SPEED 4
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 10
-
-#ifndef FORCE_NKRO
-#    define FORCE_NKRO
-#endif
