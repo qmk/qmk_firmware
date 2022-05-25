@@ -52,6 +52,11 @@ static raiseRGB led_state[2 * LEDS_PER_HAND];
 
 static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
     int sled = led_map[index];
+    // The red component of the LED is apparently stronger than the others.
+    // From: https://github.com/keyboardio/Kaleidoscope/blob/aba8c9ee66bbb5ded15135618d2b2964ee82b2cc/plugins/Kaleidoscope-Hardware-Dygma-Raise/src/kaleidoscope/device/dygma/raise/RaiseSide.cpp#L235-L242
+    if (r >= 26) {
+        r -= 26;
+    }
     led_pending[sled].r = r;
     led_pending[sled].g = g;
     led_pending[sled].b = b;
