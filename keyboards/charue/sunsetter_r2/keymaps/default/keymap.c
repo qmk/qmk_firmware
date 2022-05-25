@@ -26,8 +26,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_MOD, KC_F20, KC_LCTRL,   KC_LGUI,   KC_LALT,      KC_SPC,     KC_TRNS,       KC_SPC,     KC_RALT,                KC_LEFT, KC_DOWN, KC_RIGHT  \
     )
 };
-
-void keyboard_post_init_user(void) {
-  debug_enable=true;
-  debug_matrix=true;
-}

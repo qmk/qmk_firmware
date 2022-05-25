@@ -1,12 +1,16 @@
-# sunsetter_r2
+# Sunsetter R2
 
-![sunsetter_r2](imgur.com image replace me!)
+![Sunsetter R2](https://i.imgur.com/rQRuHRk.jpeg)
 
-*A short description of the keyboard/project*
+A 65 + 10% F-Key Column Keyboard kit made and sold by Charue Design.
 
-* Keyboard Maintainer: [ILWrites](https://github.com/ILWrites)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+Round 2 includes RGB underglow, new case colors, a hotswap option, and a recessed USB port.
+
+[More info on charue-design.com](https://charue-design.com/)
+
+* Keyboard Maintainer: [ILWrites](https://github.com/PiKeeb)
+* Hardware Supported: [Sunsetter PCB](https://charue-design.com/collections/sunsetter)
+* Hardware Availability: [Charue Design](https://charue-design.com/)
 
 Make example for this keyboard (after setting up your build environment):
 

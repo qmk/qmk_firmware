@@ -1,1 +1,1 @@
-# The default keymap for sunsetter_r2
+# The debug keymap for Sunsetter R2

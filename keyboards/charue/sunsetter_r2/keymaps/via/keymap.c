@@ -1,4 +1,4 @@
-// Copyright 2021 ILWrites (@ILWrites)
+// Copyright 2022 Charue Design
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
