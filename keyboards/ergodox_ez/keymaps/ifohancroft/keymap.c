@@ -191,6 +191,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 */
 
+/*
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
       {{0,0},{1,0},{2,0},{3,0},{4,0}},
       {{0,1},{1,1},{2,1},{3,1},{4,1},{5,1}},
@@ -206,5 +207,11 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
       {{0,11},{1,11},{2,11},{3,11},{4,11},{5,11}},
       {{0,12},{1,12},{2,12},{3,12},{4,12},{5,12}},
       {{0,13},{1,13},{2,13},{3,13},{4,13}}
+};
+*/
+
+
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+      {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}}
 };
 
