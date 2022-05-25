@@ -1,8 +1,10 @@
+import os
 import platform
 from subprocess import DEVNULL
 
 from milc import cli
 
+os.environ['KEY_WIDTH'] = '4'
 is_windows = 'windows' in platform.platform().lower()
 
 
