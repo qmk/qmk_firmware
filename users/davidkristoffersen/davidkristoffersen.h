@@ -4,9 +4,9 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
-#include "src/enums.h"
 
 #include "config.h"
+#include "src/enums.h"
 
 #include "norwegian.h"
 
