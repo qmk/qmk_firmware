@@ -213,17 +213,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------.
  * |  `  |  !  |  #  |  $  |  [  |  ]  |  :  |  7  |  8  |  9  |  _  | Bsp |
  * |-----------------------------------------------------------------------|
- * |S(TAB)| ~  |  ^  |  %  |  (  |  )  |  M  |  4  |  5  |  6  |  -  |  /  |
+ * |S(TAB)| ~  |  ^  |  %  |  (  |  )  |  =  |  4  |  5  |  6  |  -  |  /  |
  * |-----------------------------------------------------------------------|
- * |Shift|  "  |  &  |  =  |  {  |  }  |  @  |  1  |  2  |  3  |  +  |  *  |
+ * |Shift|  <  |  >  |  &  |  {  |  }  |  @  |  1  |  2  |  3  |  +  |  *  |
  * |-----------------------------------------------------------------------|
  * |     |     |    |Ctl,Ent|    |           |  0  |  .  |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
   KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_COLN, KC_P7, KC_P8,       KC_P9,  KC_UNDS, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_M,    KC_P4, KC_P5,       KC_P6,  KC_PMNS, KC_PSLS,
-  KC_TRNS,   KC_DQUO,  KC_AMPR, KC_EQL, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,       KC_P3,  KC_PPLS, KC_PAST,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_EQL,  KC_P4, KC_P5,       KC_P6,  KC_PMNS, KC_PSLS,
+  KC_TRNS,   KC_LABK, KC_RABK, KC_AMPR, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,       KC_P3,  KC_PPLS, KC_PAST,
   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, MTLALT_PDOT, KC_NO,  KC_NO,   KC_NO
 ),
 
