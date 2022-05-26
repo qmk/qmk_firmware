@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "dynamic.h"
+#include "src/layouts.h"
 
 // Shift codes conversion struct
 typedef struct shift_code {

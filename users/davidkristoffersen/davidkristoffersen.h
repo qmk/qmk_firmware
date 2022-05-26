@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include QMK_KEYBOARD_H
+#include "src/layouts.h"
+
 #include "config.h"
 
 #include "norwegian.h"
