@@ -18,6 +18,9 @@
  */
 #include QMK_KEYBOARD_H
 
+// Configuration options
+#define SCROLL_TIMEOUT 25
+
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
 bool scroll_enabled = 0;
 bool lock_state     = 0;
@@ -43,7 +46,7 @@ bool led_update_user(led_t led_state) {
 	static uint8_t lock_count = 0;
 	static uint16_t scroll_timer = 0;
 
-	if (timer_elapsed(scroll_timer) > 25) {
+	if (timer_elapsed(scroll_timer) > SCROLL_TIMEOUT) {
 		scroll_timer = timer_read();
 		lock_count = 0;
 	}
