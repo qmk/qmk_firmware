@@ -30,4 +30,4 @@
 **                                               **
 **      Name of Alias     Matrix Name:           **
 ******* ----------------- ------------------- ****/
-#define LAYOUT_lunar_grid LAYOUT_ortho_5x12
+#define LAYOUT_perigee_grid LAYOUT_ortho_5x12

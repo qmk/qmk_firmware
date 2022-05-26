@@ -20,16 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x33F9
+#define VENDOR_ID       0x4338
 #define PRODUCT_ID      0x13F6
 #define MANUFACTURER    KeebMaker
-#define PRODUCT         Lunar
+#define PRODUCT         Perigee
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
-/* Lunar PCB default pin-out */
+/* Perigee PCB default pin-out */
 #define MATRIX_ROW_PINS { B6, B2, B3, B1, F7 }
 #define MATRIX_COL_PINS { F4, F5, F6, B5, B4, E6, D7, C6, D4, D0, D1, D2 }
 #define UNUSED_PINS
@@ -60,7 +60,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM 60 // Number of LEDs
+    #define RGBLIGHT_EFFECT_BREATHING
+    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    #define RGBLIGHT_EFFECT_SNAKE
+    #define RGBLIGHT_EFFECT_KNIGHT
+    #define RGBLIGHT_EFFECT_CHRISTMAS
+    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    #define RGBLIGHT_EFFECT_TWINKLE
+    #define RGBLIGHT_LIMIT_VAL 150
+    #define RGBLIGHT_HUE_STEP 10
+    #define RGBLIGHT_SAT_STEP 17
+    #define RGBLIGHT_VAL_STEP 17
 #endif
 
 /* define if matrix has ghost */
