@@ -3,8 +3,7 @@
 
 #pragma once
 
-#include "../base.h"
-#include "../hardware/left_space.h"
+#include "davidkristoffersen.h"
 #include "dynamic.h"
 #include "static.h"
 

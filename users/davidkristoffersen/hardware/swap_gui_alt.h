@@ -1,7 +1,7 @@
 // Copyright 2022 David Kristoffersen (@davidkristoffersen)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "../base.h"
+#include "davidkristoffersen.h"
 
 // Fix for hardware swapped LGUI and LALT
 #if SWAP_GUI_ALT == true

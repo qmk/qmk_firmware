@@ -3,8 +3,7 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include "davidkristoffersen.h"
 
-#include "config.h"
-
-#include "layouts.h"
+// Get current language layer
+int get_language(void);

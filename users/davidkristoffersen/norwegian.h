@@ -4,7 +4,7 @@
 #pragma once
 
 #include "keymap_extras/keymap_norwegian.h"
-#include "../base.h"
+#include "davidkristoffersen.h"
 
 // Better norwegian defines
 #undef NO_LESS

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "../base.h"
+#include "macros.h"
 
 enum static_codes { TEST_0 = SAFE_RANGE, TEST_1, TEST_2 };
 

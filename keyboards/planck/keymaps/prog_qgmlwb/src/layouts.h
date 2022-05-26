@@ -3,7 +3,11 @@
 
 #pragma once
 
-#include "../base.h"
+#include QMK_KEYBOARD_H
+
+#include "config.h"
+#include "davidkristoffersen.h"
+
 #include "normal.h"
 #include "qgmlwb.h"
 #include "special.h"

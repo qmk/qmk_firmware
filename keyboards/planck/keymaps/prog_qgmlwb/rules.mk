@@ -1,5 +1,7 @@
 # Compiler source files
-SRC += src/keymap/layouts.c src/util/functions.c src/macros/macros.c src/macros/static.c src/macros/dynamic.c
+SRC += src/layouts.c
+
+USER_NAME := davidkristoffersen
 
 # Firmware size optimizations
 CONSOLE_ENABLE	= no	# 1646: Console for debug

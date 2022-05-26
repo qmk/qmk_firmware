@@ -3,7 +3,5 @@
 
 #pragma once
 
-#include "../base.h"
-
-// Get current language layer
-int get_language(void);
+#define SWAP_GUI_ALT false
+#define SPLIT_SPACE false
