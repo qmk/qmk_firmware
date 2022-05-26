@@ -22,8 +22,8 @@
 #define SCROLL_TIMEOUT 25
 
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
-bool scroll_enabled = 0;
-bool lock_state     = 0;
+bool scroll_enabled = false;
+bool lock_state     = false;
 
 // Dummy
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
