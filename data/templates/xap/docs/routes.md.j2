@@ -3,10 +3,10 @@
 {{ route.description }}
 
 {% if route.routes %}
-| Name | Route | Tags | Definition |
-| -- | -- | -- | -- |
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
 {%- for subid, subroute in route.routes | dictsort %}
-| {{ subroute.name }} | `{{ id }} {{ subid }}` | {% if 'secure' == subroute.permissions %}__Secure__{% endif %} | {{ subroute.description.replace('\n', '<br>') }} |
+| {{ subroute.name }} | `{{ id }} {{ subid }}` | {% if 'secure' == subroute.permissions %}__Secure__{% endif %} | {%- include 'route_request.md.j2' -%}{%- include 'route_response.md.j2' -%} | {{ subroute.description.replace('\n', '<br>') }}|
 {%- endfor %}
 {% endif %}
 {%- endfor %}

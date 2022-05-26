@@ -223,8 +223,6 @@
 
                         * Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`
                             * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.
-                        * Response:
-                            * `u32` value.
                         '''
                     return_type: u32
                     return_purpose: bcd-version

@@ -75,8 +75,8 @@ This is the primary method for determining if a subsystem has been enabled in th
 This subsystem is always present, and provides the ability to query information about the XAP protocol of the connected device.
 
 
-| Name | Route | Tags | Definition |
-| -- | -- | -- | -- |
-| Version Query | `0x00 0x00` |  | XAP protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.<br>* Response:<br>    * `u32` value. |
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
+| Version Query | `0x00 0x00` |  |<br>__Response:__ `u32`| XAP protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.|
 
 

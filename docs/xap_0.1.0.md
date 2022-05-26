@@ -88,30 +88,30 @@ This is the primary method for determining if a subsystem has been enabled in th
 This subsystem is always present, and provides the ability to query information about the XAP protocol of the connected device.
 
 
-| Name | Route | Tags | Definition |
-| -- | -- | -- | -- |
-| Version Query | `0x00 0x00` |  | XAP protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.<br>* Response:<br>    * `u32` value. |
-| Capabilities Query | `0x00 0x01` |  | XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
-| Enabled subsystem query | `0x00 0x02` |  | XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying. |
-| Secure Status | `0x00 0x03` |  | Query secure route status<br><br>* 0 means secure routes are disabled<br>* 1 means unlock sequence initiated but incomplete<br>* 2 means secure routes are allowed<br>* any other value should be interpreted as disabled |
-| Secure Unlock | `0x00 0x04` |  | Initiate secure route unlock sequence |
-| Secure Lock | `0x00 0x05` |  | Disable secure routes |
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
+| Version Query | `0x00 0x00` |  |<br>__Response:__ `u32`| XAP protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.|
+| Capabilities Query | `0x00 0x01` |  |<br>__Response:__ `u32`| XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Enabled subsystem query | `0x00 0x02` |  |<br>__Response:__ `u32`| XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying.|
+| Secure Status | `0x00 0x03` |  |<br>__Response:__ `u8`| Query secure route status<br><br>* 0 means secure routes are disabled<br>* 1 means unlock sequence initiated but incomplete<br>* 2 means secure routes are allowed<br>* any other value should be interpreted as disabled|
+| Secure Unlock | `0x00 0x04` |  || Initiate secure route unlock sequence|
+| Secure Lock | `0x00 0x05` |  || Disable secure routes|
 
 ### QMK - `0x01`
 This subsystem is always present, and provides the ability to address QMK-specific functionality.
 
 
-| Name | Route | Tags | Definition |
-| -- | -- | -- | -- |
-| Version Query | `0x01 0x00` |  | QMK protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.<br>* Response:<br>    * `u32` value. |
-| Capabilities Query | `0x01 0x01` |  | QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem. |
-| Board identifiers | `0x01 0x02` |  | Retrieves the set of identifying information for the board. |
-| Board Manufacturer | `0x01 0x03` |  | Retrieves the name of the manufacturer |
-| Product Name | `0x01 0x04` |  | Retrieves the product name |
-| info.json length | `0x01 0x05` |  | Retrieves the length of info.json |
-| info.json | `0x01 0x06` |  | Retrieves a chunk of info.json |
-| Jump to bootloader | `0x01 0x07` | __Secure__ | Jump to bootloader<br><br>May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader |
-| info.json | `0x01 0x08` |  | Retrieves a unique identifier for the board. |
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
+| Version Query | `0x01 0x00` |  |<br>__Response:__ `u32`| QMK protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.|
+| Capabilities Query | `0x01 0x01` |  |<br>__Response:__ `u32`| QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Board identifiers | `0x01 0x02` |  |<br>__Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Vendor ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product Version: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* QMK Unique Identifier: `u32`| Retrieves the set of identifying information for the board.|
+| Board Manufacturer | `0x01 0x03` |  |<br>__Response:__ `string`| Retrieves the name of the manufacturer|
+| Product Name | `0x01 0x04` |  |<br>__Response:__ `string`| Retrieves the product name|
+| info.json length | `0x01 0x05` |  |<br>__Response:__ `u32`| Retrieves the length of info.json|
+| info.json | `0x01 0x06` |  |<br>__Request:__ `u16`<br>__Response:__ `u8[32]`| Retrieves a chunk of info.json|
+| Jump to bootloader | `0x01 0x07` | __Secure__ |<br>__Response:__ `u8`| Jump to bootloader<br><br>May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader|
+| info.json | `0x01 0x08` |  |<br>__Response:__ `u32[4]`| Retrieves a unique identifier for the board.|
 
 ### Keyboard - `0x02`
 This subsystem is always present, and reserved for user-specific functionality. No routes are defined by XAP.

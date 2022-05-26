@@ -1,0 +1,8 @@
+{%- if subroute.return_type == 'struct' -%}
+<br>__Response:__
+{%- for member in subroute.return_struct_members -%}
+<br>{{ "&nbsp;"|safe*4 }}* {{ member.name }}: `{{ member.type }}`
+{%- endfor -%}
+{%- elif subroute.return_type -%}
+<br>__Response:__ `{{ subroute.return_type }}`
+{%- endif -%}

@@ -28,7 +28,7 @@
                     type: command
                     name: Get Layer Count
                     define: GET_LAYER_COUNT
-                    description: TODO
+                    description: Query maximum number of layers that can be addressed within the keymap.
                     return_type: u8
                     return_constant: DYNAMIC_KEYMAP_LAYER_COUNT
                 }
@@ -36,7 +36,7 @@
                     type: command
                     name: Get Keycode
                     define: GET_KEYMAP_KEYCODE
-                    description: TODO
+                    description: Query the Keycode at the requested location.
                     request_type: struct
                     request_struct_length: 3
                     request_struct_members: [
@@ -60,7 +60,7 @@
                     type: command
                     name: Set Keycode
                     define: SET_KEYMAP_KEYCODE
-                    description: TODO
+                    description: Modify the Keycode at the requested location.
                     permissions: secure
                     request_type: struct
                     request_struct_length: 5
@@ -113,7 +113,7 @@
                     type: command
                     name: Get Keycode
                     define: GET_ENCODER_KEYCODE
-                    description: TODO
+                    description: Query the Keycode at the requested location.
                     request_type: struct
                     request_struct_length: 3
                     request_struct_members: [
@@ -138,7 +138,7 @@
                     name: Set Keycode
                     define: SET_ENCODER_KEYCODE
                     permissions: secure
-                    description: TODO
+                    description: Modify the Keycode at the requested location.
                     request_type: struct
                     request_struct_length: 5
                     request_struct_members: [
