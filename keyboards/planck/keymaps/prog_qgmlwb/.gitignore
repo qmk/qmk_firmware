@@ -1,4 +1,2 @@
 build
-printout/*.png
-printout/*.pdf
-printout/*.svg
+printout

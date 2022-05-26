@@ -64,7 +64,7 @@ Found in the QMK docs: <https://docs.qmk.fm>
 
 ## Printing layout
 
-This keymap uses macros such that [qmk configurator](https://config.qmk.fm) cannot match its behavior. Instead, the images are designed using the [pimpmykeyboard layout editor](http://www.keyboard-layout-editor.com). The folder `printout` contains the image source JSON files that can be imported into the editor using the `Raw Data` field.
+This keymap uses macros such that [qmk configurator](https://config.qmk.fm) cannot match its behavior. The images was designed using [Figma](https://figma.com).
 
 ## Future additions
 
