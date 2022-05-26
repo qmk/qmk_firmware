@@ -1,5 +1,4 @@
-SRC += $(USER_PATH)/davidkristoffersen.c \
-		$(USER_PATH)/util/functions.c \
+SRC += $(USER_PATH)/util/functions.c \
 		$(USER_PATH)/macros/macros.c \
 		$(USER_PATH)/macros/static.c \
 		$(USER_PATH)/macros/dynamic.c
