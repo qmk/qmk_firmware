@@ -152,11 +152,13 @@ static bool encoder_update(uint8_t index, uint8_t state) {
     if (encoder_pulses[i] >= resolution) {
         encoder_value[index]++;
         changed = true;
+        //DEBUG_UART_LOG(0x10); DEBUG_UART_LOG(index); DEBUG_UART_LOG(ENCODER_COUNTER_CLOCKWISE);
         encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
     }
     if (encoder_pulses[i] <= -resolution) { // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
         changed = true;
+        //DEBUG_UART_LOG(0x11); DEBUG_UART_LOG(index); DEBUG_UART_LOG(ENCODER_CLOCKWISE);
         encoder_update_kb(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[i] %= resolution;
@@ -194,12 +196,14 @@ void encoder_update_raw(uint8_t* slave_state) {
             delta--;
             encoder_value[index]++;
             changed = true;
+            //DEBUG_UART_LOG(0x12); DEBUG_UART_LOG(index); DEBUG_UART_LOG(ENCODER_COUNTER_CLOCKWISE);
             encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
         }
         while (delta < 0) {
             delta++;
             encoder_value[index]--;
             changed = true;
+            //DEBUG_UART_LOG(0x13); DEBUG_UART_LOG(index); DEBUG_UART_LOG(ENCODER_CLOCKWISE);
             encoder_update_kb(index, ENCODER_CLOCKWISE);
         }
     }

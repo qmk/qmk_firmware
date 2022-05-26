@@ -38,7 +38,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     // Is there a get_encoder_over_count() in quantum/encoder.c
     if (get_encoder_over_count != NULL) {
 #    ifdef AVR_UART_TX
-        DEBUG_UART_LOG(get_encoder_over_count());
+        int enc_over = get_encoder_over_count();
+        if (enc_over != 0) {
+            DEBUG_UART_LOG(0x80); DEBUG_UART_LOG(enc_over);
+        }
 #    endif
     }
     switch (index) {
