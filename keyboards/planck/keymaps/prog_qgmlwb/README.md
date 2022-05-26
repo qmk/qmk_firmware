@@ -38,19 +38,50 @@ cd <path/name>/keyboards/planck/keymaps/prog_qgmlwb
 
 ### Initialize QMK the first time
 
+Set default keyboard:
+
+```bash
+qmk config user.keyboard=planck/<rev>
+```
+
+Set default keymap:
+
+```bash
+qmk config user.keymap=prog_qgmlwb
+```
+
+Initialize libraries:
+
+```bash
+qmk setup
+```
+
+### Compile and flash the keyboard
+
+```bash
+qmk compile 
+qmk flash
+```
+
+### Optionally use the `flash.sh` script to do the last 3 steps
+
+```bash
+cd scripts
+```
+
+Initialize qmk:
+
 ```bash
 ./flash.sh --init --no-compile
 ```
 
-### Compile and flash keyboard
-
-- QMK toolbox
+Complie and flash with QMK toolbox:
 
 ```bash
 ./flash.sh
 ```
 
-- Terminal
+Complie and flash with the terminal:
 
 ```bash
 ./flash.sh --flash-cli

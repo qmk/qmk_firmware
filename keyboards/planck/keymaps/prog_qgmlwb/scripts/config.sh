@@ -9,8 +9,8 @@ keyboard_type="$keyboard/$pcb"
 keymap="prog_qgmlwb"
 layout="LAYOUT_ortho_4x12"
 
-repo="$(realpath $PWD/../../../..)"
-build_dir="build"
+repo="$(realpath $PWD/../../../../..)"
+build_dir="../build"
 build_hex="$build_dir/keymap.hex"
 
 col_reset="\e[m"
