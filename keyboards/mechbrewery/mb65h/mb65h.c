@@ -1,4 +1,5 @@
-/* Copyright 2021 Kyle McCreery
+/* Copyright 2022 MechBrewery
+ * Author: tuananhnguyen204 (https://github.com/AnthonyNguyen168) (tuananhnguyen204@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +14,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-#define HAL_USE_I2C TRUE
-#define HAL_USE_PWM TRUE
-#define HAL_USE_PAL TRUE
-#define HAL_USE_GPT TRUE
-
-#include_next <halconf.h>
-
+#include "mb65h.h"
