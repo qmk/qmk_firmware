@@ -1,0 +1,13 @@
+//   name             result                        chord keys
+COMB(move_to_nav_1,   TO(L_NAV),                    KC_H      ,KC_T      ,KC_N)
+COMB(move_to_nav_2,   TO(L_NAV),                    KC_U      ,KC_E      ,KC_O)
+COMB(move_to_num_1,   TO(L_NUM),                    KC_G      ,KC_C      ,KC_R)
+COMB(move_to_num_2,   TO(L_NUM),                    KC_P      ,KC_DOT    ,KC_COMM)
+COMB(move_to_mouse_1, TO(L_MOUSE),                  KC_M      ,KC_W      ,KC_V)
+COMB(move_to_mouse_2, TO(L_MOUSE),                  KC_K      ,KC_J      ,KC_Q)
+
+SUBS(email,           "rwijtvliet@gmail.com",       KC_QUOT   ,KC_COMM)
+SUBS(phone,           "17678104957",                KC_COMM   ,KC_DOT)
+SUBS(name,            "Ruud Wijtvliet",             KC_DOT    ,KC_P)
+
+SUBS(the,             "the",                        KC_T      ,KC_H)
