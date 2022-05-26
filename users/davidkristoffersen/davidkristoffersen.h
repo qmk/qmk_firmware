@@ -4,7 +4,7 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
-#include "src/layouts.h"
+#include "src/enums.h"
 
 #include "config.h"
 

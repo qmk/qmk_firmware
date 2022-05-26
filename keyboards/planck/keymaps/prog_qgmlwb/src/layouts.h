@@ -6,34 +6,13 @@
 #include QMK_KEYBOARD_H
 
 #include "davidkristoffersen.h"
+#include "enums.h"
 
 #include "normal.h"
 #include "qgmlwb.h"
 #include "special.h"
 
 #define KEYMAP const uint16_t PROGMEM
-
-// Layouts enum
-enum keyboard_layouts {
-    QGMLWB_NO,
-    QGMLWB_US,
-
-    QWERTY,
-    COLEMAK,
-    DVORAK,
-
-    NORMAL_LOWER,
-    NORMAL_RAISE,
-
-    QGMLWB_NO_LOWER,
-    QGMLWB_US_LOWER,
-
-    QGMLWB_NO_RAISE,
-    QGMLWB_US_RAISE,
-
-    ADJUST,
-    NUMPAD,
-};
 
 // Layouts keycodes
 #define lower MO(NORMAL_LOWER)
