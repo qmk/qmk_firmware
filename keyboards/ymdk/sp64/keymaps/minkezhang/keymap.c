@@ -140,8 +140,6 @@ uint32_t layer_state_set_user(uint32_t state) {
  *
  * N.B.: rgblight_set_layer_state calls rgblight_mode_noeeprom.
  */
-#ifdef RGBLIGHT_ENABLE
-#ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(1, layer_state_cmp(state, _FN));
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
     rgblight_set_layer_state(3, layer_state_cmp(state, _MIRROR));
