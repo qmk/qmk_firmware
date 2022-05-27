@@ -128,13 +128,7 @@ const rgblight_segment_t* const PROGMEM user_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 void keyboard_post_init_user(void) {
     rgblight_layers = user_rgb_layers;
 }
-#endif  // RGBLIGHT_LAYERS
-#endif  // RGBLIGHT_ENABLE
-
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-
-#ifdef RGBLIGHT_ENABLE
-#ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(0, layer_state_cmp(state, BASE));
 #endif  // RGBLIGHT_LAYERS
 #endif  // RGBLIGHT_ENABLE
