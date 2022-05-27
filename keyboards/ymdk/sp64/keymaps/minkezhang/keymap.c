@@ -112,8 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-#ifdef RGBLIGHT_ENABLE
-#ifdef RGBLIGHT_LAYERS
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 const rgblight_segment_t PROGMEM BASE_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 12, HSV_OFF});
 const rgblight_segment_t PROGMEM _FN_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 12, HSV_RED});
 const rgblight_segment_t PROGMEM _NUM_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 12, HSV_YELLOW});
