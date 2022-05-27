@@ -145,8 +145,6 @@ uint32_t layer_state_set_user(uint32_t state) {
     rgblight_set_layer_state(1, layer_state_cmp(state, _FN));
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
     rgblight_set_layer_state(3, layer_state_cmp(state, _MIRROR));
-#endif  // RGBLIGHT_LAYERS
-#endif  // RGBLIGHT_ENABLE
 
     return state;
 }
