@@ -3,16 +3,36 @@
 #define ______ KC_TRNS
 
 
+// needed for ALT_OSL1
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+// needed for ALT_OSL1
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  TRIPLE_TAP = 5,
+  TRIPLE_HOLD = 6
+};
+
+// needed for ALT_OSL1
+int cur_dance (qk_tap_dance_state_t *state);
+void alt_finished (qk_tap_dance_state_t *state, void *user_data);
+void alt_reset (qk_tap_dance_state_t *state, void *user_data);
+
 // Tap Dance declarations
 enum {
 	TD_ESC,
 	TD_CLN,
 	TD_QUO,
 	TD_HOM,
-	TD_END
-	// TD_INS
+	TD_END,
+	ALT_OSL1
 };
-
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -21,7 +41,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 	[TD_QUO] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQUO),
 	[TD_HOM] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_HOME),
 	[TD_END] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_END),
-	// [TD_INS] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_INS),
+	[ALT_OSL1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset)
 };
 
 
@@ -31,13 +51,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 						 LGUI_T(KC_TAB), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    TD(TD_HOM), TD(TD_END), RGUI_T(KC_BSLS),
 						 KC_CAPS,         KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD_CLN), TD(TD_QUO),         KC_ENT,
 						 KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                       RSFT_T(KC_UP),
-						 KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,                                                  RALT_T(KC_DEL), LT(1,KC_LEFT), LT(2,KC_DOWN), RCTL_T(KC_RIGHT)),
+						 KC_LCTL, KC_LGUI, TD(ALT_OSL1), KC_SPC,                                                  RALT_T(KC_DEL), LT(1,KC_LEFT), LT(2,KC_DOWN), RCTL_T(KC_RIGHT)),
 
 	[1] = LAYOUT_60_ansi(KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
 						 _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_INS,  KC_HOME, KC_END,  KC_DEL,
 						 _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______, _______, _______, _______, _______, KC_PGUP, KC_PGDN,          _______,
 						 _______,          _______, _______, KC_CALC, _______, _______, _______, _______, _______, TG(2),   _______,          _______,
-						 _______, KC_TGUI, _______,                            _______,                            _______, _______, MO(3),   _______),
+						 _______, KC_TGUI, TD(ALT_OSL1),                       _______,                            _______, _______, MO(3),   _______),
 
 	[2] = LAYOUT_60_ansi(TD(TD_ESC), KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, RGB_TOG, RGB_MOD, RGB_RMOD,
 						 _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -125,60 +145,100 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-// White lights for the keys to adjust RGB (H + S + V + Speed)
+// Indicator LEDs per Layer
 //
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-	if (layer_state_is(2)) {
-		RGB_MATRIX_INDICATOR_SET_COLOR(15, 255, 255, 255); // Q
-		RGB_MATRIX_INDICATOR_SET_COLOR(16, 255, 255, 255); // W
-		RGB_MATRIX_INDICATOR_SET_COLOR(17,   0, 255, 0  ); // E
-		RGB_MATRIX_INDICATOR_SET_COLOR(18, 255, 255, 255); // R
-		RGB_MATRIX_INDICATOR_SET_COLOR(29, 255, 255, 255); // A
-		RGB_MATRIX_INDICATOR_SET_COLOR(30, 255, 255, 255); // S
-		RGB_MATRIX_INDICATOR_SET_COLOR(31,   0, 255, 0  ); // D
-		RGB_MATRIX_INDICATOR_SET_COLOR(32, 255, 255, 255); // F
-		/* RGB_MATRIX_INDICATOR_SET_COLOR(49, 255, 255, 255); // .> P1 */
-		RGB_MATRIX_INDICATOR_SET_COLOR(50, 255, 255, 255); // .> P2
-		/* RGB_MATRIX_INDICATOR_SET_COLOR(51, 255, 255, 255); // .> P3 */
-		RGB_MATRIX_INDICATOR_SET_COLOR(59, 255, 255, 255); // Fn2
+
+	switch (get_highest_layer(layer_state)) {
+		case 1:
+			RGB_MATRIX_INDICATOR_SET_COLOR(50, 255, 0, 0); // .> P2
+			break;
+		case 2:
+			RGB_MATRIX_INDICATOR_SET_COLOR(15, 255, 255, 255); // Q
+			RGB_MATRIX_INDICATOR_SET_COLOR(16, 255, 255, 255); // W
+			RGB_MATRIX_INDICATOR_SET_COLOR(17,   0, 255, 0  ); // E
+			RGB_MATRIX_INDICATOR_SET_COLOR(18, 255, 255, 255); // R
+			RGB_MATRIX_INDICATOR_SET_COLOR(29, 255, 255, 255); // A
+			RGB_MATRIX_INDICATOR_SET_COLOR(30, 255, 255, 255); // S
+			RGB_MATRIX_INDICATOR_SET_COLOR(31,   0, 255, 0  ); // D
+			RGB_MATRIX_INDICATOR_SET_COLOR(32, 255, 255, 255); // F
+			// RGB_MATRIX_INDICATOR_SET_COLOR(49, 255, 255, 255); // .> P1
+			RGB_MATRIX_INDICATOR_SET_COLOR(50, 255, 255, 255); // .> P2
+			// RGB_MATRIX_INDICATOR_SET_COLOR(51, 255, 255, 255); // .> P3
+			RGB_MATRIX_INDICATOR_SET_COLOR(59, 255, 255, 255); // Fn2
+			break;
+		default:
+			break;
 	}
 }
 
 
-// Tap Dance functions ; / : *** function not necessary, works with _DOUBLE
-/* void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) { */
-/*     if (state->count == 1) { */
-/*         register_code(KC_SCLN); */
-/*     } else { */
-/*         register_code16(KC_COLN); */
-/*     } */
-/* } */
+// needed for ALT_OSL1
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->pressed) return SINGLE_HOLD;
+    else return SINGLE_TAP;
+  }
+  else if (state->count == 2) {
+    if (state->pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  }
+  else if (state->count == 3) {
+    if (state->interrupted || !state->pressed)  return TRIPLE_TAP;
+    else return TRIPLE_HOLD;
+  }
+  else return 8;
+}
 
-/* void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) { */
-/*     if (state->count == 1) { */
-/*         unregister_code(KC_SCLN); */
-/*     } else { */
-/*         unregister_code16(KC_COLN); */
-/*     } */
-/* } */
+// needed for ALT_OSL1
+static tap alttap_state = {
+  .is_press_action = true,
+  .state = 0
+};
 
+// needed for ALT_OSL1
+void alt_finished (qk_tap_dance_state_t *state, void *user_data) {
+  alttap_state.state = cur_dance(state);
+  switch (alttap_state.state) {
+    case SINGLE_TAP: set_oneshot_layer(1, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+    case SINGLE_HOLD: register_code(KC_LALT); break;
+    case DOUBLE_TAP: set_oneshot_layer(1, ONESHOT_START); set_oneshot_layer(1, ONESHOT_PRESSED); break;
+    case DOUBLE_HOLD: register_code(KC_LALT); layer_on(1); break;
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
+}
 
-// Tap Dance functions ' / " *** function not necessary, works with _DOUBLE
-/* void dance_quo_finished(qk_tap_dance_state_t *state, void *user_data) { */
-/*     if (state->count == 1) { */
-/*         register_code(KC_QUOT); */
-/*     } else { */
-/*         register_code16(KC_DQUO); */
-/*     } */
-/* } */
+// needed for ALT_OSL1
+void alt_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (alttap_state.state) {
+    case SINGLE_TAP: break;
+    case SINGLE_HOLD: unregister_code(KC_LALT); break;
+    case DOUBLE_TAP: break;
+    case DOUBLE_HOLD: layer_off(1); unregister_code(KC_LALT); break;
+  }
+  alttap_state.state = 0;
+}
 
-/* void dance_quo_reset(qk_tap_dance_state_t *state, void *user_data) { */
-/*     if (state->count == 1) { */
-/*         unregister_code(KC_QUOT); */
-/*     } else { */
-/*         unregister_code16(KC_DQUO); */
-/*     } */
-/* } */
-
-	/* [TD_CLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset), */
-	/* [TD_QUO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quo_finished, dance_quo_reset), */
+// needed for ALT_OSL1
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_TRNS:
+    case KC_NO:
+      /* Always cancel one-shot layer when another key gets pressed */
+      if (record->event.pressed && is_oneshot_layer_active())
+      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+      return true;
+    case RESET:
+      /* Don't allow reset from oneshot layer state */
+      if (record->event.pressed && is_oneshot_layer_active()){
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        return false;
+      }
+      return true;
+    default:
+      return true;
+  }
+  return true;
+}
