@@ -20,6 +20,8 @@
 
 // Configuration options
 #define SCROLL_TIMEOUT 25
+#define DELTA_X_THRESHOLD 60
+#define DELTA_Y_THRESHOLD 15
 
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
 bool scroll_enabled = false;
@@ -30,8 +32,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (scroll_enabled) {
-        mouse_report.h = mouse_report.x;
-        mouse_report.v = mouse_report.y;
+        delta_x += mouse_report.x;
+        delta_y += mouse_report.y;
+
+        if (delta_x > DELTA_X_THRESHOLD) {
+            mouse_report.h = 1;
+            delta_x        = 0;
+        } else if (delta_x < -DELTA_X_THRESHOLD) {
+            mouse_report.h = -1;
+            delta_x        = 0;
+        }
+
+        if (delta_y > DELTA_Y_THRESHOLD) {
+            mouse_report.v = -1;
+            delta_y        = 0;
+        } else if (delta_y < -DELTA_Y_THRESHOLD) {
+            mouse_report.v = 1;
+            delta_y        = 0;
+        }
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
