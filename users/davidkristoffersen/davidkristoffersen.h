@@ -5,7 +5,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "config.h"
 #include "src/enums.h"
 
 #include "norwegian.h"
