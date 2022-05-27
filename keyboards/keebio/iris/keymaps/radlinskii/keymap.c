@@ -153,7 +153,13 @@ const rgblight_segment_t PROGMEM MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t PROGMEM DANGER_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, 0, 0, 255},  // RESET
-    {1, 61, 0, 255, 255}
+    {1, 24, 0, 255, 255},
+    {25, 1, 85, 255, 255}, // TO(_QWERTY)
+    {26, 2, 0, 255, 255},
+
+    {34, 25, 0, 255, 255},
+    {59, 1, 85, 255, 255}, // TO(_QWERTY)
+    {60, 2, 0, 255, 255}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
