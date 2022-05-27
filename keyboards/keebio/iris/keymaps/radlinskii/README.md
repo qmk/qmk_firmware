@@ -2,7 +2,7 @@
 
 Layers:
 
--   QWERTY
+-   alphabetic
 -   numeric + symbols
 -   navigation + mouse
 -   miscellaneous media keys
