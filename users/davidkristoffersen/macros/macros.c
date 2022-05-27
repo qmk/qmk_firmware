@@ -6,7 +6,7 @@
 // Prepend key records with macros
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
-        handle_left_space(keycode, record);
+        handle_split_space(keycode, record);
         handle_false(process_static(keycode, record));
         handle_false(process_dynamic(keycode, record));
     }

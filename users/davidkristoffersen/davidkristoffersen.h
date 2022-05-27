@@ -12,7 +12,6 @@
 
 #include "util/functions.h"
 
-#include "hardware/left_space.h"
-#include "hardware/swap_gui_alt.h"
+#include "hardware/split_space.h"
 
 #include "macros/macros.h"

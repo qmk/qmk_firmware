@@ -21,14 +21,14 @@
     KC_TAB,  KC_Q,    KC_G,    KC_M,    KC_L,    KC_W,    KC_B,    KC_Y,    KC_U,    KC_V,    NO_QUOT, KC_BSPC,\
     KC_ESC,  KC_D,    KC_S,    KC_T,    KC_N,    KC_R,    KC_I,    KC_A,    KC_E,    KC_O,    KC_H,    KC_ENT,\
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_F,    KC_J,    KC_K,    KC_P,    KC_COMM, KC_DOT,  NO_MINS, NO_BSLS,\
-    KC_LCTL, KC_LALT, numpad,  KC_LGUI, QNLower, KC_SPC,  KC_SPC,  QNRaise, KC_LEFT, KC_DOWN, KC_UP,   SPACE_TRI\
+    KC_LCTL, KC_LALT, numpad,  KC_LGUI, QNLower, KC_LSPC, KC_RSPC, QNRaise, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT\
 )
 // English Layout
 #define qgmlwb_us_map LAYOUT_ortho_4x12(\
     KC_TAB,  KC_Q,    KC_G,    KC_M,    KC_L,    KC_W,    KC_B,    KC_Y,    KC_U,    KC_V,    KC_QUOT, KC_BSPC,\
     KC_ESC,  KC_D,    KC_S,    KC_T,    KC_N,    KC_R,    KC_I,    KC_A,    KC_E,    KC_O,    KC_H,    KC_ENT,\
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_F,    KC_J,    KC_K,    KC_P,    KC_COMM, KC_DOT,  KC_MINS, KC_BSLS,\
-    KC_LCTL, KC_LALT, numpad,  KC_LGUI, QELower, KC_SPC,  KC_SPC,  QERaise, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT\
+    KC_LCTL, KC_LALT, numpad,  KC_LGUI, QELower, KC_LSPC, KC_RSPC, QERaise, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT\
 )
 
 /* Lower - QGMLWB
