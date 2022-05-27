@@ -20,7 +20,7 @@ Instructions for building the K310 and K320 firmware can be found here:
 
 #### Requirements
 
-- The Durgod k3x0 - different batches have different controllers, so when opening the keyboard, you will have to make sure it's using SMT32.
+- The Durgod K320/K310 - different batches have different controllers, so when opening the keyboard, you will have to make sure it's using SMT32 controller.
 - Another keyboard - when on bootloader mode, you can't use the keyboard to type and execute the commands (not really required if you can use any mouse interface to type and execute the commands).
 - 2 prying tools - to open the keyboard.
 - Another helping hand - it can be also done with just two hands, but it will require a lot of dexterity.
@@ -30,7 +30,7 @@ Instructions for building the K310 and K320 firmware can be found here:
 
 1. Unplug USB cable.
 2. Open the keyboard case - there are plenty of youtube videos in that, but you will basically need 2 prying tools and a certain amount of force.
-3. After opening the keyboard, put the PCB upsides down, and the controller should be near the LEDs, make sure it's using the right controller SMT32.
+3. After opening the keyboard, put the PCB upsides down, and the controller should be near the LEDs, and make sure it's using the right controller (SMT32).
 4. Use the cable to short Boot0 to Vdd, by shorting R21 to C27 on the sides closest to the processor, as shown:
 
 <img src="https://i.imgur.com/hvDnw5a.jpg" width="520" height="693" alt="Shorting Boot0 to Vdd on K320">
