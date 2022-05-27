@@ -79,7 +79,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-//Lights https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
 const rgblight_segment_t PROGMEM QWERTY_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 6, 117, 255, 255},
     {6, 6, 107, 255, 255},
@@ -158,7 +157,6 @@ const rgblight_segment_t PROGMEM DANGER_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 61, 0, 255, 255}
 );
 
-// Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     QWERTY_Layer,
     NUM_SYM_Layer,
@@ -168,13 +166,10 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
     rgblight_layers = my_rgb_layers;
 }
 
-// Enable and disabling lighting layers
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    // Both layers will light up if both kb layers are active
     rgblight_set_layer_state(_QWERTY, layer_state_cmp(state, _QWERTY));
 
     return state;

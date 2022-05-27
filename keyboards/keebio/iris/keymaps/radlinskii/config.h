@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLIGHT_ANIMATIONS
 #undef RGBLIGHT_EFFECT_BREATHING // fading in and out
-#undef RGBLIGHT_EFFECT_RAINBOW_MOOD // rainbow all caps at the same time
+#undef RGBLIGHT_EFFECT_RAINBOW_MOOD // rainbow all keys at the same time
 #undef RGBLIGHT_EFFECT_RAINBOW_SWIRL // rainbow top bottom
 #undef RGBLIGHT_EFFECT_SNAKE
 #undef RGBLIGHT_EFFECT_KNIGHT
