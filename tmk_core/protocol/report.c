@@ -278,3 +278,16 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report) {
 #endif
     memset(keyboard_report->keys, 0, sizeof(keyboard_report->keys));
 }
+
+#ifdef MOUSE_ENABLE
+/**
+ * @brief Compares 2 mouse reports for difference and returns result
+ *
+ * @param[in] new_report report_mouse_t
+ * @param[in] old_report report_mouse_t
+ * @return bool result
+ */
+__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report) {
+    return memcmp(new_report, old_report, sizeof(report_mouse_t));
+}
+#endif

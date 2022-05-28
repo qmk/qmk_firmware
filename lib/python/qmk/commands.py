@@ -228,7 +228,7 @@ def dump_lines(output_file, lines, quiet=True):
         output_file.parent.mkdir(parents=True, exist_ok=True)
         if output_file.exists():
             output_file.replace(output_file.parent / (output_file.name + '.bak'))
-        output_file.write_text(generated)
+        output_file.write_text(generated, encoding='utf-8')
 
         if not quiet:
             cli.log.info(f'Wrote {output_file.name} to {output_file}.')
