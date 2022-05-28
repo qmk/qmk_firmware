@@ -1,16 +1,25 @@
-# Default Hillside 48 Layout (in .c format)
+# Default Hillside 52 Layout (in .c format)
 
 This layout is for those who prefer defining their layout in a keymap.c,
   instead of graphically with a keymap.json.
-It is also a little simpler than the default layout as it puts the numbers along the top row
-  and has only four layers.
+It is the same as the [default keymap.json layout](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/hillside/52/keymaps/default),
+  except for having only a QWERTY base layer.
+  
+The make and flash commands are
 
-With this layout it is easy to test that all the switches and the configuration works
-  by using a keyboard tester app,
-  such as the [QMK Configurator](https://config.qmk.fm/#/test).
-To test the board, connect the two halves and connect the left to the computer.
-All the keys should produce output, except the two layer keys,
+```
+make handwired/hillside/52:default_dot_c
+make handwired/hillside/52:default_doc_c:flash
+
+```
+
+It also serves as a simple, clean layout 
+  to verify that the configuration and switches work.
+Use the [QMK Configurator Tester](https://config.qmk.fm/#/test) 
+ to see that the switches produce output.
+All the keys should register on the layout tester 
+  except for the caps word and the two layer keys.
 The LEDs should glow a nice red.
-
-If you want to connect the right half to the computer,
-  uncomment the define MASTER_RIGHT line in config.h.
+If they do not, you may need to clear the persistent EEPROM settings with the
+  EE_CLR key on the adjust layer,
+  or enable them with the RGB_TOG key.
