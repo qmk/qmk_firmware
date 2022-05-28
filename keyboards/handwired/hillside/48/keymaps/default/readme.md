@@ -1,6 +1,6 @@
 # Default Keymap
 
-For easier initial use, this keymap follows the layout of more standard keyboards where possible. It is a starting point for you to tweak over time to suit your preferences better. You can easily customize it with the [QMK configurator](https://config.qmk.fm/#/hillside/48/LAYOUT).
+For easier initial use, this keymap follows the layout of more standard keyboards where possible. It is a starting point for you to tweak over time to suit your preferences better. You can easily customize it with the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/48/LAYOUT).
 
 Some of its key features are:
 - Numbers and symbols along the top row of their layers for familiarity.
@@ -135,12 +135,12 @@ The online configurator provides a straightforward visual way to work with a sim
 So this default ```keymap.json``` was created with the online configurator
   and formatted for easier reading and editing.
 
-If you wish, you can edit the ```keymap.json``` directly in a text editor, optionally use the below ```json2hill.py``` to restore the spacing, and then compile and flash it.
+If you wish, you can edit the ```keymap.json``` directly in a text editor, optionally use the below ```json2hill48.py``` to restore the spacing, and then compile and flash it.
 
 Or, you can use the graphical configurator to edit the keymap. To do that:
 
-- Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/LAYOUT)
-- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/keymaps/default/keymap.json```
+- Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/48/LAYOUT)
+- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/48/keymaps/default/keymap.json```
 - Make the changes you wish to the layout
 - Save the keymap using the green down arrow button.
 - Copy those changes back into your QMK repository and reformat for easy reading using the format script:
