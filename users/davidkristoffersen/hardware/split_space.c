@@ -5,7 +5,7 @@
 
 #ifdef SPLIT_SPACE
 void handle_split_space(uint16_t keycode, keyrecord_t* record) {
-    if (IS_LAYER_ON(QGMLWB_NO_LOWER)) clear_oneshot_mods();
+    if (IS_LAYER_ON(NUMPAD)) clear_oneshot_mods();
 
     if (keycode == KC_LSPC) {
         if (get_oneshot_mods() & MOD_MASK_SHIFT) {

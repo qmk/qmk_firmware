@@ -5,33 +5,34 @@
 
 #include "layouts.h"
 
-/* Adjust, every thing on top row (except backspace) is related to rgb stuff
+/* Adjust
+ *                      v------------------------RGB CONTROL--------------------v
  * ,-----------------------------------------------------------------------------------.
- * |      |Reset |Debug |RGBTGL|RGBMDE| Hue+ | Hue- | Sat+ | Sat- | BriU | BriD | Bksp |
+ * |      | Reset| Debug| RGB  |RGBMod| Hue- | Hue+ | Sat- | Sat+ | Bri- | Bri+ | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |MseCly| AudOn|AudOff|AgNorm|AgSwap|Dvorak|Colmak|Qwerty|QgmlEN|QgmlNO|
+ * |      | XXXX |MusMod|AudOff| AudOn|AgNorm|AgSwap|Dvorak|Colmak|Qwerty|QgmlEN|QgmlNO|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice+|Voice-|MusOn |MusOff|MIDIOn|MIDIOF|TermOn|TermOf|      |      |      |
+ * |      |Voice-|Voice+|MusOff| MusOn|MIDIOf|MIDIOn|TermOf|TermOn| XXXX | XXXX | XXXX |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |             |      | XXXX | XXXX | XXXX | XXXX |
  * `-----------------------------------------------------------------------------------'
 */
 #define adjust_map LAYOUT_ortho_4x12(\
-    _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI,    RGB_SAD,     RGB_VAI,    RGB_VAD,       KC_DEL,\
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, DF(DVORAK), DF(COLEMAK), DF(QWERTY), DF(QGMLWB_EN), DF(QGMLWB_NO),\
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON,    TERM_OFF,    XXXXXXX,    _______,       _______,\
-    _______, _______, _______, _______, _______, _______, _______, _______,    _______,     _______,    _______,       _______\
+    _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD,    RGB_SAI,     RGB_VAD,    RGB_VAI,       KC_DEL,\
+    _______, XXXXXXX, MU_MOD,  AU_OFF,  AU_ON,   AG_NORM, AG_SWAP, DF(DVORAK), DF(COLEMAK), DF(QWERTY), DF(QGMLWB_EN), DF(QGMLWB_NO),\
+    _______, MUV_IN,  MUV_DE,  MU_OFF,  MU_ON,   MI_OFF,  MI_ON,   TERM_OFF,   TERM_ON,     XXXXXXX,    XXXXXXX,       XXXXXXX,\
+    _______, _______, _______, _______, _______, _______, _______, _______,    XXXXXXX,     XXXXXXX,    XXXXXXX,       XXXXXXX\
 )
 
 /* Numpad
  * ,-----------------------------------------------------------------------------------.
- * |      | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |   7  |   8  |   9  |   /  |      |
+ * |      | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |  7   |  8   |  9   |  /   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |   4  |   5  |   6  |   *  |      |
+ * |      | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |  4   |  5   |  6   |  *   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |   1  |   2  |   3  |   -  | XXXX |
+ * |      | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |  1   |  2   |  3   |  -   | XXXX |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      | XXXX |      |      |   0  |   ,  |   .  |   +  | XXXX |
+ * |      |      |      |      | XXXX |      |      |  0   |  ,   |  .   |  +   | XXXX |
  * `-----------------------------------------------------------------------------------'
 */
 #define numpad_map LAYOUT_ortho_4x12(\
