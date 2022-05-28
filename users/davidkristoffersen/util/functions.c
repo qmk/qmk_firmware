@@ -8,8 +8,8 @@ inline int get_language() {
     if (layer_state_cmp(default_layer_state, QGMLWB_NO)) {
         return QGMLWB_NO;
     }
-    if (layer_state_cmp(default_layer_state, QGMLWB_US)) {
-        return QGMLWB_US;
+    if (layer_state_cmp(default_layer_state, QGMLWB_EN)) {
+        return QGMLWB_EN;
     }
     return -1;
 }

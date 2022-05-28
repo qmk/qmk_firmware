@@ -5,7 +5,7 @@
 
 KEYMAP keymaps [][MATRIX_ROWS][MATRIX_COLS] = {
     [QGMLWB_NO] = qgmlwb_no_map,
-    [QGMLWB_US] = qgmlwb_us_map,
+    [QGMLWB_EN] = qgmlwb_en_map,
 
     [QWERTY] = qwerty_map,
     [COLEMAK] = colemak_map,

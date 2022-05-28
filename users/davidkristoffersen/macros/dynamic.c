@@ -13,15 +13,16 @@ typedef struct shift_code {
 // Array of shift codes to convert
 const shift_code_t SHIFT_CODES [] = {
     // NO
-    {.lang = QGMLWB_NO, .pre = NO_QUOT, .post = NO_DQUO},
-    {.lang = QGMLWB_NO, .pre = NO_BSLS, .post = NO_PIPE},
-    // US
-    {.lang = QGMLWB_US, .pre = KC_COMM, .post = KC_SCLN},
-    {.lang = QGMLWB_US, .pre = KC_DOT, .post = KC_COLN},
+    {.lang = QGMLWB_NO, .pre = KC_QUOT, .post = NO_DQUO},
+    {.lang = QGMLWB_NO, .pre = KC_BSLS, .post = NO_PIPE},
+    // EN
+    {.lang = QGMLWB_EN, .pre = KC_COMM, .post = KC_SCLN},
+    {.lang = QGMLWB_EN, .pre = KC_DOT, .post = KC_COLN},
 };
 
-const int LANG_CODES_SIZE = 25;
-const uint16_t LANG_CODES[25][2] = {
+// English to Norwegian code translations
+const int EN_NO_CODES_SIZE = 25;
+const uint16_t EN_NO_CODES[25][2] = {
     {KC_QUOT, NO_QUOT},
     {KC_MINS, NO_MINS},
     {KC_BSLS, NO_BSLS},
@@ -78,24 +79,21 @@ bool handle_special_characters(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-uint16_t handle_language(uint16_t keycode, keyrecord_t* record) {
+bool handle_language(uint16_t keycode, keyrecord_t* record) {
     if (get_language() == QGMLWB_NO) {
-        for (int i = 0; i < LANG_CODES_SIZE; i++) {
-            if (keycode == LANG_CODES[i][0]) {
+        for (int i = 0; i < EN_NO_CODES_SIZE; i++) {
+            if (keycode == EN_NO_CODES[i][0]) {
                 unregister_code(keycode);
-                return LANG_CODES[i][1];
+                tap_code16(EN_NO_CODES[i][1]);
+                return false;
             }
         }
     }
-    return keycode;
+    return true;
 }
 
 bool process_dynamic(uint16_t keycode, keyrecord_t* record) {
-    uint16_t new_keycode = handle_language(keycode, record);
-    handle_false(handle_special_characters(new_keycode, record));
-    if (new_keycode != keycode) {
-        tap_code16(new_keycode);
-        return false;
-    }
+    handle_false(handle_special_characters(keycode, record));
+    handle_false(handle_language(keycode, record));
     return true;
 }
