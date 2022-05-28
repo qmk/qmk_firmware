@@ -120,5 +120,17 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
     * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
     * [ ] `git push upstream breakpoint_<YYYY>_<MM>_<DD>`
+    
+* All submodules under `lib` now need to be checked against their QMK-based forks:
+    * [ ] `git submodule foreach git log -n1`
+    * [ ] Validate each submodule SHA1 matches the qmk fork, e.g. for ChibiOS:
+        * Go to [qmk/ChibiOS](https://github.com/qmk/ChibiOS)
+        * Compare the commit hash in the above output to the commit hash in the repository
+        * If there's a mismatch:
+            * [ ] `cd lib/chibios`
+            * [ ] `git fetch --all`
+            * [ ] `git checkout master`
+            * [ ] `git reset --hard <commit hash>`
+            * [ ] `git push origin master --force-with-lease`
 
 * (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
