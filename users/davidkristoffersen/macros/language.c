@@ -1,8 +1,9 @@
 // Copyright 2022 David Kristoffersen (@davidkristoffersen)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "dynamic.h"
+#include "macros.h"
 
+#ifdef MULTI_LANGUAGE
 // Shift codes conversion struct
 typedef struct shift_code {
     uint16_t pre;
@@ -12,15 +13,18 @@ typedef struct shift_code {
 
 // Array of shift code translations
 const shift_code_t SHIFT_CODES [] = {
-    // NO
-    {.lang = QGMLWB_NO, .pre = KC_QUOT, .post = NO_DQUO},
-    {.lang = QGMLWB_NO, .pre = KC_BSLS, .post = NO_PIPE},
-    // EN
-    {.lang = QGMLWB_EN, .pre = KC_COMM, .post = KC_SCLN},
-    {.lang = QGMLWB_EN, .pre = KC_DOT, .post = KC_COLN},
+#ifdef LAYER_NO
+    {.lang = LAYER_NO, .pre = KC_QUOT, .post = NO_DQUO},
+    {.lang = LAYER_NO, .pre = KC_BSLS, .post = NO_PIPE},
+#endif
+#ifdef LAYER_NO
+    {.lang = LAYER_EN, .pre = KC_COMM, .post = KC_SCLN},
+    {.lang = LAYER_EN, .pre = KC_DOT,  .post = KC_COLN},
+#endif
 };
 const int SHIFT_CODES_SIZE = sizeof(SHIFT_CODES) / sizeof(SHIFT_CODES[0]);
 
+#if defined LAYER_EN && defined LAYER_NO
 // Array of English to Norwegian code translations
 const uint16_t EN_NO_CODES[25][2] = {
     {KC_QUOT, NO_QUOT},
@@ -50,23 +54,20 @@ const uint16_t EN_NO_CODES[25][2] = {
     {KC_GRV,  NO_GRV}
 };
 const int EN_NO_CODES_SIZE = sizeof(EN_NO_CODES) / sizeof(EN_NO_CODES[0]);
+#endif
 
+// Handle conversion of special shift codes
 bool handle_shift(uint16_t keycode, keyrecord_t* record) {
-    // Fix special shift keys
     if (get_mods() & MOD_MASK_SHIFT) {
         // Current active language
         int lang = get_language();
-
         // No action was needed
         if (lang == -1) return true;
 
         for (int i = 0; i < SHIFT_CODES_SIZE; i++) {
-            // Shifted key is changed
             if (lang == SHIFT_CODES[i].lang && keycode == SHIFT_CODES[i].pre) {
-                // Shift disabled
+                // Tap new key while shift is disabled
                 unregister_code(KC_LSFT);
-
-                // Tap the desired key
                 tap_code16(SHIFT_CODES[i].post);
                 register_code(KC_LSFT);
 
@@ -77,21 +78,26 @@ bool handle_shift(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
+// Handle conversion of English to Norwegian codes
 bool handle_language(uint16_t keycode, keyrecord_t* record) {
-    if (get_language() == QGMLWB_NO) {
+#if defined LAYER_EN && defined LAYER_NO
+    if (get_language() == LAYER_NO) {
         for (int i = 0; i < EN_NO_CODES_SIZE; i++) {
             if (keycode == EN_NO_CODES[i][0]) {
+                // Disable old key and tap the new key
                 unregister_code(keycode);
                 tap_code16(EN_NO_CODES[i][1]);
                 return false;
             }
         }
     }
+#endif
     return true;
 }
 
-bool process_dynamic(uint16_t keycode, keyrecord_t* record) {
+bool process_language(uint16_t keycode, keyrecord_t* record) {
     handle_false(handle_shift(keycode, record));
     handle_false(handle_language(keycode, record));
     return true;
 }
+#endif

@@ -6,9 +6,13 @@
 // Prepend key records with macros
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
+#ifdef SPLIT_SPACE
         handle_split_space(keycode, record);
-        handle_false(process_static(keycode, record));
-        handle_false(process_dynamic(keycode, record));
+#endif
+        handle_false(process_debug(keycode, record));
+#ifdef MULTI_LANGUAGE
+        handle_false(process_language(keycode, record));
+#endif
     }
     return true;
 }

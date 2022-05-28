@@ -1,10 +1,10 @@
 // Copyright 2022 David Kristoffersen (@davidkristoffersen)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "static.h"
+#include "macros.h"
 
 // Replace key records with macros
-bool handle_dead_keys(uint16_t keycode, keyrecord_t* record) {
+bool handle_test(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
     case TEST_0:
         // tap_code16(KC_0);
@@ -19,7 +19,7 @@ bool handle_dead_keys(uint16_t keycode, keyrecord_t* record) {
     return true;
 };
 
-bool process_static(uint16_t keycode, keyrecord_t* record) {
-    handle_false(handle_dead_keys(keycode, record));
+bool process_debug(uint16_t keycode, keyrecord_t* record) {
+    handle_false(handle_test(keycode, record));
     return true;
 }

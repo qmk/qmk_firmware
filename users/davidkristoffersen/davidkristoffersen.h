@@ -5,7 +5,9 @@
 
 #include QMK_KEYBOARD_H
 
+#ifdef MULTI_LANGUAGE
 #include "src/enums.h"
+#endif
 
 #include "norwegian.h"
 

@@ -4,12 +4,18 @@
 #include "functions.h"
 
 // Get current language layer
-inline int get_language() {
-    if (layer_state_cmp(default_layer_state, QGMLWB_NO)) {
-        return QGMLWB_NO;
+#ifdef MULTI_LANGUAGE
+int get_language() {
+#ifdef LAYER_NO
+    if (layer_state_cmp(default_layer_state, LAYER_NO)) {
+        return LAYER_NO;
     }
-    if (layer_state_cmp(default_layer_state, QGMLWB_EN)) {
-        return QGMLWB_EN;
+#endif
+#ifdef LAYER_EN
+    if (layer_state_cmp(default_layer_state, LAYER_EN)) {
+        return LAYER_EN;
     }
+#endif
     return -1;
 }
+#endif

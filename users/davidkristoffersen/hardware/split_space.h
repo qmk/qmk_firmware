@@ -9,9 +9,9 @@
 
 #ifdef SPLIT_SPACE
 #    define KC_LSPC LT(QGMLWB_NO_LOWER, KC_NO)
-void handle_split_space(uint16_t keycode, keyrecord_t* record);
 #else
 #   define KC_LSPC KC_SPACE
-#   define handle_split_space(k, r)
 #endif
+
+void handle_split_space(uint16_t keycode, keyrecord_t* record);
 
