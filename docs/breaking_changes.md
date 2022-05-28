@@ -58,15 +58,19 @@ This happens immediately after the previous `develop` branch is merged.
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
     * [ ] `git pull --ff-only`
-    * [ ] `git checkout -b develop`
+    * [ ] `git checkout develop`
+    * [ ] `git pull --ff-only`
+    * [ ] `git merge --no-ff master`
     * [ ] Edit `readme.md`
         * [ ] Add a big notice at the top that this is a testing branch.
         * [ ] Include a link to this document
     * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
     * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
+    * [ ] `git push upstream breakpoint_<YYYY>_<MM>_<DD>`
+    * [ ] `git checkout master`
+    * [ ] `git pull --ff-only`
     * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
-    * [ ] `git push upstream develop`
-    * [ ] `git push --tags`
+    * [ ] `git push upstream <next_version>`
 
 ## 4 Weeks Before Merge
 
