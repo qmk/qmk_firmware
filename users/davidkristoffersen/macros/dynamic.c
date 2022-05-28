@@ -20,6 +20,35 @@ const shift_code_t SHIFT_CODES [] = {
     {.lang = QGMLWB_US, .pre = KC_DOT, .post = KC_COLN},
 };
 
+const int LANG_CODES_SIZE = 25;
+const uint16_t LANG_CODES[25][2] = {
+    {KC_QUOT, NO_QUOT},
+    {KC_MINS, NO_MINS},
+    {KC_BSLS, NO_BSLS},
+    {KC_LBRC, NO_LBRC},
+    {KC_LCBR, NO_LCBR},
+    {KC_LPRN, NO_LPRN},
+    {KC_LT,   NO_LESS},
+    {KC_GT,   NO_GRTR},
+    {KC_RPRN, NO_RPRN},
+    {KC_RCBR, NO_RCBR},
+    {KC_RBRC, NO_RBRC},
+    {KC_AMPR, NO_AMPR},
+    {KC_EQL,  NO_EQL},
+    {KC_PLUS, NO_PLUS},
+    {KC_ASTR, NO_ASTR},
+    {KC_SLSH, NO_SLSH},
+    {KC_TILD, NO_TILD},
+    {KC_AE,   NO_AE},
+    {KC_OE,   NO_OE},
+    {KC_AA,   NO_AA},
+    {KC_QUES, NO_QUES},
+    {KC_AT,   NO_AT},
+    {KC_CIRC, NO_CIRC},
+    {KC_DLR,  NO_DLR},
+    {KC_GRV,  NO_GRV}
+};
+
 // Shift codes array size
 const uint16_t SHIFT_CODES_SIZE = sizeof(SHIFT_CODES) / sizeof(SHIFT_CODES[0]);
 
@@ -49,7 +78,24 @@ bool handle_special_characters(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
+uint16_t handle_language(uint16_t keycode, keyrecord_t* record) {
+    if (get_language() == QGMLWB_NO) {
+        for (int i = 0; i < LANG_CODES_SIZE; i++) {
+            if (keycode == LANG_CODES[i][0]) {
+                unregister_code(keycode);
+                return LANG_CODES[i][1];
+            }
+        }
+    }
+    return keycode;
+}
+
 bool process_dynamic(uint16_t keycode, keyrecord_t* record) {
-    handle_false(handle_special_characters(keycode, record));
+    uint16_t new_keycode = handle_language(keycode, record);
+    handle_false(handle_special_characters(new_keycode, record));
+    if (new_keycode != keycode) {
+        tap_code16(new_keycode);
+        return false;
+    }
     return true;
 }

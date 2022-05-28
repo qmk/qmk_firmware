@@ -15,11 +15,8 @@ enum keyboard_layouts {
     NORMAL_LOWER,
     NORMAL_RAISE,
 
-    QGMLWB_NO_LOWER,
-    QGMLWB_US_LOWER,
-
-    QGMLWB_NO_RAISE,
-    QGMLWB_US_RAISE,
+    QGMLWB_LOWER,
+    QGMLWB_RAISE,
 
     ADJUST,
     NUMPAD,

@@ -18,11 +18,8 @@
 #define lower MO(NORMAL_LOWER)
 #define raise MO(NORMAL_RAISE)
 
-#define QNLower MO(QGMLWB_NO_LOWER)
-#define QELower MO(QGMLWB_US_LOWER)
-
-#define QNRaise MO(QGMLWB_NO_RAISE)
-#define QERaise MO(QGMLWB_US_RAISE)
+#define QLower MO(QGMLWB_LOWER)
+#define QRaise MO(QGMLWB_RAISE)
 
 #define adjust MO(ADJUST)
 #define numpad MO(NUMPAD)

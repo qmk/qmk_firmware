@@ -14,11 +14,8 @@ KEYMAP keymaps [][MATRIX_ROWS][MATRIX_COLS] = {
     [NORMAL_LOWER] = normal_lower_map,
     [NORMAL_RAISE] = normal_raise_map,
 
-    [QGMLWB_NO_LOWER] = qgmlwb_no_lower_map,
-    [QGMLWB_US_LOWER] = qgmlwb_us_lower_map,
-
-    [QGMLWB_NO_RAISE] = qgmlwb_no_raise_map,
-    [QGMLWB_US_RAISE] = qgmlwb_us_raise_map,
+    [QGMLWB_LOWER] = qgmlwb_lower_map,
+    [QGMLWB_RAISE] = qgmlwb_raise_map,
 
     [ADJUST] = adjust_map,
     [NUMPAD] = numpad_map,
