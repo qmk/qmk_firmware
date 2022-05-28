@@ -14,9 +14,9 @@ You use the midi_device_set_pre_input_process_func if you want to have a functio
 --------------------------------|---------------------------------------------
 `define `[`MIDI_INPUT_QUEUE_LENGTH`](#group__midi__device_1ga4aaa419caebdca2bbdfc1331e79781a8)            | 
 `enum `[`input_state_t`](#group__midi__device_1gac203e877d3df4275ceb8e7180a61f621)            | 
-`public void `[`midi_device_input`](#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device,uint8_t cnt,uint8_t * input)`            | Process input bytes. This function parses bytes and calls the appropriate callbacks associated with the given device. You use this function if you are creating a custom device and you want to have midi input.
-`public void `[`midi_device_set_send_func`](#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device,midi_var_byte_func_t send_func)`            | Set the callback function that will be used for sending output data bytes. This is only used if you're creating a custom device. You'll most likely want the callback function to disable interrupts so that you can call the various midi send functions without worrying about locking.
-`public void `[`midi_device_set_pre_input_process_func`](#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device,midi_no_byte_func_t pre_process_func)`            | Set a callback which is called at the beginning of the midi_device_process call. This can be used to poll for input data and send the data through the midi_device_input function. You'll probably only use this if you're creating a custom device.
+`public void `[`midi_device_input`](#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db)`(`[`MidiDevice`](.build/docs/internals/midi_device.md#struct__midi__device)` * device,uint8_t cnt,uint8_t * input)`            | Process input bytes. This function parses bytes and calls the appropriate callbacks associated with the given device. You use this function if you are creating a custom device and you want to have midi input.
+`public void `[`midi_device_set_send_func`](#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673)`(`[`MidiDevice`](.build/docs/internals/midi_device.md#struct__midi__device)` * device,midi_var_byte_func_t send_func)`            | Set the callback function that will be used for sending output data bytes. This is only used if you're creating a custom device. You'll most likely want the callback function to disable interrupts so that you can call the various midi send functions without worrying about locking.
+`public void `[`midi_device_set_pre_input_process_func`](#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69)`(`[`MidiDevice`](.build/docs/internals/midi_device.md#struct__midi__device)` * device,midi_no_byte_func_t pre_process_func)`            | Set a callback which is called at the beginning of the midi_device_process call. This can be used to poll for input data and send the data through the midi_device_input function. You'll probably only use this if you're creating a custom device.
 `struct `[`_midi_device`](#struct__midi__device) | This structure represents the input and output functions and processing data for a midi device.
 
 ## Members
@@ -33,7 +33,7 @@ TWO_BYTE_MESSAGE            |
 THREE_BYTE_MESSAGE            | 
 SYSEX_MESSAGE            | 
 
-#### `public void `[`midi_device_input`](#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device,uint8_t cnt,uint8_t * input)` 
+#### `public void `[`midi_device_input`](#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db)`(`[`MidiDevice`](.build/docs/internals/midi_device.md#struct__midi__device)` * device,uint8_t cnt,uint8_t * input)` 
 
 Process input bytes. This function parses bytes and calls the appropriate callbacks associated with the given device. You use this function if you are creating a custom device and you want to have midi input.
 
@@ -44,7 +44,7 @@ Process input bytes. This function parses bytes and calls the appropriate callba
 
 * `input` the bytes to process
 
-#### `public void `[`midi_device_set_send_func`](#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device,midi_var_byte_func_t send_func)` 
+#### `public void `[`midi_device_set_send_func`](#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673)`(`[`MidiDevice`](.build/docs/internals/midi_device.md#struct__midi__device)` * device,midi_var_byte_func_t send_func)` 
 
 Set the callback function that will be used for sending output data bytes. This is only used if you're creating a custom device. You'll most likely want the callback function to disable interrupts so that you can call the various midi send functions without worrying about locking.
 
@@ -53,7 +53,7 @@ Set the callback function that will be used for sending output data bytes. This 
 
 * `send_func` the callback function that will do the sending
 
-#### `public void `[`midi_device_set_pre_input_process_func`](#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device,midi_no_byte_func_t pre_process_func)` 
+#### `public void `[`midi_device_set_pre_input_process_func`](#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69)`(`[`MidiDevice`](.build/docs/internals/midi_device.md#struct__midi__device)` * device,midi_no_byte_func_t pre_process_func)` 
 
 Set a callback which is called at the beginning of the midi_device_process call. This can be used to poll for input data and send the data through the midi_device_input function. You'll probably only use this if you're creating a custom device.
 
@@ -93,7 +93,7 @@ A device can represent an actual physical device [serial port, usb port] or some
 `public input_state_t `[`input_state`](#struct__midi__device_1a69a687d2d1c449ec15a11c07a5722e39) | 
 `public uint16_t `[`input_count`](#struct__midi__device_1a68dea8e7b6151e89c85c95caa612ee5d) | 
 `public uint8_t `[`input_queue_data`](#struct__midi__device_1ada41de021135dc423abedcbb30f366ff) | 
-`public `[`byteQueue_t`](.build/docs/internals_undefined.md#structbyte_queue__t)` `[`input_queue`](#struct__midi__device_1a49c8538a8a02193c58e28a56eb695d8f) | 
+`public `[`byteQueue_t`](.build/docs/internals/undefined.md#structbyte_queue__t)` `[`input_queue`](#struct__midi__device_1a49c8538a8a02193c58e28a56eb695d8f) | 
 
 ## Members
 
@@ -139,5 +139,5 @@ A device can represent an actual physical device [serial port, usb port] or some
 
 #### `public uint8_t `[`input_queue_data`](#struct__midi__device_1ada41de021135dc423abedcbb30f366ff) 
 
-#### `public `[`byteQueue_t`](.build/docs/internals_undefined.md#structbyte_queue__t)` `[`input_queue`](#struct__midi__device_1a49c8538a8a02193c58e28a56eb695d8f) 
+#### `public `[`byteQueue_t`](.build/docs/internals/undefined.md#structbyte_queue__t)` `[`input_queue`](#struct__midi__device_1a49c8538a8a02193c58e28a56eb695d8f) 
 
