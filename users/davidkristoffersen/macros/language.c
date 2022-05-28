@@ -17,7 +17,7 @@ const shift_code_t SHIFT_CODES [] = {
     {.lang = LAYER_NO, .pre = KC_QUOT, .post = NO_DQUO},
     {.lang = LAYER_NO, .pre = KC_BSLS, .post = NO_PIPE},
 #endif
-#ifdef LAYER_NO
+#ifdef LAYER_EN
     {.lang = LAYER_EN, .pre = KC_COMM, .post = KC_SCLN},
     {.lang = LAYER_EN, .pre = KC_DOT,  .post = KC_COLN},
 #endif
