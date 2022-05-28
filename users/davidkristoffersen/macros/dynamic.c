@@ -10,7 +10,7 @@ typedef struct shift_code {
     int      lang;
 } shift_code_t;
 
-// Array of shift codes to convert
+// Array of shift code translations
 const shift_code_t SHIFT_CODES [] = {
     // NO
     {.lang = QGMLWB_NO, .pre = KC_QUOT, .post = NO_DQUO},
@@ -19,9 +19,9 @@ const shift_code_t SHIFT_CODES [] = {
     {.lang = QGMLWB_EN, .pre = KC_COMM, .post = KC_SCLN},
     {.lang = QGMLWB_EN, .pre = KC_DOT, .post = KC_COLN},
 };
+const uint16_t SHIFT_CODES_SIZE = sizeof(SHIFT_CODES) / sizeof(SHIFT_CODES[0]);
 
-// English to Norwegian code translations
-const int EN_NO_CODES_SIZE = 25;
+// Array of English to Norwegian code translations
 const uint16_t EN_NO_CODES[25][2] = {
     {KC_QUOT, NO_QUOT},
     {KC_MINS, NO_MINS},
@@ -49,11 +49,9 @@ const uint16_t EN_NO_CODES[25][2] = {
     {KC_DLR,  NO_DLR},
     {KC_GRV,  NO_GRV}
 };
+const int EN_NO_CODES_SIZE = sizeof(EN_NO_CODES) / sizeof(EN_NO_CODES[0]);
 
-// Shift codes array size
-const uint16_t SHIFT_CODES_SIZE = sizeof(SHIFT_CODES) / sizeof(SHIFT_CODES[0]);
-
-bool handle_special_characters(uint16_t keycode, keyrecord_t* record) {
+bool handle_shift(uint16_t keycode, keyrecord_t* record) {
     // Fix special shift keys
     if (get_mods() & MOD_MASK_SHIFT) {
         // Current active language
@@ -93,7 +91,7 @@ bool handle_language(uint16_t keycode, keyrecord_t* record) {
 }
 
 bool process_dynamic(uint16_t keycode, keyrecord_t* record) {
-    handle_false(handle_special_characters(keycode, record));
+    handle_false(handle_shift(keycode, record));
     handle_false(handle_language(keycode, record));
     return true;
 }
