@@ -19,7 +19,7 @@ const shift_code_t SHIFT_CODES [] = {
     {.lang = QGMLWB_EN, .pre = KC_COMM, .post = KC_SCLN},
     {.lang = QGMLWB_EN, .pre = KC_DOT, .post = KC_COLN},
 };
-const uint16_t SHIFT_CODES_SIZE = sizeof(SHIFT_CODES) / sizeof(SHIFT_CODES[0]);
+const int SHIFT_CODES_SIZE = sizeof(SHIFT_CODES) / sizeof(SHIFT_CODES[0]);
 
 // Array of English to Norwegian code translations
 const uint16_t EN_NO_CODES[25][2] = {
