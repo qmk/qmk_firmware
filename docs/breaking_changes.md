@@ -22,17 +22,17 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for May 28, 2022.
+The next Breaking Change is scheduled for August 27, 2022.
 
 ### Important Dates
 
-* [x] 2022 Feb 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* [ ] 2022 Apr 31 - `develop` closed to new PR's.
-* [ ] 2022 Apr 31 - Call for testers.
-* [ ] 2022 May 14 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* [ ] 2022 May 26 - `master` is locked, no PR's merged.
-* [ ] 2022 May 28 - Merge `develop` to `master`.
-* [ ] 2022 May 28 - `master` is unlocked. PR's can be merged again.
+* [x] 2022 May 28 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* [ ] 2022 Jul 31 - `develop` closed to new PR's.
+* [ ] 2022 Jul 31 - Call for testers.
+* [ ] 2022 Aug 13 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* [ ] 2022 Aug 25 - `master` is locked, no PR's merged.
+* [ ] 2022 Aug 27 - Merge `develop` to `master`.
+* [ ] 2022 Aug 27 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
@@ -43,7 +43,7 @@ If you want your breaking change to be included in this round you need to create
 Criteria for acceptance:
 
 * The PR is complete and ready to merge
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220226`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220827`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PR's ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
