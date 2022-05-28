@@ -14,7 +14,7 @@ Add this to the end of your `.profile` or `.bashrc`:
 
 If you put `qmk_firmware` into another location you will need to adjust this path.
 
-Zsh users may need to add the following to their `~/.zshrc` file:
+Zsh users will need to load `bashcompinit`. The following can be added to `~/.zshrc` file:
 
     autoload -Uz bashcompinit && bashcompinit
 
