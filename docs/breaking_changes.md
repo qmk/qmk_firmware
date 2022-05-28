@@ -58,7 +58,9 @@ This happens immediately after the previous `develop` branch is merged.
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
     * [ ] `git pull --ff-only`
-    * [ ] `git checkout -b develop`
+    * [ ] `git checkout develop`
+    * [ ] `git pull --ff-only`
+    * [ ] `git merge -no-ff master`
     * [ ] Edit `readme.md`
         * [ ] Add a big notice at the top that this is a testing branch.
         * [ ] Include a link to this document
