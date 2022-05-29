@@ -36,20 +36,20 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |French (AFNOR)                   |`keymap_french_afnor.h`          |`sendstring_french_afnor.h`         |
 |French (BÉPO)                    |`keymap_bepo.h`                  |`sendstring_bepo.h`                 |
 |French (Belgium)                 |`keymap_belgian.h`               |`sendstring_belgian.h`              |
-|French (Switzerland)             |`keymap_fr_ch.h`                 |`sendstring_fr_ch.h`                |
-|French (macOS, ISO)              |`keymap_french_osx.h`            |`sendstring_french_osx.h`           |
+|French (Switzerland)             |`keymap_swiss_fr.h`              |`sendstring_swiss_fr.h`             |
+|French (macOS, ISO)              |`keymap_french_mac_iso.h`        |`sendstring_french_mac_iso.h`       |
 |German                           |`keymap_german.h`                |`sendstring_german.h`               |
-|German (Switzerland)             |`keymap_german_ch.h`             |`sendstring_german_ch.h`            |
-|German (macOS)                   |`keymap_german_osx.h`            |`sendstring_german_osx.h`           |
+|German (Switzerland)             |`keymap_swiss_de.h`              |`sendstring_swiss_de.h`             |
+|German (macOS)                   |`keymap_german_mac_iso.h`        |`sendstring_german_mac_iso.h`       |
 |German (Neo2)                    |`keymap_neo2.h`                  |                                    |
 |Greek                            |`keymap_greek.h`                 |                                    |
 |Hebrew                           |`keymap_hebrew.h`                |                                    |
 |Hungarian                        |`keymap_hungarian.h`             |`sendstring_hungarian.h`            |
 |Icelandic                        |`keymap_icelandic.h`             |`sendstring_icelandic.h`            |
 |Italian                          |`keymap_italian.h`               |`sendstring_italian.h`              |
-|Italian (macOS, ANSI)            |`keymap_italian_osx_ansi.h`      |`sendstring_italian_osx_ansi.h`     |
-|Italian (macOS, ISO)             |`keymap_italian_osx_iso.h`       |`sendstring_italian_osx_iso.h`      |
-|Japanese                         |`keymap_jp.h`                    |`sendstring_jis.h`                  |
+|Italian (macOS, ANSI)            |`keymap_italian_mac_ansi.h`      |`sendstring_italian_mac_ansi.h`     |
+|Italian (macOS, ISO)             |`keymap_italian_mac_iso.h`       |`sendstring_italian_mac_iso.h`      |
+|Japanese                         |`keymap_japanese.h`              |`sendstring_japanese.h`             |
 |Korean                           |`keymap_korean.h`                |                                    |
 |Latvian                          |`keymap_latvian.h`               |`sendstring_latvian.h`              |
 |Lithuanian (ĄŽERTY)              |`keymap_lithuanian_azerty.h`     |`sendstring_lithuanian_azerty.h`    |
@@ -57,8 +57,8 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Norwegian                        |`keymap_norwegian.h`             |`sendstring_norwegian.h`            |
 |Polish                           |`keymap_polish.h`                |                                    |
 |Portuguese                       |`keymap_portuguese.h`            |`sendstring_portuguese.h`           |
-|Portuguese (macOS, ISO)          |`keymap_portuguese_osx_iso.h`    |`sendstring_portuguese_osx_iso.h`   |
-|Portuguese (Brazil)              |`keymap_br_abnt2.h`              |`sendstring_br_abnt2.h`             |
+|Portuguese (macOS, ISO)          |`keymap_portuguese_mac_iso.h`    |`sendstring_portuguese_mac_iso.h`   |
+|Portuguese (Brazil)              |`keymap_brazilian_abnt2.h`       |`sendstring_brazilian_abnt2.h`      |
 |Romanian                         |`keymap_romanian.h`              |`sendstring_romanian.h`             |
 |Russian                          |`keymap_russian.h`               |                                    |
 |Serbian                          |`keymap_serbian.h`               |                                    |
@@ -68,25 +68,25 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Spanish                          |`keymap_spanish.h`               |`sendstring_spanish.h`              |
 |Spanish (Dvorak)                 |`keymap_spanish_dvorak.h`        |`sendstring_spanish_dvorak.h`       |
 |Swedish                          |`keymap_swedish.h`               |`sendstring_swedish.h`              |
-|Swedish (macOS, ANSI)            |`keymap_swedish_osx_ansi.h`      |                                    |
-|Swedish (macOS, ISO)             |`keymap_swedish_osx_iso.h`       |                                    |
-|Swedish Pro (macOS, ANSI)        |`keymap_swedish_pro_osx_ansi.h`  |                                    |
-|Swedish Pro (macOS, ISO)         |`keymap_swedish_pro_osx_iso.h`   |                                    |
+|Swedish (macOS, ANSI)            |`keymap_swedish_mac_ansi.h`      |                                    |
+|Swedish (macOS, ISO)             |`keymap_swedish_mac_iso.h`       |                                    |
+|Swedish Pro (macOS, ANSI)        |`keymap_swedish_pro_mac_ansi.h`  |                                    |
+|Swedish Pro (macOS, ISO)         |`keymap_swedish_pro_mac_iso.h`   |                                    |
 |Turkish (F)                      |`keymap_turkish_f.h`             |`sendstring_turkish_f.h`            |
 |Turkish (Q)                      |`keymap_turkish_q.h`             |`sendstring_turkish_q.h`            |
 |Ukrainian                        |`keymap_ukrainian.h`             |                                    |
 
 There are also a few which are not quite language-specific, but useful if you are not using a QWERTY layout:
 
-|Layout             |Keycodes Header         |Sendstring LUT Header       |
-|-------------------|------------------------|----------------------------|
-|Colemak            |`keymap_colemak.h`      |`sendstring_colemak.h`      |
-|Dvorak             |`keymap_dvorak.h`       |`sendstring_dvorak.h`       |
-|Dvorak (French)    |`keymap_dvorak_fr.h`    |`sendstring_dvorak_fr.h`    |
-|Dvorak (Programmer)|`keymap_dvp.h`          |`sendstring_dvp.h`          |
-|Norman             |`keymap_norman.h`       |`sendstring_norman.h`       |
-|Plover             |`keymap_plover.h`       |                            |
-|Plover (Dvorak)    |`keymap_plover_dvorak.h`|                            |
-|Steno              |`keymap_steno.h`        |                            |
-|Workman            |`keymap_workman.h`      |`sendstring_workman.h`      |
-|Workman (ZXCVM)    |`keymap_workman_zxcvm.h`|`sendstring_workman_zxcvm.h`|
+|Layout             |Keycodes Header             |Sendstring LUT Header           |
+|-------------------|----------------------------|--------------------------------|
+|Colemak            |`keymap_colemak.h`          |`sendstring_colemak.h`          |
+|Dvorak             |`keymap_dvorak.h`           |`sendstring_dvorak.h`           |
+|Dvorak (French)    |`keymap_dvorak_fr.h`        |`sendstring_dvorak_fr.h`        |
+|Dvorak (Programmer)|`keymap_dvorak_programmer.h`|`sendstring_dvorak_programmer.h`|
+|Norman             |`keymap_norman.h`           |`sendstring_norman.h`           |
+|Plover             |`keymap_plover.h`           |                                |
+|Plover (Dvorak)    |`keymap_plover_dvorak.h`    |                                |
+|Steno              |`keymap_steno.h`            |                                |
+|Workman            |`keymap_workman.h`          |`sendstring_workman.h`          |
+|Workman (ZXCVM)    |`keymap_workman_zxcvm.h`    |`sendstring_workman_zxcvm.h`    |
