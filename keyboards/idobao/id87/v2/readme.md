@@ -1,6 +1,6 @@
 # IDOBAO ID87 v2
 
-![IDOBAO ID87](https://idobao.github.io/assets/img/idobao-id87.png)
+![IDOBAO ID87](https://i.imgur.com/LIpWjog.png)
 
 A TKL hotswap board from IDOBAO.
 
@@ -14,7 +14,7 @@ A TKL hotswap board from IDOBAO.
   - **IDOBAO ID87 Charm** *(Limited Edition)*
 * Hardware Availability: [IDOBAO.net](https://idobao.net/search?type=product&q=ID87*)
 
-## Layout
+## ANSI Layout
 
 ![](https://idobao.github.io/kle/idobao-id87.png)
 
