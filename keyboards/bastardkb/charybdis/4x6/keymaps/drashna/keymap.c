@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         VRSN,    _________________ADJUST_L1_________________,    _________________ADJUST_R1_________________, EEP_RST,
         KEYLOCK, _________________ADJUST_L2_________________,    _________________ADJUST_R2_________________, TG_MODS,
         UC_MOD,  _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________, KC_MPLY,
-                                   REBOOT,  UTO_CTN, _______,    KC_NUKE, _______,
+                                   REBOOT, AUTO_CTN, _______,    KC_NUKE, _______,
                                            _______, _______,      _______
     )
 };
