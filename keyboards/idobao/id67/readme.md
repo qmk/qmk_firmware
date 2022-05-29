@@ -1,6 +1,6 @@
 # IDOBAO ID67
 
-![id67](https://idobao.github.io/assets/img/idobao-id67.png)
+![id67](https://i.imgur.com/XiEnksS.png)
 
 A 65% hotswap keyboard from IDOBAO.
 
@@ -21,9 +21,9 @@ A 65% hotswap keyboard from IDOBAO.
   * [ID67 Crystal](https://idobao.net/products/idobao-id67-crystal-keyboard-kit-gasket-mount-version)
   * [ID67 Bestype](https://idobao.net/products/idobao-id67-bestype-keyboard-kit-aluminum-with-brass-weight)
 
-## Layout
+## ANSI Layout
 
-![ID67 layout](https://idobao.github.io/kle/idobao-id67.png)
+![ID67 Layout](https://idobao.github.io/kle/idobao-id67.png)
 
 
 ## Compiling and Flashing
