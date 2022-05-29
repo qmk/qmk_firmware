@@ -1,6 +1,6 @@
-# idobao id80
+# IDOBAO ID80
 
-This is my layout for the idobao id80. It depends of my [user files](../../../../users/rverst)
+This is my layout for the IDOBAO ID80. It depends of my [user files](../../../../users/rverst)
 and the main goal is to give an convenient and unified access to some special keys
 (umlauts, ß, €) for different operating systems (Mac, Windows and Linux).
 
