@@ -1,10 +1,21 @@
 # Debug version matrix.c
 
-This matrix.c is quantum/matrix.c with the following additions:
+This matrix.c is 0.13.19:quantum/matrix.c with the following additions:
 
 * Added the MATRIX_DEBUG_SCAN_{START/END} macro to measure the execution time of matrix_scan().
 * Added the MATRIX_DEBUG_DELAY_{START/END} macro to measure delay time.
 * Added the MATRIX_MUL_SELECT handling for symmetric70_proto.
+
+## Current performance
+
+  | MCU               | delay type    | execution time <br> of <br> `matrix_scan()` | matrix scan rate |
+  |-------------------|---------------|------------|----------------|
+  | Pro Micro (16MHz) | default       | 503us      | 1810 scans/sec |
+  | Pro Micro (16MHz) | adaptive      | 383us      | 2320 scans/sec |
+  | Pro Micro (16MHz) | fast adaptive | 382us      | 2330 scans/sec |
+  | Proton C (72MHz)  | default       | 210us      | 4350 scans/sec |
+  | Proton C (72MHz)  | adaptive      | 76.4us     | 10600 scans/sec |
+  | Proton C (72MHz)  | fast adaptive | 75.6us     | 10800 scans/sec |
 
 ## Compile
 

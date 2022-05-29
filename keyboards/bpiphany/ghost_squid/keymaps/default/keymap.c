@@ -51,7 +51,7 @@ KC_LSFT, KC_NUBS,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM
 KC_LCTL, KC_LGUI,KC_LALT,                       KC_SPC,                          KC_RALT,KC_RGUI,MO(KM_MEDIA),KC_RCTL,   KC_LEFT,KC_DOWN,KC_RGHT,    KC_P0,          KC_PDOT),
 	/* Layer 1: Function layer */
 	[KM_MEDIA] = LAYOUT(
-_______,_______,_______,_______,_______,  KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK,  TG(KM_GUI_LOCK),KC_MUTE, KC_VOLD, KC_VOLU,_______,_______, RESET,
+_______,_______,_______,_______,_______,  KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK,  TG(KM_GUI_LOCK),KC_MUTE, KC_VOLD, KC_VOLU,_______,_______, QK_BOOT,
 _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
 _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
 _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
