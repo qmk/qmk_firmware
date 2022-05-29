@@ -83,7 +83,13 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #endif // CAPS_WORD_IDLE_TIMEOUT > 0
 
     // From here on, we only take action on press events.
-    if (!record->event.pressed) {
+    // The exceptions are the combo results and the chord keys,
+    // which send keypress with a release event.
+    if (!record->event.pressed
+#ifdef COMBO_ENABLE
+        && !caps_word_press_user(keycode)
+#endif // COMBO_ENABLE
+    ) {
         return true;
     }
 
