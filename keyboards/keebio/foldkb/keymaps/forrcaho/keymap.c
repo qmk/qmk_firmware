@@ -16,6 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+enum layer {
+    _QWERTY,
+    _PG, // for "programming"
+};
+
 enum custom_keycodes {
     PG_LPAR = SAFE_RANGE,
     PG_RPAR,
@@ -23,23 +28,36 @@ enum custom_keycodes {
     PG_RBRK,
     PG_VBAR,
     PG_BANG,
-    PG_SLAS
+    PG_SLAS,
+    PG_ENDC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
-    KC_MUTE, KC_ESC,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
-    KC_HOME,          KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
-    KC_END,           KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
-    KC_PGUP,          KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(1),
-    KC_PGDN,          KC_LGUI, KC_LCTL, KC_LALT, MO(1),   KC_SPC,  KC_SPC,      KC_SPC,  KC_SPC,  KC_RALT, KC_RCTL, TG(1),   KC_RGUI
+  [_QWERTY] = LAYOUT(
+// ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐        ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+    KC_MUTE, KC_ESC,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
+// ├────────┼───┬────┴────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    KC_HOME,     KC_TAB,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+// ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
+    KC_END,      KC_CAPS,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+// ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
+    KC_PGUP, KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,      MO(1),
+// ├────────┼───┬──────────┬──┴─────┬──┴──────┬─┴────────┼────────┼────────┤        ├────────┴─┬──────┴───┬────┴─────┬──┴────────┼──────────┬──┴────────┤
+    KC_PGDN,     KC_LGUI,   KC_LCTL,  KC_LALT,  MO(1),    KC_SPC,  KC_SPC,           KC_SPC,    KC_SPC,    TG(1),     KC_RALT,    KC_RCTL,   KC_RGUI
+// └────────┴───┴──────────┴─────────┴─────────┴─────────┴────────┴────────┘        └──────────┴──────────┴──────────┴───────────┴──────────┴───────────┘
   ),
-  [1] = LAYOUT(
-    KC_MUTE, RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,    KC_DEL,
-    BL_STEP,          _______, _______, PG_SLAS, PG_LPAR, PG_RPAR, _______,     _______, KC_HOME, KC_UP,   KC_PGUP, _______, _______, _______, _______,
-    RGB_MOD,          _______, _______, PG_VBAR, PG_LBRK, PG_RBRK, _______,     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______,
-    KC_VOLU,          _______, _______, KC_MINS, KC_EQL,  PG_BANG, _______,     _______, KC_END,  KC_INS,  KC_PGDN, _______, _______, _______,
-    KC_VOLD,          _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______
+  [_PG] = LAYOUT(
+// ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐        ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+    KC_MUTE, RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,            KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,    KC_DEL,
+// ├────────┼───┬────┴────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    BL_STEP,     _______,      _______, PG_SLAS, PG_LPAR, PG_RPAR, _______,          _______, KC_HOME, KC_UP,   KC_PGUP, _______, _______, _______, _______,
+// ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
+    RGB_MOD,     _______,      PG_ENDC, PG_VBAR, PG_LBRK, PG_RBRK, _______,          _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_BSPC,
+// ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
+    KC_VOLU, _______,          _______, KC_MINS, KC_EQL,  PG_BANG, _______,          _______, KC_END,  KC_INS,  KC_PGDN, _______, _______,      _______,
+// ├────────┼───┬──────────┬──┴─────┬──┴──────┬─┴────────┼────────┼────────┤        ├────────┴─┬──────┴───┬────┴─────┬──┴────────┼──────────┬──┴────────┤
+    KC_VOLD,     _______,   _______,  _______,  _______,  _______, _______,          _______,   _______,   _______,   _______,    _______,   _______
+// └────────┴───┴──────────┴─────────┴─────────┴─────────┴────────┴────────┘        └──────────┴──────────┴──────────┴───────────┴──────────┴───────────┘
   ),
 };
 
@@ -82,6 +100,30 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &pg_vbar_shift,
     NULL
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t std_mods = get_mods();
+    uint8_t oneshot_mods = get_oneshot_mods();
+    uint8_t all_mods = std_mods | oneshot_mods;
+
+    switch (keycode) {
+        case PG_ENDC:
+        // If any mods other than shift are down, don't handle this
+        if (all_mods & ~MOD_MASK_SHIFT) return true;
+        if (record->event.pressed) {
+            clear_mods();
+            clear_oneshot_mods();
+            SEND_STRING(SS_TAP(X_END) ";");
+            if ( !(all_mods & MOD_MASK_SHIFT) ) {
+                SEND_STRING(SS_TAP(X_ENTER));
+            }
+            set_mods(std_mods);
+            set_oneshot_mods(oneshot_mods);
+        }
+        break;
+    }
+    return true;
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
