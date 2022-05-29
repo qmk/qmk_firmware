@@ -61,19 +61,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[1] = LAYOUT_60_ansi(KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
                        _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_INS,  KC_HOME, KC_END,  KC_DEL,
                        KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______, _______, _______, _______, _______, KC_PGUP, KC_PGDN,          _______,
-                       _______,          _______, _______, KC_CALC, _______, _______, _______, _______, TG(1),   TG(2),   _______,          _______,
+                       _______,          _______, _______, KC_CALC, _______, _______, _______, _______, TG(1),   TG(2),   TG(3),            _______,
                        _______, KC_TGUI, TD(ALT_OSL1),                       _______,                            _______, _______, MO(3),   _______),
 
 	[2] = LAYOUT_60_ansi(TD(TD_ESC), KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, RGB_TOG, RGB_MOD, RGB_RMOD,
                        _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                        _______, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, _______, _______, _______, _______,          _______,
-                       _______,          _______, _______, KC_CALC, _______, _______, _______, _______, TG(1),   TG(2),   _______,          _______,
+                       _______,          _______, _______, KC_CALC, _______, _______, _______, _______, TG(1),   TG(2),   TG(3),            _______,
                        _______, _______, _______,                            _______,                            _______, MO(3),   _______, _______),
 
 	[3] = LAYOUT_60_ansi(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-                       _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+                       _______,          _______, _______, _______, _______, _______, _______, _______, TG(1),   TG(2),   TG(3),            _______,
                        _______, _______, _______,                            _______,                            _______, _______, _______, _______),
 
 	[4] = LAYOUT_60_ansi(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -160,8 +160,13 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 		/* for (uint8_t i = led_min; i <= led_max; i++) { */
 		/* 	RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0); // switch all LEDs off */
 		/* } */
+		RGB_MATRIX_INDICATOR_SET_COLOR(16, 255,   0,   0); // W
+		RGB_MATRIX_INDICATOR_SET_COLOR(29, 255,   0,   0); // A
+		RGB_MATRIX_INDICATOR_SET_COLOR(30, 255,   0,   5); // S
+		RGB_MATRIX_INDICATOR_SET_COLOR(31, 255,   0,   0); // D
 		RGB_MATRIX_INDICATOR_SET_COLOR(49, 255,   0,   0); // .> P1
 		RGB_MATRIX_INDICATOR_SET_COLOR(50,   0, 255,   0); // .> P2
+		RGB_MATRIX_INDICATOR_SET_COLOR(51,   0, 255,   0); // .> P3
 		RGB_MATRIX_INDICATOR_SET_COLOR(58, 255,   0,   0); // Fn1
 		break;
 
@@ -179,14 +184,19 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 		RGB_MATRIX_INDICATOR_SET_COLOR(32, 255, 255, 255); // F
 		RGB_MATRIX_INDICATOR_SET_COLOR(49,   0, 255,   0); // .> P1
 		RGB_MATRIX_INDICATOR_SET_COLOR(50, 255,   0,   0); // .> P2
+		RGB_MATRIX_INDICATOR_SET_COLOR(51,   0, 255,   0); // .> P3
 		RGB_MATRIX_INDICATOR_SET_COLOR(59, 255,   0,   0); // Fn2
 		break;
 
 	case 3:
-		/* for (uint8_t i = led_min; i <= led_max; i++) { */
-		/* 	RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0); // switch all LEDs off */
-		/* } */
+		for (uint8_t i = led_min; i <= led_max; i++) {
+			RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0); // switch all LEDs off
+		}
+		RGB_MATRIX_INDICATOR_SET_COLOR(49,   0, 255,   0); // .> P1
+		RGB_MATRIX_INDICATOR_SET_COLOR(50,   0, 255,   0); // .> P2
 		RGB_MATRIX_INDICATOR_SET_COLOR(51, 255,   0,   0); // .> P3
+		RGB_MATRIX_INDICATOR_SET_COLOR(58, 255,   0,   0); // Fn1
+		RGB_MATRIX_INDICATOR_SET_COLOR(59, 255,   0,   0); // Fn2
 		break;
 
 	default:
