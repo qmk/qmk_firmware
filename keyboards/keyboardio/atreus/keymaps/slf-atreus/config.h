@@ -1,6 +1,6 @@
 #pragma once
 
-#define AUTO_SHIFT_TIMEOUT 250
+#define AUTO_SHIFT_TIMEOUT 240
 
 #define NO_AUTO_SHIFT_NUMERIC
 // #define NO_AUTO_SHIFT_SPECIAL
@@ -32,3 +32,7 @@
 #define PERMISSIVE_HOLD
 
 #define COMBO_COUNT 2
+
+// the make command:
+// From ~/qmk_firmware
+// make keyboardio/atreus:slf-atreus:flash
