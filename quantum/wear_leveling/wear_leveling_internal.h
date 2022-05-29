@@ -64,8 +64,10 @@ _Static_assert(WEAR_LEVELING_BACKING_SIZE % WEAR_LEVELING_LOGICAL_SIZE == 0, "Ba
 
 // Backing Store API, to be implemented elsewhere by flash driver etc.
 bool backing_store_init(void);
+bool backing_store_unlock(void);
 bool backing_store_erase(void);
 bool backing_store_write(uint32_t address, backing_store_int_t value);
+bool backing_store_lock(void);
 bool backing_store_read(uint32_t address, backing_store_int_t* value);
 
 /**

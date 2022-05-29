@@ -15,13 +15,19 @@ void MockBackingStore::reset_instance() {
     backing_max_write_count   = 0;
     backing_total_write_count = 0;
     init_fail                 = false;
+    unlock_fail               = false;
     write_fail                = false;
+    lock_fail                 = false;
     erase_fail_index          = BACKING_STORE_ELEMENT_COUNT::value;
     write_log.clear();
 }
 
 bool MockBackingStore::init(void) {
     return !init_fail;
+}
+
+bool MockBackingStore::unlock(void) {
+    return !unlock_fail;
 }
 
 bool MockBackingStore::erase(void) {
@@ -66,6 +72,10 @@ bool MockBackingStore::write(uint32_t address, backing_store_int_t value) {
     return true;
 }
 
+bool MockBackingStore::lock(void) {
+    return !lock_fail;
+}
+
 bool MockBackingStore::read(uint32_t address, backing_store_int_t& value) const {
     // precondition: value's buffer size already matches BACKING_STORE_WRITE_SIZE
     EXPECT_TRUE(address % BACKING_STORE_WRITE_SIZE == 0) << "Supplied address was not aligned with the backing store integral size.";
@@ -86,12 +96,20 @@ extern "C" bool backing_store_init(void) {
     return MockBackingStore::Instance().init();
 }
 
+extern "C" bool backing_store_unlock(void) {
+    return MockBackingStore::Instance().unlock();
+}
+
 extern "C" bool backing_store_erase(void) {
     return MockBackingStore::Instance().erase();
 }
 
 extern "C" bool backing_store_write(uint32_t address, backing_store_int_t value) {
     return MockBackingStore::Instance().write(address, value);
+}
+
+extern "C" bool backing_store_lock(void) {
+    return MockBackingStore::Instance().lock();
 }
 
 extern "C" bool backing_store_read(uint32_t address, backing_store_int_t* value) {

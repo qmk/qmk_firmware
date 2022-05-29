@@ -85,8 +85,12 @@ class MockBackingStore {
     std::vector<MockBackingStoreLogEntry> write_log;
     // Whether init should fail
     bool init_fail;
+    // Whether unlocks should fail
+    bool unlock_fail;
     // Whether writes should fail
     bool write_fail;
+    // Whether locks should fail
+    bool lock_fail;
     // The element index at which an erase should fail
     std::size_t erase_fail_index;
 
@@ -108,19 +112,27 @@ class MockBackingStore {
 
     // APIs for the backing store
     bool init();
+    bool unlock();
     bool erase();
     bool write(std::uint32_t address, backing_store_int_t value);
+    bool lock();
     bool read(std::uint32_t address, backing_store_int_t& value) const;
 
     // Control over when init/writes/erases should fail
     void set_init_fail(bool fail) {
         init_fail = fail;
     }
-    void set_write_fail(bool fail) {
-        write_fail = fail;
+    void set_unlock_fail(bool fail) {
+        unlock_fail = fail;
     }
     void set_erase_fail(std::size_t fail_index) {
         erase_fail_index = fail_index;
+    }
+    void set_write_fail(bool fail) {
+        write_fail = fail;
+    }
+    void set_lock_fail(bool fail) {
+        lock_fail = fail;
     }
 
     auto storage_begin() const -> decltype(backing_storage.begin()) {

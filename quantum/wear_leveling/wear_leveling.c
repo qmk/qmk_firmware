@@ -544,8 +544,20 @@ wear_leveling_status_t wear_leveling_init(void) {
 wear_leveling_status_t wear_leveling_erase(void) {
     wl_dprintf("Erase\n");
 
-    bool ret = backing_store_erase();
+    // Unlock the backing store
+    bool ret = backing_store_unlock();
+    if (!ret) {
+        // If the unlock failed, re-lock and exit with failure
+        backing_store_lock();
+        return WEAR_LEVELING_FAILED;
+    }
+
+    // Perform the erase
+    ret = backing_store_erase();
     wear_leveling_clear_cache();
+
+    // Lock the backing store
+    ret &= backing_store_lock();
     return ret ? WEAR_LEVELING_SUCCESS : WEAR_LEVELING_FAILED;
 }
 
@@ -569,14 +581,28 @@ wear_leveling_status_t wear_leveling_write(const uint32_t address, const void *v
     // Update the cache before writing to the backing store -- if we hit the end of the backing store during writes to the log then we'll force a consolidation in-line
     memcpy(&wear_leveling.cache[address], value, length);
 
+    // Unlock the backing store
+    bool ret = backing_store_unlock();
+    if (!ret) {
+        // If the unlock failed, re-lock and exit with failure
+        backing_store_lock();
+        return WEAR_LEVELING_FAILED;
+    }
+
     // Perform the actual write
     wear_leveling_status_t status = wear_leveling_write_raw(address, value, length);
     if (status != WEAR_LEVELING_SUCCESS) {
+        // If the write failed, re-lock and exit with failure
+        backing_store_lock();
         return status;
     }
 
     // Consolidate the cache + write log if required
-    return wear_leveling_consolidate_if_needed();
+    status = wear_leveling_consolidate_if_needed();
+
+    // Lock the backing store
+    ret = backing_store_lock();
+    return ret ? status : WEAR_LEVELING_FAILED;
 }
 
 /**
