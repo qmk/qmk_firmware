@@ -320,6 +320,10 @@ void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key);
 void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key);
 void clear_keys_from_report(report_keyboard_t* keyboard_report);
 
+#ifdef MOUSE_ENABLE
+bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

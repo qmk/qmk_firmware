@@ -1,5 +1,9 @@
 """Functions for working with config.h files.
 """
+from pygments.lexers.c_cpp import CLexer
+from pygments.token import Token
+from pygments import lex
+from itertools import islice
 from pathlib import Path
 import re
 
@@ -11,6 +15,13 @@ default_key_entry = {'x': -1, 'y': 0, 'w': 1}
 single_comment_regex = re.compile(r'\s+/[/*].*$')
 multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
 layout_macro_define_regex = re.compile(r'^#\s*define')
+
+
+def _get_chunks(it, size):
+    """Break down a collection into smaller parts
+    """
+    it = iter(it)
+    return iter(lambda: tuple(islice(it, size)), ())
 
 
 def strip_line_comment(string):
@@ -170,3 +181,110 @@ def _parse_matrix_locations(matrix, file, macro_name):
                 matrix_locations[identifier] = [row_num, col_num]
 
     return matrix_locations
+
+
+def _coerce_led_token(_type, value):
+    """ Convert token to valid info.json content
+    """
+    value_map = {
+        'NO_LED': None,
+        'LED_FLAG_ALL': 0xFF,
+        'LED_FLAG_NONE': 0x00,
+        'LED_FLAG_MODIFIER': 0x01,
+        'LED_FLAG_UNDERGLOW': 0x02,
+        'LED_FLAG_KEYLIGHT': 0x04,
+        'LED_FLAG_INDICATOR': 0x08,
+    }
+    if _type is Token.Literal.Number.Integer:
+        return int(value)
+    if _type is Token.Literal.Number.Float:
+        return float(value)
+    if _type is Token.Literal.Number.Hex:
+        return int(value, 0)
+    if _type is Token.Name and value in value_map.keys():
+        return value_map[value]
+
+
+def _parse_led_config(file, matrix_cols, matrix_rows):
+    """Return any 'raw' led/rgb matrix config
+    """
+    file_contents = file.read_text(encoding='utf-8')
+    file_contents = comment_remover(file_contents)
+    file_contents = file_contents.replace('\\\n', '')
+
+    matrix_raw = []
+    position_raw = []
+    flags = []
+
+    found_led_config = False
+    bracket_count = 0
+    section = 0
+    for _type, value in lex(file_contents, CLexer()):
+        # Assume g_led_config..stuff..;
+        if value == 'g_led_config':
+            found_led_config = True
+        elif value == ';':
+            found_led_config = False
+        elif found_led_config:
+            # Assume bracket count hints to section of config we are within
+            if value == '{':
+                bracket_count += 1
+                if bracket_count == 2:
+                    section += 1
+            elif value == '}':
+                bracket_count -= 1
+            else:
+                # Assume any non whitespace value here is important enough to stash
+                if _type in [Token.Literal.Number.Integer, Token.Literal.Number.Float, Token.Literal.Number.Hex, Token.Name]:
+                    if section == 1 and bracket_count == 3:
+                        matrix_raw.append(_coerce_led_token(_type, value))
+                    if section == 2 and bracket_count == 3:
+                        position_raw.append(_coerce_led_token(_type, value))
+                    if section == 3 and bracket_count == 2:
+                        flags.append(_coerce_led_token(_type, value))
+
+    # Slightly better intrim format
+    matrix = list(_get_chunks(matrix_raw, matrix_cols))
+    position = list(_get_chunks(position_raw, 2))
+    matrix_indexes = list(filter(lambda x: x is not None, matrix_raw))
+
+    # If we have not found anything - bail
+    if not section:
+        return None
+
+    # TODO: Improve crude parsing/validation
+    if len(matrix) != matrix_rows and len(matrix) != (matrix_rows / 2):
+        raise ValueError("Unable to parse g_led_config matrix data")
+    if len(position) != len(flags):
+        raise ValueError("Unable to parse g_led_config position data")
+    if len(matrix_indexes) and (max(matrix_indexes) >= len(flags)):
+        raise ValueError("OOB within g_led_config matrix data")
+
+    return (matrix, position, flags)
+
+
+def find_led_config(file, matrix_cols, matrix_rows):
+    """Search file for led/rgb matrix config
+    """
+    found = _parse_led_config(file, matrix_cols, matrix_rows)
+    if not found:
+        return None
+
+    # Expand collected content
+    (matrix, position, flags) = found
+
+    # Align to output format
+    led_config = []
+    for index, item in enumerate(position, start=0):
+        led_config.append({
+            'x': item[0],
+            'y': item[1],
+            'flags': flags[index],
+        })
+    for r in range(len(matrix)):
+        for c in range(len(matrix[r])):
+            index = matrix[r][c]
+            if index is not None:
+                led_config[index]['matrix'] = [r, c]
+
+    return led_config
