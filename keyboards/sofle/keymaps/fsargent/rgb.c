@@ -33,11 +33,16 @@ const rgblight_segment_t PROGMEM game[] = RGBLIGHT_LAYER_SEGMENTS(
 // };
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
+
     rgblight_set_layer_state(0, layer_state_cmp(state, 0));
     return state;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+	combo_enable();
+	if (layer_state_cmp(state, GAME)) {
+	    combo_disable();
+    }
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
