@@ -8,7 +8,6 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-    #define VIA_QMK_RGBLIGHT_ENABLE
     #define ID67_DISABLE_UNDERGLOW
 
     #ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
