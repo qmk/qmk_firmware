@@ -8,11 +8,11 @@ A simple 65% keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mikeneko65/rev1:default
+    make mikeneko65:default
 
 Flashing example for this keyboard:
 
-    make mikeneko65/rev1:default:flash
+    make mikeneko65:default:flash
 
 Enter the bootloader in 3 ways:
 
