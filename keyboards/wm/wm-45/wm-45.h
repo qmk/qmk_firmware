@@ -1,4 +1,4 @@
-// Copyright 2022 Andrew White (@whitefacemtn)
+// Copyright 2022 @whitefacemtn
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
