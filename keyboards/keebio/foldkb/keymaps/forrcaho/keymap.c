@@ -113,12 +113,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t oneshot_mods = get_oneshot_mods();
     uint8_t all_mods = std_mods | oneshot_mods;
     bool shift_on = all_mods & MOD_MASK_SHIFT;
-    bool alt_on = all_mods & MOD_MASK_ALT;
+    bool ctrl_on = all_mods & MOD_MASK_CTRL;
 
-    // None of our special keycodes use CTRL or GUI mods (so far), so we
+    // None of our special keycodes use ALT or GUI mods (so far), so we
     // check once here at the top and let other code handle it if any of
     // these are set.
-    if (all_mods & (MOD_MASK_CTRL | MOD_MASK_GUI)) return true;
+    if (all_mods & (MOD_MASK_ALT | MOD_MASK_GUI)) return true;
 
     switch (keycode) {
         case PG_BANG:
@@ -126,9 +126,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             SEND_STRING("*");
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
         }
@@ -139,7 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             clear_oneshot_mods();
             SEND_STRING(SS_TAP(X_END));
             if (!shift_on) SEND_STRING(";");
-            if (!alt_on) SEND_STRING(SS_TAP(X_ENTER));
+            if (!ctrl_on) SEND_STRING(SS_TAP(X_ENTER));
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
         }
@@ -148,9 +148,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             shift_on ? SEND_STRING("==") : SEND_STRING("===");
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
         }
@@ -159,9 +159,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             shift_on ? SEND_STRING("+") : SEND_STRING("=");
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
         }
@@ -171,9 +171,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             SEND_STRING("-");
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
         }
@@ -182,9 +182,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             shift_on ? SEND_STRING("!=") : SEND_STRING("!==");
-            if (!alt_on) SEND_STRING(" ");
+            if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
         }

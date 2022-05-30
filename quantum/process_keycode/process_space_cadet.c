@@ -93,12 +93,7 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
             register_mods(MOD_BIT(holdMod));
         }
     } else {
-#ifdef TAPPING_TERM_PER_KEY
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode, record))
-#else
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
-#endif
-        {
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < GET_TAPPING_TERM(sc_keycode, record)) {
             if (holdMod != tapMod) {
                 if (IS_MOD(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
