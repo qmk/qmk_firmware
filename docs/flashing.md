@@ -266,7 +266,7 @@ Flashing sequence:
 ### `make` Targets
 
 * `:dfu-util`: Waits until an STM32 bootloader device is available, and then flashes the firmware.
-* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:avrdude`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
+* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:dfu-util`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
 * `:st-link-cli`: Allows you to flash the firmware via the ST-Link CLI utility, rather than dfu-util. Requires an ST-Link dongle.
 * `:st-flash`: Allows you to flash the firmware via the `st-flash` utility from [STLink Tools](https://github.com/stlink-org/stlink), rather than dfu-util. Requires an ST-Link dongle.
 
@@ -358,3 +358,7 @@ CLI Flashing sequence:
 2. Wait for the OS to detect the device
 3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/blackpill_f411_tinyuf2 --keymap default`
 4. Wait for the keyboard to become available
+
+### `make` Targets
+
+* `:uf2-split-left` and `:uf2-split-right`: Flashes the firmware but also sets the handedness setting in EEPROM by generating a side specific firmware.
