@@ -6,7 +6,8 @@ BOOTLOADER = caterina
 
 # Keyboard matrix uses shift-registers read via SPI
 CUSTOM_MATRIX = lite
-SRC += matrix.c spi_master.c
+SRC += matrix.c 
+QUANTUM_LIB_SRC += spi_master.c
 
 # Build Options
 #   change yes to no to disable
