@@ -3,7 +3,7 @@
 #define _QWERTY 0
 #define _NUM_SYM 1
 #define _NAV 2
-#define _MISC 3
+#define _MOUSE_MISC 3
 #define _DANGER 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -41,25 +41,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
         _______, _______, _______, _______, _______, _______,                            _______, KC_WBAK, KC_WFWD, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-        _______, _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+        _______, _______, _______, _______, _______, _______,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        _______, _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_BTN2,          _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,          _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, TO(_QWERTY), KC_BTN1,              _______, TO(_MISC), _______
+                                    _______, TO(_QWERTY), _______,              _______, TO(_MOUSE_MISC), _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
-    [_MISC] = LAYOUT(
+    [_MOUSE_MISC] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
         KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-       _______, _______, _______, _______, _______, _______,                            _______, _______, _______, RGB_MOD, _______, TO(_DANGER),
+       _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, TO(_DANGER),
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLU, KC_BRIU, _______,                           _______,  _______, RGB_HUI, RGB_SAI, RGB_VAI, _______,
+        KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLU, KC_BRIU, _______,                           KC_MS_L,  KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_CAPS, KC_MSTP, KC_MPLY, KC_VOLD,  KC_BRID, _______, _______,        _______, _______, _______,  RGB_HUD, RGB_SAD, RGB_VAD, _______,
+        KC_CAPS, KC_MSTP, KC_MPLY, KC_VOLD,  KC_BRID, _______, _______,        _______, KC_WH_L, KC_WH_U,  KC_WH_D, KC_WH_R, _______, _______,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, TO(_QWERTY), _______,               _______, TO(_NUM_SYM), _______
+                                    _______, TO(_QWERTY), KC_BTN2,               KC_BTN1, TO(_NUM_SYM), _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
@@ -108,8 +108,8 @@ const rgblight_segment_t PROGMEM NUM_SYM_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {24, 1, 169, 255, 255},
     {25, 1, 85, 255, 255}, // TO(_QWERTY)
     {26, 2, 169, 255, 255},
-    {28, 3, 169, 255, 255},
-    {31, 3, 201, 255, 255},
+    {28, 3, 169, 255, 255}, // underglow
+    {31, 3, 201, 255, 255}, // underglow
 
     {34, 6, 201, 255, 255},
     {40, 6, 191, 255, 255},
@@ -118,8 +118,8 @@ const rgblight_segment_t PROGMEM NUM_SYM_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {58, 1, 169, 255, 255},
     {59, 1, 201, 255, 255}, // TO(_NAV)
     {60, 2, 169, 255, 255},
-    {62, 3, 169, 255, 255},
-    {65, 3, 201, 255, 255}
+    {62, 3, 169, 255, 255}, // underglow
+    {65, 3, 201, 255, 255} // underglow
 );
 
 const rgblight_segment_t PROGMEM NAV_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -130,21 +130,21 @@ const rgblight_segment_t PROGMEM NAV_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {24, 1, 201, 255, 255},
     {25, 1, 85, 255, 255}, // TO(_QWERTY)
     {26, 2, 201, 255, 255},
-    {28, 3, 201, 255, 255},
-    {31, 3, 248, 255, 255},
+    {28, 3, 201, 255, 255}, // underglow
+    {31, 3, 248, 255, 255}, // underglow
 
     {34, 6, 248, 255, 255},
     {40, 6, 240, 255, 255},
     {46, 6, 225, 255, 255},
     {52, 6, 210, 255, 255},
     {58, 1, 201, 255, 255},
-    {59, 1, 43, 255, 255}, // TO(_MISC)
+    {59, 1, 43, 255, 255}, // TO(_MOUSE_MISC)
     {60, 2, 201, 255, 255},
-    {62, 3, 201, 255, 255},
-    {65, 3, 248, 255, 255}
+    {62, 3, 201, 255, 255}, // underglow
+    {65, 3, 248, 255, 255} // underglow
 );
 
-const rgblight_segment_t PROGMEM MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM MOUSE_MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 6, 11, 255, 255},
     {6, 6, 19, 255, 255},
     {12, 6, 27, 255, 255},
@@ -152,8 +152,8 @@ const rgblight_segment_t PROGMEM MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {24, 1, 43, 255, 255},
     {25, 1, 85, 255, 255}, // TO(_QWERTY)
     {26, 2, 43, 255, 255},
-    {28, 3, 43, 255, 255},
-    {31, 3, 11, 255, 255},
+    {28, 3, 43, 255, 255}, // underglow
+    {31, 3, 11, 255, 255}, // underglow
 
     {34, 6, 11, 255, 255},
     {40, 5, 19, 255, 255},
@@ -163,24 +163,24 @@ const rgblight_segment_t PROGMEM MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {58, 1, 43, 255, 255},
     {59, 1, 169, 255, 255}, // TO(_NUM_SYM)
     {60, 2, 43, 255, 255},
-    {62, 3, 43, 255, 255},
-    {65, 3, 11, 255, 255}
+    {62, 3, 43, 255, 255}, // underglow
+    {65, 3, 11, 255, 255} // underglow
 );
 
 const rgblight_segment_t PROGMEM DANGER_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, 0, 0, 255},  // RESET
     {1, 24, 0, 255, 255},
     {25, 1, 85, 255, 255}, // TO(_QWERTY)
-    {26, 33, 0, 255, 255},
+    {26, 33, 0, 255, 255}, // including left side underglow
     {59, 1, 85, 255, 255}, // TO(_QWERTY)
-    {60, 8, 0, 255, 255}
+    {60, 8, 0, 255, 255} // including right side underglow
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     QWERTY_Layer,
     NUM_SYM_Layer,
     NAV_Layer,
-    MISC_Layer,
+    MOUSE_MISC_Layer,
     DANGER_Layer
 );
 
@@ -197,7 +197,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(_NUM_SYM, layer_state_cmp(state, _NUM_SYM));
     rgblight_set_layer_state(_NAV, layer_state_cmp(state, _NAV));
-    rgblight_set_layer_state(_MISC, layer_state_cmp(state, _MISC));
+    rgblight_set_layer_state(_MOUSE_MISC, layer_state_cmp(state, _MOUSE_MISC));
     rgblight_set_layer_state(_DANGER, layer_state_cmp(state, _DANGER));
 
     return state;

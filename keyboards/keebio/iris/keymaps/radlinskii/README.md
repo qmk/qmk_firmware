@@ -2,10 +2,10 @@
 
 Layers:
 
--   alphabetic
+-   alphabetic (qwerty) - default
 -   numeric + symbols
--   navigation + mouse
--   miscellaneous media keys
+-   navigation
+-   mouse + miscellaneous media keys
 -   danger (used only for reset)
 
 Features:
