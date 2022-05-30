@@ -358,3 +358,7 @@ CLI Flashing sequence:
 2. Wait for the OS to detect the device
 3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/blackpill_f411_tinyuf2 --keymap default`
 4. Wait for the keyboard to become available
+
+### `make` Targets
+
+* `:uf2-split-left` and `:uf2-split-right`: Flashes the firmware but also sets the handedness setting in EEPROM by generating a side specific firmware.
