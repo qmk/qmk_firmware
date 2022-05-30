@@ -78,7 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-const rgblight_segment_t PROGMEM QWERTY_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM QWERTY_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+    // left side
     {0, 6, 117, 255, 255},
     {6, 6, 107, 255, 255},
     {12, 6, 97, 255, 255},
@@ -88,7 +89,7 @@ const rgblight_segment_t PROGMEM QWERTY_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {26, 2, 85, 255, 255},
     {28, 3, 85, 255, 255}, // underglow
     {31, 3, 117, 255, 255}, // underglow
-
+    // right side
     {34, 6, 117, 255, 255},
     {40, 6, 107, 255, 255},
     {46, 6, 97, 255, 255},
@@ -100,7 +101,8 @@ const rgblight_segment_t PROGMEM QWERTY_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {65, 3, 117, 255, 255} // underglow
 );
 
-const rgblight_segment_t PROGMEM NUM_SYM_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM NUM_SYM_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+    // left side
     {0, 6, 201, 255, 255},
     {6, 6, 191, 255, 255},
     {12, 6, 181, 255, 255},
@@ -110,7 +112,7 @@ const rgblight_segment_t PROGMEM NUM_SYM_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {26, 2, 169, 255, 255},
     {28, 3, 169, 255, 255}, // underglow
     {31, 3, 201, 255, 255}, // underglow
-
+    // right side
     {34, 6, 201, 255, 255},
     {40, 6, 191, 255, 255},
     {46, 6, 181, 255, 255},
@@ -122,7 +124,8 @@ const rgblight_segment_t PROGMEM NUM_SYM_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {65, 3, 201, 255, 255} // underglow
 );
 
-const rgblight_segment_t PROGMEM NAV_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM NAV_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+    // left side
     {0, 6, 248, 255, 255},
     {6, 6, 240, 255, 255},
     {12, 6, 225, 255, 255},
@@ -132,7 +135,7 @@ const rgblight_segment_t PROGMEM NAV_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {26, 2, 201, 255, 255},
     {28, 3, 201, 255, 255}, // underglow
     {31, 3, 248, 255, 255}, // underglow
-
+    // right side
     {34, 6, 248, 255, 255},
     {40, 6, 240, 255, 255},
     {46, 6, 225, 255, 255},
@@ -144,7 +147,8 @@ const rgblight_segment_t PROGMEM NAV_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {65, 3, 248, 255, 255} // underglow
 );
 
-const rgblight_segment_t PROGMEM MOUSE_MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM MOUSE_MISC_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+    // left side
     {0, 6, 11, 255, 255},
     {6, 6, 19, 255, 255},
     {12, 6, 27, 255, 255},
@@ -154,7 +158,7 @@ const rgblight_segment_t PROGMEM MOUSE_MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {26, 2, 43, 255, 255},
     {28, 3, 43, 255, 255}, // underglow
     {31, 3, 11, 255, 255}, // underglow
-
+    // right side
     {34, 6, 11, 255, 255},
     {40, 5, 19, 255, 255},
     {45, 1, 0, 255, 255}, // TO(_DANGER)
@@ -167,7 +171,8 @@ const rgblight_segment_t PROGMEM MOUSE_MISC_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {65, 3, 11, 255, 255} // underglow
 );
 
-const rgblight_segment_t PROGMEM DANGER_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM DANGER_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+    // both sides
     {0, 1, 0, 0, 255},  // RESET
     {1, 24, 0, 255, 255},
     {25, 1, 85, 255, 255}, // TO(_QWERTY)
@@ -176,16 +181,16 @@ const rgblight_segment_t PROGMEM DANGER_Layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {60, 8, 0, 255, 255} // including right side underglow
 );
 
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    QWERTY_Layer,
-    NUM_SYM_Layer,
-    NAV_Layer,
-    MOUSE_MISC_Layer,
-    DANGER_Layer
+const rgblight_segment_t* const PROGMEM MY_LIGHT_LAYERS[] = RGBLIGHT_LAYERS_LIST(
+    QWERTY_LIGHT_LAYER,
+    NUM_SYM_LIGHT_LAYER,
+    NAV_LIGHT_LAYER,
+    MOUSE_MISC_LIGHT_LAYER,
+    DANGER_LIGHT_LAYER
 );
 
 void keyboard_post_init_user(void) {
-    rgblight_layers = my_rgb_layers;
+    rgblight_layers = MY_LIGHT_LAYERS;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
