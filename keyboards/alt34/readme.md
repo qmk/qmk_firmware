@@ -1,6 +1,6 @@
 # alt34
 
-![alt34](https://gitlab.com/altosys/alt34/-/raw/main/images/alt34_profile.png)
+![alt34](https://i.imgur.com/GDv0dL0.png)
 
 alt34 was designed as a minimalistic, 'no frills' workhorse keyboard with focus on efficiency and ergonomics.
 This breaks down into the following priorities in the design:
