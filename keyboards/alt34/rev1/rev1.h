@@ -3,14 +3,6 @@
 #include "alt34.h"
 #include "quantum.h"
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
-
 #define ____ KC_NO
 
 /*              left hand                     right hand            */
