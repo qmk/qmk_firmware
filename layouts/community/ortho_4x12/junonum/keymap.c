@@ -27,12 +27,10 @@ enum planck_keycodes {
     DP_OFF
 };
 
-// #define SHIFTEN RSFT_T(KC_ENT)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define SPACEFN LT(_FN1, KC_SPC)
 #define DPADNUM MO(_DPADNUM)
-// #define CTRLTAB CTL_T(KC_TAB)
 
 // Homerow mods
 #define MD_A    LALT_T(KC_A)
