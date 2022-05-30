@@ -266,7 +266,7 @@ Flashing sequence:
 ### `make` Targets
 
 * `:dfu-util`: Waits until an STM32 bootloader device is available, and then flashes the firmware.
-* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:avrdude`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
+* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:dfu-util`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
 * `:st-link-cli`: Allows you to flash the firmware via the ST-Link CLI utility, rather than dfu-util. Requires an ST-Link dongle.
 * `:st-flash`: Allows you to flash the firmware via the `st-flash` utility from [STLink Tools](https://github.com/stlink-org/stlink), rather than dfu-util. Requires an ST-Link dongle.
 
