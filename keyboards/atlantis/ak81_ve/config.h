@@ -35,12 +35,12 @@
 #define UNUSED_PINS
 
 /* Encoder pins */
-#define ENCODERS_PAD_A { B0 }
-#define ENCODERS_PAD_B { E6 }
+#define ENCODERS_PAD_A { E6 }
+#define ENCODERS_PAD_B { B0 }
 #define ENCODER_RESOLUTION 4
 #define ENCODERS 1
-#define ENCODERS_CCW_KEY { { 3, 5 } } // Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 4, 5 } } // Note:  array is { col, row )
+#define ENCODERS_CCW_KEY { { 4, 5 } } // Note:  array is { col, row )
+#define ENCODERS_CW_KEY  { { 3, 5 } } // Note:  array is { col, row )
 
 /* LED pins */
 #define LED_CAPS_LOCK_PIN D4

@@ -102,11 +102,17 @@ void steno_set_mode(steno_mode_t new_mode) {
 /* override to intercept chords right before they get sent.
  * return zero to suppress normal sending behavior.
  */
-__attribute__((weak)) bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) { return true; }
+__attribute__((weak)) bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
+    return true;
+}
 
-__attribute__((weak)) bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed) { return true; }
+__attribute__((weak)) bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed) {
+    return true;
+}
 
-__attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 
 static void send_steno_chord(void) {
     if (send_steno_chord_user(mode, chord)) {
@@ -114,11 +120,11 @@ static void send_steno_chord(void) {
             case STENO_MODE_BOLT:
                 send_steno_state(BOLT_STATE_SIZE, false);
 #ifdef VIRTSER_ENABLE
-                virtser_send(0);  // terminating byte
+                virtser_send(0); // terminating byte
 #endif
                 break;
             case STENO_MODE_GEMINI:
-                chord[0] |= 0x80;  // Indicate start of packet
+                chord[0] |= 0x80; // Indicate start of packet
                 send_steno_state(GEMINI_STATE_SIZE, true);
                 break;
         }
@@ -126,9 +132,13 @@ static void send_steno_chord(void) {
     steno_clear_state();
 }
 
-uint8_t *steno_get_state(void) { return &state[0]; }
+uint8_t *steno_get_state(void) {
+    return &state[0];
+}
 
-uint8_t *steno_get_chord(void) { return &chord[0]; }
+uint8_t *steno_get_chord(void) {
+    return &chord[0];
+}
 
 static bool update_state_bolt(uint8_t key, bool press) {
     uint8_t boltcode = pgm_read_byte(boltmap + key);
