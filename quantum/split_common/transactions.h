@@ -27,7 +27,6 @@ typedef void (*slave_callback_t)(uint8_t initiator2target_buffer_size, const voi
 
 // Split transaction Descriptor
 typedef struct _split_transaction_desc_t {
-    uint8_t *        status;
     uint8_t          initiator2target_buffer_size;
     uint16_t         initiator2target_offset;
     uint8_t          target2initiator_buffer_size;

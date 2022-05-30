@@ -78,7 +78,9 @@ class SequencerTest : public ::testing::Test {
     sequencer_state_t  state_copy;
 };
 
-TEST_F(SequencerTest, TestOffByDefault) { EXPECT_EQ(is_sequencer_on(), false); }
+TEST_F(SequencerTest, TestOffByDefault) {
+    EXPECT_EQ(is_sequencer_on(), false);
+}
 
 TEST_F(SequencerTest, TestOn) {
     sequencer_config.enabled = false;

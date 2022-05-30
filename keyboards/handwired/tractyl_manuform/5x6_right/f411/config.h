@@ -79,7 +79,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PIN      B9
 #define I2C1_SCL_PAL_MODE 4
 #define I2C1_SDA_PAL_MODE 4
-// #define I2C1_CLOCK_SPEED  400000
+#define I2C1_CLOCK_SPEED  400000
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 /* encoder config */
 #define ENCODERS_PAD_A \
@@ -99,14 +100,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* eeprom config */
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
-// #define EXTERNAL_EEPROM_BYTE_COUNT           8196
-// #define EXTERNAL_EEPROM_PAGE_SIZE            32
-// #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
-// #define DEBUG_EEPROM_OUTPUT
-
-#ifdef EEPROM_SPI
-#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8195
-#endif
 
 /* pmw3360 config  */
 #define PMW3360_CS_PIN                       B0

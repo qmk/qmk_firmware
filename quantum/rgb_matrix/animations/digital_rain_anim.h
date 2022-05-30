@@ -10,11 +10,13 @@ RGB_MATRIX_EFFECT(DIGITAL_RAIN)
 bool DIGITAL_RAIN(effect_params_t* params) {
     // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
     const uint8_t drop_ticks           = 28;
-    const uint8_t pure_green_intensity = 0xd0;
-    const uint8_t max_brightness_boost = 0xc0;
-    const uint8_t max_intensity        = 0xff;
+    const uint8_t pure_green_intensity = (((uint16_t)rgb_matrix_config.hsv.v) * 3) >> 2;
+    const uint8_t max_brightness_boost = (((uint16_t)rgb_matrix_config.hsv.v) * 3) >> 2;
+    const uint8_t max_intensity        = rgb_matrix_config.hsv.v;
+    const uint8_t decay_ticks          = 0xff / max_intensity;
 
-    static uint8_t drop = 0;
+    static uint8_t drop  = 0;
+    static uint8_t decay = 0;
 
     if (params->init) {
         rgb_matrix_set_color_all(0, 0, 0);
@@ -22,6 +24,7 @@ bool DIGITAL_RAIN(effect_params_t* params) {
         drop = 0;
     }
 
+    decay++;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_DIGITAL_RAIN_DROPS) {
@@ -30,7 +33,9 @@ bool DIGITAL_RAIN(effect_params_t* params) {
                 g_rgb_frame_buffer[row][col] = max_intensity;
             } else if (g_rgb_frame_buffer[row][col] > 0 && g_rgb_frame_buffer[row][col] < max_intensity) {
                 // neither fully bright nor dark, decay it
-                g_rgb_frame_buffer[row][col]--;
+                if (decay == decay_ticks) {
+                    g_rgb_frame_buffer[row][col]--;
+                }
             }
             // set the pixel colour
             uint8_t led[LED_HITS_TO_REMEMBER];
@@ -48,6 +53,9 @@ bool DIGITAL_RAIN(effect_params_t* params) {
             }
         }
     }
+    if (decay == decay_ticks) {
+        decay = 0;
+    }
 
     if (++drop > drop_ticks) {
         // reset drop timer
@@ -59,9 +67,9 @@ bool DIGITAL_RAIN(effect_params_t* params) {
                     g_rgb_frame_buffer[row][col]--;
                 }
                 // check if the pixel above is bright
-                if (g_rgb_frame_buffer[row - 1][col] == max_intensity) {
+                if (g_rgb_frame_buffer[row - 1][col] >= max_intensity) { // Note: can be larger than max_intensity if val was recently decreased
                     // allow old bright pixel to decay
-                    g_rgb_frame_buffer[row - 1][col]--;
+                    g_rgb_frame_buffer[row - 1][col] = max_intensity - 1;
                     // make this pixel bright
                     g_rgb_frame_buffer[row][col] = max_intensity;
                 }
@@ -71,5 +79,5 @@ bool DIGITAL_RAIN(effect_params_t* params) {
     return false;
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(ENABLE_RGB_MATRIX_DIGITAL_RAIN)
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(ENABLE_RGB_MATRIX_DIGITAL_RAIN)

@@ -41,4 +41,4 @@ ifeq ($(strip $(RGBLIGHT_SPLIT_ENABLE)), yes)
 endif
 
 # Link time optimization, should save on firmware size
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
