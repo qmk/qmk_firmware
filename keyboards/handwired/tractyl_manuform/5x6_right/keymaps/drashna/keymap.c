@@ -120,12 +120,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,      _______, _______
     ),
     [_ADJUST] = LAYOUT_5x6_right_wrapper(
-        KC_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,                 KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, KC_RST,
-        VRSN,    _________________ADJUST_L1_________________,                        _________________ADJUST_R1_________________, EEP_RST,
+        QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,                 KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, QK_BOOT,
+        VRSN,    _________________ADJUST_L1_________________,                        _________________ADJUST_R1_________________, EE_CLR,
         KEYLOCK, _________________ADJUST_L2_________________,                        _________________ADJUST_R2_________________, TG_MODS,
         UC_MOD,  _________________ADJUST_L3_________________,                        _________________ADJUST_R3_________________, KC_MPLY,
                    TG(_DIABLOII), AUTO_CTN,                                                            TG_GAME, TG_DBLO,
-                                            _______, REBOOT,                                  KC_NUKE,
+                                            _______, QK_RBT,                                  KC_NUKE,
                                                      _______, _______,               _______,
                                                      _______, _______,      KC_NUKE, _______
     ),

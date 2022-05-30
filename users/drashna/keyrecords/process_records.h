@@ -48,7 +48,6 @@ enum userspace_custom_keycodes {
     AUTOCORRECT_ON,
     AUTOCORRECT_OFF,
     AUTOCORRECT_TOGGLE,
-    REBOOT,
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -67,7 +66,6 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 #define TG_DBLO   TG(_DIABLO)
 #define OS_LWR    OSL(_LOWER)
 #define OS_RSE    OSL(_RAISE)
-#define KC_MAKE   QK_MAKE
 
 #define KC_SEC1   KC_SECRET_1
 #define KC_SEC2   KC_SECRET_2
@@ -96,9 +94,6 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 #        define DEFLYR12 (FIRST_DEFAULT_LAYER_KEYCODE + 11)
 #    endif
 #endif
-
-#define KC_RESET RESET
-#define KC_RST   KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
 #    define KC_C1R3 SH_T(KC_TAB)

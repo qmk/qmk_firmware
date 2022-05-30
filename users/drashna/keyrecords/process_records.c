@@ -200,23 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         }
-        case EEP_RST:
-            if (record->event.pressed) {
-                eeconfig_disable();
-                shutdown_user();
-#ifdef __AVR__
-                wdt_enable(WDTO_250MS);
-#else
-                NVIC_SystemReset();
-#endif
-            }
-            return false;
-        case REBOOT:
-            if (record->event.pressed) {
-                software_reset();
-            }
-            return false;
-    }
+     }
     return true;
 }
 
