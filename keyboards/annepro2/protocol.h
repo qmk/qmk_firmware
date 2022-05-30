@@ -55,7 +55,7 @@ enum {
 #define MAX_PAYLOAD_SIZE 64
 
 /** Enum of the states used for the serial protocol finite-state automaton */
-enum protoState {
+enum proto_state {
     /* 2-byte initial start-of-message sync */
     STATE_SYNC_1,
     STATE_SYNC_2,
@@ -65,15 +65,15 @@ enum protoState {
     STATE_ID,
     /* Waiting for payload size */
     STATE_PAYLOAD_SIZE,
-    /* Reading payload until payloadPosition == payloadSize */
+    /* Reading payload until payload_position == payload_size */
     STATE_PAYLOAD,
 };
 
 /* Buffer holding a single message */
 typedef struct {
     uint8_t command;
-    uint8_t msgId;
-    uint8_t payloadSize;
+    uint8_t msg_id;
+    uint8_t payload_size;
     uint8_t payload[MAX_PAYLOAD_SIZE];
 } message_t;
 
@@ -83,12 +83,12 @@ typedef struct {
     void (*callback)(const message_t *);
 
     /* Number of read payload bytes */
-    uint8_t payloadPosition;
+    uint8_t payload_position;
 
     /* Current finite-state-automata state */
-    enum protoState state;
+    enum proto_state state;
 
-    uint8_t previousId;
+    uint8_t previous_id;
     uint8_t errors;
 
     /* Currently received message */
@@ -99,13 +99,13 @@ typedef struct {
 extern protocol_t proto;
 
 /* Init state */
-extern void protoInit(protocol_t *proto, void (*callback)(const message_t *));
+extern void proto_init(protocol_t *proto, void (*callback)(const message_t *));
 
 /* Consume one byte and push state forward - might call the callback */
-extern void protoConsume(protocol_t *proto, uint8_t byte);
+extern void proto_consume(protocol_t *proto, uint8_t byte);
 
 /* Prolonged silence - reset state */
-extern void protoSilence(protocol_t *proto);
+extern void proto_silence(protocol_t *proto);
 
 /* Transmit message */
-extern void protoTx(uint8_t cmd, const unsigned char *buf, int payloadSize, int retries);
+extern void proto_tx(uint8_t cmd, const unsigned char *buf, int payload_size, int retries);

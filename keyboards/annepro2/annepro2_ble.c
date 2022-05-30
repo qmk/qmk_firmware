@@ -35,47 +35,47 @@ static host_driver_t ap2_ble_driver = {
     ap2_ble_leds, ap2_ble_keyboard, ap2_ble_mouse, ap2_ble_system, ap2_ble_consumer,
 };
 
-static uint8_t bleMcuWakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
+static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
 
-static uint8_t bleMcuStartBroadcast[11] = {
+static uint8_t ble_mcu_start_broadcast[11] = {
     0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x01, 0x00  // Broadcast ID[0-3]
 };
 
-static uint8_t bleMcuConnect[11] = {
+static uint8_t ble_mcu_connect[11] = {
     0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x04, 0x00  // Connect ID [0-3]
 };
 
-static uint8_t bleMcuSendReport[10] = {
+static uint8_t ble_mcu_send_report[10] = {
     0x7b, 0x12, 0x53, 0x00, 0x0A, 0x00, 0x00, 0x7d, 0x10, 0x04,
 };
 
-static uint8_t bleMcuSendConsumerReport[10] = {
+static uint8_t ble_mcu_send_consumer_report[10] = {
     0x7b, 0x12, 0x53, 0x00, 0x06, 0x00, 0x00, 0x7d, 0x10, 0x08,
 };
 
-static uint8_t bleMcuUnpair[10] = {
+static uint8_t ble_mcu_unpair[10] = {
     0x7b, 0x12, 0x53, 0x00, 0x02, 0x00, 0x00, 0x7d, 0x40, 0x05,
 };
 
-static uint8_t bleMcuBootload[11] = {0x7b, 0x10, 0x51, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x01};
+static uint8_t ble_mcu_bootload[11] = {0x7b, 0x10, 0x51, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x01};
 
-static host_driver_t *lastHostDriver = NULL;
+static host_driver_t *last_host_driver = NULL;
 #ifdef NKRO_ENABLE
 static bool lastNkroStatus = false;
 #endif  // NKRO_ENABLE
 
 /* -------------------- Public Function Implementation ---------------------- */
 
-void annepro2_ble_bootload(void) { sdWrite(&SD1, bleMcuBootload, sizeof(bleMcuBootload)); }
+void annepro2_ble_bootload(void) { sdWrite(&SD1, ble_mcu_bootload, sizeof(ble_mcu_bootload)); }
 
-void annepro2_ble_startup(void) { sdWrite(&SD1, bleMcuWakeup, sizeof(bleMcuWakeup)); }
+void annepro2_ble_startup(void) { sdWrite(&SD1, ble_mcu_wakeup, sizeof(ble_mcu_wakeup)); }
 
 void annepro2_ble_broadcast(uint8_t port) {
     if (port > 3) {
         port = 3;
     }
     // sdPut(&SD1, 0x00);
-    sdWrite(&SD1, bleMcuStartBroadcast, sizeof(bleMcuStartBroadcast));
+    sdWrite(&SD1, ble_mcu_start_broadcast, sizeof(ble_mcu_start_broadcast));
     sdPut(&SD1, port);
     static int lastBroadcast = -1;
     if (lastBroadcast == port) {
@@ -88,7 +88,7 @@ void annepro2_ble_connect(uint8_t port) {
     if (port > 3) {
         port = 3;
     }
-    sdWrite(&SD1, bleMcuConnect, sizeof(bleMcuConnect));
+    sdWrite(&SD1, ble_mcu_connect, sizeof(ble_mcu_connect));
     sdPut(&SD1, port);
     ap2_ble_swtich_ble_driver();
 }
@@ -103,12 +103,12 @@ void annepro2_ble_disconnect(void) {
 #ifdef NKRO_ENABLE
     keymap_config.nkro = lastNkroStatus;
 #endif
-    host_set_driver(lastHostDriver);
+    host_set_driver(last_host_driver);
 }
 
 void annepro2_ble_unpair(void) {
     // sdPut(&SD1, 0x0);
-    sdWrite(&SD1, bleMcuUnpair, sizeof(bleMcuUnpair));
+    sdWrite(&SD1, ble_mcu_unpair, sizeof(ble_mcu_unpair));
 }
 
 /* ------------------- Static Function Implementation ----------------------- */
@@ -117,7 +117,7 @@ static void ap2_ble_swtich_ble_driver(void) {
         return;
     }
     clear_keyboard();
-    lastHostDriver = host_get_driver();
+    last_host_driver = host_get_driver();
 #ifdef NKRO_ENABLE
     lastNkroStatus = keymap_config.nkro;
 #endif
@@ -154,7 +154,7 @@ static inline uint16_t CONSUMER2AP2(uint16_t usage) {
 
 static void ap2_ble_consumer(uint16_t data) {
     sdPut(&SD1, 0x0);
-    sdWrite(&SD1, bleMcuSendConsumerReport, sizeof(bleMcuSendConsumerReport));
+    sdWrite(&SD1, ble_mcu_send_consumer_report, sizeof(ble_mcu_send_consumer_report));
     sdPut(&SD1, CONSUMER2AP2(data));
     static const uint8_t dummy[3] = {0};
     sdWrite(&SD1, dummy, sizeof(dummy));
@@ -165,6 +165,6 @@ static void ap2_ble_consumer(uint16_t data) {
  */
 static void ap2_ble_keyboard(report_keyboard_t *report) {
     sdPut(&SD1, 0x0);
-    sdWrite(&SD1, bleMcuSendReport, sizeof(bleMcuSendReport));
+    sdWrite(&SD1, ble_mcu_send_report, sizeof(ble_mcu_send_report));
     sdWrite(&SD1, &report->raw[0], KEYBOARD_REPORT_SIZE);
 }
