@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
+#define AUTO_SHIFT_MODIFIERS
+#define NO_AUTO_SHIFT_ALPHAS
 
 #include "config_common.h"
 
