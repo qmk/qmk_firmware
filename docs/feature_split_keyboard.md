@@ -141,6 +141,9 @@ Next, you will have to flash the EEPROM files once for the correct hand to the c
 * ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
   * `:dfu-util-split-left`
   * `:dfu-util-split-right`
+* ARM controllers with a UF2 compatible bootloader:
+  * `:uf2-split-left`
+  * `:uf2-split-right`
 
 Example:
 
