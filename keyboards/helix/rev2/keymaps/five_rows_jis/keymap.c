@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 #include <stdio.h>
 #include <string.h>
 #ifdef SSD1306OLED
