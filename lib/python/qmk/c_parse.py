@@ -259,6 +259,10 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
         raise ValueError("Unable to parse g_led_config position data")
     if len(matrix_indexes) and (max(matrix_indexes) >= len(flags)):
         raise ValueError("OOB within g_led_config matrix data")
+    if not all(isinstance(n, int) for n in matrix_indexes):
+        raise ValueError("matrix indexes are not all ints")
+    if (len(position_raw) % 2) != 0:
+        raise ValueError("Malformed g_led_config position data")
 
     return (matrix, position, flags)
 
