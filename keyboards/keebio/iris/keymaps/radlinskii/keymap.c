@@ -3,7 +3,7 @@
 #define _QWERTY 0
 #define _NUM_SYM 1
 #define _NAV 2
-#define _MOUSE_MISC 3
+#define _MOUSE_MEDIA 3
 #define _DANGER 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         _______, _______, _______, _______, _______, _______, _______,          _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, TO(_QWERTY), _______,              _______, TO(_MOUSE_MISC), _______
+                                    _______, TO(_QWERTY), _______,              _______, TO(_MOUSE_MEDIA), _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
-    [_MOUSE_MISC] = LAYOUT(
+    [_MOUSE_MEDIA] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
         KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -141,13 +141,13 @@ const rgblight_segment_t PROGMEM NAV_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     {46, 6, 225, 255, 255},
     {52, 6, 210, 255, 255},
     {58, 1, 201, 255, 255},
-    {59, 1, 43, 255, 255}, // TO(_MOUSE_MISC)
+    {59, 1, 43, 255, 255}, // TO(_MOUSE_MEDIA)
     {60, 2, 201, 255, 255},
     {62, 3, 201, 255, 255}, // underglow
     {65, 3, 248, 255, 255} // underglow
 );
 
-const rgblight_segment_t PROGMEM MOUSE_MISC_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM MOUSE_MEDIA_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     // left side
     {0, 6, 11, 255, 255},
     {6, 6, 19, 255, 255},
@@ -185,7 +185,7 @@ const rgblight_segment_t* const PROGMEM MY_LIGHT_LAYERS[] = RGBLIGHT_LAYERS_LIST
     QWERTY_LIGHT_LAYER,
     NUM_SYM_LIGHT_LAYER,
     NAV_LIGHT_LAYER,
-    MOUSE_MISC_LIGHT_LAYER,
+    MOUSE_MEDIA_LIGHT_LAYER,
     DANGER_LIGHT_LAYER
 );
 
@@ -202,7 +202,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(_NUM_SYM, layer_state_cmp(state, _NUM_SYM));
     rgblight_set_layer_state(_NAV, layer_state_cmp(state, _NAV));
-    rgblight_set_layer_state(_MOUSE_MISC, layer_state_cmp(state, _MOUSE_MISC));
+    rgblight_set_layer_state(_MOUSE_MEDIA, layer_state_cmp(state, _MOUSE_MEDIA));
     rgblight_set_layer_state(_DANGER, layer_state_cmp(state, _DANGER));
 
     return state;
