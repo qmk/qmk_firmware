@@ -14,6 +14,10 @@ This breaks down into the following priorities in the design:
    * Kailh hotswap socket support
    * Tenting puck support
 
+## Hardware
+
+A bill of materials for building alt34 is found in [the alt34 git repo](https://gitlab.com/altosys/alt34)
+
 ## Bootloader
 
 Enter the bootloader in 3 ways:
