@@ -5,10 +5,9 @@ from pathlib import Path
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.info import info_json
-from qmk.json_schema import json_load, validate
+from qmk.info import info_json, keymap_json_config
+from qmk.json_schema import json_load
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.keymap import locate_keymap
 from qmk.commands import dump_lines
 from qmk.path import normpath
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
@@ -21,7 +20,7 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
         return None
 
     info_key = info_dict['info_key']
-    key_type = info_dict.get('value_type', 'str')
+    key_type = info_dict.get('value_type', 'raw')
 
     try:
         rules_value = kb_info_json[info_key]
@@ -34,6 +33,8 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
         return f'{rules_key} ?= {"yes" if rules_value else "no"}'
     elif key_type == 'mapping':
         return '\n'.join([f'{key} ?= {value}' for key, value in rules_value.items()])
+    elif key_type == 'str':
+        return f'{rules_key} ?= "{rules_value}"'
 
     return f'{rules_key} ?= {rules_value}'
 
@@ -49,10 +50,7 @@ def generate_rules_mk(cli):
     """
     # Determine our keyboard/keymap
     if cli.args.keymap:
-        km = locate_keymap(cli.args.keyboard, cli.args.keymap)
-        km_json = json_load(km)
-        validate(km_json, 'qmk.keymap.v1')
-        kb_info_json = dotty(km_json.get('config', {}))
+        kb_info_json = dotty(keymap_json_config(cli.args.keyboard, cli.args.keymap))
     else:
         kb_info_json = dotty(info_json(cli.args.keyboard))
 
