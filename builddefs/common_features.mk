@@ -542,12 +542,6 @@ ifeq ($(strip $(LED_TABLES)), yes)
     SRC += $(QUANTUM_DIR)/led_tables.c
 endif
 
-ifeq ($(strip $(TERMINAL_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
-    OPT_DEFS += -DTERMINAL_ENABLE
-    OPT_DEFS += -DUSER_PRINT
-endif
-
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
