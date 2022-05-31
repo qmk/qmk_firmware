@@ -1,6 +1,6 @@
 # IDOBAO ID80
 
-![ID80](https://i.imgur.com/977ENjp.png)
+![ID80](https://i.imgur.com/977ENjph.png)
 
 A 75% hotswap keyboard from IDOBAO.
 
