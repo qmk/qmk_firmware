@@ -92,6 +92,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+
+        #ifdef RGB_MATRIX_ENABLE
+
+        case QK_BOOT:
+            if (record->event.pressed) {
+                rgb_matrix_set_color_all(RGB_MATRIX_MAXIMUM_BRIGHTNESS, 0, 0);  // All red
+                rgb_matrix_driver.flush();
+            }
+            return true;
+
+        #endif  // RGB_MATRIX_ENABLE
+
         // print firmware version
         case KB_VRSN:
             if (!get_mods()) {
