@@ -71,6 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
+#define SERIAL_USART_SPEED       921600
 // #define SERIAL_USART_PIN_SWAP // swap RX and TX pins on master
 // To use the highest possible baudrate (3.75Mbit/s) uncomment the following
 // line, this can result in dropped communications so lower the speed if there
@@ -102,8 +103,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PMW3360_SPI_MODE                     3
 #define PMW3360_SPI_DIVISOR                  64
 
-
-#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
-#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
-#        define CHARYBDIS_MINIMUM_SNIPING_DPI 200
-#        define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
+#define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
+#define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
+#define CHARYBDIS_MINIMUM_SNIPING_DPI 200
+#define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
