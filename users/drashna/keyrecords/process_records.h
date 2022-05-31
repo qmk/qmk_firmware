@@ -21,7 +21,6 @@ enum userspace_custom_keycodes {
     KC_DVORAK,                                // Sets default layer to DVORAK
     LAST_DEFAULT_LAYER_KEYCODE = KC_DVORAK,   // Sets default layer to WORKMAN
     KC_DIABLO_CLEAR,                          // Clears all Diablo Timers
-    KC_MAKE,                                  // Run keyboard's customized make command
     KC_RGB_T,                                 // Toggles RGB Layer Indication mode
     RGB_IDL,                                  // RGB Idling animations
     KC_SECRET_1,                              // test1
@@ -46,8 +45,9 @@ enum userspace_custom_keycodes {
     KC_AUSSIE,
     KC_ZALGO,
     KC_ACCEL,
-    AUTO_CTN,                                 // Toggle Autocorrect status
-    REBOOT,
+    AUTOCORRECT_ON,
+    AUTOCORRECT_OFF,
+    AUTOCORRECT_TOGGLE,
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -95,9 +95,6 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 #    endif
 #endif
 
-#define KC_RESET RESET
-#define KC_RST   KC_RESET
-
 #ifdef SWAP_HANDS_ENABLE
 #    define KC_C1R3 SH_T(KC_TAB)
 #elif defined(DRASHNA_LP)
@@ -130,7 +127,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
-
+#define AUTO_CTN AUTOCORRECT_TOGGLE
 /*
 Custom Keycodes for Diablo 3 layer
 But since TD() doesn't work when tap dance is disabled
