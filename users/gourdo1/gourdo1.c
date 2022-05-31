@@ -1,5 +1,5 @@
 /* Copyright 2021 Jonavin Eng @Jonavin
-   Copyright 2022 gourdo1 <jcblake@outlook.com>
+   Copyright 2022 gourdo1 <gourdo1@outlook.com>
    
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -39,15 +39,17 @@ void dance_LSFT_reset(qk_tap_dance_state_t * state, void * user_data) {
         unregister_code16(KC_LSFT);
     }
 }
+#endif // TD_LSFT_CAPSLOCK_ENABLE
+
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
+    #ifdef TD_LSFT_CAPSLOCK_ENABLE
     // Tap once for shift, twice for Caps Lock
-    [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_LSFT_CAPS_WIN] = ACTION_TAP_DANCE_FN_ADVANCED(dance_LSFT_each_tap, NULL, dance_LSFT_reset),
+    #endif // TD_LSFT_CAPSLOCK_ENABLE
     // Tap once for Escape, twice to reset to base layer
-    [TD_ESC_BASELYR] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _BASE),
+    [TD_ESC_BASELYR] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _BASE)
 };
-#endif // TD_LSFT_CAPSLOCK_ENABLE
 
 // RGB NIGHT MODE
 #ifdef RGB_MATRIX_ENABLE
@@ -134,10 +136,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         return false;
     }
 
-    // Your macros ...
+    // Key macros ...
     switch (keycode) {
 
-    // DotCom domain macros
+        // DotCom domain macros
     case DOTCOM:
         if (record -> event.pressed) {
             SEND_STRING(".com");
@@ -173,39 +175,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
             // when keycode is released
         }
         break;
-		
-/*
-    case YAHOO:
-        if (record -> event.pressed) SEND_STRING("yahoo.com");
-        else unregister_code16(keycode);
-        break;
-    case OUTLOOK:
-        if (record -> event.pressed) SEND_STRING("outlook.com");
-        else unregister_code16(keycode);
-        break;
-    case GMAIL:
-        if (record -> event.pressed) SEND_STRING("gmail.com");
-        else unregister_code16(keycode);
-        break;
-    case HOTMAIL:
-        if (record -> event.pressed) {
-            SEND_STRING("hotmail.com");
-        } else unregister_code16(keycode);
-        break;
-    case DOTCOM:
-        if (record -> event.pressed) SEND_STRING(".com");
-        else unregister_code16(keycode);
-        break;
-*/
 
-    // Windows key lock		
+        // WinKey lock
     case KC_WINLCK:
         if (record -> event.pressed) {
             keymap_config.no_gui = !keymap_config.no_gui; //toggle status
         } else unregister_code16(keycode);
         break;
 
-    // Double Zero    
+        // Double Zero    
     case KC_00:
         if (record -> event.pressed) {
             // when keycode KC_00 is pressed
@@ -213,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         } else unregister_code16(keycode);
         break;
 
-    // Treat Control+Space as if regular Space
+        // Treat Control+Space as if regular Space
     case KC_SPC: {
         // Initialize a boolean variable that keeps track of the space key status: registered or not?
         static bool spckey_registered;
@@ -239,8 +217,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
                 return false;
             }
         }
-        }
-        break;
+    }
+    break;
 
     // Treat Shift+Space as if regular Space
     case KC_SHIFTSPC: {
@@ -268,8 +246,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
                 return false;
             }
         }
-        }
-        break;
+    }
+    break;
 
     // Add INS as SHIFT-modified BackSpace key
     case KC_BSPC: {
@@ -297,38 +275,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
                 return false;
             }
         }
-        }
-        break;
-
-    /* Add INS as SHIFT-modified DEL key
-    case KC_DEL: {
-        // Initialize a boolean variable that keeps track of the delete key status: registered or not?
-        static bool inskey_registered;
-        if (record->event.pressed) {
-            // Detect the activation of either shift keys
-            if (mod_state & MOD_MASK_SHIFT) {
-                // First temporarily canceling both shifts so that
-                // shift isn't applied to the KC_INS keycode
-                del_mods(MOD_MASK_SHIFT);
-                register_code(KC_INS);
-                // Update the boolean variable to reflect the status of KC_INS
-                inskey_registered = true;
-                // Reapplying modifier state so that the held shift key(s)
-                // still work even after having tapped the Delete/Insert key.
-                set_mods(mod_state);
-                return false;
-            }
-        } else { // on release of KC_DEL
-            // In case KC_INS is still being sent even after the release of KC_DEL
-            if (inskey_registered) {
-                unregister_code(KC_INS);
-                inskey_registered = false;
-                return false;
-            }
-        }
-        }
-        break;
-    */
+    }
+    break;
 
     #ifdef IDLE_TIMEOUT_ENABLE
     case RGB_TOI:
@@ -418,7 +366,6 @@ void activate_numlock(bool turn_on) {
 }
 
 // INITIAL STARTUP
-
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
@@ -427,6 +374,6 @@ void keyboard_post_init_user(void) {
     activate_numlock(true); // turn on Num lock by default so that the numpad layer always has predictable results
     #endif // STARTUP_NUMLOC_ON
     #ifdef IDLE_TIMEOUT_ENABLE
-    timeout_timer = timer_read(); // set inital time for ide timeout
+    timeout_timer = timer_read(); // set initial time for idle timeout
     #endif
 }

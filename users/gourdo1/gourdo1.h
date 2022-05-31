@@ -1,5 +1,5 @@
 /* Copyright 2021 Jonavin Eng @Jonavin
-   Copyright 2022 gourdo1 <jcblake@outlook.com>
+   Copyright 2022 gourdo1 <gourdo1@outlook.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,27 +20,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // DEFINE MACROS
 #define ARRAYSIZE(arr) sizeof(arr) / sizeof(arr[0])
 
-// LAYERS
+// LAYERS -- Note: to avoid compile problems, make sure total layers matches DYNAMIC_KEYMAP_LAYER_COUNT defined in config.h (where _COLEMAK layer is defined)
 enum custom_user_layers {
     _BASE,
     _FN1,
     _NUMPADMOUSE,
     _MOUSEKEY,
+    #ifdef GAME_ENABLE
+    _GAME
+    #endif //GAME_ENABLE
 };
 
 #define KC_CAD LALT(LCTL(KC_DEL))
+#define LOCKPC LGUI(KC_L)
 #define KC_AF4 LALT(KC_F4)
 #define KC_TASK LCTL(LSFT(KC_ESC))
 #define CT_PGUP RCTL(KC_PGUP)
 #define CT_PGDN RCTL(KC_PGDN)
 #define CT_HOME RCTL(KC_HOME)
 #define CT_END RCTL(KC_END)
-#define KC_SFTUP RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
-#define KC_RAISESPC LT(_MOUSEKEY, KC_SPC) // _MOUSEKEY layer mod when held, space when tapped
+#define KC_SFTUP RSFT_T(KC_UP)               // Shift when held, Up arrow when tapped
+#define KC_RAISESPC LT(_MOUSEKEY, KC_SPC)    // _MOUSEKEY layer mod when held, space when tapped
 #define KC_LOWERSPC LT(_NUMPADMOUSE, KC_SPC) // _NUMPAD-MOUSE layer mod when held, space when tapped
 #define KC_SHIFTSPC LSFT(KC_SPC)
-#define SWAP_L SGUI(KC_LEFT) // Swap application to left display
-#define SWAP_R SGUI(KC_RGHT) // Swap application to right display
+#define SWAP_L SGUI(KC_LEFT)                 // Swap application to left display
+#define SWAP_R SGUI(KC_RGHT)                 // Swap application to right display
 
 // KEYCODES
 enum custom_user_keycodes {
@@ -66,24 +70,25 @@ enum custom_user_keycodes {
 
         KC_TSTOG,      // Tab Scroll Toggle
 
-        NEW_SAFE_RANGE // new safe range for keymap level custom keycodes
+        NEW_SAFE_RANGE // New safe range for keymap level custom keycodes
+};
+
+
+// Tap Dance Definitions
+enum custom_tapdance {
+    #ifdef TD_LSFT_CAPSLOCK_ENABLE
+    TD_LSFT_CAPS_WIN,
+    #endif // TD_LSFT_CAPSLOCK_ENABLE
+    TD_ESC_BASELYR
 };
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
-// Tap Dance Definitions
-enum custom_tapdance {
-    TD_LSFT_CAPSLOCK,
-    TD_LSFT_CAPS_WIN,
-    TD_ESC_BASELYR
-};
-#define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
-#define KC_LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
-#define KC_ESCLYR TD(TD_ESC_BASELYR)
+    #define KC_LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
 #else // regular Shift
-#define KC_LSFTCAPS KC_LSFT
-// regular Escape
-#define KC_ESCLYR KC_ESC
+    #define KC_LSFTCAPSWIN KC_LSFT
 #endif // TD_LSFT_CAPSLOCK_ENABLE
+
+#define KC_ESCLYR TD(TD_ESC_BASELYR)
 
 // ENCODER ACTIONS
 #ifdef ENCODER_ENABLE
