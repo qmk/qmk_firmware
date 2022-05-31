@@ -75,7 +75,7 @@ typedef enum {
     POINTING_DEVICE_BUTTON8,
 } pointing_device_buttons_t;
 
-#ifdef MOUSE_EXT_REPORT
+#ifdef MOUSE_EXTENDED_REPORT
 #    define XY_REPORT_MIN INT16_MIN
 #    define XY_REPORT_MAX INT16_MAX
 typedef int32_t clamp_range_t;
