@@ -131,6 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
+            return false;
         }
         break;
         case PG_ENDC:
@@ -142,6 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!ctrl_on) SEND_STRING(SS_TAP(X_ENTER));
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
+            return false;
         }
         break;
         case PG_EQEQ:
@@ -153,6 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
+            return false;
         }
         break;
         case PG_EQL:
@@ -164,10 +167,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
+            return false;
         }
         break;
         case PG_MINS:
-        if (!shift_on) return true; // key override handles it
+        if (shift_on) return true; // key override handles it
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
@@ -176,6 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
+            return false;
         }
         break;
         case PG_NEEQ:
@@ -187,6 +192,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!ctrl_on) SEND_STRING(" ");
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
+            return false;
         }
         break;
     }
