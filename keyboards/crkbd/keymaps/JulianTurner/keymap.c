@@ -17,31 +17,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_LEFT_CTRL,    DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,                         DE_N,    DE_M, KC_COMM,  DE_DOT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         MO(_NUMBER), MO(_SYMBOL), KC_SPC,  KC_BSPACE, XXXXXXX, XXXXXXX
+                                         MO(_NUMBER), MO(_SYMBOL), KC_SPC,   KC_BSPACE, KC_ENTER, XXXXXXX
                                             //`--------------------------'  `--------------------------'
 
         ),
     [_SYMBOL] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, XXXXXXX, DE_LBRC, DE_RBRC, XXXXXXX,                      DE_EXLM, DE_LABK, DE_RABK, XXXXXXX, XXXXXXX,   DE_SS,
+            XXXXXXX, XXXXXXX, DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC,                      DE_EXLM, DE_LABK, DE_RABK,  DE_EQL, DE_AMPR,   DE_SS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, XXXXXXX, XXXXXXX, DE_LCBR, DE_RCBR, XXXXXXX,                      DE_QUES, DE_LPRN, DE_RPRN, XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX, DE_BSLS, DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR,                      DE_QUES, DE_LPRN, DE_RPRN, DE_MINS,   DE_AT, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_LEFT_CTRL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_LEFT_CTRL, DE_HASH,  DE_DLR, DE_PIPE, DE_TILD,  DE_GRV,                      DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                      MO(_NUMBER), MO(_SYMBOL), XXXXXXX,     KC_ENTER, XXXXXXX, XXXXXXX
+                                      MO(_NUMBER), MO(_SYMBOL),    KC_SPC,   KC_BSPACE, KC_ENTER, XXXXXXX
                                             //`--------------------------'  `--------------------------'
 
         ),
     [_NUMBER] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, KC_PAGE_UP, KC_UP, KC_PAGE_DOWN, XXXXXXX,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_PAGE_UP, KC_UP, KC_PAGE_DOWN, XXXXXXX,                XXXXXXX,    DE_7,    DE_8,    DE_9, DE_ASTR, DE_SLSH,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX,                     XXXXXXX,    DE_4,    DE_5,    DE_6, DE_PLUS, DE_MINS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_LEFT_CTRL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_LEFT_CTRL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,    DE_1,    DE_2,    DE_3, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        MO(_NUMBER), MO(_SYMBOL), XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX
+                                        MO(_NUMBER), MO(_SYMBOL),  KC_SPC,   KC_BSPACE, KC_ENTER, DE_0
                                             //`--------------------------'  `--------------------------'
 
         ),
