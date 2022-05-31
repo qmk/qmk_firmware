@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 
 /*
  * RGB Stuff
@@ -189,7 +189,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 }
 
-// #endif  // RGB_MATRIX_ENABLE
+#endif  // RGB_MATRIX_ENABLE
 
 /*
  * Extra keys and RGB Toggle handler
@@ -200,7 +200,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
         // handle RGB toggle key - this ensures caps lock always works
-        // #ifdef RGB_MATRIX_ENABLE
+        #ifdef RGB_MATRIX_ENABLE
+
+        case QK_BOOT:
+            if (record->event.pressed) {
+                rgb_matrix_set_color_all(RGB_MATRIX_MAXIMUM_BRIGHTNESS, 0, 0);  // All red
+                rgb_matrix_driver.flush();
+            }
+            return true;
 
         case RGB_TOG:
             /* roll through the LED modes
@@ -247,7 +254,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // let this one pass on
 
-        // #endif
+        #endif  // RGB_MATRIX_ENABLE
 
         // print firmware version
         case KB_VRSN:
