@@ -2,7 +2,7 @@
 
 Keyspensory KP60 PCB
 
-![Keyspensory KP60 PCB](https://i.imgur.com/dUPQpkZh.png)
+![Keyspensory KP60 PCB](https://i.imgur.com/3Ob0bp9.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
