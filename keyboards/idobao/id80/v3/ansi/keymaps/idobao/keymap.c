@@ -218,6 +218,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // handle RGB toggle key - this ensures caps lock always works
         #ifdef RGB_MATRIX_ENABLE
 
+        case QK_BOOT:
+            if (record->event.pressed) {
+                rgb_matrix_set_color_all(RGB_MATRIX_MAXIMUM_BRIGHTNESS, 0, 0);  // All red
+                rgb_matrix_driver.flush();
+            }
+            return true;
+
         case RGB_TOG:
             /* roll through the LED modes
              * |    Level   | Per-key | Underglow |
