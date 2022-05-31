@@ -409,6 +409,7 @@ You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
 | `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
 | `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+| `AW_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
 | `AW_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
 
 Here is an example using 2 drivers.
