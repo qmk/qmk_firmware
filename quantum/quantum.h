@@ -141,12 +141,6 @@ extern layer_state_t layer_state;
 #    include "process_key_lock.h"
 #endif
 
-#ifdef TERMINAL_ENABLE
-#    include "process_terminal.h"
-#else
-#    include "process_terminal_nop.h"
-#endif
-
 #ifdef SPACE_CADET_ENABLE
 #    include "process_space_cadet.h"
 #endif
