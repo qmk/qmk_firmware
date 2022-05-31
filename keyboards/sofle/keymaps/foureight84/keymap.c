@@ -45,8 +45,6 @@ enum custom_keycodes {
     KC_LEND,
     KC_DLINE,
     KC_MOUSE,
-    KC_MOUSE_BTN1,
-    KC_MOUSE_BTN2
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -619,9 +617,4 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     }
 
     return smooth_mouse_movement(mouse_report);
-}
-
-void keyboard_post_init_kb(void) {
-
-    keyboard_post_init_user();
 }
