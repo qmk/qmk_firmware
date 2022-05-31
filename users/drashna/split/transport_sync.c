@@ -11,6 +11,7 @@
 #ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
 extern unicode_config_t unicode_config;
+#    include "keyrecords/unicode.h"
 #endif
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
@@ -97,6 +98,7 @@ void user_transport_update(void) {
 #endif
 #ifdef UNICODE_COMMON_ENABLE
         user_state.unicode_mode = unicode_config.input_mode;
+        user_state.unicode_typing_mode = typing_mode;
 #endif
 #ifdef SWAP_HANDS_ENABLE
         user_state.swap_hands = swap_hands;
@@ -110,6 +112,7 @@ void user_transport_update(void) {
         user_state.raw       = transport_user_state;
 #ifdef UNICODE_COMMON_ENABLE
         unicode_config.input_mode = user_state.unicode_mode;
+        typing_mode = user_state.unicode_typing_mode;
 #endif
 #if defined(CUSTOM_POINTING_DEVICE)
         tap_toggling = user_state.tap_toggling;

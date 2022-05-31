@@ -133,7 +133,7 @@ Holding down the Num key accesses a number pad and arithmetic symbols:
 ```
 |       |QWERT|DVORK|COLMK|AG_SWAP|AG_NORM|-----------------------|     |     |     |     |     |       |
 |       |     |     |     |CTR_S|CTR_N|---------------------------|MOD+ |BRI+ |HUE+ |SAT+ |     |       |
-| RESET |     |     |     |     |     |     |--------------|RGBTOG|MOD- |BRI- |HUE- |SAT- |     |       |
+| QK_BOOT |     |     |     |     |     |     |--------------|RGBTOG|MOD- |BRI- |HUE- |SAT- |     |       |
 --------------|     |-----|     |     |     | *** |---| *** |     |     |     |-----|     |--------------
 ```
 Simultaneously holding down the Nav and Sym keys enables keys to adjust various keyboard settings:
