@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sn74hc595.h"
+#include "sn74x595.h"
 #include "spi_master.h"
 #include "debug.h"
 #include "timer.h"
@@ -24,28 +24,28 @@ uint32_t timer_now;
 #endif
 
 spi_status_t res;
-uint8_t      pinStates[SN74HC595_LENGTH];
+uint8_t      pinStates[SN74x595_LENGTH];
 typedef enum { Low = 0, High = 1 } pinState;
 
 /* get length */
-uint8_t sn74hc595_length(void) {
-    return SN74HC595_LENGTH;
+uint8_t sn74x595_length(void) {
+    return SN74x595_LENGTH;
 }
 /*
     init first
 */
-void sn74hc595_init(void) {
+void sn74x595_init(void) {
     spi_init();
 }
 
-bool sn74hc595_spi_transmit(void) {
-    if (!spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR)) {
-        dprint("sn74hc595 spi can't start \n");
+bool sn74x595_spi_transmit(void) {
+    if (!spi_start(SN74x595_SPI_SLAVE_SELECT_PIN, SN74x595_SPI_LSBFIRST, SN74x595_SPI_MODE, SN74x595_SPI_CLOCK_DIVISOR)) {
+        dprint("sn74x595 spi can't start \n");
         spi_stop();
         return false;
     }
 
-    res = spi_transmit(pinStates, SN74HC595_LENGTH);
+    res = spi_transmit(pinStates, SN74x595_LENGTH);
     if (res != SPI_STATUS_SUCCESS) {
         spi_stop();
         return false;
@@ -56,14 +56,14 @@ bool sn74hc595_spi_transmit(void) {
 }
 
 /*
-    set pin number on sn74hc595
+    set pin number on sn74x595
 */
-bool sn74hc595_setPin(uint8_t pin, bool set) {
+bool sn74x595_setPin(uint8_t pin, bool set) {
 #ifdef CONSOLE_ENABLE
     uint8_t current_pin = pin;
 #endif
     // set pin state like binary 1000010
-    for (int current = (SN74HC595_LENGTH - 1); current >= 0; current--) {
+    for (int current = (SN74x595_LENGTH - 1); current >= 0; current--) {
         if (pin < 8) {
             int mask           = 1 << pin;
             pinStates[current] = ((pinStates[current] & ~mask) | set << pin);
@@ -74,12 +74,12 @@ bool sn74hc595_setPin(uint8_t pin, bool set) {
 // pinstates debug
 #ifdef CONSOLE_ENABLE
     if (timer_elapsed32(timer_now) >= 1000) {
-        dprint("sn74hc595 PinStates in HEX: ");
-        for (uint8_t x = 0; x < SN74HC595_LENGTH; x++) {
+        dprint("sn74x595 PinStates in HEX: ");
+        for (uint8_t x = 0; x < SN74x595_LENGTH; x++) {
             dprintf("PS %i:[0x%02x]|", x, pinStates[x]);
         }
-        dprint("\nsn74hc595 PinStates in BIN: ");
-        for (uint8_t x = 0; x < SN74HC595_LENGTH; x++) {
+        dprint("\nsn74x595 PinStates in BIN: ");
+        for (uint8_t x = 0; x < SN74x595_LENGTH; x++) {
             dprint("|");
             debug_bin_reverse8(pinStates[x]);
         }
@@ -88,8 +88,8 @@ bool sn74hc595_setPin(uint8_t pin, bool set) {
     }
 #endif
     // then send it using spi
-    if (!sn74hc595_spi_transmit()) {
-        dprintf("sn74hc595 can't set pin number %d to %s \n", current_pin, set ? "High" : "Low");
+    if (!sn74x595_spi_transmit()) {
+        dprintf("sn74x595 can't set pin number %d to %s \n", current_pin, set ? "High" : "Low");
         return false;
     }
     return true;
@@ -98,28 +98,28 @@ bool sn74hc595_setPin(uint8_t pin, bool set) {
 /*
     for easy use
 */
-bool sn74hc595_setPinHigh(uint8_t pin) {
-    return sn74hc595_setPin(pin, High);
+bool sn74x595_setPinHigh(uint8_t pin) {
+    return sn74x595_setPin(pin, High);
 }
 
-bool sn74hc595_setPinLow(uint8_t pin) {
-    return sn74hc595_setPin(pin, Low);
+bool sn74x595_setPinLow(uint8_t pin) {
+    return sn74x595_setPin(pin, Low);
 }
 
 /*
     make a shortcut, slightly faster then set pin one by one
 */
 
-bool sn74hc595_set_raw(uint8_t* raw_value) {
-    if (!spi_start(SN74HC595_SPI_SLAVE_SELECT_PIN, SN74HC595_SPI_LSBFIRST, SN74HC595_SPI_MODE, SN74HC595_SPI_CLOCK_DIVISOR)) {
-        dprint("sn74hc595 spi can't start \n");
+bool sn74x595_set_raw(uint8_t* raw_value) {
+    if (!spi_start(SN74x595_SPI_SLAVE_SELECT_PIN, SN74x595_SPI_LSBFIRST, SN74x595_SPI_MODE, SN74x595_SPI_CLOCK_DIVISOR)) {
+        dprint("sn74x595 spi can't start \n");
         spi_stop();
         return false;
     }
 
-    res = spi_transmit(raw_value, SN74HC595_LENGTH);
+    res = spi_transmit(raw_value, SN74x595_LENGTH);
     if (res != SPI_STATUS_SUCCESS) {
-        dprintf("sn74hc595 spi can't set value[0x%02x] to peripheral \n", raw_value);
+        dprintf("sn74x595 spi can't set value[0x%02x] to peripheral \n", raw_value);
         spi_stop();
         return false;
     }
@@ -128,24 +128,24 @@ bool sn74hc595_set_raw(uint8_t* raw_value) {
     return true;
 }
 
-bool sn74hc595_AllPin_High(void) {
-    for (uint8_t current = 0; current < SN74HC595_LENGTH; current++) {
+bool sn74x595_AllPin_High(void) {
+    for (uint8_t current = 0; current < SN74x595_LENGTH; current++) {
         pinStates[current] = 0xFF;
     }
 
-    if (!sn74hc595_spi_transmit()) {
-        dprint("sn74hc595 can't set all pin to High \n");
+    if (!sn74x595_spi_transmit()) {
+        dprint("sn74x595 can't set all pin to High \n");
         return false;
     }
     return true;
 }
 
-bool sn74hc595_AllPin_Low(void) {
-    for (uint8_t current = 0; current < SN74HC595_LENGTH; current++) {
+bool sn74x595_AllPin_Low(void) {
+    for (uint8_t current = 0; current < SN74x595_LENGTH; current++) {
         pinStates[current] = 0x0;
     }
-    if (!sn74hc595_spi_transmit()) {
-        dprint("sn74hc595 can't set all pin to Low \n");
+    if (!sn74x595_spi_transmit()) {
+        dprint("sn74x595 can't set all pin to Low \n");
         return false;
     }
     return true;

@@ -25,83 +25,82 @@
  * Driver for SN74HC595 8-bit shift registers with 3-state output registers
  * https://www.ti.com/document-viewer/SN74HC595/datasheet
  * use this as output
- * note: i tested on st32f401cc blackpill, the matrix scan rate performance drop significanly from 28xxHz to 12xxHz.
  */
 
 /*
-    The slave select pin of the SN74HC595.
+    The slave select pin of the SN74x595.
     This needs to be a normal GPIO pin_t value, such as B14.
 */
-#ifndef SN74HC595_SPI_SLAVE_SELECT_PIN
-#    error "No chip select pin defined -- missing SN74HC595_SPI_SLAVE_SELECT_PIN"
+#ifndef SN74x595_SPI_SLAVE_SELECT_PIN
+#    error "No chip select pin defined -- missing SN74x595_SPI_SLAVE_SELECT_PIN"
 #endif
 
 /*
     The clock divisor for SPI to ensure that the MCU is within the
-    specifications of the SN74HC595 chip. Generally this will be PCLK divided by
+    specifications of the SN74x595 chip. Generally this will be PCLK divided by
     the intended divisor -- check your clock settings and the datasheet of
-    your SN74HC595.
+    your SN74x595.
 */
-#ifndef SN74HC595_SPI_CLOCK_DIVISOR
+#ifndef SN74x595_SPI_CLOCK_DIVISOR
 #    ifdef __AVR__
-#        define SN74HC595_SPI_CLOCK_DIVISOR 8
+#        define SN74x595_SPI_CLOCK_DIVISOR 8
 #    else
-#        define SN74HC595_SPI_CLOCK_DIVISOR 64
+#        define SN74x595_SPI_CLOCK_DIVISOR 64
 #    endif
 #endif
 
 /*
-    The SPI mode to communicate with the SN74HC595.
+    The SPI mode to communicate with the SN74x595.
 */
-#ifndef SN74HC595_SPI_MODE
-#    define SN74HC595_SPI_MODE 0
+#ifndef SN74x595_SPI_MODE
+#    define SN74x595_SPI_MODE 0
 #endif
 
 /*
-    Whether or not the SPI communication between the MCU and SN74HC595 should be
+    Whether or not the SPI communication between the MCU and SN74x595 should be
     LSB-first.
 */
-#ifndef SN74HC595_SPI_LSBFIRST
-#    define SN74HC595_SPI_LSBFIRST false
+#ifndef SN74x595_SPI_LSBFIRST
+#    define SN74x595_SPI_LSBFIRST false
 #endif
 
 /*
-    How many you use SN74HC595 chip aka daisy-chain.
+    How many you use SN74x595 chip aka daisy-chain.
     if you just using 1 chip, you can leave it
 */
-#ifndef SN74HC595_LENGTH
-#    define SN74HC595_LENGTH 1
+#ifndef SN74x595_LENGTH
+#    define SN74x595_LENGTH 1
 #endif
 
 /*
     init first
 */
-void sn74hc595_init(void);
+void sn74x595_init(void);
 
 /*
-    set pin number on sn74hc595
+    set pin number on sn74x595
 */
-bool sn74hc595_setPin(uint8_t pin, bool set);
+bool sn74x595_setPin(uint8_t pin, bool set);
 
 /*
     for easy to use
 */
-bool sn74hc595_set_raw(uint8_t* raw_value);
+bool sn74x595_set_raw(uint8_t* raw_value);
 /*
     set a pin high
 */
-bool sn74hc595_setPinLow(uint8_t pin);
+bool sn74x595_setPinHigh(uint8_t pin);
 
 /*
-    set a pin high
+    set a pin low
 */
-bool sn74hc595_setPinLow(uint8_t pin);
+bool sn74x595_setPinLow(uint8_t pin);
 /*
     set all pin high
 */
-bool sn74hc595_AllPin_High(void);
+bool sn74x595_AllPin_High(void);
 
 /*
     set all pin low
 */
-bool sn74hc595_AllPin_Low(void);
+bool sn74x595_AllPin_Low(void);
