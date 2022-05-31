@@ -86,7 +86,7 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 * Fn+L is single-handed shortcut to Win-L (lock Windows) (added May 17, 2022)
 * Fn+[Encoder press] to sleep Windows PC (added May 14, 2022)
 
-Link to latest firmware binary: https://github.com/gourdo1/media/raw/main/gmmk_pro_ansi_gourdo1.bin
+Link to latest firmware binary: https://github.com/gourdo1/media/raw/main/gmmk_pro_rev1_ansi_gourdo1.bin
 
 Link to cheatsheet: https://github.com/gourdo1/media/raw/main/GMMK_Pro_Cheatsheet.pdf
 
