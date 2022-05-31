@@ -20,7 +20,7 @@
 #define FORCE_NKRO
 #define USB_POLLING_INTERVAL_MS 1
 #ifdef TAPPING_TOGGLE
-    #undef TAPPING_TOGGLE
+#    undef TAPPING_TOGGLE
 #endif
 #define TAPPING_TOGGLE 3
 
