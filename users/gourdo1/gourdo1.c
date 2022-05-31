@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "gourdo1.h"
 
-#include "caps_word.h"
-
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
 // Tap once for shift, twice for Caps Lock but only if Win Key in not disabled
 void dance_LSFT_each_tap(qk_tap_dance_state_t * state, void * user_data) {
@@ -131,11 +129,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     if (!process_record_keymap(keycode, record)) {
         return false;
     }
-
-    if (!process_caps_word(keycode, record)) {
-        return false;
-    }
-
     // Key macros ...
     switch (keycode) {
 

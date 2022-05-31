@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//Force n-key rollover
+// Force n-key rollover
 #define FORCE_NKRO
 
 // Set TT to two taps
@@ -27,7 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_COMMAND() (get_mods() == MOD_MASK_CTRL) //debug commands accessed by holding down both CTRLs: https://github.com/qmk/qmk_firmware/blob/master/docs/feature_command.md
 #endif
 
-/* Handle GRAVESC combo keys */
+// Caps Word configuration
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_IDLE_TIMEOUT 10000      // Automatically turn off after x milliseconds of idle. 0 to never timeout.
+
+// Handle GRAVESC combo keys
 #define GRAVE_ESC_ALT_OVERRIDE
 // Always send Escape if Alt is pressed
 #define GRAVE_ESC_CTRL_OVERRIDE
@@ -102,7 +106,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     //#undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH              // Single color pulses from muli-keys. All else black.
 #endif //RGB_MATRIX_ENABLE
 
-// add a layer for colemak  -- set "COLEMAK_LAYER_ENABLE = yes" in rules.mk to enable
+// Add a layer for colemak  -- set "COLEMAK_LAYER_ENABLE = yes" in rules.mk to enable
 #if defined COLEMAK_LAYER_ENABLE
     #ifdef GAME_ENABLE
         #define DYNAMIC_KEYMAP_LAYER_COUNT 6
