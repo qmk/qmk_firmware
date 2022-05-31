@@ -2,7 +2,7 @@
 MCU = atmega32u4
 
 # Bootloader selection
-BOOTLOADER = caterina
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -14,14 +14,7 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-# AUDIO_ENABLE = yes          # Audio output
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+AUDIO_ENABLE = no           # Audio output
 
-RGB_MATRIX_ENABLE = yes     # Enable WS2812 RGB matrix
-RGB_MATRIX_DRIVER = WS2812
-SPLIT_KEYBOARD = yes
-
-RGBLIGHT_SUPPORTED = yes
-RGB_MATRIX_SUPPORTED = yes
-
-LAYOUTS = split_3x5_3
+Layouts = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_tsangan_hhkb
