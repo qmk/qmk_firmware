@@ -1,8 +1,8 @@
-# CMM.Studio Fuji65
+# CMM.Studio Fuji75 hotswap
 
-CMM.Studio Fuji65 Keyboard
+CMM.Studio Fuji75 hotswap Keyboard
 
-![CMM.Studio Fuji65](https://i.imgur.com/dUPQpkZh.png)
+![CMM.Studio Fuji75 hotswap](https://i.imgur.com/0qiX0H7.png)
 
 
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
@@ -10,7 +10,7 @@ CMM.Studio Fuji65 Keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cmm_studio/fuji65:default
+    make cmm_studio/fuji75_hotswap:default
 
 
 For reset instruction, use the physical reset button on the back of the keyboard to enter bootloader mode
