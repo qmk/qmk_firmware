@@ -1,3 +1,19 @@
+/* Copyright 2022 Khoa Truong <foureight84@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #include <string.h>
 #include "lib/lib8tion/lib8tion.h"
@@ -5,7 +21,6 @@
 #ifdef OLED_ENABLE
 #include <stdio.h>
 
-char wpm_str[4];
 #endif
 
 enum sofle_layers {
@@ -359,9 +374,10 @@ bool oled_task_user(void) {
         print_status_narrow();
     } else {
         render_anim();
-        oled_set_cursor(0,12);
-        sprintf(wpm_str, "WPM\n%03d", get_current_wpm());
-        oled_write(wpm_str, false);
+        oled_set_cursor(1,12);
+        oled_write_P(PSTR("WPM"), false);
+        oled_set_cursor(1,13);
+        oled_write(get_u8_str(get_current_wpm(), '0'), false);
     }
     return false;
 }
