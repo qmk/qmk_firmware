@@ -844,7 +844,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
 #    endif
         add_key(KC_CAPS_LOCK);
         send_keyboard_report();
-        wait_ms(100);
+        wait_ms(TAP_HOLD_CAPS_DELAY);
         del_key(KC_CAPS_LOCK);
         send_keyboard_report();
     }
