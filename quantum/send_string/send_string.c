@@ -142,40 +142,36 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
 // Note: we bit-pack in "reverse" order to optimize loading
 #define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> ((pos) % 8)) & 0x01)
 
-void send_string(const char *str) {
-    send_string_with_delay(str, 0);
+void send_string(const char *string) {
+    send_string_with_delay(string, 0);
 }
 
-void send_string_P(const char *str) {
-    send_string_with_delay_P(str, 0);
-}
-
-void send_string_with_delay(const char *str, uint8_t interval) {
+void send_string_with_delay(const char *string, uint8_t interval) {
     while (1) {
-        char ascii_code = *str;
+        char ascii_code = *string;
         if (!ascii_code) break;
         if (ascii_code == SS_QMK_PREFIX) {
-            ascii_code = *(++str);
+            ascii_code = *(++string);
             if (ascii_code == SS_TAP_CODE) {
                 // tap
-                uint8_t keycode = *(++str);
+                uint8_t keycode = *(++string);
                 tap_code(keycode);
             } else if (ascii_code == SS_DOWN_CODE) {
                 // down
-                uint8_t keycode = *(++str);
+                uint8_t keycode = *(++string);
                 register_code(keycode);
             } else if (ascii_code == SS_UP_CODE) {
                 // up
-                uint8_t keycode = *(++str);
+                uint8_t keycode = *(++string);
                 unregister_code(keycode);
             } else if (ascii_code == SS_DELAY_CODE) {
                 // delay
                 int     ms      = 0;
-                uint8_t keycode = *(++str);
+                uint8_t keycode = *(++string);
                 while (isdigit(keycode)) {
                     ms *= 10;
                     ms += keycode - '0';
-                    keycode = *(++str);
+                    keycode = *(++string);
                 }
                 while (ms--)
                     wait_ms(1);
@@ -183,50 +179,7 @@ void send_string_with_delay(const char *str, uint8_t interval) {
         } else {
             send_char(ascii_code);
         }
-        ++str;
-        // interval
-        {
-            uint8_t ms = interval;
-            while (ms--)
-                wait_ms(1);
-        }
-    }
-}
-
-void send_string_with_delay_P(const char *str, uint8_t interval) {
-    while (1) {
-        char ascii_code = pgm_read_byte(str);
-        if (!ascii_code) break;
-        if (ascii_code == SS_QMK_PREFIX) {
-            ascii_code = pgm_read_byte(++str);
-            if (ascii_code == SS_TAP_CODE) {
-                // tap
-                uint8_t keycode = pgm_read_byte(++str);
-                tap_code(keycode);
-            } else if (ascii_code == SS_DOWN_CODE) {
-                // down
-                uint8_t keycode = pgm_read_byte(++str);
-                register_code(keycode);
-            } else if (ascii_code == SS_UP_CODE) {
-                // up
-                uint8_t keycode = pgm_read_byte(++str);
-                unregister_code(keycode);
-            } else if (ascii_code == SS_DELAY_CODE) {
-                // delay
-                int     ms      = 0;
-                uint8_t keycode = pgm_read_byte(++str);
-                while (isdigit(keycode)) {
-                    ms *= 10;
-                    ms += keycode - '0';
-                    keycode = pgm_read_byte(++str);
-                }
-                while (ms--)
-                    wait_ms(1);
-            }
-        } else {
-            send_char(ascii_code);
-        }
-        ++str;
+        ++string;
         // interval
         {
             uint8_t ms = interval;
@@ -250,17 +203,17 @@ void send_char(char ascii_code) {
     bool    is_dead    = PGM_LOADBIT(ascii_to_dead_lut, (uint8_t)ascii_code);
 
     if (is_shifted) {
-        register_code(KC_LSFT);
+        register_code(KC_LEFT_SHIFT);
     }
     if (is_altgred) {
-        register_code(KC_RALT);
+        register_code(KC_RIGHT_ALT);
     }
     tap_code(keycode);
     if (is_altgred) {
-        unregister_code(KC_RALT);
+        unregister_code(KC_RIGHT_ALT);
     }
     if (is_shifted) {
-        unregister_code(KC_LSFT);
+        unregister_code(KC_LEFT_SHIFT);
     }
     if (is_dead) {
         tap_code(KC_SPACE);
@@ -320,3 +273,52 @@ void tap_random_base64(void) {
             break;
     }
 }
+
+#if defined(__AVR__)
+void send_string_P(const char *string) {
+    send_string_with_delay_P(string, 0);
+}
+
+void send_string_with_delay_P(const char *string, uint8_t interval) {
+    while (1) {
+        char ascii_code = pgm_read_byte(string);
+        if (!ascii_code) break;
+        if (ascii_code == SS_QMK_PREFIX) {
+            ascii_code = pgm_read_byte(++string);
+            if (ascii_code == SS_TAP_CODE) {
+                // tap
+                uint8_t keycode = pgm_read_byte(++string);
+                tap_code(keycode);
+            } else if (ascii_code == SS_DOWN_CODE) {
+                // down
+                uint8_t keycode = pgm_read_byte(++string);
+                register_code(keycode);
+            } else if (ascii_code == SS_UP_CODE) {
+                // up
+                uint8_t keycode = pgm_read_byte(++string);
+                unregister_code(keycode);
+            } else if (ascii_code == SS_DELAY_CODE) {
+                // delay
+                int     ms      = 0;
+                uint8_t keycode = pgm_read_byte(++string);
+                while (isdigit(keycode)) {
+                    ms *= 10;
+                    ms += keycode - '0';
+                    keycode = pgm_read_byte(++string);
+                }
+                while (ms--)
+                    wait_ms(1);
+            }
+        } else {
+            send_char(ascii_code);
+        }
+        ++string;
+        // interval
+        {
+            uint8_t ms = interval;
+            while (ms--)
+                wait_ms(1);
+        }
+    }
+}
+#endif

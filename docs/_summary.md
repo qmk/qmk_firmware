@@ -84,6 +84,7 @@
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Raw HID](feature_rawhid.md)
+    * [Send String](feature_send_string.md)
     * [Sequencer](feature_sequencer.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
