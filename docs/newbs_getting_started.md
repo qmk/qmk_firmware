@@ -44,7 +44,7 @@ Once MSYS2 is installed, close any open MSYS terminals and open a new MinGW 64-b
 
 Then run the following command:
 
-    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
+    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip mingw-w64-x86_64-python-pillow
 
 #### Installation
 
