@@ -46,7 +46,7 @@ extern const uint8_t ascii_to_keycode_lut[128];
 
 /**
  * \brief Type out a string of ASCII characters.
- * 
+ *
  * This function simply calls `send_string_with_delay(string, 0)`.
  *
  * Most keycodes from the basic keycode range are also supported by way of a special sequence - see `send_string_keycodes.h`.
