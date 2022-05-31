@@ -5,8 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#   change to "no" to disable the options
 
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no       # Mouse keys
