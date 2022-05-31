@@ -30,6 +30,7 @@ nose2 = "*"
 flake8 = "*"
 pep8-naming = "*"
 yapf = "*"
+pillow = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
