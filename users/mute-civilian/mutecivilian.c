@@ -22,9 +22,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {
     if (IS_LAYER_ON(_NAV)) {
       if (clockwise) {
-        tap_code(KC_MS_WH_UP);
+        tap_code(KC_VOLU);
       } else {
-        tap_code(KC_MS_WH_DOWN);
+        tap_code(KC_VOLD);
      }
     } else if (IS_LAYER_ON(_SYMBOLS)) {
       if (clockwise) {
@@ -40,9 +40,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
      }
     } else {
       if (clockwise) {
-        tap_code(KC_VOLU);
+        tap_code(KC_MS_WH_UP);
       } else {
-        tap_code(KC_VOLD);
+        tap_code(KC_MS_WH_DOWN);
       }
    }
   }
