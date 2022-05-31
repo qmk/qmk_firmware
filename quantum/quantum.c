@@ -258,7 +258,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
-#endif  // HAPTIC_ENABLE
+#endif // HAPTIC_ENABLE
 #ifdef ORYX_ENABLE
             process_record_oryx(keycode, record) &&
 #endif
@@ -412,7 +412,6 @@ bool process_record_quantum(keyrecord_t *record) {
         }
     }
 
-
     return process_action_kb(record);
 }
 
@@ -442,20 +441,18 @@ void matrix_scan_quantum() {
     matrix_scan_kb();
 }
 
-
 #ifdef WEBUSB_ENABLE
-__attribute__((weak)) bool webusb_receive_user(uint8_t *data, uint8_t length) { return false; }
-__attribute__((weak)) bool webusb_receive_kb(uint8_t *data, uint8_t length) { return webusb_receive_user(data, length); }
+__attribute__((weak)) bool webusb_receive_user(uint8_t *data, uint8_t length) {
+    return false;
+}
+__attribute__((weak)) bool webusb_receive_kb(uint8_t *data, uint8_t length) {
+    return webusb_receive_user(data, length);
+}
 
 bool webusb_receive_quantum(uint8_t *data, uint8_t length) {
-#    ifdef ORYX_ENABLE
-    return webusb_receive_oryx(data, length);
-#    else
     return webusb_receive_kb(data, length);
-#    endif
 }
 #endif
-
 
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
@@ -464,7 +461,6 @@ bool webusb_receive_quantum(uint8_t *data, uint8_t length) {
 __attribute__((weak)) void startup_user() {}
 
 __attribute__((weak)) void shutdown_user() {}
-
 
 void suspend_power_down_quantum(void) {
     suspend_power_down_kb();

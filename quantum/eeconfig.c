@@ -3,9 +3,6 @@
 #include "eeprom.h"
 #include "eeconfig.h"
 #include "action_layer.h"
-#ifdef ORYX_ENABLE
-#    include "oryx.h"
-#endif
 
 #if defined(EEPROM_DRIVER)
 #    include "eeprom_driver.h"
@@ -59,10 +56,6 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
     eeprom_update_word(EECONFIG_RGB_MATRIX_EXTENDED, 0);
-
-#ifdef ORYX_ENABLE
-    eeconfig_init_oryx();
-#endif
 
     // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
     //        within the emulated eeprom via dfu-util or another tool

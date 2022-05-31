@@ -14,11 +14,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
+ */
 
 #include "moonlander.h"
+#include "raw_hid.h"
 
 keyboard_config_t keyboard_config;
 
@@ -28,7 +27,9 @@ bool is_launching     = false;
 #ifdef DYNAMIC_MACRO_ENABLE
 static bool is_dynamic_recording = false;
 
-void dynamic_macro_record_start_user(void) { is_dynamic_recording = true; }
+void dynamic_macro_record_start_user(void) {
+    is_dynamic_recording = true;
+}
 
 void dynamic_macro_record_end_user(int8_t direction) {
     is_dynamic_recording = false;
@@ -96,7 +97,6 @@ static THD_FUNCTION(LEDThread, arg) {
     }
 }
 
-
 void keyboard_pre_init_kb(void) {
     setPinOutput(B5);
     setPinOutput(B4);
@@ -125,9 +125,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     bool LED_3 = false;
     bool LED_4 = false;
     bool LED_5 = false;
-#if !defined(CAPS_LOCK_STATUS)
+#    if !defined(CAPS_LOCK_STATUS)
     bool LED_6 = false;
-#endif
+#    endif
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
@@ -141,9 +141,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             break;
         case 3:
             LED_3 = true;
-#if !defined(CAPS_LOCK_STATUS)
+#    if !defined(CAPS_LOCK_STATUS)
             LED_6 = true;
-#endif
+#    endif
             break;
         case 4:
             LED_4 = true;
@@ -152,9 +152,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             LED_5 = true;
             break;
         case 6:
-#if !defined(CAPS_LOCK_STATUS)
+#    if !defined(CAPS_LOCK_STATUS)
             LED_6 = true;
-#endif
+#    endif
             break;
         default:
             break;
@@ -165,10 +165,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     ML_LED_3(LED_3);
     ML_LED_4(LED_4);
     ML_LED_5(LED_5);
-#if !defined(CAPS_LOCK_STATUS)
+#    if !defined(CAPS_LOCK_STATUS)
     ML_LED_6(LED_6);
-#endif
-
+#    endif
     return state;
 }
 #endif
@@ -373,7 +372,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 #ifdef CAPS_LOCK_STATUS
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
-    if(res) {
+    if (res) {
         ML_LED_6(led_state.caps_lock);
     }
     return res;
@@ -381,7 +380,9 @@ bool led_update_kb(led_t led_state) {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
 #if !defined(MOONLANDER_USER_LEDS)
         case LED_LEVEL:
@@ -434,7 +435,7 @@ void matrix_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
 
     if (!keyboard_config.led_level && !keyboard_config.led_level_res) {
-        keyboard_config.led_level = true;
+        keyboard_config.led_level     = true;
         keyboard_config.led_level_res = 0b11;
         eeconfig_update_kb(keyboard_config.raw);
     }
@@ -448,11 +449,11 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void eeconfig_init_kb(void) {  // EEPROM is getting reset!
-    keyboard_config.raw = 0;
+void eeconfig_init_kb(void) { // EEPROM is getting reset!
+    keyboard_config.raw               = 0;
     keyboard_config.rgb_matrix_enable = true;
-    keyboard_config.led_level = true;
-    keyboard_config.led_level_res = 0b11;
+    keyboard_config.led_level         = true;
+    keyboard_config.led_level_res     = 0b11;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }

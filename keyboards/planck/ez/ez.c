@@ -335,11 +335,11 @@ void dynamic_macro_record_end_user(int8_t direction) {
 
 void matrix_scan_kb(void) {
 #ifdef ORYX_ENABLE
-    if(webusb_state.pairing == true) {
+    if(rawhid_state.pairing == true) {
         if(loops == 0) {
           //lights off
         }
-        if(loops % WEBUSB_BLINK_STEPS == 0) {
+        if(loops % PAIRING_BLINK_STEPS == 0) {
             if(is_on) {
               planck_ez_left_led_on();
               planck_ez_right_led_off();
@@ -350,8 +350,8 @@ void matrix_scan_kb(void) {
             }
             is_on ^= 1;
         }
-        if(loops > WEBUSB_BLINK_END * 2) {
-            webusb_state.pairing = false;
+        if(loops > PAIRING_BLINK_END * 2) {
+            rawhid_state.pairing = false;
             loops = 0;
             planck_ez_left_led_off();
             planck_ez_right_led_off();

@@ -161,7 +161,10 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
     // Check to see if the host is ready to accept another packet
     if (Endpoint_IsINReady()) {
         // Write data
-        Endpoint_Write_Stream_LE(data, RAW_EPSIZE, NULL);
+        if (Endpoint_Write_Stream_LE(data, RAW_EPSIZE, NULL)) {
+            rawhid_state.pairing = false;
+            rawhid_state.paired  = false;
+        }
         // Finalize the stream transfer to send the last packet
         Endpoint_ClearIN();
     }
@@ -279,9 +282,9 @@ void webusb_send(uint8_t *data, uint8_t length) {
 
     Endpoint_SelectEndpoint(WEBUSB_IN_EPNUM);
 
-    if(Endpoint_Write_Stream_LE(data, length, NULL)) {
+    if (Endpoint_Write_Stream_LE(data, length, NULL)) {
         // Stream failed to complete, resetting WEBUSB's state
-        webusb_state.paired = false;
+        webusb_state.paired  = false;
         webusb_state.pairing = false;
     }
     Endpoint_ClearIN();
@@ -291,7 +294,6 @@ static void webusb_task(void) {
     // Create a temporary buffer to hold the read in data from the host
     uint8_t data[WEBUSB_EPSIZE];
     bool    data_read = false;
-
 
     // Device must be connected and configured for the task to run
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
@@ -543,9 +545,9 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #endif
 
 #ifdef WEBUSB_ENABLE
-  /* Setup Webusb Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(WEBUSB_IN_EPADDR, EP_TYPE_INTERRUPT, WEBUSB_EPSIZE, 1);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(WEBUSB_OUT_EPADDR, EP_TYPE_INTERRUPT, WEBUSB_EPSIZE, 1);
+    /* Setup Webusb Endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(WEBUSB_IN_EPADDR, EP_TYPE_INTERRUPT, WEBUSB_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(WEBUSB_OUT_EPADDR, EP_TYPE_INTERRUPT, WEBUSB_EPSIZE, 1);
 #endif
 
 #ifdef MIDI_ENABLE
@@ -697,23 +699,23 @@ void EVENT_USB_Device_ControlRequest(void) {
         case WEBUSB_VENDOR_CODE:
             if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE)) {
                 switch (USB_ControlRequest.wIndex) {
-                  case WebUSB_RTYPE_GetURL:
-                    switch (USB_ControlRequest.wValue) {
-                      case WEBUSB_LANDING_PAGE_INDEX:
-                        Endpoint_ClearSETUP();
-                        /* Write the descriptor data to the control endpoint */
-                        Endpoint_Write_Control_PStream_LE(&WebUSB_LandingPage, WebUSB_LandingPage.Header.Size);
-                        /* Release the endpoint after transaction. */
-                        Endpoint_ClearStatusStage();
+                    case WebUSB_RTYPE_GetURL:
+                        switch (USB_ControlRequest.wValue) {
+                            case WEBUSB_LANDING_PAGE_INDEX:
+                                Endpoint_ClearSETUP();
+                                /* Write the descriptor data to the control endpoint */
+                                Endpoint_Write_Control_PStream_LE(&WebUSB_LandingPage, WebUSB_LandingPage.Header.Size);
+                                /* Release the endpoint after transaction. */
+                                Endpoint_ClearStatusStage();
+                                break;
+                            default: /* Stall transfer on invalid index. */
+                                Endpoint_StallTransaction();
+                                break;
+                        }
                         break;
-                      default: /* Stall transfer on invalid index. */
+                    default: /* Stall on unknown WebUSB request */
                         Endpoint_StallTransaction();
                         break;
-                    }
-                    break;
-                  default: /* Stall on unknown WebUSB request */
-                    Endpoint_StallTransaction();
-                    break;
                 }
             }
 
@@ -721,16 +723,16 @@ void EVENT_USB_Device_ControlRequest(void) {
         case MS_OS_20_VENDOR_CODE:
             if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE)) {
                 switch (USB_ControlRequest.wIndex) {
-                  case MS_OS_20_DESCRIPTOR_INDEX:
-                    Endpoint_ClearSETUP();
-                    /* Write the descriptor data to the control endpoint */
-                    Endpoint_Write_Control_PStream_LE(&MS_OS_20_Descriptor, MS_OS_20_Descriptor.Header.TotalLength);
-                    /* Release the endpoint after transaction. */
-                    Endpoint_ClearStatusStage();
-                    break;
-                  default: /* Stall on unknown MS OS 2.0 request */
-                    Endpoint_StallTransaction();
-                    break;
+                    case MS_OS_20_DESCRIPTOR_INDEX:
+                        Endpoint_ClearSETUP();
+                        /* Write the descriptor data to the control endpoint */
+                        Endpoint_Write_Control_PStream_LE(&MS_OS_20_Descriptor, MS_OS_20_Descriptor.Header.TotalLength);
+                        /* Release the endpoint after transaction. */
+                        Endpoint_ClearStatusStage();
+                        break;
+                    default: /* Stall on unknown MS OS 2.0 request */
+                        Endpoint_StallTransaction();
+                        break;
                 }
             }
             break;
@@ -895,7 +897,6 @@ static void send_consumer(uint16_t data) {
     send_extra(REPORT_ID_CONSUMER, data);
 #endif
 }
-
 
 static void send_programmable_button(uint32_t data) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
@@ -1209,7 +1210,7 @@ void protocol_post_task(void) {
 #endif
 
 #ifdef WEBUSB_ENABLE
-        webusb_task();
+    webusb_task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)

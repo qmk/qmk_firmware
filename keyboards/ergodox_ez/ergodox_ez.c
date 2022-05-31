@@ -424,13 +424,13 @@ void dynamic_macro_record_end_user(int8_t direction) {
 
 void matrix_scan_kb(void) {
 #ifdef ORYX_ENABLE
-    if(webusb_state.pairing == true) {
+    if(rawhid_state.pairing == true) {
         if(loops == 0) {
             ergodox_right_led_1_off();
             ergodox_right_led_2_off();
             ergodox_right_led_3_off();
         }
-        if(loops % WEBUSB_BLINK_STEPS == 0) {
+        if(loops % PAIRING_BLINK_STEPS == 0) {
             if(is_on) {
                 ergodox_right_led_2_off();
             } else {
@@ -438,8 +438,8 @@ void matrix_scan_kb(void) {
             }
             is_on ^= 1;
         }
-        if(loops > WEBUSB_BLINK_END) {
-            webusb_state.pairing = false;
+        if(loops > PAIRING_BLINK_END) {
+            rawhid_state.pairing = false;
             layer_state_set_user(layer_state);
             loops = 0;
         }
