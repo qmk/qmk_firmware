@@ -27,12 +27,12 @@
 bool terminal_enabled = false;
 char buffer[80]       = "";
 char cmd_buffer[CMD_BUFF_SIZE][80];
-bool cmd_buffer_enabled = true;  // replace with ifdef?
+bool cmd_buffer_enabled = true; // replace with ifdef?
 char newline[2]         = "\n";
 char arguments[6][20];
 bool firstTime = true;
 
-short int current_cmd_buffer_pos = 0;  // used for up/down arrows - keeps track of where you are in the command buffer
+short int current_cmd_buffer_pos = 0; // used for up/down arrows - keeps track of where you are in the command buffer
 
 __attribute__((weak)) const char terminal_prompt[8] = "> ";
 
@@ -59,7 +59,8 @@ void enable_terminal(void) {
     terminal_enabled = true;
     strcpy(buffer, "");
     memset(cmd_buffer, 0, CMD_BUFF_SIZE * 80);
-    for (int i = 0; i < 6; i++) strcpy(arguments[i], "");
+    for (int i = 0; i < 6; i++)
+        strcpy(arguments[i], "");
     // select all text to start over
     // SEND_STRING(SS_LCTL("a"));
     send_string(terminal_prompt);
@@ -160,7 +161,7 @@ void print_cmd_buff(void) {
     for (int i = 0; i < CMD_BUFF_SIZE; i++) {
         char tmpChar = ' ';
         itoa(i, &tmpChar, 10);
-        const char *tmpCnstCharStr = &tmpChar;  // because sned_string wont take a normal char *
+        const char *tmpCnstCharStr = &tmpChar; // because sned_string wont take a normal char *
         send_string(tmpCnstCharStr);
         SEND_STRING(". ");
         send_string(cmd_buffer[i]);
@@ -185,7 +186,7 @@ void terminal_help(void) {
 }
 
 void command_not_found(void) {
-    wait_ms(50);  // sometimes buffer isnt grabbed quick enough
+    wait_ms(50); // sometimes buffer isnt grabbed quick enough
     SEND_STRING("command \"");
     send_string(buffer);
     SEND_STRING("\" not found\n");
@@ -217,15 +218,16 @@ void process_terminal_command(void) {
 
     if (terminal_enabled) {
         strcpy(buffer, "");
-        for (int i = 0; i < 6; i++) strcpy(arguments[i], "");
+        for (int i = 0; i < 6; i++)
+            strcpy(arguments[i], "");
         SEND_STRING(SS_TAP(X_HOME));
         send_string(terminal_prompt);
     }
 }
 void check_pos(void) {
-    if (current_cmd_buffer_pos >= CMD_BUFF_SIZE) {  // if over the top, move it back down to the top of the buffer so you can climb back down...
+    if (current_cmd_buffer_pos >= CMD_BUFF_SIZE) { // if over the top, move it back down to the top of the buffer so you can climb back down...
         current_cmd_buffer_pos = CMD_BUFF_SIZE - 1;
-    } else if (current_cmd_buffer_pos < 0) {  //...and if you fall under the bottom of the buffer, reset back to 0 so you can climb back up
+    } else if (current_cmd_buffer_pos < 0) { //...and if you fall under the bottom of the buffer, reset back to 0 so you can climb back up
         current_cmd_buffer_pos = 0;
     }
 }
@@ -257,12 +259,12 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                     process_terminal_command();
                     return false;
                     break;
-                case KC_ESC:
+                case KC_ESCAPE:
                     SEND_STRING("\n");
                     enable_terminal();
                     return false;
                     break;
-                case KC_BSPC:
+                case KC_BACKSPACE:
                     str_len = strlen(buffer);
                     if (str_len > 0) {
                         buffer[str_len - 1] = 0;
@@ -278,40 +280,40 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                 case KC_RIGHT:
                     return false;
                     break;
-                case KC_UP:                                             // 0 = recent
-                    check_pos();                                        // check our current buffer position is valid
-                    if (current_cmd_buffer_pos <= CMD_BUFF_SIZE - 1) {  // once we get to the top, dont do anything
+                case KC_UP:                                            // 0 = recent
+                    check_pos();                                       // check our current buffer position is valid
+                    if (current_cmd_buffer_pos <= CMD_BUFF_SIZE - 1) { // once we get to the top, dont do anything
                         str_len = strlen(buffer);
                         for (int i = 0; i < str_len; ++i) {
-                            send_string(SS_TAP(X_BSPACE));  // clear w/e is on the line already
-                            // process_terminal(KC_BSPC,record);
+                            send_string(SS_TAP(X_BSPACE)); // clear w/e is on the line already
+                            // process_terminal(KC_BACKSPACE,record);
                         }
                         strncpy(buffer, cmd_buffer[current_cmd_buffer_pos], 80);
 
                         send_string(buffer);
-                        ++current_cmd_buffer_pos;  // get ready to access the above cmd if up/down is pressed again
+                        ++current_cmd_buffer_pos; // get ready to access the above cmd if up/down is pressed again
                     }
                     return false;
                     break;
                 case KC_DOWN:
                     check_pos();
-                    if (current_cmd_buffer_pos >= 0) {  // once we get to the bottom, dont do anything
+                    if (current_cmd_buffer_pos >= 0) { // once we get to the bottom, dont do anything
                         str_len = strlen(buffer);
                         for (int i = 0; i < str_len; ++i) {
-                            send_string(SS_TAP(X_BSPACE));  // clear w/e is on the line already
-                            // process_terminal(KC_BSPC,record);
+                            send_string(SS_TAP(X_BSPACE)); // clear w/e is on the line already
+                            // process_terminal(KC_BACKSPACE,record);
                         }
                         strncpy(buffer, cmd_buffer[current_cmd_buffer_pos], 79);
 
                         send_string(buffer);
-                        --current_cmd_buffer_pos;  // get ready to access the above cmd if down/up is pressed again
+                        --current_cmd_buffer_pos; // get ready to access the above cmd if down/up is pressed again
                     }
                     return false;
                     break;
                 default:
                     if (keycode <= 58) {
                         char_to_add = 0;
-                        if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
+                        if (get_mods() & (MOD_BIT(KC_LEFT_SHIFT) | MOD_BIT(KC_RIGHT_SHIFT))) {
                             char_to_add = shifted_keycode_to_ascii_lut[keycode];
                         } else if (get_mods() == 0) {
                             char_to_add = keycode_to_ascii_lut[keycode];

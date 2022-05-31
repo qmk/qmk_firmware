@@ -30,7 +30,7 @@ Note: This is not recommended, you may encounter jerky movement or unsent inputs
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
 PS2_USE_BUSYWAIT = yes
 ```
@@ -39,14 +39,8 @@ In your keyboard config.h:
 
 ```c
 #ifdef PS2_USE_BUSYWAIT
-#   define PS2_CLOCK_PORT  PORTD
-#   define PS2_CLOCK_PIN   PIND
-#   define PS2_CLOCK_DDR   DDRD
-#   define PS2_CLOCK_BIT   1
-#   define PS2_DATA_PORT   PORTD
-#   define PS2_DATA_PIN    PIND
-#   define PS2_DATA_DDR    DDRD
-#   define PS2_DATA_BIT    2
+#   define PS2_CLOCK_PIN   D1
+#   define PS2_DATA_PIN    D2
 #endif
 ```
 
@@ -56,7 +50,7 @@ The following example uses D2 for clock and D5 for data. You can use any INT or 
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
 PS2_USE_INT = yes
 ```
@@ -65,14 +59,8 @@ In your keyboard config.h:
 
 ```c
 #ifdef PS2_USE_INT
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   2
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    5
+#define PS2_CLOCK_PIN   D2
+#define PS2_DATA_PIN    D5
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
@@ -102,8 +90,8 @@ PS2_USE_INT = yes
 In your keyboard config.h:
 
 ```c
-#define PS2_CLOCK A8
-#define PS2_DATA  A9
+#define PS2_CLOCK_PIN A8
+#define PS2_DATA_PIN  A9
 ```
 
 And in the chibios specifig halconf.h:
@@ -118,7 +106,7 @@ To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. 
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
 PS2_USE_USART = yes
 ```
@@ -127,14 +115,8 @@ In your keyboard config.h:
 
 ```c
 #ifdef PS2_USE_USART
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   5
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    2
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
 
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
 /* set DDR of CLOCK as input to be slave */

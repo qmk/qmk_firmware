@@ -32,7 +32,7 @@ GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything
 
 Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
-```makefile
+```make
 STENO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 ```
@@ -115,8 +115,8 @@ As defined in `keymap_steno.h`.
 |`STN_E`|`STN_E`| `E` vowel|
 |`STN_U`|`STN_U`| `U` vowel|
 |`STN_FR`|`STN_FR`| `-F`|
-|`STN_PR`|`STN_PR`| `-P`|
 |`STN_RR`|`STN_RR`| `-R`|
+|`STN_PR`|`STN_PR`| `-P`|
 |`STN_BR`|`STN_BR`| `-B`|
 |`STN_LR`|`STN_LR`| `-L`|
 |`STN_GR`|`STN_GR`| `-G`|

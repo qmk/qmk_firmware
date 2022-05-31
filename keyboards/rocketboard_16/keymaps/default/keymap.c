@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_RMOD,                   KC_MUTE,
         KC_NO,    KC_NO,   KC_NO,   KC_EXAM,
         KC_NO,    KC_NO,   KC_NO,   KC_NO,
-        RESET,    RGB_TOG, RGB_SPI, RGB_SPD,
+        QK_BOOT,    RGB_TOG, RGB_SPI, RGB_SPD,
         KC_NO,    _______, KC_NO,   KC_NO
     )
 };
@@ -209,7 +209,7 @@ static void render_logo(uint8_t startX, uint8_t startY)
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-void oled_task_user(void)
+bool oled_task_user(void)
 {
     // Playing the animation
     if((timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) && (splash_dur_counter < SPLASH_DUR))
@@ -348,6 +348,7 @@ void oled_task_user(void)
 
     }
 
+    return false;
 }
 
 // Process the extra/extended keycode functionality
