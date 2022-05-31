@@ -10,7 +10,6 @@
 This keymap also does the following:
 
 - Forces NKRO on
-- Sets the polling rate to 1ms.
 - Enables:
     - Via
     - The Swap Hands feature
