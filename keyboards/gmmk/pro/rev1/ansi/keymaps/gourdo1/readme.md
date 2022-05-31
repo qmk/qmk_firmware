@@ -1,6 +1,6 @@
 # [gourdo1's](mailto:gourdo1@outlook.com) GMMK Pro ANSI layout
 
-This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/ansi/keymaps/jonavin) GMMK Pro layout with several additions, fixes, a tweaked keymap, updated layers, [Tomas Guinan's paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/ansi/keymaps/paddlegame) and expanded RGB controls.
+This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/jonavin) GMMK Pro layout with several additions, fixes, a tweaked keymap, updated layers, [Tomas Guinan's paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/paddlegame) and expanded RGB controls.
 
 ![image](https://raw.githubusercontent.com/gourdo1/media/main/susuwatari.jpg)
 
@@ -56,7 +56,7 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 
 ### Paddle Game
 
-* Based on [Tomas Guinan's excellent GMMK Pro paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/ansi/keymaps/paddlegame)
+* Based on [Tomas Guinan's excellent GMMK Pro paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/paddlegame)
 * Paddle Game playable by pressing Fn+P (P lights up green in Fn layer if game is enabled in firmware, otherwise it lights up red)
 * Use rotary encoder to control paddle
 * Contains 12 levels, indicated by blue LED on F-key row
