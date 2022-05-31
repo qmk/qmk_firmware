@@ -15,7 +15,7 @@ typedef union {
         bool rgb_disable_perkey:1;
         #ifndef ID67_DISABLE_UNDERGLOW
         bool rgb_disable_underglow:1;
-        #endif
+        #endif  // ID67_DISABLE_UNDERGLOW
     };
 } user_config_t;
 
@@ -25,13 +25,13 @@ enum {
     RGB_TPK,           // Toggle Per-Key
     #ifndef ID67_DISABLE_UNDERGLOW
     RGB_TUG,           // Toggle Underglow
-    #endif
+    #endif  // ID67_DISABLE_UNDERGLOW
     KB_VRSN = USER09   // debug, type version
 };
 
 #ifdef ID67_DISABLE_UNDERGLOW
     #define RGB_TUG _______
-#endif
+#endif  // ID67_DISABLE_UNDERGLOW
 
 enum macos_consumer_usages {
     _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
@@ -143,7 +143,7 @@ void id67_update_rgb_mode(void) {
     if (user_config.rgb_disable_perkey
         #ifndef ID67_DISABLE_UNDERGLOW
         && user_config.rgb_disable_underglow
-        #endif
+        #endif  // ID67_DISABLE_UNDERGLOW
         ) {
         flags = 0;  // All OFF Condition
     } else {
@@ -152,13 +152,13 @@ void id67_update_rgb_mode(void) {
             flags = LED_FLAG_UNDERGLOW | 0xF0;
             #else
             flags = 0xF0;
-            #endif
+            #endif  // ID67_DISABLE_UNDERGLOW
         }
         #ifndef ID67_DISABLE_UNDERGLOW
         if (user_config.rgb_disable_underglow) {
             flags = LED_FLAG_MODIFIER | LED_FLAG_KEYLIGHT | LED_FLAG_INDICATOR | 0xF0;
         }
-        #endif
+        #endif  // ID67_DISABLE_UNDERGLOW
     }
 
     if (flags == 0) {
@@ -220,6 +220,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // handle RGB toggle key - this ensures caps lock always works
         #ifdef RGB_MATRIX_ENABLE
 
+        case QK_BOOT:
+            if (record->event.pressed) {
+                rgb_matrix_set_color_all(RGB_MATRIX_MAXIMUM_BRIGHTNESS, 0, 0);  // All red
+                rgb_matrix_driver.flush();
+            }
+            return true;
+
         case RGB_TOG:
             /* roll through the LED modes
              * |    Level    | Per-key | Underglow |
@@ -239,7 +246,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((!user_config.rgb_disable_perkey)
                     #ifndef ID67_DISABLE_UNDERGLOW
                     && (!user_config.rgb_disable_underglow)
-                    #endif
+                    #endif  // ID67_DISABLE_UNDERGLOW
                     ) {
                     user_config.rgb_disable_perkey = 1;
 
@@ -252,13 +259,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else if ((!user_config.rgb_disable_perkey) && user_config.rgb_disable_underglow) {
                     user_config.rgb_disable_perkey = 1;
 
-                #endif
+                #endif  // ID67_DISABLE_UNDERGLOW
 
                 } else {
                     user_config.rgb_disable_perkey = 0;
                     #ifndef ID67_DISABLE_UNDERGLOW
                     user_config.rgb_disable_underglow = 0;
-                    #endif
+                    #endif  // ID67_DISABLE_UNDERGLOW
                 }
 
                 id67_update_rgb_mode();
@@ -273,13 +280,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         #ifndef ID67_DISABLE_UNDERGLOW
+
         case RGB_TUG:
             if (record->event.pressed) {
                 user_config.rgb_disable_underglow ^= 1;
                 id67_update_rgb_mode();
             }
             return false;
-        #endif
+
+        #endif  // ID67_DISABLE_UNDERGLOW
 
         case EE_CLR:
             if (!record->event.pressed) {  // on release
