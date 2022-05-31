@@ -1,12 +1,18 @@
+// Copyright 2022 Ignacy Radliński (@radlinskii)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "light_layers.h"
 
-#define _QWERTY 0
-#define _NUM_SYM 1
-#define _NAV 2
-#define _MOUSE_MEDIA 3
-#define _DANGER 4
+enum my_layers {
+    _QWERTY,
+    _NUM_SYM,
+    _NAV,
+    _MOUSE_MEDIA,
+    _DANGER,
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(

@@ -1,3 +1,6 @@
+// Copyright 2022 Ignacy Radliński (@radlinskii)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 const rgblight_segment_t PROGMEM QWERTY_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
