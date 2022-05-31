@@ -24,12 +24,12 @@ uint32_t timer_now;
 #endif
 
 spi_status_t res;
-uint8_t      pinStates[SN74x595_LENGTH];
+uint8_t      pinStates[SN74X595_LENGTH];
 typedef enum { Low = 0, High = 1 } pinState;
 
 /* get length */
 uint8_t sn74x595_length(void) {
-    return SN74x595_LENGTH;
+    return SN74X595_LENGTH;
 }
 /*
     init first
@@ -39,13 +39,13 @@ void sn74x595_init(void) {
 }
 
 bool sn74x595_spi_transmit(void) {
-    if (!spi_start(SN74x595_SPI_SLAVE_SELECT_PIN, SN74x595_SPI_LSBFIRST, SN74x595_SPI_MODE, SN74x595_SPI_CLOCK_DIVISOR)) {
-        dprint("sn74x595 spi can't start \n");
+    if (!spi_start(SN74X595_SPI_SLAVE_SELECT_PIN, SN74X595_SPI_LSBFIRST, SN74X595_SPI_MODE, SN74X595_SPI_CLOCK_DIVISOR)) {
+        uprint("sn74x595 spi can't start \n");
         spi_stop();
         return false;
     }
 
-    res = spi_transmit(pinStates, SN74x595_LENGTH);
+    res = spi_transmit(pinStates, SN74X595_LENGTH);
     if (res != SPI_STATUS_SUCCESS) {
         spi_stop();
         return false;
@@ -63,7 +63,7 @@ bool sn74x595_setPin(uint8_t pin, bool set) {
     uint8_t current_pin = pin;
 #endif
     // set pin state like binary 1000010
-    for (int current = (SN74x595_LENGTH - 1); current >= 0; current--) {
+    for (int current = (SN74X595_LENGTH - 1); current >= 0; current--) {
         if (pin < 8) {
             int mask           = 1 << pin;
             pinStates[current] = ((pinStates[current] & ~mask) | set << pin);
@@ -74,14 +74,15 @@ bool sn74x595_setPin(uint8_t pin, bool set) {
 // pinstates debug
 #ifdef CONSOLE_ENABLE
     if (timer_elapsed32(timer_now) >= 1000) {
+        dprintf("current pin: %d \n", current_pin);
         dprint("sn74x595 PinStates in HEX: ");
-        for (uint8_t x = 0; x < SN74x595_LENGTH; x++) {
-            dprintf("PS %i:[0x%02x]|", x, pinStates[x]);
+        for (int current = (SN74X595_LENGTH - 1); current >= 0; current--) {
+            dprintf("PS %i:[0x%02x]|", current, pinStates[current]);
         }
         dprint("\nsn74x595 PinStates in BIN: ");
-        for (uint8_t x = 0; x < SN74x595_LENGTH; x++) {
+        for (int current = (SN74X595_LENGTH - 1); current >= 0; current--) {
             dprint("|");
-            debug_bin_reverse8(pinStates[x]);
+            debug_bin_reverse8(pinStates[current]);
         }
         dprint("\n");
         timer_now = timer_read32();
@@ -89,7 +90,7 @@ bool sn74x595_setPin(uint8_t pin, bool set) {
 #endif
     // then send it using spi
     if (!sn74x595_spi_transmit()) {
-        dprintf("sn74x595 can't set pin number %d to %s \n", current_pin, set ? "High" : "Low");
+        uprintf("sn74x595 can't set pin number %d to %s \n", current_pin, set ? "High" : "Low");
         return false;
     }
     return true;
@@ -111,15 +112,15 @@ bool sn74x595_setPinLow(uint8_t pin) {
 */
 
 bool sn74x595_set_raw(uint8_t* raw_value) {
-    if (!spi_start(SN74x595_SPI_SLAVE_SELECT_PIN, SN74x595_SPI_LSBFIRST, SN74x595_SPI_MODE, SN74x595_SPI_CLOCK_DIVISOR)) {
-        dprint("sn74x595 spi can't start \n");
+    if (!spi_start(SN74X595_SPI_SLAVE_SELECT_PIN, SN74X595_SPI_LSBFIRST, SN74X595_SPI_MODE, SN74X595_SPI_CLOCK_DIVISOR)) {
+        uprint("sn74x595 spi can't start \n");
         spi_stop();
         return false;
     }
 
-    res = spi_transmit(raw_value, SN74x595_LENGTH);
+    res = spi_transmit(raw_value, SN74X595_LENGTH);
     if (res != SPI_STATUS_SUCCESS) {
-        dprintf("sn74x595 spi can't set value[0x%02x] to peripheral \n", raw_value);
+        uprintf("sn74x595 spi can't set value[0x%02x] to peripheral \n", raw_value);
         spi_stop();
         return false;
     }
@@ -129,23 +130,23 @@ bool sn74x595_set_raw(uint8_t* raw_value) {
 }
 
 bool sn74x595_AllPin_High(void) {
-    for (uint8_t current = 0; current < SN74x595_LENGTH; current++) {
+    for (uint8_t current = 0; current < SN74X595_LENGTH; current++) {
         pinStates[current] = 0xFF;
     }
 
     if (!sn74x595_spi_transmit()) {
-        dprint("sn74x595 can't set all pin to High \n");
+        uprint("sn74x595 can't set all pin to High \n");
         return false;
     }
     return true;
 }
 
 bool sn74x595_AllPin_Low(void) {
-    for (uint8_t current = 0; current < SN74x595_LENGTH; current++) {
+    for (uint8_t current = 0; current < SN74X595_LENGTH; current++) {
         pinStates[current] = 0x0;
     }
     if (!sn74x595_spi_transmit()) {
-        dprint("sn74x595 can't set all pin to Low \n");
+        uprint("sn74x595 can't set all pin to Low \n");
         return false;
     }
     return true;

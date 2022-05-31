@@ -28,48 +28,48 @@
  */
 
 /*
-    The slave select pin of the SN74x595.
+    The slave select pin of the SN74X595.
     This needs to be a normal GPIO pin_t value, such as B14.
 */
-#ifndef SN74x595_SPI_SLAVE_SELECT_PIN
-#    error "No chip select pin defined -- missing SN74x595_SPI_SLAVE_SELECT_PIN"
+#ifndef SN74X595_SPI_SLAVE_SELECT_PIN
+#    error "No chip select pin defined -- missing SN74X595_SPI_SLAVE_SELECT_PIN"
 #endif
 
 /*
     The clock divisor for SPI to ensure that the MCU is within the
-    specifications of the SN74x595 chip. Generally this will be PCLK divided by
+    specifications of the SN74X595 chip. Generally this will be PCLK divided by
     the intended divisor -- check your clock settings and the datasheet of
-    your SN74x595.
+    your SN74X595.
 */
-#ifndef SN74x595_SPI_CLOCK_DIVISOR
+#ifndef SN74X595_SPI_CLOCK_DIVISOR
 #    ifdef __AVR__
-#        define SN74x595_SPI_CLOCK_DIVISOR 8
+#        define SN74X595_SPI_CLOCK_DIVISOR 8
 #    else
-#        define SN74x595_SPI_CLOCK_DIVISOR 64
+#        define SN74X595_SPI_CLOCK_DIVISOR 64
 #    endif
 #endif
 
 /*
-    The SPI mode to communicate with the SN74x595.
+    The SPI mode to communicate with the SN74X595.
 */
-#ifndef SN74x595_SPI_MODE
-#    define SN74x595_SPI_MODE 0
+#ifndef SN74X595_SPI_MODE
+#    define SN74X595_SPI_MODE 3
 #endif
 
 /*
-    Whether or not the SPI communication between the MCU and SN74x595 should be
+    Whether or not the SPI communication between the MCU and SN74X595 should be
     LSB-first.
 */
-#ifndef SN74x595_SPI_LSBFIRST
-#    define SN74x595_SPI_LSBFIRST false
+#ifndef SN74X595_SPI_LSBFIRST
+#    define SN74X595_SPI_LSBFIRST false
 #endif
 
 /*
-    How many you use SN74x595 chip aka daisy-chain.
+    How many you use SN74X595 chip aka daisy-chain.
     if you just using 1 chip, you can leave it
 */
-#ifndef SN74x595_LENGTH
-#    define SN74x595_LENGTH 1
+#ifndef SN74X595_LENGTH
+#    define SN74X595_LENGTH 1
 #endif
 
 /*
