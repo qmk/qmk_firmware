@@ -1,0 +1,10 @@
+//   name      result           chord keys
+COMB(LNAV,      TG(_NAV),       SPC_TOPR, ENT_NAV)
+COMB(OSLSYM,    OSL(_SYMB),     ESC_TOPR, BSPC_SYMB)
+COMB(OSLSYMBP,  OSL(_SYMB_BP),  ESC_TOPR_BP, BSPC_SYMB_BP)
+COMB(LKEYPAD,   TG(_KEYPAD),    SPC_TOPR, BSPC_SYMB)
+COMB(LKEYPADBP, TG(_KEYPAD_BP), SPC_TOPR_BP, BSPC_SYMB_BP)
+COMB(LLAYERS,   OSL(_LAYERS),    KC_TAB, ENT_NAV)
+
+//COMB(JKL_SPC,  KC_SPC,   KC_J,  KC_X)
+//SUBS(TH_THE,   "the",    KC_T, KC_H) // SUBS uses SEND_STRING to output the given string.
