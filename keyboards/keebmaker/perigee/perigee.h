@@ -19,15 +19,6 @@
 
 #include "quantum.h"
 
-/**************************************************
-** Include headers specific to keyboard revision **
-**************************************************/
 #include "rev1.h"
 
-
-/**************************************************
-** Layout macros aliases common to all revisions **
-**                                               **
-**      Name of Alias     Matrix Name:           **
-******* ----------------- ------------------- ****/
 #define LAYOUT_perigee_grid LAYOUT_ortho_5x12
