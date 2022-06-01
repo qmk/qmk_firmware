@@ -52,7 +52,7 @@ If it does not behave like described, remove the cable and go back to step 4.
 2. Execute this command to backup:
   - Using dfu-util:
 ```bash
-dfu-util --alt 0 --dfuse-address 0x08000000 --upload ${OLD_STOCK_BIN}
+dfu-util -a 0 -d 0483:DF11 -s 0x08000000 -U k3x0_original.bin
 ```
 
 #### Flash the QMK Firmware Image
