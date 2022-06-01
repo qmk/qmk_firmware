@@ -42,7 +42,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 		}
 		break;
 	}
-  return true;
     switch (keycode) {
         case ENCODER_MODE:
             if (record->event.pressed) {
