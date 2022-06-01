@@ -3,7 +3,7 @@
 
 * Miryoku QMK [[https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/logos/miryoku-roa-32.png]]
 
-[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/cover/miryoku-kle-cover.png]]
+[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/cover/miryoku-kle-cover-miryoku_qmk.png]]
 
 [[https://github.com/manna-harbour/miryoku/][Miryoku]] is an ergonomic, minimal, orthogonal, and universal keyboard layout.  [[https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku][Miryoku QMK]] is the Miryoku implementation for [[https://qmk.fm][QMK]].
 
