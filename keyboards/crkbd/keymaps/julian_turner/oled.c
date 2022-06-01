@@ -66,8 +66,13 @@ void oled_render_logo(void) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
+<<<<<<< HEAD:keyboards/crkbd/keymaps/julian_turner/oled.c
         oled_write_P(PSTR("WPM: "), false);
         oled_write(get_u8_str(get_current_wpm(), ' '), false);
+=======
+        oled_write_P(PSTR("WPM: "), false);
+        oled_write(get_u8_str(get_current_wpm(), ' '), false);
+>>>>>>> 096fc14a9d033cc6be89a2c3017a35924b1eaf3b:keyboards/crkbd/keymaps/JulianTurner/oled.c
 
     } else {
         oled_render_logo();
