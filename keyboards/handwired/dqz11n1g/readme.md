@@ -1,6 +1,6 @@
 # DQz11N1G
 
-![DQz11N1G](https://user-images.githubusercontent.com/665506/170864884-aa074b15-93f7-41ed-9b8b-2af29d10b08f.jpg)
+![DQz11N1G](https://u.cubeupload.com/ddklg/OPBN5q.jpg)
 
 Firmware for a DIY controller replacement for one of the ortholinear contoured
 keyboards manufactured by [PCD Maltron Ltd](https://www.maltron.com)
@@ -44,9 +44,9 @@ creating an additional easily reachable thumb-key.
 
 ### Internal Details of Keyboard Matrix and DIL Connector
 
-![DQz11N1G-DE keyboard matrix](https://user-images.githubusercontent.com/665506/170864879-98f14999-d267-4af3-b0f6-cfc4e23c5001.jpg)
+![DQz11N1G-DE keyboard matrix](https://u.cubeupload.com/ddklg/OJFue6.jpg)
 
-![DQz11N1G-DE keyboard matrix connector](https://user-images.githubusercontent.com/665506/170864856-c918a570-061e-4b43-997e-ad576c7e5d7e.png)
+![DQz11N1G-DE keyboard matrix connector](https://u.cubeupload.com/ddklg/fjFXeL.png)
 
 ### Replacement Keyboard Controller Board
 
@@ -65,16 +65,16 @@ This is a design sketch of the replacement board this is based on.  Note how
 we need a custom matrix.c source file to deal with the shift register based
 keyboard readout.
 
-![Sketch of Keyboard Controller Board](https://user-images.githubusercontent.com/665506/170864871-91098fbd-5c23-49ac-813e-d0142094600a.png)
+![Sketch of Keyboard Controller Board](https://u.cubeupload.com/ddklg/GBZgSf.png)
 
 This is how the assembled controller board looks like, on the right side you
 see the original PIC-based controller the keyboard ships with.
 
-![The assembled controller next to the original controller the keyboard ships with](https://user-images.githubusercontent.com/665506/170864888-e7597094-037e-41f9-bb46-962d5d6c2012.jpg)
+![The assembled controller next to the original controller the keyboard ships with](https://u.cubeupload.com/ddklg/KLYF2V.jpg)
 
 Inside of the keyboard after installing the new controller board:
 
-![Installed controller](https://user-images.githubusercontent.com/665506/170864863-4a2ced13-83e6-4e99-aab6-312e1bcc3067.jpg)
+![Installed controller](https://u.cubeupload.com/ddklg/Br0aiF.jpg)
 
 (Not visible in the photo: I drilled hole into the keyboard above the USB
 connector for a reset switch to simplify flashing controller firmware)

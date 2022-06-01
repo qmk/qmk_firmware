@@ -1,4 +1,4 @@
-![DQz11N1G-DE Layout Image](https://user-images.githubusercontent.com/665506/170864884-aa074b15-93f7-41ed-9b8b-2af29d10b08f.jpg)
+![DQz11N1G-DE Layout Image](https://u.cubeupload.com/ddklg/OPBN5q.jpg)
 
 # Default Layout for DQz11N1G-DE
 
