@@ -7,7 +7,7 @@
 #include "process_records.h"
 
 #ifdef OLED_ENABLE
-#    include "oled.h"
+    #include "oled.h"
 #endif
 
 /* Layer keymaps */
