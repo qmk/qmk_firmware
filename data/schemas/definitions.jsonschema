@@ -41,8 +41,6 @@
                     "LAYOUT_2x2uC",
                     "LAYOUT_2x3uC",
                     "LAYOUT_625uC",
-                    "LAYOUT_ANSI_DEFAULT",
-                    "LAYOUT_JP",
                     "LAYOUT_ortho_3x12_1x2uC",
                     "LAYOUT_ortho_4x12_1x2uC",
                     "LAYOUT_ortho_4x12_1x2uL",
@@ -57,8 +55,7 @@
                     "LAYOUT_planck_1x2uR",
                     "LAYOUT_preonic_1x2uC",
                     "LAYOUT_preonic_1x2uL",
-                    "LAYOUT_preonic_1x2uR",
-                    "LAYOUT_reviung34_2uL"
+                    "LAYOUT_preonic_1x2uR"
                 ]
             },
             {
