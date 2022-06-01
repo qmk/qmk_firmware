@@ -60,10 +60,10 @@ dfu-util --alt 0 --dfuse-address 0x08000000 --upload ${OLD_STOCK_BIN}
 1. Be in Bootloader mode.
 2. Here are a few options for performing the initial Flash:
   - Using [QMK Toolbox](https://github.com/qmk/qmk_toolbox)
-  - Using dfu-util:
+  - Using qmk on command line:
 
 ```bash
-dfu-util --alt 0 --dfuse-address 0x08000000 --download ${NEW_QMK_BIN}
+qmk flash
 ```
 
 ### Subsequent Flashing
