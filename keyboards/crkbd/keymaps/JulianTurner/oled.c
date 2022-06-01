@@ -48,8 +48,8 @@ void oled_render_logo(void) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
-        sprintf(wpm_str, "WPM:%d", get_current_wpm());
-        oled_write(wpm_str, false);
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write(get_u8_str(get_current_wpm(), ' '), false);
 
     } else {
         oled_render_logo();
