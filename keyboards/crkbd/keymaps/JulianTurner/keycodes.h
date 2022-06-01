@@ -1,3 +1,6 @@
+// Copyright 2021 Julian Turner (@JulianTurner)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include "keymap_german.h"
