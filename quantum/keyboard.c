@@ -108,6 +108,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -211,17 +214,6 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata) {
 
 #endif
 
-void disable_jtag(void) {
-// To use PF4-7 (PC2-5 on ATmega32A), disable JTAG by writing JTD bit twice within four cycles.
-#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-    MCUCR |= _BV(JTD);
-    MCUCR |= _BV(JTD);
-#elif defined(__AVR_ATmega32A__)
-    MCUCSR |= _BV(JTD);
-    MCUCSR |= _BV(JTD);
-#endif
-}
-
 /** \brief matrix_setup
  *
  * FIXME: needs doc
@@ -263,9 +255,6 @@ __attribute__((weak)) void keyboard_post_init_kb(void) {
  * FIXME: needs doc
  */
 void keyboard_setup(void) {
-#ifndef NO_JTAG_DISABLE
-    disable_jtag();
-#endif
     print_set_sendchar(sendchar);
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
@@ -489,7 +478,7 @@ bool matrix_scan_task(void) {
     // we can get here with some keys processed now.
     if (!keys_processed)
 #endif
-        action_exec(TICK);
+        action_exec(TICK_EVENT);
 
 MATRIX_LOOP_END:
 
@@ -561,6 +550,14 @@ void quantum_task(void) {
 
 #ifdef AUTO_SHIFT_ENABLE
     autoshift_matrix_scan();
+#endif
+
+#ifdef CAPS_WORD_ENABLE
+    caps_word_task();
+#endif
+
+#ifdef SECURE_ENABLE
+    secure_task();
 #endif
 }
 

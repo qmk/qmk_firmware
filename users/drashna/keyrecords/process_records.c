@@ -3,9 +3,6 @@
 
 #include "drashna.h"
 #include "version.h"
-#ifdef CAPS_WORD_ENABLE
-#    include "caps_word.h"
-#endif
 #ifdef AUTOCORRECTION_ENABLE
 #    include "autocorrection/autocorrection.h"
 #endif
@@ -37,6 +34,15 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
  * @return false Stop process keycode and do not send to host
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef ENCODER_ENABLE // some debouncing for weird issues
+    if (IS_ENCODEREVENT(record->event)) {
+        static bool ignore_first = true;
+        if (ignore_first) {
+            ignore_first = false;
+            return false;
+        }
+    }
+#endif
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
@@ -57,9 +63,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 #if defined(CUSTOM_POINTING_DEVICE)
           && process_record_pointing(keycode, record)
-#endif
-#ifdef CAPS_WORD_ENABLE
-          && process_caps_word(keycode, record)
 #endif
 #ifdef AUTOCORRECTION_ENABLE
           && process_autocorrection(keycode, record)
@@ -84,33 +87,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #    endif
 #endif
                 }
-            }
-            break;
-
-        case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
-            if (!record->event.pressed) {
-#ifndef MAKE_BOOTLOADER
-                uint8_t temp_mod = mod_config(get_mods());
-                uint8_t temp_osm = mod_config(get_oneshot_mods());
-                clear_mods();
-                clear_oneshot_mods();
-#endif
-                send_string_with_delay_P(PSTR("qmk"), TAP_CODE_DELAY);
-#ifndef MAKE_BOOTLOADER
-                if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
-#endif
-                {
-                    send_string_with_delay_P(PSTR(" flash "), TAP_CODE_DELAY);
-#ifndef MAKE_BOOTLOADER
-                } else {
-                    send_string_with_delay_P(PSTR(" compile "), TAP_CODE_DELAY);
-#endif
-                }
-                send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
-#ifdef CONVERT_TO_PROTON_C
-                send_string_with_delay_P(PSTR(" -e CTPC=yes"), TAP_CODE_DELAY);
-#endif
-                send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
             }
             break;
 
@@ -148,13 +124,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
-#    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
+#    if defined(CUSTOM_RGB_MATRIX)
+                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW | LED_FLAG_KEYLIGHT | LED_FLAG_INDICATOR);
+#        if defined(CUSTOM_RGBLIGHT)
                     rgblight_enable_noeeprom();
+#        endif
 #    endif
-                    layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
-#    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
+                    layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
+#    if defined(CUSTOM_RGB_MATRIX)
                 } else {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+#        if defined(CUSTOM_RGBLIGHT)
                     rgblight_disable_noeeprom();
+#        endif
 #    endif
                 }
             }
@@ -218,23 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         }
-        case EEP_RST:
-            if (record->event.pressed) {
-                eeconfig_disable();
-                shutdown_user();
-#ifdef __AVR__
-                wdt_enable(WDTO_250MS);
-#else
-                NVIC_SystemReset();
-#endif
-            }
-            return false;
-        case REBOOT:
-            if (record->event.pressed) {
-                software_reset();
-            }
-            return false;
-    }
+     }
     return true;
 }
 
