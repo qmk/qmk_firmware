@@ -85,9 +85,9 @@ const rgblight_segment_t PROGMEM MOUSE_MEDIA_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGM
     {31, 3, 11, 255, 255}, // underglow
     // right side
     {34, 6, 11, 255, 255},
-    {40, 5, 19, 255, 255},
-    {45, 1, 0, 255, 255}, // TO(_DANGER)
-    {46, 6, 27, 255, 255},
+    {40, 6, 19, 255, 255},
+    {46, 1, 0, 255, 255}, // TO(_DANGER)
+    {47, 5, 27, 255, 255},
     {52, 6, 35, 255, 255},
     {58, 1, 43, 255, 255},
     {59, 1, 169, 255, 255}, // TO(_NUM_SYM)
