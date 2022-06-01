@@ -65,3 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_BRIGHTNESS 128
 #define OLED_FONT_H "keyboards/mlego/m65/lib/glcdfont.c"
 #endif
+
+// you want to comment this if using stm32-dfu as bootloader
+#define FEE_PAGE_BASE_ADDRESS 0x0800c000
