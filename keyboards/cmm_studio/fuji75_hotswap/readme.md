@@ -2,7 +2,7 @@
 
 CMM.Studio Fuji75 hotswap Keyboard
 
-![CMM.Studio Fuji75 hotswap](https://i.imgur.com/0qiX0H7.png)
+![CMM.Studio Fuji75 hotswap](https://i.imgur.com/0qiX0H7h.png)
 
 
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
