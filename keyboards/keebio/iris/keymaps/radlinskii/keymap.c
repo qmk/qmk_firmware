@@ -21,6 +21,7 @@ enum my_layers {
 #define RGUI_KK RGUI_T(KC_K)
 #define RCTL_KL RCTL_T(KC_L)
 #define RA_SCLN RALT_T(KC_SCLN)
+
 #define LALT_K1 LALT_T(KC_1)
 #define LCTL_K2 LCTL_T(KC_2)
 #define LGUI_K3 LGUI_T(KC_3)
@@ -29,6 +30,10 @@ enum my_layers {
 #define RGUI_K8 RGUI_T(KC_8)
 #define RCTL_K9 RCTL_T(KC_9)
 #define RALT_K0 RALT_T(KC_0)
+
+#define LCTL_TB LCTL_T(KC_TAB)
+#define LGUI_BS LGUI_T(KC_BSPC)
+#define RALT_TB RALT_T(KC_TAB)
 
 #define TT_N_S TT(_NUM_SYM)
 #define TT_NAV TT(_NAV)
@@ -46,11 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_LCTL, LALT_KA, LCTL_KS, LGUI_KD, LSFT_KF, KC_G,                               KC_H,   RSFT_KJ, RGUI_KK, RCTL_KL, RA_SCLN, KC_QUOT,
+        LCTL_TB, LALT_KA, LCTL_KS, LGUI_KD, LSFT_KF, KC_G,                               KC_H,   RSFT_KJ, RGUI_KK, RCTL_KL, RA_SCLN, KC_QUOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_DEL,          KC_ESC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LGUI, TT_N_S,  KC_ENT,                     KC_SPC, TT_NAV,  KC_RALT
+                                    LGUI_BS, TT_N_S,  KC_ENT,                     KC_SPC, TT_NAV,  RALT_TB
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
