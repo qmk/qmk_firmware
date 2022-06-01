@@ -1,4 +1,4 @@
-# [N60_A]
+# N60_A
 
 60% PCB for Sofia keyboard
 
