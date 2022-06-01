@@ -24,8 +24,4 @@
 #define HOME_J RCTL_T(DE_J)
 #define HOME_K RSFT_T(DE_K)
 #define HOME_L LALT_T(DE_L)
-<<<<<<< HEAD
 #define HOME_OE RGUI_T(DE_ODIA)
-=======
-#define HOME_OE RGUI_T(DE_ODIA)
->>>>>>> 096fc14a9d033cc6be89a2c3017a35924b1eaf3b
