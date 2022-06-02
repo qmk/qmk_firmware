@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,
-             KC_TRNS, KC_TRNS, RESET
+             KC_TRNS, KC_TRNS, QK_BOOT
   ),
 
   [2] = LAYOUT_numpad_5x4(
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,
-             KC_TRNS, KC_TRNS, RESET
+             KC_TRNS, KC_TRNS, QK_BOOT
   ),
 
   [3] = LAYOUT_numpad_5x4(
@@ -46,6 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,
-             KC_TRNS, KC_TRNS, RESET
+             KC_TRNS, KC_TRNS, QK_BOOT
   ),
 };
