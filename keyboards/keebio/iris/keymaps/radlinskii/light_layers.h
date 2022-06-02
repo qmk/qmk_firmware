@@ -28,25 +28,25 @@ const rgblight_segment_t PROGMEM QWERTY_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t PROGMEM COLEMAK_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     // left side
-    {0, 6, 53, 255, 255},
-    {6, 6, 63, 255, 255},
-    {12, 6, 73, 255, 255},
-    {18, 6, 80, 255, 255},
+    {0, 6, 85, 0, 255},
+    {6, 6, 85, 70, 255},
+    {12, 6, 85, 150, 255},
+    {18, 6, 85, 240, 255},
     {24, 1, 85, 255, 255},
     {25, 1, 169, 255, 255}, // TT(_NUM_SYM)
     {26, 2, 85, 255, 255},
     {28, 3, 85, 255, 255}, // underglow
-    {31, 3, 53, 255, 255}, // underglow
+    {31, 3, 85, 0, 255}, // underglow
     // right side
-    {34, 6, 53, 255, 255},
-    {40, 6, 63, 255, 255},
-    {46, 6, 73, 255, 255},
-    {52, 6, 80, 255, 255},
+    {34, 6, 85, 0, 255},
+    {40, 6, 85, 70, 255},
+    {46, 6, 85, 150, 255},
+    {52, 6, 85, 240, 255},
     {58, 1, 85, 255, 255},
     {59, 1, 201, 255, 255}, // TT(_NAV)
     {60, 2, 85, 255, 255},
     {62, 3, 85, 255, 255}, // underglow
-    {65, 3, 53, 255, 255} // underglow
+    {65, 3, 85, 0, 255} // underglow
 );
 
 const rgblight_segment_t PROGMEM NUM_SYM_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -127,7 +127,7 @@ const rgblight_segment_t PROGMEM DANGER_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     {6, 19, 0, 255, 255},
     {25, 1, 85, 255, 255}, // TO(_QWERTY)
     {26, 13, 0, 255, 255},
-    {39, 1, 53, 255, 255}, // COLEMAK
+    {39, 1, 85, 0, 255}, // COLEMAK
     {40, 19, 0, 255, 255},
     {59, 1, 85, 255, 255}, // TO(_QWERTY)
     {60, 8, 0, 255, 255} // including right side underglow
