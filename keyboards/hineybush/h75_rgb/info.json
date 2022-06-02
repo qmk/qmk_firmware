@@ -1,7 +1,7 @@
 {
     "keyboard_name": "H75-RGB",
     "url": "",
-    "maintainer": "%(USER_NAME)s",
+    "maintainer": "hineybush, MechMerlin",
     "layouts": {
         "LAYOUT": {
             "layout": [

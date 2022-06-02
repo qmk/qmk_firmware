@@ -1,6 +1,6 @@
 # H75-RGB
 
-*A short description of the keyboard/project*
+75% PCB with LEDs lights used for Nyaong 75 keyboard. 
 
 * Keyboard Maintainer: [hineybush](https://github.com/hineybush), [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Hineybush H75_RGB
