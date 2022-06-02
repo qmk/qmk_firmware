@@ -7,10 +7,17 @@
 
 enum my_layers {
     _QWERTY,
+    _COLEMAK,
     _NUM_SYM,
     _NAV,
     _MOUSE_MEDIA,
     _DANGER,
+};
+
+enum custom_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    DEFAULT
 };
 
 #define LALT_KA LALT_T(KC_A)
@@ -30,6 +37,14 @@ enum my_layers {
 #define RGUI_K8 RGUI_T(KC_8)
 #define RCTL_K9 RCTL_T(KC_9)
 #define RALT_K0 RALT_T(KC_0)
+
+#define LCTL_KR LCTL_T(KC_R)
+#define LGUI_KS LGUI_T(KC_S)
+#define LSFT_KT LSFT_T(KC_T)
+#define RSFT_KN RSFT_T(KC_N)
+#define RGUI_KE RGUI_T(KC_E)
+#define RCTL_KI RCTL_T(KC_I)
+#define RALT_KO RALT_T(KC_O)
 
 #define LCTL_TB LCTL_T(KC_TAB)
 #define LGUI_BS LGUI_T(KC_BSPC)
@@ -59,6 +74,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
+      [_COLEMAK] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     LCTL_TB, LALT_KA, LCTL_KR, LGUI_KS, LSFT_KT, KC_G,                               KC_M,    RSFT_KN, RGUI_KE, RCTL_KI, RALT_KO, KC_QUOT,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_DEL,           KC_ESC,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    LGUI_BS, TT_N_S,  KC_ENT,                     KC_SPC, TT_NAV,  RALT_TB
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+
     [_NUM_SYM] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
        _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
@@ -69,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         _______, _______, KC_GRV, KC_LPRN, KC_LCBR, KC_LBRC, _______,          _______, KC_RBRC, KC_RCBR, KC_RPRN,  KC_MINS, KC_EQL, _______,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, TO_QWRT, _______,                   _______, TO_NAV,  _______
+                                    _______, DEFAULT, _______,                   _______, TO_NAV,  _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
@@ -83,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         _______, _______, _______, _______, _______, _______, _______,          _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, TO_QWRT, _______,                   _______, TO_M_M,  _______
+                                    _______, DEFAULT, _______,                   _______, TO_M_M,  _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
@@ -97,13 +126,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         KC_CAPS, KC_MSTP, KC_MPRV, KC_VOLD, KC_BRID, _______, _______,         _______, KC_WH_R, KC_WH_U, KC_WH_D, KC_WH_L, _______, _______,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, TO_QWRT, KC_BTN2,                   KC_BTN1, TO_N_S,  _______
+                                    _______, DEFAULT, KC_BTN2,                   KC_BTN1, TO_N_S,  _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
     [_DANGER] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-       RESET,   _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+       RESET,   _______, _______, _______, _______, QWERTY,                             COLEMAK, _______, _______, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
        _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -111,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______,
     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                      _______, TO_QWRT, _______,                   _______, TO_QWRT, _______
+                                      _______, DEFAULT, _______,                   _______, DEFAULT, _______
                                   // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     )
 };
@@ -122,6 +151,7 @@ void keyboard_post_init_user(void) {
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(_QWERTY, layer_state_cmp(state, _QWERTY));
+    rgblight_set_layer_state(_COLEMAK, layer_state_cmp(state, _COLEMAK));
 
     return state;
 }
@@ -133,4 +163,29 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(_DANGER, layer_state_cmp(state, _DANGER));
 
     return state;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QWERTY:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWERTY);
+            }
+            return false;
+        case COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
+            }
+            return false;
+        case DEFAULT:
+            if (record->event.pressed) {
+                if (layer_state_cmp(default_layer_state, _QWERTY)) {
+                    layer_move(_QWERTY);
+                } else if (layer_state_cmp(default_layer_state, _COLEMAK)) {
+                    layer_move(_COLEMAK);
+                }
+            }
+            return false;
+    }
+    return true;
 }
