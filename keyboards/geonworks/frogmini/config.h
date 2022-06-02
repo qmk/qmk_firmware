@@ -35,10 +35,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define STM32_HSECLK 8000000
-
-#define I2C_DRIVER I2CD1
-#define I2C_SCL_PIN B6
-#define I2C_SDA_PIN B7
-#define I2C_SCL_PAL_MODE 4
-#define I2C_SDA_PAL_MODE 4
-#define EEPROM_I2C_24LC256
