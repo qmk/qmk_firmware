@@ -128,7 +128,7 @@ bool oled_task_user(void) {
     char m[3];
     setmask(m);
     mask(m);
-    return true;
+    return false;
 }
 
 #endif

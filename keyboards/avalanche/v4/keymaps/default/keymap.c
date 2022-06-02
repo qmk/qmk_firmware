@@ -46,20 +46,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#ifdef OLED_ENABLE
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
-
-static void render_status(void) {
-    oled_write_P(PSTR("Avalanche\nVersion 4"), false);
-}
-
-bool oled_task_user(void) {
-    render_status();
-    return true;
-}
-
-#endif
 
