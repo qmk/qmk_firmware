@@ -26,8 +26,8 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F1, F0, D1, D2, B6, C6, C7, F7, F6, F5 }
-#define MATRIX_COL_PINS { E6, B5, B4, D7, D6, D4, D5, D3 }
+#define MATRIX_ROW_PINS { F0, E6, D0, D1, C6, F7, F6, F5, F4, F1 }
+#define MATRIX_COL_PINS { C7, B4, D7, D6, D4, D5, D3, D2 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -48,7 +48,7 @@
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
 
-#define RGB_DI_PIN D0
+#define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 4
 //#    define RGBLIGHT_HUE_STEP 8
