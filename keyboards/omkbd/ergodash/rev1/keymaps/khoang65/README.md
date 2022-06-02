@@ -85,3 +85,7 @@
    - Hit flash button
    - Repeat for second half of keyboard
    - Unplug USB, connect two halves with the TRRS cable, and reconnect to computer
+
+## FUTURE BUILDS
+1. add OLED and rotary encoders
+2. single LED to signify layers instead of full underglow
