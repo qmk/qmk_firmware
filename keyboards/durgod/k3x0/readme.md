@@ -63,7 +63,11 @@ dfu-util -a 0 -d 0483:DF11 -s 0x08000000 -U k3x0_original.bin
   - Using qmk on command line:
 
 ```bash
-qmk flash
+# k310
+qmk flash -kb durgod/k3x0/k310 -km default
+
+# k320
+qmk flash -kb durgod/k3x0/k320 -km default
 ```
 
 ### Subsequent Flashing
