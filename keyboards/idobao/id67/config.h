@@ -22,7 +22,7 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6964 /* "id" */
 #define PRODUCT_ID      0x0067
-#define DEVICE_VER      0x0001
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    IDOBAO
 #define PRODUCT         ID67
 
@@ -46,37 +46,19 @@
 #define DIODE_DIRECTION COL2ROW
 #define RGB_DI_PIN F0
 
-// RGB Light config
-#if defined(RGBLIGHT_ENABLE)
-    #define RGBLED_NUM 77
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
-    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-    #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//     #define RGBLIGHT_EFFECT_BREATHING
-//     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//     #define RGBLIGHT_EFFECT_SNAKE
-//     #define RGBLIGHT_EFFECT_KNIGHT
-//     #define RGBLIGHT_EFFECT_CHRISTMAS
-//     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//     #define RGBLIGHT_EFFECT_RGB_TEST
-//     #define RGBLIGHT_EFFECT_ALTERNATING
-#endif
-
 // RGB Matrix config
 #if defined(RGB_MATRIX_ENABLE)
-    #define DRIVER_LED_TOTAL 77
-    #define DRIVER_LED_UNDERGLOW 10
+    #ifndef ID67_DISABLE_UNDERGLOW
+        #define DRIVER_LED_TOTAL 77
+    #else
+        #define DRIVER_LED_TOTAL 67
+    #endif
 
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150    // limits maximum brightness of LEDs to x out of 255. If not defined maximum brightness is set to 255
 
     #define RGB_MATRIX_KEYPRESSES
+
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS          // Static dual hue, speed is hue for secondary hue
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN     // Static gradient top to bottom, speed controls how much gradient changes
     #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT  // Static gradient left to right, speed controls how much gradient changes
@@ -92,7 +74,7 @@
     #define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN        // Full gradient scrolling top to bottom
     #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN         // Full gradient scrolling out to in
     #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL    // Full dual gradients scrolling out to in
-    #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Full gradent Chevron shapped scrolling left to right
+    #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Full gradient Chevron shaped scrolling left to right
     #define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL       // Full gradient spinning pinwheel around center of keyboard
     #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL         // Full gradient spinning spiral around center of keyboard
     #define ENABLE_RGB_MATRIX_DUAL_BEACON          // Full gradient spinning around center of keyboard
@@ -100,10 +82,18 @@
     #define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS    // Full dual gradients spinning two halfs of keyboard
     #define ENABLE_RGB_MATRIX_RAINDROPS            // Randomly changes a single key's hue
     #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS  // Randomly changes a single key's hue and saturation
-    #define ENABLE_RGB_MATRIX_HUE_BREATHING        // Hue shifts up a slight ammount at the same time, then shifts back
-    #define ENABLE_RGB_MATRIX_HUE_PENDULUM         // Hue shifts up a slight ammount in a wave to the right, then back to the left
-    #define ENABLE_RGB_MATRIX_HUE_WAVE             // Hue shifts up a slight ammount and then back down in a wave to the right
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+    #define ENABLE_RGB_MATRIX_HUE_BREATHING        // Hue shifts up a slight amount at the same time, then shifts back
+    #define ENABLE_RGB_MATRIX_HUE_PENDULUM         // Hue shifts up a slight amount in a wave to the right, then back to the left
+    #define ENABLE_RGB_MATRIX_HUE_WAVE             // Hue shifts up a slight amount and then back down in a wave to the right
+
+    // don't need `#if`, animation modes themselves check defines
+    // #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+    // #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+    // #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+    // #endif // #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+
+    // don't need `#if`, animation modes themselves check defines
+    // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE// Pulses keys hit to hue & value then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE       // Static single hue, pulses keys hit to shifted hue then fades to current hue
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE       // Hue & value pulse near a single key hit then fades value out
@@ -116,5 +106,5 @@
     #define ENABLE_RGB_MATRIX_MULTISPLASH          // Full gradient & value pulse away from multiple key hits then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH         // Hue & value pulse away from a single key hit then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH    // Hue & value pulse away from multiple key hits then fades value out
-#endif // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+    // #endif // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
 #endif // #if defined(RGB_MATRIX_ENABLE)
