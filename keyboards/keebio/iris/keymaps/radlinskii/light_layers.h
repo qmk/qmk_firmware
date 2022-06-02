@@ -89,7 +89,7 @@ const rgblight_segment_t PROGMEM NAV_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     {46, 6, 225, 255, 255},
     {52, 6, 210, 255, 255},
     {58, 1, 201, 255, 255},
-    {59, 1, 43, 255, 255}, // TO(_MOUSE_MEDIA)
+    {59, 1, 180, 0, 255}, // TO(_MOUSE_MEDIA)
     {60, 2, 201, 255, 255},
     {62, 3, 201, 255, 255}, // underglow
     {65, 3, 248, 255, 255} // underglow
@@ -97,26 +97,26 @@ const rgblight_segment_t PROGMEM NAV_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t PROGMEM MOUSE_MEDIA_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     // left side
-    {0, 6, 11, 255, 255},
-    {6, 6, 19, 255, 255},
-    {12, 6, 27, 255, 255},
-    {18, 6, 35, 255, 255},
-    {24, 1, 43, 255, 255},
+    {0, 6, 180, 255, 255},
+    {6, 6, 180, 180, 255},
+    {12, 6, 180, 120, 255},
+    {18, 6, 180, 20, 255},
+    {24, 1, 180, 0, 255},
     {25, 1, 85, 255, 255}, // TO(_QWERTY)
-    {26, 2, 43, 255, 255},
-    {28, 3, 43, 255, 255}, // underglow
-    {31, 3, 11, 255, 255}, // underglow
+    {26, 2, 180, 0, 255},
+    {28, 3, 180, 0, 255}, // underglow
+    {31, 3, 180, 255, 255}, // underglow
     // right side
-    {34, 6, 11, 255, 255},
-    {40, 6, 19, 255, 255},
+    {34, 6, 180, 255, 255},
+    {40, 6, 180, 180, 255},
     {46, 1, 0, 255, 255}, // TO(_DANGER)
-    {47, 5, 27, 255, 255},
-    {52, 6, 35, 255, 255},
-    {58, 1, 43, 255, 255},
+    {47, 5, 180, 120, 255},
+    {52, 6, 180, 20, 255},
+    {58, 1, 180, 0, 255},
     {59, 1, 201, 255, 255}, // TO(_NAV)
-    {60, 2, 43, 255, 255},
-    {62, 3, 43, 255, 255}, // underglow
-    {65, 3, 11, 255, 255} // underglow
+    {60, 2, 180, 0, 255},
+    {62, 3, 180, 0, 255}, // underglow
+    {65, 3, 180, 255, 255} // underglow
 );
 
 const rgblight_segment_t PROGMEM DANGER_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
