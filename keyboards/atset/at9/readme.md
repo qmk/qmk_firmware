@@ -1,11 +1,11 @@
 # ATSET AT9
 
-![AT9](imgur.com image replace me!)
+!atset/at9 
 
-*A SPECIAL 9 KEY KEYBOARD POWERED BY QMK*
+*A SPECIAL 9 KEY KEYBOARD POWERED BY QMK.HAVING SPECIAL LAYER FEATURES WHICH CAN BE PROGRAMMED AS PER YOUR CONVENIENCE *
 
-* Keyboard Maintainer: [ATSET](https://github.com/%USER_NAME%)
-* Hardware Supported: *The PCBs, ATMEGA 32u4*
+* Keyboard Maintainer: [ATSET](https://github.com/%anubhavd7%)
+* Hardware Supported: * ATMEGA 32u4*
 
 Make example for this keyboard (after setting up your build environment):
 
