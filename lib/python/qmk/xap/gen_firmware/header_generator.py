@@ -245,7 +245,7 @@ def generate_header(output_file, keyboard, keymap):
     prog = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
     b = prog.match(xap_defs['version'])
     lines.append(f'#define XAP_BCD_VERSION 0x{int(b.group(1)):02d}{int(b.group(2)):02d}{int(b.group(3)):04d}ul')
-    b = prog.findall(git_get_version() or "") or [('0','0','0')]
+    b = prog.findall(git_get_version() or "") or [('0', '0', '0')]
     lines.append(f'#define QMK_BCD_VERSION 0x{int(b[0][0]):02d}{int(b[0][1]):02d}{int(b[0][1]):04d}ul')
     keyboard_id = fnv1a_32(bytes(keyboard, 'utf-8'))
     lines.append(f'#define XAP_KEYBOARD_IDENTIFIER 0x{keyboard_id:08X}ul')
