@@ -1,7 +1,6 @@
 # iris rev. 6 keymap by radlinskii
 
-![RGB lightning demo](https://user-images.githubusercontent.com/26116041/171879626-d1abf1aa-41e7-4f0e-a689-43511a0fb10f.gif)
-
+![iris rev. 6 by radlinskii lightning demo](https://user-images.githubusercontent.com/26116041/171883033-3c5ababe-88ae-4c9d-8436-3d6ab83dbf4b.gif)
 
 ## Features:
 
@@ -11,14 +10,14 @@
 
 ## Layers:
 
-####   qwerty - default
+### qwerty - default
 
-<details width="500px">
+<details>
     <summary>
         keymap
     </summary>
 
-![qwerty layer keymap](https://user-images.githubusercontent.com/26116041/171701004-1f5783c0-219d-4bb2-9be9-757904d7d4c9.png)
+<img width="800" alt="qwerty layer keymap" src="https://user-images.githubusercontent.com/26116041/171701004-1f5783c0-219d-4bb2-9be9-757904d7d4c9.png">
 
 </details>
 <details>
@@ -26,18 +25,20 @@
         lightning
     </summary>
 
-![qwerty layer lightning](https://user-images.githubusercontent.com/26116041/171881487-caf6c5bf-5c5b-477e-b6ba-880873e8e2ea.png)
-
+<img width="800" alt="qwerty layer lightning" src="https://user-images.githubusercontent.com/26116041/171883713-8d307328-d738-49ad-a35d-9e4475e012ed.png">
+    
 </details>
 
-####   colemak - alternative default
+### colemak - alternative default
+
+> [Colemak DH](https://colemakmods.github.io/mod-dh/) keyboard layout. Can be set as persistent default layer.
 
 <details>
     <summary>
         keymap
     </summary>
 
-![colemak layer keymap](https://user-images.githubusercontent.com/26116041/171701020-58efa9f6-ed5c-457c-a96a-8c47822e9de5.png)
+<img width="800" alt="colemak layer keymap" src="https://user-images.githubusercontent.com/26116041/171701020-58efa9f6-ed5c-457c-a96a-8c47822e9de5.png">
 
 </details>
 <details>
@@ -45,18 +46,18 @@
         lightning
     </summary>
 
-![colemak layer lightning](https://user-images.githubusercontent.com/26116041/171881723-64423cf9-e4b7-48e9-ad5f-8a7e0bed612f.png)
+<img width="800" alt="colemak layer lightning" src="https://user-images.githubusercontent.com/26116041/171884040-cf9b697b-c254-46aa-bbff-0e1cbd4959e0.png">
 
 </details>
 
-####   numeric + symbols
+### numeric + symbols
 
 <details>
     <summary>
         keymap
     </summary>
 
-![numeric and symbols layer keymap](https://user-images.githubusercontent.com/26116041/171701041-7a93c6f5-ff83-4411-b2c1-38e8b9683b97.png)
+<img width="800" alt="numeric and symbols layer keymap" src="https://user-images.githubusercontent.com/26116041/171701041-7a93c6f5-ff83-4411-b2c1-38e8b9683b97.png">
 
 </details>
 <details>
@@ -64,18 +65,20 @@
         lightning
     </summary>
 
-![numeric and symbols layer lightning](https://user-images.githubusercontent.com/26116041/171881944-b307de67-ca9f-41d0-ad05-a2db8cd4ccf8.png)
+<img width="800" alt="numeric and symbols layer lightning" src="https://user-images.githubusercontent.com/26116041/171884203-560995c9-f465-451f-a3cb-5973bc17c8c5.png">
 
 </details>
 
-####   navigation
+### navigation
+
+> Layer with arrow navigation.
 
 <details>
     <summary>
         keymap
     </summary>
 
-![navigation layer keymap](https://user-images.githubusercontent.com/26116041/171701059-660b7fd1-8326-4337-80f7-518d17a0e352.png)
+<img width="800" alt="navigation layer keymap" src="https://user-images.githubusercontent.com/26116041/171701059-660b7fd1-8326-4337-80f7-518d17a0e352.png">
 
 </details>
 <details>
@@ -83,18 +86,20 @@
         lightning
     </summary>
 
-![navigation layer lightning](https://user-images.githubusercontent.com/26116041/171882122-39176ee4-1f6c-4e2e-ae34-fe6a296c2b86.png)
+<img width="800" alt="navigation layer lightning" src="https://user-images.githubusercontent.com/26116041/171884375-ec5bddb1-a5f6-452f-a473-2e1eeb43aebe.png">
 
 </details>
 
-####   mouse + media keys
+### mouse + media
+
+> Miscellaneous media keys and mouse navigation on the same keys as arrows.
 
 <details>
     <summary>
         keymap
     </summary>
 
-![mouse and media layer keymap](https://user-images.githubusercontent.com/26116041/171701095-a856c7b7-379b-4a4a-beac-845ad80e2f55.png)
+<img width="800" alt="mouse and media layer keymap" src="https://user-images.githubusercontent.com/26116041/171701095-a856c7b7-379b-4a4a-beac-845ad80e2f55.png">
 
 </details>
 <details>
@@ -102,19 +107,20 @@
         lightning
     </summary>
 
-![mouse and media layer lightning](https://user-images.githubusercontent.com/26116041/171882227-2914e916-7195-44a8-8110-afedee4cc29d.png)
+<img width="800" alt="mouse and media layer lightning" src="https://user-images.githubusercontent.com/26116041/171884410-599b8ab8-d896-44e8-8fd4-5918c2338edd.png">
 
 </details>
 
+### danger
 
-####   danger
+> Used for keyboard reset and switching default layers.
 
 <details>
     <summary>
         keymap
     </summary>
 
-![danger layer keymap](https://user-images.githubusercontent.com/26116041/171701128-3f66dcaf-c093-4984-983e-1b2c778600b6.png)
+<img width="800" alt="danger layer keymap" src="https://user-images.githubusercontent.com/26116041/171701128-3f66dcaf-c093-4984-983e-1b2c778600b6.png">
 
 </details>
 <details>
@@ -122,7 +128,6 @@
         lightning
     </summary>
 
-![danger layer lightning](https://user-images.githubusercontent.com/26116041/171882351-fcf8b41f-2552-4016-b346-1b30dcebafcc.png)
+<img width="800" alt="numeric and symbols layer lightning" src="https://user-images.githubusercontent.com/26116041/171884421-515ff641-340e-4661-be17-526a1133037f.png">
 
 </details>
-
