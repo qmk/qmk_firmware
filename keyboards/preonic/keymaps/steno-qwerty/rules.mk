@@ -1,0 +1,4 @@
+SRC += muse.c
+AUTO_SHIFT_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+STENO_ENABLE = yes
