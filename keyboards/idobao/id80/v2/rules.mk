@@ -1,6 +1,3 @@
-# Defalt to the ansi version
-DEFAULT_FOLDER = idobao/id80/v2/ansi
-
 # MCU name
 MCU = atmega32u4
 
@@ -18,3 +15,5 @@ COMMAND_ENABLE = no          # Commands for debug and configuration
 NKRO_ENABLE = yes            # Enable N-Key Rollover
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 BACKLIGHT_ENABLE = yes       # Enable underkey LED backlight
+
+DEFAULT_FOLDER = idobao/id80/v2/ansi
