@@ -47,7 +47,5 @@
 // Feature diable options
 //#define NO_DEBUG
 //#define NO_PRINT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define OLED_DISPLAY_128X64

@@ -33,5 +33,5 @@
 |     ~| XXXXX| XXXXX| XXXXX| XXXXX| XXXXX|      |      | RGB_RST|   XXXXX|   XXXXX|   XXXXX|    XXXXX|     DEL|
 |   ESC| XXXXX| XXXXX| XXXXX| XXXXX| XXXXX|      |      | RGB_TOG| RGB_MOD|   XXXXX|   C+A+D| Alt+PSCR|    PSCR|
 |  LSFT| XXXXX| XXXXX| XXXXX| XXXXX| XXXXX|      |      | RGB_VAD| RGB_VAI| RGB_HUD| RGB_HUI|  RGB_SAD| RGB_SAI|
-|      |ADJUST| LCTRL|  LALT|  LGUI| LOWER| RESET| RESET|   RAISE|    MNXT|    VOLD|    VOLU|     MPLY|        |
+|      |ADJUST| LCTRL|  LALT|  LGUI| LOWER| QK_BOOT| QK_BOOT|   RAISE|    MNXT|    VOLD|    VOLU|     MPLY|        |
 

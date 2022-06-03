@@ -39,7 +39,7 @@ In practice, this means that you can check whether a given modifier is active wi
 
 To check that *only* a specific set of mods is active at a time, AND the modifier state and your desired mod mask as explained above and compare the result to the mod mask itself: `get_mods() & <mod mask> == <mod mask>`.
 
-For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
+For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
 
 The full list of mod masks is as follows:
 

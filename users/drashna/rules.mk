@@ -13,8 +13,9 @@ GRAVE_ESC_ENABLE      = no
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
 ifneq ($(strip $(NO_SECRETS)), yes)
-    ifneq ("$(wildcard $(USER_PATH)/keyrecords/secrets.c)","")
-        SRC += $(USER_PATH)/keyrecords/secrets.c
+    ifneq ("$(wildcard $(USER_PATH)/../../../qmk_secrets/secrets.c)","")
+        SRC += $(USER_PATH)/../../../qmk_secrets/secrets.c
+        SECURE_ENABLE = yes
     endif
     ifeq ($(strip $(NO_SECRETS)), lite)
         OPT_DEFS += -DNO_SECRETS
@@ -102,6 +103,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
         SRC += $(USER_PATH)/pointing/pointing.c
         OPT_DEFS += -DCUSTOM_POINTING_DEVICE
+        OPT_DEFS += -DMOUSE_EXT_REPORT
     endif
 endif
 
@@ -118,10 +120,4 @@ AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
     SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
     OPT_DEFS += -DAUTOCORRECTION_ENABLE
-endif
-
-CAPS_WORD_ENABLE ?= no
-ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
-    SRC += $(USER_PATH)/keyrecords/caps_word.c
-    OPT_DEFS += -DCAPS_WORD_ENABLE
 endif
