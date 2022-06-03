@@ -62,6 +62,7 @@
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
+#define AUDIO_INIT_DELAY
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
