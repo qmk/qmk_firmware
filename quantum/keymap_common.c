@@ -119,11 +119,17 @@ action_t action_for_keycode(uint16_t keycode) {
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
             action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
             break;
-        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
-            mod          = mod_config(((keycode & 0x10) ? (keycode << 4) & 0xFF : keycode & 0xF));
+        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX: {
+            bool has_right_hand_mods = keycode & 0x10;
+            if (has_right_hand_mods) {
+                mod = (keycode << 4) & 0xF0;
+            } else { // has only left mods
+                mod = keycode & 0xF;
+            }
             action_layer = (keycode >> 5) & 0x7;
             action.code  = ACTION_LAYER_MODS(action_layer, mod);
             break;
+        }
 #endif
 #ifndef NO_ACTION_TAPPING
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
