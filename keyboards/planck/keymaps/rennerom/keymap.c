@@ -17,12 +17,6 @@ enum planck_layers {
   _NAV
 };
 
-enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  FN
-};
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
