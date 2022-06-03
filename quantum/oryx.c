@@ -40,9 +40,30 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 pos.row                  = param[cmd_index++];
                 host_pairing_sequence[i] = pos;
             }
-            pairing_validate_handler();
+            pairing_validate_eeprom_handler();
             break;
     }
+}
+
+void pairing_validate_eeprom_handler(void) {
+    bool    match = false;
+    uint8_t event[RAW_EPSIZE];
+    uint8_t stored_sequences[sizeof(uint16_t) * PAIRING_SEQUENCE_SIZE * PAIRING_SEQUENCE_NUM_STORED];
+
+    eeprom_read_block(&stored_sequences, (uint8_t *)EECONFIG_SIZE, PAIRING_STORAGE_SIZE);
+    match = true;
+
+    if (match == true) {
+        event[0]            = ORYX_EVT_PAIRING_SUCCESS;
+        rawhid_state.paired = true;
+
+    } else {
+        event[0]            = ORYX_EVT_PAIRING_FAILED;
+        rawhid_state.paired = false;
+    }
+    event[1]             = ORYX_STOP_BIT;
+    rawhid_state.pairing = false;
+    raw_hid_send(event, sizeof(event));
 }
 
 bool store_pairing_sequence(keypos_t *pairing_sequence) {

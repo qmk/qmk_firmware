@@ -50,6 +50,7 @@ bool     store_pairing_sequence(keypos_t* pairing_sequence);
 keypos_t get_random_keypos(void);
 void     pairing_init_handler(void);
 void     pairing_validate_handler(void);
+void     pairing_validate_eeprom_handler(void);
 void     pairing_init_event(void);
 void     pairing_key_input_event(void);
 void     pairing_failed_event(void);
