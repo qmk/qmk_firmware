@@ -56,3 +56,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
+
+// you want to comment this if using stm32-dfu as bootloader
+#define FEE_PAGE_BASE_ADDRESS 0x0800c000
