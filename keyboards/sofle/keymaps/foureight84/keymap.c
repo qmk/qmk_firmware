@@ -18,10 +18,6 @@
 #include <string.h>
 #include "lib/lib8tion/lib8tion.h"
 
-#ifdef OLED_ENABLE
-#include <stdio.h>
-
-#endif
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
