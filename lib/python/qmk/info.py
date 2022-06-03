@@ -228,6 +228,60 @@ def _extract_audio(info_data, config_c):
         info_data['audio'] = {'pins': audio_pins}
 
 
+def _extract_encoders_values(config_c, postfix=''):
+    """Common encoder extraction logic
+    """
+    a_pad = config_c.get(f'ENCODERS_PAD_A{postfix}', '').replace(' ', '')[1:-1]
+    b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
+    resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
+
+    if a_pad and b_pad:
+        a_pad = list(filter(None, a_pad.split(',')))
+        b_pad = list(filter(None, b_pad.split(',')))
+        resolutions = list(filter(None, resolutions.split(',')))
+        resolutions += ['4'] * (len(a_pad) - len(resolutions))
+
+        encoders = []
+        for index in range(len(a_pad)):
+            encoders.append({'A': a_pad[index], 'B': b_pad[index], "resolution": int(resolutions[index])})
+
+        return encoders
+
+
+def _extract_encoders(info_data, config_c):
+    """Populate data about encoder pads
+    """
+    encoders = _extract_encoders_values(config_c)
+    if encoders:
+        if 'encoder' not in info_data:
+            info_data['encoder'] = {}
+
+        if 'pads' in info_data['encoder']:
+            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.pads) (Value: %s), the config.h value wins.' % info_data['encoder']['pads'])
+
+        info_data['encoder']['pads'] = encoders
+
+
+def _extract_split_encoders(info_data, config_c):
+    """Populate data about split encoder pads
+    """
+    encoders = _extract_encoders_values(config_c, '_RIGHT')
+    if encoders:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'encoder' not in info_data['split']:
+            info_data['split']['encoder'] = {}
+
+        if 'right' not in info_data['split']['encoder']:
+            info_data['split']['encoder']['right'] = {}
+
+        if 'pads' in info_data['split']['encoder']['right']:
+            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.pads) (Value: %s), the config.h value wins.' % info_data['encoder']['pads'])
+
+        info_data['split']['encoder']['right']['pads'] = encoders
+
+
 def _extract_secure_unlock(info_data, config_c):
     """Populate data about the secure unlock sequence
     """
@@ -506,6 +560,8 @@ def _extract_config_h(info_data, config_c):
     _extract_split_main(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
+    _extract_encoders(info_data, config_c)
+    _extract_split_encoders(info_data, config_c)
     _extract_device_version(info_data)
 
     return info_data

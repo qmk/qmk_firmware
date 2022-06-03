@@ -2,6 +2,26 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "qmk.keyboard.v1",
     "title": "Keyboard Information",
+    "definitions": {
+        "encoder_config": {
+            "type": "object",
+            "properties": {
+                "pads": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["A", "B"],
+                        "properties": {
+                            "A": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                            "B": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"} 
+                        }
+                    }
+                }
+            }
+        }
+    },
     "type": "object",
     "properties": {
         "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
@@ -112,6 +132,12 @@
         "community_layouts": {
             "type": "array",
             "items": {"$ref": "qmk.definitions.v1#/filename"}
+        },
+        "encoder": {
+            "$ref": "#/definitions/encoder_config",
+            "properties": {
+                "enabled": {"type": "boolean"}
+            }
         },
         "features": {"$ref": "qmk.definitions.v1#/boolean_array"},
         "indicators": {
@@ -359,6 +385,15 @@
                                 "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                                 "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
                             }
+                        }
+                    }
+                },
+                "encoder": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "right": {
+                            "$ref": "#/definitions/encoder_config"
                         }
                     }
                 },
