@@ -26,6 +26,14 @@
 #    define PAL_OUTPUT_TYPE_OPENDRAIN _Static_assert(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
 
 #    define usb_lld_endpoint_fields
+
+#    define I2C1_SCL_PAL_MODE (PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4)
+#    define I2C1_SDA_PAL_MODE I2C1_SCL_PAL_MODE
+
+#    define USE_I2CV1_CONTRIB
+#    if !defined(I2C1_CLOCK_SPEED)
+#        define I2C1_CLOCK_SPEED 400000
+#    endif
 #endif
 
 // STM32 compatibility
