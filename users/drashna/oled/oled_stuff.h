@@ -23,11 +23,11 @@ extern deferred_token kittoken;
 void            oled_driver_render_logo(void);
 bool            process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation);
-extern uint32_t oled_timer;
+void            oled_timer_reset(void);
 void            render_keylogger_status(void);
 void            render_default_layer_state(void);
 void            render_layer_state(void);
-void            render_keylock_status(uint8_t led_usb_state);
+void            render_keylock_status(led_t led_usb_state);
 void            render_matrix_scan_rate(uint8_t padding);
 void            render_mod_status(uint8_t modifiers);
 void            render_bootmagic_status(void);
@@ -37,8 +37,11 @@ void            render_wpm(uint8_t padding);
 void            render_pointing_dpi_status(uint16_t cpi, uint8_t padding);
 void            oled_driver_render_logo_left(void);
 void            oled_driver_render_logo_right(void);
-void            oled_render_large_display(void);
+void            oled_render_large_display(bool side);
 void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset);
+
+void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_start, uint16_t x_end);
+
 
 #if defined(OLED_DISPLAY_128X128) || defined(OLED_DISPLAY_128X64)
 #    define OLED_DISPLAY_VERBOSE
