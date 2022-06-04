@@ -1,20 +1,19 @@
 # zed60
 
-![zed60](imgur.com image replace me!)
+![zed60](https://i.imgur.com/KyTpfmMl.png)
 
-*A short description of the keyboard/project*
-
-* Keyboard Maintainer: [Mechlovin' Studio](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+Zed60 PCB, 60% keyboard PCB.
+* Keyboard Maintainer: [Mechlovin'](https://mechlovin.studio)
+* Hardware Supported: Kay60, APM32F103
+* Hardware Availability: [Mechlovin'](https://mechlovin.studio)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make zed60:default
+    make mechlovin/zed60:default
 
 Flashing example for this keyboard:
 
-    make zed60:default:flash
+    make mechlovin/zed60:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -25,3 +24,4 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Bootloader**: Hold down the key at (0,13) in the matrix (Backspace) and plug in the keyboard 

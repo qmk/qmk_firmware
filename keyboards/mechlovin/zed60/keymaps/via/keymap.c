@@ -1,4 +1,4 @@
-/* Copyright 2020 Mechlovin'
+/* Copyright 2022 Mechlovin'
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
