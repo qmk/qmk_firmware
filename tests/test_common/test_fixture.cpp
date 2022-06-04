@@ -82,7 +82,7 @@ TestFixture::~TestFixture() {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Verify that the matrix really is cleared */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     idle_for(TAPPING_TERM * 10);
     testing::Mock::VerifyAndClearExpectations(&driver);
 

@@ -29,17 +29,6 @@ class CapsWord : public TestFixture {
     void SetUp() override {
         caps_word_off();
     }
-
-    // Convenience function to tap `key`.
-    void TapKey(KeymapKey key, int delay_ms = 0) {
-        key.press();
-        run_one_scan_loop();
-        if (delay_ms) {
-            idle_for(delay_ms);
-        }
-        key.release();
-        run_one_scan_loop();
-    }
 };
 
 // Tests that with Auto Shift, letter keys are shifted by Caps Word
@@ -59,19 +48,19 @@ TEST_F(CapsWord, AutoShiftKeys) {
     // clang-format on
     { // Expect: "A, A, space, a".
         InSequence s;
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_SPC)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_SPC));
+        EXPECT_REPORT(driver, (KC_A));
     }
 
     // Turn on Caps Word and type "A (quick tap), A (long press), space, A".
     caps_word_on();
 
-    TapKey(key_a);                         // Tap A quickly.
-    TapKey(key_a, AUTO_SHIFT_TIMEOUT + 1); // Long press A.
-    TapKey(key_spc);
-    TapKey(key_a);
+    tap_key(key_a);                         // Tap A quickly.
+    tap_key(key_a, AUTO_SHIFT_TIMEOUT + 1); // Long press A.
+    tap_key(key_spc);
+    tap_key(key_a);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -93,19 +82,19 @@ TEST_F(CapsWord, RetroShiftKeys) {
     // clang-format on
     { // Expect: "B, A, B, A".
         InSequence s;
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_B)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_B)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
     }
 
     // Turn on Caps Word and type "B, A (long press), B (long press), A".
     caps_word_on();
 
-    TapKey(key_layertap_b);                   // Tap B quickly.
-    TapKey(key_modtap_a, TAPPING_TERM + 1);   // Long press A.
-    TapKey(key_layertap_b, TAPPING_TERM + 1); // Long press B.
-    TapKey(key_modtap_a);                     // Tap A quickly.
+    tap_key(key_layertap_b);                   // Tap B quickly.
+    tap_key(key_modtap_a, TAPPING_TERM + 1);   // Long press A.
+    tap_key(key_layertap_b, TAPPING_TERM + 1); // Long press B.
+    tap_key(key_modtap_a);                     // Tap A quickly.
 
     EXPECT_EQ(is_caps_word_on(), true);
     testing::Mock::VerifyAndClearExpectations(&driver);

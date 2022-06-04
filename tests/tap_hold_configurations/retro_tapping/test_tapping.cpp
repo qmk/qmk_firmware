@@ -32,7 +32,7 @@ TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
 
     set_keymap({mod_tap_hold_key});
 
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     mod_tap_hold_key.press();
     idle_for(TAPPING_TERM);
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -57,7 +57,7 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     set_keymap({key_shift_hold_p_tap});
 
     /* Press mod_tap_hold key */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     key_shift_hold_p_tap.press();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -82,7 +82,7 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Press mod_tap_hold key again */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     key_shift_hold_p_tap.press();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -95,7 +95,7 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Press mod_tap_hold key again */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     key_shift_hold_p_tap.press();
     idle_for(TAPPING_TERM);
     testing::Mock::VerifyAndClearExpectations(&driver);

@@ -59,52 +59,10 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 } // extern "C"
 
-namespace {
-// Sets gmock expectation that the Unicode symbol `unicode_map[index]` is sent
-// with UC_LNX input mode. For instance for U+2013, the keys sent are:
-// "Ctrl+Shift+U, 2, 0, 1, 3, space".
-//
-// NOTE: This function should be called within an `InSequence` context.
-void expect_unicodemap_key(TestDriver* driver, int index) {
-    EXPECT_CALL(*driver, send_keyboard_mock(KeyboardReport(KC_LCTL, KC_LSFT, KC_U)));
-
-    const uint16_t code = unicode_map[index];
-    // clang-format off
-    static const uint8_t hex_keycodes[] = {
-        KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-        KC_8, KC_9, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F
-    };
-    // clang-format on
-    for (int i = 12; i >= 0; i -= 4) {
-        // Extract hex digit and convert to keycode.
-        const uint8_t keycode = hex_keycodes[(code >> i) & 0xf];
-        EXPECT_CALL(*driver, send_keyboard_mock(KeyboardReport(keycode)));
-    }
-
-    EXPECT_CALL(*driver, send_keyboard_mock(KeyboardReport(KC_SPC)));
-}
-} // namespace
-
 class CapsWord : public TestFixture {
    public:
     void SetUp() override {
         caps_word_off();
-    }
-
-    // Convenience function to tap `key`.
-    void TapKey(KeymapKey key) {
-        key.press();
-        run_one_scan_loop();
-        key.release();
-        run_one_scan_loop();
-    }
-
-    // Taps in order each key in `keys`.
-    template <typename... Ts>
-    void TapKeys(Ts... keys) {
-        for (KeymapKey key : {keys...}) {
-            TapKey(key);
-        }
     }
 };
 
@@ -125,14 +83,14 @@ TEST_F(CapsWord, ShiftedUnicodeMapKey) {
     // clang-format on
     { // Expect: "Uppercase Delta, space, lowercase delta".
         InSequence s;
-        expect_unicodemap_key(&driver, DELTA_UPPERCASE);
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_SPC)));
-        expect_unicodemap_key(&driver, DELTA_LOWERCASE);
+        EXPECT_UNICODE(driver, unicode_map[DELTA_UPPERCASE]);
+        EXPECT_REPORT(driver, (KC_SPC));
+        EXPECT_UNICODE(driver, unicode_map[DELTA_LOWERCASE]);
     }
 
     // Turn on Caps Word and tap "delta, space, delta".
     caps_word_on();
-    TapKeys(key_delta, key_spc, key_delta);
+    tap_keys(key_delta, key_spc, key_delta);
 
     EXPECT_EQ(is_caps_word_on(), false);
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -152,14 +110,11 @@ TEST_F(CapsWord, UnshiftedUnicodeMapKey) {
                 KeyboardReport(KC_LCTL, KC_LSFT))))
         .Times(AnyNumber());
     // clang-format on
-    {
-        InSequence s;
-        expect_unicodemap_key(&driver, ENDASH);
-    }
+    EXPECT_UNICODE(driver, unicode_map[ENDASH]);
 
     // Turn on Caps Word and tap U_DASH key.
     caps_word_on();
-    TapKey(key_dash);
+    tap_key(key_dash);
 
     EXPECT_EQ(is_caps_word_on(), true);
     testing::Mock::VerifyAndClearExpectations(&driver);
