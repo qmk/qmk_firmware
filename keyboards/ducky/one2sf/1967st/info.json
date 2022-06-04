@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Ducky One 2 SF",
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_all": {
             "layout": [
                 { "x": 0, "y": 0, "w": 1, "label": "ESC" },
                 { "x": 1, "y": 0, "w": 1, "label": "1" },
