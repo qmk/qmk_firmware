@@ -1,6 +1,9 @@
 MCU_FAMILY = NUMICRO
 MCU_SERIES = NUC123
 
+# Bootloader selection
+BOOTLOADER = custom
+
 # linker script to use
 MCU_LDSCRIPT = NUC123xD4xx0
 
@@ -21,8 +24,7 @@ MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE = yes           # USB Nkey Rollover
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output

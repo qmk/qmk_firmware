@@ -15,5 +15,4 @@ MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = no       # Audio control and System control
 CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE = no            # USB Nkey Rollover
+NKRO_ENABLE = no            # Enable N-Key Rollover

@@ -8,13 +8,13 @@ F_CPU = 8000000
 BOOTLOADER = caterina
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE  = no   # Mouse keys
 CONSOLE_ENABLE   = yes  # Console for debug
 COMMAND_ENABLE   = no   # Commands for debug and configuration
-NKRO_ENABLE      = no   # USB Nkey Rollover - not yet supported in LUFA
+NKRO_ENABLE = no            # Enable N-Key Rollover
 EXTRAKEY_ENABLE  = yes
 USB_HID_ENABLE   = yes
 BACKLIGHT_ENABLE = no

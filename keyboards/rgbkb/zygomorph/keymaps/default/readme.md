@@ -66,7 +66,7 @@
      * ,-----------------------------------------.  ,-----------------------------------------.
      * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
      * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-     * |      | SAD  | VAI  | SAI  | RESET|      |  |      |      |      |      |      |      |
+     * |      | SAD  | VAI  | SAI  | QK_BOOT|      |  |      |      |      |      |      |      |
      * |------+------+------+------+------+------|  |------+------+------+------+------+------|
      * |      | HUD  | VAD  | HUI  |RGBRST|      |  |      |QWERTY|COLEMK|      |      |      |
      * |------+------+------+------+------+------|  |------+------+------+------+------+------|
@@ -89,7 +89,7 @@ MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no
 RGBLIGHT_ENABLE = yes       # Enable global lighting effects. Do not enable with RGB Matrix
 RGBLIGHT_ANIMATIONS = yes   # LED animations
 RGB_MATRIX_ENABLE = no      # Enable per-key coordinate based RGB effects. Do not enable with RGBlight (+8500)

@@ -30,11 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
-        | Held: Layer 2  | Home | RESET      |
+        | Held: Layer 2  | Home | QK_BOOT      |
         | Media Previous | End  | Media Next |
      */
     [1] = LAYOUT(
-        _______, KC_HOME, RESET,
+        _______, KC_HOME, QK_BOOT,
         KC_MPRV, KC_END , KC_MNXT
     ),
 };
