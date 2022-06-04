@@ -101,6 +101,13 @@ void TestFixture::add_key(KeymapKey key) {
     this->keymap.push_back(key);
 }
 
+void TestFixture::tap_key(KeymapKey key, unsigned delay_ms) {
+    key.press();
+    idle_for(delay_ms);
+    key.release();
+    run_one_scan_loop();
+}
+
 void TestFixture::set_keymap(std::initializer_list<KeymapKey> keys) {
     this->keymap.clear();
     for (auto& key : keys) {
