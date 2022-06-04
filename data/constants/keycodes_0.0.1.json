@@ -494,7 +494,7 @@
         },
         "0x0052": {
             "group": "basic",
-            "key": "KC_Up",
+            "key": "KC_UP",
             "label": "Up"
         },
         "0x0053": {
