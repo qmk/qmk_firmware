@@ -18,7 +18,4 @@
 #include_next "board.h"
 
 #undef STM32L432xx
-
-// Pretend that we're an L443xx as the ChibiOS definitions for L4x2/L4x3 mistakenly don't enable GPIOH, I2C2, or SPI2.
-// Until ChibiOS upstream is fixed, this should be kept at L443, as nothing in QMK currently utilises the crypto peripheral on the L443.
-#define STM32L443xx
+#define STM32L422xx

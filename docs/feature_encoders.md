@@ -54,9 +54,43 @@ If you are using different pinouts for the encoders on each half of a split keyb
 #define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
 ```
 
+If the `_RIGHT` definitions aren't specified in your `config.h`, then the non-`_RIGHT` versions will be applied to both sides of the split.
+
+Additionally, if one side does not have an encoder, you can specify `{}` for the pins/resolution -- for example, a split keyboard with only a right-side encoder:
+
+```c
+#define ENCODERS_PAD_A { }
+#define ENCODERS_PAD_B { }
+#define ENCODER_RESOLUTIONS { }
+#define ENCODERS_PAD_A_RIGHT { B12 }
+#define ENCODERS_PAD_B_RIGHT { B13 }
+#define ENCODER_RESOLUTIONS_RIGHT { 4 }
+```
+
+## Encoder map :id=encoder-map
+
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your `rules.mk`:
+
+```make
+ENCODER_MAP_ENABLE = yes
+```
+
+Your `keymap.c` will then need an encoder mapping defined (for four layers and two encoders):
+
+```c
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
+    [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
+    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+};
+#endif
+```
+
 ## Callbacks
 
-The callback functions can be inserted into your `<keyboard>.c`:
+When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -70,22 +104,61 @@ or `keymap.c`:
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code_delay(KC_VOLU, 10);
         } else {
-            tap_code(KC_PGUP);
+            tap_code_delay(KC_VOLD, 10);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_DOWN);
+            rgb_matrix_increase_hue();
         } else {
-            tap_code(KC_UP);
+            rgb_matrix_decrease_hue();
         }
     }
     return false;
 }
 ```
 
-!> If you return `true`, this will allow the keyboard level code to run, as well.  Returning `false` will override the keyboard level code.  Depending on how the keyboard level function is set up. 
+!> If you return `true`, it will allow the keyboard level code to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard function is set up. 
+
+Layer conditions can also be used with the callback function like the following:
+
+```c
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (get_highest_layer(layer_state|default_layer_state) > 0) {
+        if (index == 0) {
+            if (clockwise) {
+                tap_code(KC_WH_D);
+            } else {
+                tap_code(KC_WH_U);
+            }
+        } else if (index == 1) {
+            if (clockwise) {
+                tap_code_delay(KC_VOLU, 10);
+            } else {
+                tap_code_delay(KC_VOLD, 10);
+            }
+        }
+    } else {  /* Layer 0 */
+        if (index == 0) {
+            if (clockwise) {
+                tap_code(KC_PGDN);
+            } else {
+                tap_code(KC_PGUP);
+            }
+        } else if (index == 1) {
+            if (clockwise) {
+                rgb_matrix_increase_speed();
+            } else {
+                rgb_matrix_decrease_speed();
+            }
+        }
+    }
+    return false;
+}
+```
+
+?> Media and mouse countrol keycodes such as `KC_VOLU` and `KC_WH_D` requires `EXTRAKEY_ENABLE = yes` and `MOUSEKEY_ENABLE = yes` respectively in user's `rules.mk` if they are not enabled as default on keyboard level configuration.
 
 ## Hardware
 
@@ -93,7 +166,10 @@ The A an B lines of the encoders should be wired directly to the MCU, and the C/
 
 ## Multiple Encoders
 
-Multiple encoders may share pins so long as each encoder has a distinct pair of pins. 
+Multiple encoders may share pins so long as each encoder has a distinct pair of pins when the following conditions are met:
+- using detent encoders
+- pads must be high at the detent stability point which is called 'default position' in QMK
+- no more than two encoders sharing a pin can be turned at the same time 
 
 For example you can support two encoders using only 3 pins like this
 ```

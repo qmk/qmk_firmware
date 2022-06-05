@@ -16,16 +16,20 @@
 
 #pragma once
 
-// #define USE_I2C
-// #define SELECT_SOFT_SERIAL_SPEED 1
-// #define SERIAL_USE_MULTI_TRANSACTION
-#define SPLIT_MODS_ENABLE
-#define EE_HANDS
+#define DEBOUNCE 45
 
-#define TRACKBALL_DPI_OPTIONS { 1200, 1800, 2600, 3400 }
+#ifdef OLED_DRIVER_SH1107
+#    undef OLED_DISPLAY_128X64
+#endif
 
-#undef DEBOUNCE
-#define DEBOUNCE 10
+#define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
+#define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
+#define CHARYBDIS_MINIMUM_SNIPING_DPI 400
+#define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
 
-#define SOLENOID_PIN F1
-#define SOLENOID_DEFAULT_DWELL 8
+#define ENCODER_DEFAULT_POS 0x3
+
+#define SECURE_UNLOCK_SEQUENCE \
+    {                          \
+        { 2, 1 }, { 2, 2 }, { 2, 3 }, { 2, 4 } \
+    }

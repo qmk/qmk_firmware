@@ -40,7 +40,7 @@
     |-------+-------+--------+-------+---------+--------|
     | Caps  | Numlk | (NONE) |RGB_MOD| Media < | Vol-   |
     |-------+-------+--------+-------+---------+--------|
-    | Win   | mac   | EEP_RST| RESET | CONTROL | Mute   |
+    | Win   | mac   | EEP_RST| QK_BOOT | CONTROL | Mute   |
     `---------------------------------------------------'
 ```
 ### difference between mac-Mode and Win-Mode

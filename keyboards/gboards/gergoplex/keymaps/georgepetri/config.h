@@ -24,3 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef DEBOUNCE
 #define DEBOUNCE 25
+
+#define COMBO_ALLOW_ACTION_KEYS
+#define COMBO_VARIABLE_LEN

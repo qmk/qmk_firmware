@@ -82,3 +82,7 @@
 //  reason: bandoMIneDonI has no space on right hand side to use "SPLIT_HAND_MATRIX_GRID".
 //          However, It enables to decide the handedness by the HW by adding one condition: "not to press any keys (especially r30) dusing startup."
 bool is_keyboard_left(void);
+
+void encoder_action_unregister(void);
+
+void encoder_action_register(uint8_t index, bool clockwise);
