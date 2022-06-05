@@ -16,10 +16,11 @@
 
 #include "sn74x595.h"
 #include "spi_master.h"
-#include "debug.h"
-#include "timer.h"
+#include "print.h"
 
 #ifdef CONSOLE_ENABLE
+#    include "debug.h"
+#    include "timer.h"
 uint32_t timer_now;
 #endif
 
@@ -73,21 +74,27 @@ bool sn74x595_setPin(uint8_t pin, bool set) {
 
 // pinstates debug
 #ifdef CONSOLE_ENABLE
-    if (timer_elapsed32(timer_now) >= 1000) {
-        dprintf("current pin: %d \n", current_pin);
-        dprint("sn74x595 PinStates in HEX: ");
+    if (timer_elapsed32(timer_now) >= 1000 && debug_sn74x595) {
+        dprintf("pos: %d | ", current_pin);
+        dprint("sn74x595 Pin States in HEX: ");
         for (int current = (SN74X595_LENGTH - 1); current >= 0; current--) {
-            dprintf("PS %i:[0x%02x]|", current, pinStates[current]);
+            dprintf("PS %i:[0x%02x]", current, pinStates[current]);
+            if (current > 0) {
+                dprint(",");
+            }
         }
-        dprint("\nsn74x595 PinStates in BIN: ");
+        dprint(" | BIN: ");
         for (int current = (SN74X595_LENGTH - 1); current >= 0; current--) {
-            dprint("|");
             debug_bin_reverse8(pinStates[current]);
+            if (current > 0) {
+                dprint("|");
+            }
         }
         dprint("\n");
         timer_now = timer_read32();
     }
 #endif
+
     // then send it using spi
     if (!sn74x595_spi_transmit()) {
         uprintf("sn74x595 can't set pin number %d to %s \n", current_pin, set ? "High" : "Low");

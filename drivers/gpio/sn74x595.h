@@ -53,7 +53,7 @@
     The SPI mode to communicate with the SN74X595.
 */
 #ifndef SN74X595_SPI_MODE
-#    define SN74X595_SPI_MODE 3
+#    define SN74X595_SPI_MODE 0
 #endif
 
 /*
@@ -104,3 +104,5 @@ bool sn74x595_AllPin_High(void);
     set all pin low
 */
 bool sn74x595_AllPin_Low(void);
+
+bool debug_sn74x595;
