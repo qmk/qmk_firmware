@@ -31,4 +31,4 @@ CFLAGS += -fno-strict-aliasing
 
 CXXFLAGS += $(COMPILEFLAGS)
 CXXFLAGS += -fno-exceptions
-CXXFLAGS += -std=gnu++11
+CXXFLAGS += $(CXXSTANDARD)
