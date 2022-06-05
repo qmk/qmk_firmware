@@ -390,10 +390,12 @@ ifneq ("$(KEYMAP_H)","")
     CONFIG_H += $(KEYMAP_H)
 endif
 
+OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"
+
 # project specific files
 SRC += \
     $(KEYBOARD_SRC) \
-    $(KEYMAP_C) \
+    $(QUANTUM_DIR)/keymap_introspection.c \
     $(QUANTUM_SRC) \
     $(QUANTUM_DIR)/main.c \
 
