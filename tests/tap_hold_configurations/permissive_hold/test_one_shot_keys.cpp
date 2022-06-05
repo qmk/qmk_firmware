@@ -44,14 +44,14 @@ TEST_P(OneShotParametrizedTestFixture, OSMAsRegularModifierWithAdditionalKeypres
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(osm_key.report_code))).Times(2);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(regular_key.report_code, osm_key.report_code))).Times(1);
+    EXPECT_REPORT(driver, (osm_key.report_code)).Times(2);
+    EXPECT_REPORT(driver, (regular_key.report_code, osm_key.report_code)).Times(1);
     regular_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release OSM */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_EMPTY_REPORT(driver).Times(1);
     osm_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
