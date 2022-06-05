@@ -35,7 +35,7 @@ TEST_F(RetroTapping, tap_and_hold_mod_tap_hold_key) {
     set_keymap({mod_tap_hold_key});
 
     /* Press mod-tap-hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     mod_tap_hold_key.press();
     idle_for(TAPPING_TERM);
     testing::Mock::VerifyAndClearExpectations(&driver);

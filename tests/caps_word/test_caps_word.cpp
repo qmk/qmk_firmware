@@ -30,22 +30,6 @@ class CapsWord : public TestFixture {
     void SetUp() override {
         caps_word_off();
     }
-
-    // Convenience function to tap `key`.
-    void TapKey(KeymapKey key) {
-        key.press();
-        run_one_scan_loop();
-        key.release();
-        run_one_scan_loop();
-    }
-
-    // Taps in order each key in `keys`.
-    template <typename... Ts>
-    void TapKeys(Ts... keys) {
-        for (KeymapKey key : {keys...}) {
-            TapKey(key);
-        }
-    }
 };
 
 // Tests caps_word_on(), _off(), and _toggle() functions.
@@ -104,12 +88,12 @@ TEST_F(CapsWord, CapswrdKey) {
     set_keymap({key_capswrd});
 
     // No keyboard reports should be sent.
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
 
-    TapKey(key_capswrd); // Tap the CAPSWRD key.
+    tap_key(key_capswrd); // Tap the CAPSWRD key.
     EXPECT_EQ(is_caps_word_on(), true);
 
-    TapKey(key_capswrd); // Tap the CAPSWRD key again.
+    tap_key(key_capswrd); // Tap the CAPSWRD key again.
     EXPECT_EQ(is_caps_word_on(), false);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -130,11 +114,11 @@ TEST_F(CapsWord, IdleTimeout) {
     // clang-format on
 
     // Expect "Shift+A".
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_A));
 
     // Turn on Caps Word and tap "A".
     caps_word_on();
-    TapKey(key_a);
+    tap_key(key_a);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 
@@ -145,10 +129,10 @@ TEST_F(CapsWord, IdleTimeout) {
     EXPECT_EQ(is_caps_word_on(), false);
     EXPECT_EQ(get_mods() | get_weak_mods(), 0);
 
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
     // Expect unshifted "A".
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
-    TapKey(key_a);
+    EXPECT_REPORT(driver, (KC_A));
+    tap_key(key_a);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -170,15 +154,15 @@ TEST_F(CapsWord, ShiftsLettersButNotDigits) {
 
     { // Expect: "Shift+A, 4, Shift+A, 4".
         InSequence s;
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_4)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_4)));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_4));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_4));
     }
 
     // Turn on Caps Word and tap "A, 4, A, 4".
     caps_word_on();
-    TapKeys(key_a, key_4, key_a, key_4);
+    tap_keys(key_a, key_4, key_a, key_4);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -200,14 +184,14 @@ TEST_F(CapsWord, SpaceTurnsOffCapsWord) {
 
     { // Expect: "Shift+A, Space, A".
         InSequence seq;
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_SPC)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_SPC));
+        EXPECT_REPORT(driver, (KC_A));
     }
 
     // Turn on Caps Word and tap "A, Space, A".
     caps_word_on();
-    TapKeys(key_a, key_spc, key_a);
+    tap_keys(key_a, key_spc, key_a);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -226,8 +210,8 @@ TEST_F(CapsWord, ShiftsAltGrSymbols) {
                 KeyboardReport(KC_RALT),
                 KeyboardReport(KC_LSFT, KC_RALT))))
         .Times(AnyNumber());
-    // Expect "Shift + AltGr + A, Space".
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_RALT, KC_A)));
+    // Expect "Shift + AltGr + A".
+    EXPECT_REPORT(driver, (KC_LSFT, KC_RALT, KC_A));
     // clang-format on
 
     // Turn on Caps Word and type "AltGr + A".
@@ -235,7 +219,7 @@ TEST_F(CapsWord, ShiftsAltGrSymbols) {
 
     key_altgr.press();
     run_one_scan_loop();
-    TapKeys(key_a);
+    tap_key(key_a);
     run_one_scan_loop();
     key_altgr.release();
 
@@ -376,9 +360,9 @@ TEST_P(CapsWordDoubleTapShift, Activation) {
     EXPECT_EQ(is_caps_word_on(), false);
 
     // Tapping shift twice within the tapping term turns on Caps Word.
-    TapKey(left_shift);
+    tap_key(left_shift);
     idle_for(TAPPING_TERM - 10);
-    TapKey(left_shift);
+    tap_key(left_shift);
 
     EXPECT_EQ(is_caps_word_on(), true);
 
@@ -403,13 +387,13 @@ TEST_P(CapsWordDoubleTapShift, Interrupted) {
     left_shift.press();
     run_one_scan_loop();
 
-    TapKey(key_a); // 'A' key interrupts the double tap.
+    tap_key(key_a); // 'A' key interrupts the double tap.
 
     left_shift.release();
     run_one_scan_loop();
 
     idle_for(TAPPING_TERM - 10);
-    TapKey(left_shift);
+    tap_key(left_shift);
 
     EXPECT_EQ(is_caps_word_on(), false); // Caps Word is still off.
     clear_oneshot_mods();
@@ -430,9 +414,9 @@ TEST_P(CapsWordDoubleTapShift, SlowTaps) {
         .Times(AnyNumber());
     // clang-format on
 
-    TapKey(left_shift);
+    tap_key(left_shift);
     idle_for(TAPPING_TERM + 1);
-    TapKey(left_shift);
+    tap_key(left_shift);
 
     EXPECT_EQ(is_caps_word_on(), false); // Caps Word is still off.
     clear_oneshot_mods();
