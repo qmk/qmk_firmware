@@ -395,7 +395,7 @@ OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"
 # project specific files
 SRC += \
     $(KEYBOARD_SRC) \
-    $(QUANTUM_DIR)/keymap_wrapper.c \
+    $(QUANTUM_DIR)/keymap_introspection.c \
     $(QUANTUM_SRC) \
     $(QUANTUM_DIR)/main.c \
 
