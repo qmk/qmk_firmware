@@ -37,13 +37,13 @@ TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
     idle_for(TAPPING_TERM);
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    EXPECT_REPORT(driver, (KC_LSFT));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -63,20 +63,20 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod_tap_hold key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     key_shift_hold_p_tap.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Press mod_tap_hold key again */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
+    EXPECT_REPORT(driver, (KC_P));
     key_shift_hold_p_tap.press();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod_tap_hold key again */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_EMPTY_REPORT(driver);
     key_shift_hold_p_tap.release();
     idle_for(TAPPING_TERM + 1);
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -88,8 +88,8 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod_tap_hold key again */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     key_shift_hold_p_tap.release();
     idle_for(TAPPING_TERM + 1);
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -102,10 +102,10 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
 
     /* Release mod_tap_hold key again */
     /* TODO: Why is KC_LSFT send? */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_LSFT));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     key_shift_hold_p_tap.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
