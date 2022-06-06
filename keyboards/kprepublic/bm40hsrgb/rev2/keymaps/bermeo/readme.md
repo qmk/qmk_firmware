@@ -27,7 +27,7 @@ The use of this keymap is based on a corne layout| focused to be used with one h
 |CTL_T(F5) |  1 |   2 |   3 |  4 |    5 |   6 |   7 |   8 |   9 |   0 |   ESCAPE |
 |ALT_T(TAB) | &larr; | &darr; |  &uarr; | &rarr; | ↵ | [ | ] | \ | ' | : |   ↵   |
 |ALT(&larr;) |  F1 |   F2 |   C |  V |  ⌫ | - | = | < | > | ? | LALT(&rarr;)     |
-|  |  | LGUI_T(PAGE_DOWN)|  | SPACE| SPACE| LALT(⌫) | TG(3) | RSFT_T(PAGE_UP) |  |
+| | | | LGUI_T(PAGE_DOWN)|  | SPACE|SPACE| LALT(⌫) | TG(3) | RSFT_T(PAGE_UP) |  |
 
 ## Upper Layer (orange)
 
@@ -36,7 +36,7 @@ The use of this keymap is based on a corne layout| focused to be used with one h
 LCTL_T(F4) |  ! | @ | # | $ | % | ˆ | & | *      | ( | ) |       ˜      |
 LALT_T(TAB) | Ã |   |   |   |   | { | } | &#124; | " | : |       ↵      |
 LALT(&larr;) |  |   | Ç |   |   | _ | + | <      | > | ? | LALT(&rarr;) |
-||| LGUI_T(END) | TG(3) | SPACE | SPACE | DEL || RSFT_T(HOME)|          |
+|||| LGUI_T(END) | TG(3) | SPACE|SPACE | DEL || RSFT_T(HOME)|          |
 
 ## Numpad Layer
 
@@ -45,7 +45,7 @@ LALT(&larr;) |  |   | Ç |   |   | _ | + | <      | > | ? | LALT(&rarr;) |
 | matrix_toggle | matrix_step  |         |    |    |    |    | 7 | 8 | 9 | * |   /   |
 || increase_hue | increase_sat | RGB_VAI | increase_val ||   | 4 | 5 | 6 | - |   ↵   |
 || decrease_hue | decrease_sat | RGB_VAD | decrease_val || . | 1 | 2 | 3 | + |       |
-| RESET         |||  G(3)  |  TG(3)  |  TG(3)  |  TG(3)  | ⌫ | TG(3) | 0 |           |
+| RESET         ||  TG(3)  |     TG(3)|TG(3)    |  TG(3) | ⌫ | TG(3) | 0 |   |       |
 
 
 

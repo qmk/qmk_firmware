@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RMT,  RMS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_P7,   KC_P8,  KC_P9,  KC_PAST, KC_PSLS,
         KC_NO,  RMIH, RMIS, RGB_VAI, RMIV, KC_NO, KC_NO,  KC_P4,   KC_P5,  KC_P6,  KC_PMNS,  KC_ENT,
         KC_NO,  RMDH, RMDS, RGB_VAD, RMDV, KC_NO, KC_PDOT,  KC_P1,   KC_P2,  KC_P3,  KC_PPLS,   KC_NO,
-        RESET, KC_NO, KC_NO, G(3),    TG(3),   TG(3),     KC_BSPC,  TG(3),   KC_P0, KC_NO, KC_NO
+        RESET, KC_NO, KC_NO, TG(3),    TG(3),   TG(3),     KC_BSPC,  TG(3),   KC_P0, KC_NO, KC_NO
     ),
 };
 
