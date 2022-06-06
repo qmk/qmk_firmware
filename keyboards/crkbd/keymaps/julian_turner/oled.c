@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "layers.h"
 
-char wpm_str[10];
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
