@@ -1,0 +1,21 @@
+{
+  "keyboard_name": "42. Keebs Sub-Etha Pad",
+  "url": "https://42keebs.eu",
+  "maintainer": "42. Keebs",
+  "width": 5,
+  "height": 4,
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x":4, "y":0},
+        {"x":0, "y":2.41},
+        {"x":4, "y":2.41},
+        {"x":0, "y":3.41},
+        {"x":1, "y":3.41},
+        {"x":2, "y":3.41},
+        {"x":3, "y":3.41},
+        {"x":4, "y":3.41}
+      ]
+    }
+  }
+}
