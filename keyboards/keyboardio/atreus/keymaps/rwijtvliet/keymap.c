@@ -1,14 +1,11 @@
-// Copyright (C) 2019 ,2020  Keyboard.io ,Inc
+// Copyright 2022 Ruud Wijtvliet (@rwijtvliet)
 //
-// Ruud Wijtvliet
-// TODO:
-// . toggle to layer on three-key combo
-// . prevent rolling errors
+// SPDX-License-Identifier: GPL-2.0-or-later
 //
 // good tutorial:
 // https://precondition.github.io/home-row-mods
 
 #include "users/rwijtvliet/keymap_partial.c"
 #include "atreus.c"
-// combos. rest in combos.def
 #include "g/keymap_combo.h"
+
