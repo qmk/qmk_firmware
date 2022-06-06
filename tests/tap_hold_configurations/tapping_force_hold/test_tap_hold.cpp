@@ -54,15 +54,15 @@ TEST_F(TappingForceHold, tap_regular_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod-tap-hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    EXPECT_REPORT(driver, (KC_LSFT));
     mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Idle for tapping term of mod tap hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+    EXPECT_REPORT(driver, (KC_LSFT));
+    EXPECT_EMPTY_REPORT(driver);
     idle_for(TAPPING_TERM - 3);
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -94,15 +94,15 @@ TEST_F(TappingForceHold, tap_mod_tap_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release first mod-tap-hold key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    EXPECT_REPORT(driver, (KC_LSFT));
     first_mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Idle for tapping term of first mod tap hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+    EXPECT_REPORT(driver, (KC_LSFT));
+    EXPECT_EMPTY_REPORT(driver);
     idle_for(TAPPING_TERM - 3);
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -135,10 +135,10 @@ TEST_F(TappingForceHold, tap_regular_key_while_layer_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release layer-tap-hold key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A, KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(_));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_REPORT(driver, (KC_A, KC_P));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -158,8 +158,8 @@ TEST_F(TappingForceHold, tap_mod_tap_hold_key_two_times) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod-tap-hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -171,8 +171,8 @@ TEST_F(TappingForceHold, tap_mod_tap_hold_key_two_times) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod-tap-hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -192,8 +192,8 @@ TEST_F(TappingForceHold, tap_mod_tap_hold_key_twice_and_hold_on_second_time) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod-tap-hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_P)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -205,8 +205,8 @@ TEST_F(TappingForceHold, tap_mod_tap_hold_key_twice_and_hold_on_second_time) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod-tap-hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSHIFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_LSHIFT));
+    EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);

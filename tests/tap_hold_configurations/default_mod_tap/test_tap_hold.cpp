@@ -133,7 +133,7 @@ TEST_F(DefaultTapHold, tap_regular_key_while_layer_tap_key_is_held) {
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_REPORT(driver, (KC_P, KC_A));
     EXPECT_REPORT(driver, (KC_P));
-    EXPECT_CALL(driver, send_keyboard_mock(_));
+    EXPECT_EMPTY_REPORT(driver);
     layer_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
