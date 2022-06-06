@@ -94,7 +94,6 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
-    setPinInput(SPLIT_HAND_PIN);
 #    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
     return !readPin(SPLIT_HAND_PIN);
 #    else
@@ -133,6 +132,10 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
 // this code runs before the keyboard is fully initialized
 void split_pre_init(void) {
+#if defined(SPLIT_HAND_PIN)
+    setPinInput(SPLIT_HAND_PIN);
+    wait_us(100);
+#endif
     isLeftHand = is_keyboard_left();
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
