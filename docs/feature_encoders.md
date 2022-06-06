@@ -158,8 +158,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-```c
 To read an encoder that is not directly connected to an input pin but to another interface, implement `encoder_read_state_user` (the default implmentation just returns the pin state):
+
+```c
 uint8_t encoder_read_state_user(uint8_t index) {
     ...
 }
