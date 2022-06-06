@@ -59,13 +59,11 @@ typedef struct {
 #    define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) \
         { .fn = {qk_tap_dance_pair_on_each_tap, qk_tap_dance_pair_finished, qk_tap_dance_pair_reset}, .user_data = (void *)&((qk_tap_dance_pair_t){kc1, kc2}), }
 
-#    define ACTION_TAP_DANCE_DUAL_ROLE(kc, layer) \
+#    define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer) \
         { .fn = {qk_tap_dance_dual_role_on_each_tap, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset}, .user_data = (void *)&((qk_tap_dance_dual_role_t){kc, layer, layer_move}), }
 
 #    define ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer) \
         { .fn = {NULL, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset}, .user_data = (void *)&((qk_tap_dance_dual_role_t){kc, layer, layer_invert}), }
-
-#    define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer) ACTION_TAP_DANCE_DUAL_ROLE(kc, layer)
 
 #    define ACTION_TAP_DANCE_FN(user_fn) \
         { .fn = {NULL, user_fn, NULL}, .user_data = NULL, }
