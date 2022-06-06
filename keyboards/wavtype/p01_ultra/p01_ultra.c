@@ -1,5 +1,4 @@
-/* Copyright 2020 kkatano
- * Copyright 2022 takishim
+/* Copyright 2021 wavtype
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,4 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev4.h"
+#include "p01_ultra.h"
