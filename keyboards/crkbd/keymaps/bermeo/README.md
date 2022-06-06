@@ -39,9 +39,9 @@ Each layer uses the Key's `14` LED as an visual indicator:
 * ⚪️ _CTRL and Command
 * 🟡 _Shift
 
-## To compile and flash keymap
+## Usage
 
-On `qmk setup` folder, run:
+To compile and flash, from `qmk setup` folder, run:
 
     make crkbd:bermeo:flash
 
@@ -102,7 +102,13 @@ LALT(&larr;) |  |   | Ç |   |   ||| _ | + | <      | > | ? | LALT(&rarr;) |
 
 If more space is needed, start with deactivating Luna's animations.
 
-## Thanks
+add crkbd/keymaps/armand1m
+
+## Credits
+
+Guilherme Bermêo [(github)](https://git.bermeo.dev)
+
+### Thanks
 
 * @armand1m
 * @brneor
