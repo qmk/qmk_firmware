@@ -18,9 +18,9 @@
  * `-----------------------------------------------------------------------------------'
 */
 #define adjust_map LAYOUT_ortho_4x12(\
-    _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD,    RGB_SAI,     RGB_VAD,    RGB_VAI,       KC_DEL,\
-    _______, XXXXXXX, MU_MOD,  AU_OFF,  AU_ON,   AG_NORM, AG_SWAP, DF(DVORAK), DF(COLEMAK), DF(QWERTY), DF(QGMLWB_EN), DF(QGMLWB_NO),\
-    _______, MUV_IN,  MUV_DE,  MU_OFF,  MU_ON,   MI_OFF,  MI_ON,   TERM_OFF,   TERM_ON,     XXXXXXX,    XXXXXXX,       XXXXXXX,\
+    QK_RBT,  XXXXXXX, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD,    RGB_SAI,     RGB_VAD,    RGB_VAI,       KC_DEL,\
+    QK_BOOT, XXXXXXX, MU_MOD,  AU_OFF,  AU_ON,   AG_NORM, AG_SWAP, DF(DVORAK), DF(COLEMAK), DF(QWERTY), DF(QGMLWB_EN), DF(QGMLWB_NO),\
+    QK_MAKE, MUV_IN,  MUV_DE,  MU_OFF,  MU_ON,   MI_OFF,  MI_ON,   TERM_OFF,   TERM_ON,     KC_T0,      KC_T1,         KC_T2,\
     _______, _______, _______, _______, _______, _______, _______, _______,    XXXXXXX,     XXXXXXX,    XXXXXXX,       XXXXXXX\
 )
 

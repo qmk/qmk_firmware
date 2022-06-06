@@ -30,7 +30,7 @@
  * ,-----------------------------------------------------------------------------------.
  * |  !   |  %   |  [   |  {   |  (   |  <   |  >   |  )   |  }   |  ]   |  &   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  | Mute | XXXX | Refr | Test0| Test1| Test2|  =   |  +   |  *   |  /   |  ~   |
+ * | Del  | Mute | XXXX | Refr |  T0  |  T1  |  T2  |  =   |  +   |  *   |  /   |  ~   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Sleep|ScrLck| Caps |NumLck|PrtScr| Ins  | End  | Home |  Æ   |  Ø   |  Å   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -39,7 +39,7 @@
 */
 #define qgmlwb_lower_map LAYOUT_ortho_4x12(\
     KC_EXLM, KC_PERC, KC_LBRC, KC_LCBR, KC_LPRN, KC_LT,   KC_GT,   KC_RPRN, KC_RCBR, KC_RBRC, KC_AMPR, _______,\
-    KC_DEL,  KC_MUTE, XXXXXXX, KC_WREF, TEST_0,  TEST_1,  TEST_2,  KC_EQL,  KC_PLUS, KC_ASTR, KC_SLSH, KC_TILD,\
+    KC_DEL,  KC_MUTE, XXXXXXX, KC_WREF, KC_T0,   KC_T1,   KC_T2,   KC_EQL,  KC_PLUS, KC_ASTR, KC_SLSH, KC_TILD,\
     _______, KC_SLEP, KC_SLCK, KC_CAPS, KC_NLCK, KC_PSCR, KC_INS,  KC_END,  KC_HOME, KC_AE,   KC_OE,   KC_AA,\
     _______, _______, _______, _______, _______, _______, _______, adjust,  KC_BRID, KC_VOLD, KC_VOLU, KC_BRIU\
 )
