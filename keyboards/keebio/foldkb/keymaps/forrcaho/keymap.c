@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum layer {
     _QWERTY,
     _PG, // for "programming"
+    _MS, // for "mouse"
 };
 
 enum custom_keycodes {
@@ -41,41 +42,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐        ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
     KC_MUTE, KC_ESC,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
 // ├────────┼───┬────┴────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    KC_HOME,     KC_TAB,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+    MO(_PG),     KC_TAB,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
 // ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
-    KC_END,      KC_CAPS,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+    MO(_MS),     KC_CAPS,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 // ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
-    KC_PGUP, KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,      MO(1),
+    TG(_PG), KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,      MO(_PG),
 // ├────────┼───┬──────────┬──┴──────┬─┴────────┼────────┼────────┼────────┤        ├────────┴─┬──────┴──────┬─┴────────┼────────┴─┬─────────┬─┴────────┤
-    KC_PGDN,     KC_LGUI,   KC_LCTL,  KC_LALT,   MO(1),   KC_SPC,  KC_SPC,           KC_SPC,    KC_SPC,       TG(1),     KC_RALT,   KC_RCTL,  KC_RGUI
+    TG(_MS),     KC_LGUI,   KC_LCTL,  KC_LALT,   MO(1),   KC_SPC,  KC_SPC,           KC_SPC,    KC_SPC,       TG(_MS),   KC_RALT,   KC_RCTL,  KC_RGUI
 // └────────┴───┴──────────┴─────────┴──────────┴────────┴────────┴────────┘        └──────────┴─────────────┴──────────┴──────────┴─────────┴──────────┘
   ),
   [_PG] = LAYOUT(
 // ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐        ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
     KC_MUTE, RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,            KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
 // ├────────┼───┬────┴────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    BL_STEP,     _______,      _______, PG_SLAS, PG_LPAR, PG_RPAR, PG_NEEQ,          _______, KC_HOME, KC_UP,   KC_PGUP, _______, _______, _______, _______,
+    _______,     _______,      _______, PG_SLAS, PG_LPAR, PG_RPAR, PG_NEEQ,          _______, KC_HOME, KC_UP,   KC_PGUP, KC_INS,  _______, _______, _______,
 // ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
-    RGB_MOD,     _______,      PG_ENDC, PG_VBAR, PG_LBRK, PG_RBRK, PG_EQEQ,          _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_BSPC,
+    _______,     _______,      PG_ENDC, PG_VBAR, PG_LBRK, PG_RBRK, PG_EQEQ,          _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_BSPC,
 // ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
-    KC_VOLU, _______,          _______, PG_MINS, PG_EQL,  PG_BANG, _______,          _______, KC_END,  KC_INS,  KC_PGDN, _______, _______,      _______,
+    _______, _______,          _______, PG_MINS, PG_EQL,  PG_BANG, _______,          _______, KC_END,  KC_DOWN, KC_PGDN, KC_DEL,  _______,      _______,
 // ├────────┼───┬──────────┬──┴──────┬─┴────────┼────────┼────────┼────────┤        ├────────┴─┬──────┴──────┬─┴────────┼────────┴─┬─────────┬─┴────────┤
-    KC_VOLD,     _______,   _______,  _______,   _______, _______, _______,          _______,   _______,      _______,   _______,   _______,  _______
+    _______,     _______,   _______,  _______,   _______, _______, _______,          _______,   _______,      _______,   _______,   _______,  _______
+// └────────┴───┴──────────┴─────────┴──────────┴────────┴────────┴────────┘        └──────────┴─────────────┴──────────┴──────────┴─────────┴──────────┘
+  ),
+  [_MS] = LAYOUT(
+// ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐        ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+    _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______,
+// ├────────┼───┬────┴────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    _______,     _______,      _______, _______, _______, _______, _______,          _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______, _______, _______,
+// ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
+    _______,     _______,      _______, _______, _______, _______, _______,          _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______,
+// ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
+    _______, _______,          _______, _______, _______, _______, _______,          _______, _______, KC_MS_D, _______, _______, _______,      _______,
+// ├────────┼───┬──────────┬──┴──────┬─┴────────┼────────┼────────┼────────┤        ├────────┴─┬──────┴──────┬─┴────────┼────────┴─┬─────────┬─┴────────┤
+    _______,     _______,   _______,  _______,   _______, _______, _______,          _______,   _______,      _______,   _______,   _______,  _______
 // └────────┴───┴──────────┴─────────┴──────────┴────────┴────────┴────────┘        └──────────┴─────────────┴──────────┴──────────┴─────────┴──────────┘
   ),
 };
-
-const key_override_t pg_bang_none = ko_make_with_layers_and_negmods(0, PG_BANG, KC_EXCLAIM, ~0, ~0);
-// Shifted PG_BANG is macro
 
 const key_override_t pg_lbrk_none = ko_make_with_layers_and_negmods(0, PG_LBRK, KC_LEFT_CURLY_BRACE, ~0, ~0);
 const key_override_t pg_lbrk_shift = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, PG_LBRK, KC_LEFT_BRACKET, ~0, ~MOD_MASK_SHIFT);
 
 const key_override_t pg_lpar_none = ko_make_with_layers_and_negmods(0, PG_LPAR, KC_LEFT_PAREN, ~0, ~0);
 const key_override_t pg_lpar_shift = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, PG_LPAR, KC_LEFT_ANGLE_BRACKET, ~0, ~MOD_MASK_SHIFT);
-
-// Unshifted PG_MINS is macro
-const key_override_t pg_mins_shift = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, PG_MINS, KC_UNDERSCORE, ~0, ~MOD_MASK_SHIFT);
 
 const key_override_t pg_rbrk_none = ko_make_with_layers_and_negmods(0, PG_RBRK, KC_RIGHT_CURLY_BRACE, ~0, ~0);
 const key_override_t pg_rbrk_shift = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, PG_RBRK, KC_RIGHT_BRACKET, ~0, ~MOD_MASK_SHIFT);
@@ -91,12 +99,10 @@ const key_override_t pg_vbar_shift = ko_make_with_layers_and_negmods(MOD_MASK_SH
 
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &pg_bang_none,
     &pg_lbrk_none,
     &pg_lbrk_shift,
     &pg_lpar_none,
     &pg_lpar_shift,
-    &pg_mins_shift,
     &pg_rbrk_none,
     &pg_rbrk_shift,
     &pg_rpar_none,
@@ -122,13 +128,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case PG_BANG:
-        if (!shift_on) return true; // key override handles it
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
-            if (!ctrl_on) SEND_STRING(" ");
-            SEND_STRING("*");
-            if (!ctrl_on) SEND_STRING(" ");
+            if (shift_on) {
+                if (!ctrl_on) SEND_STRING(" ");
+                SEND_STRING("*");
+                if (!ctrl_on) SEND_STRING(" ");
+            } else {
+                if (ctrl_on) SEND_STRING(" ");
+                SEND_STRING("!");
+                if (!ctrl_on) SEND_STRING(" ");
+            }
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
             return false;
@@ -171,13 +182,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
         case PG_MINS:
-        if (shift_on) return true; // key override handles it
         if (record->event.pressed) {
             clear_mods();
             clear_oneshot_mods();
-            if (!ctrl_on) SEND_STRING(" ");
-            SEND_STRING("-");
-            if (!ctrl_on) SEND_STRING(" ");
+            if (shift_on) {
+                if (ctrl_on) SEND_STRING(" ");
+                SEND_STRING("_");
+                if (ctrl_on) SEND_STRING(" ");
+            } else {
+                if (!ctrl_on) SEND_STRING(" ");
+                SEND_STRING("-");
+                if (!ctrl_on) SEND_STRING(" ");
+            }
             set_mods(std_mods);
             set_oneshot_mods(oneshot_mods);
             return false;
@@ -201,8 +217,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-        case _PG:
+        case _MS:
             backlight_level(3);
+            break;
+        case _PG:
+            backlight_level(2);
             break;
         default:
             backlight_level(1);
