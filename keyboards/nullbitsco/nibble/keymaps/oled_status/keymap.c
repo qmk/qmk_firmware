@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_display.h"
 #endif
 
@@ -44,18 +44,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     oled_timer = timer_read32();
     set_oled_mode(OLED_MODE_IDLE);
     return OLED_ROTATION_180;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed(oled_timer) >= 3000) {
         set_oled_mode(OLED_MODE_IDLE);
     }
     render_frame();
+    return false;
 }
 #endif
 
@@ -66,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RGB_TOG:
             if (record->event.pressed) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
                 process_record_keymap_oled(keycode);
 #endif
             }
@@ -82,12 +83,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         process_record_encoder_oled(KC_VOLU);
 #endif
     } else {
         tap_code(KC_VOLD);
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         process_record_encoder_oled(KC_VOLD);
 #endif
     }

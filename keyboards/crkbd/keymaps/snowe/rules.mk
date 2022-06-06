@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
@@ -13,13 +13,14 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 RGBLIGHT_TWINKLE = no
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 RGB_MATRIX_ENABLE = yes
 
 OCEAN_DREAM_ENABLE = yes
 LUNA_ENABLE = no # disabled so travis build succeeds
 
 # if firmware size over limit, try this option
-CFLAGS += -flto
+LTO_ENABLE = yes
 
 WPM_ENABLE = yes

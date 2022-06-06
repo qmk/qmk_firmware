@@ -156,7 +156,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
@@ -317,7 +317,7 @@ static void render_anim(void) {
 //      oled_write_raw_P(skull, 801);
 //  }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         //render_skull();
         //oled_set_cursor(7,6);
@@ -335,6 +335,7 @@ void oled_task_user(void) {
         oled_write(wpm_str, false);
 
     }
+    return false;
 }
 #endif
 

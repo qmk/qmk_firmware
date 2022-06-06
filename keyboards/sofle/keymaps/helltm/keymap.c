@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 /* 32 * 32 logo */
 static void render_logo(void) {
@@ -392,7 +392,7 @@ static void print_status_narrow(void) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     /* KEYBOARD PET VARIABLES START */
 
     current_wpm   = get_current_wpm();
@@ -405,6 +405,7 @@ void oled_task_user(void) {
     } else {
         print_logo_narrow();
     }
+    return false;
 }
 
 #endif

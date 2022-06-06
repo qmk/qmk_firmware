@@ -27,7 +27,6 @@ typedef void (*slave_callback_t)(uint8_t initiator2target_buffer_size, const voi
 
 // Split transaction Descriptor
 typedef struct _split_transaction_desc_t {
-    uint8_t *        status;
     uint8_t          initiator2target_buffer_size;
     uint16_t         initiator2target_offset;
     uint8_t          target2initiator_buffer_size;
@@ -38,7 +37,7 @@ typedef struct _split_transaction_desc_t {
 // Forward declaration for the split transactions
 extern split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS];
 
-#define split_shmem_offset_ptr(offset) ((void *)(((uint8_t *)split_shmem) + (offset)))
+#define split_shmem_offset_ptr(offset) (((uint8_t *)split_shmem) + (offset))
 #define split_trans_initiator2target_buffer(trans) (split_shmem_offset_ptr((trans)->initiator2target_offset))
 #define split_trans_target2initiator_buffer(trans) (split_shmem_offset_ptr((trans)->target2initiator_offset))
 

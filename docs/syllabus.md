@@ -31,6 +31,7 @@ These topics start to dig into some of the features that QMK supports. You don't
         * [RGB Lighting](feature_rgblight.md)
         * [RGB Matrix](feature_rgb_matrix.md)
     * [Tap-Hold Configuration](tap_hold.md)
+    * [Squeezing Space from AVR](squeezing_avr.md)
 * **Learn More About Keymaps**
     * [Keymaps](keymap.md)
     * [Custom Functions and Keycodes](custom_quantum_functions.md)
@@ -54,7 +55,7 @@ Everything below here requires a lot of foundational knowledge. Besides being ab
 * **Advanced Features**
     * [Unicode](feature_unicode.md)
     * [API](api_overview.md)
-    * [Bootmagic](feature_bootmagic.md)
+    * [Bootmagic Lite](feature_bootmagic.md)
 * **Hardware**
     * [How Keyboards Work](how_keyboards_work.md)
     * [How A Keyboard Matrix Works](how_a_matrix_works.md)

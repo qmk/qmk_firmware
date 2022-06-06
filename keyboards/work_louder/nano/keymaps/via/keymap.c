@@ -16,6 +16,13 @@
 #include QMK_KEYBOARD_H
 
 
+#define LAYOUT_via( \
+    k00, k01, k02, \
+    k00_a, k00_b \
+) { \
+    { k00, k01,   k02, k00_a, k00_b } \
+}
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
@@ -24,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PGDN, KC_PGUP
     ),
     [1] = LAYOUT_via(
-        RESET,   MACRO01, _______,
+        QK_BOOT,   MACRO01, _______,
         _______, _______
     ),
     [2] = LAYOUT_via(

@@ -2,8 +2,6 @@
     "keyboard_name": "Mechboards Micropad", 
     "url": "", 
     "maintainer": "yiancar", 
-    "width": 4, 
-    "height": 1, 
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"1", "x":0, "y":0}, {"label":"2", "x":1, "y":0}, {"label":"3", "x":2, "y":0}, {"label":"4", "x":3, "y":0}]

@@ -1,10 +1,10 @@
 USB_HID_DIR = protocol/usb_hid
-
+USB_HOST_LIB_DIR = $(LIB_PATH)/usbhost
 
 #
 # USB Host Shield
 #
-USB_HOST_SHIELD_DIR = $(USB_HID_DIR)/USB_Host_Shield_2.0
+USB_HOST_SHIELD_DIR = $(USB_HOST_LIB_DIR)/USB_Host_Shield_2.0
 USB_HOST_SHIELD_SRC = \
 	$(USB_HOST_SHIELD_DIR)/Usb.cpp \
 	$(USB_HOST_SHIELD_DIR)/hid.cpp \
@@ -17,7 +17,7 @@ USB_HOST_SHIELD_SRC = \
 #
 # Arduino
 #
-ARDUINO_DIR = $(USB_HID_DIR)/arduino-1.0.1
+ARDUINO_DIR = $(USB_HOST_LIB_DIR)/arduino-1.0.1
 ARDUINO_CORES_DIR = $(ARDUINO_DIR)/cores/arduino
 ARDUINO_CORES_SRC = \
 	$(ARDUINO_CORES_DIR)/Print.cpp \
@@ -58,13 +58,13 @@ OPT_DEFS += -DARDUINO=101
 # Search Path
 #
 VPATH += $(TMK_DIR)/$(USB_HID_DIR)
-VPATH += $(TMK_DIR)/$(USB_HOST_SHIELD_DIR)
+VPATH += $(USB_HOST_SHIELD_DIR)
 
 # for #include "Arduino.h"
-VPATH += $(TMK_DIR)/$(ARDUINO_CORES_DIR)
+VPATH += $(ARDUINO_CORES_DIR)
 
 # for #include "pins_arduino.h"
-VPATH += $(TMK_DIR)/$(ARDUINO_DIR)/variants/leonardo
+VPATH += $(ARDUINO_DIR)/variants/leonardo
 
 # ad hoc workaround for compile problem on Windows:
 #    Windows doesn't know difference between common/print.h and arduino/Print.h.

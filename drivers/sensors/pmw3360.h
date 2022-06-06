@@ -18,87 +18,62 @@
 
 #pragma once
 
-#include "spi_master.h"
+#include <stdint.h>
 
-// Registers
-#define REG_Product_ID  0x00
-#define REG_Revision_ID 0x01
-#define REG_Motion  0x02
-#define REG_Delta_X_L 0x03
-#define REG_Delta_X_H 0x04
-#define REG_Delta_Y_L 0x05
-#define REG_Delta_Y_H 0x06
-#define REG_SQUAL 0x07
-#define REG_Raw_Data_Sum  0x08
-#define REG_Maximum_Raw_data  0x09
-#define REG_Minimum_Raw_data  0x0A
-#define REG_Shutter_Lower 0x0B
-#define REG_Shutter_Upper 0x0C
-#define REG_Control 0x0D
-#define REG_Config1 0x0F
-#define REG_Config2 0x10
-#define REG_Angle_Tune  0x11
-#define REG_Frame_Capture 0x12
-#define REG_SROM_Enable 0x13
-#define REG_Run_Downshift 0x14
-#define REG_Rest1_Rate_Lower  0x15
-#define REG_Rest1_Rate_Upper  0x16
-#define REG_Rest1_Downshift 0x17
-#define REG_Rest2_Rate_Lower  0x18
-#define REG_Rest2_Rate_Upper  0x19
-#define REG_Rest2_Downshift 0x1A
-#define REG_Rest3_Rate_Lower  0x1B
-#define REG_Rest3_Rate_Upper  0x1C
-#define REG_Observation 0x24
-#define REG_Data_Out_Lower  0x25
-#define REG_Data_Out_Upper  0x26
-#define REG_Raw_Data_Dump 0x29
-#define REG_SROM_ID 0x2A
-#define REG_Min_SQ_Run  0x2B
-#define REG_Raw_Data_Threshold  0x2C
-#define REG_Config5 0x2F
-#define REG_Power_Up_Reset  0x3A
-#define REG_Shutdown  0x3B
-#define REG_Inverse_Product_ID  0x3F
-#define REG_LiftCutoff_Tune3  0x41
-#define REG_Angle_Snap  0x42
-#define REG_LiftCutoff_Tune1  0x4A
-#define REG_Motion_Burst  0x50
-#define REG_LiftCutoff_Tune_Timeout 0x58
-#define REG_LiftCutoff_Tune_Min_Length  0x5A
-#define REG_SROM_Load_Burst 0x62
-#define REG_Lift_Config 0x63
-#define REG_Raw_Data_Burst  0x64
-#define REG_LiftCutoff_Tune2  0x65
+#ifndef PMW3360_CPI
+#    define PMW3360_CPI 1600
+#endif
 
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte);
+#ifndef PMW3360_CLOCK_SPEED
+#    define PMW3360_CLOCK_SPEED 2000000
+#endif
+
+#ifndef PMW3360_SPI_LSBFIRST
+#    define PMW3360_SPI_LSBFIRST false
+#endif
+
+#ifndef PMW3360_SPI_MODE
+#    define PMW3360_SPI_MODE 3
+#endif
+
+#ifndef PMW3360_SPI_DIVISOR
+#    ifdef __AVR__
+#        define PMW3360_SPI_DIVISOR (F_CPU / PMW3360_CLOCK_SPEED)
+#    else
+#        define PMW3360_SPI_DIVISOR 64
+#    endif
+#endif
+
+#ifndef PMW3360_LIFTOFF_DISTANCE
+#    define PMW3360_LIFTOFF_DISTANCE 0x02
+#endif
+
+#ifndef ROTATIONAL_TRANSFORM_ANGLE
+#    define ROTATIONAL_TRANSFORM_ANGLE 0x00
+#endif
+
+// Support single and plural spellings
+#ifndef PMW3360_CS_PINS
+#    ifndef PMW3360_CS_PIN
+#        error "No chip select pin defined -- missing PMW3360_CS_PIN or PMW3360_CS_PINS"
+#    else
+#        define PMW3360_CS_PINS \
+            { PMW3360_CS_PIN }
+#    endif
 #endif
 
 typedef struct {
     int8_t  motion;
-    bool    isMotion;     // True if a motion is detected.
-    bool    isOnSurface;  // True when a chip is on a surface
-    int16_t dx;           // displacement on x directions. Unit: Count. (CPI * Count = Inch value)
+    bool    isMotion;    // True if a motion is detected.
+    bool    isOnSurface; // True when a chip is on a surface
+    int16_t dx;          // displacement on x directions. Unit: Count. (CPI * Count = Inch value)
     int8_t  mdx;
-    int16_t dy;  // displacement on y directions.
+    int16_t dy; // displacement on y directions.
     int8_t  mdy;
-} report_pmw_t;
+} report_pmw3360_t;
 
-
-
-bool spi_start_adv(void);
-void spi_stop_adv(void);
-spi_status_t spi_write_adv(uint8_t reg_addr, uint8_t data);
-uint8_t spi_read_adv(uint8_t reg_addr);
-bool pmw_spi_init(void);
-void pmw_set_cpi(uint16_t cpi);
-uint16_t pmw_get_cpi(void);
-void pmw_upload_firmware(void);
-bool pmw_check_signature(void);
-report_pmw_t pmw_read_burst(void);
-
-
-#define degToRad(angleInDegrees) ((angleInDegrees)*M_PI / 180.0)
-#define radToDeg(angleInRadians) ((angleInRadians)*180.0 / M_PI)
-#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+bool     pmw3360_init(int8_t index);
+uint16_t pmw3360_get_cpi(void);
+void     pmw3360_set_cpi(uint16_t cpi);
+/* Reads and clears the current delta values on the sensor */
+report_pmw3360_t pmw3360_read_burst(int8_t index);

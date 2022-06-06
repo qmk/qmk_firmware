@@ -1,1 +1,1 @@
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite

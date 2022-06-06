@@ -2,8 +2,6 @@
     "keyboard_name": "Rama Works X Machine Industries M10-A Macropad",
     "url": "",
     "maintainer": "qmk",
-    "width": 3,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

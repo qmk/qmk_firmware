@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 #    include QMK_KEYBOARD_H
 #    include "quantum.h"
@@ -25,15 +25,16 @@
 #    include <stdio.h>  // for keylog?
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_master) {
+    if (!is_keyboard_master()) {
         return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
     }
     return OLED_ROTATION_270;
 }
 
 #    define L_BASE 0
-#    define L_LOWER 2
-#    define L_RAISE 4
+#    define L_GAME 2
+#    define L_LOWER 4
+#    define L_RAISE 6
 #    define L_ADJUST 8
 
 void oled_render_layer_state(void) {
@@ -42,18 +43,21 @@ void oled_render_layer_state(void) {
         case L_BASE:
             oled_write_ln_P(PSTR("Main"), false);
             break;
+        case L_GAME:
+            oled_write_ln_P(PSTR("Game"), false);
+            break;
         case L_LOWER:
             oled_write_ln_P(PSTR("Bot"), false);
             break;
         case L_RAISE:
             oled_write_ln_P(PSTR("Top"), false);
             break;
-        case L_ADJUST:
-        case L_ADJUST | L_LOWER:
-        case L_ADJUST | L_RAISE:
-        case L_ADJUST | L_LOWER | L_RAISE:
-            oled_write_ln_P(PSTR("Comb"), false);
-            break;
+//        case L_ADJUST:
+//        case L_ADJUST | L_LOWER:
+//        case L_ADJUST | L_RAISE:
+//        case L_ADJUST | L_LOWER | L_RAISE:
+//            oled_write_ln_P(PSTR("Comb"), false);
+//            break;
     }
 }
 
@@ -121,8 +125,8 @@ void render_bootmagic_status(void) {
     oled_write_ln(wpm, false);
 }
 
-void oled_task_user(void) {
-    if (is_master) {
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
         render_bootmagic_status();
@@ -136,6 +140,7 @@ void oled_task_user(void) {
         render_stars();
 #    endif
     }
+    return false;
 }
 
-#endif  // OLED_DRIVER_ENABLE
+#endif  // OLED_ENABLE

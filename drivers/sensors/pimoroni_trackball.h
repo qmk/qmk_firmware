@@ -1,4 +1,5 @@
 /* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ * Copyright 2021 Dasky (@daskygit)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,23 +14,45 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-#include "quantum.h"
-#include "pointing_device.h"
+#include <stdint.h>
+#include "report.h"
+#include "i2c_master.h"
 
-#ifndef TRACKBALL_ADDRESS
-#    define TRACKBALL_ADDRESS 0x0A
+#ifndef PIMORONI_TRACKBALL_ADDRESS
+#    define PIMORONI_TRACKBALL_ADDRESS 0x0A
 #endif
-#define TRACKBALL_WRITE ((TRACKBALL_ADDRESS << 1) | I2C_WRITE)
-#define TRACKBALL_READ ((TRACKBALL_ADDRESS << 1) | I2C_READ)
+#ifndef PIMORONI_TRACKBALL_SCALE
+#    define PIMORONI_TRACKBALL_SCALE 5
+#endif
+#ifndef PIMORONI_TRACKBALL_DEBOUNCE_CYCLES
+#    define PIMORONI_TRACKBALL_DEBOUNCE_CYCLES 20
+#endif
+#ifndef PIMORONI_TRACKBALL_ERROR_COUNT
+#    define PIMORONI_TRACKBALL_ERROR_COUNT 10
+#endif
 
-void trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
-void trackball_check_click(bool pressed, report_mouse_t *mouse);
-void trackball_register_button(bool pressed, enum mouse_buttons button);
+#ifndef PIMORONI_TRACKBALL_TIMEOUT
+#    define PIMORONI_TRACKBALL_TIMEOUT 100
+#endif
 
-float trackball_get_precision(void);
-void  trackball_set_precision(float precision);
-bool  trackball_is_scrolling(void);
-void  trackball_set_scrolling(bool scroll);
+#ifndef PIMORONI_TRACKBALL_DEBUG_INTERVAL
+#    define PIMORONI_TRACKBALL_DEBUG_INTERVAL 100
+#endif
+
+typedef struct {
+    uint8_t left;
+    uint8_t right;
+    uint8_t up;
+    uint8_t down;
+    uint8_t click;
+} pimoroni_data_t;
+
+void         pimoroni_trackball_device_init(void);
+void         pimoroni_trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
+int16_t      pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale);
+void         pimoroni_trackball_adapt_values(int8_t* mouse, int16_t* offset);
+uint16_t     pimoroni_trackball_get_cpi(void);
+void         pimoroni_trackball_set_cpi(uint16_t cpi);
+i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data);

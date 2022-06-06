@@ -2,10 +2,8 @@
   "keyboard_name": "HHKB JP",
   "url": "",
   "maintainer": "qmk",
-  "width": 15,
-  "height": 5,
   "layouts": {
-    "LAYOUT_JP": {
+    "LAYOUT_jp": {
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "!", "x": 1, "y": 0 },

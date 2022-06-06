@@ -45,8 +45,8 @@ MOUSEKEY_ENABLE = no
 キーマップで Plover 用の新しいレイヤーを作成します。`keymap_steno.h` をインクルードする必要があります。例については `planck/keymaps/steno/keymap.c` を見てください。レイヤーに切り替えるためのキーとレイヤーから抜けるためのキーを作成することを忘れないでください。その場でモードを切り替えたい場合は、キーコード `QK_STENO_BOLT` および `QK_STENO_GEMINI` を使うことができます。プロトコルのうちの1つのみを使う場合は、初期化関数の中でそれをセットアップすることができます:
 
 ```c
-void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI); // あるいは STENO_MODE_BOLT
+void eeconfig_init_user() {
+    steno_set_mode(STENO_MODE_GEMINI); // あるいは STENO_MODE_BOLT
 }
 ```
 

@@ -15,7 +15,7 @@ The purpose of this page is to document how to set up VS Code for developing QMK
 This guide covers how to configure everything needed on Windows and Ubuntu 18.04
 
 # Set up VS Code
-Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the the [Newbs Getting Started Guide](newbs_getting_started.md) to get things set up, if you haven't already.
+Before starting, you will want to make sure that you have all of the build tools set up, and QMK Firmware cloned. Head to the [Newbs Getting Started Guide](newbs_getting_started.md) to get things set up, if you haven't already.
 
 ## Windows
 
@@ -65,14 +65,17 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
    ```json
    {
-        "terminal.integrated.shell.windows": "C:\\msys64\\usr\\bin\\bash.exe",
-        "terminal.integrated.env.windows": {
-            "MSYSTEM": "MINGW64",
-            "CHERE_INVOKING": "1"
+        "terminal.integrated.profiles.windows": {
+            "QMK_MSYS": {
+                "path": "C:/QMK_MSYS/usr/bin/bash.exe",
+                "env": {
+                    "MSYSTEM": "MINGW64",
+                    "CHERE_INVOKING": "1"
+                },
+                "args": ["--login"]
+            }
         },
-        "terminal.integrated.shellArgs.windows": [
-            "--login"
-        ],
+
         "terminal.integrated.cursorStyle": "line"
     }
     ```
@@ -105,7 +108,6 @@ This installs a bunch of Git related tools that may make using Git with QMK Firm
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[Optional]_ - Makes the markdown preview in VS Code more like GitHub's.
 * [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[Optional]_ - This extension allows somebody else to access your workspace (or you to access somebody else's workspace) and help out.  This is great if you're having issues and need some help from somebody.
 * [VIM Keymap](https://marketplace.visualstudio.com/items?itemName=GiuseppeCesarano.vim-keymap) - _[Optional]_ - For those that prefer VIM style keybindings. There are other options for this, too. 
-* [Travis CI Status](https://marketplace.visualstudio.com/items?itemName=felixrieseberg.vsc-travis-ci-status) - _[Optional]_ - This shows the current Travis CI status, if you have it set up.
 
 Restart once you've installed any extensions
 

@@ -41,7 +41,12 @@ def check_udev_rules():
     """Make sure the udev rules look good.
     """
     rc = CheckStatus.OK
-    udev_dir = Path("/etc/udev/rules.d/")
+    udev_dirs = [
+        Path("/usr/lib/udev/rules.d/"),
+        Path("/usr/local/lib/udev/rules.d/"),
+        Path("/run/udev/rules.d/"),
+        Path("/etc/udev/rules.d/"),
+    ]
     desired_rules = {
         'atmel-dfu': {
             _udev_rule("03eb", "2fef"),  # ATmega16U2
@@ -77,6 +82,10 @@ def check_udev_rules():
             # dog hunter AG
             _udev_rule("2a03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
             _udev_rule("2a03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
+        },
+        'hid-bootloader': {
+            _udev_rule("03eb", "2067"),  # QMK HID
+            _udev_rule("16c0", "0478")  # PJRC halfkay
         }
     }
 
@@ -90,8 +99,8 @@ def check_udev_rules():
         'tmk': {_deprecated_udev_rule("feed")}
     }
 
-    if udev_dir.exists():
-        udev_rules = [rule_file for rule_file in udev_dir.glob('*.rules')]
+    if any(udev_dir.exists() for udev_dir in udev_dirs):
+        udev_rules = [rule_file for udev_dir in udev_dirs for rule_file in udev_dir.glob('*.rules')]
         current_rules = set()
 
         # Collect all rules from the config files
@@ -109,15 +118,15 @@ def check_udev_rules():
                     cli.log.warning("{fg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
                     # For caterina, check if ModemManager is running
-                    if bootloader == "caterina":
-                        if check_modem_manager():
-                            rc = CheckStatus.WARNING
-                            cli.log.warning("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+                    if bootloader == "caterina" and check_modem_manager():
+                        cli.log.warning("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+
                     rc = CheckStatus.WARNING
                     cli.log.warning("{fg_yellow}Missing or outdated udev rules for '%s' boards. Run 'sudo cp %s/util/udev/50-qmk.rules /etc/udev/rules.d/'.", bootloader, QMK_FIRMWARE)
 
     else:
-        cli.log.warning("{fg_yellow}'%s' does not exist. Skipping udev rule checking...", udev_dir)
+        cli.log.warning("{fg_yellow}Can't find udev rules, skipping udev rule checking...")
+        cli.log.debug("Checked directories: %s", ', '.join(str(udev_dir) for udev_dir in udev_dirs))
 
     return rc
 
@@ -157,6 +166,5 @@ def os_test_linux():
         return CheckStatus.OK
     else:
         cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
-        from .linux import check_udev_rules
 
         return check_udev_rules()

@@ -2,8 +2,6 @@
     "keyboard_name": "Splite Keyboard v3",
     "url": "https://github.com/ncwhale/Keyboard_Design/tree/master/Splite-Keyboard-v3",
     "maintainer": "ncwhale",
-    "width": 20,
-    "height": 8,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

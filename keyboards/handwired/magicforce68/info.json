@@ -2,8 +2,6 @@
     "keyboard_name": "Magicforce 68 Handwired",
     "url": "",
     "maintainer": "qmk",
-    "width": 17.25,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

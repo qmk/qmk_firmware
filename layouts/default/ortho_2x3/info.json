@@ -2,8 +2,6 @@
     "keyboard_name": "2x3 ortholinear layout",
     "url": "",
     "maintainer": "qmk",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [

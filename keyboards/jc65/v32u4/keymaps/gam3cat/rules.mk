@@ -4,7 +4,7 @@
 #
 TAP_DANCE_ENABLE = no       # Enable TapDance functionality
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys(+1500)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
