@@ -16,13 +16,13 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 
-// [Keymaps] -----------------------------------------------------------------//
+/* [Keymaps] ----------------------------------------------------------------- */
 enum layer_names {
     _BASE,
     _FN
 };
 
-// Tap Dance declarations
+/* Tap Dance declarations */
 enum {
     TD_PLAY_FORWARD_BACK,
 };
@@ -38,7 +38,7 @@ void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// All tap dance functions would go here. Only showing this one.
+/* All tap dance functions would go here. Only showing this one. */
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PLAY_FORWARD_BACK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, NULL),
 };
@@ -80,9 +80,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
+  /* Customise these values to desired behaviour */
   debug_enable=true;
   debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
+  /* debug_keyboard=true; */
+  /* debug_mouse=true; */
 }
