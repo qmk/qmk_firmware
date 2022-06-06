@@ -15,7 +15,8 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keycodes.h"
+#include "keymap_german.h"
+#include "layers.h"
 #include "keytabs.h"
 
 // clang-format off
