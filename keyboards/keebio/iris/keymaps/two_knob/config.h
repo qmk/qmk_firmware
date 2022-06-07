@@ -20,18 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 #define EE_HANDS
 
-// Allows for the setting of constant mouse speed levels.
-// #define MK_3_SPEED
+// If you type too fast, it confuses the Mod key combos. This resolves it:
+#define IGNORE_MOD_TAP_INTERRUPT
 
-#define MOUSEKEY_DELAY 50
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_MAX_SPEED 2
-#define MOUSEKEY_WHEEL_MAX_SPEED 42
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 15
+// Allows for the setting of constant mouse speed levels.
+#define MOUSEKEY_DELAY 10 // Delay between pressing a movement key and cursor movement
+#define MOUSEKEY_INTERVAL 16 // Time between cursor movements in milliseconds
+#define MOUSEKEY_MOVE_DELTA 8 // Step size
+#define MOUSEKEY_MAX_SPEED 2 // Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_TIME_TO_MAX 40 // Time until maximum cursor speed is reached
+#define MOUSEKEY_WHEEL_MAX_SPEED 42 // Maximum number of scroll steps per scroll action
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 15 // Time until maximum scroll speed is reached
 
 // Tweak how the mouse cursor moves. https://docs.qmk.fm/#/feature_mouse_keys
 // Accelerated mode (default).
-// MOUSEKEY_DELAY  10  Delay between pressing a movement key and cursor movement
+// MOUSEKEY_DELAY  10  Delady between pressing a movement key and cursor movement
 // MOUSEKEY_INTERVAL 20  Time between cursor movements in milliseconds
 // MOUSEKEY_MOVE_DELTA 8 Step size
 // MOUSEKEY_MAX_SPEED  10  Maximum cursor speed at which acceleration stops

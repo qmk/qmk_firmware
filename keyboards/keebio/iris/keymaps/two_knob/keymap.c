@@ -77,45 +77,113 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+/**
+ * Rotary Encoder.
+ * 
+ * This can't be programmed through configurator. You must do it here.
+ * 
+ * Advanced guide for rotary coder programming found here:
+ * https://docs.splitkb.com/hc/en-us/articles/360010513760-How-can-I-use-a-rotary-encoder-
+ */
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    // index 0 is left encoder.
-    if (index == 0) {
+  // index 0 is left encoder. (If you only have one knob, this will be it).
+  if (index == 0) {
+    // Check which layer is active.
+    switch(biton32(layer_state)) {
+      // Executes on layer 2 only.
+      case 2:
+        if (clockwise) {
+          // Selects words to the right of the cursor. (Command + Shift + Right Arrow).
+          tap_code16(C(S(KC_RGHT)));
+        } else {
+          // Selects words to the left of the cursor. (Command + Shift + Left Arrow).
+          tap_code16(C(S(KC_LEFT)));
+        }
+        break;
+      // Executes on layer 1 only.
+      case 1:
+        if (clockwise) {
+          // Scrolls down. (Mouse Wheel Down).
+          tap_code(KC_WH_D);
+        } else {
+          // Scrolls up. (Mouse Wheel Up).
+          tap_code(KC_WH_U);
+        }
+        break;
+      // Executes on all other layers.
+      default:
         // Note the use of tap_code16 instead of regular tap_code.
         if (clockwise) {
-            // Switch between tabs clockwise.
-            tap_code16(C(KC_TAB));
+          // Switch between tabs clockwise. (Control + Tab).
+          tap_code16(C(KC_TAB));
         } else {
-            // Switch between tabs anticlockwise.
-            tap_code16(S(C(KC_TAB)));
+          // Switch between tabs anticlockwise. (Control + Shift + Tab).
+          tap_code16(S(C(KC_TAB)));
         }
+        break;
     }
-    else if (index == 1) {
-      if (clockwise) {
-        // Holds down the command/gui key if it's not already down.
-        if (!is_command_tab_active) {
-          is_command_tab_active = true;
-          register_code(KC_LGUI);
+  }
+  else if (index == 1) {
+    // Check which layer is active.
+    switch(biton32(layer_state)) {
+      // Executes on layer 2 only.
+      case 2:
+        if (clockwise) {
+          // Selects lines to the right. (Control + Shift + Home).
+          tap_code16(C(S(KC_HOME)));
+        } else {
+          // Selects lines to the left. (Control + Shift + End).
+          tap_code16(C(S(KC_END)));
         }
-        command_tab_timer = timer_read();
-        tap_code16(KC_TAB);
-      } else {
-        if (!is_command_tab_active) {
-          is_command_tab_active = true;
-          register_code(KC_LGUI);
+        break;
+      // Executes on layer 1 only.
+      case 1:
+        if (clockwise) {
+          // Scrolls right. (Shift + Mouse Wheel Up).
+          tap_code16(S(KC_WH_U));
+        } else {
+          // Scrolls left. (Shift + Mouse Wheel Down).
+          tap_code16(S(KC_WH_D));
         }
-        command_tab_timer = timer_read();
-        tap_code16(S(KC_TAB));
-      }
+        break;
+      default:
+        if (clockwise) {
+          // Holds down the Command/Gui key if it's not already down.
+          if (!is_command_tab_active) {
+            is_command_tab_active = true;
+            register_code(KC_LGUI);
+          }
+          // Checks the timer?
+          command_tab_timer = timer_read();
+          // Hits tab.
+          tap_code16(KC_TAB);
+        } else {
+          if (!is_command_tab_active) {
+            is_command_tab_active = true;
+            register_code(KC_LGUI);
+          }
+          command_tab_timer = timer_read();
+          tap_code16(S(KC_TAB));
+        }
+        break;
     }
-    return false;
+  }  
+  return false;
 }
 
-// Advanced guide for rotary coder programming found here:
-// https://docs.splitkb.com/hc/en-us/articles/360010513760-How-can-I-use-a-rotary-encoder-
+/**
+ * Helper function for rotary encoder.
+ * 
+ * If the timer has elapsed, the Command/Gui tab will be released.
+ * 
+ * @see encoder_update_user
+ */
 void matrix_scan_user(void) {
+  // Check if the Command/Gui key is currently pressed programatically.
   if (is_command_tab_active) {
-    // Will release Command for you if you haven't send a tab yet in <x> ms.
-    if (timer_elapsed(command_tab_timer) > 1250) {
+    // Will release Command/Gui for you if you haven't send a tab yet in <x> ms.
+    if (timer_elapsed(command_tab_timer) > 1050) {
+      // Release Command/Gui key.
       unregister_code(KC_LGUI);
       is_command_tab_active = false;
     }
