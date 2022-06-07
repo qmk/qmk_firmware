@@ -18,6 +18,7 @@
 
 #include "tractyl_manuform.h"
 
+/*
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_f411)
 #    include "f411.h"
 #elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_f303)
@@ -27,7 +28,8 @@
 #elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_elite_c)
 #    include "elite_c.h"
 #endif
-
+*/
+#include "elite_c.h"
 #include "quantum.h"
 
 #define ___ KC_NO
