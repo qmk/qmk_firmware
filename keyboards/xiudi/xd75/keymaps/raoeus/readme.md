@@ -1,8 +1,10 @@
 # RAOEUS Layout for the XD75
 
-This layout is based on the Preonic layout. I have also added a stenography layer for use with Plover.
+This layout is based on the Preonic layout, but with an additional numpad on the right. I have also added a stenography layer for use with Plover.
 
 To compile this XD75 keymapping, please run `make xiudi/xd75:raoeus`
+
+To compile _and_ flash, please run `make xiudi/xd75:raoeus:flash`
 
     /* QWERTY
      * .--------------------------------------------------------------------------------------------------------------------------------------.
