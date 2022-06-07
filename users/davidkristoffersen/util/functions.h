@@ -29,4 +29,4 @@
 uint16_t get_special_shifted_code(uint16_t keycode);
 
 // Get language specific code
-uint16_t get_other_language_code(uint16_t keycode);
+uint16_t get_norwegian_code(uint16_t keycode);

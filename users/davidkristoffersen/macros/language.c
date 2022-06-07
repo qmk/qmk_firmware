@@ -7,7 +7,7 @@ bool handle_language(uint16_t keycode) {
 #ifdef LAYER_NO
     // Handle conversion of English to Norwegian codes
     uint16_t org_keycode = keycode;
-    keycode = get_other_language_code(keycode);
+    keycode = get_norwegian_code(keycode);
 #endif
 
 #ifndef NO_SPECIAL_SHIFT

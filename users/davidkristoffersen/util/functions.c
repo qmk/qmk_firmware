@@ -98,7 +98,7 @@ uint16_t get_special_shifted_code(uint16_t keycode) {
 
 #ifdef LAYER_NO
 // Get language specific code
-uint16_t get_other_language_code(uint16_t keycode) {
+uint16_t get_norwegian_code(uint16_t keycode) {
     if (IS_DEFAULT_ON(LAYER_NO)) {
         for (int i = 0; i < EN2NO_CODES_SIZE; i++) {
             if (keycode == EN2NO_CODES[i].pre) {
