@@ -49,7 +49,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         if (timeout < UART_MATRIX_RESPONSE_TIMEOUT) {
             uart_data[i] = uart_read();
         } else {
-            uart_data[i] = (uint8_t) 0x00;
+            uart_data[i] = 0x00;
         }
     }
 
