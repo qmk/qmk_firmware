@@ -59,35 +59,9 @@ qmk setup
 ### Compile and flash the keyboard
 
 ```bash
-qmk compile 
+qmk compile
 qmk flash
 ```
-
-### Optionally use the `flash.sh` script to do the last 3 steps
-
-```bash
-cd scripts
-```
-
-Initialize qmk:
-
-```bash
-./flash.sh --init --no-compile
-```
-
-Complie and flash with QMK toolbox:
-
-```bash
-./flash.sh
-```
-
-Complie and flash with the terminal:
-
-```bash
-./flash.sh --flash-cli
-```
-
-Change the `pcb` and `bootloader` variables in `lib/config.sh` if it does not match your keyboard.
 
 ## QMK documentation
 
