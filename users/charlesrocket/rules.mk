@@ -1,3 +1,3 @@
-ifdef APL_ENABLE
+ifeq ($(strip $(APL_ENABLE)), yes)
   SRC += apl.c
 endif
