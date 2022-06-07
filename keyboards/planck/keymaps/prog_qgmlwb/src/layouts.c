@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "layouts.h"
+#include "sendstring_norwegian.h"
 
 KEYMAP keymaps [][MATRIX_ROWS][MATRIX_COLS] = {
     [QGMLWB_NO] = qgmlwb_no_map,
