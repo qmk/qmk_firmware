@@ -1,0 +1,26 @@
+{
+    "keyboard_name": "bemini",
+    "url": "https://github.com/ianklug/bemini",
+    "maintainer": "ianklug",
+    "width": 10,
+    "height": 3,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k01", "x": 3.5, "y": 1.5, "w": 1, "h": 1.5},
+                {"label": "k02", "x": 4,   "y": 0,   "w": 1, "h": 1.5},
+                {"label": "k03", "x": 4.5, "y": 1.5, "w": 1, "h": 1.5},
+                {"label": "k04", "x": 5,   "y": 0,   "w": 1, "h": 1.5},
+                {"label": "k05", "x": 5.5, "y": 1.5, "w": 1, "h": 1.5},
+                {"label": "k06", "x": 6,   "y": 0,   "w": 1, "h": 1.5},
+                {"label": "k07", "x": 6.5, "y": 1.5, "w": 1, "h": 1.5},
+                {"label": "k08", "x": 7,   "y": 0,   "w": 1, "h": 1.5},
+                {"label": "k09", "x": 7.5, "y": 1.5, "w": 1, "h": 1.5},
+                {"label": "k10", "x": 9,   "y": 0,   "w": 1, "h": 1},
+                {"label": "k11", "x": 9,   "y": 1,   "w": 1, "h": 1},
+                {"label": "k12", "x": 9,   "y": 2,   "w": 1, "h": 1},
+                {"label": "k13", "x": 1,   "y": 1,   "w": 1, "h": 1}
+			]
+        }
+    }
+}
