@@ -6,14 +6,14 @@
 #include "davidkristoffersen.h"
 
 enum keycodes {
+    // Test keys
     KC_T0 = SAFE_RANGE,
     KC_T1,
     KC_T2,
-#ifdef LAYER_NO
+    // Norwegian Æ, Ø, Å
     KC_AE,
     KC_OE,
     KC_AA
-#endif
 };
 
 bool process_debug(uint16_t keycode, keyrecord_t* record);
