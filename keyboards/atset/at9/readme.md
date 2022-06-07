@@ -1,11 +1,9 @@
 # ATSET AT9
 
-!atset/at9 
+A special 9 key keyboard powered by QMK.
 
-*A SPECIAL 9 KEY KEYBOARD POWERED BY QMK.HAVING SPECIAL LAYER FEATURES WHICH CAN BE PROGRAMMED AS PER YOUR CONVENIENCE *
-
-* Keyboard Maintainer: [ATSET](https://github.com/%anubhavd7%)
-* Hardware Supported: * ATMEGA 32u4*
+* Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
+* Hardware Supported: ATmega32u4
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -14,6 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make atset/at9:default:flash
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
