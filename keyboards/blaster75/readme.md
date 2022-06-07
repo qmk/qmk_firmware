@@ -2,7 +2,7 @@
 
 Blaster 75 is a 75% ANSI layout Custom Keyboard designed and manufactured by Altain. 
 
-* Keyboard Maintainer : Altain
+* Keyboard Maintainer : ALTAiN
 * Hardware Supported : Blaster 75
 * Hardware Availability : Produced and Sold by ALTAiN
 * Mount : Top-Mount System
