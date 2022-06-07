@@ -105,3 +105,4 @@ Features disabled due to the lack of storage space in the Planck PCB version 5:
 - Plover mode
 - Use alt codes to fix missing characters in the english layout
 - Improve documentation of code and readme files
+- Reimplement right version of modifier keys through raise+space
