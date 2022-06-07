@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃L_MOD┃ F1  │ F2  │ F3  │ F4  │ F5  ┃ F6  │ F7  │ F8  │ F9  │ F10 ┃ F11 ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃     ┃RESET│DEBUG│     │     │TIME ┃SLEEP│     │  {  │  }  │PTSCR┃     ┃
+       ┃     ┃QK_BOOT│DEBUG│     │     │TIME ┃SLEEP│     │  {  │  }  │PTSCR┃     ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃     ┃     │     │     │     │     ┃     │     │     │     │     ┃     ┃
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                 _______,                   _______,
         RGB_TOG, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_F12,
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        _______, RESET,   DEBUG,   _______, _______, KC_SET_TIME,KC_SLEP,_______,KC_LCBR,KC_RCBR, KC_PSCR, _______,
+        _______, QK_BOOT,   DEBUG,   _______, _______, KC_SET_TIME,KC_SLEP,_______,KC_LCBR,KC_RCBR, KC_PSCR, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
 };
@@ -163,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         beta_pressed = record->event.pressed;
     }
 
-    if (keycode == RESET) {
+    if (keycode == QK_BOOT) {
         rgblight_setrgb(255, 255, 0);
     }
     if (keycode == KC_LCTRL) {
