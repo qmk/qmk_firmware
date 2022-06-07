@@ -11,7 +11,6 @@
 
 #include "norwegian.h"
 
-#include "util/language.h"
 #include "util/functions.h"
 
 #include "hardware/split_space.h"

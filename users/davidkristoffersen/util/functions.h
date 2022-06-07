@@ -7,3 +7,9 @@
 
 // Get current language layer
 int get_language(void);
+
+// Get special shifted code
+uint16_t get_special_shifted_code(uint16_t keycode, int lang);
+
+// Get language specific code
+uint16_t get_other_language_code(uint16_t keycode, int lang);

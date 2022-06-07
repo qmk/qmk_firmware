@@ -12,7 +12,7 @@ bool handle_shift(uint16_t keycode, keyrecord_t* record) {
         // No action was needed
         if (lang == -1) return true;
 
-        uint16_t converted_key = converted_shift_code(keycode, lang);
+        uint16_t converted_key = get_special_shifted_code(keycode, lang);
         if (converted_key != keycode) {
             // Tap new key while shift is disabled
             unregister_code(KC_LSFT);
@@ -30,7 +30,7 @@ bool handle_language(uint16_t keycode, keyrecord_t* record) {
     int lang = get_language();
     if (lang == -1) return true;
 
-    uint16_t converted_key = converted_language(keycode, lang);
+    uint16_t converted_key = get_other_language_code(keycode, lang);
     if (converted_key != keycode) {
         // Disable old key and tap the new key
         unregister_code(keycode);
