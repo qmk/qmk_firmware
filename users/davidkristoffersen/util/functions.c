@@ -3,6 +3,8 @@
 
 #include "functions.h"
 
+#ifndef NO_SPECIAL_SHIFT
+// Code set to swap struct
 typedef struct code_set {
     uint16_t pre;
     uint16_t post;
@@ -27,7 +29,7 @@ code_set_t EN_SHIFT_CODES [] = {
     {KC_DOT, KC_COLN},
 };
 
-// Array of shift code translations
+// Array of shift code conversions
 const shift_code_t SHIFT_CODES [] = {
 #ifdef LAYER_NO
     {.lang = LAYER_NO,
@@ -39,6 +41,7 @@ const shift_code_t SHIFT_CODES [] = {
      .codes = EN_SHIFT_CODES},
 };
 const int SHIFT_CODES_SIZE = ARR_LEN(SHIFT_CODES);
+#endif
 
 #ifdef LAYER_NO
 // Array of English to Norwegian code translations
@@ -79,6 +82,7 @@ bool is_default_on(int layer) {
         : layer_state_cmp(default_layer_state, layer);
 }
 
+#ifndef NO_SPECIAL_SHIFT
 // Get special shifted code
 uint16_t get_special_shifted_code(uint16_t keycode) {
     for (int i = 0; i < SHIFT_CODES_SIZE; i++) {
@@ -90,6 +94,7 @@ uint16_t get_special_shifted_code(uint16_t keycode) {
     }
     return keycode;
 }
+#endif
 
 #ifdef LAYER_NO
 // Get language specific code

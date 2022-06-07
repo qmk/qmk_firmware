@@ -10,6 +10,7 @@ bool handle_language(uint16_t keycode) {
     keycode = get_other_language_code(keycode);
 #endif
 
+#ifndef NO_SPECIAL_SHIFT
     // Handle conversion of special shift codes
     if (get_mods() & MOD_MASK_SHIFT) {
         uint16_t shifted_key = get_special_shifted_code(keycode);
@@ -21,6 +22,7 @@ bool handle_language(uint16_t keycode) {
             return false;
         }
     }
+#endif
 
 #ifdef LAYER_NO
     // Tap new language key
