@@ -3,30 +3,46 @@
 
 #include "functions.h"
 
-#ifdef MULTI_LANGUAGE
-// Shift codes conversion struct
-typedef struct shift_code {
+typedef struct code_set {
     uint16_t pre;
     uint16_t post;
-    int      lang;
+} code_set_t;
+
+// Shift codes conversion struct
+typedef struct shift_code {
+    int lang;
+    int size;
+    code_set_t* codes;
 } shift_code_t;
+
+#ifdef LAYER_NO
+code_set_t NO_SHIFT_CODES [] = {
+   {NO_QUOT, NO_DQUO},
+   {NO_BSLS, NO_PIPE},
+};
+#endif
+
+code_set_t EN_SHIFT_CODES [] = {
+    {KC_COMM, KC_SCLN},
+    {KC_DOT, KC_COLN},
+};
 
 // Array of shift code translations
 const shift_code_t SHIFT_CODES [] = {
 #ifdef LAYER_NO
-    {.lang = LAYER_NO, .pre = KC_QUOT, .post = NO_DQUO},
-    {.lang = LAYER_NO, .pre = KC_BSLS, .post = NO_PIPE},
+    {.lang = LAYER_NO,
+     .size = ARR_LEN(NO_SHIFT_CODES),
+     .codes = NO_SHIFT_CODES},
 #endif
-#ifdef LAYER_EN
-    {.lang = LAYER_EN, .pre = KC_COMM, .post = KC_SCLN},
-    {.lang = LAYER_EN, .pre = KC_DOT,  .post = KC_COLN},
-#endif
+    {.lang = LAYER_EN,
+     .size = ARR_LEN(EN_SHIFT_CODES),
+     .codes = EN_SHIFT_CODES},
 };
-const int SHIFT_CODES_SIZE = sizeof(SHIFT_CODES) / sizeof(SHIFT_CODES[0]);
+const int SHIFT_CODES_SIZE = ARR_LEN(SHIFT_CODES);
 
-#if defined LAYER_EN && defined LAYER_NO
+#ifdef LAYER_NO
 // Array of English to Norwegian code translations
-const uint16_t EN_NO_CODES[25][2] = {
+const code_set_t EN2NO_CODES [] = {
     {KC_QUOT, NO_QUOT},
     {KC_MINS, NO_MINS},
     {KC_BSLS, NO_BSLS},
@@ -53,45 +69,38 @@ const uint16_t EN_NO_CODES[25][2] = {
     {KC_DLR,  NO_DLR},
     {KC_GRV,  NO_GRV}
 };
-const int EN_NO_CODES_SIZE = sizeof(EN_NO_CODES) / sizeof(EN_NO_CODES[0]);
+const int EN2NO_CODES_SIZE = ARR_LEN(EN2NO_CODES);
 #endif
 
-// Get current language layer
-int get_language() {
-#ifdef LAYER_NO
-    if (layer_state_cmp(default_layer_state, LAYER_NO)) {
-        return LAYER_NO;
-    }
-#endif
-#ifdef LAYER_EN
-    if (layer_state_cmp(default_layer_state, LAYER_EN)) {
-        return LAYER_EN;
-    }
-#endif
-    return -1;
+// Check if layer is an active default layer
+bool is_default_on(int layer) {
+    return layer == LAYER_DEFAULT
+        ? true
+        : layer_state_cmp(default_layer_state, layer);
 }
 
 // Get special shifted code
-uint16_t get_special_shifted_code(uint16_t keycode, int lang) {
+uint16_t get_special_shifted_code(uint16_t keycode) {
     for (int i = 0; i < SHIFT_CODES_SIZE; i++) {
-        if (lang == SHIFT_CODES[i].lang && keycode == SHIFT_CODES[i].pre) {
-            return SHIFT_CODES[i].post;
+        if (IS_DEFAULT_OFF(SHIFT_CODES[i].lang)) continue;
+        for (int j = 0; j < SHIFT_CODES[i].size; j++) {
+            if (keycode == SHIFT_CODES[i].codes[j].pre)
+                return SHIFT_CODES[i].codes[j].post;
         }
     }
     return keycode;
 }
 
+#ifdef LAYER_NO
 // Get language specific code
-uint16_t get_other_language_code(uint16_t keycode, int lang) {
-#if defined LAYER_EN && defined LAYER_NO
-    if (lang == LAYER_NO) {
-        for (int i = 0; i < EN_NO_CODES_SIZE; i++) {
-            if (keycode == EN_NO_CODES[i][0]) {
-                return EN_NO_CODES[i][1];
+uint16_t get_other_language_code(uint16_t keycode) {
+    if (IS_DEFAULT_ON(LAYER_NO)) {
+        for (int i = 0; i < EN2NO_CODES_SIZE; i++) {
+            if (keycode == EN2NO_CODES[i].pre) {
+                return EN2NO_CODES[i].post;
             }
         }
     }
-#endif
     return keycode;
 }
 #endif

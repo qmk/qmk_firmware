@@ -7,6 +7,5 @@
 
 // Userspace defines
 // #define SPLIT_SPACE
-#define MULTI_LANGUAGE
 #define LAYER_EN QGMLWB_EN
 #define LAYER_NO QGMLWB_NO

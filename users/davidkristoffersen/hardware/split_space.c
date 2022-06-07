@@ -4,7 +4,7 @@
 #include "split_space.h"
 
 #ifdef SPLIT_SPACE
-void handle_split_space(uint16_t keycode, keyrecord_t* record) {
+void handle_split_space(uint16_t keycode) {
     // Disable modifiers when numpad is active
     if (IS_LAYER_ON(NUMPAD)) clear_oneshot_mods();
 

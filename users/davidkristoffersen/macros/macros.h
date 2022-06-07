@@ -5,13 +5,11 @@
 
 #include "davidkristoffersen.h"
 
-#define handle_false(bool) if (!bool) return false;
-
 enum keycodes {
     KC_T0 = SAFE_RANGE,
     KC_T1,
     KC_T2,
-#ifdef MULTI_LANGUAGE
+#ifdef LAYER_NO
     KC_AE,
     KC_OE,
     KC_AA

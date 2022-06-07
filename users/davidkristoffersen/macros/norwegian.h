@@ -6,7 +6,6 @@
 #include "keymap_extras/keymap_norwegian.h"
 #include "davidkristoffersen.h"
 
-#ifdef LAYER_NO
 // Better norwegian defines
 #undef NO_LESS
 #define NO_LESS KC_NUBS     // <
@@ -18,4 +17,3 @@
 #define NO_OE KC_SCLN       // Ø
 #undef NO_AA
 #define NO_AA KC_LBRC       // Å
-#endif

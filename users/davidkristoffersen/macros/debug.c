@@ -4,7 +4,7 @@
 #include "macros.h"
 
 // Replace key records with macros
-bool handle_test(uint16_t keycode, keyrecord_t* record) {
+bool handle_test(uint16_t keycode) {
     switch (keycode) {
     case KC_T0: {
         // Test QK_MAKE command
@@ -16,19 +16,21 @@ bool handle_test(uint16_t keycode, keyrecord_t* record) {
         SEND_STRING(" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
         break;
     case KC_T2:
+#ifdef LAYER_NO
         // Test other characters
         tap_code16(NO_AE);
         tap_code16(NO_OE);
         tap_code16(NO_AA);
-        tap_code16(LSFT(NO_AE));
-        tap_code16(LSFT(NO_OE));
-        tap_code16(LSFT(NO_AA));
-        break;
+        tap_code16(S(NO_AE));
+        tap_code16(S(NO_OE));
+        tap_code16(S(NO_AA));
+#endif
+        return false;
     }
     return true;
 };
 
 bool process_debug(uint16_t keycode, keyrecord_t* record) {
-    handle_false(handle_test(keycode, record));
+    HANDLE_FALSE(handle_test(keycode));
     return true;
 }

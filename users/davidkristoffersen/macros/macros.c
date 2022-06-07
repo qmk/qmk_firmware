@@ -9,10 +9,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 #ifdef SPLIT_SPACE
         handle_split_space(keycode, record);
 #endif
-        handle_false(process_debug(keycode, record));
-#ifdef MULTI_LANGUAGE
-        handle_false(process_language(keycode, record));
-#endif
+        HANDLE_FALSE(process_debug(keycode, record));
+        HANDLE_FALSE(process_language(keycode, record));
     }
     return true;
 }

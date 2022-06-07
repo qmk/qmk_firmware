@@ -12,7 +12,7 @@
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | XXXX |MusMod|AudOff| AudOn|AgNorm|AgSwap|Dvorak|Colmak|Qwerty|QgmlEN|QgmlNO|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|MusOff| MusOn|MIDIOf|MIDIOn|TermOf|TermOn| XXXX | XXXX | XXXX |
+ * |      |Voice-|Voice+|MusOff| MusOn|MIDIOf|MIDIOn|TermOf|TermOn|  T0  |  T1  |  T2  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | XXXX | XXXX | XXXX | XXXX |
  * `-----------------------------------------------------------------------------------'

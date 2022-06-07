@@ -13,4 +13,4 @@
 #   define KC_LSPC KC_SPACE
 #endif
 
-void handle_split_space(uint16_t keycode, keyrecord_t* record);
+void handle_split_space(uint16_t keycode);
