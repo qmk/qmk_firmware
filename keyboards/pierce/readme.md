@@ -1,8 +1,9 @@
 # Pierce
 
-![Pierce](https://i.imgur.com/JOUH1UI.jpeg)
-*A modular wireless / semi-wireless split 36 key keyboard. Wireless version uses a dongle as a receiver for both halves while the semi-wireless version uses the wired half as a receiver for the wireless half.
-Supports MX, Choc V1 and Alps switches.*
+![Pierce](https://i.imgur.com/JOUH1UIh.jpeg)
+
+A modular wireless / semi-wireless split 36 key keyboard. Wireless version uses a dongle as a receiver for both halves while the semi-wireless version uses the wired half as a receiver for the wireless half.
+Supports MX, Choc V1 and Alps switches.
 
  * Keyboard Maintainer: [durken1](https://github.com/durken1/)
  * Hardware Supported: pierce 2.0
