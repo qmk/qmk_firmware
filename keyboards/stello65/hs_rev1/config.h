@@ -1,4 +1,4 @@
-// Copyright 2021 @wekey (@@wekey)
+// Copyright 2022 @wekey (@wekey)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -7,10 +7,10 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x5559
-#define PRODUCT_ID   0x0003
+#define PRODUCT_ID   0x0004
 #define DEVICE_VER   0x0001
 #define MANUFACTURER @wekey
-#define PRODUCT      Stelo65
+#define PRODUCT      Stello65
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -26,24 +26,12 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F0, E6, D0, D1, C6, F7, F6, F5, F4, F1 }
-#define MATRIX_COL_PINS { C7, B6, B5, B4, D7, D6, D4, D5 }
+#define MATRIX_ROW_PINS { F1, F0, D1, D2, B6, C6, C7, F7, F6, F5 }
+#define MATRIX_COL_PINS { E6, B5, B4, D7, D6, D4, D5, D3 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D2 } 
-#define ENCODER_RESOLUTION 2
-
-#define ENCODERS 1
-#define ENCODERS_CW_KEY  { { 4, 7 } }
-#define ENCODERS_CCW_KEY { { 4, 6 } }
-#endif
-
-#define LED_CAPS_LOCK_PIN B3
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -60,33 +48,32 @@
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
 
-//#define RGB_DI_PIN E2
-//#ifdef RGB_DI_PIN
-//#    define RGBLED_NUM 16
+#define RGB_DI_PIN D0
+#ifdef RGB_DI_PIN
+#    define RGBLED_NUM 4
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
 //#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
-//#    define RGBLIGHT_EFFECT_BREATHING
-//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#    define RGBLIGHT_EFFECT_SNAKE
-//#    define RGBLIGHT_EFFECT_KNIGHT
-//#    define RGBLIGHT_EFFECT_CHRISTMAS
-//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//#    define RGBLIGHT_EFFECT_RGB_TEST
-//#    define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 /*== customize breathing effect ==*/
 /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
 //#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
 /*==== use exp() and sin() ====*/
 //#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-//#endif
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -140,7 +127,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
