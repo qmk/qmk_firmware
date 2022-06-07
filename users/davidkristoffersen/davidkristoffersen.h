@@ -9,10 +9,9 @@
 #include "src/enums.h"
 #endif
 
-#include "norwegian.h"
-
 #include "util/functions.h"
 
 #include "hardware/split_space.h"
 
+#include "macros/norwegian.h"
 #include "macros/macros.h"
