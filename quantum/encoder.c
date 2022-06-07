@@ -79,20 +79,21 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
     return encoder_update_user(index, clockwise);
 }
 
-__attribute__((weak)) uint8_t encoder_read_state_user(uint8_t index) {
-    return readPin(index);
+__attribute__((weak)) uint8_t encoder_read_state_kb(uint8_t index) {
+    return (readPin(encoders_pad_a[index]) << 0) | (readPin(encoders_pad_b[index]) << 1);
 }
 
-__attribute__((weak)) uint8_t encoder_read_state(uint8_t index) {
-    return encoder_read_state_user(index);
+uint8_t encoder_read_state(uint8_t index) {
+    return encoder_read_state_kb(index);
 }
 
-__attribute__((weak)) void encoder_init_state_user(uint8_t index) {
-    setPinInputHigh(index);
+__attribute__((weak)) void encoder_init_state_kb(uint8_t index) {
+    setPinInputHigh(encoders_pad_a[index]);
+    setPinInputHigh(encoders_pad_b[index]);
 }
 
-__attribute__((weak)) __attribute__((weak)) void encoder_init_state(uint8_t index) {
-    encoder_init_state_user(index);
+void encoder_init_state(uint8_t index) {
+    encoder_init_state_kb(index);
 }
 
 void encoder_init(void) {
@@ -146,12 +147,11 @@ void encoder_init(void) {
 #endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 
     for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_init_state(encoders_pad_a[i]);
-        encoder_init_state(encoders_pad_b[i]);
+        encoder_init_state(i);
     }
     encoder_wait_pullup_charge();
     for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_state[i] = (encoder_read_state(encoders_pad_a[i]) << 0) | (encoder_read_state(encoders_pad_b[i]) << 1);
+        encoder_state[i] = encoder_read_state(i);
     }
 }
 
@@ -209,7 +209,7 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 bool encoder_read(void) {
     bool changed = false;
     for (uint8_t i = 0; i < thisCount; i++) {
-        uint8_t new_status = (encoder_read_state(encoders_pad_a[i]) << 0) | (encoder_read_state(encoders_pad_b[i]) << 1);
+        uint8_t new_status = encoder_read_state(i);
         if ((encoder_state[i] & 0x3) != new_status) {
             encoder_state[i] <<= 2;
             encoder_state[i] |= new_status;

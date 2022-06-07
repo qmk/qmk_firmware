@@ -158,19 +158,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-To read an encoder that is not directly connected to an input pin but to another interface, implement `encoder_read_state_user` (the default implmentation just returns the pin state):
+Initialization code should be implemented in `encoder_init_state_kb`:
 
 ```c
-uint8_t encoder_read_state_user(uint8_t index) {
-    ...
+void encoder_init_state_kb(uint8_t index) {
+    // set up encoder at the required index
+}
+
+To read an encoder that is not directly connected to an input pin but to another interface, implement `encoder_read_state_kb`:
+
+```c
+uint8_t encoder_read_state_kb(uint8_t index) {
+    return ... ; // This should return `-1`, `0`, or `1`, to match standard encoder "Gray Code" outputs.
 }
 ```
 
-Initialization codes should be implmented in `encoder_init_state_user`. Leave it empty if unneded by `encoder_read_state_user` to avoid standard GPIO pin initialization.
-
-```c
-void encoder_init_state_user(uint8_t index) {
-}
 ```
 
 ?> Media and mouse countrol keycodes such as `KC_VOLU` and `KC_WH_D` requires `EXTRAKEY_ENABLE = yes` and `MOUSEKEY_ENABLE = yes` respectively in user's `rules.mk` if they are not enabled as default on keyboard level configuration.
