@@ -15,7 +15,6 @@
  */
 
 #include "nebula12b.h"
-#include <lib/lib8tion/lib8tion.h>
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
