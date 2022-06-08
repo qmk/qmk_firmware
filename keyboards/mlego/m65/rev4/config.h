@@ -67,4 +67,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // you want to comment this if using stm32-dfu as bootloader
-#define FEE_PAGE_BASE_ADDRESS 0x0800c000
+#define FEE_PAGE_BASE_ADDRESS 0x08008000
