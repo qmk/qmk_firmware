@@ -1,33 +1,12 @@
 // Copyright 2020 zvecr<git@zvecr.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
+//modification from pca9555 to pca9505/6 by nirim000
+//https://github.com/nirim000
 
 #pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
-
-/*
-            PCA9505
-         ,----------.
-   SDA --| SDA  P00 |-- P00
-   SCL --| SCL  P01 |-- P01
-   INT --| INT  P02 |-- P02
-         |      P03 |-- P03
-   A0  --| A0   P04 |-- P04
-   A1  --| A1   P05 |-- P05
-   A2  --| A2   P06 |-- P06
-         |      P07 |-- P07
-         |          |
-         |      P10 |-- P10
-         |      P11 |-- P11
-         |      P12 |-- P12
-         |      P13 |-- P13
-         |      P14 |-- P14
-         |      P15 |-- P15
-         |      P16 |-- P16
-         |      P17 |-- P17
-         `----------'
-*/
 
 /**
  * Port ID
