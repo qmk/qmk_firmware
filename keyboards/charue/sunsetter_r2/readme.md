@@ -1,6 +1,6 @@
 # Sunsetter R2
 
-![Sunsetter R2](https://i.imgur.com/rQRuHRk.jpeg)
+![Sunsetter R2](https://i.imgur.com/rQRuHRkh.jpeg)
 
 A 65 + 10% F-Key Column Keyboard kit made and sold by Charue Design.
 
