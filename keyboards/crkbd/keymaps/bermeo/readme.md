@@ -109,9 +109,7 @@ To compile and flash, from `qmk setup` folder, run:
 
     28658/28672 (99%, 14 bytes free)
 
-If more space is needed, start with deactivating Luna's animations.
-
-add crkbd/keymaps/armand1m
+If more space is needed, start by deactivating Macros and Luna's animations.
 
 ## Credits
 
