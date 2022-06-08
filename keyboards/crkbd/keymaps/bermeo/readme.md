@@ -30,20 +30,14 @@ With the index of every key mapped in the table below to be used with `rgb_matri
 | 26 | 21 | 20 | 15 | 12 | 7 ||| 34 | 39 | 42 | 47 | 48 | 53 |
 |||||            14 | 13 |  6 | 33  | 40 | 41            |||||
 
-Each layer uses the Key's `14` LED as an visual indicator:
+Each layer uses the LED `14` as an visual indicator:
 
-* ⚫️ _Default layer
-* 🔵 _Lower (0)
-* 🟠 _Raise (1)
-* 🟢 _Numpad (2)
-* ⚪️ _CTRL and Command
-* 🟡 _Shift
-
-## Usage
-
-To compile and flash, from `qmk setup` folder, run:
-
-    make crkbd:bermeo:flash
+* ⚫️ Default layer
+* 🔵 Lower (0)
+* 🟠 Raise (1)
+* 🟢 Numpad (2)
+* ⚪️ Control and Command
+* 🟡 Shift
 
 ## Mod-taps
 
@@ -71,38 +65,45 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 ### QWERTY
 
 |||||||||||||||
-|:--|:--:|--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|--:|
-| LCTL_T(F3)      | Q | W | E | R | T ||| Y | U | I | O | P |      GRAVE      |
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|--:|
+| LCTL_T(F3[^2])  | Q | W | E | R | T ||| Y | U | I | O | P |      GRAVE      |
 | LALT_T(TAB)     | A | S | D | F | G ||| H | J | K | L | ; |        ↵        |
 | LSFT_T(&larr;)  | Z | X | C | V | B ||| N | M | , | . | / | RGUI_T(&rarr;)  |
-|⚫️||||  LGUI_T(&darr;) | MO(1) | SPACE |  ⌫ | MO(2)| RSFT_T( &uarr;)     |||||
+|||||  LGUI_T(&darr;) | MO(1) | SPACE |  ⌫ | MO(2)| RSFT_T( &uarr;)       |||||
 
-### LOWER
 
-|||||||||||||||
-|:--|:--:|--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|--:|
-|CTL_T(F5)   |  1  |  2  |  3  |  4  |  5  |||  6  |  7  |  8  |  9  |  0  | ESCAPE |
-|ALT_T(TAB)  | &larr; | &darr; |  &uarr; | &rarr; | ↵ ||| [ | ] | \ | ' | : |   ↵   |
-|ALT(&larr;) | F1 | F2 |   C |  V |  ⌫ ||| - | = | < | > | ? |   LALT(&rarr;)       |
-|🔵||||      LGUI_T(PAGE_DOWN) |  | SPACE | LALT(⌫) | TG(3) | RSFT_T(PAGE_UP)   |||||
-
-### RAISE
+### LOWER 🔵
 
 |||||||||||||||
-|:--|:--:|--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|--:|
-LCTL_T(F4) |  ! | @ | # | $ | % ||| ˆ | & | *      | ( | ) |       ˜      |
-LALT_T(TAB) | Ã |   |   |   |   ||| { | } | &#124; | " | : |       ↵      |
-LALT(&larr;) |  |   | Ç |   |   ||| _ | + | <      | > | ? | LALT(&rarr;) |
-|🟠||||  LGUI_T(END) | TG(3) | SPACE| DEL|   | RSFT_T(HOME)           |||||
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|--:|
+|CTL_T(F5[^3])   |  1  |  2  |  3  |  4  |  5  |||  6  |  7  |  8  |  9  |  0  | ESCAPE |
+|LCTL(LGUI(KC_SPC))[^4] | &larr; | &darr; |  &uarr; | &rarr; | ↵ ||| [ | ] | \ | ' | : |  ↵  |
+|ALT(&larr;) | F1[^5] | F2[^6] |   C |  V |  ⌫ ||| - | = | < | > | ? |   LALT(&rarr;)       |
+|||||      LGUI_T(PAGE_DOWN) | _ | SPACE | LALT(⌫) | TG(3) | RSFT_T(PAGE_UP)           |||||
 
-### NUMPAD
+### RAISE 🟠
 
 |||||||||||||||
-|:--|:--:|--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|  RGB_TOG ||         |         |         |||   | 7 | 8 | 9 | * | / |
-||  RGB_HUI | RGB_SAI | RGB_VAI | RGB_SPI |||   | 4 | 5 | 6 | - | ↵ |
-||  RGB_HUD | RGB_SAD | RGB_VAD | RGB_SPD ||| . | 1 | 2 | 3 | + |   |
-|🟢|||                TG(3)| TG(3) | TG(3) | ⌫ | TG(3) | 0       ||||
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|--:|
+LCTL_T(F4[^7]) |  ! | @ | # | $ | % |||  ˆ | & | *      | (     | ) |     ˜    |
+LALT_T(TAB) | Ã[^8] |   |   |   |   |||  { | } | &#124; | "[^9] | : |     ↵    |
+LALT(&larr;) |  |   | Ç[^10] |   |   ||| _ | + | <      | >     | ? | LALT(&rarr;) |
+|||||  LGUI_T(END) | TG(3) | SPACE| DEL| _ | RSFT_T(HOME)                      |||||
+
+### NUMPAD 🟢
+
+|||||||||||||||
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|--:|
+|  RGB_TOG ||         |         |         ||||   | 7 | 8 | 9 | * | / |
+||  RGB_HUI | RGB_SAI | RGB_VAI | RGB_SPI ||||   | 4 | 5 | 6 | - | ↵ |
+||  RGB_HUD | RGB_SAD | RGB_VAD | RGB_SPD |||| . | 1 | 2 | 3 | + |   |
+|||||                  TG(3)| TG(3) | TG(3) | ⌫ | TG(3) |  0     |||||
+
+## Usage
+
+To compile and flash, from `qmk setup` folder, run:
+
+    make crkbd:bermeo:flash
 
 ## Compiled size
 
@@ -123,7 +124,26 @@ Guilherme Bermêo [(github)](https://git.bermeo.dev)
 * @drashna
 * @hellsingcoder
 * @soundmonster
+* @wdtamagi
 
 [^1]: The diaeresis (/daɪˈɛrəsɪs, -ˈɪər-/ dy-ERR-ə-sis, -⁠EER-; also known as the trema) and the umlaut (/ˈʊmlaʊt/) are two different diacritical marks that (in modern usage) look alike. They both consist of two dots ¨ placed over a letter, usually a vowel; when that letter is an i or a j, the diacritic replaces the tittle: ï. In computer systems, both forms have the same code point (binary code). Their appearance in print or on screen may vary between typefaces but rarely within the same typeface. The "diaeresis" diacritic is used to mark the separation of two distinct vowels in adjacent syllables when an instance of diaeresis (or hiatus) occurs, so as to distinguish from a digraph or diphthong.
 The "umlaut" diacritic, in contrast, indicates a sound shift phenomenon – also known as umlaut – in which a back vowel becomes a front vowel.
 Neither of these phenomena occur in English, except in loanwords (like naïve) or for stylistic reasons (as in the Brontë family or Mötley Crüe).
+
+[^2]: Open Mission Control.
+
+[^3]: Bring up the screenshot toolbar.
+
+[^4]: Opens emoji dialog box.
+
+[^5]: Decrease display brightness.
+
+[^6]: Increase display brightness.
+
+[^7]: Launchpad.
+
+[^8]: Macro "CEDILLA".
+
+[^9]: Macro "AO".
+
+[^10]: Macro "ASPAS".
