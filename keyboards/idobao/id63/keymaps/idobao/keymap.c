@@ -76,20 +76,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
      * │ ~ │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│  Del  │
      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-     * │     │tog│up │mod│hu+│hu-│sa+│sa-│br+│br-│prn│slk│pus│ Ins │
+     * │     │   │ ↑ │   │   │Tog│Hu+│Sa+│Br+│Sp+│prn│slk│pus│ Ins │
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-     * │ Caps │lf │dn │rt │   │   │   │   │sp+│sp-│   │   │        │
+     * │ Caps │ ← │ ↓ │ → │   │Mod│Hu-│Sa-│Br-│Sp-│   │   │        │
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-     * │        │Rst│   │mod│   │   │NKR│   │   │   │      │PUp│ / │
+     * │        │   │   │   │Ver│Rst│NKR│   │   │   │      │PUp│ / │
      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
      * │    │    │    │                        │   │   │Hom│PDn│End│
      * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
      */
     [_FN1] = LAYOUT_63_ansi(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
-        _______, RGB_TOG, KC_UP,   RGB_MOD, RGB_HUI,  RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_PSCR,  KC_SLCK, KC_PAUS, KC_INS,
-        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,  _______, _______, _______, RGB_SPI, RGB_SPD, _______,  _______,          _______,
-        _______,          QK_BOOT, _______, RGB_RMOD, _______, _______, NK_TOGG, _______, _______, _______,  _______, KC_PGUP, _______,
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
+        _______, _______, KC_UP,   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, KC_PSCR,  KC_SLCK, KC_PAUS, KC_INS,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______,  _______,          _______,
+        _______,          _______, _______, _______, KB_VRSN, QK_BOOT, NK_TOGG, _______, _______, _______,  _______, KC_PGUP, _______,
         _______, _______,          _______,                    _______,                   _______, MO(_FN3), KC_HOME, KC_PGDN, KC_END
     ),
 
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_BRID, KC_BRIU, KC_MCON, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, KC_POWER,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______,
-        _______,          XXXXXXX, _______, _______, KB_VRSN, _______, _______, _______, _______,  _______, _______, _______, _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
         _______, _______,          _______,                   _______,                   MO(_FN3), _______, _______, _______, _______
     ),
 
@@ -105,10 +105,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______,          XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______,          _______,                   _______,                   _______, _______, _______, _______, _______
     )
 };
+
+uint8_t mod_state;
+bool delkey_registered;
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -209,6 +212,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
  */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    mod_state = get_mods();
 
     switch (keycode) {
 
@@ -313,6 +318,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(_AC_SHOW_ALL_APPS);
             }
             return false;
+
+        // Shift + Backspace = Delete, see: https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
+        case KC_BSPC:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    register_code(KC_DEL);
+                    delkey_registered = true;
+                    set_mods(mod_state);
+
+                    return false;
+                }
+            } else {
+                if (delkey_registered) {
+                    unregister_code(KC_DEL);
+                    delkey_registered = false;
+                    return false;
+                }
+            }
+            return true;
 
         default:
             return true; /* Process all other keycodes normally */
