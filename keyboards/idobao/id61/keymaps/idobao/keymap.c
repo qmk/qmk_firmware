@@ -19,7 +19,8 @@ enum {
     _BASE = 0,
     _FN1,
     _FN2,
-    _FN3
+    _FN3,
+    _FN4
 };
 
 enum {
@@ -115,10 +116,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______
+    ),
+
+    [4] = LAYOUT_61_ansi(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______
     )
 };
 
-//// #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 
 /*
  * RGB Stuff
@@ -213,7 +222,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 }
 
-//// #endif  // RGB_MATRIX_ENABLE
+#endif  // RGB_MATRIX_ENABLE
 
 /*
  * Extra keys and RGB Toggle handler
@@ -226,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
         // handle RGB toggle key - this ensures caps lock always works
-        //// #ifdef RGB_MATRIX_ENABLE
+        #ifdef RGB_MATRIX_ENABLE
 
         case QK_BOOT:
             if (record->event.pressed) {
@@ -285,7 +294,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // let this one pass on
 
-        //// #endif  // RGB_MATRIX_ENABLE
+        #endif  // RGB_MATRIX_ENABLE
 
         case KB_ARRW:
             if (record->event.pressed) {
