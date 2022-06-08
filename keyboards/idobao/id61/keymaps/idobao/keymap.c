@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
      * │      │ ← │ ↓ │ → │   │Mod│Hu-│Sa-│Br-│Sp-│   │PUp│        │
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
-     * │        │   │   │   │   │Rst│NKR│   │   │   │PDn│          │
+     * │        │   │   │   │Ver│Rst│NKR│   │   │   │PDn│          │
      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
      * │    │    │    │                        │    │    │    │    │
      * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
@@ -127,6 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+uint8_t mod_state;
+bool delkey_registered;
+
 #ifdef RGB_MATRIX_ENABLE
 
 /*
@@ -148,8 +151,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 user_config_t user_config;
-uint8_t mod_state;
-bool delkey_registered;
 
 void ID61_update_rgb_mode(void) {
     uint8_t flags = LED_FLAG_ALL;
@@ -192,7 +193,6 @@ void ID61_get_rgb_mode(void) {
 }
 
 void keyboard_post_init_user(void) {
-    delkey_registered = false;
     ID61_get_rgb_mode();
 }
 
