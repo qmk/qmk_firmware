@@ -58,6 +58,14 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 | RSFT_T(kc)  | Right Shift when held, kc when tapped.  |
 | RGUI_T(kc)  | Right GUI when held, kc when tapped.    |
 
+## Macros
+
+|Layer | Name    | Description                                                                       | Keys          |
+| :--: | --:     | --                                                                                | --:           |
+|  🟠  | CEDILLA |  Directly outputs ç                                                               | ' + c         |
+|  🟠  | AO      |  Directly outputs ã                                                               | shift + ` + a |
+|  🟠  | ASPAS   |  Outputs ", since diaeresis[^1] are less used than " (for coding and quoting) | shift + ' + space |
+
 ## Layers
 
 ### QWERTY
@@ -115,3 +123,7 @@ Guilherme Bermêo [(github)](https://git.bermeo.dev)
 * @drashna
 * @hellsingcoder
 * @soundmonster
+
+[^1]: The diaeresis (/daɪˈɛrəsɪs, -ˈɪər-/ dy-ERR-ə-sis, -⁠EER-; also known as the trema) and the umlaut (/ˈʊmlaʊt/) are two different diacritical marks that (in modern usage) look alike. They both consist of two dots ¨ placed over a letter, usually a vowel; when that letter is an i or a j, the diacritic replaces the tittle: ï. In computer systems, both forms have the same code point (binary code). Their appearance in print or on screen may vary between typefaces but rarely within the same typeface. The "diaeresis" diacritic is used to mark the separation of two distinct vowels in adjacent syllables when an instance of diaeresis (or hiatus) occurs, so as to distinguish from a digraph or diphthong.
+The "umlaut" diacritic, in contrast, indicates a sound shift phenomenon – also known as umlaut – in which a back vowel becomes a front vowel.
+Neither of these phenomena occur in English, except in loanwords (like naïve) or for stylistic reasons (as in the Brontë family or Mötley Crüe).
