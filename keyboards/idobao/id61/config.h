@@ -13,16 +13,15 @@
  * RGB Matrix stuff
  * ---------------- */
 
-// TODO: RGB Matrix
-#define RGB_DI_PIN B7
+#define RGB_DI_PIN F0
 
 // RGB Matrix config
 #if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
 
     #ifndef ID61_DISABLE_UNDERGLOW
-        #define DRIVER_LED_TOTAL 73
+        #define DRIVER_LED_TOTAL 71
     #else
-        #define DRIVER_LED_TOTAL (73 - 12)
+        #define DRIVER_LED_TOTAL (71 - 10)
     #endif
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended
