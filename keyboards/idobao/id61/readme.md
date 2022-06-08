@@ -1,8 +1,8 @@
-# IDOBAO *(Denwir 60)* ID61
+# IDOBAO ID61
 
 ![IDOBAO ID61](https://idobao.github.io/assets/img/idobao-id61.png)
 
-*The ID61 Keyboard Kit brings a tailored gasket-mounted build to an ultra-compact 60% layout.*
+*The ID61 Keyboard Kit brings a tailored gasket-mounted build to an ultra-compact 60% layout with a unique ribbed side texture.*
 
 ## ANSI Support
 
@@ -28,7 +28,8 @@ Flashing example for this keyboard:
 
     make idobao/id61:default:flash
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. <br>Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. <br>
+Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
@@ -36,4 +37,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the [Escape] key and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB
-* **Keycode in layout**: Press the key mapped to `RESET`, default is [Fn]+[Z]
+* **Keycode in layout**: Press the key mapped to `RESET`, default is [Fn]+[B]
