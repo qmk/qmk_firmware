@@ -18,14 +18,10 @@
 
 #include "config_common.h"
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define EXTERNAL_FLASH_SIZE (8 * 1024)
-#define EEPROM_SIZE EXTERNAL_FLASH_SIZE
-
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0001
-#define VENDOR_ID 0x2442
-#define PRODUCT_ID 0x0026
+#define VENDOR_ID 0x342D
+#define PRODUCT_ID 0xE392
 #define MANUFACTURER GSKY
 #define PRODUCT KD83A_BFG_Edition
 
@@ -81,7 +77,7 @@
 
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
-#define DRIVER_2_LED_TOTAL 54
+#define DRIVER_2_LED_TOTAL 19
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 // RGB Matrix Animation modes. Explicitly enabled
