@@ -1,6 +1,6 @@
 # Skjöldr
 
-![Skjöldr](https://i.imgur.com/HtRqhxD.jpg)
+![Skjöldr](https://i.imgur.com/HtRqhxDh.jpg)
 
 Skjöldr [/ˈskjɒldr̩/] (Old Norse: Shield)
 
@@ -14,10 +14,10 @@ Reset the keyboard with **FN** + **Backspace** or by pressing the reset button o
   
 Make example for this keyboard (after setting up your build environment):
 
-    make skjoldr:default
+    make runes/skjoldr:default
 
 Flashing example for this keyboard:
 
-    make skjoldr:default:flash
+    make runes/skjoldr:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
