@@ -29,7 +29,7 @@ enum {
     KB_ARRW,           // toggle right modifiers are arrows feature
     KB_RSFT,           // right shift or up arrow
     KB_RALT,           // right alt or left arrow
-    KB_RGUI,           // right gui or down arrow
+    KB_RMNU,           // menu or down arrow (Windows Menu)
     KB_RCOM,           // right gui or left arrow (macOS Command)
     KB_ROPT,           // right alt or down arrow (macOS Option)
     KB_RCTL,           // right ctrl ot right arrow
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
      * │ Shift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │  ↑Shift  │
      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
-     * │Ctrl│Win │Alt │                        │Fn1 │←Alt│↓Win│→Ctl│
+     * │Ctrl│Win │Alt │                        │Fn1 │←Alt│↓Mnu│→Ctl│
      * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
      */
     [0] = LAYOUT_61_ansi(
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         SK_LT1C, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KB_RSFT,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             MO(1),   KB_RALT, KB_RGUI, KB_RCTL
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             MO(1),   KB_RALT, KB_RMNU, KB_RCTL
     ),
 
     /*
@@ -334,7 +334,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case KB_RGUI:
+        case KB_RMNU:
             if (user_config.in_arrow_mode) {
                 if (record->event.pressed) {
                     register_code(KC_DOWN);
@@ -343,9 +343,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {
                 if (record->event.pressed) {
-                    register_code(KC_RGUI);
+                    register_code(KC_MENU);
                 } else {
-                    unregister_code(KC_RGUI);
+                    unregister_code(KC_MENU);
                 }
             }
             return false;
