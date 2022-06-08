@@ -90,7 +90,7 @@ void matrix_init_user(void) {
 //Per key lights
 void rgb_matrix_indicators_user(void) {
 #ifdef RGB_MATRIX_ENABLE
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             isSneaking = false;
             mod_state  = get_mods();
