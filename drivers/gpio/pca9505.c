@@ -1,5 +1,8 @@
 // Copyright 2020 zvecr<git@zvecr.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
+//modification from pca9555 to pca9505/6 by nirim000
+//https://github.com/nirim000
+
 
 #include "i2c_master.h"
 #include "pca9505.h"
