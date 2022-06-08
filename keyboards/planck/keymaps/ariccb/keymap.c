@@ -582,7 +582,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       break;
     case EM_WORK_EMAIL:
       if (pressed) {
-        SEND_STRING("acrossonbouwers@rjc.ca");
+        SEND_STRING("acbouwers@freedomsadvocate.ca");
       }
       break;
     case HTML_DIV:
