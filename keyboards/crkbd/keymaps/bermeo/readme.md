@@ -8,7 +8,19 @@
 * Delete and enter keys on the left side.
 * Z and X on left side with lower layer used to control the monitor's brigtness.
 * Arrow keys on left hand (vim logic)
-* All accentuations used in Romance (neo-latin) languages like Spanish, Portuguese, French and Italian - ` ~ ^ ' - and a direct ã and ç within one hold and tap.
+* Accentuations used in Romance (neo-latin) languages like Spanish, Portuguese, French and Italian - ` ~ ^ ' -.
+
+#### Direct ç and ã keys
+
+The termination "tion" (eg. action) in portuguese is "ção" (eg. ação). This layout is optimized to use the less keys possible to write words with this termination.
+
+Compared to the `crkbd:default` layout the difference to output ção would be half of the interations:
+
+| crkbd:bermeo | <sub>`MO(2)`</sub>, `KC_C`, `KC_A`, <sup>`MO(2)`</sup> |
+|:--|:--|
+| crkbd:default | `KC_QUOT`, `KC_C`, <sub>`MO(2)`</sub>, <sub>`KC_SFT`</sub>, `KC_GRV`, <sup>`MO(2)`</sup>, <sup>`KC_SFT`</sup>, `KC_A` |
+
+[ <sub>`hold key`</sub> , <sup>`release key`</sup> ]
 
 ### Modern OLED Support
 
@@ -16,7 +28,6 @@
 * Non-intrusive OLED modifier indicators ⌘ ⇧ ⌥  ⌃.
 * Fully animated Luna on left side.
   
-
 ### Full per-key RGB Matrix support
 
 With the index of every key mapped in the table below to be used with `rgb_matrix_set_color(index, r, g, b)`;.
