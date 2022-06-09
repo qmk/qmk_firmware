@@ -2,7 +2,12 @@
 MCU = STM32F401
 
 # Bootloader selection
-BOOTLOADER = stm32-dfu
+BOOTLOADER = tinyuf2
+
+ifeq ($(strip $(BOOTLOADER)), tinyuf2)
+    MCU_LDSCRIPT = STM32F401xE
+    EEPROM_DRIVER = vendor
+endif
 
 # Build Options
 #   change yes to no to disable
