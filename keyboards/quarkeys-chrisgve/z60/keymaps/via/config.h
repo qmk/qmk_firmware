@@ -1,4 +1,8 @@
+<<<<<<< HEAD:keyboards/quarkeys-chrisgve/z60/keymaps/via/config.h
 /* Copyright 2020 Nathan Spears
+=======
+/* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+>>>>>>> 6567b2168881ce8c47e38debcdc89eba1ac80c5a:keyboards/gmmk/pro/rev1/config.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,5 +20,12 @@
 
 #pragma once
 
+<<<<<<< HEAD:keyboards/quarkeys-chrisgve/z60/keymaps/via/config.h
 #define TAPPING_TOGGLE 2
 #define IOS_DEVICE_ENABLE
+=======
+#include "config_common.h"
+
+/* SPI Config for LED Driver */
+#define SPI_DRIVER SPID1
+>>>>>>> 6567b2168881ce8c47e38debcdc89eba1ac80c5a:keyboards/gmmk/pro/rev1/config.h
