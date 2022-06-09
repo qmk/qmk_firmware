@@ -47,7 +47,7 @@ enum macos_consumer_usages {
 
 /* Special Keys */
 #define SK_LT1C LT(_FN1, KC_CAPS)  // Layer Tap 1, i.e., Tap = Caps Lock, Hold = Layer 1
-#define SK_LT2M LT(_FN2, KC_MENU)  // Layer Tap 2, i.e., Tap = Menu, Hold = Layer 2
+#define SK_LT2M LT(_FN2, KC_APP)   // Layer Tap 2, i.e., Tap = Menu, Hold = Layer 2
 
 /* key matrix */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -331,7 +331,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(KC_DEL);
                     delkey_registered = true;
                     set_mods(mod_state);
-
                     return false;
                 }
             } else {
