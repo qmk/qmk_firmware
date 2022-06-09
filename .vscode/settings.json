@@ -9,6 +9,7 @@
         "**/*.bin": true
     },
     "files.associations": {
+        "*.vue": "vue",
         "*.h": "c",
         "*.c": "c",
         "*.inc": "c",
@@ -17,7 +18,9 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "chrono": "c",
+        "variant": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
