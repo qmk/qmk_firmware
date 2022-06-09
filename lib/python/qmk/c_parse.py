@@ -24,6 +24,14 @@ def _get_chunks(it, size):
     return iter(lambda: tuple(islice(it, size)), ())
 
 
+def _preprocess_c_file(file):
+    """Load file and strip comments
+    """
+    file_contents = file.read_text(encoding='utf-8')
+    file_contents = comment_remover(file_contents)
+    return file_contents.replace('\\\n', '')
+
+
 def strip_line_comment(string):
     """Removes comments from a single line string.
     """
@@ -58,9 +66,7 @@ def find_layouts(file):
     parsed_layouts = {}
 
     # Search the file for LAYOUT macros and aliases
-    file_contents = file.read_text(encoding='utf-8')
-    file_contents = comment_remover(file_contents)
-    file_contents = file_contents.replace('\\\n', '')
+    file_contents = _preprocess_c_file(file)
 
     for line in file_contents.split('\n'):
         if layout_macro_define_regex.match(line.lstrip()) and '(' in line and 'LAYOUT' in line:
@@ -205,13 +211,23 @@ def _coerce_led_token(_type, value):
         return value_map[value]
 
 
+def _validate_led_config(matrix, matrix_rows, matrix_indexes, position, position_raw, flags):
+    # TODO: Improve crude parsing/validation
+    if len(matrix) != matrix_rows and len(matrix) != (matrix_rows / 2):
+        raise ValueError("Unable to parse g_led_config matrix data")
+    if len(position) != len(flags):
+        raise ValueError("Unable to parse g_led_config position data")
+    if len(matrix_indexes) and (max(matrix_indexes) >= len(flags)):
+        raise ValueError("OOB within g_led_config matrix data")
+    if not all(isinstance(n, int) for n in matrix_indexes):
+        raise ValueError("matrix indexes are not all ints")
+    if (len(position_raw) % 2) != 0:
+        raise ValueError("Malformed g_led_config position data")
+
+
 def _parse_led_config(file, matrix_cols, matrix_rows):
     """Return any 'raw' led/rgb matrix config
     """
-    file_contents = file.read_text(encoding='utf-8')
-    file_contents = comment_remover(file_contents)
-    file_contents = file_contents.replace('\\\n', '')
-
     matrix_raw = []
     position_raw = []
     flags = []
@@ -219,7 +235,7 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
     found_led_config = False
     bracket_count = 0
     section = 0
-    for _type, value in lex(file_contents, CLexer()):
+    for _type, value in lex(_preprocess_c_file(file), CLexer()):
         # Assume g_led_config..stuff..;
         if value == 'g_led_config':
             found_led_config = True
@@ -248,17 +264,12 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
     position = list(_get_chunks(position_raw, 2))
     matrix_indexes = list(filter(lambda x: x is not None, matrix_raw))
 
-    # If we have not found anything - bail
+    # If we have not found anything - bail with no error
     if not section:
         return None
 
-    # TODO: Improve crude parsing/validation
-    if len(matrix) != matrix_rows and len(matrix) != (matrix_rows / 2):
-        raise ValueError("Unable to parse g_led_config matrix data")
-    if len(position) != len(flags):
-        raise ValueError("Unable to parse g_led_config position data")
-    if len(matrix_indexes) and (max(matrix_indexes) >= len(flags)):
-        raise ValueError("OOB within g_led_config matrix data")
+    # Throw any validation errors
+    _validate_led_config(matrix, matrix_rows, matrix_indexes, position, position_raw, flags)
 
     return (matrix, position, flags)
 

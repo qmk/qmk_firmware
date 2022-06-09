@@ -4,9 +4,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
+#include "unicode.h"
 #include "process_unicode_common.h"
 
-uint16_t typing_mode = KC_NOMODE;
+uint8_t typing_mode = UCTM_NO_MODE;
 
 /**
  * @brief Registers the unicode keystrokes based on desired unicode
@@ -242,10 +243,10 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_NOMODE ... KC_ZALGO:
             if (record->event.pressed) {
-                if (typing_mode != keycode) {
-                    typing_mode = keycode;
+                if (typing_mode != keycode - KC_NOMODE) {
+                    typing_mode = keycode - KC_NOMODE;
                 } else {
-                    typing_mode = KC_NOMODE;
+                    typing_mode = UCTM_NO_MODE;
                 }
             }
             break;
@@ -259,19 +260,19 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
         keycode &= 0xFF;
     }
 
-    if (typing_mode == KC_WIDE) {
+    if (typing_mode == UCTM_WIDE) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_wide);
         }
-    } else if (typing_mode == KC_SCRIPT) {
+    } else if (typing_mode == UCTM_SCRIPT) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_script);
         }
-    } else if (typing_mode == KC_BLOCKS) {
+    } else if (typing_mode == UCTM_BLOCKS) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_boxes);
         }
-    } else if (typing_mode == KC_REGIONAL) {
+    } else if (typing_mode == UCTM_REGIONAL) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             if (!process_record_glyph_replacement(keycode, record, unicode_range_translator_regional)) {
                 wait_us(500);
@@ -279,9 +280,9 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         }
-    } else if (typing_mode == KC_AUSSIE) {
+    } else if (typing_mode == UCTM_AUSSIE) {
         return process_record_aussie(keycode, record);
-    } else if (typing_mode == KC_ZALGO) {
+    } else if (typing_mode == UCTM_ZALGO) {
         return process_record_zalgo(keycode, record);
     }
     return true;
