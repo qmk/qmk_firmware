@@ -219,11 +219,13 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
-|Key              |Aliases  |Description                                            |
-|-----------------|---------|-------------------------------------------------------|
-|`QK_BOOTLOADER`  |`QK_BOOT`|Put the keyboard into bootloader mode for flashing     |
-|`QK_DEBUG_TOGGLE`|`DB_TOGG`|Toggle debug mode                                      |
-|`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)|
+|Key              |Aliases  |Description                                                                      |
+|-----------------|---------|---------------------------------------------------------------------------------|
+|`QK_BOOTLOADER`  |`QK_BOOT`|Put the keyboard into bootloader mode for flashing                               |
+|`QK_DEBUG_TOGGLE`|`DB_TOGG`|Toggle debug mode                                                                |
+|`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)                          |
+|`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held |
+|`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                |
 
 ## Audio Keys :id=audio-keys
 
@@ -266,6 +268,14 @@ See also: [Bluetooth](feature_bluetooth.md)
 |`OUT_AUTO`|Automatically switch between USB and Bluetooth|
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
+
+## Caps Word :id=caps-word
+
+See also: [Caps Word](feature_caps_word.md)
+
+|Key        |Aliases  |Description                   |
+|-----------|---------|------------------------------|
+|`CAPS_WORD`|`CAPSWRD`|Toggles Caps Word             |
 
 ## Dynamic Macros :id=dynamic-macros
 
