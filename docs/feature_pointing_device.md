@@ -259,6 +259,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 |`POINTING_DEVICE_ROTATION_270_RIGHT`    | (Optional) Rotates the X and Y data by 270 degrees.                   | _not defined_ |
 |`POINTING_DEVICE_INVERT_X_RIGHT`        | (Optional) Inverts the X axis report.                                 | _not defined_ |
 |`POINTING_DEVICE_INVERT_Y_RIGHT`        | (Optional) Inverts the Y axis report.                                 | _not defined_ |
+|`MOUSE_EXTENDED_REPORT`                 | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127) |
 
 !> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md?id=common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard?id=setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
 
