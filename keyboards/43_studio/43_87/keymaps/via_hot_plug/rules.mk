@@ -1,0 +1,3 @@
+VIA_ENABLE = yes 
+SRC += 43_87.c
+OPT_DEFS += -DHOT_PLUG
