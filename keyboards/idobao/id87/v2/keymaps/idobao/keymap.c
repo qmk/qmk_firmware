@@ -269,12 +269,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MCON:
             if (record->event.pressed) {
                 host_consumer_send(_AC_SHOW_ALL_WINDOWS);
+            } else {
+                host_consumer_send(0);
             }
             return false;
 
         case KC_LPAD:
             if (record->event.pressed) {
                 host_consumer_send(_AC_SHOW_ALL_APPS);
+            } else {
+                host_consumer_send(0);
             }
             return false;
 
