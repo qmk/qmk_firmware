@@ -118,8 +118,8 @@ Default Scaling/CPI is 1024.
 
 Default attenuation is set to 4X, although if you are using a thicker overlay (such as the curved overlay) you will want a lower attenuation such as 2X. The possible values are:
 * `ADC_ATTENUATE_4X`: Least sensitive
-* `ADC_ATTENUATE_3X`:
-* `ADC_ATTENUATE_2X`:
+* `ADC_ATTENUATE_3X`
+* `ADC_ATTENUATE_2X`
 * `ADC_ATTENUATE_1X`: Most sensitive
 
 ### Pimoroni Trackball
