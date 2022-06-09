@@ -1,7 +1,7 @@
 // Copyright 2020 zvecr<git@zvecr.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
-//modification from pca9555 to pca9505/6 by nirim000
-//https://github.com/nirim000
+// modification from pca9555 to pca9505/6 by nirim000
+// https://github.com/nirim000
 
 #pragma once
 
@@ -23,8 +23,8 @@ typedef enum {
  * Helpers for set_config
  */
 enum {
-    ALL_NORMAL = 0,
-    ALL_INVERTED  = 0xFF,
+    ALL_NORMAL   = 0,
+    ALL_INVERTED = 0xFF,
 };
 
 /**
@@ -68,7 +68,7 @@ bool pca9505_set_output(uint8_t slave_addr, pca9505_port_t port, uint8_t conf);
  *
  *  - slightly faster than multiple set_output
  */
-//bool pca9505_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB);
+// bool pca9505_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB);
 
 /**
  * Read state of a given port
@@ -80,4 +80,4 @@ bool pca9505_readPins(uint8_t slave_addr, pca9505_port_t port, uint8_t* ret);
  *
  *  - slightly faster than multiple readPins
  */
-//bool pca9505_readPins_all(uint8_t slave_addr, uint16_t* ret);
+// bool pca9505_readPins_all(uint8_t slave_addr, uint16_t* ret);
