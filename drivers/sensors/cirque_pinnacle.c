@@ -213,7 +213,12 @@ void cirque_pinnacle_init(void) {
     // Host sets z-idle packet count to 5 (default is 30)
     RAP_Write(Z_IDLE_COUNT, Z_IDLE_COUNT_VALUE);
 
-    cirque_pinnacle_set_adc_attenuation(0xFF);
+#ifdef CIRQUE_PINNACLE_ATTENUATION
+    cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
+#else
+    cirque_pinnacle_set_adc_attenuation(ADC_ATTENUATE_4X);
+#endif
+
     cirque_pinnacle_tune_edge_sensitivity();
     cirque_pinnacle_enable_feed(true);
 }
