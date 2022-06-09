@@ -31,7 +31,7 @@ enum {
     KB_ARRW,           // toggle right modifiers are arrows feature
     KB_RSFT,           // right shift or up arrow
     KB_RALT,           // right alt or left arrow
-    KB_RMNU,           // menu or down arrow (Windows Menu)
+    KB_RAPP,           // menu or down arrow (Windows Menu)
     KB_RCOM,           // right gui or left arrow (macOS Command)
     KB_ROPT,           // right alt or down arrow (macOS Option)
     KB_RCTL,           // right ctrl ot right arrow
@@ -45,7 +45,7 @@ enum macos_consumer_usages {
 
 /* Special Keys */
 #define SK_LT1C LT(_FN1, KC_CAPS)  // Layer Tap 1, i.e., Tap = Caps Lock, Hold = Layer 1
-#define SK_LT2M LT(_FN2, KC_MENU)  // Layer Tap 2, i.e., Tap = Menu, Hold = Layer 2
+#define SK_LT2M LT(_FN2, KC_APP)   // Layer Tap 2, i.e., Tap = Menu, Hold = Layer 2
 
 /* key matrix */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         SK_LT1C, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KB_RSFT,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             MO(1),   KB_RALT, KB_RMNU, KB_RCTL
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             MO(1),   KB_RALT, KB_RAPP, KB_RCTL
     ),
 
     /*
@@ -132,19 +132,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 user_config_t user_config;
 uint8_t mod_state;
 bool delkey_registered;
+bool keycode_raised[10];
 
-bool ID61_process_special_k(keyrecord_t *record, uint8_t k_norm, uint8_t k_spcl, uint8_t k_rasd) {
-    if (user_config.in_arrow_mode) {
-        if (record->event.pressed) {
-            register_code(k_spcl);
+bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, uint8_t k_norm, uint8_t k_spcl, uint8_t k_altr) {
+
+    bool is_raised = get_highest_layer(layer_state|default_layer_state) != 0;
+
+    if (record->event.pressed) {
+        keycode_raised[keycode - USER00] = is_raised;  // save for key release event
+        if (is_raised) {
+            // *** Fn keyed ***
+            if (user_config.in_arrow_mode) {
+                // alternate key
+                register_code(k_altr);
+            } else {
+                // special key
+                register_code(k_spcl);
+            }
         } else {
-            unregister_code(k_spcl);
+            // *** normal, un-Fn'ed ***
+            if (user_config.in_arrow_mode) {
+                // special key
+                register_code(k_spcl);
+            } else {
+                // normal key
+                register_code(k_norm);
+            }
         }
     } else {
-        if (record->event.pressed) {
-            register_code(k_norm);
+        if (keycode_raised[keycode - USER00]) {
+            // *** Fn keyed ***
+            if (user_config.in_arrow_mode) {
+                // alternate key
+                unregister_code(k_altr);
+            } else {
+                // special key
+                unregister_code(k_spcl);
+            }
         } else {
-            unregister_code(k_norm);
+            // *** normal, un-Fn'ed ***
+            if (user_config.in_arrow_mode) {
+                // special key
+                unregister_code(k_spcl);
+            } else {
+                // normal key
+                unregister_code(k_norm);
+            }
         }
     }
     return false;
@@ -320,12 +353,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case KB_RSFT: return ID61_process_special_k(record, KC_RSFT, KC_UP, KC_PGUP);
-        case KB_RALT: return ID61_process_special_k(record, KC_RALT, KC_LEFT, KC_HOME);
-        case KB_RMNU: return ID61_process_special_k(record, KC_MENU, KC_DOWN, KC_PGDN);
-        case KB_RCOM: return ID61_process_special_k(record, KC_RGUI, KC_LEFT, KC_HOME);
-        case KB_ROPT: return ID61_process_special_k(record, KC_RALT, KC_DOWN, KC_PGDN);
-        case KB_RCTL: return ID61_process_special_k(record, KC_RCTL, KC_RIGHT, KC_END);
+        case KB_RSFT: return ID61_process_special_k(keycode, record, KC_RSFT, KC_UP, KC_PGUP);
+        case KB_RALT: return ID61_process_special_k(keycode, record, KC_RALT, KC_LEFT, KC_HOME);
+        case KB_RAPP: return ID61_process_special_k(keycode, record, KC_APP, KC_DOWN, KC_PGDN);
+        case KB_RCOM: return ID61_process_special_k(keycode, record, KC_RGUI, KC_LEFT, KC_HOME);
+        case KB_ROPT: return ID61_process_special_k(keycode, record, KC_RALT, KC_DOWN, KC_PGDN);
+        case KB_RCTL: return ID61_process_special_k(keycode, record, KC_RCTL, KC_RIGHT, KC_END);
 
         // print firmware version
         case KB_VRSN:
@@ -361,7 +394,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(KC_DEL);
                     delkey_registered = true;
                     set_mods(mod_state);
-
                     return false;
                 }
             } else {
