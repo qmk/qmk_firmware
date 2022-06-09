@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,         KC_MUTE, KC_VOLD, KC_VOLU, KC_END,  KC_F5,   _______, _______, _______, _______, KC_HOME, _______, _______, KC_DEL,
         _______,        _______, _______, _______, _______, _______, _______, KC_PGUP, KC_INS,  _______, _______, _______, _______, _______,
         _______,        _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______,
-        KC_LSFT,                 KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          _______,
+        KC_LSFT,                 KC_Z,    KC_DEL,  KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          _______,
         _______,        _______, _______,                            _______,                            _______, _______, _______, _______
     ),
     // utility layer, F-keys & RGB
