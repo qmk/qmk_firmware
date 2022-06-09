@@ -8,10 +8,12 @@ typedef union {
     uint32_t raw;
     struct {
         bool in_arrow_mode:1;
+        #ifdef RGB_MATRIX_ENABLE
         bool rgb_disable_perkey:1;
         #ifndef ID61_DISABLE_UNDERGLOW
         bool rgb_disable_underglow:1;
         #endif  // ID61_DISABLE_UNDERGLOW
+        #endif  // RGB_MATRIX_ENABLE
     };
 } user_config_t;
 
@@ -127,8 +129,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+user_config_t user_config;
 uint8_t mod_state;
 bool delkey_registered;
+
+bool ID61_process_special_k(keyrecord_t *record, uint8_t k_norm, uint8_t k_spcl, uint8_t k_rasd) {
+    if (user_config.in_arrow_mode) {
+        if (record->event.pressed) {
+            register_code(k_spcl);
+        } else {
+            unregister_code(k_spcl);
+        }
+    } else {
+        if (record->event.pressed) {
+            register_code(k_norm);
+        } else {
+            unregister_code(k_norm);
+        }
+    }
+    return false;
+}
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -149,8 +169,6 @@ bool delkey_registered;
     #undef ID61_CAPS_LOCK_VAL_STEP
     #define ID61_CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
 #endif
-
-user_config_t user_config;
 
 void ID61_update_rgb_mode(void) {
     uint8_t flags = LED_FLAG_ALL;
@@ -302,101 +320,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case KB_RSFT:
-            if (user_config.in_arrow_mode) {
-                if (record->event.pressed) {
-                    register_code(KC_UP);
-                } else {
-                    unregister_code(KC_UP);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_RSFT);
-                } else {
-                    unregister_code(KC_RSFT);
-                }
-            }
-            return false;
-
-        case KB_RALT:
-            if (user_config.in_arrow_mode) {
-                if (record->event.pressed) {
-                    register_code(KC_LEFT);
-                } else {
-                    unregister_code(KC_LEFT);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_RALT);
-                } else {
-                    unregister_code(KC_RALT);
-                }
-            }
-            return false;
-
-        case KB_RMNU:
-            if (user_config.in_arrow_mode) {
-                if (record->event.pressed) {
-                    register_code(KC_DOWN);
-                } else {
-                    unregister_code(KC_DOWN);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_MENU);
-                } else {
-                    unregister_code(KC_MENU);
-                }
-            }
-            return false;
-
-        case KB_RCOM:
-            if (user_config.in_arrow_mode) {
-                if (record->event.pressed) {
-                    register_code(KC_LEFT);
-                } else {
-                    unregister_code(KC_LEFT);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_RGUI);
-                } else {
-                    unregister_code(KC_RGUI);
-                }
-            }
-            return false;
-
-        case KB_ROPT:
-            if (user_config.in_arrow_mode) {
-                if (record->event.pressed) {
-                    register_code(KC_DOWN);
-                } else {
-                    unregister_code(KC_DOWN);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_RALT);
-                } else {
-                    unregister_code(KC_RALT);
-                }
-            }
-            return false;
-
-        case KB_RCTL:
-            if (user_config.in_arrow_mode) {
-                if (record->event.pressed) {
-                    register_code(KC_RIGHT);
-                } else {
-                    unregister_code(KC_RIGHT);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_RCTL);
-                } else {
-                    unregister_code(KC_RCTL);
-                }
-            }
-            return false;
+        case KB_RSFT: return ID61_process_special_k(record, KC_RSFT, KC_UP, KC_PGUP);
+        case KB_RALT: return ID61_process_special_k(record, KC_RALT, KC_LEFT, KC_HOME);
+        case KB_RMNU: return ID61_process_special_k(record, KC_MENU, KC_DOWN, KC_PGDN);
+        case KB_RCOM: return ID61_process_special_k(record, KC_RGUI, KC_LEFT, KC_HOME);
+        case KB_ROPT: return ID61_process_special_k(record, KC_RALT, KC_DOWN, KC_PGDN);
+        case KB_RCTL: return ID61_process_special_k(record, KC_RCTL, KC_RIGHT, KC_END);
 
         // print firmware version
         case KB_VRSN:
@@ -411,12 +340,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MCON:
             if (record->event.pressed) {
                 host_consumer_send(_AC_SHOW_ALL_WINDOWS);
+            } else {
+                host_consumer_send(0);
             }
             return false;
 
         case KC_LPAD:
             if (record->event.pressed) {
                 host_consumer_send(_AC_SHOW_ALL_APPS);
+            } else {
+                host_consumer_send(0);
             }
             return false;
 
