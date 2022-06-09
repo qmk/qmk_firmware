@@ -26,6 +26,8 @@
 #define MATRIX_COLS 6
 
 #define DEBOUNCE 5
+/* COL2ROW, ROW2COL*/
+#define DIODE_DIRECTION COL2ROW
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
