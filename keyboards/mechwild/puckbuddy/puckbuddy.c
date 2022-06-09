@@ -1,8 +1,6 @@
 // Copyright 2022 Kyle McCreery (@kylemccreery)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#define FEE_PAGE_BASE_ADDRESS 0x08008000
-
 #include "puckbuddy.h"
 
 #ifndef GLIDEPOINT_DPI_OPTIONS
