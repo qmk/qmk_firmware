@@ -440,6 +440,47 @@ def _extract_device_version(info_data):
             info_data['usb']['device_version'] = f'{major}.{minor}.{revision}'
 
 
+def _config_to_json(key_type, config_value):
+    """Convert config value using spec
+    """
+    if key_type.startswith('array'):
+        if '.' in key_type:
+            key_type, array_type = key_type.split('.', 1)
+        else:
+            array_type = None
+
+        config_value = config_value.replace('{', '').replace('}', '').strip()
+
+        if array_type == 'int':
+            return list(map(int, config_value.split(',')))
+        else:
+            return config_value.split(',')
+
+    elif key_type == 'bool':
+        return config_value in true_values
+
+    elif key_type == 'hex':
+        return '0x' + config_value[2:].upper()
+
+    elif key_type == 'list':
+        return config_value.split()
+
+    elif key_type == 'int':
+        return int(config_value)
+
+    elif key_type == 'str':
+        return config_value.strip('"')
+
+    elif key_type == 'bcd_version':
+        major = int(config_value[2:4])
+        minor = int(config_value[4])
+        revision = int(config_value[5])
+
+        return f'{major}.{minor}.{revision}'
+
+    return config_value
+
+
 def _extract_config_h(info_data, config_c):
     """Pull some keyboard information from existing config.h files
     """
@@ -452,47 +493,16 @@ def _extract_config_h(info_data, config_c):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            if config_key in config_c and info_dict.get('invalid', False):
+                _log_error(info_data, '%s in config.h is no longer a valid option' % config_key)
+            elif config_key in config_c and info_dict.get('deprecated', False):
+                _log_warning(info_data, '%s in config.h is deprecated and will be removed at a later date' % config_key)
+
             if config_key in config_c and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
                     _log_warning(info_data, '%s in config.h is overwriting %s in info.json' % (config_key, info_key))
 
-                if key_type.startswith('array'):
-                    if '.' in key_type:
-                        key_type, array_type = key_type.split('.', 1)
-                    else:
-                        array_type = None
-
-                    config_value = config_c[config_key].replace('{', '').replace('}', '').strip()
-
-                    if array_type == 'int':
-                        dotty_info[info_key] = list(map(int, config_value.split(',')))
-                    else:
-                        dotty_info[info_key] = config_value.split(',')
-
-                elif key_type == 'bool':
-                    dotty_info[info_key] = config_c[config_key] in true_values
-
-                elif key_type == 'hex':
-                    dotty_info[info_key] = '0x' + config_c[config_key][2:].upper()
-
-                elif key_type == 'list':
-                    dotty_info[info_key] = config_c[config_key].split()
-
-                elif key_type == 'int':
-                    dotty_info[info_key] = int(config_c[config_key])
-
-                elif key_type == 'str':
-                    dotty_info[info_key] = config_c[config_key].strip('"')
-
-                elif key_type == 'bcd_version':
-                    major = int(config_c[config_key][2:4])
-                    minor = int(config_c[config_key][4])
-                    revision = int(config_c[config_key][5])
-
-                    dotty_info[info_key] = f'{major}.{minor}.{revision}'
-
-                else:
-                    dotty_info[info_key] = config_c[config_key]
+                dotty_info[info_key] = _config_to_json(key_type, config_c[config_key])
 
         except Exception as e:
             _log_warning(info_data, f'{config_key}->{info_key}: {e}')
@@ -547,40 +557,16 @@ def _extract_rules_mk(info_data, rules):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            if rules_key in rules and info_dict.get('invalid', False):
+                _log_error(info_data, '%s in rules.mk is no longer a valid option' % rules_key)
+            elif rules_key in rules and info_dict.get('deprecated', False):
+                _log_warning(info_data, '%s in rules.mk is deprecated and will be removed at a later date' % rules_key)
+
             if rules_key in rules and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
                     _log_warning(info_data, '%s in rules.mk is overwriting %s in info.json' % (rules_key, info_key))
 
-                if key_type.startswith('array'):
-                    if '.' in key_type:
-                        key_type, array_type = key_type.split('.', 1)
-                    else:
-                        array_type = None
-
-                    rules_value = rules[rules_key].replace('{', '').replace('}', '').strip()
-
-                    if array_type == 'int':
-                        dotty_info[info_key] = list(map(int, rules_value.split(',')))
-                    else:
-                        dotty_info[info_key] = rules_value.split(',')
-
-                elif key_type == 'list':
-                    dotty_info[info_key] = rules[rules_key].split()
-
-                elif key_type == 'bool':
-                    dotty_info[info_key] = rules[rules_key] in true_values
-
-                elif key_type == 'hex':
-                    dotty_info[info_key] = '0x' + rules[rules_key][2:].upper()
-
-                elif key_type == 'int':
-                    dotty_info[info_key] = int(rules[rules_key])
-
-                elif key_type == 'str':
-                    dotty_info[info_key] = rules[rules_key].strip('"')
-
-                else:
-                    dotty_info[info_key] = rules[rules_key]
+                dotty_info[info_key] = _config_to_json(key_type, rules[rules_key])
 
         except Exception as e:
             _log_warning(info_data, f'{rules_key}->{info_key}: {e}')

@@ -7,6 +7,8 @@
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from rules.mk
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
+    # invalid: Default `false`. Set to `true` to generate errors when a value exists
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
     "BLUETOOTH": {"info_key": "bluetooth.driver"},
@@ -24,5 +26,10 @@
     "SECURE_ENABLE": {"info_key": "secure.enabled", "value_type": "bool"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
-    "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"}
+    "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
+
+    # Items we want flagged in lint
+    "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true},
+    "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true},
+    "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true},
 }
