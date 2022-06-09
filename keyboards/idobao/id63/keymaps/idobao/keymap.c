@@ -9,6 +9,8 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+#ifdef RGB_MATRIX_ENABLE
+
 typedef union {
     uint32_t raw;
     struct {
@@ -18,6 +20,8 @@ typedef union {
         #endif  // ID63_DISABLE_UNDERGLOW
     };
 } user_config_t;
+
+#endif  // RGB_MATRIX_ENABLE
 
 enum {
     _BASE = 0,
@@ -29,16 +33,23 @@ enum {
 enum {
     KC_MCON = USER00,  // macOS Open Mission Control
     KC_LPAD,           // macOS Open Launchpad
+    #ifdef RGB_MATRIX_ENABLE
     RGB_TPK,           // Toggle Per-Key
     #ifndef ID63_DISABLE_UNDERGLOW
     RGB_TUG,           // Toggle Underglow
     #endif  // ID63_DISABLE_UNDERGLOW
+    #endif  // RGB_MATRIX_ENABLE
     KB_VRSN = USER09   // debug, type version
 };
 
-#ifdef ID63_DISABLE_UNDERGLOW
+#ifndef RGB_MATRIX_ENABLE
+    #define RGB_TPK _______
     #define RGB_TUG _______
-#endif  // ID63_DISABLE_UNDERGLOW
+#else
+    #ifdef ID63_DISABLE_UNDERGLOW
+        #define RGB_TUG _______
+    #endif  // ID63_DISABLE_UNDERGLOW
+#endif  // RGB_MATRIX_ENABLE
 
 enum macos_consumer_usages {
     _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
@@ -47,7 +58,7 @@ enum macos_consumer_usages {
 
 /* Special Keys */
 #define SK_LT1C LT(_FN1, KC_CAPS)  // Layer Tap 1, i.e., Tap = Caps Lock, Hold = Layer 1
-#define SK_LT2M LT(_FN2, KC_APP)   // Layer Tap 2, i.e., Tap = Menu, Hold = Layer 2
+#define SK_LT2A LT(_FN2, KC_APP)   // Layer Tap 2, i.e., Tap = Menu, Hold = Layer 2
 
 /* key matrix */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -69,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         SK_LT1C, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,   KC_V,     KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_RSFT, KC_UP,   KC_SLSH,
-        KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                    FN_MO13, SK_LT2M, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                    FN_MO13, SK_LT2A, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /*
