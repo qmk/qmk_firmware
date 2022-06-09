@@ -1,24 +1,13 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 #include "drashna.h"
 
-#if defined(KEYBOARD_handwired_tractyl_manuform)
+#if defined(KEYBOARD_handwired_tractyl_manuform) && defined(POINTING_DEVICE_ENABLE)
 #    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#elif defined(KEYBOARD_bastardkb_charybdis)
+#    define PLACEHOLDER_SAFE_RANGE CHARYBDIS_SAFE_RANGE
 #else
 #    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
 #endif
@@ -32,7 +21,6 @@ enum userspace_custom_keycodes {
     KC_DVORAK,                                // Sets default layer to DVORAK
     LAST_DEFAULT_LAYER_KEYCODE = KC_DVORAK,   // Sets default layer to WORKMAN
     KC_DIABLO_CLEAR,                          // Clears all Diablo Timers
-    KC_MAKE,                                  // Run keyboard's customized make command
     KC_RGB_T,                                 // Toggles RGB Layer Indication mode
     RGB_IDL,                                  // RGB Idling animations
     KC_SECRET_1,                              // test1
@@ -57,7 +45,9 @@ enum userspace_custom_keycodes {
     KC_AUSSIE,
     KC_ZALGO,
     KC_ACCEL,
-    AUTO_CTN,                                 // Toggle Autocorrect status
+    AUTOCORRECT_ON,
+    AUTOCORRECT_OFF,
+    AUTOCORRECT_TOGGLE,
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -66,7 +56,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #ifdef CUSTOM_UNICODE_ENABLE
 bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
-void matrix_init_unicode(void);
 #endif
 
 #define LOWER     MO(_LOWER)
@@ -106,9 +95,6 @@ void matrix_init_unicode(void);
 #    endif
 #endif
 
-#define KC_RESET RESET
-#define KC_RST   KC_RESET
-
 #ifdef SWAP_HANDS_ENABLE
 #    define KC_C1R3 SH_T(KC_TAB)
 #elif defined(DRASHNA_LP)
@@ -140,3 +126,21 @@ void matrix_init_unicode(void);
 #define ALT_APP ALT_T(KC_APP)
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
+
+#define AUTO_CTN AUTOCORRECT_TOGGLE
+/*
+Custom Keycodes for Diablo 3 layer
+But since TD() doesn't work when tap dance is disabled
+We use custom codes here, so we can substitute the right stuff
+*/
+#ifdef TAP_DANCE_ENABLE
+#    define KC_D3_1 TD(TD_D3_1)
+#    define KC_D3_2 TD(TD_D3_2)
+#    define KC_D3_3 TD(TD_D3_3)
+#    define KC_D3_4 TD(TD_D3_4)
+#else  // TAP_DANCE_ENABLE
+#    define KC_D3_1 KC_1
+#    define KC_D3_2 KC_2
+#    define KC_D3_3 KC_3
+#    define KC_D3_4 KC_4
+#endif  // TAP_DANCE_ENABLE

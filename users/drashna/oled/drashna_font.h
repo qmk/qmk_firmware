@@ -3,8 +3,8 @@
 // additional fonts from
 // https://github.com/datacute/TinyOLED-Fonts
 
-#if __has_include("../../../../Documents/qmk/oled_font.h")
-#    include "../../../../Documents/qmk/oled_font.h"
+#if __has_include("oled_font.h")
+#    include "oled_font.h"
 #else
 
 // additional fonts from
