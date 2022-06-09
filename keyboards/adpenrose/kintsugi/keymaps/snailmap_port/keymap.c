@@ -116,13 +116,14 @@ int   icon_fast_wpm     = 72;           // WPM required to display the fast snai
 #define L1_LAYER_NAME     "KICAD"      // Layer 1 name
 #define L2_LAYER_NAME     "NMPAD"      // Layer 2 name
 #define L3_LAYER_NAME     "FUNCT"      // Layer 3 name
-/*================================================================================================================*/
+// Constants required for the background render, the graph render and the WPM counter. THESE VALUES SHOULD NOT BE CHANGED.
 bool  first_loop  = true;
 int   timer       = 0;
 int   wpm_limit   = 20;
 int   max_wpm     = -1;
 int   wpm_icon    = -1;
 int   graph_lines[65];
+/*================================================================================================================*/
 
 /* Rotation of the OLED: */
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -142,6 +143,7 @@ static void write_pixel(int x, int y, bool onoff) {
     }
 }
 
+/*======================================    BASE KEYBOARD MATRIX IMAGES    =======================================*/
 // Draw static background image to OLED (keyboard with no bottom row)
 static void render_background(void) {
     if (oled_horizontal) {
@@ -218,7 +220,10 @@ static void render_background(void) {
         oled_write_raw_P(oled_keymap_vertical, sizeof(oled_keymap_vertical));
     }
 }
+/*================================================================================================================*/
 
+
+/*===============================    PIXEL'S COORDINATES FOR EACH PHYSICAL KEY    ================================*/
 // Location of OLED keyboard's top left pixel, relative to the display
 static const int keymap_template[2] = {46, 0};
 // Location of key highlights top left pixels, relative to keymap_template  {X, Y, Key length in px}
@@ -254,7 +259,9 @@ static void render_keymap(uint8_t key_row, uint8_t key_col, bool onoff) {
         write_pixel(right, top + y, onoff);
     }
 }
+/*================================================================================================================*/
 
+/*=============================================    LAYER'S NAME    ===============================================*/
 // Write active layer name
 static void render_layer_state(void) {
   if (oled_horizontal) {
@@ -280,8 +287,9 @@ static void render_layer_state(void) {
       break;
   }
 }
+/*================================================================================================================*/
 
-    
+/*====================================    WPM COUNTERS (CURRENT AND MAX)    ======================================*/    
 // Update WPM counters
 static void render_wpm_counters(int current_wpm) {
     int cursorposition_cur = 2;
@@ -307,7 +315,9 @@ static void render_wpm_counters(int current_wpm) {
         oled_write(wpm_counter, false);
     }
 }
+/*================================================================================================================*/
 
+/*==============================================    WPM GRAPH    =================================================*/ 
 // Update WPM graph
 static void render_wpm_graph(int current_wpm) {
     int line_height = ((current_wpm / graph_top_wpm) * 7);
@@ -349,7 +359,9 @@ static void render_wpm_graph(int current_wpm) {
         }
     }
 }
+/*================================================================================================================*/
 
+/*========================================    WPM BASED SNAIL ICON    ============================================*/ 
 // Update WPM snail icon
 static void render_wpm_icon(int current_wpm) {
     // wpm_icon is used to prevent unnecessary redraw
@@ -382,8 +394,9 @@ static void render_wpm_icon(int current_wpm) {
         oled_write_raw_P(snails[wpm_icon][1], sizeof(snails[wpm_icon][1]));
     }
 }
+/*================================================================================================================*/
 
-/* Function that renders stuff on the oled: */
+/* Function that renders stuff on the oled */
 bool oled_task_user(void) {
     // Draw OLED keyboard, preventing redraw.
     if (first_loop) {
