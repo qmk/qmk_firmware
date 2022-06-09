@@ -19,3 +19,4 @@ AUDIO_ENABLE = no              # Audio output
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3733
 ENCODER_ENABLE = yes
+LTO_ENABLE = yes
