@@ -1,6 +1,6 @@
 # IDOBAO ID61
 
-![IDOBAO ID61](https://idobao.github.io/assets/img/idobao-id61.png)
+![IDOBAO ID61](https://i.imgur.com/Lu6SOyOh.png)
 
 *The ID61 Keyboard Kit brings a tailored gasket-mounted build to an ultra-compact 60% layout with a unique ribbed side texture.*
 
