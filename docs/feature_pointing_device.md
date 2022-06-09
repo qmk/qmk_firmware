@@ -99,6 +99,14 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 |`CIRQUE_PINNACLE_TAPPING_TERM`   | (Optional) Length of time that a touch can be to be considered a tap.           | `TAPPING_TERM`/`200`  |
 |`CIRQUE_PINNACLE_TOUCH_DEBOUNCE` | (Optional) Length of time that a touch can be to be considered a tap.           | `TAPPING_TERM`/`200`  |
 
+**`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be. 
+
+Default attenuation is set to 4X, although if you are using a thicker overlay (such as the curved overlay) you will want a lower attenuation such as 2X. The possible values are:
+* `ADC_ATTENUATE_4X`: Least sensitive
+* `ADC_ATTENUATE_3X`
+* `ADC_ATTENUATE_2X`
+* `ADC_ATTENUATE_1X`: Most sensitive
+
 | I2C Setting              | Description                                                                     | Default |
 |--------------------------|---------------------------------------------------------------------------------|---------|
 |`CIRQUE_PINNACLE_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad                         | `0x2A`  |
@@ -113,14 +121,6 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 |`CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_  |
 
 Default Scaling/CPI is 1024.
-
-**`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be. 
-
-Default attenuation is set to 4X, although if you are using a thicker overlay (such as the curved overlay) you will want a lower attenuation such as 2X. The possible values are:
-* `ADC_ATTENUATE_4X`: Least sensitive
-* `ADC_ATTENUATE_3X`
-* `ADC_ATTENUATE_2X`
-* `ADC_ATTENUATE_1X`: Most sensitive
 
 ### Pimoroni Trackball
 
