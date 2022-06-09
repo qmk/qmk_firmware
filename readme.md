@@ -34,3 +34,22 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 ## Official Website
 
 [qmk.fm](https://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+
+
+## Fuckery with KBDfans
+
+See https://www.reddit.com/r/olkb/comments/s0pc6g/flashing_qmk_onto_dz60rgb_ansi_v2/
+
+Bad news: Flashing QMK to this PCB under linux is not supported by qmk cli. This bootloader doesn't
+seem to have a good reputation and I don't think supporting it is planned
+
+Good news: There is a workaround
+
+`dd if=<firmware>.bin of=/run/media/will/KBDFANS/FLASH.BIN bs=512 conv=notrunc oflag=direct,sync`
+
+Steps:
+1) Compile with `qmk compile` and it should work provided the config is set for dz60rgb_ansi.
+`./util/docker_build.sh` should also work
+2) Hold escape key and plug in board
+3) Run that dd command for the firmware in main dir
+
