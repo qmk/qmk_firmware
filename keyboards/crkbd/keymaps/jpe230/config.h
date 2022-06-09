@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#   define RGB_MATRIX_KEYPRESSES
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 #   define RGB_MATRIX_STARTUP_HUE 215
@@ -38,7 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
 #   define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif

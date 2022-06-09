@@ -18,4 +18,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = lite
-SRC += matrix.c
+VPATH += drivers/gpio
+SRC += matrix.c sn74x154.c

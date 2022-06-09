@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ONE] = LAYOUT(
-    RESET,   BL_STEP, KC_STOP,
+    QK_BOOT,   BL_STEP, KC_STOP,
     _______, KC_HOME, RGB_MOD,
     KC_MPRV, KC_END , KC_MNXT
 ),

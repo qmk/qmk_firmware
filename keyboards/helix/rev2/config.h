@@ -45,12 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// Helix keyboard OLED support
-//      see ./local_features.mk: OLED_SELECT=local
-#ifdef OLED_LOCAL_ENABLE
-  #define SSD1306OLED
-#endif
-
 #define OLED_UPDATE_INTERVAL 50
 
 /* Select rows configuration */
