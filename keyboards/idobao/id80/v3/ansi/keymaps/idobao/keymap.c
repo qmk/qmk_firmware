@@ -9,6 +9,8 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+#ifdef RGB_MATRIX_ENABLE
+
 typedef union {
     uint32_t raw;
     struct {
@@ -16,6 +18,8 @@ typedef union {
         bool rgb_disable_underglow:1;
     };
 } user_config_t;
+
+#endif  // RGB_MATRIX_ENABLE
 
 enum {
     _BASE = 0,
@@ -27,10 +31,17 @@ enum {
 enum {
     KC_MCON = USER00,  // macOS Open Mission Control
     KC_LPAD,           // macOS Open Launchpad
+    #ifdef RGB_MATRIX_ENABLE
     RGB_TPK,           // Toggle Per-Key
     RGB_TUG,           // Toggle Underglow
+    #endif  // RGB_MATRIX_ENABLE
     KB_VRSN = USER09   // debug, type version
 };
+
+#ifndef RGB_MATRIX_ENABLE
+    #define RGB_TPK _______
+    #define RGB_TUG _______
+#endif  // RGB_MATRIX_ENABLE
 
 enum macos_consumer_usages {
     _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
