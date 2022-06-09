@@ -126,6 +126,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 */
 
 
+/*
 // leaving this in place for compatibilty with old keymaps cloned and re-compiled.
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -138,6 +139,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
     return MACRO_NONE;
 };
+*/
 
 bool xtra_sent = true;
 bool ctl_xtra_sent = true;
