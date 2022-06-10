@@ -114,6 +114,8 @@ def keyboard_check(kb):
 
     invalid_files = git_get_ignored_files(f'keyboards/{kb}/')
     for file in invalid_files:
+        if 'keymap' in file:
+            continue
         cli.log.error(f'{kb}: The file "{file}" should not exist!')
         ok = False
 
@@ -124,6 +126,7 @@ def keyboard_check(kb):
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Comma separated list of keyboards to check')
 @cli.argument('-km', '--keymap', help='The keymap to check')
 @cli.argument('--all-kb', action='store_true', arg_only=True, help='Check all keyboards')
+@cli.argument('--all-km', action='store_true', arg_only=True, help='Check all keymaps')
 @cli.subcommand('Check keyboard and keymap for common mistakes.')
 @automagic_keyboard
 @automagic_keymap
@@ -152,7 +155,9 @@ def lint(cli):
             continue
 
         # Determine keymaps to also check
-        if cli.config.lint.keymap:
+        if cli.args.all_km:
+            keymaps = list_keymaps(kb)
+        elif cli.config.lint.keymap:
             keymaps = {cli.config.lint.keymap}
         else:
             keymaps = _list_defaultish_keymaps(kb)
