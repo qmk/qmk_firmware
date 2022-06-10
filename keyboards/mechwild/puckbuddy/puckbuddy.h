@@ -31,6 +31,7 @@ typedef union {
     uint32_t raw;
     struct {
         uint8_t dpi_config;
+        uint16_t dt_term_config;
     };
 } keyboard_config_t;
 

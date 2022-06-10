@@ -2,7 +2,7 @@
 MCU = STM32F401
 
 # Bootloader selection
-BOOTLOADER = stm32-dfu
+BOOTLOADER = tinyuf2
 
 # Build Options
 #   change yes to no to disable
@@ -23,3 +23,5 @@ DIP_SWITCH_ENABLE = yes     # Dip Switch Enabled
 
 POINTING_DEVICE_ENABLE = yes                    # Pointing Device Enabled
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi    # Pointing Device Driver
+
+DYNAMIC_TAPPING_TERM_ENABLE = yes               # Enable Dynamic Tapping Term to control the Tap term for the Cirque Pad easily

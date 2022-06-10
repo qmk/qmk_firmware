@@ -36,7 +36,12 @@
 #define LED_PIN_ON_STATE 0
 
 /* set the tapping term for glidepoint pad to register a tap click */
-#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set unreasonably low to effectively disable it
+//#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set to 0 to disable it
+
+/* TAPPING_TERM value is used for the CIRQUE_PINNACLE_TAPPING_TERM as well by default 
+ * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
+ */
+#define TAPPING_TERM 0 
 
 /*
  * Keyboard Matrix Assignments
