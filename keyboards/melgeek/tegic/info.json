@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "melgeek001365",
     "layouts": {
-        "LAYOUT_getic_ansi": {
+        "LAYOUT_tegic_ansi": {
             "layout": [
                 {"x": 0,	"y": 0},
                 {"x": 1.25, "y": 0},
