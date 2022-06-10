@@ -47,5 +47,4 @@ enum keyboard_keycodes {
     DPI_DN,
     DPI_FINE,
     NEW_SAFE_RANGE
-
 };
