@@ -1,16 +1,16 @@
 # MelGeek Mach80
 
-![Mach80](https://www.melgeek.com/collections/pcb-plate/products/melgeek-mach80-tkl87-hotswappable-rgb-pcba)
+![Tegic](https://www.melgeek.com/products/melgeek-x-tegic-75-pcb?_pos=1&_sid=e1da879c0&_ss=r)
 
-A hotswap 80% RGB Custom Mechanical keyboard.
+A hotswap 75% RGB Custom Mechanical keyboard.
 
 * Keyboard Maintainer: [melgeek001365](https://github.com/melgeek001365)
-* Hardware Supported: Mach80 rev1 20210819 
+* Hardware Supported: Tegic rev1 20220610 
 * Hardware Availability: [MelGeek](https://www.melgeek.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make melgeek/mach80/rev1:default
+    make melgeek/tegic/rev1:default
     
 Enter the bootloader in 3 ways:  
 
