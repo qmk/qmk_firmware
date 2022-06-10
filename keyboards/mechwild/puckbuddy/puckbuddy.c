@@ -205,6 +205,8 @@ void matrix_init_kb(void) {
 void keyboard_post_init_kb(void) {
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     keyboard_post_init_user();
+#ifdef RGBLIGHT_ENABLE
     rgblight_toggle_noeeprom();     //double toggle post init removes the weirdness with rgb strips having a yellow first LED
     rgblight_toggle_noeeprom();
+#endif
 }
