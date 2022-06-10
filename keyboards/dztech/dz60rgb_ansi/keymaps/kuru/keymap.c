@@ -71,7 +71,7 @@ void highlight_layer3(void){
 void rgb_matrix_indicators_user(void) {
 	  uint8_t this_led = host_keyboard_leds();
       if (!g_suspend_state) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
           case 3:
             highlight_layer3(); break;
           default:
