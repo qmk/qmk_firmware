@@ -1,4 +1,4 @@
-# MelGeek Mach80
+# MelGeek Tegic
 
 ![Tegic](https://www.melgeek.com/products/melgeek-x-tegic-75-pcb?_pos=1&_sid=e1da879c0&_ss=r)
 
