@@ -64,7 +64,7 @@ void via_qmk_rgblight_get_value(uint8_t *data);
 #endif
 
 #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
-#include <lib/lib8tion/lib8tion.h>
+#    include <lib/lib8tion/lib8tion.h>
 void via_qmk_rgb_matrix_set_value(uint8_t *data);
 void via_qmk_rgb_matrix_get_value(uint8_t *data);
 void eeconfig_update_rgb_matrix(void);
