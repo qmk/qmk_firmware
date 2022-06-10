@@ -18,18 +18,19 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xEDED
-#define PRODUCT_ID      0x6570
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MelGeek
-#define PRODUCT         Z70Ultra
+
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
+
+/* disable these deprecated features by default */
+#define _CHIBIOS_RT_CONF_VER_6_1_
+#define _CHIBIOS_HAL_CONF_VER_7_1_
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
