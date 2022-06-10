@@ -24,13 +24,3 @@ Layer 3:
 Dedicated Num keys block and `Ins, Home, PgUp` block.
 
 Dedicated Layer for arrow keys and Num keys and `Ins`, `Home` and `PgUp`.
-
-### Flashing
-
-Set keyboard to Reset mode and 
-
-New Method
-```
-CFLAGS="-Wno-error=deprecated" qmk compile -kb dztech/dz60rgb_ansi/v1 -km muralisc 
-CFLAGS="-Wno-error=deprecated" qmk flash -kb dztech/dz60rgb_ansi/v1 -km muralisc
-```
