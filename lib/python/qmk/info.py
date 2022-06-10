@@ -26,13 +26,6 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
-def _remove_newlines_from_labels(layouts):
-    for layout_name, layout_json in layouts.items():
-        for key in layout_json['layout']:
-            if '\n' in key['label']:
-                key['label'] = key['label'].split('\n')[0]
-
-
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
@@ -110,9 +103,6 @@ def info_json(keyboard):
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
-
-    # Remove newline characters from layout labels
-    _remove_newlines_from_labels(layouts)
 
     return info_data
 
