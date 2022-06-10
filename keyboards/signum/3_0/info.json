@@ -2,6 +2,9 @@
     "keyboard_name": "Signum 3.0",
     "url": "http://troyfletcher.net/",
     "maintainer": "jceb",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_4x12"
+    },
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [
