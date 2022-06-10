@@ -24,16 +24,16 @@ bool oled_task_kb(void) {
     oled_write_P(PSTR("Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
-        case _BASE:
+        case 0:
             oled_write_P(PSTR("Base\n"), false);
             break;
-        case _L1:
+        case 1:
             oled_write_P(PSTR("ONE\n"), false);
             break;
-        case _L2:
+        case 2:
             oled_write_P(PSTR("TWO\n"), false);
             break;
-        case _L3:
+        case 3:
             oled_write_P(PSTR("Three\n"), false);
             break;
         default:
