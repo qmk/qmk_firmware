@@ -6,7 +6,7 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
-from qmk.keyboard import keyboard_completer, keyboard_folder, list_keyboards
+from qmk.keyboard import keyboard_completer, list_keyboards
 from qmk.keymap import locate_keymap, list_keymaps
 from qmk.path import is_keyboard, keyboard
 from qmk.git import git_get_ignored_files
@@ -123,7 +123,7 @@ def keyboard_check(kb):
 
 
 @cli.argument('--strict', action='store_true', help='Treat warnings as errors')
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Comma separated list of keyboards to check')
+@cli.argument('-kb', '--keyboard', completer=keyboard_completer, help='Comma separated list of keyboards to check')
 @cli.argument('-km', '--keymap', help='The keymap to check')
 @cli.argument('--all-kb', action='store_true', arg_only=True, help='Check all keyboards')
 @cli.argument('--all-km', action='store_true', arg_only=True, help='Check all keymaps')
