@@ -196,14 +196,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             return false;
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-        case DT_UP:
+        case TAP_UP:
             if (record->event.pressed) {
                 g_tapping_term += DYNAMIC_TAPPING_TERM_INCREMENT;
                 keyboard_config.dt_term_config = g_tapping_term;
                 eeconfig_update_kb(keyboard_config.raw);
             }
             return false;
-        case DT_DOWN:
+        case TAP_DN:
             if (record->event.pressed) {
                 if (g_tapping_term > 0) {
                     g_tapping_term -= DYNAMIC_TAPPING_TERM_INCREMENT;
