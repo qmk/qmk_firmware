@@ -808,7 +808,7 @@ def merge_info_jsons(keyboard, info_data):
                         existing_key.update(new_key)
             else:
                 if not all('matrix' in key_data.keys() or len(key_data) == 2 or all(isinstance(n, int) for n in key_data) for key_data in layout['layout']):
-                    _log_error(info_data, "Matrix positions for %s are missing" % layout_name)
+                    _log_error(info_data, 'Layout "%s" has no "matrix" definition in either "info.json" or "<keyboard>.h"!' % layout_name)
                 else:
                     layout['c_macro'] = False
                     info_data['layouts'][layout_name] = layout
