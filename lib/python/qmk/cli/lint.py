@@ -5,7 +5,7 @@ from pathlib import Path
 from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.info import info_json, keymap_json
+from qmk.info import info_json
 from qmk.keyboard import keyboard_completer, keyboard_folder, list_keyboards
 from qmk.keymap import locate_keymap, list_keymaps
 from qmk.path import is_keyboard, keyboard
@@ -25,18 +25,18 @@ def _list_defaultish_keymaps(kb):
     return keymaps
 
 
-def _handle_json_errors(kb, info, file):
+def _handle_json_errors(kb, info):
     """Convert any json errors into lint errors
     """
     ok = True
     # Check for errors in the json
     if info['parse_errors']:
         ok = False
-        cli.log.error(f'{kb}: Errors found when generating {file}.')
+        cli.log.error(f'{kb}: Errors found when generating info.json.')
 
     if cli.config.lint.strict and info['parse_warnings']:
         ok = False
-        cli.log.error(f'{kb}: Warnings found when generating {file} (Strict mode enabled.)')
+        cli.log.error(f'{kb}: Warnings found when generating info.json (Strict mode enabled.)')
     return ok
 
 
@@ -86,11 +86,6 @@ def keymap_check(kb, km):
         cli.log.error("%s: Can't find %s keymap.", kb, km)
         return ok
 
-    km_info = keymap_json(kb, km)
-
-    if not _handle_json_errors(kb, km_info, 'keymap.json'):
-        ok = False
-
     # Additional checks
     invalid_files = git_get_ignored_files(keymap_path.parent)
     for file in invalid_files:
@@ -106,7 +101,7 @@ def keyboard_check(kb):
     ok = True
     kb_info = info_json(kb)
 
-    if not _handle_json_errors(kb, kb_info, 'info.json'):
+    if not _handle_json_errors(kb, kb_info):
         ok = False
 
     # Additional checks
