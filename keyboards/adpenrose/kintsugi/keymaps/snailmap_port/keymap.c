@@ -57,43 +57,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,   
       QK_BOOT,    _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            KC_MPLY,
       _______,              _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,   _______,
-      _______,  _______,    _______,                            KC_SPC,                                    _______,    _______,              _______,  _______,  _______
+      _______,  _______,    _______,                           _______,                                    _______,    _______,              _______,  _______,  _______
     ),
 };
 
 /* Encoder */
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    static uint8_t selected_layer = 0; /* Used to change the layer using the encoder. */
+    /* Used to change the layer using the encoder. */
+    static int8_t selected_layer = 0; 
 
     if (clockwise){
         /* Check if left shift is pressed: */
-        if (selected_layer < 3 && get_mods() & MOD_BIT(KC_LSFT)){
+        if (selected_layer < 4 && get_mods() & MOD_BIT(KC_LSFT)){
             selected_layer ++;
-            layer_move(selected_layer); /* Jump up one layer. */
+            /* If already on the last layer, jumps back to the first layer: */
+            if (selected_layer == 4) {
+                selected_layer = 0;
+            }
+            /* Move to the selected layer. */
+            layer_move(selected_layer); 
+        } else if (get_mods() & MOD_BIT(KC_RSFT)){ /* Check if right shift is pressed: */
+            switch (get_highest_layer(layer_state)){
+                default:
+                    /* Go to the next track. */
+                    tap_code(KC_MNXT);
+                    break;
+            }
         } else {
             /* If shift isn't pressed, encoder will do this stuff: */
             switch (get_highest_layer(layer_state)){
-                case 3:
-                    tap_code(KC_MNXT);
-                    break;
                 default:
+                    /* Turn up the volume of the system. */
                     tap_code(KC_VOLU);
                     break;
             }
         }
     } else {
         /* Check if left shift is pressed: */
-        if (selected_layer > 0 && get_mods() & MOD_BIT(KC_LSFT)){
+        if (selected_layer > -1 && get_mods() & MOD_BIT(KC_LSFT)){
             selected_layer --;
-            layer_move(selected_layer); /* Go down one layer. */
+            /* If already on the first layer, jumps up to the last layer: */
+            if (selected_layer == -1) {
+                selected_layer = 3;
+            }
+        /* Move to the selected layer. */
+            layer_move(selected_layer);
+        } else if (get_mods() & MOD_BIT(KC_RSFT)){ /* Check if right shift is pressed: */
+            switch (get_highest_layer(layer_state)){
+                default:
+                    /* Go to the previous track. */
+                    tap_code(KC_MPRV);
+                    break;
+            }
         } else {
             /* If shift isn't pressed, encoder will do this stuff: */
             switch (get_highest_layer(layer_state)){
-                case 3:
-                    tap_code(KC_MPRV);
-                    break;
                 default:
+                    /* Turn down the volume of the system. */
                     tap_code(KC_VOLD);
                     break;
             }
