@@ -145,7 +145,10 @@
                             "type": "object",
                             "additionalProperties": false,
                             "properties": {
-                                "label": {"type": "string"},
+                                "label": {
+                                    "type": "string",
+                                    "pattern": "^[^\\n]*$"
+                                },
                                 "matrix": {
                                     "type": "array",
                                     "minItems": 2,
