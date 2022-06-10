@@ -422,7 +422,7 @@ void via_qmk_backlight_get_value(uint8_t *data) {
     switch (*value_id) {
         case id_qmk_backlight_brightness: {
             // level / BACKLIGHT_LEVELS * 255
-            value_data[0] = ((uint16_t)get_backlight_level()) * 255 / BACKLIGHT_LEVELS;
+            value_data[0] = ((uint16_t)get_backlight_level() * UINT8_MAX) / BACKLIGHT_LEVELS;
             break;
         }
         case id_qmk_backlight_effect: {
@@ -442,7 +442,7 @@ void via_qmk_backlight_set_value(uint8_t *data) {
     switch (*value_id) {
         case id_qmk_backlight_brightness: {
             // level / 255 * BACKLIGHT_LEVELS
-            backlight_level_noeeprom(((uint16_t)value_data[0]) * BACKLIGHT_LEVELS / 255);
+            backlight_level_noeeprom(((uint16_t)value_data[0] * BACKLIGHT_LEVELS) / UINT8_MAX);
             break;
         }
         case id_qmk_backlight_effect: {
@@ -467,7 +467,7 @@ void via_qmk_rgblight_get_value(uint8_t *data) {
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
         case id_qmk_rgblight_brightness: {
-            value_data[0] = rgblight_get_val();
+            value_data[0] = ((uint16_t)rgblight_get_val() * UINT8_MAX) / RGBLIGHT_LIMIT_VAL;
             break;
         }
         case id_qmk_rgblight_effect: {
@@ -491,7 +491,7 @@ void via_qmk_rgblight_set_value(uint8_t *data) {
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
         case id_qmk_rgblight_brightness: {
-            rgblight_sethsv_noeeprom(rgblight_get_hue(), rgblight_get_sat(), value_data[0]);
+            rgblight_sethsv_noeeprom(rgblight_get_hue(), rgblight_get_sat(), ((uint16_t)value_data[0] * RGBLIGHT_LIMIT_VAL) / UINT8_MAX;
             break;
         }
         case id_qmk_rgblight_effect: {
@@ -558,7 +558,7 @@ void via_qmk_rgb_matrix_get_value(uint8_t *data) {
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
         case id_qmk_rgblight_brightness:
-            value_data[0] = ((uint16_t)rgb_matrix_get_val() * 255) / RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+            value_data[0] = ((uint16_t)rgb_matrix_get_val() * UINT8_MAX) / RGB_MATRIX_MAXIMUM_BRIGHTNESS;
             break;
         case id_qmk_rgblight_effect:
             value_data[0] = rgb_matrix_get_mode();
