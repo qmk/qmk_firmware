@@ -26,13 +26,6 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
-def _remove_newlines_from_labels(layouts):
-    for layout_name, layout_json in layouts.items():
-        for key in layout_json['layout']:
-            if '\n' in key['label']:
-                key['label'] = key['label'].split('\n')[0]
-
-
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
@@ -110,9 +103,6 @@ def info_json(keyboard):
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
-
-    # Remove newline characters from layout labels
-    _remove_newlines_from_labels(layouts)
 
     return info_data
 
@@ -807,8 +797,11 @@ def merge_info_jsons(keyboard, info_data):
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)
             else:
-                layout['c_macro'] = False
-                info_data['layouts'][layout_name] = layout
+                if not all('matrix' in key_data.keys() for key_data in layout['layout']):
+                    _log_error(info_data, f'Layout "{layout_name}" has no "matrix" definition in either "info.json" or "<keyboard>.h"!')
+                else:
+                    layout['c_macro'] = False
+                    info_data['layouts'][layout_name] = layout
 
         # Update info_data with the new data
         if 'layouts' in new_info_data:
