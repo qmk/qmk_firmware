@@ -64,6 +64,7 @@ void via_qmk_rgblight_get_value(uint8_t *data);
 #endif
 
 #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+#include <lib/lib8tion/lib8tion.h>
 void via_qmk_rgb_matrix_set_value(uint8_t *data);
 void via_qmk_rgb_matrix_get_value(uint8_t *data);
 void eeconfig_update_rgb_matrix(void);
@@ -557,7 +558,7 @@ void via_qmk_rgb_matrix_get_value(uint8_t *data) {
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
         case id_qmk_rgblight_brightness:
-            value_data[0] = rgb_matrix_get_val();
+            value_data[0] = ((uint16_t)rgb_matrix_get_val() * 255) / RGB_MATRIX_MAXIMUM_BRIGHTNESS;
             break;
         case id_qmk_rgblight_effect:
             value_data[0] = rgb_matrix_get_mode();
@@ -577,7 +578,7 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
         case id_qmk_rgblight_brightness:
-            rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), value_data[0]);
+            rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), scale8(value_data[0], RGB_MATRIX_MAXIMUM_BRIGHTNESS));
             break;
         case id_qmk_rgblight_effect:
             rgb_matrix_mode_noeeprom(value_data[0]);
