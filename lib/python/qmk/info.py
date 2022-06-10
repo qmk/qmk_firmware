@@ -797,8 +797,11 @@ def merge_info_jsons(keyboard, info_data):
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)
             else:
-                layout['c_macro'] = False
-                info_data['layouts'][layout_name] = layout
+                if not all('matrix' in key_data.keys() for key_data in layout['layout']):
+                    _log_error(info_data, f'Layout "{layout_name}" has no "matrix" definition in either "info.json" or "<keyboard>.h"!')
+                else:
+                    layout['c_macro'] = False
+                    info_data['layouts'][layout_name] = layout
 
         # Update info_data with the new data
         if 'layouts' in new_info_data:
