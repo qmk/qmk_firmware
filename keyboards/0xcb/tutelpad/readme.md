@@ -4,6 +4,10 @@
 * Hardware Supported: [TutelPad GitHub](https://github.com/0xCB-dev/0xCB-TutelPad)
 * Hardware Availability: [KeebSupply](https://keeb.supply/)
 
+## Bootloader
+
+You can enter the bootloader by pressing the reset switch on the side while the keyboard is plugged in. You can also short the GND and RST pads on the controller.
+
 Make example for this keyboard (after setting up your build environment):
 
     make 0xcb/tutelpad:default
