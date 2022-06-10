@@ -38,5 +38,5 @@
 //#define DRIVER_INDICATOR_LED_TOTAL 3
 
 
-#define RGB_MATRIX_CENTER { 96, 30 }
+#define RGB_MATRIX_CENTER { 84, 24 }
 
