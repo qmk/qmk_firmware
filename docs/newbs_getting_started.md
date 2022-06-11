@@ -170,15 +170,15 @@ Now that your QMK build environment is set up, you can build a firmware for your
 
 For example, to build a firmware for a Clueboard 66% you would use:
 
-    qmk compile -kb clueboard/66/rev3 -km default
+    qmk compile -kb clueboard/66/rev4 -km default
 
 When it is done you should have a lot of output that ends similar to this:
 
 ```
-Linking: .build/clueboard_66_rev3_default.elf                                                       [OK]
-Creating load file for flashing: .build/clueboard_66_rev3_default.hex                               [OK]
-Copying clueboard_66_rev3_default.hex to qmk_firmware folder                                        [OK]
-Checking file size of clueboard_66_rev3_default.hex                                                 [OK]
+Linking: .build/clueboard_66_rev4_default.elf                                                       [OK]
+Creating load file for flashing: .build/clueboard_66_rev4_default.hex                               [OK]
+Copying clueboard_66_rev4_default.hex to qmk_firmware folder                                        [OK]
+Checking file size of clueboard_66_rev4_default.hex                                                 [OK]
  * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
 
