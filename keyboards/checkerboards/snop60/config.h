@@ -73,5 +73,3 @@ Copyright 2022 Nathan Spears
 #define LOCKING_RESYNC_ENABLE
 
 #define ENCODERS_PAD_A {D2, D3}
-#define ENCODERS_PAD_B {D3, D2}
-#define ENCODER_RESOLUTION 4
