@@ -16,6 +16,15 @@
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
 
+#ifdef UF2_BUILD
+#define EXTERNAL_EEPROM_BYTE_COUNT 2048
+#define EXTERNAL_EEPROM_PAGE_SIZE 128
+#define EXTERNAL_EEPROM_ADDRESS_SIZE 1
+#define EXTERNAL_EEPROM_WRITE_TIME 0
+
+#define FEE_PAGE_BASE_ADDRESS 0x08008000
+#endif
+
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
@@ -27,7 +36,12 @@
 #define LED_PIN_ON_STATE 0
 
 /* set the tapping term for glidepoint pad to register a tap click */
-#define CIRQUE_PINNACLE_TAPPING_TERM 10 // This is set unreasonably low to effectively disable it
+//#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set to 0 to disable it
+
+/* TAPPING_TERM value is used for the CIRQUE_PINNACLE_TAPPING_TERM as well by default 
+ * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
+ */
+#define TAPPING_TERM 0 
 
 /*
  * Keyboard Matrix Assignments
