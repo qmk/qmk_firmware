@@ -20,12 +20,12 @@
 
 #define ___ KC_NO
 
-#define LAYOUT(         \
+#define LAYOUT_numpad_5x4(         \
     k00, k11, k02, k03, \
-    k10, k21, k12, k13, \
-    k20, k31, k22,      \
-    k30, k41, k32, k33, \
-    k40,      k42       \
+    k10, k21, k12,      \
+    k20, k31, k22, k13, \
+    k30, k41, k32,      \
+    k40,      k42, k33  \
 ){ \
     { k00, ___, k02, k03 },  \
     { k10, k11, k12, k13 },  \
