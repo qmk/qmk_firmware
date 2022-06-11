@@ -24,6 +24,13 @@ void board_init(void) {
     setPinInputHigh(B9);
 }
 
+void tap_modify(int change_value, bool tap_status) {
+    keyboard_config.dt_term_config += change_value;
+    keyboard_config.tap_enabled_config = tap_status;
+    g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
+    eeconfig_update_kb(keyboard_config.raw);
+}
+
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false; }
@@ -109,10 +116,10 @@ bool oled_task_kb(void) {
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
         oled_write_P(PSTR(" TAP:"), false);
-        if (g_tapping_term > 0) {
-            oled_write(get_u16_str(keyboard_config.dt_term_config, ' '), false);
-        } else {
+        if (keyboard_config.tap_enabled_config == false) {
             oled_write_P(PSTR("Off  "), false);
+        } else {
+            oled_write(get_u16_str(g_tapping_term, ' '), false);
         }
 #endif
         clear_screen = true;
@@ -153,10 +160,10 @@ bool oled_task_kb(void) {
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
         oled_set_cursor(8,3);
         oled_write_P(PSTR("TAP:"), false);
-        if (g_tapping_term > 0) {
-            oled_write(get_u16_str(keyboard_config.dt_term_config, ' '), false);
-        } else {
+        if (keyboard_config.tap_enabled_config == false) {
             oled_write_P(PSTR("Off  "), false);
+        } else {
+            oled_write(get_u16_str(g_tapping_term, ' '), false);
         }
 #endif
         clear_screen_art = true;
@@ -197,39 +204,29 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
         case TAP_UP:
             if (record->event.pressed) {
-                keyboard_config.dt_term_config += DYNAMIC_TAPPING_TERM_INCREMENT;
-                g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
-                eeconfig_update_kb(keyboard_config.raw);
+                tap_modify(DYNAMIC_TAPPING_TERM_INCREMENT, true);
             }
             return false;
         case TAP_DN:
             if (record->event.pressed) {
                 if (keyboard_config.dt_term_config > 0) {
-                    keyboard_config.dt_term_config -= DYNAMIC_TAPPING_TERM_INCREMENT;
-                    g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
-                    eeconfig_update_kb(keyboard_config.raw);
+                    tap_modify(-1 * DYNAMIC_TAPPING_TERM_INCREMENT, true);
                 }
             }
             return false;
         case TAP_ON:
             if (record->event.pressed) {
-                keyboard_config.tap_enabled_config = true;
-                g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
-                eeconfig_update_kb(keyboard_config.raw);
+                tap_modify(0, true);
             }
             return false;
         case TAP_OFF:
             if (record->event.pressed) {
-                keyboard_config.tap_enabled_config = false;
-                g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
-                eeconfig_update_kb(keyboard_config.raw);
+                tap_modify(0, false);
             }
             return false;        
         case TAP_TOG:
             if (record->event.pressed) {
-                keyboard_config.tap_enabled_config ^= 1;
-                g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
-                eeconfig_update_kb(keyboard_config.raw);
+                tap_modify(0, keyboard_config.tap_enabled_config ^= 1);
             }
             return false;
 #endif
@@ -276,7 +273,7 @@ void keyboard_post_init_kb(void) {
     rgblight_toggle_noeeprom();
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-    g_tapping_term = keyboard_config.dt_term_config;
+    g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
 #endif
     keyboard_post_init_user();
 }
