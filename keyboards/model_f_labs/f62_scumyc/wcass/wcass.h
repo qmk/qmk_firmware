@@ -1,4 +1,5 @@
 /* Copyright 2020 Purdea Andrei
+ * Copyright 2022 Matthew J Wolf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,16 +50,3 @@
     { k_caps,   k_a,    k_e, k_t,     k_u, k_o,         k_hashtag,      k_backspace,  KC_NO}   \
 }
 
-#define LAYOUT_ansi_regular_shift_regular_backspace( \
-    k_esc, k_1, k_2, k_3, k_4, k_5, k_6, k_7, k_8, k_9, k_0, k_minus, k_equals, k_backspace,\
-    k_tab,   k_q, k_w, k_e, k_r, k_t, k_y, k_u, k_i, k_o, k_p, k_squarebrop, k_squarebrcl, k_backslash,\
-    k_caps,   k_a, k_s, k_d, k_f, k_g, k_h, k_j, k_k, k_l, k_semicolon, k_singlequote, k_return,\
-    k_lshift,    k_z, k_x, k_c, k_v, k_b, k_n, k_m, k_cm,k_period, k_forwardslash, k_rshift,\
-    k_lctrl, k_lgui, k_fnl, k_lalt,         k_space,                k_left, k_up, k_down, k_right\
-) LAYOUT_all( \
-    k_esc, k_1, k_2, k_3, k_4, k_5, k_6, k_7, k_8, k_9, k_0, k_minus, k_equals, KC_NO, k_backspace,\
-    k_tab,   k_q, k_w, k_e, k_r, k_t, k_y, k_u, k_i, k_o, k_p, k_squarebrop, k_squarebrcl, k_backslash,\
-    k_caps,   k_a, k_s, k_d, k_f, k_g, k_h, k_j, k_k, k_l, k_semicolon, k_singlequote, KC_NO, k_return,\
-    k_lshift,KC_NO,k_z, k_x, k_c, k_v, k_b, k_n, k_m, k_cm,k_period, k_forwardslash, KC_NO, k_rshift,\
-    k_lctrl, k_lgui, k_fnl, k_lalt,         k_space,                k_left, k_up, k_down, k_right\
-)
