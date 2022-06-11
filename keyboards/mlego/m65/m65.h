@@ -96,8 +96,18 @@ enum unicode_names {
     lL1,
     lk1,
     lK1,
+    ra,
+    rA,
+    ra1,
+    rA1,
     rc,
     rC,
+    ri,
+    rI,
+    rs,
+    rS,
+    rt,
+    rT,
 };
 
 static inline void led_lwr(const bool on) {
@@ -113,7 +123,7 @@ static inline void led_rse(const bool on) {
 }
 static inline void led_caps(const bool on) {
 #ifdef LED_CAPS_LOCK_PIN
-    if ((DEVICE_VER == 0x0001) || (DEVICE_VER == 0x0003)) {
+    if ((DEVICE_VER == 0x0001) || (DEVICE_VER == 0x0003) || (DEVICE_VER == 0x0004)) {
         writePin(LED_CAPS_LOCK_PIN, !on);
     }
     if (DEVICE_VER == 0x0002) {
@@ -121,4 +131,3 @@ static inline void led_caps(const bool on) {
     }
 #endif
 }
-

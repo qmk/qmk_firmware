@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
 #define PRODUCT         Ninjin
-#define DESCRIPTION     Ninjin
 
 /* key matrix size */
 #define MATRIX_ROWS 6

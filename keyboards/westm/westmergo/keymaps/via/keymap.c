@@ -26,21 +26,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LCTL,          KC_LGUI,          KC_SPC,  KC_LALT,            KC_SPC,  KC_RALT,                            KC_RCTL
     ),
     [1] = LAYOUT_alice( /* FN */
-        RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,
+        QK_BOOT,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,
         KC_HOME, _______, _______, KC_UP,   _______, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, _______,
         KC_END,  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MUTE, RGB_HUI, RGB_HUD, _______, _______, _______, _______, _______,
                  _______, KC_MPRV, KC_MPLY, KC_MNXT, KC__VOLDOWN, KC__VOLUP, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______,
                  _______,          _______,          _______, _______,          _______, _______,                            _______
     ),
     [2] = LAYOUT_alice( /* 2 */
-        RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,
+        QK_BOOT,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,
         KC_HOME, _______, _______, KC_UP,   _______, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, _______,
         KC_END,  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MUTE, RGB_HUI, RGB_HUD, _______, _______, _______, _______, _______,
                  _______, KC_MPRV, KC_MPLY, KC_MNXT, KC__VOLDOWN, KC__VOLUP, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______,
                  _______,          _______,          _______, _______,          _______, _______,                            _______
     ),
     [3] = LAYOUT_alice( /* 3 */
-        RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,
+        QK_BOOT,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,
         KC_HOME, _______, _______, KC_UP,   _______, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, _______,
         KC_END,  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MUTE, RGB_HUI, RGB_HUD, _______, _______, _______, _______, _______,
                  _______, KC_MPRV, KC_MPLY, KC_MNXT, KC__VOLDOWN, KC__VOLUP, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______,

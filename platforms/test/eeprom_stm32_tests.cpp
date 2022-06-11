@@ -17,8 +17,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "flash_stm32.h"
-#include "eeprom_stm32.h"
 #include "eeprom.h"
 }
 
@@ -46,7 +44,6 @@ extern "C" {
  *
  */
 
-#define EEPROM_SIZE (FEE_PAGE_SIZE * FEE_PAGE_COUNT / 2)
 #define LOG_SIZE EEPROM_SIZE
 #define LOG_BASE (MOCK_FLASH_SIZE - LOG_SIZE)
 #define EEPROM_BASE (LOG_BASE - EEPROM_SIZE)
@@ -63,7 +60,9 @@ class EepromStm32Test : public testing::Test {
     ~EepromStm32Test() {}
 
    protected:
-    void SetUp() override { EEPROM_Erase(); }
+    void SetUp() override {
+        EEPROM_Erase();
+    }
 
     void TearDown() override {
 #ifdef EEPROM_DEBUG
@@ -86,7 +85,7 @@ TEST_F(EepromStm32Test, TestReadGarbage) {
         garbage += i;
         FlashBuf[i] = garbage;
     }
-    EEPROM_Init();  // Just verify we don't crash
+    EEPROM_Init(); // Just verify we don't crash
 }
 
 TEST_F(EepromStm32Test, TestWriteBadAddress) {
@@ -209,11 +208,11 @@ TEST_F(EepromStm32Test, TestReadWord) {
 
 TEST_F(EepromStm32Test, TestWriteWord) {
     /* Direct compacted-area: Address < 0x80 */
-    EEPROM_WriteDataWord(0, 0xdead);  // Aligned
-    EEPROM_WriteDataWord(3, 0xbeef);  // Unaligned
+    EEPROM_WriteDataWord(0, 0xdead); // Aligned
+    EEPROM_WriteDataWord(3, 0xbeef); // Unaligned
     /* Direct compacted-area: Address >= 0x80 */
-    EEPROM_WriteDataWord(200, 0xabcd);  // Aligned
-    EEPROM_WriteDataWord(203, 0x9876);  // Unaligned
+    EEPROM_WriteDataWord(200, 0xabcd); // Aligned
+    EEPROM_WriteDataWord(203, 0x9876); // Unaligned
     EEPROM_WriteDataWord(EEPROM_SIZE - 4, 0x1234);
     EEPROM_WriteDataWord(EEPROM_SIZE - 2, 0x5678);
     /* Write Log word zero-encoded */
@@ -221,10 +220,10 @@ TEST_F(EepromStm32Test, TestWriteWord) {
     /* Write Log word one-encoded */
     EEPROM_WriteDataWord(EEPROM_SIZE - 2, 1);
     /* Write Log word value aligned */
-    EEPROM_WriteDataWord(200, 0x4321);  // Aligned
+    EEPROM_WriteDataWord(200, 0x4321); // Aligned
     /* Write Log word value unaligned */
-    EEPROM_WriteDataByte(202, 0x3c);    // Set neighboring byte
-    EEPROM_WriteDataWord(203, 0xcdef);  // Unaligned
+    EEPROM_WriteDataByte(202, 0x3c);   // Set neighboring byte
+    EEPROM_WriteDataWord(203, 0xcdef); // Unaligned
     /* Check values */
     /* Direct compacted-area */
     EXPECT_EQ(*(uint16_t*)&FlashBuf[EEPROM_BASE], (uint16_t)~0xdead);
@@ -252,11 +251,11 @@ TEST_F(EepromStm32Test, TestWriteWord) {
 
 TEST_F(EepromStm32Test, TestWordRoundTrip) {
     /* Direct compacted-area: Address < 0x80 */
-    EEPROM_WriteDataWord(0, 0xdead);  // Aligned
-    EEPROM_WriteDataWord(3, 0xbeef);  // Unaligned
+    EEPROM_WriteDataWord(0, 0xdead); // Aligned
+    EEPROM_WriteDataWord(3, 0xbeef); // Unaligned
     /* Direct compacted-area: Address >= 0x80 */
-    EEPROM_WriteDataWord(200, 0xabcd);  // Aligned
-    EEPROM_WriteDataWord(203, 0x9876);  // Unaligned
+    EEPROM_WriteDataWord(200, 0xabcd); // Aligned
+    EEPROM_WriteDataWord(203, 0x9876); // Unaligned
     EEPROM_WriteDataWord(EEPROM_SIZE - 4, 0x1234);
     EEPROM_WriteDataWord(EEPROM_SIZE - 2, 0x5678);
     /* Check values */
@@ -273,10 +272,10 @@ TEST_F(EepromStm32Test, TestWordRoundTrip) {
     /* Write Log word one-encoded */
     EEPROM_WriteDataWord(EEPROM_SIZE - 2, 1);
     /* Write Log word value aligned */
-    EEPROM_WriteDataWord(200, 0x4321);  // Aligned
+    EEPROM_WriteDataWord(200, 0x4321); // Aligned
     /* Write Log word value unaligned */
-    EEPROM_WriteDataByte(202, 0x3c);    // Set neighboring byte
-    EEPROM_WriteDataWord(203, 0xcdef);  // Unaligned
+    EEPROM_WriteDataByte(202, 0x3c);   // Set neighboring byte
+    EEPROM_WriteDataWord(203, 0xcdef); // Unaligned
     /* Check values */
     EEPROM_Init();
     EXPECT_EQ(EEPROM_ReadDataWord(200), 0x4321);
@@ -327,34 +326,34 @@ TEST_F(EepromStm32Test, TestByteWordBoundary) {
 
 TEST_F(EepromStm32Test, TestDWordRoundTrip) {
     /* Direct compacted-area: Address < 0x80 */
-    eeprom_write_dword((uint32_t*)0, 0xdeadbeef);  // Aligned
-    eeprom_write_dword((uint32_t*)9, 0x12345678);  // Unaligned
+    eeprom_write_dword((uint32_t*)0, 0xdeadbeef); // Aligned
+    eeprom_write_dword((uint32_t*)9, 0x12345678); // Unaligned
     /* Direct compacted-area: Address >= 0x80 */
     eeprom_write_dword((uint32_t*)200, 0xfacef00d);
-    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 4), 0xba5eba11);  // Aligned
-    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 9), 0xcafed00d);  // Unaligned
+    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 4), 0xba5eba11); // Aligned
+    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 9), 0xcafed00d); // Unaligned
     /* Check direct values */
     EEPROM_Init();
     EXPECT_EQ(eeprom_read_dword((uint32_t*)0), 0xdeadbeef);
     EXPECT_EQ(eeprom_read_dword((uint32_t*)9), 0x12345678);
     EXPECT_EQ(eeprom_read_dword((uint32_t*)200), 0xfacef00d);
-    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 4)), 0xba5eba11);  // Aligned
-    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 9)), 0xcafed00d);  // Unaligned
+    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 4)), 0xba5eba11); // Aligned
+    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 9)), 0xcafed00d); // Unaligned
     /* Write Log byte encoded */
     eeprom_write_dword((uint32_t*)0, 0xdecafbad);
     eeprom_write_dword((uint32_t*)9, 0x87654321);
     /* Write Log word encoded */
     eeprom_write_dword((uint32_t*)200, 1);
     /* Write Log word value aligned */
-    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 4), 0xdeadc0de);  // Aligned
-    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 9), 0x6789abcd);  // Unaligned
+    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 4), 0xdeadc0de); // Aligned
+    eeprom_write_dword((uint32_t*)(EEPROM_SIZE - 9), 0x6789abcd); // Unaligned
     /* Check log values */
     EEPROM_Init();
     EXPECT_EQ(eeprom_read_dword((uint32_t*)0), 0xdecafbad);
     EXPECT_EQ(eeprom_read_dword((uint32_t*)9), 0x87654321);
     EXPECT_EQ(eeprom_read_dword((uint32_t*)200), 1);
-    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 4)), 0xdeadc0de);  // Aligned
-    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 9)), 0x6789abcd);  // Unaligned
+    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 4)), 0xdeadc0de); // Aligned
+    EXPECT_EQ(eeprom_read_dword((uint32_t*)(EEPROM_SIZE - 9)), 0x6789abcd); // Unaligned
 }
 
 TEST_F(EepromStm32Test, TestBlockRoundTrip) {

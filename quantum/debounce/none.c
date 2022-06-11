@@ -26,6 +26,4 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     }
 }
 
-bool debounce_active(void) { return false; }
-
 void debounce_free(void) {}

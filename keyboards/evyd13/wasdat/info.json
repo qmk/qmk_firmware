@@ -1,7 +1,36 @@
 {
     "keyboard_name": "Wasdat",
+    "manufacturer": "Evyd13",
     "url": "https://maartenwut.com/product/wasdat/",
     "maintainer": "evyd13",
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0xC474",
+        "device_version": "0.0.1",
+    },
+    "qmk_lufa_bootloader": {
+        "esc_output": "D6",
+        "esc_input": "D7",
+        "led": "B0"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "nkro": true,
+    },
+    "indicators": {
+        "num_lock": "B2",
+        "caps_lock": "B0",
+        "scroll_lock": "B1"
+    },
+    "community_layouts": [
+        "fullsize_ansi",
+        "fullsize_iso",
+        "tkl_ansi",
+        "tkl_iso"
+    ],
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [

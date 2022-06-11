@@ -57,6 +57,9 @@ void keyboard_post_init_rgb_matrix(void) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 #endif
+    if (userspace_config.rgb_layer_change) {
+        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW | LED_FLAG_KEYLIGHT | LED_FLAG_INDICATOR);
+    }
 }
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {

@@ -50,7 +50,7 @@ static void usb_send_func(MidiDevice* device, uint16_t cnt, uint8_t byte0, uint8
                     event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
                 break;
             default:
-                return;  // invalid cnt
+                return; // invalid cnt
         }
     } else {
         // deal with 'system common' messages
