@@ -461,6 +461,9 @@ void via_qmk_backlight_set_value(uint8_t *data) {
 #endif // #if defined(VIA_QMK_BACKLIGHT_ENABLE)
 
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
+#    ifndef RGBLIGHT_LIMIT_VAL
+#        define RGBLIGHT_LIMIT_VAL 255
+#    endif
 
 void via_qmk_rgblight_get_value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
@@ -517,6 +520,11 @@ void via_qmk_rgblight_set_value(uint8_t *data) {
 #endif // #if defined(VIA_QMK_RGBLIGHT_ENABLE)
 
 #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+
+#    if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
+#        undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#    endif
 
 // VIA supports only 4 discrete values for effect speed; map these to some
 // useful speed values for RGB Matrix.
