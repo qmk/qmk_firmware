@@ -1,6 +1,6 @@
 # SNOP60 
 
-![SNOP60](https://i.imgur.com/2aBmgMa.png)
+![SNOP60](https://i.imgur.com/2aBmgMah.png)
 
 60% Universal PCB feauturing Tsangan bottom row, 2x3u bar support, backlighting, RGB underglow, rotary encoder support, and two flex cutouts. 
 
