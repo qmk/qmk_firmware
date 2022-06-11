@@ -17,7 +17,7 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
@@ -36,9 +36,6 @@
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 #ifdef HOT_PLUG
     #define RGB_DI_PIN           A0

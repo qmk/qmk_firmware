@@ -1,4 +1,4 @@
-#include "43_87.h"
+#include QMK_KEYBOARD_H
 #define XX 255
 led_config_t g_led_config = {
 	{
@@ -38,12 +38,6 @@ led_config_t g_led_config = {
      2,2,2,2,2,2,2,2
   }
 };
-
-
-void keyboard_pre_init_user(void)
-{
-
-}
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)
 {

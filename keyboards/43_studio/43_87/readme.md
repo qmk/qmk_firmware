@@ -1,5 +1,5 @@
 # 43 Studio 87
-87 key keyboard based on STM32F103 [More info on qmk.fm](http://qmk.fm/)
+87 key keyboard based on STM32F103RBT6 [More info on qmk.fm](http://qmk.fm/)
 
 Make example for this keyboard (after setting up your build environment):
 
