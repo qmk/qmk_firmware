@@ -1,11 +1,8 @@
 # MCU name
-MCU = STM32F401
+MCU = atmega32u4
 
 # Bootloader selection
-BOOTLOADER = tinyuf2
-#BOOTLOADER = stm32-dfu
-MCU_LDSCRIPT = STM32F401xE
-EEPROM_DRIVER = vendor
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -17,11 +14,11 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-SPLIT_KEYBOARD = yes
-SERIAL_DRIVER = usart
-ENCODER_ENABLE = yes        # Enable encoder
 
-LAYOUTS = ortho_5x12
+CUSTOM_MATRIX = lite
+SRC += matrix.c
+QUANTUM_LIB_SRC += i2c_slave.c
 
+LAYOUTS = split_3x5_3
