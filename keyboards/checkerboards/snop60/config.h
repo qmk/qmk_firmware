@@ -40,7 +40,6 @@ Copyright 2022 Nathan Spears
 
 /* Switch LED Backlighting */
 #define BACKLIGHT_PIN           D1
-#define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
