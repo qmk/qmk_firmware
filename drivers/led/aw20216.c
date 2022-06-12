@@ -54,7 +54,7 @@
 #endif
 
 #ifndef AW_SPI_MODE
-#    define AW_SPI_MODE 3
+#    define AW_SPI_MODE 0
 #endif
 
 #ifndef AW_SPI_DIVISOR
