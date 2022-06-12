@@ -1,6 +1,6 @@
 # ADM42
 
-![ADM42](https://adm42.dev/images/adm42.jpg)
+![ADM42](https://i.imgur.com/pviCQSQ.jpeg)
 
 A compact ergonomic 40% ortholinear keyboard. [More info on ADM42.dev](https://adm42.dev)
 

@@ -15,7 +15,6 @@ AUDIO_ENABLE = no           # Audio output
 
 DEBOUNCE_TYPE = sym_eager_pk
 
-EXTRAFLAGS += -flto
 LTO_ENABLE = yes
 
 DEFAULT_FOLDER = adm42/rev4
