@@ -1,4 +1,4 @@
-/* Copyright 2021-2022 alin m elena <alinm.elena@gmail.com>
+/* Copyright 2022 durken (https://github.com/durken1/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,23 +13,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include "config_common.h"
+#include "quantum.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xBABA
-#define MANUFACTURER alin elena
-#define PRODUCT m60_split
-
-#define MATRIX_ROWS 10  // Rows are doubled-up
-#define MATRIX_COLS 6
-
-#define DEBOUNCE 5
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define LAYOUT_split_3x5_3( \
+	K00, K01, K02, K03, K04,	K05, K06, K07, K08, K09, \
+	K10, K11, K12, K13, K14,	K15, K16, K17, K18, K19, \
+	K20, K21, K22, K23, K24,	K25, K26, K27, K28, K29, \
+	            K32, K33, K34,    K35, K36, K37  \
+) { \
+	{ K00,  K01,  K02,  K03,  K04,  K05,  K06,  K07,  K08,  K09 }, \
+	{ K10,  K11,  K12,  K13,  K14,  K15,  K16,  K17,  K18,  K19 }, \
+	{ K20,  K21,  K22,  K23,  K24,  K25,  K26,  K27,  K28,  K29 }, \
+	{ KC_NO, KC_NO, K32,  K33,  K34,  K35,  K36,  K37,  KC_NO, KC_NO }  \
+}

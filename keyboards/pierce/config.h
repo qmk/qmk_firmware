@@ -1,4 +1,4 @@
-/* Copyright 2021-2022 alin m elena <alinm.elena@gmail.com>
+/* Copyright 2022 durken (https://github.com/durken1/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,23 +13,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xBABA
-#define MANUFACTURER alin elena
-#define PRODUCT m60_split
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x6060
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    durken
+#define PRODUCT         pierce
 
-#define MATRIX_ROWS 10  // Rows are doubled-up
-#define MATRIX_COLS 6
+/* key matrix size */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 10
 
-#define DEBOUNCE 5
-/* COL2ROW, ROW2COL*/
+/* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5
