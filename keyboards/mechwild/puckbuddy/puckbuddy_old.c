@@ -24,33 +24,12 @@ void board_init(void) {
     setPinInputHigh(B9);
 }
 
-#ifdef DYNAMIC_TAPPING_TERM_ENABLE
 void tap_modify(int change_value, bool tap_status) {
-    if (keyboard_config.dt_term_config < 0) {
-        keyboard_config.dt_term_config *= -1;
-    }
-    
     keyboard_config.dt_term_config += change_value;
-    
-    if (tap_status == false ) {
-        keyboard_config.dt_term_config *= -1;
-        g_tapping_term = 0;
-    } else {
-        g_tapping_term = keyboard_config.dt_term_config;
-    }
+    keyboard_config.tap_enabled_config = tap_status;
+    g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
     eeconfig_update_kb(keyboard_config.raw);
 }
-
-void tap_toggle(void) {
-    keyboard_config.dt_term_config *= -1;
-    if (keyboard_config.dt_term_config > 0) {
-        g_tapping_term = keyboard_config.dt_term_config;
-    } else {
-        g_tapping_term = 0;
-    }
-    eeconfig_update_kb(keyboard_config.raw);
-}
-#endif
 
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -93,8 +72,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;       // flips the display 180 degrees
 }
 
-bool clear_screen = true;          // used to manage singular screen clears to prevent display glitch
-bool clear_screen_art = true;      // used to manage singular screen clears to prevent display glitch
+bool clear_screen = false;          // used to manage singular screen clears to prevent display glitch
+bool clear_screen_art = false;      // used to manage singular screen clears to prevent display glitch
 static void render_name(void) {     // Render Puckbuddy "Get Puck'd" text
     static const char PROGMEM name_1[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0xB6, 0xB6, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x00};
     static const char PROGMEM name_2[] = {0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xB6, 0xB6, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0x00};
@@ -132,12 +111,12 @@ bool oled_task_kb(void) {
         render_name();
         oled_set_cursor(0,3);
 #ifdef POINTING_DEVICE_ENABLE
-        oled_write_P(PSTR(" DPI:"), false);
+        oled_write_P(PSTR("DPI:"), false);
         oled_write(get_u16_str(dpi_array[keyboard_config.dpi_config], ' '), false);
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
         oled_write_P(PSTR(" TAP:"), false);
-        if (keyboard_config.dt_term_config < 0) {
+        if (keyboard_config.tap_enabled_config == false) {
             oled_write_P(PSTR("Off  "), false);
         } else {
             oled_write(get_u16_str(g_tapping_term, ' '), false);
@@ -181,7 +160,7 @@ bool oled_task_kb(void) {
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
         oled_set_cursor(8,3);
         oled_write_P(PSTR("TAP:"), false);
-        if (keyboard_config.dt_term_config < 0) {
+        if (keyboard_config.tap_enabled_config == false) {
             oled_write_P(PSTR("Off  "), false);
         } else {
             oled_write(get_u16_str(g_tapping_term, ' '), false);
@@ -247,7 +226,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             return false;        
         case TAP_TOG:
             if (record->event.pressed) {
-                tap_toggle();
+                tap_modify(0, keyboard_config.tap_enabled_config ^= 1);
             }
             return false;
 #endif
@@ -267,6 +246,7 @@ void eeconfig_init_kb(void) {
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
     keyboard_config.dt_term_config = TAPPING_TERM;
+    keyboard_config.tap_enabled_config = true;
 #endif
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
@@ -293,12 +273,7 @@ void keyboard_post_init_kb(void) {
     rgblight_toggle_noeeprom();
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-    tap_toggle();   // Need it to reevaluate this setting after initiating so that it is current after init
-    tap_toggle();
+    g_tapping_term = keyboard_config.dt_term_config  * keyboard_config.tap_enabled_config;
 #endif
     keyboard_post_init_user();
-#ifdef OLED_ENABLE
-    wait_ms(200);   // Avoids a startup issue where the oled renders and then turns off with blackpill
-    oled_on();
-#endif
 }

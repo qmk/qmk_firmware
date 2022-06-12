@@ -27,12 +27,20 @@
     { k30, ___, k35, k34 }  \
 }
 
+//typedef union {
+//    uint32_t raw;
+//    struct {
+//        uint8_t dpi_config;
+//        uint16_t dt_term_config;
+//        bool tap_enabled_config;
+//    };
+//} keyboard_config_t;
+
 typedef union {
     uint32_t raw;
     struct {
         uint8_t dpi_config;
-        uint16_t dt_term_config;
-        bool tap_enabled_config;
+        int16_t dt_term_config;
     };
 } keyboard_config_t;
 
