@@ -1,17 +1,19 @@
-Matthew J Wolf 21-May-2022 model_f_labs
+Matthew J Wolf 11-Jun-2022 model_f_labs
 
 See change log for changes.
 
 The original source used Purdea Andrei xwhatsit code that was retrieved on
 24 June 2021.
 
-Disclaimer:
-The firmware compiles. At the time I created this document I have no way to test
-the firmware.
+The code has been updated with changes Purdea Andrei up to Dec 4 2021.  
 
-Only wcass type of xwhatsit
----------------------------
-Joe of Model F Labs asked that I remove all the other xwhatis types other then
+Disclaimer:
+The firmware compiles. I have done basic testing of the firmware. I can not 
+test all the possible uses of the firmware.
+
+Only wcass Controller Type of xwhatsit Controllers
+--------------------------------------------------
+Joe of Model F Labs asked that I remove all the other xwhatsit types other then
 wcass.
 
 Changes to Source Files
@@ -32,32 +34,25 @@ Changes to Source Files
 
 USB Descriptor Changes
 ----------------------
-
-- PRODUCT_ID
-Roland Huber's VIA product IDs
--- 62 = 0x00F0 
--- 77 = 0x00C0
+Vendor ID: 0xFEED
+Product ID:
+F62        - 0X0F62
+F62_scumyc - 0x1F62
+F77        - 0x0F77
+-- ASCII HEX for "B" is 0x42
+beamspring_full - 0x4200
+beamspring_ssk  - 0x4201
 
 - MANUFACTURER =  Model F Labs
 
 - PRODUCT 
--- 62 = Reproduction IBM F62 Keyboard 
--- 77 = Reproduction IBM F77 Keyboard
+-- F62        = Reproduction IBM F62 Keyboard 
+-- F62_scumyc = Reproduction IBM F62 Scumyc Keyboard
+-- F77        = Reproduction IBM F77 Keyboard
+-- beamspring_full = Beamspring Full Size Keyboard
+-- beamspring_ssk  = Beamspring SSK Keyboard
 
 - DESCRIPTION  = Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
-
-Items Removed
--------------
-
-- Removed 10t8or_spacefn keymap.
--- GitHub user EDEADLINK commented that it was a user custom keymap. I agreed because
-   the keymap is not listed in the info.json file.
-
-- Removed custom key codes. 
--- The key codes printed:
-   "QMK is the best thing ever!" 
-   "https://qmk.fm/\n"
--- Removed unneeded comments for disabled features.
 
 Refactored the Build
 --------------------
@@ -87,14 +82,6 @@ wcass    (type_f)
 - CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F
 
 Finely I updated the needed files with the updated file paths.
-
-
-Possible Issues
----------------
-In the config.h files the strings for the "MANUFACTURER" and "PRODUCT" may be
-too long. These strings are sent as part of the USB handshake. They are the USB
-device descriptors iManufacturer and iProduct.
-
 
 Other
 -----
