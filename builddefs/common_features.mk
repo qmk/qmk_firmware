@@ -173,7 +173,7 @@ ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
 endif
 
-VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
+VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
   $(call CATASTROPHIC_ERROR,Invalid EEPROM_DRIVER,EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
@@ -186,6 +186,10 @@ else
     # Custom EEPROM implementation -- only needs to implement init/erase/read_block/write_block
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_CUSTOM
     SRC += eeprom_driver.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), wear_leveling)
+    # Wear-leveling EEPROM implementation
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+    SRC += eeprom_driver.c eeprom_wear_leveling.c
   else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
     # External I2C EEPROM implementation
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
@@ -238,18 +242,37 @@ else
 endif
 
 VALID_FLASH_DRIVER_TYPES := spi
-FLASH_DRIVER ?= no
-ifneq ($(strip $(FLASH_DRIVER)), no)
+FLASH_DRIVER ?= none
+ifneq ($(strip $(FLASH_DRIVER)), none)
     ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
-        $(error FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid FLASH driver)
+        $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
     else
         OPT_DEFS += -DFLASH_ENABLE
-        ifeq ($(strip $(FLASH_DRIVER)), spi)
+        ifeq ($(strip $(FLASH_DRIVER)),spi)
             OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
             COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
         endif
     endif
+endif
+
+VALID_WEAR_LEVELING_DRIVER_TYPES := custom stm32f4x1
+WEAR_LEVELING_DRIVER ?= none
+ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
+  ifeq ($(filter $(WEAR_LEVELING_DRIVER),$(VALID_WEAR_LEVELING_DRIVER_TYPES)),)
+    $(call CATASTROPHIC_ERROR,Invalid WEAR_LEVELING_DRIVER,WEAR_LEVELING_DRIVER="$(WEAR_LEVELING_DRIVER)" is not a valid wear leveling driver)
+  else
+    OPT_DEFS += -DWEAR_LEVELING_ENABLE
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling
+    COMMON_VPATH += $(DRIVER_PATH)/wear_leveling
+    COMMON_VPATH += $(QUANTUM_DIR)/wear_leveling
+    ifeq ($(strip $(WEAR_LEVELING_DRIVER)), stm32f4x1)
+      OPT_DEFS += -DWEAR_LEVELING_DRIVER_STM32F4X1
+      COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
+      SRC += wear_leveling.c flash_stm32.c wear_leveling_stm32f4x1.c
+      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_stm32f4x1_config.h
+    endif
+  endif
 endif
 
 RGBLIGHT_ENABLE ?= no

@@ -1,0 +1,33 @@
+// Copyright 2022 Nick Brassel (@tzarc)
+// SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
+
+// bodge to force 2nd 16k page
+#ifndef EMULATED_EEPROM_BASE_PAGE_ADDRESS
+#    define EMULATED_EEPROM_BASE_PAGE_ADDRESS 0x08004000
+#endif // EMULATED_EEPROM_BASE_PAGE_ADDRESS
+
+// 16k pages
+#ifndef EMULATED_EEPROM_PAGE_SIZE
+#    define EMULATED_EEPROM_PAGE_SIZE 0x4000
+#endif // EMULATED_EEPROM_PAGE_SIZE
+
+// Only use 1 page
+#ifndef EMULATED_EEPROM_PAGE_COUNT
+#    define EMULATED_EEPROM_PAGE_COUNT 1
+#endif // EMULATED_EEPROM_PAGE_COUNT
+
+// 2-byte writes
+#ifndef BACKING_STORE_WRITE_SIZE
+#    define BACKING_STORE_WRITE_SIZE 2
+#endif
+
+// 16kB space allocated
+#ifndef WEAR_LEVELING_BACKING_SIZE
+#    define WEAR_LEVELING_BACKING_SIZE (EMULATED_EEPROM_PAGE_SIZE)
+#endif // WEAR_LEVELING_BACKING_SIZE
+
+// 4kB logical EEPROM
+#ifndef WEAR_LEVELING_LOGICAL_SIZE
+#    define WEAR_LEVELING_LOGICAL_SIZE 4096
+#endif // WEAR_LEVELING_LOGICAL_SIZE
