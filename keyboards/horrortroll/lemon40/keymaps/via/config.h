@@ -1,4 +1,4 @@
-/* Copyright 2021 Nathan Spears
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,6 @@
 
 #pragma once
 
-#define TAPPING_TOGGLE 2
+/* Additional thing to reduce compiled size */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+#define NO_ACTION_ONESHOT

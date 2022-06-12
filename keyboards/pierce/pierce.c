@@ -1,4 +1,4 @@
-/* Copyright 2021 Nathan Spears
+/* Copyright 2022 durken (https://github.com/durken1/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#define TAPPING_TOGGLE 2
+#include "pierce.h"
