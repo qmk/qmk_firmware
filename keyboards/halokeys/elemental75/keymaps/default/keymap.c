@@ -73,20 +73,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    uprintf("Encoder Hit: clockwise: %b, index: %u\n", clockwise, index);
-    if (index == 0) {
-      if (clockwise) {
-          print("Tapped code: KC_VOLU\n");
-          tap_code(KC_VOLU);
-      } else {
-          print("Tapped code: KC_VOLD\n");
-          tap_code(KC_VOLD);
-      }
-    }
-    return false;
-}
-
 void keyboard_post_init_user(void) {
   /* Customise these values to desired behaviour */
   debug_enable=true;

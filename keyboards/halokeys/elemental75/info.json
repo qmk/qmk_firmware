@@ -2,8 +2,6 @@
     "keyboard_name": "Elemental 75",
     "url": "",
     "maintainer": "shamit05",
-    "width": 16.25,
-    "height": 6.5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

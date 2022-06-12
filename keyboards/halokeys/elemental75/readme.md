@@ -6,6 +6,14 @@ Keyboard Maintainer: [Shamit Surana](https://github.com/shamit05)
 Hardware Supported: Elemental75
 Hardware Availability: Not Available Yet
 
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the Escape key down (top left key) and plug in the keyboard
+* **Physical reset button**: Hold the reset button on the back of the PCB for at least 5 seconds.
+* **Keycode in layout**: Hold the key mapped to `RESET` if it is available
+
 Make example for this keyboard (after setting up your build environment):
 
     make halokeys/elemental75:default

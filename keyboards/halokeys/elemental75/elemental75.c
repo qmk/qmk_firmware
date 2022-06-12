@@ -14,4 +14,22 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 #include "elemental75.h"
-#include "print.h"
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+    uprintf("Encoder Hit: clockwise: %b, index: %u\n", clockwise, index);
+    if (index == 0) {
+      if (clockwise) {
+          print("Tapped code: KC_VOLU\n");
+          tap_code(KC_VOLU);
+      } else {
+          print("Tapped code: KC_VOLD\n");
+          tap_code(KC_VOLD);
+      }
+    }
+    return true;
+}
+#endif
