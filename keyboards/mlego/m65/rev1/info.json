@@ -29,8 +29,6 @@
         "rows": ["B11", "B0", "B1", "A2", "A3"]
     },
     "processor": "STM32F103",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "rgblight": {
         "animations": {
             "alternating": false,
