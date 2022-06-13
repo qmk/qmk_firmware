@@ -289,6 +289,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
+#ifdef CAPS_WORD_ENABLE
+            process_caps_word(keycode, record) &&
+#endif
 #if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
 #endif
@@ -306,9 +309,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef TERMINAL_ENABLE
             process_terminal(keycode, record) &&
-#endif
-#ifdef CAPS_WORD_ENABLE
-            process_caps_word(keycode, record) &&
 #endif
 #ifdef SPACE_CADET_ENABLE
             process_space_cadet(keycode, record) &&
