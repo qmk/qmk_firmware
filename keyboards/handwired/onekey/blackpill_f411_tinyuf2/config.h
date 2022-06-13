@@ -31,3 +31,6 @@
 #define RGB_DI_PIN A1
 
 #define ADC_PIN A0
+
+// Force 3rd 16k page => 48k offset
+#define EMULATED_EEPROM_BASE_PAGE_ADDRESS 0x0800C000
