@@ -274,7 +274,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------------------------------------------------------------------------|
  * |      | Menu| MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsMid|MsRhgt| Hue-|AU_ON |
  * |------------------------------------------------------------------------------|
- * |      |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |AU_OFF|
+ * |Debug |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |AU_OFF|
  * |------------------------------------------------------------------------------|
  * |      |     |     |     |      |              |     |NumLk |     |     |      |
  * `------------------------------------------------------------------------------'
@@ -282,7 +282,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
   TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   KC_NO,     KC_NO,   KC_NO,   KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN3, KC_BTN2, RGB_HUD, AU_ON,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
+  DEBUG,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
 )
 };
@@ -503,7 +503,6 @@ enum combo_events {
   CAPSWORD,
   SLEEP,
   RESETKEY,
-  DEBUGKEY,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
@@ -536,7 +535,6 @@ const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F24), MTENTER, 
 const uint16_t PROGMEM mousetoggle_combo[]      = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM sleep_combo[]            = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM reset_combo[]            = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
-const uint16_t PROGMEM debug_combo[]            = {KC_SCLN, KC_O, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
@@ -573,7 +571,6 @@ combo_t key_combos[] = {
   [MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
   [SLEEP] = COMBO_ACTION(sleep_combo),
   [RESETKEY] = COMBO_ACTION(reset_combo),
-  [DEBUGKEY] = COMBO_ACTION(debug_combo),
   [CAPSWORD] = COMBO_ACTION(capsword_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
@@ -787,12 +784,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       break;
     case RESETKEY:
       if (pressed) {
-        tap_code16(RESET);
-      }
-      break;
-    case DEBUGKEY:
-      if (pressed) {
-        tap_code16(DEBUG);
+        reset_keyboard();
       }
       break;
     case CAPSWORD:
