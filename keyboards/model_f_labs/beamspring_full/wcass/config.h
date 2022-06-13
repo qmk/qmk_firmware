@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0XFEED 
-#define PRODUCT_ID 0X4200
+#define PRODUCT_ID 0X0B53
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Model F Labs
 #define PRODUCT Beamspring Full Size Keyboard

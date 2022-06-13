@@ -1,4 +1,4 @@
-Matthew J Wolf 11-Jun-2022 model_f_labs
+Matthew J Wolf 12-Jun-2022 model_f_labs
 
 See change log for changes.
 
@@ -39,9 +39,9 @@ Product ID:
 F62        - 0X0F62
 F62_scumyc - 0x1F62
 F77        - 0x0F77
--- ASCII HEX for "B" is 0x42
-beamspring_full - 0x4200
-beamspring_ssk  - 0x4201
+-- ASCII HEX for "S" is 0x53
+beamspring_full - 0x0B53
+beamspring_ssk  - 0x1B53
 
 - MANUFACTURER =  Model F Labs
 
