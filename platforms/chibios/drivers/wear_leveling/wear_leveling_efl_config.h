@@ -10,9 +10,11 @@
 #ifndef BACKING_STORE_WRITE_SIZE
 // These need to match EFL's XXXXXX_FLASH_LINE_SIZE, see associated code in `lib/chibios/os/hal/ports/**/hal_efl_lld.c`,
 // or associated `stm32_registry.h` for the MCU in question (or equivalent for the family).
-#    if defined(MCU_GD32V)
+#    if defined(GD32VF103)
 #        define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
-#    elif defined(MCU_STM32)               //  defined(MCU_?????)
+#    elif defined(NUC123SD4AN0)            //  defined(MCU_?????)
+#        define BACKING_STORE_WRITE_SIZE 4 // from hal_efl_lld.c
+#    elif defined(MCU_STM32) //  defined(MCU_?????)
 #        if defined(STM32_FLASH_LINE_SIZE)
 #            define BACKING_STORE_WRITE_SIZE (STM32_FLASH_LINE_SIZE)
 #        else // defined(STM32_FLASH_LINE_SIZE)
@@ -30,11 +32,9 @@
 #                define BACKING_STORE_WRITE_SIZE 8 // from hal_efl_lld.c
 #            elif defined(STM32G4XX)
 #                error "ChibiOS hasn't defined a specific STM32_FLASH_LINE_SIZE, but should've." // normally defined in stm32_registry.h, should be set by STM32_FLASH_LINE_SIZE
-#            endif                         // defined(STM32??XX)
-#        endif                             // defined(STM32_FLASH_LINE_SIZE)
-#    elif defined(MCU_GD32V)               //  defined(MCU_?????)
-#        define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
-#    endif                                 // defined(MCU_?????)
+#            endif // defined(STM32??XX)
+#        endif     // defined(STM32_FLASH_LINE_SIZE)
+#    endif         // defined(MCU_?????)
 #endif
 
 // 16kB space allocated
