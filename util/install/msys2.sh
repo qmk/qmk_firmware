@@ -12,7 +12,8 @@ _qmk_install() {
         base-devel: toolchain:x clang:x git: unzip: python3-pip:x \
         avr-binutils:x avr-gcc:x avr-libc:x arm-none-eabi-binutils:x \
         arm-none-eabi-gcc:x arm-none-eabi-newlib:x avrdude:x bootloadhid:x \
-        dfu-programmer:x dfu-util:x teensy-loader-cli:x hidapi:x
+        dfu-programmer:x dfu-util:x teensy-loader-cli:x hidapi:x \
+        python-appdirs:x python-colorama:x python-jsonschema:x python-pillow:x python-pygments:x
 
     _qmk_install_drivers
 

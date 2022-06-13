@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_LGUI,  KC_LALT,  MO(_PN),            KC_SPC,             KC_SPC,             MO(_FN),  KC_RALT,  KC_APP,   KC_RCTRL),
  
 [_FN] = LAYOUT_split_space(
-  _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,  RESET,    _______,  KC_CALC,  KC_PGUP,  KC_UP,    KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+  _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,  QK_BOOT,    _______,  KC_CALC,  KC_PGUP,  KC_UP,    KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,
   KC_CAPS,  KC_MPRV,  KC_MPLY,  KC_MNXT,  _______,  _______,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_INS,             _______,
   _______,            _______,  _______,  _______,  _______,  _______,  _______,  BL_TOGG,  BL_DEC,   BL_INC,   _______,  _______,
   _______,  _______,  _______,  _______,            _______,            _______,            _______,  _______,  _______,  _______),
@@ -50,5 +50,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
   RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
   RGB_MOD,            RGB_HUD,  RGB_SAD,  RGB_VAD,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-  _______,  _______,  _______,  _______,            _______,            _______,            _______,  _______,  _______,  RESET),
+  _______,  _______,  _______,  _______,            _______,            _______,            _______,  _______,  _______,  QK_BOOT),
 };

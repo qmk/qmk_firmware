@@ -5,6 +5,7 @@
 #include "quantum.h"
 #include "serial.h"
 #include "wait.h"
+#include "synchronization_util.h"
 
 #include <hal.h>
 
@@ -86,7 +87,10 @@ static THD_FUNCTION(Thread1, arg) {
     chRegSetThreadName("blinker");
     while (true) {
         palWaitLineTimeout(SOFT_SERIAL_PIN, TIME_INFINITE);
+
+        split_shared_memory_lock();
         interrupt_handler(NULL);
+        split_shared_memory_unlock();
     }
 }
 
@@ -205,14 +209,9 @@ void interrupt_handler(void *arg) {
     chSysUnlockFromISR();
 }
 
-/////////
-//  start transaction by initiator
-//
-// bool  soft_serial_transaction(int sstd_index)
-//
-// this code is very time dependent, so we need to disable interrupts
-bool soft_serial_transaction(int sstd_index) {
+static inline bool initiate_transaction(uint8_t sstd_index) {
     if (sstd_index > NUM_TOTAL_TRANSACTIONS) return false;
+
     split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
 
     // TODO: remove extra delay between transactions
@@ -239,8 +238,7 @@ bool soft_serial_transaction(int sstd_index) {
         return false;
     }
 
-    // if the slave is present syncronize with it
-
+    // if the slave is present synchronize with it
     uint8_t checksum = 0;
     // send data to the slave
     serial_write_byte(sstd_index); // first chunk is transaction id
@@ -285,4 +283,17 @@ bool soft_serial_transaction(int sstd_index) {
 
     chSysUnlock();
     return true;
+}
+
+/////////
+//  start transaction by initiator
+//
+// bool  soft_serial_transaction(int sstd_index)
+//
+// this code is very time dependent, so we need to disable interrupts
+bool soft_serial_transaction(int sstd_index) {
+    split_shared_memory_lock();
+    bool result = initiate_transaction((uint8_t)sstd_index);
+    split_shared_memory_unlock();
+    return result;
 }
