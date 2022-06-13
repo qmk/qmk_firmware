@@ -20,7 +20,8 @@ jobs:
 
           remove-stale-when-updated: true
           exempt-draft-pr: true
-          operations-per-run: 1000
+          ascending: true
+          operations-per-run: 150
 
           stale-issue-label: stale
           days-before-issue-stale: 90
