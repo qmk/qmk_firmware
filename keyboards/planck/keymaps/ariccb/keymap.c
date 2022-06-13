@@ -62,6 +62,8 @@
 #define KC_PTXT LCTL(LSFT(KC_V))
 #define KC_UNDO LCTL(KC_Z)
 #define KC_REDO LCTL(KC_Y)
+#define QK_BOOT RESET
+#define DB_TOGG DEBUG
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
