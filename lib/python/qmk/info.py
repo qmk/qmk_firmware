@@ -235,35 +235,37 @@ def _extract_encoders_values(config_c, postfix=''):
     b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
     resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
 
+    default_resolution = config_c.get('ENCODER_RESOLUTION', '4')
+
     if a_pad and b_pad:
         a_pad = list(filter(None, a_pad.split(',')))
         b_pad = list(filter(None, b_pad.split(',')))
         resolutions = list(filter(None, resolutions.split(',')))
-        resolutions += ['4'] * (len(a_pad) - len(resolutions))
+        resolutions += [default_resolution] * (len(a_pad) - len(resolutions))
 
         encoders = []
         for index in range(len(a_pad)):
-            encoders.append({'A': a_pad[index], 'B': b_pad[index], "resolution": int(resolutions[index])})
+            encoders.append({'pin_a': a_pad[index], 'pin_b': b_pad[index], "resolution": int(resolutions[index])})
 
         return encoders
 
 
 def _extract_encoders(info_data, config_c):
-    """Populate data about encoder pads
+    """Populate data about encoder pins
     """
     encoders = _extract_encoders_values(config_c)
     if encoders:
         if 'encoder' not in info_data:
             info_data['encoder'] = {}
 
-        if 'pads' in info_data['encoder']:
-            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.pads) (Value: %s), the config.h value wins.' % info_data['encoder']['pads'])
+        if 'rotary' in info_data['encoder']:
+            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['encoder']['rotary'])
 
-        info_data['encoder']['pads'] = encoders
+        info_data['encoder']['rotary'] = encoders
 
 
 def _extract_split_encoders(info_data, config_c):
-    """Populate data about split encoder pads
+    """Populate data about split encoder pins
     """
     encoders = _extract_encoders_values(config_c, '_RIGHT')
     if encoders:
@@ -276,10 +278,10 @@ def _extract_split_encoders(info_data, config_c):
         if 'right' not in info_data['split']['encoder']:
             info_data['split']['encoder']['right'] = {}
 
-        if 'pads' in info_data['split']['encoder']['right']:
-            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.pads) (Value: %s), the config.h value wins.' % info_data['encoder']['pads'])
+        if 'rotary' in info_data['split']['encoder']['right']:
+            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['split']['encoder']['right']['rotary'])
 
-        info_data['split']['encoder']['right']['pads'] = encoders
+        info_data['split']['encoder']['right']['rotary'] = encoders
 
 
 def _extract_secure_unlock(info_data, config_c):

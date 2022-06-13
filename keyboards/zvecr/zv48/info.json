@@ -8,8 +8,8 @@
         }
     },
     "encoder": {
-        "pads": [
-            { "A": "B5", "B": "A2" }
+        "rotary": [
+            { "pin_a": "B5", "pin_b": "A2" }
         ]
     }
 }

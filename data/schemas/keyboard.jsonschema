@@ -6,15 +6,15 @@
         "encoder_config": {
             "type": "object",
             "properties": {
-                "pads": {
+                "rotary": {
                     "type": "array",
                     "items": {
                         "type": "object",
                         "additionalProperties": false,
-                        "required": ["A", "B"],
+                        "required": ["pin_a", "pin_b"],
                         "properties": {
-                            "A": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                            "B": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                            "pin_a": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                            "pin_b": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                             "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"} 
                         }
                     }
