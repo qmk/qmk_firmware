@@ -45,7 +45,8 @@
                     "max": 31,
                     "multipleOf": 1
                 },
-                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
         "bluetooth": {
@@ -119,7 +120,10 @@
             "properties": {
                 "caps_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "num_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "scroll_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                "scroll_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "compose": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "kana": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
         "layout_aliases": {
