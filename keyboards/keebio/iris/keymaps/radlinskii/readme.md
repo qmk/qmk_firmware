@@ -80,7 +80,7 @@
         keymap
     </summary>
 
-<img width="800" alt="navigation layer keymap" src="https://user-images.githubusercontent.com/26116041/171701059-660b7fd1-8326-4337-80f7-518d17a0e352.png">
+<img width="800" alt="navigation layer keymap" src="https://user-images.githubusercontent.com/26116041/173408142-1e1c297e-57db-42f8-bc18-a04dd4e202c9.png">
 
 </details>
 <details>
