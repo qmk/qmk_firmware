@@ -256,7 +256,7 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
     endif
 endif
 
-VALID_WEAR_LEVELING_DRIVER_TYPES := custom stm32f4x1
+VALID_WEAR_LEVELING_DRIVER_TYPES := custom efl stm32f4x1
 WEAR_LEVELING_DRIVER ?= none
 ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   ifeq ($(filter $(WEAR_LEVELING_DRIVER),$(VALID_WEAR_LEVELING_DRIVER_TYPES)),)
@@ -266,7 +266,11 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling
     COMMON_VPATH += $(DRIVER_PATH)/wear_leveling
     COMMON_VPATH += $(QUANTUM_DIR)/wear_leveling
-    ifeq ($(strip $(WEAR_LEVELING_DRIVER)), stm32f4x1)
+    ifeq ($(strip $(WEAR_LEVELING_DRIVER)), efl)
+      OPT_DEFS += -DWEAR_LEVELING_DRIVER_EFL -DHAL_USE_EFL
+      SRC += wear_leveling.c wear_leveling_efl.c
+      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_efl_config.h
+    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), stm32f4x1)
       OPT_DEFS += -DWEAR_LEVELING_DRIVER_STM32F4X1
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
       SRC += wear_leveling.c flash_stm32.c wear_leveling_stm32f4x1.c

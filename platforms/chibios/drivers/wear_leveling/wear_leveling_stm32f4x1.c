@@ -39,7 +39,7 @@ bool backing_store_erase(void) {
 bool backing_store_write(uint32_t address, backing_store_int_t value) {
     uint32_t offset = ((EMULATED_EEPROM_BASE_PAGE_ADDRESS) + address);
     bs_dprintf("Write ");
-    wl_dump(address, &value, 2);
+    wl_dump(offset, &value, 2);
     return FLASH_ProgramHalfWord(offset, ~value) == FLASH_COMPLETE;
 }
 
@@ -50,10 +50,10 @@ bool backing_store_lock(void) {
 }
 
 bool backing_store_read(uint32_t address, backing_store_int_t* value) {
-    uint32_t offset = ((EMULATED_EEPROM_BASE_PAGE_ADDRESS) + address);
-    backing_store_int_t *loc = (backing_store_int_t*)offset;
-    *value = ~(*loc);
+    uint32_t             offset = ((EMULATED_EEPROM_BASE_PAGE_ADDRESS) + address);
+    backing_store_int_t* loc    = (backing_store_int_t*)offset;
+    *value                      = ~(*loc);
     bs_dprintf("Read  ");
-    wl_dump(address, loc, 2);
+    wl_dump(offset, loc, 2);
     return true;
 }

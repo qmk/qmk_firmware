@@ -33,12 +33,12 @@ typedef uint64_t backing_store_int_t;
 #    define wl_dprintf(...) dprintf("Wear leveling: " __VA_ARGS__)
 #    define wl_dump(address, value, length)             \
         do {                                            \
-            dprintf("[0x%04X]: ", (int)(address));       \
+            dprintf("[0x%04X]: ", (int)(address));      \
             const uint8_t* p = (const uint8_t*)(value); \
             for (int i = 0; i < (length); ++i) {        \
-                dprintf(" %02X", (int)p[i]);             \
+                dprintf(" %02X", (int)p[i]);            \
             }                                           \
-            dprintf("\n");                               \
+            dprintf("\n");                              \
         } while (0)
 #else
 #    define wl_dprintf(...) \
