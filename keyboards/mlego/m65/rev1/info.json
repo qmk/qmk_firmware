@@ -3,19 +3,6 @@
     "keyboard_name": "mlego/m65 rev1",
     "maintainer": "alin elena",
     "bootloader": "stm32duino",
-    "config_h_features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgblight": true,
-        "unicodemap": true
-    },
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
