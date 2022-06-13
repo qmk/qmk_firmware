@@ -44,6 +44,9 @@ typedef uint64_t backing_store_int_t;
 #    define wl_dprintf(...) \
         do {                \
         } while (0)
+#    define bs_dprintf(...) \
+        do {                \
+        } while (0)
 #    define wl_dump(...) \
         do {             \
         } while (0)

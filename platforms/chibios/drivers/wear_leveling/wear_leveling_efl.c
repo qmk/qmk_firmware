@@ -64,9 +64,9 @@ bool backing_store_erase(void) {
 bool backing_store_write(uint32_t address, backing_store_int_t value) {
     uint32_t offset = (base_offset + address);
     bs_dprintf("Write ");
-    wl_dump(offset, &value, 2);
+    wl_dump(offset, &value, sizeof(value));
     value = ~value;
-    return flashProgram(flash, offset, 2, (const uint8_t *)&value) == FLASH_NO_ERROR;
+    return flashProgram(flash, offset, sizeof(value), (const uint8_t *)&value) == FLASH_NO_ERROR;
 }
 
 bool backing_store_lock(void) {
@@ -80,6 +80,6 @@ bool backing_store_read(uint32_t address, backing_store_int_t *value) {
     backing_store_int_t *loc    = (backing_store_int_t *)offset;
     *value                      = ~(*loc);
     bs_dprintf("Read  ");
-    wl_dump(offset, loc, 2);
+    wl_dump(offset, loc, sizeof(value));
     return true;
 }
