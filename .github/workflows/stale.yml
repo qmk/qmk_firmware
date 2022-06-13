@@ -25,12 +25,7 @@ jobs:
           stale-issue-label: stale
           days-before-issue-stale: 90
           days-before-issue-close: 30
-
-          exempt-issue-labels:
-            - awaiting review
-            - breaking_change
-            - in progress
-            - on hold
+          exempt-issue-labels: awaiting review,breaking_change,in progress,on hold
 
           stale-issue-message: >
             This issue has been automatically marked as stale because it has not had activity in the
@@ -49,13 +44,7 @@ jobs:
           stale-pr-label: stale
           days-before-pr-stale: 45
           days-before-pr-close: 30
-
-          exempt-pr-labels:
-            - bug
-            - in progress
-            - on hold
-            - discussion
-            - to do
+          exempt-pr-labels: bug,in progress,on hold,discussion,to do
 
           stale-pr-message: >
             Thank you for your contribution!
