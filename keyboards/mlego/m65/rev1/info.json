@@ -55,7 +55,6 @@
     },
     "url": "https://gitlab.com/m-lego/m65",
     "usb": {
-        "device_ver": "0x0001",
         "device_version": "0.0.1",
         "pid": "0x6061",
         "vid": "0xBABA"
