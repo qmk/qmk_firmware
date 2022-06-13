@@ -16,7 +16,6 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": true,
-        "unicodemap": true
     },
     "indicators": {
         "caps_lock": "C13",
