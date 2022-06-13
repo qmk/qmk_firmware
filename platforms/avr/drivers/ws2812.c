@@ -20,10 +20,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ws2812.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "ws2812.h"
+#include "pin_defs.h"
 
 #define pinmask(pin) (_BV((pin)&0xF))
 

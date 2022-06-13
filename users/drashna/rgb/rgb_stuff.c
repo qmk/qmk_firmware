@@ -24,7 +24,6 @@ static bool     is_rgblight_startup;
 static HSV      old_hsv;
 static uint8_t  old_mode;
 deferred_token rgb_startup_token;
-#    endif
 
 uint32_t rgb_startup_animation(uint32_t triger_time, void *cb_arg) {
     if (is_rgblight_startup && is_keyboard_master()) {
@@ -45,6 +44,7 @@ uint32_t rgb_startup_animation(uint32_t triger_time, void *cb_arg) {
     }
     return is_rgblight_startup ? 10 : 0;
 }
+#    endif
 
 void keyboard_post_init_rgb_light(void) {
 #    if defined(RGBLIGHT_STARTUP_ANIMATION)
@@ -56,11 +56,11 @@ void keyboard_post_init_rgb_light(void) {
     old_mode = rgblight_get_mode();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     is_rgblight_startup = true;
+    rgb_startup_token = defer_exec(300, rgb_startup_animation, NULL);
 #    endif
     if (userspace_config.rgb_layer_change) {
         layer_state_set_rgb_light(layer_state);
     }
-    rgb_startup_token = defer_exec(300, rgb_startup_animation, NULL);
 
 }
 

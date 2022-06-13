@@ -28,11 +28,11 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
 * `layout_aliases`
     * A dictionary containing layout aliases. The key is the alias and the value is a layout in `layouts` it maps to.
 * `layouts`
-    * Physical Layout representations. See the [Layout Format](#layout_format) section for more detail.
+    * Physical Layout representations. See the [Layout Format](#layout-format) section for more detail.
 * `matrix_pins`
-    * Configure the pins corresponding to columns and rows, or direct pins. See the [Matrix Pins](#matrix_pins) section for more detail.
+    * Configure the pins corresponding to columns and rows, or direct pins. See the [Matrix Pins](#matrix-pins) section for more detail.
 * `rgblight`
-    * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb_lighting) section for more detail.
+    * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb-lighting) section for more detail.
 * `usb`
     * Configure USB VID, PID, and other parameters. See the [USB](#USB) section for more detail.
 
