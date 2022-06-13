@@ -3,19 +3,6 @@
     "keyboard_name": "mlego/m65 rev2",
     "maintainer": "alin elena",
     "bootloader": "stm32duino",
-    "config_h_features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": true,
-        "console": true,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgblight": true,
-        "unicodemap": true
-    },
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
@@ -41,30 +28,19 @@
         "cols": ["A10", "A15", "B3", "B4", "B5", "B9", "B8", "B7", "B6", "C15", "A0", "A7", "B10"],
         "rows": ["B11", "B0", "B1", "A2", "A3"]
     },
-    "matrix_size": {
-        "cols": 13,
-        "rows": 5
-    },
-    "mouse_key": {
-        "enabled": true
-    },
-    "parse_errors": [],
-    "parse_warnings": [],
     "platform": "STM32",
     "processor": "STM32F103",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "rgblight": {
         "animations": {
-            "alternating": false,
-            "breathing": false,
-            "christmas": false,
-            "knight": false,
-            "rainbow_mood": false,
-            "rainbow_swirl": false,
-            "rgb_test": false,
-            "snake": false,
-            "static_gradient": false,
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
             "twinkle": true
         },
         "hue_steps": 8,
@@ -80,15 +56,12 @@
     },
     "url": "https://gitlab.com/m-lego/m65",
     "usb": {
-        "device_ver": "0x0002",
         "device_version": "0.0.2",
         "pid": "0x6061",
         "vid": "0xBABA"
     },
     "layouts": {
         "LAYOUT_ortho_5x13": {
-            "c_macro": true,
-            "filename": "keyboards/mlego/m65/m65.h",
             "layout": [
                 { "label": "K000", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
                 { "label": "K001", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
