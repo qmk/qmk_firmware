@@ -1,4 +1,4 @@
-/* Copyright 2020 tominabox1
+/* Copyright 2022 tominabox1
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,25 @@
  */
 #pragma once
 
-#define IGNORE_MOD_TAP_INTERRUPT //helps with homerow mods
+#include "config_common.h"
 
-#define COMBO_COUNT 5
-#define COMBO_TERM 30
+/* USB Device descriptor parameter */
+#define DEVICE_VER 0x0003
+
+
+/* COL2ROW, ROW2COL*/
+#undef DIODE_DIRECTION
+#define DIODE_DIRECTION COL2ROW
+
+#define MATRIX_ROW_PINS { B3, D4, F1, C6 }
+#define MATRIX_COL_PINS { F4, F5, B0, B2, B1, B4, D7, C7, D2, F7 }
+#define UNUSED_PINS
+
+/* Define encoder pads */
+#define ENCODERS_PAD_A { D5 }
+#define ENCODERS_PAD_B { D3 }
+
+/*
+ * WS2812 Underglow Matrix options
+ */
+#define RGB_DI_PIN F0

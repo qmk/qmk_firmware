@@ -1,4 +1,4 @@
-/* Copyright 2020 tominabox1
+/* Copyright 2022 tominabox1
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,9 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
-
-#define IGNORE_MOD_TAP_INTERRUPT //helps with homerow mods
-
-#define COMBO_COUNT 5
-#define COMBO_TERM 30
+#include "he.h"
