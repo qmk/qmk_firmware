@@ -54,7 +54,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FORCE_NKRO
 
 #define GPIO_INPUT_PIN_DELAY (NUC123_HCLK / 6 / 1000000L)
-
-#define STM32_USB_USE_OTG1 TRUE // Make the endpoints reorderable. We should give this a different name.
-#define WEAR_LEVELING_BACKING_SIZE 4096
-#define WEAR_LEVELING_LOGICAL_SIZE 1024

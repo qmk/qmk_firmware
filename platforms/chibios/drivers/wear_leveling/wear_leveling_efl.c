@@ -6,18 +6,43 @@
 #include "wear_leveling.h"
 #include "wear_leveling_internal.h"
 
-static flash_offset_t base_offset  = UINT32_MAX;
-static uint8_t        first_sector = UINT8_MAX;
-static uint8_t        sector_count = UINT8_MAX;
+static flash_offset_t base_offset = UINT32_MAX;
+
+#if defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
+static flash_sector_t first_sector = WEAR_LEVELING_EFL_FIRST_SECTOR;
+#else  // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
+static flash_sector_t first_sector = UINT16_MAX;
+#endif // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
+
+static flash_sector_t sector_count = UINT16_MAX;
 static BaseFlash *    flash;
 
 bool backing_store_init(void) {
     bs_dprintf("Init\n");
     flash = (BaseFlash *)&EFLD1;
 
-    // Work out how many sectors we want to use, working backwards from the end of the flash
     const flash_descriptor_t *desc    = flashGetDescriptor(flash);
     uint32_t                  counter = 0;
+
+#if defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
+
+    // Work out how many sectors we want to use, working forwards from the first sector specified
+    for (flash_sector_t i = 0; i < desc->sectors_count - first_sector; ++i) {
+        counter += flashGetSectorSize(flash, first_sector + i);
+        if (counter >= (WEAR_LEVELING_BACKING_SIZE)) {
+            sector_count = i + 1;
+            base_offset  = flashGetSectorOffset(flash, first_sector);
+            break;
+        }
+    }
+    if (sector_count == UINT16_MAX) {
+        // We didn't get the required number of sectors. Can't do anything here. Fault.
+        chSysHalt("Invalid sector count intended to be used with wear_leveling");
+    }
+
+#else // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
+
+    // Work out how many sectors we want to use, working backwards from the end of the flash
     for (flash_sector_t i = 0; i < desc->sectors_count; ++i) {
         first_sector = desc->sectors_count - i - 1;
         counter += flashGetSectorSize(flash, first_sector);
@@ -27,6 +52,8 @@ bool backing_store_init(void) {
             break;
         }
     }
+
+#endif // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
 
     return true;
 }

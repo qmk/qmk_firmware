@@ -13,8 +13,11 @@
 #    if defined(GD32VF103)
 #        define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
 #    elif defined(NUC123SD4AN0)            //  defined(MCU_?????)
+#        ifndef NUC123_EFL_IMPLEMENTATION_TESTING
+#            error "This configuration currently results in a broken build."
+#        endif                             // NUC123_EFL_IMPLEMENTATION_TESTING
 #        define BACKING_STORE_WRITE_SIZE 4 // from hal_efl_lld.c
-#    elif defined(MCU_STM32) //  defined(MCU_?????)
+#    elif defined(MCU_STM32)               //  defined(MCU_?????)
 #        if defined(STM32_FLASH_LINE_SIZE)
 #            define BACKING_STORE_WRITE_SIZE (STM32_FLASH_LINE_SIZE)
 #        else // defined(STM32_FLASH_LINE_SIZE)
