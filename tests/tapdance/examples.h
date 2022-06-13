@@ -1,4 +1,4 @@
-/* Copyright 2020 Takeshi Nishio
+/* Copyright 2022 Jouke Witteveen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,18 @@
 
 #pragma once
 
-// double tap to toggle
-#define TAPPING_TOGGLE 2
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-// time for long press
-#define TAPPING_TERM 200
-#define TAPPING_TERM_PER_KEY
+enum {
+    TD_ESC_CAPS,
+    CT_EGG,
+    CT_FLSH,
+    CT_CLN,
+    X_CTL,
+};
+
+#ifdef __cplusplus
+}
+#endif
