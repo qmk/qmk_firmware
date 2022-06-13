@@ -1,8 +1,8 @@
 # RK13FA_TKL
 
-Keyboard Maintainer: RM Keyboards, [ryanstevensmith](https://github.com/ryanstevensmith)  
-Hardware Supported: RK13FA_TKL ver 1.1  
-Hardware Availability: contact RM Keyboards
+* Keyboard Maintainer: RM Keyboards, [ryanstevensmith](https://github.com/ryanstevensmith)  
+* Hardware Supported: RK13FA_TKL ver 1.1  
+* Hardware Availability: contact RM Keyboards
 
 Make example for this keyboard (after setting up your build environment):
      
