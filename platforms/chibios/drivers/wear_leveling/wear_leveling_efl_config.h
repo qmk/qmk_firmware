@@ -3,7 +3,7 @@
 #pragma once
 
 #ifndef __ASSEMBLER__
-#include <hal.h>
+#    include <hal.h>
 #endif
 
 // 2-byte writes
