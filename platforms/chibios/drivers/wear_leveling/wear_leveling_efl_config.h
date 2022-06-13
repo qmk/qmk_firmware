@@ -21,9 +21,7 @@
 #        if defined(STM32_FLASH_LINE_SIZE)
 #            define BACKING_STORE_WRITE_SIZE (STM32_FLASH_LINE_SIZE)
 #        else // defined(STM32_FLASH_LINE_SIZE)
-#            if defined(STM32F0XX)
-#                error "ChibiOS hasn't defined a specific STM32_FLASH_LINE_SIZE, but should've." // normally defined in stm32_registry.h, should be set by STM32_FLASH_LINE_SIZE
-#            elif defined(STM32F1XX)
+#            if defined(STM32F1XX)
 #                define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
 #            elif defined(STM32F3XX)
 #                define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
@@ -33,7 +31,7 @@
 #                define BACKING_STORE_WRITE_SIZE 8 // from hal_efl_lld.c
 #            elif defined(STM32G0XX)
 #                define BACKING_STORE_WRITE_SIZE 8 // from hal_efl_lld.c
-#            elif defined(STM32G4XX)
+#            else
 #                error "ChibiOS hasn't defined a specific STM32_FLASH_LINE_SIZE, but should've." // normally defined in stm32_registry.h, should be set by STM32_FLASH_LINE_SIZE
 #            endif // defined(STM32??XX)
 #        endif     // defined(STM32_FLASH_LINE_SIZE)
