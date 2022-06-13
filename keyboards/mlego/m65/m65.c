@@ -99,6 +99,7 @@ void toggle_leds(void){
 
 void my_encoders(const uint8_t index, const bool clockwise) {
     if (index == 0) { /* First encoder */
+#ifdef RGBLIGHT_ENABLE
         if (IS_LAYER_ON(_LWR)) {
             if (clockwise) {
                 rgblight_decrease_val_noeeprom();
@@ -113,12 +114,15 @@ void my_encoders(const uint8_t index, const bool clockwise) {
             }
 
         } else {
+#endif
             if (clockwise) {
                 tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
             } else {
                 tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
             }
+#ifdef RGBLIGHT_ENABLE
         }
+#endif
     }
 }
 
