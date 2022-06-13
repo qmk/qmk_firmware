@@ -3,7 +3,7 @@
     "url": "https://github.com/jpuerto96",
     "maintainer": "jpuerto96 (s8erdude)",
     "layouts": {
-        "LAYOUT_3x6": {
+        "LAYOUT_split_3x6_3": {
             "layout": [
                 {
                     "label": "Esc",
