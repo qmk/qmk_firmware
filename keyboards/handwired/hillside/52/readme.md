@@ -1,11 +1,11 @@
-# Hillside56
+# Hillside 52
 
-![hillside](https://imgur.com/XW0rX13.png)
+![hillside](https://imgur.com/erJPjvr.png)
 
-[Hillside56](https://github.com/mmccoyd/hillside)
+[Hillside 52](https://github.com/mmccoyd/hillside)
  is a split ergonomic keyboard
- with 3x6+5+5 choc-spaced keys with aggressive column stagger,
- a longer thumb arc, arrow inverted-T, and a breakoff outer-pinky column.
+ with 3x6+3+5 choc-spaced keys, aggressive column stagger,
+ a longer thumb arc, an inverted-T arrow cluster and a breakoff outer-pinky column.
 
 * Keyboard Maintainer: [Michael McCoyd](https://github.com/mmccoyd)
 * Hardware Supported: ProMicro/Elite-C and compatible
@@ -13,11 +13,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/hillside/56:default
+    make handwired/hillside/52:default
 
 Flashing example for this keyboard:
 
-    make handwired/hillside/56:default:flash
+    make handwired/hillside/52:default:flash
 
 ## Bootloader
 
