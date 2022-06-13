@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT(
-      RESET,  _______,  AG_NORM,  AG_SWAP,  DEBUG, KC_TRNS,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
+      QK_BOOT,  _______,  AG_NORM,  AG_SWAP,  DEBUG, KC_TRNS,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
     RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_NO,           KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
     RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  KC_NO,           KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_BSLS,
                                   KC_TRNS,KC_TRNS,           KC_TRNS,  KC_TRNS
@@ -185,13 +185,15 @@ void render_mod_status(uint8_t modifiers) {
     oled_write_ln_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_lechiffre_logo();
     oled_set_cursor(0,3);
     render_layer_status();	// Renders the current keyboard state (layer, lock, caps, scroll, etc)
 	render_mod_status(get_mods()|get_oneshot_mods());
 	render_keylock_status(host_keyboard_led_state());
 	render_keylogger_status();
+
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

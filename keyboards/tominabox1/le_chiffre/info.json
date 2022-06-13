@@ -2,8 +2,6 @@
   "keyboard_name": "le_chiffre",
   "url": "",
   "maintainer": "tominabox1",
-  "width": 11,
-  "height": 4,
   "layouts": {
       "LAYOUT": {
           "layout": [{"label":"Q", "x":0, "y":0}, {"label":"W", "x":1, "y":0}, {"label":"E", "x":2, "y":0}, {"label":"R", "x":3, "y":0}, {"label":"T", "x":4, "y":0}, {"label":"Rotary", "x":5, "y":0, "w":1}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}, {"label":"I", "x":8, "y":0}, {"label":"O", "x":9, "y":0}, {"label":"P", "x":10, "y":0},
