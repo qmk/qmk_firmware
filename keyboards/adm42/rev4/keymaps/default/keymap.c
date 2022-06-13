@@ -25,10 +25,6 @@ enum custom_layers {
     _SETUP,
 };
 
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define TAPPING_FORCE_HOLD_PER_KEY
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-
 #define LW_GRV LWIN_T(KC_GRV)
 #define RW_EQU RWIN_T(KC_EQUAL)
 #define RW_BS RWIN_T(KC_BSLS)

@@ -37,6 +37,3 @@
 #if defined(CONSOLE_ENABLE)
 	#define DEBUG_MATRIX_SCAN_RATE
 #endif
-
-// Memory saver
-#define NO_ACTION_ONE_SHOT
