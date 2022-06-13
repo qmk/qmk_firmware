@@ -8,7 +8,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make n60a:default
+    make n60_a:default
     
 ## Bootloader
 
