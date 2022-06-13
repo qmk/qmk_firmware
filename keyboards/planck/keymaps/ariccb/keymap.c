@@ -500,6 +500,8 @@ enum combo_events {
   MOUSETOGGLE,
   CAPSWORD,
   SLEEP,
+  RESETKEY,
+  DEBUGKEY,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
@@ -531,6 +533,8 @@ const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F24), MTENTER, COMBO_END};
 const uint16_t PROGMEM mousetoggle_combo[]      = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM sleep_combo[]            = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM reset_combo[]            = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
+const uint16_t PROGMEM debug_combo[]            = {KC_SCLN, KC_O, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
@@ -566,6 +570,8 @@ combo_t key_combos[] = {
   [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
   [MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
   [SLEEP] = COMBO_ACTION(sleep_combo),
+  [RESETKEY] = COMBO_ACTION(reset_combo),
+  [DEBUGKEY] = COMBO_ACTION(debug_combo),
   [CAPSWORD] = COMBO_ACTION(capsword_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
@@ -775,6 +781,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case SLEEP:
       if (pressed) {
         tap_code16(KC_SLEP);
+      }
+      break;
+    case RESETKEY:
+      if (pressed) {
+        tap_code16(RESET);
+      }
+      break;
+    case DEBUGKEY:
+      if (pressed) {
+        tap_code16(DEBUG);
       }
       break;
     case CAPSWORD:
