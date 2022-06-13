@@ -268,19 +268,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (ADJUST)
  *
  * ,------------------------------------------------------------------------------.
- * |Toggle| Ms3 | Ms2 |MsUp | Ms1  |  Hue+| Hue-  |AU_ON|AU_OFF|     |     |RESET |
+ * |Toggle| Ms3 | Ms2 |MsUp | Ms1  |      |       |     |     |      | Hue+|RGBTog|
  * |------------------------------------------------------------------------------|
- * |      | Menu| MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsMid|MsRhgt|     |RGBTog|
+ * |      | Menu| MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsMid|MsRhgt| Hue-|AU_ON |
  * |------------------------------------------------------------------------------|
- * |      |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |DEBUG |
+ * |      |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |AU_OFF|
  * |------------------------------------------------------------------------------|
  * |      |     |     |     |      |              |     |NumLk |     |     |      |
  * `------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,   AU_ON,   AU_OFF,  KC_TRNS, KC_TRNS, RESET,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
-  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN3, KC_BTN2, KC_TRNS, RGB_TOG,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DEBUG,
+  TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   KC_NO,     KC_NO,   KC_NO,   KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
+  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN3, KC_BTN2, RGB_HUD, AU_ON,
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
 )
 };
