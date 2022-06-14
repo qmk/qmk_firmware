@@ -1,4 +1,3 @@
-@@ -0,0 +1,74 @@
 /* Copyright 2021 QMK
  *
  * This program is free software: you can redistribute it and/or modify
