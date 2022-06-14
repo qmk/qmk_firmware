@@ -1,0 +1,32 @@
+{
+  "keyboard_name": "djmax",
+  "url": "",
+  "maintainer": "Leo Deng",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        { "label": "S", "x": 1, "y": 0 },
+        { "label": "D", "x": 2, "y": 0 },
+        { "label": "F", "x": 3, "y": 0 },
+        { "label": "J", "x": 7, "y": 0 },
+        { "label": "K", "x": 8, "y": 1 },
+        { "label": "L", "x": 9, "y": 1 },
+        { "label": "A", "x": 0, "y": 0.5 },
+        { "label": ";", "x": 10, "y": 0.5 },
+        { "label": "Z", "x": 1, "y": 1 },
+        { "label": "X", "x": 2, "y": 1 },
+        { "label": "C", "x": 3, "y": 1 },
+        { "label": "N", "x": 7, "y": 1 },
+        { "label": "M", "x": 8, "y": 1 },
+        { "label": ",", "x": 9, "y": 1 },
+        { "label": "Left", "x": 0, "y": 2 },
+        { "label": "Right", "x": 1, "y": 2 },
+        { "label": "LShift", "x": 3.5, "y": 2 },
+        { "label": "Space", "x": 4.5, "y": 2, "w": 2 },
+        { "label": "RShift", "x": 6.5, "y": 2 },
+        { "label": "Up", "x": 9, "y": 2 },
+        { "label": "Down", "x": 10, "y": 2 }
+      ]
+    }
+  }
+}
