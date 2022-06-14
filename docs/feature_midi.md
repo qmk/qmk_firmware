@@ -10,6 +10,10 @@ MIDI_ENABLE = yes
 
 There are two MIDI systems in QMK: basic and advanced. With basic MIDI you will only be able to send Note On and Note Off messages using the note keycodes, meaning that keycodes like `MI_OCTU` and `MI_OCTD` will not work. Advanced MIDI allows you to do things like octave shifts, channel changes, velocity changes, modulation, and more.
 
+### Caveats
+
+MIDI requires 2 USB endpoints and as such may not work on some hardware such as V-USB controllers.
+
 ### Basic MIDI
 
 To enable basic MIDI, add the following to your `config.h`:
