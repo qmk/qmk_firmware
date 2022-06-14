@@ -1,6 +1,6 @@
 # ADM42
 
-![ADM42](https://i.imgur.com/pviCQSQ.jpeg)
+![ADM42](https://i.imgur.com/pviCQSQh.jpeg)
 
 A compact ergonomic 40% ortholinear keyboard. [More info on ADM42.dev](https://adm42.dev)
 
@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make adm42:default:dfu
+    make adm42:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
