@@ -662,7 +662,7 @@ void quote_capsword_finished(qk_tap_dance_state_t *state, void *user_data) {
       register_code(KC_QUOTE);
       break;
     case TD_DOUBLE_TAP:
-      // caps_word_on();
+      caps_word_on();
       break;
     default: break;
   }
