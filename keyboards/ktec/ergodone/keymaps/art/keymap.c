@@ -3,7 +3,6 @@
 
 #include "art.h"
 #include "sendstring_workman_zxcvm.h"
-#include "user_config.c"
 
 enum custom_keycodes {
   keyboardSpecificKeyCode = NEW_SAFE_RANGE //not used
@@ -118,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[WORKMAN] = LAYOUT_ergodox(  
+[WORKMAN] = LAYOUT_ergodox(
   // -----------------------------------------------------left hand-----------------------------------------------------
   _______,          _______,      _______,    _______,    _______,           _______,   _______,
   _______,          KC_Q,         KC_D,       KC_R,       KC_W,              KC_B,      _______,
@@ -171,11 +170,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,          KC_ESC,           KC_HOME,          KC_UP,            KC_END,           KC_PGUP,          _______,
   _______,          XXXXXXX,          KC_LEFT,          KC_DOWN,          KC_RIGHT,         KC_PGDOWN,
   _______,          LCTL(KC_Z),       LCTL(KC_X),       LCTL(KC_C),       LCTL(KC_V),       XXXXXXX,          _______,
-  _______,          _______,          _______,          _______,          _______,        
+  _______,          _______,          _______,          _______,          _______,
 
                                             _______,   _______,
                                                        _______,
-                                  KC_DEL,   _______,   _______,                               
+                                  KC_DEL,   _______,   _______,
   // -----------------------------------------------------right hand-----------------------------------------------------
   _______,          _______,          _______,          _______,          _______,          _______,          _______,
   _______,          XXXXXXX,          KC_MS_BTN1,       KC_MS_BTN3,       KC_MS_BTN2,       _______,          _______,
@@ -236,7 +235,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CTR_ALT,       _______,    _______
 ),
 
-[COMBOS] = LAYOUT_ergodox(  
+[COMBOS] = LAYOUT_ergodox(
   // -----------------------------------------------------left hand-----------------------------------------------------
   TILD_BLOCK,       _______,          QUOTES_RU,        K_CUST1,          K_CUST2,          K_CUST3,          _______,
   _______,          _______,          _______,          NEUTRAL_COPY,     _______,          BEAT_BROWSER,     _______,
@@ -260,7 +259,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,     _______,    _______
 ),
 
-// [STRINGS] = LAYOUT_ergodox(  
+// [STRINGS] = LAYOUT_ergodox(
 //   // -----------------------------------------------------left hand-----------------------------------------------------
 //   _______,          _______,          _______,          _______,          _______,          _______,          _______,
 //   _______,          _______,          _______,          _______,          _______,          _______,          _______,
@@ -284,7 +283,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     _______,     _______,    _______
 // ),
 
-[MEDIA] = LAYOUT_ergodox(  
+[MEDIA] = LAYOUT_ergodox(
   // -----------------------------------------------------left hand-----------------------------------------------------
   _______,          _______,          _______,          _______,          _______,          _______,          _______,
   XXXXXXX,          KC_MPRV,          KC_VOLU,          KC_MNXT,          _______,          _______,          _______,
@@ -308,7 +307,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,     _______,    _______
 ),
 
-[GIT] = LAYOUT_ergodox(  
+[GIT] = LAYOUT_ergodox(
   // -----------------------------------------------------left hand-----------------------------------------------------
   _______,          _______,          _______,          _______,          _______,          _______,          _______,
   _______,          _______,          G_DIFF,           G_R,              _______,          G_BRCH,          _______,
@@ -332,7 +331,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,     _______,    _______
 ),
 
-[GIT_C] = LAYOUT_ergodox(  
+[GIT_C] = LAYOUT_ergodox(
   // -----------------------------------------------------left hand-----------------------------------------------------
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
@@ -356,7 +355,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,     XXXXXXX,    XXXXXXX
 ),
 
-[GIT_R] = LAYOUT_ergodox(  
+[GIT_R] = LAYOUT_ergodox(
   // -----------------------------------------------------left hand-----------------------------------------------------
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          G_RBASE,          XXXXXXX,
@@ -380,7 +379,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,     XXXXXXX,    XXXXXXX
 ),
 
-[GIT_S] = LAYOUT_ergodox(  
+[GIT_S] = LAYOUT_ergodox(
   // -----------------------------------------------------left hand-----------------------------------------------------
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
@@ -420,7 +419,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                         `----------------------------------'
  */
 
-// [] = LAYOUT_ergodox(  
+// [] = LAYOUT_ergodox(
 //   // -----------------------------------------------------left hand-----------------------------------------------------
 //   _______,          _______,          _______,          _______,          _______,          _______,          _______,
 //   _______,          _______,          _______,          _______,          _______,          _______,          _______,
