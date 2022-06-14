@@ -2,11 +2,8 @@
     "keyboard_name": "Elemental 75",
     "url": "",
     "maintainer": "shamit05",
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
-    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
               {"label":"K00 (A2,B2)", "x":0, "y":0},
               {"label":"K01 (A2,B1)", "x":1.25, "y":0},

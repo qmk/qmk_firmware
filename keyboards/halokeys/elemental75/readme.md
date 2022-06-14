@@ -2,9 +2,9 @@
 
 A compact 75% keyboard made and sold by Halokeys.
 
-Keyboard Maintainer: [Shamit Surana](https://github.com/shamit05)  
-Hardware Supported: Elemental75
-Hardware Availability: Not Available Yet
+* Keyboard Maintainer: [Shamit Surana](https://github.com/shamit05)  
+* Hardware Supported: Elemental75
+* Hardware Availability: Not Available Yet
 
 ## Bootloader
 
