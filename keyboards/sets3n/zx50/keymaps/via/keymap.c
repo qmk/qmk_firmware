@@ -314,7 +314,8 @@ void oled_task_user(void) {
     }
     oled_write_P(PSTR("]\n"), false);
     // Write Word Per Minute (WPM) Calculcation
-    sprintf(wpm_str, "WPM: %03d ", get_current_wpm());
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
     oled_write(wpm_str, false);
     uint8_t mods = get_mods() | get_weak_mods();
     oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("    "), false);
