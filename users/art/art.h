@@ -19,9 +19,9 @@ enum layer_names {
   QWERTY,
   BASE,
 #endif
-  
+
   WORKMAN,
-#if defined(KEYBOARD_wheatfield_split75)
+#if defined(KEYBOARD_mt_split75)
   CONFIG,
   LAYOUT_CHG,
   QWERTY_MOD,
@@ -70,7 +70,7 @@ enum custom_keycodes_art {
   ADMINS,
   PRESCRIPTION,
   FOURS,
-  
+
   G_ADD,
   G_BRCH,
   G_C,
