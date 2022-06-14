@@ -471,6 +471,7 @@ enum combo_events {
   EM_EMAIL,
   EM_WORK_EMAIL,
   EM_MAX_WORK_EMAIL,
+  EM_HMETRICA_WORK_EMAIL,
   HTML_P,
   HTML_TITLE,
   HTML_DIV,
@@ -508,36 +509,37 @@ enum combo_events {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
 
-const uint16_t PROGMEM email_combo[]            = {KC_E, KC_M, COMBO_END};
-const uint16_t PROGMEM email_work_combo[]       = {KC_E, KC_K, COMBO_END};
-const uint16_t PROGMEM email_max_work_combo[]   = {KC_E, KC_J, COMBO_END};
-const uint16_t PROGMEM html_p_combo[]           = {KC_P, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_title_combo[]       = {KC_T, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_div_combo[]         = {KC_D, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_html_combo[]        = {KC_Q, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_head_combo[]        = {KC_W, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_body_combo[]        = {KC_R, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_footer_combo[]      = {KC_X, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_a_href_combo[]      = {KC_A, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_img_combo[]         = {KC_F, KC_DOT, COMBO_END};
-const uint16_t PROGMEM css_style_combo[]        = {KC_S, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_generic_tag_combo[] = {KC_G, KC_DOT, COMBO_END};
-const uint16_t PROGMEM undo_combo[]             = {KC_W, KC_F, COMBO_END};
-const uint16_t PROGMEM redo_combo[]             = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM cut_combo[]              = {MTLGUI_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM copy_combo[]             = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM paste_combo[]            = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM pasteclip_combo[]        = {KC_X, KC_D, COMBO_END};
-const uint16_t PROGMEM pastetxt_combo[]         = {KC_X, KC_V, COMBO_END};
-const uint16_t PROGMEM selectall_combo[]        = {MTLGUI_Z, KC_D, COMBO_END};
-const uint16_t PROGMEM questionmark_combo[]     = {KC_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
-const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F24), MTENTER, COMBO_END};
-const uint16_t PROGMEM mousetoggle_combo[]      = {KC_U, KC_Y, COMBO_END};
-const uint16_t PROGMEM sleep_combo[]            = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM reset_combo[]            = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
-const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_END};
+const uint16_t PROGMEM email_combo[]                = {KC_E, KC_M, COMBO_END};
+const uint16_t PROGMEM email_work_combo[]           = {KC_E, KC_K, COMBO_END};
+const uint16_t PROGMEM email_max_work_combo[]       = {KC_E, KC_J, COMBO_END};
+const uint16_t PROGMEM email_hmetrica_work_combo[]  = {KC_E, KC_L, COMBO_END};
+const uint16_t PROGMEM html_p_combo[]               = {KC_P, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_title_combo[]           = {KC_T, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_div_combo[]             = {KC_D, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_html_combo[]            = {KC_Q, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_head_combo[]            = {KC_W, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_body_combo[]            = {KC_R, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_footer_combo[]          = {KC_X, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_a_href_combo[]          = {KC_A, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_img_combo[]             = {KC_F, KC_DOT, COMBO_END};
+const uint16_t PROGMEM css_style_combo[]            = {KC_S, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_generic_tag_combo[]     = {KC_G, KC_DOT, COMBO_END};
+const uint16_t PROGMEM undo_combo[]                 = {KC_W, KC_F, COMBO_END};
+const uint16_t PROGMEM redo_combo[]                 = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM cut_combo[]                  = {MTLGUI_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM copy_combo[]                 = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM paste_combo[]                = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM pasteclip_combo[]            = {KC_X, KC_D, COMBO_END};
+const uint16_t PROGMEM pastetxt_combo[]             = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM selectall_combo[]            = {MTLGUI_Z, KC_D, COMBO_END};
+const uint16_t PROGMEM questionmark_combo[]         = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM underscore_combo[]           = {KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM twodquote_combo[]            = {KC_H, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTENTER, COMBO_END};
+const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM sleep_combo[]                = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
+const uint16_t PROGMEM capsword_combo[]             = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
 
@@ -548,6 +550,7 @@ combo_t key_combos[] = {
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [EM_WORK_EMAIL] = COMBO_ACTION(email_work_combo),
   [EM_MAX_WORK_EMAIL] = COMBO_ACTION(email_max_work_combo),
+  [EM_HMETRICA_WORK_EMAIL] = COMBO_ACTION(email_hmetrica_work_combo),
   [HTML_P] = COMBO_ACTION(html_p_combo),
   [HTML_TITLE] = COMBO_ACTION(html_title_combo),
   [HTML_DIV] = COMBO_ACTION(html_div_combo),
@@ -596,6 +599,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case EM_MAX_WORK_EMAIL:
       if (pressed) {
         SEND_STRING("aric@maxtechnologies.ca");
+      }
+      break;
+    case EM_HMETRICA_WORK_EMAIL:
+      if (pressed) {
+        SEND_STRING("aric.bouwers@healthmetrica.com");
       }
       break;
     case HTML_DIV:
