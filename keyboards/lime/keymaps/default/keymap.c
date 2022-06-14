@@ -17,7 +17,6 @@
 #include QMK_KEYBOARD_H
 
 #ifdef JOYSTICK_ENABLE
-#   include "joystick.h"
 #   include "analog.h"
 #endif
 
@@ -143,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | RESET|      |      |      |      |      |                    |      |      |      |      |      |      |
+ * | QK_BOOT|      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |QWERTY|      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -156,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *      `----------------------------------------'            '------''----------------------------------'
  */
   [_ADJUST] = LAYOUT(
-  RESET,   XXXXXXX,    XXXXXXX,   XXXXXXX,          XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  QK_BOOT,   XXXXXXX,    XXXXXXX,   XXXXXXX,          XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, KC_QWERTY,  XXXXXXX,   XXXXXXX,          CG_TOGG, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,    XXXXXXX,   KC_JOYSTICK_DEBUG,XXXXXXX, XXXXXXX,                       XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,    XXXXXXX,   KC_COLEMAK,       XXXXXXX, XXXXXXX, XXXXXXX,     _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
@@ -463,7 +462,7 @@ bool showedJump = true;
         return OLED_ROTATION_270;
     }
 
-    void oled_task_user(void) {
+    bool oled_task_user(void) {
 
         /* Keyboard Pet Variables */
         current_wpm = get_current_wpm();
@@ -474,6 +473,7 @@ bool showedJump = true;
         } else {
             print_logo_narrow();
         }
+        return false;
     }
 
 #endif

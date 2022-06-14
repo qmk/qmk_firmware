@@ -18,15 +18,13 @@
 #include "raw_hid.h"
 #include <string.h>
 
-const uint8_t shift = MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT);
-
 // Tap Dance functions
 void dance_key_a (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         SEND_STRING("a");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("á");
         } else {
             send_unicode_string("Á");
@@ -41,7 +39,7 @@ void dance_key_e (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("e");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("é");
         } else {
             send_unicode_string("É");
@@ -56,7 +54,7 @@ void dance_key_i (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("i");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("í");
         } else {
             send_unicode_string("Í");
@@ -71,7 +69,7 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("o");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ó");
         } else {
             send_unicode_string("Ó");
@@ -79,7 +77,7 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 3) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ö");
         } else {
             send_unicode_string("Ö");
@@ -87,7 +85,7 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 4) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ő");
         } else {
             send_unicode_string("Ő");
@@ -102,7 +100,7 @@ void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("u");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ú");
         } else {
             send_unicode_string("Ú");
@@ -110,7 +108,7 @@ void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 3) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ü");
         } else {
             send_unicode_string("Ü");
@@ -118,7 +116,7 @@ void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 4) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ű");
         } else {
             send_unicode_string("Ű");
@@ -163,23 +161,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_HUNGARIAN);
             }
             return false;
-            break;
-        case BACKLIT:
-            if (record->event.pressed) {
-                register_code(keycode_config(KC_LGUI));
-#ifdef BACKLIGHT_ENABLE
-                backlight_step();
-#endif
-            } else {
-                unregister_code(keycode_config(KC_LGUI));
-            }
-            return false;
-            break;
-        case CG_NORM:
-            set_unicode_input_mode(UC_MAC);
-            break;
-        case CG_SWAP:
-            set_unicode_input_mode(UC_LNX);
             break;
     }
     return true;
@@ -245,10 +226,9 @@ static void render_info(void) {
     }
 
     // Print string received via HID RAW
-    oled_write_ln(receive_buffer, false);
-}
+    oled_write_ln(receive_buffer, false);}
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 1000)) {
         render_logo();
@@ -259,6 +239,8 @@ void oled_task_user(void) {
         }
         render_info();
     }
+    return false;
+
 }
 
 #ifdef RAW_ENABLE
@@ -286,3 +268,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
 
 #endif
+
+void keyboard_pre_init_user(void) {
+    // Set C13 pin as output
+    setPinOutput(C13);
+
+    // Turn off the LED
+    writePinHigh(C13);
+}

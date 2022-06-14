@@ -25,9 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    zigotica
 #define PRODUCT         z12
 
-#define ENCODERS_PAD_A { B4, B2 }
-#define ENCODERS_PAD_B { B5, B6 }
-#define ENCODER_DIRECTION_FLIP
+#define ENCODERS_PAD_A { B5, B6 }
+#define ENCODERS_PAD_B { B4, B2 }
 
 /* key matrix size */
 #define MATRIX_ROWS 4

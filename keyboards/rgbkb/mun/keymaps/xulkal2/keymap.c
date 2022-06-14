@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______, _______,    _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______,
         _______, _______, _______, _______, _______, EEP_RST, _______,    _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, _______,
         _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, KC_KP_0, KC_PDOT, KC_PENT, _______,
-        
+
         _______, _______, _______, _______,                                                          _______, _______, _______, _______,
         _______, _______, _______, _______, _______,                                        _______, _______, _______, _______, _______
     )
@@ -189,8 +189,8 @@ static void render_leds(void)
 static void render_touch(void)
 {
     // Host Touch LED Status
-    oled_write_P(!touch_encoder_toggled() ? PSTR("TOUCH")  : PSTR("     "), false);
-    oled_write_P(touch_encoder_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
+    oled_write_P(touch_encoder_is_on() ? PSTR("TOUCH")  : PSTR("     "), false);
+    oled_write_P(touch_encoder_is_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
 }
 #else
 static uint32_t scan_counter = 0;
@@ -223,7 +223,7 @@ void render_debug_scan(void) {
 }
 #endif
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 #if !defined(MATRIX_SCAN_DEBUG)
     if (is_keyboard_left()) {
         render_layer();
@@ -241,6 +241,7 @@ void oled_task_user(void) {
 #endif
     oled_set_cursor(0, 12);
     render_icon();
+    return false;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

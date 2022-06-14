@@ -149,7 +149,7 @@
             "RCTL_T(KC_RBRC)"
         ],
         [
-            "RESET",
+            "QK_BOOT",
             "KC_PWR",
             "KC_TRNS",
             "KC_TRNS",
@@ -160,7 +160,7 @@
             "KC_TRNS",
             "KC_TRNS",
             "KC_PWR",
-            "RESET",
+            "QK_BOOT",
 
             "KC_TRNS",
             "KC_TRNS",
@@ -385,7 +385,7 @@
             "KC_NO",
             "KC_NO",
             "KC_NO",
-            "RESET",
+            "QK_BOOT",
             "KC_PWR",
 
             "KC_TRNS",
