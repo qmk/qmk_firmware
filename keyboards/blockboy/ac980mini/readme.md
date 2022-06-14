@@ -4,7 +4,7 @@
 ![AC980mini kle](https://imgur.com/prgMVo2h.jpg)
 
 
-*An F-Row-Less 1800 project with fixed layout and lots of RGB.*
+An F-Row-Less 1800 project with fixed layout and lots of RGB.
 
 * Keyboard Maintainer: [rooski15](https://github.com/rooski15)
 * Hardware Supported: AC980mini
