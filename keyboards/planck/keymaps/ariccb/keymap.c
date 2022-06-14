@@ -270,20 +270,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (ADJUST)
  *
  * ,------------------------------------------------------------------------------.
- * |Toggle| Ms3 | Ms2 |MsUp | Ms1  |      |       |     |     |      | Hue+|RGBTog|
+ * |Toggle| Ms3 | Ms2 |MsUp | Ms1  |      |       |     |NumLk|      | Hue+|RGBTog|
  * |------------------------------------------------------------------------------|
  * |      | Menu| MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsMid|MsRhgt| Hue-|AU_ON |
  * |------------------------------------------------------------------------------|
  * |Debug |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |AU_OFF|
  * |------------------------------------------------------------------------------|
- * |      |     |     |     |      |              |     |NumLk |     |     |      |
+ * |      |     |     |     |      |              |     |      |     |     |      |
  * `------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   KC_NO,     KC_NO,   KC_NO,   KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
+  TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   KC_NO,     KC_NO,   KC_NUM,  KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN3, KC_BTN2, RGB_HUD, AU_ON,
   DEBUG,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
-  KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
+  KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS, KC_NO,   KC_NO
 )
 };
 
@@ -470,6 +470,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 enum combo_events {
   EM_EMAIL,
   EM_WORK_EMAIL,
+  EM_MAX_WORK_EMAIL,
   HTML_P,
   HTML_TITLE,
   HTML_DIV,
@@ -509,6 +510,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this
 
 const uint16_t PROGMEM email_combo[]            = {KC_E, KC_M, COMBO_END};
 const uint16_t PROGMEM email_work_combo[]       = {KC_E, KC_K, COMBO_END};
+const uint16_t PROGMEM email_max_work_combo[]   = {KC_E, KC_J, COMBO_END};
 const uint16_t PROGMEM html_p_combo[]           = {KC_P, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_title_combo[]       = {KC_T, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_div_combo[]         = {KC_D, KC_DOT, COMBO_END};
@@ -545,6 +547,7 @@ const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_EN
 combo_t key_combos[] = {
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [EM_WORK_EMAIL] = COMBO_ACTION(email_work_combo),
+  [EM_MAX_WORK_EMAIL] = COMBO_ACTION(email_max_work_combo),
   [HTML_P] = COMBO_ACTION(html_p_combo),
   [HTML_TITLE] = COMBO_ACTION(html_title_combo),
   [HTML_DIV] = COMBO_ACTION(html_div_combo),
@@ -588,6 +591,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case EM_WORK_EMAIL:
       if (pressed) {
         SEND_STRING("acbouwers@freedomsadvocate.ca");
+      }
+      break;
+    case EM_MAX_WORK_EMAIL:
+      if (pressed) {
+        SEND_STRING("aric@maxtechnologies.ca");
       }
       break;
     case HTML_DIV:
