@@ -147,7 +147,6 @@
 /* Title:            Hymn Risen
  * Author/Composer:  Terrance Andrew Davis
  * License:          Public Domain
- * Note:	     sounds best at around 170bpm
  */
 #define TOS_HYMN_RISEN H__NOTE(_D5), H__NOTE(_E5), HD_NOTE(_F5), HD_NOTE(_F5), H__NOTE(_F5), HD_NOTE(_D5), E__NOTE(_E5), E__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_D5), Q__NOTE(_D5), H__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_G5), Q__NOTE(_F5), H__NOTE(_D5), H__NOTE(_E5),  HD_NOTE(_F5), HD_NOTE(_F5), H__NOTE(_F5), HD_NOTE(_D5), E__NOTE(_E5), E__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_D5), Q__NOTE(_D5), H__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_G5), Q__NOTE(_F5), H__NOTE(_D5), H__NOTE(_C5), W__NOTE(_D5), W__NOTE(_E5), Q__NOTE(_A4), H__NOTE(_A4), Q__NOTE(_E5), Q__NOTE(_E5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_D5), Q__NOTE(_G5), Q__NOTE(_B4), Q__NOTE(_D5), Q__NOTE(_C5), M__NOTE(_F5, 80), H__NOTE(_D5), H__NOTE(_C5), W__NOTE(_D5), W__NOTE(_E5), Q__NOTE(_A4), H__NOTE(_A4), Q__NOTE(_E5), Q__NOTE(_E5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_D5), Q__NOTE(_G5), Q__NOTE(_B4), Q__NOTE(_D5), Q__NOTE(_C5), M__NOTE(_F5, 80),
 
