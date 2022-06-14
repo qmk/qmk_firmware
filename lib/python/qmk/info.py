@@ -1,5 +1,6 @@
 """Functions that help us generate and use info.json files.
 """
+from cgi import print_environ_usage
 from glob import glob
 from pathlib import Path
 
@@ -18,6 +19,10 @@ from qmk.math import compute
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
+
+info_config_map = json_load(Path('data/mappings/info_config.json'))
+info_rules_map = json_load(Path('data/mappings/info_rules.json'))
+info_map = {**info_config_map, **info_rules_map}
 
 
 def _valid_community_layout(layout):
@@ -516,8 +521,6 @@ def _extract_config_h(info_data, config_c):
     """
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_config_map = json_load(Path('data/mappings/info_config.json'))
-
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
         key_type = info_dict.get('value_type', 'raw')
@@ -582,7 +585,6 @@ def _extract_rules_mk(info_data, rules):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_rules_map = json_load(Path('data/mappings/info_rules.json'))
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']
@@ -802,6 +804,17 @@ def unknown_processor_rules(info_data, rules):
     return info_data
 
 
+def _validate_data_errors(info_data, new_info_data):
+    new_dotty = dotty(new_info_data)
+    for v in info_map.values():
+        config_key = v["info_key"]
+        if new_dotty.get(config_key, None):
+            if 'invalid' in v:
+                _log_error(info_data, '%s in info.json is no longer a valid option' % config_key)
+            elif 'deprecated' in v:
+                _log_warning(info_data, '%s in info.json is deprecated and will be removed at a later date' % config_key)
+
+
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
@@ -820,6 +833,8 @@ def merge_info_jsons(keyboard, info_data):
             cli.log.error('Not including data from file: %s', info_file)
             cli.log.error('\t%s: %s', json_path, e.message)
             continue
+
+        _validate_data_errors(info_file, new_info_data)
 
         # Merge layout data in
         if 'layout_aliases' in new_info_data:
@@ -889,7 +904,7 @@ def keymap_json_config(keyboard, keymap):
 
 
 def keymap_json(keyboard, keymap):
-    """Generate the info.json data for a specific keymap.
+    """Generate the keymap.json for a given keymap
     """
     keymap_folder = locate_keymap(keyboard, keymap).parent
 
@@ -898,15 +913,37 @@ def keymap_json(keyboard, keymap):
     keymap_rules = keymap_folder / 'rules.mk'
     keymap_file = keymap_folder / 'keymap.json'
 
+    km_json = {
+        'parse_errors': [],
+        'parse_warnings': [],
+        'config': {},
+    }
+
+    # Merge in the data from keymap.json
+    km_info_json = parse_configurator_json(keymap_file) if keymap_file.exists() else {}
+    deep_update(km_json, km_info_json)
+
+    _validate_data_errors(km_json, km_info_json.get('config', {}))
+
+    # Merge in the data from config.h, and rules.mk
+    _extract_rules_mk(km_json['config'], parse_rules_mk_file(keymap_rules))
+    _extract_config_h(km_json['config'], parse_config_h_file(keymap_config))
+
+    return km_json
+
+
+def keymap_info_json(keyboard, keymap):
+    """Generate the info.json data representing any keymap overrides.
+    """
     # Build the info.json file
     kb_info_json = info_json(keyboard)
 
     # Merge in the data from keymap.json
-    km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
-    deep_update(kb_info_json, km_info_json)
+    km_json = keymap_json(keyboard, keymap)
+    deep_update(kb_info_json, km_json)
 
-    # Merge in the data from config.h, and rules.mk
-    _extract_rules_mk(kb_info_json, parse_rules_mk_file(keymap_rules))
-    _extract_config_h(kb_info_json, parse_config_h_file(keymap_config))
+    # Merge in any info.json data stored in keymap.json
+    config = km_json.pop('config', {})
+    deep_update(kb_info_json, config)
 
     return kb_info_json

@@ -34,5 +34,5 @@
     # Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true},
     "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true},
-    "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true},
+    "VIAL_ENABLE": {"info_key": "features.vial", "value_type": "bool", "invalid": true},
 }
