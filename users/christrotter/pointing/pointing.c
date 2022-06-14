@@ -3,6 +3,7 @@
 
 #include "pointing.h"
 #include "print.h"
+#include "christrotter.h"
 
 static uint16_t mouse_timer           = 0;
 static uint16_t mouse_debounce_timer  = 0;
@@ -18,7 +19,6 @@ bool            tap_toggling = false, enable_acceleration = false;
 #    endif
 #    define TAP_CHECK TAPPING_TERM
 #endif
-
 
 // this is grabbing mouse movement state?
 __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {

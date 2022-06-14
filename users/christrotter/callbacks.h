@@ -6,12 +6,7 @@
 #include "quantum.h"
 
 void          matrix_init_keymap(void);
-void          matrix_init_secret(void);
-void          shutdown_keymap(void);
-void          suspend_power_down_keymap(void);
-void          suspend_wakeup_init_keymap(void);
 void          matrix_scan_keymap(void);
-void          matrix_scan_secret(void);
 layer_state_t layer_state_set_keymap(layer_state_t state);
 layer_state_t default_layer_state_set_keymap(layer_state_t state);
 void          led_set_keymap(uint8_t usb_led);
@@ -23,6 +18,10 @@ void matrix_init_unicode(void);
 #ifdef SPLIT_KEYBOARD
 void matrix_slave_scan_keymap(void);
 #endif
-// #ifdef CAPS_WORD_ENABLE
-// #    include "keyrecords/caps_word.h"
-// #endif
+
+enum userspace_layers {
+    _QWERTY             = 0,
+    FIRST_DEFAULT_LAYER = 0,
+    _SYMBOLS,
+    _MOUSE,
+};

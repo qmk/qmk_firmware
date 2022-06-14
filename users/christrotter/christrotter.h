@@ -28,12 +28,7 @@
 
 //Define layer names 
 // the layers are broken after moving them here...why?
-enum userspace_layers {
-    _QWERTY             = 0,
-    FIRST_DEFAULT_LAYER = 0,
-    _SYMBOLS,
-    _MOUSE,
-};
+
 
 #define _MACROS _MOUSE
 #define _DEFAULT_LAYER_1 FIRST_DEFAULT_LAYER
@@ -67,7 +62,7 @@ bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 bool hasAllBitsInMask(uint8_t value, uint8_t mask);
 void tap_code16_nomods(uint16_t kc);
-void software_reset(void);
+// void software_reset(void);
 
 // clang-format off
 typedef union {

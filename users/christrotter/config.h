@@ -24,27 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 //#define USE_I2C
 
-/* Select hand configuration */
-//#define MASTER_LEFT
-#define MASTER_RIGHT
-#define SPLIT_USB_DETECT
-
-//#define EE_HANDS
-
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
 
 #if defined(SPLIT_KEYBOARD)
+// docs say use this if you are using RGB_MATRIX_SPLIT { X, Y }
 #    define SPLIT_TRANSPORT_MIRROR
+// docs say use this if you are using split and rgb lighting per layer
 #    define SPLIT_LAYER_STATE_ENABLE
+// this caused the kb to stop working entirely, LEDs and keys
+// SPLIT_LED_STATE_ENABLE is for led indicators, which we don't have
 // #    define SPLIT_LED_STATE_ENABLE
-// #    define SPLIT_MODS_ENABLE
-// #    ifdef WPM_ENABLE
-// #        define SPLIT_WPM_ENABLE
-// #    endif
-// #    ifdef OLED_ENABLE
-// #        define SPLIT_OLED_ENABLE
-// #    endif
+// this did not crash anything, but also did not help the "rgb missing from right side" issue
+#    define SPLIT_MODS_ENABLE
+
 #    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
 #        define SELECT_SOFT_SERIAL_SPEED 1
 #    endif
@@ -53,15 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif
 
-// #ifdef RGBLIGHT_ENABLE
-// #    define RGBLIGHT_SLEEP
-// #    define RGBLIGHT_EFFECT_TWINKLE_LIFE        250
-// #    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 24
-// #endif  // RGBLIGHT_ENABLE
-
 #ifdef RGB_MATRIX_ENABLE
 #    undef RGB_MATRIX_KEYPRESSES  // reacts to keypresses (will slow down matrix scan by a lot)
-// #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
+#    undef RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #    undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 // #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
@@ -153,10 +140,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 // #define NO_PRINT
 // #endif // !NO_PRINT
-
-# ifdef RGB_MATRIX_ENABLE
-    //#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
-    #define RGB_MATRIX_STARTUP_HUE 0
-    #define RGB_MATRIX_STARTUP_SAT 0
-    #define RGB_MATRIX_STARTUP_VAL 0
-# endif
