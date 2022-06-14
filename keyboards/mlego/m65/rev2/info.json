@@ -15,8 +15,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true,
-        "unicodemap": true
+        "rgblight": true
     },
     "indicators": {
         "caps_lock": "B2",
