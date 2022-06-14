@@ -22,7 +22,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 UNICODE_ENABLE   = yes  # Unicode
 SWAP_HANDS_ENABLE= yes  # Allow swapping hands of keyboard
 
-DEBOUNCE_TYPE = eager_pr
+DEBOUNCE_TYPE = sym_eager_pr
 
 # project specific files
 SRC += matrix.c 
