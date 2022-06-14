@@ -445,7 +445,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
 #endif
 
 #ifndef USB_POLLING_INTERVAL_MS
-#    define USB_POLLING_INTERVAL_MS 1
+#    define USB_POLLING_INTERVAL_MS 10
 #endif
 
 /*
