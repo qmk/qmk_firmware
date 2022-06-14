@@ -14,10 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+    This file contains the logical key matrix.
+*/
+
 #pragma once
 
 #include "tractyl_manuform.h"
-#include "elite_c.h"
 #include "quantum.h"
 
 #define XXX KC_NO

@@ -1,8 +1,51 @@
-# MCU name
-MCU 					= atmega32u4
+# Hardware/build options
+#DEFAULT_FOLDER 			= handwired/tractyl_manuform_ct/5x6_right
+MCU 					= atmega32u4	# MCU name
+BOOTLOADER 				= atmel-dfu		# Bootloader selection
 
-# Bootloader selection
-BOOTLOADER 				= atmel-dfu
+# Functionality options
+CONSOLE_ENABLE			= no        # Debugging things
+MOUSEKEY_ENABLE 		= yes       # Mouse keys
+EXTRAKEY_ENABLE 		= yes       # Audio control and System control
+NKRO_ENABLE 			= yes       # Enable N-Key Rollover
+TAP_DANCE_ENABLE        = yes		# temp disabling for troubleshooting
 
-# options
-DEFAULT_FOLDER 			= handwired/tractyl_manuform/5x6_right/elite_c
+# Space-saving options
+LTO_SUPPORTED 			= yes
+LTO_ENABLE 				= yes		# Does greater compression during build
+SPACE_CADET_ENABLE 		= no
+GRAVE_ESC_ENABLE 		= no
+
+# LED config
+RGB_MATRIX_ENABLE 		= yes
+CUSTOM_RGB_MATRIX       = yes
+RGB_MATRIX_DRIVER 		= WS2812
+# RGB_MATRIX_SOLID_COLOR 	= 1 
+
+# Trackball settings
+POINTING_DEVICE_ENABLE 	= yes
+POINTING_DEVICE_DRIVER 	= pmw3360
+MOUSE_SHARED_EP 		= yes		# Not sure what this does
+CUSTOM_POINTING_DEVICE  = yes		# This is a Drashna thing, for pointing.c/h
+
+# Split settings
+SPLIT_KEYBOARD 			= yes
+# this also did not help resolve the "rgb missing from right side" issue
+# this is only used for indicator/oled stuff i think...
+CUSTOM_SPLIT_TRANSPORT_SYNC = no
+
+# Other settings
+CUSTOM_UNICODE_ENABLE        = yes
+USER_NAME 					:= christrotter
+
+RGBLIGHT_ENABLE              = no
+AUDIO_ENABLE                 = no
+HAPTIC_ENABLE                = no
+TAP_DANCE_ENABLE             = no
+OLED_ENABLE                  = no
+WPM_ENABLE                   = no
+ENCODER_ENABLE               = no
+AUTOCORRECTION_ENABLE        = no
+SWAP_HANDS_ENABLE            = no
+CAPS_WORD_ENABLE             = no
+AUTO_SHIFT_ENABLE			 = no

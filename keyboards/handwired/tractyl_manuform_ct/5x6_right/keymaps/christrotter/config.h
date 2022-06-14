@@ -16,4 +16,12 @@
 
 #pragma once
 
-#include "5x6_right.h"
+#define DEBOUNCE 45
+// #define ENCODER_DEFAULT_POS 0x3
+// #define DEBUG_MATRIX_SCAN_RATE
+
+#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
+#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
+#        define CHARYBDIS_MINIMUM_SNIPING_DPI 400
+#        define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
+
