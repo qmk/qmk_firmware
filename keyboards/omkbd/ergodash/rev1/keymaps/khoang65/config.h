@@ -46,6 +46,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEADER_TIMEOUT 250
 //#define LEADER_PER_KEY_TIMING 75 // fickle
 
+/* Caps Word Timeout (ms) */
+#undef CAPS_WORD_IDLE_TIMEOUT
+#define CAPS_WORD_IDLE_TIMEOUT 3000 // 3 seconds.
+
 /* Define Underglow LED settings */
 // RGBLIGHT doesn't support defining physical positions for leds, it's just a 1d string of pixels
 #ifdef RGBLIGHT_ENABLE

@@ -10,19 +10,25 @@ After flashing both halves, disconnect them from USB, connect them again with th
 - ; , . / keys as Layer toggles/dual-role keys
 - https://github.com/qmk/qmk_firmware/blob/master/docs/custom_quantum_functions.md#keyboard-post-initialization-code 
 
+```
 void keyboard_post_init_user(void) {
   // Call the post init code.
   rgblight_enable_noeeprom(); // enables Rgb, without saving settings
   rgblight_sethsv_noeeprom(180, 255, 255); // sets the color to teal/cyan without saving
   rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing without saving
 }
+```
 
-start with rgb off
+# Future Rebuilds
+ - Encoders, push function uses switch matrix. A and B pins need GPIO pins. 2 pins per encoder
+ - Trackball, optical sensor uses SPI. 4 pins minimum. MOSI, MISO, SCK, cable select
+ - OLEDs, need I2C pins. 2 pins. 
 
-# Empty Layer ASCII
 
-   /* Keymap: Empty layer
-   * ,-----------------------------------------------------------.                               ,-----------------------------------------------------------.
+# Empty Layer
+
+   /* Keymap: 
+   * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * |         |         |         |         |         |         |---------.          ,---------|         |         |         |         |         |         |
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
    * |         |         |         |         |         |         |---------|          |---------|         |         |         |         |         |         |
@@ -31,14 +37,24 @@ start with rgb off
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------|---------|
    * |         |         |         |         |         |         |---------'          `---------|         |         |         |         |         |         |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
-   * |         |         |         ||         |                                                                    |         ||         |         |         |
-   * `-----------------------------'`---------'        ,-------------------.          ,-------------------.        `---------'`-----------------------------'
-   *                                                   |         |         |          |         |         |       
+   * |         |         |         |  |         |      ,-------------------.          ,-------------------.      |         |  |         |         |         |
+   * `-----------------------------'  `---------'      |         |         |          |         |         |      `---------'  `-----------------------------'
    *                                                   |         |_________|          |         |         |
    *                                         ,---------|         |         |          |         |         +---------.
    *                                         |         |         |         |          |         |         |         |
-   *                                         `-----------------------------'          `-----------------------------'
-   */ 
+   *                                         `-----------------------------'          `-----------------------------'                                      */
 
+  [_] = LAYOUT_4key_2u_inner(
+      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
+      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
+      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
+      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
+      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    TO(_BASE)
+      )
 
- 
+# RGB differences
+- Backlight: Single color, per key, not individually addressable (all leds on or all leds off)
+- RGBLight: Underglow RGB, linear design (single chain), individually addressable
+- LED Matrix: Single color, per key, individually addressable
+- RGB Matrix: RGB, per key, individually addressable
+- Indicators: Scroll/Caps/Num Lock LEDs
