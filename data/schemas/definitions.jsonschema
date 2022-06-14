@@ -150,5 +150,11 @@
         "min": 0,
         "max": 255,
         "multipleOf": 1
+    },
+    "bit": {
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "multipleOf": 1
     }
 }
