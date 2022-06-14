@@ -27,7 +27,8 @@
         lightning
     </summary>
 
-<img width="800" alt="colemak layer lightning" src="https://user-images.githubusercontent.com/26116041/171883713-8d307328-d738-49ad-a35d-9e4475e012ed.png">
+
+<img width="800" alt="colemak layer lightning" src="https://user-images.githubusercontent.com/26116041/173681398-cdcff1a5-ae79-4409-950a-1b671c350f07.jpeg">
 
 </details>
 
@@ -48,8 +49,8 @@
         lightning
     </summary>
 
-<img width="800" alt="qwerty layer lightning" src="https://user-images.githubusercontent.com/26116041/171884040-cf9b697b-c254-46aa-bbff-0e1cbd4959e0.png">
-    
+<img width="800" alt="qwerty layer lightning" src="https://user-images.githubusercontent.com/26116041/173681525-aee3c927-995a-4f83-b688-ed8bfd3f8bb6.jpeg">
+
 </details>
 
 ### numeric + symbols
@@ -67,7 +68,7 @@
         lightning
     </summary>
 
-<img width="800" alt="numeric and symbols layer lightning" src="https://user-images.githubusercontent.com/26116041/171884203-560995c9-f465-451f-a3cb-5973bc17c8c5.png">
+<img width="800" alt="numeric and symbols layer lightning" src="https://user-images.githubusercontent.com/26116041/173681689-0b864e35-0e02-4204-a469-6e872e704903.jpeg">
 
 </details>
 
@@ -88,7 +89,7 @@
         lightning
     </summary>
 
-<img width="800" alt="navigation layer lightning" src="https://user-images.githubusercontent.com/26116041/171884375-ec5bddb1-a5f6-452f-a473-2e1eeb43aebe.png">
+<img width="800" alt="navigation layer lightning" src="https://user-images.githubusercontent.com/26116041/173681859-fa6f071a-98e9-48f8-a9a0-76d7510b302a.jpeg">
 
 </details>
 
@@ -109,7 +110,7 @@
         lightning
     </summary>
 
-<img width="800" alt="mouse layer lightning" src="https://user-images.githubusercontent.com/26116041/171884410-599b8ab8-d896-44e8-8fd4-5918c2338edd.png">
+<img width="800" alt="mouse layer lightning" src="https://user-images.githubusercontent.com/26116041/173682436-07c32e5e-f415-463d-8c93-d2cbd4e406a1.jpeg">
 
 </details>
 
@@ -130,6 +131,7 @@
         lightning
     </summary>
 
-<img width="800" alt="media and miscellaneous layer lightning" src="https://user-images.githubusercontent.com/26116041/173398173-c6f4e658-29ab-4bef-bbf0-30b7bcb99119.jpeg">
+<img width="800" alt="media and miscellaneous layer lightning" src="https://user-images.githubusercontent.com/26116041/173682188-3eab9c09-d466-4729-89ac-48e09f55564c.jpeg">
 
 </details>
+
