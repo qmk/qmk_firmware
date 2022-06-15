@@ -27,14 +27,13 @@
 //  Sh_L      Z    X    C    V    B    N    M    ,    .    /    Sh_R   Up     PgDn    
 //  Ct_L    Win_L   Alt_L      SPACE          Alt_R   FN   Ct_R    Left Down Right          
 
-// clang-format off
 #define LAYOUT( \
     k00, k10, k20, k30, k40, k50, k60, k70, k80, k90, ka0, kb0, kc0, kd0,     k56, \
     k01, k11, k21, k31, k41, k51, k61, k71, k81, k91, ka1, kb1, kc1, kd1,     k16, \
     k02, k12, k22, k32, k42, k52, k62, k72, k82, k92, ka2, kb2, kc2, kd2,     k06, \
     k03, k13, k23, k33, k43, k53, k63, k73, k83, k93, ka3, kb3,      kd3,     k26, \
     k04,      k24, k34, k44, k54, k64, k74, k84, k94, ka4, kb4, kd4,  k17,    k36, \
-    k05,    k15,    k25,       k65,           k95,    ka5, kc5,    k07, k27, k37   \
+    k05,    k15,    k25,       k65,           k95,    ka5, kc5,    k07, k27, k37, ke0, ke1   \
 )\
 {\
     { k04, ___, k56, k07, kc5, k37, k05, k50},\
@@ -45,10 +44,10 @@
     { k72, k62, k73, k63, k84, k74, k61, k71},\
     { k82, kc2, k83, k60, k94, k06, kc1, k81},\
     { k92, k70, k93, k27, ka4, ___, k80, k91},\
-    { ka2, kb2, ka3, kb3, kd2, kb4, kb1, ka1},\
+    { ka2, kb2, ka3, kb3, ___, kb4, kb1, ka1},\
     { k15, kd4, ka5, k25, k65, k95, ___, kd0},\
     { ___, kd1, kd2, kb0, kd3, kc0, k90, ka0},\
-    { ___, ___, ___, ___, ___, ___, ___, ___},\
+    { ke0, ke1, ___, ___, ___, ___, ___, ___},\
     { ___, ___, ___, ___, k56, ___, k16, ___},\
     { ___, ___, ___, ___, ___, ___, ___, ___} \
 }
