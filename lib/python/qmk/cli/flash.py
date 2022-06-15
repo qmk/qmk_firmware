@@ -61,8 +61,9 @@ def flash(cli):
     If bootloader is omitted the make system will use the configured bootloader for that keyboard.
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
-        command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
-        cli.run(command, capture_output=False, stdin=DEVNULL)
+        if cli.config.flash.keyboard and cli.config.flash.keymap:
+            command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
+            cli.run(command, capture_output=False, stdin=DEVNULL)
 
     # Build the environment vars
     envs = {}
