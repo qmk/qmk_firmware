@@ -82,13 +82,13 @@ layer_state_t                       default_layer_state_set_user(layer_state_t s
     }
 
     state = default_layer_state_set_keymap(state);
-/*
+
 #if 0
 #    if defined(CUSTOM_RGBLIGHT) || defined(RGB_MATRIX_ENABLE)
   state = default_layer_state_set_rgb(state);
 #    endif
 #endif
-*/
+
     return state;
 }
 
@@ -109,6 +109,8 @@ void                       matrix_slave_scan_user(void) {
 #    ifdef LED_MATRIX_ENABLE
     led_matrix_task();
 #    endif
+    // if we have custom rgb matrix, call this function during the matrix scan
+    matrix_scan_rgb_matrix();
     matrix_slave_scan_keymap();
 }
 #endif

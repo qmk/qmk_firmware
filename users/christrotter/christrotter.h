@@ -4,7 +4,7 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
-//#include "eeprom.h"
+// #include "eeprom.h"
 //#include "keyrecords/wrappers.h"
 #include "keyrecords/process_records.h"
 #include "callbacks.h"
