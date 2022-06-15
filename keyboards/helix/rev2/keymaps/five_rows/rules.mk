@@ -1,4 +1,5 @@
- SPLIT_KEYBOARD = yes
+USER_NAME := mtei
+SPLIT_KEYBOARD = yes
 
  CONSOLE_ENABLE = no        # Console for debug
  COMMAND_ENABLE = no        # Commands for debug and configuration
