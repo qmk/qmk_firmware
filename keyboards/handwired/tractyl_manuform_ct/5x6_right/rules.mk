@@ -8,7 +8,7 @@ CONSOLE_ENABLE			= no        # Debugging things
 MOUSEKEY_ENABLE 		= yes       # Mouse keys
 EXTRAKEY_ENABLE 		= yes       # Audio control and System control
 NKRO_ENABLE 			= yes       # Enable N-Key Rollover
-TAP_DANCE_ENABLE        = yes		# temp disabling for troubleshooting
+TAP_DANCE_ENABLE        = no		# temp disabling for troubleshooting
 
 # Space-saving options
 LTO_SUPPORTED 			= yes
@@ -17,8 +17,8 @@ SPACE_CADET_ENABLE 		= no
 GRAVE_ESC_ENABLE 		= no
 
 # LED config
-RGB_MATRIX_ENABLE 		= yes
-CUSTOM_RGB_MATRIX       = yes
+RGB_MATRIX_ENABLE 		= yes # this to 'no' didn't turn off the custom colours; rgb_matrix:yes/custom_rgb:no = no custom colours
+CUSTOM_RGB_MATRIX       = yes # this to 'no' turned everything off
 RGB_MATRIX_DRIVER 		= WS2812
 # RGB_MATRIX_SOLID_COLOR 	= 1 
 
@@ -31,7 +31,7 @@ CUSTOM_POINTING_DEVICE  = yes		# This is a Drashna thing, for pointing.c/h
 # Split settings
 SPLIT_KEYBOARD 			= yes
 # this also did not help resolve the "rgb missing from right side" issue
-# this is only used for indicator/oled stuff i think...
+# but it seems like a good thing to have on...
 CUSTOM_SPLIT_TRANSPORT_SYNC = no
 
 # Other settings
@@ -41,7 +41,6 @@ USER_NAME 					:= christrotter
 RGBLIGHT_ENABLE              = no
 AUDIO_ENABLE                 = no
 HAPTIC_ENABLE                = no
-TAP_DANCE_ENABLE             = no
 OLED_ENABLE                  = no
 WPM_ENABLE                   = no
 ENCODER_ENABLE               = no

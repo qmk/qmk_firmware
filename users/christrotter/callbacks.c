@@ -103,6 +103,7 @@ void                       eeconfig_init_user(void) {
     eeconfig_init_keymap();
 }
 
+// This section defines what happens on the slave side re: custom code!!!
 #ifdef SPLIT_KEYBOARD
 __attribute__((weak)) void matrix_slave_scan_keymap(void) {}
 void                       matrix_slave_scan_user(void) {

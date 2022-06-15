@@ -16,8 +16,8 @@ if [ "$1" == "build" ];then
     echo "INFO: Just doing a build..."
     make handwired/tractyl_manuform_ct/5x6_right:christrotter
 elif [ "$1" == "flash" ];then
-    echo "INFO: Flashing RIGHT side..."
-    make handwired/tractyl_manuform_ct/5x6_right:christrotter:dfu-split-right
+    #echo "INFO: Flashing RIGHT side..."
+    #make handwired/tractyl_manuform_ct/5x6_right:christrotter:dfu-split-right
     echo "INFO: Now plug in the LEFT side..."
     make handwired/tractyl_manuform_ct/5x6_right:christrotter:dfu-split-left
 else

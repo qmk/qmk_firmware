@@ -45,7 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Split settings
 // MASTER_RIGHT ensures the keymap is correct
-#define MASTER_RIGHT
+// removing master-right reverses the rgb map...
+// #define MASTER_RIGHT
+#define EE_HANDS
+// took out split-usb-detect during efforts to get rgb working on non-master side...
 #define SPLIT_USB_DETECT
 // #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC
 #define SOFT_SERIAL_PIN D2
@@ -73,9 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     //#define POINTING_DEVICE_INVERT_Y
     // Not sure what this does...
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-    // don't think we need this...did not fix the "one half only = no worky" issue; did not break trackball functionality tho - leave out
-    // SPLIT_POINTING_ENABLE is for having boths halves run pointing devices
-    // #define SPLIT_POINTING_ENABLE
 #endif
 
 // WS2812 RGB LED strip input and number of LEDs
@@ -84,15 +84,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLED_NUM 57  // Number of LEDs
     #define DRIVER_LED_TOTAL RGBLED_NUM
     // setting max brightness here does not work
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+    // this is now working!!!
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
     // this does nothing to brightness...maybe due to sethsv overriding it?
     // and it's rgblight anyways...
-    #define RGBLIGHT_LIMIT_VAL 255
+    // #define RGBLIGHT_LIMIT_VAL 255
     // Left, Right
     // interesting, this is somehow backwards for me...maybe usb plugged in == assumption this is left??
     // ^^^ this happens if you remove MASTER_RIGHT
     #define RGB_MATRIX_SPLIT { 27, 30} 
-    #define RGBLIGHT_SPLIT
+    //#define RGBLIGHT_SPLIT
 #endif
 
 // Other settings not being used...might be cruft from the teensy code assumptions?

@@ -56,33 +56,33 @@ void matrix_scan_rgb_matrix(void) {
 
     // why does this only work on one half? - yet correctly...
     // info: using one line per key, 3% of flash is used to set one layer of 57 keys per-key rgb    
-    rgb_matrix_set_color(0, 0, 0, 120);
-    rgb_matrix_set_color(1, 0, 120, 120);
-    rgb_matrix_set_color(2, 0, 0, 120);
-    rgb_matrix_set_color(3, 0, 120, 120);
-    rgb_matrix_set_color(4, 0, 0, 120);
-    rgb_matrix_set_color(5, 0, 120, 120);
-    rgb_matrix_set_color(6, 0, 0, 120);
-    rgb_matrix_set_color(7, 0, 120, 120);
-    rgb_matrix_set_color(8, 0, 0, 120);
-    rgb_matrix_set_color(9, 0, 120, 120);
-    rgb_matrix_set_color(10, 0, 0, 120);
-    rgb_matrix_set_color(11, 0, 120, 120);
-    rgb_matrix_set_color(12, 0, 0, 120);
-    rgb_matrix_set_color(13, 0, 120, 120);
-    rgb_matrix_set_color(14, 0, 0, 120);
-    rgb_matrix_set_color(15, 0, 120, 120);
-    rgb_matrix_set_color(16, 0, 0, 120);
-    rgb_matrix_set_color(17, 0, 120, 120);
-    rgb_matrix_set_color(18, 0, 0, 120);
-    rgb_matrix_set_color(19, 0, 120, 120);
-    rgb_matrix_set_color(20, 0, 0, 120);
-    rgb_matrix_set_color(21, 0, 120, 120);
-    rgb_matrix_set_color(22, 0, 0, 120);
-    rgb_matrix_set_color(23, 0, 120, 120);
-    rgb_matrix_set_color(24, 0, 0, 120);
-    rgb_matrix_set_color(25, 0, 120, 120);
-    rgb_matrix_set_color(26, 0, 0, 120);
+    rgb_matrix_set_color(0, 90, 90, 90); // row1,col6
+    rgb_matrix_set_color(1, 90, 90, 90);
+    rgb_matrix_set_color(2, 90, 90, 90);
+    rgb_matrix_set_color(3, 90, 90, 90);
+    rgb_matrix_set_color(4, 90, 90, 90);
+    rgb_matrix_set_color(5, 90, 50, 0); // tab // row1,col1
+    rgb_matrix_set_color(6, 0, 90, 0); // shift? // row2,col1
+    rgb_matrix_set_color(7, 90, 90, 90);
+    rgb_matrix_set_color(8, 90, 90, 90);
+    rgb_matrix_set_color(9, 90, 90, 90);
+    rgb_matrix_set_color(10, 90, 90, 90);
+    rgb_matrix_set_color(11, 90, 90, 90); // row2,col6
+    rgb_matrix_set_color(12, 90, 90, 90); // row3,col6
+    rgb_matrix_set_color(13, 90, 90, 90);
+    rgb_matrix_set_color(14, 90, 90, 90);
+    rgb_matrix_set_color(15, 90, 90, 90);
+    rgb_matrix_set_color(16, 90, 90, 90);
+    rgb_matrix_set_color(17, 90, 0, 90); // ummmm layer? // row3,col1
+    rgb_matrix_set_color(18, 100, 0, 0); // backspace
+    rgb_matrix_set_color(19, 90, 20, 0); // delete
+    rgb_matrix_set_color(20, 100, 40, 0); // esc
+    rgb_matrix_set_color(21, 100, 0, 0); // back
+    rgb_matrix_set_color(22, 0, 90, 0); // fwd
+    rgb_matrix_set_color(23, 90, 0, 90); // LAYER
+    rgb_matrix_set_color(24, 20, 0, 90); // CMD
+    rgb_matrix_set_color(25, 70, 40, 0); // ALT
+    rgb_matrix_set_color(26, 0, 90, 0); // shift
     // RIGHT HALF STARTS HERE
     rgb_matrix_set_color(27, 90, 90, 90); // row1,col1 // y
     rgb_matrix_set_color(28, 90, 90, 90);
