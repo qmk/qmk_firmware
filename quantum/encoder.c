@@ -79,21 +79,13 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
     return encoder_update_user(index, clockwise);
 }
 
-__attribute__((weak)) uint8_t encoder_read_state_kb(uint8_t index) {
+__attribute__((weak)) uint8_t encoder_read_state(uint8_t index) {
     return (readPin(encoders_pad_a[index]) << 0) | (readPin(encoders_pad_b[index]) << 1);
 }
 
-uint8_t encoder_read_state(uint8_t index) {
-    return encoder_read_state_kb(index);
-}
-
-__attribute__((weak)) void encoder_init_state_kb(uint8_t index) {
+__attribute__((weak)) void encoder_init_state(uint8_t index) {
     setPinInputHigh(encoders_pad_a[index]);
     setPinInputHigh(encoders_pad_b[index]);
-}
-
-void encoder_init_state(uint8_t index) {
-    encoder_init_state_kb(index);
 }
 
 void encoder_init(void) {

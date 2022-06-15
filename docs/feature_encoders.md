@@ -158,18 +158,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-Initialization code should be implemented in `encoder_init_state_kb`:
+Initialization code should be implemented in `encoder_init_state`:
 
 ```c
-void encoder_init_state_kb(uint8_t index) {
+void encoder_init_state(uint8_t index) {
     // set up encoder at the required index
 }
 
-To read an encoder that is not directly connected to an input pin but to another interface, implement `encoder_read_state_kb`:
+To read an encoder that is not directly connected to an input pin but to another interface, implement `encoder_read_state`:
 
 ```c
-uint8_t encoder_read_state_kb(uint8_t index) {
-    return ... ; // This should return `-1`, `0`, or `1`, to match standard encoder "Gray Code" outputs.
+uint8_t encoder_read_state(uint8_t index) {
+    return ... ; // Set the first two bits as performed by a pin based encoder with A = bit 0 and B = bit 1
 }
 ```
 
