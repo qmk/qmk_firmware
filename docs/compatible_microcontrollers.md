@@ -2,6 +2,8 @@
 
 QMK runs on any USB-capable AVR or ARM microcontroller with enough flash space - generally 32kB+ for AVR, and 64kB+ for ARM. With significant disabling of features, QMK may *just* squeeze into 16kB AVR MCUs.
 
+Features within QMK may or may not be compatible with every microcontroller.
+
 ## Atmel AVR
 
 The following use [LUFA](https://www.fourwalledcubicle.com/LUFA.php) as the USB stack:
