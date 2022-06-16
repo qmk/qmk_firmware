@@ -16,8 +16,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-          debug-only: true
-
           remove-stale-when-updated: true
           exempt-draft-pr: true
           ascending: true
