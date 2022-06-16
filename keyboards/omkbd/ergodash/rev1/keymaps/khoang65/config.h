@@ -37,6 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 120 // QMK default 200; omkb/ergodash/rev1 default 120
 #define TAPPING_TERM_PER_KEY // Used in conjunction with get_tapping_term() to finetune
 
+/* If no other key is pressed with mod, still sends input even after tapping term window*/
+#undef RETRO_TAPPING_PER_KEY
+#define RETRO_TAPPING_PER_KEY
+
 /* Slightly changes dual-role keys, more responsive for faster keystrokes */
 #define PERMISSIVE_HOLD
 // #define PERMISSIVE_HOLD_PER_KEY // Used in conjuction with get_permissive_hold() to finetune

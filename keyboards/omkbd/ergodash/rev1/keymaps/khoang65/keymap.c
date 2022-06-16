@@ -357,15 +357,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 } 
 
-// ************ DYNAMIC TAPPING TERMS ************* //
+// ******** DYNAMIC TAP HOLD CONFIGURATION ******** //
 // ************************************************ //
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case FNT_PSCR:
-            return TAPPING_TERM + 40;
-        default:
-            return TAPPING_TERM;
-    }
+  switch (keycode) {
+    case FNT_PSCR:
+      return TAPPING_TERM + 40;
+    default:
+      return TAPPING_TERM;
+  }
+}
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case NUMT_SCLN:
+      // Immediately select the hold action when another key is tapped
+      return true;
+    case CS_F14:
+      return true;
+    case FNT_PSCR:
+      return true;
+    case FNT_BSLS:
+      return true;
+    default:
+      return false;
+  }
 }
 
 // *********** KEYBOARD PRE/POST INIT ************* //
@@ -385,7 +400,9 @@ void numlock_on(void) {
 }
 void keyboard_post_init_user() {
   numlock_on();
+  #ifdef RGBLIGHT_ENABLE
   rgblight_disable_noeeprom();
+  #endif // !RGBLIGHT_ENABLE
 }
 
 // ************* LAYER RGB INDICATORS ************* //

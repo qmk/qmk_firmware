@@ -1,8 +1,8 @@
 # Bootloader Mode
 BOOTMAGIC_ENABLE = no
 BACKLIGHT_ENABLE = no
-# Underglow
-RGBLIGHT_ENABLE = yes
+# Underglow; ~18%, 5192 byte difference 
+RGBLIGHT_ENABLE = no
 # Per-key RGB
 RGB_MATRIX_ENABLE = no
 
