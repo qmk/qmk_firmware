@@ -6,10 +6,8 @@
 */
 
 #include QMK_KEYBOARD_H
-#include "christrotter.h"
-
-#define XXX KC_NO
-
+// This fixed the no-layers-working issue... :S
+//#include "christrotter.h"
 /* 
     putting the enum layers here might work, but it causes callbacks.c to blow up with:
 Compiling: users/christrotter/callbacks.c       users/christrotter/callbacks.c: In function 'layer_state_set_user':
@@ -25,6 +23,13 @@ users/christrotter/callbacks.c:139:53: error: '_MOUSE' undeclared (first use in 
  [ERRORS]
 */
 
+enum custom_layers {
+    _QWERTY,
+    _SYMBOLS,
+    _MOUSE,
+};
+
+#define XXX KC_NO
 
 void pointing_device_init_kb(void) {
 #ifdef PMW3360_CPI
