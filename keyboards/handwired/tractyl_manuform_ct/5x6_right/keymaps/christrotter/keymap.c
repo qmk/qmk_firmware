@@ -33,6 +33,12 @@ enum custom_layers {
 #define KC_CAD	LALT(LCTL(KC_DEL))
 #define KC_MACLOCK	LGUI(LCTL(KC_Q))
 #define KC_MACSHOT	LGUI(LSFT(KC_4))
+// move between mac workspaces
+#define KC_SPCLEFT	LCTL(KC_LEFT)
+#define KC_SPCRGHT	LCTL(KC_RIGHT)
+// move between tabs
+#define KC_TABLEFT	LGUI(LALT(KC_LEFT))
+#define KC_TABRGHT	LGUI(LALT(KC_RIGHT))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (qwerty)
@@ -62,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,    KC_Q,    LT(0,KC_W),    KC_E, LT(0,KC_R), LT(0,KC_T),                             KC_Y,    KC_U,    LT(0,KC_I),    KC_O,    KC_P,    KC_MINUS,
     KC_LSFT,   LT(0,KC_A),    LT(0,KC_S),    KC_D,    LT(0,KC_F),    KC_G,                       KC_H,    KC_J,    LT(0,KC_K),    KC_L,    KC_QUOT, KC_SCLN,
     LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, KC_P,
-                KC_BSPC, KC_DEL,  KC_ESC, KC_LBRC, KC_RBRC,                         KC_COMM, KC_DOT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
+                KC_BSPC, KC_DEL,  KC_ESC, KC_TABLEFT, KC_TABRGHT,                  KC_SPCLEFT, KC_SPCRGHT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
                                 KC_LSFT, KC_LALT, KC_LGUI, DRAGSCROLL_MODE_TOGGLE,        KC_MPLY, KC_LCTL, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 ),
 [_MOUSE] = LAYOUT( \
