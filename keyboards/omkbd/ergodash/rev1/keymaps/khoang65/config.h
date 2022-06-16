@@ -32,6 +32,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_COLUMN 0 // default esc
 #endif // !BOOTMAGIC_ENABLE
 
+/*
+#ifdef NKRO_ENABLE
+#undef FORCE_NKRO
+#define FORCE_NKRO // QMK default is 6KRO
+#endif // !NKRO_ENABLE
+*/
+
+/**/
+#define USB_POLLING_INTERVAL_MS 1 // Set polling to 1000Hz
+#define QMK_KEYS_PER_SCAN 4 // By default, only one key event gets sent via process_record() per scan
+
 /* Defines what is considered a hold vs tap, affects both Mod Tap and Tap Dance */
 #undef TAPPING_TERM
 #define TAPPING_TERM 120 // QMK default 200; omkb/ergodash/rev1 default 120
@@ -42,6 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RETRO_TAPPING_PER_KEY
 
 /* Slightly changes dual-role keys, more responsive for faster keystrokes */
+#undef PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD
 // #define PERMISSIVE_HOLD_PER_KEY // Used in conjuction with get_permissive_hold() to finetune
 
