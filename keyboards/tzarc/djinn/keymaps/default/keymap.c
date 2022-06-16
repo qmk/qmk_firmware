@@ -1,14 +1,7 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
-#include <hal.h>
-#include <string.h>
-#include <ctype.h>
-#include "backlight.h"
-#include "qp.h"
-#include <printf.h>
-#include "transactions.h"
-#include "split_util.h"
+#include "theme_djinn_default.h"
 
 // Layer definitions
 enum { _QWERTY, _LOWER, _RAISE, _ADJUST };
@@ -95,81 +88,24 @@ const char *current_layer_name(void) {
 }
 
 //----------------------------------------------------------
-// Sync
-
-#pragma pack(push)
-#pragma pack(1)
-typedef struct user_runtime_config {
-    uint32_t scan_rate;
-} user_runtime_config;
-#pragma pack(pop)
-
-user_runtime_config user_state;
-
-void rpc_user_sync_callback(uint8_t m2s_size, const void *m2s_buffer, uint8_t s2m_size, void *s2m_buffer) {
-    if (m2s_size == sizeof(user_state)) {
-        memcpy(&user_state, m2s_buffer, m2s_size);
-    }
-}
+// Overrides
 
 void keyboard_post_init_user(void) {
-    // Register keyboard state sync split transaction
-    transaction_register_rpc(USER_DATA_SYNC, rpc_user_sync_callback);
-
-    // Reset the initial shared data value between master and slave
-    memset(&user_state, 0, sizeof(user_state));
+#ifdef DJINN_DEFAULT_THEME
+    // Initialise the theme
+    theme_init();
+#endif // DJINN_DEFAULT_THEME
 
     void keyboard_post_init_display(void);
     keyboard_post_init_display();
 }
 
-void user_state_update(void) {
-    if (is_keyboard_master()) {
-        // Keep the scan rate in sync
-        user_state.scan_rate = get_matrix_scan_rate();
-    }
-}
-
-void user_state_sync(void) {
-    if (!is_transport_connected()) return;
-
-    if (is_keyboard_master()) {
-        // Keep track of the last state, so that we can tell if we need to propagate to slave
-        static user_runtime_config last_user_state;
-        static uint32_t            last_sync;
-        bool                       needs_sync = false;
-
-        // Check if the state values are different
-        if (memcmp(&user_state, &last_user_state, sizeof(user_runtime_config))) {
-            needs_sync = true;
-            memcpy(&last_user_state, &user_state, sizeof(user_runtime_config));
-        }
-
-        // Send to slave every 125ms regardless of state change
-        if (timer_elapsed32(last_sync) > 125) {
-            needs_sync = true;
-        }
-
-        // Perform the sync if requested
-        if (needs_sync) {
-            if (transaction_rpc_send(USER_DATA_SYNC, sizeof(user_runtime_config), &user_state)) {
-                last_sync = timer_read32();
-            } else {
-                dprint("Failed to perform rpc call\n");
-            }
-        }
-    }
-}
-
 void housekeeping_task_user(void) {
+#ifdef DJINN_DEFAULT_THEME
     // Update kb_state so we can send to slave
-    user_state_update();
+    theme_state_update();
 
     // Data sync from master to slave
-    user_state_sync();
+    theme_state_sync();
+#endif // DJINN_DEFAULT_THEME
 }
-
-//----------------------------------------------------------
-// Display theme
-
-#include "theme_djinn_default.inl.c"

@@ -1,13 +1,26 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "djinn.qgf.c"
-#include "lock-caps-ON.qgf.c"
-#include "lock-scrl-ON.qgf.c"
-#include "lock-num-ON.qgf.c"
-#include "lock-caps-OFF.qgf.c"
-#include "lock-scrl-OFF.qgf.c"
-#include "lock-num-OFF.qgf.c"
-#include "thintel15.qff.c"
+#include QMK_KEYBOARD_H
+#include <hal.h>
+#include <string.h>
+#include <ctype.h>
+#include <printf.h>
+#include "qp.h"
+#include "backlight.h"
+#include "transactions.h"
+#include "split_util.h"
+
+#include "djinn.h"
+#include "theme_djinn_default.h"
+
+#include "djinn.qgf.h"
+#include "lock-caps-ON.qgf.h"
+#include "lock-scrl-ON.qgf.h"
+#include "lock-num-ON.qgf.h"
+#include "lock-caps-OFF.qgf.h"
+#include "lock-scrl-OFF.qgf.h"
+#include "lock-num-OFF.qgf.h"
+#include "thintel15.qff.h"
 
 static painter_image_handle_t djinn_logo;
 static painter_image_handle_t lock_caps_on;
@@ -200,7 +213,7 @@ void draw_ui_user(void) {
         if (hue_redraw || scan_redraw) {
             static int max_scans_xpos = 0;
             xpos                      = 16;
-            snprintf_(buf, sizeof(buf), "scans: %d", (int)user_state.scan_rate);
+            snprintf_(buf, sizeof(buf), "scans: %d", (int)theme_state.scan_rate);
             xpos += qp_drawtext_recolor(lcd, xpos, ypos, thintel, buf, curr_hue, 255, 255, curr_hue, 255, 0);
             if (max_scans_xpos < xpos) {
                 max_scans_xpos = xpos;
@@ -232,6 +245,63 @@ void draw_ui_user(void) {
             qp_drawimage_recolor(lcd, 239 - 12 - (32 * 3), 0, last_led_state.caps_lock ? lock_caps_on : lock_caps_off, curr_hue, 255, last_led_state.caps_lock ? 255 : 32, curr_hue, 255, 0);
             qp_drawimage_recolor(lcd, 239 - 12 - (32 * 2), 0, last_led_state.num_lock ? lock_num_on : lock_num_off, curr_hue, 255, last_led_state.num_lock ? 255 : 32, curr_hue, 255, 0);
             qp_drawimage_recolor(lcd, 239 - 12 - (32 * 1), 0, last_led_state.scroll_lock ? lock_scrl_on : lock_scrl_off, curr_hue, 255, last_led_state.scroll_lock ? 255 : 32, curr_hue, 255, 0);
+        }
+    }
+}
+
+//----------------------------------------------------------
+// Sync
+
+theme_runtime_config theme_state;
+
+void rpc_theme_sync_callback(uint8_t m2s_size, const void *m2s_buffer, uint8_t s2m_size, void *s2m_buffer) {
+    if (m2s_size == sizeof(theme_state)) {
+        memcpy(&theme_state, m2s_buffer, m2s_size);
+    }
+}
+
+void theme_init(void) {
+    // Register keyboard state sync split transaction
+    transaction_register_rpc(THEME_DATA_SYNC, rpc_theme_sync_callback);
+
+    // Reset the initial shared data value between master and slave
+    memset(&theme_state, 0, sizeof(theme_state));
+}
+
+void theme_state_update(void) {
+    if (is_keyboard_master()) {
+        // Keep the scan rate in sync
+        theme_state.scan_rate = get_matrix_scan_rate();
+    }
+}
+
+void theme_state_sync(void) {
+    if (!is_transport_connected()) return;
+
+    if (is_keyboard_master()) {
+        // Keep track of the last state, so that we can tell if we need to propagate to slave
+        static theme_runtime_config last_theme_state;
+        static uint32_t             last_sync;
+        bool                        needs_sync = false;
+
+        // Check if the state values are different
+        if (memcmp(&theme_state, &last_theme_state, sizeof(theme_runtime_config))) {
+            needs_sync = true;
+            memcpy(&last_theme_state, &theme_state, sizeof(theme_runtime_config));
+        }
+
+        // Send to slave every 125ms regardless of state change
+        if (timer_elapsed32(last_sync) > 125) {
+            needs_sync = true;
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            if (transaction_rpc_send(THEME_DATA_SYNC, sizeof(theme_runtime_config), &theme_state)) {
+                last_sync = timer_read32();
+            } else {
+                dprint("Failed to perform rpc call\n");
+            }
         }
     }
 }

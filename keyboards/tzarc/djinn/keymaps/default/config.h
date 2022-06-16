@@ -13,7 +13,7 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 // Allow for an extra sync command over the split
-#define SPLIT_TRANSACTION_IDS_USER USER_DATA_SYNC
+#define SPLIT_TRANSACTION_IDS_USER THEME_DATA_SYNC
 
 // RGB Effects
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
