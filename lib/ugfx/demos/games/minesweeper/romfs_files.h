@@ -1,0 +1,22 @@
+#include "resources/romfs/romfs_1.h"
+#include "resources/romfs/romfs_2.h"
+#include "resources/romfs/romfs_3.h"
+#include "resources/romfs/romfs_4.h"
+#include "resources/romfs/romfs_5.h"
+#include "resources/romfs/romfs_6.h"
+#include "resources/romfs/romfs_7.h"
+#include "resources/romfs/romfs_8.h"
+#include "resources/romfs/romfs_closed.h"
+#include "resources/romfs/romfs_empty.h"
+#include "resources/romfs/romfs_explode.h"
+#include "resources/romfs/romfs_flag.h"
+#include "resources/romfs/romfs_mine.h"
+#include "resources/romfs/romfs_wrong.h"
+#include "resources/romfs/romfs_plainmine.h"
+#include "resources/romfs/romfs_plainflag.h"
+
+#if MINES_SHOW_SPLASH
+	#include "resources/romfs/romfs_splash.h"
+	#include "resources/romfs/romfs_splashtxt.h"
+	#include "resources/romfs/romfs_splashclr.h"
+#endif

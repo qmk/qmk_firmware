@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/sfatfs.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - FATFS</title>
+</head>
+
+<body>
+
+<div class="para">
+<h2>FATFS</h2>
+<p>The <tt>FATFS</tt> structure (filesystem object) holds dynamic work area of individual logical drives. It is given by application program and registerd/unregisterd to the FatFs module with <tt>f_mount</tt> function. Initialization of the structure is done by volume mount process whenever necessary. Application program must not modify any member in this structure, or the FAT volume can be collapsed.</p>
+<pre>
+<span class="k">typedef</span> <span class="k">struct</span> {
+    BYTE    fs_type;      <span class="c">/* FAT type (0, FS_FAT12, FS_FAT16, FS_FAT32 or FS_EXFAT) */</span>
+    BYTE    pdrv;         <span class="c">/* Hosting physical drive of this volume */</span>
+    BYTE    n_fats;       <span class="c">/* Number of FAT copies (1,2) */</span>
+    BYTE    wflag;        <span class="c">/* win[] flag (b0:win[] is dirty) */</span>
+    BYTE    fsi_flag;     <span class="c">/* FSINFO flags (b7:Disabled, b0:Dirty) */</span>
+    WORD    id;           <span class="c">/* Volume mount ID */</span>
+    WORD    n_rootdir;    <span class="c">/* Number of root directory entries (FAT12/16) */</span>
+    WORD    csize;        <span class="c">/* Sectors per cluster */</span>
+<span class="k">#if</span> FF_MAX_SS != FF_MIN_SS
+    WORD    ssize;        <span class="c">/* Sector size (512,1024,2048 or 4096) */</span>
+<span class="k">#endif</span>
+<span class="k">#if FF_FS_EXFAT</span>
+    BYTE*   dirbuf;       <span class="c">/* Directory entry block scratchpad buffer */</span>
+<span class="k">#endif</span>
+<span class="k">#if</span> FF_FS_REENTRANT
+    FF_SYNC_t sobj;         <span class="c">/* Identifier of sync object */</span>
+<span class="k">#endif</span>
+<span class="k">#if</span> !FF_FS_READONLY
+    DWORD   last_clust;   <span class="c">/* FSINFO: Last allocated cluster (0xFFFFFFFF if invalid) */</span>
+    DWORD   free_clust;   <span class="c">/* FSINFO: Number of free clusters (0xFFFFFFFF if invalid) */</span>
+<span class="k">#endif</span>
+<span class="k">#if</span> FF_FS_RPATH
+    DWORD   cdir;         <span class="c">/* Cluster number of current directory (0:root) */</span>
+<span class="k">#if FF_FS_EXFAT</span>
+    DWORD   cdc_scl;      <span class="c">/* Containing directory start cluster (invalid when cdir is 0) */</span>
+    DWORD   cdc_size;     <span class="c">/* b31-b8:Size of containing directory, b7-b0: Chain status */</span>
+    DWORD   cdc_ofs;      <span class="c">/* Offset in the containing directory (invalid when cdir is 0) */</span>
+<span class="k">#endif</span>
+<span class="k">#endif</span>
+    DWORD   n_fatent;     <span class="c">/* Number of FAT entries (Number of clusters + 2) */</span>
+    DWORD   fsize;        <span class="c">/* Sectors per FAT */</span>
+    DWORD   volbase;      <span class="c">/* Volume base LBA */</span>
+    DWORD   fatbase;      <span class="c">/* FAT base LBA */</span>
+    DWORD   dirbase;      <span class="c">/* Root directory base (LBA|Cluster) */</span>
+    DWORD   database;     <span class="c">/* Data base LBA */</span>
+    DWORD   winsect;      <span class="c">/* Sector LBA appearing in the win[] */</span>
+    BYTE    win[FF_MAX_SS]; <span class="c">/* Disk access window for directory, FAT (and file data at tiny cfg) */</span>
+} FATFS;
+</pre>
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

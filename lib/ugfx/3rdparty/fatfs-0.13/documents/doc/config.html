@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/config.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - Configuration Options</title>
+</head>
+
+<body>
+<h1>Configuration Options</h1>
+<p>There are many options to configure the functions of FatFs for requirement of each project. The configuration options are defined in the <em><tt>ffconf.h</tt></em>.</p>
+<ul>
+<li>Function Configurations
+ <ul>
+   <li><a href="#fs_readonly">FF_FS_READONLY</a></li>
+   <li><a href="#fs_minimize">FF_FS_MINIMIZE</a></li>
+   <li><a href="#use_strfunc">FF_USE_STRFUNC</a></li>
+   <li><a href="#use_find">FF_USE_FIND</a></li>
+   <li><a href="#use_mkfs">FF_USE_MKFS</a></li>
+   <li><a href="#use_fastseek">FF_USE_FASTSEEK</a></li>
+   <li><a href="#use_expand">FF_USE_EXPAND</a></li>
+   <li><a href="#use_chmod">FF_USE_CHMOD</a></li>
+   <li><a href="#use_label">FF_USE_LABEL</a></li>
+   <li><a href="#use_forward">FF_USE_FORWARD</a></li>
+ </ul>
+</li>
+<li>Namespace and Locale Configurations
+ <ul>
+   <li><a href="#code_page">FF_CODE_PAGE</a></li>
+   <li><a href="#use_lfn">FF_USE_LFN</a></li>
+   <li><a href="#max_lfn">FF_MAX_LFN</a></li>
+   <li><a href="#lfn_unicode">FF_LFN_UNICODE</a></li>
+   <li><a href="#strf_encode">FF_STRF_ENCODE</a></li>
+   <li><a href="#fs_rpath">FF_FS_RPATH</a></li>
+ </ul>
+</li>
+<li>Volume/Drive Configurations
+ <ul>
+   <li><a href="#volumes">FF_VOLUMES</a></li>
+   <li><a href="#str_volume_id">FF_STR_VOLUME_ID</a></li>
+   <li><a href="#volume_strs">FF_VOLUME_STRS</a></li>
+   <li><a href="#multi_partition">FF_MULTI_PARTITION</a></li>
+   <li><a href="#max_ss">FF_MIN_SS, FF_MAX_SS</a></li>
+   <li><a href="#use_trim">FF_USE_TRIM</a></li>
+   <li><a href="#fs_nofsinfo">FF_FS_NOFSINFO</a></li>
+ </ul>
+</li>
+<li>System Configurations
+ <ul>
+   <li><a href="#fs_tiny">FF_FS_TINY</a></li>
+   <li><a href="#fs_exfat">FF_FS_EXFAT</a></li>
+   <li><a href="#fs_nortc">FF_FS_NORTC</a></li>
+   <li><a href="#nortc_time">FF_NORTC_MON, FF_NORTC_MDAY, FF_NORTC_YEAR</a></li>
+   <li><a href="#fs_lock">FF_FS_LOCK</a></li>
+   <li><a href="#fs_reentrant">FF_FS_REENTRANT</a></li>
+   <li><a href="#fs_timeout">FF_FS_TIMEOUT</a></li>
+   <li><a href="#sync_t">FF_SYNC_t</a></li>
+ </ul>
+</li>
+</ul>
+
+<div class="para doc" id="func">
+<h3>Function Configurations</h3>
+
+<h4 id="fs_readonly">FF_FS_READONLY</h4>
+<p>Read/Write (0) or Read-only (1). Read-only configuration removes writing API functions, <tt>f_write</tt>, <tt>f_sync</tt>, <tt>f_unlink</tt>, <tt>f_mkdir</tt>, <tt>f_chmod</tt>, <tt>f_rename</tt>, <tt>f_truncate</tt>, <tt>f_getfree</tt> and optional writing functions as well.</p>
+
+<h4 id="fs_minimize">FF_FS_MINIMIZE</h4>
+<p>This option defines minimization level to remove some basic API functions as follows:</p>
+<table class="lst1">
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td>0</td><td>All basic API functions are available.</td></tr>
+<tr><td>1</td><td><tt>f_stat</tt>, <tt>f_getfree</tt>, <tt>f_unlink</tt>, <tt>f_mkdir</tt>, <tt>f_chmod</tt>, <tt>f_utime</tt>, <tt>f_truncate</tt> and <tt>f_rename</tt> function are removed.</td></tr>
+<tr><td>2</td><td><tt>f_opendir</tt>, <tt>f_readdir</tt> and <tt>f_closedir</tt> function are removed in addition to 1.</td></tr>
+<tr><td>3</td><td><tt>f_lseek</tt> function is removed in addition to 2.</td></tr>
+</table>
+
+<h4 id="use_strfunc">FF_USE_STRFUNC</h4>
+<p>This option switches string functions, <tt>f_gets</tt>, <tt>f_putc</tt>, <tt>f_puts</tt> and <tt>f_printf</tt>.</p>
+<table class="lst1">
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td>0</td><td>Disable string functions.</td></tr>
+<tr><td>1</td><td>Enable string functions without LF-CRLF conversion.</td></tr>
+<tr><td>2</td><td>Enable string functions with LF-CRLF conversion.</td></tr>
+</table>
+
+<h4 id="use_find">FF_USE_FIND</h4>
+<p>Disable (0) or Enable (1) filtered directory read functions, <tt>f_findfirst</tt> and <tt>f_findnext</tt>. Also <tt>FF_FS_MINIMIZE</tt> needs to be 0 or 1.</p>
+
+<h4 id="use_mkfs">FF_USE_MKFS</h4>
+<p>Disable (0) or Enable (1) <tt>f_mkfs</tt> function.</p>
+
+<h4 id="use_fastseek">FF_USE_FASTSEEK</h4>
+<p>Disable (0) or Enable (1) fast seek function to enable accelerated mode for <tt>f_lseek</tt>, <tt>f_read</tt> and <tt>f_write</tt> function. For more information, read <a href="lseek.html">here</a>.</p>
+
+<h4 id="use_expand">FF_USE_EXPAND</h4>
+<p>Disable (0) or Enable (1) <tt>f_expand</tt> function.</p>
+
+<h4 id="use_chmod">FF_USE_CHMOD</h4>
+<p>Disable (0) or Enable (1) metadata control functions, <tt>f_chmod</tt> and <tt>f_utime</tt>. Also <tt>FF_FS_READONLY</tt> needs to be 0.</p>
+
+<h4 id="use_label">FF_USE_LABEL</h4>
+<p>Disable (0) or Enable (1) API functions for volume label, <tt>f_getlabel</tt> and <tt>f_setlabel</tt>.</p>
+
+<h4 id="use_forward">FF_USE_FORWARD</h4>
+<p>Disable (0) or Enable (1) <tt>f_forward</tt> function.</p>
+
+</div>
+
+
+<div class="para doc" id="name">
+<h3>Namespace and Locale Configurations</h3>
+
+<h4 id="code_page">FF_CODE_PAGE</h4>
+<p>This option specifies the OEM code page to be used on the target system. Incorrect setting of the code page can cause a file open failure. If any non-ASCII character is not used at all, there is no difference between any code pages.</p>
+<table class="lst1">
+<tr><th>Value</th><th>Code page</th></tr>
+<tr><td>0</td><td>Include all code pages below and set by <tt>f_setcp()</tt></td></tr>
+<tr><td>437</td><td>U.S.</td></tr>
+<tr><td>720</td><td>Arabic</td></tr>
+<tr><td>737</td><td>Greek</td></tr>
+<tr><td>771</td><td>KBL</td></tr>
+<tr><td>775</td><td>Baltic</td></tr>
+<tr><td>850</td><td>Latin 1</td></tr>
+<tr><td>852</td><td>Latin 2</td></tr>
+<tr><td>855</td><td>Cyrillic</td></tr>
+<tr><td>857</td><td>Turkish</td></tr>
+<tr><td>860</td><td>Portuguese</td></tr>
+<tr><td>861</td><td>Icelandic</td></tr>
+<tr><td>862</td><td>Hebrew</td></tr>
+<tr><td>863</td><td>Canadian French</td></tr>
+<tr><td>864</td><td>Arabic</td></tr>
+<tr><td>865</td><td>Nordic</td></tr>
+<tr><td>866</td><td>Russian</td></tr>
+<tr><td>869</td><td>Greek 2</td></tr>
+<tr><td>932</td><td>Japanese (DBCS)</td></tr>
+<tr><td>936</td><td>Simplified Chinese (DBCS)</td></tr>
+<tr><td>949</td><td>Korean (DBCS)</td></tr>
+<tr><td>950</td><td>Traditional Chinese (DBCS)</td></tr>
+</table>
+
+<h4 id="use_lfn">FF_USE_LFN</h4>
+<p>This option switches the support for long file name (LFN). When enable the LFN, Unicode support functions <tt>ffunicode.c</tt> need to be added to the project. The working buffer for LFN occupies <tt>(FF_MAX_LFN + 1) * 2</tt> bytes and additional <tt>((FF_MAX_LFN + 44) / 15 * 32</tt> bytes when exFAT enabled. When use stack for the working buffer, take care on stack overflow. When use heap memory for the working buffer, memory management functions, <tt>ff_memalloc</tt> and <tt>ff_memfree</tt>, need to be added to the project.</p>
+<table class="lst1">
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td>0</td><td>Disable LFN. Path name in only 8.3 format can be used.</td></tr>
+<tr><td>1</td><td>Enable LFN with static working buffer on the BSS. Always NOT thread-safe.</td></tr>
+<tr><td>2</td><td>Enable LFN with dynamic working buffer on the STACK.</td></tr>
+<tr><td>3</td><td>Enable LFN with dynamic working buffer on the HEAP.</td></tr>
+</table>
+
+<h4 id="max_lfn">FF_MAX_LFN</h4>
+<p>This option defines the size of LFN working buffer from 12 to 255 in unit of character. This option has no effect when LFN is disabled.</p>
+
+<h4 id="lfn_unicode">FF_LFN_UNICODE</h4>
+<p>This option switches character encoding on the API, ANSI/OEM (0) or Unicode in UTF-16 (1). To use Unicode string for the path name, enable LFN and set this option to 1. This option also affects behavior of string I/O functions. When LFN is disabled, this option has no effect. For more information, read <a href="filename.html#uni">here</a>.</p>
+
+<h4 id="strf_encode">FF_STRF_ENCODE</h4>
+<p>When Unicode API is selected by <tt>FF_LFN_UNICODE = 1</tt>, string I/O functions, <tt>f_gets</tt>, <tt>f_putc</tt>, <tt>f_puts</tt> and <tt>f_printf</tt> convert the character encodins in it. This option defines the assumption of character encoding <em>on the file</em> to be read/written via those functions. When Unicode API is not selected, the string functions work without any conversion and this option has no effect.</p>
+<table class="lst1">
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td>0</td><td>ANSI/OEM</td></tr>
+<tr><td>1</td><td>UTF-16LE</td></tr>
+<tr><td>2</td><td>UTF-16BE</td></tr>
+<tr><td>3</td><td>UTF-8</td></tr>
+</table>
+
+<h4 id="fs_rpath">FF_FS_RPATH</h4>
+<p>This option configures relative path function. For more information, read <a href="filename.html#nam">here</a>.</p>
+<table class="lst1">
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td>0</td><td>Disable relative path function and remove related functions.</td></tr>
+<tr><td>1</td><td>Enable relative path function. <tt>f_chdir</tt> and <tt>f_chdrive</tt> function is available.</td></tr>
+<tr><td>2</td><td><tt>f_getcwd</tt> function is available in addition to 1</td></tr>
+</table>
+
+</div>
+
+
+<div class="para doc" id="volume">
+<h3>Volume/Drive Configurations</h3>
+
+<h4 id="volumes">FF_VOLUMES</h4>
+<p>This option configures number of volumes (logical drives, from 1 to 10) to be used.</p>
+
+<h4 id="str_volume_id">FF_STR_VOLUME_ID</h4>
+<p>Disable (0) or Enable (1). This option switches the support for string volume ID. When enabled, also pre-defined strings in <tt>FF_VOLUME_STRS</tt> can be used as drive identifier in the path name.</p>
+
+<h4 id="volume_strs">FF_VOLUME_STRS</h4>
+<p>This option defines the drive ID strings for each logical drives. Number of items must not be less than <tt>FF_VOLUMES</tt>. Valid characters for the drive ID string are: A-Z and 0-9.</p>
+
+<h4 id="multi_partition">FF_MULTI_PARTITION</h4>
+<p>Disable (0) or Enable (1). This option switches multi-partition function. By default (0), each logical drive number is bound to the same physical drive number and only a volume in the physical drive is mounted. When enabled, each logical drive is bound to the partition on the physical drive listed in the user defined partition resolution table <tt>VolToPart[]</tt>. Also <tt>f_fdisk</tt> funciton will be available. For more information, read <a href="filename.html#vol">here</a>.</p>
+
+<h4 id="max_ss">FF_MIN_SS, FF_MAX_SS</h4>
+<p>This set of options defines the extent of sector size used on the low level disk I/O interface, <tt>disk_read</tt> and <tt>disk_write</tt> function. Valid values are 512, 1024, 2048 and 4096. <tt>FF_MIN_SS</tt> defines minimum sector size and <tt>FF_MAX_SS</tt> defines the maximum sector size. Always set both 512 for memory card and harddisk. But a larger value may be required for on-board flash memory and some type of optical media. When <tt>FF_MAX_SS &gt; FF_MIN_SS</tt>, support of variable sector size is enabled and <tt>GET_SECTOR_SIZE</tt> command needs to be implemented to the <tt>disk_ioctl</tt> function.</p>
+
+<h4 id="use_trim">FF_USE_TRIM</h4>
+<p>Disable (0) or Enable (1). This option switches ATA-TRIM function. To enable Trim function, also <tt>CTRL_TRIM</tt> command should be implemented to the <tt>disk_ioctl</tt> function.</p>
+
+<h4 id="fs_nofsinfo">FF_FS_NOFSINFO</h4>
+<p>0 to 3. If you need to know correct free space on the FAT32 volume, set bit 0 of this option, and <tt>f_getfree</tt> function at first time after volume mount will force a full FAT scan. Bit 1 controls the use of last allocated cluster number.</p>
+<table class="lst1">
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td>bit0=0</td><td>Use free cluster count in the FSINFO if available.</td></tr>
+<tr><td>bit0=1</td><td>Do not trust free cluster count in the FSINFO.</td></tr>
+<tr><td>bit1=0</td><td>Use last allocated cluster number in the FSINFO to find a free cluster if available.</td></tr>
+<tr><td>bit1=1</td><td>Do not trust last allocated cluster number in the FSINFO.</td></tr>
+</table>
+
+</div>
+
+
+<div class="para doc" id="system">
+<h3>System Configurations</h3>
+
+<h4 id="fs_tiny">FF_FS_TINY</h4>
+<p>Normal (0) or Tiny (1). At the tiny configuration, size of the file object <tt>FIL</tt> is reduced <tt>FF_MAX_SS</tt> bytes. Instead of private data buffer eliminated from the file object, common sector buffer in the filesystem object <tt>FATFS</tt> is used for the file data transfer.</p>
+
+<h4 id="fs_exfat">FF_FS_EXFAT</h4>
+<p>This option switches support for the exFAT filesystem in addition to the FAT/FAT32 filesystem, Enabled(1) or Disabled(0). To enable this feature, also LFN must be enabled and configureing <tt>FF_LFN_UNICODE = 1</tt> and <tt>FF_MAX_LFN = 255</tt> is recommended for full-featured exFAT function. Note that enabling exFAT discards ANSI C (C89) compatibility because of need for 64-bit integer type.</p>
+
+<h4 id="fs_nortc">FF_FS_NORTC</h4>
+<p>Use RTC (0) or Do not use RTC (1). This option controls timestamp function. If the system does not have an RTC function or valid timestamp is not needed, set <tt>FF_FS_NORTC</tt> to 1 to disable the timestamp function. Any object modified by FatFs will have a fixed timestamp defined by <tt>FF_NORTC_MON</tt>, <tt>FF_NORTC_MDAY</tt> and <tt>FF_NORTC_YEAR</tt>. To use the timestamp function, set <tt>FF_FS_NORTC = 0</tt> and add <tt>get_fattime</tt> function to the project to get the current time form real-time clock. This option has no effect at read-only configuration.</p>
+
+<h4 id="nortc_time">FF_NORTC_MON, FF_NORTC_MDAY, FF_NORTC_YEAR</h4>
+<p>This set of options defines the time to be used at no RTC systems. This option has no effect at read-only configuration or <tt>FF_FS_NORTC = 0</tt>.</p>
+
+<h4 id="fs_lock">FF_FS_LOCK</h4>
+<p>This option switches file lock function to control duplicated file open and illegal operations to open objects. Note that the file lock function is independent of re-entrancy. This option must be 0 at read-only configuration.</p>
+<table class="lst1">
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td>0</td><td>Disable file lock function. To avoid collapsing file by wrong file operation, application program needs to avoid illegal open, remove and rename to the open objects.</td></tr>
+<tr><td>&gt;0</td><td>Enable file lock function. The value defines how many files/sub-directories can be opened simultaneously under the file lock control. Illigal operations to the open object will be rejected with <tt>FR_LOCKED</tt>.</td></tr>
+</table>
+
+<h4 id="fs_reentrant">FF_FS_REENTRANT</h4>
+<p>Disable (0) or Enable (1). This option switches the re-entrancy (thread safe) of the FatFs module itself. Note that file/directory access to the different volume is always re-entrant and it can work simultaneously regardless of this option but volume control functions. <tt>f_mount</tt>, <tt>f_mkfs</tt> and <tt>f_fdisk</tt>, are always not re-entrant. Only file/directory access to the same volume, in other words, exclusive use of each filesystem object, is under control of this function. To enable this feature, also user provided synchronization handlers, <tt>ff_req_grant</tt>, <tt>ff_rel_grant</tt>, <tt>ff_del_syncobj</tt> and <tt>ff_cre_syncobj</tt>, need to be added to the project. Sample code is available in <tt>ffsystem.c</tt>.</p>
+
+<h4 id="fs_timeout">FF_FS_TIMEOUT</h4>
+<p>Number of time ticks to abort the file function with <tt>FR_TIMEOUT</tt> when wait time is too long. This option has no effect when <tt>FF_FS_REENTRANT = 0</tt>.</p>
+
+<h4 id="sync_t">FF_SYNC_t</h4>
+<p>This option defines O/S dependent sync object type. e.g. <tt>HANDLE</tt>, <tt>ID</tt>, <tt>OS_EVENT*</tt>, <tt>SemaphoreHandle_t</tt> and etc. A header file for O/S definitions needs to be included somewhere in the scope of <tt>ff.c</tt>. This option has no effect when <tt>FF_FS_REENTRANT = 0</tt>.</p>
+
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

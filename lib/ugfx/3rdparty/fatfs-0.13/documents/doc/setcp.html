@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/getcwd.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - f_setcp</title>
+</head>
+
+<body>
+
+<div class="para func">
+<h2>f_setcp</h2>
+<p>The f_setcp function sets the active code page.</p>
+<pre>
+FRESULT f_setcp (
+  WORD <span class="arg">cp</span>     <span class="c">/* [IN] Code page to be set */</span>
+);
+</pre>
+</div>
+
+<div class="para arg">
+<h4>Parameters</h4>
+<dl class="par">
+<dt>cp</dt>
+<dd>OEM code page to be used for the path name. Valid values are as follows.<br>
+<table class="lst1">
+<tr><th>Value</th><th>Meaning</th></tr>
+<tr><td>0</td><td>Initial value (non-ASCII character cannot be used)</td></tr>
+<tr><td>437</td><td>U.S.</td></tr>
+<tr><td>720</td><td>Arabic</td></tr>
+<tr><td>737</td><td>Greek</td></tr>
+<tr><td>771</td><td>KBL</td></tr>
+<tr><td>775</td><td>Baltic</td></tr>
+<tr><td>850</td><td>Latin 1</td></tr>
+<tr><td>852</td><td>Latin 2</td></tr>
+<tr><td>855</td><td>Cyrillic</td></tr>
+<tr><td>857</td><td>Turkish</td></tr>
+<tr><td>860</td><td>Portuguese</td></tr>
+<tr><td>861</td><td>Icelandic</td></tr>
+<tr><td>862</td><td>Hebrew</td></tr>
+<tr><td>863</td><td>Canadian French</td></tr>
+<tr><td>864</td><td>Arabic</td></tr>
+<tr><td>865</td><td>Nordic</td></tr>
+<tr><td>866</td><td>Russian</td></tr>
+<tr><td>869</td><td>Greek 2</td></tr>
+<tr><td>932</td><td>Japanese (DBCS)</td></tr>
+<tr><td>936</td><td>Simplified Chinese (DBCS)</td></tr>
+<tr><td>949</td><td>Korean (DBCS)</td></tr>
+<tr><td>950</td><td>Traditional Chinese (DBCS)</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+
+<div class="para ret">
+<h4>Return Values</h4>
+<p>
+<a href="rc.html#ok">FR_OK</a>,
+<a href="rc.html#ip">FR_INVALID_PARAMETER</a>
+</p>
+</div>
+
+
+<div class="para desc">
+<h4>Description</h4>
+<p>The <tt>f_setcp</tt> function sets the active code page for the path name. Also code conversion of string functions will be affected by the code page when <tt>FF_LFN_UNICODE = 1</tt> and <tt>FF_STRF_ENCODE = 0</tt>. Because the initial setting of the code page is 0 and API function with non-ASCII character will not work properly. Any valid code page needs to be set on the system start-up and it should not be changed on the fly.</p>
+</div>
+
+
+<div class="para comp">
+<h4>QuickInfo</h4>
+<p>Available when <tt>FF_CODE_PAGE == 0</tt>.</p>
+</div>
+
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

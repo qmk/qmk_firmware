@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/mount.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - f_mount</title>
+</head>
+
+<body>
+
+<div class="para func">
+<h2>f_mount</h2>
+<p>The f_mount fucntion registers/unregisters filesystem object to the FatFs module.</p>
+<pre>
+FRESULT f_mount (
+  FATFS*       <span class="arg">fs</span>,    <span class="c">/* [IN] Filesystem object */</span>
+  const TCHAR* <span class="arg">path</span>,  <span class="c">/* [IN] Logical drive number */</span>
+  BYTE         <span class="arg">opt</span>    <span class="c">/* [IN] Initialization option */</span>
+);
+</pre>
+</div>
+
+<div class="para arg">
+<h4>Parameters</h4>
+<dl class="par">
+<dt>fs</dt>
+<dd>Pointer to the filesystem object to be registered and cleared. Null pointer unregisters the registered filesystem object.</dd>
+<dt>path</dt>
+<dd>Pointer to the null-terminated string that specifies the <a href="filename.html">logical drive</a>. The string without drive number means the default drive.</dd>
+<dt>opt</dt>
+<dd>Mounting option. 0: Do not mount now (to be mounted on the first access to the volume), 1: Force mounted the volume to check if it is ready to work.</dd>
+</dl>
+</div>
+
+<div class="para ret">
+<h4>Return Values</h4>
+<p>
+<a href="rc.html#ok">FR_OK</a>,
+<a href="rc.html#id">FR_INVALID_DRIVE</a>,
+<a href="rc.html#de">FR_DISK_ERR</a>,
+<a href="rc.html#nr">FR_NOT_READY</a>,
+<a href="rc.html#ne">FR_NOT_ENABLED</a>,
+<a href="rc.html#ns">FR_NO_FILESYSTEM</a>
+</p>
+</div>
+
+
+<div class="para desc">
+<h4>Description</h4>
+<p>FatFs needs work area (<em>filesystem object</em>) for each logical drives (FAT volumes). Prior to perform file/directory operations, a filesystem object needs to be registered with <tt>f_mount</tt> function to the logical drive. The file/directory API functions get ready to work after this procedure. If there is any open object of file or directory on the logical drive, the object will be invalidated by this function.</p>
+<p>The <tt>f_mount</tt> function registers/unregisters a filesystem object to the FatFs module as follows:</p>
+<ol>
+<li>Determines the logical drive which specified by <tt class="arg">path</tt>.</li>
+<li>Clears and unregisters the regsitered work area of the volume if exist.</li>
+<li>Clears and registers the new work area to the volume if <tt class="arg">fs</tt> is not NULL.</li>
+<li>Performs volume mount process to the volume if forced mounting is specified.</li>
+</ol>
+<p>If forced mounting is not specified (<tt>opt = 0</tt>), this function always succeeds regardless of the physical drive status. It only clears (de-initializes) the given work area and registers its address to the internal table and no activity of the physical drive in this function. To unregister the work area, specify a NULL to the <tt class="arg">fs</tt>, and then the work area can be discarded. The volume mount processes, initialize the corresponding physical drive, find the FAT volume in it and then initialize the work area, is performed in the subsequent file/directory functions when either of following conditions is true.</p>
+<ul>
+<li>File system object has not been initialized. It is de-initialized by <tt>f_mount</tt> function.</li>
+<li>Physical drive is not initialized. It is de-initialized by system reset or media removal.</li>
+</ul>
+<p>If the function with forced mounting (<tt>opt = 1</tt>) failed, it means that the filesystem object has been registered successfully but the volume is currently not ready to work. The volume mount process will be attempted at subsequent file/directroy functions if the filesystem object is not initialized. (delayed mounting)</p>
+<p>If implementation of the disk I/O layer lacks asynchronous media change detection, application program needs to perform <tt>f_mount</tt> function after each media change to force cleared the filesystem object.</p>
+</div>
+
+
+<div class="para comp">
+<h4>QuickInfo</h4>
+<p>Always available.</p>
+</div>
+
+
+<div class="para use">
+<h4>Example</h4>
+<pre>
+int main (void)
+{
+    FATFS *fs;     <span class="c">/* Ponter to the filesystem object */</span>
+
+
+    fs = malloc(sizeof (FATFS));           <span class="c">/* Get work area for the volume */</span>
+    <em>f_mount</em>(fs, "", 0);                    <span class="c">/* Mount the default drive */</span>
+
+    f_open(...                             <span class="c">/* Here any file API can be used */</span>
+
+    ...
+
+    <em>f_mount</em>(fs, "", 0);                    <span class="c">/* Re-mount the default drive to reinitialize the filesystem */</span>
+
+    ...
+
+    <em>f_mount</em>(0, "", 0);                     <span class="c">/* Unmount the default drive */</span>
+    free(fs);                              <span class="c">/* Here the work area can be discarded */</span>
+
+    ...
+}
+</pre>
+</div>
+
+
+<div class="para ref">
+<h4>See Also</h4>
+<p><tt><a href="open.html">f_open</a></tt>, <tt><a href="sfatfs.html">FATFS</a></tt></p>
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

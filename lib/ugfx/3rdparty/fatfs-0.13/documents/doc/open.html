@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/open.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - f_open</title>
+</head>
+
+<body>
+
+<div class="para func">
+<h2>f_open</h2>
+<p>The f_open function opens a file.</p>
+<pre>
+FRESULT f_open (
+  FIL* <span class="arg">fp</span>,           <span class="c">/* [OUT] Pointer to the file object structure */</span>
+  const TCHAR* <span class="arg">path</span>, <span class="c">/* [IN] File name */</span>
+  BYTE <span class="arg">mode</span>          <span class="c">/* [IN] Mode flags */</span>
+);
+</pre>
+</div>
+
+<div class="para arg">
+<h4>Parameters</h4>
+<dl class="par">
+<dt>fp</dt>
+<dd>Pointer to the blank file object structure.</dd>
+<dt>path</dt>
+<dd>Pointer to the null-terminated string that specifies the <a href="filename.html">file name</a> to open or create.</dd>
+<dt>mode</dt>
+<dd>Mode flags that specifies the type of access and open method for the file. It is specified by a combination of following flags.<br>
+<table class="lst">
+<tr><th>Flags</th><th>Meaning</th></tr>
+<tr><td>FA_READ</td><td>Specifies read access to the object. Data can be read from the file.</tr>
+<tr><td>FA_WRITE</td><td>Specifies write access to the object. Data can be written to the file. Combine with <tt>FA_READ</tt> for read-write access.</td></tr>
+<tr><td>FA_OPEN_EXISTING</td><td>Opens the file. The function fails if the file is not existing. (Default)</td></tr>
+<tr><td>FA_CREATE_NEW</td><td>Creates a new file. The function fails with <tt>FR_EXIST</tt> if the file is existing.</td></tr>
+<tr><td>FA_CREATE_ALWAYS</td><td>Creates a new file. If the file is existing, it will be truncated and overwritten.</td></tr>
+<tr><td>FA_OPEN_ALWAYS</td><td>Opens the file if it is existing. If not, a new file will be created.</td></tr>
+<tr><td>FA_OPEN_APPEND</td><td>Same as <tt>FA_OPEN_ALWAYS</tt> except the read/write pointer is set end of the file.</td></tr>
+</table>
+Mode flags of POSIX fopen() corresponds to FatFs mode flags as follows:<br>
+<table class="lst">
+<tr><th>POSIX</th><th>FatFs</th></tr>
+<tr><td><tt>"r"</tt></td><td><tt>FA_READ</tt></td></tr>
+<tr><td><tt>"r+"</tt></td><td><tt>FA_READ | FA_WRITE</tt></td></tr>
+<tr><td><tt>"w"</tt></td><td><tt>FA_CREATE_ALWAYS | FA_WRITE</tt></td></tr>
+<tr><td><tt>"w+"</tt></td><td><tt>FA_CREATE_ALWAYS | FA_WRITE | FA_READ</tt></td></tr>
+<tr><td><tt>"a"</tt></td><td><tt>FA_OPEN_APPEND | FA_WRITE</tt></td></tr>
+<tr><td><tt>"a+"</tt></td><td><tt>FA_OPEN_APPEND | FA_WRITE | FA_READ</tt></td></tr>
+<tr><td><tt>"x"</tt><sup>*1</sup></td><td><tt>FA_CREATE_NEW | FA_WRITE</tt></td></tr>
+<tr><td><tt>"x+"</tt><sup>*1</sup></td><td><tt>FA_CREATE_NEW | FA_WRITE | FA_READ</tt></td></tr>
+</table>
+<sup>*1</sup>: glibc extension
+</dd>
+</dl>
+</div>
+
+
+<div class="para ret">
+<h4>Return Values</h4>
+<p>
+<a href="rc.html#ok">FR_OK</a>,
+<a href="rc.html#de">FR_DISK_ERR</a>,
+<a href="rc.html#ie">FR_INT_ERR</a>,
+<a href="rc.html#nr">FR_NOT_READY</a>,
+<a href="rc.html#nf">FR_NO_FILE</a>,
+<a href="rc.html#np">FR_NO_PATH</a>,
+<a href="rc.html#in">FR_INVALID_NAME</a>,
+<a href="rc.html#dn">FR_DENIED</a>,
+<a href="rc.html#ex">FR_EXIST</a>,
+<a href="rc.html#io">FR_INVALID_OBJECT</a>,
+<a href="rc.html#wp">FR_WRITE_PROTECTED</a>,
+<a href="rc.html#id">FR_INVALID_DRIVE</a>,
+<a href="rc.html#ne">FR_NOT_ENABLED</a>,
+<a href="rc.html#ns">FR_NO_FILESYSTEM</a>,
+<a href="rc.html#tm">FR_TIMEOUT</a>,
+<a href="rc.html#lo">FR_LOCKED</a>,
+<a href="rc.html#nc">FR_NOT_ENOUGH_CORE</a>,
+<a href="rc.html#tf">FR_TOO_MANY_OPEN_FILES</a>
+</p>
+</div>
+
+
+<div class="para desc">
+<h4>Description</h4>
+<p>The <tt>f_open</tt> function opens a file and creates a <em>file object</em>. The file object is used for subsequent read/write operations to the file to identify the file. Open file should be closed with <a href="close.html"><tt>f_close</tt></a> function after the session of the file access. If any change to the file is made and not closed prior to power down, media removal or re-mount, or the file can be collapsed.</p>
+<p>If duplicated file open is needed, read <a href="appnote.html#dup">here</a> carefully. However duplicated open of a file with any write mode flag is always prohibited.</p>
+</div>
+
+
+<div class="para comp">
+<h4>QuickInfo</h4>
+<p>Always available. Only <tt>FA_READ</tt> and <tt>FA_OPEN_EXISTING</tt> are supported when <tt>FF_FS_READONLY == 1</tt>.</p>
+</div>
+
+
+<div class="para use">
+<h4>Example</h4>
+<pre>
+<span class="c">/* Read a text file and display it */</span>
+
+FATFS FatFs;   <span class="c">/* Work area (filesystem object) for logical drive */</span>
+
+int main (void)
+{
+    FIL fil;        <span class="c">/* File object */</span>
+    char line[100]; <span class="c">/* Line buffer */</span>
+    FRESULT fr;     <span class="c">/* FatFs return code */</span>
+
+
+    <span class="c">/* Register work area to the default drive */</span>
+    f_mount(&amp;FatFs, "", 0);
+
+    <span class="c">/* Open a text file */</span>
+    fr = <em>f_open</em>(&amp;fil, "message.txt", FA_READ);
+    if (fr) return (int)fr;
+
+    <span class="c">/* Read all lines and display it */</span>
+    while (f_gets(line, sizeof line, &amp;fil)) {
+        printf(line);
+    }
+
+    <span class="c">/* Close the file */</span>
+    f_close(&amp;fil);
+
+    return 0;
+}
+</pre>
+<pre>
+<span class="c">/* Copy a file "file.bin" on the drive 1 to drive 0 */</span>
+
+int main (void)
+{
+    FATFS fs[2];         <span class="c">/* Work area (filesystem object) for logical drives */</span>
+    FIL fsrc, fdst;      <span class="c">/* File objects */</span>
+    BYTE buffer[4096];   <span class="c">/* File copy buffer */</span>
+    FRESULT fr;          <span class="c">/* FatFs function common result code */</span>
+    UINT br, bw;         <span class="c">/* File read/write count */</span>
+
+
+    <span class="c">/* Register work area for each logical drive */</span>
+    f_mount(&amp;fs[0], "0:", 0);
+    f_mount(&amp;fs[1], "1:", 0);
+
+    <span class="c">/* Open source file on the drive 1 */</span>
+    fr = <em>f_open</em>(&amp;fsrc, "1:file.bin", FA_READ);
+    if (fr) return (int)fr;
+
+    <span class="c">/* Create destination file on the drive 0 */</span>
+    fr = <em>f_open</em>(&amp;fdst, "0:file.bin", FA_WRITE | FA_CREATE_ALWAYS);
+    if (fr) return (int)fr;
+
+    <span class="c">/* Copy source to destination */</span>
+    for (;;) {
+        fr = f_read(&amp;fsrc, buffer, sizeof buffer, &amp;br);  <span class="c">/* Read a chunk of source file */</span>
+        if (fr || br == 0) break; <span class="c">/* error or eof */</span>
+        fr = f_write(&amp;fdst, buffer, br, &amp;bw);            <span class="c">/* Write it to the destination file */</span>
+        if (fr || bw &lt; br) break; <span class="c">/* error or disk full */</span>
+    }
+
+    <span class="c">/* Close open files */</span>
+    f_close(&amp;fsrc);
+    f_close(&amp;fdst);
+
+    <span class="c">/* Unregister work area prior to discard it */</span>
+    f_mount(NULL, "0:", 0);
+    f_mount(NULL, "1:", 0);
+
+    return (int)fr;
+}
+</pre>
+</div>
+
+
+<div class="para ref">
+<h4>See Also</h4>
+<p><tt><a href="read.html">f_read</a>, <a href="write.html">f_write</a>, <a href="close.html">f_close</a>, <a href="sfile.html">FIL</a>, <a href="sfatfs.html">FATFS</a></tt></p>
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

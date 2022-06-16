@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/dstat.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - disk_status</title>
+</head>
+
+<body>
+
+<div class="para func">
+<h2>disk_status</h2>
+<p>The disk_status function is called to inquire the current drive status.</p>
+<pre>
+DSTATUS disk_status (
+  BYTE <span class="arg">pdrv</span>     <span class="c">/* [IN] Physical drive number */</span>
+);
+</pre>
+</div>
+
+<div class="para arg">
+<h4>Parameter</h4>
+<dl class="par">
+<dt>pdrv</dt>
+<dd>Physical drive number to identify the target device. Always zero at single drive system.</dd>
+</dl>
+</div>
+
+
+<div class="para ret">
+<h4>Return Values</h4>
+<p>The current drive status is returned in combination of status flags described below. FatFs refers only <tt>STA_NOINIT</tt> and <tt>STA_PROTECT</tt>.</p>
+<dl class="ret">
+<dt>STA_NOINIT</dt>
+<dd>Indicates that the device has not been initialized and not ready to work. This flag is set on system reset, media removal or failure of <tt>disk_initialize</tt> function. It is cleared on <tt>disk_initialize</tt> function succeeded. Any media change that occurs asynchronously must be captured and reflect it to the status flags, or auto-mount function will not work correctly. If the system does not support media change detection, application program needs to explicitly re-mount the volume with <tt>f_mount</tt> function after each media change.</dd>
+<dt>STA_NODISK</dt>
+<dd>Indicates that no medium in the drive. This is always cleared at fixed disk drive. Note that FatFs does not refer this flag.</dd>
+<dt>STA_PROTECT</dt>
+<dd>Indicates that the medium is write protected. This is always cleared at the drives without write protect function. Not valid if no medium in the drive.</dd>
+</dl>
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

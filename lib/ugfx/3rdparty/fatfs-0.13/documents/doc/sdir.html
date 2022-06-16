@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/sdir.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - DIR</title>
+</head>
+
+<body>
+
+<div class="para">
+<h2>DIR</h2>
+<p>The <tt>DIR</tt> structure is used for the work area to read a directory by <tt>f_oepndir</tt>, <tt>f_readdir</tt>, <tt>f_findfirst</tt> and <tt>f_findnext</tt> function. Application program must not modify any member in this structure, or any file on the volume can be collapsed.</p>
+<pre>
+<span class="k">typedef</span> <span class="k">struct</span> {
+    FFOBJID obj;        <span class="c">/* Object identifier */</span>
+    DWORD   dptr;       <span class="c">/* Current read/write offset */</span>
+    DWORD   clust;      <span class="c">/* Current cluster */</span>
+    DWORD   sect;       <span class="c">/* Current sector */</span>
+    BYTE*   dir;        <span class="c">/* Pointer to the current SFN entry in the win[] */</span>
+    BYTE*   fn;         <span class="c">/* Pointer to the SFN buffer (in/out) {file[8],ext[3],status[1]} */</span>
+<span class="k">#if</span> FF_USE_LFN
+    DWORD   blk_ofs;    <span class="c">/* Offset of the entry block (0xFFFFFFFF:Invalid) */</span>
+    WCHAR*  lfn;        <span class="c">/* Pointer to the LFN working buffer (in/out) */</span>
+<span class="k">#endif</span>
+<span class="k">#if</span> FF_USE_FIND
+    const TCHAR*  pat;  <span class="c">/* Ponter to the matching pattern */</span>
+<span class="k">#endif</span>
+} DIR;
+</pre>
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

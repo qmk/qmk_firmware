@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/sfile.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - FIL</title>
+</head>
+
+<body>
+
+<div class="para">
+<h2>FIL</h2>
+<p>The <tt>FIL</tt> structure (file object) holds the state of an open file. It is created by <tt>f_open</tt> function and discarded by <tt>f_close</tt> function. Application program must not modify any member in this structure except for <tt>cltbl</tt>, or any data on the FAT volume can be collapsed. Note that a sector buffer is defined in this structure at non-tiny configuration (<tt>FF_FS_TINY == 0</tt>), so that the <tt>FIL</tt> structures at that configuration should not be defined as auto variable.</p>
+
+<pre>
+<span class="k">typedef</span> <span class="k">struct</span> {
+    FFOBJID obj;          <span class="c">/* Object identifier */</span>
+    BYTE    flag;         <span class="c">/* File object status flags */</span>
+    BYTE    err;          <span class="c">/* Abort flag (error code) */</span>
+    FSIZE_t fptr;         <span class="c">/* File read/write pointer (Byte offset origin from top of the file) */</span>
+    DWORD   clust;        <span class="c">/* Current cluster of fptr (One cluster behind if fptr is on the cluster boundary. Invalid if fptr == 0.) */</span>
+    DWORD   sect;         <span class="c">/* Current data sector (Can be invalid if fptr is on the cluster boundary.)*/</span>
+<span class="k">#if</span> !FF_FS_READONLY
+    DWORD   dir_sect;     <span class="c">/* Sector number containing the directory entry */</span>
+    BYTE*   dir_ptr;      <span class="c">/* Ponter to the directory entry in the window */</span>
+<span class="k">#endif</span>
+<span class="k">#if</span> FF_USE_FASTSEEK
+    DWORD*  cltbl;        <span class="c">/* Pointer to the cluster link map table (Nulled on file open. Set by application.) */</span>
+<span class="k">#endif</span>
+<span class="k">#if</span> !FF_FS_TINY
+    BYTE    buf[FF_MAX_SS]; <span class="c">/* File private data transfer buffer (Always valid if fptr is not on the sector boundary but can be invalid if fptr is on the sector boundary.) */</span>
+<span class="k">#endif</span>
+} FIL;
+</pre>
+
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

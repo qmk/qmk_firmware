@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="description" content="Open source FAT filesystem for embedded projects">
+<link rel="stylesheet" href="css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - Generic FAT Filesystem Module</title>
+</head>
+
+<body>
+<h1>FatFs - Generic FAT Filesystem Module</h1>
+<hr>
+
+<div class="abst">
+<img src="res/layers.png" class="rset" width="245" height="255" alt="layer">
+<p>FatFs is a generic FAT/exFAT filesystem module for small embedded systems. The FatFs module is written in compliance with ANSI C (C89) and completely separated from the disk I/O layer. Therefore it is independent of the platform. It can be incorporated into small microcontrollers with limited resource, such as 8051, PIC, AVR, ARM, Z80, RX and etc. Also Petit FatFs module for tiny microcontrollers is available <a href="http://elm-chan.org/fsw/ff/00index_p.html">here</a>.</p>
+
+<h4>Features</h4>
+<ul>
+ <li>DOS/Windows compatible FAT/exFAT filesystem.</li>
+ <li>Platform independent. Easy to port.</li>
+ <li>Very small footprint for program code and work area.</li>
+ <li>Various <a href="doc/config.html">configuration options</a> to support for:
+  <ul>
+   <li>Multiple volumes (physical drives and partitions).</li>
+   <li>Multiple ANSI/OEM code pages including DBCS.</li>
+   <li>Long file name in ANSI/OEM or Unicode.</li>
+   <li>exFAT filesystem.</li>
+   <li>RTOS envilonment.</li>
+   <li>Fixed or variable sector size.</li>
+   <li>Read-only, optional API, I/O buffer and etc...</li>
+  </ul>
+ </li>
+</ul>
+</div>
+
+
+<div class="para">
+<h3>Application Interface</h3>
+<img src="res/layers1.png" class="rset" width="245" height="220" alt="layer">
+<p>FatFs provides various filesystem functions for the applications as shown below.</p>
+<ul>
+ <li>File Access
+ <ul>
+  <li><a href="doc/open.html">f_open</a> - Open/Create a file</li>
+  <li><a href="doc/close.html">f_close</a> - Close an open file</li>
+  <li><a href="doc/read.html">f_read</a> - Read data from the file</li>
+  <li><a href="doc/write.html">f_write</a> - Write data to the file</li>
+  <li><a href="doc/lseek.html">f_lseek</a> - Move read/write pointer, Expand size</li>
+  <li><a href="doc/truncate.html">f_truncate</a> - Truncate file size</li>
+  <li><a href="doc/sync.html">f_sync</a> - Flush cached data</li>
+  <li><a href="doc/forward.html">f_forward</a> - Forward data to the stream</li>
+  <li><a href="doc/expand.html">f_expand</a> - Allocate a contiguous block to the file</li>
+  <li><a href="doc/gets.html">f_gets</a> - Read a string</li>
+  <li><a href="doc/putc.html">f_putc</a> - Write a character</li>
+  <li><a href="doc/puts.html">f_puts</a> - Write a string</li>
+  <li><a href="doc/printf.html">f_printf</a> - Write a formatted string</li>
+  <li><a href="doc/tell.html">f_tell</a> - Get current read/write pointer</li>
+  <li><a href="doc/eof.html">f_eof</a> - Test for end-of-file</li>
+  <li><a href="doc/size.html">f_size</a> - Get size</li>
+  <li><a href="doc/error.html">f_error</a> - Test for an error</li>
+ </ul>
+ </li>
+ <li>Directory Access
+ <ul>
+  <li><a href="doc/opendir.html">f_opendir</a> - Open a directory</li>
+  <li><a href="doc/closedir.html">f_closedir</a> - Close an open directory</li>
+  <li><a href="doc/readdir.html">f_readdir</a> - Read an directory item</li>
+  <li><a href="doc/findfirst.html">f_findfirst</a> - Open a directory and read the first item matched</li>
+  <li><a href="doc/findnext.html">f_findnext</a> - Read a next item matched</li>
+ </ul>
+ </li>
+ <li>File and Directory Management
+ <ul>
+  <li><a href="doc/stat.html">f_stat</a> - Check existance of a file or sub-directory</li>
+  <li><a href="doc/unlink.html">f_unlink</a> - Remove a file or sub-directory</li>
+  <li><a href="doc/rename.html">f_rename</a> - Rename/Move a file or sub-directory</li>
+  <li><a href="doc/chmod.html">f_chmod</a> - Change attribute of a file or sub-directory</li>
+  <li><a href="doc/utime.html">f_utime</a> - Change timestamp of a file or sub-directory</li>
+  <li><a href="doc/mkdir.html">f_mkdir</a> - Create a sub-directory</li>
+  <li><a href="doc/chdir.html">f_chdir</a> - Change current directory</li>
+  <li><a href="doc/chdrive.html">f_chdrive</a> - Change current drive</li>
+  <li><a href="doc/getcwd.html">f_getcwd</a> - Retrieve the current directory and drive</li>
+ </ul>
+ </li>
+ <li>Volume Management and System Configuration
+ <ul>
+  <li><a href="doc/mount.html">f_mount</a> - Register/Unregister the work area of the volume</li>
+  <li><a href="doc/mkfs.html">f_mkfs</a> - Create an FAT volume on the logical drive</li>
+  <li><a href="doc/fdisk.html">f_fdisk</a> - Create logical drives on the physical drive</li>
+  <li><a href="doc/getfree.html">f_getfree</a> - Get total size and free size on the volume</li>
+  <li><a href="doc/getlabel.html">f_getlabel</a> - Get volume label</li>
+  <li><a href="doc/setlabel.html">f_setlabel</a> - Set volume label</li>
+  <li><a href="doc/setcp.html">f_setcp</a> - Set active code page</li>
+ </ul>
+ </li>
+</ul>
+</div>
+
+
+<div class="para">
+<h3>Media Access Interface</h3>
+<img src="res/layers2.png" class="rset" width="245" height="220" alt="layer">
+<p>Since the FatFs module is the <em>filesystem layer</em> independent of platforms and storage media, it is completely separated from the physical devices, such as memory card, harddisk and any type of storage device. The low level device control module is <em>not a part of FatFs module</em> and it needs to be provided by implementer. FatFs accesses the storage devices via a simple media access interface shown below. Also sample implementations for some platforms are available in the downloads. A function checker for low level disk I/O module is available <a href="res/app4.c">here</a>.</p>
+<ul>
+ <li><a href="doc/dstat.html">disk_status</a> - Get device status</li>
+ <li><a href="doc/dinit.html">disk_initialize</a> - Initialize device</li>
+ <li><a href="doc/dread.html">disk_read</a> - Read sector(s)</li>
+ <li><a href="doc/dwrite.html">disk_write</a> - Write sector(s)</li>
+ <li><a href="doc/dioctl.html">disk_ioctl</a> - Control device dependent functions</li>
+ <li><a href="doc/fattime.html">get_fattime</a> - Get current time</li>
+</ul>
+</div>
+
+
+<div class="para">
+<h3>Resources</h3>
+<p>The FatFs module is a free software opened for education, research and development. You can use, modify and/or redistribute it for personal projects or commercial products without any restriction under your responsibility. For further information, refer to the application note.</p>
+<ul>
+ <li>Read first: <a href="doc/appnote.html">FatFs module application note</a> <span class="mfd">May 21, 2017</span></li>
+ <li>Community: <a href="http://elm-chan.org/fsw/ff/bd/">FatFs User Forum</a></li>
+ <li><a href="https://msdn.microsoft.com/en-us/windows/hardware/gg463080.aspx">FAT32 Specification by Microsoft</a>↗ (The authorized document on FAT filesystem)</li>
+ <li><a href="http://elm-chan.org/docs/fat_e.html">The basics of FAT filesystem</a></li>
+ <li><a href="http://elm-chan.org/docs/exfat_e.html">The basics of exFAT filesystem</a></li>
+ <li><a href="http://elm-chan.org/docs/mmc/mmc_e.html">How to use MMC/SDC</a></li>
+ <li><a href="http://elm-chan.org/junk/fa/faff.html">Playing with FlashAir and FatFs</a></li>
+ <li><a href="http://stm32f4-discovery.com/2014/07/library-21-read-sd-card-fatfs-stm32f4xx-devices/">Read SD card with FatFs on STM32F4xx devices by Tilen Majerle</a>↗ (Quick and easy implementation for STM32F4-Discovery)</li>
+ <li><a href="http://nemuisan.blog.bai.ne.jp/">Nemuisan's Blog</a>↗ (Well written implementations for STM32F/SPI &amp; SDIO and LPC4088/SDMMC)</li>
+ <li><a href="res/rwtest1.png">Benchmark 1</a> (ATmega1284/20MHz with MMC via USART in SPI, CFC via GPIO)</li>
+ <li><a href="res/rwtest2.png">Benchmark 2</a> (LPC2368/72MHz with MMC via MCI)</li>
+</div>
+
+
+<hr>
+<p class="foot"><a href="http://elm-chan.org/fsw/ff/00index_e.html">FatFs Home Page</a></p>
+</body>
+</html>

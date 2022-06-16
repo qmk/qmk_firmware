@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/findfirst.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - f_findfirst</title>
+</head>
+
+<body>
+
+<div class="para func">
+<h2>f_findfirst</h2>
+<p>The f_findfirst function searches a directroy for an item.</p>
+<pre>
+FRESULT f_findfirst (
+  DIR* <span class="arg">dp</span>,              <span class="c">/* [OUT] Poninter to the directory object */</span>
+  FILINFO* <span class="arg">fno</span>,         <span class="c">/* [OUT] Pointer to the file information structure */</span>
+  const TCHAR* <span class="arg">path</span>,    <span class="c">/* [IN] Pointer to the directory name to be opened */</span>
+  const TCHAR* <span class="arg">pattern</span>  <span class="c">/* [IN] Pointer to the matching pattern string */</span>
+);
+</pre>
+</div>
+
+<div class="para arg">
+<h4>Parameters</h4>
+<dl class="par">
+<dt>dp</dt>
+<dd>Pointer to the blank directory object.</dd>
+<dt>fno</dt>
+<dd>Pointer to the file information structure to store the information about the found item.</dd>
+<dt>path</dt>
+<dd>Pointer to the null-terminated string that specifies the <a href="filename.html">directory name</a> to be opened.</dd>
+<dt>pattern</dt>
+<dd>Pointer to the nul-terminated string that specifies the name matching pattern to be searched for. It is referred by also subsequent <tt>f_findnext</tt> function, so that the string must be valid while the successive function calls.</dd>
+</dl>
+</div>
+
+
+<div class="para ret">
+<h4>Return Values</h4>
+<p>
+<a href="rc.html#ok">FR_OK</a>,
+<a href="rc.html#de">FR_DISK_ERR</a>,
+<a href="rc.html#ie">FR_INT_ERR</a>,
+<a href="rc.html#nr">FR_NOT_READY</a>,
+<a href="rc.html#np">FR_NO_PATH</a>,
+<a href="rc.html#in">FR_INVALID_NAME</a>,
+<a href="rc.html#io">FR_INVALID_OBJECT</a>,
+<a href="rc.html#id">FR_INVALID_DRIVE</a>,
+<a href="rc.html#ne">FR_NOT_ENABLED</a>,
+<a href="rc.html#ns">FR_NO_FILESYSTEM</a>,
+<a href="rc.html#tm">FR_TIMEOUT</a>,
+<a href="rc.html#nc">FR_NOT_ENOUGH_CORE</a>,
+<a href="rc.html#tf">FR_TOO_MANY_OPEN_FILES</a>
+</p>
+</div>
+
+
+<div class="para desc">
+<h4>Description</h4>
+<p>After the directory specified by <tt class="arg">path</tt> could be opened, it starts to search the directory for items with the name specified by <tt class="arg">pattern</tt>. If the first item is found, the information about the object is stored into the file information structure. For more information about file information structure, refer to <a href="readdir.html"><tt>f_readdir</tt></a> function.</p>
+<p>The matching pattern can contain wildcard characters (<tt>?</tt> and <tt>*</tt>). A <tt>?</tt> matches an any character and an <tt>*</tt> matches an any string in length of zero or longer. When support of long file name is enabled, only <tt>fname[]</tt> is tested at <tt>FF_USE_FIND == 1</tt> and also <tt>altname[]</tt> is tested at <tt>FF_USE_FIND == 2</tt>. In this revision, there are some differences listed below between FatFs and standard systems in matching condition.</p>
+<ul>
+<li><tt>"*.*"</tt> never matches any name without extension while it matches any name with or without extension at the standard systems.</li>
+<li>Any pattern terminated with a period never matches any name while it matches any name without extensiton at the standard systems.</li>
+<li><a href="filename.html#case">DBCS extended characters</a> are compared in case-sensitive at LFN with non-Unicode configuration.</li>
+</ul>
+</div>
+
+
+<div class="para comp">
+<h4>QuickInfo</h4>
+<p>This is a wrapper function of <a href="opendir.html"><tt>f_opendir</tt></a> and <a href="readdir.html"><tt>f_readdir</tt></a> function. Available when <tt>FF_USE_FIND &gt;= 1</tt> and <tt>FF_FS_MINIMIZE &lt;= 1</tt>.</p>
+</div>
+
+
+<div class="para use">
+<h4>Examples</h4>
+<pre>
+<span class="c">/* Search a directory for objects and display it */</span>
+
+void find_image_file (void)
+{
+    FRESULT fr;     <span class="c">/* Return value */</span>
+    DIR dj;         <span class="c">/* Directory search object */</span>
+    FILINFO fno;    <span class="c">/* File information */</span>
+
+    fr = <em>f_findfirst</em>(&amp;dj, &amp;fno, "", "dsc*.jpg");  <span class="c">/* Start to search for photo files */</span>
+
+    while (fr == FR_OK &amp;&amp; fno.fname[0]) {         <span class="c">/* Repeat while an item is found */</span>
+        printf("%s\n", fno.fname);                <span class="c">/* Display the object name */</span>
+        fr = f_findnext(&amp;dj, &amp;fno);               <span class="c">/* Search for next item */</span>
+    }
+
+    f_closedir(&amp;dj);
+}
+</pre>
+</div>
+
+
+<div class="para ref">
+<h4>See Also</h4>
+<p><tt><a href="findnext.html">f_findnext</a>, <a href="closedir.html">f_closedir</a>, <a href="sdir.html">DIR</a>, <a href="sfileinfo.html">FILINFO</a></tt></p>
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

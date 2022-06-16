@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/sfileinfo.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - FILINFO</title>
+</head>
+
+<body>
+
+<div class="para">
+<h2>FILINFO</h2>
+<p>The <tt>FILINFO</tt> structure holds information about the object returned by <tt>f_readdir</tt>, <tt>f_findfirst</tt>, <tt>f_findnext</tt> and <tt>f_stat</tt> function. Be careful in the size of structure when LFN is enabled.</p>
+<pre>
+<span class="k">typedef struct</span> {
+    FSIZE_t fsize;               <span class="c">/* File size */</span>
+    WORD    fdate;               <span class="c">/* Last modified date */</span>
+    WORD    ftime;               <span class="c">/* Last modified time */</span>
+    BYTE    fattrib;             <span class="c">/* Attribute */</span>
+<span class="k">#if</span> FF_USE_LFN
+    TCHAR   altname[13];         <span class="c">/* Alternative object name */</span>
+    TCHAR   fname[FF_MAX_LFN + 1]; <span class="c">/* Primary object name */</span>
+<span class="k">#else</span>
+    TCHAR   fname[13];           <span class="c">/* Object name */</span>
+<span class="k">#endif</span>
+} FILINFO;
+</pre>
+</div>
+
+<h4>Members</h4>
+<dl>
+<dt>fsize</dt>
+<dd>Indicates size of the file in unit of byte. <tt>FSIZE_t</tt> is an alias of integer type either <tt>DWORD</tt>(32-bit) or <tt>QWORD</tt>(64-bit) depends on the configuration option <tt>FF_FS_EXFAT</tt>. Do not care when the item is a directory.</dd>
+<dt>fdate</dt>
+<dd>Indicates the date when the file was modified or the directory was created.<br>
+<dl>
+<dt>bit15:9</dt>
+<dd>Year origin from 1980 (0..127)</dd>
+<dt>bit8:5</dt>
+<dd>Month (1..12)</dd>
+<dt>bit4:0</dt>
+<dd>Day (1..31)</dd>
+</dl>
+</dd>
+<dt>ftime</dt>
+<dd>Indicates the time when the file was modified or the directory was created.<br>
+<dl>
+<dt>bit15:11</dt>
+<dd>Hour (0..23)</dd>
+<dt>bit10:5</dt>
+<dd>Minute (0..59)</dd>
+<dt>bit4:0</dt>
+<dd>Second / 2 (0..29)</dd>
+</dl>
+</dd>
+<dt>fattrib</dt>
+<dd>Indicates the file/directory attribute in combination of <tt>AM_DIR</tt>, <tt>AM_RDO</tt>, <tt>AM_HID</tt>, <tt>AM_SYS</tt> and <tt>AM_ARC</tt>.</dd>
+<dt>fname[]</dt>
+<dd>The null-terminated object name is stored. A null string is stored when no item to read and it indicates this structure is invalid.</dd>
+<dt>altname[]</dt>
+<dd>Alternative object name is stored if available. This member is not available at non-LFN configuration.</dd>
+</dl>
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>

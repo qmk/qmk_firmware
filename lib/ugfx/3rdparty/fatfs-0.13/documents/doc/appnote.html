@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/appnote.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs Module Application Note</title>
+</head>
+
+<body>
+<h1>FatFs Module Application Note</h1>
+<ol class="toc">
+<li><a href="#port">How to Port</a></li>
+<li><a href="#limits">Limits</a></li>
+<li><a href="#memory">Memory Usage</a></li>
+<li><a href="#reduce">Reducing Module Size</a></li>
+<li><a href="#lfn">Long File Name</a></li>
+<li><a href="#unicode">Unicode API</a></li>
+<li><a href="#exfat">exFAT Filesystem</a></li>
+<li><a href="#reentrant">Re-entrancy</a></li>
+<li><a href="#dup">Duplicated File Access</a></li>
+<li><a href="#fs1">Performance Effective File Access</a></li>
+<li><a href="#fs2">Considerations on Flash Memory Media</a></li>
+<li><a href="#critical">Critical Section</a></li>
+<li><a href="#fs3">Extended Use of FatFs API</a></li>
+<li><a href="#license">About FatFs License</a></li>
+</ol>
+
+<div class="para doc" id="port">
+<h3>How to Port</h3>
+
+<h4>Basic considerations</h4>
+<p>The FatFs module is assuming following conditions on portability.</p>
+<ul>
+<li>ANSI C<br>
+The FatFs module is a middleware written in ANSI C (C89). There is no platform dependence, so long as the compiler is in compliance with ANSI C.</li>
+<li>Size of integer types<br>
+The FatFs module assumes that size of <tt>char</tt>/<tt>short</tt>/<tt>long</tt> are 8/16/32 bit and <tt>int</tt> is 16 or 32 bit. These correspondence are defined in <tt>integer.h</tt>. This will not be a problem on most compilers. When a conflict with existing definitions is occured, you must resolve it with care.</li>
+</ul>
+
+<h4>System organizations</h4>
+<p>The dependency diagram shown below is a typical but not specific configuration of the embedded system with FatFs module.</p>
+<p><img src="../res/modules.png" width="580" height="280" alt="dependency diagram"></p>
+<p>(a) If a working disk module with FatFs disk interface is provided, nothing else will be needed. (b) To attach existing disk drivers with different interface, glue functions are needed to translate the interfaces between FatFs and the drivers.</p>
+<p><img src="../res/funcs.png" width="750" height="420" alt="functional diagram"></p>
+
+<h4>Required functions</h4>
+<p>You need to provide only low level disk I/O functions required by FatFs module and nothing else. If a working disk module for the target system is already provided, you need to write only glue functions to attach it to the FatFs module. If not, you need to port another disk I/O module or write it from scratch. Most of defined functions are not that always required. For example, any write function is not required at read-only configuration. Following table shows which function is required depends on the configuration options.</p>
+<table class="lst2">
+<tr><th>Function</th><th>Required when</th><th>Note</th></tr>
+<tr><td>disk_status<br>disk_initialize<br>disk_read</td><td>Always</td><td rowspan="5">Disk I/O functions.<br>Samples available in ffsample.zip.<br>There are many implementations on the web.</td></tr>
+<tr><td>disk_write<br>get_fattime<br>disk_ioctl (CTRL_SYNC)</td><td>FF_FS_READONLY == 0</td></tr>
+<tr><td>disk_ioctl (GET_SECTOR_COUNT)<br>disk_ioctl (GET_BLOCK_SIZE)</td><td>FF_USE_MKFS == 1</td></tr>
+<tr><td>disk_ioctl (GET_SECTOR_SIZE)</td><td>FF_MAX_SS != FF_MIN_SS</td></tr>
+<tr><td>disk_ioctl (CTRL_TRIM)</td><td>FF_USE_TRIM == 1</td></tr>
+<tr><td>ff_uni2oem<br>ff_oem2uni<br>ff_wtoupper</td><td>FF_USE_LFN != 0</td><td>Unicode support functions.<br>Just add ffunicode.c to the project.</td></tr>
+<tr><td>ff_cre_syncobj<br>ff_del_syncobj<br>ff_req_grant<br>ff_rel_grant</td><td>FF_FS_REENTRANT == 1</td><td rowspan="2">O/S dependent functions.<br>Samples available in ffsystem.c.</td></tr>
+<tr><td>ff_mem_alloc<br>ff_mem_free</td><td>FF_USE_LFN == 3</td></tr>
+</table>
+</div>
+
+<div class="para doc" id="limits">
+<h3>Limits</h3>
+<ul>
+<li>Filesystem type: FAT, FAT32(rev0.0) and exFAT(rev1.0).</li>
+<li>Number of open files: Unlimited. (depends on available memory)</li>
+<li>Number of volumes: Upto 10.</li>
+<li>Volume size: Upto 2 TB at 512 bytes/sector.</li>
+<li>File size: Upto 4 GB - 1 on FAT volume and virtually unlimited on exFAT volume.</li>
+<li>Cluster size: Upto 128 sectors on FAT volume and upto 16 MB on exFAT volume.</li>
+<li>Sector size: 512, 1024, 2048 and 4096 bytes.</li>
+</ul>
+</div>
+
+<div class="para doc" id="memory">
+<h3>Memory Usage</h3>
+<p>The memory usage varies depends on the <a href="config.html">configuration options</a>.</p>
+<table class="lst2">
+<tr><th></th><th>ARM7<small><br>32bit</small></th><th>ARM7<small><br>Thumb</small></th><th>CM3<small><br>Thumb-2</small></th><th>AVR</th><th>H8/300H</th><th>PIC24</th><th>RL78</th><th>V850ES</th><th>SH-2A</th><th>RX600</th><th>IA-32</th></tr>
+<tr class="cal">     <td>Compiler</td><td>GCC</td><td>GCC</td><td>GCC</td><td>GCC</td><td>CH38</td><td>C30</td><td>CC78K0R</td><td>CA850</td><td>SHC</td><td>RXC</td><td>MSC</td></tr>
+<!--                                                      ARM        Thumb          CM3           AVR            H8          PIC24          RL78       V850ES        SH-2A        RX600        IA-32   -->
+<tr class="ral"><td class="cal">text (Full, R/W)</td><td>10.3k</td><td>6.7k</td><td>6.3k</td><td>12.4k</td> <td>9.9k</td><td>11.4k</td><td>13.1k</td><td>8.7k</td><td>9.0k</td><td>6.5k</td><td>8.6k</td></tr>
+<tr class="ral"><td class="cal">text (Min, R/W)</td>  <td>6.9k</td><td>4.7k</td><td>4.4k</td> <td>8.4k</td> <td>6.9k</td> <td>8.0k</td> <td>9.4k</td><td>6.2k</td><td>6.2k</td><td>4.6k</td><td>6.1k</td></tr>
+<tr class="ral"><td class="cal">text (Full, R/O)</td> <td>4.7k</td><td>3.1k</td><td>2.8k</td> <td>5.7k</td> <td>4.7k</td> <td>5.4k</td> <td>6.4k</td><td>4.2k</td><td>4.0k</td><td>3.1k</td><td>4.1k</td></tr>
+<tr class="ral"><td class="cal">text (Min, R/O)</td>  <td>3.6k</td><td>2.4k</td><td>2.2k</td> <td>4.4k</td> <td>3.6k</td> <td>4.2k</td> <td>5.0k</td><td>3.3k</td><td>3.1k</td><td>2.4k</td><td>3.2k</td></tr>
+<tr class="ral"><td class="cal">bss</td><td>V*4 + 2</td><td>V*4 + 2</td><td>V*4 + 2</td><td>V*2 + 2</td><td>V*4 + 2</td><td>V*2 + 2</td><td>V*2 + 2</td><td>V*4 + 2</td><td>V*4 + 2</td><td>V*4 + 2</td><td>V*4 + 2</td></tr>
+<tr class="ral"><td class="cal">Work area<br><small>(FF_FS_TINY == 0)</small></td><td>V*564<br>+ F*552</td><td>V*564<br>+ F*552</td><td>V*564<br>+ F*552</td><td>V*560<br>+ F*546</td><td>V*560<br>+ F*546</td><td>V*560<br>+ F*546</td><td>V*560<br>+ F*546</td><td>V*564<br>+ F*552</td><td>V*564<br>+ F*552</td><td>V*564<br>+ F*552</td><td>V*564<br>+ F*552</td></tr>
+<tr class="ral"><td class="cal">Work area<br><small>(FF_FS_TINY == 1)</small></td><td>V*564<br>+ F*40</td><td>V*564<br>+ F*40</td><td>V*564<br>+ F*40</td><td>V*560<br>+ F*34</td><td>V*560<br>+ F*34</td><td>V*560<br>+ F*34</td><td>V*560<br>+ F*34</td><td>V*564<br>+ F*40</td><td>V*564<br>+ F*40</td><td>V*564<br>+ F*40</td><td>V*564<br>+ F*40</td></tr>
+</table>
+<p>These are the memory usage on some target systems with following condition. The memory sizes are in unit of byte, <em>V</em> denotes option <tt>FF_VOLUMES</tt> and <em>F</em> denotes number of open files. All samples here are optimezed in code size.</p>
+<pre>
+FatFs R0.13 options:
+FF_FS_READONLY   0 (R/W) or 1 (R/O)
+FF_FS_MINIMIZE   0 (Full, with all basic functions) or 3 (Min, with fully minimized)
+FF_FS_TINY       0 (Default) or 1 (Tiny file object)
+And other options are left unchanged from original setting.
+</pre>
+</div>
+
+<div class="para doc" id="reduce">
+<h3>Reducing Modle Size</h3>
+<p>Follwing table shows which API function is removed by configuration options for the module size reduction. To use any API function, the row of the function must be clear.</p>
+<table class="lst2">
+<tr><td rowspan="2">Function</td><td colspan="4">FF_FS_<br>MINIMIZE</td><td colspan="2">FF_FS_<br>READONLY</td><td colspan="2">FF_USE_<br>STRFUNC</td><td colspan="3">FF_FS_<br>RPATH</td><td colspan="2">FF_USE_<br>FIND</td><td colspan="2">FF_USE_<br>CHMOD</td><td colspan="2">FF_USE_<br>EXPAND</td><td colspan="2">FF_USE_<br>LABEL</td><td colspan="2">FF_USE_<br>MKFS</td><td colspan="2">FF_USE_<br>FORWARD</td><td colspan="2">FF_MULTI_<br>PARTITION</td></tr>
+<tr>                    <td>0</td><td>1</td><td>2</td><td>3</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr class="lst3">
+    <td>f_mount</td>    <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_open</td>     <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_close</td>    <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_read</td>     <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_write</td>    <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_sync</td>     <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_lseek</td>    <td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_opendir</td>  <td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_closedir</td> <td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_readdir</td>  <td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_findfirst</td><td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_findnext</td> <td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_stat</td>     <td> </td><td>x</td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_getfree</td>  <td> </td><td>x</td><td>x</td><td>x</td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_truncate</td> <td> </td><td>x</td><td>x</td><td>x</td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_unlink</td>   <td> </td><td>x</td><td>x</td><td>x</td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_mkdir</td>    <td> </td><td>x</td><td>x</td><td>x</td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_rename</td>   <td> </td><td>x</td><td>x</td><td>x</td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_chdir</td>    <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_chdrive</td>  <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_getcwd</td>   <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_chmod</td>    <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_utime</td>    <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_getlabel</td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_setlabel</td> <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_expand</td>   <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_forward</td>  <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_mkfs</td>     <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_fdisk</td>    <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td>x</td><td> </td></tr>
+<tr><td>f_putc</td>     <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_puts</td>     <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_printf</td>   <td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+<tr><td>f_gets</td>     <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>x</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+</table>
+</div>
+
+<div class="para doc" id="lfn">
+<h3>Long File Name</h3>
+<p>FatFs module supports long file name (LFN). The two different file names, short file name (SFN) and LFN, of a file is transparent on the API except for <tt>f_readdir</tt> function. The support for LFN is disabled by default. To enable the LFN, set <tt><a href="config.html#use_lfn">FF_USE_LFN</a></tt> to 1, 2 or 3, and add <tt>ffunicode.c</tt> to the project. The LFN requiers a certain working buffer in addition. The buffer size can be configured by <tt><a href="config.html#max_lfn">FF_MAX_LFN</a></tt> according to the available memory. The length of an LFN will be up to 255 characters, so that the <tt>FF_MAX_LFN</tt> should be set to 255 for all file names. If the size of working buffer is insufficient for the input file name, the file function fails with <tt>FR_INVALID_NAME</tt>. When use any re-entry to the API with LFN is enabled, <tt>FF_USE_LFN</tt> must be set to 2 or 3. In this case, the file function allocates the working buffer on the stack or heap. The working buffer occupies <tt>(FF_MAX_LFN + 1) * 2</tt> bytes and additional <tt>(FF_MAX_LFN + 44) / 15 * 32</tt> bytes when exFAT is enabled.</p>
+<table class="lst2 rset">
+<caption>With LFN at CM3+gcc</caption>
+<tr><th><tt>FF_CODE_PAGE</tt></th><th>Increment</th></tr>
+<tr><td>437-869 (SBCS)</td><td>+3.3k</td></tr>
+<tr><td>932 (Japanese)</td><td>+62k</td></tr>
+<tr><td>936 (Simplified Chinese)</td><td>+177k</td></tr>
+<tr><td>949 (Korean)</td><td>+140k</td></tr>
+<tr><td>950 (Traditional Chinese)</td><td>+111k</td></tr>
+<tr><td>0 (All code pages)</td><td>+486k</td></tr>
+</table>
+<p>When the LFN is enabled, the module size will be increased depends on the configured code page. Right table shows increment of code size by LFN function at different code pages. Especially, in the CJK region, tens of thousands of characters are being used. Unfortunately, it requires a huge OEM-Unicode bidirectional conversion table and the module size will be drastically increased as shown in the table. As the result, the FatFs with LFN enebled with those code pages will not able to be ported on the most 8-bit MCU systems.</p>
+<p>There ware some restrictions on using LFN for open source project because the support for LFN on the FAT volume was a patent of Microsoft Corporation. The related patents have expired and using the LFN function have got free for any projects.</p>
+</div>
+
+<div class="para doc" id="unicode">
+<h3>Unicode API</h3>
+<p>By default, FatFs uses ANSI/OEM code set on the API even at LFN configuration. FatFs can also switch the character encoding on the API to Unicode by configuration option <tt><a href="config.html#lfn_unicode">FF_LFN_UNICODE</a></tt>. This means that FatFs supports the full featured LFN specification. The data type <tt>TCHAR</tt> specifies path name strings on the API is an alias of either <tt>char</tt>(ANSI/OEM) or <tt>WCHAR</tt>(UTF-16) depends on that option. For more information, refer to the description in the <a href="filename.html#uni">file name</a>.</p>
+<p>Note that code page setting, <tt><a href="config.html#code_page">FF_CODE_PAGE</a></tt>, has actually no meaning for the path names at the Unicode API. However it still affects code conversion of string I/O functions at <tt><a href="config.html#strf_encode">FF_STRF_ENCODE = 0</a></tt> and backward compatibility with non-LFN systems, so that code page needs to be set properly when it is considered a problem.</p>
+</div>
+
+<div class="para doc" id="exfat">
+<h3>exFAT Filesystem</h3>
+<p>The exFAT (Microsoft's Extended File Allocation Table) filesystem is a succession of the FAT filesystem which has been widely used in embedded systems, consumer devices and portable storage media. It is adopted by SDA (SD Association) as a recommended filesystem for high capacity SD cards larger than 32 GB and they are being shipped with this format, so that the exFAT became one of the standard filesystems for removable media as well as FAT. The exFAT filesystem allows the file size beyond the 4 GB limit what FAT filesystem allows upto and some filesystem overhead, especially cluster allocation delay, are reduced as well. This feature improves the write throughput to the file.</p>
+<p>Note that the exFAT is a patent of Microsoft Corporation. The exFAT function of FatFs is an implementation based on <cite>US. Pat. App. Pub. No. 2009/0164440 A1</cite>. FatFs module can swich the support for exFAT on/off by configuration option, <tt><a href="config.html#fs_exfat">FF_FS_EXFAT</a></tt>. When enable the exFAT on the commercial products, a license by Microsoft will be needed depends on the final destination of the products.</p>
+<p><em>Remark: Enabling exFAT discards ANSI C (C89) compatibility because of need for 64-bit integer type.</em></p>
+</div>
+
+<div class="para doc" id="reentrant">
+<h3>Re-entrancy</h3>
+<p>The file operations to the <em>different volumes</em> each other is always re-entrant regardless of configurations except when LFN is enabled with static working buffer. It can work concurrently without any mutual exclusion.</p>
+<p>The file operations to the <em>same volume</em> is not re-entrant. It can also be configured for thread-safe by option <tt><a href="config.html#fs_reentrant">FF_FS_REENTRANT</a></tt>. In this case, also the OS dependent synchronization object control functions, <tt>ff_cre_syncobj/ff_del_syncobj/ff_req_grant/ff_rel_grant</tt>, need to be added to the project. There are some examples in the <tt>ffsystem.c</tt>. When a file function is called while the volume is being accessed by another task, the file function to the volume will be suspended until that task leaves the file function. If the wait time exceeded a period defined by <tt>FF_TIMEOUT</tt>, the file function will abort with <tt>FR_TIMEOUT</tt>. The timeout function might not be supported on the some RTOSs.</p>
+<p>There is an exception on the re-entrancy for <tt>f_mount/f_mkfs</tt> function. These volume management functions are not re-entrant to the same volume. When use these functions, other tasks need to avoid to access the volume.</p>
+<p>Remarks: This section describes on the re-entrancy of the FatFs module itself. The <tt>FF_FS_REENTRANT</tt> option enables only exclusive use of each filesystem objects and FatFs never prevents to re-enter <tt>disk_*()</tt> functions. Thus the low level disk I/O layer must be always thread-safe when FatFs API is re-entered for different volumes.</p>
+</div>
+
+<div class="para doc" id="dup">
+<h3>Duplicated File Open</h3>
+<p>FatFs module does not support the read/write collision control of duplicated open to a file. The duplicated open is permitted only when each of open method to a file is read mode. The duplicated open with one or more write mode to a file is always prohibited, and also open file must not be renamed or deleted. A violation of these rules can cause data colluption.</p>
+<p>The file lock control can be enabled by <tt><a href="config.html#fs_lock">FF_FS_LOCK</a></tt> option. The value of option defines the number of open objects to manage simultaneously. In this case, if any open, rename or remove that violating the file shareing rule that described above is attempted, the file function will rejected with <tt>FR_LOCKED</tt>. If number of open objects, files and sub-directories, is equal to <tt>FF_FS_LOCK</tt>, an extra <tt>f_open/f_opendir</tt> function will fail with <tt>FR_TOO_MANY_OPEN_FILES</tt>.</p>
+</div>
+
+<div class="para doc" id="fs1">
+<h3>Performance Effective File Access</h3>
+<p>For good read/write throughput on the small embedded systems with limited size of memory, application programmer should consider what process is done in the FatFs module. The file data on the volume is transferred in following sequence by <tt>f_read</tt> function.</p>
+<p>Figure 1. Sector misaligned read (short)<br>
+<img src="../res/f1.png" width="490" height="110" alt="">
+</p>
+<p>Figure 2. Sector misaligned read (long)<br>
+<img src="../res/f2.png" width="490" height="140" alt="">
+</p>
+<p>Figure 3. Fully sector aligned read<br>
+<img src="../res/f3.png" width="490" height="119" alt="">
+</p>
+<p>The file I/O buffer is a sector buffer to read/write a part of data on the sector. The sector buffer is either file private sector buffer on each file object or shared sector buffer in the filesystem object. The buffer configuration option <tt><a href="config.html#fs_tiny">FF_FS_TINY</a></tt> determins which sector buffer is used for the file data transfer. When tiny buffer configuration (1) is selected, data memory consumption is reduced <tt>FF_MAX_SS</tt> bytes each file object. In this case, FatFs module uses only a sector buffer in the filesystem object for file data transfer and FAT/directory access. The disadvantage of the tiny buffer configuration is: the FAT data cached in the sector buffer will be lost by file data transfer and it must be reloaded at every cluster boundary. However it will be suitable for most application from view point of the decent performance and low memory comsumption.</p>
+<p>Figure 1 shows that a partial sector, sector misaligned part of the file, is transferred via the file I/O buffer. At long data transfer shown in Figure 2, middle of transfer data that covers one or more sector is transferred to the application buffer directly. Figure 3 shows that the case of entier transfer data is aligned to the sector boundary. In this case, file I/O buffer is not used. On the direct transfer, the maximum extent of sectors are read with <tt>disk_read</tt> function at a time but the multiple sector transfer is divided at cluster boundary even if it is contiguous.</p>
+<p>Therefore taking effort to sector aligned read/write accesss eliminates buffered data transfer and the read/write performance will be improved. Besides the effect, cached FAT data will not be flushed by file data transfer at the tiny configuration, so that it can achieve same performance as non-tiny configuration with small memory footprint.</p>
+</div>
+
+<div class="para doc" id="fs2">
+<h3>Considerations on Flash Memory Media</h3>
+<p>To maximize the write performance of flash memory media, such as SDC, CFC and U Disk, it must be controlled in consideration of its characteristitcs.</p>
+<h4>Using Mutiple-Sector Write</h4>
+<div class="rset">
+Figure 6. Comparison between Multiple/Single Sector Write<br>
+<img src="../res/f6.png" width="630" height="148" alt="fig.6">
+</div>
+<p>The write throughput of the flash memory media becomes the worst at single sector write transaction. The write throughput increases as the number of sectors per a write transaction as shown in Figure 6. This effect more appers at faster interface speed and the performance ratio often becomes grater than ten. <a href="../res/rwtest2.png">This graph</a> is clearly explaining how fast is multiple block write (W:16K, 32 sectors) than single block write (W:100, 1 sector), and also larger card tends to be slow at single block write. Number of write transactions also affects life time of the flash memory media. When compared at same amount of write data, the single sector write in Figure 6 above wears flash memory media 16 times more than multiple sector write in Figure 6 below. Single sector write is pretty pain for the flash memory media.</p>
+<p>Therefore the application program should write the data in large block as possible. The ideal write chunk size and alighment is size of sector, and size of cluster is the best. Of course all layers between the application and the storage device must have consideration on multiple sector write, however most of open-source memory card drivers lack it. Do not split a multiple sector write request into single sector write transactions or the write throughput gets poor. Note that FatFs module and its sample disk drivers supprt multiple sector read/write operation. </p>
+<h4>Forcing Memory Erase</h4>
+<p>When remove a file with <tt>f_unlink</tt> function, the data clusters occupied by the file are marked 'free' on the FAT. But the data sectors containing the file data are not that applied any process, so that the file data left occupies a part of the flash memory array as 'live block'. If the file data can be erased on removing the file, those data blocks will be turned into the free block pool. This may skip internal block erase operation to the data block on next write operation. As the result the write performance might be improved. FatFs can manage this function by setting <tt><a href="config.html#use_trim">FF_USE_TRIM</a></tt> to 1. Note that this is an expectation of internal process of the storage device and not that always effective. Most applications will not need this function. Also <tt>f_unlink</tt> function can take a time when remove a large file.</p>
+</div>
+
+<div class="para doc" id="critical">
+<h3>Critical Section</h3>
+<p>If a write operation to the FAT volume is interrupted due to an accidental failure, such as sudden blackout, incorrect media removal and unrecoverable disk error, the FAT structure on the volume can be broken. Following images shows the critical section of the FatFs module.</p>
+<div class="lset">
+Figure 4. Long critical section<br>
+<img src="../res/f4.png" width="320" height="436" alt="fig.4">
+</div>
+<div class="lset">
+Figure 5. Minimized critical section<br>
+<img src="../res/f5.png" width="320" height="436" alt="fig.5">
+</div>
+<br class="clr">
+<p>An interruption in the red section can cause a cross link; as a result, the object being changed can be lost. If an interruption in the yellow section is occured, there is one or more possibility listed below.</p>
+<ul>
+<li>The file data being rewrited is collapsed.</li>
+<li>The file being appended returns initial state.</li>
+<li>The file created as new is gone.</li>
+<li>The file created as new or overwritten remains but no content.</li>
+<li>Efficiency of disk use gets worse due to lost clusters.</li>
+</ul>
+<p>Each case does not affect any file not opened in write mode. To minimize risk of data loss, the critical section can be minimized by minimizing the time that file is opened in write mode or using <tt>f_sync</tt> function as shown in Figure 5.</p>
+</div>
+
+<div class="para doc" id="fs3">
+<h3>Extended Use of FatFs API</h3>
+<p>These are examples of extended use of FatFs APIs. New item will be added whenever a useful code is found.</p>
+<ol>
+<li><a href="../res/app1.c">Open or create a file for append</a> (for only R0.12 and earlier)</li>
+<li><a href="../res/app2.c">Empty a directory</a></li>
+<li><a href="../res/app3.c">Allocate contiguous area to the file</a> (for only R0.11a and earlier)</li>
+<li><a href="../res/app4.c">Compatibility checker for low level disk I/O module</a></li>
+<li><a href="../res/mkfatimg.zip">FAT image creator</a></li>
+</ol>
+</div>
+
+<div class="para doc" id="license">
+<h3>About FatFs License</h3>
+<p>FatFs has being developped as a personal project of the author, ChaN. It is free from the code anyone else wrote at current release. Following code block shows a copy of the FatFs license document that included in the source files.</p>
+<pre>
+/*----------------------------------------------------------------------------/
+/  FatFs - Generic FAT Filesystem Module  Rx.xx                              /
+/-----------------------------------------------------------------------------/
+/
+/ Copyright (C) 20xx, ChaN, all right reserved.
+/
+/ FatFs module is an open source software. Redistribution and use of FatFs in
+/ source and binary forms, with or without modification, are permitted provided
+/ that the following condition is met:
+/
+/ 1. Redistributions of source code must retain the above copyright notice,
+/    this condition and the following disclaimer.
+/
+/ This software is provided by the copyright holder and contributors "AS IS"
+/ and any warranties related to this software are DISCLAIMED.
+/ The copyright owner or contributors be NOT LIABLE for any damages caused
+/ by use of this software.
+/----------------------------------------------------------------------------*/
+</pre>
+<p>Therefore FatFs license is one of the BSD-style licenses but there is a significant feature. FatFs is mainly intended for embedded systems. In order to extend the usability for commercial products, the redistributions of FatFs in binary form, such as embedded code, binary library and any forms without source code, does not need to include about FatFs in the documentations. This is equivalent to the 1-clause BSD license. Of course FatFs is compatible with the most of open source software licenses including GNU GPL. When you redistribute the FatFs source code with any changes or create a fork, the license can also be changed to GNU GPL, BSD-style license or any open source software license that not conflict with FatFs license.</p>
+</div>
+
+<p class="foot"><a href="../00index_e.html">Return Home</a></p>
+</body>
+</html>

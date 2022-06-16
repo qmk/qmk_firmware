@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="up" title="FatFs" href="../00index_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese" href="../ja/dread.html">
+<link rel="stylesheet" href="../css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>FatFs - disk_read</title>
+</head>
+
+<body>
+
+<div class="para func">
+<h2>disk_read</h2>
+<p>The disk_read function is called to read data from the sector(s) of storage device.</p>
+<pre>
+DRESULT disk_read (
+  BYTE <span class="arg">pdrv</span>,     <span class="c">/* [IN] Physical drive number */</span>
+  BYTE* <span class="arg">buff</span>,    <span class="c">/* [OUT] Pointer to the read data buffer */</span>
+  DWORD <span class="arg">sector</span>,  <span class="c">/* [IN] Start sector number */</span>
+  UINT <span class="arg">count</span>     <span class="c">/* [IN] Number of sectros to read */</span>
+);
+</pre>
+</div>
+
+<div class="para arg">
+<h4>Parameters</h4>
+<dl class="par">
+<dt>pdrv</dt>
+<dd>Physical drive number to identify the target device.</dd>
+<dt>buff</dt>
+<dd>Pointer to the first item of the <em>byte array</em> to store read data. Size of read data will be the sector size * <tt class="arg">count</tt> bytes.</dd>
+<dt>sector</dt>
+<dd>Start sector number in 32-bit LBA.</dd>
+<dt>count</dt>
+<dd>Number of sectors to read.</dd>
+</dl>
+</div>
+
+
+<div class="para ret">
+<h4>Return Value</h4>
+<dl class="ret">
+<dt>RES_OK (0)</dt>
+<dd>The function succeeded.</dd>
+<dt>RES_ERROR</dt>
+<dd>A hard error occured during the read operation and could not recover it.</dd>
+<dt>RES_PARERR</dt>
+<dd>Invalid parameter.</dd>
+<dt>RES_NOTRDY</dt>
+<dd>The device has not been initialized.</dd>
+</dl>
+</div>
+
+
+<div class="para desc">
+<h4>Description</h4>
+<p>Read/write operation to the generic storage devices, such as memory card, hadddisk and optical disk, is done in unit of block of data bytes called <em>sector</em>. FatFs supports the sector size in range of from 512 to 4096 bytes. When FatFs is configured for fixed sector size (<tt>FF_MIN_SS == MAX_SS</tt>, this is the most case), the read/write function must work at that sector size. When FatFs is configured for variable sector size (<tt>FF_MIN_SS != MAX_SS</tt>), the sector size of medium is inquired with <tt>disk_ioctl</tt> function immediately following <tt>disk_initialize</tt> function.</p>
+<p>The memory address specified by <tt class="arg">buff</tt> is not that always aligned to word boundary because the argument is defined as <tt>BYTE*</tt>. The unaligned read/write request can occure at <a href="appnote.html#fs1">direct transfer</a>. If the bus architecture, especially DMA controller, does not allow unaligned memory access, it should be solved in this function. There are some workarounds described below to avoid this issue.</p>
+<ul>
+<li>Convert word transfer to byte transfer in this function if needed. - Recommended.</li>
+<li>On the <tt>f_read()</tt> calls, avoid long read request that includes a whole of sector. - Any direct transfer never occures.</li>
+<li>On the <tt>f_read(fp, data, btw, bw)</tt> calls, make sure that <tt>(((UINT)data &amp; 3) == (f_tell(fp) &amp; 3))</tt> is true. - Word alignment of <tt class="arg">buff</tt> is guaranteed.</li>
+</ul>
+<p>Generally, a multiple sector read request must not be split into single sector transactions to the storage device, or read throughput gets worse.</p>
+</div>
+
+
+<p class="foot"><a href="../00index_e.html">Return</a></p>
+</body>
+</html>
