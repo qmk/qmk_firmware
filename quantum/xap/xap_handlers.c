@@ -89,8 +89,7 @@ bool xap_respond_secure_lock(xap_token_t token, const void *data, size_t length)
 
 #ifdef BOOTLOADER_JUMP_SUPPORTED
 bool xap_respond_request_bootloader_jump(xap_token_t token, const void *data, size_t length) {
-    extern uint8_t secure_status;
-    uint8_t        ret = secure_status == 2;
+    uint8_t        ret = secure_is_unlocked();
 
     // TODO: post to deferred queue so this request can return?
     bool res = xap_respond_data(token, &ret, sizeof(ret));
