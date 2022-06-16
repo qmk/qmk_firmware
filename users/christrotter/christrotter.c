@@ -17,12 +17,13 @@ userspace_config_t userspace_config;
  * @return true exits function
  * @return false exits function
  */
+/*
 bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed) {
     static uint16_t this_timer;
     mod_key_press(code, mod_code, pressed, this_timer);
     return false;
 }
-
+*/
 /**
  * @brief Handle registation of keycode, with optional modifier based on custom timer
  *
@@ -33,6 +34,7 @@ bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed) {
  * @return true
  * @return false
  */
+ /*
 bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer) {
     if (pressed) {
         this_timer = timer_read();
@@ -47,7 +49,7 @@ bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this
     }
     return false;
 }
-
+*/
 /**
  * @brief Performs exact match for modifier values
  *
@@ -56,18 +58,20 @@ bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this
  * @return true Has the exact modifiers specifed
  * @return false Does not have the exact modifiers specified
  */
+/*
 bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
     value &= 0xF;
     mask &= 0xF;
 
     return (value & mask) == mask;
 }
-
+*/
 /**
  * @brief Tap keycode, with no mods
  *
  * @param kc keycode to use
  */
+ /*
 void tap_code16_nomods(uint16_t kc) {
     uint8_t temp_mod = get_mods();
     clear_mods();
@@ -75,8 +79,4 @@ void tap_code16_nomods(uint16_t kc) {
     tap_code16(kc);
     set_mods(temp_mod);
 }
-
-/**
- * @brief Run shutdown routine and soft reboot firmware.
- *
- */
+*/

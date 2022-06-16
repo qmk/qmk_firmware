@@ -32,7 +32,7 @@ CUSTOM_POINTING_DEVICE  = yes		# This is a Drashna thing, for pointing.c/h
 SPLIT_KEYBOARD 			= yes
 # this also did not help resolve the "rgb missing from right side" issue
 # but it seems like a good thing to have on...
-CUSTOM_SPLIT_TRANSPORT_SYNC = no
+CUSTOM_SPLIT_TRANSPORT_SYNC = yes
 
 # Other settings
 CUSTOM_UNICODE_ENABLE        = yes

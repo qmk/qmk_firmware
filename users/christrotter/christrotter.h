@@ -3,19 +3,12 @@
 
 #pragma once
 #include QMK_KEYBOARD_H
-
-// #include "eeprom.h"
-//#include "keyrecords/wrappers.h"
 #include "keyrecords/process_records.h"
 #include "callbacks.h"
-//#include "version.h"
 
 #ifdef TAP_DANCE_ENABLE
 #    include "keyrecords/tap_dances.h"
 #endif  // TAP_DANCE_ENABLE
-// #if defined(RGBLIGHT_ENABLE)
-// #    include "rgb/rgb_stuff.h"
-// #endif
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb/rgb_matrix_stuff.h"
 #endif
@@ -28,43 +21,25 @@
 
 //Define layer names 
 // the layers are broken after moving them here...why?
+enum userspace_layers {
+    _QWERTY             = 0,
+    FIRST_DEFAULT_LAYER = 0,
+    _SYMBOLS,
+    _MOUSE,
+};
 
-
+// this is definitely used by the mouse layer trigger stuff...just wrapping our mouse layer name under _MACROS
+// but where???? maybe something in QMK? not in the kb or userspace...
 #define _MACROS _MOUSE
-#define _DEFAULT_LAYER_1 FIRST_DEFAULT_LAYER
-#define _DEFAULT_LAYER_2 (FIRST_DEFAULT_LAYER + 1)
-#define _DEFAULT_LAYER_3 (FIRST_DEFAULT_LAYER + 2)
-#define _DEFAULT_LAYER_4 (FIRST_DEFAULT_LAYER + 3)
-#if LAST_DEFAULT_LAYER > (FIRST_DEFAULT_LAYER + 3)
-#    define _DEFAULT_LAYER_2 (FIRST_DEFAULT_LAYER + 4)
-#    define _DEFAULT_LAYER_3 (FIRST_DEFAULT_LAYER + 5)
-#    define _DEFAULT_LAYER_4 (FIRST_DEFAULT_LAYER + 6)
-#    define _DEFAULT_LAYER_2 (FIRST_DEFAULT_LAYER + 7)
-#    if LAST_DEFAULT_LAYER > (FIRST_DEFAULT_LAYER + 7)
-#        define _DEFAULT_LAYER_2 (FIRST_DEFAULT_LAYER + 8)
-#        define _DEFAULT_LAYER_3 (FIRST_DEFAULT_LAYER + 9)
-#        define _DEFAULT_LAYER_4 (FIRST_DEFAULT_LAYER + 10)
-#        define _DEFAULT_LAYER_4 (FIRST_DEFAULT_LAYER + 11)
-#    endif
-#endif
-
-#define DEFAULT_LAYER_1_HSV HSV_CYAN
-#define DEFAULT_LAYER_2_HSV HSV_CHARTREUSE
-#define DEFAULT_LAYER_3_HSV HSV_MAGENTA
-#define DEFAULT_LAYER_4_HSV HSV_GOLDENROD
-
-#define DEFAULT_LAYER_1_RGB RGB_CYAN
-#define DEFAULT_LAYER_2_RGB RGB_CHARTREUSE
-#define DEFAULT_LAYER_3_RGB RGB_MAGENTA
-#define DEFAULT_LAYER_4_RGB RGB_GOLDENROD
-
+/*
 bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 bool hasAllBitsInMask(uint8_t value, uint8_t mask);
 void tap_code16_nomods(uint16_t kc);
 // void software_reset(void);
-
+*/
 // clang-format off
+// this is used in the custom transport sync
 typedef union {
     uint32_t raw;
     struct {

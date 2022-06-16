@@ -32,6 +32,23 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 }
 
 // __attribute__((weak)) void rgb_matrix_indicator_keymap(void) {}
+//
+    /* 
+     * ,-----------------------------------------,                                           ,-----------------------------------------,
+     * |  1,1 |  1,2 |  1,3 |  1,4 |  1,5 |  1,6 |                                           |  1,1 |  1,2 |  1,3 |  1,4 |  1,5 |  1,6 |
+     * |------+------+------+------+------+------|                                           |-------------+------+------+------+------|
+     * |  2,1 |  2,2 |  2,3 |  2,4 |  2,5 |  2,6 |                               (TRACKBALL) |  2,1 |  2,2 |  2,3 |  2,4 |  2,5 |  2,6 |
+     * |------+------+------+------+------|------|------|------|------,        |------|------|------|------+------+------+------+------|
+     * |  3,1 |  3,2 |  3,3 |  3,4 |  3,5 |  3,6 |  4,3 |  4,4 |  4,5 |        |  4,1 |  4,2 |  3,1 |  3,2 |  3,3 |  3,4 |  3,5 |  3,6 |
+     * |------+------+------+------,------,------,------,------,------,      ,------,------,------,------,-----------------------------,
+     *                             |      |      |      |      |             |      |      |      |      |        ,------,
+     *                             |  4,1 |  4,2 |  5,3 |  5,4 |             |  4,3 |  4,4 |  4,5 |  4,6 |        |  5,4 |
+     *                             |      |      |      |      |             |      |      |      |      | ,------+------+-----,
+     *                             '------+------+------+------'             '------'------+------+------' |  5,3 |------| 5,6 |
+     *                                    '------+------'                                  '------+------' '------+------+-----'
+     *                                    |  5,1 |  5,2 |                                  |  5,1 |  5,2 |        |  5,5 |
+     *                                    '------+------'                                  '------+------'        '------'
+     */
 
 void matrix_scan_rgb_matrix(void) {
     // other kbs got it working using indicators...
@@ -73,13 +90,13 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(14, 90, 90, 90);
     rgb_matrix_set_color(15, 90, 90, 90);
     rgb_matrix_set_color(16, 90, 90, 90);
-    rgb_matrix_set_color(17, 90, 0, 90); // ummmm layer? // row3,col1
+    rgb_matrix_set_color(17, 0, 75, 100); // tilde-backtick // row3,col1
     rgb_matrix_set_color(18, 100, 0, 0); // backspace
     rgb_matrix_set_color(19, 90, 20, 0); // delete
     rgb_matrix_set_color(20, 100, 40, 0); // esc
     rgb_matrix_set_color(21, 100, 0, 0); // back
     rgb_matrix_set_color(22, 0, 90, 0); // fwd
-    rgb_matrix_set_color(23, 90, 0, 90); // LAYER
+    rgb_matrix_set_color(23, 120, 0, 70); // SYMBOLS
     rgb_matrix_set_color(24, 20, 0, 90); // CMD
     rgb_matrix_set_color(25, 70, 40, 0); // ALT
     rgb_matrix_set_color(26, 0, 90, 0); // shift
@@ -89,33 +106,33 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(29, 90, 90, 90);
     rgb_matrix_set_color(30, 90, 90, 90);
     rgb_matrix_set_color(31, 90, 90, 90);
-    rgb_matrix_set_color(32, 0, 100, 100); // row1,col6 // -_
-    rgb_matrix_set_color(33, 0, 100, 100); // row2,col6 // ;:
-    rgb_matrix_set_color(34, 0, 100, 100); // "'
+    rgb_matrix_set_color(32, 0, 75, 100); // row1,col6 // -_
+    rgb_matrix_set_color(33, 0, 75, 100); // row2,col6 // ;:
+    rgb_matrix_set_color(34, 0, 75, 100); // "'
     rgb_matrix_set_color(35, 90, 90, 90);
     rgb_matrix_set_color(36, 90, 90, 90);
     rgb_matrix_set_color(37, 90, 90, 90);
     rgb_matrix_set_color(38, 90, 90, 90); // row2,col1  
     rgb_matrix_set_color(39, 90, 90, 90); // row3,col1  
     rgb_matrix_set_color(40, 90, 90, 90);
-    rgb_matrix_set_color(41, 0, 100, 100); // <,
-    rgb_matrix_set_color(42, 0, 100, 100); // >.
-    rgb_matrix_set_color(43, 100, 100, 0); // /?
+    rgb_matrix_set_color(41, 0, 75, 100); // <,
+    rgb_matrix_set_color(42, 0, 75, 100); // >.
+    rgb_matrix_set_color(43, 100, 85, 0); // /?
     rgb_matrix_set_color(44, 90, 90, 90); //row3, col6 // not sure what this key should be
     rgb_matrix_set_color(45, 0, 120, 0); // arrow key
     rgb_matrix_set_color(46, 0, 120, 0); // arrow key
     rgb_matrix_set_color(47, 0, 120, 0); // arrow key
     rgb_matrix_set_color(48, 0, 120, 0); // arrow key
     // this is the group of two keys on the right thumb cluster right next to the trackball
-    rgb_matrix_set_color(49, 0, 100, 100); // < // left-most key on kb
-    rgb_matrix_set_color(50, 120, 0, 100); // > // key right next to trackball
-    rgb_matrix_set_color(51, 100, 0, 120); // cmd // bottom of space/enter key row
-    rgb_matrix_set_color(52, 150, 0, 0); // SYMBOLS // key to the 'left' of enter key
-    rgb_matrix_set_color(53, 0, 0, 120); // enter key
+    rgb_matrix_set_color(49, 90, 0, 20); // < // left-most key on kb
+    rgb_matrix_set_color(50, 0, 100, 100); // > // key right next to trackball
+    rgb_matrix_set_color(51, 20, 0, 90); // cmd // bottom of space/enter key row
+    rgb_matrix_set_color(52, 120, 0, 70); // SYMBOLS // key to the 'left' of enter key
+    rgb_matrix_set_color(53, 0, 25, 120); // enter key
     rgb_matrix_set_color(54, 0, 120, 200); // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 100, 75, 0); // key below layer button
-    rgb_matrix_set_color(56, 0, 100, 120); // far right key, 'below' enter key
+    rgb_matrix_set_color(55, 60, 0, 90); // mplay // key below layer button
+    rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
     
     // we are not using indicators
     // rgb_matrix_indicator_keymap();

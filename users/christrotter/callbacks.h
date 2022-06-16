@@ -19,9 +19,3 @@ void matrix_init_unicode(void);
 void matrix_slave_scan_keymap(void);
 #endif
 
-enum userspace_layers {
-    _QWERTY             = 0,
-    FIRST_DEFAULT_LAYER = 0,
-    _SYMBOLS,
-    _MOUSE,
-};
