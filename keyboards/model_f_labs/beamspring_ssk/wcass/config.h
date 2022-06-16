@@ -26,7 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Model F Labs
 #define PRODUCT Beamspring SSK Keyboard
-#define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
+// DESCRIPTION is onlonger an option/
+// #define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -130,6 +131,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Magic Key Options
  *
+ * s
  * Magic keys are hotkey commands that allow control over firmware functions of
  * the keyboard. They are best used in combination with the HID Listen program,
  * found here: https://www.pjrc.com/teensy/hid_listen.html
@@ -196,11 +198,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
 /*
  * MIDI options
  */

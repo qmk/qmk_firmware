@@ -26,7 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Model F Labs
 #define PRODUCT Reproduction IBM F62 Scumyc Keyboard
-#define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
+//  DESCRIPTION is no longer an option.
+//#define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -193,11 +194,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
 /*
  * MIDI options
  */
