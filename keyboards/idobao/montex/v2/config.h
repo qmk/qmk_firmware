@@ -1,39 +1,9 @@
-/* Copyright 2022 IBNobody & vinorodrigues
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
- */
+// Copyright 2022 IBNobody (@IBNobody)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
 #include "config_common.h"
-
-/* Key Matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 5
-
-/* Keyboard Matrix Assignments */
-
-#define MATRIX_ROW_PINS { D4, D6, D7, B4, B5, C6 }
-#define MATRIX_COL_PINS { D5, D3, D2, D1, D0 }
-// #define UNUSED_PINS {}
-#define DIODE_DIRECTION ROW2COL
-
-/* Other settings */
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if
-   debouncing is not needed */
-#define DEBOUNCE 5
 
 /* LED Matrix & Animations */
 #define RGB_DI_PIN B1
@@ -42,7 +12,7 @@
     #ifndef ID27_DISABLE_UNDERGLOW
         #define DRIVER_LED_TOTAL 31  // The number of LEDs connected
     #else
-        #define DRIVER_LED_TOTAL 27  // disable underglow LEDs
+        #define DRIVER_LED_TOTAL 27  // -4 disabled underglow LEDs
     #endif
 
     // #define RGBLIGHT_ANIMATIONS  // don't use, please explicitly define
@@ -85,7 +55,7 @@
     #define ENABLE_RGB_MATRIX_HUE_WAVE
     #define ENABLE_RGB_MATRIX_PIXEL_RAIN
     #define ENABLE_RGB_MATRIX_PIXEL_FLOW
-    #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+    // #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 
     /* enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined */
     // #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
@@ -104,4 +74,20 @@
     // #define ENABLE_RGB_MATRIX_MULTISPLASH
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH
     // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#endif
+#endif  // RGB_MATRIX_ENABLE
+
+/* -----------------------
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ * ----------------------- */
+
+/* disable debug print */
+// #define NO_DEBUG
+
+/* disable print */
+// #define NO_PRINT
+
+/* disable action features */
+// #define NO_ACTION_LAYER
+// #define NO_ACTION_TAPPING
+// #define NO_ACTION_ONESHOT

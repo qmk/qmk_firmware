@@ -1,24 +1,42 @@
-/* Copyright 2022 IBNobody & vinorodrigues
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
- */
+// Copyright 2022 IBNobody (@IBNobody)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "v2.h"
 
+#define __ NO_LED
+
 #ifdef RGB_MATRIX_ENABLE
 
-#define __ NO_LED
+/* Under-, Per-key
+ * ┌───┬───┬───┬───┬───┐
+ * │ 4 │ 3 │ 2 │ 1 │ 0 │
+ * ├───┼───┼───┼───┼───┤
+ * │ 5 │ 6 │ 7 │ 8 │ 9 │
+ * ├───┼───┼───┼───┼───┤
+ * │14 │13 │12 │11 │   │
+ * ├───┼───┼───┼───┤10 │
+ * │15 │16 │17 │18 │   │
+ * ├───┼───┼───┼───┼───┤
+ * │23 │22 │21 │20 │   │
+ * ├───┼───┴───┼───┤19 │
+ * │24 │  25   │26 │   │
+ * └───┴───────┴───┴───┘
+ *
+ * Underglow (from top / [Esc] = top left)
+ * ┌─────────┬─────────┐
+ * │         │         │
+ * │         │         │
+ * │   29    │   30    │
+ * │         │         │
+ * │         │         │
+ * ├─────────┼─────────┤
+ * │         │         │
+ * │         │         │
+ * │   28    │   27    │
+ * │         │         │
+ * │         │         │
+ * └─────────┴─────────┘
+ */
 
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
@@ -40,7 +58,7 @@ led_config_t g_led_config = { {
     {  0,41 }, { 56,41 }, {112,41 }, {168,41 },             // 456  (reversed)
     {224,58 }, {168,52 }, {112,52 }, { 56,52 },             // 123
     {  0,52 }, {  0,64 }, { 84,64 }, {168,64 }              // 0. & enter (reversed)
-    // underglow
+    // underglow LEDs (positions pushed to nearest edge to match edge key colors)
     #ifndef ID27_DISABLE_UNDERGLOW
     , {224,64 }, {  0,64  },
       {  0,0  }, { 224,0  }

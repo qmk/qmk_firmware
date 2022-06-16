@@ -1,18 +1,5 @@
-/* Copyright 2022 IBNobody & vinorodrigues
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
- */
+// Copyright 2022 IBNobody (@IBNobody)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
@@ -27,7 +14,7 @@ enum montex_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-     * ┌───┌───┬───┬───┬───┐
+     * ┌───┬───┬───┬───┬───┐
      * │Esc│Tab│ F1│Cal│Bsp│
      * ├───┼───┼───┼───┼───┤
      * │Ctr│Num│ / │ * │ - │
@@ -41,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │MO1│ 0     │ . │   │
      * └───┴───────┴───┴───┘
      */
-    [_BASE] = LAYOUT(
+    [_BASE] = LAYOUT_numpad_6x5(
         KC_GESC,   KC_TAB,   KC_F1,   KC_CALC, KC_BSPC,
         KC_LCTRL,  KC_NLCK,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_LGUI,   KC_P7,    KC_P8,   KC_P9,   KC_PPLS,
@@ -51,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-     * ┌───┌───┐───┬───┬───┐
+     * ┌───┬───┬───┬───┬───┐
      * │Rst│TOG│MOD│PSs│SLk│
-     * ├───┼───┘───┼───┼───┤
+     * ├───┼───┼───┼───┼───┤
      * │Hu+│   │Sp-│Sp+│Br-│
      * ├───┼───┼───┼───┼───┤
      * │Hu-│Hom│ ↑ │PgU│   │
@@ -63,10 +50,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │St-│End│ ↓ │PgD│   │
      * ├───┼───┴───┼───┤Ent│
      * │mo1│Insert │Del│   │
-     * └───┴───────┴───┘───┘
+     * └───┴───────┴───┴───┘
      */
-    [_FN] = LAYOUT(
-        RESET,   RGB_TOG, RGB_MOD, KC_PSCR, KC_SLCK,
+    [_FN] = LAYOUT_numpad_6x5(
+        QK_BOOT, RGB_TOG, RGB_MOD, KC_PSCR, KC_SLCK,
         RGB_HUI, XXXXXXX, RGB_SPD, RGB_SPI, RGB_VAD,
         RGB_HUD, KC_HOME, KC_UP,   KC_PGUP, RGB_VAI,
         RGB_SAI, KC_LEFT, XXXXXXX, KC_RGHT,
@@ -75,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*  4 extra layers incase you want to map the top row to layer buttons
-     * ┌───┌───┐───┬───┬───┐
+     * ┌───┬───┬───┬───┬───┐
      * │   │   │   │   │   │
-     * ├───┼───┘───┼───┼───┤
+     * ├───┼───┼───┼───┼───┤
      * │   │   │   │   │   │
      * ├───┼───┼───┼───┼───┤
      * │   │   │   │   │   │
@@ -87,41 +74,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │   │   │   │   │   │
      * ├───┼───┴───┼───┤   │
      * │   │       │   │   │
-     * └───┴───────┴───┘───┘
+     * └───┴───────┴───┴───┘
      */
-    [_EMPTY2] = LAYOUT(
+    [_EMPTY2] = LAYOUT_numpad_6x5(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, _______,           _______
+        _______, _______,          _______
     ),
 
-    [_EMPTY3] = LAYOUT(
+    [_EMPTY3] = LAYOUT_numpad_6x5(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, _______,           _______
+        _______, _______,          _______
     ),
 
-    [_EMPTY4] = LAYOUT(
+    [_EMPTY4] = LAYOUT_numpad_6x5(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, _______,           _______
+        _______, _______,          _______
     ),
 
-    [_EMPTY5] = LAYOUT(
+    [_EMPTY5] = LAYOUT_numpad_6x5(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, _______,           _______
+        _______, _______,          _______
     )
 };
