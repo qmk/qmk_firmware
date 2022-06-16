@@ -45,8 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define EEPROM_I2C_24LC256
-
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 #define STM32_HSECLK 8000000
