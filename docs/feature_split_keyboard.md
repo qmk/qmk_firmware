@@ -273,6 +273,14 @@ This enables transmitting the current OLED on/off status to the slave side of th
 
 This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing.
 
+```c
+#define SPLIT_POINTING_ENABLE
+```
+
+This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
+
+!> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+
 ### Custom data sync between sides :id=custom-data-sync
 
 QMK's split transport allows for arbitrary data transactions at both the keyboard and user levels. This is modelled on a remote procedure call, with the master invoking a function on the slave side, with the ability to send data from master to slave, process it slave side, and send data back from slave to master.

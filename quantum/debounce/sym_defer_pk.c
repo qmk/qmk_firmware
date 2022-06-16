@@ -134,7 +134,6 @@ static void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], u
     }
 }
 
-bool debounce_active(void) { return true; }
 #else
 #    include "none.c"
 #endif

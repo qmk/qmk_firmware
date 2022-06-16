@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define PRODUCT_ID   0xDB00
 #define DEVICE_VER   0x0001
 #define MANUFACTURER duckyb
 #define PRODUCT      eternal_keypad
@@ -142,10 +142,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

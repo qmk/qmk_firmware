@@ -35,8 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_SYSTEM(code) (KC_PWR <= (code) && (code) <= KC_WAKE)
 #define IS_CONSUMER(code) (KC_MUTE <= (code) && (code) <= KC_BRID)
 
-#define IS_FN(code) (KC_FN0 <= (code) && (code) <= KC_FN31)
-
 #define IS_MOUSEKEY(code) (KC_MS_UP <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code) (KC_MS_UP <= (code) && (code) <= KC_MS_RIGHT)
 #define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1 <= (code) && (code) <= KC_MS_BTN8)
@@ -61,11 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOD_MASK_CAG (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI)
 #define MOD_MASK_SAG (MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
 #define MOD_MASK_CSAG (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
-
-#define FN_BIT(code) (1 << FN_INDEX(code))
-#define FN_INDEX(code) ((code)-KC_FN0)
-#define FN_MIN KC_FN0
-#define FN_MAX KC_FN31
 
 // clang-format off
 
@@ -258,7 +251,7 @@ enum hid_keyboard_keypad_usage {
     KC_J,
     KC_K,
     KC_L,
-    KC_M,  // 0x10
+    KC_M, // 0x10
     KC_N,
     KC_O,
     KC_P,
@@ -274,7 +267,7 @@ enum hid_keyboard_keypad_usage {
     KC_Z,
     KC_1,
     KC_2,
-    KC_3,  // 0x20
+    KC_3, // 0x20
     KC_4,
     KC_5,
     KC_6,
@@ -290,7 +283,7 @@ enum hid_keyboard_keypad_usage {
     KC_MINUS,
     KC_EQUAL,
     KC_LEFT_BRACKET,
-    KC_RIGHT_BRACKET,  // 0x30
+    KC_RIGHT_BRACKET, // 0x30
     KC_BACKSLASH,
     KC_NONUS_HASH,
     KC_SEMICOLON,
@@ -306,7 +299,7 @@ enum hid_keyboard_keypad_usage {
     KC_F4,
     KC_F5,
     KC_F6,
-    KC_F7,  // 0x40
+    KC_F7, // 0x40
     KC_F8,
     KC_F9,
     KC_F10,
@@ -322,7 +315,7 @@ enum hid_keyboard_keypad_usage {
     KC_END,
     KC_PAGE_DOWN,
     KC_RIGHT,
-    KC_LEFT,  // 0x50
+    KC_LEFT, // 0x50
     KC_DOWN,
     KC_UP,
     KC_NUM_LOCK,
@@ -338,7 +331,7 @@ enum hid_keyboard_keypad_usage {
     KC_KP_5,
     KC_KP_6,
     KC_KP_7,
-    KC_KP_8,  // 0x60
+    KC_KP_8, // 0x60
     KC_KP_9,
     KC_KP_0,
     KC_KP_DOT,
@@ -354,7 +347,7 @@ enum hid_keyboard_keypad_usage {
     KC_F18,
     KC_F19,
     KC_F20,
-    KC_F21,  // 0x70
+    KC_F21, // 0x70
     KC_F22,
     KC_F23,
     KC_F24,
@@ -370,7 +363,7 @@ enum hid_keyboard_keypad_usage {
     KC_PASTE,
     KC_FIND,
     KC_KB_MUTE,
-    KC_KB_VOLUME_UP,  // 0x80
+    KC_KB_VOLUME_UP, // 0x80
     KC_KB_VOLUME_DOWN,
     KC_LOCKING_CAPS_LOCK,
     KC_LOCKING_NUM_LOCK,
@@ -386,7 +379,7 @@ enum hid_keyboard_keypad_usage {
     KC_INTERNATIONAL_7,
     KC_INTERNATIONAL_8,
     KC_INTERNATIONAL_9,
-    KC_LANGUAGE_1,  // 0x90
+    KC_LANGUAGE_1, // 0x90
     KC_LANGUAGE_2,
     KC_LANGUAGE_3,
     KC_LANGUAGE_4,
@@ -402,7 +395,7 @@ enum hid_keyboard_keypad_usage {
     KC_PRIOR,
     KC_RETURN,
     KC_SEPARATOR,
-    KC_OUT,  // 0xA0
+    KC_OUT, // 0xA0
     KC_OPER,
     KC_CLEAR_AGAIN,
     KC_CRSEL,
@@ -495,7 +488,7 @@ enum internal_special_keycodes {
     KC_MEDIA_STOP,
     KC_MEDIA_PLAY_PAUSE,
     KC_MEDIA_SELECT,
-    KC_MEDIA_EJECT,  // 0xB0
+    KC_MEDIA_EJECT, // 0xB0
     KC_MAIL,
     KC_CALCULATOR,
     KC_MY_COMPUTER,
@@ -509,41 +502,7 @@ enum internal_special_keycodes {
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,
     KC_BRIGHTNESS_UP,
-    KC_BRIGHTNESS_DOWN,
-
-    /* Fn keys */
-    KC_FN0 = 0xC0,
-    KC_FN1,
-    KC_FN2,
-    KC_FN3,
-    KC_FN4,
-    KC_FN5,
-    KC_FN6,
-    KC_FN7,
-    KC_FN8,
-    KC_FN9,
-    KC_FN10,
-    KC_FN11,
-    KC_FN12,
-    KC_FN13,
-    KC_FN14,
-    KC_FN15,
-    KC_FN16,  // 0xD0
-    KC_FN17,
-    KC_FN18,
-    KC_FN19,
-    KC_FN20,
-    KC_FN21,
-    KC_FN22,
-    KC_FN23,
-    KC_FN24,
-    KC_FN25,
-    KC_FN26,
-    KC_FN27,
-    KC_FN28,
-    KC_FN29,
-    KC_FN30,
-    KC_FN31
+    KC_BRIGHTNESS_DOWN
 };
 
 enum mouse_keys {
@@ -555,7 +514,7 @@ enum mouse_keys {
 #endif
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT,  // 0xF0
+    KC_MS_RIGHT, // 0xF0
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
@@ -580,7 +539,7 @@ enum mouse_keys {
     /* Acceleration */
     KC_MS_ACCEL0,
     KC_MS_ACCEL1,
-    KC_MS_ACCEL2  // 0xFF
+    KC_MS_ACCEL2 // 0xFF
 };
 
 #include "keycode_legacy.h"

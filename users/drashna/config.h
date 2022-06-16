@@ -37,9 +37,9 @@
 // #    define WPM_LAUNCH_CONTROL
 // #    define WPM_ALLOW_COUNT_REGRESSOIN
 // #    define WPM_UNFILTERED
-#    define WPM_SAMPLE_SECONDS      6
+#    define WPM_SAMPLE_SECONDS      10
 #    define WPM_SAMPLE_PERIODS      50
-#    define WPM_ESTIMATED_WORD_SIZE 6
+#    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -279,7 +279,7 @@
 #    define OLED_DISPLAY_WIDTH 128
 #    define OLED_DISPLAY_HEIGHT 128
 #    define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
-#    define OLED_BLOCK_TYPE uint16_t
+#    define OLED_BLOCK_TYPE uint32_t
 #    define OLED_SOURCE_MAP \
         { 0, 8, 16, 24, 32, 40, 48, 56 }
 #    define OLED_TARGET_MAP \
@@ -288,4 +288,15 @@
 #    define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
 #    define OLED_COM_PINS COM_PINS_ALT
 #    define OLED_IC OLED_IC_SH1107
+#    ifndef OLED_BRIGHTNESS
+#        define OLED_BRIGHTNESS 50
+#    endif
+#    if !defined(STM32F4XX)
+#        undef OLED_UPDATE_INTERVAL
+#        define OLED_UPDATE_INTERVAL 75
+#    endif
 #endif
+
+#define ENABLE_COMPILE_KEYCODE
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
