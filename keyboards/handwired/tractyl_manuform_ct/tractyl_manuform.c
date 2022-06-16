@@ -18,6 +18,14 @@
 #include "transactions.h"
 #include <string.h>
 
+// i moved the charybdis config into here so we don't have duplicate 'void pointing_device_init_kb' calls
+void pointing_device_init_kb(void) {
+#ifdef PMW3360_CPI
+    pointing_device_set_cpi(PMW3360_CPI);
+#endif
+    maybe_update_pointing_device_cpi(&g_charybdis_config);
+}
+
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
 #endif  // CONSOLE_ENABLE
@@ -152,14 +160,17 @@ void charybdis_set_pointer_sniping_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
+// check the config to see if dragscroll is turned on
 bool charybdis_get_pointer_dragscroll_enabled(void) { return g_charybdis_config.is_dragscroll_enabled; }
 
+// This is how we turn on dragscroll
 void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     g_charybdis_config.is_dragscroll_enabled = enable;
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
-void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybdis_config); }
+// moved this up to the top, combined with another call
+//void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybdis_config); }
 
 #    ifndef CONSTRAIN_HID
 #        define CONSTRAIN_HID(value) ((value) < -127 ? -127 : ((value) > 127 ? 127 : (value)))
@@ -188,9 +199,12 @@ void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybd
  *   - Sniping
  *   - Acceleration
  */
+// function that pulls in the mouse_report data
 static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
     static int16_t scroll_buffer_x = 0;
     static int16_t scroll_buffer_y = 0;
+    // here it checks the charybdis config to see if dragscroll is enabled...
+    // how would it be?
     if (g_charybdis_config.is_dragscroll_enabled) {
 #    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
         scroll_buffer_x -= mouse_report->x;

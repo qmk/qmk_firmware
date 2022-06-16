@@ -30,12 +30,9 @@ enum custom_layers {
 };
 
 #define XXX KC_NO
-
-void pointing_device_init_kb(void) {
-#ifdef PMW3360_CPI
-    pointing_device_set_cpi(PMW3360_CPI);
-#endif
-}
+#define KC_CAD	LALT(LCTL(KC_DEL))
+#define KC_MACLOCK	LGUI(LCTL(KC_Q))
+#define KC_MACSHOT	LGUI(LSFT(KC_4))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (qwerty)
@@ -62,16 +59,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______
 ),
 [_QWERTY] = LAYOUT( \
-    KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINUS,
-    KC_LSFT,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_SCLN,
-    KC_TILD,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_P,
-                KC_BSPC, KC_DEL,  KC_ESC, KC_LBRC, KC_RBRC,             KC_COMM, KC_DOT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
-                                KC_LSFT, KC_LALT, KC_LGUI, MO(_SYMBOLS),        KC_MPLY, KC_LCTL, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+    KC_TAB,    KC_Q,    LT(0,KC_W),    KC_E, LT(0,KC_R), LT(0,KC_T),                             KC_Y,    KC_U,    LT(0,KC_I),    KC_O,    KC_P,    KC_MINUS,
+    KC_LSFT,   LT(0,KC_A),    LT(0,KC_S),    KC_D,    LT(0,KC_F),    KC_G,                       KC_H,    KC_J,    LT(0,KC_K),    KC_L,    KC_QUOT, KC_SCLN,
+    LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, KC_P,
+                KC_BSPC, KC_DEL,  KC_ESC, KC_LBRC, KC_RBRC,                         KC_COMM, KC_DOT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
+                                KC_LSFT, KC_LALT, KC_LGUI, DRAGSCROLL_MODE_TOGGLE,        KC_MPLY, KC_LCTL, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 ),
 [_MOUSE] = LAYOUT( \
-    _______, _______, _______, _______, _______, _______,                               _______, _______, KC_MS_BTN3, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                               _______, KC_MS_BTN1, KC_MS_BTN2, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                               _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, KC_MACLOCK, _______,                               _______, _______, KC_MS_BTN3, _______, _______, _______,
+    _______, _______, _______, _______, _______, KC_CAD,                               _______, KC_MS_BTN1, KC_MS_BTN2, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                               _______, _______, _______, _______, _______, KC_MACSHOT,
                 _______, _______,  _______, KC_END, KC_HOME,         KC_PGDN, KC_PGUP, _______, _______, _______, _______,
                                 _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______
 )

@@ -49,95 +49,113 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     // now we check for specific keycodes...
     switch (keycode) {
-        case FIRST_DEFAULT_LAYER_KEYCODE ... LAST_DEFAULT_LAYER_KEYCODE:
-            if (record->event.pressed) {
-                uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
-                if (!mods) {
-                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE);
-#if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 3)
-                } else if (mods & MOD_MASK_SHIFT) {
-                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 4);
-#    if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 7)
-
-                } else if (mods & MOD_MASK_CTRL) {
-                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 8);
-#    endif
-#endif
-                }
-            }
-            break;
-//         case KC_CCCV:  // One key copy/paste
+//         case FIRST_DEFAULT_LAYER_KEYCODE ... LAST_DEFAULT_LAYER_KEYCODE:
 //             if (record->event.pressed) {
-//                 copy_paste_timer = timer_read();
-//             } else {
-//                 if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-//                     tap_code16(LCTL(KC_C));
-//                 } else {  // Tap, paste
-//                     tap_code16(LCTL(KC_V));
-//                 }
-//             }
-//             break;
-//         case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
-// #if defined(CUSTOM_RGBLIGHT) || defined(CUSTOM_RGB_MATRIX)
-//             if (record->event.pressed) {
-//                 userspace_config.rgb_layer_change ^= 1;
-//                 dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-//                 eeconfig_update_user(userspace_config.raw);
-//                 if (userspace_config.rgb_layer_change) {
-// #    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
-//                     rgblight_enable_noeeprom();
+//                 uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
+//                 if (!mods) {
+//                     set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE);
+// #if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 3)
+//                 } else if (mods & MOD_MASK_SHIFT) {
+//                     set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 4);
+// #    if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 7)
+// 
+//                 } else if (mods & MOD_MASK_CTRL) {
+//                     set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 8);
 // #    endif
-//                     layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
-// #    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
-//                 } else {
-//                     rgblight_disable_noeeprom();
-// #    endif
-//                 }
-//             }
-// #endif  // CUSTOM_RGBLIGHT
-//             break;
-
-// #if defined(CUSTOM_RGBLIGHT) || defined(CUSTOM_RGB_MATRIX)
-//         case RGB_TOG:
-//             // Split keyboards need to trigger on key-up for edge-case issue
-// #    ifndef SPLIT_KEYBOARD
-//             if (record->event.pressed) {
-// #    else
-//             if (!record->event.pressed) {
-// #    endif
-// #    if defined(CUSTOM_RGBLIGHT) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-//                 rgblight_toggle();
-// #    endif
-// #    if defined(CUSTOM_RGB_MATRIX) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-//                 rgb_matrix_toggle();
-// #    endif
-//             }
-//             return false;
-//             break;
-//         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
-//             if (record->event.pressed) {
-//                 bool is_eeprom_updated;
-// #    if defined(CUSTOM_RGBLIGHT) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-//                 // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
-//                 if (userspace_config.rgb_layer_change) {
-//                     userspace_config.rgb_layer_change = false;
-//                     dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-//                     is_eeprom_updated = true;
-//                 }
-// #    endif
-// #    if defined(CUSTOM_RGB_MATRIX) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-//                 if (userspace_config.rgb_matrix_idle_anim) {
-//                     userspace_config.rgb_matrix_idle_anim = false;
-//                     dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
-//                     is_eeprom_updated = true;
-//                 }
-// #    endif
-//                 if (is_eeprom_updated) {
-//                     eeconfig_update_user(userspace_config.raw);
-//                 }
-//             }
-//             break;
 // #endif
+//                 }
+//             }
+//             break;
+            case LT(0,KC_TILD):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_TILD)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+            case LT(0,KC_S):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_S)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+            case LT(0,KC_Z):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_Z)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+            case LT(0,KC_X):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_X)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+            case LT(0,KC_C):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_C)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+            case LT(0,KC_V):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_V)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_B):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_B)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_A):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_A)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_R):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_R)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_W):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_W)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_K):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_K)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_L):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_L)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_T):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_T)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_F):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_F)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_N):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(LSFT(KC_N))); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
     }
     return true;
 }

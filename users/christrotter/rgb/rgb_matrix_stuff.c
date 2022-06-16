@@ -51,31 +51,82 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
      */
 
 void matrix_scan_rgb_matrix(void) {
-    // other kbs got it working using indicators...
-    // void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    // switch (get_highest_layer(layer_state)) { 
     /*
-    if (userspace_config.rgb_layer_change)
-    {
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case _SYMBOLS:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _MOUSE:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _QWERTY:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-        }
-    }
+        This is where we set per-layer/per-key RGB.  In future, this should live in the keyboard space...?
+        NOTE: if you do not specify a per-key setting, the key's LED defaults to whatever the base colour is...
+        ... red unless otherwise set.
+        NOTE: if, for a layer, you do the pattern "set all, then set a few individual"...
+        ... it makes seeing other keys very difficult... i.e. there is no 'layer functionality' i.e. transparency
     */
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case _SYMBOLS:
+    rgb_matrix_set_color(0, 0, 90, 0);    // | // row1,col6
+    rgb_matrix_set_color(1, 40, 0, 90);     // )
+    rgb_matrix_set_color(2, 40, 0, 90);     // (
+    rgb_matrix_set_color(3, 0, 90, 20);     // @
+    rgb_matrix_set_color(4, 90, 20, 0);    // !
+    rgb_matrix_set_color(5, 90, 50, 0);     // tab // row1,col1
+    rgb_matrix_set_color(6, 0, 90, 0);      // shift? // row2,col1
+    rgb_matrix_set_color(7, 0, 50, 50);    // #
+    rgb_matrix_set_color(8, 90, 50, 0);    // $
+    rgb_matrix_set_color(9, 0, 60, 90);     // {
+    rgb_matrix_set_color(10, 0, 60, 90);    // }
+    rgb_matrix_set_color(11, 0, 0, 90);   // ` // row2,col6
+    rgb_matrix_set_color(12, 90, 0, 0);   // ~ // row3,col6
+    rgb_matrix_set_color(13, 90, 60, 0);    // ]
+    rgb_matrix_set_color(14, 90, 60, 0);    // [
+    rgb_matrix_set_color(15, 30, 90, 0);   // ^
+    rgb_matrix_set_color(16, 90, 30, 0);   // %
+    rgb_matrix_set_color(17, 0, 75, 100);   // ~ // row3,col1
+    rgb_matrix_set_color(18, 100, 0, 0);    // backspace
+    rgb_matrix_set_color(19, 90, 20, 0);    // delete
+    rgb_matrix_set_color(20, 100, 40, 0);   // esc
+    rgb_matrix_set_color(21, 100, 0, 0);    // back
+    rgb_matrix_set_color(22, 0, 90, 0);     // fwd
+    rgb_matrix_set_color(23, 120, 0, 70);   // SYMBOLS
+    rgb_matrix_set_color(24, 20, 0, 90);    // CMD
+    rgb_matrix_set_color(25, 70, 40, 0);    // ALT
+    rgb_matrix_set_color(26, 0, 90, 0);     // shift
+    // RIGHT HALF STARTS HERE
+    rgb_matrix_set_color(27, 0, 90, 0);   // + // row1,col1 // y
+    rgb_matrix_set_color(28, 0, 80, 90);   // 1
+    rgb_matrix_set_color(29, 0, 80, 90);   // 2
+    rgb_matrix_set_color(30, 0, 80, 90);   // 3
+    rgb_matrix_set_color(31, 0, 90, 0);   // -
+    rgb_matrix_set_color(32, 0, 90, 0);   // = // row1,col6 // -_
+    rgb_matrix_set_color(33, 90, 90, 90);   // ; // row2,col6 
+    rgb_matrix_set_color(34, 90, 90, 90);   // '
+    rgb_matrix_set_color(35, 0, 80, 90);   // 6
+    rgb_matrix_set_color(36, 0, 80, 90);   // 5
+    rgb_matrix_set_color(37, 0, 80, 90);   // 4
+    rgb_matrix_set_color(38, 0, 90, 0);   // * // row2,col1  
+    rgb_matrix_set_color(39, 0, 0, 90);    // & // row3,col1
+    rgb_matrix_set_color(40, 0, 80, 90);   // 7
+    rgb_matrix_set_color(41, 0, 80, 90);   // 8 // <,
+    rgb_matrix_set_color(42, 0, 80, 90);   // 9 // >.
+    rgb_matrix_set_color(43, 0, 80, 90);   // 0 // /?
+    rgb_matrix_set_color(44, 90, 90, 90);   // \ // row3, col6
+    // everything below here doesn't change
+    rgb_matrix_set_color(45, 0, 120, 0);    // arrow key
+    rgb_matrix_set_color(46, 0, 120, 0);    // arrow key
+    rgb_matrix_set_color(47, 0, 120, 0);    // arrow key
+    rgb_matrix_set_color(48, 0, 120, 0);    // arrow key
+    // this is the group of two keys on the right thumb cluster right next to the trackball
+    rgb_matrix_set_color(49, 90, 0, 20);    // < // left-most key on kb
+    rgb_matrix_set_color(50, 0, 100, 100);  // > // key right next to trackball
+    rgb_matrix_set_color(51, 20, 0, 90);    // cmd // bottom of space/enter key row
+    rgb_matrix_set_color(52, 120, 0, 70);   // SYMBOLS // key to the 'left' of enter key
+    rgb_matrix_set_color(53, 0, 25, 120);   // enter key
+    rgb_matrix_set_color(54, 0, 120, 200);  // space key
+    // this is the group of two keys on the right thumb cluster NOT next to the trackball
+    rgb_matrix_set_color(55, 60, 0, 90);    // mplay // key below layer button
+    rgb_matrix_set_color(56, 0, 0, 120);    // ctrl //far right key, 'below' enter key
+            break;
+        case _MOUSE:
     rgb_matrix_set_color(0, 90, 90, 90); // row1,col6
-    rgb_matrix_set_color(1, 90, 90, 90);
-    rgb_matrix_set_color(2, 90, 0, 0);
-    rgb_matrix_set_color(3, 90, 0, 0);
+    rgb_matrix_set_color(1, 90, 0, 10); // mac lock KC_MACLOCK
+    rgb_matrix_set_color(2, 90, 90, 90);
+    rgb_matrix_set_color(3, 90, 90, 90);
     rgb_matrix_set_color(4, 90, 90, 90);
     rgb_matrix_set_color(5, 90, 50, 0); // tab // row1,col1
     rgb_matrix_set_color(6, 0, 90, 0); // shift? // row2,col1
@@ -83,7 +134,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(8, 90, 90, 90);
     rgb_matrix_set_color(9, 90, 90, 90);
     rgb_matrix_set_color(10, 90, 90, 90);
-    rgb_matrix_set_color(11, 90, 90, 90); // row2,col6
+    rgb_matrix_set_color(11, 90, 0, 0); // KC_CAD // row2,col6
     rgb_matrix_set_color(12, 90, 90, 90); // row3,col6
     rgb_matrix_set_color(13, 90, 90, 90);
     rgb_matrix_set_color(14, 90, 90, 90);
@@ -100,24 +151,24 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(25, 70, 40, 0); // ALT
     rgb_matrix_set_color(26, 0, 90, 0); // shift
     // RIGHT HALF STARTS HERE
-    rgb_matrix_set_color(27, 90, 90, 90); // row1,col1 // y
-    rgb_matrix_set_color(28, 90, 90, 90);
-    rgb_matrix_set_color(29, 90, 90, 90);
-    rgb_matrix_set_color(30, 90, 90, 90);
+    rgb_matrix_set_color(27, 15, 15, 15); // row1,col1 // y
+    rgb_matrix_set_color(28, 15, 15, 15); // mouse-surround
+    rgb_matrix_set_color(29, 120, 120, 120); // MIDDLE CLICK
+    rgb_matrix_set_color(30, 15, 15, 15); // mouse-surround
     rgb_matrix_set_color(31, 90, 90, 90);
     rgb_matrix_set_color(32, 0, 75, 100); // row1,col6 // -_
     rgb_matrix_set_color(33, 0, 75, 100); // row2,col6 // ;:
     rgb_matrix_set_color(34, 0, 75, 100); // "'
-    rgb_matrix_set_color(35, 90, 90, 90);
-    rgb_matrix_set_color(36, 90, 90, 90);
-    rgb_matrix_set_color(37, 90, 90, 90);
-    rgb_matrix_set_color(38, 90, 90, 90); // row2,col1  
-    rgb_matrix_set_color(39, 90, 90, 90); // row3,col1  
-    rgb_matrix_set_color(40, 90, 90, 90);
-    rgb_matrix_set_color(41, 0, 75, 100); // <,
-    rgb_matrix_set_color(42, 0, 75, 100); // >.
+    rgb_matrix_set_color(35, 30, 30, 30); // mouse-surround // l
+    rgb_matrix_set_color(36, 120, 120, 120); // RIGHT CLICK // k
+    rgb_matrix_set_color(37, 120, 120, 120); // LEFT CLICK // j
+    rgb_matrix_set_color(38, 15, 15, 15); // mouse-surround // h // row2,col1 
+    rgb_matrix_set_color(39, 15, 15, 15); // n // row3,col1  
+    rgb_matrix_set_color(40, 15, 15, 15); // mouse-surround // m
+    rgb_matrix_set_color(41, 0, 15, 25); // mouse-surround // <,
+    rgb_matrix_set_color(42, 0, 15, 25); // mouse-surround // >.
     rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 90, 90, 90); //row3, col6 // not sure what this key should be
+    rgb_matrix_set_color(44, 90, 50, 0); // screenshot //row3, col6 // not sure what this key should be
     rgb_matrix_set_color(45, 0, 120, 0); // arrow key
     rgb_matrix_set_color(46, 0, 120, 0); // arrow key
     rgb_matrix_set_color(47, 0, 120, 0); // arrow key
@@ -132,12 +183,6 @@ void matrix_scan_rgb_matrix(void) {
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
     rgb_matrix_set_color(55, 60, 0, 90); // mplay // key below layer button
     rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
-            break;
-        case _MOUSE:
-            rgb_matrix_set_color_all(100,0,100);
-                rgb_matrix_set_color(5, 90, 90, 90);
-                rgb_matrix_set_color(8, 90, 90, 90);
-                rgb_matrix_set_color(9, 90, 90, 90);
             break;
         case _QWERTY:
             //rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
@@ -177,11 +222,11 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(32, 0, 75, 100); // row1,col6 // -_
     rgb_matrix_set_color(33, 0, 75, 100); // row2,col6 // ;:
     rgb_matrix_set_color(34, 0, 75, 100); // "'
-    rgb_matrix_set_color(35, 90, 90, 90);
-    rgb_matrix_set_color(36, 90, 90, 90);
-    rgb_matrix_set_color(37, 90, 90, 90);
-    rgb_matrix_set_color(38, 90, 90, 90); // row2,col1  
-    rgb_matrix_set_color(39, 90, 90, 90); // row3,col1  
+    rgb_matrix_set_color(35, 90, 90, 90); // l
+    rgb_matrix_set_color(36, 90, 90, 90); // k
+    rgb_matrix_set_color(37, 90, 90, 90); // j
+    rgb_matrix_set_color(38, 90, 90, 90); // h // row2,col1 
+    rgb_matrix_set_color(39, 90, 90, 90); // n // row3,col1  
     rgb_matrix_set_color(40, 90, 90, 90);
     rgb_matrix_set_color(41, 0, 75, 100); // <,
     rgb_matrix_set_color(42, 0, 75, 100); // >.
