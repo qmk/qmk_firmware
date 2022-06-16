@@ -48,40 +48,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FUNC] = LAYOUT_all(
         KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, QK_BOOT,
-        KC_TRNS,  KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_UP,   AG_NORM, AG_SWAP, QWERTY, WORKMAN,           KC_TRNS, KC_INS,
-        KC_TRNS,  KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEFT, KC_RGHT,          KC_TRNS,          KC_HOME,
+        KC_TRNS,  KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_UP,   AG_NORM, AG_SWAP, QWERTY,  WORKMAN,          KC_TRNS, KC_INS,
+        KC_TRNS,  KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END,           KC_TRNS,          KC_HOME,
         KC_TRNS,           KC_WH_L, KC_BTN3, KC_WH_R, KC_TRNS, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, RGB_SAI, RGB_SAD, KC_TRNS,          RGB_HUI, KC_END,
         KC_TRNS,  KC_TRNS, KC_TRNS,                            KC_MPLY,                            KC_TRNS, KC_TRNS,          KC_MPRV, RGB_HUD, KC_MNXT
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    // Vertical Scroll
-    if ((get_mods() & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
-        if (clockwise) {
-            tap_code(KC_WH_D);
-        } else {
-            tap_code(KC_WH_U);
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        switch (get_highest_layer(layer_state)) {
+            case _FUNC:
+                // Vertical Scroll
+                clockwise ? tap_code(KC_WH_D) : tap_code(KC_WH_U);
+                return false;
+                break;
+            default:
+                // Horizontal Scroll
+                if ((get_mods() & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    clockwise ? tap_code(KC_WH_D) : tap_code(KC_WH_U);
+                    return false;
+                }
+                // Volume
+                clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
+                break;
         }
-        return false;
     }
-
-    // Horizontal Scroll
-    if ((get_mods() & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
-        if (clockwise) {
-            tap_code(KC_WH_L);
-        } else {
-            tap_code(KC_WH_R);
-        }
-        return false;
-    }
-
-    // Volume
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
