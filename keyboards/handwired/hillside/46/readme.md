@@ -1,8 +1,8 @@
-# Hillside 52
+# Hillside 46
 
 ![hillside](https://imgur.com/erJPjvr.png)
 
-[Hillside 52](https://github.com/mmccoyd/hillside)
+[Hillside 46](https://github.com/mmccoyd/hillside)
  is a split ergonomic keyboard with 3x6+3+5 choc-spaced keys,
  splayed ring and pinky columns, aggressive column stagger,
  a longer thumb arc, an inverted-T arrow cluster and a breakoff outer-pinky column.
@@ -13,11 +13,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/hillside/52:default
+    make handwired/hillside/46:default
 
 Flashing example for this keyboard:
 
-    make handwired/hillside/52:default:flash
+    make handwired/hillside/46:default:flash
 
 ## Bootloader
 

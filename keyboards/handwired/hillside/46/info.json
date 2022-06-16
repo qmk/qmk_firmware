@@ -2,7 +2,7 @@
     "manufacturer": "mmccoyd",
     "maintainer": "mmccoyd",
 
-    "keyboard_name": "Hillside 52",
+    "keyboard_name": "Hillside 46",
     "url": "http://github.com/mmccoyd/hillside/",
 
     "tags": ["split", "column stagger", "choc v1", "choc spaced" ],
@@ -17,7 +17,7 @@
 
     "usb": {
       "vid": "0x4D4D",
-      "pid": "0x4852",
+      "pid": "0x4846",
       "device_version": "0.0.1"
     },
 
