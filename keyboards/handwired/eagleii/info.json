@@ -2,11 +2,8 @@
     "keyboard_name": "EagleII", 
     "url": "", 
     "maintainer": "Spaceman", 
-    "width": 21.5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
-            "key_count": 74,
             "layout": [
                 {"label":"K47 (F7,C7)", "x":0, "y":0, "w":1.5},
                 {"label":"K27 (F1,C7)", "x":1.5, "y":0},

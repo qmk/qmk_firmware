@@ -2,8 +2,6 @@
     "keyboard_name": "DSP40",
     "url": "https://keeb.io",
     "maintainer": "nooges",
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -2,8 +2,6 @@
    "keyboard_name": "Rubi",
    "url": "https://github.com/ohchiko/qmk_firmware/tree/master/keyboards/rubi",
    "maintainer": "gregorio",
-   "width": 4,
-   "height": 5,
    "layouts": {
       "LAYOUT": {
          "layout": [

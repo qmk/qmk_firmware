@@ -2,8 +2,6 @@
     "keyboard_name": "Terrazzo", 
     "url": "", 
     "maintainer": "MsMustard", 
-    "width": 14.5, 
-    "height": 4, 
     "layouts": {
         "LAYOUT": {
             "layout": [

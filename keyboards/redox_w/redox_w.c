@@ -1,10 +1,15 @@
 #include "redox_w.h"
 
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(F4);
+    setPinOutput(F5);
+    
+    writePinHigh(D0);
+    writePinHigh(D1);
+    writePinHigh(F4);
+    writePinHigh(F5);
 }
 
 
@@ -15,7 +20,7 @@ void matrix_init_kb(void) {
 	led_init();
 }
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 {{13, 0}, {12, 0}, {11, 0}, {10, 0}, {9, 0}, {8, 0}, {7, 0}, {6, 0}, {5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},

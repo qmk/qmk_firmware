@@ -2,7 +2,7 @@
 
 ![Jabberwocky](https://diplomacyvariants.files.wordpress.com/2021/03/dexterous_jabberwocky.jpg)
 
-A full-size, columnar-staggered, Alice-style keyboard. The Jabberwocky comes in two varieties currently: 
+A full-size, columnar-staggered, Alice-style keyboard. The Jabberwocky comes in two varieties currently:
 * Dexterous (with numpad on the right side, pictured above)
 * Sinister (with numpad on the left side)
 
@@ -10,15 +10,16 @@ Both the Dexterous and Sinister use the same firmware.  The numpad and the four 
 
 For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w).
 
-* Keyboard Maintainer: [Alex Ronke](diplomacyvariants.wordpress.com), also known as NoPunIn10Did. 
+* Keyboard Maintainer: [Alex Ronke](https://nopunin10did.com/), also known as [NoPunIn10Did](https://github.com/NoPunIn10Did)
 * Hardware Supported: Dexterous Jabberwocky and Sinister Jabberwocky (2021 March)
 * Hardware Availability: Currently by request only
 
-To jump the bootloader, either:
-# If loaded with the default layout, use Function-Escape or Function-R *(the function buttons are the 1u keys next to B and N)* **OR**
-# Use the physical reset switch near the USB port *(if provided for your version of the board)* **OR**
-# Use the physical reset switch on the Elite C **OR**
-# Briefly jump the Reset and Ground pins of the Elite C
+To reset the board into bootloader mode, do one of the following:
+
+* If loaded with the default layout, use Function-Escape or Function-R *(the function buttons are the 1u keys next to B and N)*
+* Use the physical reset switch near the USB port *(if provided for your version of the board)*
+* Use the physical reset switch on the Elite C
+* Briefly jump the Reset and Ground pins of the Elite C
 
 Make example for this keyboard (after setting up your build environment):
 

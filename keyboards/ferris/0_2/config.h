@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xC2AB
 #define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0002
-#define MANUFACTURER Pierre
-#define PRODUCT Ferris the keeb
+#define MANUFACTURER Cuddly Keyboards Ltd.
+#define PRODUCT Ferris 0.2
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -67,10 +67,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* i2c settings */
 
 #define I2C_DRIVER I2CD2
-#define I2C1_SCL_BANK GPIOB
-#define I2C1_SCL 10
-#define I2C1_SDA_BANK GPIOB
-#define I2C1_SDA 11
+#define I2C1_SCL_PIN B10
+#define I2C1_SDA_PIN B11
 #define I2C1_TIMINGR_PRESC 2U
 #define I2C1_TIMINGR_SCLDEL 1U
 #define I2C1_TIMINGR_SDADEL 0U

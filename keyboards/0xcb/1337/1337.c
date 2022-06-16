@@ -21,13 +21,6 @@ void eeconfig_init_kb(void) {
     backlight_enable();
     backlight_level(5);
 #endif
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_sethsv(0, 255, 255);
-#ifdef RGBLIGHT_ANIMATIONS
-    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2);
-#endif
-#endif
 
     eeconfig_update_kb(0);
     eeconfig_init_user();

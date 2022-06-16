@@ -2,8 +2,6 @@
     "keyboard_name": "amigopunk",
     "url": "www.haesbaert.org",
     "maintainer": "haesbaert",
-    "width": 17,
-    "height": 6,
     "layouts": {
         "LAYOUT": {
             "layout": [

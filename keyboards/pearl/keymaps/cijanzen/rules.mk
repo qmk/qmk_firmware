@@ -1,5 +1,5 @@
 # build options
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no

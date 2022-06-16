@@ -2,8 +2,6 @@
   "keyboard_name": "fivethirteen",
   "url": "",
   "maintainer": "qmk",
-  "width": 13,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

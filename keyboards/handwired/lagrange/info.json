@@ -2,8 +2,6 @@
     "keyboard_name": "Lagrange",
     "url": "https://github.com/dpapavas/lagrange-keyboard",
     "maintainer": "dpapavas",
-    "width": 19,
-    "height": 8.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -58,7 +58,7 @@ bool panic_mode = false;
 bool flight_mode = false;
 bool rcs_mode = false;
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     base_mode = false;
     panic_mode = false;
     flight_mode = false;

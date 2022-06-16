@@ -22,15 +22,15 @@
 
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ $ │ " │ « │ » │ ( │ ) │ @ │ + │ - │ / │ * │ = │ % │       │
+ * │ $ │ " │ « │ » │ ( │ ) │ @ │ + │ - │ / │ * │ = │ % │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ B │ É │ P │ O │ È │ ^ │ V │ D │ L │ J │ Z │ W │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ U │ I │ E │ , │ C │ T │ S │ R │ N │ M │ Ç │    │
+ * │     │ B │ É │ P │ O │ È │ ^ │ V │ D │ L │ J │ Z │ W │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ A │ U │ I │ E │ , │ C │ T │ S │ R │ N │ M │ Ç │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ Ê │ À │ Y │ X │ . │ K │ ' │ Q │ G │ H │ F │          │
+ * │    │ Ê │ À │ Y │ X │ . │ K │ ' │ Q │ G │ H │ F │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
+ * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
@@ -88,15 +88,15 @@
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ # │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ° │ ` │       │
+ * │ # │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ° │ ` │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │ ! │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │ ; │   │   │   │   │   │   │   │    │
+ * │     │   │   │   │   │   │ ! │   │   │   │   │   │   │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │ ; │   │   │   │   │   │   │   │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │ : │   │ ? │   │   │   │   │          │
+ * │    │   │   │   │   │ : │   │ ? │   │   │   │   │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
+ * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
@@ -121,19 +121,19 @@
 #define BP_COLN S(BP_DOT)  // :
 #define BP_QUES S(BP_QUOT) // ?
 // Row 5
-#define BP_NBSP S(KC_SPC) // (non-breaking space)
+#define BP_NBSP S(KC_SPC)  //   (non-breaking space)
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ – │ — │ < │ > │ [ │ ] │ ^ │ ± │ − │ ÷ │ × │ ≠ │ ‰ │       │
+ * │ – │ — │ < │ > │ [ │ ] │ ^ │ ± │ − │ ÷ │ × │ ≠ │ ‰ │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ | │ ´ │ & │ Œ │ ` │ ¡ │ ˇ │ Ð │ / │ Ĳ │ Ə │ ˘ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ Æ │ Ù │ ¨ │ € │   │ © │ Þ │ ẞ │ ® │ ~ │ ¯ │ ¸ │    │
+ * │     │ | │ ´ │ & │ Œ │ ` │ ¡ │ ˇ │ Ð │ / │ Ĳ │ Ə │ ˘ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ Æ │ Ù │ ¨ │ € │   │ © │ Þ │ ẞ │ ® │ ~ │ ¯ │ ¸ │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │ \ │ { │ } │ … │ ~ │ ¿ │ ° │   │ † │ ˛ │          │
+ * │    │   │ \ │ { │ } │ … │ ~ │ ¿ │ ° │   │ † │ ˛ │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │           _            │    │    │    │    │
+ * │    │    │    │           _            │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
@@ -181,7 +181,7 @@
 #define BP_RCBR ALGR(BP_X)    // }
 #define BP_ELLP ALGR(BP_DOT)  // …
 #define BP_TILD ALGR(BP_K)    // ~
-#define BP_IQUE ALGR(BP_QEST) // ¿
+#define BP_IQUE ALGR(BP_QUES) // ¿
 #define BP_RNGA ALGR(BP_Q)    // ° (dead)
 #define BP_DGRK ALGR(BP_G)    // µ (dead Greek key)
 #define BP_DAGG ALGR(BP_H)    // †
@@ -191,15 +191,15 @@
 
 /* Shift+AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ¶ │ „ │ “ │ ” │ ≤ │ ≥ │   │ ¬ │ ¼ │ ½ │ ¾ │ ′ │ ″ │       │
+ * │ ¶ │ „ │ “ │ ” │ ≤ │ ≥ │   │ ¬ │ ¼ │ ½ │ ¾ │ ′ │ ″ │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ ¦ │ ˝ │ § │   │   │   │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │ ˙ │ ¤ │ ̛  │ ſ │   │   │ ™ │   │ º │ , │    │
+ * │     │ ¦ │ ˝ │ § │   │   │   │   │   │   │   │   │   │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │ ˙ │ ¤ │ ̛  │ ſ │   │   │ ™ │   │ º │ , │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │ ‘ │ ’ │ · │ ⌨ │ ̉  │ ̣  │   │ ‡ │ ª │          │
+ * │    │   │   │ ‘ │ ’ │ · │ ⌨ │ ̉  │ ̣  │   │ ‡ │ ª │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
+ * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
@@ -237,169 +237,4 @@
 #define BP_DDAG S(ALGR(BP_H))    // ‡
 #define BP_FORD S(ALGR(BP_F))    // ª
 // Row 5
-#define BP_NNBS S(ALGR(BP_)) // (narrow non-breaking space)
-
-// DEPRECATED
-#define BP_DOLLAR BP_DLR
-#define BP_DOUBLE_QUOTE BP_DQUO
-#define BP_DQOT BP_DQUO
-#define BP_LEFT_GUILLEMET BP_LDAQ
-#define BP_LGIL BP_LDAQ
-#define BP_RIGHT_GUILLEMET BP_RDAQ
-#define BP_RGIL BP_RDAQ
-#define BP_LEFT_PAREN BP_LPRN
-#define BP_RIGHT_PAREN BP_RPRN
-#define BP_MINUS BP_MINS
-#define BP_SLASH BP_SLSH
-#define BP_ASTERISK BP_ASTR
-#define BP_EQUAL BP_EQL
-#define BP_PERCENT BP_PERC
-#define BP_E_ACUTE BP_EACU
-#define BP_ECUT BP_EACU
-#define BP_E_GRAVE BP_EGRV
-#define BP_DEAD_CIRCUMFLEX BP_DCIR
-#define BP_DCRC BP_DCIR
-#define BP_COMMA BP_COMM
-#define BP_C_CEDILLA BP_CCED
-#define BP_E_CIRCUMFLEX BP_ECIR
-#define BP_ECRC BP_ECIR
-#define BP_A_GRAVE BP_AGRV
-#define BP_APOSTROPHE BP_QUOT
-#define BP_APOS BP_QUOT
-#define BP_DEGREE BP_DEG
-#define BP_DEGR BP_DEG
-#define BP_GRAVE BP_GRV
-#define BP_EXCLAIM BP_EXLM
-#define BP_SCOLON BP_SCLN
-#define BP_COLON BP_COLN
-#define BP_QUESTION BP_QUES
-#define BP_QEST BP_QUES
-#define BP_NON_BREAKING_SPACE BP_NBSP
-#define BP_EN_DASH BP_NDSH
-#define BP_EM_DASH BP_MDSH
-#define BP_LESS BP_LABK
-#define BP_GREATER BP_RABK
-#define BP_GRTR BP_RABK
-#define BP_LBRACKET BP_LBRC
-#define BP_RBRACKET BP_RBRC
-#define BP_CIRCUMFLEX CIRC
-#define BP_PLUS_MINUS BP_PLMN
-#define BP_PSMS BP_PLMN
-#define BP_MATH_MINUS BP_MMNS
-#define BP_OBELUS BP_DIV
-#define BP_OBEL BP_DIV
-#define BP_DIVISION_SIGN BP_DIV
-#define BP_DVSN BP_DIV
-#define BP_TIMES BP_MUL
-#define BP_TIMS BP_MUL
-#define BP_DIFFERENT BP_NEQL
-#define BP_DIFF BP_NEQL
-#define BP_PERMILLE BP_PERM
-#define BP_PMIL BP_PERM
-#define BP_DEAD_ACUTE BP_ACUT
-#define BP_DACT BP_ACUT
-#define BP_AMPERSAND BP_AMPR
-#define BP_OE_LIGATURE BP_OE
-#define BP_DEAD_GRAVE BP_DGRV
-#define BP_INVERTED_EXCLAIM BP_IEXL
-#define BP_IXLM BP_IEXL
-#define BP_DEAD_CARON BP_CARN
-#define BP_DCAR BP_CARN
-#define BP_DEAD_SLASH BP_DSLS
-#define BP_DSLH BP_DSLS
-#define BP_IJ_LIGATURE BP_IJ
-#define BP_SCHWA BP_SCHW
-#define BP_SCWA BP_SCHW
-#define BP_DEAD_BREVE BP_BREV
-#define BP_DBRV BP_BREV
-#define BP_AE_LIGATURE BP_AE
-#define BP_U_GRAVE BP_UGRV
-#define BP_DEAD_TREMA BP_DIAE
-#define BP_DTRM BP_DIAE
-#define BP_TYPOGRAPHICAL_APOSTROPHE BP_COMM
-#define BP_TAPO BP_COMM
-#define BP_COPYRIGHT BP_COPY
-#define BP_CPRT BP_COPY
-#define BP_THORN BP_THRN
-#define BP_SHARP_S BP_SS
-#define BP_SRPS BP_SS
-#define BP_REGISTERED_TRADEMARK BP_REGD
-#define BP_RTM BP_REGD
-#define BP_DEAD_TILDE BP_DTIL
-#define BP_DTLD BP_DTIL
-#define BP_DEAD_MACRON BP_MACR
-#define BP_DMCR BP_MACR
-#define BP_DEAD_CEDILLA BP_CEDL
-#define BP_DCED BP_CEDL
-#define BP_NONUS_SLASH BP_SLSH
-#define BP_NUSL BP_SLSH
-#define BP_BACKSLASH BP_BSLS
-#define BP_LEFT_CURLY_BRACE BP_LCBR
-#define BP_RIGHT_CURLY_BRACE BP_RCBR
-#define BP_ELLIPSIS BP_ELLP
-#define BP_ELPS BP_ELLP
-#define BP_TILDE BP_TILD
-#define BP_INVERTED_QUESTION BP_IQUE
-#define BP_IQST BP_IQUE
-#define BP_DEAD_RING BP_RNGA
-#define BP_DRNG BP_RNGA
-#define BP_DEAD_GREEK BP_DGRK
-#define BP_DAGGER BP_DAGG
-#define BP_DAGR BP_DAGG
-#define BP_DEAD_OGONEK BP_OGON
-#define BP_DOGO BP_OGON
-#define BP_UNDERSCORE BP_UNDS
-#define BP_PARAGRAPH BP_PARA
-#define BP_PARG BP_PARA
-#define BP_LOW_DOUBLE_QUOTE BP_DLQU
-#define BP_LWQT BP_DLQU
-#define BP_LEFT_DOUBLE_QUOTE BP_RDQU
-#define BP_RIGHT_DOUBLE_QUOTE BP_RDQU
-#define BP_LESS_OR_EQUAL BP_LEQL
-#define BP_GREATER_OR_EQUAL BP_GEQL
-#define BP_NEGATION BP_NOT
-#define BP_NEGT BP_NOT
-#define BP_ONE_QUARTER BP_QRTR
-#define BP_1QRT BP_QRTR
-#define BP_ONE_HALF BP_HALF
-#define BP_1HLF BP_HALF
-#define BP_THREE_QUARTERS TQTR
-#define BP_3QRT BP_TQTR
-#define BP_MINUTES BP_PRIM
-#define BP_MNUT BP_PRIM
-#define BP_SECONDS BP_DPRM
-#define BP_SCND BP_DPRM
-#define BP_BROKEN_PIPE BP_BRKP
-#define BP_BPIP BP_BRKP
-#define BP_DEAD_DOUBLE_ACUTE BP_DACU
-#define BP_DDCT BP_DACU
-#define BP_SECTION BP_SECT
-#define BP_GRAVE_BIS BP_GRV
-#define BP_GRVB BP_GRV
-#define BP_DEAD_DOT_ABOVE BP_DOTA
-#define BP_DDTA BP_DOTA
-#define BP_DEAD_CURRENCY BP_CURR
-#define BP_DCUR BP_CURR
-#define BP_DEAD_HORN BP_HORN
-#define BP_DHRN BP_HORN
-#define BP_LONG_S BP_LNGS
-#define BP_TRADEMARK BP_TM
-#define BP_ORDINAL_INDICATOR_O MORD
-#define BP_ORDO BP_MORD
-#define BP_DEAD_COMMA BP_DCMM
-#define BP_DCOM BP_DCMM
-#define BP_LEFT_QUOTE BP_LSQU
-#define BP_LQOT BP_LSQU
-#define BP_RIGHT_QUOTE BP_RSQU
-#define BP_RQOT BP_RSQU
-#define BP_INTERPUNCT BP_MDDT
-#define BP_IPCT BP_MDDT
-#define BP_DEAD_HOOK_ABOVE BP_HOKA
-#define BP_DHKA BP_HOKA
-#define BP_DEAD_UNDERDOT BP_DOTB
-#define BP_DUDT BP_DOTB
-#define BP_DOUBLE_DAGGER BP_DDAG
-#define BP_DDGR BP_DDAG
-#define BP_ORDINAL_INDICATOR_A BP_FORD
-#define BP_ORDA BP_FORD
-#define BP_NARROW_NON_BREAKING_SPACE BP_NNBS
+#define BP_NNBS S(ALGR(BP_))     //   (narrow non-breaking space)

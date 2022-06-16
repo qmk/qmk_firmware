@@ -2,8 +2,6 @@
     "keyboard_name": "Red Comet Big Switch",
     "url": "https://en.zfrontier.com/products/redcomet-bigswitch-combo",
     "maintainer": "carlxia",
-    "width": 4,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
