@@ -1,1 +1,1 @@
-# The default keymap for 101/102 key keyboards. 
+# The default keymap for IBM/Lexmark/Unicomp Enhanced Keyboards (a.k.a. "Keyboard M", "Model M") with arrays comprising between 101 and 108 keys (unused keys can simply be ignored as they will be physically blocked by keycap stabiliser posts). As of February 2022, ANSI, ISO, and JIS key positions are all supported and mapped to the appropriate default functions.

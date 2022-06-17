@@ -1,39 +1,38 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
+#ifdef __AVR__
+#    include <avr/wdt.h>
+#endif
 
 userspace_config_t userspace_config;
 
+/**
+ * @brief Handle registering a keycode, with optional modifer based on timed event
+ *
+ * @param code keycode to send to host
+ * @param mod_code modifier to send with code, if held for tapping term or longer
+ * @param pressed the press/release event (can use "record->event.pressed" for this)
+ * @return true exits function
+ * @return false exits function
+ */
 bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed) {
     static uint16_t this_timer;
-    if (pressed) {
-        this_timer = timer_read();
-    } else {
-        if (timer_elapsed(this_timer) < TAPPING_TERM) {
-            tap_code(code);
-        } else {
-            register_code(mod_code);
-            tap_code(code);
-            unregister_code(mod_code);
-        }
-    }
+    mod_key_press(code, mod_code, pressed, this_timer);
     return false;
 }
 
+/**
+ * @brief Handle registation of keycode, with optional modifier based on custom timer
+ *
+ * @param code keycode to send to host
+ * @param mod_code modifier keycode to send with code, if held for tapping term or longer
+ * @param pressed the press/release event
+ * @param this_timer custom timer to use
+ * @return true
+ * @return false
+ */
 bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer) {
     if (pressed) {
         this_timer = timer_read();
@@ -49,176 +48,14 @@ bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this
     return false;
 }
 
-__attribute__((weak)) void keyboard_pre_init_keymap(void) {}
-void                       keyboard_pre_init_user(void) {
-    userspace_config.raw = eeconfig_read_user();
-    keyboard_pre_init_keymap();
-}
-// Add reconfigurable functions here, for keymap customization
-// This allows for a global, userspace functions, and continued
-// customization of the keymap.  Use _keymap instead of _user
-// functions in the keymaps
-// Call user matrix init, set default RGB colors and then
-// call the keymap's init function
-__attribute__((weak)) void matrix_init_keymap(void) {}
-__attribute__((weak)) void matrix_init_secret(void) {}
-void                       matrix_init_user(void) {
-#if defined(BOOTLOADER_CATERINA) && defined(__AVR__)
-    DDRD &= ~(1 << 5);
-    PORTD &= ~(1 << 5);
-
-    DDRB &= ~(1 << 0);
-    PORTB &= ~(1 << 0);
-#endif
-
-    matrix_init_secret();
-    matrix_init_keymap();
-#if defined(AUDIO_ENABLE) && defined(SPLIT_KEYBOARD)
-    if (!is_keyboard_master()) {
-        stop_all_notes();
-    }
-#endif
-}
-
-__attribute__((weak)) void keyboard_post_init_keymap(void) {}
-void                       keyboard_post_init_user(void) {
-#if defined(RGBLIGHT_ENABLE)
-    keyboard_post_init_rgb_light();
-#endif
-#if defined(RGB_MATRIX_ENABLE)
-    keyboard_post_init_rgb_matrix();
-#endif
-#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
-    keyboard_post_init_transport_sync();
-#endif
-    keyboard_post_init_keymap();
-}
-
-#ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_update_pwm_buffers(void);
-#endif
-
-__attribute__((weak)) void shutdown_keymap(void) {}
-void                       shutdown_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(1);
-    rgblight_setrgb_red();
-#endif  // RGBLIGHT_ENABLE
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
-    rgb_matrix_update_pwm_buffers();
-
-#endif  // RGB_MATRIX_ENABLE
-    shutdown_keymap();
-}
-
-__attribute__((weak)) void suspend_power_down_keymap(void) {}
-
-void suspend_power_down_user(void) {
-#ifdef OLED_ENABLE
-    oled_off();
-#endif
-    suspend_power_down_keymap();
-}
-
-__attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
-void                       suspend_wakeup_init_user(void) {
-    if (layer_state_is(_GAMEPAD)) {
-        layer_off(_GAMEPAD);
-    }
-    if (layer_state_is(_DIABLO)) {
-        layer_off(_DIABLO);
-    }
-    suspend_wakeup_init_keymap();
-}
-
-// No global matrix scan code, so just run keymap's matrix
-// scan function
-__attribute__((weak)) void matrix_scan_keymap(void) {}
-__attribute__((weak)) void matrix_scan_secret(void) {}
-void                       matrix_scan_user(void) {
-    static bool has_ran_yet;
-    if (!has_ran_yet) {
-        has_ran_yet = true;
-        startup_user();
-    }
-
-#ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
-    run_diablo_macro_check();
-#endif  // TAP_DANCE_ENABLE
-
-#if defined(RGBLIGHT_ENABLE)
-    matrix_scan_rgb_light();
-#endif  // RGBLIGHT_ENABLE
-#if defined(RGB_MATRIX_ENABLE)
-    matrix_scan_rgb_matrix();
-#endif
-
-    matrix_scan_secret();
-
-    matrix_scan_keymap();
-}
-
-#ifdef AUDIO_ENABLE
-float doom_song[][2] = SONG(E1M1_DOOM);
-#endif
-
-// on layer change, no matter where the change was initiated
-// Then runs keymap's layer change check
-__attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
-layer_state_t                       layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) {
-        return state;
-    }
-
-    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-#if defined(RGBLIGHT_ENABLE)
-    state = layer_state_set_rgb_light(state);
-#endif  // RGBLIGHT_ENABLE
-#if defined(AUDIO_ENABLE) && !defined(__arm__)
-    static bool is_gamepad_on = false;
-    if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
-        is_gamepad_on = layer_state_cmp(state, _GAMEPAD);
-        if (is_gamepad_on) {
-            PLAY_LOOP(doom_song);
-        } else {
-            stop_all_notes();
-        }
-    }
-#endif
-    state = layer_state_set_keymap(state);
-    return state;
-}
-
-// Runs state check and changes underglow color and animation
-__attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t state) { return state; }
-layer_state_t                       default_layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) {
-        return state;
-    }
-
-    state = default_layer_state_set_keymap(state);
-#if 0
-#    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-  state = default_layer_state_set_rgb(state);
-#    endif  // RGBLIGHT_ENABLE
-#endif
-    return state;
-}
-
-__attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
-void                       led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }
-
-__attribute__((weak)) void eeconfig_init_keymap(void) {}
-void                       eeconfig_init_user(void) {
-    userspace_config.raw              = 0;
-    userspace_config.rgb_layer_change = true;
-    eeconfig_update_user(userspace_config.raw);
-    eeconfig_init_keymap();
-    keyboard_init();
-}
-
+/**
+ * @brief Performs exact match for modifier values
+ *
+ * @param value the modifer varible (get_mods/get_oneshot_mods/get_weak_mods)
+ * @param mask the modifier mask to check for
+ * @return true Has the exact modifiers specifed
+ * @return false Does not have the exact modifiers specified
+ */
 bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
     value &= 0xF;
     mask &= 0xF;
@@ -226,38 +63,62 @@ bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
     return (value & mask) == mask;
 }
 
-#ifdef SPLIT_KEYBOARD
-#    if defined(AUDIO_ENABLE)
-bool delayed_tasks_run = false;
-#    endif
-__attribute__((weak)) void matrix_slave_scan_keymap(void) {}
-void                       matrix_slave_scan_user(void) {
-#    if defined(AUDIO_ENABLE)
-#        if !defined(NO_MUSIC_MODE)
-    music_task();
-#        endif
-    if (!is_keyboard_master()) {
-        static uint16_t delayed_task_timer = 0;
-        if (!delayed_tasks_run) {
-            if (!delayed_task_timer) {
-                delayed_task_timer = timer_read();
-            } else if (timer_elapsed(delayed_task_timer) > 300) {
-                audio_startup();
-                delayed_tasks_run = true;
-            }
-        }
-    }
-#    endif
-#    ifdef SEQUENCER_ENABLE
-    sequencer_task();
-#    endif
-#    ifdef LED_MATRIX_ENABLE
-    led_matrix_task();
-#    endif
-#    ifdef HAPTIC_ENABLE
-    haptic_task();
-#    endif
-
-    matrix_slave_scan_keymap();
+/**
+ * @brief Tap keycode, with no mods
+ *
+ * @param kc keycode to use
+ */
+void tap_code16_nomods(uint16_t kc) {
+    uint8_t temp_mod = get_mods();
+    clear_mods();
+    clear_oneshot_mods();
+    tap_code16(kc);
+    set_mods(temp_mod);
 }
+
+/**
+ * @brief Run shutdown routine and soft reboot firmware.
+ *
+ */
+
+#ifdef HAPTIC_ENABLE
+#    include "haptic.h"
 #endif
+
+#ifdef AUDIO_ENABLE
+#    ifndef GOODBYE_SONG
+#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
+#    endif
+float reset_song[][2] = GOODBYE_SONG;
+#endif
+
+void software_reset(void) {
+    clear_keyboard();
+#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+    process_midi_all_notes_off();
+#endif
+#ifdef AUDIO_ENABLE
+#    ifndef NO_MUSIC_MODE
+    music_all_notes_off();
+#    endif
+    uint16_t timer_start = timer_read();
+    PLAY_SONG(reset_song);
+    shutdown_user();
+    while (timer_elapsed(timer_start) < 250) wait_ms(1);
+    stop_all_notes();
+#else
+    shutdown_user();
+    wait_ms(250);
+#endif
+#ifdef HAPTIC_ENABLE
+    haptic_shutdown();
+#endif
+
+#if defined(PROTOCOL_LUFA)
+    wdt_enable(WDTO_250MS);
+#elif defined(PROTOCOL_CHIBIOS)
+#    if defined(MCU_STM32) || defined(MCU_KINETIS)
+    NVIC_SystemReset();
+#    endif
+#endif
+}

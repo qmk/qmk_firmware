@@ -59,6 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { B3 }
 #define ENCODERS_PAD_B { A15 }
+#define ENCODER_RESOLUTION 2
+#define TAPPING_TERM 200
 
 /*
  * Feature disable options
@@ -75,5 +77,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

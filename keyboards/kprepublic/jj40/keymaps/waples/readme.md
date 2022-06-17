@@ -11,7 +11,7 @@ I currently have the following layers in my keymap:
 * Dual		(adjust)
 
 ### Note to self:
-YOU NEED TO USE [bootloadHID -r jj40_waples.hex](https://github.com/qmk/qmk_firmware/tree/master/keyboards/jj40)
+YOU NEED TO USE [bootloadHID -r kprepublic_jj40_waples.hex](https://github.com/qmk/qmk_firmware/tree/master/keyboards/jj40)
 
 ## the stuff below is out of date and I think about removing them from this readme
 

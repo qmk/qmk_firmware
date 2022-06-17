@@ -237,6 +237,25 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_END_COLLECTION(0),
 #endif
 
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    HID_RI_USAGE_PAGE(8, 0x0C),            // Consumer
+    HID_RI_USAGE(8, 0x01),                 // Consumer Control
+    HID_RI_COLLECTION(8, 0x01),            // Application
+        HID_RI_REPORT_ID(8, REPORT_ID_PROGRAMMABLE_BUTTON),
+        HID_RI_USAGE(8, 0x03),             // Programmable Buttons
+        HID_RI_COLLECTION(8, 0x04),        // Named Array
+            HID_RI_USAGE_PAGE(8, 0x09),    // Button
+            HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
+            HID_RI_USAGE_MAXIMUM(8, 0x20), // Button 32
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 32),
+            HID_RI_REPORT_SIZE(8, 1),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0),
+#endif
+
 #ifdef NKRO_ENABLE
     HID_RI_USAGE_PAGE(8, 0x01),        // Generic Desktop
     HID_RI_USAGE(8, 0x06),             // Keyboard
@@ -328,49 +347,44 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
 #endif
 
 #ifdef JOYSTICK_ENABLE
-#    if JOYSTICK_AXES_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
-#        error Need at least one axis or button for joystick
-#    endif
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
-    HID_RI_USAGE_PAGE(8, 0x01),         // Generic Desktop
-    HID_RI_USAGE(8, 0x04),              // Joystick
-    HID_RI_COLLECTION(8, 0x01),         // Application
-        HID_RI_COLLECTION(8, 0x00),     // Physical
+    HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
+    HID_RI_USAGE(8, 0x04),          // Joystick
+    HID_RI_COLLECTION(8, 0x01),     // Application
+        HID_RI_COLLECTION(8, 0x00), // Physical
+#    if JOYSTICK_AXES_COUNT > 0
             HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
-#    if JOYSTICK_AXES_COUNT >= 1
             HID_RI_USAGE(8, 0x30),      // X
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 2
+#        if JOYSTICK_AXES_COUNT > 1
             HID_RI_USAGE(8, 0x31),      // Y
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 3
+#        endif
+#        if JOYSTICK_AXES_COUNT > 2
             HID_RI_USAGE(8, 0x32),      // Z
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 4
+#        endif
+#        if JOYSTICK_AXES_COUNT > 3
             HID_RI_USAGE(8, 0x33),      // Rx
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 5
+#        endif
+#        if JOYSTICK_AXES_COUNT > 4
             HID_RI_USAGE(8, 0x34),      // Ry
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 6
+#        endif
+#        if JOYSTICK_AXES_COUNT > 5
             HID_RI_USAGE(8, 0x35),      // Rz
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 1
-     # if JOYSTICK_AXES_RESOLUTION == 8
+#        endif
+#        if JOYSTICK_AXES_RESOLUTION == 8
             HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_RESOLUTION),
             HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_RESOLUTION),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
             HID_RI_REPORT_SIZE(8, 0x08),
-     # else
+#        else
             HID_RI_LOGICAL_MINIMUM(16, -JOYSTICK_RESOLUTION),
             HID_RI_LOGICAL_MAXIMUM(16, JOYSTICK_RESOLUTION),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
             HID_RI_REPORT_SIZE(8, 0x10),
-     # endif
+#        endif
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 #    endif
 
-#    if JOYSTICK_BUTTON_COUNT >= 1
+#    if JOYSTICK_BUTTON_COUNT > 0
             HID_RI_USAGE_PAGE(8, 0x09), // Button
             HID_RI_USAGE_MINIMUM(8, 0x01),
             HID_RI_USAGE_MAXIMUM(8, JOYSTICK_BUTTON_COUNT),
@@ -431,7 +445,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
 #endif
 
 #ifndef USB_POLLING_INTERVAL_MS
-#    define USB_POLLING_INTERVAL_MS 10
+#    define USB_POLLING_INTERVAL_MS 1
 #endif
 
 /*

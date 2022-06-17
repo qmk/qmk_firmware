@@ -1,17 +1,24 @@
+/* Copyright 2018 MakotoKurauchi
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "helix.h"
 
 // Each keymap.c should use is_keyboard_master() instead of 'is_master'.
 // But keep 'is_master' for a while for backwards compatibility
 //  for the old keymap.c.
 uint8_t is_master = false;
-
-#ifdef SSD1306OLED
-#include "ssd1306.h"
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	return process_record_gfx(keycode,record) && process_record_user(keycode, record);
-}
-#endif
 
 void matrix_init_kb(void) {
     // Each keymap.c should use is_keyboard_master() instead of is_master.
@@ -28,9 +35,3 @@ void keyboard_post_init_kb(void) {
 #endif
     keyboard_post_init_user();
 }
-
-#if defined(SPLIT_KEYBOARD) && defined(SSD1306OLED)
-void matrix_slave_scan_user(void) {
-    matrix_scan_user();
-}
-#endif

@@ -10,3 +10,6 @@ ARMV = 7
 # this because the Cherry MX keyswitches on the Kinesis only produce noise while
 # pressed.
 DEBOUNCE_TYPE = sym_eager_pk
+
+#Specify firmware format that is copied to root qmk_firmware folder
+FIRMWARE_FORMAT = hex

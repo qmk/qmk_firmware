@@ -34,7 +34,7 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-/* #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) */
+
 #define NO_ACTION_ONESHOT
 #define TAPPING_TOGGLE 3
 

@@ -173,7 +173,7 @@ static void print_status_narrow(void) {
     // WPM counter End
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     current_wpm = get_current_wpm();
     if (is_keyboard_master()) {
         print_status_narrow();
@@ -182,6 +182,7 @@ void oled_task_user(void) {
         render_logo();
         //print_status_narrow();
     }
+    return false;
 }
 
 #endif

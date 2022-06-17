@@ -30,11 +30,11 @@ Sigma Squared modifies on **Miryoku** in the following ways:
 
 - to directly flash to board:
 
-  `qmk flash -kb bm40hsrgb -km signynt`
+  `qmk flash -kb kprepublic/bm40hsrgb -km signynt`
 
 - to only compile:
 
-  `qmk compile -kb bm40hsrgb -km signynt`
+  `qmk compile -kb kprepublic/bm40hsrgb -km signynt`
 
 
 
