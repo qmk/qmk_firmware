@@ -20,7 +20,6 @@
 #include "xwhatsit_util_comm.h"
 #include "xwhatsit_capsense_matrix.h"
 #include <string.h>
-//#include <tmk_core/common/eeprom.h>
 #include <platforms/eeprom.h>
 
 extern const char *KEYBOARD_FILENAME; // This must be defined in keyboard_name.c to equal the filename. This is sent back to the PC-side software for it to determine which keyboard we are using.
