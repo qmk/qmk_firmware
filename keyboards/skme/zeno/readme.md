@@ -1,6 +1,6 @@
 # Zeno Ergo 60%
 
-![%KEYBOARD%](https://imgur.com/bO9qHCu.png)
+![zeno](https://imgur.com/bO9qHCuh.png)
 
 The following is the QMK Firmware for the Zeno 60% Ergo - 8 Degree ergo 60 designed in Dubai, UAE.
 
