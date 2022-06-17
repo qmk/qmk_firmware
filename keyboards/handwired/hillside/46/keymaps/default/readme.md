@@ -4,7 +4,6 @@ For easier initial use, this keymap follows the layout of more standard keyboard
 
 Some of its key features are:
 
-- An inverted-T arrow cluster on the base layer.
 - Numbers and symbols along the top row of their layers for familiarity.
 - Comfortable modifier and function or symbol combinations on the non-base layers using modifiers on the home row of the symbol and number/function layers.
 - A layer with both navigation and editing keys allows document editing without leaving the layer.
@@ -12,14 +11,19 @@ Some of its key features are:
 
 ## Base Layer
 
+**THE IMAGE LINKS STILL POINT TO THE HILLSIDE 52 BOARD.**
+**Imagine the partial bottom rows are not there.**
+**See the keymap.c file for a fairly readable view.**
+
+
 ![Base QWERTY layer](https://imgur.com/vO9pnaY.png)
 
 The base layer provides a very standard key layout with four differences:
 
 - Numbers, functions and most symbols are accessed with number and symbol shift keys.
-- Escape is on the bottom row.
-- The left thumb has a shift key that affects the next key pressed. So to get 'A', press and release the thumb shift key, press 'a'. You can also hold the key down, and it will work like a standard shift key. There are still standard shift keys at either end of the keyboard.
-- The lower left key turns on a mode that capitalizes all letters until something other than a letter, digit, dash, underscore, delete or backspace is typed. The caps word mode also times out after five seconds of no key presses.
+- Escape is on the upper left thumb.
+- A left thumb key has a shift key that affects the next key pressed. So to get 'A', press and release the thumb shift key, press 'a'. You can also hold the key down, and it will work like a standard shift key. There are still standard shift keys at either end of the keyboard.
+- The upper right thumb turns on a mode that capitalizes all letters until something other than a letter, digit, dash, underscore, delete or backspace is typed. The caps word mode also times out after five seconds of no key presses.
 - The Menu and AltGr keys are on a layer.
 
 The default layout is QWERTY with alternatives of Dvorak and Colemak-DH, and the alt/option and win/command key locations are swappable for windows or mac.
@@ -41,7 +45,7 @@ Holding down the SYM key accesses the symbol layer:
 - The symbols not present on the base layer are along the top row and right side, similar to a full-size keyboard.
 - Duplicates of the modifier keys are along the left home keys. This positioning allows a very comfortable combination of any set of modifiers plus a key on the right side of the board.
 - Forward delete is on the upper right, taking backspace's place.
-- The Window OS application menu key is on the lower right. 
+- The Window OS application menu key is on the right upper thumb. 
 - The AltGr key affects the next key pressed so that it can combine with a key on any layer. It changes the meaning of the next key pressed after the AltGr key is pressed and released. For example, to do AltGr-h: press SYM, press and release AltGr, release SYM, press and release h.
 
 
