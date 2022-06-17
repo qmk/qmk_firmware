@@ -1,44 +1,47 @@
-/* Copyright 2021 QMK
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2021 QMK
+// Copyright 2022 Stefan Kerkmann
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "serial_usart.h"
 #include "synchronization_util.h"
 
 #if defined(SERIAL_USART_CONFIG)
-static SerialConfig serial_config = SERIAL_USART_CONFIG;
+static QMKSerialConfig serial_config = SERIAL_USART_CONFIG;
 #else
-static SerialConfig serial_config = {
-    .speed = (SERIAL_USART_SPEED), /* speed - mandatory */
+static QMKSerialConfig serial_config = {
+#    if HAL_USE_SERIAL
+    .speed = (SERIAL_USART_SPEED), /* baudrate - mandatory */
+#    else
+    .baud = (SERIAL_USART_SPEED), /* baudrate - mandatory */
+#    endif
     .cr1   = (SERIAL_USART_CR1),
     .cr2   = (SERIAL_USART_CR2),
 #    if !defined(SERIAL_USART_FULL_DUPLEX)
     .cr3   = ((SERIAL_USART_CR3) | USART_CR3_HDSEL) /* activate half-duplex mode */
 #    else
-    .cr3 = (SERIAL_USART_CR3)
+    .cr3  = (SERIAL_USART_CR3)
 #    endif
 };
 #endif
 
-static SerialDriver* serial_driver = &SERIAL_USART_DRIVER;
+static QMKSerialDriver* serial_driver = (QMKSerialDriver*)&SERIAL_USART_DRIVER;
 
 static inline bool react_to_transactions(void);
 static inline bool __attribute__((nonnull)) receive(uint8_t* destination, const size_t size);
+static inline bool __attribute__((nonnull)) receive_blocking(uint8_t* destination, const size_t size);
 static inline bool __attribute__((nonnull)) send(const uint8_t* source, const size_t size);
 static inline bool initiate_transaction(uint8_t sstd_index);
 static inline void usart_clear(void);
+static inline void usart_driver_start(void);
+
+#if HAL_USE_SERIAL
+
+/**
+ * @brief SERIAL Driver startup routine.
+ */
+static inline void usart_driver_start(void) {
+    sdStart(serial_driver, &serial_config);
+}
 
 /**
  * @brief Clear the receive input queue.
@@ -64,6 +67,45 @@ static inline void usart_clear(void) {
     }
 }
 
+#elif HAL_USE_SIO
+
+void clear_rx_evt_cb(SIODriver* siop) {
+    osalSysLockFromISR();
+    /* If errors occured during transactions this callback is invoked. We just
+     * clear the error sources and move on. We rely on the fact that we check
+     * for the success of the transaction by comparing the received/send bytes
+     * with the actual received/send bytes in the send/receive functions. */
+    sioGetAndClearEventsI(serial_driver);
+    osalSysUnlockFromISR();
+}
+
+static const SIOOperation serial_usart_operation = {.rx_cb = NULL, .rx_idle_cb = NULL, .tx_cb = NULL, .tx_end_cb = NULL, .rx_evt_cb = &clear_rx_evt_cb};
+
+/**
+ * @brief SIO Driver startup routine.
+ */
+static inline void usart_driver_start(void) {
+    sioStart(serial_driver, &serial_config);
+    sioStartOperation(serial_driver, &serial_usart_operation);
+}
+
+/**
+ * @brief Clear the receive input queue, as some MCUs have built-in hardware FIFOs.
+ */
+static inline void usart_clear(void) {
+    osalSysLock();
+    while (!sioIsRXEmptyX(serial_driver)) {
+        (void)sioGetX(serial_driver);
+    }
+    osalSysUnlock();
+}
+
+#else
+
+#    error Either the SERIAL or SIO driver has to be activated to use the usart driver for split keyboards.
+
+#endif
+
 /**
  * @brief Blocking send of buffer with timeout.
  *
@@ -71,15 +113,46 @@ static inline void usart_clear(void) {
  * @return false Send failed.
  */
 static inline bool send(const uint8_t* source, const size_t size) {
-    bool success = (size_t)sdWriteTimeout(serial_driver, source, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+    bool success = (size_t)chnWriteTimeout(serial_driver, source, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
 
 #if !defined(SERIAL_USART_FULL_DUPLEX)
-    if (success) {
-        /* Half duplex fills the input queue with the data we wrote - just throw it away.
-           Under the right circumstances (e.g. bad cables paired with high baud rates)
-           less bytes can be present in the input queue, therefore a timeout is needed. */
-        uint8_t dump[size];
-        return receive(dump, size);
+    /* Half duplex fills the input queue with the data we wrote - just throw it away. */
+    if (likely(success)) {
+        size_t bytes_left = size;
+#    if HAL_USE_SERIAL
+        /* The SERIAL driver uses large soft FIFOs that are filled from an IRQ
+         * context, so there is a delay between receiving the data and it
+         * becoming actually available, therefore we have to apply a timeout
+         * mechanism. Under the right circumstances (e.g. bad cables paired with
+         * high baud rates) less bytes can be present in the input queue as
+         * well. */
+        uint8_t dump[64];
+
+        while (unlikely(bytes_left >= 64)) {
+            if (unlikely(!receive(dump, 64))) {
+                return false;
+            }
+            bytes_left -= 64;
+        }
+
+        return receive(dump, bytes_left);
+#    else
+        /* The SIO driver directly accesses the hardware FIFOs of the USART
+         * peripheral. As these are limited in depth, the RX FIFO might have been
+         * overflowed by a large that we just send. Therefore we attempt to read
+         * back all the data we send or until the FIFO runs empty in case it
+         * overflowed and data was truncated. */
+        if (unlikely(sioSynchronizeTXEnd(serial_driver, TIME_MS2I(SERIAL_USART_TIMEOUT)) < MSG_OK)) {
+            return false;
+        }
+
+        osalSysLock();
+        while (bytes_left > 0 && !sioIsRXEmptyX(serial_driver)) {
+            (void)sioGetX(serial_driver);
+            bytes_left--;
+        }
+        osalSysUnlock();
+#    endif
     }
 #endif
 
@@ -90,10 +163,21 @@ static inline bool send(const uint8_t* source, const size_t size) {
  * @brief  Blocking receive of size * bytes with timeout.
  *
  * @return true Receive success.
- * @return false Receive failed.
+ * @return false Receive failed, e.g. by timeout.
  */
 static inline bool receive(uint8_t* destination, const size_t size) {
-    bool success = (size_t)sdReadTimeout(serial_driver, destination, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+    bool success = (size_t)chnReadTimeout(serial_driver, destination, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+    return success;
+}
+
+/**
+ * @brief  Blocking receive of size * bytes.
+ *
+ * @return true Receive success.
+ * @return false Receive failed.
+ */
+static inline bool receive_blocking(uint8_t* destination, const size_t size) {
+    bool success = (size_t)chnRead(serial_driver, destination, size) == size;
     return success;
 }
 
@@ -146,7 +230,7 @@ __attribute__((weak)) void usart_init(void) {
 /**
  * @brief Overridable master specific initializations.
  */
-__attribute__((weak, nonnull)) void usart_master_init(SerialDriver** driver) {
+__attribute__((weak, nonnull)) void usart_master_init(QMKSerialDriver** driver) {
     (void)driver;
     usart_init();
 }
@@ -154,7 +238,7 @@ __attribute__((weak, nonnull)) void usart_master_init(SerialDriver** driver) {
 /**
  * @brief Overridable slave specific initializations.
  */
-__attribute__((weak, nonnull)) void usart_slave_init(SerialDriver** driver) {
+__attribute__((weak, nonnull)) void usart_slave_init(QMKSerialDriver** driver) {
     (void)driver;
     usart_init();
 }
@@ -169,7 +253,7 @@ static THD_FUNCTION(SlaveThread, arg) {
     chRegSetThreadName("usart_tx_rx");
 
     while (true) {
-        if (!react_to_transactions()) {
+        if (unlikely(!react_to_transactions())) {
             /* Clear the receive queue, to start with a clean slate.
              * Parts of failed transactions or spurious bytes could still be in it. */
             usart_clear();
@@ -184,7 +268,7 @@ static THD_FUNCTION(SlaveThread, arg) {
 void soft_serial_target_init(void) {
     usart_slave_init(&serial_driver);
 
-    sdStart(serial_driver, &serial_config);
+    usart_driver_start();
 
     /* Start transport thread. */
     chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
@@ -195,10 +279,11 @@ void soft_serial_target_init(void) {
  */
 static inline bool react_to_transactions(void) {
     /* Wait until there is a transaction for us. */
-    uint8_t sstd_index = (uint8_t)sdGet(serial_driver);
+    uint8_t sstd_index = 0;
+    receive_blocking(&sstd_index, sizeof(sstd_index));
 
     /* Sanity check that we are actually responding to a valid transaction. */
-    if (sstd_index >= NUM_TOTAL_TRANSACTIONS) {
+    if (unlikely(sstd_index >= NUM_TOTAL_TRANSACTIONS)) {
         return false;
     }
 
@@ -208,13 +293,13 @@ static inline bool react_to_transactions(void) {
     /* Send back the handshake which is XORed as a simple checksum,
      to signal that the slave is ready to receive possible transaction buffers  */
     sstd_index ^= HANDSHAKE_MAGIC;
-    if (!send(&sstd_index, sizeof(sstd_index))) {
+    if (unlikely(!send(&sstd_index, sizeof(sstd_index)))) {
         return false;
     }
 
     /* Receive transaction buffer from the master. If this transaction requires it.*/
     if (trans->initiator2target_buffer_size) {
-        if (!receive(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
+        if (unlikely(!receive(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size))) {
             return false;
         }
     }
@@ -226,7 +311,7 @@ static inline bool react_to_transactions(void) {
 
     /* Send transaction buffer to the master. If this transaction requires it. */
     if (trans->target2initiator_buffer_size) {
-        if (!send(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
+        if (unlikely(!send(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size))) {
             return false;
         }
     }
@@ -244,7 +329,7 @@ void soft_serial_initiator_init(void) {
     serial_config.cr2 |= USART_CR2_SWAP; // master has swapped TX/RX pins
 #endif
 
-    sdStart(serial_driver, &serial_config);
+    usart_driver_start();
 }
 
 /**
@@ -270,7 +355,7 @@ bool soft_serial_transaction(int index) {
  */
 static inline bool initiate_transaction(uint8_t sstd_index) {
     /* Sanity check that we are actually starting a valid transaction. */
-    if (sstd_index >= NUM_TOTAL_TRANSACTIONS) {
+    if (unlikely(sstd_index >= NUM_TOTAL_TRANSACTIONS)) {
         dprintln("USART: Illegal transaction Id.");
         return false;
     }
@@ -278,7 +363,7 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
     split_transaction_desc_t* trans = &split_transaction_table[sstd_index];
 
     /* Send transaction table index to the slave, which doubles as basic handshake token. */
-    if (!send(&sstd_index, sizeof(sstd_index))) {
+    if (unlikely(!send(&sstd_index, sizeof(sstd_index)))) {
         dprintln("USART: Send Handshake failed.");
         return false;
     }
@@ -289,14 +374,14 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
      *   - due to the half duplex limitations on return codes, we always have to read *something*.
      *   - without the read, write only transactions *always* succeed, even during the boot process where the slave is not ready.
      */
-    if (!receive(&sstd_index_shake, sizeof(sstd_index_shake)) || (sstd_index_shake != (sstd_index ^ HANDSHAKE_MAGIC))) {
+    if (unlikely(!receive(&sstd_index_shake, sizeof(sstd_index_shake)) || (sstd_index_shake != (sstd_index ^ HANDSHAKE_MAGIC)))) {
         dprintln("USART: Handshake failed.");
         return false;
     }
 
     /* Send transaction buffer to the slave. If this transaction requires it. */
     if (trans->initiator2target_buffer_size) {
-        if (!send(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
+        if (unlikely(!send(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size))) {
             dprintln("USART: Send failed.");
             return false;
         }
@@ -304,7 +389,7 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
 
     /* Receive transaction buffer from the slave. If this transaction requires it. */
     if (trans->target2initiator_buffer_size) {
-        if (!receive(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
+        if (unlikely(!receive(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size))) {
             dprintln("USART: Receive failed.");
             return false;
         }
