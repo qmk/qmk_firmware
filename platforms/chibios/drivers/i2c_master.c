@@ -97,7 +97,7 @@ static const I2CConfig i2cconfig = {
     I2C1_OPMODE,
     I2C1_CLOCK_SPEED,
     I2C1_DUTY_CYCLE,
-#elif defined(WB32F3G71xx)
+#elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
     I2C1_OPMODE,
     I2C1_CLOCK_SPEED,
 #else

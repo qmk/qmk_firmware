@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "m65hi_alpha.h"
 
 void board_init(void) {
-    setPinInput(B9);
     setPinInput(B10);
 }
 
