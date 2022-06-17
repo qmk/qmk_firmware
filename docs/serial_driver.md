@@ -254,6 +254,16 @@ This is the default time window in milliseconds in which a successful communicat
 
 <hr>
 
+## Troubleshooting
+
+If you're having issues withe serial communication, you can enable debug messages that will give you insights which part of the communication failed. The enable these messages add to your keyboards `config.h` file:
+
+```c
+#define SERIAL_DEBUG
+```
+ 
+?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+
 ## Alternate Functions for selected STM32 MCUs
 
 Pins for USART Peripherals with 

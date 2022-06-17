@@ -233,7 +233,7 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
     // check if the slave is present
     if (serial_read_pin()) {
         // slave failed to pull the line low, assume not present
-        dprintf("serial::NO_RESPONSE\n");
+        serial_dprintf("serial::NO_RESPONSE\n");
         chSysUnlock();
         return false;
     }
@@ -269,7 +269,7 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
     serial_delay();
 
     if ((checksum_computed) != (checksum_received)) {
-        dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
+        serial_dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
         serial_output();
         serial_high();
 
