@@ -1,8 +1,6 @@
 # ecila/rev1
 
-![ecila/rev1](imgur.com image replace me!)
-
-*A short description of the keyboard/project*
+*An Alice layout with arrow cluster*
 
 * Keyboard Maintainer: [mincedshon](https://github.com/mincedshon)
 * Hardware Supported: ecila/rev1
