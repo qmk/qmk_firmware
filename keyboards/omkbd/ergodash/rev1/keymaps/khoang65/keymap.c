@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+﻿#include QMK_KEYBOARD_H
 
 bool isLeader = false;
 bool onMac = false;
@@ -90,7 +90,7 @@ void VIM_CHANGE_RIGHT(void);
 void VIM_CHANGE_UP(void);
 void VIM_CHANGE_WHOLE_LINE(void);
 void VIM_CHANGE_WORD(void);
-void VIM_CUT(void); // repeatable 
+void VIM_CUT(void); 
 void VIM_DELETE_BACK(void);
 void VIM_DELETE_DOWN(void);
 void VIM_DELETE_END(void);
@@ -527,11 +527,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VIM_B:
       if (pressed) {
         switch(VIM_QUEUE) {
-          case KC_NO: VIM_BACK(); break;
+          case KC_NO: PRESS(KC_LCTRL); PRESS(KC_LEFT); break;
           case VIM_C: VIM_CHANGE_BACK(); break;
           case VIM_D: VIM_DELETE_BACK(); break;
           case VIM_V: VIM_VISUAL_BACK(); break;
         }
+      } else {
+        RELEASE(KC_LEFT);
+        RELEASE(KC_LCTL);
       }
       return false;
 
@@ -556,11 +559,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VIM_E:
       if (pressed) {
         switch (VIM_QUEUE) {
-          case KC_NO: VIM_END(); break;
+          case KC_NO: PRESS(KC_LCTRL); PRESS(KC_RIGHT); break;
           case VIM_C: VIM_CHANGE_END(); break;
           case VIM_D: VIM_DELETE_END(); break;
           case VIM_V: VIM_VISUAL_END(); break;
+          case VIM_Y: VIM_YANK_END(); break;
         }
+      } else {
+        RELEASE(KC_RIGHT);
+        RELEASE(KC_LCTL);
       }
       return false;
 
@@ -571,6 +578,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case VIM_C: VIM_CHANGE_LEFT(); break;
           case VIM_D: VIM_DELETE_LEFT(); break;
           case VIM_V: VIM_VISUAL_LEFT(); break;
+          case VIM_Y: VIM_YANK_LEFT(); break;
         }
       } else {
         RELEASE(KC_LEFT);
@@ -584,6 +592,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case VIM_C: VIM_LEADER(VIM_CI); break;
           case VIM_D: VIM_LEADER(VIM_DI); break;
           case VIM_V: VIM_LEADER(VIM_VI); break;
+          case VIM_Y: VIM_LEADER(VIM_YI); break;
         }
       }
       return false;
@@ -595,6 +604,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case VIM_C: VIM_CHANGE_DOWN(); break;
           case VIM_D: VIM_DELETE_DOWN(); break;
           case VIM_V: VIM_VISUAL_DOWN(); break;
+          case VIM_Y: VIM_YANK_DOWN(); break;
         }
       } else {
         RELEASE(KC_DOWN);
@@ -608,6 +618,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case VIM_C: VIM_CHANGE_UP(); break;
           case VIM_D: VIM_DELETE_UP(); break;
           case VIM_V: VIM_VISUAL_UP(); break;
+          case VIM_Y: VIM_YANK_UP(); break;
         }
       } else {
         RELEASE(KC_UP);
@@ -621,6 +632,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case VIM_C: VIM_CHANGE_RIGHT(); break;
           case VIM_D: VIM_DELETE_RIGHT(); break;
           case VIM_V: VIM_VISUAL_RIGHT(); break;
+          case VIM_Y: VIM_YANK_RIGHT(); break;
         }
       } else {
         RELEASE(KC_RIGHT);
@@ -657,6 +669,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case VIM_DI: VIM_DELETE_INNER_WORD(); break;
           case VIM_V: VIM_VISUAL_WORD(); break;
           case VIM_VI: VIM_VISUAL_INNER_WORD(); break;
+          case VIM_Y: VIM_YANK_WORD(); break;
+          case VIM_YI: VIM_YANK_INNER_WORD(); break;
         }
       }
       return false;
@@ -666,7 +680,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
     case VIM_Y:
-      if (pressed) { SHIFTED ? VIM_YANK_TO_EOL() : VIM_YANK(); }
+      if (pressed) { 
+        switch(VIM_QUEUE) {
+          case KC_NO: SHIFTED ? VIM_YANK_TO_EOL() : VIM_YANK(); break;
+          case VIM_Y: VIM_YANK_WHOLE_LINE(); break;
+        }
+      }
       return false;
 
     default:
