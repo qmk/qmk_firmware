@@ -3,11 +3,13 @@
     "maintainer": "mincedshon",
     "bootloader": "atmel-dfu",
     "features": {
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
+      "bootmagic": true,
+      "command": false,
+      "console": false,
+      "extrakey": true,
+      "mousekey": true,
+      "nkro": true,
+      "rgblight": true
     },
     "processor": "atmega32u4",
     "url": "",
