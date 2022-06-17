@@ -1,15 +1,10 @@
 #pragma once
 
-#include "pin_defs_extr.h"
-
 /* Operation of GPIO by port. */
 
 #ifndef readPort
 
 typedef uint16_t port_data_t;
-
-#define cmpPortAdr(pin1,pin2) (PAL_PORT(pin1)==PAL_PORT(pin2))
-#define getBitInPort(pin)     PAL_PAD(pin)
 
 #define readPort(pin) palReadPort(PAL_PORT(pin))
 

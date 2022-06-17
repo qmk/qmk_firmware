@@ -88,17 +88,29 @@ gcc --include testconfig.h  -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c | 
 
 #if NUM_SIDE == 1
 #    define MAX_NUM_INPUT_PINS GET_ITEM_COUNT(INPUT_PINS_0)
+#    define MAX_NUM_INPUT_PORTS GET_ITEM_COUNT(INPUT_PORTS_0)
 #    define MAX_NUM_OUTPUT_PINS GET_ITEM_COUNT(OUTPUT_PINS_0)
+#    define MAX_NUM_OUTPUT_PORTS GET_ITEM_COUNT(OUTPUT_PORTS_0)
 #else
 #    if GET_ITEM_COUNT(INPUT_PINS_0) > GET_ITEM_COUNT(INPUT_PINS_1)
 #        define MAX_NUM_INPUT_PINS GET_ITEM_COUNT(INPUT_PINS_0)
 #    else
 #        define MAX_NUM_INPUT_PINS GET_ITEM_COUNT(INPUT_PINS_1)
 #    endif
+#    if GET_ITEM_COUNT(INPUT_PORTS_0) > GET_ITEM_COUNT(INPUT_PORTS_1)
+#        define MAX_NUM_INPUT_PORTS GET_ITEM_COUNT(INPUT_PORT_0)
+#    else
+#        define MAX_NUM_INPUT_PORTS GET_ITEM_COUNT(INPUT_PORTS_1)
+#    endif
 #    if GET_ITEM_COUNT(OUTPUT_PINS_0) > GET_ITEM_COUNT(OUTPUT_PINS_1)
 #        define MAX_NUM_OUTPUT_PINS GET_ITEM_COUNT(OUTPUT_PINS_0)
 #    else
 #        define MAX_NUM_OUTPUT_PINS GET_ITEM_COUNT(OUTPUT_PINS_1)
+#    endif
+#    if GET_ITEM_COUNT(OUTPUT_PORTS_0) > GET_ITEM_COUNT(OUTPUT_PORTS_1)
+#        define MAX_NUM_OUTPUT_PORTS GET_ITEM_COUNT(OUTPUT_PORTS_0)
+#    else
+#        define MAX_NUM_OUTPUT_PORTS GET_ITEM_COUNT(OUTPUT_PORTS_1)
 #    endif
 #endif
 
@@ -130,9 +142,9 @@ typedef struct _pin_list_element_t {
 } pin_list_element_t;
 
 typedef struct _port_pin_list_element_t {
-    port_list_element_t iports[NUM_GPIO_PORTS];
+    port_list_element_t iports[MAX_NUM_INPUT_PORTS];
     pin_list_element_t  ipins[MAX_NUM_INPUT_PINS];
-    port_list_element_t oports[NUM_GPIO_PORTS];
+    port_list_element_t oports[MAX_NUM_OUTPUT_PORTS];
     pin_list_element_t  opins[MAX_NUM_OUTPUT_PINS];
 } port_pin_list_element_t;
 
@@ -230,8 +242,10 @@ static void InputPortCharge(pin_t port, port_data_t mask) {
 #define GEN_BUILD_0(INDEX,PIN) GEN_BUILD(0,INDEX,PIN)
 
 static void init_all_input_pins_0(void) {
-    // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-    MAP_INDEX(GEN_ALL_INPUT_HIGH_0,INPUT_PORTS_0)
+    ATOMIC_BLOCK_FORCEON {
+        // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
+        MAP_INDEX(GEN_ALL_INPUT_HIGH_0,INPUT_PORTS_0)
+    }
 }
 
 //ALWAYS_INLINE
@@ -330,8 +344,10 @@ static matrix_row_t build_line_0(port_data_t *buffer) {
 #define GEN_BUILD_1(INDEX,PIN) GEN_BUILD(1,INDEX,PIN)
 
 static void init_all_input_pins_1(void) {
-    // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-    MAP_INDEX(GEN_ALL_INPUT_HIGH_1,INPUT_PORTS_1)
+    ATOMIC_BLOCK_FORCEON {
+        // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
+        MAP_INDEX(GEN_ALL_INPUT_HIGH_1,INPUT_PORTS_1)
+    }
 }
 
 //ALWAYS_INLINE
@@ -445,14 +461,12 @@ void matrix_init_pins(void) {
         build_line = build_line_1;
     }
 #endif
-    ATOMIC_BLOCK_FORCEON {
-        unselect_all_output();
-        init_all_input_pins();
-    }
+    unselect_all_output();
+    init_all_input_pins();
 }
 
 void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-    port_data_t port_buffer[NUM_GPIO_PORTS];
+    port_data_t port_buffer[MAX_NUM_INPUT_PORTS];
     matrix_row_t current_row_value = 0;
     bool key_pressed;
 

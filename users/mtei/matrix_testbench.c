@@ -28,7 +28,7 @@ static void dump_pin_port_table(void) {
     uint8_t s;
     for(s = 0; s < NUM_SIDE; s++) {
         uprintf("PORT TABLE: number of input ports = %d\n",minfo[s].num_input_ports);
-        for (uint8_t i = 0; i < NUM_GPIO_PORTS; i++) {
+        for (uint8_t i = 0; i < MAX_NUM_INPUT_PORTS; i++) {
             uprintf("%d: port %X, mask 0x%X\n", i, minfo[s].iports[i].port, minfo[s].iports[i].mask);
         }
         uprintf("PIN TABLE: number of input pins = %d\n", minfo[s].num_input_pins);

@@ -1,16 +1,10 @@
 #pragma once
 
-#include "pin_defs_extr.h"
-
 /* Operation of GPIO by port. */
 
 #ifndef readPort
 
 typedef uint8_t port_data_t;
-typedef uint16_t port_addr_t;
-
-#define cmpPortAdr(pin1,pin2) ((&PINx_ADDRESS(pin1))==(&PINx_ADDRESS(pin2)))
-#define getBitInPort(pin)     ((uint8_t)(((uint16_t)(pin))&0xF))
 
 #define readPort(port) PINx_ADDRESS(port)
 
