@@ -48,9 +48,25 @@ void keyboard_post_init_user(void) {
       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
-      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    TO(_BASE)
       )
+
+   /* Keymap: 
+   * ,-----------------------------------------------------------.                               ,-----------------------------------------------------------.
+   * |         |         |         |         |         |         |---------.           ,---------|         |         |         |         |         |         |
+   * |---------+---------+---------+---------+---------+---------|         |           |         |---------+---------+---------+---------+---------+---------|
+   * |         |         |         |         |         |         |---------|           |---------|         |         |         |         |         |         |
+   * |---------+---------+---------+---------+---------+---------|         |           |         |---------+---------+---------+---------+---------+---------|
+   * |         |         |         |         |         |         |---------|           |---------|         |         |         |         |         |         |
+   * |---------+---------+---------+---------+---------+---------|         |           |         |---------+---------+---------+---------+---------|---------|
+   * |         |         |         |         |         |         |---------'           `---------|         |         |         |         |         |         |
+   * |---------+---------+---------+-----------------------------'                               `-----------------------------+---------+---------+---------|
+   * |         |         |         |  |         |           ,------------------.   ,------------------.           |         |  |         |         |         |
+   * `-----------------------------'  `---------'          /         /         /   \         \         \          `---------'  `-----------------------------'
+   *                                                      /         /         /     \         \         \
+   *                                           ,---------/         /         /       \         \         \---------.
+   *                                          /         /         /         /         \         \         \         \
+   *                                          `----------------------------'           `-----------------------------'                                      */
 
 # RGB differences
 - Backlight: Single color, per key, not individually addressable (all leds on or all leds off)
@@ -58,3 +74,10 @@ void keyboard_post_init_user(void) {
 - LED Matrix: Single color, per key, individually addressable
 - RGB Matrix: RGB, per key, individually addressable
 - Indicators: Scroll/Caps/Num Lock LEDs
+
+# To-do and References
+- https://github.com/qmk/qmk_firmware/blob/master/docs/feature_caps_word.md
+- https://github.com/qmk/qmk_firmware/blob/master/docs/feature_macros.md
+- https://github.com/qmk/qmk_firmware/blob/master/docs/feature_userspace.md
+- /users/xtonhasvim https://github.com/qmk/qmk_firmware/tree/9dea6f772077dc5c09daf40378e45884d29ab2e2/users/xtonhasvim
+- /keyboards/ergodox_ez/keymaps/vim https://github.com/qmk/qmk_firmware/tree/9dea6f772077dc5c09daf40378e45884d29ab2e2/keyboards/ergodox_ez/keymaps/vim
