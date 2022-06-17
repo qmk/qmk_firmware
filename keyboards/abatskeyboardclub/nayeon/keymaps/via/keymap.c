@@ -52,9 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGBLIGHT_ENABLE
 
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-
 const rgblight_segment_t PROGMEM ll_none[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_OFF},
     {1, 1, HSV_OFF}
