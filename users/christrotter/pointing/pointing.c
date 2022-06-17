@@ -5,20 +5,26 @@
 #include "print.h"
 #include "christrotter.h"
 
-static uint16_t mouse_timer           = 0;
-static uint16_t mouse_debounce_timer  = 0;
+static uint16_t mouse_timer           = 0; // changing this does nothing to layer timings
+static uint16_t mouse_debounce_timer  = 0; // changing this does nothing to layer timings
 static uint8_t  mouse_keycode_tracker = 0;
 bool            tap_toggling = false, enable_acceleration = false;
 
+#define KEEP_MOUSE_LAYER_ON_FOR 700 // inactivity while on mouse layer, in ms
+#define AUTO_MOUSE_LAYER_DELAY 5 // xy value threshold
+
 // this is making sure both TAPPING_TERM and TAP_CHECK are defined
-#ifdef TAPPING_TERM_PER_KEY
-#    define TAP_CHECK get_tapping_term(KC_BTN1, NULL)
-#else
-#    ifndef TAPPING_TERM
-#        define TAPPING_TERM 200
-#    endif
+// #ifdef TAPPING_TERM_PER_KEY
+// #    define TAP_CHECK get_tapping_term(KC_BTN1, NULL)
+// #else
+// #    ifndef TAPPING_TERM
+// #        define TAPPING_TERM 200
+// #    endif
+// // changing tap check doesn't seem to affect anything
+// #    define TAP_CHECK TAPPING_TERM
+// #endif
 #    define TAP_CHECK TAPPING_TERM
-#endif
+
 
 // this is grabbing mouse movement state?
 __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {
@@ -26,43 +32,46 @@ __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t 
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    // ohh here we are setting x and y to the mouse reports
-    //print("entering report_mouse_t \n");
     int8_t x = mouse_report.x, y = mouse_report.y;
-    // set mouse_report x and y to zero for future tasks
+    
+    // set mouse_report x and y to zero for sure
+    // so x and y now have the real life mouse coords, and the mouse_report obj coords are zero'd out
     mouse_report.x = 0;
     mouse_report.y = 0;
-    // now, x and y will maybe have a non-zero value compared to mouse_report.x/y
-    
     if (x != 0 && y != 0) {
-        //print("detected non-zero mouse coords \n");
-        // not sure how this works...if x/y are not zero??...but we just set them to zero two lines up???
-        // yeah so x is our original mouse report...
-        // if non-zero, then do this block
-        // set mouse_timer to a timer_read function thingy
-        mouse_timer = timer_read();
-        // do a check that ...wait where is that callled...that is set above to 0
-        // do a check for "timer_elapsed" which is...uh...started..where?
-        if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
-            // if our magical timer is more than tap_check...
+        
+            // if x or y, our real-life coords, are not zero, the mouse has moved, so exec this block
+            // ...set mouse_timer to timer_read...what is that...
+            mouse_timer = timer_read();
+            // do a check that ...wait where is that callled...that is set above to 0
+            // do a check for "timer_elapsed" which is...uh...started..where?
+            // if obj(timer_elapsed, populated with the value of mouse_debounce_timer) is greater than tap_check's value...
+            // i.e. if mouse_debounce_timer is greater than tap_check
+            // except if you mash here nothing changes...
+            // if the mouse debounce timer is past tap check, turn on the mouse layer
+            // therefore mouse debouce timer is what we want to add a delay to
+            // but changing the logic here does nothing...if you set tap check to 2000 you get the same behaviour
+            // could that be a split issue?
+            if (timer_elapsed(mouse_debounce_timer) > 2000) {
+                // no accel enabled, we can ignore this...
+                if (enable_acceleration) {
+                    x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+                    y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+                }
+                // if our magical timer is more than tap_check...
+                // set the mouse_report object coords back; we have validated that yes, the mouse moved, so turn on the mouse layer.
+                mouse_report.x = x;
+                mouse_report.y = y;
+                // ...unless it's already on...but if not, turn it on
+                if (!layer_state_is(_MOUSE)) {
+                    if (x > AUTO_MOUSE_LAYER_DELAY || y > AUTO_MOUSE_LAYER_DELAY) {
+                    layer_on(_MOUSE);
+                    }
+                }
             
-            // no accel enabled, we can ignore this...
-            if (enable_acceleration) {
-                x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
-                y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
-            }
-            // set mouse_report coords
-            // OH but we set them to zero above, so they need to be set back... ???
-            
-            mouse_report.x = x;
-            mouse_report.y = y;
-            // if we're not already on the mouse layer, mouse layer on
-            if (!layer_state_is(_MOUSE)) {
-                //print("turning on mouse layer \n");
-                layer_on(_MOUSE);
-            }
         }
-    } else if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
+    // if the mouse coords ARE zero, then...
+    } else if (timer_elapsed(mouse_timer) > KEEP_MOUSE_LAYER_ON_FOR && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
         // if the timer/mousetimer is greater than 650 and the layer is mouse &&&&&, turn off the mouse layer
         layer_off(_MOUSE);
     } else if (tap_toggling) {
@@ -76,7 +85,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
 // do we need this???
 bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
-    debug_enable=true;
+    // debug_enable=true;
     // debug_matrix=true;
     //dprintf("process_record_pointing activated");
     //uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);

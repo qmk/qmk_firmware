@@ -3,33 +3,33 @@
 
 #include "christrotter.h"
 #include "rgb_matrix.h"
-#include "lib/lib8tion/lib8tion.h"
+//#include "lib/lib8tion/lib8tion.h"// commenting this out after removing layer helper trying to save space
 extern led_config_t g_led_config;
 
-int led_min = 100; 
-int led_max = 200;
+//int led_min = 100; 
+//int led_max = 200;
 
-void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
-    // this is used for setting layer colours?
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_get_val()) {
-        hsv.v = rgb_matrix_get_val();
-    }
-
-    switch (mode) {
-        default:  // Solid Color
-        {
-            RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            
-            break;
-        }
-    }
-}
+// void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
+//     // this is used for setting layer colours?
+//     HSV hsv = {hue, sat, val};
+//     if (hsv.v > rgb_matrix_get_val()) {
+//         hsv.v = rgb_matrix_get_val();
+//     }
+// 
+//     switch (mode) {
+//         default:  // Solid Color
+//         {
+//             RGB rgb = hsv_to_rgb(hsv);
+//             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+//                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+//                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+//                 }
+//             }
+//             
+//             break;
+//         }
+//     }
+// }
 
 // __attribute__((weak)) void rgb_matrix_indicator_keymap(void) {}
 //
@@ -59,6 +59,7 @@ void matrix_scan_rgb_matrix(void) {
         ... it makes seeing other keys very difficult... i.e. there is no 'layer functionality' i.e. transparency
     */
     switch (get_highest_layer(layer_state | default_layer_state)) {
+////////////////////// SYMBOLS LAYER RGB SETTINGS //////////////////////
         case _SYMBOLS:
     rgb_matrix_set_color(0, 0, 90, 0);    // | // row1,col6
     rgb_matrix_set_color(1, 40, 0, 90);     // )
@@ -80,13 +81,13 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(17, 0, 75, 100);   // ~ // row3,col1
     rgb_matrix_set_color(18, 100, 0, 0);    // backspace
     rgb_matrix_set_color(19, 90, 20, 0);    // delete
-    rgb_matrix_set_color(20, 100, 40, 0);   // esc
+    rgb_matrix_set_color(20, 120, 0, 70);   // dragscroll
     rgb_matrix_set_color(21, 100, 0, 0);    // back
     rgb_matrix_set_color(22, 0, 90, 0);     // fwd
-    rgb_matrix_set_color(23, 120, 0, 70);   // SYMBOLS
-    rgb_matrix_set_color(24, 20, 0, 90);    // CMD
+    rgb_matrix_set_color(23, 120, 0, 0);   // esc
+    rgb_matrix_set_color(24, 20, 0, 90);    // SYMBOLS
     rgb_matrix_set_color(25, 70, 40, 0);    // ALT
-    rgb_matrix_set_color(26, 0, 90, 0);     // shift
+    rgb_matrix_set_color(26, 20, 0, 90); // cmd
     // RIGHT HALF STARTS HERE
     rgb_matrix_set_color(27, 0, 90, 0);   // + // row1,col1 // y
     rgb_matrix_set_color(28, 0, 80, 90);   // 1
@@ -105,7 +106,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 80, 90);   // 8 // <,
     rgb_matrix_set_color(42, 0, 80, 90);   // 9 // >.
     rgb_matrix_set_color(43, 0, 80, 90);   // 0 // /?
-    rgb_matrix_set_color(44, 90, 90, 90);   // \ // row3, col6
+    rgb_matrix_set_color(44, 60, 0, 90);    // mplay // row3, col6
     // everything below here doesn't change
     rgb_matrix_set_color(45, 0, 120, 0);    // arrow key
     rgb_matrix_set_color(46, 0, 120, 0);    // arrow key
@@ -119,12 +120,13 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(53, 0, 25, 120);   // enter key
     rgb_matrix_set_color(54, 0, 120, 200);  // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 60, 0, 90);    // mplay // key below layer button
+    rgb_matrix_set_color(55, 70, 40, 0);    // ALT // key below layer button
     rgb_matrix_set_color(56, 0, 0, 120);    // ctrl //far right key, 'below' enter key
             break;
+////////////////////// MOUSE LAYER RGB SETTINGS //////////////////////
         case _MOUSE:
     rgb_matrix_set_color(0, 90, 90, 90); // row1,col6
-    rgb_matrix_set_color(1, 90, 0, 10); // mac lock KC_MACLOCK
+    rgb_matrix_set_color(1, 90, 90, 90);
     rgb_matrix_set_color(2, 90, 90, 90);
     rgb_matrix_set_color(3, 90, 90, 90);
     rgb_matrix_set_color(4, 90, 90, 90);
@@ -134,7 +136,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(8, 90, 90, 90);
     rgb_matrix_set_color(9, 90, 90, 90);
     rgb_matrix_set_color(10, 90, 90, 90);
-    rgb_matrix_set_color(11, 90, 0, 0); // KC_CAD // row2,col6
+    rgb_matrix_set_color(11, 90, 90, 90); // row2,col6
     rgb_matrix_set_color(12, 90, 90, 90); // row3,col6
     rgb_matrix_set_color(13, 90, 90, 90);
     rgb_matrix_set_color(14, 90, 90, 90);
@@ -144,12 +146,12 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(18, 100, 0, 0); // backspace
     rgb_matrix_set_color(19, 90, 20, 0); // delete
     rgb_matrix_set_color(20, 100, 40, 0); // esc
-    rgb_matrix_set_color(21, 100, 0, 0); // back
-    rgb_matrix_set_color(22, 0, 90, 0); // fwd
-    rgb_matrix_set_color(23, 120, 0, 70); // SYMBOLS
-    rgb_matrix_set_color(24, 20, 0, 90); // CMD
-    rgb_matrix_set_color(25, 70, 40, 0); // ALT
-    rgb_matrix_set_color(26, 0, 90, 0); // shift
+    rgb_matrix_set_color(21, 90, 0, 30); // mac lock KC_MACLOCK
+    rgb_matrix_set_color(22, 90, 0, 0); // KC_CAD
+    rgb_matrix_set_color(23, 120, 0, 0);   // esc
+    rgb_matrix_set_color(24, 120, 0, 70); // SYMBOLS
+    rgb_matrix_set_color(25, 70, 40, 0);    // ALT
+    rgb_matrix_set_color(26, 20, 0, 90); // cmd
     // RIGHT HALF STARTS HERE
     rgb_matrix_set_color(27, 15, 15, 15); // row1,col1 // y
     rgb_matrix_set_color(28, 15, 15, 15); // mouse-surround
@@ -181,11 +183,12 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(53, 0, 25, 120); // enter key
     rgb_matrix_set_color(54, 0, 120, 200); // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 60, 0, 90); // mplay // key below layer button
+    rgb_matrix_set_color(55, 0, 90, 0); // multiline // key below layer button
     rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
             break;
+////////////////////// MOUSE LAYER RGB SETTINGS //////////////////////
+////////////////////// QWERTY LAYER RGB SETTINGS //////////////////////            
         case _QWERTY:
-            //rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
     rgb_matrix_set_color(0, 90, 90, 90); // row1,col6
     rgb_matrix_set_color(1, 90, 90, 90);
     rgb_matrix_set_color(2, 90, 90, 90);
@@ -209,10 +212,10 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(20, 100, 40, 0); // esc
     rgb_matrix_set_color(21, 100, 0, 0); // back
     rgb_matrix_set_color(22, 0, 90, 0); // fwd
-    rgb_matrix_set_color(23, 120, 0, 70); // SYMBOLS
-    rgb_matrix_set_color(24, 20, 0, 90); // CMD
-    rgb_matrix_set_color(25, 70, 40, 0); // ALT
-    rgb_matrix_set_color(26, 0, 90, 0); // shift
+    rgb_matrix_set_color(23, 120, 0, 0);   // esc
+    rgb_matrix_set_color(24, 120, 0, 70); // SYMBOLS
+    rgb_matrix_set_color(25, 70, 40, 0);    // ALT
+    rgb_matrix_set_color(26, 20, 0, 90); // cmd
     // RIGHT HALF STARTS HERE
     rgb_matrix_set_color(27, 90, 90, 90); // row1,col1 // y
     rgb_matrix_set_color(28, 90, 90, 90);
@@ -231,7 +234,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 75, 100); // <,
     rgb_matrix_set_color(42, 0, 75, 100); // >.
     rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 90, 90, 90); //row3, col6 // not sure what this key should be
+    rgb_matrix_set_color(44, 60, 0, 90); // mplay //row3, col6 // not sure what this key should be
     rgb_matrix_set_color(45, 0, 120, 0); // arrow key
     rgb_matrix_set_color(46, 0, 120, 0); // arrow key
     rgb_matrix_set_color(47, 0, 120, 0); // arrow key
@@ -244,7 +247,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(53, 0, 25, 120); // enter key
     rgb_matrix_set_color(54, 0, 120, 200); // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 60, 0, 90); // mplay // key below layer button
+    rgb_matrix_set_color(55, 0, 90, 0); // multiline // key below layer button
     rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
             break;
     }
@@ -264,7 +267,7 @@ void keyboard_post_init_rgb_matrix(void) {
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     // pretty sure process_record_user is meant to be used 'when something is pressed, run this code'
-    switch (keycode) {
+    //switch (keycode) {
 //         case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
 // #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
 //             if (record->event.pressed) {
@@ -277,7 +280,7 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 //             }
 // #endif
 //             break;
-    }
+    //}
     return true;
 }
 // we are not using indicat

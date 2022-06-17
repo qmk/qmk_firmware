@@ -30,6 +30,11 @@ void pointing_device_init_kb(void) {
 #    include "print.h"
 #endif  // CONSOLE_ENABLE
 
+/*
+    this is the setup for the 'charybdis' config
+    i kinda want to simplify it...never going to use the dpi functionality
+*/
+
 #ifdef POINTING_DEVICE_ENABLE
 #    ifndef CHARYBDIS_MINIMUM_DEFAULT_DPI
 #        define CHARYBDIS_MINIMUM_DEFAULT_DPI 400

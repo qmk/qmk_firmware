@@ -39,10 +39,10 @@ typedef union {
     struct {
         bool    rgb_layer_change     :1;
         bool    is_overwatch         :1;
-        bool    nuke_switch          :1;
+//        bool    nuke_switch          :1;
         bool    swapped_numbers      :1;
-        bool    rgb_matrix_idle_anim :1;
-        bool    autocorrection       :1;
+//        bool    rgb_matrix_idle_anim :1;
+//        bool    autocorrection       :1;
     };
 } userspace_config_t;
 // clang-format on

@@ -36,9 +36,15 @@ enum custom_layers {
 // move between mac workspaces
 #define KC_SPCLEFT	LCTL(KC_LEFT)
 #define KC_SPCRGHT	LCTL(KC_RIGHT)
-// move between tabs
-#define KC_TABLEFT	LGUI(LALT(KC_LEFT))
-#define KC_TABRGHT	LGUI(LALT(KC_RIGHT))
+#define KC_ITRMSPCE_L  LGUI(KC_LEFT) // iterm switch spaces left
+#define KC_ITRMSPCE_R  LGUI(KC_RIGHT) // iterm switch spaces right
+#define KC_ITRMPANE_L  LGUI(LSFT(KC_LEFT)) // iterm switch panes left
+#define KC_ITRMPANE_R  LGUI(LSFT(KC_RIGHT)) // iterm switch panes right
+// move between tabs // this sort of worked...
+#define KC_TAB_L	LGUI(LALT(KC_LEFT))
+#define KC_TAB_R	LGUI(LALT(KC_RIGHT))
+
+#define KC_MULTILNE	LGUI(LALT(KC_LSFT))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (qwerty)
@@ -58,24 +64,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                    '------+------'                                  '------+------'        '------'
      */
 [_SYMBOLS] = LAYOUT( \
-    _______,   KC_EXLM,    KC_AT,    KC_LPRN,    KC_RPRN,    KC_TILD,             KC_PPLS,    KC_P1,    KC_P2,    KC_P3,    KC_PMNS,    _______,
-    _______,   KC_HASH,    KC_DLR,    KC_LCBR,    KC_RCBR,    KC_GRV,           KC_PAST,    KC_P4,    KC_P5,    KC_P6,    KC_SLASH, KC_BSLS,
-    _______,   KC_PERC,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_PIPE,         KC_AMPR,    KC_P7,    KC_P8, KC_P9,  KC_P0, XXX,
+    _______,   KC_EXLM,    KC_AT,    KC_LPRN,    KC_RPRN,    KC_TILD,             KC_PPLS,    KC_1,    KC_2,    KC_3,    KC_PMNS,    KC_EQUAL,
+    _______,   KC_HASH,    KC_DLR,    KC_LCBR,    KC_RCBR,    KC_GRV,           KC_PAST,    KC_4,    KC_5,    KC_6,    KC_SLASH, KC_BSLS,
+    _______,   KC_PERC,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_PIPE,         KC_AMPR,    KC_7,    KC_8,    KC_9,  KC_0, XXX,
                _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______
 ),
 [_QWERTY] = LAYOUT( \
     KC_TAB,    KC_Q,    LT(0,KC_W),    KC_E, LT(0,KC_R), LT(0,KC_T),                             KC_Y,    KC_U,    LT(0,KC_I),    KC_O,    KC_P,    KC_MINUS,
     KC_LSFT,   LT(0,KC_A),    LT(0,KC_S),    KC_D,    LT(0,KC_F),    KC_G,                       KC_H,    KC_J,    LT(0,KC_K),    KC_L,    KC_QUOT, KC_SCLN,
-    LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, KC_P,
-                KC_BSPC, KC_DEL,  KC_ESC, KC_TABLEFT, KC_TABRGHT,                  KC_SPCLEFT, KC_SPCRGHT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
-                                KC_LSFT, KC_LALT, KC_LGUI, DRAGSCROLL_MODE_TOGGLE,        KC_MPLY, KC_LCTL, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+    LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, KC_MPLY,
+                KC_BSPC, KC_DEL,  DRAGSCROLL_MODE_TOGGLE, KC_TAB_L, KC_TAB_R,                  KC_SPCLEFT, KC_SPCRGHT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
+                                KC_LGUI, KC_LALT, MO(_SYMBOLS), KC_ESC,        KC_MULTILNE, KC_LCTL, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 ),
 [_MOUSE] = LAYOUT( \
-    _______, _______, _______, _______, KC_MACLOCK, _______,                               _______, _______, KC_MS_BTN3, _______, _______, _______,
-    _______, _______, _______, _______, _______, KC_CAD,                               _______, KC_MS_BTN1, KC_MS_BTN2, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                               _______, _______, KC_MS_BTN3, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                               _______, KC_MS_BTN1, KC_MS_BTN2, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,                               _______, _______, _______, _______, _______, KC_MACSHOT,
-                _______, _______,  _______, KC_END, KC_HOME,         KC_PGDN, KC_PGUP, _______, _______, _______, _______,
+                _______, _______,  _______, KC_MACLOCK, KC_CAD,         _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______
 )
 };

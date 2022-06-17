@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // keyboard config
-#define TAPPING_TERM 200
+#define TAPPING_TERM 300
 
 // Data sync options
 // #define DEBUG_MATRIX_SCAN_RATE
