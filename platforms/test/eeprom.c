@@ -16,9 +16,7 @@
 
 #include "eeprom.h"
 
-#define EEPROM_SIZE 32
-
-static uint8_t buffer[EEPROM_SIZE];
+static uint8_t buffer[TOTAL_EEPROM_BYTE_COUNT];
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {
     uintptr_t offset = (uintptr_t)addr;
@@ -70,7 +68,9 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
     }
 }
 
-void eeprom_update_byte(uint8_t *addr, uint8_t value) { eeprom_write_byte(addr, value); }
+void eeprom_update_byte(uint8_t *addr, uint8_t value) {
+    eeprom_write_byte(addr, value);
+}
 
 void eeprom_update_word(uint16_t *addr, uint16_t value) {
     uint8_t *p = (uint8_t *)addr;

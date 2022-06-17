@@ -1,0 +1,35 @@
+name: Update feature branches after develop merge
+
+on:
+  push:
+    branches:
+    - develop
+
+jobs:
+  feature_branch_update:
+    runs-on: ubuntu-latest
+
+    if: github.repository == 'qmk/qmk_firmware'
+
+    strategy:
+      matrix:
+        branch:
+        - xap
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.QMK_BOT_TOKEN }}
+        fetch-depth: 0
+
+    - name: Checkout branch
+      run: |
+        git fetch origin develop ${{ matrix.branch }}
+        git checkout ${{ matrix.branch }}
+
+    - name: Update branch from develop
+      run: |
+        git config --global user.name "QMK Bot"
+        git config --global user.email "hello@qmk.fm"
+        git merge origin/develop
+        git push origin ${{ matrix.branch }}

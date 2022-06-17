@@ -1,9 +1,12 @@
 {
     "keyboard_name": "kt60-M",
     "url": "",
-    "maintainer": "keyten",
+    "maintainer": "key10iq",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_60_tsangan_hhkb"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

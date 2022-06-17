@@ -87,6 +87,7 @@ The `config.h` files can also be placed in sub-folders, and the order in which t
     * `keyboards/top_folder/sub_1/sub_2/config.h`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/config.h`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/config.h`
+          * [`.build/objs_<keyboard>/src/info_config.h`](data_driven_config.md#add-code-to-generate-it) see [Data Driven Configuration](data_driven_config.md)
           * `users/a_user_folder/config.h`
           * `keyboards/top_folder/keymaps/a_keymap/config.h`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h`
