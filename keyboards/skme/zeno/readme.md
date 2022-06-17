@@ -2,7 +2,7 @@
 
 ![%KEYBOARD%](https://imgur.com/bO9qHCu.png)
 
-The following is the QMK Firmware for the Zeno 60% Ergo.
+The following is the QMK Firmware for the Zeno 60% Ergo - 8 Degree ergo 60 designed in Dubai, UAE.
 
 The PCB features:
 * QMK & VIA compatibility
@@ -11,6 +11,8 @@ The PCB features:
 ---
 
 * Keyboard Maintainer: [paulgali](https://github.com/paulgali)
+* Hardware Supported: ZenoPCB for the Zeno Ergo 60%
+* Hardware Availability: https://sandkeys.me 
 
 Make example for this keyboard (after setting up your build environment):
 
