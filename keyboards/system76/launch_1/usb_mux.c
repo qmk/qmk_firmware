@@ -333,28 +333,37 @@ i2c_status_t usb7206_gpio_init(struct USB7206_GPIO* self) {
     return 0;
 }
 
-struct PTN5110 {
-    uint8_t              addr;
-    uint8_t              cc;
-    struct USB7206_GPIO* gpio;
+#define TCPC_CC_STATUS 0x1D
+#define TCPC_ROLE_CONTROL 0x1A
+#define TCPC_COMMAND 0x23
+
+enum TCPC_TYPE {
+    TCPC_TYPE_SINK,
+    TCPC_TYPE_SOURCE,
 };
 
-struct PTN5110 usb_sink         = {.addr = 0x51, .gpio = &usb_gpio_sink};
-struct PTN5110 usb_source_left  = {.addr = 0x52, .gpio = &usb_gpio_source_left};
-struct PTN5110 usb_source_right = {.addr = 0x50, .gpio = &usb_gpio_source_right};
+struct PTN5110 {
+    enum TCPC_TYPE type;
+    uint8_t addr;
+    uint8_t cc;
+    struct USB7206_GPIO * gpio;
+};
 
-// Initialize PTN5110.
-// Returns zero on success or a negative number on error.
-i2c_status_t ptn5110_init(struct PTN5110* self) {
-    // Set last cc to invalid value, to force update
-    self->cc = 0xFF;
-    // Initialize GPIO
-    return usb7206_gpio_init(self->gpio);
+struct PTN5110 usb_sink = { .type = TCPC_TYPE_SINK, .addr = 0x51, .gpio = &usb_gpio_sink };
+struct PTN5110 usb_source_left = { .type = TCPC_TYPE_SOURCE, .addr = 0x52, .gpio = &usb_gpio_source_left };
+struct PTN5110 usb_source_right = { .type = TCPC_TYPE_SOURCE, .addr = 0x50, .gpio = &usb_gpio_source_right };
+
+// Read PTN5110 CC_STATUS
+// Returns bytes read on success or negative number on error
+int ptn5110_get_cc_status(struct PTN5110 * self, uint8_t * cc) {
+    return i2c_get(self->addr, TCPC_CC_STATUS, cc, 1);
 }
 
-// Read PTN5110 CC_STATUS.
-// Returns zero on success or a negative number on error.
-i2c_status_t ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) { return i2c_readReg(self->addr << 1, 0x1D, cc, 1, I2C_TIMEOUT); }
+// Write PTN5110 ROLE_CONTROL
+// Returns bytes written on success or negative number on error
+int ptn5110_set_role_control(struct PTN5110 * self, uint8_t role_control) {
+    return i2c_set(self->addr, TCPC_ROLE_CONTROL, &role_control, 1);
+}
 
 // Set PTN5110 SSMUX orientation.
 // Returns zero on success or a negative number on error.
@@ -362,7 +371,7 @@ i2c_status_t ptn5110_set_ssmux(struct PTN5110* self, bool orientation) { return 
 
 // Write PTN5110 COMMAND.
 // Returns zero on success or negative number on error.
-i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_writeReg(self->addr << 1, 0x23, &command, 1, I2C_TIMEOUT); }
+i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_writeReg(self->addr << 1, TCPC_COMMAND, &command, 1, I2C_TIMEOUT); }
 
 // Set orientation of PTN5110 operating as a sink, call this once.
 // Returns zero on success or a negative number on error.
@@ -439,6 +448,32 @@ i2c_status_t ptn5110_source_update(struct PTN5110* self) {
     return 0;
 }
 
+// Initialize PTN5110
+// Returns zero on success or negative number on error
+int ptn5110_init(struct PTN5110 * self) {
+    int res;
+
+    // Set last cc to invalid value, to force update
+    self->cc = 0xFF;
+
+    // Initialize GPIO
+    res = usb7206_gpio_init(self->gpio);
+    if (res < 0) return res;
+
+    switch (self->type) {
+        case TCPC_TYPE_SINK:
+            res = ptn5110_sink_set_orientation(self);
+            if (res < 0) return res;
+            break;
+        case TCPC_TYPE_SOURCE:
+            res = ptn5110_set_role_control(self, 0x05);
+            if (res < 0) return res;
+            break;
+    }
+
+    return 0;
+}
+
 void usb_mux_event(void) {
     // Run this on every 1000th matrix scan
     static int cycle = 0;
@@ -460,7 +495,6 @@ void usb_mux_init(void) {
 
     // Set up sink
     ptn5110_init(&usb_sink);
-    ptn5110_sink_set_orientation(&usb_sink);
 
     // Set up sources
     ptn5110_init(&usb_source_left);
