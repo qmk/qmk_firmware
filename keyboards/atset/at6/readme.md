@@ -1,10 +1,9 @@
 # ATSET AT6
 
-*A SPECIAL 6 KEY KEYBOARD POWERED BY QMK.HAVING SPECIAL LAYER FEATURES WHICH CAN BE PROGRAMMED AS PER YOUR CONVENIENCE*
+A special 6 key keyboard powered by QMK.
 
-* Keyboard Maintainer: [ATSET](https://github.com/%anubhavd7%)
-* Hardware Supported: *The PCBs, ATMEGA 32u4*
-
+* Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
+* Hardware Supported: ATmega32U4
 Hardware Availability: Interest Check
 
 Make example for this keyboard (after setting up your build environment):
