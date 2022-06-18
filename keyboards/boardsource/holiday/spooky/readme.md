@@ -4,7 +4,7 @@
 
 this is a limited edition macro pad for the spookiest time of year
 
-* Keyboard Maintainer: [boardsource](https://github.com/boardsource)
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: spooky v1 PCB
 * Hardware Availability: [From Boardsource store around halloween time](https://boardsource.xyz/store/5f783f6da2c1b43e37ca0795)
 

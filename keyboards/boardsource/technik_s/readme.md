@@ -4,7 +4,7 @@
 
 The technik-s is a 40% staggard keyboard that is designed to fit in the same case as the technik-o a 4x12 ortho
 
-* Keyboard Maintainer: [Boardsource](https://github.com/boardsource)
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: V1 pcb
 * Hardware Availability: [boardsource](https://boardsource.xyz/store/5ffb9b01edd0447f8023fdb2)
 

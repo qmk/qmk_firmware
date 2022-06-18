@@ -4,7 +4,7 @@
 
 The Technik is a low profile keyboard offered in two layout options. This one is the 4x12 ortho option. This keyboard offers per key and under glow lighting as well as hotswap.
 
-* Keyboard Maintainer: [Boardsource](https://github.com/boardsource)
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: V1 pcb
 * Hardware Availability: [boardsource](https://boardsource.xyz/store/5ffb9b01edd0447f8023fdb2)
 

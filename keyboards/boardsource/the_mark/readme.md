@@ -4,7 +4,7 @@
 
 The Mark: 65 is a no compromise 65% keyboard designed and produced by Boardsource. 
 
-* Keyboard Maintainer: [Boardsource](https://github.com/boardsource)
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: The Mark:65 v1
 * Hardware Availability: [Boardsource](https://boardsource.xyz/store/5fc2eb0b86b9341522d8f7a3)
 

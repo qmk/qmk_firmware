@@ -4,7 +4,7 @@
 
 The Beiwagon was designed to be a companion to the Technik keeping the same height and design it is a perfect match to sit along side.
 
-* Keyboard Maintainer: [Boardsource](https://github.com/boardsource)
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: V1 pcb
 * Hardware Availability: [boardsource](https://boardsource.xyz/store/5ffb9b01edd0447f8023fdb2)
 

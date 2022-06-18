@@ -2,7 +2,7 @@
 
 ![boardsource 5x12](https://i.imgur.com/xuNxpgh.jpg)
 
-* Keyboard Maintainer: [Boardsource](https://github.com/daysgobye) 
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: 5x12 v1
 * Hardware Availability: this keyboard is available from the [Boardsource store](https://boardsource.xyz/store/5ecb822386879c9a0c22db84)
 

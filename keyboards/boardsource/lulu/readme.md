@@ -5,7 +5,7 @@
 The lulu is what the ergo community has needed for a long time, a high-end aesthetic split ergo 60%. With this project we not only tried to create a beautiful product but we also wanted to unify the some what split 60% community. With hotswap, per key rgb & underglow, swappable encoder and adjustable tenting with out giving up anything.
 
 
-* Keyboard Maintainer: [Boardsource](https://github.com/daysgobye) 
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87) 
 * Hardware Supported: lulu v1
 * Hardware Availability: this keyboard is available from the [Boardsource store](https://boardsource.xyz/store/61d0b772319a1f3cc53ba2fb)
 

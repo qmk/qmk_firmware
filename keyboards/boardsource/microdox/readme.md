@@ -2,7 +2,7 @@
 
 ![boardsource Microdox](https://i.imgur.com/AliShkvl.jpg)
 
-* Keyboard Maintainer: [Boardsource](https://github.com/daysgobye) 
+* Keyboard Maintainer: [waffle87](https://github.com/waffle87)
 * Hardware Supported: Pro Micro and compatible alternatives
 * Hardware Availability: this keyboard is available from the [Boardsource store](https://boardsource.xyz/store/5f2e7e4a2902de7151494f92)
 
