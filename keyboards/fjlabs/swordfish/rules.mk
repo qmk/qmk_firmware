@@ -1,5 +1,5 @@
 # MCU name
-MCU = at90usb646
+MCU = atmega32u4
 
 # Processor frequency
 F_CPU = 8000000
