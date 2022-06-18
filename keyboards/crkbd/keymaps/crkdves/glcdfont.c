@@ -4,6 +4,10 @@
 // Online editor: https://helixfonteditor.netlify.com/
 // See also: https://github.com/soundmonster/glcdfont_converter
 
+/* Copyright 2022 Yeimi Alberth (@yeimialberth)
+* This program is free software: you can redistribute it and/or modify it in the hope that it will be useful.
+*/
+
 const unsigned char font[] PROGMEM = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x3E, 0x5B, 0x4F, 0x5B, 0x3E, 0x00,
