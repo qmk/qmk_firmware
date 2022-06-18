@@ -159,7 +159,7 @@
       "KC_NO"
     ],
     [
-      "KC_NO",
+      "KC_EQL",
       "KC_COLN",
       "KC_LT",
       "KC_GT",
@@ -179,7 +179,7 @@
       "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
-      "KC_NO",
+      "KC_MINS",
       "KC_EXLM",
       "KC_LBRC",
       "KC_RBRC",
