@@ -7,7 +7,6 @@
     #include "stdio.h"
 #endif
 
-
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 void                       keyboard_pre_init_user(void) {
     userspace_config.raw = eeconfig_read_user();
@@ -22,9 +21,6 @@ void                       keyboard_pre_init_user(void) {
 */
 __attribute__((weak)) void matrix_init_keymap(void) {}
 void                       matrix_init_user(void) {
-// #ifdef CUSTOM_UNICODE_ENABLE
-//     matrix_init_unicode();
-// #endif
 
     matrix_init_keymap();
 
@@ -58,12 +54,12 @@ void                       matrix_scan_user(void) {
     }
 #if defined(CUSTOM_RGB_MATRIX)
     // if we have custom rgb matrix, call this function during the matrix scan
+    // don't forget we also have to run this on the slave sync
     matrix_scan_rgb_matrix();
 #endif
     #ifdef CONSOLE_ENABLE
         debug_enable=true;
-        //debug_matrix=true;
-        //dprint("spam the console on every keypress with this");
+        //dprint("spam the console on every keypress with this, and be sure to end with... \n");
     #endif
                         
     matrix_scan_keymap();
@@ -78,9 +74,6 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
     if (!is_keyboard_master()) {
         return state;
     }
-
-    // this "Checks if layers x and y are both on, and sets z based on that (on if both on, otherwise off)."
-    //state = update_tri_layer_state(state, _SYMBOLS, _MOUSE, _SYMBOLS);
 
 #if defined(CUSTOM_POINTING_DEVICE)
     state = layer_state_set_pointing(state);
@@ -99,13 +92,6 @@ layer_state_t                       default_layer_state_set_user(layer_state_t s
     }
 
     state = default_layer_state_set_keymap(state);
-
-// removed this, but i think it's for when you are not using per-key rgb...
-// #if 0
-// #    if defined(CUSTOM_RGBLIGHT) || defined(RGB_MATRIX_ENABLE)
-//   state = default_layer_state_set_rgb(state);
-// #    endif
-// #endif
 
     return state;
 } // end layer_state_t - default_layer_state_set_user
