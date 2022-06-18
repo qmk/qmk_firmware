@@ -1,4 +1,5 @@
 /* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+   Copyright 2021 Jean-Francois Tremblay <JFT70>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -38,11 +39,12 @@ typedef enum knob_mode_e {
 } knob_mode;
 
 const uint16_t PROGMEM knobMappings[][3] = { // (cw, ccw, click)
-    [KNOB_SCROLL] = { KC_WH_U, KC_WH_D, KC_LSFT }, // Scroll Up, Scroll Down, Shift
-    [KNOB_VOLUME] = { KC_VOLU, KC_VOLD, KC_MUTE }, // Vol Up, Vol Down, Mute
+    //                Clockwise             CounterCW       Knob Click
+    [KNOB_SCROLL] = { KC_WH_U,              KC_WH_D,        KC_LSFT    }, // Scroll Up, Scroll Down, Shift
+    [KNOB_VOLUME] = { KC_VOLU,              KC_VOLD,        KC_MUTE    }, // Vol Up, Vol Down, Mute
     [KNOB_ZOOM]   = { LGUI(LSFT(KC_EQUAL)), LGUI(KC_MINUS), LGUI(KC_0) },
-    [KNOB_SELECT] = { LSFT(KC_RIGHT), LSFT(KC_LEFT), LGUI(KC_C) },
-    [KNOB_ARROW]  = { LCTL(KC_RIGHT), LCTL(KC_LEFT), KN_AUD },
+    [KNOB_SELECT] = { LSFT(KC_RIGHT),       LSFT(KC_LEFT),  LGUI(KC_C) },
+    [KNOB_ARROW]  = { LCTL(KC_RIGHT),       LCTL(KC_LEFT),  KN_AUD     },
 };
 
 knob_mode defaultKnob = KNOB_SCROLL;
@@ -53,10 +55,14 @@ struct knob_state_s {
 } knob_state;
 #endif
 
+#define JFT_ESC LCTL_T(KC_ESC)
+#define JFT_SPC LT(_Vi,KC_SPC)
+
 
 #define _Def 0
 #define _Fn  1
-#define _Mo  2
+#define _Vi  2
+#define _Mo  5
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -84,18 +90,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KN_CLK,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        JFT_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,          KC_UP,   KC_END,
-        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RALT, MO(_Fn), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LALT, KC_LGUI,                            JFT_SPC,                            KC_RALT, MO(_Fn), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [_Fn] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,           KC_MPLY,
-        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KN_Scl,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,          KN_Scl,
         _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, RESET,            KN_Vol,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______,          KN_Zm,
         _______, _______, RGB_HUI, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          TG(_Mo),          RGB_MOD, KN_Sel,
         _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
+    ),
+
+    [_Vi] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+       _______, _______, C(KC_RGHT), KC_END, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         _______,
+        _______, KC_HOME, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______,C(KC_LEFT), _______, _______, _______, _______, _______,        _______,          _______, _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
     ),
 
     [_Mo] = LAYOUT(
