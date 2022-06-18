@@ -142,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        uint8_t default_layer = biton32(default_layer_state);
+        uint8_t default_layer = get_highest_layer(default_layer_state);
         if (default_layer == _QWERTY) {
           #ifdef BACKLIGHT_BREATHING
             breathing_enable();
@@ -151,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        uint8_t default_layer = biton32(default_layer_state);
+        uint8_t default_layer = get_highest_layer(default_layer_state);
         if (default_layer == _QWERTY) {
           #ifdef BACKLIGHT_BREATHING
             breathing_self_disable();
@@ -164,7 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        uint8_t default_layer = biton32(default_layer_state);
+        uint8_t default_layer = get_highest_layer(default_layer_state);
         if (default_layer == _QWERTY) {
           #ifdef BACKLIGHT_BREATHING
             breathing_enable();
@@ -173,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        uint8_t default_layer = biton32(default_layer_state);
+        uint8_t default_layer = get_highest_layer(default_layer_state);
         if (default_layer == _QWERTY) {
           #ifdef BACKLIGHT_BREATHING
             breathing_self_disable();
