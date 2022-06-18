@@ -255,7 +255,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     if (index == 1) { /* Second encoder, Left side */
-        switch(biton32(layer_state)) {
+        switch(get_highest_layer(layer_state)) {
             case _LOWER:
                 if (clockwise) {
                     rgblight_decrease_hue();

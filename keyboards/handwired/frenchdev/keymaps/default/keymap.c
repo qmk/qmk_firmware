@@ -209,7 +209,7 @@ void press_underscore(void) {
 uint8_t old_layer=_BASE;
 
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     frenchdev_led_1_off();
     frenchdev_led_2_off();
