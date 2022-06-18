@@ -4,7 +4,7 @@ MCU 					= atmega32u4	# MCU name
 BOOTLOADER 				= atmel-dfu		# Bootloader selection
 
 # Functionality options
-CONSOLE_ENABLE			= yes        # Debugging things
+CONSOLE_ENABLE			= no        # Debugging things
 MOUSEKEY_ENABLE 		= yes       # Mouse keys
 EXTRAKEY_ENABLE 		= yes #commenting out to save space, troubleshooting       # Audio control and System control
 NKRO_ENABLE 			= no # saves 300 bytes when no, trying to keep it off       # Enable N-Key Rollover
@@ -17,8 +17,8 @@ SPACE_CADET_ENABLE 		= no
 GRAVE_ESC_ENABLE 		= no
 
 # LED config
-RGB_MATRIX_ENABLE 		= no # this to 'no' didn't turn off the custom colours; rgb_matrix:yes/custom_rgb:no = no custom colours
-CUSTOM_RGB_MATRIX       = no # this to 'no' turned everything off
+RGB_MATRIX_ENABLE 		= yes # this to 'no' didn't turn off the custom colours; rgb_matrix:yes/custom_rgb:no = no custom colours
+CUSTOM_RGB_MATRIX       = yes # this to 'no' turned everything off
 RGB_MATRIX_DRIVER 		= WS2812
 # RGB_MATRIX_SOLID_COLOR 	= 1 
 

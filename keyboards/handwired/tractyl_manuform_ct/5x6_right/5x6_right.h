@@ -20,7 +20,8 @@
 
 #pragma once
 
-#include "tractyl_manuform.h"
+//#include "tractyl_manuform.h"
+#include "5x6_right.h"
 #include "quantum.h"
 
 #define XXX KC_NO
@@ -64,3 +65,30 @@
 }
 
 // clang-format on
+
+
+enum charybdis_keycodes {
+    DRAGSCROLL_MODE,
+    DRAGSCROLL_MODE_TOGGLE,
+    KEYMAP_SAFE_RANGE,
+};
+
+#        define DRGSCRL DRAGSCROLL_MODE
+#        define DRG_TOG DRAGSCROLL_MODE_TOGGLE
+
+// according to this...it's always enabled???
+#ifdef POINTING_DEVICE_ENABLE
+    /** \brief Whether drag-scroll is enabled. */
+    bool charybdis_get_pointer_dragscroll_enabled(void);
+
+    /**
+    * \brief Enable/disable drag-scroll mode.
+    *
+    * When drag-scroll mode is enabled, horizontal and vertical pointer movements
+    * are translated into horizontal and vertical scroll movements.
+    */
+    void charybdis_set_pointer_dragscroll_enabled(bool enable);
+#endif  // POINTING_DEVICE_ENABLE
+
+void matrix_init_sub_kb(void);
+void matrix_scan_sub_kb(void);
