@@ -128,6 +128,7 @@
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool", "deprecated": true},
     "TAPPING_FORCE_HOLD_PER_KEY": {"info_key": "tapping.force_hold_per_key", "value_type": "bool", "deprecated": true},
+    "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "_invalid.ignore_mod_tap_interrupt_per_key", "invalid": true}
 
     // USB params, need to mark as failure when specified in config.h, rather than deprecated
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
