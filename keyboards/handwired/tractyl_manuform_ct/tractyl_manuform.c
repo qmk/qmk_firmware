@@ -103,19 +103,19 @@ static void write_charybdis_config_to_eeprom(charybdis_config_t* config) { eecon
 
 /** \brief Return the current value of the pointer's default DPI. */
 // sniper code
-static uint16_t get_pointer_default_dpi(charybdis_config_t* config) { return (uint16_t)config->pointer_default_dpi * CHARYBDIS_DEFAULT_DPI_CONFIG_STEP + CHARYBDIS_MINIMUM_DEFAULT_DPI; }
+// static uint16_t get_pointer_default_dpi(charybdis_config_t* config) { return (uint16_t)config->pointer_default_dpi * CHARYBDIS_DEFAULT_DPI_CONFIG_STEP + CHARYBDIS_MINIMUM_DEFAULT_DPI; }
 // sniper code
 /** \brief Return the current value of the pointer's sniper-mode DPI. */
-static uint16_t get_pointer_sniping_dpi(charybdis_config_t* config) { return (uint16_t)config->pointer_sniping_dpi * CHARYBDIS_SNIPING_DPI_CONFIG_STEP + CHARYBDIS_MINIMUM_SNIPING_DPI; }
+// static uint16_t get_pointer_sniping_dpi(charybdis_config_t* config) { return (uint16_t)config->pointer_sniping_dpi * CHARYBDIS_SNIPING_DPI_CONFIG_STEP + CHARYBDIS_MINIMUM_SNIPING_DPI; }
 // sniper code
 /** \brief Set the appropriate DPI for the input config. */
 static void maybe_update_pointing_device_cpi(charybdis_config_t* config) {
     if (config->is_dragscroll_enabled) {
         pointing_device_set_cpi(CHARYBDIS_DRAGSCROLL_DPI);
-    } else if (config->is_sniping_enabled) {
-        pointing_device_set_cpi(get_pointer_sniping_dpi(config));
-    } else {
-        pointing_device_set_cpi(get_pointer_default_dpi(config));
+    // } // else if (config->is_sniping_enabled) {
+      //   pointing_device_set_cpi(get_pointer_sniping_dpi(config));
+    // } else {
+    //     pointing_device_set_cpi(get_pointer_default_dpi(config));
     }
 }
 
@@ -126,10 +126,10 @@ static void maybe_update_pointing_device_cpi(charybdis_config_t* config) {
  * The increment/decrement steps are equal to CHARYBDIS_DEFAULT_DPI_CONFIG_STEP.
  */
  // sniper code
-static void step_pointer_default_dpi(charybdis_config_t* config, bool forward) {
-    config->pointer_default_dpi += forward ? 1 : -1;
-    maybe_update_pointing_device_cpi(config);
-}
+// static void step_pointer_default_dpi(charybdis_config_t* config, bool forward) {
+//     config->pointer_default_dpi += forward ? 1 : -1;
+//     maybe_update_pointing_device_cpi(config);
+// }
 
 /**
  * \brief Update the pointer's sniper-mode DPI to the next or previous step.
@@ -138,35 +138,35 @@ static void step_pointer_default_dpi(charybdis_config_t* config, bool forward) {
  * The increment/decrement steps are equal to CHARYBDIS_SNIPING_DPI_CONFIG_STEP.
  */
  // sniper code
-static void step_pointer_sniping_dpi(charybdis_config_t* config, bool forward) {
-    config->pointer_sniping_dpi += forward ? 1 : -1;
-    maybe_update_pointing_device_cpi(config);
-}
+// static void step_pointer_sniping_dpi(charybdis_config_t* config, bool forward) {
+//     config->pointer_sniping_dpi += forward ? 1 : -1;
+//     maybe_update_pointing_device_cpi(config);
+// }
 // sniper code
-uint16_t charybdis_get_pointer_default_dpi(void) { return get_pointer_default_dpi(&g_charybdis_config); }
+// uint16_t charybdis_get_pointer_default_dpi(void) { return get_pointer_default_dpi(&g_charybdis_config); }
 // sniper code
-uint16_t charybdis_get_pointer_sniping_dpi(void) { return get_pointer_sniping_dpi(&g_charybdis_config); }
-// sniper code
-void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward) { step_pointer_default_dpi(&g_charybdis_config, forward); }
-// sniper code
-void charybdis_cycle_pointer_default_dpi(bool forward) {
-    step_pointer_default_dpi(&g_charybdis_config, forward);
-    write_charybdis_config_to_eeprom(&g_charybdis_config);
-}
-// sniper code
-void charybdis_cycle_pointer_sniping_dpi_noeeprom(bool forward) { step_pointer_sniping_dpi(&g_charybdis_config, forward); }
-// sniper code
-void charybdis_cycle_pointer_sniping_dpi(bool forward) {
-    step_pointer_sniping_dpi(&g_charybdis_config, forward);
-    write_charybdis_config_to_eeprom(&g_charybdis_config);
-}
-// sniper code
-bool charybdis_get_pointer_sniping_enabled(void) { return g_charybdis_config.is_sniping_enabled; }
-// sniper code
-void charybdis_set_pointer_sniping_enabled(bool enable) {
-    g_charybdis_config.is_sniping_enabled = enable;
-    maybe_update_pointing_device_cpi(&g_charybdis_config);
-}
+// uint16_t charybdis_get_pointer_sniping_dpi(void) { return get_pointer_sniping_dpi(&g_charybdis_config); }
+// // sniper code
+// void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward) { step_pointer_default_dpi(&g_charybdis_config, forward); }
+// // sniper code
+// void charybdis_cycle_pointer_default_dpi(bool forward) {
+//     step_pointer_default_dpi(&g_charybdis_config, forward);
+//     write_charybdis_config_to_eeprom(&g_charybdis_config);
+// }
+// // sniper code
+// void charybdis_cycle_pointer_sniping_dpi_noeeprom(bool forward) { step_pointer_sniping_dpi(&g_charybdis_config, forward); }
+// // sniper code
+// void charybdis_cycle_pointer_sniping_dpi(bool forward) {
+//     step_pointer_sniping_dpi(&g_charybdis_config, forward);
+//     write_charybdis_config_to_eeprom(&g_charybdis_config);
+// }
+// // sniper code
+// bool charybdis_get_pointer_sniping_enabled(void) { return g_charybdis_config.is_sniping_enabled; }
+// // sniper code
+// void charybdis_set_pointer_sniping_enabled(bool enable) {
+//     g_charybdis_config.is_sniping_enabled = enable;
+//     maybe_update_pointing_device_cpi(&g_charybdis_config);
+// }
 
 // check the config to see if dragscroll is turned on
 bool charybdis_get_pointer_dragscroll_enabled(void) { return g_charybdis_config.is_dragscroll_enabled; }
@@ -292,43 +292,43 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #    ifndef NO_CHARYBDIS_KEYCODES
     switch (keycode) {
         // sniper code
-        case POINTER_DEFAULT_DPI_FORWARD:
-            if (record->event.pressed) {
-                // Step backward if shifted, forward otherwise.
-                charybdis_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
-            }
-            break;
-        // sniper code
-        case POINTER_DEFAULT_DPI_REVERSE:
-            if (record->event.pressed) {
-                // Step forward if shifted, backward otherwise.
-                charybdis_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
-            }
-            break;
-        // sniper code
-        case POINTER_SNIPING_DPI_FORWARD:
-            if (record->event.pressed) {
-                // Step backward if shifted, forward otherwise.
-                charybdis_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
-            }
-            break;
-        // sniper code
-        case POINTER_SNIPING_DPI_REVERSE:
-            if (record->event.pressed) {
-                // Step forward if shifted, backward otherwise.
-                charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
-            }
-            break;
-        // sniper code
-        case SNIPING_MODE:
-            charybdis_set_pointer_sniping_enabled(record->event.pressed);
-            break;
-        // sniper code
-        case SNIPING_MODE_TOGGLE:
-            if (record->event.pressed) {
-                charybdis_set_pointer_sniping_enabled(!charybdis_get_pointer_sniping_enabled());
-            }
-            break;
+//        case POINTER_DEFAULT_DPI_FORWARD:
+//            if (record->event.pressed) {
+//                // Step backward if shifted, forward otherwise.
+//                charybdis_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
+//            }
+//            break;
+//        // sniper code
+//        case POINTER_DEFAULT_DPI_REVERSE:
+//            if (record->event.pressed) {
+//                // Step forward if shifted, backward otherwise.
+//                charybdis_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
+//            }
+//            break;
+//        // sniper code
+//        case POINTER_SNIPING_DPI_FORWARD:
+//            if (record->event.pressed) {
+//                // Step backward if shifted, forward otherwise.
+//                charybdis_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
+//            }
+//            break;
+//        // sniper code
+//        case POINTER_SNIPING_DPI_REVERSE:
+//            if (record->event.pressed) {
+//                // Step forward if shifted, backward otherwise.
+//                charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
+//            }
+//            break;
+//        // sniper code
+//        case SNIPING_MODE:
+//            charybdis_set_pointer_sniping_enabled(record->event.pressed);
+//            break;
+//        // sniper code
+//        case SNIPING_MODE_TOGGLE:
+//            if (record->event.pressed) {
+//                charybdis_set_pointer_sniping_enabled(!charybdis_get_pointer_sniping_enabled());
+//            }
+//            break;
         case DRAGSCROLL_MODE:
             charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
             break;
