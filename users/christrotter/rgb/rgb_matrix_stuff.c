@@ -50,6 +50,13 @@ extern led_config_t g_led_config;
      *                                    '------+------'                                  '------+------'        '------'
      */
 
+void rgb_matrix_set_hsv(uint8_t i, uint8_t hue, uint8_t sat, uint8_t value) {
+    HSV hsv = {.h = hue, .s = sat, .v = value};
+    hsv.v = (hsv.v > RGB_MATRIX_MAXIMUM_BRIGHTNESS) ? RGB_MATRIX_MAXIMUM_BRIGHTNESS : hsv.v;
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+}
+
 void matrix_scan_rgb_matrix(void) {
     /*
         This is where we set per-layer/per-key RGB.  In future, this should live in the keyboard space...?
@@ -59,13 +66,58 @@ void matrix_scan_rgb_matrix(void) {
         ... it makes seeing other keys very difficult... i.e. there is no 'layer functionality' i.e. transparency
     */
     /*
-     * Ideas here about how we might turn this into a less terrible function
-     
+     Ideas here about how we might turn this into less of a mess
+        uint8_t g_brightness = // 5 to 10
+        int led[][][][] = {
+            {0, 0, 9, 0}, // where the 9 would be, at g_bright5, 45, at g_bright10, 90
+            {1, 0, 0, 9} // the key descriptor
+            {2, HSV_BLUE} // two dimensions, index and hsv...and this would rely on global brightness
+        } 
+        void rgb_set (uint8_t led_index, uint8_t led_red, uint8_t led_green, uint8_t led_blue) {
+            // we need this cuz no global brightness with rgb_matrix_set_color
+            if (led_red > 0) {
+                int adjusted_led_red = led_red * g_brightness;
+            } else { adjusted_led_red = led_red }
+            if (led_green > 0) {
+                int adjusted_led_green = led_green * g_brightness;
+            } else { adjusted_led_green = led_green }
+            if (led_blue > 0) {
+                int adjusted_led_blue = led_blue * g_brightness;
+            } else { adjusted_led_blue = led_blue }
+
+            rgb_matrix_set_color(led_index, adjusted_led_red, adjusted_led_green, adjusted_led_blue); 
+        }
+        rgb_set(led[], led[], led[], led[]);
+void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
+    // this is used for setting layer colours?
+    HSV hsv = {hue, sat, val};
+    if (hsv.v > rgb_matrix_get_val()) {
+        hsv.v = rgb_matrix_get_val();
+    }
+
+    switch (mode) {
+        default:  // Solid Color
+        {
+            RGB rgb = hsv_to_rgb(hsv);
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                    RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+                }
+// how do we pass in HSV_BLUE to this function..
+void rgb_matrix_set_hsv(uint8_t i, uint8_t hue, uint8_t sat, uint8_t value) {
+    // me-codehsv.v = (val > RGB_MATRIX_MAXIMUM_BRIGHTNESS) ? RGB_MATRIX_MAXIMUM_BRIGHTNESS : val;
+    if 
+    HSV hsv = {.h = hue, .s = sat, .v = value};
+    hsv.v = (hsv.v > RGB_MATRIX_MAXIMUM_BRIGHTNESS) ? RGB_MATRIX_MAXIMUM_BRIGHTNESS : val;
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+}        
      */
     switch (get_highest_layer(layer_state | default_layer_state)) {
 ////////////////////// SYMBOLS LAYER RGB SETTINGS //////////////////////
         case _SYMBOLS:
-    rgb_matrix_set_color(0, 0, 90, 0);    // | // row1,col6
+    rgb_matrix_set_hsv(0, HSV_GREEN);
+    //rgb_matrix_set_color(0, 0, 90, 0);    // | // row1,col6
     rgb_matrix_set_color(1, 40, 0, 90);     // )
     rgb_matrix_set_color(2, 40, 0, 90);     // (
     rgb_matrix_set_color(3, 0, 90, 20);     // @
