@@ -106,7 +106,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 80, 90);   // 8 // <,
     rgb_matrix_set_color(42, 0, 80, 90);   // 9 // >.
     rgb_matrix_set_color(43, 0, 80, 90);   // 0 // /?
-    rgb_matrix_set_color(44, 20, 90, 90); // dragscroll toggle // row3, col6
+    rgb_matrix_set_color(44, 90, 90, 0); // dragscroll toggle // row3, col6
     // everything below here doesn't change
     rgb_matrix_set_color(45, 0, 120, 0);    // arrow key
     rgb_matrix_set_color(46, 0, 120, 0);    // arrow key
@@ -170,7 +170,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 15, 25); // mouse-surround // <,
     rgb_matrix_set_color(42, 0, 15, 25); // mouse-surround // >.
     rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 20, 90, 90); // dragscroll toggle //row3, col6 // not sure what this key should be
+    rgb_matrix_set_color(44, 90, 90, 0); // dragscroll toggle //row3, col6 // not sure what this key should be
     rgb_matrix_set_color(45, 0, 120, 0); // arrow key
     rgb_matrix_set_color(46, 0, 120, 0); // arrow key
     rgb_matrix_set_color(47, 0, 120, 0); // arrow key
@@ -209,7 +209,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(17, 0, 75, 100); // tilde-backtick // row3,col1
     rgb_matrix_set_color(18, 100, 0, 0); // backspace
     rgb_matrix_set_color(19, 90, 20, 0); // delete
-    rgb_matrix_set_color(20, 60, 0, 90); // mplay
+    rgb_matrix_set_color(20, 90, 0, 0); // chrome back
     rgb_matrix_set_color(21, 0, 0, 90);    // back
     rgb_matrix_set_color(22, 0, 50, 50);   // fwd
     rgb_matrix_set_color(23, 120, 0, 0);   // esc
@@ -234,7 +234,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 75, 100); // <,
     rgb_matrix_set_color(42, 0, 75, 100); // >.
     rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 20, 90, 90); // dragscroll toggle //row3, col6 // not sure what this key should be
+    rgb_matrix_set_color(44, 90, 90, 0); // dragscroll toggle //row3, col6 // not sure what this key should be
     rgb_matrix_set_color(45, 0, 120, 0); // arrow key
     rgb_matrix_set_color(46, 0, 120, 0); // arrow key
     rgb_matrix_set_color(47, 0, 120, 0); // arrow key
