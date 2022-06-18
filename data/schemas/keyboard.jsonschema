@@ -41,8 +41,8 @@
                 "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "levels": {
                     "type": "number",
-                    "min": 1,
-                    "max": 31,
+                    "minimum": 1,
+                    "maximum": 31,
                     "multipleOf": 1
                 },
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
@@ -159,7 +159,7 @@
                                     "maxItems": 2,
                                     "items": {
                                         "type": "number",
-                                        "min": 0,
+                                        "minimum": 0,
                                         "multipleOf": 1
                                     }
                                 },
@@ -235,7 +235,7 @@
                                 "maxItems": 2,
                                 "items": {
                                     "type": "number",
-                                    "min": 0,
+                                    "minimum": 0,
                                     "multipleOf": 1
                                 }
                             },
@@ -263,7 +263,7 @@
                                 "maxItems": 2,
                                 "items": {
                                     "type": "number",
-                                    "min": 0,
+                                    "minimum": 0,
                                     "multipleOf": 1
                                 }
                             },
@@ -295,8 +295,8 @@
                         "enabled": {"type": "boolean"},
                         "max": {
                             "type": "number",
-                            "min": 1,
-                            "max": 32,
+                            "minimum": 1,
+                            "maximum": 32,
                             "multipleOf": 1
                         },
                         "override_rgb": {"type": "boolean"}
@@ -311,8 +311,8 @@
                 "split": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
-                    "minLength": 2,
-                    "maxLength": 2,
+                    "minItems": 2,
+                    "maxItems": 2,
                     "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                 }
             }
@@ -326,15 +326,15 @@
                 "idle_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "unlock_sequence": {
                     "type": "array",
-                    "minLength": 1,
-                    "maxLength": 5,
+                    "minItems": 1,
+                    "maxItems": 5,
                     "items": {
                         "type": "array",
                         "minItems": 2,
                         "maxItems": 2,
                         "items": {
                             "type": "number",
-                            "min": 0,
+                            "minimum": 0,
                             "multipleOf": 1
                         }
                     }
@@ -376,8 +376,8 @@
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {
                     "type": "number",
-                    "min": 0,
-                    "max": 5,
+                    "minimum": 0,
+                    "maximum": 5,
                     "multipleOf": 1
                 },
                 "transport": {
