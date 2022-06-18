@@ -45,23 +45,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 250
 #define DEBOUNCE 5 // trying this down from 45, apparently can contribute to input lag
 
-
 // Split settings
 #if defined(SPLIT_KEYBOARD)
-    // docs say use this if you are using RGB_MATRIX_SPLIT { X, Y }
-    #define SPLIT_TRANSPORT_MIRROR
-    // docs say use this if you are using split and rgb lighting per layer
-    #define SPLIT_LAYER_STATE_ENABLE
-    // this did not crash anything, but also did not help the "rgb missing from right side" issue
-    #define SPLIT_MODS_ENABLE
-    #define EE_HANDS
-    #define SPLIT_USB_DETECT
-    #define USE_SERIAL
-    #define SOFT_SERIAL_PIN D2
+    #define SPLIT_TRANSPORT_MIRROR      // docs say use this if you are using RGB_MATRIX_SPLIT { X, Y }
+    #define SPLIT_LAYER_STATE_ENABLE    // docs say use this if you are using split and rgb lighting per layer
+    #define SPLIT_MODS_ENABLE           // not sure why
+    #define EE_HANDS                    // cuz we are using hand-targeted flashing, which sets eeprom handednesss
+    #define SPLIT_USB_DETECT            // the usb cable sets master
+    #define USE_SERIAL                  // vs. I2C, which I was advised against doing
+    #define SOFT_SERIAL_PIN D2          // where is your TRRS data pin hooked up on the MCU
     #    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
     #        define SELECT_SOFT_SERIAL_SPEED 1
     #    endif
-    #    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC
+    #    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC // this seems super fancy and I haven't looked at why there's so much here...
     #        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC, RPC_ID_USER_WATCHDOG_SYNC, RPC_ID_USER_KEYLOG_STR
     #    endif
 #endif
@@ -70,36 +66,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define AUDIO_PIN F4
 // As per docs, must be one of the PWM pins: C4, C5, C6, B5, B6, B7
 
-#ifdef POINTING_DEVICE_ENABLE
-    // Trackball - PMW3360 Settings
-    #define PMW3360_CS_PIN F7
-    // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
-    #define PMW3360_LIFTOFF_DISTANCE 0x04
-    // your DPI setting, how fast the ball tracks
-    #define PMW3360_CPI 1200
-    // Which keyboard half contains the trackball
-    #define POINTING_DEVICE_RIGHT
-    // Software adjustment for how not-squarely you packaged the sensor
-    #define ROTATIONAL_TRANSFORM_ANGLE  -85
-    // Inverted movement for X (not sure why this is set tbh...maybe due to the kb half it's installed on?)
-    #define POINTING_DEVICE_INVERT_X
-    // Not sure what this does...
-    #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-    #define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
+#ifdef POINTING_DEVICE_ENABLE    
+    #define PMW3360_CS_PIN F7 // Trackball - PMW3360 Settings
+    #define PMW3360_LIFTOFF_DISTANCE 0x04 // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
+    #define PMW3360_CPI 1200 // your DPI setting, how fast the ball tracks
+    #define POINTING_DEVICE_RIGHT // Which keyboard half contains the trackball
+    #define ROTATIONAL_TRANSFORM_ANGLE -85 // Software adjustment for how not-squarely you packaged the sensor
+    #define POINTING_DEVICE_INVERT_X // Inverted movement for X (not sure why this is set tbh...maybe due to the kb half it's installed on?)
+    #define POINTING_DEVICE_TASK_THROTTLE_MS 1 // Not sure what this does...
+    #define CHARYBDIS_MINIMUM_DEFAULT_DPI PMW3360_CPI // the drag-scroll code uses this to maintain DPI/CPI between modes
 //  #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
-//  #define CHARYBDIS_MINIMUM_SNIPING_DPI 400
-//  #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
 
 #endif
 
 // WS2812 RGB LED strip input and number of LEDs
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_DI_PIN D3
-    #define RGBLED_NUM 57  // Number of LEDs
-    #define DRIVER_LED_TOTAL RGBLED_NUM
-    // this only works for non-per-key rgb
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
-    #define RGB_MATRIX_SPLIT { 27, 30} 
+    #define RGBLED_NUM 57  // Total number of LEDs
+    #define DRIVER_LED_TOTAL RGBLED_NUM // some other code uses driver-led-total
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 30 // this only works for non-per-key rgb
+    #define RGB_MATRIX_SPLIT { 27, 30} // led count; left, right
 #endif
 
 /* Disable unused and unneeded features to reduce on firmware size */

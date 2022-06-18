@@ -3,7 +3,7 @@
 
 #include "christrotter.h"
 #include "rgb_matrix.h"
-//#include "lib/lib8tion/lib8tion.h"// commenting this out after removing layer helper trying to save space
+#include "lib/lib8tion/lib8tion.h" // this is used for math or something?
 extern led_config_t g_led_config;
 
 //int led_min = 100; 
@@ -58,6 +58,10 @@ void matrix_scan_rgb_matrix(void) {
         NOTE: if, for a layer, you do the pattern "set all, then set a few individual"...
         ... it makes seeing other keys very difficult... i.e. there is no 'layer functionality' i.e. transparency
     */
+    /*
+     * Ideas here about how we might turn this into a less terrible function
+     
+     */
     switch (get_highest_layer(layer_state | default_layer_state)) {
 ////////////////////// SYMBOLS LAYER RGB SETTINGS //////////////////////
         case _SYMBOLS:
@@ -251,76 +255,12 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
             break;
     }
-
-    // why does this only work on one half? - yet correctly...
     // info: using one line per key, 3% of flash is used to set one layer of 57 keys per-key rgb    
-
-    
-    // we are not using indicators
-    // rgb_matrix_indicator_keymap();
 }
 
 void keyboard_post_init_rgb_matrix(void) {
-    // what is this used for???
-    
 }
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
-    // pretty sure process_record_user is meant to be used 'when something is pressed, run this code'
-    //switch (keycode) {
-//         case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
-// #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-//             if (record->event.pressed) {
-//                 userspace_config.rgb_matrix_idle_anim ^= 1;
-//                 dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
-//                 eeconfig_update_user(userspace_config.raw);
-//                 if (userspace_config.rgb_matrix_idle_anim) {
-//                     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
-//                 }
-//             }
-// #endif
-//             break;
-    //}
     return true;
 }
-// we are not using indicat
-/*
-__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) { return true; }
-void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) { return; }
-
-#if defined(RGBLIGHT_ENABLE)
-    if (!userspace_config.rgb_layer_change)
-#else
-    if (userspace_config.rgb_layer_change)
-#endif
-    {
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case _DEFAULT_LAYER_1:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_2:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_3:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_4:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _SYMBOLS:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _MOUSE:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _QWERTY:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-        }
-    }
-}
-
-__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
-void                       rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
-*/

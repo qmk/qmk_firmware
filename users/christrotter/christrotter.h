@@ -6,9 +6,6 @@
 #include "keyrecords/process_records.h"
 #include "callbacks.h"
 
-#ifdef TAP_DANCE_ENABLE
-#    include "keyrecords/tap_dances.h"
-#endif  // TAP_DANCE_ENABLE
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb/rgb_matrix_stuff.h"
 #endif
@@ -19,8 +16,6 @@
 #    include "pointing/pointing.h"
 #endif
 
-//Define layer names 
-// the layers are broken after moving them here...why?
 enum userspace_layers {
     _QWERTY             = 0,
     FIRST_DEFAULT_LAYER = 0,
@@ -28,8 +23,6 @@ enum userspace_layers {
     _MOUSE,
 };
 
-// this is definitely used by the mouse layer trigger stuff...just wrapping our mouse layer name under _MACROS
-// but where???? maybe something in QMK? not in the kb or userspace...
 #define _MACROS _MOUSE
 
 // clang-format off
@@ -38,11 +31,6 @@ typedef union {
     uint32_t raw;
     struct {
         bool    rgb_layer_change     :1;
-        bool    is_overwatch         :1;
-//        bool    nuke_switch          :1;
-        bool    swapped_numbers      :1;
-//        bool    rgb_matrix_idle_anim :1;
-//        bool    autocorrection       :1;
     };
 } userspace_config_t;
 // clang-format on

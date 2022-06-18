@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
+// not sure how much of this is used
 // mouse config
 #ifdef MOUSEKEY_ENABLE
 #    ifndef MOUSEKEY_MOVE_DELTA
