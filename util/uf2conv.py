@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# yapf: disable
 import sys
 import struct
 import subprocess

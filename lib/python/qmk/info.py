@@ -8,7 +8,7 @@ from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
-from qmk.c_parse import find_layouts, parse_config_h_file
+from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps, locate_keymap
@@ -24,13 +24,6 @@ def _valid_community_layout(layout):
     """Validate that a declared community list exists
     """
     return (Path('layouts/default') / layout).exists()
-
-
-def _remove_newlines_from_labels(layouts):
-    for layout_name, layout_json in layouts.items():
-        for key in layout_json['layout']:
-            if '\n' in key['label']:
-                key['label'] = key['label'].split('\n')[0]
 
 
 def info_json(keyboard):
@@ -76,6 +69,9 @@ def info_json(keyboard):
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
 
+    # Merge in data from <keyboard.c>
+    info_data = _extract_led_config(info_data, str(keyboard))
+
     # Validate against the jsonschema
     try:
         validate(info_data, 'qmk.api.keyboard.v1')
@@ -107,9 +103,6 @@ def info_json(keyboard):
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
-
-    # Remove newline characters from layout labels
-    _remove_newlines_from_labels(layouts)
 
     return info_data
 
@@ -437,6 +430,47 @@ def _extract_device_version(info_data):
             info_data['usb']['device_version'] = f'{major}.{minor}.{revision}'
 
 
+def _config_to_json(key_type, config_value):
+    """Convert config value using spec
+    """
+    if key_type.startswith('array'):
+        if '.' in key_type:
+            key_type, array_type = key_type.split('.', 1)
+        else:
+            array_type = None
+
+        config_value = config_value.replace('{', '').replace('}', '').strip()
+
+        if array_type == 'int':
+            return list(map(int, config_value.split(',')))
+        else:
+            return config_value.split(',')
+
+    elif key_type == 'bool':
+        return config_value in true_values
+
+    elif key_type == 'hex':
+        return '0x' + config_value[2:].upper()
+
+    elif key_type == 'list':
+        return config_value.split()
+
+    elif key_type == 'int':
+        return int(config_value)
+
+    elif key_type == 'str':
+        return config_value.strip('"')
+
+    elif key_type == 'bcd_version':
+        major = int(config_value[2:4])
+        minor = int(config_value[4])
+        revision = int(config_value[5])
+
+        return f'{major}.{minor}.{revision}'
+
+    return config_value
+
+
 def _extract_config_h(info_data, config_c):
     """Pull some keyboard information from existing config.h files
     """
@@ -449,47 +483,16 @@ def _extract_config_h(info_data, config_c):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            if config_key in config_c and info_dict.get('invalid', False):
+                _log_error(info_data, '%s in config.h is no longer a valid option' % config_key)
+            elif config_key in config_c and info_dict.get('deprecated', False):
+                _log_warning(info_data, '%s in config.h is deprecated and will be removed at a later date' % config_key)
+
             if config_key in config_c and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
                     _log_warning(info_data, '%s in config.h is overwriting %s in info.json' % (config_key, info_key))
 
-                if key_type.startswith('array'):
-                    if '.' in key_type:
-                        key_type, array_type = key_type.split('.', 1)
-                    else:
-                        array_type = None
-
-                    config_value = config_c[config_key].replace('{', '').replace('}', '').strip()
-
-                    if array_type == 'int':
-                        dotty_info[info_key] = list(map(int, config_value.split(',')))
-                    else:
-                        dotty_info[info_key] = config_value.split(',')
-
-                elif key_type == 'bool':
-                    dotty_info[info_key] = config_c[config_key] in true_values
-
-                elif key_type == 'hex':
-                    dotty_info[info_key] = '0x' + config_c[config_key][2:].upper()
-
-                elif key_type == 'list':
-                    dotty_info[info_key] = config_c[config_key].split()
-
-                elif key_type == 'int':
-                    dotty_info[info_key] = int(config_c[config_key])
-
-                elif key_type == 'str':
-                    dotty_info[info_key] = config_c[config_key].strip('"')
-
-                elif key_type == 'bcd_version':
-                    major = int(config_c[config_key][2:4])
-                    minor = int(config_c[config_key][4])
-                    revision = int(config_c[config_key][5])
-
-                    dotty_info[info_key] = f'{major}.{minor}.{revision}'
-
-                else:
-                    dotty_info[info_key] = config_c[config_key]
+                dotty_info[info_key] = _config_to_json(key_type, config_c[config_key])
 
         except Exception as e:
             _log_warning(info_data, f'{config_key}->{info_key}: {e}')
@@ -544,40 +547,16 @@ def _extract_rules_mk(info_data, rules):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            if rules_key in rules and info_dict.get('invalid', False):
+                _log_error(info_data, '%s in rules.mk is no longer a valid option' % rules_key)
+            elif rules_key in rules and info_dict.get('deprecated', False):
+                _log_warning(info_data, '%s in rules.mk is deprecated and will be removed at a later date' % rules_key)
+
             if rules_key in rules and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
                     _log_warning(info_data, '%s in rules.mk is overwriting %s in info.json' % (rules_key, info_key))
 
-                if key_type.startswith('array'):
-                    if '.' in key_type:
-                        key_type, array_type = key_type.split('.', 1)
-                    else:
-                        array_type = None
-
-                    rules_value = rules[rules_key].replace('{', '').replace('}', '').strip()
-
-                    if array_type == 'int':
-                        dotty_info[info_key] = list(map(int, rules_value.split(',')))
-                    else:
-                        dotty_info[info_key] = rules_value.split(',')
-
-                elif key_type == 'list':
-                    dotty_info[info_key] = rules[rules_key].split()
-
-                elif key_type == 'bool':
-                    dotty_info[info_key] = rules[rules_key] in true_values
-
-                elif key_type == 'hex':
-                    dotty_info[info_key] = '0x' + rules[rules_key][2:].upper()
-
-                elif key_type == 'int':
-                    dotty_info[info_key] = int(rules[rules_key])
-
-                elif key_type == 'str':
-                    dotty_info[info_key] = rules[rules_key].strip('"')
-
-                else:
-                    dotty_info[info_key] = rules[rules_key]
+                dotty_info[info_key] = _config_to_json(key_type, rules[rules_key])
 
         except Exception as e:
             _log_warning(info_data, f'{rules_key}->{info_key}: {e}')
@@ -586,6 +565,46 @@ def _extract_rules_mk(info_data, rules):
 
     # Merge in config values that can't be easily mapped
     _extract_features(info_data, rules)
+
+    return info_data
+
+
+def find_keyboard_c(keyboard):
+    """Find all <keyboard>.c files
+    """
+    keyboard = Path(keyboard)
+    current_path = Path('keyboards/')
+
+    files = []
+    for directory in keyboard.parts:
+        current_path = current_path / directory
+        keyboard_c_path = current_path / f'{directory}.c'
+        if keyboard_c_path.exists():
+            files.append(keyboard_c_path)
+
+    return files
+
+
+def _extract_led_config(info_data, keyboard):
+    """Scan all <keyboard>.c files for led config
+    """
+    cols = info_data['matrix_size']['cols']
+    rows = info_data['matrix_size']['rows']
+
+    # Assume what feature owns g_led_config
+    feature = "rgb_matrix"
+    if info_data.get("features", {}).get("led_matrix", False):
+        feature = "led_matrix"
+
+    # Process
+    for file in find_keyboard_c(keyboard):
+        try:
+            ret = find_led_config(file, cols, rows)
+            if ret:
+                info_data[feature] = info_data.get(feature, {})
+                info_data[feature]["layout"] = ret
+        except Exception as e:
+            _log_warning(info_data, f'led_config: {file.name}: {e}')
 
     return info_data
 
@@ -778,8 +797,11 @@ def merge_info_jsons(keyboard, info_data):
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)
             else:
-                layout['c_macro'] = False
-                info_data['layouts'][layout_name] = layout
+                if not all('matrix' in key_data.keys() for key_data in layout['layout']):
+                    _log_error(info_data, f'Layout "{layout_name}" has no "matrix" definition in either "info.json" or "<keyboard>.h"!')
+                else:
+                    layout['c_macro'] = False
+                    info_data['layouts'][layout_name] = layout
 
         # Update info_data with the new data
         if 'layouts' in new_info_data:

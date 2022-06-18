@@ -23,17 +23,24 @@ static secure_status_t secure_status = SECURE_LOCKED;
 static uint32_t        unlock_time   = 0;
 static uint32_t        idle_time     = 0;
 
+static void secure_hook(secure_status_t secure_status) {
+    secure_hook_quantum(secure_status);
+    secure_hook_kb(secure_status);
+}
+
 secure_status_t secure_get_status(void) {
     return secure_status;
 }
 
 void secure_lock(void) {
     secure_status = SECURE_LOCKED;
+    secure_hook(secure_status);
 }
 
 void secure_unlock(void) {
     secure_status = SECURE_UNLOCKED;
     idle_time     = timer_read32();
+    secure_hook(secure_status);
 }
 
 void secure_request_unlock(void) {
@@ -41,6 +48,7 @@ void secure_request_unlock(void) {
         secure_status = SECURE_PENDING;
         unlock_time   = timer_read32();
     }
+    secure_hook(secure_status);
 }
 
 void secure_activity_event(void) {
@@ -84,4 +92,11 @@ void secure_task(void) {
         }
     }
 #endif
+}
+
+__attribute__((weak)) bool secure_hook_user(secure_status_t secure_status) {
+    return true;
+}
+__attribute__((weak)) bool secure_hook_kb(secure_status_t secure_status) {
+    return secure_hook_user(secure_status);
 }

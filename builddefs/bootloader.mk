@@ -97,11 +97,17 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
     BOOTLOADER_TYPE = halfkay
 
+    # Teensy 2.0
     ifeq ($(strip $(MCU)), atmega32u4)
         BOOTLOADER_SIZE = 512
     endif
+    # Teensy 2.0++
     ifeq ($(strip $(MCU)), at90usb1286)
         BOOTLOADER_SIZE = 1024
+    endif
+    # Teensy LC, 3.x
+    ifneq (,$(filter $(MCU_ORIG), MKL26Z64 MK20DX128 MK20DX256 MK66FX1M0))
+        FIRMWARE_FORMAT = hex
     endif
 endif
 ifeq ($(strip $(BOOTLOADER)), caterina)

@@ -52,6 +52,7 @@ subcommands = [
     'qmk.cli.generate.dfu_header',
     'qmk.cli.generate.docs',
     'qmk.cli.generate.info_json',
+    'qmk.cli.generate.keyboard_c',
     'qmk.cli.generate.keyboard_h',
     'qmk.cli.generate.layouts',
     'qmk.cli.generate.rgb_breathe_table',

@@ -559,12 +559,8 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
                 // static gradient
                 uint8_t delta     = rgblight_config.mode - rgblight_status.base_mode;
                 bool    direction = (delta % 2) == 0;
-#    ifdef __AVR__
-                // probably due to how pgm_read_word is defined for ARM, but the ARM compiler really hates this line
-                uint8_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[delta / 2]);
-#    else
-                uint8_t range = RGBLED_GRADIENT_RANGES[delta / 2];
-#    endif
+
+                uint8_t range = pgm_read_byte(&RGBLED_GRADIENT_RANGES[delta / 2]);
                 for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
                     uint8_t _hue = ((uint16_t)i * (uint16_t)range) / rgblight_ranges.effect_num_leds;
                     if (direction) {
@@ -844,18 +840,19 @@ void rgblight_unblink_all_but_layer(uint8_t layer) {
 void rgblight_blink_layer_repeat_helper(void) {
     if (_blinking_layer_mask != 0 && timer_expired(sync_timer_read(), _repeat_timer)) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0 && _times_remaining > 0) {
+            if ((_blinking_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
                 if (_times_remaining % 2 == 1) {
                     rgblight_set_layer_state(layer, false);
                 } else {
                     rgblight_set_layer_state(layer, true);
                 }
-                _times_remaining--;
-                _repeat_timer = sync_timer_read() + _dur;
             }
         }
+        _times_remaining--;
         if (_times_remaining <= 0) {
             _blinking_layer_mask = 0;
+        } else {
+            _repeat_timer = sync_timer_read() + _dur;
         }
     }
 }
