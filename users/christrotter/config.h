@@ -20,29 +20,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-#define USE_SERIAL
-//#define USE_I2C
+#ifndef ONESHOT_TAP_TOGGLE
+#    define ONESHOT_TAP_TOGGLE 2
+#endif  // !ONESHOT_TAP_TOGGLE
 
-/* Set Polling rate to 1000Hz */
-#define USB_POLLING_INTERVAL_MS 1
+#ifndef ONESHOT_TIMEOUT
+#    define ONESHOT_TIMEOUT 3000
+#endif  // !ONESHOT_TIMEOUT
 
-#if defined(SPLIT_KEYBOARD)
-// docs say use this if you are using RGB_MATRIX_SPLIT { X, Y }
-#    define SPLIT_TRANSPORT_MIRROR
-// docs say use this if you are using split and rgb lighting per layer
-#    define SPLIT_LAYER_STATE_ENABLE
-// this did not crash anything, but also did not help the "rgb missing from right side" issue
-#    define SPLIT_MODS_ENABLE
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+#define PERMISSIVE_HOLD_PER_KEY
+#define TAPPING_FORCE_HOLD_PER_KEY
+#define RETRO_TAPPING_PER_KEY
+//#define TAPPING_TERM_PER_KEY
 
-#    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
-#        define SELECT_SOFT_SERIAL_SPEED 1
-#    endif
-#    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC
-#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC, RPC_ID_USER_WATCHDOG_SYNC, RPC_ID_USER_KEYLOG_STR
-#    endif
+#ifndef TAPPING_TOGGLE
+#    define TAPPING_TOGGLE 1
 #endif
 
+#define TAP_CODE_DELAY 5
+
+// putting all the rgb disables here
 #ifdef RGB_MATRIX_ENABLE
 #    undef RGB_MATRIX_KEYPRESSES  // reacts to keypresses (will slow down matrix scan by a lot)
 #    undef RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
@@ -99,33 +97,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #endif      // RGB_MATRIX_ENABLE
-
-
-#ifndef ONESHOT_TAP_TOGGLE
-#    define ONESHOT_TAP_TOGGLE 2
-#endif  // !ONESHOT_TAP_TOGGLE
-
-#ifndef ONESHOT_TIMEOUT
-#    define ONESHOT_TIMEOUT 3000
-#endif  // !ONESHOT_TIMEOUT
-
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-#define PERMISSIVE_HOLD_PER_KEY
-#define TAPPING_FORCE_HOLD_PER_KEY
-#define RETRO_TAPPING_PER_KEY
-//#define TAPPING_TERM_PER_KEY
-
-
-#ifndef TAPPING_TOGGLE
-#    define TAPPING_TOGGLE 1
-#endif
-
-#define TAP_CODE_DELAY 5
-
-/* Disable unused and unneeded features to reduce on firmware size */
-#ifdef LOCKING_SUPPORT_ENABLE
-#    undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#    undef LOCKING_RESYNC_ENABLE
-#endif

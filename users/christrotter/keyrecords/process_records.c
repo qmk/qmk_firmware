@@ -33,6 +33,9 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
  * @return false Stop process keycode and do not send to host
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef CONSOLE_ENABLE
+        uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    #endif 
     // not sure why you have this 'if not a record return false' block...
     if (!(process_record_keymap(keycode, record)
 #ifdef CUSTOM_RGB_MATRIX

@@ -158,7 +158,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(29, 120, 120, 120); // MIDDLE CLICK
     rgb_matrix_set_color(30, 15, 15, 15); // mouse-surround
     rgb_matrix_set_color(31, 90, 90, 90);
-    rgb_matrix_set_color(32, 0, 75, 100); // row1,col6 // -_
+    rgb_matrix_set_color(32, 90, 50, 0); // screenshot // row1,col6
     rgb_matrix_set_color(33, 0, 75, 100); // row2,col6 // ;:
     rgb_matrix_set_color(34, 0, 75, 100); // "'
     rgb_matrix_set_color(35, 30, 30, 30); // mouse-surround // l
@@ -170,7 +170,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 15, 25); // mouse-surround // <,
     rgb_matrix_set_color(42, 0, 15, 25); // mouse-surround // >.
     rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 90, 50, 0); // screenshot //row3, col6 // not sure what this key should be
+    rgb_matrix_set_color(44, 20, 90, 90); // dragscroll toggle //row3, col6 // not sure what this key should be
     rgb_matrix_set_color(45, 0, 120, 0); // arrow key
     rgb_matrix_set_color(46, 0, 120, 0); // arrow key
     rgb_matrix_set_color(47, 0, 120, 0); // arrow key

@@ -30,28 +30,7 @@ void pointing_device_init_kb(void) {
 #    include "print.h"
 #endif  // CONSOLE_ENABLE
 
-/*
-    this is the setup for the 'charybdis' config
-    i kinda want to simplify it...never going to use the dpi functionality
-*/
-
 #ifdef POINTING_DEVICE_ENABLE
-#    ifndef CHARYBDIS_MINIMUM_DEFAULT_DPI
-#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 400
-#    endif  // CHARYBDIS_MINIMUM_DEFAULT_DPI
-
-#    ifndef CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
-#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
-#    endif  // CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
-
-#    ifndef CHARYBDIS_MINIMUM_SNIPING_DPI
-#        define CHARYBDIS_MINIMUM_SNIPING_DPI 200
-#    endif  // CHARYBDIS_MINIMUM_SNIPER_MODE_DPI
-
-#    ifndef CHARYBDIS_SNIPING_DPI_CONFIG_STEP
-#        define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
-#    endif  // CHARYBDIS_SNIPING_DPI_CONFIG_STEP
-
 // Fixed DPI for drag-scroll.
 #    ifndef CHARYBDIS_DRAGSCROLL_DPI
 #        define CHARYBDIS_DRAGSCROLL_DPI 100
@@ -68,10 +47,7 @@ void pointing_device_init_kb(void) {
 typedef union {
     uint8_t raw;
     struct {
-        uint8_t pointer_default_dpi : 4;  // 16 steps available.
-        uint8_t pointer_sniping_dpi : 2;  // 4 steps available.
         bool    is_dragscroll_enabled : 1;
-        bool    is_sniping_enabled : 1;
     } __attribute__((packed));
 } charybdis_config_t;
 
@@ -88,7 +64,6 @@ static charybdis_config_t g_charybdis_config = {0};
 static void read_charybdis_config_from_eeprom(charybdis_config_t* config) {
     config->raw                   = eeconfig_read_kb() & 0xff;
     config->is_dragscroll_enabled = false;
-    config->is_sniping_enabled    = false;
 }
 
 /**
@@ -101,84 +76,24 @@ static void read_charybdis_config_from_eeprom(charybdis_config_t* config) {
  */
 static void write_charybdis_config_to_eeprom(charybdis_config_t* config) { eeconfig_update_kb(config->raw); }
 
-/** \brief Return the current value of the pointer's default DPI. */
-// sniper code
-// static uint16_t get_pointer_default_dpi(charybdis_config_t* config) { return (uint16_t)config->pointer_default_dpi * CHARYBDIS_DEFAULT_DPI_CONFIG_STEP + CHARYBDIS_MINIMUM_DEFAULT_DPI; }
-// sniper code
-/** \brief Return the current value of the pointer's sniper-mode DPI. */
-// static uint16_t get_pointer_sniping_dpi(charybdis_config_t* config) { return (uint16_t)config->pointer_sniping_dpi * CHARYBDIS_SNIPING_DPI_CONFIG_STEP + CHARYBDIS_MINIMUM_SNIPING_DPI; }
-// sniper code
 /** \brief Set the appropriate DPI for the input config. */
 static void maybe_update_pointing_device_cpi(charybdis_config_t* config) {
     if (config->is_dragscroll_enabled) {
+        // all this does is overwrite the default dpi during dragscroll events
         pointing_device_set_cpi(CHARYBDIS_DRAGSCROLL_DPI);
-    // } // else if (config->is_sniping_enabled) {
-      //   pointing_device_set_cpi(get_pointer_sniping_dpi(config));
-    // } else {
-    //     pointing_device_set_cpi(get_pointer_default_dpi(config));
     }
 }
-
-/**
- * \brief Update the pointer's default DPI to the next or previous step.
- *
- * Increases the DPI value if `forward` is `true`, decreases it otherwise.
- * The increment/decrement steps are equal to CHARYBDIS_DEFAULT_DPI_CONFIG_STEP.
- */
- // sniper code
-// static void step_pointer_default_dpi(charybdis_config_t* config, bool forward) {
-//     config->pointer_default_dpi += forward ? 1 : -1;
-//     maybe_update_pointing_device_cpi(config);
-// }
-
-/**
- * \brief Update the pointer's sniper-mode DPI to the next or previous step.
- *
- * Increases the DPI value if `forward` is `true`, decreases it otherwise.
- * The increment/decrement steps are equal to CHARYBDIS_SNIPING_DPI_CONFIG_STEP.
- */
- // sniper code
-// static void step_pointer_sniping_dpi(charybdis_config_t* config, bool forward) {
-//     config->pointer_sniping_dpi += forward ? 1 : -1;
-//     maybe_update_pointing_device_cpi(config);
-// }
-// sniper code
-// uint16_t charybdis_get_pointer_default_dpi(void) { return get_pointer_default_dpi(&g_charybdis_config); }
-// sniper code
-// uint16_t charybdis_get_pointer_sniping_dpi(void) { return get_pointer_sniping_dpi(&g_charybdis_config); }
-// // sniper code
-// void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward) { step_pointer_default_dpi(&g_charybdis_config, forward); }
-// // sniper code
-// void charybdis_cycle_pointer_default_dpi(bool forward) {
-//     step_pointer_default_dpi(&g_charybdis_config, forward);
-//     write_charybdis_config_to_eeprom(&g_charybdis_config);
-// }
-// // sniper code
-// void charybdis_cycle_pointer_sniping_dpi_noeeprom(bool forward) { step_pointer_sniping_dpi(&g_charybdis_config, forward); }
-// // sniper code
-// void charybdis_cycle_pointer_sniping_dpi(bool forward) {
-//     step_pointer_sniping_dpi(&g_charybdis_config, forward);
-//     write_charybdis_config_to_eeprom(&g_charybdis_config);
-// }
-// // sniper code
-// bool charybdis_get_pointer_sniping_enabled(void) { return g_charybdis_config.is_sniping_enabled; }
-// // sniper code
-// void charybdis_set_pointer_sniping_enabled(bool enable) {
-//     g_charybdis_config.is_sniping_enabled = enable;
-//     maybe_update_pointing_device_cpi(&g_charybdis_config);
-// }
 
 // check the config to see if dragscroll is turned on
 bool charybdis_get_pointer_dragscroll_enabled(void) { return g_charybdis_config.is_dragscroll_enabled; }
 
 // This is how we turn on dragscroll
 void charybdis_set_pointer_dragscroll_enabled(bool enable) {
+    // first, set config so that any further scans have dragscroll on
     g_charybdis_config.is_dragscroll_enabled = enable;
+    // update the configured trackball dpi
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
-
-// moved this up to the top, combined with another call
-//void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybdis_config); }
 
 // what does this do?? oh, tied to accel, which is presumably part of dragscroll
 #    ifndef CONSTRAIN_HID
@@ -193,6 +108,7 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
  * otherwise.
  */
 #    ifndef DISPLACEMENT_WITH_ACCELERATION
+        // only run this block if we've defined charybdis pointer accel
 #        ifdef CHARYBDIS_POINTER_ACCELERATION_ENABLE
 #            define DISPLACEMENT_WITH_ACCELERATION(d) (CONSTRAIN_HID(d > 0 ? d * d / CHARYBDIS_POINTER_ACCELERATION_FACTOR + d : -d * d / CHARYBDIS_POINTER_ACCELERATION_FACTOR + d))
 #        else  // !CHARYBDIS_POINTER_ACCELERATION_ENABLE
@@ -213,8 +129,9 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
     static int16_t scroll_buffer_x = 0;
     static int16_t scroll_buffer_y = 0;
     // here it checks the charybdis config to see if dragscroll is enabled...
-    // how would it be?
+    // how would it be? ---> by 'charybdis_set_pointer_dragscroll_enabled' being executed
     if (g_charybdis_config.is_dragscroll_enabled) {
+        // ok so if it's enabled...do this stuff
 #    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
         scroll_buffer_x -= mouse_report->x;
 #    else
@@ -227,6 +144,7 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
 #    endif  // CHARYBDIS_DRAGSCROLL_REVERSE_Y
         mouse_report->x = 0;
         mouse_report->y = 0;
+        // scroll accordingly
         if (abs(scroll_buffer_x) > CHARYBDIS_DRAGSCROLL_BUFFER_SIZE) {
             mouse_report->h = scroll_buffer_x > 0 ? 1 : -1;
             scroll_buffer_x = 0;
@@ -235,19 +153,20 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
             mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
             scroll_buffer_y = 0;
         }
-    } else if (!g_charybdis_config.is_sniping_enabled) {
-        mouse_report->x = DISPLACEMENT_WITH_ACCELERATION(mouse_report->x);
-        mouse_report->y = DISPLACEMENT_WITH_ACCELERATION(mouse_report->y);
     }
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    // during the pointing device task function call, also exec the charybdis pointing task
+    // if we have set dragscroll enabled, we'll get our dragscroll execution here
     pointing_device_task_charybdis(&mouse_report);
+    // reset mouse_report
     mouse_report = pointing_device_task_user(mouse_report);
 
     return mouse_report;
 }
 
+// not sure what this is for...
 #    if defined(POINTING_DEVICE_ENABLE) && !defined(NO_CHARYBDIS_KEYCODES)
 /** \brief Whether SHIFT mod is enabled. */
 static bool has_shift_mod(void) {
@@ -276,12 +195,9 @@ __attribute__((unused)) static void debug_charybdis_config_to_console(charybdis_
             "\traw = 0x%04X,\n"
             "\t{\n"
             "\t\tis_dragscroll_enabled=%b\n"
-            "\t\tis_sniping_enabled=%b\n"
-            "\t\tdefault_dpi=0x%02X (%ld)\n"
-            "\t\tsniping_dpi=0x%01X (%ld)\n"
             "\t}\n"
             "}\n",
-            config->raw, config->is_dragscroll_enabled, config->is_sniping_enabled, config->pointer_default_dpi, get_pointer_default_dpi(config), config->pointer_sniping_dpi, get_pointer_sniping_dpi(config));
+            config->raw, config->is_dragscroll_enabled);
 #    endif  // CONSOLE_ENABLE
 }
 
@@ -291,50 +207,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 #    ifndef NO_CHARYBDIS_KEYCODES
     switch (keycode) {
-        // sniper code
-//        case POINTER_DEFAULT_DPI_FORWARD:
-//            if (record->event.pressed) {
-//                // Step backward if shifted, forward otherwise.
-//                charybdis_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
-//            }
-//            break;
-//        // sniper code
-//        case POINTER_DEFAULT_DPI_REVERSE:
-//            if (record->event.pressed) {
-//                // Step forward if shifted, backward otherwise.
-//                charybdis_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
-//            }
-//            break;
-//        // sniper code
-//        case POINTER_SNIPING_DPI_FORWARD:
-//            if (record->event.pressed) {
-//                // Step backward if shifted, forward otherwise.
-//                charybdis_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
-//            }
-//            break;
-//        // sniper code
-//        case POINTER_SNIPING_DPI_REVERSE:
-//            if (record->event.pressed) {
-//                // Step forward if shifted, backward otherwise.
-//                charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
-//            }
-//            break;
-//        // sniper code
-//        case SNIPING_MODE:
-//            charybdis_set_pointer_sniping_enabled(record->event.pressed);
-//            break;
-//        // sniper code
-//        case SNIPING_MODE_TOGGLE:
-//            if (record->event.pressed) {
-//                charybdis_set_pointer_sniping_enabled(!charybdis_get_pointer_sniping_enabled());
-//            }
-//            break;
         case DRAGSCROLL_MODE:
+            //rgb_matrix_set_color_all(0, 90, 0);
+            debug_charybdis_config_to_console(&g_charybdis_config);
             charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
             break;
         case DRAGSCROLL_MODE_TOGGLE:
             if (record->event.pressed) {
-                rgb_matrix_set_color_all(0, 90, 0);
+                //rgb_matrix_set_color_all(0, 90, 0);
+                #ifdef CONSOLE_ENABLE
+                    debug_enable = true;
+                    dprintf("dragscroll mode toggled");
+                    print("testing output");
+                    debug_charybdis_config_to_console(&g_charybdis_config);
+                #endif
                 charybdis_set_pointer_dragscroll_enabled(!charybdis_get_pointer_dragscroll_enabled());
             }
             break;
@@ -370,8 +256,10 @@ void charybdis_config_sync_handler(uint8_t initiator2target_buffer_size, const v
 
 void keyboard_post_init_kb(void) {
     transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, charybdis_config_sync_handler);
-    debug_enable=true;
-    debug_matrix=true;
+    #ifdef CONSOLE_ENABLE
+        debug_enable = true;
+        dprintf("dragscroll mode toggled");
+    #endif
     keyboard_post_init_user();
 }
 

@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "christrotter.h"
+#ifdef CONSOLE_ENABLE
+    #include "print.h"
+    #include "stdio.h"
+#endif
+
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 void                       keyboard_pre_init_user(void) {
@@ -55,7 +60,12 @@ void                       matrix_scan_user(void) {
     // if we have custom rgb matrix, call this function during the matrix scan
     matrix_scan_rgb_matrix();
 #endif
-
+    #ifdef CONSOLE_ENABLE
+        debug_enable=true;
+        //debug_matrix=true;
+        //dprint("spam the console on every keypress with this");
+    #endif
+                        
     matrix_scan_keymap();
 
 } // end matrix_scan_user
@@ -122,7 +132,10 @@ void                       matrix_slave_scan_user(void) {
 #    endif
 
     // if we have custom rgb matrix, call this function during the matrix scan
+#    ifdef RGB_MATRIX_ENABLE
     matrix_scan_rgb_matrix();
+#    endif
+    
     matrix_slave_scan_keymap();
 
 } // end matrix_slave_scan_user

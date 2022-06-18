@@ -37,14 +37,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 
+/* Set Polling rate to 1000Hz */
+#define USB_POLLING_INTERVAL_MS 1
+
 // keyboard config
 // this is how long 'hold for effect' takes; 300 feels way too long, 200 causes too many accidental triggers
 #define TAPPING_TERM 250
+#define DEBOUNCE 5 // trying this down from 45, apparently can contribute to input lag
+
 
 // Split settings
-#define EE_HANDS
-#define SPLIT_USB_DETECT
-#define SOFT_SERIAL_PIN D2
+#if defined(SPLIT_KEYBOARD)
+    // docs say use this if you are using RGB_MATRIX_SPLIT { X, Y }
+    #define SPLIT_TRANSPORT_MIRROR
+    // docs say use this if you are using split and rgb lighting per layer
+    #define SPLIT_LAYER_STATE_ENABLE
+    // this did not crash anything, but also did not help the "rgb missing from right side" issue
+    #define SPLIT_MODS_ENABLE
+    #define EE_HANDS
+    #define SPLIT_USB_DETECT
+    #define USE_SERIAL
+    #define SOFT_SERIAL_PIN D2
+    #    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
+    #        define SELECT_SOFT_SERIAL_SPEED 1
+    #    endif
+    #    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC
+    #        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC, RPC_ID_USER_WATCHDOG_SYNC, RPC_ID_USER_KEYLOG_STR
+    #    endif
+#endif
 
 // audio - takes up a lot of memory
 //#define AUDIO_PIN F4
@@ -65,6 +85,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define POINTING_DEVICE_INVERT_X
     // Not sure what this does...
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
+    #define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
+//  #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
+//  #define CHARYBDIS_MINIMUM_SNIPING_DPI 400
+//  #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
+
 #endif
 
 // WS2812 RGB LED strip input and number of LEDs
@@ -75,4 +100,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // this only works for non-per-key rgb
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
     #define RGB_MATRIX_SPLIT { 27, 30} 
+#endif
+
+/* Disable unused and unneeded features to reduce on firmware size */
+#ifdef LOCKING_SUPPORT_ENABLE
+#    undef LOCKING_SUPPORT_ENABLE
+#endif
+#ifdef LOCKING_RESYNC_ENABLE
+#    undef LOCKING_RESYNC_ENABLE
 #endif

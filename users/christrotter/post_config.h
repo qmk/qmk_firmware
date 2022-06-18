@@ -94,8 +94,3 @@
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 11
 #endif
-
-// #ifndef TAPPING_TERM
-// // pretty sure this is how the 'hold' timing is set
-// #    define TAPPING_TERM 250
-// #endif

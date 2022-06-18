@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "pointing.h"
-#include "print.h"
+#ifdef CONSOLE_ENABLE
+    #include "print.h"
+    #include "stdio.h"
+#endif
 #include "christrotter.h"
 
 static uint16_t mouse_timer           = 0; // changing this does nothing to layer timings
@@ -66,7 +69,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                 // ...unless it's already on...but if not, turn it on
                 if (!layer_state_is(_MOUSE)) {
                     if (x > AUTO_MOUSE_LAYER_DELAY || y > AUTO_MOUSE_LAYER_DELAY) {
-                    layer_on(_MOUSE);
+                        //debug_enable=true;
+                        //debug_matrix=true;
+                        //dprintf("mouse layer on");
+                        layer_on(_MOUSE);
                     }
                 }
             
@@ -118,12 +124,13 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             }
             break;
         // this is a momentary layer toggle into mouse...if you MO_MOUSE, ensure safe_range is set or something
-        case MO(_MOUSE):
-#if defined(KEYBOARD_ploopy)
-        case DPI_CONFIG:
-#elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform_ct)) && !defined(NO_CHARYBDIS_KEYCODES)
-        case SAFE_RANGE ... (CHARYBDIS_SAFE_RANGE-1):
-#endif
+// pretty sure this is related to the sniper code
+//        case MO(_MOUSE):
+// #if defined(KEYBOARD_ploopy)
+//         case DPI_CONFIG:
+// #elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform_ct)) && !defined(NO_CHARYBDIS_KEYCODES)
+//         case SAFE_RANGE ... (CHARYBDIS_SAFE_RANGE-1):
+// #endif
         case KC_MS_UP ... KC_MS_WH_RIGHT:
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
