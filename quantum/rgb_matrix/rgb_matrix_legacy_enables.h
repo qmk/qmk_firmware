@@ -150,4 +150,7 @@
 #    ifndef DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif
+#    ifndef DISALBE_RGB_MATRIX_FLAME
+#        define ENABLE_RGB_MATRIX_FLAME
+#    endif
 #endif
