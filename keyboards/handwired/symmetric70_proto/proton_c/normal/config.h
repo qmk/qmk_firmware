@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
+#define PRODUCT      BASE_PRODUCT normal
+
 #define MATRIX_ROW_PINS { A4, A5, A6, A7, A8 }
 #define MATRIX_COL_PINS { A2, A1, A0, B8,  B13, B14, B15, B9,  B0, B1, B2, B3,  B4, B5, B6, B7 }
 

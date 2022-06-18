@@ -13,15 +13,18 @@ Make example for this keyboard (after setting up your build environment):
 
     make handwired/symmetric70_proto/promicro/normal:default
     make handwired/symmetric70_proto/promicro/fast:default
+    make handwired/symmetric70_proto/promicro/boost:default
 
 Flashing example for this keyboard:
 
     make handwired/symmetric70_proto/promicro/normal:default:flash
     make handwired/symmetric70_proto/promicro/fast:default:flash
+    make handwired/symmetric70_proto/promicro/boost:default:flash
 
 Testing options: (see more options: [local_features.mk](../local_features.mk), [matrix_debug](../matrix_debug/readme.md) and [matrix_fast](../matrix_fast/readme.md) )
 
     make MTEST=mdelay0 handwired/symmetric70_proto/promicro/normal:default:flash
     make MTEST=mdelay0 handwired/symmetric70_proto/promicro/fast:default:flash
+    make MTEST=mdelay0 handwired/symmetric70_proto/promicro/boost:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

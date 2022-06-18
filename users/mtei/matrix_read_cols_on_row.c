@@ -133,12 +133,13 @@ gcc --include testconfig.h  -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c | 
 typedef struct _port_list_element_t {
     pin_t       port;
     port_data_t mask;
+    uint16_t    dev;
 } port_list_element_t;
 
 typedef struct _pin_list_element_t {
-    uint8_t     pindex;
-    port_data_t smask;
-    port_data_t dmask; // ==0 mean NO_PIN
+    uint8_t      pindex;
+    port_data_t  smask;
+    matrix_row_t dmask; // ==0 mean NO_PIN
 } pin_list_element_t;
 
 typedef struct _port_pin_list_element_t {
