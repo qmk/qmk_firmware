@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
     "$id": "qmk.definitions.v1",
     "title": "Common definitions used across QMK's jsonschemas.",
     "type": "object",
@@ -65,8 +65,7 @@
         ]
     },
     "key_unit": {
-        "type": "number",
-        "min": 0.25
+        "type": "number"
     },
     "keyboard": {
         "oneOf": [
@@ -103,8 +102,7 @@
                 "pattern": "^LINE_PIN\\d{1,2}$"
             },
             {
-                "type": "number",
-                "multipleOf": 1
+                "type": "integer"
             },
             {
                 "type": "null"
@@ -115,14 +113,12 @@
         "type": "number"
     },
     "signed_int": {
-        "type": "number",
-        "multipleOf": 1
+        "type": "integer"
     },
     "signed_int_8": {
-        "type": "number",
-        "min": -127,
-        "max": 127,
-        "multipleOf": 1
+        "type": "integer",
+        "minimum": -127,
+        "maximum": 127
     },
     "string_array": {
         "type": "array",
@@ -138,23 +134,20 @@
     },
     "unsigned_decimal": {
         "type": "number",
-        "min": 0
+        "minimum": 0
     },
     "unsigned_int": {
-        "type": "number",
-        "min": 0,
-        "multipleOf": 1
+        "type": "integer",
+        "minimum": 0
     },
     "unsigned_int_8": {
-        "type": "number",
-        "min": 0,
-        "max": 255,
-        "multipleOf": 1
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
     },
     "bit": {
-        "type": "number",
-        "min": 0,
-        "max": 1,
-        "multipleOf": 1
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1
     }
 }

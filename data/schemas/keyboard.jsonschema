@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
     "$id": "qmk.keyboard.v1",
     "title": "Keyboard Information",
     "type": "object",
@@ -40,10 +40,9 @@
                 "breathing": {"type": "boolean"},
                 "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "levels": {
-                    "type": "number",
+                    "type": "integer",
                     "minimum": 1,
-                    "maximum": 31,
-                    "multipleOf": 1
+                    "maximum": 31
                 },
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "on_state": {"$ref": "qmk.definitions.v1#/bit"}
@@ -158,12 +157,11 @@
                                     "minItems": 2,
                                     "maxItems": 2,
                                     "items": {
-                                        "type": "number",
-                                        "minimum": 0,
-                                        "multipleOf": 1
+                                        "type": "integer",
+                                        "minimum": 0
                                     }
                                 },
-                                "r": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
+                                "r": {"$ref": "qmk.definitions.v1#/signed_decimal"},
                                 "rx": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
                                 "ry": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
                                 "h": {"$ref": "qmk.definitions.v1#/key_unit"},
@@ -234,14 +232,13 @@
                                 "minItems": 2,
                                 "maxItems": 2,
                                 "items": {
-                                    "type": "number",
-                                    "minimum": 0,
-                                    "multipleOf": 1
+                                    "type": "integer",
+                                    "minimum": 0
                                 }
                             },
                             "x": {"$ref": "qmk.definitions.v1#/key_unit"},
                             "y": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_decimal"}
+                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
                 }
@@ -262,14 +259,13 @@
                                 "minItems": 2,
                                 "maxItems": 2,
                                 "items": {
-                                    "type": "number",
-                                    "minimum": 0,
-                                    "multipleOf": 1
+                                    "type": "integer",
+                                    "minimum": 0
                                 }
                             },
                             "x": {"$ref": "qmk.definitions.v1#/key_unit"},
                             "y": {"$ref": "qmk.definitions.v1#/key_unit"},
-                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_decimal"}
+                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                         }
                     }
                 }
@@ -294,10 +290,9 @@
                         "blink": {"type": "boolean"},
                         "enabled": {"type": "boolean"},
                         "max": {
-                            "type": "number",
+                            "type": "integer",
                             "minimum": 1,
-                            "maximum": 32,
-                            "multipleOf": 1
+                            "maximum": 32
                         },
                         "override_rgb": {"type": "boolean"}
                     }
@@ -333,9 +328,8 @@
                         "minItems": 2,
                         "maxItems": 2,
                         "items": {
-                            "type": "number",
-                            "minimum": 0,
-                            "multipleOf": 1
+                            "type": "integer",
+                            "minimum": 0
                         }
                     }
                 }
@@ -375,10 +369,9 @@
                 },
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {
-                    "type": "number",
+                    "type": "integer",
                     "minimum": 0,
-                    "maximum": 5,
-                    "multipleOf": 1
+                    "maximum": 5
                 },
                 "transport": {
                     "type": "object",
@@ -432,7 +425,7 @@
                 "force_nkro": {"type": "boolean"},
                 "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
                 "vid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
-                "max_power": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "max_power": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "no_startup_check": {"type": "boolean"},
                 "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "shared_endpoint": {
@@ -443,7 +436,7 @@
                         "mouse": {"type": "boolean"}
                     }
                 },
-                "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "wait_for": {"type": "boolean"},
             }
         },
@@ -452,8 +445,8 @@
             "additionalProperties": false,
             "properties": {
                 "keys_per_scan": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
             }
         },
         "qmk_lufa_bootloader": {
