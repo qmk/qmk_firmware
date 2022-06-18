@@ -66,6 +66,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //                 }
 //             }
 //             break;
+
             case LT(0,KC_TILD):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(LCMD(KC_TILD)); // Intercept hold function to send Ctrl-X
@@ -153,6 +154,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case LT(0,KC_N):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(LCMD(LSFT(KC_N))); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;
+            case LT(0,KC_MPLY):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_MNXT); // Intercept hold function to send Ctrl-X
                 return false;
             }
             return true;

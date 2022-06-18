@@ -90,7 +90,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
 #    endif
 #endif
-
-#ifndef DEBOUNCE
-#    define DEBOUNCE 5
-#endif

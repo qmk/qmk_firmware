@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // PRODUCT_ID is really only used by the OS, and is arbitrary.
 #define PRODUCT_ID                  0x1234
 #define DEVICE_VER                  0x0001
+/* USB Device descriptor parameter */
+#define VENDOR_ID               0x44DD
 
 // wiring of each half
 #define MATRIX_ROW_PINS { B7, D5, C7, F1, F0 }
@@ -36,29 +38,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // keyboard config
-#define TAPPING_TERM 300
-
-// Data sync options
-// #define DEBUG_MATRIX_SCAN_RATE
-// Helps keep layer state sync'd across the halves
-#define SPLIT_TRANSPORT_MIRROR
+// this is how long 'hold for effect' takes; 300 feels way too long, 200 causes too many accidental triggers
+#define TAPPING_TERM 250
 
 // Split settings
-// MASTER_RIGHT ensures the keymap is correct
-// removing master-right reverses the rgb map...
-// #define MASTER_RIGHT
 #define EE_HANDS
-// took out split-usb-detect during efforts to get rgb working on non-master side...
 #define SPLIT_USB_DETECT
-// #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC
 #define SOFT_SERIAL_PIN D2
-//#define SPLIT_POINTING_ENABLE
-// using serial, the keymap was reversed without forcing master_right /shrug
 
-
-// audio
+// audio - takes up a lot of memory
 //#define AUDIO_PIN F4
-// As per docs, must be one of: C4, C5, C6, B5, B6, B7
+// As per docs, must be one of the PWM pins: C4, C5, C6, B5, B6, B7
 
 #ifdef POINTING_DEVICE_ENABLE
     // Trackball - PMW3360 Settings
@@ -73,7 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ROTATIONAL_TRANSFORM_ANGLE  -85
     // Inverted movement for X (not sure why this is set tbh...maybe due to the kb half it's installed on?)
     #define POINTING_DEVICE_INVERT_X
-    //#define POINTING_DEVICE_INVERT_Y
     // Not sure what this does...
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 #endif
@@ -83,20 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_DI_PIN D3
     #define RGBLED_NUM 57  // Number of LEDs
     #define DRIVER_LED_TOTAL RGBLED_NUM
-    // setting max brightness here does not work
-    // this is now working!!!
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
-    // this does nothing to brightness...maybe due to sethsv overriding it?
-    // and it's rgblight anyways...
-    // #define RGBLIGHT_LIMIT_VAL 255
-    // Left, Right
-    // interesting, this is somehow backwards for me...maybe usb plugged in == assumption this is left??
-    // ^^^ this happens if you remove MASTER_RIGHT
+    // this only works for non-per-key rgb
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
     #define RGB_MATRIX_SPLIT { 27, 30} 
-    //#define RGBLIGHT_SPLIT
 #endif
-
-// Other settings not being used...might be cruft from the teensy code assumptions?
-// more dynamic layer counts, more space used
-// #define DYNAMIC_KEYMAP_LAYER_COUNT  16
-// #define LAYER_STATE_16BIT

@@ -81,11 +81,11 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(17, 0, 75, 100);   // ~ // row3,col1
     rgb_matrix_set_color(18, 100, 0, 0);    // backspace
     rgb_matrix_set_color(19, 90, 20, 0);    // delete
-    rgb_matrix_set_color(20, 120, 0, 70);   // dragscroll
-    rgb_matrix_set_color(21, 100, 0, 0);    // back
-    rgb_matrix_set_color(22, 0, 90, 0);     // fwd
+    rgb_matrix_set_color(20, 60, 0, 90); // mplay
+    rgb_matrix_set_color(21, 0, 0, 90);    // back
+    rgb_matrix_set_color(22, 0, 50, 50);     // fwd
     rgb_matrix_set_color(23, 120, 0, 0);   // esc
-    rgb_matrix_set_color(24, 20, 0, 90);    // SYMBOLS
+    rgb_matrix_set_color(24, 120, 0, 70);    // SYMBOLS
     rgb_matrix_set_color(25, 70, 40, 0);    // ALT
     rgb_matrix_set_color(26, 20, 0, 90); // cmd
     // RIGHT HALF STARTS HERE
@@ -106,7 +106,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 80, 90);   // 8 // <,
     rgb_matrix_set_color(42, 0, 80, 90);   // 9 // >.
     rgb_matrix_set_color(43, 0, 80, 90);   // 0 // /?
-    rgb_matrix_set_color(44, 60, 0, 90);    // mplay // row3, col6
+    rgb_matrix_set_color(44, 20, 90, 90); // dragscroll toggle // row3, col6
     // everything below here doesn't change
     rgb_matrix_set_color(45, 0, 120, 0);    // arrow key
     rgb_matrix_set_color(46, 0, 120, 0);    // arrow key
@@ -120,7 +120,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(53, 0, 25, 120);   // enter key
     rgb_matrix_set_color(54, 0, 120, 200);  // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 70, 40, 0);    // ALT // key below layer button
+    rgb_matrix_set_color(55, 0, 90, 0);    // multiline // key below layer button
     rgb_matrix_set_color(56, 0, 0, 120);    // ctrl //far right key, 'below' enter key
             break;
 ////////////////////// MOUSE LAYER RGB SETTINGS //////////////////////
@@ -145,7 +145,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(17, 0, 75, 100); // tilde-backtick // row3,col1
     rgb_matrix_set_color(18, 100, 0, 0); // backspace
     rgb_matrix_set_color(19, 90, 20, 0); // delete
-    rgb_matrix_set_color(20, 100, 40, 0); // esc
+    rgb_matrix_set_color(20, 60, 0, 90); // mplay
     rgb_matrix_set_color(21, 90, 0, 30); // mac lock KC_MACLOCK
     rgb_matrix_set_color(22, 90, 0, 0); // KC_CAD
     rgb_matrix_set_color(23, 120, 0, 0);   // esc
@@ -183,7 +183,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(53, 0, 25, 120); // enter key
     rgb_matrix_set_color(54, 0, 120, 200); // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 0, 90, 0); // multiline // key below layer button
+    rgb_matrix_set_color(55, 0, 90, 0);    // multiline // key below layer button
     rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
             break;
 ////////////////////// MOUSE LAYER RGB SETTINGS //////////////////////
@@ -209,9 +209,9 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(17, 0, 75, 100); // tilde-backtick // row3,col1
     rgb_matrix_set_color(18, 100, 0, 0); // backspace
     rgb_matrix_set_color(19, 90, 20, 0); // delete
-    rgb_matrix_set_color(20, 100, 40, 0); // esc
-    rgb_matrix_set_color(21, 100, 0, 0); // back
-    rgb_matrix_set_color(22, 0, 90, 0); // fwd
+    rgb_matrix_set_color(20, 60, 0, 90); // mplay
+    rgb_matrix_set_color(21, 0, 0, 90);    // back
+    rgb_matrix_set_color(22, 0, 50, 50);   // fwd
     rgb_matrix_set_color(23, 120, 0, 0);   // esc
     rgb_matrix_set_color(24, 120, 0, 70); // SYMBOLS
     rgb_matrix_set_color(25, 70, 40, 0);    // ALT
@@ -234,7 +234,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(41, 0, 75, 100); // <,
     rgb_matrix_set_color(42, 0, 75, 100); // >.
     rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 60, 0, 90); // mplay //row3, col6 // not sure what this key should be
+    rgb_matrix_set_color(44, 20, 90, 90); // dragscroll toggle //row3, col6 // not sure what this key should be
     rgb_matrix_set_color(45, 0, 120, 0); // arrow key
     rgb_matrix_set_color(46, 0, 120, 0); // arrow key
     rgb_matrix_set_color(47, 0, 120, 0); // arrow key
@@ -247,7 +247,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_color(53, 0, 25, 120); // enter key
     rgb_matrix_set_color(54, 0, 120, 200); // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 0, 90, 0); // multiline // key below layer button
+    rgb_matrix_set_color(55, 0, 90, 0);    // multiline // key below layer button
     rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
             break;
     }

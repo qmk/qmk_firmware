@@ -26,6 +26,7 @@
 
 enum charybdis_keycodes {
 #        ifdef VIA_ENABLE
+// sniper code block start
     POINTER_DEFAULT_DPI_FORWARD = USER00,
 #        else
     POINTER_DEFAULT_DPI_FORWARD = SAFE_RANGE,
@@ -35,22 +36,24 @@ enum charybdis_keycodes {
     POINTER_SNIPING_DPI_REVERSE,
     SNIPING_MODE,
     SNIPING_MODE_TOGGLE,
+    // sniper code block end
     DRAGSCROLL_MODE,
     DRAGSCROLL_MODE_TOGGLE,
     KEYMAP_SAFE_RANGE,
 };
 #        define CHARYBDIS_SAFE_RANGE KEYMAP_SAFE_RANGE
-#        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
-#        define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
-#        define S_D_MOD POINTER_SNIPING_DPI_FORWARD
-#        define S_D_RMOD POINTER_SNIPING_DPI_REVERSE
-#        define SNIPING SNIPING_MODE
-#        define SNP_TOG SNIPING_MODE_TOGGLE
+#        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD // sniper code
+#        define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE // sniper code
+#        define S_D_MOD POINTER_SNIPING_DPI_FORWARD // sniper code
+#        define S_D_RMOD POINTER_SNIPING_DPI_REVERSE // sniper code
+#        define SNIPING SNIPING_MODE // sniper code
+#        define SNP_TOG SNIPING_MODE_TOGGLE // sniper code
 #        define DRGSCRL DRAGSCROLL_MODE
 #        define DRG_TOG DRAGSCROLL_MODE_TOGGLE
 
 #ifdef POINTING_DEVICE_ENABLE
 /** \brief Return the current DPI value for the pointer's default mode. */
+// sniper code
 uint16_t charybdis_get_pointer_default_dpi(void);
 
 /**
@@ -61,6 +64,7 @@ uint16_t charybdis_get_pointer_default_dpi(void);
  *
  * The new value is persisted in EEPROM.
  */
+ // sniper code
 void charybdis_cycle_pointer_default_dpi(bool forward);
 
 /**
@@ -70,9 +74,11 @@ void charybdis_cycle_pointer_default_dpi(bool forward);
  * This means that reseting the board will revert the value to the last
  * persisted one.
  */
+ // sniper code
 void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward);
 
 /** \brief Return the current DPI value for the pointer's sniper-mode. */
+// sniper code
 uint16_t charybdis_get_pointer_sniping_dpi(void);
 
 /**
@@ -83,6 +89,7 @@ uint16_t charybdis_get_pointer_sniping_dpi(void);
  *
  * The new value is persisted in EEPROM.
  */
+ // sniper code
 void charybdis_cycle_pointer_sniping_dpi(bool forward);
 
 /**
@@ -92,9 +99,11 @@ void charybdis_cycle_pointer_sniping_dpi(bool forward);
  * This means that reseting the board will revert the value to the last
  * persisted one.
  */
+ // sniper code
 void charybdis_cycle_pointer_sniping_dpi_noeeprom(bool forward);
 
 /** \brief Whether sniper-mode is enabled. */
+// sniper code
 bool charybdis_get_pointer_sniping_enabled(void);
 
 /**
@@ -103,6 +112,7 @@ bool charybdis_get_pointer_sniping_enabled(void);
  * When sniper mode is enabled the dpi is reduced to slow down the pointer for
  * more accurate movements.
  */
+// sniper code
 void charybdis_set_pointer_sniping_enabled(bool enable);
 
 /** \brief Whether drag-scroll is enabled. */

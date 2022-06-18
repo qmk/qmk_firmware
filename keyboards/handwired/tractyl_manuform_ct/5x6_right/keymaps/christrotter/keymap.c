@@ -67,14 +67,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,   KC_EXLM,    KC_AT,    KC_LPRN,    KC_RPRN,    KC_TILD,             KC_PPLS,    KC_1,    KC_2,    KC_3,    KC_PMNS,    KC_EQUAL,
     _______,   KC_HASH,    KC_DLR,    KC_LCBR,    KC_RCBR,    KC_GRV,           KC_PAST,    KC_4,    KC_5,    KC_6,    KC_SLASH, KC_BSLS,
     _______,   KC_PERC,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_PIPE,         KC_AMPR,    KC_7,    KC_8,    KC_9,  KC_0, XXX,
-               _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
+               _______, _______, _______, KC_ITRMSPCE_L, KC_ITRMSPCE_R,             _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______
 ),
 [_QWERTY] = LAYOUT( \
     KC_TAB,    KC_Q,    LT(0,KC_W),    KC_E, LT(0,KC_R), LT(0,KC_T),                             KC_Y,    KC_U,    LT(0,KC_I),    KC_O,    KC_P,    KC_MINUS,
     KC_LSFT,   LT(0,KC_A),    LT(0,KC_S),    KC_D,    LT(0,KC_F),    KC_G,                       KC_H,    KC_J,    LT(0,KC_K),    KC_L,    KC_QUOT, KC_SCLN,
-    LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, KC_MPLY,
-                KC_BSPC, KC_DEL,  DRAGSCROLL_MODE_TOGGLE, KC_TAB_L, KC_TAB_R,                  KC_SPCLEFT, KC_SPCRGHT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
+    LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, DRAGSCROLL_MODE,
+                KC_BSPC, KC_DEL, LT(0,KC_MPLY), KC_TAB_L, KC_TAB_R,                  KC_SPCLEFT, KC_SPCRGHT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
                                 KC_LGUI, KC_LALT, MO(_SYMBOLS), KC_ESC,        KC_MULTILNE, KC_LCTL, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 ),
 [_MOUSE] = LAYOUT( \

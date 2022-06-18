@@ -10,8 +10,9 @@ static uint16_t mouse_debounce_timer  = 0; // changing this does nothing to laye
 static uint8_t  mouse_keycode_tracker = 0;
 bool            tap_toggling = false, enable_acceleration = false;
 
-#define KEEP_MOUSE_LAYER_ON_FOR 700 // inactivity while on mouse layer, in ms
-#define AUTO_MOUSE_LAYER_DELAY 5 // xy value threshold
+// TODO pull all config out to a central place, it's confusing trying to remember where config lives
+#define KEEP_MOUSE_LAYER_ON_FOR 800 // inactivity while on mouse layer, in ms
+#define AUTO_MOUSE_LAYER_DELAY 3 // xy value threshold
 
 // this is making sure both TAPPING_TERM and TAP_CHECK are defined
 // #ifdef TAPPING_TERM_PER_KEY

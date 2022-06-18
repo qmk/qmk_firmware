@@ -6,6 +6,7 @@
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record);
 void keyboard_post_init_rgb_matrix(void);
+void rgb_color_helper(void);
 void matrix_scan_rgb_matrix(void);
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue);

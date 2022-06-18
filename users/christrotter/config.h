@@ -32,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_TRANSPORT_MIRROR
 // docs say use this if you are using split and rgb lighting per layer
 #    define SPLIT_LAYER_STATE_ENABLE
-// this caused the kb to stop working entirely, LEDs and keys
-// SPLIT_LED_STATE_ENABLE is for led indicators, which we don't have
-// #    define SPLIT_LED_STATE_ENABLE
 // this did not crash anything, but also did not help the "rgb missing from right side" issue
 #    define SPLIT_MODS_ENABLE
 
@@ -132,11 +129,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef LOCKING_RESYNC_ENABLE
 #    undef LOCKING_RESYNC_ENABLE
 #endif
-// #define NO_ACTION_MACRO
-// #define NO_ACTION_FUNCTION
-// #ifndef NO_DEBUG
-// #define NO_DEBUG
-// #endif // !NO_DEBUG
-// #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-// #define NO_PRINT
-// #endif // !NO_PRINT
