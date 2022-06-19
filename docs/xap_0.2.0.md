@@ -128,8 +128,9 @@ This subsystem allows for query of currently configured keycodes.
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
 | Capabilities Query | `0x04 0x01` |  |<br>__Response:__ `u32`| Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
-| Get Keycode | `0x04 0x02` |  |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br>__Response:__ `u16`| Query the Keycode at the requested location.|
-| Get Encoder Keycode | `0x04 0x03` |  |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br>__Response:__ `u16`| Query the Keycode at the requested location.|
+| Get Layer Count | `0x04 0x02` |  |<br>__Response:__ `u8`| Query maximum number of layers that can be addressed within the keymap.|
+| Get Keycode | `0x04 0x03` |  |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br>__Response:__ `u16`| Query the Keycode at the requested location.|
+| Get Encoder Keycode | `0x04 0x04` |  |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br>__Response:__ `u16`| Query the Keycode at the requested location.|
 
 ### Remapping - `0x05`
 This subsystem allows for live reassignment of keycodes without rebuilding the firmware.
@@ -138,8 +139,9 @@ This subsystem allows for live reassignment of keycodes without rebuilding the f
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
 | Capabilities Query | `0x05 0x01` |  |<br>__Response:__ `u32`| Remapping subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
-| Set Keycode | `0x05 0x02` | __Secure__ |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16`| Modify the Keycode at the requested location.|
-| Set Encoder Keycode | `0x05 0x03` | __Secure__ |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16`| Modify the Keycode at the requested location.|
+| Get Layer Count | `0x05 0x02` |  |<br>__Response:__ `u8`| Query maximum number of layers that can be addressed within the keymap.|
+| Set Keycode | `0x05 0x03` | __Secure__ |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16`| Modify the Keycode at the requested location.|
+| Set Encoder Keycode | `0x05 0x04` | __Secure__ |<br>__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16`| Modify the Keycode at the requested location.|
 
 ### Lighting - `0x06`
 This subsystem allows for control over the lighting subsystem.

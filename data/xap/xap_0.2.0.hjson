@@ -25,6 +25,14 @@
                 }
                 0x02: {
                     type: command
+                    name: Get Layer Count
+                    define: GET_LAYER_COUNT
+                    description: Query maximum number of layers that can be addressed within the keymap.
+                    return_type: u8
+                    return_execute: keymap_get_layer_count
+                }
+                0x03: {
+                    type: command
                     name: Get Keycode
                     define: GET_KEYMAP_KEYCODE
                     description: Query the Keycode at the requested location.
@@ -47,7 +55,7 @@
                     return_type: u16
                     return_execute: get_keymap_keycode
                 }
-                0x03: {
+                0x04: {
                     type: command
                     name: Get Encoder Keycode
                     define: GET_ENCODER_KEYCODE
@@ -99,6 +107,14 @@
                 }
                 0x02: {
                     type: command
+                    name: Get Layer Count
+                    define: GET_DYNAMIC_LAYER_COUNT
+                    description: Query maximum number of layers that can be addressed within the keymap.
+                    return_type: u8
+                    return_constant: DYNAMIC_KEYMAP_LAYER_COUNT
+                }
+                0x03: {
+                    type: command
                     name: Set Keycode
                     define: SET_KEYMAP_KEYCODE
                     description: Modify the Keycode at the requested location.
@@ -125,7 +141,7 @@
                     ]
                     return_execute: dynamic_keymap_set_keycode
                 }
-                0x03: {
+                0x04: {
                     type: command
                     name: Set Encoder Keycode
                     define: SET_ENCODER_KEYCODE

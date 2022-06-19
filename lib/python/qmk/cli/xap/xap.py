@@ -165,21 +165,21 @@ def _list_devices():
 
 # def xap_dummy(device):
 #     # get layer count
-#     layers = _xap_transaction(device, 0x04, 0x00)
+#     layers = _xap_transaction(device, 0x04, 0x02)
 #     layers = int.from_bytes(layers, "little")
 #     print(f'layers:{layers}')
 
 #     # get keycode [layer:0, row:0, col:0]
-#     # keycode = _xap_transaction(device, 0x04, 0x02, b"\x00\x00\x00")
+#     # keycode = _xap_transaction(device, 0x04, 0x03, b"\x00\x00\x00")
 
 #     # get encoder [layer:0, index:0, clockwise:0]
-#     keycode = _xap_transaction(device, 0x04, 0x03, b"\x00\x00\x00")
+#     keycode = _xap_transaction(device, 0x04, 0x04, b"\x00\x00\x00")
 
 #     keycode = int.from_bytes(keycode, "little")
 #     print(f'keycode:{KEYCODE_MAP.get(keycode, "unknown")}[{keycode}]')
 
 #     # set encoder [layer:0, index:0, clockwise:0, keycode:KC_A]
-#     _xap_transaction(device, 0x05, 0x03, b"\x00\x00\x00\x04\00")
+#     _xap_transaction(device, 0x05, 0x04, b"\x00\x00\x00\x04\00")
 
 
 def xap_broadcast_listen(device):
@@ -235,7 +235,7 @@ class XAPShell(cmd.Cmd):
             cli.log.error("Invalid args")
             return
 
-        keycode = _xap_transaction(self.device, 0x04, 0x02, data)
+        keycode = _xap_transaction(self.device, 0x04, 0x03, data)
         keycode = int.from_bytes(keycode, "little")
         print(f'keycode:{self.keycodes.get(keycode, "unknown")}[{keycode}]')
 
@@ -254,7 +254,7 @@ class XAPShell(cmd.Cmd):
         for r in range(rows):
             for c in range(cols):
                 q = data + r.to_bytes(1, byteorder='little') + c.to_bytes(1, byteorder='little')
-                keycode = _xap_transaction(self.device, 0x04, 0x02, q)
+                keycode = _xap_transaction(self.device, 0x04, 0x03, q)
                 keycode = int.from_bytes(keycode, "little")
                 print(f'| {self.keycodes.get(keycode, "unknown").ljust(7)} ', end='', flush=True)
             print('|')
@@ -276,7 +276,7 @@ class XAPShell(cmd.Cmd):
         keycodes = []
         for item in layout:
             q = data + bytes(item['matrix'])
-            keycode = _xap_transaction(self.device, 0x04, 0x02, q)
+            keycode = _xap_transaction(self.device, 0x04, 0x03, q)
             keycode = int.from_bytes(keycode, "little")
             keycodes.append(self.keycodes.get(keycode, "???"))
 

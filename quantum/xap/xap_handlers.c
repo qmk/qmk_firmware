@@ -104,6 +104,11 @@ bool xap_respond_get_hardware_id(xap_token_t token, const void *data, size_t len
     return xap_respond_data(token, &ret, sizeof(ret));
 }
 
+bool xap_respond_keymap_get_layer_count(xap_token_t token, const void *data, size_t length) {
+    uint8_t ret = keymap_layer_count();
+    return xap_respond_data(token, &ret, sizeof(ret));
+}
+
 bool xap_respond_get_keymap_keycode(xap_token_t token, const void *data, size_t length) {
     if (length != sizeof(xap_route_keymap_get_keymap_keycode_arg_t)) {
         return false;
