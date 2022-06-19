@@ -91,9 +91,12 @@ void IS31FL3236_init(uint8_t addr) {
 }
 
 void IS31FL3236_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    g_pwm_buffer[index * 3 + 0]  = red;
-    g_pwm_buffer[index * 3 + 1]  = green;
-    g_pwm_buffer[index * 3 + 2]  = blue;
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+
+    g_pwm_buffer[led.r]  = red;
+    g_pwm_buffer[led.g]  = green;
+    g_pwm_buffer[led.b]  = blue;
     g_pwm_buffer_update_required = true;
 }
 
@@ -104,9 +107,12 @@ void IS31FL3236_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3236_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    g_led_control_registers[index * 3 + 0] = red;
-    g_led_control_registers[index * 3 + 1] = green;
-    g_led_control_registers[index * 3 + 2] = blue;
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+
+    g_led_control_registers[led.r] = red;
+    g_led_control_registers[led.g] = green;
+    g_led_control_registers[led.b] = blue;
     g_led_control_update_required = true;
 }
 
