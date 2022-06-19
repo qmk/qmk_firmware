@@ -1,12 +1,12 @@
-# aidansmithdotdev/fine40
+# Fine!40 PCB (For Mochi40)
 
-![aidansmithdotdev/fine40](imgur.com image replace me!)
+![aidansmithdotdev/fine40](https://imgur.com/2JMorvx)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Aidan Smith](https://github.com/Aidan-OS)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: *Fine!40*
+* Hardware Availability: *https://github.com/Aidan-OS/Mochi40*
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (top left key) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
