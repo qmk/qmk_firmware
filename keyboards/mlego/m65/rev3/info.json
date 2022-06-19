@@ -27,6 +27,10 @@
         "cols": ["A10", "A15", "B3", "B4", "B5", "B9", "B8", "B7", "A1", "A2", "A3", "A4", "B1"],
         "rows": ["B10", "A5", "A6", "A7", "B0"]
     },
+    "matrix_size": {
+        "cols": 13,
+        "rows": 5
+    },
     "platform": "STM32",
     "processor": "STM32F401",
     "rgblight": {
