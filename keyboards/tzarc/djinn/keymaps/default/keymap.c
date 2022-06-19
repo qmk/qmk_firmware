@@ -91,21 +91,17 @@ const char *current_layer_name(void) {
 // Overrides
 
 void keyboard_post_init_user(void) {
-#ifdef DJINN_DEFAULT_THEME
     // Initialise the theme
     theme_init();
-#endif // DJINN_DEFAULT_THEME
 
     void keyboard_post_init_display(void);
     keyboard_post_init_display();
 }
 
 void housekeeping_task_user(void) {
-#ifdef DJINN_DEFAULT_THEME
     // Update kb_state so we can send to slave
     theme_state_update();
 
     // Data sync from master to slave
     theme_state_sync();
-#endif // DJINN_DEFAULT_THEME
 }
