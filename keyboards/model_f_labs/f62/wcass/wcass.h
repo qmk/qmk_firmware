@@ -1,5 +1,5 @@
 /* Copyright 2020 Purdea Andrei
- *  Copyright 2022 Matthew Wolf
+ * Copyright 2022 Matthew Wolf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,21 +21,8 @@
 
 #define ___ KC_NO
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-
-// Note: unused columns 8..14 are not listed here. Column 15 is listed here as column 8
-// Note arguments representing the layout are named based on default F77 hhkb split backspace configuration, for other layouts argument naming might not make much sense
-// This was done for ease of implementation.
-
 /*
- *                                                     ┌───────┐ 
+ *                                                     ┌───────┐
  *                                        2U Backspace │    K0E│
  *                                                     └───────┘
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -52,17 +39,31 @@
  *                                                    ┌────────┐
  *                                                    │     K2D│ ANSI Enter
  *                                                    └────────┘
- *                                                       ┌─────┐ 
+ *                                                       ┌─────┐
  *                                                       │     │ ISO Enter
  *                                                    ┌──┴┐    │
  *                                                    │K2C│ K2D│
  * ┌────────┐                                       ┌─┴───┴────┤
  * │K30     │ 2.25 LShift                           │       K3D│ 2.75 RShift
- * └────────┘                                       └──────────┘ 
- *                 ┌───────────────────────────┐ 
+ * └────────┘                                       └──────────┘
+ *                 ┌───────────────────────────┐
  *                 │K43                        │ Space Bar
  *                 └───────────────────────────┘
  */
+
+/* This is a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+
+// Note: unused columns 8..14 are not listed here. Column 15 is listed here as column 8
+// Note arguments representing the layout are named based on default F77 hhkb split backspace configuration, for other layouts argument naming might not make much sense
+// This was done for ease of implementation.
+
 /* all
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │K00│K01│K02│K03│K04│K05│K06│K07│K08│K09│K0A│K0B│K0C│K0D│K0E│
@@ -78,10 +79,10 @@
  */
 #define LAYOUT_all( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, \
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
-    K40, K41, K42, K43, K44, K45, K46, K47\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, \
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      K3D, \
+    K40, K41, K42, K43,                          K44, K45,      K46,      K47\
 ) \
 { \
     { K31, K33, K23, K25, K28, K29, K3B, K3C, ___},\
@@ -108,11 +109,11 @@
  * └─────┴───┴─────┴───────────────────────────┴─────┴───┴─────┘
  */
 #define LAYOUT_ansi_regular_shift_regular_backspace( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2D,\
-    K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K0E,\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D,\
+    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,           K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { ___, K33, K23, K25, K28, K29, K3B, ___, ___},\
@@ -140,10 +141,10 @@
  */
 #define LAYOUT_ansi_regular_shift_split_backspace( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2D,\
-    K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D,\
+    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,           K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { ___, K33, K23, K25, K28, K29, K3B, ___, ___},\
@@ -153,7 +154,7 @@
     { K00, K11, K03, K05, K07, K09, K0B, K0D, ___},\
     { K10, K12, K14, K16, K18, K1A, K1B, K1C, ___},\
     { K01, K02, K04, K06, K08, K0A, K0C, K0E, ___},\
-    { K20, K21, K13, K15, K17, K19, ___, K1D,  ___}\
+    { K20, K21, K13, K15, K17, K19, ___, K1D, ___}\
 }
 /*
  * ansi_split_shift_regular_backspace
@@ -170,11 +171,11 @@
  * └─────┴───┴─────┴───────────────────────────┴─────┴───┴─────┘
  */
 #define LAYOUT_ansi_split_shift_regular_backspace( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2D,\
-    K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K0E,\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D,\
+    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { ___, K33, K23, K25, K28, K29, K3B, K3C, ___},\
@@ -202,10 +203,10 @@
  */
 #define LAYOUT_ansi_split_shift_split_backspace( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2D,\
-    K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D,\
+    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { ___, K33, K23, K25, K28, K29, K3B, K3C, ___},\
@@ -232,11 +233,11 @@
  * └─────┴───┴─────┴───────────────────────────┴─────┴───┴─────┘
  */
 #define LAYOUT_iso_regular_shift_regular_backspace( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K0E,\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,           K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { K31, K33, K23, K25, K28, K29, K3B, ___, ___},\
@@ -264,10 +265,10 @@
  */
 #define LAYOUT_iso_regular_shift_split_backspace( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,           K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { K31, K33, K23, K25, K28, K29, K3B, ___, ___},\
@@ -294,11 +295,11 @@
  * └─────┴───┴─────┴───────────────────────────┴─────┴───┴─────┘
  */
 #define LAYOUT_iso_split_shift_regular_backspace( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K0E,\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { K31, K33, K23, K25, K28, K29, K3B, K3C, ___},\
@@ -326,10 +327,10 @@
  */
 #define LAYOUT_iso_split_shift_split_backspace( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E,\
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,\
-    K40, K41, K42, K43, K45, K46, K47\
+    K10,      K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K2D,\
+    K20,      K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,\
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      K3D,\
+    K40, K41, K42, K43,                               K45,      K46,      K47\
 ) \
 { \
     { K31, K33, K23, K25, K28, K29, K3B, K3C, ___},\
