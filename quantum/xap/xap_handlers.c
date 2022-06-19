@@ -53,16 +53,17 @@ uint32_t xap_route_qmk_ffffffffffffffff_getter(void) {
     return 0x12345678;
 }
 
-bool xap_respond_get_info_json_chunk(xap_token_t token, const void *data, size_t length) {
+bool xap_respond_get_config_blob_chunk(xap_token_t token, const void *data, size_t length) {
     if (length != sizeof(uint16_t)) {
         return false;
     }
 
-    uint16_t                   offset = *((uint16_t *)data);
-    xap_route_qmk_info_query_t ret    = {0};
+    uint16_t offset = *((uint16_t *)data);
 
-    bool get_info_json_chunk(uint16_t offset, uint8_t * data, uint8_t data_len);
-    get_info_json_chunk(offset, (uint8_t *)&ret, sizeof(ret));
+    xap_route_qmk_config_blob_chunk_t ret = {0};
+
+    bool get_config_blob_chunk(uint16_t offset, uint8_t * data, uint8_t data_len);
+    get_config_blob_chunk(offset, (uint8_t *)&ret, sizeof(ret));
 
     return xap_respond_data(token, &ret, sizeof(ret));
 }
@@ -89,7 +90,7 @@ bool xap_respond_secure_lock(xap_token_t token, const void *data, size_t length)
 
 #ifdef BOOTLOADER_JUMP_SUPPORTED
 bool xap_respond_request_bootloader_jump(xap_token_t token, const void *data, size_t length) {
-    uint8_t        ret = secure_is_unlocked();
+    uint8_t ret = secure_is_unlocked();
 
     // TODO: post to deferred queue so this request can return?
     bool res = xap_respond_data(token, &ret, sizeof(ret));
@@ -103,24 +104,41 @@ bool xap_respond_get_hardware_id(xap_token_t token, const void *data, size_t len
     return xap_respond_data(token, &ret, sizeof(ret));
 }
 
-#if ((defined(DYNAMIC_KEYMAP_ENABLE)))
-bool xap_respond_dynamic_keymap_get_keycode(xap_token_t token, const void *data, size_t length) {
-    if (length != sizeof(xap_route_dynamic_keymap_get_keymap_keycode_arg_t)) {
+bool xap_respond_get_keymap_keycode(xap_token_t token, const void *data, size_t length) {
+    if (length != sizeof(xap_route_keymap_get_keymap_keycode_arg_t)) {
         return false;
     }
 
-    xap_route_dynamic_keymap_get_keymap_keycode_arg_t *arg = (xap_route_dynamic_keymap_get_keymap_keycode_arg_t *)data;
+    xap_route_keymap_get_keymap_keycode_arg_t *arg = (xap_route_keymap_get_keymap_keycode_arg_t *)data;
 
-    uint16_t keycode = dynamic_keymap_get_keycode(arg->layer, arg->row, arg->column);
+    keypos_t pos = MAKE_KEYPOS(arg->row, arg->column);
+
+    uint16_t keycode = keymap_key_to_keycode(arg->layer, pos);
     return xap_respond_data(token, &keycode, sizeof(keycode));
 }
 
-bool xap_respond_dynamic_keymap_set_keycode(xap_token_t token, const void *data, size_t length) {
-    if (length != sizeof(xap_route_dynamic_keymap_set_keymap_keycode_arg_t)) {
+#if ((defined(ENCODER_MAP_ENABLE)))
+bool xap_respond_get_encoder_keycode(xap_token_t token, const void *data, size_t length) {
+    if (length != sizeof(xap_route_keymap_get_encoder_keycode_arg_t)) {
         return false;
     }
 
-    xap_route_dynamic_keymap_set_keymap_keycode_arg_t *arg = (xap_route_dynamic_keymap_set_keymap_keycode_arg_t *)data;
+    xap_route_keymap_get_encoder_keycode_arg_t *arg = (xap_route_keymap_get_encoder_keycode_arg_t *)data;
+
+    keypos_t pos = MAKE_KEYPOS(arg->clockwise ? KEYLOC_ENCODER_CW : KEYLOC_ENCODER_CCW, arg->encoder);
+
+    uint16_t keycode = keymap_key_to_keycode(arg->layer, pos);
+    return xap_respond_data(token, &keycode, sizeof(keycode));
+}
+#endif
+
+#if ((defined(DYNAMIC_KEYMAP_ENABLE)))
+bool xap_respond_dynamic_keymap_set_keycode(xap_token_t token, const void *data, size_t length) {
+    if (length != sizeof(xap_route_remapping_set_keymap_keycode_arg_t)) {
+        return false;
+    }
+
+    xap_route_remapping_set_keymap_keycode_arg_t *arg = (xap_route_remapping_set_keymap_keycode_arg_t *)data;
 
     dynamic_keymap_set_keycode(arg->layer, arg->row, arg->column, arg->keycode);
     xap_respond_success(token);
@@ -128,24 +146,13 @@ bool xap_respond_dynamic_keymap_set_keycode(xap_token_t token, const void *data,
 }
 #endif
 
-#if ((defined(ENCODER_MAP_ENABLE)))
-bool xap_respond_dynamic_encoder_get_keycode(xap_token_t token, const void *data, size_t length) {
-    if (length != sizeof(xap_route_dynamic_encoder_get_encoder_keycode_arg_t)) {
-        return false;
-    }
-
-    xap_route_dynamic_encoder_get_encoder_keycode_arg_t *arg = (xap_route_dynamic_encoder_get_encoder_keycode_arg_t *)data;
-
-    uint16_t keycode = dynamic_keymap_get_encoder(arg->layer, arg->encoder, arg->clockwise);
-    return xap_respond_data(token, &keycode, sizeof(keycode));
-}
-
+#if ((defined(DYNAMIC_KEYMAP_ENABLE) && defined(ENCODER_MAP_ENABLE)))
 bool xap_respond_dynamic_encoder_set_keycode(xap_token_t token, const void *data, size_t length) {
-    if (length != sizeof(xap_route_dynamic_encoder_set_encoder_keycode_arg_t)) {
+    if (length != sizeof(xap_route_remapping_set_encoder_keycode_arg_t)) {
         return false;
     }
 
-    xap_route_dynamic_encoder_set_encoder_keycode_arg_t *arg = (xap_route_dynamic_encoder_set_encoder_keycode_arg_t *)data;
+    xap_route_remapping_set_encoder_keycode_arg_t *arg = (xap_route_remapping_set_encoder_keycode_arg_t *)data;
 
     dynamic_keymap_set_encoder(arg->layer, arg->encoder, arg->clockwise, arg->keycode);
     xap_respond_success(token);

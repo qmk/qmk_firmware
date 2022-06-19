@@ -108,10 +108,10 @@ This subsystem is always present, and provides the ability to address QMK-specif
 | Board identifiers | `0x01 0x02` |  |<br>__Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Vendor ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product Version: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* QMK Unique Identifier: `u32`| Retrieves the set of identifying information for the board.|
 | Board Manufacturer | `0x01 0x03` |  |<br>__Response:__ `string`| Retrieves the name of the manufacturer|
 | Product Name | `0x01 0x04` |  |<br>__Response:__ `string`| Retrieves the product name|
-| info.json length | `0x01 0x05` |  |<br>__Response:__ `u32`| Retrieves the length of info.json|
-| info.json | `0x01 0x06` |  |<br>__Request:__ `u16`<br>__Response:__ `u8[32]`| Retrieves a chunk of info.json|
+| Config Blob Length | `0x01 0x05` |  |<br>__Response:__ `u32`| Retrieves the length of the configuration data bundled within the firmware|
+| Config Blob Chunk | `0x01 0x06` |  |<br>__Request:__ `u16`<br>__Response:__ `u8[32]`| Retrieves a chunk of the configuration data bundled within the firmware|
 | Jump to bootloader | `0x01 0x07` | __Secure__ |<br>__Response:__ `u8`| Jump to bootloader<br><br>May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader|
-| info.json | `0x01 0x08` |  |<br>__Response:__ `u32[4]`| Retrieves a unique identifier for the board.|
+| Unique Identifier | `0x01 0x08` |  |<br>__Response:__ `u32[4]`| Retrieves a unique identifier for the board.|
 
 ### Keyboard - `0x02`
 This subsystem is always present, and reserved for user-specific functionality. No routes are defined by XAP.

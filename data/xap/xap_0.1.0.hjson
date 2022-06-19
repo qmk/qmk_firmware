@@ -296,21 +296,21 @@
                 }
                 0x05: {
                     type: command
-                    name: info.json length
-                    define: INFO_LEN_QUERY
-                    description: Retrieves the length of info.json
+                    name: Config Blob Length
+                    define: CONFIG_BLOB_LEN
+                    description: Retrieves the length of the configuration data bundled within the firmware
                     return_type: u32
-                    return_constant: INFO_JSON_GZ_LEN
+                    return_constant: CONFIG_BLOB_GZ_LEN
                 }
                 0x06: {
                     type: command
-                    name: info.json
-                    define: INFO_QUERY
-                    description: Retrieves a chunk of info.json
+                    name: Config Blob Chunk
+                    define: CONFIG_BLOB_CHUNK
+                    description: Retrieves a chunk of the configuration data bundled within the firmware
                     request_type: u16
                     request_purpose: offset
                     return_type: u8[32]
-                    return_execute: get_info_json_chunk
+                    return_execute: get_config_blob_chunk
                 }
                 0x07: {
                     type: command
@@ -332,7 +332,7 @@
                 }
                 0x08: {
                     type: command
-                    name: info.json
+                    name: Unique Identifier
                     define: HARDWARE_ID
                     description: Retrieves a unique identifier for the board.
                     return_type: u32[4]

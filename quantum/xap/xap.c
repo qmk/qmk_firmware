@@ -18,13 +18,13 @@
 #include <xap.h>
 #include "secure.h"
 
-#include "info_json_gz.h"
-bool get_info_json_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
-    if (offset + data_len > INFO_JSON_GZ_LEN) {
-        data_len = INFO_JSON_GZ_LEN - offset;
+#include "config_blob_gz.h"
+bool get_config_blob_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
+    if (offset + data_len > CONFIG_BLOB_GZ_LEN) {
+        data_len = CONFIG_BLOB_GZ_LEN - offset;
     }
 
-    memcpy_P(data, &info_json_gz[offset], data_len);
+    memcpy_P(data, &config_blob_gz[offset], data_len);
     return true;
 }
 

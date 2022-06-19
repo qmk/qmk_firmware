@@ -9,7 +9,7 @@ from qmk.commands import get_chunks, dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
-def generate_info(output_file, keyboard, keymap):
+def generate_blob(output_file, keyboard, keymap):
     # Build the info.json file
     km_info_json = keymap_json(keyboard, keymap)
 
@@ -33,9 +33,9 @@ def generate_info(output_file, keyboard, keymap):
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
 
     # Gen output file
-    lines.append('static const unsigned char info_json_gz[] PROGMEM = {')
+    lines.append('static const unsigned char config_blob_gz[] PROGMEM = {')
     lines.append(data)
     lines.append('};')
-    lines.append(f'#define INFO_JSON_GZ_LEN {data_len}')
+    lines.append(f'#define CONFIG_BLOB_GZ_LEN {data_len}')
 
     dump_lines(output_file, lines)

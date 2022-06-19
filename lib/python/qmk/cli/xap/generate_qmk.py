@@ -4,7 +4,7 @@ from milc import cli
 
 from qmk.path import normpath
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.xap.gen_firmware.info_generator import generate_info
+from qmk.xap.gen_firmware.blob_generator import generate_blob
 from qmk.xap.gen_firmware.inline_generator import generate_inline
 from qmk.xap.gen_firmware.header_generator import generate_header
 
@@ -52,9 +52,9 @@ def xap_generate_qmk_h(cli):
 @cli.argument('-o', '--output', type=normpath, help='File to write to')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Name of the keyboard')
 @cli.argument('-km', '--keymap', help='The keymap\'s name')
-@cli.subcommand('Generates the XAP info.json payload include.', hidden=False if cli.config.user.developer else True)
-def xap_generate_info_h(cli):
-    """Generates the XAP info.json payload header file, generated during normal build.
+@cli.subcommand('Generates the XAP config payload include.', hidden=False if cli.config.user.developer else True)
+def xap_generate_qmk_blob_h(cli):
+    """Generates the XAP config payload header file, generated during normal build.
     """
     # Determine our keyboard/keymap
     if not cli.args.keyboard:
@@ -66,4 +66,4 @@ def xap_generate_info_h(cli):
         cli.subcommands['xap-generate-info-h'].print_help()
         return False
 
-    generate_info(cli.args.output, cli.args.keyboard, cli.args.keymap)
+    generate_blob(cli.args.output, cli.args.keyboard, cli.args.keymap)

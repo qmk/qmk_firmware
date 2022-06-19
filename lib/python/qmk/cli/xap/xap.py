@@ -163,23 +163,23 @@ def _list_devices():
             print_dotted_output(data)
 
 
-def xap_dummy(device):
-    # get layer count
-    layers = _xap_transaction(device, 0x04, 0x01)
-    layers = int.from_bytes(layers, "little")
-    print(f'layers:{layers}')
+# def xap_dummy(device):
+#     # get layer count
+#     layers = _xap_transaction(device, 0x04, 0x00)
+#     layers = int.from_bytes(layers, "little")
+#     print(f'layers:{layers}')
 
-    # get keycode [layer:0, row:0, col:0]
-    # keycode = _xap_transaction(device, 0x04, 0x02, b"\x00\x00\x00")
+#     # get keycode [layer:0, row:0, col:0]
+#     # keycode = _xap_transaction(device, 0x04, 0x02, b"\x00\x00\x00")
 
-    # get encoder [layer:0, index:0, clockwise:0]
-    keycode = _xap_transaction(device, 0x05, 0x02, b"\x00\x00\x00")
+#     # get encoder [layer:0, index:0, clockwise:0]
+#     keycode = _xap_transaction(device, 0x04, 0x03, b"\x00\x00\x00")
 
-    keycode = int.from_bytes(keycode, "little")
-    print(f'keycode:{KEYCODE_MAP.get(keycode, "unknown")}[{keycode}]')
+#     keycode = int.from_bytes(keycode, "little")
+#     print(f'keycode:{KEYCODE_MAP.get(keycode, "unknown")}[{keycode}]')
 
-    # set encoder [layer:0, index:0, clockwise:0, keycode:KC_A]
-    _xap_transaction(device, 0x05, 0x03, b"\x00\x00\x00\x04\00")
+#     # set encoder [layer:0, index:0, clockwise:0, keycode:KC_A]
+#     _xap_transaction(device, 0x05, 0x03, b"\x00\x00\x00\x04\00")
 
 
 def xap_broadcast_listen(device):
