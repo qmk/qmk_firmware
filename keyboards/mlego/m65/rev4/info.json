@@ -24,7 +24,6 @@
         "num_lock": "B12",
         "scroll_lock": "B13"
     },
-    "keyboard_folder": "mlego/m65/rev4",
     "matrix_pins": {
         "cols": ["B14", "A8", "A10", "A15", "B3", "B4", "B5", "B7", "A1", "A2", "A3", "A4", "B1"],
         "rows": ["B10", "A5", "A6", "A7", "B0"]
