@@ -7,7 +7,10 @@ enum layer_names {
     SYMB,
     MATH,
     QWER,
-    FNLR
+    FNLR,
+    TINY,
+    FULL,
+    FULU
 };
 
 enum unicode_names {
@@ -207,6 +210,122 @@ enum unicode_names {
 	Gb,  // B:: Β
 	Gn,  // N:: Ν
 	Gm,  // M:: Μ
+    // ᵃ ᵇ ᶜ ᵈ ᵉ ᶠ ᵍ ʰ ⁱ ʲ ᵏ ˡ ᵐ ⁿ ᵒ ᵖ ʳ ˢ ᵗ ᵘ ᵛ ʷ ˣ ʸ ᶻ ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹
+    tone,  // 1:: ¹
+	ttwo,  // 2:: ²
+	tthree,  // 3:: ³
+	tfour,  // 4:: ⁴
+    tfive,  // 5:: ⁵
+	tsix,  // 6:: ⁶
+	tseven,  // 7:: ⁷
+	teight,  // 8:: ⁸
+	tnine,  // 9:: ⁹
+    tzero, //0 :: ⁰
+    tq,  // Q:: ۹
+	tw,  // W:: ʷ
+	te,  // E:: ᵉ
+	tr,  // R:: ʳ
+	tt,  // T:: ᵗ
+	ty,  // Y:: ʸ
+	tu,  // U:: ᵘ
+	ti,  // I:: ⁱ
+	to,  // O:: ᵒ
+	tp,  // P:: ᵖ
+	ta,  // A:: ᵃ
+	ts,  // S:: ˢ
+	td,  // D:: ᵈ
+	tf,  // F:: ᶠ
+	tg,  // G:: ᵍ
+	th,  // H:: ʰ
+	tj,  // J:: ʲ
+	tk,  // K:: ᵏ
+	tl,  // L:: ˡ
+	tz,  // Z:: ᶻ
+	tx,  // X:: ˣ
+	tc,  // C:: ᶜ
+	tv,  // V:: ᵛ
+	tb,  // B:: ᵇ
+	tn,  // N:: ⁿ
+	tm,  // M:: ᵐ
+    //Fullwitdth - note, these are *not* the monospace unicode code points.
+    //This is done to prevent something eating it and using a weird font, which,
+    //presumably, isn't desired if doing this.
+    fwone,  // 1:: １
+	fwtwo,  // 2:: ２
+	fwthree,  // 3:: ３
+	fwfour,  // 4:: ４
+    fwfive,  // 5:: ５
+	fwsix,  // 6:: ６
+	fwseven,  // 7:: ７
+	fweight,  // 8:: ８
+	fwnine,  // 9:: ９
+    fwzero, //0 :: ０
+    fwq,  // Q:: ｑ
+	fww,  // W:: ｗ
+	fwe,  // E:: ｅ
+	fwr,  // R:: ｒ
+	fwt,  // T:: ｔ
+	fwy,  // Y:: ｙ
+	fwu,  // U:: ｕ
+	fwi,  // I:: ｉ
+	fwo,  // O:: ｏ
+	fwp,  // P:: ｐ
+	fwa,  // A:: ａ
+	fws,  // S:: ｓ
+	fwd,  // D:: ｄ
+	fwf,  // F:: ｆ
+	fwg,  // G:: ｇ
+	fwh,  // H:: ｈ
+	fwj,  // J:: ｊ
+	fwk,  // K:: ｋ
+	fwl,  // L:: ｌ
+	fwz,  // Z:: ｚ
+	fwx,  // X:: ｘ
+	fwc,  // C:: ｃ
+	fwv,  // V:: ｖ
+	fwb,  // B:: ｂ
+	fwn,  // N:: ｎ
+	fwm,  // M:: ｍ
+    // Full width caps + fractions, and a few extra symbols that lack a better place
+    Fwone,  // 1:: ¼
+	Fwtwo,  // 2:: ½
+	Fwthree,  // 3:: ¾
+	Fwfour,  // 4:: ⅓
+    Fwfive,  // 5:: ⅔
+	Fwsix,  // 6:: ⅕
+	Fwseven,  // 7:: ⅛
+	Fweight,  // 8:: 𝒳
+	Fwnine,  // 9:: 𝒴
+    Fwzero, //0 :: 𝒵
+    Fwq,  // Q:: Ｑ
+	Fww,  // W:: Ｗ
+	Fwe,  // E:: Ｅ
+	Fwr,  // R:: Ｒ
+	Fwt,  // T:: Ｔ
+	Fwy,  // Y:: Ｙ
+	Fwu,  // U:: Ｕ
+	Fwi,  // I:: Ｉ
+	Fwo,  // O:: Ｏ
+	Fwp,  // P:: Ｐ
+	Fwa,  // A:: Ａ
+	Fws,  // S:: Ｓ
+	Fwd,  // D:: Ｄ
+	Fwf,  // F:: Ｆ
+	Fwg,  // G:: Ｇ
+	Fwh,  // H:: Ｈ
+	Fwj,  // J:: Ｊ
+	Fwk,  // K:: Ｋ
+	Fwl,  // L:: Ｌ
+	Fwz,  // Z:: Ｚ
+	Fwx,  // X:: Ｘ
+	Fwc,  // C:: Ｃ
+	Fwv,  // V:: Ｖ
+	Fwb,  // B:: Ｂ
+	Fwn,  // N:: Ｎ
+	Fwm,  // M:: Ｍ
+    nbsp, // You know what this is &nbsp;
+    ibang, //‽
+    nullpic, // Null picture - ␀
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -368,16 +487,16 @@ const uint32_t PROGMEM unicode_map[] = {
 	[gn] = 0x03BD,  // n:: ν
 	[gm] = 0x03BC,  // m:: μ
   //GREEKU
-	[Rone] = 0x2160,  // 1:: Ⅰ
-	[Rtwo] = 0x2161,  // 2:: Ⅱ
-	[Rthree] = 0x2162,  // 3:: Ⅲ
-	[Rfour] = 0x2163,  // 4:: Ⅳ
-	[Rfive] = 0x2164,  // 5:: Ⅴ
-	[Rsix] = 0x2165,  // 6:: Ⅵ
-	[Rseven] = 0x2166,  // 7:: Ⅶ
-	[Reight] = 0x2167,  // 8:: Ⅷ
-	[Rnine] = 0x2168,  // 9:: Ⅸ
-	[Rten] = 0x2169,  // 0:: Ⅹ
+	[Rone] =    0x2160,  // 1:: Ⅰ
+	[Rtwo] =    0x2161,  // 2:: Ⅱ
+	[Rthree] =  0x2162,  // 3:: Ⅲ
+	[Rfour] =   0x2163,  // 4:: Ⅳ
+	[Rfive] =   0x2164,  // 5:: Ⅴ
+	[Rsix] =    0x2165,  // 6:: Ⅵ
+	[Rseven] =  0x2166,  // 7:: Ⅶ
+	[Reight] =  0x2167,  // 8:: Ⅷ
+	[Rnine] =   0x2168,  // 9:: Ⅸ
+	[Rten] =    0x2169,  // 0:: Ⅹ
 	[Gq] = 0x0398,  // Q:: Θ
 	[Gw] = 0x03A9,  // W:: Ω
 	[Ge] = 0x0395,  // E:: Ε
@@ -404,6 +523,117 @@ const uint32_t PROGMEM unicode_map[] = {
 	[Gb] = 0x0392,  // B:: Β
 	[Gn] = 0x039D,  // N:: Ν
 	[Gm] = 0x039C,  // M:: Μ
+
+    [tone] =    0x00B9,  // 1:: ¹
+	[ttwo] =    0x00B2,  // 2:: ²
+	[tthree] =  0x00B3,  // 3:: ³
+	[tfour] =   0x2074,  // 4:: ⁴
+    [tfive] =   0x2075,  // 5:: ⁵
+	[tsix] =    0x2076,  // 6:: ⁶
+	[tseven] =  0x2077,  // 7:: ⁷
+	[teight] =  0x2078,  // 8:: ⁸
+	[tnine] =   0x2079,  // 9:: ⁹
+    [tzero] =   0x2070, //0 :: ⁰
+    [tq] = 0x06F9,  // Q:: ۹ - superscript q doesn't exist.
+	[tw] = 0x02B7,  // W:: ʷ
+	[te] = 0x1D49,  // E:: ᵉ
+	[tr] = 0x02B3,  // R:: ʳ
+	[tt] = 0x1D57,  // T:: ᵗ
+	[ty] = 0x02B8,  // Y:: ʸ
+	[tu] = 0x1D58,  // U:: ᵘ
+	[ti] = 0x2071,  // I:: ⁱ
+	[to] = 0x1D52,  // O:: ᵒ
+	[tp] = 0x1D56,  // P:: ᵖ
+	[ta] = 0x1D43,  // A:: ᵃ
+	[ts] = 0x02E2,  // S:: ˢ
+	[td] = 0x1D48,  // D:: ᵈ
+	[tf] = 0x1DA0,  // F:: ᶠ
+	[tg] = 0x1D4D,  // G:: ᵍ
+	[th] = 0x02B0,  // H:: ʰ
+	[tj] = 0x02B2,  // J:: ʲ
+	[tk] = 0x1D4F,  // K:: ᵏ
+	[tl] = 0x02E1,  // L:: ˡ
+	[tz] = 0x1DBB,  // Z:: ᶻ
+	[tx] = 0x02E3,  // X:: ˣ
+	[tc] = 0x1D9C,  // C:: ᶜ
+	[tv] = 0x1D5B,  // V:: ᵛ
+	[tb] = 0x1D47,  // B:: ᵇ
+	[tn] = 0x207F, // N:: ⁿ
+	[tm] = 0x1D50,  // M:: ᵐ
+
+    [fwone] = 0xFF11,  // 1:: １
+	[fwtwo] = 0xFF12,  // 2:: ２
+	[fwthree] = 0xFF13,  // 3:: ３
+	[fwfour] = 0xFF14,  // 4:: ４
+    [fwfive] = 0xFF15,  // 5:: ５
+	[fwsix] = 0xFF16,  // 6:: ６
+	[fwseven] = 0xFF17,  // 7:: ７
+	[fweight] = 0xFF18,  // 8:: ８
+	[fwnine] = 0xFF19,  // 9:: ９
+    [fwzero] = 0xFF10, //0 :: ０
+    [fwq] = 0xFF51,  // Q:: ｑ
+	[fww] = 0xFF57,  // W:: ｗ
+	[fwe] = 0xFF45,  // E:: ｅ
+	[fwr] = 0xFF52,  // R:: ｒ
+	[fwt] = 0xFF54,  // T:: ｔ
+	[fwy] = 0xFF59,  // Y:: ｙ
+	[fwu] = 0xFF55,  // U:: ｕ
+	[fwi] = 0xFF49,  // I:: ｉ
+	[fwo] = 0xFF4F,  // O:: ｏ
+	[fwp] = 0xFF50,  // P:: ｐ
+	[fwa] = 0xFF41,  // A:: ａ
+	[fws] = 0xFF53,  // S:: ｓ
+	[fwd] = 0xFF44,  // D:: ｄ
+	[fwf] = 0xFF46,  // F:: ｆ
+	[fwg] = 0xFF47,  // G:: ｇ
+	[fwh] = 0xFF48,  // H:: ｈ
+	[fwj] = 0xFF4A,  // J:: ｊ
+	[fwk] = 0xFF4B,  // K:: ｋ
+	[fwl] = 0xFF4C,  // L:: ｌ
+	[fwz] = 0xFF5A,  // Z:: ｚ
+	[fwx] = 0xFF58,  // X:: ｘ
+	[fwc] = 0xFF43,  // C:: ｃ
+	[fwv] = 0xFF56,  // V:: ｖ
+	[fwb] = 0xFF42,  // B:: ｂ
+	[fwn] = 0xFF4E,  // N:: ｎ
+	[fwm] = 0xFF4D,  // M:: ｍ
+    // Full width caps + fractions, and a few extra symbols that lack a better place
+    [Fwone] = 0x00BC,  // 1:: ¼
+	[Fwtwo] = 0x00BD,  // 2:: ½
+	[Fwthree] = 0x00BE,  // 3:: ¾
+	[Fwfour] = 0x2153,  // 4:: ⅓
+    [Fwfive] = 0x2154,  // 5:: ⅔
+	[Fwsix] = 0x2155,  // 6:: ⅕
+	[Fwseven] = 0x215B,  // 7:: ⅛
+	[Fweight] = 0x00A0,  // 8:: &nbsp
+	[Fwnine] = 0x203D,  // 9:: ibang ‽
+    [Fwzero] = 0x2400, //0 :: nullpic ␀
+    [Fwq] = 0xFF31,  // Q:: Ｑ
+	[Fww] = 0xFF37,  // W:: Ｗ
+	[Fwe] = 0xFF25,  // E:: Ｅ
+	[Fwr] = 0xFF32,  // R:: Ｒ
+	[Fwt] = 0xFF34,  // T:: Ｔ
+	[Fwy] = 0xFF39,  // Y:: Ｙ
+	[Fwu] = 0xFF35,  // U:: Ｕ
+	[Fwi] = 0xFF29,  // I:: Ｉ
+	[Fwo] = 0xFF2F,  // O:: Ｏ
+	[Fwp] = 0xFF30,  // P:: Ｐ
+	[Fwa] = 0xFF21,  // A:: Ａ
+	[Fws] = 0xFF33,  // S:: Ｓ
+	[Fwd] = 0xFF24,  // D:: Ｄ
+	[Fwf] = 0xFF26,  // F:: Ｆ
+	[Fwg] = 0xFF27,  // G:: Ｇ
+	[Fwh] = 0xFF28,  // H:: Ｈ
+	[Fwj] = 0xFF2A,  // J:: Ｊ
+	[Fwk] = 0xFF2B,  // K:: Ｋ
+	[Fwl] = 0xFF2C,  // L:: Ｌ
+	[Fwz] = 0xFF3A,  // Z:: Ｚ
+	[Fwx] = 0xFF38,  // X:: Ｘ
+	[Fwc] = 0xFF23,  // C:: Ｃ
+	[Fwv] = 0xFF36,  // V:: Ｖ
+	[Fwb] = 0xFF22,  // B:: Ｂ
+	[Fwn] = 0xFF2E,  // N:: Ｎ
+	[Fwm] = 0xFF2D,  // M:: Ｍ
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -428,8 +658,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
        UC_M_LN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
        UC_M_WC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
-       KC_NO,KC_F21, KC_F22, KC_F23,KC_F24, KC_NO,
-       KC_NO,KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
+       TO(TINY),KC_F21, KC_F22, KC_F23,KC_F24, MAGIC_TOGGLE_NKRO,
+       TO(FULL),KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
           EEP_RST,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
                                        KC_NO,KC_NO,
                                                KC_NO,
@@ -521,6 +751,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_PGUP, X(Gf), X(Gg), X(Gc), X(Gr), X(Gl), KC_EQL,
 	X(Gd), X(Gh), X(Gt), X(Gn), X(Gs), KC_MINS,
 	KC_PGDN, X(Gb), X(Gm), X(Gw), X(Gv), X(Gz), KC_TRNS,
+	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
+	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
+),
+
+[TINY] = LAYOUT_ergodox(
+	KC_ESC, X(tone), X(ttwo), X(tthree), X(tfour), X(tfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(tp), X(ty), KC_SLSH,
+	KC_SLSH, X(ta), X(to), X(te), X(tu), X(ti),
+	KC_TRNS, KC_SCLN, X(tq), X(tj), X(tk), X(tx), KC_AMPR,
+	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
+	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
+
+	TO(BASE), X(tsix), X(tseven), X(teight), X(tnine), X(tzero), KC_BSPC,
+	KC_PGUP, X(tf), X(tg), X(tc), X(tr), X(tl), KC_EQL,
+	X(td), X(th), X(tt), X(tn), X(ts), KC_MINS,
+	KC_PGDN, X(tb), X(tm), X(tw), X(tv), X(tz), KC_TRNS,
+	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
+	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
+),
+
+[FULL] = LAYOUT_ergodox(
+	KC_ESC, X(fwone), X(fwtwo), X(fwthree), X(fwfour), X(fwfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(fwp), X(fwy), KC_SLSH,
+	KC_SLSH, X(fwa), X(fwo), X(fwe), X(fwu), X(fwi),
+	MO(FULU), KC_SCLN, X(fwq), X(fwj), X(fwk), X(fwx), KC_AMPR,
+	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
+	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
+
+	TO(BASE), X(fwsix), X(fwseven), X(fweight), X(fwnine), X(fwzero), KC_BSPC,
+	KC_PGUP, X(fwf), X(fwg), X(fwc), X(fwr), X(fwl), KC_EQL,
+	X(fwd), X(fwh), X(fwt), X(fwn), X(fws), KC_MINS,
+	KC_PGDN, X(fwb), X(fwm), X(fww), X(fwv), X(fwz), MO(FULU),
+	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
+	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
+),
+
+[FULU] = LAYOUT_ergodox(
+	KC_ESC, X(Fwone), X(Fwtwo), X(Fwthree), X(Fwfour), X(Fwfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(Fwp), X(Fwy), KC_SLSH,
+	KC_SLSH, X(Fwa), X(Fwo), X(Fwe), X(Fwu), X(Fwi),
+	KC_TRNS, KC_SCLN, X(Fwq), X(Fwj), X(Fwk), X(Fwx), KC_AMPR,
+	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
+	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
+
+	TO(BASE), X(Fwsix), X(Fwseven), X(Fweight), X(Fwnine), X(Fwzero), KC_BSPC,
+	KC_PGUP, X(Fwf), X(Fwg), X(Fwc), X(Fwr), X(Fwl), KC_EQL,
+	X(Fwd), X(Fwh), X(Fwt), X(Fwn), X(Fws), KC_MINS,
+	KC_PGDN, X(Fwb), X(Fwm), X(Fww), X(Fwv), X(Fwz), KC_TRNS,
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
