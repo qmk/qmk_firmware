@@ -51,9 +51,6 @@
 #define ENCODER_RESOLUTION 2
 
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 /* RGB pin */
 #define RGB_DI_PIN D4
 #ifdef RGB_DI_PIN
@@ -82,8 +79,6 @@
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 230
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
