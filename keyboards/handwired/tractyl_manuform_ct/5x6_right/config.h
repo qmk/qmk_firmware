@@ -64,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // audio - takes up a lot of memory
-//#define AUDIO_PIN F4
+// #define AUDIO_PIN F4
 // As per docs, must be one of the PWM pins: C4, C5, C6, B5, B6, B7
 
 #ifdef POINTING_DEVICE_ENABLE    
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_DI_PIN D3
     #define RGBLED_NUM 57  // Total number of LEDs
     #define DRIVER_LED_TOTAL RGBLED_NUM // some other code uses driver-led-total
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 90 // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80 // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
     #define RGB_MATRIX_SPLIT { 27, 30} // led count; left, right
 #endif
 

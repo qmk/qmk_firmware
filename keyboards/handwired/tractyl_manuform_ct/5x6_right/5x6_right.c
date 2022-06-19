@@ -301,11 +301,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             break;
         case DRAGSCROLL_MODE_TOGGLE:
             if (record->event.pressed) {
-                //rgb_matrix_set_color_all(0, 90, 0);
+                //set led to color based on dragscroll enabled state
                 #ifdef CONSOLE_ENABLE
                     debug_enable = true;
-                    dprintf("dragscroll mode toggled");
-                    print("testing output");
+                    dprintf("DEBUG dragscroll mode toggled \n");
                     debug_charybdis_config_to_console(&g_charybdis_config);
                 #endif
                 charybdis_set_pointer_dragscroll_enabled(!charybdis_get_pointer_dragscroll_enabled());

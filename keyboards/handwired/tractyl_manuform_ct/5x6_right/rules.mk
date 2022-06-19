@@ -4,13 +4,14 @@ MCU 					= atmega32u4	# MCU name
 BOOTLOADER 				= atmel-dfu		# Bootloader selection
 
 # Functionality options
-CONSOLE_ENABLE			= no        # Debugging things
+CONSOLE_ENABLE			= no        # Debugging things, takes up flash dependent of what you have turned on; w. rgb, 4.8k, w/o rgb, 2.7k
 MOUSEKEY_ENABLE 		= yes       # Mouse keys
-EXTRAKEY_ENABLE 		= yes       # Audio control and System control
+EXTRAKEY_ENABLE 		= yes       # Audio control and System control, 400 bytes
 NKRO_ENABLE 			= no 		# saves 300 bytes when no, trying to keep it off       # Enable N-Key Rollover
 TAP_DANCE_ENABLE        = no		# temp disabling for troubleshooting
 
-# LED config
+# LED config - rgb matrix uses 3.8k of flash
+# to toggle rgb, set both to yes or no
 RGB_MATRIX_ENABLE 		= yes # this to 'no' didn't turn off the custom colours; rgb_matrix:yes/custom_rgb:no = no custom colours
 CUSTOM_RGB_MATRIX       = yes # this to 'no' turned everything off
 RGB_MATRIX_DRIVER 		= WS2812
