@@ -97,8 +97,8 @@ layer_state_t                       default_layer_state_set_user(layer_state_t s
 } // end layer_state_t - default_layer_state_set_user
 
 // not sure what this does...
-__attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
-void                       led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }
+//__attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
+//void                       led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }
 
 // this does something w. eeprom??
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
@@ -113,10 +113,6 @@ void                       eeconfig_init_user(void) {
 #ifdef SPLIT_KEYBOARD
 __attribute__((weak)) void matrix_slave_scan_keymap(void) {}
 void                       matrix_slave_scan_user(void) {
-#    ifdef LED_MATRIX_ENABLE
-    led_matrix_task();
-#    endif
-
     // if we have custom rgb matrix, call this function during the matrix scan
 #    ifdef RGB_MATRIX_ENABLE
     matrix_scan_rgb_matrix();

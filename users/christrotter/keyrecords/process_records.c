@@ -37,9 +37,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CUSTOM_RGB_MATRIX
           && process_record_user_rgb_matrix(keycode, record)
 #endif
-#ifdef CUSTOM_UNICODE_ENABLE
-          && process_record_unicode(keycode, record)
-#endif
 #if defined(CUSTOM_POINTING_DEVICE)
           && process_record_pointing(keycode, record)
 #endif

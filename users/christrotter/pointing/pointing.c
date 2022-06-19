@@ -13,11 +13,6 @@ static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
 bool            tap_toggling = false, enable_acceleration = false;
 
-// TODO pull all config out to a central place, it's confusing trying to remember where config lives
-#define KEEP_MOUSE_LAYER_ON_FOR 800 // inactivity while on mouse layer, in ms
-#define AUTO_MOUSE_LAYER_DELAY 3    // xy value threshold
-#define TAP_CHECK TAPPING_TERM
-
 __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {
     return mouse_report;
 }
@@ -36,6 +31,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
             mouse_report.x = x;
             mouse_report.y = y;
             if (!layer_state_is(_MOUSE)) {
+                // this is the secret sauce that allows you to adjust sensitivity, rather than the faintest breeze turning the tb on
                 if (x > AUTO_MOUSE_LAYER_DELAY || y > AUTO_MOUSE_LAYER_DELAY) {
                     layer_on(_MOUSE);
                 }

@@ -8,11 +8,6 @@
 #    include <avr/wdt.h>
 #endif
 
-#ifdef UNICODE_COMMON_ENABLE
-#    include "process_unicode_common.h"
-extern unicode_config_t unicode_config;
-#endif
-
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform_ct)
 extern bool tap_toggling;
 #endif
@@ -23,7 +18,7 @@ static uint32_t watchdog_timer     = 0;
 #endif
 
 extern userspace_config_t userspace_config;
-extern bool               host_driver_disabled;
+//extern bool               host_driver_disabled;
 
 uint16_t transport_keymap_config    = 0;
 uint32_t transport_userspace_config = 0, transport_user_state = 0;
@@ -72,29 +67,18 @@ void user_transport_update(void) {
 #if defined(CUSTOM_POINTING_DEVICE)
         user_state.tap_toggling = tap_toggling;
 #endif
-#ifdef UNICODE_COMMON_ENABLE
-        user_state.unicode_mode = unicode_config.input_mode;
-#endif
-#ifdef SWAP_HANDS_ENABLE
-        user_state.swap_hands = swap_hands;
-#endif
-        user_state.host_driver_disabled = host_driver_disabled;
+        //user_state.host_driver_disabled = host_driver_disabled;
 
         transport_user_state = user_state.raw;
     } else {
         keymap_config.raw    = transport_keymap_config;
         userspace_config.raw = transport_userspace_config;
         user_state.raw       = transport_user_state;
-#ifdef UNICODE_COMMON_ENABLE
-        unicode_config.input_mode = user_state.unicode_mode;
-#endif
+
 #if defined(CUSTOM_POINTING_DEVICE)
         tap_toggling = user_state.tap_toggling;
 #endif
-#ifdef SWAP_HANDS_ENABLE
-        swap_hands = user_state.swap_hands;
-#endif
-        host_driver_disabled = user_state.host_driver_disabled;
+        //host_driver_disabled = user_state.host_driver_disabled;
     }
 }
 

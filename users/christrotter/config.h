@@ -19,26 +19,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+// this stuff took up several percent
+//#ifndef ONESHOT_TAP_TOGGLE
+//#    define ONESHOT_TAP_TOGGLE 2
+//#endif  // !ONESHOT_TAP_TOGGLE
 
-#ifndef ONESHOT_TAP_TOGGLE
-#    define ONESHOT_TAP_TOGGLE 2
-#endif  // !ONESHOT_TAP_TOGGLE
+//#ifndef ONESHOT_TIMEOUT
+//#    define ONESHOT_TIMEOUT 3000
+//#endif  // !ONESHOT_TIMEOUT
 
-#ifndef ONESHOT_TIMEOUT
-#    define ONESHOT_TIMEOUT 3000
-#endif  // !ONESHOT_TIMEOUT
-
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-#define PERMISSIVE_HOLD_PER_KEY
-#define TAPPING_FORCE_HOLD_PER_KEY
-#define RETRO_TAPPING_PER_KEY
+//#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+//#define PERMISSIVE_HOLD_PER_KEY
+//#define TAPPING_FORCE_HOLD_PER_KEY
+//#define RETRO_TAPPING_PER_KEY
 //#define TAPPING_TERM_PER_KEY
 
-#ifndef TAPPING_TOGGLE
-#    define TAPPING_TOGGLE 1
-#endif
-
-#define TAP_CODE_DELAY 5
+//#ifndef TAPPING_TOGGLE
+//#    define TAPPING_TOGGLE 1
+//#endif
+//
+//#define TAP_CODE_DELAY 5
 
 // putting all the rgb disables here
 #ifdef RGB_MATRIX_ENABLE
@@ -95,5 +95,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #    undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
 
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #endif      // RGB_MATRIX_ENABLE

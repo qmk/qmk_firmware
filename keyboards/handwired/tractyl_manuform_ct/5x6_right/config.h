@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // keyboard config
 // this is how long 'hold for effect' takes; 300 feels way too long, 200 causes too many accidental triggers
 #define TAPPING_TERM 250
+#define TAP_CHECK TAPPING_TERM
 #define DEBOUNCE 5 // trying this down from 45, apparently can contribute to input lag
 
 // Split settings
@@ -76,7 +77,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1 // Not sure what this does...
     #define CHARYBDIS_MINIMUM_DEFAULT_DPI PMW3360_CPI // the drag-scroll code uses this to maintain DPI/CPI between modes
 //  #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
-
+    #define KEEP_MOUSE_LAYER_ON_FOR 800 // inactivity while on mouse layer, in ms
+    #define AUTO_MOUSE_LAYER_DELAY 3    // xy value threshold
 #endif
 
 // WS2812 RGB LED strip input and number of LEDs
