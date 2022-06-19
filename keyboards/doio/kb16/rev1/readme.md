@@ -1,6 +1,8 @@
 # KB16-01
 
-40% Alice handwired keyboard, using Pro Micro. Collab with Lemon (maker name) for helping him writing firmware.
+![KB16-01](https://i.imgur.com/lpq47ELh.png)
+
+A macropad that have 16-key keyboard made by DOIO, which controlled by an Atmega32u4 chipset. The keyboard features per-key RGB, 3 encoder and an OLED screen for displaying useful information.
 
 * Keyboard Maintainer: [HorrorTroll](https://github.com/HorrorTroll)
 * Hardware Supported: Atmega32u4
