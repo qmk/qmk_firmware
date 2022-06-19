@@ -4,14 +4,6 @@
 /* expand macro test command
 gcc --include testconfig.h  -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c | sed '1,/^..-expand-start-/d'
 */
-#define USE_INPUT_PORT_CHARGE
-
-enum DEVICE_NAME {
-    MCU_GPIO,
-#ifdef MATRIX_DEVICES
-    MATRIX_DEVICES
-#endif
-};
 
 #ifndef DEBUG_UART_LOG
 #    define DEBUG_UART_LOG_INIT(x)
@@ -75,6 +67,18 @@ enum DEVICE_NAME {
 #else
 #    define NUM_SIDE 1
 #endif
+
+#ifdef MATRIX_EXTENSION_74HC157
+#    define MATRIX_DEVICES MCU_GPIO_74HC157_A, MCU_GPIO_74HC157_B
+#    define IS_74HC157(dev) ((dev)==MCU_GPIO_74HC157_A || (dev)==MCU_GPIO_74HC157_B)
+#endif
+
+enum DEVICE_NAME {
+    MCU_GPIO,
+#ifdef MATRIX_DEVICES
+    MATRIX_DEVICES
+#endif
+};
 
 #ifndef CPP_EXPAND_TEST
 #    include "print.h"
@@ -140,7 +144,7 @@ enum DEVICE_NAME {
 typedef struct _port_list_element_t {
     pin_t       port;
     port_data_t mask;
-    uint16_t    dev;
+    uint8_t     dev;
 } port_list_element_t;
 
 typedef struct _pin_list_element_t {
@@ -230,12 +234,35 @@ static void InputPortCharge(pin_t port, port_data_t mask) {
     setPortBunchInputHigh(port, mask); // set input mode with pull-up
 }
 
+#ifdef MATRIX_EXTENSION_74HC157
+ALWAYS_INLINE
+static void select74HC157(uint8_t devid) {
+    writePin(MATRIX_EXTENSION_74HC157, devid&1);
+}
+
+ALWAYS_INLINE
+static port_data_t readPortMultiplexer(uint8_t devid, pin_t port) {
+    select74HC157(devid);
+    waitInputPinDelay();
+    return readPort(port);
+}
+
+#    define readMatrixPort(dev, port) \
+        ((dev) == MCU_GPIO)? readPort(port): (IS_74HC157(dev))? readPortMultiplexer((dev)-MCU_GPIO_74HC157_A, port):0
+
+#else
+
+#    define readMatrixPort(dev, port) \
+        readPort(port)
+#endif
+
+
 #define GEN_ALL_INPUT_HIGH(SIDE,INDEX,PORT) setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
 #define GEN_ALL_INPUT_CHARGE(SIDE,INDEX,PORT) InputPortCharge(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
 #define GEN_CASE_WRITE_LOW(SIDE,INDEX,PIN) case INDEX: writeOutputPortBunch_Low(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
 #define GEN_CASE_WRITE_HIGH_Z(SIDE,INDEX,PIN) case INDEX: writeOutputPortBunch_High_Z(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
 #define GEN_ALL_WITE_HIGHT_Z(SIDE,INDEX,PORT) writeOutputPortBunch_High_Z(minfo[SIDE].oports[INDEX].port, minfo[SIDE].oports[INDEX].mask);
-#define GEN_READ_PORT(SIDE,INDEX,PORT) buffer[INDEX] = readPort(minfo[SIDE].iports[INDEX].port);
+#define GEN_READ_PORT(SIDE,INDEX,PORT) buffer[INDEX] = readMatrixPort(minfo[SIDE].iports[INDEX].dev,minfo[SIDE].iports[INDEX].port);
 #define GEN_ALL_MASK_ADJUST(SIDE,INDEX,PORT) data = mask_and_adjust_a_port(*buffer, minfo[SIDE].iports[INDEX].mask);  keypushd |= data;  *buffer++ = data;
 #define GEN_BUILD(SIDE,INDEX,PIN) | (buffer[minfo[SIDE].ipins[INDEX].pindex] & minfo[SIDE].ipins[INDEX].smask ? minfo[SIDE].ipins[INDEX].dmask : 0)
 
@@ -254,6 +281,10 @@ static void init_all_input_pins_0(void) {
         // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
         MAP_INDEX(GEN_ALL_INPUT_HIGH_0,INPUT_PORTS_0)
     }
+#ifdef MATRIX_EXTENSION_74HC157
+    setPinOutput(MATRIX_EXTENSION_74HC157);
+    writePinLow(MATRIX_EXTENSION_74HC157);
+#endif
 }
 
 //ALWAYS_INLINE
@@ -356,6 +387,10 @@ static void init_all_input_pins_1(void) {
         // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
         MAP_INDEX(GEN_ALL_INPUT_HIGH_1,INPUT_PORTS_1)
     }
+#ifdef MATRIX_EXTENSION_74HC157
+    setPinOutput(MATRIX_EXTENSION_74HC157);
+    writePinLow(MATRIX_EXTENSION_74HC157);
+#endif
 }
 
 //ALWAYS_INLINE
