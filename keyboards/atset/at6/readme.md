@@ -4,7 +4,7 @@ A special 6 key keyboard powered by QMK.
 
 * Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
 * Hardware Supported: ATmega32U4
-Hardware Availability: Interest Check
+* Hardware Availability: Interest Check
 
 Make example for this keyboard (after setting up your build environment):
 
