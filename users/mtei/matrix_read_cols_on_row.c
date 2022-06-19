@@ -6,6 +6,13 @@ gcc --include testconfig.h  -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c | 
 */
 #define USE_INPUT_PORT_CHARGE
 
+enum DEVICE_NAME {
+    MCU_GPIO,
+#ifdef MATRIX_DEVICES
+    MATRIX_DEVICES
+#endif
+};
+
 #ifndef DEBUG_UART_LOG
 #    define DEBUG_UART_LOG_INIT(x)
 #    define DEBUG_UART_LOG(x)

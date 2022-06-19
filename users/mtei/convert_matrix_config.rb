@@ -12,8 +12,12 @@ end
 conf = `gcc -dM -E #{ARGV[0]} 2> /tmp/err | grep \"define MATRIX_\" `.split("\n")
 col_pins = nil
 col_pins_right = nil
+col_pins_ext = nil
+col_pins_ext_right = nil
 row_pins = nil
 row_pins_right = nil
+row_pins_ext = nil
+row_pins_ext_right = nil
 conf.each {|c|
   if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS[ \t]*{(.*)}/ =~ c
     col_pins = $1
@@ -21,63 +25,118 @@ conf.each {|c|
   if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS_RIGHT[ \t]*{(.*)}/ =~ c
     col_pins_right = $1
   end
+  if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS_EXTEND[ \t]*(.*)/ =~ c
+    col_pins_ext = $1
+  end
+  if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS_EXTEND_RIGHT[ \t]*(.*)/ =~ c
+    col_pins_ext_right = $1
+  end
   if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS[ \t]*{(.*)}/ =~ c
     row_pins = $1
   end
   if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS_RIGHT[ \t]*{(.*)}/ =~ c
     row_pins_right = $1
   end
+  if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS_EXTEND[ \t]*(.*)/ =~ c
+    row_pins_ext = $1
+  end
+  if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS_EXTEND_RIGHT[ \t]*(.*)/ =~ c
+    row_pins_ext_right = $1
+  end
 }
 
 #------ make port & pin list
 def build_port_pin_list(pins)
+  # p pins
+  #    if source data is '#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }'
+  # example: pins = " F4, F5, F6, F7, B1, B3, B2 "
   pin_number = 0
   raw_list = pins.split(",").map{|pin| pin.strip}.map{|pin|
     /([A-Z])([0-9]*)/ =~ pin.strip;
     port = $1+"0"
     mask = (1<<$2.to_i)
     pin_number += 1
-    [port, mask, (1<<(pin_number - 1))]
+    ["MCU_GPIO", port, mask, (1<<(pin_number - 1))]
   }
   # p raw_list
-  # example: raw_list = [["F0", 16, 1], ["F0", 32, 2], ["F0", 64, 4], ["F0", 128, 8], ["B0", 2, 16], ["B0", 8, 32], ["B0", 4, 64]]
+  # example: raw_list = [["MCU_GPIO", "F0", 16, 1], ["MCU_GPIO", "F0", 32, 2], ["MCU_GPIO", "F0", 64, 4], ["MCU_GPIO", "F0", 128, 8], ["MCU_GPIO", "B0", 2, 16], ["MCU_GPIO", "B0", 8, 32], ["MCU_GPIO", "B0", 4, 64]]
+   build_port_pin_list_sub(raw_list)
+end
+
+def build_port_pin_list_ext(pins)
+  # p pins
+  #   if source data is
+  #      '#define MATRIX_COL_PINS_EXTEND \
+  #          (MCU_GPIO, F0, 4), (MCU_GPIO, F0,5 ), (MCU_GPIO, F0,6 ), \
+  #          (MCU_GPIO, F0, 7), (MCU_GPIO, B0, 1), (MCU_GPIO, B0, 3), (MCU_GPIO, B0, 2)'
+  # example: pins = "(MCU_GPIO, F0, 4), (MCU_GPIO, F0,5 ), (MCU_GPIO, F0,6 ), (MCU_GPIO, F0, 7), (MCU_GPIO, B0, 1), (MCU_GPIO, B0, 3), (MCU_GPIO, B0, 2)"
+  pin_number = 0
+  sepalate_pins = pins.split(/\)[ ]*,[ ]*\(/).map { |pin|
+    pin.sub("(","").sub(")","").strip
+  }
+  raw_list = sepalate_pins.map{|pin|
+    pin = pin.split(",")
+    dev = pin[0].strip
+    port = pin[1].strip
+    mask = (1<<pin[2].to_i)
+    pin_number += 1
+    [dev, port, mask, (1<<(pin_number - 1))]
+  }
+  # p raw_list
+  # example: raw_list = [["MCU_GPIO", "F0", 16, 1], ["MCU_GPIO", "F0", 32, 2], ["MCU_GPIO", "F0", 64, 4], ["MCU_GPIO", "F0", 128, 8], ["MCU_GPIO", "B0", 2, 16], ["MCU_GPIO", "B0", 8, 32], ["MCU_GPIO", "B0", 4, 64]]
+   build_port_pin_list_sub(raw_list)
+end
+
+def build_port_pin_list_sub(raw_list)
+  #### build ports list ####
   port_num = 0;
   ports = {}
   raw_list.each {|pin|
-    if ports[pin[0]] == nil
-      ports[pin[0]] = [ port_num, 0 ]
+    if ports[pin[0..1]] == nil
+      ports[pin[0..1]] = [ port_num, 0 ]
       port_num += 1
     end
-    ports[pin[0]][1] |= pin[1] # build port mask
+    ports[pin[0..1]][1] |= pin[2] # build port mask
   }
   # p ports
-  # example: ports = {"F0"=>[0, 240], "B0"=>[1, 14]}
+  # example: ports = {["MCU_GPIO", "F0"]=>[0, 240], ["MCU_GPIO", "B0"]=>[1, 14]}
   ports.each {|port|
      port[1][1] = sprintf("0x%02x", port[1][1])
   }
   # p ports
-  # example: port_list = {"F0"=>[0, "0xf0"], "B0"=>[1, "0xe"]}
-  pins = raw_list.map {|pin| [ ports[pin[0]][0], sprintf("0x%02x",pin[1]), sprintf("0x%02x",pin[2]) ] }
+  # example: port_list = {["MCU_GPIO", "F0"]=>[0, "0xf0"], ["MCU_GPIO", "B0"]=>[1, "0x0e"]}
+  #### build pins list ####
+  pins = raw_list.map {|pin| [ ports[pin[0..1]][0], sprintf("0x%02x",pin[2]), sprintf("0x%02x",pin[3]) ] }
   # p pins
   # example: pins = [[0, "0x10", "0x1"], [0, "0x20", "0x2"], [0, "0x40", "0x4"], [0, "0x80", "0x8"], [1, "0x2", "0x10"], [1, "0x8", "0x20"], [1, "0x4", "0x40"]]
-  return [ ports.map{ |port| [port[0], port[1][1] ] }, pins ]
+  return [ ports.map{ |port| [port[0][1], port[1][1], port[0][0] ] }, pins ]
 end
 
 input_port_pin = build_port_pin_list(col_pins) if col_pins
   # p input_port_pin
+input_port_pin = build_port_pin_list_ext(col_pins_ext) if col_pins_ext
+  # p input_port_pin
+
 output_port_pin = build_port_pin_list(row_pins) if row_pins
+  # p output_port_pin
+output_port_pin = build_port_pin_list(row_pins_ext) if row_pins_ext
   # p output_port_pin
 
 input_port_pin_right = build_port_pin_list(col_pins_right) if col_pins_right
   # p input_port_pin_right
+input_port_pin_right = build_port_pin_list(col_pins_ext_right) if col_pins_ext_right
+  # p input_port_pin_right
+
 output_port_pin_right = build_port_pin_list(row_pins_right) if row_pins_right
+  # p output_port_pin_right
+output_port_pin_right = build_port_pin_list(row_pins_ext_right) if row_pins_ext_right
   # p output_port_pin_right
 
 #------  print port & pin list
 def print_port(ports)
-  puts("    /* ( ( <port>, <mask> [, <dev>] ), ... ) */ \\")
+  puts("    /* ( ( <port>, <mask>, <dev> ), ... ) */ \\")
   print("    ( ")
-  print ports.map {|port| "(#{port[0]}, #{port[1]})" }.join(", \\\n      ")
+  print ports.map {|port| "(#{port[0]}, #{port[1]}, #{port[2]})" }.join(", \\\n      ")
   puts(" ),\\")
 end
 
@@ -89,7 +148,12 @@ def print_pin(pins)
 end
 
 if input_port_pin
-  puts(" /* #define MATRIX_COL_PINS {#{col_pins}} */")
+  if col_pins_ext
+    puts(" /* #define MATRIX_COL_PINS_EXTEND #{col_pins_ext} */")
+  else
+    puts(" /* #define MATRIX_COL_PINS {#{col_pins}} */")
+    puts("#undef MATRIX_COL_PINS")
+  end
   puts("#define SWITCH_MATRIX_INPUT_0 \\")
   print_port(input_port_pin[0])
   print_pin(input_port_pin[1])
@@ -97,7 +161,12 @@ if input_port_pin
 end
 
 if output_port_pin
-  puts(" /* #define MATRIX_ROW_PINS {#{row_pins}} */")
+  if row_pins_ext
+    puts(" /* #define MATRIX_ROW_PINS_EXTEND #{row_pins_ext} */")
+  else
+    puts(" /* #define MATRIX_ROW_PINS {#{row_pins}} */")
+    puts("#undef MATRIX_ROW_PINS")
+  end
   puts("#define SWITCH_MATRIX_OUTPUT_0 \\")
   print_port(output_port_pin[0])
   print_pin(output_port_pin[1])
@@ -105,7 +174,12 @@ if output_port_pin
 end
 
 if input_port_pin_right
-  puts(" /* #define MATRIX_COL_PINS_RIGHT {#{col_pins_right}} */")
+  if col_pins_ext_right
+    puts(" /* #define MATRIX_COL_PINS_EXTEND_RIGHT {#{col_pins_right}} */")
+  else
+    puts(" /* #define MATRIX_COL_PINS_RIGHT {#{col_pins_right}} */")
+    puts("#undef MATRIX_COL_PINS_RIGHT")
+  end
   puts("#define SWITCH_MATRIX_INPUT_1 \\")
   print_port(input_port_pin_right[0])
   print_pin(input_port_pin_right[1])
@@ -113,7 +187,12 @@ if input_port_pin_right
 end
 
 if output_port_pin_right
-  puts(" /* #define MATRIX_ROW_PINS_RIGHT {#{row_pins_right}} */")
+  if row_pins_ext
+    puts(" /* #define MATRIX_ROW_PINS_EXTEND_RIGHT #{row_pins_ext} */")
+  else
+    puts(" /* #define MATRIX_ROW_PINS_RIGHT {#{row_pins}} */")
+    puts("#undef MATRIX_ROW_PINS_RIGHT")
+  end
   puts("#define SWITCH_MATRIX_OUTPUT_1 \\")
   print_port(output_port_pin_right[0])
   print_pin(output_port_pin_right[1])
