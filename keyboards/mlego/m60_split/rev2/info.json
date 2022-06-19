@@ -22,7 +22,6 @@
         "num_lock": "B12",
         "scroll_lock": "B13"
     },
-    "keyboard_folder": "mlego/m60_split/rev2",
     "matrix_pins": {
         "cols": ["B14", "A10", "A15", "B3", "B4", "B5"],
         "rows": ["B0", "A6", "A7", "B1", "A5"]
