@@ -73,10 +73,6 @@ enum charybdis_keycodes {
     KEYMAP_SAFE_RANGE,
 };
 
-#define DRGSCRL DRAGSCROLL_MODE
-#define DRG_TOG DRAGSCROLL_MODE_TOGGLE
-
-// according to this...it's always enabled???
 #ifdef POINTING_DEVICE_ENABLE
     /** \brief Whether drag-scroll is enabled. */
     bool charybdis_get_pointer_dragscroll_enabled(void);

@@ -84,14 +84,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_DI_PIN D3
     #define RGBLED_NUM 57  // Total number of LEDs
     #define DRIVER_LED_TOTAL RGBLED_NUM // some other code uses driver-led-total
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 30 // this only works for non-per-key rgb
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 90 // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
     #define RGB_MATRIX_SPLIT { 27, 30} // led count; left, right
 #endif
 
 /* Disable unused and unneeded features to reduce on firmware size */
-#ifdef LOCKING_SUPPORT_ENABLE
-#    undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#    undef LOCKING_RESYNC_ENABLE
-#endif
+// this made no difference
+// #ifdef LOCKING_SUPPORT_ENABLE
+// #    undef LOCKING_SUPPORT_ENABLE
+// #endif
+// #ifdef LOCKING_RESYNC_ENABLE
+// #    undef LOCKING_RESYNC_ENABLE
+// #endif

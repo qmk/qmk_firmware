@@ -116,195 +116,194 @@ void rgb_matrix_set_hsv(uint8_t i, uint8_t hue, uint8_t sat, uint8_t value) {
     switch (get_highest_layer(layer_state | default_layer_state)) {
 ////////////////////// SYMBOLS LAYER RGB SETTINGS //////////////////////
         case _SYMBOLS:
-    rgb_matrix_set_hsv(0, HSV_GREEN);
-    //rgb_matrix_set_color(0, 0, 90, 0);    // | // row1,col6
-    rgb_matrix_set_color(1, 40, 0, 90);     // )
-    rgb_matrix_set_color(2, 40, 0, 90);     // (
-    rgb_matrix_set_color(3, 0, 90, 20);     // @
-    rgb_matrix_set_color(4, 90, 20, 0);    // !
-    rgb_matrix_set_color(5, 90, 50, 0);     // tab // row1,col1
-    rgb_matrix_set_color(6, 0, 90, 0);      // shift? // row2,col1
-    rgb_matrix_set_color(7, 0, 50, 50);    // #
-    rgb_matrix_set_color(8, 90, 50, 0);    // $
-    rgb_matrix_set_color(9, 0, 60, 90);     // {
-    rgb_matrix_set_color(10, 0, 60, 90);    // }
-    rgb_matrix_set_color(11, 0, 0, 90);   // ` // row2,col6
-    rgb_matrix_set_color(12, 90, 0, 0);   // ~ // row3,col6
-    rgb_matrix_set_color(13, 90, 60, 0);    // ]
-    rgb_matrix_set_color(14, 90, 60, 0);    // [
-    rgb_matrix_set_color(15, 30, 90, 0);   // ^
-    rgb_matrix_set_color(16, 90, 30, 0);   // %
-    rgb_matrix_set_color(17, 0, 75, 100);   // ~ // row3,col1
-    rgb_matrix_set_color(18, 100, 0, 0);    // backspace
-    rgb_matrix_set_color(19, 90, 20, 0);    // delete
-    rgb_matrix_set_color(20, 60, 0, 90); // mplay
-    rgb_matrix_set_color(21, 0, 0, 90);    // back
-    rgb_matrix_set_color(22, 0, 50, 50);     // fwd
-    rgb_matrix_set_color(23, 120, 0, 0);   // esc
-    rgb_matrix_set_color(24, 120, 0, 70);    // SYMBOLS
-    rgb_matrix_set_color(25, 70, 40, 0);    // ALT
-    rgb_matrix_set_color(26, 20, 0, 90); // cmd
+    rgb_matrix_set_hsv(0, HSV_GREEN); // | // row1,col6
+    rgb_matrix_set_hsv(1, HSV_PURPLE);     // )
+    rgb_matrix_set_hsv(2, HSV_PURPLE);     // (
+    rgb_matrix_set_hsv(3, HSV_GREEN);     // @
+    rgb_matrix_set_hsv(4, HSV_ORANGE);    // !
+    rgb_matrix_set_hsv(5, HSV_GOLD);     // tab // row1,col1
+    rgb_matrix_set_hsv(6, HSV_GREEN);      // shift? // row2,col1
+    rgb_matrix_set_hsv(7, HSV_CYAN);    // #
+    rgb_matrix_set_hsv(8, HSV_GOLD);    // $
+    rgb_matrix_set_hsv(9, HSV_MAGENTA);     // {
+    rgb_matrix_set_hsv(10, HSV_MAGENTA);    // }
+    rgb_matrix_set_hsv(11, HSV_BLUE);   // ` // row2,col6
+    rgb_matrix_set_hsv(12, HSV_CYAN);   // ~ // row3,col6
+    rgb_matrix_set_hsv(13, HSV_PINK);    // ]
+    rgb_matrix_set_hsv(14, HSV_PINK);    // [
+    rgb_matrix_set_hsv(15, HSV_GREEN);   // ^
+    rgb_matrix_set_hsv(16, HSV_ORANGE);   // %
+    rgb_matrix_set_hsv(17, HSV_CYAN);   // ~ // row3,col1
+    rgb_matrix_set_hsv(18,  HSV_RED);    // backspace
+    rgb_matrix_set_hsv(19, HSV_ORANGE);    // delete
+    rgb_matrix_set_hsv(20, HSV_PINK); // mplay
+    rgb_matrix_set_hsv(21, HSV_BLUE);    // back
+    rgb_matrix_set_hsv(22, HSV_CYAN);     // fwd
+    rgb_matrix_set_hsv(23, HSV_RED);   // esc
+    rgb_matrix_set_hsv(24, HSV_PINK);    // SYMBOLS
+    rgb_matrix_set_hsv(25, HSV_GOLD);    // ALT
+    rgb_matrix_set_hsv(26, HSV_PURPLE); // cmd
     // RIGHT HALF STARTS HERE
-    rgb_matrix_set_color(27, 0, 90, 0);   // + // row1,col1 // y
-    rgb_matrix_set_color(28, 0, 80, 90);   // 1
-    rgb_matrix_set_color(29, 0, 80, 90);   // 2
-    rgb_matrix_set_color(30, 0, 80, 90);   // 3
-    rgb_matrix_set_color(31, 0, 90, 0);   // -
-    rgb_matrix_set_color(32, 0, 90, 0);   // = // row1,col6 // -_
-    rgb_matrix_set_color(33, 90, 90, 90);   // ; // row2,col6 
-    rgb_matrix_set_color(34, 90, 90, 90);   // '
-    rgb_matrix_set_color(35, 0, 80, 90);   // 6
-    rgb_matrix_set_color(36, 0, 80, 90);   // 5
-    rgb_matrix_set_color(37, 0, 80, 90);   // 4
-    rgb_matrix_set_color(38, 0, 90, 0);   // * // row2,col1  
-    rgb_matrix_set_color(39, 0, 0, 90);    // & // row3,col1
-    rgb_matrix_set_color(40, 0, 80, 90);   // 7
-    rgb_matrix_set_color(41, 0, 80, 90);   // 8 // <,
-    rgb_matrix_set_color(42, 0, 80, 90);   // 9 // >.
-    rgb_matrix_set_color(43, 0, 80, 90);   // 0 // /?
-    rgb_matrix_set_color(44, 90, 90, 0); // dragscroll toggle // row3, col6
+    rgb_matrix_set_hsv(27, HSV_GREEN);   // + // row1,col1 // y
+    rgb_matrix_set_hsv(28, HSV_CYAN);   // 1
+    rgb_matrix_set_hsv(29, HSV_CYAN);   // 2
+    rgb_matrix_set_hsv(30, HSV_CYAN);   // 3
+    rgb_matrix_set_hsv(31, HSV_GREEN);   // -
+    rgb_matrix_set_hsv(32, HSV_GREEN);   // = // row1,col6 // -_
+    rgb_matrix_set_hsv(33, HSV_WHITE);   // ; // row2,col6 
+    rgb_matrix_set_hsv(34, HSV_WHITE);   // '
+    rgb_matrix_set_hsv(35, HSV_CYAN);   // 6
+    rgb_matrix_set_hsv(36, HSV_CYAN);   // 5
+    rgb_matrix_set_hsv(37, HSV_CYAN);   // 4
+    rgb_matrix_set_hsv(38, HSV_GREEN);   // * // row2,col1  
+    rgb_matrix_set_hsv(39, HSV_BLUE);    // & // row3,col1
+    rgb_matrix_set_hsv(40, HSV_CYAN);   // 7
+    rgb_matrix_set_hsv(41, HSV_CYAN);   // 8 // <,
+    rgb_matrix_set_hsv(42, HSV_CYAN);   // 9 // >.
+    rgb_matrix_set_hsv(43, HSV_CYAN);   // 0 // /?
+    rgb_matrix_set_hsv(44, HSV_YELLOW); // dragscroll toggle // row3, col6
     // everything below here doesn't change
-    rgb_matrix_set_color(45, 0, 120, 0);    // arrow key
-    rgb_matrix_set_color(46, 0, 120, 0);    // arrow key
-    rgb_matrix_set_color(47, 0, 120, 0);    // arrow key
-    rgb_matrix_set_color(48, 0, 120, 0);    // arrow key
+    rgb_matrix_set_hsv(45, HSV_GREEN);    // arrow key
+    rgb_matrix_set_hsv(46, HSV_GREEN);    // arrow key
+    rgb_matrix_set_hsv(47, HSV_GREEN);    // arrow key
+    rgb_matrix_set_hsv(48, HSV_GREEN);    // arrow key
     // this is the group of two keys on the right thumb cluster right next to the trackball
-    rgb_matrix_set_color(49, 90, 0, 20);    // < // left-most key on kb
-    rgb_matrix_set_color(50, 0, 100, 100);  // > // key right next to trackball
-    rgb_matrix_set_color(51, 20, 0, 90);    // cmd // bottom of space/enter key row
-    rgb_matrix_set_color(52, 120, 0, 70);   // SYMBOLS // key to the 'left' of enter key
-    rgb_matrix_set_color(53, 0, 25, 120);   // enter key
-    rgb_matrix_set_color(54, 0, 120, 200);  // space key
+    rgb_matrix_set_hsv(49, HSV_RED);    // < // left-most key on kb
+    rgb_matrix_set_hsv(50, HSV_CYAN);  // > // key right next to trackball
+    rgb_matrix_set_hsv(51, HSV_PURPLE);    // cmd // bottom of space/enter key row
+    rgb_matrix_set_hsv(52, HSV_PINK);   // SYMBOLS // key to the 'left' of enter key
+    rgb_matrix_set_hsv(53, HSV_BLUE);   // enter key
+    rgb_matrix_set_hsv(54, HSV_CYAN);  // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 0, 90, 0);    // multiline // key below layer button
-    rgb_matrix_set_color(56, 0, 0, 120);    // ctrl //far right key, 'below' enter key
+    rgb_matrix_set_hsv(55, HSV_GREEN);    // multiline // key below layer button
+    rgb_matrix_set_hsv(56, HSV_BLUE);    // ctrl //far right key, 'below' enter key
             break;
 ////////////////////// MOUSE LAYER RGB SETTINGS //////////////////////
         case _MOUSE:
-    rgb_matrix_set_color(0, 90, 90, 90); // row1,col6
-    rgb_matrix_set_color(1, 90, 90, 90);
-    rgb_matrix_set_color(2, 90, 90, 90);
-    rgb_matrix_set_color(3, 90, 90, 90);
-    rgb_matrix_set_color(4, 90, 90, 90);
-    rgb_matrix_set_color(5, 90, 50, 0); // tab // row1,col1
-    rgb_matrix_set_color(6, 0, 90, 0); // shift? // row2,col1
-    rgb_matrix_set_color(7, 90, 90, 90);
-    rgb_matrix_set_color(8, 90, 90, 90);
-    rgb_matrix_set_color(9, 90, 90, 90);
-    rgb_matrix_set_color(10, 90, 90, 90);
-    rgb_matrix_set_color(11, 90, 90, 90); // row2,col6
-    rgb_matrix_set_color(12, 90, 90, 90); // row3,col6
-    rgb_matrix_set_color(13, 90, 90, 90);
-    rgb_matrix_set_color(14, 90, 90, 90);
-    rgb_matrix_set_color(15, 90, 90, 90);
-    rgb_matrix_set_color(16, 90, 90, 90);
-    rgb_matrix_set_color(17, 0, 75, 100); // tilde-backtick // row3,col1
-    rgb_matrix_set_color(18, 100, 0, 0); // backspace
-    rgb_matrix_set_color(19, 90, 20, 0); // delete
-    rgb_matrix_set_color(20, 60, 0, 90); // mplay
-    rgb_matrix_set_color(21, 90, 0, 30); // mac lock KC_MACLOCK
-    rgb_matrix_set_color(22, 90, 0, 0); // KC_CAD
-    rgb_matrix_set_color(23, 120, 0, 0);   // esc
-    rgb_matrix_set_color(24, 120, 0, 70); // SYMBOLS
-    rgb_matrix_set_color(25, 70, 40, 0);    // ALT
-    rgb_matrix_set_color(26, 20, 0, 90); // cmd
+    rgb_matrix_set_hsv(0, HSV_WHITE); // row1,col6
+    rgb_matrix_set_hsv(1, HSV_WHITE);
+    rgb_matrix_set_hsv(2, HSV_WHITE);
+    rgb_matrix_set_hsv(3, HSV_WHITE);
+    rgb_matrix_set_hsv(4, HSV_WHITE);
+    rgb_matrix_set_hsv(5, HSV_GOLD); // tab // row1,col1
+    rgb_matrix_set_hsv(6, HSV_GREEN); // shift? // row2,col1
+    rgb_matrix_set_hsv(7, HSV_WHITE);
+    rgb_matrix_set_hsv(8, HSV_WHITE);
+    rgb_matrix_set_hsv(9, HSV_WHITE);
+    rgb_matrix_set_hsv(10, HSV_WHITE);
+    rgb_matrix_set_hsv(11, HSV_WHITE); // row2,col6
+    rgb_matrix_set_hsv(12, HSV_WHITE); // row3,col6
+    rgb_matrix_set_hsv(13, HSV_WHITE);
+    rgb_matrix_set_hsv(14, HSV_WHITE);
+    rgb_matrix_set_hsv(15, HSV_WHITE);
+    rgb_matrix_set_hsv(16, HSV_WHITE);
+    rgb_matrix_set_hsv(17, HSV_CYAN); // tilde-backtick // row3,col1
+    rgb_matrix_set_hsv(18,  HSV_RED); // backspace
+    rgb_matrix_set_hsv(19, HSV_ORANGE); // delete
+    rgb_matrix_set_hsv(20, HSV_PINK); // mplay
+    rgb_matrix_set_hsv(21, HSV_RED); // mac lock KC_MACLOCK
+    rgb_matrix_set_hsv(22, HSV_RED); // KC_CAD
+    rgb_matrix_set_hsv(23, HSV_RED);   // esc
+    rgb_matrix_set_hsv(24, HSV_PINK); // SYMBOLS
+    rgb_matrix_set_hsv(25, HSV_GOLD);    // ALT
+    rgb_matrix_set_hsv(26, HSV_PURPLE); // cmd
     // RIGHT HALF STARTS HERE
-    rgb_matrix_set_color(27, 15, 15, 15); // row1,col1 // y
-    rgb_matrix_set_color(28, 15, 15, 15); // mouse-surround
-    rgb_matrix_set_color(29, 120, 120, 120); // MIDDLE CLICK
-    rgb_matrix_set_color(30, 15, 15, 15); // mouse-surround
-    rgb_matrix_set_color(31, 90, 90, 90);
-    rgb_matrix_set_color(32, 90, 50, 0); // screenshot // row1,col6
-    rgb_matrix_set_color(33, 0, 75, 100); // row2,col6 // ;:
-    rgb_matrix_set_color(34, 0, 75, 100); // "'
-    rgb_matrix_set_color(35, 30, 30, 30); // mouse-surround // l
-    rgb_matrix_set_color(36, 120, 120, 120); // RIGHT CLICK // k
-    rgb_matrix_set_color(37, 120, 120, 120); // LEFT CLICK // j
-    rgb_matrix_set_color(38, 15, 15, 15); // mouse-surround // h // row2,col1 
-    rgb_matrix_set_color(39, 15, 15, 15); // n // row3,col1  
-    rgb_matrix_set_color(40, 15, 15, 15); // mouse-surround // m
-    rgb_matrix_set_color(41, 0, 15, 25); // mouse-surround // <,
-    rgb_matrix_set_color(42, 0, 15, 25); // mouse-surround // >.
-    rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 90, 90, 0); // dragscroll toggle //row3, col6 // not sure what this key should be
-    rgb_matrix_set_color(45, 0, 120, 0); // arrow key
-    rgb_matrix_set_color(46, 0, 120, 0); // arrow key
-    rgb_matrix_set_color(47, 0, 120, 0); // arrow key
-    rgb_matrix_set_color(48, 0, 120, 0); // arrow key
+    rgb_matrix_set_hsv(27, HSV_WHITE); // row1,col1 // y
+    rgb_matrix_set_hsv(28, HSV_WHITE); // mouse-surround
+    rgb_matrix_set_hsv(29, HSV_SPRINGGREEN); // MIDDLE CLICK
+    rgb_matrix_set_hsv(30, HSV_WHITE); // mouse-surround
+    rgb_matrix_set_hsv(31, HSV_WHITE);
+    rgb_matrix_set_hsv(32, HSV_GOLD); // screenshot // row1,col6
+    rgb_matrix_set_hsv(33, HSV_CYAN); // row2,col6 // ;:
+    rgb_matrix_set_hsv(34, HSV_CYAN); // "'
+    rgb_matrix_set_hsv(35, HSV_WHITE); // mouse-surround // l
+    rgb_matrix_set_hsv(36, HSV_SPRINGGREEN); // RIGHT CLICK // k
+    rgb_matrix_set_hsv(37, HSV_SPRINGGREEN); // LEFT CLICK // j
+    rgb_matrix_set_hsv(38, HSV_WHITE); // mouse-surround // h // row2,col1 
+    rgb_matrix_set_hsv(39, HSV_WHITE); // n // row3,col1  
+    rgb_matrix_set_hsv(40, HSV_WHITE); // mouse-surround // m
+    rgb_matrix_set_hsv(41, HSV_CYAN); // mouse-surround // <,
+    rgb_matrix_set_hsv(42, HSV_CYAN); // mouse-surround // >.
+    rgb_matrix_set_hsv(43, HSV_GOLD); // /?
+    rgb_matrix_set_hsv(44, HSV_YELLOW); // dragscroll toggle //row3, col6 // not sure what this key should be
+    rgb_matrix_set_hsv(45, HSV_GREEN); // arrow key
+    rgb_matrix_set_hsv(46, HSV_GREEN); // arrow key
+    rgb_matrix_set_hsv(47, HSV_GREEN); // arrow key
+    rgb_matrix_set_hsv(48, HSV_GREEN); // arrow key
     // this is the group of two keys on the right thumb cluster right next to the trackball
-    rgb_matrix_set_color(49, 90, 0, 20); // < // left-most key on kb
-    rgb_matrix_set_color(50, 0, 100, 100); // > // key right next to trackball
-    rgb_matrix_set_color(51, 20, 0, 90); // cmd // bottom of space/enter key row
-    rgb_matrix_set_color(52, 120, 0, 70); // SYMBOLS // key to the 'left' of enter key
-    rgb_matrix_set_color(53, 0, 25, 120); // enter key
-    rgb_matrix_set_color(54, 0, 120, 200); // space key
+    rgb_matrix_set_hsv(49, HSV_RED); // < // left-most key on kb
+    rgb_matrix_set_hsv(50, HSV_CYAN); // > // key right next to trackball
+    rgb_matrix_set_hsv(51, HSV_PURPLE); // cmd // bottom of space/enter key row
+    rgb_matrix_set_hsv(52, HSV_PINK); // SYMBOLS // key to the 'left' of enter key
+    rgb_matrix_set_hsv(53, HSV_BLUE); // enter key
+    rgb_matrix_set_hsv(54, HSV_CYAN); // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 0, 90, 0);    // multiline // key below layer button
-    rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
+    rgb_matrix_set_hsv(55, HSV_GREEN);    // multiline // key below layer button
+    rgb_matrix_set_hsv(56, HSV_BLUE); // ctrl //far right key, 'below' enter key
             break;
 ////////////////////// MOUSE LAYER RGB SETTINGS //////////////////////
 ////////////////////// QWERTY LAYER RGB SETTINGS //////////////////////            
         case _QWERTY:
-    rgb_matrix_set_color(0, 90, 90, 90); // row1,col6
-    rgb_matrix_set_color(1, 90, 90, 90);
-    rgb_matrix_set_color(2, 90, 90, 90);
-    rgb_matrix_set_color(3, 90, 90, 90);
-    rgb_matrix_set_color(4, 90, 90, 90);
-    rgb_matrix_set_color(5, 90, 50, 0); // tab // row1,col1
-    rgb_matrix_set_color(6, 0, 90, 0); // shift? // row2,col1
-    rgb_matrix_set_color(7, 90, 90, 90);
-    rgb_matrix_set_color(8, 90, 90, 90);
-    rgb_matrix_set_color(9, 90, 90, 90);
-    rgb_matrix_set_color(10, 90, 90, 90);
-    rgb_matrix_set_color(11, 90, 90, 90); // row2,col6
-    rgb_matrix_set_color(12, 90, 90, 90); // row3,col6
-    rgb_matrix_set_color(13, 90, 90, 90);
-    rgb_matrix_set_color(14, 90, 90, 90);
-    rgb_matrix_set_color(15, 90, 90, 90);
-    rgb_matrix_set_color(16, 90, 90, 90);
-    rgb_matrix_set_color(17, 0, 75, 100); // tilde-backtick // row3,col1
-    rgb_matrix_set_color(18, 100, 0, 0); // backspace
-    rgb_matrix_set_color(19, 90, 20, 0); // delete
-    rgb_matrix_set_color(20, 90, 0, 0); // chrome back
-    rgb_matrix_set_color(21, 0, 0, 90);    // back
-    rgb_matrix_set_color(22, 0, 50, 50);   // fwd
-    rgb_matrix_set_color(23, 120, 0, 0);   // esc
-    rgb_matrix_set_color(24, 120, 0, 70); // SYMBOLS
-    rgb_matrix_set_color(25, 70, 40, 0);    // ALT
-    rgb_matrix_set_color(26, 20, 0, 90); // cmd
+    rgb_matrix_set_hsv(0, HSV_WHITE); // row1,col6
+    rgb_matrix_set_hsv(1, HSV_WHITE);
+    rgb_matrix_set_hsv(2, HSV_WHITE);
+    rgb_matrix_set_hsv(3, HSV_WHITE);
+    rgb_matrix_set_hsv(4, HSV_WHITE);
+    rgb_matrix_set_hsv(5, HSV_GOLD); // tab // row1,col1
+    rgb_matrix_set_hsv(6, HSV_GREEN); // shift? // row2,col1
+    rgb_matrix_set_hsv(7, HSV_WHITE);
+    rgb_matrix_set_hsv(8, HSV_WHITE);
+    rgb_matrix_set_hsv(9, HSV_WHITE);
+    rgb_matrix_set_hsv(10, HSV_WHITE);
+    rgb_matrix_set_hsv(11, HSV_WHITE); // row2,col6
+    rgb_matrix_set_hsv(12, HSV_WHITE); // row3,col6
+    rgb_matrix_set_hsv(13, HSV_WHITE);
+    rgb_matrix_set_hsv(14, HSV_WHITE);
+    rgb_matrix_set_hsv(15, HSV_WHITE);
+    rgb_matrix_set_hsv(16, HSV_WHITE);
+    rgb_matrix_set_hsv(17, HSV_CYAN); // tilde-backtick // row3,col1
+    rgb_matrix_set_hsv(18, HSV_RED); // backspace
+    rgb_matrix_set_hsv(19, HSV_ORANGE); // delete
+    rgb_matrix_set_hsv(20, HSV_RED); // chrome back
+    rgb_matrix_set_hsv(21, HSV_BLUE);    // back
+    rgb_matrix_set_hsv(22, HSV_CYAN);   // fwd
+    rgb_matrix_set_hsv(23, HSV_RED);   // esc
+    rgb_matrix_set_hsv(24, HSV_PINK); // SYMBOLS
+    rgb_matrix_set_hsv(25, HSV_GOLD);    // ALT
+    rgb_matrix_set_hsv(26, HSV_PURPLE); // cmd
     // RIGHT HALF STARTS HERE
-    rgb_matrix_set_color(27, 90, 90, 90); // row1,col1 // y
-    rgb_matrix_set_color(28, 90, 90, 90);
-    rgb_matrix_set_color(29, 90, 90, 90);
-    rgb_matrix_set_color(30, 90, 90, 90);
-    rgb_matrix_set_color(31, 90, 90, 90);
-    rgb_matrix_set_color(32, 0, 75, 100); // row1,col6 // -_
-    rgb_matrix_set_color(33, 0, 75, 100); // row2,col6 // ;:
-    rgb_matrix_set_color(34, 0, 75, 100); // "'
-    rgb_matrix_set_color(35, 90, 90, 90); // l
-    rgb_matrix_set_color(36, 90, 90, 90); // k
-    rgb_matrix_set_color(37, 90, 90, 90); // j
-    rgb_matrix_set_color(38, 90, 90, 90); // h // row2,col1 
-    rgb_matrix_set_color(39, 90, 90, 90); // n // row3,col1  
-    rgb_matrix_set_color(40, 90, 90, 90);
-    rgb_matrix_set_color(41, 0, 75, 100); // <,
-    rgb_matrix_set_color(42, 0, 75, 100); // >.
-    rgb_matrix_set_color(43, 100, 85, 0); // /?
-    rgb_matrix_set_color(44, 90, 90, 0); // dragscroll toggle //row3, col6 // not sure what this key should be
-    rgb_matrix_set_color(45, 0, 120, 0); // arrow key
-    rgb_matrix_set_color(46, 0, 120, 0); // arrow key
-    rgb_matrix_set_color(47, 0, 120, 0); // arrow key
-    rgb_matrix_set_color(48, 0, 120, 0); // arrow key
+    rgb_matrix_set_hsv(27, HSV_WHITE); // row1,col1 // y
+    rgb_matrix_set_hsv(28, HSV_WHITE);
+    rgb_matrix_set_hsv(29, HSV_WHITE);
+    rgb_matrix_set_hsv(30, HSV_WHITE);
+    rgb_matrix_set_hsv(31, HSV_WHITE);
+    rgb_matrix_set_hsv(32, HSV_CYAN); // row1,col6 // -_
+    rgb_matrix_set_hsv(33, HSV_CYAN); // row2,col6 // ;:
+    rgb_matrix_set_hsv(34, HSV_CYAN); // "'
+    rgb_matrix_set_hsv(35, HSV_WHITE); // l
+    rgb_matrix_set_hsv(36, HSV_WHITE); // k
+    rgb_matrix_set_hsv(37, HSV_WHITE); // j
+    rgb_matrix_set_hsv(38, HSV_WHITE); // h // row2,col1 
+    rgb_matrix_set_hsv(39, HSV_WHITE); // n // row3,col1  
+    rgb_matrix_set_hsv(40, HSV_WHITE);
+    rgb_matrix_set_hsv(41, HSV_CYAN); // <,
+    rgb_matrix_set_hsv(42, HSV_CYAN); // >.
+    rgb_matrix_set_hsv(43, HSV_GOLD); // /?
+    rgb_matrix_set_hsv(44, HSV_YELLOW); // dragscroll toggle //row3, col6 // not sure what this key should be
+    rgb_matrix_set_hsv(45, HSV_GREEN); // arrow key
+    rgb_matrix_set_hsv(46, HSV_GREEN); // arrow key
+    rgb_matrix_set_hsv(47, HSV_GREEN); // arrow key
+    rgb_matrix_set_hsv(48, HSV_GREEN); // arrow key
     // this is the group of two keys on the right thumb cluster right next to the trackball
-    rgb_matrix_set_color(49, 90, 0, 20); // < // left-most key on kb
-    rgb_matrix_set_color(50, 0, 100, 100); // > // key right next to trackball
-    rgb_matrix_set_color(51, 20, 0, 90); // cmd // bottom of space/enter key row
-    rgb_matrix_set_color(52, 120, 0, 70); // SYMBOLS // key to the 'left' of enter key
-    rgb_matrix_set_color(53, 0, 25, 120); // enter key
-    rgb_matrix_set_color(54, 0, 120, 200); // space key
+    rgb_matrix_set_hsv(49, HSV_RED); // < // left-most key on kb
+    rgb_matrix_set_hsv(50, HSV_CYAN); // > // key right next to trackball
+    rgb_matrix_set_hsv(51, HSV_PURPLE); // cmd // bottom of space/enter key row
+    rgb_matrix_set_hsv(52, HSV_PINK); // SYMBOLS // key to the 'left' of enter key
+    rgb_matrix_set_hsv(53, HSV_BLUE); // enter key
+    rgb_matrix_set_hsv(54, HSV_CYAN); // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_color(55, 0, 90, 0);    // multiline // key below layer button
-    rgb_matrix_set_color(56, 0, 0, 120); // ctrl //far right key, 'below' enter key
+    rgb_matrix_set_hsv(55, HSV_GREEN);    // multiline // key below layer button
+    rgb_matrix_set_hsv(56, HSV_BLUE); // ctrl //far right key, 'below' enter key
             break;
     }
     // info: using one line per key, 3% of flash is used to set one layer of 57 keys per-key rgb    
