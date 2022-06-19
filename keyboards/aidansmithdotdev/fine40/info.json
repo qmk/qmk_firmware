@@ -10,6 +10,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
+        "encoder": true,
+        "oled": true,
         "nkro": true
     },
     "matrix_pins": {
