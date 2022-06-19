@@ -159,22 +159,6 @@ LSFT_T(ES_LABK),    ES_Z,    ES_X,    ES_C,    ES_V,    ES_B,                   
     )
 };
 
-int RGB_current_mode;
-
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) && IS_LAYER_ON(layer3)) {
-    layer_on(layer4);
-  } else {
-    layer_off(layer4);
-  }
-}
-
-void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-}
 
 // esta configuracion sirve cuando mantenemos precionado una tecla de capa ó block mayus para poder cambiar los colores que Ustedes elijan en hexa se deben poner el color.
 /* void rgb_matrix_indicators_user(void) {
