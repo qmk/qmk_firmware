@@ -14,29 +14,29 @@ from typing import NamedTuple
 
 For example, for one layer:
 
- ["KC_TAB" , "KC_Q"   , "KC_W"   , "KC_E"   , "KC_R"   , "KC_T",
-  "KC_Y"   , "KC_U"   , "KC_I"   , "KC_O"   , "KC_P"   , "KC_BSPC",
+ ["KC_GRV" , "KC_Q"  , "KC_W"   , "KC_E"   , "KC_R"   , "KC_T",
+  "KC_Y"   , "KC_U"  , "KC_I"   , "KC_O"   , "KC_P"   , "KC_BSPC",
 
-  "KC_LCTL", "KC_A"   , "KC_S"   , "KC_D"   , "KC_F"   , "KC_G",
-  "KC_H"   , "KC_J"   , "KC_K"   , "KC_L"   , "KC_SCLN", "KC_QUOT",
+  "KC_TAB" , "KC_A"  , "KC_S"   , "KC_D"   , "KC_F"   , "KC_G",
+  "KC_H"   , "KC_J"  , "KC_K"   , "KC_L"   , "KC_SCLN", "KC_ENT",
 
-  "KC_LSFT", "KC_Z"   , "KC_X"   , "KC_C"   , "KC_V"   , "KC_B"   , "KC_GRV",
-  "KC_ESC" , "KC_N"   , "KC_M"   , "KC_COMM", "KC_DOT" , "KC_SLSH", "KC_RSFT",
+  "KC_LSFT", "KC_Z"  , "KC_X"   , "KC_C"   , "KC_V"   , "KC_B"   , "KC_QUOT",
+  "KC_SLSH", "KC_N"  , "KC_M"   , "KC_COMM", "KC_DOT" , "KC_UP"  , "KC_RSFT",
 
-  "KC_ENT" , "KC_LGUI", "KC_LALT", "MO(5)"  , "MO(3)",
-  "MO(4)"  , "KC_SPC" , "KC_LALT", "KC_RGUI", "KC_APP"
+  "CAPSWRD", "KC_ESC", "KC_LCTL", "KC_LGUI", "KC_LALT", "MO(3)"  , "OSM(MOD_LSFT)",
+  "MO(4)"  , "KC_SPC", "KC_LALT", "KC_RGUI", "KC_LEFT", "KC_DOWN", "KC_RGHT"
  ],
 """
 
 # The structure of the keymap. Tuples describing row sizes.
 # (<Keys upto and including (one-indexed) keycount x> <are in half rows of y>)
-ROW_SIZES = [(24, 6), # top and middle alphas
-             (38, 7), # bottom alpha and lower row
-             (52, 7), # thumb arch
+ROW_SIZES = [(24, 6), # top and middle alpha
+             (38, 7), # bottom alpha    (redundant given the next row)
+             (52, 7), # bottom row and thumb arch combined
              ]
 
 ###
-### Below here should not need to changed for different keyboards
+### Changing the below should NOT be needed for different keyboards
 ###
 
 LAST_KEY = ROW_SIZES[-1][0] - 1
@@ -142,4 +142,5 @@ def main():
     keymap_json = json.loads(args.input.read())
     print(format_keymap(keymap_json))
 
-main()
+if __name__ == "__main__":
+    main()
