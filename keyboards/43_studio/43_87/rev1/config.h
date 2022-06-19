@@ -1,4 +1,7 @@
 #pragma once
+
+#include "config_common.h"
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID                       0x0903
 #define PRODUCT_ID                      0x0220
@@ -37,17 +40,9 @@
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-#ifdef HOT_PLUG
-    #define RGB_DI_PIN           A0
-    #define DRIVER_LED_TOTAL     91+27+8
-    #define RGB_MATRIX_CENTER    {12*8, 36}
-#endif
-
-#ifdef WELDING
-    #define RGB_DI_PIN           A0
-    #define DRIVER_LED_TOTAL     100+27+8
-    #define RGB_MATRIX_CENTER    {12*8, 36}
-#endif
+#define RGB_DI_PIN           A0
+#define DRIVER_LED_TOTAL     91+27+8
+#define RGB_MATRIX_CENTER    {12*8, 36}
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -59,4 +54,3 @@
 #define RGB_MATRIX_STARTUP_SAT        255 // Sets the default saturation value, if none has been set
 #define RGB_MATRIX_STARTUP_VAL        100 // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_STARTUP_SPD        127 // Sets the default animation speed, if none has been set
-
