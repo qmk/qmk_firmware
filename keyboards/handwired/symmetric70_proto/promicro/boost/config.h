@@ -13,6 +13,8 @@
 
 #define MATRIX_EXTENSION_74HC157 B5 /* 74HC157 pin1:~A/B */
 
+// clang-format off
+
 #define EXTEND_MATRIX_ROW_PINS \
         (MCU_GPIO, D0, 4), \
         (MCU_GPIO, C0, 6), \

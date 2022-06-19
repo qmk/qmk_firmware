@@ -5,6 +5,8 @@
 
 #define PRODUCT      BASE_PRODUCT boost
 
+// clang-format off
+
  /* #define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B9, B0, B1, B2, B3, B4, B5, B6, B7 } */
 #define SWITCH_MATRIX_INPUT_0 \
     /* ( ( <port>, <mask> [, <dev>] ), ... ) */ \
