@@ -135,6 +135,10 @@ void split_pre_init(void) {
 #if defined(SPLIT_HAND_PIN)
     setPinInput(SPLIT_HAND_PIN);
     wait_us(100);
+#elif defined(EE_HANDS)
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
 #endif
     isLeftHand = is_keyboard_left();
 
