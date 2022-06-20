@@ -4,7 +4,7 @@ A 60% hotswap inswitch RGB keyboard with an encoder from KP Republic.
 
 * Keyboard Maintainer: [bdtc123](https://github.com/bdtc123)
 * Hardware Supported: BM60HSRGB_EC/rev1
-* Hardware Availability: [KP Republic](https://kprepublic.com/products/bm60-rgb-60-gh60-hot-swappable-pcb-programmed-qmk-firmware-type-c)
+* Hardware Availability: [KP Republic](https://kprepublic.com/products/bm60ec-bm60-ec-rgb-60-gh60-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-rgb-switch-type-c-rotary-knob)
 
 ## Bootloader
 
