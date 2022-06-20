@@ -22,13 +22,11 @@ static THD_FUNCTION(SlaveThread, arg) {
     chRegSetThreadName("split_protocol_tx_rx");
 
     while (true) {
-        split_shared_memory_lock();
         if (unlikely(!react_to_transaction())) {
             /* Clear the receive queue, to start with a clean slate.
              * Parts of failed transactions or spurious bytes could still be in it. */
             serial_transport_driver_clear();
         }
-        split_shared_memory_unlock();
     }
 }
 
@@ -63,6 +61,8 @@ static inline bool react_to_transaction(void) {
     if (unlikely(transaction_id >= NUM_TOTAL_TRANSACTIONS)) {
         return false;
     }
+
+    split_shared_memory_lock_autounlock();
 
     split_transaction_desc_t* transaction = &split_transaction_table[transaction_id];
 
@@ -102,9 +102,7 @@ static inline bool react_to_transaction(void) {
  * @return bool Indicates success of transaction.
  */
 bool soft_serial_transaction(int index) {
-    split_shared_memory_lock();
     bool result = initiate_transaction((uint8_t)index);
-    split_shared_memory_unlock();
 
     if (unlikely(!result)) {
         /* Clear the receive queue, to start with a clean slate.
@@ -124,6 +122,8 @@ static inline bool initiate_transaction(uint8_t transaction_id) {
         serial_dprintf("SPLIT: illegal transaction id\n");
         return false;
     }
+
+    split_shared_memory_lock_autounlock();
 
     split_transaction_desc_t* transaction = &split_transaction_table[transaction_id];
 
