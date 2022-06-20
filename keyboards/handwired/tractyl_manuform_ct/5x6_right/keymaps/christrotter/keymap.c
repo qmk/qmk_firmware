@@ -27,6 +27,7 @@ enum custom_layers {
     _QWERTY,
     _SYMBOLS,
     _MOUSE,
+    _NAV
 };
 
 #define XXX KC_NO
@@ -48,6 +49,15 @@ enum custom_layers {
 
 #define KC_CHRMBACK LGUI(KC_LBRC)
 #define KC_CHRMFWD LGUI(KC_RBRC)
+
+// we want to handle word movement (nav) and word select (symbols) on the arrow cluster
+// KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+#define KC_ALTARROW_L LALT(KC_LEFT)
+#define KC_ALTARROW_R LALT(KC_RIGHT)
+#define KC_SFTALTARROW_L LALT(LSFT(KC_LEFT))
+#define KC_SFTALTARROW_R LALT(LSFT(KC_RIGHT))
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (qwerty)
      * ,-----------------------------------------,                                           ,-----------------------------------------,
@@ -66,18 +76,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                    '------+------'                                  '------+------'        '------'
      */
 [_SYMBOLS] = LAYOUT( \
-    _______,   KC_EXLM,    KC_AT,    KC_LPRN,    KC_RPRN,    KC_TILD,             KC_PPLS,    KC_1,    KC_2,    KC_3,    KC_PMNS,    KC_EQUAL,
-    _______,   KC_HASH,    KC_DLR,    KC_LCBR,    KC_RCBR,    KC_GRV,           KC_PAST,    KC_4,    KC_5,    KC_6,    KC_BSLS, KC_SLASH,
-    _______,   KC_PERC,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_PIPE,         KC_AMPR,    KC_7,    KC_8,    KC_9,  KC_0, _______,
-            _______, _______, LT(0,KC_MPLY), KC_ITRMSPCE_L, KC_ITRMSPCE_R,             _______, _______, _______, _______, _______, _______,
-                                _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______
+    _______,   KC_EXLM,    KC_AT,    KC_LPRN,    KC_RPRN,    KC_AMPR,             KC_PPLS,    KC_1,    KC_2,    KC_3,    KC_PMNS,    KC_EQUAL,
+    _______,   KC_HASH,    KC_DLR,    KC_LCBR,    KC_RCBR,    KC_GRV,           KC_PAST,    KC_4,    KC_5,    KC_6,  KC_0, KC_COMM,
+    _______,   KC_PERC,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_PIPE,         KC_DOT,    KC_7,    KC_8,    KC_9,  KC_BSLS, _______,
+            _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
+                                _______, _______, _______, _______,            _______, _______, KC_SFTALTARROW_L, _______, _______, KC_SFTALTARROW_R
 ),
 [_QWERTY] = LAYOUT( \
-    KC_TAB,    KC_Q,    LT(0,KC_W),    KC_E, LT(0,KC_R), LT(0,KC_T),                             KC_Y,    KC_U,    LT(0,KC_I),    KC_O,    KC_P,    KC_MINUS,
-    KC_LSFT,   LT(0,KC_A),    LT(0,KC_S),    KC_D,    LT(0,KC_F),    KC_G,                       KC_H,    KC_J,    LT(0,KC_K),    LT(0,KC_L),    KC_QUOT, KC_SCLN,
-    LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, DRAGSCROLL_MODE_TOGGLE,
-                KC_BSPC, KC_DEL, KC_CHRMBACK, KC_TAB_L, KC_TAB_R,                  KC_SPCLEFT, KC_SPCRGHT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
-                                KC_LGUI, KC_LALT, MO(_SYMBOLS), KC_ESC,        KC_MULTILNE, KC_LCTL, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+    KC_TAB, KC_Q, LT(0,KC_W), KC_E, LT(0,KC_R), LT(0,KC_T),                             KC_Y, KC_U, LT(0,KC_I), KC_O, KC_P, KC_MINUS,
+    _______, LT(0,KC_A), LT(0,KC_S), KC_D, LT(0,KC_F), KC_G,                       KC_H, KC_J, LT(0,KC_K), LT(0,KC_L), KC_QUOT, KC_SCLN,
+    LT(0,KC_TILD), LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),     LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, DRAGSCROLL_MODE_TOGGLE,
+                KC_BSPC, KC_DEL, KC_LSFT, KC_LGUI, KC_LALT,                KC_LCTL, KC_LSFT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
+                                KC_TAB_L, KC_TAB_R, MO(_NAV), KC_ESC,        KC_SPCRGHT, KC_SPCLEFT, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 ),
 [_MOUSE] = LAYOUT( \
     _______, _______, _______, _______, _______, _______,                               _______, _______, KC_MS_BTN3, _______, _______, KC_MACSHOT,
@@ -85,5 +95,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______,                               _______, _______, _______, _______, _______, _______,
                 _______, _______,  _______, KC_MACLOCK, KC_CAD,         _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______
+),
+[_NAV] = LAYOUT( \
+    _______, _______, _______, _______, _______, _______,                               KC_PGUP, _______, KC_UP, _______, KC_PGDN, _______,
+    _______, _______, _______, _______, _______, _______,                               KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, _______,
+    _______, _______, _______, _______, _______, _______,                               _______, _______, _______, _______, _______, _______,
+                _______, _______,  _______, _______, _______,           KC_CHRMBACK, KC_MULTILNE, LT(0,KC_MPLY), _______, _______, _______,
+                                _______, _______, _______, _______,     KC_ITRMSPCE_L, KC_ITRMSPCE_R, KC_ALTARROW_L, _______, _______, KC_ALTARROW_R
 )
 };

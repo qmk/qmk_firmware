@@ -21,6 +21,7 @@ enum userspace_layers {
     FIRST_DEFAULT_LAYER = 0,
     _SYMBOLS,
     _MOUSE,
+    _NAV,
 };
 
 #define _MACROS _MOUSE
