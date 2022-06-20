@@ -93,7 +93,7 @@ And to do so, add `soft_reset_keyboard()` to your function or macro.
 
 ### Reset to bootloader
 
-To reset to the boodloader use `QK_BOOTLOADER` or `QK_BOOT` keycode or `reset_keyboard()` function.
+To reset to the bootloader use `QK_BOOTLOADER` or `QK_BOOT` keycode or `reset_keyboard()` function.
 
 ## Wiping the EEPROM (Persistent Storage)
 
