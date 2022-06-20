@@ -3,52 +3,52 @@
 
 #include "qp_internal.h"
 #include "qp_comms.h"
-#include "qp_ili9163.h"
+#include "qp_ili9488.h"
 #include "qp_ili9xxx_opcodes.h"
 #include "qp_tft_panel.h"
 
-#ifdef QUANTUM_PAINTER_ILI9163_SPI_ENABLE
-#    include "qp_comms_spi.h"
-#endif // QUANTUM_PAINTER_ILI9163_SPI_ENABLE
+#ifdef QUANTUM_PAINTER_ILI9488_SPI_ENABLE
+#    include <qp_comms_spi.h>
+#endif // QUANTUM_PAINTER_ILI9488_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Common
 
 // Driver storage
-tft_panel_dc_reset_painter_device_t ili9163_drivers[ILI9163_NUM_DEVICES] = {0};
+tft_panel_dc_reset_painter_device_t ili9488_drivers[ILI9488_NUM_DEVICES] = {0};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_ili9163_init(painter_device_t device, painter_rotation_t rotation) {
+bool qp_ili9488_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
-    const uint8_t ili9163_init_sequence[] = {
+    const uint8_t ili9488_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]
         ILI9XXX_CMD_RESET,            120,  0,
+        ILI9XXX_SET_PGAMMA,             0, 15, 0x00, 0x03, 0x09, 0x08, 0x16, 0x0A, 0x3F, 0x78, 0x4C, 0x09, 0x0A, 0x08, 0x16, 0x1A, 0x0F,
+        ILI9XXX_SET_NGAMMA,             0, 15, 0x00, 0x16, 0x19, 0x03, 0x0F, 0x05, 0x32, 0x45, 0x46, 0x04, 0x0E, 0x0D, 0x35, 0x37, 0x0F,
+        ILI9XXX_SET_POWER_CTL_1,        0,  2, 0x17, 0x15,
+        ILI9XXX_SET_POWER_CTL_2,        0,  1, 0x41,
+        ILI9XXX_SET_VCOM_CTL_1,         0,  3, 0x00, 0x12, 0x80,
+        ILI9XXX_SET_PIX_FMT,            0,  1, 0x66,
+        ILI9XXX_SET_RGB_IF_SIG_CTL,     0,  1, 0x80,
+        ILI9XXX_SET_FRAME_CTL_NORMAL,   0,  1, 0xA0,
+        ILI9XXX_SET_INVERSION_CTL,      0,  1, 0x02,
+        ILI9XXX_SET_FUNCTION_CTL,       0,  2, 0x02, 0x02,
+        ILI9XXX_SET_IMAGE_FUNCTION,     0,  1, 0x00,
+        ILI9XXX_SET_PUMP_RATIO_CTL,     0,  4, 0xA9, 0x51, 0x2C, 0x82,
         ILI9XXX_CMD_SLEEP_OFF,          5,  0,
-        ILI9XXX_SET_PIX_FMT,            0,  1, 0x55,
-        ILI9XXX_SET_GAMMA,              0,  1, 0x04,
-        ILI9XXX_ENABLE_3_GAMMA,         0,  1, 0x01,
-        ILI9XXX_SET_FUNCTION_CTL,       0,  2, 0xFF, 0x06,
-        ILI9XXX_SET_PGAMMA,             0, 15, 0x36, 0x29, 0x12, 0x22, 0x1C, 0x15, 0x42, 0xB7, 0x2F, 0x13, 0x12, 0x0A, 0x11, 0x0B, 0x06,
-        ILI9XXX_SET_NGAMMA,             0, 15, 0x09, 0x16, 0x2D, 0x0D, 0x13, 0x15, 0x40, 0x48, 0x53, 0x0C, 0x1D, 0x25, 0x2E, 0x34, 0x39,
-        ILI9XXX_SET_FRAME_CTL_NORMAL,   0,  2, 0x08, 0x02,
-        ILI9XXX_SET_POWER_CTL_1,        0,  2, 0x0A, 0x02,
-        ILI9XXX_SET_POWER_CTL_2,        0,  1, 0x02,
-        ILI9XXX_SET_VCOM_CTL_1,         0,  2, 0x50, 0x63,
-        ILI9XXX_SET_VCOM_CTL_2,         0,  1, 0x00,
-        ILI9XXX_CMD_PARTIAL_OFF,        0,  0,
         ILI9XXX_CMD_DISPLAY_ON,        20,  0
     };
     // clang-format on
-    qp_comms_bulk_command_sequence(device, ili9163_init_sequence, sizeof(ili9163_init_sequence));
+    qp_comms_bulk_command_sequence(device, ili9488_init_sequence, sizeof(ili9488_init_sequence));
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
-        [QP_ROTATION_0]   = ILI9XXX_MADCTL_BGR,
-        [QP_ROTATION_90]  = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MV,
-        [QP_ROTATION_180] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MY,
-        [QP_ROTATION_270] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MV | ILI9XXX_MADCTL_MY,
+        [QP_ROTATION_0]   = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MY,
+        [QP_ROTATION_90]  = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MV | ILI9XXX_MADCTL_MY,
+        [QP_ROTATION_180] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MX,
+        [QP_ROTATION_270] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MV,
     };
     qp_comms_command_databyte(device, ILI9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
 
@@ -58,17 +58,17 @@ bool qp_ili9163_init(painter_device_t device, painter_rotation_t rotation) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t ili9163_driver_vtable = {
+const struct tft_panel_dc_reset_painter_driver_vtable_t ili9488_driver_vtable = {
     .base =
         {
-            .init            = qp_ili9163_init,
+            .init            = qp_ili9488_init,
             .power           = qp_tft_panel_power,
             .clear           = qp_tft_panel_clear,
             .flush           = qp_tft_panel_flush,
             .pixdata         = qp_tft_panel_pixdata,
             .viewport        = qp_tft_panel_viewport,
-            .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
-            .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .palette_convert = qp_tft_panel_palette_convert_rgb888,
+            .append_pixels   = qp_tft_panel_append_pixels_rgb888,
         },
     .num_window_bytes   = 2,
     .swap_window_coords = false,
@@ -85,21 +85,21 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t ili9163_driver_vtable = 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SPI
 
-#ifdef QUANTUM_PAINTER_ILI9163_SPI_ENABLE
+#ifdef QUANTUM_PAINTER_ILI9488_SPI_ENABLE
 
-// Factory function for creating a handle to the ILI9163 device
-painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode) {
-    for (uint32_t i = 0; i < ILI9163_NUM_DEVICES; ++i) {
-        tft_panel_dc_reset_painter_device_t *driver = &ili9163_drivers[i];
+// Factory function for creating a handle to the ILI9488 device
+painter_device_t qp_ili9488_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode) {
+    for (uint32_t i = 0; i < ILI9488_NUM_DEVICES; ++i) {
+        tft_panel_dc_reset_painter_device_t *driver = &ili9488_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&ili9163_driver_vtable;
+            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&ili9488_driver_vtable;
             driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.native_bits_per_pixel = 24; // RGB888
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;
             driver->base.offset_x              = 0;
             driver->base.offset_y              = 0;
-            driver->base.native_bits_per_pixel = 16; // RGB565
 
             // SPI and other pin configuration
             driver->base.comms_config                              = &driver->spi_dc_reset_config;
@@ -115,6 +115,6 @@ painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel
     return NULL;
 }
 
-#endif // QUANTUM_PAINTER_ILI9163_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ILI9488_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
