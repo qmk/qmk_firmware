@@ -9,8 +9,10 @@ void split_shared_memory_lock(void);
 void split_shared_memory_unlock(void);
 #    endif
 #else
+#    if defined(SPLIT_KEYBOARD)
 inline void split_shared_memory_lock(void){};
 inline void split_shared_memory_unlock(void){};
+#    endif
 #endif
 
 /* GCCs cleanup attribute expects a function with one parameter, which is a
@@ -31,6 +33,7 @@ inline void split_shared_memory_unlock(void){};
  * lock_autounlock function macro */
 #define QMK_DECLARE_AUTOUNLOCK_CALL(prefix) unsigned prefix##_guard __attribute__((unused, cleanup(prefix##_autounlock_unlock_helper))) = prefix##_autounlock_lock_helper
 
+#if defined(SPLIT_KEYBOARD)
 QMK_DECLARE_AUTOUNLOCK_HELPERS(split_shared_memory)
 
 /**
@@ -41,4 +44,5 @@ QMK_DECLARE_AUTOUNLOCK_HELPERS(split_shared_memory)
  * `split_shared_memory_lock_autounlock()` is called in goes out of scope i.e.
  * when the enclosing function returns.
  */
-#define split_shared_memory_lock_autounlock QMK_DECLARE_AUTOUNLOCK_CALL(split_shared_memory)
+#    define split_shared_memory_lock_autounlock QMK_DECLARE_AUTOUNLOCK_CALL(split_shared_memory)
+#endif
