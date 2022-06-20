@@ -123,25 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-    static void render_layer_number(void) {
-        switch (get_highest_layer(layer_state)) {
-            case 0:
-                render_layer_status_1();
-                break;
-            case 1:
-                render_layer_status_2();
-                break;
-            case 2:
-                render_layer_status_3();
-                break;
-            case 3:
-                render_layer_status_4();
-                break;
-        }
-    }
-
     bool oled_task_user(void) {
-        render_layer_number();
+        render_layer_status();
 
         return true;
     }

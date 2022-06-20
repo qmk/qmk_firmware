@@ -15,7 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-void render_layer_status_1(void);
-void render_layer_status_2(void);
-void render_layer_status_3(void);
-void render_layer_status_4(void);
+void render_layer_status(void);

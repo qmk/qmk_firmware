@@ -7,6 +7,3 @@ GRAVE_ESC_ENABLE = no
 
 # OLED enabled
 WPM_ENABLE = yes
-
-# Encoder enabled
-ENCODER_MAP_ENABLE = no

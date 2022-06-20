@@ -1,7 +1,4 @@
-SRC += lib/layer_status/layer_status_1.c
-SRC += lib/layer_status/layer_status_2.c
-SRC += lib/layer_status/layer_status_3.c
-SRC += lib/layer_status/layer_status_4.c
+SRC += lib/layer_status/layer_status.c
 SRC += lib/logo.c
 
 # MCU name
@@ -37,4 +34,3 @@ RGB_MATRIX_DRIVER = WS2812
 
 # Encoder enabled
 ENCODER_ENABLE = yes
-ENCODER_MAP_ENABLE = yes
