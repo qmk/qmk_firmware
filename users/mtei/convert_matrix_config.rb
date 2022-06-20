@@ -10,7 +10,7 @@ end
 
 #------ read config
 conf = `gcc -dM -E #{ARGV[0]} 2> /tmp/err | grep \"define MATRIX_\" `.split("\n")
-conf += `gcc -dM -E #{ARGV[0]} 2> /tmp/err | grep \"define EXTEND_MATRIX_\" `.split("\n")
+conf += `gcc -dM -E #{ARGV[0]} 2> /tmp/err | grep \"define EXTENDED_MATRIX_\" `.split("\n")
 col_pins = nil
 col_pins_right = nil
 col_pins_ext = nil
@@ -26,10 +26,10 @@ conf.each {|c|
   if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS_RIGHT[ \t]+{(.*)}/ =~ c
     col_pins_right = $1
   end
-  if /[ \t]*#[ \t]*define[ \t]* EXTEND_MATRIX_COL_PINS[ \t]+(.*)/ =~ c
+  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_COL_PINS[ \t]+(.*)/ =~ c
     col_pins_ext = $1
   end
-  if /[ \t]*#[ \t]*define[ \t]* EXTEND_MATRIX_COL_PINS_RIGHT[ \t]+(.*)/ =~ c
+  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_COL_PINS_RIGHT[ \t]+(.*)/ =~ c
     col_pins_ext_right = $1
   end
   if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS[ \t]+{(.*)}/ =~ c
@@ -38,10 +38,10 @@ conf.each {|c|
   if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS_RIGHT[ \t]+{(.*)}/ =~ c
     row_pins_right = $1
   end
-  if /[ \t]*#[ \t]*define[ \t]* EXTEND_MATRIX_ROW_PINS[ \t]+(.*)/ =~ c
+  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_ROW_PINS[ \t]+(.*)/ =~ c
     row_pins_ext = $1
   end
-  if /[ \t]*#[ \t]*define[ \t]* EXTEND_MATRIX_ROW_PINS_RIGHT[ \t]+(.*)/ =~ c
+  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_ROW_PINS_RIGHT[ \t]+(.*)/ =~ c
     row_pins_ext_right = $1
   end
 }
@@ -67,7 +67,7 @@ end
 def build_port_pin_list_ext(pins)
   # p pins
   #   if source data is
-  #      '#define EXTEND_MATRIX_COL_PINS \
+  #      '#define EXTENDED_MATRIX_COL_PINS \
   #          (MCU_GPIO, F0, 4), (MCU_GPIO, F0,5 ), (MCU_GPIO, F0,6 ), \
   #          (MCU_GPIO, F0, 7), (MCU_GPIO, B0, 1), (MCU_GPIO, B0, 3), (MCU_GPIO, B0, 2)'
   # example: pins = "(MCU_GPIO, F0, 4), (MCU_GPIO, F0,5 ), (MCU_GPIO, F0,6 ), (MCU_GPIO, F0, 7), (MCU_GPIO, B0, 1), (MCU_GPIO, B0, 3), (MCU_GPIO, B0, 2)"
@@ -150,7 +150,7 @@ end
 
 if input_port_pin
   if col_pins_ext
-    puts(" /* #define EXTEND_MATRIX_COL_PINS #{col_pins_ext} */")
+    puts(" /* #define EXTENDED_MATRIX_COL_PINS #{col_pins_ext} */")
   else
     puts(" /* #define MATRIX_COL_PINS {#{col_pins}} */")
     puts("#undef MATRIX_COL_PINS")
@@ -163,7 +163,7 @@ end
 
 if output_port_pin
   if row_pins_ext
-    puts(" /* #define EXTEND_MATRIX_ROW_PINS #{row_pins_ext} */")
+    puts(" /* #define EXTENDED_MATRIX_ROW_PINS #{row_pins_ext} */")
   else
     puts(" /* #define MATRIX_ROW_PINS {#{row_pins}} */")
     puts("#undef MATRIX_ROW_PINS")
@@ -176,7 +176,7 @@ end
 
 if input_port_pin_right
   if col_pins_ext_right
-    puts(" /* #define EXTEND_MATRIX_COL_PINS_RIGHT {#{col_pins_ext_right}} */")
+    puts(" /* #define EXTENDED_MATRIX_COL_PINS_RIGHT {#{col_pins_ext_right}} */")
   else
     puts(" /* #define MATRIX_COL_PINS_RIGHT {#{col_pins_right}} */")
     puts("#undef MATRIX_COL_PINS_RIGHT")
@@ -189,7 +189,7 @@ end
 
 if output_port_pin_right
   if row_pins_ext
-    puts(" /* #define EXTEND_MATRIX_ROW_PINS_RIGHT #{row_pins_ext_right} */")
+    puts(" /* #define EXTENDED_MATRIX_ROW_PINS_RIGHT #{row_pins_ext_right} */")
   else
     puts(" /* #define MATRIX_ROW_PINS_RIGHT {#{row_pins_right}} */")
     puts("#undef MATRIX_ROW_PINS_RIGHT")
