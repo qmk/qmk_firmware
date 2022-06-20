@@ -21,9 +21,9 @@
                 { "label": ",", "x": 9, "y": 1 },
                 { "label": "Left", "x": 0, "y": 3 },
                 { "label": "Right", "x": 1, "y": 3 },
-                { "label": "LShift", "x": 3.25, "y": 3 },
-                { "label": "Space", "x": 4.5, "y": 3, "w": 2 },
-                { "label": "RShift", "x": 6.5, "y": 3 },
+                { "label": "LShift", "x": 3, "y": 3, "w": 2 },
+                { "label": "Space", "x": 5, "y": 3 },
+                { "label": "RShift", "x": 6, "y": 3, "w": 2 },
                 { "label": "Up", "x": 9, "y": 3 },
                 { "label": "Down", "x": 10, "y": 3 }
             ]
