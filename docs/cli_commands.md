@@ -515,3 +515,15 @@ Run single test:
 
     qmk pytest -t qmk.tests.test_cli_commands.test_c2json
     qmk pytest -t qmk.tests.test_qmk_path
+
+## `qmk painter-convert-graphics`
+
+This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+
+## `qmk painter-make-font-image`
+
+This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+
+## `qmk painter-convert-font-image`
+
+This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.

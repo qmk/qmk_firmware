@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_french_osx.h"
+#include "keymap_french_mac_iso.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
