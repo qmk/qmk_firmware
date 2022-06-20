@@ -56,5 +56,5 @@
 #define MOUSEKEY_MOVE_DELTA 6          //Step size
 #define MOUSEKEY_WHEEL_DELAY 0         //Delay between pressing a movement key and wheel scroll movement
 #define MK_KINETIC_SPEED               //Enable kinetic mode, acceleration follows quadratic curve
-#define MOUSEKEY_WHEEL_MAX_SPEED 10    //Maximum number of scroll steps per scroll action
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 200 //Maximum number of scroll steps per scroll action
+#define MOUSEKEY_WHEEL_MAX_SPEED 11    //Maximum number of scroll steps per scroll action
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 25  //Maximum number of scroll steps per scroll action

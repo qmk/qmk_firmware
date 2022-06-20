@@ -505,6 +505,7 @@ enum combo_events {
   CAPSWORD,
   SLEEP,
   RESETKEY,
+  NUMLOCKC,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
@@ -539,6 +540,7 @@ const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTENT
 const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM sleep_combo[]                = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
+const uint16_t PROGMEM nulock_combo[]               = {KC_L, KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]             = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
@@ -577,6 +579,7 @@ combo_t key_combos[] = {
   [MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
   [SLEEP] = COMBO_ACTION(sleep_combo),
   [RESETKEY] = COMBO_ACTION(reset_combo),
+  [NUMLOCKC] = COMBO_ACTION(numlock_combo),
   [CAPSWORD] = COMBO_ACTION(capsword_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
@@ -801,6 +804,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case RESETKEY:
       if (pressed) {
         reset_keyboard();
+      }
+      break;
+    case NUMLOCKC:
+      if (pressed) {
+        tap_code16(KC_NUM);
       }
       break;
     case CAPSWORD:
