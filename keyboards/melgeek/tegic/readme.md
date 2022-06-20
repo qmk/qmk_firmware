@@ -1,6 +1,8 @@
 # MelGeek Tegic
 
-![Tegic](https://i.imgur.com/v2Xctfg.jpeg | https://i.imgur.com/UYNzkIf.jpeg)
+![Tegic](https://i.imgur.com/v2Xctfgh.jpeg)
+
+![Tegic](https://i.imgur.com/UYNzkIfh.jpeg)
 
 A hotswap 75% RGB Custom Mechanical keyboard.
 
