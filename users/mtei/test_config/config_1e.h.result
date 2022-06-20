@@ -1,0 +1,56 @@
+ /* #define EXTENDED_MATRIX_COL_PINS (MCU_GPIO, F0, 4), (MCU_GPIO, F0,5 ), (MCU_GPIO, F0,6 ), (MCU_GPIO, F0, 7), (MCU_GPIO, B0, 1), (MCU_GPIO, B0, 3), (MCU_GPIO, B0, 2) */
+#define SWITCH_MATRIX_INPUT_0 \
+    /* ( ( <port>, <mask>, <dev> ), ... ) */ \
+    ( (F0, 0xf0, MCU_GPIO), \
+      (B0, 0x0e, MCU_GPIO) ),\
+    /* ( ( <port_index>, <port_mask>, <matrix_row_mask> ), ... ) */ \
+    ( (0, 0x10, 0x01), \
+      (0, 0x20, 0x02), \
+      (0, 0x40, 0x04), \
+      (0, 0x80, 0x08), \
+      (1, 0x02, 0x10), \
+      (1, 0x08, 0x20), \
+      (1, 0x04, 0x40) )
+
+ /* #define EXTENDED_MATRIX_ROW_PINS (MCU_GPIO, D0, 4), (MCU_GPIO, C0, 6), (MCU_GPIO, D0, 7), (MCU_GPIO, E0, 6), (MCU_GPIO, B0, 4) */
+#define SWITCH_MATRIX_OUTPUT_0 \
+    /* ( ( <port>, <mask>, <dev> ), ... ) */ \
+    ( (D0, 0x90, MCU_GPIO), \
+      (C0, 0x40, MCU_GPIO), \
+      (E0, 0x40, MCU_GPIO), \
+      (B0, 0x10, MCU_GPIO) ),\
+    /* ( ( <port_index>, <port_mask>, <matrix_row_mask> ), ... ) */ \
+    ( (0, 0x10, 0x01), \
+      (1, 0x40, 0x02), \
+      (0, 0x80, 0x04), \
+      (2, 0x40, 0x08), \
+      (3, 0x10, 0x10) )
+
+ /* #define EXTENDED_MATRIX_COL_PINS_RIGHT {(MCU_GPIO, F0, 4), (MCU_GPIO, F0,5 ), (MCU_GPIO, F0,6 ), (MCU_GPIO, F0, 7), (MCU_GPIO, B0, 3), (MCU_GPIO, B0, 1), (MCU_GPIO, B0, 2)} */
+#define SWITCH_MATRIX_INPUT_1 \
+    /* ( ( <port>, <mask>, <dev> ), ... ) */ \
+    ( (F0, 0xf0, MCU_GPIO), \
+      (B0, 0x0e, MCU_GPIO) ),\
+    /* ( ( <port_index>, <port_mask>, <matrix_row_mask> ), ... ) */ \
+    ( (0, 0x10, 0x01), \
+      (0, 0x20, 0x02), \
+      (0, 0x40, 0x04), \
+      (0, 0x80, 0x08), \
+      (1, 0x08, 0x10), \
+      (1, 0x02, 0x20), \
+      (1, 0x04, 0x40) )
+
+ /* #define EXTENDED_MATRIX_ROW_PINS_RIGHT (MCU_GPIO, D0, 4), (MCU_GPIO, C0, 6), (MCU_GPIO, E0, 6), (MCU_GPIO, D0, 7), (MCU_GPIO, B0, 4) */
+#define SWITCH_MATRIX_OUTPUT_1 \
+    /* ( ( <port>, <mask>, <dev> ), ... ) */ \
+    ( (D0, 0x90, MCU_GPIO), \
+      (C0, 0x40, MCU_GPIO), \
+      (E0, 0x40, MCU_GPIO), \
+      (B0, 0x10, MCU_GPIO) ),\
+    /* ( ( <port_index>, <port_mask>, <matrix_row_mask> ), ... ) */ \
+    ( (0, 0x10, 0x01), \
+      (1, 0x40, 0x02), \
+      (2, 0x40, 0x04), \
+      (0, 0x80, 0x08), \
+      (3, 0x10, 0x10) )
+
