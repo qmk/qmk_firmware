@@ -8,6 +8,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
 #ifdef CONSOLE_ENABLE
         uprintf("0x%04X,%u,%u,%u\n", keycode, record->event.key.row, record->event.key.col, get_highest_layer(layer_state));
+        uprintf("%u", _GAME);
 #endif
     }
     return true;

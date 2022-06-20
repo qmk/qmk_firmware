@@ -15,4 +15,4 @@ VERBOSE 		 							= yes
 CONSOLE_ENABLE						= no
 #CONSOLE_ENABLE						= yes
 
-SWAP_HANDS_ENABLE = yes
+#SWAP_HANDS_ENABLE = yes
