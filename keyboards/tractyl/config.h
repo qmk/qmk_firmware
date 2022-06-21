@@ -28,6 +28,7 @@
 
 #define DIODE_DIRECTION     COL2ROW
 
+//#define USB_SUSPEND_WAKEUP_DELAY 5000
 
 #define SPI_DRIVER                           SPID1
 #define SPI_SCK_PIN                          A5

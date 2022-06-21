@@ -24,7 +24,7 @@ int8_t tempx = 0;
 int8_t tempy = 0;
 static bool scroll_prev = false;
 static bool caret_prev = false;
-report_mouse_t currentReport;
+//report_mouse_t currentReport;
 unsigned int dragscroll_timer;
 
 enum custom_keycodes {
@@ -46,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CLMK] = LAYOUT(
      KC_GESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5 ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
-     KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_BTN1  ,                         KC_J  , KC_L  , KC_U  , KC_Y  , KC_SCLN, KC_MINS,
-     KC_BSPC, KC_A  , KC_R  , KC_S  , KC_T  , KC_G  ,                         KC_K  , KC_N  , KC_E  , KC_I  ,KC_O, KC_QUOT,
+     KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  , KC_SCLN, KC_MINS,
+     KC_BTN1, KC_A  , KC_R  , KC_S  , KC_T  , KC_G  ,                         KC_K  , KC_N  , KC_E  , KC_I  ,KC_O, KC_QUOT,
      KC_LGUI, KC_V  , KC_X  , KC_D  , KC_C  , KC_Z  ,                         KC_M  , KC_H  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
                       KC_LBRC,KC_RBRC,KC_SPC,MO_RALT,   			          KC_LSFT, ALT_TAB,KC_PLUS, KC_EQL,
                              KC_MPLY,KC_LCTL,KC_LALT,                         MO_FN, KC_ENT								
@@ -62,15 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_MPLY,KC_LCTL,KC_LALT,                         MO_FN, KC_ENT								
   ),
   
-  [_RALT] = LAYOUT(
-     QK_BOOT, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5,                       KC_F6  , KC_F7 , KC_F8 , KC_F9 , KC_F10 ,KC_DEL,
-     KC_TAB , KC_PGUP  , MC_BRC  , KC_COLN  , KC_RBRC  , KC_SCLN  ,          KC_COMM  , KC_P7  , KC_P8  , KC_P9  , KC_SCLN, KC_NLCK,
-     KC_DEL, KC_HOME  ,  MC_CBR , KC_UNDS  , KC_SCLN  , KC_AT  ,            KC_QUOT  , KC_P4  , KC_P5  , KC_P6  ,KC_SCLN,KC_QUOT,
-     KC_LGUI, KC_PGDN  , MC_PRN  , KC_HASH  , KC_RPRN  , KC_B  ,             KC_DOT  , KC_P1  ,KC_P2,KC_P3 ,KC_P0,KC_BSLASH,
-                         DM_PLY1, DM_PLY2,KC_SPC, _______,                     KC_LSFT, KC_LALT, DM_REC1, DM_REC2,
-                                     _______,KC_LCTL,KC_LSFT,                 MO(_FN2),KC_ENT		
-  ),
-  
   [_MOUSE] = LAYOUT(
      QK_BOOT, _______, _______ ,_______ , _______, _______,                    _______ ,_______,_______,_______,_______,_______,
      KC_TAB , _______, _______, _______, _______, _______  ,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK,_______,_______,
@@ -79,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          _______, _______,_______, _______,                    KC_LSFT, KC_LALT, DM_REC1, DM_REC2,
                                      _______,KC_LCTL,KC_LALT,                  _______,KC_ENT		
   ),
-  
+    
   [_FN] = LAYOUT(
      KC_ESC, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5,                       KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10  ,KC_BSPC,
      KC_TAB , KC_PGUP  , KC_PGUP  , KC_UP  , KC_HOME  , KC_SCLN  ,            KC_COMM  , KC_P7  , KC_P8  , KC_P9  , KC_SCLN  ,KC_MINS,
@@ -87,6 +78,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LGUI, KC_PGDN  , KC_PGDN  , KC_HASH  , KC_END  , KC_B  ,              KC_DOT  , KC_P1  ,KC_P2, KC_P3 ,KC_P0,KC_DOT,
                          DM_PLY1, DM_PLY2,KC_SPC, _______,                    KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
                                      KC_MUTE,KC_LCTL,KC_LALT,                 _______,KC_ENT		
+  ),
+  
+  [_RALT] = LAYOUT(
+     QK_BOOT, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5,                       KC_F6  , KC_F7 , KC_F8 , KC_F9 , KC_F10 ,KC_DEL,
+     KC_TAB , KC_PGUP  , MC_BRC  , KC_COLN  , KC_RBRC  , KC_SCLN  ,          KC_COMM  , KC_P7  , KC_P8  , KC_P9  , KC_SCLN, KC_NLCK,
+     KC_DEL, KC_HOME  ,  MC_CBR , KC_UNDS  , KC_SCLN  , KC_AT  ,            KC_QUOT  , KC_P4  , KC_P5  , KC_P6  ,KC_SCLN,KC_QUOT,
+     KC_LGUI, KC_PGDN  , MC_PRN  , KC_HASH  , KC_RPRN  , KC_B  ,             KC_DOT  , KC_P1  ,KC_P2,KC_P3 ,KC_P0,KC_BSLASH,
+                         DM_PLY1, DM_PLY2,KC_SPC, _______,                     KC_LSFT, KC_LALT, DM_REC1, DM_REC2,
+                                     _______,KC_LCTL,KC_LSFT,                 MO(_FN2),KC_ENT		
   ),
   
   [_FN2] = LAYOUT(
@@ -215,7 +215,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 		case CK_MSLK:
 			if(record->event.pressed){
-				pointing_device_set_cpi(600);
+				pointing_device_set_cpi(500);
 				mouse_lock = !mouse_lock;
 			}
 			return false;
@@ -270,14 +270,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 	if(mouse_report.x != 0 && mouse_report.y != 0){
-		layer_on(_MOUSE);
+		if(!layer_state_is(_MOUSE)){
+			layer_on(_MOUSE);
+		}
 		mouse_timer = timer_read();
-	} else if(timer_elapsed(mouse_timer) > 666 && layer_state_is(_MOUSE) && !mouse_lock){
+	}else if(timer_elapsed(mouse_timer) > 666 && layer_state_is(_MOUSE) && !mouse_lock){
 		layer_off(_MOUSE);
 	}
 	short x = mouse_report.x, y = mouse_report.y;
-	x = (x > 0 ? x * x / 12 + x : -x * x / 12 + x);
-    y = (y > 0 ? y * y / 12 + y : -y * y / 12 + y);
+	x = (x > 0 ? x * x / 8 + x : -x * x / 8 + x);
+    y = (y > 0 ? y * y / 8 + y : -y * y / 8 + y);
 	mouse_report.x = constrain_hid(x);
 	mouse_report.y = constrain_hid(y);
 	if(scrolling_mode){
