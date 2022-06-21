@@ -160,8 +160,6 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
-void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybdis_config); }
-
 #    ifndef CONSTRAIN_HID
 #        define CONSTRAIN_HID(value) ((value) < XY_REPORT_MIN ? XY_REPORT_MIN : ((value) > XY_REPORT_MAX ? XY_REPORT_MAX : (value)))
 #    endif  // !CONSTRAIN_HID
@@ -339,5 +337,10 @@ void eeconfig_init_kb(void) {
 void matrix_init_kb(void) {
     read_charybdis_config_from_eeprom(&g_charybdis_config);
     matrix_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    maybe_update_pointing_device_cpi(&g_charybdis_config);
+    keyboard_post_init_user();
 }
 #endif  // POINTING_DEVICE_ENABLE
