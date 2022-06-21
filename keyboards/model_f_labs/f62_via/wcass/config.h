@@ -64,8 +64,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 /* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
 
 /* XWHATSIT CONTROLLER TYPE */
 #define CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F

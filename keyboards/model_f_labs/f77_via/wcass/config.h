@@ -22,16 +22,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0X0F62
+#define PRODUCT_ID 0x0F77
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Model F Labs
-#define PRODUCT Reproduction IBM F62 Keyboard
-//  DESCRIPTION is no longer an option 
-//#define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
+#define PRODUCT Reproduction IBM F77 Keyboard
+// DESCRIPTION is no longer an option
+// #define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
 
 /* key matrix size */
 #define MATRIX_ROWS 8
-#define MATRIX_COLS 9
+#define MATRIX_COLS 11
 // Note: physical column are 16, but only 11 are ever used. Column 0..9 match the physical column. Column 10 is physical column 15.
 
 /*
@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-// #define NO_DEBUG
+//#define NO_DEBUG
 
 /* disable print */
 //#define NO_PRINT
@@ -64,8 +64,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 /* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
 
 /* XWHATSIT CONTROLLER TYPE */
 #define CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F
@@ -76,8 +76,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CAPSENSE_CAL_ENABLED 1
 // #define CAPSENSE_CAL_ENABLED 0
-// #define CAPSENSE_CAL_DEBUG 1
-#define CAPSENSE_CAL_DEBUG 0
+#define CAPSENSE_CAL_DEBUG 1
+// #define CAPSENSE_CAL_DEBUG 0
 #define CAPSENSE_CAL_INIT_REPS 16
 #define CAPSENSE_CAL_EACHKEY_REPS 16
 #define CAPSENSE_CAL_BINS 5
@@ -87,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPSENSE_HARDCODED_THRESHOLD 142
 #endif
 
-#define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (((col) == 8)?15:(col))
+#define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (((col) == 10)?15:(col))
 
 // By default we set up for support of xwhatsit's solenoid driver board.
 // Comment out HAPTIC_ENABLE_PIN if you don't have an enable pin:
@@ -126,7 +126,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../../post_config.h"
 
-
 // ----- xwhatsit hardware configuration (type_f) -----
 
 #define CAPSENSE_DAC_SCLK   B1
@@ -146,6 +145,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             PORTC |= 0xF0; \
             PORTD |= 0x0F; \
         } while (0)
+
 
 #if 1
 #define SETUP_UNUSED_PINS() do {} while (0)
