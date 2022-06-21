@@ -3,16 +3,17 @@
 #include "quantum.h"
 
 enum custom_keycodes {
-    CTRL_C_UP = SAFE_RANGE,
-	L1_EXPL
+	CTRL_C_UP = SAFE_RANGE,
+	L1_EXPL,
+	CMD_SRH
 };
 
 enum tap_dances {
-  SSHT = 0,
-  LBRC,
-  SCLN,
-  QUOT,
-  END_HOME
+	SSHT = 0,
+	LBRC,
+	SCLN,
+	QUOT,
+	END_HOME
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record);

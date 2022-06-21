@@ -5,3 +5,4 @@
  */
 #undef TAPPING_TERM
 #define TAPPING_TERM 152
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD

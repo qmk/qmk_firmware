@@ -4,11 +4,14 @@
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 uint16_t key_timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	if (record->event.pressed) { key_timer = timer_read(); }
+	if (!process_caps_word(keycode, record)) { return false; }
+
 	switch(keycode) {
 		case CTRL_C_UP:
 			if (record->event.pressed) {
-				key_timer = timer_read();
 				register_mods(MOD_BIT(KC_LCTRL));
 			} else {
 				unregister_mods(MOD_BIT(KC_LCTRL));
@@ -21,7 +24,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 		case L1_EXPL:
 			if (record->event.pressed) {
-				key_timer = timer_read();
 				layer_on(1);
 			} else {
 				layer_off(1);
@@ -31,7 +33,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 			break;
+
+		case CMD_SRH:
+			if (record->event.pressed) {
+				register_mods(MOD_BIT(KC_LCMD));
+			} else {
+				unregister_mods(MOD_BIT(KC_LCMD));
+				if (timer_elapsed(key_timer) < TAPPING_TERM) {
+					tap_code16(G(KC_SPC));
+				}
+			}
+			return false;
+			break;
 	}
+	//return true;
 	return process_record_keymap(keycode, record);
 }
 
