@@ -91,29 +91,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 /* encoder; start */
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        switch(get_highest_layer(layer_state)) {
-            case _FN1:
-            if ( clockwise ) {
-                tap_code16(KC_PGDN);
-            } else {
-                tap_code16(KC_PGUP);
-            }
-			break;			
-			case _HOME:
-			default:
-			if ( clockwise ) {
-                tap_code_delay(KC_VOLU, 10);
-            } else {
-                tap_code_delay(KC_VOLD, 10);
-            }
-            break;			
-        }
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_HOME] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_FN1] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN) }
+};
+#endif
 #endif
 /* encoder; end */
-
 
