@@ -41,6 +41,9 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
        return OLED_ROTATION_180;  // flips the display 180 degrees
 }
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
 	render_mochi();
 	oled_set_cursor(0, 4);
 	oled_write_P(PSTR("Layer: "), false);
@@ -68,6 +71,9 @@ bool oled_task_kb(void) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
 	// Volume control
 	if (clockwise) {
 		tap_code(KC_VOLU);
