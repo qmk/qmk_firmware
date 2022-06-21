@@ -34,11 +34,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 			break;
 
-		case CMD_SRH:
+		case ROPT_SRH:
 			if (record->event.pressed) {
-				register_mods(MOD_BIT(KC_LCMD));
+				register_mods(MOD_BIT(KC_ROPT));
 			} else {
-				unregister_mods(MOD_BIT(KC_LCMD));
+				unregister_mods(MOD_BIT(KC_ROPT));
 				if (timer_elapsed(key_timer) < TAPPING_TERM) {
 					tap_code16(G(KC_SPC));
 				}
