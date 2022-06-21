@@ -1,6 +1,6 @@
 # Fine!40 PCB (For Mochi40)
 
-![aidansmithdotdev/fine40](https://i.imgur.com/2JMorvx.png)
+![aidansmithdotdev/fine40](https://i.imgur.com/2JMorvxh.png)
 
 The PCB for the Mochi40, a spiritual successor to the unreleased Whimsy recreated from scratch and made completely open source! With an OLED, Rotary Encoder, and headers for both the Elite-C and Nice!Nano, this board gives you all you could want in a 40%.
 
