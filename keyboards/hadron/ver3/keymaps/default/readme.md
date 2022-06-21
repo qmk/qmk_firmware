@@ -1,2 +1,0 @@
-# The Default Hadron Layout
-
