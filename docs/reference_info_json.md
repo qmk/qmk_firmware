@@ -187,3 +187,39 @@ Example:
 ```
 
 The device version is a BCD (binary coded decimal) value, in the format `MMmr`, so the below value would look like `0x0100` in the generated code. This also means the maximum valid values for each part are `99.9.9`, despite it being a hexadecimal value under the hood.
+
+### Encoders
+
+This section controls the basic [rotary encoder](feature_encoders.md) support.
+
+The following items can be set. Not every value is required.
+
+* `pin_a`
+  * __Required__. A pad definition
+* `pin_b`
+  * __Required__. B pad definition
+* `resolution`
+  * How many pulses the encoder registers between each detent
+
+Examples:
+
+```json
+{
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B5", "pin_b": "A2" }
+        ]
+    }
+}
+```
+
+```json
+{
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B5", "pin_b": "A2", "resolution": 4 }
+            { "pin_a": "B6", "pin_b": "A3", "resolution": 2 }
+        ]
+    }
+}
+```
