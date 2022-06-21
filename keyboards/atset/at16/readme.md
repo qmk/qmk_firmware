@@ -1,6 +1,6 @@
 # ATSET AT16
 
-A special 3 key keyboard powered by QMK.
+A special 16 key keyboard powered by QMK.
 
 * Keyboard Maintainer: [ATSET](https://github.com/anubhavd7)
 * Hardware Supported: ATmega32U4
