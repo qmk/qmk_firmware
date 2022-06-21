@@ -667,7 +667,22 @@ In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_H
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 ```
 
-Heatmap effect may not light up the correct adjacent LEDs for certain key matrix layout such as split keyboards. The following define will limit the effect to pressed keys only:
+As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
+
+Limit the distance the effect spreads to surrounding keys. 
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40
+```
+
+Limit how hot surrounding keys get from each press.
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16
+```
+
+Remove the spread effect entirely.
+
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_SLIM
 ```
