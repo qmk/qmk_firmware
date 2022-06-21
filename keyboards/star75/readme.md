@@ -1,6 +1,6 @@
 # 大星外设 DXWS Star75
 
-75% Hotswap PCB with optional rotary encoder, single-layout.
+75% Hotswap PCB with optional rotary encoder.
 
 ![View of Star75 Keyboard](https://i.imgur.com/UrvnjiZ.jpeg)
 

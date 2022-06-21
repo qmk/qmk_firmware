@@ -21,3 +21,5 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 	{ K50,  K51,  K52,  KC_NO, KC_NO, K55, KC_NO, KC_NO, KC_NO, K59,  K5A,  KC_NO, K5C,  K5D,  K5E }  \
 }
 
+
+
