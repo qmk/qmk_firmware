@@ -70,7 +70,7 @@ void keyboard_post_init_kb(void) {
     wait_ms(150);
 
     // Initialise the LCD
-    lcd = qp_ili9341_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 3);
+    lcd = qp_ili9341_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);
     qp_init(lcd, QP_ROTATION_0);
 
     // Turn on the LCD and clear the display
