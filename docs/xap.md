@@ -4,7 +4,13 @@ XAP (“extensible application protocol”) API intends to provide access to var
 
 ## Overview
 
-TODO
+```mermaid
+%%{init: {'themeVariables': { 'fontSize': '24px'}}}%%
+flowchart LR
+    dev[QMK Device] <-- XAP --> host[Host Computer]
+```
+
+The intention is to provide access to QMK subsystems through a versioned and documented protocol. 
 
 ## Protocol Reference
 

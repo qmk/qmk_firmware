@@ -128,6 +128,8 @@
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//unpkg.com/mermaid/dist/mermaid.js"></script>
+  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
   <script src="//unpkg.com/docsify-tabs@1"></script>
   <script src="//unpkg.com/docsify-copy-code@2"></script>
   <script src="//unpkg.com/docsify-toc@1.1.0/dist/toc.js"></script>
@@ -143,5 +145,6 @@
       navigator.serviceWorker.register('sw.js')
     }
   </script>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
 </body>
 </html>
