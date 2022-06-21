@@ -8,7 +8,7 @@
     "usb": {
         "vid": "0x4705",
         "pid": "0xC474",
-        "device_version": "0.0.1",
+        "device_version": "0.0.1"
     },
     "qmk_lufa_bootloader": {
         "esc_output": "D6",
@@ -18,7 +18,7 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "nkro": true,
+        "nkro": true
     },
     "indicators": {
         "num_lock": "B2",
