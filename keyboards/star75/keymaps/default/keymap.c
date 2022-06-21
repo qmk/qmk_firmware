@@ -92,8 +92,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 /* encoder; start */
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch(get_highest_layer(layer_state)) {
-        case _FN1:
+    if (index == 0) {
+        switch(get_highest_layer(layer_state)) {
+            case _FN1:
             if ( clockwise ) {
                 tap_code16(KC_PGDN);
             } else {
@@ -108,8 +109,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code_delay(KC_VOLD, 10);
             }
             break;			
+        }
     }
-    return true;
+    return false;
 }
 #endif
 /* encoder; end */
