@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 	
-[1] = LAYOUT(
+[1] = LAYOUT_ortho_4x4(
   KC_NO,   KC_NO,   KC_NO,  KC_NO,
   KC_NO,   KC_NO,   KC_NO,  KC_NO,
   KC_NO,   KC_NO,   KC_NO,  KC_NO,
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 	
-[2] = LAYOUT(
+[2] = LAYOUT_ortho_4x4(
   KC_NO,   KC_NO,   KC_NO,  KC_NO,
   KC_NO,   KC_NO,   KC_NO,  KC_NO,
   KC_NO,   KC_NO,   KC_NO,  KC_NO,
