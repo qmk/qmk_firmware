@@ -40,7 +40,8 @@ enum custom_keycodes {
 	CK_DSCL,
 	CK_CRET,
 	CK_MSLK,
-	KC_SS
+	KC_SS,
+	CK_BACK
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -55,18 +56,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
   [_GAME] = LAYOUT(
-     KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                        KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
-     KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                        KC_J  , KC_L  , KC_U  , KC_Y  , KC_COLN, KC_MINS,
-     KC_LSFT, KC_A  , KC_R  , KC_S  , KC_T  , KC_G  ,                        KC_K  , KC_N  , KC_E  , KC_I  ,KC_O, KC_QUOT,
-     KC_DEL , KC_V  , KC_X  , KC_D  , KC_C  , KC_Z  ,                        KC_M  , KC_H  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
-                      KC_LBRC,KC_RBRC,KC_SPC,KC_BSPC,   			         KC_LSFT,ALT_TAB,KC_PLUS, KC_EQL,
-                             KC_MPLY,KC_LCTL,KC_LALT,                        MO_FN, KC_ENT								
+     KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
+     KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  , KC_COLN, KC_MINS,
+     KC_LSFT, KC_A  , KC_R  , KC_S  , KC_T  , KC_G  ,                         KC_K  , KC_N  , KC_E  , KC_I  ,KC_O, KC_QUOT,
+     KC_DEL , KC_V  , KC_X  , KC_D  , KC_C  , KC_Z  ,                         KC_M  , KC_H  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
+                      KC_LBRC,KC_RBRC,KC_SPC,KC_BSPC,   			          KC_LSFT,ALT_TAB,KC_PLUS, KC_EQL,
+                             KC_MPLY,KC_LCTL,KC_LALT,                         MO_FN, KC_ENT								
   ),
   
   [_MOUSE] = LAYOUT(
      QK_BOOT, _______, _______ , _______, _______, _______,                   _______ ,_______,_______,_______,_______,_______,
      KC_TAB , _______, _______ , _______, _______, _______,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK, _______, _______,
-     KC_BSPC, _______, _______ , _______, _______, _______,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, KC_SCLN, KC_QUOT,
+     KC_BSPC, _______, _______ , _______, _______, _______,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, CK_BACK, KC_QUOT,
      KC_LGUI, _______, _______ , _______, _______, _______,                   MC_PASTE, KC_BTN4, KC_BTN5 ,KC_NO ,KC_NO,KC_BSLASH,
                        _______ , _______, _______, _______,                   KC_LSFT, KC_LALT, KC_PLUS, KC_EQL,
                                      _______,KC_LCTL,KC_LALT,                 _______,KC_ENT		
@@ -228,6 +229,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				tap_code(KC_P2);
 				tap_code(KC_P3);
 				unregister_code16(KC_LALT);
+			}
+			return false;
+		case CK_BACK:
+			if(record->event.pressed){
+				//register_code16(KC_LCTL);
+				tap_code16(LCTL(KC_SPC));
 			}
 			return false;
 		}
