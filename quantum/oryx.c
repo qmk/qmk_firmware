@@ -42,6 +42,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             pairing_validate_eeprom_handler();
             break;
+
+        case ORYX_SET_LAYER:
+            if(rawhid_state.paired == true) {
+                layer_clear();
+                layer_on(param[0]);
+            }
+            break;
     }
 }
 

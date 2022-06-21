@@ -22,7 +22,7 @@ enum Oryx_Command_Code {
     ORYX_CMD_PAIRING_INIT,
     ORYX_CMD_PAIRING_VALIDATE,
     ORYX_CMD_DISCONNECT,
-    ORYX_GET_LAYER,
+    ORYX_SET_LAYER
 };
 
 enum Oryx_Event_Code {
