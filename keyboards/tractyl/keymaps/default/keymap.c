@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_CLMK] = LAYOUT(
      KC_GESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5 ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
      KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  , KC_SCLN, KC_MINS,
-     KC_BTN1, KC_A  , KC_R  , KC_S  , KC_T  , KC_G  ,                         KC_K  , KC_N  , KC_E  , KC_I  ,KC_O, KC_QUOT,
+     KC_BSPC, KC_A  , KC_R  , KC_S  , KC_T  , KC_G  ,                         KC_K  , KC_N  , KC_E  , KC_I  ,KC_O, KC_QUOT,
      KC_LGUI, KC_V  , KC_X  , KC_D  , KC_C  , KC_Z  ,                         KC_M  , KC_H  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
                       KC_LBRC,KC_RBRC,KC_SPC,MO_RALT,   			          KC_LSFT, ALT_TAB,KC_PLUS, KC_EQL,
                              KC_MPLY,KC_LCTL,KC_LALT,                         MO_FN, KC_ENT								
@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MOUSE] = LAYOUT(
      QK_BOOT, _______, _______ ,_______ , _______, _______,                    _______ ,_______,_______,_______,_______,_______,
      KC_TAB , _______, _______, _______, _______, _______  ,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK,_______,_______,
-     KC_DEL, _______ ,_______ , _______ , _______, _______ ,                   MC_COPY , KC_BTN1, KC_BTN2  , KC_BTN3  ,KC_SCLN,KC_QUOT,
+     KC_BSPC, _______ ,_______ , _______ , _______, _______ ,                  MC_COPY , KC_BTN1, KC_BTN2  , KC_BTN3  ,KC_SCLN,KC_QUOT,
      KC_LGUI, _______ , _______ , _______ , _______, _______,                  MC_PASTE, KC_BTN4  ,KC_BTN5 ,KC_NO ,KC_NO,KC_BSLASH,
-                         _______, _______,_______, _______,                    KC_LSFT, KC_LALT, DM_REC1, DM_REC2,
+                         _______, _______,_______, _______,                    KC_LSFT, KC_LALT, KC_PLUS, KC_EQL,
                                      _______,KC_LCTL,KC_LALT,                  _______,KC_ENT		
   ),
     
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB , KC_PGUP  , KC_PGUP  , KC_UP  , KC_HOME  , KC_SCLN  ,            KC_COMM  , KC_P7  , KC_P8  , KC_P9  , KC_SCLN  ,KC_MINS,
      KC_DEL, KC_HOME  , KC_LEFT  , KC_DOWN  , KC_RGHT  , KC_AT  ,             KC_COMM  , KC_P4  , KC_P5  , KC_P6  ,KC_P0, KC_QUOT,
      KC_LGUI, KC_PGDN  , KC_PGDN  , KC_HASH  , KC_END  , KC_B  ,              KC_DOT  , KC_P1  ,KC_P2, KC_P3 ,KC_P0,KC_DOT,
-                         DM_PLY1, DM_PLY2,KC_SPC, _______,                    KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
+                         DM_PLY1, TG(_GAME),KC_SPC, _______,                    KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
                                      KC_MUTE,KC_LCTL,KC_LALT,                 _______,KC_ENT		
   ),
   
