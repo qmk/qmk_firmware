@@ -2,7 +2,7 @@
 MCU = STM32F411
 
 # Bootloader selection
-BOOTLOADER = stm32-dfu
+BOOTLOADER = tinyuf2
 
 # Build Options
 #   change yes to no to disable
