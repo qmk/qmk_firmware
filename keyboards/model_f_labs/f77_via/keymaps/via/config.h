@@ -1,2 +1,0 @@
-#undef BOOTMAGIC_ENABLE
-#undef BOOTMAGIC_LITE

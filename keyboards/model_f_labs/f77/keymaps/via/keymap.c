@@ -12,9 +12,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * -----
- * Based on F77_-_HHKB_split_backspace_-_0-9.json from Joe of Model F Labs 
  */
 /* all
  * - Base
@@ -59,7 +56,8 @@
 enum layer_names {
     _BASE,
     _FN1,
-    _FN2
+    _FN2,
+    _FN3
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -70,18 +68,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	   KC_LSFT, KC_NUBS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(_FN1),   KC_P0,   KC_UP,   KC_PDOT, 
 	   KC_CAPS, KC_LGUI, KC_LALT,               KC_SPC,            KC_NO,   KC_RALT,         KC_NLCK, KC_RCTL,    KC_LEFT, KC_DOWN, KC_RGHT
 	 ),
-	[_FN1] = LAYOUT_all(
-           KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_INS, KC_DEL,             KC_HOME, KC_UP,   KC_PGUP, 
-	   KC_NO,         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,  KC_NO,  KC_DEL,             KC_LEFT, KC_NO,   KC_RGHT, 
-	   _______,       KC_VOLD, KC_VOLU, KC_MUTE, KC_EJCT, KC_NO, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_NO, KC_NO,  KC_END,  KC_DOWN, KC_PGDN, 
-	   _______, _______, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, _______, _______,             KC_INS,  KC_NO,   KC_DEL, 
-	   _______, KC_NO, _______,                     MO(_FN2),                           _______, _______, KC_NO, _______,             KC_NO,   KC_NO,   KC_NO
-	),
+        [_FN1] = LAYOUT_all(
+           KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_INS, KC_DEL,                    KC_HOME, KC_UP,   KC_PGUP,
+           _______,         _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,  _______, KC_DEL,   KC_LEFT, _______, KC_RGHT,
+           _______,       KC_VOLD, KC_VOLU, KC_MUTE, KC_EJCT, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, _______, _______,   KC_END,  KC_DOWN, KC_PGDN,
+           _______, _______, _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, _______, _______,          KC_INS,  _______, KC_DEL,
+           _______, _______, _______,                     MO(_FN2),                           _______, _______, _______, _______,                _______, _______, _______
+        ),
 	[_FN2] = LAYOUT_all(
            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, HPT_DWLD, HPT_DWLI, _______, _______,   _______, _______, _______, 
 	   _______,   _______, _______, EEP_RST, RESET, HPT_TOG, _______, _______, _______, _______, _______, _______, _______, _______,              _______, _______, _______, 
 	   _______,     _______, _______, DEBUG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, 
 	   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______, _______, _______, 
 	   _______, _______, _______,                              _______,                       _______, _______, _______, _______,                 _______, _______, _______
+        ),
+        [_FN3] = LAYOUT_all(
+           _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,
+           _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+           _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______,
+           _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______,
+           _______, _______, _______,                              _______,                       _______, _______, _______, _______,               _______, _______, _______
         )
 };
