@@ -105,33 +105,40 @@ Here are some other keymaps for inspiration and ideas:
 
 ## Why no keymap.c
 
-  The online configurator provides a straightforward visual way to work with a simple layout
-   and uses a .json keymap format.
- So this default ```keymap.json``` was created with the online configurator
-   and formatted for easier reading and editing.
+The online configurator provides a straightforward visual way
+   to work with a simple layout and uses a .json keymap format.
+So this default ```keymap.json``` was created with the online configurator.
 
-  If you wish, you can edit the ```keymap.json``` directly in a text editor, optionally use the below ```json2hill52.py``` to restore the spacing, and then compile and flash it.
+If you wish, you can edit the ```keymap.json``` directly in a text editor,  compile it and flash it.
 
-  Or, you can use the graphical configurator to edit the keymap. To do that:
+Or, you can use the graphical configurator to edit the keymap. To do that:
 
-  - Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/52/LAYOUT)
- - Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/52/keymaps/default/keymap.json```
- - Make the changes you wish to the layout
- - Save the keymap using the green down arrow button.
- - Copy those changes back into your QMK repository and reformat them for easy reading using the format script:
+- Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/52/LAYOUT)
+- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/52/keymaps/default/keymap.json```
+- Make the changes you wish to the layout
+- Save the keymap using the green down arrow button.
+- Move the downloaded keymap back into your QMK repository 
+     at the same location as above.
+- Rename it back to keymap.json
+- Compile and flash the firmware.
 
- ```
- ./keyboards/handwired/hillside/52/keymaps/json2hill52.py \
-     --input <Your download directory>/default.json \
-     > ./keyboards/handwired/hillside/52/keymaps/default/keymap.json
- ```
- 
-You may need to make that script executable with ```chmod +x```. After your keymap is safely copied and formatted, you may want to remove the keymap from your download directory so later downloads will automatically receive the same file name.
-
-  After either method of editing, compile and flash the keymap as usual.
-
-  You can combine a .json based keymap with more advanced features specified in .c files
-   with a bit more complexity.
- For example, see
+You can combine a .json based keymap with more advanced features
+  specified in .c files with a bit more complexity.
+For example, see
  [pierrec83's Kyria map](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/pierrec83).
+ 
+ 
+### Pretty Printing
+ 
+The QMK configurator's .json download has only one key per line,
+so it is hard to visualize the keymap if editing manually.
+If you want, the Hillside git repo has a pretty-printing script for the keymap.json file.
+ 
+As with anything downloaded from the internet, you should take some steps to assure yourself that the script will not harm your computer nor steal your data. The script is short, so reading it should at least convince you it is rearranging and printing the keymap feed to it, not reading any banking data on your computer.
+See the [Hillside wiki](https://github.com/mmccoyd/hillside/wiki) for the script.
+
+
+
+  
+
  
