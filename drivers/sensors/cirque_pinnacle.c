@@ -38,6 +38,10 @@
 #define ADC_ATTENUATE_3X     0x80
 #define ADC_ATTENUATE_4X     0xC0
 
+#ifndef CIRQUE_PINNACLE_ATTENUATION
+#    define CIRQUE_PINNACLE_ATTENUATION ADC_ATTENUATE_4X
+#endif
+
 // Register config values for this demo
 #define SYSCONFIG_1_VALUE    0x00
 #define FEEDCONFIG_1_VALUE   0x03  // 0x03 for absolute mode 0x01 for relative mode
@@ -213,7 +217,8 @@ void cirque_pinnacle_init(void) {
     // Host sets z-idle packet count to 5 (default is 30)
     RAP_Write(Z_IDLE_COUNT, Z_IDLE_COUNT_VALUE);
 
-    cirque_pinnacle_set_adc_attenuation(0xFF);
+    cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
+
     cirque_pinnacle_tune_edge_sensitivity();
     cirque_pinnacle_enable_feed(true);
 }
