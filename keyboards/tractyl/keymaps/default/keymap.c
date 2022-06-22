@@ -18,7 +18,6 @@
 -Sensitivity bug
 -lower profile thumb switches
 -pause mouse_timer while key held down
--kb doesn't enter bootloader through reset key
 */
 
 bool LALT_HELD;
@@ -38,6 +37,7 @@ unsigned int dragscroll_timer;
 enum custom_keycodes {
 	MO_FN = SAFE_RANGE,
 	MO_RALT,
+	CK_MSOF,
 	ALT_TAB,
 	MC_CBR,
 	MC_BRC,
@@ -53,7 +53,6 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [_CLMK] = LAYOUT(
      KC_GESC, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
      KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  , KC_SCLN, KC_MINS,
@@ -73,12 +72,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
   [_MOUSE] = LAYOUT(
-     KC_GESC, _______, _______ , _______, _______, _______,                   _______ ,_______,_______,_______,_______,_______,
-     KC_TAB , _______, _______ , _______, _______, _______,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK, _______, _______,
-     KC_BSPC, _______, _______ , _______, _______, _______,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, KC_MPLY, KC_QUOT,
-     KC_LGUI, _______, _______ , _______, _______, _______,                   MC_PASTE, KC_BTN4, KC_BTN5 , KC_F5,CK_BACK,KC_BSLASH,
-                       _______ , _______, _______, _______,                   KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
-                                     _______,KC_LCTL,KC_LALT,                 _______,KC_ENT		
+     KC_GESC, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   _______ ,_______,_______,_______,_______,_______,
+     KC_TAB , CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK, _______, _______,
+     KC_BSPC, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, KC_MPLY, KC_QUOT,
+     KC_LGUI, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_PASTE, KC_BTN4, KC_BTN5 , KC_F5,CK_BACK,KC_BSLASH,
+                       CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
+                                 _______, KC_LCTL, KC_LALT,                   _______,KC_ENT		
   ),
     
   [_FN] = LAYOUT(
@@ -115,6 +114,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if(record->event.pressed){
 				mouse_timer = timer_read();
 				scrolling_mode = false;
+				caret_mode = false;
+			}
+			return true;
+		case CK_MSOF:
+			if(record->event.pressed){
+				layer_off(_MOUSE);
+				scrolling_mode = false;
+				caret_mode = false;
+				tap_code(KC_TRNS);
 			}
 			return true;
 		case MC_BRC:
@@ -224,7 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 		case CK_MSLK:
 			if(record->event.pressed){
-				pointing_device_set_cpi(500);
+				pointing_device_set_cpi(800);
 				mouse_lock = !mouse_lock;
 			}
 			return false;
@@ -240,7 +248,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 		case CK_BACK:
 			if(record->event.pressed){
-				//register_code16(KC_LCTL);
 				tap_code16(LCTL(KC_SPC));
 			}
 			return false;
@@ -272,12 +279,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 			}
 		} else if (FN_HELD == true || layer_state_is(_MOUSE)){
 			if (clockwise) {
-				tap_code_delay(KC_MNXT, 10);
+				//tap_code_delay(KC_MNXT, 10);
+				tap_code(KC_RGHT);
 				/* register_code(KC_LCTL);
 				tap_code(KC_TAB);
 				unregister_code(KC_LCTL); */
 			} else {
-				tap_code_delay(KC_MPRV, 10);
+				//tap_code_delay(KC_MPRV, 10);
+				tap_code(KC_LEFT);
 				/* register_code(KC_LCTL);
 				register_code(KC_LSFT);
 				tap_code(KC_TAB);
@@ -285,9 +294,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				unregister_code(KC_LCTL); */
 			}
 		} else if (clockwise) {
-			tap_code(KC_RGHT);
+			//tap_code(KC_RGHT);
+			tap_code_delay(KC_MNXT, 10);
         } else {
-			tap_code(KC_LEFT);
+			//tap_code(KC_LEFT);
+			tap_code_delay(KC_MPRV, 10);
         }
     }
     return true;
@@ -303,8 +314,18 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 		layer_off(_MOUSE);
 	}
 	short x = mouse_report.x, y = mouse_report.y;
-	x = (x > 0 ? x * x / 5 + x : -x * x / 5 + x);
-    y = (y > 0 ? y * y / 5 + y : -y * y / 5 + y);
+	x = (x > 0 ? x * x / 3 + x : -x * x / 3 + x);
+	y = (y > 0 ? y * y / 3 + y : -y * y / 3 + y);
+	
+	/* float x = mouse_report.x, y = mouse_report.y;
+	x = (x > 0 ? (x/20)*(x)+1 : (-x/20)*(x)-1);
+	if(x == 1 || x == -1){
+		x = 0;
+	}
+	y = (y > 0 ? (y/20)*(y)+1 : (-y/20)*(y)-1);
+	if(y == 1 || y == -1){
+		y = 0;
+	} */
 	mouse_report.x = constrain_hid(x);
 	mouse_report.y = constrain_hid(y);
 	if(scrolling_mode){
@@ -321,11 +342,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 			tap_code(KC_WH_U);
 			tempx = 0;
 			tempy = 0;
-		}else if(tempx > 30){
+		}else if(tempx > SCROLL_VAL - 10){
 			tap_code(KC_WH_R);
 			tempx = 0;
 			tempy = 0;
-		}else if(tempx < -30){
+		}else if(tempx < -SCROLL_VAL - 10){
 			tap_code(KC_WH_L);
 			tempx = 0;
 			tempy = 0;
@@ -343,11 +364,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 			tap_code(KC_LEFT);
 			tempx = 0;
 			tempy = 0;
-		}else if(tempy > CARET_VAL){
+		}else if(tempy > CARET_VAL + 10){
 			tap_code(KC_DOWN);
 			tempx = 0;
 			tempy = 0;
-		}else if(tempy < -CARET_VAL){
+		}else if(tempy < -CARET_VAL + 10){
 			tap_code(KC_UP);
 			tempx = 0;
 			tempy = 0;
