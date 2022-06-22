@@ -16,7 +16,7 @@ typedef uint32_t backing_store_int_t;
 #elif BACKING_STORE_WRITE_SIZE == 8
 typedef uint64_t backing_store_int_t;
 #else
-#    error Invalid BACKING_STORE_WRITE_SIZE, needs to be 1/2/4/8.
+#    error Invalid BACKING_STORE_WRITE_SIZE, needs to be 2/4/8.
 #endif
 
 #ifndef WEAR_LEVELING_BACKING_SIZE
