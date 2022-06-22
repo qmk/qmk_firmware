@@ -14,7 +14,7 @@
 #define PAIRING_BLINK_STEPS 512
 #define PAIRING_BLINK_END PAIRING_BLINK_STEPS * 60
 #define PAIRING_SEQUENCE_SIZE 3
-#define PAIRING_SEQUENCE_NUM_STORED 5
+#define PAIRING_SEQUENCE_NUM_STORED 3
 #define PAIRING_STORAGE_SIZE PAIRING_SEQUENCE_SIZE* PAIRING_SEQUENCE_NUM_STORED * sizeof(uint16_t)
 
 enum Oryx_Command_Code {
@@ -52,6 +52,7 @@ void     pairing_init_handler(void);
 void     pairing_validate_handler(void);
 void     pairing_validate_eeprom_handler(void);
 void     pairing_init_event(void);
+bool     compare_sequences(keypos_t a[PAIRING_SEQUENCE_SIZE], keypos_t b[PAIRING_SEQUENCE_SIZE]);
 void     pairing_key_input_event(void);
 void     pairing_failed_event(void);
 void     pairing_succesful_event(void);

@@ -105,19 +105,26 @@ void pairing_init_handler(void) {
     raw_hid_send(event, RAW_EPSIZE);
 }
 
-void pairing_validate_handler() {
-    bool    valid = true;
-    uint8_t event[RAW_EPSIZE];
+bool compare_sequences(keypos_t a[PAIRING_SEQUENCE_SIZE], keypos_t b[PAIRING_SEQUENCE_SIZE]) {
+    bool valid = true;
     for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
-        if (keyboard_pairing_sequence[i].row != host_pairing_sequence[i].row) {
+        if (a[i].row != b[i].row) {
             valid = false;
             break;
         }
-        if (keyboard_pairing_sequence[i].col != host_pairing_sequence[i].col) {
+        if (a[i].col != b[i].col) {
             valid = false;
             break;
         }
     }
+    return valid;
+}
+
+void pairing_validate_handler() {
+    
+    uint8_t event[RAW_EPSIZE];
+    bool    valid = compare_sequences(keyboard_pairing_sequence, host_pairing_sequence);
+
     if (valid == true) {
         event[0]            = ORYX_EVT_PAIRING_SUCCESS;
         rawhid_state.paired = true;
@@ -126,6 +133,7 @@ void pairing_validate_handler() {
         event[0]            = ORYX_EVT_PAIRING_FAILED;
         rawhid_state.paired = false;
     }
+
     event[1]             = ORYX_STOP_BIT;
     rawhid_state.pairing = false;
     raw_hid_send(event, sizeof(event));
@@ -177,6 +185,7 @@ bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
                 host_pairing_sequence[pairing_input_index++] = record->event.key;
                 pairing_key_input_event();
             }
+            wait_ms(1000);
             if (pairing_input_index == PAIRING_SEQUENCE_SIZE) {
                 rawhid_state.pairing = false;
                 pairing_input_index  = 0;
