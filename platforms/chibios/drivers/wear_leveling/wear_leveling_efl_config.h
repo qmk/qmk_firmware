@@ -6,44 +6,45 @@
 #    include <hal.h>
 #endif
 
-// 2-byte writes
+// Work out how many bytes per write
 #ifndef BACKING_STORE_WRITE_SIZE
 // These need to match EFL's XXXXXX_FLASH_LINE_SIZE, see associated code in `lib/chibios/os/hal/ports/**/hal_efl_lld.c`,
 // or associated `stm32_registry.h` for the MCU in question (or equivalent for the family).
-#    if defined(GD32VF103)
+#    if defined(QMK_MCU_SERIES_GD32VF103)
 #        define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
-#    elif defined(NUC123SD4AN0)            //  defined(MCU_?????)
-#        ifndef NUC123_EFL_IMPLEMENTATION_TESTING
-#            error "This configuration currently results in a broken build."
-#        endif                             // NUC123_EFL_IMPLEMENTATION_TESTING
+#    elif defined(QMK_MCU_FAMILY_NUC123)
 #        define BACKING_STORE_WRITE_SIZE 4 // from hal_efl_lld.c
-#    elif defined(MCU_STM32)               //  defined(MCU_?????)
-#        if defined(STM32_FLASH_LINE_SIZE)
+#    elif defined(QMK_MCU_FAMILY_STM32)
+#        if defined(STM32_FLASH_LINE_SIZE) // from some family's stm32_registry.h file
 #            define BACKING_STORE_WRITE_SIZE (STM32_FLASH_LINE_SIZE)
-#        else // defined(STM32_FLASH_LINE_SIZE)
-#            if defined(STM32F1XX)
+#        else
+#            if defined(QMK_MCU_SERIES_STM32F1XX)
 #                define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
-#            elif defined(STM32F3XX)
+#            elif defined(QMK_MCU_SERIES_STM32F3XX)
 #                define BACKING_STORE_WRITE_SIZE 2 // from hal_efl_lld.c
-#            elif defined(STM32F4XX)
+#            elif defined(QMK_MCU_SERIES_STM32F4XX)
 #                define BACKING_STORE_WRITE_SIZE (1 << STM32_FLASH_PSIZE) // from hal_efl_lld.c
-#            elif defined(STM32L4XX)
+#            elif defined(QMK_MCU_SERIES_STM32L4XX)
 #                define BACKING_STORE_WRITE_SIZE 8 // from hal_efl_lld.c
-#            elif defined(STM32G0XX)
+#            elif defined(QMK_MCU_SERIES_STM32G0XX)
+#                define BACKING_STORE_WRITE_SIZE 8 // from hal_efl_lld.c
+#            elif defined(QMK_MCU_SERIES_STM32G4XX)
 #                define BACKING_STORE_WRITE_SIZE 8 // from hal_efl_lld.c
 #            else
-#                error "ChibiOS hasn't defined a specific STM32_FLASH_LINE_SIZE, but should've." // normally defined in stm32_registry.h, should be set by STM32_FLASH_LINE_SIZE
-#            endif // defined(STM32??XX)
-#        endif     // defined(STM32_FLASH_LINE_SIZE)
-#    endif         // defined(MCU_?????)
+#                error "ChibiOS hasn't defined STM32_FLASH_LINE_SIZE, and could not automatically determine BACKING_STORE_WRITE_SIZE" // normally defined in stm32_registry.h, should be set by STM32_FLASH_LINE_SIZE
+#            endif
+#        endif
+#    else
+#        error "Could not automatically determine BACKING_STORE_WRITE_SIZE"
+#    endif
 #endif
 
-// 16kB space allocated
+// 4kB space allocated
 #ifndef WEAR_LEVELING_BACKING_SIZE
-#    define WEAR_LEVELING_BACKING_SIZE 16384
+#    define WEAR_LEVELING_BACKING_SIZE 4096
 #endif // WEAR_LEVELING_BACKING_SIZE
 
-// 4kB logical EEPROM
+// 2kB logical EEPROM
 #ifndef WEAR_LEVELING_LOGICAL_SIZE
-#    define WEAR_LEVELING_LOGICAL_SIZE 4096
+#    define WEAR_LEVELING_LOGICAL_SIZE 2048
 #endif // WEAR_LEVELING_LOGICAL_SIZE
