@@ -5,8 +5,8 @@
 The PCB for the Mochi40, a spiritual successor to the unreleased Whimsy recreated from scratch and made completely open source! With an OLED, Rotary Encoder, and headers for both the Elite-C and Nice!Nano, this board gives you all you could want in a 40%.
 
 * Keyboard Maintainer: [Aidan Smith](https://github.com/Aidan-OS)
-* Hardware Supported: *Fine!40*
-* Hardware Availability: *https://github.com/Aidan-OS/Mochi40*
+* Hardware Supported: Fine!40
+* Hardware Availability: https://github.com/Aidan-OS/Mochi40
 
 Make example for this keyboard (after setting up your build environment):
 
