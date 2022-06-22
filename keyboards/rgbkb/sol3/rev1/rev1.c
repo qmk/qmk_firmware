@@ -165,7 +165,6 @@ void rgb_matrix_increase_flags(void)
 #endif
 
 
-
 __attribute__((weak))
 void render_layer_status(void) {
     // Keymap specific, expected to be overridden
@@ -223,7 +222,7 @@ bool oled_task_kb(void) {
     if (!oled_task_user())
         return false;
 
-    if (is_keyboard_left()) {
+    if (!is_keyboard_left()) {
         render_icon();
         oled_write_P(PSTR("     "), false);
         render_layer_status();
