@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jis2us.h"
 #include "action_pseudo_lut.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
