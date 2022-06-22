@@ -1,5 +1,7 @@
 # Kawayo
 
+![Kawayo Board](https://cdn.shopify.com/s/files/1/0281/3122/9834/products/Kawayoo_1024x1024@2x.jpg?v=1650025682)
+
 A board dedicated to Nakiri Ayame from Nakirigumi. 65% with top blocker.
 
 * Keyboard Maintainer: [cipulot](https://github.com/cipulot) and the Mecha Team
