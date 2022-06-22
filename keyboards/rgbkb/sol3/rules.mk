@@ -35,4 +35,4 @@ OPT = 3
 OPT_DEFS += -DOLED_FONT_H=\"keyboards/rgbkb/common/glcdfont.c\"
 
 DEFAULT_FOLDER = rgbkb/sol3/rev1
-VPATH += keyboards/gboards
+# VPATH += keyboards/gboards

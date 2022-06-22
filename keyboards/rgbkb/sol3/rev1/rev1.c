@@ -226,12 +226,7 @@ bool oled_task_kb(void) {
         render_icon();
         oled_write_P(PSTR("     "), false);
         render_layer_status();
-        oled_write_P(PSTR("     "), false);
-        render_leds_status();
-        oled_write_P(PSTR("     "), false);
-        render_touch_status();
-        oled_write_P(PSTR("     "), false);
-        render_audio_status();
+        render_rgb_menu();
     }
     else {
         render_icon();

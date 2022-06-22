@@ -54,7 +54,7 @@ const rgb_matrix_f rgb_matrix_functions[RGB_FUNCTION_COUNT][2] = {
 
 void render_rgb_menu(void) {
     static char buffer[63] = {0};
-    snprintf(buffer, sizeof(buffer), "Hue    %3dSatrn  %3dValue  %3dSpeed  %3dMode   %3dEnbld  %3d", 
+    snprintf(buffer, sizeof(buffer), "Hue    %3dSatrn  %3dValue  %3dSpeed  %3dMode   %3d",
     rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v, rgb_matrix_config.speed, rgb_matrix_config.mode, rgb_matrix_config.enable);
 
     if (rgb_menu.selecting) {
