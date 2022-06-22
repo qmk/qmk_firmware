@@ -96,6 +96,5 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_FN1] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN) }
 };
 #endif
-#endif
 /* encoder; end */
 
