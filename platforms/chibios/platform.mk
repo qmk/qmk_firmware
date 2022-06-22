@@ -36,6 +36,7 @@ ifeq ($(strip $(MCU)), risc-v)
     # RISC-V Support
     # As of 7.4.2021 there is only one supported RISC-V platform in Chibios-Contrib,
     # therefore all required settings are hard-coded
+    USE_CHIBIOS_CONTRIB = yes
     STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
     PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-ECLIC/compilers/GCC/mk/port.mk
     RULESPATH = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC
