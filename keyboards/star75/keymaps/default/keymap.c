@@ -90,7 +90,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 /* capslock/layer indicators; using rgb led; end */
 
 /* encoder; start */
-#ifdef ENCODER_ENABLE
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_HOME] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
