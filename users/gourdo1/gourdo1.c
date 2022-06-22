@@ -351,6 +351,35 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t * record) {
     }
 }
 
+// Define custom Caps Word continuity characters
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_TILD:
+        case KC_UNDS:
+        case KC_DQT:
+        case KC_COLN:
+        case KC_RSFT:
+        case KC_LSFTCAPSWIN:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_GRV:
+        case KC_MINS:
+        case KC_QUOT:
+        case KC_SCLN:
+        case KC_BSPC:
+        case KC_DEL:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
 // Turn on/off NUM LOCK if current state is different
 void activate_numlock(bool turn_on) {
     if (IS_HOST_LED_ON(USB_LED_NUM_LOCK) != turn_on) {
