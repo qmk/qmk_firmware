@@ -18,6 +18,7 @@
 -Sensitivity bug
 -lower profile thumb switches
 -pause mouse_timer while key held down
+-fix right encoder clockwise press on keyboard startup
 */
 
 bool LALT_HELD;
