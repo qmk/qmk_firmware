@@ -13,6 +13,14 @@
 #define CARET_VAL 50
 #define SCROLL_VAL 40
 
+/* ===== PROBLEMS ======
+-KB needs to be replugged after shutdown
+-Sensitivity bug
+-lower profile thumb switches
+-pause mouse_timer while key held down
+-kb doesn't enter bootloader through reset key
+*/
+
 bool LALT_HELD;
 bool FN_HELD;
 
@@ -65,11 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
   [_MOUSE] = LAYOUT(
-     QK_BOOT, _______, _______ , _______, _______, _______,                   _______ ,_______,_______,_______,_______,_______,
+     KC_GESC, _______, _______ , _______, _______, _______,                   _______ ,_______,_______,_______,_______,_______,
      KC_TAB , _______, _______ , _______, _______, _______,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK, _______, _______,
-     KC_BSPC, _______, _______ , _______, _______, _______,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, CK_BACK, KC_QUOT,
-     KC_LGUI, _______, _______ , _______, _______, _______,                   MC_PASTE, KC_BTN4, KC_BTN5 ,KC_NO ,KC_NO,KC_BSLASH,
-                       _______ , _______, _______, _______,                   KC_LSFT, KC_LALT, KC_PLUS, KC_EQL,
+     KC_BSPC, _______, _______ , _______, _______, _______,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, KC_MPLY, KC_QUOT,
+     KC_LGUI, _______, _______ , _______, _______, _______,                   MC_PASTE, KC_BTN4, KC_BTN5 , KC_F5,CK_BACK,KC_BSLASH,
+                       _______ , _______, _______, _______,                   KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
                                      _______,KC_LCTL,KC_LALT,                 _______,KC_ENT		
   ),
     
@@ -93,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [_FN2] = LAYOUT(
      KC_ESC, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5,                       KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10  ,KC_BSPC,
-     KC_TAB , KC_PGUP  , KC_PGUP  , KC_UP  , KC_HOME  , KC_SCLN  ,            KC_COMM , KC_P7  , KC_P8  , KC_P9  , KC_SCLN  ,KC_MINS,
+     KC_TAB , KC_PGUP  , KC_PGUP  , KC_UP  , KC_HOME  , KC_SCLN  ,            KC_COMM , KC_P7  , KC_P8  , KC_P9  , KC_SCLN , KC_NUM,
      KC_DEL, KC_HOME  , KC_LEFT  , KC_DOWN  , KC_RGHT  , KC_AT   ,            KC_COMM  , KC_P4  , KC_P5  , KC_P6  ,KC_P0, KC_QUOT,
      KC_LGUI, KC_PGDN  , KC_PGDN  , KC_HASH  , KC_END  , KC_B  ,              KC_DOT , KC_P1  ,KC_P2, KC_P3 ,KC_P0,KC_DOT,
                          DM_PLY1, DM_PLY2,KC_SPC, _______,                    KC_LSFT, KC_LALT, KC_PLUS, KC_EQL,
@@ -106,6 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case KC_BTN1:
 			if(record->event.pressed){
 				mouse_timer = timer_read();
+				scrolling_mode = false;
 			}
 			return true;
 		case MC_BRC:
@@ -152,10 +161,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case KC_LALT:
 			if (record->event.pressed) {
 				LALT_HELD = true;
-				scrolling_mode = true;
 			} else {
 				LALT_HELD = false;
-				scrolling_mode = false;
 			}
 			return true;
 		case ALT_TAB:
@@ -263,7 +270,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				tap_code(KC_TAB);
 				unregister_code(KC_LSFT);
 			}
-		} else if (FN_HELD == true) {
+		} else if (FN_HELD == true || layer_state_is(_MOUSE)){
 			if (clockwise) {
 				tap_code_delay(KC_MNXT, 10);
 				/* register_code(KC_LCTL);
@@ -287,7 +294,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 };
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-	if(mouse_report.x != 0 && mouse_report.y != 0){
+	if(mouse_report.x != 0 || mouse_report.y != 0){
 		if(!layer_state_is(_MOUSE)){
 			layer_on(_MOUSE);
 		}
@@ -296,8 +303,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 		layer_off(_MOUSE);
 	}
 	short x = mouse_report.x, y = mouse_report.y;
-	x = (x > 0 ? x * x / 8 + x : -x * x / 8 + x);
-    y = (y > 0 ? y * y / 8 + y : -y * y / 8 + y);
+	x = (x > 0 ? x * x / 5 + x : -x * x / 5 + x);
+    y = (y > 0 ? y * y / 5 + y : -y * y / 5 + y);
 	mouse_report.x = constrain_hid(x);
 	mouse_report.y = constrain_hid(y);
 	if(scrolling_mode){
