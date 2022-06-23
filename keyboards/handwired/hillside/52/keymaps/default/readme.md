@@ -27,8 +27,9 @@ The default layout is QWERTY with alternatives of Dvorak and Colemak-DH, and the
 <details>
 <summary>Details of Dvorak and Coleman-DH</summary>
 The Dvorak and Colemak-DH base layers have identical non-alpha and non-symbol keys as the QWERTY base layer.
-![Base Dvorak layer](https://imgur.com/Baxt3L9.png)
-![Base Colemak layer](https://imgur.com/5BHeur8.png)
+
+![Base Dvorak layer](https://imgur.com/Baxt3L9h.png)
+![Base Colemak layer](https://imgur.com/5BHeur8h.png)
 </details>
 
 
