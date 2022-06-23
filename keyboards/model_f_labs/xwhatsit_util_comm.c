@@ -36,8 +36,6 @@ inline int min(int x, int y) {
   return x;
 }
 
-// MJW - Changed raw_hid_receive to raw_hid_receive_kb to enable VIA support.
-// void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     if (0 != memcmp(data, magic, sizeof(magic))) {
         return;
