@@ -129,12 +129,17 @@ def parse_config_h_file(config_h_file, config_h=None):
             line = line.split()
 
             if line[0] == '#define':
-                if len(line) == 1:
-                    cli.log.error('%s: Incomplete #define! On or around line %s' % (config_h_file, linenum))
-                elif len(line) == 2:
-                    config_h[line[1]] = True
+                if len(line) > 1:
+                    if line[1] in config_h:
+                        # Duplicate #define usually means preprocessor logic - remove as we cannot handle that case
+                        del config_h[line[1]]
+                    else:
+                        if len(line) == 2:
+                            config_h[line[1]] = True
+                        else:
+                            config_h[line[1]] = ' '.join(line[2:])
                 else:
-                    config_h[line[1]] = ' '.join(line[2:])
+                    cli.log.error('%s: Incomplete #define! On or around line %s' % (config_h_file, linenum))
 
             elif line[0] == '#undef':
                 if len(line) == 2:
