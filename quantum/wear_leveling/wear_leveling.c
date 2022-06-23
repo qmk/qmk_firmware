@@ -86,17 +86,17 @@
         For multi-byte writes, up to 8 bytes will be used for each log entry,
         depending on the size of backing store writes:
 
-        ╔═ Multi-byte Log Entry (2, 4-byte) ╗
+        ╔ Multi-byte Log Entry (2, 4-byte) ═╗
         ║00XXXYYY║YYYYYYYY║YYYYYYYY║AAAAAAAA║
         ║  └┬┘└┬┘║└──┬───┘║└──┬───┘║└──┬───┘║
         ║  LenAdd║ Address║ Address║Value[0]║
         ╚════════╩════════╩════════╩════════╝
-        ╔═ Multi-byte Log Entry (2-byte) ═════════════════════╗
+        ╔ Multi-byte Log Entry (2-byte) ══════════════════════╗
         ║00XXXYYY║YYYYYYYY║YYYYYYYY║AAAAAAAA║BBBBBBBB║CCCCCCCC║
         ║  └┬┘└┬┘║└──┬───┘║└──┬───┘║└──┬───┘║└──┬───┘║└──┬───┘║
         ║  LenAdd║ Address║ Address║Value[0]║Value[1]║Value[2]║
         ╚════════╩════════╩════════╩════════╩════════╩════════╝
-        ╔═ Multi-byte Log Entry (2, 4, 8-byte) ═════════════════════════════════╗
+        ╔ Multi-byte Log Entry (2, 4, 8-byte) ══════════════════════════════════╗
         ║00XXXYYY║YYYYYYYY║YYYYYYYY║AAAAAAAA║BBBBBBBB║CCCCCCCC║DDDDDDDD║EEEEEEEE║
         ║  └┬┘└┬┘║└──┬───┘║└──┬───┘║└──┬───┘║└──┬───┘║└──┬───┘║└──┬───┘║└──┬───┘║
         ║  LenAdd║ Address║ Address║Value[0]║Value[1]║Value[2]║Value[3]║Value[4]║
@@ -118,7 +118,7 @@
         backing store write operation. 4- and 8-byte backing stores do not have
         this optimization as it does not minimize the number of bytes written.
 
-        ╔══ Byte-Entry ══╗
+        ╔ Byte-Entry ════╗
         ║01XXXXXXYYYYYYYY║
         ║  └─┬──┘└──┬───┘║
         ║ Address Value  ║
@@ -130,7 +130,7 @@
         subsystem. This is valid only for the first 16kB of logical data --
         addresses outside this range will use the multi-byte encoding above.
 
-        ╔ Word-Encoded 0 ╗
+        ╔ U16-Encoded 0 ═╗
         ║100XXXXXXXXXXXXX║
         ║  │└─────┬─────┘║
         ║  │Address >> 1 ║
@@ -138,7 +138,7 @@
         ╚════════════════╝
         0 <= Address <= 0x3FFE (16382)
 
-        ╔ Word-Encoded 1 ╗
+        ╔ U16-Encoded 1 ═╗
         ║101XXXXXXXXXXXXX║
         ║  │└─────┬─────┘║
         ║  │Address >> 1 ║
@@ -152,7 +152,34 @@
 static struct __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) {
     __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) uint8_t cache[WEAR_LEVELING_LOGICAL_SIZE];
     uint32_t                                                       write_address;
+    bool                                                           unlocked;
 } wear_leveling;
+
+/**
+ * Locking helper: unlock
+ */
+static inline bool wear_leveling_unlock(void) {
+    if (wear_leveling.unlocked) {
+        return false;
+    }
+    if (backing_store_unlock()) {
+        wear_leveling.unlocked = true;
+    }
+    return wear_leveling.unlocked;
+}
+
+/**
+ * Locking helper: lock
+ */
+static inline bool wear_leveling_lock(void) {
+    if (!wear_leveling.unlocked) {
+        return false;
+    }
+    if (backing_store_lock()) {
+        wear_leveling.unlocked = false;
+    }
+    return !wear_leveling.unlocked;
+}
 
 /**
  * Resets the cache, ensuring the write address is correctly initialised.
@@ -190,24 +217,31 @@ static wear_leveling_status_t wear_leveling_read_consolidated(void) {
 static wear_leveling_status_t wear_leveling_write_consolidated(void) {
     wl_dprintf("Writing consolidated data\n");
 
+    wear_leveling_status_t status     = WEAR_LEVELING_CONSOLIDATED;
+    bool                   did_unlock = wear_leveling_unlock();
     for (int address = 0; address < WEAR_LEVELING_LOGICAL_SIZE; address += BACKING_STORE_WRITE_SIZE) {
         const backing_store_int_t value = *(backing_store_int_t *)&wear_leveling.cache[address];
         backing_store_int_t       temp;
         bool                      ok = backing_store_read(address, &temp);
         if (!ok) {
             wl_dprintf("Failed to read from backing store\n");
-            return WEAR_LEVELING_FAILED;
+            status = WEAR_LEVELING_FAILED;
+            break;
         }
         if (temp != value) {
             ok = backing_store_write(address, value);
             if (!ok) {
                 wl_dprintf("Failed to write to backing store\n");
-                return WEAR_LEVELING_FAILED;
+                status = WEAR_LEVELING_FAILED;
+                break;
             }
         }
     }
 
-    return WEAR_LEVELING_CONSOLIDATED;
+    if (did_unlock) {
+        wear_leveling_lock();
+    }
+    return status;
 }
 
 /**
@@ -436,6 +470,12 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
                 const uint32_t a = LOG_ENTRY_MULTIBYTE_GET_ADDRESS(log);
                 const uint8_t  l = LOG_ENTRY_MULTIBYTE_GET_LENGTH(log);
 
+                if (a + l > WEAR_LEVELING_LOGICAL_SIZE) {
+                    cancel_playback = true;
+                    status          = WEAR_LEVELING_FAILED;
+                    break;
+                }
+
 #if BACKING_STORE_WRITE_SIZE == 2
                 if (l > 1) {
                     ok = backing_store_read(address, &log.raw16[2]);
@@ -474,13 +514,27 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
             } break;
 #if BACKING_STORE_WRITE_SIZE == 2
             case LOG_ENTRY_TYPE_OPTIMIZED_64: {
-                const uint32_t a       = LOG_ENTRY_OPTIMIZED_64_GET_ADDRESS(log);
-                const uint8_t  v       = LOG_ENTRY_OPTIMIZED_64_GET_VALUE(log);
+                const uint32_t a = LOG_ENTRY_OPTIMIZED_64_GET_ADDRESS(log);
+                const uint8_t  v = LOG_ENTRY_OPTIMIZED_64_GET_VALUE(log);
+
+                if (a >= WEAR_LEVELING_LOGICAL_SIZE) {
+                    cancel_playback = true;
+                    status          = WEAR_LEVELING_FAILED;
+                    break;
+                }
+
                 wear_leveling.cache[a] = v;
             } break;
             case LOG_ENTRY_TYPE_WORD_01: {
-                const uint32_t a           = LOG_ENTRY_WORD_01_GET_ADDRESS(log);
-                const uint8_t  v           = LOG_ENTRY_WORD_01_GET_VALUE(log);
+                const uint32_t a = LOG_ENTRY_WORD_01_GET_ADDRESS(log);
+                const uint8_t  v = LOG_ENTRY_WORD_01_GET_VALUE(log);
+
+                if (a + 1 >= WEAR_LEVELING_LOGICAL_SIZE) {
+                    cancel_playback = true;
+                    status          = WEAR_LEVELING_FAILED;
+                    break;
+                }
+
                 wear_leveling.cache[a + 0] = v;
                 wear_leveling.cache[a + 1] = 0;
             } break;
@@ -495,8 +549,11 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
     // We've reached the end of the log, so we're at the new write location
     wear_leveling.write_address = address;
 
-    // Consolidate the cache + write log if required
-    if (status != WEAR_LEVELING_FAILED) {
+    if (status == WEAR_LEVELING_FAILED) {
+        // If we had a failure during readback, assume we're corrupted -- force a consolidation with the data we already have
+        status = wear_leveling_consolidate_force();
+    } else {
+        // Consolidate the cache + write log if required
         status = wear_leveling_consolidate_if_needed();
     }
 
@@ -545,10 +602,10 @@ wear_leveling_status_t wear_leveling_erase(void) {
     wl_dprintf("Erase\n");
 
     // Unlock the backing store
-    bool ret = backing_store_unlock();
+    bool ret = wear_leveling_unlock();
     if (!ret) {
         // If the unlock failed, re-lock and exit with failure
-        backing_store_lock();
+        wear_leveling_lock();
         return WEAR_LEVELING_FAILED;
     }
 
@@ -557,7 +614,7 @@ wear_leveling_status_t wear_leveling_erase(void) {
     wear_leveling_clear_cache();
 
     // Lock the backing store
-    ret &= backing_store_lock();
+    ret &= wear_leveling_lock();
     return ret ? WEAR_LEVELING_SUCCESS : WEAR_LEVELING_FAILED;
 }
 
@@ -582,10 +639,10 @@ wear_leveling_status_t wear_leveling_write(const uint32_t address, const void *v
     memcpy(&wear_leveling.cache[address], value, length);
 
     // Unlock the backing store
-    bool ret = backing_store_unlock();
+    bool ret = wear_leveling_unlock();
     if (!ret) {
         // If the unlock failed, re-lock and exit with failure
-        backing_store_lock();
+        wear_leveling_lock();
         return WEAR_LEVELING_FAILED;
     }
 
@@ -593,7 +650,7 @@ wear_leveling_status_t wear_leveling_write(const uint32_t address, const void *v
     wear_leveling_status_t status = wear_leveling_write_raw(address, value, length);
     if (status != WEAR_LEVELING_SUCCESS) {
         // If the write failed, re-lock and exit with failure
-        backing_store_lock();
+        wear_leveling_lock();
         return status;
     }
 
@@ -601,7 +658,7 @@ wear_leveling_status_t wear_leveling_write(const uint32_t address, const void *v
     status = wear_leveling_consolidate_if_needed();
 
     // Lock the backing store
-    ret = backing_store_lock();
+    ret = wear_leveling_lock();
     return ret ? status : WEAR_LEVELING_FAILED;
 }
 

@@ -245,3 +245,39 @@ TEST_F(WearLeveling2ByteOptimizedWrites, WriteOneThenZeroToOddAddresses) {
     // Verify the full range of the logical area got written
     EXPECT_EQ(final_address, WEAR_LEVELING_LOGICAL_SIZE - 3) << "Invalid final write address";
 }
+
+/**
+ * This test verifies readback after playback of the write log, simulating power loss and reboot.
+ */
+TEST_F(WearLeveling2ByteOptimizedWrites, PlaybackReadbackOptimized64_Success) {
+    auto& inst     = MockBackingStore::Instance();
+    auto  logstart = inst.storage_begin() + (WEAR_LEVELING_LOGICAL_SIZE / sizeof(backing_store_int_t));
+
+    // Set up a 1-byte logical write of 0x11 at logical offset 0x10
+    auto entry0 = LOG_ENTRY_MAKE_OPTIMIZED_64(0x10, 0x11);
+    (logstart + 0)->set(~entry0.raw16[0]);
+
+    wear_leveling_init();
+    uint8_t tmp;
+
+    wear_leveling_read(0x10, &tmp, sizeof(tmp));
+    EXPECT_EQ(tmp, 0x11) << "Failed to read back the seeded data";
+}
+
+/**
+ * This test verifies readback after playback of the write log, simulating power loss and reboot.
+ */
+TEST_F(WearLeveling2ByteOptimizedWrites, PlaybackReadbackWord01_Success) {
+    auto& inst     = MockBackingStore::Instance();
+    auto  logstart = inst.storage_begin() + (WEAR_LEVELING_LOGICAL_SIZE / sizeof(backing_store_int_t));
+
+    // Set up a 1-byte logical write of 1 at logical offset 0x10
+    auto entry0 = LOG_ENTRY_MAKE_WORD_01(0x10, 1);
+    (logstart + 0)->set(~entry0.raw16[0]);
+
+    wear_leveling_init();
+    uint8_t tmp;
+
+    wear_leveling_read(0x10, &tmp, sizeof(tmp));
+    EXPECT_EQ(tmp, 1) << "Failed to read back the seeded data";
+}

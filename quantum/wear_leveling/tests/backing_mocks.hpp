@@ -73,8 +73,13 @@ class MockBackingStore {
         reset_instance();
     }
 
+    // Type containing each of the entries and the write counts
+    using storage_t = std::array<MockBackingStoreElement, BACKING_STORE_ELEMENT_COUNT::value>;
+
+    // Whether the backing store is locked
+    bool locked;
     // The actual data stored in the emulated flash
-    std::array<MockBackingStoreElement, BACKING_STORE_ELEMENT_COUNT::value> backing_storage;
+    storage_t backing_storage;
     // The number of erase cycles that have occurred
     std::uint64_t backing_erasure_count;
     // The max number of writes to an element of the backing store
@@ -83,16 +88,24 @@ class MockBackingStore {
     std::uint64_t backing_total_write_count;
     // The write log for the backing store
     std::vector<MockBackingStoreLogEntry> write_log;
-    // Whether init should fail
-    bool init_fail;
-    // Whether unlocks should fail
-    bool unlock_fail;
-    // Whether writes should fail
-    bool write_fail;
-    // Whether locks should fail
-    bool lock_fail;
-    // The element index at which an erase should fail
-    std::size_t erase_fail_index;
+
+    // The number of times each API was invoked
+    std::uint64_t backing_init_invoke_count;
+    std::uint64_t backing_unlock_invoke_count;
+    std::uint64_t backing_erase_invoke_count;
+    std::uint64_t backing_write_invoke_count;
+    std::uint64_t backing_lock_invoke_count;
+
+    // Whether init should succeed
+    std::function<bool(std::uint64_t)> init_success_callback;
+    // Whether erase should succeed
+    std::function<bool(std::uint64_t)> erase_success_callback;
+    // Whether unlocks should succeed
+    std::function<bool(std::uint64_t)> unlock_success_callback;
+    // Whether writes should succeed
+    std::function<bool(std::uint64_t, std::uint32_t)> write_success_callback;
+    // Whether locks should succeed
+    std::function<bool(std::uint64_t)> lock_success_callback;
 
     template <typename... Args>
     void append_log(Args&&... args) {
@@ -107,8 +120,39 @@ class MockBackingStore {
         return instance;
     }
 
+    std::uint64_t erasure_count() const {
+        return backing_erasure_count;
+    }
+    std::uint64_t max_write_count() const {
+        return backing_max_write_count;
+    }
+    std::uint64_t total_write_count() const {
+        return backing_total_write_count;
+    }
+
+    // The number of times each API was invoked
+    std::uint64_t init_invoke_count() const {
+        return backing_init_invoke_count;
+    }
+    std::uint64_t unlock_invoke_count() const {
+        return backing_unlock_invoke_count;
+    }
+    std::uint64_t erase_invoke_count() const {
+        return backing_erase_invoke_count;
+    }
+    std::uint64_t write_invoke_count() const {
+        return backing_write_invoke_count;
+    }
+    std::uint64_t lock_invoke_count() const {
+        return backing_lock_invoke_count;
+    }
+
     // Clear out the internal data for the next run
     void reset_instance();
+
+    bool is_locked() const {
+        return locked;
+    }
 
     // APIs for the backing store
     bool init();
@@ -118,21 +162,21 @@ class MockBackingStore {
     bool lock();
     bool read(std::uint32_t address, backing_store_int_t& value) const;
 
-    // Control over when init/writes/erases should fail
-    void set_init_fail(bool fail) {
-        init_fail = fail;
+    // Control over when init/writes/erases should succeed
+    void set_init_callback(std::function<bool(std::uint64_t)> callback) {
+        init_success_callback = callback;
     }
-    void set_unlock_fail(bool fail) {
-        unlock_fail = fail;
+    void set_erase_callback(std::function<bool(std::uint64_t)> callback) {
+        erase_success_callback = callback;
     }
-    void set_erase_fail(std::size_t fail_index) {
-        erase_fail_index = fail_index;
+    void set_unlock_callback(std::function<bool(std::uint64_t)> callback) {
+        unlock_success_callback = callback;
     }
-    void set_write_fail(bool fail) {
-        write_fail = fail;
+    void set_write_callback(std::function<bool(std::uint64_t, std::uint32_t)> callback) {
+        write_success_callback = callback;
     }
-    void set_lock_fail(bool fail) {
-        lock_fail = fail;
+    void set_lock_callback(std::function<bool(std::uint64_t)> callback) {
+        lock_success_callback = callback;
     }
 
     auto storage_begin() const -> decltype(backing_storage.begin()) {
@@ -140,6 +184,20 @@ class MockBackingStore {
     }
     auto storage_end() const -> decltype(backing_storage.end()) {
         return backing_storage.end();
+    }
+
+    auto storage_begin() -> decltype(backing_storage.begin()) {
+        return backing_storage.begin();
+    }
+    auto storage_end() -> decltype(backing_storage.end()) {
+        return backing_storage.end();
+    }
+
+    auto log_begin() -> decltype(write_log.begin()) {
+        return write_log.begin();
+    }
+    auto log_end() -> decltype(write_log.end()) {
+        return write_log.end();
     }
 
     auto log_begin() const -> decltype(write_log.begin()) {
