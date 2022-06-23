@@ -361,6 +361,17 @@
                 }
             }
         },
+        "stenography": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "protocol": {
+                    "type": "string",
+                    "enum": ["all", "geminipr", "txbolt"]
+                }
+            }
+        },
         "split": {
             "type": "object",
             "additionalProperties": false,

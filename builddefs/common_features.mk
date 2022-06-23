@@ -92,10 +92,29 @@ ifeq ($(MUSIC_ENABLE), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
 endif
 
+VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
+STENO_PROTOCOL ?= all
 ifeq ($(strip $(STENO_ENABLE)), yes)
-    OPT_DEFS += -DSTENO_ENABLE
-    VIRTSER_ENABLE ?= yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
+    else
+        OPT_DEFS += -DSTENO_ENABLE
+        VIRTSER_ENABLE ?= yes
+
+        ifeq ($(strip $(STENO_PROTOCOL)), geminipr)
+            OPT_DEFS += -DSTENO_ENABLE_GEMINI
+        endif
+        ifeq ($(strip $(STENO_PROTOCOL)), txbolt)
+            OPT_DEFS += -DSTENO_ENABLE_BOLT
+        endif
+        ifeq ($(strip $(STENO_PROTOCOL)), all)
+            OPT_DEFS += -DSTENO_ENABLE_ALL
+            OPT_DEFS += -DSTENO_ENABLE_GEMINI
+            OPT_DEFS += -DSTENO_ENABLE_BOLT
+        endif
+
+        SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    endif
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
