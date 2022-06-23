@@ -76,7 +76,7 @@ function build_executor() {
 
         if [[ -n "$last_line" ]] ; then
             size_delta=$(( $last_size - $file_size ))
-            if { [[ -n "${skip_zero:-}" ]] && [[ $size_delta -ne 0 ]] ; } || [[ $file_size -eq 0 ]] ; then
+            if { [[ -n "${skip_zero:-}" ]] && [[ $size_delta -ne 0 ]] ; } || [[ -z "${skip_zero:-}" ]] || [[ $file_size -eq 0 ]] ; then
                 printf "Size: %8d, delta: %+6d -- %s\n" "$last_size" "$size_delta" "$last_line"
             fi
         fi
