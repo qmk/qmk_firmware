@@ -1,6 +1,6 @@
 # Lumberelite
 
-![Lumberelite](https://imgur.com/AUegdQa)
+![Lumberelite](https://i.imgur.com/AUegdQa.png)
 
 Based off of the brilliant work of [Peej's Lumberjack](https://github.com/peej/lumberjack-keyboard).
 
