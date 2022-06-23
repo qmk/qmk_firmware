@@ -3,12 +3,12 @@
 // #include "../common/remote_kb.h"
 // #include "../common/bitc_led.h"
 
-#define _BASE	0
-#define _MUSIC	1
-#define _FN		2
-#define _FN2	3
-#define _NAV	4
-#define _WNAV	5
+#define _NUM	0
+#define _NAV	1
+#define _WNAV	2
+#define _FN		3
+#define _FN2	4
+#define _MUSIC	5
 #define _RGB	6
 
 enum sol_keycodes {
@@ -19,19 +19,26 @@ enum sol_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Base layer (numpad)
-	[_BASE] = LAYOUT(
+	[_NUM] = LAYOUT(
 							KC_ESC,			KC_BSPC,	KC_EQL, \
 	KC_KP_SLASH,			KC_KP_7,		KC_KP_8,	KC_KP_9,\
 	KC_KP_ASTERISK,			KC_KP_4,		KC_KP_5,	KC_KP_6,\
 	KC_KP_MINUS,			KC_KP_1,		KC_KP_2,	KC_KP_3,\
 	LT(_NAV,KC_KP_PLUS),	KC_KP_ENTER,	KC_KP_0,	KC_KP_DOT\
 	),
-	[_MUSIC] = LAYOUT(
-					KC_NO,		KC_MUTE,	KC_NO, \
-	KC_MSEL,		KC_NO,		KC_VOLU,	KC_NO,\
-	KC_ESC,			KC_MPRV,	KC_MPLY,	KC_MNXT,\
-	KC_KP_ENTER,	KC_NO,		KC_VOLD,	KC_NO,\
-	KC_MUTE,		KC_KP_ENTER,	KC_LCTL,	KC_LGUI\
+	[_NAV] = LAYOUT(
+						KC_ESC,		G(KC_Z),	S(G(KC_Z)),\
+	KC_BSPC,			A(KC_LEFT),	KC_UP,		A(KC_RIGHT),\
+	G(KC_X),			KC_LEFT,	KC_DOWN,	KC_RIGHT,\
+	G(KC_C),			S(KC_TAB),	SELECT,		KC_TAB,\
+	LT(_NUM, G(KC_V)),	KC_ENT,		KC_SPC,		KC_BSPC
+	),
+	[_WNAV] = LAYOUT(
+						KC_ESC,		C(KC_Z),	S(C(KC_Z)),\
+	KC_BSPC,			C(KC_LEFT),	KC_UP,		C(KC_RIGHT),\
+	C(KC_X),			KC_LEFT,	KC_DOWN,	KC_RIGHT,\
+	C(KC_C),			S(KC_TAB),	SELECT,		KC_TAB,\
+	LT(_NUM, C(KC_V)),	KC_ENT,		KC_SPC,		KC_BSPC
 	),
 	[_FN] = LAYOUT(
 					KC_F10,			KC_F11,		KC_F12, \
@@ -47,19 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_KP_ENTER,	KC_F13,			KC_F14,		KC_F15,\
 	KC_NO,			KC_KP_ENTER,	KC_F22,		KC_ESC\
 	),
-	[_NAV] = LAYOUT(
-				KC_ESC,		G(KC_Z),	S(G(KC_Z)),\
-	KC_BSPC,	A(KC_LEFT),	KC_UP,		A(KC_RIGHT),\
-	G(KC_X),		KC_LEFT,	KC_DOWN,	KC_RIGHT,\
-	G(KC_C),	S(KC_TAB),	SELECT,		KC_TAB,\
-	G(KC_V),	KC_ENT,		KC_SPC,		KC_BSPC
-	),
-	[_WNAV] = LAYOUT(
-				KC_ESC,		C(KC_Z),	S(C(KC_Z)),\
-	KC_BSPC,	C(KC_LEFT),	KC_UP,		C(KC_RIGHT),\
-	KC_CUT,		KC_LEFT,	KC_DOWN,	KC_RIGHT,\
-	KC_COPY,	S(KC_TAB),	SELECT,		KC_TAB,\
-	KC_PASTE,	KC_ENT,		KC_SPC,		KC_BSPC
+
+	[_MUSIC] = LAYOUT(
+					KC_NO,		KC_MUTE,	KC_NO, \
+	KC_MSEL,		KC_NO,		KC_VOLU,	KC_NO,\
+	KC_ESC,			KC_MPRV,	KC_MPLY,	KC_MNXT,\
+	KC_KP_ENTER,	KC_NO,		KC_VOLD,	KC_NO,\
+	KC_MUTE,		KC_KP_ENTER,	KC_LCTL,	KC_LGUI\
 	),
 	// Function layer (numpad)
 	[_RGB] = LAYOUT(
@@ -114,7 +115,7 @@ static void print_status_narrow(void) {
 	// enum layers { NUM, NAV, FN };
 
 	switch (get_highest_layer(layer_state)) {
-		case 0:
+		case _NUM:
 			oled_write_P(PSTR("Num\n"), false);
 			oled_write_P(PSTR("X|<|="), false);
 			oled_write_P(PSTR("7|8|9"), false);
@@ -122,14 +123,14 @@ static void print_status_narrow(void) {
 			oled_write_P(PSTR("1|2|3"), false);
 			oled_write_P(PSTR("E|0|.\n"), false);
 
-			oled_write_ln_P(PSTR("ESC"), false);
 			oled_write_ln_P(PSTR("/"), false);
-			oled_write_P(PSTR("ENTER"), false);
-			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR("*"), false);
+			oled_write_P(PSTR("-"), false);
+			oled_write_ln_P(PSTR("+"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
-		case 1:
+		case _MUSIC:
 			oled_write_P(PSTR("Music"), true);
 			oled_write_P(PSTR(" | | "), false);
 			oled_write_P(PSTR(" |^| "), false);
@@ -144,7 +145,7 @@ static void print_status_narrow(void) {
 			oled_write_ln_P(PSTR(""), false);
 
 			break;
-		case 2:
+		case _FN:
 			oled_write_P(PSTR("Fn\n"), true);
 			oled_write_P(PSTR("10-12"), false);
 			oled_write_P(PSTR("7|8|9"), false);
@@ -158,7 +159,7 @@ static void print_status_narrow(void) {
 			oled_write_ln_P(PSTR(""), false);
 
 			break;
-		case 3:
+		case _FN2:
 			oled_write_P(PSTR("Fn2\n"), true);
 			oled_write_P(PSTR("22-24"), false);
 			oled_write_P(PSTR("19-21"), false);
@@ -172,13 +173,13 @@ static void print_status_narrow(void) {
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
-		case 4:
+		case _NAV:
 			oled_write_P(PSTR("Nav\n"), true);
 			oled_write_P(PSTR("x|u|r"), false);
 			oled_write_P(PSTR("w|^|w"), false);
 			oled_write_P(PSTR("<|v|>"), false);
 			oled_write_P(PSTR("s|S|t"), false);
-			oled_write_P(PSTR("E|_|E\n"), false);
+			oled_write_P(PSTR("E|_|<\n"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR("BSPC"), false);
 			oled_write_ln_P(PSTR("CUT"), false);
@@ -186,7 +187,7 @@ static void print_status_narrow(void) {
 			oled_write_ln_P(PSTR("PST"), false);
 
 			break;
-		case 5:
+		case _WNAV:
 			oled_write_P(PSTR("WNav\n"), true);
 			oled_write_P(PSTR("x|u|r"), false);
 			oled_write_P(PSTR("w|^|w"), false);
@@ -200,7 +201,7 @@ static void print_status_narrow(void) {
 			oled_write_ln_P(PSTR("PST"), false);
 
 			break;
-		 case 6:
+		 case _RGB:
 			oled_write_P(PSTR("RGB\n"), true);
 			oled_write_P(PSTR("Togg"), false);
 			oled_write_P(PSTR("Mode"), false);
