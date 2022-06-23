@@ -1,4 +1,4 @@
-/* Copyright 2021 Jay Greco
+/* Copyright 2019 Jane Bernhardt
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "butterstick.h"
 
-#define TAPPING_TERM 200
+void matrix_scan_kb(void) {
+#ifdef DEBUG_MATRIX
+    for (uint8_t c = 0; c < MATRIX_COLS; c++)
+		for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
+#endif
 
-#define ENCODERS_PAD_A { B3, D2 }
-#define ENCODERS_PAD_B { B2, D3 }
-
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
-
-#define OLED_TIMEOUT 0
-
+  matrix_scan_user();
+}
