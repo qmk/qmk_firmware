@@ -33,21 +33,52 @@ STENO_ENABLE = yes
 
 TX Bolt communicates the status of 24 keys over a simple protocol in variable-sized (1&ndash;4 bytes) packets.
 
-To select it, add the following lines to your `rules.mk`:
+To select TX Bolt, add the following lines to your `rules.mk`:
 ```mk
 STENO_ENABLE = yes
 STENO_PROTOCOL = txbolt
 ```
 
+Each byte of the packet represents a different group of steno keys. Determining the group of a certain byte of the packet is done by checking the first two bits, the remaining bits are set if the corresponding steno key was pressed for the stroke. The last set of keys (as indicated by leading `11`) needs to keep track of less keys than there are bits so one of the bits is constantly 0.
+
+The start of a new packet can be detected by comparing the group “ID” (the two MSBs) of the current byte to that of the previously received byte. If the group “ID” of the current byte is smaller or equal to that of the previous byte, it means that the current byte is the beginning of a new packet.
+
+The format of TX Bolt packets is shown below.
+```
+00HWPKTS 01UE*OAR 10GLBPRF 110#ZDST
+```
+
+Examples of steno strokes and the associated packet:
+- `EUBG`    = `01110000 10101000`
+- `WAZ`     = `00010000 01000010 11001000`
+- `PHAPBGS` = `00101000 01000010 10101100 11000010`
+
 ### GeminiPR :id=geminipr
 
 GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including differentiating between top and bottom `S-`, and supporting non-English theories.
 
-To select it, add the following lines to your `rules.mk`:
+To select GeminiPR, add the following lines to your `rules.mk`:
 ```mk
 STENO_ENABLE = yes
 STENO_PROTOCOL = geminipr
 ```
+
+All packets in the GeminiPR protocol consist of exactly six bytes, used as bit-arrays for different groups of keys. The beginning of a packet is indicated by setting the most significant bit (MSB) to 1 while setting the MSB of the remaining five bytes to 0.
+
+The format of GeminiPR packets is shown below.
+```
+1 Fn  #1  #2 #3 #4 #5   #6
+0 S1- S2- T- K- P- W-   H-
+0 R-  A-  O- *1 *2 res1 res2
+0 pwr *3  *4 -E -U -F   -R
+0 -P  -B  -L -G -T -S   -D
+0 #7  #8  #9 #A #B #C   -Z
+```
+
+Examples of steno strokes and the associated packet:
+- `EUBG`    = `10000000 00000000 00000000 00001100 00101000 00000000`
+- `WAZ`     = `10000000 00000010 00100000 00000000 00000000 00000001`
+- `PHAPBGS` = `10000000 00000101 00100000 00000000 01101010 00000000`
 
 ### Switching protocols on the fly :id=switching-protocols-on-the-fly
 
@@ -73,7 +104,7 @@ After enabling stenography and optionally selecting a protocol, you may also nee
 
 !> If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
 
-In your keymap, create a new layer for Plover, that you can fill in with the [steno keycodes](#keycode-reference) (you will need to include `keymap_steno.h`, see `planck/keymaps/steno/keymap.c` for an example). Remember to create a key to switch to the layer as well as a key for exiting the layer. 
+In your keymap, create a new layer for Plover, that you can fill in with the [steno keycodes](#keycode-reference) (you will need to include `keymap_steno.h`, see `planck/keymaps/steno/keymap.c` for an example). Remember to create a key to switch to the layer as well as a key for exiting the layer.
 
 Once you have your keyboard flashed, launch Plover. Click the 'Configure...' button. In the 'Machine' tab, select the Stenotype Machine that corresponds to your desired protocol. Click the 'Configure...' button on this tab and enter the serial port or click 'Scan'. Baud rate is fine at 9600 (although you should be able to set as high as 115200 with no issues). Use the default settings for everything else (Data Bits: 8, Stop Bits: 1, Parity: N, no flow control).
 
@@ -105,8 +136,16 @@ This function is called when a keypress has come in, before it is processed. The
 bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys);
 ```
 
-This function is called after a key has been processed, but before any decision about whether or not to send a chord. If `IS_PRESSED(record->event)` is false, and `n_pressed_keys` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This is where to put hooks for things like, say, live displays of steno chords or keys.
+This function is called after a key has been processed, but before any decision about whether or not to send a chord. This is where to put hooks for things like, say, live displays of steno chords or keys.
 
+If `IS_PRESSED(record->event)` is false, and `n_pressed_keys` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This relieves you of the need of keeping track of where a packet ends and another begins.
+
+The `chord` argument contains the packet of the current chord as specified by the protocol in use. This is *NOT* simply a list of chorded steno keys of the form `[STN_E, STN_U, STN_BR, STN_GR]`. Refer to the appropriate protocol section of this document to learn more about the format of the packets in your steno protocol/mode of choice.
+
+The `n_pressed_keys` argument is the number of physical keys actually being held down.
+This is not always equal to the number of bits set to 1 (aka the [Hamming weight](https://en.wikipedia.org/wiki/Hamming_weight)) in `chord` because it is possible to simultaneously press down four keys, then release three of those four keys and then press yet another key while the fourth finger is still holding down its key.
+At the end of this scenario given as an example, `chord` would have five bits set to 1 but
+`n_pressed_keys` would be set to 2 because there are only two keys currently being pressed down.
 
 ## Keycode Reference :id=keycode-reference
 

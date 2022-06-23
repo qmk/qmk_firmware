@@ -95,14 +95,16 @@ static const uint8_t boltmap[64] PROGMEM = {TXB_NUL, TXB_NUM, TXB_NUM, TXB_NUM, 
 static void send_steno_chord_bolt(void) {
     for (uint8_t i = 0; i < BOLT_STROKE_SIZE; ++i) {
         // TX Bolt uses variable length packets where each byte corresponds to a bit array of certain keys.
-        // To mark the end of these variable length packets, 0x00 is used.
         // If a user chorded the keys of the first group with keys of the last group, for example, there
         // would be bytes of 0x00 in `chord` for the middle groups which we mustn't send.
         if (chord[i]) {
             virtser_send(chord[i]);
         }
     }
-    virtser_send(0); // terminating byte
+    // Sending a null packet is not always necessary, but it is simpler and more reliable
+    // to unconditionally send it every time instead of keeping track of more states and
+    // creating more branches in the execution of the program.
+    virtser_send(0);
 }
 #    else
 #        pragma message "VIRTSER_ENABLE = yes is required for TX Bolt to work properly out of the box!"
