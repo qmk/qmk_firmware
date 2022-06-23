@@ -1,6 +1,6 @@
 # pikatea/pikatea_macropad_gb4
 
-![pikatea](https://i.imgur.com/UpcSHLi.png)
+![pikatea](https://i.imgur.com/UpcSHLih.png)
 
 *3, 5 or 7 keys and a knob mounted to an underside surface*
 
