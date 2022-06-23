@@ -1,6 +1,6 @@
 # pikatea/finngus
 
-![pikatea](https://i.imgur.com/tEjK2Mr.png)
+![pikatea](https://i.imgur.com/tEjK2Mrh.png)
 
 *A keyboard in the shape of my cats finn and gus!*
 
