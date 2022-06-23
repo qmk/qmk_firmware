@@ -13,10 +13,6 @@ Make example for this keyboard (after setting up your build environment):
     make kawayo:default
     make kawayo:via
 
-If in Vial environment:
-
-    make kawayo:vial
-
 Flashing example for this keyboard:
 
     make kawayo:default:flash
