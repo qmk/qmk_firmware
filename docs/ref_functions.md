@@ -91,7 +91,7 @@ There is the `QK_REBOOT` or `QK_RBT` quantum keycode that you can use. But if yo
 
 And to do so, add `soft_reset_keyboard()` to your function or macro.
 
-### Reset to bootloader
+## Reset to bootloader
 
 To reset to the bootloader use `QK_BOOTLOADER` or `QK_BOOT` keycode or `reset_keyboard()` function.
 
