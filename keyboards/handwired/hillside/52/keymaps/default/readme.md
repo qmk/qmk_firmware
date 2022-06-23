@@ -12,7 +12,7 @@ Some of its key features are:
 
 ## Base Layer
 
-![Base QWERTY layer](https://imgur.com/vO9pnaY.png)
+![Base QWERTY layer](https://imgur.com/vO9pnaYh.png)
 
 The base layer provides a very standard key layout with four differences:
 
@@ -34,7 +34,7 @@ The Dvorak and Colemak-DH base layers have identical non-alpha and non-symbol ke
 
 ## Symbol and Media Layer
 
-![Symbol layer](https://imgur.com/lg5PqMX.png)
+![Symbol layer](https://imgur.com/lg5PqMXh.png)
 
 Holding down the SYM key accesses the symbol layer:
 
@@ -47,7 +47,7 @@ Holding down the SYM key accesses the symbol layer:
 
 ## Navigation, Editing, Number and Function Layer
 
-![Navigation layer](https://imgur.com/eCzNwZP.png)
+![Navigation layer](https://imgur.com/eCzNwZPh.png)
 
 Holding down the Nav/Edit key accesses the navigation, editing, number and function layer:
 
@@ -57,7 +57,7 @@ Holding down the Nav/Edit key accesses the navigation, editing, number and funct
 
 ## Adjust Layer
 
-![Adjust layer](https://imgur.com/bC3CRSK.png)
+![Adjust layer](https://imgur.com/bC3CRSKh.png)
 
 Simultaneously holding down the Sym and Nav/Edit keys enables keys to adjust keyboard settings:
 
