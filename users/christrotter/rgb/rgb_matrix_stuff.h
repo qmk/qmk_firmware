@@ -3,6 +3,7 @@
 
 #pragma once
 #include "quantum.h"
+#include QMK_KEYBOARD_H
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record);
 void keyboard_post_init_rgb_matrix(void);

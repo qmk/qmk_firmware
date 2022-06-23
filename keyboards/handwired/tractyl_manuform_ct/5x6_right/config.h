@@ -70,14 +70,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef POINTING_DEVICE_ENABLE    
     #define PMW3360_CS_PIN F7 // Trackball - PMW3360 Settings
     #define PMW3360_LIFTOFF_DISTANCE 0x04 // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
-    #define PMW3360_CPI 1200 // your DPI setting, how fast the ball tracks
+    #define PMW3360_CPI 1000 // your DPI setting, how fast the ball tracks
     #define POINTING_DEVICE_RIGHT // Which keyboard half contains the trackball
     #define ROTATIONAL_TRANSFORM_ANGLE -85 // Software adjustment for how not-squarely you packaged the sensor
     #define POINTING_DEVICE_INVERT_X // Inverted movement for X (not sure why this is set tbh...maybe due to the kb half it's installed on?)
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1 // Not sure what this does...
     #define CHARYBDIS_MINIMUM_DEFAULT_DPI PMW3360_CPI // the drag-scroll code uses this to maintain DPI/CPI between modes
 //  #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
-    #define KEEP_MOUSE_LAYER_ON_FOR 800 // inactivity while on mouse layer, in ms
+    #define KEEP_MOUSE_LAYER_ON_FOR 900 // inactivity while on mouse layer, in ms
     #define AUTO_MOUSE_LAYER_DELAY 3    // xy value threshold
 #endif
 
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_DI_PIN D3
     #define RGBLED_NUM 57  // Total number of LEDs
     #define DRIVER_LED_TOTAL RGBLED_NUM // some other code uses driver-led-total
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80 // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 90 // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
     #define RGB_MATRIX_SPLIT { 27, 30} // led count; left, right
 #endif
 
