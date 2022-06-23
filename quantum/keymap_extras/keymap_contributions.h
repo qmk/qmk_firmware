@@ -238,7 +238,7 @@
 #define UA_20 KC_Z
 #define UA_21 KC_QUOTE
 #define UA_22 KC_SCOLON
-#define UA_23 KC_J
+#define UA_23 KC_L
 #define UA_24 KC_K
 #define UA_25 KC_J
 #define UA_26 KC_H
@@ -252,14 +252,15 @@
 #define UA_34 KC_P
 #define UA_35 KC_O
 #define UA_36 KC_I
-#define UA_37 A(KC_U)
+#define UA_37 KC_GRAVE
 #define UA_38 KC_U
 #define UA_39 KC_Y
 #define UA_40 KC_T
 #define UA_41 KC_R
 #define UA_42 KC_E
 #define UA_43 KC_W
-#define UA_44 KC_W
+#define UA_44 KC_Q
+#define UA_45 S(KC_SLASH)
 
 // French Canadian
 #define FRCA_01 ALGR(KC_COMMA)

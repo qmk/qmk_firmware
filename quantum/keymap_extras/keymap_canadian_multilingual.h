@@ -220,7 +220,7 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define CA_SHYP RCTL(S(CA_SLSH)) // ­ (soft hyphen)
+#define CA_SHYP RCTL(S(CA_SLSH)) // (soft hyphen)
 #define CA_IEXL RCTL(S(CA_1))    // ¡
 #define CA_PND  RCTL(S(CA_3))    // £
 #define CA_TEIG RCTL(S(CA_5))    // ⅜

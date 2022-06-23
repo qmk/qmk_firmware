@@ -24,7 +24,7 @@
 #define NO_ACUT KC_EQL
 
 #define NO_AM KC_LBRC
-#define NO_QUOT KC_RBRC // this is the "umlaut" char on Nordic keyboards, Apple layout
+#define NO_QUOT KC_RBRC  // this is the "umlaut" char on Nordic keyboards, Apple layout
 #define NO_AE KC_SCLN
 #define NO_OSLH KC_QUOT
 #define NO_APOS KC_NUHS
@@ -66,3 +66,8 @@
 
 #define NO_BSLS ALGR(KC_MINS)
 #define NO_MU ALGR(KC_M)
+
+// Icelandic characters
+#define NO_TH KC_SLSH //Þ
+#define NO_ETH KC_LBRC //Ð
+#define NO_UMLT KC_MINS //Ö
