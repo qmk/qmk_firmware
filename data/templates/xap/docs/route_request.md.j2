@@ -1,8 +1,8 @@
 {%- if subroute.request_type == 'struct' -%}
-<br>__Request:__
+__Request:__
 {%- for member in subroute.request_struct_members -%}
 <br>{{ "&nbsp;"|safe*4 }}* {{ member.name }}: `{{ member.type }}`
 {%- endfor -%}
 {%- elif subroute.request_type -%}
-<br>__Request:__ `{{ subroute.request_type }}`
+__Request:__ `{{ subroute.request_type }}`
 {%- endif -%}

@@ -6,7 +6,7 @@
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
 {%- for subid, subroute in route.routes | dictsort %}
-| {{ subroute.name }} | `{{ id }} {{ subid }}` | {% if 'secure' == subroute.permissions %}__Secure__{% endif %} | {%- include 'route_request.md.j2' -%}{%- include 'route_response.md.j2' -%} | {{ subroute.description.replace('\n', '<br>') }}|
+| {{ subroute.name }} | `{{ id }} {{ subid }}` | {% if 'secure' == subroute.permissions %}__Secure__{% endif %} | {%- include 'route_request.md.j2' -%}{%- if subroute.return_type and subroute.request_type -%}<br><br>{% endif %}{%- include 'route_response.md.j2' -%} | {{ subroute.description.replace('\n', '<br>') }}|
 {%- endfor %}
 {% endif %}
 {%- endfor %}
