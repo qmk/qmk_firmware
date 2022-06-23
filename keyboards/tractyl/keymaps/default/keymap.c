@@ -39,6 +39,7 @@ enum custom_keycodes {
 	MO_FN = SAFE_RANGE,
 	MO_RALT,
 	CK_MSOF,
+	CK_SCLN,
 	ALT_TAB,
 	MC_CBR,
 	MC_BRC,
@@ -77,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB , CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK, _______, _______,
      KC_BSPC, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, KC_MPLY, KC_QUOT,
      KC_LGUI, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_PASTE, KC_BTN4, KC_BTN5 , KC_F5,CK_BACK,KC_BSLASH,
-                       CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
-                                 _______, KC_LCTL, KC_LALT,                   _______,KC_ENT		
+                       CK_MSOF , CK_MSOF, CK_MSOF, MO_RALT,                   KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
+                                 _______, KC_LCTL, KC_LALT,                   MO_FN,KC_ENT		
   ),
     
   [_FN] = LAYOUT(
@@ -92,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [_RALT] = LAYOUT(
      QK_BOOT, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5,                      KC_F6  , KC_F7 , KC_F8 , KC_F9 , KC_F10 ,KC_DEL,
-     KC_TAB , KC_PGUP  , MC_BRC  , KC_COLN  , KC_RBRC  , KC_SCLN  ,           KC_COMM  , KC_P7  , KC_P8  , KC_P9  , KC_SCLN, KC_SS,
-     KC_DEL, KC_HOME  ,  MC_CBR , KC_UNDS  , KC_SCLN  , KC_AT  ,              KC_QUOT  , KC_P4  , KC_P5  , KC_P6  ,KC_SCLN,KC_QUOT,
-     KC_LGUI, KC_PGDN  , MC_PRN  , KC_HASH  , KC_RPRN  , KC_B  ,              KC_DOT  , KC_P1  ,KC_P2,KC_P3 ,KC_P0,KC_BSLASH,
+     KC_TAB , KC_PGUP  , MC_BRC  , KC_COLN  , KC_RBRC  , KC_LCBR,             KC_COMM  , KC_P7  , KC_P8  , KC_P9  , KC_SCLN, KC_SS,
+     KC_DEL, KC_HOME  ,  MC_CBR , KC_UNDS  , CK_SCLN  , KC_AT  ,              KC_QUOT  , KC_P4  , KC_P5  , KC_P6  ,KC_SCLN,KC_QUOT,
+     KC_LGUI, KC_PGDN  , MC_PRN  , KC_HASH  , KC_RPRN  , KC_RCBR,             KC_DOT  , KC_P1  ,KC_P2,KC_P3 ,KC_P0,KC_BSLASH,
                          DM_PLY1, DM_PLY2,KC_SPC, _______,                    KC_LSFT, KC_LALT, DM_REC1, DM_REC2,
                                      _______,KC_LCTL,KC_LSFT,                 MO(_FN2),KC_ENT		
   ),
@@ -105,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_DEL, KC_HOME  , KC_LEFT  , KC_DOWN  , KC_RGHT  , KC_AT   ,            KC_COMM  , KC_P4  , KC_P5  , KC_P6  ,KC_P0, KC_QUOT,
      KC_LGUI, KC_PGDN  , KC_PGDN  , KC_HASH  , KC_END  , KC_B  ,              KC_DOT , KC_P1  ,KC_P2, KC_P3 ,KC_P0,KC_DOT,
                          DM_PLY1, DM_PLY2,KC_SPC, _______,                    KC_LSFT, KC_LALT, KC_PLUS, KC_EQL,
-                                     KC_MUTE,KC_LCTL,KC_LALT,                 _______,KC_ENT		
+                                     KC_MUTE,KC_LCTL,KC_LALT,                 _______,KC_ENT
   ),
 };
 
@@ -135,6 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 		case MC_CBR:
 			if(record->event.pressed){
+				tap_code(KC_END);
 				tap_code16(KC_LCBR);
 				tap_code16(KC_RCBR);
 				tap_code(KC_LEFT);
@@ -252,6 +254,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				tap_code16(LCTL(KC_SPC));
 			}
 			return false;
+		case CK_SCLN:
+			if(record->event.pressed){
+				tap_code(KC_END);
+				tap_code(KC_SCLN);
+			}
+			return false;
 		}
 	return true;
 };
@@ -280,14 +288,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 			}
 		} else if (FN_HELD == true || layer_state_is(_MOUSE)){
 			if (clockwise) {
-				//tap_code_delay(KC_MNXT, 10);
-				tap_code(KC_RGHT);
+				tap_code_delay(KC_MNXT, 10);
+				//tap_code(KC_RGHT);
 				/* register_code(KC_LCTL);
 				tap_code(KC_TAB);
 				unregister_code(KC_LCTL); */
 			} else {
-				//tap_code_delay(KC_MPRV, 10);
-				tap_code(KC_LEFT);
+				tap_code_delay(KC_MPRV, 10);
+				//tap_code(KC_LEFT);
 				/* register_code(KC_LCTL);
 				register_code(KC_LSFT);
 				tap_code(KC_TAB);
@@ -295,11 +303,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				unregister_code(KC_LCTL); */
 			}
 		} else if (clockwise) {
-			//tap_code(KC_RGHT);
-			tap_code_delay(KC_MNXT, 10);
+			tap_code(KC_RGHT);
+			//tap_code_delay(KC_MNXT, 10);
         } else {
-			//tap_code(KC_LEFT);
-			tap_code_delay(KC_MPRV, 10);
+			tap_code(KC_LEFT);
+			//tap_code_delay(KC_MPRV, 10);
         }
     }
     return true;
@@ -317,7 +325,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 	short x = mouse_report.x, y = mouse_report.y;
 	x = (x > 0 ? x * x / 3 + x : -x * x / 3 + x);
 	y = (y > 0 ? y * y / 3 + y : -y * y / 3 + y);
-	
 	/* float x = mouse_report.x, y = mouse_report.y;
 	x = (x > 0 ? (x/20)*(x)+1 : (-x/20)*(x)-1);
 	if(x == 1 || x == -1){
