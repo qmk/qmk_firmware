@@ -1,3 +1,4 @@
+#pragma once
  /* #define EXTENDED_MATRIX_COL_PINS (MCU_GPIO, F0, 4), (MCU_GPIO, F0,5 ), (MCU_GPIO, F0,6 ), (MCU_GPIO, F0, 7), (MCU_GPIO, B0, 1), (MCU_GPIO, B0, 3), (MCU_GPIO, B0, 2) */
 #define SWITCH_MATRIX_INPUT_0 \
     /* ( ( <port>, <mask>, <dev> ), ... ) */ \

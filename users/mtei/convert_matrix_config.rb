@@ -3,48 +3,71 @@
 # Copyright 2022 Takeshi Ishii (@mtei)
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+require "yaml"
+
 if ARGV.size != 1
-   puts "usage: ruby #$0 <config_file>"
+   puts "usage: ruby #$0 <config_file or info.json>"
    exit 1;
 end
 
-#------ read config
-conf = `gcc -dM -E #{ARGV[0]} 2> /tmp/err | grep \"define MATRIX_\" `.split("\n")
-conf += `gcc -dM -E #{ARGV[0]} 2> /tmp/err | grep \"define EXTENDED_MATRIX_\" `.split("\n")
-col_pins = nil
-col_pins_right = nil
-col_pins_ext = nil
-col_pins_ext_right = nil
-row_pins = nil
-row_pins_right = nil
-row_pins_ext = nil
-row_pins_ext_right = nil
-conf.each {|c|
-  if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS[ \t]+{(.*)}/ =~ c
-    col_pins = $1
+$col_pins = nil
+$col_pins_right = nil
+$col_pins_ext = nil
+$col_pins_ext_right = nil
+$row_pins = nil
+$row_pins_right = nil
+$row_pins_ext = nil
+$row_pins_ext_right = nil
+
+def read_config_h(file)
+  conf = `gcc -dM -E #{file} 2> /tmp/err | grep \"define MATRIX_\" `.split("\n")
+  conf += `gcc -dM -E #{file} 2> /tmp/err | grep \"define EXTENDED_MATRIX_\" `.split("\n")
+  conf.each {|c|
+    if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS[ \t]+{(.*)}/ =~ c
+      $col_pins = $1
+    end
+    if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS_RIGHT[ \t]+{(.*)}/ =~ c
+      $col_pins_right = $1
+    end
+    if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_COL_PINS[ \t]+(.*)/ =~ c
+      $col_pins_ext = $1
+    end
+    if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_COL_PINS_RIGHT[ \t]+(.*)/ =~ c
+      $col_pins_ext_right = $1
+    end
+    if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS[ \t]+{(.*)}/ =~ c
+      $row_pins = $1
+    end
+    if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS_RIGHT[ \t]+{(.*)}/ =~ c
+      $row_pins_right = $1
+    end
+    if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_ROW_PINS[ \t]+(.*)/ =~ c
+      $row_pins_ext = $1
+    end
+    if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_ROW_PINS_RIGHT[ \t]+(.*)/ =~ c
+      $row_pins_ext_right = $1
+    end
+  }
+end
+
+def read_info_json(file)
+  info = open(file, 'r') { |f| YAML.load(f) }
+  if info["matrix_pins"]
+      $col_pins = info["matrix_pins"]["cols"].join(",")
+      $row_pins = info["matrix_pins"]["rows"].join(",")
+  else
+    puts("ERROR: #{file} does not contain matrix_pins information.")
+    exit(1)
   end
-  if /[ \t]*#[ \t]*define[ \t]* MATRIX_COL_PINS_RIGHT[ \t]+{(.*)}/ =~ c
-    col_pins_right = $1
-  end
-  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_COL_PINS[ \t]+(.*)/ =~ c
-    col_pins_ext = $1
-  end
-  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_COL_PINS_RIGHT[ \t]+(.*)/ =~ c
-    col_pins_ext_right = $1
-  end
-  if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS[ \t]+{(.*)}/ =~ c
-    row_pins = $1
-  end
-  if /[ \t]*#[ \t]*define[ \t]* MATRIX_ROW_PINS_RIGHT[ \t]+{(.*)}/ =~ c
-    row_pins_right = $1
-  end
-  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_ROW_PINS[ \t]+(.*)/ =~ c
-    row_pins_ext = $1
-  end
-  if /[ \t]*#[ \t]*define[ \t]* EXTENDED_MATRIX_ROW_PINS_RIGHT[ \t]+(.*)/ =~ c
-    row_pins_ext_right = $1
-  end
-}
+end
+
+if ARGV[0] =~ /^.*info.json/
+  #------ read config from info.json
+  read_info_json(ARGV[0])
+else
+  #------ read config
+  read_config_h(ARGV[0])
+end
 
 #------ make port & pin list
 def build_port_pin_list(pins)
@@ -130,24 +153,24 @@ def build_port_pin_list_sub(raw_list)
   return [ ports.map{ |port| [port[0][1], port[1][1], port[0][0] ] }, pins ]
 end
 
-input_port_pin = build_port_pin_list(col_pins) if col_pins
+input_port_pin = build_port_pin_list($col_pins) if $col_pins
   # p input_port_pin
-input_port_pin = build_port_pin_list_ext(col_pins_ext) if col_pins_ext
+input_port_pin = build_port_pin_list_ext($col_pins_ext) if $col_pins_ext
   # p input_port_pin
 
-output_port_pin = build_port_pin_list(row_pins) if row_pins
+output_port_pin = build_port_pin_list($row_pins) if $row_pins
   # p output_port_pin
-output_port_pin = build_port_pin_list_ext(row_pins_ext) if row_pins_ext
+output_port_pin = build_port_pin_list_ext($row_pins_ext) if $row_pins_ext
   # p output_port_pin
 
-input_port_pin_right = build_port_pin_list(col_pins_right) if col_pins_right
+input_port_pin_right = build_port_pin_list($col_pins_right) if $col_pins_right
   # p input_port_pin_right
-input_port_pin_right = build_port_pin_list_ext(col_pins_ext_right) if col_pins_ext_right
+input_port_pin_right = build_port_pin_list_ext($col_pins_ext_right) if $col_pins_ext_right
   # p input_port_pin_right
 
-output_port_pin_right = build_port_pin_list(row_pins_right) if row_pins_right
+output_port_pin_right = build_port_pin_list($row_pins_right) if $row_pins_right
   # p output_port_pin_right
-output_port_pin_right = build_port_pin_list_ext(row_pins_ext_right) if row_pins_ext_right
+output_port_pin_right = build_port_pin_list_ext($row_pins_ext_right) if $row_pins_ext_right
   # p output_port_pin_right
 
 #------  print port & pin list
@@ -173,11 +196,13 @@ def print_pin(pins, is_input = false)
   puts(" )")
 end
 
+puts("#pragma once")
+
 if input_port_pin
-  if col_pins_ext
-    puts(" /* #define EXTENDED_MATRIX_COL_PINS #{col_pins_ext} */")
+  if $col_pins_ext
+    puts(" /* #define EXTENDED_MATRIX_COL_PINS #{$col_pins_ext} */")
   else
-    puts(" /* #define MATRIX_COL_PINS {#{col_pins}} */")
+    puts(" /* #define MATRIX_COL_PINS {#{$col_pins}} */")
     puts("#undef MATRIX_COL_PINS")
   end
   puts("#define SWITCH_MATRIX_INPUT_0 \\")
@@ -187,10 +212,10 @@ if input_port_pin
 end
 
 if output_port_pin
-  if row_pins_ext
-    puts(" /* #define EXTENDED_MATRIX_ROW_PINS #{row_pins_ext} */")
+  if $row_pins_ext
+    puts(" /* #define EXTENDED_MATRIX_ROW_PINS #{$row_pins_ext} */")
   else
-    puts(" /* #define MATRIX_ROW_PINS {#{row_pins}} */")
+    puts(" /* #define MATRIX_ROW_PINS {#{$row_pins}} */")
     puts("#undef MATRIX_ROW_PINS")
   end
   puts("#define SWITCH_MATRIX_OUTPUT_0 \\")
@@ -200,10 +225,10 @@ if output_port_pin
 end
 
 if input_port_pin_right
-  if col_pins_ext_right
-    puts(" /* #define EXTENDED_MATRIX_COL_PINS_RIGHT {#{col_pins_ext_right}} */")
+  if $col_pins_ext_right
+    puts(" /* #define EXTENDED_MATRIX_COL_PINS_RIGHT {#{$col_pins_ext_right}} */")
   else
-    puts(" /* #define MATRIX_COL_PINS_RIGHT {#{col_pins_right}} */")
+    puts(" /* #define MATRIX_COL_PINS_RIGHT {#{$col_pins_right}} */")
     puts("#undef MATRIX_COL_PINS_RIGHT")
   end
   puts("#define SWITCH_MATRIX_INPUT_1 \\")
@@ -213,10 +238,10 @@ if input_port_pin_right
 end
 
 if output_port_pin_right
-  if row_pins_ext_right
-    puts(" /* #define EXTENDED_MATRIX_ROW_PINS_RIGHT #{row_pins_ext_right} */")
+  if $row_pins_ext_right
+    puts(" /* #define EXTENDED_MATRIX_ROW_PINS_RIGHT #{$row_pins_ext_right} */")
   else
-    puts(" /* #define MATRIX_ROW_PINS_RIGHT {#{row_pins_right}} */")
+    puts(" /* #define MATRIX_ROW_PINS_RIGHT {#{$row_pins_right}} */")
     puts("#undef MATRIX_ROW_PINS_RIGHT")
   end
   puts("#define SWITCH_MATRIX_OUTPUT_1 \\")
