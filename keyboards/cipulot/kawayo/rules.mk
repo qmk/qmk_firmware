@@ -1,6 +1,8 @@
 # MCU name
 MCU = STM32F411
 
+BOARD = GENERIC_STM32_F411XE
+
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
