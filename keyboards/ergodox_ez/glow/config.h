@@ -22,3 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x4976
 #undef PRODUCT
 #define PRODUCT         ErgoDox EZ Glow
+
+#undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#undef ENABLE_RGB_MATRIX_PIXEL_FLOW
+#undef ENABLE_RGB_MATRIX_PIXEL_RAIN
+
+#undef ENABLE_RGB_MATRIX_HUE_BREATHING
+#undef ENABLE_RGB_MATRIX_HUE_PENDULUM
+#undef ENABLE_RGB_MATRIX_HUE_WAVE
+
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+#undef ENABLE_RGB_MATRIX_CYCLE_ALL
