@@ -28,6 +28,8 @@
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
+    "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
+    "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
 
     # Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true},
