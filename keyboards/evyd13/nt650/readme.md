@@ -1,12 +1,12 @@
 # nt650
 
-![nt650](imgur.com image replace me!)
+![nt650](https://i.imgur.com/z0Xi6qo.png)
 
-*A short description of the keyboard/project*
+A replacement controller PCB for the Leopold FC650M.
 
 * Keyboard Maintainer: [Evelien Dekkers](https://github.com/evyd13)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: nt-650 PCB
+* Hardware Availability: [Open source on GitHub](https://github.com/evyd13/nt-series/tree/main/nt-650)
 
 Make example for this keyboard (after setting up your build environment):
 
