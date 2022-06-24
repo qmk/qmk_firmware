@@ -167,13 +167,12 @@ bool process_tapping(keyrecord_t *keyp) {
 #    if defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
                 else if (
                     (
-                        (
+                        IS_RELEASED(event) && waiting_buffer_typed(event)
 #        ifdef PERMISSIVE_HOLD_PER_KEY
-                            get_permissive_hold(tapping_keycode, &tapping_key)
+                            && get_permissive_hold(tapping_keycode, &tapping_key)
 #        elif defined(PERMISSIVE_HOLD)
-                            true
+                            && true
 #        endif
-                        ) && IS_RELEASED(event) && waiting_buffer_typed(event)
                     )
                     // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT
                     // unnecessarily and fixes them for Layer Taps.
