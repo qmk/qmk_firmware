@@ -194,18 +194,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (RAISE)
  *
  * ,----------------------------------------------------------------------------.
- * |     | Ms3 | Ms2 |MsUp | Ms1  | Mute |   _  |      |      |     |  :  | Bsp |
+ * |     | Ms3 | Ms2 |MsUp | Ms1  | Mute |   _  |      |MsMid |     |  :  | Bsp |
  * |----------------------------------------------------------------------------|
- * |     | Menu| MsL |MDn  | MsR  | Vol+ |ARROW |MsLft |MsMid |MsRgt|     |  !  |
+ * |     | Menu| MsL |MDn  | MsR  | Vol+ |ARROW |MsLft|SELWORD|MsRgt|     |  !  |
  * |----------------------------------------------------------------------------|
- * |     |MWLft|MWUp |NWDn |NWRght| Vol- |Braces|Braces2|SELWORD|   |  ?  |  |  |
+ * |     |MWLft|MWUp |NWDn |NWRght| Vol- | ()<> | []{} |SELWORD|    |  ?  |  |  |
  * |----------------------------------------------------------------------------|
  * |     |     |     |Menu |Lck Adjust|         |       |     |     |     |     |
  * `----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE, KC_UNDS, KC_TRNS, KC_TRNS, KC_TRNS, KC_COLN, KC_BSPC,
-  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU, ARROW,   KC_BTN1, KC_BTN3, KC_BTN2, KC_TRNS, KC_EXLM,
+  KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE, KC_UNDS, KC_TRNS, KC_BTN3, KC_TRNS, KC_COLN, KC_BSPC,
+  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU, ARROW,   KC_BTN1, SELWORD, KC_BTN2, KC_TRNS, KC_EXLM,
   KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, BRACES,  BRACES2, SELWORD, KC_TRNS, KC_QUES, KC_PIPE,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_APP,  TG(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 ),
@@ -270,9 +270,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (ADJUST)
  *
  * ,------------------------------------------------------------------------------.
- * |Toggle| Ms3 | Ms2 |MsUp | Ms1  |      |       |     |NumLk|      | Hue+|RGBTog|
+ * |Toggle| Ms3 | Ms2 |MsUp | Ms1  |      |       |     |MsMid|      | Hue+|RGBTog|
  * |------------------------------------------------------------------------------|
- * |      | Menu| MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsMid|MsRhgt| Hue-|AU_ON |
+ * |      | Menu| MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|     |MsRhgt| Hue-|AU_ON |
  * |------------------------------------------------------------------------------|
  * |Debug |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |AU_OFF|
  * |------------------------------------------------------------------------------|
@@ -280,10 +280,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   KC_NO,     KC_NO,   KC_NUM,  KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
-  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN3, KC_BTN2, RGB_HUD, AU_ON,
+  TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   KC_NO,     KC_NO,   KC_BTN3, KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
+  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_TRNS, KC_BTN2, RGB_HUD, AU_ON,
   DEBUG,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
-  KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS, KC_NO,   KC_NO
+  KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 )
 };
 
@@ -540,7 +540,7 @@ const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTENT
 const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM sleep_combo[]                = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
-const uint16_t PROGMEM nulock_combo[]               = {KC_L, KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM numlock_combo[]               = {KC_L, KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]             = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
