@@ -89,15 +89,15 @@ POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 
 This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the TM040040, TM035035 and the TM023023 trackpads. These are I2C or SPI compatible, and both configurations are supported.
 
-| Setting                         | Description                                                                     | Default               |
-|---------------------------------|---------------------------------------------------------------------------------|-----------------------|
-|`CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.                         | `127`                 |
-|`CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.                         | `1919`                |
-|`CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.                         | `63`                  |
-|`CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.                         | `1471`                |
-|`CIRQUE_PINNACLE_ATTENUATION`    | (Optional) Sets the attenuation of the sensor data.                             | `ADC_ATTENUATE_4X`    |
-|`CIRQUE_PINNACLE_TAPPING_TERM`   | (Optional) Length of time that a touch can be to be considered a tap.           | `TAPPING_TERM`/`200`  |
-|`CIRQUE_PINNACLE_TOUCH_DEBOUNCE` | (Optional) Length of time that a touch can be to be considered a tap.           | `TAPPING_TERM`/`200`  |
+| Setting                         | Description                                                           | Default              |
+|-------------------------------- |-----------------------------------------------------------------------|--------------------- |
+|`CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.               | `127`                |
+|`CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.               | `1919`               |
+|`CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.               | `63`                 |
+|`CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.               | `1471`               |
+|`CIRQUE_PINNACLE_ATTENUATION`    | (Optional) Sets the attenuation of the sensor data.                   | `ADC_ATTENUATE_4X`   |
+|`CIRQUE_PINNACLE_TAPPING_TERM`   | (Optional) Length of time that a touch can be to be considered a tap. | `TAPPING_TERM`/`200` |
+|`CIRQUE_PINNACLE_TOUCH_DEBOUNCE` | (Optional) Length of time that a touch can be to be considered a tap. | `TAPPING_TERM`/`200` |
 
 **`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be. 
 
@@ -121,6 +121,9 @@ Default attenuation is set to 4X, although if you are using a thicker overlay (s
 |`CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_  |
 
 Default Scaling/CPI is 1024.
+
+Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when using Cirque Pinnacle, which matches the internal update rate of the position registers (in standard configuration). Advanced configuration for pen/stylus usage might require lower values.
+
 
 ### Pimoroni Trackball
 
