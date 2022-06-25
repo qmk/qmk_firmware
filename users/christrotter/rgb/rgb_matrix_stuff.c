@@ -85,8 +85,8 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(44, HSV_YELLOW);     // dragscroll toggle // row3, col6
     rgb_matrix_set_hsv(45, HSV_GOLD);       // shift + alt + arrow // arrow key
     rgb_matrix_set_hsv(46, HSV_GREEN);      // arrow key
-    rgb_matrix_set_hsv(47, HSV_GREEN);      // arrow key
-    rgb_matrix_set_hsv(48, HSV_GOLD);       // shift + alt + arrow // arrow key
+    rgb_matrix_set_hsv(47, HSV_GOLD);       // shift + alt + arrow // arrow key// arrow key
+    rgb_matrix_set_hsv(48, HSV_GREEN);      // arrow key
     // this is the group of two keys on the right thumb cluster right next to the trackball
     rgb_matrix_set_hsv(49, HSV_BLUE);       // ctrl // left-most key on kb
     rgb_matrix_set_hsv(50, HSV_GREEN);      // shift // key right next to trackball
@@ -120,20 +120,20 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(17, HSV_CYAN);       // tilde-backtick // row3,col1
     rgb_matrix_set_hsv(18, HSV_RED);        // backspace
     rgb_matrix_set_hsv(19, HSV_ORANGE);     // delete
-    rgb_matrix_set_hsv(20, HSV_RED);        // mac lock
-    rgb_matrix_set_hsv(21, HSV_WHITE);      //
-    rgb_matrix_set_hsv(22, HSV_RED);        // CAD
-    rgb_matrix_set_hsv(23, HSV_WHITE);      // esc
+    rgb_matrix_set_hsv(20, HSV_GREEN);      // shift
+    rgb_matrix_set_hsv(21, HSV_PURPLE);     // cmd
+    rgb_matrix_set_hsv(22, HSV_YELLOW);     // alt
+    rgb_matrix_set_hsv(23, HSV_RED);        // esc
     rgb_matrix_set_hsv(24, HSV_CHARTREUSE); // _NAV
     rgb_matrix_set_hsv(25, HSV_CYAN);       // tab-r
     rgb_matrix_set_hsv(26, HSV_BLUE);       // tab-l
     // RIGHT HALF STARTS HERE
-    rgb_matrix_set_hsv(27, HSV_WHITE);      // row1,col1 // y
-    rgb_matrix_set_hsv(28, HSV_WHITE);
+    rgb_matrix_set_hsv(27, HSV_RED);        // chrome back // row1,col1 // y
+    rgb_matrix_set_hsv(28, HSV_GREEN);      // chrome fwd
     rgb_matrix_set_hsv(29, HSV_WHITE);
     rgb_matrix_set_hsv(30, HSV_WHITE);
     rgb_matrix_set_hsv(31, HSV_WHITE);
-    rgb_matrix_set_hsv(32, HSV_GOLD);       // screenshot // row1,col6
+    rgb_matrix_set_hsv(32, HSV_WHITE);      // row1,col6
     rgb_matrix_set_hsv(33, HSV_CYAN);       // row2,col6 // ;:
     rgb_matrix_set_hsv(34, HSV_CYAN);       // "'
     rgb_matrix_set_hsv(35, HSV_SPRINGGREEN);// RIGHT CLICK // l
@@ -151,15 +151,15 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(47, HSV_GREEN);      // arrow key
     rgb_matrix_set_hsv(48, HSV_GREEN);      // arrow key
     // this is the group of two keys on the right thumb cluster right next to the trackball
-    rgb_matrix_set_hsv(49, HSV_BLUE);       // ctrl // left-most key on kb
+    rgb_matrix_set_hsv(49, HSV_BLUE);       // ctrl  // left-most key on kb
     rgb_matrix_set_hsv(50, HSV_GREEN);      // shift // key right next to trackball
-    rgb_matrix_set_hsv(51, HSV_PURPLE);     // cmd // bottom of space/enter key row
+    rgb_matrix_set_hsv(51, HSV_PURPLE);     // cmd   // bottom of space/enter key row
     rgb_matrix_set_hsv(52, HSV_PINK);       // SYMBOLS // key to the 'left' of enter key
     rgb_matrix_set_hsv(53, HSV_CYAN);       // enter key
-    rgb_matrix_set_hsv(54, HSV_GREEN);       // space key
+    rgb_matrix_set_hsv(54, HSV_GREEN);      // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_hsv(55, HSV_GREEN);       // multiline // key below layer button
-    rgb_matrix_set_hsv(56, HSV_CYAN);      // ctrl //far right key, 'below' enter key
+    rgb_matrix_set_hsv(55, HSV_BLUE);       // space left // key below layer button
+    rgb_matrix_set_hsv(56, HSV_CYAN);       // space right //far right key, 'below' enter key
             break;
 ////////////////////// MOUSE LAYER RGB SETTINGS //////////////////////
 ////////////////////// QWERTY LAYER RGB SETTINGS //////////////////////            
@@ -220,10 +220,10 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(51, HSV_PURPLE);     // cmd // bottom of space/enter key row
     rgb_matrix_set_hsv(52, HSV_PINK);       // SYMBOLS // key to the 'left' of enter key
     rgb_matrix_set_hsv(53, HSV_CYAN);       // enter key
-    rgb_matrix_set_hsv(54, HSV_GREEN);       // space key
+    rgb_matrix_set_hsv(54, HSV_GREEN);      // space key
     // this is the group of two keys on the right thumb cluster NOT next to the trackball
-    rgb_matrix_set_hsv(55, HSV_GREEN);       // multiline // key below layer button
-    rgb_matrix_set_hsv(56, HSV_CYAN);      // ctrl //far right key, 'below' enter key
+    rgb_matrix_set_hsv(55, HSV_BLUE);       // space left // key below layer button
+    rgb_matrix_set_hsv(56, HSV_CYAN);       // space right //far right key, 'below' enter key
             break;
     ////////////////////// QWERTY LAYER RGB SETTINGS //////////////////////            
     ////////////////////// NAV LAYER RGB SETTINGS //////////////////////            
@@ -246,38 +246,38 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(15, HSV_WHITE);
     rgb_matrix_set_hsv(16, HSV_WHITE);
     rgb_matrix_set_hsv(17, HSV_CYAN);       // tilde-backtick // row3,col1
-    rgb_matrix_set_hsv(18,  HSV_RED);       // backspace
+    rgb_matrix_set_hsv(18, HSV_RED);        // backspace
     rgb_matrix_set_hsv(19, HSV_ORANGE);     // delete
-    rgb_matrix_set_hsv(20, HSV_GREEN);      // shift
-    rgb_matrix_set_hsv(21, HSV_PURPLE);     // cmd
-    rgb_matrix_set_hsv(22, HSV_YELLOW);     // alt
+    rgb_matrix_set_hsv(20, HSV_RED);        // mac lock
+    rgb_matrix_set_hsv(21, HSV_GOLD);       // screenshot
+    rgb_matrix_set_hsv(22, HSV_RED);        // CAD    
     rgb_matrix_set_hsv(23, HSV_RED);        // esc
     rgb_matrix_set_hsv(24, HSV_CHARTREUSE); // _NAV
     rgb_matrix_set_hsv(25, HSV_CYAN);       // tab-r
     rgb_matrix_set_hsv(26, HSV_BLUE);       // tab-l
     // RIGHT HALF STARTS HERE
-    rgb_matrix_set_hsv(27, HSV_CHARTREUSE);       // PGUP // row1,col1 // y
+    rgb_matrix_set_hsv(27, HSV_GREEN);      // PGUP // row1,col1 // y
     rgb_matrix_set_hsv(28, HSV_WHITE);
     rgb_matrix_set_hsv(29, HSV_GREEN);      // up arrow
     rgb_matrix_set_hsv(30, HSV_WHITE);
-    rgb_matrix_set_hsv(31, HSV_ORANGE);     // PGDN
+    rgb_matrix_set_hsv(31, HSV_WHITE);     // 
     rgb_matrix_set_hsv(32, HSV_CYAN);       // row1,col6 // -_
     rgb_matrix_set_hsv(33, HSV_CYAN);       // row2,col6 // ;:
-    rgb_matrix_set_hsv(34, HSV_RED);        // END // "'
+    rgb_matrix_set_hsv(34, HSV_RED);        // // "'
     rgb_matrix_set_hsv(35, HSV_GREEN);      // right arrow // l
     rgb_matrix_set_hsv(36, HSV_GREEN);      // down arrow // k
     rgb_matrix_set_hsv(37, HSV_GREEN);      // left arrow // j
-    rgb_matrix_set_hsv(38, HSV_CHARTREUSE);       // HOME // h // row2,col1 
-    rgb_matrix_set_hsv(39, HSV_WHITE);      // n // row3,col1  
-    rgb_matrix_set_hsv(40, HSV_WHITE);
+    rgb_matrix_set_hsv(38, HSV_RED);        // PGDN// h // row2,col1 
+    rgb_matrix_set_hsv(39, HSV_GREEN);      // HOME // n // row3,col1  
+    rgb_matrix_set_hsv(40, HSV_RED);        // END // m
     rgb_matrix_set_hsv(41, HSV_CYAN);       // <,
     rgb_matrix_set_hsv(42, HSV_CYAN);       // >.
     rgb_matrix_set_hsv(43, HSV_GOLD);       // /?
     rgb_matrix_set_hsv(44, HSV_YELLOW);     // dragscroll toggle //row3, col6 // not sure what this key should be
-    rgb_matrix_set_hsv(45, HSV_GOLD);       // arrow key
+    rgb_matrix_set_hsv(45, HSV_GOLD);       // shift + alt + arrow // arrow key
     rgb_matrix_set_hsv(46, HSV_GREEN);      // arrow key
-    rgb_matrix_set_hsv(47, HSV_GREEN);      // arrow key
-    rgb_matrix_set_hsv(48, HSV_GOLD);       // arrow key
+    rgb_matrix_set_hsv(47, HSV_GOLD);       // shift + alt + arrow // arrow key// arrow key
+    rgb_matrix_set_hsv(48, HSV_GREEN);      // arrow key
     // this is the group of two keys on the right thumb cluster right next to the trackball
     rgb_matrix_set_hsv(49, HSV_RED);        // chrome back     // ctrl // left-most key on kb
     rgb_matrix_set_hsv(50, HSV_GREEN);      // multiline       // shift // key right next to trackball

@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef POINTING_DEVICE_ENABLE    
     #define PMW3360_CS_PIN F7 // Trackball - PMW3360 Settings
-    #define PMW3360_LIFTOFF_DISTANCE 0x04 // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
+    #define PMW3360_LIFTOFF_DISTANCE 0x05 // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
     #define PMW3360_CPI 1000 // your DPI setting, how fast the ball tracks
     #define POINTING_DEVICE_RIGHT // Which keyboard half contains the trackball
     #define ROTATIONAL_TRANSFORM_ANGLE -85 // Software adjustment for how not-squarely you packaged the sensor
@@ -77,8 +77,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1 // Not sure what this does...
     #define CHARYBDIS_MINIMUM_DEFAULT_DPI PMW3360_CPI // the drag-scroll code uses this to maintain DPI/CPI between modes
 //  #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
-    #define KEEP_MOUSE_LAYER_ON_FOR 900 // inactivity while on mouse layer, in ms
-    #define AUTO_MOUSE_LAYER_DELAY 3    // xy value threshold
+    #define KEEP_MOUSE_LAYER_ON_FOR 750 // inactivity while on mouse layer, in ms
+    #define AUTO_MOUSE_LAYER_DELAY 2    // xy value threshold
 #endif
 
 // WS2812 RGB LED strip input and number of LEDs
