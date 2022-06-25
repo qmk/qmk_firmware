@@ -39,4 +39,3 @@
 	{K03, K13, K23, K33,   K43,   K53, K63,   K73,   K83,    K93, KA3, KC_NO, KC3, KD3 }, \
 	{K04, K14, K24, KC_NO, KC_NO, K54, KC_NO, KC_NO, KC_NO,  K94, KA4, KB4,   KC4, KD4 } \
 }
-     
