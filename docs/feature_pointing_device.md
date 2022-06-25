@@ -99,7 +99,6 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 |`CIRQUE_PINNACLE_TAPPING_TERM`       | (Optional) Length of time that a touch can be to be considered a tap.                            | `TAPPING_TERM`/`200`            |
 |`CIRQUE_PINNACLE_TOUCH_DEBOUNCE`     | (Optional) Length of time that a touch can be to be considered a tap.                            | `TAPPING_TERM`/`200`            |
 |`CIRQUE_PINNACLE_RESET_ON_INIT_WAIT` | (Optional) Wait time in milliseconds after sending reset during init. Use 0 to skip.             | `30`                            |
-|`CIRQUE_PINNACLE_POSITION_MODE`      | (Optional) Absolute or Relative positioning mode. Use `CIRQUE_PINNACLE_{ABSOLUTE,RELATIVE}_MODE` | `CIRQUE_PINNACLE_ABSOLUTE_MODE` |
 
 **`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be. 
 

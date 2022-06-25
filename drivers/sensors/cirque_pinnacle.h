@@ -38,7 +38,6 @@
 #    define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
 #endif
 #if !defined(POINTING_DEVICE_TASK_THROTTLE_MS)
-#    undef POINTING_DEVICE_TASK_THROTTLE_MS
 #    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle in normal operation produces data every 10ms. Advanced configuration for pen/stylus usage might require lower values.
 #endif
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)

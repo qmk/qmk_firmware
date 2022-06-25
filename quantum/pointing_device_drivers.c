@@ -107,10 +107,11 @@ const pointing_device_driver_t pointing_device_driver = {
 #    endif
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
-    pinnacle_data_t   touchData = cirque_pinnacle_read_data();
-    static uint16_t   x = 0, y = 0, mouse_timer = 0;
-    mouse_xy_report_t report_x = 0, report_y = 0;
-    static bool       is_z_down = false;
+    pinnacle_data_t          touchData = cirque_pinnacle_read_data();
+    mouse_xy_report_t        report_x = 0, report_y = 0;
+    static mouse_xy_report_t x = 0, y = 0;
+    static uint16_t          mouse_timer = 0;
+    static bool              is_z_down   = false;
 
 #    if !CIRQUE_PINNACLE_POSITION_MODE
 #        error Cirque Pinnacle with relative mode not implemented yet.
@@ -130,8 +131,8 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
 
     if (x && y && touchData.xValue && touchData.yValue) {
-        report_x = (int8_t)(touchData.xValue - x);
-        report_y = (int8_t)(touchData.yValue - y);
+        report_x = (mouse_xy_report_t)(touchData.xValue - x);
+        report_y = (mouse_xy_report_t)(touchData.yValue - y);
     }
     x              = touchData.xValue;
     y              = touchData.yValue;
