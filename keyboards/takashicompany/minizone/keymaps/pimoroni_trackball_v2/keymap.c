@@ -34,8 +34,8 @@ uint16_t click_layer = 9;   // マウス入力が可能になった際に有効�
 int16_t scroll_v_counter;   // 垂直スクロールの入力をカウントする
 int16_t scroll_h_counter;   // 水平スクロールの入力をカウントする
 
-int16_t scroll_v_threshold = 15;    // この閾値を超える度に垂直スクロールが実行される
-int16_t scroll_h_threshold = 15;    // この閾値を超える度に水平スクロールが実行される
+int16_t scroll_v_threshold = 30;    // この閾値を超える度に垂直スクロールが実行される
+int16_t scroll_h_threshold = 30;    // この閾値を超える度に水平スクロールが実行される
 
 int16_t after_click_lock_movement = 0;      // クリック入力後の移動量を測定する変数
 
@@ -196,12 +196,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-int history_length = 10;
-
-int16_t history_x[10] = {};
-int16_t history_y[10] = {};
-int16_t history_t[10] = {};
-
 enum pointer_state
 {
     POINTER_NONE = 0,
@@ -212,10 +206,6 @@ int16_t record_x;
 int16_t record_y;
 int16_t record_count;
 
-int16_t dir_x;
-int16_t dir_y;
-int16_t move_x;
-int16_t move_y;
 int16_t move_count;
 
 enum pointer_state current_state;
@@ -226,7 +216,6 @@ int16_t y_sign;
 
 double delta;
 double counter;
-
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
@@ -319,9 +308,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
             } 
         }
 
-        // mouse_report.x *= 1 + (move_count / 5);
-        // mouse_report.y *= 1 + (move_count / 5);
-
         mouse_report.x *= 1 + move_count / 10;
         mouse_report.y *= 1 + move_count / 10;
 
@@ -332,187 +318,112 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
+    
+    int16_t current_x = mouse_report.x;
+    int16_t current_y = mouse_report.y;
+    int16_t current_h = 0;
+    int16_t current_v = 0;
+
+    if (current_x != 0 || current_y != 0) {
+        
+        switch (state) {
+            case CLICKABLE:
+                click_timer = timer_read();
+                break;
+
+            case CLICKING:
+                after_click_lock_movement -= my_abs(current_x) + my_abs(current_y);
+
+                if (after_click_lock_movement > 0) {
+                    current_x = 0;
+                    current_y = 0;
+                }
+
+                break;
+
+            case SCROLLING:
+            {
+                int8_t rep_v = 0;
+                int8_t rep_h = 0;
+
+                // 垂直スクロールの方の感度を高める
+                if (my_abs(current_y) * 2 > my_abs(current_x)) {
+
+                    scroll_v_counter += current_y;
+                    while (my_abs(scroll_v_counter) > scroll_v_threshold) {
+                        if (scroll_v_counter < 0) {
+                            scroll_v_counter += scroll_v_threshold;
+                            rep_v += scroll_v_threshold;
+                        } else {
+                            scroll_v_counter -= scroll_v_threshold;
+                            rep_v -= scroll_v_threshold;
+                        }
+                        
+                    }
+                } else {
+
+                    scroll_h_counter += current_x;
+
+                    while (my_abs(scroll_h_counter) > scroll_h_threshold) {
+                        if (scroll_h_counter < 0) {
+                            scroll_h_counter += scroll_h_threshold;
+                            rep_h += scroll_h_threshold;
+                        } else {
+                            scroll_h_counter -= scroll_h_threshold;
+                            rep_h -= scroll_h_threshold;
+                        }
+                    }
+                }
+
+                current_h = rep_h / scroll_h_threshold;
+                current_v = -rep_v / scroll_v_threshold;
+                current_x = 0;
+                current_y = 0;
+            }
+                break;
+
+            case WAITING:
+                if (timer_elapsed(click_timer) > to_clickable_time) {
+                    enable_click_layer();
+                }
+                break;
+
+            default:
+                click_timer = timer_read();
+                state = WAITING;
+        }
+    }
+    else
+    {
+        switch (state) {
+            case CLICKING:
+            case SCROLLING:
+
+                break;
+
+            case CLICKABLE:
+                if (timer_elapsed(click_timer) > to_reset_time) {
+                    disable_click_layer();
+                }
+                break;
+
+             case WAITING:
+                if (timer_elapsed(click_timer) > 50) {
+                    state = NONE;
+                }
+                break;
+
+            default:
+                state = NONE;
+        }
+    }
+
+    mouse_report.x = current_x;
+    mouse_report.y = current_y;
+    mouse_report.h = current_h;
+    mouse_report.v = current_v;
 
     return mouse_report;
-
-
-    // if (current_state == POINTER_NONE)
-    // {
-    //     if (mouse_report.x != 0 || mouse_report.y != 0)
-    //     {
-    //         current_state = POINTER_INPUT;
-    //         record_x = 0;
-    //         record_y = 0;
-    //         record_count = 0;
-    //     }
-    // }
-
-    // if (current_state == POINTER_INPUT)
-    // {
-    //     record_x += mouse_report.x;
-    //     record_y += mouse_report.y;
-    //     record_count++;
-
-    //     if (record_count > 10)
-    //     {
-    //         dir_x = record_x;
-    //         dir_y = record_y;
-
-    //         move_x = dir_x;
-    //         move_y = dir_y;
-
-    //         move_count = 10;
-
-    //         current_state = POINTER_NONE;
-    //     }
-    // }
-
-    // if (move_count > 0)
-    // {
-    //     mouse_report.x = move_x;
-    //     mouse_report.y = move_y;
-
-    //     move_x -= move_x / 10;
-    //     move_y -= move_y / 10;
-
-    //     move_count--;
-    // }
-    // else
-    // {
-    //     mouse_report.x = 0;
-    //     mouse_report.y = 0;
-    // }
-
-    // return mouse_report;
-
-  
-    // int16_t current_x = state == SCROLLING ? mouse_report.x : history_x[0];
-    // int16_t current_y = state == SCROLLING ? mouse_report.y : history_y[0];
-    // int16_t current_h = 0;
-    // int16_t current_v = 0;
-
-    // int start = 1;
-    // int read_count = 10;
-
-    // if (current_x != 0 || current_y != 0)
-    // {
-    //     for (int i = start; i < start + read_count && i < history_length; i++)
-    //     {
-    //         current_x += history_x[i];
-    //         current_y += history_y[i];
-    //         start = i;
-    //     }
-    // }
-
-    // for (int i = start; i < history_length; i++)
-    // {
-    //     history_x[i - start] = history_x[i];
-    //     history_y[i - start] = history_y[i];
-    // }
-
-    // history_x[history_length - 1] = mouse_report.x;
-    // history_y[history_length - 1] = mouse_report.y;
-
-    // if (current_x != 0 || current_y != 0) {
-        
-    //     switch (state) {
-    //         case CLICKABLE:
-    //             click_timer = timer_read();
-    //             break;
-
-    //         case CLICKING:
-    //             after_click_lock_movement -= my_abs(current_x) + my_abs(current_y);
-
-    //             if (after_click_lock_movement > 0) {
-    //                 current_x = 0;
-    //                 current_y = 0;
-    //             }
-
-    //             break;
-
-    //         case SCROLLING:
-    //         {
-    //             int8_t rep_v = 0;
-    //             int8_t rep_h = 0;
-
-    //             // 垂直スクロールの方の感度を高める
-    //             if (my_abs(current_y) * 2 > my_abs(current_x)) {
-
-    //                 scroll_v_counter += current_y;
-    //                 while (my_abs(scroll_v_counter) > scroll_v_threshold) {
-    //                     if (scroll_v_counter < 0) {
-    //                         scroll_v_counter += scroll_v_threshold;
-    //                         rep_v += scroll_v_threshold;
-    //                     } else {
-    //                         scroll_v_counter -= scroll_v_threshold;
-    //                         rep_v -= scroll_v_threshold;
-    //                     }
-                        
-    //                 }
-    //             } else {
-
-    //                 scroll_h_counter += current_x;
-
-    //                 while (my_abs(scroll_h_counter) > scroll_h_threshold) {
-    //                     if (scroll_h_counter < 0) {
-    //                         scroll_h_counter += scroll_h_threshold;
-    //                         rep_h += scroll_h_threshold;
-    //                     } else {
-    //                         scroll_h_counter -= scroll_h_threshold;
-    //                         rep_h -= scroll_h_threshold;
-    //                     }
-    //                 }
-    //             }
-
-    //             current_h = rep_h / scroll_h_threshold;
-    //             current_v = -rep_v / scroll_v_threshold;
-    //             current_x = 0;
-    //             current_y = 0;
-    //         }
-    //             break;
-
-    //         case WAITING:
-    //             if (timer_elapsed(click_timer) > to_clickable_time) {
-    //                 enable_click_layer();
-    //             }
-    //             break;
-
-    //         default:
-    //             click_timer = timer_read();
-    //             state = WAITING;
-    //     }
-    // }
-    // else
-    // {
-    //     switch (state) {
-    //         case CLICKING:
-    //         case SCROLLING:
-
-    //             break;
-
-    //         case CLICKABLE:
-    //             if (timer_elapsed(click_timer) > to_reset_time) {
-    //                 disable_click_layer();
-    //             }
-    //             break;
-
-    //          case WAITING:
-    //             if (timer_elapsed(click_timer) > 50) {
-    //                 state = NONE;
-    //             }
-    //             break;
-
-    //         default:
-    //             state = NONE;
-    //     }
-    // }
-
-    // mouse_report.x = current_x * 2;
-    // mouse_report.y = current_y * 2;
-    // mouse_report.h = current_h * 2;
-    // mouse_report.v = current_v * 2;
-
-    // return mouse_report;s
 }
 
 
