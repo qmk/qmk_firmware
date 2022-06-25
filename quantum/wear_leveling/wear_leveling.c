@@ -156,29 +156,36 @@ static struct __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) {
 } wear_leveling;
 
 /**
+ * Locking helper: status
+ */
+typedef enum backing_store_lock_status_t { STATUS_FAILURE = 0, STATUS_SUCCESS, STATUS_UNCHANGED } backing_store_lock_status_t;
+
+/**
  * Locking helper: unlock
  */
-static inline bool wear_leveling_unlock(void) {
+static inline backing_store_lock_status_t wear_leveling_unlock(void) {
     if (wear_leveling.unlocked) {
-        return false;
+        return STATUS_UNCHANGED;
     }
-    if (backing_store_unlock()) {
-        wear_leveling.unlocked = true;
+    if (!backing_store_unlock()) {
+        return STATUS_FAILURE;
     }
-    return wear_leveling.unlocked;
+    wear_leveling.unlocked = true;
+    return STATUS_SUCCESS;
 }
 
 /**
  * Locking helper: lock
  */
-static inline bool wear_leveling_lock(void) {
+static inline backing_store_lock_status_t wear_leveling_lock(void) {
     if (!wear_leveling.unlocked) {
-        return false;
+        return STATUS_UNCHANGED;
     }
-    if (backing_store_lock()) {
-        wear_leveling.unlocked = false;
+    if (!backing_store_lock()) {
+        return STATUS_FAILURE;
     }
-    return !wear_leveling.unlocked;
+    wear_leveling.unlocked = false;
+    return STATUS_SUCCESS;
 }
 
 /**
@@ -217,8 +224,8 @@ static wear_leveling_status_t wear_leveling_read_consolidated(void) {
 static wear_leveling_status_t wear_leveling_write_consolidated(void) {
     wl_dprintf("Writing consolidated data\n");
 
-    wear_leveling_status_t status     = WEAR_LEVELING_CONSOLIDATED;
-    bool                   did_unlock = wear_leveling_unlock();
+    wear_leveling_status_t      status      = WEAR_LEVELING_CONSOLIDATED;
+    backing_store_lock_status_t lock_status = wear_leveling_unlock();
     for (int address = 0; address < WEAR_LEVELING_LOGICAL_SIZE; address += BACKING_STORE_WRITE_SIZE) {
         const backing_store_int_t value = *(backing_store_int_t *)&wear_leveling.cache[address];
         backing_store_int_t       temp;
@@ -238,7 +245,7 @@ static wear_leveling_status_t wear_leveling_write_consolidated(void) {
         }
     }
 
-    if (did_unlock) {
+    if (lock_status == STATUS_SUCCESS) {
         wear_leveling_lock();
     }
     return status;
@@ -602,19 +609,21 @@ wear_leveling_status_t wear_leveling_erase(void) {
     wl_dprintf("Erase\n");
 
     // Unlock the backing store
-    bool ret = wear_leveling_unlock();
-    if (!ret) {
-        // If the unlock failed, re-lock and exit with failure
+    backing_store_lock_status_t lock_status = wear_leveling_unlock();
+    if (lock_status == STATUS_FAILURE) {
         wear_leveling_lock();
         return WEAR_LEVELING_FAILED;
     }
 
     // Perform the erase
-    ret = backing_store_erase();
+    bool ret = backing_store_erase();
     wear_leveling_clear_cache();
 
-    // Lock the backing store
-    ret &= wear_leveling_lock();
+    // Lock the backing store if we acquired the lock successfully
+    if (lock_status == STATUS_SUCCESS) {
+        ret &= (wear_leveling_lock() != STATUS_FAILURE);
+    }
+
     return ret ? WEAR_LEVELING_SUCCESS : WEAR_LEVELING_FAILED;
 }
 
@@ -639,27 +648,38 @@ wear_leveling_status_t wear_leveling_write(const uint32_t address, const void *v
     memcpy(&wear_leveling.cache[address], value, length);
 
     // Unlock the backing store
-    bool ret = wear_leveling_unlock();
-    if (!ret) {
-        // If the unlock failed, re-lock and exit with failure
+    backing_store_lock_status_t lock_status = wear_leveling_unlock();
+    if (lock_status == STATUS_FAILURE) {
         wear_leveling_lock();
         return WEAR_LEVELING_FAILED;
     }
 
     // Perform the actual write
     wear_leveling_status_t status = wear_leveling_write_raw(address, value, length);
-    if (status != WEAR_LEVELING_SUCCESS) {
-        // If the write failed, re-lock and exit with failure
-        wear_leveling_lock();
-        return status;
+    switch (status) {
+        case WEAR_LEVELING_CONSOLIDATED:
+        case WEAR_LEVELING_FAILED:
+            // If the write triggered consolidation, or the write failed, then nothing else needs to occur.
+            break;
+
+        case WEAR_LEVELING_SUCCESS:
+            // Consolidate the cache + write log if required
+            status = wear_leveling_consolidate_if_needed();
+            break;
+
+        default:
+            // Unsure how we'd get here...
+            status = WEAR_LEVELING_FAILED;
+            break;
     }
 
-    // Consolidate the cache + write log if required
-    status = wear_leveling_consolidate_if_needed();
+    if (lock_status == STATUS_SUCCESS) {
+        if (wear_leveling_lock() == STATUS_FAILURE) {
+            status = WEAR_LEVELING_FAILED;
+        }
+    }
 
-    // Lock the backing store
-    ret = wear_leveling_lock();
-    return ret ? status : WEAR_LEVELING_FAILED;
+    return status;
 }
 
 /**
