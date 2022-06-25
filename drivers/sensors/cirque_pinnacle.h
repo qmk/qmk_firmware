@@ -8,9 +8,6 @@
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
 #endif
-#ifndef CIRQUE_PINNACLE_RESET_ON_INIT_WAIT
-#    define CIRQUE_PINNACLE_RESET_ON_INIT_WAIT 30 // milliseconds to wait after setting reset bit. Pinnacle needs 15-20ms to boot, increase if needed. Set to 0 to skip reset-on-init.
-#endif
 
 #define CIRQUE_PINNACLE_ABSOLUTE_MODE 1
 #define CIRQUE_PINNACLE_RELATIVE_MODE 0

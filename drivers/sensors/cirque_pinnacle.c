@@ -210,10 +210,8 @@ void cirque_pinnacle_init(void) {
     // Bit 1: Shutdown, 1=Shutdown, 0=Active
     // Bit 2: Sleep Enable, 1=low power mode, 0=normal mode
     // send a RESET command now, in case QMK had a soft-reset without a power cycle
-#if CIRQUE_PINNACLE_RESET_ON_INIT_WAIT > 0
     RAP_Write(SYSCONFIG_1, 0x01);
-    wait_ms(CIRQUE_PINNACLE_RESET_ON_INIT_WAIT);
-#endif
+    wait_ms(30); // Pinnacle needs 10-15ms to boot, so wait long enough before configuring
     RAP_Write(SYSCONFIG_1, 0x00);
     wait_us(50);
 
