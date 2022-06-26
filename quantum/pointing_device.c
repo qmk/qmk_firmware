@@ -25,6 +25,13 @@
 #if (defined(POINTING_DEVICE_ROTATION_90) + defined(POINTING_DEVICE_ROTATION_180) + defined(POINTING_DEVICE_ROTATION_270)) > 1
 #    error More than one rotation selected.  This is not supported.
 #endif
+
+#if defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_COMBINED)
+#    ifndef SPLIT_POINTING_ENABLE
+#        error "Using POINTING_DEVICE_LEFT or POINTING_DEVICE_RIGHT or POINTING_DEVICE_COMBINED, then SPLIT_POINTING_ENABLE is required but has not been defined"
+#    endif
+#endif
+
 #if defined(SPLIT_POINTING_ENABLE)
 #    include "transactions.h"
 #    include "keyboard.h"
