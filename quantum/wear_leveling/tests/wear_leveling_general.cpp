@@ -14,6 +14,34 @@ class WearLevelingGeneral : public ::testing::Test {
 };
 
 /**
+ * This test verifies that even if there is consolidated data present, if the checksum doesn't match then the cache is zero'd after init.
+ */
+TEST_F(WearLevelingGeneral, InvalidChecksum_ConsolidatedDataIgnored) {
+    auto& inst     = MockBackingStore::Instance();
+    auto  logstart = inst.storage_begin() + (WEAR_LEVELING_LOGICAL_SIZE / sizeof(backing_store_int_t));
+
+    // Generate a test block of data
+    std::array<std::uint8_t, WEAR_LEVELING_LOGICAL_SIZE> testvalue;
+    std::iota(testvalue.begin(), testvalue.end(), 0x20);
+
+    // Write the data
+    EXPECT_EQ(wear_leveling_write(0, testvalue.data(), testvalue.size()), WEAR_LEVELING_CONSOLIDATED) << "Write returned incorrect status";
+
+    // Invalidate the checksum
+    (logstart + 0)->erase();
+    (logstart + 1)->erase();
+    (logstart + 2)->erase();
+    (logstart + 3)->erase();
+
+    // Re-init
+    EXPECT_EQ(wear_leveling_init(), WEAR_LEVELING_SUCCESS) << "Init returned incorrect status";
+    EXPECT_EQ(wear_leveling_read(0, testvalue.data(), testvalue.size()), WEAR_LEVELING_SUCCESS) << "Failed to read";
+    for (const auto& E : testvalue) {
+        EXPECT_EQ(E, 0) << "Invalid readback";
+    }
+}
+
+/**
  * This test verifies that writing the same data multiple times does not result in subsequent writes to the backing store.
  */
 TEST_F(WearLevelingGeneral, SameValue_SingleBackingWrite) {

@@ -89,8 +89,8 @@
         of storage is used based off the backing store write size.
 
         Firstly, an empty log entry is expected to be all zeros. If the backing
-        store uses 0xFF for cleared bytes, it should return the completement,
-        such that this wear-leveling algorithm "receives" zeros.
+        store uses 0xFF for cleared bytes, it should return the complement, such
+        that this wear-leveling algorithm "receives" zeros.
 
         For multi-byte writes, up to 8 bytes will be used for each log entry,
         depending on the size of backing store writes:
