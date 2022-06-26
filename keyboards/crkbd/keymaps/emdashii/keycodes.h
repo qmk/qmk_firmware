@@ -1,5 +1,5 @@
 /* Copyright 2022 toinux
-  *
+  * Copyright 2022 emdashii
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
   * the Free Software Foundation, either version 2 of the License, or
@@ -17,33 +17,48 @@
 #pragma once
 
 enum crkbd_layers {
-  _BASE,
-  _GAMING,
-  _GAMING2,
-  _ACCENTS,
-  _LOWER,
-  _RAISE,
-  _FUN,
-  _NAV,
-  _MOUSE,
-  _ADJUST
+  _QWERTY,
+  _NAVIGATION,
+  _NUMBER,
+  _SYMBOL,
+  _FUNCTION,
+  _ADJUST,
+  _GAMING
 };
 
-#define CTRLSC LCTL_T(KC_ESC)
-#define QUORCTL RCTL_T(KC_QUOT)
-#define MOSCLN LT(_MOUSE,KC_SCLN)
-#define ACCENTS LT(_ACCENTS,KC_RALT)
-#define FUN LT(_FUN,KC_SPC)
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define SPCNAV LT(_NAV,KC_SPC)
-#define SFTENT MT(MOD_RSFT,KC_ENT)
-#define TABLGUI LGUI_T(KC_TAB)
-#define BASE DF(_BASE)
-#define GAMING DF(_GAMING)
-#define GAMING2 MO(_GAMING2)
 
-#define SC_F1 LSFT(LCTL(KC_F1))
-#define SC_F2 LSFT(LCTL(KC_F2))
-#define SC_F3 LSFT(LCTL(KC_F3))
-#define SC_F4 LSFT(LCTL(KC_F4))
+// Left-hand home row mods
+#define HOME_A LGUI_T(KC_A)
+#define HOME_S LALT_T(KC_S)
+#define HOME_D LSFT_T(KC_D)
+#define HOME_F LCTL_T(KC_F)
+
+// Right-hand home row mods
+#define HOME_J RCTL_T(KC_J)
+#define HOME_K RSFT_T(KC_K)
+#define HOME_L LALT_T(KC_L)
+#define HOME_SCLN RGUI_T(KC_SCLN)
+
+// Special layer navigation keys
+#define LNUMSPC LT(_NUMBER, KC_SPC)
+#define LSYMDEL LT(_SYMBOL, KC_DEL)
+#define LNAVSPC LT(_NAVIGATION, KC_SPC)
+#define LOSLFUN OSL(_FUNCTION)
+#define SQWERTY DF(_QWERTY)
+#define LQWERTY TO(_QWERTY)
+#define LGAMING TO(_GAMING)
+#define LNAV    TO(_NAVIGATION)
+#define LNUMFUN LT(_NUMBER, OSL(_FUNCTION)) // On tap, takes you to the function layer for one press. On hold, takes you to the number layers
+#define LADJUST LT(_ADJUST)
+
+// Misc combined keys
+#define CTRLSPC LCTL_T(KC_SPC)
+#define CTRLSFT C(KC_LSFT)
+#define COLON S(KC_SCLN)
+#define TABLGUI LGUI_T(KC_TAB)
+
+// Tab movement
+#define TABFWRD C(KC_TAB)
+#define TABBKWD C(S(KC_TAB))
+
+//OSM(MOD_LSFT) One Shot Modifer Shift Key
