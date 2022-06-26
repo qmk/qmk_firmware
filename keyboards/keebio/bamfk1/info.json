@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "BAMFK-1",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k00", "x": 1.5, "y": 0, "h":2, "w": 2},
+                {"label": "k01", "x": 0.5, "y": 2.25},
+                {"label": "k02", "x": 3.5, "y": 2.25},
+
+                {"label": "k10", "x": 0, "y": 3.5},
+                {"label": "k11", "x": 1, "y": 3.5},
+                {"label": "k12", "x": 3, "y": 3.5},
+                {"label": "k13", "x": 4, "y": 3.5}
+            ]
+        }
+    }
+}

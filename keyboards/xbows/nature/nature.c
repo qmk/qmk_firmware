@@ -15,7 +15,7 @@
  */
  #include "nature.h"
  #ifdef RGB_MATRIX_ENABLE
- const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 
 	{0, C1_3, C2_3, C3_3},   // L01
 	{0, C1_4, C2_4, C3_4},   // L02
@@ -148,7 +148,7 @@ void suspend_wakeup_init_kb(void) {
 
  __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(45, 0xFF, 0x00, 0x00);
+        rgb_matrix_set_color(45, 0xFF, 0xFF, 0xFF);
     }
 }
 

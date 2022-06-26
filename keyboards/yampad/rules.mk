@@ -16,8 +16,7 @@ DEBOUNCE_TYPE = sym_eager_pk
 EXTRAKEY_ENABLE = no        # Audio control and System control
 LTO_ENABLE = yes            # Link time optimise, reduce firmware size
 MOUSEKEY_ENABLE = no        # Mouse keys
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE = yes           # USB Nkey Rollover
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 OLED_DRIVER = SSD1306
 OLED_ENABLE = yes
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow

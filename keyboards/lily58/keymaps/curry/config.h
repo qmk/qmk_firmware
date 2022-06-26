@@ -15,3 +15,8 @@
 #    define RGBLIGHT_VAL_STEP 5
 #    define RGBLIGHT_LIMIT_VAL 120
 #endif
+
+//  comment out unnecessary layouts
+#define ENABLE_QWERTY
+#define ENABLE_COLEMAK
+#define ENABLE_DVORAK

@@ -7,7 +7,6 @@ from subprocess import DEVNULL
 
 from milc import cli
 from qmk import submodules
-from qmk.constants import QMK_FIRMWARE
 
 
 class CheckStatus(Enum):
@@ -26,7 +25,6 @@ ESSENTIAL_BINARIES = {
     'arm-none-eabi-gcc': {
         'version_arg': '-dumpversion'
     },
-    'bin/qmk': {},
 }
 
 
@@ -151,14 +149,3 @@ def is_executable(command):
 
     cli.log.error("{fg_red}Can't run `%s %s`", command, version_arg)
     return False
-
-
-def check_git_repo():
-    """Checks that the .git directory exists inside QMK_HOME.
-
-    This is a decent enough indicator that the qmk_firmware directory is a
-    proper Git repository, rather than a .zip download from GitHub.
-    """
-    dot_git = QMK_FIRMWARE / '.git'
-
-    return CheckStatus.OK if dot_git.exists() else CheckStatus.WARNING
