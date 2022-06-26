@@ -127,7 +127,8 @@ void cirque_pinnacle_enable_feed(bool feedEnable) {
 // Reads <count> bytes from an extended register at <address> (16-bit address),
 // stores values in <*data>
 void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
-    uint8_t ERAControlValue = 0xFF;
+    uint8_t  ERAControlValue = 0xFF;
+    uint16_t timeout_timer;
 
     cirque_pinnacle_enable_feed(false); // Disable feed
 
@@ -138,9 +139,10 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
         RAP_Write(ERA_CONTROL, 0x05); // Signal ERA-read (auto-increment) to Pinnacle
 
         // Wait for status register 0x1E to clear
+        timeout_timer = timer_read();
         do {
             RAP_ReadBytes(ERA_CONTROL, &ERAControlValue, 1);
-        } while (ERAControlValue != 0x00);
+        } while ((ERAControlValue != 0x00) && (timer_elapsed(timeout_timer) <= CIRQUE_PINNACLE_TIMEOUT));
 
         RAP_ReadBytes(ERA_VALUE, data + i, 1);
 
@@ -150,7 +152,8 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
 
 // Writes a byte, <data>, to an extended register at <address> (16-bit address)
 void ERA_WriteByte(uint16_t address, uint8_t data) {
-    uint8_t ERAControlValue = 0xFF;
+    uint8_t  ERAControlValue = 0xFF;
+    uint16_t timeout_timer;
 
     cirque_pinnacle_enable_feed(false); // Disable feed
 
@@ -162,9 +165,10 @@ void ERA_WriteByte(uint16_t address, uint8_t data) {
     RAP_Write(ERA_CONTROL, 0x02); // Signal an ERA-write to Pinnacle
 
     // Wait for status register 0x1E to clear
+    timeout_timer = timer_read();
     do {
         RAP_ReadBytes(ERA_CONTROL, &ERAControlValue, 1);
-    } while (ERAControlValue != 0x00);
+    } while ((ERAControlValue != 0x00) && (timer_elapsed(timeout_timer) <= CIRQUE_PINNACLE_TIMEOUT));
 
     cirque_pinnacle_clear_flags();
 }
