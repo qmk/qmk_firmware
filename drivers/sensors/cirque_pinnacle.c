@@ -196,6 +196,31 @@ void cirque_pinnacle_tune_edge_sensitivity(void) {
     ERA_ReadBytes(0x0168, &temp, 1);
 }
 
+// Perform calibration
+void cirque_pinnacle_calibrate(void) {
+    uint8_t  calconfig;
+    uint16_t timeout_timer;
+
+    // CalConfig1 (Compensation)
+    // Bit 0: Calibrate, 1=calibrate, 0=complete
+    // Bit 1: Background Comp Enable, 1=enable, 0=disable
+    // Bit 2: NERD Comp Enable (No, I don't know what NERD means), 1=enable, 0=disable
+    // Bit 3: Track Error Comp Enable, 1=enable, 0=disable
+    // Bit 4: Tap Comp Enable, 1=enable, 0=disable
+    // Bit 6: Calibration Matrix Disable, 1=disabled, 0=enabled
+    RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
+    calconfig |= 0x01;
+    RAP_Write(CALIBRATION_CONFIG_1, calconfig);
+
+    // Calibration takes ~100ms according to GT-AN-090624, doubling the timeout just to be safe
+    timeout_timer = timer_read();
+    do {
+        RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
+    } while ((calconfig & 0x01) && (timer_elapsed(timeout_timer) <= 200));
+
+    cirque_pinnacle_clear_flags();
+}
+
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
 void cirque_pinnacle_init(void) {
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
@@ -245,6 +270,8 @@ void cirque_pinnacle_init(void) {
     RAP_Write(Z_IDLE_COUNT, 5);
 
     cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
+    // Perform manual calibration after setting ADC attenuation
+    cirque_pinnacle_calibrate();
 
     cirque_pinnacle_tune_edge_sensitivity();
     cirque_pinnacle_enable_feed(true);
