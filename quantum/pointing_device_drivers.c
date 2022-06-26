@@ -106,12 +106,53 @@ const pointing_device_driver_t pointing_device_driver = {
 #        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
 #    endif
 
+typedef struct {
+    bool tap_enable;
+} cirque_pinnacle_features_t;
+
+static cirque_pinnacle_features_t features = {.tap_enable = true};
+
+typedef struct {
+    uint16_t timer;
+    bool     touchDown;
+} trackpad_tap_context_t;
+
+static trackpad_tap_context_t tap;
+
+static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t touchData) {
+    if (touchData.touchDown != tap.touchDown) {
+        tap.touchDown = touchData.touchDown;
+        if (!touchData.zValue) {
+            if (timer_elapsed(tap.timer) < CIRQUE_PINNACLE_TAPPING_TERM && tap.timer != 0) {
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
+                pointing_device_set_report(mouse_report);
+                pointing_device_send();
+#    if TAP_CODE_DELAY > 0
+                wait_ms(TAP_CODE_DELAY);
+#    endif
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+                pointing_device_set_report(mouse_report);
+                pointing_device_send();
+            }
+        }
+        tap.timer = timer_read();
+    }
+    if (timer_elapsed(tap.timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
+        tap.timer = 0;
+    }
+
+    return mouse_report;
+}
+
+// extern this function for now
+void cirque_pinnacle_enable_tap(bool enable) {
+    features.tap_enable = enable;
+}
+
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t          touchData = cirque_pinnacle_read_data();
     mouse_xy_report_t        report_x = 0, report_y = 0;
     static mouse_xy_report_t x = 0, y = 0;
-    static uint16_t          mouse_timer = 0;
-    static bool              is_z_down   = false;
 
 #    if !CIRQUE_PINNACLE_POSITION_MODE
 #        error Cirque Pinnacle with relative mode not implemented yet.
@@ -139,25 +180,8 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     mouse_report.x = report_x;
     mouse_report.y = report_y;
 
-    if (touchData.touchDown != is_z_down) {
-        is_z_down = touchData.touchDown;
-        if (!touchData.zValue) {
-            if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
-                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
-                pointing_device_set_report(mouse_report);
-                pointing_device_send();
-#    if TAP_CODE_DELAY > 0
-                wait_ms(TAP_CODE_DELAY);
-#    endif
-                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
-                pointing_device_set_report(mouse_report);
-                pointing_device_send();
-            }
-        }
-        mouse_timer = timer_read();
-    }
-    if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
-        mouse_timer = 0;
+    if (features.tap_enable) {
+        mouse_report = trackpad_tap(mouse_report, touchData);
     }
 
     return mouse_report;
