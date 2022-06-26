@@ -21,6 +21,27 @@ static wear_leveling_status_t test_write(const uint32_t address, const void* val
 }
 
 /**
+ * This test verifies that the first write after initialisation occurs after the FNV1a_64 hash location.
+ */
+TEST_F(WearLeveling8Byte, FirstWriteOccursAfterHash) {
+    auto&   inst       = MockBackingStore::Instance();
+    uint8_t test_value = 0x15;
+    test_write(0x02, &test_value, sizeof(test_value));
+    EXPECT_EQ(inst.log_begin()->address, WEAR_LEVELING_LOGICAL_SIZE + 8) << "Invalid first write address.";
+}
+
+/**
+ * This test verifies that the first write after initialisation occurs after the FNV1a_64 hash location, after an erase has occurred.
+ */
+TEST_F(WearLeveling8Byte, FirstWriteOccursAfterHash_AfterErase) {
+    auto&   inst       = MockBackingStore::Instance();
+    uint8_t test_value = 0x15;
+    wear_leveling_erase();
+    test_write(0x02, &test_value, sizeof(test_value));
+    EXPECT_EQ((inst.log_begin() + 1)->address, WEAR_LEVELING_LOGICAL_SIZE + 8) << "Invalid first write address.";
+}
+
+/**
  * This test ensures the correct number of backing store writes occurs with a multibyte write, given the input buffer size.
  */
 TEST_F(WearLeveling8Byte, MultibyteBackingStoreWriteCounts) {
@@ -53,21 +74,31 @@ TEST_F(WearLeveling8Byte, ConsolidationOverflow) {
 
     // Generate a test block of data
     std::array<std::uint8_t, WEAR_LEVELING_LOGICAL_SIZE> testvalue;
-    std::iota(testvalue.begin(), testvalue.end(), 0x20);
 
     // Write the data
-    EXPECT_EQ(test_write(0, testvalue.data(), testvalue.size()), WEAR_LEVELING_CONSOLIDATED) << "Write failed with incorrect status";
+    std::iota(testvalue.begin(), testvalue.end(), 0x20);
+    EXPECT_EQ(test_write(0, testvalue.data(), testvalue.size()), WEAR_LEVELING_CONSOLIDATED) << "Write returned incorrect status";
+    uint8_t dummy = 0x40;
+    EXPECT_EQ(test_write(0x04, &dummy, sizeof(dummy)), WEAR_LEVELING_SUCCESS) << "Write returned incorrect status";
 
-    // The write log is 24 bytes, so we expect 3 backing store writes before consolidation (log entries 0...2).
-    // Consolidation will perform an erase (log entry 3), then write the resulting data to the first 24 bytes in the backing store (log entries 4...6).
-    EXPECT_EQ(std::distance(inst.log_begin(), inst.log_end()), 7);
+    // Expected log:
+    // [0]: multibyte, 5 bytes, backing address 0x18, logical address 0x00
+    // [1]: multibyte, 5 bytes, backing address 0x20, logical address 0x05
+    // [2]: multibyte, 5 bytes, backing address 0x28, logical address 0x0A, triggers consolidation
+    // [3]: erase
+    // [4]: consolidated data, backing address 0x00, logical address 0x00
+    // [5]: consolidated data, backing address 0x08, logical address 0x08
+    // [6]: FNV1a_64 result, backing address 0x10
+    // [7]: multibyte, 1 byte,  backing address 0x18, logical address 0x04
+    EXPECT_EQ(std::distance(inst.log_begin(), inst.log_end()), 8);
 
     // Verify the backing store writes for the write log
     std::size_t       index;
     write_log_entry_t e;
     for (index = 0; index < 3; ++index) {
         auto write_iter = inst.log_begin() + index;
-        EXPECT_EQ(write_iter->address, WEAR_LEVELING_LOGICAL_SIZE + (index * BACKING_STORE_WRITE_SIZE)) << "Invalid write log address";
+        EXPECT_EQ(write_iter->address, WEAR_LEVELING_LOGICAL_SIZE + 8 + (index * BACKING_STORE_WRITE_SIZE)) << "Invalid write log address";
+
         write_log_entry_t e;
         e.raw64 = write_iter->value;
         EXPECT_EQ(LOG_ENTRY_GET_TYPE(e), LOG_ENTRY_TYPE_MULTIBYTE) << "Invalid write log entry type";
@@ -82,10 +113,20 @@ TEST_F(WearLeveling8Byte, ConsolidationOverflow) {
     }
 
     // Verify the backing store writes for consolidation
-    for (index = 4; index < 7; ++index) {
+    for (index = 4; index < 6; ++index) {
         auto write_iter = inst.log_begin() + index;
-        EXPECT_EQ(write_iter->address, (index - 4) * 8) << "Invalid write log entry address";
+        EXPECT_EQ(write_iter->address, (index - 4) * BACKING_STORE_WRITE_SIZE) << "Invalid write log entry address";
     }
+
+    // Verify the FNV1a_64 write
+    {
+        EXPECT_EQ((inst.log_begin() + 6)->address, WEAR_LEVELING_LOGICAL_SIZE) << "Invalid write log address";
+        e.raw64 = (inst.log_begin() + 6)->value;
+        EXPECT_EQ(e.raw64, fnv_64a_buf(testvalue.data(), testvalue.size(), FNV1A_64_INIT)) << "Invalid checksum"; // Note that checksum is based on testvalue, as we overwrote one byte and need to consult the consolidated data, not the current
+    }
+
+    // Verify the final write
+    EXPECT_EQ((inst.log_begin() + 7)->address, WEAR_LEVELING_LOGICAL_SIZE + 8) << "Invalid write log address";
 
     // Verify the data is what we expected
     std::array<std::uint8_t, WEAR_LEVELING_LOGICAL_SIZE> readback;
@@ -105,30 +146,33 @@ TEST_F(WearLeveling8Byte, PlaybackReadbackMultibyte_OOB) {
     auto& inst     = MockBackingStore::Instance();
     auto  logstart = inst.storage_begin() + (WEAR_LEVELING_LOGICAL_SIZE / sizeof(backing_store_int_t));
 
-    // Set up a 2-byte logical write of [0x11,0x12] at logical offset 0x10
-    auto entry0    = LOG_ENTRY_MAKE_MULTIBYTE(0x10, 2);
+    // Invalid FNV1a_64 hash
+    (logstart + 0)->set(0);
+
+    // Set up a 2-byte logical write of [0x11,0x12] at logical offset 0x01
+    auto entry0    = LOG_ENTRY_MAKE_MULTIBYTE(0x01, 2);
     entry0.raw8[3] = 0x11;
     entry0.raw8[4] = 0x12;
-    (logstart + 0)->set(~entry0.raw64);
+    (logstart + 1)->set(~entry0.raw64);
 
     // Set up a 2-byte logical write of [0x13,0x14] at logical offset 0x1000 (out of bounds)
     auto entry1    = LOG_ENTRY_MAKE_MULTIBYTE(0x1000, 2);
     entry1.raw8[3] = 0x13;
     entry1.raw8[4] = 0x14;
-    (logstart + 1)->set(~entry1.raw64);
+    (logstart + 2)->set(~entry1.raw64);
 
     // Set up a 2-byte logical write of [0x15,0x16] at logical offset 0x10
-    auto entry2    = LOG_ENTRY_MAKE_MULTIBYTE(0x10, 2);
+    auto entry2    = LOG_ENTRY_MAKE_MULTIBYTE(0x01, 2);
     entry2.raw8[3] = 0x15;
     entry2.raw8[4] = 0x16;
-    (logstart + 2)->set(~entry2.raw64);
+    (logstart + 3)->set(~entry2.raw64);
 
     EXPECT_EQ(inst.erasure_count(), 0) << "Invalid initial erase count";
     EXPECT_EQ(wear_leveling_init(), WEAR_LEVELING_CONSOLIDATED) << "Readback should have failed and triggered consolidation";
     EXPECT_EQ(inst.erasure_count(), 1) << "Invalid final erase count";
 
     uint8_t buf[2];
-    wear_leveling_read(0x10, buf, sizeof(buf));
+    wear_leveling_read(0x01, buf, sizeof(buf));
     EXPECT_EQ(buf[0], 0x11) << "Readback should have maintained the previous pre-failure value from the write log";
     EXPECT_EQ(buf[1], 0x12) << "Readback should have maintained the previous pre-failure value from the write log";
 }

@@ -253,14 +253,20 @@ TEST_F(WearLeveling2ByteOptimizedWrites, PlaybackReadbackOptimized64_Success) {
     auto& inst     = MockBackingStore::Instance();
     auto  logstart = inst.storage_begin() + (WEAR_LEVELING_LOGICAL_SIZE / sizeof(backing_store_int_t));
 
-    // Set up a 1-byte logical write of 0x11 at logical offset 0x10
-    auto entry0 = LOG_ENTRY_MAKE_OPTIMIZED_64(0x10, 0x11);
-    (logstart + 0)->set(~entry0.raw16[0]);
+    // Invalid FNV1a_64 hash
+    (logstart + 0)->set(0);
+    (logstart + 1)->set(0);
+    (logstart + 2)->set(0);
+    (logstart + 3)->set(0);
+
+    // Set up a 1-byte logical write of 0x11 at logical offset 0x01
+    auto entry0 = LOG_ENTRY_MAKE_OPTIMIZED_64(0x01, 0x11);
+    (logstart + 4)->set(~entry0.raw16[0]); // start at offset 4 to skip FNV1a_64 result
 
     wear_leveling_init();
     uint8_t tmp;
 
-    wear_leveling_read(0x10, &tmp, sizeof(tmp));
+    wear_leveling_read(0x01, &tmp, sizeof(tmp));
     EXPECT_EQ(tmp, 0x11) << "Failed to read back the seeded data";
 }
 
@@ -271,13 +277,19 @@ TEST_F(WearLeveling2ByteOptimizedWrites, PlaybackReadbackWord01_Success) {
     auto& inst     = MockBackingStore::Instance();
     auto  logstart = inst.storage_begin() + (WEAR_LEVELING_LOGICAL_SIZE / sizeof(backing_store_int_t));
 
-    // Set up a 1-byte logical write of 1 at logical offset 0x10
-    auto entry0 = LOG_ENTRY_MAKE_WORD_01(0x10, 1);
-    (logstart + 0)->set(~entry0.raw16[0]);
+    // Invalid FNV1a_64 hash
+    (logstart + 0)->set(0);
+    (logstart + 1)->set(0);
+    (logstart + 2)->set(0);
+    (logstart + 3)->set(0);
+
+    // Set up a 1-byte logical write of 1 at logical offset 0x02
+    auto entry0 = LOG_ENTRY_MAKE_WORD_01(0x02, 1);
+    (logstart + 4)->set(~entry0.raw16[0]); // start at offset 4 to skip FNV1a_64 result
 
     wear_leveling_init();
     uint8_t tmp;
 
-    wear_leveling_read(0x10, &tmp, sizeof(tmp));
+    wear_leveling_read(0x02, &tmp, sizeof(tmp));
     EXPECT_EQ(tmp, 1) << "Failed to read back the seeded data";
 }

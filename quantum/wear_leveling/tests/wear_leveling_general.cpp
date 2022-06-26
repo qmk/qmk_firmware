@@ -20,7 +20,7 @@ TEST_F(WearLevelingGeneral, SameValue_SingleBackingWrite) {
     auto& inst = MockBackingStore::Instance();
 
     uint8_t test_val = 0x14;
-    EXPECT_EQ(wear_leveling_write(0x10, &test_val, sizeof(test_val)), WEAR_LEVELING_SUCCESS) << "First overall write operation should have succeeded";
+    EXPECT_EQ(wear_leveling_write(0x02, &test_val, sizeof(test_val)), WEAR_LEVELING_SUCCESS) << "First overall write operation should have succeeded";
 
     uint64_t invoke_count = inst.unlock_invoke_count();
     uint64_t erase_count  = inst.erase_invoke_count();
@@ -28,7 +28,7 @@ TEST_F(WearLevelingGeneral, SameValue_SingleBackingWrite) {
     uint64_t lock_count   = inst.lock_invoke_count();
 
     for (int i = 0; i < 10; ++i) {
-        EXPECT_EQ(wear_leveling_write(0x10, &test_val, sizeof(test_val)), WEAR_LEVELING_SUCCESS) << "Subsequent overall write operation should have succeeded";
+        EXPECT_EQ(wear_leveling_write(0x02, &test_val, sizeof(test_val)), WEAR_LEVELING_SUCCESS) << "Subsequent overall write operation should have succeeded";
 
         EXPECT_EQ(inst.unlock_invoke_count(), invoke_count) << "Unlock count should match";
         EXPECT_EQ(inst.erase_invoke_count(), erase_count) << "Erase count should match";

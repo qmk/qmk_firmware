@@ -10,6 +10,7 @@
 #include <vector>
 
 extern "C" {
+#include "fnv.h"
 #include "wear_leveling.h"
 #include "wear_leveling_internal.h"
 };

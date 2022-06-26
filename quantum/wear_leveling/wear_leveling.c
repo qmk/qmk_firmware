@@ -1,6 +1,7 @@
 // Copyright 2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdbool.h>
+#include "fnv.h"
 #include "wear_leveling.h"
 #include "wear_leveling_internal.h"
 
@@ -77,11 +78,19 @@
 
     Write log structure:
 
+        The first 8 bytes of the write log are a FNV1a_64 hash of the contents
+        of the consolidated data area, in an attempt to detect and guard against
+        any data corruption.
+
+        The write log follows the hash:
+
         Given that the algorithm needs to cater for 2-, 4-, and 8-byte writes,
         a variable-length write log entry is used such that the minimal amount
         of storage is used based off the backing store write size.
 
-        Firstly, an empty log entry is expected to be all zeros.
+        Firstly, an empty log entry is expected to be all zeros. If the backing
+        store uses 0xFF for cleared bytes, it should return the completement,
+        such that this wear-leveling algorithm "receives" zeros.
 
         For multi-byte writes, up to 8 bytes will be used for each log entry,
         depending on the size of backing store writes:
@@ -150,7 +159,7 @@
  * Storage area for the wear-leveling cache.
  */
 static struct __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) {
-    __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) uint8_t cache[WEAR_LEVELING_LOGICAL_SIZE];
+    __attribute__((__aligned__(BACKING_STORE_WRITE_SIZE))) uint8_t cache[(WEAR_LEVELING_LOGICAL_SIZE)];
     uint32_t                                                       write_address;
     bool                                                           unlocked;
 } wear_leveling;
@@ -192,8 +201,8 @@ static inline backing_store_lock_status_t wear_leveling_lock(void) {
  * Resets the cache, ensuring the write address is correctly initialised.
  */
 static void wear_leveling_clear_cache(void) {
-    memset(wear_leveling.cache, 0, WEAR_LEVELING_LOGICAL_SIZE);
-    wear_leveling.write_address = WEAR_LEVELING_LOGICAL_SIZE;
+    memset(wear_leveling.cache, 0, (WEAR_LEVELING_LOGICAL_SIZE));
+    wear_leveling.write_address = (WEAR_LEVELING_LOGICAL_SIZE) + 8; // +8 is due to the FNV1a_64 of the consolidated buffer
 }
 
 /**
@@ -203,18 +212,47 @@ static void wear_leveling_clear_cache(void) {
 static wear_leveling_status_t wear_leveling_read_consolidated(void) {
     wl_dprintf("Reading consolidated data\n");
 
-    for (int address = 0; address < WEAR_LEVELING_LOGICAL_SIZE; address += BACKING_STORE_WRITE_SIZE) {
+    wear_leveling_status_t status = WEAR_LEVELING_SUCCESS;
+    for (int address = 0; address < (WEAR_LEVELING_LOGICAL_SIZE); address += (BACKING_STORE_WRITE_SIZE)) {
         backing_store_int_t *const loc = (backing_store_int_t *)&wear_leveling.cache[address];
         backing_store_int_t        temp;
         bool                       ok = backing_store_read(address, &temp);
         if (!ok) {
             wl_dprintf("Failed to read from backing store\n");
-            return WEAR_LEVELING_FAILED;
+            status = WEAR_LEVELING_FAILED;
+            break;
         }
         *loc = temp;
     }
 
-    return WEAR_LEVELING_CONSOLIDATED;
+    // Verify the FNV1a_64 result
+    if (status != WEAR_LEVELING_FAILED) {
+        uint64_t          expected = fnv_64a_buf(wear_leveling.cache, (WEAR_LEVELING_LOGICAL_SIZE), FNV1A_64_INIT);
+        write_log_entry_t entry;
+#if BACKING_STORE_WRITE_SIZE == 2
+        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 0, &entry.raw16[0]);
+        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 2, &entry.raw16[1]);
+        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 4, &entry.raw16[2]);
+        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 6, &entry.raw16[3]);
+#elif BACKING_STORE_WRITE_SIZE == 4
+        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 0, &entry.raw32[0]);
+        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 4, &entry.raw32[1]);
+#elif BACKING_STORE_WRITE_SIZE == 8
+        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 0, &entry.raw64);
+#endif
+        // If we have a mismatch, clear the cache but do not flag a failure,
+        // which will cater for the completely clean MCU case.
+        if (entry.raw64 != expected) {
+            wear_leveling_clear_cache();
+        }
+    }
+
+    // If we failed for any reason, then clear the cache
+    if (status == WEAR_LEVELING_FAILED) {
+        wear_leveling_clear_cache();
+    }
+
+    return status;
 }
 
 /**
@@ -226,7 +264,7 @@ static wear_leveling_status_t wear_leveling_write_consolidated(void) {
 
     wear_leveling_status_t      status      = WEAR_LEVELING_CONSOLIDATED;
     backing_store_lock_status_t lock_status = wear_leveling_unlock();
-    for (int address = 0; address < WEAR_LEVELING_LOGICAL_SIZE; address += BACKING_STORE_WRITE_SIZE) {
+    for (int address = 0; address < (WEAR_LEVELING_LOGICAL_SIZE); address += (BACKING_STORE_WRITE_SIZE)) {
         const backing_store_int_t value = *(backing_store_int_t *)&wear_leveling.cache[address];
         backing_store_int_t       temp;
         bool                      ok = backing_store_read(address, &temp);
@@ -243,6 +281,46 @@ static wear_leveling_status_t wear_leveling_write_consolidated(void) {
                 break;
             }
         }
+    }
+
+    if (status != WEAR_LEVELING_FAILED) {
+        // Write out the FNV1a_64 result of the consolidated data
+        write_log_entry_t entry;
+        entry.raw64 = fnv_64a_buf(wear_leveling.cache, (WEAR_LEVELING_LOGICAL_SIZE), FNV1A_64_INIT);
+        do {
+#if BACKING_STORE_WRITE_SIZE == 2
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 0, entry.raw16[0])) {
+                status = WEAR_LEVELING_FAILED;
+                break;
+            }
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 2, entry.raw16[1])) {
+                status = WEAR_LEVELING_FAILED;
+                break;
+            }
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 4, entry.raw16[2])) {
+                status = WEAR_LEVELING_FAILED;
+                break;
+            }
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 6, entry.raw16[3])) {
+                status = WEAR_LEVELING_FAILED;
+                break;
+            }
+#elif BACKING_STORE_WRITE_SIZE == 4
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 0, entry.raw32[0])) {
+                status = WEAR_LEVELING_FAILED;
+                break;
+            }
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 4, entry.raw32[1])) {
+                status = WEAR_LEVELING_FAILED;
+                break;
+            }
+#elif BACKING_STORE_WRITE_SIZE == 8
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 0, entry.raw64)) {
+                status = WEAR_LEVELING_FAILED;
+                break;
+            }
+#endif
+        } while (0);
     }
 
     if (lock_status == STATUS_SUCCESS) {
@@ -273,7 +351,8 @@ static wear_leveling_status_t wear_leveling_consolidate_force(void) {
     }
 
     // Next write of the log occurs after the consolidated values at the start of the backing store.
-    wear_leveling.write_address = WEAR_LEVELING_LOGICAL_SIZE;
+    wear_leveling.write_address = (WEAR_LEVELING_LOGICAL_SIZE) + 8; // +8 due to the FNV1a_64 of the consolidated area
+
     return status;
 }
 
@@ -285,7 +364,7 @@ static wear_leveling_status_t wear_leveling_consolidate_force(void) {
  * @return true if consolidation occurred
  */
 static wear_leveling_status_t wear_leveling_consolidate_if_needed(void) {
-    if (wear_leveling.write_address >= WEAR_LEVELING_BACKING_SIZE) {
+    if (wear_leveling.write_address >= (WEAR_LEVELING_BACKING_SIZE)) {
         return wear_leveling_consolidate_force();
     }
 
@@ -303,7 +382,7 @@ static wear_leveling_status_t wear_leveling_append_raw(backing_store_int_t value
         wl_dprintf("Failed to write to backing store\n");
         return WEAR_LEVELING_FAILED;
     }
-    wear_leveling.write_address += BACKING_STORE_WRITE_SIZE;
+    wear_leveling.write_address += (BACKING_STORE_WRITE_SIZE);
     return wear_leveling_consolidate_if_needed();
 }
 
@@ -433,8 +512,8 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
 
     wear_leveling_status_t status          = WEAR_LEVELING_SUCCESS;
     bool                   cancel_playback = false;
-    uint32_t               address         = WEAR_LEVELING_LOGICAL_SIZE;
-    while (!cancel_playback && address < WEAR_LEVELING_BACKING_SIZE) {
+    uint32_t               address         = (WEAR_LEVELING_LOGICAL_SIZE) + 8; // +8 due to the FNV1a_64 of the consolidated area
+    while (!cancel_playback && address < (WEAR_LEVELING_BACKING_SIZE)) {
         backing_store_int_t value;
         bool                ok = backing_store_read(address, &value);
         if (!ok) {
@@ -450,7 +529,7 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
         }
 
         // If we got a nonzero value, then we need to increment the address to ensure next write occurs at next location
-        address += BACKING_STORE_WRITE_SIZE;
+        address += (BACKING_STORE_WRITE_SIZE);
 
         // Read from the write log
         write_log_entry_t log;
@@ -472,12 +551,12 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
                     status          = WEAR_LEVELING_FAILED;
                     break;
                 }
-                address += BACKING_STORE_WRITE_SIZE;
+                address += (BACKING_STORE_WRITE_SIZE);
 #endif // BACKING_STORE_WRITE_SIZE == 2
                 const uint32_t a = LOG_ENTRY_MULTIBYTE_GET_ADDRESS(log);
                 const uint8_t  l = LOG_ENTRY_MULTIBYTE_GET_LENGTH(log);
 
-                if (a + l > WEAR_LEVELING_LOGICAL_SIZE) {
+                if (a + l > (WEAR_LEVELING_LOGICAL_SIZE)) {
                     cancel_playback = true;
                     status          = WEAR_LEVELING_FAILED;
                     break;
@@ -492,7 +571,7 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
                         status          = WEAR_LEVELING_FAILED;
                         break;
                     }
-                    address += BACKING_STORE_WRITE_SIZE;
+                    address += (BACKING_STORE_WRITE_SIZE);
                 }
                 if (l > 3) {
                     ok = backing_store_read(address, &log.raw16[3]);
@@ -502,7 +581,7 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
                         status          = WEAR_LEVELING_FAILED;
                         break;
                     }
-                    address += BACKING_STORE_WRITE_SIZE;
+                    address += (BACKING_STORE_WRITE_SIZE);
                 }
 #elif BACKING_STORE_WRITE_SIZE == 4
                 if (l > 1) {
@@ -510,10 +589,10 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
                     if (!ok) {
                         wl_dprintf("Failed to load from backing store, skipping playback of write log\n");
                         cancel_playback = true;
-                        status          = WEAR_LEVELING_FAILED;
+                        status = WEAR_LEVELING_FAILED;
                         break;
                     }
-                    address += BACKING_STORE_WRITE_SIZE;
+                    address += (BACKING_STORE_WRITE_SIZE);
                 }
 #endif
 
@@ -524,7 +603,7 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
                 const uint32_t a = LOG_ENTRY_OPTIMIZED_64_GET_ADDRESS(log);
                 const uint8_t  v = LOG_ENTRY_OPTIMIZED_64_GET_VALUE(log);
 
-                if (a >= WEAR_LEVELING_LOGICAL_SIZE) {
+                if (a >= (WEAR_LEVELING_LOGICAL_SIZE)) {
                     cancel_playback = true;
                     status          = WEAR_LEVELING_FAILED;
                     break;
@@ -536,7 +615,7 @@ static wear_leveling_status_t wear_leveling_playback_log(void) {
                 const uint32_t a = LOG_ENTRY_WORD_01_GET_ADDRESS(log);
                 const uint8_t  v = LOG_ENTRY_WORD_01_GET_VALUE(log);
 
-                if (a + 1 >= WEAR_LEVELING_LOGICAL_SIZE) {
+                if (a + 1 >= (WEAR_LEVELING_LOGICAL_SIZE)) {
                     cancel_playback = true;
                     status          = WEAR_LEVELING_FAILED;
                     break;
@@ -574,7 +653,7 @@ wear_leveling_status_t wear_leveling_init(void) {
     wl_dprintf("Init\n");
 
     // Reset the cache
-    memset(&wear_leveling, 0, sizeof(wear_leveling));
+    wear_leveling_clear_cache();
 
     // Initialise the backing store
     if (!backing_store_init()) {
@@ -631,8 +710,8 @@ wear_leveling_status_t wear_leveling_erase(void) {
  * Writes logical data into the backing store. Skips writes if there are no changes to values.
  */
 wear_leveling_status_t wear_leveling_write(const uint32_t address, const void *value, size_t length) {
-    wl_assert(address + length <= WEAR_LEVELING_LOGICAL_SIZE);
-    if (address + length > WEAR_LEVELING_LOGICAL_SIZE) {
+    wl_assert(address + length <= (WEAR_LEVELING_LOGICAL_SIZE));
+    if (address + length > (WEAR_LEVELING_LOGICAL_SIZE)) {
         return WEAR_LEVELING_FAILED;
     }
 
@@ -686,8 +765,8 @@ wear_leveling_status_t wear_leveling_write(const uint32_t address, const void *v
  * Reads logical data from the cache.
  */
 wear_leveling_status_t wear_leveling_read(const uint32_t address, void *value, size_t length) {
-    wl_assert(address + length <= WEAR_LEVELING_LOGICAL_SIZE);
-    if (address + length > WEAR_LEVELING_LOGICAL_SIZE) {
+    wl_assert(address + length <= (WEAR_LEVELING_LOGICAL_SIZE));
+    if (address + length > (WEAR_LEVELING_LOGICAL_SIZE)) {
         return WEAR_LEVELING_FAILED;
     }
 
