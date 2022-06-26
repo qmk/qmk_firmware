@@ -1,7 +1,7 @@
 // Copyright 2022 catmunch (@catmunch)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "macrocat.h"
+#include "quantum.h"
 
 static bool encoder_pressed = 0;
 static bool encoder_switched_layer = 0;
