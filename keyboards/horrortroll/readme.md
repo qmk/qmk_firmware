@@ -15,6 +15,16 @@ In here, you can find:
   |                |               |               |         |              |      |       |
 </details>
 
+## List for my collab keyboard in here:
+<details>
+  <summary>Click to expand!</summary>
+
+  | Keyboard name  | MCU           | Layout              | Hotswap | LED          | OLED | Other |
+  | -------------- | ------------- | ------------------- | ------- | ------------ | ---- | ----- |
+  | Lemon40        | Atmega32U4    | 47 Keys (40% Alice) | No      | RGB Lighting | Yes  | No    |
+  |                |               |                     |         |              |      |       |
+</details>
+
 ## Contact me if you have any problem
 
 **Discord:** HorrorTroll#0975  
