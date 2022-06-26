@@ -31,6 +31,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_FORCE_HOLD
 //#define TAPPING_TERM 100
 
+// Configure the global tapping term (default: 200ms)
+#define TAPPING_TERM 200
+
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT
+
+// Comment off to enable settings, ios device friendly.
+#define IOS_DEVICE_ENABLE
+
+#ifdef IOS_DEVICE_ENABLE
+    #define  USB_MAX_POWER_CONSUMPTION 100
+    #undef RGBLIGHT_LIMIT_VAL
+    #define RGBLIGHT_LIMIT_VAL 100
+#endif
+
+// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
+// #define TAPPING_FORCE_HOLD
+
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -46,14 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
-    // Configure the global tapping term (default: 200ms)
-    #define TAPPING_TERM 200
-
-    // Prevent normal rollover on alphas from accidentally triggering mods.
-    #define IGNORE_MOD_TAP_INTERRUPT
-
-    // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-    // #define TAPPING_FORCE_HOLD
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
