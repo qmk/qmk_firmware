@@ -31,3 +31,4 @@ TODO: http://www.keyboard-layout-editor.com/ layout for it
 TODO: blog post about UT472, 2u stab PCB stab clip in, 5 pin switch support (Durock T1s), link to other places, had to reset board using button on PCB after accidentally stopping BootMagic from working!
 
 TODO: colours: reddish purple: H: 248 S: 215 V: 95 ; more purple H: 240 S: 215 V: 95
+TODO: current chosen ones: H: 248 S: 215 V: 79
