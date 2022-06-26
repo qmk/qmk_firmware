@@ -23,8 +23,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,                   _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______
     ),
     [SYM] = LAYOUT(
-        _______, _______, S(KC_1), S(KC_2), S(KC_3), _______, _______,   _______, S(KC_MINS), S(KC_EQL), _______, _______, KC_DEL,
-        _______, _______, S(KC_4), S(KC_5), S(KC_6), _______, _______,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,_______, _______,
+        _______, _______, S(KC_1), S(KC_2), S(KC_3), _______, KC_LPRN,   _______, S(KC_MINS), S(KC_EQL), _______, _______, KC_DEL,
+        _______, _______, S(KC_4), S(KC_5), S(KC_6), _______, KC_RPRN,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
         _______, _______, S(KC_7), S(KC_8), S(KC_9), S(KC_0),            _______, _______, _______, _______, _______, _______,
         _______,                   _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______
     ),
@@ -64,10 +64,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             lain_set_led(1, 1);
             lain_set_led(2, 0);
             break;
-        case FUNC:
+        case SYM:
             lain_set_led(1, 0);
             lain_set_led(2, 1);
             break;
+        case FUNC:
         case CONF:
             lain_set_led(1, 1);
             lain_set_led(2, 1);

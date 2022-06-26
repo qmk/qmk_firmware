@@ -11,4 +11,3 @@
 TODO:
 
 make the spaces mod-tap, shift on hold
-round brackets on [] MO(1) and MO(2)
