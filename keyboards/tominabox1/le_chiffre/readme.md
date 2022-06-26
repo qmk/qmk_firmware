@@ -14,7 +14,7 @@ By default the OLED is **disabled**. This is to prevent issues with operation wh
 
 Make example for this keyboard (after setting up your build environment):
 
-Rev 1:    make tominabox1/le_chiffre:default
+Rev 1:    make tominabox1/le_chiffre/rev1:default
 Rev 2:    make tominabox1/le_chiffre/rev2:default
 HE:       make tominabox1/le_chiffre/he:default
 

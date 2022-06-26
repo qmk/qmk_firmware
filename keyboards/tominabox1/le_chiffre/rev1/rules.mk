@@ -4,14 +4,19 @@ MCU = atmega32u4
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
-BOOTMAGIC_ENABLE = yes     # Enable Bootmagic Lite
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-NKRO_ENABLE = yes           # USB Nkey Rollover
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+NKRO_ENABLE = yes           # Enable N-Key Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-TAP_DANCE_ENABLE = no
+AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
-OLED_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 LTO_ENABLE = yes
