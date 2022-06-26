@@ -269,7 +269,8 @@ void cirque_pinnacle_enable_circular_scroll(bool enable) {
     features.circular_scroll_enable = enable;
 }
 
-void cirque_pinnacle_set_circular_scroll_settings(float outer_ring_pct, float movement_pct, float movement_ratio, uint8_t wheel_clicks) {
+// To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, movement_pct = 0, movement_ratio = 0
+void cirque_pinnacle_configure_circular_scroll(float outer_ring_pct, float movement_pct, float movement_ratio, uint8_t wheel_clicks) {
     scroll.outer_ring_pct = outer_ring_pct;
     scroll.movement_pct   = movement_pct;
     scroll.movement_ratio = movement_ratio;
@@ -296,7 +297,7 @@ typedef struct {
     mouse_xy_report_t dy0;
 } cursor_glide_context_t;
 
-static cursor_glide_context_t glide;
+static cursor_glide_context_t glide = {.trigger_pct = 2};
 
 static cursor_glide_t cursor_glide(void) {
     cursor_glide_t report;
@@ -334,15 +335,14 @@ static cursor_glide_t cursor_glide_check(void) {
 static cursor_glide_t cursor_glide_start(void) {
     cursor_glide_t invalid_report = {0, 0, false};
 
-    glide.trigger_pct = 2;   // good enough default
-    glide.coef        = 0.4; // good enough default
-    glide.interval    = 10;  // hardcode for 100sps
-    glide.timer       = timer_read();
-    glide.counter     = 0;
-    glide.v0          = (glide.dx0 == 0 && glide.dy0 == 0) ? 0.0 : hypotf(glide.dx0, glide.dy0); // skip trigonometry if not needed
-    glide.x           = 0;
-    glide.y           = 0;
-    glide.z           = 0;
+    glide.coef     = 0.4; // good enough default
+    glide.interval = 10;  // hardcode for 100sps
+    glide.timer    = timer_read();
+    glide.counter  = 0;
+    glide.v0       = (glide.dx0 == 0 && glide.dy0 == 0) ? 0.0 : hypotf(glide.dx0, glide.dy0); // skip trigonometry if not needed
+    glide.x        = 0;
+    glide.y        = 0;
+    glide.z        = 0;
 
     if (glide.v0 < glide.trigger_pct * cirque_pinnacle_get_scale() / 100) {
         // not enough velocity to be worth gliding, abort
@@ -363,6 +363,10 @@ static void cursor_glide_update(mouse_xy_report_t dx, mouse_xy_report_t dy, uint
 // extern this for now
 void cirque_pinnacle_enable_cursor_glide(bool enable) {
     features.cursor_glide_enable = enable;
+}
+
+void cirque_pinnacle_configure_cursor_glide(float trigger_pct) {
+    glide.trigger_pct = trigger_pct;
 }
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
