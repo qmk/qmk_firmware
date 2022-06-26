@@ -650,6 +650,12 @@ ifeq ($(strip $(CRC_ENABLE)), yes)
     SRC += crc.c
 endif
 
+ifeq ($(strip $(FNV_ENABLE)), yes)
+    OPT_DEFS += -DFNV_ENABLE
+    VPATH += $(LIB_PATH)/fnv
+    SRC += qmk_fnv_type_validation.c hash_32a.c hash_64a.c
+endif
+
 ifeq ($(strip $(HAPTIC_ENABLE)),yes)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
 
