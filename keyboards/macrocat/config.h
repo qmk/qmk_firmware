@@ -9,8 +9,3 @@
 #define ENCODERS_PAD_A { D3 }
 #define ENCODERS_PAD_B { D2 }
 #define ENCODER_SWITCH B7
-
-#define VENDOR_ID 0x2022
-#define PRODUCT_ID 0x8086
-#define MANUFACTURER    CatMunch
-#define PRODUCT         MacroCat Keyboard
