@@ -85,6 +85,7 @@ typedef struct {
 
 void            cirque_pinnacle_init(void);
 void            cirque_pinnacle_calibrate(void);
+void            cirque_pinnacle_cursor_smoothing(bool enable);
 pinnacle_data_t cirque_pinnacle_read_data(void);
 void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
 uint16_t        cirque_pinnacle_get_scale(void);

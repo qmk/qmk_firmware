@@ -17,6 +17,7 @@
 #define SYSCONFIG_1          0x03
 #define FEEDCONFIG_1         0x04
 #define FEEDCONFIG_2         0x05
+#define FEEDCONFIG_3         0x06
 #define CALIBRATION_CONFIG_1 0x07
 #define PS2_AU_CONTROL       0x08
 #define SAMPLE_RATE          0x09
@@ -219,6 +220,28 @@ void cirque_pinnacle_calibrate(void) {
     } while ((calconfig & 0x01) && (timer_elapsed(timeout_timer) <= 200));
 
     cirque_pinnacle_clear_flags();
+}
+
+// Enable/disable cursor smoothing, smoothing is enabled by default
+void cirque_pinnacle_cursor_smoothing(bool enable) {
+    uint8_t feedconfig3;
+
+    // FeedConfig3 (Advanced feature flags)
+    // Bit 0: DualPoint Buttons, 1=enable, 0=disable
+    // Bit 1: Smoothing Disable, 1=disable, 0=enable
+    // Bit 2: Palm/NERD measurements Disable, 1=disable, 0=enable
+    // Bit 3: Noise Avoidance Disable, 1=disable, 0=enable
+    // Bit 4: WRAP lockout Disable
+    // Bit 5: Dynamic EMI adjust Disable
+    // Bit 6: HW EMI detection Disable
+    // Bit 7: SW EMI detection Disable
+    RAP_ReadBytes(FEEDCONFIG_3, &feedconfig3, 1);
+    if (enable) {
+        feedconfig3 &= ~0x02;
+    } else {
+        feedconfig3 |= 0x02;
+    }
+    RAP_Write(FEEDCONFIG_3, feedconfig3);
 }
 
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
