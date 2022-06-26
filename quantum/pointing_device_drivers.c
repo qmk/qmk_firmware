@@ -172,10 +172,10 @@ typedef struct {
     circular_scroll_status_t state;
     bool                     axis;
     // settings
-    float                    outer_ring_pct; // width of outer ring
-    float                    movement_pct;   // amount of movement before triggering scroll validation
-    float                    movement_ratio; // ratio of movement along perimeter / movement towards center
-    uint8_t                  wheel_clicks;   // how many clicks to report in a half circle
+    float   outer_ring_pct; // width of outer ring
+    float   movement_pct;   // amount of movement before triggering scroll validation
+    float   movement_ratio; // ratio of movement along perimeter / movement towards center
+    uint8_t wheel_clicks;   // how many clicks to report in a half circle
 } circular_scroll_context_t;
 
 static circular_scroll_context_t scroll = {.outer_ring_pct = 33, .movement_pct = 6, .movement_ratio = 1.2, .wheel_clicks = 9};
@@ -271,9 +271,9 @@ void cirque_pinnacle_enable_circular_scroll(bool enable) {
 
 void cirque_pinnacle_set_circular_scroll_settings(float outer_ring_pct, float movement_pct, float movement_ratio, uint8_t wheel_clicks) {
     scroll.outer_ring_pct = outer_ring_pct;
-    scroll.movement_pct = movement_pct;
+    scroll.movement_pct   = movement_pct;
     scroll.movement_ratio = movement_ratio;
-    scroll.wheel_clicks = wheel_clicks;
+    scroll.wheel_clicks   = wheel_clicks;
 }
 
 typedef struct {
@@ -410,8 +410,8 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         report_x = (mouse_xy_report_t)(touchData.xValue - x);
         report_y = (mouse_xy_report_t)(touchData.yValue - y);
     }
-    x              = touchData.xValue;
-    y              = touchData.yValue;
+    x = touchData.xValue;
+    y = touchData.yValue;
 
     if (features.cursor_glide_enable) {
         if (touchData.touchDown) {
