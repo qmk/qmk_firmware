@@ -16,12 +16,12 @@ The user can check whether the LED is lit or not.
 
 ```
 $ cd qmk_firmware
-$ make helix:led_test
+$ make yushakobo/helix:led_test
 ```
 
 ## Flash QMK Firmware
 
 Execute the 'make' command and press the reset switch on the keyboard.
 ```
-$ make helix:led_test:flash
+$ make yushakobo/helix:led_test:flash
 ```

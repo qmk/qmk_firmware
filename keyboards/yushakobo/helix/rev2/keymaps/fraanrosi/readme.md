@@ -1,6 +1,6 @@
  <!---Copyright 2021 Franco Rosi <fraanrosi@gmail.com> -->
 ## Fraanrosi
-A **Latin American Spanish** keymap for Helix/rev2/under, 5 rows.   
+A **Latin American Spanish** keymap for yushakobo/Helix/rev2/under, 5 rows.   
 Designed to be as simple and more touch typing oriented as possible.    
 It was inspired by a DELL Latitude E5470.
 

@@ -10,10 +10,10 @@ KEYBOARD_LOCAL_FEATURES_MK :=
 
 # Parse 'HELIX=xx,yy,zz' option
 ifneq ($(strip $(HELIX)),)
-    # make HELIX=ios helix/pico:AKEYMAP
-    # make HELIX=no-ani helix/pico:AKEYMAP
-    # make HELIX=no-oled helix/pico:AKEYMAP
-    # make HELIX=ios,no-ani,no-oled helix/pico:AKEYMAP
+    # make HELIX=ios yushakobo/helix/pico:AKEYMAP
+    # make HELIX=no-ani yushakobo/helix/pico:AKEYMAP
+    # make HELIX=no-oled yushakobo/helix/pico:AKEYMAP
+    # make HELIX=ios,no-ani,no-oled yushakobo/helix/pico:AKEYMAP
     define HELIX_OPTION_PARSE
         # parce 'no-ani' 'ios' 'no-oled'
         $(if $(SHOW_PARCE),$(info parse .$1.))  #debug

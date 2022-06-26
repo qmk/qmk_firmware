@@ -19,6 +19,6 @@ BACKLIGHT_ENABLE = no   # Enable keyboard backlight functionality
 AUDIO_ENABLE = no       # Audio output
 RGBLIGHT_ENABLE = no    # Enable WS2812 RGB underlight.
 
-DEFAULT_FOLDER = helix/rev2
+DEFAULT_FOLDER = yushakobo/helix/rev2
 
 HELIX_TOP_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))

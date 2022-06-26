@@ -92,7 +92,7 @@
 
 ## Customize
 
-see `qmk_firmware/keyboards/helix/pico/keymaps/default/rules.mk`
+see `qmk_firmware/keyboards/yushakobo/helix/pico/keymaps/default/rules.mk`
 
 ```
 # Helix Spacific Build Options
@@ -112,23 +112,23 @@ $ cd qmk_firmware
 
 build
 ```
-$ make helix/pico:default
-$ make helix/pico/back:default               # with backlight
-$ make HELIX=no-ani helix/pico/back:default  # with backlight without animation
-$ make helix/pico/under:default              # with underglow
+$ make yushakobo/helix/pico:default
+$ make yushakobo/helix/pico/back:default               # with backlight
+$ make HELIX=no-ani yushakobo/helix/pico/back:default  # with backlight without animation
+$ make yushakobo/helix/pico/under:default              # with underglow
 ```
 
 build (experimental use of split_common with backlight)
 ```
-$ make helix/pico/sc:default
+$ make yushakobo/helix/pico/sc:default
 ```
 
 flash to keyboard
 ```
-$ make helix/pico:default:flash
-$ make helix/pico/back:default:flash               # with backlight
-$ make HELIX=no_ani helix/pico/back:default:flash  # with backlight without animation
-$ make helix/pico/under:default:flash              # with underglow
+$ make yushakobo/helix/pico:default:flash
+$ make yushakobo/helix/pico/back:default:flash               # with backlight
+$ make HELIX=no_ani yushakobo/helix/pico/back:default:flash  # with backlight without animation
+$ make yushakobo/helix/pico/under:default:flash              # with underglow
 
 ```
 

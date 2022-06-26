@@ -59,7 +59,7 @@
 ## カスタマイズ
 
 RGB バックライトまたは、RGB Underglow をつけた場合は、
-`qmk_firmware/keyboards/helix/pico/keymaps/default/rules.mk` の以下の部分を編集して機能を有効化してください。
+`qmk_firmware/keyboards/yushakobo/helix/pico/keymaps/default/rules.mk` の以下の部分を編集して機能を有効化してください。
 
 ```
 # Helix Spacific Build Options
@@ -105,31 +105,31 @@ $ cd qmk_firmware
 qmk_firmwareでは各キーボードのコンパイルは、`<キーボード名>:<キーマップ名>`という指定で行います。
 
 ```
-$ make helix/pico:default
+$ make yushakobo/helix/pico:default
 ```
 
 キーボードへの書き込みまで同時に行うには下記のように`:flash`を付けます。
 
 ```
-$ make helix/pico:default:flash
+$ make yushakobo/helix/pico:default:flash
 ```
 
 コンパイル結果と中間生成物を消去したい場合は以下のようにします。
 
 ```
-$ make helix/pico:default:clean
+$ make yushakobo/helix/pico:default:clean
 ```
 
 上記の、rules.mk によるカスタマイズ項目の一部は下記のようにコマンド上で直接指定することも可能です。
 
 RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/pico/back:default:flash
+$ make yushakobo/helix/pico/back:default:flash
 ```
 
 RGB Underglow を有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/pico/under:default:flash
+$ make yushakobo/helix/pico/under:default:flash
 ```
 
 ## リンク

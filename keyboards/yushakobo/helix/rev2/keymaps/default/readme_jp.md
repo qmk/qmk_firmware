@@ -23,7 +23,7 @@
 
 Helix キーボードを4行版として製作したり、オプションの OLED をつけたり、
 RGB バックライトまたは、RGB Underglow をつけた場合は、
-`qmk_firmware/keyboards/helix/rev2/keymaps/default/rules.mk` の以下の部分を編集して機能を有効化してください。
+`qmk_firmware/keyboards/yushakobo/helix/rev2/keymaps/default/rules.mk` の以下の部分を編集して機能を有効化してください。
 
 ```
 # Helix Spacific Build Options
@@ -88,46 +88,46 @@ $ cd qmk_firmware
 qmk_firmwareでは各キーボードのコンパイルは、`<キーボード名>:<キーマップ名>`という指定で行います。
 
 ```
-$ make helix:default
+$ make yushakobo/helix:default
 ```
 
 キーボードへの書き込みまで同時に行うには下記のように`:flash`を付けます。
 
 ```
-$ make helix:default:flash
+$ make yushakobo/helix:default:flash
 ```
 
 コンパイル結果と中間生成物を消去したい場合は以下のようにします。
 
 ```
-$ make helix:default:clean
+$ make yushakobo/helix:default:clean
 ```
 
 上記の、rules.mk によるカスタマイズ項目の一部は下記のようにコマンド上で直接指定することも可能です。
 
 OLED を無効にしてコンパイルしてキーボードへの書き込む。
 ```
-$ make HELIX=no-oled helix/rev2:default:flash
+$ make HELIX=no-oled yushakobo/helix/rev2:default:flash
 ```
 
 RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/back:default:flash
+$ make yushakobo/helix/rev2/back:default:flash
 ```
 
 RGB Underglow を有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/under:default:flash
+$ make yushakobo/helix/rev2/under:default:flash
 ```
 
 OLED を無効にして、RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make HELIX=no-oled helix/rev2/back:default:flash
+$ make HELIX=no-oled yushakobo/helix/rev2/back:default:flash
 ```
 
 OLED を無効にして、RGB Underglowを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make HELIX=no-oled helix/rev2/under:default:flash
+$ make HELIX=no-oled yushakobo/helix/rev2/under:default:flash
 ```
 
 ## リンク

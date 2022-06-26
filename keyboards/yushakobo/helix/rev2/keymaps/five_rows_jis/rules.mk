@@ -14,8 +14,8 @@ HELIX_ROWS = 5              # Helix Rows is 4 or 5
 
 # OLED_ENABLE が yes のとき
 #   OLED_SELECT が core ならば QMK 標準の oled_dirver.c を使用します。
-#   OLED_SELECT が core 以外ならば従来どおり helix/local_drivers/ssd1306.c を使用します。
+#   OLED_SELECT が core 以外ならば従来どおり yushakobo/helix/local_drivers/ssd1306.c を使用します。
 # If OLED_ENABLE is 'yes'
 #   If OLED_SELECT is 'core', use QMK standard oled_dirver.c.
-#   If OLED_SELECT is other than 'core', use helix/local_drivers/ssd1306.c.
+#   If OLED_SELECT is other than 'core', use yushakobo/helix/local_drivers/ssd1306.c.
 OLED_SELECT = core
