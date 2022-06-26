@@ -109,6 +109,7 @@ const pointing_device_driver_t pointing_device_driver = {
 typedef struct {
     bool tap_enable;
     bool circular_scroll_enable;
+    bool cursor_glide_enable;
 } cirque_pinnacle_features_t;
 
 static cirque_pinnacle_features_t features = {.tap_enable = true};
@@ -275,9 +276,99 @@ void cirque_pinnacle_set_circular_scroll_settings(float outer_ring_pct, float mo
     scroll.wheel_clicks = wheel_clicks;
 }
 
+typedef struct {
+    mouse_xy_report_t dx;
+    mouse_xy_report_t dy;
+    bool              valid;
+} cursor_glide_t;
+
+typedef struct {
+    float             trigger_pct;
+    float             coef;
+    float             v0;
+    int16_t           x;
+    int16_t           y;
+    uint16_t          z;
+    uint16_t          timer;
+    uint16_t          interval;
+    uint16_t          counter;
+    mouse_xy_report_t dx0;
+    mouse_xy_report_t dy0;
+} cursor_glide_context_t;
+
+static cursor_glide_context_t glide;
+
+static cursor_glide_t cursor_glide(void) {
+    cursor_glide_t report;
+    float          p;
+    int16_t        x, y;
+
+    glide.counter++;
+    // calculate current position
+    p            = glide.v0 * glide.counter - glide.coef * glide.counter * glide.counter / 2;
+    x            = (int16_t)(p * glide.dx0 / glide.v0);
+    y            = (int16_t)(p * glide.dy0 / glide.v0);
+    report.dx    = (mouse_xy_report_t)(x - glide.x);
+    report.dy    = (mouse_xy_report_t)(y - glide.y);
+    report.valid = true;
+    if (report.dx <= 1 && report.dx >= -1 && report.dy <= 1 && report.dy >= -1) {
+        glide.dx0 = 0;
+        glide.dy0 = 0;
+    }
+    glide.x     = x;
+    glide.y     = y;
+    glide.timer = timer_read();
+
+    return report;
+}
+
+static cursor_glide_t cursor_glide_check(void) {
+    cursor_glide_t invalid_report = {0, 0, false};
+    if (glide.z || (glide.dx0 == 0 && glide.dy0 == 0) || timer_elapsed(glide.timer) < glide.interval) {
+        return invalid_report;
+    } else {
+        return cursor_glide();
+    }
+}
+
+static cursor_glide_t cursor_glide_start(void) {
+    cursor_glide_t invalid_report = {0, 0, false};
+
+    glide.trigger_pct = 2;   // good enough default
+    glide.coef        = 0.4; // good enough default
+    glide.interval    = 10;  // hardcode for 100sps
+    glide.timer       = timer_read();
+    glide.counter     = 0;
+    glide.v0          = (glide.dx0 == 0 && glide.dy0 == 0) ? 0.0 : hypotf(glide.dx0, glide.dy0); // skip trigonometry if not needed
+    glide.x           = 0;
+    glide.y           = 0;
+    glide.z           = 0;
+
+    if (glide.v0 < glide.trigger_pct * cirque_pinnacle_get_scale() / 100) {
+        // not enough velocity to be worth gliding, abort
+        glide.dx0 = 0;
+        glide.dy0 = 0;
+        return invalid_report;
+    }
+
+    return cursor_glide();
+}
+
+static void cursor_glide_update(mouse_xy_report_t dx, mouse_xy_report_t dy, uint16_t z) {
+    glide.dx0 = dx;
+    glide.dy0 = dy;
+    glide.z   = z;
+}
+
+// extern this for now
+void cirque_pinnacle_enable_cursor_glide(bool enable) {
+    features.cursor_glide_enable = enable;
+}
+
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t          touchData = cirque_pinnacle_read_data();
     circular_scroll_t        scroll_report;
+    cursor_glide_t           glide_report;
     mouse_xy_report_t        report_x = 0, report_y = 0;
     static mouse_xy_report_t x = 0, y = 0;
 
@@ -285,7 +376,16 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
 #        error Cirque Pinnacle with relative mode not implemented yet.
 #    endif
 
+    if (features.cursor_glide_enable) {
+        glide_report = cursor_glide_check();
+    }
+
     if (!touchData.valid) {
+        if (features.cursor_glide_enable && glide_report.valid) {
+            report_x = glide_report.dx;
+            report_y = glide_report.dy;
+            goto mouse_report_update;
+        }
         return mouse_report;
     }
 
@@ -312,6 +412,18 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     }
     x              = touchData.xValue;
     y              = touchData.yValue;
+
+    if (features.cursor_glide_enable) {
+        if (touchData.touchDown) {
+            cursor_glide_update(report_x, report_y, touchData.zValue);
+        } else if (!glide_report.valid) {
+            glide_report = cursor_glide_start();
+            if (glide_report.valid) {
+                report_x = glide_report.dx;
+                report_y = glide_report.dy;
+            }
+        }
+    }
 
 mouse_report_update:
     mouse_report.x = report_x;
