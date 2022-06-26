@@ -11,6 +11,4 @@
 TODO:
 
 make the spaces mod-tap, shift on hold
-MO(1)/MO(2) plus backspace should be delete
 round brackets on [] MO(1) and MO(2)
-numbers/symbols on wer-sdf-xcv block, with bits next to it like UT47.2 one
