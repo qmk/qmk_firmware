@@ -22,7 +22,7 @@ void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 #ifdef RGB_MATRIX_ENABLE
 #include "i2c_master.h"
 #include "drivers/led/issi/is31fl3741.h"
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -162,7 +162,7 @@ led_config_t g_led_config = { {
     { NO_LED  , -1+39+3 , -1+65+3 , -1+91+3 , -1+00+1 , -1+26+1 , -1+52+1 , -1+78+1 , NO_LED   },
     { -1+00+4 , -1+26+4 , -1+52+4 , -1+78+4 , -1+104+4, -1+13+2 , -1+39+2 , -1+65+2 , -1+91+2  },
     { -1+13+4 , -1+39+4 , -1+65+4 , -1+91+4 , -1+00+2 , -1+26+2 , -1+52+2 , -1+78+2 , NO_LED   },
-    { -1+00+6 , -1+26+6 , -1+52+6 , -1+78+6 , -1+104+6, -1+13+5 , -1+39+5 , -1+65+5 , -1+91+6  },
+    { -1+00+6 , -1+26+6 , -1+52+6 , -1+78+6 , -1+104+6, -1+13+5 , -1+39+5 , -1+65+5 , -1+91+5  },
     { -1+13+6 , -1+39+6 , -1+65+6 , -1+91+6 , -1+00+5 , -1+26+5 , -1+52+5 , -1+78+5 , NO_LED   },
     { -1+00+8 , -1+26+8 , -1+52+8 , -1+78+8 , -1+104+8, -1+13+7 , NO_LED  , NO_LED  , NO_LED   },
     { -1+13+8 , -1+39+8 , -1+65+8 , -1+91+8 , -1+00+7 , -1+26+7 , -1+52+7 , NO_LED  , NO_LED   },

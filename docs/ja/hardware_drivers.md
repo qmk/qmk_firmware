@@ -24,10 +24,6 @@ ProMicro のピンを AVR の名前ではなく、Arduino の名前で指定で�
 
 SSD1306 ベースの OLED ディスプレイのサポート。詳しくは[OLED ドライバ](ja/feature_oled_driver.md)を参照して下さい。
 
-## uGFX
-
-QMK 内で uGFX を使用して、キャラクタ LCD やグラフィック LCD、LED アレイ、OLED ディスプレイ、TFT 液晶や他のディスプレイを制御できます。この部分はより詳しく文書化される必要があります。もしこれを使用したい場合にコードを読んでも分からない場合、[issue を開く](https://github.com/qmk/qmk_firmware/issues/new)を通して助けることができるかもしれません。
-
 ## WS2812
 
 WS2811/WS2812{a,b,c} LED のサポート。 詳しくは [RGB ライト](ja/feature_rgblight.md)を参照して下さい。

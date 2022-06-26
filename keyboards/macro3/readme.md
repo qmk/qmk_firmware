@@ -1,12 +1,12 @@
 # Macro3
 
-![Macro3](https://github.com/davidphilipbarr/Macropads/raw/main/macro3/IMG_20200703_170424.jpg)
+![Macro3](https://github.com/filterpaper/filterpaper.github.io/raw/main/images/macro3.png)
 
-Macro3 is a low-profile macro pad with encoder support designed by [@davidphilipbarr](https://github.com/davidphilipbarr) using direct micro-controller pin wiring.
+Macro3 is a low-profile macro pad with dual encoder support designed by [@davidphilipbarr](https://github.com/davidphilipbarr).
 
 ## Keyboard Info
 
-* Keyboard Maintainer: [davidphilipbarr](https://github.com/davidphilipbarr)
+* Keyboard Maintainer: [filterpaper](https://github.com/filterpaper), [davidphilipbarr](https://github.com/davidphilipbarr)
 * Hardware Supported: [Macro3](https://github.com/davidphilipbarr/Macropads/tree/main/macro3)
 * Hardware Availability: order PCBs with gerber file from the repository
 
@@ -21,6 +21,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the top right key and plug in the controller.
-* **Physical reset button**: Briefly press the reset button soldered on the PCB.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is configured.
+* **Physical reset pins**: Briefly short the RST and GND pins on the microcontroller using tweezers, a paperclip, or any other conductive material.
 

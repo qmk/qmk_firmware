@@ -31,7 +31,9 @@ void set_time(uint32_t t);
 void advance_time(uint32_t ms);
 }
 
-void DebounceTest::addEvents(std::initializer_list<DebounceTestEvent> events) { events_.insert(events_.end(), events.begin(), events.end()); }
+void DebounceTest::addEvents(std::initializer_list<DebounceTestEvent> events) {
+    events_.insert(events_.end(), events.begin(), events.end());
+}
 
 void DebounceTest::runEvents() {
     /* Run the test multiple times, from 1kHz to 10kHz scan rate */

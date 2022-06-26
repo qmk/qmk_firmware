@@ -17,7 +17,7 @@
 
 #pragma once
 
-#define OLED_FONT_H "users/drashna/drashna_font.h"
+#define OLED_FONT_H "users/drashna/oled/drashna_font.h"
 #define OLED_UPDATE_INTERVAL 15
 #define OLED_DISABLE_TIMEOUT
 #define OLED_FONT_END 255
