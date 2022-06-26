@@ -256,7 +256,7 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
     endif
 endif
 
-VALID_WEAR_LEVELING_DRIVER_TYPES := custom efl stm32f4x1
+VALID_WEAR_LEVELING_DRIVER_TYPES := custom efl stm32f4x1 flash_spi
 WEAR_LEVELING_DRIVER ?= none
 ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   ifeq ($(filter $(WEAR_LEVELING_DRIVER),$(VALID_WEAR_LEVELING_DRIVER_TYPES)),)
@@ -277,6 +277,10 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
       SRC += flash_stm32.c wear_leveling_stm32f4x1.c
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_stm32f4x1_config.h
+    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), flash_spi)
+      COMMON_VPATH += $(DRIVER_PATH)/flash
+      SRC += flash_spi.c wear_leveling_flash_spi.c
+      POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
     endif
   endif
 endif

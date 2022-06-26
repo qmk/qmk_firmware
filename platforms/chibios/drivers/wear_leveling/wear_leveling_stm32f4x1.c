@@ -54,6 +54,6 @@ bool backing_store_read(uint32_t address, backing_store_int_t* value) {
     backing_store_int_t* loc    = (backing_store_int_t*)offset;
     *value                      = ~(*loc);
     bs_dprintf("Read  ");
-    wl_dump(offset, loc, 2);
+    wl_dump(offset, loc, sizeof(backing_store_int_t));
     return true;
 }
