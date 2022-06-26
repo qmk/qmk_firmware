@@ -163,12 +163,19 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
+uint16_t cirque_pinnacle_get_cpi(void) {
+    return (uint16_t)roundf((float)cirque_pinnacle_get_scale() * 25.4f / (float)CIRQUE_PINNACLE_DIAMETER_MM);
+}
+void cirque_pinnacle_set_cpi(uint16_t cpi) {
+    cirque_pinnacle_set_scale(roundf((float)cpi * (float)CIRQUE_PINNACLE_DIAMETER_MM / 25.4f));
+}
+
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
     .init       = cirque_pinnacle_init,
     .get_report = cirque_pinnacle_get_report,
-    .set_cpi    = cirque_pinnacle_set_scale,
-    .get_cpi    = cirque_pinnacle_get_scale
+    .set_cpi    = cirque_pinnacle_set_cpi,
+    .get_cpi    = cirque_pinnacle_get_cpi
 };
 // clang-format on
 

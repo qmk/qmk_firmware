@@ -15,6 +15,11 @@
 #    define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
 #endif
 
+#define CIRQUE_PINNACLE_DEFAULT_SCALE 1024
+#ifndef CIRQUE_PINNACLE_DIAMETER_MM
+#    define CIRQUE_PINNACLE_DIAMETER_MM 40
+#endif
+
 // Coordinate scaling values
 #ifndef CIRQUE_PINNACLE_X_LOWER
 #    define CIRQUE_PINNACLE_X_LOWER 127 // min "reachable" X value

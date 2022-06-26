@@ -50,7 +50,7 @@
 // clang-format on
 
 bool     touchpad_init;
-uint16_t scale_data = 1024;
+uint16_t scale_data = CIRQUE_PINNACLE_DEFAULT_SCALE;
 
 void cirque_pinnacle_clear_flags(void);
 void cirque_pinnacle_enable_feed(bool feedEnable);
