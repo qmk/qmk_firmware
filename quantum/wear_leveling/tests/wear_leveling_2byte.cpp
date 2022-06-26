@@ -127,7 +127,7 @@ TEST_F(WearLeveling2Byte, PlaybackReadbackMultibyte_OOB) {
     (logstart + 2)->set(0);
     (logstart + 3)->set(0);
 
-    // Set up a 2-byte logical write of [0x11,0x12] at logical offset 0x10
+    // Set up a 2-byte logical write of [0x11,0x12] at logical offset 0x01
     auto entry0    = LOG_ENTRY_MAKE_MULTIBYTE(0x01, 2);
     entry0.raw8[3] = 0x11;
     entry0.raw8[4] = 0x12;
@@ -143,7 +143,7 @@ TEST_F(WearLeveling2Byte, PlaybackReadbackMultibyte_OOB) {
     (logstart + 8)->set(~entry1.raw16[1]);
     (logstart + 9)->set(~entry1.raw16[2]);
 
-    // Set up a 2-byte logical write of [0x15,0x16] at logical offset 0x10
+    // Set up a 2-byte logical write of [0x15,0x16] at logical offset 0x01
     auto entry2    = LOG_ENTRY_MAKE_MULTIBYTE(0x01, 2);
     entry2.raw8[3] = 0x15;
     entry2.raw8[4] = 0x16;

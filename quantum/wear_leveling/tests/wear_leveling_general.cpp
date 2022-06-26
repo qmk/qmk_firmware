@@ -14,7 +14,7 @@ class WearLevelingGeneral : public ::testing::Test {
 };
 
 /**
- * This test verifies that even if there is consolidated data present, if the checksum doesn't match then the cache is zero'd after init.
+ * This test verifies that even if there is consolidated data present, if the checksum doesn't match then the cache is zero'd after reading the consolidated area, but before write log is played back.
  */
 TEST_F(WearLevelingGeneral, InvalidChecksum_ConsolidatedDataIgnored) {
     auto& inst     = MockBackingStore::Instance();
@@ -33,11 +33,15 @@ TEST_F(WearLevelingGeneral, InvalidChecksum_ConsolidatedDataIgnored) {
     (logstart + 2)->erase();
     (logstart + 3)->erase();
 
+    // Set up a 1-byte logical write of [0x11] at logical offset 0x01
+    auto entry0 = LOG_ENTRY_MAKE_OPTIMIZED_64(0x01, 0x11);
+    (logstart + 4)->set(~entry0.raw16[0]);
+
     // Re-init
     EXPECT_EQ(wear_leveling_init(), WEAR_LEVELING_SUCCESS) << "Init returned incorrect status";
     EXPECT_EQ(wear_leveling_read(0, testvalue.data(), testvalue.size()), WEAR_LEVELING_SUCCESS) << "Failed to read";
-    for (const auto& E : testvalue) {
-        EXPECT_EQ(E, 0) << "Invalid readback";
+    for (int i = 0; i < WEAR_LEVELING_LOGICAL_SIZE; ++i) {
+        EXPECT_EQ(testvalue[i], i == 0x01 ? 0x11 : 0x00) << "Invalid readback";
     }
 }
 
