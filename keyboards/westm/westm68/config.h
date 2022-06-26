@@ -16,10 +16,15 @@
 
 #pragma once
 
+#include "config_common.h"
+
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x574D // WM
-#define PRODUCT_ID      0x0001 
-#define DEVICE_VER      0x0001 // Revision prototype
+#define PRODUCT_ID      0x0001
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    WestM
 #define PRODUCT         WestM68
 
@@ -31,23 +36,6 @@
 #define MATRIX_COL_PINS { B14, B13, B12, B11, B10, B2, B1, B8, B7, B6, B5, B4, B3, A15, A14 }
 #define DIODE_DIRECTION COL2ROW
 
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN A8
-#define RGBLED_NUM 19
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
@@ -55,7 +43,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Hold ESC key (first key of first column) to trigger bootloader */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

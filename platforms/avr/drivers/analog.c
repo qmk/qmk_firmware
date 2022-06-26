@@ -14,9 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <avr/io.h>
-#include <avr/pgmspace.h>
-#include <stdint.h>
 #include "analog.h"
 
 static uint8_t aref = ADC_REF_POWER;

@@ -3,4 +3,5 @@
 
 #pragma once
 
+#define TAPPING_TERM 175
 #define UNICODE_SELECTED_MODES UC_LNX

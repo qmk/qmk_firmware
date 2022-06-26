@@ -53,10 +53,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
 #define DRIVER_LED_TOTAL 72

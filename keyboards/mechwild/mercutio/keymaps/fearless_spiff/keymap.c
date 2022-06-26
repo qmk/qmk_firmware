@@ -36,7 +36,8 @@
 enum layers {
   QWERT,
   FN_1,
-  FN_2
+  FN_2,
+  FN_MOUSE
 };
 
 enum custom_user_keycodes {
@@ -105,26 +106,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [QWERT] = LAYOUT_all(
+    [QWERT] = LAYOUT_all(
                                                                                                                       KC_ENC,
           TD(TD_TAB_ESC),   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DE_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-          MO(1),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    DE_PLUS,          KC_ENT,
+          MO(FN_1), KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    DE_PLUS,          KC_ENT,
           KC_LSFT, DE_LABK, DE_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,           KC_RSFT,
-          KC_LCTL, KC_LGUI, KC_LALT,   LT(2,KC_SPC),  LT(2,KC_SPC),   LT(2,KC_SPC),        KC_RALT, DE_MINS,          KC_RCTL ),
+          KC_LCTL, KC_LGUI, KC_LALT,   LT(FN_2,KC_SPC),   LT(FN_2,KC_SPC),     LT(FN_2,KC_SPC),      KC_RALT, DE_MINS,          KC_RCTL ),
 
     [FN_1] = LAYOUT_all(
                                                                                                                        KC_MUTE,
     	  KC_GESC,          _______, _______, _______, DE_LCBR, DE_RCBR, _______, DE_UDIA, KC_UP,    DE_ODIA, DE_QUES, KC_DEL,
     	  _______,          DE_ADIA, DE_SS,   _______, DE_LPRN, DE_RPRN, _______, KC_LEFT, KC_DOWN, KC_RIGHT, DE_HASH, _______,
-    	  _______, DE_CIRC, DE_ACUT, _______, _______, DE_LBRC, DE_RBRC, KC_HOME, KC_END,  DE_QUOT,  DE_DQUO,          DE_EQL,
-    	  _______,   _______, _______,          _______, _______,          _______,          DE_BSLS, DE_SLSH,         DE_TILD ),
+    	  _______, _______, DE_CIRC, DE_ACUT, _______, DE_LBRC, DE_RBRC, KC_HOME, KC_END,  DE_QUOT,  DE_DQUO,          DE_EQL,
+    	  _______,   _______, _______,    MO(FN_MOUSE),   MO(FN_MOUSE),       MO(FN_MOUSE),          DE_BSLS, DE_SLSH,         DE_TILD ),
 
     [FN_2] = LAYOUT_all(
                                                                                                                       _______,
     	  KC_F1,            KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_BSPC,
     	  KC_1,             KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, _______,
     	  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COMM, KC_DOT,           _______,
-    	  _______, _______, _______,          _______, _______,          _______,          _______, _______,          _______ )
+    	  _______, _______, _______,          _______, _______,          _______,          _______, _______,          _______ ),
+
+    [FN_MOUSE] = LAYOUT_all(
+                                                                                                                      _______,
+          _______,          _______, _______, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, _______,
+          _______,          _______, _______, _______, KC_ACL0, _______, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______,
+          _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______,          _______,
+          _______,   _______, _______,        _______,   _______,        _______,          _______, _______,         _______ )
 };
 
 #ifdef ENCODER_ENABLE
