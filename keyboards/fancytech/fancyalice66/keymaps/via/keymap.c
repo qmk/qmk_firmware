@@ -16,16 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-typedef union {
-  uint32_t raw;
-  struct {
-    bool top_rgb_change :1;
-    bool bottom_rgb_change :1;
-  };
-} user_config_t;
-
-user_config_t user_config;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
@@ -53,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  RESET,            KC_PSCR, _______, _______,
         _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, RGB_SAI, RGB_SAD, RGB_TOG, RGB_HUI,
-        _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, USER00,           RGB_HUD,
-        _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, USER01,           RGB_VAI,
+        _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______,          RGB_HUD,
+        _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,          RGB_VAI,
 	    _______,          _______, _______,                   _______, _______,                   RGB_MOD,                   _______, RGB_VAD, _______
     ),
 
@@ -74,59 +64,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    _______,          _______, _______,                   _______, _______,                   _______,                   _______, _______, _______
     )
 };
-
-void keyboard_post_init_user(void) {
-  // Read the user config from EEPROM
-  user_config.raw = eeconfig_read_user();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case USER00:
-      if (record->event.pressed) {
-        // Do something when pressed
-        user_config.top_rgb_change ^= 1; // Toggles the status
-        eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
-      } else {
-        // Do something else when release
-      }
-      return false; // Skip all further processing of this key
-    case USER01:
-      if (record->event.pressed) {
-        // Do something when pressed
-        user_config.bottom_rgb_change ^= 1; // Toggles the status
-        eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
-      } else {
-        // Do something else when release
-      }
-      return false; // Skip all further processing of this key
-    default:
-      return true; // Process all other keycodes normally
-  }
-}
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-
-    if (user_config.top_rgb_change)
-    {
-        for (size_t i = 16; i < 83; i++)
-        {
-            RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
-        }
-    }
-
-    if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(52, 0, 255, 255); // assuming caps lock is at led #5
-    }
-
-    if (user_config.bottom_rgb_change)
-    {
-        for (size_t i = 0; i < 16; i++)
-        {
-            RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
-        }
-    }
-}
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
