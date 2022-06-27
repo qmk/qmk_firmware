@@ -112,7 +112,7 @@
 // OLED STUFF.
 #define OLED_CUSTOM_ENABLE // custom oled here.
 //#define OLED_LOGO_ENABLE // turn on/off the logo.
-//#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
+#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
 //#define SPLIT_LAYER_STATE_ENABLE  // to sync state between sides.
 
 // EXTENSIONS
@@ -155,7 +155,7 @@
 
 // dvorak and relatives
 #define DVORAK_LAYER_ENABLE
-#define CAPEWELL_DVORAK_LAYER_ENABLE
+//#define CAPEWELL_DVORAK_LAYER_ENABLE
 //#define AHEI_LAYER_ENABLE
 //#define BOO_LAYER_ENABLE
 

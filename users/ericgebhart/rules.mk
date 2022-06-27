@@ -34,6 +34,18 @@ VPATH += $(USER_PATH)/layers
 VPATH += $(USER_PATH)/mod_layers
 VPATH += $(USER_PATH)/oled
 
+# MCU=STM32F411
+# BOARD=QMK_PROTON_C
+# SOFT_SERIAL_PIN=D2
+# # Bootloader selection
+# BOOTLOADER = stm32-dfu
+
+# WS2812_DRIVER = pwm
+# SERIAL_DRIVER = usart
+# AUDIO_ENABLE = no
+# LTO_ENABLE = no
+# CONVERT_TO_PROTON_C = yes
+
 # so the keyboard's code doesn't add stuff we don't need.
 # when we use our own oled renders.
 # oled_custom_enable should also be set in config.h.
