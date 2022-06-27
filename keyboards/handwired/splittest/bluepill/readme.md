@@ -12,8 +12,8 @@ To trigger keypress, short together pins _B10_ and _B1_.
 
 Have a look at the [handedness documentation](https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness)
 
--   Add pull-up resistor to left side between VCC and B0
--   Add pull-down resistors to right side between GND and B0
+-   Add pull-up resistor to left side between VCC and A7
+-   Add pull-down resistors to right side between GND and A7
 
 ### Send power to the other half
 
@@ -25,7 +25,7 @@ Choose one of the connection type
 
 #### serial - bitbang
 
--   Connect the B6 pins on both sides together
+-   Connect the B8 pins on both sides together
 
 #### serial - usart half duplex
 

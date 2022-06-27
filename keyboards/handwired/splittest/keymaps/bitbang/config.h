@@ -5,8 +5,14 @@
 
 #include "config_common.h"
 
-#if defined(BLUEPILL)
-    #define SOFT_SERIAL_PIN B6
-#else
-    #error "splittest bitbang keymap not implemented for this MCU yet"
-#endif
+#define SPLIT_BITBANG
+
+#define FORCED_SYNC_THROTTLE_MS 100
+
+#define SELECT_SOFT_SERIAL_SPEED 3 // or 0, 1, 2, 4, 5
+                                   //  0: about 189kbps (Experimental only)
+                                   //  1: about 137kbps (default)
+                                   //  2: about 75kbps
+                                   //  3: about 39kbps
+                                   //  4: about 26kbps
+                                   //  5: about 20kbps
