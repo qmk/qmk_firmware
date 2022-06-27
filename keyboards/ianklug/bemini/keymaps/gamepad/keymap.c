@@ -65,9 +65,6 @@ bool mode_swap_ninekey = 0;
 //      |                                                                                         |
 //      '-----------------------------------------------------------------------------------------'
 
-// NOTE: QMK joystick buttons are mapped out of order.
-// qmk codes for buttons 1-16 are: 7 0 1 2 3 4 5 6 15 8 9 10 11 12 13 14
-
 enum custom_keycodes {
     TOGGLE_BUTTON = SAFE_RANGE,
 };
@@ -88,34 +85,34 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //	K01          K02          K03          K04          K05          K06          K07          K08          K09          K10          K11          K12          K13
     [STANDARD_P1] = LAYOUT(
-	JS_BUTTON11, JS_BUTTON12, JS_BUTTON7,  JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON9,  JS_BUTTON8,  JS_BUTTON15, TOGGLE_BUTTON
+	JS_BUTTON12, JS_BUTTON13, JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON6,  JS_BUTTON10, JS_BUTTON9,  JS_BUTTON8,  TOGGLE_BUTTON
     ),
     [INVERTED_P1] = LAYOUT(
-	JS_BUTTON11, JS_BUTTON12, JS_BUTTON7,  JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON9,  JS_BUTTON8,  JS_BUTTON15, TOGGLE_BUTTON
+	JS_BUTTON12, JS_BUTTON13, JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON6,  JS_BUTTON10, JS_BUTTON9,  JS_BUTTON8,  TOGGLE_BUTTON
     ),
     [BMS_P1] = LAYOUT(
-	JS_BUTTON11, JS_BUTTON12, JS_BUTTON7,  JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON9,  JS_BUTTON8,  JS_BUTTON15, TOGGLE_BUTTON
+	JS_BUTTON12, JS_BUTTON13, JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON6,  JS_BUTTON10, JS_BUTTON9,  JS_BUTTON8,  TOGGLE_BUTTON
     ),
     [KEYBOARD_P1] = LAYOUT(
 	KC_A,        KC_S,        KC_D,        KC_F,        KC_G,        KC_H,        KC_J,        KC_K,        KC_L,        KC_T,        KC_R,        KC_E,        TOGGLE_BUTTON
     ),
     [NINEKEY_P1] = LAYOUT(
-	JS_BUTTON7,  JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON6,  JS_BUTTON15, JS_BUTTON10, JS_BUTTON9,  JS_BUTTON8,  KC_NO
+	JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON6,  JS_BUTTON7,  JS_BUTTON8,  JS_BUTTON11, JS_BUTTON10, JS_BUTTON9,  KC_NO
     ),
     [STANDARD_P2] = LAYOUT(
-        JS_BUTTON12, JS_BUTTON11, JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON7,  JS_BUTTON15, JS_BUTTON8,  JS_BUTTON9,  TOGGLE_BUTTON
+        JS_BUTTON13, JS_BUTTON12, JS_BUTTON6,  JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON8,  JS_BUTTON9,  JS_BUTTON10, TOGGLE_BUTTON
     ),
     [INVERTED_P2] = LAYOUT(
-        JS_BUTTON12, JS_BUTTON11, JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON7,  JS_BUTTON15, JS_BUTTON8,  JS_BUTTON9,  TOGGLE_BUTTON
+        JS_BUTTON13, JS_BUTTON12, JS_BUTTON6,  JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON8,  JS_BUTTON9,  JS_BUTTON10, TOGGLE_BUTTON
     ),
     [BMS_P2] = LAYOUT(
-        JS_BUTTON12, JS_BUTTON11, JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON7,  JS_BUTTON15, JS_BUTTON8,  JS_BUTTON9,  TOGGLE_BUTTON
+        JS_BUTTON13, JS_BUTTON12, JS_BUTTON6,  JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON8,  JS_BUTTON9,  JS_BUTTON10, TOGGLE_BUTTON
     ),
     [KEYBOARD_P2] = LAYOUT(
         KC_DOT,      KC_COMM,     KC_M,        KC_N,        KC_B,        KC_V,        KC_C,        KC_X,        KC_Z,        KC_O,        KC_P,        KC_LBRC,     TOGGLE_BUTTON
     ),
     [NINEKEY_P2] = LAYOUT(
-        JS_BUTTON15, JS_BUTTON6,  JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON7,  JS_BUTTON8,  JS_BUTTON9,  JS_BUTTON10, KC_NO
+        JS_BUTTON8, JS_BUTTON7,  JS_BUTTON6,  JS_BUTTON5,  JS_BUTTON4,  JS_BUTTON3,  JS_BUTTON2,  JS_BUTTON1,  JS_BUTTON0,  JS_BUTTON9,   JS_BUTTON10, JS_BUTTON11, KC_NO
     )
 };
 
@@ -395,49 +392,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// unbound
 	    }
             break;
-	case KC_E: case KC_R: case KC_T: case KC_O: case KC_P: case KC_LBRC: case JS_BUTTON8: case JS_BUTTON9: case JS_BUTTON10: case JS_BUTTON15:
+	case KC_E: case KC_R: case KC_T: case KC_O: case KC_P: case KC_LBRC: case JS_BUTTON8: case JS_BUTTON9: case JS_BUTTON10: case JS_BUTTON11:
 	    // K10, K11, K12
             if (record->event.pressed)
                 mode_swap++;
             else
                 mode_swap--;
 	    break;
-	case KC_A: case KC_DOT: case JS_BUTTON11: case JS_BUTTON12:
+	case KC_A: case KC_DOT: case JS_BUTTON12: case JS_BUTTON13:
 	    // White 1
 	    if (record->event.pressed)
                 mode_swap_ninekey = 1;
             else
                 mode_swap_ninekey = 0;
             break;
-	case KC_D: case KC_Z: case JS_BUTTON7:
+	case KC_D: case KC_Z: case JS_BUTTON0:
 	    // White 2
 	    if (record->event.pressed)
                 mode_swap_standard = 1;
             else
                 mode_swap_standard = 0;
             break;
-	case KC_G: case KC_C: case JS_BUTTON1:
+	case KC_G: case KC_C: case JS_BUTTON2:
 	    // White 3
 	    if (record->event.pressed)
                 mode_swap_inverted = 1;
             else
                 mode_swap_inverted = 0;
             break;
-	case KC_J: case KC_B: case JS_BUTTON3:
+	case KC_J: case KC_B: case JS_BUTTON4:
 	    // White 4
 	    if (record->event.pressed)
                 mode_swap_bms = 1;
             else
                 mode_swap_bms = 0;
             break;
-	case KC_L: case KC_M: case JS_BUTTON5:
+	case KC_L: case KC_M: case JS_BUTTON6:
 	    // White 5
 	    if (record->event.pressed)
                 mode_swap_keyboard = 1;
             else
                 mode_swap_keyboard = 0;
             break;
-	case KC_F: case KC_H: case KC_N: case KC_V: case JS_BUTTON0: case JS_BUTTON2: case JS_BUTTON4:
+	case KC_F: case KC_H: case KC_N: case KC_V: case JS_BUTTON1: case JS_BUTTON3: case JS_BUTTON5:
 	    // Black 2 + Black 3
 	    if (record->event.pressed)
                 mode_swap_p2++;
