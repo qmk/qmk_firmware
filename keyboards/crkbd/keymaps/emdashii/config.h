@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // Comment off to enable settings, ios device friendly.
-#define IOS_DEVICE_ENABLE
+// #define IOS_DEVICE_ENABLE
 
 #ifdef IOS_DEVICE_ENABLE
     #define  USB_MAX_POWER_CONSUMPTION 100
@@ -53,14 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_EFFECT_BREATHING
     // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
     // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    #define RGBLIGHT_EFFECT_SNAKE
-    #define RGBLIGHT_EFFECT_KNIGHT
-    #define RGBLIGHT_EFFECT_CHRISTMAS
+    // #define RGBLIGHT_EFFECT_SNAKE
+    // #define RGBLIGHT_EFFECT_KNIGHT
+    // #define RGBLIGHT_EFFECT_CHRISTMAS
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_RGB_TEST
-    #define RGBLIGHT_EFFECT_ALTERNATING
-    #define RGBLIGHT_EFFECT_TWINKLE
-    #define RGBLIGHT_LIMIT_VAL 120
+    // #define RGBLIGHT_EFFECT_ALTERNATING
+    // #define RGBLIGHT_EFFECT_TWINKLE
+    #define RGBLIGHT_LIMIT_VAL 100
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
@@ -135,13 +135,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
-
-/*
 // might need this? from toinux config.h file
 
 #define SPLIT_LAYER_STATE_ENABLE
 // #define SPLIT_LED_STATE_ENABLE
 
 #define LAYER_STATE_16BIT
-
-*/

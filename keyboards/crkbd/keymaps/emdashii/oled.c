@@ -21,7 +21,7 @@
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
   }
   return rotation;
 }

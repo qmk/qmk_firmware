@@ -49,7 +49,7 @@ enum crkbd_layers {
 #define LGAMING TO(_GAMING)
 #define LNAV    TO(_NAVIGATION)
 #define LNUMFUN LT(_NUMBER, OSL(_FUNCTION)) // On tap, takes you to the function layer for one press. On hold, takes you to the number layers
-#define LADJUST LT(_ADJUST)
+#define LADJUST TO(_ADJUST)
 #define LNAVCSX LT(C(S(_NAVIGATION)), XXXXXXX)  // This is a test
 #define LNAVENT LT(C(_NAVIGATION), KC_ENT)      // This is a test
 

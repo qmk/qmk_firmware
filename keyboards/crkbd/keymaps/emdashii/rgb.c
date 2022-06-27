@@ -36,7 +36,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 }
             }
             break;
-        case _GAMING2:
+        case _SYMBOL:
             if (is_keyboard_master()) {
                 for (uint8_t i = 0; i < 10; i++) {
                     rgb_matrix_set_color(gaming2_leds[i], RGB_GREEN);
