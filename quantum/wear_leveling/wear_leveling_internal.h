@@ -71,8 +71,10 @@ bool backing_store_init(void);
 bool backing_store_unlock(void);
 bool backing_store_erase(void);
 bool backing_store_write(uint32_t address, backing_store_int_t value);
+bool backing_store_write_bulk(uint32_t address, backing_store_int_t* values, size_t item_count); // weak implementation already provided, optimized implementation can be implemented by driver
 bool backing_store_lock(void);
 bool backing_store_read(uint32_t address, backing_store_int_t* value);
+bool backing_store_read_bulk(uint32_t address, backing_store_int_t* values, size_t item_count); // weak implementation already provided, optimized implementation can be implemented by driver
 
 /**
  * Helper type used to contain a write log entry.

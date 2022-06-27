@@ -2,9 +2,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdbool.h>
 #include <hal.h>
+#include "util.h"
 #include "timer.h"
 #include "wear_leveling.h"
 #include "wear_leveling_internal.h"
+
+#ifndef FLASH_SPI_BULK_ITEM_COUNT
+#    define FLASH_SPI_BULK_ITEM_COUNT 32
+#endif // FLASH_SPI_BULK_ITEM_COUNT
 
 bool backing_store_init(void) {
     bs_dprintf("Init\n");
@@ -37,11 +42,7 @@ bool backing_store_erase(void) {
 }
 
 bool backing_store_write(uint32_t address, backing_store_int_t value) {
-    bs_dprintf("Write ");
-    uint32_t offset = (WEAR_LEVELING_EXTERNAL_FLASH_BLOCK_OFFSET) * (EXTERNAL_FLASH_BLOCK_SIZE) + address;
-    wl_dump(offset, &value, sizeof(value));
-    value = ~value;
-    return flash_write_block(offset, &value, sizeof(value)) == FLASH_STATUS_SUCCESS;
+    return backing_store_write_bulk(address, &value, 1);
 }
 
 bool backing_store_lock(void) {
@@ -51,10 +52,50 @@ bool backing_store_lock(void) {
 }
 
 bool backing_store_read(uint32_t address, backing_store_int_t *value) {
+    return backing_store_read_bulk(address, value, 1);
+}
+
+bool backing_store_read_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
     bs_dprintf("Read  ");
     uint32_t       offset = (WEAR_LEVELING_EXTERNAL_FLASH_BLOCK_OFFSET) * (EXTERNAL_FLASH_BLOCK_SIZE) + address;
-    flash_status_t status = flash_read_block(offset, value, sizeof(backing_store_int_t));
-    *value                = ~(*value);
-    wl_dump(offset, value, sizeof(backing_store_int_t));
+    flash_status_t status = flash_read_block(offset, values, sizeof(backing_store_int_t) * item_count);
+    if (status == FLASH_STATUS_SUCCESS) {
+        for (size_t i = 0; i < item_count; ++i) {
+            values[i] = ~values[i];
+        }
+        wl_dump(offset, values, sizeof(backing_store_int_t) * item_count);
+    }
     return status == FLASH_STATUS_SUCCESS;
+}
+
+bool backing_store_write_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
+    uint32_t            offset = (WEAR_LEVELING_EXTERNAL_FLASH_BLOCK_OFFSET) * (EXTERNAL_FLASH_BLOCK_SIZE) + address;
+    size_t              index  = 0;
+    backing_store_int_t temp[FLASH_SPI_BULK_ITEM_COUNT];
+    do {
+        // Copy out the block of data we want to transmit first
+        size_t this_loop = MIN(item_count, FLASH_SPI_BULK_ITEM_COUNT);
+        for (size_t i = 0; i < this_loop; ++i) {
+            temp[i] = values[index + i];
+        }
+
+        bs_dprintf("Write ");
+        wl_dump(offset, temp, sizeof(backing_store_int_t) * this_loop);
+
+        // Take the complement instead
+        for (size_t i = 0; i < this_loop; ++i) {
+            temp[i] = ~temp[i];
+        }
+
+        // Write out the block
+        if (flash_write_block(offset, temp, sizeof(backing_store_int_t) * this_loop) != FLASH_STATUS_SUCCESS) {
+            return false;
+        }
+
+        offset += this_loop * sizeof(backing_store_int_t);
+        index += this_loop;
+        item_count -= this_loop;
+    } while (item_count > 0);
+
+    return true;
 }
