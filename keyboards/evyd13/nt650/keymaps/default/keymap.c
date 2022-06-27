@@ -1,3 +1,6 @@
+// Copyright 2022 Evelien Dekkers (@evyd13)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability.
@@ -6,10 +9,12 @@
 // Layer names don't all need to be of the same
 // length, and you can also skip them entirely
 // and just use numbers.
-#define _BASE 0
-#define _FUNC 1
-#define _LOCK 2
-#define _XTRA 3
+enum layer_names {
+    _BASE,
+    _FUNC,
+    _LOCK,
+    _XTRA
+};
 
 #define LOCK_LED_PIN B0
 #define GRV_TG TG(_LOCK)

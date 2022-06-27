@@ -1,6 +1,6 @@
 # nt650
 
-![nt650](https://i.imgur.com/z0Xi6qo.png)
+![nt650](https://i.imgur.com/z0Xi6qoh.png)
 
 A replacement controller PCB for the Leopold FC650M.
 
