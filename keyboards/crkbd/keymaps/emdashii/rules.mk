@@ -6,6 +6,6 @@ OLED_DRIVER     = SSD1306
 WPM_ENABLE 			= no			# Enable word per minute counter
 LTO_ENABLE 			= yes			# Makes hex file smaller
 #OLED_DRIVER_ENABLE = yes			# Enable OLEDs
-BOOTLOADER        = atmel-dfu		# Comes from toinux
+#BOOTLOADER        = atmel-dfu		# Comes from toinux DO NOT USE
 
 SRC += ./oled.c ./rgb.c
