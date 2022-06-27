@@ -67,7 +67,7 @@ enum custom_keycodes {
 // tap dance key enumaration
 enum {
     TD_LNUM,
-    TD_LSYM,
+    //TD_LSYM,
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
@@ -409,7 +409,7 @@ typedef struct {
 } td_tap_t;
 
 static td_tap_t dance_state_lnum = {.is_press_action = true, .step = 0};
-static td_tap_t dance_state_lsym = {.is_press_action = true, .step = 0};
+//static td_tap_t dance_state_lsym = {.is_press_action = true, .step = 0};
 
 // simplified dance steps to indicate held, one tap or two
 enum {
@@ -455,12 +455,16 @@ void tapdance_lnum_reset(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             break;
         case HELD:
-            layer_off(LNUM);
+            // with the layer lock feature we want to check if the layer has been locked.
+            if (!is_layer_locked(LNUM)) {
+                layer_off(LNUM);
+            }
             break;
     }
     dance_state_lnum.step = 0;
 }
 
+/*
 void tapdance_lsym_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state_lsym.step = current_dance_step(state);
     switch (dance_state_lsym.step) {
@@ -491,11 +495,11 @@ void tapdance_lsym_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
     }
     dance_state_lsym.step = 0;
-}
+}*/
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LNUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lnum_finished, tapdance_lnum_reset),
-    [TD_LSYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lsym_finished, tapdance_lsym_reset)
+    //[TD_LSYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lsym_finished, tapdance_lsym_reset)
 };
 
 /*******************************************************************************
@@ -586,8 +590,10 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // check for the tristate layre
-    state = update_tri_layer_state(state, LNUM, LSYM, LMOV);
+    // check for the tristate layer, but only if the layer lock is not on.
+    if (!is_layer_locked(LMOV)) {
+        state = update_tri_layer_state(state, LNUM, LSYM, LMOV);
+    }
 
     // set the led status to indicate layer
     rgblight_set_layer_state(1, layer_state_cmp(state, LCMK));

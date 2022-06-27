@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // use tapping term to decide when to apply the modifier rather than the next keypress.
 // This stops rolling [D(a), D(b), U(a), U(b)] from triggering the modified version
-//#define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT
 
 // the following removes auto repeat on keys, but allows a key to be tapped then immediately
 // held to activate the modifier.  (without this tap and hold would autorepeat)
@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // permissive hold means D(a), D(b), U(b), U(a) will always emit the modified version of b,
 // without this if the above is within tapping tarm you get ab instead.
 #define PERMISSIVE_HOLD
-//#define TAPPING_TERM 100
+#define TAPPING_TERM 175
 
 #define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 4000
