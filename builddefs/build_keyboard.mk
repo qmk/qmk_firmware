@@ -344,7 +344,12 @@ $(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
 	$(eval CMD=$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h)
 	@$(BUILD_CMD)
 
-generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
+$(KEYBOARD_OUTPUT)/src/keymap_hash.h:
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-keymap-hash -q -o "$(KEYMAP_OUTPUT)/src/keymap_hash.h" -kb $(KEYBOARD) -km $(KEYMAP))
+	@$(BUILD_CMD)
+
+generated-files: $(KEYBOARD_OUTPUT)/src/keymap_hash.h $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 .INTERMEDIATE : generated-files
 
