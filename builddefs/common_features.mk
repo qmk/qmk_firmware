@@ -241,21 +241,6 @@ else
   endif
 endif
 
-VALID_FLASH_DRIVER_TYPES := spi
-FLASH_DRIVER ?= none
-ifneq ($(strip $(FLASH_DRIVER)), none)
-    ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
-        $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
-    else
-        OPT_DEFS += -DFLASH_ENABLE
-        ifeq ($(strip $(FLASH_DRIVER)),spi)
-            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
-            COMMON_VPATH += $(DRIVER_PATH)/flash
-            SRC += flash_spi.c
-        endif
-    endif
-endif
-
 VALID_WEAR_LEVELING_DRIVER_TYPES := custom efl legacy_emulation flash_spi
 WEAR_LEVELING_DRIVER ?= none
 ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
@@ -278,11 +263,26 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       SRC += flash_stm32.c wear_leveling_legacy.c
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), flash_spi)
-      COMMON_VPATH += $(DRIVER_PATH)/flash
-      SRC += flash_spi.c wear_leveling_flash_spi.c
+      FLASH_DRIVER := spi
+      SRC += wear_leveling_flash_spi.c
       POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
     endif
   endif
+endif
+
+VALID_FLASH_DRIVER_TYPES := spi
+FLASH_DRIVER ?= none
+ifneq ($(strip $(FLASH_DRIVER)), none)
+    ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
+    else
+        OPT_DEFS += -DFLASH_ENABLE
+        ifeq ($(strip $(FLASH_DRIVER)),spi)
+            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
+            COMMON_VPATH += $(DRIVER_PATH)/flash
+            SRC += flash_spi.c
+        endif
+    endif
 endif
 
 RGBLIGHT_ENABLE ?= no
