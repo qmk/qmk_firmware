@@ -2,7 +2,6 @@ SRC += ericgebhart.c
 SRC += process_records.c
 SRC += $(USER_PATH)/keymap/keymap.c
 SRC += $(USER_PATH)/lang/locales.c
-SRC += $(USER_PATH)/extensions/caps_word.c
 SRC += $(USER_PATH)/extensions/tap_hold.c
 SRC += $(USER_PATH)/extensions/accented_keys.c
 SRC += $(USER_PATH)/extensions/altlocal_keys.c
@@ -78,5 +77,6 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 COMBO_ENABLE = yes
+CAPS_WORD_ENABLE = yes
 
 ENCODER_ENABLE = no
