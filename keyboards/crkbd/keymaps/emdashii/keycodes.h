@@ -42,6 +42,7 @@ enum crkbd_layers {
 // Special layer navigation keys
 #define LNUMSPC LT(_NUMBER, KC_SPC)
 #define LSYMDEL LT(_SYMBOL, KC_DEL)
+#define LSYMXXX LT(_SYMBOL, XXXXXXX)
 #define LNAVSPC LT(_NAVIGATION, KC_SPC)
 #define LOSLFUN OSL(_FUNCTION)
 #define SQWERTY DF(_QWERTY)
