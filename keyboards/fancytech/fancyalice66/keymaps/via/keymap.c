@@ -67,13 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
     if (clockwise) {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 3));
+      tap_code(KC_VOLU);
     } else {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 4));
+      tap_code(KC_VOLD);
     }
-  }
-  return true;
+    return false;
 }
 #endif
