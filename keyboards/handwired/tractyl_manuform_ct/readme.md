@@ -1,7 +1,7 @@
 # Tractyl Manuform (3x6) variant
 ![Working final product](https://i.redd.it/15mq7kw29e691.jpg)
 
-- [Read more here.](https://blog.practicaltech.ca/keyboardlinkhere)
+- [Read more here.](https://blog.practicaltech.ca/2022/06/learning-through-failure-keyboard.html)
 - [Very extended build log here.](https://docs.google.com/document/d/1714zAB5GvLr3M8TnRpMvAdutThKMioJDGraUgG2VCB4/edit?usp=sharing)
 
 ## Community-generated
