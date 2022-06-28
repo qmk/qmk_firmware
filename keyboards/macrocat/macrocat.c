@@ -1,7 +1,7 @@
 // Copyright 2022 catmunch (@catmunch)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "macrocat.h"
+#include "quantum.h"
 
 static bool encoder_pressed = 0;
 static bool encoder_switched_layer = 0;
@@ -70,6 +70,10 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+
     char buffer[512];
     if (key_pressed_l && key_pressed_r) 
         memcpy_P(buffer, bongo_press_lr, 512);
@@ -123,6 +127,8 @@ void encoder_triple_click(void) {
     tap_code(KC_MPRV);
 }
 void matrix_init_kb() {
+    matrix_init_user();
+
     setPinInputHigh(ENCODER_SWITCH);
 }
 void matrix_scan_kb() {
