@@ -5,15 +5,27 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = {
-        {KC_PPLS,   KC_9,       KC_8,   KC_7 },
-        {KC_PMNS,   KC_6,       KC_5,   KC_4 },
-        {KC_PDOT,   KC_3,       KC_2,   KC_1 },
-        {KC_PENT,   KC_SPACE,   KC_P0,  MO(1)}
+        {KC_PLUS,   KC_9,       KC_8,   KC_7 },
+        {KC_MINS,   KC_6,       KC_5,   KC_4 },
+        {KC_DOT,    KC_3,       KC_2,   KC_1 },
+        {KC_ENT,    KC_SPACE,   KC_0,   MO(1)}
     },
     [1] = {
-        {KC_PAST,   KC_NO,      KC_NO,  KC_NO},
-        {KC_PSLS,   KC_LPRN,    KC_UP,  KC_RPRN},
+        {KC_ASTR,   KC_NO,      KC_NO,  KC_NO},
+        {KC_SLSH,   KC_LPRN,    KC_UP,  KC_RPRN},
         {KC_COMM,   KC_LEFT,    KC_DOWN,KC_RIGHT},
-        {KC_TAB,    KC_BSPC,    KC_P0,  KC_TRNS}
+        {KC_TAB,    KC_BSPC,    KC_0,   KC_TRNS}
+    },
+    [2] = {
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO}
+    },
+    [3] = {
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
+        {KC_NO,     KC_NO,      KC_NO,  KC_NO}
     }
 };
