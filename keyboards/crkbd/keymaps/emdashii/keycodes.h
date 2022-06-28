@@ -42,14 +42,12 @@ enum crkbd_layers {
 // Special layer navigation keys
 #define LNUMSPC LT(_NUMBER, KC_SPC)
 #define LSYMDEL LT(_SYMBOL, KC_DEL)
-#define LSYMXXX LT(_SYMBOL, XXXXXXX)
 #define LNAVSPC LT(_NAVIGATION, KC_SPC)
 #define LOSLFUN OSL(_FUNCTION)
+#define LOSLSYM OSL(_SYMBOL)
 #define SQWERTY DF(_QWERTY)
 #define LQWERTY TO(_QWERTY)
-#define LGAMING TO(_GAMING)
 #define LNAV    TO(_NAVIGATION)
-#define LNUMFUN LT(_NUMBER, OSL(_FUNCTION)) // On tap, takes you to the function layer for one press. On hold, takes you to the number layers
 #define LADJUST TO(_ADJUST)
 // #define LNAVCSX C(S(LT(_NAVIGATION, XXXXXXX)))  // This is a test
 // #define LNAVENT C(LT(_NAVIGATION, KC_ENT))      // This is a test

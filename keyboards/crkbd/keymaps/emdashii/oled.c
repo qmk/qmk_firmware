@@ -38,27 +38,27 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 // This renders, but the switching function is very broken.
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("\nLayer: "), false);
-    switch (layer_state) {
+    switch (get_highest_layer(layer_state|default_layer_state)) {
         case _QWERTY:
-            oled_write_ln_P(PSTR("Hey"), false);
+            oled_write_ln_P(PSTR("QWERTY"), false);
             break;
         case _NAVIGATION:
-            oled_write_ln_P(PSTR("Hi"), false);
+            oled_write_ln_P(PSTR("Navigation"), false);
             break;
         case _NUMBER:
-            oled_write_ln_P(PSTR("Howdy"), false);
+            oled_write_ln_P(PSTR("Numbers"), false);
             break;
         case _SYMBOL:
-            oled_write_ln_P(PSTR("Hello"), false);
+            oled_write_ln_P(PSTR("Symbols"), false);
             break;
         case _FUNCTION:
-            oled_write_ln_P(PSTR("Greetings"), false);
+            oled_write_ln_P(PSTR("Fn Keys"), false);
             break;
         case _ADJUST:
-            oled_write_ln_P(PSTR("'Sup"), false);
+            oled_write_ln_P(PSTR("Settings"), false);
             break;
         case _GAMING:
-            oled_write_ln_P(PSTR("Howdy-do-da-day!"), false);
+            oled_write_ln_P(PSTR("Minecraft"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Default"), false);
