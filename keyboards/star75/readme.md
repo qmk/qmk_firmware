@@ -3,6 +3,7 @@
 75% Hotswap PCB with optional rotary encoder.
 
 ![View of Star75 Keyboard](https://i.imgur.com/UrvnjiZ.jpeg)
+![Star75 Default Layout](https://i.imgur.com/LkTP0Cj.png)
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: Star75 1.2mm Flex-cut Hotswap PCB
