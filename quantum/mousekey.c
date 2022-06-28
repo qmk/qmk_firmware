@@ -362,7 +362,7 @@ void mousekey_task(void) {
         mouse_report.h = tmpmr.h;
     }
 
-    if (has_mouse_report_changed(&mouse_report, &tmpmr)  || should_mousekey_report_send(&mouse_report)) {
+    if (has_mouse_report_changed(&mouse_report, &tmpmr) || should_mousekey_report_send(&mouse_report)) {
         mousekey_send();
     }
     memcpy(&mouse_report, &tmpmr, sizeof(tmpmr));
