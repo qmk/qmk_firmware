@@ -23,6 +23,3 @@ void matrix_init_unicode(void);
 #ifdef SPLIT_KEYBOARD
 void matrix_slave_scan_keymap(void);
 #endif
-#ifdef CAPS_WORD_ENABLE
-#    include "keyrecords/caps_word.h"
-#endif
