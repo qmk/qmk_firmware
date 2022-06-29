@@ -49,11 +49,24 @@ enum custom_user_layers {
 // KEYCODES
 enum custom_user_keycodes {
     KC_00 = SAFE_RANGE,
-        ENCFUNC,
-        KC_WINLCK,     // Toggles Win key on and off
+        ENCFUNC,       // Encoder function
+        CAPSNUM,       // Capslock key function
+        //ESCLYR,        // ESC layer function
+        LEFTOFENC,     // Key to the left of the encoder (i.e. F13)
+        BELOWENC,      // Key below encoder
+        PRNCONF,       // Print verbose statuses of all user_config toggles
+        WINLOCK,       // Toggles Windows key on and off
         RGB_TOI,       // Timeout idle time up
         RGB_TOD,       // Timeout idle time down
-        RGB_NITE,      // Turns off all rgb but allow rgb indicators to work
+        RGB_NITE,      // Disables RGB backlighting effects but allows RGB indicators to still work
+
+        TG_CAPS,       // Toggles RGB highlighting of alphas during capslock
+        TG_PAD,        // Toggles RGB highlighting of keys on numpad+mousekeys layer
+        TG_TDCAP,      // Toggles double tap shift (tapdance) for CapsLock
+        TG_DEL,        // Swaps DEL and HOME key locations
+        TG_ENC,        // Toggle Encoder functionality
+        TG_ESC,        // Toggle ESC tapdance for _BASE layer
+        TG_INS,        // Toggle location of INS
 
         YAHOO,         // yahoo.com
         OUTLOOK,       // outlook.com
@@ -76,19 +89,29 @@ enum custom_user_keycodes {
 
 // Tap Dance Definitions
 enum custom_tapdance {
-    #ifdef TD_LSFT_CAPSLOCK_ENABLE
     TD_LSFT_CAPS_WIN,
-    #endif // TD_LSFT_CAPSLOCK_ENABLE
-    TD_ESC_BASELYR
+    //TD_ESC_BASELYR
 };
 
-#ifdef TD_LSFT_CAPSLOCK_ENABLE
-    #define KC_LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
-#else // regular Shift
-    #define KC_LSFTCAPSWIN KC_LSFT
-#endif // TD_LSFT_CAPSLOCK_ENABLE
+// Set up boolean variables to track user customizable configuration options
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     rgb_hilite_caps :1;
+    bool     rgb_hilite_numpad :1;
+    bool     esc_double_tap_to_baselyr :1;
+    bool     del_right_home_top :1;
+    bool     double_tap_shift_for_capslock :1;
+    bool     encoder_press_mute_or_media :1;
+    bool     ins_on_shft_bkspc_or_del :1;
+  };
+} user_config_t;
 
-#define KC_ESCLYR TD(TD_ESC_BASELYR)
+user_config_t user_config;
+
+#define LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
+//#define ESCLYR TD(TD_ESC_BASELYR)
+//#define CAPSNUM TD(TD_NUMPAD)
 
 // ENCODER ACTIONS
 #ifdef ENCODER_ENABLE

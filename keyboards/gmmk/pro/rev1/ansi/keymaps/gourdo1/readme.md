@@ -1,6 +1,6 @@
 # [gourdo1's](mailto:gourdo1@outlook.com) GMMK Pro ANSI layout
 
-This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/jonavin) GMMK Pro layout with several additions, fixes, a tweaked keymap, updated layers, [Tomas Guinan's paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/paddlegame) and expanded RGB controls.
+This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/jonavin) GMMK Pro layout with many additions, fixes, a revamped keymap, persistent user customizations, updated layers, [Tomas Guinan's paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/paddlegame) and expanded RGB effects and controls.
 
 ![image](https://raw.githubusercontent.com/gourdo1/media/main/susuwatari.jpg)
 
@@ -8,14 +8,15 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 
 ### Core Functionality
 
+* Quick & Easy Customization: Toggle features without the need to modify firmware or access VIA. (added Jun 29, 2022)
 * [VIA](https://www.caniusevia.com/) support enabled (added Mar 16, 2022)
 * Most [default Glorious shortcuts](https://cdn.shopify.com/s/files/1/0549/2681/files/GMMK_Pro_User_Guide.pdf) enabled
 * [N-key Rollover](https://en.wikipedia.org/wiki/Rollover_\(keyboard\)#n-key_rollover) (NKRO) -- toggled with Fn+R
 * 1000Hz polling rate with 5ms debounce time for quick response in games
-* Mouse Keys! Don't want to move your hands off the keyboard or you didn't bring it with you on the road? Use cursor keys to move the mouse.
+* Mouse Keys! Don't want to move your hands off the keyboard or you didn't bring it with you? Use cursor keys to move the mouse
 * Overlay numpad on 789-UIOP-JKL;-M,. & Space-bar mapped to Enter key for rapid number entry
-* Gaming mode (Fn+Win-key) locks out Win-key as well as double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming related keys
-* [Caps Word](https://getreuer.info/posts/keyboards/caps-word/index.html) enabled: To capitalize the next word only, press and release both left and right shift keys at the same time. (added Feb 25, 2022)
+* Gaming mode (Fn+Win-key) locks out Win-key and double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming keys
+* Caps Word enabled: To capitalize the next word only, press and release left and right shift at the same time. (added Feb 25, 2022)
 * Multi-monitor app moving shortcuts: Fn+[,] (square brackets) to move current app window to next monitor (added Apr 11, 2022)
 * Capslock toggled by double tap of Left Shift key or Fn + Capslock (RGB green highlighted)
 * Paddle game accessible via Fn+P; Hit Fn+P again or double tap ESC to exit (added May 5, 2022)
@@ -26,10 +27,23 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 * Home key on F13, Del key right of Backspace
 * Insert accessible via Shift-Backspace (so shift delete still works in Windows Explorer)
 * PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+F13
-* [Colemak](https://colemak.com/) key layout support (Layer accessible via Left Shift + turn Encoder clockwise until side LEDs light up purple)
+* [Colemak](https://colemak.com/) key layout support (Accessible via Left Shift + turn Encoder clockwise until side LEDs light up purple)
 * Double tap ESC any time to revert to base layer (added Feb 26, 2022)
 * RGB backlight effects expanded to include framebuffer effects and reactive keypress modes (updated May 24, 2022)
 * RGB backlight now remembers last color & effect settings after power down (updated May 24, 2022)
+
+### Quick & Easy Customization
+* Below features can be toggled by holding [FN] and pressing the number corresponding to that feature. Changes are saved to EEPROM for persistence.
+* Print all current settings by opening a text editor and pressing [FN]+[~] (CAUTION: verbose!)
+* Quick view current settings by holding [FN] and viewing RGB under keys 1 through 6 (green means ON, violet means OFF)
+#### Toggle-able Settings:
+1. CapsLock RGB - highlight under alpha keys
+2. Numpad RGB - highlight under numpad layer keys
+3. ESC key - Double tap ESC key to go to base layer
+4. Swap DEL and HOME - Default is DEL to the right of BKSPC & HOME is above BKSPC
+5. Capslock function - Toggle between double tap LShift for CapsLock with Numpad on CapsLock key (default) and standard CapsLock
+6. Encoder button - default mutes volume; alternate plays/pauses media
+7. Insert function - Toggle between SHIFT-BKSPC and SHIFT-DEL
 
 ### Numpad + Mouse Keys (Capslock key)
 
@@ -72,10 +86,10 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 * RGB backlight brightness: Fn+W/S
 * RGB backlight saturation: Fn+Q/E (added Feb 4, 2022)
 * RGB backlight night mode toggle: Fn+Z (indicators still work)
-* RGB backlight timeout: Fn+Encoder or "-" and "=" (default 15 minutes) (updated Apr 7, 2022)
-    * indicators in Fn layer using RGB in F-key and number rows to show the current timeout in minutes
+* RGB backlight timeout: Fn+Encoder or "-" and "=" (default 15 minutes) (updated June 28, 2022)
+    *  F-key row indicator lights (cyan and blue) in Fn layer display the current backlight timeout in minutes
 * Fn+Z to turn off RGB backlighting (indicator lights still work); press again to toggle
-* RGB indicators on left side LEDs in order from top: System NumLock off (orange), Scroll Lock (red), Numpad (blue), Capslock (green).
+* Left side RGB indicators in order from top: System NumLock off (orange), Scroll Lock (red), Numpad (blue), Capslock (green).
 
 ### Advanced Controls
 

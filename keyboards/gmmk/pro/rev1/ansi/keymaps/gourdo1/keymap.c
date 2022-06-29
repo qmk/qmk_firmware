@@ -1,7 +1,7 @@
 /* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
    Copyright 2021 Jonavin Eng @Jonavin
    Copyright 2022 gourdo1 <gourdo1@outlook.com>
-   
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -48,11 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [_BASE] = LAYOUT(
-        KC_ESCLYR, KC_F1, KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_HOME,          KC_MUTE,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  LEFTOFENC,        ENCFUNC,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          BELOWENC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        TT(_NUMPADMOUSE), KC_A, KC_S, KC_D, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
-        KC_LSFTCAPSWIN,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
+        CAPSNUM, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        LSFTCAPSWIN,      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_FN1),KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
@@ -76,11 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #ifdef GAME_ENABLE
     [_FN1] = LAYOUT(
         EE_CLR,  KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,           KC_SLEP,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOD, RGB_TOI, _______,           RGB_TOG,
+        PRNCONF, TG_CAPS, TG_PAD,  TG_ESC,  TG_DEL,  TG_TDCAP,TG_ENC,  TG_INS,  _______, _______, _______, RGB_TOD, RGB_TOI, _______,           RGB_TOG,
         _______, RGB_SAD, RGB_VAI, RGB_SAI, NK_TOGG, _______, YAHOO,   _______, _______, OUTLOOK, TG(_GAME),SWAP_L, SWAP_R,  RESET,             KC_HOME,
         KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______, GMAIL,   HOTMAIL, _______, _______, LOCKPC,  _______, _______,          _______,           KC_END,
         _______,          RGB_NITE,_______, _______, _______, _______, KC_NLCK, _______, _______, DOTCOM,  KC_CAD,           _______, RGB_MOD,  _______,
-        _______, KC_WINLCK, _______,                          _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
+        _______, WINLOCK, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
     [_GAME] = LAYOUT(
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #else
     [_FN1] = LAYOUT(
         EE_CLR,  KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,           KC_SLEP,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOD, RGB_TOI, _______,           RGB_TOG,
+        PRNCONF, TG_CAPS, TG_PAD,  TG_ESC,  TG_DEL,  TG_TDCAP,TG_ENC,  TG_INS,  _______, _______, _______, RGB_TOD, RGB_TOI, _______,           RGB_TOG,
         _______, RGB_SAD, RGB_VAI, RGB_SAI, NK_TOGG, _______, YAHOO,   _______, _______, OUTLOOK, KC_PAUS, SWAP_L,  SWAP_R,  RESET,             KC_HOME,
         KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______, GMAIL,   HOTMAIL, _______, _______, LOCKPC,  _______, _______,          _______,           KC_END,
         _______,          RGB_NITE,_______, _______, _______, _______, KC_NLCK, _______, _______, DOTCOM,  KC_CAD,           _______, RGB_MOD,  _______,
@@ -140,8 +140,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     #ifdef COLEMAK_LAYER_ENABLE
     [_COLEMAK] = LAYOUT(
-        _______, KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KC_MUTE,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,          _______,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  _______,          _______,
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
         _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,          KC_ENT,           KC_PGDN,
         _______,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
@@ -274,12 +274,19 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     // CapsLock RGB setup
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_LETTERS); i++) {
-            rgb_matrix_set_color(LED_LIST_LETTERS[i], RGB_CHARTREUSE);
+        if (user_config.rgb_hilite_caps) {
+            for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_LETTERS); i++) {
+                rgb_matrix_set_color(LED_LIST_LETTERS[i], RGB_CHARTREUSE);
+            }
+            rgb_matrix_set_color(LED_L7, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_L8, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_LSFT, RGB_CHARTREUSE);
         }
-        rgb_matrix_set_color(LED_L7, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_L8, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_LSFT, RGB_CHARTREUSE);
+        else {
+            rgb_matrix_set_color(LED_L7, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_L8, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_LSFT, RGB_CHARTREUSE);
+        }
     }
 
     // Winkey disabled (gaming) mode RGB setup
@@ -347,36 +354,79 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_P, RGB_RED);
         #endif // GAME_ENABLE
 
+        //Add RGB statuses for user.config toggles
+        if (user_config.rgb_hilite_caps) {
+        rgb_matrix_set_color(LED_1, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_1, RGB_PURPLE);
+        }
+        if (user_config.rgb_hilite_numpad) {
+        rgb_matrix_set_color(LED_2, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_2, RGB_PURPLE);
+        }
+        if (user_config.esc_double_tap_to_baselyr) {
+        rgb_matrix_set_color(LED_3, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_3, RGB_PURPLE);
+        }
+        if (user_config.del_right_home_top) {
+        rgb_matrix_set_color(LED_4, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_4, RGB_PURPLE);
+        }
+        if (user_config.double_tap_shift_for_capslock) {
+        rgb_matrix_set_color(LED_5, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_5, RGB_PURPLE);
+        }
+        if (user_config.encoder_press_mute_or_media) {
+        rgb_matrix_set_color(LED_6, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_6, RGB_PURPLE);
+        }
+        if (user_config.ins_on_shft_bkspc_or_del) {
+        rgb_matrix_set_color(LED_7, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_7, RGB_PURPLE);
+        }
+
         // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row; larger numbers using 16bit code
         uint16_t timeout_threshold = get_timeout_threshold();
-        if (timeout_threshold <= 10) rgb_matrix_set_color(LED_LIST_FUNCROW[timeout_threshold], RGB_CYAN);
+        if (timeout_threshold <= 10) rgb_matrix_set_color(LED_LIST_FUNCROW[timeout_threshold], RGB_BLUE);
         else if (timeout_threshold < 140) {
             rgb_matrix_set_color(LED_LIST_FUNCROW[(timeout_threshold / 10)], RGB_CYAN);
-            rgb_matrix_set_color(LED_LIST_NUMROW[(timeout_threshold % 10)], RGB_CYAN);
+            rgb_matrix_set_color(LED_LIST_FUNCROW[(timeout_threshold % 10)], RGB_BLUE);
         } else { // >= 140 minutes, just show these 3 lights
-            rgb_matrix_set_color(LED_LIST_NUMROW[10], RGB_CYAN);
-            rgb_matrix_set_color(LED_LIST_NUMROW[11], RGB_CYAN);
-            rgb_matrix_set_color(LED_LIST_NUMROW[12], RGB_CYAN);
+            rgb_matrix_set_color(LED_LIST_FUNCROW[10], RGB_CYAN);
+            rgb_matrix_set_color(LED_LIST_FUNCROW[11], RGB_CYAN);
+            rgb_matrix_set_color(LED_LIST_FUNCROW[12], RGB_CYAN);
         }
         break;
 
         // Numpad & Mouse Keys overlay RGB
     case _NUMPADMOUSE:
-        for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_NUMPAD); i++) {
-            rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_OFFBLUE);
+        if (user_config.rgb_hilite_numpad) {
+            for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_NUMPAD); i++) {
+                rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_OFFBLUE);
+            }
+            rgb_matrix_set_color(LED_L5, RGB_OFFBLUE);
+            rgb_matrix_set_color(LED_L6, RGB_OFFBLUE);
+            rgb_matrix_set_color(LED_CAPS, RGB_OFFBLUE);
+            rgb_matrix_set_color(LED_UP, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_DOWN, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_LEFT, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_RIGHT, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_RCTL, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_RSFT, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_END, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_PGUP, RGB_CHARTREUSE);
+            rgb_matrix_set_color(LED_PGDN, RGB_CHARTREUSE);
+        } else {
+            rgb_matrix_set_color(LED_L5, RGB_OFFBLUE);
+            rgb_matrix_set_color(LED_L6, RGB_OFFBLUE);
+            rgb_matrix_set_color(LED_CAPS, RGB_OFFBLUE);
         }
-        rgb_matrix_set_color(LED_L5, RGB_OFFBLUE);
-        rgb_matrix_set_color(LED_L6, RGB_OFFBLUE);
-        rgb_matrix_set_color(LED_CAPS, RGB_OFFBLUE);
-        rgb_matrix_set_color(LED_UP, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_DOWN, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_LEFT, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_RIGHT, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_RCTL, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_RSFT, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_END, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_PGUP, RGB_CHARTREUSE);
-        rgb_matrix_set_color(LED_PGDN, RGB_CHARTREUSE);
         break;
 
         // MOUSEKEYS mode RGB

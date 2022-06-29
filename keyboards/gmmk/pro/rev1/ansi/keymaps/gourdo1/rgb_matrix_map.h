@@ -199,7 +199,7 @@ const uint8_t LED_LIST_NUMROW[] = {
 };
 
 const uint8_t LED_LIST_LETTERS[] = {
-    LED_1,
+/*    LED_1,
     LED_2,
     LED_3,
     LED_4,
@@ -208,7 +208,7 @@ const uint8_t LED_LIST_LETTERS[] = {
     LED_7,
     LED_8,
     LED_9,
-    LED_0,
+    LED_0, */
     LED_Q,
     LED_W,
     LED_E,
