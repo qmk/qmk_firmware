@@ -2,11 +2,11 @@
 
 A miniature mechanical keyboard controller with a rotary encoder for staggered key rhythm games
 
-![Bemini Choc PCB](https://i.imgur.com/wbMkbHX.jpg)
+![Bemini PCB](https://i.imgur.com/wbMkbHX.jpg)
 
 * Keyboard Maintainer: [ianklug](https://github.com/ianklug)
-* Hardware Supported: bemini choc
-* Hardware Availability: https://github.com/ianklug/bemini
+* Hardware Supported: bemini
+* Hardware Availability: https://kayboards.com/products/bemini
 
 Press the button on the back of the keyboard to enter bootloader mode.
 

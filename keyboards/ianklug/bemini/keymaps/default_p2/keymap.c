@@ -18,7 +18,7 @@
 // how long (ms) to hold buttons tapped by the encoder
 #define TAP_CODE_DELAY 10
 
-//      bemini v1 key layout, player 2 configuration
+//      bemini key layout, player 2 configuration
 //      .-----------------------------------------------------------------------------------------.
 //      |                                                                                         |
 //      |    .-------.        .-------.-------.-------.-------.                                   |

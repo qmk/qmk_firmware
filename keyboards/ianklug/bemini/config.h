@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// this vid/pid are required for infinitas to recognize the turntable
-//#define VENDOR_ID    0x1CCF // konami digital
-//#define PRODUCT_ID   0x8048 // official iidx controller
-
 #define VENDOR_ID    0x4B4C // "KL" = klug
 #define PRODUCT_ID   0x424D // "BM" = bemini
 #define DEVICE_VER   0x0001
