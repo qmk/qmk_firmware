@@ -36,7 +36,7 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 * Below features can be toggled by holding [FN] and pressing the number corresponding to that feature. Changes are saved to EEPROM for persistence.
 * Print current settings by opening a text editor and pressing [FN]~ (CAUTION: verbose!)
 * Quick view current settings by holding [FN] and viewing RGB under keys 1 through 7 (green means ON, violet means OFF)
-#### Toggle-able Settings:
+   #### Toggle-able Settings:
 1. CapsLock RGB - highlight under alpha keys
 2. Numpad RGB - highlight under numpad layer keys
 3. ESC key - Double tap ESC key to go to base layer
@@ -100,9 +100,9 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 * [FN]L is single-handed shortcut to Win-L (lock Windows) (added May 17, 2022)
 * [FN][Encoder press] to sleep Windows PC (added May 14, 2022)
 
-Link to latest firmware binary: https://github.com/gourdo1/media/raw/main/gmmk_pro_rev1_ansi_gourdo1.bin
+Link to latest firmware binary: https://github.com/gourdo1/gmmkpro-media/raw/main/gmmk_pro_rev1_ansi_gourdo1.bin
 
-Link to cheatsheet: https://github.com/gourdo1/media/raw/main/GMMK_Pro_Cheatsheet.pdf
+Link to cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
 
 
 ## rules.mk Options
@@ -123,13 +123,13 @@ GAME_ENABLE ?= yes                   - Enables Paddle Game
 
 ## Layer Diagrams
 ### Base layer
-![image](https://raw.githubusercontent.com/gourdo1/media/main/base.png)
+![image](https://raw.githubusercontent.com/gourdo1/gmmkpro-media/main/base.png)
 
 ### FN Layer
-![image](https://raw.githubusercontent.com/gourdo1/media/main/fn1.png)
+![image](https://raw.githubusercontent.com/gourdo1/gmmkpro-media/main/fn1.png)
 
 ### Layer 2 (Numpad)
-![image](https://raw.githubusercontent.com/gourdo1/media/main/numpad.png)
+![image](https://raw.githubusercontent.com/gourdo1/gmmkpro-media/main/numpad.png)
 
 ### COLEMAK layer
 ![image](https://user-images.githubusercontent.com/71780717/131235050-980d2f54-2d23-4ae8-a83f-9fcdbe60d6cb.png)

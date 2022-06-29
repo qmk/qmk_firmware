@@ -138,9 +138,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         // User configuration toggles
     case PRNCONF:  // Print verbose status of all user_config toggles (open a text editor before engaging!!)
         if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_ENT)"GMMK Pro User Settings. Press [FN]+<number key> to toggle each."SS_TAP(X_ENT));
+            SEND_STRING(SS_TAP(X_ENT)"gourdo1's GMMK Pro User Settings. Press [FN]+<number key> to toggle each."SS_TAP(X_ENT));
             SEND_STRING("Config also visible by holding [FN] and viewing RGB under number keys."SS_TAP(X_ENT));
-            SEND_STRING("======================================================================"SS_TAP(X_ENT));
+            SEND_STRING("========================================================================="SS_TAP(X_ENT));
             SEND_STRING("1. CapsLock RGB highlight alpha keys                ");
             if (user_config.rgb_hilite_caps) {
                 SEND_STRING("[ON]"SS_TAP(X_ENT));
@@ -183,6 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
             } else {
                 SEND_STRING("[SHIFT]-[DEL]"SS_TAP(X_ENT));
             }
+            SEND_STRING(SS_TAP(X_ENT)"The latest firmware updates are always here: https://github.com/gourdo1/gmmkpro-media: "SS_TAP(X_ENT));
         }
         break;
 
