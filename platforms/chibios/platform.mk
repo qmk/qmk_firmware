@@ -94,6 +94,11 @@ ifeq ("$(wildcard $(PLATFORM_MK))","")
     endif
 endif
 
+# If no MCU architecture specified, use the MCU instead (allows for mcu_selection.mk to swap to cortex-m0 etc.)
+ifeq ("$(MCU_ARCH)","")
+    MCU_ARCH = $(MCU)
+endif
+
 include $(STARTUP_MK)
 include $(PORT_V)
 include $(PLATFORM_MK)

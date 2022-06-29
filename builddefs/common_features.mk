@@ -173,7 +173,7 @@ ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
 endif
 
-VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
+VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
   $(call CATASTROPHIC_ERROR,Invalid EEPROM_DRIVER,EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
@@ -186,6 +186,10 @@ else
     # Custom EEPROM implementation -- only needs to implement init/erase/read_block/write_block
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_CUSTOM
     SRC += eeprom_driver.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), wear_leveling)
+    # Wear-leveling EEPROM implementation
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+    SRC += eeprom_driver.c eeprom_wear_leveling.c
   else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
     # External I2C EEPROM implementation
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
@@ -237,17 +241,47 @@ else
   endif
 endif
 
+VALID_WEAR_LEVELING_DRIVER_TYPES := custom embedded_flash spi_flash legacy
+WEAR_LEVELING_DRIVER ?= none
+ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
+  ifeq ($(filter $(WEAR_LEVELING_DRIVER),$(VALID_WEAR_LEVELING_DRIVER_TYPES)),)
+    $(call CATASTROPHIC_ERROR,Invalid WEAR_LEVELING_DRIVER,WEAR_LEVELING_DRIVER="$(WEAR_LEVELING_DRIVER)" is not a valid wear leveling driver)
+  else
+    FNV_ENABLE := yes
+    OPT_DEFS += -DWEAR_LEVELING_ENABLE
+    OPT_DEFS += -DWEAR_LEVELING_$(strip $(shell echo $(WEAR_LEVELING_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling
+    COMMON_VPATH += $(DRIVER_PATH)/wear_leveling
+    COMMON_VPATH += $(QUANTUM_DIR)/wear_leveling
+    SRC += wear_leveling.c
+    ifeq ($(strip $(WEAR_LEVELING_DRIVER)), embedded_flash)
+      OPT_DEFS += -DHAL_USE_EFL
+      SRC += wear_leveling_efl.c
+      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_efl_config.h
+    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), spi_flash)
+      FLASH_DRIVER := spi
+      SRC += wear_leveling_flash_spi.c
+      POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
+    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
+      COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
+      SRC += flash_stm32.c wear_leveling_legacy.c
+      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
+    endif
+  endif
+endif
+
 VALID_FLASH_DRIVER_TYPES := spi
-FLASH_DRIVER ?= no
-ifneq ($(strip $(FLASH_DRIVER)), no)
+FLASH_DRIVER ?= none
+ifneq ($(strip $(FLASH_DRIVER)), none)
     ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
-        $(error FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid FLASH driver)
+        $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
     else
         OPT_DEFS += -DFLASH_ENABLE
-        ifeq ($(strip $(FLASH_DRIVER)), spi)
+        ifeq ($(strip $(FLASH_DRIVER)),spi)
             OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
             COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
+            QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
 endif

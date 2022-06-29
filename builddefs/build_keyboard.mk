@@ -13,6 +13,14 @@ endif
 include paths.mk
 include $(BUILDDEFS_PATH)/message.mk
 
+# Helper to add defines with a 'QMK_' prefix
+define add_qmk_prefix_defs
+    ifdef $1
+        # Need to cater for 'STM32L4xx+'
+        OPT_DEFS += -DQMK_$(2)="$($1)" -DQMK_$(2)_$(shell echo $($1) | sed -e 's@+@Plus@g' -e 's@[^a-zA-Z0-9]@_@g' | tr '[:lower:]' '[:upper:]')
+    endif
+endef
+
 # Set the qmk cli to use
 QMK_BIN ?= qmk
 
@@ -437,6 +445,14 @@ ifneq ($(strip $(PROTOCOL)),)
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
+
+# Setup definitions based on the selected MCU
+$(eval $(call add_qmk_prefix_defs,MCU_ORIG,MCU))
+$(eval $(call add_qmk_prefix_defs,MCU_ARCH,MCU_ARCH))
+$(eval $(call add_qmk_prefix_defs,MCU_PORT_NAME,MCU_PORT_NAME))
+$(eval $(call add_qmk_prefix_defs,MCU_FAMILY,MCU_FAMILY))
+$(eval $(call add_qmk_prefix_defs,MCU_SERIES,MCU_SERIES))
+$(eval $(call add_qmk_prefix_defs,BOARD,BOARD))
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)
