@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "cirque_pinnacle_regdefs.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -46,7 +47,7 @@
 #    include "i2c_master.h"
 // Cirque's 7-bit I2C Slave Address
 #    ifndef CIRQUE_PINNACLE_ADDR
-#        define CIRQUE_PINNACLE_ADDR 0x2A
+#        define CIRQUE_PINNACLE_ADDR I2C_ADDRESS_DEFAULT
 #    endif
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    include "spi_master.h"

@@ -9,45 +9,9 @@
 #include "wait.h"
 #include "timer.h"
 
-// Registers for RAP
-// clang-format off
-#define FIRMWARE_ID          0x00
-#define FIRMWARE_VERSION_C   0x01
-#define STATUS_1             0x02
-#define SYSCONFIG_1          0x03
-#define FEEDCONFIG_1         0x04
-#define FEEDCONFIG_2         0x05
-#define FEEDCONFIG_3         0x06
-#define CALIBRATION_CONFIG_1 0x07
-#define PS2_AU_CONTROL       0x08
-#define SAMPLE_RATE          0x09
-#define Z_IDLE_COUNT         0x0A
-#define Z_SCALER             0x0B
-#define SLEEP_INTERVAL       0x0C
-#define SLEEP_TIMER          0x0D
-#define PACKET_BYTE_0        0x12
-#define PACKET_BYTE_1        0x13
-#define PACKET_BYTE_2        0x14
-#define PACKET_BYTE_3        0x15
-#define PACKET_BYTE_4        0x16
-#define PACKET_BYTE_5        0x17
-
-#define ERA_VALUE            0x1B
-#define ERA_HIGH_BYTE        0x1C
-#define ERA_LOW_BYTE         0x1D
-#define ERA_CONTROL          0x1E
-
-// ADC-attenuation settings (held in BIT_7 and BIT_6)
-// 1X = most sensitive, 4X = least sensitive
-#define ADC_ATTENUATE_1X     0x00
-#define ADC_ATTENUATE_2X     0x40
-#define ADC_ATTENUATE_3X     0x80
-#define ADC_ATTENUATE_4X     0xC0
-
 #ifndef CIRQUE_PINNACLE_ATTENUATION
-#    define CIRQUE_PINNACLE_ATTENUATION ADC_ATTENUATE_4X
+#    define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X
 #endif
-// clang-format on
 
 bool     touchpad_init;
 uint16_t scale_data = CIRQUE_PINNACLE_DEFAULT_SCALE;
@@ -107,21 +71,21 @@ void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResoluti
 
 // Clears Status1 register flags (SW_CC and SW_DR)
 void cirque_pinnacle_clear_flags() {
-    RAP_Write(STATUS_1, 0x00);
+    RAP_Write(HOSTREG__STATUS1, HOSTREG__STATUS1_DEFVAL & ~(HOSTREG__STATUS1__COMMAND_COMPLETE | HOSTREG__STATUS1__DATA_READY));
     wait_us(50);
 }
 
 // Enables/Disables the feed
 void cirque_pinnacle_enable_feed(bool feedEnable) {
     uint8_t temp;
-    RAP_ReadBytes(FEEDCONFIG_1, &temp, 1); // Store contents of FeedConfig1 register
+    RAP_ReadBytes(HOSTREG__FEEDCONFIG1, &temp, 1);
 
     if (feedEnable) {
-        temp |= 0x01; // Set Feed Enable bit
+        temp |= HOSTREG__FEEDCONFIG1__FEED_ENABLE;
     } else {
-        temp &= ~0x01; // Clear Feed Enable bit
+        temp &= ~HOSTREG__FEEDCONFIG1__FEED_ENABLE;
     }
-    RAP_Write(FEEDCONFIG_1, temp);
+    RAP_Write(HOSTREG__FEEDCONFIG1, temp);
 }
 
 /*  ERA (Extended Register Access) Functions  */
@@ -133,19 +97,19 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
 
     cirque_pinnacle_enable_feed(false); // Disable feed
 
-    RAP_Write(ERA_HIGH_BYTE, (uint8_t)(address >> 8));    // Send upper byte of ERA address
-    RAP_Write(ERA_LOW_BYTE, (uint8_t)(address & 0x00FF)); // Send lower byte of ERA address
+    RAP_Write(HOSTREG__EXT_REG_AXS_ADDR_HIGH, (uint8_t)(address >> 8));    // Send upper byte of ERA address
+    RAP_Write(HOSTREG__EXT_REG_AXS_ADDR_LOW, (uint8_t)(address & 0x00FF)); // Send lower byte of ERA address
 
     for (uint16_t i = 0; i < count; i++) {
-        RAP_Write(ERA_CONTROL, 0x05); // Signal ERA-read (auto-increment) to Pinnacle
+        RAP_Write(HOSTREG__EXT_REG_AXS_CTRL, HOSTREG__EREG_AXS__INC_ADDR_READ | HOSTREG__EREG_AXS__READ); // Signal ERA-read (auto-increment) to Pinnacle
 
         // Wait for status register 0x1E to clear
         timeout_timer = timer_read();
         do {
-            RAP_ReadBytes(ERA_CONTROL, &ERAControlValue, 1);
+            RAP_ReadBytes(HOSTREG__EXT_REG_AXS_CTRL, &ERAControlValue, 1);
         } while ((ERAControlValue != 0x00) && (timer_elapsed(timeout_timer) <= CIRQUE_PINNACLE_TIMEOUT));
 
-        RAP_ReadBytes(ERA_VALUE, data + i, 1);
+        RAP_ReadBytes(HOSTREG__EXT_REG_AXS_VALUE, data + i, 1);
 
         cirque_pinnacle_clear_flags();
     }
@@ -158,17 +122,17 @@ void ERA_WriteByte(uint16_t address, uint8_t data) {
 
     cirque_pinnacle_enable_feed(false); // Disable feed
 
-    RAP_Write(ERA_VALUE, data); // Send data byte to be written
+    RAP_Write(HOSTREG__EXT_REG_AXS_VALUE, data); // Send data byte to be written
 
-    RAP_Write(ERA_HIGH_BYTE, (uint8_t)(address >> 8));    // Upper byte of ERA address
-    RAP_Write(ERA_LOW_BYTE, (uint8_t)(address & 0x00FF)); // Lower byte of ERA address
+    RAP_Write(HOSTREG__EXT_REG_AXS_ADDR_HIGH, (uint8_t)(address >> 8));    // Upper byte of ERA address
+    RAP_Write(HOSTREG__EXT_REG_AXS_ADDR_LOW, (uint8_t)(address & 0x00FF)); // Lower byte of ERA address
 
-    RAP_Write(ERA_CONTROL, 0x02); // Signal an ERA-write to Pinnacle
+    RAP_Write(HOSTREG__EXT_REG_AXS_CTRL, HOSTREG__EREG_AXS__WRITE); // Signal an ERA-write to Pinnacle
 
     // Wait for status register 0x1E to clear
     timeout_timer = timer_read();
     do {
-        RAP_ReadBytes(ERA_CONTROL, &ERAControlValue, 1);
+        RAP_ReadBytes(HOSTREG__EXT_REG_AXS_CTRL, &ERAControlValue, 1);
     } while ((ERAControlValue != 0x00) && (timer_elapsed(timeout_timer) <= CIRQUE_PINNACLE_TIMEOUT));
 
     cirque_pinnacle_clear_flags();
@@ -177,24 +141,25 @@ void ERA_WriteByte(uint16_t address, uint8_t data) {
 void cirque_pinnacle_set_adc_attenuation(uint8_t adcGain) {
     uint8_t temp = 0x00;
 
-    ERA_ReadBytes(0x0187, &temp, 1);
-    temp &= 0x3F; // clear top two bits
+    ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &temp, 1);
+    temp &= EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK;
     temp |= adcGain;
-    ERA_WriteByte(0x0187, temp);
-    ERA_ReadBytes(0x0187, &temp, 1);
+    ERA_WriteByte(EXTREG__TRACK_ADCCONFIG, temp);
+    ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &temp, 1);
 }
 
 // Changes thresholds to improve detection of fingers
+// Not needed for flat overlay?
 void cirque_pinnacle_tune_edge_sensitivity(void) {
     uint8_t temp = 0x00;
 
-    ERA_ReadBytes(0x0149, &temp, 1);
-    ERA_WriteByte(0x0149, 0x04);
-    ERA_ReadBytes(0x0149, &temp, 1);
+    ERA_ReadBytes(EXTREG__XAXIS_WIDEZMIN, &temp, 1);
+    ERA_WriteByte(EXTREG__XAXIS_WIDEZMIN, 0x04); // magic number from Cirque sample code
+    ERA_ReadBytes(EXTREG__XAXIS_WIDEZMIN, &temp, 1);
 
-    ERA_ReadBytes(0x0168, &temp, 1);
-    ERA_WriteByte(0x0168, 0x03);
-    ERA_ReadBytes(0x0168, &temp, 1);
+    ERA_ReadBytes(EXTREG__YAXIS_WIDEZMIN, &temp, 1);
+    ERA_WriteByte(EXTREG__YAXIS_WIDEZMIN, 0x03); // magic number from Cirque sample code
+    ERA_ReadBytes(EXTREG__YAXIS_WIDEZMIN, &temp, 1);
 }
 
 // Perform calibration
@@ -202,22 +167,15 @@ void cirque_pinnacle_calibrate(void) {
     uint8_t  calconfig;
     uint16_t timeout_timer;
 
-    // CalConfig1 (Compensation)
-    // Bit 0: Calibrate, 1=calibrate, 0=complete
-    // Bit 1: Background Comp Enable, 1=enable, 0=disable
-    // Bit 2: NERD Comp Enable (No, I don't know what NERD means), 1=enable, 0=disable
-    // Bit 3: Track Error Comp Enable, 1=enable, 0=disable
-    // Bit 4: Tap Comp Enable, 1=enable, 0=disable
-    // Bit 6: Calibration Matrix Disable, 1=disabled, 0=enabled
-    RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
-    calconfig |= 0x01;
-    RAP_Write(CALIBRATION_CONFIG_1, calconfig);
+    RAP_ReadBytes(HOSTREG__CALCONFIG1, &calconfig, 1);
+    calconfig |= HOSTREG__CALCONFIG1__CALIBRATE;
+    RAP_Write(HOSTREG__CALCONFIG1, calconfig);
 
     // Calibration takes ~100ms according to GT-AN-090624, doubling the timeout just to be safe
     timeout_timer = timer_read();
     do {
-        RAP_ReadBytes(CALIBRATION_CONFIG_1, &calconfig, 1);
-    } while ((calconfig & 0x01) && (timer_elapsed(timeout_timer) <= 200));
+        RAP_ReadBytes(HOSTREG__CALCONFIG1, &calconfig, 1);
+    } while ((calconfig & HOSTREG__CALCONFIG1__CALIBRATE) && (timer_elapsed(timeout_timer) <= 200));
 
     cirque_pinnacle_clear_flags();
 }
@@ -226,22 +184,13 @@ void cirque_pinnacle_calibrate(void) {
 void cirque_pinnacle_cursor_smoothing(bool enable) {
     uint8_t feedconfig3;
 
-    // FeedConfig3 (Advanced feature flags)
-    // Bit 0: DualPoint Buttons, 1=enable, 0=disable
-    // Bit 1: Smoothing Disable, 1=disable, 0=enable
-    // Bit 2: Palm/NERD measurements Disable, 1=disable, 0=enable
-    // Bit 3: Noise Avoidance Disable, 1=disable, 0=enable
-    // Bit 4: WRAP lockout Disable
-    // Bit 5: Dynamic EMI adjust Disable
-    // Bit 6: HW EMI detection Disable
-    // Bit 7: SW EMI detection Disable
-    RAP_ReadBytes(FEEDCONFIG_3, &feedconfig3, 1);
+    RAP_ReadBytes(HOSTREG__FEEDCONFIG3, &feedconfig3, 1);
     if (enable) {
-        feedconfig3 &= ~0x02;
+        feedconfig3 &= ~HOSTREG__FEEDCONFIG3__DISABLE_CROSS_RATE_SMOOTHING;
     } else {
-        feedconfig3 |= 0x02;
+        feedconfig3 |= HOSTREG__FEEDCONFIG3__DISABLE_CROSS_RATE_SMOOTHING;
     }
-    RAP_Write(FEEDCONFIG_3, feedconfig3);
+    RAP_Write(HOSTREG__FEEDCONFIG3, feedconfig3);
 }
 
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
@@ -257,40 +206,20 @@ void cirque_pinnacle_init(void) {
     // Host clears SW_CC flag
     cirque_pinnacle_clear_flags();
 
-    // SysConfig1 (Low Power Mode)
-    // Bit 0: Reset, 1=Reset
-    // Bit 1: Shutdown, 1=Shutdown, 0=Active
-    // Bit 2: Sleep Enable, 1=low power mode, 0=normal mode
     // send a RESET command now, in case QMK had a soft-reset without a power cycle
-    RAP_Write(SYSCONFIG_1, 0x01);
+    RAP_Write(HOSTREG__SYSCONFIG1, HOSTREG__SYSCONFIG1__RESET);
     wait_ms(30); // Pinnacle needs 10-15ms to boot, so wait long enough before configuring
-    RAP_Write(SYSCONFIG_1, 0x00);
+    RAP_Write(HOSTREG__SYSCONFIG1, HOSTREG__SYSCONFIG1_DEFVAL);
     wait_us(50);
 
     // FeedConfig2 (Feature flags for Relative Mode Only)
-    // Bit 0: IntelliMouse Enable, 1=enable, 0=disable
-    // Bit 1: All Taps Disable, 1=disable, 0=enable
-    // Bit 2: Secondary Tap Disable, 1=disable, 0=enable
-    // Bit 3: Scroll Disable, 1=disable, 0=enable
-    // Bit 4: GlideExtend® Disable, 1=disable, 0=enable
-    // Bit 5: reserved
-    // Bit 6: reserved
-    // Bit 7: Swap X & Y, 1=90° rotation, 0=0° rotation
-    RAP_Write(FEEDCONFIG_2, 0x00);
+    RAP_Write(HOSTREG__FEEDCONFIG2, HOSTREG__FEEDCONFIG2_DEFVAL);
 
     // FeedConfig1 (Data Output Flags)
-    // Bit 0: Feed enable, 1=feed, 0=no feed
-    // Bit 1: Data mode, 1=absolute, 0=relative
-    // Bit 2: Filter disable, 1=no filter, 0=filter
-    // Bit 3: X disable, 1=no X data, 0=X data
-    // Bit 4: Y disable, 1=no Y data, 0=Y data
-    // Bit 5: reserved
-    // Bit 6: X data Invert, 1=X max to 0, 0=0 to Y max
-    // Bit 7: Y data Invert, 1=Y max to 0, 0=0 to Y max
-    RAP_Write(FEEDCONFIG_1, CIRQUE_PINNACLE_POSITION_MODE << 1);
+    RAP_Write(HOSTREG__FEEDCONFIG1, CIRQUE_PINNACLE_POSITION_MODE ? HOSTREG__FEEDCONFIG1__DATA_TYPE__REL0_ABS1 : HOSTREG__FEEDCONFIG1_DEFVAL);
 
-    // Host sets z-idle packet count to 5 (default is 0x1F/30)
-    RAP_Write(Z_IDLE_COUNT, 5);
+    // Host sets z-idle packet count to 5 (default is 0x1E/30)
+    RAP_Write(HOSTREG__ZIDLE, 5);
 
     cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
     // Force a calibration after setting ADC attenuation
@@ -306,15 +235,15 @@ pinnacle_data_t cirque_pinnacle_read_data(void) {
     pinnacle_data_t result     = {0};
 
     // Check if there is valid data available
-    RAP_ReadBytes(STATUS_1, &data_ready, 1); // bit2 is Software Data Ready, bit3 is Command Complete, bit0 and bit1 are reserved/unused
-    if ((data_ready & 0x04) == 0) {
+    RAP_ReadBytes(HOSTREG__STATUS1, &data_ready, 1);
+    if ((data_ready & HOSTREG__STATUS1__DATA_READY) == 0) {
         // no data available yet
         result.valid = false; // be explicit
         return result;
     }
 
     // Read all data bytes
-    RAP_ReadBytes(PACKET_BYTE_0, data, 6);
+    RAP_ReadBytes(HOSTREG__PACKETBYTE_0, data, 6);
 
     // Get ready for the next data sample
     cirque_pinnacle_clear_flags();
