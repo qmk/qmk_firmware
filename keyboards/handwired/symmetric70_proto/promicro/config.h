@@ -31,21 +31,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 16
 
 /* Pro Micro **************************
-                 ====
-         +-------====------+
-  MDEBUG | D3/TXO      RAW |
-         | D2/RXI      GND |
-         | GND         RST |
-         | GND         Vcc |
-         | D1/SDA       F4 | COL_0_1_L
-         | D0/SCL       F5 | COL_2_3_L
-   ROW_0 | D4           F6 | COL_4_5_L
-   ROW_1 | C6           F7 | COL_6_7_L
-   ROW_2 | D7       SCK/B1 | COL_6_7_R
-   ROW_3 | E6      MISO/B3 | COL_4_5_R
-   ROW_4 | B4      MOSI/B2 | COL_2_3_R
-  SEL_AB | B5           B6 | COL_0_1_R
-        +-----------------+
+                     ====
+             +-------====------+
+             | D3/TXO      RAW |
+             | D2/RXI      GND |
+             | GND         RST |
+             | GND         Vcc |
+DEBUG_MSCAN  | D1/SDA       F4 | COL_0_1_L
+DEBUG_MDELAY | D0/SCL       F5 | COL_2_3_L
+       ROW_0 | D4           F6 | COL_4_5_L
+       ROW_1 | C6           F7 | COL_6_7_L
+       ROW_2 | D7       SCK/B1 | COL_6_7_R
+       ROW_3 | E6      MISO/B3 | COL_4_5_R
+       ROW_4 | B4      MOSI/B2 | COL_2_3_R
+      SEL_AB | B5           B6 | COL_0_1_R
+             +-----------------+
 ***************************************/
 
 
@@ -147,6 +147,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_COLUMN 0
 
 #ifdef DEBUG_CONFIG
-#    define MATRIX_DEBUG_PIN D3
+#    define MATRIX_DEBUG_PIN D1,D0
 #    include "../debug_config.h"
 #endif

@@ -26,8 +26,10 @@ endif
 
 ifeq ($(strip $(MATRIX_OVERRIDE)),yes)
     SRC += matrix_read_cols_on_row.c
+    OPT_DEFS += -DMATRIX_OVERRIDE # only for users/mtei/debug_config.h
     ifeq ($(strip $(DEBUG_ON_TEST_BENCH)),yes)
         OPT_DEFS += -DDEBUG_ON_TEST_BENCH
+        OPT_DEFS += -DDEBUG_CONFIG
     endif
     ifeq ($(strip $(CUSTOM_MATRIX_DELAY)),adaptive)
         OPT_DEFS += -DMATRIX_IO_DELAY_TYPE=ADAPTIVE_TO_INPUT
@@ -39,7 +41,8 @@ ifeq ($(strip $(MATRIX_OVERRIDE)),yes)
         OPT_DEFS += -DMATRIX_IO_DELAY_TYPE=FORCE_INPUT_UP_TO_VCC
     endif
     ifeq ($(strip $(DIFF_HAND)),yes)
-        OPT_DEFS += -DDIFF_HAND
+        OPT_DEFS += -DDIFF_HAND # only for users/mtei/debug_config.h
+        OPT_DEFS += -DDEBUG_CONFIG
     endif
 endif
 

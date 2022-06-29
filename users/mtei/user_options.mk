@@ -19,8 +19,18 @@
 #                 type=no,ondemand
 #    enc:         ENCODER enable
 #    no-enc:      ENCODER disable
+#    debug:       debug enable (Causes users/mtei/debug_config.h to be included.)
 #    debug-uart:  UART TX for debug enable
 #
+
+# examples for testing matrix_read_cols_on_row.c
+#   make USROPT=dispoff,matrix-override,mdelay_type=adaptive helix/rev3_5rows:five_rows
+#   make USROPT=dispoff,matrix-override,mdelay_type=time,mdelay=30 helix/rev3_5rows:five_rows
+#   make USROPT=dispoff,matrix-override,mdelay_type=ipullup helix/rev3_5rows:five_rows
+#   make USROPT=dispoff,matrix-override,mdelay_type=adaptive,debug-bench helix/rev3_5rows:five_rows
+#   make USROPT=dispoff,matrix-override,mdelay_type=adaptive,debug helix/rev3_5rows:five_rows
+#   make USROPT=dispoff,matrix-override,mdelay_type=adaptive,debug,debug-uart helix/rev3_5rows:five_rows
+
 ifneq ($(strip $(USROPT)),)
   define USER_OPTION_PARSE
     # parse 'debug', 'no-debug', 'dispoff', 'consle', 'scan', 'no-scan', 'scan-api',

@@ -87,7 +87,7 @@ void test_scan(void) {
 //         Row2 | D7       SCK/B1 | Col4
 //         Row3 | E6      MISO/B3 | Col5
 //         Row4 | B4      MOSI/B2 | Col6
-//              | B5           B6 |
+//    DEBUG_PIN | B5           B6 |
 //              +-----------------+
 
 void dump_ATmega32U4_gpio(void) {

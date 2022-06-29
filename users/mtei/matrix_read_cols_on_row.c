@@ -2,13 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /* expand macro test command
-gcc --include testconfig.h  -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c | sed '1,/^..-expand-start-/d'
+gcc --include <test_config.h> -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c 2>/tmp/err | sed '1,/^..-expand-start-/d' | cat - /tmp/err | less
 */
-
-#ifndef DEBUG_UART_LOG
-#    define DEBUG_UART_LOG_INIT(x)
-#    define DEBUG_UART_LOG(x)
-#endif
 
 #ifdef DIRECT_PIN
 #    error DIRECT_PIN is not yet supported.
@@ -17,6 +12,46 @@ gcc --include testconfig.h  -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c | 
 #  if DIODE_DIRECTION == ROW2COL
 #     error DIODE_DIRECTION == ROW2COL is not yet supported.
 #  endif
+#endif
+
+#ifdef DEBUG_UART_LOG
+#    pragma message "DEBUG_UART_LOG on"
+#else
+#    define DEBUG_UART_LOG_INIT(x)
+#    define DEBUG_UART_LOG(x)
+#endif
+
+/* DEBUG_PIN_*() macros defined in users/mtei/debug_config.h */
+#ifdef DEBUG_PIN_INIT
+#    pragma message "debug mode of matrix_read_cols_on_row.c"
+#    define DEBUG_PIN_ENABLE
+#else
+#    define DEBUG_PIN_INIT()
+#    define DEBUG_PIN_ON()
+#    define DEBUG_PIN_OFF()
+#    define DEBUG_PIN_WAIT(n)
+#endif
+
+/* MATRIX_DEBUG_*() macros defined in <keyboard>/config.h or <keyboard>/debug_config.h */
+#ifndef MATRIX_DEBUG_PIN_INIT
+#    define MATRIX_DEBUG_PIN_INIT()
+#endif
+#ifdef MATRIX_DEBUG_SCAN_START
+#    pragma message "MATRIX_DEBUG_SCAN_* enable"
+#    define DEBUG_PIN_ENABLE
+#else
+#    define MATRIX_DEBUG_SCAN_START()
+#    define MATRIX_DEBUG_SCAN_END()
+#endif
+#ifdef MATRIX_DEBUG_DELAY_START
+#    pragma message "MATRIX_DEBUG_DELAY_* enable"
+#    define DEBUG_PIN_ENABLE
+#else
+#    define MATRIX_DEBUG_DELAY_START()
+#    define MATRIX_DEBUG_DELAY_END()
+#endif
+#ifndef MATRIX_DEBUG_GAP
+#    define MATRIX_DEBUG_GAP(n)
 #endif
 
 #define WAIT_SPECIFIED_TIME 1
@@ -32,8 +67,6 @@ gcc --include testconfig.h  -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c | 
 #define GET_ITEM_2(...) _GET_ITEM_2(__VA_ARGS__)
 #define _REMOVE_OUTER_PARENTHESES(...) __VA_ARGS__
 #define REMOVE_OUTER_PARENTHESES(x)  _REMOVE_OUTER_PARENTHESES x
-#define WRAP_BRACE(...) {__VA_ARGS__}
-#define PARENTHESES_to_BRACE(x) WRAP_BRACE(REMOVE_OUTER_PARENTHESES(x))
 
 #ifndef SWITCH_MATRIX_INPUT_0
 #    error SWITCH_MATRIX_INPUT_0 undefined
@@ -87,7 +120,12 @@ enum DEVICE_NAME {
 #    include "matrix.h"
 #    include "atomic_util.h"
 #    include "gpio.h"
-#    include "gpio_extr.h"
+#    ifndef readPort
+#        include "gpio_extr.h"
+#    endif
+#    ifndef readPort
+#        error matrix_read_cols_on_row.c requires readPort() and related macros.
+#    endif
 #    ifdef SPLIT_KEYBOARD
 //  import: volatile bool isLeftHand
 #         include "split_common/split_util.h"
@@ -125,16 +163,21 @@ enum DEVICE_NAME {
 #    endif
 #endif
 
-#ifdef MATRIX_DELAY_DEBUG_PIN
-#  define DEBUG_PIN_INIT()  setPinOutput(MATRIX_DELAY_DEBUG_PIN);  writePinLow(MATRIX_DELAY_DEBUG_PIN)
-#  define DEBUG_PIN_ON()    writePinHigh(MATRIX_DELAY_DEBUG_PIN)
-#  define DEBUG_PIN_OFF()   writePinLow(MATRIX_DELAY_DEBUG_PIN)
-#  define DEBUG_PIN_WAIT(n) wait_cpuclock(n);
-#else
-#  define DEBUG_PIN_INIT()
-#  define DEBUG_PIN_ON()
-#  define DEBUG_PIN_OFF()
-#  define DEBUG_PIN_WAIT(n)
+#ifdef CPP_EXPAND_TEST
+    "INPUT_PORTS_0" is INPUT_PORTS_0
+    "INPUT_PINS_0" is INPUT_PINS_0
+    "OUTPUT_PORTS_0" is OUTPUT_PORTS_0
+    "OUTPUT_PINS_0" is OUTPUT_PINS_0
+#    if NUM_SIDE == 2
+    "INPUT_PORTS_1" is INPUT_PORTS_1
+    "INPUT_PINS_1" is INPUT_PINS_1
+    "OUTPUT_PORTS_1" is OUTPUT_PORTS_1
+    "OUTPUT_PINS_1" is OUTPUT_PINS_1
+#    endif
+    "MAX_NUM_INPUT_PINS" is MAX_NUM_INPUT_PINS
+    "MAX_NUM_INPUT_PORTS" is MAX_NUM_INPUT_PORTS
+    "MAX_NUM_OUTPUT_PINS" is MAX_NUM_OUTPUT_PINS
+    "MAX_NUM_OUTPUT_PORTS" is MAX_NUM_OUTPUT_PORTS
 #endif
 
 #define ALWAYS_INLINE __attribute__((always_inline)) inline
@@ -160,7 +203,7 @@ typedef struct _port_pin_list_element_t {
     pin_list_element_t  opins[MAX_NUM_OUTPUT_PINS];
 } port_pin_list_element_t;
 
-#define GEN_PORT_PIN_LIST(x) PARENTHESES_to_BRACE(x),
+#define GEN_PORT_PIN_LIST(x) { REMOVE_OUTER_PARENTHESES(x) },
 
 const static port_pin_list_element_t minfo[] = {
     [0] = {
@@ -490,6 +533,7 @@ funcp_build_line build_line = build_line_0;
 void matrix_init_pins(void) {
     DEBUG_PIN_INIT();
     DEBUG_UART_LOG_INIT(0);
+    MATRIX_DEBUG_PIN_INIT();
 #if NUM_SIDE == 2
     bool is_side1 = !isLeftHand;
     if (is_side1) {
@@ -525,28 +569,42 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     key_pressed = mask_and_adjust_pins(port_buffer);
     DEBUG_PIN_ON();
 #if MATRIX_IO_DELAY_TYPE == WAIT_SPECIFIED_TIME
-    //#    pragma message "WAIT_SPECIFIED_TIME"
+#ifdef DEBUG_PIN_ENABLE
+#    pragma message "WAIT_SPECIFIED_TIME"
+#endif
     if (key_pressed) {
         current_row_value = build_line(port_buffer);
     }
+    MATRIX_DEBUG_DELAY_START();
     matrix_output_unselect_delay(current_row, key_pressed);
+    MATRIX_DEBUG_DELAY_END();
 #endif
 #if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
-    //#    pragma message "FORCE_INPUT_UP_TO_VCC"
+#ifdef DEBUG_PIN_ENABLE
+#    pragma message "FORCE_INPUT_UP_TO_VCC"
+#endif
     if (key_pressed) {
+        MATRIX_DEBUG_DELAY_START();
         input_port_charge();
+        MATRIX_DEBUG_DELAY_END();
         current_row_value = build_line(port_buffer);
     }
 #endif
 #if MATRIX_IO_DELAY_TYPE == ADAPTIVE_TO_INPUT
-    //#    pragma message "ADAPTIVE_TO_INPUT"
+#ifdef DEBUG_PIN_ENABLE
+#    pragma message "ADAPTIVE_TO_INPUT"
+#endif
     if (key_pressed) {
         current_row_value = build_line(port_buffer);
         // wait unselect done
+        MATRIX_DEBUG_DELAY_START();
         while (key_pressed) {
+            MATRIX_DEBUG_DELAY_END();
             read_all_pins(port_buffer);
             key_pressed = mask_and_adjust_pins(port_buffer);
+            MATRIX_DEBUG_DELAY_START();
         }
+        MATRIX_DEBUG_DELAY_END();
     }
 #endif
     // Update the matrix
@@ -555,5 +613,6 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 #ifdef DEBUG_ON_TEST_BENCH
-#include "matrix_testbench.c"
+#    pragma message "DEBUG_ON_TEST_BENCH enable"
+#    include "matrix_testbench.c"
 #endif
