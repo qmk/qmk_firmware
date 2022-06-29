@@ -183,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
             } else {
                 SEND_STRING("[SHIFT]-[DEL]"SS_TAP(X_ENT));
             }
-            SEND_STRING(SS_TAP(X_ENT)"The latest firmware updates are always here: https://github.com/gourdo1/gmmkpro-media: "SS_TAP(X_ENT));
+            SEND_STRING(SS_TAP(X_ENT)"The latest firmware updates are always here: https://github.com/gourdo1/gmmkpro-media"SS_TAP(X_ENT));
         }
         break;
 
