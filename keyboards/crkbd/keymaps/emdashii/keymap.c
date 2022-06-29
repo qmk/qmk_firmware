@@ -60,8 +60,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAVIGATION] = LAYOUT_split_3x6_3(
       TABLGUI, KC_PGUP,  KC_HOME,  KC_UP,  KC_END, KC_BTN1,                      KC_ACL0, KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX, KC_BSPC,
       LQWERTY, KC_PGDN,  KC_LEFT,KC_DOWN, KC_RGHT, KC_BTN3,                      KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,  KC_DEL,
-      KC_LSFT,  KC_INS, XXXXXXX, TABBKWD, TABFWRD, KC_BTN2,                      KC_ACL2, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX,  KC_ESC,
+      KC_LSFT,  KC_INS, LOSLFUN, TABBKWD, TABFWRD, KC_BTN2,                      KC_ACL2, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX,  KC_ESC,
                                           KC_LALT, CTRLSPC, CTRLSFT,    LQWERTY, CTRLSPC, TO(_ADJUST)
+
+  ),
+
+// Gaming
+//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+//  | Tab    |   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    | Bksp   |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  | Shift  |   A    |   S    |   D    |   F    |   G    |                    |   H    |   J    |   K    |   L    |   ;    |   '    |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  | Ctrl   |   Z    |   X    |   C    |   V    |   B    |                    |   N    |   M    |   ,    |   .    |   /    |  Esc   |
+//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+//                                      |   F3   | Space  |Fun/Num |  | QWERTY | Spc/Num| Enter  |
+//                                      `--------------------------'  `--------------------------'
+  [_GAMING] = LAYOUT_split_3x6_3(
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
+                                            KC_F3,  KC_SPC, LNUMSPC,     LQWERTY, LOSLFUN,  KC_ENT
 
   ),
 
@@ -135,24 +153,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                  TO(_NUMBER), XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID, KC_VOLD,
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      SQWERTY, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE,
                                           XXXXXXX, XXXXXXX, XXXXXXX,    LQWERTY, TO(_NAVIGATION), TO(_GAMING)
-  ),
-
-// Gaming
-//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  | Tab    |   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    | Bksp   |
-//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | Shift  |   A    |   S    |   D    |   F    |   G    |                    |   H    |   J    |   K    |   L    |   ;    |   '    |
-//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | Ctrl   |   Z    |   X    |   C    |   V    |   B    |                    |   N    |   M    |   ,    |   .    |   /    |  Esc   |
-//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |   F3   | Space  |Fun/Num |  | QWERTY | Spc/Num| Enter  |
-//                                      `--------------------------'  `--------------------------'
-  [_GAMING] = LAYOUT_split_3x6_3(
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
-                                            KC_F3,  KC_SPC, LNUMSPC,     LQWERTY, LOSLFUN,  KC_ENT
-
   )
 };
 

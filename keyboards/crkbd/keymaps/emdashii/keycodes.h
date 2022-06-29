@@ -19,11 +19,11 @@
 enum crkbd_layers {
   _QWERTY,
   _NAVIGATION,
+  _GAMING,
   _NUMBER,
   _SYMBOL,
   _FUNCTION,
-  _ADJUST,
-  _GAMING
+  _ADJUST
 };
 
 
