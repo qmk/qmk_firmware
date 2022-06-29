@@ -1,1 +1,1 @@
-# The default_p2 keymap for bemini
+# The default p2 keymap for bemini

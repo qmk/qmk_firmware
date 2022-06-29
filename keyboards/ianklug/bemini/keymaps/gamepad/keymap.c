@@ -18,25 +18,22 @@
 #include "joystick.h"
 #include "timer.h"
 
-// how long to wait (ms) between pulses before releasing encoder hold in bms/keyboard modes
-#define ENC_HOLD_TIME 50
-
-// joystick axes
+/* joystick axes */
 joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
     [0] = JOYSTICK_AXIS_VIRTUAL,
     [1] = JOYSTICK_AXIS_VIRTUAL
 };
 
-// encoder
+/* encoder state */
 int x_axis_val = 0;
 int enc_reverse = 0;
 uint16_t hold_timer = 0;
 uint16_t held_keycode = 0;
 
-// toggle button
+/* toggle button state */
 bool is_toggled = 0;
 
-// layer state
+/* layer state */
 bool is_player_two = 0;
 int mode_swap = 0;
 int mode_swap_p2 = 0;
@@ -46,24 +43,25 @@ bool mode_swap_bms = 0;
 bool mode_swap_keyboard = 0;
 bool mode_swap_ninekey = 0;
 
-//	bemini v1 key layout, player 1 configuration
-//      .-----------------------------------------------------------------------------------------.
-//      |                                                                                         |
-//      |                                    .-------.-------.-------.-------.        .-------.   |
-//      |                                    |       |       |       |       |        |       |   |
-//      |                                    |       |       |       |       |        |  K12  |   |
-//      |                                    |  K02  |  K04  |  K06  |  K08  |        |       |   |
-//      |            .-------.               |       |       |       |       |        +-------+   |
-//      |            |       |               |       |       |       |       |        |       |   |
-//      |            |K13/ENC|           .---+---+---+---+---+---+---+---+---+---.    |  K11  |   |
-//      |            |       |           |       |       |       |       |       |    |       |   |
-//      |            '-------'           |       |       |       |       |       |    +-------+   |
-//      |                                |  K01  |  K03  |  K05  |  K07  |  K09  |    |       |   |
-//      |                                |       |       |       |       |       |    |  K10  |   |
-//      |                                |       |       |       |       |       |    |       |   |
-//      |                                '-------'-------'-------'-------'-------'    '-------'   |
-//      |                                                                                         |
-//      '-----------------------------------------------------------------------------------------'
+/*	bemini key layout, player 1 configuration
+ *      .-----------------------------------------------------------------------------------------.
+ *      |                                                                                         |
+ *      |                                    .-------.-------.-------.-------.        .-------.   |
+ *      |                                    |       |       |       |       |        |       |   |
+ *      |                                    |       |       |       |       |        |  K12  |   |
+ *      |                                    |  K02  |  K04  |  K06  |  K08  |        |       |   |
+ *      |            .-------.               |       |       |       |       |        +-------+   |
+ *      |            |       |               |       |       |       |       |        |       |   |
+ *      |            |K13/ENC|           .---+---+---+---+---+---+---+---+---+---.    |  K11  |   |
+ *      |            |       |           |       |       |       |       |       |    |       |   |
+ *      |            '-------'           |       |       |       |       |       |    +-------+   |
+ *      |                                |  K01  |  K03  |  K05  |  K07  |  K09  |    |       |   |
+ *      |                                |       |       |       |       |       |    |  K10  |   |
+ *      |                                |       |       |       |       |       |    |       |   |
+ *      |                                '-------'-------'-------'-------'-------'    '-------'   |
+ *      |                                                                                         |
+ *      '-----------------------------------------------------------------------------------------'
+ */
 
 enum custom_keycodes {
     TOGGLE_BUTTON = SAFE_RANGE,
@@ -83,7 +81,7 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//	K01          K02          K03          K04          K05          K06          K07          K08          K09          K10          K11          K12          K13
+/*	K01          K02          K03          K04          K05          K06          K07          K08          K09          K10          K11          K12          K13           */
     [STANDARD_P1] = LAYOUT(
 	JS_BUTTON12, JS_BUTTON13, JS_BUTTON0,  JS_BUTTON1,  JS_BUTTON2,  JS_BUTTON3,  JS_BUTTON4,  JS_BUTTON5,  JS_BUTTON6,  JS_BUTTON10, JS_BUTTON9,  JS_BUTTON8,  TOGGLE_BUTTON
     ),
@@ -116,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// set player state from eeprom on boot
+/* set player state from eeprom on boot */
 void matrix_init_user(void) {
     eeconfig_read_default_layer();
     if (biton32(default_layer_state) == STANDARD_P2) {
@@ -124,8 +122,9 @@ void matrix_init_user(void) {
     }
 }
 
-// manage encoder hold/release behavior (bms, keyboard modes)
-// hold while rotating, release hold when rotation stops
+/* manage encoder hold/release behavior (bms, keyboard modes)
+ * hold while rotating, release hold when rotation stops
+ */
 void matrix_scan_user(void) {
     if (hold_timer != 0) {
         if (timer_elapsed(hold_timer) > ENC_HOLD_TIME) {
@@ -142,7 +141,7 @@ void matrix_scan_user(void) {
     }
 }
 
-// encoder behavior
+/* encoder behavior */
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (layer_state_is(STANDARD_P1) || layer_state_is(STANDARD_P2)) {
@@ -191,7 +190,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else if (x_axis_val != x_axis_input) {
                 enc_reverse++;
 
-		// require two consecutive reverse signals to change direction
+		/* require two consecutive reverse signals to change direction */
         	if (enc_reverse > 1) {
 	            x_axis_val = x_axis_input;
 	            joystick_status.axes[0] = x_axis_input;
@@ -221,7 +220,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else if (held_keycode != mapped_code) {
 	        enc_reverse++;
 
-        	// require two consecutive reverse signals to change direction
+        	/* require two consecutive reverse signals to change direction */
 	        if (enc_reverse > 1) {
                     unregister_code(held_keycode);
                     register_code(mapped_code);
@@ -252,7 +251,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else if (held_keycode != mapped_code) {
 	        enc_reverse++;
 
-        	// require two consecutive reverse signals to change direction
+        	/* require two consecutive reverse signals to change direction */
 	        if (enc_reverse > 1) {
                     unregister_code(held_keycode);
                     register_code(mapped_code);
@@ -267,43 +266,32 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 hold_timer = timer_read();
             }
         } else if (layer_state_is(NINEKEY_P1) || layer_state_is(NINEKEY_P2)) {
-            // not bound
+            /* not bound */
         }
     }
     return true;
 }
 
-// custom keypress behavior
+/* custom keypress behavior */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
         case TOGGLE_BUTTON:
-	    // K13
 	    if (layer_state_is(STANDARD_P1) || layer_state_is(STANDARD_P2)) {
                 if (record->event.pressed) {
                     is_toggled ^= 1;
 	            if (is_toggled) {
-			// zero-indexed button id
-			uint8_t joystick_button = 14;
-			joystick_status.buttons[joystick_button / 8] |= 1 << (joystick_button % 8);
-			joystick_status.status |= JS_UPDATED;
+			register_joystick_button(14);
                     } else {
-			uint8_t joystick_button = 15;
-			joystick_status.buttons[joystick_button / 8] |= 1 << (joystick_button % 8);
-			joystick_status.status |= JS_UPDATED;
+			register_joystick_button(15);
                     }
 	        } else {
 	            if (is_toggled) {
-			uint8_t joystick_button = 14;
-			joystick_status.buttons[joystick_button / 8] &= ~(1 << (joystick_button % 8));
-			joystick_status.status |= JS_UPDATED;
+			unregister_joystick_button(14);
                     } else {
-			uint16_t joystick_button = 15;
-			joystick_status.buttons[joystick_button / 8] &= ~(1 << (joystick_button % 8));
-			joystick_status.status |= JS_UPDATED;
+			unregister_joystick_button(15);
                     }
 	        }
 	    } else if (layer_state_is(INVERTED_P1)) {
-		// inverted p1
                 if (record->event.pressed) {
                     is_toggled ^= 1;
 	            if (is_toggled) {
@@ -319,7 +307,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
 	        }
 	    } else if (layer_state_is(INVERTED_P2)) {
-		//inverted p2
                 if (record->event.pressed) {
                     is_toggled ^= 1;
 	            if (is_toggled) {
@@ -338,24 +325,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) {
                     is_toggled ^= 1;
                     if (is_toggled) {
-			// zero-indexed button id
-                        uint8_t joystick_button = 14;
-                        joystick_status.buttons[joystick_button / 8] |= 1 << (joystick_button % 8);
-                        joystick_status.status |= JS_UPDATED;
+			register_joystick_button(14);
                     } else {
-                        uint8_t joystick_button = 15;
-                        joystick_status.buttons[joystick_button / 8] |= 1 << (joystick_button % 8);
-                        joystick_status.status |= JS_UPDATED;
+			register_joystick_button(15);
                     }
                 } else {
                     if (is_toggled) {
-                        uint8_t joystick_button = 14;
-                        joystick_status.buttons[joystick_button / 8] &= ~(1 << (joystick_button % 8));
-                        joystick_status.status |= JS_UPDATED;
+			unregister_joystick_button(14);
                     } else {
-                        uint16_t joystick_button = 15;
-                        joystick_status.buttons[joystick_button / 8] &= ~(1 << (joystick_button % 8));
-                        joystick_status.status |= JS_UPDATED;
+			unregister_joystick_button(15);
                     }
                 }
 	    } else if (layer_state_is(KEYBOARD_P1)) {
@@ -389,53 +367,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
 	        }
 	    } else if (layer_state_is(NINEKEY_P1) || layer_state_is(NINEKEY_P2)) {
-		// unbound
+		/* not bound */
 	    }
             break;
 	case KC_E: case KC_R: case KC_T: case KC_O: case KC_P: case KC_LBRC: case JS_BUTTON8: case JS_BUTTON9: case JS_BUTTON10: case JS_BUTTON11:
-	    // K10, K11, K12
+	    /* K10, K11, K12 */
             if (record->event.pressed)
                 mode_swap++;
             else
                 mode_swap--;
 	    break;
 	case KC_A: case KC_DOT: case JS_BUTTON12: case JS_BUTTON13:
-	    // White 1
+	    /* White 1 */
 	    if (record->event.pressed)
                 mode_swap_ninekey = 1;
             else
                 mode_swap_ninekey = 0;
             break;
 	case KC_D: case KC_Z: case JS_BUTTON0:
-	    // White 2
+	    /* White 2 */
 	    if (record->event.pressed)
                 mode_swap_standard = 1;
             else
                 mode_swap_standard = 0;
             break;
 	case KC_G: case KC_C: case JS_BUTTON2:
-	    // White 3
+	    /* White 3 */
 	    if (record->event.pressed)
                 mode_swap_inverted = 1;
             else
                 mode_swap_inverted = 0;
             break;
 	case KC_J: case KC_B: case JS_BUTTON4:
-	    // White 4
+	    /* White 4 */
 	    if (record->event.pressed)
                 mode_swap_bms = 1;
             else
                 mode_swap_bms = 0;
             break;
 	case KC_L: case KC_M: case JS_BUTTON6:
-	    // White 5
+	    /* White 5 */
 	    if (record->event.pressed)
                 mode_swap_keyboard = 1;
             else
                 mode_swap_keyboard = 0;
             break;
 	case KC_F: case KC_H: case KC_N: case KC_V: case JS_BUTTON1: case JS_BUTTON3: case JS_BUTTON5:
-	    // Black 2 + Black 3
+	    /* Black 2 + Black 3 */
 	    if (record->event.pressed)
                 mode_swap_p2++;
             else
@@ -443,11 +421,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
-    // switch active layer when any white key + e keys are pressed
-    // switch player mode when middle two black keys + e keys are pressed
+    /* switch active layer when any white key + e keys are pressed
+     * switch player mode when middle two black keys + e keys are pressed
+     */
     if (mode_swap == 3) {
-
-	// save default player mode to eeprom
+	/* save default player mode to eeprom */
 	if (mode_swap_p2 == 2) {
 	    is_player_two ^= 1;
 	    if (is_player_two) {
@@ -485,7 +463,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	    }
 	}
 
-	// reset everything after layer switch
+	/* reset everything after layer switch */
         x_axis_val = 0;
         hold_timer = 0;
         held_keycode = 0;
