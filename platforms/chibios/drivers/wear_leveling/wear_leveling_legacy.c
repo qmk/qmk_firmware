@@ -25,8 +25,8 @@ bool backing_store_erase(void) {
 
     bool         ret = true;
     FLASH_Status status;
-    for (int i = 0; i < (EMULATED_EEPROM_PAGE_COUNT); ++i) {
-        status = FLASH_ErasePage(EMULATED_EEPROM_BASE_PAGE_ADDRESS + (i * (EMULATED_EEPROM_PAGE_SIZE)));
+    for (int i = 0; i < (WEAR_LEVELING_LEGACY_EMULATION_PAGE_COUNT); ++i) {
+        status = FLASH_ErasePage(WEAR_LEVELING_LEGACY_EMULATION_BASE_PAGE_ADDRESS + (i * (WEAR_LEVELING_LEGACY_EMULATION_PAGE_SIZE)));
         if (status != FLASH_COMPLETE) {
             ret = false;
         }
@@ -37,9 +37,9 @@ bool backing_store_erase(void) {
 }
 
 bool backing_store_write(uint32_t address, backing_store_int_t value) {
-    uint32_t offset = ((EMULATED_EEPROM_BASE_PAGE_ADDRESS) + address);
+    uint32_t offset = ((WEAR_LEVELING_LEGACY_EMULATION_BASE_PAGE_ADDRESS) + address);
     bs_dprintf("Write ");
-    wl_dump(offset, &value, 2);
+    wl_dump(offset, &value, sizeof(backing_store_int_t));
     return FLASH_ProgramHalfWord(offset, ~value) == FLASH_COMPLETE;
 }
 
@@ -50,7 +50,7 @@ bool backing_store_lock(void) {
 }
 
 bool backing_store_read(uint32_t address, backing_store_int_t* value) {
-    uint32_t             offset = ((EMULATED_EEPROM_BASE_PAGE_ADDRESS) + address);
+    uint32_t             offset = ((WEAR_LEVELING_LEGACY_EMULATION_BASE_PAGE_ADDRESS) + address);
     backing_store_int_t* loc    = (backing_store_int_t*)offset;
     *value                      = ~(*loc);
     bs_dprintf("Read  ");

@@ -7,9 +7,9 @@
 #include "wear_leveling.h"
 #include "wear_leveling_internal.h"
 
-#ifndef FLASH_SPI_BULK_ITEM_COUNT
-#    define FLASH_SPI_BULK_ITEM_COUNT 32
-#endif // FLASH_SPI_BULK_ITEM_COUNT
+#ifndef WEAR_LEVELING_EXTERNAL_FLASH_BULK_COUNT
+#    define WEAR_LEVELING_EXTERNAL_FLASH_BULK_COUNT 32
+#endif // WEAR_LEVELING_EXTERNAL_FLASH_BULK_COUNT
 
 bool backing_store_init(void) {
     bs_dprintf("Init\n");
@@ -71,10 +71,10 @@ bool backing_store_read_bulk(uint32_t address, backing_store_int_t *values, size
 bool backing_store_write_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
     uint32_t            offset = (WEAR_LEVELING_EXTERNAL_FLASH_BLOCK_OFFSET) * (EXTERNAL_FLASH_BLOCK_SIZE) + address;
     size_t              index  = 0;
-    backing_store_int_t temp[FLASH_SPI_BULK_ITEM_COUNT];
+    backing_store_int_t temp[WEAR_LEVELING_EXTERNAL_FLASH_BULK_COUNT];
     do {
         // Copy out the block of data we want to transmit first
-        size_t this_loop = MIN(item_count, FLASH_SPI_BULK_ITEM_COUNT);
+        size_t this_loop = MIN(item_count, WEAR_LEVELING_EXTERNAL_FLASH_BULK_COUNT);
         for (size_t i = 0; i < this_loop; ++i) {
             temp[i] = values[index + i];
         }

@@ -6,7 +6,7 @@
 #    include <hal.h>
 #endif
 
-// Work out how many bytes per write
+// Work out how many bytes per write to internal flash
 #ifndef BACKING_STORE_WRITE_SIZE
 // These need to match EFL's XXXXXX_FLASH_LINE_SIZE, see associated code in `lib/chibios/os/hal/ports/**/hal_efl_lld.c`,
 // or associated `stm32_registry.h` for the MCU in question (or equivalent for the family).
@@ -39,12 +39,12 @@
 #    endif
 #endif
 
-// 4kB space allocated
+// 2kB backing space allocated
 #ifndef WEAR_LEVELING_BACKING_SIZE
-#    define WEAR_LEVELING_BACKING_SIZE 4096
+#    define WEAR_LEVELING_BACKING_SIZE 2048
 #endif // WEAR_LEVELING_BACKING_SIZE
 
-// 2kB logical EEPROM
+// 1kB logical EEPROM
 #ifndef WEAR_LEVELING_LOGICAL_SIZE
-#    define WEAR_LEVELING_LOGICAL_SIZE 2048
+#    define WEAR_LEVELING_LOGICAL_SIZE 1024
 #endif // WEAR_LEVELING_LOGICAL_SIZE
