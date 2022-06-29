@@ -226,12 +226,12 @@ void cirque_pinnacle_init(void) {
     RAP_Write(HOSTREG__ZIDLE, 5);
 
     cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
-    // Force a calibration after setting ADC attenuation
-    cirque_pinnacle_calibrate();
-
 #ifdef CIRQUE_PINNACLE_CURVED_OVERLAY
     cirque_pinnacle_tune_edge_sensitivity();
 #endif
+    // Force a calibration after setting ADC attenuation
+    cirque_pinnacle_calibrate();
+
     cirque_pinnacle_enable_feed(true);
 }
 
