@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT_ortho_5x15(
         DB_TOGG,    KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  LGUI(KC_0), LGUI(KC_0), KC_F6,  KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_NO,   KC_DEL,
-        KC_NO,      KC_F11,  KC_F12,  KC_F13,  KC_F14, KC_F15, KC_NO,      KC_NO,      KC_F16, KC_F17, KC_F18,  KC_F19,  KC_F20,  KC_NO,   KC_NO,
+        RGB_TOG,    KC_F11,  KC_F12,  KC_F13,  KC_F14, KC_F15, KC_NO,      KC_NO,      KC_F16, KC_F17, KC_F18,  KC_F19,  KC_F20,  KC_NO,   KC_NO,
         HYPR(KC_H), KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,  KC_NO,  KC_NO,      KC_NO,      KC_F21, KC_F22, KC_F23,  KC_F24,  KC_NO,   KC_NO,   KC_NO,
         KC_TRNS,    KC_MPRV, KC_MPLY, KC_MNXT, KC_NO,  KC_NO,  KC_NO,      KC_NO,      KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_PGUP, KC_TRNS,
         KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, MO(15), KC_NO,  KC_NO,      KC_NO,      KC_NO,  MO(15), KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END
@@ -49,14 +49,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-    [7] = LAYOUT_ortho_5x15(
 
+
+    [3] = LAYOUT_ortho_5x15(
+        // Chromatic Scale       Vertical  Typing 60
+        //      1,        2,        3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
+        KC_ESC, MI_C,     MI_E,     MI_Gs,    MI_C_1,   MI_E_1,   KC_NO,    KC_NO,    MI_Gs_1,  MI_C_2,   MI_E_2,   MI_Gs_2,  MI_C_3,   MI_E_3,   MI_TRNS_0,
+        KC_TAB, MI_Cs,    MI_F,     MI_A,     MI_Cs_1,  MI_F_1,   KC_NO,    KC_NO,    MI_A_1,   MI_Cs_2,  MI_F_2,   MI_A_2,   MI_Cs_3,  MI_F_3,   MI_TRNSU,
+        KC_SPC, MI_D,     MI_Fs,    MI_As,    MI_D_1,   MI_Fs_1,  KC_NO,    KC_NO,    MI_As_1,  MI_D_2,   MI_Fs_2,  MI_As_2,  MI_D_3,   MI_Fs_3,  MI_TRNSD,
+        MI_SUS, MI_Ds,    MI_G,     MI_B,     MI_Ds_1,  MI_G_1,   KC_NO,    KC_NO,    MI_B_1,   MI_Ds_2,  MI_G_2,   MI_B_2,   MI_Ds_3,  MI_G_3,   MI_OCTU,
+        MO(15), KC_LCTL,  KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,    MI_MODSD, MI_MODSU, MI_OCTD
+    ),
+
+
+    [4] = LAYOUT_ortho_5x15(
+        // Pocket Operator Scale Vertical  Typing 60
+        //      1,       2,       3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
+        KC_ESC, MI_C,    MI_G,    MI_C_1,   MI_G_1,   MI_C_2,   KC_NO,    KC_NO,    MI_G_2,   MI_C_3,   MI_G_3,   MI_C_4,   MI_G_4,  MI_C_5,    MI_TRNS_0,
+        KC_TAB, MI_D,    MI_Gs,   MI_D_1,   MI_Gs_1,  MI_D_2,   KC_NO,    KC_NO,    MI_Gs_2,  MI_D_3,   MI_Gs_3,  MI_D_4,   MI_Gs_4, MI_D_5,    MI_TRNSU,
+        KC_SPC, MI_Ds,   MI_As,   MI_Ds_1,  MI_As_1,  MI_Ds_2,  KC_NO,    KC_NO,    MI_As_2,  MI_Ds_3,  MI_As_3,  MI_Ds_4,  MI_As_4, MI_Ds_5,   MI_TRNSD,
+        MI_SUS, MI_F,    MI_B,    MI_F_1,   MI_B_1,   MI_F_2,   KC_NO,    KC_NO,    MI_B_2,   MI_F_3,   MI_B_3,   MI_F_4,   MI_B_4,  MI_F_5,    MI_OCTU,
+        MO(15), KC_LCTL, KC_LALT, KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,    MI_MODSD, MI_MODSU, MI_OCTD
+    ),
+
+    [5] = LAYOUT_ortho_5x15(
+        // Major scale           Vertical  Typing 60
+        //      1,       2,       3,       4,        5,       6,       7,       8,       9,        10,       11,     12,
+        KC_ESC, MI_C,    MI_G,    MI_D_1,  MI_A_1,   MI_E_2,  KC_NO,   KC_NO,   MI_B_2,  MI_F_3,  MI_C_4,  MI_G_4,   MI_D_5,   MI_A_5,   MI_TRNS_0,
+        KC_TAB, MI_D,    MI_A,    MI_E_1,  MI_B_1,   MI_F_2,  KC_NO,   KC_NO,   MI_C_3,  MI_G_3,  MI_D_4,  MI_A_4,   MI_E_5,   MI_B_5,   MI_TRNSU,
+        KC_SPC, MI_E,    MI_B,    MI_F_1,  MI_C_2,   MI_G_2,  KC_NO,   KC_NO,   MI_D_3,  MI_A_3,  MI_E_4,  MI_B_4,   MI_F_5,   KC_NO,    MI_TRNSD,
+        MI_SUS, MI_F,    MI_C_1,  MI_G_1,  MI_D_2,   MI_A_2,  KC_NO,   KC_NO,   MI_E_3,  MI_B_3,  MI_F_4,  MI_C_5,   MI_G_5,   KC_NO,    MI_OCTU,
+        MO(15), KC_LCTL, KC_LALT, KC_LGUI, MI_BENDD, MI_SUS,  MI_SUS,  MI_SUS,  MI_SUS,  MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
+    ),
+
+    [6] = LAYOUT_ortho_5x15(
+        // Black Keys            Vertical  Typing 60
+        //      1,       2,        3,        4,        5,        6,        7,        8,          9,        10,       11,     12,
+        KC_ESC, MI_C,    MI_A,     MI_G_1,   MI_F_2,   MI_D_3,   KC_NO,    KC_NO,    MI_C_4,     MI_A_4,   MI_G_5,     KC_NO,    KC_NO,    KC_NO,      MI_TRNS_0,
+        KC_TAB, MI_D,    MI_C_1,   MI_A_1,   MI_G_2,   MI_F_3,   KC_NO,    KC_NO,    MI_D_4,     MI_C_5,   MI_A_5,     KC_NO,    KC_NO,    KC_NO,      MI_TRNSU,
+        KC_SPC, MI_F,    MI_D_1,   MI_C_2,   MI_A_2,   MI_G_3,   KC_NO,    KC_NO,    MI_F_4,     MI_D_5,   KC_NO,      KC_NO,    KC_NO,    KC_NO,      MI_TRNSD,
+        MI_SUS, MI_G,    MI_F_1,   MI_D_2,   MI_C_3,   MI_A_3,   KC_NO,    KC_NO,    MI_G_4,     MI_F_5,   KC_NO,      KC_NO,    KC_NO,    KC_NO,      MI_OCTU,
+        MO(15), KC_LCTL, KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,     MI_BENDU, KC_NO,      KC_NO,   MI_MODSD, MI_MODSU, MI_OCTD
+    ),
+
+
+
+
+
+    [7] = LAYOUT_ortho_5x15(
         // Chromatic Scale       Vertical
         //      1,        2,        3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
-        KC_ESC, MI_C,     MI_E,     MI_Gs,    MI_C_2,   MI_E_2,   MI_Gs_2,  MI_C_3,   MI_E_3,   MI_Gs_3,  MI_C_4,   MI_E_4,   MI_Gs_4,  KC_NO,   MI_TRNS_0,
-        KC_TAB, MI_Cs,    MI_F,     MI_A,     MI_Cs_2,  MI_F_2,   MI_A_2,   MI_Cs_3,  MI_F_3,   MI_A_3,   MI_Cs_4,  MI_F_4,   MI_A_4,   KC_NO,   MI_TRNSU,
-        KC_SPC, MI_D,     MI_Fs,    MI_As,    MI_D_2,   MI_Fs_2,  MI_As_2,  MI_D_3,   MI_Fs_3,  MI_As_3,  MI_D_4,   MI_Fs_4,  MI_As_4,  KC_NO,   MI_TRNSD,
-        MI_SUS, MI_Ds,    MI_G,     MI_B,     MI_Ds_2,  MI_G_2,   MI_B_2,   MI_Ds_3,  MI_G_3,   MI_B_3,   MI_Ds_4,  MI_G_4,   MI_B_4,   KC_NO,   MI_OCTU,
+        KC_ESC, MI_C,     MI_E,     MI_Gs,    MI_C_1,   MI_E_1,   MI_Gs_1,  MI_C_2,   MI_E_2,   MI_Gs_2,  MI_C_3,   MI_E_3,   MI_Gs_3,  KC_NO,   MI_TRNS_0,
+        KC_TAB, MI_Cs,    MI_F,     MI_A,     MI_Cs_1,  MI_F_1,   MI_A_1,   MI_Cs_2,  MI_F_2,   MI_A_2,   MI_Cs_3,  MI_F_3,   MI_A_3,   KC_NO,   MI_TRNSU,
+        KC_SPC, MI_D,     MI_Fs,    MI_As,    MI_D_1,   MI_Fs_1,  MI_As_1,  MI_D_2,   MI_Fs_2,  MI_As_2,  MI_D_3,   MI_Fs_3,  MI_As_3,  KC_NO,   MI_TRNSD,
+        MI_SUS, MI_Ds,    MI_G,     MI_B,     MI_Ds_1,  MI_G_1,   MI_B_1,   MI_Ds_2,  MI_G_2,   MI_B_2,   MI_Ds_3,  MI_G_3,   MI_B_3,   KC_NO,   MI_OCTU,
         MO(15), KC_LCTL,  KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,    MI_MODSD, MI_MODSU, MI_OCTD
     ),
 
@@ -64,31 +110,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [8] = LAYOUT_ortho_5x15(
         // Pocket Operator Scale Vertical
         //      1,      2,      3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
-        KC_ESC, MI_C,    MI_G,    MI_C_2,   MI_G_2,   MI_C_3,   MI_G_3,   MI_C_4,   MI_G_4,   MI_C_5,   MI_G_5,   MI_C_6,   MI_G_6,   KC_NO,   MI_TRNS_0,
-        KC_TAB, MI_D,    MI_Gs,   MI_D_2,   MI_Gs_2,  MI_D_3,   MI_Gs_3,  MI_D_4,   MI_Gs_4,  MI_D_5,   MI_Gs_5,  MI_D_6,   MI_Gs_6,  KC_NO,   MI_TRNSU,
-        KC_SPC, MI_Ds,   MI_As,   MI_Ds_2,  MI_As_2,  MI_Ds_3,  MI_As_3,  MI_Ds_4,  MI_As_4,  MI_Ds_5,  MI_As_5,  MI_Ds_6,  MI_As_6,  KC_NO,   MI_TRNSD,
-        MI_SUS, MI_F,    MI_B,    MI_F_2,   MI_B_2,   MI_F_3,   MI_B_3,   MI_F_4,   MI_B_4,   MI_F_5,   MI_B_5,   MI_F_6,   MI_B_6,   KC_NO,   MI_OCTU,
+        KC_ESC, MI_C,    MI_G,    MI_C_1,   MI_G_1,   MI_C_2,   MI_G_2,   MI_C_3,   MI_G_3,   MI_C_4,   MI_G_4,  MI_C_5,   MI_G_5,    KC_NO,   MI_TRNS_0,
+        KC_TAB, MI_D,    MI_Gs,   MI_D_1,   MI_Gs_1,  MI_D_2,   MI_Gs_2,  MI_D_3,   MI_Gs_3,  MI_D_4,   MI_Gs_4, MI_D_5,   MI_Gs_5,  KC_NO,   MI_TRNSU,
+        KC_SPC, MI_Ds,   MI_As,   MI_Ds_1,  MI_As_1,  MI_Ds_2,  MI_As_2,  MI_Ds_3,  MI_As_3,  MI_Ds_4,  MI_As_4, MI_Ds_5,  MI_As_5,  KC_NO,   MI_TRNSD,
+        MI_SUS, MI_F,    MI_B,    MI_F_1,   MI_B_1,   MI_F_2,   MI_B_2,   MI_F_3,   MI_B_3,   MI_F_4,   MI_B_4,  MI_F_5,   MI_B_5,    KC_NO,   MI_OCTU,
         MO(15), KC_LCTL, KC_LALT, KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,    MI_MODSD, MI_MODSU, MI_OCTD
     ),
 
     [9] = LAYOUT_ortho_5x15(
         // Major scale           Vertical
         //      1,       2,       3,       4,        5,       6,       7,       8,       9,        10,       11,     12,
-        KC_ESC, MI_C,    MI_G,    MI_D_2,  MI_A_2,   MI_E_3,  MI_B_3,  MI_F_4,  MI_C_5,  MI_G_5,   MI_D_6,   MI_A_6, KC_NO,    KC_NO,    MI_TRNS_0,
-        KC_TAB, MI_D,    MI_A,    MI_E_2,  MI_B_2,   MI_F_3,  MI_C_4,  MI_G_4,  MI_D_5,  MI_A_5,   MI_E_6,   MI_B_6, KC_NO,    KC_NO,    MI_TRNSU,
-        KC_SPC, MI_E,    MI_B,    MI_F_2,  MI_C_3,   MI_G_3,  MI_D_4,  MI_A_4,  MI_E_5,  MI_B_5,   MI_F_6,   KC_NO,  KC_NO,    KC_NO,    MI_TRNSD,
-        MI_SUS, MI_F,    MI_C_2,  MI_G_2,  MI_D_3,   MI_A_3,  MI_E_4,  MI_B_4,  MI_F_5,  MI_C_6,   MI_G_6,   KC_NO,  KC_NO,    KC_NO,    MI_OCTU,
+        KC_ESC, MI_C,    MI_G,    MI_D_1,  MI_A_1,   MI_E_2,  MI_B_2,  MI_F_3,  MI_C_4,  MI_G_4,   MI_D_5,   MI_A_5, KC_NO,    KC_NO,    MI_TRNS_0,
+        KC_TAB, MI_D,    MI_A,    MI_E_1,  MI_B_1,   MI_F_2,  MI_C_3,  MI_G_3,  MI_D_4,  MI_A_4,   MI_E_5,   MI_B_5, KC_NO,    KC_NO,    MI_TRNSU,
+        KC_SPC, MI_E,    MI_B,    MI_F_1,  MI_C_2,   MI_G_2,  MI_D_3,  MI_A_3,  MI_E_4,  MI_B_4,   MI_F_5,   KC_NO,  KC_NO,    KC_NO,    MI_TRNSD,
+        MI_SUS, MI_F,    MI_C_1,  MI_G_1,  MI_D_2,   MI_A_2,  MI_E_3,  MI_B_3,  MI_F_4,  MI_C_5,   MI_G_5,   KC_NO,  KC_NO,    KC_NO,    MI_OCTU,
         MO(15), KC_LCTL, KC_LALT, KC_LGUI, MI_BENDD, MI_SUS,  MI_SUS,  MI_SUS,  MI_SUS,  MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
     ),
 
     [10] = LAYOUT_ortho_5x15(
         // Black Keys            Vertical
-        //      1,       2,        3,        4,        5,        6,        7,        8,        9,        10,       11,     12,
-        KC_ESC, MI_Cs,   MI_As,    MI_Gs_2,  MI_Fs_3,  MI_Ds_4,  MI_Cs_5,  MI_As_5,  MI_Gs_6,  KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_TRNS_0,
-        KC_TAB, MI_Ds,   MI_Cs_2,  MI_As_2,  MI_Gs_3,  MI_Fs_4,  MI_Ds_5,  MI_Cs_6,  MI_As_6,  KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_TRNSU,
-        KC_SPC, MI_Fs,   MI_Ds_2,  MI_Cs_3,  MI_As_3,  MI_Gs_4,  MI_Fs_5,  MI_Ds_6,  KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_TRNSD,
-        MI_SUS, MI_Gs,   MI_Fs_2,  MI_Ds_3,  MI_Cs_4,  MI_As_4,  MI_Gs_5,  MI_Fs_6,  KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_OCTU,
-        MO(15), KC_LCTL, KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
+        //      1,       2,        3,        4,        5,        6,        7,        8,          9,        10,       11,     12,
+        KC_ESC, MI_C,    MI_A,     MI_G_1,   MI_F_2,   MI_D_3,   MI_C_4,   MI_A_4,   MI_G_5,     KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_TRNS_0,
+        KC_TAB, MI_D,    MI_C_1,   MI_A_1,   MI_G_2,   MI_F_3,   MI_D_4,   MI_C_5,   MI_A_5,     KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_TRNSU,
+        KC_SPC, MI_F,    MI_D_1,   MI_C_2,   MI_A_2,   MI_G_3,   MI_F_4,   MI_D_5,   KC_NO,      KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_TRNSD,
+        MI_SUS, MI_G,    MI_F_1,   MI_D_2,   MI_C_3,   MI_A_3,   MI_G_4,   MI_F_5,   KC_NO,      KC_NO,    KC_NO,    KC_NO,  KC_NO,    KC_NO,    MI_OCTU,
+        MO(15), KC_LCTL, KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,     MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
     ),
 
 
@@ -96,18 +142,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Chromatic Scale       Horizontal
         //      1,    2,        3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
         KC_ESC, MI_C,   MI_Cs,    MI_D,     MI_Ds,    MI_E,     MI_F,     MI_Fs,    MI_G,     MI_Gs,    MI_A,     MI_As,    MI_B,     KC_NO,   MI_TRNS_0,
-        KC_TAB, MI_C_2, MI_Cs_2,  MI_D_2,   MI_Ds_2,  MI_E_2,   MI_F_2,   MI_Fs_2,  MI_G_2,   MI_Gs_2,  MI_A_2,   MI_As_2,  MI_B_2,   KC_NO,   MI_TRNSU,
-        KC_SPC, MI_C_3, MI_Cs_3,  MI_D_3,   MI_Ds_3,  MI_E_3,   MI_F_3,   MI_Fs_3,  MI_G_3,   MI_Gs_3,  MI_A_3,   MI_As_3,  MI_B_3,   KC_NO,   MI_TRNSD,
-        MI_SUS, MI_C_4, MI_Cs_4,  MI_D_4,   MI_Ds_4,  MI_E_4,   MI_F_4,   MI_Fs_4,  MI_G_4,   MI_Gs_4,  MI_A_4,   MI_As_4,  MI_B_4,   KC_NO,   MI_OCTU,
+        KC_TAB, MI_C_1, MI_Cs_1,  MI_D_1,   MI_Ds_1,  MI_E_1,   MI_F_1,   MI_Fs_1,  MI_G_1,   MI_Gs_1,  MI_A_1,   MI_As_1,  MI_B_1,   KC_NO,   MI_TRNSU,
+        KC_SPC, MI_C_2, MI_Cs_2,  MI_D_2,   MI_Ds_2,  MI_E_2,   MI_F_2,   MI_Fs_2,  MI_G_2,   MI_Gs_2,  MI_A_2,   MI_As_2,  MI_B_2,   KC_NO,   MI_TRNSD,
+        MI_SUS, MI_C_3, MI_Cs_3,  MI_D_3,   MI_Ds_3,  MI_E_3,   MI_F_3,   MI_Fs_3,  MI_G_3,   MI_Gs_3,  MI_A_3,   MI_As_3,  MI_B_3,   KC_NO,   MI_OCTU,
         MO(15), KC_LCTL, KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
     ),
     [12] = LAYOUT_ortho_5x15(
         // Pocket Operator Scale Horizontal
         //      1,      2,      3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
-        KC_ESC, MI_C,    MI_D,    MI_Ds,   MI_F,    MI_G,    MI_Gs,   MI_As,   MI_B,    MI_C_2,   MI_D_2,   MI_Ds_2,  MI_F_2,   KC_NO,   MI_TRNS_0,
-        KC_TAB, MI_G_2,   MI_Gs_2,  MI_As_2,  MI_B_2,   MI_C_3,   MI_D_3,   MI_Ds_3,  MI_F_3,   MI_G_3,   MI_Gs_3,  MI_As_3,  MI_B_3,   KC_NO,   MI_TRNSU,
-        KC_SPC, MI_C_4,   MI_D_4,   MI_Ds_4,  MI_F_4,   MI_G_4,   MI_Gs_4,  MI_As_4,  MI_B_4,   MI_C_5,   MI_D_5,   MI_Ds_5,  MI_F_5,   KC_NO,   MI_TRNSD,
-        MI_SUS, MI_G_5,   MI_Gs_5,  MI_As_5,  MI_B_5,   MI_C_6,   MI_D_6,   MI_Ds_6,  MI_F_6,   MI_G_6,   MI_Gs_6,  MI_As_6,  MI_B_6,   KC_NO,   MI_OCTU,
+        KC_ESC, MI_C,    MI_D,    MI_Ds,   MI_F,    MI_G,    MI_Gs,   MI_As,   MI_B,    MI_C_1,   MI_D_1,   MI_Ds_1,  MI_F_1,   KC_NO,   MI_TRNS_0,
+        KC_TAB, MI_G_1,   MI_Gs_1,  MI_As_1,  MI_B_1,   MI_C_2,   MI_D_2,   MI_Ds_2,  MI_F_2,   MI_G_2,   MI_Gs_2,  MI_As_2,  MI_B_2,   KC_NO,   MI_TRNSU,
+        KC_SPC, MI_C_3,   MI_D_3,   MI_Ds_3,  MI_F_3,   MI_G_3,   MI_Gs_3,  MI_As_3,  MI_B_3,   MI_C_4,   MI_D_4,   MI_Ds_4,  MI_F_4,   KC_NO,   MI_TRNSD,
+        MI_SUS, MI_G_4,   MI_Gs_4,  MI_As_4,  MI_B_4,   MI_C_5,    MI_D_5,    MI_Ds_5,   MI_F_5,    MI_G_5,    MI_Gs_5,   MI_As_5,   MI_B_5,   KC_NO,   MI_OCTU,
         MO(15), KC_LCTL, KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
     ),
 
@@ -115,34 +161,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [13] = LAYOUT_ortho_5x15(
         // Major scale           Horizontal
         //      1,       2,        3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
-        KC_ESC, MI_C,      MI_D,     MI_E,     MI_F,     MI_G,     MI_A,     MI_B,     MI_C_2,   MI_D_2,   MI_E_2,   MI_F_2,   MI_G_2,   KC_NO,    MI_TRNS_0,
-        KC_TAB, MI_A_2,    MI_B_2,   MI_C_3,   MI_D_3,   MI_E_3,   MI_F_3,   MI_G_3,   MI_A_3,   MI_B_3,   MI_C_4,   MI_D_4,   MI_E_4,   KC_NO,    MI_TRNSU,
-        KC_SPC, MI_F_4,    MI_G_4,   MI_A_4,   MI_B_4,   MI_C_5,   MI_D_5,   MI_E_5,   MI_F_5,   MI_G_5,   MI_A_5,   MI_B_5,   MI_C_6,   KC_NO,    MI_TRNSD,
-        MI_SUS, MI_D_6,    MI_E_6,   MI_F_6,   MI_G_6,   MI_A_6,   MI_B_6,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    MI_OCTU,
+        KC_ESC, MI_C,      MI_D,     MI_E,     MI_F,     MI_G,     MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,   MI_F_1,   MI_G_1,   KC_NO,    MI_TRNS_0,
+        KC_TAB, MI_A_1,    MI_B_1,   MI_C_2,   MI_D_2,   MI_E_2,   MI_F_2,   MI_G_2,   MI_A_2,   MI_B_2,   MI_C_3,   MI_D_3,   MI_E_3,   KC_NO,    MI_TRNSU,
+        KC_SPC, MI_F_3,    MI_G_3,   MI_A_3,   MI_B_3,   MI_C_4,   MI_D_4,   MI_E_4,   MI_F_4,   MI_G_4,   MI_A_4,   MI_B_4,   MI_C_5,   KC_NO,    MI_TRNSD,
+        MI_SUS, MI_D_5,    MI_E_5,   MI_F_5,   MI_G_5,   MI_A_5,   MI_B_5,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    MI_OCTU,
         MO(15), KC_LCTL, KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
     ),
     [14] = LAYOUT_ortho_5x15(
         // Black Keys            Horizontal
         //      1,       2,        3,        4,        5,        6,        7,        8,        9,        10,       11,       12,
-        KC_ESC, MI_Cs,     MI_Ds,    MI_Fs,    MI_Gs,    MI_As,    MI_Cs_2,  MI_Ds_2,  MI_Fs_2,  MI_Gs_2,  MI_As_2,  MI_Cs_3,  MI_Ds_3,  KC_NO,    MI_TRNS_0,
-        KC_TAB, MI_Fs_3,   MI_Gs_3,  MI_As_3,  MI_Cs_4,  MI_Ds_4,  MI_Fs_4,  MI_Gs_4,  MI_As_4,  MI_Cs_5,  MI_Ds_5,  MI_Fs_5,  MI_Gs_5,  KC_NO,    MI_TRNSU,
-        KC_SPC, MI_As_5,   MI_Cs_6,  MI_Ds_6,  MI_Fs_6,  MI_Gs_6,  MI_As_6,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    MI_TRNSD,
+        KC_ESC, MI_C,      MI_D,     MI_F,     MI_G,     MI_A,     MI_C_1,   MI_D_1,   MI_F_1,   MI_G_1,   MI_A_1,   MI_C_2,   MI_D_2,   KC_NO,    MI_TRNS_0,
+        KC_TAB, MI_F_2,    MI_G_2,   MI_A_2,   MI_C_3,   MI_D_3,   MI_F_3,   MI_G_3,   MI_A_3,   MI_C_4,   MI_D_4,   MI_F_4,   MI_G_4,   KC_NO,    MI_TRNSU,
+        KC_SPC, MI_A_4,    MI_C,     MI_D,     MI_F,     MI_G,     MI_A,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    MI_TRNSD,
         MI_SUS, KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    MI_OCTU,
-        MO(15), KC_LCTL, KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,  MI_MODSD, MI_MODSU, MI_OCTD
+        MO(15), KC_LCTL,   KC_LALT,  KC_LGUI,  MI_BENDD, MI_SUS,   MI_SUS,   MI_SUS,   MI_SUS,   MI_BENDU, KC_NO,    KC_NO,    MI_MODSD, MI_MODSU, MI_OCTD
     ),
-
-
-
 
 
 
     // Settings
     [15] = LAYOUT_ortho_5x15(
-        DB_TOGG, MI_CH1,  MI_CH2, MI_CH3, MI_CH4,   MI_CH5,   RGB_RMOD, RGB_MOD, MI_CH6,  MI_CH7,  MI_CH8, KC_NO,  KC_NO,  KC_NO, QK_BOOT,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,    KC_NO,    RGB_HUD,  RGB_HUI, KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO, KC_NO,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,    KC_NO,    RGB_SAD,  RGB_SAI, KC_NO,   DF(11),  DF(12), DF(13), DF(14), KC_NO,  DEBUG,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,    KC_NO,    RGB_VAD,  RGB_VAI, KC_NO,   DF(7),   DF(8),  DF(9),  DF(10), KC_NO,  KC_NO,
-        KC_TRNS, KC_NO,   KC_NO,  KC_NO,  KC_TRNS,  RGB_SPD,  DF(0),    DF(0),   RGB_SPI, KC_TRNS, KC_NO,  KC_TRNS,KC_NO,  KC_NO,  KC_NO
+        DB_TOGG,  MI_CH1,  MI_CH2,  MI_CH3,  MI_CH4,   MI_CH5,  KC_NO,  KC_NO,   MI_CH6,  MI_CH7,  MI_CH8, AU_TOG,  KC_NO,  KC_NO, QK_BOOT,
+        KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,  KC_NO,   DF(3),  DF(4),  DF(5), DF(6), KC_NO,  KC_NO, KC_NO,
+        RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,  KC_NO,   KC_NO,  KC_NO,   DF(11),  DF(12),  DF(13), DF(14), KC_NO,   KC_NO,  DEBUG,
+        RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,  KC_NO,   KC_NO,  KC_NO,   DF(7),   DF(8),   DF(9),  DF(10), KC_NO,   KC_NO,  KC_NO,
+        KC_TRNS,  KC_NO,   KC_NO,   KC_NO,   KC_TRNS,  DF(0),   DF(0),  DF(0),   DF(0), KC_TRNS, KC_NO,  KC_TRNS,KC_NO,  KC_NO,  KC_NO
     )
 };
 
