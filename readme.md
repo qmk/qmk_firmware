@@ -18,10 +18,12 @@ You can request changes by making a fork and opening a [pull request](https://gi
 
 
 This custom fork contains the following:
+```
 make bm60ec_rgb:jcustom:dfu
 make dz60:jdz60
 make kprepublic/bm65hsrgb/rev1:jcustom_bm65hsrgb:dfu
 make kprepublic/bm60hsrgb_ec/rev2:jcustom:dfu
+```
 
 
 ## Official Website
