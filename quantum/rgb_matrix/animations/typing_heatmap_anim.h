@@ -18,8 +18,14 @@ void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
     // Limit effect to pressed keys
     g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], 32);
 #        else
+    if (g_led_config.matrix_co[row][col] == NO_LED) { // skip as pressed key doesn't have an led position
+        return;
+    }
     for (uint8_t i_row = 0; i_row < MATRIX_ROWS; i_row++) {
         for (uint8_t i_col = 0; i_col < MATRIX_COLS; i_col++) {
+            if (g_led_config.matrix_co[i_row][i_col] == NO_LED) { // skip as target key doesn't have an led position
+                continue;
+            }
             if (i_row == row && i_col == col) {
                 g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], 32);
             } else {
