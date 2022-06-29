@@ -7,6 +7,8 @@
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from config.h
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
+    # invalid: Default `false`. Set to `true` to generate errors when a value exists
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
@@ -19,7 +21,6 @@
     "DEVICE_VER": {"info_key": "usb.device_ver", "value_type": "hex"},
     # TODO: Replace ^^^ with vvv
     #"DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version"},
-    "DESCRIPTION": {"info_key": "keyboard_folder", "value_type": "str", "to_json": false},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
     "DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.double_tap_shift_turns_on", "value_type": "bool"},
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
@@ -102,4 +103,11 @@
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
+
+    # Items we want flagged in lint
+    "NO_ACTION_MACRO": {"info_key": "_invalid.no_action_macro", "invalid": true},
+    "NO_ACTION_FUNCTION": {"info_key": "_invalid.no_action_function", "invalid": true},
+    "DESCRIPTION": {"info_key": "_invalid.usb_description", "invalid": true},
+    "DEBOUNCING_DELAY": {"info_key": "_invalid.debouncing_delay", "invalid": true},
+    "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},
 }
