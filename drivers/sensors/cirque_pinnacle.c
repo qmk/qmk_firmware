@@ -10,7 +10,11 @@
 #include "timer.h"
 
 #ifndef CIRQUE_PINNACLE_ATTENUATION
-#    define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X
+#    ifdef CIRQUE_PINNACLE_CURVED_OVERLAY
+#        define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X
+#    else
+#        define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X
+#    endif
 #endif
 
 bool     touchpad_init;
@@ -225,7 +229,9 @@ void cirque_pinnacle_init(void) {
     // Force a calibration after setting ADC attenuation
     cirque_pinnacle_calibrate();
 
+#ifdef CIRQUE_PINNACLE_CURVED_OVERLAY
     cirque_pinnacle_tune_edge_sensitivity();
+#endif
     cirque_pinnacle_enable_feed(true);
 }
 
