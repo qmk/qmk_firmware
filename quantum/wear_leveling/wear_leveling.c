@@ -213,36 +213,29 @@ static wear_leveling_status_t wear_leveling_read_consolidated(void) {
     wl_dprintf("Reading consolidated data\n");
 
     wear_leveling_status_t status = WEAR_LEVELING_SUCCESS;
-    for (int address = 0; address < (WEAR_LEVELING_LOGICAL_SIZE); address += (BACKING_STORE_WRITE_SIZE)) {
-        backing_store_int_t *const loc = (backing_store_int_t *)&wear_leveling.cache[address];
-        backing_store_int_t        temp;
-        bool                       ok = backing_store_read(address, &temp);
-        if (!ok) {
-            wl_dprintf("Failed to read from backing store\n");
-            status = WEAR_LEVELING_FAILED;
-            break;
-        }
-        *loc = temp;
+    if (!backing_store_read_bulk(0, (backing_store_int_t *)wear_leveling.cache, sizeof(wear_leveling.cache) / sizeof(backing_store_int_t))) {
+        wl_dprintf("Failed to read from backing store\n");
+        status = WEAR_LEVELING_FAILED;
     }
 
     // Verify the FNV1a_64 result
     if (status != WEAR_LEVELING_FAILED) {
         uint64_t          expected = fnv_64a_buf(wear_leveling.cache, (WEAR_LEVELING_LOGICAL_SIZE), FNV1A_64_INIT);
         write_log_entry_t entry;
+        wl_dprintf("Reading checksum\n");
 #if BACKING_STORE_WRITE_SIZE == 2
-        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 0, &entry.raw16[0]);
-        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 2, &entry.raw16[1]);
-        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 4, &entry.raw16[2]);
-        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 6, &entry.raw16[3]);
+        backing_store_read_bulk((WEAR_LEVELING_LOGICAL_SIZE), entry.raw16, 4);
 #elif BACKING_STORE_WRITE_SIZE == 4
-        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 0, &entry.raw32[0]);
-        backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 4, &entry.raw32[1]);
+        backing_store_read_bulk((WEAR_LEVELING_LOGICAL_SIZE), entry.raw32, 2);
 #elif BACKING_STORE_WRITE_SIZE == 8
         backing_store_read((WEAR_LEVELING_LOGICAL_SIZE) + 0, &entry.raw64);
 #endif
         // If we have a mismatch, clear the cache but do not flag a failure,
         // which will cater for the completely clean MCU case.
-        if (entry.raw64 != expected) {
+        if (entry.raw64 == expected) {
+            wl_dprintf("Checksum matches, consolidated data is correct\n");
+        } else {
+            wl_dprintf("Checksum mismatch, clearing cache\n");
             wear_leveling_clear_cache();
         }
     }
@@ -258,64 +251,36 @@ static wear_leveling_status_t wear_leveling_read_consolidated(void) {
 /**
  * Writes the current cache to consolidated data at the beginning of the backing store.
  * Does not clear the write log.
+ * Pre-condition: this is just after an erase, so we can write directly without reading.
  */
 static wear_leveling_status_t wear_leveling_write_consolidated(void) {
     wl_dprintf("Writing consolidated data\n");
 
-    wear_leveling_status_t      status      = WEAR_LEVELING_CONSOLIDATED;
     backing_store_lock_status_t lock_status = wear_leveling_unlock();
-    for (int address = 0; address < (WEAR_LEVELING_LOGICAL_SIZE); address += (BACKING_STORE_WRITE_SIZE)) {
-        const backing_store_int_t value = *(backing_store_int_t *)&wear_leveling.cache[address];
-        backing_store_int_t       temp;
-        bool                      ok = backing_store_read(address, &temp);
-        if (!ok) {
-            wl_dprintf("Failed to read from backing store\n");
-            status = WEAR_LEVELING_FAILED;
-            break;
-        }
-        if (temp != value) {
-            ok = backing_store_write(address, value);
-            if (!ok) {
-                wl_dprintf("Failed to write to backing store\n");
-                status = WEAR_LEVELING_FAILED;
-                break;
-            }
-        }
+    wear_leveling_status_t      status      = WEAR_LEVELING_CONSOLIDATED;
+    if (!backing_store_write_bulk(0, (backing_store_int_t *)wear_leveling.cache, sizeof(wear_leveling.cache) / sizeof(backing_store_int_t))) {
+        wl_dprintf("Failed to write to backing store\n");
+        status = WEAR_LEVELING_FAILED;
     }
 
     if (status != WEAR_LEVELING_FAILED) {
         // Write out the FNV1a_64 result of the consolidated data
         write_log_entry_t entry;
         entry.raw64 = fnv_64a_buf(wear_leveling.cache, (WEAR_LEVELING_LOGICAL_SIZE), FNV1A_64_INIT);
+        wl_dprintf("Writing checksum\n");
         do {
 #if BACKING_STORE_WRITE_SIZE == 2
-            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 0, entry.raw16[0])) {
-                status = WEAR_LEVELING_FAILED;
-                break;
-            }
-            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 2, entry.raw16[1])) {
-                status = WEAR_LEVELING_FAILED;
-                break;
-            }
-            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 4, entry.raw16[2])) {
-                status = WEAR_LEVELING_FAILED;
-                break;
-            }
-            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 6, entry.raw16[3])) {
+            if (!backing_store_write_bulk((WEAR_LEVELING_LOGICAL_SIZE), entry.raw16, 4)) {
                 status = WEAR_LEVELING_FAILED;
                 break;
             }
 #elif BACKING_STORE_WRITE_SIZE == 4
-            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 0, entry.raw32[0])) {
-                status = WEAR_LEVELING_FAILED;
-                break;
-            }
-            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 4, entry.raw32[1])) {
+            if (!backing_store_write_bulk((WEAR_LEVELING_LOGICAL_SIZE), entry.raw32, 2)) {
                 status = WEAR_LEVELING_FAILED;
                 break;
             }
 #elif BACKING_STORE_WRITE_SIZE == 8
-            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE) + 0, entry.raw64)) {
+            if (!backing_store_write((WEAR_LEVELING_LOGICAL_SIZE), entry.raw64)) {
                 status = WEAR_LEVELING_FAILED;
                 break;
             }
@@ -776,4 +741,28 @@ wear_leveling_status_t wear_leveling_read(const uint32_t address, void *value, s
     wl_dprintf("Read  ");
     wl_dump(address, value, length);
     return WEAR_LEVELING_SUCCESS;
+}
+
+/**
+ * Weak implementation of bulk read, drivers can implement more optimised implementations.
+ */
+__attribute__((weak)) bool backing_store_read_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
+    for (size_t i = 0; i < item_count; ++i) {
+        if (!backing_store_read(address + (i * BACKING_STORE_WRITE_SIZE), &values[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Weak implementation of bulk write, drivers can implement more optimised implementations.
+ */
+__attribute__((weak)) bool backing_store_write_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
+    for (size_t i = 0; i < item_count; ++i) {
+        if (!backing_store_write(address + (i * BACKING_STORE_WRITE_SIZE), values[i])) {
+            return false;
+        }
+    }
+    return true;
 }

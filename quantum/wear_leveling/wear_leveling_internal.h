@@ -28,19 +28,23 @@ typedef uint64_t backing_store_int_t;
 #endif
 
 #ifdef WEAR_LEVELING_DEBUG_OUTPUT
-#    include <stdio.h>
-#    define wl_dprintf(...) printf("Wear leveling: " __VA_ARGS__)
+#    include <debug.h>
+#    define bs_dprintf(...) dprintf("Backing store: " __VA_ARGS__)
+#    define wl_dprintf(...) dprintf("Wear leveling: " __VA_ARGS__)
 #    define wl_dump(address, value, length)             \
         do {                                            \
-            printf("[0x%04X]: ", (int)(address));       \
+            dprintf("[0x%04X]: ", (int)(address));      \
             const uint8_t* p = (const uint8_t*)(value); \
             for (int i = 0; i < (length); ++i) {        \
-                printf(" %02X", (int)p[i]);             \
+                dprintf(" %02X", (int)p[i]);            \
             }                                           \
-            printf("\n");                               \
+            dprintf("\n");                              \
         } while (0)
 #else
 #    define wl_dprintf(...) \
+        do {                \
+        } while (0)
+#    define bs_dprintf(...) \
         do {                \
         } while (0)
 #    define wl_dump(...) \
@@ -67,8 +71,10 @@ bool backing_store_init(void);
 bool backing_store_unlock(void);
 bool backing_store_erase(void);
 bool backing_store_write(uint32_t address, backing_store_int_t value);
+bool backing_store_write_bulk(uint32_t address, backing_store_int_t* values, size_t item_count); // weak implementation already provided, optimized implementation can be implemented by driver
 bool backing_store_lock(void);
 bool backing_store_read(uint32_t address, backing_store_int_t* value);
+bool backing_store_read_bulk(uint32_t address, backing_store_int_t* values, size_t item_count); // weak implementation already provided, optimized implementation can be implemented by driver
 
 /**
  * Helper type used to contain a write log entry.
