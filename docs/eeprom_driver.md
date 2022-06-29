@@ -84,15 +84,17 @@ The wear-leveling driver uses an algorithm to minimise the number of erase cycle
 
 There is no specific configuration for this driver, but the wear-leveling system used by this driver may need configuration. See the [wear-leveling configuration](#wear_leveling-configuration) section for more information.
 
-# Wear-leveling Driver Configuration :id=wear_leveling-configuration
+# Wear-leveling Configuration :id=wear_leveling-configuration
 
 The wear-leveling driver has a few possible _backing stores_ that may be used by adding to your keyboard's `rules.mk` file:
 
 Driver                                    | Description
 ------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`WEAR_LEVELING_DRIVER = efl`              | This driver is used for emulating EEPROM by writing to internal flash on the MCU.
-`WEAR_LEVELING_DRIVER = flash_spi`        | This driver is used to address external SPI NOR Flash peripherals.
+`WEAR_LEVELING_DRIVER = embedded_flash`   | This driver is used for emulating EEPROM by writing to embedded flash on the MCU.
+`WEAR_LEVELING_DRIVER = spi_flash`        | This driver is used to address external SPI NOR Flash peripherals.
 `WEAR_LEVELING_DRIVER = legacy_emulation` | This driver is the "legacy" emulated EEPROM provided in historical revisions of QMK. Used for STM32F0xx and STM32F4x1. Slated for deprecation and removal once EFL support for those MCU families is complete.
+
+!> All wear-leveling drivers require an amount of RAM equivalent to the selected logical EEPROM size. Increasing the size to 32kB of EEPROM requires 32kB of RAM, which a significant number of MCUs simply do not have.
 
 ## Wear-leveling Embedded Flash Driver Configuration :id=wear_leveling-efl-driver-configuration
 
@@ -110,7 +112,7 @@ Configurable options in your keyboard's `config.h`:
 
 !> If your MCU does not boot after swapping to the EFL wear-leveling driver, it's likely that the flash size is incorrectly detected, usually as an MCU with larger flash and may require overriding.
 
-## Wear-leveling SPI NOR Flash Driver Configuration :id=wear_leveling-flash_spi-driver-configuration
+## Wear-leveling SPI Flash Driver Configuration :id=wear_leveling-flash_spi-driver-configuration
 
 This driver performs writes to an external SPI NOR Flash peripheral. It also requires a working configuration for the SPI NOR Flash peripheral -- see the [flash driver](flash_driver.md) documentation for more information.
 

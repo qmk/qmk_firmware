@@ -241,7 +241,7 @@ else
   endif
 endif
 
-VALID_WEAR_LEVELING_DRIVER_TYPES := custom efl legacy_emulation flash_spi
+VALID_WEAR_LEVELING_DRIVER_TYPES := custom embedded_flash spi_flash legacy
 WEAR_LEVELING_DRIVER ?= none
 ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   ifeq ($(filter $(WEAR_LEVELING_DRIVER),$(VALID_WEAR_LEVELING_DRIVER_TYPES)),)
@@ -254,18 +254,18 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
     COMMON_VPATH += $(DRIVER_PATH)/wear_leveling
     COMMON_VPATH += $(QUANTUM_DIR)/wear_leveling
     SRC += wear_leveling.c
-    ifeq ($(strip $(WEAR_LEVELING_DRIVER)), efl)
+    ifeq ($(strip $(WEAR_LEVELING_DRIVER)), embedded_flash)
       OPT_DEFS += -DHAL_USE_EFL
       SRC += wear_leveling_efl.c
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_efl_config.h
-    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy_emulation)
-      COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
-      SRC += flash_stm32.c wear_leveling_legacy.c
-      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
-    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), flash_spi)
+    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), spi_flash)
       FLASH_DRIVER := spi
       SRC += wear_leveling_flash_spi.c
       POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
+    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
+      COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
+      SRC += flash_stm32.c wear_leveling_legacy.c
+      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
     endif
   endif
 endif
@@ -281,6 +281,7 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
             OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
             COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
+            QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
 endif
