@@ -3,7 +3,7 @@
   "url": "https://github.com/bojiguard/",
   "maintainer": "@bojiguard",
   "layouts": {
-    "LAYOUT_split_5x7_3": {
+    "LAYOUT": {
       "layout": [
                 {"x": 0, "y": 0.375},
                 {"x": 1, "y": 0.375},
