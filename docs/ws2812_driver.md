@@ -162,7 +162,7 @@ While not an exhaustive list, the following table provides the scenarios that ha
 
 ### PIO
 
-Targeting Rasperry Pi RP2040 boards only where WS2812 support is offloaded to an dedicated PIO implementation. This offloads processing of the WS2812 protocol from the MCU to a dedicated PIO programm using DMA transfers.
+Targeting Raspberry Pi RP2040 boards only where WS2812 support is offloaded to an dedicated PIO implementation. This offloads processing of the WS2812 protocol from the MCU to a dedicated PIO program using DMA transfers.
 
 To configure it, add this to your rules.mk:
 

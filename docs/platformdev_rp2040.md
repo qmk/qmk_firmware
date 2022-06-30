@@ -27,7 +27,7 @@ To address individual pins on the RP2040, QMK uses the `GPx` abbreviation -- whe
 
 ### Alternate functions
 
-The RP2040 features flexible GPIO function multiplexing, this means that every pin can be connected to nearly all the internal peripherals like I2C, SPI, UART or PWM. This allows for flexible PCB designs that are much less restricted in the selection of GPIO pins. To find out which pin can use which peripheral reefer to the official [Raspberry PI RP2040 datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf#page=14) section 1.4.3 GPIO functions.
+The RP2040 features flexible GPIO function multiplexing, this means that every pin can be connected to nearly all the internal peripherals like I2C, SPI, UART or PWM. This allows for flexible PCB designs that are much less restricted in the selection of GPIO pins. To find out which pin can use which peripheral refer to the official [Raspberry PI RP2040 datasheet](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf#page=14) section 1.4.3 GPIO functions.
 
 ## Selecting hardware peripherals and drivers
 
@@ -53,7 +53,7 @@ To configure the SPI driver please read the [ChibiOS/ARM](spi_driver.md#chibiosa
 
 ## Double-tap reset boot-loader entry :id=double-tap
 
-The double-tap reset mechanism is an alternate way in QMK to enter the embedded mass storage UF2 boot-loader of the RP2040. It works by a fast double-tap of the reset pin on start up, which is similar to the behavior of AVR Pro Micros. This feature activated by default for the Pro Micro RP2040 board, but has the be configured otherwise. To activate it add the following options to your keyboards `config.h` file:
+The double-tap reset mechanism is an alternate way in QMK to enter the embedded mass storage UF2 boot-loader of the RP2040. It enables bootloader entry by a fast double-tap of the reset pin on start up, which is similar to the behavior of AVR Pro Micros. This feature activated by default for the Pro Micro RP2040 board, but has to be configured for other boards. To activate it, add the following options to your keyboards `config.h` file:
 
 ```c
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
@@ -67,7 +67,7 @@ QMK defines two boards that you can choose from to base your RP2040 powered keyb
 
 ### Generic Pro Micro RP2040
 
-This is the default board that is chosen, unless any other RP2040 board is selected in your keyboards `rules.mk` file. It assumes a pin layout for the I2C, SPI and Serial drivers which is identical to the Sparkfun Pro Micro RP2040, all values can be overwritten by defining them in your keyboards `config.h` file. The [double-tap](#double-tap) reset to enter boot-loader behavior is activated by default.
+This is the default board that is chosen, unless any other RP2040 board is selected in your keyboards `rules.mk` file. It assumes a pin layout for the I2C, SPI and Serial drivers which is identical to the Sparkfun Pro Micro RP2040, however all values can be overwritten by defining them in your keyboards `config.h` file. The [double-tap](#double-tap) reset to enter boot-loader behavior is activated by default.
 
 
 | Driver configuration define                                                | Value                                |
@@ -87,11 +87,11 @@ This is the default board that is chosen, unless any other RP2040 board is selec
 | `SERIAL_USART_TX_PIN`                                                      | `GP0`                                |
 | `SERIAL_USART_RX_PIN`                                                      | `GP1`                                |
 
-?> The pin-out of Adafruits KB2040 and Boardsources Blok deviates from the Sparkfun Pro Micro RP2040. Lookup the pin-out of these boards and adjust your keyboards pin definition accordingly if you want to use these boards.
+?> The pin-outs of Adafruit's KB2040 and Boardsource's Blok both deviate from the Sparkfun Pro Micro RP2040. Lookup the pin-out of these boards and adjust your keyboards pin definition accordingly if you want to use these boards.
 
 ### Generic RP2040 board
 
-This board can be chosen as a base for RP2040 keyboards that configure all necessary pins and drivers themselves and do not want to build their configuration on top of the Generic Pro Micro RP2040 board. Thus it doesn't provide any pre-configured pins or drivers. To select this board add the following line to your keyboards `rules.mk` file.
+This board can be chosen as a base for RP2040 keyboards which configure all necessary pins and drivers themselves and do not wish to leverage the configuration matching the Generic Pro Micro RP2040 board. Thus it doesn't provide any pre-configured pins or drivers. To select this board add the following line to your keyboards `rules.mk` file.
 
 ```make
 BOARD = GENERIC_RP_RP2040
@@ -99,7 +99,7 @@ BOARD = GENERIC_RP_RP2040
 
 ## Split keyboard support
 
-Split keyboards are fully supported using the [serial driver](serial_driver.md) in both Full-duplex and Half-duplex configurations. For this to work two driver subsystems are supported by the RP2040, the hardware UART based `SIO` and the Programmable IO based `PIO` driver.
+Split keyboards are fully supported using the [serial driver](serial_driver.md) in both full-duplex and half-duplex configurations. Two driver subsystems are supported by the RP2040, the hardware UART based `SIO` and the Programmable IO based `PIO` driver.
 
 | Feature                       | [SIO Driver](serial_driver.md#the-sio-driver) | [PIO Driver](serial_driver.md#the-pio-driver) |
 | ----------------------------- | --------------------------------------------- | --------------------------------------------- |
