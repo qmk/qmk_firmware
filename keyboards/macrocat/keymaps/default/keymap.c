@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {KC_ENT,    KC_SPACE,   KC_0,   MO(1)}
     },
     [1] = {
-        {KC_ASTR,   KC_NO,      KC_NO,  KC_NO},
+        {KC_ASTR,   KC_MPRV,    KC_MPLY,KC_MNXT},
         {KC_SLSH,   KC_LPRN,    KC_UP,  KC_RPRN},
         {KC_COMM,   KC_LEFT,    KC_DOWN,KC_RIGHT},
         {KC_TAB,    KC_BSPC,    KC_0,   KC_TRNS}
