@@ -1,14 +1,33 @@
+/* Copyright 2022 bojiguard (@bojiguard)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 
-#define BASE 4
-#define F3LAY 5
-#define F4LAY  6
+enum layer_names {
+		BASE,
+		F3LAY,
+		F4LAY,
+		SAM1,
+		SAM2,
+		SAM3,
+		SAM4
+};
 
-#define SAM1 0
-#define SAM2 1
-#define SAM3 2
-#define SAM4 3
+
 
 
 
@@ -142,49 +161,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif 
   return true;
 }
-/*
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif 
-	return true;
-    switch (keycode) {
-        case SFT_T(KC_SPC):
-            // Do not force the mod-tap key press to be handled as a modifier
-            // if any other key was pressed while the mod-tap key is held down.
-            return true;
-        default:
-            // Force the mod-tap key press to be handled as a modifier if any
-            // other key was pressed while the mod-tap key is held down.
-            return false;
-    }
-}
-*/
 
-/*
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-	#ifdef CONSOLE_ENABLE
-    uprintf("get_hold: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif 
-	return false;
-    switch (keycode) {
-		
-        case LT(1, KC_BSPC):
-            // Immediately select the hold action when another key is pressed.
-            return true;
-        default:
-            // Do not select the hold action when another key is pressed.
-            return false;
-    }
-}
-*/
-/*
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-	return true;
-    switch (keycode) {
-        case LT(1, KC_BSPC):
-            return true;
-        default:
-            return false;
-    }
-}*/
