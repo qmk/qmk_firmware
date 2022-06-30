@@ -36,13 +36,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | Shift  |   Z    |   X    |   C    |   V    |   B    |                    |   N    |   M    |   ,    |   .    |   /    | Escape |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      | Del/Sym| Spc/Num|Function|  | C+S+Nav| Spc/Nav| Enter  |
+//                                      |   Del  | Spc/Num| Symbol |  | OSL Fun| Spc/Nav| Enter  |
 //                                      `--------------------------'  `--------------------------'
   [_QWERTY] = LAYOUT_split_3x6_3(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
          LNAV,  HOME_A,  HOME_S,  HOME_D,  HOME_F,    KC_G,                         KC_H,  HOME_J,  HOME_K,  HOME_L,HOME_SCLN, KC_QUOT,
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
-                                          LSYMDEL, LNUMSPC, LOSLSYM,     LOSLFUN, LNAVSPC,  KC_ENT
+                                           KC_DEL, LNUMSPC, LOSLSYM,     LOSLFUN, LNAVSPC,  KC_ENT
 
   ),
 
@@ -108,13 +108,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  |        |   <    |   >    |   [    |   ]    |   |    |                    |   :    |   _    |  , <   |   . >  |   / ?  |   \    |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        |        |        |  | QWERTY |        |        |
+//                                      |        |        |TO(SYM) |  | QWERTY |        |        |
 //                                      `--------------------------'  `--------------------------'
   [_SYMBOL] = LAYOUT_split_3x6_3(
       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
        KC_GRV, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, XXXXXXX,                       KC_EQL, KC_MINS, KC_PLUS,  KC_EQL, KC_SCLN, KC_QUOT,
    XXXXXXX,S(KC_COMM),S(KC_DOT), KC_LBRC, KC_RBRC, KC_PIPE,                        COLON, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,
-                                          XXXXXXX, XXXXXXX, XXXXXXX,   LQWERTY,  XXXXXXX, XXXXXXX
+                                          XXXXXXX, XXXXXXX,TO(_SYMBOL),LQWERTY,  XXXXXXX, XXXXXXX
 
   ),
 
@@ -154,12 +154,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           XXXXXXX, XXXXXXX, XXXXXXX,    LQWERTY, TO(_NAVIGATION), TO(_GAMING)
   )
 };
-
-/*
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _SYMBOL, _NUMBER, _ADJUST);
-}
-*/
 
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 
