@@ -19,6 +19,27 @@
 #    define SPLIT_USB_DETECT // Force this on when dedicated pin is not used
 #endif
 
+#if defined(MCU_RP)
+#    define CPU_CLOCK RP_CORE_CLK
+
+#    define USE_GPIOV1
+#    define PAL_OUTPUT_TYPE_OPENDRAIN _Static_assert(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
+
+#    define usb_lld_endpoint_fields
+
+#    define I2C1_SCL_PAL_MODE (PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4)
+#    define I2C1_SDA_PAL_MODE I2C1_SCL_PAL_MODE
+
+#    define USE_I2CV1_CONTRIB
+#    if !defined(I2C1_CLOCK_SPEED)
+#        define I2C1_CLOCK_SPEED 400000
+#    endif
+
+#    define SPI_SCK_PAL_MODE (PAL_MODE_ALTERNATE_SPI | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_DRIVE4)
+#    define SPI_MOSI_PAL_MODE SPI_SCK_PAL_MODE
+#    define SPI_MISO_PAL_MODE SPI_SCK_PAL_MODE
+#endif
+
 // STM32 compatibility
 #if defined(MCU_STM32)
 #    define CPU_CLOCK STM32_SYSCLK

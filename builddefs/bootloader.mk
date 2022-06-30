@@ -200,6 +200,10 @@ ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
     BOOTLOADER_TYPE = tinyuf2
 endif
+ifeq ($(strip $(BOOTLOADER)), rp2040)
+    OPT_DEFS += -DBOOTLOADER_RP2040
+    BOOTLOADER_TYPE = rp2040
+endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
     BOOTLOADER_TYPE = halfkay

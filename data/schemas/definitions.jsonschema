@@ -102,6 +102,10 @@
                 "pattern": "^LINE_PIN\\d{1,2}$"
             },
             {
+                "type": "string",
+                "pattern": "^GP\\d{1,2}$"
+            },
+            {
                 "type": "integer"
             },
             {
