@@ -66,7 +66,7 @@ enum custom_user_keycodes {
         TG_ENC,        // Toggle Encoder functionality
         TG_ESC,        // Toggle ESC tapdance for _BASE layer
         TG_INS,        // Toggle location of INS
-        TG_CTLSPC,    // Toggle CTRL-SPACE disable function
+        TG_SPCMOD,     // Toggle disabling of modded-SPACE functions
 
         YAHOO,         // yahoo.com
         OUTLOOK,       // outlook.com
@@ -103,7 +103,7 @@ typedef union {
     bool     double_tap_shift_for_capslock :1;
     bool     encoder_press_mute_or_media :1;
     bool     ins_on_shft_bkspc_or_del :1;
-    bool     disable_ctrl_space :1;
+    bool     disable_space_mods :1;
   };
 } user_config_t;
 
