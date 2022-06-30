@@ -42,7 +42,7 @@ enum custom_user_layers {
 #define KC_SFTUP RSFT_T(KC_UP)               // Shift when held, Up arrow when tapped
 #define KC_RAISESPC LT(_MOUSEKEY, KC_SPC)    // _MOUSEKEY layer mod when held, space when tapped
 #define KC_LOWERSPC LT(_NUMPADMOUSE, KC_SPC) // _NUMPAD-MOUSE layer mod when held, space when tapped
-#define KC_SHIFTSPC LSFT(KC_SPC)
+//#define KC_SHIFTSPC LSFT(KC_SPC)
 #define SWAP_L SGUI(KC_LEFT)                 // Swap application to left display
 #define SWAP_R SGUI(KC_RGHT)                 // Swap application to right display
 
