@@ -7,3 +7,7 @@
 void panic(const char *fmt, ...) {
     chSysHalt(fmt);
 }
+
+void hard_assertion_failure(void) {
+    panic("hard assert");
+}

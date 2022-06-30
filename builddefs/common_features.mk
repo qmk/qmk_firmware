@@ -241,7 +241,7 @@ else
   endif
 endif
 
-VALID_WEAR_LEVELING_DRIVER_TYPES := custom embedded_flash spi_flash legacy
+VALID_WEAR_LEVELING_DRIVER_TYPES := custom embedded_flash spi_flash rp2040_flash legacy
 WEAR_LEVELING_DRIVER ?= none
 ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   ifeq ($(filter $(WEAR_LEVELING_DRIVER),$(VALID_WEAR_LEVELING_DRIVER_TYPES)),)
@@ -262,6 +262,9 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       FLASH_DRIVER := spi
       SRC += wear_leveling_flash_spi.c
       POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
+    else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), rp2040_flash)
+      SRC += wear_leveling_rp2040_flash.c
+      POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
       SRC += flash_stm32.c wear_leveling_legacy.c
