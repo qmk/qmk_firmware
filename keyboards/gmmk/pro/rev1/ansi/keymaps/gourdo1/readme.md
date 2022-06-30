@@ -17,9 +17,9 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 * Overlay numpad on 789-UIOP-JKL;-M,. & Space-bar mapped to Enter key for rapid number entry
 * Gaming mode ([FN]Win-key) locks out Win-key and double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming keys
 * Caps Word enabled: To capitalize the next word only, press and release left and right shift at the same time. (added Feb 25, 2022)
-* Multi-monitor app moving shortcuts: [FN][,] (square brackets) to move current app window to next monitor (added Apr 11, 2022)
+* Multi-monitor app moving shortcuts: [FN] ],[ (square brackets) to move current app window to next monitor (added Apr 11, 2022)
 * Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB green highlighted)
-* Paddle game accessible via [FN]P; Hit [FN]P again or double tap ESC to exit (added May 5, 2022)
+* Paddle game accessible via [FN]P. Hit [FN]P again or double tap [ESC] to exit (added May 5, 2022)
 * Single-handed shortcut for Ctrl-Alt-Delete: [FN]/ (added May 14, 2022)
 * Single-handed shortcut for WinKey-L (lock Windows): [FN]L (added May 17, 2022)
 * Domain shortcuts: [FN]. for .com, [FN]O for outlook.com, [FN]Y for yahoo.com, [FN]H for hotmail.com, [FN]G for gmail.com. (added Apr 7, 2022)

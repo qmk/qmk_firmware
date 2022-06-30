@@ -1,6 +1,6 @@
 /* Copyright 2021 Jonavin Eng @Jonavin
    Copyright 2022 gourdo1 <gourdo1@outlook.com>
-   
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -46,9 +46,7 @@ void dance_LSFT_reset(qk_tap_dance_state_t * state, void * user_data) {
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
-    [TD_LSFT_CAPS_WIN] = ACTION_TAP_DANCE_FN_ADVANCED(dance_LSFT_each_tap, NULL, dance_LSFT_reset),
-    // Tap once for Escape, twice to reset to base layer
-    //[TD_ESC_BASELYR] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _BASE)
+    [TD_LSFT_CAPS_WIN] = ACTION_TAP_DANCE_FN_ADVANCED(dance_LSFT_each_tap, NULL, dance_LSFT_reset)
 };
 
 // RGB NIGHT MODE
@@ -138,9 +136,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         // User configuration toggles
     case PRNCONF:  // Print verbose status of all user_config toggles (open a text editor before engaging!!)
         if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_ENT)"gourdo1's GMMK Pro User Settings. Press [FN]+<number key> to toggle each."SS_TAP(X_ENT));
-            SEND_STRING("Config also visible by holding [FN] and viewing RGB under number keys."SS_TAP(X_ENT));
-            SEND_STRING("========================================================================="SS_TAP(X_ENT));
+            SEND_STRING(SS_TAP(X_ENT)"--------------<<<<< gourdo1's GMMK Pro User Settings >>>>>-------------"SS_TAP(X_ENT));
+            SEND_STRING("Hold [FN] and the number corresponding to a setting below to toggle it."SS_TAP(X_ENT));
+            SEND_STRING("Config also visible by holding [FN] and viewing RGB under number keys. "SS_TAP(X_ENT));
+            SEND_STRING("======================================================================="SS_TAP(X_ENT));
             SEND_STRING("1. CapsLock RGB highlight alpha keys                ");
             if (user_config.rgb_hilite_caps) {
                 SEND_STRING("[ON]"SS_TAP(X_ENT));
@@ -555,18 +554,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     }
     return true;
 };
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t * record) {
-    switch (keycode) {
-    case KC_SFTUP:
-        return 300;
-    case KC_RAISESPC:
-    case KC_LOWERSPC:
-        return 450;
-    default:
-        return TAPPING_TERM;
-    }
-}
 
 // Define custom Caps Word continuity characters
 bool caps_word_press_user(uint16_t keycode) {
