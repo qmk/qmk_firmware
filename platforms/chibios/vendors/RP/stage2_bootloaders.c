@@ -7,7 +7,9 @@
 
 #include <stdint.h>
 
-#define BOOTLOADER_SECTION __attribute__ ((used, section (".boot2")))
+#define BOOTLOADER_SECTION __attribute__((used, section(".boot2")))
+
+// clang-format off
 
 #if defined(RP2040_FLASH_AT25SF128A)
 
@@ -172,3 +174,5 @@ uint8_t BOOTLOADER_SECTION BOOT2_W25Q080[256] = {
 };
 
 #endif
+
+// clang-format on
