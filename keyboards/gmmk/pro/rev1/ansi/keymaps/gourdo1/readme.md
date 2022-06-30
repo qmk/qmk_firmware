@@ -96,7 +96,7 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 ### Advanced Controls
 
 * [FN]\ to get to bootloader mode
-* [FN][ESC] to clear EEPROM (then unplug and re-plug) (added Apr 11, 2022)
+* [FN][ESC] to clear EEPROM (added Apr 11, 2022)
 * [FN]R to toggle N-key Rollover (added Apr 11, 2022)
 * [FN]/ is single-handed shortcut to Ctrl-Alt-Delete (added May 14, 2022)
 * [FN]L is single-handed shortcut to Win-L (lock Windows) (added May 17, 2022)
