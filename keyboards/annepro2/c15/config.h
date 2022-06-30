@@ -49,3 +49,21 @@
 
 // Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
 #define PERMISSIVE_HOLD
+
+// SPI configuration
+#define SPI_DRIVER SPID1
+#define SPI_SCK_PIN A0
+#define SPI_MOSI_PIN A1
+#define SPI_MISO_PIN A2
+
+// Flash configuration
+#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B6
+#define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 16
+#define EXTERNAL_FLASH_PAGE_SIZE 256
+#define EXTERNAL_FLASH_SECTOR_SIZE 4096
+#define EXTERNAL_FLASH_BLOCK_SIZE 4096
+#define EXTERNAL_FLASH_SIZE (256 * 1024) // 2M-bit flash size
+
+// Wear-leveling driver configuration
+#define WEAR_LEVELING_LOGICAL_SIZE 1024
+#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
