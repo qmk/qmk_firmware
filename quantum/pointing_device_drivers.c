@@ -105,8 +105,8 @@ void cirque_pinnacle_enable_cursor_glide(bool enable) {
     cursor_glide_enable = enable;
 }
 
-void cirque_pinnacle_configure_cursor_glide(float trigger_inches) {
-    glide.trigger_px = roundf((float)trigger_inches * (float)CIRQUE_PINNACLE_DIAMETER_MM / 25.4f);
+void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
+    glide.trigger_px = trigger_px;
 }
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
@@ -170,10 +170,10 @@ mouse_report_update:
 }
 
 uint16_t cirque_pinnacle_get_cpi(void) {
-    return (uint16_t)roundf((float)cirque_pinnacle_get_scale() * 25.4f / (float)CIRQUE_PINNACLE_DIAMETER_MM);
+    return CIRQUE_PINNACLE_PX_TO_INCH(cirque_pinnacle_get_scale());
 }
 void cirque_pinnacle_set_cpi(uint16_t cpi) {
-    cirque_pinnacle_set_scale(roundf((float)cpi * (float)CIRQUE_PINNACLE_DIAMETER_MM / 25.4f));
+    cirque_pinnacle_set_scale(CIRQUE_PINNACLE_INCH_TO_PX(cpi));
 }
 
 // clang-format off
