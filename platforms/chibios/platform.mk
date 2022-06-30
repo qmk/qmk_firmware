@@ -88,9 +88,9 @@ ifeq ("$(MCU_PORT_NAME)","")
 endif
 
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-    PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     ifeq ("$(wildcard $(PLATFORM_MK))","")
-        PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+        PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     endif
 endif
 
@@ -286,6 +286,17 @@ EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+
+#
+# QMK specific MCU family support selection.
+##############################################################################
+ifneq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES).mk)","")
+    # Either by MCU series e.g. STM32/STM32F1xx.mk or...
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES).mk
+else ifneq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_FAMILY).mk)","")
+    # By MCU family e.g. STM32/STM32.mk
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_FAMILY).mk
+endif
 
 #
 # ChibiOS-Contrib

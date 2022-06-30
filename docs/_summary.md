@@ -166,6 +166,7 @@
     * Arm/ChibiOS
       * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
+      * [Raspberry Pi RP2040](platformdev_rp2040.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)
