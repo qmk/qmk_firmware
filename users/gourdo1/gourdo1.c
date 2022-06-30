@@ -183,6 +183,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
             } else {
                 SEND_STRING("[SHIFT]-[DEL]"SS_TAP(X_ENT));
             }
+            SEND_STRING("8. Disable CTRL-SPACE function                      ");
+            if (user_config.disable_ctrl_space) {
+                SEND_STRING("[ON]"SS_TAP(X_ENT));
+            } else {
+                SEND_STRING("[OFF]"SS_TAP(X_ENT));
+            }
             SEND_STRING(SS_TAP(X_ENT)"The latest firmware updates are always here: https://github.com/gourdo1/gmmkpro-media"SS_TAP(X_ENT));
         }
         break;
@@ -226,6 +232,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     case TG_INS:  // Toggle Encoder function
         if (record->event.pressed) {
             user_config.ins_on_shft_bkspc_or_del ^= 1; // Toggles the status
+            eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+        }
+        break;
+    case TG_CTLSPC:  // Toggle CTRL-SPACE disable function
+        if (record->event.pressed) {
+            user_config.disable_ctrl_space ^= 1; // Toggles the status
             eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
         }
         break;
@@ -404,33 +416,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         break;
 
         // Treat Control+Space as if regular Space
-    case KC_SPC: {
-        // Initialize a boolean variable that keeps track of the space key status: registered or not?
-        static bool spckey_registered;
-        if (record -> event.pressed) {
-            // Detect the activation of either ctrl keys
-            if (mod_state & MOD_MASK_CTRL) {
-                // First temporarily canceling both ctrls so that
-                // ctrl isn't applied to the KC_SPC keycode
-                del_mods(MOD_MASK_CTRL);
-                register_code(KC_SPC);
-                // Update the boolean variable to reflect the status of KC_SPC
-                spckey_registered = true;
-                // Reapplying modifier state so that the held ctrl key(s)
-                // still work even after having tapped the Space key.
-                set_mods(mod_state);
-                return false;
-            }
-        } else { // on release of KC_SPC
-            // In case KC_SPC is still being sent even after the release of KC_SPC
-            if (spckey_registered) {
-                unregister_code(KC_SPC);
-                spckey_registered = false;
-                return false;
+    case KC_SPC:
+        if(user_config.disable_ctrl_space) {
+            // Initialize a boolean variable that keeps track of the space key status: registered or not?
+            static bool spckey_registered;
+            if (record -> event.pressed) {
+                // Detect the activation of either ctrl keys
+                if (mod_state & MOD_MASK_CTRL) {
+                    // First temporarily canceling both ctrls so that
+                    // ctrl isn't applied to the KC_SPC keycode
+                    del_mods(MOD_MASK_CTRL);
+                    register_code(KC_SPC);
+                    // Update the boolean variable to reflect the status of KC_SPC
+                    spckey_registered = true;
+                    // Reapplying modifier state so that the held ctrl key(s)
+                    // still work even after having tapped the Space key.
+                    set_mods(mod_state);
+                    return false;
+                }
+            } else { // on release of KC_SPC
+                // In case KC_SPC is still being sent even after the release of KC_SPC
+                if (spckey_registered) {
+                    unregister_code(KC_SPC);
+                    spckey_registered = false;
+                    return false;
+                }
             }
         }
-    }
-    break;
+        break;
 
     // Treat Shift+Space as if regular Space
     case KC_SHIFTSPC: {
@@ -634,6 +647,7 @@ void eeconfig_init_user(void) {
     user_config.encoder_press_mute_or_media   = true;
     user_config.esc_double_tap_to_baselyr     = true;
     user_config.ins_on_shft_bkspc_or_del      = true;
+    user_config.disable_ctrl_space            = true;
 
     eeconfig_update_user(user_config.raw);
 }

@@ -51,7 +51,6 @@ enum custom_user_keycodes {
     KC_00 = SAFE_RANGE,
         ENCFUNC,       // Encoder function
         CAPSNUM,       // Capslock key function
-        //ESCLYR,        // ESC layer function
         LEFTOFENC,     // Key to the left of the encoder (i.e. F13)
         BELOWENC,      // Key below encoder
         PRNCONF,       // Print verbose statuses of all user_config toggles
@@ -67,6 +66,7 @@ enum custom_user_keycodes {
         TG_ENC,        // Toggle Encoder functionality
         TG_ESC,        // Toggle ESC tapdance for _BASE layer
         TG_INS,        // Toggle location of INS
+        TG_CTLSPC,    // Toggle CTRL-SPACE disable function
 
         YAHOO,         // yahoo.com
         OUTLOOK,       // outlook.com
@@ -90,7 +90,6 @@ enum custom_user_keycodes {
 // Tap Dance Definitions
 enum custom_tapdance {
     TD_LSFT_CAPS_WIN,
-    //TD_ESC_BASELYR
 };
 
 // Set up boolean variables to track user customizable configuration options
@@ -104,14 +103,13 @@ typedef union {
     bool     double_tap_shift_for_capslock :1;
     bool     encoder_press_mute_or_media :1;
     bool     ins_on_shft_bkspc_or_del :1;
+    bool     disable_ctrl_space :1;
   };
 } user_config_t;
 
 user_config_t user_config;
 
 #define LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
-//#define ESCLYR TD(TD_ESC_BASELYR)
-//#define CAPSNUM TD(TD_NUMPAD)
 
 // ENCODER ACTIONS
 #ifdef ENCODER_ENABLE
