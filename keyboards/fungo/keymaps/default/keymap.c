@@ -18,13 +18,13 @@
 
 
 enum layer_names {
-		BASE,
-		F3LAY,
-		F4LAY,
 		SAM1,
 		SAM2,
 		SAM3,
-		SAM4
+		SAM4,
+		BASE,
+		F3LAY,
+		F4LAY,
 };
 
 
