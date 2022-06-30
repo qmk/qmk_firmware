@@ -27,6 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //        is_calm = (record->event.pressed) ? true : false;
 //#    endif
 
+enum crkbd_layers {
+  _QWERTY,
+  _NUMBER,
+  _NAVIGATION,
+  _GAMING
+};
+
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
 #define HOME_S LALT_T(KC_S)
@@ -50,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //OSM(MOD_LSFT) One Shot Modifer Shift Key
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_split_3x6_3(
+  [_QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -63,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [1] = LAYOUT_split_3x6_3(
+  [_NUMBER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB, KC_CIRC, KC_HASH, KC_LPRN, KC_RPRN,  KC_DLR,                      KC_BSLS,   KC_P7,   KC_P8,   KC_P9, KC_PPLS, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -75,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [2] = LAYOUT_split_3x6_3(
+  [_NAVIGATION] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       TABLGUI,  KC_INS, KC_HOME,   KC_UP, KC_END,  KC_PGUP,                       KC_ESC,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -87,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [3] = LAYOUT_split_3x6_3(
+  [_GAMING] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                        KC_F1,   KC_F2,   KC_F4,  KC_F11,  RESET,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -109,24 +116,20 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("\nLayer: "), false);
     switch (get_highest_layer(layer_state|default_layer_state)) {
-        case L_BASE:
+        case _QWERTY:
             oled_write_ln_P(PSTR("QWERTY"), false);
             break;
-        case L_LOWER:
+        case _NUMBER:
             oled_write_ln_P(PSTR("Numpad"), false);
             break;
-        case L_RAISE:
+        case _NAVIGATION:
             oled_write_ln_P(PSTR("Nav"), false);
             break;
-        case L_ADJUST:
+        case _GAMING:
             oled_write_ln_P(PSTR("Minecraft"), false);
             break;
         default:

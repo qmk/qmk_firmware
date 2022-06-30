@@ -33,7 +33,7 @@ static const char adjust_other_leds[] = {36, 37, 44, 50, 51, 49, 52, 53, 9};
 /*
   _QWERTY = RGB_CORAL   (calm white)
   _NAVIGATION = RGB_PINK
-  _GAMING = RGB_SPRINGGREEN   (blueish white)
+  _GAMING = RGB_SPRINGGREEN
   _NUMBER = RGB_GOLDENROD
   _SYMBOL = RGB_ORANGE
   _FUNCTION = RGB_MAGENTA
