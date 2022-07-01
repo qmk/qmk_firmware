@@ -43,7 +43,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(3, HSV_GREEN);       // @
     rgb_matrix_set_hsv(4, HSV_ORANGE);      // !
     rgb_matrix_set_hsv(5, HSV_GOLD);        // tab // row1,col1
-    rgb_matrix_set_hsv(6, HSV_WHITE);       // ? // row2,col1
+    rgb_matrix_set_hsv(6, HSV_WHITE);       // row2,col1
     rgb_matrix_set_hsv(7, HSV_CYAN);        // #
     rgb_matrix_set_hsv(8, HSV_GOLD);        // $
     rgb_matrix_set_hsv(9, HSV_MAGENTA);     // {
@@ -54,9 +54,9 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(14, HSV_PINK);       // [
     rgb_matrix_set_hsv(15, HSV_GREEN);      // ^
     rgb_matrix_set_hsv(16, HSV_ORANGE);     // %
-    rgb_matrix_set_hsv(17, HSV_CYAN);       // ~ // row3,col1
+    rgb_matrix_set_hsv(17, HSV_WHITE);      // row3,col1
     rgb_matrix_set_hsv(18,  HSV_RED);       // backspace
-    rgb_matrix_set_hsv(19, HSV_ORANGE);     // delete
+    rgb_matrix_set_hsv(19, HSV_RED);        // delete
     rgb_matrix_set_hsv(20, HSV_GREEN);      // shift
     rgb_matrix_set_hsv(21, HSV_PURPLE);     // cmd
     rgb_matrix_set_hsv(22, HSV_YELLOW);     // alt
@@ -106,7 +106,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(3, HSV_WHITE);
     rgb_matrix_set_hsv(4, HSV_WHITE);
     rgb_matrix_set_hsv(5, HSV_GOLD);        // tab // row1,col1
-    rgb_matrix_set_hsv(6, HSV_WHITE);       // ? // row2,col1
+    rgb_matrix_set_hsv(6, HSV_WHITE);       // row2,col1
     rgb_matrix_set_hsv(7, HSV_WHITE);
     rgb_matrix_set_hsv(8, HSV_WHITE);
     rgb_matrix_set_hsv(9, HSV_WHITE);
@@ -117,9 +117,9 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(14, HSV_WHITE);
     rgb_matrix_set_hsv(15, HSV_WHITE);
     rgb_matrix_set_hsv(16, HSV_WHITE);
-    rgb_matrix_set_hsv(17, HSV_CYAN);       // tilde-backtick // row3,col1
+    rgb_matrix_set_hsv(17, HSV_WHITE);      // row3,col1
     rgb_matrix_set_hsv(18, HSV_RED);        // backspace
-    rgb_matrix_set_hsv(19, HSV_ORANGE);     // delete
+    rgb_matrix_set_hsv(19, HSV_RED);        // delete
     rgb_matrix_set_hsv(20, HSV_GREEN);      // shift
     rgb_matrix_set_hsv(21, HSV_PURPLE);     // cmd
     rgb_matrix_set_hsv(22, HSV_YELLOW);     // alt
@@ -170,7 +170,7 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(3, HSV_WHITE);
     rgb_matrix_set_hsv(4, HSV_WHITE);
     rgb_matrix_set_hsv(5, HSV_GOLD);        // tab // row1,col1
-    rgb_matrix_set_hsv(6, HSV_WHITE);       // ? // row2,col1
+    rgb_matrix_set_hsv(6, HSV_WHITE);       // row2,col1
     rgb_matrix_set_hsv(7, HSV_WHITE);
     rgb_matrix_set_hsv(8, HSV_WHITE);
     rgb_matrix_set_hsv(9, HSV_WHITE);
@@ -181,9 +181,9 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(14, HSV_WHITE);
     rgb_matrix_set_hsv(15, HSV_WHITE);
     rgb_matrix_set_hsv(16, HSV_WHITE);
-    rgb_matrix_set_hsv(17, HSV_CYAN);       // tilde-backtick // row3,col1
+    rgb_matrix_set_hsv(17, HSV_ORANGE);      // row3,col1
     rgb_matrix_set_hsv(18,  HSV_RED);       // backspace
-    rgb_matrix_set_hsv(19, HSV_ORANGE);     // delete
+    rgb_matrix_set_hsv(19, HSV_RED);        // delete
     rgb_matrix_set_hsv(20, HSV_GREEN);      // shift
     rgb_matrix_set_hsv(21, HSV_PURPLE);     // cmd
     rgb_matrix_set_hsv(22, HSV_YELLOW);     // alt
@@ -234,20 +234,20 @@ void matrix_scan_rgb_matrix(void) {
     rgb_matrix_set_hsv(3, HSV_WHITE);
     rgb_matrix_set_hsv(4, HSV_WHITE);
     rgb_matrix_set_hsv(5, HSV_GOLD);        // tab // row1,col1
-    rgb_matrix_set_hsv(6, HSV_WHITE);       // ? // row2,col1
+    rgb_matrix_set_hsv(6, HSV_WHITE);       // row2,col1
     rgb_matrix_set_hsv(7, HSV_WHITE);
-    rgb_matrix_set_hsv(8, HSV_WHITE);
-    rgb_matrix_set_hsv(9, HSV_WHITE);
-    rgb_matrix_set_hsv(10, HSV_WHITE);
+    rgb_matrix_set_hsv(8, HSV_CYAN);        // tilde
+    rgb_matrix_set_hsv(9, HSV_ORANGE);      // zoom momentary
+    rgb_matrix_set_hsv(10, HSV_GOLD);       // dragscroll toggle
     rgb_matrix_set_hsv(11, HSV_WHITE);      // row2,col6
     rgb_matrix_set_hsv(12, HSV_WHITE);      // row3,col6
     rgb_matrix_set_hsv(13, HSV_WHITE);
     rgb_matrix_set_hsv(14, HSV_WHITE);
     rgb_matrix_set_hsv(15, HSV_WHITE);
     rgb_matrix_set_hsv(16, HSV_WHITE);
-    rgb_matrix_set_hsv(17, HSV_CYAN);       // tilde-backtick // row3,col1
+    rgb_matrix_set_hsv(17, HSV_WHITE);      // row3,col1
     rgb_matrix_set_hsv(18, HSV_RED);        // backspace
-    rgb_matrix_set_hsv(19, HSV_ORANGE);     // delete
+    rgb_matrix_set_hsv(19, HSV_RED);        // delete
     rgb_matrix_set_hsv(20, HSV_RED);        // mac lock
     rgb_matrix_set_hsv(21, HSV_GOLD);       // screenshot
     rgb_matrix_set_hsv(22, HSV_RED);        // CAD    
