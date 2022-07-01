@@ -37,9 +37,9 @@
 // #    define WPM_LAUNCH_CONTROL
 // #    define WPM_ALLOW_COUNT_REGRESSOIN
 // #    define WPM_UNFILTERED
-#    define WPM_SAMPLE_SECONDS      6
+#    define WPM_SAMPLE_SECONDS      10
 #    define WPM_SAMPLE_PERIODS      50
-#    define WPM_ESTIMATED_WORD_SIZE 6
+#    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -291,6 +291,12 @@
 #    ifndef OLED_BRIGHTNESS
 #        define OLED_BRIGHTNESS 50
 #    endif
-#    undef OLED_UPDATE_INTERVAL
-#    define OLED_UPDATE_INTERVAL 100
+#    if !defined(STM32F4XX)
+#        undef OLED_UPDATE_INTERVAL
+#        define OLED_UPDATE_INTERVAL 75
+#    endif
 #endif
+
+#define ENABLE_COMPILE_KEYCODE
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
