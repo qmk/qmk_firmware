@@ -32,7 +32,7 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
 
     /* Tap TT five times . */
     /* TODO: Tapping Force Hold breaks TT */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
 
     layer_key.press();
     run_one_scan_loop();
