@@ -1,9 +1,9 @@
-# Nebula68B
+# Nebula12B
 
-This is a standard fixed layout 68% PCB. It supports VIA, full per-key RGB and underglow RGB. This is revision B.
+This is a micropad layout PCB. It supports VIA, full per-key RGB and underglow RGB. This is revision B.
 
 * Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
-* Hardware Supported: A 68% keyboard with ATMEGA32U4
+* Hardware Supported: A micropad with ATMEGA32U4
 * Hardware Availability: https://spaceholdings.net/
 
 ## Instructions
@@ -12,7 +12,7 @@ This is a standard fixed layout 68% PCB. It supports VIA, full per-key RGB and u
 
 Make example for this keyboard (after setting up your build environment):
 
-    make spaceholdings/nebula68b:via
+    make spaceholdings/nebula12b:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -29,4 +29,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Unplug
 - Hold Escape
 - Plug In
-- Flash using QMK Toolbox or dfu-util (`make nebula68b:<keymap>:flash`)
+- Flash using QMK Toolbox or dfu-util (`make nebula12b:<keymap>:flash`)
