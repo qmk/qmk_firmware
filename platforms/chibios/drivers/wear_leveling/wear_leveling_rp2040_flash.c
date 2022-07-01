@@ -1,6 +1,7 @@
 /**
  * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
  * Copyright (c) 2022 Nick Brassel (@tzarc)
+ * Copyright (c) 2022 Stefan Kerkmann (@KarlK90)
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -11,32 +12,30 @@
 #include "hardware/structs/ssi.h"
 #include "hardware/structs/ioqspi.h"
 
-#define BOOT2_SIZE_WORDS 64
+#include <stdbool.h>
+#include "timer.h"
+#include "wear_leveling.h"
+#include "wear_leveling_internal.h"
+
+#ifndef WEAR_LEVELING_RP2040_FLASH_BULK_COUNT
+#    define WEAR_LEVELING_RP2040_FLASH_BULK_COUNT 64
+#endif // WEAR_LEVELING_RP2040_FLASH_BULK_COUNT
+
 #define FLASHCMD_PAGE_PROGRAM 0x02
 #define FLASHCMD_READ_STATUS 0x05
 #define FLASHCMD_WRITE_ENABLE 0x06
 
+extern uint8_t  BOOT2_ROM[256];
+static uint32_t BOOT2_ROM_RAM[64];
+
 static ssi_hw_t *const ssi = (ssi_hw_t *)XIP_SSI_BASE;
 
 // Sanity check
-#undef static_assert
-#define static_assert _Static_assert
 check_hw_layout(ssi_hw_t, ssienr, SSI_SSIENR_OFFSET);
 check_hw_layout(ssi_hw_t, spi_ctrlr0, SSI_SPI_CTRLR0_OFFSET);
 
-static uint32_t boot2_copyout[BOOT2_SIZE_WORDS];
-static bool     boot2_copyout_valid = false;
-
-static void __no_inline_not_in_flash_func(flash_init_boot2_copyout)(void) {
-    if (boot2_copyout_valid) return;
-    for (int i = 0; i < BOOT2_SIZE_WORDS; ++i)
-        boot2_copyout[i] = ((uint32_t *)XIP_BASE)[i];
-    __compiler_memory_barrier();
-    boot2_copyout_valid = true;
-}
-
 static void __no_inline_not_in_flash_func(flash_enable_xip_via_boot2)(void) {
-    ((void (*)(void))boot2_copyout + 1)();
+    ((void (*)(void))BOOT2_ROM_RAM + 1)();
 }
 
 // Bitbanging the chip select using IO overrides, in case RAM-resident IRQs
@@ -126,41 +125,44 @@ static void __no_inline_not_in_flash_func(flash_enable_write)(void) {
     _flash_do_cmd(FLASHCMD_WRITE_ENABLE, NULL, NULL, 0);
 }
 
-static void __no_inline_not_in_flash_func(pico_program_u16)(uint32_t flash_offs, uint16_t data) {
+static void __no_inline_not_in_flash_func(pico_program_bulk)(uint32_t flash_address, uint16_t *values, size_t item_count) {
     rom_connect_internal_flash_fn connect_internal_flash = (rom_connect_internal_flash_fn)rom_func_lookup_inline(ROM_FUNC_CONNECT_INTERNAL_FLASH);
     rom_flash_exit_xip_fn         flash_exit_xip         = (rom_flash_exit_xip_fn)rom_func_lookup_inline(ROM_FUNC_FLASH_EXIT_XIP);
-    rom_flash_range_program_fn    flash_range_program    = (rom_flash_range_program_fn)rom_func_lookup_inline(ROM_FUNC_FLASH_RANGE_PROGRAM);
     rom_flash_flush_cache_fn      flash_flush_cache      = (rom_flash_flush_cache_fn)rom_func_lookup_inline(ROM_FUNC_FLASH_FLUSH_CACHE);
-    assert(connect_internal_flash && flash_exit_xip && flash_range_program && flash_flush_cache);
-    flash_init_boot2_copyout();
+    assert(connect_internal_flash && flash_exit_xip && flash_flush_cache);
 
-    __compiler_memory_barrier();
+    static uint16_t bulk_write_buffer[WEAR_LEVELING_RP2040_FLASH_BULK_COUNT];
 
-    connect_internal_flash();
-    flash_exit_xip();
+    while (item_count) {
+        size_t batch_size = MIN(item_count, WEAR_LEVELING_RP2040_FLASH_BULK_COUNT);
+        for (int i = 0; i < batch_size; i++, values++, item_count--) {
+            bulk_write_buffer[i] = ~(*values);
+        }
+        __compiler_memory_barrier();
 
-    flash_enable_write();
-    flash_put_cmd_addr(FLASHCMD_PAGE_PROGRAM, flash_offs);
-    flash_put_get((uint8_t *)&data, NULL, 2, 4);
-    flash_wait_ready();
+        connect_internal_flash();
+        flash_exit_xip();
+        flash_enable_write();
 
-    flash_flush_cache(); // Note this is needed to remove CSn IO force as well
-                         // as cache flushing
-    flash_enable_xip_via_boot2();
+        flash_put_cmd_addr(FLASHCMD_PAGE_PROGRAM, flash_address);
+        flash_put_get((uint8_t *)bulk_write_buffer, NULL, batch_size * sizeof(backing_store_int_t), 4);
+        flash_wait_ready();
+        flash_address += batch_size * sizeof(backing_store_int_t);
+
+        flash_flush_cache();
+        flash_enable_xip_via_boot2();
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QMK Wear-Leveling Backing Store implementation
 
-#include <stdbool.h>
-#include "timer.h"
-#include "wear_leveling.h"
-#include "wear_leveling_internal.h"
-
-static int intr_stat;
+static int interrupts;
 
 bool backing_store_init(void) {
     bs_dprintf("Init\n");
+    memcpy(BOOT2_ROM_RAM, BOOT2_ROM, sizeof(BOOT2_ROM));
+    __compiler_memory_barrier();
     return true;
 }
 
@@ -174,23 +176,27 @@ bool backing_store_erase(void) {
     uint32_t start = timer_read32();
 #endif
 
-    static_assert(WEAR_LEVELING_BACKING_SIZE % 4096 == 0, "Backing size must be a multiple of 4096");
+    _Static_assert(WEAR_LEVELING_BACKING_SIZE % 4096 == 0, "Backing size must be a multiple of 4096");
 
-    intr_stat = save_and_disable_interrupts();
+    interrupts = save_and_disable_interrupts();
     flash_range_erase((WEAR_LEVELING_RP2040_FLASH_BASE), (WEAR_LEVELING_BACKING_SIZE));
-    restore_interrupts(intr_stat);
+    restore_interrupts(interrupts);
 
     bs_dprintf("Backing store erase took %ldms to complete\n", ((long)(timer_read32() - start)));
     return true;
 }
 
 bool backing_store_write(uint32_t address, backing_store_int_t value) {
+    return backing_store_write_bulk(address, &value, 1);
+}
+
+bool backing_store_write_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
     uint32_t offset = (WEAR_LEVELING_RP2040_FLASH_BASE) + address;
     bs_dprintf("Write ");
-    wl_dump(offset, &value, sizeof(backing_store_int_t));
-    intr_stat = save_and_disable_interrupts();
-    pico_program_u16(offset, ~value);
-    restore_interrupts(intr_stat);
+    wl_dump(offset, values, sizeof(backing_store_int_t) * item_count);
+    interrupts = save_and_disable_interrupts();
+    pico_program_bulk(offset, values, item_count);
+    restore_interrupts(interrupts);
     return true;
 }
 
@@ -199,10 +205,16 @@ bool backing_store_lock(void) {
 }
 
 bool backing_store_read(uint32_t address, backing_store_int_t *value) {
-    uint32_t             offset = (XIP_BASE) + (WEAR_LEVELING_RP2040_FLASH_BASE) + address;
-    backing_store_int_t *loc    = (backing_store_int_t *)offset;
-    *value                      = ~(*loc);
+    return backing_store_read_bulk(address, value, 1);
+}
+
+bool backing_store_read_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
+    uint32_t             offset = (WEAR_LEVELING_RP2040_FLASH_BASE) + address;
+    backing_store_int_t *loc    = (backing_store_int_t *)((XIP_BASE) + offset);
+    for (size_t i = 0; i < item_count; ++i) {
+        values[i] = ~loc[i];
+    }
     bs_dprintf("Read  ");
-    wl_dump(offset, loc, sizeof(backing_store_int_t));
+    wl_dump(offset, values, item_count * sizeof(backing_store_int_t));
     return true;
 }
