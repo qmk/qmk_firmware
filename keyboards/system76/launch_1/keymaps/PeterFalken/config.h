@@ -24,20 +24,16 @@
     #define USB_MAX_POWER_CONSUMPTION 100
 #endif
 
-// Configuration
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
 // Space optimizations - 01
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-// #define NO_ACTION_ONESHOT   // Need to check
-// #define NO_ACTION_TAPPING   // Need to check
+#define NO_ACTION_ONESHOT   // Check implications
+#define NO_ACTION_TAPPING   // Check implications
 
 // Space optimizations - 02
 #ifdef RGB_MATRIX_ENABLE
     // Remove predefined values
     #undef RGB_DISABLE_TIMEOUT
-    #undef RGB_DISABLE_AFTER_TIMEOUT    // OBSOLE - Removing manually before deprecation
     #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #undef RGB_MATRIX_STARTUP_MODE
     #undef RGB_MATRIX_STARTUP_HUE

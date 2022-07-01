@@ -1,15 +1,10 @@
-# Enable VIA support
-ENABLE_VIA = yes
+# Enable VIAL support when merged into QMK
+# ENABLE_VIAL = yes
 
-# Enable Link-Time Optimization for smaller binary
-LTO_ENABLE = yes
-
-# Remove unused features to free up space
-CONSOLE_ENABLE = no
-COMMAND_ENABLE = no
-MOUSEKEY_ENABLE = no
-# EXTRAKEY_ENABLE = no
-SPACE_CADET_ENABLE = no		# Need to check space difference
-GRAVE_ESC_ENABLE = no		# Not needed - separate ESC key 
+# Disable QMK features
+GRAVE_ESC_ENABLE = no		# Not needed
 MAGIC_ENABLE = no			# No MAGIC functions needed
-# MUSIC_ENABLE = no			# Not used
+SPACE_CADET_ENABLE = no		# Free up space
+
+# Enable QMK features
+CAPS_WORD_ENABLE = yes
