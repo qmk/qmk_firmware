@@ -37,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* encoder pins */
 #define ENCODERS_PAD_A { F7 }
 #define ENCODERS_PAD_B { F6 }
-/* encoder hardware resolution */
-#define ENCODER_RESOLUTION 2
 
 /* debounce */
 #define DEBOUNCE 5
@@ -49,7 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* n-key rollover */
 #define FORCE_NKRO
-
-/* 1000hz polling */
-#define USB_POLLING_INTERVAL_MS 1
-#define QMK_KEYS_PER_SCAN 12
