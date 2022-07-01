@@ -591,7 +591,7 @@
                 { "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_87_WKL": {
+        "LAYOUT_87_wkl": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
@@ -685,7 +685,7 @@
                 { "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_87_WKL_split_bs": {
+        "LAYOUT_87_wkl_split_bs": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
@@ -780,7 +780,7 @@
                 { "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_87_WKL_split_lshift": {
+        "LAYOUT_87_wkl_split_lshift": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
@@ -875,7 +875,7 @@
                 { "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_87_WKL_split_rshift": {
+        "LAYOUT_87_wkl_split_rshift": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
