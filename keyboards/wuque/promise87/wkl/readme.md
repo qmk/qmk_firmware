@@ -10,11 +10,11 @@ More Info at [promise87](https://shop.wuquestudio.com/)
 
 Make example for this keyboard (after setting up your build environment):  
 
-    make wuque/promise87/WKL:default
+    make wuque/promise87/wkl:default
 
 Flashing example for this keyboard:  
 
-    make wuque/promise87/WKL:default:flash
+    make wuque/promise87/wkl:default:flash
 
 ## Bootloader
 
