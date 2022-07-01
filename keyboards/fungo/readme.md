@@ -1,6 +1,7 @@
 # fungo split keyboard (fungo)
 
 
+![full](https://user-images.githubusercontent.com/107382014/176942337-31313d0e-1588-475b-877b-55e0a74f06e6.jpg)
 
 A split keyboard for my hands.
 
