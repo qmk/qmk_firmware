@@ -1,6 +1,6 @@
 # Fin Pad
 
-![Fin Pad](https://i.imgur.com/JRPI51Th.png)
+![Fin Pad](https://i.imgur.com/OC5O2SZ.png)
 
 A replacement PCB for the Lin Dolphin Pad
 
