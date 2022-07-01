@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1.h"
+#include "kb16.h"
 
 // OLED animation
 #include "lib/logo.h"
