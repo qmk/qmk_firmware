@@ -20,6 +20,4 @@ ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = AW20216
 FLASH_DRIVER = spi
-EEPROM_DRIVER = custom
-
-SRC +=  src/eeprom_flash.c
+EEPROM_DRIVER = transient
