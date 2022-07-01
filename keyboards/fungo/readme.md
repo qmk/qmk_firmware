@@ -1,6 +1,6 @@
 # fungo split keyboard (fungo)
 
-![fungo](https://github.com/bojiguard/fungo-split-keyboard/blob/master/picture/full%20cover.jpg)
+
 
 A split keyboard for my hands.
 
