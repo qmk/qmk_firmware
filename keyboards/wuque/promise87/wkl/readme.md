@@ -9,20 +9,10 @@ More Info at [promise87](https://shop.wuquestudio.com/)
 ​
 
 Make example for this keyboard (after setting up your build environment):  
-For ansi variant:
-
-    make wuque/promise87/ansi:default
-
-For WKL variant:
 
     make wuque/promise87/WKL:default
 
 Flashing example for this keyboard:  
-For ansi variant:
-
-    make wuque/promise87/ansi:default:flash
-    
-For WKL variant:
 
     make wuque/promise87/WKL:default:flash
 

@@ -20,7 +20,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x906D
-#define PRODUCT_ID      0x0005
+#define PRODUCT_ID      0x0006
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wuque
 #define PRODUCT         promise87
