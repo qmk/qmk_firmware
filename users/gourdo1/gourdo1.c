@@ -25,21 +25,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void dance_LSFT_each_tap(qk_tap_dance_state_t * state, void * user_data) {
     if (user_config.double_tap_shift_for_capslock) {
         if (state -> count == 1 || keymap_config.no_gui) {
-            register_code16(KC_LSFT);
+            register_code(KC_LSFT);
         } else {
             register_code(KC_CAPS);
         }
     } else {
-        register_code16(KC_LSFT);
+        register_code(KC_LSFT);
     }
 }
 
 void dance_LSFT_reset(qk_tap_dance_state_t * state, void * user_data) {
     if (state -> count == 1 || keymap_config.no_gui) {
-        unregister_code16(KC_LSFT);
+        unregister_code(KC_LSFT);
     } else {
         unregister_code(KC_CAPS);
-        unregister_code16(KC_LSFT);
+        unregister_code(KC_LSFT);
     }
 }
 
@@ -136,59 +136,66 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         // User configuration toggles
     case PRNCONF:  // Print verbose status of all user_config toggles (open a text editor before engaging!!)
         if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_ENT)"--------------<<<<< gourdo1's GMMK Pro User Settings >>>>>-------------"SS_TAP(X_ENT));
-            SEND_STRING("Hold [FN] and the number corresponding to a setting below to toggle it."SS_TAP(X_ENT));
-            SEND_STRING("Config also visible by holding [FN] and viewing RGB under number keys. "SS_TAP(X_ENT));
-            SEND_STRING("======================================================================="SS_TAP(X_ENT));
-            SEND_STRING("1. CapsLock RGB highlight alpha keys                ");
+            //send_string("Left bracket with alt numcodes "SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_0) SS_TAP(X_KP_9) SS_TAP(X_KP_1))"\n");
+            send_string("\n\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x3C\x3C\x3C\x3C\x3C\x3C\x3C\x3C\x3C");
+            send_string(" gourdo1\x27s GMMK Pro User Settings ");
+            send_string("\x3E\x3E\x3E\x3E\x3E\x3E\x3E\x3E\x3E\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\n");
+            send_string("Hold \x5B \bFn\x5D and the number corresponding to a setting below to toggle.\n");
+            send_string("Re-print this screen with \x5B \bFn\x5D \x5B`\x5D to see your changes reflected.\n");
+            send_string("Config also visible as RGB under number keys by holding \x5B \bFn\x5D.\n");
+            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d");
+            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d");
+            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d");
+            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\n");
+            send_string("1. CapsLock RGB highlight alpha keys................ ");
             if (user_config.rgb_hilite_caps) {
-                SEND_STRING("[ON]"SS_TAP(X_ENT));
+                send_string("\x5BON\x5D\n");
             } else {
-                SEND_STRING("[OFF]"SS_TAP(X_ENT));
+                send_string("\x5BOFF\x5D\n");
             }
-            SEND_STRING("2. Numpad RGB highlight layer keys                  ");
+            send_string("2. Numpad RGB highlight layer keys.................. ");
             if (user_config.rgb_hilite_numpad) {
-                SEND_STRING("[ON]"SS_TAP(X_ENT));
+                send_string("\x5BON\x5D\n");
             } else {
-                SEND_STRING("[OFF]"SS_TAP(X_ENT));
+                send_string("\x5BOFF\x5D\n");
             }
-            SEND_STRING("3. Double tap ESC to revert to BASE layer           ");
+            send_string("3. Double tap ESC to revert to BASE layer........... ");
             if (user_config.esc_double_tap_to_baselyr) {
-                SEND_STRING("[ON]"SS_TAP(X_ENT));
+                send_string("\x5BON\x5D\n");
             } else {
-                SEND_STRING("[OFF]"SS_TAP(X_ENT));
+                send_string("\x5BOFF\x5D\n");
             }
-            SEND_STRING("4. DEL & HOME key locations                         ");
+            send_string("4. DEL \x26 HOME key locations......................... ");
             if (user_config.del_right_home_top) {
-                SEND_STRING("[HOME on F13;DEL right of BKSPC]"SS_TAP(X_ENT));
+                send_string("\x5BHOME on F13\x3B DEL right of BKSPC\x5D\n");
             } else {
-                SEND_STRING("[DEL on F13;HOME right of BKSPC]"SS_TAP(X_ENT));
+                send_string("\x5B \bDEL on F13\x3B HOME right of BKSPC\x5D\n");
             }
-            SEND_STRING("5. Capslock: Double tap LShift / Numpad on CapsLock ");
+            send_string("5. Numpad on CapsLock\x3B double tap LSHIFT for Caps... ");
             if (user_config.double_tap_shift_for_capslock) {
-                SEND_STRING("[ON]"SS_TAP(X_ENT));
+                send_string("\x5BON\x5D\n");
             } else {
-                SEND_STRING("[OFF]"SS_TAP(X_ENT));
+                send_string("\x5BOFF\x5D\n");
             }
-            SEND_STRING("6. Encoder button function                          ");
+            send_string("6. Encoder button function.......................... ");
             if (user_config.encoder_press_mute_or_media) {
-                SEND_STRING("[MUTE]"SS_TAP(X_ENT));
+                send_string("\x5BMUTE\x5D\n");
             } else {
-                SEND_STRING("[MEDIA PLAY/PAUSE]"SS_TAP(X_ENT));
+                send_string("\x5BMEDIA PLAY\x2FPAUSE\x5D\n");
             }
-            SEND_STRING("7. Insert function accessed with                    ");
+            send_string("7. Insert function accessed with.................... ");
             if (user_config.ins_on_shft_bkspc_or_del) {
-                SEND_STRING("[SHIFT]-[BKSPC]"SS_TAP(X_ENT));
+                send_string("\x5BSHIFT\x2D \bBKSPC\x5D\n");
             } else {
-                SEND_STRING("[SHIFT]-[DEL]"SS_TAP(X_ENT));
+                send_string("\x5BSHIFT\x2D \bDEL\x5D\n");
             }
-            SEND_STRING("8. Force SHIFT&CTRL-SPACE to function like SPACE    ");
+            send_string("8. Force SHIFT \x26 CTRL\x2DSPACE to function like SPACE.. ");
             if (user_config.disable_space_mods) {
-                SEND_STRING("[ON]"SS_TAP(X_ENT));
+                send_string("\x5BON\x5D\n");
             } else {
-                SEND_STRING("[OFF]"SS_TAP(X_ENT));
+                send_string("\x5BOFF\x5D\n");
             }
-            SEND_STRING(SS_TAP(X_ENT)"The latest firmware updates are always here: https://github.com/gourdo1/gmmkpro-media"SS_TAP(X_ENT));
+            send_string("\nThe latest firmware updates are always here\x3a https\x3a\x2F\x2Fgithub.com\x2Fgourdo1\x2Fgmmkpro\x2Dmedia\n");
         }
         break;
 
@@ -365,35 +372,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         // DotCom domain macros
     case DOTCOM:
         if (record -> event.pressed) {
-            SEND_STRING(".com");
+            send_string(".com");
         } else {
             // when keycode is released
         }
         break;
     case YAHOO:
         if (record -> event.pressed) {
-            SEND_STRING("yahoo.com");
+            send_string("yahoo.com");
         } else {
             // when keycode is released
         }
         break;
     case OUTLOOK:
         if (record -> event.pressed) {
-            SEND_STRING("outlook.com");
+            send_string("outlook.com");
         } else {
             // when keycode is released
         }
         break;
     case GMAIL:
         if (record -> event.pressed) {
-            SEND_STRING("gmail.com");
+            send_string("gmail.com");
         } else {
             // when keycode is released
         }
         break;
     case HOTMAIL:
         if (record -> event.pressed) {
-            SEND_STRING("hotmail.com");
+            send_string("hotmail.com");
         } else {
             // when keycode is released
         }
@@ -410,7 +417,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     case KC_00:
         if (record -> event.pressed) {
             // when keycode KC_00 is pressed
-            SEND_STRING("00");
+            send_string("00");
         } else unregister_code16(keycode);
         break;
 
@@ -509,27 +516,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
 
         #ifdef EMOTICON_ENABLE
     case EMO_SHRUG:
-        if (record -> event.pressed) SEND_STRING("`\\_(\"/)_/`");
+        if (record -> event.pressed) send_string("`\\_(\"/)_/`");
         else unregister_code16(keycode);
         break;
     case EMO_CONFUSE:
-        if (record -> event.pressed) SEND_STRING("(*_*)");
+        if (record -> event.pressed) send_string("(*_*)");
         else unregister_code16(keycode);
         break;
     case EMO_TEARS:
-        if (record -> event.pressed) SEND_STRING("(T_T)");
+        if (record -> event.pressed) send_string("(T_T)");
         else unregister_code16(keycode);
         break;
     case EMO_NERVOUS:
-        if (record -> event.pressed) SEND_STRING("(~_~;)");
+        if (record -> event.pressed) send_string("(~_~;)");
         else unregister_code16(keycode);
         break;
     case EMO_JOY:
-        if (record -> event.pressed) SEND_STRING("(^o^)");
+        if (record -> event.pressed) send_string("(^o^)");
         else unregister_code16(keycode);
         break;
     case EMO_SAD:
-        if (record -> event.pressed) SEND_STRING(":'-(");
+        if (record -> event.pressed) send_string(":'-(");
         else unregister_code16(keycode);
         break;
         #endif // EMOTICON_ENABLE
