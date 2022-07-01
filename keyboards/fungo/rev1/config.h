@@ -21,7 +21,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x1818      
+#define VENDOR_ID       0x5892      
 #define PRODUCT_ID      0x1233
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fungo
@@ -68,7 +68,7 @@
 #define MATRIX_IO_DELAY 15  // default  30
 //#define QMK_KEYS_PER_SCAN 4
 #define TAP_CODE_DELAY  50   // default 100
-#define USB_POLLING_INTERVAL_MS   5 // default 10
+#define USB_POLLING_INTERVAL_MS   5 // default 1
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 3
@@ -84,16 +84,7 @@
 
 //tap or holding
 #define TAPPING_TERM 200
-//#define HOLD_ON_OTHER_KEY_PRESS
-//#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define IGNORE_MOD_TAP_INTERRUPT   // ROLLING PRESS?
-//#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-//#define TAPPING_FORCE_HOLD
-//#define TAPPING_FORCE_HOLD_PER_KEY
-//#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-//#define HOLD_ON_OTHER_KEY_PRESS
-//#define PERMISSIVE_HOLD
-//#define DEBUG_MATRIX_SCAN_RATE
+#define IGNORE_MOD_TAP_INTERRUPT
 
 
 
