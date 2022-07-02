@@ -36,21 +36,15 @@ Alternatively, if you'd like to manually install MSYS2, the following section wi
 
 #### Prerequisites
 
-You will need to install MSYS2, Git and Python. Follow the installation instructions on https://www.msys2.org.
-
-Once MSYS2 is installed, close any open MSYS terminals and open a new MinGW 64-bit terminal.
+You will need to install [MSYS2](https://www.msys2.org). Once installed, close any open MSYS terminals (purple icon) and open a new MinGW 64-bit terminal (blue icon) from the Start Menu.
 
 !> **NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
-
-Then run the following command:
-
-    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip mingw-w64-x86_64-python-pillow
 
 #### Installation
 
 Install the QMK CLI by running:
 
-    python3 -m pip install qmk
+    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-python-qmk
 
 </details>
 
