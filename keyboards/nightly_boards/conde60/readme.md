@@ -1,6 +1,6 @@
 # DeskDaily Conde60
 
-![Conde60](https://media.discordapp.net/attachments/755074685862936686/982918555882360852/unknown.png?width=853&height=396)
+![Conde60](https://i.imgur.com/5L7Cw44.png)
 
 A single layout 60% pcb with a Tsangan bottom row and split spacabars
 
