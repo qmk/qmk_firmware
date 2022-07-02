@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define PRODUCT Delirium TKL Rev 1.0 +
-#define VENDOR_ID 0x2E8A
-#define PRODUCT_ID 0xE739
+#define VENDOR_ID 0xE739
+#define PRODUCT_ID 0xA500
 #define DEVICE_VER 0x0001
 #define MANUFACTURER EnviousDesign
 

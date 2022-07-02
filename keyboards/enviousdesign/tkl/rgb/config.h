@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x2E8A
-#define PRODUCT_ID 0x000A
+#define VENDOR_ID 0xE739
+#define PRODUCT_ID 0xA400
 #define DEVICE_VER 0x0001
 #define MANUFACTURER EnviousDesign
 #define PRODUCT ALT Delirium RGB
@@ -44,9 +44,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { GP20, GP21, GP22, GP26, GP27, GP28 }
-#define MATRIX_COL_PINS { GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP13, GP14, GP15, GP19, GP18, GP17, GP16 }
-#define UNUSED_PINS { GP1, GP23, GP24, GP29 }
+#define MATRIX_ROW_PINS \
+    { GP20, GP21, GP22, GP26, GP27, GP28 }
+#define MATRIX_COL_PINS \
+    { GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP13, GP14, GP15, GP19, GP18, GP17, GP16 }
+#define UNUSED_PINS \
+    { GP1, GP23, GP24, GP29 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
