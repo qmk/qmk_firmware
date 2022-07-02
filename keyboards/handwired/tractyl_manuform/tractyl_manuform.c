@@ -159,10 +159,8 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
-void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybdis_config); }
-
 #    ifndef CONSTRAIN_HID
-#        define CONSTRAIN_HID(value) ((value) < -127 ? -127 : ((value) > 127 ? 127 : (value)))
+#        define CONSTRAIN_HID(value) ((value) < XY_REPORT_MIN ? XY_REPORT_MIN : ((value) > XY_REPORT_MAX ? XY_REPORT_MAX : (value)))
 #    endif  // !CONSTRAIN_HID
 
 /**
@@ -339,6 +337,7 @@ void charybdis_config_sync_handler(uint8_t initiator2target_buffer_size, const v
 }
 
 void keyboard_post_init_kb(void) {
+    maybe_update_pointing_device_cpi(&g_charybdis_config);
     transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, charybdis_config_sync_handler);
 
     keyboard_post_init_user();
