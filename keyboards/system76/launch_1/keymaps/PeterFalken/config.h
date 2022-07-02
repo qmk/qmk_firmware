@@ -19,16 +19,21 @@
 
 #include "config_common.h"
 
-// Avoid warning - "Attached USB accessory uses too much power."
+// Fix warning - "Attached USB accessory uses too much power."
 #ifndef USB_MAX_POWER_CONSUMPTION
     #define USB_MAX_POWER_CONSUMPTION 100
+#endif
+
+// Fix unresponsive on wake from sleep
+#ifndef USB_SUSPEND_WAKEUP_DELAY
+    #define USB_SUSPEND_WAKEUP_DELAY 200
 #endif
 
 // Space optimizations - 01
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-#define NO_ACTION_ONESHOT   // Check implications
-#define NO_ACTION_TAPPING   // Check implications
+//#define NO_ACTION_ONESHOT // 18016 - 17348
+//#define NO_ACTION_TAPPING // 18016 - 16158
 
 // Space optimizations - 02
 #ifdef RGB_MATRIX_ENABLE
@@ -42,7 +47,7 @@
 
     // Redefine values
     // Number of milliseconds to wait until RGB automatically turns off
-    #define RGB_DISABLE_TIMEOUT 10000
+    #define RGB_DISABLE_TIMEOUT 5000
     // Limits maximum brightness of LEDs to 120 out of 255
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
     // Sets the default startup mode
