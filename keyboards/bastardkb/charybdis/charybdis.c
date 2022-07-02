@@ -18,6 +18,8 @@
  */
 
 #include "charybdis.h"
+#include "transactions.h"
+#include <string.h>
 
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
@@ -160,10 +162,8 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
-void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybdis_config); }
-
 #    ifndef CONSTRAIN_HID
-#        define CONSTRAIN_HID(value) ((value) < -127 ? -127 : ((value) > 127 ? 127 : (value)))
+#        define CONSTRAIN_HID(value) ((value) < XY_REPORT_MIN ? XY_REPORT_MIN : ((value) > XY_REPORT_MAX ? XY_REPORT_MAX : (value)))
 #    endif  // !CONSTRAIN_HID
 
 /**
@@ -340,4 +340,49 @@ void matrix_init_kb(void) {
     read_charybdis_config_from_eeprom(&g_charybdis_config);
     matrix_init_user();
 }
+
+#    ifdef CHARYBDIS_CONFIG_SYNC
+void charybdis_config_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+    if (initiator2target_buffer_size == sizeof(g_charybdis_config)) {
+        memcpy(&g_charybdis_config, initiator2target_buffer, sizeof(g_charybdis_config));
+    }
+}
+#    endif
+
+void keyboard_post_init_kb(void) {
+    maybe_update_pointing_device_cpi(&g_charybdis_config);
+#    ifdef CHARYBDIS_CONFIG_SYNC
+    transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, charybdis_config_sync_handler);
+#    endif
+    keyboard_post_init_user();
+}
+
+#    ifdef CHARYBDIS_CONFIG_SYNC
+void housekeeping_task_kb(void) {
+    if (is_keyboard_master()) {
+        // Keep track of the last state, so that we can tell if we need to propagate to slave
+        static charybdis_config_t last_charybdis_config = {0};
+        static uint32_t           last_sync             = 0;
+        bool                      needs_sync            = false;
+
+        // Check if the state values are different
+        if (memcmp(&g_charybdis_config, &last_charybdis_config, sizeof(g_charybdis_config))) {
+            needs_sync = true;
+            memcpy(&last_charybdis_config, &g_charybdis_config, sizeof(g_charybdis_config));
+        }
+        // Send to slave every 500ms regardless of state change
+        if (timer_elapsed32(last_sync) > 500) {
+            needs_sync = true;
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            if (transaction_rpc_send(RPC_ID_KB_CONFIG_SYNC, sizeof(g_charybdis_config), &g_charybdis_config)) {
+                last_sync = timer_read32();
+            }
+        }
+    }
+    // no need for user function, is called already
+}
+#    endif // CHARYBDIS_CONFIG_SYNC
 #endif  // POINTING_DEVICE_ENABLE
