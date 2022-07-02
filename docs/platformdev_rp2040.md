@@ -2,17 +2,17 @@
 
 The following table shows the current driver status for peripherals on RP2040 MCUs:
 
-| System                               | Support                                        |
-| ------------------------------------ | ---------------------------------------------- |
-| [ADC driver](adc_driver.md)          | Support planned (no ETA)                       |
-| [Audio](audio_driver.md)             | Support planned (no ETA)                       |
-| [I2C driver](i2c_driver.md)          | :heavy_check_mark:                             |
-| [SPI driver](spi_driver.md)          | :heavy_check_mark:                             |
-| [WS2812 driver](ws2812_driver.md)    | :heavy_check_mark: using `PIO` driver          |
-| [External EEPROMs](eeprom_driver.md) | :heavy_check_mark: using `I2C` or `SPI` driver |
-| [EEPROM emulation](eeprom_driver.md) | Support planned (no ETA)                       |
-| [serial driver](serial_driver.md)    | :heavy_check_mark: using `SIO` or `PIO` driver |
-| [UART driver](uart_driver.md)        | Support planned (no ETA)                       |
+| System                                                           | Support                                        |
+| ---------------------------------------------------------------- | ---------------------------------------------- |
+| [ADC driver](adc_driver.md)                                      | Support planned (no ETA)                       |
+| [Audio](audio_driver.md)                                         | Support planned (no ETA)                       |
+| [I2C driver](i2c_driver.md)                                      | :heavy_check_mark:                             |
+| [SPI driver](spi_driver.md)                                      | :heavy_check_mark:                             |
+| [WS2812 driver](ws2812_driver.md)                                | :heavy_check_mark: using `PIO` driver          |
+| [External EEPROMs](eeprom_driver.md)                             | :heavy_check_mark: using `I2C` or `SPI` driver |
+| [EEPROM emulation](eeprom_driver.md#wear_leveling-configuration) | :heavy_check_mark:                             |
+| [serial driver](serial_driver.md)                                | :heavy_check_mark: using `SIO` or `PIO` driver |
+| [UART driver](uart_driver.md)                                    | Support planned (no ETA)                       |
 
 ## GPIO
 

@@ -92,6 +92,7 @@ Driver                                  | Description
 ----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 `WEAR_LEVELING_DRIVER = embedded_flash` | This driver is used for emulating EEPROM by writing to embedded flash on the MCU.
 `WEAR_LEVELING_DRIVER = spi_flash`      | This driver is used to address external SPI NOR Flash peripherals.
+`WEAR_LEVELING_DRIVER = rp2040_flash`   | This driver is used to write to the same storage the RP2040 executes code from.
 `WEAR_LEVELING_DRIVER = legacy`         | This driver is the "legacy" emulated EEPROM provided in historical revisions of QMK. Currently used for STM32F0xx and STM32F4x1, but slated for deprecation and removal once `embedded_flash` support for those MCU families is complete.
 
 !> All wear-leveling drivers require an amount of RAM equivalent to the selected logical EEPROM size. Increasing the size to 32kB of EEPROM requires 32kB of RAM, which a significant number of MCUs simply do not have.
@@ -127,6 +128,20 @@ Configurable options in your keyboard's `config.h`:
 `#define BACKING_STORE_WRITE_SIZE`                  | `8`                            | The write width used whenever a write is performed on the external flash peripheral.
 
 !> There is currently a limit of 64kB for the EEPROM subsystem within QMK, so using a larger flash is not going to be beneficial as the logical size cannot be increased beyond 65536. The backing size may be increased to a larger value, but erase timing may suffer as a result.
+
+## Wear-leveling RP2040 Driver Configuration :id=wear_leveling-rp2040-driver-configuration
+
+This driver performs writes to the same underlying storage that the RP2040 executes its code.
+
+Configurable options in your keyboard's `config.h`:
+
+`config.h` override                       | Default                    | Description
+------------------------------------------|----------------------------|--------------------------------------------------------------------------------------------------------------------------------
+`#define WEAR_LEVELING_RP2040_FLASH_SIZE` | `PICO_FLASH_SIZE_BYTES`    | Number of bytes of flash on the board.
+`#define WEAR_LEVELING_RP2040_FLASH_BASE` | `(flash_size-sector_size)` | The byte-wise location that the backing storage should be located.
+`#define WEAR_LEVELING_LOGICAL_SIZE`      | `4096`                     | Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
+`#define WEAR_LEVELING_BACKING_SIZE`      | `8192`                     | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size as well as the sector size.
+`#define BACKING_STORE_WRITE_SIZE`        | `2`                        | The write width used whenever a write is performed on the external flash peripheral.
 
 ## Wear-leveling Legacy EEPROM Emulation Driver Configuration :id=wear_leveling-legacy-driver-configuration
 
