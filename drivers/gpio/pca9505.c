@@ -1,7 +1,5 @@
-// Copyright 2020 zvecr<git@zvecr.com>
+// Copyright 2022 nirim000
 // SPDX-License-Identifier: GPL-2.0-or-later
-// modification from pca9555 to pca9505/6 by nirim000
-// https://github.com/nirim000
 
 #include "i2c_master.h"
 #include "pca9505.h"
@@ -100,7 +98,7 @@ bool pca9505_set_polarity(uint8_t slave_addr, pca9505_port_t port, uint8_t conf)
 
     i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
-        print("pca9505_set_config::FAILED\n");
+        print("pca9505_set_polarity::FAILED\n");
         return false;
     }
 
@@ -136,20 +134,7 @@ bool pca9505_set_output(uint8_t slave_addr, pca9505_port_t port, uint8_t conf) {
 
     return true;
 }
-/**
-bool pca9505_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB) {
-    uint8_t addr    = SLAVE_TO_ADDR(slave_addr);
-    uint8_t conf[2] = {confA, confB};
 
-    i2c_status_t ret = i2c_writeReg(addr, CMD_OUTPUT_0, &conf[0], sizeof(conf), TIMEOUT);
-    if (ret != I2C_STATUS_SUCCESS) {
-        dprintf("pca9505_set_output::FAILED::%u\n", ret);
-        return false;
-    }
-
-    return true;
-}
-*/
 bool pca9505_readPins(uint8_t slave_addr, pca9505_port_t port, uint8_t* out) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = 0;
@@ -179,24 +164,3 @@ bool pca9505_readPins(uint8_t slave_addr, pca9505_port_t port, uint8_t* out) {
 
     return true;
 }
-/**
-bool pca9505_readPins_all(uint8_t slave_addr, uint16_t* out) {
-    uint8_t addr = SLAVE_TO_ADDR(slave_addr);
-
-    typedef union {
-        uint8_t  u8[2];
-        uint16_t u16;
-    } data16;
-
-    data16 data = {.u16 = 0};
-
-    i2c_status_t ret = i2c_readReg(addr, CMD_INPUT_0, &data.u8[0], sizeof(data), TIMEOUT);
-    if (ret != I2C_STATUS_SUCCESS) {
-        print("pca9505_readPins_all::FAILED\n");
-        return false;
-    }
-
-    *out = data.u16;
-    return true;
-}
-*/

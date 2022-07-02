@@ -1,7 +1,5 @@
-// Copyright 2020 zvecr<git@zvecr.com>
+// Copyright 2022 nirim000
 // SPDX-License-Identifier: GPL-2.0-or-later
-// modification from pca9555 to pca9505/6 by nirim000
-// https://github.com/nirim000
 
 #pragma once
 
@@ -64,20 +62,6 @@ bool pca9505_set_polarity(uint8_t slave_addr, pca9505_port_t port, uint8_t conf)
 bool pca9505_set_output(uint8_t slave_addr, pca9505_port_t port, uint8_t conf);
 
 /**
- * Write high/low to both ports sequentially
- *
- *  - slightly faster than multiple set_output
- */
-// bool pca9505_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB);
-
-/**
  * Read state of a given port
  */
 bool pca9505_readPins(uint8_t slave_addr, pca9505_port_t port, uint8_t* ret);
-
-/**
- * Read state of both ports sequentially
- *
- *  - slightly faster than multiple readPins
- */
-// bool pca9505_readPins_all(uint8_t slave_addr, uint16_t* ret);
