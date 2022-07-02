@@ -13,6 +13,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+// Test Caps Word + Combos, with and without Auto Shift.
+
 #include <algorithm>
 #include <numeric>
 #include <vector>
@@ -60,78 +63,38 @@ namespace {
 
 // To test combos thorougly, we test them with pressing the chord keys with
 // a few different orders and timings.
-struct ComboTapParams {
+struct TestParams {
     std::string name;
-    // True => all chord keys pressed in the same matrix scan.
-    // False => chord keys pressed one by one in separate scans.
-    bool all_pressed_in_same_matrix_scan;
-    // If true, reverse the order in which chord keys are pressed.
-    bool reverse_press_order;
-    // True => release chord keys in opposite order in which they are pressed.
-    // False => release chord keys in the same order as pressed.
-    bool first_pressed_last_released;
+    bool autoshift_on;
 
-    static const std::string& GetName(const TestParamInfo<ComboTapParams>& info) {
+    static const std::string& GetName(const TestParamInfo<TestParams>& info) {
         return info.param.name;
     }
 };
 
-class CapsWord : public ::testing::WithParamInterface<ComboTapParams>, public TestFixture {
+class CapsWord : public ::testing::WithParamInterface<TestParams>, public TestFixture {
  public:
     void SetUp() override {
         caps_word_off();
+        if (GetParam().autoshift_on) {
+            autoshift_enable();
+        } else {
+            autoshift_disable();
+        }
     }
 
-    template <typename... Ts>
-    void tap_combo(Ts... chord_keys) {
-        std::vector<KeymapKey> keys({chord_keys...});
-        std::vector<int> order(keys.size());
-        std::iota(order.begin(), order.end(), 0);
-
-        if (GetParam().reverse_press_order) {
-            std::reverse(order.begin(), order.end());
+    void tap_combo(const std::vector<KeymapKey>& chord_keys) {
+        for (KeymapKey key : chord_keys) {  // Press each key.
+            key.press();
+            run_one_scan_loop();
         }
 
-        if (GetParam().all_pressed_in_same_matrix_scan) {
-          // Press all keys at once in the same matrix scan.
-          for (int i : order) {
-              keys[i].press();
-          }
-
-          idle_for(keys.size());
-        } else {
-          // Press keys one by one in separate matrix scans.
-          for (int i : order) {
-              keys[i].press();
-              run_one_scan_loop();
-          }
-        }
-
-        idle_for(COMBO_TERM + 1);
-
-        if (GetParam().first_pressed_last_released) {
-            std::reverse(order.begin(), order.end());
-        }
-
-        if (GetParam().all_pressed_in_same_matrix_scan) {
-          // Release all keys at once in the same matrix scan.
-          for (int i : order) {
-              keys[i].release();
-          }
-
-          // Run enough scan loops so that all release events are processed.
-          idle_for(keys.size());
-        } else {
-          // Release keys one by one in separate matrix scans.
-          for (int i : order) {
-              keys[i].release();
-              run_one_scan_loop();
-          }
+        for (KeymapKey key : chord_keys) {  // Release each key.
+            key.release();
+            run_one_scan_loop();
         }
     }
 };
-
-
 
 // Test pressing the keys in a combo with different orders and timings.
 TEST_P(CapsWord, SingleCombo) {
@@ -148,9 +111,11 @@ TEST_P(CapsWord, SingleCombo) {
     EXPECT_REPORT(driver, (KC_LSFT, KC_X));
 
     caps_word_on();
-    tap_combo(key_b, key_c);
+    tap_combo({key_b, key_c});
 
     EXPECT_TRUE(is_caps_word_on());
+    caps_word_off();
+
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -171,9 +136,11 @@ TEST_P(CapsWord, LongerCombo) {
     EXPECT_REPORT(driver, (KC_LSFT, KC_W));
 
     caps_word_on();
-    tap_combo(key_f, key_g, key_h, key_i);
+    tap_combo({key_f, key_g, key_h, key_i});
 
     EXPECT_TRUE(is_caps_word_on());
+    caps_word_off();
+
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -208,8 +175,8 @@ TEST_P(CapsWord, ComboRegularKeys) {
     tap_key(key_a);
     tap_key(key_b);
     tap_key(key_c);
-    tap_combo(key_b, key_c);  // BC combo types "x".
-    tap_combo(key_a, key_b);  // AB combo types space.
+    tap_combo({key_b, key_c});  // BC combo types "x".
+    tap_combo({key_a, key_b});  // AB combo types space.
     tap_key(key_a);
 
     EXPECT_FALSE(is_caps_word_on());
@@ -246,10 +213,12 @@ TEST_P(CapsWord, ComboModTapKey) {
     tap_key(key_a);
     tap_key(key_modtap_d);
     tap_key(key_layertap_e);
-    tap_combo(key_a, key_modtap_d);           // AD combo types "y".
-    tap_combo(key_modtap_d, key_layertap_e);  // DE combo types "z".
+    tap_combo({key_a, key_modtap_d});           // AD combo types "y".
+    tap_combo({key_modtap_d, key_layertap_e});  // DE combo types "z".
 
     EXPECT_TRUE(is_caps_word_on());
+    caps_word_off();
+
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -258,16 +227,10 @@ INSTANTIATE_TEST_CASE_P(
     Combos,
     CapsWord,
     ::testing::Values(
-        ComboTapParams{
-            "PressInSeparateScans", false, false, false},
-        ComboTapParams{
-            "ReversePressOrder", false, true, false},
-        ComboTapParams{
-            "FirstPressedLastReleased", false, false, true},
-        ComboTapParams{
-            "PressInSameScan", true, false, false}
+        TestParams{"AutoshiftDisabled", false},
+        TestParams{"AutoshiftEnabled", true}
         ),
-    ComboTapParams::GetName
+    TestParams::GetName
     );
 // clang-format on
 
