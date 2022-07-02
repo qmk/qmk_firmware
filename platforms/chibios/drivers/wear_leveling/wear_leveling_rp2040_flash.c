@@ -125,17 +125,17 @@ static void __no_inline_not_in_flash_func(flash_enable_write)(void) {
     _flash_do_cmd(FLASHCMD_WRITE_ENABLE, NULL, NULL, 0);
 }
 
-static void __no_inline_not_in_flash_func(pico_program_bulk)(uint32_t flash_address, uint16_t *values, size_t item_count) {
+static void __no_inline_not_in_flash_func(pico_program_bulk)(uint32_t flash_address, backing_store_int_t *values, size_t item_count) {
     rom_connect_internal_flash_fn connect_internal_flash = (rom_connect_internal_flash_fn)rom_func_lookup_inline(ROM_FUNC_CONNECT_INTERNAL_FLASH);
     rom_flash_exit_xip_fn         flash_exit_xip         = (rom_flash_exit_xip_fn)rom_func_lookup_inline(ROM_FUNC_FLASH_EXIT_XIP);
     rom_flash_flush_cache_fn      flash_flush_cache      = (rom_flash_flush_cache_fn)rom_func_lookup_inline(ROM_FUNC_FLASH_FLUSH_CACHE);
     assert(connect_internal_flash && flash_exit_xip && flash_flush_cache);
 
-    static uint16_t bulk_write_buffer[WEAR_LEVELING_RP2040_FLASH_BULK_COUNT];
+    static backing_store_int_t bulk_write_buffer[WEAR_LEVELING_RP2040_FLASH_BULK_COUNT];
 
     while (item_count) {
         size_t batch_size = MIN(item_count, WEAR_LEVELING_RP2040_FLASH_BULK_COUNT);
-        for (int i = 0; i < batch_size; i++, values++, item_count--) {
+        for (size_t i = 0; i < batch_size; i++, values++, item_count--) {
             bulk_write_buffer[i] = ~(*values);
         }
         __compiler_memory_barrier();
@@ -176,7 +176,8 @@ bool backing_store_erase(void) {
     uint32_t start = timer_read32();
 #endif
 
-    _Static_assert(WEAR_LEVELING_BACKING_SIZE % 4096 == 0, "Backing size must be a multiple of 4096");
+    // Ensure the backing size can be cleanly subtracted from the flash size without alignment issues.
+    _Static_assert((WEAR_LEVELING_BACKING_SIZE) % (FLASH_SECTOR_SIZE) == 0, "Backing size must be a multiple of FLASH_SECTOR_SIZE");
 
     interrupts = save_and_disable_interrupts();
     flash_range_erase((WEAR_LEVELING_RP2040_FLASH_BASE), (WEAR_LEVELING_BACKING_SIZE));
