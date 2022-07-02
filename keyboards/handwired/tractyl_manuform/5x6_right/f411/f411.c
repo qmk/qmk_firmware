@@ -16,13 +16,40 @@
 
 #include "f411.h"
 
-void matrix_init_sub_kb(void) { setPinInputHigh(A0); }
+void keyboard_pre_init_sub(void) { setPinInputHigh(A0); }
 
 void matrix_scan_sub_kb(void) {
     if (!readPin(A0)) {
         reset_keyboard();
     }
 }
+
+void bootmagic_lite(void) {
+    // We need multiple scans because debouncing can't be turned off.
+    matrix_scan();
+#if defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+#else
+    wait_ms(30);
+#endif
+    matrix_scan();
+
+    uint8_t row = BOOTMAGIC_LITE_ROW;
+    uint8_t col = BOOTMAGIC_LITE_COLUMN;
+
+#if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
+    if (!is_keyboard_left()) {
+        row = BOOTMAGIC_LITE_ROW_RIGHT;
+        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
+    }
+#endif
+
+    if (matrix_get_row(row) & (1 << col) || !readPin(A0)) {
+        eeconfig_disable();
+        bootloader_jump();
+    }
+}
+
 
 #ifdef USB_VBUS_PIN
 bool usb_vbus_state(void) {
@@ -31,3 +58,9 @@ bool usb_vbus_state(void) {
     return readPin(USB_VBUS_PIN);
 }
 #endif
+
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    for (int32_t i = 0; i < 40; i++) {
+        __asm__ volatile("nop" ::: "memory");
+    }
+}

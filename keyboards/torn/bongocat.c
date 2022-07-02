@@ -34,7 +34,10 @@ static bool show_logo = true;
 
 __attribute__((weak)) extern const char PROGMEM bongocat_logo[];
 
-void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
 
 // clang-format off
   static const char PROGMEM idle[][FRAME_SIZE] = {
@@ -347,7 +350,7 @@ void oled_task_user(void) {
     oled_off();
     anim_timer = 0;
     show_logo = true;
-    return;
+    return false;
   }
 
   if (timer_elapsed32(anim_timer) > FRAME_DURATION) {
@@ -369,6 +372,7 @@ void oled_task_user(void) {
     }
     current_frame++;
   }
+  return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
