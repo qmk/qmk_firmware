@@ -21,8 +21,6 @@
 // pro-micro v3's don't always detect otherwise.
 /* #define SPLIT_USB_DETECT */
 
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 // Sets good default for the speed of the mouse.
 #undef MOUSEKEY_INTERVAL
 #undef MOUSEKEY_DELAY
