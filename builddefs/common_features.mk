@@ -15,7 +15,6 @@
 
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
-    $(QUANTUM_DIR)/send_string.c \
     $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/action.c \
@@ -772,6 +771,13 @@ MAGIC_ENABLE ?= yes
 ifeq ($(strip $(MAGIC_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
     OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
+endif
+
+SEND_STRING_ENABLE ?= yes
+ifeq ($(strip $(SEND_STRING_ENABLE)), yes)
+    OPT_DEFS += -DSEND_STRING_ENABLE
+    COMMON_VPATH += $(QUANTUM_DIR)/send_string
+    SRC += $(QUANTUM_DIR)/send_string/send_string.c
 endif
 
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)

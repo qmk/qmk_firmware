@@ -325,11 +325,13 @@ void autoshift_disable(void) {
 
 #    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
+#        ifdef SEND_STRING_ENABLE
     char display[8];
 
     snprintf(display, 8, "\n%d\n", autoshift_timeout);
 
     send_string((const char *)display);
+#        endif
 }
 #    endif
 

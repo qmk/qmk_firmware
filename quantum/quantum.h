@@ -49,7 +49,6 @@
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
-#include "send_string.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -167,6 +166,10 @@ extern layer_state_t layer_state;
 
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
+#endif
+
+#ifdef SEND_STRING_ENABLE
+#    include "send_string.h"
 #endif
 
 #ifdef HAPTIC_ENABLE
