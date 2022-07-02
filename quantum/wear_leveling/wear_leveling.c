@@ -421,7 +421,7 @@ static wear_leveling_status_t wear_leveling_write_raw(uint32_t address, const vo
 #if BACKING_STORE_WRITE_SIZE == 2
         // Small-write optimizations - uint16_t, 0 or 1, address is even, address <16384:
         if (remaining >= 2 && address % 2 == 0 && address < 16384) {
-            const uint16_t v = *(const uint16_t *)p;
+            const uint16_t v = ((uint16_t)p[1]) << 8 | p[0]; // don't just dereference a uint16_t here -- if unaligned it generates faults on some MCUs
             if (v == 0 || v == 1) {
                 const write_log_entry_t log = LOG_ENTRY_MAKE_WORD_01(address, v);
                 status                      = wear_leveling_append_raw(log.raw16[0]);
