@@ -20,17 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x2E8A
-#define PRODUCT_ID   0xE739
-#define DEVICE_VER   0x0011
+#define VENDOR_ID 0x2E8A
+#define PRODUCT_ID 0xE739
+#define DEVICE_VER 0x0011
 #define MANUFACTURER EnviousDesign
-#define PRODUCT      MCRO 1.0
+#define PRODUCT MCRO 1.0
 
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
-
-
 
 /*
  * Keyboard Matrix Assignments
@@ -43,8 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#define MATRIX_ROW_PINS { GP4, GP11, GP15 }
-#define MATRIX_COL_PINS { GP18, GP19, GP20, GP21 }
+#define MATRIX_ROW_PINS \
+    { GP4, GP11, GP15 }
+#define MATRIX_COL_PINS \
+    { GP18, GP19, GP20, GP21 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */

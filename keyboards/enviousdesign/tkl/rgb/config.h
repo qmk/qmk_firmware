@@ -20,13 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x2E8A
-#define PRODUCT_ID   0x000A
-#define DEVICE_VER   0x0001
+#define VENDOR_ID 0x2E8A
+#define PRODUCT_ID 0x000A
+#define DEVICE_VER 0x0001
 #define MANUFACTURER EnviousDesign
-#define PRODUCT      ALT Delirium RGB
-
-
+#define PRODUCT ALT Delirium RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -72,14 +70,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGB_DI_PIN
 #define RGB_DI_PIN GP0
 //#ifdef RGB_DI_PIN
-#    define RGBLED_NUM 88
-#    define RGBLIGHT_HUE_STEP 1
-#    define RGBLIGHT_SAT_STEP 1
-#    define RGBLIGHT_VAL_STEP 1
-#    define RGBLIGHT_LIMIT_VAL 64 /* The maximum brightness level */
-#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#define RGBLED_NUM 88
+#define RGBLIGHT_HUE_STEP 1
+#define RGBLIGHT_SAT_STEP 1
+#define RGBLIGHT_VAL_STEP 1
+#define RGBLIGHT_LIMIT_VAL 64 /* The maximum brightness level */
+#define RGBLIGHT_SLEEP        /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
-#    define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -171,7 +169,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The number of LEDs connected
 #define DRIVER_LED_TOTAL 88
 
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
 #    define ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -220,14 +217,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-//some config bits
+// some config bits
 //#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 //#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define RGB_DISABLE_AFTER_TIMEOUT 900 // number of ticks to wait until disabling effects (ticks seem to be 1 per second on my RP2040)
+#define RGB_DISABLE_AFTER_TIMEOUT 900       // number of ticks to wait until disabling effects (ticks seem to be 1 per second on my RP2040)
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 //#define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 8 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 //#define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 64
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
-
