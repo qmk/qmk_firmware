@@ -1,3 +1,3 @@
 # Corne Spanish layout by ajarov
 
-![crkbd_ajarov](https://user-images.githubusercontent.com/1832140/175787645-cc33b124-37ef-4a86-8c7b-9645a36e7486.png)
+![crkbd ajarov](https://user-images.githubusercontent.com/1832140/177018031-38311d50-1899-4c89-9ec2-c34a2c9954f0.png)
