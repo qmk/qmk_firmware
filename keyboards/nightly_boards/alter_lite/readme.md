@@ -1,6 +1,6 @@
 #DeskDaily Alter
 
-![Alter Lite](https://media.discordapp.net/attachments/946989936941346857/946992282576519279/PXL_20220226_044706997.PORTRAIT2.jpg?width=704&height=396)
+![Alter Lite](https://i.imgur.com/dYVwbD0.jpg)
 
 An Alice layout keyboard. This Lite version have no underglow
 
