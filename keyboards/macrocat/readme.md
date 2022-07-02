@@ -1,6 +1,6 @@
 # macrocat
 
-![macrocat](https://i.imgur.com/ItLHGBf.jpg)
+![macrocat](https://i.imgur.com/ItLHGBfh.jpg)
 
 A cat like macro keyboard/numpad.
 
