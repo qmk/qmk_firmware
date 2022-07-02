@@ -605,6 +605,10 @@ enum quantum_keycodes {
 
     CAPS_WORD,
 
+    MAGIC_SWAP_ESCAPE_CAPSLOCK,
+    MAGIC_UNSWAP_ESCAPE_CAPSLOCK,
+    MAGIC_TOGGLE_ESCAPE_CAPSLOCK,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -755,6 +759,10 @@ enum quantum_keycodes {
 #define CL_CTRL MAGIC_CAPSLOCK_TO_CONTROL
 #define CL_CAPS MAGIC_UNCAPSLOCK_TO_CONTROL
 #define CL_TOGG MAGIC_TOGGLE_CONTROL_CAPSLOCK
+
+#define EC_SWAP MAGIC_SWAP_ESCAPE_CAPSLOCK
+#define EC_NORM MAGIC_UNSWAP_ESCAPE_CAPSLOCK
+#define EC_TOGG MAGIC_TOGGLE_ESCAPE_CAPSLOCK
 
 #define LCG_SWP MAGIC_SWAP_LCTL_LGUI
 #define LCG_NRM MAGIC_UNSWAP_LCTL_LGUI
