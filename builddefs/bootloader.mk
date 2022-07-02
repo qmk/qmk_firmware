@@ -105,8 +105,8 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
     ifeq ($(strip $(MCU)), at90usb1286)
         BOOTLOADER_SIZE = 1024
     endif
-    # Teensy LC, 3.x
-    ifneq (,$(filter $(MCU_ORIG), MKL26Z64 MK20DX128 MK20DX256 MK66FX1M0))
+    # Teensy LC, 3.0, 3.1/2, 3.5, 3.6
+    ifneq (,$(filter $(MCU_ORIG), MKL26Z64 MK20DX128 MK20DX256 MK64FX512 MK66FX1M0))
         FIRMWARE_FORMAT = hex
     endif
 endif
