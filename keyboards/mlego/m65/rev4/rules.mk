@@ -7,5 +7,6 @@ BOOTLOADER = tinyuf2
 #BOOTLOADER = stm32-dfu
 MCU_LDSCRIPT = STM32F401xE
 EEPROM_DRIVER = vendor
+BOARD = BLACKPILL_STM32_F401
 
 OLED_DRIVER = SSD1306      # Enable Support for SSD1306 or SH1106 OLED Displays; Communicating over I2C
