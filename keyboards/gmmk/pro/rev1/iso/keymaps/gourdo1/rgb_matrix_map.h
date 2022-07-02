@@ -50,7 +50,7 @@ RGB rgb_value;
 // RGB LED locations
 enum led_location_map {
     LED_ESC, // 0, ESC, k13
-    LED_GRV, // 1, ~, k16
+    LED_GRV, // 1, `, k16
     LED_TAB, // 2, Tab, k11
     LED_CAPS, // 3, Caps, k21
     LED_LSFT, // 4, Sh_L, k00
@@ -116,37 +116,38 @@ enum led_location_map {
     LED_QUOT, // 64, ", k83
     LED_RCTL, // 65, Ct_R, k04
     LED_F12, // 66, F12, ka5
-    LED_L1, // 67, LED, l01
-    LED_R1, // 68, LED, l11
-    LED_INS, // 69, Prt, k97  -- remapped to INS
-    LED_L2, // 70, LED, l02
-    LED_R2, // 71, LED, l12
-    LED_DEL, // 72, Del, k65
-    LED_L3, // 73, LED, l03
-    LED_R3, // 74, LED, l13
-    LED_PGUP, // 75, PgUp, k15
-    LED_L4, // 76, LED, l04
-    LED_R4, // 77, LED, l14
-    LED_EQL, // 78, =, k66
-    LED_RIGHT, // 79, Right, k05
-    LED_L5, // 80, LED, l05
-    LED_R5, // 81, LED, l15
-    LED_END, // 82, End, k75
-    LED_L6, // 83, LED, l06
-    LED_R6, // 84, LED, l16
-    LED_BSPC, // 85, BSpc, ka1
-    LED_PGDN, // 86, PgDn, k25
-    LED_L7, // 87, LED, l07
-    LED_R7, // 88, LED, l17
-    LED_RBRC, // 89, ], k61
-    LED_RSFT, // 90, Sh_R, k91
-    LED_L8, // 91, LED, l08
-    LED_R8, // 92, LED, l18
-    LED_BSLS, // 93, \, ka2
+    LED_BSLS, // 67, \, k23
+    LED_L1, // 68, LED, l01
+    LED_R1, // 69, LED, l11
+    LED_PRT, // 70, Prt, k97
+    LED_L2, // 71, LED, l02
+    LED_R2, // 72, LED, l12
+    LED_DEL, // 73, Del, k65
+    LED_L3, // 74, LED, l03
+    LED_R3, // 75, LED, l13
+    LED_PGUP, // 76, PgUp, k15
+    LED_L4, // 77, LED, l04
+    LED_R4, // 78, LED, l14
+    LED_EQL, // 79, =, k66
+    LED_RIGHT, // 80, Right, k05
+    LED_L5, // 81, LED, l05
+    LED_R5, // 82, LED, l15
+    LED_END, // 83, End, k75
+    LED_L6, // 84, LED, l06
+    LED_R6, // 85, LED, l16
+    LED_BSPC, // 86, BSpc, ka1
+    LED_PGDN, // 87, PgDn, k25
+    LED_L7, // 88, LED, l07
+    LED_R7, // 89, LED, l17
+    LED_RBRC, // 90, ], k61
+    LED_RSFT, // 91, Sh_R, k91
+    LED_L8, // 92, LED, l08
+    LED_R8, // 93, LED, l18
     LED_UP, // 94, Up, k35
-    LED_LEFT, // 95, Left, k03
-    LED_ENT, // 96, Enter, ka4
-    LED_DOWN // 97, Down, k73
+    LED_HASH, // 95, #, k84
+    LED_LEFT, // 96, Left, k03
+    LED_ENT, // 97, Enter, ka4
+    LED_DOWN // 98, Down, k73
 };
 
 const uint8_t LED_LIST_WASD[] = {
@@ -177,7 +178,7 @@ const uint8_t LED_LIST_FUNCROW[] = {
     LED_F10,
     LED_F11,
     LED_F12,
-    LED_INS
+    LED_PRT
 };
 
 const uint8_t LED_LIST_NUMROW[] = {
