@@ -1,4 +1,4 @@
-/* Copyright 2022 Envious Design
+/* Copyright 2022 Adam K (@Envious-Data)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
 
-//tempoary I guess.
-#define RESET KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
@@ -29,13 +28,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_60_comb(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,  
-        QK_BOOT, KC_VOLU, KC_UP,   KC_MYCM, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INSERT,KC_HOME,KC_PGUP, KC_TRNS,  
+        QK_BOOT, KC_VOLU, KC_UP,   KC_MYCM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INSERT,KC_HOME,KC_PGUP, KC_TRNS,  
         KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,  KC_END,  KC_PGDN, KC_TRNS,
         KC_TRNS, KC_VOLD, KC_TRNS, KC_TRNS, KC_CALCULATOR,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,          KC_TRNS,  
         KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_APP,           KC_TRNS, KC_TRNS
     ),   [2] = LAYOUT_60_comb(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,  
-        QK_BOOT, KC_VOLU, KC_UP,   KC_MYCM, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INSERT,KC_HOME,KC_PGUP, KC_TRNS,  
+        QK_BOOT, KC_VOLU, KC_UP,   KC_MYCM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INSERT,KC_HOME,KC_PGUP, KC_TRNS,  
         KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,  KC_END,  KC_PGDN, KC_TRNS,
         KC_TRNS, KC_VOLD, KC_TRNS, KC_TRNS, KC_CALCULATOR,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,          KC_TRNS,  
         KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                     KC_TRNS, KC_APP,           KC_TRNS, KC_TRNS
