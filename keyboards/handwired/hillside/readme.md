@@ -1,6 +1,6 @@
 # Hillside
 
-![hillside](https://imgur.com/4POduew.png)
+![hillside](https://imgur.com/4POduewh.png)
 
 [Hillside](https://github.com/mmccoyd/hillside)
  is a small family of split ergonomic keyboards.
