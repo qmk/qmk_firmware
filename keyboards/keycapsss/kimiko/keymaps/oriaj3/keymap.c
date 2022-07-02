@@ -1,6 +1,7 @@
 /* Copyright 2019 Leo Batyuk
  * Copyright 2020 Drashna Jaelre <@drashna>
  * Copyright 2020 @ben_roe (keycapsss.com)
+ * Copyright 2022 @oriaj3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* ADJUST (Press LOWER and RAISE together)
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |QK_BOOT |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |RESET |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |RGB ON| HUE+ | SAT+ | VAL+ |      |      |                    | PREV | PLAY | NEXT |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_ADJUST] = LAYOUT(
-    QK_BOOT,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                   KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX,
     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   KC_VOLU, KC_MUTE, KC_VOLD, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -332,13 +333,81 @@ bool oled_task_user(void) {
 
 #endif
 
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_QWERTY] =   { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_RGHT, KC_LEFT)  },
-    [_LOWER] =  { ENCODER_CCW_CW(KC_TAB, RGB_HUI),           ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
-    [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
-    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(RGB_HUI, RGB_HUD) },
-};
-#endif // ENCODER_MAP_ENABLE 
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    // Encoder on master side
+    if (index == 0) {
+        switch (get_highest_layer(layer_state)) {
+            // If the Default (QWERTY) layer is active
+            case _QWERTY:
+                // Arrow Up/Down
+                if (clockwise) {
+                    tap_code(KC_DOWN);
+                } else {
+                    tap_code(KC_UP);
+                }
+                break;
+
+            // If the RAISE layer is active
+            case _RAISE:
+                // Switch browser tabs
+                if (clockwise) {
+                    tap_code16(LCTL(KC_TAB));
+                } else {
+                    tap_code16(RCS(KC_TAB));
+                }
+                break;
+            // If the ADJUST layer is active
+            case _ADJUST:
+                // RGB brightness up/down
+                if (clockwise) {
+                    rgblight_decrease_val(); // tap_code(RGB_VAD);
+                } else {
+                    rgblight_increase_val(); // tap_code(RGB_VAI);
+                }
+                break;
+        }
+    }
+    // Encoder on slave side
+    else if (index == 1) {
+        switch (get_highest_layer(layer_state)) {
+            // If the Default (QWERTY) layer is active
+            case _QWERTY:
+                // Scroll by Word
+                if (clockwise) {
+                    tap_code16(LCTL(KC_RGHT));
+                } else {
+                    tap_code16(LCTL(KC_LEFT));
+                }
+                break;
+
+            // If the LOWER layer is active
+            case _LOWER:
+                // Volume up/down
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
+
+            // If the ADJUST layer is active
+            case _ADJUST:
+                // RGB hue up/down
+                if (clockwise) {
+                    // tap_code(RGB_HUI);
+                    rgblight_increase_hue();
+                } else {
+                    // tap_code(RGB_HUD);
+                    rgblight_decrease_hue();
+                }
+                break;
+        }
+    }
+    return false;
+}
+#endif // ENCODER_ENABLE
+
 
 
