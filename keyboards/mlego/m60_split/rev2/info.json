@@ -3,6 +3,7 @@
     "keyboard_name": "mlego/m60_split rev2",
     "maintainer": "alin elena",
     "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F411",
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {

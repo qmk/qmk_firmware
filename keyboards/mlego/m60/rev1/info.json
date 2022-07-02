@@ -3,6 +3,7 @@
     "keyboard_name": "mlego/m60 rev1",
     "maintainer": "alin elena",
     "bootloader": "tinyuf2",
+    "board": "BLACKPILL_STM32_F401",
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
