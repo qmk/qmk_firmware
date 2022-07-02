@@ -17,11 +17,12 @@
 #include "um80.h"
 
 #ifdef OLED_ENABLE
-void suspend_power_down_user(void) {
+void suspend_power_down_kb(void) {
     oled_off();
+    suspend_power_down_user();
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_90;
     }
@@ -105,7 +106,8 @@ static void print_status_narrow(void) {
     // WPM counter End
 }
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     current_wpm = get_current_wpm();
     if (is_keyboard_master()) {
         print_status_narrow();
