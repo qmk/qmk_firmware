@@ -2,8 +2,6 @@
     "keyboard_name": "bemini",
     "url": "https://github.com/ianklug/bemini",
     "maintainer": "ianklug",
-    "width": 10,
-    "height": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [
