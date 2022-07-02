@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "features/caps_word.h"
+#include "features/oneshot.h"
 
 enum layers {
     _QWERTY = 0,
@@ -24,9 +25,17 @@ enum layers {
 };
 //  Aliases for readability
 #define QWERTY DF(_QWERTY)
+#define LA_SYM LT(SYM, KC_TAB)
+#define LA_NAV MO(NAV)
 
-#define OS_SFT OSM(MOD_LSFT)
-#define OS_CTRL OSM(MOD_LCTL)
+// One shot mods
+enum keycodes{
+ OS_SHFT = SAFE_RANGE,
+ OS_CTRL,
+ OS_ALT,
+ OS_GUI,
+};
+
 #define SFT_TAB LSFT_T(KC_TAB)
 #define A_LEFT LALT_T(KC_LEFT)
 #define A_RGHT LALT_T(KC_RGHT)
@@ -62,7 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * - Enter is moved to ; location and ; is moved to Sym layer
  * - ESC can be accessed by NAV and G
  * - BKSP is accessed by NAV and Enter
- * - Tab is accessed by holding NAV layer
+ * - Tab is accessed by tapping SYM layer
+ * - FUN layer is accessed by holding NAV and SYM layers at the same time  
  * 
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |        |
@@ -71,15 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Mute |      | OSM  |  OSM | Nav  |  | Sym  | Space| Fun  |      | Menu |
- *                        |      |      | Ctrl | Shift| Tab  |  |      |      |      |      |      |
+ *                        | Mute |      | OSM  |  OSM | Nav  |  | Sym  | Space| GUI  |      | Menu |
+ *                        |      |      | Ctrl | Shift|      |  | Tab  |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-     XXXXXXX , KC_Q  ,  KC_W  ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U ,  KC_I ,   KC_O ,   KC_P , XXXXXXX,
-     XXXXXXX , KC_A  ,  KC_S  ,  KC_D  ,   KC_F ,   KC_G ,                                        KC_H,  KC_J ,  KC_K ,   KC_L , KC_ENT , XXXXXXX,
-     XXXXXXX , KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC, XXXXXXX,     XXXXXXX,KC_RBRC, KC_N, KC_M  ,KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
-                                KC_MUTE, XXXXXXX, OS_CTRL, OS_SFT,LT(NAV,KC_TAB),TT(SYM), KC_SPC,TT(FUN),XXXXXXX, KC_APP
+     XXXXXXX , KC_Q  ,  KC_W  ,  KC_E  ,   KC_R ,   KC_T ,                                          KC_Y,  KC_U ,  KC_I ,   KC_O ,   KC_P , XXXXXXX,
+     XXXXXXX , KC_A  ,  KC_S  ,  KC_D  ,   KC_F ,   KC_G ,                                          KC_H,  KC_J ,  KC_K ,   KC_L , KC_ENT , XXXXXXX,
+     XXXXXXX , KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC, XXXXXXX,     XXXXXXX,KC_RBRC,   KC_N, KC_M  ,KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
+                                KC_MUTE, XXXXXXX, OS_CTRL, OS_SHFT, LA_NAV ,     LA_SYM , KC_SPC, OS_GUI,XXXXXXX, KC_APP
     ),
     
 /*
@@ -120,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  GUI |  Alt | Ctrl | Shift| Esc  |                              |   ←  |  ↓   |   ↑  |   →  | Bksp |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      | Cut  | Copy | Paste|      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |      | Cut  | Copy | Paste|NumLck|      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -128,8 +138,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_HOME, KC_PGUP, KC_PGDN,  KC_END, KC_PSCR, _______,
-      _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,  KC_ESC,                                     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_BSPC, _______,
-      _______, _______, C(KC_X), C(KC_C), C(KC_V), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, OS_GUI, OS_ALT, OS_CTRL, OS_SHFT,  KC_ESC,                                     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_BSPC, _______,
+      _______, _______, C(KC_X), C(KC_C), C(KC_V),  KC_NUM, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -149,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [FUN] = LAYOUT(
       _______,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, _______,
+      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     _______, OS_SHFT, OS_CTRL, OS_ALT, OS_GUI, _______,
       _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
@@ -201,9 +211,58 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
+bool is_oneshot_cancel_key(uint16_t keycode){
+  switch (keycode) {
+    case LA_NAV:
+    case LA_SYM:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool is_oneshot_ignored_key(uint16_t keycode){
+  switch (keycode) {
+    case LA_NAV:
+    case LA_SYM:
+    case OS_SHFT:
+    case OS_CTRL:
+    case OS_ALT:
+    case OS_GUI:
+      return true;
+    default:
+      return false;
+  }
+}
+
+oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_ctrl_state = os_up_unqueued;
+oneshot_state os_alt_state = os_up_unqueued;
+oneshot_state os_cmd_state = os_up_unqueued;
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_caps_word(keycode, record)) { return false; }
   // Your macros ...
+  update_oneshot(
+      &os_shft_state, KC_LSFT, OS_SHFT, 
+      keycode, record
+    );
+
+  update_oneshot(
+      &os_ctrl_state, KC_LCTL, OS_CTRL, 
+      keycode, record
+    );
+
+  update_oneshot(
+      &os_alt_state, KC_LALT, OS_ALT, 
+      keycode, record
+    );
+
+  update_oneshot(
+      &os_cmd_state, KC_LGUI, OS_GUI, 
+      keycode, record
+    );
 
   return true;
 }
@@ -233,10 +292,14 @@ void matrix_scan_user(void) {
   // Other tasks...
 }
 
+layer_state_t layer_state_set_user(layer_state_t state){
+  return update_tri_layer_state(state, SYM, NAV, FUN);
+}
+
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         // QMK Logo and version information
         // clang-format off
@@ -286,6 +349,7 @@ void oled_task_user(void) {
         // clang-format on
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
+    return false;
 }
 #endif
 

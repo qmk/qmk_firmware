@@ -1,4 +1,5 @@
 SRC += features/caps_word.c
+SRC += features/oneshot.c
 
 BOOTMAGIC_ENABLE = no
 OLED_ENABLE = yes
