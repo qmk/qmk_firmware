@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_german_osx.h"
+#include "keymap_german_mac_iso.h"
 
 #define BASE 0
 #define SYMB 1

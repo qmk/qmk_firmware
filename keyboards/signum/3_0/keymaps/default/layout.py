@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# yapf: disable
 
 # Add all used Unicode symbols to this list.
 # The key (e.g. "SNEK") is used in keymap.c for "enum", "unicode_map" and "keymaps", so it needs to be a valid C variable name.
@@ -369,7 +370,7 @@ qmk_dict = {
     ">>|": "KC_MNXT", "|<<": "KC_MPRV", "play/ps": "KC_MPLY",
     "Bri +": "KC_BRIU", "Bri -": "KC_BRID",
     # Quantum Keycodes
-    "_reset": "RESET", "_debug": "DEBUG", "_eep_re": "EEP_RST",
+    "_reset": "QK_BOOT", "_debug": "DEBUG", "_eep_re": "EEP_RST",
     # Audio Keys missing
     # Backlighting
     "Led 0": "BL_TOGG", "Led +": "BL_INC", "Led -": "BL_DEC", "Led ~": "BL_BRTG",
