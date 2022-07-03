@@ -1,6 +1,6 @@
 # keymap taking advantage of the STM32 storage & CPU. 
 RGB LED is used to show layers. 
-The default bluepill LED is capslock.
+The default bluepill LED is used for capslock.
 
 ### RGB over serial
 There's a simple serial protocol for the keyboard to listen for color change commands from the PC. 
