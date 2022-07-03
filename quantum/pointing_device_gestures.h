@@ -27,7 +27,7 @@ typedef struct {
 typedef struct {
     uint16_t          trigger_px;
     uint16_t          coef;
-    float             v0;
+    int32_t           v0;
     int32_t           x;
     int32_t           y;
     uint16_t          z;

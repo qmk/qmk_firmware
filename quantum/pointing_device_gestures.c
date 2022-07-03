@@ -19,12 +19,12 @@
 
 cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
     cursor_glide_t report;
-    float          p;
+    int32_t        p;
     int32_t        x, y;
 
     glide->counter++;
     // calculate current position
-    p            = glide->v0 * glide->counter - (int32_t)glide->coef * glide->counter * glide->counter / 256 / 2;
+    p            = glide->v0 * glide->counter - (int32_t)glide->coef * glide->counter * glide->counter / 2;
     x            = (int32_t)(p * glide->dx0 / glide->v0);
     y            = (int32_t)(p * glide->dy0 / glide->v0);
     report.dx    = (mouse_xy_report_t)(x - glide->x);
@@ -50,17 +50,42 @@ cursor_glide_t cursor_glide_check(cursor_glide_context_t* glide) {
     }
 }
 
+static inline uint16_t sqrt32(uint32_t x) {
+    uint32_t l;
+    uint32_t m;
+    uint32_t h;
+
+    if (x == 0) {
+        return 0;
+    } else if (x > (UINT16_MAX >> 2)) {
+        h = UINT16_MAX;
+    } else {
+        h = (1 << (((__builtin_clzl(1) - __builtin_clzl(x) + 1) + 1) >> 1));
+    }
+    l = (1 << ((__builtin_clzl(1) - __builtin_clzl(x)) >> 1));
+
+    while (l != h - 1) {
+        m = (l + h) / 2;
+        if (m * m <= x) {
+            l = m;
+        } else {
+            h = m;
+        }
+    }
+    return l;
+}
+
 cursor_glide_t cursor_glide_start(cursor_glide_context_t* glide) {
     cursor_glide_t invalid_report = {0, 0, false};
 
     glide->timer   = timer_read();
     glide->counter = 0;
-    glide->v0      = (glide->dx0 == 0 && glide->dy0 == 0) ? 0.0 : hypotf(glide->dx0, glide->dy0); // skip trigonometry if not needed
+    glide->v0      = (glide->dx0 == 0 && glide->dy0 == 0) ? 0.0 : sqrt32(((int32_t)glide->dx0 * 256 * glide->dx0 * 256) + ((int32_t)glide->dy0 * 256 * glide->dy0 * 256)); // skip trigonometry if not needed
     glide->x       = 0;
     glide->y       = 0;
     glide->z       = 0;
 
-    if (glide->v0 < glide->trigger_px) {
+    if (glide->v0 < ((uint32_t)glide->trigger_px << 8)) {
         // not enough velocity to be worth gliding, abort
         glide->dx0 = 0;
         glide->dy0 = 0;
