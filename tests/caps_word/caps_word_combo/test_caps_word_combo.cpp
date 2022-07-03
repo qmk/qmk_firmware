@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 // Test Caps Word + Combos, with and without Auto Shift.
 
 #include <algorithm>
@@ -34,30 +33,19 @@ using ::testing::TestParamInfo;
 extern "C" {
 // Define some combos to use for the test, including overlapping combos and
 // combos that chord tap-hold keys.
-enum combo_events {
-  AB_COMBO,
-  BC_COMBO,
-  AD_COMBO,
-  DE_COMBO,
-  FGHI_COMBO,
-  COMBO_LENGTH
-};
+enum combo_events { AB_COMBO, BC_COMBO, AD_COMBO, DE_COMBO, FGHI_COMBO, COMBO_LENGTH };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t ab_combo[] PROGMEM = {KC_A, KC_B, COMBO_END};
-const uint16_t bc_combo[] PROGMEM = {KC_B, KC_C, COMBO_END};
-const uint16_t ad_combo[] PROGMEM = {KC_A, LCTL_T(KC_D), COMBO_END};
-const uint16_t de_combo[] PROGMEM = {LCTL_T(KC_D), LT(1, KC_E), COMBO_END};
+const uint16_t ab_combo[] PROGMEM   = {KC_A, KC_B, COMBO_END};
+const uint16_t bc_combo[] PROGMEM   = {KC_B, KC_C, COMBO_END};
+const uint16_t ad_combo[] PROGMEM   = {KC_A, LCTL_T(KC_D), COMBO_END};
+const uint16_t de_combo[] PROGMEM   = {LCTL_T(KC_D), LT(1, KC_E), COMBO_END};
 const uint16_t fghi_combo[] PROGMEM = {KC_F, KC_G, KC_H, KC_I, COMBO_END};
 
 combo_t key_combos[] = {
-  [AB_COMBO] = COMBO(ab_combo, KC_SPC),
-  [BC_COMBO] = COMBO(bc_combo, KC_X),
-  [AD_COMBO] = COMBO(ad_combo, KC_Y),
-  [DE_COMBO] = COMBO(de_combo, KC_Z),
-  [FGHI_COMBO] = COMBO(fghi_combo, KC_W),
+    [AB_COMBO] = COMBO(ab_combo, KC_SPC), [BC_COMBO] = COMBO(bc_combo, KC_X), [AD_COMBO] = COMBO(ad_combo, KC_Y), [DE_COMBO] = COMBO(de_combo, KC_Z), [FGHI_COMBO] = COMBO(fghi_combo, KC_W),
 };
-}  // extern "C"
+} // extern "C"
 
 namespace {
 
@@ -65,7 +53,7 @@ namespace {
 // a few different orders and timings.
 struct TestParams {
     std::string name;
-    bool autoshift_on;
+    bool        autoshift_on;
 
     static const std::string& GetName(const TestParamInfo<TestParams>& info) {
         return info.param.name;
@@ -73,7 +61,7 @@ struct TestParams {
 };
 
 class CapsWord : public ::testing::WithParamInterface<TestParams>, public TestFixture {
- public:
+   public:
     void SetUp() override {
         caps_word_off();
         if (GetParam().autoshift_on) {
@@ -84,12 +72,12 @@ class CapsWord : public ::testing::WithParamInterface<TestParams>, public TestFi
     }
 
     void tap_combo(const std::vector<KeymapKey>& chord_keys) {
-        for (KeymapKey key : chord_keys) {  // Press each key.
+        for (KeymapKey key : chord_keys) { // Press each key.
             key.press();
             run_one_scan_loop();
         }
 
-        for (KeymapKey key : chord_keys) {  // Release each key.
+        for (KeymapKey key : chord_keys) { // Release each key.
             key.release();
             run_one_scan_loop();
         }
@@ -104,10 +92,7 @@ TEST_P(CapsWord, SingleCombo) {
     set_keymap({key_b, key_c});
 
     // Allow any number of reports with no keys or only KC_LSFT.
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
-                KeyboardReport(),
-                KeyboardReport(KC_LSFT))))
-        .Times(AnyNumber());
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(KeyboardReport(), KeyboardReport(KC_LSFT)))).Times(AnyNumber());
     EXPECT_REPORT(driver, (KC_LSFT, KC_X));
 
     caps_word_on();
@@ -129,10 +114,7 @@ TEST_P(CapsWord, LongerCombo) {
     set_keymap({key_f, key_g, key_h, key_i});
 
     // Allow any number of reports with no keys or only KC_LSFT.
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
-                KeyboardReport(),
-                KeyboardReport(KC_LSFT))))
-        .Times(AnyNumber());
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(KeyboardReport(), KeyboardReport(KC_LSFT)))).Times(AnyNumber());
     EXPECT_REPORT(driver, (KC_LSFT, KC_W));
 
     caps_word_on();
@@ -152,7 +134,8 @@ TEST_P(CapsWord, ComboRegularKeys) {
     KeymapKey  key_a(0, 0, 0, KC_A);
     KeymapKey  key_b(0, 0, 1, KC_B);
     KeymapKey  key_c(0, 0, 2, KC_C);
-    set_keymap({key_a, key_b, key_c});
+    KeymapKey  key_1(0, 0, 3, KC_1);
+    set_keymap({key_a, key_b, key_c, key_1});
 
     // Allow any number of reports with no keys or only KC_LSFT.
     // clang-format off
@@ -161,12 +144,14 @@ TEST_P(CapsWord, ComboRegularKeys) {
                 KeyboardReport(KC_LSFT))))
         .Times(AnyNumber());
     // clang-format on
-    { // Expect: "A, B, C, X, space, a".
+    { // Expect: "A, B, 1, X, 1, C, space, a".
         InSequence s;
         EXPECT_REPORT(driver, (KC_LSFT, KC_A));
         EXPECT_REPORT(driver, (KC_LSFT, KC_B));
-        EXPECT_REPORT(driver, (KC_LSFT, KC_C));
+        EXPECT_REPORT(driver, (KC_1));
         EXPECT_REPORT(driver, (KC_LSFT, KC_X));
+        EXPECT_REPORT(driver, (KC_1));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_C));
         EXPECT_REPORT(driver, (KC_SPC));
         EXPECT_REPORT(driver, (KC_A));
     }
@@ -174,9 +159,11 @@ TEST_P(CapsWord, ComboRegularKeys) {
     caps_word_on();
     tap_key(key_a);
     tap_key(key_b);
+    tap_key(key_1);
+    tap_combo({key_b, key_c}); // BC combo types "x".
+    tap_key(key_1);
     tap_key(key_c);
-    tap_combo({key_b, key_c});  // BC combo types "x".
-    tap_combo({key_a, key_b});  // AB combo types space.
+    tap_combo({key_a, key_b}); // AB combo types space.
     tap_key(key_a);
 
     EXPECT_FALSE(is_caps_word_on());
@@ -213,8 +200,8 @@ TEST_P(CapsWord, ComboModTapKey) {
     tap_key(key_a);
     tap_key(key_modtap_d);
     tap_key(key_layertap_e);
-    tap_combo({key_a, key_modtap_d});           // AD combo types "y".
-    tap_combo({key_modtap_d, key_layertap_e});  // DE combo types "z".
+    tap_combo({key_a, key_modtap_d});          // AD combo types "y".
+    tap_combo({key_modtap_d, key_layertap_e}); // DE combo types "z".
 
     EXPECT_TRUE(is_caps_word_on());
     caps_word_off();
@@ -234,5 +221,4 @@ INSTANTIATE_TEST_CASE_P(
     );
 // clang-format on
 
-}  // namespace
-
+} // namespace
