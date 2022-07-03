@@ -24,5 +24,3 @@ OLED_ENABLE = no
 OLED_DRIVER = SSD1306      # OLED display
 SPLIT_KEYBOARD = yes       # split type
 
-DEFAULT_FOLDER = fungo/rev1
-
