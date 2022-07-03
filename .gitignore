@@ -98,15 +98,15 @@ compile_commands.json
 via*.json
 
 #All keyboards except tractyl
-keyboards/*
-keyboards/*/*
-keyboards/*/*/*
-keyboards/*/*/*/*
-keyboards/*/*/*/*/*
-!keyboards/tractyl
-!keyboards/tractyl/*
-!keyboards/tractyl/*/*
-!keyboards/test/*
-!keyboards/test/tractyl/*
-!keyboards/test/tractyl/*/*
+#keyboards/*
+#keyboards/*/*
+#keyboards/*/*/*
+#keyboards/*/*/*/*
+#keyboards/*/*/*/*/*
+#!keyboards/tractyl
+#!keyboards/tractyl/*
+#!keyboards/tractyl/*/*
+#!keyboards/test/*
+#!keyboards/test/tractyl/*
+#!keyboards/test/tractyl/*/*
 
