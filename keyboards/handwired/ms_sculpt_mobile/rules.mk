@@ -12,3 +12,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no	    # Audio outupt
 
 DEFAULT_FOLDER = handwired/ms_sculpt_mobile/8x18_arm
+

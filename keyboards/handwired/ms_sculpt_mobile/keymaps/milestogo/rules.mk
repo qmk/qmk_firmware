@@ -1,7 +1,7 @@
 # only things overriding defaults
 #
-MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
+MOUSEKEY_ENABLE = no        # Mouse keys
+CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover 
 
@@ -14,6 +14,3 @@ RAW_ENABLE = no
 # virtual serial port
 VIRTSER_ENABLE = no
 
-USER_NAME := milestogo
-
-# Keymap specific files
