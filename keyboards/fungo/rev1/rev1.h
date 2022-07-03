@@ -20,10 +20,10 @@
 #include "quantum.h"
 
 
-#ifdef MASTER_RIGHT
+#ifdef MASTER_LAYOUT_RIGHT
 // 우측에  usb 케이블을 꽂아야 정상동작
 
-#define LAYOUT_fungo_split_num( \
+    #define LAYOUT_fungo_split_num( \
 	L00, L01, L02, L03, L04, L05, L06,                       R06, R05, R04, R03, R02, R01, R00, \
 	L10, L11, L12, L13, L14, L15, L16,                       R16, R15, R14, R13, R12, R11, R10, \
 	L20, L21, L22, L23, L24, L25, L26,                       R26, R25, R24, R23, R22, R21, R20, \
@@ -44,10 +44,11 @@
 		{ R46, R45, R44, R43, R42, R41, R40}, \
 		{ KC_NO, KC_NO, KC_NO, KC_NO, R52, R51, R50}, \
 	}
-#endif
+    #endif
 
-#ifdef MASTER_LEFT
-	#define LAYOUT_fungo_split_num( \
+#else
+
+    #define LAYOUT_fungo_split_num( \
 	L00, L01, L02, L03, L04, L05, L06,                       R06, R05, R04, R03, R02, R01, R00, \
 	L10, L11, L12, L13, L14, L15, L16,                       R16, R15, R14, R13, R12, R11, R10, \
 	L20, L21, L22, L23, L24, L25, L26,                       R26, R25, R24, R23, R22, R21, R20, \
@@ -69,6 +70,7 @@
 		{ KC_NO, KC_NO, KC_NO, KC_NO, R52, R51, R50}, \
 	}
 
+    #endif
 #endif
 
 
