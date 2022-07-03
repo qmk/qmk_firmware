@@ -117,17 +117,11 @@ void clear_screen(void);
 void init_timer(void);
 #endif
 
-#ifdef ENCODER_ENABLE
-void my_encoders(const uint8_t, const bool);
-bool encoder_update_user(uint8_t, bool);
-#endif
-
 #ifdef RGBLIGHT_ENABLE
 void set_rgb_layers(layer_state_t);
 const rgblight_segment_t * const*  my_rgb(void);
 void set_default_rgb_layers(layer_state_t);
 #endif
-
 
 void toggle_leds(void);
 void set_led_toggle(const uint8_t, const bool);

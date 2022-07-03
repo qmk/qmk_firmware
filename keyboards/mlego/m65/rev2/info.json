@@ -12,6 +12,7 @@
         "command": true,
         "console": true,
         "encoder": true,
+        "encoder_map": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

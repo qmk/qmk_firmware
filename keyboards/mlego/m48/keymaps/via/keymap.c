@@ -34,6 +34,21 @@ const rgblight_segment_t PROGMEM my_adj_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0,
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
 #endif
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QW]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+#if defined(RGBLIGHT_ENABLE)
+    [_LWR] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
+    [_RSE] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
+    [_ADJ] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+#else
+    [_LWR] = { },
+    [_RSE] = { },
+    [_ADJ] = { },
+#endif
+};
+#endif
+
 #define LOWER TT(_LWR)
 #define RAISE TT(_RSE)
 
@@ -177,40 +192,5 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
-}
-#endif
-
-#ifdef ENCODER_ENABLE
-
-#    define MEDIA_KEY_DELAY 10
-
-static inline void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-        }
-    }
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    my_encoders(index, clockwise);
-    return true;
 }
 #endif

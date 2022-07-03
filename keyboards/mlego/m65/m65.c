@@ -93,47 +93,6 @@ void toggle_leds(void){
 
 }
 
-#ifdef ENCODER_ENABLE
-
-#    define MEDIA_KEY_DELAY 10
-
-void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0) { /* First encoder */
-#ifdef RGBLIGHT_ENABLE
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-#endif
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-#ifdef RGBLIGHT_ENABLE
-        }
-#endif
-    }
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    my_encoders(index, clockwise);
-    return false;
-}
-
-#endif
-
 #ifdef OLED_ENABLE
 
 void init_timer(void){

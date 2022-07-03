@@ -52,6 +52,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QW]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+#if defined(RGBLIGHT_ENABLE)
+    [_LWR] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
+    [_RSE] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
+    [_ADJ] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+#else
+    [_LWR] = { },
+    [_RSE] = { },
+    [_ADJ] = { },
+#endif
+};
+#endif
+
 bool led_update_user(led_t led_state) {
     // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
     return false;
