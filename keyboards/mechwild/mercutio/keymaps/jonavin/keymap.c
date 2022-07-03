@@ -17,7 +17,6 @@
 
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 #include "jonavin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -69,7 +68,7 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
         {"PLAY",    KC_MEDIA_PLAY_PAUSE},
-        {"RESET",   RESET},   // firmware flash mode
+        {"FLASH",   RESET},   // firmware flash mode
 };
 
 #define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
@@ -244,12 +243,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             led_t led_state = host_keyboard_led_state();
             oled_set_cursor(8,0);
             uint8_t wpm_count;
-            char wpm_str[4];
             wpm_count=get_current_wpm();
 
             if (wpm_count > 020) { // how wpm when > 20
                 oled_write_P(PSTR(" WPM: "), false);
-                oled_write(itoa(wpm_count, wpm_str, 10), false);
+                oled_write(get_u8_str(wpm_count, ' '), false);
             } else {
                 oled_write_P(PSTR(" JONAVIN "), false); // otherwise display keymap name
             }
