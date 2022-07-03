@@ -19,10 +19,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 KEY_LOCK_ENABLE = yes       # kc_lock use
 
-#PS2_MOUSE_ENABLE = yes
-#PS2_USE_INT = yes
-#PS2_USE_USART = yes
-
 
 OLED_ENABLE = no
 OLED_DRIVER = SSD1306      # OLED display
