@@ -18,7 +18,7 @@
 -Sensitivity bug
 -lower profile thumb switches
 -pause mouse_timer while key held down
--fix right encoder clockwise press on keyboard startup
+-fix right encoder clockwise random press on keyboard startup
 */
 
 bool LALT_HELD;
@@ -77,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_GESC, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   _______ ,_______,_______,_______,_______,_______,
      KC_TAB , CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK, _______, _______,
      KC_BSPC, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, KC_MPLY, KC_QUOT,
-     KC_LGUI, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_PASTE, KC_BTN4, KC_BTN5 , KC_F5,CK_BACK,KC_BSLASH,
-                       CK_MSOF , CK_MSOF, CK_MSOF, MO_RALT,                   KC_LSFT, KC_MPLY, KC_PLUS, KC_EQL,
+     KC_LGUI, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_PASTE, KC_BTN4, KC_BTN5, KC_F5, CK_BACK, KC_BSLASH,
+                       CK_MSOF , CK_MSOF, CK_MSOF, MO_RALT,                   KC_LSFT, ALT_TAB, KC_PLUS, KC_EQL,
                                  _______, KC_LCTL, KC_LALT,                   MO_FN,KC_ENT		
   ),
     
@@ -235,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 		case CK_MSLK:
 			if(record->event.pressed){
-				pointing_device_set_cpi(800);
+				pointing_device_set_cpi(500);
 				mouse_lock = !mouse_lock;
 			}
 			return false;
