@@ -5,8 +5,6 @@ into a hard-wired keyboard running QMK.
 
 The keyboard is known under several different names:
 Mobile Bluetooth 5000, Mobile 6000, Sculpt mobile, and Asus rebranded.  Yours may have a different matrix. 
-The keyboards are cheap on ebay, travel well, and are just ergo enough.
-
 
 In addition to the original handwired build, I've built an 8x18 FFC PCB I will open source. 
  
@@ -45,7 +43,7 @@ Liteon model XUW
 | 7 | ~  | F1 | F2 |  5  |  6  |  =  |  F8  |   -  | F9   |       |  Del | PgDn   | home |       |      | lCtl   |      |     |
 
 
-iso Spanish keyboard liteon 29W (partial matrix until I fix ribbon cable)
+iso Spanish keyboard liteon 29W (partial matrix )
 |   | A0 | B1 | C2 | D3  | E4  | F5  | G6   | H7   | I8   | J     | K10  | L      | M12  | N     | O14  | P      | Q16  | R   |
 |:-:|:--:|:--:|:--:|:---:|:---:|:---:|:----:|:----:|:----:|:-----:|:----:|:------:|:----:|:-----:|:----:|:------:|:----:|:---:|
 | 0 |    |    |    |     |     |     |      |      |      |       |      |        |      |       |      |        |      |     |
@@ -59,25 +57,27 @@ iso Spanish keyboard liteon 29W (partial matrix until I fix ribbon cable)
 ---
 
 
-My method for discovering the matrix was to set up a keymap that has all printable symbols
+My method for discovering the matrix was to set up a keymap that has only printable symbols
 in all rows. Load the matrix keymap, start hid_listen, fill in the blanks. 
 
-Huge thanks to the bluepill controller work of [FPazos](https://github.com/fpazos), and the original [KC64 of Xydane](https://github.com/Xydane/qmk_firmware). I've shamelessly copied from their work. 
+Huge thanks to the bluepill controller work of [FPazos](https://github.com/fpazos), and the original [KC64 of Xydane](https://github.com/Xydane/qmk_firmware). I copied from their work. 
 
 
 Building 
 
 Make examples for this keyboard (after setting up your build environment):
-
+    
     make handwired/ms_sculpt_mobile/handwired:default
 
     to use a generic STM32F103C8T6 (bluepill)) on an 8x18 board
     make handwired/ms_sculpt_mobile/8x18_arm:default
-    then st-flash write ./handwired_ms_sculpt_mobile_8x18_arm_keymap.bin 0x8000000 (no arduino/maple mini bootloader), or
-     dfu-util -d 1eaf:0003 -a 2 -D ./handwired_ms_sculpt_mobie_8x18_arm_keymap.bin (using arduino botloader)
+     
+    To flash the Stm32, edit the 8x18 makefile BOOTLOADER. To flash manually, 
+    No boot loader: st-flash write ./handwired_ms_sculpt_mobile_8x18_arm_keymap.bin 0x8000000 
+    arduino boot loader: dfu-util -d 1eaf:0003 -a 2 -D ./handwired_ms_sculpt_mobie_8x18_arm_keymap.bin
 
     to use the original handwired teensy 2++ version
-    	make handwired/ms_sculpt_mobile/teensypp:default
+    	make handwired/ms_sculpt_mobile/teensy2pp:default
     to use the ASTAR mini mcu, or any other 32u4 board with 18 IO pins, 
     	make handwired/ms_sculpt_mobile/astar:default
 

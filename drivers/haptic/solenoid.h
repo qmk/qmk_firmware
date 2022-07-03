@@ -45,26 +45,24 @@
 #    define SOLENOID_BUZZ_NONACTUATED SOLENOID_MIN_DWELL
 #endif
 
-#ifndef SOLENOID_PIN
-#    error SOLENOID_PIN not defined
+#ifndef SOLENOID_PINS
+#    ifdef SOLENOID_PIN
+#        define SOLENOID_PINS \
+            { SOLENOID_PIN }
+#    else
+#        error SOLENOID_PINS array not defined
+#    endif
 #endif
 
-#ifdef SOLENOID_PIN_ACTIVE_LOW
-#    define SOLENOID_PIN_WRITE_ACTIVE() writePinLow(SOLENOID_PIN)
-#    define SOLENOID_PIN_WRITE_INACTIVE() writePinHigh(SOLENOID_PIN)
-#else
-#    define SOLENOID_PIN_WRITE_ACTIVE() writePinHigh(SOLENOID_PIN)
-#    define SOLENOID_PIN_WRITE_INACTIVE() writePinLow(SOLENOID_PIN)
-#endif
-
-void solenoid_buzz_on(void);
+void solenoidbuzz_on(void);
 void solenoid_buzz_off(void);
-void solenoid_set_buzz(int buzz);
+void solenoid_set_buzz(uint8_t buzz);
 
 void solenoid_set_dwell(uint8_t dwell);
 
-void solenoid_stop(void);
-void solenoid_fire(void);
+void solenoid_stop(uint8_t index);
+void solenoid_fire(uint8_t index);
+void solenoid_fire_handler(void);
 
 void solenoid_check(void);
 

@@ -25,7 +25,7 @@
 #    include "g/keymap_combo.h"
 #endif
 
-#define LAYOUT_local LAYOUT_mobile_xuw
+#define LAYOUT_local LAYOUT_xua
 #define LAYOUT_local_wrap(...) LAYOUT_local(__VA_ARGS__)
 
 // Shorter spacing
