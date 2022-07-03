@@ -20,13 +20,13 @@
 cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
     cursor_glide_t report;
     float          p;
-    int16_t        x, y;
+    int32_t        x, y;
 
     glide->counter++;
     // calculate current position
-    p            = glide->v0 * glide->counter - glide->coef * glide->counter * glide->counter / 2;
-    x            = (int16_t)(p * glide->dx0 / glide->v0);
-    y            = (int16_t)(p * glide->dy0 / glide->v0);
+    p            = glide->v0 * glide->counter - (int32_t)glide->coef * glide->counter * glide->counter / 256 / 2;
+    x            = (int32_t)(p * glide->dx0 / glide->v0);
+    y            = (int32_t)(p * glide->dy0 / glide->v0);
     report.dx    = (mouse_xy_report_t)(x - glide->x);
     report.dy    = (mouse_xy_report_t)(y - glide->y);
     report.valid = true;

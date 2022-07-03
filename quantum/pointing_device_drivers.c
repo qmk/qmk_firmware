@@ -98,7 +98,7 @@ const pointing_device_driver_t pointing_device_driver = {
 
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 static bool                   cursor_glide_enable;
-static cursor_glide_context_t glide = {.coef = 0.4 /* good default friction coef */, .interval = 10 /* 100sps */};
+static cursor_glide_context_t glide = {.coef = 102 /* good default friction coef */, .interval = 10 /* 100sps */};
 
 // extern this for now
 void cirque_pinnacle_enable_cursor_glide(bool enable) {
