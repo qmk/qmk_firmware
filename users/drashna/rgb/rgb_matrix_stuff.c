@@ -15,7 +15,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
     }
 
     switch (mode) {
-        case 1:  // breathing
+        case 1: // breathing
         {
             uint16_t time = scale16by8(g_rgb_timer, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
@@ -27,7 +27,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             }
             break;
         }
-        default:  // Solid Color
+        default: // Solid Color
         {
             RGB rgb = hsv_to_rgb(hsv);
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
@@ -59,6 +59,8 @@ void keyboard_post_init_rgb_matrix(void) {
 #endif
     if (userspace_config.rgb_layer_change) {
         rgb_matrix_set_flags(LED_FLAG_UNDERGLOW | LED_FLAG_KEYLIGHT | LED_FLAG_INDICATOR);
+    } else {
+        rgb_matrix_set_flags(LED_FLAG_ALL);
     }
 }
 
@@ -70,7 +72,7 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
     switch (keycode) {
-        case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
+        case RGB_IDL: // This allows me to use underglow as layer indication, or as normal
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
             if (record->event.pressed) {
                 userspace_config.rgb_matrix_idle_anim ^= 1;
@@ -86,9 +88,13 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) { return true; }
-void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) { return; }
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
+        return;
+    }
 
 #if defined(RGBLIGHT_ENABLE)
     if (!userspace_config.rgb_layer_change)
@@ -96,19 +102,7 @@ void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, 
     if (userspace_config.rgb_layer_change)
 #endif
     {
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case _DEFAULT_LAYER_1:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_2:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_3:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_4:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
+        switch (get_highest_layer(layer_state & ~((layer_state_t)1 << _MOUSE))) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
@@ -124,9 +118,33 @@ void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, 
             case _ADJUST:
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
+            default:
+                if (layer_state_is(_MOUSE)) {
+                    rgb_matrix_layer_helper(HSV_PURPLE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                } else {
+                    switch (get_highest_layer(default_layer_state)) {
+                        case _DEFAULT_LAYER_1:
+                            rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                            break;
+                        case _DEFAULT_LAYER_2:
+                            rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                            break;
+                        case _DEFAULT_LAYER_3:
+                            rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                            break;
+                        case _DEFAULT_LAYER_4:
+                            rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                            break;
+                    }
+                }
+                break;
         }
     }
 }
 
-__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
-void                       rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
+__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
+    return true;
+}
+void rgb_matrix_indicators_user(void) {
+    rgb_matrix_indicators_keymap();
+}
