@@ -27,6 +27,21 @@ enum layer_names {
 #define LOWER TT(_LWR)
 #define RAISE TT(_RSE)
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QW] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+#if defined(RGBLIGHT_ENABLE)
+    [_LWR] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
+    [_RSE] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
+    [_ADJ] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+#else
+    [_LWR] = { },
+    [_RSE] = { },
+    [_ADJ] = { },
+#endif
+};
+#endif
+
 #ifdef RGBLIGHT_ENABLE
 
 const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
@@ -71,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJ] =  LAYOUT_ortho_5x12(
 
-    _______, QK_BOOT  , _______, _______, _______, _______, RGB_TOG, RGB_MOD, RGB_RMOD, RGB_M_G, QK_BOOT  , _______,
+    _______, QK_BOOT, _______, _______, _______, _______, RGB_TOG, RGB_MOD, RGB_RMOD, RGB_M_G, QK_BOOT, _______,
     _______, _______, _______, _______, _______, _______, RGB_HUI, RGB_SAI, RGB_VAI , _______, _______, _______,
     _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_SAD, RGB_VAD , _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______ , _______, _______, _______,
@@ -154,40 +169,5 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
-}
-#endif
-
-#ifdef ENCODER_ENABLE
-
-#    define MEDIA_KEY_DELAY 10
-
-static inline void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0 || (index == 1)) { /* First encoder on each side*/
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-        }
-    }
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    my_encoders(index, clockwise);
-    return true;
 }
 #endif
