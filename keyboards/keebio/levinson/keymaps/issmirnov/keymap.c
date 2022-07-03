@@ -91,7 +91,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef RGBLIGHT_ENABLE
     layer_state_set_rgb(state);
   #endif
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
   combo_enable(); // by default, enable combos.
   switch (layer) {
     case 0:

@@ -125,7 +125,7 @@ void action_tapping_process(keyrecord_t record) {
 /* return true when key event is processed or consumed. */
 bool process_tapping(keyrecord_t *keyp) {
     keyevent_t event = keyp->event;
-#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
     uint16_t tapping_keycode = get_record_keycode(&tapping_key, false);
 #    endif
 
@@ -164,17 +164,15 @@ bool process_tapping(keyrecord_t *keyp) {
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
                 // clang-format off
-#    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+#    if defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
                 else if (
                     (
-                        (
-                            GET_TAPPING_TERM(tapping_keycode, &tapping_key) >= 500
+                        IS_RELEASED(event) && waiting_buffer_typed(event)
 #        ifdef PERMISSIVE_HOLD_PER_KEY
-                            || get_permissive_hold(tapping_keycode, &tapping_key)
+                            && get_permissive_hold(tapping_keycode, &tapping_key)
 #        elif defined(PERMISSIVE_HOLD)
-                            || true
+                            && true
 #        endif
-                        ) && IS_RELEASED(event) && waiting_buffer_typed(event)
                     )
                     // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT
                     // unnecessarily and fixes them for Layer Taps.

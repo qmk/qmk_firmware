@@ -1,4 +1,4 @@
-/* Copyright 2017 Jack Humbert
+/* Copyright 2022 Jouke Witteveen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,4 @@
 
 #pragma once
 
-#include "quantum.h"
-
-#define TERM_ON KC_NO
-#define TERM_OFF KC_NO
+#include "test_common.h"

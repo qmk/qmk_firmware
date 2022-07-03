@@ -1,4 +1,4 @@
-/* Copyright 2017 Jack Humbert
+/* Copyright 2022 Jouke Witteveen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,18 @@
 
 #pragma once
 
-#include "quantum.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-extern const char keycode_to_ascii_lut[58];
-extern const char shifted_keycode_to_ascii_lut[58];
-extern const char terminal_prompt[8];
-bool              process_terminal(uint16_t keycode, keyrecord_t *record);
+enum {
+    TD_ESC_CAPS,
+    CT_EGG,
+    CT_FLSH,
+    CT_CLN,
+    X_CTL,
+};
+
+#ifdef __cplusplus
+}
+#endif

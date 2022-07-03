@@ -55,3 +55,5 @@ extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 // Ensure we have a forward declaration for the encoder map
 #    include "encoder.h"
 #endif
+
+#include "keymap_introspection.h"

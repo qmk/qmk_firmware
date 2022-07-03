@@ -242,7 +242,7 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 static int current_default_layer;
 
-uint32_t default_layer_state_set_kb(uint32_t state) {
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
     // 1<<_QWERTY  - 1 == 1 - 1 == _QWERTY (=0)
     // 1<<_COLEMAK - 1 == 2 - 1 == _COLEMAK (=1)
     current_default_layer = state - 1;

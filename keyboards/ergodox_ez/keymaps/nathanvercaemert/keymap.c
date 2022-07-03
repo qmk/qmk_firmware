@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
@@ -431,4 +431,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-

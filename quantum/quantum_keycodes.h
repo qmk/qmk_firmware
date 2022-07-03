@@ -473,9 +473,9 @@ enum quantum_keycodes {
     // Lock Key
     KC_LOCK, // 5D2B
 
-    // Terminal
-    TERM_ON,  // 5D2C
-    TERM_OFF, // 5D2D
+    // Unused slots
+    UNUSED_000, // 5D2C
+    UNUSED_001, // 5D2D
 
     // Sequencer
     SQ_ON,  // 5D2E

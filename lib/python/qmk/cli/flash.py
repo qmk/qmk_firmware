@@ -33,6 +33,8 @@ def print_bootloader_help():
     cli.echo('\tdfu-split-right')
     cli.echo('\tdfu-util-split-left')
     cli.echo('\tdfu-util-split-right')
+    cli.echo('\tuf2-split-left')
+    cli.echo('\tuf2-split-right')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 

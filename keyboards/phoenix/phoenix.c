@@ -74,7 +74,7 @@ void manipulate_led(uint32_t led, bool on) {
 }
 
 
-layer_state_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
 
     uint8_t layer = get_highest_layer(state);

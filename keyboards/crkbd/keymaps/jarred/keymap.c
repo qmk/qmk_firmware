@@ -84,7 +84,7 @@ const char *read_keylogs(void);
 char matrix_line_str[24];
 
 const char *read_layer_state(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   strcpy(matrix_line_str, "Layer: ");
 

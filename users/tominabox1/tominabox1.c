@@ -128,7 +128,7 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _LOWER:
             break;
         case _RAISE:
@@ -231,7 +231,7 @@ void render_status_main(void) {
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_P(PSTR("Colemak\n"), false);
             break;

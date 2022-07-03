@@ -390,10 +390,12 @@ ifneq ("$(KEYMAP_H)","")
     CONFIG_H += $(KEYMAP_H)
 endif
 
+OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"
+
 # project specific files
 SRC += \
     $(KEYBOARD_SRC) \
-    $(KEYMAP_C) \
+    $(QUANTUM_DIR)/keymap_introspection.c \
     $(QUANTUM_SRC) \
     $(QUANTUM_DIR)/main.c \
 
@@ -468,6 +470,19 @@ build: elf cpfirmware
 check-size: build
 check-md5: build
 objs-size: build
+
+ifeq ($(strip $(TOP_SYMBOLS)),yes)
+all: top-symbols
+check-size: top-symbols
+top-symbols: build
+	echo "###########################################"
+	echo "# Highest flash usage:"
+	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [t] ' | head -n10 | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
+	echo "###########################################"
+	echo "# Highest RAM usage:"
+	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [dbv] ' | head -n10 | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
+	echo "###########################################"
+endif
 
 include $(BUILDDEFS_PATH)/show_options.mk
 include $(BUILDDEFS_PATH)/common_rules.mk

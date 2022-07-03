@@ -102,7 +102,7 @@ const size_t defaultlayers_n = sizeof(defaultlayers) / sizeof(defaultlayers[0]);
 // New keycode KC_LAYO rotates between available default layers (for e.g.,
 // selecting a base layout). Shift+KC_LAYO makes the current one persistent.
 bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
-  uint32_t default_layer;
+  uint8_t default_layer;
   uint8_t i;
   #if defined(AUDIO_ENABLE)
   float saved_song[][2] = SONG(COIN_SOUND);
@@ -121,7 +121,7 @@ bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
   } else {
     // rotate default layer.
     // find the current default layer
-    default_layer = biton32(default_layer_state);
+    default_layer = get_highest_layer(default_layer_state);
     // find next valid default layer
     for (i = 1; i < defaultlayers_n; i++) {
       if (defaultlayers[(default_layer + i) % defaultlayers_n]) {

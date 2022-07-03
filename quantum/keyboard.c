@@ -381,7 +381,7 @@ void keyboard_init(void) {
 #ifdef ENCODER_ENABLE
     encoder_init();
 #endif
-#ifdef STENO_ENABLE
+#ifdef STENO_ENABLE_ALL
     steno_init();
 #endif
 #ifdef POINTING_DEVICE_ENABLE

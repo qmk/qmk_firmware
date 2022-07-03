@@ -307,9 +307,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
             process_dynamic_tapping_term(keycode, record) &&
 #endif
-#ifdef TERMINAL_ENABLE
-            process_terminal(keycode, record) &&
-#endif
 #ifdef SPACE_CADET_ENABLE
             process_space_cadet(keycode, record) &&
 #endif
