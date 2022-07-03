@@ -15,17 +15,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {KC_SLSH,   KC_LPRN,    KC_UP,  KC_RPRN},
         {KC_COMM,   KC_LEFT,    KC_DOWN,KC_RIGHT},
         {KC_TAB,    KC_BSPC,    KC_0,   KC_TRNS}
-    },
-    [2] = {
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO}
-    },
-    [3] = {
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO},
-        {KC_NO,     KC_NO,      KC_NO,  KC_NO}
     }
 };
