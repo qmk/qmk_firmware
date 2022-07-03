@@ -106,5 +106,7 @@ keyboards/*/*/*/*/*
 !keyboards/tractyl
 !keyboards/tractyl/*
 !keyboards/tractyl/*/*
-
+!keyboards/test/*
+!keyboards/test/tractyl/*
+!keyboards/test/tractyl/*/*
 
