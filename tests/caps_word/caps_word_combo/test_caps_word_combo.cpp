@@ -70,18 +70,6 @@ class CapsWord : public ::testing::WithParamInterface<TestParams>, public TestFi
             autoshift_disable();
         }
     }
-
-    void tap_combo(const std::vector<KeymapKey>& chord_keys) {
-        for (KeymapKey key : chord_keys) { // Press each key.
-            key.press();
-            run_one_scan_loop();
-        }
-
-        for (KeymapKey key : chord_keys) { // Release each key.
-            key.release();
-            run_one_scan_loop();
-        }
-    }
 };
 
 // Test pressing the keys in a combo with different orders and timings.
