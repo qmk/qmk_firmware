@@ -15,7 +15,7 @@
   #define INDICATOR_PIN_2 D4
 #endif
 
-#ifdef KEYBOARD_mechlovin_adelais_standard_led_arm_rev4_stm32f303
+#if defined(KEYBOARD_mechlovin_adelais_standard_led_arm_rev4_stm32f303) || defined(KEYBOARD_mechlovin_adelais_standard_led_arm_rev4_apm32f103)
   #define INDICATOR_PIN_0 B2
   #define INDICATOR_PIN_1 C15
   #define INDICATOR_PIN_2 B9
