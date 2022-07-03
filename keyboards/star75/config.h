@@ -33,7 +33,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #ifdef ENCODER_ENABLE
 #define ENCODERS_PAD_A { B2 }
 #define ENCODERS_PAD_B { B1 }
-#define ENCODER_RESOLUTION 4
 #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
