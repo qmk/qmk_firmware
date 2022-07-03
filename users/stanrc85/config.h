@@ -30,3 +30,9 @@
   #define ENABLE_RGB_MATRIX_MULTISPLASH
   #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #endif
+
+#ifdef KEYBOARD_nasu
+  #define INDICATOR_PIN_0 B1
+  #define INDICATOR_PIN_1 B0
+  #define INDICATOR_PIN_2 A7
+#endif

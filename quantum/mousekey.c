@@ -70,10 +70,6 @@ uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
-bool should_mousekey_report_send(report_mouse_t *mouse_report) {
-    return mouse_report->x || mouse_report->y || mouse_report->v || mouse_report->h;
-}
-
 #    ifndef MK_COMBINED
 
 static uint8_t move_unit(void) {
@@ -498,4 +494,8 @@ static void mousekey_debug(void) {
 
 report_mouse_t mousekey_get_report(void) {
     return mouse_report;
+}
+
+bool should_mousekey_report_send(report_mouse_t *mouse_report) {
+    return mouse_report->x || mouse_report->y || mouse_report->v || mouse_report->h;
 }
