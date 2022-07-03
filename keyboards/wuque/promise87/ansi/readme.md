@@ -11,7 +11,8 @@ More Info at [promise87](https://shop.wuquestudio.com/)
 Make example for this keyboard (after setting up your build environment):  
 
     make wuque/promise87/ansi:default
-Flashing example for this keyboard:  
+
+Flashing example for this keyboard:
 
     make wuque/promise87/ansi:default:flash
 
