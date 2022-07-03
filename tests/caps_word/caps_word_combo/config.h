@@ -18,4 +18,3 @@
 #include "test_common.h"
 
 #define TAPPING_TERM 200
-
