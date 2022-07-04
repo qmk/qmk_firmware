@@ -60,7 +60,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     }
 }
 bool oled_task_kb(void) {
-   if (!oled_task_user() {
+   if (!oled_task_user()) {
        return false;
    }
    if (is_keyboard_master()) {
