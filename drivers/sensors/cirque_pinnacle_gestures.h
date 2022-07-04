@@ -42,17 +42,20 @@ typedef struct {
 } circular_scroll_t;
 
 typedef struct {
-    uint8_t                  mag;
-    int8_t                   x;
-    int8_t                   y;
-    uint16_t                 z;
-    circular_scroll_status_t state;
-    bool                     axis;
-    // settings
     uint8_t  outer_ring_pct; // width of outer ring, given as a percentage of the radius
     uint8_t  trigger_px;     // amount of movement before triggering scroll validation, in pixels 0~127
     uint16_t trigger_ang;    // angle required to validate scroll, in radians where pi = 32768
     uint8_t  wheel_clicks;   // how many clicks to report in a circle
+} circular_scroll_config_t;
+
+typedef struct {
+    circular_scroll_config_t config;
+    circular_scroll_status_t state;
+    uint8_t                  mag;
+    int8_t                   x;
+    int8_t                   y;
+    uint16_t                 z;
+    bool                     axis;
 } circular_scroll_context_t;
 
 typedef struct {

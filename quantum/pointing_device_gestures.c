@@ -13,53 +13,59 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <string.h>
 #include "pointing_device_gestures.h"
 #include "timer.h"
-#include <math.h>
 
 #ifdef POINTING_DEVICE_MOTION_PIN
 #    error POINTING_DEVICE_MOTION_PIN not supported when using inertial cursor. Need repeated calls to get_report() to generate glide events.
 #endif
 
-static cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
-    cursor_glide_t report;
-    int32_t        p;
-    int32_t        x, y;
+static void cursor_glide_stop(cursor_glide_context_t* glide) {
+    memset(&glide->status, 0, sizeof(glide->status));
+}
 
-    if (glide->v0 == 0) {
+static cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
+    cursor_glide_status_t* status = &glide->status;
+    cursor_glide_t         report;
+    int32_t                p;
+    int32_t                x, y;
+
+    if (status->v0 == 0) {
         report.dx    = 0;
         report.dy    = 0;
         report.valid = false;
-        glide->dx0   = 0;
-        glide->dy0   = 0;
+        cursor_glide_stop(glide);
         goto exit;
     }
 
-    glide->counter++;
+    status->counter++;
     // calculate current 1D position
-    p = glide->v0 * glide->counter - (int32_t)glide->coef * glide->counter * glide->counter / 2;
+    p = status->v0 * status->counter - (int32_t)glide->config.coef * status->counter * status->counter / 2;
     // translate to x & y axes
-    x            = (int32_t)(p * glide->dx0 / glide->v0);
-    y            = (int32_t)(p * glide->dy0 / glide->v0);
-    report.dx    = (mouse_xy_report_t)(x - glide->x);
-    report.dy    = (mouse_xy_report_t)(y - glide->y);
+    x            = (int32_t)(p * status->dx0 / status->v0);
+    y            = (int32_t)(p * status->dy0 / status->v0);
+    report.dx    = (mouse_xy_report_t)(x - status->x);
+    report.dy    = (mouse_xy_report_t)(y - status->y);
     report.valid = true;
     if (report.dx <= 1 && report.dx >= -1 && report.dy <= 1 && report.dy >= -1) {
         // stop gliding once speed is low enough
-        glide->dx0 = 0;
-        glide->dy0 = 0;
+        cursor_glide_stop(glide);
+        goto exit;
     }
-    glide->x     = x;
-    glide->y     = y;
-    glide->timer = timer_read();
+    status->x     = x;
+    status->y     = y;
+    status->timer = timer_read();
 
 exit:
     return report;
 }
 
 cursor_glide_t cursor_glide_check(cursor_glide_context_t* glide) {
-    cursor_glide_t invalid_report = {0, 0, false};
-    if (glide->z || (glide->dx0 == 0 && glide->dy0 == 0) || timer_elapsed(glide->timer) < glide->interval) {
+    cursor_glide_t         invalid_report = {0, 0, false};
+    cursor_glide_status_t* status         = &glide->status;
+
+    if (status->z || (status->dx0 == 0 && status->dy0 == 0) || timer_elapsed(status->timer) < glide->config.interval) {
         return invalid_report;
     } else {
         return cursor_glide(glide);
@@ -94,19 +100,19 @@ static inline uint16_t sqrt32(uint32_t x) {
 }
 
 cursor_glide_t cursor_glide_start(cursor_glide_context_t* glide) {
-    cursor_glide_t invalid_report = {0, 0, false};
+    cursor_glide_t         invalid_report = {0, 0, false};
+    cursor_glide_status_t* status         = &glide->status;
 
-    glide->timer   = timer_read();
-    glide->counter = 0;
-    glide->v0      = (glide->dx0 == 0 && glide->dy0 == 0) ? 0.0 : sqrt32(((int32_t)glide->dx0 * 256 * glide->dx0 * 256) + ((int32_t)glide->dy0 * 256 * glide->dy0 * 256)); // skip trigonometry if not needed, calculate distance in Q8
-    glide->x       = 0;
-    glide->y       = 0;
-    glide->z       = 0;
+    status->timer   = timer_read();
+    status->counter = 0;
+    status->v0      = (status->dx0 == 0 && status->dy0 == 0) ? 0.0 : sqrt32(((int32_t)status->dx0 * 256 * status->dx0 * 256) + ((int32_t)status->dy0 * 256 * status->dy0 * 256)); // skip trigonometry if not needed, calculate distance in Q8
+    status->x       = 0;
+    status->y       = 0;
+    status->z       = 0;
 
-    if (glide->v0 < ((uint32_t)glide->trigger_px * 256)) { // Q8 comparison
+    if (status->v0 < ((uint32_t)glide->config.trigger_px * 256)) { // Q8 comparison
         // not enough velocity to be worth gliding, abort
-        glide->dx0 = 0;
-        glide->dy0 = 0;
+        cursor_glide_stop(glide);
         return invalid_report;
     }
 
@@ -114,7 +120,9 @@ cursor_glide_t cursor_glide_start(cursor_glide_context_t* glide) {
 }
 
 void cursor_glide_update(cursor_glide_context_t* glide, mouse_xy_report_t dx, mouse_xy_report_t dy, uint16_t z) {
-    glide->dx0 = dx;
-    glide->dy0 = dy;
-    glide->z   = z;
+    cursor_glide_status_t* status = &glide->status;
+
+    status->dx0 = dx;
+    status->dy0 = dy;
+    status->z   = z;
 }

@@ -25,6 +25,12 @@ typedef struct {
 } cursor_glide_t;
 
 typedef struct {
+    uint16_t trigger_px; // pixels of movement needed to trigger cursor glide
+    uint16_t coef;       // coefficient of friction
+    uint16_t interval;   // glide report interval, in milliseconds
+} cursor_glide_config_t;
+
+typedef struct {
     int32_t           v0;
     int32_t           x;
     int32_t           y;
@@ -33,10 +39,11 @@ typedef struct {
     uint16_t          counter;
     mouse_xy_report_t dx0;
     mouse_xy_report_t dy0;
-    // settings
-    uint16_t trigger_px; // pixels of movement needed to trigger cursor glide
-    uint16_t coef;       // coefficient of friction
-    uint16_t interval;   // glide report interval, in milliseconds
+} cursor_glide_status_t;
+
+typedef struct {
+    cursor_glide_config_t config;
+    cursor_glide_status_t status;
 } cursor_glide_context_t;
 
 // Check glide report conditions, calculates glide coordinates

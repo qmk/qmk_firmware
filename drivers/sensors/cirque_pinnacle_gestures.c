@@ -54,7 +54,7 @@ void cirque_pinnacle_enable_tap(bool enable) {
 }
 
 // To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0
-static circular_scroll_context_t scroll = {.outer_ring_pct = 33, .trigger_px = 16, .trigger_ang = 9102 /* 50 degrees */, .wheel_clicks = 18};
+static circular_scroll_context_t scroll = {.config = {.outer_ring_pct = 33, .trigger_px = 16, .trigger_ang = 9102 /* 50 degrees */, .wheel_clicks = 18}};
 
 static inline uint16_t atan2_16(int32_t dy, int32_t dx) {
     if (dy == 0) {
@@ -101,7 +101,7 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
             report.suppress_touch = false;
             // check if touch falls within outer ring
             mag = sqrt16(x * x + y * y);
-            if (mag * 100 / center >= 100 - scroll.outer_ring_pct) {
+            if (mag * 100 / center >= 100 - scroll.config.outer_ring_pct) {
                 scroll.state = SCROLL_DETECTING;
                 scroll.x     = x;
                 scroll.y     = y;
@@ -124,7 +124,7 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
             report.suppress_touch = true;
             // already detecting scroll, check movement from touchdown location
             mag = sqrt16((x - scroll.x) * (x - scroll.x) + (y - scroll.y) * (y - scroll.y));
-            if (mag >= scroll.trigger_px) {
+            if (mag >= scroll.config.trigger_px) {
 #define ABS(a) (a > 0 ? a : -a)
                 // find angle of movement with 0 being movement towards center of circle
                 dot           = scroll.x * x + scroll.y * y;
@@ -132,7 +132,7 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
                 opposite_side = ABS(det);                                // based on scalar rejection
                 adjacent_side = ABS(scroll.mag * scroll.mag - ABS(dot)); // based on scalar projection
                 ang           = (int16_t)atan2_16(opposite_side, adjacent_side);
-                if (ang < scroll.trigger_ang) {
+                if (ang < scroll.config.trigger_ang) {
                     // not a scroll, release coordinates
                     report.suppress_touch = false;
                     scroll.state          = NOT_SCROLL;
@@ -147,7 +147,7 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
             dot                   = scroll.x * x + scroll.y * y;
             det                   = scroll.x * y - scroll.y * x;
             ang                   = (int16_t)atan2_16(det, dot);
-            wheel_clicks          = ((int32_t)ang * scroll.wheel_clicks) / 65536;
+            wheel_clicks          = ((int32_t)ang * scroll.config.wheel_clicks) / 65536;
             if (wheel_clicks >= 1 || wheel_clicks <= -1) {
                 if (scroll.axis == 0) {
                     report.v = -wheel_clicks;
@@ -172,10 +172,10 @@ void cirque_pinnacle_enable_circular_scroll(bool enable) {
 }
 
 void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks) {
-    scroll.outer_ring_pct = outer_ring_pct;
-    scroll.trigger_px     = trigger_px;
-    scroll.trigger_ang    = trigger_ang;
-    scroll.wheel_clicks   = wheel_clicks;
+    scroll.config.outer_ring_pct = outer_ring_pct;
+    scroll.config.trigger_px     = trigger_px;
+    scroll.config.trigger_ang    = trigger_ang;
+    scroll.config.wheel_clicks   = wheel_clicks;
 }
 
 bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData) {
