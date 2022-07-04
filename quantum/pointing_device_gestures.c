@@ -26,6 +26,15 @@ static cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
     int32_t        p;
     int32_t        x, y;
 
+    if (glide->v0 == 0) {
+        report.dx    = 0;
+        report.dy    = 0;
+        report.valid = false;
+        glide->dx0   = 0;
+        glide->dy0   = 0;
+        goto exit;
+    }
+
     glide->counter++;
     // calculate current 1D position
     p = glide->v0 * glide->counter - (int32_t)glide->coef * glide->counter * glide->counter / 2;
@@ -44,6 +53,7 @@ static cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
     glide->y     = y;
     glide->timer = timer_read();
 
+exit:
     return report;
 }
 

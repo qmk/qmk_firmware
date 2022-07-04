@@ -83,12 +83,18 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
     int8_t            x, y, wheel_clicks;
     uint8_t           center = 256 / 2, mag;
     int16_t           ang, dot, det, opposite_side, adjacent_side;
+    uint16_t          scale = cirque_pinnacle_get_scale();
 
     if (touchData.zValue) {
         // place origin at center of trackpad, treat coordinates as vectors
         // scale to fixed int8_t size, angles are independent of resolution
-        x = (int8_t)((int32_t)touchData.xValue * 256 / cirque_pinnacle_get_scale() - center);
-        y = (int8_t)((int32_t)touchData.yValue * 256 / cirque_pinnacle_get_scale() - center);
+        if (scale) {
+            x = (int8_t)((int32_t)touchData.xValue * 256 / scale - center);
+            y = (int8_t)((int32_t)touchData.yValue * 256 / scale - center);
+        } else {
+            x = 0;
+            y = 0;
+        }
 
         // check if first touch
         if (!scroll.z) {
