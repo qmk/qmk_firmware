@@ -48,3 +48,8 @@ ifeq ($(strip $(KEYBOARD)), nasu)
   SRC += startup_fanfare.c
   OPT_DEFS += -DHAS_INDICATORS
 endif
+ifeq ($(strip $(KEYBOARD)), mechlovin/adelais/standard_led/arm/rev4/apm32f103)
+  OPT_DEFS += -DHAS_INDICATORS
+  SRC += rgb_timeout.c
+  SRC += indicator_layers_sneakbox.c
+endif
