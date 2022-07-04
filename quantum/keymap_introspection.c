@@ -4,6 +4,11 @@
 // Pull the actual keymap code so that we can inspect stuff from it
 #include KEYMAP_C
 
+// Allow for keymap or userspace rules.mk to specify an alternate location for the keymap array
+#ifdef INTROSPECTION_KEYMAP_C
+#    include INTROSPECTION_KEYMAP_C
+#endif // INTROSPECTION_KEYMAP_C
+
 #include "keymap_introspection.h"
 
 #define NUM_KEYMAP_LAYERS ((uint8_t)(sizeof(keymaps) / ((MATRIX_ROWS) * (MATRIX_COLS) * sizeof(uint16_t))))
