@@ -288,14 +288,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 			}
 		} else if (FN_HELD == true || layer_state_is(_MOUSE)){
 			if (clockwise) {
-				tap_code_delay(KC_MNXT, 10);
-				//tap_code(KC_RGHT);
+				//tap_code_delay(KC_MNXT, 10);
+				tap_code(KC_RGHT);
 				/* register_code(KC_LCTL);
 				tap_code(KC_TAB);
 				unregister_code(KC_LCTL); */
 			} else {
-				tap_code_delay(KC_MPRV, 10);
-				//tap_code(KC_LEFT);
+				//tap_code_delay(KC_MPRV, 10);
+				tap_code(KC_LEFT);
 				/* register_code(KC_LCTL);
 				register_code(KC_LSFT);
 				tap_code(KC_TAB);
@@ -303,11 +303,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				unregister_code(KC_LCTL); */
 			}
 		} else if (clockwise) {
-			tap_code(KC_RGHT);
-			//tap_code_delay(KC_MNXT, 10);
+			//tap_code(KC_RGHT);
+			tap_code_delay(KC_MNXT, 10);
         } else {
-			tap_code(KC_LEFT);
-			//tap_code_delay(KC_MPRV, 10);
+			//tap_code(KC_LEFT);
+			tap_code_delay(KC_MPRV, 10);
         }
     }
     return true;
@@ -319,7 +319,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 			layer_on(_MOUSE);
 		}
 		mouse_timer = timer_read();
-	}else if(timer_elapsed(mouse_timer) > 666 && layer_state_is(_MOUSE) && !mouse_lock){
+	}else if(timer_elapsed(mouse_timer) > 500 && layer_state_is(_MOUSE) && !mouse_lock){
 		layer_off(_MOUSE);
 	}
 	short x = mouse_report.x, y = mouse_report.y;
@@ -385,21 +385,48 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
-/*layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-		case _RALT:  // If we're on the _RAISE layer enable scrolling mode
-            pointing_device_set_cpi(8000);
+		case _CLMK:
+            //rgblight_sethsv_noeeprom(HSV_GREEN);
+			rgblight_disable_noeeprom();
             break;
 		case _FN:
-			pointing_device_set_cpi(1200);
+			if(!rgblight_is_enabled()){
+				rgblight_enable_noeeprom();	
+			}
+			rgblight_sethsv_noeeprom(HSV_RED);
+			break;
+		case _RALT:
+			if(!rgblight_is_enabled()){
+				rgblight_enable_noeeprom();	
+			}
+			rgblight_sethsv_noeeprom(HSV_ORANGE);
+			break;
+		case _MOUSE:
+			if(!rgblight_is_enabled()){
+				rgblight_enable_noeeprom();	
+			}
+			rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
+			break;
+		case _FN2:
+			if(!rgblight_is_enabled()){
+				rgblight_enable_noeeprom();	
+			}
+			rgblight_sethsv_noeeprom(HSV_RED);
+			break;
         default:
-            if (scrolling_mode) {  // check if we were scrolling before and set disable if so
-                pointing_device_set_cpi(200);
-            }
+            rgblight_sethsv_noeeprom(HSV_YELLOW);
             break;
     }
     return state;
-}*/
+}
+
+void keyboard_post_init_user(void) {
+  rgblight_disable_noeeprom(); // Enables RGB, without saving settings
+  //rgblight_sethsv_noeeprom(HSV_GREEN);
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+}
 
 /*void keyboard_post_init_user(void) {
   debug_enable=true;

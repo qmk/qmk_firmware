@@ -38,9 +38,7 @@
 #define SPI_MISO_PIN                         A6
 #define SPI_MISO_PAL_MODE                    5
 
-
 /* Trackball */
-
 #define PMW3360_CS_PIN                       A4
 #define PMW3360_SPI_MODE                     3
 #define PMW3360_SPI_DIVISOR                  64
@@ -51,13 +49,12 @@
 #define POINTING_DEVICE_INVERT_Y
 //#define ROTATIONAL_TRANSFORM_ANGLE  90
 
-
 /* Encoder */
 #define ENCODERS_PAD_A {A13}
 #define ENCODERS_PAD_B {A14}
-
 #define ENCODER_RESOLUTION 4
 
+/* Split configuration */
 #define SPLIT_HAND_PIN C14 //high = left, low = right
 #define SPLIT_USB_DETECT
 #define SPLIT_POINTING_ENABLE
@@ -76,9 +73,18 @@
 #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
 #define SERIAL_USART_SPEED       921600
-
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
+
+/* RGBLight configuration */
+#define RGB_DI_PIN A1
+//#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_LIMIT_VAL 200
+#define RGBLED_NUM          18
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT \
+    { 9, 9 }
+//#define DEBUG_LED_PIN      C13
 
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x3536
