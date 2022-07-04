@@ -2,8 +2,11 @@
     "keyboard_name": "Rosaline",
     "url": "https://github.com/peej/rosaline-keyboard",
     "maintainer": "Peej",
+    "layout_aliases": {
+        "LAYOUT_staggered_40": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT_staggered_40": {
+        "LAYOUT_all": {
             "layout": [
                 {"x":0, "y":0, "w":1.5},
                 {"x":1.5, "y":0},

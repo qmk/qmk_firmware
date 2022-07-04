@@ -18,7 +18,7 @@
 
 #include "rosaline.h"
 
-#define LAYOUT_staggered_40( \
+#define LAYOUT_all( \
 	k00, k01, k10, k20, k21, k30, k31, k40, k41, k50, k60, k61, k70, k71, \
 	k02, k11, k12, k22, k23, k32, k33, k42, k51, k52, k62, k63, k72, \
 	k03, k13, k14, k24, k34, k35, k43, k44, k53, k54, k64, k73, k74, \
