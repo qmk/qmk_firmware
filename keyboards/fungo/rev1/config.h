@@ -35,9 +35,6 @@
 #define SOFT_SERIAL_PIN D3	// RX8
 
 /* select keyboard  master board  - I2C or Serial communication master    */
-/* Use [#define MASTER_LEFT] to master the left, and [#define MASTER_RIGHT] to master the right  */
-/* If nothing is specified, it is the same as [#defineMASTER_LEFT]  */
-#define MASTER_LAYOUT_RIGHT
 #define MASTER_RIGHT
 
 
@@ -91,4 +88,3 @@
 #define MK_3_SPEED
 #define MOUSEKEY_INTERVAL 3
 #define MOUSEKEY_INITIAL_SPEED	20
-
