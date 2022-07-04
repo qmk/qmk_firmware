@@ -400,6 +400,12 @@ endif
 
 OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"
 
+# If a keymap or userspace places their keymap array in another file instead, allow for it to be included
+# !!NOTE!! -- For this to work, the source file cannot be part of $(SRC), so users should not add it via `SRC += <file>`
+ifneq ($(strip $(INTROSPECTION_KEYMAP_C)),)
+OPT_DEFS += -DINTROSPECTION_KEYMAP_C=\"$(strip $(INTROSPECTION_KEYMAP_C))\"
+endif
+
 # project specific files
 SRC += \
     $(KEYBOARD_SRC) \
