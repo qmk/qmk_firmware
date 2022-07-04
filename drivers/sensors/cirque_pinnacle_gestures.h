@@ -65,7 +65,19 @@ typedef struct {
     bool circular_scroll_enable;
 } cirque_pinnacle_features_t;
 
+// Process through available gestures
 bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData);
+
+// Enable/disable tap gesture
 void cirque_pinnacle_enable_tap(bool enable);
+
+// Enable/disable circular scroll gesture
 void cirque_pinnacle_enable_circular_scroll(bool enable);
+
+// Configure circular scroll gesture.
+// Trackpad can be configured to act exclusively as a scroll wheel with outer_ring_pct = 0, trigger_px = 0, trigger_ang = 0.
+// @param outer_ring_pct Width of outer ring from which to begin scroll validation, given as a percentage of the radius.
+// @param trigger_px Amount of movement before triggering scroll validation. Expressed in pixels, trackpad coordinates are scaled to radius of 128 pixels for circular scroll.
+// @param triger_ang Angle required to validate scroll, angle smaller than this will invalidate scroll. In radians where pi = 32768, 0 means movement towards center of trackpad, 16384 means movement perpendicular to center.
+// @param wheel_clicks Number of scroll wheel clicks to report in a full rotation.
 void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks);

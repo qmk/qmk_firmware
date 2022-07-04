@@ -20,10 +20,6 @@
 #include "pointing_device.h"
 #include "timer.h"
 
-#ifdef POINTING_DEVICE_MOTION_PIN
-#    error POINTING_DEVICE_MOTION_PIN not supported when using inertial cursor. Need repeated calls to get_report() to generate glide events.
-#endif
-
 static cirque_pinnacle_features_t features = {.tap_enable = true};
 static trackpad_tap_context_t     tap;
 
@@ -60,10 +56,8 @@ void cirque_pinnacle_enable_tap(bool enable) {
 // To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0
 static circular_scroll_context_t scroll = {.outer_ring_pct = 33, .trigger_px = 16, .trigger_ang = 9102 /* 50 degrees */, .wheel_clicks = 18};
 
-static inline uint16_t atan2_16(int32_t dy, int32_t dx)
-{
-    if (dy == 0)
-    {
+static inline uint16_t atan2_16(int32_t dy, int32_t dx) {
+    if (dy == 0) {
         if (dx >= 0)
             return 0;
         else
@@ -78,8 +72,9 @@ static inline uint16_t atan2_16(int32_t dy, int32_t dx)
     else
         a = 24576 - (8192 * (dx + abs_y) / (abs_y - dx));
 
-    if (dy < 0)
-        return -a;     // negate if in quad III or IV
+    if (dy < 0) {
+        return -a; // negate if in quad III or IV
+    }
     return a;
 }
 
@@ -172,8 +167,8 @@ void cirque_pinnacle_enable_circular_scroll(bool enable) {
 
 void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks) {
     scroll.outer_ring_pct = outer_ring_pct;
-    scroll.trigger_px = trigger_px;
-    scroll.trigger_ang = trigger_ang;
+    scroll.trigger_px     = trigger_px;
+    scroll.trigger_ang    = trigger_ang;
     scroll.wheel_clicks   = wheel_clicks;
 }
 

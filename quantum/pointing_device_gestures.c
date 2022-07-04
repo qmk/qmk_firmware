@@ -17,20 +17,26 @@
 #include "timer.h"
 #include <math.h>
 
-cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
+#ifdef POINTING_DEVICE_MOTION_PIN
+#    error POINTING_DEVICE_MOTION_PIN not supported when using inertial cursor. Need repeated calls to get_report() to generate glide events.
+#endif
+
+static cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
     cursor_glide_t report;
     int32_t        p;
     int32_t        x, y;
 
     glide->counter++;
-    // calculate current position
-    p            = glide->v0 * glide->counter - (int32_t)glide->coef * glide->counter * glide->counter / 2;
+    // calculate current 1D position
+    p = glide->v0 * glide->counter - (int32_t)glide->coef * glide->counter * glide->counter / 2;
+    // translate to x & y axes
     x            = (int32_t)(p * glide->dx0 / glide->v0);
     y            = (int32_t)(p * glide->dy0 / glide->v0);
     report.dx    = (mouse_xy_report_t)(x - glide->x);
     report.dy    = (mouse_xy_report_t)(y - glide->y);
     report.valid = true;
     if (report.dx <= 1 && report.dx >= -1 && report.dy <= 1 && report.dy >= -1) {
+        // stop gliding once speed is low enough
         glide->dx0 = 0;
         glide->dy0 = 0;
     }
@@ -51,19 +57,21 @@ cursor_glide_t cursor_glide_check(cursor_glide_context_t* glide) {
 }
 
 static inline uint16_t sqrt32(uint32_t x) {
-    uint32_t l;
-    uint32_t m;
-    uint32_t h;
+    uint32_t l, m, h;
 
     if (x == 0) {
         return 0;
     } else if (x > (UINT16_MAX >> 2)) {
+        // safe upper bound to avoid integer overflow with m * m
         h = UINT16_MAX;
     } else {
+        // upper bound based on closest log2
         h = (1 << (((__builtin_clzl(1) - __builtin_clzl(x) + 1) + 1) >> 1));
     }
+    // lower bound based on closest log2
     l = (1 << ((__builtin_clzl(1) - __builtin_clzl(x)) >> 1));
 
+    // binary search to find integer square root
     while (l != h - 1) {
         m = (l + h) / 2;
         if (m * m <= x) {
@@ -80,12 +88,12 @@ cursor_glide_t cursor_glide_start(cursor_glide_context_t* glide) {
 
     glide->timer   = timer_read();
     glide->counter = 0;
-    glide->v0      = (glide->dx0 == 0 && glide->dy0 == 0) ? 0.0 : sqrt32(((int32_t)glide->dx0 * 256 * glide->dx0 * 256) + ((int32_t)glide->dy0 * 256 * glide->dy0 * 256)); // skip trigonometry if not needed
+    glide->v0      = (glide->dx0 == 0 && glide->dy0 == 0) ? 0.0 : sqrt32(((int32_t)glide->dx0 * 256 * glide->dx0 * 256) + ((int32_t)glide->dy0 * 256 * glide->dy0 * 256)); // skip trigonometry if not needed, calculate distance in Q8
     glide->x       = 0;
     glide->y       = 0;
     glide->z       = 0;
 
-    if (glide->v0 < ((uint32_t)glide->trigger_px << 8)) {
+    if (glide->v0 < ((uint32_t)glide->trigger_px * 256)) { // Q8 comparison
         // not enough velocity to be worth gliding, abort
         glide->dx0 = 0;
         glide->dy0 = 0;
