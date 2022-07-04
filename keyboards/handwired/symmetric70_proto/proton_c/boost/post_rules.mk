@@ -5,3 +5,9 @@ ifneq ($(filter yes,$(MATRIX_DEBUG_SCAN) $(MATRIX_DEBUG_DELAY)),)
     SRC += matrix_common.c
     SRC += matrix_boost/matrix.c
 endif
+
+ifeq ($(strip $(CANCEL_BOOST)),yes)
+    OPT_DEFS += -DCANCEL_BOOST
+else
+    SRC += users/mtei/matrix_read_cols_on_row.c
+endif
