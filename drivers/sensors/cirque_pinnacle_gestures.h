@@ -42,17 +42,17 @@ typedef struct {
 } circular_scroll_t;
 
 typedef struct {
-    float                    mag;
-    int16_t                  x;
-    int16_t                  y;
+    uint8_t                  mag;
+    int8_t                   x;
+    int8_t                   y;
     uint16_t                 z;
     circular_scroll_status_t state;
     bool                     axis;
     // settings
-    float   outer_ring_pct; // width of outer ring
-    float   movement_pct;   // amount of movement before triggering scroll validation
-    float   movement_ratio; // ratio of movement along perimeter / movement towards center
-    uint8_t wheel_clicks;   // how many clicks to report in a half circle
+    uint8_t  outer_ring_pct; // width of outer ring, given as a percentage of the radius
+    uint8_t  trigger_px;     // amount of movement before triggering scroll validation, in pixels 0~127
+    uint16_t trigger_ang;    // angle required to validate scroll, in radians where pi = 32768
+    uint8_t  wheel_clicks;   // how many clicks to report in a circle
 } circular_scroll_context_t;
 
 typedef struct {
@@ -68,4 +68,4 @@ typedef struct {
 bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData);
 void cirque_pinnacle_enable_tap(bool enable);
 void cirque_pinnacle_enable_circular_scroll(bool enable);
-void cirque_pinnacle_configure_circular_scroll(float outer_ring_pct, float movement_pct, float movement_ratio, uint8_t wheel_clicks);
+void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks);

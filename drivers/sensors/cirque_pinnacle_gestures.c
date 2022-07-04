@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <math.h>
+#include <lib/lib8tion/lib8tion.h>
 #include "cirque_pinnacle_gestures.h"
 #include "pointing_device.h"
 #include "timer.h"
@@ -56,27 +57,50 @@ void cirque_pinnacle_enable_tap(bool enable) {
     features.tap_enable = enable;
 }
 
-static circular_scroll_context_t scroll = {.outer_ring_pct = 33, .movement_pct = 6, .movement_ratio = 1.2, .wheel_clicks = 9};
+// To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0
+static circular_scroll_context_t scroll = {.outer_ring_pct = 33, .trigger_px = 16, .trigger_ang = 9102 /* 50 degrees */, .wheel_clicks = 18};
+
+static inline uint16_t atan2_16(int32_t dy, int32_t dx)
+{
+    if (dy == 0)
+    {
+        if (dx >= 0)
+            return 0;
+        else
+            return 32768;
+    }
+
+    int32_t abs_y = dy > 0 ? dy : -dy;
+    int16_t a;
+
+    if (dx >= 0)
+        a = 8192 - (8192 * (dx - abs_y) / (dx + abs_y));
+    else
+        a = 24576 - (8192 * (dx + abs_y) / (abs_y - dx));
+
+    if (dy < 0)
+        return -a;     // negate if in quad III or IV
+    return a;
+}
 
 static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
     circular_scroll_t report = {0, 0, false};
-    int16_t           x, y;
-    uint16_t          center = cirque_pinnacle_get_scale() / 2;
-    int8_t            wheel_clicks;
-    float             mag, ang, scalar_projection, scalar_rejection, parallel_movement, perpendicular_movement;
-    int32_t           dot, det;
+    int8_t            x, y, wheel_clicks;
+    uint8_t           center = 256 / 2, mag;
+    int16_t           ang, dot, det, opposite_side, adjacent_side;
 
     if (touchData.zValue) {
-        // place origin at center of trackpad
-        x = (int16_t)(touchData.xValue - center);
-        y = (int16_t)(touchData.yValue - center);
+        // place origin at center of trackpad, treat coordinates as vectors
+        // scale to fixed int8_t size, angles are independent of resolution
+        x = (int8_t)((int32_t)touchData.xValue * 256 / cirque_pinnacle_get_scale() - center);
+        y = (int8_t)((int32_t)touchData.yValue * 256 / cirque_pinnacle_get_scale() - center);
 
         // check if first touch
         if (!scroll.z) {
             report.suppress_touch = false;
             // check if touch falls within outer ring
-            mag = hypotf(x, y);
-            if (mag / center >= (100.0 - scroll.outer_ring_pct) / 100.0) {
+            mag = sqrt16(x * x + y * y);
+            if (mag * 100 / center >= 100 - scroll.outer_ring_pct) {
                 scroll.state = SCROLL_DETECTING;
                 scroll.x     = x;
                 scroll.y     = y;
@@ -98,17 +122,16 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
         } else if (scroll.state == SCROLL_DETECTING) {
             report.suppress_touch = true;
             // already detecting scroll, check movement from touchdown location
-            mag = hypotf(x - scroll.x, y - scroll.y);
-            if (mag >= scroll.movement_pct / 100.0 * center) {
-                // check ratio of movement towards center vs. along perimeter
-                // this distinguishes circular scroll from swipes that start from edge of trackpad
-                dot                    = (int32_t)scroll.x * (int32_t)x + (int32_t)scroll.y * (int32_t)y;
-                det                    = (int32_t)scroll.x * (int32_t)y - (int32_t)scroll.y * (int32_t)x;
-                scalar_projection      = dot / scroll.mag;
-                scalar_rejection       = det / scroll.mag;
-                parallel_movement      = fabs(scroll.mag - fabs(scalar_projection));
-                perpendicular_movement = fabs(scalar_rejection);
-                if (parallel_movement * scroll.movement_ratio > perpendicular_movement) {
+            mag = sqrt16((x - scroll.x) * (x - scroll.x) + (y - scroll.y) * (y - scroll.y));
+            if (mag >= scroll.trigger_px) {
+#define ABS(a) (a > 0 ? a : -a)
+                // find angle of movement with 0 being movement towards center of circle
+                dot           = scroll.x * x + scroll.y * y;
+                det           = scroll.x * y - scroll.y * x;
+                opposite_side = ABS(det);                                // based on scalar rejection
+                adjacent_side = ABS(scroll.mag * scroll.mag - ABS(dot)); // based on scalar projection
+                ang           = (int16_t)atan2_16(opposite_side, adjacent_side);
+                if (ang < scroll.trigger_ang) {
                     // not a scroll, release coordinates
                     report.suppress_touch = false;
                     scroll.state          = NOT_SCROLL;
@@ -120,10 +143,10 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
         }
         if (scroll.state == SCROLL_VALID) {
             report.suppress_touch = true;
-            dot                   = (int32_t)scroll.x * (int32_t)x + (int32_t)scroll.y * (int32_t)y;
-            det                   = (int32_t)scroll.x * (int32_t)y - (int32_t)scroll.y * (int32_t)x;
-            ang                   = atan2f(det, dot);
-            wheel_clicks          = roundf(ang * (float)scroll.wheel_clicks / M_PI);
+            dot                   = scroll.x * x + scroll.y * y;
+            det                   = scroll.x * y - scroll.y * x;
+            ang                   = (int16_t)atan2_16(det, dot);
+            wheel_clicks          = ((int32_t)ang * scroll.wheel_clicks) / 65536;
             if (wheel_clicks >= 1 || wheel_clicks <= -1) {
                 if (scroll.axis == 0) {
                     report.v = -wheel_clicks;
@@ -147,11 +170,10 @@ void cirque_pinnacle_enable_circular_scroll(bool enable) {
     features.circular_scroll_enable = enable;
 }
 
-// To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, movement_pct = 0, movement_ratio = 0
-void cirque_pinnacle_configure_circular_scroll(float outer_ring_pct, float movement_pct, float movement_ratio, uint8_t wheel_clicks) {
+void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks) {
     scroll.outer_ring_pct = outer_ring_pct;
-    scroll.movement_pct   = movement_pct;
-    scroll.movement_ratio = movement_ratio;
+    scroll.trigger_px = trigger_px;
+    scroll.trigger_ang = trigger_ang;
     scroll.wheel_clicks   = wheel_clicks;
 }
 
