@@ -1,6 +1,6 @@
 # FancyAlice66
 
-![FancyAlice66](https://i.imgur.com/kg0TUlI.jpeg)
+![FancyAlice66](https://i.imgur.com/kg0TUlIh.jpeg)
 
 FancyAlice66 is a Alice layout mechanical keyboard produced by FancyTech, powered by ATM32U4.
 
