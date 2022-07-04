@@ -20,11 +20,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xABCD
-#define PRODUCT_ID      0x0002
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Nyhxis
 #define PRODUCT         Nyhxis NFR-70
-#define DESCRIPTION     A Pro-Micro based 70% DIY Kit
+#define DESCRIPTION     An Elite-C based 70% DIY Kit
 
 /* key matrix size */
 #define MATRIX_ROWS 11
