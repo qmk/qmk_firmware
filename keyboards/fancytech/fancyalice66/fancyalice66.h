@@ -17,6 +17,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "encoder_actions.h"
 
 #define XXX KC_NO
 

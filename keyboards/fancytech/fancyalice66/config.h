@@ -27,9 +27,12 @@
 #define DEBOUNCE 5
 #define FORCE_NKRO
 
-/* Encoder pins */
+/* Encoder */
+#define ENCODERS 1
 #define ENCODERS_PAD_A { F0 }
 #define ENCODERS_PAD_B { F1 }
+#define ENCODERS_CW_KEY { {12,4} }
+#define ENCODERS_CCW_KEY { {11,4} }
 #define ENCODER_RESOLUTION  2
 
 /* RGB Matrix config */

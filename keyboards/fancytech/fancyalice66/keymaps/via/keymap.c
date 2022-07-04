@@ -64,16 +64,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    _______,          _______, _______,                   _______, _______,                   _______,                   _______, _______, _______
     )
 };
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    if (clockwise) {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 12));
-    } else {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 11));
-    }
-  }
-  return true;
-}
-#endif
