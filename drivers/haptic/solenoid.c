@@ -28,13 +28,21 @@ uint8_t  solenoid_dwell   = SOLENOID_DEFAULT_DWELL;
 
 extern haptic_config_t haptic_config;
 
-void solenoid_buzz_on(void) { haptic_set_buzz(1); }
+void solenoid_buzz_on(void) {
+    haptic_set_buzz(1);
+}
 
-void solenoid_buzz_off(void) { haptic_set_buzz(0); }
+void solenoid_buzz_off(void) {
+    haptic_set_buzz(0);
+}
 
-void solenoid_set_buzz(int buzz) { haptic_set_buzz(buzz); }
+void solenoid_set_buzz(int buzz) {
+    haptic_set_buzz(buzz);
+}
 
-void solenoid_set_dwell(uint8_t dwell) { solenoid_dwell = dwell; }
+void solenoid_set_dwell(uint8_t dwell) {
+    solenoid_dwell = dwell;
+}
 
 void solenoid_stop(void) {
     SOLENOID_PIN_WRITE_INACTIVE();
@@ -89,4 +97,6 @@ void solenoid_setup(void) {
     }
 }
 
-void solenoid_shutdown(void) { SOLENOID_PIN_WRITE_INACTIVE(); }
+void solenoid_shutdown(void) {
+    SOLENOID_PIN_WRITE_INACTIVE();
+}

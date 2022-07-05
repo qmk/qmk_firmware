@@ -115,7 +115,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 
 #elif defined(HT32)
     spiConfig.cr0 = SPI_CR0_SELOEN;
-    spiConfig.cr1 = SPI_CR1_MODE | 8;  // 8 bits and in master mode
+    spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
 
     if (lsbFirst) {
         spiConfig.cr1 |= SPI_CR1_FIRSTBIT;

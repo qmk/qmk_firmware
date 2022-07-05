@@ -39,7 +39,7 @@ This should allow you to more heavily customize the behavior.
 
 Alternatively, the `process_wheel` and `process_mouse` functions can both be replaced too, to allow for even more functionality.
 
-Additionally, you can change the DPI/CPI or speed of the krackball by calling `pmw_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 1200, 1600, and 2400, but can be changed.  1600 is also set to the default. 
+Additionally, you can change the DPI/CPI or speed of the trackball by calling `pointing_device_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 1200, 1600, and 2400, but can be changed.  1600 is also set to the default.
 
 To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIONS` to set the array, and `PLOOPY_DPI_DEFAULT`. 
 

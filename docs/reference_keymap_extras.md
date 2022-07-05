@@ -74,6 +74,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Swedish Pro (macOS, ISO)         |`keymap_swedish_pro_osx_iso.h`   |                                    |
 |Turkish (F)                      |`keymap_turkish_f.h`             |`sendstring_turkish_f.h`            |
 |Turkish (Q)                      |`keymap_turkish_q.h`             |`sendstring_turkish_q.h`            |
+|Ukrainian                        |`keymap_ukrainian.h`             |                                    |
 
 There are also a few which are not quite language-specific, but useful if you are not using a QWERTY layout:
 

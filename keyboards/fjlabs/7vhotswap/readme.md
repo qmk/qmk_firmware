@@ -1,7 +1,8 @@
 # 7V Hotswap PCB by FJLaboratories
 
 The following is the QMK Firmware for the 7V Hotswap PCB by [FJLaboratories](https://www.fjlaboratories.com/).
-* Keyboard Maintainer: FJLaboratories
+
+* Keyboard Maintainer: [FJLaboratories](https://github.com/mrnoisytiger)
 * Hardware Supported: 7V Hotswap
 
 Make example for this keyboard (after setting up your build environment):

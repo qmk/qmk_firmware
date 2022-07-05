@@ -54,7 +54,9 @@ void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count);
 void RAP_Write(uint8_t address, uint8_t data);
 
 #ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte) { xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
+void print_byte(uint8_t byte) {
+    xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0'));
+}
 #endif
 
 /*  Logical Scaling Functions */
@@ -73,8 +75,12 @@ void ClipCoordinates(pinnacle_data_t* coordinates) {
     }
 }
 
-uint16_t cirque_pinnacle_get_scale(void) { return scale_data; }
-void     cirque_pinnacle_set_scale(uint16_t scale) { scale_data = scale; }
+uint16_t cirque_pinnacle_get_scale(void) {
+    return scale_data;
+}
+void cirque_pinnacle_set_scale(uint16_t scale) {
+    scale_data = scale;
+}
 
 // Scales data to desired X & Y resolution
 void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution) {
@@ -105,13 +111,13 @@ void cirque_pinnacle_clear_flags() {
 void cirque_pinnacle_enable_feed(bool feedEnable) {
     uint8_t temp;
 
-    RAP_ReadBytes(FEEDCONFIG_1, &temp, 1);  // Store contents of FeedConfig1 register
+    RAP_ReadBytes(FEEDCONFIG_1, &temp, 1); // Store contents of FeedConfig1 register
 
     if (feedEnable) {
-        temp |= 0x01;  // Set Feed Enable bit
+        temp |= 0x01; // Set Feed Enable bit
         RAP_Write(0x04, temp);
     } else {
-        temp &= ~0x01;  // Clear Feed Enable bit
+        temp &= ~0x01; // Clear Feed Enable bit
         RAP_Write(0x04, temp);
     }
 }
@@ -122,13 +128,13 @@ void cirque_pinnacle_enable_feed(bool feedEnable) {
 void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
     uint8_t ERAControlValue = 0xFF;
 
-    cirque_pinnacle_enable_feed(false);  // Disable feed
+    cirque_pinnacle_enable_feed(false); // Disable feed
 
-    RAP_Write(ERA_HIGH_BYTE, (uint8_t)(address >> 8));     // Send upper byte of ERA address
-    RAP_Write(ERA_LOW_BYTE, (uint8_t)(address & 0x00FF));  // Send lower byte of ERA address
+    RAP_Write(ERA_HIGH_BYTE, (uint8_t)(address >> 8));    // Send upper byte of ERA address
+    RAP_Write(ERA_LOW_BYTE, (uint8_t)(address & 0x00FF)); // Send lower byte of ERA address
 
     for (uint16_t i = 0; i < count; i++) {
-        RAP_Write(ERA_CONTROL, 0x05);  // Signal ERA-read (auto-increment) to Pinnacle
+        RAP_Write(ERA_CONTROL, 0x05); // Signal ERA-read (auto-increment) to Pinnacle
 
         // Wait for status register 0x1E to clear
         do {
@@ -145,14 +151,14 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
 void ERA_WriteByte(uint16_t address, uint8_t data) {
     uint8_t ERAControlValue = 0xFF;
 
-    cirque_pinnacle_enable_feed(false);  // Disable feed
+    cirque_pinnacle_enable_feed(false); // Disable feed
 
-    RAP_Write(ERA_VALUE, data);  // Send data byte to be written
+    RAP_Write(ERA_VALUE, data); // Send data byte to be written
 
-    RAP_Write(ERA_HIGH_BYTE, (uint8_t)(address >> 8));     // Upper byte of ERA address
-    RAP_Write(ERA_LOW_BYTE, (uint8_t)(address & 0x00FF));  // Lower byte of ERA address
+    RAP_Write(ERA_HIGH_BYTE, (uint8_t)(address >> 8));    // Upper byte of ERA address
+    RAP_Write(ERA_LOW_BYTE, (uint8_t)(address & 0x00FF)); // Lower byte of ERA address
 
-    RAP_Write(ERA_CONTROL, 0x02);  // Signal an ERA-write to Pinnacle
+    RAP_Write(ERA_CONTROL, 0x02); // Signal an ERA-write to Pinnacle
 
     // Wait for status register 0x1E to clear
     do {
@@ -166,7 +172,7 @@ void cirque_pinnacle_set_adc_attenuation(uint8_t adcGain) {
     uint8_t temp = 0x00;
 
     ERA_ReadBytes(0x0187, &temp, 1);
-    temp &= 0x3F;  // clear top two bits
+    temp &= 0x3F; // clear top two bits
     temp |= adcGain;
     ERA_WriteByte(0x0187, temp);
     ERA_ReadBytes(0x0187, &temp, 1);

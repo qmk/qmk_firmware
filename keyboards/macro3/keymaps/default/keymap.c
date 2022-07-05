@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT(
         _______, _______, _______, _______,
-        RESET,   _______, _______, _______
+        QK_BOOT, _______, _______, _______
     )
 };
 

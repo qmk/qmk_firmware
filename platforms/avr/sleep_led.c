@@ -12,7 +12,7 @@
 #if SLEEP_LED_TIMER == 1
 #    define TCCRxB TCCR1B
 #    define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#    if defined(__AVR_ATmega32A__)  // This MCU has only one TIMSK register
+#    if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
 #        define TIMSKx TIMSK
 #    else
 #        define TIMSKx TIMSK1

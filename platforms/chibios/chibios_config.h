@@ -16,7 +16,7 @@
 #pragma once
 
 #ifndef USB_VBUS_PIN
-#    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
+#    define SPLIT_USB_DETECT // Force this on when dedicated pin is not used
 #endif
 
 // STM32 compatibility
@@ -76,7 +76,7 @@
 
 #    if defined(K20x) || defined(KL2x)
 #        define USE_I2CV1
-#        define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
+#        define USE_I2CV1_CONTRIB // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
 #        define USE_GPIOV1
 #    endif
 #endif

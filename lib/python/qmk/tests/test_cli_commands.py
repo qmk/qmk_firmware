@@ -113,7 +113,7 @@ def test_list_keymaps_community():
 
 
 def test_list_keymaps_kb_only():
-    result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
+    result = check_subcommand('list-keymaps', '-kb', 'contra')
     check_returncode(result)
     assert 'default' and 'via' in result.stdout
 
@@ -154,6 +154,18 @@ def test_json2c_stdin():
     result = check_subcommand_stdin('keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json', 'json2c', '-')
     check_returncode(result)
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+
+
+def test_json2c_wrong_json():
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/info.json')
+    check_returncode(result, [1])
+    assert 'Invalid JSON keymap' in result.stdout
+
+
+def test_json2c_no_json():
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/pytest.h')
+    check_returncode(result, [1])
+    assert 'Invalid JSON encountered' in result.stdout
 
 
 def test_info():

@@ -1,0 +1,15 @@
+{
+    "keyboard_name": "MutePad",
+    "url": "https://github.com/JoshwJB/MutePad",
+    "maintainer": "JoshwJB",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k00", "x": 0, "y": 0},
+                {"label": "k01", "x": 1, "y": 0},
+                {"label": "k02", "x": 2, "y": 0},
+                {"label": "k03", "x": 3, "y": 0},
+            ]
+        }
+    }
+}

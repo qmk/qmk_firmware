@@ -1,10 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
+#include <stdio.h>
+#include <string.h>
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -14,15 +11,6 @@
 
 // * If you want to use the Kana key you can enable this comment out. However, the binary size may be over. *
 // #define KANA_ENABLE
-
-extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
-extern uint8_t is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -209,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #error "undefined keymaps"
 #endif
 
-#ifdef SSD1306OLED
+#if defined(SSD1306OLED) || defined(OLED_ENABLE)
 char keylog[24] = {};
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -266,7 +254,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef SSD1306OLED
+  #if defined(SSD1306OLED) || defined(OLED_ENABLE)
     if (record->event.pressed) {
       set_keylog(keycode, record);
     }
@@ -279,7 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) {
             rgblight_mode(RGB_current_mode);
             rgblight_step();
-            RGB_current_mode = rgblight_config.mode;
+            RGB_current_mode = rgblight_get_mode();
           }
         break;
     #endif
@@ -312,7 +300,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) {
             eeconfig_update_rgblight_default();
             rgblight_enable();
-            RGB_current_mode = rgblight_config.mode;
+            RGB_current_mode = rgblight_get_mode();
           }
         break;
     #endif
@@ -325,7 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
-    RGB_current_mode = rgblight_config.mode;
+    RGB_current_mode = rgblight_get_mode();
   #endif
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
   #ifdef SSD1306OLED
@@ -431,7 +419,7 @@ void iota_gfx_task_user(void) {
   #endif
 
   matrix_clear(&matrix);
-  if (is_master) {
+  if (is_keyboard_master()) {
     render_status(&matrix);
   } else {
     render_logo(&matrix);
@@ -440,4 +428,104 @@ void iota_gfx_task_user(void) {
   matrix_update(&display, &matrix);
 }
 
-#endif
+#endif // end of SSD1306OLED
+
+//OLED update loop
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_0;
+    } else {
+        return OLED_ROTATION_180;
+    }
+}
+
+//assign the right code to your layers for OLED display
+#define L_BASE _BASE
+#define L_LOWER (1<<_LOWER)
+#define L_RAISE (1<<_RAISE)
+#define L_ADJUST (1<<_ADJUST)
+#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
+#define L_LOW_E (1<<_LOW_E)
+#define L_RAI_E (1<<_RAI_E)
+#define L_ADJUST_TRIE (L_ADJUST|L_RAI_E|L_LOW_E)
+
+const char helix_logo[]={
+  0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+  0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+  0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
+  0};
+
+static inline void render_logo(void) {
+  oled_write(helix_logo, false);
+}
+
+const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
+
+static inline void render_status(void) {
+  char buf[20];
+  // Render to mode icon
+  if(keymap_config.swap_lalt_lgui==false){
+    oled_write(mac_win_logo[0][0], false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write(mac_win_logo[0][1], false);
+  } else {
+    oled_write(mac_win_logo[1][0], false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write(mac_win_logo[1][1], false);
+  }
+
+  #ifdef RGBLIGHT_ENABLE
+    snprintf(buf, sizeof(buf), "  LED mode:%d", (short)RGB_current_mode);
+    oled_write(buf, false);
+  #endif
+
+  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+  oled_write_P(PSTR("\nLayer: "), false);
+  switch (layer_state) {
+    case L_BASE:
+      oled_write_P(default_layer_state == (1UL<<_BAS_E) ? PSTR("BaseEx") : PSTR("Base"), false);
+      break;
+    case L_RAISE:
+      oled_write_P(PSTR("Raise"), false);
+      break;
+    case L_RAI_E:
+      oled_write_P(PSTR("RaiseEx"), false);
+      break;
+    case L_LOWER:
+      oled_write_P(PSTR("Lower"), false);
+      break;
+    case L_LOW_E:
+      oled_write_P(PSTR("LowerEx"), false);
+      break;
+    case L_ADJUST:
+    case L_ADJUST_TRI:
+    case L_ADJUST_TRIE:
+      oled_write_P(PSTR("Adjust"), false);
+      break;
+    default:
+      snprintf(buf, sizeof(buf), "%d", (short)layer_state);
+      oled_write(buf, false);
+  }
+
+  oled_write(keylog, false);
+}
+
+bool oled_task_user(void) {
+
+#    if DEBUG_TO_SCREEN
+    if (debug_enable) {
+        return;
+    }
+#    endif
+
+  if (is_keyboard_master()) {
+    render_status();
+  } else {
+    render_logo();
+  }
+
+  return false;
+}
+
+#endif // end of OLED_ENABLE

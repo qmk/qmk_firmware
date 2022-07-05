@@ -1,5 +1,7 @@
 KEYBOARD_LOCAL_FEATURES_MK := $(dir $(lastword $(MAKEFILE_LIST)))local_features.mk
 
+# SPLIT_KEYBOARD = yes
+
 # Helix Spacific Build Options default values
 HELIX_ROWS = 5              # Helix Rows is 4 or 5
 OLED_ENABLE = yes           # OLED_ENABLE

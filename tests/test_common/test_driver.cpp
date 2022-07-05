@@ -23,17 +23,27 @@ TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::sen
     m_this = this;
 }
 
-TestDriver::~TestDriver() { m_this = nullptr; }
+TestDriver::~TestDriver() {
+    m_this = nullptr;
+}
 
-uint8_t TestDriver::keyboard_leds(void) { return m_this->m_leds; }
+uint8_t TestDriver::keyboard_leds(void) {
+    return m_this->m_leds;
+}
 
 void TestDriver::send_keyboard(report_keyboard_t* report) {
     test_logger.trace() << *report;
     m_this->send_keyboard_mock(*report);
 }
 
-void TestDriver::send_mouse(report_mouse_t* report) { m_this->send_mouse_mock(*report); }
+void TestDriver::send_mouse(report_mouse_t* report) {
+    m_this->send_mouse_mock(*report);
+}
 
-void TestDriver::send_system(uint16_t data) { m_this->send_system_mock(data); }
+void TestDriver::send_system(uint16_t data) {
+    m_this->send_system_mock(data);
+}
 
-void TestDriver::send_consumer(uint16_t data) { m_this->send_consumer(data); }
+void TestDriver::send_consumer(uint16_t data) {
+    m_this->send_consumer(data);
+}

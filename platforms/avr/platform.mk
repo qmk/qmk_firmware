@@ -159,7 +159,7 @@ endif
 
 bootloader:
 ifeq ($(strip $(QMK_BOOTLOADER_TYPE)),)
-	$(error Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
+	$(call CATASTROPHIC_ERROR,Invalid BOOTLOADER,Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
 else
 	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean
 	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Keyboard.h

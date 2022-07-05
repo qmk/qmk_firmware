@@ -1,10 +1,26 @@
-{ avr ? true, arm ? true, teensy ? true }:
 let
   # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
   sources = import ./util/nix/sources.nix { };
-  pkgs = import sources.nixpkgs { };
+in
+# However, if you want to override Niv's inputs, this will let you do that.
+{ pkgs ? import sources.nixpkgs { }
+, poetry2nix ? pkgs.callPackage (import sources.poetry2nix) { }
+, avr ? true
+, arm ? true
+, teensy ? true }:
+with pkgs;
+let
+  avrlibc = pkgsCross.avr.libcCross;
 
-  poetry2nix = pkgs.callPackage (import sources.poetry2nix) { };
+  avr_incflags = [
+    "-isystem ${avrlibc}/avr/include"
+    "-B${avrlibc}/avr/lib/avr5"
+    "-L${avrlibc}/avr/lib/avr5"
+    "-B${avrlibc}/avr/lib/avr35"
+    "-L${avrlibc}/avr/lib/avr35"
+    "-B${avrlibc}/avr/lib/avr51"
+    "-L${avrlibc}/avr/lib/avr51"
+  ];
 
   # Builds the python env based on nix/pyproject.toml and
   # nix/poetry.lock Use the "poetry update --lock", "poetry add
@@ -20,21 +36,6 @@ let
       });
     });
   };
-in
-
-with pkgs;
-let
-  avrlibc = pkgsCross.avr.libcCross;
-
-  avr_incflags = [
-    "-isystem ${avrlibc}/avr/include"
-    "-B${avrlibc}/avr/lib/avr5"
-    "-L${avrlibc}/avr/lib/avr5"
-    "-B${avrlibc}/avr/lib/avr35"
-    "-L${avrlibc}/avr/lib/avr35"
-    "-B${avrlibc}/avr/lib/avr51"
-    "-L${avrlibc}/avr/lib/avr51"
-  ];
 in
 mkShell {
   name = "qmk-firmware";

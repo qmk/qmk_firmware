@@ -85,7 +85,7 @@ TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
 TEST_F(KeyPress, LeftShiftIsReportedCorrectly) {
     TestDriver driver;
     auto       key_a    = KeymapKey(0, 0, 0, KC_A);
-    auto       key_lsft = KeymapKey(0, 3, 0, KC_LSFT);
+    auto       key_lsft = KeymapKey(0, 3, 0, KC_LEFT_SHIFT);
 
     set_keymap({key_a, key_lsft});
 
@@ -110,8 +110,8 @@ TEST_F(KeyPress, LeftShiftIsReportedCorrectly) {
 
 TEST_F(KeyPress, PressLeftShiftAndControl) {
     TestDriver driver;
-    auto       key_lsft  = KeymapKey(0, 3, 0, KC_LSFT);
-    auto       key_lctrl = KeymapKey(0, 5, 0, KC_LCTRL);
+    auto       key_lsft  = KeymapKey(0, 3, 0, KC_LEFT_SHIFT);
+    auto       key_lctrl = KeymapKey(0, 5, 0, KC_LEFT_CTRL);
 
     set_keymap({key_lctrl, key_lsft});
 
@@ -138,8 +138,8 @@ TEST_F(KeyPress, PressLeftShiftAndControl) {
 
 TEST_F(KeyPress, LeftAndRightShiftCanBePressedAtTheSameTime) {
     TestDriver driver;
-    auto       key_lsft = KeymapKey(0, 3, 0, KC_LSFT);
-    auto       key_rsft = KeymapKey(0, 4, 0, KC_RSFT);
+    auto       key_lsft = KeymapKey(0, 3, 0, KC_LEFT_SHIFT);
+    auto       key_rsft = KeymapKey(0, 4, 0, KC_RIGHT_SHIFT);
 
     set_keymap({key_rsft, key_lsft});
 
@@ -175,12 +175,12 @@ TEST_F(KeyPress, RightShiftLeftControlAndCharWithTheSameKey) {
     // The underlying cause is that we use only one bit to represent the right hand
     // modifiers.
     combo_key.press();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL, KC_O)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RIGHT_SHIFT, KC_RIGHT_CTRL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RIGHT_SHIFT, KC_RIGHT_CTRL, KC_O)));
     keyboard_task();
 
     combo_key.release();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RIGHT_SHIFT, KC_RIGHT_CTRL)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
     keyboard_task();
 }
@@ -189,18 +189,18 @@ TEST_F(KeyPress, PressPlusEqualReleaseBeforePress) {
     TestDriver driver;
     InSequence s;
     auto       key_plus = KeymapKey(0, 1, 1, KC_PLUS);
-    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQL);
+    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQUAL);
 
     set_keymap({key_plus, key_eql});
 
     key_plus.press();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT, KC_EQUAL)));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     key_plus.release();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -220,13 +220,13 @@ TEST_F(KeyPress, PressPlusEqualDontReleaseBeforePress) {
     TestDriver driver;
     InSequence s;
     auto       key_plus = KeymapKey(0, 1, 1, KC_PLUS);
-    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQL);
+    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQUAL);
 
     set_keymap({key_plus, key_eql});
 
     key_plus.press();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT, KC_EQUAL)));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
@@ -237,14 +237,13 @@ TEST_F(KeyPress, PressPlusEqualDontReleaseBeforePress) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     key_plus.release();
-    // BUG: Should really still return KC_EQL, but this is fine too
-    // It's also called twice for some reason
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
+    // BUG: Should really still return KC_EQUAL, but this is fine too
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     key_eql.release();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -253,12 +252,12 @@ TEST_F(KeyPress, PressEqualPlusReleaseBeforePress) {
     TestDriver driver;
     InSequence s;
     auto       key_plus = KeymapKey(0, 1, 1, KC_PLUS);
-    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQL);
+    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQUAL);
 
     set_keymap({key_plus, key_eql});
 
     key_eql.press();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQUAL)));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
@@ -268,13 +267,13 @@ TEST_F(KeyPress, PressEqualPlusReleaseBeforePress) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     key_plus.press();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT, KC_EQUAL)));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     key_plus.release();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -284,12 +283,12 @@ TEST_F(KeyPress, PressEqualPlusDontReleaseBeforePress) {
     TestDriver driver;
     InSequence s;
     auto       key_plus = KeymapKey(0, 1, 1, KC_PLUS);
-    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQL);
+    auto       key_eql  = KeymapKey(0, 0, 1, KC_EQUAL);
 
     set_keymap({key_plus, key_eql});
 
     key_eql.press();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQUAL)));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
@@ -309,8 +308,6 @@ TEST_F(KeyPress, PressEqualPlusDontReleaseBeforePress) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     key_plus.release();
-    // This report is not needed
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);

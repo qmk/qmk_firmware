@@ -21,7 +21,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT(k00) {{ KC_NO }}
+#define LAYOUT(k00) {{ k00 }}
 
 typedef union {
   uint32_t raw;

@@ -119,7 +119,7 @@ enum RGBLIGHT_EFFECT_MODE {
 // sample: #define RGBLIGHT_EFFECT_BREATHE_CENTER   1.85
 
 #ifndef RGBLIGHT_EFFECT_BREATHE_MAX
-#    define RGBLIGHT_EFFECT_BREATHE_MAX 255  // 0-255
+#    define RGBLIGHT_EFFECT_BREATHE_MAX 255 // 0-255
 #endif
 
 #ifndef RGBLIGHT_EFFECT_SNAKE_LENGTH
@@ -177,8 +177,8 @@ enum RGBLIGHT_EFFECT_MODE {
 
 #ifdef RGBLIGHT_LAYERS
 typedef struct {
-    uint8_t index;  // The first LED to light
-    uint8_t count;  // The number of LEDs to light
+    uint8_t index; // The first LED to light
+    uint8_t count; // The number of LEDs to light
     uint8_t hue;
     uint8_t sat;
     uint8_t val;
@@ -241,7 +241,7 @@ typedef union {
         uint8_t hue : 8;
         uint8_t sat : 8;
         uint8_t val : 8;
-        uint8_t speed : 8;  // EECONFIG needs to be increased to support this
+        uint8_t speed : 8; // EECONFIG needs to be increased to support this
     };
 } rgblight_config_t;
 
@@ -271,7 +271,7 @@ extern rgblight_ranges_t rgblight_ranges;
 
 /* === Utility Functions ===*/
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
-void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);  // without RGBLIGHT_LIMIT_VAL check
+void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1); // without RGBLIGHT_LIMIT_VAL check
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 
 /* === Low level Functions === */

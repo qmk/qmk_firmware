@@ -4,6 +4,10 @@
 #pragma once
 
 #include "drashna.h"
+#ifdef OLED_ENABLE
+#    include "oled/oled_stuff.h"
+extern char keylog_str[OLED_KEYLOGGER_LENGTH];
+#endif
 
 typedef union {
     uint32_t raw;
@@ -11,7 +15,7 @@ typedef union {
         bool audio_enable         :1;
         bool audio_clicky_enable  :1;
         bool tap_toggling         :1;
-        bool unicode_mode         :1;
+        uint8_t unicode_mode      :3;
         bool swap_hands           :1;
         bool host_driver_disabled :1;
     };
