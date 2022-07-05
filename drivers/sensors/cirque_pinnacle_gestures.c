@@ -109,7 +109,7 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
                 // decide scroll axis:
                 //   vertical if started from righ half
                 //   horizontal if started from left half
-                // reverse for left hand? TODO?
+                // flipped for left-handed
 #if defined(POINTING_DEVICE_ROTATION_90)
                 scroll.axis = y < 0;
 #elif defined(POINTING_DEVICE_ROTATION_180)
@@ -149,10 +149,18 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
             ang                   = (int16_t)atan2_16(det, dot);
             wheel_clicks          = ((int32_t)ang * scroll.config.wheel_clicks) / 65536;
             if (wheel_clicks >= 1 || wheel_clicks <= -1) {
-                if (scroll.axis == 0) {
-                    report.v = -wheel_clicks;
+                if (scroll.config.left_handed) {
+                    if (scroll.axis == 0) {
+                        report.h = -wheel_clicks;
+                    } else {
+                        report.v = wheel_clicks;
+                    }
                 } else {
-                    report.h = wheel_clicks;
+                    if (scroll.axis == 0) {
+                        report.v = -wheel_clicks;
+                    } else {
+                        report.h = wheel_clicks;
+                    }
                 }
                 scroll.x = x;
                 scroll.y = y;
@@ -171,11 +179,12 @@ void cirque_pinnacle_enable_circular_scroll(bool enable) {
     features.circular_scroll_enable = enable;
 }
 
-void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks) {
+void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks, bool left_handed) {
     scroll.config.outer_ring_pct = outer_ring_pct;
     scroll.config.trigger_px     = trigger_px;
     scroll.config.trigger_ang    = trigger_ang;
     scroll.config.wheel_clicks   = wheel_clicks;
+    scroll.config.left_handed    = left_handed;
 }
 
 bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData) {

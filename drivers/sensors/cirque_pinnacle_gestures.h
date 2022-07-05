@@ -46,6 +46,7 @@ typedef struct {
     uint8_t  trigger_px;     // amount of movement before triggering scroll validation, in pixels 0~127
     uint16_t trigger_ang;    // angle required to validate scroll, in radians where pi = 32768
     uint8_t  wheel_clicks;   // how many clicks to report in a circle
+    bool     left_handed;    // whether scrolling should be flipped for left handed use
 } circular_scroll_config_t;
 
 typedef struct {
@@ -83,4 +84,5 @@ void cirque_pinnacle_enable_circular_scroll(bool enable);
 // @param trigger_px Amount of movement before triggering scroll validation. Expressed in pixels, trackpad coordinates are scaled to radius of 128 pixels for circular scroll.
 // @param triger_ang Angle required to validate scroll, angle smaller than this will invalidate scroll. In radians where pi = 32768, 0 means movement towards center of trackpad, 16384 means movement perpendicular to center.
 // @param wheel_clicks Number of scroll wheel clicks to report in a full rotation.
-void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks);
+// @param left_handed Whether scrolling should be flipped for left-handed use.
+void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks, bool left_handed);
