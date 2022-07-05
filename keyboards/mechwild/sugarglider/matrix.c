@@ -46,7 +46,7 @@ static void select_row(uint8_t row) {
     uint8_t row_pos[MATRIX_ROWS] = ROW_POS;
     if (mcp23018_errors) {
         // wait to mimic i2c interactions
-        wait_us(100);
+        //wait_us(100);
         return;
     }
     

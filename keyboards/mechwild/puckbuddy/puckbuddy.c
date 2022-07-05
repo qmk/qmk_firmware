@@ -1,7 +1,7 @@
-// Copyright 2022 Kyle McCreery
+// Copyright 2022 Kyle McCreery (@kylemccreery)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "sugarglider.h"
+#include "puckbuddy.h"
 
 #ifndef GLIDEPOINT_DPI_OPTIONS
 #    define GLIDEPOINT_DPI_OPTIONS \
@@ -22,10 +22,6 @@ void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
     // disabled before using B7 as I2C1_SDA.
     setPinInputHigh(B9);
-    setPinOutput(B12);
-    setPinOutput(B13);
-    setPinOutput(B14);
-    setPinOutput(C13);
 }
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
@@ -79,15 +75,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             } else {
                 tap_code(KC_VOLD);
             }
-        break;
+            break;
         case 1:
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        break;
-        case 2:
             if (clockwise) {
                 tap_code(KC_PGUP);
             } else {
@@ -98,22 +87,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        // writePin sets the pin high for 1 and low for 0.
-        // In this example the pins are inverted, setting
-        // it low/0 turns it on, and high/1 turns the LED off.
-        // This behavior depends on whether the LED is between the pin
-        // and VCC or the pin and GND.
-        writePin(B12, !led_state.num_lock);
-        writePin(B13, !led_state.caps_lock);
-        writePin(B14, !led_state.scroll_lock);
-        writePin(C13, !led_state.caps_lock);
-    }
-    return res;
-}
 
 #ifdef OLED_ENABLE   // OLED Functionality
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -332,6 +305,3 @@ void keyboard_post_init_kb(void) {
     oled_on();
 #endif
 }
-
-
-

@@ -1,4 +1,4 @@
-// Copyright 2022 Kyle McCreery
+// Copyright 2022 Kyle McCreery (@kylemccreery)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -7,24 +7,15 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1710
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0x170F
+#define DEVICE_VER      0x0100
 #define MANUFACTURER    MechWild
-#define PRODUCT         SugarGlider
+#define PRODUCT         PuckBuddy
 
-/* Matrix COL and ROW definitions */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 6
+/* key matrix size */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 4
 
-/* Status light pins */
-//#define LED_NUM_LOCK_PIN B12
-//#define LED_CAPS_LOCK_PIN B13
-//#define LED_SCROLL_LOCK_PIN B14
-//#define LED_PIN_ON_STATE 0
-
-#define USB_POLLING_INTERVAL_MS 1
-
-/* Memory definitions for UF2 builds */
 #ifdef UF2_BUILD
 #define EXTERNAL_EEPROM_BYTE_COUNT 2048
 #define EXTERNAL_EEPROM_PAGE_SIZE 128
@@ -34,10 +25,14 @@
 #endif
 
 /* Define custom font */
-#define OLED_FONT_H "keyboards/mechwild/sugarglider/glcdfont.c"
+#define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
 /* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
 #define DIP_SWITCH_PINS { A0 }
+
+/* status light pins using the on board LED for the blackpill */
+#define LED_CAPS_LOCK_PIN C13
+#define LED_PIN_ON_STATE 0
 
 /* set the tapping term for glidepoint pad to register a tap click */
 //#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set to 0 to disable it
@@ -46,6 +41,20 @@
  * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
  */
 #define TAPPING_TERM 0
+
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+ */
+#define MATRIX_ROW_PINS { B12, B13, B14, B15 }
+#define MATRIX_COL_PINS { B10, A8, B4, B5 }
+#define UNUSED_PINS
 
 /* spi config */
 #define SPI_DRIVER SPID1
@@ -56,23 +65,23 @@
 #define SPI_MISO_PIN A6
 #define SPI_MISO_PAL_MODE 5
 #define CIRQUE_PINNACLE_SPI_DIVISOR 8
-#define CIRQUE_PINNACLE_SPI_CS_PIN A3
+#define CIRQUE_PINNACLE_SPI_CS_PIN A4
 
 /* encoder pins */
-#define ENCODERS_PAD_A { B0, B3, B9 }
-#define ENCODERS_PAD_B { A2, A15, B8 }
+#define ENCODERS_PAD_A { B1, B3 }
+#define ENCODERS_PAD_B { B0, A15 }
 
 /* encoder resolution */
 #define ENCODER_RESOLUTION 4
-#define TAP_CODE_DELAY 0
+#define TAP_CODE_DELAY 10
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* RGB settings, uncomment this define to enable RGB */
-//#define RGB_DI_PIN B5
+#define RGB_DI_PIN A3
 #ifdef RGB_DI_PIN
-#    define RGBLED_NUM 6
+#    define RGBLED_NUM 3
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
@@ -96,8 +105,7 @@
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-// Debounce not used in this custom matrix implementation
-//#define DEBOUNCE 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -128,7 +136,7 @@
  * power-up.
  *
  */
-#define FORCE_NKRO
+//#define FORCE_NKRO
 
 /*
  * Feature disable options
