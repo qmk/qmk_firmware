@@ -3,8 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "pointing_device.h"
-#include <stdio.h>
 
 enum custom_keycodes {
     KC_MY_BTN1 = SAFE_RANGE,
