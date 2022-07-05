@@ -69,11 +69,11 @@ ruby users/mtei/convert_matrix_config.rb <config.h or info.json>
 
 The SWITCH_MATRIX_INPUT_0 macro defines input pins similar to the MATRIX_COL_PINS macro in a COL2ROW type matrix.
 
-For example, the following example
+For example, suppose we have a definition like the following example
 ```c
 #define MATRIX_COL_PINS { B4 }
 ```
-The following will have the same meaning.
+In SWITCH_MATRIX_INPUT_0 The same pin assignment is written as follows
 ```c
 #define SWITCH_MATRIX_INPUT_0 \
     /* ( ( <port>, <mask>, <dev> ), ... ) */ \
@@ -81,11 +81,11 @@ The following will have the same meaning.
     /* ( ( <port_index>, <port_mask>, <matrix_row_mask> ), ... ) */ \
     ( (0, 0x10, 0x01) )
 ```
-Also, for example, the following example
+Also, for example, suppose we have a definition like the following example
 ```c
 #define MATRIX_COL_PINS { B4, B6 }
 ```
-The following will have the same meaning.
+In SWITCH_MATRIX_INPUT_0 The same pin assignment is written as follows
 ```c
 #define SWITCH_MATRIX_INPUT_0 \
     /* ( ( <port>, <mask>, <dev> ), ... ) */ \
@@ -94,11 +94,11 @@ The following will have the same meaning.
     ( (0, 0x10, 0x01), \
       (0, 0x40, 0x02) )
 ```
-Also, for example, the following example
+Also, for example, suppose we have a definition like the following example
 ```c
 #define MATRIX_COL_PINS { B4, B6, C3 }
 ```
-The following will have the same meaning.
+In SWITCH_MATRIX_INPUT_0 The same pin assignment is written as follows
 ```c
 #define SWITCH_MATRIX_INPUT_0 \
     /* ( ( <port>, <mask>, <dev> ), ... ) */ \
@@ -137,7 +137,7 @@ The following data that has `NO_PIN` specified in MATRIX_COL_PINS
 ```c
 #define MATRIX_COL_PINS { B4, B6, NO_PIN, C3 }
 ```
-It will be as follows. You can see that `NO_PIN` does not appear in the pin list, but the `<matrix_row_mask>` is adjusted so that the pin is not reflected in the matrix row data.
+In SWITCH_MATRIX_INPUT_0 The same pin assignment is written as follows. You can see that `NO_PIN` does not appear in the pin list, but the `<matrix_row_mask>` is adjusted so that the pin is not reflected in the matrix row data.
 ```c
 #define SWITCH_MATRIX_INPUT_0 \
     /* ( ( <port>, <mask>, <dev> ), ... ) */ \
@@ -151,13 +151,15 @@ It will be as follows. You can see that `NO_PIN` does not appear in the pin list
 
 #### `#define SWITCH_MATRIX_OUTPUT_0`
 
-The SWITCH_MATRIX_OUTPUT_0 macro defines input pins similar to the MATRIX_ROW_PI<NS macro in a COL2ROW type matrix. The format is almost the same as SWITCH_MATRIX_INPUT_0.
+The SWITCH_MATRIX_OUTPUT_0 macro defines output pins similar to the MATRIX_ROW_PI<NS macro in a COL2ROW type matrix. The format is almost the same as SWITCH_MATRIX_INPUT_0.
 
 The difference is that the `<matrix_row_mask>` in the pin definition does not have much meaning, and any number other than 0 is allowed.
 
+For example, suppose we have a definition like the following example
 ```c
 #define MATRIX_ROW_PINS { B3, D1, B6 }
 ```
+In SWITCH_MATRIX_OUTPUT_0 The same pin assignment is written as follows
 ```c
 #define SWITCH_MATRIX_OUTPUT_0 \
     /* ( ( <port>, <mask>, <dev> ), ... ) */ \
@@ -171,9 +173,11 @@ The difference is that the `<matrix_row_mask>` in the pin definition does not ha
 
 If the `<matrix_row_mask>` of the pin definition is 0, it has the meaning equivalent to NO_PIN in the MATRIX_ROW_PINS definition.
 
+For example, suppose we have a definition like the following example
 ```c
 #define MATRIX_ROW_PINS { B3, D1, NO_PIN, B6 }
 ```
+In SWITCH_MATRIX_OUTPUT_0 The same pin assignment is written as follows
 ```c
 #define SWITCH_MATRIX_OUTPUT_0 \
     /* ( ( <port>, <mask>, <dev> ), ... ) */ \
