@@ -148,23 +148,74 @@ const char code_to_name[60] = {
     'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-    char name = ' ';
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-    if (keycode < 60) {
-        name = code_to_name[keycode];
-    }
+// old code, snprintf() takes up a lot of firmware space
+// void set_keylog(uint16_t keycode, keyrecord_t *record) {
+//     char name = ' ';
+//     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+//         (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
+//     if (keycode < 60) {
+//         name = code_to_name[keycode];
+//     }
 
-    // update keylog
-    snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
+//     // update keylog
+//     snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
+//            record->event.key.row, record->event.key.col,
+//            keycode, name);
+// }
+
+// void oled_render_keylog(void) {
+//     oled_write(keylog_str, false);
+// }
+
+// code from r2g.c, Copyright 2019 @foostan, 2020 Drashna Jaelre <@drashna>, 2021 Elliot Powell @e11i0t23
+
+char key_name_r2g = ' ';
+uint16_t last_keycode_r2g;
+uint8_t last_row_r2g;
+uint8_t last_col_r2g;
+
+void set_keylog(uint16_t keycode, keyrecord_t *record) {
+    key_name_r2g = ' ';
+    last_keycode_r2g = keycode;
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { last_keycode_r2g = keycode & 0xFF; }
+    if (keycode < 60) {
+      key_name_r2g = code_to_name[keycode];
+    }
+    last_row_r2g = record->event.key.row;
+    last_col_r2g = record->event.key.col;
+}
+
+const char *depad_str(const char *depad_str, char depad_char) {
+    while (*depad_str == depad_char) ++depad_str;
+    return depad_str;
 }
 
 void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
+    //oled_write(keylog_str_r2g, false);
+    const char *last_row_r2g_str = get_u8_str(last_row_r2g, ' ');
+    oled_write(depad_str(last_row_r2g_str, ' '), false);
+    oled_write_P(PSTR("x"), false);
+    const char *last_col_r2g_str = get_u8_str(last_col_r2g, ' ');
+    oled_write(depad_str(last_col_r2g_str, ' '), false);
+    oled_write_P(PSTR(", k"), false);
+    const char *last_keycode_r2g_str = get_u16_str(last_keycode_r2g, ' ');
+    oled_write(depad_str(last_keycode_r2g_str, ' '), false);
+    oled_write_P(PSTR(":"), false);
+    oled_write_char(key_name_r2g, false);
 }
+
+// CREATE logo
+// static void oled_render_logo(void) {
+//     static const char PROGMEM raw_logo[] = {
+//         2,  2,  2,  0,  4,  4,  4, 12,  8, 16, 32, 96,192,128,  0,  0,  0,128,128,192,128,128,192, 64, 64, 96, 32, 32, 32, 32, 32, 32, 96, 64,192,128,  0,  0,  0,  2,  0,  0,  0,  0,  0,128,128,128,  0,  0,  0,128,128,  0,128,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,240,240, 96,192,128,192,224,192,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,248,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+//         0,248,  4,  2,  2,  3,  1,  1,  2,  2,  2,  2,  2,  3,  1,  3,  0,  0, 12,255,193,192,192,128,128,128,  0,  0,  0,  0,  0,  0,  0, 64, 64, 64, 32, 31, 15,  0,  0,  0,  0,  0,  0,144,255,255,197,  7,  7,  3,131,131,131,131,129,129,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255, 48, 28,  7,  1,  2,  4,  9, 55,252,224,128,  0,  0,  0,  0,  2,  2,  6,  6, 12,244,  4,  5,255,  4,  4,  8,  8,  8,  8,  8,  8,  8,  8, 24,248,216,252, 12,  6,  6,  6,  6,  6,  6,  2,  6,  2,  2,  2,  0,  0,  0,  0,  0,
+//         0,129,131,  6,  4, 12, 24,  8, 16, 16, 16,  0,128,128,128,  0,  0,  0,  0,  0, 15,248,  0,  0,  0,  1,  1,  6,  4, 24, 48, 96,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,255,  7,  7,  3,255,  3,  1,  1,  1,129,129,129,129,128,128,128,192,192, 64, 64, 64, 64,192,192,224,240,254,159,  4,  0,  2,  2,  2,  2,  2,  3,  3,  3, 15,255,254,240,192,  0,  0,128,128,128,227,255,224,240,255,224, 96, 96, 40, 32, 32, 32, 38,110,254,254,111,199,255,143,130,  2,  2,  1,  1,129,129,209,121,120, 18,  0,  0,  0,  0,  0,
+//         0,  0,  0,  1,  1,  1,  1,  1,  1,  3,  1,  3,  3,  3,  7, 15,  7,  7, 15, 14, 60,127,124, 48,  0,  0,  0,  0,  0,  0,  0,  0,  1, 15, 30,124, 60, 56, 24, 28, 30, 15,  7, 15, 31, 59, 58, 31,  7,  1,  1,  1,  3,  3,  3,  7,  7,  7,  3,  1,  0,  0,  0,  0,  0,  0,  0,  3,  3,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  7,  7,  3,  3,  3,  7,  5,  9,  0,  0,  0,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0, 15,  7,  2,  2,  2,  3,  3,  3,  1,  1,  1,  0,  0,  0,  0, 16, 16, 16,  0, 96,152,148,
+//         68
+//     };
+//     oled_write_raw_P(raw_logo, sizeof(raw_logo));
+// }
 
 void render_bootmagic_status(bool status) {
     /* Show Ctrl-Gui Swap options */
