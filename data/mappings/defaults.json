@@ -19,13 +19,13 @@
         "kb2040": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_RP2040",
+            "board": "QMK_PM2040",
             "pin_compatible": "promicro"
         },
         "promicro_rp2040": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_RP2040",
+            "board": "QMK_PM2040",
             "pin_compatible": "promicro"
         },
         "bluepill": {
