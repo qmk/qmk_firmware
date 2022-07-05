@@ -23,7 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID    0x7074 // FJLaboratories
 #define PRODUCT_ID   0x0015 // Avalon
 #define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    Absolute Designs
+#define MANUFACTURER    Trailblazer Keyboards
 #define PRODUCT         Avalon
 
 /* key matrix size */

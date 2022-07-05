@@ -1,6 +1,6 @@
-# Avalon Solder PCB by FJLaboratories
+# Avalon PCB by FJLaboratories
 
-The following is the QMK Firmware for the Avalon Solder PCB for Trailblazer Keyboards.
+The following is the QMK Firmware for the Avalon PCB, both Solder and Hotswap, for Trailblazer Keyboards.
 * Keyboard Maintainer: FJLaboratories
 * Hardware Supported: Avalon
 
