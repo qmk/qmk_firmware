@@ -1,7 +1,7 @@
 {
 	"name": "Nyhxis NFR-70",
 	"vendorId": "0xABCD",
-	"productId": "0x0002",
+	"productId": "0x0001",
 	"lighting": "none",
 	"matrix": {"rows": 11, "cols": 7},
 	"layouts": {
