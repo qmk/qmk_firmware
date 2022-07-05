@@ -1,23 +1,24 @@
 # Debug version matrix.c(0.17.0)
 
-This matrix.c is 0.17.0:quantum/matrix.c with the following additions:
+This directory is provided for testing and performance evaluation of [`users/mtei/matrix_read_cols_on_row.c`](../../../../users/mtei/readme_matrix_read_cols_on_row.md)  using symmetric70_proto.
+
+The matrix.c in this directory is 0.17.0:quantum/matrix.c with the following additions:
 
 * Added the MATRIX_DEBUG_SCAN_{START/END} macro to measure the execution time of matrix_scan().
 * Added the MATRIX_DEBUG_DELAY_{START/END} macro to measure delay time.
-* Added the MATRIX_MUL_SELECT handling for symmetric70_proto.
 
-This directory and matrix.c are provided for testing and performance evaluation of [`users/mtei/matrix_read_cols_on_row.c`](../../../../users/mtei/readme_matrix_read_cols_on_row.md) with symmetric70_proto.
+The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_row()` that adds support for 74hc157 used in the symmetric70_proto/promicro hardware.  `matrix_read_cols_on_row()`, which adds support for 74hc157 used in the symmetric70_proto/promicro hardware.
 
 ## Current performance
 
-### Without fast `matrix_read_cols_on_rows()`
+### Without fast `matrix_read_cols_on_rows() in users/mtei/`
 
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
 | Pro Micro (16MHz) | TBD us     | TBD scans/sec |
 | Proton C (72MHz)  | TBD us     | TBD scans/sec |
 
-### With fast `matrix_read_cols_on_rows()`
+### With fast `matrix_read_cols_on_rows() in users/mtei/`
 
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|

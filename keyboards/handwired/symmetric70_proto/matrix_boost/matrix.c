@@ -15,11 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* This is based from 0.17.0:quantum/matrix.c
-     * Add MATRIX_DEBUG_SCAN_START, MATRIX_DEBUG_SCAN_END
-     * Add MATRIX_DEBUG_DELAY_START, MATRIX_DEBUG_DELAY_START
-     * Add MATRIX_MUL_SELECT
- */
+// This file is based from 0.17.0:quantum/matrix.c
+//    * Add MATRIX_DEBUG_SCAN_START, MATRIX_DEBUG_SCAN_END
+//    * Add MATRIX_DEBUG_DELAY_START, MATRIX_DEBUG_DELAY_START
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
@@ -80,9 +79,6 @@ static SPLIT_MUTABLE_ROW pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
 #    ifdef MATRIX_COL_PINS
 static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 #    endif // MATRIX_COL_PINS
-#endif
-#ifdef MATRIX_MUL_SELECT
-static const pin_t col_sel[MATRIX_COLS]  = MATRIX_MUL_SEL;
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -189,10 +185,6 @@ static void unselect_rows(void) {
 }
 
 __attribute__((weak)) void matrix_init_pins(void) {
-#            ifdef MATRIX_MUL_SELECT
-    setPinOutput(MATRIX_MUL_SELECT);
-    writePinLow(MATRIX_MUL_SELECT);
-#            endif
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
@@ -213,10 +205,6 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // For each col...
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
-#            ifdef MATRIX_MUL_SELECT
-        writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
-        waitInputPinDelay();
-#            endif
         uint8_t pin_state = readMatrixPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
