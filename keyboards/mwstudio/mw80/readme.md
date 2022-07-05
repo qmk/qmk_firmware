@@ -1,6 +1,6 @@
 # MW80
 
-![MW80](https://i.imgur.com/ygcLrhz.png)
+![MW80](https://i.imgur.com/ygcLrhzh.png)
 
 Support APM32F103CBT6 keyboard.
 
