@@ -151,7 +151,7 @@ In SWITCH_MATRIX_INPUT_0 The same pin assignment is written as follows. You can 
 
 #### `#define SWITCH_MATRIX_OUTPUT_0`
 
-The SWITCH_MATRIX_OUTPUT_0 macro defines output pins similar to the MATRIX_ROW_PI<NS macro in a COL2ROW type matrix. The format is almost the same as SWITCH_MATRIX_INPUT_0.
+The SWITCH_MATRIX_OUTPUT_0 macro defines output pins similar to the MATRIX_ROW_PINS macro in a COL2ROW type matrix. The format is almost the same as SWITCH_MATRIX_INPUT_0.
 
 The difference is that the `<matrix_row_mask>` in the pin definition does not have much meaning, and any number other than 0 is allowed.
 
