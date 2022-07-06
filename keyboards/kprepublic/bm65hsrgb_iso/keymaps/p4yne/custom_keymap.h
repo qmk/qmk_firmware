@@ -57,7 +57,6 @@
 #define RGB_TIME_OUT_MIN 10
 #define RGB_TIME_OUT_STEP 10
 
-extern bool g_suspend_state;
 bool disable_layer_color;
 
 uint8_t dfa_state;  //state for my language switching DFA
