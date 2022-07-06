@@ -44,7 +44,7 @@
 #define ADAPTIVE_TERM 350
 #define IGNORE_MOD_TAP_INTERRUPT
 
-
+#define LAYER_LOCK_IDLE_TIMEOUT 120000 // Turn off layer lock after 120 seconds
 
 
 
