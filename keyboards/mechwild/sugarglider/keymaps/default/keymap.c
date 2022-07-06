@@ -7,7 +7,7 @@
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  //debug_enable=true;
+  debug_enable=true;
   //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
@@ -64,9 +64,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-		return OLED_ROTATION_90;       // flips the display 90 degrees
+		return OLED_ROTATION_270;       // flips the display 270 degrees
 	}
 
 	static void render_logo(void) {     // Render MechWild "MW" Logo
@@ -84,24 +84,24 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 		oled_write_P(logo_4, false);
 	}
 
-	void oled_task_user(void) {
-		render_logo(); 
+	bool oled_task_user(void) {
+		render_logo();
 		oled_set_cursor(0,6);
 
 		oled_write_ln_P(PSTR("Layer"), false);
 
     switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_ln_P(PSTR("BASE"), false);
+        case 0:
+            oled_write_ln_P(PSTR("Base"), false);
             break;
-        case _LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
+        case 1:
+            oled_write_ln_P(PSTR("FN 1"), false);
             break;
-        case _RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
+        case 2:
+            oled_write_ln_P(PSTR("FN 2"), false);
             break;
-        case _ADJUST:
-            oled_write_ln_P(PSTR("Adjst"), false);
+        case 3:
+            oled_write_ln_P(PSTR("FN 3"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
@@ -112,5 +112,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    return false;
 	}
 #endif
