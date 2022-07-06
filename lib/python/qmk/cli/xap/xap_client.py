@@ -18,9 +18,9 @@ ResponseStruct = Struct('<HBB60s')
 
 
 def _gen_token():
-    """Generate XAP token - cannot start with 00xx or be FFFF
+    """Generate XAP token - cannot start with 00xx or 'reserved' (FFFE|FFFF)
     """
-    token = random.randrange(0x0100, 0xFFFE)
+    token = random.randrange(0x0100, 0xFFFD)
 
     # swap endianness
     return unpack('<H', pack('>H', token))[0]

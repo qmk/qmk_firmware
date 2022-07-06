@@ -13,8 +13,8 @@
 
         reserved_tokens:
             '''
-            Two token values are reserved: `0x0000` and `0xFFFF`:
-            * `0x0000`: A message sent by a host application may use this token if no response is to be sent -- a "fire and forget" message.
+            Two token values are reserved: `0xFFFE` and `0xFFFF`:
+            * `0xFFFE`: A message sent by a host application may use this token if no response is to be sent -- a "fire and forget" message.
             * `0xFFFF`: Signifies a "broadcast" message sent by the firmware without prompting from the host application. Broadcast messages are defined later in this document.
 
             Any request will generate at least one corresponding response, with the exception of messages using reserved tokens. Maximum total message length is 128 bytes due to RAM constraints.

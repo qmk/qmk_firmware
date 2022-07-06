@@ -28,13 +28,16 @@ This list defines the terms used across the entire set of XAP protocol documenta
 | _Request Header_ | Packet format for inbound data. Takes the format:<br>`token` - token<br>`u8` - length |
 | _Response Flags_ | An `u8` containing the status of the request. |
 | _Response Header_ | Packet format for outbound data. Takes the format:<br>`token` - token<br>`response_flags` - flags<br>`u8` - length |
-| _Token_ | A `u16` associated with a specific request as well as its corresponding response. |
+| _Token_ | A `u16` associated with a specific request as well as its corresponding response. Valid token values are within the range `0x0100`-`0xFFFF`. |
 
 ## Requests and Responses
 
 Communication generally follows a request/response pattern.
 
-Each request needs to include a _token_ -- this `u16` value prefixes each outbound request from the host application and its corresponding response, allowing response messages to be correlated with their request, even if multiple host applications are communicating with the firmware simultaneously. Host applications should randomly generate a token ID for **every** outbound request, unless using a reserved token defined below.
+Each request needs to include a _token_ -- this `u16` value prefixes each outbound request from the host application and its corresponding response.
+This allows response messages to be correlated with their request, even if multiple host applications are communicating with the firmware simultaneously.
+Host applications should randomly generate a token ID for **every** outbound request, unless using a reserved token defined below.
+To ensure host interoperability, valid token values are within the range `0x0100`-`0xFFFF`.
 
 This token is followed by a `u8` signifying the length of data in the request.
 
