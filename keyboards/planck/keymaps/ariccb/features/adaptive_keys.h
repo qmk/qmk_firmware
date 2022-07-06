@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "layer_lock.h"
 
 static uint8_t prior_saved_mods = 0;
 static uint16_t prior_keycode =
@@ -95,6 +96,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
+  layer_lock_task();
   if (timer_elapsed32(prior_keydown) >= ADAPTIVE_TERM) { // 30 seconds
     switch (prior_keycode) {
 #undef AK_BOTH_START

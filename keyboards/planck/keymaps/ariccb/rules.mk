@@ -9,3 +9,4 @@ COMBO_ENABLE = yes
 SRC += features/select_word.c
 SRC += features/caps_word.c
 SRC += features/autocorrection.c
+SRC += features/layer_lock.c

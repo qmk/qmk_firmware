@@ -20,6 +20,7 @@
 #include "features/caps_word.h"
 #include "features/adaptive_keys.h"
 #include "features/autocorrection.h"
+#include "features/layer_lock.h"
 
 // using the Word Selection QMK Macro by Pascal Getreuer, found here: https://getreuer.info/posts/keyboards/select-word/index.html
 // THANKS Pascal for such amazing functionality!!
@@ -50,7 +51,7 @@
 #define MTLALT_PL MT(MOD_LALT, KC_MPLY)
 #define MTLALT_NXT MT(MOD_LALT, KC_MNXT)
 #define MTENTER MT(MOD_LCTL, KC_ENT)
-#define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
+#define MTRSFTBSLS MT(MOD_RALT, KC_BSLS)
 #define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
 #define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB)
 #define FNESC LT(_FN, KC_ESC)
@@ -81,7 +82,8 @@ enum planck_keycodes {
   BRACES,
   BRACES2,
   ARROW,
-  ALT_TAB
+  ALT_TAB,
+  LLOCK
 };
 
 // // ****UNCOMMENT IF GOING TO USE TAP DANCE FEATURES AGAIN *****
@@ -193,27 +195,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (RAISE)
  *
- * ,----------------------------------------------------------------------------.
- * |     | Ms3 | Ms2 |MsUp | Ms1  | Mute |   _  |      |MsMid |     |  :  | Bsp |
- * |----------------------------------------------------------------------------|
- * |     | Menu| MsL |MDn  | MsR  | Vol+ |ARROW |MsLft|SELWORD|MsRgt|     |  !  |
- * |----------------------------------------------------------------------------|
- * |     |MWLft|MWUp |NWDn |NWRght| Vol- | ()<> | []{} |SELWORD|    |  ?  |  |  |
- * |----------------------------------------------------------------------------|
- * |     |     |     |Menu |Lck Adjust|         |       |     |     |     |     |
- * `----------------------------------------------------------------------------'
+ * ,-----------------------------------------------------------------------------.
+ * |     | Ms3 | Ms2 |MsUp | Ms1  | Mute | LLOCK|      |MsMid  |     |  :  | Bsp |
+ * |-----------------------------------------------------------------------------|
+ * |     | Menu| MsL |MDn  | MsR  | Vol+ |ARROW |MsLft |SELWORD|MsRgt|     |  !  |
+ * |-----------------------------------------------------------------------------|
+ * |     |MWLft|MWUp |NWDn |NWRght| Vol- | ()<> | []{} |  <  |   >   |  ?  |  |  |
+ * |-----------------------------------------------------------------------------|
+ * |     |     |     |Menu |Adjust|             |      |       |     |     |     |
+ * `-----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE, KC_UNDS, KC_TRNS, KC_BTN3, KC_TRNS, KC_COLN, KC_BSPC,
+  KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE, LLOCK,   KC_TRNS, KC_BTN3, KC_TRNS, KC_COLN, KC_BSPC,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU, ARROW,   KC_BTN1, SELWORD, KC_BTN2, KC_TRNS, KC_EXLM,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, BRACES,  BRACES2, SELWORD, KC_TRNS, KC_QUES, KC_PIPE,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_APP,  TG(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, BRACES,  BRACES2, KC_LABK, KC_RABK, KC_QUES, KC_PIPE,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_APP,  MO(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 ),
 
 /* MIT Layout (LOWER)
  * XZ
  * ,-----------------------------------------------------------------------.
- * |  `  |  !  |  #  |  $  |  [  |  ]  |  _  |  7  |  8  |  9  |  :  | Bsp |
+ * |  `  |  !  |  #  |  $  |  [  |  ]  |LLOCK|  7  |  8  |  9  |  :  | Bsp |
  * |-----------------------------------------------------------------------|
  * |S(TAB)| ~  |  ^  |  %  |  (  |  )  |  =  |  4  |  5  |  6  |  -  |  /  |
  * |-----------------------------------------------------------------------|
@@ -223,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_UNDS, KC_P7, KC_P8,       KC_P9,  KC_COLN, KC_BSPC,
+  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, LLOCK,   KC_P7, KC_P8,       KC_P9,  KC_COLN, KC_BSPC,
   S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_EQL,  KC_P4, KC_P5,       KC_P6,  KC_PMNS, KC_PSLS,
   KC_TRNS,   KC_LABK, KC_RABK, KC_AMPR, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,       KC_P3,  KC_PPLS, KC_PAST,
   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, MTLALT_PDOT, KC_NO,  KC_NO,   KC_NO
@@ -251,26 +253,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (FN)
  *
  * ,----------------------------------------------------------------------------.
- * | |Ctl,F9|Sft,F10|Alt,F11| F12 |MyComp|Calc |home |  up  | end |PrtScr| Del  |
+ * | |Ctl,F9|Sft,F10|Alt,F11| F12 |MyComp |LLOCK|home |  up  | end |PrtScr| Del |
  * |----------------------------------------------------------------------------|
  * |    | F5 |  F6  |  F7   | F8  |DeskL  |DeskR|left | down |right|ScrLck| CAPS|
  * |----------------------------------------------------------------------------|
- * |    | F1 |  F2  |  F3   | F4  |ALT_TAB|MicM |pgup |LCA_dn| pgdn|Pse/Brk| Ins|
+ * |    | F1 |  F2  |  F3   | F4  |ALT_TAB|Calc |pgup |LCA_dn| pgdn|Pse/Brk| Ins|
  * |----------------------------------------------------------------------------|
  * |    |    |      |       |     |             |     |Alt,MNext|  |      |     |
  * `----------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
+  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, LLOCK,   KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
   KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,  KC_CAPS,
-  KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALT_TAB, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS,
+  KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALT_TAB, KC_CALC, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS,
   KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
 
 /* MIT Layout (ADJUST)
  *
  * ,------------------------------------------------------------------------------.
- * |Toggle| Ms3 | Ms2 |MsUp | Ms1  |      |       |     |MsMid|      | Hue+|RGBTog|
+ * |      | Ms3 | Ms2 |MsUp | Ms1  |      | LLOCK |     |MsMid|      | Hue+|RGBTog|
  * |------------------------------------------------------------------------------|
  * |      | Menu| MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|     |MsRhgt| Hue-|AU_ON |
  * |------------------------------------------------------------------------------|
@@ -280,7 +282,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  TG(7),   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   KC_NO,     KC_NO,   KC_BTN3, KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
+  KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   LLOCK,     KC_NO,   KC_BTN3, KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_TRNS, KC_BTN2, RGB_HUD, AU_ON,
   DEBUG,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
@@ -345,6 +347,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_caps_word(keycode, record)) { return false; }
   if (!process_adaptive_key(keycode, record)) { return false; }
   if (!process_autocorrection(keycode, record)) { return false; }
+  if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
 
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
@@ -466,12 +469,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-
 enum combo_events {
   EM_EMAIL,
   EM_WORK_EMAIL,
   EM_MAX_WORK_EMAIL,
-  EM_HMETRICA_WORK_EMAIL,
+  HOME_ADDRESS,
   HTML_P,
   HTML_TITLE,
   HTML_DIV,
@@ -513,7 +515,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this
 const uint16_t PROGMEM email_combo[]                = {KC_E, KC_M, COMBO_END};
 const uint16_t PROGMEM email_work_combo[]           = {KC_E, KC_K, COMBO_END};
 const uint16_t PROGMEM email_max_work_combo[]       = {KC_E, KC_J, COMBO_END};
-const uint16_t PROGMEM email_hmetrica_work_combo[]  = {KC_E, KC_L, COMBO_END};
+const uint16_t PROGMEM home_address_combo[]         = {KC_E, KC_L, COMBO_END};
 const uint16_t PROGMEM html_p_combo[]               = {KC_P, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_title_combo[]           = {KC_T, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_div_combo[]             = {KC_D, KC_DOT, COMBO_END};
@@ -540,7 +542,7 @@ const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTENT
 const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM sleep_combo[]                = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
-const uint16_t PROGMEM numlock_combo[]               = {KC_L, KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM numlock_combo[]              = {KC_L, KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]             = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
@@ -552,7 +554,7 @@ combo_t key_combos[] = {
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [EM_WORK_EMAIL] = COMBO_ACTION(email_work_combo),
   [EM_MAX_WORK_EMAIL] = COMBO_ACTION(email_max_work_combo),
-  [EM_HMETRICA_WORK_EMAIL] = COMBO_ACTION(email_hmetrica_work_combo),
+  [HOME_ADDRESS] = COMBO_ACTION(home_address_combo),
   [HTML_P] = COMBO_ACTION(html_p_combo),
   [HTML_TITLE] = COMBO_ACTION(html_title_combo),
   [HTML_DIV] = COMBO_ACTION(html_div_combo),
@@ -604,9 +606,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         SEND_STRING("aric@maxtechnologies.ca");
       }
       break;
-    case EM_HMETRICA_WORK_EMAIL:
+    case HOME_ADDRESS:
       if (pressed) {
-        SEND_STRING("aric.bouwers@healthmetrica.com");
+        SEND_STRING("111 Highview Gate SE");
       }
       break;
     case HTML_DIV:
