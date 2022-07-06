@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for UK layouts
+// Sendstring lookup tables for US International layouts
 
 #pragma once
 
