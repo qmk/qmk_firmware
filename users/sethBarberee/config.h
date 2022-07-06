@@ -60,6 +60,10 @@
 #    define TAPPING_TERM 200
 #endif
 
+#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
+#    define LAYER_STATE_8BIT
+#endif
+
 /* Disable unused and unneeded features to reduce on firmware size */
 #ifdef LOCKING_SUPPORT_ENABLE
 #    undef LOCKING_SUPPORT_ENABLE
