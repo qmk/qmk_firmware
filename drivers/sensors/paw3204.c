@@ -31,53 +31,66 @@ uint8_t datatogglestate;
 #define REG_IMGREC 0x0E
 #define REG_IMGTRASH 0x0D
 
-void PAW3204_init(void) {
-    setPinOutput(PAW3204_SCLK);    // setclockpin to output
-    setPinInputHigh(PAW3204_DATA); // set datapin input high
+#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
-    PAW3204_write_reg(REG_SETUP, 0x86); // reset sensor and set 1600cpi
+// CPI values
+enum cpi_values {
+    CPI400,  // 0b000
+    CPI500,  // 0b001
+    CPI600,  // 0b010
+    CPI800,  // 0b011
+    CPI1000, // 0b100
+    CPI1200, // 0b101
+    CPI1600, // 0b110
+};
+
+void paw3204_init(void) {
+    setPinOutput(PAW3204_SCLK_PIN);    // setclockpin to output
+    setPinInputHigh(PAW3204_SDIO_PIN); // set datapin input high
+
+    paw3204_write_reg(REG_SETUP, 0x86); // reset sensor and set 1600cpi
     wait_us(5);
 
-    PAW3204_read_reg(0x00); // read id
-    PAW3204_read_reg(0x01); // read id2
+    paw3204_read_reg(0x00); // read id
+    paw3204_read_reg(0x01); // read id2
     // PAW3204_write_reg(REG_SETUP,0x06);  // dont reset sensor and set cpi 1600
-    PAW3204_write_reg(REG_IMGTRASH, 0x32); // write image trashhold
+    paw3204_write_reg(REG_IMGTRASH, 0x32); // write image trashhold
 }
 
-uint8_t PAW3204_serial_read(void) {
-    setPinInput(PAW3204_DATA);
+uint8_t paw3204_serial_read(void) {
+    setPinInput(PAW3204_SDIO_PIN);
     uint8_t byte = 0;
 
     for (uint8_t i = 0; i < 8; ++i) {
-        writePinLow(PAW3204_SCLK);
+        writePinLow(PAW3204_SCLK_PIN);
         wait_us(1);
 
-        byte = (byte << 1) | readPin(PAW3204_DATA);
+        byte = (byte << 1) | readPin(PAW3204_SDIO_PIN);
 
-        writePinHigh(PAW3204_SCLK);
+        writePinHigh(PAW3204_SCLK_PIN);
         wait_us(1);
     }
 
     return byte;
 }
 
-void PAW3204_serial_write(uint8_t data) {
-    datatogglestate = readPin(PAW3204_DATA);
+void paw3204_serial_write(uint8_t data) {
+    datatogglestate = readPin(PAW3204_SDIO_PIN);
     if (datatogglestate == 1) {
-        writePinLow(PAW3204_DATA);
+        writePinLow(PAW3204_SDIO_PIN);
     } else {
-        writePinLow(PAW3204_DATA);
+        writePinLow(PAW3204_SDIO_PIN);
     }
-    setPinOutput(PAW3204_DATA);
+    setPinOutput(PAW3204_SDIO_PIN);
 
     for (int8_t b = 7; b >= 0; b--) {
-        writePinLow(PAW3204_SCLK);
+        writePinLow(PAW3204_SCLK_PIN);
         if (data & (1 << b))
-            writePinHigh(PAW3204_DATA);
+            writePinHigh(PAW3204_SDIO_PIN);
         else
-            writePinLow(PAW3204_DATA);
+            writePinLow(PAW3204_SDIO_PIN);
         // wait_us(2);
-        writePinHigh(PAW3204_SCLK);
+        writePinHigh(PAW3204_SCLK_PIN);
     }
 
     wait_us(4);
@@ -90,44 +103,80 @@ int8_t convert_twoscomp(uint8_t data) {
         return data;
 }
 
-report_paw3204_t PAW3204_read(void) {
-    report_paw3204_t data;
-    uint8_t          pid  = read_pid_paw3204();
-    uint8_t          stat = PAW3204_read_reg(REG_STAT);
-    if (pid == 0x30 && (stat == 0x84 || stat == 0x86)) {
-        data.x = convert_twoscomp(PAW3204_read_reg(REG_X));
-        data.y = convert_twoscomp(PAW3204_read_reg(REG_Y));
-    }
+report_paw3204_t paw3204_read(void) {
+    report_paw3204_t data = {0};
+
+    data.isMotion = paw3204_read_reg(REG_STAT) & (1 << 7); // check for motion only (bit 7 in field)
+    data.x        = convert_twoscomp(paw3204_read_reg(REG_X));
+    data.y        = convert_twoscomp(paw3204_read_reg(REG_Y));
 
     return data;
 }
 
-void PAW3204_write_reg(uint8_t reg_addr, uint8_t data) {
-    PAW3204_serial_write(0b10000000 | reg_addr);
-    PAW3204_serial_write(data);
+void paw3204_write_reg(uint8_t reg_addr, uint8_t data) {
+    paw3204_serial_write(0b10000000 | reg_addr);
+    paw3204_serial_write(data);
 }
 
-uint8_t PAW3204_read_reg(uint8_t reg_addr) {
-    PAW3204_serial_write(reg_addr);
+uint8_t paw3204_read_reg(uint8_t reg_addr) {
+    uint8_t byte = 0;
 
+    paw3204_serial_write(reg_addr);
     wait_us(5);
-
-    uint8_t byte = PAW3204_serial_read();
+    byte = paw3204_serial_read();
 
     return byte;
 }
 
-void PAW3204_set_cpi(uint16_t cpi) {
-    uint8_t cpival = constrain((cpi / 200) - 2, 0x0, 0x6);
-    PAW3204_write_reg(REG_SETUP, cpival);
+void paw3204_set_cpi(uint16_t cpi) {
+    uint8_t cpival = CPI1000;
+    if (cpi <= 450) {
+        cpival = CPI400;
+    } else if (cpi <= 550) {
+        cpival = CPI500;
+    } else if (cpi <= 700) {
+        cpival = CPI600;
+    } else if (cpi <= 900) {
+        cpival = CPI800;
+    } else if (cpi <= 1100) {
+        cpival = CPI1000;
+    } else if (cpi <= 1400) {
+        cpival = CPI1200;
+    } else if (cpi > 1400) {
+        cpival = CPI1600;
+    }
+    paw3204_write_reg(REG_SETUP, cpival);
 }
 
-uint16_t PAW3204_get_cpi(void) {
-    uint8_t cpival = PAW3204_read_reg(REG_SETUP);
-    return (uint16_t)(cpival + 2) * 200;
+uint16_t paw3204_get_cpi(void) {
+    uint16_t cpival = 1000;
+
+    switch (paw3204_read_reg(REG_SETUP) & 0b111) {
+        case CPI400:
+            cpival = 400;
+            break;
+        case CPI500:
+            cpival = 500;
+            break;
+        case CPI600:
+            cpival = 600;
+            break;
+        case CPI800:
+            cpival = 800;
+            break;
+        case CPI1000:
+            cpival = 1000;
+            break;
+        case CPI1200:
+            cpival = 1200;
+            break;
+        case CPI1600:
+            cpival = 1600;
+            break;
+    }
+    return cpival;
 }
 
 uint8_t read_pid_paw3204(void) {
-    uint8_t byte = PAW3204_read_reg(REG_PID1);
-    return byte;
+    return paw3204_read_reg(REG_PID1);
 }

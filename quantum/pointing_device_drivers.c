@@ -202,8 +202,8 @@ const pointing_device_driver_t pointing_device_driver = {
 #elif defined(POINTING_DEVICE_DRIVER_paw3204)
 
 report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
-    report_paw3204_t data = PAW3204_read();
-    if (data.x != 0 || data.y != 0) {
+    report_paw3204_t data = paw3204_read();
+    if (data.isMotion) {
 #    ifdef CONSOLE_ENABLE
         dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 #    endif
@@ -215,10 +215,10 @@ report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
     return mouse_report;
 }
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = PAW3204_init,
+    .init       = paw3204_init,
     .get_report = paw3204_get_report,
-    .set_cpi    = PAW3204_set_cpi,
-    .get_cpi    = PAW3204_get_cpi,
+    .set_cpi    = paw3204_set_cpi,
+    .get_cpi    = paw3204_get_cpi,
 };
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 

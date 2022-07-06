@@ -17,47 +17,32 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
-#ifndef PAW3204_SCLK
-#    error "No clock pin defined -- missing PAW3204_SCLK"
+#ifndef PAW3204_SCLK_PIN
+#    error "No clock pin defined -- missing PAW3204_SCLK_PIN"
 #endif
-
-#ifndef PAW3204_DATA
-#    error "No data pin defined -- missing PAW3204_DATA"
+#ifndef PAW3204_SDIO_PIN
+#    error "No data pin defined -- missing PAW3204_SDIO_PIN"
 #endif
-#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
-
-// CPI values
-// clang-format off
-#define CPI400  0x00
-#define CPI500  0x01
-#define CPI600  0x02
-#define CPI800  0x03
-#define CPI1000  0x04
-#define CPI1200  0x05
-#define CPI1600 0x06
-// clang-format on
 
 typedef struct {
-    int8_t x;
-    int8_t y;
+    int16_t x;
+    int16_t y;
+    bool  isMotion;
 } report_paw3204_t;
 
 // A bunch of functions to implement the paw3204-specific serial protocol.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
 
-void             PAW3204_init(void);
-// void              adns5050_sync(void);
-report_paw3204_t PAW3204_read(void);
-uint8_t          PAW3204_serial_read(void);
-void             PAW3204_serial_write(uint8_t reg_addr);
-uint8_t          PAW3204_read_reg(uint8_t reg_addr);
-void             PAW3204_write_reg(uint8_t reg_addr, uint8_t data);
-// void              PAW3204_set_cpi(uint16_t cpi);
-// uint16_t          PAW3204_get_cpi(void);
+void             paw3204_init(void);
+report_paw3204_t paw3204_read(void);
+uint8_t          paw3204_serial_read(void);
+void             paw3204_serial_write(uint8_t reg_addr);
+uint8_t          paw3204_read_reg(uint8_t reg_addr);
+void             paw3204_write_reg(uint8_t reg_addr, uint8_t data);
 int8_t           convert_twoscomp(uint8_t data);
-uint8_t	         read_pid_paw3204(void) ;
-void             PAW3204_set_cpi(uint16_t cpi);
-uint16_t         PAW3204_get_cpi(void);
-
+uint8_t          read_pid_paw3204(void);
+void             paw3204_set_cpi(uint16_t cpi);
+uint16_t         paw3204_get_cpi(void);
