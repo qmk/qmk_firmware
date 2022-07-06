@@ -89,7 +89,7 @@ Example:
 
 Direct pins are when you connect one side of the switch to GND and the other side to a GPIO pin on your MCU. No diode is required, but there is a 1:1 mapping between switches and pins.
 
-When specifying direct pins you need to arrange them in nested arrays. The outer array consists of rows, while the inner array is a text string corresponding to a pin. You can use `null` to indicate an empty spot in the matrix.
+When specifying direct pins you need to arrange them in nested arrays. The outer array consists of rows, while the inner array uses text strings to identify the pins used in each row. You can use `null` to indicate an empty spot in the matrix.
 
 Example:
 
@@ -108,7 +108,58 @@ Example:
 }
 ```
 
-### RGB Lighting
+## Non-RGB LED Lighting
+
+This section controls basic 2-pin LEDs, which typically pass through keyswitches and are soldered into the PCB, or are placed in PCB sockets.
+### Backlight
+
+* `breathing`
+    * Enable backlight breathing, if supported
+* `breathing_period`
+    * The length of one backlight “breath” in seconds
+* `levels`
+    * The number of brightness levels (maximum 31, excluding off)
+* `pin`
+    * The pin that controls the backlight LED(s)
+
+Example:
+
+```json
+{
+    "backlight": {
+        "breathing": true,
+        "breathing_period": 5,
+        "levels": 15,
+        "pin": "B7"
+    }
+}
+```
+
+### LED Indicators
+
+Used for indicating Num Lock, Caps Lock, and Scroll Lock. May be soldered in-switch or in a dedicated area.
+
+* `num_lock`
+    * The pin that controls the `Num Lock` LED
+* `caps_lock`
+    * The pin that controls the `Caps Lock` LED
+* `scroll_lock`
+    * The pin that controls the `Scroll Lock` LED
+
+Example:
+
+```json
+{
+    "indicators": {
+        "num_lock": "B6",
+        "caps_lock": "D2",
+        "scroll_lock": "A3"
+    }
+}
+
+```
+
+## RGB Lighting
 
 This section controls the legacy WS2812 support in QMK. This should not be confused with the RGB Matrix feature, which can be used to control both WS2812 and ISSI RGB LEDs.
 
@@ -152,7 +203,7 @@ Example:
 }
 ```
 
-#### RGBLight Animations
+### RGBLight Animations
 
 The following animations can be enabled:
 
@@ -187,3 +238,39 @@ Example:
 ```
 
 The device version is a BCD (binary coded decimal) value, in the format `MMmr`, so the below value would look like `0x0100` in the generated code. This also means the maximum valid values for each part are `99.9.9`, despite it being a hexadecimal value under the hood.
+
+### Encoders
+
+This section controls the basic [rotary encoder](feature_encoders.md) support.
+
+The following items can be set. Not every value is required.
+
+* `pin_a`
+  * __Required__. A pad definition
+* `pin_b`
+  * __Required__. B pad definition
+* `resolution`
+  * How many pulses the encoder registers between each detent
+
+Examples:
+
+```json
+{
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B5", "pin_b": "A2" }
+        ]
+    }
+}
+```
+
+```json
+{
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B5", "pin_b": "A2", "resolution": 4 }
+            { "pin_a": "B6", "pin_b": "A3", "resolution": 2 }
+        ]
+    }
+}
+```

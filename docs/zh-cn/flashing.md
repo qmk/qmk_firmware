@@ -252,7 +252,7 @@ BOOTLOADER = stm32-dfu
 ### `make` 构建目标
 
 * `:dfu-util`: 每5秒检测一次直到发现可用的STM32 bootloader设备，然后进行固件刷写。
-* `:dfu-util-split-left` 和 `:dfu-util-split-right`: 同 `:avrdude` 一样会刷写固件，但额外地会设置手性设置到EEPROM中，对于基于Proton-C的分体式键盘这是理想的方法。
+* `:dfu-util-split-left` 和 `:dfu-util-split-right`: 同 `:dfu-util` 一样会刷写固件，但额外地会设置手性设置到EEPROM中，对于基于Proton-C的分体式键盘这是理想的方法。
 * `:st-link-cli`: 通过ST-Link CLI工具集而非dfu-util进行刷写，需要有ST-Link电子狗。
 * `:st-flash`: 通过[STLink工具](https://github.com/stlink-org/stlink)内的 `st-flash` 工具而非dfu-util进行刷写，需要有ST-Link电子狗。
 

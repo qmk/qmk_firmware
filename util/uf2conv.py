@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# yapf: disable
 import sys
 import struct
 import subprocess
@@ -216,6 +217,9 @@ def get_drives():
             rootpath = "/Volumes"
         elif sys.platform == "linux":
             tmp = rootpath + "/" + os.environ["USER"]
+            if os.path.isdir(tmp):
+                rootpath = tmp
+            tmp = "/run" + rootpath + "/" + os.environ["USER"]
             if os.path.isdir(tmp):
                 rootpath = tmp
         for d in os.listdir(rootpath):

@@ -144,7 +144,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 ## 設定可能な挙動 :id=behaviors-that-can-be-configured
 
 * `#define TAPPING_TERM 200`
-  * タップがホールドになるまでの時間。500以上に設定された場合、タップ期間中にタップされたキーもホールドになります。(訳注: PERMISSIVE_HOLDも参照)
+  * タップがホールドになるまでの時間。
 * `#define TAPPING_TERM_PER_KEY`
   * キーごとの `TAPPING_TERM` 設定の処理を有効にします
 * `#define RETRO_TAPPING`

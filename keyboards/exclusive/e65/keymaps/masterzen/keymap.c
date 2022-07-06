@@ -102,7 +102,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         edit = false;
     }
 
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _ADJUST:
             temp_config.mode = rgblight_get_mode();
             rgblight_mode_noeeprom(1);

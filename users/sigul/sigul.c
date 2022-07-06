@@ -1,4 +1,4 @@
-#include "keymap_italian_osx_ansi.h"
+#include "keymap_italian_mac_ansi.h"
 #include "sigul.h"
 
 __attribute__ ((weak))

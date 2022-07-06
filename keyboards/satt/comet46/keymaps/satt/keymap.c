@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jis2us.h"
 #include "action_pseudo_lut.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case _PSEUDO_US_LOWER:
     case _PSEUDO_US_RAISE:
       return update_tri_layer_state(state, _PSEUDO_US_RAISE, _PSEUDO_US_LOWER, _ADJUST);
@@ -204,7 +204,7 @@ void render_status(struct CharacterMatrix *matrix) {
   // Layer state
   char layer_str[22];
   matrix_write(matrix, "Layer: ");
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   uint8_t default_layer = biton32(eeconfig_read_default_layer());
     switch (layer) {
       case _QWERTY:

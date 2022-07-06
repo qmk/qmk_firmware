@@ -75,6 +75,7 @@
 
   * Software Features
     * [Auto Shift](feature_auto_shift.md)
+    * [Caps Word](feature_caps_word.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
@@ -83,11 +84,11 @@
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Raw HID](feature_rawhid.md)
+    * [Send String](feature_send_string.md)
     * [Sequencer](feature_sequencer.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
-    * [Terminal](feature_terminal.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
     * [WPM Calculation](feature_wpm.md)
@@ -132,7 +133,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20220226.md "QMK v0.16.0 - 2022 Feb 26")
+    * [Most Recent ChangeLog](ChangeLog/20220528.md "QMK v0.17.0 - 2022 May 28")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development
@@ -146,6 +147,7 @@
       * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
+      * [Flash Driver](flash_driver.md)
       * ['serial' Driver](serial_driver.md)
       * [UART Driver](uart_driver.md)
     * [GPIO Controls](gpio_control.md)
@@ -164,6 +166,7 @@
     * Arm/ChibiOS
       * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
+      * [Raspberry Pi RP2040](platformdev_rp2040.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

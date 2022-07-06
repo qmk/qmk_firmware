@@ -14,3 +14,4 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 |`QK_DEBUG_TOGGLE`|`DB_TOGG`|Toggle debug mode                                                                |
 |`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)                          |
 |`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held |
+|`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                |

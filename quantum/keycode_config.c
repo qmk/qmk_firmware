@@ -29,6 +29,8 @@ uint16_t keycode_config(uint16_t keycode) {
         case KC_LOCKING_CAPS_LOCK:
             if (keymap_config.swap_control_capslock || keymap_config.capslock_to_control) {
                 return KC_LEFT_CTRL;
+            } else if (keymap_config.swap_escape_capslock) {
+                return KC_ESCAPE;
             }
             return keycode;
         case KC_LEFT_CTRL:
@@ -96,6 +98,8 @@ uint16_t keycode_config(uint16_t keycode) {
         case KC_ESCAPE:
             if (keymap_config.swap_grave_esc) {
                 return KC_GRAVE;
+            } else if (keymap_config.swap_escape_capslock) {
+                return KC_CAPS_LOCK;
             }
             return KC_ESCAPE;
         case KC_BACKSLASH:

@@ -8,7 +8,6 @@ TAP_DANCE_ENABLE = yes			# Enable tap dance keys
 CONSOLE_ENABLE = no				# Enable debugging console. Increases firmware size.
 SRC += config_led.c				# Used to add files to the compilation/linking list.
 EXTRAKEY_ENABLE = yes			# Audio control and System control
-TERMINAL_ENABLE = no
 # RAW_ENABLE = yes				# Raw HID has not yet been implemented for this keyboard
 # COMBO_ENABLE					# Key combo feature
 # LEADER_ENABLE					# Enable leader key chording

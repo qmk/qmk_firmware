@@ -121,7 +121,7 @@ __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t 
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
-void reset_keyboard(void) {
+void shutdown_quantum(void) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
     process_midi_all_notes_off();
@@ -143,7 +143,16 @@ void reset_keyboard(void) {
 #ifdef HAPTIC_ENABLE
     haptic_shutdown();
 #endif
+}
+
+void reset_keyboard(void) {
+    shutdown_quantum();
     bootloader_jump();
+}
+
+void soft_reset_keyboard(void) {
+    shutdown_quantum();
+    mcu_reset();
 }
 
 /* Convert record into usable keycode via the contained event. */
@@ -280,6 +289,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
+#ifdef CAPS_WORD_ENABLE
+            process_caps_word(keycode, record) &&
+#endif
 #if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
 #endif
@@ -294,9 +306,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
             process_dynamic_tapping_term(keycode, record) &&
-#endif
-#ifdef TERMINAL_ENABLE
-            process_terminal(keycode, record) &&
 #endif
 #ifdef SPACE_CADET_ENABLE
             process_space_cadet(keycode, record) &&
@@ -326,6 +335,9 @@ bool process_record_quantum(keyrecord_t *record) {
             case QK_BOOTLOADER:
                 reset_keyboard();
                 return false;
+            case QK_REBOOT:
+                soft_reset_keyboard();
+                return false;
 #endif
 #ifndef NO_DEBUG
             case QK_DEBUG_TOGGLE:
@@ -339,6 +351,9 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case QK_CLEAR_EEPROM:
                 eeconfig_init();
+#ifndef NO_RESET
+                soft_reset_keyboard();
+#endif
                 return false;
 #ifdef VELOCIKEY_ENABLE
             case VLK_TOG:
@@ -553,3 +568,16 @@ const char *get_u16_str(uint16_t curr_num, char curr_pad) {
     last_pad = curr_pad;
     return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
 }
+
+#if defined(SECURE_ENABLE)
+void secure_hook_quantum(secure_status_t secure_status) {
+    // If keys are being held when this is triggered, they may not be released properly
+    // this can result in stuck keys, mods and layers.  To prevent that, manually
+    // clear these, when it is triggered.
+
+    if (secure_status == SECURE_PENDING) {
+        clear_keyboard();
+        layer_clear();
+    }
+}
+#endif

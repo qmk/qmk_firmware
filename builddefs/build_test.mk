@@ -42,7 +42,7 @@ VPATH += \
 
 all: elf
 
-VPATH += $(COMMON_VPATH)
+VPATH += $(TEST_PATH) $(COMMON_VPATH)
 PLATFORM:=TEST
 PLATFORM_KEY:=test
 BOOTLOADER_TYPE:=none
@@ -63,6 +63,7 @@ include $(TMK_PATH)/protocol.mk
 include $(QUANTUM_PATH)/debounce/tests/rules.mk
 include $(QUANTUM_PATH)/encoder/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk
+include $(QUANTUM_PATH)/wear_leveling/tests/rules.mk
 include $(PLATFORM_PATH)/test/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include $(BUILDDEFS_PATH)/build_full_test.mk
