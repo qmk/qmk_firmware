@@ -1,4 +1,4 @@
-// Copyright 2020 CMM.Studio Freather
+// Copyright 2022 CMM.Studio Freather
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
