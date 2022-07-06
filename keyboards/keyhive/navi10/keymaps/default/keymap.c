@@ -127,5 +127,5 @@ void tk_reset(qk_tap_dance_state_t *state, void *user_data){
 
 //associate the tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TAPPY_KEY] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, tk_finished, tk_reset, 275)
+    [TAPPY_KEY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tk_finished, tk_reset)
 };

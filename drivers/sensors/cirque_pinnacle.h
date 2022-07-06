@@ -5,23 +5,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// Convenient way to store and access measurements
-typedef struct {
-    uint16_t xValue;
-    uint16_t yValue;
-    uint16_t zValue;
-    uint8_t  buttonFlags;
-    bool     touchDown;
-} pinnacle_data_t;
-
-void            cirque_pinnacle_init(void);
-pinnacle_data_t cirque_pinnacle_read_data(void);
-void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
-uint16_t        cirque_pinnacle_get_scale(void);
-void            cirque_pinnacle_set_scale(uint16_t scale);
-
 #ifndef CIRQUE_PINNACLE_TIMEOUT
-#    define CIRQUE_PINNACLE_TIMEOUT 20
+#    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
+#endif
+
+#define CIRQUE_PINNACLE_ABSOLUTE_MODE 1
+#define CIRQUE_PINNACLE_RELATIVE_MODE 0
+#ifndef CIRQUE_PINNACLE_POSITION_MODE
+#    define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
 #endif
 
 // Coordinate scaling values
@@ -43,7 +34,9 @@ void            cirque_pinnacle_set_scale(uint16_t scale);
 #ifndef CIRQUE_PINNACLE_Y_RANGE
 #    define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
 #endif
-
+#if !defined(POINTING_DEVICE_TASK_THROTTLE_MS)
+#    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle in normal operation produces data every 10ms. Advanced configuration for pen/stylus usage might require lower values.
+#endif
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
 #    include "i2c_master.h"
 // Cirque's 7-bit I2C Slave Address
@@ -72,3 +65,26 @@ void            cirque_pinnacle_set_scale(uint16_t scale);
 #        endif
 #    endif
 #endif
+
+// Convenient way to store and access measurements
+typedef struct {
+    bool valid; // true if valid data was read, false if no data was ready
+#if CIRQUE_PINNACLE_POSITION_MODE
+    uint16_t xValue;
+    uint16_t yValue;
+    uint16_t zValue;
+    uint8_t  buttonFlags;
+    bool     touchDown;
+#else
+    uint8_t xDelta;
+    uint8_t yDelta;
+    uint8_t wheelCount;
+    uint8_t buttons;
+#endif
+} pinnacle_data_t;
+
+void            cirque_pinnacle_init(void);
+pinnacle_data_t cirque_pinnacle_read_data(void);
+void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
+uint16_t        cirque_pinnacle_get_scale(void);
+void            cirque_pinnacle_set_scale(uint16_t scale);

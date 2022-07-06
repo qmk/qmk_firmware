@@ -229,7 +229,7 @@ uint8_t current_layer = BASE;
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   ergodox_led_all_off();
   ergodox_led_all_set(LED_BRIGHTNESS_LO);

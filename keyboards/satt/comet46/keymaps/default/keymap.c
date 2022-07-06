@@ -176,8 +176,8 @@ void render_status(struct CharacterMatrix *matrix) {
   // Layer state
   char layer_str[22];
   matrix_write(matrix, "Layer: ");
-  uint8_t layer = biton32(layer_state);
-  uint8_t default_layer = biton32(eeconfig_read_default_layer());
+  uint8_t layer = get_highest_layer(layer_state);
+  uint8_t default_layer = get_highest_layer(eeconfig_read_default_layer());
   switch (layer) {
     case _QWERTY:
       switch (default_layer) {

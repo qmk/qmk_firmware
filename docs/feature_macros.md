@@ -106,6 +106,8 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
 
 ### `SEND_STRING()` & `process_record_user`
 
+See also: [Send String](feature_send_string.md)
+
 Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
 Here is an example `keymap.c` for a two-key keyboard:
