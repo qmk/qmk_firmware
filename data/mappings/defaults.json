@@ -16,6 +16,18 @@
             "board": "QMK_PROTON_C",
             "pin_compatible": "promicro"
         },
+        "kb2040": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040",
+            "pin_compatible": "promicro"
+        },
+        "promicro_rp2040": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040",
+            "pin_compatible": "promicro"
+        },
         "bluepill": {
             "processor": "STM32F103",
             "bootloader": "stm32duino",
