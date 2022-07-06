@@ -148,18 +148,11 @@ The paw 3204 sensor uses a serial type protocol for communication, and requires 
 
 | Setting            | Description                                                         |
 |--------------------|---------------------------------------------------------------------|
-|`PAW3204_SCLK` | (Required) The pin connected to the clock pin of the sensor.        |
-|`PAW3204_SDIO` | (Required) The pin connected to the data pin of the sensor.         |
+|`PAW3204_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        |
+|`PAW3204_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         |
 
-Output resolution setting
-bit:
-000 = 400 
-001 = 500
-010 = 600
-011 = 800
-100 = 1000 (Default)
-101 = 1200
-110 = 1600 
+The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600).  Defaults to 1000 CPI.
+
 
 ### Pimoroni Trackball
 
