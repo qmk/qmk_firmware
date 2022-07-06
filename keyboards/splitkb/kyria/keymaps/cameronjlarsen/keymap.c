@@ -36,21 +36,6 @@ enum keycodes{
  OS_GUI,
 };
 
-#define SFT_TAB LSFT_T(KC_TAB)
-#define A_LEFT LALT_T(KC_LEFT)
-#define A_RGHT LALT_T(KC_RGHT)
-
-// Left-hand home row mods
-#define GUI_A LGUI_T(KC_A)
-#define ALT_S LALT_T(KC_S)
-#define CTL_D LCTL_T(KC_D)
-#define SFT_F LSFT_T(KC_F)
-
-// Right-hand home row mods
-#define SFT_J RSFT_T(KC_J)
-#define CTL_K RCTL_T(KC_K)
-#define ALT_L LALT_T(KC_L)
-#define GUI_ENT RGUI_T(KC_ENT)
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -123,6 +108,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Notes: 
  * - Vim style navigation keys
  * - Cut, Copy, Paste on X, C, V
+ * - BKSP on Enter
+ * - DEL on /
  * - Esc on G
  * 
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -130,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  GUI |  Alt | Ctrl | Shift| Esc  |                              |   ←  |  ↓   |   ↑  |   →  | Bksp |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      | Cut  | Copy | Paste|NumLck|      |      |  |      |      |      |      |      |      |      |        |
+ * |        |      | Cut  | Copy | Paste|NumLck|      |      |  |      |      |      |      |      |      |Delete|        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -138,8 +125,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_HOME, KC_PGUP, KC_PGDN,  KC_END, KC_PSCR, _______,
-      _______, OS_GUI, OS_ALT, OS_CTRL, OS_SHFT,  KC_ESC,                                     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_BSPC, _______,
-      _______, _______, C(KC_X), C(KC_C), C(KC_V),  KC_NUM, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, OS_GUI , OS_ALT , OS_CTRL, OS_SHFT,  KC_ESC,                                     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_BSPC, _______,
+      _______, _______, C(KC_X), C(KC_C), C(KC_V),  KC_NUM, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
