@@ -28,10 +28,10 @@
         "vid": "0x4705"
     },
     "layout_aliases": {
-        "LAYOUT_ortho_6x4": "LAYOUT_all"
+        "LAYOUT_all": "LAYOUT_ortho_6x4"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_6x4": {
             "layout": [
                 {"matrix": [0, 0], "label":"ESC", "x":0, "y":0},
                 {"matrix": [0, 1], "label":"TAB", "x":1, "y":0},
