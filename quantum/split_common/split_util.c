@@ -57,8 +57,9 @@ static uint8_t connection_errors = 0;
 volatile bool isLeftHand = true;
 
 #if defined(SPLIT_USB_DETECT)
+_Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
 static bool usbIsActive(void) {
-    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
+    for (uint16_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
         if (usb_connected_state()) {
             return true;
@@ -93,7 +94,6 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
-    setPinInput(SPLIT_HAND_PIN);
 #    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
     return !readPin(SPLIT_HAND_PIN);
 #    else
@@ -132,6 +132,14 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
 // this code runs before the keyboard is fully initialized
 void split_pre_init(void) {
+#if defined(SPLIT_HAND_PIN)
+    setPinInput(SPLIT_HAND_PIN);
+    wait_us(100);
+#elif defined(EE_HANDS)
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+#endif
     isLeftHand = is_keyboard_left();
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)

@@ -159,10 +159,8 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
-void pointing_device_init_kb(void) { maybe_update_pointing_device_cpi(&g_charybdis_config); }
-
 #    ifndef CONSTRAIN_HID
-#        define CONSTRAIN_HID(value) ((value) < -127 ? -127 : ((value) > 127 ? 127 : (value)))
+#        define CONSTRAIN_HID(value) ((value) < XY_REPORT_MIN ? XY_REPORT_MIN : ((value) > XY_REPORT_MAX ? XY_REPORT_MAX : (value)))
 #    endif  // !CONSTRAIN_HID
 
 /**
@@ -247,7 +245,7 @@ static bool has_shift_mod(void) {
  *   - default DPI: internal table index/actual DPI
  *   - sniping DPI: internal table index/actual DPI
  */
-static void debug_charybdis_config_to_console(charybdis_config_t* config) {
+__attribute__((unused)) static void debug_charybdis_config_to_console(charybdis_config_t* config) {
 #    ifdef CONSOLE_ENABLE
     dprintf("(charybdis) process_record_kb: config = {\n"
             "\traw = 0x%04X,\n"
@@ -264,7 +262,6 @@ static void debug_charybdis_config_to_console(charybdis_config_t* config) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
-        debug_charybdis_config_to_console(&g_charybdis_config);
         return false;
     }
 #    ifndef NO_CHARYBDIS_KEYCODES
@@ -321,7 +318,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         pointing_device_send();
     }
 #    endif  // !MOUSEKEY_ENABLE
-    debug_charybdis_config_to_console(&g_charybdis_config);
     return true;
 }
 
@@ -341,6 +337,7 @@ void charybdis_config_sync_handler(uint8_t initiator2target_buffer_size, const v
 }
 
 void keyboard_post_init_kb(void) {
+    maybe_update_pointing_device_cpi(&g_charybdis_config);
     transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, charybdis_config_sync_handler);
 
     keyboard_post_init_user();

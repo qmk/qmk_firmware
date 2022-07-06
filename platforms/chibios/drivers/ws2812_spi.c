@@ -139,7 +139,33 @@ void ws2812_init(void) {
 #endif // WS2812_SPI_SCK_PIN
 
     // TODO: more dynamic baudrate
-    static const SPIConfig spicfg = {WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN), WS2812_SPI_DIVISOR_CR1_BR_X};
+    static const SPIConfig spicfg = {
+#ifndef HAL_LLD_SELECT_SPI_V2
+// HAL_SPI_V1
+#    if SPI_SUPPORTS_CIRCULAR == TRUE
+        WS2812_SPI_BUFFER_MODE,
+#    endif
+        NULL, // end_cb
+        PAL_PORT(RGB_DI_PIN),
+        PAL_PAD(RGB_DI_PIN),
+        WS2812_SPI_DIVISOR_CR1_BR_X,
+        0
+#else
+    // HAL_SPI_V2
+#    if SPI_SUPPORTS_CIRCULAR == TRUE
+        WS2812_SPI_BUFFER_MODE,
+#    endif
+#    if SPI_SUPPORTS_SLAVE_MODE == TRUE
+        false,
+#    endif
+        NULL, // data_cb
+        NULL, // error_cb
+        PAL_PORT(RGB_DI_PIN),
+        PAL_PAD(RGB_DI_PIN),
+        WS2812_SPI_DIVISOR_CR1_BR_X,
+        0
+#endif
+    };
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */

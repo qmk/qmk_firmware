@@ -1,8 +1,13 @@
 // Copyright (c) 2018 Cirque Corp. Restrictions apply. See: www.cirque.com/sw-license
+// based on https://github.com/cirque-corp/Cirque_Pinnacle_1CA027/tree/master/Circular_Trackpad
+// with modifications and changes for QMK
+// refer to documentation: Gen2 and Gen3 (Pinnacle ASIC) at https://www.cirque.com/documentation
+
 #include "cirque_pinnacle.h"
 #include "print.h"
 #include "debug.h"
 #include "wait.h"
+#include "timer.h"
 
 // Registers for RAP
 // clang-format off
@@ -38,11 +43,9 @@
 #define ADC_ATTENUATE_3X     0x80
 #define ADC_ATTENUATE_4X     0xC0
 
-// Register config values for this demo
-#define SYSCONFIG_1_VALUE    0x00
-#define FEEDCONFIG_1_VALUE   0x03  // 0x03 for absolute mode 0x01 for relative mode
-#define FEEDCONFIG_2_VALUE   0x1C  // 0x1F for normal functionality 0x1E for intellimouse disabled
-#define Z_IDLE_COUNT_VALUE   0x05
+#ifndef CIRQUE_PINNACLE_ATTENUATION
+#    define CIRQUE_PINNACLE_ATTENUATION ADC_ATTENUATE_4X
+#endif
 // clang-format on
 
 bool     touchpad_init;
@@ -110,16 +113,14 @@ void cirque_pinnacle_clear_flags() {
 // Enables/Disables the feed
 void cirque_pinnacle_enable_feed(bool feedEnable) {
     uint8_t temp;
-
     RAP_ReadBytes(FEEDCONFIG_1, &temp, 1); // Store contents of FeedConfig1 register
 
     if (feedEnable) {
         temp |= 0x01; // Set Feed Enable bit
-        RAP_Write(0x04, temp);
     } else {
         temp &= ~0x01; // Clear Feed Enable bit
-        RAP_Write(0x04, temp);
     }
+    RAP_Write(FEEDCONFIG_1, temp);
 }
 
 /*  ERA (Extended Register Access) Functions  */
@@ -191,7 +192,7 @@ void cirque_pinnacle_tune_edge_sensitivity(void) {
     ERA_ReadBytes(0x0168, &temp, 1);
 }
 
-/*  Pinnacle-based TM040040 Functions  */
+/*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
 void cirque_pinnacle_init(void) {
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
     spi_init();
@@ -200,39 +201,87 @@ void cirque_pinnacle_init(void) {
 #endif
 
     touchpad_init = true;
+
     // Host clears SW_CC flag
     cirque_pinnacle_clear_flags();
 
-    // Host configures bits of registers 0x03 and 0x05
-    RAP_Write(SYSCONFIG_1, SYSCONFIG_1_VALUE);
-    RAP_Write(FEEDCONFIG_2, FEEDCONFIG_2_VALUE);
+    // SysConfig1 (Low Power Mode)
+    // Bit 0: Reset, 1=Reset
+    // Bit 1: Shutdown, 1=Shutdown, 0=Active
+    // Bit 2: Sleep Enable, 1=low power mode, 0=normal mode
+    // send a RESET command now, in case QMK had a soft-reset without a power cycle
+    RAP_Write(SYSCONFIG_1, 0x01);
+    wait_ms(30); // Pinnacle needs 10-15ms to boot, so wait long enough before configuring
+    RAP_Write(SYSCONFIG_1, 0x00);
+    wait_us(50);
 
-    // Host enables preferred output mode (absolute)
-    RAP_Write(FEEDCONFIG_1, FEEDCONFIG_1_VALUE);
+    // FeedConfig2 (Feature flags for Relative Mode Only)
+    // Bit 0: IntelliMouse Enable, 1=enable, 0=disable
+    // Bit 1: All Taps Disable, 1=disable, 0=enable
+    // Bit 2: Secondary Tap Disable, 1=disable, 0=enable
+    // Bit 3: Scroll Disable, 1=disable, 0=enable
+    // Bit 4: GlideExtend® Disable, 1=disable, 0=enable
+    // Bit 5: reserved
+    // Bit 6: reserved
+    // Bit 7: Swap X & Y, 1=90° rotation, 0=0° rotation
+    RAP_Write(FEEDCONFIG_2, 0x00);
 
-    // Host sets z-idle packet count to 5 (default is 30)
-    RAP_Write(Z_IDLE_COUNT, Z_IDLE_COUNT_VALUE);
+    // FeedConfig1 (Data Output Flags)
+    // Bit 0: Feed enable, 1=feed, 0=no feed
+    // Bit 1: Data mode, 1=absolute, 0=relative
+    // Bit 2: Filter disable, 1=no filter, 0=filter
+    // Bit 3: X disable, 1=no X data, 0=X data
+    // Bit 4: Y disable, 1=no Y data, 0=Y data
+    // Bit 5: reserved
+    // Bit 6: X data Invert, 1=X max to 0, 0=0 to Y max
+    // Bit 7: Y data Invert, 1=Y max to 0, 0=0 to Y max
+    RAP_Write(FEEDCONFIG_1, CIRQUE_PINNACLE_POSITION_MODE << 1);
 
-    cirque_pinnacle_set_adc_attenuation(0xFF);
+    // Host sets z-idle packet count to 5 (default is 0x1F/30)
+    RAP_Write(Z_IDLE_COUNT, 5);
+
+    cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
+
     cirque_pinnacle_tune_edge_sensitivity();
     cirque_pinnacle_enable_feed(true);
 }
 
-// Reads XYZ data from Pinnacle registers 0x14 through 0x17
-// Stores result in pinnacle_data_t struct with xValue, yValue, and zValue members
 pinnacle_data_t cirque_pinnacle_read_data(void) {
-    uint8_t         data[6] = {0};
-    pinnacle_data_t result  = {0};
+    uint8_t         data_ready = 0;
+    uint8_t         data[6]    = {0};
+    pinnacle_data_t result     = {0};
+
+    // Check if there is valid data available
+    RAP_ReadBytes(STATUS_1, &data_ready, 1); // bit2 is Software Data Ready, bit3 is Command Complete, bit0 and bit1 are reserved/unused
+    if ((data_ready & 0x04) == 0) {
+        // no data available yet
+        result.valid = false; // be explicit
+        return result;
+    }
+
+    // Read all data bytes
     RAP_ReadBytes(PACKET_BYTE_0, data, 6);
 
+    // Get ready for the next data sample
     cirque_pinnacle_clear_flags();
 
-    result.buttonFlags = data[0] & 0x3F;
-    result.xValue      = data[2] | ((data[4] & 0x0F) << 8);
-    result.yValue      = data[3] | ((data[4] & 0xF0) << 4);
-    result.zValue      = data[5] & 0x3F;
+#if CIRQUE_PINNACLE_POSITION_MODE
+    // Decode data for absolute mode
+    // Register 0x13 is unused in this mode (palm detection area)
+    result.buttonFlags = data[0] & 0x3F;                             // bit0 to bit5 are switch 0-5, only hardware button presses (from input pin on the Pinnacle chip)
+    result.xValue      = data[2] | ((data[4] & 0x0F) << 8);          // merge high and low bits for X
+    result.yValue      = data[3] | ((data[4] & 0xF0) << 4);          // merge high and low bits for Y
+    result.zValue      = data[5] & 0x3F;                             // Z is only lower 6 bits, upper 2 bits are reserved/unused
+    result.touchDown   = (result.xValue != 0 || result.yValue != 0); // (0,0) is a "magic coordinate" to indicate "finger touched down"
+#else
+    // Decode data for relative mode
+    // Registers 0x16 and 0x17 are unused in this mode
+    result.buttons    = data[0] & 0x07; // bit0 = primary button, bit1 = secondary button, bit2 = auxilary button, if Taps enabled then also software-recognized taps are reported
+    result.xDelta     = data[1];
+    result.yDelta     = data[2];
+    result.wheelCount = data[3];
+#endif
 
-    result.touchDown = (result.xValue != 0 || result.yValue != 0);
-
+    result.valid = true;
     return result;
 }

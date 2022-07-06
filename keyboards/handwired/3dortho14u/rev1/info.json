@@ -28,9 +28,9 @@
       "rows": ["B0", "B1", "B2", "B3", "B7"]
     },
     "usb": {
-      "device_ver": "0x0001",
+      "vid": "0x6662",
       "pid": "0x3D14",
-      "vid": "0x6662"
+      "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT": {

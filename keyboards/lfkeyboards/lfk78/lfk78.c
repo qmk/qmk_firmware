@@ -110,7 +110,7 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-void click(uint16_t freq, uint16_t duration) {
+void clicking_notes(uint16_t freq, uint16_t duration) {
 #ifdef AUDIO_ENABLE
     if (freq >= 100 && freq <= 20000 && duration < 100) {
         play_note(freq, 10);
@@ -124,7 +124,7 @@ void click(uint16_t freq, uint16_t duration) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (click_toggle && record->event.pressed) {
-        click(click_hz, click_time);
+        clicking_notes(click_hz, click_time);
     }
 
     if (keycode == RESET) {

@@ -75,12 +75,21 @@ typedef enum {
     POINTING_DEVICE_BUTTON8,
 } pointing_device_buttons_t;
 
+#ifdef MOUSE_EXTENDED_REPORT
+#    define XY_REPORT_MIN INT16_MIN
+#    define XY_REPORT_MAX INT16_MAX
+typedef int32_t clamp_range_t;
+#else
+#    define XY_REPORT_MIN INT8_MIN
+#    define XY_REPORT_MAX INT8_MAX
+typedef int16_t clamp_range_t;
+#endif
+
 void           pointing_device_init(void);
 void           pointing_device_task(void);
 void           pointing_device_send(void);
 report_mouse_t pointing_device_get_report(void);
-void           pointing_device_set_report(report_mouse_t newMouseReport);
-bool           has_mouse_report_changed(report_mouse_t new, report_mouse_t old);
+void           pointing_device_set_report(report_mouse_t mouse_report);
 uint16_t       pointing_device_get_cpi(void);
 void           pointing_device_set_cpi(uint16_t cpi);
 

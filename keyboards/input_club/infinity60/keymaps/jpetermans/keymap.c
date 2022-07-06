@@ -239,7 +239,7 @@ void matrix_scan_user(void) {
     //Turn on layer indicator or page depending on mode
     switch(led_mode_global) {
       case MODE_FLASH: //flash preset page leds then single indicator
-        page = biton32(layer_state) > max_pages ? 7 : biton32(layer_state);
+        page = get_highest_layer(layer_state) > max_pages ? 7 : get_highest_layer(layer_state);
         msg=(page << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         chThdSleepMilliseconds(500);
@@ -254,7 +254,7 @@ void matrix_scan_user(void) {
         break;
 
       case MODE_PAGE: //display pre-defined led page
-        page = biton32(layer_state) > max_pages ? 7 : biton32(layer_state);
+        page = get_highest_layer(layer_state) > max_pages ? 7 : get_highest_layer(layer_state);
         msg=(page << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         break;

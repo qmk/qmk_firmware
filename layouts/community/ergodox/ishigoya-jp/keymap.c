@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 static uint16_t start;
 
@@ -109,7 +109,7 @@ static uint16_t start;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
- * 
+ *
  * ,----------------------------------------------------.           ,--------------------------------------------------.
  * | En / 和  |      |   ^  |   %  |      |      |Selall|           | Undo |      |   $  |   @  |   LT |  UP  |   RT   |
  * |----------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -129,9 +129,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | Num  |       |  Esc |        |      |
  *                                 `--------------------'       `----------------------'
  *
- * 
+ *
  * tmux prefix set to C-b
- * 
+ *
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
@@ -175,9 +175,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | shift|  fn  |------|       |------|      |kazari|
  *                                 |      |      | Num  |       |      |      |      |
  *                                 `--------------------'       `--------------------'
- * 
- * 
- * 
+ *
+ *
+ *
  */
 [JP] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -218,14 +218,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
- * 
- * 
- * 
+ *
+ *
+ *
  */
 [JPXON] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
 	   KC_NO, KC_NO,    M(JPXE),        KC_NO,    M(JPXKE),   KC_NO, KC_NO,
-       KC_NO, KC_NO,    KC_NO,          M(JPXKA),      KC_NO, KC_NO, 
+       KC_NO, KC_NO,    KC_NO,          M(JPXKA),      KC_NO, KC_NO,
        KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
                                            KC_NO, KC_NO,
@@ -261,14 +261,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
- * 
- * 
- * 
+ *
+ *
+ *
  */
 [JPKAZARI] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
 	   KC_NO, KC_NO,    M(JPGO),        M(JPZA),    M(JPBE), M(JPGE), KC_NO,
-       KC_NO, M(JPDO),    M(JPJI),        M(JPGA),    M(JPGI), M(JPZU), 
+       KC_NO, M(JPDO),    M(JPJI),        M(JPGA),    M(JPGI), M(JPZU),
        KC_NO, KC_NO,    M(JPZO),        M(JPBI),    M(JPDI), KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
                                            KC_NO, KC_NO,
@@ -304,14 +304,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
- * 
- * 
- * 
+ *
+ *
+ *
  */
 [JPTOPROW] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO,   KC_NO, KC_NO,
 	   KC_NO, KC_NO,    KC_E,       KC_MINS,  M(JPRE), KC_NO, KC_NO,
-       KC_NO, M(JPRA),  M(JPRI),       M(JPNA),  M(JPNO), M(JPMI), 
+       KC_NO, M(JPRA),  M(JPRI),       M(JPNA),  M(JPNO), M(JPMI),
        KC_NO, KC_NO, KC_NO,    KC_NO,  KC_NO, KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
                                            KC_NO, KC_NO,
@@ -348,14 +348,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
- * 
- * 
- * 
+ *
+ *
+ *
  */
 [JPTRKZ] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    M(JPPE),KC_NO,  KC_NO,
-       KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, 
+       KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO,
        KC_NO, KC_NO,    KC_NO,        M(JPPI),    KC_NO, KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
                                            KC_NO, KC_NO,
@@ -397,7 +397,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
 	   KC_NO, KC_F1,      KC_F2,          KC_F3,      KC_F4,   KC_F5,   KC_NO,
 	   KC_NO, KC_NO,    KC_NO,        JP_DQUO,   KC_RBRACKET,   KC_BSPC, KC_SCLN,
-       KC_NO, KC_NO,    KC_SLSH,        JP_PLUS,    LSFT(KC_RBRACKET),   JP_RCBR, 
+       KC_NO, KC_NO,    KC_SLSH,        JP_PLUS,    LSFT(KC_RBRACKET),   JP_RCBR,
        KC_NO, KC_NO,    JP_ASTR,        KC_MINS,    LSFT(KC_8), LSFT(KC_9), JP_COLN,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_HASH,
                                            KC_NO, KC_NO,
@@ -417,7 +417,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-	
+
   // MACRO only works in this function
 	switch(id) {
 		case 0:
@@ -445,9 +445,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 				}
 			}
 			break;
-			
+
 		// kana macros start here
-			
+
 		case JPVU:
 			if (record->event.pressed) {
 				return MACRO( I(1), T(V), T(U), END);
@@ -641,7 +641,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		case JPDI:
 			if (record->event.pressed) {
 				return MACRO( I(1), T(D), T(I), END);
-			} 
+			}
 			break;
 		case JPZE:
 			if (record->event.pressed) {
@@ -838,9 +838,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 				return MACRO( I(1), T(B), T(U), END);
 			}
 			break;
-			
+
 			// kana macros end here
-			
+
 			break;
 		case SHIFT:
 		if (record->event.pressed) {
@@ -848,8 +848,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			if (layer_state == (1<<JPKAZARI)) {
 				layer_state = (1<<JPTOPROW)| (1<<JPTRKZ);
 			} else {
-				layer_state = (1<<JPTOPROW);							
-			} 
+				layer_state = (1<<JPTOPROW);
+			}
       } else {
 			layer_state = (0<<JPTOPROW);
 			clear_keyboard_but_mods();
@@ -864,8 +864,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			if (layer_state == (1<<JPTOPROW)) {
 				layer_state = (1<<JPKAZARI)| (1<<JPTRKZ);
 			} else {
-				layer_state = (1<<JPKAZARI);							
-			} 
+				layer_state = (1<<JPKAZARI);
+			}
 			break;
       } else {
 		  	layer_state = (0<<JPKAZARI);
@@ -874,7 +874,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           return MACRO( T(ENTER), END);
         }
       }
-      break;  
+      break;
 		case JPFN:
 			if (record->event.pressed) {
 				start = timer_read();
@@ -917,7 +917,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			break;
 */
 		}
-    return MACRO_NONE;   
+    return MACRO_NONE;
 };
 
 // Runs just one time when the keyboard initializes.
@@ -927,15 +927,15 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-	uint8_t layer = biton32(layer_state);
-   uint8_t deflayer = biton32(default_layer_state);
+	uint8_t layer = get_highest_layer(layer_state);
+   uint8_t deflayer = get_highest_layer(default_layer_state);
 
 	ergodox_board_led_off();
 	ergodox_right_led_1_off();
 	ergodox_right_led_2_off();
 	ergodox_right_led_3_off();
-    
-  
+
+
 	switch (layer) {
 		case 0:
 			//none

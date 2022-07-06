@@ -22,8 +22,8 @@
 #include "timer.h"
 #include <stddef.h>
 
-// hid mouse reports cannot exceed -127 to 127, so constrain to that value
-#define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
+#define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
+#define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
 
 // get_report functions should probably be moved to their respective drivers.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
@@ -35,8 +35,8 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
         if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
 #    endif
 
-        mouse_report.x = data.dx;
-        mouse_report.y = data.dy;
+        mouse_report.x = (mouse_xy_report_t)data.dx;
+        mouse_report.y = (mouse_xy_report_t)data.dy;
     }
 
     return mouse_report;
@@ -50,16 +50,14 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi      = adns5050_get_cpi,
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 
 report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
     report_adns9800_t sensor_report = adns9800_get_report();
 
-    int8_t clamped_x = constrain_hid(sensor_report.x);
-    int8_t clamped_y = constrain_hid(sensor_report.y);
-
-    mouse_report.x = clamped_x;
-    mouse_report.y = clamped_y;
+    mouse_report.x = CONSTRAIN_HID_XY(sensor_report.x);
+    mouse_report.y = CONSTRAIN_HID_XY(sensor_report.y);
 
     return mouse_report;
 }
@@ -72,6 +70,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = adns9800_get_cpi
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
@@ -96,41 +95,52 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = NULL
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    ifndef CIRQUE_PINNACLE_TAPPING_TERM
-#        ifdef TAPPING_TERM_PER_KEY
-#            include "action.h"
-#            include "action_tapping.h"
-#            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, &(keyrecord_t){})
-#        else
-#            ifdef TAPPING_TERM
-#                define CIRQUE_PINNACLE_TAPPING_TERM TAPPING_TERM
-#            else
-#                define CIRQUE_PINNACLE_TAPPING_TERM 200
-#            endif
-#        endif
+#        include "action.h"
+#        include "action_tapping.h"
+#        define CIRQUE_PINNACLE_TAPPING_TERM GET_TAPPING_TERM(KC_BTN1, &(keyrecord_t){})
 #    endif
 #    ifndef CIRQUE_PINNACLE_TOUCH_DEBOUNCE
 #        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
 #    endif
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
-    pinnacle_data_t touchData = cirque_pinnacle_read_data();
-    static uint16_t x = 0, y = 0, mouse_timer = 0;
-    int8_t          report_x = 0, report_y = 0;
-    static bool     is_z_down = false;
+    pinnacle_data_t          touchData = cirque_pinnacle_read_data();
+    mouse_xy_report_t        report_x = 0, report_y = 0;
+    static mouse_xy_report_t x = 0, y = 0;
+    static uint16_t          mouse_timer = 0;
+    static bool              is_z_down   = false;
 
-    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale()); // Scale coordinates to arbitrary X, Y resolution
+#    if !CIRQUE_PINNACLE_POSITION_MODE
+#        error Cirque Pinnacle with relative mode not implemented yet.
+#    endif
+
+    if (!touchData.valid) {
+        return mouse_report;
+    }
+
+#    if CONSOLE_ENABLE
+    if (debug_mouse && touchData.touchDown) {
+        dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
+    }
+#    endif
+
+    // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
 
     if (x && y && touchData.xValue && touchData.yValue) {
-        report_x = (int8_t)(touchData.xValue - x);
-        report_y = (int8_t)(touchData.yValue - y);
+        report_x = (mouse_xy_report_t)(touchData.xValue - x);
+        report_y = (mouse_xy_report_t)(touchData.yValue - y);
     }
-    x = touchData.xValue;
-    y = touchData.yValue;
+    x              = touchData.xValue;
+    y              = touchData.yValue;
+    mouse_report.x = report_x;
+    mouse_report.y = report_y;
 
-    if ((bool)touchData.zValue != is_z_down) {
-        is_z_down = (bool)touchData.zValue;
+    if (touchData.touchDown != is_z_down) {
+        is_z_down = touchData.touchDown;
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
@@ -149,8 +159,6 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
         mouse_timer = 0;
     }
-    mouse_report.x = report_x;
-    mouse_report.y = report_y;
 
     return mouse_report;
 }
@@ -165,11 +173,26 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
+
+mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t* offset) {
+    if (*offset > XY_REPORT_MAX) {
+        *offset -= XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MAX;
+    } else if (*offset < XY_REPORT_MIN) {
+        *offset += XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MIN;
+    } else {
+        mouse_xy_report_t temp_return = *offset;
+        *offset                       = 0;
+        return temp_return;
+    }
+}
+
 report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
-    static uint16_t debounce      = 0;
-    static uint8_t  error_count   = 0;
-    pimoroni_data_t pimoroni_data = {0};
-    static int16_t  x_offset = 0, y_offset = 0;
+    static uint16_t      debounce      = 0;
+    static uint8_t       error_count   = 0;
+    pimoroni_data_t      pimoroni_data = {0};
+    static clamp_range_t x_offset = 0, y_offset = 0;
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
         i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
@@ -182,8 +205,8 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                 if (!debounce) {
                     x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_SCALE);
                     y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_SCALE);
-                    pimoroni_trackball_adapt_values(&mouse_report.x, &x_offset);
-                    pimoroni_trackball_adapt_values(&mouse_report.y, &y_offset);
+                    mouse_report.x = pimoroni_trackball_adapt_values(&x_offset);
+                    mouse_report.y = pimoroni_trackball_adapt_values(&y_offset);
                 } else {
                     debounce--;
                 }
@@ -206,13 +229,14 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pimoroni_trackball_get_cpi
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 static void pmw3360_device_init(void) {
-    pmw3360_init();
+    pmw3360_init(0);
 }
 
 report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
-    report_pmw3360_t data        = pmw3360_read_burst();
+    report_pmw3360_t data        = pmw3360_read_burst(0);
     static uint16_t  MotionStart = 0; // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
@@ -229,8 +253,8 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 #    endif
             MotionStart = timer_read();
         }
-        mouse_report.x = constrain_hid(data.dx);
-        mouse_report.y = constrain_hid(data.dy);
+        mouse_report.x = CONSTRAIN_HID_XY(data.dx);
+        mouse_report.y = CONSTRAIN_HID_XY(data.dy);
     }
 
     return mouse_report;
@@ -244,6 +268,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pmw3360_get_cpi
 };
 // clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_pmw3389)
 static void pmw3389_device_init(void) {
     pmw3389_init();
@@ -267,8 +292,8 @@ report_mouse_t pmw3389_get_report(report_mouse_t mouse_report) {
 #    endif
             MotionStart = timer_read();
         }
-        mouse_report.x = constrain_hid(data.dx);
-        mouse_report.y = constrain_hid(data.dy);
+        mouse_report.x = CONSTRAIN_HID_XY(data.dx);
+        mouse_report.y = CONSTRAIN_HID_XY(data.dy);
     }
 
     return mouse_report;
@@ -282,6 +307,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pmw3389_get_cpi
 };
 // clang-format on
+
 #else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
 __attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
@@ -300,4 +326,5 @@ const pointing_device_driver_t pointing_device_driver = {
     .set_cpi    = pointing_device_driver_set_cpi
 };
 // clang-format on
+
 #endif
