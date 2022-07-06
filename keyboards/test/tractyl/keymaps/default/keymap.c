@@ -50,7 +50,8 @@ enum custom_keycodes {
 	CK_DSCL,
 	CK_CRET,
 	CK_MSLK,
-	KC_SS
+	KC_SS,
+	CK_BACK
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -76,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_GESC, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   _______ ,_______,_______,_______,_______,_______,
      KC_TAB , CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_CUT  ,CK_DSCL,CK_CRET,CK_MSLK, _______, _______,
      KC_BSPC, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_COPY , KC_BTN1, KC_BTN2, KC_BTN3, KC_MPLY, KC_QUOT,
-     KC_LGUI, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_PASTE, KC_BTN4, KC_BTN5, KC_F5, KC_SLSH, KC_BSLASH,
+     KC_LGUI, CK_MSOF, CK_MSOF , CK_MSOF, CK_MSOF, CK_MSOF,                   MC_PASTE, KC_BTN4, KC_BTN5, KC_F5, CK_BACK, KC_BSLASH,
                        CK_MSOF , CK_MSOF, CK_MSOF, MO_RALT,                   KC_LSFT, ALT_TAB, KC_PLUS, KC_EQL,
                                  _______, KC_LCTL, KC_LALT,                   MO_FN,KC_ENT		
   ),
@@ -123,7 +124,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				layer_off(_MOUSE);
 				scrolling_mode = false;
 				caret_mode = false;
-				mouse_lock = false;
 				tap_code(KC_TRNS);
 			}
 			return true;
@@ -249,6 +249,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				unregister_code16(KC_LALT);
 			}
 			return false;
+		case CK_BACK:
+			if(record->event.pressed){
+				tap_code16(LCTL(KC_SPC));
+			}
+			return false;
 		case CK_SCLN:
 			if(record->event.pressed){
 				tap_code(KC_END);
@@ -281,7 +286,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				tap_code(KC_TAB);
 				unregister_code(KC_LSFT);
 			}
-		} else if (FN_HELD == true){
+		} else if (FN_HELD == true || layer_state_is(_MOUSE)){
 			if (clockwise) {
 				//tap_code_delay(KC_MNXT, 10);
 				tap_code(KC_RGHT);
@@ -383,9 +388,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
 		case _CLMK:
-            if(rgblight_is_enabled()){
-				rgblight_disable_noeeprom();	
-			}
+            //rgblight_sethsv_noeeprom(HSV_GREEN);
+			rgblight_disable_noeeprom();
             break;
 		case _FN:
 			if(!rgblight_is_enabled()){
@@ -410,12 +414,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 				rgblight_enable_noeeprom();	
 			}
 			rgblight_sethsv_noeeprom(HSV_RED);
-			break;
-		case _GAME:
-			if(!rgblight_is_enabled()){
-				rgblight_enable_noeeprom();	
-			}
-			rgblight_sethsv_noeeprom(HSV_TEAL);
 			break;
         default:
             rgblight_sethsv_noeeprom(HSV_YELLOW);
