@@ -7,7 +7,7 @@ This keyboard use 16mhz HSE and APM32F103 as MCU.
 
 - Keyboard Maintainer: https://github.com/jiaxin96
 - Hardware Supported: nz67v2
-- Hardware Availability: https://shop417111022.taobao.com/?spm=2013.1.1000126.2.6aea6fa3Uxufe5 https://shop294487007.taobao.com/?spm=a230r.7195193.1997079397.2.763853eeeaoRl4
+- Hardware Availability: [Y&R Works](https://shop417111022.taobao.com/?spm=2013.1.1000126.2.6aea6fa3Uxufe5), [5162](https://shop294487007.taobao.com/?spm=a230r.7195193.1997079397.2.763853eeeaoRl4)
 
 Make example for this keyboard (after setting up your build environment):
 
