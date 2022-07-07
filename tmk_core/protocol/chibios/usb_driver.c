@@ -408,7 +408,7 @@ void qmkusbDataTransmitted(USBDriver *usbp, usbep_t ep) {
            size. Otherwise the recipient may expect more data coming soon and
            not return buffered data to app. See section 5.8.3 Bulk Transfer
            Packet Size Constraints of the USB Specification document.*/
-        if (!qmkusbp->config->fixed_size) {
+        if (!qmkusbp->config->fixed_size && (usbp->epc[ep]->ep_mode & USB_EP_MODE_TYPE) == USB_EP_MODE_TYPE_BULK) {
             usbStartTransmitI(usbp, ep, usbp->setup, 0);
         }
 
