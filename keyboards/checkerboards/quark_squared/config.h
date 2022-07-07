@@ -53,3 +53,7 @@
 #define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
 #define RGBLIGHT_SAT_STEP 12 // units to step when in/decresing saturation
 #define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
+
+/* define rotary encoder pins */
+#define ENCODERS_PAD_A {B0}
+#define ENCODERS_PAD_B {D1}
