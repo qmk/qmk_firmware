@@ -107,6 +107,7 @@
     * [Audio](feature_audio.md)
     * [Bluetooth](feature_bluetooth.md)
     * [Bootmagic Lite](feature_bootmagic.md)
+    * [Converters](feature_converters.md)
     * [Custom Matrix](custom_matrix.md)
     * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
@@ -115,7 +116,6 @@
     * [Joystick](feature_joystick.md)
     * [LED Indicators](feature_led_indicators.md)
     * [MIDI](feature_midi.md)
-    * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
     * [Stenography](feature_stenography.md)
@@ -167,6 +167,7 @@
       * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
       * [Raspberry Pi RP2040](platformdev_rp2040.md)
+      * [Proton C](platformdev_proton_c.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)
