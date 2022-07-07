@@ -9,7 +9,7 @@ The secure feature aims to prevent unwanted interaction without user interventio
 To unlock, the user must perform a set of actions. This can optionally be configured to be multiple keys.
 
 * While unlocking all keyboard input is ignored
-* Incorrect attempts will revert back to the previously locked stated
+* Incorrect attempts will revert back to the previously locked state
 
 ### Automatic Locking
 
@@ -45,9 +45,9 @@ SECURE_ENABLE = yes
 
 | Function                  | Description                                                                |
 |---------------------------|----------------------------------------------------------------------------|
-| `secure_is_locked()`      | Check if unlocking is currently locked                                     |
-| `secure_is_unlocking()`   | Check if unlocking is unlocking is currently in progress                   |
-| `secure_is_unlocked()`    | Check if unlocking is currently unlocked                                   |
+| `secure_is_locked()`      | Check if the device is currently locked                                    |
+| `secure_is_unlocking()`   | Check if an unlock sequence is currently in progress                       |
+| `secure_is_unlocked()`    | Check if the device is currently unlocked                                  |
 | `secure_lock()`           | Lock down the device                                                       |
 | `secure_unlock()`         | Force unlock the device - bypasses user unlock sequence                    |
 | `secure_request_unlock()` | Begin listening for an unlock sequence                                     |
