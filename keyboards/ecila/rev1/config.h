@@ -7,7 +7,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x534B
-#define PRODUCT_ID      0x0001
+#define PRODUCT_ID      0x534B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    mincedshon
 #define PRODUCT         ecila
