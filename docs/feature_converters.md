@@ -65,22 +65,31 @@ Converter summary:
 
 The Proton C only has one on-board LED (C13), and by default, the TXLED (D5) is mapped to it. If you want the RXLED (B0) mapped to it instead, add this like to your `config.h`:
 
-    #define CONVERT_TO_PROTON_C_RXLED
+```c
+#define CONVERT_TO_PROTON_C_RXLED
+```
 
-These are defaults based on what has been implemented for ARM boards.
+These are defaults based on what has been implemented for STM32 boards.
 
-| Feature                             | Notes                                                                                                            |
-|-------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [Audio](feature_audio.md)           | Enabled                                                                                                          |  
-| [RGB Lighting](feature_rgblight.md) | Disabled                                                                                                         |
-| [Backlight](feature_backlight.md)   | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
-| USB Host (e.g. USB-USB converter)   | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
-| [Split keyboards](feature_split_keyboard.md) | Partial - heavily dependent on enabled features                                                         |
+| Feature                                      | Notes                                                                                                            |
+|----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| [Audio](feature_audio.md)                    | Enabled                                                                                                          |
+| [RGB Lighting](feature_rgblight.md)          | Disabled                                                                                                         |
+| [Backlight](feature_backlight.md)            | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
+| USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
+| [Split keyboards](feature_split_keyboard.md) | Partial - heavily dependent on enabled features                                                                  |
 
 ### Adafruit KB2040 :id=kb2040
 
-TODO
+These are defaults based on what has been implemented for RP2040 boards.
+
+| Feature                                      | Notes                                                                                                            |
+|----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| [RGB Lighting](feature_rgblight.md)          | Enabled via `PIO` vendor driver                                                                                  |
+| [Backlight](feature_backlight.md)            | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
+| USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
+| [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
 ### SparkFun Pro Micro - RP2040 :id=promicro_rp2040
 
-TODO
+Currently identical to  [Adafruit KB2040](#kb2040).
