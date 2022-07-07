@@ -87,19 +87,10 @@ void eeconfig_init_kb(void) {
 
 void keyboard_post_init_kb(void) {
     kb_cums.underground_rgb_sw = eeconfig_read_kb();
-    rgb_matrix_reload_from_eeprom();
 }
 
 #endif
 
-
-#ifdef RGBLIGHT_ENABLE
-
-void keyboard_post_init_kb(void) {
-    rgblight_reload_from_eeprom();
-}
-
-#endif
 
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
