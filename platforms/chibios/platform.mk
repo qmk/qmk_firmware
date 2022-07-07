@@ -349,7 +349,8 @@ SHARED_CFLAGS = -fomit-frame-pointer \
                 -ffunction-sections \
                 -fdata-sections \
                 -fno-common \
-                -fshort-wchar
+                -fshort-wchar \
+                -fno-builtin-printf
 
 LDSCRIPT_PATH := $(shell dirname "$(LDSCRIPT)")
 
