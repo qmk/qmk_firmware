@@ -316,7 +316,7 @@
                     name: Config Blob Length
                     define: CONFIG_BLOB_LEN
                     description: Retrieves the length of the configuration data bundled within the firmware
-                    return_type: u32
+                    return_type: u16
                     return_constant: CONFIG_BLOB_GZ_LEN
                 }
                 0x06: {
