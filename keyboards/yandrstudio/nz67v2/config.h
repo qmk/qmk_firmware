@@ -38,12 +38,6 @@
 
 #define TAP_CODE_DELAY 15
 
-// enable the nkro when using the VIA.
-#define FORCE_NKRO
-
-// fix VIA RGB_light
-#define VIA_HAS_BROKEN_KEYCODES
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
