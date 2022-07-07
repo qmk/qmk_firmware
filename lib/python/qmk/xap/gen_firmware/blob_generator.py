@@ -2,22 +2,38 @@
 """
 import json
 import gzip
+from pathlib import Path
 
 from qmk.info import keymap_json
 from qmk.commands import get_chunks, dump_lines
+from qmk.json_schema import deep_update, json_load
 
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
-def generate_blob(output_file, keyboard, keymap):
-    # Build the info.json file
+def _build_info(keyboard, keymap):
+    """Build the xap version of info.json
+    """
+    defaults_json = json_load(Path('data/mappings/xap_defaults.json'))
     km_info_json = keymap_json(keyboard, keymap)
 
+    info_json = {}
+    deep_update(info_json, defaults_json)
+    deep_update(info_json, km_info_json)
+
     # TODO: Munge to XAP requirements
-    del km_info_json['config_h_features']
+    del info_json['config_h_features']
+
+    return info_json
+
+
+def generate_blob(output_file, keyboard, keymap):
+    """Generate XAP payload
+    """
+    info_json = _build_info(keyboard, keymap)
 
     # Minify
-    str_data = json.dumps(km_info_json, separators=(',', ':'))
+    str_data = json.dumps(info_json, separators=(',', ':'))
 
     # Compress
     compressed = gzip.compress(str_data.encode("utf-8"), compresslevel=9)
