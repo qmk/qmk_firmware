@@ -148,8 +148,22 @@ class XAPDevice:
         data['xap'] = self.version()['xap']
         return data
 
+    def status(self):
+        lock = int.from_bytes(self.transaction(b'\x00\x03') or bytes(0), 'little')
+
+        data = {}
+        data['lock'] = XAPSecureStatus(lock).name
+        return data
+
     def unlock(self):
         self.transaction(b'\x00\x04')
+
+    def lock(self):
+        self.transaction(b'\x00\x05')
+
+    def reset(self):
+        status = int.from_bytes(self.transaction(b'\x01\x07') or bytes(0), 'little')
+        return status == 1
 
 
 class XAPClient:

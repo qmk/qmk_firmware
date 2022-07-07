@@ -876,6 +876,7 @@ ifeq ($(strip $(XAP_ENABLE)), yes)
     endif
 
     OPT_DEFS += -DXAP_ENABLE
+    OPT_DEFS += -DBOOTLOADER_JUMP_SUPPORTED
     DYNAMIC_KEYMAP_ENABLE := yes
     SECURE_ENABLE := yes
     EMBED_INFO_JSON := yes

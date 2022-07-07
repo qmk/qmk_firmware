@@ -70,11 +70,29 @@ class XAPShell(cmd.Cmd):
         # TODO: request stuff?
         print(self.device.info()['xap'])
 
+    def do_status(self, arg):
+        """Prints out the current device state
+        """
+        status = self.device.status()
+        print('Secure:%s' % status.get('lock', '???'))
+
     def do_unlock(self, arg):
         """Initiate secure unlock
         """
         self.device.unlock()
         print('Unlock Requested...')
+
+    def do_lock(self, arg):
+        """Disable secure routes
+        """
+        self.device.lock()
+
+    def do_reset(self, arg):
+        """Jump to bootloader if unlocked
+        """
+        if not self.device.reset():
+            print("Reboot to bootloader failed")
+        return True
 
     def do_listen(self, arg):
         """Log out XAP broadcast messages
@@ -89,9 +107,7 @@ class XAPShell(cmd.Cmd):
 
                     cli.log.info('  Secure[%s]', secure_status)
                 else:
-                    data_str = ' '.join(['{:02X}'.format(b) for b in data])
-
-                    cli.log.info('  Broadcast: type[%02x] data:[%s]', event, data_str)
+                    cli.log.info('  Broadcast: type[%02x] data:[%s]', event, data.hex())
 
         except KeyboardInterrupt:
             cli.log.info('Stopping...')

@@ -83,11 +83,6 @@ bool xap_respond_secure_lock(xap_token_t token, const void *data, size_t length)
     return xap_respond_data(token, NULL, 0);
 }
 
-// TODO: how to set this if "custom" is just an empty stub
-#ifndef BOOTLOADER_JUMP_SUPPORTED
-#    define BOOTLOADER_JUMP_SUPPORTED
-#endif
-
 #ifdef BOOTLOADER_JUMP_SUPPORTED
 bool xap_respond_request_bootloader_jump(xap_token_t token, const void *data, size_t length) {
     uint8_t ret = secure_is_unlocked();
