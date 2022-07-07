@@ -21,7 +21,7 @@ See below for more in depth information on each converter.
 Each converter category is broken down by its declared `pin compatibility`.
 This ensures that only valid combinations are attempted.
 
-You can generate the firmware by appending `-e CONVERT_TO=<target>` argument to your compile/flash command. For example:
+You can generate the firmware by appending `-e CONVERT_TO=<target>` to your compile/flash command. For example:
 
 ```sh
 qmk flash -c -kb keebio/bdn9/rev1 -km default -e CONVERT_TO=proton_c
@@ -55,11 +55,11 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 
 Converter summary:
 
-| Target            | Argument                     | Flag                         |
-|-------------------|------------------------------|------------------------------|
-| `proton_c`        | `CONVERT_TO=proton_c`        | `CONVERT_TO_PROTON_C`        |
-| `kb2040`          | `CONVERT_TO=kb2040`          | `CONVERT_TO_KB2040`          |
-| `promicro_rp2040` | `CONVERT_TO=promicro_rp2040` | `CONVERT_TO_PROMICRO_RP2040` |
+| Target            | Argument                        | `rules.mk`                   | Condition                           |
+|-------------------|---------------------------------|------------------------------|-------------------------------------|
+| `proton_c`        | `-e CONVERT_TO=proton_c`        | `CONVERT_TO=proton_c`        | `#ifdef CONVERT_TO_PROTON_C`        |
+| `kb2040`          | `-e CONVERT_TO=kb2040`          | `CONVERT_TO=kb2040`          | `#ifdef CONVERT_TO_KB2040`          |
+| `promicro_rp2040` | `-e CONVERT_TO=promicro_rp2040` | `CONVERT_TO=promicro_rp2040` | `#ifdef CONVERT_TO_PROMICRO_RP2040` |
 
 ### Proton C :id=proton_c
 
@@ -69,7 +69,7 @@ The Proton C only has one on-board LED (C13), and by default, the TXLED (D5) is 
 #define CONVERT_TO_PROTON_C_RXLED
 ```
 
-These are defaults based on what has been implemented for STM32 boards.
+The following defaults are based on what has been implemented for STM32 boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
@@ -81,7 +81,7 @@ These are defaults based on what has been implemented for STM32 boards.
 
 ### Adafruit KB2040 :id=kb2040
 
-These are defaults based on what has been implemented for RP2040 boards.
+The following defaults are based on what has been implemented for RP2040 boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
