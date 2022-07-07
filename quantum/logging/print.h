@@ -100,7 +100,7 @@ void print_set_sendchar(sendchar_func_t func);
 #define print_bin32(i) IGNORE_FORMAT_WARNING(xprintf("%032lb", i))
 #define print_bin_reverse8(i) IGNORE_FORMAT_WARNING(xprintf("%08b", bitrev(i)))
 #define print_bin_reverse16(i) IGNORE_FORMAT_WARNING(xprintf("%016b", bitrev16(i)))
-#define print_bin_reverse32(i) IGNORE_FORMAT_WARNINGxprintf("%032lb", bitrev32(i)))
+#define print_bin_reverse32(i) IGNORE_FORMAT_WARNING(xprintf("%032lb", bitrev32(i)))
 /* print value utility */
 #define print_val_dec(v) xprintf(#v ": %u\n", v)
 #define print_val_decs(v) xprintf(#v ": %d\n", v)
