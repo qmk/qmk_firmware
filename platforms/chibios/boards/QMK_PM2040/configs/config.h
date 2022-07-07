@@ -7,10 +7,10 @@
 #    define I2C_DRIVER I2CD2
 #endif
 #ifndef I2C1_SDA_PIN
-#    define I2C1_SDA_PIN D2
+#    define I2C1_SDA_PIN 2U
 #endif
 #ifndef I2C1_SCL_PIN
-#    define I2C1_SCL_PIN D3
+#    define I2C1_SCL_PIN 3U
 #endif
 
 #ifndef RP2040_BOOTLOADER_DOUBLE_TAP_RESET
