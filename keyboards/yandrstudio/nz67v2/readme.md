@@ -2,7 +2,7 @@
 
 ![nz67v2](https://i.imgur.com/AHmBuAq.png)
 
-A 64 keys keyboard with rgb (key and underground).
+A 67 keys keyboard with rgb (key and underground).
 This keyboard use 16mhz HSE and APM32F103 as MCU.
 
 - Keyboard Maintainer: https://github.com/jiaxin96
