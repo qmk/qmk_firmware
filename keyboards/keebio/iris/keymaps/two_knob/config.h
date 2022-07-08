@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // Set tapdance speed:
-#define TAPPING_TERM 175
+#define TAPPING_TERM 210
 
 // Allows for the setting of constant mouse speed levels.
 #define MOUSEKEY_DELAY 10 // Delay between pressing a movement key and cursor movement
