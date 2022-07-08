@@ -646,8 +646,10 @@ def find_keyboard_c(keyboard):
 def _extract_led_config(info_data, keyboard):
     """Scan all <keyboard>.c files for led config
     """
-    cols = info_data['matrix_size']['cols']
-    rows = info_data['matrix_size']['rows']
+    cols = info_data.get('matrix_size', {}).get('cols', 0)
+    rows = info_data.get('matrix_size', {}).get('rows', 0)
+    if not cols or not rows:
+        return info_data
 
     # Assume what feature owns g_led_config
     feature = "rgb_matrix"

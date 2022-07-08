@@ -12,8 +12,8 @@ from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 def _gen_led_config(info_data):
     """Convert info.json content to g_led_config
     """
-    cols = info_data['matrix_size']['cols']
-    rows = info_data['matrix_size']['rows']
+    cols = info_data.get('matrix_size', {}).get('cols', 0)
+    rows = info_data.get('matrix_size', {}).get('rows', 0)
 
     config_type = None
     if 'layout' in info_data.get('rgb_matrix', {}):
@@ -22,7 +22,7 @@ def _gen_led_config(info_data):
         config_type = 'led_matrix'
 
     lines = []
-    if not config_type:
+    if not config_type or not cols or not rows:
         return lines
 
     matrix = [['NO_LED'] * cols for i in range(rows)]
