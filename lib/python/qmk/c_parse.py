@@ -24,9 +24,13 @@ def _get_chunks(it, size):
     return iter(lambda: tuple(islice(it, size)), ())
 
 
-def _preprocess_c_file(file):
+def _preprocess_c_file(c_file):
     """Load file and strip comments
     """
+    file = Path(c_file)
+    if not file.exists():
+        return ""
+
     file_contents = file.read_text(encoding='utf-8')
     file_contents = comment_remover(file_contents)
     return file_contents.replace('\\\n', '')
@@ -113,43 +117,39 @@ def parse_config_h_file(config_h_file, config_h=None):
     if not config_h:
         config_h = {}
 
-    config_h_file = Path(config_h_file)
+    config_h_text = _preprocess_c_file(config_h_file)
 
-    if config_h_file.exists():
-        config_h_text = config_h_file.read_text(encoding='utf-8')
-        config_h_text = config_h_text.replace('\\\n', '')
-        config_h_text = strip_multiline_comment(config_h_text)
+    for linenum, line in enumerate(config_h_text.split('\n')):
+        line = strip_line_comment(line).strip()
+        line = line.split()
 
-        for linenum, line in enumerate(config_h_text.split('\n')):
-            line = strip_line_comment(line).strip()
+        if not line:
+            continue
 
-            if not line:
-                continue
+        elif line[0] == '#define':
+            if len(line) > 1:
+                if line[1] in config_h or f'__{line[1]}' in config_h:
+                    # Duplicate #define usually means preprocessor logic - remove and ignore in future as we cannot handle that case
+                    config_h.pop(line[1], None)
+                    config_h[f'__{line[1]}'] = True
 
-            line = line.split()
+                else:
+                    if len(line) == 2:
+                        config_h[line[1]] = True
+                    else:
+                        config_h[line[1]] = ' '.join(line[2:])
+            else:
+                cli.log.error('%s: Incomplete #define! On or around line %s' % (config_h_file, linenum))
 
-            if line[0] == '#define':
-                if len(line) > 1:
-                    if line[1] in config_h:
-                        # Duplicate #define usually means preprocessor logic - remove as we cannot handle that case
+        elif line[0] == '#undef':
+            if len(line) == 2:
+                if line[1] in config_h:
+                    if config_h[line[1]] is True:
                         del config_h[line[1]]
                     else:
-                        if len(line) == 2:
-                            config_h[line[1]] = True
-                        else:
-                            config_h[line[1]] = ' '.join(line[2:])
-                else:
-                    cli.log.error('%s: Incomplete #define! On or around line %s' % (config_h_file, linenum))
-
-            elif line[0] == '#undef':
-                if len(line) == 2:
-                    if line[1] in config_h:
-                        if config_h[line[1]] is True:
-                            del config_h[line[1]]
-                        else:
-                            config_h[line[1]] = False
-                else:
-                    cli.log.error('%s: Incomplete #undef! On or around line %s' % (config_h_file, linenum))
+                        config_h[line[1]] = False
+            else:
+                cli.log.error('%s: Incomplete #undef! On or around line %s' % (config_h_file, linenum))
 
     return config_h
 
