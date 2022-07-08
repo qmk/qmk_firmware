@@ -191,7 +191,7 @@ class XAPShell(cmd.Cmd):
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>.')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available devices.')
 @cli.argument('-i', '--interactive', arg_only=True, action='store_true', help='Start interactive shell.')
-@cli.argument('action', nargs='*', default=['listen'], arg_only=True)
+@cli.argument('action', nargs='*', arg_only=True, default=['listen'], help='Shell command and any arguments to run standalone')
 @cli.subcommand('Acquire debugging information from usb XAP devices.', hidden=False if cli.config.user.developer else True)
 def xap(cli):
     """Acquire debugging information from XAP devices
@@ -206,7 +206,7 @@ def xap(cli):
         return False
 
     dev = devices[0]
-    cli.log.info('Connecting to:%04x:%04x %s %s', dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
+    cli.log.info('Connecting to: %04x:%04x %s %s', dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
     device = XAPClient().connect(dev)
 
     # shell?

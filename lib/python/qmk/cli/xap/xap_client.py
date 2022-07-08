@@ -67,7 +67,7 @@ class XAPDevice:
         """Background thread to signal waiting transactions
         """
         while 1:
-            array_alpha = self.dev.read(64, 100)
+            array_alpha = self.dev.read(ResponseStruct.size, 100)
             if array_alpha:
                 token = int.from_bytes(array_alpha[:2], 'little')
                 event = self.responses.get(token)
