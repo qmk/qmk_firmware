@@ -81,7 +81,7 @@ The following defaults are based on what has been implemented for STM32 boards.
 
 ### Adafruit KB2040 :id=kb2040
 
-The following defaults are based on what has been implemented for RP2040 boards.
+The following defaults are based on what has been implemented for [RP2040](platformdev_rp2040.md) boards.
 
 | Feature                                      | Notes                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
