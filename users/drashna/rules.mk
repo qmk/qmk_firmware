@@ -3,6 +3,8 @@ SRC += $(USER_PATH)/drashna.c \
         $(USER_PATH)/keyrecords/process_records.c \
         $(USER_PATH)/keyrecords/tapping.c
 
+# TOP_SYMBOLS = yes
+
 ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)
         LTO_ENABLE        = yes
@@ -15,6 +17,7 @@ GRAVE_ESC_ENABLE      = no
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/../../../qmk_secrets/secrets.c)","")
         SRC += $(USER_PATH)/../../../qmk_secrets/secrets.c
+        $(shell touch $(USER_PATH)/../../../qmk_secrets/secrets.c)
         SECURE_ENABLE = yes
     endif
     ifeq ($(strip $(NO_SECRETS)), lite)
@@ -103,7 +106,6 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
         SRC += $(USER_PATH)/pointing/pointing.c
         OPT_DEFS += -DCUSTOM_POINTING_DEVICE
-        OPT_DEFS += -DMOUSE_EXT_REPORT
     endif
 endif
 
@@ -119,5 +121,6 @@ endif
 AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
     SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
+    $(shell touch $(USER_PATH)/keyrecords/autocorrection/autocorrection.c)
     OPT_DEFS += -DAUTOCORRECTION_ENABLE
 endif
