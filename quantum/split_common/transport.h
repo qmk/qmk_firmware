@@ -46,7 +46,6 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
 
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
-#    define NUMBER_OF_DIP_SWITCHES (sizeof((pin_t[])DIP_SWITCH_PINS) / sizeof(pin_t))
 #endif // DIP_SWITCH_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
@@ -78,9 +77,9 @@ typedef struct _split_slave_encoder_sync_t {
 #ifdef DIP_SWITCH_ENABLE
 typedef struct _split_slave_dip_switch_sync_t {
     uint8_t checksum;
-    bool state[NUMBER_OF_DIP_SWITCHES];
+    bool    state[NUM_ENCODERS_MAX_PER_SIDE];
 } split_slave_dip_switch_sync_t;
-#endif  // DIP_SWITCH_ENABLE
+#endif // DIP_SWITCH_ENABLE
 
 #if !defined(NO_ACTION_LAYER) && defined(SPLIT_LAYER_STATE_ENABLE)
 typedef struct _split_layers_sync_t {
@@ -175,7 +174,7 @@ typedef struct _split_shared_memory_t {
 
 #ifdef DIP_SWITCH_ENABLE
     split_slave_dip_switch_sync_t dip_switches;
-#endif  // DIP_SWITCH_ENABLE
+#endif // DIP_SWITCH_ENABLE
 
 #ifndef DISABLE_SYNC_TIMER
     uint32_t sync_timer;
