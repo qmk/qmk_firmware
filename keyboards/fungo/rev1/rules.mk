@@ -2,8 +2,8 @@
 MCU = atmega32u4
 
 # Bootloader selection
-# BOOTLOADER = caterina  # controller pro micro
-BOOTLOADER = atmel-dfu   # controller Elite-C
+BOOTLOADER = caterina  # controller pro micro
+# BOOTLOADER = atmel-dfu   # controller Elite-C
 
 
 
