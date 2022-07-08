@@ -326,6 +326,19 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
 
+Blinking accumulates layers so if multiple layers are set blinking at the same time they will all blink for the duration and repeat times of the last layer to be blinked.
+To stop these other layers from blinking use `rgblight_unblink_layer` or `rgblight_unblink_all_but_layer`:
+
+```c
+rgblight_blink_layer(1, 500);
+rgblight_unblink_all_but_layer(1);
+```
+
+```c
+rgblight_unblink_layer(3);
+rgblight_blink_layer(2, 500);
+```
+
 !> Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
 
 ### Overriding RGB Lighting on/off status

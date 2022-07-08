@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*   ADJUST
  * ,-----------------------------------------.                                  ,-----------------------------------------.
- * |RESET |      |      |      |      |      |                                  | Mute | Vol+ | Play |      |      |      |
+ * |QK_BOOT |      |      |      |      |      |                                  | Mute | Vol+ | Play |      |      |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
  * |      |      |      | PSCR | SLCK | Pause|                                  | Prev | Vol- | Next |      |      |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          `-----------------------------'         '------------------------------'
  */
  [_ADJUST] = LAYOUT(
-  RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     KC_MUTE, KC_VOLU, KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX,
+  QK_BOOT,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     KC_MUTE, KC_VOLU, KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS,                                     KC_MPRV, KC_VOLD, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP,                                     XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGBRST,  RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
