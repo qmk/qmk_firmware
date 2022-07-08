@@ -26,6 +26,11 @@
 #    include "split_common/split_util.h"
 #endif
 
+// for memcpy
+#include <string.h>
+
+extern volatile bool isLeftHand;
+
 #if !defined(DIP_SWITCH_PINS) && !defined(DIP_SWITCH_MATRIX_GRID)
 #    error "Either DIP_SWITCH_PINS or DIP_SWITCH_MATRIX_GRID must be defined."
 #endif
@@ -36,30 +41,23 @@
 
 #ifdef DIP_SWITCH_PINS
 #    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
-static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
+static pin_t dip_switch_pad[NUM_DIP_SWITCHES_MAX_PER_SIDE] = DIP_SWITCH_PINS;
 #endif
 
 #ifdef DIP_SWITCH_MATRIX_GRID
-typedef struct matrix_index_t {
-    uint8_t row;
-    uint8_t col;
-} matrix_index_t;
-
 #    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
-static matrix_index_t dip_switch_pad[] = DIP_SWITCH_MATRIX_GRID;
+static matrix_index_t dip_switch_pad[NUM_DIP_SWITCHES_MAX_PER_SIDE] = DIP_SWITCH_MATRIX_GRID;
 extern bool           peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
 static uint16_t       scan_count;
 #endif /* DIP_SWITCH_MATRIX_GRID */
 
+static uint8_t thisCount;
 #ifdef SPLIT_KEYBOARD
 static uint8_t thisHand, thatHand;
-// slave half comes over
-static bool dip_switch_state[NUMBER_OF_DIP_SWITCHES * 2]      = {0};
-static bool last_dip_switch_state[NUMBER_OF_DIP_SWITCHES * 2] = {0};
-#else
-static bool dip_switch_state[NUMBER_OF_DIP_SWITCHES]      = {0};
-static bool last_dip_switch_state[NUMBER_OF_DIP_SWITCHES] = {0};
+static uint8_t thatCount;
 #endif
+static bool dip_switch_state[NUM_DIP_SWITCHES]         = {0};
+static bool last_dip_switch_state[NUM_DIP_SWITCHES] = {0};
 
 __attribute__((weak)) bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
@@ -78,26 +76,31 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) {
 }
 
 void dip_switch_init(void) {
+#ifdef SPLIT_KEYBOARD
+    thisHand  = isLeftHand ? 0 : NUM_DIP_SWITCHES_LEFT;
+    thatHand  = NUM_DIP_SWITCHES_LEFT - thisHand;
+    thisCount = isLeftHand ? NUM_DIP_SWITCHES_LEFT : NUM_DIP_SWITCHES_RIGHT;
+    thatCount = isLeftHand ? NUM_DIP_SWITCHES_RIGHT : NUM_DIP_SWITCHES_LEFT;
+#else // SPLIT_KEYBOARD
+    thisCount                = NUM_DIP_SWITCHES;
+#endif
+
 #ifdef DIP_SWITCH_PINS
 #    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
     if (!isLeftHand) {
         const pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
-        for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+        for (uint8_t i = 0; i < thisCount; i++) {
             dip_switch_pad[i] = dip_switch_pad_right[i];
         }
     }
 #    endif
-    for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+    for (uint8_t i = 0; i < thisCount; i++) {
         setPinInputHigh(dip_switch_pad[i]);
     }
     dip_switch_read(true);
 #endif
 #ifdef DIP_SWITCH_MATRIX_GRID
     scan_count = 0;
-#endif
-#ifdef SPLIT_KEYBOARD
-    thisHand = isLeftHand ? 0 : NUMBER_OF_DIP_SWITCHES;
-    thatHand = NUMBER_OF_DIP_SWITCHES - thisHand;
 #endif
 }
 
@@ -120,7 +123,7 @@ void dip_switch_read(bool forced) {
     }
 #endif
 
-    for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+    for (uint8_t i = 0; i < thisCount; i++) {
         index = i;
 
 #ifdef SPLIT_KEYBOARD
@@ -146,7 +149,7 @@ void dip_switch_read(bool forced) {
 
 #ifdef SPLIT_KEYBOARD
 void dip_switch_state_raw(bool *slave_state) {
-    memcpy(slave_state, &dip_switch_state[thisHand], sizeof(bool) * NUMBER_OF_DIP_SWITCHES);
+    memcpy(slave_state, &dip_switch_state[thisHand], sizeof(bool) * thisCount);
 }
 
 void dip_switch_update_raw(bool *slave_state) {
@@ -155,7 +158,7 @@ void dip_switch_update_raw(bool *slave_state) {
     uint32_t dip_switch_mask       = 0;
     bool     has_dip_state_changed = false;
 
-    for (int i = 0; i < NUMBER_OF_DIP_SWITCHES; ++i) {
+    for (int i = 0; i < thatCount; ++i) {
         index_that_hand = i + thatHand;
         index_this_hand = i + thisHand;
 
