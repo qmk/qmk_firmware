@@ -56,7 +56,7 @@ static uint8_t thisCount;
 static uint8_t thisHand, thatHand;
 static uint8_t thatCount;
 #endif
-static bool dip_switch_state[NUM_DIP_SWITCHES]         = {0};
+static bool dip_switch_state[NUM_DIP_SWITCHES]      = {0};
 static bool last_dip_switch_state[NUM_DIP_SWITCHES] = {0};
 
 __attribute__((weak)) bool dip_switch_update_user(uint8_t index, bool active) {
@@ -82,7 +82,7 @@ void dip_switch_init(void) {
     thisCount = isLeftHand ? NUM_DIP_SWITCHES_LEFT : NUM_DIP_SWITCHES_RIGHT;
     thatCount = isLeftHand ? NUM_DIP_SWITCHES_RIGHT : NUM_DIP_SWITCHES_LEFT;
 #else // SPLIT_KEYBOARD
-    thisCount                = NUM_DIP_SWITCHES;
+    thisCount = NUM_DIP_SWITCHES;
 #endif
 
 #ifdef DIP_SWITCH_PINS
