@@ -152,9 +152,14 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
     config_h_lines.append(f'#   define ENCODERS_PAD_B{postfix} {{ { ", ".join(b_pads) } }}')
     config_h_lines.append(f'#endif // ENCODERS_PAD_B{postfix}')
 
-    config_h_lines.append(f'#ifndef ENCODER_RESOLUTIONS{postfix}')
-    config_h_lines.append(f'#   define ENCODER_RESOLUTIONS{postfix} {{ { ", ".join(resolutions) } }}')
-    config_h_lines.append(f'#endif // ENCODER_RESOLUTIONS{postfix}')
+    if len(set(resolutions)) == 1:
+        config_h_lines.append(f'#ifndef ENCODER_RESOLUTION{postfix}')
+        config_h_lines.append(f'#   define ENCODER_RESOLUTION{postfix} { resolutions[0] }')
+        config_h_lines.append(f'#endif // ENCODER_RESOLUTION{postfix}')
+    else:
+        config_h_lines.append(f'#ifndef ENCODER_RESOLUTIONS{postfix}')
+        config_h_lines.append(f'#   define ENCODER_RESOLUTIONS{postfix} {{ { ", ".join(resolutions) } }}')
+        config_h_lines.append(f'#endif // ENCODER_RESOLUTIONS{postfix}')
 
 
 def generate_split_config(kb_info_json, config_h_lines):
