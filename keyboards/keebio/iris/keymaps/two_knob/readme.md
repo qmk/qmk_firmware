@@ -1,5 +1,7 @@
 # Two Knob Keymap for Iris Rev6a
-![Picture](https://i.imgur.com/JqGPWCn.png)
+![two_knobs](https://i.imgur.com/JqGPWCn.png)
+
+This keymap is derived from Ergodox layouts and is adapted for the [Iris6a](https://docs.keeb.io/iris-rev6-build-guide). It is notable for it's semi-complex programming examples that include the use of rotary encoders.
 
 Plenty of useful examples:
 * Advanced knob programming! (Three-layer usage + clicks)

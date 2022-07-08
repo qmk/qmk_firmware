@@ -1,5 +1,4 @@
-/*
-Copyright 2017 Danny Nguyen <danny@keeb.io>
+/* Copyright 2022 [JellyTitan](https://github.com/JellyTitan) 
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,31 +16,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// #define USE_I2C
 #define EE_HANDS
 
-// Turn off RGB light when host is asleep. (Doesn't seem to work for mac)?
+/* Turn off RGB light when host is asleep. (Doesn't seem to work for mac)? */
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_LAYERS
-// Decrease decay of heatmap rgb effect
+/* Decrease decay of heatmap rgb effect */
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
-// If you're setting colors per key, this is required.
+/* If you're setting colors per key, this is required. */
 #define SPLIT_LAYER_STATE_ENABLE
 
-// If you type too fast, it confuses the Mod key combos. This resolves it:
+/* If you type too fast, it confuses the Mod key combos. This resolves it: */
 #define IGNORE_MOD_TAP_INTERRUPT
 
-// Set tapdance speed:
+/* Set tapdance speed */
 #define TAPPING_TERM 210
 
-// Allows for the setting of constant mouse speed levels.
-#define MOUSEKEY_DELAY 10 // Delay between pressing a movement key and cursor movement
-#define MOUSEKEY_INTERVAL 16 // Time between cursor movements in milliseconds
-#define MOUSEKEY_MOVE_DELTA 8 // Step size
-#define MOUSEKEY_MAX_SPEED 2 // Maximum cursor speed at which acceleration stops
-#define MOUSEKEY_TIME_TO_MAX 40 // Time until maximum cursor speed is reached
-#define MOUSEKEY_WHEEL_MAX_SPEED 42 // Maximum number of scroll steps per scroll action
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 15 // Time until maximum scroll speed is reached
+/* Allows for the setting of constant mouse speed levels. */
+/* Delay between pressing a movement key and cursor movement */
+#define MOUSEKEY_DELAY 10
+/* Time between cursor movements in milliseconds */
+#define MOUSEKEY_INTERVAL 16
+/* Step size */
+#define MOUSEKEY_MOVE_DELTA 8
+/* Maximum cursor speed at which acceleration stops */
+#define MOUSEKEY_MAX_SPEED 2
+/* Time until maximum cursor speed is reached */
+#define MOUSEKEY_TIME_TO_MAX 40
+/* Maximum number of scroll steps per scroll action */
+#define MOUSEKEY_WHEEL_MAX_SPEED 42
+/* Time until maximum scroll speed is reached */
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 15
 
 // Tweak how the mouse cursor moves. https://docs.qmk.fm/#/feature_mouse_keys
 // Accelerated mode (default).
@@ -69,10 +74,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS  48  Accelerated wheel movements
 // MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS  8 Decelerated wheel movements
 
-// Used for debugging. Switching these off saves space.
+/* Used for debugging. Switching these off saves space. */
 #ifndef NO_DEBUG
 #define NO_DEBUG
-#endif // !NO_DEBUG
+#endif /* !NO_DEBUG */
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
-#endif // !NO_PRINT
+#endif /* !NO_PRINT */
