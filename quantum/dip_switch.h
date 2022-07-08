@@ -28,3 +28,8 @@ bool dip_switch_update_mask_kb(uint32_t state);
 
 void dip_switch_init(void);
 void dip_switch_read(bool forced);
+
+#ifdef SPLIT_KEYBOARD
+void dip_switch_state_raw(bool *slave_state);
+void dip_switch_update_raw(bool *slave_state);
+#endif

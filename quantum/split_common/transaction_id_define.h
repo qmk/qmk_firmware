@@ -33,6 +33,11 @@ enum serial_transaction_id {
     GET_ENCODERS_DATA,
 #endif // ENCODER_ENABLE
 
+#ifdef DIP_SWITCH_ENABLE
+    GET_DIP_SWITCH_CHECKSUM,
+    GET_DIP_SWITCH_DATA,
+#endif  // DIP_SWITCH_ENABLE
+
 #ifndef DISABLE_SYNC_TIMER
     PUT_SYNC_TIMER,
 #endif // DISABLE_SYNC_TIMER
