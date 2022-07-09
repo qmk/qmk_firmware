@@ -152,7 +152,7 @@ static inline void enter_rx_state(void) {
     }
     // Wait for ~11 bits, 1 start bit + 8 data bits + 1 stop bit + 1 bit
     // headroom.
-    chSysPolledDelayX(US2RTC(1 * MHZ, (1000000U * 11 / SERIAL_USART_SPEED)));
+    wait_us(1000000U * 11U / SERIAL_USART_SPEED);
     // Disable tx state machine to not interfere with our tx pin manipulation
     pio_sm_set_enabled(pio, tx_state_machine, false);
     gpio_set_drive_strength(SERIAL_USART_TX_PIN, GPIO_DRIVE_STRENGTH_2MA);
