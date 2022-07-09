@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <math.h>
+#include <stdlib.h>
 #include <lib/lib8tion/lib8tion.h>
 #include "cirque_pinnacle_gestures.h"
 #include "pointing_device.h"
@@ -139,15 +139,14 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
             /* Already detecting scroll, check movement from touchdown location */
             mag = sqrt16((x - scroll.x) * (x - scroll.x) + (y - scroll.y) * (y - scroll.y));
             if (mag >= scroll.config.trigger_px) {
-#    define ABS(a) (a > 0 ? a : -a)
                 /*
                  * Find angle of movement.
                  * 0 degrees here means movement towards center of circle
                  */
                 dot           = scroll.x * x + scroll.y * y;
                 det           = scroll.x * y - scroll.y * x;
-                opposite_side = ABS(det);                                /* Based on scalar rejection */
-                adjacent_side = ABS(scroll.mag * scroll.mag - ABS(dot)); /* Based on scalar projection */
+                opposite_side = abs(det);                                /* Based on scalar rejection */
+                adjacent_side = abs(scroll.mag * scroll.mag - abs(dot)); /* Based on scalar projection */
                 ang           = (int16_t)atan2_16(opposite_side, adjacent_side);
                 if (ang < scroll.config.trigger_ang) {
                     /* Not a scroll, release coordinates */
