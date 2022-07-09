@@ -81,15 +81,15 @@ void cirque_pinnacle_clear_flags() {
 
 // Enables/Disables the feed
 void cirque_pinnacle_enable_feed(bool feedEnable) {
-    uint8_t temp;
-    RAP_ReadBytes(HOSTREG__FEEDCONFIG1, &temp, 1);
+    uint8_t feedconfig1;
+    RAP_ReadBytes(HOSTREG__FEEDCONFIG1, &feedconfig1, 1);
 
     if (feedEnable) {
-        temp |= HOSTREG__FEEDCONFIG1__FEED_ENABLE;
+        feedconfig1 |= HOSTREG__FEEDCONFIG1__FEED_ENABLE;
     } else {
-        temp &= ~HOSTREG__FEEDCONFIG1__FEED_ENABLE;
+        feedconfig1 &= ~HOSTREG__FEEDCONFIG1__FEED_ENABLE;
     }
-    RAP_Write(HOSTREG__FEEDCONFIG1, temp);
+    RAP_Write(HOSTREG__FEEDCONFIG1, feedconfig1);
 }
 
 /*  ERA (Extended Register Access) Functions  */
@@ -143,27 +143,27 @@ void ERA_WriteByte(uint16_t address, uint8_t data) {
 }
 
 void cirque_pinnacle_set_adc_attenuation(uint8_t adcGain) {
-    uint8_t temp = 0x00;
+    uint8_t adcconfig = 0x00;
 
-    ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &temp, 1);
-    temp &= EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK;
-    temp |= adcGain;
-    ERA_WriteByte(EXTREG__TRACK_ADCCONFIG, temp);
-    ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &temp, 1);
+    ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &adcconfig, 1);
+    adcconfig &= EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK;
+    adcconfig |= adcGain;
+    ERA_WriteByte(EXTREG__TRACK_ADCCONFIG, adcconfig);
+    ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &adcconfig, 1);
 }
 
 // Changes thresholds to improve detection of fingers
 // Not needed for flat overlay?
 void cirque_pinnacle_tune_edge_sensitivity(void) {
-    uint8_t temp = 0x00;
+    uint8_t widezmin = 0x00;
 
-    ERA_ReadBytes(EXTREG__XAXIS_WIDEZMIN, &temp, 1);
+    ERA_ReadBytes(EXTREG__XAXIS_WIDEZMIN, &widezmin, 1);
     ERA_WriteByte(EXTREG__XAXIS_WIDEZMIN, 0x04); // magic number from Cirque sample code
-    ERA_ReadBytes(EXTREG__XAXIS_WIDEZMIN, &temp, 1);
+    ERA_ReadBytes(EXTREG__XAXIS_WIDEZMIN, &widezmin, 1);
 
-    ERA_ReadBytes(EXTREG__YAXIS_WIDEZMIN, &temp, 1);
+    ERA_ReadBytes(EXTREG__YAXIS_WIDEZMIN, &widezmin, 1);
     ERA_WriteByte(EXTREG__YAXIS_WIDEZMIN, 0x03); // magic number from Cirque sample code
-    ERA_ReadBytes(EXTREG__YAXIS_WIDEZMIN, &temp, 1);
+    ERA_ReadBytes(EXTREG__YAXIS_WIDEZMIN, &widezmin, 1);
 }
 
 // Perform calibration
