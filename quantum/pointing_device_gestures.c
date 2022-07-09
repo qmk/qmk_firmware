@@ -17,9 +17,10 @@
 #include "pointing_device_gestures.h"
 #include "timer.h"
 
-#ifdef POINTING_DEVICE_MOTION_PIN
-#    error POINTING_DEVICE_MOTION_PIN not supported when using inertial cursor. Need repeated calls to get_report() to generate glide events.
-#endif
+#ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+#    ifdef POINTING_DEVICE_MOTION_PIN
+#        error POINTING_DEVICE_MOTION_PIN not supported when using inertial cursor. Need repeated calls to get_report() to generate glide events.
+#    endif
 
 static void cursor_glide_stop(cursor_glide_context_t* glide) {
     memset(&glide->status, 0, sizeof(glide->status));
@@ -126,3 +127,4 @@ void cursor_glide_update(cursor_glide_context_t* glide, mouse_xy_report_t dx, mo
     status->dy0 = dy;
     status->z   = z;
 }
+#endif

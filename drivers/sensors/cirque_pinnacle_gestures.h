@@ -19,15 +19,31 @@
 #include "cirque_pinnacle.h"
 #include "report.h"
 
-#ifndef CIRQUE_PINNACLE_TAPPING_TERM
-#    include "action.h"
-#    include "action_tapping.h"
-#    define CIRQUE_PINNACLE_TAPPING_TERM GET_TAPPING_TERM(KC_BTN1, &(keyrecord_t){})
-#endif
-#ifndef CIRQUE_PINNACLE_TOUCH_DEBOUNCE
-#    define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
+typedef struct {
+    bool tap_enable;
+    bool circular_scroll_enable;
+} cirque_pinnacle_features_t;
+
+#ifdef CIRQUE_PINNACLE_TAP_ENABLE
+#    ifndef CIRQUE_PINNACLE_TAPPING_TERM
+#        include "action.h"
+#        include "action_tapping.h"
+#        define CIRQUE_PINNACLE_TAPPING_TERM GET_TAPPING_TERM(KC_BTN1, &(keyrecord_t){})
+#    endif
+#    ifndef CIRQUE_PINNACLE_TOUCH_DEBOUNCE
+#        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
+#    endif
+
+typedef struct {
+    uint16_t timer;
+    bool     touchDown;
+} trackpad_tap_context_t;
+
+// Enable/disable tap gesture
+void cirque_pinnacle_enable_tap(bool enable);
 #endif
 
+#ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
 typedef enum {
     SCROLL_UNINITIALIZED,
     SCROLL_DETECTING,
@@ -59,22 +75,6 @@ typedef struct {
     bool                     axis;
 } circular_scroll_context_t;
 
-typedef struct {
-    uint16_t timer;
-    bool     touchDown;
-} trackpad_tap_context_t;
-
-typedef struct {
-    bool tap_enable;
-    bool circular_scroll_enable;
-} cirque_pinnacle_features_t;
-
-// Process through available gestures
-bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData);
-
-// Enable/disable tap gesture
-void cirque_pinnacle_enable_tap(bool enable);
-
 // Enable/disable circular scroll gesture
 void cirque_pinnacle_enable_circular_scroll(bool enable);
 
@@ -86,3 +86,18 @@ void cirque_pinnacle_enable_circular_scroll(bool enable);
 // @param wheel_clicks Number of scroll wheel clicks to report in a full rotation.
 // @param left_handed Whether scrolling should be flipped for left-handed use.
 void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks, bool left_handed);
+#endif
+
+#ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+// Implementation in pointing_device_drivers.c
+
+// Enable/disable inertial cursor
+void cirque_pinnacle_enable_cursor_glide(bool enable);
+
+// Configure inertial cursor.
+// @param trigger_px Movement required to trigger cursor glide, set this to non-zero if you have some amount of hover.
+void cirque_pinnacle_configure_cursor_glide(float trigger_px);
+#endif
+
+// Process through available gestures
+bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData);

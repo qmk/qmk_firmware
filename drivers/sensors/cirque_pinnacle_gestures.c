@@ -20,8 +20,12 @@
 #include "pointing_device.h"
 #include "timer.h"
 
-static cirque_pinnacle_features_t features = {.tap_enable = true};
-static trackpad_tap_context_t     tap;
+#if defined(CIRQUE_PINNACLE_TAP_ENABLE) || defined(CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE)
+static cirque_pinnacle_features_t features = {.tap_enable = true, .circular_scroll_enable = true};
+#endif
+
+#ifdef CIRQUE_PINNACLE_TAP_ENABLE
+static trackpad_tap_context_t tap;
 
 static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t touchData) {
     if (touchData.touchDown != tap.touchDown) {
@@ -31,9 +35,9 @@ static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t 
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
                 pointing_device_set_report(mouse_report);
                 pointing_device_send();
-#if TAP_CODE_DELAY > 0
+#    if TAP_CODE_DELAY > 0
                 wait_ms(TAP_CODE_DELAY);
-#endif
+#    endif
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
                 pointing_device_set_report(mouse_report);
                 pointing_device_send();
@@ -52,7 +56,9 @@ static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t 
 void cirque_pinnacle_enable_tap(bool enable) {
     features.tap_enable = enable;
 }
+#endif
 
+#ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
 // To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0
 static circular_scroll_context_t scroll = {.config = {.outer_ring_pct = 33, .trigger_px = 16, .trigger_ang = 9102 /* 50 degrees */, .wheel_clicks = 18}};
 
@@ -110,22 +116,22 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
                 //   vertical if started from righ half
                 //   horizontal if started from left half
                 // flipped for left-handed
-#if defined(POINTING_DEVICE_ROTATION_90)
+#    if defined(POINTING_DEVICE_ROTATION_90)
                 scroll.axis = y < 0;
-#elif defined(POINTING_DEVICE_ROTATION_180)
+#    elif defined(POINTING_DEVICE_ROTATION_180)
                 scroll.axis = x > 0;
-#elif defined(POINTING_DEVICE_ROTATION_270)
+#    elif defined(POINTING_DEVICE_ROTATION_270)
                 scroll.axis = y > 0;
-#else
+#    else
                 scroll.axis = x < 0;
-#endif
+#    endif
             }
         } else if (scroll.state == SCROLL_DETECTING) {
             report.suppress_touch = true;
             // already detecting scroll, check movement from touchdown location
             mag = sqrt16((x - scroll.x) * (x - scroll.x) + (y - scroll.y) * (y - scroll.y));
             if (mag >= scroll.config.trigger_px) {
-#define ABS(a) (a > 0 ? a : -a)
+#    define ABS(a) (a > 0 ? a : -a)
                 // find angle of movement with 0 being movement towards center of circle
                 dot           = scroll.x * x + scroll.y * y;
                 det           = scroll.x * y - scroll.y * x;
@@ -186,20 +192,26 @@ void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t t
     scroll.config.wheel_clicks   = wheel_clicks;
     scroll.config.left_handed    = left_handed;
 }
+#endif
 
 bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData) {
-    bool              suppress_mouse_update = false;
-    circular_scroll_t scroll_report;
+    bool suppress_mouse_update = false;
 
+#ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
+    circular_scroll_t scroll_report;
     if (features.circular_scroll_enable) {
         scroll_report         = circular_scroll(touchData);
         mouse_report->v       = scroll_report.v;
         mouse_report->h       = scroll_report.h;
         suppress_mouse_update = scroll_report.suppress_touch;
     }
+#endif
+
+#ifdef CIRQUE_PINNACLE_TAP_ENABLE
     if (features.tap_enable) {
         *mouse_report = trackpad_tap(*mouse_report, touchData);
     }
+#endif
 
     return suppress_mouse_update;
 }

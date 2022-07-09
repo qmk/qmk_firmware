@@ -97,10 +97,14 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
-static bool                   cursor_glide_enable;
-static cursor_glide_context_t glide = {.config = {.coef = 102 /* good default friction coef */, .interval = 10 /* 100sps */}};
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+static bool cursor_glide_enable = true;
 
-// extern this for now
+static cursor_glide_context_t glide = {.config = {
+                                           .coef     = 102, /* good default friction coef */
+                                           .interval = 10   /* 100sps */
+                                       }};
+
 void cirque_pinnacle_enable_cursor_glide(bool enable) {
     cursor_glide_enable = enable;
 }
@@ -108,27 +112,32 @@ void cirque_pinnacle_enable_cursor_glide(bool enable) {
 void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
     glide.config.trigger_px = trigger_px;
 }
+#    endif
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t          touchData = cirque_pinnacle_read_data();
-    cursor_glide_t           glide_report;
     mouse_xy_report_t        report_x = 0, report_y = 0;
     static mouse_xy_report_t x = 0, y = 0;
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+    cursor_glide_t           glide_report = {0};
+
+    if (cursor_glide_enable) {
+        glide_report = cursor_glide_check(&glide);
+    }
+#    endif
 
 #    if !CIRQUE_PINNACLE_POSITION_MODE
 #        error Cirque Pinnacle with relative mode not implemented yet.
 #    endif
 
-    if (cursor_glide_enable) {
-        glide_report = cursor_glide_check(&glide);
-    }
-
     if (!touchData.valid) {
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
         if (cursor_glide_enable && glide_report.valid) {
             report_x = glide_report.dx;
             report_y = glide_report.dy;
             goto mouse_report_update;
         }
+#    endif
         return mouse_report;
     }
 
@@ -149,6 +158,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         x = touchData.xValue;
         y = touchData.yValue;
 
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
         if (cursor_glide_enable) {
             if (touchData.touchDown) {
                 cursor_glide_update(&glide, report_x, report_y, touchData.zValue);
@@ -160,9 +170,12 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
                 }
             }
         }
+#    endif
     }
 
+#    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
 mouse_report_update:
+#    endif
     mouse_report.x = report_x;
     mouse_report.y = report_y;
 
