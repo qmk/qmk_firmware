@@ -41,16 +41,19 @@ static cursor_glide_t cursor_glide(cursor_glide_context_t* glide) {
     }
 
     status->counter++;
-    // calculate current 1D position
+    /* Calculate current 1D position */
     p = status->v0 * status->counter - (int32_t)glide->config.coef * status->counter * status->counter / 2;
-    // translate to x & y axes
+    /*
+     * Translate to x & y axes
+     * Done this way instead of applying friction to each axis separately, so we don't end up with the shorter axis stuck at 0 towards the end of diagonal movements.
+     */
     x            = (int32_t)(p * status->dx0 / status->v0);
     y            = (int32_t)(p * status->dy0 / status->v0);
     report.dx    = (mouse_xy_report_t)(x - status->x);
     report.dy    = (mouse_xy_report_t)(y - status->y);
     report.valid = true;
     if (report.dx <= 1 && report.dx >= -1 && report.dy <= 1 && report.dy >= -1) {
-        // stop gliding once speed is low enough
+        /* Stop gliding once speed is low enough */
         cursor_glide_stop(glide);
         goto exit;
     }
@@ -79,16 +82,16 @@ static inline uint16_t sqrt32(uint32_t x) {
     if (x == 0) {
         return 0;
     } else if (x > (UINT16_MAX >> 2)) {
-        // safe upper bound to avoid integer overflow with m * m
+        /* Safe upper bound to avoid integer overflow with m * m */
         h = UINT16_MAX;
     } else {
-        // upper bound based on closest log2
+        /* Upper bound based on closest log2 */
         h = (1 << (((__builtin_clzl(1) - __builtin_clzl(x) + 1) + 1) >> 1));
     }
-    // lower bound based on closest log2
+    /* Lower bound based on closest log2 */
     l = (1 << ((__builtin_clzl(1) - __builtin_clzl(x)) >> 1));
 
-    // binary search to find integer square root
+    /* Binary search to find integer square root */
     while (l != h - 1) {
         m = (l + h) / 2;
         if (m * m <= x) {
@@ -111,8 +114,8 @@ cursor_glide_t cursor_glide_start(cursor_glide_context_t* glide) {
     status->y       = 0;
     status->z       = 0;
 
-    if (status->v0 < ((uint32_t)glide->config.trigger_px * 256)) { // Q8 comparison
-        // not enough velocity to be worth gliding, abort
+    if (status->v0 < ((uint32_t)glide->config.trigger_px * 256)) { /* Q8 comparison */
+        /* Not enough velocity to be worth gliding, abort */
         cursor_glide_stop(glide);
         return invalid_report;
     }

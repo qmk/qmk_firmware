@@ -39,7 +39,7 @@ typedef struct {
     bool     touchDown;
 } trackpad_tap_context_t;
 
-// Enable/disable tap gesture
+/* Enable/disable tap gesture */
 void cirque_pinnacle_enable_tap(bool enable);
 #endif
 
@@ -58,11 +58,11 @@ typedef struct {
 } circular_scroll_t;
 
 typedef struct {
-    uint8_t  outer_ring_pct; // width of outer ring, given as a percentage of the radius
-    uint8_t  trigger_px;     // amount of movement before triggering scroll validation, in pixels 0~127
-    uint16_t trigger_ang;    // angle required to validate scroll, in radians where pi = 32768
-    uint8_t  wheel_clicks;   // how many clicks to report in a circle
-    bool     left_handed;    // whether scrolling should be flipped for left handed use
+    uint8_t  outer_ring_pct; /* Width of outer ring, given as a percentage of the radius */
+    uint8_t  trigger_px;     /* Amount of movement before triggering scroll validation, in pixels 0~127 */
+    uint16_t trigger_ang;    /* Angle required to validate scroll, in radians where pi = 32768 */
+    uint8_t  wheel_clicks;   /* How many clicks to report in a circle */
+    bool     left_handed;    /* Whether scrolling should be flipped for left handed use */
 } circular_scroll_config_t;
 
 typedef struct {
@@ -75,29 +75,33 @@ typedef struct {
     bool                     axis;
 } circular_scroll_context_t;
 
-// Enable/disable circular scroll gesture
+/* Enable/disable circular scroll gesture */
 void cirque_pinnacle_enable_circular_scroll(bool enable);
 
-// Configure circular scroll gesture.
-// Trackpad can be configured to act exclusively as a scroll wheel with outer_ring_pct = 0, trigger_px = 0, trigger_ang = 0.
-// @param outer_ring_pct Width of outer ring from which to begin scroll validation, given as a percentage of the radius.
-// @param trigger_px Amount of movement before triggering scroll validation. Expressed in pixels, trackpad coordinates are scaled to radius of 128 pixels for circular scroll.
-// @param triger_ang Angle required to validate scroll, angle smaller than this will invalidate scroll. In radians where pi = 32768, 0 means movement towards center of trackpad, 16384 means movement perpendicular to center.
-// @param wheel_clicks Number of scroll wheel clicks to report in a full rotation.
-// @param left_handed Whether scrolling should be flipped for left-handed use.
+/*
+ * Configure circular scroll gesture.
+ * Trackpad can be configured to act exclusively as a scroll wheel with outer_ring_pct = 0, trigger_px = 0, trigger_ang = 0.
+ * @param outer_ring_pct Width of outer ring from which to begin scroll validation, given as a percentage of the radius.
+ * @param trigger_px Amount of movement before triggering scroll validation. Expressed in pixels, trackpad coordinates are scaled to radius of 128 pixels for circular scroll.
+ * @param triger_ang Angle required to validate scroll, angle smaller than this will invalidate scroll. In radians where pi = 32768, 0 means movement towards center of trackpad, 16384 means movement perpendicular to center.
+ * @param wheel_clicks Number of scroll wheel clicks to report in a full rotation.
+ * @param left_handed Whether scrolling should be flipped for left-handed use.
+ */
 void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t trigger_px, uint16_t trigger_ang, uint8_t wheel_clicks, bool left_handed);
 #endif
 
 #ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
-// Implementation in pointing_device_drivers.c
+/* Implementation in pointing_device_drivers.c */
 
-// Enable/disable inertial cursor
+/* Enable/disable inertial cursor */
 void cirque_pinnacle_enable_cursor_glide(bool enable);
 
-// Configure inertial cursor.
-// @param trigger_px Movement required to trigger cursor glide, set this to non-zero if you have some amount of hover.
+/*
+ * Configure inertial cursor.
+ * @param trigger_px Movement required to trigger cursor glide, set this to non-zero if you have some amount of hover.
+ */
 void cirque_pinnacle_configure_cursor_glide(float trigger_px);
 #endif
 
-// Process through available gestures
+/* Process available gestures */
 bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData);

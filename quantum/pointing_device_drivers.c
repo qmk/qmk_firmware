@@ -101,9 +101,9 @@ const pointing_device_driver_t pointing_device_driver = {
 static bool cursor_glide_enable = true;
 
 static cursor_glide_context_t glide = {.config = {
-                                           .coef       = 102, /* good default friction coef */
+                                           .coef       = 102, /* Good default friction coef */
                                            .interval   = 10,  /* 100sps */
-                                           .trigger_px = 10,  /* default threshold in case of hover, set to 0 if you'd like */
+                                           .trigger_px = 10,  /* Default threshold in case of hover, set to 0 if you'd like */
                                        }};
 
 void cirque_pinnacle_enable_cursor_glide(bool enable) {

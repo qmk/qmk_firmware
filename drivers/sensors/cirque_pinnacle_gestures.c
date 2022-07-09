@@ -52,31 +52,35 @@ static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t 
     return mouse_report;
 }
 
-// extern this function for now
 void cirque_pinnacle_enable_tap(bool enable) {
     features.tap_enable = enable;
 }
 #endif
 
 #ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
-// To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0
-static circular_scroll_context_t scroll = {.config = {.outer_ring_pct = 33, .trigger_px = 16, .trigger_ang = 9102 /* 50 degrees */, .wheel_clicks = 18}};
+/* To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0 */
+static circular_scroll_context_t scroll = {.config = {.outer_ring_pct = 33,
+                                                      .trigger_px     = 16,
+                                                      .trigger_ang    = 9102, /* 50 degrees */
+                                                      .wheel_clicks   = 18}};
 
 static inline uint16_t atan2_16(int32_t dy, int32_t dx) {
     if (dy == 0) {
-        if (dx >= 0)
+        if (dx >= 0) {
             return 0;
-        else
+        } else {
             return 32768;
+        }
     }
 
     int32_t abs_y = dy > 0 ? dy : -dy;
     int16_t a;
 
-    if (dx >= 0)
+    if (dx >= 0) {
         a = 8192 - (8192 * (dx - abs_y) / (dx + abs_y));
-    else
+    } else {
         a = 24576 - (8192 * (dx + abs_y) / (abs_y - dx));
+    }
 
     if (dy < 0) {
         return -a; // negate if in quad III or IV
@@ -92,8 +96,10 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
     uint16_t          scale = cirque_pinnacle_get_scale();
 
     if (touchData.zValue) {
-        // place origin at center of trackpad, treat coordinates as vectors
-        // scale to fixed int8_t size, angles are independent of resolution
+        /*
+         * Place origin at center of trackpad, treat coordinates as vectors.
+         * Scale to fixed int8_t size; angles are independent of resolution.
+         */
         if (scale) {
             x = (int8_t)((int32_t)touchData.xValue * 256 / scale - center);
             y = (int8_t)((int32_t)touchData.yValue * 256 / scale - center);
@@ -102,20 +108,22 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
             y = 0;
         }
 
-        // check if first touch
+        /* Check if first touch */
         if (!scroll.z) {
             report.suppress_touch = false;
-            // check if touch falls within outer ring
+            /* Check if touch falls within outer ring */
             mag = sqrt16(x * x + y * y);
             if (mag * 100 / center >= 100 - scroll.config.outer_ring_pct) {
                 scroll.state = SCROLL_DETECTING;
                 scroll.x     = x;
                 scroll.y     = y;
                 scroll.mag   = mag;
-                // decide scroll axis:
-                //   vertical if started from righ half
-                //   horizontal if started from left half
-                // flipped for left-handed
+                /*
+                 * Decide scroll axis:
+                 *   Vertical if started from righ half
+                 *   Horizontal if started from left half
+                 * Flipped for left-handed
+                 */
 #    if defined(POINTING_DEVICE_ROTATION_90)
                 scroll.axis = y < 0;
 #    elif defined(POINTING_DEVICE_ROTATION_180)
@@ -128,22 +136,25 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
             }
         } else if (scroll.state == SCROLL_DETECTING) {
             report.suppress_touch = true;
-            // already detecting scroll, check movement from touchdown location
+            /* Already detecting scroll, check movement from touchdown location */
             mag = sqrt16((x - scroll.x) * (x - scroll.x) + (y - scroll.y) * (y - scroll.y));
             if (mag >= scroll.config.trigger_px) {
 #    define ABS(a) (a > 0 ? a : -a)
-                // find angle of movement with 0 being movement towards center of circle
+                /*
+                 * Find angle of movement.
+                 * 0 degrees here means movement towards center of circle
+                 */
                 dot           = scroll.x * x + scroll.y * y;
                 det           = scroll.x * y - scroll.y * x;
-                opposite_side = ABS(det);                                // based on scalar rejection
-                adjacent_side = ABS(scroll.mag * scroll.mag - ABS(dot)); // based on scalar projection
+                opposite_side = ABS(det);                                /* Based on scalar rejection */
+                adjacent_side = ABS(scroll.mag * scroll.mag - ABS(dot)); /* Based on scalar projection */
                 ang           = (int16_t)atan2_16(opposite_side, adjacent_side);
                 if (ang < scroll.config.trigger_ang) {
-                    // not a scroll, release coordinates
+                    /* Not a scroll, release coordinates */
                     report.suppress_touch = false;
                     scroll.state          = NOT_SCROLL;
                 } else {
-                    // scroll detected
+                    /* Scroll detected */
                     scroll.state = SCROLL_VALID;
                 }
             }
@@ -180,7 +191,6 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
     return report;
 }
 
-// extern this for now
 void cirque_pinnacle_enable_circular_scroll(bool enable) {
     features.circular_scroll_enable = enable;
 }
