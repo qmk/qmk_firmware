@@ -30,6 +30,11 @@
 
 #ifdef WAIT_US_TIMER
 void wait_us(uint16_t duration);
+#elif PORT_SUPPORTS_RT == TRUE
+#    define wait_us(us)                                            \
+        do {                                                       \
+            chSysPolledDelayX(US2RTC(REALTIME_COUNTER_CLOCK, us)); \
+        } while (0)
 #else
 #    define wait_us(us)                     \
         do {                                \
