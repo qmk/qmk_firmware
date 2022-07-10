@@ -64,11 +64,6 @@ void matrix_init_user(void) {
   writePinHigh(B5);
 }
 
-void matrix_scan_user(void) {
-
-}
-
-
 void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinHigh(B6);
@@ -90,9 +85,9 @@ void led_set_user(uint8_t usb_led) {
 }
 
 //function for layer indicator LED
-uint32_t layer_state_set_user(uint32_t state)
+layer_state_t layer_state_set_user(layer_state_t state)
 {
-    if (biton32(state) == 2) {
+    if (biton32(state) == 1) {
     writePinHigh(C6);
 	} else {
 		writePinLow(C6);

@@ -4,10 +4,15 @@
 
 #include "noah.h"
 
+void bootloader_jump(void) {
+    // This board doesn't use the standard DFU bootloader, and no information is available regarding how to enter bootloader mode. All we can do here is reset.
+    NVIC_SystemReset();
+}
+
 #ifdef RGBLIGHT_ENABLE
 #include <string.h>
 #include "rgblight.h"
-#include "ws2812_f4.h"
+#include "ws2812.h"
 extern rgblight_config_t rgblight_config;
 
 // led 0 for caps lock, led 1 for scroll lock, led 3 for num lock
@@ -50,33 +55,15 @@ void rgblight_set(void) {
 }
 #endif
 
-void matrix_scan_kb(void) { matrix_scan_user(); }
-
-void matrix_init_kb(void) {
-  matrix_init_user();
-}
-__attribute__((weak))
-void matrix_init_user(void) {
+void matrix_scan_kb(void) {
 #ifdef RGBLIGHT_ENABLE
-  ws2812_init();
-  rgblight_enable();
+    rgblight_task();
 #endif
+    matrix_scan_user();
+}
 
 #ifdef RGB_MATRIX_ENABLE
-  rgb_matrix_disable();
-#endif
-}
-
-__attribute__((weak))
-void matrix_scan_user(void) {
-#ifdef RGBLIGHT_ENABLE
-  rgblight_task();
-#endif
-}
-
-
-#ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -185,9 +172,9 @@ led_config_t g_led_config = {
         { 20, 16},{ 42, 32},
         { 45, 16},{ 50, 16},{ 65, 16},{ 80, 16},{ 95, 16},{ 70, 32},{ 84, 32},{ 98, 32},
 
-        { 14, 32},{ 56, 32},{ 50, 48},{ 80, 48},{110, 48},{ 95, 48},{100, 64},{112, 64},
+        { 14, 32},{ 56, 32},{ 65, 48},{ 80, 48},{110, 48},{ 95, 48},{112, 64},{100, 64},
         { 42, 32},{ 38, 64},
-        {  0, 32},{ 10, 48},{  0, 48},{ 20, 48},{ 35, 48},{ 65, 48},{  0, 64},{ 19, 64},
+        {  0, 32},{ 10, 48},{  0, 48},{ 20, 48},{ 35, 48},{ 50, 48},{  0, 64},{ 19, 64},
 
         {105,  0},{120,  0},{135,  0},{150,  0},{165,  0},{180,  0},{202,  0},{224,  0},
         {110, 16},{224, 16},
@@ -239,5 +226,5 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         break;
     }
   }
-  return true;
+  return process_record_user(keycode, record);
 }

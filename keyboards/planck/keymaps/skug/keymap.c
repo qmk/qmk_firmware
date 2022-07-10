@@ -39,7 +39,7 @@ enum planck_keycodes {
 
 #define ESC_LOW LT(_LOWER, KC_ESC)
 #define BSP_RAI LT(_RAISE, KC_BSPC)
-#define LFT_CTR CTL_T(SE_APOS)
+#define LFT_CTR CTL_T(SE_QUOT)
 #define RGT_CTR CTL_T(KC_TILD)
 #define UTILITY MO(_UTILITY)
 
@@ -57,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_DEFAULT] = LAYOUT_planck_grid(
-    KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y    , KC_U   , KC_I   , KC_O   , KC_P   , SE_AA  ,
-    UTILITY, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H    , KC_J   , KC_K   , KC_L   , SE_OSLH, SE_AE  ,
+    KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y    , KC_U   , KC_I   , KC_O   , KC_P   , SE_ARNG,
+    UTILITY, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H    , KC_J   , KC_K   , KC_L   , SE_ODIA, SE_ADIA,
     KC_LSPO, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N    , KC_M   , KC_COMM, KC_DOT , SE_MINS, KC_RSPC,
     LFT_CTR, KC_LALT, KC_LGUI, SE_AT  , ESC_LOW, KC_ENT , KC_SPC  , BSP_RAI, _______, KC_ALGR, SE_ASTR, RGT_CTR
 ),
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PLUS,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, SE_GRTR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, SE_RABK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    SE_HALF, LSFT(KC_1), SE_QUO2, LSFT(KC_3), SE_BULT, LSFT(KC_5), SE_AMPR, SE_SLSH, SE_LPRN, SE_RPRN, SE_EQL , SE_QUES,
+    SE_HALF, LSFT(KC_1), SE_DQUO, LSFT(KC_3), SE_CURR, LSFT(KC_5), SE_AMPR, SE_SLSH, SE_LPRN, SE_RPRN, SE_EQL , SE_QUES,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, SE_LESS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, SE_LABK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float s9[][2]              = SONG(SONIC_RING);
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
@@ -264,7 +264,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -288,9 +288,10 @@ void encoder_update(bool clockwise) {
       unregister_code(KC_PGUP);
     }
   }
+    return true;
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
@@ -315,6 +316,7 @@ void dip_update(uint8_t index, bool active) {
         #endif
       }
    }
+   return true;
 }
 
 void matrix_scan_user(void) {

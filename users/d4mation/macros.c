@@ -45,75 +45,75 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
 
     #ifdef UNICODE_ENABLE
 
-      case AMENO:  /* ༼ つ ◕_◕ ༽つ */
+      case AMENO:
 
         if ( record->event.pressed ) {
 
-          send_unicode_hex_string( "0F3C 0020 3064 0020 25D5 005F 25D5 0020 0F3D 3064" );
+          send_unicode_string( "༼ つ ◕_◕ ༽つ" );
 
         }
 
         return false;
         break;
 
-      case MAGIC:  /* (∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * */
+      case MAGIC:
 
         if ( record->event.pressed ) {
 
-          send_unicode_hex_string( "0028 2229 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029 2283 2501 2606 FF9F 002E 0020 002A" );
+          send_unicode_string( "(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. *" );
 
         }
 
         return false;
         break;
 
-      case LENNY:  /* ( ͡° ͜ʖ ͡°) */
+      case LENNY:
 
         if ( record->event.pressed ) {
 
-          send_unicode_hex_string( "0028 0020 0361 00B0 0020 035C 0296 0020 0361 00b0 0029" );
+          send_unicode_string( "( ͡° ͜ʖ ͡°)" );
 
         }
 
         return false;
         break;
 
-      case DISFACE:  /* ಠ_ಠ */
+      case DISFACE:
 
         if ( record->event.pressed ) {
-          send_unicode_hex_string( "0CA0 005F 0CA0" );
+          send_unicode_string( "ಠ_ಠ" );
         }
 
         return false;
         break;
 
-      case TFLIP:  /* (╯°□°)╯ ︵ ┻━┻ */
+      case TFLIP:
 
         if ( record->event.pressed ) {
 
-          send_unicode_hex_string( "0028 256F 00b0 25A1 00B0 0029 256F FE35 253B 2501 253B" );
-
-        }
-
-        return false;
-        break;
-
-      case TPUT:  /* ┬──┬ ノ( ゜-゜ノ) */
-
-        if ( record->event.pressed ) {
-
-          send_unicode_hex_string( "252C 2500 2500 252C 0020 30CE 0028 0020 309C 002D 309C 30CE 0029" );
+          send_unicode_string( "(╯°□°)╯︵┻━┻" );
 
         }
 
         return false;
         break;
 
-      case SHRUG:  /* ¯\_(ツ)_/¯ */
+      case TPUT:
 
         if ( record->event.pressed ) {
 
-          send_unicode_hex_string( "00AF 005C 005F 0028 30C4 0029 005F 002F 00AF" );
+          send_unicode_string( "┬──┬ ノ( ゜-゜ノ)" );
+
+        }
+
+        return false;
+        break;
+
+      case SHRUG:
+
+        if ( record->event.pressed ) {
+
+          send_unicode_string( "¯\\_(ツ)_/¯" );
 
         }
 

@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    deductivemonkee
 #define PRODUCT         Monkeebs Orthodox Rev.1
-#define DESCRIPTION     Oreodox
 
 /* key matrix size */
 // Rows are doubled-up
@@ -88,5 +87,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

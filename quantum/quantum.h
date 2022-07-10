@@ -15,33 +15,20 @@
  */
 #pragma once
 
-#if defined(__AVR__)
-#    include <avr/pgmspace.h>
-#    include <avr/io.h>
-#    include <avr/interrupt.h>
-#endif
-#if defined(PROTOCOL_CHIBIOS)
-#    include "hal.h"
-#    include "chibios_config.h"
-#endif
-
+#include "platform_deps.h"
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
 
 #ifdef BACKLIGHT_ENABLE
-#    ifdef LED_MATRIX_ENABLE
-#        include "ledmatrix.h"
-#    else
-#        include "backlight.h"
-#    endif
+#    include "backlight.h"
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#elif defined(RGB_MATRIX_ENABLE)
-// Dummy define RGBLIGHT_MODE_xxxx
-#    define RGBLIGHT_H_DUMMY_DEFINE
 #    include "rgblight.h"
 #endif
 
@@ -52,20 +39,34 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
+#include "bootmagic.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "config_common.h"
+#include "gpio.h"
+#include "atomic_util.h"
 #include "led.h"
 #include "action_util.h"
+#include "action_tapping.h"
 #include "print.h"
-#include "send_string_keycodes.h"
+#include "send_string.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
+
+#ifdef DEFERRED_EXEC_ENABLE
+#    include "deferred_exec.h"
+#endif
 
 extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
 extern layer_state_t layer_state;
+#endif
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#    include "process_sequencer.h"
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -88,6 +89,10 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#    include "process_backlight.h"
+#endif
+
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
 #endif
@@ -104,6 +109,14 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef UNICODE_COMMON_ENABLE
+#    include "process_unicode_common.h"
+#endif
+
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override.h"
+#endif
+
 #ifdef TAP_DANCE_ENABLE
 #    include "process_tap_dance.h"
 #endif
@@ -114,6 +127,10 @@ extern layer_state_t layer_state;
 
 #ifdef AUTO_SHIFT_ENABLE
 #    include "process_auto_shift.h"
+#endif
+
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#    include "process_dynamic_tapping_term.h"
 #endif
 
 #ifdef COMBO_ENABLE
@@ -138,6 +155,18 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "process_programmable_button.h"
+#endif
+
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif
@@ -148,10 +177,19 @@ extern layer_state_t layer_state;
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
+#    include "process_haptic.h"
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_driver.h"
+#endif
+
+#ifdef ST7565_ENABLE
+#    include "st7565.h"
+#endif
+
+#ifdef QUANTUM_PAINTER_ENABLE
+#    include "qp.h"
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
@@ -162,55 +200,43 @@ extern layer_state_t layer_state;
 #    include "process_dynamic_macro.h"
 #endif
 
+#ifdef SECURE_ENABLE
+#    include "secure.h"
+#    include "process_secure.h"
+#endif
+
 #ifdef DYNAMIC_KEYMAP_ENABLE
-#   include "dynamic_keymap.h"
+#    include "dynamic_keymap.h"
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
 #endif
 
 #ifdef VIA_ENABLE
-#   include "via.h"
+#    include "via.h"
 #endif
 
-// Function substitutions to ease GPIO manipulation
-#if defined(__AVR__)
-typedef uint8_t pin_t;
-
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
-#elif defined(PROTOCOL_CHIBIOS)
-typedef ioline_t pin_t;
-
-#    define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
-#    define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
-#    define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
-#    define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
-
-#    define writePinHigh(pin) palSetLine(pin)
-#    define writePinLow(pin) palClearLine(pin)
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) palReadLine(pin)
+#ifdef WPM_ENABLE
+#    include "wpm.h"
 #endif
 
-#define SEND_STRING(string) send_string_P(PSTR(string))
-#define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
+#ifdef USBPD_ENABLE
+#    include "usbpd.h"
+#endif
 
-extern const bool    ascii_to_shift_lut[128];
-extern const bool    ascii_to_altgr_lut[128];
-extern const uint8_t ascii_to_keycode_lut[128];
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
+#endif
 
-void send_string(const char *str);
-void send_string_with_delay(const char *str, uint8_t interval);
-void send_string_P(const char *str);
-void send_string_with_delay_P(const char *str, uint8_t interval);
-void send_char(char ascii_code);
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing_device.h"
+#endif
+
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word.h"
+#    include "process_caps_word.h"
+#endif
 
 // For tri-layer
 void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
@@ -218,31 +244,22 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
-void tap_random_base64(void);
+#define IS_LAYER_ON(layer) layer_state_is(layer)
+#define IS_LAYER_OFF(layer) !layer_state_is(layer)
 
-#define IS_LAYER_ON(layer) (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
+#define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
+#define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
-void     matrix_init_kb(void);
-void     matrix_scan_kb(void);
-void     matrix_init_user(void);
-void     matrix_scan_user(void);
-uint16_t get_record_keycode(keyrecord_t *record);
-uint16_t get_event_keycode(keyevent_t event);
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
-
-#ifndef BOOTMAGIC_LITE_COLUMN
-#    define BOOTMAGIC_LITE_COLUMN 0
-#endif
-#ifndef BOOTMAGIC_LITE_ROW
-#    define BOOTMAGIC_LITE_ROW 0
-#endif
-
-void bootmagic_lite(void);
+void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
+void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 void reset_keyboard(void);
+void soft_reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
@@ -251,39 +268,6 @@ void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
 
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void);
-void backlight_task(void);
-void backlight_task_internal(void);
-void backlight_on(pin_t backlight_pin);
-void backlight_off(pin_t backlight_pin);
-
-#    ifdef BACKLIGHT_BREATHING
-void breathing_task(void);
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-void breathing_intensity_default(void);
-void breathing_period_default(void);
-void breathing_period_set(uint8_t value);
-void breathing_period_inc(void);
-void breathing_period_dec(void);
-#    endif
-#endif
-
-void     send_dword(uint32_t number);
-void     send_word(uint16_t number);
-void     send_byte(uint8_t number);
-void     send_nibble(uint8_t number);
-uint16_t hex_to_keycode(uint8_t hex);
-
-void led_set_user(uint8_t usb_led);
-void led_set_kb(uint8_t usb_led);
-bool led_update_user(led_t led_state);
-bool led_update_kb(led_t led_state);
-
-void api_send_unicode(uint32_t unicode);
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
+const char *get_u8_str(uint8_t curr_num, char curr_pad);
+const char *get_u16_str(uint16_t curr_num, char curr_pad);

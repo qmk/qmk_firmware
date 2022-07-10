@@ -6,23 +6,12 @@ All keycodes within quantum are numbers between `0x0000` and `0xFFFF`. Within yo
 
 On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are used to implement advanced quantum features. If you define your own custom keycodes they will be put into this range as well.
 
-## QMK Keycodes
+## QMK Keycodes :id=qmk-keycodes
 
-|Key            |Aliases    |Description                                                          |
-|---------------|-----------|---------------------------------------------------------------------|
-|`RESET`        |           |Put the keyboard into DFU mode for flashing                          |
-|`DEBUG`        |           |Toggle debug mode                                                    |
-|`EEPROM_RESET` |`EEP_RST`  |Resets EEPROM state by reinitializing it                             |
-|`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
-|`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
-|`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
-|`KC_LCPO`      |           |Left Control when held, `(` when tapped                              |
-|`KC_RCPC`      |           |Right Control when held, `)` when tapped                             |
-|`KC_LAPO`      |           |Left Alt when held, `(` when tapped                                  |
-|`KC_RAPC`      |           |Right Alt when held, `)` when tapped                                 |
-|`KC_SFTENT`    |           |Right Shift when held, Enter when tapped                             |
-|`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
-|`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
-|`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
-|`M(n)`         |           |Call macro `n`                                                       |
-|`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
+|Key              |Aliases  |Description                                                                      |
+|-----------------|---------|---------------------------------------------------------------------------------|
+|`QK_BOOTLOADER`  |`QK_BOOT`|Put the keyboard into bootloader mode for flashing                               |
+|`QK_DEBUG_TOGGLE`|`DB_TOGG`|Toggle debug mode                                                                |
+|`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)                          |
+|`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held |
+|`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                |

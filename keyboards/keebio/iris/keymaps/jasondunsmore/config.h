@@ -17,11 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
 #define USE_SERIAL
-// #define USE_I2C
-
-/* Select hand configuration */
-#define MASTER_LEFT
-
-#define TAPPING_TERM 200
+#define EE_HANDS
+#define TAPPING_TERM 150
+#define TAPPING_TOGGLE 2
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD

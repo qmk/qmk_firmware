@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    OkKeebs LLC
 #define PRODUCT         Puck
-#define DESCRIPTION     4x3 macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_tkl_ansi_wkl(
     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,     RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI,               BL_TOGG, BL_DEC,  BL_INC,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,               KC_TRNS, KC_TRNS, KC_VOLU,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,               KC_MPLY, KC_MNXT, KC_VOLD,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,               KC_MPLY, KC_MNXT, KC_VOLD,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                                   KC_TRNS, 
     KC_TRNS, KC_TRNS,                   KC_TRNS,                                     KC_TRNS,          KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS ),
@@ -45,29 +45,4 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
-}
-
-void led_init_ports(void) {
-  setPinOutput(D5);
-  setPinOutput(E6);
-}
-
-void led_set_user(uint8_t usb_led) {
-
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    setPinOutput(D5);
-    writePinLow(D5);
-  } else {
-    setPinInput(D5);
-    writePinLow(D5);
-  }
-
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    setPinOutput(E6);
-    writePinLow(E6);
-  } else {
-    setPinInput(E6);
-    writePinLow(E6);
-  }
-
 }

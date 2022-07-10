@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Wavelet
-#define DESCRIPTION     40 percent ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -36,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { F4, F5, F7, B3, D2, D1, D4, D7 }
 #define MATRIX_COL_PINS { F6, B1, B2, B6, B4, E6 }
+
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

@@ -1,6 +1,5 @@
 #include "curry.h"
 
-#ifdef OLED_DRIVER_ENABLE
 #define KEYLOGGER_LENGTH 5
 static uint32_t oled_timer                       = 0;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
@@ -26,6 +25,7 @@ static const char PROGMEM code_to_name[0xFF] = {
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
 };
 
+// clang-format on
 void add_keylog(uint16_t keycode);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
@@ -49,22 +49,33 @@ void add_keylog(uint16_t keycode) {
 }
 
 void render_keylogger_status(void) {
-    oled_write_P(PSTR("Keys"), false);
+    oled_write_P(PSTR("Keys:"), false);
     oled_write(keylog_str, false);
 }
 
 void render_default_layer_state(void) {
     oled_write_P(PSTR("Lyout"), false);
     switch (get_highest_layer(default_layer_state)) {
+#if defined(ENABLE_QWERTY)
         case _QWERTY:
             oled_write_P(PSTR(" QRTY"), false);
             break;
+#endif
+#if defined(ENABLE_COLEMAK)
         case _COLEMAK:
             oled_write_P(PSTR(" COLE"), false);
             break;
+#endif
+#if defined(ENABLE_DVORAK)
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
             break;
+#endif
+#if defined(ENABLE_WORKMAN)
+        case _WORKMAN:
+            oled_write_P(PSTR(" WRKM"), false);
+            break;
+#endif
     }
 }
 
@@ -134,21 +145,22 @@ void render_status_secondary(void) {
     render_keylogger_status();
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
-        return;
+        return false;
     }
-#    ifndef SPLIT_KEYBOARD
+#if !defined(SPLIT_KEYBOARD)
     else {
         oled_on();
     }
-#    endif
+#endif
     if (is_keyboard_master()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
     }
+    return false;
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -158,5 +170,3 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-#endif

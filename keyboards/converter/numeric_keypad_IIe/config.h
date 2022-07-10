@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Apple Inc.
 #define PRODUCT         Numeric Keypad IIe
-#define DESCRIPTION     "Numeric Keypad IIe, A2M2003"
 
 /*
 

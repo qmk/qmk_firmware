@@ -21,18 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tshort
-// defined in subfolder
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define VENDOR_ID    0x444D
+#define MANUFACTURER tshort
 
 /* mouse config */
-#define MOUSEKEY_INTERVAL       20
-#define MOUSEKEY_DELAY          0
-#define MOUSEKEY_TIME_TO_MAX    60
-#define MOUSEKEY_MAX_SPEED      7
+#define MOUSEKEY_INTERVAL    20
+#define MOUSEKEY_DELAY       0
+#define MOUSEKEY_TIME_TO_MAX 60
+#define MOUSEKEY_MAX_SPEED   7
 #define MOUSEKEY_WHEEL_DELAY 0
 
 /* Set 0 if debouncing isn't needed */
@@ -48,21 +44,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Enables This makes it easier for fast typists to use dual-function keys */
 #define PERMISSIVE_HOLD
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

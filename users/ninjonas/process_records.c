@@ -6,7 +6,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true;
 __attribute__((weak))
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 __attribute__((weak))
 bool process_record_oled(uint16_t keycode, keyrecord_t *record) { return true; }
 #endif
@@ -21,7 +21,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    // Sends  + alt + shift to a keycode to activate shiftit. See: https://github.com/fikovnik/ShiftIt
+    // Sends Cmd + alt + shift to a keycode to activate shiftit. See: https://github.com/fikovnik/ShiftIt
     case M_SHFT:
       if (record->event.pressed) {
         register_code(KC_LGUI);
@@ -44,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Sends QMK make command to compile all keyboards
     case M_MALL:
      if (record->event.pressed) {
-        SEND_STRING("rm -f *.hex && rm -rf .build/ && make crkbd:ninjonas lily58:ninjonas hotdox:ninjonas pinky/3:ninjonas\n");
+        SEND_STRING("rm -f *.hex && rm -rf .build/ && make crkbd:ninjonas lily58:ninjonas hotdox:ninjonas pinky/3:ninjonas kyria:ninjonas\n");
       }
       break;
 
@@ -110,7 +110,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
-         #ifdef OLED_DRIVER_ENABLE
+         #ifdef OLED_ENABLE
          && process_record_oled(keycode, record)
          #endif
          ; // Close return

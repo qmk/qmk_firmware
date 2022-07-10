@@ -2,11 +2,8 @@
     "keyboard_name": "AMJ66",
     "url": "",
     "maintainer": "FSund, qmk",
-    "width": 16.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 70,
             "layout": [
                 {"label":"~", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -81,7 +78,6 @@
             ]
         },
         "LAYOUT_66_ansi": {
-            "key_count": 66,
             "layout": [
                 {"label":"~", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -152,7 +148,6 @@
             ]
         },
         "LAYOUT_66_iso": {
-            "key_count": 67,
             "layout": [
                 {"label":"\u00ac", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},

@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0008
 #define MANUFACTURER    Technomancy
 #define PRODUCT         Atreus
-#define DESCRIPTION     QMK keyboard firmware for Atreus
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -60,5 +59,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

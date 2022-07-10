@@ -5,10 +5,9 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0C60
-#define DEVICE_VER      0x00C6
+#define DEVICE_VER      0x0100
 #define MANUFACTURER    PeiorisBoards
 #define PRODUCT         QC60
-#define DESCRIPTION     Split 60% staggered keyboard
 
 /* key matrix size */
 // Rows are doubled-up

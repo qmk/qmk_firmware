@@ -20,16 +20,20 @@
 #include "wt_rgb_backlight_keycodes.h" // reuse these for now
 
 #include <avr/interrupt.h>
-#include "drivers/avr/i2c_master.h"
+#include "i2c_master.h"
 
 #include "progmem.h"
 #include "quantum/color.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 
-#include "via.h" // uses only the EEPROM address
+#include "via.h" // uses EEPROM address, lighting value IDs
 #define MONO_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 
-#include "drivers/issi/is31fl3736.h"
+#if VIA_EEPROM_CUSTOM_CONFIG_SIZE == 0
+#error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
+#endif
+
+#include "drivers/led/issi/is31fl3736.h"
 
 #define ISSI_ADDR_DEFAULT 0x50
 

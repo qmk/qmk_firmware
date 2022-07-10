@@ -1,8 +1,6 @@
 {
   "keyboard_name": "Monkeebs Orthodox Rev.3 (Teensy)",
   "maintainer": "drashna",
-  "width": 19,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

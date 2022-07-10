@@ -4,9 +4,9 @@
 
 A fairly typical TKL
 
-Keyboard Maintainer: [ai03](https://github.com/ai03-2725) / [KBDfans](https://kbdfans.cn/)  
-Hardware Supported: KBD8X MKII PCB/case
-Hardware Availability: [KBDfans](https://kbdfans.cn/collections/new-arrival/products/coming-soon-kbd8x-mkii-custom-mechanical-keyboard-kit)
+* Keyboard Maintainer: [ai03](https://github.com/ai03-2725) / [KBDfans](https://kbdfans.cn/)
+* Hardware Supported: KBD8X MKII PCB/case
+* Hardware Availability: [KBDfans](https://kbdfans.com/collections/90-kbd19x/products/gb-kbd8x-mkii-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 

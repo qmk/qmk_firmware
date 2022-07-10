@@ -2,8 +2,6 @@
   "keyboard_name": "ADB to USB Keyboard Converter",
   "url": "",
   "maintainer": "qmk",
-  "width": 22.5,
-  "height": 7,
   "layouts": {
     "LAYOUT_ext_ansi": {
       "layout": [
@@ -114,8 +112,6 @@
       ]
     },
     "LAYOUT_m0116_ansi": {
-      "width": 19.5,
-      "height": 6.25,
       "layout": [
         {"label":"Power", "x":5, "y":0, "w":2},
         {"label":"Esc", "x":0, "y":1.25},

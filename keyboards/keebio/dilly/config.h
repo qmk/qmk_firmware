@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -9,7 +8,6 @@
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Dilly
-#define DESCRIPTION     30 percent ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -47,5 +45,3 @@
 #define RGB_DI_PIN D3
 
 #define RGBLED_NUM 10
-
-#endif

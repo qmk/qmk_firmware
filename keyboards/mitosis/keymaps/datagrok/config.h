@@ -36,7 +36,7 @@
         }
 #define AUDIO_VOICES
 #define AUDIO_CLICKY
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #endif
 
 #endif

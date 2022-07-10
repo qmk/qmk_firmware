@@ -1,0 +1,51 @@
+{
+  "keyboard_name": "macropad_v2",
+  "url": "https://geekboards.ru/",
+  "maintainer": "ruddy17",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {
+          "label": "K0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "label": "K1",
+          "x": 1,
+          "y": 0
+        },
+        {
+          "label": "K2",
+          "x": 2,
+          "y": 0
+        },
+        {
+          "label": "K3",
+          "x": 3,
+          "y": 0
+        },
+        {
+          "label": "K4",
+          "x": 0,
+          "y": 1
+        },
+        {
+          "label": "K5",
+          "x": 1,
+          "y": 1
+        },
+        {
+          "label": "K6",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "label": "K7",
+          "x": 3,
+          "y": 1
+        }
+      ]
+    }
+  }
+}

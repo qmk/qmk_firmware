@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Iris Keyboard
-#define DESCRIPTION     Split 50 percent ergonomic keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -60,3 +59,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 12    // Number of LEDs
+#define RGBLIGHT_ANIMATIONS

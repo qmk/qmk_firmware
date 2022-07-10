@@ -3,13 +3,14 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include "hal.h"
+#include <hal.h>
 #include "quantum.h"
 #include "timer.h"
 #include "wait.h"
-#include "printf.h"
+#include "print.h"
 #include "matrix.h"
 
 /**
@@ -25,6 +26,17 @@ static matrix_row_t matrix_debouncing[MATRIX_COLS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 void matrix_init(void)
 {
     //debug_enable = true;
@@ -130,7 +142,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCING_DELAY) {
+    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             matrix[row] = 0;
             for (int col = 0; col < MATRIX_COLS; col++) {

@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: adf4acf59:docs/newbs_git_using_your_master_branch.md
-  git diff adf4acf59 HEAD -- docs/newbs_git_using_your_master_branch.md | cat
+  original document: 0.9.0:docs/newbs_git_using_your_master_branch.md
+  git diff 0.9.0 HEAD -- docs/newbs_git_using_your_master_branch.md | cat
 -->
 
 QMK の開発では、何がどこで行われているかにかかわらず、`master` ブランチを最新の状態に保つことを強くお勧めします、しかし `master` ブランチには***絶対に直接コミットしないでください***。
@@ -41,7 +41,7 @@ upstream        https://github.com/qmk/qmk_firmware.git (push)
 このコマンドは `upstream` というニックネームを持つ QMK リポジトリから、ブランチとタグ &mdash; "refs" と総称されます &mdash; を取得します。
 これで、あなたのフォーク `origin` のデータを QMK が保持するデータと比較できます。
 
-あなたのフォークの `master` を更新するには、次を実行します、各行の後にEnterキーを押してください:
+あなたのフォークの `master` を更新するには、次を実行します、各行の後に Enter キーを押してください:
 
 ```
 git checkout master
@@ -98,4 +98,4 @@ git commit -m "My commit message."
 
 最後のステップは、変更をフォークにプッシュすることです。
 これを行うには、`git push`と入力します。
-Gitは、 `dev_branch`の現在の状態をフォークに公開します。
+Git は、 `dev_branch`の現在の状態をフォークに公開します。

@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Twokey",
+    "url": "",
+    "maintainer": "Keys of Kings",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0.5, "y": 0},
+                {"x": 0, "y": 1.5},
+                {"x": 1, "y": 1.5}
+            ]
+        }
+    }
+}

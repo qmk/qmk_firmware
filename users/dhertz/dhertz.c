@@ -1,3 +1,6 @@
+// Copyright 2022 Dan Hertz (@dhertz)
+// SPDX-License-Identifier: GPL-3.0
+
 #include "dhertz.h"
 
 // Add reconfigurable functions here, for keymap customization
@@ -63,6 +66,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CMD_SFT_L:
                 SEND_STRING(SS_LGUI("L"));
                 break;
+            case CMD_SFT_A:
+                SEND_STRING(SS_LGUI("A"));
+                break;
+            case CMD_SFT_ALT_A:
+                SEND_STRING(SS_LGUI(SS_LALT("A")));
+                break;
             case ISO_COUNTRY_CODE:
                 SEND_STRING("country_iso_alpha2_code");
                 break;
@@ -91,7 +100,7 @@ void mod_or_mod_with_macro(keyrecord_t *record, uint16_t kc_mod, char* macro) {
 // Runs state check and changes underglow color and animation
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
-uint32_t layer_state_set_user (uint32_t state) {
+layer_state_t layer_state_set_user (layer_state_t state) {
   return layer_state_set_keymap (state);
 }
 

@@ -1,12 +1,12 @@
-# Think6.5 Solder (Compatible)
+# Think6.5 Solder V1/V2
 
-65% board with 6.5 degree angle ran by Airpotter and Oldcat. PCB Manufactured by DEMO Studio and Keyboard manufactured by Gray Studio. 
+65% PCB with center mount USB C ran by Airpotter and Oldcat through Graystudio. 
 
-Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Think6.5 Compatible PCB  
-Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=100166.0)
+This firmware is compatible with both V1 and V2 variants of the Think 6.5 PCB. 
 
-**Note:** The `LAYOUT_65_ansi_blocker` LAYOUT macro utilizes the same pins and switch matrix as the hotswap version. Any firmware made with this LAYOUT macro can be flashed on both the Solder (Compatible) version and the Hotswap version of the Think6.5.  
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+* Hardware Supported: Think6.5 V1 and V2 Compatible PCB  
+* Hardware Availability: [Geekhack V1 GB](https://geekhack.org/index.php?topic=100166.0), [Graystudio V2 GB](https://graystudio.club/products/gb-think6-5-v2)
 
 **Indicator LEDs:** The solder PCB ONLY supports Caps Lock LEDs unlike the Hotswap version that supports Num Lock, Caps Lock, and Scroll Lock.  
 

@@ -3,7 +3,7 @@
 ## Features
 
 - Single encoder in the top left to control volume, push to mute
-- Arrow keys on home layer
+- Arrow keys and media keys on home layer
 - Tap upper right to toggle to macro layer
 - Hold upper right to change keyboard functions (aka RGB)
-- 520 entire bytes free!
+- 428 entire bytes free!

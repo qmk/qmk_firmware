@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Levinson
-#define DESCRIPTION     Split 40 percent ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -35,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
+
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -49,8 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-
 #define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_SPLIT { 6, 6 }
 
 /* Backlight LEDs */
 #define BACKLIGHT_PIN C6

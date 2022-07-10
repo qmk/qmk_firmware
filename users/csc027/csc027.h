@@ -1,3 +1,20 @@
+/*
+Copyright 2020 Constantine Chen @csc027
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #pragma once
 
 #include "quantum.h"
@@ -8,33 +25,13 @@ enum custom_keycodes {
     LOWER = SAFE_RANGE,
     RAISE,
 
-    // Git Keycodes
-    GIT_ADD, // Add
-    GIT_BRC, // Branch
-    GIT_CHK, // Checkout
-    GIT_CHR, // Cherry-Pick
-    GIT_CMT, // Commit
-    GIT_DIF, // Diff
-    GIT_FTC, // Fetch
-    GIT_GRP, // Grep
-    GIT_LOG, // Log
-    GIT_INT, // Init
-    GIT_MRG, // Merge
-    GIT_MOV, // Move (mv)
-    GIT_PSH, // Push
-    GIT_PUL, // Pull
-    GIT_RBS, // Rebase
-    GIT_RMT, // Remote
-    GIT_RST, // Reset
-    GIT_SHW, // Show
-    GIT_STH, // Stash
-    GIT_STS, // Status
-    GIT_TAG, // Tag
 
-    // Remote Desktop
-    MC_MRD7, // Minimize Remote Desktop on Windows 7
-    MC_MRD8, // Minimize Remote Desktop on Windows 8+
-    MC_ATRD  // Switch windows on local machine from Remote Desktop on Windows
+    MC_first,
+
+    // Macro Keycodes
+    CUSTOM_MACROS(CUSTOM_ENUM, DROP, COMMA_DELIM),
+
+    MC_last
 };
 
 enum custom_layers {
@@ -42,8 +39,8 @@ enum custom_layers {
     _RS,     // Raise
     _LW,     // Lower
     _MS,     // Mouse
-    _GT,     // Git
+    _WT,     // Windows Terminal
     _CN,     // Convenience
-    _GW,     // Guild Wars 2
+    _GG,     // General Gaming
     _CS      // Counter-Strike: Global Offensive
 };

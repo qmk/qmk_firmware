@@ -1,33 +1,17 @@
 #include QMK_KEYBOARD_H
 #include "konstantin.h"
 
+enum layers_keymap {
+    L_RCTRL = LAYERS_KEYMAP,
+};
+
 enum keycodes_keymap {
     RCTRL = RANGE_KEYMAP,
 };
 
-enum layers_keymap {
-    L_RCTRL = L_RANGE_KEYMAP,
-};
-
-void eeconfig_init_keymap(void) {
-    rgblight_sethsv(MODERN_DOLCH_RED);
+static inline void reset_light(void) {
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case RCTRL:
-        if (record->event.pressed) {
-            register_code(KC_RCTRL);
-            layer_on(L_RCTRL);
-        } else {
-            unregister_code(KC_RCTRL);
-            layer_off(L_RCTRL);
-        }
-        break;
-    }
-
-    return true;
+    rgblight_sethsv(MODERN_DOLCH_RED);
 }
 
 static inline void fn_light(void) {
@@ -42,11 +26,13 @@ static inline void caps_light(void) {
 
 static inline void restore_light(void) {
     rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
-    rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
     rgblight_mode_noeeprom(saved.mode);
+    rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
 }
 
-static void check_light_layer(uint32_t state) {
+static bool last_checked_layer;
+
+static void check_light_layer(layer_state_t state) {
     if (IS_LAYER_ON_STATE(state, L_FN)) {
         fn_light();
     } else if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
@@ -54,22 +40,34 @@ static void check_light_layer(uint32_t state) {
     } else {
         restore_light();
     }
+    last_checked_layer = true;
 }
 
-static void check_light_led(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+static void check_light_led(uint8_t leds) {
+    if (IS_LED_ON(leds, USB_LED_CAPS_LOCK)) {
         caps_light();
     } else if (IS_LAYER_ON(L_FN)) {
         fn_light();
     } else {
         restore_light();
     }
+    last_checked_layer = false;
+}
+
+static void inline check_light(void) {
+    last_checked_layer
+        ? check_light_layer(layer_state)
+        : check_light_led(host_keyboard_leds());
+}
+
+void eeconfig_init_keymap(void) {
+    reset_light();
 }
 
 static bool skip_led = false;
 
-uint32_t layer_state_set_keymap(uint32_t state) {
-    static uint32_t prev_state = L_BASE;
+layer_state_t layer_state_set_keymap(layer_state_t state) {
+    static layer_state_t prev_state = L_BASE;
     if (IS_LAYER_ON_STATE(state, L_FN) != IS_LAYER_ON_STATE(prev_state, L_FN)) {
         check_light_layer(state);  // Fn state changed since last time
         skip_led = IS_LAYER_ON_STATE(state, L_FN);
@@ -84,6 +82,37 @@ void led_set_keymap(uint8_t usb_led) {
         return;  // Skip calls triggered by the Fn layer turning on
     }
     check_light_led(usb_led);
+}
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case RGB_TOG ... RGB_SPD:
+        if (record->event.pressed) {
+            // Shift+Toggle = reset RGB
+            if (keycode == RGB_TOG && get_mods() & MOD_MASK_SHIFT) {
+                reset_light();
+                return false;
+            }
+            restore_light();
+        } else {
+            check_light();
+        }
+        break;
+
+    // Combined RCtrl and layer
+    // Cannot use LM(L_RCTRL, MOD_RCTL) because it sends LCtrl instead of RCtrl
+    case RCTRL:
+        if (record->event.pressed) {
+            register_code(KC_RCTRL);
+            layer_on(L_RCTRL);
+        } else {
+            unregister_code(KC_RCTRL);
+            layer_off(L_RCTRL);
+        }
+        break;
+    }
+
+    return true;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -139,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
      * │        │RTg│RV-│RV+│RMd│   │   │   │   │   │   │      │   │
      * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
-     *       │DPR│DstNA│                           │     │   │
+     *       │DPR│DstNA│                           │RGui │   │
      *       └───┴─────┴───────────────────────────┴─────┴───┘
      */
     [L_RCTRL] = LAYOUT(
@@ -147,6 +176,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, TOP,     MV_UP,   BOTTOM,  TAB_PRV, _______, _______, _______, _______, _______, _______, _______, _______, DEL_NXT,
         _______, MV_LEFT, MV_DOWN, MV_RGHT, TAB_NXT, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______,
-        XXXXXXX, DST_P_R, DST_N_A,                            _______,                            _______, _______, XXXXXXX
+        XXXXXXX, DST_P_R, DST_N_A,                            _______,                            KC_RGUI, _______, XXXXXXX
     ),
 };

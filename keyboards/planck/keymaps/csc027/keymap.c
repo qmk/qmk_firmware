@@ -1,3 +1,20 @@
+/*
+Copyright 2020 Constantine Chen @csc027
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include QMK_KEYBOARD_H
 #include "csc027.h"
 
@@ -32,11 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ______________________MOUSE_L4_____________________, ______________________MOUSE_R4_____________________
     ),
 
-    [_GT] = LAYOUT_wrapper(
-        _______________________GIT_L1______________________, _______________________GIT_R1______________________,
-        _______________________GIT_L2______________________, _______________________GIT_R2______________________,
-        _______________________GIT_L3______________________, _______________________GIT_R3______________________,
-        _______________________GIT_L4______________________, _______________________GIT_R4______________________
+    [_WT] = LAYOUT_wrapper(
+        ________________WINDOWS_TERMINAL_L1________________, ________________WINDOWS_TERMINAL_R1________________,
+        ________________WINDOWS_TERMINAL_L2________________, ________________WINDOWS_TERMINAL_R2________________,
+        ________________WINDOWS_TERMINAL_L3________________, ________________WINDOWS_TERMINAL_R3________________,
+        ________________WINDOWS_TERMINAL_L4________________, ________________WINDOWS_TERMINAL_R4________________
     ),
 
     [_CN] = LAYOUT_wrapper(
@@ -46,43 +63,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___________________CONVENIENCE_L4__________________, ___________________CONVENIENCE_R4__________________
     ),
 
-    /* Guild Wars 2 Layer
-     *
-     * ,-----------------------------------------------------------------------.
-     * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |BkSpc|
-     * |-----------------------------------------------------------------------|
-     * | Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  \  |
-     * |-----------------------------------------------------------------------|
-     * |Sf/Ec|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |Enter|
-     * |-----------------------------------------------------------------------|
-     * | Ctl |  Z  | Alt |  X  |  C  |Space|Space|  M  |  B  |  .  |Nxt L|Rst L|
-     * `-----------------------------------------------------------------------'
-     */
-
-    [_GW] = LAYOUT_ortho_4x12(
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-        MC_LSEC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT ,
-        KC_LCTL, KC_Z,    KC_LALT, KC_X,    KC_C,    KC_SPC,  KC_SPC,  KC_M,    KC_B,    KC_DOT,  TO(_CS), TO(_QW)
+    [_GG] = LAYOUT_wrapper(
+        ________________General_Game_4x12_L1_______________, ________________General_Game_4x12_R1_______________,
+        ________________General_Game_4x12_L2_______________, ________________General_Game_4x12_R2_______________,
+        ________________General_Game_4x12_L3_______________, ________________General_Game_4x12_R3_______________,
+        ________________General_Game_4x12_L4_______________, ________________General_Game_4x12_R4_______________
     ),
 
-    /* CS:GO Layer
-     *
-     * ,-----------------------------------------------------------------------.
-     * |     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |BkSpc|
-     * |-----------------------------------------------------------------------|
-     * | Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  4  |  5  |  6  |     |NmLck|
-     * |-----------------------------------------------------------------------|
-     * |Shift|  A  |  S  |  D  |  F  |  G  |  H  |  1  |  2  |  3  |Enter| Esc |
-     * |-----------------------------------------------------------------------|
-     * | Ctl |  Z  | Alt |  X  |  B  |Space|Space|  0  |  0  |  .  |Nxt L|Rst L|
-     * `-----------------------------------------------------------------------'
-     */
-
-    [_CS] = LAYOUT_ortho_4x12(
-        XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_P7,   KC_P8,   KC_P9,   KC_0,    KC_BSPC,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_P4,   KC_P5,   KC_P6,   XXXXXXX, KC_NLCK,
-        KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_P1,   KC_P2,   KC_P3,   KC_PENT, KC_ESC ,
-        KC_LCTL, KC_Z,    KC_LALT, KC_X,    KC_B,    KC_SPC,  KC_SPC,  KC_P0,   KC_P0,   KC_PDOT, TO(_QW), TO(_QW)
+    [_CS] = LAYOUT_wrapper(
+        ___________________CSGO_4x12_L1____________________, ___________________CSGO_4x12_R1____________________,
+        ___________________CSGO_4x12_L2____________________, ___________________CSGO_4x12_R2____________________,
+        ___________________CSGO_4x12_L3____________________, ___________________CSGO_4x12_R3____________________,
+        ___________________CSGO_4x12_L4____________________, ___________________CSGO_4x12_R4____________________
     )
 };

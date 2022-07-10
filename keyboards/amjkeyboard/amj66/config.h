@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x00D8 //A+M+J
 #define PRODUCT_ID      0xBD66
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AMJKeyboard
 #define PRODUCT         AMJ66
-#define DESCRIPTION     QMK keyboard firmware for AMJ66
 
 /* Key matrix size */
 #define MATRIX_ROWS 5
@@ -43,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
-#define BACKLIGHT_ON_STATE 1
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

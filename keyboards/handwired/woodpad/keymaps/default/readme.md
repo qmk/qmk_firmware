@@ -1,1 +1,1 @@
-# The default keymap for woodpad
+# The default keymap for Woodpad

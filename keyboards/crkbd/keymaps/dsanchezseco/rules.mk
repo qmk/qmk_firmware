@@ -3,13 +3,13 @@
 SRC += ./logo_reader.c
 
 # enable OLED displays
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = no
 
 # enable media keys
 EXTRAKEY_ENABLE = yes
 
 # enable LEDs
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
 
 # using elite-c controllers
 BOOTLOADER = qmk-dfu

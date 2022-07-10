@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA WORKS
 #define PRODUCT         RAMA WORKS M6-B
-#define DESCRIPTION     RAMA WORKS M6-B
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -152,3 +151,6 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 43
+
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE

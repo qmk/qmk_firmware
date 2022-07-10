@@ -2,8 +2,6 @@
     "keyboard_name": "db63",
     "url": "http://www.keyboard-layout-editor.com/#/gists/dadea703fc8bfc87dc7c480de9f3ef38",
     "maintainer": "QMK Community",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

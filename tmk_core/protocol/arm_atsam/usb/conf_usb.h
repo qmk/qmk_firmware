@@ -59,7 +59,7 @@
 #define USB_DEVICE_VENDOR_ID VENDOR_ID
 #define USB_DEVICE_PRODUCT_ID PRODUCT_ID
 #define USB_DEVICE_VERSION DEVICE_VER
-#define USB_DEVICE_POWER 500  // Consumption on Vbus line (mA)
+#define USB_DEVICE_POWER 500 // Consumption on Vbus line (mA)
 #define USB_DEVICE_ATTR (USB_CONFIG_ATTR_REMOTE_WAKEUP | USB_CONFIG_ATTR_BUS_POWERED)
 //                                      (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_BUS_POWERED)
 //                                      (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_SELF_POWERED)
@@ -116,36 +116,35 @@
  * @{
  */
 //! Interface callback definition
-#ifdef KBD
-#    define UDI_HID_KBD_ENABLE_EXT() main_kbd_enable()
-#    define UDI_HID_KBD_DISABLE_EXT() main_kbd_disable()
-//#define  UDI_HID_KBD_CHANGE_LED(value)  ui_kbd_led(value)
-#endif
+#define UDI_HID_KBD_ENABLE_EXT() main_kbd_enable()
+#define UDI_HID_KBD_DISABLE_EXT() main_kbd_disable()
+//#define UDI_HID_KBD_CHANGE_LED(value) ui_kbd_led(value)
 
-#ifdef NKRO
+#ifdef NKRO_ENABLE
 #    define UDI_HID_NKRO_ENABLE_EXT() main_nkro_enable()
 #    define UDI_HID_NKRO_DISABLE_EXT() main_nkro_disable()
-//#define  UDI_HID_NKRO_CHANGE_LED(value)   ui_kbd_led(value)
+//#define UDI_HID_NKRO_CHANGE_LED(value) ui_kbd_led(value)
 #endif
 
-#ifdef EXK
+#ifdef EXTRAKEY_ENABLE
 #    define UDI_HID_EXK_ENABLE_EXT() main_exk_enable()
 #    define UDI_HID_EXK_DISABLE_EXT() main_exk_disable()
 #endif
 
-#ifdef CON
+#ifdef CONSOLE_ENABLE
 #    define UDI_HID_CON_ENABLE_EXT() main_con_enable()
 #    define UDI_HID_CON_DISABLE_EXT() main_con_disable()
 #endif
 
-#ifdef MOU
+#ifdef MOUSE_ENABLE
 #    define UDI_HID_MOU_ENABLE_EXT() main_mou_enable()
 #    define UDI_HID_MOU_DISABLE_EXT() main_mou_disable()
 #endif
 
-#ifdef RAW
+#ifdef RAW_ENABLE
 #    define UDI_HID_RAW_ENABLE_EXT() main_raw_enable()
 #    define UDI_HID_RAW_DISABLE_EXT() main_raw_disable()
+#    define UDI_HID_RAW_RECEIVE(buffer, len) main_raw_receive(buffer, len)
 #endif
 
 //@}
@@ -162,4 +161,4 @@
 #include "usb_main.h"
 #include "ui.h"
 
-#endif  // _CONF_USB_H_
+#endif // _CONF_USB_H_

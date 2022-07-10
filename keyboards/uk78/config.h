@@ -15,18 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x554B /* Ascii */
-#define PRODUCT_ID      0x004E
+#define VENDOR_ID       0x554B // "UK"
+#define PRODUCT_ID      0x004E // 78
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    UK Keyboards
 #define PRODUCT         UK78
-#define DESCRIPTION     QMK keyboard firmware for UK78
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -63,6 +61,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif

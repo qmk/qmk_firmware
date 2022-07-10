@@ -51,7 +51,8 @@
 #include "udi_device_conf.h"
 #include "udi.h"
 #include "udc.h"
-#include "md_bootloader.h"
+
+#define BOOTLOADER_SERIAL_MAX_SIZE 20 // DO NOT MODIFY!
 
 /**
  * \ingroup udc_group
@@ -122,6 +123,8 @@ static uint8_t udc_string_product_name[] = USB_DEVICE_PRODUCT_NAME;
 #    define USB_DEVICE_SERIAL_NAME_SIZE 0
 #endif
 
+extern uint32_t _srom;
+
 uint8_t     usb_device_serial_name_size = 0;
 #if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
 uint8_t     bootloader_serial_number[BOOTLOADER_SERIAL_MAX_SIZE + 1] = "";
@@ -129,13 +132,13 @@ uint8_t     bootloader_serial_number[BOOTLOADER_SERIAL_MAX_SIZE + 1] = "";
 static const uint8_t *udc_get_string_serial_name(void) {
 #if defined           USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
     uint32_t serial_ptrloc  = (uint32_t)&_srom - 4;
-    uint32_t serial_address = *(uint32_t *)serial_ptrloc;  // Address of bootloader's serial number if available
+    uint32_t serial_address = *(uint32_t *)serial_ptrloc; // Address of bootloader's serial number if available
 
-    if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc)  // Check for factory programmed serial address
+    if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc) // Check for factory programmed serial address
     {
-        if ((serial_address & 0xFF) % 4 == 0)  // Check alignment
+        if ((serial_address & 0xFF) % 4 == 0) // Check alignment
         {
-            uint16_t *serial_use    = (uint16_t *)(serial_address);  // Point to address of string in rom
+            uint16_t *serial_use    = (uint16_t *)(serial_address); // Point to address of string in rom
             uint8_t   serial_length = 0;
 
             while ((*(serial_use + serial_length) > 32 && *(serial_use + serial_length) < 127) && serial_length < BOOTLOADER_SERIAL_MAX_SIZE) {
@@ -146,7 +149,7 @@ static const uint8_t *udc_get_string_serial_name(void) {
 
             usb_device_serial_name_size = serial_length;
 
-            return bootloader_serial_number;  // Use serial programmed into bootloader rom
+            return bootloader_serial_number; // Use serial programmed into bootloader rom
         }
     }
 #endif
@@ -154,9 +157,9 @@ static const uint8_t *udc_get_string_serial_name(void) {
     usb_device_serial_name_size = USB_DEVICE_SERIAL_NAME_SIZE;
 
 #if defined USB_DEVICE_SERIAL_NAME
-    return (const uint8_t *)USB_DEVICE_SERIAL_NAME;  // Use serial supplied by keyboard's config.h
+    return (const uint8_t *)USB_DEVICE_SERIAL_NAME; // Use serial supplied by keyboard's config.h
 #else
-    return 0;  // No serial supplied
+    return 0; // No serial supplied
 #endif
 }
 
@@ -166,7 +169,7 @@ static const uint8_t *udc_get_string_serial_name(void) {
  */
 #ifndef BOOTLOADER_SERIAL_MAX_SIZE
 #    define BOOTLOADER_SERIAL_MAX_SIZE 0
-#endif  // BOOTLOADER_SERIAL_MAX_SIZE
+#endif // BOOTLOADER_SERIAL_MAX_SIZE
 struct udc_string_desc_t {
     usb_str_desc_t header;
     le16_t         string[Max(Max(Max(USB_DEVICE_MANUFACTURE_NAME_SIZE, USB_DEVICE_PRODUCT_NAME_SIZE), USB_DEVICE_SERIAL_NAME_SIZE), BOOTLOADER_SERIAL_MAX_SIZE)];
@@ -175,14 +178,18 @@ COMPILER_WORD_ALIGNED
 static UDC_DESC_STORAGE struct udc_string_desc_t udc_string_desc = {.header.bDescriptorType = USB_DT_STRING};
 //! @}
 
-usb_iface_desc_t UDC_DESC_STORAGE *udc_get_interface_desc(void) { return udc_ptr_iface; }
+usb_iface_desc_t UDC_DESC_STORAGE *udc_get_interface_desc(void) {
+    return udc_ptr_iface;
+}
 
 /**
  * \brief Returns a value to check the end of USB Configuration descriptor
  *
  * \return address after the last byte of USB Configuration descriptor
  */
-static usb_conf_desc_t UDC_DESC_STORAGE *udc_get_eof_conf(void) { return (UDC_DESC_STORAGE usb_conf_desc_t *)((uint8_t *)udc_ptr_conf->desc + le16_to_cpu(udc_ptr_conf->desc->wTotalLength)); }
+static usb_conf_desc_t UDC_DESC_STORAGE *udc_get_eof_conf(void) {
+    return (UDC_DESC_STORAGE usb_conf_desc_t *)((uint8_t *)udc_ptr_conf->desc + le16_to_cpu(udc_ptr_conf->desc->wTotalLength));
+}
 
 #if (0 != USB_DEVICE_MAX_EP)
 /**
@@ -206,15 +213,15 @@ static usb_conf_desc_t UDC_DESC_STORAGE *udc_next_desc_in_iface(usb_conf_desc_t 
         // If new interface descriptor is found,
         // then it is the end of the current global interface descriptor
         if (USB_DT_INTERFACE == desc->bDescriptorType) {
-            break;  // End of global interface descriptor
+            break; // End of global interface descriptor
         }
         if (desc_id == desc->bDescriptorType) {
-            return desc;  // Specific descriptor found
+            return desc; // Specific descriptor found
         }
         // Go to next descriptor
         desc = (UDC_DESC_STORAGE usb_conf_desc_t *)((uint8_t *)desc + desc->bLength);
     }
-    return NULL;  // No specific descriptor found
+    return NULL; // No specific descriptor found
 }
 #endif
 
@@ -248,13 +255,13 @@ static bool udc_update_iface_desc(uint8_t iface_num, uint8_t setting_num) {
             // A interface descriptor is found
             // Check interface and alternate setting number
             if ((iface_num == udc_ptr_iface->bInterfaceNumber) && (setting_num == udc_ptr_iface->bAlternateSetting)) {
-                return true;  // Interface found
+                return true; // Interface found
             }
         }
         // Go to next descriptor
         udc_ptr_iface = (UDC_DESC_STORAGE usb_iface_desc_t *)((uint8_t *)udc_ptr_iface + udc_ptr_iface->bLength);
     }
-    return false;  // Interface not found
+    return false; // Interface not found
 }
 
 /**
@@ -340,7 +347,9 @@ static bool udc_iface_enable(uint8_t iface_num, uint8_t setting_num) {
 
 /*! \brief Start the USB Device stack
  */
-void udc_start(void) { udd_enable(); }
+void udc_start(void) {
+    udd_enable();
+}
 
 /*! \brief Stop the USB Device stack
  */
@@ -507,7 +516,7 @@ static bool udc_req_std_dev_set_feature(void) {
                     udd_g_ctrlreq.callback = udd_test_mode_packet;
                     return true;
 
-                case USB_DEV_TEST_MODE_FORCE_ENABLE:  // Only for downstream facing hub ports
+                case USB_DEV_TEST_MODE_FORCE_ENABLE: // Only for downstream facing hub ports
                 default:
                     break;
             }
@@ -541,7 +550,9 @@ static bool udc_req_std_ep_set_feature(void) {
  * \brief Change the address of device
  * Callback called at the end of request set address
  */
-static void udc_valid_address(void) { udd_set_address(udd_g_ctrlreq.req.wValue & 0x7F); }
+static void udc_valid_address(void) {
+    udd_set_address(udd_g_ctrlreq.req.wValue & 0x7F);
+}
 
 /**
  * \brief Standard device request to set device address
@@ -760,7 +771,7 @@ static bool udc_req_std_dev_set_configuration(void) {
     // Enable new configuration
     udc_num_configuration = udd_g_ctrlreq.req.wValue & 0xFF;
     if (udc_num_configuration == 0) {
-        return true;  // Default empty configuration requested
+        return true; // Default empty configuration requested
     }
     // Update pointer of the configuration descriptor
 #ifdef USB_DEVICE_HS_SUPPORT
@@ -793,10 +804,10 @@ static bool udc_req_std_iface_get_setting(void) {
     udi_api_t UDC_DESC_STORAGE *udi_api;
 
     if (udd_g_ctrlreq.req.wLength != 1) {
-        return false;  // Error in request
+        return false; // Error in request
     }
     if (!udc_num_configuration) {
-        return false;  // The device is not is configured state yet
+        return false; // The device is not is configured state yet
     }
 
     // Check the interface number included in the request
@@ -829,10 +840,10 @@ static bool udc_req_std_iface_set_setting(void) {
     uint8_t iface_num, setting_num;
 
     if (udd_g_ctrlreq.req.wLength) {
-        return false;  // Error in request
+        return false; // Error in request
     }
     if (!udc_num_configuration) {
-        return false;  // The device is not is configured state yet
+        return false; // The device is not is configured state yet
     }
 
     iface_num   = udd_g_ctrlreq.req.wIndex & 0xFF;
@@ -856,7 +867,7 @@ static bool udc_reqstd(void) {
     if (Udd_setup_is_in()) {
         // GET Standard Requests
         if (udd_g_ctrlreq.req.wLength == 0) {
-            return false;  // Error for USB host
+            return false; // Error for USB host
         }
 
         if (USB_REQ_RECIP_DEVICE == Udd_setup_recipient()) {
@@ -950,7 +961,7 @@ static bool udc_req_iface(void) {
     udi_api_t UDC_DESC_STORAGE *udi_api;
 
     if (0 == udc_num_configuration) {
-        return false;  // The device is not is configured state yet
+        return false; // The device is not is configured state yet
     }
     // Check interface number
     iface_num = udd_g_ctrlreq.req.wIndex & 0xFF;
@@ -984,7 +995,7 @@ static bool udc_req_ep(void) {
     udi_api_t UDC_DESC_STORAGE *udi_api;
 
     if (0 == udc_num_configuration) {
-        return false;  // The device is not is configured state yet
+        return false; // The device is not is configured state yet
     }
     // Send this request on all enabled interfaces
     iface_num = udd_g_ctrlreq.req.wIndex & 0xFF;
@@ -1024,7 +1035,7 @@ bool udc_process_setup(void) {
 
     if (Udd_setup_is_in()) {
         if (udd_g_ctrlreq.req.wLength == 0) {
-            return false;  // Error from USB host
+            return false; // Error from USB host
         }
     }
 
@@ -1052,7 +1063,7 @@ bool udc_process_setup(void) {
     // Here SETUP request unknown by UDC and UDIs
 #ifdef USB_DEVICE_SPECIFIC_REQUEST
     // Try to decode it in specific callback
-    return USB_DEVICE_SPECIFIC_REQUEST();  // Ex: Vendor request,...
+    return USB_DEVICE_SPECIFIC_REQUEST(); // Ex: Vendor request,...
 #else
     return false;
 #endif

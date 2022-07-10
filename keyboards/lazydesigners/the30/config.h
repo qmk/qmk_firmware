@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4C44 // "LD"
 #define PRODUCT_ID      0x0030
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LazyDesigners
 #define PRODUCT         THE30
-#define DESCRIPTION     A 30% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3

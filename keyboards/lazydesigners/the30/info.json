@@ -2,11 +2,8 @@
     "keyboard_name": "THE30",
     "url": "http://lazydesigners.cn",
     "maintainer": "Erovia",
-    "width": 10,
-    "height": 3,
     "layouts": {
         "LAYOUT_ortho_3x10": {
-            "key_count": 30,
             "layout": [
                 {"label":"Q", "x":0, "y":0},
                 {"label":"W", "x":1, "y":0},

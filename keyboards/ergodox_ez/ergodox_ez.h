@@ -1,14 +1,35 @@
-#ifndef ERGODOX_EZ_H
-#define ERGODOX_EZ_H
+/*
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
+Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
 
 #include "quantum.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include "i2c_master.h"
-#include <util/delay.h>
 
-#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-#define CPU_16MHz       0x00
+#if defined(KEYBOARD_ergodox_ez_glow)
+#    include "glow.h"
+#elif defined(KEYBOARD_ergodox_ez_shine)
+#    include "shine.h"
+#endif
 
 // I2C aliases and register addresses (see "mcp23018.md")
 #define I2C_ADDR        0b0100000
@@ -65,8 +86,7 @@ inline void ergodox_left_led_2_off(void)    { ergodox_left_led_2 = 0; }
 inline void ergodox_left_led_3_off(void)    { ergodox_left_led_3 = 0; }
 #endif // LEFT_LEDS
 
-inline void ergodox_led_all_on(void)
-{
+inline void ergodox_led_all_on(void) {
     ergodox_board_led_on();
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
@@ -100,19 +120,20 @@ inline void ergodox_right_led_set(uint8_t led, uint8_t n)  {
                  (OCR1C = n);
 }
 
-inline void ergodox_led_all_set(uint8_t n)
-{
+inline void ergodox_led_all_set(uint8_t n) {
     ergodox_right_led_1_set(n);
     ergodox_right_led_2_set(n);
     ergodox_right_led_3_set(n);
 }
 
-#ifdef ORYX_CONFIGURATOR
 enum ergodox_ez_keycodes {
     LED_LEVEL = SAFE_RANGE,
     TOGGLE_LAYER_COLOR,
     EZ_SAFE_RANGE,
 };
+
+#ifndef WEBUSB_ENABLE
+#    define WEBUSB_PAIR KC_NO
 #endif
 
 typedef union {
@@ -272,4 +293,24 @@ extern keyboard_config_t keyboard_config;
     { R06, R16, R26, R36, R46, KC_NO }    \
     }
 
-#endif
+/*  ---- LEFT HAND ----     ---- RIGHT HAND ---- */
+#define LED_LAYOUT_ergodox_pretty(                \
+    L01,L02,L03,L04,L05,    R01,R02,R03,R04,R05,  \
+    L11,L12,L13,L14,L15,    R11,R12,R13,R14,R15,  \
+    L21,L22,L23,L24,L25,    R21,R22,R23,R24,R25,  \
+    L31,L32,L33,L34,L35,    R31,R32,R33,R34,R35,  \
+    L41,L42,L43,L44,            R42,R43,R44,R45 ) \
+                                                  \
+   /* matrix positions */                         \
+    { R01, R02, R03, R04, R05,                    \
+      R11, R12, R13, R14, R15,                    \
+      R21, R22, R23, R24, R25,                    \
+      R31, R32, R33, R34, R35,                    \
+           R42, R43, R44, R45,                    \
+                                                  \
+      L05, L04, L03, L02, L01,                    \
+      L15, L14, L13, L12, L11,                    \
+      L25, L24, L23, L22, L21,                    \
+      L35, L34, L33, L32, L31,                    \
+           L44, L43, L42, L41                     \
+    }

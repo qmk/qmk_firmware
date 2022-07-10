@@ -32,21 +32,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING("Hello from Illuminati Works");
       } else {
-		SEND_STRING("iS0 working properly");
+        SEND_STRING("iS0 working properly");
       }
       break;
   }
   return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
