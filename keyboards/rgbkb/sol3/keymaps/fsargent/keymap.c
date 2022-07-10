@@ -62,10 +62,10 @@ enum sol_keycodes {
 #define RBRC 		MT(MOD_LGUI, KC_RBRC)
 
 
-#define KIWI 	LT(_NAV, KC_PLUS)
-#define CHERRY	LT(_SYM, KC_MINUS)
+#define KIWI 	KC_MINUS
+#define CHERRY	KC_UNDERSCORE
 #define BLUE	MT(MOD_RGUI, KC_EQL)
-#define LEMON	MT(MOD_RALT, KC_UNDERSCORE)
+#define LEMON	MT(MOD_RALT, KC_PPLS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_SYM] = LAYOUT(
 	_______,	KC_F1,	KC_NLCK,	KC_PSLS,	KC_PAST,	KC_PMNS,	_______,					KC_NO,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	RESET,
-	_______,	KC_EQL,	KC_KP_7,	KC_KP_8,	KC_KP_9,	KC_PMNS,	_______,					KC_NO,	RGB_HUI,	RGB_SAI,	RGB_VAI,	RGB_SPI,	RGB_MOD,	KC_NO,
+	_______,	KC_EQL,	KC_KP_7,	KC_KP_8,	KC_KP_9,	KC_PMNS,	MENU_UP,					KC_NO,	RGB_HUI,	RGB_SAI,	RGB_VAI,	RGB_SPI,	RGB_MOD,	KC_NO,
 	_______,	KC_0,	KC_KP_4,	KC_KP_5,	KC_KP_6,	KC_PPLS,	MENU_BTN,					KC_VOLU,	RGB_HUD,	RGB_SAD,	RGB_VAD,	RGB_SPD,	RGB_RMOD,	KC_NO,
 	_______,	KC_DOT,	KC_KP_1,	KC_KP_2,	KC_KP_3,	KC_PENT,	MENU_DN,					KC_VOLD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 	_______,	CK_TOGG,	KC_KP_0,	KC_KP_0,	KC_PDOT,
