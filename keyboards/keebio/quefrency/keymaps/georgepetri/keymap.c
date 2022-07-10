@@ -64,7 +64,7 @@ void keyboard_post_init_user(void) {
 }
 
 void update_led(void) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
       case _BASE:
       rgblight_sethsv_noeeprom(HSV_BLUE);
       break;

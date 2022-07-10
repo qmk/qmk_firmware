@@ -43,7 +43,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #if defined(__AVR__)
 #    include <avr/interrupt.h>
-#elif defined(PROTOCOL_CHIBIOS)  // TODO: or STM32 ?
+#elif defined(PROTOCOL_CHIBIOS) // TODO: or STM32 ?
 // chibiOS headers
 #    include "ch.h"
 #    include "hal.h"
@@ -66,12 +66,14 @@ uint8_t ps2_error = PS2_ERR_NONE;
 
 static inline uint8_t pbuf_dequeue(void);
 static inline void    pbuf_enqueue(uint8_t data);
-static inline bool    pbuf_has_data(void);
 static inline void    pbuf_clear(void);
+bool                  pbuf_has_data(void);
 
 #if defined(PROTOCOL_CHIBIOS)
 void ps2_interrupt_service_routine(void);
-void palCallback(void *arg) { ps2_interrupt_service_routine(); }
+void palCallback(void *arg) {
+    ps2_interrupt_service_routine();
+}
 
 #    define PS2_INT_INIT()                                 \
         { palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT); } \
@@ -85,7 +87,7 @@ void palCallback(void *arg) { ps2_interrupt_service_routine(); }
 #    define PS2_INT_OFF()                       \
         { palDisableLineEvent(PS2_CLOCK_PIN); } \
         while (0)
-#endif  // PROTOCOL_CHIBIOS
+#endif // PROTOCOL_CHIBIOS
 
 void ps2_host_init(void) {
     idle();
@@ -103,12 +105,12 @@ uint8_t ps2_host_send(uint8_t data) {
 
     /* terminate a transmission if we have */
     inhibit();
-    wait_us(100);  // 100us [4]p.13, [5]p.50
+    wait_us(100); // 100us [4]p.13, [5]p.50
 
     /* 'Request to Send' and Start bit */
     data_lo();
     clock_hi();
-    WAIT(clock_lo, 10000, 10);  // 10ms [5]p.50
+    WAIT(clock_lo, 10000, 10); // 10ms [5]p.50
 
     /* Data bit[2-9] */
     for (uint8_t i = 0; i < 8; i++) {
@@ -244,7 +246,9 @@ RETURN:
 }
 
 #if defined(__AVR__)
-ISR(PS2_INT_VECT) { ps2_interrupt_service_routine(); }
+ISR(PS2_INT_VECT) {
+    ps2_interrupt_service_routine();
+}
 #endif
 
 /* send LED state to keyboard */
@@ -305,7 +309,7 @@ static inline uint8_t pbuf_dequeue(void) {
 
     return val;
 }
-static inline bool pbuf_has_data(void) {
+bool pbuf_has_data(void) {
 #if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();

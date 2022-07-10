@@ -35,7 +35,7 @@ uint16_t sysex_decoded_length(uint16_t encoded_length) {
 }
 
 uint16_t sysex_encode(uint8_t *encoded, const uint8_t *source, const uint16_t length) {
-    uint16_t encoded_full = length / 7;  // number of full 8 byte sections from 7 bytes of input
+    uint16_t encoded_full = length / 7; // number of full 8 byte sections from 7 bytes of input
     uint16_t i, j;
 
     // fill out the fully encoded sections

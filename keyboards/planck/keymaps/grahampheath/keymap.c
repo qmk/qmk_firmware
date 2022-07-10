@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   bool has_layer_changed = true;
 
   void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
     static uint8_t old_layer = 0;
 
     if (old_layer != layer) {

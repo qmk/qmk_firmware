@@ -70,7 +70,7 @@ enum steno_keycodes {
     STN_NB,
     STN_NC,
     STN_ZR,
-    STN__MAX = STN_ZR,  // must be less than QK_STENO_BOLT
+    STN__MAX = STN_ZR, // must be less than QK_STENO_BOLT
 };
 
 #ifdef STENO_COMBINEDMAP
@@ -89,3 +89,31 @@ enum steno_combined_keycodes {
     STN_COMB_MAX = STN_EU,
 };
 #endif
+
+#ifdef STENO_ENABLE_BOLT
+// TxBolt Codes
+#    define TXB_NUL 0
+#    define TXB_S_L 0b00000001
+#    define TXB_T_L 0b00000010
+#    define TXB_K_L 0b00000100
+#    define TXB_P_L 0b00001000
+#    define TXB_W_L 0b00010000
+#    define TXB_H_L 0b00100000
+#    define TXB_R_L 0b01000001
+#    define TXB_A_L 0b01000010
+#    define TXB_O_L 0b01000100
+#    define TXB_STR 0b01001000
+#    define TXB_E_R 0b01010000
+#    define TXB_U_R 0b01100000
+#    define TXB_F_R 0b10000001
+#    define TXB_R_R 0b10000010
+#    define TXB_P_R 0b10000100
+#    define TXB_B_R 0b10001000
+#    define TXB_L_R 0b10010000
+#    define TXB_G_R 0b10100000
+#    define TXB_T_R 0b11000001
+#    define TXB_S_R 0b11000010
+#    define TXB_D_R 0b11000100
+#    define TXB_Z_R 0b11001000
+#    define TXB_NUM 0b11010000
+#endif // STENO_ENABLE_BOLT

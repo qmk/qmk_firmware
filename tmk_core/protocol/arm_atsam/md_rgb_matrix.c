@@ -53,16 +53,20 @@ void eeconfig_update_md_led_default(void) {
     eeconfig_flush_md_led(true);
 }
 
-void md_led_changed(void) { eeconfig_flag_md_led(true); }
+void md_led_changed(void) {
+    eeconfig_flag_md_led(true);
+}
 
 // todo: use real task rather than this bodge
-void housekeeping_task_kb(void) { eeconfig_flush_md_led_task(FLUSH_TIMEOUT); }
+void housekeeping_task_kb(void) {
+    eeconfig_flush_md_led_task(FLUSH_TIMEOUT);
+}
 
 __attribute__((weak)) led_instruction_t led_instructions[] = {{.end = 1}};
 static void                             md_rgb_matrix_config_override(int i);
 #    else
 uint8_t gcr_desired;
-#    endif  // USE_MASSDROP_CONFIGURATOR
+#    endif // USE_MASSDROP_CONFIGURATOR
 
 void SERCOM1_0_Handler(void) {
     if (SERCOM1->I2CM.INTFLAG.bit.ERROR) {
@@ -125,9 +129,9 @@ void gcr_compute(void) {
     if (v_5v < V5_CAT) {
         I2C3733_Control_Set(0);
         // CDC_print("USB: WARNING: 5V catastrophic level reached! Disabling LED drivers!\r\n"); //Blocking print is bad here!
-        v_5v_cat_hit = 20;  //~100ms recover
-        gcr_actual   = 0;   // Minimize GCR
-        usb_gcr_auto = 1;   // Force auto mode enabled
+        v_5v_cat_hit = 20; //~100ms recover
+        gcr_actual   = 0;  // Minimize GCR
+        usb_gcr_auto = 1;  // Force auto mode enabled
         return;
     } else if (v_5v_cat_hit > 1) {
         v_5v_cat_hit--;
@@ -157,24 +161,24 @@ void gcr_compute(void) {
         gcr_min_counter = 0;
     } else if (action == ACT_GCR_INC) {
         if (LED_GCR_STEP_AUTO > LED_GCR_MAX - gcr_actual)
-            gcr_actual = LED_GCR_MAX;  // Obey max and prevent wrapping
+            gcr_actual = LED_GCR_MAX; // Obey max and prevent wrapping
         else
             gcr_actual += LED_GCR_STEP_AUTO;
         gcr_min_counter = 0;
     } else if (action == ACT_GCR_DEC) {
-        if (LED_GCR_STEP_AUTO > gcr_actual)  // Prevent wrapping
+        if (LED_GCR_STEP_AUTO > gcr_actual) // Prevent wrapping
         {
             gcr_actual = 0;
             // At this point, power can no longer be cut from the LED drivers, so focus on cutting out extra port if active
-            if (usb_extra_state != USB_EXTRA_STATE_DISABLED_UNTIL_REPLUG)  // If not in a wait for replug state
+            if (usb_extra_state != USB_EXTRA_STATE_DISABLED_UNTIL_REPLUG) // If not in a wait for replug state
             {
-                if (usb_extra_state == USB_EXTRA_STATE_ENABLED)  // If extra usb is enabled
+                if (usb_extra_state == USB_EXTRA_STATE_ENABLED) // If extra usb is enabled
                 {
                     gcr_min_counter++;
-                    if (gcr_min_counter > 200)  // 5ms per check = 1s delay
+                    if (gcr_min_counter > 200) // 5ms per check = 1s delay
                     {
                         USB_ExtraSetState(USB_EXTRA_STATE_DISABLED_UNTIL_REPLUG);
-                        usb_extra_manual = 0;  // Force disable manual mode of extra port
+                        usb_extra_manual = 0; // Force disable manual mode of extra port
                         if (usb_extra_manual)
                             CDC_print("USB: Disabling extra port until replug and manual mode toggle!\r\n");
                         else
@@ -202,6 +206,12 @@ void gcr_compute(void) {
 }
 
 void issi3733_prepare_arrays(void) {
+    static bool s_init = false;
+    if (s_init) {
+        return;
+    }
+    s_init = true;
+
     memset(issidrv, 0, sizeof(issi3733_driver_t) * ISSI3733_DRIVER_COUNT);
 
     int     i;
@@ -275,11 +285,11 @@ static void flush(void) {
 #    ifdef USE_MASSDROP_CONFIGURATOR
     if (!led_enabled) {
         return;
-    }  // Prevent calculations and I2C traffic if LED drivers are not enabled
+    } // Prevent calculations and I2C traffic if LED drivers are not enabled
 #    else
     if (!sr_exp_data.bit.SDB_N) {
         return;
-    }  // Prevent calculations and I2C traffic if LED drivers are not enabled
+    } // Prevent calculations and I2C traffic if LED drivers are not enabled
 #    endif
 
     // Wait for previous transfer to complete
@@ -319,17 +329,19 @@ static void flush(void) {
     pomod = (uint32_t)pomod % 10000;
     pomod /= 100.0f;
 
-#    endif  // USE_MASSDROP_CONFIGURATOR
+#    endif // USE_MASSDROP_CONFIGURATOR
 
     uint8_t drvid;
 
     // NOTE: GCR does not need to be timed with LED processing, but there is really no harm
     if (gcr_actual != gcr_actual_last) {
-        for (drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++) I2C_LED_Q_GCR(drvid);  // Queue data
+        for (drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++)
+            I2C_LED_Q_GCR(drvid); // Queue data
         gcr_actual_last = gcr_actual;
     }
 
-    for (drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++) I2C_LED_Q_PWM(drvid);  // Queue data
+    for (drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++)
+        I2C_LED_Q_PWM(drvid); // Queue data
 
     i2c_led_q_run();
 }
@@ -341,19 +353,19 @@ void md_rgb_matrix_indicators_advanced(uint8_t led_min, uint8_t led_max) {
             if (
 #    if USB_LED_NUM_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1 << USB_LED_NUM_LOCK))) ||
-#    endif  // NUM LOCK
+#    endif // NUM LOCK
 #    if USB_LED_CAPS_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1 << USB_LED_CAPS_LOCK))) ||
-#    endif  // CAPS LOCK
+#    endif // CAPS LOCK
 #    if USB_LED_SCROLL_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1 << USB_LED_SCROLL_LOCK))) ||
-#    endif  // SCROLL LOCK
+#    endif // SCROLL LOCK
 #    if USB_LED_COMPOSE_SCANCODE != 255
                 (led_map[i].scan == USB_LED_COMPOSE_SCANCODE && (kbled & (1 << USB_LED_COMPOSE))) ||
-#    endif  // COMPOSE
+#    endif // COMPOSE
 #    if USB_LED_KANA_SCANCODE != 255
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
-#    endif  // KANA
+#    endif // KANA
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
                     led_buffer[i].r = 255 - led_buffer[i].r;
@@ -378,7 +390,7 @@ static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, flo
     float po;
 
     while (f->end != 1) {
-        po = pos;  // Reset po for new frame
+        po = pos; // Reset po for new frame
 
         // Add in any moving effects
         if ((!led_animation_direction && f->ef & EF_SCR_R) || (led_animation_direction && (f->ef & EF_SCR_L))) {
@@ -413,17 +425,17 @@ static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, flo
 
         // Add in any color effects
         if (f->ef & EF_OVER) {
-            *ro = (po * (f->re - f->rs)) + f->rs;  // + 0.5;
-            *go = (po * (f->ge - f->gs)) + f->gs;  // + 0.5;
-            *bo = (po * (f->be - f->bs)) + f->bs;  // + 0.5;
+            *ro = (po * (f->re - f->rs)) + f->rs; // + 0.5;
+            *go = (po * (f->ge - f->gs)) + f->gs; // + 0.5;
+            *bo = (po * (f->be - f->bs)) + f->bs; // + 0.5;
         } else if (f->ef & EF_SUBTRACT) {
-            *ro -= (po * (f->re - f->rs)) + f->rs;  // + 0.5;
-            *go -= (po * (f->ge - f->gs)) + f->gs;  // + 0.5;
-            *bo -= (po * (f->be - f->bs)) + f->bs;  // + 0.5;
+            *ro -= (po * (f->re - f->rs)) + f->rs; // + 0.5;
+            *go -= (po * (f->ge - f->gs)) + f->gs; // + 0.5;
+            *bo -= (po * (f->be - f->bs)) + f->bs; // + 0.5;
         } else {
-            *ro += (po * (f->re - f->rs)) + f->rs;  // + 0.5;
-            *go += (po * (f->ge - f->gs)) + f->gs;  // + 0.5;
-            *bo += (po * (f->be - f->bs)) + f->bs;  // + 0.5;
+            *ro += (po * (f->re - f->rs)) + f->rs; // + 0.5;
+            *go += (po * (f->ge - f->gs)) + f->gs; // + 0.5;
+            *bo += (po * (f->be - f->bs)) + f->bs; // + 0.5;
         }
 
         f++;
@@ -438,7 +450,7 @@ static void md_rgb_matrix_config_override(int i) {
     float bo = 0;
     float po;
 
-    uint8_t highest_active_layer = biton32(layer_state);
+    uint8_t highest_active_layer = get_highest_layer(layer_state);
 
     if (led_animation_circular) {
         // TODO: should use min/max values from LED configuration instead of
@@ -471,10 +483,10 @@ static void md_rgb_matrix_config_override(int i) {
 
             // Check if this applies to current index
             if (led_cur_instruction->flags & LED_FLAG_MATCH_ID) {
-                uint8_t   modid    = i / 32;                             // Calculate which id# contains the led bit
-                uint32_t  modidbit = 1 << (i % 32);                      // Calculate the bit within the id#
-                uint32_t* bitfield = &led_cur_instruction->id0 + modid;  // Add modid as offset to id0 address. *bitfield is now idX of the led id
-                if (~(*bitfield) & modidbit) {                           // Check if led bit is not set in idX
+                uint8_t   modid    = i / 32;                            // Calculate which id# contains the led bit
+                uint32_t  modidbit = 1 << (i % 32);                     // Calculate the bit within the id#
+                uint32_t* bitfield = &led_cur_instruction->id0 + modid; // Add modid as offset to id0 address. *bitfield is now idX of the led id
+                if (~(*bitfield) & modidbit) {                          // Check if led bit is not set in idX
                     goto next_iter;
                 }
             }
@@ -538,5 +550,5 @@ static void md_rgb_matrix_config_override(int i) {
     led_buffer[i].b = (uint8_t)bo;
 }
 
-#    endif  // USE_MASSDROP_CONFIGURATOR
-#endif      // RGB_MATRIX_ENABLE
+#    endif // USE_MASSDROP_CONFIGURATOR
+#endif     // RGB_MATRIX_ENABLE

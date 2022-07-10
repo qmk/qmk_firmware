@@ -330,7 +330,7 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 
 #ifdef ALVICSTEP_CONFIG_H
- int8_t layer = biton32(layer_state);
+ int8_t layer = get_highest_layer(layer_state);
 
         switch (layer) {
         case 1:

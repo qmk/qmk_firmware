@@ -50,8 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define STM32_HSECLK 8000000
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -67,8 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define TAP_CODE_DELAY 50
 

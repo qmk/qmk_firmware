@@ -147,7 +147,7 @@ void matrix_scan_user(void) {
      */
     static uint8_t leds[4];
     uint8_t led;
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
 

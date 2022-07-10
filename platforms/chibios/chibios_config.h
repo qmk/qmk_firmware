@@ -16,7 +16,28 @@
 #pragma once
 
 #ifndef USB_VBUS_PIN
-#    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
+#    define SPLIT_USB_DETECT // Force this on when dedicated pin is not used
+#endif
+
+#if defined(MCU_RP)
+#    define CPU_CLOCK RP_CORE_CLK
+
+#    define USE_GPIOV1
+#    define PAL_OUTPUT_TYPE_OPENDRAIN _Static_assert(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
+
+#    define usb_lld_endpoint_fields
+
+#    define I2C1_SCL_PAL_MODE (PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4)
+#    define I2C1_SDA_PAL_MODE I2C1_SCL_PAL_MODE
+
+#    define USE_I2CV1_CONTRIB
+#    if !defined(I2C1_CLOCK_SPEED)
+#        define I2C1_CLOCK_SPEED 400000
+#    endif
+
+#    define SPI_SCK_PAL_MODE (PAL_MODE_ALTERNATE_SPI | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_DRIVE4)
+#    define SPI_MOSI_PAL_MODE SPI_SCK_PAL_MODE
+#    define SPI_MISO_PAL_MODE SPI_SCK_PAL_MODE
 #endif
 
 // STM32 compatibility
@@ -55,7 +76,7 @@
 #if defined(MCU_WB32)
 #    define CPU_CLOCK WB32_MAINCLK
 
-#    if defined(WB32F3G71xx)
+#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
 #        define PAL_OUTPUT_TYPE_OPENDRAIN PAL_WB32_OTYPE_OPENDRAIN
 #        define PAL_OUTPUT_TYPE_PUSHPULL PAL_WB32_OTYPE_PUSHPULL
 #        define PAL_OUTPUT_SPEED_HIGHEST PAL_WB32_OSPEED_HIGH
@@ -74,9 +95,9 @@
 #if defined(MCU_KINETIS)
 #    define CPU_CLOCK KINETIS_SYSCLK_FREQUENCY
 
-#    if defined(K20x) || defined(KL2x)
+#    if defined(K20x) || defined(K60x) || defined(KL2x)
 #        define USE_I2CV1
-#        define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
+#        define USE_I2CV1_CONTRIB // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
 #        define USE_GPIOV1
 #    endif
 #endif
