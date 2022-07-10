@@ -49,15 +49,21 @@
 /* Change larger keys per scan for elite gaming */
 #define QMK_KEYS_PER_SCAN 12
 
-/* Encoder pins */
-#define ENCODERS_PAD_A { C6 }
-#define ENCODERS_PAD_B { C7 }
+#ifdef ENCODER_ENABLE
+    /* Encoder pins */
+    #define ENCODERS_PAD_A { C6 }
+    #define ENCODERS_PAD_B { C7 }
+
+    /* Encoder config */
+    #define ENCODER_RESOLUTION 2
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
     #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
     /* RGB Matrix config */
     #define DRIVER_ADDR_1 0b1011111
@@ -94,8 +100,12 @@
     #define ENABLE_RGB_MATRIX_HUE_PENDULUM
     #define ENABLE_RGB_MATRIX_HUE_WAVE
     #define ENABLE_RGB_MATRIX_PIXEL_RAIN
+    #define ENABLE_RGB_MATRIX_PIXEL_FLOW
     #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+
+    #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+    #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
