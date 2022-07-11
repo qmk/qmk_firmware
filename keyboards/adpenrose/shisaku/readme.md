@@ -1,6 +1,6 @@
 # Shisaku
 
-![shisaku](https://i.imgur.com/42H1h1d.jpg)
+![shisaku](https://i.imgur.com/42H1h1dh.jpg)
 
 A 40% alice-like keyboard assembled only with THT components, including the option for a solenoid.
 
