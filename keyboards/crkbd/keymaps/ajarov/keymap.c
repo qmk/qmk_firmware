@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [L_RIGHT] = LAYOUT_split_3x6_3(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_CAPS, ES_EXLM, ES_DQUO, ES_HASH, ES_CIRC, ES_TILD,                      ES_ASTR,    ES_7,    ES_8,    ES_9, ES_MINS, KC_BSPC,
+        KC_CAPS, ES_EXLM, ES_DQUO, ES_HASH, ES_CIRC, XXXXXXX,                      ES_ASTR,    ES_7,    ES_8,    ES_9, ES_MINS, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_LCTL, ES_LCBR, ES_RCBR, ES_LPRN, ES_RPRN, ES_QUES,                      ES_SLSH,    ES_4,    ES_5,    ES_6, ES_PLUS, ES_QUOT,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -66,11 +66,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [L_UPPER_RIGHT] = LAYOUT_split_3x6_3(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        XXXXXXX, ES_IEXL,   ES_AT, ES_EURO, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, ES_MORD, XXXXXXX, KC_BSPC,
+        XXXXXXX, ES_IEXL,   ES_AT, ES_EURO,  ES_DLR, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, ES_MORD, XXXXXXX, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_LCTL, ES_FORD,  ES_NOT, ES_PIPE, ES_BSLS, ES_IQUE,                      XXXXXXX,  ES_DLR, ES_PERC, ES_AMPR, XXXXXXX,  ES_GRV,
+        KC_LCTL, ES_FORD, ES_AMPR, ES_PIPE, ES_BSLS, ES_IQUE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ES_TILD,  ES_GRV,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_LSFT, XXXXXXX, XXXXXXX, ES_CCED, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_RSFT,
+        KC_LSFT, XXXXXXX,  ES_NOT, ES_CCED, ES_PERC, XXXXXXX,                      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_RSFT,
     //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                             KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_LALT
                                         //`--------------------------'  `--------------------------'
