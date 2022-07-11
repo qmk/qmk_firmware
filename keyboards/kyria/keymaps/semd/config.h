@@ -18,7 +18,7 @@
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
-  #define OLED_TIMEOUT 600000
+  #define OLED_TIMEOUT 15000
   #define OLED_FONT_H "keyboards/kyria/keymaps/semd/glcdfont.c"
 #endif
 

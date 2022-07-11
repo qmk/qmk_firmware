@@ -164,7 +164,8 @@ void render_master(void) {
 
     render_layer();
 
-    render_keylogger();
+    // render_keylogger();
+    oled_write_P(PSTR("      "), false); // keylogger disabled
 
     // Encoder state
     render_encoder();
