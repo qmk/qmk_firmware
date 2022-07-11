@@ -142,7 +142,7 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
     for encoder in encoder_json.get("rotary", []):
         a_pads.append(encoder["pin_a"])
         b_pads.append(encoder["pin_b"])
-        resolutions.append(str(encoder.get("resolution", 4)))
+        resolutions.append(encoder.get("resolution", None))
 
     config_h_lines.append(f'#ifndef ENCODERS_PAD_A{postfix}')
     config_h_lines.append(f'#   define ENCODERS_PAD_A{postfix} {{ { ", ".join(a_pads) } }}')
@@ -152,13 +152,15 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
     config_h_lines.append(f'#   define ENCODERS_PAD_B{postfix} {{ { ", ".join(b_pads) } }}')
     config_h_lines.append(f'#endif // ENCODERS_PAD_B{postfix}')
 
-    if len(set(resolutions)) == 1:
+    if None in resolutions:
+        cli.log.debug("Unable to generate ENCODER_RESOLUTION configuration")
+    elif len(set(resolutions)) == 1:
         config_h_lines.append(f'#ifndef ENCODER_RESOLUTION{postfix}')
         config_h_lines.append(f'#   define ENCODER_RESOLUTION{postfix} { resolutions[0] }')
         config_h_lines.append(f'#endif // ENCODER_RESOLUTION{postfix}')
     else:
         config_h_lines.append(f'#ifndef ENCODER_RESOLUTIONS{postfix}')
-        config_h_lines.append(f'#   define ENCODER_RESOLUTIONS{postfix} {{ { ", ".join(resolutions) } }}')
+        config_h_lines.append(f'#   define ENCODER_RESOLUTIONS{postfix} {{ { ", ".join(map(str,resolutions)) } }}')
         config_h_lines.append(f'#endif // ENCODER_RESOLUTIONS{postfix}')
 
 

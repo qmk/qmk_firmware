@@ -225,17 +225,21 @@ def _extract_encoders_values(config_c, postfix=''):
     b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
     resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
 
-    default_resolution = config_c.get('ENCODER_RESOLUTION', '4')
+    default_resolution = config_c.get('ENCODER_RESOLUTION', None)
 
     if a_pad and b_pad:
         a_pad = list(filter(None, a_pad.split(',')))
         b_pad = list(filter(None, b_pad.split(',')))
         resolutions = list(filter(None, resolutions.split(',')))
-        resolutions += [default_resolution] * (len(a_pad) - len(resolutions))
+        if default_resolution:
+            resolutions += [default_resolution] * (len(a_pad) - len(resolutions))
 
         encoders = []
         for index in range(len(a_pad)):
-            encoders.append({'pin_a': a_pad[index], 'pin_b': b_pad[index], "resolution": int(resolutions[index])})
+            encoder = {'pin_a': a_pad[index], 'pin_b': b_pad[index]}
+            if index < len(resolutions):
+                encoder['resolution'] = int(resolutions[index])
+            encoders.append(encoder)
 
         return encoders
 
