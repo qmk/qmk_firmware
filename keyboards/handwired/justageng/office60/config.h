@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2022 Jia Geng (@JiaGengChang)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 #define DEVICE_VER 0x0001
 
 #define MANUFACTURER "Jia Geng"
-#define PRODUCT "Bluepill GH60"
+#define PRODUCT "Office60"
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -35,3 +35,14 @@
     { B4, B3, A15, B13, B5 }
 #define UNUSED_PINS \
     { A0, A9, A11, A12, C13, C14, C15 }
+
+// the following is incompatible with link time optimization
+// activated by including "-flto" in rules.mk
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
+// disable more qmk features
+#define NO_ACTION_LAYER
+#define NO_ACTION_TAPPING
+#define NO_ACTION_ONESHOT
+#define IGNORE_MOD_TAP_INTERRUPT
