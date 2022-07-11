@@ -18,8 +18,8 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
+#define VENDOR_ID 0x0FF1
+#define PRODUCT_ID 0xCE60
 #define DEVICE_VER 0x0001
 
 #define MANUFACTURER "Jia Geng"
@@ -30,16 +30,12 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_COL_PINS \
-    { A8, B11, B10, B15, A10, A1, A2, A3, A4, A5, A6, A7, B0, B1 }
+    { B12, B13, B14, A8, A9, A10, A15, B3, B4, B5, B6, B7, B8, B9 }
 #define MATRIX_ROW_PINS \
-    { B4, B3, A15, B13, B5 }
+    { A0, A1, A2, A3, A4 }
 #define UNUSED_PINS \
-    { A0, A9, A11, A12, C13, C14, C15 }
+    { A5, A6, A7, A13, A14, B0, B1, B2, B10, B11, B15, C13, C14, C15 }
 
-// the following is incompatible with link time optimization
-// activated by including "-flto" in rules.mk
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 // disable more qmk features
 #define NO_ACTION_LAYER
