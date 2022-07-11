@@ -14,13 +14,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, QK_BOOT
   ),
   [2] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    _______, _______, _______, _______,
+    _______, _______, _______, _______,
+    _______, _______, _______, _______
   ),
   [3] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    _______, _______, _______, _______,
+    _______, _______, _______, _______,
+    _______, _______, _______, _______
   )
 };
