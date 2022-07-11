@@ -6,7 +6,7 @@ Note that the optional encoder is disabled by default.
 
 rules.mk OPTIONS
 
-ENCODER_MAPPING_ENABLE = yes - turns on the optional encoder
+`ENCODER_MAP_ENABLE = yes` - turns on the optional encoder
 
 ## Layer diagrams
 Default layer
