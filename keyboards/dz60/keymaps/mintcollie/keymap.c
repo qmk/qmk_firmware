@@ -1,3 +1,5 @@
+// Copyright 2022 Todd McIntire (@toddmcintire)
+// SPDX-License_Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
 enum custom_layers {
