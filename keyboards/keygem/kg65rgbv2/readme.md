@@ -7,7 +7,6 @@ The PCB will feature:
 * QMK & VIA compatibility
 * Per-Key RGB LED's
 
----
 
 * Keyboard Maintainer: Keygem
 * Hardware Supported: KG65 RGB V2
