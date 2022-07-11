@@ -1,4 +1,4 @@
-/* Copyright 2022 Nathan Spears
+/* Copyright 2022 wuque
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,22 +14,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quark_plus.h"
+#pragma once
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 1) { /* left encoder*/
-                if (clockwise){
-                    tap_code(KC_WH_U);
-                } else {
-                    tap_code(KC_WH_D);
-                }
-    } else if (index == 0) { /* right encoder */
-                if (clockwise){
-                    tap_code(KC_VOLU);
-                } else {
-                    tap_code(KC_VOLD);
-        }
-    }
-    return true;
-}
+#include "config_common.h"
+
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x906D
+#define PRODUCT_ID      0x0006
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    wuque
+#define PRODUCT         promise87
+
+/* key matrix size */
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 17
+
+#define MATRIX_ROW_PINS { B3, B7, B2, F0, D3, D0 }
+#define MATRIX_COL_PINS { D6, D7, D1, D5, F7, D4, F5, F4, F1, C7, C6, B6, B5, B4, E6, B1, B0 }
+
+#define DIODE_DIRECTION COL2ROW
+
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5
+
+#define LED_CAPS_LOCK_PIN F6
+#define LED_PIN_ON_STATE 0
