@@ -2,7 +2,7 @@
   "manufacturer": "Boardsource",
   "keyboard_name": "Spooky",
   "maintainer": "waffle87",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "features": {
     "bootmagic": true,
     "extrakey": true,
@@ -15,7 +15,6 @@
       ["B3", "B2", "B6"]
     ]
   },
-  "processor": "atmega32u4",
   "usb": {
     "device_version": "1.0.0",
     "pid": "0x1031",
