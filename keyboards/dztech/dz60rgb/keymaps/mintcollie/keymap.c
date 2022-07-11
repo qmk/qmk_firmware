@@ -1,32 +1,9 @@
 #include QMK_KEYBOARD_H
 
-// Make special keycodes more visible
-#define ____ KC_TRNS
-#define XXXX KC_NO
-
-// Layer definition
-#define L0 0
-#define L1 1
-//#define L2 2
-
-enum custom_keycodes {
-	QMKBEST = SAFE_RANGE,
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch (keycode) {
-		case QMKBEST:
-			if (record->event.pressed) {
-				// when keycode QMKBEST is pressed
-				SEND_STRING("QMK is the best thing ever!");
-			} else {
-				// when keycode QMKBEST is released
-				register_code(KC_ENT);
-				unregister_code(KC_ENT);
-			}
-			break;
-	}
-	return true;
+enum custom_layers {
+    L0,
+    L1,
+    L2,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,5 +22,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	RGB_TOG, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ____, ____, ____, ____, RESET,
 	____, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, RGB_M_TW, ____, ____,
 	____, ____, ____, ____, BL_DEC, BL_TOGG, BL_INC, BL_STEP, ____, ____, ____, ____, ____, 
-	____, ____, ____, ____, ____, ____, KC_HOME, QMKBEST, KC_END)
+	____, ____, ____, ____, ____, ____, KC_HOME, ____, KC_END)
  };
