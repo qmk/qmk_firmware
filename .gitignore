@@ -5,6 +5,9 @@
 .DS_Store
 ._*
 
+# Merge files
+*.orig
+
 # Build artifacts
 .clang_complete
 .build/
