@@ -27,11 +27,11 @@ The matrix_read_cols_on_rows.c in this directory provides a fast version of matr
 3) Convert the keyboard matrix configuration to the format for `matrix_read_cols_on_rows.c` by following these steps
    * If MATRIX_COL_PINS and MATRIX_ROW_PINS are defined in config.h, do the following
      ```shell
-     ruby users/mtei/convert_matrix_config.rb keyboards/KEYBOARD/config.h > keyboards/KEYBOARD/boost/config.h
+     python3 users/mtei/convert_matrix_config.py keyboards/KEYBOARD/config.h > keyboards/KEYBOARD/boost/config.h
      ```
    * If "matrix_pins" is defined in info.json, do the following
      ```shell
-     ruby users/mtei/convert_matrix_config.rb keyboards/KEYBOARD/info.json > keyboards/KEYBOARD/boost/config.h
+     python3 users/mtei/convert_matrix_config.py keyboards/KEYBOARD/info.json > keyboards/KEYBOARD/boost/config.h
      ```
 4) Copy files into `keyboards/KEYBOARD/boost`
    ```shell
@@ -58,10 +58,21 @@ fast `matrix_read_cols_on_rows()` requires a different macros than the existing 
 Generate the required configuration by running the converter as follows
 
 ```shell
-ruby users/mtei/convert_matrix_config.rb <config.h or info.json>
+python3 users/mtei/convert_matrix_config.py <config.h or info.json>
 ```
 
 ## Configuration
+
+ * [Matrix configuration](#matrix-configuration)
+   * [`#define SWITCH_MATRIX_INPUT_0`](#define-switch_matrix_input_0)
+   * [`#define SWITCH_MATRIX_OUTPUT_0`](#define-switch_matrix_output_0)
+   * [`#define MATRIX_EXTENSION_74HC157`](#define-matrix_extension_74hc157)
+   * [`#define MATRIX_SWITCH_LOGIC_IS_ACTIVE_HIGH`](#define-matrix_switch_logic_is_active_high)
+   * [For split keyboards with different configurations on the left and right.](#for-split-keyboards-with-different-configurations-on-the-left-and-right)
+ * [Delay configuration](#delay-configuration)
+   * [`#define MATRIX_IO_DELAY_TYPE ADAPTIVE_TO_INPUT`](#define-matrix_io_delay_type-adaptive_to_input)
+   * [`#define MATRIX_IO_DELAY_TYPE FORCE_INPUT_UP_TO_VCC`](#define-matrix_io_delay_type-force_input_up_to_vcc)
+   * [`#define MATRIX_IO_DELAY_TYPE WAIT_SPECIFIED_TIME`](#define-matrix_io_delay_type-wait_specified_time)
 
 ### Matrix configuration
 
@@ -190,6 +201,14 @@ In SWITCH_MATRIX_OUTPUT_0 The same pin assignment is written as follows
       (0, 0x40, 0x08) )
 ```
 
+#### `#define MATRIX_EXTENSION_74HC157`
+
+TBD
+
+#### `#define MATRIX_SWITCH_LOGIC_IS_ACTIVE_HIGH`
+
+TBD
+
 #### For split keyboards with different configurations on the left and right.
 
 Define SWITCH_MATRIX_INPUT_1 and SWITCH_MATRIX_OUTPUT_1 in the same format as above.
@@ -225,7 +244,7 @@ Delays for the specified time regardless of whether or not there is an input.
 
 ## Performance
 
-The timing chart of the firmware using the normal firmware and the high-speed version of matrix_read_cols_on_rows() on the Helix keyboard (AVR-based split keyboard) is as follows.
+The timing chart of the firmware using the normal firmware and fast matrix_read_cols_on_rows() on the Helix keyboard (AVR-based split keyboard) is as follows.
 
 * Without fast matrix_read_cols_on_rows().
   <img width="80%" alt="helix-normal" src="https://user-images.githubusercontent.com/2170248/176904371-bce2ee2b-c616-42ec-b37c-b939d36096cf.png">
