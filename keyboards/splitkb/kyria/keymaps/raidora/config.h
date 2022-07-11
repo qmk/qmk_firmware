@@ -24,8 +24,8 @@
 #    define RGBLIGHT_LIMIT_VAL 150
 #endif
 
-// Lets you roll mod-tap keys
-#define IGNORE_MOD_TAP_INTERRUPT
+#define PERMISSIVE_HOLD
+#define HOLD_ON_OTHER_KEY_PRESS
 
 #define ENCODER_RESOLUTION 2
 
@@ -36,7 +36,7 @@
 #define FORCE_NKRO
 
 #undef TAPPING_TERM
-#define TAPPING_TERM    200
+#define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
