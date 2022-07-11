@@ -1,4 +1,4 @@
-/* Copyright 2021 Paul James
+/* Copyright 2022 wuque
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,17 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "quantum.h"
-
-#define XXX KC_NO
-
-#if defined(KEYBOARD_peej_rosaline_staggered)
-    #include "staggered.h"
-#elif defined(KEYBOARD_peej_rosaline_ortho)
-    #include "ortho.h"
-#endif
-
-#define LED1 C5
-#define LED2 C4
+#include "wkl.h"
