@@ -1,4 +1,4 @@
-# Debug version matrix.c(0.17.0)
+# Debug version matrix.c(0.17.0), matrix_extension_74hc157.c and matrix_read_cols_on_row.c
 
 This directory is provided for testing and performance evaluation of [`users/mtei/matrix_read_cols_on_row.c`](../../../../users/mtei/readme_matrix_read_cols_on_row.md)  using symmetric70_proto.
 
@@ -7,7 +7,7 @@ The matrix.c in this directory is 0.17.0:quantum/matrix.c with the following add
 * Added the MATRIX_DEBUG_SCAN_{START/END} macro to measure the execution time of matrix_scan().
 * Added the MATRIX_DEBUG_DELAY_{START/END} macro to measure delay time.
 
-The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_row()` that adds support for 74hc157 used in the symmetric70_proto/promicro hardware.  `matrix_read_cols_on_row()`, which adds support for 74hc157 used in the symmetric70_proto/promicro hardware.
+The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_row()` that adds support for 74hc157 used in the symmetric70_proto/promicro hardware.
 
 ## Current performance
 
