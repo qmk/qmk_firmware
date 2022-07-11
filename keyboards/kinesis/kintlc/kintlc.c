@@ -14,14 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kint36.h"
+#include "kintlc.h"
 
-#define LED_POWER C5
+#define LED_POWER LINE_PIN13
 
 void matrix_init_kb(void) {
     matrix_init_user();
 
-    // Turn on the Teensy 3.6 Power LED:
+    // Turn on the Teensy LC Power LED:
     setPinOutput(LED_POWER);
     writePinHigh(LED_POWER);
 }
