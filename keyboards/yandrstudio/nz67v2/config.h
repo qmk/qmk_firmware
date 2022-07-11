@@ -114,22 +114,3 @@
 #    define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 
 #endif
-
-
-#ifdef RGBLIGHT_ENABLE
-
-#    define RGB_DI_PIN B5
-#    define RGBLED_NUM 86
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGBLIGHT_SLEEP
-#    define RGBLIGHT_VAL_STEP 15
-#    define RGBLIGHT_LIMIT_VAL 150
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
-#    define RGBLIGHT_ANIMATIONS
-
-#    define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
-#    define WS2812_PWM_CHANNEL 2  // default: 2
-#    define WS2812_DMA_STREAM STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#    define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-
-#endif
