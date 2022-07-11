@@ -16,6 +16,10 @@
 
 #include "um80.h"
 
+#ifndef WPM_ENABLE
+#    define get_current_wpm() 0
+#endif
+
 #ifdef OLED_ENABLE
 void suspend_power_down_kb(void) {
     oled_off();
@@ -60,8 +64,6 @@ static const char PROGMEM merge_logo[] = {
     0x00, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01,
     0x01, 0x00, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00
 };
-
-uint8_t current_wpm = 0;
 
 static void print_status_narrow(void) {
     oled_set_cursor(0,1);
@@ -108,7 +110,6 @@ static void print_status_narrow(void) {
 
 bool oled_task_kb(void) {
     if (!oled_task_user()) { return false; }
-    current_wpm = get_current_wpm();
     if (is_keyboard_master()) {
         print_status_narrow();
         //render_logo();
