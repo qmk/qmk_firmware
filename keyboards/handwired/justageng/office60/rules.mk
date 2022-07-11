@@ -27,3 +27,5 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 # enable link time optimization
 EXTRAFLAGS += -flto
+
+LAYOUTS = 60_ansi
