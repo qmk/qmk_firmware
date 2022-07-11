@@ -1,7 +1,7 @@
 # dynamis
 
 ## general information
-![dynamis](https://i.imgur.com/GRPE5hz.jpg)
+![dynamis](https://i.imgur.com/GRPE5hzh.jpg)
 
 Gasket mounted 65% row staggered keyboard integrated a trackball
 
