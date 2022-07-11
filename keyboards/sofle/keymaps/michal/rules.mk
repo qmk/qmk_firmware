@@ -3,18 +3,22 @@ BOOTLOADER = atmel-dfu
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
+# These are turned off to save space
 COMMAND_ENABLE = no
 CONSOLE_ENABLE = no
-EXTRAKEY_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
-MOUSEKEY_ENABLE = no
 SPACE_CADET_ENABLE = no
 
+# I actually use these features (sometimes)
 AUTO_SHIFT_ENABLE = yes
-DYNAMIC_MACRO_ENABLE = no
 ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+DYNAMIC_MACRO_ENABLE = no
 MIDI_ENABLE = no
 SEQUENCER_ENABLE = no
 
+# More space-saving
 LTO_ENABLE = yes

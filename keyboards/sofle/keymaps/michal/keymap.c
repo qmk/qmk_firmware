@@ -1,5 +1,9 @@
+// Copyright 2022 Michal S. (@ihatethefrench)
+// SPDX-License-Identifier: GPL-2.0-only
+
 #include QMK_KEYBOARD_H 
 
+// This specifies the layers that will be used
 enum sofle_layers {
     _WORKMAN,
     _QWERTY,
@@ -9,6 +13,7 @@ enum sofle_layers {
     _ADJUST
 };
 
+// This specifies any custom keycodes I might have set
 enum custom_keycodes {
     KC_WORKMAN = SAFE_RANGE,
     KC_QWERTY,
@@ -18,6 +23,7 @@ enum custom_keycodes {
     KC_ADJUST
 };
 
+// Here the keymaps are defined in matrix form using KC_XYZ form keycodes
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * WORKMAN
@@ -35,11 +41,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_WORKMAN] = LAYOUT(
-  KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,     KC_5,                                KC_6,     KC_7,     KC_8,    KC_9,   KC_0,    KC_PSCR,
-  KC_ESC,  KC_Q,   KC_D,    KC_R,    KC_W,     KC_B,                                KC_J,     KC_F,     KC_U,    KC_P,   KC_SCLN, KC_BSPC,
-  KC_TAB,  KC_A,   KC_S,    KC_H,    KC_T,     KC_G,                                KC_Y,     KC_N,     KC_E,    KC_O,   KC_I,    KC_QUOT,
-  KC_LSFT, KC_Z,   KC_X,    KC_M,    KC_C,     KC_V,     KC_MUTE,      LALT(KC_F2), KC_K,     KC_L,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_ENT,       KC_SPC,      KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
+  KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,     KC_5,                            KC_6,     KC_7,     KC_8,    KC_9,   KC_0,    KC_PSCR,
+  KC_ESC,  KC_Q,   KC_D,    KC_R,    KC_W,     KC_B,                            KC_J,     KC_F,     KC_U,    KC_P,   KC_SCLN, KC_BSPC,
+  KC_TAB,  KC_A,   KC_S,    KC_H,    KC_T,     KC_G,                            KC_Y,     KC_N,     KC_E,    KC_O,   KC_I,    KC_QUOT,
+  KC_LSFT, KC_Z,   KC_X,    KC_M,    KC_C,     KC_V,     XXXXXXX,      KC_MUTE, KC_K,     KC_L,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
+                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_ENT,       KC_SPC,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
 ),
 
 /*
@@ -58,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_QWERTY] = LAYOUT(
-  KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,     KC_5,                               KC_6,     KC_7,     KC_8,    KC_9,   KC_0,    KC_PSCR,
-  KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,                               KC_Y,     KC_U,     KC_I,    KC_O,   KC_P,    KC_BSPC,
-  KC_TAB,  KC_A,   KC_S,    KC_D,    KC_F,     KC_G,                               KC_H,     KC_J,     KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,     KC_MUTE,     LALT(KC_F2), KC_N,     KC_M,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_SPC,      KC_ENT,      KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
+  KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,     KC_5,                           KC_6,     KC_7,     KC_8,    KC_9,   KC_0,    KC_PSCR,
+  KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,                           KC_Y,     KC_U,     KC_I,    KC_O,   KC_P,    KC_BSPC,
+  KC_TAB,  KC_A,   KC_S,    KC_D,    KC_F,     KC_G,                           KC_H,     KC_J,     KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,     XXXXXXX,     KC_MUTE, KC_N,     KC_M,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
+                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
 ),
 
 /* MIDI
@@ -102,11 +108,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_LOWER] = LAYOUT(
-  _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  _______,  _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, KC_F12,
-  _______,  _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, KC_PIPE,
-  _______,  KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       _______, KC_LBRC, KC_RBRC, _______, _______, KC_BSLS, _______,
-                     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+  _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  _______,  _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, KC_F12,
+  _______,  _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, KC_PIPE,
+  _______,  KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       LALT(KC_F2), KC_LBRC, KC_RBRC, _______, _______, KC_BSLS, _______,
+                     _______, _______, _______, _______, _______,       _______,     _______, _______, _______, _______
 ),
 
 /* RAISE
@@ -155,6 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 
+// Defining my custom text to draw to the screen :)
 static void oled_screen(void) {
     oled_write_ln_P(PSTR(""), false);
     oled_write_ln_P(PSTR(">nix "), false);
@@ -169,6 +176,7 @@ static void oled_screen(void) {
     oled_write_ln_P(PSTR("mchal"), false);
 }
 
+// Set correct rotation so the text doesn't end up sideways
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_270;
@@ -176,6 +184,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
+// I only draw to the right screen because I accidentally
+// burned the left one with a soldering iron. Oops.
 bool oled_task_user(void) {
     if (!is_keyboard_master()) {
         oled_screen();
@@ -185,6 +195,8 @@ bool oled_task_user(void) {
 
 #endif
 
+// This massive code section defines what each custom keycode does
+// In my case, they only switch between layers
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_QWERTY:
@@ -233,21 +245,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDOWN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-    return true;
-}
+// This section is like the keymap matrix, but for rotary encoders
+// My left encoder is currently not working, so I'm using Layers to cope :')
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_WORKMAN] = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(KC_VOLD,     KC_VOLU      )},
+    [_QWERTY]  = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(KC_VOLD,     KC_VOLU      )},
+    [_LOWER]   = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
+    [_RAISE]   = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(_______,     _______      )},
+    [_ADJUST]  = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(_______,     _______      )},
+};
 
 #endif
