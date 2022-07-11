@@ -21,6 +21,9 @@
 
 #if defined(MCU_RP)
 #    define CPU_CLOCK RP_CORE_CLK
+// ChibiOS uses the RP2040 timer peripheral as its real time counter, this timer
+// is monotonic and running at 1MHz.
+#    define REALTIME_COUNTER_CLOCK 1000000
 
 #    define USE_GPIOV1
 #    define PAL_OUTPUT_TYPE_OPENDRAIN _Static_assert(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
@@ -102,10 +105,19 @@
 #    endif
 #endif
 
+#if defined(MCU_MIMXRT1062)
+#    include "clock_config.h"
+#    define CPU_CLOCK BOARD_BOOTCLOCKRUN_CORE_CLOCK
+#endif
+
 #if defined(HT32)
 #    define CPU_CLOCK HT32_CK_SYS_FREQUENCY
 #    define PAL_MODE_ALTERNATE PAL_HT32_MODE_AF
 #    define PAL_OUTPUT_TYPE_OPENDRAIN (PAL_HT32_MODE_OD | PAL_HT32_MODE_DIR)
 #    define PAL_OUTPUT_TYPE_PUSHPULL PAL_HT32_MODE_DIR
 #    define PAL_OUTPUT_SPEED_HIGHEST 0
+#endif
+
+#if !defined(REALTIME_COUNTER_CLOCK)
+#    define REALTIME_COUNTER_CLOCK CPU_CLOCK
 #endif
