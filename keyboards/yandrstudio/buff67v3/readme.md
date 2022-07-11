@@ -1,6 +1,6 @@
 # buff67v3
 
-![buff67v3](https://i.imgur.com/idPbNDL.jpg)
+![buff67v3](https://i.imgur.com/idPbNDLh.jpg)
 
 A 67 keys keyboard with rgb.
 This keyboard use 16mhz HSE and APM32F103 as MCU.
