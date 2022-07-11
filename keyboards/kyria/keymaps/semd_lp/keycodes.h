@@ -2,7 +2,7 @@
 
 #include "quantum.h"
 
-enum layers { _QWERTY = 0, _NUMBERS, _LOWER, _RAISE, _ADJUST };
+enum layers { _QWERTY = 0, _NUMBERS, _LOWER, _RAISE, _ADJUST, _GAME };
 
 #define SC_PERCE LSFT(KC_5)
 #define SC_AT RALT(KC_2)

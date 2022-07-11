@@ -1,8 +1,8 @@
 #include "rgb_util.h"
 
 const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 20, HSV_MAGENTA}
-    // {12, 4, HSV_RED}       // Light 4 LEDs, starting with LED 12
+    {0, 20, HSV_PURPLE}
+   // {12, 4, HSV_RED}       // Light 4 LEDs, starting with LED 12
 );
 
 const rgblight_segment_t PROGMEM number_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -21,12 +21,17 @@ const rgblight_segment_t PROGMEM adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 20, HSV_CHARTREUSE}
 );
 
+const rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 20, HSV_MAGENTA}
+);
+
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     capslock_layer,
     number_layer,
     lower_layer,
     rise_layer,
-	adjust_layer
+	adjust_layer,
+    game_layer
 );
 
 void rgb_layers_init(void) {
