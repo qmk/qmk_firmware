@@ -2,7 +2,7 @@
   "manufacturer": "Boardsource",
   "keyboard_name": "4x12",
   "maintainer": "waffle87",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,
@@ -13,7 +13,6 @@
     "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6", "B5", "B4", "E6", "D7"],
     "rows": ["D2", "D3", "D1", "D0"]
   },
-  "processor": "atmega32u4",
   "url": "https://boardsource.xyz/store/5ecb78d286879c9a0c22dafd",
   "usb": {
     "device_version": "1.0.0",
