@@ -2,7 +2,6 @@
 
 The following is the QMK Firmware for the Windz Sinanju PCB. 
  
----
 
 * Keyboard Maintainer: FJLabs
 * Hardware Supported: Sinanju
