@@ -44,7 +44,7 @@ def print_bootloader_help():
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
-@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
+@cli.argument('-j', '--parallel', type=int, default=None, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('QMK Flash.')
@@ -74,6 +74,10 @@ def flash(cli):
         else:
             cli.log.warning('Invalid environment variable: %s', env)
 
+    # Number of jobs: -j / --parallel takes precedence if specified, otherwise
+    # the value set by `qmk config` is used.
+    parallel = cli.args.parallel if cli.args.parallel is not None else cli.config.flash.parallel
+
     # Determine the compile command
     command = ''
 
@@ -87,14 +91,14 @@ def flash(cli):
         # Handle compiling a configurator JSON
         user_keymap = parse_configurator_json(cli.args.filename)
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
-        command = compile_configurator_json(user_keymap, cli.args.bootloader, parallel=cli.config.flash.parallel, **envs)
+        command = compile_configurator_json(user_keymap, cli.args.bootloader, parallel=parallel, **envs)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
     else:
         if cli.config.flash.keyboard and cli.config.flash.keymap:
             # Generate the make command for a specific keyboard/keymap.
-            command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader, parallel=cli.config.flash.parallel, **envs)
+            command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader, parallel=parallel, **envs)
 
         elif not cli.config.flash.keyboard:
             cli.log.error('Could not determine keyboard!')
