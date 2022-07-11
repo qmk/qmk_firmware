@@ -27,21 +27,26 @@ Enter the bootloader the following 2 ways:
 
 Windows 10 instructions for flashing firmware:
 Tools needed:
-1. st-link command line utility (st-flash, st-info)
-2. dfu-util command line utility (dfu-util)
-After installation, add the bin path to your environment variables for the commands below to work.
+1. *st-link* command line utility (v1.7.0)
+2. *dfu-util* command line utility (dfu-util 0.11)
+After installation, add their executable paths to your environment variables for the commands below to work.
 
 Flashing the stm32duino bootloader:
-Obtain the bootloader .bin file from here: https://github.com/rogerclarkmelbourne/STM32duino-bootloader
+Obtain the bootloader ``.bin`` file from this wonderful github repository: https://github.com/rogerclarkmelbourne/STM32duino-bootloader
+
 Navigation: bootloader-only-binaries -> generic_boot20_pc13.bin -> Download raw
 
 Hook up the bluepill to the ST-LINK. Set BOOT0 jumper to 1, and remove the BOOT1 jumper. The BOOT1 jumper does not need to be inserted in anywhere, from start to finish.
 
 Flash the bootloader using ST-LINK. First connect ST-LINK to your computer, and type the following command
-```st-info --probe```
+```
+st-info --probe
+```
 to verify that ST-LINK is connected. To flash bootloader, use the command:
-``` st-flash --reset --format binary write /path/to/bootloader/file 0x8000000```
-where you replace ``/path/to/bootloader/file`` with e.g. ``C:\Users\Jia Geng\Downloads\generic_boot20_pc13.bin``
+```
+st-flash --reset --format binary write /path/to/bootloader/file 0x8000000
+```
+where you replace ``/path/to/bootloader/file`` with the path of your downloaded bootloader file e.g. ``C:\Users\Jia Geng\Downloads\generic_boot20_pc13.bin``
 
 After success, set BOOT0 jumper to 0, and unplug the ST-LINK from your computer (order does not matter). BOOT1 jumper is disconnected througout.
 
@@ -50,7 +55,9 @@ Connect USB port on the blue pill to your computer. It should show up under devi
 Running ``lsusb`` in the command prompt should show a device with the vendor id/product id of ``1eaf:0003``. If so, you are good to move on.
 
 To check that dfu-util can detect dfu-capable device, run the following in command prompt:
-```dfu-util -l```
+```
+dfu-util -l
+```
 to list available devices. There should be *three* options with the name "1eaf:0003", corresponding to the main, legacy, and protected version provided by the bootloader, shown below. 
 
 ```
@@ -69,14 +76,17 @@ Found DFU: [1eaf:0003] ver=0201, devnum=36, cfg=1, intf=0, path="1-1", alt=0, na
 
 
 We will flash bootloader into main version of the device, with alternate=2.
-```dfu-util -d 1eaf:0003 -a 2 -D /path/to/qmk/firmware/file ```
+
+```
+dfu-util -d 1eaf:0003 -a 2 -D /path/to/qmk/firmware/file 
+```
 where ``/path/to/qmk/firmware/file`` is the path to the Office60 keyboard firmware ``.bin`` file (e.g. ``/c/msys64/home/Jia_Geng/qmk_firmware/handwired_justageng_office60_default.bin``).
 
 If it works, press the reset button on the blue pill, or reconnect the USB. Running ``lsusb`` should show a device with the vid/pid "0FF1:CE60". This will show up as a keyboard in device manager. 
 
 Note: If you get an error like "LIBUSB_ERROR_IO" when running the last dfu-util command, then your bluepill is not compatible. Example error message shown below:
 ```
-C:\Users\Jia Geng>dfu-util -d 1eaf:0003 -a 1 -D ..\..\msys64\home\Jia_Geng\qmk_firmware\handwired_justageng_office60_default.bin
+C:\Users\Jia Geng>dfu-util -d 1eaf:0003 -a 2 -D ..\..\msys64\home\Jia_Geng\qmk_firmware\handwired_justageng_office60_default.bin
 dfu-util 0.11
 
 Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
@@ -90,7 +100,7 @@ Opening DFU capable USB device...
 Device ID 1eaf:0003
 Device DFU version 0110
 Claiming USB DFU Interface...
-Setting Alternate Interface #1 ...
+Setting Alternate Interface #2 ...
 Cannot set alternate interface: LIBUSB_ERROR_IO
 ```
 
