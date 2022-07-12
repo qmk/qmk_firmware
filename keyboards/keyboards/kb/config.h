@@ -12,11 +12,11 @@
 #define DESCRIPTION     Keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 6
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { B1, B3, F7, F5, B2, E7 }
+#define MATRIX_ROW_PINS { B1, B3, F7, F5, B2 }
 #define MATRIX_COL_PINS { D7, E6, B4, B7, D5, C7, F1, F0, B6, F6, F4, B0, D4, C6 }
 #define UNUSED_PINS
 
