@@ -2,7 +2,9 @@
 
 ![NFR-70](https://i.imgur.com/7jeesq6h.jpg)
 
-A 70% barebones keyboard using Elite-C (Can fit with a Pro-Micro, but firmware was made and tested for Elite-C.)
+A 70% barebones keyboard using Pro-Micro and alternatives.
+
+Firmware was made and tested for Elite-C. Set bootloader in `rules.mk` to match your preferred MCU.
 
 * Keyboard Maintainer: [Nyhxis](https://github.com/Nyhxis)
 
