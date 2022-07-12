@@ -44,13 +44,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_macro_3x3(
         KC_KB_VOLUME_UP,   KC_KB_VOLUME_DOWN,   KC_KB_MUTE,
         KC_MEDIA_PREV_TRACK,   KC_MEDIA_PLAY_PAUSE,   KC_MEDIA_NEXT_TRACK,
-        COPY,   PASTE,   WINCLIP
+        COPY,   PASTE,   MO(2)
     ),
 
     [1] = LAYOUT_macro_3x3(
-        _______, _______, _______,
-        _______, _______, _______,
-        _______, _______, _______
+        RGB_TOG, RGB_MODE_BREATHE, RGB_MODE_RAINBOW,
+        RGB_MODE_PLAIN, RGB_MODE_FORWARD, RGB_MODE_FORWARD,
+        RGB_MODE_RGBTEST, _______, _______
     ),
 
     [2] = LAYOUT_macro_3x3(
