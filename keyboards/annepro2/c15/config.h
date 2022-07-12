@@ -46,3 +46,6 @@
 
 #define MATRIX_COL_PINS \
     { C4, C5, B10, B11, C0, A15, A8, A10, A11, A12, A13, A14, B2, B3 }
+
+// Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
+#define PERMISSIVE_HOLD

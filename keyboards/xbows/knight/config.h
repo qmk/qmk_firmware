@@ -17,8 +17,8 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x1225
+#define VENDOR_ID    0x5842
+#define PRODUCT_ID   0x4B6E
 #define DEVICE_VER   0x0001
 #define MANUFACTURER X-BOWS
 #define PRODUCT      KNIGHT
