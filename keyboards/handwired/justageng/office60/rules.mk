@@ -25,7 +25,6 @@ DEFAULT_FOLDER = handwired/justageng/office60
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
-# enable link time optimization
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 
 LAYOUTS = 60_ansi
