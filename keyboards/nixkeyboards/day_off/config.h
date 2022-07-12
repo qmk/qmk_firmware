@@ -18,9 +18,6 @@
 
 #include "config_common.h"
 
-#define VIAL_KEYBOARD_UID \
-    { 0x5B, 0xAC, 0x27, 0x50, 0x06, 0xF5, 0x84, 0x73 }
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x6e6b  // Nk - Nix Keyboards
 #define PRODUCT_ID 0x444f // DO - Day off
