@@ -6,7 +6,7 @@ QMK Firmware:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   tags:
-    - linux
+    - gitlab-org-docker
   image: qmkfm/base_container
   before_script:
     - apt-get update -qy
