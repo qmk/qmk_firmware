@@ -30,6 +30,10 @@
 #    define PHASE_CHANNEL MSKPHASE_12CHANNEL
 #endif
 
+#ifndef CKLED2001_CURRENT_TUNE
+#   define CKLED2001_CURRENT_TUNE   {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
+#endif
+
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
 
@@ -123,18 +127,10 @@ void CKLED2001_init(uint8_t addr) {
     }
 
     // Set CURRENT PAGE (Page 4)
+    uint8_t current_tuen_reg_list[LED_CURRENT_TUNE_LENGTH] = CKLED2001_CURRENT_TUNE;
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
     for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
-        switch (i) {
-            case 2:
-            case 5:
-            case 8:
-            case 11:
-                CKLED2001_write_register(addr, i, 0xA0);
-                break;
-            default:
-                CKLED2001_write_register(addr, i, 0xFF);
-        }
+        CKLED2001_write_register(addr, i, current_tuen_reg_list[i]);
     }
 
     // Enable LEDs ON/OFF
