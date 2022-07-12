@@ -112,10 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case STENO:
             if (record->event.pressed) {
-                layer_off(_LOWER);
-                layer_off(_RAISE);
-                layer_off(_BOTH);
-                layer_on(_STENO);
+                layer_move(_STENO);
             }
             return false;
             break;
