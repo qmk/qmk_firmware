@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "ecila/rev1",
+    "keyboard_name": "ecila",
     "maintainer": "mincedshon",
     "bootloader": "atmel-dfu",
     "features": {
