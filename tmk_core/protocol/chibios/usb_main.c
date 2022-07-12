@@ -177,7 +177,7 @@ static const USBEndpointConfig shared_ep_config = {
 };
 #endif
 
-#if STM32_USB_USE_OTG1
+#ifdef USB_HAS_BIDIRECTIONAL_ENDPOINTS
 typedef struct {
     size_t              queue_capacity_in;
     size_t              queue_capacity_out;
@@ -204,7 +204,7 @@ typedef struct {
 } usb_driver_config_t;
 #endif
 
-#if STM32_USB_USE_OTG1
+#ifdef USB_HAS_BIDIRECTIONAL_ENDPOINTS
 /* Reusable initialization structure - see USBEndpointConfig comment at top of file */
 #    define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                                              \
         {                                                                                                                       \
@@ -490,7 +490,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             usbInitEndpointI(usbp, SHARED_IN_EPNUM, &shared_ep_config);
 #endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-#if STM32_USB_USE_OTG1
+#ifdef USB_HAS_BIDIRECTIONAL_ENDPOINTS
                 usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].inout_ep_config);
 #else
                 usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].in_ep_config);
@@ -717,7 +717,7 @@ static const USBConfig usbcfg = {
  */
 void init_usb_driver(USBDriver *usbp) {
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-#if STM32_USB_USE_OTG1
+#ifdef USB_HAS_BIDIRECTIONAL_ENDPOINTS
         QMKUSBDriver *driver                       = &drivers.array[i].driver;
         drivers.array[i].inout_ep_config.in_state  = &drivers.array[i].in_ep_state;
         drivers.array[i].inout_ep_config.out_state = &drivers.array[i].out_ep_state;
