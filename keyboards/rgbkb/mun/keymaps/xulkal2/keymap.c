@@ -189,8 +189,8 @@ static void render_leds(void)
 static void render_touch(void)
 {
     // Host Touch LED Status
-    oled_write_P(!touch_encoder_toggled() ? PSTR("TOUCH")  : PSTR("     "), false);
-    oled_write_P(touch_encoder_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
+    oled_write_P(touch_encoder_is_on() ? PSTR("TOUCH")  : PSTR("     "), false);
+    oled_write_P(touch_encoder_is_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
 }
 #else
 static uint32_t scan_counter = 0;

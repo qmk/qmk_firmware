@@ -10,6 +10,8 @@ For this, we will mostly be talking about the generic implementation used by the
 
 !> ARM split supports most QMK subsystems when using the 'serial' and 'serial_usart' drivers. I2C slave is currently unsupported.
 
+!> Both sides must use the same MCU family, for eg two Pro Micro-compatible controllers or two Blackpills. Currently, mixing AVR and ARM is not possible as ARM vs AVR uses different method for serial communication, and are not compatible. Moreover Blackpill's uses 3.3v logic, and atmega32u4 uses 5v logic.
+
 ## Compatibility Overview
 
 | Transport                    | AVR                | ARM                |
@@ -272,6 +274,14 @@ This enables transmitting the current OLED on/off status to the slave side of th
 ```
 
 This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing.
+
+```c
+#define SPLIT_POINTING_ENABLE
+```
+
+This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
+
+!> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
 
 ### Custom data sync between sides :id=custom-data-sync
 

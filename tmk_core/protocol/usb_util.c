@@ -17,7 +17,9 @@
 #include "usb_util.h"
 
 __attribute__((weak)) void usb_disconnect(void) {}
-__attribute__((weak)) bool usb_connected_state(void) { return true; }
+__attribute__((weak)) bool usb_connected_state(void) {
+    return true;
+}
 __attribute__((weak)) bool usb_vbus_state(void) {
 #ifdef USB_VBUS_PIN
     setPinInput(USB_VBUS_PIN);

@@ -13,23 +13,31 @@ void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
 void check_default_layer(uint8_t mode, uint8_t type) {
     switch (get_highest_layer(default_layer_state)) {
+#if defined(ENABLE_QWERTY)
         case _QWERTY:
             rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
             break;
+#endif
+#if defined(ENABLE_COLEMAK)
         case _COLEMAK:
             rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type);
             break;
+#endif
+#if defined(ENABLE_DVORAK)
         case _DVORAK:
             rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
             break;
+#endif
+#if defined(ENABLE_WORKMAN)
         case _WORKMAN:
             rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
             break;
+#endif
     }
 }
 
 void rgb_matrix_indicators_user(void) {
-    if (userspace_config.rgb_layer_change && !g_suspend_state && rgb_matrix_config.enable) {
+    if (userspace_config.rgb_layer_change && rgb_matrix_config.enable) {
         switch (get_highest_layer(layer_state)) {
             case _RAISE:
                 rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
@@ -120,7 +128,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
     switch (mode) {
         case 1:  // breathing
         {
-            uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
+            uint16_t time = scale16by8(RGBLED_NUM, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
             RGB rgb       = hsv_to_rgb(hsv);
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {

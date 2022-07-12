@@ -43,7 +43,6 @@
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 #define F_SCL 400000L
-#define USB_POLLING_INTERVAL_MS 1
 #define MASTER_RIGHT
 
 // RGB matrix support
