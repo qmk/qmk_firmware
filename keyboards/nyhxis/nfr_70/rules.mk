@@ -1,12 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-#
-# LUFA specific
-#
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
