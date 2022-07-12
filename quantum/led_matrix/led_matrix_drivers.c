@@ -148,13 +148,13 @@ static void init(void) {
 #            endif
 #        endif
 #    elif defined(CKLED2001)
-        CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
-        CKLED2001_update_led_control_registers(DRIVER_ADDR_2, 1);
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_2, 1);
 #            if defined(DRIVER_ADDR_3)
-        CKLED2001_update_led_control_registers(DRIVER_ADDR_3, 2);
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_3, 2);
 #                if defined(DRIVER_ADDR_4)
-        CKLED2001_update_led_control_registers(DRIVER_ADDR_4, 3);
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_4, 3);
 #                endif
 #            endif
 #        endif

@@ -31,7 +31,8 @@
 #endif
 
 #ifndef CKLED2001_CURRENT_TUNE
-#   define CKLED2001_CURRENT_TUNE   {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
+#    define CKLED2001_CURRENT_TUNE \
+        { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
 #endif
 
 // Transfer buffer for TWITransmitData()
@@ -150,7 +151,7 @@ void CKLED2001_set_value(int index, uint8_t value) {
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
         memcpy_P(&led, (&g_ckled2001_leds[index]), sizeof(led));
 
-        g_pwm_buffer[led.driver][led.v]   = value;
+        g_pwm_buffer[led.driver][led.v]          = value;
         g_pwm_buffer_update_required[led.driver] = true;
     }
 }
@@ -215,4 +216,3 @@ void CKLED2001_sw_shutdown(uint8_t addr) {
     // Write SW Sleep Register
     CKLED2001_write_register(addr, SOFTWARE_SLEEP_REG, MSKSLEEP_ENABLE);
 }
-
