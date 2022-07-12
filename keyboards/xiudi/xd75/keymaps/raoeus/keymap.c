@@ -106,7 +106,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
-                layer_on(_QWERTY);
+                layer_move(_QWERTY);
             };
             return false;
             break;
