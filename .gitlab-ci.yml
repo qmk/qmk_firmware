@@ -5,8 +5,6 @@ QMK Firmware:
   stage: test
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-  tags:
-    - gitlab-org-docker
   image: qmkfm/base_container
   before_script:
     - apt-get update -qy
