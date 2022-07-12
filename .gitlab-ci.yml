@@ -1,7 +1,5 @@
 stages:
   - test
-tags: 
-  -  gitlab-org-docker 
 
 QMK Firmware:
   stage: test
