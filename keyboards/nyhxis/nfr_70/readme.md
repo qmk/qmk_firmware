@@ -1,6 +1,6 @@
 # NFR-70
 
-![NFR-70](https://i.imgur.com/7jeesq6.jpg)
+![NFR-70](https://i.imgur.com/7jeesq6h.jpg)
 
 A 70% barebones keyboard using Elite-C (Can fit with a Pro-Micro, but firmware was made and tested for Elite-C.)
 
