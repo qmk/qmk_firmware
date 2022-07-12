@@ -407,7 +407,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 keyboard_config.disable_layer_led ^= 1;
                 if (keyboard_config.disable_layer_led) rgb_matrix_set_color_all(0, 0, 0);
-                eeconfig_update_kb(keyboard_config.raw);
             }
             break;
         case RGB_TOG:
@@ -415,15 +414,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
-                        keyboard_config.rgb_matrix_enable = false;
                         rgb_matrix_set_color_all(0, 0, 0);
                     } break;
                     default: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
-                        keyboard_config.rgb_matrix_enable = true;
                     } break;
                 }
-                eeconfig_update_kb(keyboard_config.raw);
             }
             return false;
 #endif
@@ -439,19 +435,11 @@ void matrix_init_kb(void) {
         keyboard_config.led_level_res = 0b11;
         eeconfig_update_kb(keyboard_config.raw);
     }
-#ifdef RGB_MATRIX_ENABLE
-    if (keyboard_config.rgb_matrix_enable) {
-        rgb_matrix_set_flags(LED_FLAG_ALL);
-    } else {
-        rgb_matrix_set_flags(LED_FLAG_NONE);
-    }
-#endif
     matrix_init_user();
 }
 
 void eeconfig_init_kb(void) { // EEPROM is getting reset!
     keyboard_config.raw               = 0;
-    keyboard_config.rgb_matrix_enable = true;
     keyboard_config.led_level         = true;
     keyboard_config.led_level_res     = 0b11;
     eeconfig_update_kb(keyboard_config.raw);

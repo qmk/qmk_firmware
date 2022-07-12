@@ -137,7 +137,7 @@ typedef union {
   struct {
     uint8_t    led_level :3;
     bool       disable_layer_led   :1;
-    bool       rgb_matrix_enable   :1;
+    bool       placeholder   :1;
   };
 } keyboard_config_t;
 

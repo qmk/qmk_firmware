@@ -70,7 +70,7 @@ typedef union {
   uint32_t raw;
   struct {
     bool         disable_layer_led   :1;
-    bool         rgb_matrix_enable   :1;
+    bool         placeholder   :1;
     bool         led_level           :1;
     uint8_t      led_level_res       :2; // DO NOT REMOVE
   };
