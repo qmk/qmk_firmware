@@ -2,6 +2,7 @@
   "name": "DayOff",
   "vendorId": "0x6e6b",
   "productId": "0x444f",
+  "url": "https://nixkeyboards.com", 
   "lighting": "none",
   "matrix": { 
     "rows": 5, 
