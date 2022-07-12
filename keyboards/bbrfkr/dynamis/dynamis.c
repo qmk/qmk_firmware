@@ -16,15 +16,18 @@
 
 #include "dynamis.h"
 
-#ifdef ENCODER_ENABLE
-    bool encoder_update_user(uint8_t index, bool clockwise) {
-        if (index == 0) {
-            if (clockwise) {
-                tap_code(dynamic_keymap_get_keycode(biton32(layer_state),10,0));
-            } else {
-                tap_code(dynamic_keymap_get_keycode(biton32(layer_state),10,1));
-            }
-        }
+#ifndef VIA_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
         return false;
     }
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_WH_D);
+        } else {
+            tap_code(KC_WH_U);
+        }
+    }
+    return true;
+}
 #endif
