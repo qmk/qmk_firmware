@@ -144,7 +144,8 @@ keypos_t get_random_keypos(void) {
     uint8_t  row = rand() % MATRIX_ROWS;
     keypos_t pos = {.col = col, .row = row};
 
-    if (keymap_key_to_keycode(0, pos) != KC_NO) {
+    uint16_t keycode = keymap_key_to_keycode(0, pos);
+    if (keycode >= KC_A && keycode <= KC_SLASH) {
         return pos;
     } else {
         return get_random_keypos();
