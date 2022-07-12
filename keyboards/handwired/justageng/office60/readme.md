@@ -1,7 +1,5 @@
 # Office60
 
-![Office60](imgur.com image replace me!)
-
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Jia Geng](https://github.com/JiaGengChang)
@@ -25,13 +23,13 @@ Enter the bootloader the following 2 ways:
 * **Physical reset button**: Briefly press the reset button on the bluepill 
 
 
-Windows 10 instructions for flashing firmware:
+## Windows 10 instructions for flashing firmware:
 Tools needed:
 1. *st-link* command line utility (v1.7.0)
 2. *dfu-util* command line utility (dfu-util 0.11)
 After installation, add their executable paths to your environment variables for the commands below to work.
 
-Flashing the stm32duino bootloader:
+### Flashing the stm32duino bootloader:
 Obtain the bootloader ``.bin`` file from this wonderful github repository: https://github.com/rogerclarkmelbourne/STM32duino-bootloader
 
 Navigation: bootloader-only-binaries -> generic_boot20_pc13.bin -> Download raw
@@ -50,7 +48,9 @@ where you replace ``/path/to/bootloader/file`` with the path of your downloaded 
 
 After success, set BOOT0 jumper to 0, and unplug the ST-LINK from your computer (order does not matter). BOOT1 jumper is disconnected througout.
 
-Flashing the firmware:
+Similar instructions up to this stage available at https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki/Flashing-Bootloader-for-BluePill-Boards. Also see the 'wrong pull-up resistor issue' for some bluepill variations.
+
+### Flashing qmk firmware:
 Connect USB port on the blue pill to your computer. It should show up under device manager as "Maple 003" under USB devices.
 Running ``lsusb`` in the command prompt should show a device with the vendor id/product id of ``1eaf:0003``. If so, you are good to move on.
 
@@ -74,7 +74,6 @@ Found DFU: [1eaf:0003] ver=0201, devnum=36, cfg=1, intf=0, path="1-1", alt=1, na
 Found DFU: [1eaf:0003] ver=0201, devnum=36, cfg=1, intf=0, path="1-1", alt=0, name="STM32duino bootloader v1.0  ERROR. Upload to RAM not supported.", serial="LLM 003"
 ```
 
-
 We will flash bootloader into main version of the device, with alternate=2.
 
 ```
@@ -84,7 +83,8 @@ where ``/path/to/qmk/firmware/file`` is the path to the Office60 keyboard firmwa
 
 If it works, press the reset button on the blue pill, or reconnect the USB. Running ``lsusb`` should show a device with the vid/pid "0FF1:CE60". This will show up as a keyboard in device manager. 
 
-Note: If you get an error like "LIBUSB_ERROR_IO" when running the last dfu-util command, then your bluepill is not compatible. Example error message shown below:
+## Potential issues
+If you get an error like "LIBUSB_ERROR_IO" when running the last dfu-util command, then your bluepill is not compatible. Example error message shown below:
 ```
 C:\Users\Jia Geng>dfu-util -d 1eaf:0003 -a 2 -D ..\..\msys64\home\Jia_Geng\qmk_firmware\handwired_justageng_office60_default.bin
 dfu-util 0.11
@@ -103,8 +103,7 @@ Claiming USB DFU Interface...
 Setting Alternate Interface #2 ...
 Cannot set alternate interface: LIBUSB_ERROR_IO
 ```
-
-You probably got a lemon from the manufacturer, and I do not know how to fix this apart from buying a new bluepill and praying that it does not come with the incompatible version. This sour lemon bluepill also gives a strange output for dfu-util list when the BOOT1 jumper is disconnected (if BOOT1 jumper is connected, the --list output is identical to the compatible bluepill - qmk firmware will not be flashed successfully even if command prompt says its successful):
+You probably got a defective unit from the manufacturer, and I do not know how to fix this apart from buying a new bluepill and praying that it does not come with the incompatible version. This defective bluepill also gives a strange output for dfu-util list when the BOOT1 jumper is disconnected (if BOOT1 jumper is connected, the --list output is identical to the compatible bluepill - qmk firmware will not be flashed successfully even if command prompt says its successful):
 
 ```
 C:\Users\Jia Geng>dfu-util -l
