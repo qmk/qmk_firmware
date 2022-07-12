@@ -31,4 +31,12 @@
 	{ K400,  K401,  K402,  KC_NO, KC_NO, K405,  KC_NO, KC_NO, KC_NO, K409,  K410,  KC_NO, K412,  K413,  K414 }  \
 }
 
-#define LOCK_GUI KC_F23
+enum keyboard_keycodes {
+#ifdef VIA_ENABLE
+    LOCK_GUI = USER00,
+    NEW_SAFE_RANGE = SAFE_RANGE  // Important!
+#else
+    LOCK_GUI = SAFE_RANGE,
+    NEW_SAFE_RANGE   // Important!
+#endif
+};
