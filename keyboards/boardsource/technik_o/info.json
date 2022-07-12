@@ -84,6 +84,9 @@
       { "flags": 1, "matrix": [3, 11], "x": 224, "y": 64 }
     ]
   },
+  "community_layouts": [
+    "ortho_4x12"
+  ],
   "layouts": {
     "LAYOUT_ortho_4x12": {
       "layout": [
