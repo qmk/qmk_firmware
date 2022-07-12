@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Esc  |   Q  |   D  |   R  |   W  |   B  |                    |   J  |   F  |   U  |   P  |   ;  | Bspc |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   A  |   S  |   H  |   T  |   G  |-------.    ,-------|   Y  |   N  |   E  |   O  |   I  |  '   |
- * |------+------+------+------+------+------|  MUTE |    | Run   |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|       |    | MUTE  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   M  |   C  |   V  |-------|    |-------|   K  |   L  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Esc  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  | Bspc |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
- * |------+------+------+------+------+------|  MUTE |    | Run   |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|       |    | MUTE  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |LOWER | /Space  /       \Enter \  |RAISE | RCTR | RAlt | RGUI |
@@ -64,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_QWERTY] = LAYOUT(
-  KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,     KC_5,                           KC_6,     KC_7,     KC_8,    KC_9,   KC_0,    KC_PSCR,
-  KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,                           KC_Y,     KC_U,     KC_I,    KC_O,   KC_P,    KC_BSPC,
-  KC_TAB,  KC_A,   KC_S,    KC_D,    KC_F,     KC_G,                           KC_H,     KC_J,     KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,     XXXXXXX,     KC_MUTE, KC_N,     KC_M,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
+  KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,     KC_5,                           KC_6,       KC_7,     KC_8,    KC_9,   KC_0,    KC_PSCR,
+  KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,                           KC_Y,       KC_U,     KC_I,    KC_O,   KC_P,    KC_BSPC,
+  KC_TAB,  KC_A,   KC_S,    KC_D,    KC_F,     KC_G,                           KC_H,       KC_J,     KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,     XXXXXXX,     KC_MUTE, KC_N,       KC_M,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
                    KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
 ),
 
@@ -75,22 +75,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | Pnic | OCT0 | OCT1 | OCT2 | OCT3 | OCT4 |                    | OCT5 | OCT6 | OCT7 |      |      | MTOG |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | SQTG |      |      |      |C#/Db |D#/Eb |                    |      |F#/Gb |G#/Ab |Bb/A# |      |      |
+ * |      |G#/Ab |Bb/A# |      |C#/Db |D#/Eb |                    |      |F#/Gb |G#/Ab |Bb/A# |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      | C    | D    | E    |-------.    ,-------| F    | G    | A    | B    |      | Wkmn |
+ * |      | A    | B    | C    | D    | E    |-------.    ,-------| F    | G    | A    | B    | C    | Wkmn |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      | TNSD | TNSU |-------|    |-------| BNDD | BNDU | CHUP | CHDN |      |      |
+ * |      |      |      |      | TNSD | TNSU |-------|    |-------| BNDD | BNDU |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      |      |      | Susd | /OCTDN  /       \OCTUP \  | Chrd |      |      |      |
+ *            |      |      |      | Susd | /OCTDN  /       \OCTUP \  |      |      |      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_MIDI] = LAYOUT(
-  MI_ALLOFF, MI_OCT_0, MI_OCT_1,  MI_OCT_2,  MI_OCT_3,  MI_OCT_4,                       MI_OCT_5, MI_OCT_6, MI_OCT_7, _______, _______, MI_TOG,
-  SQ_TOG,    SQ_TMPD,  SQ_TMPU,   _______,   MI_Cs,     MI_Ds,                          _______,  MI_Fs,    MI_Gs,    MI_As,   _______, _______,
-  _______,   SQ_RES_2, SQ_RES_4,  MI_C,      MI_D,      MI_E,                           MI_F,     MI_G,     MI_A,     MI_B,    MI_C_1,  KC_WORKMAN,
-  _______,   SQ_RES_8, SQ_RES_16, SQ_RES_32, MI_TRNSD,  MI_TRNSU, _______,    _______,  MI_BENDD, MI_BENDU, _______,  _______, _______, _______,
-                       _______,   _______,   _______,   MI_SUS,   MI_OCTD,    MI_OCTU,  _______,  _______,  _______,  _______
+  MI_ALLOFF, MI_OCT_0, MI_OCT_1, MI_OCT_2, MI_OCT_3, MI_OCT_4,                      MI_OCT_5, MI_OCT_6, MI_OCT_7, _______, _______, MI_TOG,
+  _______,   MI_Gs,    MI_As,    _______,  MI_Cs_1,  MI_Ds_1,                       _______,  MI_Fs_1,  MI_Gs_1,  MI_As_1, _______, _______,
+  _______,   MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,                        MI_F_1,   MI_G_1,   MI_A_1,   MI_B_1,  MI_C_2,  KC_WORKMAN,
+  _______,   _______,  _______,  _______,  MI_TRNSD, MI_TRNSU, _______,    _______, MI_BENDD, MI_BENDU, _______,  _______, _______, _______,
+                       _______,  _______,  _______,  MI_SUS,   MI_OCTD,    MI_OCTU, _______,  _______,  _______,  _______
 ),
 
 /* LOWER
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |                    |      |      |      |      |      | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |   |  |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|       |    | Run   |------+------+------+------+------+------|
  * |      |  =   |  -   |  +   |   {  |   }  |-------|    |-------|   [  |   ]  |      |      |   \  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |LOWER | /       /       \      \  |      |      |      |      |
@@ -119,11 +119,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      | ASTG |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |  Up  |      | RStp | Del  |
+ * |      |      |      |      |      |      |                    |      |      |  Up  |      |      | Del  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      | Left | Down | Rght | Rec1 | Ply1 |
+ * |      |      |      |      |      |      |-------.    ,-------|      | Left | Down | Rght |      | Wkmn |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      | Home | End  | Rec2 | Ply2 |
+ * |      |      |      | Midi |      |      |-------|    |-------|      |      | Home | End  |      | Qwrt |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |      | /       /       \      \  |RAISE |      |      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -131,34 +131,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, KC_ASTG,
-  _______, _______, _______, _______, _______, _______,                         _______, _______, KC_UP,   _______, DM_RSTP, KC_DEL,
-  _______, _______, _______, _______, _______, _______,                         _______, KC_LEFT, KC_DOWN, KC_RGHT, DM_REC1, DM_PLY1,
-  _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, KC_HOME, KC_END,  DM_REC2, DM_PLY2,
+  _______, _______, _______, _______, _______, _______,                         _______, _______, KC_UP,   _______, _______, KC_DEL,
+  _______, _______, _______, _______, _______, _______,                         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_WORKMAN,
+  _______, _______, _______, KC_MIDI, _______, _______, _______,       _______, _______, _______, KC_HOME, KC_END,  _______, KC_QWERTY,
                     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
-),
-
-/* ADJUST
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Rset |      |      |      |      |      |                    |      |      |      |      |      | Qwrt |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      | Wkmn |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      |      |      |      | /       /       \      \  |      |      |      |      |
- *            |      |      |      |      |/       /         \      \ |      |      |      |      |
- *            `----------------------------------'           '------''---------------------------'
- */
-[_ADJUST] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QWERTY,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WORKMAN,
-  XXXXXXX, XXXXXXX, XXXXXXX, KC_MIDI, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                    _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
 )};
 
+// This section only compiles if OLED_ENABLE is set to `yes` in rules.mk
 #ifdef OLED_ENABLE
 
 // Defining my custom text to draw to the screen :)
@@ -166,7 +145,7 @@ static void oled_screen(void) {
     oled_write_ln_P(PSTR(""), false);
     oled_write_ln_P(PSTR(">nix "), false);
     oled_write_ln_P(PSTR(">rust"), false);
-    oled_write_ln_P(PSTR(">py &"), false);
+    oled_write_ln_P(PSTR(">hs &"), false);
     oled_write_ln_P(PSTR(">rum"), false);
     oled_write_ln_P(PSTR(""), false);
     oled_write_ln_P(PSTR(" . ."), false);
@@ -195,54 +174,47 @@ bool oled_task_user(void) {
 
 #endif
 
-// This massive code section defines what each custom keycode does
-// In my case, they only switch between layers
+// This section defines custom keycodes, which I use to manage layers
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case KC_WORKMAN:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_WORKMAN);
-            }
-            return false;
-        case KC_MIDI:
-            if (record->event.pressed) {
-              set_single_persistent_default_layer(_MIDI);
-            }
-						return false;
-        case KC_LOWER:
-            if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case KC_RAISE:
-            if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case KC_ADJUST:
-            if (record->event.pressed) {
-                layer_on(_ADJUST);
-            } else {
-                layer_off(_ADJUST);
-            }
-            return false;
-		}
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_QWERTY);
+                }
+                return false;
+            case KC_WORKMAN:
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_WORKMAN);
+                }
+                return false;
+            case KC_MIDI:
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_MIDI);
+                }
+                return false;
+            case KC_LOWER:
+                if (record->event.pressed) {
+                    layer_on(_LOWER);
+                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                } else {
+                    layer_off(_LOWER);
+                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                }
+                return false;
+            case KC_RAISE:
+                if (record->event.pressed) {
+                    layer_on(_RAISE);
+                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                } else {
+                    layer_off(_RAISE);
+                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                }
+                return false;
+    }
     return true;
 }
 
+// This section only compiles if ENCODER_ENABLE is set to `yes` in rules.mk
 #ifdef ENCODER_ENABLE
 
 // This section is like the keymap matrix, but for rotary encoders
