@@ -102,7 +102,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
 
 /* pmw3360 config  */
-#define PMW3360_CS_PIN                       B0
-#define PMW3360_SPI_MODE                     3
-#define PMW3360_SPI_DIVISOR                  64
-#define PMW3360_FIRMWARE_UPLOAD_FAST
+#define PMW33XX_CS_PIN                       B0
