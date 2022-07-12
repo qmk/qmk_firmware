@@ -63,7 +63,6 @@
 /*************************************/
 
 #define MATRIX_IO_DELAY 15  // default  30
-//#define QMK_KEYS_PER_SCAN 4
 #define TAP_CODE_DELAY  50   // default 100
 #define USB_POLLING_INTERVAL_MS   5 // default 1
 
