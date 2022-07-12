@@ -412,7 +412,7 @@ report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, repor
  */
 report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_report) {
     // Support rotation of the sensor data
-#    if defined(POINTING_DEVICE_ROTATION_90_RIGHT) || defined(POINTING_DEVICE_ROTATION_RIGHT) || defined(POINTING_DEVICE_ROTATION_RIGHT)
+#    if defined(POINTING_DEVICE_ROTATION_90_RIGHT) || defined(POINTING_DEVICE_ROTATION_180_RIGHT) || defined(POINTING_DEVICE_ROTATION_270_RIGHT)
     mouse_xy_report_t x = mouse_report.x;
     mouse_xy_report_t y = mouse_report.y;
 #        if defined(POINTING_DEVICE_ROTATION_90_RIGHT)
