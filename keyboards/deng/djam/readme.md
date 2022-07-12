@@ -5,7 +5,7 @@
 A custom controller for the music game DJMax.
 
 * Keyboard Maintainer: [Leo Deng](https://github.com/myst729)
-* Hardware Supported: DJMax controller with ATMEGA32U4
+* Hardware Supported: DJam controller with ATMEGA32U4
 * Hardware Availability: Private Groupbuy
 
 Make example for this keyboard (after setting up your build environment):
