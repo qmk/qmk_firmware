@@ -6,7 +6,10 @@
 /* USB Device descriptor parameters */
 #define PRODUCT_ID 0x3435
 #define DEVICE_VER 0x0001
-#define MANUFACTURER ssedrick
+
+#ifndef MANUFACTURER
+#define ssedrick
+#endif
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLUMNS 5
