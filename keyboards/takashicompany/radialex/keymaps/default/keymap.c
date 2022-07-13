@@ -21,6 +21,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    
     LAYOUT(
         LT(7, KC_Q), KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, 
         KC_ESC, KC_A, KC_S, LT(6, KC_D), KC_F, KC_G, RADIALEX, KC_H, KC_J, LT(6, KC_K), KC_L, KC_ENT, KC_ENT,
