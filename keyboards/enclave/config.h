@@ -24,6 +24,11 @@
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+#define RGBLIGHT_LIMIT_VAL 200
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
