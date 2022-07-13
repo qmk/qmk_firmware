@@ -100,27 +100,25 @@ __attribute__((weak)) bool led_update_kb(led_t led_state) {
 /** \brief Write LED state to hardware
  */
 void led_update_ports(led_t led_state) {
-#if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
-#    if LED_PIN_ON_STATE == 0
-        // invert the whole thing to avoid having to conditionally !led_state.x later
-        led_state.raw = ~led_state.raw;
-#    endif
+#if LED_PIN_ON_STATE == 0
+    // invert the whole thing to avoid having to conditionally !led_state.x later
+    led_state.raw = ~led_state.raw;
+#endif
 
-#    ifdef LED_NUM_LOCK_PIN
-        writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
-#    endif
-#    ifdef LED_CAPS_LOCK_PIN
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-#    endif
-#    ifdef LED_SCROLL_LOCK_PIN
-        writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
-#    endif
-#    ifdef LED_COMPOSE_PIN
-        writePin(LED_COMPOSE_PIN, led_state.compose);
-#    endif
-#    ifdef LED_KANA_PIN
-        writePin(LED_KANA_PIN, led_state.kana);
-#    endif
+#ifdef LED_NUM_LOCK_PIN
+    writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
+#endif
+#ifdef LED_CAPS_LOCK_PIN
+    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+#endif
+#ifdef LED_SCROLL_LOCK_PIN
+    writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
+#endif
+#ifdef LED_COMPOSE_PIN
+    writePin(LED_COMPOSE_PIN, led_state.compose);
+#endif
+#ifdef LED_KANA_PIN
+    writePin(LED_KANA_PIN, led_state.kana);
 #endif
 }
 
