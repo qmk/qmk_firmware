@@ -132,7 +132,7 @@ bool backing_store_lock(void) {
 
 bool backing_store_read(uint32_t address, backing_store_int_t *value) {
     uint32_t             offset = (base_offset + address);
-    backing_store_int_t *loc    = (backing_store_int_t *)offset;
+    backing_store_int_t *loc    = (backing_store_int_t *)flashGetOffsetAddress(flash, offset);
     *value                      = ~(*loc);
     bs_dprintf("Read  ");
     wl_dump(offset, value, sizeof(backing_store_int_t));
