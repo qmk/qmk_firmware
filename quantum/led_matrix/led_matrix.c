@@ -621,7 +621,7 @@ void led_matrix_decrease_speed(void) {
 void led_matrix_set_flags_eeprom_helper(led_flags_t flags, bool write_to_eeprom) {
     led_matrix_config.flags = flags;
     eeconfig_flag_led_matrix(write_to_eeprom);
-    dprintf("led matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.flags);
+    dprintf("led matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_config.flags);
 }
 
 led_flags_t led_matrix_get_flags(void) {
