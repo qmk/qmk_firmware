@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "ssedrick",
     "layouts": {
-        "LAYOUT_4x5_5": {
+        "LAYOUT": {
             "layout": [
                   {"x": 0, "y": 0},
                   {"x": 1, "y": 0},

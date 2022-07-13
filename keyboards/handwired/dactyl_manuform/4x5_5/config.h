@@ -6,13 +6,15 @@
 /* USB Device descriptor parameters */
 #define PRODUCT_ID 0x3435
 #define DEVICE_VER 0x0001
-#define MANUFACTURER tshort
+#define MANUFACTURER ssedrick
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLUMNS 5
 
 // Wiring pins
-#define MATRIX_ROW_PINS {}
-#define MATRIX_COL_PINS {}
+#define MATRIX_ROW_PINS { F7, B1, B3, B2, B4 }
+#define MATRIX_COL_PINS { D4, C6, D7, E6, F6 }
 
 #define DIODE_DIRECTION COL2ROW
+
+#define EE_HANDS
