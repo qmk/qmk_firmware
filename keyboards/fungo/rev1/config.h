@@ -63,7 +63,7 @@
 /*************************************/
 
 #define MATRIX_IO_DELAY 15  // default  30
-#define TAP_CODE_DELAY  50   // default 100
+#define TAP_CODE_DELAY  50   // default 0, disabled
 #define USB_POLLING_INTERVAL_MS   1 // default 1
 
 /* Set 0 if debouncing isn't needed */
