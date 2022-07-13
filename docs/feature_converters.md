@@ -29,7 +29,7 @@ qmk flash -c -kb keebio/bdn9/rev1 -km default -e CONVERT_TO=proton_c
 
 You can also add the same `CONVERT_TO=<target>` to your keymap's `rules.mk`, which will accomplish the same thing.
 
-?> If you get errors about `PORTB/DDRB`, etc not being defined, so you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control.md) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
+?> If you get errors about `PORTB/DDRB`, etc not being defined, you'll need to convert the keyboard's code to use the [GPIO Controls](gpio_control.md) that will work for both ARM and AVR. This shouldn't affect the AVR builds at all.
 
 ### Conditional Configuration
 
@@ -63,7 +63,7 @@ Converter summary:
 
 ### Proton C :id=proton_c
 
-The Proton C only has one on-board LED (C13), and by default, the TXLED (D5) is mapped to it. If you want the RXLED (B0) mapped to it instead, add this like to your `config.h`:
+The Proton C only has one on-board LED (C13), and by default, the TXLED (D5) is mapped to it. If you want the RXLED (B0) mapped to it instead, add this line to your `config.h`:
 
 ```c
 #define CONVERT_TO_PROTON_C_RXLED
