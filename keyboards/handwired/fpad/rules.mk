@@ -13,4 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 
 DEFAULT_FOLDER = handwired/fpad/rp2040
 
-LAYOUTS = ortho_1x1
+LAYOUTS = ortho_5x3

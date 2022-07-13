@@ -7,11 +7,12 @@
 
 #define PRODUCT Functionpad RP2040
 #define MATRIX_COL_PINS \
-    { GP4 }
+  { GP7, GP8, GP9 }
 #define MATRIX_ROW_PINS \
-    { GP5 }
+  { GP2, GP3, GP4, GP5, GP6 }
 #define DEBUG_MATRIX_SCAN_RATE
 
+// what the hell is this?
 #define QMK_WAITING_TEST_BUSY_PIN GP8
 #define QMK_WAITING_TEST_YIELD_PIN GP9
 
