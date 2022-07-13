@@ -43,6 +43,9 @@ bool backing_store_init(void) {
     bs_dprintf("Init\n");
     flash = (BaseFlash *)&EFLD1;
 
+    // Need to re-lock the EFL, as if we've just had the bootloader executing it'll already be unlocked.
+    backing_store_lock();
+
     const flash_descriptor_t *desc    = flashGetDescriptor(flash);
     uint32_t                  counter = 0;
 
