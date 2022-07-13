@@ -1,27 +1,16 @@
-# enclave
+# Enclave-1
 
-![enclave](imgur.com image replace me!)
+![ok](https://user-images.githubusercontent.com/109129639/178805184-3935bcfa-2cb5-438d-8172-406f9a6d3bbd.png)
 
-*A short description of the keyboard/project*
+Enclave 1 is a fully programmable 9-key macropad + usb hub ideal for those constantly on the move that need to adapt to any situation. Besides being a full-fledged macropad, it can also be used as the main hub for all your other devices such as keyboards, dongles, drives, etc.
 
 * Keyboard Maintainer: [KeyQuest](https://github.com/KeyQuest)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
 
-Make example for this keyboard (after setting up your build environment):
+Compile example for this keyboard (after setting up your build environment):
 
-    make enclave:default
-
-Flashing example for this keyboard:
-
-    make enclave:default:flash
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-## Bootloader
+    qmk compile -kb keyquest/enclave -km default
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Bootmagic reset**: Hold down the  top left key and plug in the keyboard.
+* **Physical reset button**: Briefly press the button on the back of the PCB.
