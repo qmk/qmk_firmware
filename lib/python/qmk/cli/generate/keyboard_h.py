@@ -41,7 +41,7 @@ def generate_keyboard_h(cli):
     keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "quantum.h"']
 
     if not has_layout_h:
-        keyboard_h_lines.append('#pragma error("<keyboard>.h is only optional for data driven keyboards - kb.h == bad times")')
+        keyboard_h_lines.append('#error("<keyboard>.h is only optional for data driven keyboards - kb.h == bad times")')
 
     # Show the results
     dump_lines(cli.args.output, keyboard_h_lines, cli.args.quiet)
