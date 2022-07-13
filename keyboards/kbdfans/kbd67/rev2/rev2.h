@@ -160,5 +160,3 @@
     { K30, KC_NO, K32,   K33, K34,   K35,   K36, K37,   K38,   K39,   K3A, K3B, KC_NO, K3D,   K3E,   K3F }, \
     { K40, K41,   KC_NO, K43, K44, KC_NO, K46, KC_NO, K48, KC_NO, K4A, K4B, K4C,   K4D, K4E,   K4F }, \
 }
-
-#define LAYOUT_65_ansi_blocker_splitbs LAYOUT_65_ansi_blocker_split_bs
