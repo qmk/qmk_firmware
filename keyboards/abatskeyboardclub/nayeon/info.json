@@ -2,8 +2,12 @@
     "keyboard_name": "Nayeon",
     "url": "",
     "maintainer": "Ramon Imbao",
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi_tsangan",
+        "LAYOUT_iso": "LAYOUT_tkl_f13_iso_tsangan"
+    },
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},
@@ -99,7 +103,7 @@
                 {"x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_tkl_f13_iso_tsangan": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},
