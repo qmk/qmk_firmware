@@ -1,11 +1,13 @@
 #include QMK_KEYBOARD_H
 
+/* enum custom macros */
 enum custom_keycodes {
     COPY = SAFE_RANGE,
     PASTE,
     WINCLIP,
 };
 
+/* custom macros */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
@@ -30,6 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+/* what each layer does */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      *    M = Macro
