@@ -5,8 +5,6 @@
 
 #include "config_common.h"
 
-#define BLUEPILL
-
 // wiring of each half
 #define MATRIX_ROW_PINS { B10 }
 #define MATRIX_COL_PINS { B1 }
