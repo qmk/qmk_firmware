@@ -211,7 +211,7 @@ static inline void dump_key_buffer(void) {
         key_buffer_next = key_buffer_i + 1;
 
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
-        keyrecord_t     *record  = &qrecord->record;
+        keyrecord_t *    record  = &qrecord->record;
 
         if (IS_NOEVENT(record->event)) {
             continue;
@@ -311,7 +311,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
 
     for (uint8_t key_buffer_i = 0; key_buffer_i < key_buffer_size; key_buffer_i++) {
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
-        keyrecord_t     *record  = &qrecord->record;
+        keyrecord_t *    record  = &qrecord->record;
         uint16_t         keycode = qrecord->keycode;
 
         uint8_t  key_count = 0;
@@ -346,7 +346,7 @@ static inline void apply_combos(void) {
     // Apply all buffered normal combos.
     for (uint8_t i = combo_buffer_read; i != combo_buffer_write; INCREMENT_MOD(i)) {
         queued_combo_t *buffered_combo = &combo_buffer[i];
-        combo_t        *combo          = &key_combos[buffered_combo->combo_index];
+        combo_t *       combo          = &key_combos[buffered_combo->combo_index];
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
         if (get_combo_must_tap(buffered_combo->combo_index, combo)) {
@@ -451,7 +451,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 combo_t *drop = NULL;
                 for (uint8_t combo_buffer_i = combo_buffer_read; combo_buffer_i != combo_buffer_write; INCREMENT_MOD(combo_buffer_i)) {
                     queued_combo_t *qcombo         = &combo_buffer[combo_buffer_i];
-                    combo_t        *buffered_combo = &key_combos[qcombo->combo_index];
+                    combo_t *       buffered_combo = &key_combos[qcombo->combo_index];
 
                     if ((drop = overlaps(buffered_combo, combo))) {
                         DISABLE_COMBO(drop);
