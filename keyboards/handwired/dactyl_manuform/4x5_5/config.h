@@ -24,3 +24,4 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define EE_HANDS
+#define SPLIT_USB_DETECT
