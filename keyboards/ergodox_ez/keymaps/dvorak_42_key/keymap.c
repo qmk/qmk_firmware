@@ -725,7 +725,7 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_2_off();

@@ -75,7 +75,7 @@ bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("RGBKB Pan\n"), false);
     oled_write_P(PSTR("Layer: "), false);
-    uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
+    uint8_t layer = get_highest_layer(layer_state|default_layer_state);
     switch (layer) {
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);

@@ -14,7 +14,7 @@ QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'
 MAX_KEYBOARD_SUBFOLDERS = 5
 
 # Supported processor types
-CHIBIOS_PROCESSORS = 'cortex-m0', 'cortex-m0plus', 'cortex-m3', 'cortex-m4', 'MKL26Z64', 'MK20DX128', 'MK20DX256', 'MK66FX1M0', 'STM32F042', 'STM32F072', 'STM32F103', 'STM32F303', 'STM32F401', 'STM32F405', 'STM32F407', 'STM32F411', 'STM32F446', 'STM32G431', 'STM32G474', 'STM32L412', 'STM32L422', 'STM32L432', 'STM32L433', 'STM32L442', 'STM32L443', 'GD32VF103', 'WB32F3G71'
+CHIBIOS_PROCESSORS = 'cortex-m0', 'cortex-m0plus', 'cortex-m3', 'cortex-m4', 'MKL26Z64', 'MK20DX128', 'MK20DX256', 'MK64FX512', 'MK66FX1M0', 'RP2040', 'STM32F042', 'STM32F072', 'STM32F103', 'STM32F303', 'STM32F401', 'STM32F405', 'STM32F407', 'STM32F411', 'STM32F446', 'STM32G431', 'STM32G474', 'STM32L412', 'STM32L422', 'STM32L432', 'STM32L433', 'STM32L442', 'STM32L443', 'GD32VF103', 'WB32F3G71', 'WB32FQ95'
 LUFA_PROCESSORS = 'at90usb162', 'atmega16u2', 'atmega32u2', 'atmega16u4', 'atmega32u4', 'at90usb646', 'at90usb647', 'at90usb1286', 'at90usb1287', None
 VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 
@@ -43,6 +43,7 @@ MCU2BOOTLOADER = {
     "STM32L443": "stm32-dfu",
     "GD32VF103": "gd32v-dfu",
     "WB32F3G71": "wb32-dfu",
+    "WB32FQ95": "wb32-dfu",
     "atmega16u2": "atmel-dfu",
     "atmega32u2": "atmel-dfu",
     "atmega16u4": "atmel-dfu",

@@ -38,7 +38,7 @@ void eeconfig_init_user(void) {
 #define DE_UDIA_CAP UC(0x00DC)
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case NM_MODE:
         rgblight_setrgb (0x00,  0x66, 0x00);
         break;
@@ -187,4 +187,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   _______,         _______,         _______,         _______,   _______,      _______
       ),
 };
-

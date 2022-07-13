@@ -134,10 +134,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `--------=======------------------------'
      */
     [_TERMINAL] = LAYOUT_ortho_4x4(
-        _______,  TERM_ABOUT, _______, _______,
-        TERM_OFF, TERM_PRINT, _______, _______,
-        _______,  TERM_FLUSH, _______, _______,
-        TERM_ON,  TERM_HELP , _______, _______
+        _______, TERM_ABOUT, _______, _______,
+        _______, TERM_PRINT, _______, _______,
+        _______, TERM_FLUSH, _______, _______,
+        _______, TERM_HELP , _______, _______
     ),
     /* ADMIN
      * ,-----------------------------------------.

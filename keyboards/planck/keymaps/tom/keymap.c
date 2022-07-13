@@ -228,7 +228,7 @@ bool music_mask_user(uint16_t keycode) {
 
 void rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case _RAISE:
       for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
