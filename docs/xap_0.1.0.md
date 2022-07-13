@@ -57,10 +57,8 @@ Response messages will always be prefixed by the originating request _token_, di
 
 | Bit 7 | Bit 6 | Bit 5 | Bit 4 | Bit 3 | Bit 2 | Bit 1 | Bit 0 |
 | -- | -- | -- | -- | -- | -- | -- | -- |
-| `UNLOCKED` | `UNLOCK_IN_PROGRESS` | `-` | `-` | `-` | `-` | `SECURE_FAILURE` | `SUCCESS` |
+| `-` | `-` | `-` | `-` | `-` | `-` | `SECURE_FAILURE` | `SUCCESS` |
 
-* Bit 7 (`UNLOCKED`): When this bit is set, an _unlock sequence_ has completed, and _secure routes_ may be invoked.
-* Bit 6 (`UNLOCK_IN_PROGRESS`): When this bit is set, an _unlock sequence_ is in progress.
 * Bit 1 (`SECURE_FAILURE`): When this bit is set, the requested _route_ was marked _secure_ but an _unlock sequence_ has not completed.
 * Bit 0 (`SUCCESS`): When this bit is set, the request was successfully handled. If not set, all payload data should be disregarded, and the request retried if appropriate (with a new token).
 
@@ -111,7 +109,7 @@ This subsystem is always present, and provides the ability to address QMK-specif
 | Board identifiers | `0x01 0x02` |  |__Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Vendor ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product Version: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* QMK Unique Identifier: `u32`| Retrieves the set of identifying information for the board.|
 | Board Manufacturer | `0x01 0x03` |  |__Response:__ `string`| Retrieves the name of the manufacturer|
 | Product Name | `0x01 0x04` |  |__Response:__ `string`| Retrieves the product name|
-| Config Blob Length | `0x01 0x05` |  |__Response:__ `u32`| Retrieves the length of the configuration data bundled within the firmware|
+| Config Blob Length | `0x01 0x05` |  |__Response:__ `u16`| Retrieves the length of the configuration data bundled within the firmware|
 | Config Blob Chunk | `0x01 0x06` |  |__Request:__ `u16`<br><br>__Response:__ `u8[32]`| Retrieves a chunk of the configuration data bundled within the firmware|
 | Jump to bootloader | `0x01 0x07` | __Secure__ |__Response:__ `u8`| Jump to bootloader<br><br>May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader|
 | Hardware Identifier | `0x01 0x08` |  |__Response:__ `u32[4]`| Retrieves a unique identifier for the board.|

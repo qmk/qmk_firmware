@@ -30,8 +30,7 @@
         },
         "permission": {
             "enum": [
-                "secure",
-                "ignore"
+                "secure"
             ]
         },
         "struct": {

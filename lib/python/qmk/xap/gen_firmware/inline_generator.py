@@ -128,7 +128,6 @@ def _append_routing_table_entry_flags(lines, container, container_id, route_stac
     pem_map = {
         None: 'ROUTE_PERMISSIONS_INSECURE',
         'secure': 'ROUTE_PERMISSIONS_SECURE',
-        'ignore': 'ROUTE_PERMISSIONS_IGNORE',
     }
 
     is_secure = pem_map[container.get('permissions', None)]

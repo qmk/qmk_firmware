@@ -46,7 +46,6 @@ typedef enum xap_route_type_t {
 typedef enum xap_route_secure_t {
     ROUTE_PERMISSIONS_INSECURE,
     ROUTE_PERMISSIONS_SECURE,
-    ROUTE_PERMISSIONS_IGNORE,
 } xap_route_secure_t;
 
 #define XAP_ROUTE_SECURE_BIT_COUNT 2
@@ -89,11 +88,6 @@ bool xap_pre_execute_route(xap_token_t token, const xap_route_t *route) {
 #ifdef SECURE_ENABLE
     if (!secure_is_unlocked() && (route->flags.secure == ROUTE_PERMISSIONS_SECURE)) {
         xap_respond_failure(token, XAP_RESPONSE_FLAG_SECURE_FAILURE);
-        return true;
-    }
-
-    if (secure_is_unlocking() && (route->flags.type != XAP_ROUTE) && (route->flags.secure != ROUTE_PERMISSIONS_IGNORE)) {
-        xap_respond_failure(token, XAP_RESPONSE_FLAG_UNLOCK_IN_PROGRESS);
         return true;
     }
 

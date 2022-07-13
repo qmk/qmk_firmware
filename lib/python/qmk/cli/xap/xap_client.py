@@ -42,8 +42,6 @@ class XAPFlags(IntFlag):
     FAILURE = 0
     SUCCESS = 1 << 0
     SECURE_FAILURE = 1 << 1
-    UNLOCK_IN_PROGRESS = 1 << 6
-    UNLOCKED = 1 << 7
 
 
 class XAPEventType(IntEnum):
@@ -136,7 +134,7 @@ class XAPDevice:
             return None
 
         r = ResponsePacket._make(ResponseStruct.unpack(event._ret))
-        if r.flags != XAPFlags.SUCCESS:
+        if r.flags & XAPFlags.SUCCESS == 0:
             return None
 
         return r.data[:r.length]
