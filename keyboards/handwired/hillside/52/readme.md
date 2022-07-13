@@ -1,6 +1,6 @@
 # Hillside 52
 
-![hillside](https://imgur.com/erJPjvrh.png)
+![hillside](https://imgur.com/eDqDMk7h.png)
 
 [Hillside 52](https://github.com/mmccoyd/hillside)
  is a split ergonomic keyboard with 3x6+3+5 choc-spaced keys,

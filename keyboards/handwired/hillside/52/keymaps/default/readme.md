@@ -12,30 +12,29 @@ Some of its key features are:
 
 ## Base Layer
 
-![Base QWERTY layer](https://imgur.com/vO9pnaYh.png)
+![Base QWERTY layer](https://imgur.com/rZC24AHh.png)
 
 The base layer provides a very standard key layout with four differences:
 
 - Numbers, functions and most symbols are accessed with number and symbol shift keys.
 - Escape is on the bottom row.
 - The left thumb has a shift key that affects the next key pressed. So to get 'A', press and release the thumb shift key, press 'a'. You can also hold the key down, and it will work like a standard shift key. There are still standard shift keys at either end of the keyboard.
-- The lower left key turns on a mode that capitalizes all letters until something other than a letter, digit, dash, underscore, delete or backspace is typed. The caps word mode also times out after five seconds of no key presses.
 - The Menu and AltGr keys are on a layer.
 
 The default layout is QWERTY with alternatives of Dvorak and Colemak-DH, and the alt/option and win/command key locations are swappable for windows or mac.
 
 <details>
-<summary>Details of Dvorak and Coleman-DH</summary>
+<summary>Details of Dvorak and Colemak-DH</summary>
 The Dvorak and Colemak-DH base layers have identical non-alpha and non-symbol keys as the QWERTY base layer.
 
-![Base Dvorak layer](https://imgur.com/Baxt3L9h.png)
-![Base Colemak layer](https://imgur.com/5BHeur8h.png)
+![Base Dvorak layer](https://imgur.com/08Y2OMmh.png)
+![Base Colemak layer](https://imgur.com/LpkTIrWh.png)
 </details>
 
 
 ## Symbol and Media Layer
 
-![Symbol layer](https://imgur.com/lg5PqMXh.png)
+![Symbol layer](https://imgur.com/6I3JDs3h.png)
 
 Holding down the SYM key accesses the symbol layer:
 
@@ -48,17 +47,18 @@ Holding down the SYM key accesses the symbol layer:
 
 ## Navigation, Editing, Number and Function Layer
 
-![Navigation layer](https://imgur.com/eCzNwZPh.png)
+![Navigation layer](https://imgur.com/RUHXXzkh.png)
 
 Holding down the Nav/Edit key accesses the navigation, editing, number and function layer:
 
 - Numbers are along the top row, and function keys are on the bottom.
 - The arrow keys on the left can be combined with the home row modifiers on the right to easily move around and select text, which can then be cut, copied and pasted.
+- Caps word toggles a mode that capitalizes all letters until something other than a letter, digit, dash, underscore, delete or backspace is typed. The mode also times out five seconds after the last key press.  
 
 
 ## Adjust Layer
 
-![Adjust layer](https://imgur.com/bC3CRSKh.png)
+![Adjust layer](https://imgur.com/nFWD1wKh.png)
 
 Simultaneously holding down the Sym and Nav/Edit keys enables keys to adjust keyboard settings:
 
@@ -84,13 +84,11 @@ A good metaphor is to think of your keymap as a bonsai tree that you tweak sligh
   in response to ideas of how it might serve you better.
 
 Some changes you might consider making:
+
 - If you are on a mac, switch the editing keys from ctrl-x to cmd-x.
 - Put some of your most-used key combinations on the unused keys
   on the symbol layer.
-- Change the shift keys to one-shot,
-  where pressing and releasing them shifts the next key pressed.
-  That is much easier on your hands than holding them down.
-  Yet they can still be held as usual if desired.
+- Remove the pinkie shift keys and just use the one shot thumb shift key.
 - Instead of holding down the thumb key to keep the symbol layer active,
   you could use a one-shot layer key.
   One-shot modifiers are likely less stress on your hands and may even be faster.
