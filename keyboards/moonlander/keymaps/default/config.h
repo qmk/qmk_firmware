@@ -19,4 +19,3 @@
 #pragma once
 
 #define ORYX_CONFIGURATOR
-#define STARTUP_SONG SONG(ODE_TO_JOY)
