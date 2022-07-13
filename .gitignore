@@ -7,6 +7,7 @@
 
 # Merge files
 *.orig
+*.rej
 
 # Build artifacts
 .clang_complete
