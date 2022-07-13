@@ -25,6 +25,14 @@
 #include "test_fixture.hpp"
 #include "test_keymap_key.hpp"
 
+// Allow reports with no keys or only KC_LSFT.
+// clang-format off
+#define EXPECT_EMPTY_OR_LSFT(driver)              \
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf( \
+            KeyboardReport(),                     \
+            KeyboardReport(KC_LSFT))))
+// clang-format on
+
 using ::testing::AnyNumber;
 using ::testing::AnyOf;
 using ::testing::InSequence;
@@ -42,9 +50,15 @@ const uint16_t ad_combo[] PROGMEM   = {KC_A, LCTL_T(KC_D), COMBO_END};
 const uint16_t de_combo[] PROGMEM   = {LCTL_T(KC_D), LT(1, KC_E), COMBO_END};
 const uint16_t fghi_combo[] PROGMEM = {KC_F, KC_G, KC_H, KC_I, COMBO_END};
 
+// clang-format off
 combo_t key_combos[] = {
-    [AB_COMBO] = COMBO(ab_combo, KC_SPC), [BC_COMBO] = COMBO(bc_combo, KC_X), [AD_COMBO] = COMBO(ad_combo, KC_Y), [DE_COMBO] = COMBO(de_combo, KC_Z), [FGHI_COMBO] = COMBO(fghi_combo, KC_W),
+    [AB_COMBO] = COMBO(ab_combo, KC_SPC),  // KC_A + KC_B = KC_SPC
+    [BC_COMBO] = COMBO(bc_combo, KC_X),    // KC_B + KC_C = KC_X
+    [AD_COMBO] = COMBO(ad_combo, KC_Y),    // KC_A + LCTL_T(KC_D) = KC_Y
+    [DE_COMBO] = COMBO(de_combo, KC_Z),    // LCTL_T(KC_D) + LT(1, KC_E) = KC_Z
+    [FGHI_COMBO] = COMBO(fghi_combo, KC_W) // KC_F + KC_G + KC_H + KC_I = KC_W
 };
+// clang-format on
 } // extern "C"
 
 namespace {
@@ -79,8 +93,7 @@ TEST_P(CapsWord, SingleCombo) {
     KeymapKey  key_c(0, 0, 2, KC_C);
     set_keymap({key_b, key_c});
 
-    // Allow any number of reports with no keys or only KC_LSFT.
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(KeyboardReport(), KeyboardReport(KC_LSFT)))).Times(AnyNumber());
+    EXPECT_EMPTY_OR_LSFT(driver).Times(AnyNumber());
     EXPECT_REPORT(driver, (KC_LSFT, KC_X));
 
     caps_word_on();
@@ -101,8 +114,7 @@ TEST_P(CapsWord, LongerCombo) {
     KeymapKey  key_i(0, 0, 3, KC_I);
     set_keymap({key_f, key_g, key_h, key_i});
 
-    // Allow any number of reports with no keys or only KC_LSFT.
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(KeyboardReport(), KeyboardReport(KC_LSFT)))).Times(AnyNumber());
+    EXPECT_EMPTY_OR_LSFT(driver).Times(AnyNumber());
     EXPECT_REPORT(driver, (KC_LSFT, KC_W));
 
     caps_word_on();
@@ -125,13 +137,7 @@ TEST_P(CapsWord, ComboRegularKeys) {
     KeymapKey  key_1(0, 0, 3, KC_1);
     set_keymap({key_a, key_b, key_c, key_1});
 
-    // Allow any number of reports with no keys or only KC_LSFT.
-    // clang-format off
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
-                KeyboardReport(),
-                KeyboardReport(KC_LSFT))))
-        .Times(AnyNumber());
-    // clang-format on
+    EXPECT_EMPTY_OR_LSFT(driver).Times(AnyNumber());
     { // Expect: "A, B, 1, X, 1, C, space, a".
         InSequence s;
         EXPECT_REPORT(driver, (KC_LSFT, KC_A));
@@ -168,13 +174,7 @@ TEST_P(CapsWord, ComboModTapKey) {
     KeymapKey  key_layertap_e(0, 0, 2, LT(1, KC_E));
     set_keymap({key_a, key_modtap_d, key_layertap_e});
 
-    // Allow any number of reports with no keys or only KC_LSFT.
-    // clang-format off
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
-                KeyboardReport(),
-                KeyboardReport(KC_LSFT))))
-        .Times(AnyNumber());
-    // clang-format on
+    EXPECT_EMPTY_OR_LSFT(driver).Times(AnyNumber());
     { // Expect: "A, D, E, Y, Z".
         InSequence s;
         EXPECT_REPORT(driver, (KC_LSFT, KC_A));
