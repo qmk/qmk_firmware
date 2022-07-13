@@ -2,8 +2,6 @@
     "keyboard_name": "day_off",
     "url": "nixkeyboards.com",
     "maintainer": "Schrobie",
-    "width": 16.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
