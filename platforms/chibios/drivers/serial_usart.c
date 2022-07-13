@@ -8,12 +8,12 @@
 
 #if defined(SERIAL_USART_CONFIG)
 static QMKSerialConfig serial_config = SERIAL_USART_CONFIG;
-#else
+#elif defined(MCU_STM32) /* STM32 MCUs */
 static QMKSerialConfig serial_config = {
 #    if HAL_USE_SERIAL
-    .speed = (SERIAL_USART_SPEED), /* baudrate - mandatory */
+    .speed = (SERIAL_USART_SPEED),
 #    else
-    .baud = (SERIAL_USART_SPEED), /* baudrate - mandatory */
+    .baud = (SERIAL_USART_SPEED),
 #    endif
     .cr1   = (SERIAL_USART_CR1),
     .cr2   = (SERIAL_USART_CR2),
@@ -23,6 +23,19 @@ static QMKSerialConfig serial_config = {
     .cr3  = (SERIAL_USART_CR3)
 #    endif
 };
+#elif defined(MCU_RP) /* Raspberry Pi MCUs */
+/* USART in 8E2 config with RX and TX FIFOs enabled. */
+// clang-format off
+static QMKSerialConfig serial_config = {
+    .baud = (SERIAL_USART_SPEED),
+    .UARTLCR_H = UART_UARTLCR_H_WLEN_8BITS | UART_UARTLCR_H_PEN | UART_UARTLCR_H_STP2 | UART_UARTLCR_H_FEN,
+    .UARTCR = 0U,
+    .UARTIFLS = UART_UARTIFLS_RXIFLSEL_1_8F | UART_UARTIFLS_TXIFLSEL_1_8E,
+    .UARTDMACR = 0U
+};
+// clang-format on
+#else
+#    error MCU Familiy not supported by default, supply your own serial_config by defining SERIAL_USART_CONFIG in your keyboard files.
 #endif
 
 static QMKSerialDriver* serial_driver = (QMKSerialDriver*)&SERIAL_USART_DRIVER;
@@ -156,7 +169,7 @@ inline bool serial_transport_receive_blocking(uint8_t* destination, const size_t
  * @brief Initiate pins for USART peripheral. Half-duplex configuration.
  */
 __attribute__((weak)) void usart_init(void) {
-#    if defined(MCU_STM32)
+#    if defined(MCU_STM32) /* STM32 MCUs */
 #        if defined(USE_GPIOV1)
     palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_OPENDRAIN);
 #        else
@@ -166,6 +179,8 @@ __attribute__((weak)) void usart_init(void) {
 #        if defined(USART_REMAP)
     USART_REMAP;
 #        endif
+#    elif defined(MCU_RP) /* Raspberry Pi MCUs */
+#        error Half-duplex with the SIO driver is not supported due to hardware limitations on the RP2040, switch to the PIO driver which has half-duplex support.
 #    else
 #        pragma message "usart_init: MCU Familiy not supported by default, please supply your own init code by implementing usart_init() in your keyboard files."
 #    endif
@@ -177,7 +192,7 @@ __attribute__((weak)) void usart_init(void) {
  * @brief Initiate pins for USART peripheral. Full-duplex configuration.
  */
 __attribute__((weak)) void usart_init(void) {
-#    if defined(MCU_STM32)
+#    if defined(MCU_STM32) /* STM32 MCUs */
 #        if defined(USE_GPIOV1)
     palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
     palSetLineMode(SERIAL_USART_RX_PIN, PAL_MODE_INPUT);
@@ -189,6 +204,9 @@ __attribute__((weak)) void usart_init(void) {
 #        if defined(USART_REMAP)
     USART_REMAP;
 #        endif
+#    elif defined(MCU_RP) /* Raspberry Pi MCUs */
+    palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_UART);
+    palSetLineMode(SERIAL_USART_RX_PIN, PAL_MODE_ALTERNATE_UART);
 #    else
 #        pragma message "usart_init: MCU Familiy not supported by default, please supply your own init code by implementing usart_init() in your keyboard files."
 #    endif

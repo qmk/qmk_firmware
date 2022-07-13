@@ -74,11 +74,11 @@ Targeting ARM boards based on ChibiOS, where communication is offloaded to a USA
 +-------+                 +-------+
 ```
 
-Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is refereed to as the `SERIAL_USART_TX_PIN` in the configuration. Take care that the pin you chose can act as the TX pin of the USART peripheral. A simple TRS or USB cable provides enough conductors for this driver to work. As the split connection is configured to work in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work.
+Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Take care that the pin you chose can act as the TX pin of the USART peripheral. A simple TRS or USB cable provides enough conductors for this driver to work. As the split connection is configured to work in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work.
 
 ### Setup
 
-To use the Half-duplex driver follow these steps to activate it.
+To use the Half-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation skip step 1.
 
 1. Change the `SERIAL_DRIVER` to `usart` in your keyboards `rules.mk` file:
 
@@ -86,7 +86,13 @@ To use the Half-duplex driver follow these steps to activate it.
 SERIAL_DRIVER = usart
 ```
 
-2. Configure the hardware of your keyboard via the `config.h` file:
+2. (RP2040 PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
+
+```make
+SERIAL_DRIVER = vendor
+```
+
+3. Configure the hardware of your keyboard via the `config.h` file:
 
 ```c
 #define SERIAL_USART_TX_PIN B6     // The GPIO pin that is used split communication.
@@ -99,7 +105,7 @@ For STM32 MCUs several GPIO configuration options can be changed as well. See th
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-3. Decide either for ChibiOS `SERIAL` or `SIO` subsystem, see the section ["Choosing a ChibiOS driver subsystem"](#choosing-a-chibios-driver-subsystem).
+1. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
@@ -125,11 +131,11 @@ Targeting ARM boards based on ChibiOS where communication is offloaded to an USA
 
 Two GPIO pins are needed for the Full-duplex driver, as two distinct wires are used for receiving and transmitting data. The pin transmitting data is the `TX` pin and refereed to as the `SERIAL_USART_TX_PIN`, the pin receiving data is the `RX` pin and refereed to as the `SERIAL_USART_RX_PIN` in this configuration. Please note that `TX` pin of the master half has to be connected with the `RX` pin of the slave half and the `RX` pin of the master half has to be connected with the `TX` pin of the slave half! Usually this pin swap has to be done outside of the MCU e.g. with cables or on the PCB. Some MCUs like the STM32F303 used on the Proton-C allow this pin swap directly inside the MCU. A simple TRRS or USB cable provides enough conductors for this driver to work.
 
-To use this driver the usart peripherals `TX` and `RX` pins must be configured with the correct Alternate-functions. If you are using a Proton-C everything is already setup, same is true for STM32F103 MCUs. For MCUs which are using a modern flexible GPIO configuration you have to specify these by setting `SERIAL_USART_TX_PAL_MODE` and `SERIAL_USART_RX_PAL_MODE`. Reefer to the corresponding datasheets of your MCU or find those settings in the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
+To use this driver the usart peripherals `TX` and `RX` pins must be configured with the correct Alternate-functions. If you are using a Proton-C everything is already setup, same is true for STM32F103 MCUs. For MCUs which are using a modern flexible GPIO configuration you have to specify these by setting `SERIAL_USART_TX_PAL_MODE` and `SERIAL_USART_RX_PAL_MODE`. Refer to the corresponding datasheets of your MCU or find those settings in the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ### Setup
 
-To use the Full-duplex driver follow these steps to activate it.
+To use the Full-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation skip step 1.
 
 1. Change the `SERIAL_DRIVER` to `usart` in your keyboards `rules.mk` file:
 
@@ -137,7 +143,13 @@ To use the Full-duplex driver follow these steps to activate it.
 SERIAL_DRIVER = usart
 ```
 
-2. Configure the hardware of your keyboard via the `config.h` file:
+2. (RP2040 PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
+
+```make
+SERIAL_DRIVER = vendor
+```
+
+3. Configure the hardware of your keyboard via the `config.h` file:
 
 ```c
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
@@ -153,11 +165,11 @@ For STM32 MCUs several GPIO configuration options, including the ability for `TX
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-3. Decide either for ChibiOS `SERIAL` or `SIO` subsystem, see the section ["Choosing a ChibiOS driver subsystem"](#choosing-a-chibios-driver-subsystem).
+1. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
-## Choosing a ChibiOS driver subsystem
+## Choosing a driver subsystem
 
 ### The `SERIAL` driver
 
@@ -219,6 +231,17 @@ Where 'n' matches the peripheral number of your selected USART on the MCU.
  #define SERIAL_USART_DRIVER SIOD3
  ```
  
+### The `PIO` driver
+
+The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU. Because of the flexible nature of the PIO peripherals, **any** GPIO pin can be used as a `TX` or `RX` pin. Half-duplex and Full-duplex operation is fully supported. The Half-duplex operation mode uses the built-in pull-ups and GPIO manipulation on the RP2040 to drive the line high by default. An external pull-up is therefore not necessary.
+
+Configure the hardware via your config.h:
+```c
+#define SERIAL_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral
+```
+
+The Serial PIO program uses 2 state machines, 13 instructions and the complete interrupt handler of the PIO peripheral it is running on.
+
 <hr>
 
 ## Advanced Configuration

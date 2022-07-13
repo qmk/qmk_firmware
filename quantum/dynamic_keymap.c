@@ -93,6 +93,10 @@ _Static_assert((DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (DYNAMIC_KEYMAP_MACRO_EEPROM_A
 #    define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + 1)
 #endif
 
+#ifndef DYNAMIC_KEYMAP_MACRO_DELAY
+#    define DYNAMIC_KEYMAP_MACRO_DELAY TAP_CODE_DELAY
+#endif
+
 uint8_t dynamic_keymap_get_layer_count(void) {
     return DYNAMIC_KEYMAP_LAYER_COUNT;
 }
@@ -300,6 +304,6 @@ void dynamic_keymap_macro_send(uint8_t id) {
                 break;
             }
         }
-        send_string(data);
+        send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);
     }
 }
