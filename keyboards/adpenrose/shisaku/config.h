@@ -86,13 +86,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-// #define NO_ACTION_MACRO
-// #define NO_ACTION_FUNCTION
-
-/* USB max power consumption in mA */
-#define USB_MAX_POWER_CONSUMPTION 100
-
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
