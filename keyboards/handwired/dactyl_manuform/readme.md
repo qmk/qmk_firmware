@@ -1,8 +1,7 @@
-Dactyl Manuform (4x5, 5x6, 5x7, 6x6, 6x7)
-======
+# Dactyl Manuform (4x5, 5x6, 5x7, 6x6, 6x7)
+
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
-
 
 ## First Time Setup
 
@@ -15,6 +14,7 @@ $ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
 ```
 
 example:
+
 ```
 $ make handwired/dactyl_manuform/4x5:default
 ```
@@ -27,50 +27,75 @@ dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
-
 ## Keymaps
 
 ### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
 
 #### Default
+
 Simple QWERTY layout with 3 Layers.
+
 #### Dvorak
 
 ### [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
 
 #### Default
+
 Just a copy of the Impstyle keymap. Feel free to adjust it.
 
 #### Impstyle
+
 A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
 
-### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
+### [Keymaps 5x6_5](/keyboards/handwired/dactyl_manuform/5x6_5/keymaps/)
+
+Similar layout to 5x6 but with only 5 thumb keys per side instead of 6.
+
 #### Default
+QWERTY layout with 7 Layers.
+
+#### Via
+Similar to Default but adds support for the [Via](https://www.caniusevia.com/) keymap configurator. Reduces the number of layers to 4 to comply with Via defaults, and remaps
+some keys to accomodate that constraint.
+
+### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
+
+#### Default
+
 Keymap of Loligagger from geekhack.
 
 ### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
 
 #### Default
+
 Simple QWERTY layout with 3 Layers.
 
 ### [Keymaps 6x7](/keyboards/handwired/dactyl_manuform/6x7/keymaps/)
 
 #### Default
+
 Simple QWERTY layout with 3 Layers.
+
+### [Keymaps 3x5_3](/keyboards/handwired/dactyl_manuform/3x5_3/keymaps/)
+
+#### Dlford
+
+QWERTY/Colemak layout with per key RGB and other features
 
 ## Required Hardware
 
 Apart from diodes and key switches for the keyboard matrix in each half, you
 will need:
 
-* 2 Arduino Pro Micros. You can find these on AliExpress for ≈3.50USD each.
-* 2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
+-   2 Arduino Pro Micros. You can find these on AliExpress for ≈3.50USD each.
+-   2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
 
 Alternatively, you can use any sort of cable and socket that has at least 3
 wires. If you want to use I2C to communicate between halves, you will need a
 cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
 
 ## Optional Hardware
+
 A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
 
 ## Wiring
@@ -103,7 +128,6 @@ the keymaps in here are for the 4x5 layout of the keyboard only.
 
 To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
-
 ## Choosing which board to plug the USB cable into (choosing Master)
 
 Because the two boards are identical, the firmware has logic to differentiate the left and right board.
@@ -121,6 +145,7 @@ If you always plug the usb cable into the left board, nothing extra is needed as
 ### Setting the right hand as master
 
 If you always plug the usb cable into the right board, add an extra flag to your `config.h`
+
 ```
  #define MASTER_RIGHT
 ```
@@ -135,6 +160,7 @@ half is left handed or right handed. This makes it so that the same firmware
 file will run on both hands instead of having to flash left and right handed
 versions of the firmware to each half. To flash the EEPROM file for the left
 half run:
+
 ```
 make handwired/dactyl_promicro:default:dfu-split-left
 make handwired/dactyl_promicro:default:dfu-split-right
@@ -148,9 +174,7 @@ layout and the right half with a Colemak layout using bootmagic's default layout
 Then if you connect the left half to a computer by USB the keyboard will use QWERTY and Colemak when the
 right half is connected.
 
-
-Notes on Using Pro Micro 3.3V
------------------------------
+## Notes on Using Pro Micro 3.3V
 
 Do update the `F_CPU` parameter in `rules.mk` to `8000000` which reflects
 the frequency on the 3.3V board.

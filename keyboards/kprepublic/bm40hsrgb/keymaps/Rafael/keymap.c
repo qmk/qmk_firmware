@@ -175,23 +175,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* MOV
      * ,-----------------------------------------------------------------------------------.
-     * |      |      |      |      |      | PgUp | CIns |      |      |      | SIns |      |
+     * |      |      |      |      |      | PgUp | CIns |      |      |      | SIns |  PSCR|
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * | Bksp | Home | End  | Shift| Ctrl |PgDown| Left | Down |  Up  | Right| Del  | Enter|
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * |      |      |      |      |alt+ct|      |      |      |      |      |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * |      |      |      |      |      |   *******   | Enter|      |      |      |      |
+     * |      |      |      |      |      |   *******   |      |      |      |      |      |
      * `-----------------------------------------------------------------------------------'
      *
      * - Y outputs Control + Insert
      * - P outputs Shift + Insert
      */
     [_MOV] = LAYOUT_planck_mit(
-            XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PGUP , C(KC_INS) , XXXXXXX , XXXXXXX , XXXXXXX  , S(KC_INS) , XXXXXXX,
+            XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PGUP , C(KC_INS) , XXXXXXX , XXXXXXX , XXXXXXX  , S(KC_INS) , KC_PSCR,
             KC_BSPC , KC_HOME , KC_END  , KC_LSFT , KC_LCTL , KC_PGDN , KC_LEFT   , KC_DOWN , KC_UP   , KC_RIGHT , KC_DEL    , KC_ENT ,
             _______ , XXXXXXX , XXXXXXX , KC_CAPS , C(KC_LALT) , XXXXXXX , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX  , XXXXXXX   , _______,
-            _______ , _______ , _______ , _______ , XXXXXXX ,         _______     , KC_ENT  , _______ , _______  , _______   , _______
+            _______ , _______ , _______ , _______ , _______ ,         XXXXXXX        , _______ , _______ , _______  , _______   , _______
             ),
 
     /* NUM

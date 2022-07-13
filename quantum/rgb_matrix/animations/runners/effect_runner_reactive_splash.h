@@ -26,4 +26,4 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
     return rgb_matrix_check_finished_leds(led_max);
 }
 
-#endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED

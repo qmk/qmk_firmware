@@ -1,3 +1,6 @@
+// Copyright 2017-2021 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include "config_common.h"

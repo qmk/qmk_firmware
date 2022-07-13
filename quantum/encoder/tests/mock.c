@@ -26,7 +26,9 @@ uint8_t mockSetPinInputHigh(pin_t pin) {
     return 0;
 }
 
-bool mockReadPin(pin_t pin) { return pins[pin]; }
+bool mockReadPin(pin_t pin) {
+    return pins[pin];
+}
 
 bool setPin(pin_t pin, bool val) {
     pins[pin] = val;
