@@ -19,6 +19,7 @@
 #include "cirque_pinnacle_gestures.h"
 #include "pointing_device.h"
 #include "timer.h"
+#include "wait.h"
 
 #if defined(CIRQUE_PINNACLE_TAP_ENABLE) || defined(CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE)
 static cirque_pinnacle_features_t features = {.tap_enable = true, .circular_scroll_enable = true};
