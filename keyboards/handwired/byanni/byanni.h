@@ -1,7 +1,8 @@
+#pragma once
 
-#include QMK_KEYBOARD_H
+#define ___ KC_NO
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#include "quantum.h"
 
 #define LAYOUT( \
 	K000, K001, K002, K003, K004, K005,                                     K012, K013, 
