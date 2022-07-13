@@ -1,3 +1,6 @@
+// Copyright 2022 Shem Sedrick (@ssedrick)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 /* Use I2C or Serial, not both */
