@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Dactyl Manuform 4x5 5 thumb keys",
-    "url": "",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/4x5_5",
     "maintainer": "ssedrick",
     "layouts": {
         "LAYOUT": {
