@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x6e6b  // Nk - Nix Keyboards
-#define PRODUCT_ID 0x444f // DO - Day off
+#define VENDOR_ID 0x6E6B  // Nk - Nix Keyboards
+#define PRODUCT_ID 0x444F // DO - Day off
 #define DEVICE_VER 0x0001
 #define MANUFACTURER NixKeyboards
 #define PRODUCT DayOff
