@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Nayeon",
     "url": "",
-    "maintainer": "Ramon Imbao",
+    "maintainer": "ramonimbao",
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi_tsangan",
         "LAYOUT_iso": "LAYOUT_tkl_f13_iso_tsangan"
