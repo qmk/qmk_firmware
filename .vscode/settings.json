@@ -26,5 +26,6 @@
     "python.formatting.provider": "yapf",
     "[json]": {
 	    "editor.formatOnSave": false
-    }
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/lib/googletest"
 }
