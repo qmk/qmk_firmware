@@ -4,11 +4,6 @@
 /* expand macro test command
 gcc --include <test_config.h> -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c 2>/tmp/err | sed '1,/^..-expand-start-/d' | cat - /tmp/err | less
 */
-#define OLD_GEN 0
-#if OLD_GEN == 0
-#    pragma message "new gen"
-#endif
-
 #ifdef DIRECT_PIN
 #    error DIRECT_PIN is not yet supported.
 #endif
@@ -201,16 +196,8 @@ typedef struct _pin_list_element_t {
 } pin_list_element_t;
 
 typedef struct _port_pin_list_element_t {
-#if OLD_GEN
-    port_list_element_t iports[MAX_NUM_INPUT_PORTS];
-    pin_list_element_t  ipins[MAX_NUM_INPUT_PINS];
-#endif
     port_list_element_t oports[MAX_NUM_OUTPUT_PORTS];
-#if OLD_GEN
-    pin_list_element_t  opins[MAX_NUM_OUTPUT_PINS];
-#else
-   uint8_t              opin_enable[MAX_NUM_OUTPUT_PINS];
-#endif
+    uint8_t             opin_enable[MAX_NUM_OUTPUT_PINS];
 } port_pin_list_element_t;
 
 #define GEN_PORT_PIN_LIST(x) { REMOVE_OUTER_PARENTHESES(x) },
@@ -219,49 +206,21 @@ typedef struct _port_pin_list_element_t {
 
 const static port_pin_list_element_t minfo[] = {
     [0] = {
-#if OLD_GEN
-        .iports = { // { PORT, MASK },
-            MAP(GEN_PORT_PIN_LIST, INPUT_PORTS_0)
-        },
-        .ipins = { // { PORTNUM, SMASK, DMASK },
-            MAP(GEN_PORT_PIN_LIST, INPUT_PINS_0)
-        },
-#endif
         .oports  = { // { PORT, MASK },
             MAP(GEN_PORT_PIN_LIST, OUTPUT_PORTS_0)
         },
-#if OLD_GEN
-        .opins = { // { PORTNUM, SMASK, DMASK },
-            MAP(GEN_PORT_PIN_LIST, OUTPUT_PINS_0)
-        }
-#else
         .opin_enable = {
             MAP(GEN_OPIN_ENABLE, OUTPUT_PINS_0)
         }
-#endif
     }
 #if NUM_SIDE == 2
     ,[1] = {
-#if OLD_GEN
-        .iports = { // { PORT, MASK },
-            MAP(GEN_PORT_PIN_LIST, INPUT_PORTS_1)
-        },
-        .ipins = { // { PORTNUM, SMASK, DMASK },
-            MAP(GEN_PORT_PIN_LIST, INPUT_PINS_1)
-        },
-#endif
         .oports  = { // { PORT, MASK },
             MAP(GEN_PORT_PIN_LIST, OUTPUT_PORTS_1)
         },
-#if OLD_GEN
-        .opins = { // { PORTNUM, SMASK, DMASK },
-            MAP(GEN_PORT_PIN_LIST, OUTPUT_PINS_1)
-        },
-#else
         .opin_enable = {
             MAP(GEN_OPIN_ENABLE, OUTPUT_PINS_1)
         }
-#endif
     }
 #endif
 };
@@ -327,20 +286,6 @@ static port_data_t readPortMultiplexer(uint8_t devid, pin_t port) {
         readPort(port)
 #endif
 
-
-#if OLD_GEN
-
-#define GEN_ALL_INPUT_HIGH(SIDE,INDEX,PORT) setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-#define GEN_ALL_INPUT_CHARGE(SIDE,INDEX,PORT) InputPortCharge(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-#define GEN_CASE_WRITE_LOW(SIDE,INDEX,PIN) case INDEX: writeOutputPortBunch_Low(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
-#define GEN_CASE_WRITE_HIGH_Z(SIDE,INDEX,PIN) case INDEX: writeOutputPortBunch_High_Z(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
-#define GEN_ALL_WITE_HIGHT_Z(SIDE,INDEX,PORT) writeOutputPortBunch_High_Z(minfo[SIDE].oports[INDEX].port, minfo[SIDE].oports[INDEX].mask);
-#define GEN_READ_PORT(SIDE,INDEX,PORT) buffer[INDEX] = readMatrixPort(minfo[SIDE].iports[INDEX].dev,minfo[SIDE].iports[INDEX].port);
-#define GEN_ALL_MASK_ADJUST(SIDE,INDEX,PORT) data = mask_and_adjust_a_port(*buffer, minfo[SIDE].iports[INDEX].mask);  keypushd |= data;  *buffer++ = data;
-#define GEN_BUILD(SIDE,INDEX,PIN) | (buffer[minfo[SIDE].ipins[INDEX].pindex] & minfo[SIDE].ipins[INDEX].smask ? minfo[SIDE].ipins[INDEX].dmask : 0)
-
-#else
-
 #define _GEN_ALL_INPUT_HIGH(PORT,MASK,...) setPortBunchInputHigh(PORT, MASK);
 #define GEN_ALL_INPUT_HIGH(x) _GEN_ALL_INPUT_HIGH x
 
@@ -378,29 +323,11 @@ static port_data_t readPortMultiplexer(uint8_t devid, pin_t port) {
     | ((buffer[PORT_INDEX] & SMASK) ? DMASK : 0)
 #define GEN_BUILD(PIN) _GEN_BUILD PIN
 
-#endif
-
 //////////////// SIDE 0: select, unselect, read-port, build-line part ////////////////
-#if OLD_GEN
-#define GEN_ALL_INPUT_HIGH_0(INDEX,PORT) GEN_ALL_INPUT_HIGH(0,INDEX,PORT)
-#define GEN_ALL_INPUT_CHARGE_0(INDEX,PORT) GEN_ALL_INPUT_CHARGE(0,INDEX,PORT)
-#define GEN_CASE_WRITE_LOW_0(INDEX,PIN) GEN_CASE_WRITE_LOW(0,INDEX,PIN)
-#define GEN_CASE_WRITE_HIGH_Z_0(INDEX,PIN) GEN_CASE_WRITE_HIGH_Z(0,INDEX,PIN)
-#define GEN_ALL_WITE_HIGHT_Z_0(INDEX,PORT) GEN_ALL_WITE_HIGHT_Z(0,INDEX,PORT)
-#define GEN_READ_PORT_0(INDEX,PORT) GEN_READ_PORT(0,INDEX,PORT)
-#define GEN_ALL_MASK_ADJUST_0(INDEX,PORT) GEN_ALL_MASK_ADJUST(0,INDEX,PORT)
-#define GEN_BUILD_0(INDEX,PIN) GEN_BUILD(0,INDEX,PIN)
-#endif
-
 static void init_all_input_pins_0(void) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-        MAP_INDEX(GEN_ALL_INPUT_HIGH_0,INPUT_PORTS_0)
-#else
         // setPortBunchInputHigh(PORT, MASK);
         MAP(GEN_ALL_INPUT_HIGH,INPUT_PORTS_0)
-#endif
     }
 #ifdef MATRIX_EXTENSION_74HC157
     setPinOutput(MATRIX_EXTENSION_74HC157);
@@ -413,13 +340,8 @@ static void init_all_input_pins_0(void) {
 static void input_port_charge_0(void) {
 #    if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
     ATOMIC_BLOCK_FORCEON {
-#        if OLD_GEN
-        // InputPortCharge(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-        MAP_INDEX(GEN_ALL_INPUT_CHARGE_0,INPUT_PORTS_0)
-#        else
         // InputPortCharge(PORT, MASK);
         MAP(GEN_ALL_INPUT_CHARGE,INPUT_PORTS_0)
-#        endif
     }
 #    endif // if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
 }
@@ -428,18 +350,11 @@ static void input_port_charge_0(void) {
 //ALWAYS_INLINE
 static void select_output_0(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        switch(row) {
-            // case INDEX: writeOutputPortBunch_Low(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
-            MAP_INDEX(GEN_CASE_WRITE_LOW_0,OUTPUT_PINS_0)
-        }
-#else
         const port_list_element_t *oports = minfo[0].oports;
         switch(row) {
             // case INDEX: writeOutputPortBunch_Low(oports[PORT_INDEX].port,PMASK); break;
             MAP_INDEX(GEN_CASE_WRITE_LOW,OUTPUT_PINS_0)
         }
-#endif
     }
 }
 
@@ -459,42 +374,25 @@ static void select_all_output_0(void) {
 //ALWAYS_INLINE
 static void unselect_output_0(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        switch(row) {
-            // case INDEX: writeOutputPortBunch_High_Z(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
-            MAP_INDEX(GEN_CASE_WRITE_HIGH_Z_0,OUTPUT_PINS_0)
-        }
-#else
         const port_list_element_t *oports = minfo[0].oports;
         switch(row) {
             // case INDEX: writeOutputPortBunch_High_Z(oports[PORT_INDEX].port,PMASK); break;
             MAP_INDEX(GEN_CASE_WRITE_HIGH_Z,OUTPUT_PINS_0)
         }
-#endif
     }
 }
 
 static void unselect_all_output_0(void) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        // writeOutputPortBunch_High_Z(minfo[SIDE].oports[INDEX].port, minfo[SIDE].oports[INDEX].mask);
-        MAP_INDEX(GEN_ALL_WITE_HIGHT_Z_0,OUTPUT_PORTS_0)
-#else
         // writeOutputPortBunch_High_Z(PORT, MASK);
         MAP(GEN_ALL_WRITE_HIGHT_Z,OUTPUT_PORTS_0)
-#endif
     }
 }
 
 //ALWAYS_INLINE
 static void read_all_pins_0(port_data_t *buffer) {
-#if OLD_GEN
-    // buffer[INDEX] = readPort(minfo[SIDE].iports[INDEX].port);
-    MAP_INDEX(GEN_READ_PORT_0,INPUT_PORTS_0)
-#else
     // buffer[INDEX] = readMatrixPort(DEV,PORT);
     MAP_INDEX(GEN_READ_PORT,INPUT_PORTS_0)
-#endif
 }
 
 ALWAYS_INLINE
@@ -511,50 +409,24 @@ static bool mask_and_adjust_pins_0(port_data_t *buffer) {
     port_data_t keypushd = 0;
     port_data_t data;
 
-#if OLD_GEN
-    // data = mask_and_adjust_a_port(*buffer, minfo[SIDE].iports[INDEX].mask);  keypushd |= data;  *buffer++ = data;
-    MAP_INDEX(GEN_ALL_MASK_ADJUST_0,INPUT_PORTS_0)
-#else
     // data = mask_and_adjust_a_port(*buffer, MASK);  keypushd |= data;  *buffer++ = data;
     MAP(GEN_ALL_MASK_ADJUST,INPUT_PORTS_0)
-#endif
     return keypushd != 0;
 }
 
 static matrix_row_t build_line_0(port_data_t *buffer) {
     return 0
-#if OLD_GEN
-    //  | (buffer[minfo[SIDE].ipins[INDEX].pindex] & minfo[SIDE].ipins[INDEX].smask ? minfo[SIDE].ipins[INDEX].dmask : 0)
-        MAP_INDEX(GEN_BUILD_0,INPUT_PINS_0)
-#else
     //  | (buffer[PORT_INDEX] & SMASK ? DMASK : 0)
         MAP(GEN_BUILD,INPUT_PINS_0)
-#endif
         ;
 }
 
 #if NUM_SIDE == 2
 //////////////// SIDE 1: select, unselect, read-port, build-line part ////////////////
-#if OLD_GEN
-#define GEN_ALL_INPUT_HIGH_1(INDEX,PORT) GEN_ALL_INPUT_HIGH(1,INDEX,PORT)
-#define GEN_ALL_INPUT_CHARGE_1(INDEX,PORT) GEN_ALL_INPUT_CHARGE(1,INDEX,PORT)
-#define GEN_CASE_WRITE_LOW_1(INDEX,PIN) GEN_CASE_WRITE_LOW(1,INDEX,PIN)
-#define GEN_CASE_WRITE_HIGH_Z_1(INDEX,PIN) GEN_CASE_WRITE_HIGH_Z(1,INDEX,PIN)
-#define GEN_ALL_WITE_HIGHT_Z_1(INDEX,PORT) GEN_ALL_WITE_HIGHT_Z(1,INDEX,PORT)
-#define GEN_READ_PORT_1(INDEX,PORT) GEN_READ_PORT(1,INDEX,PORT)
-#define GEN_ALL_MASK_ADJUST_1(INDEX,PORT) GEN_ALL_MASK_ADJUST(1,INDEX,PORT)
-#define GEN_BUILD_1(INDEX,PIN) GEN_BUILD(1,INDEX,PIN)
-#endif
-
 static void init_all_input_pins_1(void) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        // setPortBunchInputHigh(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-        MAP_INDEX(GEN_ALL_INPUT_HIGH_1,INPUT_PORTS_1)
-#else
         // setPortBunchInputHigh(PORT, MASK);
         MAP(GEN_ALL_INPUT_HIGH,INPUT_PORTS_1)
-#endif
     }
 #ifdef MATRIX_EXTENSION_74HC157
     setPinOutput(MATRIX_EXTENSION_74HC157);
@@ -566,13 +438,8 @@ static void init_all_input_pins_1(void) {
 static void input_port_charge_1(void) {
 #if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
     ATOMIC_BLOCK_FORCEON {
-#    if OLD_GEN
-        // InputPortCharge(minfo[SIDE].iports[INDEX].port, minfo[SIDE].iports[INDEX].mask);
-        MAP_INDEX(GEN_ALL_INPUT_CHARGE_1,INPUT_PORTS_1)
-#    else
         // InputPortCharge(PORT, MASK);
         MAP(GEN_ALL_INPUT_CHARGE,INPUT_PORTS_1)
-#    endif
     }
 #endif
 }
@@ -580,60 +447,36 @@ static void input_port_charge_1(void) {
 //ALWAYS_INLINE
 static void select_output_1(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        switch(row) {
-            // case INDEX: writeOutputPortBunch_Low(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
-            MAP_INDEX(GEN_CASE_WRITE_LOW_1,OUTPUT_PINS_1)
-        }
-#else
         const port_list_element_t *oports = minfo[1].oports;
         switch(row) {
             // case INDEX: writeOutputPortBunch_Low(oports[PORT_INDEX].port,PMASK); break;
             MAP_INDEX(GEN_CASE_WRITE_LOW,OUTPUT_PINS_1)
         }
-#endif
     }
 }
 
 //ALWAYS_INLINE
 static void unselect_output_1(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        switch(row) {
-            // case INDEX: writeOutputPortBunch_High_Z(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); break;
-            MAP_INDEX(GEN_CASE_WRITE_HIGH_Z_1,OUTPUT_PINS_1)
-        }
-#else
         const port_list_element_t *oports = minfo[1].oports;
         switch(row) {
             // case INDEX: writeOutputPortBunch_High_Z(oports[PORT_INDEX].port,PMASK); break;
             MAP_INDEX(GEN_CASE_WRITE_HIGH_Z,OUTPUT_PINS_1)
         }
-#endif
     }
 }
 
 static void unselect_all_output_1(void) {
     ATOMIC_BLOCK_FORCEON {
-#if OLD_GEN
-        // writeOutputPortBunch_High_Z(minfo[SIDE].oports[INDEX].port, minfo[SIDE].oports[INDEX].mask);
-        MAP_INDEX(GEN_ALL_WITE_HIGHT_Z_1,OUTPUT_PORTS_1)
-#else
         // writeOutputPortBunch_High_Z(PORT, MASK);
         MAP(GEN_ALL_WRITE_HIGHT_Z,OUTPUT_PORTS_1)
-#endif
     }
 }
 
 //ALWAYS_INLINE
 static void read_all_pins_1(port_data_t *buffer) {
-#if OLD_GEN
-    // buffer[INDEX] = readPort(minfo[SIDE].iports[INDEX].port);
-    MAP_INDEX(GEN_READ_PORT_1,INPUT_PORTS_1)
-#else
     // buffer[INDEX] = readMatrixPort(DEV,PORT);
     MAP_INDEX(GEN_READ_PORT,INPUT_PORTS_1)
-#endif
 }
 
 //ALWAYS_INLINE
@@ -641,25 +484,15 @@ static bool mask_and_adjust_pins_1(port_data_t *buffer) {
     port_data_t keypushd = 0;
     port_data_t data;
 
-#if OLD_GEN
-    // data = mask_and_adjust_a_port(*buffer, minfo[SIDE].iports[INDEX].mask);  keypushd |= data;  *buffer++ = data;
-    MAP_INDEX(GEN_ALL_MASK_ADJUST_1,INPUT_PORTS_1)
-#else
     // data = mask_and_adjust_a_port(*buffer, MASK);  keypushd |= data;  *buffer++ = data;
     MAP(GEN_ALL_MASK_ADJUST,INPUT_PORTS_1)
-#endif
     return keypushd != 0;
 }
 
 static matrix_row_t build_line_1(port_data_t *buffer) {
     return 0
-#if OLD_GEN
-    //  | (buffer[minfo[SIDE].ipins[INDEX].pindex] & minfo[SIDE].ipins[INDEX].smask ? minfo[SIDE].ipins[INDEX].dmask : 0)
-        MAP_INDEX(GEN_BUILD_1,INPUT_PINS_1)
-#else
     //  | (buffer[PORT_INDEX] & SMASK ? DMASK : 0)
         MAP(GEN_BUILD,INPUT_PINS_1)
-#endif
         ;
 }
 #endif // NUM_SIDE == 2
@@ -676,11 +509,8 @@ typedef void (*funcp_void_port_data)(port_data_t *buffer);
 typedef bool (*funcp_bool_port_data)(port_data_t *buffer);
 typedef matrix_row_t (*funcp_build_line)(port_data_t *buffer);
 
-#if OLD_GEN
-const pin_list_element_t *current_sides_opins = minfo[0].opins;
-#else
 const uint8_t *current_sides_opins = minfo[0].opin_enable;
-#endif
+
 #if NUM_SIDE == 2
 funcp_void_void init_all_input_pins = init_all_input_pins_0;
 funcp_void_row select_output = select_output_0;
@@ -708,11 +538,7 @@ void matrix_init_pins(void) {
 #if NUM_SIDE == 2
     bool is_side1 = !isLeftHand;
     if (is_side1) {
-#if OLD_GEN
-        current_sides_opins = minfo[1].opins;
-#else
         current_sides_opins = minfo[1].opin_enable;
-#endif
         init_all_input_pins = init_all_input_pins_1;
         select_output = select_output_1;
         unselect_output = unselect_output_1;
@@ -732,15 +558,9 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     matrix_row_t current_row_value = 0;
     bool key_pressed;
 
-#if OLD_GEN
-    if (current_sides_opins[current_row].dmask == 0) {
-        return;                        // skip NO_PIN row
-    }
-#else
     if (!current_sides_opins[current_row]) {
         return;                        // skip NO_PIN row
     }
-#endif
     DEBUG_PIN_ON();
     select_output(current_row);
     matrix_output_select_delay();
