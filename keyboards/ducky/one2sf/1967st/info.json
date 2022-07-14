@@ -1,5 +1,6 @@
 {
-    "keyboard_name": "Ducky One 2 SF",
+    "keyboard_name": "Ducky One 2 SF (DKON1967ST)",
+    "maintainer": "f7urry",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -17,7 +18,7 @@
                 { "x": 11, "y": 0, "w": 1, "label": "DASH" },
                 { "x": 12, "y": 0, "w": 1, "label": "EQUALSIGN" },
                 { "x": 13, "y": 0, "w": 2, "label": "BACKSPACE" },
-                { "x": 15.25, "y": 0, "w": 2, "label": "DEL" },
+                { "x": 15.25, "y": 0, "w": 1, "label": "DEL" },
 
                 { "x": 0, "y": 1, "w": 1.5, "label": "TAB" },
                 { "x": 1.5, "y": 1, "w": 1, "label": "Q" },
@@ -33,7 +34,7 @@
                 { "x": 11.5, "y": 1, "w": 1, "label": "LBRACKET" },
                 { "x": 12.5, "y": 1, "w": 1, "label": "RBRACKET" },
                 { "x": 13.5, "y": 1, "w": 1.5, "label": "BACKSLASH" },
-                { "x": 15.25, "y": 1, "w": 1.5, "label": "PAGEUP" },
+                { "x": 15.25, "y": 1, "w": 1, "label": "PAGEUP" },
 
                 { "x": 0, "y": 2, "w": 1.75, "label": "CAPSLOCK" },
                 { "x": 1.75, "y": 2, "w": 1, "label": "A" },
@@ -49,7 +50,7 @@
                 { "x": 11.75, "y": 2, "w": 1, "label": "QUOTE" },
                 { "x": 12.75, "y": 2, "w": 1, "label": "ISOHASH" },
                 { "x": 13.75, "y": 2, "w": 1.25, "label": "ENTER" },
-                { "x": 15.25, "y": 2, "w": 1.25, "label": "PAGEDOWN" },
+                { "x": 15.25, "y": 2, "w": 1, "label": "PAGEDOWN" },
 
                 { "x": 0, "y": 3, "w": 1.25, "label": "LSHIFT" },
                 { "x": 1.25, "y": 3, "w": 1, "label": "ISOBACKSLASH" },
@@ -63,8 +64,8 @@
                 { "x": 9.25, "y": 3, "w": 1, "label": "COMMA" },
                 { "x": 10.25, "y": 3, "w": 1, "label": "PERIOD" },
                 { "x": 11.25, "y": 3, "w": 1, "label": "SLASH" },
-                { "x": 12.25, "y": 3, "w": 2.75, "label": "RSHIFT" },
-                { "x": 14.25, "y": 3, "w": 2.75, "label": "UP" },
+                { "x": 12.25, "y": 3, "w": 2, "label": "RSHIFT" },
+                { "x": 14.25, "y": 3, "w": 1, "label": "UP" },
 
                 { "x": 0, "y": 4, "w": 1.25, "label": "LCTRL" },
                 { "x": 1.25, "y": 4, "w": 1.25, "label": "LCMD" },
@@ -74,7 +75,7 @@
                 { "x": 11, "y": 4, "w": 1, "label": "FN" },
                 { "x": 12, "y": 4, "w": 1.25, "label": "RCTRL" },
                 { "x": 13.25, "y": 4, "w": 1, "label": "LEFT" },
-                { "x": 14.25, "y": 4, "w": 1, "label": "DOWN" }
+                { "x": 14.25, "y": 4, "w": 1, "label": "DOWN" },
                 { "x": 15.25, "y": 4, "w": 1, "label": "RIGHT" }
             ]
         }
