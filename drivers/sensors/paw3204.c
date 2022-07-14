@@ -76,20 +76,16 @@ uint8_t paw3204_serial_read(void) {
 
 void paw3204_serial_write(uint8_t data) {
     datatogglestate = readPin(PAW3204_SDIO_PIN);
-    if (datatogglestate == 1) {
-        writePinLow(PAW3204_SDIO_PIN);
-    } else {
-        writePinLow(PAW3204_SDIO_PIN);
-    }
+    writePinLow(PAW3204_SDIO_PIN);
     setPinOutput(PAW3204_SDIO_PIN);
 
     for (int8_t b = 7; b >= 0; b--) {
         writePinLow(PAW3204_SCLK_PIN);
-        if (data & (1 << b))
+        if (data & (1 << b)) {
             writePinHigh(PAW3204_SDIO_PIN);
-        else
+        } else {
             writePinLow(PAW3204_SDIO_PIN);
-        // wait_us(2);
+        }
         writePinHigh(PAW3204_SCLK_PIN);
     }
 
