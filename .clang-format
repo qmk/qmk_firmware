@@ -1,5 +1,6 @@
 ---
 BasedOnStyle: Google
+IndentPPDirectives: AfterHash
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: 'true'
 AlignConsecutiveDeclarations: 'true'
@@ -8,6 +9,8 @@ AllowAllParametersOfDeclarationOnNextLine: 'false'
 AllowShortCaseLabelsOnASingleLine: 'false'
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortLoopsOnASingleLine: 'false'
+AllowShortEnumsOnASingleLine: 'false'
+AllowShortBlocksOnASingleLine: 'false'
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: 'false'
