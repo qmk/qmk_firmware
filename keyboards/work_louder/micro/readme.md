@@ -1,8 +1,8 @@
 # work_louder/micro
 
-![work_louder/micro](imgur.com image replace me!)
+![work_louder/micro](https://i.imgur.com/4Hdt41Gh.jpg)
 
-*A short description of the keyboard/project*
+A 16 "key" macro pad, with dual encoders, per key RGB, RGB underglow and more
 
 * Keyboard Maintainer: [Drashna Jael're](https://github.com/Drashna Jael're)
 * Hardware Supported:  atmega32u4 based PCB
