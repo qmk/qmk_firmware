@@ -15,9 +15,9 @@
 
  /* #define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B9, B0, B1, B2, B3, B4, B5, B6, B7 } */
 #define SWITCH_MATRIX_INPUT_0 \
-    /* ( ( <port>, <mask> [, <dev>] ), ... ) */ \
-    ( (A0, 0x07), \
-      (B0, 0xe3ff) ),\
+    /* ( ( <port>, <mask>, <dev> ), ... ) */ \
+    ( (A0, 0x07, MCU_GPIO),                           \
+      (B0, 0xe3ff, MCU_GPIO) ),\
     /* ( ( <port_index>, <port_mask>, <matrix_row_mask> ), ... ) */ \
     ( (0, 0x04, 0x01), \
       (0, 0x02, 0x02), \
@@ -38,8 +38,8 @@
 
  /* #define MATRIX_ROW_PINS { A4, A5, A6, A7, A8 } */
 #define SWITCH_MATRIX_OUTPUT_0 \
-    /* ( ( <port>, <mask> [, <dev>] ), ... ) */ \
-    ( (A0, 0x1f0) ),\
+    /* ( ( <port>, <mask>, <dev> ), ... ) */ \
+    ( (A0, 0x1f0, MCU_GPIO) ),\
     /* ( ( <port_index>, <port_mask>, <matrix_row_mask> ), ... ) */ \
     ( (0, 0x10, 0x01), \
       (0, 0x20, 0x02), \
