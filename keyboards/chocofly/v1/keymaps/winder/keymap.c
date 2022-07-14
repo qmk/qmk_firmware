@@ -9,6 +9,10 @@ enum layers {
     _RAISE,
 };
 
+#undef KC_VOLU
+#undef KC_VOLD
+#define KC_VOLU KC__VOLUP
+#define KC_VOLD KC__VOLDOWN
 #define FN_1 MO(_LOWER)
 #define FN_2 MO(_RAISE)
 #define TRMINAL LGUI(KC_ENT)
