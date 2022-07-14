@@ -1,6 +1,6 @@
 # Enclave-1
 
-![ok](https://user-images.githubusercontent.com/109129639/178805184-3935bcfa-2cb5-438d-8172-406f9a6d3bbd.png)
+![ok](https://imgur.com/a/ixiZpL7)
 
 Enclave 1 is a fully programmable 9-key macropad + usb hub ideal for those constantly on the move that need to adapt to any situation. Besides being a full-fledged macropad, it can also be used as the main hub for all your other devices such as keyboards, dongles, drives, etc.
 
