@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// https://github.com/shinoaliceKabocha/choco60_track/tree/master/keymaps/default
+
 #include "paw3204.h"
 #include "wait.h"
 #include "debug.h"
@@ -93,10 +95,11 @@ void paw3204_serial_write(uint8_t data) {
 }
 
 int8_t convert_twoscomp(uint8_t data) {
-    if ((data & 0x80) == 0x80)
+    if ((data & 0x80) == 0x80) {
         return -128 + (data & 0x7F);
-    else
+    } else {
         return data;
+    }
 }
 
 report_paw3204_t paw3204_read(void) {
