@@ -43,12 +43,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
-
 #ifdef ENCODER_ENABLE
     /* Encoder pins */
     #define ENCODERS_PAD_A { C6 }

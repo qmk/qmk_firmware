@@ -29,22 +29,6 @@ enum layer_names {
     _FN2
 };
 
-enum user_rgb_mode {
-    RGB_MODE_ALL,
-    RGB_MODE_KEYLIGHT,
-    RGB_MODE_UNDERGLOW,
-    RGB_MODE_NONE,
-};
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t rgb_mode :8;
-    };
-} user_config_t;
-
-user_config_t user_config;
-
 // enum layer_keycodes { };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -93,10 +77,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
        ┌───┐┌───┬───┬───┬───┐┌───┬───┬───┬───┐┌───┬───┬───┬───┐┌───┐ ┌───┐
-       │Fn1││Mcm│Hom│Cal│Sel││Prv│Nxt│Ply│Stp││Mut│VoD│VoU│Mai││   │ │Tog│
+       │Rst││Mcm│Hom│Cal│Sel││Prv│Nxt│Ply│Stp││Mut│VoD│VoU│Mai││   │ │Tog│
        └───┘└───┴───┴───┴───┘└───┴───┴───┴───┘└───┴───┴───┴───┘└───┘ └───┘
        ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐ ┌───┐
-       │   │   │   │   │   │   │   │   │   │   │   │Spd│Spi│       │ │Mod│
+       │NKO│   │   │   │   │   │   │   │   │   │   │Spd│Spi│       │ │Mod│
        ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤ ├───┤
        │     │   │   │   │   │   │   │   │   │   │Prt│   │   │     │ │Hui│
        ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤ ├───┤
@@ -111,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13       14                15              */
     [_FN] = LAYOUT(
                 QK_BOOT, KC_MYCM, KC_WHOM, KC_CALC, KC_SLCT, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, KC_MAIL, _______,          _______, RGB_TOG, _______,
-                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SPD, RGB_SPI, _______,                   RGB_MOD,
+                NK_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SPD, RGB_SPI, _______,                   RGB_MOD,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______, _______, _______,                   RGB_HUI,
                 _______, _______, KC_SCRL, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, RGB_SAI,
                 _______,          _______, _______, _______, _______, _______, KC_NUM,  _______, _______, _______, _______,          _______, RGB_VAI,          RGB_SAD,
@@ -125,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐ ┌───┐
        │   │   │   │   │   │   │   │   │   │   │   │   │   │       │ │   │
        ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤ ├───┤
-       │     │   │   │   │   │   │   │Rst│   │   │   │   │   │     │ │   │
+       │     │   │   │   │   │   │   │   │   │   │   │   │   │     │ │   │
        ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤ ├───┤
        │      │   │   │   │   │   │   │   │   │   │   │   │        │ │   │
        ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┘ ├───┤
@@ -173,28 +157,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 };
 
-void keyboard_post_init_user(void) {
-    user_config.raw = eeconfig_read_user();
-    switch (user_config.rgb_mode) {
-        case RGB_MODE_ALL:
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
-            break;
-        case RGB_MODE_KEYLIGHT:
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_UNDERGLOW:
-            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_NONE:
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RGB_TOG:
@@ -203,29 +165,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     case LED_FLAG_ALL: {
                         rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
                         rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_KEYLIGHT;
                     }
                     break;
                     case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
                         rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
                         rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_UNDERGLOW;
                     }
                     break;
                     case (LED_FLAG_UNDERGLOW): {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
                         rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_NONE;
                     }
                     break;
                     default: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
                         rgb_matrix_enable_noeeprom();
-                        user_config.rgb_mode = RGB_MODE_ALL;
                     }
                     break;
                 }
-                eeconfig_update_user(user_config.raw);
             }
             return false;
 	}
