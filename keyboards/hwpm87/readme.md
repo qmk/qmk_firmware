@@ -1,6 +1,6 @@
-# Pro Micro 87 keys
+# Handwired 87 keys
 
-![promicro87](https://i.imgur.com/DLqdtAW.jpeg)
+![hwpm87](https://i.imgur.com/DLqdtAW.jpeg)
 
 Repaired from 87 keys keyboard using a Pro Micro
 
@@ -13,16 +13,16 @@ First, if you have Pro Micro
     Keymaps/Handwiring: ![Handwiring](https://i.imgur.com/G1izHd6.png)
 If you have 25 GPIOs board, there is nothing to do.
 
-Second, if you are using a Capslock LED, define LED pin in: [config.h#34](https://github.com/KD-MM2/qmk_firmware/blob/6e0c35b06e69f37c115b0d6dc52596b06e0ec0d9/keyboards/promicro87/config.h#L34),
-and check the LED_PIN_ON_STATE if you get reversed led state: [config.h#35](https://github.com/KD-MM2/qmk_firmware/blob/6e0c35b06e69f37c115b0d6dc52596b06e0ec0d9/keyboards/promicro87/config.h#L35)
+Second, if you are using a Capslock LED, define LED pin in: [config.h#34](https://github.com/KD-MM2/qmk_firmware/blob/6e0c35b06e69f37c115b0d6dc52596b06e0ec0d9/keyboards/hwpm87/config.h#L34),
+and check the LED_PIN_ON_STATE if you get reversed led state: [config.h#35](https://github.com/KD-MM2/qmk_firmware/blob/6e0c35b06e69f37c115b0d6dc52596b06e0ec0d9/keyboards/hwpm87/config.h#L35)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make promicro87:default
+    make hwpm87:default
 
 Flashing example for this keyboard:
 
-    make promicro87:default:flash
+    make hwpm87:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
