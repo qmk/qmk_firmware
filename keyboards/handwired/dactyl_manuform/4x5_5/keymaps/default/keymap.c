@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %d, time: %u, interrupt: %d, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif 
     switch (keycode) {
         case QWERTY:
@@ -153,7 +153,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void persistent_default_layer_set(uint16_t default_layer) {
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
-}
