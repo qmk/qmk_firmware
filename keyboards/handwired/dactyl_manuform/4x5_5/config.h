@@ -11,7 +11,7 @@
 #define DEVICE_VER 0x0001
 
 #ifndef MANUFACTURER
-#define ssedrick
+#define MANUFACTURER ssedrick
 #endif
 
 #define MATRIX_ROWS 10

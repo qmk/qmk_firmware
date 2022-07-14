@@ -16,10 +16,15 @@ enum layer_keycodes {
     COLEMAK,
 };
 
-#define RAISE TG(_RAISE)
-#define LOWER MO(_LOWER)
+
+#define RAISE  TT(_RAISE)
+#define LOWER  MO(_LOWER)
 #define SH_ESC SFT_T(KC_ESC)
-#define ____ KC_TRANSPARENT
+#define UNDSC  RSFT(KC_MINS)
+#define ____   KC_TRANSPARENT
+
+#undef TAPPING_TOGGLE
+#define TAPPING_TOGGLE 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (qwerty)
@@ -32,11 +37,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * '------+------+------+-------------'                  '------+------+------+------+------'
      *        |  {   |   }  |                                              |   '  |  `~  |
      *        '-------------+------,                                ,------|-------------'
-     *                      | ESC  |                                | BSPC |
+     *                      | ESC  |                                | ENTER|
      *                      |-------------,                  ,------+------|
-     *                      | GUI  |  TAB |                  | SHIFT| SPACE|
+     *                      | GUI  |  TAB |                  | BCKSP| SPACE|
      *                      |------+------|                  |------+------|
-     *                      | RAISE| CTRL |                  | LOWER| ENTER|
+     *                      | RAISE| CTRL |                  | SHIFT| LOWER|
      *                      '-------------'                  '-------------'
      */
     [_BASE] = LAYOUT(
@@ -44,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
                  KC_LCBR, KC_RCBR,                                              KC_QUOT, KC_GRV,
-                                    SH_ESC,                            KC_BSPC,
-                                    KC_LGUI, KC_TAB,          KC_RSFT, KC_SPC,
-                                    RAISE,   KC_LCTRL,        LOWER,  KC_ENT
+                                   SH_ESC,                             KC_ENT,
+                                   KC_LGUI, KC_TAB,           KC_BSPC, KC_SPC,
+                                   RAISE,   KC_LCTRL,         KC_RSFT, LOWER
     ),
    
     /* Colemak
@@ -79,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,----------------------------------,                  ,----------------------------------,
      * |   1  |   2  |   3  |   4  |   5  |                  |   6  |   7  |   8  |   9  |   0  |
      * |------+------+------+------+------|                  |------+------+------+------+------|
-     * |   (  |   )  |   [  |   ]  |   =  |                  |  -   |   4  |   5  |   6  |   ;  |
+     * |   (  |   )  |   [  |   ]  |   =  |                  |   _  |   4  |   5  |   6  |   ;  |
      * |------+------+------+------+------|                  |------+------+------+------+------|
      * | RESET| BOOT |      |      |      |                  |      |   1  |   2  |   3  |      |
      * |------+------+------+-------------|                  |------+------+------+------+------,
@@ -106,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,----------------------------------,                  ,----------------------------------,
      * |   !  |   @  |   #  |   $  |   %  |                  |   ^  |   &  |   *  |   (  |   )  |
      * |------+------+------+------+------|                  |------+------+------+------+------|
-     * |   (  |   )  |   {  |   }  |   =  |                  |      |   -  |   +  |   |  |      |
+     * |   (  |   )  |   {  |   }  |   =  |                  |   _  |   -  |   +  |   |  |      |
      * |------+------+------+------+------|                  |------+------+------+------+------|
-     * |      |      |      |      |      |                  |      | LEFT | DOWN |  UP  | RIGHT|
+     * | NEXT | PLAY | VOLU | VOLD |      |                  |      | LEFT | DOWN |  UP  | RIGHT|
      * |------+------+------+-------------|                  |------+------+------+------+------,
      *        |      |      |                                              |QWERTY|COLEMA|
      *        '-------------+------,                                ,------|-------------'
@@ -121,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LOWER] = LAYOUT(
      KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,            KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-     S(KC_9), S(KC_0), KC_LBRC, KC_RBRC,  KC_EQL,               ____, KC_MINS,  KC_EQL, KC_PIPE,    ____,
-        ____,    ____,    ____,    ____,    ____,               ____, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,
+     S(KC_9), S(KC_0), KC_LBRC, KC_RBRC,  KC_EQL,              UNDSC, KC_MINS,  KC_EQL, KC_PIPE,    ____,
+     KC_MNXT, KC_MPLY, KC_VOLU, KC_VOLD,    ____,               ____, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,
                  ____,    ____,                                              QWERTY, COLEMAK,
                                    ____,                               ____,
                                    ____,    ____,             ____,    ____,
