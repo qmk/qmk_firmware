@@ -13,38 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-/* enum custom macros */
-enum custom_keycodes {
-    COPY = SAFE_RANGE,
-    PASTE,
-    WINCLIP,
-};
-
-/* custom macros */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-
-    case COPY:
-        if (record->event.pressed) {
-           SEND_STRING(SS_LCTL("c"));
-        }
-        break;
-
-    case PASTE:
-        if (record->event.pressed) {
-           SEND_STRING(SS_LCTL("v"));
-        }
-        break;
-
-    case WINCLIP:
-        if (record->event.pressed) {
-           SEND_STRING(SS_LGUI("v"));
-        }
-        break;
-    }
-    return true;
-};
-
 /* what each layer does */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -59,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] = LAYOUT(
         KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK,
-        COPY, PASTE, WINCLIP,
+        C(KC_C), C(KC_V), G(KC_V),
         KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN, MO(1)
     ),
 
