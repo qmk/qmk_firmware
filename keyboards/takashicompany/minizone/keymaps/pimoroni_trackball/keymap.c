@@ -401,6 +401,3 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     return mouse_report;
 }
-
-
-
