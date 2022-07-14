@@ -13,8 +13,8 @@ First, if you have Pro Micro
     Keymaps/Handwiring: ![Handwiring](https://i.imgur.com/G1izHd6.png)
 If you have 25 GPIOs board, there is nothing to do.
 
-Second, if you are using a Capslock LED, define LED pin in: [config.h#34](https://github.com/KD-MM2/qmk_firmware/blob/6e0c35b06e69f37c115b0d6dc52596b06e0ec0d9/keyboards/hwpm87/config.h#L34),
-and check the LED_PIN_ON_STATE if you get reversed led state: [config.h#35](https://github.com/KD-MM2/qmk_firmware/blob/6e0c35b06e69f37c115b0d6dc52596b06e0ec0d9/keyboards/hwpm87/config.h#L35)
+Second, if you are using a Capslock LED, define LED pin in: [config.h#34](https://github.com/KD-MM2/qmk_firmware/blob/hwpm87/keyboards/hwpm87/config.h#L34),
+and check the LED_PIN_ON_STATE if you get reversed led state: [config.h#35](https://github.com/KD-MM2/qmk_firmware/blob/hwpm87/keyboards/hwpm87/config.h#L35)
 
 Make example for this keyboard (after setting up your build environment):
 
