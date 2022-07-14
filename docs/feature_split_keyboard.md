@@ -73,12 +73,6 @@ To enable the split keyboard feature, add the following to your `rules.mk`:
 SPLIT_KEYBOARD = yes
 ```
 
-If you're using a custom transport (communication method), then you will also need to add: 
-
-```make
-SPLIT_TRANSPORT = custom
-```
-
 ### Setting Handedness
 
 By default, the firmware does not know which side is which; it needs some help to determine that. There are several ways to do this, listed in order of precedence.

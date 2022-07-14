@@ -256,9 +256,6 @@ If you define these options you will enable the associated feature, which may in
 
 Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
 
-* `SPLIT_TRANSPORT = custom`
-  * Allows replacing the standard split communication routines with a custom one. ARM based split keyboards must use this at present.
-
 ### Setting Handedness
 
 One thing to remember, the side that the USB port is plugged into is always the master half. The side not plugged into USB is the slave.

@@ -654,38 +654,33 @@ ifeq ($(filter $(SERIAL_DRIVER),$(VALID_SERIAL_DRIVER_TYPES)),)
 endif
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    CRC_ENABLE := yes
     POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
-    CRC_ENABLE := yes
 
     # Include files used by all split keyboards
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c \
+				   $(QUANTUM_DIR)/split_common/transport.c \
+				   $(QUANTUM_DIR)/split_common/transactions.c
 
-    # Determine which (if any) transport files are required
-    ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
-                       $(QUANTUM_DIR)/split_common/transactions.c
-
-        OPT_DEFS += -DSPLIT_COMMON_TRANSACTIONS
-
-        # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
-        # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
-        ifeq ($(PLATFORM),AVR)
-            ifneq ($(NO_I2C),yes)
-                QUANTUM_LIB_SRC += i2c_master.c \
-                                   i2c_slave.c
-            endif
-        endif
-
-        OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | tr '[:lower:]' '[:upper:]'))
-        ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
-            QUANTUM_LIB_SRC += serial.c
-        else
-            QUANTUM_LIB_SRC += serial_protocol.c
-            QUANTUM_LIB_SRC += serial_$(strip $(SERIAL_DRIVER)).c
-        endif
-    endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
+
+	# Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
+	# Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+	ifeq ($(PLATFORM),AVR)
+		ifneq ($(NO_I2C),yes)
+			QUANTUM_LIB_SRC += i2c_master.c \
+							   i2c_slave.c
+		endif
+	endif
+
+	OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | tr '[:lower:]' '[:upper:]'))
+	ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
+		QUANTUM_LIB_SRC += serial.c
+	else
+		QUANTUM_LIB_SRC += serial_protocol.c
+		QUANTUM_LIB_SRC += serial_$(strip $(SERIAL_DRIVER)).c
+	endif
 endif
 
 ifeq ($(strip $(CRC_ENABLE)), yes)
