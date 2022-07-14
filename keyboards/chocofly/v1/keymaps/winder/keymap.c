@@ -9,15 +9,17 @@ enum layers {
     _RAISE,
 };
 
-#undef KC_VOLU
-#undef KC_VOLD
-#define KC_VOLU KC__VOLUP
-#define KC_VOLD KC__VOLDOWN
 #define FN_1 MO(_LOWER)
 #define FN_2 MO(_RAISE)
 #define TRMINAL LGUI(KC_ENT)
 #define RESIZE  LGUI(KC_R)
 #define BROWSER LSG(KC_ENT) // Left Shift + GUI, ENT.
+
+// required for my PC
+#undef KC_VOLU
+#undef KC_VOLD
+#define KC_VOLU KC__VOLUP
+#define KC_VOLD KC__VOLDOWN
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
