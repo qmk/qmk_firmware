@@ -46,12 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifdef PIMORONI_TRACKBALL_ROTATE
 #        define POINTING_DEVICE_ROTATION_90
 #    endif
-#elif defined(POINTING_DEVICE_DRIVER_pmw3360)
+#elif defined(POINTING_DEVICE_DRIVER_pmw3360) || defined(POINTING_DEVICE_DRIVER_pmw3389)
 #    include "spi_master.h"
-#    include "drivers/sensors/pmw3360.h"
-#elif defined(POINTING_DEVICE_DRIVER_pmw3389)
-#    include "spi_master.h"
-#    include "drivers/sensors/pmw3389.h"
+#    include "drivers/sensors/pmw33xx_common.h"
 #else
 void           pointing_device_driver_init(void);
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report);

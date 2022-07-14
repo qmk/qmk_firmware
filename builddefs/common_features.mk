@@ -161,11 +161,9 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
             QUANTUM_LIB_SRC += i2c_master.c
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
+        else ifneq ($(filter $(strip $(POINTING_DEVICE_DRIVER)),pmw3360 pmw3389),)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
-            QUANTUM_LIB_SRC += spi_master.c
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3389)
-            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            SRC += drivers/sensors/pmw33xx_common.c
             QUANTUM_LIB_SRC += spi_master.c
         endif
     endif

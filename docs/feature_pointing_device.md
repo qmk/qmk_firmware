@@ -154,84 +154,67 @@ The Pimoroni Trackball module is a I2C based breakout board with an RGB enable t
 |`PIMORONI_TRACKBALL_DEBOUNCE_CYCLES` | (Optional) The number of scan cycles used for debouncing on the ball press.        | `20`    |
 |`PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `10`    |
 
-### PMW 3360 Sensor
+### PMW 3360 and PMW 3389 Sensor
 
-This drivers supports multiple sensors _per_ controller, so 2 can be attached at the same side for split keyboards (or unsplit keyboards).
-To use the PMW 3360 sensor, add this to your `rules.mk`
+This drivers supports both the PMW 3360 and PMW 3389 sensor as well as multiple sensors of the same type _per_ controller, so 2 can be attached at the same side for split keyboards (or unsplit keyboards).
+
+To use the **PMW 3360** sensor, add this to your `rules.mk`
 
 ```make
 POINTING_DEVICE_DRIVER = pmw3360
 ```
 
-The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for surface tracking.
-
-| Setting                     | Description                                                                                | Default       |
-|-----------------------------|--------------------------------------------------------------------------------------------|---------------|
-|`PMW3360_CS_PIN`                 | (Required) Sets the Cable Select pin connected to the sensor.                              | _not defined_ |
-|`PMW3360_CS_PINS`                | (Alternative) Sets the Cable Select pins connected to multiple sensors.                    | _not defined_ |
-|`PMW3360_CLOCK_SPEED`            | (Optional) Sets the clock speed that the sensor runs at.                                   | `2000000`     |
-|`PMW3360_SPI_LSBFIRST`           | (Optional) Sets the Least/Most Significant Byte First setting for SPI.                     | `false`       |
-|`PMW3360_SPI_MODE`               | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
-|`PMW3360_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
-|`PMW3360_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
-|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor.| `0`           |
-|`PMW3360_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
-
 The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
 
-To use multiple sensors, instead of setting `PMW3360_CS_PIN` you need to set `PMW3360_CS_PINS` and also handle and merge the read from this sensor in user code.
+To use the **PMW 3389** sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = pmw3389
+```
+
+The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
+
+Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built in IR LED for surface tracking.
+
+| Setting                      | Description                                                                                 | Default       |
+| ---------------------------- | ------------------------------------------------------------------------------------------- | ------------- |
+| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                               | _not defined_ |
+| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                     | _not defined_ |
+| `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                  | _varies_      |
+| `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                    | `2000000`     |
+| `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_      |
+| `PMW33XX_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                           | `0x02`        |
+| `ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor. | `0`           |
+
+To use multiple sensors, instead of setting `PMW33XX_CS_PIN` you need to set `PMW33XX_CS_PINS` and also handle and merge the read from this sensor in user code.
 Note that different (per sensor) values of CPI, speed liftoff, rotational angle or flipping of X/Y is not currently supported.
 
 ```c
 // in config.h:
-#define PMW3360_CS_PINS { B5, B6 }
-
+#define PMW33XX_CS_PINS { B5, B6 }
 // in keyboard.c:
 #ifdef POINTING_DEVICE_ENABLE
 void pointing_device_init_kb(void) {
-    pmw3360_init(1);  // index 1 is the second device.
-    pointing_device_set_cpi(800);  // applies to both sensors
+    pmw33xx_init(1);         // index 1 is the second device.
+    pmw33xx_set_cpi(0, 800); // applies to first sensor
+    pmw33xx_set_cpi(1, 800); // applies to second sensor
     pointing_device_init_user();
 }
 
 // Contains report from sensor #0 already, need to merge in from sensor #1
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    report_pmw3360_t data = pmw3360_read_burst(1);
-    if (data.isOnSurface && data.isMotion) {
+    pmw33xx_report_t report = pmw33xx_read_burst(1);
+    if (!report.motion.b.is_lifted && report.motion.b.is_motion) {
 // From quantum/pointing_device_drivers.c
 #define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
-        mouse_report.x = constrain_hid(mouse_report.x + data.dx);
-        mouse_report.y = constrain_hid(mouse_report.y + data.dy);
+        mouse_report.x = constrain_hid(mouse_report.x + report.delta_x);
+        mouse_report.y = constrain_hid(mouse_report.y + report.delta_y);
     }
     return pointing_device_task_user(mouse_report);
 }
 #endif
 
 ```
-
-### PMW 3389 Sensor
-
-To use the PMW 3389 sensor, add this to your `rules.mk`
-
-```make
-POINTING_DEVICE_DRIVER = pmw3389
-```
-
-The PMW 3389 is an SPI driven optical sensor, that uses a built in IR LED for surface tracking.
-
-| Setting                         | Description                                                                                | Default       |
-|---------------------------------|--------------------------------------------------------------------------------------------|---------------|
-|`PMW3389_CS_PIN`                 | (Required) Sets the Cable Select pin connected to the sensor.                              | _not defined_ |
-|`PMW3389_CLOCK_SPEED`            | (Optional) Sets the clock speed that the sensor runs at.                                   | `2000000`     |
-|`PMW3389_SPI_LSBFIRST`           | (Optional) Sets the Least/Most Significant Byte First setting for SPI.                     | `false`       |
-|`PMW3389_SPI_MODE`               | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
-|`PMW3389_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
-|`PMW3389_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
-|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
-|`PMW3389_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
-
-The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
-
 
 ### Custom Driver
 

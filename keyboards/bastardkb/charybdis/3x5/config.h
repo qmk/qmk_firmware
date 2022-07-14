@@ -58,8 +58,8 @@
 /* Set 0 if debouncing isn't needed. */
 #define DEBOUNCE 5
 
-/* PMW3360 settings. */
-#define PMW3360_CS_PIN B0
+/* PMW33XX settings. */
+#define PMW33XX_CS_PIN B0
 
 // Trackball angle adjustment.
 #define ROTATIONAL_TRANSFORM_ANGLE -25

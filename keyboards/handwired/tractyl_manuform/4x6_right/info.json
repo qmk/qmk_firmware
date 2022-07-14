@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "drashna",
     "layouts": {
-        "LAYOUT_5x6_right": {
+        "LAYOUT_4x6_right": {
             "layout": [
                 {"label":"L00", "x":0, "y":0},
                 {"label":"L01", "x":1, "y":0},
