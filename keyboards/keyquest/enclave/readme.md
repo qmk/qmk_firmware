@@ -1,6 +1,6 @@
 # Enclave-1
 
-![ok](https://i.imgur.com/67HZEJB.jpg)
+![ok](https://i.imgur.com/67HZEJBh.jpg)
 
 Enclave 1 is a fully programmable 9-key macropad + usb hub ideal for those constantly on the move that need to adapt to any situation. Besides being a full-fledged macropad, it can also be used as the main hub for all your other devices such as keyboards, dongles, drives, etc.
 
@@ -8,7 +8,7 @@ Enclave 1 is a fully programmable 9-key macropad + usb hub ideal for those const
 
 Compile example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb keyquest/enclave -km default
+    make keyquest/enclave:default
 
 Enter the bootloader in 3 ways:
 
