@@ -17,15 +17,15 @@ Hardware Availability: Limited Release - https://drop.com/buy/stack-overflow-the
 Make example for this keyboard (after setting up your build environment):
 ```bash
 # default provided by Drop / Stack Overflow
-make massdrop/thekey:default
+make massdrop/thekey_v2:default
 # common modification where C = CTRL+C, V = CTRL+V
-make massdrop/thekey:url-copy-paste
+make massdrop/thekey_v2:url-copy-paste
 ```
 
 Flashing example for this keyboard:
 ```bash
 # install in dfu mode
-make massdrop/thekey:default:dfu
+make massdrop/thekey_v2:default:dfu
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
