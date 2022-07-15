@@ -39,7 +39,7 @@
 
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 5
-#define RGBLIGHT_LED_MAP {1, 2, 3, 4, 0}
+#define RGBLIGHT_LED_MAP {4, 0, 1, 2, 3}
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
