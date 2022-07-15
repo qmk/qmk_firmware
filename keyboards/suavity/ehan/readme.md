@@ -1,6 +1,6 @@
 # ehan: A 10.5° Split TKL Keyboard designed by Suavity Designs | QMK Firmware
 
-![Imgur](https://imgur.com/bAiBbjg)
+![Imgur](https://i.imgur.com/bAiBbjgh.png)
 
 ## Introduction
 
