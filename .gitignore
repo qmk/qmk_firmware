@@ -27,16 +27,11 @@ quantum/version.h
 *.uf2
 
 # Old-style QMK Makefiles
-/keyboards/*/Makefile
-/keyboards/*/*/Makefile
-/keyboards/*/*/*/Makefile
-/keyboards/*/*/*/*/Makefile
-/keyboards/*/*/*/*/*/Makefile
-/keyboards/*/keymaps/Makefile
-/keyboards/*/*/keymaps/Makefile
-/keyboards/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/*/keymaps/Makefile
+/keyboards/**/Makefile
+
+# kbfirmware....
+/keyboards/**/kb.h
+/keyboards/**/kb.c
 
 # Eclipse/PyCharm/Other IDE Settings
 *.iml
