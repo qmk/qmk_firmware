@@ -1,3 +1,4 @@
+// Copyright 2022 Daniel Kao (dkao)
 // Copyright 2022 Stefan Kerkmann (KarlK90)
 // Copyright 2022 Ulrich Spörlein (@uqs)
 // Copyright 2021 Alabastard (@Alabastard-64)
@@ -56,6 +57,10 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 
 #if !defined(ROTATIONAL_TRANSFORM_ANGLE)
 #    define ROTATIONAL_TRANSFORM_ANGLE 0x00
+#endif
+
+#if ROTATIONAL_TRANSFORM_ANGLE > 30 || ROTATIONAL_TRANSFORM_ANGLE < (-30)
+#    error ROTATIONAL_TRANSFORM_ANGLE has to be in the range of +/- 30 for all PMW33XX sensors.
 #endif
 
 // Support single and plural spellings

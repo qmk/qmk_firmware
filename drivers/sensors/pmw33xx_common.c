@@ -1,3 +1,4 @@
+// Copyright 2022 Daniel Kao (dkao)
 // Copyright 2022 Stefan Kerkmann (KarlK90)
 // Copyright 2022 Ulrich Spörlein (@uqs)
 // Copyright 2021 Alabastard (@Alabastard-64)
@@ -165,7 +166,7 @@ bool pmw33xx_init(uint8_t sensor) {
     wait_ms(1);
 
     pmw33xx_write(sensor, REG_Config2, 0x00);
-    pmw33xx_write(sensor, REG_Angle_Tune, CONSTRAIN(ROTATIONAL_TRANSFORM_ANGLE, -127, 127));
+    pmw33xx_write(sensor, REG_Angle_Tune, CONSTRAIN(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
     pmw33xx_write(sensor, REG_Lift_Config, PMW33XX_LIFTOFF_DISTANCE);
 
     if (!pmw33xx_check_signature(sensor)) {
