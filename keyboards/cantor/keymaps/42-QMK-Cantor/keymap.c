@@ -3,6 +3,37 @@
 
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    MCOPY = SAFE_RANGE,
+    MPASTE,
+    MLOCKSCREEN,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case MCOPY:
+        if (record->event.pressed) {
+            // when keycode QMKBEST is pressed
+            SEND_STRING(SS_LCTL("c"));
+        }
+        break;
+
+    case MPASTE:
+        if (record->event.pressed) {
+            // when keycode QMKURL is pressed
+            SEND_STRING(SS_LCTL("v"));
+        }
+        break;
+
+    case MLCKSCN:
+        if (record->event.pressed) {
+           SEND_STRING(SS_LGUI("l")); // selects all and copies
+        }
+        break;
+    }
+    return true;
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
@@ -31,17 +62,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │`~ │ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │Bsp│
+      * │`~ │ 1  │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │Bsp│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │ ! │ @ │ # │ $ │ % │       │ ^ │ & │ * │ ( │ ) │ | │
+      * │   │ !  │ @ │ # │ $ │ % │       │ ^ │ &  │ * │ ( │ ) │ |  │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Sft│ +=│ -_│ + │ { │ } │       │ [ │ ] │ ; │ : │ \ │   │
+      * │Sft│ += │ -_│ + │ { │ } │       │ [ │ ] │ ; │ : │ \  │    │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
-      *             ┌───┐                       ┌─────┐
-      *             │   ├─────┐           ┌─────┤TO(3)│
-      *             └───┤TO(0)├───┐   ┌───┤TO(2)├─────┘
-      *                 └─────┤ < │   │ > ├─────┘
-      *                       └───┘   └───┘
+      *           ┌────────┐                       ┌─────┐
+      *           │ MLCKSCN ├─────┐           ┌────┤TO(3)│
+      *           └────────┤TO(0)├───┐   ┌───┤TO(2)├─────┘
+      *                     └─────┤ < │   │ > ├────┘
+      *                           └───┘   └───┘
       */
     [1] = LAYOUT_split_3x6_3(
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
@@ -51,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
         KC_LSFT, KC_EQL,    KC_MINS,    KC_PLUS,   KC_LCBR,    KC_RCBR,        KC_LBRC,    KC_RBRC,    KC_SCLN, KC_COLN,  KC_BSLS, KC_NO,
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
-                                            KC_NO, TO(0), KC_LT,               KC_GT, TO(2), TO(3)
+                                            MLOCKSCREEN, TO(0), KC_LT,               KC_GT, TO(2), TO(3)
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
     ),
      /*
@@ -72,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
         KC_MSTP,  KC_MPLY,    KC_MPRV,    KC_MNXT,    KC_NO,    KC_NO,         KC_PGUP,    KC_INS,    KC_UP,    KC_PSCR,   KC_NO,    KC_BSPC,
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
-        KC_NO, KC_HOME,    KC_END,    KC_NO,    KC_NO,    KC_CAPS,             KC_PGDN,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_DEL, KC_NO,
+        KC_NO, KC_HOME,    KC_END,    MCOPY,    MPASTE,    KC_CAPS,             KC_PGDN,    KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_DEL, KC_NO,
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
         KC_TAB, KC_UNDO,    KC_CUT,    KC_COPY,    KC_PASTE,    KC_APP,        KC_VOLD,    KC_VOLU,    KC_MUTE, KC_NO,  KC_NO, KC_NO,
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
