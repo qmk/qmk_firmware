@@ -21,7 +21,6 @@
 #include "debug.h"
 #include "gpio.h"
 
-uint8_t datatogglestate;
 #define REG_PID1 0x00
 #define REG_PID2 0x01
 #define REG_STAT 0x02
@@ -77,7 +76,7 @@ uint8_t paw3204_serial_read(void) {
 }
 
 void paw3204_serial_write(uint8_t data) {
-    datatogglestate = readPin(PAW3204_SDIO_PIN);
+    (void)readPin(PAW3204_SDIO_PIN);
     writePinLow(PAW3204_SDIO_PIN);
     setPinOutput(PAW3204_SDIO_PIN);
 
@@ -106,8 +105,8 @@ report_paw3204_t paw3204_read(void) {
     report_paw3204_t data = {0};
 
     data.isMotion = paw3204_read_reg(REG_STAT) & (1 << 7); // check for motion only (bit 7 in field)
-    data.x        = convert_twoscomp(paw3204_read_reg(REG_X));
-    data.y        = convert_twoscomp(paw3204_read_reg(REG_Y));
+    data.x        = (int8_t)paw3204_read_reg(REG_X);
+    data.y        = (int8_t)paw3204_read_reg(REG_Y);
 
     return data;
 }
@@ -118,13 +117,9 @@ void paw3204_write_reg(uint8_t reg_addr, uint8_t data) {
 }
 
 uint8_t paw3204_read_reg(uint8_t reg_addr) {
-    uint8_t byte = 0;
-
     paw3204_serial_write(reg_addr);
     wait_us(5);
-    byte = paw3204_serial_read();
-
-    return byte;
+    return paw3204_serial_read();
 }
 
 void paw3204_set_cpi(uint16_t cpi) {
