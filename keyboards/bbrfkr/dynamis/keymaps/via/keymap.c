@@ -83,16 +83,14 @@ void matrix_scan_user(void) {
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            encoder_cw.pressed = true;
-            encoder_cw.time = (timer_read() | 1);
-            action_exec(encoder_cw);
-        } else {
-            encoder_ccw.pressed = true;
-            encoder_ccw.time = (timer_read() | 1);
-            action_exec(encoder_ccw);
-        }
+    if (clockwise) {
+        encoder_cw.pressed = true;
+        encoder_cw.time = (timer_read() | 1);
+        action_exec(encoder_cw);
+    } else {
+        encoder_ccw.pressed = true;
+        encoder_ccw.time = (timer_read() | 1);
+        action_exec(encoder_ccw);
     }
     return false;
 }
