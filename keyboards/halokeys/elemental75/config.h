@@ -40,10 +40,7 @@
 
 #define RGB_DI_PIN A10
 #define RGBLED_NUM 22
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_LIMIT_VAL 225 // value set lower than 255 since current draw is too high
 #define RGBLIGHT_SLEEP
 
 /* animations enabled */
