@@ -48,9 +48,6 @@
 #    define PLOOPY_DPI_DEFAULT 2
 #endif
 
-// Transformation constants for delta-X and delta-Y
-const static float ADNS5050_X_TRANSFORM = -1.0;
-const static float ADNS5050_Y_TRANSFORM = 1.0;
 
 #define SCROLL_X_THRESHOLD 60
 #define SCROLL_Y_THRESHOLD 30
