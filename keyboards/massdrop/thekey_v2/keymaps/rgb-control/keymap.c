@@ -94,13 +94,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_off(layer);
                 }
 
+                rgblight_unblink_layer(layer);
                 layer = (layer + 1) % 5;
+                rgblight_blink_layer_repeat(layer, 1000, 1);
 
                 if (layer > 0) {
                     layer_on(layer);
                 }
-
-                rgblight_blink_layer_repeat(layer, 1000, 1);
             }
             return false;
         default:
