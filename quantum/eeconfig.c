@@ -17,7 +17,7 @@ bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
 void eeconfig_init_via(void);
 #elif defined(DYNAMIC_KEYMAP_ENABLE)
-#    include "keymap_hash.h"
+bool dynamic_keymap_is_valid(void);
 void dynamic_keymap_reset(void);
 #endif
 
@@ -86,7 +86,6 @@ void eeconfig_init_quantum(void) {
     eeconfig_init_via();
 #elif defined(DYNAMIC_KEYMAP_ENABLE)
     dynamic_keymap_reset();
-    eeprom_update_dword(EECONFIG_KEYMAP_HASH, KEYMAP_HASH);
 #endif
 
     eeconfig_init_kb();
@@ -131,7 +130,7 @@ bool eeconfig_is_enabled(void) {
     }
 #elif defined(DYNAMIC_KEYMAP_ENABLE)
     if (is_eeprom_enabled) {
-        is_eeprom_enabled = (eeprom_read_dword(EECONFIG_KEYMAP_HASH) == KEYMAP_HASH);
+        is_eeprom_enabled = dynamic_keymap_is_valid();
     }
 #endif
     return is_eeprom_enabled;
@@ -149,7 +148,7 @@ bool eeconfig_is_disabled(void) {
     }
 #elif defined(DYNAMIC_KEYMAP_ENABLE)
     if (!is_eeprom_disabled) {
-        is_eeprom_disabled = (eeprom_read_dword(EECONFIG_KEYMAP_HASH) != KEYMAP_HASH);
+        is_eeprom_disabled = !dynamic_keymap_is_valid();
     }
 #endif
     return is_eeprom_disabled;

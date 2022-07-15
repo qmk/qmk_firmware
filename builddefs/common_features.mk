@@ -610,6 +610,22 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     OPT_DEFS += -DVIA_ENABLE
 endif
 
+ifeq ($(strip $(XAP_ENABLE)), yes)
+    ifeq ($(strip $(VIA_ENABLE)), yes)
+        $(error 'XAP_ENABLE = $(XAP_ENABLE)' deprecates 'VIA_ENABLE = $(VIA_ENABLE)'. Please set 'VIA_ENABLE = no')
+    endif
+
+    DYNAMIC_KEYMAP_ENABLE := yes
+    FNV_ENABLE := yes
+    SECURE_ENABLE := yes
+    BOOTMAGIC_ENABLE := yes
+
+    OPT_DEFS += -DXAP_ENABLE
+    OPT_DEFS += -DBOOTLOADER_JUMP_SUPPORTED
+    VPATH += $(QUANTUM_DIR)/xap
+    SRC += $(QUANTUM_DIR)/xap/xap.c $(QUANTUM_DIR)/xap/xap_handlers.c
+endif
+
 VALID_MAGIC_TYPES := yes
 BOOTMAGIC_ENABLE ?= no
 ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
@@ -870,20 +886,6 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
             # Board designers can add their own driver to $(SRC)
         endif
     endif
-endif
-
-ifeq ($(strip $(XAP_ENABLE)), yes)
-    ifeq ($(strip $(VIA_ENABLE)), yes)
-        $(error 'XAP_ENABLE = $(XAP_ENABLE)' deprecates 'VIA_ENABLE = $(VIA_ENABLE)'. Please set 'VIA_ENABLE = no')
-    endif
-
-    OPT_DEFS += -DXAP_ENABLE
-    OPT_DEFS += -DBOOTLOADER_JUMP_SUPPORTED
-    DYNAMIC_KEYMAP_ENABLE := yes
-    SECURE_ENABLE := yes
-    EMBED_INFO_JSON := yes
-    VPATH += $(QUANTUM_DIR)/xap
-    SRC += $(QUANTUM_DIR)/xap/xap.c $(QUANTUM_DIR)/xap/xap_handlers.c
 endif
 
 BLUETOOTH_ENABLE ?= no

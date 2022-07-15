@@ -1,4 +1,4 @@
-# Determine what keyboard we are building and setup the build environment.
+    # Determine what keyboard we are building and setup the build environment.
 #
 # We support folders up to 5 levels deep below `keyboards/`. This file is
 # responsible for determining which folder is being used and doing the
@@ -352,12 +352,7 @@ $(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
 	$(eval CMD=$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h)
 	@$(BUILD_CMD)
 
-$(KEYBOARD_OUTPUT)/src/keymap_hash.h:
-	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-keymap-hash -q -o "$(KEYMAP_OUTPUT)/src/keymap_hash.h" -kb $(KEYBOARD) -km $(KEYMAP))
-	@$(BUILD_CMD)
-
-generated-files: $(KEYBOARD_OUTPUT)/src/keymap_hash.h $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
+generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 .INTERMEDIATE : generated-files
 
