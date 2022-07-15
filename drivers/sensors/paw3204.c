@@ -93,14 +93,6 @@ void paw3204_serial_write(uint8_t data) {
     wait_us(4);
 }
 
-int8_t convert_twoscomp(uint8_t data) {
-    if ((data & 0x80) == 0x80) {
-        return -128 + (data & 0x7F);
-    } else {
-        return data;
-    }
-}
-
 report_paw3204_t paw3204_read(void) {
     report_paw3204_t data = {0};
 
