@@ -105,7 +105,7 @@
                 {"label":"\u2193", "x":19.25, "y":5.5}
             ]
         },
-        "LAYOUT_ansi_default": {
+        "LAYOUT_ansi_split_bs_rshift_lspace": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
