@@ -367,19 +367,6 @@ static void select_output_0(uint8_t row) {
     }
 }
 
-#if 0
-#define GEN_ALL_WRITE_LOW(SIDE,INDEX,PIN) if (minfo[SIDE].opins[INDEX].dmask != 0) { writeOutputPortBunch_Low(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); }
-#define GEN_ALL_WRITE_LOW_0(INDEX,PIN) GEN_ALL_WRITE_LOW(0,INDEX,PIN)
-#define GEN_ALL_WRITE_LOW_1(INDEX,PIN) GEN_ALL_WRITE_LOW(1,INDEX,PIN)
-
-static void select_all_output_0(void) {
-    ATOMIC_BLOCK_FORCEON {
-        // if (minfo[SIDE].opins[INDEX].dmask != 0) { writeOutputPortBunch_Low(minfo[SIDE].oports[minfo[SIDE].opins[INDEX].pindex].port, minfo[SIDE].opins[INDEX].smask); }
-        MAP_INDEX(GEN_ALL_WRITE_LOW_0, OUTPUT_PINS_0)
-    }
-}
-#endif
-
 // ALWAYS_INLINE
 static void unselect_output_0(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
