@@ -35,4 +35,4 @@ LAYOUT( \
     KC_##k24, KC_##k25, KC_##k26, KC_##k27, KC_##k28, KC_##k29,             KC_##k30, KC_##k31, KC_##k32, KC_##k33, KC_##k34, KC_##k35,\
     KC_##k36, KC_##k37, KC_##k38, KC_##k39, KC_##k40, KC_##k41,             KC_##k42, KC_##k43, KC_##k44, KC_##k45, KC_##k46, KC_##k47,\
     KC_##k48,       KC_##k49, KC_##k50, KC_##k51, KC_##k52, KC_##k53, KC_##k54, KC_##k55, KC_##k56, KC_##k57, KC_##k58,       KC_##k59 \
-) \
+)
