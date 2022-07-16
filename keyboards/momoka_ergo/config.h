@@ -119,7 +119,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_KEY_SALT     KC_RSFT||KC_LSFT
 #define BOOTMAGIC_KEY_SKIP 	KC_ESC
 #define BOOTMAGIC_KEY_EEPROM_CLEAR 	KC_NO
-#define OOTMAGIC_KEY_BOOTLOADER 	KC_RCTL||KC_LCTL
+#define BOOTMAGIC_KEY_BOOTLOADER 	KC_RCTL||KC_LCTL
 #define BOOTMAGIC_KEY_EE_HANDS_LEFT 	KC_T
 #define BOOTMAGIC_KEY_EE_HANDS_RIGHT 	KC_Y
 #define USE_SERIAL
