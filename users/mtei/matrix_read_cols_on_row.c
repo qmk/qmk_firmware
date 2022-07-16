@@ -268,6 +268,9 @@ static void InputPortCharge(pin_t port, port_data_t mask) {
 
 // clang-format off
 #ifdef MATRIX_EXTENSION_74HC157
+#    if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
+#        error When MATRIX_EXTENSION_74HC157 is specified, FORCE_INPUT_UP_TO_VCC cannot be used.
+#    endif
 ALWAYS_INLINE
 static void select74HC157(uint8_t devid) {
     writePin(MATRIX_EXTENSION_74HC157, devid & 1);
@@ -345,16 +348,14 @@ static void init_all_input_pins_0(void) {
 }
 
 // ALWAYS_INLINE
-#if NUM_SIDE == 2 || MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
+#if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
 static void input_port_charge_0(void) {
-#    if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
     ATOMIC_BLOCK_FORCEON {
         // InputPortCharge(PORT, MASK);
         MAP(GEN_ALL_INPUT_CHARGE, INPUT_PORTS_0)
     }
-#    endif // if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
 }
-#endif // NUM_SIDE == 2 ...
+#endif
 
 // ALWAYS_INLINE
 static void select_output_0(uint8_t row) {
@@ -431,14 +432,14 @@ static void init_all_input_pins_1(void) {
 }
 
 // ALWAYS_INLINE
+#if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
 static void input_port_charge_1(void) {
-#    if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
     ATOMIC_BLOCK_FORCEON {
         // InputPortCharge(PORT, MASK);
         MAP(GEN_ALL_INPUT_CHARGE, INPUT_PORTS_1)
     }
-#    endif
 }
+#endif
 
 // ALWAYS_INLINE
 static void select_output_1(uint8_t row) {
@@ -514,7 +515,9 @@ funcp_void_row       select_output        = select_output_0;
 funcp_void_row       unselect_output      = unselect_output_0;
 funcp_void_void      unselect_all_output  = unselect_all_output_0;
 funcp_void_port_data read_all_pins        = read_all_pins_0;
+#if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
 funcp_void_void      input_port_charge    = input_port_charge_0;
+#endif
 funcp_bool_port_data mask_and_adjust_pins = mask_and_adjust_pins_0;
 funcp_build_line     build_line           = build_line_0;
 #else
@@ -541,7 +544,9 @@ void matrix_init_pins(void) {
         unselect_output      = unselect_output_1;
         unselect_all_output  = unselect_all_output_1;
         read_all_pins        = read_all_pins_1;
+#if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
         input_port_charge    = input_port_charge_1;
+#endif
         mask_and_adjust_pins = mask_and_adjust_pins_1;
         build_line           = build_line_1;
     }
@@ -565,14 +570,14 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     unselect_output(current_row);
     DEBUG_PIN_OFF();
     key_pressed = mask_and_adjust_pins(port_buffer);
+    if (key_pressed) {
+        current_row_value = build_line(port_buffer);
+    }
     DEBUG_PIN_ON();
 #if MATRIX_IO_DELAY_TYPE == WAIT_SPECIFIED_TIME
 #    ifdef DEBUG_PIN_ENABLE
 #        pragma message "WAIT_SPECIFIED_TIME"
 #    endif
-    if (key_pressed) {
-        current_row_value = build_line(port_buffer);
-    }
     MATRIX_DEBUG_DELAY_START();
     matrix_output_unselect_delay(current_row, key_pressed);
     MATRIX_DEBUG_DELAY_END();
@@ -585,25 +590,21 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         MATRIX_DEBUG_DELAY_START();
         input_port_charge();
         MATRIX_DEBUG_DELAY_END();
-        current_row_value = build_line(port_buffer);
     }
 #endif
 #if MATRIX_IO_DELAY_TYPE == ADAPTIVE_TO_INPUT
 #    ifdef DEBUG_PIN_ENABLE
 #        pragma message "ADAPTIVE_TO_INPUT"
 #    endif
-    if (key_pressed) {
-        current_row_value = build_line(port_buffer);
-        // wait unselect done
-        MATRIX_DEBUG_DELAY_START();
-        while (key_pressed) {
-            MATRIX_DEBUG_DELAY_END();
-            read_all_pins(port_buffer);
-            key_pressed = mask_and_adjust_pins(port_buffer);
-            MATRIX_DEBUG_DELAY_START();
-        }
+    // wait unselect done
+    MATRIX_DEBUG_DELAY_START();
+    while (key_pressed) {
         MATRIX_DEBUG_DELAY_END();
+        read_all_pins(port_buffer);
+        key_pressed = mask_and_adjust_pins(port_buffer);
+        MATRIX_DEBUG_DELAY_START();
     }
+    MATRIX_DEBUG_DELAY_END();
 #endif
     // Update the matrix
     current_matrix[current_row] = current_row_value;
