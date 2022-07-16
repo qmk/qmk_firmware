@@ -1,6 +1,6 @@
 # Nazarè Engineering Nazare1-60 QMK Firmware
 
-![nz160](https://i.imgur.com/ZYJgL2G.jpg)
+![nz160](https://i.imgur.com/ZYJgL2Gh.jpg)
 
 The Nazarè 1-60 is the first revision of a 60% keyboard by Nazare Engineering.
 
