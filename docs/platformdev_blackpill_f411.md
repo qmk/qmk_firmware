@@ -2,8 +2,8 @@
 
 The WeAct Blackpill is a popular choice for handwired boards, as it offers a powerful micro controller, USB Type C, a good number of pins to use, and a large amount of firmware space.  All for a ~$6 USD price tag. 
 
-* [Official WeAct Store (AliExpress)](https://fr.aliexpress.com/item/1005001456186625.html)
 * [WeAct GitHub for F411 Blackpill](https://github.com/WeActTC/MiniSTM32F4x1)
+  * Unfortunately, due to supply issues official WeAct F411 based blackpills may no longer be available.
 
 ![Blackpill F411](https://i.imgur.com/nCgeolTh.png)
 
@@ -37,6 +37,12 @@ While the Blackpill is a great choice to use in your keyboard, there are a numbe
 
 ## Additional Information
 
+### Bootloader issuse
+
 Due to the use of a 25MHz crystal, the controller may have issues entering the bootloader.  Heating up the controller can help with this issue. 
 
-There is tinyuf2 support for the WeAct Blackpill.  Setting `BOOTLOADER = tinyuf2` will enable support for this user bootloader, and the correct configuration to prevent it from being overwritten when flashing firmware. 
+Also, if pin `A10` is connected to anything at all, it needs to have a pullup resistor (see [Pins to be avoided](#pins-to-be-avoided), above)
+
+### Tiny UF2 Support
+
+There is [tinyuf2 support for the WeAct Blackpill](https://github.com/adafruit/tinyuf2/tree/master/ports/stm32f4/boards/stm32f411ce_blackpill).  Instructions on how to compile the bootloadr can be found [here](https://github.com/adafruit/tinyuf2#build-and-flash).  Setting `BOOTLOADER = tinyuf2` will enable support for this user bootloader, and the correct configuration to prevent it from being overwritten when flashing firmware. 
