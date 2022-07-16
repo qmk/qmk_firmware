@@ -146,6 +146,8 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwis
 }
 #endif // ENCODER_MAP_ENABLE
 
+#define PGM_READ_WORD(loc) (layer < keymap_layer_count()) ? pgm_read_word(loc) : KC_TRANSPARENT
+
 void dynamic_keymap_reset(void) {
     // Reset the keymaps in EEPROM to what is in flash.
     // All keyboards using dynamic keymaps should define a layout
@@ -153,13 +155,13 @@ void dynamic_keymap_reset(void) {
     for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             for (int column = 0; column < MATRIX_COLS; column++) {
-                dynamic_keymap_set_keycode(layer, row, column, pgm_read_word(&keymaps[layer][row][column]));
+                dynamic_keymap_set_keycode(layer, row, column, PGM_READ_WORD(&keymaps[layer][row][column]));
             }
         }
 #ifdef ENCODER_MAP_ENABLE
         for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
-            dynamic_keymap_set_encoder(layer, encoder, true, pgm_read_word(&encoder_map[layer][encoder][0]));
-            dynamic_keymap_set_encoder(layer, encoder, false, pgm_read_word(&encoder_map[layer][encoder][1]));
+            dynamic_keymap_set_encoder(layer, encoder, true, PGM_READ_WORD(&encoder_map[layer][encoder][0]));
+            dynamic_keymap_set_encoder(layer, encoder, false, PGM_READ_WORD(&encoder_map[layer][encoder][1]));
         }
 #endif // ENCODER_MAP_ENABLE
     }
