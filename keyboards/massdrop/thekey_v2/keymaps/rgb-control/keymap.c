@@ -1,4 +1,4 @@
-/* Copyright 2021 Joe Maples <joe@maples.dev>
+/* Copyright 2022 Jason Wihardja
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,19 +22,19 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    // Default
+    /* Default */
     [0] = LAYOUT(LAYER_SWITCH, C(KC_C), C(KC_V)),
 
-    // RGB Toggle + Mode Change
+    /* RGB Toggle + Mode Change */
     [1] = LAYOUT(LAYER_SWITCH, RGB_TOG, RGB_MOD),
 
-    // RGB Brightness
+    /* RGB Brightness */
     [2] = LAYOUT(LAYER_SWITCH, RGB_VAD, RGB_VAI),
 
-    // RGB Hue
+    /* RGB Hue */
     [3] = LAYOUT(LAYER_SWITCH, RGB_HUD, RGB_HUI),
 
-    // RGB Saturation
+    /* RGB Saturation */
     [4] = LAYOUT(LAYER_SWITCH, RGB_SAD, RGB_SAI),
 
 };
@@ -78,7 +78,7 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
+    /* Enable the LED layers */
     rgblight_layers = rgb_layers;
 }
 
