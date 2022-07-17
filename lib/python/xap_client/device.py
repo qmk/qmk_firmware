@@ -1,5 +1,6 @@
-"""Dummy XAP Client
+"""XAP Device
 """
+import hid
 import json
 import random
 import gzip
@@ -7,8 +8,10 @@ import threading
 import functools
 from struct import Struct, pack, unpack
 from collections import namedtuple
-from enum import IntFlag, IntEnum
 from platform import platform
+
+from .types import XAPSecureStatus, XAPFlags, XAPRouteError
+
 
 RequestPacket = namedtuple('RequestPacket', 'token length data')
 RequestStruct = Struct('<HB61s')
@@ -30,28 +33,6 @@ def _u32toBCD(val):  # noqa: N802
     """Create BCD string
     """
     return f'{val>>24}.{val>>16 & 0xFF}.{val & 0xFFFF}'
-
-
-class XAPSecureStatus(IntEnum):
-    LOCKED = 0x00
-    UNLOCKING = 0x01
-    UNLOCKED = 0x02
-
-
-class XAPFlags(IntFlag):
-    FAILURE = 0
-    SUCCESS = 1 << 0
-    SECURE_FAILURE = 1 << 1
-
-
-class XAPEventType(IntEnum):
-    SECURE = 0x01
-    KEYBOARD = 0x02
-    USER = 0x03
-
-
-class XAPRouteError(Exception):
-    pass
 
 
 class XAPDevice:
@@ -191,37 +172,3 @@ class XAPDevice:
     def reset(self):
         status = int.from_bytes(self.transaction(b'\x01\x07') or bytes(0), 'little')
         return status == 1
-
-
-class XAPClient:
-    @staticmethod
-    def _lazy_imports():
-        # Lazy load to avoid missing dependency issues
-        global hid
-        import hid
-
-    @staticmethod
-    def list(search=None):
-        """Find compatible XAP devices
-        """
-        XAPClient._lazy_imports()
-
-        def _is_xap_usage(x):
-            return x['usage_page'] == 0xFF51 and x['usage'] == 0x0058
-
-        def _is_filtered_device(x):
-            name = '%04x:%04x' % (x['vendor_id'], x['product_id'])
-            return name.lower().startswith(search.lower())
-
-        devices = filter(_is_xap_usage, hid.enumerate())
-        if search:
-            devices = filter(_is_filtered_device, devices)
-
-        return list(devices)
-
-    def connect(self, dev):
-        """Connect to a given XAP device
-        """
-        XAPClient._lazy_imports()
-
-        return XAPDevice(dev)

@@ -7,7 +7,7 @@ from milc import cli
 from qmk.keyboard import render_layout
 from qmk.xap.common import get_xap_keycodes
 
-from .xap_client import XAPClient, XAPEventType, XAPSecureStatus
+from xap_client import XAPClient, XAPEventType, XAPSecureStatus
 
 KEYCODE_MAP = get_xap_keycodes('latest')
 
