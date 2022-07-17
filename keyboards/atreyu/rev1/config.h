@@ -16,9 +16,6 @@
 
 #pragma once
 
-#ifndef CONFIG_H
-#define CONFIG_H
-
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
@@ -80,5 +77,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#endif
