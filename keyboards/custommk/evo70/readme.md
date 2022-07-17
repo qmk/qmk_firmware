@@ -2,7 +2,7 @@
 
 EVO70 is a 70% keyboard (65% w/left side function cluster) designed and produced by customMK. 
 
-![EVO70](https://i.imgur.com/JBiQF8C.jpg)
+![EVO70](https://i.imgur.com/JBiQF8Ch.jpg)
 
 * Keyboard Maintainer: [customMK](https://github.com/customMK)
 * Hardware Supported: EVO70
