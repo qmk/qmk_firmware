@@ -37,9 +37,9 @@ class XAPRequest(namedtuple('XAPRequest', 'token length data')):
     def __new__(cls, *args):
         return super().__new__(cls, *args)
 
-    @staticmethod
-    def from_bytes(data):
-        return XAPRequest._make(XAPRequest.fmt.unpack(data))
+    @classmethod
+    def from_bytes(cls, data):
+        return cls._make(cls.fmt.unpack(data))
 
     def to_bytes(self):
         return self.fmt.pack(*list(self))
@@ -51,9 +51,9 @@ class XAPResponse(namedtuple('XAPResponse', 'token flags length data')):
     def __new__(cls, *args):
         return super().__new__(cls, *args)
 
-    @staticmethod
-    def from_bytes(data):
-        return XAPResponse._make(XAPResponse.fmt.unpack(data))
+    @classmethod
+    def from_bytes(cls, data):
+        return cls._make(cls.fmt.unpack(data))
 
     def to_bytes(self):
         return self.fmt.pack(*list(self))
