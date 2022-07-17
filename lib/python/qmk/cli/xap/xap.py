@@ -102,7 +102,7 @@ class XAPShell(cmd.Cmd):
             while 1:
                 (event, data) = self.device.listen()
 
-                if event == XAPEventType.SECURE:
+                if event == XAPEventType.SECURE_STATUS:
                     secure_status = XAPSecureStatus(data[0]).name
 
                     cli.log.info('  Secure[%s]', secure_status)

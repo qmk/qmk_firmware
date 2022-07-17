@@ -12,7 +12,6 @@ from platform import platform
 
 from .types import XAPSecureStatus, XAPFlags, XAPRouteError
 
-
 RequestPacket = namedtuple('RequestPacket', 'token length data')
 RequestStruct = Struct('<HB61s')
 
