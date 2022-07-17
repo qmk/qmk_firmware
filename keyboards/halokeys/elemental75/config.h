@@ -35,7 +35,6 @@
 
 #define ENCODERS_PAD_A { B6 }
 #define ENCODERS_PAD_B { B5 }
-#define ENCODER_RESOLUTION 2
 #define TAP_CODE_DELAY 10 // tap_code function delay for register and unregister
 
 #define RGB_DI_PIN A10
