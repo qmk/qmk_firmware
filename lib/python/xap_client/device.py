@@ -2,8 +2,9 @@
 """
 import hid
 import json
-import random
+import time
 import gzip
+import random
 import threading
 import functools
 from struct import Struct, pack, unpack
@@ -11,7 +12,8 @@ from collections import namedtuple
 from platform import platform
 
 from .types import XAPSecureStatus, XAPFlags, XAPRouteError
-from .routes import XAP_VERSION_QUERY
+from .routes import XAPRoutes
+from .util import u32toBCD
 
 RequestPacket = namedtuple('RequestPacket', 'token length data')
 RequestStruct = Struct('<HB61s')
@@ -29,27 +31,33 @@ def _gen_token():
     return unpack('<H', pack('>H', token))[0]
 
 
-def _u32toBCD(val):  # noqa: N802
-    """Create BCD string
-    """
-    return f'{val>>24}.{val>>16 & 0xFF}.{val & 0xFFFF}'
-
-
 class XAPDevice:
     def __init__(self, dev):
         """Constructor opens hid device and starts dependent services
         """
         self.responses = {}
+        self.do_read = True
 
         self.dev = hid.Device(path=dev['path'])
 
         self.bg = threading.Thread(target=self._read_loop, daemon=True)
         self.bg.start()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        self.close()
+
+    def close(self):
+        self.do_read = False
+        time.sleep(1)
+        self.dev.close()
+
     def _read_loop(self):
         """Background thread to signal waiting transactions
         """
-        while 1:
+        while self.do_read:
             array_alpha = self.dev.read(ResponseStruct.size, 100)
             if array_alpha:
                 token = int.from_bytes(array_alpha[:2], 'little')
@@ -59,14 +67,14 @@ class XAPDevice:
                     event.set()
 
     def _query_device_info(self):
-        datalen = int.from_bytes(self.transaction(b'\x01\x05') or bytes(0), 'little')
+        datalen = int.from_bytes(self.transaction(XAPRoutes.QMK_CONFIG_BLOB_LEN) or bytes(0), 'little')
         if not datalen:
             return {}
 
         data = []
         offset = 0
         while offset < datalen:
-            chunk = self.transaction(b'\x01\x06', offset)
+            chunk = self.transaction(XAPRoutes.QMK_CONFIG_BLOB_CHUNK, offset)
             data += chunk
             offset += len(chunk)
         str_data = gzip.decompress(bytearray(data[:datalen]))
@@ -127,13 +135,14 @@ class XAPDevice:
 
     @functools.lru_cache
     def subsystem(self):
-        sub = int.from_bytes(self._transaction(b'\x00\x02') or bytes(0), 'little')
+        sub = int.from_bytes(self._transaction(XAPRoutes.XAP_SUBSYSTEM_QUERY) or bytes(0), 'little')
         return sub
 
     @functools.lru_cache
     def version(self):
-        ver = int.from_bytes(self._transaction(XAP_VERSION_QUERY) or bytes(0), 'little')
-        return {'xap': _u32toBCD(ver)}
+        xap = int.from_bytes(self._transaction(XAPRoutes.XAP_VERSION_QUERY) or bytes(0), 'little')
+        qmk = int.from_bytes(self._transaction(XAPRoutes.QMK_VERSION_QUERY) or bytes(0), 'little')
+        return {'xap': u32toBCD(xap), 'qmk': u32toBCD(qmk)}
 
     def _ensure_route(self, route):
         (sub, rt) = route
@@ -152,23 +161,23 @@ class XAPDevice:
     @functools.lru_cache
     def info(self):
         data = self._query_device_info()
-        data['_id'] = self.transaction(b'\x01\x08')
-        data['xap'] = self.version()['xap']
+        data['_id'] = self.transaction(XAPRoutes.QMK_HARDWARE_ID)
+        data['_version'] = self.version()
         return data
 
     def status(self):
-        lock = int.from_bytes(self.transaction(b'\x00\x03') or bytes(0), 'little')
+        lock = int.from_bytes(self.transaction(XAPRoutes.XAP_SECURE_STATUS) or bytes(0), 'little')
 
         data = {}
         data['lock'] = XAPSecureStatus(lock).name
         return data
 
     def unlock(self):
-        self.transaction(b'\x00\x04')
+        self.transaction(XAPRoutes.XAP_SECURE_UNLOCK)
 
     def lock(self):
-        self.transaction(b'\x00\x05')
+        self.transaction(XAPRoutes.XAP_SECURE_LOCK)
 
     def reset(self):
-        status = int.from_bytes(self.transaction(b'\x01\x07') or bytes(0), 'little')
+        status = int.from_bytes(self.transaction(XAPRoutes.QMK_BOOTLOADER_JUMP) or bytes(0), 'little')
         return status == 1

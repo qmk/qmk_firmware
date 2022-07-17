@@ -47,7 +47,7 @@ def _list_devices():
         device = XAPClient().connect(dev)
 
         data = device.info()
-        cli.log.info('  %04x:%04x %s %s [API:%s]', dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'], data['xap'])
+        cli.log.info('  %04x:%04x %s %s [API:%s]', dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'], data['_version']['xap'])
 
         if cli.config.general.verbose:
             # TODO: better formatting like 'lsusb -v'?
@@ -65,10 +65,10 @@ class XAPShell(cmd.Cmd):
         self.keycodes = get_xap_keycodes(device.version()['xap'])
 
     def do_about(self, arg):
-        """Prints out the current version of QMK with a build date
+        """Prints out the version info of QMK
         """
-        # TODO: request stuff?
-        print(self.device.info()['xap'])
+        data = self.device.version()
+        print_dotted_output(data)
 
     def do_status(self, arg):
         """Prints out the current device state
