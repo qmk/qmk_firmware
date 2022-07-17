@@ -292,29 +292,29 @@ static port_data_t readPortMultiplexer(uint8_t devid, pin_t port) {
 #endif
 
 // clang-format off
-#define _GEN_ALL_INPUT_HIGH(PORT, MASK, ...) setPortBunchInputHigh(PORT, MASK);
+#define _GEN_ALL_INPUT_HIGH(PORT, MASK, DEV) setPortBunchInputHigh(PORT, MASK);
 #define GEN_ALL_INPUT_HIGH(x) _GEN_ALL_INPUT_HIGH x
 
-#define _GEN_ALL_INPUT_CHARGE(PORT, MASK, ...) InputPortCharge(PORT, MASK);
+#define _GEN_ALL_INPUT_CHARGE(PORT, MASK, DEV) InputPortCharge(PORT, MASK);
 #define GEN_ALL_INPUT_CHARGE(x) _GEN_ALL_INPUT_CHARGE x
 
-#define __GEN_CASE_WRITE_LOW(INDEX, PORT_INDEX, PMASK, RMASK)     \
-    case INDEX:                                                   \
-        writeOutputPortBunch_Low(oports[PORT_INDEX].port, PMASK); \
+#define __GEN_CASE_WRITE_LOW(INDEX, PORT_INDEX, PortMASK, RowMASK)                         \
+    case INDEX:                                                                            \
+        if (RowMASK != 0) { writeOutputPortBunch_Low(oports[PORT_INDEX].port, PortMASK); } \
         break;
 #define _GEN_CASE_WRITE_LOW(...) __GEN_CASE_WRITE_LOW(__VA_ARGS__)
 #define GEN_CASE_WRITE_LOW(INDEX, PIN) \
     _GEN_CASE_WRITE_LOW(INDEX, REMOVE_OUTER_PARENTHESES(PIN))
 
-#define __GEN_CASE_WRITE_HIGH_Z(INDEX, PORT_INDEX, PMASK, RMASK)     \
-    case INDEX:                                                      \
-        writeOutputPortBunch_High_Z(oports[PORT_INDEX].port, PMASK); \
+#define __GEN_CASE_WRITE_HIGH_Z(INDEX, PORT_INDEX, PortMASK, RowMASK)                         \
+    case INDEX:                                                                               \
+        if (RowMASK != 0) { writeOutputPortBunch_High_Z(oports[PORT_INDEX].port, PortMASK); } \
         break;
 #define _GEN_CASE_WRITE_HIGH_Z(...) __GEN_CASE_WRITE_HIGH_Z(__VA_ARGS__)
 #define GEN_CASE_WRITE_HIGH_Z(INDEX,PIN) \
     _GEN_CASE_WRITE_HIGH_Z(INDEX, REMOVE_OUTER_PARENTHESES(PIN))
 
-#define _GEN_ALL_WRITE_HIGHT_Z(PORT, MASK, ...) \
+#define _GEN_ALL_WRITE_HIGHT_Z(PORT, MASK, DEV) \
     writeOutputPortBunch_High_Z(PORT, MASK);
 #define GEN_ALL_WRITE_HIGHT_Z(x) _GEN_ALL_WRITE_HIGHT_Z x
 
@@ -362,7 +362,7 @@ static void select_output_0(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
         const port_list_element_t *oports = minfo[0].oports;
         switch (row) {
-            // case INDEX: writeOutputPortBunch_Low(oports[PORT_INDEX].port,PMASK); break;
+            // case INDEX: if (RowMASK != 0) {writeOutputPortBunch_Low(oports[PORT_INDEX].port, PortMASK);} break;
             MAP_INDEX(GEN_CASE_WRITE_LOW, OUTPUT_PINS_0)
         }
     }
@@ -373,7 +373,7 @@ static void unselect_output_0(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
         const port_list_element_t *oports = minfo[0].oports;
         switch (row) {
-            // case INDEX: writeOutputPortBunch_High_Z(oports[PORT_INDEX].port,PMASK); break;
+            // case INDEX: if (RowMASK != 0) { writeOutputPortBunch_High_Z(oports[PORT_INDEX].port, PortMASK); } break;
             MAP_INDEX(GEN_CASE_WRITE_HIGH_Z, OUTPUT_PINS_0)
         }
     }
@@ -446,7 +446,7 @@ static void select_output_1(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
         const port_list_element_t *oports = minfo[1].oports;
         switch (row) {
-            // case INDEX: writeOutputPortBunch_Low(oports[PORT_INDEX].port,PMASK); break;
+            // case INDEX: if (RowMASK != 0) {writeOutputPortBunch_Low(oports[PORT_INDEX].port, PortMASK);} break;
             MAP_INDEX(GEN_CASE_WRITE_LOW, OUTPUT_PINS_1)
         }
     }
@@ -457,7 +457,7 @@ static void unselect_output_1(uint8_t row) {
     ATOMIC_BLOCK_FORCEON {
         const port_list_element_t *oports = minfo[1].oports;
         switch (row) {
-            // case INDEX: writeOutputPortBunch_High_Z(oports[PORT_INDEX].port,PMASK); break;
+            // case INDEX: if (RowMASK != 0) { writeOutputPortBunch_High_Z(oports[PORT_INDEX].port, PortMASK); } break;
             MAP_INDEX(GEN_CASE_WRITE_HIGH_Z, OUTPUT_PINS_1)
         }
     }
