@@ -20,7 +20,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
     }
-    uprintf("Encoder Hit: clockwise: %b, index: %u\n", clockwise, index);
+    uprintf("Encoder Hit: clockwise: %d, index: %u\n", clockwise, index);
     if (index == 0) {
       if (clockwise) {
           print("Tapped code: KC_VOLU\n");
