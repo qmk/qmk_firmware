@@ -26,11 +26,37 @@
 #
 ################################################################################
 
+from collections import namedtuple
 from enum import IntFlag, IntEnum
+from struct import Struct
 
 
-class XAPRouteError(Exception):
-    pass
+class XAPRequest(namedtuple('XAPRequest', 'token length data')):
+    fmt = Struct('<HB61s')
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args)
+
+    @staticmethod
+    def from_bytes(data):
+        return XAPRequest._make(XAPRequest.fmt.unpack(data))
+
+    def to_bytes(self):
+        return self.fmt.pack(*list(self))
+
+
+class XAPResponse(namedtuple('XAPResponse', 'token flags length data')):
+    fmt = Struct('<HBB60s')
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args)
+
+    @staticmethod
+    def from_bytes(data):
+        return XAPResponse._make(XAPResponse.fmt.unpack(data))
+
+    def to_bytes(self):
+        return self.fmt.pack(*list(self))
 
 
 class XAPSecureStatus(IntEnum):

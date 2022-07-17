@@ -27,6 +27,10 @@
 ################################################################################
 
 
+class XAPRouteError(Exception):
+    pass
+
+
 class XAPRoutes():
     # XAP
     XAP_VERSION_QUERY = b'\x00\x00'

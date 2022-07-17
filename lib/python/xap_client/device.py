@@ -7,19 +7,12 @@ import gzip
 import random
 import threading
 import functools
-from struct import Struct, pack, unpack
-from collections import namedtuple
+from struct import pack, unpack
 from platform import platform
 
-from .types import XAPSecureStatus, XAPFlags, XAPRouteError
-from .routes import XAPRoutes
+from .types import XAPSecureStatus, XAPFlags, XAPRequest, XAPResponse
+from .routes import XAPRoutes, XAPRouteError
 from .util import u32toBCD
-
-RequestPacket = namedtuple('RequestPacket', 'token length data')
-RequestStruct = Struct('<HB61s')
-
-ResponsePacket = namedtuple('ResponsePacket', 'token flags length data')
-ResponseStruct = Struct('<HBB60s')
 
 
 def _gen_token():
@@ -58,12 +51,12 @@ class XAPDevice:
         """Background thread to signal waiting transactions
         """
         while self.do_read:
-            array_alpha = self.dev.read(ResponseStruct.size, 100)
-            if array_alpha:
-                token = int.from_bytes(array_alpha[:2], 'little')
-                event = self.responses.get(token)
+            data = self.dev.read(XAPResponse.fmt.size, 100)
+            if data:
+                r = XAPResponse.from_bytes(data)
+                event = self.responses.get(r.token)
                 if event:
-                    event._ret = array_alpha
+                    event._ret = data
                     event.set()
 
     def _query_device_info(self):
@@ -90,7 +83,7 @@ class XAPDevice:
         while not hasattr(event, '_ret'):
             event.wait(timeout=0.25)
 
-        r = ResponsePacket._make(ResponseStruct.unpack(event._ret))
+        r = XAPResponse.from_bytes(event._ret)
         return (r.flags, r.data[:r.length])
 
     def _transaction(self, *args):
@@ -106,8 +99,7 @@ class XAPDevice:
 
         token = _gen_token()
 
-        p = RequestPacket(token, len(data), data)
-        buffer = RequestStruct.pack(*list(p))
+        buffer = XAPRequest(token, len(data), data).to_bytes()
 
         event = threading.Event()
         self.responses[token] = event
@@ -122,7 +114,7 @@ class XAPDevice:
         if not hasattr(event, '_ret'):
             return None
 
-        r = ResponsePacket._make(ResponseStruct.unpack(event._ret))
+        r = XAPResponse.from_bytes(event._ret)
         if r.flags & XAPFlags.SUCCESS == 0:
             return None
 

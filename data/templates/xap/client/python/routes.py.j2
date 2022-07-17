@@ -1,4 +1,8 @@
 
+class XAPRouteError(Exception):
+    pass
+
+
 class XAPRoutes():
 {%- for id, route in xap.routes | dictsort %}
 {%- if route.routes %}
