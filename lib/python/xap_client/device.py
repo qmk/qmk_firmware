@@ -11,6 +11,7 @@ from collections import namedtuple
 from platform import platform
 
 from .types import XAPSecureStatus, XAPFlags, XAPRouteError
+from .routes import XAP_VERSION_QUERY
 
 RequestPacket = namedtuple('RequestPacket', 'token length data')
 RequestStruct = Struct('<HB61s')
@@ -131,7 +132,7 @@ class XAPDevice:
 
     @functools.lru_cache
     def version(self):
-        ver = int.from_bytes(self._transaction(b'\x00\x00') or bytes(0), 'little')
+        ver = int.from_bytes(self._transaction(XAP_VERSION_QUERY) or bytes(0), 'little')
         return {'xap': _u32toBCD(ver)}
 
     def _ensure_route(self, route):

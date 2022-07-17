@@ -2,8 +2,6 @@
 """
 import hid
 
-from .device import XAPDevice
-
 
 class XAPClient:
     @staticmethod
@@ -26,4 +24,6 @@ class XAPClient:
     def connect(self, dev):
         """Connect to a given XAP device
         """
+        from .device import XAPDevice
+
         return XAPDevice(dev)
