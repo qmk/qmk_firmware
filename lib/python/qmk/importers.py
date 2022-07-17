@@ -37,6 +37,42 @@ def _gen_dummy_keymap(name, info_data):
     return keymap_data
 
 
+def _extract_kbfirmware_layout(kbf_data):
+    layout = []
+    for key in kbf_data['keyboard.keys']:
+        item = {
+            'matrix': [key['row'], key['col']],
+            'x': key['state']['x'],
+            'y': key['state']['y'],
+        }
+        if key['state']['w'] != 1:
+            item['w'] = key['state']['w']
+        if key['state']['h'] != 1:
+            item['h'] = key['state']['h']
+        layout.append(item)
+
+    return layout
+
+
+def _extract_kbfirmware_keymap(kbf_data):
+    keymap_data = {
+        'keyboard': kbf_data['keyboard.settings.name'].lower(),
+        'layout': 'LAYOUT',
+        'layers': [[]],
+    }
+
+    for key in kbf_data['keyboard.keys']:
+        keycode = dotty(key)['keycodes.0.id']
+        if keycode == 'RESET':
+            keycode = ''
+        elif keycode == 'MO()':
+            field = dotty(key)['keycodes.0.fields.0']
+            keycode = f'MO({field})'
+        keymap_data['layers'][0].append(keycode)
+
+    return keymap_data
+
+
 def import_keymap(keymap_data):
     # Validate to ensure we don't have to deal with bad data - handles stdin/file
     validate(keymap_data, 'qmk.keymap.v1')
@@ -110,18 +146,8 @@ def import_kbfirmware(kbfirmware_data):
     mcu = ["atmega32u2", "atmega32u4", "at90usb1286"][kbf_data['keyboard.controller']]
     bootloader = MCU2BOOTLOADER.get(mcu, "custom")
 
-    layout = []
-    for key in kbf_data['keyboard.keys']:
-        item = {
-            "matrix": [key["row"], key["col"]],
-            "x": key["state"]["x"],
-            "y": key["state"]["y"],
-        }
-        if key["state"]["w"] != 1:
-            item["w"] = key["state"]["w"]
-        if key["state"]["h"] != 1:
-            item["h"] = key["state"]["h"]
-        layout.append(item)
+    layout = _extract_kbfirmware_layout(kbf_data)
+    keymap_data = _extract_kbfirmware_keymap(kbf_data)
 
     # convert to d/d info.json
     info_data = dotty({
@@ -158,4 +184,4 @@ def import_kbfirmware(kbfirmware_data):
         info_data['backlight.pin'] = kbf_data['keyboard.pins.led']
 
     # delegate as if it were a regular keyboard import
-    return import_keyboard(info_data.to_dict())
+    return import_keyboard(info_data.to_dict(), keymap_data)
