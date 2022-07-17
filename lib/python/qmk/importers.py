@@ -125,6 +125,8 @@ def import_keyboard(info_data, keymap_data=None):
     keyboard_keymap.parent.mkdir(parents=True, exist_ok=True)
 
     user_name = git_get_username()
+    if not user_name:
+        user_name = 'TODO'
 
     tokens = {  # Comment here is to force multiline formatting
         'YEAR': str(date.today().year),
