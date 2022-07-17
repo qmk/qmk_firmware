@@ -11,6 +11,9 @@ from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
 from qmk.json_schema import deep_update, json_load
 
 TEMPLATE = Path('data/templates/keyboard/')
+LEGACY_KEYCODES = {  # Comment here is to force multiline formatting
+    'RESET': 'QK_BOOT'
+}
 
 
 def replace_placeholders(src, dest, tokens):
@@ -58,17 +61,21 @@ def _extract_kbfirmware_keymap(kbf_data):
     keymap_data = {
         'keyboard': kbf_data['keyboard.settings.name'].lower(),
         'layout': 'LAYOUT',
-        'layers': [[]],
+        'layers': [],
     }
 
-    for key in kbf_data['keyboard.keys']:
-        keycode = dotty(key)['keycodes.0.id']
-        if keycode == 'RESET':
-            keycode = ''
-        elif keycode == 'MO()':
-            field = dotty(key)['keycodes.0.fields.0']
-            keycode = f'MO({field})'
-        keymap_data['layers'][0].append(keycode)
+    for i in range(15):
+        layer = []
+        for key in kbf_data['keyboard.keys']:
+            keycode = key['keycodes'][i]['id']
+            keycode = LEGACY_KEYCODES.get(keycode, keycode)
+            if '()' in keycode:
+                fields = key['keycodes'][i]['fields']
+                keycode = f'{keycode.split(")")[0]}{",".join(map(str, fields))})'
+            layer.append(keycode)
+        if set(layer) == {'KC_TRNS'}:
+            break
+        keymap_data['layers'].append(layer)
 
     return keymap_data
 
