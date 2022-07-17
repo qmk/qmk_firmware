@@ -6,14 +6,11 @@ import json
 from qmk.git import git_get_username
 from qmk.json_schema import validate
 from qmk.path import keyboard, keymap
-from qmk.constants import MCU2BOOTLOADER
+from qmk.constants import MCU2BOOTLOADER, LEGACY_KEYCODES
 from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
 from qmk.json_schema import deep_update, json_load
 
 TEMPLATE = Path('data/templates/keyboard/')
-LEGACY_KEYCODES = {  # Comment here is to force multiline formatting
-    'RESET': 'QK_BOOT'
-}
 
 
 def replace_placeholders(src, dest, tokens):
