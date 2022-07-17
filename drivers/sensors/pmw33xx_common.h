@@ -59,8 +59,8 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 #    define ROTATIONAL_TRANSFORM_ANGLE 0x00
 #endif
 
-#if ROTATIONAL_TRANSFORM_ANGLE > 30 || ROTATIONAL_TRANSFORM_ANGLE < (-30)
-#    error ROTATIONAL_TRANSFORM_ANGLE has to be in the range of +/- 30 for all PMW33XX sensors.
+#if ROTATIONAL_TRANSFORM_ANGLE > 127 || ROTATIONAL_TRANSFORM_ANGLE < (-127)
+#    error ROTATIONAL_TRANSFORM_ANGLE has to be in the range of +/- 127 for all PMW33XX sensors.
 #endif
 
 // Support single and plural spellings

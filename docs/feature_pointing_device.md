@@ -176,15 +176,15 @@ The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built in IR LED for surface tracking.
 
-| Setting                      | Description                                                                                | Default       |
-| ---------------------------- | ------------------------------------------------------------------------------------------ | ------------- |
-| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                              | _not defined_ |
-| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                    | _not defined_ |
-| `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                 | _varies_      |
-| `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                   | `2000000`     |
-| `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
-| `PMW33XX_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
-| `ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
+| Setting                      | Description                                                                                 | Default       |
+| ---------------------------- | ------------------------------------------------------------------------------------------- | ------------- |
+| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                               | _not defined_ |
+| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                     | _not defined_ |
+| `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                  | _varies_      |
+| `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                    | `2000000`     |
+| `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_      |
+| `PMW33XX_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                           | `0x02`        |
+| `ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor. | `0`           |
 
 To use multiple sensors, instead of setting `PMW33XX_CS_PIN` you need to set `PMW33XX_CS_PINS` and also handle and merge the read from this sensor in user code.
 Note that different (per sensor) values of CPI, speed liftoff, rotational angle or flipping of X/Y is not currently supported.
