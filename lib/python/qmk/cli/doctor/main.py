@@ -66,8 +66,8 @@ def git_tests():
                 if git_branch in ['master', 'develop'] and git_deviation:
                     cli.log.warning('{fg_yellow}The local "%s" branch contains commits not found in the upstream branch.', git_branch)
                     status = CheckStatus.WARNING
-                for branch in ['upstream/master', 'upstream/develop']:
-                    cli.log.info('- Latest %-17s %s', f'{branch}:', git_get_last_log_entry(branch))
+                for branch in [git_branch, 'upstream/master', 'upstream/develop']:
+                    cli.log.info('- Latest %s %s', f'{branch}:', git_get_last_log_entry(branch))
 
     return status
 
