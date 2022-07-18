@@ -17,10 +17,19 @@ This matrix.c is faster and more extensible than the standard quantum/matrix.c.
 
 ## Current performance
 
+* Measurement with QMK 0.13.19
+
   | MCU               | delay type    | execution time <br> of <br> `matrix_scan()` | matrix scan rate |
   |-------------------|---------------|------------|-----------------|
-  | Pro Micro (16MHz) | fast adaptive | 75.6us     |  8090 scans/sec |
-  | Proton C (72MHz)  | fast adaptive | 49.8us     | 15100 scans/sec |
+  | Pro Micro (16MHz) | fast adaptive | 75.6us     |  8090 scans/sec (123.6us) |
+  | Proton C (72MHz)  | fast adaptive | 49.8us     | 15100 scans/sec (66.2us) |
+
+* Measurement with QMK 0.17.0
+
+  | MCU               | delay type    | execution time <br> of <br> `matrix_scan()` | matrix scan rate |
+  |-------------------|---------------|------------|-----------------|
+  | Pro Micro (16MHz) | fast adaptive | 75.75 us   |  7421 scans/sec (133.2us) |
+  | Proton C (72MHz)  | fast adaptive | TBD us     | TBD scans/sec |
 
 ## Configuration
 
@@ -138,7 +147,7 @@ I plan to provide extensions to support I/O expanders such as MCP23018 and PCA95
  - CH3: Row 4
  - CH4: matrix_scan()
  - Execution time of matrix_scan()  49.8us
- - Frequency of matrix scan 15.1kHz (66.2.6us)
+ - Frequency of matrix scan 15.1kHz (66.2us)
 
 ![DS1Z_QuickPrint11](https://user-images.githubusercontent.com/2170248/116088141-8cca0d80-a6dc-11eb-8782-1d29c57690b8.png)
 

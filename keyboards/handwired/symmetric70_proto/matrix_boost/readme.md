@@ -13,16 +13,20 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 ### Without fast `matrix_read_cols_on_rows() in users/mtei/`
 
+* Measurement with QMK 0.17.0
+
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
-| Pro Micro (16MHz) | TBD us     | TBD scans/sec |
+| Pro Micro (16MHz) | 583 us     | 1538 scans/sec |
 | Proton C (72MHz)  | TBD us     | TBD scans/sec |
 
 ### With fast `matrix_read_cols_on_rows() in users/mtei/`
 
+* Measurement with QMK 0.17.0
+
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
-| Pro Micro (16MHz) | TBD us     | TBD scans/sec |
+| Pro Micro (16MHz) | 86.7 us     | 6536 scans/sec |
 | Proton C (72MHz)  | TBD us     | TBD scans/sec |
 
 ## Configuration
@@ -56,23 +60,23 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 ## Measurement result
 ### Pro Micro (ATmega32u4 16Mhz)
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
- - `make CANCEL_BOOST=yes MTEST=matrix_debug_scan,matrix_debug_scan handwired/symmetric70_proto/promicro/boost:default:flash`
+ - `make CANCEL_BOOST=yes MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/promicro/boost:default:flash`
 
-TBD
+<img width="80%" alt="sym70_normal_promicro" src="https://user-images.githubusercontent.com/2170248/179529297-80b0a96f-0f7b-4822-811b-4a13055088af.png">
 
 #### Default setting (with fast `matrix_read_cols_on_rows()`)
- - `make MTEST=matrix_debug_scan,matrix_debug_scan handwired/symmetric70_proto/promicro/boost:default:flash`
+ - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/promicro/boost:default:flash`
 
-TBD
+<img width="80%" alt="sym70_fastread_promicro" src="https://user-images.githubusercontent.com/2170248/179529392-8a5693da-b8a7-4368-bf74-ffa58556ba1e.png">
 
 ### Proton C (STM32F303 72MHz)
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
- - `make CANCEL_BOOST=yes MTEST=matrix_debug_scan,matrix_debug_scan handwired/symmetric70_proto/proton_c/boost:default:flash`
+ - `make CANCEL_BOOST=yes MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/boost:default:flash`
 
 TBD
 
 #### Default setting (with fast `matrix_read_cols_on_rows()`)
- - `make MTEST=matrix_debug_scan,matrix_debug_scan handwired/symmetric70_proto/proton_c/boost:default:flash`
+ - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/boost:default:flash`
 
 TBD
 
