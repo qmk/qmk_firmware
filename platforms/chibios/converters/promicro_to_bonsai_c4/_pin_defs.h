@@ -36,6 +36,6 @@
 // If this causes any conflict (compile-time or runtime)
 // it will need to be resolved on a case-by-case basis
 // since there is only one LED available.
-#    define B0 PAL_LINE(GPIOB, 2)
-#    define D5 PAL_LINE(GPIOB, 2)
+#define B0 PAL_LINE(GPIOB, 2)
+#define D5 PAL_LINE(GPIOB, 2)
 
