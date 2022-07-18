@@ -28,7 +28,7 @@ This matrix.c is faster and more extensible than the standard quantum/matrix.c.
 
   | MCU               | delay type    | execution time <br> of <br> `matrix_scan()` | matrix scan rate |
   |-------------------|---------------|------------|-----------------|
-  | Pro Micro (16MHz) | fast adaptive | 75.75 us   |  7421 scans/sec (133.2us) |
+  | Pro Micro (16MHz) | fast adaptive | 77.25 us   |  7421 scans/sec (134.8us) |
   | Proton C (72MHz)  | fast adaptive | TBD us     | TBD scans/sec |
 
 ## Configuration

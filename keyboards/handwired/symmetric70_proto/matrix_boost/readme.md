@@ -17,7 +17,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
-| Pro Micro (16MHz) | 583 us     | 1538 scans/sec |
+| Pro Micro (16MHz) | 588.7 us      | 1539 scans/sec (649.9us) |
 | Proton C (72MHz)  | TBD us     | TBD scans/sec |
 
 ### With fast `matrix_read_cols_on_rows() in users/mtei/`
@@ -26,7 +26,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
-| Pro Micro (16MHz) | 86.7 us     | 6536 scans/sec |
+| Pro Micro (16MHz) | 92.25 us     | 6536 scans/sec (153us) |
 | Proton C (72MHz)  | TBD us     | TBD scans/sec |
 
 ## Configuration
