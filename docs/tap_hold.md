@@ -497,7 +497,6 @@ Here is an example implementation. For the Miryoku layout, this allows `GUI+Tab`
 
 ```
 bool get_enable_bilateral_combinations_per_key(uint16_t keycode, keyrecord_t *record) {
-xprintf("Keycode: 0x%04X\n", keycode);
     switch (keycode) {
     case LT(MOUSE, KC_TAB):
         return false;
