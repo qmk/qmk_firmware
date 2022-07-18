@@ -42,6 +42,12 @@
             "processor": "STM32F411",
             "bootloader": "stm32-dfu",
             "board": "BLACKPILL_STM32_F411"
+        },
+        "bonsai_c4": {
+            "processor": "STM32F411",
+            "bootloader": "stm32-dfu",
+            "board": "GENERIC_STM32_F411XE",
+            "pin_compatible": "promicro"
         }
     }
 }
