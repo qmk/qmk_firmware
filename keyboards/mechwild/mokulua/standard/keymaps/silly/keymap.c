@@ -47,20 +47,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-	static void render_logo(void) {     // Render MechWild "MW" Logo
-		static const char PROGMEM logo_1[] = {0x8A, 0x8B, 0x8C, 0x8D, 0x00};
-		static const char PROGMEM logo_2[] = {0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0x00};
-		static const char PROGMEM logo_3[] = {0xCA, 0xCB, 0xCC, 0xCD, 0x00};
-		static const char PROGMEM logo_4[] = {0x20, 0x8E, 0x8F, 0x90, 0x00};
-		oled_set_cursor(0,0);
-		oled_write_P(logo_1, false);
-		oled_set_cursor(0,1);
-		oled_write_P(logo_2, false);
-		oled_set_cursor(0,2);
-		oled_write_P(logo_3, false);
-		oled_set_cursor(0,3);
-		oled_write_P(logo_4, false);
-	}
+     static void render_logo(void) {     // Render MechWild "MW" Logo
+          static const char PROGMEM logo_1[] = {0x8A, 0x8B, 0x8C, 0x8D, 0x00};
+          static const char PROGMEM logo_2[] = {0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0x00};
+          static const char PROGMEM logo_3[] = {0xCA, 0xCB, 0xCC, 0xCD, 0x00};
+          static const char PROGMEM logo_4[] = {0x20, 0x8E, 0x8F, 0x90, 0x00};
+          oled_set_cursor(0,0);
+          oled_write_P(logo_1, false);
+          oled_set_cursor(0,1);
+          oled_write_P(logo_2, false);
+          oled_set_cursor(0,2);
+          oled_write_P(logo_3, false);
+          oled_set_cursor(0,3);
+          oled_write_P(logo_4, false);
+     }
     bool oled_task_user(void) {
         render_logo();
         oled_set_cursor(0,6);
