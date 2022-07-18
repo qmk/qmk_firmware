@@ -35,9 +35,6 @@ __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t 
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
 #endif
-#ifdef NO_HAPTIC_FN
-        case KC_FN0 ... KC_FN31:
-#endif
 #ifdef NO_HAPTIC_ALPHA
         case KC_A ... KC_Z:
 #endif

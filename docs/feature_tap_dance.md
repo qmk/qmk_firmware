@@ -10,7 +10,7 @@ With this feature one can specify keys that behave differently, based on the amo
 
 First, you will need `TAP_DANCE_ENABLE = yes` in your `rules.mk`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. 
 
-Optionally, you might want to set a custom `TAPPING_TERM` time by adding something like this in you `config.h`:
+Optionally, you might want to set a custom `TAPPING_TERM` time by adding something like this in your `config.h` file:
 
 ```c
 #define TAPPING_TERM 175
@@ -243,7 +243,7 @@ Now, at the bottom of your `keymap.c` file, you'll need to add the following:
  *
  * How to figure out tap dance state: interrupted and pressed.
  *
- * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
+ * Interrupted: If the state of a dance is "interrupted", that means that another key has been hit
  *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
  *
  * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term

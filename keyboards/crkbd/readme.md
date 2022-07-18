@@ -27,7 +27,7 @@ The Corne PCBs have a reset button next to the TRRS jack to enter in to the boot
 Additionally, if you hold down the "Q" or "P" buttons when plugging in that half of the keyboard (per the default QWERTY layout), this will jump to the bootloader and reset the EEPROM (persistent storage).  This would normally be the very top corner-most position, but due to the breakaway column, it's left at Q and P for compatibility. 
 
 ## RGB Matrix 
-The Corne Keyboard also supports using the RGB Matrix feature, in place of RGB Light.  This provids a better experience when using the keyboard, as it supports a number of per key effects properly.  If you're not using the in switch LEDs, then you may want to pass on doing this. 
+The Corne Keyboard also supports using the RGB Matrix feature, in place of RGB Light.  This provides a better experience when using the keyboard, as it supports a number of per key effects properly.  If you're not using the in switch LEDs, then you may want to pass on doing this. 
 
 In your keymap's `rules.mk` file, add the following: 
 
@@ -54,8 +54,8 @@ And in your `config.h` file, add the following:
 #    define RGB_MATRIX_VAL_STEP 8
 #    define RGB_MATRIX_SPD_STEP 10
 
-/* Disable the animations you don't want/need.  You will need to disable a good number of these    *
- * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
+/* Enable the animations you want/need.  You may need to enable only a small number of these because       *
+ * they take up a lot of space.  Enable and confirm that you can still successfully compile your firmware. */
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
