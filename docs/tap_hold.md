@@ -493,11 +493,17 @@ hid_listen | sed -u 's/BILATERAL_COMBINATIONS: change/&\a/g'
 
 Enable  Per-key Bilateral Combinations by adding `#define BILATERAL_COMBINATIONS_PER_KEY` to your config. Then, in your `keymap.c`, override `get_enable_bilateral_combinations_per_key` to return `false` to opt-out of bilateral enforcement for the given parameters. Or return `true` to opt-into bilateral combinations.
 
-Here is the default implementation.
+Here is an example implementation. For the Miryoku layout, this allows `GUI+Tab` with one hand to quickly switch apps on Mac. Notice the keycode is the full layer-tap keycode, and not `KC_TAB` keycode only.
 
 ```
-__attribute__((weak)) bool get_enable_bilateral_combinations_per_key(uint16_t keycode, keyrecord_t *record) {
-    return true;
+bool get_enable_bilateral_combinations_per_key(uint16_t keycode, keyrecord_t *record) {
+xprintf("Keycode: 0x%04X\n", keycode);
+    switch (keycode) {
+    case LT(MOUSE, KC_TAB):
+        return false;
+    default:
+        return true;
+    }
 }
 ```
 
