@@ -75,6 +75,7 @@ __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
 #    include "quantum.h"
 #endif
 
+
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
@@ -310,6 +311,12 @@ void register_button(bool pressed, enum mouse_buttons button) {
 }
 #endif
 
+#ifdef BILATERAL_COMBINATIONS_PER_KEY
+__attribute__((weak)) bool get_enable_bilateral_combinations_per_key(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+#endif
+
 #ifdef BILATERAL_COMBINATIONS
 static struct {
     bool active;
@@ -353,10 +360,14 @@ static void bilateral_combinations_release(uint8_t code) {
     }
 }
 
-static void bilateral_combinations_tap(keyevent_t event) {
+static void bilateral_combinations_tap(keyevent_t event, keyrecord_t *record) {
     dprint("BILATERAL_COMBINATIONS: tap\n");
     if (bilateral_combinations.active) {
-        if (bilateral_combinations_left(event.key) == bilateral_combinations.left) {
+        if (bilateral_combinations_left(event.key) == bilateral_combinations.left
+#ifdef BILATERAL_COMBINATIONS_PER_KEY
+        && get_enable_bilateral_combinations_per_key(get_event_keycode(record->event, false), record)
+#endif
+    ) {
 #    if (BILATERAL_COMBINATIONS + 0)
             if (TIMER_DIFF_16(event.time, bilateral_combinations.time) > BILATERAL_COMBINATIONS) {
                 dprint("BILATERAL_COMBINATIONS: timeout\n");
@@ -415,7 +426,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifdef BILATERAL_COMBINATIONS
                 if (!(IS_MOD(action.key.code) || action.key.code == KC_NO)) {
                     // regular keycode tap during mod-tap hold
-                    bilateral_combinations_tap(event);
+                    bilateral_combinations_tap(event, record);
                 }
 #endif
                 register_code(action.key.code);
@@ -535,7 +546,7 @@ void process_action(keyrecord_t *record, action_t action) {
 
 #    ifdef BILATERAL_COMBINATIONS
                                 // mod-tap tap
-                                bilateral_combinations_tap(event);
+                                bilateral_combinations_tap(event, record);
 #    endif
                                 dprint("MODS_TAP: Tap: register_code\n");
                                 register_code(action.key.code);
@@ -747,7 +758,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         if (tap_count > 0) {
 #        ifdef BILATERAL_COMBINATIONS
                             // layer-tap tap
-                            bilateral_combinations_tap(event);
+                            bilateral_combinations_tap(event, record);
 #        endif
                             dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer_tap.code);
