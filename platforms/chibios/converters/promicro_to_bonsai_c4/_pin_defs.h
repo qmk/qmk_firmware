@@ -38,4 +38,3 @@
 // since there is only one LED available.
 #define B0 PAL_LINE(GPIOB, 2)
 #define D5 PAL_LINE(GPIOB, 2)
-
