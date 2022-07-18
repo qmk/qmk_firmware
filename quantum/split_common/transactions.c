@@ -718,6 +718,43 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+
+#if defined(DIP_SWITCH_ENABLE)
+
+static bool dip_switch_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t last_update = 0;
+    bool         temp_state[NUM_DIP_SWITCHES_MAX_PER_SIDE];
+
+    bool okay = read_if_checksum_mismatch(GET_DIP_SWITCH_CHECKSUM, GET_DIP_SWITCH_DATA, &last_update, temp_state, split_shmem->dip_switch.state, sizeof(temp_state));
+    if (okay) dip_switch_update_raw(temp_state);
+    return okay;
+}
+
+static void dip_switch_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    bool dip_switch_state[NUM_DIP_SWITCHES_MAX_PER_SIDE];
+    dip_switch_state_raw(dip_switch_state);
+    // Always prepare the dip switch state for read.
+    memcpy(split_shmem->dip_switch.state, dip_switch_state, sizeof(dip_switch_state));
+    // Now update the checksum given that the dip switches has been written to
+    split_shmem->dip_switch.checksum = crc8(dip_switch_state, sizeof(dip_switch_state));
+}
+
+// clang-format off
+#    define TRANSACTIONS_DIP_SWITCH_MASTER() TRANSACTION_HANDLER_MASTER(dip_switch)
+#    define TRANSACTIONS_DIP_SWITCH_SLAVE() TRANSACTION_HANDLER_SLAVE(dip_switch)
+#    define TRANSACTIONS_DIP_SWITCH_REGISTRATIONS \
+    [GET_DIP_SWITCH_CHECKSUM] = trans_target2initiator_initializer(dip_switch.checksum), \
+    [GET_DIP_SWITCH_DATA]     = trans_target2initiator_initializer(dip_switch.state),
+// clang-format on
+
+#else // ENCODER_ENABLE
+
+#    define TRANSACTIONS_DIP_SWITCH_MASTER()
+#    define TRANSACTIONS_DIP_SWITCH_SLAVE()
+#    define TRANSACTIONS_DIP_SWITCH_REGISTRATIONS
+
+#endif // ENCODER_ENABLE
+
 ////////////////////////////////////////////////////
 // WATCHDOG
 
@@ -877,6 +914,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_HAPTIC_REGISTRATIONS
     TRANSACTIONS_ACTIVITY_REGISTRATIONS
     TRANSACTIONS_DETECTED_OS_REGISTRATIONS
+    TRANSACTIONS_DIP_SWITCH_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -907,6 +945,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_HAPTIC_MASTER();
     TRANSACTIONS_ACTIVITY_MASTER();
     TRANSACTIONS_DETECTED_OS_MASTER();
+    TRANSACTIONS_DIP_SWITCH_MASTER();
     return true;
 }
 
@@ -930,6 +969,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_HAPTIC_SLAVE();
     TRANSACTIONS_ACTIVITY_SLAVE();
     TRANSACTIONS_DETECTED_OS_SLAVE();
+    TRANSACTIONS_DIP_SWITCH_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

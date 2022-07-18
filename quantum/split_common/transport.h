@@ -173,7 +173,7 @@ typedef struct _split_shared_memory_t {
 #endif // ENCODER_ENABLE
 
 #ifdef DIP_SWITCH_ENABLE
-    split_slave_dip_switch_sync_t dip_switches;
+    split_slave_dip_switch_sync_t dip_switch;
 #endif // DIP_SWITCH_ENABLE
 
 #ifndef DISABLE_SYNC_TIMER
