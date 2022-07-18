@@ -62,6 +62,15 @@ def git_get_tag():
         return git_tag.stdout.strip()
 
 
+def git_get_last_log_entry(branch_name):
+    """Retrieves the last log entry for the branch being worked on.
+    """
+    git_lastlog = cli.run(['git', '--no-pager', 'log', '--pretty=format:%ad (%h) by %an, %s', '--date=iso', '-n1', branch_name])
+
+    if git_lastlog.returncode == 0 and git_lastlog.stdout:
+        return git_lastlog.stdout.strip()
+
+
 def git_get_remotes():
     """Returns the current remotes for a repo.
     """

@@ -11,7 +11,7 @@ from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
-from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_is_dirty, git_get_remotes, git_check_deviation
+from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_is_dirty, git_get_remotes, git_check_deviation
 from qmk.commands import in_virtualenv
 
 
@@ -66,6 +66,8 @@ def git_tests():
                 if git_branch in ['master', 'develop'] and git_deviation:
                     cli.log.warning('{fg_yellow}The local "%s" branch contains commits not found in the upstream branch.', git_branch)
                     status = CheckStatus.WARNING
+                for branch in ['upstream/master', 'upstream/develop']:
+                    cli.log.info('- Latest %-17s %s', f'{branch}:', git_get_last_log_entry(branch))
 
     return status
 
