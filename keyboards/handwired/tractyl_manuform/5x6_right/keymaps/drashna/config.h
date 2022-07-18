@@ -28,8 +28,3 @@
 #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
 
 #define ENCODER_DEFAULT_POS 0x3
-
-#define SECURE_UNLOCK_SEQUENCE \
-    {                          \
-        { 2, 1 }, { 2, 2 }, { 2, 3 }, { 2, 4 } \
-    }
