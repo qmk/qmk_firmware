@@ -718,12 +718,11 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
-
 #if defined(DIP_SWITCH_ENABLE)
 
 static bool dip_switch_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_update = 0;
-    bool         temp_state[NUM_DIP_SWITCHES_MAX_PER_SIDE];
+    bool            temp_state[NUM_DIP_SWITCHES_MAX_PER_SIDE];
 
     bool okay = read_if_checksum_mismatch(GET_DIP_SWITCH_CHECKSUM, GET_DIP_SWITCH_DATA, &last_update, temp_state, split_shmem->dip_switch.state, sizeof(temp_state));
     if (okay) dip_switch_update_raw(temp_state);
