@@ -1,12 +1,17 @@
-"""XAP Client
-"""
+# Copyright 2022 QMK
+# SPDX-License-Identifier: GPL-2.0-or-later
 import hid
 
 
 class XAPClient:
+    """XAP device discovery
+    """
     @staticmethod
-    def list(search=None):
+    def devices(search: str = None) -> list[dict]:
         """Find compatible XAP devices
+
+        Args:
+            search: optional search string to filter results by
         """
         def _is_xap_usage(x):
             return x['usage_page'] == 0xFF51 and x['usage'] == 0x0058
@@ -21,9 +26,11 @@ class XAPClient:
 
         return list(devices)
 
-    def connect(self, dev):
+    def connect(self, device: dict):
         """Connect to a given XAP device
+        Args:
+            device: item from a previous `XAPClient.devices()` call
         """
         from .device import XAPDevice
 
-        return XAPDevice(dev)
+        return XAPDevice(device)
