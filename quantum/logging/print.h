@@ -37,7 +37,7 @@ void print_set_sendchar(sendchar_func_t func);
 #        include_next "_print.h" /* Include the platforms print.h */
 #    else
 // Fall back to lib/printf
-#        include "printf.h"  // lib/printf/printf.h
+#        include "printf.h" // lib/printf/printf.h
 
 // Create user & normal print defines
 #        define print(s) printf(s)

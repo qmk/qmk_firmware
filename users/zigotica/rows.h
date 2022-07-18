@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *   ,---------------------------------------.         ,---------------------------------------.
  *   |       |       |       |       |       |         |       |       |       |       |       |
- *   |  ` ~  |   W   |   D   |   P   |   F   |         |   K   |   Y   |   U   |   Q   |  ' "  |
+ *   |  ` ~  |   W   |   D   |   P   |   F   |         |   Q   |   L   |   U   |   Y   |  ' "  |
  *   |       |       |       |       |       |         |       |       |       |       |       |
  *   |-------+-------+-------+-------+-------|         |-------+-------+-------+-------+-------|
  *   |       |       |       |       |       |         |       |       |       |       |       |
@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *   |  alt  | ctrl  | shft  | meta  |       |         |       |  meta |  shft | ctrl  |  alt  |
  *   |-------+-------+-------+-------+-------|         |-------+-------+-------+-------+-------|
  *   |       |       |       |       |       |         |       |       |       |       |       |
- *   |   B   |   X   |   C   |   V   |  [ {  |         |  , <  |   L   |   Z   |   J   |   . > |
+ *   |   B   |   X   |   C   |   V   |  [ {  |         |  , <  |   K   |   Z   |   J   |   . > |
  *   |       |       |       |       | TD ]} |         |  TD ; |       |       |       |  TD : |
  *   `-------+-------+-------+-------+-------|         |-------+-------+-------+-------+-------.
  *                           |       |       |         |       |       |
@@ -45,9 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _STENAI_L3      KC_B,             KC_X,            KC_C,          KC_V,             ZK_BRC
 #define _STENAI_LT      LT(_NUM, KC_TAB), LT(_NAV, KC_SPC)
 
-#define _STENAI_R1      KC_K,             KC_Y,            KC_U,          KC_Q,             KC_QUOT
+#define _STENAI_R1      KC_Q,             KC_L,            KC_U,          KC_Y,             KC_QUOT
 #define _STENAI_R2      KC_M,             RGUI_T(KC_N),    RSFT_T(KC_A),  RCTL_T(KC_I),     RALT_T(KC_O)
-#define _STENAI_R3      ZK_SEMI,          KC_L,            KC_Z,          KC_J,             ZK_COLON
+#define _STENAI_R3      ZK_SEMI,          KC_K,            KC_Z,          KC_J,             ZK_COLON
 #define _STENAI_RT      LT(_SYM, KC_E),   LT(_FN, KC_ENT)
 
 

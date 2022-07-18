@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-       RGB_TOG,TO(_BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RESET,
+       RGB_TOG,TO(_BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  QK_BOOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, XXXXXXX, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤

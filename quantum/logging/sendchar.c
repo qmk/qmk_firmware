@@ -17,4 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 
 /* default noop "null" implementation */
-__attribute__((weak)) int8_t sendchar(uint8_t c) { return 0; }
+__attribute__((weak)) int8_t sendchar(uint8_t c) {
+    return 0;
+}

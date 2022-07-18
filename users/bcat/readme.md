@@ -24,6 +24,7 @@ AN-C, CannonKeys Instant60, DZ60.
 ### Ergo
 
 * [Lily58](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/bcat)
+* [Unicorne](https://github.com/qmk/qmk_firmware/tree/master/keyboards/yanghu/unicorne/keymaps/bcat)
 
 ### Ortho
 

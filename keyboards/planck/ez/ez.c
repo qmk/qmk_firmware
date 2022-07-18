@@ -106,16 +106,6 @@ led_config_t g_led_config = { {
     1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_color_all(0, 0, 0);
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
- void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif
 
 /* Left B9   Right B8 */
@@ -259,7 +249,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case PLANCK_EZ_LED_LOWER:
             planck_ez_left_led_on();
@@ -339,4 +329,23 @@ bool music_mask_kb(uint16_t keycode) {
         return music_mask_user(keycode);
     }
 }
+#endif
+
+#ifdef SWAP_HANDS_ENABLE
+__attribute__ ((weak))
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
+    {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}},
+    {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
+    {{5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
+    
+    {{5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
+    {{5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
+    {{5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
+    {{5, 7}, {4, 7}, {3, 7}, {2, 7}, {1, 7}, {0, 7}},
+};
+
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {0};
+#    endif
 #endif

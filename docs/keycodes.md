@@ -219,11 +219,13 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
-|Key           |Aliases  |Description                                            |
-|--------------|---------|-------------------------------------------------------|
-|`RESET`       |         |Put the keyboard into bootloader mode for flashing     |
-|`DEBUG`       |         |Toggle debug mode                                      |
-|`EEPROM_RESET`|`EEP_RST`|Reinitializes the keyboard's EEPROM (persistent memory)|
+|Key              |Aliases  |Description                                                                      |
+|-----------------|---------|---------------------------------------------------------------------------------|
+|`QK_BOOTLOADER`  |`QK_BOOT`|Put the keyboard into bootloader mode for flashing                               |
+|`QK_DEBUG_TOGGLE`|`DB_TOGG`|Toggle debug mode                                                                |
+|`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)                          |
+|`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held |
+|`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                |
 
 ## Audio Keys :id=audio-keys
 
@@ -267,6 +269,14 @@ See also: [Bluetooth](feature_bluetooth.md)
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
 
+## Caps Word :id=caps-word
+
+See also: [Caps Word](feature_caps_word.md)
+
+|Key        |Aliases  |Description                   |
+|-----------|---------|------------------------------|
+|`CAPS_WORD`|`CAPSWRD`|Toggles Caps Word             |
+
 ## Dynamic Macros :id=dynamic-macros
 
 See also: [Dynamic Macros](feature_dynamic_macros.md)
@@ -283,9 +293,9 @@ See also: [Dynamic Macros](feature_dynamic_macros.md)
 
 See also: [Grave Escape](feature_grave_esc.md)
 
-|Key        |Aliases  |Description                                                       |
-|-----------|---------|------------------------------------------------------------------|
-|`GRAVE_ESC`|`KC_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+|Key              |Aliases  |Description                                                       |
+|-----------------|---------|------------------------------------------------------------------|
+|`QK_GRAVE_ESCAPE`|`QK_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
 
 ## Key Lock :id=key-lock
 
@@ -326,6 +336,7 @@ See also: [Magic Keycodes](keycodes_magic.md)
 |----------------------------------|---------|--------------------------------------------------------------------------|
 |`MAGIC_SWAP_CONTROL_CAPSLOCK`     |`CL_SWAP`|Swap Caps Lock and Left Control                                           |
 |`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |`CL_NORM`|Unswap Caps Lock and Left Control                                         |
+|`MAGIC_TOGGLE_CONTROL_CAPSLOCK`   |`CL_TOGG`|Toggle Caps Lock and Left Control swap                                    |
 |`MAGIC_CAPSLOCK_TO_CONTROL`       |`CL_CTRL`|Treat Caps Lock as Control                                                |
 |`MAGIC_UNCAPSLOCK_TO_CONTROL`     |`CL_CAPS`|Stop treating Caps Lock as Control                                        |
 |`MAGIC_SWAP_LCTL_LGUI`            |`LCG_SWP`|Swap Left Control and GUI                                                 |
@@ -763,7 +774,7 @@ See also: [Unicode Support](feature_unicode.md)
 
 |Key                   |Aliases  |Description                                                     |
 |----------------------|---------|----------------------------------------------------------------|
-|`UC(c)`               |         |Send Unicode code point `c`                                     |
+|`UC(c)`               |         |Send Unicode code point `c`, up to `0x7FFF`                     |
 |`X(i)`                |         |Send Unicode code point at index `i` in `unicode_map`           |
 |`XP(i, j)`            |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
 |`UNICODE_MODE_FORWARD`|`UC_MOD` |Cycle through selected input modes                              |
