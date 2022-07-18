@@ -59,6 +59,9 @@ gcc --include <test_config.h> -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c 
 #ifndef MATRIX_IO_DELAY_TYPE
 #    define MATRIX_IO_DELAY_TYPE ADAPTIVE_TO_INPUT
 #endif
+#if MATRIX_IO_DELAY_TYPE != WAIT_SPECIFIED_TIME && MATRIX_IO_DELAY_TYPE != ADAPTIVE_TO_INPUT && MATRIX_IO_DELAY_TYPE != FORCE_INPUT_UP_TO_VCC
+#    error Invalid MATRIX_IO_DELAY_TYPE value
+#endif
 
 #define _GET_ITEM_1(_1, ...) _1
 #define _GET_ITEM_2(_1, _2, ...) _2
