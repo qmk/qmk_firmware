@@ -1,1 +1,1 @@
-# The default keymap for giabaRInaix2
+# The default keymap for giabarinaix2

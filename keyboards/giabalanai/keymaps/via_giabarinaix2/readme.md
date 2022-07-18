@@ -1,1 +1,1 @@
-# The default keymap for giabaRInaix2, VIA version.
+# The default keymap for giabarinaix2, VIA version.

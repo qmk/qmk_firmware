@@ -1,1 +1,1 @@
-# A keymap for giabaRInaix2 with LEDs.
+# A keymap for giabarinaix2 with LEDs.

@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 // Alias layout macros that expand groups of keys.
-#define LAYOUT_wrapper_giabaRInaix2(...) LAYOUT_giabaRInaix2(__VA_ARGS__)
+#define LAYOUT_wrapper_giabarinaix2(...) LAYOUT_giabarinaix2(__VA_ARGS__)
 
 #define DFCBASE DF(_C_SYSTEM_BASE)
 #define DF_QWER DF(_QWERTY)
@@ -159,7 +159,7 @@ static uint8_t chord_status[MY_CHORD_COUNT];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* C-system Base */
-  [_C_SYSTEM_BASE] = LAYOUT_giabaRInaix2(
+  [_C_SYSTEM_BASE] = LAYOUT_giabarinaix2(
     MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr,    MI_CH_Gr,    MI_CH_Dr,    MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,
       MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C,     MI_CH_G,     MI_CH_D,     MI_CH_A,     MI_CH_E,     MI_CH_B,     MI_CH_Fs,
         MI_CH_Dbm,    MI_CH_Abm,    MI_CH_Ebm,    MI_CH_Bbm,    MI_CH_Fm,    MI_CH_Cm,    MI_CH_Gm,    MI_CH_Dm,    MI_CH_Am,    MI_CH_Em,    MI_CH_Bm,    MI_CH_Fsm,
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* BASS2row */
-  [_C_SYSTEM_BASS2ROW] = LAYOUT_giabaRInaix2(
+  [_C_SYSTEM_BASS2ROW] = LAYOUT_giabarinaix2(
     MI_CH_Fr,     MI_CH_Cr,     MI_CH_Gr,     MI_CH_Dr,     MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,   MI_CH_Csr,   MI_CH_Gsr,   MI_CH_Dsr,   MI_CH_Asr,
       MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr,    MI_CH_Gr,    MI_CH_Dr,    MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,
         MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C,     MI_CH_G,     MI_CH_D,     MI_CH_A,     MI_CH_E,     MI_CH_B,     MI_CH_Fs,
@@ -190,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* C-system entirely */
-  [_C_SYSTEM_ENTIRELY] = LAYOUT_giabaRInaix2(
+  [_C_SYSTEM_ENTIRELY] = LAYOUT_giabarinaix2(
     XXXXXXX, XXXXXXX, XXXXXXX, MI_Db,   MI_E,    MI_G,    MI_Bb,   MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2,
       XXXXXXX, XXXXXXX, MI_C,    MI_Eb,   MI_Fs,   MI_A,    MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2,
         XXXXXXX, XXXXXXX, MI_D,    MI_F,    MI_Ab,   MI_B,    MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,
@@ -205,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* Chromatone */
-  [_CHROMATONE] = LAYOUT_giabaRInaix2(
+  [_CHROMATONE] = LAYOUT_giabarinaix2(
     XXXXXXX, XXXXXXX, MI_Db,   MI_Eb,   MI_F,    MI_G,    MI_A,    MI_B,    MI_Db_1,  MI_Eb_1,  MI_F_1,   MI_G_1,
         XXXXXXX,  MI_C,    MI_D,    MI_E,    MI_Fs,   MI_Ab,   MI_Bb,   MI_C_1,  MI_D_1,  MI_E_1,  MI_Fs_1, MI_Ab_1,
              XXXXXXX, MI_Db,   MI_Eb,   MI_F,    MI_G,    MI_A,    MI_B,    MI_Db_1,  MI_Eb_1,  MI_F_1,   MI_G_1,   MI_A_1,
@@ -220,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* QWERTY */
-  [_QWERTY] = LAYOUT_wrapper_giabaRInaix2(
+  [_QWERTY] = LAYOUT_wrapper_giabarinaix2(
     KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
       KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_DEL,
         KC_CAPS, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_ENT,
@@ -235,7 +235,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* Fn */
-  [_FN] = LAYOUT_giabaRInaix2(
+  [_FN] = LAYOUT_giabarinaix2(
     CSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
       DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,

@@ -53,7 +53,7 @@
     { KC_NO, r2c,  r2b, r2a, r29, r28, r27, KC_NO, KC_NO, KC_NO }  \
 }
 
-#define LAYOUT_giabaRInaix2( \
+#define LAYOUT_giabarinaix2( \
     l00, l01, l02, l03, l04, l05, l06, l07, l08, l09, l0a, l0b, \
       l10, l11, l12, l13, l14, l15, l16, l17, l18, l19, l1a, l1b, \
         l20, l21, l22, l23, l24, l25, l26, l27, l28, l29, l2a, l2b, \
