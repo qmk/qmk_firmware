@@ -75,7 +75,6 @@ __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
 #    include "quantum.h"
 #endif
 
-
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
@@ -319,15 +318,15 @@ __attribute__((weak)) bool get_enable_bilateral_combinations_per_key(uint16_t ke
 
 #ifdef BILATERAL_COMBINATIONS
 static struct {
-    bool active;
+    bool    active;
     uint8_t code;
     uint8_t tap;
     uint8_t mods;
-    bool left;
+    bool    left;
 #    if (BILATERAL_COMBINATIONS + 0)
     uint16_t time;
 #    endif
-} bilateral_combinations = { false };
+} bilateral_combinations = {false};
 
 static bool bilateral_combinations_left(keypos_t key) {
 #    ifdef SPLIT_KEYBOARD
@@ -344,10 +343,10 @@ static bool bilateral_combinations_left(keypos_t key) {
 static void bilateral_combinations_hold(action_t action, keyevent_t event) {
     dprint("BILATERAL_COMBINATIONS: hold\n");
     bilateral_combinations.active = true;
-    bilateral_combinations.code = action.key.code;
-    bilateral_combinations.tap = action.layer_tap.code;
-    bilateral_combinations.mods = (action.kind.id == ACT_LMODS_TAP) ? action.key.mods : action.key.mods << 4;
-    bilateral_combinations.left = bilateral_combinations_left(event.key);
+    bilateral_combinations.code   = action.key.code;
+    bilateral_combinations.tap    = action.layer_tap.code;
+    bilateral_combinations.mods   = (action.kind.id == ACT_LMODS_TAP) ? action.key.mods : action.key.mods << 4;
+    bilateral_combinations.left   = bilateral_combinations_left(event.key);
 #    if (BILATERAL_COMBINATIONS + 0)
     bilateral_combinations.time = event.time;
 #    endif
@@ -364,10 +363,10 @@ static void bilateral_combinations_tap(keyevent_t event, keyrecord_t *record) {
     dprint("BILATERAL_COMBINATIONS: tap\n");
     if (bilateral_combinations.active) {
         if (bilateral_combinations_left(event.key) == bilateral_combinations.left
-#ifdef BILATERAL_COMBINATIONS_PER_KEY
-        && get_enable_bilateral_combinations_per_key(get_event_keycode(record->event, false), record)
-#endif
-    ) {
+#    ifdef BILATERAL_COMBINATIONS_PER_KEY
+            && get_enable_bilateral_combinations_per_key(get_event_keycode(record->event, false), record)
+#    endif
+        ) {
 #    if (BILATERAL_COMBINATIONS + 0)
             if (TIMER_DIFF_16(event.time, bilateral_combinations.time) > BILATERAL_COMBINATIONS) {
                 dprint("BILATERAL_COMBINATIONS: timeout\n");
