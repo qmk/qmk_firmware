@@ -113,6 +113,10 @@ bool is_tap_action(action_t action);
 void process_record_tap_hint(keyrecord_t *record);
 #endif
 
+#ifdef BILATERAL_COMBINATIONS
+__attribute__((weak)) bool bilateral_combinations_left(keypos_t key);
+#endif
+
 /* debug */
 void debug_event(keyevent_t event);
 void debug_record(keyrecord_t record);

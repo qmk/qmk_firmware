@@ -328,7 +328,7 @@ static struct {
 #    endif
 } bilateral_combinations = {false};
 
-static bool bilateral_combinations_left(keypos_t key) {
+__attribute__((weak)) bool bilateral_combinations_left(keypos_t key) {
 #    ifdef SPLIT_KEYBOARD
     return key.row < MATRIX_ROWS / 2;
 #    else
