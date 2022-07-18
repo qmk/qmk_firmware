@@ -54,6 +54,8 @@
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0
 #endif
 
+#define VIA_EEPROM_CONFIG_END (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
 #define VIA_PROTOCOL_VERSION 0x0009

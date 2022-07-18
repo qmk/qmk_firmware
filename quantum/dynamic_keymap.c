@@ -19,7 +19,13 @@
 #include "progmem.h" // to read default from flash
 #include "quantum.h" // for send_string()
 #include "dynamic_keymap.h"
-#include "via.h" // for default VIA_EEPROM_ADDR_END
+
+#ifdef VIA_ENABLE
+#    include "via.h" // for VIA_EEPROM_CONFIG_END
+#    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
+#else
+#    define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
+#endif
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
@@ -55,13 +61,8 @@
 #endif
 
 // If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
-// default it start after VIA_EEPROM_CUSTOM_ADDR+VIA_EEPROM_CUSTOM_SIZE
 #ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
-#    ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
-#        define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
-#    else
-#        error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
-#    endif
+#    define DYNAMIC_KEYMAP_EEPROM_ADDR DYNAMIC_KEYMAP_EEPROM_START
 #endif
 
 // Dynamic encoders starts after dynamic keymaps
