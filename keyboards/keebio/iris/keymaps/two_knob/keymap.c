@@ -21,14 +21,16 @@ enum custom_layers {
 #define KC_MINIM LCTL(LSFT(LGUI(KC_DOWN)))
 
 /* Rotary encoder variables used to hold down Command (GUI) key while cycling through open programs. */
-bool     is_command_tab_active = false;
-uint16_t command_tab_timer     = 0;
+bool is_cmd_tab_active = false;
+uint16_t cmd_tab_timer = 0;  
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     LOWER,
     RAISE,
     ADJUST,
+    CMD_TAB_CW,
+    CMD_TAB_CCW,
 };
 
 /**
@@ -114,6 +116,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             return false;
+        case CMD_TAB_CW:
+            if (record->event.pressed) {
+                if (!is_cmd_tab_active) {
+                    is_cmd_tab_active = true;
+                    register_code(KC_LGUI);
+                }
+                cmd_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
+        case CMD_TAB_CCW:
+            if (record->event.pressed) {
+                if (!is_cmd_tab_active) {
+                    is_cmd_tab_active = true;
+                    register_code(KC_LGUI);
+                }
+                cmd_tab_timer = timer_read();
+                tap_code16(S(KC_TAB));
+            } else {
+                unregister_code(KC_TAB);
+            }
             break;
     }
     return true;
@@ -205,108 +230,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  *
  * This can't be programmed through configurator. You must do it here.
  *
- * Advanced guide for rotary coder programming found here:
- * https://docs.splitkb.com/hc/en-us/articles/360010513760-How-can-I-use-a-rotary-encoder-
+ * This uses the amazing "Encoder map" feature which replicates the normal keyswitch layer handling functionality, but with encoders.
+ * https://docs.qmk.fm/#/feature_encoders?id=encoder-map 
+ * 
+ * Uses a variant of the Super-alt-tab macro to switch between open applications on a mac. (Command-tab)
+ * https://docs.qmk.fm/#/feature_macros?id=super-alt%e2%86%aftab
  */
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    /* index 0 is left encoder. (If you only have one knob, this will be it). */
-    if (index == 0) {
-        /*  Check which layer is active. */
-        switch (get_highest_layer(layer_state)) {
-            /*  Executes on layer 2 only. */
-            case 2:
-                if (clockwise) {
-                    /*  Selects words to the right of the cursor. (Command + Shift + Right Arrow). */
-                    tap_code16(C(S(KC_RGHT)));
-                } else {
-                    /*  Selects words to the left of the cursor. (Command + Shift + Left Arrow). */
-                    tap_code16(C(S(KC_LEFT)));
-                }
-                break;
-            /*  Executes on layer 1 only. */
-            case 1:
-                if (clockwise) {
-                    /*  Scrolls right. (Shift + Mouse Wheel Up). */
-                    tap_code16(S(KC_WH_U));
-                } else {
-                    /*  Scrolls left. (Shift + Mouse Wheel Down). */
-                    tap_code16(S(KC_WH_D));
-                }
-            /*  Executes on all other layers. */
-            default:
-                /*  Note the use of tap_code16 instead of regular tap_code. */
-                if (clockwise) {
-                    /* Switch between tabs clockwise. (Control + Tab). */
-                    tap_code16(C(KC_TAB));
-                } else {
-                    /* Switch between tabs anticlockwise. (Control + Shift + Tab). */
-                    tap_code16(S(C(KC_TAB)));
-                }
-                break;
-        }
-    } else if (index == 1) {
-        /* Check which layer is active. */
-        switch (get_highest_layer(layer_state)) {
-            /* Executes on layer 2 only. */
-            case 2:
-                if (clockwise) {
-                    /* Jumps to end of line on the right. Hold shift to select. (Gui + Right arrow). */
-                    tap_code16(G(KC_RGHT));
-                } else {
-                    /* Jumps to beginning of line on. Hold shift to select. (Gui + Left arrow). */
-                    tap_code16(G(KC_LEFT));
-                }
-                break;
-            /*  Executes on layer 1 only. */
-            case 1:
-                if (clockwise) {
-                    /* Scrolls down. (Page Down). */
-                    tap_code(KC_PGDN);
-                } else {
-                    /* Scrolls up. (Page Up). */
-                    tap_code(KC_PGUP);
-                }
-                break;
-            default:
-                if (clockwise) {
-                    /*  Holds down the Command/Gui key if it's not already down. */
-                    if (!is_command_tab_active) {
-                        is_command_tab_active = true;
-                        register_code(KC_LGUI);
-                    }
-                    /* Checks the timer? */
-                    command_tab_timer = timer_read();
-                    /* Hits tab. */
-                    tap_code16(KC_TAB);
-                } else {
-                    if (!is_command_tab_active) {
-                        is_command_tab_active = true;
-                        register_code(KC_LGUI);
-                    }
-                    command_tab_timer = timer_read();
-                    tap_code16(S(KC_TAB));
-                }
-                break;
-        }
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+        /* Left Hand */                                                     /* Right Hand */
+        /* Switch between tabs. (Control + Tab). */                         /* Switch between open apps on Mac. (Command + Tab + timer logic) */
+        [_QWERTY] =  { ENCODER_CCW_CW(S(C(KC_TAB)), C(KC_TAB)),             ENCODER_CCW_CW(CMD_TAB_CCW, CMD_TAB_CW)  },
+        /* Scrolls left & right. (Shift + Mouse Wheel Up). */               /* Scrolls up and down. (Page Down & Page Up - mouse wheel scroll incraments are too small) */
+        [_LOWER] =  { ENCODER_CCW_CW(S(KC_MS_WH_UP), S(KC_MS_WH_DOWN)),     ENCODER_CCW_CW(KC_PGDN, KC_PGUP)  },
+        /* Selects adjacent words. (Command + Shift + Right Arrow). */      /* Jumps to end/start of line. Hold shift to select. (Gui + arrow). */
+        [_RAISE] =  { ENCODER_CCW_CW(C(S(KC_LEFT)), C(S(KC_RGHT))),         ENCODER_CCW_CW(G(KC_LEFT), G(KC_RGHT))  },
+        /* Scroll through RGB Modes */                                      /* Right & left arrow */
+        [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),                    ENCODER_CCW_CW(KC_LEFT, KC_RGHT) },
+    };
+#endif
+
 
 /**
  * Helper function for rotary encoder.
  *
  * If the timer has elapsed, the Command/Gui tab will be released.
- *
- * @see encoder_update_user
+ * You can adjust the milliseconds to speed up the CMD key release.
  */
 void matrix_scan_user(void) {
-    /* Check if the Command/Gui key is currently pressed programatically. */
-    if (is_command_tab_active) {
-        /* Will release Command/Gui for you if you haven't send a tab yet in <x> ms. */
-        if (timer_elapsed(command_tab_timer) > 900) {
-            /* Release Command/Gui key. */
+    if (is_cmd_tab_active) {
+        if (timer_elapsed(cmd_tab_timer) > 900) {
             unregister_code(KC_LGUI);
-            is_command_tab_active = false;
+            is_cmd_tab_active = false;
         }
     }
 }
