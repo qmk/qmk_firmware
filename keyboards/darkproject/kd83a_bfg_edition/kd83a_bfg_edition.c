@@ -39,7 +39,7 @@ const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
     {0, CS1_SW12,  CS2_SW12,  CS3_SW12},  //  11, kb0, F11
     {1, CS1_SW1,   CS2_SW1,   CS3_SW1},   //  12, kc0, F12
     {1, CS4_SW2,   CS5_SW2,   CS6_SW2},   //  13, kd0, Printscreen
-    {1, CS4_SW5,   CS5_SW5,   CS6_SW5},   //  14, k56, Home
+    {1, CS4_SW5,   CS5_SW5,   CS6_SW5},   //  14, k56, Del
   
     {0, CS4_SW1,   CS5_SW1,   CS6_SW1},   //  15, k01, `
     {0, CS4_SW2,   CS5_SW2,   CS6_SW2},   //  16, k11, 1
@@ -55,7 +55,7 @@ const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
     {0, CS4_SW12,  CS5_SW12,  CS6_SW12},  //  26, kb1, -
     {1, CS1_SW5,   CS2_SW5,   CS3_SW5},   //  27, kc1, =
     {1, CS1_SW7,   CS2_SW7,   CS3_SW7},   //  28, kd1, Backspace
-    {1, CS1_SW2,   CS2_SW2,   CS3_SW2},   //  29, k16, Ins
+    {1, CS1_SW2,   CS2_SW2,   CS3_SW2},   //  29, k16, Home
 
     {0, CS7_SW1,   CS8_SW1,   CS9_SW1},   //  30, k02, Tab
     {0, CS7_SW2,   CS8_SW2,   CS9_SW2},   //  31, k12, Q
@@ -71,7 +71,7 @@ const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
     {0, CS7_SW12,  CS8_SW12,  CS9_SW12},  //  41, kb2, [
     {1, CS1_SW8,   CS2_SW8,   CS3_SW8},   //  42, kc2, ]
     {1, CS1_SW9,   CS2_SW9,   CS3_SW9},   //  43, kd3, "\\"
-    {1, CS4_SW3,   CS5_SW3,   CS6_SW3},   //  44, k06, Del
+    {1, CS4_SW3,   CS5_SW3,   CS6_SW3},   //  44, k06, End
   
     {0, CS10_SW1,  CS11_SW1,  CS12_SW1},  //  45, k03, Caps Lock
     {0, CS10_SW2,  CS11_SW2,  CS12_SW2},  //  46, k13, A
@@ -144,7 +144,7 @@ led_config_t g_led_config = {
     { 132,   0}, //  11, kb0, F11
     { 143,   0}, //  12, kc0, F12
     { 154,   0}, //  13, kd0, Printscreen
-    { 165,   0}, //  14, k56, Home
+    { 165,   0}, //  14, k56, Del
    
     {  11,  11}, //  15, k01, `
     {  22,  11}, //  16, k11, 1
@@ -160,7 +160,7 @@ led_config_t g_led_config = {
     { 132,  11}, //  26, kb1, -
     { 143,  11}, //  27, kc1, =
     { 154,  11}, //  28, kd1, Backspace
-    { 165,  11}, //  29, k16, Ins
+    { 165,  11}, //  29, k16, Home
   
     {  11,  22}, //  30, k02, Tab
     {  22,  22}, //  31, k12, Q
@@ -176,7 +176,7 @@ led_config_t g_led_config = {
     { 132,  22}, //  41, kb2, [
     { 143,  22}, //  42, kc2, ]
     { 154,  22}, //  43, kd3, "\\"
-    { 165,  22}, //  44, k06, Del
+    { 165,  22}, //  44, k06, End
 
     {  11,  33}, //  45, k03, Caps Lock
     {  22,  33}, //  46, k13, A
