@@ -21,34 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "custom_double_taps.h"
 
-// Tap once for shift, twice for Caps Lock but only if Win Key is not disabled (also disabled by user.config variable)
-void dance_LSFT_each_tap(qk_tap_dance_state_t * state, void * user_data) {
-    if (user_config.double_tap_shift_for_capslock) {
-        if (state -> count == 1 || keymap_config.no_gui) {
-            register_code(KC_LSFT);
-        } else {
-            register_code(KC_CAPS);
-        }
-    } else {
-        register_code(KC_LSFT);
-    }
-}
-
-void dance_LSFT_reset(qk_tap_dance_state_t * state, void * user_data) {
-    if (state -> count == 1 || keymap_config.no_gui) {
-        unregister_code(KC_LSFT);
-    } else {
-        unregister_code(KC_CAPS);
-        unregister_code(KC_LSFT);
-    }
-}
-
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for shift, twice for Caps Lock
-    [TD_LSFT_CAPS_WIN] = ACTION_TAP_DANCE_FN_ADVANCED(dance_LSFT_each_tap, NULL, dance_LSFT_reset)
-};
-
 // RGB NIGHT MODE
 #ifdef RGB_MATRIX_ENABLE
 static bool rgb_nightmode = false;
@@ -129,6 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     if (!process_record_keymap(keycode, record)) { return false; }
     if (!process_capsnum(keycode, record)) { return false; }
     if (!process_esc_to_base(keycode, record)) { return false; }
+    if (!process_lsft_for_caps(keycode, record)) { return false; }
 
     // Key macros ...
     switch (keycode) {
@@ -572,7 +545,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_DQT:
         case KC_COLN:
         case KC_RSFT:
-        case LSFTCAPSWIN:
+        case KC_LSFT:
             add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
             return true;
 
