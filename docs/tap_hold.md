@@ -471,6 +471,16 @@ The last mod-tap hold will be converted to its tap keycode if another key on the
 
 This option can be used to prevent accidental modifier combinations with mod-tap, in particular those caused by rollover on home row mods.  As only the last mod-tap hold is affected, it should be enabled after adjusting settings and typing style so that accidental mods happen only occasionally, e.g. with a long enough tapping term, ignore mod tap interrupt, and deliberately brief keypresses.
 
+Example:
+
+- `SFT_T(KC_A)` Down
+- wait until the tapping term expires...
+- `KC_C` Down
+- `KC_C` Up
+- `SFT_T(KC_A)` Up
+
+Assuming QWERTY layout with letters `a` and `c` configured for the same hand, this sequence will send capital letter `C`. With bilateral combination enabled, it will send `ac` to the host instead.
+
 To enable bilateral combinations, add the following to your `config.h`:
 
 ```c
