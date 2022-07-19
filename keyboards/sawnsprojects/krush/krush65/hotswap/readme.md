@@ -6,7 +6,7 @@ A 65% keyboard PCB made and sold by SawnsProjects with Nuxros in [mechkey.store]
 
 * Keyboard Maintainer: [Mai The San](https://github.com/MaiTheSan)
 * Hardware Supported: Krush65
-* Hardware Availability: [Facebook](https://mechkey.store/products/krush-65-hotswap-pcb)
+* Hardware Availability: [mechkey.store](https://mechkey.store/products/krush-65-hotswap-pcb)
 
 ## Bootloader
 
