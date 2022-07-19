@@ -18,7 +18,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
 | Pro Micro (16MHz) | 588.7 us      | 1539 scans/sec (649.9us) |
-| Proton C (72MHz)  | TBD us     | TBD scans/sec |
+| Proton C (72MHz)  | 273.8 us      | 3333 scans/sec (300us) |
 
 ### With fast `matrix_read_cols_on_rows() in users/mtei/`
 
@@ -26,8 +26,8 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
-| Pro Micro (16MHz) | 92.25 us     | 6536 scans/sec (153us) |
-| Proton C (72MHz)  | TBD us     | TBD scans/sec |
+| Pro Micro (16MHz) | 92.25 us      |  6536 scans/sec (153us)  |
+| Proton C (72MHz)  | 55.5 us       | 12231 scans/sec (81.76us)|
 
 ## Configuration
 
@@ -73,17 +73,17 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
  - `make CANCEL_BOOST=yes MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/boost:default:flash`
 
-TBD
+<img width="80%" alt="sym70_normal_proton" src="https://user-images.githubusercontent.com/2170248/179696450-bbe3f641-5bc0-4b90-88c3-7c248b35a97b.png">
 
 #### Default setting (with fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/boost:default:flash`
 
-TBD
+<img width="80%" alt="sym70_fastread2_proton" src="https://user-images.githubusercontent.com/2170248/179696596-d5d723f7-8689-4948-b8ee-d88cbc72b532.png">
 
 ##### Connect a 500pF capacitor between C1 line and GND, Press R0C1, R1C1, R2C1,  R3C1,  R4C1 keys
 
-TBD
+<img width="80%" alt="sym70_fastread_proton_500pF" src="https://user-images.githubusercontent.com/2170248/179696721-4fdeb8be-c25e-4a84-bcb6-a943c3583a02.png">
 
 ##### Connect a 1000pF capacitor between C1 line and GND, Press R0C1, R1C1, R2C1,  R3C1,  R4C1 keys
 
-TBD
+<img width="80%" alt="sym70_fastread_proton_1000pF" src="https://user-images.githubusercontent.com/2170248/179696762-2ff4498c-a987-482b-881c-0515eb7cf053.png">
