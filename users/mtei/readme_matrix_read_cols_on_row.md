@@ -203,11 +203,13 @@ In SWITCH_MATRIX_OUTPUT_0 The same pin assignment is written as follows
 
 #### `#define MATRIX_EXTENSION_74HC157`
 
-TBD
+If the connection between the MCU and the keyswitch matrix is via the 74HC157, this macro specifies the GPIO pin that connects the 74HC157 A/B selection pin.
+
+If this macro is defined, MCU_GPIO_74HC157_A and MCU_GPIO_74HC157_B can be specified in addition to MCU_GPIO for the device specification of the SWITCH_MATRIX_INPUT_0 macro.
 
 #### `#define MATRIX_SWITCH_LOGIC_IS_ACTIVE_HIGH`
 
-TBD
+Define this macro when the input pin of the keyswitch is active high.
 
 #### For split keyboards with different configurations on the left and right.
 
