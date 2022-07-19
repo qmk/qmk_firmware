@@ -95,6 +95,7 @@ __attribute__((weak)) void unicode_input_start(void) {
 
     unicode_saved_mods = get_mods(); // Save current mods
     clear_mods();                    // Unregister mods to start from a clean state
+    clear_weak_mods();
 
     switch (unicode_config.input_mode) {
         case UC_MAC:
