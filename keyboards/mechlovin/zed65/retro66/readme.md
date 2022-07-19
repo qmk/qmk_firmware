@@ -2,7 +2,7 @@
 
 ![Retro66](https://i.imgur.com/5DC2R55l.png)
 
-A 66key PCB, hotswap, encoder.
+A 65% keyboard PCB, base on Zed65.
 
 * Keyboard Maintainer: [Mechlovin' Studio](https://github.com/mechlovin)
 * Hardware Supported: Zed65, APM32F103
