@@ -173,6 +173,33 @@ void backlight_effect_indicators(void)
     IS31FL3736_mono_set_brightness(63, rgb.g);
     IS31FL3736_mono_set_brightness(71, rgb.b);
 #endif // MONO_BACKLIGHT_WT75_A
+
+// This pairs with "All Off" already setting zero brightness,
+// and "All On" already setting non-zero brightness.
+#if defined(MONO_BACKLIGHT_WT60_A) || \
+defined(MONO_BACKLIGHT_WT65_A) || \
+defined(MONO_BACKLIGHT_WT65_B) || \
+defined(MONO_BACKLIGHT_WT75_A) || \
+defined(MONO_BACKLIGHT_WT75_B) || \
+defined(MONO_BACKLIGHT_WT75_C) || \
+defined(MONO_BACKLIGHT_WT80_A)
+    if ( g_indicator_state & (1<<USB_LED_CAPS_LOCK) ) {
+        // Caps Lock: D1 -> (4*8+0)
+        IS31FL3736_mono_set_brightness(32, 255);
+    }
+#endif
+#if defined(MONO_BACKLIGHT_WT80_A) 
+    if ( g_indicator_state & (1<<USB_LED_SCROLL_LOCK) ) {
+        // Scroll Lock: G7 -> (6*8+6)
+        IS31FL3736_mono_set_brightness(54, 255);
+    }
+#endif
+#if defined(MONO_BACKLIGHT_WT75_C) 
+    if ( g_indicator_state & (1<<USB_LED_SCROLL_LOCK) ) {
+        // Scroll Lock: G8 -> (6*8+7)
+        IS31FL3736_mono_set_brightness(55, 255);
+    }
+#endif
 }
 
 ISR(TIMER3_COMPA_vect)
