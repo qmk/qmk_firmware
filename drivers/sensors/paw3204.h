@@ -38,10 +38,5 @@ typedef struct {
 
 void             paw3204_init(void);
 report_paw3204_t paw3204_read(void);
-uint8_t          paw3204_serial_read(void);
-void             paw3204_serial_write(uint8_t reg_addr);
-uint8_t          paw3204_read_reg(uint8_t reg_addr);
-void             paw3204_write_reg(uint8_t reg_addr, uint8_t data);
-uint8_t          read_pid_paw3204(void);
 void             paw3204_set_cpi(uint16_t cpi);
 uint16_t         paw3204_get_cpi(void);

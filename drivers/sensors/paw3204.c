@@ -45,6 +45,11 @@ enum cpi_values {
     CPI1600, // 0b110
 };
 
+uint8_t paw3204_serial_read(void);
+void    paw3204_serial_write(uint8_t reg_addr);
+uint8_t paw3204_read_reg(uint8_t reg_addr);
+void    paw3204_write_reg(uint8_t reg_addr, uint8_t data);
+
 void paw3204_init(void) {
     setPinOutput(PAW3204_SCLK_PIN);    // setclockpin to output
     setPinInputHigh(PAW3204_SDIO_PIN); // set datapin input high
