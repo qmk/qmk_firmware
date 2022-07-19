@@ -29,14 +29,40 @@
 typedef struct {
     int16_t x;
     int16_t y;
-    bool  isMotion;
+    bool    isMotion;
 } report_paw3204_t;
 
-// A bunch of functions to implement the paw3204-specific serial protocol.
-// Note that the "serial.h" driver is insufficient, because it does not
-// manually manipulate a serial clock signal.
+/**
+ * @brief Initializes the sensor so it is in a working state and ready to
+ * be polled for data.
+ *
+ * @return true Initialization was a success
+ * @return false Initialization failed, do not proceed operation
+ */
+void paw3204_init(void);
 
-void             paw3204_init(void);
+/**
+ * @brief Reads and clears the current delta, and motion register values on the
+ * given sensor.
+ *
+ * @return pmw33xx_report_t Current values of the sensor, if errors occurred all
+ * fields are set to zero
+ */
+
 report_paw3204_t paw3204_read(void);
-void             paw3204_set_cpi(uint16_t cpi);
-uint16_t         paw3204_get_cpi(void);
+/**
+ * @brief Sets the given CPI value the sensor. CPI is  often refereed to
+ * as the sensors sensitivity. Values outside of the allowed range are
+ * constrained into legal values.
+ *
+ * @param cpi CPI value to set
+ */
+void paw3204_set_cpi(uint16_t cpi);
+
+/**
+ * @brief Gets the currently set CPI value from the sensor. CPI is often
+ * refereed to as the sensors sensitivity.
+ *
+ * @return uint16_t Current CPI value of the sensor
+ */
+uint16_t paw3204_get_cpi(void);
