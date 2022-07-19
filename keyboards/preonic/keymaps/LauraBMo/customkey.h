@@ -5,12 +5,15 @@
 #define CTL_LBR LCTL_T(KC_LBRC)
 #define CTL_SPC RCTL_T(KC_SPC)
 #define CTL_BSLS RCTL_T(KC_BSLS)
-#define CTL_ACUT RCTL_T(ES_ACUT)
 
 /* Shift on hold, (***) on tap */
 #define SFT_QUOT RSFT_T(KC_QUOT)
-#define SFT_CCED RSFT_T(ES_CCED)
-#define SFT_GRV LSFT_T(ES_GRV)
+/* #define SFT_CCED RSFT_T(ES_CCED) */
+/* #define SFT_GRV LSFT_T(ES_GRV) */
+#define ES_SLCB LSFT_T(ES_LCBR)
+#define ES_SQUT RSFT_T(ES_QUOT)
+#define ES_GCOL LGUI_T(ES_COLN)
+#define CTL_CCED RCTL_T(ES_CCED)
 
 /* Long keycodes to print screen */
 #define KC_CPTW LGUI(LSFT(LCTL(KC_3)))  // Capture window
