@@ -1,9 +1,14 @@
+// Copyright 2022 Ryan Neff (@JellyTitan)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
+enum custom_layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 /* Defines macros for use with the configurators "Any" key. (These are non-standard macros). */
 /* Move active application right half. */
@@ -207,7 +212,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     /* index 0 is left encoder. (If you only have one knob, this will be it). */
     if (index == 0) {
         /*  Check which layer is active. */
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             /*  Executes on layer 2 only. */
             case 2:
                 if (clockwise) {
@@ -241,7 +246,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         /* Check which layer is active. */
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             /* Executes on layer 2 only. */
             case 2:
                 if (clockwise) {

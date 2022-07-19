@@ -1,18 +1,5 @@
-/* Copyright 2022 [JellyTitan](https://github.com/JellyTitan) 
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// Copyright 2022 Ryan Neff (@JellyTitan)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -73,11 +60,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // MOUSEKEY_WHEEL_BASE_MOVEMENTS 32  Maximum number of movements at which acceleration stops
 // MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS  48  Accelerated wheel movements
 // MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS  8 Decelerated wheel movements
-
-/* Used for debugging. Switching these off saves space. */
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif /* !NO_DEBUG */
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif /* !NO_PRINT */
