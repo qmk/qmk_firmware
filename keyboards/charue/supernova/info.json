@@ -2,8 +2,6 @@
     "keyboard_name": "Supernova",
     "url": "https://charue-design.com/collections/supernova",
     "maintainer": "ILWrites",
-    "width": 16,
-    "height": 6,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
