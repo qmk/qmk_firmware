@@ -286,6 +286,12 @@ This enables transmitting the pointing device status to the master side of the s
 
 !> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
 
+```c
+#define SPLIT_HAPTIC_ENABLE
+```
+
+This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
+
 ### Custom data sync between sides :id=custom-data-sync
 
 QMK's split transport allows for arbitrary data transactions at both the keyboard and user levels. This is modelled on a remote procedure call, with the master invoking a function on the slave side, with the ability to send data from master to slave, process it slave side, and send data back from slave to master.
