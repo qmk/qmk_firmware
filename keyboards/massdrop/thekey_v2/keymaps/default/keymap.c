@@ -1,4 +1,4 @@
-/* Copyright 2020-2022 James Young (@noroadsleft)
+/* Copyright 2022 Jason Wihardja
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,24 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
 #include QMK_KEYBOARD_H
 
-#define MOD_MASK_RALT (MOD_BIT(KC_RALT))
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-enum userspace_keycodes {
-    VRSN = SAFE_RANGE,
-    G_PUSH,
-    G_FTCH,
-    G_BRCH,
-    G_PWD,
-    M_SALL,
-    M_UNDO,
-    M_CUT,
-    M_COPY,
-    M_PASTE,
-    KEYMAP_SAFE_RANGE
+    [0] = LAYOUT(KC_LCTL, KC_C, KC_V),
+
 };
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);

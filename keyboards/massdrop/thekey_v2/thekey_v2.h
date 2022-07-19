@@ -1,4 +1,4 @@
-/* Copyright 2020-2022 James Young (@noroadsleft)
+/* Copyright 2022 Jason Wihardja
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,22 +16,12 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
-#define MOD_MASK_RALT (MOD_BIT(KC_RALT))
+#define XXX KC_NO
 
-enum userspace_keycodes {
-    VRSN = SAFE_RANGE,
-    G_PUSH,
-    G_FTCH,
-    G_BRCH,
-    G_PWD,
-    M_SALL,
-    M_UNDO,
-    M_CUT,
-    M_COPY,
-    M_PASTE,
-    KEYMAP_SAFE_RANGE
-};
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+#define LAYOUT( \
+    K00, K01, K02  \
+) { \
+    { K00, K01, K02 }, \
+}
