@@ -76,7 +76,6 @@ uint8_t paw3204_serial_read(void) {
 }
 
 void paw3204_serial_write(uint8_t data) {
-    (void)readPin(PAW3204_SDIO_PIN);
     writePinLow(PAW3204_SDIO_PIN);
     setPinOutput(PAW3204_SDIO_PIN);
 
