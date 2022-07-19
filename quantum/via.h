@@ -56,7 +56,7 @@
 
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
-#define VIA_PROTOCOL_VERSION 0x0009
+#define VIA_PROTOCOL_VERSION 0x000A
 
 enum via_command_id {
     id_get_protocol_version                 = 0x01, // always 0x01
