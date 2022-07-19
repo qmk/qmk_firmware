@@ -3,8 +3,7 @@
 [Corne Cherry Light](https://shop.yushakobo.jp/products/corne-cherry-light)
 用のキーマップ設定ファイル
 
-[qmk_firmware](https://github.com/qmk/qmk_firmware)
-を clone または fork し、qmk_firmware/keyboards/crkbd/keymaps で管理する
+![keymaps](https://user-images.githubusercontent.com/95482635/179759383-c1657d81-a044-4806-bb2b-5e1006ff4e04.jpg)
 
 ## Features
 
