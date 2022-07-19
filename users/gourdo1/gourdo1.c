@@ -109,66 +109,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         // User configuration toggles
     case PRNCONF:  // Print verbose status of all user_config toggles (open a text editor before engaging!!)
         if (record->event.pressed) {
-            //send_string("Left bracket with alt numcodes "SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_0) SS_TAP(X_KP_9) SS_TAP(X_KP_1))"\n");
-            send_string("\n\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x3C\x3C\x3C\x3C\x3C\x3C\x3C\x3C\x3C");
-            send_string(" gourdo1\x27s GMMK Pro User Settings ");
-            send_string("\x3E\x3E\x3E\x3E\x3E\x3E\x3E\x3E\x3E\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\n");
-            send_string("Hold \x5B \bFn\x5D and the number corresponding to a setting below to toggle.\n");
-            send_string("Re-print this screen with \x5B \bFn\x5D \x5B`\x5D to see your changes reflected.\n");
-            send_string("Config also visible as RGB under number keys by holding \x5B \bFn\x5D.\n");
-            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d");
-            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d");
-            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d");
-            send_string("\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\n");
+            send_string("\n"SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)"#########");
+            send_string(" gourdo1" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_3)SS_TAP(X_KP_9))"s GMMK Pro User Settings ");
+            send_string("#########"SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)"\n");
+            send_string("Hold "SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"Fn"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))" and the number corresponding to a setting below to toggle.\n");
+            send_string("Re"SS_TAP(X_KP_MINUS)"print this screen with "SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"Fn" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3)) SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"`" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))" to see your changes reflected.\n");
+            send_string("Config also visible as RGB under number keys by holding "SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"Fn" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))".\n");
+            send_string(SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS));
+            send_string(SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS));
+            send_string(SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS));
+            send_string(SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)SS_TAP(X_KP_MINUS)"\n");
             send_string("1. CapsLock RGB highlight alpha keys................ ");
             if (user_config.rgb_hilite_caps) {
-                send_string("\x5BON\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"ON" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5BOFF\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"OFF" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
             send_string("2. Numpad RGB highlight layer keys.................. ");
             if (user_config.rgb_hilite_numpad) {
-                send_string("\x5BON\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"ON" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5BOFF\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"OFF" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
             send_string("3. Double tap ESC to revert to BASE layer........... ");
             if (user_config.esc_double_tap_to_baselyr) {
-                send_string("\x5BON\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"ON" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5BOFF\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"OFF" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
-            send_string("4. DEL \x26 HOME key locations......................... ");
+            send_string("4. DEL "SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_3)SS_TAP(X_KP_8))" HOME key locations......................... ");
             if (user_config.del_right_home_top) {
-                send_string("\x5BHOME on F13\x3B DEL right of BKSPC\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"HOME on F13"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_5)SS_TAP(X_KP_9))" DEL right of BKSPC" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5B \bDEL on F13\x3B HOME right of BKSPC\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"DEL on F13"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_5)SS_TAP(X_KP_9))" HOME right of BKSPC" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
-            send_string("5. Numpad on CapsLock\x3B double tap LSHIFT for Caps... ");
+            send_string("5. Numpad on CapsLock"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_5)SS_TAP(X_KP_9))" double tap LSHIFT for Caps... ");
             if (user_config.double_tap_shift_for_capslock) {
-                send_string("\x5BON\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"ON" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5BOFF\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"OFF" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
             send_string("6. Encoder button function.......................... ");
             if (user_config.encoder_press_mute_or_media) {
-                send_string("\x5BMUTE\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"MUTE" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5BMEDIA PLAY\x2FPAUSE\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"MEDIA PLAY"SS_TAP(X_KP_SLASH) "PAUSE" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
             send_string("7. Insert function accessed with.................... ");
             if (user_config.ins_on_shft_bkspc_or_del) {
-                send_string("\x5BSHIFT\x2D \bBKSPC\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"SHIFT"SS_TAP(X_KP_MINUS)"BKSPC"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5BSHIFT\x2D \bDEL\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"SHIFT"SS_TAP(X_KP_MINUS)"DEL"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
-            send_string("8. Force SHIFT \x26 CTRL\x2DSPACE to function like SPACE.. ");
+            send_string("8. Force SHIFT "SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_3)SS_TAP(X_KP_8))" CTRL"SS_TAP(X_KP_MINUS)"SPACE to function like SPACE.. ");
             if (user_config.disable_space_mods) {
-                send_string("\x5BON\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"ON"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             } else {
-                send_string("\x5BOFF\x5D\n");
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"OFF"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
-            send_string("\nThe latest firmware updates are always here\x3a https\x3a\x2F\x2Fgithub.com\x2Fgourdo1\x2Fgmmkpro\x2Dmedia\n");
+            send_string("\nThe latest firmware updates are always here"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_5)SS_TAP(X_KP_8))" https" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_5)SS_TAP(X_KP_8))SS_TAP(X_KP_SLASH)SS_TAP(X_KP_SLASH) "github.com"SS_TAP(X_KP_SLASH) "gourdo1"SS_TAP(X_KP_SLASH)"gmmkpro"SS_TAP(X_KP_MINUS)"media\n");
         }
         break;
 
