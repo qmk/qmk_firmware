@@ -80,10 +80,14 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 <img width="80%" alt="sym70_fastread_re_proton" src="https://user-images.githubusercontent.com/2170248/179955112-0a077c82-0a79-4f1e-ba77-ba3318a7eac5.png">
 
-##### Connect a 500pF capacitor between C1 line and GND, Press R0C1, R1C1, R2C1,  R3C1,  R4C1 keys
+##### Press R0C5, R1C5, R2C5, R3C5, R4C5 keys
 
-<img width="80%" alt="sym70_fastread_proton_500pF" src="https://user-images.githubusercontent.com/2170248/179696721-4fdeb8be-c25e-4a84-bcb6-a943c3583a02.png">
+<img width="80%" alt="sym70_fastread_re_proton_C5" src="https://user-images.githubusercontent.com/2170248/179964744-00a4b986-d7ab-4fd3-87bc-8c57e2032640.png">
 
-##### Connect a 1000pF capacitor between C1 line and GND, Press R0C1, R1C1, R2C1,  R3C1,  R4C1 keys
+##### Connect a 500pF capacitor between C5 line and GND, Press R0C5, R1C5, R2C5, R3C5, R4C5 keys
 
-<img width="80%" alt="sym70_fastread_proton_1000pF" src="https://user-images.githubusercontent.com/2170248/179696762-2ff4498c-a987-482b-881c-0515eb7cf053.png">
+<img width="80%" alt="sym70_fastread_re_proton_500pF" src="https://user-images.githubusercontent.com/2170248/179964834-0f9862d6-bebe-4316-a173-ac5976ae9733.png">
+
+ ##### Connect a 1000pF capacitor between C5 line and GND, Press R0C5, R1C5, R2C5, R3C5, R4C5 keys
+
+<img width="80%" alt="sym70_fastread_re_proton_1000pF" src="https://user-images.githubusercontent.com/2170248/179964925-f876ab55-7276-47b3-af3b-d255d6a1bd18.png">
