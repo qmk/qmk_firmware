@@ -32,9 +32,9 @@
 #define B6 PAL_LINE(GPIOB, 1)
 
 // LEDs (only D5/B2 uses an actual LED)
-// Setting both RX and TX LEDs to the same pin.
-// If this causes any conflict (compile-time or runtime)
-// it will need to be resolved on a case-by-case basis
-// since there is only one LED available.
+// Setting both RX and TX LEDs to the same pin as there
+// is only one LED availble
+// If this is undesirable, either B0 or B5 can be redefined by
+// using #undef and #define to change its assignment
 #define B0 PAL_LINE(GPIOB, 2)
 #define D5 PAL_LINE(GPIOB, 2)

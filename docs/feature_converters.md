@@ -13,6 +13,7 @@ Currently the following converters are available:
 | `promicro` | `proton_c`        |
 | `promicro` | `kb2040`          |
 | `promicro` | `promicro_rp2040` |
+| `promicro` | `bonasai_c4`      |
 
 See below for more in depth information on each converter.
 
@@ -47,11 +48,12 @@ Once a converter is enabled, it exposes the `CONVERT_TO_<target_uppercase>` flag
 
 If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.com/products/12640) (or compatible board), the supported alternative controllers are:
 
-| Device                                                                 | Target            |
-|------------------------------------------------------------------------|-------------------|
-| [Proton C](https://qmk.fm/proton-c/)                                   | `proton_c`        |
-| [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)          | `kb2040`          |
-| [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288) | `promicro_rp2040` |
+| Device                                                                                   | Target            |
+|------------------------------------------------------------------------------------------|-------------------|
+| [Proton C](https://qmk.fm/proton-c/)                                                     | `proton_c`        |
+| [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)                            | `kb2040`          |
+| [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)                   | `promicro_rp2040` |
+| [customMK Bonsai C4](https://shop.custommk.com/products/bonsai-c4-microcontroller-board) | `bonsai_c4`       |
 
 Converter summary:
 
@@ -60,6 +62,7 @@ Converter summary:
 | `proton_c`        | `-e CONVERT_TO=proton_c`        | `CONVERT_TO=proton_c`        | `#ifdef CONVERT_TO_PROTON_C`        |
 | `kb2040`          | `-e CONVERT_TO=kb2040`          | `CONVERT_TO=kb2040`          | `#ifdef CONVERT_TO_KB2040`          |
 | `promicro_rp2040` | `-e CONVERT_TO=promicro_rp2040` | `CONVERT_TO=promicro_rp2040` | `#ifdef CONVERT_TO_PROMICRO_RP2040` |
+| `bonsai_c4`       | `-e CONVERT_TO=bonsai_c4`       | `CONVERT_TO=bonsai_c4`       | `#ifdef CONVERT_TO_BONSAI_C4`       |
 
 ### Proton C :id=proton_c
 
@@ -93,3 +96,15 @@ The following defaults are based on what has been implemented for [RP2040](platf
 ### SparkFun Pro Micro - RP2040 :id=promicro_rp2040
 
 Currently identical to  [Adafruit KB2040](#kb2040).
+
+### Bonsai C4 :id=bonsai_c4
+
+The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro TXLED (D5) and RXLED (B0) are mapped to it. If you want only one of them mapped, you can undefine one and redefine it to another pin by adding these line to your `config.h`:
+
+```c
+#undef B0
+// If Vbus detection is unused, we can send RXLED to the Vbus detect pin instead
+#define B0 PAL_LINE(GPIOA, 9)
+```
+
+No peripherals are enabled by default at this time, but example code to enable SPI, I2C, PWM, and Serial communications can be found [here](/keyboards/custommk/bonsai_c4_template) 
