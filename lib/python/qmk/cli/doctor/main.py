@@ -74,6 +74,24 @@ def git_tests():
     return status
 
 
+def output_submodule_status():
+    """Prints out information related to the submodule status.
+    """
+    cli.log.info('Submodule status:')
+    sub_status = submodules.status()
+    for s in sub_status.keys():
+        sub_info = sub_status[s]
+        if 'name' in sub_info:
+            sub_name = sub_info['name']
+            sub_shorthash = sub_info['shorthash'] if 'shorthash' in sub_info else ''
+            sub_describe = sub_info['describe'] if 'describe' in sub_info else ''
+            sub_last_log_timestamp = sub_info['last_log_timestamp'] if 'last_log_timestamp' in sub_info else ''
+            if sub_last_log_timestamp != '':
+                cli.log.info(f'- {sub_name}: {sub_last_log_timestamp} -- {sub_describe} ({sub_shorthash})')
+            else:
+                cli.log.error(f'- {sub_name}: <<< missing or unknown >>>')
+
+
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
 @cli.argument('-n', '--no', action='store_true', arg_only=True, help='Answer no to all questions.')
 @cli.subcommand('Basic QMK environment checks')
@@ -133,20 +151,7 @@ def doctor(cli):
         elif sub_ok == CheckStatus.WARNING and status == CheckStatus.OK:
             status = CheckStatus.WARNING
 
-    cli.log.info('Submodule status:')
-    sub_status = submodules.status()
-    for s in sub_status.keys():
-        sub_info = sub_status[s]
-        if 'name' in sub_info:
-            sub_name = sub_info['name']
-            sub_shorthash = sub_info['shorthash'] if 'shorthash' in sub_info else ''
-            sub_describe = sub_info['describe'] if 'describe' in sub_info else ''
-            sub_last_log_message = sub_info['last_log_message'] if 'last_log_message' in sub_info else ''
-            sub_last_log_timestamp = sub_info['last_log_timestamp'] if 'last_log_timestamp' in sub_info else ''
-            if sub_last_log_timestamp != '':
-                cli.log.info(f'- {sub_name}: {sub_last_log_timestamp} -- {sub_describe} ({sub_shorthash})')
-            else:
-                cli.log.error(f'- {sub_name}: <<< missing or unknown >>>')
+    output_submodule_status()
 
     # Report a summary of our findings to the user
     if status == CheckStatus.OK:
