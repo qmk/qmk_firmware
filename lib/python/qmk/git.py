@@ -71,6 +71,16 @@ def git_get_last_log_entry(branch_name):
         return git_lastlog.stdout.strip()
 
 
+def git_get_common_ancestor(branch_a, branch_b):
+    """Retrieves the common ancestor between for the two supplied branches.
+    """
+    git_merge_base = cli.run(['git', 'merge-base', branch_a, branch_b])
+    git_branchpoint_log = cli.run(['git', '--no-pager', 'log', '--pretty=format:%ad (%h) -- %s', '--date=iso', '-n1', git_merge_base.stdout.strip()])
+
+    if git_branchpoint_log.returncode == 0 and git_branchpoint_log.stdout:
+        return git_branchpoint_log.stdout.strip()
+
+
 def git_get_remotes():
     """Returns the current remotes for a repo.
     """
