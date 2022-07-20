@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "drivers/sensors/cirque_pinnacle.h"
 #    include "drivers/sensors/cirque_pinnacle_gestures.h"
 #    include "pointing_device_gestures.h"
+#elif defined(POINTING_DEVICE_DRIVER_paw3204)
+#    include "drivers/sensors/paw3204.h"
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 #    include "i2c_master.h"
 #    include "drivers/sensors/pimoroni_trackball.h"
