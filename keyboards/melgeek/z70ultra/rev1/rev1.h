@@ -18,7 +18,6 @@
 
 #include "z70ultra.h"
 
-#include "quantum.h"
 
 #define XXX KC_NO
 #define LAYOUT_65_ansi_blocker( \
