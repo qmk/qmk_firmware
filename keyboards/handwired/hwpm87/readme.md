@@ -18,11 +18,11 @@ and check the LED_PIN_ON_STATE if you get reversed led state: [config.h#35](http
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hwpm87:default
+    make handwired/hwpm87:default
 
 Flashing example for this keyboard:
 
-    make hwpm87:default:flash
+    make handwired/hwpm87:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
