@@ -19,3 +19,5 @@ MAGIC_ENABLE = no
 # No audio stuff
 MUSIC_ENABLE = no
 
+# No WPM
+WPM_ENABLE = no
