@@ -22,14 +22,14 @@ The base layer provides a very standard key layout with four differences:
 
 - Numbers, functions and most symbols are accessed with number and symbol shift keys.
 - Escape is on the upper left thumb.
-- A left thumb key has a shift key that affects the next key pressed. So to get 'A', press and release the thumb shift key, press 'a'. You can also hold the key down, and it will work like a standard shift key. There are still standard shift keys at either end of the keyboard.
-- The upper right thumb turns on a mode that capitalizes all letters until something other than a letter, digit, dash, underscore, delete or backspace is typed. The caps word mode also times out after five seconds of no key presses.
+- The left thumb has a shift key that affects the next key pressed. So to get 'A', press and release the thumb shift key, press 'a'. You can also hold the key down, and it will work like a standard shift key.
+- Caps word toggles a mode that capitalizes all letters until something other than a letter, digit, dash, underscore, delete or backspace is typed. The mode also times out five seconds after the last key press.
 - The Menu and AltGr keys are on a layer.
 
 The default layout is QWERTY with alternatives of Dvorak and Colemak-DH, and the alt/option and win/command key locations are swappable for windows or mac.
 
 <details>
-<summary>Details of Dvorak and Coleman-DH</summary>
+<summary>Details of Dvorak and Colemak-DH</summary>
 The Dvorak and Colemak-DH base layers have identical non-alpha and non-symbol keys as the QWERTY base layer.
 ![Base Dvorak layer](https://imgur.com/Baxt3L9.png)
 ![Base Colemak layer](https://imgur.com/5BHeur8.png)
@@ -87,13 +87,10 @@ A good metaphor is to think of your keymap as a bonsai tree that you tweak sligh
   in response to ideas of how it might serve you better.
 
 Some changes you might consider making:
+
 - If you are on a mac, switch the editing keys from ctrl-x to cmd-x.
 - Put some of your most-used key combinations on the unused keys
   on the symbol layer.
-- Change the shift keys to one-shot,
-  where pressing and releasing them shifts the next key pressed.
-  That is much easier on your hands than holding them down.
-  Yet they can still be held as usual if desired.
 - Instead of holding down the thumb key to keep the symbol layer active,
   you could use a one-shot layer key.
   One-shot modifiers are likely less stress on your hands and may even be faster.
@@ -109,33 +106,35 @@ Here are some other keymaps for inspiration and ideas:
 
 ## Why no keymap.c
 
-  The online configurator provides a straightforward visual way to work with a simple layout
-   and uses a .json keymap format.
- So this default ```keymap.json``` was created with the online configurator
-   and formatted for easier reading and editing.
+The online configurator provides a straightforward visual way
+   to work with a simple layout and uses a .json keymap format.
+So this default ```keymap.json``` was created with the online configurator.
 
-  If you wish, you can edit the ```keymap.json``` directly in a text editor, optionally use the below ```json2hill46.py``` to restore the spacing, and then compile and flash it.
+If you wish, you can edit the ```keymap.json``` directly in a text editor,  compile it and flash it.
 
-  Or, you can use the graphical configurator to edit the keymap. To do that:
+Or, you can use the graphical configurator to edit the keymap. To do that:
 
-  - Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/46/LAYOUT)
- - Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/46/keymaps/default/keymap.json```
- - Make the changes you wish to the layout
- - Save the keymap using the green down arrow button.
- - Copy those changes back into your QMK repository and reformat them for easy reading using the format script:
+- Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/46/LAYOUT)
+- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/46/keymaps/default/keymap.json```
+- Make the changes you wish to the layout
+- Save the keymap using the green down arrow button.
+- Move the downloaded keymap back into your QMK repository 
+     at the same location as above.
+- Rename it back to keymap.json
+- Compile and flash the firmware.
 
- ```
- ./keyboards/handwired/hillside/46/keymaps/json2hill46.py \
-     --input <Your download directory>/default.json \
-     > ./keyboards/handwired/hillside/46/keymaps/default/keymap.json
- ```
- 
-You may need to make that script executable with ```chmod +x```. After your keymap is safely copied and formatted, you may want to remove the keymap from your download directory so later downloads will automatically receive the same file name.
-
-  After either method of editing, compile and flash the keymap as usual.
-
-  You can combine a .json based keymap with more advanced features specified in .c files
-   with a bit more complexity.
- For example, see
+You can combine a .json based keymap with more advanced features
+  specified in .c files with a bit more complexity.
+For example, see
  [pierrec83's Kyria map](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/pierrec83).
  
+
+### Pretty Printing
+ 
+The QMK configurator's .json download has only one key per line,
+so it is hard to visualize the keymap if editing manually.
+If you want, the Hillside git repo has a pretty-printing script for the keymap.json file.
+ 
+As with anything downloaded from the internet, you should take some steps to assure yourself that the script will not harm your computer nor steal your data. The script is short, so reading it should at least convince you it is rearranging and printing the keymap feed to it, not reading any banking data on your computer.
+See the [Hillside wiki](https://github.com/mmccoyd/hillside/wiki) for the script.
+
