@@ -18,7 +18,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
 | Pro Micro (16MHz) | 588.7 us      | 1539 scans/sec (649.9us) |
-| Proton C (72MHz)  | 273.8 us      | 3333 scans/sec (300us) |
+| Proton C (72MHz)  | 274.7 us      | 3448 scans/sec (290us) |
 
 ### With fast `matrix_read_cols_on_rows() in users/mtei/`
 
@@ -27,7 +27,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
 | Pro Micro (16MHz) | 92.25 us      |  6536 scans/sec (153us)  |
-| Proton C (72MHz)  | 55.5 us       | 12231 scans/sec (81.76us)|
+| Proton C (72MHz)  | 55.25 us      | 14192 scans/sec (70.46us)|
 
 ## Configuration
 
@@ -73,12 +73,12 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
  - `make CANCEL_BOOST=yes MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/boost:default:flash`
 
-<img width="80%" alt="sym70_normal_proton" src="https://user-images.githubusercontent.com/2170248/179696450-bbe3f641-5bc0-4b90-88c3-7c248b35a97b.png">
+<img width="80%" alt="sym70_normal_re_proton" src="https://user-images.githubusercontent.com/2170248/179954224-9ba65cc6-1136-42ee-bb8e-94d936d33071.png">
 
 #### Default setting (with fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/boost:default:flash`
 
-<img width="80%" alt="sym70_fastread2_proton" src="https://user-images.githubusercontent.com/2170248/179696596-d5d723f7-8689-4948-b8ee-d88cbc72b532.png">
+<img width="80%" alt="sym70_fastread_re_proton" src="https://user-images.githubusercontent.com/2170248/179955112-0a077c82-0a79-4f1e-ba77-ba3318a7eac5.png">
 
 ##### Connect a 500pF capacitor between C1 line and GND, Press R0C1, R1C1, R2C1,  R3C1,  R4C1 keys
 
