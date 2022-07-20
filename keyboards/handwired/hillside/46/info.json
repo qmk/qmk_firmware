@@ -31,7 +31,7 @@
     },
 
     "rgblight": {
-        "led_count": 5,
+        "led_count": 4,
         "pin": "D3",
         "split": true,
         "hue_steps": 8,
