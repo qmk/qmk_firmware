@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) 2021  System76
- *  Copyright (C) 2021  Jimmy Cassis <KernelOops@outlook.com>
+ *  Copyright (C) 2021-2022  System76
+ *  Copyright (C) 2021-2022  Jimmy Cassis <KernelOops@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -56,15 +56,15 @@ i2c_status_t usb7206_read_reg(struct USB7206* self, uint32_t addr, uint8_t* data
     i2c_status_t status;
 
     uint8_t register_read[9] = {
-        0x00,                   // Buffer address MSB: always 0
-        0x00,                   // Buffer address LSB: always 0
-        0x06,                   // Number of bytes to write to command block buffer area
-        0x01,                   // Direction: 0 = write, 1 = read
-        (uint8_t)length,        // Number of bytes to read from register
-        (uint8_t)(addr >> 24),  // Register address byte 3
-        (uint8_t)(addr >> 16),  // Register address byte 2
-        (uint8_t)(addr >> 8),   // Register address byte 1
-        (uint8_t)(addr >> 0),   // Register address byte 0
+        0x00,                  // Buffer address MSB: always 0
+        0x00,                  // Buffer address LSB: always 0
+        0x06,                  // Number of bytes to write to command block buffer area
+        0x01,                  // Direction: 0 = write, 1 = read
+        (uint8_t)length,       // Number of bytes to read from register
+        (uint8_t)(addr >> 24), // Register address byte 3
+        (uint8_t)(addr >> 16), // Register address byte 2
+        (uint8_t)(addr >> 8),  // Register address byte 1
+        (uint8_t)(addr >> 0),  // Register address byte 0
     };
 
     status = i2c_transmit(self->addr << 1, register_read, sizeof(register_read), I2C_TIMEOUT);
@@ -78,8 +78,8 @@ i2c_status_t usb7206_read_reg(struct USB7206* self, uint32_t addr, uint8_t* data
     }
 
     uint8_t read[2] = {
-        0x00,  // Buffer address MSB: always 0
-        0x06,  // Buffer address LSB: 6 to skip header
+        0x00, // Buffer address MSB: always 0
+        0x06, // Buffer address LSB: 6 to skip header
     };
 
     status = i2c_start((self->addr << 1) | I2C_WRITE, I2C_TIMEOUT);
@@ -150,15 +150,15 @@ i2c_status_t usb7206_write_reg(struct USB7206* self, uint32_t addr, uint8_t* dat
     i2c_status_t status;
 
     uint8_t register_write[9] = {
-        0x00,                   // Buffer address MSB: always 0
-        0x00,                   // Buffer address LSB: always 0
-        ((uint8_t)length) + 6,  // Number of bytes to write to command block buffer area
-        0x00,                   // Direction: 0 = write, 1 = read
-        (uint8_t)length,        // Number of bytes to write to register
-        (uint8_t)(addr >> 24),  // Register address byte 3
-        (uint8_t)(addr >> 16),  // Register address byte 2
-        (uint8_t)(addr >> 8),   // Register address byte 1
-        (uint8_t)(addr >> 0),   // Register address byte 0
+        0x00,                  // Buffer address MSB: always 0
+        0x00,                  // Buffer address LSB: always 0
+        ((uint8_t)length) + 6, // Number of bytes to write to command block buffer area
+        0x00,                  // Direction: 0 = write, 1 = read
+        (uint8_t)length,       // Number of bytes to write to register
+        (uint8_t)(addr >> 24), // Register address byte 3
+        (uint8_t)(addr >> 16), // Register address byte 2
+        (uint8_t)(addr >> 8),  // Register address byte 1
+        (uint8_t)(addr >> 0),  // Register address byte 0
     };
 
     status = i2c_start((self->addr << 1) | I2C_WRITE, I2C_TIMEOUT);
@@ -195,7 +195,9 @@ error:
 
 // Write 8-bit value to USB7206 register region.
 // Returns number of bytes written on success or a negative number on error.
-i2c_status_t usb7206_write_reg_8(struct USB7206* self, uint32_t addr, uint8_t data) { return usb7206_write_reg(self, addr, &data, sizeof(data)); }
+i2c_status_t usb7206_write_reg_8(struct USB7206* self, uint32_t addr, uint8_t data) {
+    return usb7206_write_reg(self, addr, &data, sizeof(data));
+}
 
 // Write 32-bit value to USB7206 register region.
 // Returns number of bytes written on success or a negative number on error.
@@ -273,9 +275,9 @@ struct USB7206_GPIO {
     uint32_t        pf;
 };
 
-struct USB7206_GPIO usb_gpio_sink         = {.usb7206 = &usb_hub, .pf = 29};  // UP_SEL = PF29 = GPIO93
-struct USB7206_GPIO usb_gpio_source_left  = {.usb7206 = &usb_hub, .pf = 10};  // CL_SEL = PF10 = GPIO74
-struct USB7206_GPIO usb_gpio_source_right = {.usb7206 = &usb_hub, .pf = 25};  // CR_SEL = PF25 = GPIO88
+struct USB7206_GPIO usb_gpio_sink         = {.usb7206 = &usb_hub, .pf = 29}; // UP_SEL = PF29 = GPIO93
+struct USB7206_GPIO usb_gpio_source_left  = {.usb7206 = &usb_hub, .pf = 10}; // CL_SEL = PF10 = GPIO74
+struct USB7206_GPIO usb_gpio_source_right = {.usb7206 = &usb_hub, .pf = 25}; // CR_SEL = PF25 = GPIO88
 
 // Set USB7206 GPIO to specified value.
 // Returns zero on success or negative number on error.
@@ -354,15 +356,21 @@ i2c_status_t ptn5110_init(struct PTN5110* self) {
 
 // Read PTN5110 CC_STATUS.
 // Returns zero on success or a negative number on error.
-i2c_status_t ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) { return i2c_readReg(self->addr << 1, 0x1D, cc, 1, I2C_TIMEOUT); }
+i2c_status_t ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) {
+    return i2c_readReg(self->addr << 1, 0x1D, cc, 1, I2C_TIMEOUT);
+}
 
 // Set PTN5110 SSMUX orientation.
 // Returns zero on success or a negative number on error.
-i2c_status_t ptn5110_set_ssmux(struct PTN5110* self, bool orientation) { return usb7206_gpio_set(self->gpio, orientation); }
+i2c_status_t ptn5110_set_ssmux(struct PTN5110* self, bool orientation) {
+    return usb7206_gpio_set(self->gpio, orientation);
+}
 
 // Write PTN5110 COMMAND.
 // Returns zero on success or negative number on error.
-i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_writeReg(self->addr << 1, 0x23, &command, 1, I2C_TIMEOUT); }
+i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) {
+    return i2c_writeReg(self->addr << 1, 0x23, &command, 1, I2C_TIMEOUT);
+}
 
 // Set orientation of PTN5110 operating as a sink, call this once.
 // Returns zero on success or a negative number on error.

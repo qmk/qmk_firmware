@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021  System76
+ *  Copyright (C) 2021-2022  System76
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -33,14 +33,14 @@
 // 70 LB0 LC0 LD0 LE0 LF0 LG0 LH0 LI0 LJ0 LK0
 // 80 LL0 LM0 LN0 LO0
 led_config_t g_led_config = { {
-    // Key matrix to LED index
-/*    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O   */
-/* 0  69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, */
-/* 1  68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, */
-/* 2  39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, */
-/* 3  38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26,     25, */
-/* 4  12, 11, 10,  9,  8,  7,  6,  5,  4,  3,  2,  1,      0,     */
-/* 5  13, 14, 15, 16, 17,     18,      19, 20, 21,    22, 23, 24  */
+    // Key matrix to LED index (see `launch_1.h' for matrix-to-physical layout)
+//    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O  
+// 0  69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
+// 1  68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54,
+// 2  39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
+// 3  38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26,     25,
+// 4  12, 11, 10,  9,  8,  7,  6,  5,  4,  3,  2,  1,      0,    
+// 5  13, 14, 15, 16, 17,     18,      19, 20, 21,    22, 23, 24 
     { 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82 },
     { 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55 },
     { 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 },
@@ -48,7 +48,7 @@ led_config_t g_led_config = { {
     { 12, 11, 10,  9,  8,  7,  6,  5,  4,  3,  2,  1,  0, 54 },
     { 13, 14, 15, 16, 17, 25, 18, 19, 20, 21, 22, 23, 24, 53 },
 }, {
-    // LED index to physical position (see leds.sh in `launch' repo)
+    // LED index to physical position (see `leds.sh' in `launch' repository)
 /* 00 */ {209, 51}, {190, 51}, {171, 51}, {156, 51}, {140, 51}, {125, 51}, {110, 51}, {95, 51}, {80, 51}, {65, 51},
 /* 10 */ {49, 51}, {34, 51}, {11, 51}, {8, 64}, {27, 64}, {42, 64}, {57, 64}, {80, 64}, {110, 64}, {133, 64},
 /* 20 */ {148, 64}, {167, 64}, {194, 64}, {209, 64}, {224, 64}, {224, 38}, {197, 38}, {178, 38}, {163, 38}, {148, 38},
@@ -59,8 +59,8 @@ led_config_t g_led_config = { {
 /* 70 */ {15, 0}, {30, 0}, {46, 0}, {61, 0}, {76, 0}, {91, 0}, {106, 0}, {121, 0}, {137, 0}, {152, 0},
 /* 80 */ {167, 0}, {182, 0}, {201, 0}, {224, 0}
 }, {
-    // LED index to flags (set all to LED_FLAG_KEYLIGHT)
-    /*   0  1  2  3  4  5  6  7  8  9 */
+    // LED index to flags (set all to `LED_FLAG_KEYLIGHT')
+/*       0  1  2  3  4  5  6  7  8  9 */
 /* 00 */ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 /* 10 */ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 /* 20 */ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -72,14 +72,11 @@ led_config_t g_led_config = { {
 /* 80 */ 4, 4, 4, 4
 } };
 #endif // RGB_MATRIX_ENABLE
-
-bool eeprom_is_valid(void) { 
-    return (
-        eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
-        eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION
-    );
-}
 // clang-format on
+
+bool eeprom_is_valid(void) {
+    return (eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC && eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
+}
 
 void eeprom_set_valid(bool valid) {
     eeprom_update_word(((void *)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
@@ -87,35 +84,8 @@ void eeprom_set_valid(bool valid) {
 }
 
 void bootmagic_lite_reset_eeprom(void) {
-    // Set the keyboard-specific EEPROM state as invalid
-    eeprom_set_valid(false);
-    // Set the TMK/QMK EEPROM state as invalid
-    eeconfig_disable();
-}
-
-// The lite version of TMK's bootmagic based on Wilba.
-// 100% less potential for accidentally making the keyboard do stupid things.
-void bootmagic_lite(void) {
-    // Perform multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    // If the configured key (commonly Esc) is held down on power up,
-    // reset the EEPROM valid state and jump to bootloader.
-    uint8_t row = 0;  // BOOTMAGIC_LITE_ROW;
-    uint8_t col = 0;  // BOOTMAGIC_LITE_COLUMN;
-
-    if (matrix_get_row(row) & (1 << col)) {
-        bootmagic_lite_reset_eeprom();
-
-        // Jump to bootloader.
-        bootloader_jump();
-    }
+    eeprom_set_valid(false); // Set the keyboard-specific EEPROM state as invalid
+    eeconfig_disable();      // Set the TMK/QMK EEPROM state as invalid
 }
 
 void system76_ec_rgb_eeprom(bool write);
@@ -128,7 +98,6 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 void matrix_init_kb(void) {
     usb_mux_init();
 
-    bootmagic_lite();
     if (!eeprom_is_valid()) {
         dynamic_keymap_reset();
         dynamic_keymap_macro_reset();
@@ -243,4 +212,4 @@ void keyboard_post_init_user(void) {
     debug_matrix   = false;
     debug_keyboard = false;
 }
-#endif  // CONSOLE_ENABLE
+#endif // CONSOLE_ENABLE

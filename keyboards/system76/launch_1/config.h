@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021  System76
+ *  Copyright (C) 2021-2022  System76
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -40,13 +40,13 @@
 #define UNUSED_PINS
 
 /*
- * Diode Direction
+ * Matrix diode direction
  * COL2ROW = COL => Anode (+), ROW => Cathode (-)
  * ROW2COL = ROW => Anode (+), COL => Cathode (-)
  */
 #define DIODE_DIRECTION COL2ROW
 
-// Set 0 if debouncing isn't needed
+// Delay when reading the value of the pin; set to `0' if debouncing is not needed
 #define DEBOUNCE 5
 
 #ifdef RGB_MATRIX_ENABLE
@@ -56,7 +56,6 @@
 // #    define RGB_MATRIX_KEYRELEASES                                     // Reacts to keyreleases (instead of keypresses)
 // #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS                             // Enables framebuffer effects
 #    define RGB_DISABLE_TIMEOUT 0                                      // Number of milliseconds to wait until RGB automatically turns off
-#    define RGB_DISABLE_AFTER_TIMEOUT 0                                // OBSOLETE: Number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED                             // Turns off effects when suspended
 // Limit brightness to support USB-A at 0.5 A
 // TODO: Do this dynamically based on power source
@@ -66,7 +65,7 @@
 #    define RGB_MATRIX_STARTUP_SAT 255                                 // Sets the default saturation value, if none has been set
 #    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
 #    define RGB_MATRIX_STARTUP_SPD 127                                 // Sets the default animation speed, if none has been set
-#    define RGB_MATRIX_DISABLE_KEYCODES                                // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
+#    define RGB_MATRIX_DISABLE_KEYCODES                                // Disables control of RGB matrix by keycodes (must use code functions to control the feature)
 
 #    define ENABLE_RGB_MATRIX_CYCLE_ALL
 #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
@@ -79,7 +78,7 @@
 #    define ENABLE_RGB_MATRIX_RAINDROPS
 #    define ENABLE_RGB_MATRIX_SPLASH
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
-#endif  // RGB_MATRIX_ENABLE
+#endif // RGB_MATRIX_ENABLE
 
 // Mechanical locking support; use KC_LCAP, KC_LNUM, or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021  System76
+ *  Copyright (C) 2021-2022  System76
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ static void active_keys_initialize(void) {
     active_keys_initialized = true;
 }
 
-static bool active_keys(effect_params_t* params) {
+static bool active_keys(effect_params_t *params) {
     if (!active_keys_initialized) {
         active_keys_initialize();
     }
@@ -72,8 +72,8 @@ RGB raw_rgb_data[DRIVER_LED_TOTAL] = {0};
 
 static uint8_t normalize_component(uint8_t component) {
     uint16_t x = (uint16_t)component;
-    x *= rgb_matrix_config.hsv.v;  // Multiply by current brightness
-    x /= 255;                      // Divide by maximum brightness
+    x *= rgb_matrix_config.hsv.v; // Multiply by current brightness
+    x /= 255;                     // Divide by maximum brightness
     return (uint8_t)x;
 }
 
@@ -87,7 +87,7 @@ static RGB normalize_index(uint8_t i) {
     return rgb;
 }
 
-static bool raw_rgb(effect_params_t* params) {
+static bool raw_rgb(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
@@ -98,14 +98,14 @@ static bool raw_rgb(effect_params_t* params) {
 }
 
 static uint8_t unlocked_keys[8][2] = {
-    {2, 7},  // U
-    {4, 6},  // N
-    {3, 9},  // L
-    {2, 9},  // O
-    {4, 3},  // C
-    {3, 8},  // K
-    {2, 3},  // E
-    {3, 3},  // D
+    {2, 7}, // U
+    {4, 6}, // N
+    {3, 9}, // L
+    {2, 9}, // O
+    {4, 3}, // C
+    {3, 8}, // K
+    {2, 3}, // E
+    {3, 3}, // D
 };
 
 static uint8_t unlocked_ticks      = 0;
@@ -113,7 +113,7 @@ static uint8_t unlocked_i          = 0;
 static uint8_t unlocked_leds_count = 0;
 static uint8_t unlocked_leds[2]    = {0, 0};
 
-static bool unlocked(effect_params_t* params) {
+static bool unlocked(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
     unlocked_ticks++;
@@ -154,4 +154,4 @@ static bool unlocked(effect_params_t* params) {
     return led_max < DRIVER_LED_TOTAL;
 }
 
-#endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) 2021  System76
- *  Copyright (C) 2021  Jimmy Cassis <KernelOops@outlook.com>
+ *  Copyright (C) 2021-2022  System76
+ *  Copyright (C) 2021-2022  Jimmy Cassis <KernelOops@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,21 +24,21 @@
 #include "version.h"
 
 enum Command {
-    CMD_PROBE         = 1,   // Probe for System76 EC protocol
-    CMD_BOARD         = 2,   // Read board string
-    CMD_VERSION       = 3,   // Read version string
-    CMD_RESET         = 6,   // Reset to bootloader
-    CMD_KEYMAP_GET    = 9,   // Get keyboard map index
-    CMD_KEYMAP_SET    = 10,  // Set keyboard map index
-    CMD_LED_GET_VALUE = 11,  // Get LED value by index
-    CMD_LED_SET_VALUE = 12,  // Set LED value by index
-    CMD_LED_GET_COLOR = 13,  // Get LED color by index
-    CMD_LED_SET_COLOR = 14,  // Set LED color by index
-    CMD_LED_GET_MODE  = 15,  // Get LED matrix mode and speed
-    CMD_LED_SET_MODE  = 16,  // Set LED matrix mode and speed
-    CMD_MATRIX_GET    = 17,  // Get currently pressed keys
-    CMD_LED_SAVE      = 18,  // Save LED settings to ROM
-    CMD_SET_NO_INPUT  = 19,  // Enable/disable no input mode
+    CMD_PROBE         = 1,  // Probe for System76 EC protocol
+    CMD_BOARD         = 2,  // Read board string
+    CMD_VERSION       = 3,  // Read version string
+    CMD_RESET         = 6,  // Reset to bootloader
+    CMD_KEYMAP_GET    = 9,  // Get keyboard map index
+    CMD_KEYMAP_SET    = 10, // Set keyboard map index
+    CMD_LED_GET_VALUE = 11, // Get LED value by index
+    CMD_LED_SET_VALUE = 12, // Set LED value by index
+    CMD_LED_GET_COLOR = 13, // Get LED color by index
+    CMD_LED_SET_COLOR = 14, // Set LED color by index
+    CMD_LED_GET_MODE  = 15, // Get LED matrix mode and speed
+    CMD_LED_SET_MODE  = 16, // Set LED matrix mode and speed
+    CMD_MATRIX_GET    = 17, // Get currently pressed keys
+    CMD_LED_SAVE      = 18, // Save LED settings to ROM
+    CMD_SET_NO_INPUT  = 19, // Enable/disable no input mode
 };
 
 bool input_disabled = false;
@@ -69,8 +69,7 @@ static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t va
     return false;
 }
 
-static bool bootloader_reset    = false;
-static bool bootloader_unlocked = false;
+static bool bootloader_reset, bootloader_unlocked = false;
 
 void system76_ec_unlock(void) {
 #ifdef RGB_MATRIX_CUSTOM_KB
@@ -81,7 +80,9 @@ void system76_ec_unlock(void) {
 #endif
 }
 
-bool system76_ec_is_unlocked(void) { return bootloader_unlocked; }
+bool system76_ec_is_unlocked(void) {
+    return bootloader_unlocked;
+}
 
 #ifdef RGB_MATRIX_CUSTOM_KB
 enum Mode {
@@ -213,11 +214,10 @@ void system76_ec_rgb_layer(layer_state_t layer_state) {
         }
     }
 }
-#endif  // RGB_MATRIX_CUSTOM_KB
+#endif // RGB_MATRIX_CUSTOM_KB
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Error response by default, set to success by commands
-    data[1] = 1;
+    data[1] = 1; // Set "error" response by default; changed to "success" by commands
 
     switch (data[0]) {
         case CMD_PROBE:
@@ -370,7 +370,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 data[1] = 0;
             }
             break;
-#endif  // RGB_MATRIX_CUSTOM_KB
+#endif // RGB_MATRIX_CUSTOM_KB
         case CMD_MATRIX_GET: {
             // TODO: Improve performance?
             data[2] = matrix_rows();
