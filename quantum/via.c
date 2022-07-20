@@ -398,13 +398,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
 #ifdef ENCODER_MAP_ENABLE
         case id_dynamic_keymap_get_encoder: {
-            uint16_t keycode = dynamic_keymap_get_encoder(command_data[0], command_data[1], command_data[2]!=0);
+            uint16_t keycode = dynamic_keymap_get_encoder(command_data[0], command_data[1], command_data[2] != 0);
             command_data[3]  = keycode >> 8;
             command_data[4]  = keycode & 0xFF;
             break;
         }
         case id_dynamic_keymap_set_encoder: {
-            dynamic_keymap_set_encoder(command_data[0], command_data[1], command_data[2]!=0, (command_data[3] << 8) | command_data[4]);
+            dynamic_keymap_set_encoder(command_data[0], command_data[1], command_data[2] != 0, (command_data[3] << 8) | command_data[4]);
             break;
         }
 #endif
