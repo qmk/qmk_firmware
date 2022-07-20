@@ -25,3 +25,8 @@
 
 // No oneshot (Active until another key hit)
 #define NO_ACTION_ONESHOT
+
+// Remove some RGB
+#undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#undef ENABLE_RGB_MATRIX_PIXEL_FLOW
+#undef ENABLE_RGB_MATRIX_PIXEL_RAIN
