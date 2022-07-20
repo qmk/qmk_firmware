@@ -1,3 +1,5 @@
+DEFAULT_FOLDER = atreyu/rev1
+
 # MCU name
 MCU = atmega32u4
 
