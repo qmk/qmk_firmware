@@ -1,20 +1,20 @@
 # [gourdo1's](mailto:gourdo1@outlook.com) GMMK Pro Keyboard Layouts
 
-This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/jonavin) GMMK Pro layout with many additions, fixes, a revamped keymap, persistent user customizations, updated layers, [Tomas Guinan's paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/paddlegame) and expanded RGB effects and controls.
+These Windows-centric layouts are based on [Jonavin's](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/jonavin) GMMK Pro layout with many additions, fixes, a revamped keymap, persistent user customizations, updated layers, [Tomas Guinan's paddle game](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gmmk/pro/rev1/ansi/keymaps/paddlegame) and expanded RGB effects and controls.
 
 ![image](https://raw.githubusercontent.com/gourdo1/media/main/susuwatari.jpg)
 
+* Changelog: https://github.com/gourdo1/gmmkpro-media/blob/main/changelog.md
 * Latest ANSI firmware: https://github.com/gourdo1/gmmkpro-media/raw/main/gmmk_pro_rev1_ansi_gourdo1.bin
 * Latest ISO firmware: https://github.com/gourdo1/gmmkpro-media/raw/main/gmmk_pro_rev1_iso_gourdo1.bin
-* Cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
-* Changelog: https://github.com/gourdo1/gmmkpro-media/blob/main/changelog.md
+* Keyboard Cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
 
-## Features:
+## Features
 
 ### Core Functionality
 
 * Support for both [ANSI](https://keebnews.com/ansi-vs-iso/) and [ISO](https://keebnews.com/ansi-vs-iso/) keyboard layouts.
-* Quick & Easy Customization: Open a text editor and hit [FN]` (tilde key) to view toggle-able features.
+* Quick & Easy Customization: Open a text editor and hit [FN]` (the key left of '1' on ISO layouts) to view toggle-able settings.
 * [VIA](https://www.caniusevia.com/) support enabled.
 * Most [default Glorious shortcuts](https://cdn.shopify.com/s/files/1/0549/2681/files/GMMK_Pro_User_Guide.pdf) enabled
 * [N-key Rollover](https://en.wikipedia.org/wiki/Rollover_\(keyboard\)#n-key_rollover) (NKRO) -- toggled with [FN]R
@@ -38,7 +38,7 @@ This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_f
 
 ### Quick & Easy Customization
 * Below features can be toggled by holding [FN] and pressing the number corresponding to that feature. Changes are saved to EEPROM for persistence.
-* Print current settings by opening a text editor and pressing [FN]~ (CAUTION: verbose!)
+* Print current settings by opening a text editor and pressing [FN]~ (the key left of '1' on ISO layout keyboards)
 * Quick view current settings by holding [FN] and viewing RGB under number keys (green means ON, violet means OFF)
 
 #### Toggle-able Settings:
@@ -106,7 +106,7 @@ This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_f
 * [FN]L is single-handed shortcut to Win-L (lock Windows)
 * [FN][Encoder press] to sleep Windows PC
 
-## Layer Diagrams
+## Layer Diagrams (ANSI)
 ### Base layer
 ![image](https://raw.githubusercontent.com/gourdo1/gmmkpro-media/main/base.png)
 
