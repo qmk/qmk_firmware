@@ -18,10 +18,10 @@
 
 #undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS \
-    { B0, B1, B10, B3, B4, B5 }
+    { B0, B1, B12, B3, B4, B5 }
 #undef MATRIX_COL_PINS_RIGHT
 #define MATRIX_COL_PINS_RIGHT \
-    { B0, B1, B10, B3, B4, B5 }
+    { B0, B1, B12, B3, B4, B5 }
 
 #undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS \
@@ -30,8 +30,12 @@
 #define MATRIX_ROW_PINS_RIGHT \
     { B15, A2, B8, A8, B9 }
 
+#define UNUSED_PINS { B6, C14, C15 }
+
 #define DIODE_DIRECTION ROW2COL
 #define SPLIT_HAND_PIN A3
+#undef MASTER_RIGHT
+// #define USB_VBUS_PIN B10
 
 #undef RGB_DI_PIN
 #define RGB_DI_PIN A1
@@ -45,6 +49,13 @@
 #define WS2812_PWM_TARGET_PERIOD 800000
 
 #define DEBUG_LED_PIN     C13
+
+#define AUDIO_PIN          B7
+#define AUDIO_PWM_DRIVER   PWMD4
+#define AUDIO_PWM_CHANNEL  2
+#define AUDIO_PWM_PAL_MODE 2
+#define AUDIO_STATE_TIMER  GPTD3
+#define AUDIO_INIT_DELAY
 
 #undef SOFT_SERIAL_PIN
 // #define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
@@ -77,9 +88,12 @@
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
 
 #undef PMW3360_CS_PIN
-#define PMW3360_CS_PIN                       B14
+#define PMW3360_CS_PIN                       A15  // b14
 #define PMW3360_CS_MODE 3
 #define PMW3360_CS_DIVISOR 64
+#define PMW3360_LIFTOFF_DISTANCE 0b1111
+#undef ROTATIONAL_TRANSFORM_ANGLE
+#define ROTATIONAL_TRANSFORM_ANGLE -65
 
 #define CHARYBDIS_MINIMUM_DEFAULT_DPI     1200
 #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
@@ -90,3 +104,5 @@
 
 #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+
+#define CHARYBDIS_CONFIG_SYNC
