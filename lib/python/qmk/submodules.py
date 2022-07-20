@@ -47,9 +47,9 @@ def status():
 
         r = log_line.split('\x01')
         submodule = r[0]
-        submodules[submodule]['shorthash'] = r[1]
-        submodules[submodule]['last_log_timestamp'] = r[2]
-        submodules[submodule]['last_log_message'] = r[3]
+        submodules[submodule]['shorthash'] = r[1] if len(r) > 1 else ''
+        submodules[submodule]['last_log_timestamp'] = r[2] if len(r) > 2 else ''
+        submodules[submodule]['last_log_message'] = r[3] if len(r) > 3 else ''
 
     submodule_tags = cli.run(['git', 'submodule', '-q', 'foreach', 'echo -n "$sm_path "; git describe --tags'])
     for log_line in submodule_tags.stdout.split('\n'):
@@ -58,7 +58,7 @@ def status():
 
         r = log_line.split()
         submodule = r[0]
-        submodules[submodule]['describe'] = r[1]
+        submodules[submodule]['describe'] = r[1] if len(r) > 1 else ''
 
     return submodules
 
