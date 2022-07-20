@@ -133,8 +133,9 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     else
         OPT_DEFS += -DPOINTING_DEVICE_ENABLE
         MOUSE_ENABLE := yes
-        SRC += $(QUANTUM_DIR)/pointing_device.c
-        SRC += $(QUANTUM_DIR)/pointing_device_drivers.c
+        VPATH += $(QUANTUM_DIR)/pointing_device
+        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device.c
+        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_drivers.c
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
@@ -150,13 +151,13 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
             OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
             SRC += drivers/sensors/cirque_pinnacle.c
             SRC += drivers/sensors/cirque_pinnacle_gestures.c
-            SRC += $(QUANTUM_DIR)/pointing_device_gestures.c
+            SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
             QUANTUM_LIB_SRC += i2c_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             SRC += drivers/sensors/cirque_pinnacle.c
             SRC += drivers/sensors/cirque_pinnacle_gestures.c
-            SRC += $(QUANTUM_DIR)/pointing_device_gestures.c
+            SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
             QUANTUM_LIB_SRC += spi_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
