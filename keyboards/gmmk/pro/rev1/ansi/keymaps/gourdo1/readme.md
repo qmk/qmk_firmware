@@ -4,6 +4,10 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 
 ![image](https://raw.githubusercontent.com/gourdo1/media/main/susuwatari.jpg)
 
+* Latest firmware binary: https://github.com/gourdo1/gmmkpro-media/raw/main/gmmk_pro_rev1_ansi_gourdo1.bin
+* Cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
+* Changelog: https://github.com/gourdo1/gmmkpro-media/blob/main/changelog.md
+
 ## Features:
 
 ### Core Functionality
@@ -99,10 +103,6 @@ This Windows-centric ANSI layout is based on [Jonavin's](https://github.com/qmk/
 * [FN]/ is single-handed shortcut to Ctrl-Alt-Delete
 * [FN]L is single-handed shortcut to Win-L (lock Windows)
 * [FN][Encoder press] to sleep Windows PC
-
-Latest firmware binary: https://github.com/gourdo1/gmmkpro-media/raw/main/gmmk_pro_rev1_ansi_gourdo1.bin
-Cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
-Changelog: https://github.com/gourdo1/gmmkpro-media/blob/main/changelog.md
 
 ## Layer Diagrams
 ### Base layer
