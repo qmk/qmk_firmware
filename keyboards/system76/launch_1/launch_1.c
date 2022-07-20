@@ -17,6 +17,7 @@
 
 #include "launch_1.h"
 
+#include "system76_ec.h"
 #include "usb_mux.h"
 
 // clang-format off
@@ -88,26 +89,24 @@ void bootmagic_lite_reset_eeprom(void) {
     eeconfig_disable();      // Set the TMK/QMK EEPROM state as invalid
 }
 
-void system76_ec_rgb_eeprom(bool write);
-void system76_ec_rgb_layer(layer_state_t layer_state);
-void system76_ec_unlock(void);
-bool system76_ec_is_unlocked(void);
-
 rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 
 void matrix_init_kb(void) {
     usb_mux_init();
 
     if (!eeprom_is_valid()) {
-        dynamic_keymap_reset();
-        dynamic_keymap_macro_reset();
-        system76_ec_rgb_eeprom(true);
-        eeprom_set_valid(true);
+        // eeprom_set_valid(false);      // Set the magic number to `false', in case this gets interrupted
+        dynamic_keymap_reset();       // Reset the keymaps in EEPROM to what is in flash
+        dynamic_keymap_macro_reset(); // Reset the macros in EEPROM to nothing
+        system76_ec_rgb_eeprom(true); // Populate System76 per-layer RGB matrix settings
+        eeprom_set_valid(true);       // Save the magic number last, in case saving was interrupted
     } else {
-        system76_ec_rgb_eeprom(false);
+        system76_ec_rgb_eeprom(false); // Read System76 per-layer RGB matrix settings
     }
 
     system76_ec_rgb_layer(layer_state);
+
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
@@ -129,8 +128,11 @@ static const uint8_t levels[] = {
 };
 // clang-format on
 
+#ifdef SYSTEM76_EC
+extern bool input_disabled;
+static bool lctl_pressed, rctl_pressed = false;
+#endif
 static uint8_t toggle_level = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
-extern bool    input_disabled;
 
 static void set_value_all_layers(uint8_t value) {
     if (!system76_ec_is_unlocked()) {
@@ -142,9 +144,11 @@ static void set_value_all_layers(uint8_t value) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+#ifdef SYSTEM76_EC
     if (input_disabled) {
         return false;
     }
+#endif
 
     if (!process_record_user(keycode, record)) {
         return false;
@@ -153,13 +157,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RESET:
             if (record->event.pressed) {
-                system76_ec_unlock();
+                rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
             }
-#ifdef SYSTEM76_EC
-            return false;
-#else
-            return true;
-#endif
+            break;
         case RGB_VAD:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_config.hsv.v;
@@ -195,21 +195,38 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 set_value_all_layers(level);
             }
             return false;
+#ifdef SYSTEM76_EC
+        case KC_LCTL:
+            lctl_pressed = record->event.pressed;
+            break;
+        case KC_RCTL:
+            rctl_pressed = record->event.pressed;
+            break;
+        case KC_ESC:
+            if (lctl_pressed && rctl_pressed) {
+                if (record->event.pressed) {
+                    system76_ec_unlock();
+                }
+                return false;
+            }
+            break;
+#endif
     }
 
     return true;
 }
 
-layer_state_t layer_state_set_kb(layer_state_t layer_state) {
-    system76_ec_rgb_layer(layer_state);
+// Layer change callbacks
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    system76_ec_rgb_layer(state);
 
-    return layer_state_set_user(layer_state);
+    return layer_state_set_user(state);
 }
 
 #ifdef CONSOLE_ENABLE
 void keyboard_post_init_user(void) {
-    debug_enable   = true;
-    debug_matrix   = false;
+    debug_enable = true;
+    debug_matrix = false;
     debug_keyboard = false;
 }
 #endif // CONSOLE_ENABLE

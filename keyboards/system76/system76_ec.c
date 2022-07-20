@@ -16,12 +16,19 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "system76_ec.h"
+
 #include <string.h>
 
-#include "dynamic_keymap.h"
-#include "raw_hid.h"
+#include "quantum.h"
 #include "rgb_matrix.h"
+#ifdef SYSTEM76_EC
+#include "action.h"
+#include "dynamic_keymap.h"
+#include "matrix.h"
+#include "raw_hid.h"
 #include "version.h"
+#include "wait.h"
 
 enum Command {
     CMD_PROBE         = 1,  // Probe for System76 EC protocol
@@ -40,10 +47,6 @@ enum Command {
     CMD_LED_SAVE      = 18, // Save LED settings to ROM
     CMD_SET_NO_INPUT  = 19, // Enable/disable no input mode
 };
-
-bool input_disabled = false;
-
-#define CMD_LED_INDEX_ALL 0xFF
 
 static bool keymap_get(uint8_t layer, uint8_t output, uint8_t input, uint16_t *value) {
     if (layer < dynamic_keymap_get_layer_count()) {
@@ -69,25 +72,30 @@ static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t va
     return false;
 }
 
+bool input_disabled = false;
 static bool bootloader_reset, bootloader_unlocked = false;
 
 void system76_ec_unlock(void) {
 #ifdef RGB_MATRIX_CUSTOM_KB
     rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_unlocked);
 #endif
-#ifdef SYSTEM76_EC
     bootloader_unlocked = true;
-#endif
 }
 
 bool system76_ec_is_unlocked(void) {
     return bootloader_unlocked;
 }
+#else  // !SYSTEM76_EC
+bool system76_ec_is_unlocked(void) {
+    return false;
+}
+#endif // SYSTEM76_EC
 
 #ifdef RGB_MATRIX_CUSTOM_KB
 enum Mode {
     MODE_SOLID_COLOR = 0,
     MODE_PER_KEY,
+#ifndef DISABLE_RGB_MATRIX_ANIMATIONS
     MODE_CYCLE_ALL,
     MODE_CYCLE_LEFT_RIGHT,
     MODE_CYCLE_UP_DOWN,
@@ -99,6 +107,7 @@ enum Mode {
     MODE_RAINDROPS,
     MODE_SPLASH,
     MODE_MULTISPLASH,
+#endif // DISABLE_RGB_MATRIX_ANIMATIONS
     MODE_ACTIVE_KEYS,
     MODE_DISABLED,
     MODE_LAST,
@@ -108,6 +117,7 @@ enum Mode {
 static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_SOLID_COLOR,
     RGB_MATRIX_CUSTOM_raw_rgb,
+#ifndef DISABLE_RGB_MATRIX_ANIMATIONS
     RGB_MATRIX_CYCLE_ALL,
     RGB_MATRIX_CYCLE_LEFT_RIGHT,
     RGB_MATRIX_CYCLE_UP_DOWN,
@@ -119,6 +129,7 @@ static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_RAINDROPS,
     RGB_MATRIX_SPLASH,
     RGB_MATRIX_MULTISPLASH,
+#endif // DISABLE_RGB_MATRIX_ANIMATIONS
     RGB_MATRIX_CUSTOM_active_keys,
     RGB_MATRIX_NONE,
 };
@@ -126,7 +137,7 @@ static enum rgb_matrix_effects mode_map[] = {
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
-RGB raw_rgb_data[DRIVER_LED_TOTAL];
+extern RGB raw_rgb_data[DRIVER_LED_TOTAL];
 
 // clang-format off
 rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
@@ -142,6 +153,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .speed = RGB_MATRIX_STARTUP_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
+#if DYNAMIC_KEYMAP_LAYER_COUNT > 1
     // Layer 1
     {
         .enable = 1,
@@ -154,30 +166,27 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .speed = RGB_MATRIX_STARTUP_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
+#endif
+#if DYNAMIC_KEYMAP_LAYER_COUNT > 2
     // Layer 2
     {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
-        .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
-        },
+        .hsv = (HSV){RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL},
         .speed = RGB_MATRIX_STARTUP_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
+#endif
+#if DYNAMIC_KEYMAP_LAYER_COUNT > 3
     // Layer 3
     {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
-        .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
-        },
+        .hsv = (HSV){RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL},
         .speed = RGB_MATRIX_STARTUP_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
+#endif
 };
 // clang-format on
 
@@ -206,9 +215,9 @@ void system76_ec_rgb_eeprom(bool write) {
 }
 
 // Update RGB parameters on layer change.
-void system76_ec_rgb_layer(layer_state_t layer_state) {
-    if (!bootloader_unlocked) {
-        uint8_t layer = get_highest_layer(layer_state);
+void system76_ec_rgb_layer(layer_state_t state) {
+    if (!system76_ec_is_unlocked()) {
+        uint8_t layer = get_highest_layer(state);
         if (layer < DYNAMIC_KEYMAP_LAYER_COUNT) {
             rgb_matrix_config = layer_rgb[layer];
         }
@@ -216,6 +225,7 @@ void system76_ec_rgb_layer(layer_state_t layer_state) {
 }
 #endif // RGB_MATRIX_CUSTOM_KB
 
+#ifdef SYSTEM76_EC
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     data[1] = 1; // Set "error" response by default; changed to "success" by commands
 
@@ -410,7 +420,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     if (bootloader_reset) {
         // Give host time to read response
         wait_ms(100);
+
         // Jump to the bootloader
-        bootloader_jump();
+        reset_keyboard();
     }
 }
+#endif // SYSTEM76_EC
