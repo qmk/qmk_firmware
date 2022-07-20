@@ -29,7 +29,7 @@ These Windows-centric layouts are based on [Jonavin's](https://github.com/qmk/qm
 * Single-handed shortcut for Ctrl-Alt-Delete: [FN]/
 * Single-handed shortcut for WinKey-L (lock Windows): [FN]L
 * Domain shortcuts: [FN]. for .com, [FN]O for outlook.com, [FN]Y for yahoo.com, [FN]H for hotmail.com, [FN]G for gmail.com.
-* FN-Backslash for [Bootloader mode](https://github.com/qmk/qmk_firmware/blob/master/docs/newbs_flashing.md)
+* [Bootloader mode](https://github.com/qmk/qmk_firmware/blob/master/docs/newbs_flashing.md) accessible via [FN]Backslash for ANSI and FN(key next to Left Shift) for ISO
 * PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: [FN]F11, [FN]F12, [FN]F13
 * [Colemak](https://colemak.com/) key layout support (Accessible via Left Shift + turn Encoder clockwise until side LEDs light up purple)
 * Double tap ESC any time to revert to base layer.
@@ -99,7 +99,7 @@ These Windows-centric layouts are based on [Jonavin's](https://github.com/qmk/qm
 
 ### Advanced Controls
 
-* [FN]\ to get to bootloader mode
+* [FN]\ to get to bootloader mode (use key next to Left Shift on ISO)
 * [FN][ESC] to clear EEPROM
 * [FN]R to toggle N-key Rollover
 * [FN]/ is single-handed shortcut to Ctrl-Alt-Delete
