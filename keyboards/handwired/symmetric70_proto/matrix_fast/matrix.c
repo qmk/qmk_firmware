@@ -168,6 +168,7 @@ LOCAL_FUNC void read_matrix_line(matrix_line_t phy_matrix[], uint8_t current_lin
 #endif // MATRIX_TYPE == DIRECT_SWITCH
 
 void matrix_init(void) {
+    MATRIX_DEBUG_PIN_INIT();
     // initialize key pins
     init_all_ports();
 
@@ -184,8 +185,6 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void) {
     matrix_line_t phy_matrix[MATRIX_LINES];
-
-    MATRIX_DEBUG_PIN_INIT();
 
     MATRIX_DEBUG_SCAN_START();
 

@@ -294,6 +294,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 #endif
 
 void matrix_init(void) {
+    MATRIX_DEBUG_PIN_INIT();
 #ifdef SPLIT_KEYBOARD
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
@@ -345,7 +346,6 @@ __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_mat
 
 uint8_t matrix_scan(void) {
     matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
-    MATRIX_DEBUG_PIN_INIT();
 
     MATRIX_DEBUG_SCAN_START();
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
