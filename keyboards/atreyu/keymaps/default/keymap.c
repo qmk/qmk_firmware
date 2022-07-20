@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "atreyu.h"
-#include "eeconfig.h"
 
 #define _QWERTY 0
 #define _LOWER 1
