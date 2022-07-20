@@ -136,6 +136,24 @@ Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when usi
 
 **`POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`** is not specific to Cirque trackpad; any pointing device with a lift/contact status can integrate this gesture into its driver. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `pointing_device_get_report()` is needed to generate glide reports.
 
+### PAW 3204 Sensor
+
+To use the paw 3204 sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = paw3204
+```
+
+The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
+
+| Setting            | Description                                                         |
+|--------------------|---------------------------------------------------------------------|
+|`PAW3204_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        |
+|`PAW3204_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         |
+
+The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600).  Defaults to 1000 CPI.
+
+
 ### Pimoroni Trackball
 
 To use the Pimoroni Trackball module, add this to your `rules.mk`:

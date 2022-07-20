@@ -26,6 +26,7 @@
 #define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
 
 // get_report functions should probably be moved to their respective drivers.
+
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
@@ -198,7 +199,27 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = cirque_pinnacle_get_cpi
 };
 // clang-format on
+#elif defined(POINTING_DEVICE_DRIVER_paw3204)
 
+report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
+    report_paw3204_t data = paw3204_read();
+    if (data.isMotion) {
+#    ifdef CONSOLE_ENABLE
+        dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
+#    endif
+
+        mouse_report.x = data.x;
+        mouse_report.y = data.y;
+    }
+
+    return mouse_report;
+}
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = paw3204_init,
+    .get_report = paw3204_get_report,
+    .set_cpi    = paw3204_set_cpi,
+    .get_cpi    = paw3204_get_cpi,
+};
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 
 mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t* offset) {
