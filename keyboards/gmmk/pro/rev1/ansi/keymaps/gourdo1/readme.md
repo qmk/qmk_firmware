@@ -104,23 +104,6 @@ Link to latest firmware binary: https://github.com/gourdo1/gmmkpro-media/raw/mai
 
 Link to cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
 
-
-## rules.mk Options
-
-STARTUP_NUMLOCK_ON = yes             - Turns on NUMLOCK by default
-
-ENCODER_DEFAULTACTIONS_ENABLE = yes  - Enabled default encoder functions
-
-TD_LSFT_CAPSLOCK_ENABLE = yes        - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
-
-IDLE_TIMEOUT_ENABLE = yes            - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
-
-INVERT_NUMLOCK_INDICATOR             - Inverts the Numlock indicator, LED is on when numlock is off -- numlock interferes with overlay numpad, so should  be off when numpad layer is active unless you have an external numpad.
-
-COLEMAK_LAYER_ENABLE = yes           - Enables optional 5th layer for COLEMAK layout. Use Shift + encoder to enter 5th layer.
-
-GAME_ENABLE ?= yes                   - Enables Paddle Game
-
 ## Layer Diagrams
 ### Base layer
 ![image](https://raw.githubusercontent.com/gourdo1/gmmkpro-media/main/base.png)
