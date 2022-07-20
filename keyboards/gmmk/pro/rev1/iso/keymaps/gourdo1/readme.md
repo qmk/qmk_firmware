@@ -101,9 +101,9 @@ This Windows-centric ISO layout is based on [Jonavin's](https://github.com/qmk/q
 * [FN]L is single-handed shortcut to Win-L (lock Windows)
 * [FN][Encoder press] to sleep Windows PC
 
-Link to latest firmware binary: https://github.com/gourdo1/gmmkpro-media/raw/main/gmmk_pro_rev1_iso_gourdo1.bin
-
-Link to cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
+Latest firmware binary: https://github.com/gourdo1/gmmkpro-media/raw/main/gmmk_pro_rev1_iso_gourdo1.bin
+Cheatsheet: https://github.com/gourdo1/gmmkpro-media/raw/main/GMMK_Pro_Cheatsheet.pdf
+Changelog: https://github.com/gourdo1/gmmkpro-media/blob/main/changelog.md
 
 ## Layer Diagrams
 ### Base layer
