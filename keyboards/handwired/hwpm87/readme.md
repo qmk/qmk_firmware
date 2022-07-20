@@ -1,6 +1,6 @@
 # Handwired 87 keys
 
-![hwpm87](https://i.imgur.com/DLqdtAW.jpeg)
+![hwpm87](https://i.imgur.com/DLqdtAWh.jpeg)
 
 Repaired from 87 keys keyboard using a Pro Micro
 
