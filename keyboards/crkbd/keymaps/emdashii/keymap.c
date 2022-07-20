@@ -48,17 +48,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //  Navigation
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |Tab/LGui| Pg Up  |  Home  |   Up   |  End   |Rt Click|                    |  Acl0  | Wh up  | Ms up  | Wh dn  |        |  Bksp  |
+//  |Tab/LGui| Pg Up  |  Home  |   Up   |  End   |Mid Clic|                    |  Acl0  | Wh up  | Ms up  | Wh dn  |        |  Bksp  |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | QWERTY | Pg Dn  |  Left  |  Down  | Right  |MidlClik|                    |  Acl1  | Ms lft | Ms dn  | Ms rgt |        | Delete |
+//  | QWERTY | Pg Dn  |  Left  |  Down  | Right  |Rt Click|                    |  Acl1  | Ms lft | Ms dn  | Ms rgt |        | Delete |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | Shift  | Insert |        |Tab Back|Tab Fwd |LeftClic|                    |  Acl2  | Wh lft |        | Wh rgt |        | Escape |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |   Alt  |Spc/Ctrl|Ctrl+Shft| | QWERTY |Spc/Ctrl| Adjust |
 //                                      `--------------------------'  `--------------------------'
   [_NAVIGATION] = LAYOUT_split_3x6_3(
-      TABLGUI, KC_PGUP,  KC_HOME,  KC_UP,  KC_END, KC_BTN1,                      KC_ACL0, KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX, KC_BSPC,
-      LQWERTY, KC_PGDN,  KC_LEFT,KC_DOWN, KC_RGHT, KC_BTN3,                      KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,  KC_DEL,
+      TABLGUI, KC_PGUP,  KC_HOME,  KC_UP,  KC_END, KC_BTN3,                      KC_ACL0, KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX, KC_BSPC,
+      LQWERTY, KC_PGDN,  KC_LEFT,KC_DOWN, KC_RGHT, KC_BTN1,                      KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,  KC_DEL,
       KC_LSFT,  KC_INS, LOSLFUN, TABBKWD, TABFWRD, KC_BTN2,                      KC_ACL2, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX,  KC_ESC,
                                           KC_LALT, CTRLSPC, CTRLSFT,    LQWERTY, CTRLSPC, TO(_ADJUST)
 
@@ -72,13 +72,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | Ctrl   |   Z    |   X    |   C    |   V    |   B    |                    |   N    |   M    |   ,    |   .    |   /    |  Esc   |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |   F3   | Space  |Spc/Num |  | QWERTY | Spc/Num| Enter  |
+//                                      |   F3   | Space  |Spc/Num |  | QWERTY | Spc/Fun| Enter  |
 //                                      `--------------------------'  `--------------------------'
   [_GAMING] = LAYOUT_split_3x6_3(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
       KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
       KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
-                                            KC_F3,  KC_SPC, LNUMSPC,     LQWERTY, LOSLFUN,  KC_ENT
+                                            KC_F3,  KC_SPC, LNUMSPC,     LQWERTY, LFUNSPC,  KC_ENT
 
   ),
 
@@ -102,19 +102,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Symbol
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |   ~    |   !    |   @    |   #    |   $    |   %    |                    |   ^    |   &    |   *    |   (    |   )    |  Del   |
+//  |   ~    |   !    |   @    |   #    |   $    |   %    |                    |   ^    |   &    |   *    |   (    |   )    |  Bksp  |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |   `    |   (    |   )    |   {    |   }    |        |                    |   =    |   -    |   +    |   =    |   ;    |   ' "  |
+//  |   `    |   (    |   )    |   {    |   }    |        |                    |   =    |   -    |   +    |        |   -    |   +    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  |        |   <    |   >    |   [    |   ]    |   |    |                    |   :    |   _    |  , <   |   . >  |   / ?  |   \    |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        |        |TO(SYM) |  | QWERTY |        |        |
+//                                      |  Del   |        |TO(SYM) |  | QWERTY |        |   .    |
 //                                      `--------------------------'  `--------------------------'
   [_SYMBOL] = LAYOUT_split_3x6_3(
-      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
-       KC_GRV, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, XXXXXXX,                       KC_EQL, KC_MINS, KC_PLUS,  KC_EQL, KC_SCLN, KC_QUOT,
+      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+       KC_GRV, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, XXXXXXX,                       KC_EQL, KC_MINS, KC_PLUS, XXXXXXX, KC_MINS, KC_PLUS,
    XXXXXXX,S(KC_COMM),S(KC_DOT), KC_LBRC, KC_RBRC, KC_PIPE,                        COLON, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,
-                                          XXXXXXX, XXXXXXX,TO(_SYMBOL),LQWERTY,  XXXXXXX, XXXXXXX
+                                           KC_DEL, XXXXXXX,TO(_SYMBOL),LQWERTY,  XXXXXXX, KC_DOT
 
   ),
 
@@ -126,20 +126,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  |        |        |        |        |        |        |                    |        |   F1   |   F2   |   F3   |   F12  |        |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        |        |        |  | QWERTY |        |        |
+//                                      |        |        | Adjust |  | QWERTY |  Nav   | Gaming |
 //                                      `--------------------------'  `--------------------------'
   [_FUNCTION] = LAYOUT_split_3x6_3(
        KC_GRV,   KC_F1,   KC_F2,   KC_F3,  KC_F4,    KC_F5,                          KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX,   KC_F4,   KC_F5,   KC_F6,  KC_F11, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F12, XXXXXXX,
-                                          XXXXXXX, XXXXXXX, XXXXXXX,   LQWERTY,    XXXXXXX,  XXXXXXX
+                                          XXXXXXX, XXXXXXX, TO(_ADJUST),   LQWERTY, TO(_NAVIGATION), TO(_GAMING)
 
   ),
 
 
 // Adjust
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |  Reset |        |        |        |        | Print  |                    | NumLock|CapsLock| Scroll |        | Bright+|  Vol+  |
+//  |  Reset |        |        |        |        |PrintScr|                    | NumLock|CapsLock|ScrollLock|      | Bright+|  Vol+  |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | On/Off | Hue ↑  | Sat ↑  | Brght ↑|        |        |                    | Number |        |        |        | Bright-|  Vol-  |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
