@@ -107,8 +107,10 @@ This is a C header file that is one of the first things included, and will persi
   * sets the maximum power (in mA) over USB for the device (default: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
   * sets the USB polling rate in milliseconds for the keyboard, mouse, and shared (NKRO/media keys) interfaces
-* `#define USB_SUSPEND_WAKEUP_DELAY 200`
-  * set the number of milliseconde to pause after sending a wakeup packet
+* `#define USB_SUSPEND_WAKEUP_DELAY 0`
+  * sets the number of milliseconds to pause after sending a wakeup packet.
+    Disabled by default, you might want to set this to 200 (or higher) if the
+    keyboard does not wake up properly after suspending.
 * `#define F_SCL 100000L`
   * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 

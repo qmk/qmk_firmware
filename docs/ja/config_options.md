@@ -108,7 +108,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * デバイスの USB 経由の最大電力(mA) を設定します (デフォルト: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
   * キーボード、マウス および 共有 (NKRO/メディアキー) インタフェースのための USB ポーリングレートをミリ秒で設定します
-* `#define USB_SUSPEND_WAKEUP_DELAY 200`
+* `#define USB_SUSPEND_WAKEUP_DELAY 0`
    * ウェイクアップパケットを送信した後で一時停止するミリ秒を設定します
 * `#define F_SCL 100000L`
   * I2C を使用するキーボードのための I2C クロックレート速度を設定します。デフォルトは `400000L` ですが、`split_common` を使っているキーボードは別でデフォルトは `100000L` です。
