@@ -227,12 +227,18 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
 #endif // defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_LED_MATRIX_TYPING_HEATMAP)
 }
 
+void led_matrix_none_indicators(void) {
+    led_matrix_none_indicators_kb();
+    led_matrix_none_indicators_user();
+}
+
 static bool led_matrix_none(effect_params_t *params) {
     if (!params->init) {
         return false;
     }
 
     led_matrix_set_value_all(0);
+    led_matrix_none_indicators();
     return false;
 }
 
@@ -414,6 +420,10 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
 __attribute__((weak)) void led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {}
 
 __attribute__((weak)) void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {}
+
+__attribute__((weak)) void led_matrix_none_indicators_kb(void) {}
+
+__attribute__((weak)) void led_matrix_none_indicators_user(void) {}
 
 void led_matrix_init(void) {
     led_matrix_driver.init();

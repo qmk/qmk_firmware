@@ -124,6 +124,9 @@ void led_matrix_indicators_advanced(effect_params_t *params);
 void led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
 void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
+void led_matrix_none_indicators_kb(void);
+void led_matrix_none_indicators_user(void);
+
 void led_matrix_init(void);
 
 void        led_matrix_set_suspend_state(bool state);
