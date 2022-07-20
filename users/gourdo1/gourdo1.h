@@ -57,10 +57,10 @@ enum custom_user_keycodes {
 
         TG_CAPS,       // Toggles RGB highlighting of alphas during capslock
         TG_PAD,        // Toggles RGB highlighting of keys on numpad+mousekeys layer
-        TG_TDCAP,      // Toggles double tap shift (custom tapdance) for CapsLock
+        TG_TDCAP,      // Toggles double tap shift for CapsLock
         TG_DEL,        // Swaps DEL and HOME key locations
-        TG_ENC,        // Toggle Encoder functionality
-        TG_ESC,        // Toggle ESC custom tapdance for _BASE layer
+        TG_ENC,        // Toggle Encoder button functionality
+        TG_ESC,        // Toggle ESC double tap for _BASE layer
         TG_INS,        // Toggle location of INS
         TG_SPCMOD,     // Toggle disabling of modded-SPACE functions
 
