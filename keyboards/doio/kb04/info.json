@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "KB04-01",
+    "maintainer": "Caffeinism",
+    "bootloader": "stm32duino",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "1!", "x": 0, "y": 0 },
+                { "label": "2@", "x": 1, "y": 0 },
+                { "label": "3#", "x": 2, "y": 0 },
+                { "label": "4$", "x": 3, "y": 0 },
+                { "label": "Encoder", "x": 4.75, "y": 0 }
+            ]
+        }
+    }
+}
