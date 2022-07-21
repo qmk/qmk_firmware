@@ -4,7 +4,7 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Kim Minjong](https://github.com/Caffeinism)
+* Keyboard Maintainer: [Caffeinism](https://github.com/Caffeinism)
 * Hardware Supported: *The PCBs, controllers supported*
 * Hardware Availability: *Links to where you can find this hardware*
 
