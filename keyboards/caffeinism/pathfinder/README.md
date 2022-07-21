@@ -4,6 +4,10 @@ Pathfinder is a general-purpose keyboard matrix reverse engineering tool and its
 
 A multimeter is usually used to determine the matrix of the keyboard. But there are people who don't want to get intimate with PCBs. (That's me!) This code is the firmware to figure out the matrix of the keyboard, which is not normally registered in QMK.
 
+* Keyboard Maintainer: [caffeinism](https://github.com/caffeinism)
+* Hardware Supported: 
+* Hardware Availability: STM32F103
+
 This is an easy process in a few steps.
 
 1. Select the appropriate MCU and BOOTLOADER from rules.mk.
@@ -53,3 +57,7 @@ The following is an explanation of how the code is also commented on.
 
         Haha we can infer the shape of the matrix from this.
  ```
+ 
+## Bootloader
+
+Just wait LOOP_TIMEOUT ms.
