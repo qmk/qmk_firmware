@@ -2,11 +2,11 @@
 
 ![ai](https://i.imgur.com/4l6BzRh.png)
 
-_This is a small open source 5x4-1 macropad powered by QMK_
+This is a small open source 5x4-1 macropad powered by QMK
 
--   Keyboard Maintainer: [Louis Dalibard](https://github.com/make42)
--   Hardware Supported: _The PCB for ai is located here: [ai](https://github.com/make42/ai)_
--   Hardware Availability: _Links to where you can find this hardware_
+* Keyboard Maintainer: [Louis Dalibard](https://github.com/make42)
+* Hardware Supported: The PCB for ai is located here: [ai](https://github.com/make42/ai)
+* Hardware Availability: Links to where you can find this hardware
 
 Make example for this keyboard (after setting up your build environment):
 
