@@ -569,6 +569,18 @@ int load_tapping_term_file() {
 int save_tapping_term_file() { return BMPAPI->app.save_file(QMK_RECORD); }
 
 void convert_exkc_combo() {
+    // Check section of key_combos.
+    // If key_comobs is allocated in bss, generate them from extended keycodes
+    extern const void *__bss_start__;
+    extern const void *__bss_end__;
+    if ((void *)key_combos < (void *)&__bss_start__ ||
+        (void *)key_combos > (void *)&__bss_end__) {
+        dprintf("Use combos in keymap.c\n");
+        return;
+    }
+
+    dprintf("Generate combos from exkc...\n");
+
     uint8_t combo_count = 0;
     for (int idx = 0; idx < bmp_ex_keycode_num; idx++) {
         if (combo_count >= COMBO_COUNT) {
