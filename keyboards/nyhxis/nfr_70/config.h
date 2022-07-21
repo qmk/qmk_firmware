@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Nyhxis
-#define PRODUCT         Nyhxis NFR-70
+#define PRODUCT         NFR-70
 
 /* key matrix size */
 #define MATRIX_ROWS 11
