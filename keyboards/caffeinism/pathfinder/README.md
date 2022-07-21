@@ -11,12 +11,12 @@ This is an easy process in a few steps.
 3. Specify the appropriate LOOP_TIMEOUT in config.h. The keyboard runs the main loop and returns to the bootloader after this time. Prevents your keyboard from becoming a brick!
 4. Do ```qmk compile -kb caffeinism/pathfinder -km default``` and ```qmk flash -kb caffeinism/pathfinder -km default```.
 5. After running ```qmk console```, connect the keyboard, there may be some keys that blink by default. In this case, remove those pins from MATRIX_ALL_PINS.
-![blink](https://i.imgur.com/WzTPGI2.png)
-![target](https://i.imgur.com/5GH7Wur.png)
-![delete](https://i.imgur.com/EySItgD.png)
+![blink](https://i.imgur.com/alf1zVv.png)
+![target](https://i.imgur.com/n0E5YPC.png)
+![delete](https://i.imgur.com/dvOLccN.png)
 7. Run again ```qmk compile -kb caffeinism/pathfinder -km default```, ```qmk flash -kb caffeinism/pathfinder -km default``` and ```qmk console```.
 8. And press the key! You can easily find your matrix.
-![result](https://i.imgur.com/LOhpZiB.png)
+![result](https://i.imgur.com/AYYvLxJ.png)
 
 ---
 
