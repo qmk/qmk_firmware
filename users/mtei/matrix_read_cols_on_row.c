@@ -298,8 +298,11 @@ static port_data_t readPortMultiplexer(uint8_t devid, pin_t port) {
 #define _GEN_ALL_INPUT_HIGH(PORT, MASK, DEV) setPortBunchInputHigh(PORT, MASK);
 #define GEN_ALL_INPUT_HIGH(x) _GEN_ALL_INPUT_HIGH x
 
-#define _GEN_ALL_INPUT_CHARGE(PORT, MASK, DEV) InputPortCharge(PORT, MASK);
-#define GEN_ALL_INPUT_CHARGE(x) _GEN_ALL_INPUT_CHARGE x
+#define __GEN_INPUT_PORT_CHARGE(INDEX, PORT, MASK, DEV) \
+    if (buffer[INDEX] != 0) { InputPortCharge(PORT, buffer[INDEX]); }
+#define _GEN_INPUT_PORT_CHARGE(...) __GEN_INPUT_PORT_CHARGE(__VA_ARGS__)
+#define GEN_INPUT_PORT_CHARGE(INDEX, PORT) \
+    _GEN_INPUT_PORT_CHARGE(INDEX, REMOVE_OUTER_PARENTHESES(PORT))
 
 #define __GEN_CASE_WRITE_LOW(INDEX, PORT_INDEX, PortMASK, RowMASK)                         \
     case INDEX:                                                                            \
@@ -352,10 +355,10 @@ static void init_all_input_pins_0(void) {
 
 // ALWAYS_INLINE
 #if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
-static void input_port_charge_0(void) {
+static void input_port_charge_0(port_data_t *buffer) {
     ATOMIC_BLOCK_FORCEON {
-        // InputPortCharge(PORT, MASK);
-        MAP(GEN_ALL_INPUT_CHARGE, INPUT_PORTS_0)
+        // if (buffer[INDEX] != 0) { InputPortCharge(PORT, buffer[INDEX]); }
+        MAP_INDEX(GEN_INPUT_PORT_CHARGE, INPUT_PORTS_0)
     }
 }
 #endif
@@ -436,10 +439,10 @@ static void init_all_input_pins_1(void) {
 
 // ALWAYS_INLINE
 #if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
-static void input_port_charge_1(void) {
+static void input_port_charge_1(port_data_t *buffer) {
     ATOMIC_BLOCK_FORCEON {
-        // InputPortCharge(PORT, MASK);
-        MAP(GEN_ALL_INPUT_CHARGE, INPUT_PORTS_1)
+        // if (buffer[INDEX] != 0) { InputPortCharge(PORT, buffer[INDEX]); }
+        MAP_INDEX(GEN_INPUT_PORT_CHARGE, INPUT_PORTS_1)
     }
 }
 #endif
@@ -519,7 +522,7 @@ funcp_void_row       unselect_output      = unselect_output_0;
 funcp_void_void      unselect_all_output  = unselect_all_output_0;
 funcp_void_port_data read_all_pins        = read_all_pins_0;
 #if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
-funcp_void_void      input_port_charge    = input_port_charge_0;
+funcp_void_port_data input_port_charge    = input_port_charge_0;
 #endif
 funcp_bool_port_data mask_and_adjust_pins = mask_and_adjust_pins_0;
 funcp_build_line     build_line           = build_line_0;
@@ -529,7 +532,7 @@ funcp_build_line     build_line           = build_line_0;
 #    define unselect_output(x) unselect_output_0(x)
 #    define unselect_all_output() unselect_all_output_0()
 #    define read_all_pins(x) read_all_pins_0(x)
-#    define input_port_charge() input_port_charge_0()
+#    define input_port_charge(x) input_port_charge_0(x)
 #    define mask_and_adjust_pins(x) mask_and_adjust_pins_0(x)
 #    define build_line(x) build_line_0(x)
 #endif
@@ -591,7 +594,7 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #    endif
     if (key_pressed) {
         MATRIX_DEBUG_DELAY_START();
-        input_port_charge();
+        input_port_charge(port_buffer);
         MATRIX_DEBUG_DELAY_END();
     }
 #endif
