@@ -99,7 +99,7 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     current_matrix[current_row] = current_row_value;
 }
 
-static const char pin_name[MATRIX_ALL][4] = MATRIX_ALL_PINS_STRING;
+static const char pin_name[MATRIX_ROWS][4] = MATRIX_ALL_PINS_STRING;
 uint8_t matrix_scan(void) {
     /*
         We're going to try to find the culprit.
