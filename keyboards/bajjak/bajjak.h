@@ -137,10 +137,6 @@ typedef union {
 
 extern keyboard_config_t keyboard_config;
 
-/*
- *   LEFT HAND: LINES 115-122
- *  RIGHT HAND: LINES 124-131
- */
 #define LAYOUT_6x7( \
                         L00, L01, L02, L03, L04, L05, L06,  R00, R01, R02, R03, R04, R05, R06, \
                         L10, L11, L12, L13, L14, L15, L16,  R10, R11, R12, R13, R14, R15, R16, \
