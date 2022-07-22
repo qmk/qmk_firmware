@@ -5,8 +5,18 @@ Pathfinder is a general-purpose keyboard matrix reverse engineering tool and its
 A multimeter is usually used to determine the matrix of the keyboard. But there are people who don't want to get intimate with PCBs. (That's me!) This code is the firmware to figure out the matrix of the keyboard, which is not normally registered in QMK.
 
 * Keyboard Maintainer: [caffeinism](https://github.com/caffeinism)
-* Hardware Supported: 
-* Hardware Availability: STM32F103
+* Hardware Supported: STM32F103
+* Hardware Availability: 
+
+Make example for this keyboard (after setting up your build environment):
+
+    make caffeinism/pathfinder:default
+
+Flashing example for this keyboard:
+
+    make caffeinism/pathfinder:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 This is an easy process in a few steps.
 
