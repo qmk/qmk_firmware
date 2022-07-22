@@ -51,11 +51,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed(oled_timer) >= 3000) {
         set_oled_mode(OLED_MODE_IDLE);
     }
     render_frame();
+    return false;
 }
 #endif
 

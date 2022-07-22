@@ -26,11 +26,11 @@
 #define PRODUCT         QUARK²
 
 /* key matrix size */
-#define MATRIX_ROWS 4
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { C5, C4, C6, C7 }
+#define MATRIX_ROW_PINS { C5, C4, C6, C7, B7 }
 #define MATRIX_COL_PINS { B4, B5, B6, B3, C2, B2, D6, D2, D3, D4, D5, B1 }
 #define UNUSED_PINS
 
@@ -53,3 +53,7 @@
 #define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
 #define RGBLIGHT_SAT_STEP 12 // units to step when in/decresing saturation
 #define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
+
+/* define rotary encoder pins */
+#define ENCODERS_PAD_A {B0}
+#define ENCODERS_PAD_B {D1}

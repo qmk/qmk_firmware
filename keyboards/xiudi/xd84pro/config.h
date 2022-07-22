@@ -73,6 +73,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

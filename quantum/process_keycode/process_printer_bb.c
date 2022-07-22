@@ -25,13 +25,21 @@ uint8_t character_shift  = 0;
 #define SERIAL_PIN_MASK _BV(PD3)
 #define SERIAL_DELAY 52
 
-inline static void serial_delay(void) { _delay_us(SERIAL_DELAY); }
+inline static void serial_delay(void) {
+    _delay_us(SERIAL_DELAY);
+}
 
-inline static void serial_high(void) { SERIAL_PIN_PORT |= SERIAL_PIN_MASK; }
+inline static void serial_high(void) {
+    SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
+}
 
-inline static void serial_low(void) { SERIAL_PIN_PORT &= ~SERIAL_PIN_MASK; }
+inline static void serial_low(void) {
+    SERIAL_PIN_PORT &= ~SERIAL_PIN_MASK;
+}
 
-inline static void serial_output(void) { SERIAL_PIN_DDR |= SERIAL_PIN_MASK; }
+inline static void serial_output(void) {
+    SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
+}
 
 void enable_printing() {
     printing_enabled = true;
@@ -39,13 +47,15 @@ void enable_printing() {
     serial_high();
 }
 
-void disable_printing() { printing_enabled = false; }
+void disable_printing() {
+    printing_enabled = false;
+}
 
 uint8_t shifted_numbers[10] = {0x21, 0x40, 0x23, 0x24, 0x25, 0x5E, 0x26, 0x2A, 0x28, 0x29};
 
 // uint8_t keycode_to_ascii[0xFF][2];
 
-// keycode_to_ascii[KC_MINS] = {0x2D, 0x5F};
+// keycode_to_ascii[KC_MINUS] = {0x2D, 0x5F};
 
 void print_char(char c) {
     uint8_t b = 8;
@@ -61,7 +71,8 @@ void print_char(char c) {
 }
 
 void print_string(char c[]) {
-    for (uint8_t i = 0; i < strlen(c); i++) print_char(c[i]);
+    for (uint8_t i = 0; i < strlen(c); i++)
+        print_char(c[i]);
 }
 
 bool process_printer(uint16_t keycode, keyrecord_t *record) {
@@ -84,8 +95,8 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
             case KC_PIPE:
             case KC_TILD:
                 keycode &= 0xFF;
-            case KC_LSFT:
-            case KC_RSFT:
+            case KC_LEFT_SHIFT:
+            case KC_RIGHT_SHIFT:
                 if (record->event.pressed) {
                     character_shift++;
                 } else {
@@ -101,13 +112,13 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                     print_string("This is a line of text!\n\n\n");
                 }
                 return false;
-            case KC_ESC:
+            case KC_ESCAPE:
                 if (record->event.pressed) {
                     print_char(0x1B);
                 }
                 return false;
                 break;
-            case KC_SPC:
+            case KC_SPACE:
                 if (record->event.pressed) {
                     print_char(0x20);
                 }
@@ -133,7 +144,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_ENT:
+            case KC_ENTER:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x0C);
@@ -143,7 +154,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_BSPC:
+            case KC_BACKSPACE:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x18);
@@ -163,7 +174,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_COMM:
+            case KC_COMMA:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x3C);
@@ -173,7 +184,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_SLSH:
+            case KC_SLASH:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x3F);
@@ -183,7 +194,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_QUOT:
+            case KC_QUOTE:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x22);
@@ -193,7 +204,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_GRV:
+            case KC_GRAVE:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x7E);
@@ -203,7 +214,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_MINS:
+            case KC_MINUS:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x5F);
@@ -213,7 +224,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_EQL:
+            case KC_EQUAL:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x2B);
@@ -223,7 +234,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_LBRC:
+            case KC_LEFT_BRACKET:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x7B);
@@ -233,7 +244,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_RBRC:
+            case KC_RIGHT_BRACKET:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x7D);
@@ -243,7 +254,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;
-            case KC_BSLS:
+            case KC_BACKSLASH:
                 if (record->event.pressed) {
                     if (character_shift) {
                         print_char(0x7C);

@@ -18,8 +18,8 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xBEEF
-#define PRODUCT_ID      0x0003
+#define VENDOR_ID       0x1209
+#define PRODUCT_ID      0x2925
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DanNixon
 #define PRODUCT         Aya

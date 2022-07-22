@@ -35,7 +35,7 @@ You can change the DPI/CPI or speed of the trackball by calling `adns_set_cpi` a
 To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIONS` to set the array, and `PLOOPY_DPI_DEFAULT`. 
 
 ```c
-#define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375}
+#define PLOOPY_DPI_OPTIONS { 375, 750, 1375}
 #define PLOOPY_DPI_DEFAULT 1
 ```
 

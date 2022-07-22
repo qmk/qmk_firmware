@@ -28,22 +28,28 @@ ifeq ($(strip $(KEYBOARD)), tkc/osav2)
   VELOCIKEY_ENABLE=yes
   SRC += rgb_timeout.c
 endif
-ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
-  RGB_MATRIX_ENABLE = yes
-  RGBLIGHT_ENABLE = no
-endif
 ifeq ($(strip $(KEYBOARD)), jacky_studio/bear_65)
   BACKLIGHT_ENABLE = yes
   RGB_MATRIX_ENABLE = yes
   RGBLIGHT_ENABLE = no
   SRC += rgb_layers.c
 endif
-ifeq ($(strip $(KEYBOARD)), tkc/portico)
-  SRC += rgb_timeout.c
-endif
-ifeq ($(strip $(KEYBOARD)), kiwikey/wanderland)
-  SRC += rgb_timeout.c
-endif
 ifeq ($(strip $(KEYBOARD)), mechlovin/adelais/rgb_led/rev2)
   SRC += rgb_layers.c
+  SRC += rgb_timeout.c
+endif
+ifeq ($(strip $(KEYBOARD)), mechlovin/adelais/standard_led/arm/rev4/stm32f303)
+  OPT_DEFS += -DHAS_INDICATORS
+  SRC += rgb_timeout.c
+  SRC += indicator_layers_sneakbox.c
+endif
+ifeq ($(strip $(KEYBOARD)), nasu)
+  SRC += indicator_layers_sneakbox.c
+  SRC += startup_fanfare.c
+  OPT_DEFS += -DHAS_INDICATORS
+endif
+ifeq ($(strip $(KEYBOARD)), mechlovin/adelais/standard_led/arm/rev4/apm32f103)
+  OPT_DEFS += -DHAS_INDICATORS
+  SRC += rgb_timeout.c
+  SRC += indicator_layers_sneakbox.c
 endif

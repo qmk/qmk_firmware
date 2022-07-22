@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Function Layer
      *
      * ,-----------------------------------------------------------. .-------------------.
-     * |   |   |   |   |   |   |   |   |   |   |   |   |   | RESET | |    |    |    |    |
+     * |   |   |   |   |   |   |   |   |   |   |   |   |   | QK_BOOT | |    |    |    |    |
      * |-----------------------------------------------------------| |-------------------|
      * |     |   |   |   |   |   |   |   |   |   |   |   |   |     | |    |    |    |    |
      * |-----------------------------------------------------------| |-------------------|
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------' '-------------------'
      */
     [_FUNC] = LAYOUT_all(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   XXXXXXX,     _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,   XXXXXXX,     _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______, _______, _______, XXXXXXX,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______,              _______, _______, _______, _______,
         _______, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_STEP, _______, _______, XXXXXXX,              _______, _______, _______, XXXXXXX,
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
     oled_write_P(PSTR("M0lly\n"),false);
 
     // Layer status
@@ -91,5 +91,7 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return false;
 }
 #endif

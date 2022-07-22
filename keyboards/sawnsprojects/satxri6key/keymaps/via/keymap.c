@@ -145,7 +145,7 @@ static void render_anim(void) {
 }
 
 // Used to draw on to the oled screen
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_anim();  // renders pixelart
 
     oled_set_cursor(0, 0);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
@@ -160,5 +160,6 @@ void oled_task_user(void) {
     led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
     oled_set_cursor(0, 1);
     oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("       "), false);
+    return false;
 }
 #endif

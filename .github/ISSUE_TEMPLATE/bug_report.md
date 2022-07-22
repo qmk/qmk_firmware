@@ -18,19 +18,18 @@ assignees: ''
 
 ## System Information
 
- - Keyboard:  
-   - Revision (if applicable):  
- - Operating system:
- - AVR GCC version: 
-<!-- Run `avr-gcc --version` to find this out. -->
- - ARM GCC version: 
-<!-- Run `arm-none-eabi-gcc --version` to find this out. -->
- - QMK Firmware version:
-<!-- Run `git describe --abbrev=0 --tags` to find this out. -->
- - Any keyboard related software installed? 
-   - [ ] AutoHotKey
-   - [ ] Karabiner
-   - [ ] Other:
+**Keyboard:** 
+**Revision (if applicable):** 
+**Operating system:** 
+**`qmk doctor` output:** 
+```
+(Paste output here)
+```
+
+**Any keyboard related software installed?** 
+ - [ ] AutoHotKey (Windows)
+ - [ ] Karabiner (macOS)
+ - [ ] Other:
 
 ## Additional Context
 

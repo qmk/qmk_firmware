@@ -117,13 +117,6 @@ uint8_t matrix_scan(void) {
   return 1;
 }
 
-bool matrix_is_modified(void) {
-  if (debouncing)
-    return false;
-  else
-    return true;
-}
-
 inline bool matrix_is_on(uint8_t row, uint8_t col) {
   return (matrix[row] & ((matrix_row_t)1<<col));
 }
@@ -137,14 +130,6 @@ void matrix_print(void) {
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
     xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
   }
-}
-
-uint8_t matrix_key_count(void) {
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop32(matrix[i]);
-  }
-  return count;
 }
 
 static uint8_t read_rows(void) {

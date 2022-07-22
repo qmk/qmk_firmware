@@ -24,7 +24,7 @@
     "rows": ["C0", "C1", "C2", "C3", "C7", "F7", "B1", "F2", "F3", "F4", "F5", "F6", "C6"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x23A0",
     "vid": "0xC1ED"
   },
