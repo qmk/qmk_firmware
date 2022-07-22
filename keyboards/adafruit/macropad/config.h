@@ -67,8 +67,8 @@
 #define DEBOUNCE 5
 
 /* Bootmagic lite */
-/* (Press the Encoder button while plugging the keyboard to enter the bootloader) */
-#define BOOTMAGIC_LITE_ROW 0
+/* (Press the key bellow the encoder button while plugging the keyboard to enter the bootloader and clear flash) */
+#define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 2
 
 /* Double tap the side button to enter bootloader */
