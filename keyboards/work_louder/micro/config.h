@@ -80,9 +80,9 @@
 //#define NO_ACTION_ONESHOT
 
 #define ENCODERS_PAD_A \
-    { B0, D4 }
+    { D4, B0 }
 #define ENCODERS_PAD_B \
-    { B1, D6 }
+    { D6, B1 }
 
 #define WORK_LOUDER_LED_PIN_1 B7
 #define WORK_LOUDER_LED_PIN_2 B6

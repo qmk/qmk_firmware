@@ -3,30 +3,14 @@
 
 #include QMK_KEYBOARD_H
 
-#undef LAYOUT
-#define LAYOUT( \
-    keA, keB, keC, keD, \
-    k0A, k0B, k0C, k0D, \
-    k1A, k1B, k1C, k1D, \
-    k2A, k2B, k2C, k2D, \
-    k3A, k3B, k3C, k3D) { \
-     {k0A, k0B, k0C, k0D}, \
-     {k1A, k1B, k1C, k1D}, \
-     {k2A, k2B, k2C, k2D}, \
-     {k3A, k3B, k3C, k3D}, \
-     {keA, keB, keC, keD} \
-}
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT(
-        KC_VOLD, KC_VOLU, C(KC_Z), C(KC_Y),
         KC_MPLY, KC_9,    KC_0,    KC_NO,
         KC_5,    KC_6,    KC_7,    KC_8,
         KC_1,    KC_2,    KC_3,    KC_4,
         TO(1),   KC_DOT,  KC_COMM, USER09
     ),
     LAYOUT(
-        _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
@@ -37,17 +21,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, _______, _______, _______,
         TO(3),   _______, _______, _______
     ),
     LAYOUT(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, _______, _______, _______,
         TO(0),   _______, _______, _______
     )
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(C(KC_Z), C(KC_Y))  },
+    { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
+    { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
+    { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  }
+};
+#endif
+
 
 typedef union {
     uint32_t raw;
