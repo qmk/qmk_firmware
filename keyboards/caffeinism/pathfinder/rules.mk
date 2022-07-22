@@ -1,5 +1,4 @@
 # overwrite functions
-SRC += main.c
 SRC += matrix.c
 
 # MCU name

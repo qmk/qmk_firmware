@@ -16,6 +16,15 @@
 #include "pathfinder.h"
 #include "print.h"
 
-void keyboard_post_init_user(void) {
+uint32_t loop_timeout_timer;
+void keyboard_post_init_kb(void) {
+    loop_timeout_timer = timer_read32();
     debug_enable=true;
+    keyboard_post_init_user();
+}
+
+void housekeeping_task_kb(void) {
+    if (timer_elapsed32(loop_timeout_timer) > LOOP_TIMEOUT){
+        reset_keyboard();
+    }
 }
