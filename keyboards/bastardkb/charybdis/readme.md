@@ -18,6 +18,20 @@ Check out the [keyboard build guides](https://docs.bastardkb.com) for the Charyb
 
 ## Building the firmware
 
+### Charybdis (5x6)
+
+The `default` keymap is inspired from the original [Dactyl Manuform](../../handwired/dactyl_manuform) layout.
+
+```shell
+qmk compile -kb bastardkb/charybdis/5x6 -km default
+```
+
+Check out the `via` layout if you're looking for VIA support:
+
+```shell
+qmk compile -kb bastardkb/charybdis/5x6 -km via
+```
+
 ### Charybdis (4x6)
 
 The `default` keymap is inspired from the original [Dactyl Manuform](../../handwired/dactyl_manuform) layout.

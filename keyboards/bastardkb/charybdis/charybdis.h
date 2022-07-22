@@ -23,6 +23,8 @@
 #    include "3x5.h"
 #elif defined(KEYBOARD_bastardkb_charybdis_4x6)
 #    include "4x6.h"
+#elif defined(KEYBOARD_bastardkb_charybdis_5x6)
+#    include "5x6.h"
 #else
 #    error "Unsuported format"
 #endif
