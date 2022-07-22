@@ -70,15 +70,13 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 
 /* end of copy */
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
     // We don't need to initialize the pin.
     // matrix_init_pins();
 
     // initialize matrix state: all keys off
     memset(matrix, 0, sizeof(matrix));
     memset(raw_matrix, 0, sizeof(raw_matrix));
-
-    matrix_init_quantum();
 }
 
 void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
@@ -115,7 +113,7 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 static const char pin_name[MATRIX_ROWS][4] = MATRIX_ALL_PINS_STRING;
-uint8_t matrix_scan(void) {
+uint8_t matrix_scan_custom(void) {
     /*
         We're going to try to find the culprit.
         Let's look at an example matrix.
@@ -175,8 +173,6 @@ uint8_t matrix_scan(void) {
         
         memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix)); // haha is needed?
     }
-
-    matrix_scan_quantum();
-
+    
     return (uint8_t)0; // haha im not changed
 }
