@@ -93,14 +93,25 @@ __attribute__((weak)) void unregister_code16(uint16_t code) {
     }
 }
 
-__attribute__((weak)) void tap_code16(uint16_t code) {
+/** \brief Tap a keycode with a delay.
+ *
+ * \param code The modded keycode to tap.
+ * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
+ */
+__attribute__((weak)) void tap_code16_delay(uint16_t code, uint16_t delay) {
     register_code16(code);
-    if (code == KC_CAPS_LOCK) {
-        wait_ms(TAP_HOLD_CAPS_DELAY);
-    } else if (TAP_CODE_DELAY > 0) {
-        wait_ms(TAP_CODE_DELAY);
+    for (uint16_t i = delay; i > 0; i--) {
+        wait_ms(1);
     }
     unregister_code16(code);
+}
+
+/** \brief Tap a keycode with the default delay.
+ *
+ * \param code The modded keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
+ */
+__attribute__((weak)) void tap_code16(uint16_t code) {
+    tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
 }
 
 __attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
