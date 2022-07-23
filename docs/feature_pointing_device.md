@@ -89,23 +89,27 @@ POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 
 This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the TM040040, TM035035 and the TM023023 trackpads. These are I2C or SPI compatible, and both configurations are supported.
 
+#### Common settings
+
 | Setting                          | Description                                                | Default            |
 | -------------------------------- | ---------------------------------------------------------- | ------------------ |
-| `CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.    | `127`              |
-| `CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.    | `1919`             |
-| `CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.    | `63`               |
-| `CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.    | `1471`             |
 | `CIRQUE_PINNACLE_DIAMETER_MM`    | (Optional) Diameter of the trackpad sensor in millimeters. | `40`               |
 | `CIRQUE_PINNACLE_ATTENUATION`    | (Optional) Sets the attenuation of the sensor data.        | `ADC_ATTENUATE_4X` |
 | `CIRQUE_PINNACLE_CURVED_OVERLAY` | (Optional) Applies settings tuned for curved overlay.      | _not defined_      |
+| `CIRQUE_PINNACLE_POSITION_MODE`  | (Optional) Mode of operation.                              | _not defined_      |
 
-**`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be. 
+**`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be.
 
 Default attenuation is set to 4X, although if you are using a thicker overlay (such as the curved overlay) you will want a lower attenuation such as 2X. The possible values are:
 * `ADC_ATTENUATE_4X`: Least sensitive
 * `ADC_ATTENUATE_3X`
 * `ADC_ATTENUATE_2X`
 * `ADC_ATTENUATE_1X`: Most sensitive
+
+**`CIRQUE_PINNACLE_POSITION_MODE`** can be `CIRQUE_PINNACLE_ABSOLUTE_MODE` or `CIRQUE_PINNACLE_RELATIVE_MODE`. Modes differ in supported features/gestures.
+
+* `CIRQUE_PINNACLE_ABSOLUTE_MODE`: Reports absolute x, y, z (touch pressure) coordinates and up to 5 hw buttons connected to the trackpad
+* `CIRQUE_PINNACLE_RELATIVE_MODE`: Reports x/y deltas, scroll and up to 3 buttons (2 of them can be from taps, see gestures) connected to trackpad. Supports taps on secondary side of split. Saves about 2k of flash compared to absolute mode with all features.
 
 | I2C Setting               | Description                                                                     | Default |
 | ------------------------- | ------------------------------------------------------------------------------- | ------- |
@@ -124,16 +128,37 @@ Default Scaling is 1024. Actual CPI depends on trackpad diameter.
 
 Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when using Cirque Pinnacle, which matches the internal update rate of the position registers (in standard configuration). Advanced configuration for pen/stylus usage might require lower values.
 
-#### Cirque Trackpad gestures
+#### Absolute mode settings
 
-| Gesture Setting                                | Description                                                                                                                                                                                      | Default              |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
-| `CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE`       | (Optional) Enable circular scroll. Touch originating in outer ring can trigger scroll by moving along the perimeter. Near side triggers vertical scroll and far side triggers horizontal scroll. | _not defined_        |
-| `CIRQUE_PINNACLE_TAP_ENABLE`                   | (Optional) Enable tap to click. This currently only works on the master side.                                                                                                                    | _not defined_        |
-| `CIRQUE_PINNACLE_TAPPING_TERM`                 | (Optional) Length of time that a touch can be to be considered a tap.                                                                                                                            | `TAPPING_TERM`/`200` |
-| `CIRQUE_PINNACLE_TOUCH_DEBOUNCE`               | (Optional) Length of time that a touch can be to be considered a tap.                                                                                                                            | `TAPPING_TERM`/`200` |
+| Setting                          | Description                                                | Default            |
+| -------------------------------- | ---------------------------------------------------------- | ------------------ |
+| `CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.    | `127`              |
+| `CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.    | `1919`             |
+| `CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.    | `63`               |
+| `CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.    | `1471`             |
 
-Additionally, `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` is supported on the Cirque.
+#### Absolute mode gestures
+
+| Gesture Setting                                | Description                                                                    | Default              |
+| ---------------------------------------------- | ------------------------------------------------------------------------------ | -------------------- |
+| `CIRQUE_PINNACLE_TAP_ENABLE`                   | (Optional) Enable tap to click. This currently only works on the master side.  | _not defined_        |
+| `CIRQUE_PINNACLE_TAPPING_TERM`                 | (Optional) Length of time that a touch can be to be considered a tap.          | `TAPPING_TERM`/`200` |
+| `CIRQUE_PINNACLE_TOUCH_DEBOUNCE`               | (Optional) Length of time that a touch can be to be considered a tap.          | `TAPPING_TERM`/`200` |
+
+`POINTING_DEVICE_GESTURES_SCROLL_ENABLE` in this mode enables circular scroll. Touch originating in outer ring can trigger scroll by moving along the perimeter. Near side triggers vertical scroll and far side triggers horizontal scroll.
+
+Additionally, `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` is supported in this mode.
+
+#### Relative mode gestures
+
+| Gesture Setting                        | Description                                                                                                                                                                               | Default       |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `CIRQUE_PINNACLE_TAP_ENABLE`           | (Optional) Enable tap to "left click". Works on both sides of a split keyboard.                                                                                                           | _not defined_ |
+| `CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE` | (Optional) Tap in upper right corner (half of the finger needs to be outside of the trackpad) of the trackpad will result in "right click". `CIRQUE_PINNACLE_TAP_ENABLE` must be enabled. | _not defined_ |
+
+Tapping term and debounce are not configurable in this mode since it's handled by trackpad internally.
+
+`POINTING_DEVICE_GESTURES_SCROLL_ENABLE` in this mode enables side scroll. Touch originating on the right side can trigger vertical scroll (IntelliSense trackpad style).
 
 ### PAW 3204 Sensor
 
@@ -151,7 +176,6 @@ The paw 3204 sensor uses a serial type protocol for communication, and requires 
 |`PAW3204_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         |
 
 The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600).  Defaults to 1000 CPI.
-
 
 ### Pimoroni Trackball
 
@@ -254,17 +278,18 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 ## Common Configuration
 
-| Setting                            | Description                                                                                                                      | Default       |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `MOUSE_EXTENDED_REPORT`            | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
-| `POINTING_DEVICE_ROTATION_90`      | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
-| `POINTING_DEVICE_ROTATION_180`     | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
-| `POINTING_DEVICE_ROTATION_270`     | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |
-| `POINTING_DEVICE_INVERT_X`         | (Optional) Inverts the X axis report.                                                                                            | _not defined_ |
-| `POINTING_DEVICE_INVERT_Y`         | (Optional) Inverts the Y axis report.                                                                                            | _not defined_ |
-| `POINTING_DEVICE_MOTION_PIN`       | (Optional) If supported, will only read from sensor if pin is active.                                                            | _not defined_ |
-| `POINTING_DEVICE_TASK_THROTTLE_MS` | (Optional) Limits the frequency that the sensor is polled for motion.                                                            | _not defined_ |
-| `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` | (Optional) Enable inertial cursor. Cursor continues moving after a flick gesture and slows down by kinetic friction. | _not defined_ |
+| Setting                                        | Description                                                                                                                      | Default       |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `MOUSE_EXTENDED_REPORT`                        | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
+| `POINTING_DEVICE_ROTATION_90`                  | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_ROTATION_180`                 | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_ROTATION_270`                 | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_INVERT_X`                     | (Optional) Inverts the X axis report.                                                                                            | _not defined_ |
+| `POINTING_DEVICE_INVERT_Y`                     | (Optional) Inverts the Y axis report.                                                                                            | _not defined_ |
+| `POINTING_DEVICE_MOTION_PIN`                   | (Optional) If supported, will only read from sensor if pin is active.                                                            | _not defined_ |
+| `POINTING_DEVICE_TASK_THROTTLE_MS`             | (Optional) Limits the frequency that the sensor is polled for motion.                                                            | _not defined_ |
+| `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` | (Optional) Enable inertial cursor. Cursor continues moving after a flick gesture and slows down by kinetic friction.             | _not defined_ |
+| `POINTING_DEVICE_GESTURES_SCROLL_ENABLE`       | (Optional) Enable scroll gesture. The gesture that activates the scroll is device dependent.                                     | _not defined_ |
 
 !> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 
