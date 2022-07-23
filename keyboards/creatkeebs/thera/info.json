@@ -2,6 +2,9 @@
     "keyboard_name": "jelly epoch",
     "url": "https://eschit.com/collections/thera75",
     "maintainer": "https://github.com/Timliuzhaolu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ansi"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -95,7 +98,7 @@
                 {"label":"\u2192", "x":15.25, "y":5.75}
             ]
         },
-        "LAYOUT": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
