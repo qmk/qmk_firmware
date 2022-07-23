@@ -349,7 +349,7 @@ If the keycode is `KC_CAPS`, it waits `TAP_HOLD_CAPS_DELAY` milliseconds instead
 
 Like `tap_code(<kc>)`, but with a `delay` parameter for specifying arbitrary intervals before sending the unregister event.
 
-#### `register_code16(<kc>);`, `unregister_code16(<kc>);` and `tap_code16(<kc>);`
+#### `register_code16(<kc>);`, `unregister_code16(<kc>);`, `tap_code16(<kc>);` and `tap_code16_delay(<kc>, <delay>);`
 
 These functions work similar to their regular counterparts, but allow you to use modded keycodes (with Shift, Alt, Control, and/or GUI applied to them).
 
