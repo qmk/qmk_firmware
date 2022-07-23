@@ -15,11 +15,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#include "encoder_action.h"
 
 /* Frog NP Keymap Definitions */
 #define LAYOUT( \
-    E00A, E00B, E01A, E01B, \
     K00, K01, K02, K03, \
     K10, K11, K12, K13, \
     K20, K21, K22, K23, \
@@ -27,7 +25,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     K40, K41, K42, K43, \
     K50, K51, K52, K53  \
 ) { \
-    { E00A, E00B, E01A, E01B }, \
     { K00, K01, K02, K03 }, \
     { K10, K11, K12, K13 }, \
     { K20, K21, K22, K23 }, \
