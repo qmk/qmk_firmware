@@ -4,9 +4,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
+#include "unicode.h"
 #include "process_unicode_common.h"
 
-uint16_t typing_mode = KC_NOMODE;
+uint8_t typing_mode = UCTM_NO_MODE;
 
 /**
  * @brief Registers the unicode keystrokes based on desired unicode
@@ -68,7 +69,7 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, tra
             }
             return false;
         } else if (KC_1 <= keycode && keycode <= KC_0) {
-            if (is_shifted) {  // skip shifted numbers, so that we can still use symbols etc.
+            if (is_shifted) { // skip shifted numbers, so that we can still use symbols etc.
                 return process_record_keymap(keycode, record);
             }
             if (record->event.pressed) {
@@ -91,42 +92,81 @@ DEFINE_UNICODE_RANGE_TRANSLATOR(unicode_range_translator_boxes, 0x1F170, 0x1F170
 DEFINE_UNICODE_RANGE_TRANSLATOR(unicode_range_translator_regional, 0x1F1E6, 0x1F1E6, '0', '1', 0x2003);
 
 DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_aussie,
-                              0x0250,  // a
-                              'q',     // b
-                              0x0254,  // c
-                              'p',     // d
-                              0x01DD,  // e
-                              0x025F,  // f
-                              0x0183,  // g
-                              0x0265,  // h
-                              0x1D09,  // i
-                              0x027E,  // j
-                              0x029E,  // k
-                              'l',     // l
-                              0x026F,  // m
-                              'u',     // n
-                              'o',     // o
-                              'd',     // p
-                              'b',     // q
-                              0x0279,  // r
-                              's',     // s
-                              0x0287,  // t
-                              'n',     // u
-                              0x028C,  // v
-                              0x028D,  // w
-                              0x2717,  // x
-                              0x028E,  // y
-                              'z',     // z
-                              0x0269,  // 1
-                              0x3139,  // 2
-                              0x0190,  // 3
-                              0x3123,  // 4
-                              0x03DB,  // 5
-                              '9',     // 6
-                              0x3125,  // 7
-                              '8',     // 8
-                              '6',     // 9
-                              '0'      // 0
+                              0x0250, // a
+                              'q',    // b
+                              0x0254, // c
+                              'p',    // d
+                              0x01DD, // e
+                              0x025F, // f
+                              0x0183, // g
+                              0x0265, // h
+                              0x1D09, // i
+                              0x027E, // j
+                              0x029E, // k
+                              'l',    // l
+                              0x026F, // m
+                              'u',    // n
+                              'o',    // o
+                              'd',    // p
+                              'b',    // q
+                              0x0279, // r
+                              's',    // s
+                              0x0287, // t
+                              'n',    // u
+                              0x028C, // v
+                              0x028D, // w
+                              0x2717, // x
+                              0x028E, // y
+                              'z',    // z
+                              0x0269, // 1
+                              0x3139, // 2
+                              0x0190, // 3
+                              0x3123, // 4
+                              0x03DB, // 5
+                              '9',    // 6
+                              0x3125, // 7
+                              '8',    // 8
+                              '6',    // 9
+                              '0'     // 0
+);
+
+DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_super,
+                              0x1D43, // a
+                              0x1D47, // b
+                              0x1D9C, // c
+                              0x1D48, // d
+                              0x1D49, // e
+                              0x1DA0, // f
+                              0x1D4D, // g
+                              0x02B0, // h
+                              0x2071, // i
+                              0x02B2, // j
+                              0x1D4F, // k
+                              0x1D4F, // l
+                              0x1D50, // m
+                              0x207F, // n
+                              0x1D52, // o
+                              0x1D56, // p
+                              0x06F9, // q
+                              0x02B3, // r
+                              0x02E2, // s
+                              0x1D57, // t
+                              0x1D58, // u
+                              0x1D5B, // v
+                              0x02B7, // w
+                              0x02E3, // x
+                              0x02B8, // y
+                              0x1DBB, // z
+                              0x00B9, // 1
+                              0x00B2, // 2
+                              0x00B3, // 3
+                              0x2074, // 4
+                              0x2075, // 5
+                              0x2076, // 6
+                              0x2077, // 7
+                              0x2078, // 8
+                              0x2079, // 9
+                              0x2070  // 0
 );
 
 bool process_record_aussie(uint16_t keycode, keyrecord_t *record) {
@@ -206,46 +246,46 @@ bool process_record_zalgo(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case UC_FLIP:  // (ノಠ痊ಠ)ノ彡┻━┻
+        case UC_FLIP: // (ノಠ痊ಠ)ノ彡┻━┻
             if (record->event.pressed) {
                 send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
             }
             break;
 
-        case UC_TABL:  // ┬─┬ノ( º _ ºノ)
+        case UC_TABL: // ┬─┬ノ( º _ ºノ)
             if (record->event.pressed) {
                 send_unicode_string("┬─┬ノ( º _ ºノ)");
             }
             break;
 
-        case UC_SHRG:  // ¯\_(ツ)_/¯
+        case UC_SHRG: // ¯\_(ツ)_/¯
             if (record->event.pressed) {
                 send_unicode_string("¯\\_(ツ)_/¯");
             }
             break;
 
-        case UC_DISA:  // ಠ_ಠ
+        case UC_DISA: // ಠ_ಠ
             if (record->event.pressed) {
                 send_unicode_string("ಠ_ಠ");
             }
             break;
 
-        case UC_IRNY:  // ⸮
+        case UC_IRNY: // ⸮
             if (record->event.pressed) {
                 register_unicode(0x2E2E);
             }
             break;
-        case UC_CLUE:  // ‽
+        case UC_CLUE: // ‽
             if (record->event.pressed) {
                 register_unicode(0x203D);
             }
             break;
-        case KC_NOMODE ... KC_ZALGO:
+        case KC_NOMODE ... KC_SUPER:
             if (record->event.pressed) {
-                if (typing_mode != keycode) {
-                    typing_mode = keycode;
+                if (typing_mode != keycode - KC_NOMODE) {
+                    typing_mode = keycode - KC_NOMODE;
                 } else {
-                    typing_mode = KC_NOMODE;
+                    typing_mode = UCTM_NO_MODE;
                 }
             }
             break;
@@ -259,19 +299,19 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
         keycode &= 0xFF;
     }
 
-    if (typing_mode == KC_WIDE) {
+    if (typing_mode == UCTM_WIDE) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_wide);
         }
-    } else if (typing_mode == KC_SCRIPT) {
+    } else if (typing_mode == UCTM_SCRIPT) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_script);
         }
-    } else if (typing_mode == KC_BLOCKS) {
+    } else if (typing_mode == UCTM_BLOCKS) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_boxes);
         }
-    } else if (typing_mode == KC_REGIONAL) {
+    } else if (typing_mode == UCTM_REGIONAL) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             if (!process_record_glyph_replacement(keycode, record, unicode_range_translator_regional)) {
                 wait_us(500);
@@ -279,9 +319,13 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         }
-    } else if (typing_mode == KC_AUSSIE) {
+    } else if (typing_mode == UCTM_SUPER) {
+        if (((KC_A <= keycode) && (keycode <= KC_0))) {
+            return process_record_glyph_replacement(keycode, record, unicode_lut_translator_super);
+        }
+    } else if (typing_mode == UCTM_AUSSIE) {
         return process_record_aussie(keycode, record);
-    } else if (typing_mode == KC_ZALGO) {
+    } else if (typing_mode == UCTM_ZALGO) {
         return process_record_zalgo(keycode, record);
     }
     return true;
@@ -291,4 +335,6 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
  * @brief Initialize the default unicode mode on firmware startu
  *
  */
-void matrix_init_unicode(void) { unicode_input_mode_init(); }
+void matrix_init_unicode(void) {
+    unicode_input_mode_init();
+}

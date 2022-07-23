@@ -67,9 +67,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* bootmagic salt key */
-#define BOOTMAGIC_KEY_SALT              KC_ESC
-
-/* skip bootmagic and eeconfig */
-#define BOOTMAGIC_KEY_SKIP              KC_SPACE

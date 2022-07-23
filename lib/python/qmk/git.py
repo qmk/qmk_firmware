@@ -108,3 +108,12 @@ def git_check_deviation(active_branch):
     cli.run(['git', 'fetch', 'upstream', active_branch])
     deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
     return bool(deviations.returncode)
+
+
+def git_get_ignored_files(check_dir='.'):
+    """Return a list of files that would be captured by the current .gitingore
+    """
+    invalid = cli.run(['git', 'ls-files', '-c', '-o', '-i', '--exclude-standard', check_dir])
+    if invalid.returncode != 0:
+        return []
+    return invalid.stdout.strip().splitlines()

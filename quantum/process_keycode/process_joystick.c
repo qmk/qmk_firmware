@@ -6,39 +6,23 @@
 #include <string.h>
 #include <math.h>
 
-bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record);
-
 bool process_joystick(uint16_t keycode, keyrecord_t *record) {
-    if (process_joystick_buttons(keycode, record) && (joystick_status.status & JS_UPDATED) > 0) {
-        send_joystick_packet(&joystick_status);
-        joystick_status.status &= ~JS_UPDATED;
+    switch (keycode) {
+        case JS_BUTTON0 ... JS_BUTTON_MAX:
+            if (record->event.pressed) {
+                register_joystick_button(keycode - JS_BUTTON0);
+            } else {
+                unregister_joystick_button(keycode - JS_BUTTON0);
+            }
+            return false;
     }
-
     return true;
 }
 
 __attribute__((weak)) void joystick_task(void) {
-    if (process_joystick_analogread() && (joystick_status.status & JS_UPDATED)) {
-        send_joystick_packet(&joystick_status);
-        joystick_status.status &= ~JS_UPDATED;
+    if (process_joystick_analogread()) {
+        joystick_flush();
     }
-}
-
-bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record) {
-    if (keycode < JS_BUTTON0 || keycode > JS_BUTTON_MAX) {
-        return true;
-    } else {
-        uint8_t button_idx = (keycode - JS_BUTTON0);
-        if (record->event.pressed) {
-            joystick_status.buttons[button_idx / 8] |= 1 << (button_idx % 8);
-        } else {
-            joystick_status.buttons[button_idx / 8] &= ~(1 << (button_idx % 8));
-        }
-
-        joystick_status.status |= JS_UPDATED;
-    }
-
-    return true;
 }
 
 uint16_t savePinState(pin_t pin) {
