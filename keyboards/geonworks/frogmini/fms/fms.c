@@ -16,12 +16,6 @@
 
 #include "fms.h"
 
-void board_init(void) {
-    // B9 is configured as I2C1_SDA_PIN in the board file; that function must be
-    // disabled before using B7 as I2C1_SDA.
-    setPinInputHigh(B9);
-}
-
 void i2c_init(void) {
     setPinInput(B6); // Try releasing special pins for a short time
     setPinInput(B7);
