@@ -58,9 +58,5 @@
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
 
 /* PMW3360 settings. */
-#define PMW3360_CS_PIN B14
-#define PMW3360_CS_MODE 3
-#define PMW3360_CS_DIVISOR 64
-
-/** Improve trackball firmware upload speed at boot. */
-#define PMW3360_FIRMWARE_UPLOAD_FAST
+#define PMW33XX_CS_PIN B14
+#define PMW33XX_CS_DIVISOR 64

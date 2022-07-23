@@ -38,4 +38,4 @@
 #define RGB_DI_PIN D3
 
 /* PMW3360 settings. */
-#define PMW3360_CS_PIN B0
+#define PMW33XX_CS_PIN B0
