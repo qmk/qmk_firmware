@@ -1,11 +1,14 @@
 # GeonWorks Frog Mini PCB firmware
 
+![FM_image](https://cdn.shopify.com/s/files/1/0477/8210/1155/files/1_600x600.jpg)
+
 The Frog Mini is a 60% keyboard designed by GeonWorks, with PCB by Gondolindrim.
 
 Two PCB variants are offered: FM-S (solderable) and FM-H (hotswap with Kailh sockets).
 
 * Keyboard Maintainer: [Gondolindrim](https://github.com/gondolindrim)
 * Hardware Availability: proprietary PCB sold by [Geon.Works](https://geon.works/)
+* Website: [GeonWorks](https://geon.works/pages/frog-mini)
 
 ## How to flash
 
