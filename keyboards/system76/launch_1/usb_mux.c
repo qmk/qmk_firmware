@@ -23,13 +23,21 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// VIDs and PIDs from https://github.com/system76/usb_ids
+// USB signal prefixes from schematic
+//  - UP = USB C upstream (center)
+//  - AR = USB A right side
+//  - AL = USB A left side
+//  - CR = USB C right side
+//  - CL = USB C left side
+
+// System76 USB Vendor ID and Product IDs from https://github.com/system76/usb_ids
 #define SYSTEM76_VID 0x3384
 #define LAUNCH_1_PID 0x0001
 #define LAUNCH_USB2_HUB_PID 0x0003
 #define LAUNCH_USB3_HUB_PID 0x0004
 
 // USB7206 is a 6-Port USB 3.1 Gen 2 controller hub.
+// I2C address: 0x5A = 0x2D << 1
 #define USB7206_PF1_CTL 0xBF800C04
 #define USB7206_VID 0xBF803000
 #define USB7206_HUB_PRT_SWAP 0xBF8030FA
@@ -45,7 +53,8 @@ struct USB7206 {
 
 struct USB7206 usb_hub = {.addr = 0x2D};
 
-// Perform USB7206 register access.
+// Read or write USB7206 configuration register.
+// The configuration register access opcode is `0x9937'.
 // Returns zero on success or a negative number on error.
 i2c_status_t usb7206_register_access(struct USB7206 *self) {
     uint8_t register_access[3] = {
@@ -226,19 +235,30 @@ i2c_status_t usb7206_init(struct USB7206 *self) {
     i2c_status_t status;
     uint32_t data;
 
-    // DM (D-) and DP (D+) are swapped on ports 2 (AR) and 3 (AL)
+    // DM and DP are swapped on ports 2 (AR) and 3 (AL)
+    // [5:0] PRT_SWAP => Swaps the upstream and downstream USB DP and DM pins for ease of board routing to devices and connectors:
+    //  - '0' = USB D+ functionality is associated with the DP pin, and D– functionality is associated with the DM pin (default).
+    //  - '1' = USB D+ functionality is associated with the DM pin, and D– functionality is associated with the DP pin.
     status = usb7206_write_reg_8(self, USB7206_HUB_PRT_SWAP, 0x0C);
     if (status < 0) {
         return status;
     }
 
     // Disable audio
+    // [7:0] I2S_UNIT_SEL => Control features of the I2S interface if an I2S configuration is selected:
+    //  - 0x00 = I2S is disabled.
+    //  - 0x01 = Audio `IN' through microphone is enabled.
+    //  - 0x02 = Audio `OUT' is enabled.
+    //  - 0x03 = Both audio `IN' are enabled.
     status = usb7206_write_reg_8(self, USB7206_I2S_FEAT_SEL, 0x00);
     if (status < 0) {
         return status;
     }
 
     // Disable Hub Feature Controller (HFC)
+    // [0] HFC_DISABLE:
+    //  - '0': HFC is enabled (default).
+    //  - '1': HFC is disabled.
     data = 0;
     status = usb7206_read_reg_32(self, USB7206_RUNTIME_FLAGS2, &data);
     if (status < 0) {
@@ -267,7 +287,8 @@ i2c_status_t usb7206_init(struct USB7206 *self) {
     return I2C_STATUS_SUCCESS;
 }
 
-// Attach USB7206.
+// Attach USB7206 (exit `SOC_CONFIG' and enter `HUB_CONFIG' stage).
+// The USB attach opcode is `0xAA55'.
 // Returns zero on success or a negative number on error.
 i2c_status_t usb7206_attach(struct USB7206 *self) {
     uint8_t data[3] = {
@@ -294,6 +315,10 @@ i2c_status_t usb7206_gpio_set(struct USB7206_GPIO *self, bool value) {
     i2c_status_t status;
     uint32_t data;
 
+    // Set GPIO output value
+    // PIO[96:64] OUTPUT REGISTER => PIO96_OUT[x]:
+    //  - '0' = Output is `0'.
+    //  - '1' = Output is `1'.
     data = 0;
     status = usb7206_read_reg_32(self->usb7206, USB7206_PIO96_OUT, &data);
     if (status < 0) {
@@ -329,6 +354,9 @@ i2c_status_t usb7206_gpio_init(struct USB7206_GPIO *self) {
     usb7206_gpio_set(self, false);
 
     // Set GPIO to output
+    // PIO[96:64] OUTPUT ENABLE REGISTER => PIO96_OEN[x]:
+    //  - '0' = Disabled.
+    //  - '1' = Enabled.
     data = 0;
     status = usb7206_read_reg_32(self->usb7206, USB7206_PIO96_OEN, &data);
     if (status < 0) {
@@ -363,6 +391,15 @@ struct PTN5110 {
     struct USB7206_GPIO *gpio;
 };
 
+// USB C upstream port controller
+//  - PTN5110DHQ which defaults to acting as a power sink.
+//  - I2C address: 0xA2 (0b1010001x) = 0x51 << 1
+// USB C left port controller
+//  - PTN5110THQ which defaults to acting as a power source.
+//  - I2C address: 0xA4 (0b1010010x) = 0x52 << 1
+// USB C right port controller
+//  - PTN5110THQ which defaults to acting as a power source.
+//  - I2C address: 0xA0 (0b1010000x) = 0x50 << 1
 struct PTN5110 usb_sink         = {.type = TCPC_TYPE_SINK,   .addr = 0x51, .gpio = &usb_gpio_sink};
 struct PTN5110 usb_source_left  = {.type = TCPC_TYPE_SOURCE, .addr = 0x52, .gpio = &usb_gpio_source_left};
 struct PTN5110 usb_source_right = {.type = TCPC_TYPE_SOURCE, .addr = 0x50, .gpio = &usb_gpio_source_right};
@@ -449,12 +486,14 @@ i2c_status_t ptn5110_source_update(struct PTN5110 *self) {
             }
 
             // Enable source Vbus command
+            //  - 0b01110111: SourceVbusDefaultVoltage => Enable sourcing vSafe5V over Vbus and enable Vbus present detection. 
             status = ptn5110_command(self, PTN5110_ENABLE_SOURCE_VBUS);
             if (status < 0) {
                 return status;
             }
         } else {
             // Disable source Vbus command
+            //  - 0b01100110: DisableSourceVbus => Disable sourcing power over Vbus.
             status = ptn5110_command(self, PTN5110_DISABLE_SOURCE_VBUS);
             if (status < 0) {
                 return status;
@@ -483,6 +522,10 @@ i2c_status_t ptn5110_init(struct PTN5110 *self) {
             status = ptn5110_sink_set_orientation(self);
             break;
         case TCPC_TYPE_SOURCE:
+            // [6] DRP: 0b0 = No DRP.
+            // [5:4] Rp Value: 0b00 = Rp default.
+            // [3:2] CC2: 0b01 = Rp definition from [5:4].
+            // [1:0] CC1: 0b01 = Rp definition from [5:4].
             status = ptn5110_set_role_control(self, 0x05);
             break;
     }

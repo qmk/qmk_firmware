@@ -19,5 +19,7 @@
 
 void system76_ec_rgb_eeprom(bool write);
 void system76_ec_rgb_layer(layer_state_t state);
+#ifdef SYSTEM76_EC
 void system76_ec_unlock(void);
+#endif
 bool system76_ec_is_unlocked(void);
