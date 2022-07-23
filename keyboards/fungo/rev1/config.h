@@ -77,10 +77,4 @@
 //지정된 횟수로 눌러야 토글됨
 #define TAPPING_TOGGLE 3
 
-//tap or holding
 
-
-
-#define MK_3_SPEED
-#define MOUSEKEY_INTERVAL 3
-#define MOUSEKEY_INITIAL_SPEED	20
