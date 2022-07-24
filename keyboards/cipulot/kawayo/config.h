@@ -28,7 +28,7 @@
 #define MATRIX_COLS 15
 
 #define MATRIX_ROW_PINS \
-    { B2, B12, C13, B0, B1 }
+    { B1, B12, C13, A7, B0 }
 #define MATRIX_COL_PINS \
     { B10, A0, B9, B8, B7, B6, B5, B4, B3, A15, A14, A4, A3, A2, A1 }
 
