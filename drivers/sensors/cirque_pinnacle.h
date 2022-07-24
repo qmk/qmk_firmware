@@ -78,10 +78,10 @@
 #            define CIRQUE_PINNACLE_SPI_DIVISOR 64
 #        endif
 #        ifndef CIRQUE_PINNACLE_SPI_CS_PIN
-#            ifdef POINTING_DEVICE_SPI_CS_PIN
-#                define CIRQUE_PINNACLE_SPI_CS_PIN POINTING_DEVICE_SPI_CS_PIN
+#            ifdef POINTING_DEVICE_CS_PIN
+#                define CIRQUE_PINNACLE_SPI_CS_PIN POINTING_DEVICE_CS_PIN
 #            else
-#                error "No Chip Select pin has been defined -- missing POINTING_DEVICE_SPI_CS_PIN or CIRQUE_PINNACLE_SPI_CS_PIN define"
+#                error "No Chip Select pin has been defined -- missing POINTING_DEVICE_CS_PIN or CIRQUE_PINNACLE_SPI_CS_PIN define"
 #            endif
 #        endif
 #    endif

@@ -56,10 +56,10 @@
 #endif
 
 #ifndef ADNS5050_CS_PIN
-#    ifdef POINTING_DEVICE_SPI_CS_PIN
-#        define ADNS5050_CS_PIN POINTING_DEVICE_SPI_CS_PIN
+#    ifdef POINTING_DEVICE_CS_PIN
+#        define ADNS5050_CS_PIN POINTING_DEVICE_CS_PIN
 #    else
-#        error "No chip select pin defined -- missing POINTING_DEVICE_SPI_CS_PIN or ADNS5050_CS_PIN define"
+#        error "No chip select pin defined -- missing POINTING_DEVICE_CS_PIN or ADNS5050_CS_PIN define"
 #    endif
 #endif
 
