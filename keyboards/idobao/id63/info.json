@@ -26,8 +26,11 @@
         "pid": "0x0063",
         "vid": "0x6964"
     },
+    "layout_aliases": {
+        "LAYOUT_63_ansi": "LAYOUT_60_ansi_arrow"
+    },
     "layouts": {
-        "LAYOUT_63_ansi": {
+        "LAYOUT_60_ansi_arrow": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "1!", "matrix": [0, 1], "x": 1, "y": 0 },
