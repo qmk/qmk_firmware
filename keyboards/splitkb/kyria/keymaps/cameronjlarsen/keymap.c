@@ -201,7 +201,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 bool is_oneshot_cancel_key(uint16_t keycode){
   switch (keycode) {
     case LA_NAV:
-    case LA_SYM:
       return true;
     default:
       return false;
