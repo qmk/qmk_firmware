@@ -8,6 +8,16 @@
 * Hardware Supported: dyz60, ATmega32U4
 * Hardware Availability: Local Indonesia GB.
 
+#### Enter Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the Esc key and plug in the keyboard
+* **Physical reset pins**: Briefly short the reset pins on the bottom of Space key
+
+
+#### Flashing
+
 Make example for this keyboard (after setting up your build environment):
 
     make dyz/dyz60:default
