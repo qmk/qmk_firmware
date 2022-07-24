@@ -5,13 +5,13 @@
 
 bool special_registered;
 bool delkey_registered;
-bool keycode_special[10];
+bool keycode_raised[15];
 
 bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, bool arrow_mode, uint8_t k_norm, uint8_t k_spcl, uint8_t k_altr) {
     bool is_raised = get_highest_layer(layer_state|default_layer_state) != 0;
 
     if (record->event.pressed) {
-        keycode_special[keycode - USER00] = is_raised;  // save for key release event
+        keycode_raised[keycode - USER00] = is_raised;  // save for key release event
         if (is_raised) {
             // *** Fn keyed ***
             if (arrow_mode) {
@@ -32,7 +32,7 @@ bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, bool arrow_mo
             }
         }
     } else {
-        if (keycode_special[keycode - USER00]) {
+        if (keycode_raised[keycode - USER00]) {
             // *** Fn keyed ***
             if (arrow_mode) {
                 // alternate key
