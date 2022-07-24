@@ -30,7 +30,7 @@
 //  - CR = USB C right side
 //  - CL = USB C left side
 
-// System76 USB Vendor ID and Product IDs from https://github.com/system76/usb_ids
+// System76 USB Vendor ID and Product IDs from `https://github.com/system76/usb_ids'.
 #define SYSTEM76_VID 0x3384
 #define LAUNCH_1_PID 0x0001
 #define LAUNCH_USB2_HUB_PID 0x0003
@@ -249,7 +249,7 @@ i2c_status_t usb7206_init(struct USB7206 *self) {
     //  - 0x00 = I2S is disabled.
     //  - 0x01 = Audio `IN' through microphone is enabled.
     //  - 0x02 = Audio `OUT' is enabled.
-    //  - 0x03 = Both audio `IN' are enabled.
+    //  - 0x03 = Both audio `IN' are enabled (default).
     status = usb7206_write_reg_8(self, USB7206_I2S_FEAT_SEL, 0x00);
     if (status < 0) {
         return status;

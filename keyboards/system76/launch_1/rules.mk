@@ -1,6 +1,6 @@
 # AVR MCU options
-MCU = atmega32u4       # MCU name
-BOOTLOADER = atmel-dfu # Bootloader selection
+MCU = atmega32u4# MCU name
+BOOTLOADER = atmel-dfu# Bootloader selection
 F_CPU = 8000000# CPU frequency divided by two since AVR is at 3.3 V
 F_USB = 16000000# External oscillator is 16 MHz
 
