@@ -5,7 +5,7 @@
 - Workman layout
 - semicolon and colon are flipped. Colon on tap, semicolon on double tap.
 
-<img src='layout.png'/>
+![layout](layout.png)
 
 ## Using the layout
 
