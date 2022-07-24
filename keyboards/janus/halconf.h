@@ -1,0 +1,1 @@
+#define HAL_USE_SERIAL TRUE
