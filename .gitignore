@@ -98,3 +98,4 @@ via*.json
 
 # direnv
 .direnv
+.envrc
