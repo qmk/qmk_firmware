@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "specialk.h"
 #include "version.h"
 
 typedef union {
@@ -121,58 +122,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 user_config_t user_config;
-uint8_t mod_state;
-bool delkey_registered;
-bool keycode_raised[10];
-
-bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, uint8_t k_norm, uint8_t k_spcl, uint8_t k_altr) {
-
-    bool is_raised = get_highest_layer(layer_state|default_layer_state) != 0;
-
-    if (record->event.pressed) {
-        keycode_raised[keycode - USER00] = is_raised;  // save for key release event
-        if (is_raised) {
-            // *** Fn keyed ***
-            if (user_config.in_arrow_mode) {
-                // alternate key
-                register_code(k_altr);
-            } else {
-                // special key
-                register_code(k_spcl);
-            }
-        } else {
-            // *** normal, un-Fn'ed ***
-            if (user_config.in_arrow_mode) {
-                // special key
-                register_code(k_spcl);
-            } else {
-                // normal key
-                register_code(k_norm);
-            }
-        }
-    } else {
-        if (keycode_raised[keycode - USER00]) {
-            // *** Fn keyed ***
-            if (user_config.in_arrow_mode) {
-                // alternate key
-                unregister_code(k_altr);
-            } else {
-                // special key
-                unregister_code(k_spcl);
-            }
-        } else {
-            // *** normal, un-Fn'ed ***
-            if (user_config.in_arrow_mode) {
-                // special key
-                unregister_code(k_spcl);
-            } else {
-                // normal key
-                unregister_code(k_norm);
-            }
-        }
-    }
-    return false;
-}
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -271,9 +220,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
  */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    mod_state = get_mods();
-
     switch (keycode) {
 
         // handle RGB toggle key - this ensures caps lock always works
@@ -344,12 +290,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case KB_RSFT: return ID61_process_special_k(keycode, record, KC_RSFT, KC_UP, KC_PGUP);
-        case KB_RALT: return ID61_process_special_k(keycode, record, KC_RALT, KC_LEFT, KC_HOME);
-        case KB_RAPP: return ID61_process_special_k(keycode, record, KC_APP, KC_DOWN, KC_PGDN);
-        case KB_RCOM: return ID61_process_special_k(keycode, record, KC_RGUI, KC_LEFT, KC_HOME);
-        case KB_ROPT: return ID61_process_special_k(keycode, record, KC_RALT, KC_DOWN, KC_PGDN);
-        case KB_RCTL: return ID61_process_special_k(keycode, record, KC_RCTL, KC_RIGHT, KC_END);
+        case KB_RSFT: return ID61_process_special_k(keycode, record, user_config.in_arrow_mode, KC_RSFT, KC_UP, KC_PGUP);
+        case KB_RALT: return ID61_process_special_k(keycode, record, user_config.in_arrow_mode, KC_RALT, KC_LEFT, KC_HOME);
+        case KB_RAPP: return ID61_process_special_k(keycode, record, user_config.in_arrow_mode, KC_APP, KC_DOWN, KC_PGDN);
+        case KB_RCOM: return ID61_process_special_k(keycode, record, user_config.in_arrow_mode, KC_RGUI, KC_LEFT, KC_HOME);
+        case KB_ROPT: return ID61_process_special_k(keycode, record, user_config.in_arrow_mode, KC_RALT, KC_DOWN, KC_PGDN);
+        case KB_RCTL: return ID61_process_special_k(keycode, record, user_config.in_arrow_mode, KC_RCTL, KC_RIGHT, KC_END);
 
         // print firmware version
         case KB_VRSN:
@@ -378,23 +324,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         // Shift + Backspace = Delete, see: https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
-        case KC_BSPC:
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    register_code(KC_DEL);
-                    delkey_registered = true;
-                    set_mods(mod_state);
-                    return false;
-                }
-            } else {
-                if (delkey_registered) {
-                    unregister_code(KC_DEL);
-                    delkey_registered = false;
-                    return false;
-                }
-            }
-            return true;
+        case KC_BSPC: return ID61_backspace_special(keycode, record);
 
         default:
             return true; /* Process all other keycodes normally */
