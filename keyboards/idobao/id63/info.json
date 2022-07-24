@@ -29,6 +29,7 @@
     "layout_aliases": {
         "LAYOUT_63_ansi": "LAYOUT_60_ansi_arrow"
     },
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [
