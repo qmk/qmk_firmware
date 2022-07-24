@@ -1,3 +1,5 @@
+// Copyright 2021 Scott Bennett (@SBennett13)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
 #define NO_MUSIC_MODE
