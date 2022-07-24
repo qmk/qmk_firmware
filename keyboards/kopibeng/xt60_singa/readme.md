@@ -1,6 +1,6 @@
 # XT60_SINGA
 
-![XT60_SINGA](https://i.imgur.com/n1arBEw.png)
+![XT60_SINGA](https://i.imgur.com/n1arBEwh.png)
 
 A QMK-powered, VIA-enabled 60% PCB with support for ANSI/ISO layouts, split Backspace, split Right Shift, stepped Caps Lock, 6.25U/7U bottom row, split Spacebar and RGB underglow. 
 
