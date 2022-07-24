@@ -66,6 +66,9 @@ ifneq ($(strip $(MTEST)),)
     ifeq ($(filter mdelay_type=%,$1),mdelay_type=adaptive)
         CUSTOM_MATRIX_DELAY = adaptive
     endif
+    ifeq ($(filter mdelay_type=%,$1),mdelay_type=adaptive-time)
+        CUSTOM_MATRIX_DELAY = adaptive-time
+    endif
     ifeq ($(strip $1),matrix_debug_delay)
         MATRIX_DEBUG_DELAY = yes
     endif

@@ -113,6 +113,9 @@ ifneq ($(strip $(USROPT)),)
     ifeq ($(filter mdelay_type=%,$1),mdelay_type=adaptive)
         CUSTOM_MATRIX_DELAY = adaptive
     endif
+    ifeq ($(filter mdelay_type=%,$1),mdelay_type=adaptive-time)
+        CUSTOM_MATRIX_DELAY = adaptive-time
+    endif
     ifneq ($(filter mdelay=%,$1),)
         MDELAY = $(patsubst mdelay=%,%,$1)
     endif

@@ -29,6 +29,9 @@ endif
 ifeq ($(strip $(CUSTOM_MATRIX_DELAY)),adaptive)
     OPT_DEFS += -DMATRIX_IO_DELAY_TYPE=ADAPTIVE_TO_INPUT
 endif
+ifeq ($(strip $(CUSTOM_MATRIX_DELAY)),adaptive-time)
+    OPT_DEFS += -DMATRIX_IO_DELAY_TYPE=ADAPTIVE_TO_INPUT_WITH_TIME
+endif
 ifeq ($(strip $(CUSTOM_MATRIX_DELAY)),time)
     OPT_DEFS += -DMATRIX_IO_DELAY_TYPE=WAIT_SPECIFIED_TIME
 endif

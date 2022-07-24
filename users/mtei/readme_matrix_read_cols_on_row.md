@@ -232,6 +232,11 @@ If ADAPTIVE_TO_INPUT is specified, the input is monitored and delayed until the 
   <img width="50%" alt="adaptive2" src="https://user-images.githubusercontent.com/2170248/177012509-a93feea3-b42b-459c-b0ec-21fd0e611971.png">
   <img width="50%" alt="adaptive3" src="https://user-images.githubusercontent.com/2170248/177012513-e6925110-a0f2-4e1a-805d-32d39de14149.png">
 
+#### `#define MATRIX_IO_DELAY_TYPE ADAPTIVE_TO_INPUT_WITH_TIME`
+If ADAPTIVE_TO_INPUT_WITH_TIME is specified, the input is monitored and delayed until the ghost disappears then delays for the specified time.
+
+The `matrix_output_unselect_delay()` function is used for the time delay.
+
 #### `#define MATRIX_IO_DELAY_TYPE FORCE_INPUT_UP_TO_VCC`
 If FORCE_INPUT_UP_TO_VCC is specified, the input line is temporarily switched to output for high output, and then returned to input mode.
 
@@ -239,6 +244,8 @@ If FORCE_INPUT_UP_TO_VCC is specified, the input line is temporarily switched to
 
 #### `#define MATRIX_IO_DELAY_TYPE WAIT_SPECIFIED_TIME`
 Delays for the specified time regardless of whether or not there is an input.
+
+The `matrix_output_unselect_delay()` function is used for the time delay.
 
 <img width="50%" alt="time0" src="https://user-images.githubusercontent.com/2170248/177012518-e70a43c9-b0c0-414b-8765-a8bcd3f4b585.png">
 

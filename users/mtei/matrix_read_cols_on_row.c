@@ -55,11 +55,12 @@ gcc --include <test_config.h> -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c 
 
 #define WAIT_SPECIFIED_TIME 1
 #define ADAPTIVE_TO_INPUT 2
-#define FORCE_INPUT_UP_TO_VCC 3
+#define FORCE_INPUT_UP_TO_VCC 4
+#define ADAPTIVE_TO_INPUT_WITH_TIME (WAIT_SPECIFIED_TIME | ADAPTIVE_TO_INPUT)
 #ifndef MATRIX_IO_DELAY_TYPE
 #    define MATRIX_IO_DELAY_TYPE ADAPTIVE_TO_INPUT
 #endif
-#if MATRIX_IO_DELAY_TYPE != WAIT_SPECIFIED_TIME && MATRIX_IO_DELAY_TYPE != ADAPTIVE_TO_INPUT && MATRIX_IO_DELAY_TYPE != FORCE_INPUT_UP_TO_VCC
+#if MATRIX_IO_DELAY_TYPE != FORCE_INPUT_UP_TO_VCC && (MATRIX_IO_DELAY_TYPE & ADAPTIVE_TO_INPUT_WITH_TIME) == 0
 #    error Invalid MATRIX_IO_DELAY_TYPE value
 #endif
 
@@ -598,17 +599,25 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         MATRIX_DEBUG_DELAY_END();
     }
 #endif
-#if MATRIX_IO_DELAY_TYPE == ADAPTIVE_TO_INPUT
+#if (MATRIX_IO_DELAY_TYPE & ADAPTIVE_TO_INPUT) == ADAPTIVE_TO_INPUT
 #    ifdef DEBUG_PIN_ENABLE
 #        pragma message "ADAPTIVE_TO_INPUT"
 #    endif
     // wait unselect done
     MATRIX_DEBUG_DELAY_START();
-    while (key_pressed) {
-        MATRIX_DEBUG_DELAY_END();
-        read_all_pins(port_buffer);
-        key_pressed = mask_and_adjust_pins(port_buffer);
-        MATRIX_DEBUG_DELAY_START();
+    if (key_pressed) {
+        while (key_pressed) {
+            MATRIX_DEBUG_DELAY_END();
+            read_all_pins(port_buffer);
+            key_pressed = mask_and_adjust_pins(port_buffer);
+            MATRIX_DEBUG_DELAY_START();
+        }
+#    if (MATRIX_IO_DELAY_TYPE & WAIT_SPECIFIED_TIME) == WAIT_SPECIFIED_TIME
+#        ifdef DEBUG_PIN_ENABLE
+#            pragma message "ADAPTIVE_TO_INPUT and WAIT_SPECIFIED_TIME"
+#        endif
+        matrix_output_unselect_delay(current_row, true);
+#    endif
     }
     MATRIX_DEBUG_DELAY_END();
 #endif
