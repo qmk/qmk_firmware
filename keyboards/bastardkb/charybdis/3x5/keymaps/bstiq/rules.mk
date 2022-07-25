@@ -8,5 +8,3 @@ else ifeq ($(MCU),STM32F411)
 endif
 
 VIA_ENABLE = yes
-VIAL_ENABLE = yes
-VIALRGB_ENABLE = yes

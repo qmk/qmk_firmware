@@ -18,19 +18,9 @@
 #pragma once
 
 #ifdef VIA_ENABLE
-/* Via/Vial configuration. */
+/* Via configuration. */
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 8
-#    ifdef VIAL_ENABLE
-/** Vial-specific configuration. */
-
-#        define VIAL_KEYBOARD_UID \
-            { 0x09, 0x80, 0xDF, 0x80, 0xFB, 0x72, 0xB8, 0x4A }
-#        define VIAL_UNLOCK_COMBO_ROWS \
-            { 0, 4 }
-#        define VIAL_UNLOCK_COMBO_COLS \
-            { 0, 0 }
-#    endif // VIAL_ENABLE
-#endif     // VIA_ENABLE
+#endif // VIA_ENABLE
 
 /**
  * Configure the global tapping term (default: 200ms).
