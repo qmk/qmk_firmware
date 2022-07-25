@@ -1,7 +1,13 @@
 {
     "keyboard_name": "CK60i",
+    "manufacturer": "CandyKeys",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x434B",
+        "pid": "0x6049",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

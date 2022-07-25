@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x7030
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         UD40_Ortho_Alt
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
