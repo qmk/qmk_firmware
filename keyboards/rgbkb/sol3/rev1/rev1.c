@@ -165,6 +165,7 @@ void rgb_matrix_increase_flags(void)
 #endif
 
 
+
 __attribute__((weak))
 void render_layer_status(void) {
     // Keymap specific, expected to be overridden
@@ -218,6 +219,16 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return oled_init_user(OLED_ROTATION_270);
 }
 
+
+void write_mod_state(void) {
+	uint8_t mods = get_mods();
+	oled_write_char(' ',false);
+	oled_write_char('S', (mods & (MOD_BIT(KC_LEFT_SHIFT)|MOD_BIT(KC_RIGHT_SHIFT))));
+	oled_write_char('C', (mods & (MOD_BIT(KC_LEFT_CTRL)|MOD_BIT(KC_RIGHT_CTRL))));
+	oled_write_char('A', (mods & (MOD_BIT(KC_LEFT_ALT)|MOD_BIT(KC_RIGHT_ALT))));
+	oled_write_char('G', (mods & (MOD_BIT(KC_LEFT_GUI)|MOD_BIT(KC_RIGHT_GUI))));
+}
+
 bool oled_task_kb(void) {
     if (!oled_task_user())
         return false;
@@ -226,7 +237,8 @@ bool oled_task_kb(void) {
         render_icon();
         oled_write_P(PSTR("     "), false);
         render_layer_status();
-        render_rgb_menu();
+	   write_mod_state();
+     //    render_rgb_menu();
     }
     else {
         render_icon();
