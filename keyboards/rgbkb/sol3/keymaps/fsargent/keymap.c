@@ -247,7 +247,6 @@ void render_layer_status(void) {
 		default:
 			oled_write_ln_P(PSTR("Undef"),	false);
 	}
-
 }
 
 
