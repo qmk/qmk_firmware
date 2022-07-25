@@ -321,9 +321,9 @@ static port_data_t readPortMultiplexer(uint8_t devid, pin_t port) {
 #define GEN_CASE_WRITE_HIGH_Z(INDEX,PIN) \
     _GEN_CASE_WRITE_HIGH_Z(INDEX, REMOVE_OUTER_PARENTHESES(PIN))
 
-#define _GEN_ALL_WRITE_HIGHT_Z(PORT, MASK, DEV) \
+#define _GEN_ALL_WRITE_HIGH_Z(PORT, MASK, DEV) \
     writeOutputPortBunch_High_Z(PORT, MASK);
-#define GEN_ALL_WRITE_HIGHT_Z(x) _GEN_ALL_WRITE_HIGHT_Z x
+#define GEN_ALL_WRITE_HIGH_Z(x) _GEN_ALL_WRITE_HIGH_Z x
 
 #define __GEN_READ_PORT(INDEX, PORT, MASK, DEV) \
     buffer[INDEX] = readMatrixPort(DEV,PORT);
@@ -389,7 +389,7 @@ static void unselect_output_0(uint8_t row) {
 static void unselect_all_output_0(void) {
     ATOMIC_BLOCK_FORCEON {
         // writeOutputPortBunch_High_Z(PORT, MASK);
-        MAP(GEN_ALL_WRITE_HIGHT_Z, OUTPUT_PORTS_0)
+        MAP(GEN_ALL_WRITE_HIGH_Z, OUTPUT_PORTS_0)
     }
 }
 
@@ -473,7 +473,7 @@ static void unselect_output_1(uint8_t row) {
 static void unselect_all_output_1(void) {
     ATOMIC_BLOCK_FORCEON {
         // writeOutputPortBunch_High_Z(PORT, MASK);
-        MAP(GEN_ALL_WRITE_HIGHT_Z, OUTPUT_PORTS_1)
+        MAP(GEN_ALL_WRITE_HIGH_Z, OUTPUT_PORTS_1)
     }
 }
 
