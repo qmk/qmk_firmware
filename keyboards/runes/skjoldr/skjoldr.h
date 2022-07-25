@@ -18,6 +18,8 @@
 
 #include "quantum.h"
 
+#define ___ KC_NO
+
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -33,9 +35,9 @@
 	K03, K13, K23, K33, K43, K53, K63, K73, K83, K93, KA3,      KC3, KD3, \
 	K04, K14, K24,           K54,                K94, KA4, KB4, KC4, KD4 \
 ) { \
-	{K00, K10, K20, K30,   K40,   K50, K60,   K70,   K80,    K90, KA0, KB0,   KC0, KD0 }, \
-	{K01, K11, K21, K31,   K41,   K51, K61,   K71,   K81,    K91, KA1, KB1,   KC1, KD1 }, \
-	{K02, K12, K22, K32,   K42,   K52, K62,   K72,   K82,    K92, KA2, KB2,   KC2, KC_NO }, \
-	{K03, K13, K23, K33,   K43,   K53, K63,   K73,   K83,    K93, KA3, KC_NO, KC3, KD3 }, \
-	{K04, K14, K24, KC_NO, KC_NO, K54, KC_NO, KC_NO, KC_NO,  K94, KA4, KB4,   KC4, KD4 } \
+	{ K00, K10, K20, K30, K40, K50, K60, K70, K80, K90, KA0, KB0, KC0, KD0 }, \
+	{ K01, K11, K21, K31, K41, K51, K61, K71, K81, K91, KA1, KB1, KC1, KD1 }, \
+	{ K02, K12, K22, K32, K42, K52, K62, K72, K82, K92, KA2, KB2, KC2, ___ }, \
+	{ K03, K13, K23, K33, K43, K53, K63, K73, K83, K93, KA3, ___, KC3, KD3 }, \
+	{ K04, K14, K24, ___, ___, K54, ___, ___, ___, K94, KA4, KB4, KC4, KD4 }  \
 }
