@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         nearfield
 
 /* key matrix size */
-#define MATRIX_ROWS 6
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 17
 
 /* key matrix pins */
@@ -72,6 +72,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable print */
 //#define NO_PRINT
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
