@@ -29,7 +29,6 @@ SPLIT_KEYBOARD = yes
 
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360
-# https://qmk.fm/changes/2018-11-16-use-a-single-endpoint-for-hid-reports
 MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 
 # Enable link-time optimization by default.  The Charybdis packs a lot of
