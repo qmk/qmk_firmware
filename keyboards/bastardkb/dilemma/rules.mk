@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -15,8 +9,15 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix (do not use together with RGBLIGHT_ENABLE)
-RGB_MATRIX_DRIVER = WS2812  # RGB matrix driver support
 AUDIO_ENABLE = no           # Audio output
+
+AUDIO_SUPPORTED = no        # Audio is not supported
+RGB_MATRIX_SUPPORTED = no   # RGB matrix is supported and enabled by default
+RGBLIGHT_SUPPORTED = no     # RGB underglow is supported, but not enabled by default
+RGB_MATRIX_ENABLE = no      # Enable keyboard RGB matrix functionality
+
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+
 SPLIT_KEYBOARD = yes
-LTO_ENABLE = yes
+LAYOUTS = split_3x5_2

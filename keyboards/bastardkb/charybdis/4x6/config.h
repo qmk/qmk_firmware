@@ -18,55 +18,24 @@
 
 #pragma once
 
-#define VENDOR_ID 0xA8F8
-#define PRODUCT_ID 0x1833
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Bastard Keyboards
-#define PRODUCT Charybdis
+#include "config_common.h"
 
 /* Key matrix configuration. */
-
-// Rows are doubled-up.
-#define MATRIX_ROWS 10
+#define MATRIX_ROWS 10 // Rows are doubled-up.
 #define MATRIX_COLS 6
-
-// Wiring configuration for each half.
-#define MATRIX_ROW_PINS \
-    { F1, B7, C6, D4, B5 }
-#define MATRIX_COL_PINS \
-    { D5, C7, F0, D7, E6, B4 }
-
-#define MATRIX_ROW_PINS_RIGHT \
-    { D5, F0, C6, D4, B5 }
-#define MATRIX_COL_PINS_RIGHT \
-    { F1, C7, B7, D7, E6, B4 }
 
 #define DIODE_DIRECTION ROW2COL
 
-#define ROTATIONAL_TRANSFORM_ANGLE -25
-
-/* Handedness. */
-#define MASTER_RIGHT
-
-/* Bootmagic Lite configuration. */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW_RIGHT 5
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
-
-/* serial.c configuration (for split keyboard) */
-#define SOFT_SERIAL_PIN D2
-
-/* Set 0 if debouncing isn't needed */
+/* Set 0 if debouncing isn't needed. */
 #define DEBOUNCE 5
 
-/* PMW33XX settings. */
-#define PMW33XX_CS_PIN B0
+/* Trackball angle adjustment. */
+#define ROTATIONAL_TRANSFORM_ANGLE -25
 
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 56
+/* RGB settings. */
+#define RGBLED_NUM 58
 #define RGBLED_SPLIT \
-    { 29, 27 }
+    { 29, 29 }
 
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
