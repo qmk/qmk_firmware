@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6369
-#define PRODUCT_ID 0x6B7F
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Cipulot
-#define PRODUCT Kawayo
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

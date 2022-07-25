@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Kawayo",
+    "manufacturer": "Cipulot",
     "url": "https://mecha.store",
     "maintainer": "Cipulot",
+    "usb": {
+        "vid": "0x6369",
+        "pid": "0x6B7F",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [
