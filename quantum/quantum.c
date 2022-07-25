@@ -411,7 +411,7 @@ bool process_record_quantum(keyrecord_t *record) {
                     SEND_STRING_DELAY(" compile ", TAP_CODE_DELAY);
                 }
                 SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER), TAP_CODE_DELAY);
-                if (temp_mod & MOD_MASK_CS) {
+                if (temp_mod & MOD_MASK_SHIFT && temp_mod & MOD_MASK_CTRL) {
                     reset_keyboard();
                 }
             }
