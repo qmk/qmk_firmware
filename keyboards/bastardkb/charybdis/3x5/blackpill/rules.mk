@@ -1,14 +1,15 @@
 # MCU name
-MCU = atmega32u4
+MCU = STM32F411
+BOARD = BLACKPILL_STM32_F411
 
 # Bootloader selection
-BOOTLOADER = atmel-dfu
+BOOTLOADER = stm32-dfu
 
 # Build Options
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = no        # Mouse keys
+MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
@@ -23,10 +24,6 @@ RGBLIGHT_SUPPORTED = yes    # RGB underglow is supported, but not enabled by def
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
 
-# Enable link-time optimization by default.  The Charybdis packs a lot of
-# features (RGB, Via, trackball) in a small atmega32u4 package.
-LTO_ENABLE = yes
-
 # Charybdis nano is a split 3x5 keyboard with a maximum of 3 thumb keys (2 on
 # the trackball side).
 SPLIT_KEYBOARD = yes
@@ -34,5 +31,11 @@ LAYOUTS = split_3x5_3 # Support community layout, in particular Manna-Harbour's 
 
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360
-# https://qmk.fm/changes/2018-11-16-use-a-single-endpoint-for-hid-reports
 MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
+KEYBOARD_SHARED_EP = yes
+
+EEPROM_DRIVER = spi
+WS2812_DRIVER = pwm
+SERIAL_DRIVER = usart
+
+DEBOUNCE_TYPE = asym_eager_defer_pk
