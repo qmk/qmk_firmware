@@ -1,7 +1,12 @@
 {
-    "url": "https://bastardkb.com/scylla",
+    "keyboard_name": "Scylla",
+    "manufacturer": "Bastard Keyboards",
+    "url": "https://bastardkb.com/",
+    "maintainer": "Quentin Lebastard",
     "usb": {
+        "vid": "0xA8F8",
         "pid": "0x1829",
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_split_4x6_5": {
