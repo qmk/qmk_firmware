@@ -5,8 +5,6 @@
 - Workman layout
 - semicolon and colon are flipped. Colon on tap, semicolon on double tap.
 
-![layout](layout.png)
-
 ## Using the layout
 
 1. Use https://config.qmk.fm/#/splitkb/kyria/rev2/LAYOUT to edit `workman-artflag.json`.
@@ -25,3 +23,4 @@
    ```bash
    qmk compile && qmk flash
    ```
+   
