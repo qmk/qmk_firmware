@@ -25,17 +25,6 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *                  NO_DIODE = switches are directly connected to AVR pins
- *
-*/
 #define DIRECT_PINS { \
     { E6, F7, F6, F5, F4 }, \
     { B1, B3, B2, B6, D3 }, \
@@ -66,4 +55,3 @@
 /* Top right key on right half */
 #define BOOTMAGIC_LITE_ROW_RIGHT    4
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 4
-
