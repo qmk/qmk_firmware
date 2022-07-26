@@ -107,16 +107,25 @@ static const I2CConfig i2cconfig = {
 #endif
 };
 
-static i2c_status_t chibios_to_qmk(const msg_t* status) {
-    switch (*status) {
-        case I2C_NO_ERROR:
-            return I2C_STATUS_SUCCESS;
-        case I2C_TIMEOUT:
-            return I2C_STATUS_TIMEOUT;
-        // I2C_BUS_ERROR, I2C_ARBITRATION_LOST, I2C_ACK_FAILURE, I2C_OVERRUN, I2C_PEC_ERROR, I2C_SMB_ALERT
-        default:
-            return I2C_STATUS_ERROR;
+/**
+ * @brief Handles any I2C error condition by stopping the I2C peripheral and
+ * aborting any ongoing transactions. Furthermore ChibiOS status codes are
+ * converted into QMK codes.
+ *
+ * @param status ChibiOS specific I2C status code
+ * @return i2c_status_t QMK specific I2C status code
+ */
+static i2c_status_t i2c_epilogue(const msg_t status) {
+    if (status == I2C_NO_ERROR) {
+        return I2C_STATUS_SUCCESS;
     }
+
+    // From ChibiOS HAL: "After a timeout the driver must be stopped and
+    // restarted because the bus is in an uncertain state." We also issue that
+    // hard stop in case of any error.
+    i2c_stop();
+
+    return status == I2C_TIMEOUT ? I2C_STATUS_TIMEOUT : I2C_STATUS_ERROR;
 }
 
 __attribute__((weak)) void i2c_init(void) {
@@ -149,14 +158,14 @@ i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length,
     i2c_address = address;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, TIME_MS2I(timeout));
-    return chibios_to_qmk(&status);
+    return i2c_epilogue(status);
 }
 
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = address;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     msg_t status = i2cMasterReceiveTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, TIME_MS2I(timeout));
-    return chibios_to_qmk(&status);
+    return i2c_epilogue(status);
 }
 
 i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
@@ -170,7 +179,7 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     complete_packet[0] = regaddr;
 
     msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 1, 0, 0, TIME_MS2I(timeout));
-    return chibios_to_qmk(&status);
+    return i2c_epilogue(status);
 }
 
 i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
@@ -185,14 +194,14 @@ i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* da
     complete_packet[1] = regaddr & 0xFF;
 
     msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 2, 0, 0, TIME_MS2I(timeout));
-    return chibios_to_qmk(&status);
+    return i2c_epilogue(status);
 }
 
 i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
-    return chibios_to_qmk(&status);
+    return i2c_epilogue(status);
 }
 
 i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
@@ -200,7 +209,7 @@ i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uin
     i2cStart(&I2C_DRIVER, &i2cconfig);
     uint8_t register_packet[2] = {regaddr >> 8, regaddr & 0xFF};
     msg_t   status             = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), register_packet, 2, data, length, TIME_MS2I(timeout));
-    return chibios_to_qmk(&status);
+    return i2c_epilogue(status);
 }
 
 void i2c_stop(void) {
