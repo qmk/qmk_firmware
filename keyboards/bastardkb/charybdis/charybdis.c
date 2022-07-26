@@ -243,10 +243,10 @@ static void debug_charybdis_config_to_console(charybdis_config_t* config) {
     dprintf("(charybdis) process_record_kb: config = {\n"
             "\traw = 0x%X,\n"
             "\t{\n"
-            "\t\tis_dragscroll_enabled=%b\n"
-            "\t\tis_sniping_enabled=%b\n"
-            "\t\tdefault_dpi=0x%X (%ld)\n"
-            "\t\tsniping_dpi=0x%X (%ld)\n"
+            "\t\tis_dragscroll_enabled=%u\n"
+            "\t\tis_sniping_enabled=%u\n"
+            "\t\tdefault_dpi=0x%X (%u)\n"
+            "\t\tsniping_dpi=0x%X (%u)\n"
             "\t}\n"
             "}\n",
             config->raw, config->is_dragscroll_enabled, config->is_sniping_enabled, config->pointer_default_dpi, get_pointer_default_dpi(config), config->pointer_sniping_dpi, get_pointer_sniping_dpi(config));
@@ -314,7 +314,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 #        endif // !MOUSEKEY_ENABLE
 #    endif     // POINTING_DEVICE_ENABLE
-    debug_charybdis_config_to_console(&g_charybdis_config);
+    if ((keycode >= POINTER_DEFAULT_DPI_FORWARD && keycode < CHARYBDIS_SAFE_RANGE) || IS_MOUSEKEY(keycode)) {
+        debug_charybdis_config_to_console(&g_charybdis_config);
+    }
     return true;
 }
 
