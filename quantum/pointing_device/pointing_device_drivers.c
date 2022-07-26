@@ -117,11 +117,11 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
 #    endif
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
-    pinnacle_data_t          touchData = cirque_pinnacle_read_data();
-    mouse_xy_report_t        report_x = 0, report_y = 0;
-    static mouse_xy_report_t x = 0, y = 0;
+    pinnacle_data_t   touchData = cirque_pinnacle_read_data();
+    mouse_xy_report_t report_x = 0, report_y = 0;
+    static uint16_t   x = 0, y = 0;
 #    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
-    cursor_glide_t           glide_report = {0};
+    cursor_glide_t    glide_report = {0};
 
     if (cursor_glide_enable) {
         glide_report = cursor_glide_check(&glide);
@@ -154,8 +154,8 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
 
     if (!cirque_pinnacle_gestures(&mouse_report, touchData)) {
         if (x && y && touchData.xValue && touchData.yValue) {
-            report_x = (mouse_xy_report_t)(touchData.xValue - x);
-            report_y = (mouse_xy_report_t)(touchData.yValue - y);
+            report_x = CONSTRAIN_HID_XY((int16_t)(touchData.xValue - x));
+            report_y = CONSTRAIN_HID_XY((int16_t)(touchData.yValue - y));
         }
         x = touchData.xValue;
         y = touchData.yValue;
