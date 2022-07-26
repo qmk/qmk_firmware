@@ -58,7 +58,7 @@ static void render_secondary_oled(void) {
 static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(default_layer_state)) {
-        case _BASE:
+        case 0:
             oled_write_P(PSTR("COLEMAK DH | "), false);
             break;
         case 1:
