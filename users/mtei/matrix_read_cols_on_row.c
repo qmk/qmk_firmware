@@ -130,6 +130,11 @@ enum DEVICE_NAME {
 #    ifndef readPort
 #        error matrix_read_cols_on_row.c requires readPort() and related macros.
 #    endif
+#    ifdef setPortBunchOutputOpenDrainPullup
+#        ifdef MATRIX_USE_OPENDRAIN_PULLUP
+#            define USE_OPENDRAIN_PULLUP
+#        endif
+#    endif
 #    ifdef SPLIT_KEYBOARD
 //  import: volatile bool isLeftHand
 #        include "split_common/split_util.h"
@@ -250,7 +255,9 @@ static void writeOutputPin_High_Z(pin_t pin) {
 
 ALWAYS_INLINE
 static void writeOutputPortBunch_Low(pin_t port, port_data_t mask) {
+#ifndef USE_OPENDRAIN_PULLUP
     setPortBunchOutput(port, mask);
+#endif
     writePortBunchLow(port, mask);
 }
 
@@ -260,7 +267,11 @@ static void writeOutputPortBunch_High_Z(pin_t port, port_data_t mask) {
     setPortBunchOutput(port, mask);
     writePortBunchHigh(port, mask);
 #else
+#    ifdef USE_OPENDRAIN_PULLUP
+    writePortBunchHigh(port, mask);
+#    else
     setPortBunchInputHigh(port, mask);
+#    endif
 #endif
 }
 
@@ -299,6 +310,10 @@ static port_data_t readPortMultiplexer(uint8_t devid, pin_t port) {
 // clang-format off
 #define _GEN_ALL_INPUT_HIGH(PORT, MASK, DEV) setPortBunchInputHigh(PORT, MASK);
 #define GEN_ALL_INPUT_HIGH(x) _GEN_ALL_INPUT_HIGH x
+
+#define _GEN_ALL_OPENDRAIN_PULLUP(PORT, MASK, DEV) \
+    setPortBunchOutputOpenDrainPullup(PORT, MASK);
+#define GEN_ALL_OPENDRAIN_PULLUP(x) _GEN_ALL_OPENDRAIN_PULLUP x
 
 #define __GEN_INPUT_PORT_CHARGE(INDEX, PORT, MASK, DEV) \
     if (buffer[INDEX] != 0) { InputPortCharge(PORT, buffer[INDEX]); }
@@ -352,6 +367,15 @@ static void init_all_input_pins_0(void) {
 #ifdef MATRIX_EXTENSION_74HC157
     setPinOutput(MATRIX_EXTENSION_74HC157);
     writePinLow(MATRIX_EXTENSION_74HC157);
+#endif
+}
+
+static void init_all_output_pins_0(void) {
+#ifdef USE_OPENDRAIN_PULLUP
+    ATOMIC_BLOCK_FORCEON {
+        // setPortBunchOutputOpenDrainPullup(PORT, MASK);
+        MAP(GEN_ALL_OPENDRAIN_PULLUP, OUTPUT_PORTS_0)
+    }
 #endif
 }
 
@@ -439,6 +463,15 @@ static void init_all_input_pins_1(void) {
 #endif
 }
 
+static void init_all_output_pins_1(void) {
+#ifdef USE_OPENDRAIN_PULLUP
+    ATOMIC_BLOCK_FORCEON {
+        // setPortBunchOutputOpenDrainPullup(PORT, MASK);
+        MAP(GEN_ALL_OPENDRAIN_PULLUP, OUTPUT_PORTS_1)
+    }
+#endif
+}
+
 // ALWAYS_INLINE
 #if MATRIX_IO_DELAY_TYPE == FORCE_INPUT_UP_TO_VCC
 static void input_port_charge_1(port_data_t *buffer) {
@@ -519,6 +552,7 @@ const uint8_t *current_sides_opins = minfo[0].opin_enable;
 
 #if NUM_SIDE == 2
 funcp_void_void      init_all_input_pins  = init_all_input_pins_0;
+funcp_void_void      init_all_output_pins = init_all_output_pins_0;
 funcp_void_row       select_output        = select_output_0;
 funcp_void_row       unselect_output      = unselect_output_0;
 funcp_void_void      unselect_all_output  = unselect_all_output_0;
@@ -530,6 +564,7 @@ funcp_bool_port_data mask_and_adjust_pins = mask_and_adjust_pins_0;
 funcp_build_line     build_line           = build_line_0;
 #else
 #    define init_all_input_pins() init_all_input_pins_0()
+#    define init_all_output_pins() init_all_output_pins_0()
 #    define select_output(x) select_output_0(x)
 #    define unselect_output(x) unselect_output_0(x)
 #    define unselect_all_output() unselect_all_output_0()
@@ -548,6 +583,7 @@ void matrix_init_pins(void) {
     if (is_side1) {
         current_sides_opins  = minfo[1].opin_enable;
         init_all_input_pins  = init_all_input_pins_1;
+        init_all_output_pins = init_all_output_pins_1;
         select_output        = select_output_1;
         unselect_output      = unselect_output_1;
         unselect_all_output  = unselect_all_output_1;
@@ -559,6 +595,7 @@ void matrix_init_pins(void) {
         build_line           = build_line_1;
     }
 #endif
+    init_all_output_pins();
     unselect_all_output();
     init_all_input_pins();
 }
@@ -574,10 +611,12 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     DEBUG_PIN_ON();
     select_output(current_row);
     matrix_output_select_delay();
+    MATRIX_DEBUG_SCAN_END();
     read_all_pins(port_buffer);
     unselect_output(current_row);
     DEBUG_PIN_OFF();
     key_pressed = mask_and_adjust_pins(port_buffer);
+    MATRIX_DEBUG_SCAN_START();
     if (key_pressed) {
         current_row_value = build_line(port_buffer);
     }
