@@ -2,8 +2,11 @@
     "keyboard_name": "promise87",
     "url": "https://shop.wuquestudio.com/",
     "maintainer": "spbgzh",
+    "layout_aliases": {
+        "LAYOUT_all_wkl": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT_all_wkl": {
+        "LAYOUT_all": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
