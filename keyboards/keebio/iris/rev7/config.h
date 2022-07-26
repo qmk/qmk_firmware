@@ -116,8 +116,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 #        define ENABLE_RGB_MATRIX_SPLASH
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
-#        define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+//#        define ENABLE_RGB_MATRIX_SOLID_SPLASH
+//#        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
 #        define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define DRIVER_LED_TOTAL RGBLED_NUM
