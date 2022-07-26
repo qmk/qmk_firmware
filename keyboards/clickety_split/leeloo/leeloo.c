@@ -37,11 +37,11 @@ static void render_keylock_status(led_t led_state) {
 
 static void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR("Mods: "), false);
-    oled_write_P(PSTR("Sft"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR("SFT"), (modifiers & MOD_MASK_SHIFT));
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("Ctl"), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR("CTL"), (modifiers & MOD_MASK_CTRL));
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("Alt"), (modifiers & MOD_MASK_ALT));
+    oled_write_P(PSTR("ALT"), (modifiers & MOD_MASK_ALT));
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
@@ -59,7 +59,16 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(default_layer_state)) {
         case _BASE:
-            oled_write_P(PSTR("QWERTY | "), false);
+            oled_write_P(PSTR("COLEMAK DH | "), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("COLEMAK DH | "), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("COLEMAK DH | "), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("COLEMAK DH | "), false);
             break;
     }
 
@@ -69,15 +78,15 @@ static void render_status(void) {
             oled_write_P(PSTR("Base   \n"), false);
             break;
 
-        case _LOWER:
+        case 1:
             oled_write_P(PSTR("Lower   \n"), false);
             break;
 
-        case _RAISE:
+        case 2:
             oled_write_P(PSTR("Raise   \n"), false);
             break;
 
-        case _ADJUST:
+        case 3:
             oled_write_P(PSTR("Adjust  \n"), false);
             break;
 
@@ -92,7 +101,7 @@ static void render_status(void) {
 
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
-        return false; 
+        return false;
     }
 
     if (is_keyboard_master()) {
