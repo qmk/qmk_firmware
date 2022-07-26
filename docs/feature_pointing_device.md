@@ -10,7 +10,7 @@ POINTING_DEVICE_ENABLE = yes
 
 ## Sensor Drivers
 
-There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time.  If you need to enable more than one sensor, then you need to implement it manually.
+There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time.  If you need to enable more than one sensor, then you need to implement it manually, using the `custom` driver.
 
 ### ADNS 5050 Sensor
 
@@ -128,13 +128,12 @@ Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when usi
 
 | Gesture Setting                                | Description                                                                                                                                                                                      | Default              |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
-| `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` | (Optional) Enable inertial cursor. Cursor continues moving after a flick gesture and slows down by kinetic friction                                                                              | _not defined_        |
 | `CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE`       | (Optional) Enable circular scroll. Touch originating in outer ring can trigger scroll by moving along the perimeter. Near side triggers vertical scroll and far side triggers horizontal scroll. | _not defined_        |
 | `CIRQUE_PINNACLE_TAP_ENABLE`                   | (Optional) Enable tap to click. This currently only works on the master side.                                                                                                                    | _not defined_        |
 | `CIRQUE_PINNACLE_TAPPING_TERM`                 | (Optional) Length of time that a touch can be to be considered a tap.                                                                                                                            | `TAPPING_TERM`/`200` |
 | `CIRQUE_PINNACLE_TOUCH_DEBOUNCE`               | (Optional) Length of time that a touch can be to be considered a tap.                                                                                                                            | `TAPPING_TERM`/`200` |
 
-**`POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`** is not specific to Cirque trackpad; any pointing device with a lift/contact status can integrate this gesture into its driver. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `pointing_device_get_report()` is needed to generate glide reports.
+Additionally, `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` is supported on the Cirque.
 
 ### PAW 3204 Sensor
 
@@ -255,18 +254,22 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 ## Common Configuration
 
-| Setting                            | Description                                                           | Default       |
-| ---------------------------------- | --------------------------------------------------------------------- | ------------- |
-| `POINTING_DEVICE_ROTATION_90`      | (Optional) Rotates the X and Y data by  90 degrees.                   | _not defined_ |
-| `POINTING_DEVICE_ROTATION_180`     | (Optional) Rotates the X and Y data by 180 degrees.                   | _not defined_ |
-| `POINTING_DEVICE_ROTATION_270`     | (Optional) Rotates the X and Y data by 270 degrees.                   | _not defined_ |
-| `POINTING_DEVICE_INVERT_X`         | (Optional) Inverts the X axis report.                                 | _not defined_ |
-| `POINTING_DEVICE_INVERT_Y`         | (Optional) Inverts the Y axis report.                                 | _not defined_ |
-| `POINTING_DEVICE_MOTION_PIN`       | (Optional) If supported, will only read from sensor if pin is active. | _not defined_ |
-| `POINTING_DEVICE_TASK_THROTTLE_MS` | (Optional) Limits the frequency that the sensor is polled for motion. | _not defined_ |
+| Setting                            | Description                                                                                                                      | Default       |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `MOUSE_EXTENDED_REPORT`            | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
+| `POINTING_DEVICE_ROTATION_90`      | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_ROTATION_180`     | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_ROTATION_270`     | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_INVERT_X`         | (Optional) Inverts the X axis report.                                                                                            | _not defined_ |
+| `POINTING_DEVICE_INVERT_Y`         | (Optional) Inverts the Y axis report.                                                                                            | _not defined_ |
+| `POINTING_DEVICE_MOTION_PIN`       | (Optional) If supported, will only read from sensor if pin is active.                                                            | _not defined_ |
+| `POINTING_DEVICE_TASK_THROTTLE_MS` | (Optional) Limits the frequency that the sensor is polled for motion.                                                            | _not defined_ |
+| `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` | (Optional) Enable inertial cursor. Cursor continues moving after a flick gesture and slows down by kinetic friction. | _not defined_ |
 
 !> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 
+
+!> **`POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`** can be used with any pointing device with a lift/contact status can integrate this gesture into its driver. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `pointing_device_get_report()` is needed to generate glide reports.
 
 ## Split Keyboard Configuration
 
@@ -282,7 +285,6 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `POINTING_DEVICE_ROTATION_270_RIGHT` | (Optional) Rotates the X and Y data by 270 degrees.                                                   | _not defined_ |
 | `POINTING_DEVICE_INVERT_X_RIGHT`     | (Optional) Inverts the X axis report.                                                                 | _not defined_ |
 | `POINTING_DEVICE_INVERT_Y_RIGHT`     | (Optional) Inverts the Y axis report.                                                                 | _not defined_ |
-| `MOUSE_EXTENDED_REPORT`              | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127) |
 
 !> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md?id=common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard?id=setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
 
@@ -454,4 +456,3 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
     return pointing_device_combine_reports(left_report, right_report);
 }
 ```
-=======
