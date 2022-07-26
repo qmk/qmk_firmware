@@ -21,3 +21,5 @@ POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
 
 SPLIT_KEYBOARD = yes
 LAYOUTS = split_3x5_2
+
+DEFAULT_FOLDER = bastardkb/dilemma/splinky
