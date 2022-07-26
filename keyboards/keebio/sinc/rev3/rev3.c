@@ -1,4 +1,4 @@
-/* Copyright 2021 Danny Nguyen <danny@keeb.io>
+/* Copyright 2022 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,16 +13,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#pragma once
 
-#include "quantum.h"
+#include "sinc.h"
 
-#ifdef KEYBOARD_keebio_sinc_rev1
-    #include "rev1.h"
-#endif
-#ifdef KEYBOARD_keebio_sinc_rev2
-    #include "rev2.h"
-#endif
-#ifdef KEYBOARD_keebio_sinc_rev3
-    #include "rev3.h"
-#endif
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    return false;
+}
