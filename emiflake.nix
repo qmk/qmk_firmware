@@ -13,7 +13,7 @@ let
   pythonEnv = poetry2nix.mkPoetryEnv {
     projectDir = ./util/nix;
     overrides = poetry2nix.overrides.withDefaults (self: super: {
-      qmk = super.qmk.overridePythonAttrs(old: {
+      qmk = super.qmk.overridePythonAttrs (old: {
         # Allow QMK CLI to run "bin/qmk" as a subprocess (the wrapper changes
         # $PATH and breaks these invocations).
         dontWrapPythonPrograms = true;
@@ -36,24 +36,37 @@ let
     "-L${avrlibc}/avr/lib/avr51"
   ];
 in
-mkShell {
-  name = "qmk-firmware";
+stdenv.mkDerivation {
+  name = "emiflake";
+  src = ./.;
 
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
-    ++ lib.optional avr [
-      pkgsCross.avr.buildPackages.binutils
-      pkgsCross.avr.buildPackages.gcc8
-      avrlibc
-      avrdude
-    ]
-    ++ lib.optional arm [ gcc-arm-embedded ]
-    ++ lib.optional teensy [ teensy-loader-cli ];
+  buildInputs = [
+    clang-tools
+    dfu-programmer
+    dfu-util
+    diffutils
+    git
+    pythonEnv
+    poetry
+    niv
+    which
+    pkgsCross.avr.buildPackages.binutils
+    pkgsCross.avr.buildPackages.gcc8
+    avrlibc
+    avrdude
+    gcc-arm-embedded
+    teensy-loader-cli
+    gcc-arm-embedded
+  ];
 
   AVR_CFLAGS = lib.optional avr avr_incflags;
   AVR_ASFLAGS = lib.optional avr avr_incflags;
-  shellHook = ''
-    # Prevent the avr-gcc wrapper from picking up host GCC flags
-    # like -iframework, which is problematic on Darwin
-    unset NIX_CFLAGS_COMPILE_FOR_TARGET
+
+  buildPhase = ''
+    make planck/rev6:emiflake:hex
+  '';
+
+  installPhase = ''
+    mv .build/planck_rev6_emiflake.hex $out
   '';
 }
