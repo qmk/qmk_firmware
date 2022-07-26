@@ -20,6 +20,9 @@
 #include "pointing_device.h"
 #include "timer.h"
 #include "wait.h"
+#if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+#    include "keyboard.h"
+#endif
 
 #if defined(CIRQUE_PINNACLE_TAP_ENABLE) || defined(CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE)
 static cirque_pinnacle_features_t features = {.tap_enable = true, .circular_scroll_enable = true};
@@ -92,18 +95,28 @@ static inline uint16_t atan2_16(int32_t dy, int32_t dx) {
 static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
     circular_scroll_t report = {0, 0, false};
     int8_t            x, y, wheel_clicks;
-    uint8_t           center = 256 / 2, mag;
+    uint8_t           center = INT8_MAX, mag;
     int16_t           ang, dot, det, opposite_side, adjacent_side;
     uint16_t          scale = cirque_pinnacle_get_scale();
 
     if (touchData.zValue) {
         /*
          * Place origin at center of trackpad, treat coordinates as vectors.
-         * Scale to fixed int8_t size; angles are independent of resolution.
+         * Scale to +/-INT8_MAX; angles are independent of resolution.
          */
         if (scale) {
-            x = (int8_t)((int32_t)touchData.xValue * 256 / scale - center);
-            y = (int8_t)((int32_t)touchData.yValue * 256 / scale - center);
+            /* Rotate coordinates into a consistent orientation */
+            report_mouse_t rot = {.x = (int8_t)((int32_t)touchData.xValue * INT8_MAX * 2 / scale - center), .y = (int8_t)((int32_t)touchData.yValue * INT8_MAX * 2 / scale - center)};
+#    if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+            if (!is_keyboard_left()) {
+                rot = pointing_device_adjust_by_defines_right(rot);
+            } else
+#    endif
+            {
+                rot = pointing_device_adjust_by_defines(rot);
+            }
+            x = rot.x;
+            y = rot.y;
         } else {
             x = 0;
             y = 0;
@@ -125,15 +138,7 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
                  *   Horizontal if started from left half
                  * Flipped for left-handed
                  */
-#    if defined(POINTING_DEVICE_ROTATION_90)
-                scroll.axis = y < 0;
-#    elif defined(POINTING_DEVICE_ROTATION_180)
-                scroll.axis = x > 0;
-#    elif defined(POINTING_DEVICE_ROTATION_270)
-                scroll.axis = y > 0;
-#    else
                 scroll.axis = x < 0;
-#    endif
             }
         } else if (scroll.state == SCROLL_DETECTING) {
             report.suppress_touch = true;
