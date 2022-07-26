@@ -6,7 +6,8 @@
         "LAYOUT_all_wkl": "LAYOUT_all",
         "LAYOUT_87_wkl": "LAYOUT_tkl_f13_ansi_wkl",
         "LAYOUT_87_wkl_split_bs": "LAYOUT_tkl_f13_ansi_wkl_split_bs",
-        "LAYOUT_87_wkl_split_lshift": "LAYOUT_tkl_f13_ansi_wkl_split_lshift"
+        "LAYOUT_87_wkl_split_lshift": "LAYOUT_tkl_f13_ansi_wkl_split_lshift",
+        "LAYOUT_87_wkl_split_rshift": "LAYOUT_tkl_f13_ansi_wkl_split_rshift"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -390,7 +391,7 @@
                 { "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_87_wkl_split_rshift": {
+        "LAYOUT_tkl_f13_ansi_wkl_split_rshift": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
