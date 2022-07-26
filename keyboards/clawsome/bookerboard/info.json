@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "bookerboard",
+    "keyboard_name": "Bookerboard",
+    "manufacturer": "AlisGraveNil",
     "url": "",
     "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x41CE",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

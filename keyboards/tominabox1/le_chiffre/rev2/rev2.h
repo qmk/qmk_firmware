@@ -13,21 +13,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "le_chiffre.h"
+#pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-  // Key Matrix to LED Index
-  { 3, 4, NO_LED, 5, 6 },
-  { NO_LED, NO_LED, 10, NO_LED, NO_LED },
-  { NO_LED, NO_LED, 9, NO_LED, NO_LED },
-  { 2, 1, 0, 8, 7 }
-}, {
+#include "quantum.h"
 
-  // LED Index to Physical Position
-  { 128, 64 }, { 77, 64 }, { 0, 48 }, { 0, 0 }, { 115, 0 }, { 166, 0 }, { 255, 0 }, { 255, 48 }, { 178, 64 }, { 128, 40 }, { 128, 30 }
-}, {
+#define XXX KC_NO
 
-  2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
-} };
-#endif
+#define LAYOUT( \
+  K00, K01, K02, K03, K04, K38, K05, K06, K07, K08, K09, \
+  K10, K11, K12, K13, K14,      K15, K16, K17, K18, K19, \
+  K20, K21, K22, K23, K24,      K25, K26, K27, K28, K29, \
+            K32,      K34,      K35,      K37       \
+) \
+{ \
+  { K00, K01, K02, K03, K04, K05, K06, K07, K08, K09  }, \
+  { K10, K11, K12, K13, K14, K15, K16, K17, K18, K19  }, \
+  { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29  }, \
+  { XXX, XXX, K32, XXX, K34, K35, XXX, K37, K38, XXX  }  \
+}
