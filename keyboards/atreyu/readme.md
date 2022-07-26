@@ -1,6 +1,6 @@
 # atreyu
 
-![atreyu](https://i.imgur.com/NP0cux1.jpg)
+![atreyu](https://i.imgur.com/NP0cux1h.jpg)
 
 *An unsplit, modified version of a Lily58 having a baby with a Sofle keyboard*
 
