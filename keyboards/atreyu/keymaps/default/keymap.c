@@ -31,17 +31,6 @@ enum custom_keycodes {
   ADJ
 };
 
-#define KC_ KC_TRNS
-
-#define KC_FN FN
-#define KC_LWR LWR
-#define KC_RSE RSE
-#define KC_RST RESET
-#define KC_BL_S BL_STEP
-#define KC_BL_T BL_TOGG
-#define KC_LCTL_T LCTL_T
-#define KC_GUI_T GUI_T
-#define KC_ALT_T ALT_T
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
