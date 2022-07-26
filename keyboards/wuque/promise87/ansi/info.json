@@ -3,7 +3,8 @@
     "url": "https://shop.wuquestudio.com/",
     "maintainer": "spbgzh",
     "layout_aliases": {
-        "LAYOUT_87_ansi": "LAYOUT_tkl_f13_ansi"
+        "LAYOUT_87_ansi": "LAYOUT_tkl_f13_ansi",
+        "LAYOUT_87_ansi_split_bs": "LAYOUT_tkl_f13_ansi_split_bs"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -203,7 +204,7 @@
                 { "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_87_ansi_split_bs": {
+        "LAYOUT_tkl_f13_ansi_split_bs": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
