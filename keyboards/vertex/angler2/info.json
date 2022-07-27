@@ -3,7 +3,7 @@
     "url": "https://github.com/Vertex-kb",
     "maintainer": "vertex",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "label": "K00 (F4,F5)", "x": 0, "y": 0 },
                 { "label": "K01 (F4,F6)", "x": 1.25, "y": 0 },
