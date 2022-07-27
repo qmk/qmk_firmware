@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { GP25, GP19, GP24, GP17, GP16, GP26 }
 #define MATRIX_COL_PINS { GP29, GP28, GP27, GP7, GP2, GP3, GP11, GP12, GP13 }
-#define MATRIX_ROW_PINS_RIGHT { GP26, GP25, GP19, GP24, GP17, GP16 }
+#define MATRIX_ROW_PINS_RIGHT { GP25, GP19, GP24, GP17, GP16, GP26 }
 #define MATRIX_COL_PINS_RIGHT { GP29, GP28, GP27, GP7, GP2, GP3, GP11, GP12, GP13 }
 //#define SPLIT_HAND_PIN F7
 #define MASTER_LEFT
@@ -42,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B_RIGHT { GP20 }
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP4
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
 /* Set 0 if debouncing isn't needed */
@@ -59,8 +58,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN GP18
 #ifdef RGB_DI_PIN
-#    define RGBLED_NUM 112
-#    define RGBLED_SPLIT { 56, 56 }
+#    define RGBLED_NUM 113
+#    define RGBLED_SPLIT { 56, 57 }
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
@@ -121,7 +120,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
 #        define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define DRIVER_LED_TOTAL RGBLED_NUM
-#        define RGB_MATRIX_SPLIT { 34, 34 }
+#        define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #        define RGB_DISABLE_WHEN_USB_SUSPENDED
 #        define RGB_MATRIX_KEYPRESSES
 //#    endif
