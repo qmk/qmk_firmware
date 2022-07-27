@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Gentoo Hotswap",
+    "keyboard_name": "Gentoo HS",
+    "manufacturer": "CannonKeys",
     "url": "https://cannonkeys.com",
     "maintainer": "awkannan",
+    "usb": {
+        "vid": "0xCA04",
+        "pid": "0x0010",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [
