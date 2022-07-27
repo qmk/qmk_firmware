@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Chaos65",
+    "manufacturer": "ThomasLT",
     "url": "https://www.thomasltstudio.com/product-page/chaos-65-keyboard",
     "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0xB23B",
+        "pid": "0x1688",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

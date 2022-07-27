@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4358 // "CX" - chlx
-#define PRODUCT_ID      0x0602
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    chlx bsmt
-#define PRODUCT         chlx str.merro60
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
