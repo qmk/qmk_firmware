@@ -51,7 +51,7 @@ def status():
         submodules[submodule]['last_log_timestamp'] = r[2] if len(r) > 2 else ''
         submodules[submodule]['last_log_message'] = r[3] if len(r) > 3 else ''
 
-    submodule_tags = cli.run(['git', 'submodule', '-q', 'foreach', 'echo -n "$sm_path "; git describe --tags'])
+    submodule_tags = cli.run(['git', 'submodule', '-q', 'foreach', '\'echo $sm_path `git describe --tags`\''])
     for log_line in submodule_tags.stdout.split('\n'):
         if not log_line:
             continue
