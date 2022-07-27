@@ -5,6 +5,11 @@
 
 // clang-format off
 
+#ifndef CANCEL_BOOST
+// ignore symmetric70_proto/proton_c/proton_c.c:matrix_output_unselect_delay()
+#    define MATRIX_IO_DELAY_DEFAULT
+#endif
+
 #ifdef CANCEL_BOOST
 #    define PRODUCT      BASE_PRODUCT cancel boost
 #    define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B9, B0, B1, B2, B3, B4, B5, B6, B7 }
