@@ -29,50 +29,44 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-static void print_status_narrow(void) {
+static void print_status(void) {
     // Print current mode
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("Qwrt"), false);
+            oled_write_P(PSTR("Qwert"), false);
             break;
         case 1:
-            oled_write_ln_P(PSTR("Yuiop"), false);
+            oled_write_P(PSTR("Yuiop"), false);
             break;
         case 2:
-            oled_write_ln_P(PSTR("Fn"), false);
+            oled_write_P(PSTR("Funct"), false);
             break;
         case 3:
-            oled_write_ln_P(PSTR("Cntrl"), false);
+            oled_write_P(PSTR("Cntrl"), false);
             break;
         default:
-            oled_write_P(PSTR("???\n"), false);
+            oled_write_P(PSTR("?????"), false);
             break;
     }
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("  "), false);
     led_t led_usb_state = host_keyboard_led_state();
-    switch (led_usb_state.caps_lock) {
-      case 0:
-        oled_write_ln_P(PSTR("cypher1"), false);
-        break;
-      default:
+    if (led_usb_state.caps_lock) {
         oled_write_ln_P(PSTR("CYPHER1"), true);
-        break;
+    } else {
+        oled_write_ln_P(PSTR("cypher1"), false);
     }
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    }
+    // if (is_keyboard_master()) {
+        // return OLED_ROTATION_270;
+    // }
     return rotation;
 }
 
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        print_status_narrow();
-    } else {
-        render_logo();
-    }
+    print_status();
+    render_logo();
     return false;
 }
 
