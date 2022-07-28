@@ -116,7 +116,7 @@ static const I2CConfig i2cconfig = {
  * @return i2c_status_t QMK specific I2C status code
  */
 static i2c_status_t i2c_epilogue(const msg_t status) {
-    if (status == I2C_NO_ERROR) {
+    if (status == MSG_OK) {
         return I2C_STATUS_SUCCESS;
     }
 
@@ -125,7 +125,7 @@ static i2c_status_t i2c_epilogue(const msg_t status) {
     // hard stop in case of any error.
     i2c_stop();
 
-    return status == I2C_TIMEOUT ? I2C_STATUS_TIMEOUT : I2C_STATUS_ERROR;
+    return status == MSG_TIMEOUT ? I2C_STATUS_TIMEOUT : I2C_STATUS_ERROR;
 }
 
 __attribute__((weak)) void i2c_init(void) {
