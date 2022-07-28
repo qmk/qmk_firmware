@@ -27,42 +27,41 @@ enum planck_layers {
 enum planck_normal_keycodes {
     QWERTY = SAFE_RANGE,
     ENIGMA,
-    ENI_A,
-    ENI_B,
-    ENI_C,
-    ENI_D,
-    ENI_E,
-    ENI_F,
-    ENI_G,
-    ENI_H,
-    ENI_I,
-    ENI_J,
-    ENI_K,
-    ENI_L,
-    ENI_M,
-    ENI_N,
-    ENI_O,
-    ENI_P,
-    ENI_Q,
-    ENI_R,
-    ENI_S,
-    ENI_T,
-    ENI_U,
-    ENI_V,
-    ENI_W,
-    ENI_X,
-    ENI_Y,
-    ENI_Z,
-    ENI_RESET,
-    ENI_TEST,
-    ENI_DIAG,
-    ENI_BKSP,
-    ENI_SET_REF,
-    ENI_SET_ROT,
-    ENI_SET_POS,
-    ENI_SET_RIN,
-    ENI_SET_PLU,
-    ENI_SAVE_SET
+    EN_A,
+    EN_B,
+    EN_C,
+    EN_D,
+    EN_E,
+    EN_F,
+    EN_G,
+    EN_H,
+    EN_I,
+    EN_J,
+    EN_K,
+    EN_L,
+    EN_M,
+    EN_N,
+    EN_O,
+    EN_P,
+    EN_Q,
+    EN_R,
+    EN_S,
+    EN_T,
+    EN_U,
+    EN_V,
+    EN_W,
+    EN_X,
+    EN_Y,
+    EN_Z,
+    EN_RES,
+    EN_TEST,
+    EN_DIAG,
+    EN_BKSP,
+    EN_SREF,
+    EN_SROT,
+    EN_SPOS,
+    EN_SRIN,
+    EN_SPLU
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,10 +77,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_ENIGMA] = LAYOUT_planck_mit(
-        QK_GESC, ENI_Q,   ENI_W,   ENI_E,   ENI_R,      ENI_T,    ENI_Y,    ENI_U,      ENI_I,   ENI_O,   ENI_P,   KC_BSPC,
-        KC_TAB,  ENI_A,   ENI_S,   ENI_D,   ENI_F,      ENI_G,    ENI_H,    ENI_J,      ENI_K,   ENI_L,   KC_SCLN, KC_QUOT,
-        KC_LSFT, ENI_Z,   ENI_X,   ENI_C,   ENI_V,      ENI_B,    ENI_N,    ENI_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-        KC_LCTL, MO(_FN), KC_LGUI, KC_LALT, MO(_LOWER),      KC_SPC,        MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        QK_GESC, EN_Q,    EN_W,    EN_E,    EN_R,       EN_T,    EN_Y, EN_U,       EN_I,    EN_O,    EN_P,    KC_BSPC,
+        KC_TAB,  EN_A,    EN_S,    EN_D,    EN_F,       EN_G,    EN_H, EN_J,       EN_K,    EN_L,    KC_SCLN, KC_QUOT,
+        KC_LSFT, EN_Z,    EN_X,    EN_C,    EN_V,       EN_B,    EN_N, EN_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+        KC_LCTL, MO(_FN), KC_LGUI, KC_LALT, MO(_LOWER),    KC_SPC,     MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
     /* Qwerty
     * ,-----------------------------------------------------------------------------------.
@@ -97,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_planck_mit(
         QK_GESC, KC_Q,    KC_W,    KC_E,    KC_R,      KC_T,    KC_Y,    KC_U,       KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,      KC_G,    KC_H,    KC_J,       KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,      KC_B,    KC_N,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,      KC_B,    KC_N,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
         KC_LCTL, MO(_FN), KC_LGUI, KC_LALT, MO(_LOWER),    KC_SPC,       MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
     /* Function
@@ -112,10 +111,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_FN] = LAYOUT_planck_mit(
-        QK_BOOT, ENI_RESET,  ENI_DIAG,     _______,     _______,     _______,     _______, _______, _______, _______, ENI_TEST, _______,
-        _______, _______,     _______,     _______,     _______,     _______,     _______, _______, _______, _______, _______,  _______,
-        _______, ENI_SET_REF, ENI_SET_ROT, ENI_SET_POS, ENI_SET_RIN, ENI_SET_PLU, _______, _______, QWERTY,  ENIGMA,  _______,  _______,
-        _______, _______,     _______,     _______,     _______,           _______,        _______, _______, _______, _______,  _______
+        QK_BOOT, EN_RES,  EN_DIAG, _______, _______, _______, _______, _______, _______, _______, EN_TEST, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, EN_SREF, EN_SROT, EN_SPOS, EN_SRIN, EN_SPLU, _______, _______, QWERTY,  ENIGMA,  _______, _______,
+        _______, _______, _______, _______, _______,      _______,     _______, _______, _______, _______, _______
     ),
     /* Lower
     * ,-----------------------------------------------------------------------------------.
@@ -129,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_LOWER] = LAYOUT_planck_mit(
-        KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DOLLAR, KC_PERCENT,   KC_CIRCUMFLEX, KC_AMPERSAND,  KC_ASTERISK,  KC_LEFT_PAREN,       KC_RIGHT_PAREN,       KC_BSPC, 
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,     KC_NO,        KC_NO,         KC_UNDERSCORE, KC_PLUS,      KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, KC_PIPE, 
-        KC_LSFT, KC_NO,   KC_NO,   KC_NO,   KC_NO,     KC_NO,        KC_NO,         KC_NO,         KC_NO,        KC_NO,               KC_NO,                KC_NO, 
-        KC_LCTL, KC_NO,   KC_LGUI, KC_LALT, KC_NO,             KC_SPC,              KC_NO,         KC_LEFT,      KC_DOWN,             KC_UP,                KC_RGHT
+        KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,  KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, 
+        _______, _______, _______, _______, _______, _______, _______, KC_UNDS,  KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, 
+        KC_LSFT, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, 
+        KC_LCTL, _______, KC_LGUI, KC_LALT, _______,       KC_SPC,      _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
     /* RAISE
     * ,-----------------------------------------------------------------------------------.
@@ -146,18 +145,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_RAISE] = LAYOUT_planck_mit(
-        KC_GRV,  KC_1,  KC_2,    KC_3,    KC_4,  KC_5,  KC_6,  KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, 
-        KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, 
-        KC_LSFT, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, 
-        KC_LCTL, KC_NO, KC_LGUI, KC_LALT, KC_NO,    KC_SPC,    KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, 
+        _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, 
+        KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, 
+        KC_LCTL, _______, KC_LGUI, KC_LALT, _______,      KC_SPC,      _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 };
-
-
-#ifdef AUDIO_ENABLE
-    float plover_song[][2]     = SONG(PLOVER_SOUND);
-    float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-#endif
 
 void send_character(char letter) {
     char out[2];
@@ -423,7 +416,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   rgblight_sethsv_noeeprom(HSV_RED);
               #endif
               break;
-          case ENI_SET_REF:
+          case EN_SREF:
               copy_settings(&default_settings, &current_settings);
               setting_reflector = true;
               set_layer(_ENIGMA);
@@ -432,7 +425,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   rgblight_sethsv_noeeprom(HSV_RED);
               #endif
               break;
-          case ENI_SET_ROT:
+          case EN_SROT:
               copy_settings(&default_settings, &current_settings);
               setting_rotors = true;
               setting_rotor_n = 0;
@@ -442,7 +435,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   rgblight_sethsv_noeeprom(10, 255, 255);
               #endif
               break;
-          case ENI_SET_POS:
+          case EN_SPOS:
               copy_settings(&default_settings, &current_settings);
               setting_rotor_positions = true;
               setting_rotor_n = 0;
@@ -452,7 +445,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   rgblight_sethsv_noeeprom(HSV_ORANGE);
               #endif
               break;
-          case ENI_SET_RIN:
+          case EN_SRIN:
               copy_settings(&default_settings, &current_settings);
               setting_rotor_rings = true;
               setting_rotor_n = 0;
@@ -462,7 +455,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   rgblight_sethsv_noeeprom(HSV_GREEN);
               #endif
               break;
-          case ENI_SET_PLU:
+          case EN_SPLU:
               copy_settings(&default_settings, &current_settings);
               setting_plugs = true;
               setting_rotor_n = 0;
@@ -493,119 +486,119 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   return save_setting();
               }
               break;
-          case ENI_A:
+          case EN_A:
               letter = 'A';
               normal_keycode = KC_A;
               break;
-          case ENI_B:
+          case EN_B:
               letter = 'B';
               normal_keycode = KC_B;
               break;
-          case ENI_C:
+          case EN_C:
               letter = 'C';
               normal_keycode = KC_C;
               break;
-          case ENI_D:
+          case EN_D:
               letter = 'D';
               normal_keycode = KC_D;
               break;
-          case ENI_E:
+          case EN_E:
               letter = 'E';
               normal_keycode = KC_E;
               break;
-          case ENI_F:
+          case EN_F:
               letter = 'F';
               normal_keycode = KC_F;
               break;
-          case ENI_G:
+          case EN_G:
               letter = 'G';
               normal_keycode = KC_G;
               break;
-          case ENI_H:
+          case EN_H:
               letter = 'H';
               normal_keycode = KC_H;
               break;
-          case ENI_I:
+          case EN_I:
               letter = 'I';
               normal_keycode = KC_I;
               break;
-          case ENI_J:
+          case EN_J:
               letter = 'J';
               normal_keycode = KC_J;
               break;
-          case ENI_K:
+          case EN_K:
               letter = 'K';
               normal_keycode = KC_K;
               break;
-          case ENI_L:
+          case EN_L:
               letter = 'L';
               normal_keycode = KC_L;
               break;
-          case ENI_M:
+          case EN_M:
               letter = 'M';
               normal_keycode = KC_M;
               break;
-          case ENI_N:
+          case EN_N:
               letter = 'N';
               normal_keycode = KC_N;
               break;
-          case ENI_O:
+          case EN_O:
               letter = 'O';
               normal_keycode = KC_O;
               break;
-          case ENI_P:
+          case EN_P:
               letter = 'P';
               normal_keycode = KC_P;
               break;
-          case ENI_Q:
+          case EN_Q:
               letter = 'Q';
               normal_keycode = KC_Q;
               break;
-          case ENI_R:
+          case EN_R:
               letter = 'R';
               normal_keycode = KC_R;
               break;
-          case ENI_S:
+          case EN_S:
               letter = 'S';
               normal_keycode = KC_S;
               break;
-          case ENI_T:
+          case EN_T:
               letter = 'T';
               normal_keycode = KC_T;
               break;
-          case ENI_U:
+          case EN_U:
               letter = 'U';
               normal_keycode = KC_U;
               break;
-          case ENI_V:
+          case EN_V:
               letter = 'V';
               normal_keycode = KC_V;
               break;
-          case ENI_W:
+          case EN_W:
               letter = 'W';
               normal_keycode = KC_W;
               break;
-          case ENI_X:
+          case EN_X:
               letter = 'X';
               normal_keycode = KC_X;
               break;
-          case ENI_Y:
+          case EN_Y:
               letter = 'Y';
               normal_keycode = KC_Y;
               break;
-          case ENI_Z:
+          case EN_Z:
               letter = 'Z';
               normal_keycode = KC_Z;
               break;
-          case ENI_RESET:
+          case EN_RES:
               copy_settings(&default_settings, &current_settings);
               break;
-          case ENI_TEST:
+          case EN_TEST:
               for (int i = 0; i < 1000; i++) {
                   send_character(encipher('A', &current_settings) - ('A' - 'a'));
               }
               break;
-          case ENI_DIAG:
+          case EN_DIAG:
               send_character(current_settings.reflector);
               send_string(". ");
               send_string(rotor_name(current_settings.rotor_order[0]));
@@ -630,7 +623,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
               send_string("\n");
               break;
-          case ENI_BKSP:
+          case EN_BKSP:
               rotors_reverse(&current_settings);
               tap_code(KC_BSPC);
               break;
