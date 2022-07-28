@@ -1,7 +1,13 @@
 {
     "keyboard_name": "han60",
+    "manufacturer": "HanBoards",
     "maintainer": "qmk",
     "url": "hanboards.com",
+    "usb": {
+        "vid": "0x4842",
+        "pid": "0xFB60",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

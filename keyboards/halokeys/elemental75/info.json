@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Elemental 75",
+    "keyboard_name": "Elemental75",
+    "manufacturer": "Halokeys",
     "url": "",
     "maintainer": "shamit05",
+    "usb": {
+        "vid": "0xEA0B",
+        "pid": "0xEA75",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
