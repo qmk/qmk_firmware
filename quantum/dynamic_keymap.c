@@ -19,7 +19,10 @@
 #include "progmem.h" // to read default from flash
 #include "quantum.h" // for send_string()
 #include "dynamic_keymap.h"
-#include "fnv.h"
+
+#ifdef FNV_ENABLE
+#    include "fnv.h"
+#endif
 
 #ifdef VIA_ENABLE
 #    include "via.h" // for VIA_EEPROM_CONFIG_END
@@ -149,6 +152,7 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwis
 #endif // ENCODER_MAP_ENABLE
 
 static uint32_t dynamic_keymap_compute_hash(void) {
+#ifdef FNV_ENABLE
     Fnv32_t hash = FNV1_32A_INIT;
 
     uint16_t keycode;
@@ -159,7 +163,7 @@ static uint32_t dynamic_keymap_compute_hash(void) {
                 hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
             }
         }
-#ifdef ENCODER_MAP_ENABLE
+#    ifdef ENCODER_MAP_ENABLE
         for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
             keycode = pgm_read_word(&encoder_map[layer][encoder][0]);
             hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
@@ -167,10 +171,12 @@ static uint32_t dynamic_keymap_compute_hash(void) {
             keycode = pgm_read_word(&encoder_map[layer][encoder][1]);
             hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
         }
-#endif // ENCODER_MAP_ENABLE
+#    endif // ENCODER_MAP_ENABLE
     }
-
     return hash;
+#else
+    return 0;
+#endif
 }
 
 static uint32_t dynamic_keymap_hash(void) {
