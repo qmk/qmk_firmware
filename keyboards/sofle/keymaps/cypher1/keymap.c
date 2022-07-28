@@ -46,17 +46,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* FUNCTION */
 [2] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
-  _______, _______,   KC_UP, _______, KC_LPRN, KC_RPRN,                          _______, _______, _______, _______, _______,  KC_F12,
-  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_PIPE,                          _______, _______, _______, _______, _______, _______,
-  _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MINS, KC_PLUS, _______,        _______, _______, _______, _______, _______, _______, _______,
+  _______, XXXXXXX,   KC_UP, XXXXXXX, KC_LBRC, KC_RBRC,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_F12,
+  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_BSLS,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MINS,  KC_EQL, _______,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                     _______, _______, _______,   TG(0), _______,        _______, _______, _______, _______, _______
 ),
 /* KEYBOARD CONTROL */
 [3] = LAYOUT(
-  _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
-  _______, _______ , _______ , _______ , _______ , _______ , _______ , _______, _______ , _______,_______, _______ ,
-  _______, _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ ,
-  _______, _______ , _______ , _______ , TG(0), _______ ,  _______,       _______, _______ , _______, _______ , _______, _______ , _______,
-                         _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+  XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX,                           XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,
+  XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX, XXXXXXX , XXXXXXX,XXXXXXX, XXXXXXX ,
+  XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
+  XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,       XXXXXXX, XXXXXXX , XXXXXXX, XXXXXXX , XXXXXXX, XXXXXXX , XXXXXXX,
+                         XXXXXXX, XXXXXXX, XXXXXXX,   TG(3), XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
 };
