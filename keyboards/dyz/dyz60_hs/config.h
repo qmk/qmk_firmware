@@ -30,7 +30,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
 
-#define LED_CAPS_LOCK_PIN F1
-
 #define TAP_CODE_DELAY 10 // Need this delay for some keys like VOLD/VOLU to work
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
