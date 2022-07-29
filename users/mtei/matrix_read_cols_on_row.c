@@ -188,34 +188,6 @@ enum DEVICE_NAME {
 #define ALWAYS_INLINE __attribute__((always_inline)) inline
 #define NO_INLINE __attribute__((noinline))
 
-
-//////////////// matrix_output_unselect_delay() ////////////////
-#ifndef MATRIX_IO_DELAY
-#    define MATRIX_IO_DELAY 30
-#endif
-
-static void wait_cpu_clock_128(void) {
-    wait_cpuclock(128);
-}
-
-static void wait_accurate_us(unsigned int n) {
-    n *= (CPU_CLOCK / 1000000L);
-    for (; n > 128; n -= 128 ) {
-        wait_cpu_clock_128();
-    }
-    if (n > 0) {
-        wait_cpuclock(n);
-    }
-}
-
-void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
-    if (!key_pressed)
-        return;
-    if (MATRIX_IO_DELAY > 0) {
-        wait_accurate_us(MATRIX_IO_DELAY);
-    }
-}
-
 //////////////// pin,port table part ////////////////
 typedef struct _port_list_element_t {
     pin_t       port;
