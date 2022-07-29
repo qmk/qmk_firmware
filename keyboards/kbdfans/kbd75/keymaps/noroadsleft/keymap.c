@@ -1,4 +1,4 @@
-/* Copyright 2020-2021 James Young (@noroadsleft)
+/* Copyright 2020-2022 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,22 +15,6 @@
  */
 
 #include "noroadsleft.h"
-
-#define LAYOUT_75_ansi_wkl( \
-    K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, \
-    K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,       K114, K115, \
-    K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214, K215, \
-    K300,       K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313,       K315, \
-    K400,       K402, K403, K404, K405, K406, K407, K408, K409, K410, K411,       K413, K414, K415, \
-    K500, K501,                         K506,                         K510, K512, K513, K514, K515  \
-) { \
-    { K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012,  K013,  K014,  K015 }, \
-    { K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  KC_NO, K114,  K115 }, \
-    { K200,  KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  K213,  K214,  K215 }, \
-    { K300,  KC_NO, K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  K312,  K313,  KC_NO, K315 }, \
-    { K400,  KC_NO, K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  KC_NO, K413,  K414,  K415 }, \
-    { K500,  K501,  KC_NO, KC_NO, KC_NO, KC_NO, K506,  KC_NO, KC_NO, KC_NO, K510,  KC_NO, K512,  K513,  K514,  K515 }  \
-}
 
 enum layer_names {
     _DV,
@@ -88,13 +72,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,  DM_REC1,
         _______, KC_CALC, KC_APP,  G_PUSH,  _______, _______, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_PSCR, KC_SLCK, KC_PAUS,          DM_REC2,
-        _______, M_SALL,  _______, G_FTCH,  _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          DM_RSTP,          DM_PLY1,
+        _______, M_SALL,  _______, G_FTCH,  G_PWD,   _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          DM_RSTP,          DM_PLY1,
         _______,          M_UNDO,  M_CUT,   M_COPY,  M_PASTE, G_BRCH,  _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,          _______, _______, DM_PLY2,
         _______, _______,                                     _______,                                     _______, _______, _______, _______, _______
     ),
 
     [_SY] = LAYOUT_75_ansi_wkl(
-        TG(_SY), TO(_DV), TO(_QW), XXXXXXX, TG(_Q2), XXXXXXX, XXXXXXX, XXXXXXX, RESET,   EEP_RST, DEBUG,   XXXXXXX, VRSN,    XXXXXXX, XXXXXXX, XXXXXXX,
+        TG(_SY), TO(_DV), TO(_QW), XXXXXXX, TG(_Q2), XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, EE_CLR,  DB_TOGG, XXXXXXX, VRSN,    XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_DEL,  XXXXXXX,
         XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX,

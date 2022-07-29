@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xB23B
-#define PRODUCT_ID      0x1688 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ThomasLT
-#define PRODUCT         Chaos65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

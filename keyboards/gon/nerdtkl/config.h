@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E45  // NE
-#define PRODUCT_ID      0x5244  // RD
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    GON
-#define PRODUCT         NerD TKL
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 9
