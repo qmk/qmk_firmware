@@ -1,7 +1,13 @@
 {
   "keyboard_name": "J80",
+  "manufacturer": "JER",
   "url": "",
   "maintainer": "oeywil",
+  "usb": {
+    "vid": "0x20A0",
+    "pid": "0x422D",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_tkl_ansi": {
       "layout": [
