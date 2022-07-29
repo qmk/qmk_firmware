@@ -196,8 +196,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 * `#define RGB_DI_PIN D7`
   * WS2812 の DI 端子につなぐピン
-* `#define RGBLIGHT_ANIMATIONS`
-  * RGB アニメーションを実行します
 * `#define RGBLIGHT_LAYERS`
   * オンとオフを切り替えることができる [ライトレイヤー](ja/feature_rgblight.md?id=lighting-layers) を定義できます。現在のキーボードレイヤーまたは Caps Lock 状態を表示するのに最適です。
 * `#define RGBLIGHT_MAX_LAYERS`
