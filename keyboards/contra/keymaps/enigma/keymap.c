@@ -315,15 +315,15 @@ void keyboard_pre_init_user(void) {
 
 char *rotor_name(int rotor_number) {
     if (rotor_number == 1) {
-      return "I";
+        return "I";
     } else if (rotor_number == 2) {
-      return "II";
+        return "II";
     } else if (rotor_number == 3) {
-      return "III";
+        return "III";
     } else if (rotor_number == 4) {
-      return "IV";
+        return "IV";
     } else if (rotor_number == 5) {
-      return "V";
+        return "V";
     }
     return "?";
 }
