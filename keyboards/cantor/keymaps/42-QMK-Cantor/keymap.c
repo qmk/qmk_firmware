@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ├────┼──────┼──────┼──────┼───────┼──────┤       ├──────┼──────┼──────┼───────┼──────┼───┤
       * │    │ HOME │ END  │      │       │ CAPS │       │ PgDn │ Left │ Down │ Right │ Del  │   │
       * ├────┼──────┼──────┼──────┼───────┼──────┤       ├──────┼──────┼──────┼───────┼──────┼───┤
-      * │Sft │ UNDO │ CUT  │ COPY │ PASTE │ RApp │       │ Vol+ │ Vol- │ Mute │       │ RGui │   │
+      * │Sft │ UNDO │ CUT  │ COPY │ PASTE │ RApp │       │ Vol- │ Vol+ │ Mute │       │ RGui │   │
       * └────┴──────┴──────┴──────┴───────┴──────┘       └──────┴──────┴──────┴───────┴──────┴───┘
       *                                ┌───┐                     ┌───┐
       *                                │GUI├───┐           ┌─────┤Alt│
