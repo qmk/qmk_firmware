@@ -525,68 +525,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     int mods = get_mods();
     int any_mods = (mods & MOD_MASK_CTRL) || (mods & MOD_MASK_ALT) || (mods & MOD_MASK_GUI);
     if (letter_found) {
-      char letter = 'A' + letter_index;
-      if (any_mods) {
-        tap_code(KC_A + letter_index);
-      } else if (setting_reflector) {
-        if (letter == 'A') {
-          default_settings.reflector = 'A';
-        } else if (letter == 'B') {
-          default_settings.reflector = 'B';
-        } else if (letter == 'C') {
-          default_settings.reflector = 'C';
-        }
-        save_setting();
-      } else if (setting_rotors) {
-        if (letter >= 'A' && letter <= 'E' && setting_rotor_n < 3) {
-          rotor_settings_progress[(int)setting_rotor_n] = to_int(letter) + 1;
-          setting_rotor_n += 1;
-          if (setting_rotor_n == 3) {
-            default_settings.rotor_order[0] = rotor_settings_progress[0];
-            default_settings.rotor_order[1] = rotor_settings_progress[1];
-            default_settings.rotor_order[2] = rotor_settings_progress[2];
+        char letter = 'A' + letter_index;
+        if (any_mods) {
+            tap_code(KC_A + letter_index);
+        } else if (setting_reflector) {
+            if (letter == 'A') {
+                default_settings.reflector = 'A';
+            } else if (letter == 'B') {
+                default_settings.reflector = 'B';
+            } else if (letter == 'C') {
+                default_settings.reflector = 'C';
+            }
             save_setting();
-          }
+        } else if (setting_rotors) {
+            if (letter >= 'A' && letter <= 'E' && setting_rotor_n < 3) {
+                rotor_settings_progress[(int)setting_rotor_n] = to_int(letter) + 1;
+                setting_rotor_n += 1;
+                if (setting_rotor_n == 3) {
+                    default_settings.rotor_order[0] = rotor_settings_progress[0];
+                    default_settings.rotor_order[1] = rotor_settings_progress[1];
+                    default_settings.rotor_order[2] = rotor_settings_progress[2];
+                    save_setting();
+                }
+            } else {
+                cancel_setting();
+            }
+        } else if (setting_rotor_positions) {
+            if (setting_rotor_n < 3) {
+                rotor_settings_progress[(int)setting_rotor_n] = letter;
+                setting_rotor_n += 1;
+                if (setting_rotor_n == 3) {
+                    default_settings.rotor_positions[0] = rotor_settings_progress[0];
+                    default_settings.rotor_positions[1] = rotor_settings_progress[1];
+                    default_settings.rotor_positions[2] = rotor_settings_progress[2];
+                    save_setting();
+                }
+            } else {
+                cancel_setting();
+            }
+        } else if (setting_rotor_rings) {
+            if (setting_rotor_n < 3) {
+                rotor_settings_progress[(int)setting_rotor_n] = letter;
+                setting_rotor_n += 1;
+                if (setting_rotor_n == 3) {
+                    default_settings.rotor_rings[0] = rotor_settings_progress[0];
+                    default_settings.rotor_rings[1] = rotor_settings_progress[1];
+                    default_settings.rotor_rings[2] = rotor_settings_progress[2];
+                    save_setting();
+                }
+            } else {
+                cancel_setting();
+            }
+        } else if (setting_plugs) {
+            if (setting_rotor_n < 26) {
+                rotor_settings_progress[(int)setting_rotor_n] = letter;
+                setting_rotor_n += 1;
+            } else {
+                cancel_setting();
+            }
         } else {
-          cancel_setting();
+            char c2 = encipher(letter, &current_settings);
+            send_char(c2 - ('A' - 'a'));
         }
-      } else if (setting_rotor_positions) {
-        if (setting_rotor_n < 3) {
-          rotor_settings_progress[(int)setting_rotor_n] = letter;
-          setting_rotor_n += 1;
-          if (setting_rotor_n == 3) {
-            default_settings.rotor_positions[0] = rotor_settings_progress[0];
-            default_settings.rotor_positions[1] = rotor_settings_progress[1];
-            default_settings.rotor_positions[2] = rotor_settings_progress[2];
-            save_setting();
-          }
-        } else {
-          cancel_setting();
-        }
-      } else if (setting_rotor_rings) {
-        if (setting_rotor_n < 3) {
-          rotor_settings_progress[(int)setting_rotor_n] = letter;
-          setting_rotor_n += 1;
-          if (setting_rotor_n == 3) {
-            default_settings.rotor_rings[0] = rotor_settings_progress[0];
-            default_settings.rotor_rings[1] = rotor_settings_progress[1];
-            default_settings.rotor_rings[2] = rotor_settings_progress[2];
-            save_setting();
-          }
-        } else {
-          cancel_setting();
-        }
-      } else if (setting_plugs) {
-        if (setting_rotor_n < 26) {
-          rotor_settings_progress[(int)setting_rotor_n] = letter;
-          setting_rotor_n += 1;
-        } else {
-          cancel_setting();
-        }
-      } else {
-        char c2 = encipher(letter, &current_settings);
-        send_char(c2 - ('A' - 'a'));
-      }
     }
     return true;
 }
