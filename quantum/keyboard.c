@@ -384,9 +384,6 @@ void keyboard_init(void) {
 #ifdef STENO_ENABLE_ALL
     steno_init();
 #endif
-#ifdef POINTING_DEVICE_ENABLE
-    pointing_device_init();
-#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
@@ -402,6 +399,10 @@ void keyboard_init(void) {
 #endif
 #ifdef SPLIT_KEYBOARD
     split_post_init();
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+    // init after split init
+    pointing_device_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)

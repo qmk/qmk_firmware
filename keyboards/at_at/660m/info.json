@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "AT-AT 660M",
+    "keyboard_name": "660M",
+    "manufacturer": "AT-AT",
     "url": "",
     "maintainer": "adrientetar",
+    "usb": {
+        "vid": "0xA22A",
+        "pid": "0x6600",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

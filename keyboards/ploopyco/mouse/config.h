@@ -77,5 +77,5 @@
 
 // #define DEBUG_LED_PIN F7
 
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN B0
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN B0

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Novus",
+    "manufacturer": "Cutie Club",
     "url": "",
     "maintainer": "Cutie Club",
+    "usb": {
+        "vid": "0xFB9C",
+        "pid": "0x3F42",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_ansi_split_bs_rshift"
     },

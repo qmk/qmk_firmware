@@ -225,17 +225,21 @@ def _extract_encoders_values(config_c, postfix=''):
     b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
     resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
 
-    default_resolution = config_c.get('ENCODER_RESOLUTION', '4')
+    default_resolution = config_c.get('ENCODER_RESOLUTION', None)
 
     if a_pad and b_pad:
         a_pad = list(filter(None, a_pad.split(',')))
         b_pad = list(filter(None, b_pad.split(',')))
         resolutions = list(filter(None, resolutions.split(',')))
-        resolutions += [default_resolution] * (len(a_pad) - len(resolutions))
+        if default_resolution:
+            resolutions += [default_resolution] * (len(a_pad) - len(resolutions))
 
         encoders = []
         for index in range(len(a_pad)):
-            encoders.append({'pin_a': a_pad[index], 'pin_b': b_pad[index], "resolution": int(resolutions[index])})
+            encoder = {'pin_a': a_pad[index], 'pin_b': b_pad[index]}
+            if index < len(resolutions):
+                encoder['resolution'] = int(resolutions[index])
+            encoders.append(encoder)
 
         return encoders
 
@@ -374,7 +378,7 @@ def _extract_split_right_pins(info_data, config_c):
     unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
 
-    if row_pins and col_pins:
+    if row_pins or col_pins or direct_pins or unused_pins:
         if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
             _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
 
@@ -387,37 +391,17 @@ def _extract_split_right_pins(info_data, config_c):
         if 'right' not in info_data['split']['matrix_pins']:
             info_data['split']['matrix_pins']['right'] = {}
 
-        info_data['split']['matrix_pins']['right'] = {
-            'cols': _extract_pins(col_pins),
-            'rows': _extract_pins(row_pins),
-        }
+        if col_pins:
+            info_data['split']['matrix_pins']['right']['cols'] = _extract_pins(col_pins)
 
-    if direct_pins:
-        if info_data.get('split', {}).get('matrix_pins', {}).get('right', {}):
-            _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
+        if row_pins:
+            info_data['split']['matrix_pins']['right']['rows'] = _extract_pins(row_pins)
 
-        if 'split' not in info_data:
-            info_data['split'] = {}
+        if direct_pins:
+            info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
 
-        if 'matrix_pins' not in info_data['split']:
-            info_data['split']['matrix_pins'] = {}
-
-        if 'right' not in info_data['split']['matrix_pins']:
-            info_data['split']['matrix_pins']['right'] = {}
-
-        info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
-
-    if unused_pins:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'matrix_pins' not in info_data['split']:
-            info_data['split']['matrix_pins'] = {}
-
-        if 'right' not in info_data['split']['matrix_pins']:
-            info_data['split']['matrix_pins']['right'] = {}
-
-        info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
+        if unused_pins:
+            info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
 
 
 def _extract_matrix_info(info_data, config_c):

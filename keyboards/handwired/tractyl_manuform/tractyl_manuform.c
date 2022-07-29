@@ -247,17 +247,17 @@ static bool has_shift_mod(void) {
  */
 __attribute__((unused)) static void debug_charybdis_config_to_console(charybdis_config_t* config) {
 #    ifdef CONSOLE_ENABLE
-    dprintf("(charybdis) process_record_kb: config = {\n"
-            "\traw = 0x%04X,\n"
-            "\t{\n"
-            "\t\tis_dragscroll_enabled=%b\n"
-            "\t\tis_sniping_enabled=%b\n"
-            "\t\tdefault_dpi=0x%02X (%ld)\n"
-            "\t\tsniping_dpi=0x%01X (%ld)\n"
-            "\t}\n"
-            "}\n",
-            config->raw, config->is_dragscroll_enabled, config->is_sniping_enabled, config->pointer_default_dpi, get_pointer_default_dpi(config), config->pointer_sniping_dpi, get_pointer_sniping_dpi(config));
-#    endif  // CONSOLE_ENABLE
+    IGNORE_FORMAT_WARNING(dprintf("(charybdis) process_record_kb: config = {\n"
+                                  "\traw = 0x%04X,\n"
+                                  "\t{\n"
+                                  "\t\tis_dragscroll_enabled=%b\n"
+                                  "\t\tis_sniping_enabled=%b\n"
+                                  "\t\tdefault_dpi=0x%02X (%ld)\n"
+                                  "\t\tsniping_dpi=0x%01X (%ld)\n"
+                                  "\t}\n"
+                                  "}\n",
+                                  config->raw, config->is_dragscroll_enabled, config->is_sniping_enabled, config->pointer_default_dpi, get_pointer_default_dpi(config), config->pointer_sniping_dpi, get_pointer_sniping_dpi(config)));
+#    endif // CONSOLE_ENABLE
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {

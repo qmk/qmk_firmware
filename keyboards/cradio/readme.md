@@ -18,6 +18,12 @@ Make example for this keyboard (after setting up your build environment):
 
     make cradio:default
 
+### RP2040 Controllers
+
+Pro Micro RP2040 controllers are supported with [QMK Converters](https://docs.qmk.fm/#/feature_converters). The make command example for Adafruit's KB2040 are:
+
+    make CONVERT_TO=kb2040 cradio:default
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader

@@ -33,6 +33,10 @@
  * ╰────────────────────╯                 ╰────────────────────╯
  *                   15  16  17     33  34  XX
  *                 ╰────────────╯ ╰────────────╯
+ *
+ * Note: the LED config simulates 36 LEDs instead of the actual 35 to prevent
+ * confusion when testing LEDs during assembly when handedness is not set
+ * correctly.  Those fake LEDs are bound to the physical top-left corner.
  */
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
@@ -61,7 +65,7 @@ led_config_t g_led_config = { {
     /* index=24 */ { 188,  42 }, { 188,  21 }, { 188,   0 },
     /* index=27 */ { 170,   0 }, { 170,  21 }, { 170,  42 },
     /* index=30 */ { 152,   0 }, { 152,  21 }, { 152,  42 },
-    /* index=33 */ { 152,  64 }, { 134,  64 },
+    /* index=33 */ { 134,  64 }, { 152,  64 }, {   0,   0 },
 }, {
     /* LED index to flag. */
     // Left split.
@@ -77,7 +81,7 @@ led_config_t g_led_config = { {
     /* index=24 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
     /* index=27 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
     /* index=30 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=33 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // Thumb cluster
+    /* index=33 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // Thumb cluster
 } };
 #endif
 // clang-format on

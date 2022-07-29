@@ -1,7 +1,13 @@
 {
     "keyboard_name": "halfcliff", 
+    "manufacturer": "n2",
     "url": "https://github.com/N2-Sumikko", 
     "maintainer": "n2", 
+    "usb": {
+        "vid": "0x0335",
+        "pid": "0x0021",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

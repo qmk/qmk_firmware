@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "cirque_pinnacle_regdefs.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -13,6 +14,11 @@
 #define CIRQUE_PINNACLE_RELATIVE_MODE 0
 #ifndef CIRQUE_PINNACLE_POSITION_MODE
 #    define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
+#endif
+
+#define CIRQUE_PINNACLE_DEFAULT_SCALE 1024
+#ifndef CIRQUE_PINNACLE_DIAMETER_MM
+#    define CIRQUE_PINNACLE_DIAMETER_MM 40
 #endif
 
 // Coordinate scaling values
@@ -41,7 +47,7 @@
 #    include "i2c_master.h"
 // Cirque's 7-bit I2C Slave Address
 #    ifndef CIRQUE_PINNACLE_ADDR
-#        define CIRQUE_PINNACLE_ADDR 0x2A
+#        define CIRQUE_PINNACLE_ADDR I2C_ADDRESS_DEFAULT
 #    endif
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    include "spi_master.h"
@@ -66,6 +72,10 @@
 #    endif
 #endif
 
+#define DIVIDE_UNSIGNED_ROUND(numerator, denominator) (((numerator) + ((denominator) / 2)) / (denominator))
+#define CIRQUE_PINNACLE_INCH_TO_PX(inch) (DIVIDE_UNSIGNED_ROUND((inch) * (uint32_t)CIRQUE_PINNACLE_DIAMETER_MM * 10, 254))
+#define CIRQUE_PINNACLE_PX_TO_INCH(px) (DIVIDE_UNSIGNED_ROUND((px) * (uint32_t)254, CIRQUE_PINNACLE_DIAMETER_MM * 10))
+
 // Convenient way to store and access measurements
 typedef struct {
     bool valid; // true if valid data was read, false if no data was ready
@@ -84,6 +94,8 @@ typedef struct {
 } pinnacle_data_t;
 
 void            cirque_pinnacle_init(void);
+void            cirque_pinnacle_calibrate(void);
+void            cirque_pinnacle_cursor_smoothing(bool enable);
 pinnacle_data_t cirque_pinnacle_read_data(void);
 void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
 uint16_t        cirque_pinnacle_get_scale(void);
