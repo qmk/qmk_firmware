@@ -391,8 +391,8 @@ bool save_setting(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    char letter = 0;
-    int normal_keycode = 0;
+    uint8_t letter_index;
+    bool letter_found = false;
     if (record->event.pressed) {
         switch (keycode) {
           case QWERTY:
@@ -479,109 +479,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   return save_setting();
               }
               break;
-          case EN_A:
-              letter = 'A';
-              normal_keycode = KC_A;
-              break;
-          case EN_B:
-              letter = 'B';
-              normal_keycode = KC_B;
-              break;
-          case EN_C:
-              letter = 'C';
-              normal_keycode = KC_C;
-              break;
-          case EN_D:
-              letter = 'D';
-              normal_keycode = KC_D;
-              break;
-          case EN_E:
-              letter = 'E';
-              normal_keycode = KC_E;
-              break;
-          case EN_F:
-              letter = 'F';
-              normal_keycode = KC_F;
-              break;
-          case EN_G:
-              letter = 'G';
-              normal_keycode = KC_G;
-              break;
-          case EN_H:
-              letter = 'H';
-              normal_keycode = KC_H;
-              break;
-          case EN_I:
-              letter = 'I';
-              normal_keycode = KC_I;
-              break;
-          case EN_J:
-              letter = 'J';
-              normal_keycode = KC_J;
-              break;
-          case EN_K:
-              letter = 'K';
-              normal_keycode = KC_K;
-              break;
-          case EN_L:
-              letter = 'L';
-              normal_keycode = KC_L;
-              break;
-          case EN_M:
-              letter = 'M';
-              normal_keycode = KC_M;
-              break;
-          case EN_N:
-              letter = 'N';
-              normal_keycode = KC_N;
-              break;
-          case EN_O:
-              letter = 'O';
-              normal_keycode = KC_O;
-              break;
-          case EN_P:
-              letter = 'P';
-              normal_keycode = KC_P;
-              break;
-          case EN_Q:
-              letter = 'Q';
-              normal_keycode = KC_Q;
-              break;
-          case EN_R:
-              letter = 'R';
-              normal_keycode = KC_R;
-              break;
-          case EN_S:
-              letter = 'S';
-              normal_keycode = KC_S;
-              break;
-          case EN_T:
-              letter = 'T';
-              normal_keycode = KC_T;
-              break;
-          case EN_U:
-              letter = 'U';
-              normal_keycode = KC_U;
-              break;
-          case EN_V:
-              letter = 'V';
-              normal_keycode = KC_V;
-              break;
-          case EN_W:
-              letter = 'W';
-              normal_keycode = KC_W;
-              break;
-          case EN_X:
-              letter = 'X';
-              normal_keycode = KC_X;
-              break;
-          case EN_Y:
-              letter = 'Y';
-              normal_keycode = KC_Y;
-              break;
-          case EN_Z:
-              letter = 'Z';
-              normal_keycode = KC_Z;
+          case EN_A ... EN_Z:
+              letter_index = keycode - EN_A;
+              letter_found = true;
               break;
           case EN_RES:
               copy_settings(&default_settings, &current_settings);
@@ -624,9 +524,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     int mods = get_mods();
     int any_mods = (mods & MOD_MASK_CTRL) || (mods & MOD_MASK_ALT) || (mods & MOD_MASK_GUI);
-    if (letter > 0) {
+    if (letter_found) {
+      char letter = 'A' + letter_index;
       if (any_mods) {
-        tap_code(normal_keycode);
+        tap_code(KC_A + letter_index);
       } else if (setting_reflector) {
         if (letter == 'A') {
           default_settings.reflector = 'A';
