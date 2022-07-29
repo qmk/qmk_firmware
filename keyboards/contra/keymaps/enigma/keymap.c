@@ -166,7 +166,7 @@ char reflector_definitions[3][26] = {
     "FVPJIAOYEDRZXWGCTKUQSBNMHL"
 };
 
-char notch[5]="QEVJZ";
+char notch[5] = "QEVJZ";
 
 typedef struct Settings {
     char rotor_order[3];
@@ -176,6 +176,18 @@ typedef struct Settings {
     int plug_count;
     char reflector;
 } Settings;
+
+typedef struct KeyboardState {
+    bool is_setting_reflector;
+    bool is_setting_rotors;
+    bool is_setting_rotor_positions;
+    bool is_setting_rotor_rings;
+    bool is_setting_plugs;
+    char setting_progress[26];
+    int setting_index;
+    Settings current_settings;
+    Settings default_settings;
+} KeyboardState;
 
 int bound(int letter) {
     return ((letter % 26) + 26) % 26;
@@ -305,14 +317,6 @@ void copy_settings(Settings *from, Settings *to) {
     to->reflector = from->reflector;
 }
 
-Settings current_settings;
-Settings default_settings;
-
-void keyboard_pre_init_user(void) {
-    init_enigma_default(&default_settings);
-    init_enigma_default(&current_settings);
-}
-
 char *rotor_name(int rotor_number) {
     if (rotor_number == 1) {
         return "I";
@@ -357,37 +361,171 @@ void rotors_reverse(Settings *settings) {
     }
 }
 
-bool setting_reflector = false;
-bool setting_rotors = false;
-bool setting_rotor_positions = false;
-bool setting_rotor_rings = false;
-bool setting_plugs = false;
-
-char rotor_settings_progress[26];
-char setting_rotor_n = 0;
+void reset_settings(KeyboardState *state) {
+  copy_settings(&state->default_settings, &state->current_settings);
+}
 
 void set_layer(uint8_t default_layer) {
     default_layer_set((layer_state_t)1 << default_layer);
 }
 
-bool cancel_setting(void) {
-    setting_reflector = false;
-    setting_rotors = false;
-    setting_rotor_positions = false;
-    setting_rotor_rings = false;
-    setting_plugs = false;
-    setting_rotor_n = 0;
-    set_layer(_ENIGMA);
+void set_backlight(uint8_t mode, uint8_t hue, uint8_t sat, uint8_t val) {
     #ifdef RGBLIGHT_ENABLE
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-        rgblight_sethsv_noeeprom(HSV_RED);
+        rgblight_enable_noeeprom(); 
+        rgblight_mode_noeeprom(mode);
+        rgblight_sethsv_noeeprom(hue, sat, val);
     #endif
-    return false;
 }
 
-bool save_setting(void) {
-    copy_settings(&default_settings, &current_settings);
-    return cancel_setting();
+void clear_working_settings(KeyboardState *state) {
+    state->is_setting_reflector = false;
+    state->is_setting_rotors = false;
+    state->is_setting_rotor_positions = false;
+    state->is_setting_rotor_rings = false;
+    state->is_setting_plugs = false;
+    state->setting_index = 0;
+    set_layer(_ENIGMA);
+    set_backlight(RGBLIGHT_MODE_STATIC_LIGHT, HSV_RED);
+}
+
+void send_settings_string(Settings *settings) {
+    send_char(settings->reflector);
+    send_string(". ");
+    send_string(rotor_name(settings->rotor_order[0]));
+    send_char(settings->rotor_rings[0]);
+    send_string("-");
+    send_string(rotor_name(settings->rotor_order[1]));
+    send_char(settings->rotor_rings[1]);
+    send_string("-");
+    send_string(rotor_name(settings->rotor_order[2]));
+    send_char(settings->rotor_rings[2]);
+    send_string(" (");
+    send_char(settings->rotor_positions[0]);
+    send_string(", ");
+    send_char(settings->rotor_positions[1]);
+    send_string(", ");
+    send_char(settings->rotor_positions[2]);
+    send_string(") ");
+    for (int i = 0; i < settings->plug_count; i++) {
+        send_char(settings->plugs[i * 2]);
+        send_char(settings->plugs[i * 2 + 1]);
+        send_string(" ");
+    }
+    send_string("\n");
+}
+
+void perform_test(Settings *settings) {
+    for (int i = 0; i < 1000; i++) {
+        send_char(encipher('A', settings) - ('A' - 'a'));
+    }
+}
+
+void commit_plug_settings(KeyboardState *state) {
+    state->default_settings.plug_count = state->setting_index / 2; 
+    for (int i = 0; i < state->default_settings.plug_count; i++) {
+        state->default_settings.plugs[i * 2] = state->setting_progress[i * 2];
+        state->default_settings.plugs[i * 2 + 1] = state->setting_progress[i * 2 + 1];
+    }
+    reset_settings(state);
+    clear_working_settings(state);
+}
+
+void handle_set_reflector(char letter, KeyboardState *state) {
+    if (letter >= 'A' && letter <= 'C') {
+        state->default_settings.reflector = letter;
+        reset_settings(state);
+        clear_working_settings(state);
+    }
+}
+
+bool handle_set_rotor(char letter, KeyboardState *state) {
+    bool is_valid = letter >= 'A' && letter <= 'E' && state->setting_index < 3;
+    if (is_valid) {
+        state->setting_progress[state->setting_index] = to_int(letter) + 1;
+        state->setting_index += 1;
+        if (state->setting_index == 3) {
+            state->default_settings.rotor_order[0] = state->setting_progress[0];
+            state->default_settings.rotor_order[1] = state->setting_progress[1];
+            state->default_settings.rotor_order[2] = state->setting_progress[2];
+            reset_settings(state);
+            clear_working_settings(state);
+        }
+    }
+    return is_valid;
+}
+
+bool handle_set_rotor_position(char letter, KeyboardState *state) {
+    bool is_valid = state->setting_index < 3; // Guaranteed to be A-Z already
+    if (is_valid) {
+        state->setting_progress[state->setting_index] = letter;
+        state->setting_index += 1;
+        if (state->setting_index == 3) {
+            state->default_settings.rotor_positions[0] = state->setting_progress[0];
+            state->default_settings.rotor_positions[1] = state->setting_progress[1];
+            state->default_settings.rotor_positions[2] = state->setting_progress[2]; 
+            reset_settings(state);
+            clear_working_settings(state);
+        }
+    }
+    return is_valid;
+}
+
+bool handle_set_rotor_ring(char letter, KeyboardState *state) {
+    bool is_valid = state->setting_index < 3;
+    if (is_valid) {
+        state->setting_progress[state->setting_index] = letter;
+        state->setting_index += 1;
+        if (state->setting_index == 3) {
+            state->default_settings.rotor_rings[0] = state->setting_progress[0];
+            state->default_settings.rotor_rings[1] = state->setting_progress[1];
+            state->default_settings.rotor_rings[2] = state->setting_progress[2];
+            reset_settings(state);
+            clear_working_settings(state);
+        }
+    }
+    return is_valid;
+}
+
+bool handle_set_plug(char letter, KeyboardState *state) {
+    bool is_valid = state->setting_index < 26;
+    if (is_valid) {
+        state->setting_progress[state->setting_index] = letter;
+        state->setting_index += 1;
+    }
+    return is_valid;
+}
+
+void handle_enigma_keypress(char letter, bool any_mods, KeyboardState *state) {
+    bool settings_valid = true;
+    if (letter) {
+        if (any_mods) {
+            tap_code(KC_A + to_int(letter));
+        } else if (state->is_setting_reflector) {
+            handle_set_reflector(letter, state);
+        } else if (state->is_setting_rotors) {
+            settings_valid = handle_set_rotor(letter, state);
+        } else if (state->is_setting_rotor_positions) {
+            settings_valid = handle_set_rotor_position(letter, state);
+        } else if (state->is_setting_rotor_rings) {
+            settings_valid = handle_set_rotor_ring(letter, state);
+        } else if (state->is_setting_plugs) {
+            settings_valid = handle_set_plug(letter, state);
+        } else {
+            char c2 = encipher(letter, &state->current_settings);
+            send_char(c2 - ('A' - 'a'));
+        }
+    }
+    if (!settings_valid) {
+        clear_working_settings(state);
+    }
+}
+
+KeyboardState STATE;
+
+void keyboard_pre_init_user(void) {
+    init_enigma_default(&STATE.default_settings);
+    init_enigma_default(&STATE.current_settings);
+    clear_working_settings(&STATE);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -397,86 +535,62 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
           case QWERTY:
               set_layer(_QWERTY);
-              #ifdef RGBLIGHT_ENABLE
-                  rgblight_sethsv_noeeprom(HSV_PURPLE);
-                  rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
-              #endif
+              set_backlight(RGBLIGHT_MODE_RAINBOW_SWIRL + 4, HSV_PURPLE);
               break;
           case ENIGMA:
               set_layer(_ENIGMA);
-              #ifdef RGBLIGHT_ENABLE
-                  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-                  rgblight_sethsv_noeeprom(HSV_RED);
-              #endif
+              set_backlight(RGBLIGHT_MODE_STATIC_LIGHT, HSV_RED);
               break;
           case EN_SREF:
-              copy_settings(&default_settings, &current_settings);
-              setting_reflector = true;
+              reset_settings(&STATE);
+              STATE.is_setting_reflector = true;
               set_layer(_ENIGMA);
-              #ifdef RGBLIGHT_ENABLE
-                  rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE);
-                  rgblight_sethsv_noeeprom(HSV_RED);
-              #endif
+              set_backlight(RGBLIGHT_MODE_SNAKE, HSV_RED);
               break;
           case EN_SROT:
-              copy_settings(&default_settings, &current_settings);
-              setting_rotors = true;
-              setting_rotor_n = 0;
+              reset_settings(&STATE);
+              STATE.is_setting_rotors = true;
+              STATE.setting_index = 0;
               set_layer(_ENIGMA);
-              #ifdef RGBLIGHT_ENABLE
-                  rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE);
-                  rgblight_sethsv_noeeprom(10, 255, 255);
-              #endif
+              set_backlight(RGBLIGHT_MODE_SNAKE, 10, 255, 255);
               break;
           case EN_SPOS:
-              copy_settings(&default_settings, &current_settings);
-              setting_rotor_positions = true;
-              setting_rotor_n = 0;
+              reset_settings(&STATE);
+              STATE.is_setting_rotor_positions = true;
+              STATE.setting_index = 0;
               set_layer(_ENIGMA);
-              #ifdef RGBLIGHT_ENABLE
-                  rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE);
-                  rgblight_sethsv_noeeprom(HSV_ORANGE);
-              #endif
+              set_backlight(RGBLIGHT_MODE_SNAKE, HSV_ORANGE);
               break;
           case EN_SRIN:
-              copy_settings(&default_settings, &current_settings);
-              setting_rotor_rings = true;
-              setting_rotor_n = 0;
+              reset_settings(&STATE);
+              STATE.is_setting_rotor_rings = true;
+              STATE.setting_index = 0;
               set_layer(_ENIGMA);
-              #ifdef RGBLIGHT_ENABLE
-                  rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE);
-                  rgblight_sethsv_noeeprom(HSV_GREEN);
-              #endif
+              set_backlight(RGBLIGHT_MODE_SNAKE, HSV_GREEN);
               break;
           case EN_SPLU:
-              copy_settings(&default_settings, &current_settings);
-              setting_plugs = true;
-              setting_rotor_n = 0;
+              reset_settings(&STATE);
+              STATE.is_setting_plugs = true;
+              STATE.setting_index = 0;
               set_layer(_ENIGMA);
-              #ifdef RGBLIGHT_ENABLE
-                  rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE);
-                  rgblight_sethsv_noeeprom(HSV_BLUE);
-              #endif
+              set_backlight(RGBLIGHT_MODE_SNAKE, HSV_BLUE);
               break;
           case QK_GESC:
               if (
-                  setting_reflector
-                  || setting_rotors
-                  || setting_rotor_positions
-                  || setting_rotor_rings
-                  || setting_plugs
+                  STATE.is_setting_reflector
+                  || STATE.is_setting_rotors
+                  || STATE.is_setting_rotor_positions
+                  || STATE.is_setting_rotor_rings
+                  || STATE.is_setting_plugs
               ) {
-                  return cancel_setting();
+                  clear_working_settings(&STATE);
+                  return false;
               }
               break;
           case KC_ENT:
-              if (setting_plugs) { 
-                  default_settings.plug_count = setting_rotor_n / 2; 
-                  for (int i = 0; i < default_settings.plug_count; i++) {
-                      default_settings.plugs[i * 2] = rotor_settings_progress[i * 2];
-                      default_settings.plugs[i * 2 + 1] = rotor_settings_progress[i * 2 + 1];
-                  }
-                  return save_setting();
+              if (STATE.is_setting_plugs) { 
+                  commit_plug_settings(&STATE);
+                  return false;
               }
               break;
           case EN_A ... EN_Z:
@@ -484,119 +598,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               letter_found = true;
               break;
           case EN_RES:
-              copy_settings(&default_settings, &current_settings);
+              reset_settings(&STATE);
               break;
           case EN_TEST:
-              for (int i = 0; i < 1000; i++) {
-                  send_char(encipher('A', &current_settings) - ('A' - 'a'));
-              }
+              perform_test(&STATE.current_settings);
               break;
           case EN_DIAG:
-              send_char(current_settings.reflector);
-              send_string(". ");
-              send_string(rotor_name(current_settings.rotor_order[0]));
-              send_char(current_settings.rotor_rings[0]);
-              send_string("-");
-              send_string(rotor_name(current_settings.rotor_order[1]));
-              send_char(current_settings.rotor_rings[1]);
-              send_string("-");
-              send_string(rotor_name(current_settings.rotor_order[2]));
-              send_char(current_settings.rotor_rings[2]);
-              send_string(" (");
-              send_char(current_settings.rotor_positions[0]);
-              send_string(", ");
-              send_char(current_settings.rotor_positions[1]);
-              send_string(", ");
-              send_char(current_settings.rotor_positions[2]);
-              send_string(") ");
-              for (int i = 0; i < current_settings.plug_count; i++) {
-                  send_char(current_settings.plugs[i * 2]);
-                  send_char(current_settings.plugs[i * 2 + 1]);
-                  send_string(" ");
-              }
-              send_string("\n");
+              send_settings_string(&STATE.current_settings);
               break;
           case EN_BSPC:
-              rotors_reverse(&current_settings);
+              rotors_reverse(&STATE.current_settings);
               tap_code(KC_BSPC);
               break;
       }
     }
+    char letter = letter_found ? 'A' + letter_index : 0;
     uint8_t mods = get_mods();
     bool any_mods = (mods & MOD_MASK_CTRL) || (mods & MOD_MASK_ALT) || (mods & MOD_MASK_GUI);
-    if (letter_found) {
-        char letter = 'A' + letter_index;
-        if (any_mods) {
-            tap_code(KC_A + letter_index);
-        } else if (setting_reflector) {
-            if (letter == 'A') {
-                default_settings.reflector = 'A';
-            } else if (letter == 'B') {
-                default_settings.reflector = 'B';
-            } else if (letter == 'C') {
-                default_settings.reflector = 'C';
-            }
-            save_setting();
-        } else if (setting_rotors) {
-            if (letter >= 'A' && letter <= 'E' && setting_rotor_n < 3) {
-                rotor_settings_progress[(int)setting_rotor_n] = to_int(letter) + 1;
-                setting_rotor_n += 1;
-                if (setting_rotor_n == 3) {
-                    default_settings.rotor_order[0] = rotor_settings_progress[0];
-                    default_settings.rotor_order[1] = rotor_settings_progress[1];
-                    default_settings.rotor_order[2] = rotor_settings_progress[2];
-                    save_setting();
-                }
-            } else {
-                cancel_setting();
-            }
-        } else if (setting_rotor_positions) {
-            if (setting_rotor_n < 3) {
-                rotor_settings_progress[(int)setting_rotor_n] = letter;
-                setting_rotor_n += 1;
-                if (setting_rotor_n == 3) {
-                    default_settings.rotor_positions[0] = rotor_settings_progress[0];
-                    default_settings.rotor_positions[1] = rotor_settings_progress[1];
-                    default_settings.rotor_positions[2] = rotor_settings_progress[2];
-                    save_setting();
-                }
-            } else {
-                cancel_setting();
-            }
-        } else if (setting_rotor_rings) {
-            if (setting_rotor_n < 3) {
-                rotor_settings_progress[(int)setting_rotor_n] = letter;
-                setting_rotor_n += 1;
-                if (setting_rotor_n == 3) {
-                    default_settings.rotor_rings[0] = rotor_settings_progress[0];
-                    default_settings.rotor_rings[1] = rotor_settings_progress[1];
-                    default_settings.rotor_rings[2] = rotor_settings_progress[2];
-                    save_setting();
-                }
-            } else {
-                cancel_setting();
-            }
-        } else if (setting_plugs) {
-            if (setting_rotor_n < 26) {
-                rotor_settings_progress[(int)setting_rotor_n] = letter;
-                setting_rotor_n += 1;
-            } else {
-                cancel_setting();
-            }
-        } else {
-            char c2 = encipher(letter, &current_settings);
-            send_char(c2 - ('A' - 'a'));
-        }
-    }
+    handle_enigma_keypress(letter, any_mods, &STATE);
     return true;
 }
 
 void keyboard_post_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-        rgblight_enable_noeeprom(); 
-        rgblight_sethsv_noeeprom(HSV_PURPLE);
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
-    #endif
     set_layer(_QWERTY);
+    set_backlight(RGBLIGHT_MODE_RAINBOW_SWIRL + 4, HSV_PURPLE);
 }
-
