@@ -522,8 +522,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               break;
       }
     }
-    int mods = get_mods();
-    int any_mods = (mods & MOD_MASK_CTRL) || (mods & MOD_MASK_ALT) || (mods & MOD_MASK_GUI);
+    uint8_t mods = get_mods();
+    bool any_mods = (mods & MOD_MASK_CTRL) || (mods & MOD_MASK_ALT) || (mods & MOD_MASK_GUI);
     if (letter_found) {
         char letter = 'A' + letter_index;
         if (any_mods) {
