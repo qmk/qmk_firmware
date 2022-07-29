@@ -20,12 +20,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4934
-#define PRODUCT_ID      0x0101 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    JKDLAB.
-#define PRODUCT         Binary_Monkey
-
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 3
 #define MATRIX_ROW_PINS { D0 }
