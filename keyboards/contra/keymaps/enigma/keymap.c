@@ -152,13 +152,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void send_character(char letter) {
-    char out[2];
-    out[0] = letter;
-    out[1] = 0;
-    send_string((char *) &out);
-}
-
 char rotor_definitions[5][26] = {
     "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
     "AJDKSIRUXBLHWTMCQGZNPYFVOE",
@@ -595,30 +588,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               break;
           case EN_TEST:
               for (int i = 0; i < 1000; i++) {
-                  send_character(encipher('A', &current_settings) - ('A' - 'a'));
+                  send_char(encipher('A', &current_settings) - ('A' - 'a'));
               }
               break;
           case EN_DIAG:
-              send_character(current_settings.reflector);
+              send_char(current_settings.reflector);
               send_string(". ");
               send_string(rotor_name(current_settings.rotor_order[0]));
-              send_character(current_settings.rotor_rings[0]);
+              send_char(current_settings.rotor_rings[0]);
               send_string("-");
               send_string(rotor_name(current_settings.rotor_order[1]));
-              send_character(current_settings.rotor_rings[1]);
+              send_char(current_settings.rotor_rings[1]);
               send_string("-");
               send_string(rotor_name(current_settings.rotor_order[2]));
-              send_character(current_settings.rotor_rings[2]);
+              send_char(current_settings.rotor_rings[2]);
               send_string(" (");
-              send_character(current_settings.rotor_positions[0]);
+              send_char(current_settings.rotor_positions[0]);
               send_string(", ");
-              send_character(current_settings.rotor_positions[1]);
+              send_char(current_settings.rotor_positions[1]);
               send_string(", ");
-              send_character(current_settings.rotor_positions[2]);
+              send_char(current_settings.rotor_positions[2]);
               send_string(") ");
               for (int i = 0; i < current_settings.plug_count; i++) {
-                  send_character(current_settings.plugs[i * 2]);
-                  send_character(current_settings.plugs[i * 2 + 1]);
+                  send_char(current_settings.plugs[i * 2]);
+                  send_char(current_settings.plugs[i * 2 + 1]);
                   send_string(" ");
               }
               send_string("\n");
@@ -691,7 +684,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         char c2 = encipher(letter, &current_settings);
-        send_character(c2 - ('A' - 'a'));
+        send_char(c2 - ('A' - 'a'));
       }
     }
     return true;
