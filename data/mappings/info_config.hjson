@@ -190,6 +190,10 @@
     "SPLIT_OLED_ENABLE": {"info_key": "split.transport.sync.oled", "value_type": "flag"},
     "SPLIT_ST7565_ENABLE": {"info_key": "split.transport.sync.st7565", "value_type": "flag"},
     "SPLIT_WPM_ENABLE": {"info_key": "split.transport.sync.wpm", "value_type": "flag"},
+    "SERIAL_USART_FULL_DUPLEX": {"info_key": "serial.full_duplex", "value_type": "flag"},
+    "SERIAL_USART_TX_PIN": {"info_key": "serial.tx_pin"},
+    "SERIAL_USART_RX_PIN": {"info_key": "serial.rx_pin"},
+    "SERIAL_DEBUG": {"info_key": "serial.debug", "value_type": "flag"},
 
     // Tapping
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "flag"},

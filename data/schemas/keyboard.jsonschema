@@ -919,5 +919,19 @@
                 "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         }
+        "serial": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["bitbang", "vendor", "usart"]
+                },
+                "full_duplex": {"type": "boolean"}
+                "tx_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "rx_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "debug": {"type": "boolean"}
+            }
+        },
     }
 }
