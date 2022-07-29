@@ -206,6 +206,7 @@ static inline msg_t sync_tx(sysinterval_t timeout) {
         pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + tx_state_machine, true);
         msg = osalThreadSuspendTimeoutS(&tx_thread, timeout);
         if (msg < MSG_OK) {
+            pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + tx_state_machine, false);
             break;
         }
     }
@@ -265,6 +266,7 @@ static inline msg_t sync_rx(sysinterval_t timeout) {
         pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + rx_state_machine, true);
         msg = osalThreadSuspendTimeoutS(&rx_thread, timeout);
         if (msg < MSG_OK) {
+            pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + rx_state_machine, false);
             break;
         }
     }
