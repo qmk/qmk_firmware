@@ -17,6 +17,9 @@
             "all": true
         }
     },
+    "indicators": {
+        "caps_lock": "F1"
+    },
     "usb": {
         "vid": "0xD772",
         "pid": "0x001A",
