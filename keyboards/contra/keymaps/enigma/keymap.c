@@ -337,7 +337,7 @@ void rotors_reverse(Settings *settings) {
     // Reverse third rotor
     settings->rotor_positions[2]--;
     if (settings->rotor_positions[2] < 'A') {
-      settings->rotor_positions[2] += 26;
+        settings->rotor_positions[2] += 26;
     }
 
     // Maybe reverse second rotor (including double steps)
