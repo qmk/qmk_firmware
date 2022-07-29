@@ -105,6 +105,8 @@
     "SPLIT_WATCHDOG_TIMEOUT": {"info_key": "split.transport.watchdog_timeout", "value_type": "int"},
     "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
     "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
+    "SPLIT_HAND_PIN": {"info_key": "split.hand.pin"},
+    "SPLIT_HAND_PIN_LOW_IS_LEFT": {"info_key": "split.hand.low_is_left", "value_type": "bool"},
     "TAP_CODE_DELAY": {"info_key": "qmk.tap_keycode_delay", "value_type": "int"},
     "TAP_HOLD_CAPS_DELAY": {"info_key": "qmk.tap_capslock_delay", "value_type": "int"},
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool"},

@@ -522,6 +522,14 @@
                         "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
                 }
+                "hand": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "low_is_left": {"type": "boolean"}
+                    }
+                }
             }
         },
         "tags": {
