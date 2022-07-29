@@ -26,6 +26,7 @@ ifneq ($(strip $(MTEST)),)
   define KEYBOARD_OPTION_PARSE
     # parse 'consle', 'scan', 'no-scan', 'mdelay=?', 'mdelay0',
     #       'adaptive_delay', 'always_delay', 'matrix_debug_delay', 'matrix_debug_scan'
+    #       'matrix_opendrain'
     $(if $(SHOW_PARSE),$(info parse .$1.))  #for debug  'make SHOW_PARSE=y ...'
     ifeq ($(strip $1),console)
         CONSOLE_ENABLE = yes
@@ -74,6 +75,9 @@ ifneq ($(strip $(MTEST)),)
     endif
     ifeq ($(strip $1),matrix_debug_scan)
         MATRIX_DEBUG_SCAN = yes
+    endif
+    ifeq ($(strip $1),matrix_opendrain)
+        MATRIX_USE_OPENDRAIN_PULLUP = yes
     endif
   endef # end of KEYMAP_OPTION_PARSE
 

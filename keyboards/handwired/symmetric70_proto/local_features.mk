@@ -39,6 +39,10 @@ ifeq ($(strip $(CUSTOM_MATRIX_DELAY)),input-pullup)
     OPT_DEFS += -DMATRIX_IO_DELAY_TYPE=FORCE_INPUT_UP_TO_VCC
 endif
 
+ifeq ($(strip $(MATRIX_USE_OPENDRAIN_PULLUP)),yes)
+    OPT_DEFS += -DMATRIX_USE_OPENDRAIN_PULLUP
+endif
+
 ifeq ($(strip $(MATRIX_DEBUG_SCAN)),yes)
     OPT_DEFS += -DMATRIX_DEBUG_SCAN
     DEBUG_CONFIG = yes
