@@ -1,5 +1,6 @@
 {
     "keyboard_name": "dyz60-hs",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/dyz60_hs",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",
