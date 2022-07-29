@@ -162,6 +162,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     matrix_output_unselect_delay(current_col, key_pressed); // wait for all Row signals to go LOW
 }
 
+// endif OPTICAL_SWITCHES
 #    endif
 
 #elif defined(DIRECT_PINS)
