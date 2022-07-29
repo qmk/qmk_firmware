@@ -56,7 +56,7 @@ enum planck_normal_keycodes {
     EN_RES,
     EN_TEST,
     EN_DIAG,
-    EN_BKSP,
+    EN_BSPC,
     EN_SREF,
     EN_SROT,
     EN_SPOS,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Function
     * ,-----------------------------------------------------------------------------------.
-    * | Boot | Reset| Diag |      |      |      |      |      |      |      | Test |      |
+    * | Boot | Reset| Diag |      |      |      |      |      |      |      | Test |Revers|
     * |------+------+------+------+------+-------------+------+------+------+------+------|
     * |      |      |      |      |      |      |      |      |      |      |      |      |
     * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_FN] = LAYOUT_planck_mit(
-        QK_BOOT, EN_RES,  EN_DIAG, _______, _______, _______, _______, _______, _______, _______, EN_TEST, _______,
+        QK_BOOT, EN_RES,  EN_DIAG, _______, _______, _______, _______, _______, _______, _______, EN_TEST, EN_BSPC,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, EN_SREF, EN_SROT, EN_SPOS, EN_SRIN, EN_SPLU, _______, _______, QWERTY,  ENIGMA,  _______, _______,
         _______, _______, _______, _______, _______,      _______,     _______, _______, _______, _______, _______
@@ -516,7 +516,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
               send_string("\n");
               break;
-          case EN_BKSP:
+          case EN_BSPC:
               rotors_reverse(&current_settings);
               tap_code(KC_BSPC);
               break;
