@@ -1,4 +1,4 @@
-/* Copyright 2022 MechMerlin
+/* Copyright 2022 ziptyze
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_TOG,   RGB_HUI,    RGB_SAI,    RGB_VAI,
     RGB_MOD,   RGB_HUD,    RGB_SAD,    RGB_VAD,
     KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,
-    KC_TRNS,   KC_TRNS,    KC_TRNS,    QK_BOOT
+    KC_TRNS,   KC_TRNS,    KC_TRNS,    RESET
   ),
 
   [2] = LAYOUT_ortho_4x4( 
@@ -46,3 +46,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),      ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [1] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
+    [2] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
+    [3] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
+};
+#endif

@@ -1,18 +1,5 @@
-/* Copyright 2022 MechMerlin
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2022 ziptyze (@ziptyze)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -20,37 +7,39 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x6F75 // OU
-#define PRODUCT_ID   0x5517
+#define PRODUCT_ID   0x5600
 #define DEVICE_VER   0x0001
 #define MANUFACTURER 1upkeyboards
-#define PRODUCT      super16v2
+#define PRODUCT      pi40
 
 /* key matrix size */
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 4
-
-//                         0   1   2   3
-#define MATRIX_ROW_PINS { D1, D2, D3, D4 }
-#define MATRIX_COL_PINS { D5, D6, C2, D0 }
-
-#define ENCODERS_PAD_A { B2, B4 }
-#define ENCODERS_PAD_B { B1, B3 }
-#define ENCODER_DIRECTION_FLIP
-
-#define UNUSED_PINS
+#define MATRIX_COLS 12
 
 #define DIODE_DIRECTION COL2ROW
 
+#define MATRIX_ROW_PINS { GP21, GP20, GP19, GP18 }
+#define MATRIX_COL_PINS { GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12 }
 
-#define RGB_DI_PIN B5
-#define DRIVER_LED_TOTAL 20
+#define ENCODERS_PAD_A { GP14 }
+#define ENCODERS_PAD_B { GP13 }
+
+#define I2C_DRIVER I2CD2
+#define I2C1_SCL_PIN GP17
+#define I2C1_SDA_PIN GP16
+
+#define NOP_FUDGE 0.4
+
+#define RGB_DI_PIN GP0
+#define DRIVER_LED_TOTAL 47
+#define RGBLED_NUM 47
 #ifdef RGB_DI_PIN
 //#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#    define RGBLIGHT_LIMIT_VAL 255
+#    define RGBLIGHT_LIMIT_VAL 150
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -101,58 +90,12 @@
 //#    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

@@ -1,4 +1,4 @@
-/* Copyright 2022 MechMerlin
+/* Copyright 2022 ziptyze
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,22 +18,15 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT_ortho_4x4(   \
-    k00, k01, k02, k03, \
-    k10, k11, k12, k13, \
-    k20, k21, k22, k23, \
-    k30, k31, k32, k33  \
-) { \
-    { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 }, \
-    { k20, k21, k22, k23 }, \
-    { k30, k31, k32, k33 }  \
-}
+#define ___ KC_NO
+
+// clang-format off
+ #define LAYOUT(  \
+  K00, K01, K02, K03, K04, K05, \
+       K11, K12, K13, K14       \
+ ) \
+ { \
+   { K00, K01, K02, K03, K04, K05 }, \
+   { ___, K11, K12, K13, K14, ___ }  \
+ }
+// clang-format on

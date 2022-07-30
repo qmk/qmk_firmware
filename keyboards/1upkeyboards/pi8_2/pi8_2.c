@@ -1,4 +1,4 @@
-/* Copyright 2022 MechMerlin
+/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,26 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "pi8_2.h"
 
-#include "quantum.h"
-
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT_ortho_4x4(   \
-    k00, k01, k02, k03, \
-    k10, k11, k12, k13, \
-    k20, k21, k22, k23, \
-    k30, k31, k32, k33  \
-) { \
-    { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 }, \
-    { k20, k21, k22, k23 }, \
-    { k30, k31, k32, k33 }  \
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (index == 0) {
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, 10);
+        } else {
+            tap_code_delay(KC_VOLD, 10);
+        }
+    }
+    return true;
 }
+#endif

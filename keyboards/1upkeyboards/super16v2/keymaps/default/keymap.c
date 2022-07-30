@@ -28,23 +28,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_TOG,   RGB_HUI,    RGB_SAI,    RGB_VAI,
     RGB_MOD,   RGB_HUD,    RGB_SAD,    RGB_VAD,
     RGB_SPD,   RGB_SPI,    KC_TRNS,    KC_TRNS,
-    KC_TRNS,   KC_TRNS,    KC_TRNS,    QK_BOOT
+    KC_TRNS,   KC_TRNS,    KC_TRNS,    RESET
   ),
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            rgb_matrix_increase_hue();
-        } else {
-            rgb_matrix_decrease_hue();
-        }
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),      ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [1] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
+};
+#endif

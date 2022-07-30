@@ -1,4 +1,4 @@
-/* Copyright 2022 MechMerlin
+/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,26 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include QMK_KEYBOARD_H
 
-#include "quantum.h"
-
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT_ortho_4x4(   \
-    k00, k01, k02, k03, \
-    k10, k11, k12, k13, \
-    k20, k21, k22, k23, \
-    k30, k31, k32, k33  \
-) { \
-    { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 }, \
-    { k20, k21, k22, k23 }, \
-    { k30, k31, k32, k33 }  \
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [0] = LAYOUT(
+    KC_MUTE,   KC_1,   KC_2,   KC_3,   KC_4,   KC_0,
+               KC_5,   RGB_VAI,   RGB_MOD,   RGB_TOG
+  )
+};
