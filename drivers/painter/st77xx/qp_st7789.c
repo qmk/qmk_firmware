@@ -55,7 +55,7 @@ bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
         ST77XX_CMD_RESET,            120,  0,
         ST77XX_CMD_SLEEP_OFF,          5,  0,
         ST77XX_SET_PIX_FMT,            0,  1, 0x55,
-        ST77XX_CMD_INVERT_OFF,          0,  0,
+        ST77XX_CMD_INVERT_OFF,         0,  0,
         ST77XX_CMD_NORMAL_ON,          0,  0,
         ST77XX_CMD_DISPLAY_ON,        20,  0
     };
