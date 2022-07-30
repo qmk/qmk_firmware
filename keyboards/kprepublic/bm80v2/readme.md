@@ -1,8 +1,8 @@
-# %bm80v2%  
+# bm80v2
 
 A 80% hotswap inswitch RGB keyboard.
 
-* Keyboard Maintainer: [%bdtc123%](https://github.com/bdtc123)
+* Keyboard Maintainer: [bdtc123](https://github.com/bdtc123)
 * Hardware Supported: BM80V2
 * Hardware Availability: [KP Republic](https://kprepublic.com/products/bm80rgb-bm80-rgb-80-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c?_pos=7&_sid=767c48383&_ss=r)
 
