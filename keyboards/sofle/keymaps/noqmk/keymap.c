@@ -384,16 +384,16 @@ static void print_status_narrow(void) {
 
     switch (get_highest_layer(default_layer_state)) {
         case _COLEMAK:
-            oled_write(" CLMK ", false);
+            oled_write_P(PSTR(" CLMK "), false);
             break;
         case _GAME:
-            oled_write(" GAME ", false);
+            oled_write_P(PSTR(" GAME "), false);
             break;
         case _QWERTY:
-            oled_write("QWERT", false);
+            oled_write_P(PSTR("QWERT"), false);
             break;
         default:
-            oled_write("UNDEF", false);
+            oled_write_P(PSTR("UNDEF"), false);
     }
 
     oled_set_cursor(0, 5);
