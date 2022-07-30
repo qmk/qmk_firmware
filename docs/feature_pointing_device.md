@@ -294,7 +294,7 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 !> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 
 
-!> **`POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`** can be used with any pointing device with a lift/contact status can integrate this gesture into its driver. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `pointing_device_get_report()` is needed to generate glide reports.
+!> Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
 
 ## Split Keyboard Configuration
 
