@@ -13,20 +13,14 @@ bool     rgb_saved = 0;
 extern bool     spi_gflock;
 extern uint16_t spi_replace_mode;
 
-void spidey_glow(void) {
+static void set_rgb_default(void) {
     rgblight_enable();
-    rgblight_sethsv(213, 255, 128);
-    if ((RGBLIGHT_MODE_TWINKLE <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_TWINKLE_end)) {
-        rgblight_step();
-    } else {
-        rgblight_mode(RGBLIGHT_MODE_TWINKLE);
-    }
+    rgblight_sethsv(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+    rgblight_mode(RGBLIGHT_DEFAULT_MODE);
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled()) velocikey_toggle();
 #endif
 }
-
-void eeconfig_init_user_rgb(void) { spidey_glow(); }
 
 // clang-format off
 
@@ -396,11 +390,9 @@ extern rgblight_config_t rgblight_config;
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case SPI_GLO:
-                spidey_glow();
-                return false;
-
                 // clang-format off
+            case SPI_GLO: set_rgb_default(); return false;
+
             case RGB_HUI: change_timer = timer_read(); change_hue =  1; return false;
             case RGB_HUD: change_timer = timer_read(); change_hue = -1; return false;
             case RGB_SAI: change_timer = timer_read(); change_sat =  1; return false;
