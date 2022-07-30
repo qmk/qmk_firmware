@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "CAPSULE65",
+    "keyboard_name": "capsule65",
+    "manufacturer": "eason",
     "url": "",
     "maintainer": "EasonQian1",
+    "usb": {
+        "vid": "0xF21E",
+        "pid": "0x6E6E",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

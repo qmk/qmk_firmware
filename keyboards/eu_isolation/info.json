@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "EUISOlation",
+    "keyboard_name": "EU ISOlation",
+    "manufacturer": "TuckTuckFloof",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4373",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_euiso_ortho": {
             "layout": [
