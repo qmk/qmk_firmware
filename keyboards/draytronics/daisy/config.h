@@ -20,12 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4454 //DT for DrayTronics
-#define PRODUCT_ID      0x4441 //DA for Daisy
-#define DEVICE_VER      0x0100 //Version 1
-#define MANUFACTURER    Draytronics
-#define PRODUCT         DAISY
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
