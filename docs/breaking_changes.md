@@ -8,6 +8,7 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
+* [2022 May 28](ChangeLog/20220528.md)
 * [2022 Feb 26](ChangeLog/20220226.md)
 * [2021 Nov 27](ChangeLog/20211127.md)
 * [2021 Aug 28](ChangeLog/20210828.md)
@@ -21,17 +22,17 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for May 28, 2022.
+The next Breaking Change is scheduled for August 27, 2022.
 
 ### Important Dates
 
-* [x] 2022 Feb 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* [ ] 2022 Apr 31 - `develop` closed to new PR's.
-* [ ] 2022 Apr 31 - Call for testers.
-* [ ] 2022 May 14 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* [ ] 2022 May 26 - `master` is locked, no PR's merged.
-* [ ] 2022 May 28 - Merge `develop` to `master`.
-* [ ] 2022 May 28 - `master` is unlocked. PR's can be merged again.
+* [x] 2022 May 28 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* [ ] 2022 Jul 31 - `develop` closed to new PR's.
+* [ ] 2022 Jul 31 - Call for testers.
+* [ ] 2022 Aug 13 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* [ ] 2022 Aug 25 - `master` is locked, no PR's merged.
+* [ ] 2022 Aug 27 - Merge `develop` to `master`.
+* [ ] 2022 Aug 27 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
@@ -42,32 +43,15 @@ If you want your breaking change to be included in this round you need to create
 Criteria for acceptance:
 
 * The PR is complete and ready to merge
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220226`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220827`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PR's ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
-# Checklists
+## Checklists
 
 This section documents various processes we use when running the Breaking Changes process.
 
-## Creating the `develop` branch
-
-This happens immediately after the previous `develop` branch is merged.
-
-* `qmk_firmware` git commands
-    * [ ] `git checkout master`
-    * [ ] `git pull --ff-only`
-    * [ ] `git checkout -b develop`
-    * [ ] Edit `readme.md`
-        * [ ] Add a big notice at the top that this is a testing branch.
-        * [ ] Include a link to this document
-    * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
-    * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
-    * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
-    * [ ] `git push upstream develop`
-    * [ ] `git push --tags`
-
-## 4 Weeks Before Merge
+### 4 Weeks Before Merge
 
 * `develop` is now closed to new PR's, only fixes for current PR's may be merged
 * Post call for testers
@@ -75,7 +59,7 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] GitHub PR
     * [ ] https://reddit.com/r/olkb
 
-## 2 Weeks Before Merge
+### 2 Weeks Before Merge
 
 * `develop` is now closed to existing PR merges, only bugfixes for previous merges may be included
 * Post call for testers
@@ -83,21 +67,21 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] GitHub PR
     * [ ] https://reddit.com/r/olkb
 
-## 1 Week Before Merge
+### 1 Week Before Merge
 
 * Announce that master will be closed from <2 Days Before> to <Day of Merge>
     * [ ] Discord
     * [ ] GitHub PR
     * [ ] https://reddit.com/r/olkb
 
-## 2 Days Before Merge
+### 2 Days Before Merge
 
 * Announce that master is closed for 2 days
     * [ ] Discord
     * [ ] GitHub PR
     * [ ] https://reddit.com/r/olkb
 
-## Day Of Merge
+### Day Of Merge
 
 * `qmk_firmware` git commands
     * [ ] `git checkout develop`
@@ -114,8 +98,39 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] `git checkout master`
     * [ ] `git pull --ff-only`
     * [ ] `git merge --no-ff develop`
+    * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
+    * [ ] `git push upstream <next_version>`
     * [ ] `git push upstream master`
 
 ## Post-merge operations
+
+### Updating the `develop` branch
+
+This happens immediately after the previous `develop` branch is merged to `master`.
+
+* `qmk_firmware` git commands
+    * [ ] `git checkout master`
+    * [ ] `git pull --ff-only`
+    * [ ] `git checkout develop`
+    * [ ] `git pull --ff-only`
+    * [ ] `git merge --no-ff master`
+    * [ ] Edit `readme.md`
+        * [ ] Add a big notice at the top that this is a testing branch.
+        * [ ] Include a link to this document
+    * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
+    * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
+    * [ ] `git push upstream breakpoint_<YYYY>_<MM>_<DD>`
+    
+* All submodules under `lib` now need to be checked against their QMK-based forks:
+    * [ ] `git submodule foreach git log -n1`
+    * [ ] Validate each submodule SHA1 matches the qmk fork, e.g. for ChibiOS:
+        * Go to [qmk/ChibiOS](https://github.com/qmk/ChibiOS)
+        * Compare the commit hash in the above output to the commit hash in the repository
+        * If there's a mismatch:
+            * [ ] `cd lib/chibios`
+            * [ ] `git fetch --all`
+            * [ ] `git checkout master`
+            * [ ] `git reset --hard <commit hash>`
+            * [ ] `git push origin master --force-with-lease`
 
 * (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
