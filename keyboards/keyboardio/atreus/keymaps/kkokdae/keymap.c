@@ -109,7 +109,7 @@ void dance_lang(qk_tap_dance_state_t *state, void *user_data) {
     case 1:
 			SEND_STRING(SS_LCTL(" ") SS_DELAY(200) SS_TAP(X_ENT));
     case 2:
-      default_layer = biton32(default_layer_state);
+      default_layer = get_highest_layer(default_layer_state);
       if (default_layer == _COLEMAK) {
         set_single_persistent_default_layer(_QWERTY);
       }
