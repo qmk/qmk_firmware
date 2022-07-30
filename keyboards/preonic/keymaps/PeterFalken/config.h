@@ -16,15 +16,38 @@
 
 #pragma once
 
+#include "config_common.h"
+
+// Fix warning - "Attached USB accessory uses too much power."
+#ifndef USB_MAX_POWER_CONSUMPTION
+    #define USB_MAX_POWER_CONSUMPTION 100
+#endif
+
+// Fix unresponsive on wake from sleep
+#ifndef USB_SUSPEND_WAKEUP_DELAY
+    #define USB_SUSPEND_WAKEUP_DELAY 200
+#endif
+
+// Setup RGB Lighting (Underglow)
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_DISABLE_KEYCODES
+#define RGBLIGHT_DEFAULT_VAL 60
+
+// Space optimizations - 01
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+
+// Space optimizations - 02
+#undef RGBLIGHT_ANIMATIONS
+
+// Default settings
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(PREONIC_SOUND)
+#    define STARTUP_SONG SONG(PLANCK_SOUND)
 // #define STARTUP_SONG SONG(NO_SOUND)
 
 #    define DEFAULT_LAYER_SONGS \
         { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND) }
 #endif
-
-#define MUSIC_MASK (keycode != KC_NO)
 
 /*
  * MIDI options
@@ -46,3 +69,6 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
+
+// Most tactile encoders have detents every 4 stages
+#define ENCODER_RESOLUTION 4

@@ -28,31 +28,19 @@
     #define USB_SUSPEND_WAKEUP_DELAY 200
 #endif
 
+// Setup RGB Lighting (Underglow)
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_DISABLE_KEYCODES
+#define RGBLIGHT_DEFAULT_VAL 60
+
 // Space optimizations - 01
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
-// Remove predefined values
-#undef RGB_DISABLE_TIMEOUT
-#undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#undef RGB_MATRIX_STARTUP_MODE
-#undef RGB_MATRIX_STARTUP_HUE
-#undef RGB_MATRIX_STARTUP_SAT
-#undef RGB_MATRIX_STARTUP_VAL
+// Space optimizations - 02
+#undef RGBLIGHT_ANIMATIONS
 
-// Redefine values
-// Number of milliseconds to wait until RGB automatically turns off
-#define RGB_DISABLE_TIMEOUT 5000
-// Limits maximum brightness of LEDs to 120 out of 255
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
-// Sets the default startup mode
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CUSTOM_active_keys
-// Sets the default hue, saturation & brightness values
-#define RGB_MATRIX_STARTUP_HUE 0
-#define RGB_MATRIX_STARTUP_SAT 0
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS/2
-
-
+// Default settings
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(PLANCK_SOUND)
 // #define STARTUP_SONG SONG(NO_SOUND)
