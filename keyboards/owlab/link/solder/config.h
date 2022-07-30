@@ -40,8 +40,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* NKRO */
-#ifdef NKRO_ENABLE
-#    define FORCE_NKRO
-#endif
