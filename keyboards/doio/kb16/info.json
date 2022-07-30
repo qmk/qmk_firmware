@@ -1,7 +1,13 @@
 {
     "keyboard_name": "KB16-01",
+    "manufacturer": "DOIO",
     "url": "",
     "maintainer": "HorrorTroll",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x1601",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
