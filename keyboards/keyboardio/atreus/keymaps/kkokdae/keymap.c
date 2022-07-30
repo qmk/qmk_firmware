@@ -104,7 +104,7 @@ void dance_hex(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_lang(qk_tap_dance_state_t *state, void *user_data) {
-    uint8_t default_layer;
+  uint32_t default_layer;
   switch(state->count) {
     case 1:
 			SEND_STRING(SS_LCTL(" ") SS_DELAY(200) SS_TAP(X_ENT));
