@@ -1,3 +1,5 @@
+// Copyright 2022 axtlos (@axtloss)
+// SPDX-License-Identifier: GPL-2.0-only
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 char wpm_str[10];
