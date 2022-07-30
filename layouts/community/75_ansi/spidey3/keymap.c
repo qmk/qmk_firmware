@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // FN
     [_FN] = LAYOUT_75_ansi(
-        RESET,      SPI_NORMAL, SPI_WIDE,   SPI_SCRIPT, SPI_BLOCKS, SPI_CIRCLE, SPI_SQUARE, SPI_PARENS, SPI_FRAKTR, XXXXXXX,    XXXXXXX,    XXXXXXX,    SPI_GFLOCK, KC_SLEP,    CH_SUSP,    KC_PWR,
+        RESET,      SPI_NORMAL, SPI_WIDE,   SPI_SCRIPT, SPI_BLOCKS, SPI_CIRCLE, SPI_SQUARE, SPI_PARENS, SPI_FRAKTR, SPI_BOLD,   SPI_MATH,   XXXXXXX,    SPI_GFLOCK, KC_SLEP,    CH_SUSP,    KC_PWR,
         EEP_RST,    X(SAD),     X(MEH),     X(HAPPY),   X(ANGRY),   X(THUMBDN), X(THUMBUP), X(SPIDER),  X_BUL,      X(LOL),     X(SURPRISE),X_DASH,     XXXXXXX,                KC_PAUS,    KC_SLCK,
         XXXXXXX,    RGB_TOG,    RGB_MOD,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    RGB_VAD,    RGB_VAI,    RGB_SPD,    RGB_SPI,    VLK_TOG,    XXXXXXX,                XXXXXXX,    KC_BRIU,
         XXXXXXX,    RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_T,    SPI_LNX,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    KC_BRID,
