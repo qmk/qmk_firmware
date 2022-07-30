@@ -1,7 +1,7 @@
 {
     "keyboard_name": "bm80v2",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "edwardslau",
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
