@@ -399,30 +399,30 @@ static void print_status_narrow(void) {
     oled_set_cursor(0, 5);
 
     /* Print current layer */
-    oled_write("LAYER", false);
+    oled_write_P(PSTR("LAYER"), false);
 
     oled_set_cursor(0, 6);
 
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write("Base ", false);
+            oled_write_P(PSTR("Base "), false);
             break;
         case _RAISE:
-            oled_write("Raise", false);
+            oled_write_P(PSTR("Raise"), false);
             break;
         case _LOWER:
-            oled_write("Lower", false);
+            oled_write_P(PSTR("Lower"), false);
             break;
         case _ADJUST:
-            oled_write(" Adj ", false);
+            oled_write_P(PSTR(" Adj "), false);
             break;
         default:
-            oled_write("Undef", false);
+            oled_write_P(PSTR("Undef"), false);
     }
 
     /* caps lock */
     oled_set_cursor(0, 8);
-    oled_write("CPSLK", led_usb_state.caps_lock);
+    oled_write_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 
     /* KEYBOARD PET RENDER START */
 
