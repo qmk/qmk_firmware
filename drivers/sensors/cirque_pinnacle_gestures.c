@@ -24,11 +24,11 @@
 #    include "keyboard.h"
 #endif
 
-#if defined(CIRQUE_PINNACLE_TAP_ENABLE) || defined(CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE)
+#if (defined(CIRQUE_PINNACLE_TAP_ENABLE) || defined(CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE)) && CIRQUE_PINNACLE_POSITION_MODE
 static cirque_pinnacle_features_t features = {.tap_enable = true, .circular_scroll_enable = true};
 #endif
 
-#ifdef CIRQUE_PINNACLE_TAP_ENABLE
+#if defined(CIRQUE_PINNACLE_TAP_ENABLE) && CIRQUE_PINNACLE_POSITION_MODE
 static trackpad_tap_context_t tap;
 
 static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t touchData) {
@@ -62,6 +62,9 @@ void cirque_pinnacle_enable_tap(bool enable) {
 #endif
 
 #ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
+#    if !CIRQUE_PINNACLE_POSITION_MODE
+#        error "Circular scroll is not supported in relative mode"
+#    endif
 /* To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0 */
 static circular_scroll_context_t scroll = {.config = {.outer_ring_pct = 33,
                                                       .trigger_px     = 16,
@@ -213,6 +216,9 @@ bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touc
     bool suppress_mouse_update = false;
 
 #ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
+#    if !CIRQUE_PINNACLE_POSITION_MODE
+#        error "Circular scroll is not supported in relative mode"
+#    endif
     circular_scroll_t scroll_report;
     if (features.circular_scroll_enable) {
         scroll_report         = circular_scroll(touchData);
@@ -222,7 +228,7 @@ bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touc
     }
 #endif
 
-#ifdef CIRQUE_PINNACLE_TAP_ENABLE
+#if defined(CIRQUE_PINNACLE_TAP_ENABLE) && CIRQUE_PINNACLE_POSITION_MODE
     if (features.tap_enable) {
         *mouse_report = trackpad_tap(*mouse_report, touchData);
     }
