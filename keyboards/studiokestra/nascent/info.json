@@ -2,8 +2,6 @@
     "keyboard_name": "Nascent",
     "url": "https://studiokestra.ca/",
     "maintainer": "Studio Kestra",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
