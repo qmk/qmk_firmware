@@ -13,13 +13,12 @@ enum userspace_layers {
 };
 
 enum custom_keycodes {
-    SPI_GLO = SAFE_RANGE,
-    SPI_LNX,  // Mode: Linux
-    SPI_OSX,  // Mode: Mac
-    SPI_WIN,  // Mode: Windows
-    CH_CPNL,  // AL Control Panel
-    CH_ASST,  // AL Context-aware Desktop Assistant
-    CH_SUSP,  // Suspend
+    SPI_LNX = SAFE_RANGE,  // Mode: Linux
+    SPI_OSX,               // Mode: Mac
+    SPI_WIN,               // Mode: Windows
+    CH_CPNL,               // AL Control Panel
+    CH_ASST,               // AL Context-aware Desktop Assistant
+    CH_SUSP,               // Suspend
 
     SPI_NORMAL,
     SPI_WIDE,
@@ -33,6 +32,10 @@ enum custom_keycodes {
     SPI_MATH,
     SPI_GFLOCK,
     SPI_KP_00,
+
+#ifdef RGBLIGHT_ENABLE
+    SPI_GLO,
+#endif
 };
 
 #ifdef RGBLIGHT_ENABLE
@@ -52,7 +55,6 @@ typedef enum layer_ack {
 
 #    define RGB_LAYER_ACK_DURATION 500
 
-void          eeconfig_init_user_rgb(void);
 void          matrix_init_user_rgb(void);
 void          matrix_scan_user_rgb(void);
 void          keyboard_post_init_user_rgb(void);
