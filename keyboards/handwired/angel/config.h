@@ -17,17 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0805
-
-#define MANUFACTURER    JSA
-#define PRODUCT         Angel
-/* USB Version in Binary-coded decimal: 0xJJMN where
- * JJ is the major number, M is minor, N is sub minor. */
-#define DEVICE_VER      0x0100  // Version 1.00: hand-wire
-
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
