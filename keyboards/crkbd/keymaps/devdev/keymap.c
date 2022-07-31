@@ -320,23 +320,7 @@ void oled_render_layer_state(void) {
         oled_write_P(PSTR("Layer: Undef-"),false);
         oled_write_ln(string, false);
     }
- }
-
-/*
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (has_usb()) {
-    // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    //matrix_write_ln(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
 }
-*/
 
 char keylog_str[24] = {};
 const char code_to_name[60] = {
@@ -390,7 +374,7 @@ void oled_render_logo(void) {
 }
 
 bool oled_task_user(void) {
-    if (is_master) {
+    if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {
