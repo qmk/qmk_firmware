@@ -156,20 +156,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: FPSGAMES
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  ESC   |  1   |   Q  |   W  |   E  |   R  |                              |      |      |      |      |      |L_Dvorak|
+ * |  ESC   |  1   |   Q  |   W  |   E  |   R  |                              |   Y  |   U  |   I  |   O  |   P  |L_Dvorak|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Tab   |  2   |   A  |   S  |   D  |   F  |                              |      |  F1  |  F2  |  F3  |  F4 |         |
+ * |  Tab   |  2   |   A  |   S  |   D  |   F  |                              |  H   |   K  |   J  |   L  |   ;  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |  3   |   Z  |   X  |   C   |  V  |      |L_NumS|  |      |L_Lay |      |      |      |      |     |         |
+ * | LShift |  3   |   Z  |   X  |   C   |  V  |      |L_NumS|  |      |L_Lay |   N  |   M  | , <  | . >  |  / ? |         |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
  *                        |      |      | LCtrl| Space| LAlt |  |      |      | Mute |Vol U |Vol D |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [FPSGAMES] = LAYOUT(
-      KC_ESC,  KC_1,   KC_Q,   KC_W,   KC_E,    KC_R,                                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   DF(DVORAK),
-      KC_TAB,  KC_2,   KC_A,   KC_S,   KC_D,    KC_F,                                             XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,     XXXXXXX,
-      KC_LSFT, KC_3,   KC_Z,   KC_X,   KC_C,    KC_V,  XXXXXXX, MO(NUMSYM),    XXXXXXX, DF(LAYERS), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_ESC,  KC_1,   KC_Q,   KC_W,   KC_E,    KC_R,                                                KC_Y,   KC_U,  KC_I,     KC_O,  KC_P,     DF(DVORAK),
+      KC_TAB,  KC_2,   KC_A,   KC_S,   KC_D,    KC_F,                                                KC_H,   KC_J,  KC_K,     KC_L,  KC_SCLN,  XXXXXXX,
+      KC_LSFT, KC_3,   KC_Z,   KC_X,   KC_C,    KC_V,  XXXXXXX, MO(NUMSYM),    XXXXXXX, DF(LAYERS),  KC_N,   KC_M,  KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
                            XXXXXXX,  XXXXXXX, KC_LCTL, KC_SPC,  KC_LALT,       XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLU, KC_VOLD
     ),
 
