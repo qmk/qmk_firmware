@@ -808,6 +808,10 @@
                             "type": "boolean",
                             "$comment": "Deprecated: use sync.modifiers instead"
                         }
+                        "sync_layer_state": {
+                            "type": "boolean",
+                            "$comment": "Deprecated: use sync.layer_state instead"
+                        }
                     }
                 },
                 "usb_detect": {
