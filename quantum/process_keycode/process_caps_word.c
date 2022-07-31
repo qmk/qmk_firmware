@@ -87,6 +87,15 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
         return true;
     }
 
+   return process_caps_word_key(keycode, mods, record->tap.count);
+}
+
+bool process_caps_word_key(uint16_t keycode, uint8_t mods, uint8_t tap_count)
+{
+    if (!is_caps_word_on()) {
+        return true;
+    }
+
     if (!(mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT)))) {
         switch (keycode) {
             // Ignore MO, TO, TG, TT, and OSL layer switch keys.
@@ -95,6 +104,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
             case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
             case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
             case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+            case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
             // Ignore AltGr.
             case KC_RALT:
             case OSM(MOD_RALT):
@@ -102,7 +112,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 
 #ifndef NO_ACTION_TAPPING
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-                if (record->tap.count == 0) {
+                if (tap_count == 0) {
                     // Deactivate if a mod becomes active through holding
                     // a mod-tap key.
                     caps_word_off();
@@ -114,7 +124,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #    ifndef NO_ACTION_LAYER
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
 #    endif // NO_ACTION_LAYER
-                if (record->tap.count == 0) {
+                if (tap_count == 0) {
                     return true;
                 }
                 keycode &= 0xff;
@@ -123,7 +133,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef SWAP_HANDS_ENABLE
             case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-                if (keycode > 0x56F0 || record->tap.count == 0) {
+                if (keycode > 0x56F0 || tap_count == 0) {
                     return true;
                 }
                 keycode &= 0xff;

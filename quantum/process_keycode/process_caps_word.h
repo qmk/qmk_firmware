@@ -27,6 +27,8 @@
  */
 bool process_caps_word(uint16_t keycode, keyrecord_t* record);
 
+bool process_caps_word_key(uint16_t keycode, uint8_t mods, uint8_t tap_count);
+
 /**
  * @brief Weak function for user-level Caps Word press modification.
  *
