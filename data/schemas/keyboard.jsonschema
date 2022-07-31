@@ -610,5 +610,25 @@
                 "debug": {"type": "boolean"}
             }
         },
+        "eeprom": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["vendor", "custom", "transient", "i2c", "spi", "wear_leveling"]
+                },
+                "wear_leveling": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "driver": {
+                            "type": "string",
+                            "enum": ["custom", "embedded_flash", "spi_flash", "rp2040_flash", "legacy"]
+                        },
+                    }
+                },
+            }
+        },
     }
 }

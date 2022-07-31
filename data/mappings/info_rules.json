@@ -37,6 +37,8 @@
     "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
     "PS2_DRIVER": {"info_key": "ps2.driver"},
     "SERIAL_DRIVER": {"info_key": "serial.driver"},
+    "EEPROM_DRIVER": {"info_key": "eeprom.driver"},
+    "WEAR_LEVELING_DRIVER": {"info_key": "eeprom.wear_leveling.driver"},
 
     # Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
