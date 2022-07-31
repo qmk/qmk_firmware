@@ -20,8 +20,13 @@
 /* Key matrix configuration. */
 #define MATRIX_ROW_PINS \
     { GP29, GP26, GP5, GP4, GP9 }
-#define MATRIX_COL_PINS \
-    { GP27, GP28, GP15, GP6, GP7, GP8 }
+#ifdef SPLINKY_BETA_PINOUT
+#    define MATRIX_COL_PINS \
+        { GP27, GP28, GP15, GP6, GP7, GP8 }
+#else
+#    define MATRIX_COL_PINS \
+        { GP27, GP28, GP21, GP6, GP7, GP8 }
+#endif // SPLINKY_BETA_PINOUT
 
 /* Handedness. */
 #define MASTER_RIGHT
@@ -39,10 +44,16 @@
 
 /* SPI & PMW3360 settings. */
 #define SPI_DRIVER SPID0
-#define SPI_SCK_PIN GP18
-#define SPI_MOSI_PIN GP19
 #define SPI_MISO_PIN GP20
-#define PMW33XX_CS_PIN GP14
+#ifdef SPLINKY_BETA_PINOUT
+#    define SPI_SCK_PIN GP18
+#    define SPI_MOSI_PIN GP19
+#    define PMW33XX_CS_PIN GP14
+#else
+#    define SPI_SCK_PIN GP22
+#    define SPI_MOSI_PIN GP23
+#    define PMW33XX_CS_PIN GP16
+#endif // SPLINKY_BETA_PINOUT
 
 /* Reset. */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
