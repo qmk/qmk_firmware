@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#define MATRIX_ROW_PINS { B7, D4, B5, B6, C6, C7, }
+#define MATRIX_ROW_PINS { B7, D4, B5, B6, C6, C7 }
 #define MATRIX_COL_PINS { D5, D3, D2, F7 }
 #define UNUSED_PINS
 
@@ -149,10 +149,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

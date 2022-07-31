@@ -139,7 +139,7 @@ bool rgb_layer_change = true;
 #define rgblight_set_white       rgblight_sethsv (0x00,  0x00, 0xFF);
 #define rgblight_set_black       rgblight_sethsv (0x00,  0x00, 0x00);
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
   if (rgb_layer_change) {

@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "keymap_jis2us.h"
 #include "action_pseudo.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 enum custom_keycodes {
     JIS2US = SAFE_RANGE,  /* JIS2US keycode                       */
@@ -81,7 +81,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_PSEUDO_US] = LAYOUT(
         _______, _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    _______, _______,
         _______, _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    JIS2US,      _______,
-                 _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    JP_ZHTG, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, JIS2US,
+                 _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    JP_ZKHK, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, JIS2US,
                  _______,          _______,     P_LOWER,      _______,     P_RAISE,      _______, _______,                   _______
     ),
 

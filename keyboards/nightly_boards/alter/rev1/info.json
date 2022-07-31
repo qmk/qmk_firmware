@@ -2,8 +2,6 @@
     "keyboard_name": "Alter",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "width": 20,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_alice_split_bs": {
              "layout": [

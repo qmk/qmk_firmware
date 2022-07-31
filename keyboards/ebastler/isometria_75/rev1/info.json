@@ -2,8 +2,6 @@
     "keyboard_name": "isometria_75",
     "url": "https://github.com/ebastler/isometria-75",
     "maintainer": "ebastler",
-    "width": 16.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_iso": {
             "layout": [

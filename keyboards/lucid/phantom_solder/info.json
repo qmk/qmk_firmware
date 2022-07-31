@@ -2,8 +2,6 @@
     "keyboard_name": "Phantom Solder",
     "url": "http://www.lucidkb.com",
     "maintainer": "Lucid",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

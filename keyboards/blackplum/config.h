@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5058 // "PX"
-#define PRODUCT_ID      0x4250 // "BP"
-#define DEVICE_VER      0x1001
-#define MANUFACTURER    Pixlup
-#define PRODUCT         Blackplum Keeb
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8

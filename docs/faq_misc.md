@@ -36,7 +36,7 @@ Size after:
     can retry, loading that one
   - Some of the options you might specify in your keyboard's Makefile
     consume extra memory; watch out for BOOTMAGIC_ENABLE,
-    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
+    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE
 - DFU tools do /not/ allow you to write into the bootloader (unless
   you throw in an extra fruit salad of options), so there is little risk
   there.
@@ -48,10 +48,6 @@ Size after:
 First you have to compile firmware with the build option `NKRO_ENABLE` in **Makefile**.
 
 Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work and you will need to switch to **6KRO** mode, in particular when you are in BIOS.
-
-If your firmware was built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
-
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
 
 ## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)

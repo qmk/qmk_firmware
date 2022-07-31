@@ -28,7 +28,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 // matrix code
 // super fast read_cols code.
-static matrix_row_t read_cols(void) {
+static inline matrix_row_t read_cols(void) {
     return (PINC & (1 << 6) ? 0 : (1UL << 0)) |
            (PIND & (1 << 7) ? 0 : (1UL << 1)) |
            (PINE & (1 << 6) ? 0 : (1UL << 2)) |
@@ -100,12 +100,15 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         select_row(current_row);
-        asm volatile("nop");
-        asm volatile("nop");
+        matrix_output_unselect_delay(current_row, changed);
+
         matrix_row_t cols = read_cols();
         changed |= (current_matrix[current_row] != cols);
         current_matrix[current_row] = cols;
+
         unselect_rows();
+        //this internally calls matrix_io_delay()
+        matrix_output_unselect_delay(current_row, changed);
     }
 
     return changed;

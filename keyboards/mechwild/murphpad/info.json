@@ -2,8 +2,6 @@
     "keyboard_name": "MechWild MurphPad",
     "url": "mechwild.com",
     "maintainer": "Kyle McCreery",
-    "width": 5,
-    "height": 7,
     "layouts": {
         "LAYOUT": {
             "layout": [
