@@ -1,7 +1,13 @@
 {
     "keyboard_name": "DJam",
+    "manufacturer": "Leo Deng",
     "url": "",
     "maintainer": "myst729",
+    "usb": {
+        "vid": "0xDE29",
+        "pid": "0x7325",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
