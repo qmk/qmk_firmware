@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LVL1_] = LAYOUT_65_iso_blocker(
       KC_GRV,    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     _______,    LGUI(KC_END),
       S(KC_GRV), _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______,                LGUI(KC_PAUSE),
-      RESET,     TO(_LVL2_), TO(_LVL3_), TO(_LVL4_), TO(_LVL5_), TO(_LVL6_), TO(_LVL7_), _______, _______, _______, KC_BRIU, _______, KC_MUTE,    TO(_LVL0_), KC_VOLU,
+      QK_BOOT,     TO(_LVL2_), TO(_LVL3_), TO(_LVL4_), TO(_LVL5_), TO(_LVL6_), TO(_LVL7_), _______, _______, _______, KC_BRIU, _______, KC_MUTE,    TO(_LVL0_), KC_VOLU,
       _______,   _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, KC_BRID, _______, S(KC_MUTE), KC_MPLY,    KC_VOLD,
       _______,   _______,    _______,                            KC_LEAD,                                  _______, _______,          KC_MPRV,    KC_MSTP,    KC_MNXT
       ),
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 /* Led Type Lighting Layer functionally equivalent to _LVL0_ / layer 0 */
 #ifdef TAP_DANCE_ENABLE
-  /* 0: ISO DE qwertz, SPACECADET and TAPDANCE */
+  /* 7: ISO DE qwertz, SPACECADET and TAPDANCE */
   [_LVL7_] = LAYOUT_65_iso_blocker(
       KC_ESC,     DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,    DE_8,    DE_9,    DE_0,      DE_SS,   DE_ACUT, KC_BSPC, KC_DEL,
       KC_TAB,     DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,    DE_Z,    DE_U,    DE_I,    DE_O,    DE_P,      DE_UDIA, DE_PLUS,          TD(TD_HOME_END),
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LAPO,                    KC_SPC,                               KC_RAPC, TO(_LVL0_),         KC_LEFT, KC_DOWN, KC_RGHT
       ),
 #else
-  /* 0: ISO qwertz, SPACECADET but no TAPDANCE */
+  /* 7: ISO qwertz, SPACECADET but no TAPDANCE */
   [_LVL7_] = LAYOUT_65_iso_blocker(
       KC_ESC,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,      KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,
       KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,      KC_LBRC, KC_RBRC,          KC_HOME,
@@ -279,7 +279,7 @@ void set_ledkey_by_layer_type(int layer, int ledkey, uint16_t key){
             } 
             if (pgm_read_byte(&ledmap[layer][3]) == LYR_BLACK){
                 // this key is transparent but the lower layer is not intended 
-                // to be uses, it still works but not intended; type BLACK
+                // to be used, it still works but not intended; type BLACK
                 set_led_color_by_hsv(ledkey, HSV_BLACK);
             }
         } else {
@@ -310,13 +310,16 @@ void set_caps_lock(int layer) {
 }
 
 void set_layer_color(int layer) {
+    // key specific lighting
     int ledkey=0;
-    for (int i=0; i<MATRIX_COLS*MATRIX_ROWS;i++) {
-        uint8_t row = i/MATRIX_COLS;
-        uint8_t col = (i-(i/MATRIX_COLS)*MATRIX_COLS);
+    for (int keyindex=0; keyindex<MATRIX_COLS*MATRIX_ROWS;keyindex++) {
+        uint8_t row = keyindex/MATRIX_COLS;
+        uint8_t col = (keyindex-(keyindex/MATRIX_COLS)*MATRIX_COLS);
         uint16_t key=pgm_read_word(&keymaps[layer][row][col]);
+        
         // continue if this is not a valid key
         if (key==KC_NO) { continue; }
+        
         // handle layer specific coloring
         set_ledkey_by_layer_type(layer, ledkey, key);
         /* === below this function add custom overriding ledkey lighting === */
@@ -331,9 +334,10 @@ void set_layer_color(int layer) {
                 set_led_color_by_hsv(ledkey, HSV_GOLDENROD);
             }
         }
-       // color testing layer
-/*    if (layer == _LVL7_) {
-        switch (i) {
+
+        // color testing layer
+        /*if (layer == _LVL7_) {
+        switch (ledkey) {
           case 16: {
                 set_led_color_by_hsv(ledkey, HSV_AZURE);
               }
@@ -413,10 +417,9 @@ void set_layer_color(int layer) {
           default: {
               }
               break;
-        }
-    }*/
-
-      ledkey++;
+            }
+        }*/
+        ledkey++;
     }
     // non key specific lighting instead led flag based
     if (layer == _LVL7_){
