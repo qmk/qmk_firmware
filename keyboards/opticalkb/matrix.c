@@ -39,6 +39,10 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
 
+#ifndef WAIT_AFTER_COL_SELECT
+#define WAIT_AFTER_COL_SELECT 150
+#endif
+
 /* matrix state(1:on, 0:off) */
 // static matrix_row_t matrix[MATRIX_ROWS];
 matrix_row_t matrix[MATRIX_ROWS];
@@ -106,8 +110,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
         return;
     }
     // wait_us(500); //  rise and fall time of pt is 15us but depends on current
-    wait_ms(1);
-    // wait_us(30);
+    wait_us(WAIT_AFTER_COL_SELECT);
 
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {

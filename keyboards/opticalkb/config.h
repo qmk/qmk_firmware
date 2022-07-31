@@ -6,11 +6,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEFD
-#define PRODUCT_ID   0x5302
-#define DEVICE_VER   0x0002
+#define VENDOR_ID 0xFEFD
+#define PRODUCT_ID 0x5302
+#define DEVICE_VER 0x0002
 #define MANUFACTURER girish
-#define PRODUCT      opticalkb
+#define PRODUCT opticalkb
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -29,16 +29,15 @@
 // C13 is led pin; do not use it
 // B6 is SCL and B7 is SDA
 #define MATRIX_ROW_PINS \
-    { B14, A15, B15, B4, B5 }  
+    { B14, A15, B15, B4, B5 }
 #define MATRIX_COL_PINS \
     { B10, B3, B8, B1, B0, A7, A6, A5, A4, A3, A2, A1, B6, B7, A8 }
 #define UNUSED_PINS \
     { A9, A10, A11, A12, B2, C13, C14, C15, B12, B13, A0 }
 
-// #undef DIODE_DIRECTION
-
-/* Optical switches */
-#define OPTICAL_SWITCHES
+/* IR Led and pt have rise/fall time around 15us; How long to wait (microsec)
+ * after turning on column Leds */
+#define WAIT_AFTER_COL_SELECT 950
 
 /* turn off after debugging */
 // #define DEBUG_MATRIX_SCAN_RATE
@@ -48,16 +47,16 @@
 // #define LED_DRIVER_ADDR_1 0b1110100
 
 /* 255 is maximum intensity */
-// #define LED_DISABLE_WHEN_USB_SUSPENDED 
+// #define LED_DISABLE_WHEN_USB_SUSPENDED
 // limits maximum brightness of LEDs
-// #define LED_MATRIX_MAXIMUM_BRIGHTNESS 128 
-// limits in milliseconds how frequently an animation will update the LEDs. 16 
-// (16ms) is equivalent to limiting to 60fps (increases keyboard 
+// #define LED_MATRIX_MAXIMUM_BRIGHTNESS 128
+// limits in milliseconds how frequently an animation will update the LEDs. 16
+// (16ms) is equivalent to limiting to 60fps (increases keyboard
 // responsiveness)
-// At 16ms matrix scan frequency redues from 1000 to 350, at 100ms it is 880 and 
+// At 16ms matrix scan frequency redues from 1000 to 350, at 100ms it is 880 and
 // at 1000ms it is 980
-// #define LED_MATRIX_LED_FLUSH_LIMIT 100 
-                                          
+// #define LED_MATRIX_LED_FLUSH_LIMIT 100
+
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
