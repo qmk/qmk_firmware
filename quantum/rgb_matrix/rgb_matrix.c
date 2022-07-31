@@ -428,10 +428,7 @@ void rgb_matrix_task(void) {
 
     uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
 
-    // some logic for render_update
-    // only for static modes
-    // solid_color_anim and alpha_mods_anim
-
+    // only for static modes or upon initialisation
     if (rgb_matrix_config.mode > 4 || rgb_effect_params.init) {
         render_update = true;
     }
