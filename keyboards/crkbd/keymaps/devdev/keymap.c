@@ -263,9 +263,6 @@ bool led_update_user(led_t led_state) {
 }
 */
 
-
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
