@@ -136,7 +136,7 @@ bool oled_task_user(void) {
     oled_write_ln(read_usb_state(), false);
     oled_write_ln(read_keylogs(), false);
   } else {
-    oled_write(read_logo()), false;
+    oled_write(read_logo(), false);
   }
   return false;
 }

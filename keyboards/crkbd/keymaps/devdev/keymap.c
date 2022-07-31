@@ -316,7 +316,11 @@ void oled_render_layer_state(void) {
         oled_write_ln_P(PSTR("Layer: Layer Switch"),false);
         break;
       default:
+#if defined (LAYER_STATE_32BIT)
         snprintf(string, sizeof(string), "%ld",layer_state);
+#else
+        snprintf(string, sizeof(string), "%d",layer_state);
+#endif
         oled_write_P(PSTR("Layer: Undef-"),false);
         oled_write_ln(string, false);
     }

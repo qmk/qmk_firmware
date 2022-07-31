@@ -107,10 +107,6 @@ const char *read_keylogs(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
-void matrix_scan_user(void) {
-   iota_gfx_task();
-}
-
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
