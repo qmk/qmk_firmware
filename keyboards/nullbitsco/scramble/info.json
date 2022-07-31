@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "SCRAMBLE switch tester",
+    "keyboard_name": "SCRAMBLE",
+    "manufacturer": "nullbits",
     "url": "https://nullbits.co/scramble",
     "maintainer": "jaygreco",
+    "usb": {
+        "vid": "0x6E61",
+        "pid": "0x6062",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
