@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Mehkee
-#define PRODUCT         96KEE
-
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
