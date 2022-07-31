@@ -2,24 +2,18 @@
 This keyboard layout centers around Dvorak,  harnesing the power of the Kyria thumb
 clusters and layers to reduce finger and wrist movement.
 
-## Important note!
+## IMPORTANT NOTE
 This keymap will only work if you have all the kyria keys available! If you've used 2u keys on the thumb cluster, or have broken off a column, this layout will not work!
 
 ---
 
 ## Features
-
-**Dvorak:** So you don't have to leave the home row so much.
-
-**Qwerty:** So you don't have to remap common programs.
-
-**Custom FPS gaming layer:** Because the WASD stagger is so extreme on the Kyria.
-
-**A number layer:** To access numbers, symbols and volume controls.
-
-**Index Layer:** To help navigate thru base layers without wasting accessible keys.
-
-And a very *very* rare **fren** to tag along on your adventures.
+- **Dvorak:** So you don't have to leave the home row so much.
+- **Qwerty:** So you don't have to remap common programs.
+- **Custom FPS gaming layer:** Because the WASD stagger is so extreme on the Kyria.
+- **A number layer:** To access numbers, symbols and volume controls.
+- **Index Layer:** To help navigate thru base layers without wasting accessible keys.
+- And a very *very* rare **fren** to tag along on your adventures.
 
 ## Guiding ideology
 - Use lower thumb keys as much as possible.
@@ -27,11 +21,8 @@ And a very *very* rare **fren** to tag along on your adventures.
 - Minimize or eliminate non home row pinkie finger use.
 - Create macros for very common key shortcuts (ctrl + c/v/s, ctrl+shift+home etc.).
 - Create macros for very common commands (git status, git pull, git push etc.).
-
 - Use hints to indicate current layer (rgb lighting/OLED display).
 - Allow graceful layer handling (emergency return to default layer/layer index layer).
-
-
 ---
 
 
@@ -52,7 +43,7 @@ And a very *very* rare **fren** to tag along on your adventures.
 
 # Issues
 ### Major
-- [ ] Home/End navs missing
+- [x] None
 
 ### Minor
 - [ ] Backlight LEDs dont indicate layer
@@ -70,7 +61,21 @@ And a very *very* rare **fren** to tag along on your adventures.
 
 ---
 
-## Layer template
+## Useful notes
+Various useful info for setting up your own keyboard layout.
+
+### Install QMK Tool steps
+[QMK Setup (Windows)](https://docs.qmk.fm/#/newbs_getting_started)
+- Install QMK MSYS,
+- Install Toolbox,
+- Using QMK MSYS, follow the setup guide, then `cd` to where you've cloned the `qmk_firmware` folder,
+- `qmk compile` to generate your .hex file (it should be located in the `qmk_firmware` folder),
+- Using QMK Toolbox, flash the .hex file to your keyboard halves (drag your hex file into the toolbox window, press the reset button on the keyboard, the toolbox should detect this, then press flash. You need to reset each half separately).
+- Congrats, all done!
+
+
+---
+### Layer template
 ```
 //  * ,-------------------------------------------.                              ,-------------------------------------------.
 //  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
