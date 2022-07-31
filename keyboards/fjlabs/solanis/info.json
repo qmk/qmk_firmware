@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Solanis",
+    "manufacturer": "FJLaboratories",
     "url": "http://www.fjlaboratories.com/",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x0017",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
