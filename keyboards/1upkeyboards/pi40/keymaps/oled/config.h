@@ -24,6 +24,11 @@
 #define ENCODERS_PAD_A { GP14 }
 #define ENCODERS_PAD_B { GP13 }
 
+#undef I2C1_SCL_PIN
+#undef I2C1_SDA_PIN
+#define I2C1_SCL_PIN GP17
+#define I2C1_SDA_PIN GP16
+
 #define NOP_FUDGE 0.4
 
 #define RGB_DI_PIN GP0

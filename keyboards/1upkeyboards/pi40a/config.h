@@ -28,7 +28,6 @@
 
 #define RGB_DI_PIN GP0
 #define DRIVER_LED_TOTAL 47
-#define RGBLED_NUM 47
 #ifdef RGB_DI_PIN
 //#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGBLIGHT_LIMIT_VAL 150
@@ -85,8 +84,6 @@
 //#    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //#    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
-
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
