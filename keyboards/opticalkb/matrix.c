@@ -60,12 +60,16 @@ void matrix_init(void) {
         }
     }
 
-    // initialize row pins to be Input without pullup
+    // initialize row pins to be Input
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         pin_t pin = row_pins[row];
         if (pin != NO_PIN) {
             ATOMIC_BLOCK_FORCEON {
+#ifdef PT_INPUT_USE_PULLUP
+                setPinInputHigh(pin);
+#else
                 setPinInput(pin);
+#endif
             }
         }
     }
@@ -97,7 +101,6 @@ static bool unselect_col(uint8_t col) {
 }
 
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {
-
     if (!select_col(current_col)) {
         dprintf("Error: failed to power on col %d\n", current_col);
         return;
@@ -179,4 +182,3 @@ __attribute__((weak)) void matrix_scan_kb(void) {
 }
 __attribute__((weak)) void matrix_init_user(void) {}
 __attribute__((weak)) void matrix_scan_user(void) {}
-

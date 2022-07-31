@@ -24,7 +24,6 @@ AUDIO_ENABLE = no           # Audio output
 DYNAMIC_MACRO_ENABLE = yes  # Dynamic macros
 
 LED_MATRIX_ENABLE = no
-# LED_MATRIX_DRIVER = IS31FL3731
 
 # turn this off after debugging
 # CONSOLE_ENABLE = yes
