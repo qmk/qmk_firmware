@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x5339
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         Plexus75_HE
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
