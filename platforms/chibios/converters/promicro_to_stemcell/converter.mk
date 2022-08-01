@@ -1,10 +1,9 @@
-# Proton C MCU settings for converting AVR projects
-TARGET := $(TARGET)_stemcell
+# STEMCELL MCU settings for converting AVR projects
 MCU := STM32F411
 BOARD := STEMCELL
 BOOTLOADER := tinyuf2
-OPT_DEFS += -DCONVERT_TO_STEMCELL
 MCU_LDSCRIPT := STEMCELL_tinyuf2
+
 FIRMWARE_FORMAT := uf2
 
 SERIAL_DRIVER := usart
@@ -22,4 +21,3 @@ ifeq ($(strip $(STMC_IS)), yes)
   CONVERT_TO_STEMCELL_I2C_SWAP=yes
   OPT_DEFS += -DCONVERT_TO_STEMCELL_I2C_SWAP
 endif
-
