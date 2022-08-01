@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4F4A // "OJ"
-#define PRODUCT_ID 0x0002
-#define DEVICE_VER 0x0001
-#define MANUFACTURER OJ
-#define PRODUCT edc40
-
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
 

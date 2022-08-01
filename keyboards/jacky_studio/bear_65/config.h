@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA13B // Jacky's vendor ID, arbitrarily selected by MudkipMao
-#define PRODUCT_ID      0x000A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Jacky
-#define PRODUCT         Jacky Bear 65 Ergo
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
