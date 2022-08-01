@@ -1,6 +1,6 @@
 # ecila
 
-*An Alice layout with arrow cluster*
+An Alice layout with arrow cluster
 
 * Keyboard Maintainer: [mincedshon](https://github.com/mincedshon)
 * Hardware Supported: ecila

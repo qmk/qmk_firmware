@@ -1,6 +1,12 @@
 {
     "keyboard_name": "ecila",
+    "manufacturer": "mincedshon",
     "maintainer": "mincedshon",
+    "usb": {
+      "vid": "0x534B",
+      "pid": "0x534B",
+      "device_version": "0.0.1",
+    },
     "bootloader": "atmel-dfu",
     "features": {
       "bootmagic": true,

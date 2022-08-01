@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x534B
-#define PRODUCT_ID      0x534B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    mincedshon
-#define PRODUCT         ecila
-
 /*Bootmagic boot button, set to topmost, leftmost key */
 #define BOOTMAGIC_LITE_ROW	0
 #define BOOTMAGIC_LITE_COLUMN	0
