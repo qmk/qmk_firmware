@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x2737 // GW for GeonWorks
+#define VENDOR_ID 0x6777 // gw for geonworks
 #define PRODUCT_ID 0x2D33 // MS for "mini-S"
 #define DEVICE_VER 0x0001 // Rev. Alpha
 #define MANUFACTURER GeonWorks
