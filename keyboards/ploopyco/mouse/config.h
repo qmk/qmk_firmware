@@ -63,8 +63,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
@@ -79,5 +77,5 @@
 
 // #define DEBUG_LED_PIN F7
 
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN B0
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN B0

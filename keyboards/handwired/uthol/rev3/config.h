@@ -57,10 +57,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define TAPPING_TERM 500
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#define PERMISSIVE_HOLD
 
 // RGB Stuff
 #define RGB_DI_PIN B0

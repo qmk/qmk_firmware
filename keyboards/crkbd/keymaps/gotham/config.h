@@ -3,9 +3,6 @@
 #define EE_HANDS
 #define SPLIT_USB_DETECT
 
-#undef USE_I2C
-#undef SSD1306OLED
-
 #define USE_SERIAL_PD2
 
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -20,7 +17,16 @@
 #    define AUDIO_CLICKY
 #endif
 
-#define OLED_FONT_H "keyboards/crkbd/keymaps/gotham/glcdfont.c"
+#ifdef OLED_ENABLE
+#    define OLED_FONT_H "keyboards/crkbd/keymaps/gotham/glcdfont.c"
+#    define SPLIT_LAYER_STATE_ENABLE
+#    define SPLIT_LED_STATE_ENABLE
+#    define SPLIT_MODS_ENABLE
+#    define SPLIT_OLED_ENABLE
+#    undef  OLED_TIMEOUT
+        //  due to timer_read() for render_prompt(), we have own implementation of oled time out
+#    define OLED_KEY_TIMEOUT 30000
+#endif
 
 #define RGBLIGHT_SLEEP
 

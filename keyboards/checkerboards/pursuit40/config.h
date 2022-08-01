@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x1620
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         PURSUIT40
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -61,8 +54,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // ws2812 options
 #define RGB_DI_PIN F0 // pin the DI on the ws2812 is hooked-up to

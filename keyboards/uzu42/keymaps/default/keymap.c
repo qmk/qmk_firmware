@@ -4,10 +4,6 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-
 
 #ifdef RGBLIGHT_ENABLE
 #include <stdio.h>
@@ -79,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------.                  ,---------------------------------------.
        KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,                     KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,
   //|-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------|
-      KC_F11, KC_F12,  RESET,KC_PSCR, KC_INS,                   RGB_TOG,RGB_HUI,RGB_SAI,RGB_VAI,XXXXXXX,
+      KC_F11, KC_F12,  QK_BOOT,KC_PSCR, KC_INS,                   RGB_TOG,RGB_HUI,RGB_SAI,RGB_VAI,XXXXXXX,
   //|-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------|
      XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                   RGB_MOD,RGB_HUD,RGB_SAD,RGB_VAD,RGBRST,
   //|-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------|

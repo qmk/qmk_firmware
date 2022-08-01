@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x20A0
-#define PRODUCT_ID 0x422D
-#define DEVICE_VER 0x0001
-#define MANUFACTURER JER
-#define PRODUCT J80
-
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 14
 
@@ -41,10 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_PIN D4
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

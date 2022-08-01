@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xB9DD
-#define PRODUCT_ID 0x175A
-#define DEVICE_VER 0x0030
-#define MANUFACTURER jpskenn
-#define PRODUCT Jones
-
 /* key matrix size */
 // Same size for Jones' custom Round-Robin matrix.
 #define MATRIX_ROWS 11
@@ -155,10 +148,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

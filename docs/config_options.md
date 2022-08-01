@@ -107,8 +107,10 @@ This is a C header file that is one of the first things included, and will persi
   * sets the maximum power (in mA) over USB for the device (default: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
   * sets the USB polling rate in milliseconds for the keyboard, mouse, and shared (NKRO/media keys) interfaces
-* `#define USB_SUSPEND_WAKEUP_DELAY 200`
-  * set the number of milliseconde to pause after sending a wakeup packet
+* `#define USB_SUSPEND_WAKEUP_DELAY 0`
+  * sets the number of milliseconds to pause after sending a wakeup packet.
+    Disabled by default, you might want to set this to 200 (or higher) if the
+    keyboard does not wake up properly after suspending.
 * `#define F_SCL 100000L`
   * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 
@@ -131,6 +133,8 @@ If you define these options you will disable the associated feature, which can s
 
 If you define these options you will enable the associated feature, which may increase your code size.
 
+* `#define ENABLE_COMPILE_KEYCODE`
+  * Enables the `QK_MAKE` keycode
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
@@ -139,7 +143,7 @@ If you define these options you will enable the associated feature, which may in
 ## Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
-  * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+  * how long before a key press becomes a hold
 * `#define TAPPING_TERM_PER_KEY`
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
@@ -172,6 +176,8 @@ If you define these options you will enable the associated feature, which may in
   * sets the timer for leader key chords to run on each key press rather than overall
 * `#define LEADER_KEY_STRICT_KEY_PROCESSING`
   * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
+* `#define MOUSE_EXTENDED_REPORT`
+  * Enables support for extended reports (-32767 to 32767, instead of -127 to 127), which may allow for smoother reporting, and prevent maxing out of the reports. Applies to both Pointing Device and Mousekeys.
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`

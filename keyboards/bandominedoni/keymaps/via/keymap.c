@@ -118,7 +118,7 @@ void keyboard_post_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
-        uint8_t layer = biton32(layer_state);
+        uint8_t layer = get_highest_layer(layer_state);
         switch (layer) {
             case _CLOSE:
                 // rgb_matrix_set_color(pgm_read_byte(&convert_led_location2number[11]),  RGB_RED);         //  RGB_TOG  <- too heavy.

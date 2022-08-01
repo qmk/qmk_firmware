@@ -2,8 +2,8 @@
 // @leopard_gecko さんがPlanck用に作成されたキーマップをかなり参考にしています。
 
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"       // qmk_firmware-master/quantum/keymap_extras/keymap_jp.h 日本語キーボード設定用
-#include <sendstring_jis.h>  // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
+#include "keymap_japanese.h"     // qmk_firmware-master/quantum/keymap_extras/keymap_japanese.h 日本語キーボード設定用
+#include "sendstring_japanese.h" // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
 
 extern keymap_config_t keymap_config;
 
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // RGB Underglow使用時のレイヤー毎のカラー切り替え
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
@@ -148,7 +148,7 @@ void matrix_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #ifdef RGBLIGHT_ENABLE
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
       rgblight_setrgb_chartreuse(); // RAISE:シャルトリューズ
       break;

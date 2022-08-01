@@ -182,12 +182,7 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 #            endif
         ) &&
 #        endif
-        TIMER_DIFF_16(now, autoshift_time) <
-#        ifdef TAPPING_TERM_PER_KEY
-        get_tapping_term(autoshift_lastkey, record)
-#        else
-        TAPPING_TERM
-#        endif
+        TIMER_DIFF_16(now, autoshift_time) < GET_TAPPING_TERM(autoshift_lastkey, record)
     ) {
         // clang-format on
         // Allow a tap-then-hold for keyrepeat.
@@ -330,11 +325,13 @@ void autoshift_disable(void) {
 
 #    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
+#        ifdef SEND_STRING_ENABLE
     char display[8];
 
     snprintf(display, 8, "\n%d\n", autoshift_timeout);
 
     send_string((const char *)display);
+#        endif
 }
 #    endif
 

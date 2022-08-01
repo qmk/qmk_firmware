@@ -473,9 +473,9 @@ enum quantum_keycodes {
     // Lock Key
     KC_LOCK, // 5D2B
 
-    // Terminal
-    TERM_ON,  // 5D2C
-    TERM_OFF, // 5D2D
+    // Unused slots
+    UNUSED_000, // 5D2C
+    UNUSED_001, // 5D2D
 
     // Sequencer
     SQ_ON,  // 5D2E
@@ -595,6 +595,20 @@ enum quantum_keycodes {
 
     MAGIC_TOGGLE_CONTROL_CAPSLOCK,
 
+    QK_MAKE,
+    QK_REBOOT,
+
+    SECURE_LOCK,
+    SECURE_UNLOCK,
+    SECURE_TOGGLE,
+    SECURE_REQUEST,
+
+    CAPS_WORD,
+
+    MAGIC_SWAP_ESCAPE_CAPSLOCK,
+    MAGIC_UNSWAP_ESCAPE_CAPSLOCK,
+    MAGIC_TOGGLE_ESCAPE_CAPSLOCK,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -711,6 +725,7 @@ enum quantum_keycodes {
 #define QK_BOOT QK_BOOTLOADER
 #define DB_TOGG QK_DEBUG_TOGGLE
 #define EE_CLR QK_CLEAR_EEPROM
+#define QK_RBT QK_REBOOT
 
 // Audio Clicky aliases
 #define CK_TOGG CLICKY_TOGGLE
@@ -744,6 +759,10 @@ enum quantum_keycodes {
 #define CL_CTRL MAGIC_CAPSLOCK_TO_CONTROL
 #define CL_CAPS MAGIC_UNCAPSLOCK_TO_CONTROL
 #define CL_TOGG MAGIC_TOGGLE_CONTROL_CAPSLOCK
+
+#define EC_SWAP MAGIC_SWAP_ESCAPE_CAPSLOCK
+#define EC_NORM MAGIC_UNSWAP_ESCAPE_CAPSLOCK
+#define EC_TOGG MAGIC_TOGGLE_ESCAPE_CAPSLOCK
 
 #define LCG_SWP MAGIC_SWAP_LCTL_LGUI
 #define LCG_NRM MAGIC_UNSWAP_LCTL_LGUI
@@ -956,5 +975,6 @@ enum quantum_keycodes {
 #define PB_32 PROGRAMMABLE_BUTTON_32
 #define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
 #define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32
+#define CAPSWRD CAPS_WORD
 
 #include "quantum_keycodes_legacy.h"

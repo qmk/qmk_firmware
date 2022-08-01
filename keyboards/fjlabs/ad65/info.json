@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Absolute Designs 65",
+    "keyboard_name": "AD65",
+    "manufacturer": "Absolute Designs",
     "url": "https://arnoldh93.wixsite.com/website",
     "maintainer": "FJLaboratories",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x0010",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

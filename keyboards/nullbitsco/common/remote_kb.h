@@ -17,7 +17,7 @@
 
 #include "quantum.h"
 
-#define SERIAL_UART_BAUD 153600 //low error rate for 32u4 @ 16MHz
+#define SERIAL_UART_BAUD 76800 //low error rate for 32u4 @ 16MHz
 
 #define UART_PREAMBLE 0x69
 #define UART_MSG_LEN  5
