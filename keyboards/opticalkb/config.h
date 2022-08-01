@@ -29,9 +29,9 @@
 // C13 is led pin; do not use it
 // B6 is SCL and B7 is SDA
 #define MATRIX_ROW_PINS \
-    { B14, A15, B15, B4, B5 }
+    { B10, A15, B14, B4, B5 }
 #define MATRIX_COL_PINS \
-    { B10, B3, B8, B1, B0, A7, A6, A5, A4, A3, A2, A1, B6, B7, A8 }
+    { B1, B3, B8, B15, B0, A7, A6, A5, A4, A3, A2, A1, B6, B7, A8 }
 #define UNUSED_PINS \
     { A9, A10, A11, A12, B2, C13, C14, C15, B12, B13, A0 }
 

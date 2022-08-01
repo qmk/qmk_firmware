@@ -103,13 +103,3 @@ void matrix_scan_user(void) { // The very important timer.
     }
 }
 
-// /* Enable some leds when capslock is on */
-// void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-//   if (host_keyboard_led_state().caps_lock) {
-//         for (uint8_t i = led_min; i <= led_max; i++) {
-//             if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
-//                 led_matrix_set_value(i, 0xc0);
-//             }
-//         }
-//     }
-// }

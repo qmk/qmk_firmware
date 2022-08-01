@@ -30,4 +30,4 @@ LED_MATRIX_ENABLE = no
 
 # https://github.com/qmk/qmk_firmware/blob/master/docs/custom_matrix.md
 CUSTOM_MATRIX = yes
-SRC += matrix.c blackpill_f401.c
+SRC += matrix.c
