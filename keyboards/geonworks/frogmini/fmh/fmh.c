@@ -15,12 +15,3 @@
  */
 
 #include "fmh.h"
-
-void i2c_init(void) {
-    setPinInput(B6); // Try releasing special pins for a short time
-    setPinInput(B7);
-    wait_ms(10); // Wait for the release to happen
-
-    palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_FLOATING); // Set B6 to I2C function
-    palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_FLOATING); // Set B7 to I2C function
-}

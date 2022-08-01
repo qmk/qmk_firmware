@@ -166,6 +166,7 @@
     * Arm/ChibiOS
       * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
+      * [WeAct Blackpill F411](platformdev_blackpill_f411.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

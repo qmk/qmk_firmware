@@ -113,15 +113,17 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 
 ### DAC Config
 
-| Define                           | Defaults                   | Description                                                --------------------------------------------------------------------------------------------- |
+| Define                           | Defaults                   | Description                                                                                                                                                           |
+| -------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `AUDIO_DAC_SAMPLE_MAX`           | `4095U`                    | Highest value allowed. Lower value means lower volume. And 4095U is the upper limit, since this is limited to a 12 bit value. Only effects non-pregenerated samples.  |
-| `AUDIO_DAC_OFF_VALUE`            | `AUDIO_DAC_SAMPLE_MAX / 2` | The value of the DAC when notplaying anything. Some setups may require a high (`AUDIO_DAC_SAMPLE_MAX`) or low (`0`) value here.                                        |
+| `AUDIO_DAC_OFF_VALUE`            | `AUDIO_DAC_SAMPLE_MAX / 2` | The value of the DAC when notplaying anything. Some setups may require a high (`AUDIO_DAC_SAMPLE_MAX`) or low (`0`) value here.                                       |
 | `AUDIO_MAX_SIMULTANEOUS_TONES`   | __see next table__         | The number of tones that can be played simultaneously.  A value that is too high may freeze the controller or glitch out when too many tones are being played.        |
-| `AUDIO_DAC_SAMPLE_RATE`          | __see next table__         | Effective bit rate of the DAC (in hertz), higher limits simultaneous tones, and lower sacrifices quality.                                                          |
+| `AUDIO_DAC_SAMPLE_RATE`          | __see next table__         | Effective bit rate of the DAC (in hertz), higher limits simultaneous tones, and lower sacrifices quality.                                                             |
 
 There are a number of predefined quality settings that you can use, with "sane minimum" being the default.  You can use custom values by simply defining the sample rate and number of simultaneous tones, instead of using one of the listed presets. 
 
 | Define                            | Sample Rate | Simultaneous tones  |
+| --------------------------------- | ----------- | ------------------- |
 | `AUDIO_DAC_QUALITY_VERY_LOW`      | `11025U`    | `8`                 |
 | `AUDIO_DAC_QUALITY_LOW`           | `22040U`    | `4`                 |
 | `AUDIO_DAC_QUALITY_HIGH`          | `44100U`    | `2`                 |

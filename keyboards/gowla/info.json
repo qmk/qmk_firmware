@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Gowla Macro Pad",
+    "keyboard_name": "Gowla Macro Board",
+    "manufacturer": "Gowla",
     "url": "https://github.com/SamGowland/Gowla-Macro-Board",
     "maintainer": "Gowla",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xE9B6",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [

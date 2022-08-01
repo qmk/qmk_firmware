@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Vaneela",
+    "manufacturer": "noclew",
     "url": "http://www.keyboard-layout-editor.com/#/gists/be89ff3a761a44280296994d459bd0a9",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x9906",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
