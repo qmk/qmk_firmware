@@ -49,6 +49,7 @@ This keymap will only work if you have all the kyria keys available! If you've u
 - [ ] Backlight LEDs dont indicate layer
 - [ ] Not fully using thumb clusters
 - [ ] Function keys and indicators missing (NUM, CAPS, SCROLL)
+- [ ] No Macro layers
 
 ---
 
