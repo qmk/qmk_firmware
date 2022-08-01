@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4556 // "EV"
-#define PRODUCT_ID      0x4D54 // "MT"
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    EVE
-#define PRODUCT         Meteor
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 
