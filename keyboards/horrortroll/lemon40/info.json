@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Lemon40",
+    "manufacturer": "HorrorTroll",
     "url": "",
     "maintainer": "HorrorTroll",
+    "usb": {
+        "vid": "0x7516",
+        "pid": "0x2434",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

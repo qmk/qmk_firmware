@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Lunar", 
+    "manufacturer": "Switchplate Peripherals",
     "url": "https://geekhack.org/index.php?topic=96112.0", 
     "maintainer": "ai03", 
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

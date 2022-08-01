@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4454 //DT for DrayTronics
-#define PRODUCT_ID      0x454C //EL for Elise
-#define DEVICE_VER      0x0100 //Version 1
-#define MANUFACTURER    Draytronics
-#define PRODUCT         ELISE
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

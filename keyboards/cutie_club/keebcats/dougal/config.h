@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFB9C
-#define PRODUCT_ID 0xB265
-#define DEVICE_VER 0x0000
-#define MANUFACTURER Cutie Club
-#define PRODUCT Keebcats Dougal 65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
