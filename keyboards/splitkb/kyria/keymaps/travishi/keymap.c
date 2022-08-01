@@ -1,9 +1,20 @@
+/* Copyright 2022 TravisHi
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-char wpm_str[10];
-
-
-/* uint16_t copy_paste_timer; */
 
 enum layers {
   DVORAK = 0,
@@ -12,93 +23,6 @@ enum layers {
   NUMSYM,
   FPSGAMES,
 };
-
-// Future Layers
-/*
-  NAVKEYPAD,
-  FKEYS,
-  FEMACROS,
-  GITMACROS
-*/
-
-/* Future custom keycodes
-enum custom_keycodes {
-    KC_LBR = SAFE_RANGE,
-    KC_RBR
-};
-*/
-
-
-// Future Macros
-// enum {
-//   HIGHLIGHT_WORD_HOME,
-//   HIGHLIGHT_WORD_LEFT,
-//   HIGHLIGHT_WORD_RIGHT,
-//   HIGHLIGHT_WORD_END
-// };
-
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   switch (keycode) {
-//     case KC_LBR: {
-//       if (record->event.pressed) {
-//         switch(keycode) {
-//           case HIGHLIGHT_WORD_HOME:
-//             SEND_STRING("commands");
-//             return false; break;
-//         }
-//       }
-//     }
-//   }
-// };
-
-/*
-// https://docs.qmk.fm/#/feature_rgblight?id=lighting-layers
-const rgblight_segment_t PROGMEM led_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 9, HSV_ORANGE},
-);
-
-const rgblight_segment_t PROGMEM led_dvorak_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 9, HSV_CYAN}
-);
-
-const rgblight_segment_t PROGMEM led_index_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 9, HSV_WHITE}
-);
-
-// Now define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    led_qwerty_layer,
-    led_dvorak_layer,
-    led_index_layer
-);
-
-// Enable the LED layers
-void keyboard_post_init_user(void) {
-    rgblight_layers = my_rgb_layers;
-}
-
-
-// Assign LED settings to Layers
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
-    return true;
-}
-
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(1, layer_state_cmp(state, _DVORAK));
-    return state;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(2, layer_state_cmp(state, _FN));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
-    return state;
-}
-*/
-
-
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -199,82 +123,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-
-
-
-/*
- * Base Layer: f_keys
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |                              |  F6  |  F7  |  F8  |  F9  |  F10 |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      | RShift |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        |      |      | DEL  | Space| TAB  |  | Bksp | ENTER|      |      |      |
- *                        |      | LCTR |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
-
-  [FKEYS] = LAYOUT(
-    KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
-    KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
-                          XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
-  ),
-
-*/
-
-
-
-
-/*
- * Base Layer: fe_macros
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  ESC   |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      | RShift |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        |      |      | DEL  | Space| TAB  |  | Bksp | ENTER|      |      |      |
- *                        |      | LCTR |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- 
-  [FEMACROS] = LAYOUT(
-    KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
-    KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
-                          XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
-  ),
-
-*/
-
-
-
-
-/*
- * Base Layer: git_macros
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  ESC   |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      | RShift |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        |      |      | DEL  | Space| TAB  |  | Bksp | ENTER|      |      |      |
- *                        |      | LCTR |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
-
-  [GITMACROS] = LAYOUT(
-    KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
-    KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
-                          XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
-  ),
- */
 
 
 
