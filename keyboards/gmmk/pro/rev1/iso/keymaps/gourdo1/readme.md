@@ -101,7 +101,7 @@ These Windows-centric layouts are based on Jonavin's GMMK Pro [layout](https://g
 
 ### Advanced Controls
 
-* [FN]\ to get to bootloader mode (use key next to Left Shift on ISO)
+* [FN]\ or [FN]B to get to bootloader mode (use key next to Left Shift on ISO)
 * [FN][ESC] to clear EEPROM
 * [FN]R to toggle N-key Rollover
 * [FN]/ is single-handed shortcut to Ctrl-Alt-Delete

@@ -404,7 +404,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     case KC_00:
         if (record -> event.pressed) {
             // when keycode KC_00 is pressed
-            send_string("00");
+            send_string(SS_TAP(X_KP_0)SS_TAP(X_KP_0));
         } else unregister_code16(keycode);
         break;
 

@@ -101,7 +101,7 @@ typedef union {
 
 user_config_t user_config;
 
-#define LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
+//#define LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
 
 // ENCODER ACTIONS
 #ifdef ENCODER_ENABLE

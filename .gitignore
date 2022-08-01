@@ -95,3 +95,5 @@ compile_commands.json
 
 # VIA(L) json files that don't belong in QMK repo
 via*.json
+users/gourdo1/autocorrect/wikipedia_list.txt
+users/gourdo1/autocorrect/wikipedia_list_edited.txt
