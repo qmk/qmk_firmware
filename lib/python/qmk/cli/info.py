@@ -11,7 +11,7 @@ from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk
-from qmk.info import info_json, keymap_json
+from qmk.info import info_json, keymap_info_json
 from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard
 
@@ -167,7 +167,7 @@ def info(cli):
 
     # Build the info.json file
     if cli.config.info.keymap:
-        kb_info_json = keymap_json(cli.config.info.keyboard, cli.config.info.keymap)
+        kb_info_json = keymap_info_json(cli.config.info.keyboard, cli.config.info.keymap)
     else:
         kb_info_json = info_json(cli.config.info.keyboard)
 

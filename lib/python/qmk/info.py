@@ -1,6 +1,5 @@
 """Functions that help us generate and use info.json files.
 """
-from cgi import print_environ_usage
 from glob import glob
 from pathlib import Path
 
@@ -22,7 +21,7 @@ false_values = ['0', 'off', 'no']
 
 info_config_map = json_load(Path('data/mappings/info_config.json'))
 info_rules_map = json_load(Path('data/mappings/info_rules.json'))
-info_map = {**info_config_map, **info_rules_map}
+info_combined_map = {**info_config_map, **info_rules_map}
 
 
 def _valid_community_layout(layout):
@@ -521,6 +520,7 @@ def _extract_config_h(info_data, config_c):
     """
     # Pull in data from the json map
     dotty_info = dotty(info_data)
+
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
         key_type = info_dict.get('value_type', 'raw')
@@ -806,7 +806,7 @@ def unknown_processor_rules(info_data, rules):
 
 def _validate_data_errors(info_data, new_info_data):
     new_dotty = dotty(new_info_data)
-    for v in info_map.values():
+    for v in info_combined_map.values():
         config_key = v["info_key"]
         if new_dotty.get(config_key, None):
             if 'invalid' in v:
@@ -834,7 +834,7 @@ def merge_info_jsons(keyboard, info_data):
             cli.log.error('\t%s: %s', json_path, e.message)
             continue
 
-        _validate_data_errors(info_file, new_info_data)
+        _validate_data_errors(info_data, new_info_data)
 
         # Merge layout data in
         if 'layout_aliases' in new_info_data:
