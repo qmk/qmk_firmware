@@ -87,11 +87,12 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
         return true;
     }
 
-   return process_caps_word_key(keycode, mods, record->tap.count);
+    return process_caps_word_key(keycode, mods, record->tap.count);
 }
 
-bool process_caps_word_key(uint16_t keycode, uint8_t mods, uint8_t tap_count)
-{
+/* Separate function in order to reuse this code from other places like
+   tap dance handlers */
+bool process_caps_word_key(uint16_t keycode, uint8_t mods, uint8_t tap_count) {
     if (!is_caps_word_on()) {
         return true;
     }
