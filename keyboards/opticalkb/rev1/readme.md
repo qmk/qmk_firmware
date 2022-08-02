@@ -1,11 +1,28 @@
 # Optical Keyboard - rev1
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Girish](https://github.com/girishji)
 * Hardware Supported: Black pill STM32F401
 
+A keyboard using optical switches instead of pure mechanical switches.
+The main difference is in the way matrix scan is implemented. It is assumed
+that each column is selected (set pin to Output and High) and rows are read in
+sequence. Row pins are set as Input, with or without inbuilt pullup resistor.
+
+Column can be powered using a GPIO pin (for IR LED) and 3v3 or 5v pin for
+Phototransistor. Appropriate delay should be inserted before reading the row
+GPIO pins, thereby giving enough time for Phototransistor to 'rise'. This delay
+is generally around 15us and results in very high scan rate. It is also 
+possible to use transistors to boost current to IR LED to get better rise times
+and thereby improve scanning frequency, but this is generally not necessary.
+You can exceed 3kHz scanning frequency without transistors. Also, there is no
+need for debounce with optical switches. 
+
+You can use Geteron optical switches (MX profile), or similar ones from Kailh
+and Keychron (low profile).
+
 PCB for this keyboard can be found on [github](https://github.com/girishji/optical-keyboard).
+
+## Build
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -27,24 +44,8 @@ Enter the bootloader in 3 ways:
 Verify that it entered DFU (bootloader) mode through QMK Toolbox before
 flashing.
 
-## Wiring instructions
+## Wiring Instructions
 
 There is only one way to solder Blackpill (STM32F401) to the [PCB](https://github.com/girishji/optical-keyboard).
+If you are going to use Blackpill in other projects, note that certain pins are [not usable](https://docs.qmk.fm/#/platformdev_blackpill_f411).
 
-#### Notes
-
-- On Blackpill boards, **avoid** using the following pins, since they will cause either USB enumeration or the DFU bootloader to not work correctly:
-  - **USB-related pins:** `PA10`, `PA11`, `PA12` (PA11 is USB D- and PA12 is USB D+)
-  - **BOOT1 pin:** `PB2` (board pulldown resistor)
-  - **LED pin:** `PC13`
-  - **Crystal:** `PC14` and `PC15` are connected to crystal
-
-- A11 and A12 are used by USB. You cannot use these, basically.
-- A10 needs a pullup if you use it, to ensure that it jumps to the bootloader corretly.
-- A9 has an internal pulldown resistor. It should be avoided, but can be used with a pullup resistor in a pinch.
-- B2 i used by BOOT1, so is unusable.
-- A0 is used by the "USER" button
-- C13 is used by the led on the blackpill controller.
-- C14 and C15 are usable, IIRC. But have some issues with how they should be used (C13 too, eg, it shouldn't be used for leds.... )
-
-(https://www.reddit.com/r/ErgoMechKeyboards/comments/t0kymt/questions_about_split_blackpill_design/)
