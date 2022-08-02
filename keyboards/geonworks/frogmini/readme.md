@@ -1,6 +1,6 @@
 # GeonWorks Frog Mini PCB firmware
 
-![FM_image](https://cdn.shopify.com/s/files/1/0477/8210/1155/files/1_600x600.jpg)
+![FM_image](https://i.imgur.com/mhCsc6M.jpg)
 
 The Frog Mini is a 60% keyboard designed by GeonWorks, with PCB by Gondolindrim.
 
