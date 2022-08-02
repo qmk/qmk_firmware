@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4879
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nightingale Studios
-#define PRODUCT         Hailey
-
 /* key matrix size - encoder is not part of matrix but wired to 2 pins so bodge a fake row/col*/
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 17
