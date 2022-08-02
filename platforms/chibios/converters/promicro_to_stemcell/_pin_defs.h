@@ -1,3 +1,8 @@
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
+
 // Left side (front)
 #ifdef CONVERT_TO_STEMCELL_UART_SWAP
 #    define D3 PAL_LINE(GPIOA, 3)
