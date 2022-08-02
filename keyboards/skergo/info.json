@@ -2,8 +2,11 @@
     "keyboard_name": "SKErgo",
     "url": "https://keyz.io",
     "maintainer": "Keyz.io",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_split_bs"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_split_bs": {
             "layout": [
                 {"label":"Esc", "x":0.5, "y":0.25},
                 {"label":"1!", "x":1.5, "y":0.25},
