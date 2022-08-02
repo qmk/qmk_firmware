@@ -125,7 +125,7 @@ spi_status_t spi_write(uint8_t data) {
 }
 
 spi_status_t spi_read() {
-    SPDR = 0x00;  // Dummy
+    SPDR = 0x00; // Dummy
 
     uint16_t timeout_timer = timer_read();
     while (!(SPSR & _BV(SPIF))) {

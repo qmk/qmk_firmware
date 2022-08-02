@@ -15,13 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4342 // CB
-#define PRODUCT_ID      0x1818
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CherryB.Studio
-#define PRODUCT         CB1800
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 11
@@ -48,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN F5
 #define LED_NUM_LOCK_PIN F6
 #define LED_SCROLL_LOCK_PIN F7
-
+#define LED_PIN_ON_STATE 0
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

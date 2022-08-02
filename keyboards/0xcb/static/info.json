@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "0xCB Static",
+  "keyboard_name": "Static",
+  "manufacturer": "0xCB",
   "url": "https://0xCB.dev",
   "maintainer": "Conor-Burns",
+  "usb": {
+    "vid": "0xCB00",
+    "pid": "0xA455",
+    "device_version": "0.0.1"
+  },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"
   },

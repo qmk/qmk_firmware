@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Centromere",
+    "manufacturer": "Southpaw Design",
     "url": "",
     "maintainer": "spe2",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x6_3": {
             "layout": [

@@ -19,23 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "progmem.h"
 #include "keyboard.h"
 #include "keycode.h"
 #include "action_code.h"
-#include "action_macro.h"
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-/* Disable macro and function features when LTO is enabled, since they break */
-#ifdef LTO_ENABLE
-#    ifndef NO_ACTION_MACRO
-#        define NO_ACTION_MACRO
-#    endif
-#    ifndef NO_ACTION_FUNCTION
-#        define NO_ACTION_FUNCTION
-#    endif
 #endif
 
 #ifndef TAP_CODE_DELAY
@@ -71,12 +61,6 @@ void action_exec(keyevent_t event);
 /* action for key */
 action_t action_for_key(uint8_t layer, keypos_t key);
 action_t action_for_keycode(uint16_t keycode);
-
-/* macro */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
-
-/* user defined special function */
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 
 /* keyboard-specific key event (pre)processing */
 bool process_record_quantum(keyrecord_t *record);

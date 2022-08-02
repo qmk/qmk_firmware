@@ -46,6 +46,9 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+/* Define custom font */
+#define OLED_FONT_H "lib/mercutiofont.c"
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 

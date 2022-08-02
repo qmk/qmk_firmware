@@ -37,13 +37,12 @@
     "saturation_steps": 17
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2390",
     "vid": "0xC1ED"
   },
   "community_layouts": ["66_ansi"],
   "layout_aliases": {
-    "KEYMAP": "LAYOUT_all",
     "LAYOUT": "LAYOUT_all"
   },
   "layouts": {

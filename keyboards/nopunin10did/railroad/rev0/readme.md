@@ -4,7 +4,7 @@
 
 A long keyboard with ortholinear alphas and semi-standard modifier keys. For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w).
 
-* Keyboard Maintainer: [Alex Ronke](https://diplomacyvariants.wordpress.com/), also known as [NoPunIn10Did](https://github.com/nopunin10did). 
+* Keyboard Maintainer: [Alex Ronke](https://nopunin10did.com/), also known as [NoPunIn10Did](https://github.com/NoPunIn10Did)
 * Hardware Supported: The Railroad: 2020-07 Prototype
 * Hardware Availability: Currently by request only
 

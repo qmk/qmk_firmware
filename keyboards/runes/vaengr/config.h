@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID    0x726E
 #define PRODUCT_ID   0x7661
 #define DEVICE_VER   0x0001
-#define MANUFACTURER Rune
-#define PRODUCT      Vængr
+#define MANUFACTURER Runes
+#define PRODUCT      VÆNGR
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -40,8 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { C7, E6, D5, B3, B7 }
-#define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, F7, F6, F5, F4, F1, F0 }
+#define MATRIX_ROW_PINS { B3, B7, B0, F7, C6 }
+#define MATRIX_COL_PINS { E6, F0, F1, F4, F5, D0, D1, D6, D4, D2, D3, D5 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 // #define BACKLIGHT_BREATHING
 
-#define RGB_DI_PIN D3
+#define RGB_DI_PIN C7
 // #define RGB_DI_PIN B0
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
@@ -75,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 3
+#define RGBLED_NUM 10
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
@@ -137,10 +137,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
