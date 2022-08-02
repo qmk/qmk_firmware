@@ -1,7 +1,7 @@
 {
     "keyboard_name": "SKErgo",
     "url": "https://keyz.io",
-    "maintainer": "Keyz.io",
+    "maintainer": "kevinzhao-tech",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_bs"
     },
