@@ -37,7 +37,7 @@
 
 /* IR Led and pt have rise/fall time around 15us; How long to wait (microsec)
  * after turning on column Leds */
-#define WAIT_AFTER_COL_SELECT 950
+// #define WAIT_AFTER_COL_SELECT 20
 
 /* turn off after debugging */
 // #define DEBUG_MATRIX_SCAN_RATE
@@ -103,7 +103,7 @@
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+// #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

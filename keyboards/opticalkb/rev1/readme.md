@@ -1,19 +1,19 @@
-# optkb
+# Optical Keyboard - rev1
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Girish Palya](https://github.com/girishji)
+* Keyboard Maintainer: [Girish](https://github.com/girishji)
 * Hardware Supported: Black pill STM32F401
 
 PCB for this keyboard can be found on [github](https://github.com/girishji/optical-keyboard).
 
 Make example for this keyboard (after setting up your build environment):
 
-    make opticalkb:default
+    make opticalkb/rev1:default
 
 Flashing example for this keyboard:
 
-    make opticalkb:default:flash
+    make opticalkb/rev1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

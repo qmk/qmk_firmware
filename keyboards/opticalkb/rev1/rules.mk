@@ -29,5 +29,5 @@ LED_MATRIX_ENABLE = no
 # CONSOLE_ENABLE = yes
 
 # https://github.com/qmk/qmk_firmware/blob/master/docs/custom_matrix.md
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 SRC += matrix.c
