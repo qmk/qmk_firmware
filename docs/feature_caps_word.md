@@ -154,3 +154,19 @@ void caps_word_set_user(bool active) {
 }
 ```
 
+
+### Using Caps Word with Tap Dance :id=using-caps-word-with-tap-dance
+
+Include `process_caps_word.h` in your `keymap.c` file. You can then use the
+feature as follows from your Tap Dance handler:
+
+```c
+#ifndef NO_ACTION_ONESHOT
+    const uint8_t mods = get_mods() | get_oneshot_mods();
+#else
+    const uint8_t mods = get_mods();
+#endif // NO_ACTION_ONESHOT
+
+    process_caps_word_key(keycode, mods, 0); // Set up the weak modifier
+    tap_code16(keycode)                      // Your existing call to send a key code
+````
