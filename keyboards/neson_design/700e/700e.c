@@ -67,7 +67,6 @@ enum {
 #define ST_RIGHT_END        (ST_RIGHT_BEGIN+ST_RIGHT_SIZE-1)
 
 #ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
 
 typedef struct {
     uint8_t state;
@@ -102,10 +101,7 @@ static void update_ticks(void)
 static void self_testing(void)
 {
     if (timer_elapsed(rgb_state.ticks) < ST_INTERVAL) return;
-    HSV hsv;
-    hsv.h = rgblight_config.hue;
-    hsv.s = rgblight_config.sat;
-    hsv.v = rgblight_config.val;
+    HSV hsv = rgblight_get_hsv();
 
     RGB led = hsv_to_rgb(hsv);
     switch(rgb_state.testing) {
