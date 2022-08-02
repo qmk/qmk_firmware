@@ -23,6 +23,9 @@ def _build_info(keyboard, keymap):
 
     # TODO: Munge to XAP requirements
     del info_json['config_h_features']
+    del info_json['keymaps']
+    del info_json['parse_errors']
+    del info_json['parse_warnings']
 
     return info_json
 
