@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "Lx3 Fave 87",
+    "keyboard_name": "FAve 87",
+    "manufacturer": "Lx3",
     "maintainer": "ebastler",
+    "usb": {
+        "vid": "0x4C58",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

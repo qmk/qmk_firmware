@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C58      //"LX"
-#define PRODUCT_ID      0x0005
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KLC
-#define PRODUCT         Dolice
-
 /* Set 1 kHz polling rate and force USB NKRO */
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
