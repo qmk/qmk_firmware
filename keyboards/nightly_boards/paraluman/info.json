@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Paraluman",
+    "manufacturer": "DeskDaily",
     "url": "",
     "maintainer": "DeskDaily",
+    "usb": {
+    	"vid": "0xD812",
+    	"pid": "0x0012",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
 			"layout": [

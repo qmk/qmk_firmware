@@ -16,13 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xB9F7 // "Oliver Granlund"
-#define PRODUCT_ID      0xB44C // "Neito"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Oliver Granlund
-#define PRODUCT         Neito
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 #define MATRIX_ROW_PINS { E6, F0, F5, F6, C7, C6, B4, D7, D6, D4 }
