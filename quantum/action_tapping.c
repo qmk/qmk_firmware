@@ -15,6 +15,14 @@
 
 #ifndef NO_ACTION_TAPPING
 
+#    if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+#        error "IGNORE_MOD_TAP_INTERRUPT_PER_KEY has been removed; the code needs to be ported to use HOLD_ON_OTHER_KEY_PRESS_PER_KEY instead."
+#    elif !defined(IGNORE_MOD_TAP_INTERRUPT)
+#        if !defined(PERMISSIVE_HOLD) && !defined(PERMISSIVE_HOLD_PER_KEY) && !defined(HOLD_ON_OTHER_KEY_PRESS) && !defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#            pragma message "IGNORE_MOD_TAP_INTERRUPT has been deprecated and will become the new standard behavior of mod-taps in the future. Please use HOLD_ON_OTHER_KEY_PRESS if you want to keep the old behavior of mod-taps."
+#        endif
+#    endif
+
 #    define IS_TAPPING() !IS_NOEVENT(tapping_key.event)
 #    define IS_TAPPING_PRESSED() (IS_TAPPING() && tapping_key.event.pressed)
 #    define IS_TAPPING_RELEASED() (IS_TAPPING() && !tapping_key.event.pressed)
