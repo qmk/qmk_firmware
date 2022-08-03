@@ -142,7 +142,7 @@ def read_configuration_from_info_json(file):
   global col_pins, row_pins
   with open(file) as f:
     info = json.load(f)
-  if info["matrix_pins"]:
+  if "matrix_pins" in info:
     col_pins = ",".join(info["matrix_pins"]["cols"])
     row_pins = ",".join(info["matrix_pins"]["rows"])
   else:
