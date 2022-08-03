@@ -20,13 +20,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5043
-#define PRODUCT_ID 0x4D6F
-#define DEVICE_VER 0x0001
-#define MANUFACTURER PloopyCo
-#define PRODUCT Mouse
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 8
@@ -54,9 +47,6 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* Much more so than a keyboard, speed matters for a mouse. So we'll go for as high
-   a polling rate as possible. */
-#define USB_POLLING_INTERVAL_MS 1
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
@@ -66,8 +56,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

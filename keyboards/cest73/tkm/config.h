@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xBADD
-#define PRODUCT_ID      0xAA55
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    cest73
-#define PRODUCT         TKM-2021 R1.03
-
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 10

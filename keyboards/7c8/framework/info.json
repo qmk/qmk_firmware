@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Framework",
+    "manufacturer": "7c8",
     "url": "",
     "maintainer": "stevennguyen",
-    "width": 12,
-    "height": 5,
+    "usb": {
+        "vid": "0x77C8",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

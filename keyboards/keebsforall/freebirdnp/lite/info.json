@@ -1,0 +1,209 @@
+{
+    "keyboard_name": "Freebird Numpad Lite",
+    "manufacturer": "KeebsForAll",
+    "url": "https://keebsforall.com/products/fb-numpad-lite",
+    "maintainer": "e11i0t23",
+    "usb": {
+        "vid": "0x6B66",
+        "pid": "0x1013",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_numpad_5x4": {
+            "layout": [
+                {
+                    "label": "Num Lock",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "label": "/",
+                    "x": 1,
+                    "y": 0
+                },
+                {
+                    "label": "*",
+                    "x": 2,
+                    "y": 0
+                },
+                {
+                    "label": "-",
+                    "x": 3,
+                    "y": 0
+                },
+                {
+                    "label": "7",
+                    "x": 0,
+                    "y": 1
+                },
+                {
+                    "label": "8",
+                    "x": 1,
+                    "y": 1
+                },
+                {
+                    "label": "9",
+                    "x": 2,
+                    "y": 1
+                },
+                {
+                    "label": "4",
+                    "x": 0,
+                    "y": 2
+                },
+                {
+                    "label": "5",
+                    "x": 1,
+                    "y": 2
+                },
+                {
+                    "label": "6",
+                    "x": 2,
+                    "y": 2
+                },
+                {
+                    "label": "+",
+                    "x": 3,
+                    "y": 1,
+                    "h": 2
+                },
+                {
+                    "label": "1",
+                    "x": 0,
+                    "y": 3
+                },
+                {
+                    "label": "2",
+                    "x": 1,
+                    "y": 3
+                },
+                {
+                    "label": "3",
+                    "x": 2,
+                    "y": 3
+                },
+                {
+                    "label": "0",
+                    "x": 0,
+                    "y": 4,
+                    "w": 2
+                },
+                {
+                    "label": ".",
+                    "x": 2,
+                    "y": 4
+                },
+                {
+                    "label": "Enter",
+                    "x": 3,
+                    "y": 3,
+                    "h": 2
+                }
+            ]
+        },
+        "LAYOUT_ortho_5x4": {
+            "layout": [
+                {
+                    "label": "Num Lock",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "label": "/",
+                    "x": 1,
+                    "y": 0
+                },
+                {
+                    "label": "*",
+                    "x": 2,
+                    "y": 0
+                },
+                {
+                    "label": "-",
+                    "x": 3,
+                    "y": 0
+                },
+                {
+                    "label": "7",
+                    "x": 0,
+                    "y": 1
+                },
+                {
+                    "label": "8",
+                    "x": 1,
+                    "y": 1
+                },
+                {
+                    "label": "9",
+                    "x": 2,
+                    "y": 1
+                },
+                {
+                    "label": "+",
+                    "x": 3,
+                    "y": 1
+                },
+                {
+                    "label": "4",
+                    "x": 0,
+                    "y": 2
+                },
+                {
+                    "label": "5",
+                    "x": 1,
+                    "y": 2
+                },
+                {
+                    "label": "6",
+                    "x": 2,
+                    "y": 2
+                },
+                {
+                    "label": "+",
+                    "x": 3,
+                    "y": 2
+                },
+                {
+                    "label": "1",
+                    "x": 0,
+                    "y": 3
+                },
+                {
+                    "label": "2",
+                    "x": 1,
+                    "y": 3
+                },
+                {
+                    "label": "3",
+                    "x": 2,
+                    "y": 3
+                },
+                {
+                    "label": "Enter",
+                    "x": 3,
+                    "y": 3
+                },
+                {
+                    "label": "0",
+                    "x": 0,
+                    "y": 4
+                },
+                {
+                    "label": "00",
+                    "x": 1,
+                    "y": 4
+                },
+                {
+                    "label": ".",
+                    "x": 2,
+                    "y": 4
+                },
+                {
+                    "label": "Enter",
+                    "x": 3,
+                    "y": 4
+                }
+            ]
+        }
+    }
+}

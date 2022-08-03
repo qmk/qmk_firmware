@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // mouse config
+#ifdef MOUSEKEY_ENABLE
 #    ifndef MOUSEKEY_MOVE_DELTA
 #        ifndef MK_KINETIC_SPEED
 #            define MOUSEKEY_MOVE_DELTA 5
@@ -59,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_ACCELERATED_SPEED 3000
 #    endif
 
-
 // mouse scroll config
 #    ifndef MOUSEKEY_WHEEL_DELAY
 #        define MOUSEKEY_WHEEL_DELAY 15
@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS
 #        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
 #    endif
-
+#endif
 
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5

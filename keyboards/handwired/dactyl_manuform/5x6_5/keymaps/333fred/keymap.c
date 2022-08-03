@@ -115,7 +115,7 @@ void write_quote(const char* data, const uint8_t num_lines) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_logo();
         oled_advance_page(/* clearPageRemainder */ true);
@@ -559,6 +559,7 @@ void oled_task_user(void) {
                 break;
         }
     }
+    return false;
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

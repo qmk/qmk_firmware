@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// descriptors
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xC456
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MisonoWorks
-#define PRODUCT         Karina
-
 // matrix
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11

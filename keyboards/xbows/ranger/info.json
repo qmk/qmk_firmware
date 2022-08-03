@@ -2,8 +2,6 @@
     "keyboard_name": "Ranger",
     "url": "",
     "maintainer": "xbows-qmk",
-    "width": 18.25,
-    "height": 6.5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_ansi"
     },

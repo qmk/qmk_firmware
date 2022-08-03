@@ -61,22 +61,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------.    .-----------------------------------------.
  * |   +  |      |      |      |      | Rst  |    | NumLk|  /   |  *   |  -   |      |   \  |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * |      | Home |  [   |  Up  |   ]  | PgUp |    |   7  |  8   |  9   |  +   |      |   ]  |  
+ * |      |      |  [   |  Up  |   ]  |      |    |   7  |  8   |  9   |  +   |      |   ]  |  
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * |      | End  | Left | Down | Right| PgDn |    |   4  |  5   |  6   |  ,   |      |      |
+ * |      |      | Left | Down | Right|      |    |   4  |  5   |  6   |  ,   |      |Enter |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * |      | Calc | MyPC |PrtScr| Enter|BckSpc|    |   1  |  2   |  3   |  =   |      | Enter|
+ * |      | Calc | MyPC |PrtScr| Enter|BckSpc|    |   1  |  2   |  3   |  =   | PgUp | Home |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * |      | Mute |      |      |      |      |    |      0      |  .   | Enter| Home |  End |
+ * |      | Mute |      |      |      |      |    |      0      |  .   | Enter| PgDn | End  |
  * '-----------------------------------------'    '-----------------------------------------'
  */	
 
 	[_LEFTHAND] = LAYOUT(
 		KC_EQL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_TRNS, KC_BSLS, 
 		KC_TRNS, KC_TRNS, KC_LBRC, KC_UP, KC_RBRC, KC_TRNS,   KC_P7, KC_P8, KC_P9, KC_PPLS, KC_TRNS, KC_RBRC, 
-		KC_LCTL, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_P4, KC_P5, KC_P6, KC_PCMM, KC_TRNS, KC_TRNS, 
-		KC_LSFT, KC_CALC, KC_MYCM, KC_PSCR, KC_ENT, KC_BSPC,  KC_P1, KC_P2, KC_P3, KC_PEQL, KC_TRNS, KC_ENT, 
-		KC_LCTL, KC_MUTE, KC_LALT, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_P0, KC_PDOT, KC_PENT, KC_HOME, KC_END
+		KC_LCTL, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_P4, KC_P5, KC_P6, KC_PCMM, KC_TRNS, KC_ENT, 
+		KC_LSFT, KC_CALC, KC_MYCM, KC_PSCR, KC_ENT, KC_BSPC,  KC_P1, KC_P2, KC_P3, KC_PEQL, KC_PGUP, KC_HOME, 
+		KC_LCTL, KC_MUTE, KC_LALT, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_P0, KC_PDOT, KC_PENT, KC_PGDN, KC_END
 	),
 
 /* Func/Numpad layer

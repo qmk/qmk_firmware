@@ -3,7 +3,7 @@
 
 Keyboard Layout Editor: [Link](http://www.keyboard-layout-editor.com/#/gists/b2b23097ef70fd9170e266e4cbc06c02)
 
-Make Command: make xd75:tdl-jturner
+Make Command: make xiudi/xd75:tdl-jturner
 
 Notes:
 * Based on Qwerty
