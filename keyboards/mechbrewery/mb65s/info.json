@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "mb65s",
+    "keyboard_name": "MB65S",
+    "manufacturer": "MechBrewery",
     "url": "",
     "maintainer": "AnthonyNguyen168",
+    "usb": {
+        "vid": "0x4252",
+        "pid": "0x3635",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
