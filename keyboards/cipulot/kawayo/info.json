@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_ansi_blocker_split_bs": {
             "layout": [
                 {"label":"`~", "x":0, "y":0},
                 {"label":"1!", "x":1, "y":0},
