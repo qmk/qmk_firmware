@@ -1,7 +1,13 @@
 {
     "keyboard_name": "bm16s",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+      "vid": "0x4B50",
+      "pid": "0x016B",
+      "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT_ortho_4x4": {
         "layout": [
