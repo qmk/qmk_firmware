@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x666B // fk
-#define PRODUCT_ID      0x7273 // rs
-#define DEVICE_VER      0x0001 // rev 1
-#define MANUFACTURER    fruitykeeb
-#define PRODUCT         ristretto
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
