@@ -155,7 +155,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_STARTUP_SPD;
     rgb_matrix_config.flags  = LED_FLAG_ALL;
-    render_update = true;
+    render_update            = true;
     eeconfig_flush_rgb_matrix(true);
 }
 
@@ -429,7 +429,17 @@ void rgb_matrix_task(void) {
     uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
 
     // only for static modes or upon initialisation
-    if (rgb_matrix_config.mode > 4 || rgb_effect_params.init) {
+    if (( // static animation always enabled
+#ifdef ENABLE_RGB_MATRIX_ALPHAS_MODS
+        rgb_matrix_config.mode != RGB_MATRIX_ALPHAS_MODS &&
+#endif
+#ifdef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+        rgb_matrix_config.mode != RGB_MATRIX_GRADIENT_UP_DOWN &&
+#endif
+#ifdef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+        rgb_matrix_config.mode != RGB_MATRIX_GRADIENT_LEFT_RIGHT &&
+#endif
+    rgb_matrix_config.mode != 1 ) || rgb_effect_params.init) {
         render_update = true;
     }
 
