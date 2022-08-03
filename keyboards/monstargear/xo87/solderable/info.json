@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "XO87 Solderable",
+    "keyboard_name": "XO87 Soldered",
+    "manufacturer": "Monstargear",
     "url": "https://www.monstargears.com/",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.25,
+    "usb": {
+        "vid": "0x4D47",
+        "pid": "0x5344",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

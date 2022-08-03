@@ -1,9 +1,13 @@
 {
     "keyboard_name": "MakrOSU",
+    "manufacturer": "Valdydesu_",
     "url": "",
     "maintainer": "Valdydesu_",
-    "width": 3,
-    "height": 2,
+    "usb": {
+        "vid": "0xAB69",
+        "pid": "0x8585",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

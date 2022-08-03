@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #include <string.h>
   #include "lib/oled_helper.h"
 #endif
@@ -141,11 +141,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 // OLED Display
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   render_row(0, "TEST");
   render_row(1, "test");
   render_row(2, "TEST");
   render_row(3, "test");
+    return false;
 }
-#endif // #ifdef OLED_DRIVER_ENABLE
+#endif // #ifdef OLED_ENABLE

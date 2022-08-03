@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4353 // "CS" = Caffeinated Studios
-#define PRODUCT_ID      0x6501
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Caffeinated Studios
-#define PRODUCT         Serpent65
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -105,5 +98,3 @@ B0, which is unconnected on the PCB
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

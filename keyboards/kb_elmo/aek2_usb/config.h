@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xA68C
-#define PRODUCT_ID 0xDB52
-#define DEVICE_VER 0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT AEK II USB
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 14
@@ -52,5 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* reduce VIA layer count because of EEPROM size */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
+/* reduce EEPROM usage */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+#define LAYER_STATE_8BIT

@@ -60,7 +60,7 @@ void set_led_state(int ledId, bool state)
     }
 }
 
-void led_init_ports()
+void led_init_ports_user(void)
 {
     // Switch #1
     DDRD |= (1 << 6);
@@ -95,7 +95,7 @@ void led_set_layer(int layer)
 
 void matrix_init_user(void)
 {
-    led_init_ports();
+    led_init_ports_user();
 
     led_set_layer(0);
 

@@ -58,7 +58,7 @@ void keyboard_post_init_user(void)
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
 void suspend_power_down_user(void) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     oled_off();
 #endif
     suspend_power_down_keymap();
@@ -77,6 +77,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case KC_VRSN:  // Prints firmware version
                 if (record->event.pressed) {
                     SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+                }
+                break;
+            case KC_QWER:  // Set default layer to QWERTY
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_QWERTY);
+                }
+                break;
+            case KC_COLE:  // Set default layer to COLEMAK
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_COLEMAK);
+                }
+                break;
+            case KC_DVOR:  // Set default layer to DVORAK
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_DVORAK);
                 }
                 break;
         }

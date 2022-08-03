@@ -1,12 +1,15 @@
 {
     "keyboard_name": "Infinity CE",
+    "manufacturer": "Team.Mechlovin",
     "url": "",
     "maintainer": "Team Mechlovin'",
-    "width": 18.25,
-    "height": 6.25,
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x8801",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 91,
             "layout": [
                 {"label":"K00 (B0,B6)", "x":0, "y":0},
                 {"label":"K01 (B0,B7)", "x":1.25, "y":0},
@@ -102,7 +105,6 @@
             ]
         },
         "LAYOUT_ansi": {
-            "key_count": 88,
             "layout": [
                 {"label":"K00 (B0,B6)", "x":0, "y":0},
                 {"label":"K01 (B0,B7)", "x":1.25, "y":0},
@@ -195,7 +197,6 @@
             ]
         },
         "LAYOUT_iso": {
-            "key_count": 89,
             "layout": [
                 {"label":"K00 (B0,B6)", "x":0, "y":0},
                 {"label":"K01 (B0,B7)", "x":1.25, "y":0},

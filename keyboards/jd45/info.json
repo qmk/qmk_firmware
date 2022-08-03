@@ -1,9 +1,13 @@
 {
-  "keyboard_name": "jd45",
+  "keyboard_name": "JD45",
+  "manufacturer": "geekhack",
   "url": "",
   "maintainer": "qmk",
-  "width": 13,
-  "height": 4,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

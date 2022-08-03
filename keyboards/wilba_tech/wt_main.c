@@ -27,7 +27,7 @@
 #include "via.h"
 
 #ifndef VIA_ENABLE
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #endif
 

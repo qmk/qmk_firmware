@@ -8,9 +8,13 @@
 #    define BACKLIGHT_LIMIT_VAL 255
 #endif
 
-// GPIOV2 && GPIOV3
 #ifndef BACKLIGHT_PAL_MODE
-#    define BACKLIGHT_PAL_MODE 2
+#    if defined(USE_GPIOV1)
+#        define BACKLIGHT_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    else
+// GPIOV2 && GPIOV3
+#        define BACKLIGHT_PAL_MODE 5
+#    endif
 #endif
 
 // GENERIC
@@ -49,14 +53,14 @@ static PWMConfig pwmCFG = {0xFFFF, /* PWM clock frequency  */
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
-    if (v <= 5243)     // if below 8% of max
-        return v / 9;  // same as dividing by 900%
+    if (v <= 5243)    // if below 8% of max
+        return v / 9; // same as dividing by 900%
     else {
-        uint32_t y = (((uint32_t)v + 10486) << 8) / (10486 + 0xFFFFUL);  // add 16% of max and compare
+        uint32_t y = (((uint32_t)v + 10486) << 8) / (10486 + 0xFFFFUL); // add 16% of max and compare
         // to get a useful result with integer division, we shift left in the expression above
         // and revert what we've done again after squaring.
         y = y * y * y >> 8;
-        if (y > 0xFFFFUL)  // prevent overflow
+        if (y > 0xFFFFUL) // prevent overflow
             return 0xFFFFU;
         else
             return (uint16_t)y;
@@ -70,7 +74,7 @@ static uint32_t rescale_limit_val(uint32_t val) {
 
 void backlight_init_ports(void) {
 #ifdef USE_GPIOV1
-    palSetPadMode(PAL_PORT(BACKLIGHT_PIN), PAL_PAD(BACKLIGHT_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+    palSetPadMode(PAL_PORT(BACKLIGHT_PIN), PAL_PAD(BACKLIGHT_PIN), BACKLIGHT_PAL_MODE);
 #else
     palSetPadMode(PAL_PORT(BACKLIGHT_PIN), PAL_PAD(BACKLIGHT_PIN), PAL_MODE_ALTERNATE(BACKLIGHT_PAL_MODE));
 #endif
@@ -113,7 +117,9 @@ static const uint8_t breathing_table[BREATHING_STEPS] = {0, 0, 0, 0, 0, 0, 0, 0,
 
 void breathing_callback(PWMDriver *pwmp);
 
-bool is_breathing(void) { return pwmCFG.callback != NULL; }
+bool is_breathing(void) {
+    return pwmCFG.callback != NULL;
+}
 
 void breathing_enable(void) {
     pwmCFG.callback = breathing_callback;
@@ -129,7 +135,9 @@ void breathing_disable(void) {
 }
 
 // Use this before the cie_lightness function.
-static inline uint16_t scale_backlight(uint16_t v) { return v / BACKLIGHT_LEVELS * get_backlight_level(); }
+static inline uint16_t scale_backlight(uint16_t v) {
+    return v / BACKLIGHT_LEVELS * get_backlight_level();
+}
 
 void breathing_callback(PWMDriver *pwmp) {
     uint8_t  breathing_period = get_breathing_period();

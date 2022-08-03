@@ -35,9 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#if defined(RGB_MATRIX_ENABLE)
 //#    include "rgb_matrix_stuff.h"
 //#endif
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_setup.h"
 #endif
 
 
-enum layers { _MAIN, _LOWER, _UPPER, _ADJUST };
+enum layers { _MAIN, _GAMING, _LOWER, _UPPER, _ADJUST };
