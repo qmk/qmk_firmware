@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Mokulua Standard",
+    "manufacturer": "MechWild",
     "url": "https://mechwild.com",
     "maintainer": "kylemccreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x170B",
+        "device_version": "1.0.3"
+    },
     "layouts": {
         "LAYOUT_standard": {
             "layout": [
