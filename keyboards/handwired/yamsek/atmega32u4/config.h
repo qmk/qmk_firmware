@@ -1,0 +1,7 @@
+// #define BACKLIGHT_PIN B7
+// #define BACKLIGHT_BREATHING
+// #define BACKLIGHT_LEVELS 3
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 1
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
