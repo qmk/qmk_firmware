@@ -1,7 +1,7 @@
 {
   "manufacturer": "Boardsource",
   "keyboard_name": "The Mark65",
-  "maintainer": "waffle87",
+  "maintainer": "daysgobye, boardsource, waffle87",
   "bootloader": "atmel-dfu",
   "diode_direction": "COL2ROW",
   "features": {
