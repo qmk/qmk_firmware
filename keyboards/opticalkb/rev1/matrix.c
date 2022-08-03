@@ -92,7 +92,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
         dprintf("Error: failed to power on col %d\n", current_col);
         return;
     }
-    // wait_us(500); //  rise and fall time of pt is 15us but depends on current
+    // Rise and fall time of pt is ~15us
     wait_us(WAIT_AFTER_COL_SELECT);
 
     // For each row...
@@ -111,7 +111,11 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     }
 
     unselect_col(current_col);
+#ifndef WAIT_AFTER_COL_UNSELECT
     waitInputPinDelay();
+#else
+    wait_us(WAIT_AFTER_COL_UNSELECT);
+#endif
 }
 
 uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
