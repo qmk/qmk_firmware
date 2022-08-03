@@ -92,10 +92,10 @@
 
                 {"label": "Gui", "x": 4.5, "y": 3.28},
                 {"label": "Alt", "x": 5.5, "y": 3.42},
-                {"label": "Sym", "x": 6.5, "y": 3.88},
-                {"label": "Shift", "x": 7.5, "y": 4.44},
+                {"label": "Shift", "x": 6.5, "y": 3.88},
+                {"label": "Nav", "x": 7.5, "y": 4.44},
 
-                {"label": "Nav", "x": 9, "y": 4.44},
+                {"label": "Sym", "x": 9, "y": 4.44},
                 {"label": "Space", "x": 10, "y": 3.88},
                 {"label": "Alt", "x": 11, "y": 3.42},
                 {"label": "Gui", "x": 12, "y": 3.28},

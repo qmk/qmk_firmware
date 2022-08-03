@@ -11,12 +11,8 @@ Some of its key features are:
 
 ## Base Layer
 
-**THE IMAGE LINKS STILL POINT TO THE HILLSIDE 52 BOARD.**
-**Imagine the partial bottom rows are not there.**
-**See the keymap.c file for a fairly readable view.**
 
-
-![Base QWERTY layer](https://imgur.com/vO9pnaY.png)
+![Base QWERTY layer](https://imgur.com/C2kxwOuh.png)
 
 The base layer provides a very standard key layout with four differences:
 
@@ -31,37 +27,37 @@ The default layout is QWERTY with alternatives of Dvorak and Colemak-DH, and the
 <details>
 <summary>Details of Dvorak and Colemak-DH</summary>
 The Dvorak and Colemak-DH base layers have identical non-alpha and non-symbol keys as the QWERTY base layer.
-![Base Dvorak layer](https://imgur.com/Baxt3L9.png)
-![Base Colemak layer](https://imgur.com/5BHeur8.png)
+![Base Dvorak layer](https://imgur.com/5gGk2rOh.png)
+![Base Colemak layer](https://imgur.com/xExBB8eh.png)
 </details>
+
+
+## Navigation, Editing, Number and Function Layer
+
+![Navigation layer](https://imgur.com/eQsmStmh.png)
+
+Holding down the Nav/Edit key accesses the navigation, editing, number and function layer:
+
+- Numbers are along the top row, and function keys are on the bottom.
+- The arrow keys on the right can be combined with the home row modifiers on the left to easily move around and select text, which can then be cut, copied and pasted.
 
 
 ## Symbol and Media Layer
 
-![Symbol layer](https://imgur.com/lg5PqMX.png)
+![Symbol layer](https://imgur.com/mzcB2JFh.png)
 
 Holding down the SYM key accesses the symbol layer:
 
-- The symbols not present on the base layer are along the top row and right side, similar to a full-size keyboard.
-- Duplicates of the modifier keys are along the left home keys. This positioning allows a very comfortable combination of any set of modifiers plus a key on the right side of the board.
+- The symbols not present on the base layer are along the top row and left side, arranged similarly to a large keyboard.
+- Duplicates of the modifier keys are along the right home keys. This positioning allows a very comfortable combination of any set of modifiers plus a key on the left side of the board.
 - Forward delete is on the upper right, taking backspace's place.
 - The Window OS application menu key is on the right upper thumb. 
 - The AltGr key affects the next key pressed so that it can combine with a key on any layer. It changes the meaning of the next key pressed after the AltGr key is pressed and released. For example, to do AltGr-h: press SYM, press and release AltGr, release SYM, press and release h.
 
 
-## Navigation, Editing, Number and Function Layer
-
-![Navigation layer](https://imgur.com/eCzNwZP.png)
-
-Holding down the Nav/Edit key accesses the navigation, editing, number and function layer:
-
-- Numbers are along the top row, and function keys are on the bottom.
-- The arrow keys on the left can be combined with the home row modifiers on the right to easily move around and select text, which can then be cut, copied and pasted.
-
-
 ## Adjust Layer
 
-![Adjust layer](https://imgur.com/bC3CRSK.png)
+![Adjust layer](https://imgur.com/r3Ip7hxh.png)
 
 Simultaneously holding down the Sym and Nav/Edit keys enables keys to adjust keyboard settings:
 

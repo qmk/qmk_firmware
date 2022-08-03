@@ -4,7 +4,7 @@
 
 [Hillside 46](https://github.com/mmccoyd/hillside)
  is a split ergonomic keyboard with 3x6+5 choc-spaced keys,
- splayed ring and pinky columns, aggressive column stagger,
+ splayed ring and pinkie columns, aggressive column stagger,
  a longer thumb arc and a breakoff outer-pinky column.
 
 * Keyboard Maintainer: [Michael McCoyd](https://github.com/mmccoyd)
