@@ -32,7 +32,6 @@
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
-    "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "tapping.ignore_mod_tap_interrupt", "value_type": "bool"},
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "bool"},
     "HOLD_ON_OTHER_KEY_PRESS_PER_KEY": {"info_key": "tapping.hold_on_other_key_press_per_key", "value_type": "bool"},
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
@@ -128,6 +127,7 @@
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool", "deprecated": true},
     "TAPPING_FORCE_HOLD_PER_KEY": {"info_key": "tapping.force_hold_per_key", "value_type": "bool", "deprecated": true},
+    "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "_deprecated.ignore_mod_tap_interrupt", "value_type": "bool", "deprecated": true},
     "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "_invalid.ignore_mod_tap_interrupt_per_key", "invalid": true}
 
     // USB params, need to mark as failure when specified in config.h, rather than deprecated
