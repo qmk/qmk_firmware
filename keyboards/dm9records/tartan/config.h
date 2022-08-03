@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* VID & PID from vusb project, see tmk_core/protocol/vusb/USB-IDs-for-free.txt"*/
-#define VENDOR_ID 0x16c0
-#define PRODUCT_ID 0x27db
-#define DEVICE_VER 0x0001
-#define MANUFACTURER dm9records
-#define PRODUCT Tartan
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 13

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "PJB eros",
+    "keyboard_name": "Eros",
+    "manufacturer": "PJB",
     "url": "https://github.com/602studios",
     "maintainer": "602studios",
+    "usb": {
+        "vid": "0x5042",
+        "pid": "0x4552",
+        "device_version": "2.0.0"
+    },
     "layout_aliases": {
         "LAYOUT_all_f13": "LAYOUT_tkl_f13_ansi_split_bs_rshift",
         "LAYOUT_tkl_ansi_f13": "LAYOUT_tkl_f13_ansi",

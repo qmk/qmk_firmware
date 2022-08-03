@@ -15,13 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xECE9
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    hineybush keyboards
-#define PRODUCT         h87a
-
 #define CONFIG_H
 
 #include "config_common.h"
