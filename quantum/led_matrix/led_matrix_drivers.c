@@ -78,6 +78,7 @@ static void init(void) {
 #                endif
 #            endif
 #        endif
+
 #    elif defined(CKLED2001)
 #        if defined(LED_DRIVER_SHUTDOWN_PIN)
     setPinOutput(LED_DRIVER_SHUTDOWN_PIN);
@@ -147,6 +148,7 @@ static void init(void) {
 #                endif
 #            endif
 #        endif
+
 #    elif defined(CKLED2001)
     CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
@@ -223,6 +225,7 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value = IS31FL_simple_set_brightness,
     .set_value_all = IS31FL_simple_set_brigntness_all,
 };
+
 #    elif defined(CKLED2001)
 static void flush(void) {
     CKLED2001_update_pwm_buffers(DRIVER_ADDR_1, 0);
@@ -237,11 +240,51 @@ static void flush(void) {
 #        endif
 }
 
+#        if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+static void shutdown(void) {
+#       if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinLow(LED_DRIVER_SHUTDOWN_PIN);
+#       else
+    CKLED2001_sw_shutdown(DRIVER_ADDR_1);
+#           if defined(DRIVER_ADDR_2)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_2);
+#               if defined(DRIVER_ADDR_3)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_3);
+#                   if defined(DRIVER_ADDR_4)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_4);
+#                   endif
+#               endif
+#           endif
+#       endif    
+}
+
+static void exit_shutdown(void) {
+#       if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
+#       else
+    CKLED2001_sw_return_normal(DRIVER_ADDR_1);
+#           if defined(DRIVER_ADDR_2)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_2);
+#               if defined(DRIVER_ADDR_3)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_3);
+#                   if defined(DRIVER_ADDR_4)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_4);
+#                   endif
+#               endif
+#           endif
+#       endif 
+}
+#       endif
+
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_value = CKLED2001_set_value,
     .set_value_all = CKLED2001_set_value_all,
+#        if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+    .shutdown = shutdown,
+    .exit_shutdown = exit_shutdown
+#        endif
 };
 #    endif
 #endif

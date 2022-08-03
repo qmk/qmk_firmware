@@ -20,6 +20,9 @@
 #include "debug.h"
 #include "util.h"
 #include <string.h>
+#ifdef BLUETOOTH_ENABLE
+#include "transport.h"
+#endif
 
 #ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
 #    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
@@ -40,7 +43,14 @@ uint8_t has_anykey(report_keyboard_t* keyboard_report) {
     uint8_t* p   = keyboard_report->keys;
     uint8_t  lp  = sizeof(keyboard_report->keys);
 #ifdef NKRO_ENABLE
+#ifdef  BLUETOOTH_ENABLE
+    if ((((get_transport() == TRANSPORT_USB) && keyboard_protocol) ||
+          ((get_transport() == TRANSPORT_BLUETOOTH) && bluetooth_report_protocol)) 
+          && keymap_config.nkro) {
+#else
     if (keyboard_protocol && keymap_config.nkro) {
+#endif
+
         p  = keyboard_report->nkro.bits;
         lp = sizeof(keyboard_report->nkro.bits);
     }
@@ -57,7 +67,13 @@ uint8_t has_anykey(report_keyboard_t* keyboard_report) {
  */
 uint8_t get_first_key(report_keyboard_t* keyboard_report) {
 #ifdef NKRO_ENABLE
+#ifdef  BLUETOOTH_ENABLE
+    if ((((get_transport() == TRANSPORT_USB) && keyboard_protocol) ||
+          ((get_transport() == TRANSPORT_BLUETOOTH) && bluetooth_report_protocol)) 
+          && keymap_config.nkro) {
+#else
     if (keyboard_protocol && keymap_config.nkro) {
+#endif
         uint8_t i = 0;
         for (; i < KEYBOARD_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
             ;
@@ -88,7 +104,13 @@ bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
         return false;
     }
 #ifdef NKRO_ENABLE
+#ifdef  BLUETOOTH_ENABLE
+    if ((((get_transport() == TRANSPORT_USB) && keyboard_protocol) ||
+          ((get_transport() == TRANSPORT_BLUETOOTH) && bluetooth_report_protocol)) 
+          && keymap_config.nkro) {
+#else
     if (keyboard_protocol && keymap_config.nkro) {
+#endif
         if ((key >> 3) < KEYBOARD_REPORT_BITS) {
             return keyboard_report->nkro.bits[key >> 3] & 1 << (key & 7);
         } else {
@@ -242,7 +264,13 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
  */
 void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
 #ifdef NKRO_ENABLE
+#ifdef  BLUETOOTH_ENABLE
+    if ((((get_transport() == TRANSPORT_USB) && keyboard_protocol) ||
+          ((get_transport() == TRANSPORT_BLUETOOTH) && bluetooth_report_protocol)) 
+          && keymap_config.nkro) {
+#else
     if (keyboard_protocol && keymap_config.nkro) {
+#endif
         add_key_bit(keyboard_report, key);
         return;
     }
@@ -256,7 +284,13 @@ void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
  */
 void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key) {
 #ifdef NKRO_ENABLE
+#ifdef  BLUETOOTH_ENABLE
+    if ((((get_transport() == TRANSPORT_USB) && keyboard_protocol) ||
+          ((get_transport() == TRANSPORT_BLUETOOTH) && bluetooth_report_protocol)) 
+          && keymap_config.nkro) {
+#else
     if (keyboard_protocol && keymap_config.nkro) {
+#endif
         del_key_bit(keyboard_report, key);
         return;
     }
@@ -271,7 +305,13 @@ void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key) {
 void clear_keys_from_report(report_keyboard_t* keyboard_report) {
     // not clear mods
 #ifdef NKRO_ENABLE
+#ifdef  BLUETOOTH_ENABLE
+    if ((((get_transport() == TRANSPORT_USB) && keyboard_protocol) ||
+          ((get_transport() == TRANSPORT_BLUETOOTH) && bluetooth_report_protocol)) 
+          && keymap_config.nkro) {
+#else
     if (keyboard_protocol && keymap_config.nkro) {
+#endif
         memset(keyboard_report->nkro.bits, 0, sizeof(keyboard_report->nkro.bits));
         return;
     }

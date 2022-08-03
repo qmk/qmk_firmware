@@ -35,6 +35,7 @@ extern "C" {
 
 extern uint8_t keyboard_idle;
 extern uint8_t keyboard_protocol;
+extern uint8_t bluetooth_report_protocol;
 
 /* host driver */
 void           host_set_driver(host_driver_t *driver);
