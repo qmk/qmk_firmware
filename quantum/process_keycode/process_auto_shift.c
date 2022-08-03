@@ -417,9 +417,9 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #        else
                     ? false
 #        endif
-#        if defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
-#            ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                    : !get_ignore_mod_tap_interrupt(keycode, record)
+#        if defined(IGNORE_MOD_TAP_INTERRUPT) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#            ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                    : get_hold_on_other_key_press(keycode, record)
 #            else
                     : false
 #            endif
@@ -454,10 +454,10 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    endif
         ) {
             // Fixes modifiers not being applied to rolls with AUTO_SHIFT_MODIFIERS set.
-#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
             if (autoshift_flags.in_progress
-#        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                && !get_ignore_mod_tap_interrupt(keycode, record)
+#        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                && get_hold_on_other_key_press(keycode, record)
 #        endif
             ) {
                 autoshift_end(KC_NO, now, false, &autoshift_lastrecord);

@@ -162,9 +162,7 @@ void action_tapping_process(keyrecord_t record) {
 #        define TAP_GET_HOLD_ON_OTHER_KEY_PRESS false
 #    endif
 
-#    ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-#        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT get_ignore_mod_tap_interrupt(tapping_keycode, &tapping_key)
-#    elif defined(IGNORE_MOD_TAP_INTERRUPT)
+#    if defined(IGNORE_MOD_TAP_INTERRUPT)
 #        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT true
 #    else
 #        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT false
@@ -216,7 +214,7 @@ bool process_tapping(keyrecord_t *keyp) {
                             // Rolled over the two keys.
                             (tapping_key.tap.interrupted == true && (
                                 (TAP_IS_LT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS) ||
-                                (TAP_IS_MT && !TAP_GET_IGNORE_MOD_TAP_INTERRUPT)
+                                (TAP_IS_MT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS)
                                 )
                             )
                             // Makes Retro Shift ignore [IGNORE_MOD_TAP_INTERRUPT's
