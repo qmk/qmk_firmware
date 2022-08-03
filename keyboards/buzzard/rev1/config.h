@@ -4,7 +4,7 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED 
+#define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0xB077
 #define DEVICE_VER   0x0001
 #define MANUFACTURER crehmann
@@ -43,7 +43,7 @@
 #define SPLIT_OLED_ENABLE
 #endif
 
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   E6
 #define PS2_DATA_PIN    D7
 

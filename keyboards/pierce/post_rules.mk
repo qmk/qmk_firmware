@@ -1,6 +1,7 @@
 ifeq ($(strip $(TRACKPOINT)), yes)
   PS2_MOUSE_ENABLE = yes
-  PS2_USE_USART = yes
+  PS2_ENABLE = yes
+PS2_DRIVER = usart
   OPT_DEFS += -DUSART
 endif
 

@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_COLUMN 6
 
 /* Only required if you add in a trackpoint hardware to the pcb */
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
@@ -70,7 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define PS2_USART_RX_VECT       USART1_RX_vect
 #endif
 
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   D2
 #define PS2_DATA_PIN    D5
 
