@@ -263,8 +263,6 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                             dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
                             break;
                     }
-                } else {
-                    dprintln("dynamic macro: ignoring invalid keys");
                 }
                 return true;
                 break;
