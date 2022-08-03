@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x6653
-#define PRODUCT_ID 0x001A
-#define DEVICE_VER 0x0001
-
-#define MANUFACTURER rhmokey
-#define PRODUCT MOKEY64
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
