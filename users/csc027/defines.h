@@ -183,7 +183,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |-----------------------------------|  |-----------------------------------|
  * |     |     | App | LCAD|MRDCC|NmLck|  |MVTDL|MVTDC|MVTDN|MVTDR|     |     |
  * |-----------------------------------|  |-----------------------------------|
- * |     |     |     |     |     |     |  |     |     |     |     |     |     |
+ * |     |     |MStop|MPrev|MPlay|MNext|  |MMute|MVolD|MVolD|     |     |     |
  * |-----------------------------------|  |-----------------------------------|
  * |     |     |     |     |     |     |  |     |     |     |     |     |     |
  * `-----------------------------------'  `-----------------------------------'
@@ -191,12 +191,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SLCK,  KC_PSCR,  XXXXXXX
 #define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_lcad,  MC_rdcc,  KC_NLCK
-#define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+#define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  KC_MSTP,  KC_MPRV,  KC_MPLY,  KC_MNXT
 #define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,  _______,  _______
 
 #define ___________________CONVENIENCE_R1__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC
 #define ___________________CONVENIENCE_R2__________________  MC_vtdl,  MC_vtdc,  MC_vtdn,  MC_vtdr,  XXXXXXX,  XXXXXXX
-#define ___________________CONVENIENCE_R3__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
+#define ___________________CONVENIENCE_R3__________________  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  _______
 #define ___________________CONVENIENCE_R4__________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
 
 /* Windows Terminal Layer
