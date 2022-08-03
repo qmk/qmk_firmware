@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5156
-#define PRODUCT_ID      0x4C50
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    QVEX
-#define PRODUCT         Lynepad
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
