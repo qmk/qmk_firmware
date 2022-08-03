@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "pisces",
+    "keyboard_name": "Pisces65",
+    "manufacturer": "Team.Mechlovin",
     "url": "",
     "maintainer": "mechlovin",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x6501",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

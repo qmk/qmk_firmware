@@ -1,10 +1,15 @@
 {
     "keyboard_name": "Kastenwagen 1840",
+    "manufacturer": "NoPunIn10Did",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/kastenwagen1840",
     "maintainer": "NoPunIn10Did",
-    "manufacturer": "NoPunIn10Did",
+    "usb": {
+        "vid": "0x4E50",
+        "pid": "0x4B57",
+        "device_version": "0.0.1"
+    },
     "layouts": {
-        "LAYOUT_1840": {
+        "LAYOUT_all": {
             "layout": [
                 {"x":0   ,  "y":0,    "label":"Esc"},
                 {"x":1   ,  "y":0,    "label":"Q"},

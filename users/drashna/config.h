@@ -4,10 +4,10 @@
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
-#define EECONFIG_MAGIC_NUMBER   (uint16_t)0x1339
+#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1339
 
 #ifdef IS_COMMAND
-#undef IS_COMMAND
+#    undef IS_COMMAND
 #endif
 #define IS_COMMAND() (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT)
 
@@ -29,7 +29,7 @@
 #        define SELECT_SOFT_SERIAL_SPEED 1
 #    endif
 #    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC
-#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC, RPC_ID_USER_WATCHDOG_SYNC
+#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC, RPC_ID_USER_WATCHDOG_SYNC, RPC_ID_USER_KEYLOG_STR
 #    endif
 #endif
 
@@ -37,9 +37,9 @@
 // #    define WPM_LAUNCH_CONTROL
 // #    define WPM_ALLOW_COUNT_REGRESSOIN
 // #    define WPM_UNFILTERED
-#    define WPM_SAMPLE_SECONDS      6
-#    define WPM_SAMPLE_PERIODS      50
-#    define WPM_ESTIMATED_WORD_SIZE 6
+#    define WPM_SAMPLE_SECONDS 10
+#    define WPM_SAMPLE_PERIODS 50
+#    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -51,34 +51,34 @@
 #        define GOODBYE_SONG SONG(SONIC_RING)
 #        define DEFAULT_LAYER_SONGS \
             { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(OVERWATCH_THEME) }
-#        define UNICODE_SONG_MAC  SONG(MARIO_THEME)
-#        define UNICODE_SONG_LNX  SONG(MARIO_POWERUP)
-#        define UNICODE_SONG_WIN  SONG(MARIO_ONEUP)
-#        define UNICODE_SONG_BSD  SONG(RICK_ROLL)
+#        define UNICODE_SONG_MAC SONG(MARIO_THEME)
+#        define UNICODE_SONG_LNX SONG(MARIO_POWERUP)
+#        define UNICODE_SONG_WIN SONG(MARIO_ONEUP)
+#        define UNICODE_SONG_BSD SONG(RICK_ROLL)
 #        define UNICODE_SONG_WINC SONG(RICK_ROLL)
 #    else
 #        define STARTUP_SONG SONG(STARTUP_SOUND)
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
 #        define DEFAULT_LAYER_SONGS \
             { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(WORKMAN_SOUND) }
-#        define UNICODE_SONG_MAC  SONG(QWERTY_SOUND)
-#        define UNICODE_SONG_LNX  SONG(COLEMAK_SOUND)
-#        define UNICODE_SONG_WIN  SONG(DVORAK_SOUND)
-#        define UNICODE_SONG_BSD  SONG(WORKMAN_SOUND)
+#        define UNICODE_SONG_MAC SONG(QWERTY_SOUND)
+#        define UNICODE_SONG_LNX SONG(COLEMAK_SOUND)
+#        define UNICODE_SONG_WIN SONG(DVORAK_SOUND)
+#        define UNICODE_SONG_BSD SONG(WORKMAN_SOUND)
 #        define UNICODE_SONG_WINC SONG(PLOVER_GOODBYE_SOUND)
 #    endif
-#endif  // !AUDIO_ENABLE
+#endif // !AUDIO_ENABLE
 
 #define UNICODE_SELECTED_MODES UC_WINC, UC_MAC
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
-#    define RGBLIGHT_EFFECT_TWINKLE_LIFE        250
+#    define RGBLIGHT_EFFECT_TWINKLE_LIFE 250
 #    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 24
-#endif  // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses (will slow down matrix scan by a lot)
+#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -179,20 +179,26 @@
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#    endif  // AVR
-#endif      // RGB_MATRIX_ENABLE
+#    endif // AVR
+#endif     // RGB_MATRIX_ENABLE
 
 #ifdef OLED_ENABLE
-#    ifdef SPLIT_KEYBOARD
-#        define OLED_UPDATE_INTERVAL 60
-#    else
-#        define OLED_UPDATE_INTERVAL 15
+#    ifndef OLED_UPDATE_INTERVAL
+#        ifdef OLED_DRIVER_SH1107
+#            define OLED_UPDATE_INTERVAL 75
+#        else
+#            ifdef SPLIT_KEYBOARD
+#                define OLED_UPDATE_INTERVAL 60
+#            else
+#                define OLED_UPDATE_INTERVAL 15
+#            endif
+#        endif
 #    endif
 #    define OLED_DISABLE_TIMEOUT
 #    ifdef OLED_FONT_H
 #        undef OLED_FONT_H
 #    endif
-#    define OLED_FONT_H   "oled/drashna_font.h"
+#    define OLED_FONT_H "oled/drashna_font.h"
 #    define OLED_FONT_END 255
 // #    define OLED_FONT_5X5
 // #    define OLED_FONT_AZTECH
@@ -223,21 +229,19 @@
 // #define WPM_SAMPLE_PERIODS 50
 // #define WPM_LAUNCH_CONTROL
 
-
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2
-#endif  // !ONESHOT_TAP_TOGGLE
+#endif // !ONESHOT_TAP_TOGGLE
 
 #ifndef ONESHOT_TIMEOUT
 #    define ONESHOT_TIMEOUT 3000
-#endif  // !ONESHOT_TIMEOUT
+#endif // !ONESHOT_TIMEOUT
 
 #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 #define PERMISSIVE_HOLD_PER_KEY
 #define TAPPING_FORCE_HOLD_PER_KEY
 #define RETRO_TAPPING_PER_KEY
 #define TAPPING_TERM_PER_KEY
-
 
 #ifndef TAPPING_TOGGLE
 #    define TAPPING_TOGGLE 1
@@ -255,12 +259,12 @@
 
 #ifdef CONVERT_TO_PROTON_C
 // pins that are available but not present on Pro Micro
-#    define A3  PAL_LINE(GPIOA, 3)
-#    define A4  PAL_LINE(GPIOA, 4)
-#    define A5  PAL_LINE(GPIOA, 5)
-#    define A6  PAL_LINE(GPIOA, 6)
-#    define A7  PAL_LINE(GPIOA, 7)
-#    define A8  PAL_LINE(GPIOA, 8)
+#    define A3 PAL_LINE(GPIOA, 3)
+#    define A4 PAL_LINE(GPIOA, 4)
+#    define A5 PAL_LINE(GPIOA, 5)
+#    define A6 PAL_LINE(GPIOA, 6)
+#    define A7 PAL_LINE(GPIOA, 7)
+#    define A8 PAL_LINE(GPIOA, 8)
 #    define A13 PAL_LINE(GPIOA, 13)
 #    define A14 PAL_LINE(GPIOA, 14)
 #    define A15 PAL_LINE(GPIOA, 15)
@@ -270,4 +274,43 @@
 #    define C13 PAL_LINE(GPIOC, 13)
 #    define C14 PAL_LINE(GPIOC, 14)
 #    define C15 PAL_LINE(GPIOC, 15)
+#endif
+
+#ifdef OLED_DRIVER_SH1107
+#    define OLED_DISPLAY_CUSTOM
+#    define OLED_IC_SH1107 2
+#    define OLED_DISPLAY_128X128
+#    define OLED_DISPLAY_WIDTH 128
+#    define OLED_DISPLAY_HEIGHT 128
+#    define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    define OLED_BLOCK_TYPE uint32_t
+#    define OLED_SOURCE_MAP \
+        { 0, 8, 16, 24, 32, 40, 48, 56 }
+#    define OLED_TARGET_MAP \
+        { 56, 48, 40, 32, 24, 16, 8, 0 }
+#    define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
+#    define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#    define OLED_COM_PINS COM_PINS_ALT
+#    define OLED_IC OLED_IC_SH1107
+#    ifndef OLED_BRIGHTNESS
+#        define OLED_BRIGHTNESS 50
+#    endif
+#endif
+
+#ifdef USE_I2CV1
+#    define I2C1_CLOCK_SPEED 400000
+#    define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+#endif
+
+#define ENABLE_COMPILE_KEYCODE
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+#ifndef SECURE_UNLOCK_SEQUENCE
+#    define SECURE_UNLOCK_SEQUENCE    \
+        {                             \
+            {2, 1}, {2, 2}, {2, 3}, { \
+                2, 4                  \
+            }                         \
+        }
 #endif

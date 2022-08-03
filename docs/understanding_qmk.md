@@ -8,27 +8,22 @@ This document attempts to explain how the QMK firmware works from a very high le
 
 ## Startup
 
-You can think of QMK as no different from any other computer program. It is started, performs its tasks, and then ends. The entry point for the program is the `main()` function, just like it is on any other C program. However, for a newcomer to QMK it can be confusing because the `main()` function appears in multiple places, and it can be hard to tell which one to look at.
+You can think of QMK as no different from any other computer program. It is started and performs its tasks, but this program never finishes. Like other C programs, the entry point is the `main()` function. For QMK, the `main()` function is found in [`quantum/main.c`](https://github.com/qmk/qmk_firmware/blob/0.15.13/quantum/main.c#L55).
 
-The reason for this is the different platforms that QMK supports. The most common platform is `lufa`, which runs on AVR processors such at the atmega32u4. We also support `chibios` and `vusb`.
+If you browse through the `main()` function you'll find that it starts by initializing any hardware that has been configured (including USB to the host). The most common platform for QMK is `lufa`, which runs on AVR processors such as the atmega32u4. When compiled for that platform, it will invoke for example `platform_setup()` in [`platforms/avr/platform.c`](https://github.com/qmk/qmk_firmware/blob/0.15.13/platforms/avr/platform.c#L19) and `protocol_setup()` in [`tmk_core/protocol/lufa/lufa.c`](https://github.com/qmk/qmk_firmware/blob/0.15.13/tmk_core/protocol/lufa/lufa.c#L1066). It will use other implementations when compiled for other platforms like `chibios` and `vusb`. At first glance, it can look like a lot of functionality but most of the time the code will be disabled by `#define`s.
 
-We'll focus on AVR processors for the moment, which use the `lufa` platform. You can find the `main()` function in [tmk_core/protocol/lufa/lufa.c](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/tmk_core/protocol/lufa/lufa.c#L1028). If you browse through that function you'll find that it initializes any hardware that has been configured (including USB to the host) and then it starts the core part of the program with a [`while(1)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/tmk_core/protocol/lufa/lufa.c#L1069). This is [The Main Loop](#the-main-loop).
+The `main()` function will then start the core part of the program with a [`while (true)`](https://github.com/qmk/qmk_firmware/blob/0.15.13/quantum/main.c#L63). This is [The Main Loop](#the-main-loop).
 
 ## The Main Loop
 
-This section of code is called "The Main Loop" because it's responsible for looping over the same set of instructions forever. This is where QMK dispatches out to the functions responsible for making the keyboard do everything it is supposed to do. At first glance it can look like a lot of functionality but most of the time the code will be disabled by `#define`'s.
+This section of code is called "The Main Loop" because it's responsible for looping over the same set of instructions forever, without ever reaching the end. This is where QMK dispatches out to the functions responsible for making the keyboard do everything it is supposed to do.
 
-```
-    keyboard_task();
-```
-
-This is where all the keyboard specific functionality is dispatched. The source code for `keyboard_task()` can be found in [tmk_core/common/keyboard.c](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/tmk_core/common/keyboard.c#L216), and it is responsible for detecting changes in the matrix and turning status LEDs on and off.
+The main loop will call [`protocol_task()`](https://github.com/qmk/qmk_firmware/blob/0.15.13/quantum/main.c#L38), which in turn will call `keyboard_task()` in [`quantum/keyboard.c`](https://github.com/qmk/qmk_firmware/blob/0.15.13/quantum/keyboard.c#L377). This is where all the keyboard specific functionality is dispatched, and it is responsible for detecting changes in the matrix and turning status LEDs on and off.
 
 Within `keyboard_task()` you'll find code to handle:
 
 * [Matrix Scanning](#matrix-scanning)
 * Mouse Handling
-* Serial Link(s)
 * Keyboard status LEDs (Caps Lock, Num Lock, Scroll Lock)
 
 #### Matrix Scanning

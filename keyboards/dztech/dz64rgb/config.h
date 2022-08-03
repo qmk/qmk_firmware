@@ -16,12 +16,6 @@
  
 #pragma once
 
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1013
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ64RGB
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 #define MATRIX_ROW_PINS { F5, F4, F1, B3, B2 }
@@ -32,12 +26,11 @@
 #define DEBOUNCE 5
 
 #define USB_SUSPEND_WAKEUP_DELAY 5000
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_KEYPRESSES
+#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #define ENABLE_RGB_MATRIX_BREATHING

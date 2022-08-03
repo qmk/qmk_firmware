@@ -22,12 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x444E // "DN"
-#define PRODUCT_ID      0x4450 // "DP"
-#define DEVICE_VER      0x0001 // 1.0
-#define MANUFACTURER dekuNukem
-#define PRODUCT duckyPad
-
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 17
 

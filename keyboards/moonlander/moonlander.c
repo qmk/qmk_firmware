@@ -124,7 +124,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     bool LED_3 = false;
     bool LED_4 = false;
     bool LED_5 = false;
+#if !defined(CAPS_LOCK_STATUS)
     bool LED_6 = false;
+#endif
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {

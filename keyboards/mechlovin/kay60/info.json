@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "kay60",
+    "keyboard_name": "Kay60",
+    "manufacturer": "Mechlovin Studio",
     "url": "",
     "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x0601",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -74,7 +80,7 @@
                 {"x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
