@@ -215,17 +215,7 @@ def generate_c(keymap_json):
             layer = map(_strip_any, layer)
             layer_keys = ', '.join(layer)
         else:
-            # HRM here is our problem.
-            # Thinking max would be best, but can that be cleanly memoized in python...?
-            # Calling max() for every empty layer sucks a bit
-            # Holding a variable that may never be used sucks a bit
-            # Checking every time if it's calculated yet also sucks a bit
-            # Max() for every empty layer is the clean way, I guess
-            layer_keys = ', '.join(['KC_NO'] * len(keymap_json['layers'][0])) # This is probably a dumb assumption
-            # Calculating on layer[-1] was cool but it fails on the 2nd consecutive because layers isn't being updated
-            # rewriting layers is even more dumb
-            # what to dooooo
-            # How to efficiently calculate the max length, anyway? A reduce function?
+            layer_keys = ', '.join(['KC_NO'] * len(keymap_json['layers'][0]))
         layer_txt.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
 
     keymap = '\n'.join(layer_txt)
