@@ -21,12 +21,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5043
-#define PRODUCT_ID 0x1EAB
-#define DEVICE_VER 0x0001
-#define PRODUCT Trackball Mini
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 5
