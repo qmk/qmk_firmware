@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Mach 3",
+    "manufacturer": "MachKeyboard",
     "url": "https://machkeyboards.com",
     "maintainer": "etiennelepagel",
+    "usb": {
+        "vid": "0x4D41",
+        "pid": "0x4D33",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_3x3": {
             "layout": [
