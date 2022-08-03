@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x170E
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MechWild
-#define PRODUCT         BB Steno
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 6
