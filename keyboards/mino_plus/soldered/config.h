@@ -10,7 +10,7 @@
 #define PRODUCT_ID   0x0003
 #define DEVICE_VER   0x0001
 #define MANUFACTURER ShandonCodes
-#define PRODUCT      Mino_Plus
+#define PRODUCT      Mino Plus
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -27,4 +27,9 @@
 #define I2C1_SDA_PIN B7
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U
 
