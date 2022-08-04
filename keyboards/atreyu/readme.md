@@ -2,7 +2,7 @@
 
 ![atreyu](https://i.imgur.com/NP0cux1h.jpg)
 
-*An unsplit, modified version of a Lily58 having a baby with a Sofle keyboard*
+An unsplit, modified version of a Lily58 having a baby with a Sofle keyboard
 
 * Keyboard Maintainer: [Jesus Climent](https://github.com/Jesus Climent)
 * Hardware Supported: AtreyuKeyboard PCB, ProMicro
