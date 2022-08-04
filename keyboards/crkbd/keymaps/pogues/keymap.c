@@ -56,8 +56,7 @@ enum userspace_layers {
 
 #define CTL_BSP CTL_T(KC_BSPC)
 #define SFT_SPC SFT_T(KC_SPC)
-#define SFT_BSP SFT_T(KC_BSPC)
-#define LSYM_SPC LT(LSYM, KC_SPC)
+#define GUI_FUN GUI_T(KC_
 
 enum custom_keycodes {
     MY_LLCK = SAFE_RANGE,   // layer lock key
@@ -89,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KC_LGUI, TD(TD_LNUM), SFT_SPC,    CTL_BSP, TD(TD_LSYM), KC_LALT
+                                           KC_LGUI, TD(TD_LNUM), SFT_SPC,    CTL_BSP, TD(TD_LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
@@ -127,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, XXXXXXX,TO(LMSE), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_DEL ,TO(LMSE), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             ALT_TAB, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -181,6 +180,7 @@ enum combo_keys {
     COMBO_L_RM_B_TAB,   // try out a duplicate...
     COMBO_R_RM_T_DEL,
     COMBO_R_MI_B_ENT,
+    COMBO_R_MI_T_CTLBSP,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -195,6 +195,8 @@ const uint16_t PROGMEM lh_rm_b_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM rh_rm_t_combo[] = {KC_U, KC_Y, COMBO_END};
 // right hand, middle+index finger, bottom row
 const uint16_t PROGMEM rh_mi_b_combo[] = {KC_H, KC_COMM, COMBO_END};
+// right hand, middle+ring finger, top row
+const uint16_t PROGMEM rh_mr_t_combo[] = {KC_L, KC_Y, COMBO_END};
 
 combo_t key_combos[] = {
     [COMBO_L_RM_T_ESC] = COMBO(lh_rm_t_combo, KC_ESC),
@@ -202,6 +204,7 @@ combo_t key_combos[] = {
     [COMBO_L_RM_B_TAB] = COMBO(lh_rm_b_combo, KC_TAB),
     [COMBO_R_RM_T_DEL] = COMBO(rh_rm_t_combo, KC_DEL),
     [COMBO_R_MI_B_ENT] = COMBO(rh_mi_b_combo, KC_ENT),
+    [COMBO_R_MI_T_CTLBSP] = COMBO(rh_mr_t_combo, LCTL(KC_BSPC)),
 };
  /******************************************************************************/
 
@@ -423,71 +426,54 @@ uint8_t current_dance_step(qk_tap_dance_state_t *state) {
     }
 }
 
-void tapdance_lnum_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state_lnum.step = current_dance_step(state);
-    switch (dance_state_lnum.step) {
+void layer_dance_finished(uint8_t layer, td_tap_t *tap_state, qk_tap_dance_state_t *state, void *user_data) {
+    tap_state->step = current_dance_step(state);
+    switch (tap_state->step) {
         case SINGLE_TAP:
             // if we are in the layer, exit, otherwise toggle the one shot mod
-            if (layer_state_is(LNUM)) {
-                layer_off(LNUM);
+            if (layer_state_is(layer)) {
+                layer_off(layer);
             } else {
-                set_oneshot_layer(LNUM, ONESHOT_START);
+                set_oneshot_layer(layer, ONESHOT_START);
                 clear_oneshot_layer_state(ONESHOT_PRESSED);
             }
             break;
         case DOUBLE_TAP:
         case HELD:
-            layer_on(LNUM);
+            layer_on(layer);
             break;
     }
 }
 
-void tapdance_lnum_reset(qk_tap_dance_state_t *state, void *user_data) {
+void layer_dance_reset(uint8_t layer,  td_tap_t *tap_state, qk_tap_dance_state_t *state, void *user_data) {
     wait_ms(10);
-    switch (dance_state_lnum.step) {
+    switch (tap_state->step) {
         case SINGLE_TAP:
         case DOUBLE_TAP:
             break;
         case HELD:
             // with the layer lock feature we want to check if the layer has been locked.
-            if (!is_layer_locked(LNUM)) {
-                layer_off(LNUM);
+            if (!is_layer_locked(layer)) {
+                layer_off(layer);
             }
             break;
     }
-    dance_state_lnum.step = 0;
+    tap_state->step = 0;
+}
+void tapdance_lnum_finished(qk_tap_dance_state_t *state, void *user_data) {
+    layer_dance_finished(LNUM, &dance_state_lnum, state, user_data);
+}
+
+void tapdance_lnum_reset(qk_tap_dance_state_t *state, void *user_data) {
+    layer_dance_reset(LNUM, &dance_state_lnum, state, user_data);
 }
 
 void tapdance_lsym_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state_lsym.step = current_dance_step(state);
-    switch (dance_state_lsym.step) {
-        case SINGLE_TAP:
-            // if we are in the layer, exit, otherwise toggle the one shot mod
-            if (layer_state_is(LSYM)) {
-                layer_off(LSYM);
-            } else {
-                set_oneshot_layer(LSYM, ONESHOT_START);
-                clear_oneshot_layer_state(ONESHOT_PRESSED);
-            }
-            break;
-        case DOUBLE_TAP:
-        case HELD:
-            layer_on(LSYM);
-            break;
-    }
+    layer_dance_finished(LSYM, &dance_state_lsym, state, user_data);
 }
 
 void tapdance_lsym_reset(qk_tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (dance_state_lsym.step) {
-        case SINGLE_TAP:
-        case DOUBLE_TAP:
-            break;
-        case HELD:
-            layer_off(LSYM);
-            break;
-    }
-    dance_state_lsym.step = 0;
+    layer_dance_reset(LSYM, &dance_state_lsym, state, user_data);
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
