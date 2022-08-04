@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "TKC Portico",
+    "keyboard_name": "Portico",
+    "manufacturer": "TKC",
     "url": "",
     "maintainer": "TerryMathews",
+    "usb": {
+        "vid": "0x544B",
+        "pid": "0x0008",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_65_ansi_blocker"
     },
