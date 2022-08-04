@@ -250,7 +250,7 @@ uint16_t EEPROM_Init(void) {
                 }
                 wvalue = ~*log_addr;
                 if (!wvalue) {
-                    eeprom_printf("Incomplete write at log_addr: 0x%04x;\n", (uint32_t)log_addr);
+                    eeprom_printf("Incomplete write at log_addr: 0x%04lx;\n", (uint32_t)log_addr);
                     /* Possibly incomplete write.  Ignore and continue */
                     continue;
                 }
@@ -261,7 +261,7 @@ uint16_t EEPROM_Init(void) {
             } else {
                 /* Reserved for future use */
                 if (address & FEE_VALUE_RESERVED) {
-                    eeprom_printf("Reserved encoded value at log_addr: 0x%04x;\n", (uint32_t)log_addr);
+                    eeprom_printf("Reserved encoded value at log_addr: 0x%04lx;\n", (uint32_t)log_addr);
                     continue;
                 }
                 /* Optimization for 0 or 1 values. */
@@ -273,7 +273,7 @@ uint16_t EEPROM_Init(void) {
                 eeprom_printf("DataBuf[0x%04x] = 0x%04x;\n", address, wvalue);
                 *(uint16_t *)(&DataBuf[address]) = wvalue;
             } else {
-                eeprom_printf("DataBuf[0x%04x] cannot be set to 0x%04x [BAD ADDRESS]\n", address, wvalue);
+                eeprom_printf("DataBuf[0x%04x] cannot be set to 0x%04lx [BAD ADDRESS]\n", address, wvalue);
             }
         }
     }
@@ -293,14 +293,14 @@ static void eeprom_clear(void) {
     FLASH_Unlock();
 
     for (uint16_t page_num = 0; page_num < FEE_PAGE_COUNT; ++page_num) {
-        eeprom_printf("FLASH_ErasePage(0x%04x)\n", (uint32_t)(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE)));
+        eeprom_printf("FLASH_ErasePage(0x%04lx)\n", (uint32_t)(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE)));
         FLASH_ErasePage(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE));
     }
 
     FLASH_Lock();
 
     empty_slot = (uint16_t *)FEE_WRITE_LOG_BASE_ADDRESS;
-    eeprom_printf("eeprom_clear empty_slot: 0x%08x\n", (uint32_t)empty_slot);
+    eeprom_printf("eeprom_clear empty_slot: 0x%08lx\n", (uint32_t)empty_slot);
 }
 
 /* Erase emulated eeprom */
@@ -328,7 +328,7 @@ static uint8_t eeprom_compact(void) {
     for (; dest < FEE_COMPACTED_LAST_ADDRESS; ++src, dest += 2) {
         value = *src;
         if (value) {
-            eeprom_printf("FLASH_ProgramHalfWord(0x%04x, 0x%04x)\n", (uint32_t)dest, ~value);
+            eeprom_printf("FLASH_ProgramHalfWord(0x%04lx, 0x%04x)\n", (uint32_t)dest, ~value);
             FLASH_Status status = FLASH_ProgramHalfWord(dest, ~value);
             if (status != FLASH_COMPLETE) final_status = status;
         }
@@ -355,7 +355,7 @@ static uint8_t eeprom_write_direct_entry(uint16_t Address) {
 
         FLASH_Unlock();
 
-        eeprom_printf("FLASH_ProgramHalfWord(0x%08x, 0x%04x) [DIRECT]\n", (uint32_t)directAddress, value);
+        eeprom_printf("FLASH_ProgramHalfWord(0x%08lx, 0x%04x) [DIRECT]\n", (uint32_t)directAddress, value);
         FLASH_Status status = FLASH_ProgramHalfWord(directAddress, value);
 
         FLASH_Lock();
@@ -397,12 +397,12 @@ static uint8_t eeprom_write_log_word_entry(uint16_t Address) {
     FLASH_Unlock();
 
     /* address */
-    eeprom_printf("FLASH_ProgramHalfWord(0x%08x, 0x%04x)\n", (uint32_t)empty_slot, Address);
+    eeprom_printf("FLASH_ProgramHalfWord(0x%08lx, 0x%04x)\n", (uint32_t)empty_slot, Address);
     final_status = FLASH_ProgramHalfWord((uintptr_t)empty_slot++, Address);
 
     /* value */
     if (encoding == (FEE_WORD_ENCODING | FEE_VALUE_NEXT)) {
-        eeprom_printf("FLASH_ProgramHalfWord(0x%08x, 0x%04x)\n", (uint32_t)empty_slot, ~value);
+        eeprom_printf("FLASH_ProgramHalfWord(0x%08lx, 0x%04x)\n", (uint32_t)empty_slot, ~value);
         FLASH_Status status = FLASH_ProgramHalfWord((uintptr_t)empty_slot++, ~value);
         if (status != FLASH_COMPLETE) final_status = status;
     }
@@ -428,7 +428,7 @@ static uint8_t eeprom_write_log_byte_entry(uint16_t Address) {
     uint16_t value = (Address << 8) | DataBuf[Address];
 
     /* write to flash */
-    eeprom_printf("FLASH_ProgramHalfWord(0x%08x, 0x%04x)\n", (uint32_t)empty_slot, value);
+    eeprom_printf("FLASH_ProgramHalfWord(0x%08lx, 0x%04x)\n", (uint32_t)empty_slot, value);
     FLASH_Status status = FLASH_ProgramHalfWord((uintptr_t)empty_slot++, value);
 
     FLASH_Lock();
