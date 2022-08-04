@@ -46,50 +46,48 @@ OSAL_IRQ_HANDLER(RP_PIO0_IRQ_0_HANDLER) {
 }
 #endif
 
-#define PS2_WRAP_TARGET 2
-#define PS2_WRAP 30
+#define PS2_WRAP_TARGET 0
+#define PS2_WRAP 28
 
 // clang-format off
 static const uint16_t ps2_program_instructions[] = {
-    0xe080, //  0: set    pindirs, 0
-    0xe000, //  1: set    pins, 0
             //     .wrap_target
-    0xe020, //  2: set    x, 0
-    0x8080, //  3: pull   noblock
-    0xa027, //  4: mov    x, osr
-    0x0048, //  5: jmp    x--, 8
-    0x00c2, //  6: jmp    pin, 2
-    0x0017, //  7: jmp    23
-    0xe082, //  8: set    pindirs, 2
-    0xef00, //  9: set    pins, 0                [15]
-    0xaf42, // 10: nop                           [15]
-    0xe283, // 11: set    pindirs, 3             [2]
-    0xe081, // 12: set    pindirs, 1
-    0xe002, // 13: set    pins, 2
-    0xe029, // 14: set    x, 9
-    0x2021, // 15: wait   0 pin, 1
-    0x6601, // 16: out    pins, 1                [6]
-    0x004f, // 17: jmp    x--, 15
-    0xe080, // 18: set    pindirs, 0
-    0xe001, // 19: set    pins, 1
-    0x2021, // 20: wait   0 pin, 1
-    0x20a1, // 21: wait   1 pin, 1
-    0x0002, // 22: jmp    2
-    0xe080, // 23: set    pindirs, 0
-    0x4001, // 24: in     pins, 1
-    0x20a1, // 25: wait   1 pin, 1
-    0xe029, // 26: set    x, 9
-    0x2021, // 27: wait   0 pin, 1
-    0x4001, // 28: in     pins, 1
-    0x20a1, // 29: wait   1 pin, 1
-    0x005b, // 30: jmp    x--, 27
+    0xe020, //  0: set    x, 0
+    0x8080, //  1: pull   noblock
+    0xa027, //  2: mov    x, osr
+    0x0046, //  3: jmp    x--, 6
+    0x00c0, //  4: jmp    pin, 0
+    0x0015, //  5: jmp    21
+    0xe082, //  6: set    pindirs, 2
+    0xef00, //  7: set    pins, 0                [15]
+    0xaf42, //  8: nop                           [15]
+    0xe283, //  9: set    pindirs, 3             [2]
+    0xe081, // 10: set    pindirs, 1
+    0xe002, // 11: set    pins, 2
+    0xe029, // 12: set    x, 9
+    0x2021, // 13: wait   0 pin, 1
+    0x6601, // 14: out    pins, 1                [6]
+    0x004d, // 15: jmp    x--, 13
+    0xe080, // 16: set    pindirs, 0
+    0xe001, // 17: set    pins, 1
+    0x2021, // 18: wait   0 pin, 1
+    0x20a1, // 19: wait   1 pin, 1
+    0x0000, // 20: jmp    0
+    0xe080, // 21: set    pindirs, 0
+    0x4001, // 22: in     pins, 1
+    0x20a1, // 23: wait   1 pin, 1
+    0xe029, // 24: set    x, 9
+    0x2021, // 25: wait   0 pin, 1
+    0x4001, // 26: in     pins, 1
+    0x20a1, // 27: wait   1 pin, 1
+    0x0059, // 28: jmp    x--, 25
             //     .wrap
 };
 // clang-format on
 
 static const struct pio_program ps2_program = {
     .instructions = ps2_program_instructions,
-    .length       = 31,
+    .length       = 29,
     .origin       = -1,
 };
 
