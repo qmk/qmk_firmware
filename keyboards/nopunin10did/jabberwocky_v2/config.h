@@ -24,7 +24,7 @@
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS     { B8, C2, C3, C4, C5, B4, D2, B3, C12, C11, C10, C9 }
-#define MATRIX_COL_PINS     { B9, A1, A2, A3, A4, A5, A7, C7, C6, B0 }
+#define MATRIX_COL_PINS     { B9, A1, A2, A3, A4, A5, B0, C7, C6, B1 }
 #define UNUSED_PINS
 
 /* Indicator LEDs */
@@ -32,7 +32,15 @@
 #define LED_CAPS_LOCK_PIN   B10
 
 /* In-switch LEDs */
-#define BACKLIGHT_PIN  		B14 
+#define BACKLIGHT_PIN  	        A6
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
+#define BACKLIGHT_LEVELS        6
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD        6
+
+#define STM32_HSECLK        8000000
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION     COL2ROW
@@ -47,4 +55,4 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* Reducing layer count to 3 for via support */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+#define DYNAMIC_KEYMAP_LAYER_COUNT  3

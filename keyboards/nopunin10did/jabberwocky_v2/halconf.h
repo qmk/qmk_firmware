@@ -1,4 +1,4 @@
-/* Copyright 2022 W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,4 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "jabberwocky_v2.h"
+#pragma once
+
+#define HAL_USE_PWM TRUE
+#define HAL_USE_PAL TRUE
+
+#define HAL_USE_I2C TRUE
+
+#include_next <halconf.h>
