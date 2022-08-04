@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xDEEC
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    heyzeus
-#define PRODUCT         atreyu
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
