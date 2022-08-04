@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x1144
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    Keebio
-#define PRODUCT         Chocopad
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4

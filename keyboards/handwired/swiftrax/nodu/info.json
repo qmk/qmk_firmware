@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Nodu", 
+    "manufacturer": "Swiftrax",
     "url": "github.com/swiftrax", 
     "maintainer": "Swiftrax", 
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEA6E",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_ansi_split_bs_rshift"
     },

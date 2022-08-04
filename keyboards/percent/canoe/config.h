@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x5053 /* PS */
-#define PRODUCT_ID      0x434E
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Percent Studios
-#define PRODUCT         CANOE
-
 #define RGBLED_NUM 2
 
 #define MATRIX_ROWS 5

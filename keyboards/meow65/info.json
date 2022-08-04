@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "meow65",
+    "keyboard_name": "Meow65",
+    "manufacturer": "mrninhvn",
     "url": "https://github.com/mrninhvn/meow65-pcb",
     "maintainer": "mrninhvn",
+    "usb": {
+        "vid": "0x6E64",
+        "pid": "0x4D36",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },
