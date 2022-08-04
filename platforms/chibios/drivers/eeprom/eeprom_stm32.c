@@ -273,7 +273,7 @@ uint16_t EEPROM_Init(void) {
                 eeprom_printf("DataBuf[0x%04x] = 0x%04x;\n", address, wvalue);
                 *(uint16_t *)(&DataBuf[address]) = wvalue;
             } else {
-                eeprom_printf("DataBuf[0x%04x] cannot be set to 0x%04lx [BAD ADDRESS]\n", address, wvalue);
+                eeprom_printf("DataBuf[0x%04x] cannot be set to 0x%04x [BAD ADDRESS]\n", address, wvalue);
             }
         }
     }
