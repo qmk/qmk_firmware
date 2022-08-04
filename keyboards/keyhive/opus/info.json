@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "opus",
+    "keyboard_name": "Opus",
+    "manufacturer": "rtwayland",
     "maintainer": "rtwayland",
+    "usb": {
+        "vid": "0x434B",
+        "pid": "0x4F50",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

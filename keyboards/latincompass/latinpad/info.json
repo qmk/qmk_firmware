@@ -1,7 +1,13 @@
 {
     "keyboard_name": "latinpad",
+    "manufacturer": "latincompass",
     "url": "https://github.com/latincompass/2-RotaryEncoder-pad",
     "maintainer": "latincompass",
+    "usb": {
+        "vid": "0x6C63",
+        "pid": "0x6C70",
+        "device_version": "0.0.1"
+    },
     "layouts": {
 
         "LAYOUT": {

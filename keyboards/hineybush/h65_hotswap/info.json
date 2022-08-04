@@ -1,7 +1,13 @@
 {
     "keyboard_name": "h65 hotswap",
+    "manufacturer": "Hiney LLC",
     "url": "",
     "maintainer": "hineybush",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xE8B7",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

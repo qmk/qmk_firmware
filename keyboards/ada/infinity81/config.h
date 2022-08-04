@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xADA0
-#define PRODUCT_ID   0x0081
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Ada
-#define PRODUCT      infinity81
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

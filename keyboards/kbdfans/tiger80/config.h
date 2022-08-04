@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID    0x4B42
-#define PRODUCT_ID   0x0011
-#define DEVICE_VER   0x0001 
-#define MANUFACTURER KBDFANS
-#define PRODUCT      TIGER80
-
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
 #define MATRIX_ROW_PINS { B0, E6, B1, B4, D1, D2 }

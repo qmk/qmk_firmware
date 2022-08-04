@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "The Dora Board.",
+  "keyboard_name": "thedora",
+  "manufacturer": "ckeys",
   "url": "https://ckeys.org/slides/exboard",
   "maintainer": "brandenbyers",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

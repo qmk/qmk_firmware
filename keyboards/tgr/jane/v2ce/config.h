@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x5447 // TG
-#define PRODUCT_ID      0x4A43 // JC
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    TGR
-#define PRODUCT         Jane
-
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
