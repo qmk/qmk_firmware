@@ -72,27 +72,18 @@ inline void serial_transport_driver_clear(void) {
 
 #elif HAL_USE_SIO
 
-void clear_rx_evt_cb(SIODriver* siop) {
-    osalSysLockFromISR();
-    /* If errors occured during transactions this callback is invoked. We just
-     * clear the error sources and move on. We rely on the fact that we check
-     * for the success of the transaction by comparing the received/send bytes
-     * with the actual received/send bytes in the send/receive functions. */
-    sioGetAndClearEventsI(serial_driver);
-    osalSysUnlockFromISR();
-}
-
-static const SIOOperation serial_usart_operation = {.rx_cb = NULL, .rx_idle_cb = NULL, .tx_cb = NULL, .tx_end_cb = NULL, .rx_evt_cb = &clear_rx_evt_cb};
-
 /**
  * @brief SIO Driver startup routine.
  */
 static inline void usart_driver_start(void) {
     sioStart(serial_driver, &serial_config);
-    sioStartOperation(serial_driver, &serial_usart_operation);
+    sioStartOperation(serial_driver, NULL);
 }
 
 inline void serial_transport_driver_clear(void) {
+    if (sioHasRXErrorsX(serial_driver)) {
+        sioGetAndClearErrors(serial_driver);
+    }
     osalSysLock();
     while (!sioIsRXEmptyX(serial_driver)) {
         (void)sioGetX(serial_driver);
