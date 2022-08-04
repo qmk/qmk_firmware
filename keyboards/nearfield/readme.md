@@ -2,7 +2,15 @@
 
 ![Nearfield](https://i.imgur.com/hNj44FY.jpg)
 
-Le Chiffre (ironically, "the number" in French is a 30% keyboard designed by tominabox1.  The purpose of the board is to provide a platform for MX and Choc ergo in one package for when ones wrists need a break. The board supports an RGB LED strip with DI on port F0. The board is also fitted with support for run-of-the-mill .91" OLED and EC11 rotary encoder.  
+The LZ ErGO is a classic ergonomic design, predating the alice layout, and drawing inspiration from the "Microsoft natural ergonomic" series.
+Nearfield expands on this by increasing the rotation of the two halves of the alpha cluster, each half is rotated 15 degrees towards the center of the board.
+This increased angle forces the user to widen their elbow stance, and align their hands straighter with their forearms while typing.
+
+Aesthetic design: Aside from the obvious layout homage to the ergo, retaining the nav cluster,
+the case design draws inspiration from the M0110 keyboard series from Apple.
+
+bog standard mx and alps support pcb, uses unified c3 daughterboard. 100mm JST cable recommended.
+
  
 * Keyboard Maintainer: [TJ Campie](https://github.com/tominabox1)
 * Hardware Supported: Nearfield
