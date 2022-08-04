@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2020 Stephen J. Bush
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,8 @@
  */
 
 #pragma once
+#ifdef RGBLIGHT_ENABLE
 
-#define CH_CFG_ST_TIMEDELTA 0
-
-#define CH_CFG_USE_CONDVARS_TIMEOUT FALSE
-
-#include_next <chconf.h>
+void set_rgb_by_layer(layer_state_t);
+void set_rgb_home(void);
+#endif

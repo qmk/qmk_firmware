@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x0045
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         Rart45
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 6

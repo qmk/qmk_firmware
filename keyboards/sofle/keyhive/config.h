@@ -19,13 +19,6 @@
 #pragma once
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID    0xFC32
-#define PRODUCT_ID   0x1287
-#define DEVICE_VER   0x0002
-#define MANUFACTURER Keyhive
-#define PRODUCT      Sofle
-
 // Key matrix size
 // Rows are doubled-up. Added extra column for rotary encoder VIA mapping.
 #define MATRIX_ROWS  10
