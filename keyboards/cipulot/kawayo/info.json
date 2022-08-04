@@ -8,6 +8,9 @@
         "pid": "0x6B7F",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
