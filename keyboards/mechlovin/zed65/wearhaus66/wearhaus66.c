@@ -15,12 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "wearhaus66.h"
 
-#include "quantum.h"
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
 
-#ifdef KEYBOARD_mechlovin_zed65_retro66
-    #include "retro66.h"
-#elif KEYBOARD_mechlovin_zed65_wearhaus66
-    #include "wearhaus66.h"
-#endif
+  // Set our LED pins as output
+  setPinOutput(B7);
+}
