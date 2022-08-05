@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Bastyl",
+    "manufacturer": "HID Technologies",
     "url": "https://www.hidtech.ca/?product=bastyl-black",
     "maintainer": "HID-Technologies",
+    "usb": {
+        "vid": "0xA8F7",
+        "pid": "0x1827",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

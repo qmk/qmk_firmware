@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define MANUFACTURER    You
-#define PRODUCT         Kinesis Advantage/Contoured
+#define PRODUCT         Kinesis Classic/Advantage/Contoured
 
 // Mouse
 #define MOUSEKEY_DELAY          60

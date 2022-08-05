@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN1] =LAYOUT (
-    RESET,     EEP_RST,   KC_NO,     KC_NO,
+    QK_BOOT,     EEP_RST,   KC_NO,     KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NLCK,   KC_QUOT,   KC_PEQL,    KC_NO,
     KC_CAPS,   KC_NLCK,   KC_SLCK,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),
                                      KC_LEFT,   KC_BTN3,   KC_RGHT,    S(KC_SPC),

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Shapeshifter 4060",
+    "manufacturer": "Vosechu",
     "url": "kitsunekeyboards.com",
     "maintainer": "vosechu",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0xA1F1",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

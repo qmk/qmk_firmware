@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "System76 Launch Configurable Keyboard (launch_1)",
+    "keyboard_name": "Launch Configurable Keyboard (launch_1)",
+    "manufacturer": "System76",
     "url": "https://system76.com/accessories/launch",
+    "usb": {
+        "vid": "0x3384",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
