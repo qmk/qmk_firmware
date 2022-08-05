@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7170
-#define PRODUCT_ID 0x5359
-#define DEVICE_VER 0x0001
-#define MANUFACTURER drmmr
-#define PRODUCT synapse
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

@@ -10,6 +10,8 @@ For this, we will mostly be talking about the generic implementation used by the
 
 !> ARM split supports most QMK subsystems when using the 'serial' and 'serial_usart' drivers. I2C slave is currently unsupported.
 
+!> Both sides must use the same MCU family, for eg two Pro Micro-compatible controllers or two Blackpills. Currently, mixing AVR and ARM is not possible as ARM vs AVR uses different method for serial communication, and are not compatible. Moreover Blackpill's uses 3.3v logic, and atmega32u4 uses 5v logic.
+
 ## Compatibility Overview
 
 | Transport                    | AVR                | ARM                |

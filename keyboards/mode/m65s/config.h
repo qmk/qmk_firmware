@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x00DE
-#define PRODUCT_ID      0x6583 // For 65S
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mode
-#define PRODUCT         SixtyFive S
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -48,8 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-#define STM32_HSECLK 8000000
 
 #define OPENDRAIN_INDICATORS
 #define LED_CAPS_LOCK_PIN C8

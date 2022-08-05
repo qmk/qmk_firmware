@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define MANUFACTURER DrHigsby
-#define PRODUCT Dubba175
-#define VENDOR_ID 0x0420
-#define PRODUCT_ID 0x0420
-#define DEVICE_VER 0x0420
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10

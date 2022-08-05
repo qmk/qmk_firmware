@@ -19,16 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x17EF  // Lenovo
-//#define PRODUCT_ID    0x6009 // ThinkPad Keyboard with TrackPoint
-//#define PRODUCT_ID    0x6047 // ThinkPad Compact USB Keyboard with TrackPoint
-#define PRODUCT_ID   0x6048  // ThinkPad Compact Bluetooth Keyboard with TrackPoint
-//#define PRODUCT_ID    0x6067 // ThinkPad Pro Docking Station
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Priyadi
-#define PRODUCT      Promethium Keyboard
-
 /* key matrix size */
 #define MATRIX_COLS  6
 #define MATRIX_ROWS  9
