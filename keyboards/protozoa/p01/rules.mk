@@ -26,3 +26,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 WS2812_DRIVER = pwm         # Driver for RGB uderglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Encoder support
+ENCODER_MAP_ENABLE = yes    # Encoder Mapping

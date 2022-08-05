@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x5031
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         P.01
-
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
@@ -37,8 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS 1
 #define ENCODERS_PAD_A { B15 }
 #define ENCODERS_PAD_B { B14 }
-#define ENCODERS_CW_KEY  { { 17, 3 } }
-#define ENCODERS_CCW_KEY { { 17, 4 } }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
