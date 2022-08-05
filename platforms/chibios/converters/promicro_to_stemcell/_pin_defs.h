@@ -4,7 +4,7 @@
 #pragma once
 
 // Left side (front)
-#ifdef CONVERT_TO_STEMCELL_UART_SWAP
+#ifdef STEMCELL_UART_SWAP
 #    define D3 PAL_LINE(GPIOA, 3)
 #    define D2 PAL_LINE(GPIOA, 2)
 #else
@@ -13,7 +13,7 @@
 #endif
 //      GND
 //      GND
-#ifdef CONVERT_TO_STEMCELL_I2C_SWAP
+#ifdef STEMCELL_I2C_SWAP
 #    define D1 PAL_LINE(GPIOB, 6)
 #    define D0 PAL_LINE(GPIOB, 7)
 #else
