@@ -1,1 +1,1 @@
-# The default keymap for Zed65
+# The default keymap for Retro66

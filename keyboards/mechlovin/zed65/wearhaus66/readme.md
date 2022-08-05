@@ -1,6 +1,6 @@
-# Retro66
+# Wearhaus66
 
-![Retro66](https://i.imgur.com/5DC2R55l.png)
+![Wearhaus66](https://i.imgur.com/U0HNqSfl.jpeg)
 
 A Wearhaus66 keyboard PCB, base on Zed65.
 

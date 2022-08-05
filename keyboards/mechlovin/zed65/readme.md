@@ -3,7 +3,7 @@
 Mechlovin's 65% PCB Platform, which works as the base for our 65%-layout PCB designs. 
 
 * Keyboard Maintainer: [Mechlovin' Studio](https://github.com/mechlovin)
-* Hardware Supported: Zed65 Rev.1, Apm32F103
+* Hardware Supported: Zed65 Rev.1, APM32F103
 * Hardware Availability: [Mechlovin' Store](https://mechlovin.studio/)
 
 Make example for this keyboard (after setting up your build environment):
