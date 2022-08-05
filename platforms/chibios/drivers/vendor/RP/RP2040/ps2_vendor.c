@@ -91,8 +91,8 @@ static const struct pio_program ps2_program = {
     .origin       = -1,
 };
 
-static int state_machine = -1;
-thread_reference_t tx_thread = NULL;
+static int         state_machine = -1;
+thread_reference_t tx_thread     = NULL;
 
 #define BUFFER_SIZE 32
 static input_buffers_queue_t pio_rx_queue;
