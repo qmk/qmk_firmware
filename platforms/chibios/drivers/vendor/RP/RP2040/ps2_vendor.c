@@ -107,6 +107,7 @@ void pio_serve_interrupt(void) {
         osalSysLockFromISR();
         uint32_t* frame_buffer = (uint32_t*)ibqGetEmptyBufferI(&pio_rx_queue);
         if (frame_buffer == NULL) {
+            osalSysUnlockFromISR();
             return;
         }
         *frame_buffer = pio_sm_get(pio, state_machine);
