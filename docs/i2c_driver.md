@@ -5,7 +5,7 @@ The I2C Master drivers used in QMK have a set of common functions to allow porta
 ## I2C Addressing :id=note-on-i2c-addresses
 
 All of the addresses expected by this driver should be pushed to the upper 7 bits of the address byte. Setting
-the lower bit (indicating read/write) will be done by the respective functions. Almost all I2C addresses listed 
+the lower bit (indicating read/write) will be done by the respective functions. Almost all I2C addresses listed
 on datasheets and the internet will be represented as 7 bits occupying the lower 7 bits and will need to be
 shifted to the left (more significant) by one bit. This is easy to do via the bitwise shift operator `<< 1`.
 
@@ -105,11 +105,14 @@ See [this page](https://www.playembedded.org/blog/stm32-i2c-chibios/#8_I2Cv2_I2C
 |`I2C1_TIMINGR_SCLH`  |`38U`  |
 |`I2C1_TIMINGR_SCLL`  |`129U` |
 
-## Functions :id=functions
+
+## Functions - high-level API :id=i2c-functions-high-level
+
+Users should prefer to stick with the high level API, since it is MCU-platform independant and build upon the low-level - and more platform specic - i2c api functions described below.
 
 ### `void i2c_init(void)`
 
-Initialize the I2C driver. This function must be called only once, before any of the below functions can be called.
+Does the initial pin configuration and i2c-hardware initializiation. This function must be called only once, before any of the below functions can be called.
 
 This function is weakly defined, meaning it can be overridden if necessary for your particular use case:
 
@@ -126,26 +129,10 @@ void i2c_init(void) {
 
 ---
 
-### `i2c_status_t i2c_start(uint8_t address, uint16_t timeout)`
-
-Start an I2C transaction.
-
-#### Arguments
-
- - `uint8_t address`  
-   The 7-bit I2C address of the device (ie. without the read/write bit - this will be set automatically).
- - `uint16_t timeout`  
-   The time in milliseconds to wait for a response from the target device.
-
-#### Return Value
-
-`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
-
----
-
 ### `i2c_status_t i2c_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout)`
 
 Send multiple bytes to the selected I2C device.
+Internally this function handles all neccessary start, stop and write transactions on the I2C bus automatically.
 
 #### Arguments
 
@@ -264,12 +251,60 @@ Reads from a register with a 16-bit address (big endian) on the I2C device.
    The register address to read from.
  - `uint16_t length`  
  The number of bytes to read. Take care not to overrun the length of `data`.
- - `uint16_t timeout`  
+ - `uint16_t timeout`
    The time in milliseconds to wait for a response from the target device.
 
 #### Return Value
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
+
+---
+
+## Functions - low-level API :id=i2c-functions-low-level_
+
+These functions are MCU platform specific and hence do not provide a hadware agnostic abstraction.
+Which means that their signatures and underlying functionality might vary, and or that they might not even be available on some platforms.
+
+### `i2c_status_t i2c_start(uint8_t address, uint16_t timeout)`
+
+Start an I2C transaction.
+
+#### Arguments
+
+ - `uint8_t address`
+   The 7-bit I2C address of the device (ie. without the read/write bit - this will be set automatically).
+ - `uint16_t timeout`
+   On AVR only.
+   The time in milliseconds to wait for a response from the target device.
+
+#### Return Value
+
+`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
+
+---
+
+### `i2c_status_t i2c_write(uint8_t data, uint16_t timeout)`
+
+AVR only.
+Transmit a single data byte.
+
+#### Return Value
+
+`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
+
+---
+
+### `uint16_t i2c_read_ack(uint16_t timeout)`
+
+AVR only.
+Receive a single byte and reply with ACK;
+
+---
+
+### `uint16_t i2c_read_nack(uint16_t timeout)`
+
+AVR only.
+Receive a single byte and reply with NACK;
 
 ---
 
