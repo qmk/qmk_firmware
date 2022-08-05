@@ -64,7 +64,7 @@ static void         select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
 #ifdef RGBLIGHT_ENABLE
-extern i2c_status_t i2c_rgblight;
+extern bool i2c_rgblight;
 #endif
 
 void matrix_init_custom(void) {
@@ -101,7 +101,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 rgb_matrix_init();  // re-init driver on reconnect
 #endif
 #ifdef RGBLIGHT_ENABLE
-                i2c_rgblight = 0x20; // re-enable rgb light
+                i2c_rgblight = true; // re-enable rgb light
+                rgblight_init();
 #endif
             }
         }
