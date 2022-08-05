@@ -196,12 +196,13 @@ uint8_t ps2_host_send(uint8_t data) {
 
     msg_t msg = MSG_OK;
     osalSysLock();
-    if (pio_sm_is_tx_fifo_full(pio, state_machine)) {
+    while (pio_sm_is_tx_fifo_full(pio, state_machine)) {
         pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + state_machine, true);
         msg = osalThreadSuspendTimeoutS(&tx_thread, TIME_MS2I(100));
         if (msg < MSG_OK) {
             pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + state_machine, false);
             ps2_error = PS2_ERR_NODATA;
+            osalSysUnlock();
             return 0;
         }
     }
