@@ -429,17 +429,18 @@ void rgb_matrix_task(void) {
     uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
 
     // only for static modes or upon initialisation
-    if (( // static animation always enabled
+    if ((
 #ifdef ENABLE_RGB_MATRIX_ALPHAS_MODS
-        rgb_matrix_config.mode != RGB_MATRIX_ALPHAS_MODS &&
+            rgb_matrix_config.mode != RGB_MATRIX_ALPHAS_MODS &&
 #endif
 #ifdef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-        rgb_matrix_config.mode != RGB_MATRIX_GRADIENT_UP_DOWN &&
+            rgb_matrix_config.mode != RGB_MATRIX_GRADIENT_UP_DOWN &&
 #endif
 #ifdef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-        rgb_matrix_config.mode != RGB_MATRIX_GRADIENT_LEFT_RIGHT &&
+            rgb_matrix_config.mode != RGB_MATRIX_GRADIENT_LEFT_RIGHT &&
 #endif
-    rgb_matrix_config.mode != 1 ) || rgb_effect_params.init) {
+            rgb_matrix_config.mode != 1) || // static animation always enabled
+        rgb_effect_params.init) {
         render_update = true;
     }
 
