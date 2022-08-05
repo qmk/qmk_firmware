@@ -91,17 +91,12 @@ static const struct pio_program ps2_program = {
     .origin       = -1,
 };
 
-static int         state_machine = -1;
-thread_reference_t rx_thread     = NULL;
-thread_reference_t tx_thread     = NULL;
+static int state_machine = -1;
+thread_reference_t tx_thread = NULL;
 
-#ifdef BUFFERED_MODE_ENABLE
-#    define BUFFER_SIZE 32
-
+#define BUFFER_SIZE 32
 static input_buffers_queue_t pio_rx_queue;
-static uint8_t pio_rx_buffer[(BUFFER_SIZE * (sizeof(uint32_t) + sizeof(size_t)))];
-
-#endif
+static uint8_t               pio_rx_buffer[(BUFFER_SIZE * (sizeof(uint32_t) + sizeof(size_t)))];
 
 uint8_t ps2_error = PS2_ERR_NONE;
 
@@ -109,17 +104,13 @@ void pio_serve_interrupt(void) {
     uint32_t irqs = pio->ints0;
 
     if (irqs & (PIO_IRQ0_INTF_SM0_RXNEMPTY_BITS << state_machine)) {
-#ifndef BUFFERED_MODE_ENABLE
-        pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + state_machine, false);
-#else
         osalSysLockFromISR();
-        uint32_t* frame_buffer = (uint32_t*)ibqGetEmptyBufferI(&pio_rx_queue); // TODO: IS full
+        uint32_t* frame_buffer = (uint32_t*)ibqGetEmptyBufferI(&pio_rx_queue);
+        if (frame_buffer == NULL) {
+            return;
+        }
         *frame_buffer = pio_sm_get(pio, state_machine);
         ibqPostFullBufferI(&pio_rx_queue, sizeof(uint32_t));
-        osalSysUnlockFromISR();
-#endif
-        osalSysLockFromISR();
-        osalThreadResumeI(&rx_thread, MSG_OK);
         osalSysUnlockFromISR();
     }
 
@@ -171,10 +162,7 @@ void ps2_host_init(void) {
     palSetLineMode(PS2_DATA_PIN, pin_mode);
     palSetLineMode(PS2_CLOCK_PIN, pin_mode);
 
-#ifdef BUFFERED_MODE_ENABLE
     pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + state_machine, true);
-#endif
-
     pio_sm_init(pio, state_machine, offset, &c);
 
 #if defined(PS2_PIO_USE_PIO1)
@@ -246,27 +234,20 @@ static uint8_t ps2_get_data_from_frame(uint32_t frame) {
     return data;
 }
 
-#ifndef BUFFERED_MODE_ENABLE
 uint8_t ps2_host_recv_response(void) {
-    msg_t msg = MSG_OK;
-    osalSysLock();
-    if (pio_sm_is_rx_fifo_empty(pio, state_machine)) {
-        pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + state_machine, true);
-        msg = osalThreadSuspendTimeoutS(&rx_thread, TIME_MS2I(100));
-        if (msg < MSG_OK) {
-            pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + state_machine, false);
-            ps2_error = PS2_ERR_NODATA;
-            osalSysUnlock();
-            return 0;
-        }
-    }
+    uint32_t frame = 0;
+    msg_t    msg   = MSG_OK;
 
-    uint32_t frame = pio_sm_get(pio, state_machine);
-    osalSysUnlock();
+    msg = ibqReadTimeout(&pio_rx_queue, (uint8_t*)&frame, sizeof(uint32_t), TIME_MS2I(100));
+    if (msg < MSG_OK) {
+        ps2_error = PS2_ERR_NODATA;
+        return 0;
+    }
 
     return ps2_get_data_from_frame(frame);
 }
-#else
+
+#ifdef BUFFERED_MODE_ENABLE
 
 bool pbuf_has_data(void) {
     osalSysLock();
@@ -275,34 +256,17 @@ bool pbuf_has_data(void) {
     return has_data;
 }
 
-
-uint8_t ps2_host_recv_response(void) {
+uint8_t ps2_host_recv(void) {
     uint32_t frame = 0;
     msg_t    msg   = MSG_OK;
 
     uint8_t has_data = pbuf_has_data();
-    osalSysLock();
-    if (!has_data) {
-        msg = osalThreadSuspendTimeoutS(&rx_thread, TIME_MS2I(100));
+    if (has_data) {
+        msg = ibqReadTimeout(&pio_rx_queue, (uint8_t*)&frame, sizeof(uint32_t), TIME_MS2I(100));
         if (msg < MSG_OK) {
             ps2_error = PS2_ERR_NODATA;
-            osalSysUnlock();
             return 0;
         }
-    }
-    osalSysUnlock();
-    ibqReadTimeout(&pio_rx_queue, (uint8_t*)&frame, sizeof(uint32_t), TIME_IMMEDIATE);
-
-
-    return ps2_get_data_from_frame(frame);
-}
-
-uint8_t ps2_host_recv(void) {
-    uint32_t frame = 0;
-
-    uint8_t has_data = pbuf_has_data();
-    if (has_data) {
-        ibqReadTimeout(&pio_rx_queue, (uint8_t*)&frame, sizeof(uint32_t), TIME_IMMEDIATE);
     } else {
         ps2_error = PS2_ERR_NODATA;
     }
