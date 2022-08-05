@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4150 // AP for AcheronProject
-#define PRODUCT_ID      0x7641 // LA for Lasgweloth
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AcheronProect
-#define PRODUCT         Lasgweloth
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

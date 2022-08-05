@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Rama Works M4-A",
+    "keyboard_name": "M4-A",
+    "manufacturer": "RAMA WORKS",
     "url": "http://rama.works",
     "maintainer": "naut",
+    "usb": {
+        "vid": "0x5241",
+        "pid": "0x004A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

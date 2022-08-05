@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Skeletyl",
+    "manufacturer": "Bastard Keyboards",
     "url": "https://www.bastardkb.com",
     "maintainer": "Quentin Lebastard",
+    "usb": {
+        "vid": "0xA8F8",
+        "pid": "0x1830",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [
