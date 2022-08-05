@@ -4,8 +4,8 @@ The following is the QMK Firmware for the Windz Sinanju WK PCB.
  
 
 * Keyboard Maintainer: FJLabs
-
 * Hardware Supported: Sinanju WK
+
 Make example for this keyboard (after setting up your build environment):
 
     make fjlabs/sinanjuwk:default
