@@ -36,10 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS_RIGHT { D4, D6, D7, C7, F1, F4 }
 #define SPLIT_HAND_PIN D5
 
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B3 }
-#define ENCODERS_PAD_A_RIGHT { B2 }
-#define ENCODERS_PAD_B_RIGHT { B3 }
+#define ENCODERS_PAD_A { B3 }
+#define ENCODERS_PAD_B { B2 }
+#define ENCODERS_PAD_A_RIGHT { B3 }
+#define ENCODERS_PAD_B_RIGHT { B2 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

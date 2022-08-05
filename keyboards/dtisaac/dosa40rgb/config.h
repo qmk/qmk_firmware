@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4454 // DT
-#define PRODUCT_ID   0x4973 // Is
-#define DEVICE_VER   0x0004
-#define MANUFACTURER DTIsaac
-#define PRODUCT      >_Dosa40
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
@@ -107,7 +100,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 //#define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

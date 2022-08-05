@@ -19,18 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1707
-#define DEVICE_VER      0x0201
-#define MANUFACTURER    MechWild
-#define PRODUCT         OrangeBoyErgo
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 10
-
-#define EEPROM_I2C_24LC64
 
 /*
  * Keyboard Matrix Assignments
@@ -139,10 +130,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 5

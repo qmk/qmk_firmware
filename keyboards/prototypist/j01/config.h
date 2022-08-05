@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5450
-#define PRODUCT_ID      0x6A31
-#define DEVICE_VER      0x0001
-#define MANUFACTURER Prototypist
-#define PRODUCT J-01 Rev1
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 18

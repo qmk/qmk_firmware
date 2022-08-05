@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,   KC_TRNS,   KC_TRNS,
         KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
         KC_TRNS,   KC_TRNS,   KC_TRNS,
-                   KC_TRNS,   KC_TRNS,   RESET
+                   KC_TRNS,   KC_TRNS,   QK_BOOT
     ),
     [2] = LAYOUT_numpad_6x4(
         KC_VOLU,   KC_MPLY,   KC_MNXT,   KC_TRNS,

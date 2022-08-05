@@ -115,8 +115,8 @@ As defined in `keymap_steno.h`.
 |`STN_E`|`STN_E`| `E` vowel|
 |`STN_U`|`STN_U`| `U` vowel|
 |`STN_FR`|`STN_FR`| `-F`|
-|`STN_PR`|`STN_PR`| `-P`|
 |`STN_RR`|`STN_RR`| `-R`|
+|`STN_PR`|`STN_PR`| `-P`|
 |`STN_BR`|`STN_BR`| `-B`|
 |`STN_LR`|`STN_LR`| `-L`|
 |`STN_GR`|`STN_GR`| `-G`|

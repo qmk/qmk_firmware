@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x36B6 // skippys_custom_pcs
-#define PRODUCT_ID   0x0001 // RooPad
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    ToastyStoemp
-#define PRODUCT         RooPad
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 5
@@ -66,6 +59,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_SNAKE
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
