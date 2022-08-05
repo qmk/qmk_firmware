@@ -110,7 +110,7 @@ void matrix_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-    usb_mux_event();
+    usb_mux_event(); // Poll the USB hub for cable connections and disconnections
 
     matrix_scan_user();
 }
@@ -155,7 +155,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case RESET:
+        case QK_BOOTLOADER:
             if (record->event.pressed) {
                 rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
             }
@@ -196,13 +196,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 #ifdef SYSTEM76_EC
-        case KC_LCTL:
+        case KC_LEFT_CTRL:
             lctl_pressed = record->event.pressed;
             break;
-        case KC_RCTL:
+        case KC_RIGHT_CTRL:
             rctl_pressed = record->event.pressed;
             break;
-        case KC_ESC:
+        case KC_ESCAPE:
             if (lctl_pressed && rctl_pressed) {
                 if (record->event.pressed) {
                     system76_ec_unlock();

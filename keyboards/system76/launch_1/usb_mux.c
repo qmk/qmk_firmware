@@ -372,12 +372,23 @@ i2c_status_t usb7206_gpio_init(struct USB7206_GPIO *self) {
     return I2C_STATUS_SUCCESS;
 }
 
-// PTN5110N is a 1-port Type-C Port controller (TCPC).
-#define PTN5110_ROLE_CONTROL 0x1A
+// PTN5110N is a 1-port Type-C Port controller (TCPC) supporting TCPC Rev 1.0 version 1.1.
+#define PTN5110_ROLE_CTRL 0x1A
+#define PTN5110_ROLE_CTRL_RP_VAL_SHIFT 4
+#define PTN5110_ROLE_CTRL_RP_VAL_DEF 0x0
+#define PTN5110_ROLE_CTRL_CC2_SHIFT 2
+#define PTN5110_ROLE_CTRL_CC1_SHIFT 0
+#define PTN5110_ROLE_CTRL_CC_RP 0x1
 #define PTN5110_CC_STATUS 0x1D
+#define PTN5110_CC_STATUS_CC2_SHIFT 2
+#define PTN5110_CC_STATUS_CC2_MASK 0x3
+#define PTN5110_CC_STATUS_CC1_SHIFT 0
+#define PTN5110_CC_STATUS_CC1_MASK 0x3
+#define PTN5110_CC_STATE_SNK_OPEN 0
+#define PTN5110_CC_STATE_SRC_RD 2
 #define PTN5110_COMMAND 0x23
-#define PTN5110_ENABLE_SOURCE_VBUS 0b01110111
-#define PTN5110_DISABLE_SOURCE_VBUS 0b01100110
+#define PTN5110_CMD_SRC_VBUS_DEFAULT 0x77 // 0b01110111
+#define PTN5110_CMD_DISABLE_SRC_VBUS 0x66 // 0b01100110
 
 enum TCPC_TYPE {
     TCPC_TYPE_SINK,
@@ -391,14 +402,15 @@ struct PTN5110 {
     struct USB7206_GPIO *gpio;
 };
 
-// USB C upstream port controller
-//  - PTN5110DHQ which defaults to acting as a power sink.
+// USB C upstream port controller (PTN5110DHQ)
+//  - Configured for Upstream Facing Port (UFP)/Sink role at Power On or Reset (POR).
+//  - The CC1/2 pins present sink (Rd) role.
 //  - I2C address: 0xA2 (0b1010001x) = 0x51 << 1
-// USB C left port controller
-//  - PTN5110THQ which defaults to acting as a power source.
+// USB C left port controller (PTN5110THQ)
+//  - Configured for Downstream Facing Port (DFP)/Source role at Power On or Reset (POR).
 //  - I2C address: 0xA4 (0b1010010x) = 0x52 << 1
-// USB C right port controller
-//  - PTN5110THQ which defaults to acting as a power source.
+// USB C right port controller (PTN5110THQ)
+//  - Configured for  Downstream Facing Port (DFP)/Source role at Power On or Reset (POR).
 //  - I2C address: 0xA0 (0b1010000x) = 0x50 << 1
 struct PTN5110 usb_sink         = {.type = TCPC_TYPE_SINK,   .addr = 0x51, .gpio = &usb_gpio_sink};
 struct PTN5110 usb_source_left  = {.type = TCPC_TYPE_SOURCE, .addr = 0x52, .gpio = &usb_gpio_source_left};
@@ -413,7 +425,7 @@ i2c_status_t ptn5110_get_cc_status(struct PTN5110 *self, uint8_t *cc) {
 // Write PTN5110 ROLE_CONTROL.
 // Returns zero on success or a negative number on error.
 int ptn5110_set_role_control(struct PTN5110 *self, uint8_t role_control) {
-    return i2c_writeReg(self->addr << 1, PTN5110_ROLE_CONTROL, &role_control, 1, I2C_TIMEOUT);
+    return i2c_writeReg(self->addr << 1, PTN5110_ROLE_CTRL, &role_control, 1, I2C_TIMEOUT);
 }
 
 // Set PTN5110 SSMUX orientation.
@@ -439,12 +451,19 @@ i2c_status_t ptn5110_sink_set_orientation(struct PTN5110 *self) {
         return status;
     }
 
-    if ((cc & 0x03) == 0) {
+    // PTN5110N in UFP and therefore ROLE_CONTROL.CC1 = Rd
+    if (((cc >> PTN5110_CC_STATUS_CC1_SHIFT) & PTN5110_CC_STATUS_CC1_MASK) == PTN5110_CC_STATE_SNK_OPEN) {
+        // CC_STATUS[1:0] CC1 State:
+        //  - 0b00 = SNK_Open (Below maximum vRa)
         status = ptn5110_set_ssmux(self, false);
         if (status < 0) {
             return status;
         }
     } else {
+        // CC_STATUS[1:0] CC1 State:
+        //  - 0b01 = SNK_Default (Above minimum vRd-Connect)
+        //  - 0b10 = SNK_Power1_5 (Above minimum vRd-Connect) Detects Rp-1.5A
+        //  - 0b11 = SNK_Power3_0 (Above minimum vRd-Connect) Detects Rp-3.0A
         status = ptn5110_set_ssmux(self, true);
         if (status < 0) {
             return status;
@@ -470,10 +489,16 @@ i2c_status_t ptn5110_source_update(struct PTN5110 *self) {
 
         bool connected = false;
         bool orientation = false;
-        if ((cc & 0x03) == 2) {
+
+        // PTN5110N in DFP and therefore ROLE_CONTROL.CC1 = Rp and ROLE_CONTROL.CC2 = Rp
+        if (((cc >> PTN5110_CC_STATUS_CC1_SHIFT) & PTN5110_CC_STATUS_CC1_MASK) == PTN5110_CC_STATE_SRC_RD) {
+            // CC_STATUS[1:0] CC1 State:
+            //  - 0b10 = SRC_Rd (within the vRd range)
             connected = true;
             orientation = true;
-        } else if (((cc >> 2) & 0x03) == 2) {
+        } else if (((cc >> PTN5110_CC_STATUS_CC2_SHIFT) & PTN5110_CC_STATUS_CC2_MASK) == PTN5110_CC_STATE_SRC_RD) {
+            // CC_STATUS[1:0] CC2 State:
+            //  - 0b10 = SRC_Rd (within the vRd range)
             connected = true;
             orientation = false;
         }
@@ -486,15 +511,15 @@ i2c_status_t ptn5110_source_update(struct PTN5110 *self) {
             }
 
             // Enable source Vbus command
-            //  - 0b01110111: SourceVbusDefaultVoltage => Enable sourcing vSafe5V over Vbus and enable Vbus present detection. 
-            status = ptn5110_command(self, PTN5110_ENABLE_SOURCE_VBUS);
+            //  - 0b01110111: SourceVbusDefaultVoltage => Enable sourcing vSafe5V over Vbus and enable Vbus present detection.
+            status = ptn5110_command(self, PTN5110_CMD_SRC_VBUS_DEFAULT);
             if (status < 0) {
                 return status;
             }
         } else {
             // Disable source Vbus command
             //  - 0b01100110: DisableSourceVbus => Disable sourcing power over Vbus.
-            status = ptn5110_command(self, PTN5110_DISABLE_SOURCE_VBUS);
+            status = ptn5110_command(self, PTN5110_CMD_DISABLE_SRC_VBUS);
             if (status < 0) {
                 return status;
             }
@@ -508,6 +533,7 @@ i2c_status_t ptn5110_source_update(struct PTN5110 *self) {
 // Returns zero on success or a negative number on error.
 i2c_status_t ptn5110_init(struct PTN5110 *self) {
     i2c_status_t status;
+    uint8_t reg;
 
     self->cc = 0xFF; // Set last cc to invalid value, to force update
 
@@ -519,22 +545,30 @@ i2c_status_t ptn5110_init(struct PTN5110 *self) {
 
     switch (self->type) {
         case TCPC_TYPE_SINK:
+            // UFP Initialization
             status = ptn5110_sink_set_orientation(self);
             break;
         case TCPC_TYPE_SOURCE:
+            // DFP Initialization
             // [6] DRP: 0b0 = No DRP.
             // [5:4] Rp Value: 0b00 = Rp default.
             // [3:2] CC2: 0b01 = Rp definition from [5:4].
             // [1:0] CC1: 0b01 = Rp definition from [5:4].
-            status = ptn5110_set_role_control(self, 0x05);
+            reg = (PTN5110_ROLE_CTRL_RP_VAL_DEF << PTN5110_ROLE_CTRL_RP_VAL_SHIFT) |
+                  (PTN5110_ROLE_CTRL_CC_RP << PTN5110_ROLE_CTRL_CC2_SHIFT) |
+                  (PTN5110_ROLE_CTRL_CC_RP << PTN5110_ROLE_CTRL_CC1_SHIFT); // 0x05
+            status = ptn5110_set_role_control(self, reg);
             break;
     }
 
     return (status < 0) ? status : I2C_STATUS_SUCCESS;
 }
 
+// The interrupt pin is not wired due to lack of pins on the AVR.
+// The TCPCs will need to be periodically polled.
 void usb_mux_event(void) {
-    // Run this on every 1000th matrix scan
+    // `tVbusOFF' in the USB C spec is 650 ms which sets the maximum
+    // polling interval so run every 1000th matrix scan
     static int cycle = 0;
     if (cycle >= 1000) {
         cycle = 0;
@@ -550,12 +584,15 @@ void usb_mux_init(void) {
     i2c_init();
 
     // Set up hub
+    // I2C pullups are present on the board, so the hub will wait in `SOC_CFG'
+    // (allowing for external configuration) until it receives the "Attach" command
+    // and becomes active
     usb7206_init(&usb_hub);
 
-    // Set up sink
+    // Set up sink and the upstream SS multiplexer first
     ptn5110_init(&usb_sink);
 
-    // Set up sources
+    // Set up sources and the downstream SS multiplexers
     ptn5110_init(&usb_source_left);
     ptn5110_init(&usb_source_right);
 
