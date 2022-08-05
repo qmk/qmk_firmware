@@ -1,7 +1,13 @@
 {
     "keyboard_name": "KG65 RGB V2",
+    "manufacturer": "FJLabs",
     "url": "https://www.keygem.store/",
     "maintainer": "Keygem",
+    "usb": {
+        "vid": "0x4B47",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
