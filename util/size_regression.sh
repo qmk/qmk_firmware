@@ -62,7 +62,6 @@ keyboard_target=$1
 # Helper for resetting submodule existence
 fixup_submodules() {
     [ -e lib/ugfx ] && rm -rf lib/ugfx
-    [ -e lib/lua ] && rm -rf lib/lua
     [ -e lib/pico-sdk ] && rm -rf lib/pico-sdk
     [ -e lib/chibios-contrib/ext/mcux-sdk ] && rm -rf lib/chibios-contrib/ext/mcux-sdk
     make git-submodule
