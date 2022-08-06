@@ -7,6 +7,9 @@ on:
     paths:
     - 'keyboards/**'
     - 'layouts/community/**'
+    - 'lib/python/**'
+    - 'data/**'
+    - '.github/workflows/develop_api.yml'
   workflow_dispatch:
 
 jobs:
