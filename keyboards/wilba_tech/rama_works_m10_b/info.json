@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "RAMA WORKS M10-B",
+  "keyboard_name": "M10-B",
+  "manufacturer": "RAMA WORKS",
   "url": "http://rama.works",
   "maintainer": "Wilba",
+  "usb": {
+    "vid": "0x5241",
+    "pid": "0x00AB",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
