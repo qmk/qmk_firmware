@@ -82,7 +82,6 @@
     "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex"},
     "QMK_ESC_OUTPUT": {"info_key": "qmk_lufa_bootloader.esc_output"},
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
-    "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int"},
     "QMK_LED": {"info_key": "qmk_lufa_bootloader.led"},
     "QMK_SPEAKER": {"info_key": "qmk_lufa_bootloader.speaker"},
     "SECURE_UNLOCK_SEQUENCE": {"info_key": "secure.unlock_sequence", "value_type": "array.array.int", "to_json": false},
@@ -114,4 +113,5 @@
     "DEBOUNCING_DELAY": {"info_key": "_invalid.debouncing_delay", "invalid": true},
     "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},
     "RGBLIGHT_ANIMATIONS": {"info_key": "rgblight.animations.all", "value_type": "bool", "deprecated": true},
+    "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
 }

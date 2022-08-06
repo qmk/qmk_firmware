@@ -182,15 +182,6 @@ If you define these options you will enable the associated feature, which may in
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define QMK_KEYS_PER_SCAN 4`
-  * Allows sending more than one key per scan. By default, only one key event gets
-    sent via `process_record()` per scan. This has little impact on most typing, but
-    if you're doing a lot of chords, or your scan rate is slow to begin with, you can
-    have some delay in processing key events. Each press and release is a separate
-    event. For a keyboard with 1ms or so scan times, even a very fast typist isn't
-    going to produce the 500 keystrokes a second needed to actually get more than a
-    few ms of delay from this. But if you're doing chording on something with 3-4ms
-    scan times? You probably want this.
 * `#define COMBO_COUNT 2`
   * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
