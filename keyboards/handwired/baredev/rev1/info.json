@@ -9,13 +9,6 @@
         "term": 175
     },
     "matrix_pins": {
-        "unused": [
-            "F1",
-            "F4",
-            "F5",
-            "F6",
-            "F7"
-        ],
         "cols": [
             "B6",
             "B7",
