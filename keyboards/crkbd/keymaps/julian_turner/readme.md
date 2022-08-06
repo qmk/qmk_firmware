@@ -2,4 +2,4 @@
 
 ## Compile
 
-Compile using `qmk compile -kb crkbd -km JulianTurner` for Pro Micro
+Compile using `qmk compile -kb crkbd -km julian_turner` for Pro Micro
