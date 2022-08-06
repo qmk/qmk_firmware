@@ -111,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef BLUETOOTH_ENABLE
         case BT_HST1 ... BT_HST3:
             if (record->event.pressed) {
-                host_idx = keycode + BT_HST1 + 1;
+                host_idx = keycode - BT_HST1 + 1;
                 chVTSet(&pairing_key_timer, TIME_MS2I(2000), (vtfunc_t)pairing_key_timer_cb, &host_idx);
                 bluetooth_connect_ex(host_idx, 0);
             } else {
