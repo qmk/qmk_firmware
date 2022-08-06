@@ -1,9 +1,9 @@
+// Copyright 2022 dvermd (@dvermd)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-#if defined(SPLIT_BITBANG)
+#pragma once
 
-    #define SOFT_SERIAL_PIN B8
-
-#elif defined(SPLIT_SERIAL_HALFDUPLEX)
+#if defined(SPLIT_SERIAL_HALFDUPLEX)
 
     #if defined(USE_SDI1_ON_STANDARD_ROLE_PINS)
         #define SOFT_SERIAL_PIN A9
@@ -35,4 +35,9 @@
     #else
         #error "splittest serial_fullduplex keymap is missing a configuration (USE_SDI1_ON_STANDARD_ROLE_PINS, USE_SDI1_ON_ALTERNATE_ROLE_PINS, USE_SDI2)"
     #endif
+
+#else // defined(SPLIT_BITBANG)
+
+    #define SOFT_SERIAL_PIN B8
+
 #endif

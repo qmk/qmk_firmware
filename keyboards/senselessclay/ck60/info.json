@@ -1,7 +1,13 @@
 {
     "keyboard_name": "CK60",
+    "manufacturer": "senselessclay",
     "url": "https://candykeys.com",
     "maintainer": "had-i",
+    "usb": {
+        "vid": "0x4849",
+        "pid": "0x0601",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_iso"
     },

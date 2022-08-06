@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 #define SPLIT_BITBANG
 
 #define FORCED_SYNC_THROTTLE_MS 100
