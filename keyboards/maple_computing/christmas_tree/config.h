@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { D3, F4, D0, F6, F5, D4 }
 #define MATRIX_COL_PINS { D1 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN D2
 

@@ -374,11 +374,9 @@ def _extract_split_right_pins(info_data, config_c):
     # Figure out the right half matrix pins
     row_pins = config_c.get('MATRIX_ROW_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS_RIGHT', '').replace('{', '').replace('}', '').strip()
-    unused_pin_text = config_c.get('UNUSED_PINS_RIGHT')
-    unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
 
-    if row_pins or col_pins or direct_pins or unused_pins:
+    if row_pins or col_pins or direct_pins:
         if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
             _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
 
@@ -400,17 +398,12 @@ def _extract_split_right_pins(info_data, config_c):
         if direct_pins:
             info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
 
-        if unused_pins:
-            info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
-
 
 def _extract_matrix_info(info_data, config_c):
     """Populate the matrix information.
     """
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
-    unused_pin_text = config_c.get('UNUSED_PINS')
-    unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
     info_snippet = {}
 
@@ -435,12 +428,6 @@ def _extract_matrix_info(info_data, config_c):
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
         info_snippet['direct'] = _extract_direct_matrix(direct_pins)
-
-    if unused_pins:
-        if 'matrix_pins' not in info_data:
-            info_data['matrix_pins'] = {}
-
-        info_snippet['unused'] = _extract_pins(unused_pins)
 
     if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
         if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:

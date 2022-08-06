@@ -113,6 +113,7 @@
     "DESCRIPTION": {"info_key": "_invalid.usb_description", "invalid": true},
     "DEBOUNCING_DELAY": {"info_key": "_invalid.debouncing_delay", "invalid": true, replace_with: "DEBOUNCE"},
     "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},
+    "UNUSED_PINS": {"info_key": "_invalid.unused_pins", "deprecated": true},
     "RGBLIGHT_ANIMATIONS": {"info_key": "rgblight.animations.all", "value_type": "bool", "deprecated": true},
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
 }

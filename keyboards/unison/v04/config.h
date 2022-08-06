@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* NOTE: With Round-Robin matrix, set same pins for both. */
 #define MATRIX_ROW_PINS { B3, E6, F1, F5, F7, B2, F0, F4, F6, C7 }
 #define MATRIX_COL_PINS { B3, E6, F1, F5, F7, B2, F0, F4, F6, C7 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 

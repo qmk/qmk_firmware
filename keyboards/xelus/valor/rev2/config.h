@@ -25,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B11, B10, A3, A1, A2 }
 #define MATRIX_COL_PINS { B2, B1, B0, A7, A6, A5, A4, A13, B7, B6, B5, B4, B3, A15, A14 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

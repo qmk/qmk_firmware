@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIRECT_PINS {   \
     { C7, B7, D6, F5, F7} \
 }
-#define UNUSED_PINS
 
 /* rotary encoder*/
 #define ENCODERS_PAD_A {F0}
