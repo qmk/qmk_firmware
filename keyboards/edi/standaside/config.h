@@ -4,13 +4,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xF7E0
-#define PRODUCT_ID      0x0412
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    Fate Everywhere
-#define PRODUCT         Stand Aside
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8

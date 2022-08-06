@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4244 //-B-pen-D-ragon
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Bpendragon
-#define PRODUCT         Selene
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 21
 

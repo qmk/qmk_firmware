@@ -17,14 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter
- */
-#define VENDOR_ID       0xBF00
-#define PRODUCT_ID      0xBFFA
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SheuBox
-#define PRODUCT         Fallacy
-
 /* key matrix size
  */
 #define MATRIX_ROWS 5
@@ -58,10 +50,6 @@
 /* Locking resynchronize hack
  */
 #define LOCKING_RESYNC_ENABLE
-
-/* prevent stuck modifiers
- */
-#define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN D2
 #define RGBLIGHT_ANIMATIONS

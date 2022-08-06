@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID           0x4E50  // "NP"
-#define PRODUCT_ID          0x4A57  // "JW"
-#define DEVICE_VER          0x0001
-#define PRODUCT             Jabberwocky
-
 /* key matrix size */
 #define MATRIX_ROWS         12
 #define MATRIX_COLS         10

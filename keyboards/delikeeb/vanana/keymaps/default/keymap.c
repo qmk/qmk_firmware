@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT(
-    RESET  ,    _______,    _______,    _______,    _______,    _______,                _______,    _______,    _______,    _______,    _______,    DEBUG  ,
+    QK_BOOT  ,    _______,    _______,    _______,    _______,    _______,                _______,    _______,    _______,    _______,    _______,    DEBUG  ,
     _______,    RGB_TOG,    RGB_RMOD,   RGB_MOD,    RGB_VAD,    RGB_VAI,                _______,    _______,    _______,    _______,    _______,    _______,
     KC_CAPS,    _______,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    KC_VOLU,    _______,    _______,    _______,    _______,    _______,    _______,
     _______,    AU_ON  ,    AU_OFF ,    _______,    _______,    _______,    KC_VOLD,    _______,    _______,    _______,    _______,    _______,    _______,
@@ -105,7 +105,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         return false;
 
-        case RESET:
+        case QK_BOOT:
             if (record->event.pressed) {
                 #ifdef AUDIO_ENABLE
                     stop_all_notes();
