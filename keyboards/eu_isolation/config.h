@@ -23,7 +23,6 @@
 /* NIU Mini PCB default pin-out */
 #define MATRIX_ROW_PINS { D2, D3, F1, F0 }
 #define MATRIX_COL_PINS { D0, D1, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, F5, F4}
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
