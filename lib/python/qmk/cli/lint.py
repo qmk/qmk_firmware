@@ -1,11 +1,12 @@
 """Command to look over a keyboard/keymap and check for common mistakes.
 """
+from glob import glob
 from pathlib import Path
 
 from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.info import info_json
+from qmk.info import info_json, keymap_json
 from qmk.keyboard import keyboard_completer, list_keyboards
 from qmk.keymap import locate_keymap, list_keymaps
 from qmk.path import is_keyboard, keyboard
@@ -25,7 +26,19 @@ def _list_defaultish_keymaps(kb):
     return keymaps
 
 
-def _handle_json_errors(kb, info):
+def _has_licence(kb, file):
+    """Check file has a licence header
+    """
+    ok = True
+    # Crude assumption that first line of licence header is a comment
+    fline = open(file).readline().rstrip()
+    if not fline.startswith(("/*", "//")):
+        ok = False
+        cli.log.error(f'{kb}: The file "{file}" does not have a licence header!')
+    return ok
+
+
+def _handle_json_errors(info, kb):
     """Convert any json errors into lint errors
     """
     ok = True
@@ -86,7 +99,18 @@ def keymap_check(kb, km):
         cli.log.error("%s: Can't find %s keymap.", kb, km)
         return ok
 
+    km_info = keymap_json(kb, km)
+
+    if _handle_json_errors(km_info, f'{kb}/{km}'):
+        ok = False
+
     # Additional checks
+    code_files = glob('keyboards/%s/**/keymaps/%s/**/*.c' % (kb, km), recursive=True)
+    code_files += glob('keyboards/%s/**/keymaps/%s/**/*.h' % (kb, km), recursive=True)
+    for file in code_files:
+        if not _has_licence(kb, file):
+            ok = False
+
     invalid_files = git_get_ignored_files(keymap_path.parent)
     for file in invalid_files:
         cli.log.error(f'{kb}/{km}: The file "{file}" should not exist!')
@@ -101,7 +125,7 @@ def keyboard_check(kb):
     ok = True
     kb_info = info_json(kb)
 
-    if not _handle_json_errors(kb, kb_info):
+    if not _handle_json_errors(kb_info, kb):
         ok = False
 
     # Additional checks
@@ -111,6 +135,14 @@ def keyboard_check(kb):
         cli.log.error('%s: Non-assignment code found in rules.mk. Move it to post_rules.mk instead.', kb)
         for assignment_error in rules_mk_assignment_errors:
             cli.log.error(assignment_error)
+
+    code_files = glob('keyboards/%s/**/*.c' % kb, recursive=True)
+    code_files += glob('keyboards/%s/**/*.h' % kb, recursive=True)
+    for file in code_files:
+        if '/keymaps/' in str(file):
+            continue
+        if not _has_licence(kb, file):
+            ok = False
 
     invalid_files = git_get_ignored_files(f'keyboards/{kb}/')
     for file in invalid_files:
