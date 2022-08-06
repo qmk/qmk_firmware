@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Daniel Cormier's Media Controller (v1)",
+    "keyboard_name": "DC MC 001",
+    "manufacturer": "Daniel Cormier",
     "url": "https://imgur.com/a/PM9lQ",
     "maintainer": "Daniel Cormier (Twitter: @danielcormier)",
+    "usb": {
+        "vid": "0x4443",
+        "pid": "0x4D43",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

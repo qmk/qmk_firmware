@@ -19,14 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* VID & PID from vusb project, see tmk_core/protocol/vusb/USB-IDs-for-free.txt"*/
-#define VENDOR_ID 0x7274
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0000
-#define MANUFACTURER richard.titmuss
-#define PRODUCT Torn
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

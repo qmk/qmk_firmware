@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5342 // "SB"
-#define PRODUCT_ID      0x4355 // "CU"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Spaceman
-#define PRODUCT         Curiosity
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ID80 v3",
+    "manufacturer": "IDOBAO",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x6964",
+        "pid": "0x0080",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MechWild MurphPad",
+    "keyboard_name": "MurphPad",
+    "manufacturer": "MechWild",
     "url": "mechwild.com",
     "maintainer": "Kyle McCreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x1705",
+        "device_version": "3.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

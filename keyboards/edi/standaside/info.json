@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Stand Aside",
+    "manufacturer": "Fate Everywhere",
     "url": "",
     "maintainer": "fateeverywhere",
+    "usb": {
+        "vid": "0xF7E0",
+        "pid": "0x0412",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT_ortho_4x16": {
             "layout": [

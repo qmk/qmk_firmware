@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6464
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    4sStylZ and others makers
-#define PRODUCT         AEK64
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
