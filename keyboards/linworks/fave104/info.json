@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "fave104",
+    "keyboard_name": "FAVE-104",
+    "manufacturer": "Lx3",
     "url": "",
     "maintainer": "keydler",
+    "usb": {
+        "vid": "0x4C58",
+        "pid": "0x000A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
