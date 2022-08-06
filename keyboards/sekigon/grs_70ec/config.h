@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_CHANNELS { 2, 1, 0, 3, 5, 7, 6, 4 }
-#define UNUSED_PINS
 #define DISCHARGE_PIN B1
 #define ANALOG_PORT F6
 #define MUX_SEL_PINS { D1, D0, D4 }
