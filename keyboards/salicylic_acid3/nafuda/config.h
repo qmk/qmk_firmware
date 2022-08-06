@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0012
-#define MANUFACTURER    Salicylic_Acid
-#define PRODUCT         nafuda
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3

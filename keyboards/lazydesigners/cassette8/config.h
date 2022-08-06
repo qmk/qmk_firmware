@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C44 // "LD"
-#define PRODUCT_ID      0x0008
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    LAZYDESIGNERS
-#define PRODUCT         Cassette8
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4

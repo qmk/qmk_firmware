@@ -1,7 +1,13 @@
 {
     "keyboard_name": "B87",
+    "manufacturer": "Winkeyless",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x20A0",
+        "pid": "0x0B87",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

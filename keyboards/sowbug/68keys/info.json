@@ -1,7 +1,13 @@
 {
     "keyboard_name": "68keys",
+    "manufacturer": "Sowbug",
     "url": "github.com/sowbug",
     "maintainer": "sowbug",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x8888",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

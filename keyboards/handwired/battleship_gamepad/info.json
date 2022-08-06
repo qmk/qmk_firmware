@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Battleship Gamepad",
+    "manufacturer": "arbraini",
     "url": "https://github.com/abraini-Nascent/battleship_gamepad",
     "maintainer": "arbraini",
+    "usb": {
+        "vid": "0x4142",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

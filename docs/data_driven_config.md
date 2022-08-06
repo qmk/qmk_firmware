@@ -44,7 +44,7 @@ In other cases you should group like options together in an `object`. This is pa
 In most cases you can add a simple mapping. These are maintained as JSON files in `data/mappings/info_config.json` and `data/mappings/info_rules.json`, and control mapping for `config.h` and `rules.mk`, respectively. Each mapping is keyed by the `config.h` or `rules.mk` variable, and the value is a hash with the following keys:
 
 * `info_key`: (required) The location within `info.json` for this value. See below.
-* `value_type`: (optional) Default `str`. The format for this variable's value. See below.
+* `value_type`: (optional) Default `raw`. The format for this variable's value. See below.
 * `to_json`: (optional) Default `true`. Set to `false` to exclude this mapping from info.json
 * `to_c`: (optional) Default `true`. Set to `false` to exclude this mapping from config.h
 * `warn_duplicate`: (optional) Default `true`. Set to `false` to turn off warning when a value exists in both places
@@ -57,7 +57,7 @@ Under the hood we use [Dotty Dict](https://dotty-dict.readthedocs.io/en/latest/)
 
 #### Value Types
 
-By default we treat all values as simple strings. If your value is more complex you can use one of these types to intelligently parse the data:
+By default we treat all values as unquoted "raw" data. If your value is more complex you can use one of these types to intelligently parse the data:
 
 * `array`: A comma separated array of strings
 * `array.int`: A comma separated array of integers
@@ -65,6 +65,7 @@ By default we treat all values as simple strings. If your value is more complex 
 * `hex`: A number formatted as hex
 * `list`: A space separate array of strings
 * `mapping`: A hash of key/value pairs
+* `str`: A quoted string literal
 
 ### Add code to extract it
 

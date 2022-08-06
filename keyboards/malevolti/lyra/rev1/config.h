@@ -15,13 +15,6 @@
   */ 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4443  //DC
-#define PRODUCT_ID      0x4C43  //LC
-#define DEVICE_VER      0x3031  //01
-#define MANUFACTURER    Dom
-#define PRODUCT         Lyra
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10

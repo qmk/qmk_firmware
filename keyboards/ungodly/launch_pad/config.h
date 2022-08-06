@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5544   // "UD" = Ungodly Design
-#define PRODUCT_ID 0x4C50  // "LP" = Launch Pad
-#define DEVICE_VER 0x9999
-#define MANUFACTURER Ungodly Design
-#define PRODUCT Launch Pad
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
