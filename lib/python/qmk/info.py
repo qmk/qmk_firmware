@@ -523,10 +523,17 @@ def _extract_config_h(info_data, config_c):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            replace_with = info_dict.get('replace_with')
             if config_key in config_c and info_dict.get('invalid', False):
-                _log_error(info_data, '%s in config.h is no longer a valid option' % config_key)
+                if replace_with:
+                    _log_error(info_data, '%s in config.h is no longer a valid option and should be replaced with %s' % (config_key, replace_with))
+                else:
+                    _log_error(info_data, '%s in config.h is no longer a valid option and should be removed' % config_key)
             elif config_key in config_c and info_dict.get('deprecated', False):
-                _log_warning(info_data, '%s in config.h is deprecated and will be removed at a later date' % config_key)
+                if replace_with:
+                    _log_warning(info_data, '%s in config.h is deprecated in favor of %s and will be removed at a later date' % (config_key, replace_with))
+                else:
+                    _log_warning(info_data, '%s in config.h is deprecated and will be removed at a later date' % config_key)
 
             if config_key in config_c and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
@@ -589,10 +596,17 @@ def _extract_rules_mk(info_data, rules):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            replace_with = info_dict.get('replace_with')
             if rules_key in rules and info_dict.get('invalid', False):
-                _log_error(info_data, '%s in rules.mk is no longer a valid option' % rules_key)
+                if replace_with:
+                    _log_error(info_data, '%s in rules.mk is no longer a valid option and should be replaced with %s' % (rules_key, replace_with))
+                else:
+                    _log_error(info_data, '%s in rules.mk is no longer a valid option and should be removed' % rules_key)
             elif rules_key in rules and info_dict.get('deprecated', False):
-                _log_warning(info_data, '%s in rules.mk is deprecated and will be removed at a later date' % rules_key)
+                if replace_with:
+                    _log_warning(info_data, '%s in rules.mk is deprecated in favor of %s and will be removed at a later date' % (rules_key, replace_with))
+                else:
+                    _log_warning(info_data, '%s in rules.mk is deprecated and will be removed at a later date' % rules_key)
 
             if rules_key in rules and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
