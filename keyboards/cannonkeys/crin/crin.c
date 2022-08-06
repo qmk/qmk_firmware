@@ -1,5 +1,4 @@
-
- /* Copyright 2021 Wizard-GG
+ /* Copyright 2022 Andrew Kannan
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -14,6 +13,5 @@
   * You should have received a copy of the GNU General Public License
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
-#pragma once
 
-#define QMK_KEYS_PER_SCAN 4
+#include "crin.h"

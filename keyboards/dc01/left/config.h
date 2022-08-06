@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B6, B5, B4, D7, D6 }
 #define MATRIX_COL_PINS { F4, F1, F0, F7, F6, F5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
-#define UNUSED_PINS
 
 #define F_SCL 350000UL
 

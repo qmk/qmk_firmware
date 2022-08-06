@@ -26,9 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS \
     { B12, B13, B14, B15, A8, A10 }
 
-#define UNUSED_PINS \
-    { C15 }
-
 #define DIODE_DIRECTION     COL2ROW
 
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */

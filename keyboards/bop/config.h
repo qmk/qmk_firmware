@@ -27,7 +27,6 @@
 #define MATRIX_COL_PINS { D5, C5, B0, B1, B2, B3, B4, B5, B6, E7, E6, F0, F7, F6, F5, F4, F3, F2, F1, C6 }
 //    If your board is spamming the end column, change C7 to C6 in the line above and short those pins on the controller
                         
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

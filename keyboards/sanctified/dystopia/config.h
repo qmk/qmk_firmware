@@ -27,5 +27,3 @@
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, C6, B6, B5, D4, D6, D7, B4 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define QMK_KEYS_PER_SCAN 12
