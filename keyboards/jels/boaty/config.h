@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor paramater */
-#define VENDOR_ID       0x006a     //jels
+#define VENDOR_ID       0x6a6b     //jels
 #define PRODUCT_ID      0x000b     //Boaty
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    jels
