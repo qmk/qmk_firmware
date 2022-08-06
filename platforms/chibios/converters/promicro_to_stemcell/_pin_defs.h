@@ -44,13 +44,13 @@
 #define F7 PAL_LINE(GPIOB, 0)
 
 #if STEMCELL_VERSION == 1
-#   define B1 PAL_LINE(GPIOA, 7)
-#   define B3 PAL_LINE(GPIOA, 6)
-#   define B2 PAL_LINE(GPIOA, 5)
+#    define B1 PAL_LINE(GPIOA, 7)
+#    define B3 PAL_LINE(GPIOA, 6)
+#    define B2 PAL_LINE(GPIOA, 5)
 #else
-#   define B1 PAL_LINE(GPIOA, 5)
-#   define B3 PAL_LINE(GPIOA, 6)
-#   define B2 PAL_LINE(GPIOA, 7)
+#    define B1 PAL_LINE(GPIOA, 5)
+#    define B3 PAL_LINE(GPIOA, 6)
+#    define B2 PAL_LINE(GPIOA, 7)
 #endif
 
 #define B6 PAL_LINE(GPIOA, 4)
