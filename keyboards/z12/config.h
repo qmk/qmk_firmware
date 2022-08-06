@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F6, F5, F4, NO_PIN } \
 }
 
-#define UNUSED_PINS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
