@@ -1,6 +1,6 @@
 # LINK - solder PCB
 
-![LINK](https://imgur.com/a/Jqcl5Dq.jpg)
+![LINK](https://i.imgur.com/tbeeWsph.jpeg)
 
 A 65% made by Owlab.
 
