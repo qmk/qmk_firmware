@@ -1,7 +1,13 @@
 {
     "keyboard_name": "mini_ten_key_plus",
+    "manufacturer": "minibois",
     "url": "https://github.com/minibois/ten-key-plus",
     "maintainer": "minibois",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout":[

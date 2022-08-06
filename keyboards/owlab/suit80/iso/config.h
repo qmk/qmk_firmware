@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4F53  // 0x4F53 OS for owl studio
-#define PRODUCT_ID      0x5349  //0x5355 SI for SUIT ISO
-#define DEVICE_VER      0x0001 
-#define MANUFACTURER    OwLab 
-#define PRODUCT         SUIT80 ISO
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

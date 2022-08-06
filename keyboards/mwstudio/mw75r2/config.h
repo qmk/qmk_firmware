@@ -18,14 +18,6 @@
 
 #include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7BA1
-#define PRODUCT_ID      0x7502
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MWStudio
-#define PRODUCT         MW75R2
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
