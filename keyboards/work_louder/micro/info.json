@@ -1,6 +1,6 @@
 {
+    "keyboard_name": "Micro Pad",
     "manufacturer": "Work Louder",
-    "keyboard_name": "micro",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
