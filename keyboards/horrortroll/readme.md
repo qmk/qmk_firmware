@@ -11,7 +11,8 @@ In here, you can find:
   | Keyboard name  | MCU           | Layout        | Hotswap | LED          | OLED | Other |
   | -------------- | ------------- | ------------- | ------- | ------------ | ---- | ----- |
   | Handwired K552 | STM32F103RCT6 | 87 Keys (TKL) | Yes     | RGB Lighting | Yes  | No    |
-  | Paws 60        | Atmega32U4    | 68 Keys (65%) | Yes     | No           | No   | No    |
+  | Paws60         | ATMEGA32U4    | 63 Keys (60%) | Yes     | No           | No   | No    |
+  | ToxicDog69     | RP2040        | 73 Keys (65%) | Yes     | No           | No   | No    |
   |                |               |               |         |              |      |       |
 </details>
 
@@ -21,7 +22,7 @@ In here, you can find:
 
   | Keyboard name  | MCU           | Layout              | Hotswap | LED          | OLED | Other |
   | -------------- | ------------- | ------------------- | ------- | ------------ | ---- | ----- |
-  | Lemon40        | Atmega32U4    | 47 Keys (40% Alice) | No      | RGB Lighting | Yes  | No    |
+  | Lemon40        | ATMEGA32U4    | 47 Keys (40% Alice) | No      | RGB Lighting | Yes  | No    |
   |                |               |                     |         |              |      |       |
 </details>
 
