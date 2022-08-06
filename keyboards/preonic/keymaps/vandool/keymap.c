@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
   BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
-_
+
 /* Colemak DhM
  * ,--------------------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp          |
@@ -96,8 +96,8 @@ _
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,      KC_PERC,    KC_CIRC,    KC_AMPR, KC_LPRN, KC_RPRN, KC_COLN, KC_DEL,
   KC_DEL,  KC_GRV, KC_PSCR, LSFT(LCTL(KC_PSCR)), LALT(KC_F4), S(KC_NUHS), S(KC_NUBS), KC_UNDS, KC_LCBR, KC_RCBR, KC_ASTR, KC_PLUS,
   _______, KC_VOLD, KC_VOLU, KC_MPLY, KC_MNXT,     KC_INS,     KC_PIPE,    KC_BSLS, KC_LBRC, KC_RBRC, KC_BSLS, KC_ASTR,
-  KC_RCTL,  RAISE, KC_RGUI, KC_RALT, _______,     _______,    _______,     _______,KC_HOME, KC_PGDN, KC_PGUP, KC_END
-),_
+  KC_RCTL,  RAISE, KC_LGUI, KC_RALT, _______,     _______,    _______,     _______,KC_HOME, KC_PGDN, KC_PGUP, KC_END
+),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
@@ -217,7 +217,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         muse_offset--;
       }
     } else {
-      if (clockwise) {_
+      if (clockwise) {
         muse_tempo+=1;
       } else {
         muse_tempo-=1;
@@ -260,7 +260,7 @@ void matrix_scan_user(void) {
     if (muse_mode) {
         if (muse_counter == 0) {
             uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
-            if (muse_note != last_muse_note_) {
+            if (muse_note != last_muse_note) {
                 stop_note(compute_freq_for_midi_note(last_muse_note));
                 play_note(compute_freq_for_midi_note(muse_note), 0xF);
                 last_muse_note = muse_note;
