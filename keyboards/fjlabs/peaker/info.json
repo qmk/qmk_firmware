@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Scarlet PCB's",
+    "keyboard_name": "Peaker",
+    "manufacturer": "FJLaboratories",
     "url": "http://www.lucidkb.com",
     "maintainer": "Lucid",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x0020",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_all": {
             "layout": [
