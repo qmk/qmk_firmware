@@ -10,6 +10,7 @@
 #include "common_oled.h"
 #include "oled_driver.h"
 #include "rgb_matrix.h"
+#include "printf.h"
 
 // for memcpy
 #include <string.h>
