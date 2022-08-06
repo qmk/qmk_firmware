@@ -17,7 +17,7 @@
 
 /** \brief Reset eeprom
  *
- * ...just in case someone wants to only change the eeprom behaviour
+ * ...just incase someone wants to only change the eeprom behaviour
  */
 __attribute__((weak)) void bootmagic_lite_reset_eeprom(void) {
     eeconfig_disable();
