@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3 }
 #define MATRIX_COL_PINS { D4, D5, D6, D7 }
-#define UNUSED_PINS
 
 /*Encoder Pins*/
 #define ENCODERS_PAD_A { C6 }
