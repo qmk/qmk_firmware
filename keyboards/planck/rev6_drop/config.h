@@ -48,7 +48,6 @@
 #define MATRIX_COL_PINS \
     { B11, B10, B2, B1, A7, B0 }
 
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A \
     { B12 }
