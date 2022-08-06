@@ -1,3 +1,6 @@
+// Copyright 2022 Joshua Diamond josh@windowoffire.com (@spidey3)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include QMK_KEYBOARD_H
@@ -10,6 +13,7 @@ enum userspace_layers {
     _BASE = 0,
     _NUMPAD,
     _FN,
+    _GLYPH,
 };
 
 enum custom_keycodes {
@@ -32,10 +36,7 @@ enum custom_keycodes {
     SPI_MATH,
     SPI_GFLOCK,
     SPI_KP_00,
-
-#ifdef RGBLIGHT_ENABLE
     SPI_GLO,
-#endif
 };
 
 #ifdef RGBLIGHT_ENABLE

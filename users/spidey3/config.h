@@ -1,3 +1,6 @@
+// Copyright 2022 Joshua Diamond josh@windowoffire.com (@spidey3)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #define LED_DISABLE_WHEN_USB_SUSPENDED
@@ -40,3 +43,9 @@
 
 #undef MANUFACTURER
 #define MANUFACTURER Window of Fire
+
+// Some keyboards enable BACKLIGHT_CAPS_LOCK without checking if backlight is enabled.
+// Undef as appropriate to avoid compiler warnings in that case.
+#ifndef BACKLIGHT_ENABLE
+#undef BACKLIGHT_CAPS_LOCK
+#endif
