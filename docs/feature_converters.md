@@ -115,7 +115,7 @@ The default version selected is v1.0.1. To compile for v1.0.0, use the following
 ```
 STeMCell has support to swap UART and I2C pins, to enable single-wire uart communication in STM chips.
 
-The following flags has to be used while compiling, based on the pin used for split communication.
+The following additional flags has to be used while compiling, based on the pin used for split communication.
 
 | Split Pin | Compile flags |
 |-----------|---------------|
