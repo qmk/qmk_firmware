@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // Number of encoders
-#define ENCODERS 2
 
 #define ENCODERS_PAD_A { B4, B6 }
 #define ENCODERS_PAD_B { B8, B9 }
