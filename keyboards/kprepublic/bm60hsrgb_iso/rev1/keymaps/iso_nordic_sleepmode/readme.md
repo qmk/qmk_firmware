@@ -2,7 +2,7 @@
 Very few changes from default keyboard, apart from the button right of leftshift,
 and adding some more buttons on the second layer (function keys, home/end, pg up/down and media keys).
 
-On the default layout, the top left button is QK_BOOT on the second layer,
+On the default layout, the top left button is RESET on the second layer,
 this board has a reset button on the back. So I feel like it serves a better
 purpose as the grave key (because grave-escape doesn't really
 work with mac and norwegian layout). It could of course also be on the base layer.
