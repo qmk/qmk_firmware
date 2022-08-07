@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "pteron38",
+  "keyboard_name": "Pteron38",
+  "manufacturer": "QMK",
   "url": "",
   "maintainer": "fidelcoria",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_split_3x5_4": {
       "layout": [

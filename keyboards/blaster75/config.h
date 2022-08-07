@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xA122  
-#define PRODUCT_ID      0xB075  
-#define DEVICE_VER      0x0001  
-#define MANUFACTURER    Altain
-#define PRODUCT         Blaster75
-
 /* Matrix Size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -33,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                         0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { B0, B4, B5, B6, B7, C6, C7, D0, D1, D2, D3, D4, D5, D6, D7 } 
-#define UNUSED_PINS
 
 /* Diode Direction */
 #define DIODE_DIRECTION COL2ROW

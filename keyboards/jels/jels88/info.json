@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Jels88",
+    "manufacturer": "Jels",
     "url": "",
     "maintainer": "Jels",
+    "usb": {
+        "vid": "0x006A",
+        "pid": "0x0088",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

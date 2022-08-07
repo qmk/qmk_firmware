@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Nimrod",
+    "manufacturer": "Breadtamer",
     "url": "http://www.keyboard-layout-editor.com/#/gists/5a6b4ee1ca9738c4ed90fe95ef35fdf6",
     "maintainer": "Breadtamer",
+    "usb": {
+        "vid": "0x6274",
+        "pid": "0x720D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

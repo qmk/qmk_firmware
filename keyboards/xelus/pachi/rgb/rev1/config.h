@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845 // "XE"
-#define PRODUCT_ID      0x5052 // "PR"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Pachi RGB Rev1
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -30,7 +23,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B14, B13, B12, B2, A8, B15 }
 #define MATRIX_COL_PINS { C13, C14, C15, H0, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, H1, B10, B11 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

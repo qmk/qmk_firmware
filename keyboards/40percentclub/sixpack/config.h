@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D4, C6, D7 }, \
     { E6, B4, B5 }  \
 }
-#define UNUSED_PINS { D1, D0, C4, C5, B1, B2, B3 } // TX, RX, SDA, SCL, PB1, PB2, PB3 on expansion connector
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

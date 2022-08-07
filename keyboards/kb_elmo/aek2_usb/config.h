@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xA68C
-#define PRODUCT_ID 0xDB52
-#define DEVICE_VER 0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT AEK II USB
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 14
@@ -35,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D5, C1, C4, D0, C3, C2, B3, B4 }
 #define MATRIX_COL_PINS { A1, A0, A2, A3, A4, A5, A6, A7, C7, C6, C5, C0, D6, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

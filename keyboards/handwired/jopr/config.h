@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4DAE
-#define PRODUCT_ID      0x1000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    joelproko
-#define PRODUCT         jopr-106-Nl2SR-Cl2nL
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 11
@@ -16,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D6, D2, D4, D3, D5, D7, C6, B6, F5 }
 #define MATRIX_COL_PINS { B3, B2, B1, B0, F7, E6, F6, B5, C7, B4, D1 }
-#define UNUSED_PINS { B7 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

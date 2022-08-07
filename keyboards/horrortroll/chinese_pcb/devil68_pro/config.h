@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7516
-#define PRODUCT_ID      0x6001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    HorrorTroll
-#define PRODUCT         Devil68 Pro
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -44,9 +37,6 @@
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
 
 #ifdef RGB_MATRIX_ENABLE
     #define DRIVER_LED_TOTAL 86

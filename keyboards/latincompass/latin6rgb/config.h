@@ -19,11 +19,6 @@
 
 /* USB Device descriptor parameter */
 #include "config_common.h"
-#define VENDOR_ID       0x7C88 // "hw" = haierwangwei
-#define PRODUCT_ID      0x7C96 // "lp" = latin6RGB
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    18438880
-#define PRODUCT         Latin6rgb
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -41,7 +36,6 @@
  */
 #define MATRIX_ROW_PINS {C7, C6 }
 #define MATRIX_COL_PINS {F7, F6, F5}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845 // "XE"
-#define PRODUCT_ID      0x4654 // "FT"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Valor FRL TKL
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17
@@ -32,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { A15, A14, A1, B3, B4 }
 #define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, A0, B11, B10, B2, B1, B0, A7, A6, A5, A4, A3 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

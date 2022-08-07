@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x00D8 //A+M+J
-#define PRODUCT_ID      0x6074
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Han Chen
-#define PRODUCT         AMJ96
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 16
@@ -40,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

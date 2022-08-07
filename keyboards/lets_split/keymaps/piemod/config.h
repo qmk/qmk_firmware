@@ -42,7 +42,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 1
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 1
 
-// Typing Options
-#define QMK_KEYS_PER_SCAN 4
-
 #endif

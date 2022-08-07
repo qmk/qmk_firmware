@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5154 // "QT"
-#define PRODUCT_ID      0x0009
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Quantrik
-#define PRODUCT         Kyuu
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B6, B5, B4, D7, D6 }
 #define MATRIX_COL_PINS { F1, F4, F5, F6, F7, C7, C6, F0, B7, D0, D5, D3, D2, D1, B3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

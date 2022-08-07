@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xB16B
-#define PRODUCT_ID 0x04E5
-#define DEVICE_VER 0x0012
-#define MANUFACTURER Ramon Imbao
-#define PRODUCT Herringbone
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C4, C5, C6, C7, A7, A6 }
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, D6, D5, D1, B0, B1, B2, B3, B4, D7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

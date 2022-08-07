@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Kallos",
+    "manufacturer": "Cipulot",
     "url": "",
     "maintainer": "Cipulot",
+    "usb": {
+        "vid": "0x6369",
+        "pid": "0x6B7A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

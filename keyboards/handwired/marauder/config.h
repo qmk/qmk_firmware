@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D52
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    BB-66
-#define PRODUCT         Minshara Marauder
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
@@ -43,7 +36,7 @@
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4, B0 }
 #define DIODE_DIRECTION COL2ROW
 #define LAYER_STATE_8BIT
-#define QMK_KEYS_PER_SCAN 12 // moar gaming code
+
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 7

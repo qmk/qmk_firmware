@@ -85,7 +85,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN           B0
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN           B0
 
 #define POINTING_DEVICE_RIGHT

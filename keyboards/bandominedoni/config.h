@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0xF4B5
-#define DEVICE_VER   0x0001
-#define MANUFACTURER 3araht
-#define PRODUCT      bandominedoni
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 7
@@ -40,7 +33,6 @@
  */
 #define MATRIX_ROW_PINS { B5, B4, D7, F6, C6, D4 }
 #define MATRIX_COL_PINS { D1, E6, F7, B1, B3, B2, D0 }
-#define UNUSED_PINS
 
 #define MASTER_RIGHT
 #ifndef MASTER_RIGHT
