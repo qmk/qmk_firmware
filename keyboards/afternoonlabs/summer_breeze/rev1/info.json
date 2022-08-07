@@ -1,8 +1,13 @@
 {
     "keyboard_name": "Summer Breeze",
+    "manufacturer": "AfternoonLabs",
     "url": "afternoonlabs.com/breeze",
-    "productId": "0x0004",
     "maintainer": "eithanshavit",
+    "usb": {
+        "vid": "0x616C",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

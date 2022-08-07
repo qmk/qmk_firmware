@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "arabica37 rev. 1",
+    "keyboard_name": "Arabica3/7",
+    "manufacturer": "CalciumNitride",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

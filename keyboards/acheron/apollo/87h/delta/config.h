@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4150 // AP for AcheronProject
-#define PRODUCT_ID      0x8775 // For 87H + 3 (revision Delta)
-#define DEVICE_VER      0x0004 // Revision Delta
-#define MANUFACTURER    AcheronProject
-#define PRODUCT         Apollo87H
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
