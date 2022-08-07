@@ -26,6 +26,12 @@ def _build_info(keyboard, keymap):
     del info_json['keymaps']
     del info_json['parse_errors']
     del info_json['parse_warnings']
+    del info_json['usb']['device_ver']
+    for layout in info_json['layouts'].values():
+        del layout['filename']
+        del layout['c_macro']
+        for item in layout['layout']:
+            item.pop('label', None)
 
     return info_json
 
