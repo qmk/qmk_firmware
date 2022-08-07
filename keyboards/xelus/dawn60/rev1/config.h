@@ -30,12 +30,10 @@
 //no underglow - prototype
 //#define MATRIX_ROW_PINS { B1, B3, B7, F6, F7 }
 //#define MATRIX_COL_PINS { B0, D5, B2, F5, D2, D3, D4, D6, D7, B4, B5, B6, C6, C7 }
-//#define UNUSED_PINS
 
 //underglow
 #define MATRIX_ROW_PINS { B1, B3, F1, F6, F7 }
 #define MATRIX_COL_PINS { B0, D5, B2, F5, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 2

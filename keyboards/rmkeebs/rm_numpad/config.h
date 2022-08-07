@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x524E  /* RN (RMKeebs Numpad) */
-#define DEVICE_VER   0x0001
-#define MANUFACTURER RMKeebs
-#define PRODUCT      rm_numpad
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
@@ -44,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B4, F7, C7, C6, F1, F0  }
 #define MATRIX_COL_PINS { F4, F5, F6, B5, B6 }
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

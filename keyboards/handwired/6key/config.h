@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEEF
-#define PRODUCT_ID      0x0007
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Bratzworth
-#define PRODUCT         6key
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -32,7 +25,6 @@
 /* pin-out */
 #define MATRIX_ROW_PINS { B4, D0 }
 #define MATRIX_COL_PINS { D3, D2, D1 }
-#define UNUSED_PINS
 
 /* dip switch */
 #define DIP_SWITCH_PINS { C6 }

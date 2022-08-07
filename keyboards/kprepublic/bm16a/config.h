@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50  // "KP"
-#define PRODUCT_ID      0x016A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KPrepublic
-#define PRODUCT         bm16a
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { D3, D5, D1, D2}
 #define MATRIX_COL_PINS { D6, D4, D7, B4}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8367 // "SC"
-#define PRODUCT_ID      0x7783 // "MS"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Sauce
-#define PRODUCT         Mild
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { C13, C14, C15, A15, F0, F1 }
 #define MATRIX_COL_PINS { A10, A9, A8, B11, B10, B2, B1, B0, A7, A5, A4, A3, A2, A1, B6, B5, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x6FAA
-#define DEVICE_VER   0x0001
-#define MANUFACTURER FUJITSU
-#define PRODUCT      T111
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 14
@@ -35,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B15, B11, B10, B1, B0, A10, A9, A7, A6, A5, A4, A8, B13, B14 }
 /*                         0    1    2    3   4   5    6   7   8   9   A   B   C    D*/
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL

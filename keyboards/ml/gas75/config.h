@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xC0B0
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ML
-#define PRODUCT         Gas75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -44,9 +37,6 @@
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Larger keys per scan */
-#define QMK_KEYS_PER_SCAN 12
 
 /* Encoder pins */
 #define ENCODERS_PAD_A { F0 }

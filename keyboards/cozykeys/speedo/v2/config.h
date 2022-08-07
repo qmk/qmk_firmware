@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { D1, D2, D3, C6, C7 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, B6, B5, D0, B7, B3, B2, B1, B0 }
-#define UNUSED_PINS { D5, D4, D6, D7, B4 }
 #define DIODE_DIRECTION COL2ROW
 
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
