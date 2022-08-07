@@ -55,18 +55,13 @@ This section documents various processes we use when running the Breaking Change
 ### 4 Weeks Before Merge
 
 * `develop` is now closed to new PR's, only fixes for current PR's may be merged
-* Post call for testers
-    * [ ] Discord
-    * [ ] GitHub PR
-    * [ ] https://reddit.com/r/olkb
+* Post call for testers: message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
+    *
 
 ### 2 Weeks Before Merge
 
 * `develop` is now closed to existing PR merges, only bugfixes for previous merges may be included
-* Post call for testers
-    * [ ] Discord
-    * [ ] GitHub PR
-    * [ ] https://reddit.com/r/olkb
+* Post call for testers: message `@Breaking Changes Updates` on `#qmk_firmware` in Discord.
 
 ### 1 Week Before Merge
 
@@ -143,24 +138,24 @@ This happens immediately after the previous `develop` branch is merged to `maste
 * Update this file with the new dates: `docs/breaking_changes.md`
 * Create Events on the QMK Discord - "Somewhere Else" => "GitHub":
     * [ ] Event #1:
-        | Field       | Value                                                                                                                                                                                                              |
-        |-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-        | Topic       | Last `develop` functionality PRs to be raised                                                                                                                                                                      |
-        | Start Date  | ((4 weeks before merge)), 12:00am                                                                                                                                                                                  |
-        | End Date    | ((2 weeks before merge)), 12:00am                                                                                                                                                                                  |
-        | Description | This is the deadline for functional PRs to be raised against `develop` for the current breaking changes cycle. After ((4 weeks before merge)), any new PRs targeting `develop` will be deferred to the next cycle. |
+        | Field       | Value                                                                                                                                                                                                                 |
+        |-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | Topic       | Last `develop` functionality PRs to be raised                                                                                                                                                                         |
+        | Start Date  | ((5 weeks before merge)), 12:00am                                                                                                                                                                                     |
+        | End Date    | ((4 weeks before merge)), 12:00am                                                                                                                                                                                     |
+        | Description | This is the last window for functional PRs to be raised against `develop` for the current breaking changes cycle. After ((4 weeks before merge)), any new PRs targeting `develop` will be deferred to the next cycle. |
     * [ ] Event #2:
-        | Field       | Value                                                                                                                                                                                                         |
-        |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-        | Topic       | Last `develop` functionality PRs to be merged                                                                                                                                                                 |
-        | Start Date  | ((2 weeks before merge)), 12:00am                                                                                                                                                                             |
-        | End Date    | ((1 week before merge)), 12:00am                                                                                                                                                                             |
-        | Description | This is the deadline for functional PRs to be merged into `develop` for the current breaking changes cycle. After ((2 weeks before merge)), only bugfix PRs targeting `develop` will be considered for merge. |
+        | Field       | Value                                                                                                                                                                                                            |
+        |-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | Topic       | Last `develop` functionality PRs to be merged                                                                                                                                                                    |
+        | Start Date  | ((4 weeks before merge)), 12:00am                                                                                                                                                                                |
+        | End Date    | ((2 weeks before merge)), 12:00am                                                                                                                                                                                |
+        | Description | This is the last window for functional PRs to be merged into `develop` for the current breaking changes cycle. After ((2 weeks before merge)), only bugfix PRs targeting `develop` will be considered for merge. |
     * [ ] Event #3:
         | Field       | Value                                                                                                                                                                                                                           |
         |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
         | Topic       | `develop` closed for merges                                                                                                                                                                                                     |
-        | Start Date  | ((1 week before merge)), 12:00am                                                                                                                                                                                                |
+        | Start Date  | ((2 weeks before merge)), 12:00am                                                                                                                                                                                               |
         | End Date    | ((day of merge)), 12:00am                                                                                                                                                                                                       |
         | Description | This is the deadline for functionality bugfix PRs to be merged into `develop` for the current breaking changes cycle. After ((1 week before merge)), only critical bugfix PRs targeting `develop` will be considered for merge. |
     * [ ] Event #4:
