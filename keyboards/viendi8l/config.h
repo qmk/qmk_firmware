@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include "common_config.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8673 // VI for Viendi

@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "config_common.h"
 
 #define MEDIA_KEY_DELAY 10
 #define ALT_TAB_DELAY 1000
