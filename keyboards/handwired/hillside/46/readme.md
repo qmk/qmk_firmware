@@ -1,11 +1,11 @@
 # Hillside 46
 
-![hillside](https://imgur.com/erJPjvr.png)
+![hillside](https://imgur.com/VFA9E4Yh.png)
 
 [Hillside 46](https://github.com/mmccoyd/hillside)
  is a split ergonomic keyboard with 3x6+5 choc-spaced keys,
  splayed ring and pinkie columns, aggressive column stagger,
- a longer thumb arc and a breakoff outer-pinky column.
+ a longer thumb arc and a breakoff outer-pinkie column.
 
 * Keyboard Maintainer: [Michael McCoyd](https://github.com/mmccoyd)
 * Hardware Supported: ProMicro/Elite-C and compatible
