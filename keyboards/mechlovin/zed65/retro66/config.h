@@ -34,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { B4, B6 }
 #define ENCODERS_PAD_B { B8, B9 }
 
-// Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 3, 4 }, {7, 4} }
-#define ENCODERS_CCW_KEY { { 4, 4 }, {8, 4} }
 
 #define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
