@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7273 // rs
-#define PRODUCT_ID   0x0064 // 100
-#define DEVICE_VER   0x0001 // rev 1
-#define MANUFACTURER ryanskidmore
-#define PRODUCT      rsKeys100
-
 /* Key Matrix Sizes */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 24
@@ -38,7 +31,7 @@
 /* RGB Data Pin */
 #define RGB_DI_PIN C7
 /* The number of RGB LEDs connected */
-#define DRIVER_LED_TOTAL 105
+#define DRIVER_LED_TOTAL 118
 /* Set the maximum brightness to 110 to avoid going over 500 mA.
  * At full brightness with all three indicator LEDs on, the power draw is about 450 mA. */
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 110
@@ -79,7 +72,3 @@
  *
  */
 #define FORCE_NKRO
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

@@ -29,6 +29,14 @@ let
   pythonEnv = poetry2nix.mkPoetryEnv {
     projectDir = ./util/nix;
     overrides = poetry2nix.overrides.withDefaults (self: super: {
+      pillow = super.pillow.overridePythonAttrs(old: {
+        # Use preConfigure from nixpkgs to fix library detection issues and
+        # impurities which can break the build process; this also requires
+        # adding propagatedBuildInputs and buildInputs from the same source.
+        propagatedBuildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.propagatedBuildInputs;
+        buildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.buildInputs;
+        preConfigure = (old.preConfigure or "") + pkgs.python3.pkgs.pillow.preConfigure;
+      });
       qmk = super.qmk.overridePythonAttrs(old: {
         # Allow QMK CLI to run "qmk" as a subprocess (the wrapper changes
         # $PATH and breaks these invocations).
@@ -40,7 +48,7 @@ in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv niv ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5143 // "QC"
-#define PRODUCT_ID   0x4558 // "EX"
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Quadcube
-#define PRODUCT      Exent
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 14

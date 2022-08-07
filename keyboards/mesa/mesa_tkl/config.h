@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4E5A
-#define PRODUCT_ID   0x8001
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Mesa Keyboards
-#define PRODUCT      Mesa TKL
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
