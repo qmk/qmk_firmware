@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 //  define which MIDI ch to use.
 //  Note that (actual MIDI ch# - 1) -> 0 .. 15 is used for coding.
@@ -75,6 +76,7 @@ enum custom_keycodes {
     TGLINTR,  //  ToGgLe INdicator location {(_KEY01, _KEY13, _KEY25, _KEY37) or (_KEY02, _KEY14, _KEY26) / (_KEY12, _KEY24, _KEY36)}in TRans mode
     TGLTRNS,  //  ToGgLe TRaNS and shift
     TGLCHGR,  //  ToGgLe CH GRoup
+    VERSION,
 
     B_BASE,            //  border set to the left end.
     B_LEFT,            //  border set to the 1st left octave.
@@ -270,7 +272,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] =  LAYOUT(
             _______,          XXXXXXX,                             RGB_RMOD, RGB_MOD,
             MI_VELU,
-        MI_OCTD, MI_OCTU,     B_BASE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_LEFT, XXXXXXX, XXXXXXX, B_CENTER, XXXXXXX, XXXXXXX, B_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_FLIP,
+        MI_OCTD, MI_OCTU,     B_BASE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_LEFT, XXXXXXX, XXXXXXX, B_CENTER, XXXXXXX, XXXXXXX, B_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, XXXXXXX, B_FLIP,
             MI_VELD,               TGLINTR, TGLTRNS, TGLCHGR, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EEP_RST, TGLINDI, RGB_TOG
     )
 };
@@ -395,6 +397,11 @@ void select_layer_state_set(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // uprintf("keycode=%u, YM_C_3=%u, YM_Db_2 =%u, YM_MIN = %u, YM_MAX = %u\n", keycode, YM_C_3, YM_Db_2, YM_TONE_MIN, YM_TONE_MAX);
     switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            break;
 
         //  Layer-related settings.
         //  reset_scale_indicator() first, followed by each modification, and then change the default layer.
