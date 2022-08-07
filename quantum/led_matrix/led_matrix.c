@@ -630,18 +630,18 @@ void led_matrix_increase_val(void) {
 
 void led_matrix_decrease_val_helper(bool write_to_eeprom) {
     led_matrix_set_val_eeprom_helper(qsub8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom);
+#ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
+    if (led_matrix_eeconfig.enable && led_matrix_eeconfig.val <= LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL) {
+        dprintf("decrease_val to disable\n");
+        led_matrix_toggle_eeprom_helper(write_to_eeprom);
+    }
+#endif
 }
 void led_matrix_decrease_val_noeeprom(void) {
     led_matrix_decrease_val_helper(false);
 }
 void led_matrix_decrease_val(void) {
     led_matrix_decrease_val_helper(true);
-#ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
-    if (led_matrix_eeconfig.enable && led_matrix_eeconfig.val <= LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL) {
-        dprintf("decrease_val to disable\n");
-        led_matrix_toggle_eeprom_helper(true);
-    }
-#endif
 }
 
 void led_matrix_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
