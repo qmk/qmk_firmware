@@ -30,6 +30,7 @@ The next Breaking Change is scheduled for August 27, 2022.
 * [ ] 2022 Jul 31 - `develop` closed to new PR's.
 * [ ] 2022 Jul 31 - Call for testers.
 * [ ] 2022 Aug 13 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* [ ] 2022 Aug 20 - `develop` is locked, only critical bugfix PR's merged.
 * [ ] 2022 Aug 25 - `master` is locked, no PR's merged.
 * [ ] 2022 Aug 27 - Merge `develop` to `master`.
 * [ ] 2022 Aug 27 - `master` is unlocked. PR's can be merged again.
@@ -69,6 +70,7 @@ This section documents various processes we use when running the Breaking Change
 
 ### 1 Week Before Merge
 
+* `develop` is now closed to PR merges, only critical bugfixes may be included
 * Announce that master will be closed from <2 Days Before> to <Day of Merge>
     * [ ] Discord
     * [ ] GitHub PR
@@ -76,6 +78,7 @@ This section documents various processes we use when running the Breaking Change
 
 ### 2 Days Before Merge
 
+* `master` is now closed to PR merges
 * Announce that master is closed for 2 days
     * [ ] Discord
     * [ ] GitHub PR
@@ -120,7 +123,7 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
     * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
     * [ ] `git push upstream breakpoint_<YYYY>_<MM>_<DD>`
-    
+
 * All submodules under `lib` now need to be checked against their QMK-based forks:
     * [ ] `git submodule foreach git log -n1`
     * [ ] Validate each submodule SHA1 matches the qmk fork, e.g. for ChibiOS:
@@ -134,3 +137,43 @@ This happens immediately after the previous `develop` branch is merged to `maste
             * [ ] `git push origin master --force-with-lease`
 
 * (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
+
+### Set up Discord events for the next cycle
+
+* Update this file with the new dates: `docs/breaking_changes.md`
+* Create Events on the QMK Discord - "Somewhere Else" => "GitHub":
+    * [ ] Event #1:
+        | Field       | Value                                                                                                                                                                                                              |
+        |-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | Topic       | Last `develop` functionality PRs to be raised                                                                                                                                                                      |
+        | Start Date  | ((4 weeks before merge)), 12:00am                                                                                                                                                                                  |
+        | End Date    | ((2 weeks before merge)), 12:00am                                                                                                                                                                                  |
+        | Description | This is the deadline for functional PRs to be raised against `develop` for the current breaking changes cycle. After ((4 weeks before merge)), any new PRs targeting `develop` will be deferred to the next cycle. |
+    * [ ] Event #2:
+        | Field       | Value                                                                                                                                                                                                         |
+        |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | Topic       | Last `develop` functionality PRs to be merged                                                                                                                                                                 |
+        | Start Date  | ((2 weeks before merge)), 12:00am                                                                                                                                                                             |
+        | End Date    | ((1 week before merge)), 12:00am                                                                                                                                                                             |
+        | Description | This is the deadline for functional PRs to be merged into `develop` for the current breaking changes cycle. After ((2 weeks before merge)), only bugfix PRs targeting `develop` will be considered for merge. |
+    * [ ] Event #3:
+        | Field       | Value                                                                                                                                                                                                                           |
+        |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | Topic       | `develop` closed for merges                                                                                                                                                                                                     |
+        | Start Date  | ((1 week before merge)), 12:00am                                                                                                                                                                                                |
+        | End Date    | ((day of merge)), 12:00am                                                                                                                                                                                                       |
+        | Description | This is the deadline for functionality bugfix PRs to be merged into `develop` for the current breaking changes cycle. After ((1 week before merge)), only critical bugfix PRs targeting `develop` will be considered for merge. |
+    * [ ] Event #4:
+        | Field       | Value                                                                                                                |
+        |-------------|----------------------------------------------------------------------------------------------------------------------|
+        | Topic       | `master` closed for merges                                                                                           |
+        | Start Date  | ((2 days before merge)), 12:00am                                                                                     |
+        | End Date    | ((day of merge)), 12:00am                                                                                            |
+        | Description | This is the period that no PRs are to be merged to `master`, so that the merge of `develop` into `master` is stable. |
+    * [ ] Event #5:
+        | Field       | Value                                                                                                                                      |
+        |-------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+        | Topic       | `develop` merges to `master`                                                                                                               |
+        | Start Date  | ((day of merge)), 12:00am                                                                                                                  |
+        | End Date    | ((day of merge)), 11:45pm                                                                                                                  |
+        | Description | At some point, QMK will merge `develop` into `master` and everyone will be able to reap the benefits of the newest batch of functionality. |
