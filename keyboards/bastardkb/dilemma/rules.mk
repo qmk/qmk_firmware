@@ -1,3 +1,9 @@
+# MCU name
+MCU = RP2040
+
+# Bootloader selection
+BOOTLOADER = rp2040
+
 # Build Options
 #   change yes to no to disable
 #
@@ -17,9 +23,12 @@ RGBLIGHT_SUPPORTED = no     # RGB underglow is supported, but not enabled by def
 RGB_MATRIX_ENABLE = no      # Enable keyboard RGB matrix functionality
 
 POINTING_DEVICE_ENABLE = yes
-POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+SERIAL_DRIVER = vendor
 
 SPLIT_KEYBOARD = yes
 LAYOUTS = split_3x5_2
 
 DEFAULT_FOLDER = bastardkb/dilemma/splinky
+
+# RP2040-specific options
+PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
