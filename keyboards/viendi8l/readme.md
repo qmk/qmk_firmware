@@ -1,6 +1,6 @@
 # Viendi8L PCB firmware
 
-![8L_image](https://imgur.com/z4cuSYJ.png)
+![8L_image](https://imgur.com/z4cuSYJh.png)
 
 The 8L 80% (60% plus southpaw numpad) keyboard designed by Viendi, with PCB by Gondolindrim.
 
@@ -20,7 +20,7 @@ The 8L 80% (60% plus southpaw numpad) keyboard designed by Viendi, with PCB by G
 
 After accessing the DFU state in your PCB, build the default layout using:
 
-    make viendi8L:default
+    make viendi8l:default
 
 Then download the resulting binary `*bin` file using `dfu-util` or QMK Toolbox.
 
