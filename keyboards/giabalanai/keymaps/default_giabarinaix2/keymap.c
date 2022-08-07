@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper_giabarinaix2(...) LAYOUT_giabarinaix2(__VA_ARGS__)
@@ -138,7 +139,9 @@ enum custom_keycodes {
     MI_CH_BbDim7 = MI_CH_AsDim7,
     MI_CH_BDim7,
 
-    MY_CHORD_MAX = MI_CH_BDim7
+    MY_CHORD_MAX = MI_CH_BDim7,
+
+    VERSION
 };
 
 #define MY_CHORD_COUNT (MY_CHORD_MAX - MY_CHORD_MIN + 1)
@@ -185,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     DFCBASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, XXXXXXX,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______
   )
@@ -211,6 +214,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t chord        = keycode - MY_CHORD_MIN;
 
     switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " : " QMK_BUILDDATE);
+            }
+            break;
+
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;

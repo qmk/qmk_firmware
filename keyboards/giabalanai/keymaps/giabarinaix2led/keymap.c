@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper_giabarinaix2(...) LAYOUT_giabarinaix2(__VA_ARGS__)
@@ -147,6 +148,7 @@ enum custom_keycodes {
 
     MY_CHORD_MAX = MI_CH_BDim7,
 
+    VERSION,
     CSYSTEM,  // C-SYSTEM layout
     CNTBASC,  // CouNTer BASs C-system layout
     CSYSALL,  // C-SYStem ALL layout
@@ -244,7 +246,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     CSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
       DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, TGLMICH,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______
   )
@@ -351,6 +353,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t chord        = keycode - MY_CHORD_MIN;
 
     switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " : " QMK_BUILDDATE);
+            }
+            break;
+
         //  set default layer and save it to EEPROM when MIDI key layers are selected.
         case CSYSTEM:
             if (record->event.pressed) {

@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "split_util.h"
 #include "print.h"
+#include "version.h"
 
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
@@ -176,6 +177,7 @@ enum custom_keycodes {
 
     MY_CHORD_MAX = MI_CH_BDim7,
 
+    VERSION,
     CSYSTEM,  // C-SYSTEM layout
     BSYSTEM,  // B-SYSTEM layout
     CNTBASC,  // CouNTer BASs C-system layout
@@ -330,7 +332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     XXXXXXX,                                                                                                           XXXXXXX, XXXXXXX,
-      MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,   _______,
+      MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EEP_RST,   _______,
     CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, RGB_TOG,
       XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH
   )
@@ -545,6 +547,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t chord        = keycode - MY_CHORD_MIN;
 
     switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " : " QMK_BUILDDATE);
+            }
+            break;
+
         //  set default layer and save it to EEPROM when MIDI key layers are selected.
         case CSYSTEM:
             if (record->event.pressed) {
