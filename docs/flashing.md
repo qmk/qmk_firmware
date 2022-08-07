@@ -25,6 +25,11 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` target in QMK (recommended command line)
+  ```
+  dfu-programmer <mcu> erase --force
+  dfu-programmer <mcu> flash --force <filename>
+  dfu-programmer <mcu> reset
+  ```
 
 Flashing sequence:
 
@@ -73,8 +78,11 @@ BOOTLOADER = caterina
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](https://www.nongnu.org/avrdude/) with the `avr109` programmer / `:avrdude` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
+* [avrdude](https://www.nongnu.org/avrdude/) with the `avr109` programmer / `:avrdude` target in QMK (recommended command line)
+  ```
+  avrdude -p <mcu> -c avr109 -P <serialport> -U flash:w:<filename>:i
+  ```
 
 Flashing sequence:
 
@@ -106,8 +114,11 @@ BOOTLOADER = halfkay
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) / `:teensy` target in QMK (recommended command line)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
+* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) / `:teensy` target in QMK (recommended command line)
+  ```
+  teensy_loader_cli -v -mmcu=<mcu> <filename>
+  ```
 
 Flashing sequence:
 
@@ -133,8 +144,11 @@ BOOTLOADER = usbasploader
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](https://www.nongnu.org/avrdude/) with the `usbasp` programmer / `:usbasp` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
+* [avrdude](https://www.nongnu.org/avrdude/) with the `usbasp` programmer / `:usbasp` target in QMK (recommended command line)
+  ```
+  avrdude -p <mcu> -c usbasp -U flash:w:<filename>:i
+  ```
 
 Flashing sequence:
 
@@ -159,8 +173,11 @@ BOOTLOADER = bootloadhid
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadhid` target in QMK (recommended command line)
 * [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash)
+* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadhid` target in QMK (recommended command line)
+  ```
+  bootloadHID -r <filename>
+  ```
 
 Flashing sequence:
 
@@ -232,6 +249,9 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 0 -d 0483:DF11 -s 0x8000000:leave -D <filename>
+  ```
 
 Flashing sequence:
 
@@ -246,7 +266,7 @@ Flashing sequence:
 ### `make` Targets
 
 * `:dfu-util`: Waits until an STM32 bootloader device is available, and then flashes the firmware.
-* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:avrdude`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
+* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:dfu-util`, but also sets the handedness setting in EEPROM. This is ideal for Proton-C-based split keyboards.
 * `:st-link-cli`: Allows you to flash the firmware via the ST-Link CLI utility, rather than dfu-util. Requires an ST-Link dongle.
 * `:st-flash`: Allows you to flash the firmware via the `st-flash` utility from [STLink Tools](https://github.com/stlink-org/stlink), rather than dfu-util. Requires an ST-Link dongle.
 
@@ -265,6 +285,9 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 2 -d 1EAF:0003 -D <filename>
+  ```
 
 Flashing sequence:
 
@@ -286,6 +309,9 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 0 -d 1C11:B007 -D <filename>
+  ```
 
 Flashing sequence:
 
@@ -320,4 +346,15 @@ Flashing sequence:
     * Double-tap the `nRST` button on the PCB.
 2. Wait for the OS to detect the device
 3. Copy the .uf2 file to the new USB disk
+4. Wait for the keyboard to become available
+
+or
+
+CLI Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode
+    * Double-tap the `nRST` button on the PCB.
+2. Wait for the OS to detect the device
+3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/blackpill_f411_tinyuf2 --keymap default`
 4. Wait for the keyboard to become available

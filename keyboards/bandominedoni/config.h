@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0xF4B5
-#define DEVICE_VER   0x0001
-#define MANUFACTURER 3araht
-#define PRODUCT      bandominedoni
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 7
@@ -239,10 +232,6 @@
 // #define NO_ACTION_TAPPING
 // NO_ACTION_ONESHOT -388 bytes
 #define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4260
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    rs
-#define PRODUCT         rs60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12

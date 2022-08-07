@@ -20,136 +20,33 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  // 4x10
+  [_DVORAK]  = BASE_5x15(___NUMS___, ___DVORAK___),
+  [_QWERTY]  = BASE_5x15(___NUMS___, ___QWERTY___),
+  [_COLEMAK] = BASE_5x15(___NUMS___, ___COLEMAK_DH___),
+  [_BEAKL]   = BASE_5x15(___BKLNUMS___, ___BEAKL15___),
 
-    [DVORAK] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
-        KC_LOCK,    ___13_DVORAK_1___, KC_SLASH,
-        TAB_BKTAB,  ___13_DVORAK_2___, KC_MINUS,
-        KC_LSFT,    ___13_DVORAK_3___, KC_RSFT,
-        ___ORTHO_15_BOTTOM___
-        ),
+  //[_DVORAK_BP] = BASE_5x15_bepo(___DVORAK_FR___),
+  //[_BEAKL_BP]  = BASE_5x15_bepo(___BEAKL15_FR___),
 
-    [QWERTY] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
-        KC_LOCK,    ___13_QWERTY_1___, KC_SLASH,
-        TAB_BKTAB,  ___13_QWERTY_2___, KC_MINUS,
-        KC_LSFT,    ___13_QWERTY_3___, KC_RSFT,
-        ___ORTHO_15_BOTTOM___
-        ),
+  // 4x12
+  //[_BEPO]      = BASE_5x15_bepo6(___BEPO6_FR___),
 
-    [COLEMAK] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
-        KC_LOCK,    ___13_COLEMAK_1___, KC_SLASH,
-        TAB_BKTAB,  ___13_COLEMAK_2___, KC_MINUS,
-        KC_LSFT,    ___13_COLEMAK_3___, KC_RSFT,
-        ___ORTHO_15_BOTTOM___
-        ),
+  // transient macro takes a 4x12 for args
+  [_SYMB]    = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_3x12___),
+  //[_SYMB_BP] = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_BP_3x12___),
 
-    [WORKMAN] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
-        KC_LOCK,    ___13_WORKMAN_1___, KC_SLASH,
-        TAB_BKTAB,  ___13_WORKMAN_2___, KC_MINUS,
-        KC_LSFT,    ___13_WORKMAN_3___, KC_RSFT,
-        ___ORTHO_15_BOTTOM___
-        ),
+  [_TOPROWS]    = TRANSIENT_5x15(___12___, ___TOPROWS_3x12___),
+  //[_TOPROWS_BP] = TRANSIENT_5x15(___12___, ___TOPROWS_BP_3x12___),
 
-    [NORMAN] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
-        KC_LOCK,    ___13_NORMAN_1___,  KC_SLASH,
-        TAB_BKTAB,  ___13_NORMAN_2___,  KC_MINUS,
-        KC_LSFT,    ___13_NORMAN_3___,  KC_RSFT,
-        ___ORTHO_15_BOTTOM___
-        ),
+  [_KEYPAD]    = TRANSIENT_5x15(___12___, ___KP_C_3x12___),
+  //[_KEYPAD_BP] = TRANSIENT_5x15(___12___, ___KP_C_BP_3x12___),
 
-    [DVORAK_ON_BEPO] = LAYOUT_ortho_5x15_wrapper(
-        DB_GRV, ___ORTHO_15_B_N___, DB_EQL,
-        KC_LOCK,    ___13_DVORAK_B_1___,  DB_SLASH,
-        TAB_BKTAB,  ___13_DVORAK_B_2___,  DB_MINUS,
-        KC_LSFT,    ___13_DVORAK_B_3___,  KC_RSFT,
-        ___ORTHO_15_BOTTOM_FR___
-        ),
-
-    [XMONAD] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___,  ___13_DVORAK_1___, ___,
-        ___,  ___13_DVORAK_2___, ___,
-        ___,  ___13_DVORAK_3___, ___,
-        ___15___
-        ),
-
-    [XMONAD_FR] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___,  ___13_DVORAK_B_1___,  ___,
-        ___,  ___13_DVORAK_B_2___,  ___,
-        ___,  ___13_DVORAK_B_3___,  ___,
-        ___15___
-        ),
-
-    [BEPO] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_B_SYMB___,
-        KC_LOCK,        ___13_BEPO_1___, BP_W,
-        TAB_BKTAB,      ___13_BEPO_2___, BP_CCED,
-        BP_SFT_T_ECRC,  ___13_BEPO_3___, BP_SFT_T_W,
-        ___ORTHO_15_BOTTOM_BP___
-        ),
-
-    // SYMBOLS
-    [SYMB] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___15_SYMB_1___,
-        ___15_SYMB_2___,
-        ___15_SYMB_3___,
-        ___15_SYMB_4___
-        ),
-
-    [KEYPAD] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___15_KP_1___,
-        ___15_KP_2___,
-        ___15_KP_3___,
-        ___15_KP_4___
-        ),
-
-    [KEYPAD_ON_BEPO] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___15_KP_B_1___,
-        ___15_KP_B_2___,
-        ___15_KP_B_3___,
-        ___15_KP_B_4___
-        ),
-
-    [SYMB_ON_BEPO] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___15_SYMB_B_1___,
-        ___15_SYMB_B_2___,
-        ___15_SYMB_B_3___,
-        ___15_SYMB_B_4___
-        ),
-
-    // MEDIA AND MOUSE
-    [MDIA] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___15_MDIA_1___,
-        ___15_MDIA_2___,
-        ___15_MDIA_3___,
-        ___15_MDIA_4___
-        ),
-
-    [LAYERS] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___15_LAYERS_1___,
-        ___15_LAYERS_2___,
-        ___15_LAYERS_3___,
-        ___15___
-        ),
-
-    [_RGB] = LAYOUT_ortho_5x15_wrapper(
-        ___ORTHO_15_FUNC_1_12___,
-        ___15_RGB_1___,
-        ___15_RGB_2___,
-        ___15_RGB_3___,
-        ___15___
-        ),
+  // Navigation and control
+  [_NAV]    = TRANSIENT_5x15(___12___, ___NAV_3x12___),
+  [_LAYERS] = TRANSIENT_5x15(___12___, ___LAYERS_3x12___),
+  //[_RGB]  = TRANSIENT_5x15(___12___, ___RGB_3x12___),
+  [_ADJUST]    = TRANSIENT_5x15(___12___, ___ADJUST_3x12___),
 };
 
 
@@ -199,18 +96,18 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   // rgblight_set_layer_state(0, !on_qwerty());
-  rgblight_set_layer_state(0, layer_state_cmp(state, DVORAK));
+  rgblight_set_layer_state(0, layer_state_cmp(state, _DVORAK));
 
-  rgblight_set_layer_state(1, layer_state_cmp(state, BEPO));
-  rgblight_set_layer_state(2, layer_state_cmp(state, DVORAK));
+  rgblight_set_layer_state(1, layer_state_cmp(state, _BEPO));
+  rgblight_set_layer_state(2, layer_state_cmp(state, _DVORAK));
   //|| layer_state_cmp(state, DVORAK_ON_BEPO)));
-  rgblight_set_layer_state(3, layer_state_cmp(state, MDIA));
-  rgblight_set_layer_state(4, layer_state_cmp(state, SYMB) );
+  rgblight_set_layer_state(3, layer_state_cmp(state, _NAV));
+  rgblight_set_layer_state(4, layer_state_cmp(state, _SYMB) );
 
   //(layer_state_cmp(state, SYMB) || (layer_state_cmp(state, SYMB_ON_BEPO))));
-  rgblight_set_layer_state(5, layer_state_cmp(state, KEYPAD) );
+  rgblight_set_layer_state(5, layer_state_cmp(state, _KEYPAD) );
   ///(layer_state_cmp(state, KEYPAD) || (layer_state_cmp(state, KEYPAD_ON_BEPO))));
-  rgblight_set_layer_state(6, layer_state_cmp(state, LAYERS));
+  rgblight_set_layer_state(6, layer_state_cmp(state, _LAYERS));
   rgblight_set_layer_state(7, layer_state_cmp(state, _RGB));
   return state;
 }

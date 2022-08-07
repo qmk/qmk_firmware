@@ -4,7 +4,6 @@
     "maintainer": "skullydazed",
     "bootloader": "atmel-dfu",
     "debounce": 5,
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -26,7 +25,7 @@
     },
     "processor": "atmega32u4",
     "usb": {
-        "device_ver": "0x0001",
+        "device_version": "0.0.1",
         "pid": "0x2320",
         "vid": "0xFEED"
     },

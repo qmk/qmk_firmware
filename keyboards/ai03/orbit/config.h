@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    ai03 Keyboard Designs
-#define PRODUCT         Orbit
-
 /* key matrix size */
 #define MATRIX_ROWS 10 // Double rows for split keyboards. Orbit has 5, so define 10
 #define MATRIX_COLS 7
@@ -44,13 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { C7, B4, D7, D6, D4, F1, F0 }
 #define MATRIX_ROW_PINS_RIGHT { B6, B5, B4, D7, E6 }
 #define MATRIX_COL_PINS_RIGHT { D4, D6, F1, F0, F4, F5, C6 }
-
-#define SPLIT_HAND_PIN D5
-
-//#define USE_I2C
-
-#define SELECT_SOFT_SERIAL_SPEED 1
-
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -60,6 +46,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+#define SELECT_SOFT_SERIAL_SPEED 1
+
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_LAYER_STATE_ENABLE
+
+#define SPLIT_HAND_PIN D5
 
 #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -141,8 +133,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

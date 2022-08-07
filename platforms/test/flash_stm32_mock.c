@@ -44,6 +44,12 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
     }
 }
 
-FLASH_Status FLASH_WaitForLastOperation(uint32_t Timeout) { return FLASH_COMPLETE; }
-void         FLASH_Unlock(void) { flash_locked = false; }
-void         FLASH_Lock(void) { flash_locked = true; }
+FLASH_Status FLASH_WaitForLastOperation(uint32_t Timeout) {
+    return FLASH_COMPLETE;
+}
+void FLASH_Unlock(void) {
+    flash_locked = false;
+}
+void FLASH_Lock(void) {
+    flash_locked = true;
+}

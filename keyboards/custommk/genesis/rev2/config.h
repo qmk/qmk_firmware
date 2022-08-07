@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xF35B
-#define PRODUCT_ID      0xFAB1
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    customMK
-#define PRODUCT         GenesisRev2
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4

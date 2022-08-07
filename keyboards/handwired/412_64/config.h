@@ -4,13 +4,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xF7E0
-#define PRODUCT_ID      0x0412
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    EDI/SCI
-#define PRODUCT         412 64 Model 00
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
@@ -90,6 +83,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-

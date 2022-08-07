@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Console Keyboard",
+    "keyboard_name": "Console Keyboard 27",
+    "manufacturer": "Stream Cheap",
     "url": "https://www.thingiverse.com/thing:3167050",
     "maintainer": "Gareth Edwards",
+    "usb": {
+        "vid": "0x6761",
+        "pid": "0x3433",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

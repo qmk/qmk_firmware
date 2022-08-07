@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "KeyPCB/Keeb.io BDN9-BLE",
+  "keyboard_name": "BDN9-BLE",
+  "manufacturer": "KeyPCB/Keebio",
   "url": "",
   "maintainer": "merlin04",
+  "usb": {
+    "vid": "0xCB10",
+    "pid": "0x1134",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

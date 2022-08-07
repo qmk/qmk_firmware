@@ -17,11 +17,6 @@
 
 #pragma once
 #include "config_common.h"
-#define VENDOR_ID 0xA8F8
-#define PRODUCT_ID 0x1828
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Bastard Keyboards
-#define PRODUCT TBK Mini
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
@@ -43,7 +38,6 @@
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 #define F_SCL 400000L
-#define USB_POLLING_INTERVAL_MS 1
 #define MASTER_RIGHT
 
 // RGB matrix support

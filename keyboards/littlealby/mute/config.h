@@ -16,13 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4142 // "AB"
-#define PRODUCT_ID      0x4D55 // "MU"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Little Alby
-#define PRODUCT         Mute
-
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* key matrix size */

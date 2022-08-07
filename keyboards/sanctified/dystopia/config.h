@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5357 // "SW"
-#define PRODUCT_ID      0x0001 // First public keyboard
-#define DEVICE_VER      0x0001 // Version 1
-#define MANUFACTURER    Sanctified.Works
-#define PRODUCT         Dystopia
-
 /* Key Matrix Size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -35,5 +28,4 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 12
