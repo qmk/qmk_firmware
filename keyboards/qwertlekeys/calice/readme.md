@@ -1,12 +1,12 @@
 # Calice
 
-![Calice](https://i.imgur.com/plQUTqs.jpg)
+![Calice](https://i.imgur.com/5Xsw1oj.jpg)
 
 ## A 75% Alice
 
-* Keyboard Maintainer: [jels](https://github.com/JoahNelson)
+* Keyboard Maintainer: [jels](https://github.com/Jels02)
 * Hardware Supported: Calice PCB
-* Hardware Availabililty: [jels]()
+* Hardware Availabililty: Groupbuy 
 
 Make example for this keyboard (after setting up your build environment):
 
