@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUMPAD] = LAYOUT_planck_2x2u(
-    KC_TRNS, QUIT,    WIN,     MVWSL,   MVWSR,   CRYWS,   TERM,    KC_7,    KC_8,    KC_9,    KC_COMM, RESET,
+    KC_TRNS, QUIT,    WIN,     MVWSL,   MVWSR,   CRYWS,   TERM,    KC_7,    KC_8,    KC_9,    KC_COMM, QK_BOOT,
     KC_TRNS, CS_TAB,  C_TAB,   PRVWS,   NXTWS,   I3MOD,   OPEN,    KC_4,    KC_5,    KC_6,    KC_0,    KC_NO,
     KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, MOVWS,   BROWSER, KC_1,    KC_2,    KC_3,    KC_DOT,  KC_NO,
     QWE_COL, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS

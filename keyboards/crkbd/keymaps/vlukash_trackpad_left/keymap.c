@@ -28,7 +28,7 @@ enum custom_keycodes {
 
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
-#define KC_RST   RESET
+#define KC_RST   QK_BOOT
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
 #define KC_LHUI  RGB_HUI

@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* ADJUST
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * | RESET  |        |        |        |        |        |        |        |        |rgbplain|rgbtest | rgbmode|        |        |        |
+ * | QK_BOOT  |        |        |        |        |        |        |        |        |rgbplain|rgbtest | rgbmode|        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |rgb tog | bl_tog |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_5x15( 
-    RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_M_P, RGB_M_T, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX,  
+    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_M_P, RGB_M_T, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX,  
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, BL_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  
     RAISE, XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI,  BL_INC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
   EEP_RST, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD,  BL_DEC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 

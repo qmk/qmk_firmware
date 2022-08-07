@@ -61,7 +61,7 @@ TO(0)   , XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
                                                         XXXXXXX  ,
                                             KC_SPACE , KC_BSPACE , KC_DEL ,
 
-KC_EQL  , ___________________XXXXX___________________ , RESET   ,
+KC_EQL  , ___________________XXXXX___________________ , QK_BOOT   ,
 KC_PLUS , _________________NUMP_R1___________________ , XXXXXXX ,
           _________________NUMP_R2___________________ , XXXXXXX                                     ,
 KC_MINS , _________________NUMP_R3___________________ , XXXXXXX ,
