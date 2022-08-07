@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "CMM.Studio Saka68 Hotswap",
+    "keyboard_name": "Saka68 Hotswap",
+    "manufacturer": "CMM.Studio",
     "url": "",
     "maintainer": "CMMS-Freather",
+    "usb": {
+        "vid": "0x434D",
+        "pid": "0x5348",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_68_ansi"
     },

@@ -4,7 +4,7 @@
 
 Zed60 PCB, 60% keyboard PCB.
 * Keyboard Maintainer: [Mechlovin'](https://mechlovin.studio)
-* Hardware Supported: Kay60, APM32F103
+* Hardware Supported: Zed60, APM32F103
 * Hardware Availability: [Mechlovin'](https://mechlovin.studio)
 
 Make example for this keyboard (after setting up your build environment):

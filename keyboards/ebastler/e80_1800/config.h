@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6562 // "eb"
-#define PRODUCT_ID      0x1338
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ebastler
-#define PRODUCT         E80-1800
-
 /* Limit layer count to fit in storage with VIA enabled */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Lulu",
+    "manufacturer": "Boardsource",
     "url": "https://boardsource.xyz/store/61d0b772319a1f3cc53ba2fb",
     "maintainer": "boardsource",
+    "usb": {
+        "vid": "0x4273",
+        "pid": "0x7685",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

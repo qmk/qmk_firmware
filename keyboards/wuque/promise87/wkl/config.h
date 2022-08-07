@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x906D
-#define PRODUCT_ID      0x0006
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wuque
-#define PRODUCT         promise87
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -39,3 +32,17 @@
 
 #define LED_CAPS_LOCK_PIN F6
 #define LED_PIN_ON_STATE 0
+
+#define RGB_DI_PIN D2
+#ifdef RGB_DI_PIN
+    #define RGBLED_NUM 1
+    #define RGBLIGHT_HUE_STEP 8
+    #define RGBLIGHT_SAT_STEP 8
+    #define RGBLIGHT_VAL_STEP 8
+    #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
+    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*======= RGB function=======*/
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#endif

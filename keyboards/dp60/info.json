@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "rgb60",
+    "keyboard_name": "DP60",
+    "manufacturer": "astro",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x60BE",
+        "pid": "0x00BE",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_60_wkl": "LAYOUT_60_ansi_tsangan_split_rshift",
         "LAYOUT_60_wkl_split_bs": "LAYOUT_60_tsangan_hhkb"
