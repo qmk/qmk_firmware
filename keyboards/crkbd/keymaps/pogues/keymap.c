@@ -608,8 +608,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, LSYM));
     rgblight_set_layer_state(3, layer_state_cmp(state, LNUM));
     rgblight_set_layer_state(4, layer_state_cmp(state, LFUN));
-    rgblight_set_layer_state(5, layer_state_cmp(state, LMOV));
-    rgblight_set_layer_state(5, layer_state_cmp(state, LMOV2));
+    rgblight_set_layer_state(5, layer_state_cmp(state, LMOV) || layer_state_cmp(state, LMOV2));
     rgblight_set_layer_state(6, layer_state_cmp(state, LMSE));
     return state;
 }
