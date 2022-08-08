@@ -34,7 +34,7 @@ The Dvorak and Colemak-DH base layers have identical non-alpha and non-symbol ke
 
 ## Navigation, Editing, Number and Function Layer
 
-![Navigation layer](https://imgur.com/eQsmStmh.png)
+![Navigation layer](https://imgur.com/Obx6oRTh.png)
 
 Holding down the Nav/Edit key accesses the navigation, editing, number and function layer:
 
