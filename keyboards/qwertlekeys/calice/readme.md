@@ -1,6 +1,6 @@
 # Calice
 
-![Calice](https://i.imgur.com/5Xsw1oj.jpg)
+![Calice](https://i.imgur.com/5Xsw1ojl.jpg)
 
 ## A 75% Alice
 
