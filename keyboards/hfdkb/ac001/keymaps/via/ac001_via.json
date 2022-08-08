@@ -1,0 +1,44 @@
+{
+    "name": "ac001",
+    "vendorId": "0x3528",
+    "productId": "0x2330",
+    "lighting": {
+        "extends": "qmk_rgblight",
+        "underglowEffects": [
+          ["None", 0],
+          ["SOLID_COLOR", 1],
+          ["BREATHING", 1],
+          ["CYCLE_ALL", 1],
+          ["CYCLE_LEFT_RIGHT", 1],
+          ["RAINBOW_MOVING_CHEVRON", 1],
+          ["MATRIX_MULTISPLASH", 1]
+        ]
+    },
+    "matrix": { "rows": 1, "cols": 5 },
+    "layouts": {
+      "keymap": [
+        [
+          {
+            "x": 1.25,
+            "c": "#777777",
+            "w": 4,
+            "h": 4
+          },
+          "0,2"
+        ],
+        [
+          {
+            "y": 0.75,
+            "c": "#aaaaaa"
+          },
+          "0,1"
+        ],
+        [
+          {
+            "y": 0.25
+          },
+          "0,0"
+        ]
+      ]
+    }
+  }
