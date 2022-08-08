@@ -11,6 +11,7 @@ A universal ortholinear 4x12 keymap created by Juno Nguyen
 * minimalism (not really).
 * DPAD layer for gaming with inverted T-shaped direction keys.
 * DPADNUM secondary layer tailored for StarCraft group control and FPS weapon switching.
-* New: homerow mods for even less movement
+* Homerow mods for even less movement
+* Toggle Control and GUI swap instead of default Alt and GUI to better accommodate switching between Windows/Linux and Mac
 
 Refined since Oct 2019
