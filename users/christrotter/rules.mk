@@ -10,3 +10,5 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
         OPT_DEFS += -DCUSTOM_RGB_MATRIX
     endif
 endif
+
+EXTRAFLAGS += -flto

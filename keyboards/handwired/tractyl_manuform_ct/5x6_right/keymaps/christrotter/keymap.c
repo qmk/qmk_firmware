@@ -47,6 +47,8 @@ enum custom_layers {
 
 #define KC_MULTILNE	LGUI(LALT(KC_LSFT))
 
+#define DRAG_TOG DRAGSCROLL_MODE_TOGGLE
+
 #define KC_CHRMBACK LGUI(KC_LBRC)
 #define KC_CHRMFWD LGUI(KC_RBRC)
 
@@ -58,7 +60,31 @@ enum custom_layers {
 #define KC_SFTALTARROW_R LALT(LSFT(KC_RIGHT))
 
 // to help with the nature of the trackball bearings, let's try using macos' zoom functionality
-#define KC_MAC_ZOOM LALT(KC_LCTL)
+// #define KC_MAC_ZOOM LALT(KC_LCTL)
+
+enum {
+    TD_SHIFT
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // we want to tap for oneshot, double tap to hold on, double tap to hold off
+    // so tap= oneshot shift, doubletap= toggle shift on
+    [TD_SHIFT] = ACTION_TAP_DANCE_DOUBLE(OSM(MOD_LSFT), KC_CAPS),
+    // 
+};
+
+// Left-hand home row mods
+#define HOME_A LCTL_T(KC_A)
+#define HOME_S LALT_T(KC_S)
+#define HOME_D LGUI_T(KC_D)
+#define HOME_F LSFT_T(KC_F)
+
+// Right-hand home row mods
+#define HOME_J RSFT_T(KC_J)
+#define HOME_K RGUI_T(KC_K)
+#define HOME_L LALT_T(KC_L)
+#define HOME_QUOT RCTL_T(KC_QUOT)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -87,26 +113,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,   KC_PERC,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_PIPE,         KC_DOT,    KC_7,    KC_8,    KC_9,  KC_BSLS, _______,
             _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______,            _______, _______, KC_SFTALTARROW_L, _______, _______, KC_SFTALTARROW_R
-),
+), 
 [_QWERTY] = LAYOUT( \
-    KC_TAB, KC_Q, LT(0,KC_W), KC_E, LT(0,KC_R), LT(0,KC_T),                             KC_Y, KC_U, LT(0,KC_I), KC_O, KC_P, KC_MINUS,
-    _______, LT(0,KC_A), LT(0,KC_S), KC_D, LT(0,KC_F), KC_G,                       KC_H, KC_J, LT(0,KC_K), LT(0,KC_L), KC_QUOT, KC_SCLN,
-    KC_MAC_ZOOM, LT(0,KC_Z), LT(0,KC_X), LT(0,KC_C), LT(0,KC_V), LT(0,KC_B),     LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, DRAGSCROLL_MODE_TOGGLE,
-                KC_BSPC, KC_DEL, KC_LSFT, KC_LGUI, KC_LALT,                KC_LCTL, KC_LSFT, KC_LGUI, MO(_SYMBOLS), KC_ENTER, KC_SPACE,
-                                KC_TAB_L, KC_TAB_R, MO(_NAV), KC_ESC,        KC_SPCLEFT, KC_SPCRGHT, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
+    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T,                                   KC_Y, KC_U, KC_I, KC_O, KC_P, KC_MINUS,
+    _______, HOME_A, HOME_S, HOME_D, HOME_F, KC_G,                          KC_H, HOME_J, HOME_K, HOME_L, HOME_QUOT, KC_SCLN,
+    DRAG_TOG, KC_Z, KC_X, KC_C, KC_V, KC_B,                   LT(0,KC_N), KC_M, KC_COMM, KC_DOT, KC_SLASH, KC_NO,
+                KC_BSPC, MO(_NAV), OSM(MOD_LSFT), KC_LGUI, KC_LALT,                DRAG_TOG, MO(_SYMBOLS), KC_LGUI, OSM(MOD_LSFT), KC_ENTER, KC_SPACE,
+                                _______, _______, KC_DEL, KC_ESC,        _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
 ),
 [_MOUSE] = LAYOUT( \
     _______, _______, _______, _______, _______, _______,                               KC_CHRMBACK, KC_CHRMFWD, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,                               _______, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, _______, _______,
-    _______, _______, _______, _______, _______, _______,                               _______, _______, _______, _______, _______, _______,
+    _______, _______, _______,  _______, _______, _______,                               _______, _______, _______, _______, _______, _______,
                 _______, _______,  _______, _______, _______,         _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______
 ),
 [_NAV] = LAYOUT( \
-    _______, _______, _______, _______, _______, _______,                               KC_PGUP, _______, KC_UP, _______, _______, _______,
-    _______, _______, LT(0,KC_TILD), KC_MAC_ZOOM, DRAGSCROLL_MODE, _______,             KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
+    _______, _______, _______, LGUI(KC_TILD), _______, _______,                               KC_PGUP, _______, KC_UP, _______, _______, _______,
+    _______, KC_TAB_L, KC_TAB_R, KC_SPCLEFT, KC_SPCRGHT, _______,             KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
     _______, _______, _______, _______, _______, _______,                               KC_HOME, KC_END, _______, _______, _______, _______,
-                _______, _______,  KC_MACLOCK, KC_MACSHOT, KC_CAD,           KC_CHRMBACK, KC_MULTILNE, LT(0,KC_MPLY), _______, _______, _______,
+                _______, _______,  KC_MACLOCK, KC_MACSHOT, KC_CAD,          _______, KC_MULTILNE, LT(0,KC_MPLY), _______, _______, _______,
                                 _______, _______, _______, _______,     KC_ITRMSPCE_L, KC_ITRMSPCE_R, KC_ALTARROW_L, _______, _______, KC_ALTARROW_R
 )
 };

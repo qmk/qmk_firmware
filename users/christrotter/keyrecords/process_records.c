@@ -51,90 +51,96 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;             // Return true for normal processing of tap keycode
-            case LT(0,KC_S):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_S)); // hold for command+letter
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-            case LT(0,KC_Z):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_Z)); // hold for command+letter
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-            case LT(0,KC_X):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_X)); // hold for command+letter
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-            case LT(0,KC_C):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_C)); // hold for command+letter
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-            case LT(0,KC_V):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_V)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_B):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_B)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_A):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_A)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_R):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_R)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_W):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_W)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_K):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_K)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_L):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_L)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_T):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_T)); // hold for command+letter
-                return false;
-            }
-            return true;
-            case LT(0,KC_F):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(LCMD(KC_F)); // hold for command+letter
-                return false;
-            }
-            return true;
+//            case LT(0,KC_S):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_S)); // hold for command+letter
+//                return false;
+//            }
+//            return true;             // Return true for normal processing of tap keycode
+//            case LT(0,KC_Z):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_Z)); // hold for command+letter
+//                return false;
+//            }
+//            return true;             // Return true for normal processing of tap keycode
+//            case LT(0,KC_X):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_X)); // hold for command+letter
+//                return false;
+//            }
+//            return true;             // Return true for normal processing of tap keycode
+//            case LT(0,KC_C):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_C)); // hold for command+letter
+//                return false;
+//            }
+//            return true;             // Return true for normal processing of tap keycode
+//            case LT(0,KC_V):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_V)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_B):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_B)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_A):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_A)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_R):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_R)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_W):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_W)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_K):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_K)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_L):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_L)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_T):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_T)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
+//            case LT(0,KC_F):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_F)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
             case LT(0,KC_N):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(LCMD(LSFT(KC_N))); // hold for command+letter
                 return false;
             }
             return true;
+//            case LT(0,KC_I):
+//            if (!record->tap.count && record->event.pressed) {
+//                tap_code16(LCMD(KC_I)); // hold for command+letter
+//                return false;
+//            }
+//            return true;
             case LT(0,KC_MPLY):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_MNXT); // hold for command+letter

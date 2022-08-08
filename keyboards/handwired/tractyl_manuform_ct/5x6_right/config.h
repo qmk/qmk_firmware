@@ -45,6 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 250
 #define TAP_CHECK TAPPING_TERM
 #define DEBOUNCE 5 // trying this down from 45, apparently can contribute to input lag
+#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TIMEOUT 2000  /* Time (in ms) before the one shot key is released */
+#define IGNORE_MOD_TAP_INTERRUPT
 
 // Split settings
 #if defined(SPLIT_KEYBOARD)
@@ -69,8 +72,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef POINTING_DEVICE_ENABLE    
     #define PMW3360_CS_PIN F7 // Trackball - PMW3360 Settings
-    #define PMW3360_LIFTOFF_DISTANCE 0x05 // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
-    #define PMW3360_CPI 1000 // your DPI setting, how fast the ball tracks
+    #define PMW3360_LIFTOFF_DISTANCE 0x07 // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
+    #define PMW3360_CPI 1300 // your DPI setting, how fast the ball tracks
     #define POINTING_DEVICE_RIGHT // Which keyboard half contains the trackball
     #define ROTATIONAL_TRANSFORM_ANGLE -85 // Software adjustment for how not-squarely you packaged the sensor
     #define POINTING_DEVICE_INVERT_X // Inverted movement for X (not sure why this is set tbh...maybe due to the kb half it's installed on?)
@@ -91,7 +94,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Disable unused and unneeded features to reduce on firmware size */
+
 // this made no difference
+// #undef RGBLIGHT_ANIMATIONS
+// #undef BACKLIGHT_BREATHING
+// #ifndef NO_DEBUG
+// #define NO_DEBUG
+// #endif // !NO_DEBUG
+// #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+// #define NO_PRINT
+// #endif // !NO_PRINT
+// #define NO_ACTION_MACRO
+// #define NO_ACTION_FUNCTION
 // #ifdef LOCKING_SUPPORT_ENABLE
 // #    undef LOCKING_SUPPORT_ENABLE
 // #endif

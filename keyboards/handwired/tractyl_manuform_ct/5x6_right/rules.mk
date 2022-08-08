@@ -6,9 +6,9 @@ BOOTLOADER 				= atmel-dfu		# Bootloader selection
 # Functionality options
 CONSOLE_ENABLE			= no        # Debugging things, takes up flash dependent of what you have turned on; w. rgb, 4.8k, w/o rgb, 2.7k
 MOUSEKEY_ENABLE 		= yes       # Mouse keys
-EXTRAKEY_ENABLE 		= yes       # Audio control and System control, 400 bytes
+EXTRAKEY_ENABLE 		= no       # Audio control and System control, 400 bytes
 NKRO_ENABLE 			= no 		# saves 300 bytes when no, trying to keep it off       # Enable N-Key Rollover
-TAP_DANCE_ENABLE        = no		# temp disabling for troubleshooting
+TAP_DANCE_ENABLE        = yes		# temp disabling for troubleshooting
 
 # LED config - rgb matrix uses 3.8k of flash
 # to toggle rgb, set both to yes or no

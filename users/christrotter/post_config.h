@@ -91,6 +91,6 @@
 #if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
 #    define LAYER_STATE_16BIT
 #endif
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
-#endif
+// #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+// #    define DYNAMIC_KEYMAP_LAYER_COUNT 1
+// #endif
