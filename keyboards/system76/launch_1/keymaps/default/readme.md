@@ -1,5 +1,5 @@
 # Default keymap for launch_1
 
-<img src="https://i.imgur.com/7RTC4iV.png" alt="launch_1 Base Layout Image" title="launch_1 Base Layout" width="750"/>
+![launch_1 Base Layout Image](https://i.imgur.com/7RTC4iV.png "launch_1 Base Layout")
 
 This is the default layout that comes flashed out of the box. The `Fn` keys are used to access the additional layer. There are 4 layers available which can be modified without flashing using the [System76 Keyboard Configurator](https://system76.com/accessories/launch/download) application.
