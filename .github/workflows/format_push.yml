@@ -17,6 +17,10 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Disable automatic eol conversion
+      run: |
+        echo "* -text" > .git/info/attributes
+
     - name: Install dependencies
       run: |
         pip3 install -r requirements-dev.txt
