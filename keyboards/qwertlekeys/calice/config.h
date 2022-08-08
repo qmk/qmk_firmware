@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor paramater */
-#define VENDOR_ID       0x716b     //qk (qwertlekeys)
-#define PRODUCT_ID      0x0001     //Calice
-#define DEVICE_VER      0x0001      
-#define MANUFACTURER    QwertleKeys //pcb by jels
-#define PRODUCT         Calice
-
 /* Define Matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 8

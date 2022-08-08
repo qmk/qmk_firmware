@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Calice", 
+    "manufacturer": "QwertleKeys",
     "url": "", 
     "maintainer": "Jels", 
+    "usb": {
+        "vid": "0x716B",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"1,0", "x":0.5, "y":0},
