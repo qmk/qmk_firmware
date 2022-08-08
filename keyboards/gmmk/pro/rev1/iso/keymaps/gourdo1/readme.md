@@ -52,6 +52,7 @@ These Windows-centric layouts are based on Jonavin's GMMK Pro [layout](https://g
     7. Insert function - Toggle between SHIFT-BKSPC and SHIFT-DEL
     8. Modded-Space override - Use standard Space in place of modded-Space functions
     9. AutoCorrect - Internal (English) AutoCorrect; default is enabled
+    0. (ISO layouts only) CapsLock highlights extended alpha keys
 
 ### Numpad + Mouse Keys (Capslock key)
 
@@ -97,13 +98,14 @@ These Windows-centric layouts are based on Jonavin's GMMK Pro [layout](https://g
 * RGB backlight timeout: [FN]Encoder or "-" and "=" (default 15 minutes)
     *  F-key row indicator lights (cyan and blue) in FN layer display the current backlight timeout in minutes
 * [FN]Z to turn off RGB backlighting (indicator lights still work); press again to toggle
-* Left side RGB indicators in order from top: System NumLock off (orange), Scroll Lock (red), Numpad (blue), Capslock (green).
+* Left side RGB indicators in order from top: Scroll Lock (red), Numpad (blue), Capslock (green).
 
 ### Advanced Controls
 
 * [FN]\ or [FN]B to get to bootloader mode (use key next to Left Shift on ISO)
 * [FN][ESC] to clear EEPROM
 * [FN]R to toggle N-key Rollover
+* [FN]N to toggle system numlock
 * [FN]/ is single-handed shortcut to Ctrl-Alt-Delete
 * [FN]L is single-handed shortcut to Win-L (lock Windows)
 * [FN][Encoder press] to sleep Windows PC
