@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT      Wearhaus66
-
 #define MATRIX_ROW_PINS { B13, B14, A10, A1, A0 }
 #define MATRIX_COL_PINS { B11, B12, B10, B2, B1, B0, A7, A6, A5, A4, A3, A2, B3, A15, B5 }
 
