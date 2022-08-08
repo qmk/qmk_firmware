@@ -64,6 +64,3 @@
 
 // TX/RX pins of promicro
 #define B0 PAL_LINE(GPIOA, 9) // unconnected pin
-
-#define I2C1_SCL_PIN D0
-#define I2C1_SDA_PIN D1

@@ -10,8 +10,6 @@ EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = legacy
 
 
-OPT_DEFS += -DSERIAL_USART_DRIVER=SD2
-
 ifeq ($(strip $(STMC_US)), yes)
   OPT_DEFS += -DSTEMCELL_UART_SWAP
 endif
