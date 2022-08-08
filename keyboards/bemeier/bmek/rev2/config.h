@@ -17,8 +17,6 @@
 
 #include "config_common.h"
 
-#define DEVICE_VER      0x0002
-
 #define MATRIX_ROW_PINS \
     { F4, F5, D7, B5, B4 }
 #define MATRIX_COL_PINS \

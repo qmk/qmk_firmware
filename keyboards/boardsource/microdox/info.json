@@ -1,7 +1,13 @@
 {
     "keyboard_name": "microdox",
+    "manufacturer": "Boardsource",
     "url": "https://boardsource.xyz/store/5f2e7e4a2902de7151494f92",
     "maintainer": "boardsource",
+    "usb": {
+        "vid": "0xF7E0",
+        "pid": "0x0412",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [
