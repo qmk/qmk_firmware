@@ -43,6 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
+#define I2C_DRIVER I2CD2
+#define I2C1_SCL_PIN GP22
+#define I2C1_SDA_PIN GP23
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
