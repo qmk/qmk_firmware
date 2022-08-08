@@ -176,6 +176,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
             } else {
                 send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"OFF"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
             }
+            send_string("0. CapsLock highlights extended alphas "SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_4)SS_TAP(X_KP_0))"ISO"SS_TAP(X_KP_MINUS)"only"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_4)SS_TAP(X_KP_1))"... ");
+            if (user_config.rgb_english_caps) {
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"OFF"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
+            } else {
+                send_string(SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_1))"ON"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_9)SS_TAP(X_KP_3))"\n");
+            }
             send_string("\nThe latest firmware updates are always here"SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_5)SS_TAP(X_KP_8))" https" SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_0)SS_TAP(X_KP_5)SS_TAP(X_KP_8))SS_TAP(X_KP_SLASH)SS_TAP(X_KP_SLASH) "github.com"SS_TAP(X_KP_SLASH) "gourdo1"SS_TAP(X_KP_SLASH)"gmmkpro"SS_TAP(X_KP_MINUS)"media\n");
         }
         break;
@@ -231,6 +237,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     case TG_AUTOCR:  // Toggle AutoCorrect
         if (record->event.pressed) {
             user_config.autocorrect ^= 1; // Toggles the status
+            eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+        }
+        break;
+    case TG_ENGCAP:  // Toggle highlighting Non-English letters during CAPSLOCK
+        if (record->event.pressed) {
+            user_config.rgb_english_caps ^= 1; // Toggles the status
             eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
         }
         break;
@@ -613,6 +625,7 @@ void eeconfig_init_user(void) {
     user_config.ins_on_shft_bkspc_or_del      = true;
     user_config.disable_space_mods            = true;
     user_config.autocorrect                   = true;
+    user_config.rgb_english_caps              = true;
 
     eeconfig_update_user(user_config.raw);
 }

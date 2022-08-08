@@ -253,6 +253,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_F12, RGB_RED);
     }
 
+/*
     // System NumLock warning indicator RGB setup
     #ifdef INVERT_NUMLOCK_INDICATOR
     if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
@@ -271,6 +272,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_FN, RGB_ORANGE2);
     }
     #endif // INVERT_NUMLOCK_INDICATOR
+*/
 
     // CapsLock RGB setup
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
@@ -348,11 +350,24 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_R8, RGB_RED);
         rgb_matrix_set_color(LED_MINS, RGB_OFFBLUE);
         rgb_matrix_set_color(LED_EQL, RGB_OFFBLUE);
+
+        // Indicator for paddle game enabled in build
         #ifdef GAME_ENABLE
         rgb_matrix_set_color(LED_P, RGB_CHARTREUSE);
         #else
         rgb_matrix_set_color(LED_P, RGB_RED);
         #endif // GAME_ENABLE
+
+        // System NumLock warning indicator RGB setup
+        #ifdef INVERT_NUMLOCK_INDICATOR 
+        if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #else
+        if (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // Normal, on if NUM lock is ON
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #endif // INVERT_NUMLOCK_INDICATOR
 
         //Add RGB statuses for user.config toggles
         if (user_config.rgb_hilite_caps) {
@@ -416,6 +431,15 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
         // Numpad & Mouse Keys overlay RGB
     case _NUMPADMOUSE:
+        #ifdef INVERT_NUMLOCK_INDICATOR 
+        if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #else
+        if (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // Normal, on if NUM lock is ON
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #endif // INVERT_NUMLOCK_INDICATOR
         if (user_config.rgb_hilite_numpad) {
             for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_NUMPAD); i++) {
                 rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_OFFBLUE);

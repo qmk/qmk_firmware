@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #ifdef GAME_ENABLE
     [_FN1] = LAYOUT(
         EE_CLR,  KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,           KC_SLEP,
-        PRNCONF, TG_CAPS, TG_PAD,  TG_ESC,  TG_DEL,  TG_TDCAP,TG_ENC,  TG_INS,TG_SPCMOD,TG_AUTOCR, _______, RGB_TOD, RGB_TOI, _______,           RGB_TOG,
+        PRNCONF, TG_CAPS, TG_PAD,  TG_ESC,  TG_DEL,  TG_TDCAP,TG_ENC,  TG_INS,TG_SPCMOD,TG_AUTOCR,TG_ENGCAP,RGB_TOD,RGB_TOI, _______,           RGB_TOG,
         _______, RGB_SAD, RGB_VAI, RGB_SAI, NK_TOGG, _______, YAHOO,   _______, _______, OUTLOOK, TG(_GAME),SWAP_L, SWAP_R,                     KC_HOME,
         KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______, GMAIL,   HOTMAIL, _______, _______, LOCKPC,  _______, _______, _______, _______,           KC_END,
         _______, QK_BOOT, RGB_NITE,_______, _______, _______, QK_BOOT, KC_NLCK, _______, _______, DOTCOM,  KC_CAD,           _______, RGB_MOD,  _______,
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #else
     [_FN1] = LAYOUT(
         EE_CLR,  KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,           KC_SLEP,
-        PRNCONF, TG_CAPS, TG_PAD,  TG_ESC,  TG_DEL,  TG_TDCAP,TG_ENC,  TG_INS,TG_SPCMOD,TG_AUTOCR, _______, RGB_TOD, RGB_TOI, _______,           RGB_TOG,
+        PRNCONF, TG_CAPS, TG_PAD,  TG_ESC,  TG_DEL,  TG_TDCAP,TG_ENC,  TG_INS,TG_SPCMOD,TG_AUTOCR,TG_ENGCAP,RGB_TOD,RGB_TOI, _______,           RGB_TOG,
         _______, RGB_SAD, RGB_VAI, RGB_SAI, NK_TOGG, _______, YAHOO,   _______, _______, OUTLOOK, KC_PAUS, SWAP_L,  SWAP_R,                     KC_HOME,
         KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______, GMAIL,   HOTMAIL, _______, _______, LOCKPC,  _______, _______, _______, _______,           KC_END,
         _______, QK_BOOT, RGB_NITE,_______, _______, _______, QK_BOOT, KC_NLCK, _______, _______, DOTCOM,  KC_CAD,           _______, RGB_MOD,  _______,
@@ -254,6 +254,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_F12, RGB_RED);
     }
 
+/*
     // System NumLock warning indicator RGB setup
     #ifdef INVERT_NUMLOCK_INDICATOR
     if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
@@ -272,12 +273,20 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_FN, RGB_ORANGE2);
     }
     #endif // INVERT_NUMLOCK_INDICATOR
+*/
 
     // CapsLock RGB setup
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (user_config.rgb_hilite_caps) {
-            for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_LETTERS); i++) {
-                rgb_matrix_set_color(LED_LIST_LETTERS[i], RGB_CHARTREUSE);
+            if (user_config.rgb_english_caps) {
+                for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_LETTERS); i++) {
+                    rgb_matrix_set_color(LED_LIST_LETTERS[i], RGB_CHARTREUSE);
+                }
+            }
+            else {
+                for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_LETTERS_DE); i++) {
+                    rgb_matrix_set_color(LED_LIST_LETTERS_DE[i], RGB_CHARTREUSE);
+                }
             }
             rgb_matrix_set_color(LED_L7, RGB_CHARTREUSE);
             rgb_matrix_set_color(LED_L8, RGB_CHARTREUSE);
@@ -349,11 +358,24 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_R8, RGB_RED);
         rgb_matrix_set_color(LED_MINS, RGB_OFFBLUE);
         rgb_matrix_set_color(LED_EQL, RGB_OFFBLUE);
+
+        // Indicator for paddle game enabled in build
         #ifdef GAME_ENABLE
         rgb_matrix_set_color(LED_P, RGB_CHARTREUSE);
         #else
         rgb_matrix_set_color(LED_P, RGB_RED);
         #endif // GAME_ENABLE
+
+        // System NumLock warning indicator RGB setup
+        #ifdef INVERT_NUMLOCK_INDICATOR 
+        if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #else
+        if (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // Normal, on if NUM lock is ON
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #endif // INVERT_NUMLOCK_INDICATOR
 
         //Add RGB statuses for user.config toggles
         if (user_config.rgb_hilite_caps) {
@@ -401,6 +423,11 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         } else {
         rgb_matrix_set_color(LED_9, RGB_PURPLE);
         }
+        if (user_config.rgb_english_caps) {
+        rgb_matrix_set_color(LED_0, RGB_GREEN);
+        } else {
+        rgb_matrix_set_color(LED_0, RGB_PURPLE);
+        }
 
         // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row; larger numbers using 16bit code
         uint16_t timeout_threshold = get_timeout_threshold();
@@ -417,6 +444,15 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
         // Numpad & Mouse Keys overlay RGB
     case _NUMPADMOUSE:
+        #ifdef INVERT_NUMLOCK_INDICATOR 
+        if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #else
+        if (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // Normal, on if NUM lock is ON
+            rgb_matrix_set_color(LED_N, RGB_ORANGE2);
+        }
+        #endif // INVERT_NUMLOCK_INDICATOR
         if (user_config.rgb_hilite_numpad) {
             for (uint8_t i = 0; i < ARRAYSIZE(LED_LIST_NUMPAD); i++) {
                 rgb_matrix_set_color(LED_LIST_NUMPAD[i], RGB_OFFBLUE);
