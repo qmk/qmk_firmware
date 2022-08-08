@@ -18,12 +18,3 @@ ifeq ($(strip $(STMC_IS)), yes)
   OPT_DEFS += -DSTEMCELL_I2C_SWAP
 endif
 
-# Board Versions:
-# https://megamind4089.github.io/STeMCell/pinout/
-# 1.0.0 - STEMCELL_VERSION=1
-# 1.0.1 - STEMCELL_VERSION=2 (Default)
-ifeq ($(strip $(STMC_VERSION)), 1)
-  OPT_DEFS += -DSTEMCELL_VERSION=1
-else
-  OPT_DEFS += -DSTEMCELL_VERSION=2
-endif

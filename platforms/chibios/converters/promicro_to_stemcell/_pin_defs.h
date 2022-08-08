@@ -3,10 +3,8 @@
 
 #pragma once
 
-// Board Versions:
+// Pindefs for v2.0.0
 // https://megamind4089.github.io/STeMCell/pinout/
-// 1.0.0 - STEMCELL_VERSION=1
-// 1.0.1 - STEMCELL_VERSION=2 (Default)
 
 // Left side (front)
 #ifdef STEMCELL_UART_SWAP
@@ -43,16 +41,9 @@
 #define F6 PAL_LINE(GPIOB, 1)
 #define F7 PAL_LINE(GPIOB, 0)
 
-#if STEMCELL_VERSION == 1
-#    define B1 PAL_LINE(GPIOA, 7)
-#    define B3 PAL_LINE(GPIOA, 6)
-#    define B2 PAL_LINE(GPIOA, 5)
-#else
-#    define B1 PAL_LINE(GPIOA, 5)
-#    define B3 PAL_LINE(GPIOA, 6)
-#    define B2 PAL_LINE(GPIOA, 7)
-#endif
-
+#define B1 PAL_LINE(GPIOA, 5)
+#define B3 PAL_LINE(GPIOA, 6)
+#define B2 PAL_LINE(GPIOA, 7)
 #define B6 PAL_LINE(GPIOA, 4)
 
 // Extra elite-c compatible pinout

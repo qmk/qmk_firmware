@@ -103,16 +103,11 @@ Currently identical to  [Adafruit KB2040](#kb2040).
 ### STeMCell :id=stemcell
 
 Feature set currently identical to [Proton C](#proton_c).
-
 There are two versions of STeMCell available, with different pinouts:
-  - v1.0.0 - STMC_VERSION=1
-  - v1.0.1 - STMC_VERSION=2 (default)
+  - v1.0.0
+  - v2.0.0 (pre-release v1.0.1, v1.0.2)
+Default official firmware only supports v2.0.0 STeMCell.
 
-The default version selected is v1.0.1. To compile for v1.0.0, use the following flag while compiling.
-
-```make
--e STMC_VERSION=1
-```
 STeMCell has support to swap UART and I2C pins, to enable single-wire uart communication in STM chips.
 
 The following additional flags has to be used while compiling, based on the pin used for split communication.
