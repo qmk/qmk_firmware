@@ -2,6 +2,11 @@
     "keyboard_name": "Retro66", 
     "url": "", 
     "maintainer": "Mechlovin' Studio", 
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x6602",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

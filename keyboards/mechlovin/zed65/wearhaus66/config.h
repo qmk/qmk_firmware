@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID   0x6602
-#define DEVICE_VER   0x0001
 #define PRODUCT      Wearhaus66
 
 #define MATRIX_ROW_PINS { B13, B14, A10, A1, A0 }
