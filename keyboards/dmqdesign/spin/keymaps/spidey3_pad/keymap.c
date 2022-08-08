@@ -20,7 +20,7 @@
 
 #define RGB_LAYER_ACK_DURATION 500
 
-enum layers { _MACRO, _NUMPAD, _RGB, _FN };
+enum layers { _MACRO, _NUMPAD, _CURSOR, _RGB, _FN };
 
 enum layer_base {
     LAYER_BASE     = _MACRO,
@@ -44,13 +44,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUMPAD] = LAYOUT(
         KC_KP_7,   KC_KP_8,   KC_KP_9,   KC_TRNS,
-        KC_KP_4,   KC_KP_5,   KC_KP_6,   KC_TRNS,
+        KC_KP_4,   KC_KP_5,   KC_KP_6,   TO(_CURSOR),
         KC_KP_1,   KC_KP_2,   KC_KP_3,   KC_TRNS,
         KC_KP_0,   KC_PDOT,   KC_PENT),
 
+    [_CURSOR] = LAYOUT(
+        KC_HOME,   KC_UP,     KC_PGUP,   KC_TRNS,
+        KC_LEFT,   KC_NO,     KC_RIGHT,  TO(_NUMPAD),
+        KC_END,    KC_DOWN,   KC_PGDN,   KC_TRNS,
+        KC_INS,    KC_DEL,    KC_PENT),
+
     [_RGB] = LAYOUT(
         RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_TRNS,
-        RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_TRNS,
+        RGB_HUD,   RGB_SAD,   RGB_VAD,   TO(_NUMPAD),
         RGB_SPD,   RGB_SPI,   KC_NO,     KC_TRNS,
         RGB_RMOD,  RGB_TOG,   RGB_MOD),
 
@@ -71,6 +77,7 @@ typedef enum layer_ack {
 #define LAYER_OFFSET 0
 const rgblight_segment_t PROGMEM _macro_layer[]  = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_TEAL});
 const rgblight_segment_t PROGMEM _numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS({1, 1, HSV_TEAL});
+const rgblight_segment_t PROGMEM _cursor_layer[] = RGBLIGHT_LAYER_SEGMENTS({1, 1, HSV_BLUE});
 const rgblight_segment_t PROGMEM _rgb_layer[]    = RGBLIGHT_LAYER_SEGMENTS({2, 1, HSV_TEAL});
 const rgblight_segment_t PROGMEM _fn_layer[]     = RGBLIGHT_LAYER_SEGMENTS({0, 3, HSV_PURPLE});
 
@@ -83,8 +90,9 @@ const rgblight_segment_t PROGMEM _meh_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 3, H
 const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [LAYER_OFFSET + 0] = _macro_layer,
     [LAYER_OFFSET + 1] = _numpad_layer,
-    [LAYER_OFFSET + 2] = _rgb_layer,
-    [LAYER_OFFSET + 3] = _fn_layer,
+    [LAYER_OFFSET + 2] = _cursor_layer,
+    [LAYER_OFFSET + 3] = _rgb_layer,
+    [LAYER_OFFSET + 4] = _fn_layer,
 
     [ACK_OFFSET + ACK_NO] = _no_layer,
     [ACK_OFFSET + ACK_YES] = _yes_layer,
