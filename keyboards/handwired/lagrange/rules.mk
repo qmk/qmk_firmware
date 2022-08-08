@@ -18,6 +18,3 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes
 SPLIT_KEYBOARD = yes
-SPLIT_TRANSPORT = custom
-
-SRC += transport.c spi_master.c

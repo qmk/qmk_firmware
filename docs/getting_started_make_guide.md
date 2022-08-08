@@ -133,10 +133,6 @@ This enables [key lock](feature_key_lock.md).
 
 This enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 
-`SPLIT_TRANSPORT`
-
-As there is no standard split communication driver for ARM-based split keyboards yet, `SPLIT_TRANSPORT = custom` must be used for these. It will prevent the standard split keyboard communication code (which is AVR-specific) from being included, allowing a custom implementation to be used.
-
 `CUSTOM_MATRIX`
 
 Lets you replace the default matrix scanning routine with your own code. For further details, see the [Custom Matrix page](custom_matrix.md).

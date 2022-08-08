@@ -25,11 +25,10 @@
 
 #include "i2c_slave.h"
 
-#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#if defined(USE_I2C)
 #    include "transactions.h"
-
 static volatile bool is_callback_executor = false;
-#endif // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#endif // defined(USE_I2C)
 
 volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 
@@ -55,9 +54,9 @@ ISR(TWI_vect) {
         case TW_SR_SLA_ACK:
             // The device is now a slave receiver
             slave_has_register_set = false;
-#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#if defined(USE_I2C)
             is_callback_executor = false;
-#endif // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#endif // defined(USE_I2C)
             break;
 
         case TW_SR_DATA_ACK:
@@ -72,15 +71,15 @@ ISR(TWI_vect) {
                 }
                 slave_has_register_set = true; // address has been received now fill in buffer
 
-#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#if defined(USE_I2C)
                 // Work out if we're attempting to execute a callback
                 is_callback_executor = buffer_address == split_transaction_table[I2C_EXECUTE_CALLBACK].initiator2target_offset;
-#endif // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#endif // defined(USE_I2C)
             } else {
                 i2c_slave_reg[buffer_address] = TWDR;
                 buffer_address++;
 
-#if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#if defined(USE_I2C)
                 // If we're intending to execute a transaction callback, do so, as we've just received the transaction ID
                 if (is_callback_executor) {
                     split_transaction_desc_t *trans = &split_transaction_table[split_shmem->transaction_id];
@@ -88,7 +87,7 @@ ISR(TWI_vect) {
                         trans->slave_callback(trans->initiator2target_buffer_size, split_trans_initiator2target_buffer(trans), trans->target2initiator_buffer_size, split_trans_target2initiator_buffer(trans));
                     }
                 }
-#endif // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#endif // defined(USE_I2C)
             }
             break;
 

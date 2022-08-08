@@ -18,14 +18,6 @@
 
 #include "quantum.h"
 
-#if !defined(SPI_SS_PIN)
-#    define SPI_SS_PIN B0
-#endif
-
-#define SPI_SCK_PIN B1
-#define SPI_MOSI_PIN B2
-#define SPI_MISO_PIN B3
-
 #define LAYOUT(                                                                       \
     l00, l01, l02, l03, l04, l05,                       r05, r04, r03, r02, r01, r00, \
     l10, l11, l12, l13, l14, l15,                       r15, r14, r13, r12, r11, r10, \

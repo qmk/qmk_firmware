@@ -38,3 +38,6 @@
 
 #define LED_CAPS_LOCK_PIN D1
 #define LED_SCROLL_LOCK_PIN D2
+
+/* Split communication */
+#define SOFT_SERIAL_PIN B0

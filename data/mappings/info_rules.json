@@ -27,7 +27,6 @@
     "PIN_COMPATIBLE": {"info_key": "pin_compatible"},
     "SECURE_ENABLE": {"info_key": "secure.enabled", "value_type": "bool"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
-    "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
     "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
@@ -36,4 +35,5 @@
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true},
+    "SPLIT_TRANSPORT": {"info_key": "_invalid.split_transport_protocol", "invalid": true},
 }
