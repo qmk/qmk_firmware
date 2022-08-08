@@ -2,7 +2,7 @@
 
 A 4x4 macropad with RGB inswitch lighting and underglow. 
 
-* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
+* Keyboard Maintainer: [ziptyze](https://github.com/ziptyze)
 * Hardware Supported: 1upkeyboards Super 16 V2
 * Hardware Availability: [1upkeyboards](https://1upkeyboards.com/)
 
