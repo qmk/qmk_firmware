@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B43
-#define PRODUCT_ID      0x5036
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KapCave
-#define PRODUCT         paladin64
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
@@ -91,7 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, D6, B0, D3 }
 #define MATRIX_COL_PINS { C7, F7, F6, F5, F4, F1, F0, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

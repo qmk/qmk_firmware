@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x5275
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    PheonixStarr
-#define PRODUCT         Retro75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { A8, B15, B14, B13, B12, B8 }
 #define MATRIX_COL_PINS { A5, A4, A3, F0, C15, C14, C13, A6, B11, B10, B2, B1, B0, A7, A14, A15 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

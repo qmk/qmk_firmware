@@ -38,9 +38,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
-
 #ifdef RGB_MATRIX_ENABLE
     #define DRIVER_LED_TOTAL 86
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "wilba.tech WT60-H3", 
+    "keyboard_name": "WT60-H3", 
+    "manufacturer": "wilba.tech",
     "url": "https://wilba.tech", 
     "maintainer": "Wilba", 
+    "usb": {
+        "vid": "0x6582",
+        "pid": "0x002C",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_iso_tsangan_split_rshift"
     },

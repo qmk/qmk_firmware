@@ -6,20 +6,12 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4154      //AT
-#define PRODUCT_ID      0x4536      //E6
-#define DEVICE_VER      0x0062
-#define MANUFACTURER    astro
-#define PRODUCT         e6rgb
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F1, F4, F5, F6, D6 }
 #define MATRIX_COL_PINS { D7, B4, B5, B6, C6, C7, F7, F0, B0, B1, D2, D3, B3, B2 }
-#define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
 //rgb light setting

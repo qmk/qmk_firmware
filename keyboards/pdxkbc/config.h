@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5044 // PD
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Franklin Harding
-#define PRODUCT         pdxkbc
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 2
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { F7, B6, F4 }
 #define MATRIX_COL_PINS { D1, E6 }
-#define UNUSED_PINS { D0, D4, C6, D7, B4, B5, F5, F6, B1, B3, B2 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

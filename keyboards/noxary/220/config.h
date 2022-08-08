@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E58 //"NX"
-#define PRODUCT_ID      0x0899 //2201
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Noxary
-#define PRODUCT         220
-
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -43,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { C4, B0, D3, D4, D5, D6 }
 #define MATRIX_COL_PINS { B4, C5, D2, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

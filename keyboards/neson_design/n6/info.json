@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "n6",
+    "keyboard_name": "N6",
+    "manufacturer": "Neson Design",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4E65",
+        "pid": "0x4E36",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_blocker_splitbs": "LAYOUT_65_ansi_blocker_split_bs"
     },

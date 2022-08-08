@@ -52,7 +52,6 @@ EncA (B6) because it is not used in the default PCB
 All Extra pins (A8, B15, B14, B13, B3, B5, B8, B9) , for the same reason;
 B0, which is unconnected on the PCB
 */
-//#define UNUSED_PINS { B0, B6, B13, B14, B15, B8, B9, B5, B3 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

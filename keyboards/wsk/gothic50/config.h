@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x04EF
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Worldspawn00
-#define PRODUCT         Gothic50
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 14
@@ -17,7 +10,6 @@
 
 #define MATRIX_ROW_PINS { B5, B4, D7, D6 }
 #define MATRIX_COL_PINS { E6, F0, F1, C7, C6, B6, D4, D5, D3, D2, D1, D0, B7, B0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

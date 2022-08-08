@@ -15,7 +15,7 @@
                         "properties": {
                             "pin_a": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                             "pin_b": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"} 
+                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                         }
                     }
                 }
@@ -221,8 +221,7 @@
                     "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
                 },
                 "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
         },
         "mouse_key": {

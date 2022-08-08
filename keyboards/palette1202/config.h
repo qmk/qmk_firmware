@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x1202
-#define DEVICE_VER   0x0001
-#define MANUFACTURER niltea
-#define PRODUCT      Palette1202
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 5
 
 #define MATRIX_ROW_PINS { B6, B2, B3 }
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
-#define UNUSED_PINS { D2, D3, D4, B1 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

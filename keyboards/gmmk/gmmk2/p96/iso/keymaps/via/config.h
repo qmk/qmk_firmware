@@ -19,4 +19,3 @@
 #include "config_common.h"
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#define STM32_USB_USE_OTG1 TRUE

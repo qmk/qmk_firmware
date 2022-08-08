@@ -59,6 +59,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 8
 #endif
 
-#define UNUSED_PINS
 // you want to comment this if using stm32-dfu as bootloader
 #define FEE_PAGE_BASE_ADDRESS 0x08008000
