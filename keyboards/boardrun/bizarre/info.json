@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Boardrun Bizarre",
+    "manufacturer": "shensmobile",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/boardrun/bizarre",
     "maintainer": "QMK Community",
+    "usb": {
+        "vid": "0xCDCD",
+        "pid": "0x5339",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

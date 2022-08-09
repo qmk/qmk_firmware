@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x736B  // SK
-#define PRODUCT_ID      0x7575
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Singa Keyboards
-#define PRODUCT         Singa
-
 #define RGBLED_NUM 18
 
 #define MATRIX_ROWS 7

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Monoflex 60",
+    "manufacturer": "SanitGo Customs",
     "url": "",
     "maintainer": "keyten",
+    "usb": {
+        "vid": "0xDEB4",
+        "pid": "0x60EB",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

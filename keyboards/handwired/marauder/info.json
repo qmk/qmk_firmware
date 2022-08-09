@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Minshara Marauder",
+    "manufacturer": "BB-66",
     "url": "https://imgur.com/a/TvsXpq5",
     "maintainer": "BB-66",
+    "usb": {
+        "vid": "0x4D52",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

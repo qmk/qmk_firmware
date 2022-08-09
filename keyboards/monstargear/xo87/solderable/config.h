@@ -20,13 +20,6 @@
 
 #define brightnessMax 8
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D47 // MG for Monstargear
-#define PRODUCT_ID      0x5344 // SD for Soldered
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Monstargear
-#define PRODUCT         XO87 Soldered
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16

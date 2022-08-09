@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6050
-#define DEVICE_VER      0x0104
-#define MANUFACTURER    Revo
-#define PRODUCT         KMAC Kmini
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17

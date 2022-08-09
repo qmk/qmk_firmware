@@ -16,12 +16,6 @@
  
  #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8372
-#define PRODUCT_ID      0x0651
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    Sebastien Sauve-Hoover
-#define PRODUCT         Ano Keyboard
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
