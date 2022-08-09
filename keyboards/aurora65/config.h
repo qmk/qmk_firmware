@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x4136
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         Aurora65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -45,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_PWM_PAL_MODE 2
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM5
-#define WS2812_DMA_CHANNEL 5  
+#define WS2812_DMA_CHANNEL 5
 
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 36
