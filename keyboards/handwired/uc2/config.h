@@ -21,12 +21,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4143 // AC
-#define PRODUCT_ID   0x0002
-#define DEVICE_VER   0x0002
-#define MANUFACTURER AndyChiu
-#define PRODUCT      UniversalCentury2
 
 
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
