@@ -1,0 +1,3 @@
+VIA_ENABLE = yes
+LTO_ENABLE = no
+RAW_ENABLE = yes

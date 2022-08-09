@@ -196,18 +196,20 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F1xx
 
-  # Linker script to use
-  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
-  #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F103x8
+  ifeq ($(strip $(BOOTLOADER)), tinyuf2)
+    MCU_LDSCRIPT ?= STM32F103x8_uf2
+    FIRMWARE_FORMAT ?= uf2
+  else
+    MCU_LDSCRIPT ?= STM32F103x
+  endif
 
   # Startup code to use
-  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  #  - it should exist in <chibios>/os/commonartup/ARMCMx/compilers/GCC/mk/
   MCU_STARTUP ?= stm32f1xx
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= GENERIC_STM32_F103
+  BOARD ?= STM32_F103_STM32DUINO
 
   USE_FPU ?= no
 

@@ -26,5 +26,10 @@
     "python.formatting.provider": "yapf",
     "[json]": {
 	    "editor.formatOnSave": false
-    }
+    },
+    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+    "cSpell.words": [
+        "LGUI",
+        "TRNS"
+    ]
 }

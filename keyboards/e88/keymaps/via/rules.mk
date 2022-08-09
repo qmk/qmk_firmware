@@ -1,2 +1,0 @@
-VIA_ENABLE = yes
-LT0_ENABLE = yes
