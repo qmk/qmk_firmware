@@ -1,7 +1,7 @@
 {
     "manufacturer": "Catmunch",
     "keyboard_name": "MacroCat Keyboard",
-    "maintainer": "Catmunch",
+    "maintainer": "Catmunch, starcatmeow",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {

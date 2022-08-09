@@ -4,7 +4,7 @@
 
 A cat like macro keyboard/numpad.
 
-* Keyboard Maintainer: [catmunch](https://github.com/catmunch)
+* Keyboard Maintainer: [catmunch](https://github.com/catmunch), [starcatmeow](https://github.com/starcatmeow)
 * Hardware Supported: Fully Supported
 * Hardware Availability: [MacroCat Keyboard](https://github.com/catmunch/macrocat)
 
