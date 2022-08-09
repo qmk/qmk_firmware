@@ -42,13 +42,14 @@ bool get_auto_mouse_state(void) {
 /* Allow for setting auto mouse enable state */
 void set_auto_mouse_state(bool state) {
     // skip if already set
-    if (auto_mouse.config.enabled == state) return;
-    auto_mouse.config.enabled = state;
-    // reset settings on state change
-    auto_mouse.status.mouse_key_tracker = 0;
-    auto_mouse.timer.active             = 0;
-    auto_mouse.timer.delay              = 0;
-    auto_mouse.status.layer_toggled     = false;
+    if (auto_mouse.config.enabled != state) {
+        auto_mouse.config.enabled = state;
+        // reset settings on state change
+        auto_mouse.status.mouse_key_tracker = 0;
+        auto_mouse.timer.active             = 0;
+        auto_mouse.timer.delay              = 0;
+        auto_mouse.status.layer_toggled     = false;
+    }
 }
 
 /* set which layer will act as the mouse layer */
