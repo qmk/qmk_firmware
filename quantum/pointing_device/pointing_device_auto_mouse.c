@@ -23,10 +23,8 @@ static auto_mouse_context_t auto_mouse = {.config.layer = (uint8_t)AUTO_MOUSE_DE
 /* Handle checking if a keycode is a mouse button */
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
-    if (is_mouse_record_kb(keycode, record)) return true;
-    switch (keycode) {
-        case KC_MS_UP ... KC_MS_WH_RIGHT:
-            return true;
+    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode)) {
+        return true;
     }
     return false;
 }
