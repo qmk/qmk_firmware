@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0348
-#define DEVICE_VER   0x0200
-#define MANUFACTURER Pearl Boards
-#define PRODUCT      Pearl
-
 #define LED_NUM_LOCK_PIN D0
 #define LED_CAPS_LOCK_PIN D1
 #define LED_SCROLL_LOCK_PIN D6

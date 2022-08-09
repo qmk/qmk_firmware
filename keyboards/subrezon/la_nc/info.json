@@ -1,6 +1,11 @@
 {
     "keyboard_name": "la_nc",
     "url": "https://github.com/subrezon/la_nc",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1A7C",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

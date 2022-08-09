@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER jp_smasher
-#define PRODUCT      k34
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10

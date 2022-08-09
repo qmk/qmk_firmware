@@ -1,8 +1,13 @@
 {
   "keyboard_name": "Xenon",
+  "manufacturer": "narinari",
   "url": "https://github.com/narinari/xenon-keyboard",
   "maintainer": "Kyrremann",
-  "manufacturer": "narinari",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x3404",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
