@@ -25,6 +25,12 @@
 #    define secure_lock()
 #endif
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#    define keymap_max_layer_count() DYNAMIC_KEYMAP_LAYER_COUNT
+#else
+#    define keymap_max_layer_count() keymap_layer_count()
+#endif
+
 void xap_respond_success(xap_token_t token) {
     xap_send(token, XAP_RESPONSE_FLAG_SUCCESS, NULL, 0);
 }
@@ -100,7 +106,7 @@ bool xap_respond_get_hardware_id(xap_token_t token, const void *data, size_t len
 }
 
 bool xap_respond_keymap_get_layer_count(xap_token_t token, const void *data, size_t length) {
-    uint8_t ret = keymap_layer_count();
+    uint8_t ret = keymap_max_layer_count();
     return xap_respond_data(token, &ret, sizeof(ret));
 }
 
@@ -110,6 +116,10 @@ bool xap_respond_get_keymap_keycode(xap_token_t token, const void *data, size_t 
     }
 
     xap_route_keymap_get_keymap_keycode_arg_t *arg = (xap_route_keymap_get_keymap_keycode_arg_t *)data;
+
+    if (arg->layer >= keymap_max_layer_count()) {
+        return false;
+    }
 
     keypos_t pos = MAKE_KEYPOS(arg->row, arg->column);
 
@@ -124,6 +134,10 @@ bool xap_respond_get_encoder_keycode(xap_token_t token, const void *data, size_t
     }
 
     xap_route_keymap_get_encoder_keycode_arg_t *arg = (xap_route_keymap_get_encoder_keycode_arg_t *)data;
+
+    if (arg->layer >= keymap_max_layer_count()) {
+        return false;
+    }
 
     keypos_t pos = MAKE_KEYPOS(arg->clockwise ? KEYLOC_ENCODER_CW : KEYLOC_ENCODER_CCW, arg->encoder);
 
@@ -140,6 +154,10 @@ bool xap_respond_dynamic_keymap_set_keycode(xap_token_t token, const void *data,
 
     xap_route_remapping_set_keymap_keycode_arg_t *arg = (xap_route_remapping_set_keymap_keycode_arg_t *)data;
 
+    if (arg->layer >= keymap_max_layer_count()) {
+        return false;
+    }
+
     dynamic_keymap_set_keycode(arg->layer, arg->row, arg->column, arg->keycode);
     xap_respond_success(token);
     return true;
@@ -153,6 +171,10 @@ bool xap_respond_dynamic_encoder_set_keycode(xap_token_t token, const void *data
     }
 
     xap_route_remapping_set_encoder_keycode_arg_t *arg = (xap_route_remapping_set_encoder_keycode_arg_t *)data;
+
+    if (arg->layer >= keymap_max_layer_count()) {
+        return false;
+    }
 
     dynamic_keymap_set_encoder(arg->layer, arg->encoder, arg->clockwise, arg->keycode);
     xap_respond_success(token);
