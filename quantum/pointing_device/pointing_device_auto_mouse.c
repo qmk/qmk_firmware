@@ -206,3 +206,4 @@ __attribute__((weak)) bool is_mouse_record_user(uint16_t keycode, keyrecord_t* r
 __attribute__((weak)) bool is_mouse_record_keymap(uint16_t keycode, keyrecord_t* record) {
     return false;
 }
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
