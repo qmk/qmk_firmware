@@ -26,8 +26,8 @@
 #ifndef AUTO_MOUSE_DEFAULT_LAYER
 #    define AUTO_MOUSE_DEFAULT_LAYER 1
 #else
-#    if AUTO_MOUSE_DEFAULT_LAYER > 15
-#        error "AUTO_MOUSE_DEFAULT_LAYER set to number greater than 15! handling of mouse layer keys unsupported"
+#    if AUTO_MOUSE_DEFAULT_LAYER => MAX_LAYER
+#        error "AUTO_MOUSE_DEFAULT_LAYER set to number greater the number of supported layers! Handling of mouse layer keys unsupported"
 #    endif
 #endif
 
