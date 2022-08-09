@@ -23,6 +23,14 @@
 #    error "POINTING_DEVICE_AUTO_MOUSE_ENABLE not defined! settings may be incorrect!"
 #endif
 
+#ifndef AUTO_MOUSE_DEFAULT_LAYER
+#    define AUTO_MOUSE_DEFAULT_LAYER 1
+#else
+#    if AUTO_MOUSE_DEFAULT_LAYER > 15
+#        error "AUTO_MOUSE_DEFAULT_LAYER set to number greater than 15! handling of mouse layer keys unsupported"
+#    endif
+#endif
+
 #ifndef AUTO_MOUSE_TIME
 #    define AUTO_MOUSE_TIME 650
 #endif
@@ -34,27 +42,19 @@
 #    endif
 #endif
 
-#ifndef AUTO_MOUSE_DEFAULT_LAYER
-#    define AUTO_MOUSE_DEFAULT_LAYER 1
-#else 
-#    if AUTO_MOUSE_DEFAULT_LAYER > 15
-#    error "AUTO_MOUSE_DEFAULT_LAYER set to number greater than 15! handling of mouse layer keys unsupported"
-#    endif
-#endif
-
 /* data structure */
 typedef struct {
     struct {
-        bool     enabled;
-        uint8_t  layer;
+        bool    enabled;
+        uint8_t layer;
     } config;
     struct {
         uint16_t active;
         uint16_t delay;
     } timer;
     struct {
-        bool     layer_toggled;
-        uint8_t  mouse_key_tracker;
+        bool    layer_toggled;
+        uint8_t mouse_key_tracker;
     } status;
 } auto_mouse_context_t;
 
