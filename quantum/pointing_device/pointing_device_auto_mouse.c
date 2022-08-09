@@ -17,7 +17,7 @@
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
-#include "pointing_device_auto_mouse.h"
+#    include "pointing_device_auto_mouse.h"
 
 /* needed variables for tracking auto mouse */
 static auto_mouse_context_t auto_mouse = {.config.layer = (uint8_t)AUTO_MOUSE_DEFAULT_LAYER};
@@ -64,9 +64,9 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
     // skip if disabled or layer not set
     if (!auto_mouse.config.enabled) return;
         // skip if oneshot mouse layer is active
-#ifndef NO_ACTION_ONESHOT
+#    ifndef NO_ACTION_ONESHOT
     if (get_oneshot_layer() == auto_mouse.config.layer) return;
-#endif
+#    endif
     // Check for mouse movement and update
     if ((mouse_report.x != 0 || mouse_report.y != 0)) {
         auto_mouse.timer.active = timer_read();
@@ -86,9 +86,9 @@ void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         // Skip Mod keys to avoid layer reset
         case KC_LEFT_CTRL ... KC_RIGHT_GUI:
-#ifndef NO_ACTION_ONESHOT
+#    ifndef NO_ACTION_ONESHOT
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
-#endif
+#    endif
         case QK_MODS ... QK_MODS_MAX:
             break;
         // LT(auto_mouse.config.layer, kc)------------------------------------------------------------
@@ -116,17 +116,42 @@ void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         // DF ---------------------------------------------------------------------------------------------
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
             break;
-#ifndef NO_ACTION_ONESHOT
+#    ifndef NO_ACTION_ONESHOT
         // OSL(MOUSE_LAYER)--------------------------------------------------------------------------------
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
             if ((keycode & 0xff) == auto_mouse.config.layer) {
                 if (record->event.pressed) {
                     auto_mouse.status.mouse_key_tracker++;
                 } else {
-#    if ONESHOT_TAP_TOGGLE != 0 && !defined(NO_ACTION_TAPPING)
+#        if ONESHOT_TAP_TOGGLE != 0 && !defined(NO_ACTION_TAPPING)
                     if (record->tap.count == ONESHOT_TAP_TOGGLE) {
                         toggle_mouse_layer();
-#        if ONESHOT_TAP_TOGGLE == 1
+#            if ONESHOT_TAP_TOGGLE == 1
+                        if (!auto_mouse.status.layer_toggled) auto_mouse.status.mouse_key_tracker -= record->tap.count + 1;
+#            else
+                        if (!auto_mouse.status.layer_toggled) auto_mouse.status.mouse_key_tracker -= record->tap.count;
+#            endif
+                    } else {
+                        auto_mouse.status.mouse_key_tracker--;
+                    }
+#        else
+                    auto_mouse.status.mouse_key_tracker--;
+#        endif
+                }
+                auto_mouse.timer.active = timer_read();
+            }
+            break;
+#    endif
+        // TT(auto_mouse.config.layer)---------------------------------------------------------------
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+            if ((keycode & 0xff) == auto_mouse.config.layer) {
+                if (record->event.pressed) {
+                    auto_mouse.status.mouse_key_tracker++;
+                } else {
+#    if TAPPING_TOGGLE != 0 && !defined(NO_ACTION_TAPPING)
+                    if (record->tap.count == TAPPING_TOGGLE) {
+                        toggle_mouse_layer();
+#        if TAPPING_TOGGLE == 1
                         if (!auto_mouse.status.layer_toggled) auto_mouse.status.mouse_key_tracker -= record->tap.count + 1;
 #        else
                         if (!auto_mouse.status.layer_toggled) auto_mouse.status.mouse_key_tracker -= record->tap.count;
@@ -141,31 +166,6 @@ void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
                 auto_mouse.timer.active = timer_read();
             }
             break;
-#endif
-        // TT(auto_mouse.config.layer)---------------------------------------------------------------
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-            if ((keycode & 0xff) == auto_mouse.config.layer) {
-                if (record->event.pressed) {
-                    auto_mouse.status.mouse_key_tracker++;
-                } else {
-#if TAPPING_TOGGLE != 0 && !defined(NO_ACTION_TAPPING)
-                    if (record->tap.count == TAPPING_TOGGLE) {
-                        toggle_mouse_layer();
-#    if TAPPING_TOGGLE == 1
-                        if (!auto_mouse.status.layer_toggled) auto_mouse.status.mouse_key_tracker -= record->tap.count + 1;
-#    else
-                        if (!auto_mouse.status.layer_toggled) auto_mouse.status.mouse_key_tracker -= record->tap.count;
-#    endif
-                    } else {
-                        auto_mouse.status.mouse_key_tracker--;
-                    }
-#else
-                    auto_mouse.status.mouse_key_tracker--;
-#endif
-                }
-                auto_mouse.timer.active = timer_read();
-            }
-            break;
         // LM(auto_mouse.config.layer, mod)------------------------------------------------------------
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
             if (((keycode >> 4) & 0xF) == auto_mouse.config.layer) {
@@ -173,12 +173,12 @@ void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
                 auto_mouse.timer.active = timer_read();
             }
             break;
-#ifndef NO_ACTION_TAPPING
+#    ifndef NO_ACTION_TAPPING
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (record->event.pressed || !record->tap.count) {
                 break;
             }
-#endif
+#    endif
         default:
             if (IS_NOEVENT(record->event)) break; // skip if no key has been pressed
             if (is_mouse_record(keycode, record)) {
