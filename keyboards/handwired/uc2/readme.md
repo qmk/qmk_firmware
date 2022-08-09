@@ -10,8 +10,8 @@ The Layout base on [Willow Layout](https://github.com/hanachi-ap/willow64-doc), 
 
 PCB using FDM 3D printer and hand wiring, Non-factory PCB, Layout design using [Keyboard-layout-editor.com (KLE)](http://www.keyboard-layout-editor.com/) web application, 3D file(.STL) build using [hotswap_pcb_generator](https://github.com/AndyChiu/hotswap_pcb_generator) OpenSCAD script.
 
-![Left Hand](https://i.imgur.com/FnKEIS4.jpeg)
-![Right Hand](https://i.imgur.com/pPTj6vC.jpeg)
+![Left Hand](https://i.imgur.com/FnKEIS4l.jpeg)
+![Right Hand](https://i.imgur.com/pPTj6vCl.jpeg)
 
 * Keyboard Maintainer: [AndyChiu](https://github.com/AndyChiu)
 * Hardware Supported: Hand wired
