@@ -81,14 +81,12 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_PGUP);
         }
-    }
     } else if (index == 2) {
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
-    }
     } else if (index == 3) {
         if (clockwise) {
             tap_code(KC_PGDN);
