@@ -44,3 +44,6 @@
 // inputs (columns are sampled)
 #define MATRIX_COL_PINS \
     { C4, C5, D0, B15, C11, A15, C12, C13, A8, A10, A11, A14, D2, D3 }
+
+// Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
+#define PERMISSIVE_HOLD

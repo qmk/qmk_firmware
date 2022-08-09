@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xCA40
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MECHKEYS
-#define PRODUCT         Mechmini
-
 /* matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

@@ -1,27 +1,13 @@
-{ avr ? true, arm ? true, teensy ? true }:
 let
   # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
   sources = import ./util/nix/sources.nix { };
-  pkgs = import sources.nixpkgs { };
-
-  poetry2nix = pkgs.callPackage (import sources.poetry2nix) { };
-
-  # Builds the python env based on nix/pyproject.toml and
-  # nix/poetry.lock Use the "poetry update --lock", "poetry add
-  # --lock" etc. in the nix folder to adjust the contents of those
-  # files if the requirements*.txt files change
-  pythonEnv = poetry2nix.mkPoetryEnv {
-    projectDir = ./util/nix;
-    overrides = poetry2nix.overrides.withDefaults (self: super: {
-      qmk = super.qmk.overridePythonAttrs(old: {
-        # Allow QMK CLI to run "qmk" as a subprocess (the wrapper changes
-        # $PATH and breaks these invocations).
-        dontWrapPythonPrograms = true;
-      });
-    });
-  };
 in
-
+# However, if you want to override Niv's inputs, this will let you do that.
+{ pkgs ? import sources.nixpkgs { }
+, poetry2nix ? pkgs.callPackage (import sources.poetry2nix) { }
+, avr ? true
+, arm ? true
+, teensy ? true }:
 with pkgs;
 let
   avrlibc = pkgsCross.avr.libcCross;
@@ -35,11 +21,34 @@ let
     "-B${avrlibc}/avr/lib/avr51"
     "-L${avrlibc}/avr/lib/avr51"
   ];
+
+  # Builds the python env based on nix/pyproject.toml and
+  # nix/poetry.lock Use the "poetry update --lock", "poetry add
+  # --lock" etc. in the nix folder to adjust the contents of those
+  # files if the requirements*.txt files change
+  pythonEnv = poetry2nix.mkPoetryEnv {
+    projectDir = ./util/nix;
+    overrides = poetry2nix.overrides.withDefaults (self: super: {
+      pillow = super.pillow.overridePythonAttrs(old: {
+        # Use preConfigure from nixpkgs to fix library detection issues and
+        # impurities which can break the build process; this also requires
+        # adding propagatedBuildInputs and buildInputs from the same source.
+        propagatedBuildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.propagatedBuildInputs;
+        buildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.buildInputs;
+        preConfigure = (old.preConfigure or "") + pkgs.python3.pkgs.pillow.preConfigure;
+      });
+      qmk = super.qmk.overridePythonAttrs(old: {
+        # Allow QMK CLI to run "qmk" as a subprocess (the wrapper changes
+        # $PATH and breaks these invocations).
+        dontWrapPythonPrograms = true;
+      });
+    });
+  };
 in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv niv ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8

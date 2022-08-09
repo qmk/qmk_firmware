@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7844   // "XD"
-#define PRODUCT_ID      0x8484
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KPrepublic
-#define PRODUCT         XD84
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

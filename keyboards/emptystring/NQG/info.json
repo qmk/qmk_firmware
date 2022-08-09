@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "NQG (Not Quite Gherkin)",
+    "keyboard_name": "NQG",
+    "manufacturer": "emptystring",
     "url": "",
     "maintainer": "culturalsnow",
+    "usb": {
+        "vid": "0x0076",
+        "pid": "0x0037",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

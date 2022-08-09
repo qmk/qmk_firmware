@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D53 
-#define PRODUCT_ID      0x6844 //hD
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    h0oni
-#define PRODUCT         hotDuck
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 10

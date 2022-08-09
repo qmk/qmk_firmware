@@ -1,7 +1,13 @@
 {
     "keyboard_name": "SPIN", 
+    "manufacturer": "DMQ Design",
     "url": "https://www.DMQdesign.com", 
     "maintainer": "Quarren42", 
+    "usb": {
+        "vid": "0xA455",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
