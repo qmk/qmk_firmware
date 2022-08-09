@@ -215,7 +215,7 @@ bool pre_process_record_quantum(keyrecord_t *record) {
 /* Get keycode, and then call keyboard function */
 void post_process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, false);
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
     process_auto_mouse(keycode, record);
 #endif
     post_process_record_kb(keycode, record);
