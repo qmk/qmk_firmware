@@ -127,8 +127,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    endif
 #endif
 
-#define VIA_QMK_RGBLIGHT_ENABLE
-
-// Enable the workaround for the speed parameter mismatch between RGBLIGHT and
-// RGB Matrix, so that the speed slider in VIA behaves in a more useful way.
-#define VIA_CUSTOM_LIGHTING_ENABLE
