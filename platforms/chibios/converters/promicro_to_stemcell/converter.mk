@@ -1,4 +1,6 @@
-# STM32 MCU settings for converting AVR projects
+# Copyright 2022 Mega Mind (@megamind4089)
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 MCU := STM32F411
 BOARD := STEMCELL
 BOOTLOADER := tinyuf2

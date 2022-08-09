@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Mega Mind
+// Copyright 2022 Mega Mind (@megamind4089)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
