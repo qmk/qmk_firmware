@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+
 #include "pointing_device_auto_mouse.h"
 
 /* needed variables for tracking auto mouse */
