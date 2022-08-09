@@ -24,6 +24,14 @@ enum custom_layers {
     _FN3
 };
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QWERTY] =   { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_MS_WH_UP,KC_MS_WH_DOWN)  },
+    [_FN1] =  { ENCODER_CCW_CW(KC_UP, KC_DOWN),           ENCODER_CCW_CW(KC_LEFT,KC_RIGHT)  },
+    [_FN2] =  { ENCODER_CCW_CW(LSFT_T(KC_TAB), KC_TAB),           ENCODER_CCW_CW(KC_MS_WH_UP,KC_MS_WH_DOWN)  },
+    [_FN3] = { ENCODER_CCW_CW(LCTL(KC_Z), LCTL(KC_Y)),          ENCODER_CCW_CW(KC_MS_WH_UP,KC_MS_WH_DOWN) },
+};
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* QUWERTY Layer */
@@ -34,8 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,                     KC_PGUP, KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,   KC_RBRC,  KC_BSLS,
         KC_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_END,                      KC_PGDN, KC_H,   KC_J,   KC_K,   KC_L,   LT(_FN2,KC_SCLN),  KC_QUOT,  KC_ENT,
         KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LCTL,                     KC_DEL,  KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,                     KC_RSFT,
-      LT(_FN1,KC_LGUI),         KC_LEFT,KC_RGHT,MT(KC_RCTL,KC_SPC), KC_BSPC,  KC_LALT,  LT(_FN3,KC_APP),KC_ENT, MT(KC_RSFT,KC_SPC), KC_UP,  KC_DOWN,
-        LSFT_T(KC_TAB), KC_TAB,                                                                                                                 KC_MS_WH_UP,KC_MS_WH_DOWN
+      LT(_FN1,KC_LGUI),         KC_LEFT,KC_RGHT,MT(KC_RCTL,KC_SPC), KC_BSPC,  KC_LALT,  LT(_FN3,KC_APP),KC_ENT, MT(KC_RSFT,KC_SPC), KC_UP,  KC_DOWN
     /* |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|   |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|*/
     ),
 
@@ -47,8 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    LALT(KC_TAB),KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,                 KC_PGUP, KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,   KC_RBRC,  KC_BSLS,
         _______,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_END,                  KC_PGDN, KC_H,   KC_J,   KC_K,   KC_L,   LT(_FN2,KC_SCLN),  KC_QUOT,  KC_ENT,
         _______,LCTL(KC_Z),LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),KC_B,KC_LCTL,        KC_DEL,  KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,                     KC_RSFT,
-        _______,        KC_LEFT,KC_RGHT,MT(KC_RCTL,KC_SPC), KC_BSPC, KC_LALT,        LT(_FN3,KC_APP),KC_ENT, MT(KC_RSFT,KC_SPC), KC_UP,  KC_DOWN,
-        LCTL(KC_Z), LCTL(KC_Y),                                                                                                                 KC_MS_WH_UP,KC_MS_WH_DOWN
+        _______,        KC_LEFT,KC_RGHT,MT(KC_RCTL,KC_SPC), KC_BSPC, KC_LALT,        LT(_FN3,KC_APP),KC_ENT, MT(KC_RSFT,KC_SPC), KC_UP,  KC_DOWN
      /* |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|   |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|*/
 ),
     /*  Mouse layer */
@@ -59,8 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_WH_L, KC_BTN4, KC_MS_U,KC_BTN5, KC_WH_R, KC_HOME,                      KC_PGUP, KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,   KC_RBRC,  KC_BSLS,
         KC_CAPS, KC_WH_D, KC_MS_L, KC_MS_D,KC_MS_R, KC_WH_U, KC_END,                       KC_PGDN, KC_H,   KC_J,   KC_K,   KC_L,   LT(_FN2,KC_SCLN),  KC_QUOT,  KC_ENT,
         KC_LSFT, KC_Z,    KC_BTN3, KC_BTN1,KC_BTN2, KC_B,    KC_LCTL,                      KC_DEL,  KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,                     KC_RSFT,
-      LT(_FN1,KC_LGUI),            KC_LEFT,KC_RGHT,MT(KC_RCTL,KC_SPC),KC_BSPC, KC_LALT,     LT(_FN3,KC_APP),KC_ENT,MT(KC_RSFT,KC_SPC), KC_UP,  KC_DOWN,
-        KC_UP, KC_UP,                                                                                                                 KC_MS_WH_UP,KC_MS_WH_DOWN
+      LT(_FN1,KC_LGUI),            KC_LEFT,KC_RGHT,MT(KC_RCTL,KC_SPC),KC_BSPC, KC_LALT,     LT(_FN3,KC_APP),KC_ENT,MT(KC_RSFT,KC_SPC), KC_UP,  KC_DOWN
     /* |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|   |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|*/
     ),
     /*  Other layer */
@@ -71,8 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                             KC_HOME, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                             KC_END,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,  KC_TRNS,                           KC_INS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,                     KC_TRNS,
-        KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,           KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
-        KC_TRNS, KC_TRNS,                                                                                                                 KC_TRNS,KC_TRNS
+        KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,           KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS
     /* |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|   |--------+-------+-------+-------+-------+-------+-------+-------+-------+-------|*/
     )
 };
