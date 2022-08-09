@@ -230,10 +230,6 @@ extern layer_state_t layer_state;
 #    include "pointing_device.h"
 #endif
 
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#    include "pointing_device_auto_mouse.h"
-#endif
-
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
 #    include "process_caps_word.h"
