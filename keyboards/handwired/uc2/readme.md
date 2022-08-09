@@ -6,7 +6,7 @@ The Universal-Century 2 (UC2) is a 86-key split keyboard, TKL size with 3-key th
 
 The Layout base on [Willow Layout](https://github.com/hanachi-ap/willow64-doc), CC BY-SA 4.0 by Hanachi. Thank you so much Mr. Hanachi!
 
-![FDM PCB Board](https://imgur.com/Obr9v1y.jpeg)
+![FDM PCB Board](https://imgur.com/Obr9v1yl.jpeg)
 
 PCB using FDM 3D printer and hand wiring, Non-factory PCB, Layout design using [Keyboard-layout-editor.com (KLE)](http://www.keyboard-layout-editor.com/) web application, 3D file(.STL) build using [hotswap_pcb_generator](https://github.com/AndyChiu/hotswap_pcb_generator) OpenSCAD script.
 
