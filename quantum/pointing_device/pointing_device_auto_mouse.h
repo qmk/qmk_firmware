@@ -59,7 +59,7 @@ typedef struct {
 } auto_mouse_context_t;
 
 /* setting up use of automouse */
-void set_auto_mouse_layer(uint8_t LAYER);                          // set in pointing_device_init_*, can be changed later
+void set_auto_mouse_layer(uint8_t layer);                          // set in pointing_device_init_*, can be changed later
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report); // add to pointing_device_task_*
 void process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to process_record_*
 
