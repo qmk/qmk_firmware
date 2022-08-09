@@ -54,8 +54,8 @@ void set_auto_mouse_state(bool state) {
 }
 
 /* set which layer will act as the mouse layer */
-void set_auto_mouse_layer(uint8_t LAYER) {
-    auto_mouse.config.layer = LAYER;
+void set_auto_mouse_layer(uint8_t layer) {
+    auto_mouse.config.layer = layer;
 }
 
 /* Update the auto mouse if there is mouse motion on the base layer */
