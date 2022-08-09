@@ -84,7 +84,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             action_exec(encoder2_ccw);
         }
     }
-
     return true;
 }
 
