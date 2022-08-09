@@ -30,7 +30,7 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    VERSION = SAFE_RANGE
+    VERSION = USER00
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
