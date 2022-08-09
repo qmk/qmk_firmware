@@ -67,6 +67,7 @@ void process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to pro
 void set_auto_mouse_state(bool state); // enable/disable auto mouse feature (defaults to false at start) set to true in pointing_device_init_*
 bool get_auto_mouse_state(void);       // allows for checking auto_mouse_enable
 void toggle_mouse_layer(void);         // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
+void get_toggle_mouse_state(void);     // return toggle mouse bool value
 
 /* Callbacks for adding keycodes to mouse record checking */
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record);

@@ -31,11 +31,6 @@ static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     return false;
 }
 
-/* toggle mouse layer setting (disabling automouse layer changes) */
-void toggle_mouse_layer(void) {
-    auto_mouse.status.layer_toggled ^= 1;
-}
-
 /* Allow for getting auto mouse state */
 bool get_auto_mouse_state(void) {
     return auto_mouse.config.enabled;
@@ -57,6 +52,16 @@ void set_auto_mouse_state(bool state) {
 /* set which layer will act as the mouse layer */
 void set_auto_mouse_layer(uint8_t layer) {
     auto_mouse.config.layer = layer;
+}
+
+/* toggle mouse layer setting (disabling automouse layer changes) */
+void toggle_mouse_layer(void) {
+    auto_mouse.status.layer_toggled ^= 1;
+}
+
+/* Allow for accessing toggle mouse bool value */
+bool get_toggle_mouse_state(void) {
+    return auto_mouse.status.layer_toggled;
 }
 
 /* Update the auto mouse if there is mouse motion on the base layer */
