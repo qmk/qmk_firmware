@@ -1,6 +1,6 @@
 # Universal-Century 2
 
-![UC2](https://i.imgur.com/sl2A7q3.jpeg)
+![UC2](https://i.imgur.com/sl2A7q3l.jpeg)
 
 The Universal-Century 2 (UC2) is a 86-key split keyboard, TKL size with 3-key thumb cluster and encoders. 
 
