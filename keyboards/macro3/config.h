@@ -6,13 +6,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xC88B
-#define PRODUCT_ID      0x3388
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    DPB
-#define PRODUCT         Macro3
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4

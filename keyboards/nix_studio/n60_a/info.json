@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Nix_N60A",
+    "keyboard_name": "N60A",
+    "manufacturer": "Nix Studio",
     "url": "",
     "maintainer": "Nix Studio",
+    "usb": {
+        "vid": "0x6E78",
+        "pid": "0x3630",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

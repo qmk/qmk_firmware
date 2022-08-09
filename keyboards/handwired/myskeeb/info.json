@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "myskeeb",
+    "keyboard_name": "MySKeeb",
+    "manufacturer": "DAG3",
     "url": "",
     "maintainer": "su8044",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

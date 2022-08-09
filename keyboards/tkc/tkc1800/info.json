@@ -1,7 +1,13 @@
 {
   "keyboard_name": "TKC1800",
+  "manufacturer": "The Key Company",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x544B",
+    "pid": "0x0001",
+    "device_version": "0.0.3"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

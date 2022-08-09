@@ -20,13 +20,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x694E  //'iN'
-#define PRODUCT_ID      0x5336  //'S6'
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    iNETT Studio
-#define PRODUCT         SQUARE.X
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

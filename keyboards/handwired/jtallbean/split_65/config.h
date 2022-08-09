@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
-#define DEVICE_VER 0x0001
-#define MANUFACTURER jtallbean
-#define PRODUCT split_65
-
 /* key matrix size */
 #define MATRIX_ROWS 10 // Double rows for split keyboards. split_65 has 5, so define 10
 #define MATRIX_COLS 9

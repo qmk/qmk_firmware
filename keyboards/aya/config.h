@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0x2925
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DanNixon
-#define PRODUCT         Aya
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 
