@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7363  // Stream Cheap
-#define PRODUCT_ID 0x1213
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Stream Cheap
-#define PRODUCT 2x3
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3

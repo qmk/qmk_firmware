@@ -1,7 +1,13 @@
 {
     "keyboard_name": "QUARK",
+    "manufacturer": "Nasp",
     "url": "",
     "maintainer": "nasp",
+    "usb": {
+        "vid": "0x7070",
+        "pid": "0x5340",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x12_2x225u": {
             "layout": [

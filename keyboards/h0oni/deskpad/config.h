@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D53 
-#define PRODUCT_ID      0x4450 //hD
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Hydrogen
-#define PRODUCT         Deskpad
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3

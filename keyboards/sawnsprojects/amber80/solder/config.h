@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5350
-#define PRODUCT_ID      0xA801
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SawnsProjects X Yuutsu X Zlane
-#define PRODUCT         Amber80 Solder
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9

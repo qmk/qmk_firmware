@@ -5,11 +5,6 @@
 
 #include "config_common.h"
 
-// USB device parameters
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1A7C
-#define DEVICE_VER      0x0100
-
 // key matrix
 #define MATRIX_ROWS 6
 #define MATRIX_ROW_PINS {D3, F4, D2, B2, B5, B6}

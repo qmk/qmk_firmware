@@ -4,13 +4,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x41FF
-#define PRODUCT_ID      0xAA99
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    cablecardesigns
-#define PRODUCT         cypher
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10

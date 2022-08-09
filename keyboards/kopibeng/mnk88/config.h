@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // 'KP' kopibeng  
-#define PRODUCT_ID      0x8800 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    kopibeng
-#define PRODUCT         MNK88
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -50,7 +43,7 @@
 
 #define RGB_DI_PIN A10
 #ifdef RGB_DI_PIN
-    #define RGBLED_NUM 19
+    #define RGBLED_NUM 20
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8

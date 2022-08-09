@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4152 // "AR"
-#define PRODUCT_ID      0x4F46 // "OF"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Array Peripherals
-#define PRODUCT         [1x4] + 1 Macropad
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 5

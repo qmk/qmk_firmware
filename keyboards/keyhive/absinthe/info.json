@@ -1,7 +1,13 @@
 {
     "keyboard_name": "absinthe",
+    "manufacturer": "cfbender",
     "url": "https://github.com/cfbender/keyboards/tree/master/absinthe",
     "maintainer": "cfbender",
+    "usb": {
+        "vid": "0xB00B",
+        "pid": "0xFEED",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

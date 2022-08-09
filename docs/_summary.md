@@ -84,6 +84,7 @@
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Raw HID](feature_rawhid.md)
+    * [Secure](feature_secure.md)
     * [Sequencer](feature_sequencer.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
@@ -165,6 +166,7 @@
     * Arm/ChibiOS
       * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
+      * [WeAct Blackpill F411](platformdev_blackpill_f411.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

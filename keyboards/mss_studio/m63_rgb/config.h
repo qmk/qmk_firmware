@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D4B
-#define PRODUCT_ID      0x6063
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mss Studio
-#define PRODUCT         M63 RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

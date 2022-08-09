@@ -18,13 +18,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4358 // "CX"
-#define PRODUCT_ID      0x3630 // "60"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CX60
-#define PRODUCT         CX60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
