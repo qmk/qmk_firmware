@@ -1,6 +1,8 @@
 {
     "keyboard_name": "Sofle",
     "manufacturer": "Keyhive",
+    "url": "https://github.com/keyhive",
+    "maintainer": "Keyhive",
     "usb": {
         "vid": "0xFC32",
         "pid": "0x1287",

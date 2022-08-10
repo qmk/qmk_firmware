@@ -22,18 +22,18 @@ Build guide: [Keyhive Sofle RGB build guide](https://github.com/keyhive/build_gu
 The keyhive schematic has been slightly modified compared to the open source sofle and not all keymaps are compatible.
 
 * **default**: Basic functionality, no rgb, no VIA.
-* [keyhive_via](../keymaps/keyhive_via/readme.md) - Includes rgblighting and special support for remapping encoders with VIA.
+* [keyhive_via](keymaps/via/readme.md) - Includes rgblighting and special support for remapping encoders with VIA.
 * **Other**: may work but backwards compatibility is not guaranteed or tested.
 
 # VIA Support
 As of 1.3.1, the VIA tool does not support Keyhive/Sofle V2 out of the box.
-See [keyhive_via](../keymaps/keyhive_via/readme.md) for details about configuring and using VIA.
+See [keyhive_via](keymaps/via/readme.md) for details about configuring and using VIA.
 
 # Compiling
 
-Make example for this keyboard (after setting up your build environment):
+Compilation example for this keyboard (after setting up your build environment):
 
-    make sofle/keyhive:default
+    qmk compile -kb sofle/keyhive -km via
 
 ## Flashing
 
