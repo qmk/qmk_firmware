@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x494B // IK (IrisKeyboards)
-#define PRODUCT_ID   0x3031 // 01 (PCB no.01)
-#define DEVICE_VER   0x0001
-#define MANUFACTURER SonOfAres
-#define PRODUCT      IrisRev0
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

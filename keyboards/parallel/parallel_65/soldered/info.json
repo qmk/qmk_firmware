@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Parallel 65% PCB",
+    "manufacturer": "Parallel Limited",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x504C",
+        "pid": "0x5068",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [

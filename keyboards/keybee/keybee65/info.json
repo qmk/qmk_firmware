@@ -1,7 +1,13 @@
 {
     "keyboard_name": "KeyBee65",
+    "manufacturer": "KeyBee",
     "url": "",
     "maintainer": "ToastyStoemp",
+    "usb": {
+        "vid": "0x6265",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "YMDK Wings Hotswap",
+    "keyboard_name": "WINGS HOTSWAP",
+    "manufacturer": "YMDK",
     "url": "http://ymdkey.com/",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x4975",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

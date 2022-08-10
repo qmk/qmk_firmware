@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x001C // PCB #28
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT60-XT
-
 #define AUDIO_PIN C6
 #define AUDIO_CLICKY
 

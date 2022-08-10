@@ -1,7 +1,13 @@
 {
     "keyboard_name": "owl8",
+    "manufacturer": "yfuku",
     "url": "",
     "maintainer": "yfuku",
+    "usb": {
+        "vid": "0x5946",
+        "pid": "0x0008",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

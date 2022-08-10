@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Gizmo Engineering GK6",
+    "keyboard_name": "GK6",
+    "manufacturer": "Gizmo Engineering",
     "url": "https://gizmo.engineering/",
     "maintainer": "federicoweber",
+    "usb": {
+        "vid": "0x6532",
+        "pid": "0x0001",
+        "device_version": "30.3.1"
+    },
     "layouts": {
         "LAYOUT_gk6_2x2u": {
             "layout": [

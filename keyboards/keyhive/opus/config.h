@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x434B
-#define PRODUCT_ID      0x4F50
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    rtwayland
-#define PRODUCT         Opus
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

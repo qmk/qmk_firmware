@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1014
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    moyi4681
-#define PRODUCT         Primus75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
