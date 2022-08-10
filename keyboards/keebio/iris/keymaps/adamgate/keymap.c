@@ -22,21 +22,16 @@
 
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LOWER  1
-#define _GAMING 2
-#define _RAISE  3
+enum custom_layers {
+  _QWERTY,
+  _LOWER,
+  _GAMING,
+  _RISE,
+}
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  GAMING,
-  RAISE,
-};
-
-/*****************/
-/*** TAPDANCES ***/
-/*****************/
+/*****************
+*** TAPDANCES ***
+*****************/
 enum custom_tapdances {
    TD_SHFT_CAPS = 0,
 };
@@ -45,9 +40,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SHFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS), //shift if pressed 1x, caps lock if pressed 2x
 };
 
-/*****************/
-/***  KEYMAPS  ***/
-/*****************/
+/*****************
+***  KEYMAPS  ***
+*****************/
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    // layout for everyday use
@@ -85,43 +80,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        DM_RSTP, TO(_GAMING), _______,        _______, _______, _______
   )
 };
-
-//switch between layers?
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        layer_off(_LOWER);
-      }
-      return false;
-      break;
-
-      case GAMING:
-      if (record->event.pressed) {
-        layer_on(_GAMING);
-      } else {
-        layer_off(_GAMING);
-      }
-      return false;
-      break;
-
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-      } else {
-        layer_off(_RAISE);
-      }
-      return false;
-      break;
-      
-  }
-  return true;
-}
