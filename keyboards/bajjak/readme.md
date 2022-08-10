@@ -2,7 +2,7 @@
 
 This keyboard is a 6x7 array keyboard, similar in design to the Ergodox EZ.
 
-  * Keyboard Maintainer: [Gary Kong](https://github.com/garykong)
+* Keyboard Maintainer: [Gary Kong](https://github.com/garykong)
 * Hardware Supported: bajjak keyboard (ATmega32U4)
 
 Make example for this keyboard (after setting up your build environment):
