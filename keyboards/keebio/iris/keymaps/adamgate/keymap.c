@@ -1,3 +1,25 @@
+/*
+  Copyright (c) 2022 Adam Applegate
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+*/
+
 #include QMK_KEYBOARD_H
 
 #define _QWERTY 0
@@ -13,16 +35,6 @@ enum custom_keycodes {
 };
 
 /*****************/
-/***   IDEAS   ***/
-/*****************/
-/*
- * -have a combo that allows you to switch the base layer between base & gaming layers
- * -add another symbol layer where the arrow keys are combined with ctrl
- * -add another symbol layer where the arrow keys are combined with ctrl + shift
- * -add combos that allow me to switch to ANY layer from the base layer and back quickly
- */
-
-/*****************/
 /*** TAPDANCES ***/
 /*****************/
 enum custom_tapdances {
@@ -32,22 +44,6 @@ enum custom_tapdances {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SHFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS), //shift if pressed 1x, caps lock if pressed 2x
 };
-
-/*****************/
-/***  COMBOS   ***/
-/*****************/
-// const uint16_t PROGMEM raiseToLayer2[] = {_______, _______, COMBO_END};
-// const uint16_t PROGMEM raiseToLayer3[] = {_______, _______, COMBO_END};
-// const uint16_t PROGMEM raiseToLayer4[] = {_______, _______, COMBO_END};
-
-// const uint16_t PROGMEM lowerToLayer3[] = {_______, _______, COMBO_END};
-// const uint16_t PROGMEM lowerToLayer2[] = {_______, _______, COMBO_END};
-// const uint16_t PROGMEM lowerToLayer1[] = {_______, _______, COMBO_END};
-
-// combo_t key_combos[COMBO_COUNT] = {
-//     COMBO(raiseToLayer1, KC_ESC),
-//     COMBO(raiseToLayer2, LCTL(KC_Z)),
-// };
 
 /*****************/
 /***  KEYMAPS  ***/
@@ -129,22 +125,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-//rotary encoder function
-// bool encoder_update_user(uint8_t index, bool clockwise) {
-//     if (index == 0) {
-//         if (clockwise) {
-//             tap_code(KC_VOLU);
-//         } else {
-//             tap_code(KC_VOLD);
-//         }
-//     }
-//     else if (index == 1) {
-//         if (clockwise) {
-//             tap_code(KC_PGDN);
-//         } else {
-//             tap_code(KC_PGUP);
-//         }
-//     }
-//     return false;
-// }
