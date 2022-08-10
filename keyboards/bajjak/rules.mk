@@ -35,7 +35,3 @@ DEBOUNCE_TYPE = sym_eager_pr
 # project specific files
 SRC += matrix.c 
 QUANTUM_LIB_SRC += i2c_master.c
-
-# Disable unsupported hardware
-AUDIO_SUPPORTED = no
-BACKLIGHT_SUPPORTED = no
