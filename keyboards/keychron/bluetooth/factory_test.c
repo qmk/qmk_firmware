@@ -179,42 +179,30 @@ void process_record_factory_reset(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef LED_MATRIX_ENABLE
-void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void led_matrix_indicators_user(void) {
     if (factory_reset_ind_state) {
-        for (uint8_t i = led_min; i <= led_max; i++) {
-            led_matrix_set_value(i, factory_reset_ind_state % 2 ? 0 : 255);
-        }
+        led_matrix_set_value_all(factory_reset_ind_state % 2 ? 0 : 255)
     }
 }
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_indicators_user(void) {
     if (factory_reset_ind_state) {
-        for (uint8_t i = led_min; i <= led_max; i++) {
-            rgb_matrix_set_color(i, factory_reset_ind_state % 2 ? 0 : 255, 0, 0);
-        }
+        rgb_matrix_set_color_all(factory_reset_ind_state % 2 ? 0 : 255, 0, 0);
     } else if (backlight_test_mode) {
         switch (backlight_test_mode) {
             case BACKLIGHT_TEST_WHITE:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, 255, 255, 255);
-                }
+                rgb_matrix_set_color_all(255, 255, 255);
                 break;
             case BACKLIGHT_TEST_RED:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, 255, 0, 0);
-                }
+                rgb_matrix_set_color_all(255, 0, 0);
                 break;
             case BACKLIGHT_TEST_GREEN:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, 0, 255, 0);
-                }
+                rgb_matrix_set_color_all(0, 255, 0);
                 break;
             case BACKLIGHT_TEST_BLUE:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, 0, 0, 255);
-                }
+                rgb_matrix_set_color_all(0, 0, 255);
                 break;
         }
     }

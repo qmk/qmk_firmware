@@ -65,7 +65,7 @@ indicator_config_t indicator_config;
 static bluetooth_state_t indicator_state;
 static uint16_t          next_period;
 static indicator_type_t  type;
-static uint32_t          indicator_timer_buffer;
+static uint32_t          indicator_timer_buffer = 0;
 static uint32_t          battery_low_indicator = 0;
 
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
@@ -79,6 +79,8 @@ static pin_t host_led_pin_list[HOST_DEVICES_COUNT] = HOST_LED_PIN_LIST;
 #endif
 
 void indicator_init(void) {
+    memset(&indicator_config, 0, sizeof(indicator_config));
+    
 #ifdef HOST_LED_PIN_LIST
     for (uint8_t i = 0; i < HOST_DEVICES_COUNT; i++) {
         setPinOutput(host_led_pin_list[i]);

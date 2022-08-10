@@ -24,11 +24,10 @@ enum {
     BAT_LVL_ANI_BLINK_ON,
 };
 
-static uint8_t  animation_state;
-static uint32_t bat_lvl_ani_timer_buffer;
+static uint8_t  animation_state = 0;
+static uint32_t bat_lvl_ani_timer_buffer = 0;
 static uint8_t  bat_percentage;
 static uint8_t  cur_percentage;
-static uint8_t  bat_lvl_led_list[10] = BAT_LEVEL_LED_LIST;
 static uint32_t time_interval;
 #ifdef RGB_MATRIX_ENABLE
 static uint8_t r, g, b;
@@ -61,6 +60,8 @@ bool bat_level_animiation_actived(void) {
 
 void bat_level_animiation_indicate(void) {
 #ifdef LED_MATRIX_ENABLE
+    uint8_t  bat_lvl_led_list[10] = BAT_LEVEL_LED_LIST;
+
     for (uint8_t i = 0; i <= DRIVER_LED_TOTAL; i++) {
         led_matrix_set_value(i, 0);
     }
@@ -71,14 +72,17 @@ void bat_level_animiation_indicate(void) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
+    uint8_t  bat_lvl_led_list[10] = BAT_LEVEL_LED_LIST;
+
     for (uint8_t i = 0; i <= DRIVER_LED_TOTAL; i++) {
         rgb_matrix_set_color(i, 0, 0, 0);
     }
 
-    if (animation_state == BAT_LVL_ANI_GROWING || animation_state == BAT_LVL_ANI_BLINK_ON)
+    if (animation_state == BAT_LVL_ANI_GROWING || animation_state == BAT_LVL_ANI_BLINK_ON) {
         for (uint8_t i = 0; i < cur_percentage / 10; i++) {
             rgb_matrix_set_color(bat_lvl_led_list[i], r, g, b);
         }
+    }
 #endif
 }
 
@@ -109,7 +113,7 @@ void bat_level_animiation_update(void) {
 
         case BAT_LVL_ANI_BLINK_ON:
             animation_state = BAT_LVL_ANI_NONE;
-            if (indicator_config.value == 0 && indicator_is_backlit_enabled_eeprom()) {
+            if (indicator_config.value == 0 && !indicator_is_backlit_enabled_eeprom()) {
                 indicator_disable();
             }
             break;

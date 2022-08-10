@@ -28,7 +28,7 @@ extern keymap_config_t keymap_config;
 static transport_t transport = TRANSPORT_USB;
 
 #ifdef NKRO_ENABLE
-static nkro_t nkro = {false, false};
+nkro_t nkro = {false, false};
 #endif
 
 static void transport_changed(transport_t new_transport);

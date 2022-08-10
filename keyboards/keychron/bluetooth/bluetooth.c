@@ -28,6 +28,15 @@ extern report_buffer_t kb_rpt;
 extern uint32_t        retry_time_buffer;
 extern uint8_t         retry;
 
+#ifdef NKRO_ENABLE
+typedef struct {
+    bool usb : 1;
+    bool bluetooth : 1;
+} nkro_t;
+
+extern nkro_t nkro;
+#endif
+
 static uint8_t host_index = 0;
 static uint8_t led_state  = 0;
 
@@ -198,7 +207,7 @@ static void bluetooth_enter_connected(uint8_t host_idx) {
 
     /* Enable NKRO since it may be disabled in pin code entry */ 
 #if defined(NKRO_ENABLE) && defined(BLUETOOTH_NKRO_ENABLE)
-    keymap_config.nkro = true;
+    keymap_config.nkro = nkro.bluetooth;
 #else
     keymap_config.nkro = false;
 #endif
