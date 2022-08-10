@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "jelly epoch",
+    "keyboard_name": "thera",
+    "manufacturer": "creatkeebs",
     "url": "https://eschit.com/collections/thera75",
     "maintainer": "https://github.com/Timliuzhaolu",
+    "usb": {
+        "vid": "0x0410",
+        "pid": "0x6061",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ansi"
     },

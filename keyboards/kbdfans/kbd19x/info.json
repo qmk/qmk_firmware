@@ -1,7 +1,13 @@
 {
     "keyboard_name": "KBD19x",
+    "manufacturer": "KBDfans",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbdfans/kbd19x",
     "maintainer": "jshuf, mechmerlin",
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x0191",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

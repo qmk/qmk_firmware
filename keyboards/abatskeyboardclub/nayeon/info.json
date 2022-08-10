@@ -1,10 +1,16 @@
 {
     "keyboard_name": "Nayeon",
+    "manufacturer": "Abats Keyboard Club",
     "url": "",
     "maintainer": "ramonimbao",
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi_tsangan",
         "LAYOUT_iso": "LAYOUT_tkl_f13_iso_tsangan"
+    },
+    "usb": {
+        "vid": "0x4B47",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {

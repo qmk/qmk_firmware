@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6274
-#define PRODUCT_ID 0x720D
-#define DEVICE_VER 0x0001
-#define MANUFACTURER breadtamer
-#define PRODUCT nimrod
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10
