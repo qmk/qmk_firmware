@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "pos78",
+    "keyboard_name": "POS78",
+    "manufacturer": "smssmssms",
     "url": "https://github.com/smssmssms/pos78.git",
     "maintainer": "smssmssms",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x7878",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_6x13": {
             "layout": [

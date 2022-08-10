@@ -92,6 +92,9 @@ void keyboard_post_init_kb(void) {
 #if defined(RGB_MATRIX_ENABLE)
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
     float scale;
+
+#    ifdef DJINN_SUPPORTS_3A_FUSE
+    // The updated BOM on the Djinn has properly-spec'ed fuses -- 1500mA/3000mA hold current
     switch (kb_state.current_setting) {
         default:
         case USBPD_500MA:
@@ -104,6 +107,19 @@ RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
             scale = 1.0f;
             break;
     }
+#    else
+    // The original BOM on the Djinn had wrongly-spec'ed fuses -- 750mA/1500mA hold current
+    switch (kb_state.current_setting) {
+        default:
+        case USBPD_500MA:
+        case USBPD_1500MA:
+            scale = 0.35f;
+            break;
+        case USBPD_3000MA:
+            scale = 0.75f;
+            break;
+    }
+#    endif
 
     hsv.v = (uint8_t)(hsv.v * scale);
     return hsv_to_rgb(hsv);
@@ -129,6 +145,9 @@ void housekeeping_task_kb(void) {
     static uint8_t current_setting = USBPD_500MA;
     if (current_setting != kb_state.current_setting) {
         current_setting = kb_state.current_setting;
+
+#ifdef DJINN_SUPPORTS_3A_FUSE
+        // The updated BOM on the Djinn has properly-spec'ed fuses -- 1500mA/3000mA hold current
         switch (current_setting) {
             default:
             case USBPD_500MA:
@@ -144,6 +163,21 @@ void housekeeping_task_kb(void) {
                 writePinHigh(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
+#else
+        // The original BOM on the Djinn had wrongly-spec'ed fuses -- 750mA/1500mA hold current
+        switch (current_setting) {
+            default:
+            case USBPD_500MA:
+            case USBPD_1500MA:
+                writePinLow(RGB_CURR_1500mA_OK_PIN);
+                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                break;
+            case USBPD_3000MA:
+                writePinHigh(RGB_CURR_1500mA_OK_PIN);
+                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                break;
+        }
+#endif
 
         // If we've changed the current limit, toggle rgb off and on if it was on, to force a brightness update on all LEDs
         if (is_keyboard_master() && rgb_matrix_is_enabled()) {

@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6A6A  // JJ
-#define PRODUCT_ID      0x4414  // H20
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Josh Johnson
-#define PRODUCT         Hub20
-
 /* key matrix */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4

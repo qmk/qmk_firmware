@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4452 // "DR" short for DrewKeys
-#define PRODUCT_ID      0x534f // "SO" short for Soy
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    drewkeys
-#define PRODUCT         soy20
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4

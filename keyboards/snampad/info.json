@@ -1,7 +1,13 @@
 {
     "keyboard_name": "snampad",
+    "manufacturer": "Snamellit",
     "url": "",
     "maintainer": "ptillemans",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Keebcats Dougal",
+    "keyboard_name": "Keebcats Dougal 65",
+    "manufacturer": "Cutie Club",
     "url": "",
     "maintainer": "Cutie Club",
+    "usb": {
+        "vid": "0xFB9C",
+        "pid": "0xB265",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -9,6 +9,7 @@
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
     # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
     # invalid: Default `false`. Set to `true` to generate errors when a value exists
+    # replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
     "BLUETOOTH": {"info_key": "bluetooth.driver"},
@@ -29,7 +30,7 @@
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
 
     # Items we want flagged in lint
-    "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true},
-    "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true},
+    "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
+    "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true},
 }

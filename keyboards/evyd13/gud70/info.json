@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Gud70", 
+    "manufacturer": "Evyd13",
     "url": "https://github.com/evyd13/gud70-pcb", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x198B",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

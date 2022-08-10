@@ -41,7 +41,7 @@ uint8_t midi2vol = 0x3E;
 enum custom_layers {
     _MEDIA,    /* Controls Pause, Mute , Forward ... */
     _NAV,      /* Nav arrows, Enter, Space*/
-    _VOLUME    /* Changes midi2vol int to interface with midi2vol program: Chrome Volume, General Volume */
+    _VOLUME,    /* Changes midi2vol int to interface with midi2vol program: Chrome Volume, General Volume */
     _DISCORD,  /* FXX unsused keys to interface with Discord: Mute , Silence */
     _LIGHTS,   /* Edits underglow and retroilumination */
     _EDIT,     /* Cut, Copy ,Paste */

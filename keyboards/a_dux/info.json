@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Architeuthis dux",
+    "manufacturer": "tapioki",
     "url": "https://github.com/tapioki/cephalopoda",
     "maintainer": "@tapioki",
+    "usb": {
+        "vid": "0xC2AB",
+        "pid": "0x3939",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_2": {
             "layout": [

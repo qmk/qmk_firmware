@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4D65
-#define PRODUCT_ID      0x1200
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Merge
-#define PRODUCT         ISO Macro
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3

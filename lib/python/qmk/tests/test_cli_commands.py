@@ -97,13 +97,15 @@ def test_list_keyboards():
 def test_list_keymaps():
     result = check_subcommand('list-keymaps', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'default' and 'default_json' in result.stdout
+    assert 'default' in result.stdout
+    assert 'default_json' in result.stdout
 
 
 def test_list_keymaps_long():
     result = check_subcommand('list-keymaps', '--keyboard', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'default' and 'default_json' in result.stdout
+    assert 'default' in result.stdout
+    assert 'default_json' in result.stdout
 
 
 def test_list_keymaps_community():
@@ -115,19 +117,22 @@ def test_list_keymaps_community():
 def test_list_keymaps_kb_only():
     result = check_subcommand('list-keymaps', '-kb', 'contra')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' in result.stdout
+    assert 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb():
     result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' in result.stdout
+    assert 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb_rev():
     result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' in result.stdout
+    assert 'via' in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
