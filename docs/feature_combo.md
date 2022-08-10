@@ -348,7 +348,7 @@ is not set, all other layers will reference themselves.
     #define COMBO_REF_DEFAULT _MY_COMBO_REF_LAYER
     ...
 
-    uint16_t combo_ref_from_layer(uint16_t layer){
+    uint16_t combo_ref_from_layer(uint8_t layer){
     switch (biton32(layer_state)){
       case _dvorak: return _qwerty;
       case _nav: return _nav;
