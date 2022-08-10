@@ -79,7 +79,31 @@ enum via_command_id {
     id_dynamic_keymap_get_buffer            = 0x12,
     id_dynamic_keymap_set_buffer            = 0x13,
     id_unhandled                            = 0xFF,
+    id_signalrgb_qmk_version                = 0x21,
+    id_signalrgb_protocol_version           = 0x22,
+    id_signalrgb_unique_identifier          = 0x23,
+    id_signalrgb_stream_leds                = 0x24,
+    id_signalrgb_effect_enable              = 0x25,
+    id_signalrgb_effect_disable             = 0x26,
+    id_signalrgb_get_total_leds             = 0x27,
+    id_signalrgb_get_firmware_type          = 0x28,
+
 };
+
+enum signalrgb_responses {
+    PROTOCOL_VERSION_BYTE_1 = 1,
+    PROTOCOL_VERSION_BYTE_2 = 0,
+    PROTOCOL_VERSION_BYTE_3 = 2,
+    QMK_VERSION_BYTE_1 = 0,
+    QMK_VERSION_BYTE_2 = 17,
+    QMK_VERSION_BYTE_3 = 5,
+    DEVICE_UNIQUE_IDENTIFIER_BYTE_1 = 0,
+    DEVICE_UNIQUE_IDENTIFIER_BYTE_2 = 0,
+    DEVICE_UNIQUE_IDENTIFIER_BYTE_3 = 0,
+    FIRMWARE_TYPE_BYTE = 2,
+    DEVICE_ERROR_LEDS = 254,
+};
+
 
 enum via_keyboard_value_id {
     id_uptime              = 0x01, //

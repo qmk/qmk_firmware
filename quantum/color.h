@@ -145,6 +145,7 @@ typedef struct PACKED {
 
 RGB hsv_to_rgb(HSV hsv);
 RGB hsv_to_rgb_nocie(HSV hsv);
+HSV rgb_to_hsv(RGB rgb);
 #ifdef RGBW
 void convert_rgb_to_rgbw(LED_TYPE *led);
 #endif

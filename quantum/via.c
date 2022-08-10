@@ -47,6 +47,7 @@
 #include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #include "via_ensure_keycode.h"
+#include "color.h"
 
 // Forward declare some helpers.
 #if defined(VIA_QMK_BACKLIGHT_ENABLE)
@@ -57,6 +58,12 @@ void via_qmk_backlight_get_value(uint8_t *data);
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
 void via_qmk_rgblight_set_value(uint8_t *data);
 void via_qmk_rgblight_get_value(uint8_t *data);
+#endif
+
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+void via_qmk_rgb_matrix_set_value(uint8_t *data);
+void via_qmk_rgb_matrix_get_value(uint8_t *data);
+void eeconfig_update_rgb_matrix(void);
 #endif
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
@@ -184,6 +191,110 @@ bool process_record_via(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+ uint8_t packet[32];
+
+ void get_qmk_version(void) //Grab the QMK Version
+{
+        packet[0] = id_signalrgb_qmk_version;
+        packet[1] = QMK_VERSION_BYTE_1;
+        packet[2] = QMK_VERSION_BYTE_2;
+        packet[3] = QMK_VERSION_BYTE_3;
+
+        raw_hid_send(packet, 32);
+}
+
+void get_signalrgb_protocol_version(void) //Grab what version of the SignalRGB protocol a keyboard is running
+{
+        packet[0] = id_signalrgb_protocol_version;
+        packet[1] = PROTOCOL_VERSION_BYTE_1;
+        packet[2] = PROTOCOL_VERSION_BYTE_2;
+        packet[3] = PROTOCOL_VERSION_BYTE_3;
+
+        raw_hid_send(packet, 32);
+}
+
+void get_unique_identifier(void) //Grab the unique identifier for each specific model of keyboard.
+{
+        packet[0] = id_signalrgb_unique_identifier;
+        packet[1] = DEVICE_UNIQUE_IDENTIFIER_BYTE_1;
+        packet[2] = DEVICE_UNIQUE_IDENTIFIER_BYTE_2;
+        packet[3] = DEVICE_UNIQUE_IDENTIFIER_BYTE_3;
+
+        raw_hid_send(packet, 32);
+}
+
+void led_streaming(uint8_t *data) //Stream data from HID Packets to Keyboard.
+{
+    uint8_t index = data[1];
+    uint8_t numberofleds = data[2];
+
+    if(numberofleds >= 10)
+    {
+        packet[1] = DEVICE_ERROR_LEDS;
+        raw_hid_send(packet,32);
+        return;
+    }
+
+    for (uint8_t i = 0; i < numberofleds; i++)
+    {
+      uint8_t offset = (i * 3) + 3;
+      uint8_t  r = data[offset];
+      uint8_t  g = data[offset + 1];
+      uint8_t  b = data[offset + 2];
+      if (index + i == 26 && host_keyboard_led_state().caps_lock) continue;
+      if (rgb_matrix_get_mode() != RGB_MATRIX_SIGNALRGB) continue;
+
+
+      RGB rgb;
+      rgb.r = r;
+      rgb.g = g;
+      rgb.b = b;
+    //   HSV hsv = rgb_to_hsv(rgb);
+    //   if (hsv.s != 0 && rgb_matrix_config.hsv.s != 0){
+    //     hsv.s = (int)((float)hsv.s * (float)rgb_matrix_config.hsv.s / (float)hsv.s);
+    //     hsv.s = hsv.s > 255 ? 255 : hsv.s;
+    //   } else if (rgb_matrix_config.hsv.s == 0){
+    //     hsv.s = 0;
+    //   }
+    //   if (hsv.v != 0 && rgb_matrix_config.hsv.v != 0) {
+    //     hsv.v = (int)((float)hsv.v * (float)rgb_matrix_config.hsv.v / (float)hsv.v);
+    //     hsv.v = hsv.v > 255 ? 255 : hsv.v;
+    //   } else if (rgb_matrix_config.hsv.v == 0) {
+    //     hsv.v = 0;
+    //   }
+    //  rgb = hsv_to_rgb(hsv);
+
+      rgb_matrix_set_color(index + i, rgb.r, rgb.g, rgb.b);
+     }
+}
+
+void signalrgb_mode_enable(void)
+{
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SIGNALRGB); //Set RGB Matrix to SignalRGB Compatible Mode
+}
+
+void signalrgb_mode_disable(void)
+{
+    rgb_matrix_reload_from_eeprom(); //Reloading last effect from eeprom
+}
+
+void get_total_leds(void)//Grab total number of leds that a board has.
+{
+    packet[0] = id_signalrgb_get_total_leds;
+    packet[1] = DRIVER_LED_TOTAL;
+
+    raw_hid_send(packet, 32);
+}
+
+void get_firmware_type(void) //Grab which fork of qmk a board is running.
+{
+    packet[0] = id_signalrgb_get_firmware_type;
+    packet[1] = FIRMWARE_TYPE_BYTE;
+
+    raw_hid_send(packet, 32);
+}
+
+
 // Keyboard level code can override this to handle custom messages from VIA.
 // See raw_hid_receive() implementation.
 // DO NOT call raw_hid_send() in the override function.
@@ -287,10 +398,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             via_qmk_rgblight_set_value(command_data);
 #endif
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+            via_qmk_rgb_matrix_set_value(command_data);
+#endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -303,10 +417,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             via_qmk_rgblight_get_value(command_data);
 #endif
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+            via_qmk_rgb_matrix_get_value(command_data);
+#endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)  && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -319,10 +436,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             eeconfig_update_rgblight_current();
 #endif
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+            eeconfig_update_rgb_matrix();
+#endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)  && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -377,6 +497,51 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             dynamic_keymap_set_buffer(offset, size, &command_data[3]);
             break;
         }
+        case id_signalrgb_qmk_version:
+
+        get_qmk_version();
+
+        break;
+        case id_signalrgb_protocol_version:
+
+        get_signalrgb_protocol_version();
+
+        break;
+        case id_signalrgb_unique_identifier:
+
+        get_unique_identifier();
+
+        break;
+        case id_signalrgb_stream_leds:
+
+        led_streaming(data);
+
+        break;
+
+        case id_signalrgb_effect_enable:
+
+        signalrgb_mode_enable();
+
+        break;
+
+        case id_signalrgb_effect_disable:
+
+        signalrgb_mode_disable();
+
+        break;
+
+        case id_signalrgb_get_total_leds:
+
+        get_total_leds();
+
+        break;
+
+        case id_signalrgb_get_firmware_type:
+
+        get_firmware_type();
+
+        break;
+
         default: {
             // The command ID is not known
             // Return the unhandled state
@@ -495,3 +660,87 @@ void via_qmk_rgblight_set_value(uint8_t *data) {
 }
 
 #endif // #if defined(VIA_QMK_RGBLIGHT_ENABLE)
+
+
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+
+// VIA supports only 4 discrete values for effect speed; map these to some
+// useful speed values for RGB Matrix.
+enum speed_values {
+    RGBLIGHT_SPEED_0 = UINT8_MAX / 16, // not 0 to avoid really slow effects
+    RGBLIGHT_SPEED_1 = UINT8_MAX / 4,
+    RGBLIGHT_SPEED_2 = UINT8_MAX / 2,     // matches the default value
+    RGBLIGHT_SPEED_3 = UINT8_MAX / 4 * 3, // UINT8_MAX is really fast
+};
+
+static uint8_t speed_from_rgblight(uint8_t rgblight_speed) {
+    switch (rgblight_speed) {
+        case 0:
+            return RGBLIGHT_SPEED_0;
+        case 1:
+            return RGBLIGHT_SPEED_1;
+        case 2:
+        default:
+            return RGBLIGHT_SPEED_2;
+        case 3:
+            return RGBLIGHT_SPEED_3;
+    }
+}
+
+static uint8_t speed_to_rgblight(uint8_t rgb_matrix_speed) {
+    if (rgb_matrix_speed < ((RGBLIGHT_SPEED_0 + RGBLIGHT_SPEED_1) / 2)) {
+        return 0;
+    } else if (rgb_matrix_speed < ((RGBLIGHT_SPEED_1 + RGBLIGHT_SPEED_2) / 2)) {
+        return 1;
+    } else if (rgb_matrix_speed < ((RGBLIGHT_SPEED_2 + RGBLIGHT_SPEED_3) / 2)) {
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
+void via_qmk_rgb_matrix_get_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_qmk_rgblight_brightness:
+            value_data[0] = rgb_matrix_get_val();
+            break;
+        case id_qmk_rgblight_effect:
+            value_data[0] = rgb_matrix_get_mode();
+            break;
+        case id_qmk_rgblight_effect_speed:
+            value_data[0] = speed_to_rgblight(rgb_matrix_get_speed());
+            break;
+        case id_qmk_rgblight_color:
+            value_data[0] = rgb_matrix_get_hue();
+            value_data[1] = rgb_matrix_get_sat();
+            break;
+    }
+}
+
+void via_qmk_rgb_matrix_set_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_qmk_rgblight_brightness:
+            rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), value_data[0]);
+            break;
+        case id_qmk_rgblight_effect:
+            rgb_matrix_mode_noeeprom(value_data[0]);
+            if (value_data[0] == 0) {
+                rgb_matrix_disable_noeeprom();
+            } else {
+                rgb_matrix_enable_noeeprom();
+            }
+            break;
+        case id_qmk_rgblight_effect_speed:
+            rgb_matrix_set_speed_noeeprom(speed_from_rgblight(value_data[0]));
+            break;
+        case id_qmk_rgblight_color:
+            rgb_matrix_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
+            break;
+    }
+}
+
+#endif // #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
