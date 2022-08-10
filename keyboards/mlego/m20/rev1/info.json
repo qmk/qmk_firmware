@@ -1,0 +1,97 @@
+{
+    "manufacturer": "alin elena",
+    "keyboard_name": "mlego/m20 rev1",
+    "maintainer": "alinelena",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "encoder_map": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true,
+        "wpm": true
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP4",
+                "pin_b": "GP5",
+                "resolution": 4
+            }
+        ]
+    },
+    "matrix_pins": {
+        "cols": ["GP1", "GP6", "GP7", "GP8"],
+        "rows": ["GP9", "GP10", "GP11", "GP12", "GP13"]
+    },
+    "indicators": {
+        "num_lock": "GP25",
+        "scroll_lock": "GP14"
+    },
+    "processor": "RP2040",
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "hue_steps": 8,
+        "layers": {
+            "enabled": true
+        },
+        "led_count": 8,
+        "pin": "GP0",
+        "saturation_steps": 8
+    },
+    "tapping": {
+        "toggle": 2
+    },
+    "url": "https://gitlab.com/m-lego/m20",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6460",
+        "vid": "0xBABA"
+    },
+    "layouts": {
+        "LAYOUT_ortho_5x4": {
+            "layout": [
+                { "label": "÷", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
+                { "label": "×", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
+                { "label": "-", "matrix": [0, 2], "w": 1, "x": 2, "y": 0 },
+                { "label": "=", "matrix": [0, 3], "w": 1, "x": 3, "y": 0 },
+                { "label": "7", "matrix": [1, 0], "w": 1, "x": 0, "y": 1 },
+                { "label": "8", "matrix": [1, 1], "w": 1, "x": 1, "y": 1 },
+                { "label": "9", "matrix": [1, 2], "w": 1, "x": 2, "y": 1 },
+                { "label": "Backspace", "matrix": [1, 3], "w": 1, "x": 3, "y": 1 },
+                { "label": "4", "matrix": [2, 0], "w": 1, "x": 0, "y": 2 },
+                { "label": "5", "matrix": [2, 1], "w": 1, "x": 1, "y": 2 },
+                { "label": "6", "matrix": [2, 2], "w": 1, "x": 2, "y": 2 },
+                { "label": "+", "matrix": [2, 3], "w": 1, "x": 3, "y": 2 },
+                { "label": "1", "matrix": [3, 0], "w": 1, "x": 0, "y": 3 },
+                { "label": "2", "matrix": [3, 1], "w": 1, "x": 1, "y": 3 },
+                { "label": "3", "matrix": [3, 2], "w": 1, "x": 2, "y": 3 },
+                { "label": "Enter", "matrix": [3, 3], "w": 1, "x": 3, "y": 3 },
+                { "label": "Lower", "matrix": [4, 0], "w": 1, "x": 0, "y": 4 },
+                { "label": "0", "matrix": [4, 1], "w": 1, "x": 1, "y": 4 },
+                { "label": ".", "matrix": [4, 2], "w": 1, "x": 2, "y": 4 },
+                { "label": "Raise", "matrix": [4, 3], "w": 1, "x": 3, "y": 4 }
+            ]
+        }
+    }
+}
