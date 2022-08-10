@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Winry 25tc",
+    "manufacturer": "SpiderIsland",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

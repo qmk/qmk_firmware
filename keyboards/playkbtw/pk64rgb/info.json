@@ -1,7 +1,13 @@
 {
     "keyboard_name": "PK64RGB",
+    "manufacturer": "Play Keyboard",
     "url": "",
     "maintainer": "yj7272098",
+    "usb": {
+        "vid": "0x706B",
+        "pid": "0x3634",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [

@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D58  // MX
-#define PRODUCT_ID      0x454D  // ME
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Matrix Lab
-#define PRODUCT         Matrix ME
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

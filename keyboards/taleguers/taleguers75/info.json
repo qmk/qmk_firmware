@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Taleguers75",
+    "manufacturer": "Taleguers",
     "url": "",
     "maintainer": "borlopjim",
+    "usb": {
+        "vid": "0x8476",
+        "pid": "0x0075",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [{

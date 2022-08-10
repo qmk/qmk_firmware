@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5344 // 5344 short for "SD" (Suavity Designs)
-#define PRODUCT_ID      0x4548 // 4548 short for "EH" (EHan)
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Suavity Designs
-#define PRODUCT         ehan
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17

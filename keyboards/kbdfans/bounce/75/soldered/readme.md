@@ -1,4 +1,4 @@
-# BONCE75 SOLDERED
+# BOUNCE75 SOLDERED
 
 A customizable 75% HOTSWAP keyboard.
 

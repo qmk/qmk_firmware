@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA17
-#define PRODUCT_ID      0xCA39
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Maple Computing
-#define PRODUCT         C39
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 13

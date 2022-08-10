@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Quefrency Rev. 5",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x5257",
+        "device_version": "5.0.0"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60"
     },

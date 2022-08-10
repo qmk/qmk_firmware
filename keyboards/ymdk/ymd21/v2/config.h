@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x45D4
-#define PRODUCT_ID      0x0110
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    YMDK
-#define PRODUCT         YMD21 v2
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4

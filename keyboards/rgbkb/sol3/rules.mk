@@ -16,7 +16,7 @@ QUANTUM_LIB_SRC += i2c_master.c
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = yes        # Console for debug
+CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = yes          # Audio output
@@ -41,9 +41,5 @@ LTO_ENABLE = yes
 OPT = 3
 
 OPT_DEFS += -DOLED_FONT_H=\"keyboards/rgbkb/common/glcdfont.c\"
-
-# TODO: Implement fast matrix scanning
-# matrix optimisations
-# SRC += matrix.c
 
 DEFAULT_FOLDER = rgbkb/sol3/rev1

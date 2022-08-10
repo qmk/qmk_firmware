@@ -18,9 +18,7 @@
 
 #define HAL_USE_I2C TRUE
 
-#define PAL_USE_CALLBACKS FALSE
-
-#define PAL_USE_WAIT FALSE
+#define HAL_USE_SPI TRUE
 
 #include_next <halconf.h>
 
