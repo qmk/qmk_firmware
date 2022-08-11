@@ -187,3 +187,15 @@ void     via_set_layout_options_kb(uint32_t value);
 
 // Called by QMK core to process VIA-specific keycodes.
 bool process_record_via(uint16_t keycode, keyrecord_t *record);
+
+typedef union {
+  uint32_t raw;
+  struct {
+    bool top_rgb_change :1;
+    bool bottom_rgb_change :1;
+    bool top_rgb_signal :1;
+    bool bottom_rgb_signal :1;
+  };
+} user_config_t;
+
+user_config_t user_config;

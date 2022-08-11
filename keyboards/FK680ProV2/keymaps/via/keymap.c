@@ -1,16 +1,6 @@
 
 #include QMK_KEYBOARD_H
 
-typedef union {
-  uint32_t raw;
-  struct {
-    bool top_rgb_change :1;
-    bool bottom_rgb_change :1;
-  };
-} user_config_t;
-
-user_config_t user_config;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT(
@@ -67,6 +57,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
       } else {
         // Do something else when release
+      }
+      return false; // Skip all further processing of this key
+    case KC_F21:
+      if (record->event.pressed) {
+          // Do something when pressed
+          user_config.bottom_rgb_signal ^= 1; // Toggles the status
+          eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+      } else {
+          // Do something else when release
+      }
+      return false; // Skip all further processing of this key
+    case KC_F22:
+      if (record->event.pressed) {
+          // Do something when pressed
+          user_config.top_rgb_signal ^= 1; // Toggles the status
+          eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
+      } else {
+          // Do something else when release
       }
       return false; // Skip all further processing of this key
     default:

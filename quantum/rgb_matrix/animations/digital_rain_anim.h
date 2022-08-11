@@ -40,10 +40,10 @@ bool DIGITAL_RAIN(effect_params_t* params) {
             if (led_count > 0) {
                 if (g_rgb_frame_buffer[row][col] > pure_green_intensity) {
                     const uint8_t boost = (uint8_t)((uint16_t)max_brightness_boost * (g_rgb_frame_buffer[row][col] - pure_green_intensity) / (max_intensity - pure_green_intensity));
-                    rgb_matrix_set_color(led[0], boost, max_intensity, boost);
+                    rgb_matrix_set_color_user_config(led[0], boost, max_intensity, boost);
                 } else {
                     const uint8_t green = (uint8_t)((uint16_t)max_intensity * g_rgb_frame_buffer[row][col] / pure_green_intensity);
-                    rgb_matrix_set_color(led[0], 0, green, 0);
+                    rgb_matrix_set_color_user_config(led[0], 0, green, 0);
                 }
             }
         }

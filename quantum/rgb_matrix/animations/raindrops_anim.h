@@ -16,7 +16,7 @@ static void raindrops_set_color(int i, effect_params_t* params) {
 
     hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
     RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
-    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color_user_config(i, rgb.r, rgb.g, rgb.b);
 }
 
 bool RAINDROPS(effect_params_t* params) {

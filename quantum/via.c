@@ -242,29 +242,36 @@ void led_streaming(uint8_t *data) //Stream data from HID Packets to Keyboard.
       uint8_t  g = data[offset + 1];
       uint8_t  b = data[offset + 2];
       if (index + i == 26 && host_keyboard_led_state().caps_lock) continue;
-      if (rgb_matrix_get_mode() != RGB_MATRIX_SIGNALRGB) continue;
+      if (rgb_matrix_get_mode() != RGB_MATRIX_SIGNALRGB) {
+        if (user_config.top_rgb_signal == true && index + i < 70) {
+            rgb_matrix_set_color(index + i, r, g, b);
+            continue;
+        }
+        else if (user_config.bottom_rgb_signal == true && index + i >= 70) {
+            rgb_matrix_set_color(index + i, r, g, b);
+            continue;
+        }
+        else continue;
+      };
 
-
-      RGB rgb;
-      rgb.r = r;
-      rgb.g = g;
-      rgb.b = b;
+      rgb_matrix_set_color(index + i, r, g, b);
+    //   RGB rgb;
+    //   rgb.r = r;
+    //   rgb.g = g;
+    //   rgb.b = b;
     //   HSV hsv = rgb_to_hsv(rgb);
-    //   if (hsv.s != 0 && rgb_matrix_config.hsv.s != 0){
-    //     hsv.s = (int)((float)hsv.s * (float)rgb_matrix_config.hsv.s / (float)hsv.s);
-    //     hsv.s = hsv.s > 255 ? 255 : hsv.s;
-    //   } else if (rgb_matrix_config.hsv.s == 0){
-    //     hsv.s = 0;
-    //   }
-    //   if (hsv.v != 0 && rgb_matrix_config.hsv.v != 0) {
-    //     hsv.v = (int)((float)hsv.v * (float)rgb_matrix_config.hsv.v / (float)hsv.v);
-    //     hsv.v = hsv.v > 255 ? 255 : hsv.v;
-    //   } else if (rgb_matrix_config.hsv.v == 0) {
-    //     hsv.v = 0;
-    //   }
+
+    //   hsv.s = hsv.s + 128 - rgb_matrix_config.hsv.s;
+    //   hsv.s = hsv.s > 255 ? 255 : hsv.s;
+    //   hsv.s = hsv.s < 0 ? 0 : hsv.s;
+
+    //   hsv.v = hsv.v + 128 - rgb_matrix_config.hsv.v;
+    //   hsv.v = hsv.v > 255 ? 255 : hsv.v;
+    //   hsv.v = hsv.v < 0 ? 0 : hsv.v;
+
     //  rgb = hsv_to_rgb(hsv);
 
-      rgb_matrix_set_color(index + i, rgb.r, rgb.g, rgb.b);
+    //   rgb_matrix_set_color(index + i, rgb.r, rgb.g, rgb.b);
      }
 }
 

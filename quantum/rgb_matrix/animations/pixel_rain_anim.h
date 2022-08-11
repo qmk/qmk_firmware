@@ -33,11 +33,11 @@ static bool PIXEL_RAIN(effect_params_t* params) {
             return true;
         }
         if (off) {
-            rgb_matrix_set_color(i, 0, 0, 0);
+            rgb_matrix_set_color_user_config(i, 0, 0, 0);
         } else {
             HSV hsv = {random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v};
             RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
-            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+            rgb_matrix_set_color_user_config(i, rgb.r, rgb.g, rgb.b);
         }
         wait_timer = g_rgb_timer + interval();
         return false;

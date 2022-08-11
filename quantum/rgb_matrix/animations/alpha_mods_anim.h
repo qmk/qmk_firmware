@@ -14,9 +14,9 @@ bool ALPHAS_MODS(effect_params_t* params) {
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
-            rgb_matrix_set_color(i, rgb2.r, rgb2.g, rgb2.b);
+            rgb_matrix_set_color_user_config(i, rgb2.r, rgb2.g, rgb2.b);
         } else {
-            rgb_matrix_set_color(i, rgb1.r, rgb1.g, rgb1.b);
+            rgb_matrix_set_color_user_config(i, rgb1.r, rgb1.g, rgb1.b);
         }
     }
     return rgb_matrix_check_finished_leds(led_max);

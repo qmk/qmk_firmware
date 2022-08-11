@@ -30,7 +30,7 @@ static bool PIXEL_FLOW(effect_params_t* params) {
     // Light LEDs based on state array
     for (uint8_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        rgb_matrix_set_color(i, led[i].r, led[i].g, led[i].b);
+        rgb_matrix_set_color_user_config(i, led[i].r, led[i].g, led[i].b);
     }
 
     if (!rgb_matrix_check_finished_leds(led_max)) {
