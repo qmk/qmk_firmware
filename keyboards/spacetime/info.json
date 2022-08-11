@@ -1,7 +1,13 @@
 {
   "keyboard_name": "spacetime",
+  "manufacturer": "Kyle Terry",
   "url": "https://github.com/kyleterry/spacetime-keyboard",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0A0C",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

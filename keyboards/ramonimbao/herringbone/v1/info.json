@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Herringbone",
+    "manufacturer": "Ramon Imbao",
     "url": "",
     "maintainer": "Ramon Imbao",
+    "usb": {
+        "vid": "0xB16B",
+        "pid": "0x04E5",
+        "device_version": "0.1.2"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

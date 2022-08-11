@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1705
-#define DEVICE_VER      0x0301
-#define MANUFACTURER    MechWild
-#define PRODUCT         MurphPad
-
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5

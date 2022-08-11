@@ -15,6 +15,3 @@
  */
 
 #pragma once
-
-/* Define custom font */
-#define OLED_FONT_H "keyboards/mechwild/mercutio/lib/mercutiofont.c"

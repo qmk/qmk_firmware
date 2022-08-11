@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Typ65+",
-    "maintainer": "kopibeng",
+    "manufacturer": "kopibeng",
     "url": "https://www.axiomstudios.shop/",
+    "maintainer": "kopibeng",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x065E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

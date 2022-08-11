@@ -1,7 +1,13 @@
 {
     "keyboard_name": "zoom65",
+    "manufacturer": "meletrix",
     "url": "https://zoom65.com/",
     "maintainer": "spbgzh",
+    "usb": {
+        "vid": "0x806B",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
