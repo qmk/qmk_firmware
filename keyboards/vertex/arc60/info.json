@@ -2,6 +2,12 @@
     "keyboard_name": "ARC60",
     "url": "",
     "maintainer": "Eason",
+    "manufacturer":"vertex",
+    "usb": {
+        "vid": "0x8354",
+        "pid": "0x8370",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
