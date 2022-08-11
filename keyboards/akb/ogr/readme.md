@@ -1,6 +1,6 @@
 # akb/ogr
 
-![akb/ogr](https://alchemistkeyboards.com/wp-content/uploads/2022/02/EPUUbTT.png)
+![akb/ogr](https://imgur.com/qbolyMa)
 
 OGR - Multi-functional keyboard with 75-78 keys for USB systems.
 
