@@ -17,12 +17,6 @@
 #pragma once
 
 #include "config_common.h"
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6077
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    rpiguy9907
-#define PRODUCT         Southpaw66
 
 #define TAPPING_TERM 400
 

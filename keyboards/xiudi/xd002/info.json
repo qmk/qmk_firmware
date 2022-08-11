@@ -1,0 +1,19 @@
+{
+  "keyboard_name": "XD002",
+  "manufacturer": "XIUDI",
+  "url": "https://kprepublic.com/products/xd002-xiudi-2-custom-mechanical-keyboard-2-keys-underglow-and-switch-rgb-pcb-programmed-hot-swappable-macro-key-aluminum-case",
+  "maintainer": "zvecr",
+  "usb": {
+    "vid": "0x7844",
+    "pid": "0x0202",
+    "device_version": "0.0.1"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x":0, "y":0},
+        {"x":1, "y":0}
+      ]
+    }
+  }
+}

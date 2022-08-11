@@ -2,8 +2,6 @@
   "keyboard_name": "Polilla",
   "url": "",
   "maintainer": "elagil",
-  "width": 16,
-  "height": 5.375,
   "layouts": {
     "LAYOUT": {
       "layout": [

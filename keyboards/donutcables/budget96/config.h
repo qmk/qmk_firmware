@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4443
-#define PRODUCT_ID      0xB960
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    DonutCables
-#define PRODUCT         Budget96
-
 #define RGBLED_NUM 18
 
 #define MATRIX_ROWS 8
@@ -36,6 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
+
+#define LED_NUM_LOCK_PIN D0
+#define LED_CAPS_LOCK_PIN D1
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3

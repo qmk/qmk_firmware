@@ -8,7 +8,7 @@
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
 
-  // Programmer's Dvorak "macros" : 
+  // Programmer's Dvorak "macros" :
   //  To be paired with get_mods to enable both
   //  Shift functionality and Programmer's Dvorak
 
@@ -50,19 +50,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Programmer's Dvorak layer
   [0] = LAYOUT_ergodox(
     DVP_ESC,      DVP_AMPR,         DVP_LBRACKET, DVP_LCBR,         DVP_RCBR,     DVP_LPRN,   DVP_AT,
-    KC_TAB,       KC_SCOLON,        KC_COMMA,     KC_DOT,           KC_P,         KC_Y,       MO(4), 
-    MO(3),        KC_A,             KC_O,         KC_E,             KC_U,         KC_I,     
+    KC_TAB,       KC_SCOLON,        KC_COMMA,     KC_DOT,           KC_P,         KC_Y,       MO(4),
+    MO(3),        KC_A,             KC_O,         KC_E,             KC_U,         KC_I,
     KC_LSHIFT,    KC_QUOTE,         KC_Q,         KC_J,             KC_K,         KC_X,       KC_HYPR,
     KC_LCTL,      KC_LALT,          KC_LGUI,      LCTL(KC_C),       LCTL(KC_V),
-    
+
       KC_MS_BTN3, TO(1),    KC_HOME,  KC_SPACE,   MO(4),  KC_END,
-    
+
     DVP_EQUAL,    DVP_ASTERISK,     DVP_RPRN,     DVP_PLUS,         DVP_RBRACKET, DVP_EXLM,   DVP_HASH,
     TT(4),        KC_F,             KC_G,         KC_C,             KC_R,         KC_L,       KC_SLASH,
                   KC_D,             KC_H,         KC_T,             KC_N,         KC_S,       KC_MINUS,
     KC_MEH,       KC_B,             KC_M,         KC_W,             KC_V,         KC_Z,       MO(3),
                                     KC_DELETE,    KC_BSLASH,        KC_RGUI,      KC_RCTL,    LCTL(KC_F),
-    
+
       KC_F17,     KC_F18,   KC_PGUP,  KC_PGDOWN,  KC_ENTER,   KC_BSPACE
   ),
   // Gaming QWERTY layer
@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(3),      KC_A,   KC_S,     KC_D,         KC_F,       KC_G,
     KC_LSHIFT,  KC_Z,   KC_X,     KC_C,         KC_V,       KC_B,         KC_F24,
     KC_LCTL,    KC_F8,  KC_LALT,  KC_F14,      KC_F13,
-    
+
       KC_HOME,  TO(0),  KC_F15,  KC_SPACE, KC_LCTL,  KC_LALT,
-    
+
     KC_6,       KC_7,   KC_8,     KC_9,         KC_0,       KC_MINUS,   KC_EQUAL,
     KC_F24,     KC_Y,   KC_U,     KC_I,         KC_O,       KC_P,       KC_BSLASH,
                 KC_H,   KC_J,     KC_K,         KC_L,       KC_SCOLON,  KC_QUOTE,
@@ -89,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(3),      KC_1,      KC_2,      KC_3,      KC_4,      KC_5,
     KC_LSHIFT,  KC_6,      KC_7,      KC_8,      KC_9,      KC_0,     KC_NO,
     KC_LCTL,    KC_F8,     KC_LALT,   KC_I,      KC_S,
-    
+
     KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
-    
+
     KC_NO,     KC_NUMLOCK,     KC_KP_SLASH,    KC_KP_ASTERISK, KC_KP_MINUS,     KC_NO,   KC_NO,
     TO(0),     KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_PLUS,      KC_NO,   KC_NO,
                KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_EQUAL,        KC_NO,  KC_NO,
@@ -115,20 +115,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_LEFT,          KC_DOWN,            KC_UP,              KC_RIGHT,           KC_TRANSPARENT, KC_TRANSPARENT,
     MEH_T(KC_NO),   KC_CALCULATOR,    KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_RSHIFT,
                                       KC_DELETE,          KC_INSERT,          KC_TRANSPARENT,     KC_F19,         KC_RCTL,
-    
+
      TO(2),KC_TRANSPARENT,KC_TRANSPARENT,LALT(KC_F10),KC_ENTER,KC_BSPACE
   ),
   // Keypad, Lighting, and Mouse emulation layer
- ///* 
+ ///*
     [4] = LAYOUT_ergodox(
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
     KC_TAB,     KC_NO,      KC_MS_BTN2,   KC_MS_UP,   KC_MS_BTN1,   KC_MS_WH_UP,    TO(0),
     KC_NO,      KC_NO,      KC_MS_LEFT,   KC_MS_DOWN, KC_MS_RIGHT,  KC_MS_WH_DOWN,
     KC_LSHIFT,  KC_NO,      KC_NO,        KC_UP,      KC_NO,        KC_NO,          TO(5),
     KC_LCTL,    KC_NO,      KC_LEFT,      KC_DOWN,    KC_RIGHT,
-    
+
     KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
-    
+
     KC_NO,          KC_NUMLOCK,     KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,    KC_NO,      RGB_VAI,
     TO(0),          KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,      KC_NO,      RGB_VAD,
                     KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_KP_PLUS,       KC_NO,    RGB_HUI,
@@ -146,9 +146,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,      KC_NO,      KC_MS_LEFT,   KC_MS_DOWN, KC_MS_RIGHT,  KC_MS_WH_DOWN,
     KC_LSHIFT,  KC_NO,      KC_NO,        KC_UP,      KC_NO,        KC_NO,          TO(5),
     KC_LCTL,    KC_NO,      KC_LEFT,      KC_DOWN,    KC_RIGHT,
-    
+
     KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
-    
+
     KC_NO,    KC_I,       KC_NUMLOCK,     KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,  RGB_VAI,
     TO(0),    KC_G,       KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,    RGB_VAD,
               SHFT_COMMA,       KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_KP_PLUS,     RGB_HUI,
@@ -162,11 +162,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void led_set_keymap(uint8_t usb_led) {
-  
+
 }
 
 void matrix_init_user (void) {
- 
+
 }
 
 
@@ -176,7 +176,7 @@ bool right_shift_down = false;
 bool numlock = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- 
+
   switch (keycode) {
     case KC_LSHIFT:
     if (record->event.pressed)
@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case KC_NUMLOCK:
 
-      if (record->event.pressed) 
+      if (record->event.pressed)
       {
         numlock = !numlock;
     }
@@ -213,7 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case DVP_ESC:
     if (left_shift_down || right_shift_down)
-    {  
+    {
       if(record->event.pressed)
         SEND_STRING("~");
       return false;
@@ -229,7 +229,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
 
     case DVP_AMPR:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -244,7 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-    break; 
+    break;
 
     case SHFT_DOT:
       if(record->event.pressed)
@@ -257,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case DVP_LBRACKET:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
         {
@@ -283,13 +283,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
 
         return false;
-        break; 
-    
+        break;
+
     case DVP_LCBR:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
-       { 
+       {
           if(left_shift_down)
             unregister_code(KC_LSHIFT);
           if(right_shift_down)
@@ -297,7 +297,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
           register_code(KC_5);
           unregister_code(KC_5);
-          
+
           if(left_shift_down)
             register_code(KC_LSHIFT);
           if(right_shift_down)
@@ -310,10 +310,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("{");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_RCBR:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -324,7 +324,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_3);
         unregister_code(KC_3);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -337,10 +337,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("}");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_LPRN:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -351,7 +351,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_1);
         unregister_code(KC_1);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -364,10 +364,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("(");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_AT:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -380,7 +380,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_6);
         unregister_code(KC_6);
         unregister_code(KC_LSHIFT);
-          
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -393,11 +393,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("@");
     }
     return false;
-    break; 
+    break;
 
-    
+
     case DVP_EQUAL:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -408,7 +408,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_9);
         unregister_code(KC_9);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -421,10 +421,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("=");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_ASTERISK:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -435,7 +435,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_0);
         unregister_code(KC_0);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -448,10 +448,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("*");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_RPRN:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -462,7 +462,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_2);
         unregister_code(KC_2);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -475,10 +475,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(")");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_PLUS:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -489,7 +489,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_4);
         unregister_code(KC_4);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -502,10 +502,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("+");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_RBRACKET:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -516,7 +516,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_6);
         unregister_code(KC_6);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -529,10 +529,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("]");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_EXLM:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -543,7 +543,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_8);
         unregister_code(KC_8);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -556,10 +556,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("!");
     }
     return false;
-    break; 
-    
+    break;
+
     case DVP_HASH:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -570,7 +570,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -583,11 +583,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("#");
     }
     return false;
-    break; 
+    break;
 
-    // Russian 
+    // Russian
     case RU_2:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -598,7 +598,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -611,9 +611,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("#");
     }
     return false;
-    break; 
+    break;
 case RU_3:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -624,7 +624,7 @@ case RU_3:
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -637,9 +637,9 @@ case RU_3:
         SEND_STRING("#");
     }
     return false;
-    break; 
+    break;
 case RU_4:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -650,7 +650,7 @@ case RU_4:
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -663,9 +663,9 @@ case RU_4:
         SEND_STRING("#");
     }
     return false;
-    break; 
+    break;
 case RU_6:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -676,7 +676,7 @@ case RU_6:
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -689,9 +689,9 @@ case RU_6:
         SEND_STRING("#");
     }
     return false;
-    break; 
+    break;
 case RU_7:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -702,7 +702,7 @@ case RU_7:
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -715,10 +715,10 @@ case RU_7:
         SEND_STRING("#");
     }
     return false;
-    break; 
+    break;
 
   case RU_DOT:
-    if (left_shift_down || right_shift_down) 
+    if (left_shift_down || right_shift_down)
     {
       if(record->event.pressed)
       {
@@ -729,7 +729,7 @@ case RU_7:
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
-        
+
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
@@ -742,7 +742,7 @@ case RU_7:
         SEND_STRING("#");
     }
     return false;
-    break; 
+    break;
 
 
     case RGB_SLD:
@@ -751,7 +751,7 @@ case RU_7:
       }
       return false;
       break;
-    
+
     case RGB_FF0000:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -762,7 +762,7 @@ case RU_7:
       }
       return false;
       break;
-    
+
     case RGB_008000:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -773,7 +773,7 @@ case RU_7:
       }
       return false;
       break;
-    
+
     case RGB_0000FF:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -784,7 +784,7 @@ case RU_7:
       }
       return false;
       break;
-    
+
     case RGB_FFFFFF:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -795,7 +795,7 @@ case RU_7:
       }
       return false;
       break;
-    
+
     case RGB_800080:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -806,12 +806,12 @@ case RU_7:
       }
       return false;
       break;
-    
+
   }
   return true;
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 
     uint8_t layer = biton32(state);
 
@@ -823,7 +823,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       case 0:
         break;
       case 1:
-        ergodox_right_led_1_on(); 
+        ergodox_right_led_1_on();
         break;
       case 2:
         ergodox_right_led_2_on();

@@ -1,9 +1,13 @@
 {
     "keyboard_name": "fluorite",
+    "manufacturer": "ihotsuno",
     "url": "",
     "maintainer": "ihotsuno, qmk",
-    "width": 24,
-    "height": 9,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

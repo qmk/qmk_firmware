@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@keeb.io>
+Copyright 2021 Mathias Strand <m.strand91@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,5 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/* Use I2C or Serial, not both */
+
+#define USE_SERIAL
 // #define USE_I2C
-#define EE_HANDS
+
+/* Select hand configuration */
+
+#define MASTER_LEFT
+//#define MASTER_RIGHT
+// #define EE_HANDS

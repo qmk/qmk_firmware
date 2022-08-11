@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_RGHT);
@@ -82,4 +82,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	    SEND_STRING(SS_LCTRL("3")); // audacity zoom out
         }
     }
+    return true;
 }

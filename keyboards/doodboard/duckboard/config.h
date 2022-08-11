@@ -1,4 +1,4 @@
-/* Copyright 2020 doodboard
+/* Copyright 2020-2021 doodboard
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,13 +17,6 @@
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xFF44
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    doodboard
-#define PRODUCT         duckboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

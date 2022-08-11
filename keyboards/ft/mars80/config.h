@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    FT
-#define PRODUCT         Mars 8.0
-
 #define RGBLED_NUM 20
 
 #define MATRIX_ROWS 7
@@ -37,11 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
+#define LED_CAPS_LOCK_PIN D1
+#define LED_SCROLL_LOCK_PIN D6
+
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
 
 #define RGBLIGHT_ANIMATIONS
-
-/* key combination for magic key command */
-/* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))

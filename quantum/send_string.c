@@ -20,6 +20,14 @@
 
 #include "send_string.h"
 
+#if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
+#    include "audio.h"
+#    ifndef BELL_SOUND
+#        define BELL_SOUND TERMINAL_SOUND
+#    endif
+float bell_song[][2] = SONG(BELL_SOUND);
+#endif
+
 // clang-format off
 
 /* Bit-Packed look-up table to convert an ASCII character to whether
@@ -134,9 +142,13 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
 // Note: we bit-pack in "reverse" order to optimize loading
 #define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> ((pos) % 8)) & 0x01)
 
-void send_string(const char *str) { send_string_with_delay(str, 0); }
+void send_string(const char *str) {
+    send_string_with_delay(str, 0);
+}
 
-void send_string_P(const char *str) { send_string_with_delay_P(str, 0); }
+void send_string_P(const char *str) {
+    send_string_with_delay_P(str, 0);
+}
 
 void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
@@ -165,7 +177,8 @@ void send_string_with_delay(const char *str, uint8_t interval) {
                     ms += keycode - '0';
                     keycode = *(++str);
                 }
-                while (ms--) wait_ms(1);
+                while (ms--)
+                    wait_ms(1);
             }
         } else {
             send_char(ascii_code);
@@ -174,7 +187,8 @@ void send_string_with_delay(const char *str, uint8_t interval) {
         // interval
         {
             uint8_t ms = interval;
-            while (ms--) wait_ms(1);
+            while (ms--)
+                wait_ms(1);
         }
     }
 }
@@ -206,7 +220,8 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
                     ms += keycode - '0';
                     keycode = pgm_read_byte(++str);
                 }
-                while (ms--) wait_ms(1);
+                while (ms--)
+                    wait_ms(1);
             }
         } else {
             send_char(ascii_code);
@@ -215,14 +230,15 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
         // interval
         {
             uint8_t ms = interval;
-            while (ms--) wait_ms(1);
+            while (ms--)
+                wait_ms(1);
         }
     }
 }
 
 void send_char(char ascii_code) {
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
-    if (ascii_code == '\a') {  // BEL
+    if (ascii_code == '\a') { // BEL
         PLAY_SONG(bell_song);
         return;
     }
@@ -248,5 +264,59 @@ void send_char(char ascii_code) {
     }
     if (is_dead) {
         tap_code(KC_SPACE);
+    }
+}
+
+void send_dword(uint32_t number) {
+    send_word(number >> 16);
+    send_word(number & 0xFFFFUL);
+}
+
+void send_word(uint16_t number) {
+    send_byte(number >> 8);
+    send_byte(number & 0xFF);
+}
+
+void send_byte(uint8_t number) {
+    send_nibble(number >> 4);
+    send_nibble(number & 0xF);
+}
+
+void send_nibble(uint8_t number) {
+    switch (number & 0xF) {
+        case 0 ... 9:
+            send_char(number + '0');
+            break;
+        case 10 ... 15:
+            send_char(number - 10 + 'a');
+            break;
+    }
+}
+
+void tap_random_base64(void) {
+#if defined(__AVR_ATmega32U4__)
+    uint8_t key = (TCNT0 + TCNT1 + TCNT3 + TCNT4) % 64;
+#else
+    uint8_t key = rand() % 64;
+#endif
+    switch (key) {
+        case 0 ... 25:
+            send_char(key + 'A');
+            break;
+        case 26 ... 51:
+            send_char(key - 26 + 'a');
+            break;
+        case 52:
+            send_char('0');
+            break;
+        case 53 ... 61:
+            send_char(key - 53 + '1');
+            break;
+        case 62:
+            send_char('+');
+            break;
+        case 63:
+            send_char('/');
+            break;
     }
 }

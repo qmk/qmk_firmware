@@ -65,7 +65,7 @@ For example, the `planck/rev5` with a `default` keymap will have this filename:
 planck_rev5_default.hex
 ```
 
-Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored.
+Once you have located your firmware file, drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored.
 
 ### Flash Your Keyboard
 
@@ -96,7 +96,7 @@ This has been made pretty simple compared to what it used to be. When you are re
 
     qmk flash
 
-If you have not configured your keyboard/keymap name in the CLI, or you have multiple keyboards, you can specify the keyboard and keymap:
+If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started.md) section, or you have multiple keyboards, you can specify the keyboard and keymap:
 
     qmk flash -kb <my_keyboard> -km <my_keymap>
 
@@ -107,6 +107,8 @@ However, this does rely on the bootloader being set by the keyboard. If this inf
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
 In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing.md) Guide for more details.
+
+!> If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
 
 ## Test It Out!
 

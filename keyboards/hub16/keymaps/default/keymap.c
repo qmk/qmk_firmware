@@ -29,11 +29,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, RGB_MOD, RGB_RMOD, RGB_TOG,
     RGB_VAD, RGB_VAI, RGB_HUD,  RGB_HUI,
     RGB_SAD, RGB_SAI, _______,  _______,
-    _______, _______, RESET,    _______
+    _______, _______, QK_BOOT,    _______
   ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -47,4 +47,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MNXT);
         }
     }
+    return true;
 }

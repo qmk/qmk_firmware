@@ -92,15 +92,6 @@ susceptible to noise, you must choose a debounce method that will also mitigate 
 ## Debounce algorithms supported by QMK
 
 QMK supports multiple debounce algorithms through its debounce API.
-The logic for which debounce method called is below. It checks various defines that you have set in ```rules.mk```
-
-```
-DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
-DEBOUNCE_TYPE?= sym_defer_g
-ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
-    QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
-endif
-```
 
 ### Debounce selection
 
@@ -121,16 +112,17 @@ DEBOUNCE_TYPE = <name of algorithm>
 Where name of algorithm is one of:
 * ```sym_defer_g``` - debouncing per keyboard. On any state change, a global timer is set. When ```DEBOUNCE``` milliseconds of no changes has occurred, all input changes are pushed.
   * This is the current default algorithm. This is the highest performance algorithm with lowest memory usage, and it's also noise-resistant.
-* ```sym_eager_pr``` - debouncing per row. On any state change, response is immediate, followed by locking the row ```DEBOUNCE``` milliseconds of no further input for that row. 
+* ```sym_eager_pr``` - debouncing per row. On any state change, response is immediate, followed by locking the row ```DEBOUNCE``` milliseconds of no further input for that row.
 For use in keyboards where refreshing ```NUM_KEYS``` 8-bit counters is computationally expensive / low scan rate, and fingers usually only hit one row at a time. This could be
 appropriate for the ErgoDox models; the matrix is rotated 90°, and hence its "rows" are really columns, and each finger only hits a single "row" at a time in normal use.
 * ```sym_eager_pk``` - debouncing per key. On any state change, response is immediate, followed by ```DEBOUNCE``` milliseconds of no further input for that key
+* ```sym_defer_pr``` - debouncing per row. On any state change, a per-row timer is set. When ```DEBOUNCE``` milliseconds of no changes have occurred on that row, the entire row is pushed. Can improve responsiveness over `sym_defer_g` while being less susceptible than per-key debouncers to noise.
 * ```sym_defer_pk``` - debouncing per key. On any state change, a per-key timer is set. When ```DEBOUNCE``` milliseconds of no changes have occurred on that key, the key status change is pushed.
+* ```asym_eager_defer_pk``` - debouncing per key. On a key-down state change, response is immediate, followed by ```DEBOUNCE``` milliseconds of no further input for that key. On a key-up state change, a per-key timer is set. When ```DEBOUNCE``` milliseconds of no changes have occurred on that key, the key-up status change is pushed.
 
 ### A couple algorithms that could be implemented in the future:
 * ```sym_defer_pr```
 * ```sym_eager_g```
-* ```asym_eager_defer_pk```
 
 ### Use your own debouncing code
 You have the option to implement you own debouncing algorithm. To do this:
@@ -140,11 +132,3 @@ You have the option to implement you own debouncing algorithm. To do this:
 * Debouncing occurs after every raw matrix scan.
 * Use num_rows rather than MATRIX_ROWS, so that split keyboards are supported correctly.
 * If the algorithm might be applicable to other keyboards, please consider adding it to ```quantum/debounce```
-
-### Old names
-The following old names for existing algorithms will continue to be supported, however it is recommended to use the new names instead.
-
-* sym_g - old name for sym_defer_g
-* eager_pk - old name for sym_eager_pk
-* sym_pk - old name for sym_defer_pk
-* eager_pr - old name for sym_eager_pr

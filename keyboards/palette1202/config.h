@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x1202
-#define DEVICE_VER   0x0001
-#define MANUFACTURER niltea
-#define PRODUCT      Palette1202
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 5
@@ -48,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* Register custom font file */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #define OLED_FONT_H "lib/glcdfont.c"
 #endif
 

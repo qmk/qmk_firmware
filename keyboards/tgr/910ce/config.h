@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x5447 // TG
-#define PRODUCT_ID 0x910C
-#define DEVICE_VER 0x0001
-#define MANUFACTURER TGR
-#define PRODUCT 910CE
-
 #define RGBLED_NUM 18
 
 #define MATRIX_ROWS 6
@@ -38,11 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
+#define LED_CAPS_LOCK_PIN D1
+
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
 #define RGBLIGHT_ANIMATIONS
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-

@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5253
-#define PRODUCT_ID      0x4450
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ReverseStudio
-#define PRODUCT         DecadePad
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -41,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+#define LED_NUM_LOCK_PIN D4
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 /* Set 0 if debouncing isn't needed */
@@ -76,5 +71,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

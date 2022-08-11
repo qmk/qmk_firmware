@@ -9,3 +9,6 @@ SRC +=  ./lib/glcdfont.c \
         ./lib/layer_state_reader.c \
         ./lib/logo_reader.c \
         ./lib/keylogger.c \
+
+VPATH += keyboards/crkbd/lib
+LIB_SRC += ssd1306.c i2c.c

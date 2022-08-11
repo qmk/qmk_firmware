@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0x594D // "YM"
-#define PRODUCT_ID      0x4266 // "Bf"
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    YMDK
-#define PRODUCT         B.face
-
 /* matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -33,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN D1
 
 #define BACKLIGHT_PIN       D4
 #define BACKLIGHT_LEVELS    6

@@ -41,6 +41,12 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define RGB_DI_PIN B7
+#if defined(RGBLIGHT_ENABLE)
+#    define RGBLED_NUM 2
+#    define RGBLIGHT_EFFECT_BREATHING
+#endif
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
