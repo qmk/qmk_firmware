@@ -1,6 +1,6 @@
 # akb/ogrn
 
-![akb/ogrn](https://alchemistkeyboards.com/wp-content/uploads/2022/05/OGR_N_Dolch_CROP-scaled.jpg)
+![akb/ogrn](https://i.imgur.com/qbolyMa.png)
 
 Numpad for the OGR keyboard by AKB
 
