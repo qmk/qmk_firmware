@@ -9,7 +9,7 @@
     "device_version": "0.0.1"
   },
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_all": {
       "layout": [
         {
           "label": "K00 (B0,C6)",
