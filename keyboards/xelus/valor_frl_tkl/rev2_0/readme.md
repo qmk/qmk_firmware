@@ -73,6 +73,7 @@ index 69a5ab603..200b4b91a 100644
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xelus/valor_frl_tkl/rev2:default
+    make xelus/valor_frl_tkl/rev2_0:default
+    make xelus/valor_frl_tkl/rev2_0:via
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
