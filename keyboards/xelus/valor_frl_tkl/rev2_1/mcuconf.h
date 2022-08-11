@@ -25,14 +25,10 @@
 #undef STM32_PPRE1
 #undef STM32_PPRE2
 
-// 96MHz core
+// 84MHz core
 #define STM32_PLLM_VALUE    8
-#define STM32_PLLN_VALUE    96
-#define STM32_PLLP_VALUE    2
-#define STM32_PLLQ_VALUE    4
+#define STM32_PLLN_VALUE    168
+#define STM32_PLLP_VALUE    4
+#define STM32_PLLQ_VALUE    7
 #define STM32_PPRE1         STM32_PPRE1_DIV2
 #define STM32_PPRE2         STM32_PPRE1_DIV1
-
-// #undef STM32_I2C_USE_I2C1
-// #define STM32_I2C_USE_I2C1 TRUE
-

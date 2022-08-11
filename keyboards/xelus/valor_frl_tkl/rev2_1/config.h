@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Xelus
