@@ -19,11 +19,9 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845 // "XE"
-#define PRODUCT_ID      0x4654 // "FT"
-#define DEVICE_VER      0x0001
+#define DEVICE_VER      0x0003
 #define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Valor FRL TKL Rev2
+#define PRODUCT         Xelus Valor FRL TKL Rev2.1
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -45,22 +43,5 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-// I2C OLED defines
-#define I2C1_SCL            6
-#define I2C1_SDA            7
-#define I2C1_SCL_PAL_MODE   4
-#define I2C1_SDA_PAL_MODE   4
-#define I2C1_CLOCK_SPEED    400000
-#define I2C1_DUTY_CYCLE     FAST_DUTY_CYCLE_2
-
-// I2C EEPROM
-// 24LC64
-#define EEPROM_I2C_24LC64
-
-// Dynamic EEPROM
-// Something sensible or else VIA may crash
-// Users may enable more if they wish
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
 
 #define STM32_HSECLK 16000000

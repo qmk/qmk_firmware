@@ -1,4 +1,4 @@
-# Valor FRL TKL Rev2
+# Valor FRL TKL Rev2.1
 
 An Alice-esque FRL TKL keyboard PCB.
 
