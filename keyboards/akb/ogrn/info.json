@@ -30,6 +30,9 @@
         "pid": "0x4F4E",
         "vid": "0x414B"
     },
+  "community_layouts": [
+    "numpad_5x4"
+  ],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [
