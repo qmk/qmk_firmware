@@ -1,15 +1,9 @@
+// Copyright 2022 Marko Skakun <skakun.marko@gmail.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include "quantum.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
-
 
 #define LAYOUT_3x5_5(\
     L10, L11, L12, L13, L14,                      R14, R13, R12, R11, R10, \

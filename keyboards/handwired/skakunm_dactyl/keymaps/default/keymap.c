@@ -1,9 +1,13 @@
+// Copyright 2022 Marko Skakun <skakun.marko@gmail.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
-
-#define _LAYER0 0
-#define _LAYER1 1
-#define _LAYER2 2
+enum custom_layers {
+    _LAYER0,
+    _LAYER1,
+    _LAYER2,
+};
 
 enum custom_keycodes {
     LAYER0 = SAFE_RANGE,
