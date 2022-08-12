@@ -47,7 +47,7 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     // Empirically: e.g. 5μs is not enough, will result in keys that don’t work
     // and ghost key presses. 10μs seems to work well.
 
-    // On some variants of the hardware, 20us seems to be required. This was found
+    // On some variants of the hardware, 20μs seems to be required. This was found
     // on a combination of KB600LF+stapelberg v2020-06-30+teensy41.
 
     // 600 cycles at 0.6 cycles/ns == 1μs
