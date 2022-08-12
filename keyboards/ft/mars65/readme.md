@@ -2,7 +2,7 @@
 
 65% Keyboard with in switch backlight and RGB Underglow. 
 
-![Mars 6.5 image](https://i.imgur.com/cg5qADr.jpg)
+![Mars 6.5 image](https://i.imgur.com/cg5qADrl.jpg)
 
 * Keyboard Maintainer: [wonderbeel](https://github.com/wonderbeel)
 * Hardware Supported: Mars 6.5 PCB
