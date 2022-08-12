@@ -1,4 +1,4 @@
-// Copyright 2021 Your Name (@arnstadm)
+// Copyright 2021 Martin Arnstad (@arnstadm)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
