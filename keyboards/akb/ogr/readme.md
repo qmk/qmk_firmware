@@ -1,6 +1,6 @@
 # akb/ogr
 
-![akb/ogr](https://imgur.com/qbolyMa)
+![akb/ogr](https://i.imgur.com/qbolyMah.jpeg)
 
 OGR - Multi-functional keyboard with 75-78 keys for USB systems.
 
