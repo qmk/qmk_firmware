@@ -1,6 +1,6 @@
 # akb/ogrn
 
-![akb/ogrn](https://i.imgur.com/qbolyMa.png)
+![akb/ogrn](https://i.imgur.com/qbolyMal.png)
 
 Numpad for the OGR keyboard by AKB
 
