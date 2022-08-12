@@ -8,11 +8,11 @@
 
 // Left side (front)
 #ifdef STEMCELL_UART_SWAP
-#    define D3 PAL_LINE(GPIOA, 2)
-#    define D2 PAL_LINE(GPIOA, 3)
-#else
 #    define D3 PAL_LINE(GPIOA, 3)
 #    define D2 PAL_LINE(GPIOA, 2)
+#else
+#    define D3 PAL_LINE(GPIOA, 2)
+#    define D2 PAL_LINE(GPIOA, 3)
 #endif
 //      GND
 //      GND
