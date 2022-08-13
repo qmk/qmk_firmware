@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Lune",
+    "manufacturer": "plywrks",
     "url": "",
     "maintainer": "ramonimbao",
+    "usb": {
+        "vid": "0x706C",
+        "pid": "0x7901",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
