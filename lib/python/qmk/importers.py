@@ -1,10 +1,26 @@
 from dotty_dict import dotty
+from datetime import date
+from pathlib import Path
 import json
 
+from qmk.git import git_get_username
 from qmk.json_schema import validate
 from qmk.path import keyboard, keymap
-from qmk.constants import MCU2BOOTLOADER
+from qmk.constants import MCU2BOOTLOADER, LEGACY_KEYCODES
 from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
+from qmk.json_schema import deep_update, json_load
+
+TEMPLATE = Path('data/templates/keyboard/')
+
+
+def replace_placeholders(src, dest, tokens):
+    """Replaces the given placeholders in each template file.
+    """
+    content = src.read_text()
+    for key, value in tokens.items():
+        content = content.replace(f'%{key}%', value)
+
+    dest.write_text(content)
 
 
 def _gen_dummy_keymap(name, info_data):
@@ -18,7 +34,47 @@ def _gen_dummy_keymap(name, info_data):
         "layers": [["KC_NO" for _ in range(0, layout_length)]],
     }
 
-    return json.dumps(keymap_data, cls=KeymapJSONEncoder)
+    return keymap_data
+
+
+def _extract_kbfirmware_layout(kbf_data):
+    layout = []
+    for key in kbf_data['keyboard.keys']:
+        item = {
+            'matrix': [key['row'], key['col']],
+            'x': key['state']['x'],
+            'y': key['state']['y'],
+        }
+        if key['state']['w'] != 1:
+            item['w'] = key['state']['w']
+        if key['state']['h'] != 1:
+            item['h'] = key['state']['h']
+        layout.append(item)
+
+    return layout
+
+
+def _extract_kbfirmware_keymap(kbf_data):
+    keymap_data = {
+        'keyboard': kbf_data['keyboard.settings.name'].lower(),
+        'layout': 'LAYOUT',
+        'layers': [],
+    }
+
+    for i in range(15):
+        layer = []
+        for key in kbf_data['keyboard.keys']:
+            keycode = key['keycodes'][i]['id']
+            keycode = LEGACY_KEYCODES.get(keycode, keycode)
+            if '()' in keycode:
+                fields = key['keycodes'][i]['fields']
+                keycode = f'{keycode.split(")")[0]}{",".join(map(str, fields))})'
+            layer.append(keycode)
+        if set(layer) == {'KC_TRNS'}:
+            break
+        keymap_data['layers'].append(layer)
+
+    return keymap_data
 
 
 def import_keymap(keymap_data):
@@ -40,7 +96,7 @@ def import_keymap(keymap_data):
     return (kb_name, km_name)
 
 
-def import_keyboard(info_data):
+def import_keyboard(info_data, keymap_data=None):
     # Validate to ensure we don't have to deal with bad data - handles stdin/file
     validate(info_data, 'qmk.api.keyboard.v1')
 
@@ -55,17 +111,36 @@ def import_keyboard(info_data):
     if kb_folder.exists():
         raise ValueError(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
 
+    if not keymap_data:
+        # TODO: if supports community then grab that instead
+        keymap_data = _gen_dummy_keymap(kb_name, info_data)
+
     keyboard_info = kb_folder / 'info.json'
-    keyboard_rules = kb_folder / 'rules.mk'
     keyboard_keymap = kb_folder / 'keymaps' / 'default' / 'keymap.json'
 
-    # This is the deepest folder in the expected tree
+    # begin with making the deepest folder in the tree
     keyboard_keymap.parent.mkdir(parents=True, exist_ok=True)
 
+    user_name = git_get_username()
+    if not user_name:
+        user_name = 'TODO'
+
+    tokens = {  # Comment here is to force multiline formatting
+        'YEAR': str(date.today().year),
+        'KEYBOARD': kb_name,
+        'USER_NAME': user_name,
+        'REAL_NAME': user_name,
+    }
+
     # Dump out all those lovely files
-    keyboard_info.write_text(json.dumps(info_data, cls=InfoJSONEncoder))
-    keyboard_rules.write_text("# This file intentionally left blank")
-    keyboard_keymap.write_text(_gen_dummy_keymap(kb_name, info_data))
+    for file in list(TEMPLATE.iterdir()):
+        replace_placeholders(file, kb_folder / file.name, tokens)
+
+    temp = json_load(keyboard_info)
+    deep_update(temp, info_data)
+
+    keyboard_info.write_text(json.dumps(temp, cls=InfoJSONEncoder))
+    keyboard_keymap.write_text(json.dumps(keymap_data, cls=KeymapJSONEncoder))
 
     return kb_name
 
@@ -77,21 +152,12 @@ def import_kbfirmware(kbfirmware_data):
     mcu = ["atmega32u2", "atmega32u4", "at90usb1286"][kbf_data['keyboard.controller']]
     bootloader = MCU2BOOTLOADER.get(mcu, "custom")
 
-    layout = []
-    for key in kbf_data['keyboard.keys']:
-        layout.append({
-            "matrix": [key["row"], key["col"]],
-            "x": key["state"]["x"],
-            "y": key["state"]["y"],
-            "w": key["state"]["w"],
-            "h": key["state"]["h"],
-        })
+    layout = _extract_kbfirmware_layout(kbf_data)
+    keymap_data = _extract_kbfirmware_keymap(kbf_data)
 
     # convert to d/d info.json
-    info_data = {
+    info_data = dotty({
         "keyboard_name": kbf_data['keyboard.settings.name'].lower(),
-        "manufacturer": "TODO",
-        "maintainer": "TODO",
         "processor": mcu,
         "bootloader": bootloader,
         "diode_direction": diode_direction,
@@ -99,50 +165,29 @@ def import_kbfirmware(kbfirmware_data):
             "cols": kbf_data['keyboard.pins.col'],
             "rows": kbf_data['keyboard.pins.row'],
         },
-        "usb": {
-            "vid": "0xFEED",
-            "pid": "0x0000",
-            "device_version": "0.0.1",
-        },
-        "features": {
-            "bootmagic": True,
-            "command": False,
-            "console": False,
-            "extrakey": True,
-            "mousekey": True,
-            "nkro": True,
-        },
         "layouts": {
             "LAYOUT": {
                 "layout": layout,
             }
         }
-    }
+    })
 
     if kbf_data['keyboard.pins.num'] or kbf_data['keyboard.pins.caps'] or kbf_data['keyboard.pins.scroll']:
-        indicators = {}
         if kbf_data['keyboard.pins.num']:
-            indicators['num_lock'] = kbf_data['keyboard.pins.num']
+            info_data['indicators.num_lock'] = kbf_data['keyboard.pins.num']
         if kbf_data['keyboard.pins.caps']:
-            indicators['caps_lock'] = kbf_data['keyboard.pins.caps']
+            info_data['indicators.caps_lock'] = kbf_data['keyboard.pins.caps']
         if kbf_data['keyboard.pins.scroll']:
-            indicators['scroll_lock'] = kbf_data['keyboard.pins.scroll']
-        info_data['indicators'] = indicators
+            info_data['indicators.scroll_lock'] = kbf_data['keyboard.pins.scroll']
 
     if kbf_data['keyboard.pins.rgb']:
-        info_data['rgblight'] = {
-            'animations': {
-                'all': True
-            },
-            'led_count': kbf_data['keyboard.settings.rgbNum'],
-            'pin': kbf_data['keyboard.pins.rgb'],
-        }
+        info_data['rgblight.animations.all'] = True
+        info_data['rgblight.led_count'] = kbf_data['keyboard.settings.rgbNum']
+        info_data['rgblight.pin'] = kbf_data['keyboard.pins.rgb']
 
     if kbf_data['keyboard.pins.led']:
-        info_data['backlight'] = {
-            'levels': kbf_data['keyboard.settings.backlightLevels'],
-            'pin': kbf_data['keyboard.pins.led'],
-        }
+        info_data['backlight.levels'] = kbf_data['keyboard.settings.backlightLevels']
+        info_data['backlight.pin'] = kbf_data['keyboard.pins.led']
 
     # delegate as if it were a regular keyboard import
-    return import_keyboard(info_data)
+    return import_keyboard(info_data.to_dict(), keymap_data)
