@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Jack Kester
+Copyright 2022 Jack Kester
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
