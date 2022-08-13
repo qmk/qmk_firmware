@@ -39,18 +39,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* EEPROM size */
-#define EEPROM_PAGE_SIZE
-#define FEE_PAGE_SIZE 0x800
-#define FEE_PAGE_COUNT 4
-
-#define FEE_MCU_FLASH_SIZE_IGNORE_CHECK
-#define FEE_MCU_FLASH_SIZE                              \
-({                                                      \
-    uint16_t flash_size = *(uint16_t*)FLASHSIZE_BASE;   \
-    (flash_size <= 512) ? flash_size : 512;             \
-})
-
 #ifdef OLED_ENABLE
     /* Mapping I2C2 for OLED */
     #define I2C1_SCL_PIN B10

@@ -38,4 +38,8 @@ OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 WPM_ENABLE = yes
 
+# EEPROM driver
+EEPROM_DRIVER = wear_leveling
+WEAR_LEVELING_DRIVER = embedded_flash
+
 LAYOUTS = tkl_ansi
