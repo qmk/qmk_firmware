@@ -118,6 +118,15 @@ MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_rules.mk)
 include $(INFO_RULES_MK)
 
+# Userspace setup and definitions
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
+
+# Pull in user level rules.mk
+-include $(USER_PATH)/rules.mk
+
 # Check for keymap.json first, so we can regenerate keymap.c
 include $(BUILDDEFS_PATH)/build_json.mk
 
@@ -356,14 +365,7 @@ generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/def
 
 .INTERMEDIATE : generated-files
 
-# Userspace setup and definitions
-ifeq ("$(USER_NAME)","")
-    USER_NAME := $(KEYMAP)
-endif
-USER_PATH := users/$(USER_NAME)
-
-# Pull in user level rules.mk
--include $(USER_PATH)/rules.mk
+# Include user level config
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
