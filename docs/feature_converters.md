@@ -14,6 +14,7 @@ Currently the following converters are available:
 | `promicro` | `kb2040`          |
 | `promicro` | `promicro_rp2040` |
 | `promicro` | `blok`            |
+| `promicro` | `bit_c_pro`       |
 
 See below for more in depth information on each converter.
 
@@ -54,6 +55,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)          | `kb2040`          |
 | [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288) | `promicro_rp2040` |
 | [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)         | `blok`            |
+| [Bit-C PRO](https://nullbits.co/bit-c-pro)                             | `bit_c_pro`       |
 
 Converter summary:
 
@@ -63,6 +65,7 @@ Converter summary:
 | `kb2040`          | `-e CONVERT_TO=kb2040`          | `CONVERT_TO=kb2040`          | `#ifdef CONVERT_TO_KB2040`          |
 | `promicro_rp2040` | `-e CONVERT_TO=promicro_rp2040` | `CONVERT_TO=promicro_rp2040` | `#ifdef CONVERT_TO_PROMICRO_RP2040` |
 | `blok`            | `-e CONVERT_TO=blok`            | `CONVERT_TO=blok`            | `#ifdef CONVERT_TO_BLOK`            |
+| `bit_c_pro`       | `-e CONVERT_TO=bit_c_pro`       | `CONVERT_TO=bit_c_pro`       | `#ifdef CONVERT_TO_BIT_C_PRO`       |
 
 ### Proton C :id=proton_c
 
@@ -93,6 +96,6 @@ The following defaults are based on what has been implemented for [RP2040](platf
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
 | [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040 and Blok :id=promicro_rp2040 
+### SparkFun Pro Micro - RP2040, Blok, and Bit-C PRO :id=promicro_rp2040 
 
 Currently identical to  [Adafruit KB2040](#kb2040).
