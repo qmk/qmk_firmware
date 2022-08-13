@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0100
-#define VENDOR_ID 0xFFFE
-#define PRODUCT_ID 0x0001
-#define MANUFACTURER hfd
-#define PRODUCT ac001
-
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
  #define FORCE_NKRO
 
