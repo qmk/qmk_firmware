@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "infinity87",
+    "keyboard_name": "infinity87 Rev.2",
     "url": "",
-    "maintainer": "Team Mechlovin'",
-    "width": 18.25,
-    "height": 6.25,
+    "maintainer": "Mechlovin' Studio",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,9 +1,13 @@
 {
     "keyboard_name": "serneity65",
+    "manufacturer": "wuque",
     "url": "https://wuque.com/",
     "maintainer": "qmk",
-    "width": 15.5,
-    "height": 5,
+    "usb": {
+        "vid": "0x906B",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

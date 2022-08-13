@@ -1,9 +1,13 @@
 {
     "keyboard_name": "q4z",
+    "manufacturer": "drmmr",
     "url": "",
     "maintainer": "rjboone",
-    "width": 10.25,
-    "height": 5,
+    "usb": {
+        "vid": "0x0001",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

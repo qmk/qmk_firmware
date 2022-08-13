@@ -1,9 +1,13 @@
 {
     "keyboard_name": "ristretto",
+    "manufacturer": "fruitykeeb",
     "url": "https://www.fruitykeeb.xyz/product/ristretto",
     "maintainer": "Fruit",
-    "width": 15,
-    "height": 4,
+    "usb": {
+        "vid": "0x666B",
+        "pid": "0x7273",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

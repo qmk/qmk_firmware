@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544E
-#define PRODUCT_ID      0x3931
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    POM_keyboard
-#define PRODUCT         tnln95
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10

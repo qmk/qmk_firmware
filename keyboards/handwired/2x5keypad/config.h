@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2020
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Jonathan Cameron
-#define PRODUCT         2x5keypad
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 5
@@ -38,13 +31,6 @@
 
 /* Tap dancing params */
 #define TAPPING_TERM 250
-
-/* key combination for command */
-/* DISABLED
-#define IS_COMMAND() ( \
-   get_mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-*/
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

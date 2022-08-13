@@ -1,9 +1,13 @@
 {
     "keyboard_name": "OTD-PLUS",
+    "manufacturer": "Hardlineworks",
     "url": "",
     "maintainer": "Hardlineworks",
-    "width": 18.25,
-    "height": 6.25,
+    "usb": {
+        "vid": "0x484C",
+        "pid": "0x0087",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi_wkl": {
             "layout": [

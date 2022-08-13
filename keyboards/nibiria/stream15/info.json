@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Stream15",
+    "manufacturer": "Nibiria",
     "url": "",
     "maintainer": "qmk",
-    "width": 5,
-    "height": 3,
+    "usb": {
+        "vid": "0x4E49",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_3x5": {
             

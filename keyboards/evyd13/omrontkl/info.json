@@ -1,9 +1,13 @@
 {
     "keyboard_name": "OmronTKL",
+    "manufacturer": "Evyd13",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.25,
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0xEA78",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

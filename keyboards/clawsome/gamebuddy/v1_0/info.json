@@ -1,9 +1,13 @@
 {
     "keyboard_name": "GameBuddy1_0",
+    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
-    "maintainer": "AA Clawson (AlisGraveNil)",
-    "width": 7,
-    "height": 5,
+    "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x17B9",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -36,6 +40,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
-

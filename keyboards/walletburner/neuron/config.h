@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5742 // WB
-#define PRODUCT_ID      0x6E75 // NU
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Walletburner
-#define PRODUCT         Neuron
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

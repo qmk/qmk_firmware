@@ -1,9 +1,13 @@
 {
     "keyboard_name": "manta60",
+    "manufacturer": "kamonanban",
     "url": "https://github.com/KamoNanban",
     "maintainer": "kamonanban",
-    "width": 17,
-    "height": 5.5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x991D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

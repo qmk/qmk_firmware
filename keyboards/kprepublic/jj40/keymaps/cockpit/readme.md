@@ -48,8 +48,8 @@
 
 ```bash
 cd qmk_firmware
-make jj40:cockpit
-bootloadHID .build/jj40_cockpit.hex
+make kprepublic/jj40:cockpit
+bootloadHID .build/kprepublic_jj40_cockpit.hex
 ```
 
 _if you're getting permission errors use sudo_

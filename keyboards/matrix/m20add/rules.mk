@@ -10,15 +10,18 @@ MCU_LDSCRIPT = m20add_boot
 #  or <this_dir>/boards
 BOARD = ST_NUCLEO64_F411RE
 
+# Bootloader selection
+BOOTLOADER = custom
+
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes	    # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # USB Nkey Rollover
+NKRO_ENABLE = no            # Enable N-Key Rollover
 NO_USB_STARTUP_CHECK = yes	# Disable initialization only when usb is plugged in
 
 RGBLIGHT_ENABLE = yes

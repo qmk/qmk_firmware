@@ -1,9 +1,13 @@
 {
     "keyboard_name": "The Galleon", 
+    "manufacturer": "Swiftrax",
     "url": "github.com/swiftrax", 
     "maintainer": "swiftrax", 
-    "width": 19.5, 
-    "height": 7.5, 
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEA2D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

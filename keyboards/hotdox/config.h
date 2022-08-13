@@ -2,15 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID       0x414B // 'AK' for Alpaca Keyboards
-#define PRODUCT_ID      0x0001 // sequentially numbered
-
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alpaca Keyboards
-#define PRODUCT         ErgoDox 76 "HotDox"
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
@@ -72,6 +63,5 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
 //#define DEBUG_MATRIX_SCAN_RATE
