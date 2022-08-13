@@ -65,15 +65,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_VOLU);
         }
-    }
-    else if (index == 1) {
+    } else if (index == 1) {
         if (clockwise) {
             tap_code(KC_LEFT);
         } else {
             tap_code(KC_RGHT);
         }
-    }
-    else if (index == 2) {
+    } else if (index == 2) {
         if (clockwise) {
             tap_code(KC_UP);
         } else {
@@ -83,44 +81,46 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-  #endif
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-        case BL_TOG: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case BL_EFFECT:
-            rgb_matrix_step();
-            return false;
-        case BL_ISPD:
-            rgb_matrix_increase_speed();
-            return false;
-        case BL_DSPD:
-            rgb_matrix_decrease_speed();
-            return false;
-        case BL_IHUE:
-            rgb_matrix_increase_hue();
-            return false;
-        case BL_DHUE:
-            rgb_matrix_decrease_hue();
-            return false;
-        case BL_ISAT:
-            rgb_matrix_increase_sat();
-            return false;
-        case BL_DSAT:
-            rgb_matrix_decrease_sat();
-            return false;
-        case BL_IVAL:
-            rgb_matrix_increase_val();
-            return false;
-        case BL_DVAL:
-            rgb_matrix_decrease_val();
-            return false;
-        default:
-        break;
+    if (record->event.pressed) {
+        switch (keycode) {
+#ifdef RGB_MATRIX_ENABLE
+            case BL_TOG: // toggle rgb matrix
+                rgb_matrix_toggle();
+                return false;
+            case BL_EFFECT:
+                rgb_matrix_step();
+                return false;
+            case BL_ISPD:
+                rgb_matrix_increase_speed();
+                return false;
+            case BL_DSPD:
+                rgb_matrix_decrease_speed();
+                return false;
+            case BL_IHUE:
+                rgb_matrix_increase_hue();
+                return false;
+            case BL_DHUE:
+                rgb_matrix_decrease_hue();
+                return false;
+            case BL_ISAT:
+                rgb_matrix_increase_sat();
+                return false;
+            case BL_DSAT:
+                rgb_matrix_decrease_sat();
+                return false;
+            case BL_IVAL:
+                rgb_matrix_increase_val();
+                return false;
+            case BL_DVAL:
+                rgb_matrix_decrease_val();
+                return false;
+#endif
+            default:
+                break;
+        }
     }
-  }
-  return true;
+    return true;
 }
