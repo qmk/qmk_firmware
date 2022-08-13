@@ -78,16 +78,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
 
-// Number of encoders
-#define ENCODERS 1
-
 // Encoder pins
 #define ENCODERS_PAD_A { C13 }
 #define ENCODERS_PAD_B { C14 }
-
-// Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 16, 2 } }
-#define ENCODERS_CCW_KEY { { 17, 2 } }
 
 #define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
