@@ -1,0 +1,6 @@
+#Ignore security-related files
+
+keys.h
+secrets.json
+otp/
+lib/security/

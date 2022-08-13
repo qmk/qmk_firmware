@@ -1,0 +1,297 @@
+{
+  "totp_layer": 9,
+  "keymap":[
+    {
+      "layer_label": "Media Controls",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0xfc035a",  "Vol. +", "KC_VOLU"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0xfc035a",  "Vol. -", "KC_VOLD"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x00ccff",    "Mute", "KC_MUTE"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x0aff43", "Prev T ", "KC_MPRV"],
+        ["0x0aff43",    "Play", "KC_MPLY"],
+        ["0x0aff43", "Next T.", "KC_MNXT"]
+      ]
+    },
+    {
+      "layer_label": "Teams Macros",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0xfc035a",  "Vol. +", "KC_VOLU"],
+        ["0x2ee634", "Accpt C",  "TM_AVC"],
+        ["0xff0a58", " Mute M",  "TM_MUT"],
+        ["0xfc035a",  "Vol. -", "KC_VOLD"],
+        ["0x2ee634", "Accpt V",  "TM_AAC"],
+        ["0x993f5b",  " Tog V",  "TM_VID"],
+        ["0x00ccff",    "Mute", "KC_MUTE"],
+        ["0xe6502e", "Decln C",   "TM_DC"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0xe62e2e", "End Cll",   "TM_EC"],
+        ["0x000000",        "",   "KC_NO"]
+      ]
+    },
+    {
+      "layer_label": "Edge Macros",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0x9f36f5",  "Zoom +",  "ED_ZOP"],
+        ["0x9f36f5", "New Tab", "ED_NEWT"],
+        ["0xfc035a", " Vol. +", "KC_VOLU"],
+        ["0x9f36f5",  "Zoom -",  "ED_ZON"],
+        ["0x9f36f5", "Nxt Tab", "ED_NTAB"],
+        ["0xfc035a", " Vol. -", "KC_VOLD"],
+        ["0x9f36f5", "Cls Tb ", "ED_CTAB"],
+        ["0x9f36f5", "Prv Tab", "ED_PTAB"],
+        ["0x00ccff",   " Mute", "KC_MUTE"],
+        ["0xfc035a", "Prev T.", "KC_MPRV"],
+        ["0xfc035a",    "Play", "KC_MPLY"],
+        ["0xfc035a", "Next T.", "KC_MNXT"]
+      ]
+    },
+    {
+      "layer_label": "VSCode Macros",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0x9f36f5",  "Zoom +",  "ED_ZOP"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0xfc035a", "Sidebar",   "VS_SB"],
+        ["0x9f36f5",  "Zoom -",  "ED_ZON"],
+        ["0x9f36f5", "Nxt Tab", "ED_NTAB"],
+        ["0xfc035a", " Cmment",  "VS_COM"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x9f36f5", "Prv Tab", "ED_PTAB"],
+        ["0xfc035a",  "Ucmmnt", "VS_UCOM"],
+        ["0xfc035a", "Bck cur", "VS_BCUR"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0xfc035a", "Nxt cur", "VS_NCUR"]
+      ]
+    },
+    {
+      "layer_label": "Visual Studio",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0xfc035a",  "Zoom +",  "VS_ZOP"],
+        ["0x8ae6b5",  "RunDbg",   "KC_F5"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0xfc035a",  "Zoom -",  "VS_ZON"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x65f235", " Cmment",  "VS_COM"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x8ae6b5",  "StepIn",  "KC_F11"],
+        ["0x0c2e00", " Ucmmnt", "VS_UCOM"],
+        ["0xfc035a", "Bckcur ", "VS_BCUR"],
+        ["0x8ae6b5", "NextBp ",  "KC_F10"],
+        ["0xfc035a", " Nxtcur", "VS_NCUR"]
+      ]
+    },
+    {
+      "layer_label": "Discord",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0xdb043e", "Acpt C ",   "DC_AC"],
+        ["0x0f3efa", "PrvMsg ", "DC_PUCM"],
+        ["0x0f3efa",  "NxtMsg", "DC_NUCM"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x8ae6b5", "PageUp ", "KC_PGUP"],
+        ["0xfc035a",  "Vol. +", "KC_VOLU"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x8ae6b5", "PageDn ", "KC_PGDN"],
+        ["0xfc035a",  "Vol. -", "KC_VOLD"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"]
+      ]
+    },
+    {
+      "layer_label": "Configuration",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0x0ffaf6", "IndOLED", "MC_ODEF"],
+        ["0x0ffaf6", "TgIndi ", "MC_INDI"],
+        ["0x0ffaf6", "MskAnim", "MC_MSKI"],
+        ["0x0ffaf6", "BongoC ", "MC_OBNC"],
+        ["0x3d0099", "RGBHUE ", "RGB_HUI"],
+        ["0x0ffaf6", "ShwAnim", "MC_SHWA"],
+        ["0x0ffaf6",    "Logo", "MC_OLOG"],
+        ["0x3d0099", "RGBSAT ", "RGB_SAI"],
+        ["0x3d0099",  "RGBMOD", "RGB_MOD"],
+        ["0xd2db25", "LShift ", "KC_LSFT"],
+        ["0x3d0099", "RGBVAL ", "RGB_VAI"],
+        ["0x3d0099", "RGBSPD ", "RGB_SPI"]
+      ]
+    },
+    {
+      "layer_label": "Configuration",
+      "layer": [
+        ["0x000000", "RGB TOG", "RGB_TOG"],
+        ["0xff0000", "EEreset",  "EE_CLR"],
+        ["0x00ff00",    "Make", "QK_MAKE"],
+        ["0x0000ff",    "Boot", "QK_BOOT"],
+        ["0x3d0099",   "Debug", "DB_TOGG"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"]
+      ]
+    },
+    {
+      "layer_label": "Lockscreen",
+      "layer": [
+        ["0x000000",        "", "RGB_TOG"],
+        ["0x505050",        "", "LS_BTN7"],
+        ["0x505050",        "", "LS_BTN8"],
+        ["0x505050",        "", "LS_BTN9"],
+        ["0x505050",        "", "LS_BTN4"],
+        ["0x505050",        "", "LS_BTN5"],
+        ["0x505050",        "", "LS_BTN6"],
+        ["0x505050",        "", "LS_BTN1"],
+        ["0x505050",        "", "LS_BTN2"],
+        ["0x505050",        "", "LS_BTN3"],
+        ["0x505050",        "", "LS_BTN0"],
+        ["0x505050",        "", "LS_BTN0"],
+        ["0x500000",        "", "LS_BACK"]
+      ]
+    },
+    {
+      "layer_label": "TOPT",
+      "layer": [
+        ["0x000000",        "",   "KC_NO"],
+        ["0x505050",      "FB", "OTPBTN0"],
+        ["0x505050",  "Google", "OTPBTN1"],
+        ["0x505050", "Twitter", "OTPBTN2"],
+        ["0x505050",      "IG", "OTPBTN3"],
+        ["0x505050",   "HMail", "OTPBTN4"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"]
+      ]
+    },
+    {
+      "layer_label": "Empty",
+      "layer": [
+        ["0x000000",        "", "RGB_TOG"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"],
+        ["0x000000",        "",   "KC_NO"]
+      ]
+    }
+  ],
+  "keycodes":[
+    {
+      "alias": "TM_AVC",
+      "action": "SS_LCTL(SS_LSFT(\"a\"))"
+    },
+    {
+      "alias": "TM_AAC",
+      "action": "SS_LCTL(SS_LSFT(\"s\"))"
+    },
+    {
+      "alias": "TM_DC",
+      "action": "SS_LCTL(SS_LSFT(\"d\"))"
+    },
+    {
+      "alias": "TM_EC",
+      "action": "SS_LCTL(SS_LSFT(\"h\"))"
+    },
+    {
+      "alias": "TM_MUT",
+      "action": "SS_LCTL(SS_LSFT(\"m\"))"
+    },
+    {
+      "alias": "TM_VID",
+      "action": "SS_LCTL(SS_LSFT(\"o\"))"
+    },
+    {
+      "alias": "ED_ZOP",
+      "action": "SS_LCTL(\"+\")"
+    },
+    {
+      "alias": "ED_ZON",
+      "action": "SS_LCTL(\"-\")"
+    },
+    {
+      "alias": "ED_NEWT",
+      "action": "SS_LCTL(\"n\")"
+    },
+    {
+      "alias": "ED_NTAB",
+      "action": "SS_LCTL(SS_TAP(X_TAB))"
+    },
+    {
+      "alias": "ED_PTAB",
+      "action": "SS_LCTL(SS_TAP(X_PGDN))"
+    },
+    {
+      "alias": "ED_CTAB",
+      "action": "SS_LCTL(\"w\")"
+    },
+    {
+      "alias": "ED_RTAB",
+      "action": "SS_LCTL(SS_LSFT(\"t\"))"
+    },
+    {
+      "alias": "VS_SB",
+      "action": "SS_LCTL(\"b\")"
+    },
+    {
+      "alias": "VS_COM",
+      "action": "SS_DOWN(X_LCTRL) \"k\" SS_DELAY(20) \"c\" SS_UP(X_LCTRL)"
+    },
+    {
+      "alias": "VS_UCOM",
+      "action": "SS_DOWN(X_LCTRL) \"k\" SS_DELAY(20) \"u\" SS_UP(X_LCTRL)"
+    },
+    {
+      "alias": "VS_NCUR",
+      "action": "SS_LCTL(SS_TAP(X_RGHT))"
+    },
+    {
+      "alias": "VS_BCUR",
+      "action": "SS_LCTL(SS_TAP(X_LEFT))"
+    },
+    {
+      "alias": "VS_ZOP",
+      "action": "SS_LCTL(SS_LSFT(\".\"))"
+    },
+    {
+      "alias": "VS_ZON",
+      "action": "SS_LCTL(SS_LSFT(\",\"))"
+    },
+    {
+      "alias": "DC_NUCM",
+      "action": "SS_LCTL(SS_LSFT(SS_LALT(SS_TAP(X_DOWN))))"
+    },
+    {
+      "alias": "DC_PUCM",
+      "action": "SS_LCTL(SS_LSFT(SS_LALT(SS_TAP(X_UP))))"
+    },
+    {
+      "alias": "DC_AC",
+      "action": "SS_LCTL(\"\\n\")"
+    }
+  ]
+}
