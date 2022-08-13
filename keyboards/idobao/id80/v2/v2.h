@@ -13,11 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_ansi( \
     K50,  K51, K52, K53, K54,  K55, K56, K57, K58,  KA7, KA5, KA4, KA3,   KA6,  KA2,  \
     K40, K41, K42, K43, K44, K45, K46, K47, K48, K98, K97, K95, K94, K96,       K92,  \
     K30,   K31, K32, K33, K34, K35, K36, K37, K38, K88, K87, K85, K84, K83,     K82,  \
