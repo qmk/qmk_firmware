@@ -20,8 +20,8 @@
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0100
-#define VENDOR_ID 0x3528
-#define PRODUCT_ID 0x2330
+#define VENDOR_ID 0xFFFE
+#define PRODUCT_ID 0x0001
 #define MANUFACTURER hfd
 #define PRODUCT ac001
 
