@@ -147,11 +147,10 @@ The `rules.mk` file can also be placed in a sub-folder, and its reading order is
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
           * `users/a_user_folder/rules.mk`
             * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
-          * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_rules.mk`
-        * `keyboards/top_folder/sub_1/sub_2/sub_3/post_rules.mk`
-      * `keyboards/top_folder/sub_1/sub_2/post_rules.mk`
-    * `keyboards/top_folder/sub_1/post_rules.mk`
-  * `keyboards/top_folder/post_rules.mk`
+          * `keyboards/top_folder/post_rules.mk`
+        * `keyboards/top_folder/sub_1/sub_2/post_rules.mk`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/post_rules.mk`
+    * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_rules.mk`
 * `users/a_user_folder/post_rules.mk`
 * `common_features.mk`
 
