@@ -111,10 +111,10 @@ void process_wheel(void) {
 
     if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
 
-    uint8_t dir = opt_encoder_handler(p1, p2);
+    int8_t dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    encoder_update_kb(0, dir == 1);
+    encoder_update_kb(0, dir > 0);
 }
 
 void pointing_device_init_kb(void) {
