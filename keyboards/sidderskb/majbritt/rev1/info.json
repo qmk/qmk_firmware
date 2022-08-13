@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Majbritt",
+    "keyboard_name": "Majbritt Rev1",
+    "manufacturer": "SiddersKb",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x534B",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

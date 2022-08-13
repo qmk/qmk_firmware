@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { F0, F1, C7, D5, B7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B6, B2, E6, D7, C6, D4, D0, D1 }
-#define UNUSED_PINS { D2, D3, B0, B4 }
 #define DIODE_DIRECTION COL2ROW
 
 #ifdef RGBLIGHT_ENABLE

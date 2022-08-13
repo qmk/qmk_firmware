@@ -18,19 +18,11 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50
-#define PRODUCT_ID      0x1131
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KP republic
-#define PRODUCT         bm68v2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { D6, D4, D5, D3, F6 }
 #define MATRIX_COL_PINS { F0, F1, B0, B1, B2, B3, E6, B7, D2, D7, B4, B5, B6, C6, C7}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

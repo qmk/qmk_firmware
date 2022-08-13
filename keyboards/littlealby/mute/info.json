@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Little Alby",
+  "keyboard_name": "Mute",
+  "manufacturer": "Little Alby",
   "url": "",
   "maintainer": "albybarber",
+  "usb": {
+    "vid": "0x4142",
+    "pid": "0x4D55",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [ {"x": 0, "y": 0 }]

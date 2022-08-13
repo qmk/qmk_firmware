@@ -19,6 +19,9 @@ static HSV SOLID_REACTIVE_CROSS_math(HSV hsv, int16_t dx, int16_t dy, uint8_t di
     dy              = dy * 16 > 255 ? 255 : dy * 16;
     effect += dx > dy ? dy : dx;
     if (effect > 255) effect = 255;
+#            ifdef RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
+    hsv.h = scale16by8(g_rgb_timer, add8(rgb_matrix_config.speed, 1) >> 6);
+#            endif
     hsv.v = qadd8(hsv.v, 255 - effect);
     return hsv;
 }

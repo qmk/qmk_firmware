@@ -1,7 +1,13 @@
 {
     "keyboard_name": "elephant42",
+    "manufacturer": "illness072",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/elephant42",
     "maintainer": "illness072",
+    "usb": {
+        "vid": "0x4649",
+        "pid": "0x0721",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

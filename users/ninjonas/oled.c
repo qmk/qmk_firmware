@@ -93,7 +93,7 @@ static void render_logo(void) {
 bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 15000) {
         oled_off();
-        return;
+        return false;
     }
     #ifndef SPLIT_KEYBOARD
     else { oled_on(); }

@@ -148,7 +148,7 @@ __attribute__((weak)) bool send_steno_chord_user(steno_mode_t mode, uint8_t chor
     return true;
 }
 
-__attribute__((weak)) bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys) {
+__attribute__((weak)) bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys) {
     return true;
 }
 
@@ -209,12 +209,12 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
                     default:
                         return false;
                 }
-                if (!postprocess_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
+                if (!post_process_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
                     return false;
                 }
             } else { // is released
                 n_pressed_keys--;
-                if (!postprocess_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
+                if (!post_process_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
                     return false;
                 }
                 if (n_pressed_keys > 0) {

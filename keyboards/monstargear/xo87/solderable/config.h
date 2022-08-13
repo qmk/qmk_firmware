@@ -20,13 +20,6 @@
 
 #define brightnessMax 8
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D47 // MG for Monstargear
-#define PRODUCT_ID      0x5344 // SD for Soldered
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Monstargear
-#define PRODUCT         XO87 Soldered
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -42,7 +35,6 @@
 #define KEYLED_COL_PINS { C4,C2,C0,E0,D4,E4,B6,B2,F4,A0,F2,A4,F1,A7,D3,A3 }
 #define LED_DRIVER_LED_COUNT 93
 
-#define UNUSED_PINS
 #define DIODE_DIRECTION ROW2COL
 #define RGB_DI_PIN D7
 #define DRIVER_LED_TOTAL 21

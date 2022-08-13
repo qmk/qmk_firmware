@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Maxr1998
-#define PRODUCT         Pulse 4k
-
 /* Key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -33,7 +26,6 @@
 /* Matrix pins */
 #define MATRIX_ROW_PINS { B4, E6 }
 #define MATRIX_COL_PINS { B7, B3, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

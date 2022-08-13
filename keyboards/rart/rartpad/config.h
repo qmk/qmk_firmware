@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x414C  // "AL" 
-#define PRODUCT_ID      0x0050	// "P"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         RARTPAD
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B6, F6, D0, D4, C6 }
 #define MATRIX_COL_PINS { B2, D1, D2, D3 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

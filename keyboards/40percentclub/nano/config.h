@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F4, F5, F6, F7 }, \
     { D1, D0, D4, C6 }, \
 }
-#define UNUSED_PINS
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Alexa",
+    "manufacturer": "Lucid",
     "url": "https://www.makerkeyboards.com/products/alexa",
     "maintainer": "mrnoisytiger",
+    "usb": {
+        "vid": "0x7667",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [

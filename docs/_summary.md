@@ -4,6 +4,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Getting Help/Support](support.md)
+  * [Building With GitHub Userspace](newbs_building_firmware_workflow.md)
   * [Other Resources](newbs_learn_more_resources.md)
   * [Syllabus](syllabus.md)
 
@@ -82,7 +83,6 @@
     * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
-    * [Pointing Device](feature_pointing_device.md)
     * [Raw HID](feature_rawhid.md)
     * [Secure](feature_secure.md)
     * [Send String](feature_send_string.md)
@@ -117,6 +117,7 @@
     * [Joystick](feature_joystick.md)
     * [LED Indicators](feature_led_indicators.md)
     * [MIDI](feature_midi.md)
+    * [Pointing Device](feature_pointing_device.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
     * [Stenography](feature_stenography.md)
@@ -169,6 +170,7 @@
       * [Early initialization](platformdev_chibios_earlyinit.md)
       * [Raspberry Pi RP2040](platformdev_rp2040.md)
       * [Proton C](platformdev_proton_c.md)
+      * [WeAct Blackpill F411](platformdev_blackpill_f411.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

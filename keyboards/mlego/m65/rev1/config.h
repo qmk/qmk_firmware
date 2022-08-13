@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN B15
 
-#define UNUSED_PINS
 #define RGBLIGHT_LAYERS
 
 #define ENCODER_RESOLUTION 4

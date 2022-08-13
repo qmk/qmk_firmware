@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Let's Macro V2 pin-out */
 #define MATRIX_ROW_PINS { C6, B1, B3, D7 }
 #define MATRIX_COL_PINS { D2, F7 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 

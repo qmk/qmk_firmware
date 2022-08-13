@@ -46,7 +46,6 @@ __attribute__((weak)) void spi_init(void) {
         palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), SPI_MOSI_FLAGS);
         palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), SPI_MISO_FLAGS);
 #endif
-        spiUnselect(&SPI_DRIVER);
         spiStop(&SPI_DRIVER);
         currentSlavePin = NO_PIN;
     }

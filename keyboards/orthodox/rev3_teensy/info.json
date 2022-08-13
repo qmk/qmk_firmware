@@ -1,6 +1,12 @@
 {
   "keyboard_name": "Monkeebs Orthodox Rev.3 (Teensy)",
+  "manufacturer": "deductivemonkee",
   "maintainer": "drashna",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x3060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

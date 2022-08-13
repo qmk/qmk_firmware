@@ -137,7 +137,7 @@
 #define LT_6    ALGR(LT_SCAR) // 6
 #define LT_7    ALGR(LT_UOGO) // 7
 #define LT_8    ALGR(LT_UMAC) // 8
-#define LT_EQL  ALGR(LT_PLUS) // =
+#define LT_EQL  ALGR(LT_ZCAR) // =
 // Row 2
 #define LT_EURO ALGR(LT_E)    // €
 
@@ -163,4 +163,4 @@
 #define LT_CIRC S(ALGR(LT_SCAR)) // ^
 #define LT_AMPR S(ALGR(LT_UOGO)) // &
 #define LT_ASTR S(ALGR(LT_UMAC)) // *
-#define LT_PLUS S(ALGR(LT_PLUS)) // +
+#define LT_PLUS S(ALGR(LT_ZCAR)) // +
