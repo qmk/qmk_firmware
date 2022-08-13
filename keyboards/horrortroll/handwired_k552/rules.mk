@@ -1,3 +1,5 @@
+SRC += lib/logo.c
+
 # MCU name
 MCU = STM32F103
 
