@@ -90,6 +90,7 @@ The `config.h` files can also be placed in sub-folders, and the order in which t
           * [`.build/objs_<keyboard>/src/info_config.h`](data_driven_config.md#add-code-to-generate-it) see [Data Driven Configuration](data_driven_config.md)
           * `users/a_user_folder/config.h`
           * `keyboards/top_folder/keymaps/a_keymap/config.h`
+          * `layouts/a_layout_folder/rules.mk`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/post_config.h`
     * `keyboards/top_folder/sub_1/sub_2/post_config.h`
@@ -144,6 +145,7 @@ The `rules.mk` file can also be placed in a sub-folder, and its reading order is
       * `keyboards/top_folder/sub_1/sub_2/sub_3/rules.mk`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
           * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
+          * `layouts/a_layout_folder/rules.mk`
           * `users/a_user_folder/rules.mk`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_rules.mk`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/post_rules.mk`
