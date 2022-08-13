@@ -2,12 +2,8 @@
 MCU = RP2040
 BOOTLOADER = rp2040
 
-ALLOW_WARNINGS = yes
-PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS!
-
 # Build Options
-#   change yes to no to disable
-#
+# change yes to no to disable
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -21,6 +17,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-OLED_DRIVER_ENABLE = no     # oled enable
-
-#EEPROM_DRIVER = transient

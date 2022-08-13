@@ -41,9 +41,9 @@
  *
  */
 #define MATRIX_ROW_PINS \
-    { 11, 12, 13, 14, 15 }
+    { GP11, GP12, GP13, GP14, GP15 }
 #define MATRIX_COL_PINS \
-    { 10, 9, 8, 7, 6, 5, 16, 17, 18, 19, 20, 21, 22, 26, 27 }
+    { GP10, GP9, GP8, GP7, GP6, GP5, GP16, GP17, GP18, GP19, GP20, GP21, GP22, GP26, GP27 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
