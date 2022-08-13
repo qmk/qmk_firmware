@@ -895,7 +895,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
-    COMMON_VPATH += $(QUANTUM_DIR)/encoder.c
+    SRC += $(QUANTUM_DIR)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
     ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE
