@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,8 +33,8 @@
 #define DEBOUNCE 5
 
 /* Bootmagic reset */
-#define BOOTMAGIC_LITE_ROW 4
-#define BOOTMAGIC_LITE_COLUMN 6
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
