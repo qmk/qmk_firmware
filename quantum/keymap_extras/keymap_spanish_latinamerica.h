@@ -140,15 +140,50 @@
  */
 // Row 1
 #define ES_NOT  ALGR(ES_PIPE) // ¬
+#define ES_IEXL ALGR(ES_1)    // ¡
+#define ES_LDQU ALGR(ES_2)    // “
+#define ES_PND  ALGR(ES_3)    // £
+#define ES_CENT ALGR(ES_4)    // ¢
+#define ES_INFN ALGR(ES_5)    // ∞
+#define ES_SECT ALGR(ES_6)    // §
+#define ES_PILC ALGR(ES_7)    // ¶
+#define ES_BULT ALGR(ES_8)    // •
+#define ES_FORD ALGR(ES_9)    // ª
+#define ES_MORD ALGR(ES_0)    // º
 #define ES_BSLS ALGR(ES_QUOT) // (backslash)
+#define ES_NEQL ALGR(ES_IQUE) // ≠
+
 // Row 2
 #define ES_AT   ALGR(ES_Q)    // @
+#define ES_NARS ALGR(ES_W)    // ∑
 #define ES_EURO ALGR(ES_E)    // €
+#define ES_REGD ALGR(ES_R)    // ®
+#define ES_DAGG ALGR(ES_T)    // †
+#define ES_YEN  ALGR(ES_Y)    // ¥
+#define ES_DIAE ALGR(ES_U)    // ¨ (dead)
+#define ES_DLSI ALGR(ES_I)    // ı
+#define ES_OSTR ALGR(ES_O)    // ø
+#define ES_PI   ALGR(ES_P)    // π
+#define ES_LDAQ ALGR(ES_ACUT) // «
+#define ES_TILD ALGR(ES_PLUS) // ~
 
 // Row 3
+#define ES_SS   ALGR(ES_S)    // ß
+#define ES_PDIF ALGR(ES_D)    // ∂
+#define ES_FHK  ALGR(ES_F)    // ƒ
+#define ES_COPY ALGR(ES_G)    // ©
+#define ES_LAMB ALGR(ES_L)    // λ
 #define ES_TILD ALGR(ES_NTIL) // ~
-#define ES_CIRC ALGR(ES_LCBR) // ^ (dead)
-#define ES_GRV  ALGR(ES_RCBR) // ` (dead)
+#define ES_CIRC ALGR(ES_LCBR) // ^
+#define ES_GRV  ALGR(ES_RCBR) // `
 
-//Row
+// Row 4
+#define ES_LTEQ ALGR(ES_LABK) // ≤
+#define ES_AEQL ALGR(ES_X)    // ≈
 #define ES_CCED ALGR(ES_C)    // ç
+#define ES_SQRT ALGR(ES_V)    // √
+#define ES_INTG ALGR(ES_B)    // ∫
+#define ES_TILD ALGR(ES_N)    // ~
+#define ES_MICR ALGR(ES_M)    // µ
+#define ES_ELLP ALGR(ES_DOT)  // …
+#define ES_NDSH ALGR(ES_MINS) // –
