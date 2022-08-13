@@ -8,7 +8,7 @@
 * Hardware Supported: *M32u4*
 * Hardware Availability: *http://www.pikatea.com*
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
