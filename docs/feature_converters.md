@@ -13,7 +13,7 @@ Currently the following converters are available:
 | `promicro` | `proton_c`        |
 | `promicro` | `kb2040`          |
 | `promicro` | `promicro_rp2040` |
-| `promicro` | `bonasai_c4`      |
+| `promicro` | `bonsai_c4`       |
 
 See below for more in depth information on each converter.
 
