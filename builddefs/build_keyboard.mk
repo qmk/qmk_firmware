@@ -365,16 +365,6 @@ generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/def
 
 .INTERMEDIATE : generated-files
 
-# Pull in Userspace config
-ifneq ("$(wildcard $(USER_PATH)/config.h)","")
-    CONFIG_H += $(USER_PATH)/config.h
-endif
-
-# Pull in Userspace post_config
-ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
-    POST_CONFIG_H += $(USER_PATH)/post_config.h
-endif
-
 # Disable features that a keyboard doesn't support
 -include $(BUILDDEFS_PATH)/disable_features.mk
 
@@ -395,16 +385,30 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
     include $(KEYBOARD_PATH_5)/post_rules.mk
 endif
 
-# Pull iin post_rules.mk file from the userspace folder
-ifneq ("$(wildcard $(USER_PATH)/post_rules.mk)","")
-    include $(USER_PATH)/post_rules.mk
-endif
-
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
 endif
 ifneq ("$(KEYMAP_H)","")
     CONFIG_H += $(KEYMAP_H)
+endif
+
+ifneq ("$(wildcard $(KEYMAP_PATH)/post_config.h)","")
+    POST_CONFIG_H += $(KEYMAP_PATH)/post_config.h
+endif
+
+# Pull in Userspace post_config
+ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
+    POST_CONFIG_H += $(USER_PATH)/post_config.h
+endif
+
+# Pull iin post_rules.mk file from the userspace folder
+ifneq ("$(wildcard $(USER_PATH)/post_rules.mk)","")
+    include $(USER_PATH)/post_rules.mk
+endif
+
+# Pull in Userspace config
+ifneq ("$(wildcard $(USER_PATH)/config.h)","")
+    CONFIG_H += $(USER_PATH)/config.h
 endif
 
 OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"
