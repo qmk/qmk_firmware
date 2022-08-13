@@ -87,10 +87,10 @@ The `config.h` files can also be placed in sub-folders, and the order in which t
     * `keyboards/top_folder/sub_1/sub_2/config.h`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/config.h`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/config.h`
-          * [`.build/objs_<keyboard>/src/info_config.h`](data_driven_config.md#add-code-to-generate-it) see [Data Driven Configuration](data_driven_config.md)
-          * `users/a_user_folder/config.h`
+          * [`.build/objs_<keyboard>/src/info_config.h`](data_driven_config.md#add-code-to-generate-it) (see [Data Driven Configuration](data_driven_config.md))
+          * `users/a_user_folder/config.h` (see [Userspace](feature_userspace.md))
           * `keyboards/top_folder/keymaps/a_keymap/config.h`
-          * `layouts/a_layout_folder/rules.mk`
+          * `layouts/a_layout_folder/rules.mk` (see [Community Layouts](feature_layouts.md))
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/post_config.h`
     * `keyboards/top_folder/sub_1/sub_2/post_config.h`
@@ -145,8 +145,8 @@ The `rules.mk` file can also be placed in a sub-folder, and its reading order is
       * `keyboards/top_folder/sub_1/sub_2/sub_3/rules.mk`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
           * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
-          * `layouts/a_layout_folder/rules.mk`
-          * `users/a_user_folder/rules.mk`
+          * `layouts/a_layout_folder/rules.mk` (see [Community Layouts](feature_layouts.md))
+          * `users/a_user_folder/rules.mk` (see [Userspace](feature_userspace.md))
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_rules.mk`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/post_rules.mk`
     * `keyboards/top_folder/sub_1/sub_2/post_rules.mk`
