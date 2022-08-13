@@ -22,9 +22,7 @@
 
 typedef struct ckled2001_led {
     uint8_t driver : 2;
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+    uint8_t v;
 } __attribute__((packed)) ckled2001_led;
 
 extern const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL];
@@ -33,10 +31,10 @@ void CKLED2001_init(uint8_t addr);
 bool CKLED2001_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 bool CKLED2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void CKLED2001_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void CKLED2001_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void CKLED2001_set_value(int index, uint8_t value);
+void CKLED2001_set_value_all(uint8_t value);
 
-void CKLED2001_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void CKLED2001_set_led_control_register(uint8_t index, bool value);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
