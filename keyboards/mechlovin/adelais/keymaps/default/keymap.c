@@ -51,15 +51,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_VOLU);
         }
-    }
-    else if (index == 1) {
+    } else if (index == 1) {
         if (clockwise) {
             tap_code(KC_LEFT);
         } else {
             tap_code(KC_RGHT);
         }
-    }
-    else if (index == 2) {
+    } else if (index == 2) {
         if (clockwise) {
             tap_code(KC_UP);
         } else {
@@ -69,44 +67,46 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-  #endif
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-        case KC_F13: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case KC_F14:
-            rgb_matrix_step();
-            return false;
-        case KC_F15:
-            rgb_matrix_increase_speed();
-            return false;
-        case KC_F16:
-            rgb_matrix_decrease_speed();
-            return false;
-        case KC_F17:
-            rgb_matrix_increase_hue();
-            return false;
-        case KC_F18:
-            rgb_matrix_decrease_hue();
-            return false;
-        case KC_F19:
-            rgb_matrix_increase_sat();
-            return false;
-        case KC_F20:
-            rgb_matrix_decrease_sat();
-            return false;
-        case KC_F21:
-            rgb_matrix_increase_val();
-            return false;
-        case KC_F22:
-            rgb_matrix_decrease_val();
-            return false;
-        default:
-        break;
+    if (record->event.pressed) {
+        switch (keycode) {
+#ifdef RGB_MATRIX_ENABLE
+            case KC_F13: // toggle rgb matrix
+                rgb_matrix_toggle();
+                return false;
+            case KC_F14:
+                rgb_matrix_step();
+                return false;
+            case KC_F15:
+                rgb_matrix_increase_speed();
+                return false;
+            case KC_F16:
+                rgb_matrix_decrease_speed();
+                return false;
+            case KC_F17:
+                rgb_matrix_increase_hue();
+                return false;
+            case KC_F18:
+                rgb_matrix_decrease_hue();
+                return false;
+            case KC_F19:
+                rgb_matrix_increase_sat();
+                return false;
+            case KC_F20:
+                rgb_matrix_decrease_sat();
+                return false;
+            case KC_F21:
+                rgb_matrix_increase_val();
+                return false;
+            case KC_F22:
+                rgb_matrix_decrease_val();
+                return false;
+#endif
+            default:
+                break;
+        }
     }
-  }
-  return true;
+    return true;
 }
