@@ -1,7 +1,7 @@
 {
-  "keyboard": "id80",
+  "keyboard": "ID80",
   "keymap": "rverst",
-  "layout": "LAYOUT",
+  "layout": "LAYOUT_ansi",
   "layers": [
     [
       "KC_ESC",

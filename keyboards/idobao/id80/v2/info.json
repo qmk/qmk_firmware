@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "ID80",
+    "keyboard_name": "IDOBAO ID80",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "IDOBAOKB",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
