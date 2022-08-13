@@ -893,3 +893,11 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         QUANTUM_LIB_SRC += uart.c
     endif
 endif
+
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    COMMON_VPATH += $(QUANTUM_DIR)/encoder.c
+    OPT_DEFS += -DENCODER_ENABLE
+    ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
+        OPT_DEFS += -DENCODER_MAP_ENABLE
+    endif
+endif
