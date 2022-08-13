@@ -31,12 +31,17 @@ static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     return false;
 }
 
-/* handle mouskey event */
+/* handle mouse keyevent */
 void auto_mouse_keyevent(bool pressed) {
-    pressed ? local_auto_mouse.status.mouse_key_tracker++ : local_auto_mouse.status.mouse_key_tracker--;
-    local_auto_mouse.timer.active = timer_read();
+    if(pressed) {
+        local_auto_mouse.status.mouse_key_tracker++;
+    } else {
+        local_auto_mouse.status.mouse_key_tracker--;
+        local_auto_mouse.timer.active = timer_read();
+    }
 }
 
+/* handle non-mouse keyevent */
 void auto_mouse_reset_trigger(void) {
     local_auto_mouse.status.mouse_key_tracker = 0;
     local_auto_mouse.timer.active             = 0;
@@ -152,8 +157,8 @@ static void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
 #        else
                     local_auto_mouse.status.mouse_key_tracker--;
 #        endif
+                    local_auto_mouse.timer.active = timer_read();
                 }
-                local_auto_mouse.timer.active = timer_read();
             }
             break;
 #    endif
@@ -177,8 +182,8 @@ static void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
 #    else
                     local_auto_mouse.status.mouse_key_tracker--;
 #    endif
+                    local_auto_mouse.timer.active = timer_read();
                 }
-                local_auto_mouse.timer.active = timer_read();
             }
             break;
         // LM(local_auto_mouse.config.layer, mod)------------------------------------------------------------
