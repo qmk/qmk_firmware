@@ -175,6 +175,7 @@ If you define these options you will enable the associated feature, which may in
   * tap-then-hold timing to use a dual role key to repeat keycode
   * See [Quick Tap Term](tap_hold.md#quick-tap-term)
   * Changes the timing of Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
+  * Defaults to `TAPPING_TERM` if not defined
 * `#define QUICK_TAP_TERM_PER_KEY`
   * enables handling for per key `QUICK_TAP_TERM` settings
 * `#define LEADER_TIMEOUT 300`
