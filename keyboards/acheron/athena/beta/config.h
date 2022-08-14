@@ -40,8 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 5
 
-#define STM32_HSECLK 8000000
-
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 34
 #define RGBLIGHT_EFFECT_BREATHING
