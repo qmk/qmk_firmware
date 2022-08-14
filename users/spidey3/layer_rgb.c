@@ -65,6 +65,7 @@ const rgblight_segment_t PROGMEM _uc_mac_layer[]  = RGBLIGHT_LAYER_SEGMENTS(CORN
 // UC_WIN disabled in config.h
 // UC_BSD not implemented
 const rgblight_segment_t PROGMEM _uc_winc_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_CYAN));
+const rgblight_segment_t PROGMEM _uc_emacs_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_GREEN));
 
 // Now define the array of layers. Higher numbered layers take precedence.
 const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
@@ -89,6 +90,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [UNICODE_OFFSET + UC_WIN]  = _none,
     [UNICODE_OFFSET + UC_BSD]  = _none,
     [UNICODE_OFFSET + UC_WINC] = _uc_winc_layer,
+    [UNICODE_OFFSET + UC_EMACS] = _uc_emacs_layer,
 
     [UNICODE_OFFSET + UC__COUNT] = NULL
 };
@@ -474,9 +476,13 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-        case SPI_LNX:
-        case SPI_OSX:
-        case SPI_WIN:
+        case UC_M_MA:
+        case UC_M_LN:
+        case UC_M_WI:
+        case UC_M_BS:
+        case UC_M_WC:
+        case UC_M_EM:
+
         case UC_MOD:
         case UC_RMOD:
             rgb_layer_ack(ACK_MEH);

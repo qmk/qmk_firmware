@@ -201,11 +201,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-            case SPI_LNX: set_unicode_input_mode(UC_LNX); break;
-            case SPI_OSX: set_unicode_input_mode(UC_OSX); break;
-            case SPI_WIN: set_unicode_input_mode(UC_WINC); break;
-#endif
                 // clang-format on
 
             case SPI_NORMAL ... SPI_MATH:
