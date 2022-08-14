@@ -1,6 +1,8 @@
 {
     "url": "https://bastardkb.com/charybdis-nano",
+    "manufacturer": "Bastard Keyboards",
     "usb": {
+        "vid": "0xA8F8",
         "pid": "0x1832",
     },
     "layouts": {
