@@ -1,7 +1,10 @@
 {
-    "keyboard_name": "AcheronProject Athena",
+    "manufacturer": "AcheronProject",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0xAC11"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
