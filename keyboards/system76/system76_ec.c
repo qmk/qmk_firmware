@@ -87,6 +87,7 @@ bool system76_ec_is_unlocked(void) { return bootloader_unlocked; }
 enum Mode {
     MODE_SOLID_COLOR = 0,
     MODE_PER_KEY,
+    #ifndef DISABLE_RGB_MATRIX_ANIMATIONS
     MODE_CYCLE_ALL,
     MODE_CYCLE_LEFT_RIGHT,
     MODE_CYCLE_UP_DOWN,
@@ -98,6 +99,7 @@ enum Mode {
     MODE_RAINDROPS,
     MODE_SPLASH,
     MODE_MULTISPLASH,
+    #endif  // DISABLE_RGB_MATRIX_ANIMATIONS
     MODE_ACTIVE_KEYS,
     MODE_DISABLED,
     MODE_LAST,
@@ -107,6 +109,7 @@ enum Mode {
 static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_SOLID_COLOR,
     RGB_MATRIX_CUSTOM_raw_rgb,
+    #ifndef DISABLE_RGB_MATRIX_ANIMATIONS
     RGB_MATRIX_CYCLE_ALL,
     RGB_MATRIX_CYCLE_LEFT_RIGHT,
     RGB_MATRIX_CYCLE_UP_DOWN,
@@ -118,6 +121,7 @@ static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_RAINDROPS,
     RGB_MATRIX_SPLASH,
     RGB_MATRIX_MULTISPLASH,
+    #endif  // DISABLE_RGB_MATRIX_ANIMATIONS
     RGB_MATRIX_CUSTOM_active_keys,
     RGB_MATRIX_NONE,
 };
