@@ -101,14 +101,34 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 return true;
 
 #ifndef NO_ACTION_TAPPING
+            // Corresponding to mod keys above, a held mod-tap is handled as:
+            // * For shift mods, pass KC_LSFT or KC_RSFT to
+            //   caps_word_press_user() to determine whether to continue.
+            // * For Shift + AltGr (MOD_RSFT | MOD_RALT), pass RSFT(KC_RALT).
+            // * AltGr (MOD_RALT) is ignored.
+            // * Otherwise stop Caps Word.
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-                if (record->tap.count == 0) {
-                    // Deactivate if a mod becomes active through holding
-                    // a mod-tap key.
-                    caps_word_off();
-                    return true;
+                if (record->tap.count == 0) { // Mod-tap key is held.
+                    const uint8_t mods = (keycode >> 8) & 0x1f;
+                    switch (mods) {
+                        case MOD_LSFT:
+                            keycode = KC_LSFT;
+                            break;
+                        case MOD_RSFT:
+                            keycode = KC_RSFT;
+                            break;
+                        case MOD_RSFT | MOD_RALT:
+                            keycode = RSFT(KC_RALT);
+                            break;
+                        case MOD_RALT:
+                            return true;
+                        default:
+                            caps_word_off();
+                            return true;
+                    }
+                } else {
+                    keycode &= 0xff;
                 }
-                keycode &= 0xff;
                 break;
 
 #    ifndef NO_ACTION_LAYER
