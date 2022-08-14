@@ -1,6 +1,7 @@
 import shutil
 import time
 import os
+import signal
 
 import usb.core
 
@@ -26,6 +27,22 @@ AVRDUDE_MCU = {
 # yapf: enable
 
 
+class DelayedKeyboardInterrupt:
+    # Custom interrupt handler to delay the processing of Ctrl-C
+    # https://stackoverflow.com/a/21919644
+    def __enter__(self):
+        self.signal_received = False
+        self.old_handler = signal.signal(signal.SIGINT, self.handler)
+
+    def handler(self, sig, frame):
+        self.signal_received = (sig, frame)
+
+    def __exit__(self, type, value, traceback):
+        signal.signal(signal.SIGINT, self.old_handler)
+        if self.signal_received:
+            self.old_handler(*self.signal_received)
+
+
 # TODO: Make this more generic, so cli/doctor/check.py and flashers.py can share the code
 def _check_dfu_programmer_version():
     # Return True if version is higher than 0.7.0: supports '--force'
@@ -47,7 +64,11 @@ def _find_bootloader():
             for vid, pid in BOOTLOADER_VIDS_PIDS[bl]:
                 vid_hex = int(f'0x{vid}', 0)
                 pid_hex = int(f'0x{pid}', 0)
-                dev = usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
+                with DelayedKeyboardInterrupt():
+                    # PyUSB does not like to be interrupted by Ctrl-C
+                    # therefore we catch the interrupt with a custom handler
+                    # and only process it once pyusb finished
+                    dev = usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
                 if dev:
                     if bl == 'atmel-dfu':
                         details = _PID_TO_MCU[pid]
@@ -63,6 +84,7 @@ def _find_bootloader():
                     else:
                         details = None
                     return (bl, details)
+        time.sleep(0.1)
     return (None, None)
 
 
