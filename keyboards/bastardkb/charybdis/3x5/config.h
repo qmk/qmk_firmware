@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* Key matrix configuration. */
 #define MATRIX_ROWS 8 // Rows are doubled-up.
 #define MATRIX_COLS 5
