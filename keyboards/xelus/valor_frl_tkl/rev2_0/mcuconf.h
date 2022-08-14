@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2022 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Nothing to see here, move along... ;-)
+#pragma once
 
-#include "valor_frl_tkl.h"
+#include_next <mcuconf.h>
+
+#undef STM32_PLLM_VALUE
+#undef STM32_PLLN_VALUE
+#undef STM32_PLLP_VALUE
+#undef STM32_PLLQ_VALUE
+#undef STM32_PPRE1
+#undef STM32_PPRE2
+
+// 96MHz core
+#define STM32_PLLM_VALUE    8
+#define STM32_PLLN_VALUE    96
+#define STM32_PLLP_VALUE    2
+#define STM32_PLLQ_VALUE    4
+#define STM32_PPRE1         STM32_PPRE1_DIV2
+#define STM32_PPRE2         STM32_PPRE1_DIV1
