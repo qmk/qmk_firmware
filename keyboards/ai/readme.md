@@ -2,11 +2,18 @@
 
 ![ai](https://i.imgur.com/4l6BzRh.png)
 
-_This is a small open source 5x4-1 macropad powered by QMK_
+This is a small open source 5x4-1 macropad powered by QMK
 
--   Keyboard Maintainer: [Louis Dalibard](https://github.com/make42)
--   Hardware Supported: _The PCB for ai is located here: [ai](https://github.com/make42/ai)_
--   Hardware Availability: _Links to where you can find this hardware_
+* Keyboard Maintainer: [Louis Dalibard](https://github.com/make42)
+* Hardware Supported: The PCB for ai is located here: [ai](https://github.com/make42/ai)
+* Hardware Availability: Here is a complete BOM with links to where you can find parts:
+  * PCB (I personally used JLCPCB)
+  * Arduino Pro Micro ([Aliexpress](https://fr.aliexpress.com/item/32768308647.html?spm=a2g0o.order_list.0.0.3ccc5e5bU64POK&gatewayAdapt=glo2fra))
+  * Female pin rows ([Aliexpress]https://fr.aliexpress.com/item/4001122376295.html?spm=a2g0o.order_list.0.0.23845e5bTBt8sp&gatewayAdapt=glo2fra))
+  * Gateron hotswap sockets ([Aliexpress](https://fr.aliexpress.com/item/1005003129613578.html?spm=a2g0o.order_list.0.0.23845e5bTBt8sp&gatewayAdapt=glo2fra))
+  * Zener diodes ([Aliexpress](https://fr.aliexpress.com/item/1005003276184193.html?spm=a2g0o.order_list.0.0.23845e5bTBt8sp&gatewayAdapt=glo2fra))
+  * Keyswitches (use a compatible MX switch)
+  * Keycaps (Duh)
 
 Make example for this keyboard (after setting up your build environment):
 
