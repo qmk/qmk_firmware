@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Steezy60 Rev A",
+    "manufacturer": "4pplet",
     "url": "",
     "maintainer": "4pplet",
+    "usb": {
+        "vid": "0x4444",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

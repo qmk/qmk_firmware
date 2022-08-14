@@ -53,7 +53,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* SPI Config for LED Driver */
-#define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
 #define SPI_MOSI_PIN A6
 #define SPI_MISO_PIN A7
@@ -113,9 +112,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Send up to 4 key press events per scan */
-#define QMK_KEYS_PER_SCAN 4
 
 /* Set debounce time to 5ms */
 #define DEBOUNCE 5

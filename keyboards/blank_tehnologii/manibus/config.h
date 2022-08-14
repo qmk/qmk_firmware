@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Blank Tehnologii
-#define PRODUCT         Manibus
 #define EE_HANDS
 
 /* key matrix size */
@@ -35,7 +29,6 @@
 #define MATRIX_COL_PINS { B5, B4, D7, D6, F0, F1, C6 }
 #define MATRIX_ROW_PINS_RIGHT { D6, D7, B4, F7, E6 }
 #define MATRIX_COL_PINS_RIGHT { B1, B2, B3, F1, F4, F5, F6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

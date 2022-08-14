@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xEDED
-#define PRODUCT_ID      0xED61
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MelGeek
-#define PRODUCT         MJ61
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, QWERTY,         COLEMAK, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, RESET,          DVORAK,  _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, QK_BOOT,          DVORAK,  _______, _______, _______, _______, _______, _______,
                                         _______, _______, _______,        _______, _______, _______
   )
 };
@@ -173,7 +173,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   uint8_t default_layer = biton32(eeconfig_read_default_layer());
   switch (layer) {
     case _LOWER:

@@ -20,8 +20,6 @@
 // debounce settings
 // remove these after getting a new keyboard
 // #define DEBOUNCE 50
-// #define QMK_KEYS_PER_SCAN 4
-
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -725,7 +723,7 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_2_off();

@@ -16,8 +16,6 @@
 #pragma once
 
 /* place overrides here */
-#undef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 4
 #undef DEBOUNCE
 #define DEBOUNCE 8
 #undef TAPPING_TOGGLE

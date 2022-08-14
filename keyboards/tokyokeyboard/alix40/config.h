@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5143 // QC
-#define PRODUCT_ID      0x4134 // A4
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    quadcube
-#define PRODUCT         alix40
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -43,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D7, C6, C7, B5 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, D0, D1, D2, D3, D5, D6 }
-#define UNUSED_PINS
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

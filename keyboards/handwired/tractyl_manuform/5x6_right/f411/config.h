@@ -26,9 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS \
     { B12, B13, B14, B15, A8, A10 }
 
-#define UNUSED_PINS \
-    { C15 }
-
 #define DIODE_DIRECTION     COL2ROW
 
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
@@ -68,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
-
+#define SERIAL_USART_SPEED       921600
 
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
@@ -102,7 +99,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
 
 /* pmw3360 config  */
-#define PMW3360_CS_PIN                       B0
-#define PMW3360_SPI_MODE                     3
-#define PMW3360_SPI_DIVISOR                  64
-#define PMW3360_FIRMWARE_UPLOAD_FAST
+#define PMW33XX_CS_PIN                       B0

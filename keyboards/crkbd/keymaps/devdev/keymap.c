@@ -263,9 +263,6 @@ bool led_update_user(led_t led_state) {
 }
 */
 
-
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
@@ -319,27 +316,15 @@ void oled_render_layer_state(void) {
         oled_write_ln_P(PSTR("Layer: Layer Switch"),false);
         break;
       default:
+#if defined (LAYER_STATE_32BIT)
         snprintf(string, sizeof(string), "%ld",layer_state);
+#else
+        snprintf(string, sizeof(string), "%d",layer_state);
+#endif
         oled_write_P(PSTR("Layer: Undef-"),false);
         oled_write_ln(string, false);
     }
- }
-
-/*
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (has_usb()) {
-    // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    //matrix_write_ln(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
 }
-*/
 
 char keylog_str[24] = {};
 const char code_to_name[60] = {
@@ -393,7 +378,7 @@ void oled_render_logo(void) {
 }
 
 bool oled_task_user(void) {
-    if (is_master) {
+    if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {

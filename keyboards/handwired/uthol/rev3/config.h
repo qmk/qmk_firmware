@@ -30,7 +30,6 @@
 #define MATRIX_ROW_PINS \
     { A4, A3, A2, A1, A0 }
 
-#define UNUSED_PINS
 
 // Encoder config
 #define ENCODERS_PAD_A \
@@ -57,6 +56,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD
 
 // RGB Stuff
 #define RGB_DI_PIN B0

@@ -238,5 +238,5 @@ void rgb_matrix_indicators_user(void) {
     }
 
     // Show Selected Layer
-    rgb_matrix_set_color(layers_leds_map[biton32(layer_state)], MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
+    rgb_matrix_set_color(layers_leds_map[get_highest_layer(layer_state)], MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
 }

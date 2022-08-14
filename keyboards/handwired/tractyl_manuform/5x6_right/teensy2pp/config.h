@@ -51,5 +51,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B \
     { D4 }
 
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN B0
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN B0

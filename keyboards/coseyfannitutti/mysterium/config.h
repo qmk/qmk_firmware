@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x8769
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    coseyfannitutti
-#define PRODUCT         MYSTERIUM
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
@@ -41,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*                         0   1   2   3   4  5   6   7   8   9   10  11  12  13  14  15  16  17*/
 #define MATRIX_ROW_PINS { C2, C3, C7, C4, C6, C5 }
 #define MATRIX_COL_PINS { A0, B0, A1, B1, A2, B2, A3, B3, A4, B4, A5, A6, A7, D6, D5, D1, D0, D7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

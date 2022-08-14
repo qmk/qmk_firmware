@@ -86,6 +86,7 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
 | `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
+| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
 | `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
@@ -171,6 +172,8 @@ Configure the hardware via your `config.h`:
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3737B only | 0 |
+| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
 | `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
@@ -408,6 +411,7 @@ You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
 | `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
 | `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+| `AW_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
 | `AW_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
 
 Here is an example using 2 drivers.
@@ -519,7 +523,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 |`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
-|`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                                            |
+|`RGB_MODE_PLAIN`   |`RGB_M_P` |Static (no animation) mode                                                            |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                                              |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |Full gradient scrolling left to right (uses the `RGB_MATRIX_CYCLE_LEFT_RIGHT` mode)   |
 |`RGB_MODE_SWIRL`   |`RGB_M_SW`|Full gradient spinning pinwheel around center of keyboard (uses `RGB_MATRIX_CYCLE_PINWHEEL` mode) |
@@ -656,17 +660,43 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 
 ### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
 
-This effect will color the RGB matrix according to a heatmap of recently pressed
-keys. Whenever a key is pressed its "temperature" increases as well as that of
-its neighboring keys. The temperature of each key is then decreased
-automatically every 25 milliseconds by default.
+This effect will color the RGB matrix according to a heatmap of recently pressed keys. Whenever a key is pressed its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
 
-In order to change the delay of temperature decrease define
-`RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
 
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 ```
+
+As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
+
+Limit the distance the effect spreads to surrounding keys. 
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40
+```
+
+Limit how hot surrounding keys get from each press.
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16
+```
+
+Remove the spread effect entirely.
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_SLIM
+```
+
+### RGB Matrix Effect Solid Reactive :id=rgb-matrix-effect-solid-reactive
+
+Solid reactive effects will pulse RGB light on key presses with user configurable hues. To enable gradient mode that will automatically change reactive color, add the following define:
+
+```c
+#define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
+```
+
+Gradient mode will loop through the color wheel hues over time and its duration can be controlled with the effect speed keycodes (`RGB_SPI`/`RGB_SPD`).
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 
@@ -775,6 +805,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
 #define RGB_MATRIX_SPLIT { X, Y } 	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                               		// If RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+#define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
 ```
 
 ## EEPROM storage :id=eeprom-storage
@@ -886,15 +917,15 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-Layer indicator on all flagged keys:
+Layer indicator on all keys:
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i <= led_max; i++) {
         switch(get_highest_layer(layer_state|default_layer_state)) {
-            case RAISE:
+            case 2:
                 rgb_matrix_set_color(i, RGB_BLUE);
                 break;
-            case LOWER:
+            case 1:
                 rgb_matrix_set_color(i, RGB_YELLOW);
                 break;
             default:
@@ -904,7 +935,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-Layer indicator with only configured keys:
+Layer indicator only on keys with configured keycodes:
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (get_highest_layer(layer_state) > 0) {

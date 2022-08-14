@@ -20,14 +20,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameters
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x8889
-#define DEVICE_VER 0x0001
-#define MANUFACTURER github.com/sowbug
-#define PRODUCT ANSI TKL
-#define DESCRIPTION A tenkeyless ANSI-layout keyboard
-
 // key matrix size
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -37,7 +29,6 @@
     { C14, C15, A0, A1, A2, A3 }
 #define MATRIX_COL_PINS \
     { A4, A5, A6, A7, B0, B1, B10, B11, B12, B13, B14, B15, A8, A9, A10, A15, B3 }
-#define UNUSED_PINS
 
 // COL2ROW or ROW2COL
 #define DIODE_DIRECTION COL2ROW

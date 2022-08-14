@@ -1,26 +1,35 @@
-/* Copyright 2021 Tybera
- * Copyright 2021 thewerther
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2021 Tybera (@tybera)
+// Copyright 2021 Werther (@thewerther)
+// Copyright 2022 Vino Rodrigues (@vinorodrigues)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "id67.h"
 
 #define __ NO_LED
 
-// Indices are reveresed on the physical board, top left is bottom right.
+#if defined(RGB_MATRIX_ENABLE)
+
+/* NB!!: Indices are reversed on the physical board, top left is bottom right.
+ * These "LED Index to *" arrays are in that reversed order!
+ * i.e., Space row on top, listed right to left */
 led_config_t g_led_config = { {
+    /* Under- / Per-Key
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+     * │66 │65 │64 │63 │62 │61 │60 │59 │58 │57 │56 │55 │54 │  53   │52 │
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+     * │ 51  │50 │49 │48 │47 │46 │45 │44 │43 │42 │41 │40 │39 │ 38  │37 │
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+     * │  36  │35 │34 │33 │32 │31 │30 │29 │28 │27 │26 │25 │   24   │23 │
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * │   22   │21 │20 │19 │18 │17 │16 │15 │14 │13 │12 │  11  │10 │ 9 │
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+     * │  8 │  7 │  6 │            5           │  4 │  3 │ │ 2 │ 1 │ 0 │
+     * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+     *
+     * Bottom Side (as seen from top orientation)
+     *   67  68  69  70  71
+     *   76  75  74  73  72
+     */
     // Key Matrix to LED Index
     {66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52},
     {51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37},
@@ -30,32 +39,30 @@ led_config_t g_led_config = { {
 }, {
     // LED Index to Physical Position
     // based on: https://gist.github.com/vinorodrigues/07fd735683856b2a06c7c52b9b3878cb
-    {224, 64}, {209, 64}, {194, 64}, {170, 64}, {151, 64},                                  {95, 64},                      {39, 64},           {21, 64}, {2, 64},
-    {224, 48}, {209, 48}, {189, 48}, {168, 48}, {153, 48}, {138, 48}, {123, 48}, {108, 48}, {93, 48},  {78, 48}, {63, 48}, {49, 48}, {34, 48},           {9, 48},
-    {224, 32}, {200, 32},            {175, 32}, {161, 32}, {146, 32}, {131, 32}, {116, 32}, {101, 32}, {86, 32}, {71, 32}, {56, 32}, {41, 32}, {26, 32}, {6, 32},
-    {224, 16}, {205, 16}, {187, 16}, {172, 16}, {157, 16}, {142, 16}, {127, 16}, {112, 16}, {97, 16},  {82, 16}, {67, 16}, {52, 16}, {37, 16}, {22, 16}, {4, 16},
-    {224, 0},  {202, 0},  {179, 0},  {164, 0},  {149, 0},  {134, 0},  {119, 0},  {105, 0},  {90, 0},   {75, 0},  {60, 0},  {45, 0},  {30, 0},  {15, 0},  {0, 0}
-    #ifndef ID67_DISABLE_UNDERGLOW
+    // **NB: In reverse order**
+    {224,64 }, {209,64 }, {194,64 }, {170,64 }, {151,64 },                                  { 95,64 },                       { 39,64 },            { 21,64 }, {  2,64 },
+    {224,48 }, {209,48 }, {189,48 }, {168,48 }, {153,48 }, {138,48 }, {123,48 }, {108,48 }, { 93,48 }, { 78,48 }, { 63,48 }, { 49,48 }, { 34,48 },            {  9,48 },
+    {224,32 }, {200,32 },            {175,32 }, {161,32 }, {146,32 }, {131,32 }, {116,32 }, {101,32 }, { 86,32 }, { 71,32 }, { 56,32 }, { 41,32 }, { 26,32 }, {  6,32 },
+    {224,16 }, {205,16 }, {187,16 }, {172,16 }, {157,16 }, {142,16 }, {127,16 }, {112,16 }, { 97,16 }, { 82,16 }, { 67,16 }, { 52,16 }, { 37,16 }, { 22,16 }, {  4,16 },
+    {224,0  }, {202,0  }, {179,0  }, {164,0  }, {149,0  }, {134,0  }, {119,0  }, {105,0  }, { 90,0  }, { 75,0  }, { 60,0  }, { 45,0  }, { 30,0  }, { 15,0  }, {  0,0  }
     // underglow LEDs
+    #ifndef ID67_DISABLE_UNDERGLOW
     , {0, 0}, {56, 0}, {112, 0}, {168, 0}, {224, 0},
     {224, 64}, {168, 64}, {112, 64}, {56, 64}, {0, 64}
     #endif
 },  {
     // LED Index to Flag
-    4, 4, 4, 1, 1,          4,       1,    1, 1,  // first row
-    1, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,  // second row
+    // **NB: In reverse order**
+    1, 1, 1, 1, 1,          4,       1,    1, 1,  // fifth/bottom row
+    1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,  // fourth row
     1,    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9,  // third row
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,  // fourth row
-    1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4   // fifth row
-    // underglow leds
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,  // second row
+    1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1   // first/top row
+    // underglow LEDs
     #ifndef ID67_DISABLE_UNDERGLOW
-    , 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+    , 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2
     #endif
 } };
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(23, 0xFF, 0xFF, 0xFF);
-    }
-}
+#endif  // RGB_MATRIX_ENABLE

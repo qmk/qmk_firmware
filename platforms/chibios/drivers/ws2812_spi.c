@@ -5,7 +5,11 @@
 
 // Define the spi your LEDs are plugged to here
 #ifndef WS2812_SPI
-#    define WS2812_SPI SPID1
+#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
+#        define WS2812_SPI SPIDQ
+#    else
+#        define WS2812_SPI SPID1
+#    endif
 #endif
 
 #ifndef WS2812_SPI_MOSI_PAL_MODE
@@ -54,6 +58,7 @@
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #else
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0) // default
+#    define WS2812_SPI_DIVISOR 16
 #endif
 
 // Use SPI circular buffer
@@ -139,7 +144,39 @@ void ws2812_init(void) {
 #endif // WS2812_SPI_SCK_PIN
 
     // TODO: more dynamic baudrate
-    static const SPIConfig spicfg = {WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN), WS2812_SPI_DIVISOR_CR1_BR_X};
+    static const SPIConfig spicfg = {
+#ifndef HAL_LLD_SELECT_SPI_V2
+// HAL_SPI_V1
+#    if SPI_SUPPORTS_CIRCULAR == TRUE
+        WS2812_SPI_BUFFER_MODE,
+#    endif
+        NULL, // end_cb
+        PAL_PORT(RGB_DI_PIN),
+        PAL_PAD(RGB_DI_PIN),
+#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
+        0,
+        0,
+        WS2812_SPI_DIVISOR
+#    else
+        WS2812_SPI_DIVISOR_CR1_BR_X,
+        0
+#    endif
+#else
+    // HAL_SPI_V2
+#    if SPI_SUPPORTS_CIRCULAR == TRUE
+        WS2812_SPI_BUFFER_MODE,
+#    endif
+#    if SPI_SUPPORTS_SLAVE_MODE == TRUE
+        false,
+#    endif
+        NULL, // data_cb
+        NULL, // error_cb
+        PAL_PORT(RGB_DI_PIN),
+        PAL_PAD(RGB_DI_PIN),
+        WS2812_SPI_DIVISOR_CR1_BR_X,
+        0
+#endif
+    };
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
