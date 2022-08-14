@@ -302,8 +302,8 @@ void matrix_scan_user_rgb(void) {
 #    ifdef STARTUP_ANIMATION_DEBUG
                     dprintf("sua RAMP_DOWN counter=%u\n", counter);
 #    endif
+                    rgblight_sethsv_noeeprom(old_config.hue, STARTUP_ANIMATION_SATURATION, counter);
                     if (counter >= STARTUP_ANIMATION_FADE_STEP) {
-                        rgblight_sethsv_noeeprom(old_config.hue, STARTUP_ANIMATION_SATURATION, counter);
                         counter -= STARTUP_ANIMATION_FADE_STEP;
                     } else {
                         startup_animation_state = CLEAN_UP;
