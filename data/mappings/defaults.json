@@ -54,6 +54,12 @@
             "processor": "STM32F411",
             "bootloader": "stm32-dfu",
             "board": "BLACKPILL_STM32_F411"
+        },
+        "stemcell": {
+            "processor": "STM32F411",
+            "bootloader": "tinyuf2",
+            "board": "STEMCELL",
+            "pin_compatible": "promicro"
         }
     }
 }
