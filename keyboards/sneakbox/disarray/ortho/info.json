@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Disarray (Ortholinear)",
+  "manufacturer": "Sneakbox",
   "url": "https://sneakbox.com",
   "maintainer": "mujimanic",
+  "usb": {
+    "vid": "0x5342",
+    "pid": "0x0003",
+    "device_version": "0.0.1"
+  },
   "layouts": {
       "LAYOUT_all": {
           "layout": [

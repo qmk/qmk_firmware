@@ -42,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F6, F7, C7, D5, D3 }, \
     { B5, C6, B6, NO_PIN, NO_PIN } \
 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 ////#define DIODE_DIRECTION

@@ -23,7 +23,5 @@
     { D4, D7, B6, B4, B7 }
 #define MATRIX_COL_PINS \
     { F1, B0, B1, B2, B3, D0, D1, D2, C6, C7, F7, F6, F5, F4, B5 }
-#define UNUSED_PINS \
-    { D4, D5, F0, B7 }
 #define RGB_DI_PIN E6
 

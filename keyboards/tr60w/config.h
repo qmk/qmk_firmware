@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4140
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Triangle_Lab
-#define PRODUCT         TR60W
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
@@ -16,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D1, B1, B2, E6, B3 }
 #define MATRIX_COL_PINS { F5, F4, F1, F0, B0, D5, D3, D6, D7, B4, B5, B6, C6, D2 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

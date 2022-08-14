@@ -1,7 +1,10 @@
 {
-    "keyboard_name": "Waffling60 Rev A",
+    "manufacturer": "4pplet",
     "url": "https://github.com/4pplet/waffling60",
     "maintainer": "4pplet",
+    "usb": {
+        "vid": "0x4444"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

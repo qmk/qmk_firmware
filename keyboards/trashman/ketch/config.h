@@ -23,12 +23,6 @@ SOFTWARE.
 #pragma once
 #include "config_common.h"
 
-#define VENDOR_ID     0xFEAE
-#define PRODUCT_ID    0x8947
-#define DEVICE_VER    0x0001
-#define MANUFACTURER  trash man
-#define PRODUCT       Ketch
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 8
 #define MATRIX_ROW_PINS { F5, F1, F0, F7, B6, F6 }

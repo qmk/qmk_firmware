@@ -35,7 +35,6 @@
 #define DIRECT_PINS { \
     { B6 } \
 }
-#define UNUSED_PINS
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN F6

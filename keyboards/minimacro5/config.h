@@ -42,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //speed for double tap
 #define TAPPING_TERM 200
 
-#define UNUSED_PINS
 
 /* rotary encoder 1,2,3 closest to usb port is 0*/
 #define ENCODERS_PAD_B { D3, F6, F7, D4, C6}

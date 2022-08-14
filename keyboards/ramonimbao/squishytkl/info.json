@@ -1,7 +1,13 @@
 {
     "keyboard_name": "SquishyTKL",
+    "manufacturer": "Ramon Imbao",
     "url": "",
     "maintainer": "Ramon Imbao",
+    "usb": {
+        "vid": "0xB16B",
+        "pid": "0x00B1",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

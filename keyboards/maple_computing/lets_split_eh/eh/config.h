@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Let's Split EH? pin-out */
 #define MATRIX_ROW_PINS { B1, B3, D7, B4 }
 #define MATRIX_COL_PINS { F4, F5, C6, B6, B5, D5 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 

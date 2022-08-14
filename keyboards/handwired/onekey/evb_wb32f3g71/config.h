@@ -8,4 +8,3 @@
 
 #define MATRIX_COL_PINS { B12 }
 #define MATRIX_ROW_PINS { B13 }
-#define UNUSED_PINS

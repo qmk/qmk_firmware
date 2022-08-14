@@ -22,6 +22,10 @@ jobs:
         token: ${{ secrets.QMK_BOT_TOKEN }}
         fetch-depth: 0
 
+    - name: Disable automatic eol conversion
+      run: |
+        echo "* -text" > .git/info/attributes
+
     - name: Checkout branch
       run: |
         git fetch origin develop ${{ matrix.branch }}

@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {                          \
         { B4, B0, B1, B2, B3 } \
     }
-#define UNUSED_PINS
 
 /*
     RE_CHANNEL_A          = _BV(6),
