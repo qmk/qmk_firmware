@@ -1,1 +1,1 @@
-# This file intentionally left blank
+LAYOUTS += 60_ansi 60_ansi_split_bs_rshift 60_ansi_tsangan 60_iso 60_iso_split_bs_rshift 60_iso_tsangan
