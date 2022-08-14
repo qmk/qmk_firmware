@@ -127,7 +127,7 @@ The following input modes are available:
   By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with a different keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
   Users who wish support in non-GTK apps without IBus may need to resort to a more indirect method, such as creating a custom keyboard layout ([more on this method](#custom-linux-layout)).
-  
+
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
   To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Reboot afterwards.
@@ -172,6 +172,7 @@ You can switch the input mode at any time by using the following keycodes. Addin
 |`UNICODE_MODE_WIN`    |`UC_M_WI`|`UC_WIN`    |Switch to Windows input                                                      |
 |`UNICODE_MODE_BSD`    |`UC_M_BS`|`UC_BSD`    |Switch to BSD input _(not implemented)_                                      |
 |`UNICODE_MODE_WINC`   |`UC_M_WC`|`UC_WINC`   |Switch to Windows input using WinCompose                                     |
+|`UNICODE_MODE_EMACS`  |`UC_M_EM`|`UC_EMACS`  |Switch to emacs (`C-x-8 RET`)                                               |
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`).
 

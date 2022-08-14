@@ -609,6 +609,8 @@ enum quantum_keycodes {
     MAGIC_UNSWAP_ESCAPE_CAPSLOCK,
     MAGIC_TOGGLE_ESCAPE_CAPSLOCK,
 
+    UNICODE_MODE_EMACS,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -894,6 +896,7 @@ enum quantum_keycodes {
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
+#define UC_M_EM UNICODE_MODE_EMACS
 
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))
