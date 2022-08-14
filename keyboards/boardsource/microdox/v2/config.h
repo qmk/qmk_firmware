@@ -1,6 +1,8 @@
 // Copyright 2022 jack (@waffle87)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
+
+#undef RGB_DI_PIN
 #define RGB_DI_PIN B5
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define DRIVER_LED_TOTAL 44
