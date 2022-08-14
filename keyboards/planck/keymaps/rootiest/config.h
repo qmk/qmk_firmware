@@ -117,7 +117,7 @@
  * MACRO per-key options
  */
 #define RETRO_TAPPING_PER_KEY             // Control Retro-Tap individually by key
-#define TAPPING_FORCE_HOLD_PER_KEY        // Control Force-Hold individually by key
+#define QUICK_TAP_TERM 0_PER_KEY        // Control Force-Hold individually by key
 #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY  // Control Mod-Tap-Interrupt individually by key
 #define PERMISSIVE_HOLD_PER_KEY           // Control Permissive-Hold individually by key
 
