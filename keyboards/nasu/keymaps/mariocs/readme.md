@@ -11,3 +11,4 @@
 
 * Via enabled.
 * When layer 1 is activated (Toggled os just temporarily), the numlock led will be switched on.
+* Double tapping `LGUI` key will toggle layer 1.
