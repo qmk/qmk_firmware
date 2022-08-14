@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "DB60 Hotswap",
+    "usb": {
+        "pid": "0xDB62"
+    }
+}
