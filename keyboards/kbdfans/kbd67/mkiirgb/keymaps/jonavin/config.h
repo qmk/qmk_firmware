@@ -34,3 +34,6 @@
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
+
+// Reduce layers to 3 to save memory
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3

@@ -20,12 +20,6 @@
 #include "pin_defs.h"
 #include "config_led.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xfeed
-#define PRODUCT_ID 0xac15
-#define DEVICE_VER 0x1337
-#define MANUFACTURER Obins
-#define PRODUCT Anne Pro 2 QMK
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -46,3 +40,6 @@
 
 #define MATRIX_COL_PINS \
     { C4, C5, B10, B11, C0, A15, A8, A10, A11, A12, A13, A14, B2, B3 }
+
+// Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
+#define PERMISSIVE_HOLD

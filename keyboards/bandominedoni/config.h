@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0xF4B5
-#define DEVICE_VER   0x0001
-#define MANUFACTURER 3araht
-#define PRODUCT      bandominedoni
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 7
@@ -55,6 +48,8 @@
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
+
+#define SPLIT_USB_DETECT
 
 //#define LED_NUM_LOCK_PIN B0
 //#define LED_CAPS_LOCK_PIN B1

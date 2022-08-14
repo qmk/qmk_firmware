@@ -82,8 +82,8 @@ endif
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),CHIBIOS)
-        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+    ifeq ($(PLATFORM),ARM_ATSAM)
+        $(info Enabling LTO on arm_atsam-targeting boards is known to have a high likelihood of failure.)
         $(info If unsure, set LTO_ENABLE = no.)
     endif
     CDEFS += -flto
@@ -316,7 +316,7 @@ gccversion :
 	@$(BUILD_CMD)
 
 %.uf2: %.hex
-	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 -c -f $(UF2_FAMILY) >/dev/null 2>&1)
+	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex --output $(BUILD_DIR)/$(TARGET).uf2 --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "DracuLad",
+    "manufacturer": "MangoIV",
     "url": "",
     "maintainer": "MangoIV",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1B1E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

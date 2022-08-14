@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Athena",
+    "usb": {
+        "pid": "0x6584",
+        "device_version": "0.0.1"
+    }
+}

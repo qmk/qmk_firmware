@@ -428,8 +428,14 @@ lib/%:
 
 .PHONY: git-submodule
 git-submodule:
+	[ -e lib/ugfx ] && rm -rf lib/ugfx || true
+	[ -e lib/pico-sdk ] && rm -rf lib/pico-sdk || true
+	[ -e lib/chibios-contrib/ext/mcux-sdk ] && rm -rf lib/chibios-contrib/ext/mcux-sdk || true
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
+
+.PHONY: git-submodules
+git-submodules: git-submodule
 
 .PHONY: list-keyboards
 list-keyboards:

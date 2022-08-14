@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "HP_46010A",
+  "keyboard_name": "HP 46010A to USB Keyboard Converter",
+  "manufacturer": "QMK",
   "url": "https://deskthority.net/wiki/HP_46010A",
   "maintainer": "listofoptions",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -16,13 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5342 // "SB"
-#define PRODUCT_ID      0x3225 // "2%"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Spaceman
-#define PRODUCT         2% Milk
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 1
