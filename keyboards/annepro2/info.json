@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Anne Pro 2",
+    "manufacturer": "Obins",
     "url": "https://openannepro.github.io/",
     "maintainer": "bwisn",
+    "usb": {
+        "vid": "0xFEED",
+        "device_version": "13.3.7"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

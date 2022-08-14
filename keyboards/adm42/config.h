@@ -18,14 +18,6 @@
 
 #include "config_common.h"
 
-/* Microchip ADM42 sublicensing */
-#define VENDOR_ID				0x04D8
-#define PRODUCT_ID			0xE873
-
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Lorenzo Leonini
-#define PRODUCT         ADM42
-
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
