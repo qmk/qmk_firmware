@@ -5,11 +5,7 @@
 
 // Define the spi your LEDs are plugged to here
 #ifndef WS2812_SPI
-#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
-#        define WS2812_SPI SPIDQ
-#    else
-#        define WS2812_SPI SPID1
-#    endif
+#    define WS2812_SPI SPID1
 #endif
 
 #ifndef WS2812_SPI_MOSI_PAL_MODE
@@ -18,6 +14,10 @@
 
 #ifndef WS2812_SPI_SCK_PAL_MODE
 #    define WS2812_SPI_SCK_PAL_MODE 5
+#endif
+
+#ifndef WS2812_SPI_DIVISOR
+#    define WS2812_SPI_DIVISOR 16
 #endif
 
 // Push Pull or Open Drain Configuration
@@ -46,7 +46,7 @@
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 8
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1)
-#elif WS2812_SPI_DIVISOR == 16 // same as default
+#elif WS2812_SPI_DIVISOR == 16 // default
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 32
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2)
@@ -57,8 +57,7 @@
 #elif WS2812_SPI_DIVISOR == 256
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #else
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0) // default
-#    define WS2812_SPI_DIVISOR 16
+#    error "Configured WS2812_SPI_DIVISOR value is not supported at this time."
 #endif
 
 // Use SPI circular buffer
