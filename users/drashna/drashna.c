@@ -141,3 +141,13 @@ bool apply_autocorrect(uint8_t backspaces, const char *str) {
     return true;
 }
 #endif
+
+#if defined(CAPS_WORD_ENABLE) && !defined(NO_ACTION_ONESHOT)
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+    if (mods & MOD_MASK_SHIFT) {
+        del_mods(MOD_MASK_SHIFT);
+        set_oneshot_locked_mods(~MOD_MASK_SHIFT & get_oneshot_locked_mods());
+        caps_word_on();
+    }
+}
+#endif
