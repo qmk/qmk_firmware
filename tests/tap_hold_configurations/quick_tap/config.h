@@ -18,4 +18,4 @@
 
 #include "test_common.h"
 
-#define QUICK_TAP_TERM 0
+#define QUICK_TAP_TERM 100
