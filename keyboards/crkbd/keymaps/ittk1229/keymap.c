@@ -33,6 +33,7 @@ enum custom_keycodes {
   EUCALYN = SAFE_RANGE,
   CTL_SPC,
   SFT_ENT,
+  ESC_MHN,
   LOWER,
   RAISE,
   ADJUST,
@@ -44,7 +45,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_Q,    KC_W, JP_COMM,  JP_DOT, JP_SCLN,                         KC_M,    KC_R,    KC_D,    KC_Y,    KC_P, JP_MINS,\
+      ESC_MHN,    KC_Q,    KC_W, JP_COMM,  JP_DOT, JP_SCLN,                         KC_M,    KC_R,    KC_D,    KC_Y,    KC_P, JP_MINS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_O,    KC_E,    KC_I,    KC_U,                         KC_G,    KC_T,    KC_N,    KC_S,    KC_B, JP_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_NO,  KC_F11,  KC_F12,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,  W_PSCR,  NV_REC,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+      KC_LALT,   KC_NO,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   LOWER, KC_LCTL,     KC_LSFT,   RAISE,   KC_NO\
                                       //`--------------------------'  `--------------------------'
@@ -222,6 +223,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case SFT_ENT:
       user_mt(record, KC_LSFT, KC_ENT, &sft_ent_pressed, &sft_ent_pressed_time, true);
+      return false;
+    case ESC_MHN:
+      register_code(KC_ESC);
+      register_code(KC_MHEN);
       return false;
     case EUCALYN:
       if (record->event.pressed) {
