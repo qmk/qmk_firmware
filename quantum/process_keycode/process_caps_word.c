@@ -120,10 +120,10 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                         case MOD_RSFT | MOD_RALT:
                             keycode = RSFT(KC_RALT);
                             break;
+                        case MOD_RALT:
+                            return true;
                         default:
-                            if (mods != MOD_RALT) {
-                                caps_word_off();
-                            }
+                            caps_word_off();
                             return true;
                     }
                 } else {
