@@ -203,7 +203,6 @@ ifeq ($(strip $(BOOTLOADER)), tinyuf2)
 
     EEPROM_DRIVER ?= wear_leveling
     WEAR_LEVELING_DRIVER ?= legacy
-    OPT_DEFS += -DFEE_PAGE_BASE_ADDRESS=0x08008000
 endif
 ifeq ($(strip $(BOOTLOADER)), rp2040)
     OPT_DEFS += -DBOOTLOADER_RP2040
