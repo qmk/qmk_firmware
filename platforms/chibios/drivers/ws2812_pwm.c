@@ -17,25 +17,13 @@
 #    define WS2812_PWM_CHANNEL 2 // Channel
 #endif
 #ifndef WS2812_PWM_PAL_MODE
-#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
-#        define WS2812_PWM_PAL_MODE 1 // DI Pin's alternate function value
-#    else
-#        define WS2812_PWM_PAL_MODE 2 // DI Pin's alternate function value
-#    endif
+#    define WS2812_PWM_PAL_MODE 2 // DI Pin's alternate function value
 #endif
 #ifndef WS2812_DMA_STREAM
-#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
-#        define WS2812_DMA_STREAM WB32_DMA1_STREAM1 // DMA Stream for TIMx_UP
-#    else
-#        define WS2812_DMA_STREAM STM32_DMA1_STREAM2 // DMA Stream for TIMx_UP
-#    endif
+#    define WS2812_DMA_STREAM STM32_DMA1_STREAM2 // DMA Stream for TIMx_UP
 #endif
 #ifndef WS2812_DMA_CHANNEL
-#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
-#        define WS2812_DMA_CHANNEL WB32_DMAC_HWHIF_TIM2_UP // DMA Channel for TIM2_UP
-#    else
-#        define WS2812_DMA_CHANNEL 2 // DMA Channel for TIMx_UP
-#    endif
+#    define WS2812_DMA_CHANNEL 2 // DMA Channel for TIMx_UP
 #endif
 #if (STM32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_DMAMUX_ID)
 #    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
