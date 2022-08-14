@@ -1,7 +1,13 @@
 {
     "keyboard_name": "alt34",
+    "manufacturer": "altosys",
     "url": "https://gitlab.com/altosys/alt34",
     "maintainer": "@altosys",
+    "usb": {
+        "vid": "0x1ABC",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_2": {
             "layout": [

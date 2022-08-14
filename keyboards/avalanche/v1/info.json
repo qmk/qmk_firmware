@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Avalanche v1",
+    "keyboard_name": "Avalanche",
+    "manufacturer": "vitvlkv",
     "url": "https://github.com/vlkv/avalanche",
     "maintainer": "vlkv",
+    "usb": {
+        "vid": "0xCEE2",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
