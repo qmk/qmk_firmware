@@ -1,19 +1,7 @@
-/*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+// Copyright 2022 Stefan Kerkmann (KarlK90)
+// Copyright 2011 Jun Wako <wakojun@gmail.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 #pragma once
 
 #include "bitwise.h"
@@ -28,4 +16,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if !defined(MAX)
 #    define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#endif
+
+#if !defined(CEILING)
+/**
+ * @brief Computes the rounded up result of a division of two integers at
+ * compile time.
+ */
+#    define CEILING(dividend, divisor) (((dividend) + (divisor)-1) / (divisor))
+#endif
+
+#if !defined(ARRAY_SIZE)
+/**
+ * @brief Computes the number of elements of the given array at compile time.
+ * This Macro can only be used for statically allocated arrays that have not
+ * been decayed into a pointer.
+ */
+#    define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 #endif
