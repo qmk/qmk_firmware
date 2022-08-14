@@ -7,9 +7,8 @@
 // Copyright 2020 Ploopy Corporation
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "debug.h"
+#include "pointing_device_internal.h"
 #include "pmw33xx_common.h"
-#include "print.h"
 #include "string.h"
 #include "wait.h"
 #include "spi_master.h"
@@ -154,7 +153,7 @@ bool pmw33xx_init(uint8_t sensor) {
     pmw33xx_read(sensor, REG_Delta_Y_H);
 
     if (!pmw33xx_upload_firmware(sensor)) {
-        dprintf("PMW33XX (%d): firmware upload failed!\n", sensor);
+        pd_dprintf("PMW33XX (%d): firmware upload failed!\n", sensor);
         return false;
     }
 
@@ -170,7 +169,7 @@ bool pmw33xx_init(uint8_t sensor) {
     pmw33xx_write(sensor, REG_Lift_Config, PMW33XX_LIFTOFF_DISTANCE);
 
     if (!pmw33xx_check_signature(sensor)) {
-        dprintf("PMW33XX (%d): firmware signature verification failed!\n", sensor);
+        pd_dprintf("PMW33XX (%d): firmware signature verification failed!\n", sensor);
         return false;
     }
 
@@ -185,7 +184,7 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
     }
 
     if (!in_burst[sensor]) {
-        dprintf("PMW33XX (%d): burst\n", sensor);
+        pd_dprintf("PMW33XX (%d): burst\n", sensor);
         if (!pmw33xx_write(sensor, REG_Motion_Burst, 0x00)) {
             return report;
         }
@@ -208,9 +207,7 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
 
     spi_stop();
 
-    if (debug_config.mouse) {
-        dprintf("PMW33XX (%d): motion: 0x%x dx: %i dy: %i\n", sensor, report.motion.w, report.delta_x, report.delta_y);
-    }
+    pd_dprintf("PMW33XX (%d): motion: 0x%x dx: %i dy: %i\n", sensor, report.motion.w, report.delta_x, report.delta_y);
 
     report.delta_x *= -1;
     report.delta_y *= -1;
