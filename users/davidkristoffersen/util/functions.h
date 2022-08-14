@@ -15,8 +15,6 @@
 
 // Return false if test equal false
 #define HANDLE_FALSE(bool) if (!bool) return false;
-// Generic array lenght define
-#define ARR_LEN(arr) ARRAY_SIZE((arr))
 // Printf-like functionality for send_string
 #define SEND_VAR(str, ...) \
     do { \
