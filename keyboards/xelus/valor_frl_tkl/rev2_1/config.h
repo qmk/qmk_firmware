@@ -18,7 +18,6 @@
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0003
-#define MANUFACTURER    Xelus
 #define PRODUCT         Xelus Valor FRL TKL Rev2.1
 
 /* key matrix size */
