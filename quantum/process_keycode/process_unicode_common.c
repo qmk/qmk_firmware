@@ -177,8 +177,8 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             }
             break;
         case UC_EMACS:
-	    tap_code16(LCTL(KC_G)); // C-g cancels
-	    break;
+            tap_code16(LCTL(KC_G)); // C-g cancels
+            break;
     }
 
     set_mods(unicode_saved_mods); // Reregister previously set mods
@@ -311,29 +311,29 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
                 cycle_unicode_input_mode(shifted ? +1 : -1);
                 audio_helper();
                 break;
-	    case UNICODE_MODE_MAC:
-		set_unicode_input_mode(UC_MAC);
-		audio_helper();
+            case UNICODE_MODE_MAC:
+                set_unicode_input_mode(UC_MAC);
+                audio_helper();
                 break;
-	    case UNICODE_MODE_LNX:
-		set_unicode_input_mode(UC_LNX);
-		audio_helper();
+            case UNICODE_MODE_LNX:
+                set_unicode_input_mode(UC_LNX);
+                audio_helper();
                 break;
-	    case UNICODE_MODE_WIN:
-		set_unicode_input_mode(UC_WIN);
-		audio_helper();
+            case UNICODE_MODE_WIN:
+                set_unicode_input_mode(UC_WIN);
+                audio_helper();
                 break;
-	    case UNICODE_MODE_BSD:
-		set_unicode_input_mode(UC_BSD);
-		audio_helper();
+            case UNICODE_MODE_BSD:
+                set_unicode_input_mode(UC_BSD);
+                audio_helper();
                 break;
-	    case UNICODE_MODE_WINC:
-		set_unicode_input_mode(UC_WINC);
-		audio_helper();
+            case UNICODE_MODE_WINC:
+                set_unicode_input_mode(UC_WINC);
+                audio_helper();
                 break;
-	    case UNICODE_MODE_EMACS:
-		set_unicode_input_mode(UC_EMACS);
-		audio_helper();
+            case UNICODE_MODE_EMACS:
+                set_unicode_input_mode(UC_EMACS);
+                audio_helper();
                 break;
         }
     }
