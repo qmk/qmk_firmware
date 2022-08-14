@@ -36,10 +36,10 @@ static int state_machine = -1;
 // clang-format off
 static const uint16_t ws2812_program_instructions[] = {
             //     .wrap_target
-    0x7221, //  0: out    x, 1            side 1 [2] 
-    0x0123, //  1: jmp    !x, 3           side 0 [1] 
-    0x0400, //  2: jmp    0               side 0 [4] 
-    0xb442, //  3: nop                    side 1 [4] 
+    0x7221, //  0: out    x, 1            side 1 [2]
+    0x0123, //  1: jmp    !x, 3           side 0 [1]
+    0x0400, //  2: jmp    0               side 0 [4]
+    0xb442, //  3: nop                    side 1 [4]
             //     .wrap
 };
 
@@ -62,7 +62,7 @@ static const pio_program_t ws2812_program = {
     .origin       = -1,
 };
 
-static uint32_t                WS2812_BUFFER[RGBLED_NUM];
+static uint32_t                WS2812_BUFFER[WS2812_LED_COUNT];
 static const rp_dma_channel_t* WS2812_DMA_CHANNEL;
 
 bool ws2812_init(void) {
@@ -154,7 +154,7 @@ static inline void sync_ws2812_transfer(void) {
             // Abort the synchronization if we have to wait longer than the total
             // count of LEDs in millisecounds. This is safely much longer than it
             // would take to push all the data out.
-            if (unlikely(timer_elapsed_fast(start) > RGBLED_NUM)) {
+            if (unlikely(timer_elapsed_fast(start) > WS2812_LED_COUNT)) {
                 dprintln("ERROR: WS2812 DMA transfer has stalled, aborting!");
                 dmaChannelDisableX(WS2812_DMA_CHANNEL);
                 return;
