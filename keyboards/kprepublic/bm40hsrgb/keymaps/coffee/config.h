@@ -7,17 +7,11 @@
 
 // RGB Matrix effects disable
 #ifdef RGB_MATRIX_ENABLE
-#    define LED_MATRIX_KEYPRESSES
 #    define UNDERGLOW_DISABLE
 
 #    define RGB_TRIGGER_ON_KEYDOWN
 
-#    ifdef LED_MATRIX_LED_FLUSH_LIMIT
-#        undef LED_MATRIX_LED_FLUSH_LIMIT
-#    endif
-#    define LED_MATRIX_LED_FLUSH_LIMIT 10
-
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 10
 
 #    undef ENABLE_RGB_MATRIX_SOLID_COLOR
 #    undef ENABLE_RGB_MATRIX_ALPHAS_MODS
