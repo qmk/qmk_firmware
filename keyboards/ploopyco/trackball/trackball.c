@@ -49,7 +49,7 @@
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
-#define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+#define DPI_OPTION_SIZE ARRAY_SIZE(dpi_array)
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html

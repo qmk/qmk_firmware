@@ -25,7 +25,7 @@ bool             unicode_saved_num_lock;
 
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
-static int8_t  selected_count = sizeof selected / sizeof *selected;
+static int8_t  selected_count = ARRAY_SIZE(selected);
 static int8_t  selected_index;
 #endif
 

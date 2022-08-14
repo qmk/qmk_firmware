@@ -333,7 +333,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       aqours_num++;
       aqours_next_color_timer_count = 0;
       target_col = 0;
-      if (aqours_num == sizeof(aqours_h) / sizeof(int)) {
+      if (aqours_num == ARRAY_SIZE(aqours_h)) {
         aqours_num = 0;
       }
     }
