@@ -3,6 +3,7 @@
 
 #include "secure.h"
 #include "timer.h"
+#include "util.h"
 
 #ifndef SECURE_UNLOCK_TIMEOUT
 #    define SECURE_UNLOCK_TIMEOUT 5000
