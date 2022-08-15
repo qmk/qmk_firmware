@@ -31,9 +31,9 @@ static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     return false;
 }
 
-/* handle mouse keyevent */
+/* handle mouskey event */
 void auto_mouse_keyevent(bool pressed) {
-    if(pressed) {
+    if (pressed) {
         local_auto_mouse.status.mouse_key_tracker++;
     } else {
         local_auto_mouse.status.mouse_key_tracker--;
@@ -41,11 +41,10 @@ void auto_mouse_keyevent(bool pressed) {
     }
 }
 
-/* handle non-mouse keyevent */
 void auto_mouse_reset_trigger(void) {
     local_auto_mouse.status.mouse_key_tracker = 0;
     local_auto_mouse.timer.active             = 0;
-    local_auto_mouse.timer.delay              = timer_read;
+    local_auto_mouse.timer.delay              = timer_read();
 }
 
 /* Allow for getting auto mouse state */
@@ -102,7 +101,7 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
 }
 
 /* Reset timer and mouse button bool if mouse button is pressed */
-static void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
+void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
     // skip if not enabled or mouse_layer not set
     if (!local_auto_mouse.config.enabled) return;
     switch (keycode) {
@@ -112,12 +111,6 @@ static void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
 #    endif
         case QK_MODS ... QK_MODS_MAX:
-            break;
-        // LT(local_auto_mouse.config.layer, kc)------------------------------------------------------------
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-            if (((keycode >> 8) & 0xf) == local_auto_mouse.config.layer) {
-                auto_mouse_keyevent(record->event.pressed);
-            }
             break;
         // TO(local_auto_mouse.config.layer)-----------------------------------------------------------------
         case QK_TO ... QK_TO_MAX: // same proccessing as next
@@ -193,8 +186,17 @@ static void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
             }
             break;
 #    ifndef NO_ACTION_TAPPING
+        // LT(local_auto_mouse.config.layer, kc)------------------------------------------------------------
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            if (!record->tap.count) {
+                if (((keycode >> 8) & 0xf) == local_auto_mouse.config.layer) {
+                    auto_mouse_keyevent(record->event.pressed);
+                }
+                break;
+            }
+        // MT() only skip on mod keys
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            if (record->event.pressed || !record->tap.count) {
+            if (!record->tap.count && record->event.pressed) {
                 break;
             }
 #    endif
@@ -203,7 +205,7 @@ static void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
             if (is_mouse_record(keycode, record)) {
                 auto_mouse_keyevent(record->event.pressed);
             } else {
-                // turn off mouse layer if non mouse key is pressed and start/restart debounce timer
+                // turn off mouse layer if no non mouse key is pressed and start/restart debounce timer
                 if (layer_state_is(local_auto_mouse.config.layer) && !local_auto_mouse.status.mouse_key_tracker && !local_auto_mouse.status.layer_toggled) {
                     layer_off(local_auto_mouse.config.layer);
                 }
