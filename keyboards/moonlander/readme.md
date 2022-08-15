@@ -51,7 +51,7 @@ Example for enabling a specific layer while right side is disconnected:
 
 ```
 void housekeeping_task_user(void) {
-    if (!mcp23018_initd) {
+    if (!is_transport_connected()) {
         // set layer
     }
 }

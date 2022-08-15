@@ -23,7 +23,6 @@
 #include "quantum.h"
 
 extern bool mcp23018_leds[];
-extern bool mcp23018_initd;
 
 #define MCP23018_DEFAULT_ADDRESS 0b0100000
 
@@ -83,3 +82,5 @@ typedef union {
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
+
+bool is_transport_connected(void);
