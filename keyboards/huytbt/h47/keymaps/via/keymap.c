@@ -1,3 +1,8 @@
+/*
+Copyright 2022 huytbt <huytbt@gmail.com>
+SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
 #include QMK_KEYBOARD_H
 
 /* this keymap is to provide a basic keyboard layout for testing the matrix
