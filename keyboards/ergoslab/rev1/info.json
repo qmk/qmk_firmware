@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "ergoslab",
+  "keyboard_name": "Ergoslab Keyboard",
+  "manufacturer": "tomsaleeba",
   "url": "https://github.com/tomsaleeba/ergoslab",
   "maintainer": "tomsaleeba",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x5148",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT_ergoslab": {
       "layout": [
