@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xF2E7
-#define PRODUCT_ID      0x1226
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Feker
-#define PRODUCT         IK75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
