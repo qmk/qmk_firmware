@@ -458,7 +458,9 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case RGB_TOG:
-            rgb_layer_ack_yn(rgblight_config.enable);
+            // Hack - we only get called on the press for RGB_TOG, 
+            // but the flag is only flipped on the release...
+            rgb_layer_ack_yn(!rgblight_config.enable);
             break;
 
 #ifdef VELOCIKEY_ENABLE
