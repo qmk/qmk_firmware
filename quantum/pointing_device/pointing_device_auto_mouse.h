@@ -26,7 +26,7 @@
 #ifndef AUTO_MOUSE_DEFAULT_LAYER
 #    define AUTO_MOUSE_DEFAULT_LAYER 1
 #else
-#    if AUTO_MOUSE_DEFAULT_LAYER => MAX_LAYER
+#    if AUTO_MOUSE_DEFAULT_LAYER >= MAX_LAYER
 #        error "AUTO_MOUSE_DEFAULT_LAYER set to number greater the number of supported layers! Handling of mouse layer keys unsupported"
 #    endif
 #endif
@@ -59,19 +59,21 @@ typedef struct {
 } auto_mouse_context_t;
 
 /* setting up use of automouse */
-void set_auto_mouse_layer(uint8_t layer);  // set in pointing_device_init_*, can be changed later
+void set_auto_mouse_layer(uint8_t layer); // set in pointing_device_init_*, can be changed later
 
 /* for use in custom pointing device/keyevent processing code */
-void pointing_device_task_auto_mouse(report_mouse_t mouse_report);        // add to pointing_device_task_*
-void process_auto_mouse(uint16_t keycode, keyrecord_t* record);  // add to process_record_*
+void pointing_device_task_auto_mouse(report_mouse_t mouse_report); // add to pointing_device_task_*
+void process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to process_record_*
 
-/* Functions to control auto mouse */
-void set_auto_mouse_state(bool state);  // enable/disable auto mouse feature (defaults to false at start) set to true in pointing_device_init_*
-bool get_auto_mouse_state(void);        // allows for checking auto_mouse_enable
-void toggle_mouse_layer(void);          // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
-bool get_toggle_mouse_state(void);      // return toggle mouse bool value
+/* State control */
+void set_auto_mouse_state(bool state); // enable/disable auto mouse feature (defaults to false at start) set to true in pointing_device_init_*
+bool get_auto_mouse_state(void);       // allows for checking auto_mouse_enable
 
-/* functions for simulating mousekey eventsn */
+/* Toggle layer control */
+void toggle_mouse_layer(void);     // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
+bool get_toggle_mouse_state(void); // return toggle mouse bool value
+
+/* Simulating mousekey events */
 void auto_mouse_keyevent(bool pressed); // trigger automouse keyevent (true: keydown, false: keyup)
 void auto_mouse_reset_trigger(void);    // reset the active layer timer, mousekey_tracker and start debounce timer
 
