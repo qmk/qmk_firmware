@@ -1,0 +1,7 @@
+{
+    "manufacturer": "Cuddly Keyboards Ltd.",
+    "usb": {
+        "vid": "0xC2AB",
+        "device_version": "0.0.2"
+    }
+}
