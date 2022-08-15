@@ -208,8 +208,8 @@ void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
                 // turn off mouse layer if no non mouse key is pressed and start/restart debounce timer
                 if (layer_state_is(local_auto_mouse.config.layer) && !local_auto_mouse.status.mouse_key_tracker && !local_auto_mouse.status.layer_toggled) {
                     layer_off(local_auto_mouse.config.layer);
+                    auto_mouse_reset_trigger();
                 }
-                auto_mouse_reset_trigger();
             }
     }
 }
