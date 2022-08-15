@@ -1,4 +1,5 @@
 /*
+ * Copyright 2006..2018 Giovanni Di Sirio
  * Copyright 2022 QMK contributors
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
