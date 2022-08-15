@@ -1,7 +1,13 @@
 {
     "keyboard_name": "bat43",
+    "manufacturer": "yfuku",
     "url": "",
     "maintainer": "yfuku",
+    "usb": {
+        "vid": "0x5946",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -57,8 +63,8 @@
                 {"label":"k71", "x":9, "y":3.3},
                 {"label":"k72", "x":10, "y":3.3},
 
-                {"label":"k74", "x":5.1, "y":4.3, "w":0.8, "h":0.8},
-                {"label":"k75", "x":6.1, "y":4.3, "w":0.8, "h":0.8},
+                {"label":"k75", "x":5.1, "y":4.3, "w":0.8, "h":0.8},
+                {"label":"k74", "x":6.1, "y":4.3, "w":0.8, "h":0.8},
 
                 {"label":"k73", "x":8.1, "y":4.3, "w":0.8, "h":0.8},
                 {"label":"k31", "x":9.1, "y":4.3, "w":0.8, "h":0.8},
