@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "fungo",
+  "keyboard_name": "FungoSplit",
+  "manufacturer": "Fungo",
   "url": "https://github.com/bojiguard/",
   "maintainer": "@bojiguard",
+  "usb": {
+    "vid": "0x5892",
+    "pid": "0x1233",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_fungo_split_num": {
       "layout": [
