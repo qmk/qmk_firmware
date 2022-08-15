@@ -57,12 +57,14 @@ enum custom_user_keycodes {
 
         TG_CAPS,       // Toggles RGB highlighting of alphas during capslock
         TG_PAD,        // Toggles RGB highlighting of keys on numpad+mousekeys layer
-        TG_TDCAP,      // Toggles double tap shift (tapdance) for CapsLock
+        TG_TDCAP,      // Toggles double tap shift for CapsLock
         TG_DEL,        // Swaps DEL and HOME key locations
-        TG_ENC,        // Toggle Encoder functionality
-        TG_ESC,        // Toggle ESC tapdance for _BASE layer
+        TG_ENC,        // Toggle Encoder button functionality
+        TG_ESC,        // Toggle ESC double tap for _BASE layer
         TG_INS,        // Toggle location of INS
         TG_SPCMOD,     // Toggle disabling of modded-SPACE functions
+        TG_AUTOCR,     // Toggle AutoCorrect
+        TG_ENGCAP,     // Toggle highlighting Non-English letters during CAPSLOCK on ISO boards
 
         YAHOO,         // yahoo.com
         OUTLOOK,       // outlook.com
@@ -82,12 +84,6 @@ enum custom_user_keycodes {
         NEW_SAFE_RANGE // New safe range for keymap level custom keycodes
 };
 
-
-// Tap Dance Definitions
-enum custom_tapdance {
-    TD_LSFT_CAPS_WIN,
-};
-
 // Set up boolean variables to track user customizable configuration options
 typedef union {
   uint32_t raw;
@@ -100,12 +96,14 @@ typedef union {
     bool     encoder_press_mute_or_media :1;
     bool     ins_on_shft_bkspc_or_del :1;
     bool     disable_space_mods :1;
+    bool     autocorrect :1;
+    bool     rgb_english_caps :1;
   };
 } user_config_t;
 
 user_config_t user_config;
 
-#define LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
+//#define LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
 
 // ENCODER ACTIONS
 #ifdef ENCODER_ENABLE

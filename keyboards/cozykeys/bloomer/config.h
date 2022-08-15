@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x1191
-#define MANUFACTURER CozyKeys
-#define PRODUCT      Bloomer
-
 // Key matrix size
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

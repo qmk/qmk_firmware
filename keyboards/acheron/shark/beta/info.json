@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "SharkPCB rev. Beta",
+    "usb": {
+        "pid": "0x5369",
+        "device_version": "0.0.2"
+    }
+}
