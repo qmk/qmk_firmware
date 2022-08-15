@@ -26,12 +26,6 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
 
-/* disable these deprecated features by default */
-#define _CHIBIOS_RT_CONF_VER_6_1_
-#define _CHIBIOS_HAL_CONF_VER_7_1_
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
