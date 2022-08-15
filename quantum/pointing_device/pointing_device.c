@@ -166,11 +166,13 @@ __attribute__((weak)) void pointing_device_send(void) {
         host_mouse_send(&local_mouse_report);
     }
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
-    local_mouse_report.x = 0;
-    local_mouse_report.y = 0;
-    local_mouse_report.v = 0;
-    local_mouse_report.h = 0;
-
+    uint8_t buttons = local_mouse_report.buttons;
+    memset(&local_mouse_report, 0, sizeof(local_mouse_report));
+    local_mouse_report.buttons = buttons;
+#if defined(SPLIT_POINTING_ENABLE)
+    memset(&shared_mouse_report, 0, sizeof(shared_mouse_report));
+    shared_mouse_report.buttons = buttons;
+#endif
     memcpy(&old_report, &local_mouse_report, sizeof(local_mouse_report));
 }
 
