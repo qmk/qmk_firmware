@@ -18,14 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x0331
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         keyboard
-#define DESCRIPTION     Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 14
@@ -44,9 +36,6 @@
 #define BACKLIGHT_LEVELS 3
 #endif
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -59,7 +48,6 @@
 )
 
 /* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
 #ifdef RGB_DI_PIN
