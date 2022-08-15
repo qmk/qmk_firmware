@@ -3,9 +3,9 @@
 
 A split keyboard for my hands.
 
-Keyboard Maintainer: [bojiguard](https://github.com/bojiguard/)  
-Hardware Supported: Pro Micro, elite-c, nicenano  
-Hardware Availability: [fungo split keyboard](https://github.com/bojiguard/fungo-split-keyboard)  
+* Keyboard Maintainer: [bojiguard](https://github.com/bojiguard/)
+* Hardware Supported: Pro Micro, elite-c, nicenano
+* Hardware Availability: [fungo split keyboard](https://github.com/bojiguard/fungo-split-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
