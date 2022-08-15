@@ -8,9 +8,6 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
-      },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
