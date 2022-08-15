@@ -9,12 +9,10 @@ Mechlovin's 65% PCB Platform, which works as the base for our 65%-layout PCB des
 Make example for this keyboard (after setting up your build environment):
 
     make mechlovin/zed65:default
-    make mechlovin/zed65:via
 
 Flashing example for this keyboard:
 
     make mechlovin/zed65:default:flash
-    make mechlovin/zed65:via:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
