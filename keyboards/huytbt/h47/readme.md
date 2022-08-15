@@ -1,13 +1,24 @@
-H47
-===
+# H47 Keyboard
 
-A compact 45% keyboard.
+Keyboard 47 keys layout with arrow block
 
-Keyboard Maintainer: huytbt (https://github.com/huytbt/qmk_firmware)
-Hardware Supported: H47 PCB
+* Keyboard Maintainer: [Huy Thanh](https://github.com/huytbt)
+* Hardware Supported: ATMEGA32U4
 
 Make example for this keyboard (after setting up your build environment):
 
-    make huytbt/h47:via
+    make huytbt/h47:default
+
+Flashing example for this keyboard:
+
+    make huytbt/h47:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
