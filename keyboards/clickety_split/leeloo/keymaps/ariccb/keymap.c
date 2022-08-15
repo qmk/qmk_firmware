@@ -24,17 +24,19 @@
 #include "features/select_word.h"
 #include "features/caps_word.h"
 #include "features/adaptive_keys.h"
-#include "features/autocorrection.h"
 #include "features/layer_lock.h"
+//#include "features/autocorrection.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _COLEMAKDH 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
+enum layer_names {
+    _COLEMAKDH,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
@@ -42,7 +44,7 @@
 #define MTLCTL_F9 MT(MOD_LCTL, KC_9)
 #define MTLSFT_F10 MT(MOD_LSFT, KC_F10)
 #define MTLALT_F11 MT(MOD_LALT, KC_F11)
-#define ALT_UNDS MT(MOD_LALT, KC_UNDS)
+#define ALT_WS MT(MOD_LALT, C(G(A(KC_V))))
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTALT_APP MT(MOD_LALT, KC_APP)
 #define MTLALT_PL MT(MOD_LALT, KC_MPLY)
@@ -62,12 +64,13 @@
 #define KC_REDO LCTL(KC_Y)
 #define PTOYSMUTE C(G(A(KC_BSPC)))
 #define SUPERHUMAN A(KC_S)
+#define WINDOWSW C(G(A(KC_V)))
 
 enum planck_keycodes {
   COLEMAKDH = SAFE_RANGE,
   LOWER,
   RAISE,
-  FN,
+  ADJUST,
   NUMPAD,
   GAMING,
   EXT_NUM,
@@ -84,84 +87,84 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .------------F1---------------------------.                                      .--------------------------F8-------------.
  * | HYPER|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |FN,ESC|  Q   |  W   |  F   |  P   |  B   |  // this rotary is for window        |  J   |  L   |  U   |  Y   |  ;   | BSPC |
+ * |ADJ,ESC| Q   |  W   |  F   |  P   |  B   |  // this rotary is for window        |  J   |  L   |  U   |  Y   |  ;   | BSPC |
  * |------+------+------+------+------+------|     management, zoom, and            |------+------+------+------+------+------|
  * | MTTAB|  A   |  R   |  S   |  T   |  G   |-------.                      .-------|  M   |  N   |  E   |  I   |  O   |CTRL,'|
- * |------+------+------+------+------+------| TABnav|                      | Ptoys |------+------+------+------+------+------|
- * | SHIFT| WIN_Z|  X   |  C   |  D   |  V   | DIAL1 |-->Superhuman         | Mute  |  K   |  H   |  ,   |  .   |  /   |SFT,\ |
+ * |------+------+------+------+------+------| Ptoys |                      | Window|------+------+------+------+------+------|
+ * | SHIFT| WIN_Z|  X   |  C   |  D   |  V   | Mute  |-->Powertoys Mute     | Switch|  K   |  H   |  ,   |  .   |  /   |SFT,\ |
  * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /                        \      \       |     |  R/L |  //This rotary for navigation+selection
- *                      | APP | ENTER| OSSft/ SPACE/                          \ LALT \ SPACE|RAISE| DIAL2|--> Quick Panic Mute + Turn Off Webcam
- *                      `-------------------------'                            '-------------------------'    on Button Press
+ *                      | ALT | CTRL |  LOW  /      /                        \Wswith\       |     |MW R/L|  //This rotary for Play+Pause
+ *                      | APP | ENTER| OSSft/ SPACE/                          \ LALT \ SPACE|RAISE| DIAL2|--> Right Scroll
+ *                      `-------------------------'                            '-------------------------'
  */
   [_COLEMAKDH] = LAYOUT(
-  KC_HYPR, KC_F9,    KC_F10, KC_F11,    KC_F12,    KC_F2,                            KC_F3,   KC_F4,  KC_F5,   KC_F6,  KC_F7,   KC_DEL,
+  KC_HYPR, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,  KC_F5,   KC_F6,  KC_F7,   KC_DEL,
   FNESC,   KC_Q,     KC_W,   KC_F,      KC_P,      KC_B,                             KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
   MTTAB,   KC_A,     KC_R,   KC_S,      KC_T,      KC_G,                             KC_M,    KC_N,   KC_E,    KC_I,   KC_O,    MTRCTLQUO,
-  KC_LSFT, MTLGUI_Z, KC_X,   KC_C,      KC_D,      KC_V,    A(KC_S),      PTOYSMUTE, KC_K,    KC_H,   KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
-                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,       ALT_UNDS,  KC_SPC,  MO(2),  KC_MPLY //playpause
+  KC_LSFT, MTLGUI_Z, KC_X,   KC_C,      KC_D,      KC_V,    PTOYSMUTE,     WINDOWSW, KC_K,    KC_H,   KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
+                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_WS,  KC_SPC,  MO(2),  KC_MPLY //playpause
 ),
 
 /* MIT Layout (LOWER)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | LLOCK|   1  |   2  |   3  |   4  |   5  |                                      |   6  |   7  |   8  |   9  |   0  |Delete|
+ * | HYPER|   1  |   2  |   3  |   4  |   5  |                                      |   6  |   7  |   8  |   9  |   0  |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   _  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |S(TAB)|   ~  |   ^  |   %  |   (  |   )  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  /   |
- * |------+------+------+------+------+------|Undo/Redo|                    |       |------+------+------+------+------+------|
- * | SHIFT|   |  |   &  |   "  |   {  |   }  | DIAL1 |--> Save As           |   "   |   .  |   1  |   2  |   3  |   +  |  *   |
+ * |S(TAB)|   ~  |   ^  |   %  |   (  |   )  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
+ * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
+ * | SHIFT|   |  |   &  |   "  |   {  |   }  | DIAL1 |--> Save As           | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    on Button Press   |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /                        \      \       |      | UP/DN|
- *                      | APP | ENTER| OSSft/ SPACE/                          \   @  \SPACE |  P0  | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
+ *                      | ALT | CTRL |  LOW  /      /                        \      \       |      |MW U/D|
+ *                      | APP | ENTER| OSSft/ SPACE/                          \ SPACE\   0  |  .   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
  *                      `-------------------------'                            '--------------------------'
  */
   [_LOWER] = LAYOUT(
-  LLOCK,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                KC_6,     KC_7,    KC_8,   KC_9,   KC_0,    KC_DEL,
-  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                             KC_UNDS,  KC_P7,   KC_P8,  KC_P9,  KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                             KC_EQL,   KC_P4,   KC_P5,  KC_P6,  KC_PMNS, KC_PSLS,
-  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, C(S(KC_S)),       KC_DQUO,  KC_PDOT,  KC_P1,   KC_P2,  KC_P3,  KC_PPLS, KC_PAST,
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_AT,    KC_SPC,   KC_P0,   A(S(KC_J)) //Switch Audio Recording Source
+  KC_HYPR,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                              KC_6,    KC_7,    KC_8,   KC_9,   KC_0,    KC_DEL,
+  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_UNDS, KC_P7,   KC_P8,  KC_P9,  KC_COLN, KC_BSPC,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL,  KC_P4,   KC_P5,  KC_P6,  KC_PMNS, KC_PPLS,
+  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, C(S(KC_S)),       LLOCK,  KC_AT,   KC_P1,   KC_P2,  KC_P3,  KC_PSLS, KC_PAST,
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_P0,   KC_PDOT, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
 /* MIT Layout (RAISE)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | LLOCK|      |      |      |      |DEBUG |                                      |MbMid |      |NumLck|      |      |      |
- * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |      | Mb3  | Mb2  | MsUp | Mb1  | Mute |                                      |      |LLOCK | MbMid|      |   =  | Bksp |
+ * | HYPER|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |      |
+ * |------+------+------+------+------+------|                               point  |------+------+------+------+------+------|
+ * |      | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   =  | Bksp |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |      | Menu | MsLft| MDown|Mright| Vol+ |-------.                      .-------|ARROW | MbLft|SELWORD|MbRgt|      |   !  |
- * |------+------+------+------+------+------|Cursor |                      | Mouse |------+------+------+------+------+------|
- * |      | MWLft| MWUp | NWDn |NWRght| Vol- | DIAL1 |-->pins current       | Btn 3 | ()<> | []{} |  <   |   >  |   ?  |   |  |
+ * |------+------+------+------+------+------|Cursor |                      | Layer |------+------+------+------+------+------|
+ * |      | MWLft| MWUp | NWDn |NWRght| Vol- | DIAL1 |-->pins current       | Lock  | ()<> | []{} |  <   |   >  |   ?  |   |  |
  * .-----------------------------------------|-------|   window to all      |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /    virtual destktops on\ Mouse\ Mouse |******|Search|
- *                      | APP | ENTER| OSSft/ SPACE/     Button Press         \ Btn 1\ Btn 2|******| DIAL2 |--> sends CTRL(KC_F)
+ *                      | APP | ENTER| OSSft/ SPACE/     Button Press         \ Btn 1\ Btn 3|******| DIAL2|--> sends CTRL(KC_F)
  *                      `-------------------------'                            '--------------------------'    on Button Press
  */
   [_RAISE] = LAYOUT(
-  LLOCK,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   DEBUG,                                KC_BTN3, KC_NO,   KC_NUM,  KC_NO,   KC_NO,   KC_DEL,
+  KC_HYPR, KC_NO,   KC_NO,   KC_NO,   KC_NO,   DEBUG,                                KC_BTN2, KC_NO,   KC_NUM,  KC_NO,   KC_NO,   KC_DEL,
   KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                              KC_TRNS, LLOCK,   KC_BTN3, KC_TRNS, KC_COLN, KC_BSPC,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                              ARROW,   KC_BTN1, SELWORD, KC_BTN2, KC_TRNS, KC_EXLM,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),         KC_BTN3, BRACES,  BRACES2, KC_LABK, KC_RABK, KC_QUES, KC_PIPE,
-                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_BTN1, KC_BTN2, KC_TRNS, LCTL(KC_F) // search on page (ctrl f)
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),         LLOCK,   BRACES,  BRACES2, KC_LABK, KC_RABK, KC_QUES, KC_PIPE,
+                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_BTN1, KC_BTN3, KC_TRNS, LCTL(KC_F) // search on page (ctrl f)
 ),
 
 /* MIT Layout (FN)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | LLOCK|      |      |      |      |Calc  |                                      | TabDn| TabUp| Back |Frward|      |SclLok|
+ * | HYPER|      |      |      |      |Calc  |                                      | TabDn| TabUp| Back |Frward|      |SclLok|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |******| Ctrl | Shift| Alt  |      |MyComp|                                      |      | Home |  Up  |  End |      |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |      |  F5  |      |      |DESKTL|DESKTR|--------.                     .-------|C Left| Left | Down | Right|CRight|CAPSLK|
- * |------+------+------+------+------+------| Zoom+/-|                     |       |------+------+------+------+------+------|
- * |      |      |      |      |      |AltTab| DIAL1  |--> Resets Zoom      |       |Ctrl D|PageUp|AltPDn|PageDn| PAUSE|INSERT|
+ * |------+------+------+------+------+------| Cursor |                     | Layer |------+------+------+------+------+------|
+ * |      |      |      |      |      |AltTab| Word   |--> Resets Zoom      | Lock  |Ctrl D|PageUp|AltPDn|PageDn| PAUSE|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /                       \      \       |      |Volume|
- *                      | APP | ENTER| OSSft/ SPACE/                         \      \      |      | DIAL2|--> Next Song
- *                      `-------------------------'                           '--------------------------'    on Button Press
+ *                      | ALT | CTRL |  LOW  /      /                       \       \       |      |Volume|
+ *                      | APP | ENTER| OSSft/ SPACE/                         \       \      |      | DIAL2|--> Next Song
+ *                      `-------------------------'                           '---------------------------'    on Button Press
  */
   [_ADJUST] = LAYOUT(
-  LLOCK,   DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGDN),    C(KC_PGUP), A(KC_LEFT),   A(KC_RIGHT), KC_NO,       KC_SLCK,
+  KC_HYPR, DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGDN),    C(KC_PGUP), A(KC_LEFT),   A(KC_RIGHT), KC_NO,       KC_SLCK,
   KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS, KC_MYCM,                               KC_TRNS,       KC_HOME,    KC_UP,        KC_END,      KC_TRNS,     KC_DEL,
   KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, DESKTL,  DESKTR,                                C(KC_LEFT),    KC_LEFT,    KC_DOWN,      KC_RGHT,     C(KC_RGHT),  KC_CAPS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB, LCTL(KC_0),          KC_TRNS, LCTL(KC_D),    KC_PGUP,    LCA(KC_DOWN), KC_PGDN,     KC_PAUSE,    KC_INS,
@@ -171,6 +174,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
+static fast_timer_t last_encoding_time = 0;
+static const fast_timer_t ENCODER_DEBOUNCE = 50;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
@@ -183,7 +188,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-
+  if (TIMER_DIFF_FAST(timer_read_fast(), last_encoding_time) >= ENCODER_DEBOUNCE) {
+        last_encoding_time = timer_read_fast();
+    }
+    else {
+        return false;
+    }
+    // then goes the rest of your rotary encoder handling code.
     if (index == 0) {
         switch (biton32(layer_state)) {
             case _LOWER:
@@ -205,11 +216,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
                 //Pins current window to all desktops C(A(KC_P))
             case _ADJUST:
-                // Zoom In/Out
+                // Skip words
                  if (clockwise) {
-                  tap_code16(LCTL(KC_EQL));
+                  tap_code16(LCTL(KC_LEFT));
                   } else {
-                    tap_code16(LCTL(KC_MINS));
+                    tap_code16(LCTL(KC_RGHT));
                     }
                 // Resets Zoom on button press
                 break;
@@ -242,7 +253,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // Mousewheel up/down
                 if (clockwise) {
                     tap_code16(KC_WH_D);
+                    tap_code16(KC_WH_D);
+                    tap_code16(KC_WH_D);
+                    tap_code16(KC_WH_D);
                 } else {
+                    tap_code16(KC_WH_U);
+                    tap_code16(KC_WH_U);
+                    tap_code16(KC_WH_U);
                     tap_code16(KC_WH_U);
                 }
                 break;
@@ -277,7 +294,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code16(KC_WH_R);
                     tap_code16(KC_WH_R);
                     tap_code16(KC_WH_R);
+                    tap_code16(KC_WH_R);
+                    tap_code16(KC_WH_R);
                 } else {
+                    tap_code16(KC_WH_L);
+                    tap_code16(KC_WH_L);
                     tap_code16(KC_WH_L);
                     tap_code16(KC_WH_L);
                     tap_code16(KC_WH_L);
@@ -299,39 +320,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 }
-
-// // TODO: Review this method against the one found in features/adaptive_keys.h
-// // =====
-// // I've moved the code from the adaptive_keys.h file to here, in the hopes that this works still. If it doesn't, I'd be fine with ditching
-// // the functions here and uncommenting the stuff in adaptive_keys.h again to get that working.
-// // Here's hoping this worked though...
-// void matrix_scan_user(void) {
-//    if (is_alt_tab_active){
-//        if (timer_elapsed(alt_tab_timer) > 1250 ) {
-//            unregister_code(KC_LALT);
-//            is_alt_tab_active = false;
-//        }
-//    }
-//    //   this checks at keyboard startup if numlock is on or off, and sets it on if not
-//    if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))){
-//      register_code(KC_NUMLOCK);
-//      unregister_code(KC_NUMLOCK);
-//    }
-//    if (timer_elapsed32(prior_keydown) >= ADAPTIVE_TERM) {
-//     switch (prior_keycode) {
-// #undef AK_BOTH_START
-
-// #define AK_BOTH_START(key, default_key)                                        \; < Get rid of the ';'
-//   case key:                                                                    \; < Get rid of the ';'
-//     tap_code16(default_key);                                                   \; < Get rid of the ';'
-//     break;
-
-// #include "adaptive_keys.def"
-//     }
-//     prior_keydown = timer_read32();
-//     prior_keycode = KC_NO;
-//   }
-// }
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -339,7 +327,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
   if (!process_caps_word(keycode, record)) { return false; }
   if (!process_adaptive_key(keycode, record)) { return false; }
-  // if (!process_autocorrection(keycode, record)) { return false; }
+  //if (!process_autocorrection(keycode, record)) { return false; }
 
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
@@ -398,7 +386,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-      case MT(MOD_LCTL, KC_F24):
+      case LT(_LOWER, KC_F24):
           if (record->tap.count > 0) {
           if (record->event.pressed) {
               //register_code16(KC_LPRN);

@@ -8,7 +8,7 @@ static uint32_t prior_keydown =
     0;
 static bool tabbing = false;
 static uint16_t tabtimer;
-#define TABBING_TIMER 750
+#define TABBING_TIMER 1150
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 

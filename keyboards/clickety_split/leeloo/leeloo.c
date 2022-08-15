@@ -61,15 +61,6 @@ static void render_status(void) {
         case 0:
             oled_write_P(PSTR("COLEMAK DH | "), false);
             break;
-        case 1:
-            oled_write_P(PSTR("COLEMAK DH | "), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("COLEMAK DH | "), false);
-            break;
-        case 3:
-            oled_write_P(PSTR("COLEMAK DH | "), false);
-            break;
     }
 
     // Host Keyboard Layer Status
