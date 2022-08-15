@@ -66,6 +66,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,     KC_NO,     KC_NO,     KC_TRNS,
         KC_NO,     KC_NO,     KC_NO),
 };
+
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_MACRO]  = { ENCODER_CCW_CW(C(S(KC_MINS)), C(S(KC_EQL))), ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
+    [_NUMPAD] = { ENCODER_CCW_CW(C(S(KC_MINS)), C(S(KC_EQL))), ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
+    [_CURSOR] = { ENCODER_CCW_CW(C(S(KC_MINS)), C(S(KC_EQL))), ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
+    [_RGB]    = { ENCODER_CCW_CW(RGB_HUD,       RGB_HUI     ), ENCODER_CCW_CW(RGB_SAD,    RGB_SAI  ), ENCODER_CCW_CW(RGB_VAD,    RGB_VAI) },   
+    [_FN]     = { ENCODER_CCW_CW(C(S(KC_MINS)), C(S(KC_EQL))), ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
+};
+
 // clang-format on
 
 typedef enum layer_ack {
@@ -208,39 +217,3 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (get_highest_layer(layer_state)) {
-        case _RGB:
-            if (index == 0) {
-                if (clockwise) {
-                    rgblight_increase_hue();
-                } else {
-                    rgblight_decrease_hue();
-                }
-            } else if (index == 1) {
-                if (clockwise) {
-                    rgblight_increase_sat();
-                } else {
-                    rgblight_decrease_sat();
-                }
-            } else if (index == 2) {
-                if (clockwise) {
-                    rgblight_increase_val();
-                } else {
-                    rgblight_decrease_val();
-                }
-            }
-            break;
-
-        default:
-            if (index == 0) {
-                tap_code16(C(S(clockwise ? KC_EQL : KC_MINS)));
-            } else if (index == 1) {
-                tap_code16(C(clockwise ? KC_EQL : KC_MINS));
-            } else if (index == 2) {
-                tap_code(clockwise ? KC_VOLU : KC_VOLD);
-            }
-            break;
-    }
-    return true;
-}
