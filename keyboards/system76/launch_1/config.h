@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-// USB device descriptor parameter
-#define VENDOR_ID    0x3384
-#define PRODUCT_ID   0x0001
-#define DEVICE_VER   0x0001
-#define MANUFACTURER System76
-#define PRODUCT      Launch Configurable Keyboard (launch_1)
-
 // Key matrix size
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
@@ -37,7 +30,6 @@
  */
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { D7, C7, C6, B6, B5, B4, D6, D4, E6, D5, D3, D2, B7, B0 }
-#define UNUSED_PINS
 
 /*
  * Diode Direction

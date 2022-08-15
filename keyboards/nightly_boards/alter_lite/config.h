@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xD812
-#define PRODUCT_ID 0x0013
-#define DEVICE_VER 0x0001
-#define MANUFACTURER DeskDaily
-#define PRODUCT Alter Lite
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16	
@@ -44,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F0, F1, D3, D5, B5 }
 #define MATRIX_COL_PINS { B0, B1, B2, B3, B7, D0, D1, D2, E6, B6, C6, C7, F7, F6, F5, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

@@ -371,6 +371,7 @@ show_path:
 dump_vars: ERROR_IF_EMPTY=""
 dump_vars: ERROR_IF_NONBOOL=""
 dump_vars: ERROR_IF_UNSET=""
+dump_vars: CATASTROPHIC_ERROR=""
 dump_vars:
 	@$(foreach V,$(sort $(.VARIABLES)),$(if $(filter-out environment% default automatic,$(origin $V)),$(info $V=$($V))))
 

@@ -1089,16 +1089,11 @@ void clear_keyboard_but_mods_and_keys() {
  *
  * FIXME: Needs documentation.
  */
-bool is_tap_key(keypos_t key) {
-    action_t action = layer_switch_get_action(key);
-    return is_tap_action(action);
-}
-
-/** \brief Utilities for actions. (FIXME: Needs better description)
- *
- * FIXME: Needs documentation.
- */
 bool is_tap_record(keyrecord_t *record) {
+    if (IS_NOEVENT(record->event)) {
+        return false;
+    }
+
 #ifdef COMBO_ENABLE
     action_t action;
     if (record->keycode) {

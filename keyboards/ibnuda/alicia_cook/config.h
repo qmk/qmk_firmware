@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x6955
-#define DEVICE_VER   0x0899
-#define MANUFACTURER Ibnu D. Aji
-#define PRODUCT      Alicia Cook
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D2, D3, F4, F5 }
 #define MATRIX_COL_PINS { B5, F6, F7, B1, B3, B2, B4, E6, D7, C6, D4, D0, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

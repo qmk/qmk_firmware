@@ -16,9 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-//extern uint8_t is_master;
-
-
 enum custom_layers {
     _COLEMAK,
     _SYMBOL,

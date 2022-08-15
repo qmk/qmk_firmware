@@ -39,9 +39,9 @@ __attribute__ ((weak))
 size_t lc_size = sizeof(layer_colors) / sizeof(hs_set);
 
 void fled_init(void) {
-    // If EEPROM config exists, load it
-    // If VIA EEPROM exists, FLED config should too
-    if (via_eeprom_is_valid()) {
+    // This checks both an EEPROM reset (from bootmagic lite, keycodes)
+    // and also firmware build date (from via_eeprom_is_valid())
+    if (eeconfig_is_enabled()) {
         fled_load_conf();
     // Else, default config
     } else {

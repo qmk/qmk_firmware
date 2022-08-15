@@ -59,6 +59,14 @@ done
 shift $((OPTIND-1))
 keyboard_target=$1
 
+# Helper for resetting submodule existence
+fixup_submodules() {
+    [ -e lib/ugfx ] && rm -rf lib/ugfx
+    [ -e lib/pico-sdk ] && rm -rf lib/pico-sdk
+    [ -e lib/chibios-contrib/ext/mcux-sdk ] && rm -rf lib/chibios-contrib/ext/mcux-sdk
+    make git-submodule
+}
+
 last_size=0
 last_line=""
 function build_executor() {
@@ -68,6 +76,7 @@ function build_executor() {
         make distclean >/dev/null 2>&1
 
         git checkout -f $revision >/dev/null 2>&1 || { echo "Failed to check out revision ${revision}" >&2 ; exit 1 ; }
+        fixup_submodules >/dev/null 2>&1
         make -j${job_count} $keyboard_target >/dev/null 2>&1 || true
         file_size=$(arm-none-eabi-size .build/*.elf 2>/dev/null | awk '/elf/ {print $1}' 2>/dev/null || true)
 

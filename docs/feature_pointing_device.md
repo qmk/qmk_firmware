@@ -10,7 +10,7 @@ POINTING_DEVICE_ENABLE = yes
 
 ## Sensor Drivers
 
-There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time.  If you need to enable more than one sensor, then you need to implement it manually.
+There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time.  If you need to enable more than one sensor, then you need to implement it manually, using the `custom` driver.
 
 ### ADNS 5050 Sensor
 
@@ -22,11 +22,13 @@ POINTING_DEVICE_DRIVER = adns5050
 
 The ADNS 5050 sensor uses a serial type protocol for communication, and requires an additional light source. 
 
-| Setting             | Description                                                         |
-| ------------------- | ------------------------------------------------------------------- |
-| `ADNS5050_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        |
-| `ADNS5050_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         |
-| `ADNS5050_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. |
+| Setting             | Description                                                         | Default                    |
+| ------------------- | ------------------------------------------------------------------- | -------------------------- |
+| `ADNS5050_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        | `POINTING_DEVICE_SCLK_PIN` |
+| `ADNS5050_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         | `POINTING_DEVICE_SDIO_PIN` |
+| `ADNS5050_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
+
+
 
 The CPI range is 125-1375, in increments of 125. Defaults to 500 CPI.
 
@@ -40,13 +42,13 @@ POINTING_DEVICE_DRIVER = adns9800
 
 The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking. 
 
-| Setting                 | Description                                                            | Default       |
-| ----------------------- | ---------------------------------------------------------------------- | ------------- |
-| `ADNS9800_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`     |
-| `ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
-| `ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
-| `ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
-| `ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
+| Setting                 | Description                                                            | Default                  |
+| ----------------------- | ---------------------------------------------------------------------- | ------------------------ |
+| `ADNS9800_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`                |
+| `ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
+| `ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`                      |
+| `ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
+| `ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
@@ -89,17 +91,16 @@ POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 
 This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the TM040040, TM035035 and the TM023023 trackpads. These are I2C or SPI compatible, and both configurations are supported.
 
+#### Common settings
+
 | Setting                          | Description                                                | Default            |
 | -------------------------------- | ---------------------------------------------------------- | ------------------ |
-| `CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.    | `127`              |
-| `CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.    | `1919`             |
-| `CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.    | `63`               |
-| `CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.    | `1471`             |
 | `CIRQUE_PINNACLE_DIAMETER_MM`    | (Optional) Diameter of the trackpad sensor in millimeters. | `40`               |
 | `CIRQUE_PINNACLE_ATTENUATION`    | (Optional) Sets the attenuation of the sensor data.        | `ADC_ATTENUATE_4X` |
 | `CIRQUE_PINNACLE_CURVED_OVERLAY` | (Optional) Applies settings tuned for curved overlay.      | _not defined_      |
+| `CIRQUE_PINNACLE_POSITION_MODE`  | (Optional) Mode of operation.                              | _not defined_      |
 
-**`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be. 
+**`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be.
 
 Default attenuation is set to 4X, although if you are using a thicker overlay (such as the curved overlay) you will want a lower attenuation such as 2X. The possible values are:
 * `ADC_ATTENUATE_4X`: Least sensitive
@@ -107,34 +108,76 @@ Default attenuation is set to 4X, although if you are using a thicker overlay (s
 * `ADC_ATTENUATE_2X`
 * `ADC_ATTENUATE_1X`: Most sensitive
 
+**`CIRQUE_PINNACLE_POSITION_MODE`** can be `CIRQUE_PINNACLE_ABSOLUTE_MODE` or `CIRQUE_PINNACLE_RELATIVE_MODE`. Modes differ in supported features/gestures.
+
+* `CIRQUE_PINNACLE_ABSOLUTE_MODE`: Reports absolute x, y, z (touch pressure) coordinates and up to 5 hw buttons connected to the trackpad
+* `CIRQUE_PINNACLE_RELATIVE_MODE`: Reports x/y deltas, scroll and up to 3 buttons (2 of them can be from taps, see gestures) connected to trackpad. Supports taps on secondary side of split. Saves about 2k of flash compared to absolute mode with all features.
+
 | I2C Setting               | Description                                                                     | Default |
 | ------------------------- | ------------------------------------------------------------------------------- | ------- |
 | `CIRQUE_PINNACLE_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad                         | `0x2A`  |
 | `CIRQUE_PINNACLE_TIMEOUT` | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`    |
 
-| SPI Setting                    | Description                                                            | Default       |
-| ------------------------------ | ---------------------------------------------------------------------- | ------------- |
-| `CIRQUE_PINNACLE_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `1000000`     |
-| `CIRQUE_PINNACLE_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
-| `CIRQUE_PINNACLE_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `1`           |
-| `CIRQUE_PINNACLE_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
-| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
+| SPI Setting                    | Description                                                            | Default                  |
+| ------------------------------ | ---------------------------------------------------------------------- | ------------------------ |
+| `CIRQUE_PINNACLE_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `1000000`                |
+| `CIRQUE_PINNACLE_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
+| `CIRQUE_PINNACLE_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `1`                      |
+| `CIRQUE_PINNACLE_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
+| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
 
 Default Scaling is 1024. Actual CPI depends on trackpad diameter.
 
 Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when using Cirque Pinnacle, which matches the internal update rate of the position registers (in standard configuration). Advanced configuration for pen/stylus usage might require lower values.
 
-#### Cirque Trackpad gestures
+#### Absolute mode settings
 
-| Gesture Setting                                | Description                                                                                                                                                                                      | Default              |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
-| `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` | (Optional) Enable inertial cursor. Cursor continues moving after a flick gesture and slows down by kinetic friction                                                                              | _not defined_        |
-| `CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE`       | (Optional) Enable circular scroll. Touch originating in outer ring can trigger scroll by moving along the perimeter. Near side triggers vertical scroll and far side triggers horizontal scroll. | _not defined_        |
-| `CIRQUE_PINNACLE_TAP_ENABLE`                   | (Optional) Enable tap to click. This currently only works on the master side.                                                                                                                    | _not defined_        |
-| `CIRQUE_PINNACLE_TAPPING_TERM`                 | (Optional) Length of time that a touch can be to be considered a tap.                                                                                                                            | `TAPPING_TERM`/`200` |
-| `CIRQUE_PINNACLE_TOUCH_DEBOUNCE`               | (Optional) Length of time that a touch can be to be considered a tap.                                                                                                                            | `TAPPING_TERM`/`200` |
+| Setting                          | Description                                                | Default            |
+| -------------------------------- | ---------------------------------------------------------- | ------------------ |
+| `CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.    | `127`              |
+| `CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.    | `1919`             |
+| `CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.    | `63`               |
+| `CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.    | `1471`             |
 
-**`POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`** is not specific to Cirque trackpad; any pointing device with a lift/contact status can integrate this gesture into its driver. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `pointing_device_get_report()` is needed to generate glide reports.
+#### Absolute mode gestures
+
+| Gesture Setting                                | Description                                                                    | Default              |
+| ---------------------------------------------- | ------------------------------------------------------------------------------ | -------------------- |
+| `CIRQUE_PINNACLE_TAP_ENABLE`                   | (Optional) Enable tap to click. This currently only works on the master side.  | _not defined_        |
+| `CIRQUE_PINNACLE_TAPPING_TERM`                 | (Optional) Length of time that a touch can be to be considered a tap.          | `TAPPING_TERM`/`200` |
+| `CIRQUE_PINNACLE_TOUCH_DEBOUNCE`               | (Optional) Length of time that a touch can be to be considered a tap.          | `TAPPING_TERM`/`200` |
+
+`POINTING_DEVICE_GESTURES_SCROLL_ENABLE` in this mode enables circular scroll. Touch originating in outer ring can trigger scroll by moving along the perimeter. Near side triggers vertical scroll and far side triggers horizontal scroll.
+
+Additionally, `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` is supported in this mode.
+
+#### Relative mode gestures
+
+| Gesture Setting                        | Description                                                                                                                                                                               | Default       |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `CIRQUE_PINNACLE_TAP_ENABLE`           | (Optional) Enable tap to "left click". Works on both sides of a split keyboard.                                                                                                           | _not defined_ |
+| `CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE` | (Optional) Tap in upper right corner (half of the finger needs to be outside of the trackpad) of the trackpad will result in "right click". `CIRQUE_PINNACLE_TAP_ENABLE` must be enabled. | _not defined_ |
+
+Tapping term and debounce are not configurable in this mode since it's handled by trackpad internally.
+
+`POINTING_DEVICE_GESTURES_SCROLL_ENABLE` in this mode enables side scroll. Touch originating on the right side can trigger vertical scroll (IntelliSense trackpad style).
+
+### PAW 3204 Sensor
+
+To use the paw 3204 sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = paw3204
+```
+
+The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
+
+| Setting            | Description                                                    | Default                    |
+| ------------------ |--------------------------------------------------------------- | -------------------------- |
+| `PAW3204_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.   | `POINTING_DEVICE_SCLK_PIN` |
+| `PAW3204_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.    | `POINTING_DEVICE_SDIO_PIN` |
+
+The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600).  Defaults to 1000 CPI.
 
 ### Pimoroni Trackball
 
@@ -176,15 +219,15 @@ The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built in IR LED for surface tracking.
 
-| Setting                      | Description                                                                                 | Default       |
-| ---------------------------- | ------------------------------------------------------------------------------------------- | ------------- |
-| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                               | _not defined_ |
-| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                     | _not defined_ |
-| `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                  | _varies_      |
-| `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                    | `2000000`     |
-| `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_      |
-| `PMW33XX_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                           | `0x02`        |
-| `ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor. | `0`           |
+| Setting                      | Description                                                                                 | Default                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------- | ------------------------ |
+| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                               | `POINTING_DEVICE_CS_PIN` |
+| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                     | _not defined_            |
+| `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                  | _varies_                 |
+| `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                    | `2000000`                |
+| `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_                 |
+| `PMW33XX_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                           | `0x02`                   |
+| `ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor. | `0`                      |
 
 To use multiple sensors, instead of setting `PMW33XX_CS_PIN` you need to set `PMW33XX_CS_PINS` and also handle and merge the read from this sensor in user code.
 Note that different (per sensor) values of CPI, speed liftoff, rotational angle or flipping of X/Y is not currently supported.
@@ -237,18 +280,27 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 ## Common Configuration
 
-| Setting                            | Description                                                           | Default       |
-| ---------------------------------- | --------------------------------------------------------------------- | ------------- |
-| `POINTING_DEVICE_ROTATION_90`      | (Optional) Rotates the X and Y data by  90 degrees.                   | _not defined_ |
-| `POINTING_DEVICE_ROTATION_180`     | (Optional) Rotates the X and Y data by 180 degrees.                   | _not defined_ |
-| `POINTING_DEVICE_ROTATION_270`     | (Optional) Rotates the X and Y data by 270 degrees.                   | _not defined_ |
-| `POINTING_DEVICE_INVERT_X`         | (Optional) Inverts the X axis report.                                 | _not defined_ |
-| `POINTING_DEVICE_INVERT_Y`         | (Optional) Inverts the Y axis report.                                 | _not defined_ |
-| `POINTING_DEVICE_MOTION_PIN`       | (Optional) If supported, will only read from sensor if pin is active. | _not defined_ |
-| `POINTING_DEVICE_TASK_THROTTLE_MS` | (Optional) Limits the frequency that the sensor is polled for motion. | _not defined_ |
+| Setting                                        | Description                                                                                                                      | Default       |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `MOUSE_EXTENDED_REPORT`                        | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
+| `POINTING_DEVICE_ROTATION_90`                  | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_ROTATION_180`                 | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_ROTATION_270`                 | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |
+| `POINTING_DEVICE_INVERT_X`                     | (Optional) Inverts the X axis report.                                                                                            | _not defined_ |
+| `POINTING_DEVICE_INVERT_Y`                     | (Optional) Inverts the Y axis report.                                                                                            | _not defined_ |
+| `POINTING_DEVICE_MOTION_PIN`                   | (Optional) If supported, will only read from sensor if pin is active.                                                            | _not defined_ |
+| `POINTING_DEVICE_TASK_THROTTLE_MS`             | (Optional) Limits the frequency that the sensor is polled for motion.                                                            | _not defined_ |
+| `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` | (Optional) Enable inertial cursor. Cursor continues moving after a flick gesture and slows down by kinetic friction.             | _not defined_ |
+| `POINTING_DEVICE_GESTURES_SCROLL_ENABLE`       | (Optional) Enable scroll gesture. The gesture that activates the scroll is device dependent.                                     | _not defined_ |
+| `POINTING_DEVICE_CS_PIN`                       | (Optional) Provides a default CS pin, useful for supporting multiple sensor configs.                                             | _not defined_ |
+| `POINTING_DEVICE_SDIO_PIN`                     | (Optional) Provides a default SDIO pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
+| `POINTING_DEVICE_SCLK_PIN`                     | (Optional) Provides a default SCLK pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
 
 !> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 
+The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` provide a convenient way to define a single pin that can be used for an interchangeable sensor config.  This allows you to have a single config, without defining each device.  Each sensor allows for this to be overridden with their own defines. 
+
+!> Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
 
 ## Split Keyboard Configuration
 
@@ -264,7 +316,6 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `POINTING_DEVICE_ROTATION_270_RIGHT` | (Optional) Rotates the X and Y data by 270 degrees.                                                   | _not defined_ |
 | `POINTING_DEVICE_INVERT_X_RIGHT`     | (Optional) Inverts the X axis report.                                                                 | _not defined_ |
 | `POINTING_DEVICE_INVERT_Y_RIGHT`     | (Optional) Inverts the Y axis report.                                                                 | _not defined_ |
-| `MOUSE_EXTENDED_REPORT`              | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127) |
 
 !> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md?id=common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard?id=setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
 
@@ -436,4 +487,3 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
     return pointing_device_combine_reports(left_report, right_report);
 }
 ```
-=======

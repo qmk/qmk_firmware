@@ -3,13 +3,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED 
-#define PRODUCT_ID   0xB077
-#define DEVICE_VER   0x0001
-#define MANUFACTURER crehmann
-#define PRODUCT      Buzzard
-
 /* key matrix size */
 /* Rows are doubled up */
 #define MATRIX_ROWS  8
@@ -20,7 +13,6 @@
     { F4, F5, F6, F7 }
 #define MATRIX_COL_PINS \
     { B1, B3, B2, B6, B5, B4}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

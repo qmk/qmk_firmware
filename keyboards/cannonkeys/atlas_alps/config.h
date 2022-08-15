@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0xA7A5
-#define DEVICE_VER      0x0010
-#define MANUFACTURER    CannonKeys
-#define PRODUCT         Atlas
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -33,7 +26,6 @@
 #define MATRIX_ROW_PINS { B5, B4, D1, D7, D6 }
 #define MATRIX_COL_PINS { B6, C6, D2, E6, C7, B3, F7, F6, F5, F4, F1, F0 }
 
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

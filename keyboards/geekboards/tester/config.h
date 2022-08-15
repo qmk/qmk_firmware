@@ -2,20 +2,11 @@
 
 #include "config_common.h"
 
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1319
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Geekboards
-#define PRODUCT         Geekboards Tester
-
-
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4
 
 #define MATRIX_ROW_PINS { B0, D4}
 #define MATRIX_COL_PINS { F7, F6, D2, D3}
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 #define LOCKING_SUPPORT_ENABL

@@ -1,7 +1,10 @@
 {
-    "keyboard_name": "Charybdis Nano",
-    "url": "https://www.bastardkb.com",
-    "maintainer": "Quentin Lebastard",
+    "url": "https://bastardkb.com/charybdis-nano",
+    "manufacturer": "Bastard Keyboards",
+    "usb": {
+        "vid": "0xA8F8",
+        "pid": "0x1832",
+    },
     "layouts": {
         "LAYOUT_charybdis_3x5": {
             "layout": [

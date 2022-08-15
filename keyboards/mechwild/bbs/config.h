@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x170E
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MechWild
-#define PRODUCT         BB Steno
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 6
@@ -35,7 +28,6 @@
  */
 #define MATRIX_ROW_PINS { B12, B10, B13, B1, B14 }
 #define MATRIX_COL_PINS { B0, A7, A6, A5, A4, A3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

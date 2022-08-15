@@ -234,6 +234,7 @@ enum layer_param_tap_op {
 #define ACTION_LAYER_INVERT(layer, on) ACTION_LAYER_BIT_XOR((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_ON(layer, on) ACTION_LAYER_BIT_OR((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_OFF(layer, on) ACTION_LAYER_BIT_AND((layer) / 4, ~(1 << ((layer) % 4)), (on))
+#define ACTION_LAYER_GOTO(layer) ACTION_LAYER_SET(layer, ON_PRESS)
 #define ACTION_LAYER_SET(layer, on) ACTION_LAYER_BIT_SET((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_ON_OFF(layer) ACTION_LAYER_TAP((layer), OP_ON_OFF)
 #define ACTION_LAYER_OFF_ON(layer) ACTION_LAYER_TAP((layer), OP_OFF_ON)

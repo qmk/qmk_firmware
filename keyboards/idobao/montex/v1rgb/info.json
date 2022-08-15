@@ -1,5 +1,11 @@
 {
-    "keyboard_name": "IDOBAO MONTEX RGB",
+    "keyboard_name": "Montex RGB",
+    "manufacturer": "IDOBAO",
+    "usb": {
+        "vid": "0x6964",
+        "pid": "0x0127",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x5": {
             "layout": [

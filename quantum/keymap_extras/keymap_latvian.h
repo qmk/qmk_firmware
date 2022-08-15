@@ -161,8 +161,8 @@
 #define LV_ACUT ALGR(LV_QUOT) // ´ (dead)
 // Row 4
 #define LV_ZCAR ALGR(LV_Z)    // Ž
-#define LV_CCAR ALGR(LV_Z)    // Č
-#define LV_NCED ALGR(LV_Z)    // Ņ
+#define LV_CCAR ALGR(LV_C)    // Č
+#define LV_NCED ALGR(LV_N)    // Ņ
 
 /* Shift+AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐

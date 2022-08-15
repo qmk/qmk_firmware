@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "67mk_e", 
+    "keyboard_name": "67mk_E", 
+    "manufacturer": "kb_elmo",
     "url": "", 
     "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0xD03E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

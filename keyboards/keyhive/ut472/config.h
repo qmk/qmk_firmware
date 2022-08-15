@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0472
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Keyhive
-#define PRODUCT         UT47.2
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -32,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D1, D2, D3, D4 }
 #define MATRIX_COL_PINS { C4, C5, B7, B6, B5, B4, B3, B2, B1, B0, D6, D5 }
-#define UNUSED_PINS
 
 
 /* COL2ROW, ROW2COL*/

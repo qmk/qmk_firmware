@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x16C0
-#define PRODUCT_ID 0x27DB
-#define DEVICE_VER 0x0001
-#define MANUFACTURER IBM/Purdea Andrei
-#define PRODUCT IBM Model M (4th generation)
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
 /* key matrix size */
@@ -50,7 +44,6 @@
 
 #define MATRIX_COL_PINS { C3, C2, C1, C0, A3, A4, A5, A6, C4, B0, B10, B13, C6, C7, C8, C9 }
 #define MATRIX_ROW_PINS { A7, C5, B1, B12, B14, B15, A8, A9 }
-//#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

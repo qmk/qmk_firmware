@@ -17,14 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter
- */
-#define VENDOR_ID       0xBF00
-#define PRODUCT_ID      0xBFFA
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SheuBox
-#define PRODUCT         Fallacy
-
 /* key matrix size
  */
 #define MATRIX_ROWS 5
@@ -34,7 +26,6 @@
  */
 #define MATRIX_ROW_PINS { B1, B2, B3, C6, C7 }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B6, B5, B4, D7, D6, D4, D5, D3 }
-#define UNUSED_PINS { B0, B7 }
 
 /* COL2ROW or ROW2COL
  */

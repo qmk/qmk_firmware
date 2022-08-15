@@ -24,7 +24,7 @@ typedef struct {
     bool circular_scroll_enable;
 } cirque_pinnacle_features_t;
 
-#ifdef CIRQUE_PINNACLE_TAP_ENABLE
+#if defined(CIRQUE_PINNACLE_TAP_ENABLE) && CIRQUE_PINNACLE_POSITION_MODE
 #    ifndef CIRQUE_PINNACLE_TAPPING_TERM
 #        include "action.h"
 #        include "action_tapping.h"
@@ -44,6 +44,9 @@ void cirque_pinnacle_enable_tap(bool enable);
 #endif
 
 #ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
+#    if !CIRQUE_PINNACLE_POSITION_MODE
+#        error "Circular scroll is not supported in relative mode"
+#    endif
 typedef enum {
     SCROLL_UNINITIALIZED,
     SCROLL_DETECTING,

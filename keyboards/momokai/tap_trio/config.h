@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x69F9   // "69" + "Popular Racing Movie 9"  =  Momokai (?)
-#define PRODUCT_ID   0x0006
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Momokai
-#define PRODUCT      Tap Trio
-
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 6
 

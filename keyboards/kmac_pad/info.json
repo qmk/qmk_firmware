@@ -1,6 +1,12 @@
 {
   "keyboard_name": "KMAC PAD",
+  "manufacturer": "KBDMania",
   "maintainer": "talsu",
+  "usb": {
+    "vid": "0x4B4D",
+    "pid": "0x4143",
+    "device_version": "1.0.4"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
