@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4443 // "DC" = Don Chiou
-#define PRODUCT_ID      0x5350 // "SP" = Snagpad
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Flehrad
-#define PRODUCT         Snagpad
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
