@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-f4xx_flash_size = 512k;
-f4xx_ram_size = 96k;
+f4xx_flash_size = 256k;
+f4xx_ram_size = 128k;
 
 INCLUDE stm32f4xx_common.ld
