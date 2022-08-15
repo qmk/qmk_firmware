@@ -1099,6 +1099,10 @@ bool is_tap_key(keypos_t key) {
  * FIXME: Needs documentation.
  */
 bool is_tap_record(keyrecord_t *record) {
+    if (IS_NOEVENT(record->event)) {
+        return false;
+    }
+
 #ifdef COMBO_ENABLE
     action_t action;
     if (record->keycode) {
