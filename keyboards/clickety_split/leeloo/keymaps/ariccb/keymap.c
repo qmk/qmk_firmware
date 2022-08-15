@@ -29,7 +29,7 @@
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
+// Layer names don't all need to be of the same length, obviously, and you can also skiep them
 // entirely and just use numbers.
 enum layer_names {
     _COLEMAKDH,
@@ -44,7 +44,7 @@ enum layer_names {
 #define MTLCTL_F9 MT(MOD_LCTL, KC_9)
 #define MTLSFT_F10 MT(MOD_LSFT, KC_F10)
 #define MTLALT_F11 MT(MOD_LALT, KC_F11)
-#define ALT_WS MT(MOD_LALT, C(G(A(KC_V))))
+#define ALT_DEL MT(MOD_LALT, KC_DEL)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTALT_APP MT(MOD_LALT, KC_APP)
 #define MTLALT_PL MT(MOD_LALT, KC_MPLY)
@@ -85,7 +85,7 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (COLEMAKH-DH)
  * .------------F1---------------------------.                                      .--------------------------F8-------------.
- * | HYPER|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Delete|
+ * | HYPER|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Select|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |ADJ,ESC| Q   |  W   |  F   |  P   |  B   |  // this rotary is for window        |  J   |  L   |  U   |  Y   |  ;   | BSPC |
  * |------+------+------+------+------+------|     management, zoom, and            |------+------+------+------+------+------|
@@ -93,16 +93,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| Ptoys |                      | Window|------+------+------+------+------+------|
  * | SHIFT| WIN_Z|  X   |  C   |  D   |  V   | Mute  |-->Powertoys Mute     | Switch|  K   |  H   |  ,   |  .   |  /   |SFT,\ |
  * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /                        \Wswith\       |     |MW R/L|  //This rotary for Play+Pause
- *                      | APP | ENTER| OSSft/ SPACE/                          \ LALT \ SPACE|RAISE| DIAL2|--> Right Scroll
+ *                      | ALT | CTRL |  LOW  /      /                        \ LALT \       |     |MW R/L|  //This rotary for Play+Pause
+ *                      | APP | ENTER| OSSft/ SPACE/                          \DELETE\ SPACE|RAISE| DIAL2|--> Right Scroll
  *                      `-------------------------'                            '-------------------------'
  */
   [_COLEMAKDH] = LAYOUT(
-  KC_HYPR, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,  KC_F5,   KC_F6,  KC_F7,   KC_DEL,
+  KC_HYPR, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,  KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
   FNESC,   KC_Q,     KC_W,   KC_F,      KC_P,      KC_B,                             KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
   MTTAB,   KC_A,     KC_R,   KC_S,      KC_T,      KC_G,                             KC_M,    KC_N,   KC_E,    KC_I,   KC_O,    MTRCTLQUO,
   KC_LSFT, MTLGUI_Z, KC_X,   KC_C,      KC_D,      KC_V,    PTOYSMUTE,     WINDOWSW, KC_K,    KC_H,   KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
-                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_WS,  KC_SPC,  MO(2),  KC_MPLY //playpause
+                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  MO(2),  KC_MPLY //playpause
 ),
 
 /* MIT Layout (LOWER)
