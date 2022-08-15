@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  RESET,   KC_NO,   KC_NO,   BL_ON,   BL_OFF,  KC_NO,   KC_NO,   _______,             _______,             _______,             _______, KC_DEL  ,
+  QK_BOOT,   KC_NO,   KC_NO,   BL_ON,   BL_OFF,  KC_NO,   KC_NO,   _______,             _______,             _______,             _______, KC_DEL  ,
   KC_CAPS, RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, KC_NO,   KC_NO,   KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_MEDIA_PLAY_PAUSE, _______, _______ ,
   KC_NO,   RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, KC_NO,   KC_NO,   KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE,       _______, _______ ,
   _______, _______, _______, _______, _______, _______, _______, _______,             _______,             _______,             _______, _______
