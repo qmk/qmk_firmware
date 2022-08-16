@@ -20,15 +20,11 @@
 
 /* Check settings and set defaults */
 #ifndef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#    error "POINTING_DEVICE_AUTO_MOUSE_ENABLE not defined! settings may be incorrect!"
+#    error "POINTING_DEVICE_AUTO_MOUSE_ENABLE not defined! check config settings"
 #endif
 
 #ifndef AUTO_MOUSE_DEFAULT_LAYER
 #    define AUTO_MOUSE_DEFAULT_LAYER 1
-#else
-#    if AUTO_MOUSE_DEFAULT_LAYER >= MAX_LAYER
-#        error "AUTO_MOUSE_DEFAULT_LAYER set to number greater the number of supported layers! Handling of mouse layer keys unsupported"
-#    endif
 #endif
 
 #ifndef AUTO_MOUSE_TIME
@@ -53,8 +49,8 @@ typedef struct {
         uint16_t delay;
     } timer;
     struct {
-        bool    layer_toggled;
-        uint8_t mouse_key_tracker;
+        bool   layer_toggled;
+        int8_t mouse_key_tracker;
     } status;
 } auto_mouse_context_t;
 
@@ -73,8 +69,8 @@ bool get_auto_mouse_state(void);       // allows for checking auto_mouse_enable
 void toggle_mouse_layer(void);     // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
 bool get_toggle_mouse_state(void); // return toggle mouse bool value
 
-/* Simulating mousekey events */
-void auto_mouse_keyevent(bool pressed); // trigger automouse keyevent (true: keydown, false: keyup)
+/* handling key events */
+void auto_mouse_keyevent(bool pressed); // trigger auto mouse keyevent (true: keydown, false: keyup)
 void auto_mouse_reset_trigger(void);    // reset the active layer timer, mousekey_tracker and start debounce timer
 
 /* Callbacks for adding keycodes to mouse record checking */
