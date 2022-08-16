@@ -16,13 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xE0E0
-#define PRODUCT_ID      0x0030
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Ergorius & Tooni Skyy
-#define PRODUCT         PRKL30
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10
