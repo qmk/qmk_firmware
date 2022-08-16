@@ -48,7 +48,7 @@ in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv poetry niv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv niv ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8

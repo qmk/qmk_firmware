@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Daisy",
+    "manufacturer": "KTEC",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0xD7DC",
+        "device_version": "5.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -17,14 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter
- */
-#define VENDOR_ID       0xBF00
-#define PRODUCT_ID      0xBFFA
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SheuBox
-#define PRODUCT         Fallacy
-
 /* key matrix size
  */
 #define MATRIX_ROWS 5

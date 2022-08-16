@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Subatomic",
+  "manufacturer": "OLKB",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6063",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_ortho_5x14": {
       "layout": [

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50
-#define PRODUCT_ID      0x1131
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KP republic
-#define PRODUCT         bm68v2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

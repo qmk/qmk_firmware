@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "quasar", 
+    "keyboard_name": "Quasar", 
+    "manufacturer": "Ryota Goto",
     "url": "https://github.com/ai03-2725/Quasar/", 
     "maintainer": "ai03", 
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0010",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

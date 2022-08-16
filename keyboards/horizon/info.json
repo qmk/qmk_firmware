@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Horizon",
+  "manufacturer": "Steven Karrmann",
   "url": "https://github.com/skarrmann/horizon",
   "maintainer": "Steven Karrmann",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

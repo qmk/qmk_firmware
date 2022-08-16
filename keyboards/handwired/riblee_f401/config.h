@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x002A
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Riblee
-#define PRODUCT Handwired F401
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
