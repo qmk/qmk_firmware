@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Rosa", 
+    "manufacturer": "illusion keyboards",
     "url": "", 
     "maintainer": "illusion", 
+    "usb": {
+        "vid": "0x694B",
+        "pid": "0x6952",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi_tsangan": {
             "layout": [

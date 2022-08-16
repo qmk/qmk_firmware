@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x676F // "go" - gooberpsycho
-#define PRODUCT_ID      0x3660 // "3" "660"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    gooberpsycho
-#define PRODUCT         3dp660 Handwired
 
 #define TAPPING_TERM 400
 

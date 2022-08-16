@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x726F
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Polarity Works
-#define PRODUCT         CRBN
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

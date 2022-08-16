@@ -1,7 +1,13 @@
 {
     "keyboard_name": "The Key V2",
+    "manufacturer": "Drop",
     "url": "https://drop.com/buy/stack-overflow-the-key-v2-macropad",
     "maintainer": "massdrop",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,6 +1,12 @@
 {
     "keyboard_name": "model-v",
+    "manufacturer": "Matthew Dias",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x6D64",
+        "pid": "0x6D76",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split": {
             "layout": [

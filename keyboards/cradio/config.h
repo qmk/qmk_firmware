@@ -21,13 +21,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xC88B
-#define PRODUCT_ID      0x3988
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DPB
-#define PRODUCT         Cradio
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5

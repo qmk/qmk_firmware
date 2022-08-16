@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5A45 // ZealPC ("ZE")
-#define PRODUCT_ID      0x0060 // Zeal60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ZealPC
-#define PRODUCT         Zeal60
-
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

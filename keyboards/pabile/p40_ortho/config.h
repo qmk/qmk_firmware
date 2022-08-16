@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6666
-#define PRODUCT_ID      0x6669
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Pabile
-#define PRODUCT         P40 Ortho Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10
