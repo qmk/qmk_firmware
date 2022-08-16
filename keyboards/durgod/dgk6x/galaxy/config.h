@@ -18,11 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x6A1A
-#define DEVICE_VER      0x0001
-#define PRODUCT         Galaxy 84 HK gaming x DURGOD (QMK)
-
 /* key matrix rows */
 #define MATRIX_ROWS 6
 #define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5 }

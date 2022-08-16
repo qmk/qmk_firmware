@@ -18,11 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x7EC5
-#define DEVICE_VER      0x0001
-#define PRODUCT         DURGOD Venus (QMK)
-
 /* key matrix rows */
 #define MATRIX_ROWS 5
 #define MATRIX_ROW_PINS { A0, A1, A2, A3, A4 }
