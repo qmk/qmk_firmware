@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "75% ANSI layout",
+    "keyboard_name": "Cherish-75",
     "url": "",
     "maintainer": "qmk",
+    "manufacturer": "gezhaoyou",
+    "usb": {
+        "vid": "0xEB50",
+        "pid": "0xEB52",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_75_ansi": {
             "layout": [
