@@ -19,6 +19,7 @@ extern rgblight_config_t rgblight_config;
 #define _LOWER 1
 #define _RAISE 2
 #define _ADJUST 3
+#define _MINECRAFT 4
 
 #define W_PSCR LGUI(S(KC_S))
 #define NV_REC LALT(KC_F9)
@@ -33,7 +34,7 @@ enum custom_keycodes {
   EUCALYN = SAFE_RANGE,
   CTL_SPC,
   SFT_ENT,
-  ESC_MHN,
+  ESC_MHEN,
   LOWER,
   RAISE,
   ADJUST,
@@ -45,7 +46,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      ESC_MHN,    KC_Q,    KC_W, JP_COMM,  JP_DOT, JP_SCLN,                         KC_M,    KC_R,    KC_D,    KC_Y,    KC_P, JP_MINS,\
+      ESC_MHEN,   KC_Q,   KC_W,  JP_COMM,  JP_DOT, JP_SCLN,                         KC_M,    KC_R,    KC_D,    KC_Y,    KC_P, JP_MINS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_O,    KC_E,    KC_I,    KC_U,                         KC_G,    KC_T,    KC_N,    KC_S,    KC_B, JP_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -67,7 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
     ),
 
-
   [_RAISE] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        JP_GRV, JP_TILD,   KC_NO,   JP_LT,   JP_GT, JP_COLN,                        KC_NO, JP_LPRN, JP_RPRN,   KC_NO,   KC_NO, JP_UNDS,\
@@ -86,11 +86,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_NO,  KC_F11,  KC_F12,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,  W_PSCR,  NV_REC,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT,   KC_NO,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+      KC_LALT,   KC_NO,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,TO(_MINECRAFT),\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   LOWER, KC_LCTL,     KC_LSFT,   RAISE,   KC_NO\
                                       //`--------------------------'  `--------------------------'
-  )
+  ),
+
+  [_MINECRAFT] = LAYOUT( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_ESC,   KC_NO,    KC_Q,    KC_W,    KC_E,    KC_T,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+       KC_TAB,   KC_NO,    KC_A,    KC_S,    KC_D,    KC_F,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      JP_SLSH,   KC_F1,   KC_F2,   KC_F3,   KC_F5,  KC_F11,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,TO(_EUCALYN),\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LCTL, KC_LSFT,  KC_SPC,      KC_NO,   KC_NO,   KC_NO\
+                                      //`--------------------------'  `--------------------------'
+  ),
+
 };
 
 static bool lower_pressed = false;
@@ -224,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SFT_ENT:
       user_mt(record, KC_LSFT, KC_ENT, &sft_ent_pressed, &sft_ent_pressed_time, true);
       return false;
-    case ESC_MHN:
+    case ESC_MHEN:
       register_code(KC_ESC);
       register_code(KC_MHEN);
       return false;
