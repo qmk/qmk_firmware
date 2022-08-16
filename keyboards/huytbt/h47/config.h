@@ -7,13 +7,6 @@ SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4859 // HY
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    HUYTBT
-#define PRODUCT         H47
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13

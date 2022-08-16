@@ -2,6 +2,11 @@
   "keyboard_name": "H47",
   "url": "",
   "maintainer": "huytbt",
+  "usb": {
+    "vid": "0x4859",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
