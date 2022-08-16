@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2022 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,9 @@
 
 #include_next <mcuconf.h>
 
-#undef STM32_PWM_USE_TIM4
-#define STM32_PWM_USE_TIM4 TRUE
 
+#undef STM32_SPI_USE_SPI1
+#define STM32_SPI_USE_SPI1 TRUE
 
-
+#undef STM32_I2C_USE_I2C2
+#define STM32_I2C_USE_I2C2 TRUE

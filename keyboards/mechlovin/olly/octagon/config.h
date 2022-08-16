@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Team Mechlovin
+Copyright 2022 Team Mechlovin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,26 +34,67 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 16
 
 #define MATRIX_ROW_PINS { B0, B12, A6, A5, A4, A3 }
-#define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A5, A3, C13, B7, B6, B5, B4, B3 }
+#define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B2, B1, A15, B3, B9, B8, B7, B6, B5, B4 }
 #define UNUSED_PINS
 
-#define LED_NUM_LOCK_PIN C15
-#define LED_CAPS_LOCK_PIN B9
-#define LED_SCROLL_LOCK_PIN A15
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
+#ifdef  RGBLIGHT_ENABLE
+#define RGB_DI_PIN A7
+#define RGBLED_NUM      26
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#endif 
 
-#define BACKLIGHT_PIN B8
-#define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_PWM_DRIVER PWMD4
-#define BACKLIGHT_BREATHING
+#ifdef LED_MATRIX_ENABLE
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 0b1110100 AD <-> GND
+// 0b1110111 AD <-> VCC
+// 0b1110101 AD <-> SCL
+// 0b1110110 AD <-> SDA
+#define LED_DRIVER_ADDR_1 0b1110110
+#define I2C_DRIVER I2CD2
+#define I2C1_SCL_PIN B10
+#define I2C1_SDA_PIN B11
+#define LED_DRIVER_COUNT 1
+#define DRIVER_LED_TOTAL 94
+#define LED_MATRIX_KEYPRESSES // reacts to keypresses
+#define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+#define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
+#define ENABLE_LED_MATRIX_ALPHAS_MODS	
+#define ENABLE_LED_MATRIX_BREATHING	
+#define ENABLE_LED_MATRIX_BAND	
+#define ENABLE_LED_MATRIX_BAND_PINWHEEL	
+#define ENABLE_LED_MATRIX_BAND_SPIRAL	
+#define ENABLE_LED_MATRIX_CYCLE_LEFT_RIGHT	
+#define ENABLE_LED_MATRIX_CYCLE_UP_DOWN	
+#define ENABLE_LED_MATRIX_CYCLE_OUT_IN	
+#define ENABLE_LED_MATRIX_DUAL_BEACON	
+#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT	
+#define ENABLE_LED_MATRIX_WAVE_UP_DOWN	
+#define ENABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE	
+#define ENABLE_LED_MATRIX_SOLID_REACTIVE_WIDE	
+#define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTIWIDE	
+#define ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS	
+#define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS	
+#define ENABLE_LED_MATRIX_SOLID_REACTIVE_NEXUS	
+#define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTINEXUS	
+#define ENABLE_LED_MATRIX_SOLID_SPLASH	
+#define ENABLE_LED_MATRIX_SOLID_MULTISPLASH	
 
-/* Bootmagic Lite key configuration, Backspace */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 14
+#define I2C1_CLOCK_SPEED 400000
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
-#define LED_PIN_ON_STATE 0
-
-/* Bootmagic Lite key configuration, Backspace */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 14
+#define VIA_QMK_LED_MATRIX_ENABLE
+#endif

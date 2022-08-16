@@ -1,1 +1,1 @@
-# The default keymap for hex4b
+# The default keymap for octagon
