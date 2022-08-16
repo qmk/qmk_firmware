@@ -47,33 +47,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef DIRECT_PINS
-static SPLIT_MUTABLE pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+static SPLIT_MUTABLE pin_t direct_pins[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 #    ifdef MATRIX_ROW_PINS
-static SPLIT_MUTABLE_ROW pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-#    endif  // MATRIX_ROW_PINS
+static SPLIT_MUTABLE_ROW pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
+#    endif // MATRIX_ROW_PINS
 #    ifdef MATRIX_COL_PINS
-static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-#    endif  // MATRIX_COL_PINS
+static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
+#    endif // MATRIX_COL_PINS
 #endif
 
 /* matrix state(1:on, 0:off) */
-extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 #ifdef SPLIT_KEYBOARD
 // row offsets for each hand
-uint8_t thisHand, thatHand;
+extern uint8_t thisHand, thatHand;
 #endif
 
 // user-defined overridable functions
 __attribute__((weak)) void matrix_init_pins(void);
 __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
-#ifdef SPLIT_KEYBOARD
-__attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
-__attribute__((weak)) void matrix_slave_scan_user(void) {}
-#endif
+__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter);
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
@@ -82,8 +78,17 @@ static inline void setPinOutput_writeLow(pin_t pin) {
     }
 }
 
+static inline void setPinOutput_writeHigh(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON {
+        setPinOutput(pin);
+        writePinHigh(pin);
+    }
+}
+
 static inline void setPinInputHigh_atomic(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON { setPinInputHigh(pin); }
+    ATOMIC_BLOCK_FORCEON {
+        setPinInputHigh(pin);
+    }
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
@@ -99,7 +104,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 #ifdef DIRECT_PINS
 
 __attribute__((weak)) void matrix_init_pins(void) {
-    for (int row = 0; row < MATRIX_ROWS; row++) {
+    for (int row = 0; row < ROWS_PER_HAND; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             pin_t pin = direct_pins[row][col];
             if (pin != NO_PIN) {
@@ -113,10 +118,11 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         pin_t pin = direct_pins[current_row][col_index];
         if (pin != NO_PIN) {
-            current_row_value |= readPin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+            current_row_value |= readPin(pin) ? 0 : row_shifter;
         }
     }
 
@@ -140,7 +146,11 @@ static bool select_row(uint8_t row) {
 static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
+#            ifdef MATRIX_UNSELECT_DRIVE_HIGH
+        setPinOutput_writeHigh(pin);
+#            else
         setPinInputHigh_atomic(pin);
+#            endif
     }
 }
 
@@ -163,22 +173,23 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    if (!select_row(current_row)) {  // Select row
-        return;                      // skip NO_PIN row
+    if (!select_row(current_row)) { // Select row
+        return;                     // skip NO_PIN row
     }
     matrix_output_select_delay();
 
     // For each col...
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         uint8_t pin_state = readMatrixPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
-        current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+        current_row_value |= pin_state ? 0 : row_shifter;
     }
 
     // Unselect row
     unselect_row(current_row);
-    matrix_output_unselect_delay(current_row, current_row_value != 0);  // wait for all Col signals to go HIGH
+    matrix_output_unselect_delay(current_row, current_row_value != 0); // wait for all Col signals to go HIGH
 
     // Update the matrix
     current_matrix[current_row] = current_row_value;
@@ -198,7 +209,11 @@ static bool select_col(uint8_t col) {
 static void unselect_col(uint8_t col) {
     pin_t pin = col_pins[col];
     if (pin != NO_PIN) {
+#            ifdef MATRIX_UNSELECT_DRIVE_HIGH
+        setPinOutput_writeHigh(pin);
+#            else
         setPinInputHigh_atomic(pin);
+#            endif
     }
 }
 
@@ -217,12 +232,12 @@ __attribute__((weak)) void matrix_init_pins(void) {
     }
 }
 
-__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {
     bool key_pressed = false;
 
     // Select col
-    if (!select_col(current_col)) {  // select col
-        return;                      // skip NO_PIN col
+    if (!select_col(current_col)) { // select col
+        return;                     // skip NO_PIN col
     }
     matrix_output_select_delay();
 
@@ -231,44 +246,42 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
         // Check row pin state
         if (readMatrixPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
-            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+            current_matrix[row_index] |= row_shifter;
             key_pressed = true;
         } else {
             // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
+            current_matrix[row_index] &= ~row_shifter;
         }
     }
 
     // Unselect col
     unselect_col(current_col);
-    matrix_output_unselect_delay(current_col, key_pressed);  // wait for all Row signals to go HIGH
+    matrix_output_unselect_delay(current_col, key_pressed); // wait for all Row signals to go HIGH
 }
 
 #        else
 #            error DIODE_DIRECTION must be one of COL2ROW or ROW2COL!
 #        endif
-#    endif  // defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
+#    endif // defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
 #else
 #    error DIODE_DIRECTION is not defined!
 #endif
 
 void matrix_init(void) {
 #ifdef SPLIT_KEYBOARD
-    split_pre_init();
-
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
 #    ifdef DIRECT_PINS_RIGHT
-        const pin_t direct_pins_right[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS_RIGHT;
-        for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        const pin_t direct_pins_right[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS_RIGHT;
+        for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
             for (uint8_t j = 0; j < MATRIX_COLS; j++) {
                 direct_pins[i][j] = direct_pins_right[i][j];
             }
         }
 #    endif
 #    ifdef MATRIX_ROW_PINS_RIGHT
-        const pin_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
-        for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        const pin_t row_pins_right[ROWS_PER_HAND] = MATRIX_ROW_PINS_RIGHT;
+        for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
             row_pins[i] = row_pins_right[i];
         }
 #    endif
@@ -288,56 +301,19 @@ void matrix_init(void) {
     matrix_init_pins();
 
     // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i]     = 0;
-    }
+    memset(matrix, 0, sizeof(matrix));
+    memset(raw_matrix, 0, sizeof(raw_matrix));
 
     debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
-
-#ifdef SPLIT_KEYBOARD
-    split_post_init();
-#endif
 }
 
 #ifdef SPLIT_KEYBOARD
 // Fallback implementation for keyboards not using the standard split_util.c
 __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     transport_master(master_matrix, slave_matrix);
-    return true;  // Treat the transport as always connected
-}
-
-bool matrix_post_scan(void) {
-    bool changed = false;
-    if (is_keyboard_master()) {
-        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
-        if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                if (matrix[thatHand + i] != slave_matrix[i]) {
-                    matrix[thatHand + i] = slave_matrix[i];
-                    changed              = true;
-                }
-            }
-        } else {
-            // reset other half if disconnected
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                matrix[thatHand + i] = 0;
-                slave_matrix[i]      = 0;
-            }
-
-            changed = true;
-        }
-
-        matrix_scan_quantum();
-    } else {
-        transport_slave(matrix + thatHand, matrix + thisHand);
-
-        matrix_slave_scan_kb();
-    }
-
-    return changed;
+    return true; // Treat the transport as always connected
 }
 #endif
 
@@ -351,8 +327,9 @@ uint8_t matrix_scan(void) {
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
-    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        matrix_read_rows_on_col(curr_matrix, current_col);
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++, row_shifter <<= 1) {
+        matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
     }
 #endif
 

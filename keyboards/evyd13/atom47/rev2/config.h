@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x8E66
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         Atom47 rev2
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
@@ -58,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 4
 
 #define LED_CAPS_LOCK_PIN F5
+#define LED_PIN_ON_STATE 1
 
 #define RGB_DI_PIN D0    // The pin the LED strip is connected to
 #define RGBLED_NUM 1     // Number of LEDs in your strip

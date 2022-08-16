@@ -16,15 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C58      //"LX"
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Lx3
-#define PRODUCT         FAVE-87
-
-/* Set 1 kHz polling rate and force USB NKRO */
-#define USB_POLLING_INTERVAL_MS 1
+/* Force USB NKRO */
 #define FORCE_NKRO
 
 /* key matrix size */

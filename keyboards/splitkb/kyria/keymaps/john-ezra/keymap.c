@@ -1,23 +1,25 @@
 /* Copyright 2021 John Ezra
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include QMK_KEYBOARD_H
 
 enum kyria_layers {
   _HNTS,
+  _GAME,
+  _NUMPAD,
   _LOWER,
   _RAISE,
   _ADJUST
@@ -25,20 +27,27 @@ enum kyria_layers {
 
 enum kyria_keycodes {
   HNTS = SAFE_RANGE,
+  ESC_NUM,
   LOWER,
   RAISE,
+  MSS_CTL,
   CPY_PST,
   UNDO,
   FIND
 };
 
 #define HNTS DF(_HNTS)
-#define QWERTY DF(_QWERTY)
+#define GAME TG(_GAME)
+#define NUMPAD TG(_NUMPAD)
+#define MSS_CTL MT(MOD_LCTL, C(KC_UP))
 #define BSP_CMD MT(MOD_LGUI, KC_BSPC)
+#define TAB_CMD MT(MOD_LGUI, KC_TAB)
 #define SFT_ENT MT(MOD_LSFT, KC_ENT)
+#define ALT_ESC MT(MOD_LALT, KC_ESC)
+#define ALT_TAB A(KC_TAB)
 #define UNDO G(KC_Z)
 #define FIND G(KC_F)
-#define MSS_CTL C(KC_UP)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,15 +61,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
  * |  Undo |   K   |   V   |   M   |   F   |   G   |  Esc  |MssnCtl|  |MssnCtl|  Esc  |   J   |  ; :  |  , <  |  . >  |  / ?  |  ' "  |
  * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
- *                         | Ctrl  |  Alt  | Lower | Space | BSPC  |  |  Tab  | Shift | Raise |  Del  | Caps  |
+ *                         | Numpad| Enter | Lower | Space | BSPC  |  |  Tab  | Shift | Raise |  Del  | Caps  |
  *                         `---------------------------------------'  `---------------------------------------'
  */
 
 [_HNTS] = LAYOUT(
        FIND,    KC_Z,    KC_R,    KC_L,    KC_D,    KC_W,                                         KC_Y,    KC_P,    KC_U,    KC_X,    KC_Q, KC_BSLS,
     CPY_PST,    KC_H,    KC_N,    KC_T,    KC_S,    KC_C,                                         KC_B,    KC_I,    KC_E,    KC_O,    KC_A,  KC_GRV,
-       UNDO,    KC_K,    KC_V,    KC_M,    KC_F,    KC_G,  KC_ESC, MSS_CTL,   MSS_CTL, KC_ESC,    KC_J, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
-                               KC_LCTL, KC_LALT,   LOWER,  KC_SPC, BSP_CMD,   KC_TAB, SFT_ENT,   RAISE,  KC_DEL, KC_CAPS
+       UNDO,    KC_K,    KC_V,    KC_M,    KC_F,    KC_G, ALT_ESC, MSS_CTL,   MSS_CTL, ALT_ESC,   KC_J, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
+                                NUMPAD, SFT_ENT,   LOWER,  KC_SPC, BSP_CMD,   TAB_CMD, SFT_ENT,  RAISE,  KC_DEL, KC_CAPS
+),
+
+/*
+ * Game: Gaming Layer
+ *
+ * ,-----------------------------------------------.                                  ,-----------------------------------------------.
+ * |   0   |   Z   |   R   |   L   |   D   |   W   |                                  |   Y   |   P   |   U   |   X   |   Q   |  Esc  |
+ * |-------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+-------|
+ * |   1   |   H   |   N   |   T   |   S   |   C   |                                  |   B   |   I   |   E   |   O   |   A   | Enter |
+ * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
+ * |   2   |   K   |   V   |   M   |   F   |   G   |   8   |   9   |  |Default|  Esc  |   J   |  ; :  |  , <  |  . >  |  / ?  |Alt+Tab|
+ * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
+ *                         |   3   |   4   |   5   |   6   |   7   |  |  Tab  | Shift | Raise |  Del  | Caps  |
+ *                         `---------------------------------------'  `---------------------------------------'
+ */
+
+[_GAME] = LAYOUT(
+       KC_0,    KC_Z,    KC_R,    KC_L,    KC_D,    KC_W,                                         KC_Y,    KC_P,    KC_U,    KC_X,    KC_Q,  KC_ESC,
+       KC_1,    KC_H,    KC_N,    KC_T,    KC_S,    KC_C,                                         KC_B,    KC_I,    KC_E,    KC_O,    KC_A,  KC_ENT,
+       KC_2,    KC_K,    KC_V,    KC_M,    KC_F,    KC_G,    KC_8,    KC_9,      GAME, ALT_ESC,   KC_J, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, ALT_TAB,
+                                  KC_3,    KC_4,    KC_5,    KC_6,    KC_7,   TAB_CMD, SFT_ENT,  RAISE,  KC_DEL, KC_CAPS
+),
+
+/*
+ * Numpad
+ *
+ * ,-----------------------------------------------.                                  ,-----------------------------------------------.
+ * |   *   |   +   |   7   |   8   |   9   |   0   |                                  |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+-------|
+ * |   /   |   -   |   4   |   5   |   6   |   (   |                                  |       | Left  |  Up   | Down  | Right |       |
+ * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
+ * |   =   |   .   |   1   |   2   |   3   |   )   |       |       |  |       |       |       |       |       |       |       |       |
+ * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
+ *                         |       |       |       |       |       |  |       |       |       |       |       |
+ *                         `---------------------------------------'  `---------------------------------------'
+ */
+
+[_NUMPAD] = LAYOUT(
+    KC_ASTR, KC_PLUS,    KC_7,    KC_8,    KC_9,    KC_0,                                      _______, _______, _______, _______, _______, _______,
+    KC_SLSH, KC_MINS,    KC_4,    KC_5,    KC_6, KC_LPRN,                                      _______, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT, _______,
+     KC_EQL,  KC_DOT,    KC_1,    KC_2,    KC_3, KC_RPRN, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+                               _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
 
 /*
@@ -105,26 +156,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
 
- /*
-  * Adjust: Function Keys & RGB
-  *
-  * ,-----------------------------------------------.                                  ,-----------------------------------------------.
-  * | Reset |       |       |       |       |       |                                  |       |  NKRO |CG SWAP|       |       | HNTS  |
-  * |-------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+-------|
-  * |       |  TOG  |  SAI  |  HUI  |  VAI  |  MOD  |                                  |       |       |       |       |       |       |
-  * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
-  * |       |       |  SAD  |  HUD  |  VAD  | RMOD  |       |       |  |       |       |       |       |Bright+|Bright-|       |       |
-  * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
-  *                         |       |       |       |       |       |  |       |       |       |       |       |
-  *                         `---------------------------------------'  `---------------------------------------'
-  */
+/*
+ * Adjust: Function Keys & RGB
+ *
+ * ,-----------------------------------------------.                                  ,-----------------------------------------------.
+ * | Reset |       |       |       |       |       |                                  |       |  NKRO |CG SWAP|       |       | HNTS  |
+ * |-------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+-------|
+ * |       |  TOG  |  SAI  |  HUI  |  VAI  |  MOD  |                                  |       |Bright+|Bright-|       |       |       |
+ * |-------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+-------|
+ * |       |       |  SAD  |  HUD  |  VAD  | RMOD  |       |       |  |       |       |       |       |       |       |       |       |
+ * `-------+-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-----------------------'
+ *                         |       |       |       |       |       |  |       |       |       |       |       |
+ *                         `---------------------------------------'  `---------------------------------------'
+ */
 
 [_ADJUST] = LAYOUT(
-    RESET,   _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______,    HNTS,
-    _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     CG_TOGG, NK_TOGG, KC_BRID, KC_BRIU, _______, _______,
-    _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
-                              _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
+   RESET,   _______, _______, _______, _______, _______,                                     _______, NK_TOGG, CG_TOGG, _______,    GAME,    HNTS,
+   _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, KC_BRIU, KC_BRID, _______, _______, _______,
+   _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+                             _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
 ),
+
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -165,6 +217,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              tap_code16(LGUI(KC_V));
            }
         }
+      }
+      break;
+    case MSS_CTL:
+      if (record->event.pressed && record->tap.count) {
+          tap_code16(C(KC_UP));
+          return false;
       }
       break;
     case UNDO:  // Tap to Undo, Tap with GUI to Redo

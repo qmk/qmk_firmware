@@ -6,13 +6,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4154      //AT
-#define PRODUCT_ID      0x4536      //E6
-#define DEVICE_VER      0x0062
-#define MANUFACTURER    astro
-#define PRODUCT         e6rgb
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -31,8 +24,6 @@
 #define RGBLIGHT_VAL_STEP 8
 
 #define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 
-#define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 63
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_COUNT 1
+#define DRIVER_LED_TOTAL 63

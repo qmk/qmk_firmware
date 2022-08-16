@@ -20,11 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4454 //DT for DrayTronics
-#define PRODUCT_ID      0x5343 //SC for Scarlet
-#define DEVICE_VER      0x0001 //Version 1
-#define MANUFACTURER    Draytronics
-#define PRODUCT         SCARLET
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -91,6 +86,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

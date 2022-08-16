@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x474B     // "GK"
-#define PRODUCT_ID   0x4201
-#define DEVICE_VER   0x0001
-#define MANUFACTURER gkeyboard
-#define PRODUCT      GKB-M16
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
@@ -141,10 +135,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

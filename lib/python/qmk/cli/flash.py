@@ -18,17 +18,21 @@ def print_bootloader_help():
     """Prints the available bootloaders listed in docs.qmk.fm.
     """
     cli.log.info('Here are the available bootloaders:')
+    cli.echo('\tavrdude')
+    cli.echo('\tbootloadhid')
     cli.echo('\tdfu')
+    cli.echo('\tdfu-util')
+    cli.echo('\tmdloader')
+    cli.echo('\tst-flash')
+    cli.echo('\tst-link-cli')
+    cli.log.info('Enhanced variants for split keyboards:')
+    cli.echo('\tavrdude-split-left')
+    cli.echo('\tavrdude-split-right')
     cli.echo('\tdfu-ee')
     cli.echo('\tdfu-split-left')
     cli.echo('\tdfu-split-right')
-    cli.echo('\tavrdude')
-    cli.echo('\tBootloadHID')
-    cli.echo('\tdfu-util')
     cli.echo('\tdfu-util-split-left')
     cli.echo('\tdfu-util-split-right')
-    cli.echo('\tst-link-cli')
-    cli.echo('\tst-flash')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 
@@ -55,8 +59,9 @@ def flash(cli):
     If bootloader is omitted the make system will use the configured bootloader for that keyboard.
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
-        command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
-        cli.run(command, capture_output=False, stdin=DEVNULL)
+        if cli.config.flash.keyboard and cli.config.flash.keymap:
+            command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
+            cli.run(command, capture_output=False, stdin=DEVNULL)
 
     # Build the environment vars
     envs = {}

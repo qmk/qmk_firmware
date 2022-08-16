@@ -141,7 +141,7 @@ static void render_goblin_logo(void) {
     oled_write_raw_P(my_logo, sizeof(my_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
 	render_goblin_logo();
 
@@ -167,4 +167,5 @@ void oled_task_user(void) {
 			oled_write_P(PSTR(" NONE\n"), false);
 			break;
 	}
+    return false;
 }

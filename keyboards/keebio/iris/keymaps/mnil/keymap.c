@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   //├────────┼────────┼────────┼────────┼────────┼────────┤                           ├────────┼────────┼────────┼────────┼────────┼────────┤
                      KC_TRNS, SE_LCBR, SE_RCBR, SE_LPRN, SE_RPRN, KC_NO,                               SE_PLUS, S(KC_1), S(KC_2), S(KC_3), SE_AMPR, KC_TRNS,
                   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-                     KC_TRNS, M_TILD,  M_CIRC,  SE_LESS, SE_GRTR, KC_NO,   KC_TRNS,           KC_TRNS, SE_APOS, SE_SLSH, SE_BSLS, SE_ASTR, M_BTCK,  KC_TRNS,
+                     KC_TRNS, M_TILD,  M_CIRC,  SE_LABK, SE_RABK, KC_NO,   KC_TRNS,           KC_TRNS, SE_QUOT, SE_SLSH, SE_BSLS, SE_ASTR, M_BTCK,  KC_TRNS,
                   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘         └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                                     KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS ),
                   //                               └────────┴────────┴────────┘                  └────────┴────────┴────────┘

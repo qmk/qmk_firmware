@@ -44,7 +44,7 @@ For native Windows flashing, the `bootloadHID.exe` can be used outside of the MS
 
 ### Linux Manual Installation
 1. Install libusb development dependency:
-    ```bash
+    ```
     # This depends on OS - for Debian the following works
     sudo apt-get install libusb-dev
     ```

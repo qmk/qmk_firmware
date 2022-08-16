@@ -317,7 +317,7 @@ static void render_anim(void) {
 //      oled_write_raw_P(skull, 801);
 //  }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         //render_skull();
         //oled_set_cursor(7,6);
@@ -335,6 +335,7 @@ void oled_task_user(void) {
         oled_write(wpm_str, false);
 
     }
+    return false;
 }
 #endif
 

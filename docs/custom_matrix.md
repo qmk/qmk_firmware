@@ -15,7 +15,7 @@ The reasons to use this feature include:
 Implementing custom matrix usually involves compilation of an additional source file. It is recommended that for consistency, this file is called `matrix.c`.
 
 Add a new file to your keyboard directory:
-```text
+```
 keyboards/<keyboard>/matrix.c
 ```
 

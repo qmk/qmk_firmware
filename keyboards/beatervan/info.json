@@ -1,7 +1,13 @@
 {
   "keyboard_name": "beatervan",
+  "manufacturer": "OJ",
   "url": "",
   "maintainer": "OJ",
+  "usb": {
+    "vid": "0x6F7A",
+    "pid": "0x6276",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
         "layout": [

@@ -23,7 +23,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Unicomp/Purdea Andrei
 #define PRODUCT Unicomp Spacesaver M
-#define DESCRIPTION QMK firmware for the Unicomp Spacesaver M keyboard with a replacement Overnumpad controller
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
 /* key matrix size */
@@ -64,8 +63,10 @@
 #define STM32_HSECLK 16000000
 
 #define SOLENOID_PIN B5
+#define HAPTIC_ENABLE_PIN C13
 #define SOLENOID_DEFAULT_DWELL 4
 #define SOLENOID_MIN_DWELL 4
+#define HAPTIC_OFF_IN_LOW_POWER 1
 #define NO_HAPTIC_MOD
 
 #define LED_CAPS_LOCK_PIN C12

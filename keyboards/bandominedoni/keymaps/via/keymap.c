@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -26,6 +27,10 @@ enum layer_names {
 #endif
     _MISC,
     _FN
+};
+
+enum custom_keycodes {
+    VERSION = USER00
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -82,32 +87,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
-                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD,
+                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG
     )
 };
 
-void eeconfig_init_user(void) {  // EEPROM is getting reset!
-  #ifdef RGB_MATRIX_ENABLE
-  rgb_matrix_enable();
-  rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
-  rgb_matrix_sethsv(HSV_BLUE);
-
-  rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
-  // rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-  #endif
-}
-
-void keyboard_post_init_user(void) {
+void my_init(void){
     //  Set octave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
+}
+
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+    midi_init();
+    my_init();
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_enable();
+    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
+    rgb_matrix_sethsv(HSV_BLUE);
+
+    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
+    // rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+#endif
+}
+
+void keyboard_post_init_user(void) {
+    my_init();
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            break;
+    }
+    return true;
+}
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {

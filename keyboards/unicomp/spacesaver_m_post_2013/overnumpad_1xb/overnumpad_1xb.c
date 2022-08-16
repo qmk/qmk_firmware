@@ -23,9 +23,6 @@ void keyboard_post_init_kb(void)
     setPinOutput(C11); // middle led, always off on Spacesaver M
     writePin(C11, 0);
     setPinOutput(C10); // right-most led, normally Scroll Lock, but on Spacesaver M indicates function layer
-    // Solenoid enable:
-    setPinOutput(C13);
-    writePin(C13, 1);
 
     //debug_enable=true;
     //debug_matrix=true;

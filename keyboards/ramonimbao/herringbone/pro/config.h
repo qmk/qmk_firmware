@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xB16B
-#define PRODUCT_ID 0x440B
-#define DEVICE_VER 0x0012
-#define MANUFACTURER Ramon Imbao
-#define PRODUCT Herringbone Pro
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 15
@@ -50,8 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Encoder pin assignment */
 #define ENCODERS_PAD_A { C3 }
 #define ENCODERS_PAD_B { C2 }
-
-#define ENCODER_DIRECTION_FLIP
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -109,10 +100,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

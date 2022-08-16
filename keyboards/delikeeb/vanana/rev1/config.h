@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER   0x0001
-#define PRODUCT      Vanana rev1
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -90,10 +86,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 #define GRAVE_ESC_CTRL_OVERRIDE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

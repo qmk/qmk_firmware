@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #pragma once
 
 #include "config_common.h"
-#define VENDOR_ID       0x7C88 // "hw" = haierwangwei2005
-#define PRODUCT_ID      0x7C99 // "10b" = 10bleoledhub
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    haierwangwei2005
-#define PRODUCT         10bleoledhub
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -59,13 +59,13 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 
 |Define                      |Default|Description                                              |
 |----------------------------|-------|---------------------------------------------------------|
-|`MOUSEKEY_DELAY`            |300    |Delay between pressing a movement key and cursor movement|
-|`MOUSEKEY_INTERVAL`         |50     |Time between cursor movements in milliseconds            |
-|`MOUSEKEY_MOVE_DELTA`       |5      |Step size                                                |
+|`MOUSEKEY_DELAY`            |10     |Delay between pressing a movement key and cursor movement|
+|`MOUSEKEY_INTERVAL`         |20     |Time between cursor movements in milliseconds            |
+|`MOUSEKEY_MOVE_DELTA`       |8      |Step size                                                |
 |`MOUSEKEY_MAX_SPEED`        |10     |Maximum cursor speed at which acceleration stops         |
-|`MOUSEKEY_TIME_TO_MAX`      |20     |Time until maximum cursor speed is reached               |
-|`MOUSEKEY_WHEEL_DELAY`      |300    |Delay between pressing a wheel key and wheel movement    |
-|`MOUSEKEY_WHEEL_INTERVAL`   |100    |Time between wheel movements                             |
+|`MOUSEKEY_TIME_TO_MAX`      |30     |Time until maximum cursor speed is reached               |
+|`MOUSEKEY_WHEEL_DELAY`      |10     |Delay between pressing a wheel key and wheel movement    |
+|`MOUSEKEY_WHEEL_INTERVAL`   |80     |Time between wheel movements                             |
 |`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
 |`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
 
@@ -85,9 +85,9 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 |Define                                |Default  |Description                                                    |
 |--------------------------------------|---------|---------------------------------------------------------------|
 |`MK_KINETIC_SPEED`                    |undefined|Enable kinetic mode                                            |
-|`MOUSEKEY_DELAY`                      |8        |Delay between pressing a movement key and cursor movement      |
-|`MOUSEKEY_INTERVAL`                   |8        |Time between cursor movements in milliseconds                  |
-|`MOUSEKEY_MOVE_DELTA`                 |25       |Step size for accelerating from initial to base speed          |
+|`MOUSEKEY_DELAY`                      |5        |Delay between pressing a movement key and cursor movement      |
+|`MOUSEKEY_INTERVAL`                   |10       |Time between cursor movements in milliseconds                  |
+|`MOUSEKEY_MOVE_DELTA`                 |5        |Step size for accelerating from initial to base speed          |
 |`MOUSEKEY_INITIAL_SPEED`              |100      |Initial speed of the cursor in pixel per second                |
 |`MOUSEKEY_BASE_SPEED`                 |1000     |Maximum cursor speed at which acceleration stops               |
 |`MOUSEKEY_DECELERATED_SPEED`          |400      |Decelerated cursor speed                                       |
@@ -164,7 +164,7 @@ small and detailed movements of the cursor.
 * **KC_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
 useful for moving the cursor large distances without much accuracy.
 
-To use constant speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
+To use combined speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
 
 ```c
 #define MK_COMBINED

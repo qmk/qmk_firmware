@@ -361,7 +361,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (update_speed_test) {
         // Speed test mode - wait for screen update completion.
         if (!oled_dirty) {
@@ -390,7 +390,7 @@ void oled_task_user(void) {
         // This mode is also forced when the screen update speed test is performed.
         if (!need_update) {
             if (test_mode != TEST_SLOW_UPDATE) {
-                return;
+                return false;
             }
         }
         need_update = false;
@@ -450,6 +450,7 @@ void oled_task_user(void) {
             oled_write_P(PSTR("Draw Once"), false);
             break;
     }
+    return false;
 }
 
 void keyboard_post_init_user(void) {

@@ -52,7 +52,9 @@
 #    define EXTERNAL_EEPROM_SPI_TIMEOUT 100
 #endif
 
-static bool spi_eeprom_start(void) { return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR); }
+static bool spi_eeprom_start(void) {
+    return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR);
+}
 
 static spi_status_t spi_eeprom_wait_while_busy(int timeout) {
     uint32_t     deadline = timer_read32() + timeout;
@@ -80,7 +82,9 @@ static void spi_eeprom_transmit_address(uintptr_t addr) {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void eeprom_driver_init(void) { spi_init(); }
+void eeprom_driver_init(void) {
+    spi_init();
+}
 
 void eeprom_driver_erase(void) {
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
@@ -135,7 +139,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
         dprintf(" %02X", (int)(((uint8_t *)buf)[i]));
     }
     dprintf("\n");
-#endif  // DEBUG_EEPROM_OUTPUT
+#endif // DEBUG_EEPROM_OUTPUT
 
     spi_stop();
 }
@@ -192,7 +196,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
             dprintf(" %02X", (int)(uint8_t)(read_buf[i]));
         }
         dprintf("\n");
-#endif  // DEBUG_EEPROM_OUTPUT
+#endif // DEBUG_EEPROM_OUTPUT
 
         spi_write(CMD_WRITE);
         spi_eeprom_transmit_address(target_addr);

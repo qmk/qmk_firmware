@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0004
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ai03 Design Studio
-#define PRODUCT         Equinox
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -132,8 +125,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

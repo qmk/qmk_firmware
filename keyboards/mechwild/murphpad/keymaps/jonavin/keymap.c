@@ -274,7 +274,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 break;
             }
         }
-        return true;
+        return false;
     }
 #endif
 
@@ -296,7 +296,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 	}
 
     #ifdef LANDSCAPE_MODE
-    void oled_task_user(void) {
+    oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+       return OLED_ROTATION_0;       // do not flip the display
+    }
+
+    bool oled_task_user(void) {
 
         render_logo();
         oled_set_cursor(8,2);
@@ -359,16 +363,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
         oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
         oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("   "), false);
+    return false;
     }
     #endif // LANDSCAPE_MODE
 
     // regular mode
     #ifndef LANDSCAPE_MODE
- 	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-		return OLED_ROTATION_270;       // flips the display 270 degrees
-	}
-
-    void oled_task_user(void) {
+    bool oled_task_user(void) {
 		render_logo();
 		oled_set_cursor(0,5);
 
@@ -408,6 +409,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         oled_write_ln_P(led_state.num_lock ? PSTR(" NUM") : PSTR("    "), false);
         oled_write_ln_P(led_state.caps_lock ? PSTR(" CAP") : PSTR("    "), false);
         oled_write_ln_P(led_state.scroll_lock ? PSTR(" SCR") : PSTR("    "), false);
+    return false;
     }
     #endif // !LANDSCAPE_MODE
 

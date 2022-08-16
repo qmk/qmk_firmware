@@ -18,21 +18,6 @@
 
 #include "bcat.h"
 
-enum layer {
-    LAYER_DEFAULT,
-    LAYER_LOWER,
-    LAYER_RAISE,
-    LAYER_ADJUST,
-};
-
-#define LY_LWR MO(LAYER_LOWER)
-#define LY_RSE MO(LAYER_RAISE)
-
-#define KY_CSPC LCTL(KC_SPC)
-#define KY_ZMIN LCTL(KC_EQL)
-#define KY_ZMOUT LCTL(KC_MINS)
-#define KY_ZMRST LCTL(KC_0)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/2c11371c7a5f7cd08a0132631d3d3281 */
@@ -58,12 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/b18aafa0327d7e83eaf485546c067a21 */
     [LAYER_ADJUST] = LAYOUT(
-        _______,  NK_TOGG,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  _______,  _______,  EEP_RST,  RESET,    _______,  _______,  _______,  _______,
+        _______,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  _______,  _______,  EEP_RST,  RESET,    _______,  _______,  _______,  _______,
         _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,  _______,  RGB_RMOD, RGB_VAD,  RGB_VAI,  RGB_MOD,  RGB_SPI,  _______,
         _______,  _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_HUD,  RGB_SPD,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_TOG,  _______,  _______,  _______,  _______,  _______
     ),
     // clang-format on
 };
-
-layer_state_t layer_state_set_keymap(layer_state_t state) { return update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST); }

@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_3] = LAYOUT(
     KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_BSPC,
-    KC_TAB,   N_DOTS,  N_USC,   N_LSQBR, N_RSQBR, N_CIRC,                     N_EXKL,  N_LT,    N_GT,    N_EQ,    N_AMP,   KC_TRNS,
+    KC_TAB,   N_DOTS,  N_USC,   N_LSQBR, N_RSQBR, N_CIRC,                     N_EXKL,  N_LT,    N_GT,    N_EQ,    N_AMP,   N_ACUT,
     KC_TRNS,  N_BSLS,  N_SLSH,  N_LCUBR, N_RCUBR, N_ASTR,                     N_QUES,  N_LPARN, N_RPARN, N_MINS,  N_COLN,  N_AT,
     KC_LSFT,  N_HASH,  N_DLR,   N_PIPE,  N_TILD,  N_GRAVE,                    N_PLUS,  N_PERC,  N_QUOT,  N_SING,  N_SEMI,  KC_RSFT,
     KC_LCTL,  N_COPY,  N_PASTE, KC_LGUI, KC_LALT, KC_SPC,  KC_ENTER, KC_TRNS, KC_TRNS, KC_RCTL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS

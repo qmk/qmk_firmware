@@ -31,7 +31,7 @@ By default, the Indicator LEDs are used to indicate the layer state for the keyb
 
 ### Oryx Configuration
 
-To enable the features from Oryx (ZSA's Configurator), either compile the the `default` keymap, or add `#define ORYX_CONFIGURATOR` to your `config.h` file.  
+To enable the features from Oryx (ZSA's Configurator), either compile the `default` keymap, or add `#define ORYX_CONFIGURATOR` to your `config.h` file.
 
 This enables the front Indicator LEDs, and the `TOGGLE_LAYER_COLOR` keycode.  The `TOGGLE_LAYER_COLOR` keycode toggles the customized LED map configured on Oryx. 
 

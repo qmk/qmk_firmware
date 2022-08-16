@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4145 // AE
-#define PRODUCT_ID      0x065C // 65 - Constellation
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AEBoards
-#define PRODUCT         AEBoards Constellation Rev2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -47,8 +40,8 @@
 #define LOCKING_RESYNC_ENABLE
 
 // I2C setup
-#define I2C1_SCL            8
-#define I2C1_SDA            9
+#define I2C1_SCL_PIN        B8
+#define I2C1_SDA_PIN        B9
 #define I2C1_SCL_PAL_MODE   4
 #define I2C1_SDA_PAL_MODE   4
 #define I2C1_TIMINGR_PRESC  0U

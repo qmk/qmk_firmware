@@ -42,16 +42,16 @@
 #define ISSI_INTERRUPTSTATUSREGISTER 0xF1
 #define ISSI_IDREGISTER 0xFC
 
-#define ISSI_PAGE_PWM0 0x00       // PG0
-#define ISSI_PAGE_PWM1 0x01       // PG1
-#define ISSI_PAGE_SCALING_0 0x02  // PG2
-#define ISSI_PAGE_SCALING_1 0x03  // PG3
-#define ISSI_PAGE_FUNCTION 0x04   // PG4
+#define ISSI_PAGE_PWM0 0x00      // PG0
+#define ISSI_PAGE_PWM1 0x01      // PG1
+#define ISSI_PAGE_SCALING_0 0x02 // PG2
+#define ISSI_PAGE_SCALING_1 0x03 // PG3
+#define ISSI_PAGE_FUNCTION 0x04  // PG4
 
-#define ISSI_REG_CONFIGURATION 0x00  // PG4
-#define ISSI_REG_GLOBALCURRENT 0x01  // PG4
-#define ISSI_REG_PULLDOWNUP 0x02     // PG4
-#define ISSI_REG_RESET 0x3F          // PG4
+#define ISSI_REG_CONFIGURATION 0x00 // PG4
+#define ISSI_REG_GLOBALCURRENT 0x01 // PG4
+#define ISSI_REG_PULLDOWNUP 0x02    // PG4
+#define ISSI_REG_RESET 0x3F         // PG4
 
 #ifndef ISSI_TIMEOUT
 #    define ISSI_TIMEOUT 100
@@ -59,6 +59,14 @@
 
 #ifndef ISSI_PERSISTENCE
 #    define ISSI_PERSISTENCE 0
+#endif
+
+#ifndef ISSI_SWPULLUP
+#    define ISSI_SWPULLUP PUR_32KR
+#endif
+
+#ifndef ISSI_CSPULLUP
+#    define ISSI_CSPULLUP PUR_32KR
 #endif
 
 #define ISSI_MAX_LEDS 351
@@ -157,7 +165,7 @@ void IS31FL3741_init(uint8_t addr) {
     // Set Golbal Current Control Register
     IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Set Pull up & Down for SWx CSy
-    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, 0x77);
+    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4) | ISSI_SWPULLUP));
 
     // IS31FL3741_update_led_scaling_registers(addr, 0xFF, 0xFF, 0xFF);
 
@@ -166,8 +174,9 @@ void IS31FL3741_init(uint8_t addr) {
 }
 
 void IS31FL3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    is31_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
@@ -183,7 +192,8 @@ void IS31FL3741_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     if (red) {
         g_scaling_registers[led.driver][led.r] = 0xFF;

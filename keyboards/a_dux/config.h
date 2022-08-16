@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xC2AB
-#define PRODUCT_ID      0x3939
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tapioki
-#define PRODUCT         Architeuthis dux
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
@@ -47,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B4, B5, NO_PIN, NO_PIN, NO_PIN } \
 }
 
-#define DIRECT_PINS_RIGHT  { \
+#define DIRECT_PINS_RIGHT { \
     { F4, B2, F7, D2, C6 }, \
     { F5, B3, F6, D0, D7 }, \
     { B6, B1, D3, D4, E6 }, \
@@ -74,3 +67,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D1
 
 #define EE_HANDS
+
+/* Top left key on left half */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+/* Top right key on right half */
+#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 4

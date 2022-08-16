@@ -23,13 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA22A
-#define PRODUCT_ID      0x6600
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AT-AT
-#define PRODUCT         660M
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -65,5 +58,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

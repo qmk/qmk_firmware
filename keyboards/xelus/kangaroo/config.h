@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845  // XE
-#define PRODUCT_ID      0x524F  // RO
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Kangaroo
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 11
@@ -43,8 +36,8 @@
 #define LOCKING_RESYNC_ENABLE
 
 // I2C OLED defines
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1

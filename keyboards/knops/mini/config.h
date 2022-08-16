@@ -15,17 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEFD
-#define PRODUCT_ID      0x9460
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alltrons IT
-#define PRODUCT         Knops Mini
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -104,7 +96,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-#endif

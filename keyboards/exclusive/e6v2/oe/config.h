@@ -15,17 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Exclusive / E-Team
-#define PRODUCT         E6-V2
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -54,5 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
-
-#endif

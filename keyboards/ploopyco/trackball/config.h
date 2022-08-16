@@ -20,12 +20,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5043
-#define PRODUCT_ID 0x5442
-#define DEVICE_VER 0x0001
-#define PRODUCT Trackball
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 5
@@ -41,12 +35,7 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
-/* Much more so than a keyboard, speed matters for a mouse. So we'll go for as high
-   a polling rate as possible. */
-#define USB_POLLING_INTERVAL_MS 1
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* Bootmagic Lite key configuration */
@@ -60,3 +49,4 @@
 
 /* PMW3360 Settings */
 #define PMW3360_CS_PIN             B0
+#define POINTING_DEVICE_INVERT_Y

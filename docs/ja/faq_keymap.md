@@ -10,7 +10,7 @@
 ## どのキーコードを使えますか？
 あなたが利用可能なキーコードのインデックスについては、[キーコード](ja/keycodes.md)を見てください。より広範なドキュメントがある場合は、そこからリンクしてあります。
 
-キーコードは実際には [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h) で定義されています。
+キーコードは実際には [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h) で定義されています。
 
 ## デフォルトのキーコードとは何か？
 

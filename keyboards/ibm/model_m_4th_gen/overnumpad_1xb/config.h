@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x16C0
-#define PRODUCT_ID 0x27DB
-#define DEVICE_VER 0x0001
-#define MANUFACTURER IBM/Purdea Andrei
-#define PRODUCT IBM Model M (4th generation)
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
 /* key matrix size */
@@ -64,8 +58,10 @@
 #define STM32_HSECLK 16000000
 
 #define SOLENOID_PIN B5
+#define HAPTIC_ENABLE_PIN C13
 #define SOLENOID_DEFAULT_DWELL 4
 #define SOLENOID_MIN_DWELL 4
+#define HAPTIC_OFF_IN_LOW_POWER 1
 #define NO_HAPTIC_MOD
 
 #define LED_NUM_LOCK_PIN C12

@@ -18,4 +18,21 @@
 
 enum layers { NORMAL_LAYER, SECOND_LAYER, THIRD_LAYER, FOURTH_LAYER };
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[NORMAL_LAYER] = LAYOUT_ortho_2x4(KC_A, KC_A, KC_A, TO(3), KC_A, KC_A, KC_A, TO(1)), [SECOND_LAYER] = LAYOUT_ortho_2x4(KC_B, KC_B, KC_B, TO(0), KC_B, KC_B, KC_B, TO(2)), [THIRD_LAYER] = LAYOUT_ortho_2x4(KC_C, KC_C, KC_C, TO(1), KC_C, KC_C, KC_C, TO(3)), [FOURTH_LAYER] = LAYOUT_ortho_2x4(KC_D, KC_D, KC_D, TO(2), KC_D, KC_D, KC_D, TO(0))};
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [NORMAL_LAYER] = LAYOUT_ortho_2x4(
+        KC_F13, KC_F14, KC_F15, KC_F16,
+        KC_F17, KC_F18, KC_F19, KC_F20
+    ),
+    [SECOND_LAYER] = LAYOUT_ortho_2x4(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    [THIRD_LAYER] = LAYOUT_ortho_2x4(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    [FOURTH_LAYER] = LAYOUT_ortho_2x4(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    )
+};

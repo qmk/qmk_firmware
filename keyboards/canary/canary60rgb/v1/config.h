@@ -15,13 +15,6 @@
  */
  #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4341
-#define PRODUCT_ID      0x0621
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CANARY
-#define PRODUCT         CANARY60RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -55,7 +48,7 @@
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
-#    define RGBLED_NUM 12
+#    define RGBLED_NUM 20
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
@@ -64,10 +57,6 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -88,7 +77,6 @@
 #    define DISABLE_RGB_MATRIX_MULTISPLASH
 #    define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #    define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#    define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 1
 #    define DRIVER_LED_TOTAL 63

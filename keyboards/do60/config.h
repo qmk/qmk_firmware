@@ -15,17 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4453 // DS for Doyu Studios
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Shopkey by Doyu Studio
-#define PRODUCT         Do60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -75,5 +67,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define TAPPING_TERM 200
-
-#endif

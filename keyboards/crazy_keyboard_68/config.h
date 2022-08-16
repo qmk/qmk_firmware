@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED // by default from pcb
-#define PRODUCT_ID   0x13DE
-#define DEVICE_VER   0x0001
-#define MANUFACTURER chent7
-#define PRODUCT      Crazy Keyboard 68
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -52,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
-#define LED_CAPS_LOCK_PIN B2
+#define LED_CAPS_LOCK_PIN B0
 #define LED_PIN_ON_STATE 0
 
 //#define BACKLIGHT_PIN B7
@@ -139,10 +132,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

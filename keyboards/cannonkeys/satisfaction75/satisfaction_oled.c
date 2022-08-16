@@ -1,271 +1,267 @@
 #include "satisfaction75.h"
-#include "micro_oled.h"
 
-__attribute__ ((weak))
-void draw_ui() {
-#ifdef QWIIC_MICRO_OLED_ENABLE
-  clear_buffer();
-  last_flush = timer_read();
-  send_command(DISPLAYON);
-  if(clock_set_mode){
-    draw_clock();
-    return;
-  }
-  switch (oled_mode){
-    default:
-    case OLED_DEFAULT:
-      draw_default();
-      break;
-    case OLED_TIME:
-      draw_clock();
-      break;
-    case OLED_OFF:
-      send_command(DISPLAYOFF);
-      break;
-  }
-#endif
+void draw_default(void);
+void draw_clock(void);
+
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_0; }
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
+    if (!oled_task_needs_to_repaint()) {
+        return false;
+    }
+    oled_clear();
+    if (clock_set_mode) {
+        draw_clock();
+        return false;;
+    }
+    switch (oled_mode) {
+        default:
+        case OLED_DEFAULT:
+            draw_default();
+            break;
+        case OLED_TIME:
+            draw_clock();
+            break;
+    }
+    return false;
 }
 
-void draw_encoder(int8_t startX, int8_t startY, bool show_legend){
-  if(show_legend){
-    draw_string(startX + 1, startY + 2, "ENC", PIXEL_ON, NORM, 0);
-  } else {
-    startX -= 22;
-  }
-  draw_rect_filled_soft(startX + 22, startY + 1, 3 + (3 * 6), 9, PIXEL_ON, NORM);
-  char* mode_string = "";
-  switch(encoder_mode){
-    default:
-    case ENC_MODE_VOLUME:
-      mode_string = "VOL";
-      break;
-    case ENC_MODE_MEDIA:
-      mode_string = "MED";
-      break;
-    case ENC_MODE_SCROLL:
-      mode_string = "SCR";
-      break;
-    case ENC_MODE_BRIGHTNESS:
-      mode_string = "BRT";
-      break;
-    case ENC_MODE_BACKLIGHT:
-      mode_string = "BKL";
-      break;
-    case ENC_MODE_CLOCK_SET:
-      mode_string = "CLK";
-      break;
-    case ENC_MODE_CUSTOM0:
-      mode_string = "CS0";
-      break;
-    case ENC_MODE_CUSTOM1:
-      mode_string = "CS1";
-      break;
-    case ENC_MODE_CUSTOM2:
-      mode_string = "CS2";
-      break;
-  }
-  draw_string(startX + 24, startY + 2, mode_string, PIXEL_ON, XOR, 0);
+// Request a repaint of the OLED image without resetting the OLED sleep timer.
+// Used for things like clock updates that should not keep the OLED turned on
+// if there is no other activity.
+void oled_request_repaint(void) {
+    if (is_oled_on()) {
+        oled_repaint_requested = true;
+    }
 }
 
-void draw_layer_section(int8_t startX, int8_t startY, bool show_legend){
-  if(show_legend){
-    draw_string(startX + 1, startY + 2, "LAYER", PIXEL_ON, NORM, 0);
-  } else {
-    startX -= 32;
-  }
-  draw_rect_filled_soft(startX + 32, startY + 1, 9, 9, PIXEL_ON, NORM);
-  draw_char(startX + 34, startY + 2, layer + 0x30, PIXEL_ON, XOR, 0);
+// Request a repaint of the OLED image and reset the OLED sleep timer.
+// Needs to be called after any activity that should keep the OLED turned on.
+void oled_request_wakeup(void) {
+    oled_wakeup_requested = true;
 }
 
-void draw_default(){
-  uint8_t hour = last_minute / 60;
-  uint16_t minute = last_minute % 60;
+// Check whether oled_task_user() needs to repaint the OLED image.  This
+// function should be called at the start of oled_task_user(); it also handles
+// the OLED sleep timer and the OLED_OFF mode.
+bool oled_task_needs_to_repaint(void) {
+    // In the OLED_OFF mode the OLED is kept turned off; any wakeup requests
+    // are ignored.
+    if ((oled_mode == OLED_OFF) && !clock_set_mode) {
+        oled_wakeup_requested = false;
+        oled_repaint_requested = false;
+        oled_off();
+        return false;
+    }
 
-  if(encoder_mode == ENC_MODE_CLOCK_SET){
-    hour = hour_config;
-    minute = minute_config;
-  }
+    // If OLED wakeup was requested, reset the sleep timer and do a repaint.
+    if (oled_wakeup_requested) {
+        oled_wakeup_requested = false;
+        oled_repaint_requested = false;
+        oled_sleep_timer = timer_read32() + CUSTOM_OLED_TIMEOUT;
+        oled_on();
+        return true;
+    }
 
-  bool is_pm = (hour / 12) > 0;
-  hour = hour % 12;
-  if (hour == 0){
-    hour = 12;
-  }
-  char hour_str[3] = "";
-  char min_str[3] = "";
+    // If OLED repaint was requested, just do a repaint without touching the
+    // sleep timer.
+    if (oled_repaint_requested) {
+        oled_repaint_requested = false;
+        return true;
+    }
 
-  sprintf(hour_str, "%02d", hour);
-  sprintf(min_str, "%02d", minute);
+    // If the OLED is currently off, skip the repaint (which would turn the
+    // OLED on if the image is changed in any way).
+    if (!is_oled_on()) {
+        return false;
+    }
 
-  uint8_t mods = get_mods();
+    // If the sleep timer has expired while the OLED was on, turn the OLED off.
+    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+        oled_off();
+        return false;
+    }
 
-/* Layer indicator is 41 x 10 pixels */
-  draw_layer_section(0,0,true);
+    // Always perform a repaint if the OLED is currently on.  (This can
+    // potentially be optimized to avoid unneeded repaints if all possible
+    // state changes are covered by oled_request_repaint() or
+    // oled_request_wakeup(), but then any missed calls to these functions
+    // would result in displaying a stale image.)
+    return true;
+}
 
-#define ENCODER_INDICATOR_X 45
-#define ENCODER_INDICATOR_Y 0
-  draw_encoder(ENCODER_INDICATOR_X, ENCODER_INDICATOR_Y, true);
-/* Matrix display is 19 x 9 pixels */
+
+static void draw_line_h(uint8_t x, uint8_t y, uint8_t len) {
+    for (uint8_t i = 0; i < len; i++) {
+        oled_write_pixel(i + x, y, true);
+    }
+}
+
+static void draw_line_v(uint8_t x, uint8_t y, uint8_t len) {
+    for (uint8_t i = 0; i < len; i++) {
+        oled_write_pixel(x, i + y, true);
+    }
+}
+
+static char* get_enc_mode(void) {
+    switch (encoder_mode) {
+        default:
+        case ENC_MODE_VOLUME:
+            return "VOL";
+        case ENC_MODE_MEDIA:
+            return "MED";
+        case ENC_MODE_SCROLL:
+            return "SCR";
+        case ENC_MODE_BRIGHTNESS:
+            return "BRT";
+        case ENC_MODE_BACKLIGHT:
+            return "BKL";
+        case ENC_MODE_CLOCK_SET:
+            return "CLK";
+        case ENC_MODE_CUSTOM0:
+            return "CS0";
+        case ENC_MODE_CUSTOM1:
+            return "CS1";
+        case ENC_MODE_CUSTOM2:
+            return "CS2";
+    }
+}
+
+static char* get_time(void) {
+    uint8_t  hour   = last_minute / 60;
+    uint16_t minute = last_minute % 60;
+
+    if (encoder_mode == ENC_MODE_CLOCK_SET) {
+        hour   = hour_config;
+        minute = minute_config;
+    }
+
+    bool is_pm = (hour / 12) > 0;
+    hour       = hour % 12;
+    if (hour == 0) {
+        hour = 12;
+    }
+
+    static char time_str[8] = "";
+    sprintf(time_str, "%02d:%02d%s", hour, minute, is_pm ? "pm" : "am");
+
+    return time_str;
+}
+
+static char* get_date(void) {
+    int16_t year  = last_timespec.year + 1980;
+    int8_t  month = last_timespec.month;
+    int8_t  day   = last_timespec.day;
+
+    if (encoder_mode == ENC_MODE_CLOCK_SET) {
+        year  = year_config + 1980;
+        month = month_config;
+        day   = day_config;
+    }
+
+    static char date_str[11] = "";
+    sprintf(date_str, "%04d-%02d-%02d", year, month, day);
+
+    return date_str;
+}
+
+void draw_default() {
+    oled_write_P(PSTR("LAYER "), false);
+    oled_write_char(get_highest_layer(layer_state) + 0x30, true);
+
+    oled_write_P(PSTR(" ENC "), false);
+    oled_write(get_enc_mode(), true);
+
+    led_t led_state = host_keyboard_led_state();
+    oled_set_cursor(18, 0);
+    oled_write_P(PSTR("CAP"), led_state.caps_lock);
+    oled_set_cursor(18, 1);
+    oled_write_P(PSTR("SCR"), led_state.scroll_lock);
+
+    uint8_t mod_state = get_mods();
+    oled_set_cursor(6, 3);
+    oled_write_P(PSTR("S"), mod_state & MOD_MASK_SHIFT);
+    oled_advance_char();
+    oled_write_P(PSTR("C"), mod_state & MOD_MASK_CTRL);
+    oled_advance_char();
+    oled_write_P(PSTR("A"), mod_state & MOD_MASK_ALT);
+    oled_advance_char();
+    oled_write_P(PSTR("G"), mod_state & MOD_MASK_GUI);
+    oled_advance_char();
+
+    oled_write(get_time(), false);
+
+/* Matrix display is 12 x 12 pixels */
 #define MATRIX_DISPLAY_X 0
 #define MATRIX_DISPLAY_Y 18
 
-  for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-    for (uint8_t y = 0; y < MATRIX_COLS; y++) {
-      draw_pixel(MATRIX_DISPLAY_X + y + 2, MATRIX_DISPLAY_Y + x + 2,(matrix_get_row(x) & (1 << y)) > 0, NORM);
+    // matrix
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        for (uint8_t y = 0; y < MATRIX_COLS; y++) {
+            bool on = (matrix_get_row(x) & (1 << y)) > 0;
+            oled_write_pixel(MATRIX_DISPLAY_X + y + 2, MATRIX_DISPLAY_Y + x + 2, on);
+        }
     }
-  }
-  draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 19, 9, PIXEL_ON, NORM);
-  /* hadron oled location on thumbnail */
-  draw_rect_filled_soft(MATRIX_DISPLAY_X + 14, MATRIX_DISPLAY_Y + 2, 3, 1, PIXEL_ON, NORM);
 
-/* Mod display is 41 x 16 pixels */
-#define MOD_DISPLAY_X 30
-#define MOD_DISPLAY_Y 18
+    // outline
+    draw_line_h(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 19);
+    draw_line_h(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y + 9, 19);
+    draw_line_v(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 9);
+    draw_line_v(MATRIX_DISPLAY_X + 19, MATRIX_DISPLAY_Y, 9);
 
-  if (mods & MOD_LSFT) {
-    draw_rect_filled_soft(MOD_DISPLAY_X + 0, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(MOD_DISPLAY_X + 3, MOD_DISPLAY_Y + 2, "S", PIXEL_OFF, NORM, 0);
-  } else {
-    draw_string(MOD_DISPLAY_X + 3, MOD_DISPLAY_Y + 2, "S", PIXEL_ON, NORM, 0);
-  }
-  if (mods & MOD_LCTL) {
-    draw_rect_filled_soft(MOD_DISPLAY_X + 10, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(MOD_DISPLAY_X + 13, MOD_DISPLAY_Y + 2, "C", PIXEL_OFF, NORM, 0);
-  } else {
-    draw_string(MOD_DISPLAY_X + 13, MOD_DISPLAY_Y + 2, "C", PIXEL_ON, NORM, 0);
-  }
-  if (mods & MOD_LALT) {
-    draw_rect_filled_soft(MOD_DISPLAY_X + 20, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(MOD_DISPLAY_X + 23, MOD_DISPLAY_Y + 2, "A", PIXEL_OFF, NORM, 0);
-  } else {
-    draw_string(MOD_DISPLAY_X + 23, MOD_DISPLAY_Y + 2, "A", PIXEL_ON, NORM, 0);
-  }
-  if (mods & MOD_LGUI) {
-    draw_rect_filled_soft(MOD_DISPLAY_X + 30, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(MOD_DISPLAY_X + 33, MOD_DISPLAY_Y + 2, "G", PIXEL_OFF, NORM, 0);
-  } else {
-    draw_string(MOD_DISPLAY_X + 33, MOD_DISPLAY_Y + 2, "G", PIXEL_ON, NORM, 0);
-  }
+    // oled location
+    draw_line_h(MATRIX_DISPLAY_X + 14, MATRIX_DISPLAY_Y + 2, 3);
 
-/* Lock display is 23 x 21 */
-#define LOCK_DISPLAY_X 100
-#define LOCK_DISPLAY_Y 0
-
-  if (led_capslock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y +1, "CAP", PIXEL_OFF, NORM, 0);
-  } else if (led_capslock == false) {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y +1, "CAP", PIXEL_ON, NORM, 0);
-  }
-
-  if (led_scrolllock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 11, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "SCR", PIXEL_OFF, NORM, 0);
-  } else if (led_scrolllock == false) {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "SCR", PIXEL_ON, NORM, 0);
-  }
-
-#define TIME_DISPLAY_X 82
-#define TIME_DISPLAY_Y 22
-  draw_string(TIME_DISPLAY_X, TIME_DISPLAY_Y, hour_str, PIXEL_ON, NORM, 0);
-  draw_string(TIME_DISPLAY_X + 11, TIME_DISPLAY_Y, ":", PIXEL_ON, NORM, 0);
-  draw_string(TIME_DISPLAY_X + 15, TIME_DISPLAY_Y, min_str, PIXEL_ON, NORM, 0);
-  if(is_pm){
-    draw_string(TIME_DISPLAY_X + 27, TIME_DISPLAY_Y, "pm", PIXEL_ON, NORM, 0);
-  } else{
-    draw_string(TIME_DISPLAY_X + 27, TIME_DISPLAY_Y, "am", PIXEL_ON, NORM, 0);
-  }
-
-  send_buffer();
+    // bodge extra lines for invert layer and enc mode
+    draw_line_v(35, 0, 8);
+    draw_line_v(71, 0, 8);
 }
 
-void draw_clock(){
-  int8_t hour = last_minute / 60;
-  int16_t minute = last_minute % 60;
-  int16_t year = last_timespec.year + 1980;
-  int8_t month = last_timespec.month;
-  int8_t day = last_timespec.day;
+void draw_clock() {
+    oled_set_cursor(0, 0);
+    oled_write(get_date(), false);
+    oled_set_cursor(0, 2);
+    oled_write(get_time(), false);
 
-  if(encoder_mode == ENC_MODE_CLOCK_SET){
-    hour = hour_config;
-    minute = minute_config;
-    year = year_config + 1980;
-    month = month_config;
-    day = day_config;
-  }
+    oled_set_cursor(12, 0);
+    oled_write_P(PSTR(" ENC "), false);
+    oled_write(get_enc_mode(), true);
 
-  bool is_pm = (hour / 12) > 0;
-  hour = hour % 12;
-  if (hour == 0){
-    hour = 12;
-  }
-  char hour_str[3] = "";
-  char min_str[3] = "";
-  char year_str[5] = "";
-  char month_str[3] = "";
-  char day_str[3] = "";
+    oled_set_cursor(13, 1);
+    oled_write_P(PSTR("LAYER "), false);
+    oled_write_char(get_highest_layer(layer_state) + 0x30, true);
 
-  sprintf(hour_str, "%02d", hour);
-  sprintf(min_str, "%02d", minute);
-  sprintf(year_str, "%d", year);
-  sprintf(month_str, "%02d", month);
-  sprintf(day_str, "%02d", day);
+    led_t led_state = host_keyboard_led_state();
+    oled_set_cursor(15, 3);
+    oled_write_P(PSTR("CAPS"), led_state.caps_lock);
 
-
-#define DATE_DISPLAY_X 6
-#define DATE_DISPLAY_Y 0
-  draw_string(DATE_DISPLAY_X, DATE_DISPLAY_Y, year_str, PIXEL_ON, NORM, 0);
-  draw_string(DATE_DISPLAY_X + 25, DATE_DISPLAY_Y, "-", PIXEL_ON, NORM, 0);
-  draw_string(DATE_DISPLAY_X + 31, DATE_DISPLAY_Y, month_str, PIXEL_ON, NORM, 0);
-  draw_string(DATE_DISPLAY_X + 44, DATE_DISPLAY_Y, "-", PIXEL_ON, NORM, 0);
-  draw_string(DATE_DISPLAY_X + 50, DATE_DISPLAY_Y, day_str, PIXEL_ON, NORM, 0);
-
-#define CLOCK_DISPLAY_X 6
-#define CLOCK_DISPLAY_Y 14
-  draw_string(CLOCK_DISPLAY_X, CLOCK_DISPLAY_Y, hour_str, PIXEL_ON, NORM, 1);
-  draw_string(CLOCK_DISPLAY_X + 17, CLOCK_DISPLAY_Y, ":", PIXEL_ON, NORM, 1);
-  draw_string(CLOCK_DISPLAY_X + 25, CLOCK_DISPLAY_Y, min_str, PIXEL_ON, NORM, 1);
-  if(is_pm){
-    draw_string(CLOCK_DISPLAY_X + 41, CLOCK_DISPLAY_Y, "pm", PIXEL_ON, NORM, 1);
-  } else{
-    draw_string(CLOCK_DISPLAY_X + 41, CLOCK_DISPLAY_Y, "am", PIXEL_ON, NORM, 1);
-  }
-
-  if(clock_set_mode){
-    switch(time_config_idx){
-      case 0: // hour
-      default:
-        draw_line(CLOCK_DISPLAY_X, CLOCK_DISPLAY_Y + 17, CLOCK_DISPLAY_X + 16, CLOCK_DISPLAY_Y + 17, PIXEL_ON, NORM);
-        break;
-      case 1: // minute
-        draw_line(CLOCK_DISPLAY_X + 25, CLOCK_DISPLAY_Y + 17, CLOCK_DISPLAY_X + 41, CLOCK_DISPLAY_Y + 17, PIXEL_ON, NORM);
-        break;
-      case 2: // year
-        draw_line(DATE_DISPLAY_X, DATE_DISPLAY_Y + 9, DATE_DISPLAY_X + 23, DATE_DISPLAY_Y + 9, PIXEL_ON, NORM);
-        break;
-      case 3: // month
-        draw_line(DATE_DISPLAY_X + 31, DATE_DISPLAY_Y + 9, DATE_DISPLAY_X + 43, DATE_DISPLAY_Y + 9, PIXEL_ON, NORM);
-        break;
-      case 4: //day
-        draw_line(DATE_DISPLAY_X + 50, DATE_DISPLAY_Y + 9, DATE_DISPLAY_X + 61, DATE_DISPLAY_Y + 9,PIXEL_ON, NORM);
-        break;
+    if (clock_set_mode) {
+        switch (time_config_idx) {
+            case 0:  // hour
+            default:
+                draw_line_h(0, 25, 10);
+                break;
+            case 1:  // minute
+                draw_line_h(18, 25, 10);
+                break;
+            case 2:  // year
+                draw_line_h(0, 9, 24);
+                break;
+            case 3:  // month
+                draw_line_h(30, 9, 10);
+                break;
+            case 4:  // day
+                draw_line_h(48, 9, 10);
+                break;
+        }
     }
-  }
 
-  draw_encoder(80, 0, true);
-  draw_layer_section(80, 11, true);
-
-#define CAPS_DISPLAY_X 86
-#define CAPS_DISPLAY_Y 22
-
-  if (led_capslock == true) {
-    draw_rect_filled_soft(CAPS_DISPLAY_X, CAPS_DISPLAY_Y, 5 + (4 * 6), 9, PIXEL_ON, NORM);
-    draw_string(CAPS_DISPLAY_X + 3, CAPS_DISPLAY_Y +1, "CAPS", PIXEL_OFF, NORM, 0);
-  } else if (led_capslock == false) {
-    draw_string(CAPS_DISPLAY_X + 3, CAPS_DISPLAY_Y +1, "CAPS", PIXEL_ON, NORM, 0);
-  }
-
-
-  send_buffer();
-
+    // bodge extra lines for invert layer and enc mode
+    draw_line_v(101, 0, 8);
+    draw_line_v(113, 8, 8);
 }
+
+#endif

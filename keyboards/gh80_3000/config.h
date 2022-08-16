@@ -1,14 +1,6 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    farmakon
-#define PRODUCT         GH80-3000
 
 /* key matrix size */
 #define MATRIX_ROWS 11
@@ -43,6 +35,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif

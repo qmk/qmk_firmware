@@ -18,22 +18,6 @@
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) { // LEFT
-        // Scroll
-        if (clockwise) {
-            tap_code_delay(KC_PGDN, 10);
-        } else {
-            tap_code_delay(KC_PGUP, 10);
-        }
-    } else { // RIGHT
-        // Volume control.
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    }
-    return false;
+    return encoder_update_user(index, clockwise);
 }
 #endif

@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Maxr1998
-#define PRODUCT         Pulse 4k
-
 /* Key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -70,5 +63,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

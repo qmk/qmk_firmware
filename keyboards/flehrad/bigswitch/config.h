@@ -14,17 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CONFIG_H
-#define CONFIG_H
+
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0xB195
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    flehrad
-#define PRODUCT         BigSwitch PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -51,6 +44,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8
-#endif
-
 #endif

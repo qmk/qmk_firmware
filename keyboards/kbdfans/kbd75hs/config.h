@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x6062
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         KBD75_HOTSWAP
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -38,9 +31,6 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 #define FORCE_NKRO
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define LED_CAPS_LOCK_PIN C6
 #define LED_PIN_ON_STATE 1

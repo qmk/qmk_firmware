@@ -4,13 +4,13 @@
 
 - Compile:
 
-  `qmk compile -kb bm40hsrgb -km gabustoledo`
+  `qmk compile -kb kprepublic/bm40hsrgb -km gabustoledo`
 
 ### Flash
 
 - Flash:
 
-  `qmk flash -kb bm40hsrgb -km gabustoledo`
+  `qmk flash -kb kprepublic/bm40hsrgb -km gabustoledo`
 
 # Layout
 

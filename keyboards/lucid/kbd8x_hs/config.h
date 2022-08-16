@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7667 // Lucid
-#define PRODUCT_ID   0x0003 // KBD8X Hotswap PCB's
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    Lucid
-#define PRODUCT         KBD8X_HS
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -101,5 +94,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
