@@ -1,9 +1,13 @@
 {
     "keyboard_name": "SouthPad",
+    "manufacturer": "MatchstickWorks",
     "url": "",
     "maintainer": "MatchstickWorks",
-    "width": 4,
-    "height": 6,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4_southpaw": {
             "layout": [

@@ -1,12 +1,15 @@
 {
-  "keyboard_name": "xd96",
+  "keyboard_name": "XD96",
+  "manufacturer": "KPrepublic",
   "url": "",
   "maintainer": "qmk",
-  "width": 19,
-  "height": 6,
+  "usb": {
+    "vid": "0x7844",
+    "pid": "0x9696",
+    "device_version": "0.0.1"
+  },
   "layouts": {  
     "LAYOUT_96_ansi": {
-      "key_count": 99,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},
@@ -119,7 +122,6 @@
       ]
     },
     "LAYOUT_96_iso": {
-      "key_count": 100,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},

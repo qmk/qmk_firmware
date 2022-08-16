@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCDCD
-#define PRODUCT_ID      0x5339
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    shensmobile
-#define PRODUCT         Boardrun Bizarre
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17
@@ -71,8 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // ws2812 options
 #define RGB_DI_PIN B7 // pin the DI on the ws2812 is hooked-up to

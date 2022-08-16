@@ -3,8 +3,6 @@
     "url": "afternoonlabs.com",
     "productId": "0x0003",
     "maintainer": "afternoonlabs",
-    "width": 19,
-    "height": 6,
     "layouts": {
         "LAYOUT": {
             "layout": [

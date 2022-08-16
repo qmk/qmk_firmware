@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5143 // QC
-#define PRODUCT_ID      0x4134 // A4
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    quadcube
-#define PRODUCT         alix40
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -65,9 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_ESC_INPUT D7 // usually ROW
 
 /* Bluetooth */
-#define AdafruitBleResetPin D4
-#define AdafruitBleCSPin    B4
-#define AdafruitBleIRQPin   E6
 #define BATTERY_LEVEL_PIN   B6
 
 #define VIA_HAS_BROKEN_KEYCODES

@@ -2,8 +2,6 @@
     "keyboard_name": "P20",
     "url": "",
     "maintainer": "pabile",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [

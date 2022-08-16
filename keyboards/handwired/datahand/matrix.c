@@ -27,6 +27,17 @@ static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t read_cols(void);
 static void select_row(uint8_t row);
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 void matrix_init(void) {
   /* See datahand.h for more detail on pins. */
 
@@ -48,7 +59,7 @@ void matrix_init(void) {
   /* Turn off the lock LEDs. */
   PORTF |= LED_CAPS_LOCK | LED_NUM_LOCK | LED_SCROLL_LOCK | LED_MOUSE_LOCK;
 
-  matrix_init_user();
+  matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void) {
@@ -62,7 +73,7 @@ uint8_t matrix_scan(void) {
     matrix[row] = read_cols();
   }
 
-  matrix_scan_user();
+  matrix_scan_quantum();
 
   return 1;
 }
@@ -80,10 +91,6 @@ void matrix_print(void) {
     print_bin_reverse8(matrix_get_row(row));
     print("\n");
   }
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
 }
 
 static void select_row(uint8_t row) {

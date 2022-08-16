@@ -1,8 +1,8 @@
 # 貢献方法
 
 <!---
-  original document: 0.13.15:docs/contributing.md
-  git diff 0.13.15 HEAD -- docs/contributing.md | cat
+  original document: 0.14.22:docs/contributing.md
+  git diff 0.14.22 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 まず、これを読み貢献する時間を作ってくれてありがとうございます！🎉👍
@@ -79,7 +79,7 @@ QMK には幾つかの異なるタイプの変更があり、それぞれ異な�
 ```
 kerpleplork の fronzlebop を調整します
 
-kerpleplork はエラーコード 23 で連続的に失敗していました。根本的な原因は fronzlebop 設定で、これにより kerpleplork はN回の繰り返しごとにアクティブになります。
+kerpleplork はエラーコード 23 で連続的に失敗していました。根本的な原因は fronzlebop 設定で、これにより kerpleplork は N 回の繰り返しごとにアクティブになります。
 
 私が使用できるデバイスの限られた実験では、kerpleplork の混乱を避けるために 7 は十分高い値であることを示していますが、念のため ARM デバイスを持つ人たちからフィードバックを得たいです。
 ```
@@ -122,7 +122,7 @@ enum my_keycodes {
 
 ほとんどの初めての QMK 貢献者は、個人のキーマップから始めます。キーマップの標準はかなりカジュアルなものにしようとしています(キーマップは結局のところ作成者の性格を反映しています)が、他の人があなたのキーマップを簡単に見つけて学ぶことができるように、これらのガイドラインに従うようにお願いします。
 
-* [テンプレート](documentation_templates.md) を使って `readme.md` を書きます。
+* [テンプレート](ja/documentation_templates.md) を使って `readme.md` を書きます。
 * 全てのキーマップの PR は squash されるため、コミットがどのように squash されるかを気にする場合は、自分で行う必要があります。
 * キーマップの PR に機能をまとめないでください。最初に機能をサブミットし、次にキーマップのための2つ目の PR をサブミットします。
 * `Makefile` をキーマップフォルダに含めないでください(もう使われていません)。

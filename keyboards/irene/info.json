@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Irene",
+    "manufacturer": "Andrei Collado",
     "url": "",
     "maintainer": "Andrei Collado",
-    "width": 18,
-    "height": 5,
+    "usb": {
+        "vid": "0x1434",
+        "pid": "0x3000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

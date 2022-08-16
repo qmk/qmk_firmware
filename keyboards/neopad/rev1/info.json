@@ -1,10 +1,7 @@
 {
     "keyboard_name": "neopad",
-    "keyboard_folder": "neopad/rev1",
     "url": "https://github.com/rookiebwoy/neopad)",
     "maintainer": "rookiebwoy",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [
