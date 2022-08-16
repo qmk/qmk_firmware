@@ -1,10 +1,8 @@
 {
     "keyboard_name": "buff67v3",
-    "manufacturer": "BUFF_Y&R",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "usb": {
-        "vid": "0xAA96",
         "pid": "0xAA88",
         "device_version": "1.0.0"
     },
