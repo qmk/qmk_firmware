@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xFA9C
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Worldspawn00
-#define PRODUCT         Houndstooth
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6

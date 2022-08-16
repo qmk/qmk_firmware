@@ -348,9 +348,9 @@ void custom_config_load(){
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
 {
-  // If the EEPROM has the magic, the data is good.
-  // OK to load from EEPROM.
-  if (via_eeprom_is_valid()) {
+  // This checks both an EEPROM reset (from bootmagic lite, keycodes)
+  // and also firmware build date (from via_eeprom_is_valid())
+  if (eeconfig_is_enabled()) {
     custom_config_load();
   } else	{
 #ifdef DYNAMIC_KEYMAP_ENABLE

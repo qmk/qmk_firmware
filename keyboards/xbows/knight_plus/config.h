@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID    0x5842
-#define PRODUCT_ID   0x4B50
-#define DEVICE_VER   0x0001
-#define MANUFACTURER X-BOWS
-#define PRODUCT      KNIGHT_PLUS
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
