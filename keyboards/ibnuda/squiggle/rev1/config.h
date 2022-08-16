@@ -1,7 +1,5 @@
 #pragma once
 
-#define DEVICE_VER      0x0001
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
