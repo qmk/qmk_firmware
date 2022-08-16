@@ -57,6 +57,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
+        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. `https://i.imgur.com/vqgE7Ok.jpg` becomes `https://i.imgur.com/vqgE7Okh.jpg`
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
