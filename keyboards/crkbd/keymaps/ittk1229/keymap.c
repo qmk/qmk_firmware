@@ -19,7 +19,8 @@ extern rgblight_config_t rgblight_config;
 #define _LOWER 1
 #define _RAISE 2
 #define _ADJUST 3
-#define _MINECRAFT 4
+#define _QWERTY 4
+#define _MINECRAFT 5
 
 #define W_PSCR LGUI(S(KC_S))
 #define NV_REC LALT(KC_F9)
@@ -27,6 +28,10 @@ extern rgblight_config_t rgblight_config;
 
 #define LSFT_ENT LSFT(KC_ENT)
 #define LCTL_SPC LCTL(KC_SPC)
+
+#define TO_MC TO(_MINECRAFT)
+#define TO_EU TO(_EUCALYN)
+#define TO_QW TO(_QWERTY)
 
 
 
@@ -38,6 +43,8 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  QWERTY,
+  MINECRAFT,
   BACKLIT,
   RGBRST
 };
@@ -84,13 +91,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO,  KC_F11,  KC_F12,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,  W_PSCR,  NV_REC,   KC_NO,\
+        KC_NO,  KC_F11,  KC_F12,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,  W_PSCR,  NV_REC,   TO_QW,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT,   KC_NO,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,TO(_MINECRAFT),\
+      KC_LALT,   KC_NO,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   TO_MC,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   LOWER, KC_LCTL,     KC_LSFT,   RAISE,   KC_NO\
                                       //`--------------------------'  `--------------------------'
   ),
+
+  [_QWERTY] = LAYOUT( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      ESC_MHEN,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, JP_MINS,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+       KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, JP_SCLN, JP_QUOT,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, JP_COMM,  JP_DOT, JP_SLSH,   TO_EU,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LGUI,   LOWER, CTL_SPC,    SFT_ENT,   RAISE, KC_BSPC\
+                                      //`--------------------------'  `--------------------------'
+  ),
+
 
   [_MINECRAFT] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -98,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,   KC_NO,    KC_A,    KC_S,    KC_D,    KC_F,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      JP_SLSH,   KC_F1,   KC_F2,   KC_F3,   KC_F5,  KC_F11,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,TO(_EUCALYN),\
+      JP_SLSH,   KC_F1,   KC_F2,   KC_F3,   KC_F5,  KC_F11,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   TO_EU,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL, KC_LSFT,  KC_SPC,      KC_NO,   KC_NO,   KC_NO\
                                       //`--------------------------'  `--------------------------'
