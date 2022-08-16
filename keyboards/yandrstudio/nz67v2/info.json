@@ -1,10 +1,8 @@
 {
     "keyboard_name": "nz67v2",
-    "manufacturer": "Y&R",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "usb": {
-        "vid": "0xAA96",
         "pid": "0xAA83",
         "device_version": "1.0.0"
     },
