@@ -2,6 +2,12 @@
     "keyboard_name": "KP60",
     "url": "",
     "maintainer": "qmk",
+    "manufacturer": "Keyspensory",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0060",
+        "vid": "0x4B50"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
