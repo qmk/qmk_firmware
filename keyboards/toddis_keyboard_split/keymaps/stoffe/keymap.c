@@ -16,7 +16,6 @@ enum custom_keycodes {
   QUOT,     // ' | "
   M_CD_DOT,
   M_GIT_ST,
-  O_LINECMD,
 };
 
 
@@ -115,6 +114,40 @@ const uint32_t PROGMEM unicode_map[] = {
 #define U_CUT S(KC_DEL)
 #define U_UND C(KC_Z)
 
+// visual studio code shortcuts
+#define VS_FILE LCTL(KC_P)
+#define VS_OPEN_FILE LCTL(KC_O)
+#define VS_LINE LCTL(KC_G)
+#define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
+#define VS_DEFINITION KC_F12
+#define VS_IMPLEMENTATION LCTL(KC_F12)
+#define VS_REFERENCES LSFT(KC_F12)
+#define VS_BACK LALT(KC_LEFT)
+#define VS_FRONT LALT(KC_RIGHT)
+#define VS_BRACKET LCTL(LSFT(KC_BSLS))
+#define VS_TABLEFT LCTL(KC_PGUP)
+#define VS_TABRIGHT LCTL(KC_PGDN)
+#define VS_CLOSETAB LCTL(KC_W)
+#define VS_CLOSEPANEL LCTL(LSFT(KC_W))
+#define VS_GROUP_1 LCTL(KC_1)
+#define VS_GROUP_2 LCTL(KC_2)
+#define VS_TERMINAL LCTL(KC_GRAVE)
+#define VS_BUILD LCTL(LSFT(KC_B))
+#define VS_COMMANDS LCTL(LSFT(KC_P))
+#define VS_CMT_BLOCK LSFT(LALT(KC_A))
+#define VS_CMT_LINE LCTL(KC_SLSH)
+#define VS_DEL_LINE LCTL(LSFT(KC_K))
+#define VS_COPYLINEDOWN LSFT(LALT(KC_DOWN))
+#define VS_MV_FILE_NXT LCTL(LALT(KC_RIGHT))
+#define VS_MV_FILE_PRV LCTL(LALT(KC_LEFT))
+// visual studio bookmark commands
+#define VS_BM_LIST LCTL(LALT(KC_L))
+#define VS_BM_LISTALL LCTL(LALT(KC_A))
+#define VS_BM_PREV LCTL(LALT(KC_P))
+#define VS_BM_NEXT LCTL(LALT(KC_N))
+#define VS_BM_TOGGLE LCTL(LALT(KC_K))
+#define VS_BM_LABEL LCTL(LALT(KC_B))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   __  _   _____
 //  / _)/_| ( (_
@@ -211,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______, _______, _______,
     	               _______, _______, _______,
 
-    // right hand
+    // right handö
     _______,  _______, _______, _______, _______, _______,
     _______,  KC_LSPO, KC_LCTL, KC_LALT, _______, _______,
     _______,  _______, _______, _______, _______, _______,
@@ -223,25 +256,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [LAY5] = LAYOUT(
     // left hand
-    X(USMIL),  X(UKB), X(UCOFFEE), X(UVOLT), X(UBEER), X(UTHMUP),
-    X(THNK),  X(PARTY), KC_SE_AA, KC_SE_AE, KC_SE_OE, TG(LAY6),
-    X(UBOMB),   X(UORHEART), X(UBIC), X(UNERD),   X(UBUG), X(UPARTY),
-    _______, _______, _______,
+    RESET,_______,VS_MV_FILE_PRV , VS_MV_FILE_NXT, VS_GROUP_1, VS_GROUP_2,
+    VS_SYMBOLEDITOR,  VS_REFERENCES, VS_IMPLEMENTATION,  VS_DEFINITION ,VS_BACK, VS_FRONT,
+    VS_CLOSEPANEL,  VS_CLOSETAB, _______, _______, VS_TABLEFT, VS_TABRIGHT,
+    _______,  _______, _______,
 
     // right hand
-    O_LINECMD,  X(O_LINE), _______, _______, _______, RESET,
-    _______, X(UWHALE), X(UBOMB), X(UFACE_ROLLING_EYES), X(THNK), _______,
-    _______,  _______, _______, _______, _______, _______,
-    _______,  _______, _______
+    X(USMIL),  X(UKB), X(UCOFFEE), X(UVOLT), X(UBEER),RESET ,
+    X(THNK),  X(PARTY), KC_SE_AA, KC_SE_AE, KC_SE_OE, TG(LAY6),
+    X(UBOMB),   X(UORHEART), X(UBIC), X(UNERD),   X(UBUG), X(UPARTY),
+    X(UTHMUP), _______, _______
+
+
     ),
 
 //    LAY 6
 
     [LAY6] = LAYOUT(
     // left hand
-    _______,  KC_PGUP, _______, KC_UP, _______, _______,
-    _______,  KC_PGDN, KC_LEFT, KC_DOWN , KC_RGHT, TG(LAY6),
-    _______,  _______, _______, _______, _______, _______,
+    _______, _______ , _______, KC_UP, _______, KC_PGUP,
+    _______, _______ , KC_LEFT, KC_DOWN , KC_RGHT,KC_PGDN ,
+    _______,  _______, _______, _______, _______, TG(LAY6),
     _______,  _______, _______,
 
     // right hand
@@ -268,12 +303,6 @@ switch (keycode) {
     case M_CD_DOT:
       if (record->event.pressed) {
           SEND_STRING("cd .."SS_TAP(X_ENTER)"");
-      }
-      return false;
-      break;
-    case O_LINECMD:
-      if (record->event.pressed) {
-          send_unicode_string("TH⍜SE");
       }
       return false;
       break;
