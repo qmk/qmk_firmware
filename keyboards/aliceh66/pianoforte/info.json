@@ -2,6 +2,12 @@
     "keyboard_name": "pianoforte solder PCB",
     "url": "https://github.com/AliceH66",
     "maintainer": "AliceH66",
+    "manufacturer": AlliceH",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x7066",
+        "vid": "0x6168"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
