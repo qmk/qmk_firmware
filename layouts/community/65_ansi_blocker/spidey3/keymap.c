@@ -24,10 +24,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // FN
     [_FN] = LAYOUT_65_ansi_blocker(
-        KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,                 KC_INS,    KC_SLCK,
+        KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,                 KC_INS,     KC_SLCK,
         XXXXXXX,    RGB_TOG,    RGB_MOD,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    RGB_VAD,    RGB_VAI,    SPI_GLO,    VLK_TOG,    CH_SUSP,    KC_SLEP,                KC_PWR,     KC_BRIU,
-        MO(_GLYPH), RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_TW,   SPI_LNX,    XXXXXXX,    XXXXXXX,                            CH_CPNL,    KC_BRID,
-        _______,    XXXXXXX,    XXXXXXX,    SPI_WIN,    UC_MOD,     NK_TOGG,    TG(_NUMPAD),SPI_OSX,    XXXXXXX,    XXXXXXX,    DEBUG,                              _______,    KC_VOLU,    KC_MUTE,
+        MO(_GLYPH), RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_TW,   UC_M_LN,    XXXXXXX,    XXXXXXX,                            CH_CPNL,    KC_BRID,
+        _______,    XXXXXXX,    UC_M_EM,    UC_M_WC,    UC_MOD,     NK_TOGG,    TG(_NUMPAD),UC_M_MA,    XXXXXXX,    XXXXXXX,    DEBUG,                              _______,    KC_VOLU,    KC_MUTE,
         _______,    _______,    _______,                                    KC_MPLY,                                            CH_ASST,    _______,                KC_MPRV,    KC_VOLD,    KC_MNXT
     ),
     // Glyph Transformation
