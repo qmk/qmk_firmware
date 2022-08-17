@@ -5,7 +5,6 @@
 
 #define MATRIX_ROW_PINS { B1, A0, C13, A1, A2}
 #define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B12, B11, B10, B8, B4, B5, B3, C14, A15 }
-#define UNUSED_PINS
 
 #define RGB_DI_PIN A7
 #define DRIVER_LED_TOTAL 91

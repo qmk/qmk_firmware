@@ -139,14 +139,15 @@ __attribute__((weak)) uint8_t pointing_device_handle_buttons(uint8_t buttons, bo
  */
 __attribute__((weak)) void pointing_device_init(void) {
 #if defined(SPLIT_POINTING_ENABLE)
-    if (!(POINTING_DEVICE_THIS_SIDE)) {
-        return;
-    }
+    if ((POINTING_DEVICE_THIS_SIDE))
 #endif
-    pointing_device_driver.init();
+    {
+        pointing_device_driver.init();
 #ifdef POINTING_DEVICE_MOTION_PIN
-    setPinInputHigh(POINTING_DEVICE_MOTION_PIN);
+        setPinInputHigh(POINTING_DEVICE_MOTION_PIN);
 #endif
+    }
+
     pointing_device_init_kb();
     pointing_device_init_user();
 }

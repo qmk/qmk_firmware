@@ -1,7 +1,13 @@
 {
     "keyboard_name": "runner3680 4x7",
+    "manufacturer": "Omkbd",
     "url": "",
     "maintainer": "omkbd",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.5"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -31,7 +31,6 @@
 //underglow
 #define MATRIX_ROW_PINS { B1, B3, F1, F6, F7 }
 #define MATRIX_COL_PINS { B0, D5, B2, F5, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 
 // COL2ROW or ROW2COL
 #define DIODE_DIRECTION COL2ROW

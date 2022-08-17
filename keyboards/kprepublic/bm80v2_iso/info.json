@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "bm80v2_iso",
+    "keyboard_name": "BM80v2 ISO",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "edwardslau",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x1142",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT_tkl_iso": {
             "layout": [

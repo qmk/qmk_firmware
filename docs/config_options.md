@@ -57,8 +57,6 @@ This is a C header file that is one of the first things included, and will persi
   * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 * `#define MATRIX_IO_DELAY 30`
   * the delay in microseconds when between changing matrix pin state and reading values
-* `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
-  * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
   * define is matrix has ghost (unlikely)
 * `#define MATRIX_UNSELECT_DRIVE_HIGH`
@@ -182,15 +180,6 @@ If you define these options you will enable the associated feature, which may in
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define QMK_KEYS_PER_SCAN 4`
-  * Allows sending more than one key per scan. By default, only one key event gets
-    sent via `process_record()` per scan. This has little impact on most typing, but
-    if you're doing a lot of chords, or your scan rate is slow to begin with, you can
-    have some delay in processing key events. Each press and release is a separate
-    event. For a keyboard with 1ms or so scan times, even a very fast typist isn't
-    going to produce the 500 keystrokes a second needed to actually get more than a
-    few ms of delay from this. But if you're doing chording on something with 3-4ms
-    scan times? You probably want this.
 * `#define COMBO_COUNT 2`
   * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
@@ -198,7 +187,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define COMBO_MUST_HOLD_MODS`
   * Flag for enabling extending timeout on Combos containing modifers
 * `#define COMBO_MOD_TERM 200`
-  * Allows for extending COMBO_TERM for mod keys while mid-combo. 
+  * Allows for extending COMBO_TERM for mod keys while mid-combo.
 * `#define COMBO_MUST_HOLD_PER_COMBO`
   * Flag to enable per-combo COMBO_TERM extension and `get_combo_must_hold()` function
 * `#define COMBO_TERM_PER_COMBO`
@@ -218,14 +207,12 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define RGB_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
-* `#define RGBLIGHT_ANIMATIONS`
-  * run RGB animations
 * `#define RGBLIGHT_LAYERS`
   * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 * `#define RGBLIGHT_MAX_LAYERS`
   * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md?id=lighting-layers) are needed.
   * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
-* `#define RGBLIGHT_LAYER_BLINK` 
+* `#define RGBLIGHT_LAYER_BLINK`
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
   * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
@@ -370,8 +357,8 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 * `SRC`
   * Used to add files to the compilation/linking list.
 * `LIB_SRC`
-  * Used to add files as a library to the compilation/linking list.  
-    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.  
+  * Used to add files as a library to the compilation/linking list.
+    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.
     For example, if you specify:
     ```
     SRC += a.c
@@ -424,7 +411,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 * `RING_BUFFERED_6KRO_REPORT_ENABLE`
-  * USB 6-Key Rollover - Instead of stopping any new input once 6 keys are pressed, the oldest key is released and the new key is pressed. 
+  * USB 6-Key Rollover - Instead of stopping any new input once 6 keys are pressed, the oldest key is released and the new key is pressed.
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `KEY_OVERRIDE_ENABLE`

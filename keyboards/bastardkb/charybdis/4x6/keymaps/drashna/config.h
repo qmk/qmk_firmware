@@ -30,7 +30,6 @@
 #define MATRIX_ROW_PINS_RIGHT \
     { B15, A2, B8, A8, B9 }
 
-#define UNUSED_PINS { B6, C14, C15 }
 
 #define DIODE_DIRECTION ROW2COL
 #define SPLIT_HAND_PIN A3

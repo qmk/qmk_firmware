@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x4749
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         Barleycorn
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 18
@@ -43,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* A Custom matrix.c is used to poll the port expander C6 shows that the pins are hardwired there */
 #define MATRIX_ROW_PINS { B4, B3, B2, B1, C1 }
 #define MATRIX_COL_PINS { B0, D7, D6, D4, D1, D0, C3, C2, D5, D5, D5, D5, D5, D5, D5, D5, D5, D5 }
-#define UNUSED_PINS
 #define PORT_EXPANDER_ADDRESS 0x20
 
 /* COL2ROW, ROW2COL*/

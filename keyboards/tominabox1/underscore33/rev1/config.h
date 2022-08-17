@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7431
-#define PRODUCT_ID 0x3301 // _33 rev1
-#define DEVICE_VER 0x0001
-#define MANUFACTURER tominabox1
-#define PRODUCT underscore33
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10
@@ -40,7 +33,6 @@
  */
 #define MATRIX_ROW_PINS { F5, F6, C6, D0 }
 #define MATRIX_COL_PINS { B4, B5, D5, F7, B1, F4, B3, D7, B0, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

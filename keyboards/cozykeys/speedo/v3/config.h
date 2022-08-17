@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1192
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    CozyKeys
-#define PRODUCT         Speedo
-
 // Key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -32,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { F0, F1, C7, D5, B7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B6, B2, E6, D7, C6, D4, D0, D1 }
-#define UNUSED_PINS { D2, D3, B0, B4 }
 #define DIODE_DIRECTION COL2ROW
 
 #ifdef RGBLIGHT_ENABLE

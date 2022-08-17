@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B0, B1, B2, B3, B4, B5 }
 #define MATRIX_ROW_PINS \
     { B10, B11, B12, A14, A13, A15 }
-
-#define UNUSED_PINS \
-    { A0, A2, A7, A8 }
 // B2 used for BOOT1, has internal pull down?
 // A9 has internal pull-down
 // A11 and A12 are used for USB sense.  DO NOT USE.

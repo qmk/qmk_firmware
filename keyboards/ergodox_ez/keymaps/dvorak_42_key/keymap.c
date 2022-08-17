@@ -20,8 +20,6 @@
 // debounce settings
 // remove these after getting a new keyboard
 // #define DEBOUNCE 50
-// #define QMK_KEYS_PER_SCAN 4
-
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here

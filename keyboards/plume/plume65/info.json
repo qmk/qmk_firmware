@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Plume65", 
+    "manufacturer": "Plume Keyboards LLC",
     "url": "", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x5D66",
+        "pid": "0x22CF",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_iso": {
             "layout": [

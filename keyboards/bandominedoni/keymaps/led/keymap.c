@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 #define DF_COLE  DF(_COLEMAK)
 
@@ -52,6 +53,10 @@ enum layer_names {
      _COLEMAK,
      _MISC,
      _FN
+};
+
+enum custom_keycodes {
+    VERSION = SAFE_RANGE
 };
 
 // Alias layout macros that expand groups of keys.
@@ -142,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_RMOD, RGB_MOD,
-                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG
@@ -176,6 +181,17 @@ void keyboard_post_init_user(void) {
     //  party mode (for LED soldering test. Enable rainbow color effect, and disable led_indicator to check all LEDs)
     rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            break;
+    }
+    return true;
+}
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {

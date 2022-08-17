@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { A00, A01, A02, A03, A04 }
 #define MATRIX_COL_PINS { B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, A05, A06, A07, A10, A11 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

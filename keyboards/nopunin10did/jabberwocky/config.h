@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID           0x4E50  // "NP"
-#define PRODUCT_ID          0x4A57  // "JW"
-#define DEVICE_VER          0x0001
-#define PRODUCT             Jabberwocky
-
 /* key matrix size */
 #define MATRIX_ROWS         12
 #define MATRIX_COLS         10
@@ -31,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS     { E6, B4, B5, B7, D5, C7, F1, F0, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS     { F4, F5, F6, F7, D7, C6, D4, D0, D2, D3 }
-#define UNUSED_PINS
 
 /* Indicator LEDs */
 #define LED_NUM_LOCK_PIN    D1

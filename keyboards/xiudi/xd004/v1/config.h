@@ -46,7 +46,6 @@ where some things are disabled to save space as well.
     {                      \
         { D3, D0, C4, B4 } \
     }
-#define UNUSED_PINS
 
 /* Backlight Setup */
 // Looks like each backlight LED is connected to a single output, D5 is the one furtherst away from USB port

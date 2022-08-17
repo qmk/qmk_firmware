@@ -826,6 +826,9 @@
     geminate60: {
         target: 'weirdo/geminate60'
     },
+    gentleman65: {
+        target: 'jkeys_design/gentleman65'
+    },
     georgi: {
         target: 'gboards/georgi'
     },

@@ -13,7 +13,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define UNUSED_PINS
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3

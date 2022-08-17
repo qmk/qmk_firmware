@@ -37,10 +37,6 @@
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
 #endif
 
-#ifndef QMK_KEYS_PER_SCAN
-#    define QMK_KEYS_PER_SCAN 8
-#endif
-
 #ifdef MOUSEKEY_ENABLE
 // mouse movement config
 #    ifdef MK_3_SPEED

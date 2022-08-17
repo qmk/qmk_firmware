@@ -38,7 +38,6 @@
 #define DIRECT_PINS { \
     { D0 } \
 }
-#define UNUSED_PINS
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D1

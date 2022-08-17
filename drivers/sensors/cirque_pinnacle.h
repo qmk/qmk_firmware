@@ -41,13 +41,13 @@
 #    ifndef CIRQUE_PINNACLE_Y_RANGE
 #        define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
 #    endif
-#    if defined(POINTING_DEVICE_GESTURE_SCROLL_ENABLE)
+#    if defined(POINTING_DEVICE_GESTURES_SCROLL_ENABLE)
 #        define CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
 #    endif
 #else
 #    define CIRQUE_PINNACLE_X_RANGE 256
 #    define CIRQUE_PINNACLE_Y_RANGE 256
-#    if defined(POINTING_DEVICE_GESTURE_SCROLL_ENABLE)
+#    if defined(POINTING_DEVICE_GESTURES_SCROLL_ENABLE)
 #        define CIRQUE_PINNACLE_SIDE_SCROLL_ENABLE
 #    endif
 #endif
@@ -78,7 +78,11 @@
 #            define CIRQUE_PINNACLE_SPI_DIVISOR 64
 #        endif
 #        ifndef CIRQUE_PINNACLE_SPI_CS_PIN
-#            error "No Chip Select pin has been defined -- missing CIRQUE_PINNACLE_SPI_CS_PIN define"
+#            ifdef POINTING_DEVICE_CS_PIN
+#                define CIRQUE_PINNACLE_SPI_CS_PIN POINTING_DEVICE_CS_PIN
+#            else
+#                error "No Chip Select pin has been defined -- missing POINTING_DEVICE_CS_PIN or CIRQUE_PINNACLE_SPI_CS_PIN define"
+#            endif
 #        endif
 #    endif
 #endif

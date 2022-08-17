@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* pin-out */
 #define MATRIX_ROW_PINS { B3, B4, B5, D7, E6 }
 #define MATRIX_COL_PINS { D0, B2, D4, B6 }
-#define UNUSED_PINS
  
 #define ENCODERS_PAD_A { F5, F7 }
 #define ENCODERS_PAD_B { F6, B1 }

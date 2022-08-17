@@ -58,6 +58,11 @@ MCU2BOOTLOADER = {
     "atmega328": "usbasploader",
 }
 
+# Map of legacy keycodes that can be automatically updated
+LEGACY_KEYCODES = {  # Comment here is to force multiline formatting
+    'RESET': 'QK_BOOT'
+}
+
 # Common format strings
 DATE_FORMAT = '%Y-%m-%d'
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
