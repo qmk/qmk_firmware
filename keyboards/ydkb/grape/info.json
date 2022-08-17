@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Grape",
+    "manufacturer": "YDKB",
     "url": "https://item.taobao.com/item.htm?id=642205244150",
     "maintainer": "Gacathon",
+    "usb": {
+        "vid": "0x5945",
+        "pid": "0x6772",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

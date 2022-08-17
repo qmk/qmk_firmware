@@ -16,13 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x00a5
-#define PRODUCT_ID      0xad96
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Bit Trade One
-#define PRODUCT         ADKB96
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 12

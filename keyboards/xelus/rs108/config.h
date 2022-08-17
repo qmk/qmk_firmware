@@ -15,13 +15,6 @@
  */
 #pragma once
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x5208 // RS108 "R+08"
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Xelus
-#define PRODUCT         RS60
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 11
