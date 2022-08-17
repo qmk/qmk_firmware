@@ -189,6 +189,7 @@ That said, there are a number of Pro Micro replacements with ARM controllers:
 * [Proton C](https://qmk.fm/proton-c/) (out of stock)
 * [Bonsai C](https://github.com/customMK/Bonsai-C) (Open Source, DIY/PCBA)
 * [Raspberry Pi 2040](https://www.sparkfun.com/products/18288) (not currently supported, no ETA)
+* [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622) (currently in Pre-Order phase, estimated In-Stock "August 2022")
 
 There are other, non-Pro Micro compatible boards out there. The most popular being:
 * [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 USD)
