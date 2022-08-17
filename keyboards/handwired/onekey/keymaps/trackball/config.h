@@ -1,16 +1,15 @@
 
-#define PMW33XX_CS_PIN GP9
+#define PMW33XX_CS_PIN GP10
 #define PMW33XX_LIFTOFF_DISTANCE 0x03
 #define POINTING_DEVICE_INVERT_Y
-
-// #define PMW3360_CS_PIN F7
+#undef DIODE_DIRECTION
+#define DIODE_DIRECTION ROW2COL
 
 #ifdef RGB_DI_PIN
 #    undef RGB_DI_PIN
 #endif
 
-#define RGB_DI_PIN GP27
-// #define NOP_FUDGE 0.4
+#define RGB_DI_PIN GP26
 
-#define RGBLED_NUM 1
+#define RGBLED_NUM 30
 #define RGBLIGHT_ANIMATIONS
