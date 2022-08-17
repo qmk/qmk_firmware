@@ -20,13 +20,10 @@ enum layers{
   _FN
 };
 
-#define KC_UNDO LCTL(KC_Z)
-#define KC_REDO LCTL(KC_Y)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT_all(
-    LCTL(KC_Z), LCTL(KC_Y), KC_A,
-    KC_C,       KC_D,       KC_S
+    KC_Z, KC_Y, KC_A,
+    KC_C, KC_D, KC_S
   ),
   [_FN] = LAYOUT_all(
     KC_F13, KC_F14, KC_F15,
