@@ -1,0 +1,111 @@
+{
+    "manufacturer": "mmccoyd",
+    "maintainer": "mmccoyd",
+
+    "keyboard_name": "Hillside 52",
+    "url": "http://github.com/mmccoyd/hillside/",
+
+    "tags": ["split", "column stagger", "choc v1", "choc spaced" ],
+
+    "processor": "atmega32u4",
+
+    "matrix_pins": {
+        "rows": ["C6", "D7", "E6", "B4", "B5"],
+        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"]
+     },    
+    "diode_direction": "COL2ROW",
+
+    "usb": {
+      "vid": "0x4D4D",
+      "pid": "0x4852",
+      "device_version": "0.0.1"
+    },
+
+    "features": {
+        "encoder": true,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+
+    "rgblight": {
+        "led_count": 5,
+        "pin": "D3",
+        "split": true,
+        "hue_steps": 8,
+        "saturation_steps": 8,
+        "brightness_steps": 8
+    },
+
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+
+                {"label": "`~", "x": 0.8, "y": 1.13},
+                {"label": "Q", "x": 1.8, "y": 0.93},
+                {"label": "W", "x": 2.9, "y": 0.31},
+                {"label": "E", "x": 4, "y": 0},
+                {"label": "R", "x": 5, "y": 0.28},
+                {"label": "T", "x": 6, "y": 0.42},
+
+                {"label": "Y", "x": 10.5, "y": 0.42},
+                {"label": "U", "x": 11.5, "y": 0.28},
+                {"label": "I", "x": 12.5, "y": 0},
+                {"label": "O", "x": 13.6, "y": 0.31},
+                {"label": "P", "x": 14.7, "y": 0.93},
+                {"label": "Backspace", "x": 15.7, "y": 1.13},
+
+
+                {"label": "Tab", "x": 0.9, "y": 2.13},
+                {"label": "A", "x": 1.9, "y": 1.93},
+                {"label": "S", "x": 2.95, "y": 1.31},
+                {"label": "D", "x": 4, "y": 1},
+                {"label": "F", "x": 5, "y": 1.28},
+                {"label": "G", "x": 6, "y": 1.42},
+
+                {"label": "H", "x": 10.5, "y": 1.42},
+                {"label": "J", "x": 11.5, "y": 1.28},
+                {"label": "K", "x": 12.5, "y": 1},
+                {"label": "L", "x": 13.55, "y": 1.31},
+                {"label": ";", "x": 14.6, "y": 1.93},
+                {"label": "Enter", "x": 15.6, "y": 2.13},
+
+
+                {"label": "Shift", "x": 1, "y": 3.13},
+                {"label": "Z", "x": 2, "y": 2.93},
+                {"label": "X", "x": 3, "y": 2.31},
+                {"label": "C", "x": 4, "y": 2},
+                {"label": "V", "x": 5, "y": 2.28},
+                {"label": "B", "x": 6, "y": 2.42},
+                {"label": "'", "x": 7, "y": 2.88},
+
+                {"label": "/", "x": 9.5, "y": 2.88},
+                {"label": "N", "x": 10.5, "y": 2.42},
+                {"label": "M", "x": 11.5, "y": 2.28},
+                {"label": ",", "x": 12.5, "y": 2},
+                {"label": ".", "x": 13.5, "y": 2.31},
+                {"label": "Up", "x": 14.5, "y": 2.93},
+                {"label": "Shift", "x": 15.5, "y": 3.13},
+
+
+                {"label": "Mute", "x": 1.1, "y": 4.13},
+                {"label": "Esc", "x": 2.1, "y": 3.93},
+                {"label": "Ctrl", "x": 3.1, "y": 3.73},
+                {"label": "Gui", "x": 4.5, "y": 3.28},
+                {"label": "Alt", "x": 5.5, "y": 3.42},
+                {"label": "Shift", "x": 6.5, "y": 3.88},
+                {"label": "Nav", "x": 7.5, "y": 4.44},
+
+                {"label": "Sym", "x": 9, "y": 4.44},
+                {"label": "Space", "x": 10, "y": 3.88},
+                {"label": "Alt", "x": 11, "y": 3.42},
+                {"label": "Gui", "x": 12, "y": 3.28},
+                {"label": "Left", "x": 13.4, "y": 3.73},
+                {"label": "Down", "x": 14.4, "y": 3.93},
+                {"label": "Right", "x": 15.4, "y": 4.13}
+            ]
+        }
+    }
+}

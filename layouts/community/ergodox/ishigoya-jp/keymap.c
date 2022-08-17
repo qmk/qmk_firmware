@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 static uint16_t start;
 

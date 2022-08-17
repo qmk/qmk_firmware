@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4C58 // LX
-#define PRODUCT_ID   0x0004 // FAve 84H
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    Lx3
-#define PRODUCT         FAve 84H
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -52,17 +45,19 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-//Led configuration
-#define RGBLIGHT_ANIMATIONS
+/* Define RGB */
+#define RGBLED_NUM 126
+#define DRIVER_LED_TOTAL 126
 #define RGB_DI_PIN D2
 
-#define DRIVER_LED_TOTAL 126
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 140
-
-#define RGB_MATRIX_KEYPRESSES
-//#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#ifdef RGB_MATRIX_ENABLE
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_KEYPRESSES 
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
+
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -90,23 +85,31 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_HUE_BREATHING
 #define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #define ENABLE_RGB_MATRIX_HUE_WAVE
-#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
-#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
-    #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-    #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-#endif
-#ifdef RGB_MATRIX_KEYPRESSES
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-    #define ENABLE_RGB_MATRIX_SPLASH
-    #define ENABLE_RGB_MATRIX_MULTISPLASH
-    #define ENABLE_RGB_MATRIX_SOLID_SPLASH
-    #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// The PIXEL_FRACTAL effect does not work properly when the matrix layout is
+// different from the physical layout; it also has problems when underglow
+// LEDs are present, or when multiple LEDs are associated with the same key.
+#undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+
+// Framebuffer effects; can be enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS
+// is defined.  Both of these effects currently don't work properly when the
+// key matrix does not match the physical layout, so they are disabled.
+#undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
+
+// Reactive effects; can be enabled only if at least one of
+// RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined.
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#define ENABLE_RGB_MATRIX_SPLASH
+#define ENABLE_RGB_MATRIX_MULTISPLASH
+#define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
 #endif

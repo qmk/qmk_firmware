@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x112D
-#define DEVICE_VER 0x0001
-#define MANUFACTURER yohewi
-#define PRODUCT UraNuma
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 10

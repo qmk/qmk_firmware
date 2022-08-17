@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4B5A // "KZ"
-#define PRODUCT_ID 0x53FC
-#define DEVICE_VER 0x0001
-#define MANUFACTURER keebzdotnet
-#define PRODUCT wazowski 23-19
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 5

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B49
-#define PRODUCT_ID      0x534B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Keyzio
-#define PRODUCT         SKErgo
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

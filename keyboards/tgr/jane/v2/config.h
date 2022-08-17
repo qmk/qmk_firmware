@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x5447 // TG
-#define PRODUCT_ID      0x4A4E // JN
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    TGR
-#define PRODUCT         Jane
-
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 

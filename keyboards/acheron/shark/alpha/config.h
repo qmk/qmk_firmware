@@ -19,16 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAC11
-#define PRODUCT_ID      0x5368
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AcheronProject
-#define PRODUCT         SharkPCB
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
+
+/* encoder pads */
+#define ENCODERS_PAD_A { B6 }
+#define ENCODERS_PAD_B { B7 }
 
 /*
  * Keyboard Matrix Assignments

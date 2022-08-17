@@ -5,12 +5,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4273
-#define PRODUCT_ID      0x7685
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    Boardsource
-#define PRODUCT         lulu
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 #define MATRIX_ROW_PINS {C6, D7, E6, B4, B5}

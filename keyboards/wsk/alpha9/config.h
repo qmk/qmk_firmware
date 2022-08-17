@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5753  // "WS" - Worldspawn00
-#define PRODUCT_ID      0x692A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Worldspawn00
-#define PRODUCT         Alpha9
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 13

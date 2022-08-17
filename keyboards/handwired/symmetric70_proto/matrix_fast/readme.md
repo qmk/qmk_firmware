@@ -15,6 +15,13 @@ This matrix.c is faster and more extensible than the standard quantum/matrix.c.
 - [ ] support I/O expander (MCP23018)
 - [ ] support MCU & I/O expander (MCP23018) mixture like ErgoDox
 
+## Current performance
+
+  | MCU               | delay type    | execution time <br> of <br> `matrix_scan()` | matrix scan rate |
+  |-------------------|---------------|------------|-----------------|
+  | Pro Micro (16MHz) | fast adaptive | 75.6us     |  8090 scans/sec |
+  | Proton C (72MHz)  | fast adaptive | 49.8us     | 15100 scans/sec |
+
 ## Configuration
 
 This matrix.c requires a different configuration than quantum/matrix.c.
