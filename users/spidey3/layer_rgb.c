@@ -477,7 +477,7 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 #endif
 
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+#if defined(UNICODE_COMMON_ENABLE)
         case UC_M_MA:
         case UC_M_LN:
         case UC_M_WI:
