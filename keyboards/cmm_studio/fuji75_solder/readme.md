@@ -2,7 +2,7 @@
 
 CMM.Studio Fuji75 solder Keyboard
 
-![CMM.Studio Fuji75 solder](https://i.imgur.com/6eRavvW.png)
+![CMM.Studio Fuji75 solder](https://i.imgur.com/6eRavvWh.png)
 
 
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
