@@ -20,6 +20,5 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-QMK_SETTINGS = no			# QMK Settings
 
 LAYOUTS = tkl_ansi tkl_iso
