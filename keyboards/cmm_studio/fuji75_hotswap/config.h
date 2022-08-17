@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x434D
-#define PRODUCT_ID      0x4638
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CMM.Studio
-#define PRODUCT         Fuji75_Hotswap
 
 /* key matrix size */
 #define MATRIX_ROWS 6
