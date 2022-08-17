@@ -16,12 +16,6 @@
  
 #pragma once
 
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1013
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ64RGB
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 #define MATRIX_ROW_PINS { F5, F4, F1, B3, B2 }

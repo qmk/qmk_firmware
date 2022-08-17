@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Tragicforce 68",
+  "manufacturer": "Keebio",
   "url": "https://keeb.io",
   "maintainer": "Keebio",
+  "usb": {
+    "vid": "0xCB10",
+    "pid": "0x0510",
+    "device_version": "1.0.1"
+  },
   "layouts": {
     "LAYOUT_68_ansi": {
       "layout": [

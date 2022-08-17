@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFB9C
-#define PRODUCT_ID 0x74B6
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Cutie Club
-#define PRODUCT Cupar19 Giant Macro Pad
-
 /* key matrix size */
 #define MATRIX_ROWS 20
 #define MATRIX_COLS 20

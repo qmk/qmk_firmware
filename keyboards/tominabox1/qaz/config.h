@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7431
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER whydobearsexplod
-#define PRODUCT qaz keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 7

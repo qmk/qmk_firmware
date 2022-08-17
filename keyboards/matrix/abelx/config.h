@@ -19,13 +19,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID  0x4D58   // MX
-#define PRODUCT_ID 0xAB87   // abelx keyboard
-#define DEVICE_VER 0x0001
-#define MANUFACTURER MATRIX
-#define PRODUCT ABELX
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16

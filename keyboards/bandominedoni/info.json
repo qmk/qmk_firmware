@@ -1,7 +1,13 @@
 {
     "keyboard_name": "bandominedoni",
+    "manufacturer": "3araht",
     "url": "https://github.com/3araht",
     "maintainer": "3araht",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xF4B5",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

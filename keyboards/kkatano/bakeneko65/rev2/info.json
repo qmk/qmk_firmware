@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Bakeneko 65 V2",
+    "manufacturer": "kkatano",
     "url": "https://github.com/kkatano/bakeneko-65",
     "maintainer": "kkatano",
+    "usb": {
+        "vid": "0x3A0E",
+        "pid": "0x4C82",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi_split_bs": {
             "layout": [

@@ -2,12 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x594D // "YM"
-#define PRODUCT_ID      0x604D // 60 "M"
-#define MANUFACTURER    YMDK
-#define PRODUCT         YD60MQ
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

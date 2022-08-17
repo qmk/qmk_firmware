@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "oem_iso_fullsize",
+    "keyboard_name": "teclado_oscar",
+    "manufacturer": "Gamdias",
     "url": "https://github.com/andresteare/qmk_firmware",
     "maintainer": "andresteare",
+    "usb": {
+        "vid": "0x9856",
+        "pid": "0x7070",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

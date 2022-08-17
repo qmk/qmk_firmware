@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964  // "id"
-#define PRODUCT_ID      0x0127
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IDOBAO
-#define PRODUCT         Montex RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
