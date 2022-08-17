@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x434D
-#define PRODUCT_ID      0x4637
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CMM.Studio
-#define PRODUCT         Fuji75_solder
 
 #define MATRIX_ROW_PINS { C6, B0, B3, D1, D3, D2 }
 #define MATRIX_COL_PINS { D4, B6, B5, B4, D7, D6, F0, F1, F4, F5, F6, F7, B2, B1, D5 }
