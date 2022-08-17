@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "DSP40",
+    "keyboard_name": "DSP40 Rev. 1",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x144C",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

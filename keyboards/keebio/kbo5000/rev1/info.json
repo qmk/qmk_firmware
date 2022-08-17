@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "KBO-5000",
+    "keyboard_name": "KBO-5000 Rev. 1",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x126A",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

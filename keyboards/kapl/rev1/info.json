@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Kapl",
+  "manufacturer": "keyzog",
   "url": "https://github.com/keyzog/kapl",
   "maintainer": "keyzog",
+  "usb": {
+    "vid": "0x4C41",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
   "layouts": {
       "LAYOUT": {
           "layout": [

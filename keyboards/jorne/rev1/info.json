@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Jorne",
+    "manufacturer": "joric",
     "url": "https://github.com/joric/jorne/wiki",
     "maintainer": "joric",
+    "usb": {
+        "vid": "0x4753",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
