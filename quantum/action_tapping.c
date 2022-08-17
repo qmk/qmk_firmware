@@ -1,16 +1,17 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include "action.h"
-#include "action_layer.h"
-#include "action_tapping.h"
-#include "keycode.h"
-#include "timer.h"
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
 #else
 #    include "nodebug.h"
 #endif
+
+#include "action.h"
+#include "action_layer.h"
+#include "action_tapping.h"
+#include "keycode.h"
+#include "timer.h"
 
 #ifndef NO_ACTION_TAPPING
 
@@ -23,17 +24,20 @@
 #    else
 #        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
 #    endif
+#    define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_TAPPING_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
 
+#    ifdef DYNAMIC_TAPPING_TERM_ENABLE
 uint16_t g_tapping_term = TAPPING_TERM;
-
-__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    return g_tapping_term;
-}
+#    endif
 
 #    ifdef TAPPING_TERM_PER_KEY
-#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_record_keycode(&tapping_key, false), &tapping_key))
-#    else
-#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < g_tapping_term)
+__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+#        ifdef DYNAMIC_TAPPING_TERM_ENABLE
+    return g_tapping_term;
+#        else
+    return TAPPING_TERM;
+#        endif
+}
 #    endif
 
 #    ifdef TAPPING_FORCE_HOLD_PER_KEY
@@ -164,15 +168,7 @@ bool process_tapping(keyrecord_t *keyp) {
                 else if (
                     (
                         (
-                            (
-#        ifdef TAPPING_TERM_PER_KEY
-                                get_tapping_term(tapping_keycode, &tapping_key)
-#        else
-                                g_tapping_term
-#        endif
-                                >= 500
-                            )
-
+                            GET_TAPPING_TERM(tapping_keycode, &tapping_key) >= 500
 #        ifdef PERMISSIVE_HOLD_PER_KEY
                             || get_permissive_hold(tapping_keycode, &tapping_key)
 #        elif defined(PERMISSIVE_HOLD)

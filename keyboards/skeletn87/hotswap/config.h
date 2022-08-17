@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xF984
-#define PRODUCT_ID   0xB5E9
-#define DEVICE_VER   0x0001
-#define MANUFACTURER BredWorks
-#define PRODUCT      Skeletn87 Hotswap
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9

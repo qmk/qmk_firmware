@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x5342
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         QUARK²
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -53,3 +46,7 @@
 #define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
 #define RGBLIGHT_SAT_STEP 12 // units to step when in/decresing saturation
 #define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
+
+/* define rotary encoder pins */
+#define ENCODERS_PAD_A {B0}
+#define ENCODERS_PAD_B {D1}

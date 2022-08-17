@@ -5,10 +5,9 @@ from pathlib import Path
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.info import info_json
-from qmk.json_schema import json_load, validate
+from qmk.info import info_json, keymap_json_config
+from qmk.json_schema import json_load
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.keymap import locate_keymap
 from qmk.commands import dump_lines
 from qmk.path import normpath
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
@@ -84,7 +83,7 @@ def generate_config_items(kb_info_json, config_h_lines):
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        key_type = info_dict.get('value_type', 'raw')
         to_config = info_dict.get('to_config', True)
 
         if not to_config:
@@ -95,7 +94,12 @@ def generate_config_items(kb_info_json, config_h_lines):
         except KeyError:
             continue
 
-        if key_type.startswith('array'):
+        if key_type.startswith('array.array'):
+            config_h_lines.append('')
+            config_h_lines.append(f'#ifndef {config_key}')
+            config_h_lines.append(f'#   define {config_key} {{ {", ".join(["{" + ",".join(list(map(str, x))) + "}" for x in config_value])} }}')
+            config_h_lines.append(f'#endif // {config_key}')
+        elif key_type.startswith('array'):
             config_h_lines.append('')
             config_h_lines.append(f'#ifndef {config_key}')
             config_h_lines.append(f'#   define {config_key} {{ {", ".join(map(str, config_value))} }}')
@@ -112,6 +116,11 @@ def generate_config_items(kb_info_json, config_h_lines):
                 config_h_lines.append(f'#ifndef {key}')
                 config_h_lines.append(f'#   define {key} {value}')
                 config_h_lines.append(f'#endif // {key}')
+        elif key_type == 'str':
+            config_h_lines.append('')
+            config_h_lines.append(f'#ifndef {config_key}')
+            config_h_lines.append(f'#   define {config_key} "{config_value}"')
+            config_h_lines.append(f'#endif // {config_key}')
         elif key_type == 'bcd_version':
             (major, minor, revision) = config_value.split('.')
             config_h_lines.append('')
@@ -175,10 +184,7 @@ def generate_config_h(cli):
     """
     # Determine our keyboard/keymap
     if cli.args.keymap:
-        km = locate_keymap(cli.args.keyboard, cli.args.keymap)
-        km_json = json_load(km)
-        validate(km_json, 'qmk.keymap.v1')
-        kb_info_json = dotty(km_json.get('config', {}))
+        kb_info_json = dotty(keymap_json_config(cli.args.keyboard, cli.args.keymap))
     else:
         kb_info_json = dotty(info_json(cli.args.keyboard))
 

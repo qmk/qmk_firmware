@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ph100",
+    "manufacturer": "PhrygianDesign",
     "url": "https://phrygiandesign.com/products/ph100-mechanical-keyboard",
     "maintainer": "phrygiandesign",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0C61",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

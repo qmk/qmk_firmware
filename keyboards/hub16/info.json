@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Hub16",
+    "manufacturer": "Josh Johnson",
     "url": "https://joshajohnson.com/hub16-keyboard/",
     "maintainer": "Josh Johnson",
+    "usb": {
+        "vid": "0x6A6A",
+        "pid": "0x4810",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -35,9 +35,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_LOWER] = LAYOUT_reviung39(
-   KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, _______,
+   KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, RCMD(RALT(KC_I)), RCMD(RALT(KC_O)), _______,
    _______, KC_LT, KC_GT, KC_LPRN, KC_RPRN, KC_GRV,       KC_MINS, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_PIPE,
-   KC_LALT, _______, _______, _______, KC_EQL, KC_QUES,   KC_UNDS, KC_PLUS, KC_COMM, _______, KC_SLSH, _______,
+   KC_LALT, _______, _______, ADJUST, KC_EQL, KC_QUES,   KC_UNDS, KC_PLUS, KC_COMM, _______, KC_SLSH, _______,
                                       _______,  _______,  KC_RGUI
   ),
 
@@ -49,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_reviung39(
-    RGB_VAI,   RGB_SAI, RGB_HUI,  RGB_MOD,  XXXXXXX,   RGB_TOG,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  XXXXXXX,
-    RGB_VAD,   RGB_SAD, RGB_HUD,  RGB_RMOD, XXXXXXX,   XXXXXXX,    KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10,  XXXXXXX,
-    KC_MUTE, KC_VOLD, KC_VOLU, KC_BRID, KC_BRIU,  RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LANG1,  KC_LANG2,
-                                                   KC_LGUI,  XXXXXXX,  _______
+    _______, RCMD(LALT(KC_1)), RCMD(LALT(KC_2)), RCMD(LALT(KC_3)), RCMD(LALT(KC_4)), RCMD(LALT(KC_5)), RCMD(LALT(KC_6)), RCMD(LALT(KC_7)), _______, _______, RCMD(LALT(KC_0)), _______,
+    RGB_SAI, RGB_HUI,  RGB_MOD,  _______,   RGB_TOG,    RGB_VAI,   RGB_VAD,   RGB_SAD, RGB_HUD,  RGB_RMOD, _______,   _______,
+    KC_MUTE, KC_VOLD, KC_VOLU, KC_BRID, KC_BRIU,  RESET,    _______,  _______,  _______,  _______,  _______,  _______,
+                                                   KC_LGUI,  _______,  _______
   ),
 };

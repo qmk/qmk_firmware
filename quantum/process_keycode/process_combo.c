@@ -88,8 +88,6 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 
 #define INCREMENT_MOD(i) i = (i + 1) % COMBO_BUFFER_LENGTH
 
-#define COMBO_KEY_POS ((keypos_t){.col = 254, .row = 254})
-
 #ifndef EXTRA_SHORT_COMBOS
 /* flags are their own elements in combo_t struct. */
 #    define COMBO_ACTIVE(combo) (combo->active)
@@ -140,12 +138,7 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 static inline void release_combo(uint16_t combo_index, combo_t *combo) {
     if (combo->keycode) {
         keyrecord_t record = {
-            .event =
-                {
-                    .key     = COMBO_KEY_POS,
-                    .time    = timer_read() | 1,
-                    .pressed = false,
-                },
+            .event   = MAKE_KEYEVENT(KEYLOC_COMBO, KEYLOC_COMBO, false),
             .keycode = combo->keycode,
         };
 #ifndef NO_ACTION_TAPPING
@@ -325,7 +318,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
         if (ALL_COMBO_KEYS_ARE_DOWN(state, key_count)) {
             // this in the end executes the combo when the key_buffer is dumped.
             record->keycode   = combo->keycode;
-            record->event.key = COMBO_KEY_POS;
+            record->event.key = MAKE_KEYPOS(KEYLOC_COMBO, KEYLOC_COMBO);
 
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);

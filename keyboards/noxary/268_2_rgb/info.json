@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Noxary 268.2 RGB",
+    "keyboard_name": "268.2 RGB",
+    "manufacturer": "Noxary",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+      "vid": "0x4E58",
+      "pid": "0x0A7C",
+      "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT_65_ansi_blocker": {
         "layout": [

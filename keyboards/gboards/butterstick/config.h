@@ -2,12 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1337
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    g Heavy Industries
-#define PRODUCT         Butter Stick
 #define VERSION 		"Paula Deen"
 
 #define DEBOUNCE 5

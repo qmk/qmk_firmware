@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 
 #ifdef RGBLIGHT_ENABLE
@@ -147,7 +147,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       rgblight_sethsv_at( 0, 0, 0, 0);
       break;
     }
-    rgblight_set_effect_range( 1, 5);
+    rgblight_set_effect_range( 1, 11);
 #endif
 return state;
 }

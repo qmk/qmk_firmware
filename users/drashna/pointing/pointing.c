@@ -29,7 +29,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
 #ifdef OLED_ENABLE
-        oled_timer = timer_read32();
+        oled_timer_reset();
 #endif
         if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
             if (enable_acceleration) {
@@ -94,8 +94,10 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
             break;
+#if 0
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
             break;
+#endif
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (record->event.pressed || !record->tap.count) {
                 break;

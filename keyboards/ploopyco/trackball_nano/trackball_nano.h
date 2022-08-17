@@ -36,3 +36,5 @@ enum ploopy_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     PLOOPY_SAFE_RANGE,
 };
+
+void cycle_dpi(void);

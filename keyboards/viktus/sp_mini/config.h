@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5644
-#define PRODUCT_ID      0x534D
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Viktus_Design
-#define PRODUCT         SP_Mini
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
@@ -35,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F0, B5, B4, D7, D6 }
-#define MATRIX_COL_PINS { B6, C6, C7, D4, D2, D3, D5 } // no B7 on left hand
+#define MATRIX_COL_PINS { B6, C6, C7, D4, D2, D3, D5, NO_PIN } // no B7 on left hand
 #define MATRIX_ROW_PINS_RIGHT { F0, B5, B4, D7, D6 }
 #define MATRIX_COL_PINS_RIGHT { B6, C6, C7, D4, D2, D3, D5, B7 }
 
@@ -78,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define ENCODERS_PAD_A_RIGHT {F4}
 //#define ENCODERS_PAD_B_RIGHT {F1}
 
-#define ENCODER_RESOLUTIONS { 8, 8 }
+#define ENCODER_RESOLUTIONS { 8 }
 
 /*
  * Feature disable options

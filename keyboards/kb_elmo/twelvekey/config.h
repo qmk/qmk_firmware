@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xA68C
-#define PRODUCT_ID   0x9879
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT      Twelvekey
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
