@@ -1,6 +1,6 @@
-# Jotix ortho 4x12 keymap
+# Jotix planck_mit keymap
 
 Tested on:
 
 * Planck/rev4
-* Jotanck
+* KPRepublic bm40hsrgb
