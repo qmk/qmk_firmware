@@ -60,6 +60,12 @@
             "bootloader": "tinyuf2",
             "board": "STEMCELL",
             "pin_compatible": "promicro"
+        },
+        "bonsai_c4": {
+            "processor": "STM32F411",
+            "bootloader": "stm32-dfu",
+            "board": "GENERIC_STM32_F411XE",
+            "pin_compatible": "promicro"
         }
     }
 }
