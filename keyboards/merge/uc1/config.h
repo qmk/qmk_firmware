@@ -16,12 +16,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4D65
-#define PRODUCT_ID      0x5543
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Merge
-#define PRODUCT         UC-1
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 2

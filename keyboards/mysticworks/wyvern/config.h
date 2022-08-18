@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device Descriptor Parameter */
-#define VENDOR_ID       0x4D59  // "MY" - Mystic Works
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mystic Works
-#define PRODUCT         Wyvern
-
 /* Key Matrix Size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10

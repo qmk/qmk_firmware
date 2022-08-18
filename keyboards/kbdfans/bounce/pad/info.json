@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "bouncepad", 
+    "keyboard_name": "Bounce Pad", 
+    "manufacturer": "KBDfans",
     "maintainer": "moyi4681", 
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x7002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

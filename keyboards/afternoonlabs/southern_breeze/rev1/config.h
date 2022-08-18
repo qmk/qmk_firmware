@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x616C
-#define PRODUCT_ID 0x0005
-#define DEVICE_VER 0x0001
-#define MANUFACTURER AfternoonLabs
-#define PRODUCT Southern Breeze
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10

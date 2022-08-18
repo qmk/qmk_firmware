@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x504B // PK
-#define PRODUCT_ID      0x707A // PZ
-#define DEVICE_VER      0x0001
-#define MANUFACTURER pizzakeyboards
-#define PRODUCT      pizza65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

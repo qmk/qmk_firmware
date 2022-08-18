@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1701
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    The Mad Noodle
-#define PRODUCT         Noodle Pad v1
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
