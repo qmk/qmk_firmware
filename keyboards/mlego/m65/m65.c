@@ -163,6 +163,27 @@ void user_oled_magic(void) {
     oled_write_P(led_state.num_lock ? PSTR("Lower ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("Raise ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CapsLock ") : PSTR("    "), false);
+
+#ifdef UNICODE_COMMON_ENABLE
+    oled_write_P(PSTR("\nunicode: "), false);
+    switch (get_unicode_input_mode()) {
+      case UC_LNX:
+        oled_write_P(PSTR("Linux"), false);
+        break;
+      case UC_MAC:
+        oled_write_P(PSTR("apple"), false);
+        break;
+      case UC_WIN:
+        oled_write_P(PSTR("windows"), false);
+        break;
+      case UC_WINC:
+        oled_write_P(PSTR("windows c"), false);
+        break;
+      default:
+        oled_write_ln_P(PSTR("not supported"), false);
+    }
+#endif
+
 #ifdef WPM_ENABLE
     oled_write_P(PSTR("\nwpm: "), false);
     uint8_t wpm = get_current_wpm();
