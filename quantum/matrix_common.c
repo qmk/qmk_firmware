@@ -122,7 +122,7 @@ bool matrix_post_scan(void) {
 }
 #endif
 
-/*　`matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay().　*/
+/* `matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay(). */
 __attribute__((weak)) void matrix_io_delay(void) {
     wait_us(MATRIX_IO_DELAY);
 }

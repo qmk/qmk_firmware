@@ -33,6 +33,9 @@
 #ifdef IS31FL3733
 #    include "is31fl3733-simple.h"
 #endif
+#ifdef CKLED2001
+#    include "ckled2001-simple.h"
+#endif
 
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
 #    define LED_MATRIX_LED_FLUSH_LIMIT 16

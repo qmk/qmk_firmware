@@ -3,13 +3,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED 
-#define PRODUCT_ID   0xB077
-#define DEVICE_VER   0x0001
-#define MANUFACTURER crehmann
-#define PRODUCT      Buzzard
-
 /* key matrix size */
 /* Rows are doubled up */
 #define MATRIX_ROWS  8

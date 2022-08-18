@@ -48,6 +48,8 @@
  */
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 
+#define SPLIT_USB_DETECT
+
 //#define LED_NUM_LOCK_PIN B0
 //#define LED_CAPS_LOCK_PIN B1
 //#define LED_SCROLL_LOCK_PIN B2
