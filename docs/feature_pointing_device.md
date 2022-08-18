@@ -485,7 +485,8 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 
 # Automatic Mouse Layer :id=pointing-device-auto-mouse
 
-When using a pointing device an additional feature may be enabled that will automatically activate a target layer as soon as the mouse cursor is moved and deactivate the target layer after a set time.  If any key that is defined as a mouse key(see below) is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key up. When a non-mouse key is pressed then the layer is deactivated early.  Mod & mod tap keys(When) are ignored (i.e. don't hold layer/reset timer but do not deactivate the layer either) allowing for shift/ctrl clicks etc.
+
+When using a pointing device combined with a keyboard often the mouse buttons are kept on a separate layer from the default keyboard layer requiring pressing or holding a key to use the mouse. To make this easier and more efficient an additional feature may be enabled that will automatically activate a target layer as soon as the mouse cursor is moved and deactivate the target layer after a set time.  If any key that is defined as a mouse key(see below) is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key up. When a non-mouse key is pressed then the layer is deactivated early.  Mod & mod tap keys(When) are ignored (i.e. don't hold layer/reset timer but do not deactivate the layer either) allowing for shift/ctrl clicks etc.
 
 All of the standard layer keys (tap toggling, toggle, toggle on, one_shot, layer tap*, layer mod*) that activate the layer currently set in auto mouse settings will be treated as mouse keys with the addition of holding the layer on toggle.  The layer that is activated can be changed at any point during runtime by calling the `set_auto_mouse_layer(uint8_t LAYER)` function.
 
