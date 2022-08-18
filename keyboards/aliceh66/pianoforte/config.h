@@ -30,9 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
-#define VIAL_KEYBOARD_UID {0x37, 0xFC, 0xE4, 0xB0, 0x9B, 0xC6, 0x1A, 0xD8}
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 7 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 6 }
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
