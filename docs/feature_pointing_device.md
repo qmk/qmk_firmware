@@ -516,12 +516,12 @@ void pointing_device_init_user(void) {
 There are a few ways to control the auto mouse feature with both `config.h` options and functions for controlling it during runtime.
 
 ### `config.h` Options:
-| Define                              | Description                                                               | Default                |
-| ----------------------------------- | ------------------------------------------------------------------------- | ---------------------: |
-| `POINTING_DEVICE_AUTO_MOUSE_ENABLE` | Enables auto mouse layer feature                                          |              Undefined |
-| `AUTO_MOUSE_DEFAULT_LAYER`          | Index of default layer to use as mouse layer (0-15)                       |                      1 |
-| `AUTO_MOUSE_TIME`                   | Time layer remains active after mouse movement or mouse key press (in ms) |                 650 ms |
-| `AUTO_MOUSE_DELAY`                  | Lockout time after non-mouse key is pressed (in ms)                       | TAPPING_TERM or 200 ms |
+| Define                              | Description                                                                  | Default                |
+| ----------------------------------- | ---------------------------------------------------------------------------- | ---------------------: |
+| `POINTING_DEVICE_AUTO_MOUSE_ENABLE` | Enables auto mouse layer feature                                             |              Undefined |
+| `AUTO_MOUSE_DEFAULT_LAYER`          | Index of layer to use as default target layer                                |                      1 |
+| `AUTO_MOUSE_TIME`                   | Time layer remains active after `auto_mouse_activation` or mouse key (in ms) |                 650 ms |
+| `AUTO_MOUSE_DELAY`                  | Lockout time after non-mouse key is pressed (in ms)                          | TAPPING_TERM or 200 ms |
 
 ### Adding mouse keys
 
@@ -630,6 +630,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 ```
 
+## Custom Target Layer Activation
+
+Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every `pointing_device_task` cycle and activates the target layer if true barring the usual exceptions (e.g. delay_time, or target layer is already active).
+By default it will return true if any of the mouse_report axes(x,y,h,v) are non zero.
+
 ## Auto Mouse for Custom Pointing Device
 
 When using a custom pointing device (overwriting `pointing_device_task`) the following code should be somewhere in the `pointing_device_task_*` stack:
@@ -649,7 +654,7 @@ void pointing_device_task(void) {
 
 In general the following two functions must be implemented in appropriate locations for auto mouse to function:
 
-| Function                                                       | Description                                                                                   | Suggested location              |
-| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------: |
-| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | Target layer activation if `auto_mouse_activation` returns true, time out deactivation        |      pointing_device_task stack |
-| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse, layer hold on mouse key, and deactivation on non mouse key |       post_process_record stack |
+| Function                                                       | Description                                  | Suggested location              |
+| -------------------------------------------------------------- | -------------------------------------------- | ------------------------------: |
+| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | Mouse input processing for auto mouse        |      pointing_device_task stack |
+| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse            |       post_process_record stack |
