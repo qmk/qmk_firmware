@@ -5,16 +5,13 @@
     "bootloader": "halfkay",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
+        "midi": true
     },
     "matrix_pins": {
+        "io_delay": 50,
         "cols": ["E21", "E20", "C3", "D3", "D2", "D4", "D7", "A2", "A1", "D0"],
-        "rows": ["C4", "C6", "C7", "C5", "D1", "C0", "B0", "B3", "B2", "D5", "D6", "C1", "C2", "E30"]
+        "rows": ["C4", "C6", "C7", "C5", "D1", "C0", "B0", "B3", "B2", "D5", "D6", "C1", "C2", "E30"],
+        "unused": ["B16", "B17", "B1"]
     },
     "processor": "MKL26Z64",
     "url": "https://shapingthesilence.com",
