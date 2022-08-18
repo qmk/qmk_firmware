@@ -31,6 +31,13 @@ static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     return false;
 }
 
+/* set which layer will act as the mouse layer */
+void set_auto_mouse_layer(uint8_t layer) {
+    if (local_auto_mouse.config.layer != layer) {
+        local_auto_mouse.config.layer = layer;
+    }
+}
+
 /* handle mouskey event */
 void auto_mouse_keyevent(bool pressed) {
     if (pressed) {
@@ -65,13 +72,6 @@ void set_auto_mouse_state(bool state) {
     }
 }
 
-/* set which layer will act as the mouse layer */
-void set_auto_mouse_layer(uint8_t layer) {
-    if (local_auto_mouse.config.layer != layer) {
-        local_auto_mouse.config.layer = layer;
-    }
-}
-
 /* toggle mouse layer setting (disabling automouse layer changes) */
 void toggle_mouse_layer(void) {
     local_auto_mouse.status.layer_toggled ^= 1;
@@ -82,6 +82,10 @@ bool get_toggle_mouse_state(void) {
     return local_auto_mouse.status.layer_toggled;
 }
 
+__attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
+    return mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0;
+}
+
 /* Update the auto mouse if there is mouse motion on the base layer */
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
     // skip if disabled or layer not set
@@ -89,7 +93,7 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
         return;
     }
     // Check for mouse movement and update
-    if ((mouse_report.x != 0 || mouse_report.y != 0)) {
+    if (auto_mouse_activation(mouse_report)) {
         local_auto_mouse.timer.active = timer_read();
         if (!layer_state_is(local_auto_mouse.config.layer) && timer_elapsed(local_auto_mouse.timer.delay) > AUTO_MOUSE_DELAY) {
             layer_on(local_auto_mouse.config.layer);
