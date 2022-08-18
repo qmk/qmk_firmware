@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Classy TKL",
+    "manufacturer": "Masterworks",
     "url": "https://geekhack.org/index.php?topic=105933",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4D57",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

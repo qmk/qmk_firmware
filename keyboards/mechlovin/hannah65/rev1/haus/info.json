@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "hannah65-rev1",
+    "keyboard_name": "Haus Rev. 1",
+    "manufacturer": "Team Mechlovin",
     "url": "",
     "maintainer": "Team Mechlovin",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x6500",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D4C // ML-MechLovin'
-#define MANUFACTURER    Mechlovin
-#define PRODUCT         Mechlovin Hannah910
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
