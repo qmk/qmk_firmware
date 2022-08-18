@@ -1,7 +1,13 @@
 {
   "keyboard_name": "uzu42",
+  "manufacturer": "nrtkbb",
   "url": "https://github.com/nrtkbb/Keyboards/tree/master/uzu42",
   "maintainer": "nrtkbb",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x3060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

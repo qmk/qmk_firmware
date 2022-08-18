@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Naked48", 
+    "keyboard_name": "naked48", 
+    "manufacturer": "Salicylic_Acid",
     "url": "https://salicylic-acid3.hatenablog.com/", 
     "maintainer": "Salicylic_acid3", 
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xE8BA",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
