@@ -25,6 +25,7 @@ MCU2BOOTLOADER = {
     "MK20DX128": "halfkay",
     "MK20DX256": "halfkay",
     "MK66FX1M0": "halfkay",
+    "RP2040" : "rp2040",
     "STM32F042": "stm32-dfu",
     "STM32F072": "stm32-dfu",
     "STM32F103": "stm32duino",
