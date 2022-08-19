@@ -17,6 +17,10 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
+AUTO_SHIFT_ENABLE = yes
+COMBO_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+
 
 AUTO_SHIFT_ENABLE = yes
 CAPS_WORD_ENABLE = yes

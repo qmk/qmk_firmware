@@ -84,6 +84,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_INTERVAL 12
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_TIME_TO_MAX 60
+
+#define TAPPING_TERM 180
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define AUTO_SHIFT_TIMEOUT 150
+#define NO_AUTO_SHIFT_ALPHA
+
+
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
  */

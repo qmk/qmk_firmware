@@ -24,20 +24,34 @@
 #define DELTA_Y_THRESHOLD 15
 
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
+<<<<<<< Updated upstream
 bool scroll_enabled = false;
 bool lock_state     = false;
 
 // State
 static int8_t delta_x = 0;
 static int8_t delta_y = 0;
+=======
+uint8_t scroll_enabled = 0;
+uint8_t lock_state     = 0;
+int8_t  delta_x        = 0;
+int8_t  delta_y        = 0;
+>>>>>>> Stashed changes
 
 // Dummy
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
 
+<<<<<<< Updated upstream
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (scroll_enabled) {
         delta_x += mouse_report.x;
         delta_y += mouse_report.y;
+=======
+void process_mouse_user(report_mouse_t *mouse_report, int8_t x, int8_t y) {
+    if (scroll_enabled==0) {
+        delta_x += x;
+		delta_y += y;
+>>>>>>> Stashed changes
 
         if (delta_x > DELTA_X_THRESHOLD) {
             mouse_report.h = 1;
@@ -47,6 +61,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
             delta_x        = 0;
         }
 
+<<<<<<< Updated upstream
         if (delta_y > DELTA_Y_THRESHOLD) {
             mouse_report.v = -1;
             delta_y        = 0;
@@ -56,6 +71,18 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         }
         mouse_report.x = 0;
         mouse_report.y = 0;
+=======
+		if (delta_y > 15) {
+			mouse_report->v = -1;
+			delta_y = 0;
+		} else if (delta_y < -15) {
+			mouse_report->v = 1;
+			delta_y = 0;
+		}
+    } else {
+        mouse_report->x = x;
+ 		mouse_report->y = y;
+>>>>>>> Stashed changes
     }
     return mouse_report;
 }
@@ -68,7 +95,11 @@ bool led_update_user(led_t led_state) {
 	static uint8_t lock_count = 0;
 	static uint16_t scroll_timer = 0;
 
+<<<<<<< Updated upstream
 	if (timer_elapsed(scroll_timer) > SCROLL_TIMEOUT) {
+=======
+	if (timer_elapsed(scroll_timer) > 250) {
+>>>>>>> Stashed changes
 		scroll_timer = timer_read();
 		lock_count = 0;
 	}

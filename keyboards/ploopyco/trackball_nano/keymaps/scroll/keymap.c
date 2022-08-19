@@ -17,24 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
 
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
-#define LAYOUT(k00) {{ KC_NO }}
+// safe range starts at `PLOOPY_SAFE_RANGE` instead.
 
-typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t dpi_config;
-  };
-} keyboard_config_t;
+// placeholder file so it will compile
 
-extern keyboard_config_t keyboard_config;
-
-enum ploopy_keycodes {
-    DPI_CONFIG = SAFE_RANGE,
-    PLOOPY_SAFE_RANGE,
-};
-
-void cycle_dpi(void);
+void keyboard_pre_init_user() {
+    PloopyAcceleration = true;
+    PloopyNumlockScroll = true;
+    PloopyNumlockScrollVDir = -1;
+}

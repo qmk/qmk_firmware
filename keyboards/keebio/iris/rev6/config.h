@@ -67,6 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== enabled animations ==*/
+/*
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -79,8 +80,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_TWINKLE
 #    define RGBLIGHT_DEFAULT_VAL 120
 #    define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
+*/
 // RGB Matrix
 #    ifdef RGB_MATRIX_ENABLE
+/*
 #        define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #        define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #        define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -94,8 +97,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_CYCLE_ALL
 #        define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #        define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+*/
 #        define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+/*
 #        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
 #        define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
 #        define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
@@ -114,10 +119,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
 #        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 #        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+
 #        define ENABLE_RGB_MATRIX_SPLASH
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+*/
 #        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
 #        define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define DRIVER_LED_TOTAL RGBLED_NUM
