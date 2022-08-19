@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "IDOBAO ID80",
+    "manufacturer": "IDOBAO",
     "url": "",
     "maintainer": "IDOBAOKB",
+    "usb": {
+        "vid": "0x6964",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

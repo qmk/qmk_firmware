@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0xB195
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    flehrad
-#define PRODUCT         BigSwitch PCB
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1

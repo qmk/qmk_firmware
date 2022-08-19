@@ -15,11 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    imchipwood
-#define PRODUCT         dumbpad
-
 /* Column/Row IO definitions */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 5

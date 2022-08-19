@@ -1,12 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1121
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ60RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
