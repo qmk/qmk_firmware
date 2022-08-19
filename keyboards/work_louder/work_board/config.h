@@ -182,17 +182,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B \
     { B1 }
 
-#define ENCODERS 1
-
-#define ENCODERS_CW_KEY \
-    {                   \
-        { 12, 1 }       \
-    }
-#define ENCODERS_CCW_KEY \
-    {                    \
-        { 12, 2 }        \
-    }
-
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
