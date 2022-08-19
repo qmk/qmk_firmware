@@ -34,21 +34,13 @@ enum combos {
 };
 //DEFINE THE COMBO SET UPS (TOTAL 11)
 const uint16_t PROGMEM pb_combo[] = {KC_P, KC_B, COMBO_END};
-<<<<<<< Updated upstream
 const uint16_t PROGMEM tg_combo[] = {MT(MOD_LSFT,KC_T), KC_G, COMBO_END};
-=======
-const uint16_t PROGMEM tg_combo[] = {KC_T, KC_G, COMBO_END};
->>>>>>> Stashed changes
 const uint16_t PROGMEM dv_combo[] = {KC_D, KC_V, COMBO_END};
 const uint16_t PROGMEM fp_combo[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM lth_combo[] = {KC_TAB, KC_BSPC, COMBO_END};
 
 const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};
-<<<<<<< Updated upstream
 const uint16_t PROGMEM mn_combo[] = {KC_M, MT(MOD_RSFT,KC_N), COMBO_END};
-=======
-const uint16_t PROGMEM mn_combo[] = {KC_M, KC_N, COMBO_END};
->>>>>>> Stashed changes
 const uint16_t PROGMEM kh_combo[] = {KC_K, KC_H, COMBO_END};
 const uint16_t PROGMEM lu_combo[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM rth_combo[] = {KC_SPC, KC_ENT, COMBO_END};
@@ -58,20 +50,13 @@ const uint16_t PROGMEM qqt_combo[] = {KC_Q, KC_QUOT, COMBO_END};
 //DEFINE THE COMBO OUTPUTS (TOTAL 11)
 combo_t key_combos[COMBO_COUNT] = {
   [PB_ESC] = COMBO(pb_combo, QK_GESC),
-<<<<<<< Updated upstream
   [TG_CAP] = COMBO(tg_combo, CAPS_WORD),
-=======
-  [TG_CAP] = COMBO(tg_combo, KC_CAPS),
->>>>>>> Stashed changes
   [DV_LPAR] = COMBO(dv_combo, S(KC_9)),
   [FP_MINS] = COMBO(fp_combo, KC_MINS),
   [LTH_DEL] = COMBO(lth_combo, KC_DEL),  
 
-<<<<<<< Updated upstream
+
   [JL_EMAIL] = COMBO_ACTION(jl_combo),
-=======
-  [JL_EMAIL] = COMBO(jl_combo, S(KC_2)),
->>>>>>> Stashed changes
   [MN_SCLN] = COMBO(mn_combo, KC_SCLN),
   [KH_RPAR] = COMBO(kh_combo, S(KC_0)),
   [LU_PLUS] = COMBO(lu_combo, KC_EQL),
@@ -81,7 +66,6 @@ combo_t key_combos[COMBO_COUNT] = {
 
 };
 
-<<<<<<< Updated upstream
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case JL_EMAIL:
@@ -92,9 +76,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
   }
 }
-
-=======
->>>>>>> Stashed changes
 
 enum layer_names {
     _MAIN,
