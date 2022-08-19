@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Gas75",
+    "manufacturer": "ML",
     "url": "https://item.taobao.com/item.htm?ft=t&id=652142230132",
     "maintainer": "ML",
+    "usb": {
+        "vid": "0xC0B0",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -18,10 +24,10 @@
                 {"label":"F10", "x":10.75, "y":0},
                 {"label":"F11", "x":11.75, "y":0},
                 {"label":"F12", "x":12.75, "y":0},
-                {"label":"Pause", "x":14, "y":0},
-                {"label":"Encoder CCW", "x":15.25, "y":0, "w":0.5, "h":0.5},
-                {"label":"Encoder CW", "x":15.75, "y":0, "w":0.5, "h":0.5},
-                {"label":"Delete", "x":15.25, "y":0.5, "h":0.5},
+                {"label":"Delete", "x":14, "y":0},
+                {"label":"Encoder CCW", "x":15, "y":0, "w":0.5},
+                {"label":"Mute", "x":15.5, "y":0},
+                {"label":"Encoder CW", "x":16.5, "y":0, "w":0.5},
 
                 {"label":"`~", "x":0, "y":1.25},
                 {"label":"1!", "x":1, "y":1.25},
@@ -36,7 +42,7 @@
                 {"label":"0)", "x":10, "y":1.25},
                 {"label":"-_", "x":11, "y":1.25},
                 {"label":"=+", "x":12, "y":1.25},
-                {"label":"Backspace", "x":13, "y":1.25},
+                {"label":"Backspace", "x":13, "y":1.25, "w":2},
                 {"label":"Home", "x":15.25, "y":1.25},
 
                 {"label":"Tab", "x":0, "y":2.25, "w":1.5},
@@ -53,7 +59,7 @@
                 {"label":"[{", "x":11.5, "y":2.25},
                 {"label":"]}", "x":12.5, "y":2.25},
                 {"label":"\\|", "x":13.5, "y":2.25, "w":1.5},
-                {"label":"PgUp", "x":12.5, "y":2.25},
+                {"label":"PgUp", "x":15.25, "y":2.25},
 
                 {"label":"Caps Lock", "x":0, "y":3.25, "w":1.75},
                 {"label":"A", "x":1.75, "y":3.25},
@@ -68,7 +74,7 @@
                 {"label":";:", "x":10.75, "y":3.25},
                 {"label":"'\"", "x":11.75, "y":3.25},
                 {"label":"Enter", "x":12.75, "y":3.25, "w":2.25},
-                {"label":"PgDn", "x":12.5, "y":3.25},
+                {"label":"PgDn", "x":15.25, "y":3.25},
 
                 {"label":"Shift", "x":0, "y":4.25, "w":2.25},
                 {"label":"Z", "x":2.25, "y":4.25},
@@ -92,7 +98,7 @@
                 {"label":"Fn", "x":11.25, "y":5.25, "w":1.25},
                 {"label":"\u2190", "x":13.25, "y":5.5},
                 {"label":"\u2193", "x":14.25, "y":5.5},
-                {"label":"\u2192", "x":15.25, "y":5.5},
+                {"label":"\u2192", "x":15.25, "y":5.5}
             ]
         }
     }

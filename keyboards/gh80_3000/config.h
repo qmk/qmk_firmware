@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    farmakon
-#define PRODUCT         GH80-3000
-
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 11

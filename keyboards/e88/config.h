@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x0187
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Pink Labs
-#define PRODUCT         e88
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFFFF
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    8bits4ever
-#define PRODUCT         MiSTress1200
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
@@ -49,6 +42,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LED_CAPS_LOCK_PIN B0
 #define LED_PIN_ON_STATE 0
+#define TAPPING_TOGGLE 3
+
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define LAYER_STATE_8BIT
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

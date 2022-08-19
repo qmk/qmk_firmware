@@ -20,13 +20,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5043
-#define PRODUCT_ID 0x4D6F
-#define DEVICE_VER 0x0001
-#define MANUFACTURER PloopyCo
-#define PRODUCT Mouse
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 8

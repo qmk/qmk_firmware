@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "atlas-65",
+    "keyboard_name": "atlas_65",
+    "manufacturer": "Joshua Nguyen",
     "url": "https://github.com/ryanstevensmith/atlas-65",
     "maintainer": "ryanstevensmith, Joshua Nguyen",
+    "usb": {
+        "vid": "0x6565",
+        "pid": "0x1000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

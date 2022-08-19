@@ -24,14 +24,12 @@ secrets.h
 Here is the magic. This handles including the "secrets", and adding the custom macros to send them. 
 
 ```c
-#include "drashna.h"  // replace with your keymap's "h" file, or whatever file stores the keycodes
+#include QMK_KEYBOARD_H
 
 #if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #include "secrets.h"
 #else
-// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
-// And I'm not familiar enough to know which is better or why...
-static const char * const secret[] = {
+static const char * const secrets[] = {
   "test1",
   "test2",
   "test3",
@@ -43,9 +41,10 @@ static const char * const secret[] = {
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-        send_string_with_delay(secret[keycode - KC_SECRET_1], MACRO_TIMER);
+      if (record->event.pressed) {
+        clear_mods();
+        clear_oneshot_mods();
+        send_string_with_delay(secrets[keycode - KC_SECRET_1], MACRO_TIMER);
       }
       return false;
       break;
@@ -59,7 +58,7 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
 Now, for the actual secrets!  The file needs to look like 
 
 ```c
-static const char *  secrets[] = {
+static const char * secrets[] = {
   "secret1",
   "secret2",
   "secret3",
@@ -96,7 +95,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 Here, you want your `/users/<name>/rules.mk` file to "detect" the existence of the `secrets.c` file, and only add it if the file exists.  
 
-Additionally, to ensure that it's not added or processed in any way, it checks to see if `NO_SECRETS` is set. This way, if you run `make keyboard:name NO_SECRETS=yes`, it will remove the feature altogether. 
+Additionally, to ensure that it's not added or processed in any way, it checks to see if `NO_SECRETS` is set. This way, if you run `qmk compile -kb keyboard -km name -e NO_SECRETS=yes`, it will remove the feature altogether. 
 
 ```make
 ifneq ($(strip $(NO_SECRETS)), yes)

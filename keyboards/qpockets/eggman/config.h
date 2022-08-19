@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7170
-#define PRODUCT_ID 0x656D
-#define DEVICE_VER 0x1000
-#define MANUFACTURER qpockets
-#define PRODUCT eggman
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 7

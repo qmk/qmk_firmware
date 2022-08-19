@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #pragma once
 
 #include "config_common.h"
-#define VENDOR_ID       0x7C88 // "hw" = haierwangwei2005
-#define PRODUCT_ID      0x7C98 // "lp" = latinpadble
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    haierwangwei2005
-#define PRODUCT         latinpadble
 
 // #define NO_ACTION_LAYER
 // #define NO_ACTION_TAPPING

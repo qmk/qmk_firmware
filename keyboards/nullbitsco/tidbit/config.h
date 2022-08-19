@@ -23,13 +23,6 @@
 // Workaround for freezing after MacOS sleep
 #define USB_SUSPEND_WAKEUP_DELAY 200
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6E61
-#define PRODUCT_ID      0x6064
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    nullbits
-#define PRODUCT         TIDBIT
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 6

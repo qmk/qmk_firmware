@@ -20,9 +20,8 @@
 #define TAPPING_TERM 500
 
 #if defined(RGB_MATRIX_ENABLE)
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
     #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255  // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 
     // change saturation and hue step size
     #undef RGBLIGHT_HUE_STEP
@@ -85,11 +84,11 @@
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
     #define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
 
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+    // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE// Pulses keys hit to hue & value then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE       // Static single hue, pulses keys hit to shifted hue then fades to current hue
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE       // Hue & value pulse near a single key hit then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH    // Hue & value pulse away from multiple key hits then fades value out
-#endif // # if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+    // #endif // # if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
 #endif // # if defined(RGB_MATRIX_ENABLE)
 

@@ -3,6 +3,8 @@ SRC += $(USER_PATH)/drashna.c \
         $(USER_PATH)/keyrecords/process_records.c \
         $(USER_PATH)/keyrecords/tapping.c
 
+# TOP_SYMBOLS = yes
+
 ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)
         LTO_ENABLE        = yes
@@ -13,8 +15,10 @@ GRAVE_ESC_ENABLE      = no
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
 ifneq ($(strip $(NO_SECRETS)), yes)
-    ifneq ("$(wildcard $(USER_PATH)/keyrecords/secrets.c)","")
-        SRC += $(USER_PATH)/keyrecords/secrets.c
+    ifneq ("$(wildcard $(USER_PATH)/../../../qmk_secrets/secrets.c)","")
+        SRC += $(USER_PATH)/../../../qmk_secrets/secrets.c
+        $(shell touch $(USER_PATH)/../../../qmk_secrets/secrets.c)
+        SECURE_ENABLE = yes
     endif
     ifeq ($(strip $(NO_SECRETS)), lite)
         OPT_DEFS += -DNO_SECRETS
@@ -117,11 +121,6 @@ endif
 AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
     SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
+    $(shell touch $(USER_PATH)/keyrecords/autocorrection/autocorrection.c)
     OPT_DEFS += -DAUTOCORRECTION_ENABLE
-endif
-
-CAPS_WORD_ENABLE ?= no
-ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
-    SRC += $(USER_PATH)/keyrecords/caps_word.c
-    OPT_DEFS += -DCAPS_WORD_ENABLE
 endif

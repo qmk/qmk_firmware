@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Waffling60 Rev B",
+    "usb": {
+        "pid": "0x0005",
+        "device_version": "0.0.2"
+    }
+}

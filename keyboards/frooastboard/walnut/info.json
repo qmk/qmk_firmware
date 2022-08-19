@@ -27,8 +27,13 @@
         "pid": "0x776E",
         "device_version": "1.0.0"
     },
+    "community_layouts": ["tkl_nofrow_ansi", "tkl_nofrow_iso"],
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi",
+        "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso"
+    },
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_nofrow_ansi": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
@@ -103,7 +108,7 @@
                 { "matrix": [1, 7], "x": 17.5, "y": 4 }
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_tkl_nofrow_iso": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
@@ -135,7 +140,6 @@
                 { "matrix": [3, 2], "x": 10.5, "y": 1 },
                 { "matrix": [3, 3], "x": 11.5, "y": 1 },
                 { "matrix": [3, 4], "x": 12.5, "y": 1 },
-                { "matrix": [3, 5], "x": 13.75, "y": 1, "w": 1.25, "h": 2 },
                 { "matrix": [7, 5], "x": 15.5, "y": 1 },
                 { "matrix": [7, 6], "x": 16.5, "y": 1 },
                 { "matrix": [7, 7], "x": 17.5, "y": 1 },
@@ -152,6 +156,7 @@
                 { "matrix": [5, 2], "x": 10.75, "y": 2 },
                 { "matrix": [5, 3], "x": 11.75, "y": 2 },
                 { "matrix": [5, 4], "x": 12.75, "y": 2 },
+                { "matrix": [3, 5], "x": 13.75, "y": 1, "w": 1.25, "h": 2 },
                 { "matrix": [6, 0], "x": 0, "y": 3, "w": 1.25 },
                 { "matrix": [6, 1], "x": 1.25, "y": 3 },
                 { "matrix": [6, 2], "x": 2.25, "y": 3 },

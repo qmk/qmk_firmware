@@ -1,6 +1,6 @@
 # IDOBAO ID67
 
-![id67](https://i.imgur.com/9roQ4Mih.jpeg)
+![id67](https://idobao.github.io/assets/img/idobao-id67.png)
 
 A 65% hotswap keyboard from IDOBAO.
 
@@ -9,14 +9,14 @@ A 65% hotswap keyboard from IDOBAO.
 * Keyboard Maintainer: Tybera *(fmr.)*, [thewerther](https://github.com/thewerther) *(curr.)*
 * Hardware Supported: IDOBAO ID67, ID67V2, ID67 Crystal & ID67 Bestype
 * Hardware Availability: IDOBAO website: 
-* [ID67](https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1)
-* [ID67V2](https://idobao.net/collections/65-layout/products/idobao-id67v2-65-hot-swappable-mechanical-keyboard-kit)
-* [ID67 Crystal](https://idobao.net/collections/65-layout/products/idobao-id67-crystal-keyboard-kit-gasket-mount-version)
-* [ID67 Bestype](https://idobao.net/collections/65-layout/products/idobao-id67-bestype-keyboard-kit-aluminum-with-brass-weight)
+  * [ID67](https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1)
+  * [ID67V2](https://idobao.net/products/idobao-id67v2-65-hot-swappable-mechanical-keyboard-kit)
+  * [ID67 Crystal](https://idobao.net/products/idobao-id67-crystal-keyboard-kit-gasket-mount-version)
+  * [ID67 Bestype](https://idobao.net/products/idobao-id67-bestype-keyboard-kit-aluminum-with-brass-weight)
 
 ## Layout
 
-![ID67 layout](https://i.imgur.com/Ge6Uxao.png)
+![ID67 layout](https://idobao.github.io/kle/idobao-id67.png)
 
 
 ## Compiling and flashing

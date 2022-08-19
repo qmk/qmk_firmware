@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4245  //BE
-#define PRODUCT_ID      0x544C  //TL
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Bathroom Epiphanies
-#define PRODUCT         tiger_lily
-
 /*
  * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies
  * Ported from the Bathroom Epiphanies TMK Firmware:
