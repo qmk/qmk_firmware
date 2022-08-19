@@ -174,4 +174,3 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(test_combo7, TO(2)),
     COMBO(test_combo8, KC_DEL),
 };
-// qmk compile -kb keebformom -km ding
