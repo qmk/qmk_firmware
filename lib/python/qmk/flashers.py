@@ -150,11 +150,14 @@ def _flash_hid_bootloader(mcu, details, file):
     cli.run([cmd, f'-mmcu={mcu}', '-w', '-v', file], capture_output=False)
 
 
-def _flash_stm32(details, file):
+def _flash_dfu_util(details, file):
     # STM32duino
     if details[0] == '1eaf' and details[1] == '0003':
         cli.run(['dfu-util', '-a', '2', '-d', f'{details[0]}:{details[1]}', '-R', '-D', file], capture_output=False)
-    # STM32 DFU or APM32 DFU
+    # kiibohd
+    elif details[0] == '1c11' and details[1] == 'b007':
+        cli.run(['dfu-util', '-a', '0', '-d', f'{details[0]}:{details[1]}', '-D', file], capture_output=False)
+    # STM32, APM32, or GD32V DFU
     else:
         cli.run(['dfu-util', '-a', '0', '-d', f'{details[0]}:{details[1]}', '-s', '0x08000000:leave', '-D', file], capture_output=False)
 
@@ -182,7 +185,7 @@ def flasher(mcu, file):
         else:
             return (True, "Specifying the MCU with '-m' is necessary for HalfKay/HID bootloaders!")
     elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu':
-        _flash_stm32(details, file.name)
+        _flash_dfu_util(details, file.name)
     elif bl == 'usbasploader' or bl == 'usbtinyisp':
         if mcu:
             _flash_isp(mcu, bl, file.name)
