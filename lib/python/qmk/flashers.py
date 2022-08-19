@@ -181,7 +181,7 @@ def flasher(mcu, file):
                 return (True, "Please make sure 'teensy_loader_cli' or 'hid_bootloader_cli' is available on your system.")
         else:
             return (True, "Specifying the MCU with '-m' is necessary for HalfKay/HID bootloaders!")
-    elif bl == 'stm32-dfu' or bl == 'apm32-dfu':
+    elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu':
         _flash_stm32(details, file.name)
     elif bl == 'usbasploader' or bl == 'usbtinyisp':
         if mcu:

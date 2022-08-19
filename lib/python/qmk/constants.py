@@ -81,6 +81,7 @@ BOOTLOADER_VIDS_PIDS = {
         ("0483", "df11")  # STM32 DFU
     },
     'apm32-dfu': {("314b", "0106")},
+    'gd32v-dfu': {("28e9", "0189")},
     'bootloadhid': {("16c0", "05df")},
     'usbasploader': {("16c0", "05dc")},
     'usbtinyisp': {("1782", "0c9f")},
