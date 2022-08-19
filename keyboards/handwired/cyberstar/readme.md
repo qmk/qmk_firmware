@@ -12,7 +12,7 @@ This is a 60% with nav claster layout custom PCB. It supports VIA.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cyberstar:default
+    make handwired/cyberstar:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -29,4 +29,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Unplug
 - Hold Escape
 - Plug In
-- Flash using QMK Toolbox or CLI (`make cyberstar:<keymap>:flash`)
+- Flash using QMK Toolbox or CLI (`make handwired/cyberstar:<keymap>:flash`)
