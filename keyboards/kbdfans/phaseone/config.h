@@ -16,12 +16,7 @@
 
 #pragma once
 #include "config_common.h"
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x0103
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFans
-#define PRODUCT         phaseone
+
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

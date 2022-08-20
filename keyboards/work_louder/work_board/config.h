@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x574C
-#define PRODUCT_ID   0xDCD0
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Work Louder
-#define PRODUCT      Work Board
-
 /* key matrix size */
 #define MATRIX_ROWS  4
 #define MATRIX_COLS  13
@@ -189,17 +182,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B0 }
 #define ENCODERS_PAD_B \
     { B1 }
-
-#define ENCODERS 1
-
-#define ENCODERS_CW_KEY \
-    {                   \
-        { 12, 1 }       \
-    }
-#define ENCODERS_CCW_KEY \
-    {                    \
-        { 12, 2 }        \
-    }
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

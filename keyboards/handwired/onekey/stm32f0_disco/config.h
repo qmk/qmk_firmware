@@ -18,8 +18,6 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey STM32F072 Discovery
-
 #define MATRIX_COL_PINS { B4 }
 #define MATRIX_ROW_PINS { B5 }
 #define UNUSED_PINS

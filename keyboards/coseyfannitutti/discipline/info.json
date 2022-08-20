@@ -1,7 +1,13 @@
 {
     "keyboard_name": "DISCIPLINE", 
+    "manufacturer": "coseyfannitutti",
     "url": "https://github.com/coseyfannitutti/discipline", 
     "maintainer": "coseyfannitutti", 
+    "usb": {
+        "vid": "0x6B62",
+        "pid": "0x6869",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_2_right_mods": "LAYOUT_65_ansi_blocker",
         "LAYOUT_65_iso_2_right_mods": "LAYOUT_65_iso_blocker",

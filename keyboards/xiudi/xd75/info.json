@@ -1,7 +1,13 @@
 {
     "keyboard_name": "XD75",
+    "manufacturer": "xiudi",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7844",
+        "pid": "0x7575",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x15": {
             "layout": [

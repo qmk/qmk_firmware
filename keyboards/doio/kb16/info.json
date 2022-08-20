@@ -1,0 +1,48 @@
+{
+    "keyboard_name": "KB16-01",
+    "manufacturer": "DOIO",
+    "url": "",
+    "maintainer": "HorrorTroll",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x1601",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"1!", "x":0, "y":0},
+                {"label":"2@", "x":1, "y":0},
+                {"label":"3#", "x":2, "y":0},
+                {"label":"4$", "x":3, "y":0},
+
+                {"label":"Encoder 1 CCW", "x":4.25, "y":0, "w":0.5},
+                {"label":"Encoder 1", "x":4.75, "y":0},
+                {"label":"Encoder 1 CW", "x":5.75, "y":0, "w":0.5},
+
+                {"label":"5%", "x":0, "y":1},
+                {"label":"6^", "x":1, "y":1},
+                {"label":"7&", "x":2, "y":1},
+                {"label":"8*", "x":3, "y":1},
+
+                {"label":"Encoder 2 CCW", "x":6.25, "y":0, "w":0.5},
+                {"label":"Encoder 2", "x":6.75, "y":0},
+                {"label":"Encoder 2 CW", "x":7.75, "y":0, "w":0.5},
+
+                {"label":"9(", "x":0, "y":2},
+                {"label":"0)", "x":1, "y":2},
+                {"label":"\u2191", "x":2, "y":2},
+                {"label":"Enter", "x":3, "y":2},
+
+                {"label":"Encoder 3 CCW", "x":5.25, "y":2.5, "w":0.5},
+                {"label":"Encoder 3", "x":5.75, "y":2.5},
+                {"label":"Encoder 3 CW", "x":6.75, "y":2.5, "w":0.5},
+
+                {"label":"Fn", "x":0, "y":3},
+                {"label":"\u2190", "x":1, "y":3},
+                {"label":"\u2193", "x":2, "y":3},
+                {"label":"\u2192", "x":3, "y":3}
+            ]
+        }
+    }
+}

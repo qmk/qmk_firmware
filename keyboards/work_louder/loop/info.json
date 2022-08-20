@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "loop",
-    "url": "",
+    "keyboard_name": "Loop Pad",
+    "manufacturer": "Work Louder",
+    "url": "https://worklouder.cc/",
     "maintainer": "Work Louder",
+    "usb": {
+        "vid": "0x574C",
+        "pid": "0x1DF9",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

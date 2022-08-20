@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "MiSTress1200",
+    "manufacturer": "8bits4ever",
+    "usb": {
+        "vid": "0xFFFF",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    }
+}

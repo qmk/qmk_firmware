@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4249 // Binepad
-#define PRODUCT_ID      0x4295
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Binepad
-#define PRODUCT         BN009
-
 /* Key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3

@@ -55,7 +55,9 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
 }
 
 #if defined(SPLIT_WATCHDOG_TIMEOUT)
-void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { watchdog_ping_done = true; }
+void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    watchdog_ping_done = true;
+}
 #endif
 
 #ifdef CUSTOM_OLED_DRIVER
@@ -97,7 +99,7 @@ void user_transport_update(void) {
         user_state.tap_toggling = tap_toggling;
 #endif
 #ifdef UNICODE_COMMON_ENABLE
-        user_state.unicode_mode = unicode_config.input_mode;
+        user_state.unicode_mode        = unicode_config.input_mode;
         user_state.unicode_typing_mode = typing_mode;
 #endif
 #ifdef SWAP_HANDS_ENABLE
@@ -112,7 +114,7 @@ void user_transport_update(void) {
         user_state.raw       = transport_user_state;
 #ifdef UNICODE_COMMON_ENABLE
         unicode_config.input_mode = user_state.unicode_mode;
-        typing_mode = user_state.unicode_typing_mode;
+        typing_mode               = user_state.unicode_typing_mode;
 #endif
 #if defined(CUSTOM_POINTING_DEVICE)
         tap_toggling = user_state.tap_toggling;
@@ -216,7 +218,7 @@ void user_transport_sync(void) {
             if (timer_elapsed32(watchdog_timer) > 100) {
                 uint8_t any_data = 1;
                 if (transaction_rpc_send(RPC_ID_USER_WATCHDOG_SYNC, sizeof(any_data), &any_data)) {
-                    watchdog_ping_done = true;  // successful ping
+                    watchdog_ping_done = true; // successful ping
                 } else {
                     dprint("Watchdog ping failed!\n");
                 }
@@ -233,7 +235,7 @@ void user_transport_sync(void) {
 #endif
 }
 
-void housekeeping_task_user(void) {
+void housekeeping_task_transport_sync(void) {
     // Update kb_state so we can send to slave
     user_transport_update();
 

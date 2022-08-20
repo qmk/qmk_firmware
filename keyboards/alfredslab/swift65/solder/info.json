@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Swift65",
+    "keyboard_name": "Swift65 Solder",
+    "manufacturer": "AlfredsLab",
     "url": "https://swiftcables.net/",
     "maintainer": "Spooknik",
+    "usb": {
+        "vid": "0xBBEB",
+        "pid": "0xD4C3",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_625u_space_split_bs",
         "LAYOUT_all": "LAYOUT_625u_space_split_bs"

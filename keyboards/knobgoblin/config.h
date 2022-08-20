@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B47 // KG
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MrT1ddl3s
-#define PRODUCT         Knob Goblin
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 5

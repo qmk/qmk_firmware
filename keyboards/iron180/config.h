@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8384 //SR for Smith and Rune
-#define PRODUCT_ID      0x1180
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SmithRune
-#define PRODUCT         IRON180
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17

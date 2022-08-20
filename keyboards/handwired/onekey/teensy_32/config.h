@@ -19,8 +19,6 @@
 // TODO: including this causes "error: expected identifier before '(' token" errors
 //#include "config_common.h"
 
-#define PRODUCT Onekey Teensy 3.2
-
 #define MATRIX_COL_PINS { D5 }
 #define MATRIX_ROW_PINS { B2 }
 #define UNUSED_PINS
