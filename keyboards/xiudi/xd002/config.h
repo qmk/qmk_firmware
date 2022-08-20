@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID  0x7844 // "XD"
-#define PRODUCT_ID 0x0202
-#define DEVICE_VER 0x0001
-#define MANUFACTURER XIUDI
-#define PRODUCT XD002
-
 /* matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 2

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Macro3",
+    "manufacturer": "DPB",
     "url": "https://github.com/davidphilipbarr/Macropads/tree/main/macro3",
     "maintainer": "@davidphilipbarr",
+    "usb": {
+        "vid": "0xC88B",
+        "pid": "0x3388",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

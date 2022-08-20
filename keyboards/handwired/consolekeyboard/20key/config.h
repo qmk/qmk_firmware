@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6761
-#define PRODUCT_ID      0x3432
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Stream Cheap
-#define PRODUCT         Console Keyboard 20
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 12

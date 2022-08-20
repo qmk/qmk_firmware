@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x726B // rk - "rainkeebs"
-#define PRODUCT_ID      0x7973 // ys - "yasui"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    rainkeebs
-#define PRODUCT         yasui
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10

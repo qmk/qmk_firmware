@@ -1,7 +1,11 @@
 {
-  "keyboard_name": "Planck EZ",
+  "manufacturer": "ZSA Technology Labs",
   "url": "https://ergodox-ez.com/pages/planck",
   "maintainer": "jackhumbert",
+  "usb": {
+    "vid": "0x3297",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_planck_1x2uC": {
       "layout": [

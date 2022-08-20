@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4652 // "FR"
-#define PRODUCT_ID      0x5558 // "UX"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    FR4Boards
-#define PRODUCT         unix60
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 9

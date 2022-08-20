@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x0107
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         BAGUETTE66_SOLDERED
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

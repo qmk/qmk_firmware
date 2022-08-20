@@ -19,14 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x3200
-// Taurus K320 models:
-//#define DEVICE_VER      0x0001 // Base (no backlight)
-//#define DEVICE_VER      0x0002 // Corona (white led matrix)
-//#define DEVICE_VER      0x0003 // Aurora (red & blue led matrix)
-//#define DEVICE_VER      0x0004 // Nebula (rgb led matrix)
-
 /* key matrix size (cols in generic keyboard config) */
 #define MATRIX_ROWS 7
 

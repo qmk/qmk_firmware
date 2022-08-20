@@ -1,7 +1,13 @@
 {
     "keyboard_name": "runner3680 5x6+5x8",
+    "manufacturer": "Omkbd",
     "url": "",
     "maintainer": "omkbd",
+    "usb": {
+        "vid": "0x3680",
+        "pid": "0x5658",
+        "device_version": "0.0.5"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
