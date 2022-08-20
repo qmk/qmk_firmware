@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "BDE Rev2",
+    "usb": {
+        "pid": "0x170A",
+        "device_version": "1.0.1"
+    }
+}
