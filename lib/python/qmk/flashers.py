@@ -169,6 +169,10 @@ def _flash_isp(mcu, programmer, file):
     cli.run(['avrdude', '-p', mcu, '-c', programmer, '-U', f'flash:w:{file}:i'], capture_output=False)
 
 
+def _flash_mdloader(file):
+    cli.run(['mdloader', '--first', '--download', file, 'restart'], capture_output=False)
+
+
 def flasher(mcu, file):
     bl, details = _find_bootloader()
     # Add a small sleep to avoid race conditions
@@ -191,6 +195,8 @@ def flasher(mcu, file):
             _flash_isp(mcu, bl, file.name)
         else:
             return (True, "Specifying the MCU with '-m' is necessary for ISP flashing!")
+    elif bl == 'md-boot':
+        _flash_mdloader(file.name)
     else:
         return (True, "Known bootloader found but flashing not currently supported!")
 
