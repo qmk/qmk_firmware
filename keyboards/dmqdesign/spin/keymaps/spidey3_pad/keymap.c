@@ -71,7 +71,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_MACRO]  = { ENCODER_CCW_CW(KC_BRID,       KC_BRIU),      ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
     [_NUMPAD] = { ENCODER_CCW_CW(KC_BRID,       KC_BRIU),      ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
     [_CURSOR] = { ENCODER_CCW_CW(KC_BRID,       KC_BRIU),      ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
-    [_RGB]    = { ENCODER_CCW_CW(RGB_HUD,       RGB_HUI     ), ENCODER_CCW_CW(RGB_SAD,    RGB_SAI  ), ENCODER_CCW_CW(RGB_VAD,    RGB_VAI) },   
+    [_RGB]    = { ENCODER_CCW_CW(RGB_HUD,       RGB_HUI     ), ENCODER_CCW_CW(RGB_SAD,    RGB_SAI  ), ENCODER_CCW_CW(RGB_VAD,    RGB_VAI) },
     [_FN]     = { ENCODER_CCW_CW(KC_BRID,       KC_BRIU),      ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
 };
 
@@ -162,7 +162,7 @@ void spidey_glow(void) {
     rgblight_sethsv(255, 230, 128);
 }
 
-void eeconfig_init_user(void) { 
+void eeconfig_init_user(void) {
     spidey_glow();
 }
 
@@ -170,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     dprintf("key event: kc: %02X, col: %02u, row: %02u, pressed: %u mods: %08b "
 #if !defined(NO_ACTION_ONESHOT)
             "os: %08b "
-#endif          
+#endif
             "weak: %08b\n",
             keycode, record->event.key.col, record->event.key.row, record->event.pressed, bitrev(get_mods()),
 #if !defined(NO_ACTION_ONESHOT)
