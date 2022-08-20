@@ -1,7 +1,13 @@
 {
     "keyboard_name": "UNK",
+    "manufacturer": "herpiko",
     "url": "https://github.com/herpiko/unk",
     "maintainer": "herpiko",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

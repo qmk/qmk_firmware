@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Bento Macropad",
+  "keyboard_name": "Bento Macropad Rev. 1",
+  "manufacturer": "GhostSeven",
   "url": "https://www.thingiverse.com/thing:4416966",
   "maintainer": "Ghostseven",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0xDAD3",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
