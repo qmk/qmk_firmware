@@ -79,7 +79,7 @@ def _find_bootloader():
                             details = 'halfkay'
                         else:
                             details = 'qmk-hid'
-                    elif bl == 'stm32-dfu' or bl == 'apm32-dfu':
+                    elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu' or bl == 'kiibohd':
                         details = (vid, pid)
                     else:
                         details = None
