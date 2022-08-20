@@ -57,6 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D0
 
 /* ws2812 RGB LED */
+#define SPLIT_LAYER_STATE_ENABLE
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 68
@@ -64,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
+#    define RGBLIGHT_LIMIT_VAL 50 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== enabled animations ==*/
 #    define RGBLIGHT_EFFECT_BREATHING
@@ -118,7 +119,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
+#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
 #        define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define DRIVER_LED_TOTAL RGBLED_NUM
 #        define RGB_MATRIX_SPLIT { 34, 34 }
@@ -127,8 +128,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    endif
 #endif
 
-#define VIA_QMK_RGBLIGHT_ENABLE
+// #define VIA_QMK_RGBLIGHT_ENABLE
 
 // Enable the workaround for the speed parameter mismatch between RGBLIGHT and
 // RGB Matrix, so that the speed slider in VIA behaves in a more useful way.
-#define VIA_CUSTOM_LIGHTING_ENABLE
+// #define VIA_CUSTOM_LIGHTING_ENABLE
