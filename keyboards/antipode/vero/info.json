@@ -3,6 +3,7 @@
     "keyboard_name": "antipode/vero",
     "maintainer": "arnstadm",
     "bootloader": "stm32-dfu",
+    "board": "GENERIC_STM32_F411XE",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -24,7 +25,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5645",
-        "vid": "0x414E"
+        "vid": "0x4150"
     },
     "layouts": {
         "LAYOUT_all": {
