@@ -191,5 +191,7 @@ def flasher(mcu, file):
             _flash_isp(mcu, bl, file.name)
         else:
             return (True, "Specifying the MCU with '-m' is necessary for ISP flashing!")
+    else:
+        return (True, "Known bootloader found but flashing not currently supported!")
 
     return (False, None)
