@@ -17,13 +17,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5350
-#define PRODUCT_ID      0x6B31
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SawnsProjects
-#define PRODUCT         Krush65 - Solder
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8

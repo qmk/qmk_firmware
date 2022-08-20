@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5351 // SQ
-#define PRODUCT_ID 0x4657 // FW
-#define DEVICE_VER 0x0001
-#define MANUFACTURER squashkb
-#define PRODUCT free willy
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10

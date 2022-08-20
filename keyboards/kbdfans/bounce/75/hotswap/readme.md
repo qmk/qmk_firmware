@@ -1,4 +1,4 @@
-# BONCE75 HOTSWAP
+# BOUNCE75 HOTSWAP
 
 A customizable 75% HOTSWAP keyboard.
 

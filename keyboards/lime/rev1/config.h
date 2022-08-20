@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x0666
-#define PRODUCT_ID      0x2784
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    HellSingCoder
-#define PRODUCT         Lime
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 12

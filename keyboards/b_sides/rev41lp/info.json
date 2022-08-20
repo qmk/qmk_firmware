@@ -1,7 +1,13 @@
 {
     "keyboard_name": "rev41lp",
+    "manufacturer": "cyril279",
     "url": "https://github.com/cyril279/keyboards/tree/main/revlp/41_1350",
     "maintainer": "cyril279",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x5F10",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_rev41lp": {
             "layout": [

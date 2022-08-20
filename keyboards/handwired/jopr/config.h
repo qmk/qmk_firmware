@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4DAE
-#define PRODUCT_ID      0x1000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    joelproko
-#define PRODUCT         jopr-106-Nl2SR-Cl2nL
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 11

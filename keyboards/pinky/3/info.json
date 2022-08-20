@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Pinky3",
+    "manufacturer": "tamanishi",
     "url": "",
     "maintainer": "tamanishi",
+    "usb": {
+        "vid": "0x544E",
+        "pid": "0x7033",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x7_4": {
             "layout": [

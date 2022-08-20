@@ -1,7 +1,13 @@
 {
     "keyboard_name": "p1800fl", 
+    "manufacturer": "team0110",
     "url": "http://team0110.store/", 
     "maintainer": "team0110", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3EAE",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
