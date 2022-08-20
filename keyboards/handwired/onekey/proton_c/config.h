@@ -18,8 +18,6 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey Proton-C
-
 #define MATRIX_COL_PINS { A2 }
 #define MATRIX_ROW_PINS { A1 }
 

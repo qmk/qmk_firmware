@@ -18,8 +18,6 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey Pro Micro
-
 #define MATRIX_COL_PINS { F4 }
 #define MATRIX_ROW_PINS { F5 }
 
