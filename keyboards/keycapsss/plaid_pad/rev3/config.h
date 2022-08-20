@@ -16,9 +16,5 @@
 
 #pragma once
 
-#define PRODUCT Plaid-Pad Rev3
-#define DEVICE_VER 0x0003
-
-
 #define ENCODERS_PAD_A { D1, B2, B4, D4 }
 #define ENCODERS_PAD_B { D0, B1, B3, B5 }

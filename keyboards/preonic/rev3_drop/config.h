@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0003
-#define PRODUCT_ID 0xA649
-#undef MANUFACTURER
-#define MANUFACTURER Drop
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
