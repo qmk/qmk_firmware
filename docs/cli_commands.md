@@ -90,6 +90,8 @@ This command is similar to `qmk compile`, but can also target a bootloader. The 
 
 This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
+This command can also flash binary firmware files (hex or bin) such as the ones produced by [Configurator](https://config.qmk.fm).
+
 **Usage for Configurator Exports**:
 
 ```
@@ -100,6 +102,21 @@ qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>] <configurat
 
 ```
 qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
+```
+
+**Usage for pre-compiled firmwares**:
+
+**Note**: The microcontroller needs to be specified (`-m` argument) for keyboards with the following bootloaders:
+* HalfKay
+* QMK HID
+* USBaspLoader
+
+ISP flashing is also supported with the following flashers and require the microcontroller to be specified:
+* USBasp
+* USBtinyISP
+
+```
+qmk flash [-m <microcontroller>] <compiledFirmware.[bin|hex]>
 ```
 
 **Listing the Bootloaders**
