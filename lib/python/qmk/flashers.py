@@ -170,7 +170,7 @@ def _flash_isp(mcu, programmer, file):
 
 
 def _flash_mdloader(file):
-    cli.run(['mdloader', '--first', '--download', file, 'restart'], capture_output=False)
+    cli.run(['mdloader', '--first', '--download', file, '--restart'], capture_output=False)
 
 
 def flasher(mcu, file):
