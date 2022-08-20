@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Redox",
+  "manufacturer": "Falbatech",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4D44",
+    "pid": "0x5244",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
