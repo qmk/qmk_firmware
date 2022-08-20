@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Rorschach",
+  "keyboard_name": "Rorschach Rev. 1",
+  "manufacturer": "Keebio",
   "url": "https://keeb.io",
   "maintainer": "nooges",
+  "usb": {
+    "vid": "0xCB10",
+    "pid": "0x1246",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

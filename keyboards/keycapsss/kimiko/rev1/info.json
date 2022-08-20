@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Kimiko",
+    "manufacturer": "Keycapsss",
     "url": "https://keycapsss.com",
     "maintainer": "@ben_roe Keycapsss",
+    "usb": {
+        "vid": "0x7983",
+        "pid": "0x4B69",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
