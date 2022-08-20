@@ -18,7 +18,5 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey Adafruit Feather STM32F405
-
 #define MATRIX_COL_PINS { C2 }
 #define MATRIX_ROW_PINS { C3 }
