@@ -88,7 +88,7 @@ BOOTLOADER_VIDS_PIDS = {
     'md-boot': {("03eb", "6124")},
     'caterina': {
         # pid.codes shared PID
-        ("1209", "9203"),  # Keyboardio Atreus 2 Bootloader
+        ("1209", "2302"),  # Keyboardio Atreus 2 Bootloader
         # Spark Fun Electronics
         ("1b4f", "9203"),  # Pro Micro 3V3/8MHz
         ("1b4f", "9205"),  # Pro Micro 5V/16MHz
