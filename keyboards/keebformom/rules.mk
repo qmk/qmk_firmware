@@ -19,5 +19,4 @@ AUDIO_ENABLE = yes          # Audio output
 LTO_ENABLE = yes
 COMBO_ENABLE = yes
 NO_USB_STARTUP_CHECK = yes  
-ENCODER_ENABLE = no
 LAYOUTS = ortho_4x10 
