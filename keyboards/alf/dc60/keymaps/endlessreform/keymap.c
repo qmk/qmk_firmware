@@ -1,4 +1,4 @@
-/* Copyright 2021 Jacob Keisling
+/* Copyright 2022 Jacob Keisling
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,118 +21,33 @@
 #define GREEK 4
 #define GIT 5
 
-// Macro definitions
+// Macro definitions. All are in (R: row, C: key) order
 enum custom_keycodes {
     // Markdown layer
     TAGGED = SAFE_RANGE,
-    H1,
-    H2,
-    H3,
-    MATH,
-    CDFC,
-    ALSO,
-    DIVIDER,
-    MARROW,
-    TASK,
-    MERMAID,
+    H1, H2, H3,
+    CDFC, ALSO, DIVIDER, MARROW,
+    TASK, MERMAID,
 
     // Space Cadet TOP layer
-    NOT,
-    EXP,
-    MUL,
-    SSCRIPT,
-    SUM,
-    LTX_CDFC,
-    QQUAD,
-    AND,
-    OR,
-    UNION,
-    INTERSECTION,
-    SUBSET,
-    SUPERSET,
-    FORALL,
-    INFTY,
-    EXISTS,
-    PARTIAL,
-    LCORNER,
-    RCORNER,
-    BEGIN,
-    FALSE,
-    TRUE,
-    VDASH,
-    DASHV,
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    IFF,
-    PRIME,
-    LLCORNER,
-    ULCORNER,
-    NEQ,
-    SIMEQ,
-    EQUIV,
-    LEQ,
-    GEQ,
-    ELLIPSIS,
-    FRAC,
+    NOT, MATH, EXP, MUL, SSCRIPT, SUM,
+    LTX_CDFC, QQUAD, AND, OR, UNION, INTERSECTION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER,
+    BEGIN, FALSE, TRUE, VDASH, DASHV, UP, DOWN, LEFT, RIGHT, IFF, PRIME,
+    LLCORNER, ULCORNER, NEQ, SIMEQ, EQUIV, LEQ, GEQ, ELLIPSIS, FRAC,
     SPC,
 
     // Space Cadet GREEK layer
-    QED,
-    TIMES,
-    EMPTY,
-    THETA,
-    OMEGA,
-    EPSILON,
-    RHO,
-    TAU,
-    UPSILON,
-    PSI,
-    IOTA,
-    OMICRON,
-    PI,
-    ALPHA,
-    SIGMA,
-    DELTA,
-    PHI,
-    GAMMA,
-    ETA,
-    KAPPA,
-    LAMBDA,
-    ZETA,
-    XI,
-    CHI,
-    BETA,
-    NU,
-    MU,
+    QED, TIMES, EMPTY,
+    THETA, OMEGA, EPSILON, RHO, TAU, UPSILON, PSI, IOTA, OMICRON, PI,
+    ALPHA, SIGMA, DELTA, PHI, GAMMA, ETA, KAPPA, LAMBDA,
+    ZETA, XI, CHI, BETA, NU, MU,
 
     // Git layer
-    GIT_KEY,
-    DDASH,
-    RM,
-    TAG,
-    REMOTE,
-    UPSTREAM,
-    INIT,
-    ORIGIN,
-    REVERT,
-    PUSH,
-    STATUS,
-    DEVELOP,
-    GLOBAL,
-    LOG,
-    COMMIT,
-    REBASE,
-    MAIN,
-    CHECKOUT,
-    ADD,
-    BRANCH,
-    PULL,
-    MERGE,
-    STASH,
-    FETCH,
-    CLONE
+    GIT_KEY, DDASH, RM,
+    TAG, REMOTE, UPSTREAM, INIT, ORIGIN, REVERT,
+    PUSH, STATUS, DEVELOP, GLOBAL, LOG, COMMIT,
+    REBASE, MAIN, CHECKOUT, ADD,
+    BRANCH, PULL, MERGE, STASH, FETCH, CLONE
 };
 
 /*
@@ -181,18 +96,61 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 MAIN
 */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [BASE] = LAYOUT_all(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC, LCTL_T(KC_ESC), KC_A, KC_S, KC_D, LT(GIT, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, LT(PUNC, KC_SCLN), KC_QUOT, KC_ENT, KC_LSFT, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MO(TOP), KC_UP, MO(GREEK), MO(NAV), KC_LGUI, KC_LALT, KC_SPACE, KC_SPACE, KC_SPACE, KC_RALT, LGUI(KC_LSFT), LGUI(KC_LSFT), LGUI(KC_LSFT), LCTL(KC_LSFT)),
+    /*
+    Keys per row:
+    - R1: 15
+    - R2: 14
+    - R3: 13
+    - R4: 13
+    - R5: 07
+    */
+    [BASE] = LAYOUT_all(
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV,
+        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
+        LCTL_T(KC_ESC), KC_A, KC_S, KC_D, LT(GIT, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, LT(PUNC, KC_SCLN), KC_QUOT, KC_ENT,
+        KC_LSFT, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MO(TOP), KC_UP, MO(GREEK),
+        MO(NAV), KC_LGUI, KC_LALT, KC_SPACE, KC_SPACE, KC_SPACE, KC_RALT, LGUI(KC_LSFT), LGUI(KC_LSFT), LGUI(KC_LSFT), LCTL(KC_LSFT)
+    ),
 
-    [NAV] = LAYOUT_all(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, _______, _______, KC_VOLD, LCTL(KC_RIGHT), KC_VOLU, _______, _______, KC_END, KC_PGDN, KC_PGUP, KC_HOME, _______, _______, _______, KC_DEL, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, _______, _______, KC_LSFT, _______, _______, _______, _______, LCTL(KC_LEFT), LCTL(LSFT(KC_LEFT)), _______, _______, LCTL(LSFT(KC_RIGHT)), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET),
+    [NAV] = LAYOUT_all(
+        KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, _______,
+        _______, KC_VOLD, LCTL(KC_RIGHT), KC_VOLU, _______, _______, KC_END, KC_PGDN, KC_PGUP, KC_HOME, _______, _______, _______, KC_DEL,
+        _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, _______,
+        _______, KC_LSFT, _______, _______, _______, _______, LCTL(KC_LEFT), LCTL(LSFT(KC_LEFT)), _______, _______, LCTL(LSFT(KC_RIGHT)), _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET
+    ),
 
-    [PUNC] = LAYOUT_all(_______, H1, H2, H3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TAGGED, _______, _______, _______, _______, _______, _______, _______, _______, CDFC, _______, ALSO, DIVIDER, _______, KC_LPRN, KC_RPRN, _______, MARROW, _______, _______, _______, _______, _______, _______, _______, _______, TASK, _______, _______, _______, MERMAID, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+    [PUNC] = LAYOUT_all(
+        _______, H1, H2, H3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, TAGGED, _______, _______, _______, _______, _______, _______, _______, _______,
+        CDFC, _______, ALSO, DIVIDER, _______, KC_LPRN, KC_RPRN, _______, MARROW, _______, _______, _______, _______,
+        _______, _______, _______, _______, TASK, _______, _______, _______, MERMAID, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
 
-    [TOP] = LAYOUT_all(_______, NOT, _______, _______, MATH, _______, EXP, _______, MUL, _______, _______, SSCRIPT, SUM, LTX_CDFC, _______, QQUAD, AND, OR, INTERSECTION, UNION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER, _______, BEGIN, FALSE, TRUE, TD(TD_PROVES_MODELS), DASHV, UP, DOWN, TD(TD_LEFT_ARROW), TD(TD_RIGHT_ARROW), IFF, _______, PRIME, _______, _______, _______, LLCORNER, ULCORNER, NEQ, SIMEQ, EQUIV, LEQ, GEQ, _______, ELLIPSIS, FRAC, _______, _______, _______, _______, _______, _______, SPC, SPC, SPC, _______, _______, _______, _______, _______),
+    [TOP] = LAYOUT_all(
+        _______, NOT, _______, _______, MATH, _______, EXP, _______, MUL, _______, _______, SSCRIPT, SUM, LTX_CDFC, _______,
+        QQUAD, AND, OR, INTERSECTION, UNION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER, _______,
+        BEGIN, FALSE, TRUE, TD(TD_PROVES_MODELS), DASHV, UP, DOWN, TD(TD_LEFT_ARROW), TD(TD_RIGHT_ARROW), IFF, _______, PRIME, _______, _______,
+        _______, LLCORNER, ULCORNER, NEQ, SIMEQ, EQUIV, LEQ, GEQ, _______, ELLIPSIS, FRAC, _______, _______,
+        _______, _______, _______, _______, SPC, SPC, SPC, _______, _______, _______, _______, _______
+    ),
 
-    [GREEK] = LAYOUT_all(_______, _______, _______, _______, _______, _______, QED, _______, TIMES, _______, EMPTY, _______, _______, _______, _______, _______, THETA, OMEGA, EPSILON, RHO, TAU, UPSILON, PSI, IOTA, OMICRON, PI, _______, _______, _______, _______, ALPHA, SIGMA, DELTA, PHI, GAMMA, ETA, _______, KAPPA, LAMBDA, _______, _______, _______, _______, _______, ZETA, XI, CHI, _______, BETA, NU, MU, _______, _______, _______, _______, _______, _______, _______, _______, _______, SPC, SPC, SPC, _______, _______, _______, _______, _______),
+    [GREEK] = LAYOUT_all(
+        _______, _______, _______, _______, _______, _______, QED, _______, TIMES, _______, EMPTY, _______, _______, _______, _______,
+        _______, THETA, OMEGA, EPSILON, RHO, TAU, UPSILON, PSI, IOTA, OMICRON, PI, _______, _______, _______,
+        _______, ALPHA, SIGMA, DELTA, PHI, GAMMA, ETA, _______, KAPPA, LAMBDA, _______, _______, _______,
+        _______, _______, ZETA, XI, CHI, _______, BETA, NU, MU, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, SPC, SPC, SPC, _______, _______, _______, _______, _______
+    ),
 
-    [GIT] = LAYOUT_all(GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH, _______, _______, RM, TAG, _______, _______, _______, REMOTE, _______, _______, UPSTREAM, INIT, ORIGIN, _______, _______, _______, REVERT, PUSH, _______, STATUS, DEVELOP, _______, GLOBAL, _______, _______, _______, LOG, _______, _______, COMMIT, REBASE, _______, _______, _______, _______, _______, _______, _______, MAIN, _______, _______, _______, CHECKOUT, CHECKOUT, ADD, BRANCH, PULL, MERGE, SPC, SPC, SPC, STASH, STASH, FETCH, FETCH, CLONE),
-
+    [GIT] = LAYOUT_all(
+        GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH, _______, _______, RM,
+        TAG, _______, _______, _______, REMOTE, _______, _______, UPSTREAM, INIT, ORIGIN, _______, _______, _______, REVERT,
+        PUSH, _______, STATUS, DEVELOP, _______, GLOBAL, _______, _______, _______, LOG, _______, _______, COMMIT,
+        REBASE, _______, _______, _______, _______, _______, _______, _______, MAIN, _______, _______, _______, CHECKOUT,
+        CHECKOUT, ADD, BRANCH, PULL, MERGE, SPC, SPC, SPC, STASH, STASH, FETCH, FETCH, CLONE
+    ),
 };
 
 void matrix_init_user(void) {}
