@@ -1,7 +1,13 @@
 {
     "keyboard_name": "setta21",
+    "manufacturer": "Salicylic_Acid",
     "url": "https://salicylic-acid3.hatenablog.com/",
     "maintainer": "Salicylic_acid3",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.1.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Naked64",
+    "keyboard_name": "naked64",
+    "manufacturer": "Salicylic_Acid",
     "url": "https://salicylic-acid3.hatenablog.com/",
     "maintainer": "Salicylic_acid3",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
