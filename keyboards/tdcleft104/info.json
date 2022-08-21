@@ -8,7 +8,7 @@
       "device_version": "0.0.2"
            },
     "layouts": {
-        "LAYOUT_tdcleft104": {
+        "LAYOUT": {
             "layout": [
             {"label":"Esc", "x":0, "y":0}, 
             {"label":"<i class='fa fa-volume-off'></i>", "x":1, "y":0}, 
