@@ -17,4 +17,4 @@
 #pragma once
 
 // place overrides here
-#define RGBLIGHT_LAYERS
+#define COMBO_TERM 20

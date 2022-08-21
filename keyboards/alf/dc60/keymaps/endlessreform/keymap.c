@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+/* See QMK combo docs "Dictionary Management" */
+#include "g/keymap_combo.h"
 #define BASE 0
 #define NAV 1
 #define PUNC 2
@@ -114,9 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NAV] = LAYOUT_all(
         KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, _______,
-        _______, KC_VOLD, LCTL(KC_RIGHT), KC_VOLU, _______, _______, KC_END, KC_PGDN, KC_PGUP, KC_HOME, _______, _______, _______, KC_DEL,
+        _______, KC_VOLD, _______, KC_VOLU, _______, _______, KC_END, KC_PGDN, KC_PGUP, KC_HOME, _______, _______, _______, KC_DEL,
         _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, _______,
-        _______, KC_LSFT, _______, _______, _______, _______, LCTL(KC_LEFT), LCTL(LSFT(KC_LEFT)), _______, _______, LCTL(LSFT(KC_RIGHT)), _______, _______,
+        _______, KC_LSFT, _______, _______, CMB_TOG, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET
     ),
 
@@ -148,8 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH, _______, _______, RM,
         TAG, _______, _______, _______, REMOTE, _______, _______, UPSTREAM, INIT, ORIGIN, _______, _______, _______, REVERT,
         PUSH, _______, STATUS, DEVELOP, _______, GLOBAL, _______, _______, _______, LOG, _______, _______, COMMIT,
-        REBASE, _______, _______, _______, _______, _______, _______, _______, MAIN, _______, _______, _______, CHECKOUT,
-        CHECKOUT, ADD, BRANCH, PULL, MERGE, SPC, SPC, SPC, STASH, STASH, FETCH, FETCH, CLONE
+        REBASE, _______, _______, _______, _______, _______, _______, _______, MAIN, _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
+        BRANCH, PULL, MERGE, SPC, SPC, SPC, STASH, STASH, FETCH, FETCH, CLONE
     ),
 };
 
