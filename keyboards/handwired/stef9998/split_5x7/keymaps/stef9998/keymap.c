@@ -60,6 +60,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 //    return update_tri_layer_state(state, _ESS, _SYM, _SYM_ESS);
 //}
 
+//Modified from default, cause I want CapsLock to still be there even when I swap hands
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 { {0, 5},  {1, 5},  {2, 5},  {3, 5}, {4, 5}, {5, 5}, {6, 5}},
 { {0, 6},  {1, 6},  {2, 6},  {3, 6}, {4, 6}, {5, 6}, {6, 6}},
