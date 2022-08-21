@@ -16,18 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#undef VENDOR_ID
-#define VENDOR_ID 0x1209
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x345C
-#undef DEVICE_VER
-#define DEVICE_VER 0x0001
-#undef MANUFACTURER
-#define MANUFACTURER "https://github.com/stapelberg"
-#undef PRODUCT
-#define PRODUCT "kinT (kint36)"
-
 /* key matrix size */
 #define MATRIX_ROWS 15
 #define MATRIX_COLS 7

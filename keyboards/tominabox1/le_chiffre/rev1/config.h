@@ -17,9 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0001
-
 /*
  * Keyboard Matrix Assignments
  *

@@ -19,10 +19,6 @@
 
 #include "config_common.h"
 
-#define DEVICE_VER 0x0003
-#define PRODUCT_ID 0x67F3
-#define PRODUCT UtholThree
-
 /* key matrix size */
 // A11 and A12 dont work. They are reserved for USB. B2 is reserved for BOOT1
 #define MATRIX_COL_PINS \

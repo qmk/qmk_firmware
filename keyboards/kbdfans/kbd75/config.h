@@ -5,11 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         KBD75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16

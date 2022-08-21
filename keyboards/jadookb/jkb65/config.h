@@ -18,18 +18,8 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID    0x4A4B
-#define PRODUCT_ID   0xEF6A
-#define DEVICE_VER   0x0001
-#define MANUFACTURER JadooKB
-#define PRODUCT      JKB65 RGB
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
-
-#define MATRIX_ROW_PINS { E6, B7, F7, F4, F5 }
-#define MATRIX_COL_PINS { F6,B1,F1,C7,C6,B6,B5,B4,D7,B3,D4,D5,D3,D2,D1,D0 }
-
 
 #define DIODE_DIRECTION COL2ROW
 
