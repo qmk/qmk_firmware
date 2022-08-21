@@ -34,7 +34,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef OLED_ENABLE
-	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+	oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 		return OLED_ROTATION_270;       // flips the display 270 degrees
 	}
 
@@ -53,7 +53,11 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 		oled_write_P(logo_4, false);
 	}
 
-	bool oled_task_user(void) {
+	bool oled_task_kb(void) {
+		if (!oled_task_user()) {
+			return false;
+		}
+
 		render_logo();
 		oled_set_cursor(0,6);
 
@@ -82,7 +86,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
     
-    return false;
+    return true;
         
 	}
 #endif
