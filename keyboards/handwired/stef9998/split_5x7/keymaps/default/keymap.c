@@ -19,10 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // You can also skip layer-names entirely and just use numbers.
-#define _QWERTY 0
-#define _FN 3
-#define _SYM 4
-#define _CFG 7//config
+enum custom_layer {
+    _QWERTY,
+    _FN,
+    _SYM, //symbols & numbers
+    _CFG, //config
+};
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
