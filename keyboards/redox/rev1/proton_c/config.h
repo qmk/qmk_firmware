@@ -5,10 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#undef DEVICE_VER
-#define DEVICE_VER      0x0101 // added 1 for the rev1 + proton c
-
 // wiring of each half
 #undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS { B5, B3, B2, B1, B0 }

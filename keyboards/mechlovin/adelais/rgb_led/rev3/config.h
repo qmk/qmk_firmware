@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT_ID   0xAEC3
-#define PRODUCT      Adelais En Ciel Rev3
-
 #define MATRIX_ROW_PINS { A4, A3, C13, A1, A2}
 #define MATRIX_COL_PINS { B10, B11, B2, B1, B0, A6, A5, A10, A9, A15, B3, B4, B5, B8, B9 }
 
