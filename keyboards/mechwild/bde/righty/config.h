@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1702
-#define DEVICE_VER      0x0203
-#define MANUFACTURER    MechWild
-#define PRODUCT         BDE Righty
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 14
