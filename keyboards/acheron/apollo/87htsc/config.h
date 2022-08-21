@@ -40,8 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define STM32_HSECLK 8000000
-
 #define RGB_DI_PIN B15
 #define DRIVER_LED_TOTAL 86
 

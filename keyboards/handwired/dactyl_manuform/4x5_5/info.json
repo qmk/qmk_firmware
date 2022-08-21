@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Dactyl Manuform 4x5 5 thumb keys",
+    "manufacturer": "ssedrick",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/4x5_5",
     "maintainer": "ssedrick",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3435",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

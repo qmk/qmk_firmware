@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MODE80S", 
+    "keyboard_name": "Eighty", 
+    "manufacturer": "Mode",
     "url": "", 
     "maintainer": "qmk", 
+    "usb": {
+    	"vid": "0x00DE",
+    	"pid": "0x0080",
+    	"device_version": "0.8.3"
+    },
     "layouts": {
         "LAYOUT_eighty_m80s": {
             "layout": [

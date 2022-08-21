@@ -36,8 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_LED_TOTAL 62
 #define ISSI_PWM_FREQUENCY 0b010
 
-#define STM32_HSECLK 8000000
-
 #define RGB_MATRIX_STARTUP_VAL 80
 #define RGB_MATRIX_KEYPRESSES
 

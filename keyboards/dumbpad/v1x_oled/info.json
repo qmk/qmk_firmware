@@ -1,8 +1,7 @@
 {
-    "keyboard_name": "dumbpad",
-    "keyboard_folder": "dumbpad",
-    "url": "https://www.github.com/keebd/dumbpad",
-    "maintainer": "keebd",
+    "usb": {
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
