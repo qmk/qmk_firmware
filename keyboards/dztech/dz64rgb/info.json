@@ -1,7 +1,13 @@
 {
     "keyboard_name": "DZ64RGB",
+    "manufacturer": "DZTECH",
     "url": "",
     "maintainer": "moyi4681",
+    "usb": {
+        "vid": "0x445A",
+        "pid": "0x1013",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [

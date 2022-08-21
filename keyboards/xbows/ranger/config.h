@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID    0x5842
-#define PRODUCT_ID   0x5261
-#define DEVICE_VER   0x0001
-#define MANUFACTURER X-BOWS
-#define PRODUCT      Ranger
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
 #define MATRIX_ROW_PINS { C7, B6, B4, C6, B5, D6 }

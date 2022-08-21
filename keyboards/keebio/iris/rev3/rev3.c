@@ -17,6 +17,9 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0,3}, {1,3}, {2,3}, {3,3}, {4,3}, {5,3}},
     {{0,4}, {1,4}, {2,4}, {3,4}, {4,4}, {5,4}},
 };
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
+#    endif
 #endif
 
 void eeconfig_init_kb(void) {

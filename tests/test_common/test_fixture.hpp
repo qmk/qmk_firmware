@@ -36,7 +36,22 @@ class TestFixture : public testing::Test {
     void add_key(const KeymapKey key);
 
     const KeymapKey* find_key(const layer_t layer_t, const keypos_t position) const;
-    void                     get_keycode(const layer_t layer, const keypos_t position, uint16_t* result) const;
+    void             get_keycode(const layer_t layer, const keypos_t position, uint16_t* result) const;
+
+    /**
+     * @brief Taps `key` with `delay_ms` delay between press and release.
+     */
+    void tap_key(KeymapKey key, unsigned delay_ms = 1);
+
+    /**
+     * @brief Taps multiple KeymapKey keys in order, e.g. `tap_keys(key_a, key_b)`.
+     */
+    template <typename... Ts>
+    void tap_keys(Ts... keys) {
+        for (KeymapKey key : {keys...}) {
+            tap_key(key);
+        }
+    }
 
     void run_one_scan_loop();
     void idle_for(unsigned ms);

@@ -36,11 +36,11 @@ void init(void) {
 void flush(void) {}
 
 void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
-    if (r != led_mask[led_pos[index]].p.red   ||
-        g != led_mask[led_pos[index]].p.green ||
-        b != led_mask[led_pos[index]].p.blue)
+    if (r != led_colors[led_pos[index]].p.red   ||
+        g != led_colors[led_pos[index]].p.green ||
+        b != led_colors[led_pos[index]].p.blue)
         {
-            led_mask[led_pos[index]] = (ap2_led_t){
+            led_colors[led_pos[index]] = (ap2_led_t){
                 .p.blue  = b,
                 .p.red   = r,
                 .p.green = g,

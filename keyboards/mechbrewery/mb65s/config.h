@@ -1,4 +1,4 @@
-/* Copyright 2021 MechBrewery
+/* Copyright 2022 MechBrewery
  * Author: tuananhnguyen204 (https://github.com/AnthonyNguyen168) (tuananhnguyen204@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,13 +18,6 @@
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4252	//BR
-#define PRODUCT_ID      0x3635	//65
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MechBrewery
-#define PRODUCT         MB65S
 
 /* key matrix size */
 #define MATRIX_ROWS 5

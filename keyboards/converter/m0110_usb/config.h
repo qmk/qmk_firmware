@@ -42,9 +42,6 @@ Ported to QMK by Techsock <info@techsock.com>
     get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTL)) \
 )
 
-/* boot magic key */
-#define BOOTMAGIC_KEY_SALT                      KC_M
-
 /* ports */
 #define M0110_CLOCK_PORT        PORTD
 #define M0110_CLOCK_PIN         PIND

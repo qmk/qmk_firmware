@@ -53,7 +53,14 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 led_config_t g_led_config = {
     // Key Matrix to LED Index
     {
-		{},
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
     }, {
         // LED Index to Physical Position. The unit is roughly milimiters in the real world
         //    |      Left      ||    Right        |

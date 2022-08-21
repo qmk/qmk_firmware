@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845 // "XE"
-#define PRODUCT_ID      0x4654 // "FT"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Valor FRL TKL
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17

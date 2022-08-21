@@ -40,7 +40,7 @@
 #define DEBOUNCE 5
 
 
-/* RGN Matrix */
+/* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_DI_PIN A7
 #   define RGBLED_NUM 82

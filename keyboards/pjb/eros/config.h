@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x5042 // TG
-#define PRODUCT_ID      0x4552 // JC
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    PJB
-#define PRODUCT         Eros
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 

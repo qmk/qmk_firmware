@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Unicorne",
+  "manufacturer": "yanghu",
   "url": "https://github.com/yanghu/unicorne",
   "maintainer": "yanghu",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0204",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_unicorne": {
       "layout": [

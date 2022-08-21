@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Elrgo S",
+    "manufacturer": "Eloren",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x454C",
+        "pid": "0x3436",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x6_5": {
             "layout": [

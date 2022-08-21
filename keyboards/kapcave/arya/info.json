@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Arya", 
+    "manufacturer": "KapCave",
     "url": "https://kapcave.com/products/arya", 
     "maintainer": "nachie", 
+    "usb": {
+        "vid": "0x4B43",
+        "pid": "0x4152",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [
