@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  TO(_GAMEMODE), RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, WRKMOD,
+  TO(_GAMEMODE), QK_BOOT, DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, WRKMOD,
     _______, BL_TOGG, BL_STEP, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, RGB_TOG, RGB_HUI, RGB_HUD, RGB_MOD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, RGB_MODE_FORWARD,
   _______, _______, _______, _______, _______, _______, _______, _______,  _______, RGB_M_P,  RGB_M_R, TO(_QWERTY)
