@@ -76,18 +76,7 @@ const uint16_t PROGMEM keymaps[__LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool shift_enabled = false;
 
-static struct key_repeater_t click_repeater = {
-    .key = KC_BTN1,
-    .state = KR_DISABLED,
-    .previous_button_down = 0,
-    .previous_button_up = 0,
-    .key_duration = 0,
-    .key_duration_min = 20,
-    .key_duration_max = 50,
-    .wait_duration = 0,
-    .wait_duration_min = 90,
-    .wait_duration_max = 140,
-};
+static struct key_repeater_t* click_repeater = NULL;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -112,9 +101,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case RP_BTN1:
         if (record->event.pressed) {
-            kr_enable(&click_repeater);
+            kr_enable(click_repeater);
         } else {
-            kr_disable(&click_repeater);
+            kr_disable(click_repeater);
         }
         return false;
     default:
@@ -122,12 +111,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void matrix_scan_user(void) {
-    static bool rng_seeded = false;
-    if (!rng_seeded) {
-        srand(timer_read32());
-        rng_seeded = true;
-    }
+void keyboard_post_init_user(void) {
+    // Seed the random number generator which is used by the key repeater
+    srand(timer_read32());
 
-    kr_poll(&click_repeater);
+    // Configure and instantiate a key repeater for mouse button 1 "rapid fire"
+    struct key_repeater_config_t cfg = {
+        .key = KC_BTN1,
+        .key_duration_min = 20,
+        .key_duration_max = 50,
+        .wait_duration_min = 90,
+        .wait_duration_max = 140,
+    };
+
+    click_repeater = kr_new(&cfg);
+}
+
+void matrix_scan_user(void) {
+    kr_poll(click_repeater);
 }
