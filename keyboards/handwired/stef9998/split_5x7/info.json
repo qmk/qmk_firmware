@@ -2,6 +2,12 @@
   "keyboard_name": "Split_5x7",
   "url": "",
   "maintainer": "stef9998",
+  "manufacturer": "Stef9998",
+  "usb": {
+    "vid": "0x57EF",
+    "pid": "0x6063",
+    "device_version": "1.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
