@@ -26,6 +26,8 @@
 #    include "teensy2pp.h"
 #elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_elite_c)
 #    include "elite_c.h"
+#elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_kb2040)
+#    include "kb2040.h"
 #endif
 
 #include "quantum.h"
@@ -38,10 +40,10 @@
   L10, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, R15, \
   L20, L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, R25, \
   L30, L31, L32, L33, L34, L35,                          R30, R31, R32, R33, R34, R35, \
-            L42, L43,                                              R42, R43,           \
-                      L44, L45,                               R41,                     \
-                                L54, L55,           R51,                               \
-                                L52, L53,      R52, R53                                \
+            L42, L43,                                              R44, R45,           \
+                      L44, L45,                               R43,                     \
+                                L54, L55,             R42,                             \
+                                L52, L53,      R40, R41                                \
   ) \
   { \
     { L00, L01, L02, L03, L04, L05 }, \
@@ -55,7 +57,7 @@
     { R10, R11, R12, R13, R14, R15 }, \
     { R20, R21, R22, R23, R24, R25 }, \
     { R30, R31, R32, R33, R34, R35 }, \
-    { ___, R41, R42, R43, ___, ___ }, \
-    { ___, R51, R52, R53, ___, ___ }  \
+    { R40, R41, R42, R43, R44, R45 }, \
+    { ___, ___, ___, ___, ___, ___ }  \
 }
 // clang-format on
