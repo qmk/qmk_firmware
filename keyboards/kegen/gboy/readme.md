@@ -1,6 +1,6 @@
 # G-Boy
 
-![G-Boy](https://i.redd.it/c4v3xkqsa3q71.png)
+![G-Boy](https://i.imgur.com/APwppRw.png)
 
 65% board that resembles a handheld gaming console
 
