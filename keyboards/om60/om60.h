@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {   L03,   L08,   L13,   L18,   L23,   L28,   L33,   L38 }, \
     {   L04,   L09,   L14,   L19,   L24,   L29,   L34,   L39 }, \
     {   L05,   L10,   L15,   L20,   L25,   L30,   L35,   L40 }, \
-    {   R41,   R46,   R51,   R56,   R61,   R66,   E0L, KC_NO }, \
-    {   R42,   R47,   R52,   R57,   R62,   R67,   E0R, KC_NO }, \
+    {   R41,   R46,   R51,   R56,   R61,   R66,   KC_NO, KC_NO }, \
+    {   R42,   R47,   R52,   R57,   R62,   R67,   KC_NO, KC_NO }, \
     {   R43,   R48,   R53,   R58,   R63,   R68, KC_NO, KC_NO }, \
     {   R44,   R49,   R54,   R59,   R64,   R69, KC_NO, KC_NO }, \
     {   R45,   R50,   R55,   R60,   R65, KC_NO, KC_NO, KC_NO }  \
