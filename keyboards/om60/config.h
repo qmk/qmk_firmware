@@ -100,6 +100,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }
-#define ENCODERS 1
-#define ENCODERS_CCW_KEY { {6, 5} }
-#define ENCODERS_CW_KEY  { {6, 6} }
