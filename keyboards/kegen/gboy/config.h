@@ -19,11 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4b65   // Kegen
-#define PRODUCT_ID      0x6762   // G-Boy
-#define DEVICE_VER      0x0001
-#define PRODUCT         G-Boy
 
 /* key matrix size */
 #define MATRIX_ROWS 5
