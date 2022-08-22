@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xA0A1
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    kulmajaba
-#define PRODUCT         Ergo33
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 7
 

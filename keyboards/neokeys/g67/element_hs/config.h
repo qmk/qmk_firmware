@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E4B // "NK"
-#define PRODUCT_ID      0x5049
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    NEO Keys
-#define PRODUCT         Element G67 Hotswap
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

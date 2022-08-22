@@ -26,13 +26,6 @@ SOFTWARE.
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x534C
-#define PRODUCT_ID      0x5E99
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Shanduur
-#define PRODUCT         Vagrant 10
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3

@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1c11
-#define PRODUCT_ID      0xb04d
-#define DEVICE_VER      0x0001
-#define MANUFACTURER Input Club
-#define PRODUCT Infinity_Ergodox/QMK
-
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0
 #define MOUSEKEY_TIME_TO_MAX    60

@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5559
-#define PRODUCT_ID   0x0005
-#define DEVICE_VER   0x0001
-#define MANUFACTURER @wekey
-#define PRODUCT      Stello65
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8

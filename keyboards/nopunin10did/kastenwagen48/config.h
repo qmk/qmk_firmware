@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID           0x4E50  // "NP"
-#define PRODUCT_ID          0x4B30  // Hex for "K" and 48
-#define DEVICE_VER          0x0001
-#define MANUFACTURER        NoPunIn10Did
-#define PRODUCT             Kastenwagen 48
-
 /* key matrix size */
 #define MATRIX_ROWS         8
 #define MATRIX_COLS         8

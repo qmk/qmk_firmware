@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4B4C // "KL" = klug
-#define PRODUCT_ID   0x4742 // "GB" = grooveboard
-#define DEVICE_VER   0x0001
-#define MANUFACTURER ianklug
-#define PRODUCT      grooveboard
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 4

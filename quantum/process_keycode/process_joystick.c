@@ -106,7 +106,7 @@ bool process_joystick_analogread_quantum() {
 
         wait_us(10);
 
-#    if defined(__AVR__) || defined(PROTOCOL_CHIBIOS)
+#    if defined(ANALOG_JOYSTICK_ENABLE) && (defined(__AVR__) || defined(PROTOCOL_CHIBIOS))
         int16_t axis_val = analogReadPin(joystick_axes[axis_index].input_pin);
 #    else
         // default to resting position

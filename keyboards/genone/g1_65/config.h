@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xE720 // GEN ONE
-#define PRODUCT_ID      0x0001 // G1_65
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    GEN ONE LLC
-#define PRODUCT         G1_65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

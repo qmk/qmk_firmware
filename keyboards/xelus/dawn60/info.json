@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Dawn60",
+    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x5845",
+        "pid": "0x0060",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_60_all": "LAYOUT_all"
     },

@@ -17,11 +17,6 @@
 
 /* USB Device descriptor parameter */
 #include "config_common.h"
-#define VENDOR_ID       0x6C63 // "lc" = latincompass
-#define PRODUCT_ID      0x6C69 // "lp" = latin60RGB
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    latincompass
-#define PRODUCT         Latin60RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
