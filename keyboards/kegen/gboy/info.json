@@ -2,6 +2,11 @@
     "keyboard_name": "Kegen G-Boy", 
     "url": "", 
     "maintainer": "@mattchan", 
+    "usb": {
+        "vid": "0x4B65",
+        "pid": "0x6762",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
