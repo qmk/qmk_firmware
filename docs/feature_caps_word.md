@@ -19,9 +19,9 @@ a modern alternative to Caps Lock:
   else, as Emacs and Vim users often do. As a consequence, Caps Word does not
   follow the typical Caps Lock behaviour and may thus act in potentially
   unexpected ways, especially when using an *OS* keyboard layout other than US
-  or UK. For example, Dvorak's <kbd>, <</kbd> key (`DV_COMM`) will get shifted
+  or UK. For example, Dvorak's <kbd>, <</kbd> key (`DV_COMM` aka `KC_W`) will get shifted
   because Caps Word interprets that keycode as the letter 'W' by default, the
-  Spanish <kbd>Ñ</kbd> key (`ES_NTIL`) will not get capitalized because Caps 
+  Spanish <kbd>Ñ</kbd> key (`ES_NTIL` aka `KC_SCLN`) will not get capitalized because Caps 
   Word interprets it as the semicolon ';' punctuation character, and the US 
   hyphen key (`KC_MINS`), while unaffected by Caps Lock, is shifted by Caps Word.
 
