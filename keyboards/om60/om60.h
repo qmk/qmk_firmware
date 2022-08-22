@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #define LAYOUT( \
-    E0L, E0R, \
     L01, L05, L10, L15, L20, L25, L30, L35, L40, R45, R50, R55, R60, R65, \
          L06, L11, L16, L21, L26, L31, L36, R41, R46, R51, R56, R61, R66, \
     L02, L07, L12, L17, L22, L27, L32, L37, R42, R47, R52, R57, R62, R67, \
