@@ -78,10 +78,20 @@ endif
 
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
-    ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
-        SRC += $(USER_PATH)/oled/oled_stuff.c
-        OPT_DEFS += -DCUSTOM_OLED_DRIVER_CODE
+    ifeq ($(strip $(OLED_DRIVER)), custom)
+        OPT_DEFS += -DOLED_ENABLE \
+            -DOLED_DRIVER_SH1107
+        SRC += $(USER_PATH)/oled/sh110x.c
+        QUANTUM_LIB_SRC += i2c_master.c
     endif
+    ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
+        OPT_DEFS += -DCUSTOM_OLED_DRIVER_CODE
+        SRC += $(USER_PATH)/oled/oled_stuff.c
+    endif
+    ifeq ($(strip $(OLED_DISPLAY_TEST)), yes)
+        OPT_DEFS += -DOLED_DISPLAY_TEST
+    endif
+    DEFERRED_EXEC_ENABLE = yes
 endif
 
 CUSTOM_POINTING_DEVICE ?= yes
@@ -97,6 +107,7 @@ ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
         QUANTUM_LIB_SRC += $(USER_PATH)/split/transport_sync.c
         OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT_SYNC
     endif
+
 endif
 
 AUTOCORRECTION_ENABLE ?= no

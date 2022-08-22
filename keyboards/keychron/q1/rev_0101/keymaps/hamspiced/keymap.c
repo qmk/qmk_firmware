@@ -129,10 +129,20 @@ void matrix_scan_user(void) {
     encoder_action_unregister();
 }
 
+/*
 bool encoder_update_user(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
     return false;
 };
+*/
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  if (clockwise) {
+    tap_code(KC_VOLD);
+  } else {
+    tap_code(KC_VOLU);
+  }
+  return false;
+}
 
 #endif
 

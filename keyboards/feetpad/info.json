@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "feetpad",
+    "url": "",
+    "maintainer": "qmk",
+    "width": 5.5,
+    "height": 2,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"label":"L", "x":0, "y":0}, {"label":"O", "x":1, "y":0}, {"label":"V", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"Enter", "x":4.25, "y":0, "w":1.25, "h":2}, {"label":"F", "x":0, "y":1, "w":1.25}, {"label":"E", "x":1.25, "y":1}, {"label":"E", "x":2.25, "y":1}, {"label":"T", "x":3.25, "y":1}]
+        }
+    }
+}

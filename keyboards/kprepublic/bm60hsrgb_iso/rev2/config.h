@@ -29,6 +29,9 @@
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
+#define ENCODERS_PAD_A { F6 }
+#define ENCODERS_PAD_B { F5 }
+#define ENCODER_RESOLUTION 2
 
 /*
  * Keyboard Matrix Assignments
@@ -42,6 +45,9 @@
  */
 #define MATRIX_ROW_PINS { E6, D2, D3, D5, F6 }
 #define MATRIX_COL_PINS { B2, B3, B7, B0, B1, F7, D4, D6, D7, B4, B5, B6, C6, C7 }
+#define ENCODERS_PAD_A { F6 }
+#define ENCODERS_PAD_B { F5 }
+#define ENCODER_RESOLUTION 2
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/

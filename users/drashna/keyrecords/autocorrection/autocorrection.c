@@ -17,6 +17,14 @@
 #        error Dictionary size excees maximum size permitted
 #    endif
 
+/**
+ * @brief Process handler for autocorrect feature
+ *
+ * @param keycode Keycode registered by matrix press, per keymap
+ * @param record keyrecord_t structure
+ * @return true Continue processing keycodes, and send to host
+ * @return false Stop processing keycodes, and don't send to host
+ */
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     static uint8_t typo_buffer[AUTOCORRECTION_MAX_LENGTH] = {KC_SPC};
     static uint8_t typo_buffer_size                       = 1;
@@ -53,6 +61,14 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             keycode &= 0xFF;
             break;
 #    endif
+#    ifdef SWAP_HANDS_ENABLE
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            if (keycode >= 0x56F0 || record->event.pressed || !record->tap.count) {
+                return true;
+            }
+            keycode &= 0xFF;
+            break;
+#    endif
 #    ifndef NO_ACTION_ONESHOT
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
             if ((keycode & 0xF) == MOD_LSFT) {
@@ -70,7 +86,6 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             }
     }
 
-
     // Subtract buffer for Backspace key, reset for other non-alpha.
     if (!(KC_A <= keycode && keycode <= KC_Z)) {
         if (keycode == KC_BSPC) {
@@ -83,7 +98,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             // Set a word boundary if space, period, digit, etc. is pressed.
             // Behave more conservatively for the enter key. Reset, so that enter
             // can't be used on a word ending.
-            if (keycode == KC_ENT) {
+            if (keycode == KC_ENT || (keycode == KC_MINUS && (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT)) {
                 typo_buffer_size = 0;
             }
             keycode = KC_SPC;

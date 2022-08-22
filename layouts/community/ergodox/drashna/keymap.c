@@ -16,10 +16,6 @@
 
 #include "drashna.h"
 
-#ifdef UNICODEMAP_ENABLE
-#    include "drashna_unicode.h"
-#endif  // UNICODEMAP_ENABLE
-#include "drivers/sensors/pimoroni_trackball.h"
 enum more_custom_keycodes {
     KC_SWAP_NUM = NEW_SAFE_RANGE,
     PM_SCROLL,

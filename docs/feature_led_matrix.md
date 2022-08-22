@@ -333,7 +333,7 @@ Where `28` is an unused index from `eeconfig.h`.
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that: 
 ```c
 void led_matrix_indicators_kb(void) {
-    led_matrix_set_color(index, value);
+    led_matrix_set_value(index, value);
 }
 ```
 

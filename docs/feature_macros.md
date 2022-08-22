@@ -46,7 +46,7 @@ If you type in a language other than English, or use a non-QWERTY layout like Co
 {
     "keyboard": "handwired/my_macropad",
     "keymap": "my_keymap",
-    "host_layout": "dvorak",
+    "host_language": "dvorak",
     "macros": [
         ["Hello, World!"]
     ],
