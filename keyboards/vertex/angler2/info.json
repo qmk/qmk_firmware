@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "angler2",
+    "keyboard_name": "Angler2",
+    "manufacturer": "Vertex_eason",
     "url": "https://github.com/Vertex-kb",
     "maintainer": "vertex",
+    "usb": {
+        "vid": "0x480E",
+        "pid": "0x408F",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
