@@ -117,6 +117,7 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
 #    endif
 
 #    if CIRQUE_PINNACLE_POSITION_MODE
+
 #        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 static bool is_touch_down;
 
@@ -153,9 +154,11 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
     }
 #        endif
+
 #        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
     is_touch_down = touchData.touchDown;
 #        endif
+
     // Scale coordinates to arbitrary X, Y resolution
     cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
 
