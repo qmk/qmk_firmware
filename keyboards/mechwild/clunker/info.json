@@ -13,7 +13,7 @@
         "nkro": true,
         "encoder": true,
         "encoder_map": true,
-        "haptic": true,
+        "haptic": true
     },
     "matrix_pins": {
         "rows": ["F5", "F6", "B3", "F7", "B2", "B1", "B6"],
