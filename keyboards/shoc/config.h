@@ -17,9 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define MANUFACTURER    JannikB5825
-#define PRODUCT         SHOC
 
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 300000
