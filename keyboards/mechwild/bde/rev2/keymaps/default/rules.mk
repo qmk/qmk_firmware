@@ -7,3 +7,7 @@
 # https://docs.qmk.fm/#/driver_installation_zadig?id=list-of-known-bootloaders
 
 # BOOTLOADER = caterina
+
+# If you are not using an encoder, set these options to no.
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
