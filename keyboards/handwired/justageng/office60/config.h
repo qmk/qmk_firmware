@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x0FF1
-#define PRODUCT_ID      0xCE60
-#define DEVICE_VER      0x0001
-
-#define MANUFACTURER    Jia Geng
-#define PRODUCT         Office60
 
 #define MATRIX_ROWS     5
 #define MATRIX_COLS     14
