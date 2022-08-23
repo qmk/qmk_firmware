@@ -24,4 +24,4 @@ RGB_MATRIX_DRIVER = WS2812
 
 SRC += rgb_functions.c
 
-DEFAULT_FOLDER = work_louder/work_board/rev2
+DEFAULT_FOLDER = work_louder/work_board/rev3
