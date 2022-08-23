@@ -1,6 +1,6 @@
 # Office60
 
-*A short description of the keyboard/project*
+A handwired 60 percent keyboard project using the bluepill microcontroller. It is a no-frills build with no LED lighting or rotary encoder, designed for typing in an office environment. A project for those who want to get started with handwiring a bluepill-based board with a common 60% layout. 
 
 * Keyboard Maintainer: [Jia Geng](https://github.com/JiaGengChang)
 * Hardware Supported: STM32F103C8T6 (aka the Blue Pill)
