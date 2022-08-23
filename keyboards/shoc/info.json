@@ -2,6 +2,11 @@
     "keyboard_name": "Shoc",
     "url": "https://github.com/JannikB5825/Shoc",
     "maintainer": "JannikB5825",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
