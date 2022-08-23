@@ -82,11 +82,12 @@ bool get_toggle_mouse_state(void) {
     return local_auto_mouse.status.layer_toggled;
 }
 
+/* control activation of target layer */
 __attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
     return mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0;
 }
 
-/* Update the auto mouse if there is mouse motion on the base layer */
+/* Update the auto mouse if auto_mouse_activation is true or timer expires on the base layer */
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
     // skip if disabled or layer not set
     if (!local_auto_mouse.config.enabled) {
@@ -244,7 +245,7 @@ void process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
                     auto_mouse_reset_trigger();
                 }
                 // turn off mouse layer if no non mouse key is pressed and start/restart debounce timer
-                if (layer_state_is(local_auto_mouse.config.layer) && !(local_auto_mouse.status.mouse_key_tracker > 0) && !local_auto_mouse.status.layer_toggled
+                if (layer_state_is(local_auto_mouse.config.layer) && !(local_auto_mouse.status.mouse_key_tracker > 0) && !local_auto_mouse.status.layer_toggled && !auto_mouse_activation(pointing_device_get_report())
 #    ifndef NO_ACTION_ONESHOT
                     && get_oneshot_layer() != local_auto_mouse.config.layer // skip layer change if target layer one shot is active
 #    endif

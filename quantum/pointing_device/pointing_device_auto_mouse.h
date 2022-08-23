@@ -19,7 +19,7 @@
 #include "quantum.h"
 #include "pointing_device.h"
 
-/* Check settings and set defaults */
+/* check settings and set defaults */
 #ifndef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #    error "POINTING_DEVICE_AUTO_MOUSE_ENABLE not defined! check config settings"
 #endif
@@ -55,27 +55,27 @@ typedef struct {
     } status;
 } auto_mouse_context_t;
 
-/* setting up use of automouse */
+/* ----------------------setting up use of automouse----------------------------- */
 void set_auto_mouse_layer(uint8_t layer); // set target layer
 
-/* for use in custom pointing device/keyevent processing code */
+/* ---------for use in custom pointing device/keyevent processing code----------- */
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report); // add to pointing_device_task_*
 void process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to process_record_*
+bool auto_mouse_activation(report_mouse_t mouse_report);           // handles trigger event for target layer activation (overwritable)
 
-/* State control */
-void set_auto_mouse_state(bool state);                   // enable/disable auto mouse feature must true in pointing_device_init_*
-bool get_auto_mouse_state(void);                         // allows for checking auto_mouse_enable
-bool auto_mouse_activation(report_mouse_t mouse_report); // handles trigger event for target layer activation (overwritable)
+/* -----------------------------State control------------------------------------ */
+void set_auto_mouse_state(bool state); // enable/disable auto mouse feature must true in pointing_device_init_*
+bool get_auto_mouse_state(void);       // allows for checking auto_mouse_enable
 
-/* Toggle layer control */
+/* -------------------------Toggle layer control--------------------------------- */
 void toggle_mouse_layer(void);     // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
 bool get_toggle_mouse_state(void); // return toggle mouse bool value
 
-/* handling key events */
+/* --------------------------handling key events--------------------------------- */
 void auto_mouse_keyevent(bool pressed); // trigger auto mouse keyevent (true: keydown, false: keyup)
 void auto_mouse_reset_trigger(void);    // reset the active layer timer, mousekey_tracker and start debounce timer
 
-/* Callbacks for adding keycodes to mouse record checking */
+/* -----------Callbacks for adding keycodes to mouse record checking------------- */
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record);
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record);
 bool is_mouse_record_keymap(uint16_t keycode, keyrecord_t* record);
