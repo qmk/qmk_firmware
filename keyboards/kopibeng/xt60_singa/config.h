@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // 'KP' kopibeng  
-#define PRODUCT_ID      0x0601 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    kopibeng
-#define PRODUCT         XT60_SINGA
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
