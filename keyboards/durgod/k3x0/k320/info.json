@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "DURGOD Taurus K320",
+  "keyboard_name": "DURGOD Taurus K320 (QMK)",
+  "manufacturer": "Hoksi Technology",
   "url": "https://www.durgod.com/page9?product_id=47&_l=en",
   "maintainer": "dkjer",
+  "usb": {
+      "vid": "0xD60D",
+      "pid": "0x3200",
+      "device_version": "0.0.1"
+  },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

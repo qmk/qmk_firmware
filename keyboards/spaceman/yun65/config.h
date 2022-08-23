@@ -16,13 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5342 // "SB"
-#define PRODUCT_ID      0x594E // "YN"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Spaceman
-#define PRODUCT         Yun 65
-
 /* Key Matrix perameter */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

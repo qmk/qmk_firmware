@@ -1,7 +1,10 @@
 {
-    "keyboard_name": "MechWild BDE Rev2",
+    "manufacturer": "MechWild",
     "url": "mechwild.com",
     "maintainer": "kylemccreery",
+    "usb": {
+        "vid": "0x6D77"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

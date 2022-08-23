@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "KBD67 MKII Soldered Variant", 
+    "keyboard_name": "KBD67-MKII Soldered", 
+    "manufacturer": "KBDfans",
     "url": "", 
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0013",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"~", "x":0, "y":0}, 

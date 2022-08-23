@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Redox Media",
+    "manufacturer": "shiftux",
     "url": "",
     "maintainer": "shiftux",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

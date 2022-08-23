@@ -1,7 +1,4 @@
 {
-    "keyboard_name": "Dygma Raise",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/dygma/raise",
-    "maintainer": "ibash",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

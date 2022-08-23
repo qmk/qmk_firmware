@@ -27,12 +27,12 @@ QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also
 
 You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
 
-Alternatively, if you'd like to manually install MSYS2, the following section will walk you through the process.
-
 <details>
-  <summary>Manual Install</summary>
+  <summary>Advanced Users</summary>
 
-?> Ignore the following steps if you use `QMK MSYS`.
+!> <b style="font-size:150%">This process is not recommended for new users.</b>
+
+If you'd like to manually install MSYS2, the following sections will walk you through the process.
 
 #### Prerequisites
 

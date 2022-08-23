@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ID67",
+    "manufacturer": "IDOBAO",
     "url": "https://idobao.net",
     "maintainer": "thewerther",
+    "usb": {
+        "vid": "0x6964",
+        "pid": "0x0067",
+        "device_version": "0.0.2"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },

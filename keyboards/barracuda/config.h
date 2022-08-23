@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x6B6E
-#define PRODUCT_ID   0x0001
-#define DEVICE_VER   0x0001
-#define MANUFACTURER knaruo
-#define PRODUCT      barracuda
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 6

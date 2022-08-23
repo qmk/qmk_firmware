@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0006
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDfans
-#define PRODUCT         KBDPAD-MKII
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4

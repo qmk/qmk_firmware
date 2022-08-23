@@ -17,11 +17,6 @@
 
 #pragma once
 #include "config_common.h"
-#define VENDOR_ID 0xA8F8
-#define PRODUCT_ID 0x1830
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Bastard Keyboards
-#define PRODUCT Skeletyl
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
