@@ -1,6 +1,6 @@
 # Shoc
 
-![Shoc](https://raw.githubusercontent.com/JannikB5825/Shoc/main/assets/thumbnail.jpg)
+![Shoc](https://i.imgur.com/k00Uz6wh.jpg)
 
 A 64 Key keyboard with an Oled Display.
 
