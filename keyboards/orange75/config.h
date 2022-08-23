@@ -1,12 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEEB
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Fox-Lab
-#define PRODUCT         Orange75
-
 /* key matrix size */
 #define MATRIX_ROWS 15
 #define MATRIX_COLS 6

@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Txuu", 
+    "manufacturer": "Matthew Dias",
     "maintainer": "matthewdias", 
+    "usb": {
+        "vid": "0x6D64",
+        "pid": "0x2809",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker_split_bs"
     },

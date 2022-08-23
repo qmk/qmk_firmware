@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42 // KB
-#define PRODUCT_ID      0x1226
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KBDfans
-#define PRODUCT         kbd67mkiirgb v3
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

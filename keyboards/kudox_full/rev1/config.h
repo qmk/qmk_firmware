@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xABBA
-#define PRODUCT_ID      0x9693
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    Kumao Kobo
-#define PRODUCT         The Kudox Full Keyboard
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10

@@ -1,0 +1,2 @@
+DEFAULT_FOLDER = jacky_studio/piggy60/solder
+LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_ansi_tsangan 60_hhkb 60_iso 60_iso_split_bs_rshift 60_iso_tsangan 60_tsangan_hhkb

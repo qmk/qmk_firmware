@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x706C // P L
-#define PRODUCT_ID   0x7902 // Y 2
-#define DEVICE_VER   0x0001
-#define MANUFACTURER plywrks
-#define PRODUCT      Ahgase
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
