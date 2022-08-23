@@ -21,8 +21,6 @@
 #define MANUFACTURER    JannikB5825
 #define PRODUCT         SHOC
 
-#define SSD1306OLED
-#define USE_SSD_I2C
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 300000
 
