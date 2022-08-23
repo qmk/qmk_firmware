@@ -633,8 +633,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 ## Custom Target Layer Activation
 
-Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every `pointing_device_task` cycle and activates the target layer if true barring the usual exceptions (e.g. delay_time, or target layer is already active).
+Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every `pointing_device_task` cycle and activates the target layer when true barring the usual exceptions (e.g. delay time, or target layer is already active).
 By default it will return true if any of the mouse_report axes(x,y,h,v) are non zero.
+
+_Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement, currently this only works for the master side of split keyboards.
 
 ## Auto Mouse for Custom Pointing Device
 
