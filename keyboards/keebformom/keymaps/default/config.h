@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#ifdef AUDIO_ENABLE
-#define AUDIO_PIN B6     
-#define NO_MUSIC_MODE   
-#define STARTUP_SONG SONG(MAJOR_SOUND)                    
-#endif
-
 #define COMBO_COUNT 8
 #define MIDI_ADVANCED
 	
