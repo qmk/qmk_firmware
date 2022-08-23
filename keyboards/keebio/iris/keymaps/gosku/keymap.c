@@ -18,6 +18,17 @@
 #define CS_LEFT C(S(KC_LEFT))
 #define CS_RGHT C(S(KC_RGHT))
 
+// Hue colors
+#define VIOLET 193
+#define ORANGE 10
+#define RED 1
+#define PINK 245
+#define TURKEISE 104
+#define YELLOW 23
+#define GREEN 85
+#define BLUE 130
+#define NONE 0 // This is actually a color, but it is being used here as a flag to turn a led off
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -134,30 +145,76 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
-    [_QWERTY] = { {255,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255} , {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}, {23,255,255}},
+const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
+    [_QWERTY] = {
+         RED, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,    RED,  // R1
+      YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R2
+      YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R3
+      YELLOW, YELLOW,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,    RED, YELLOW, YELLOW, YELLOW,  // R4
+                      ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
+      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+    },
 
-    [_LOWER] = { {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255}, {193,255,255} },
+    [_LOWER] = {
+       GREEN,  GREEN,  GREEN,  GREEN,  GREEN,  GREEN,    GREEN, YELLOW, YELLOW, YELLOW,   NONE,   NONE,  // R1
+       GREEN,  GREEN,  GREEN, VIOLET, VIOLET,  GREEN,     NONE, YELLOW, YELLOW, YELLOW, VIOLET, VIOLET,  // R2
+        NONE,  GREEN,  GREEN, VIOLET, VIOLET,  GREEN,     NONE, YELLOW, YELLOW, YELLOW, VIOLET, VIOLET,  // R3
+        NONE,   NONE,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK, YELLOW,  GREEN,  GREEN,  GREEN,  // R4
+                      ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
+      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+    },
 
-    [_RAISE] = { {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255}, {104,255,255} },
+    [_RAISE] = {
+         RED, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,  GREEN, YELLOW,  GREEN,   NONE,    RED,  // R1
+        NONE, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET, YELLOW, YELLOW, YELLOW,   PINK,   PINK,  // R2
+        NONE, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,   NONE,   NONE,   NONE,   NONE,   NONE,  // R3
+        NONE,   NONE,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,   NONE,   NONE,   NONE,   NONE,  // R4
+                      ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
+      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+    },
 
-    [_ADJUST] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+    [_ADJUST] = {
+        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,   NONE,   NONE,   NONE,   NONE,   NONE,  // R1
+        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,    RED,   NONE,   NONE,   NONE,  GREEN,  // R2
+        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,   BLUE,   NONE,   NONE,   NONE,   NONE,  // R3
+        NONE,   NONE,   NONE,   NONE,   PINK,   NONE,     NONE,   PINK,   NONE,   NONE,   NONE,   BLUE,  // R4
+                        NONE,   NONE,   NONE,   NONE,     NONE,   NONE,   NONE,   NONE,                  // Thumb Cluster
+      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+    },
 
 };
 
+
+
+// This constant is used to map the led order in the board to key position in the board, allowing
+// us to define the color of each led in the same order as the keys are placed in the board
+// This constant is similar to the g_led_config, but including the underglow leds as well
+const uint8_t ledmap_to_index[DRIVER_LED_TOTAL] = {
+      0,  1,   2,  3,  4,  5,                    39, 38, 37, 36, 35, 34, // R1
+      11, 10,  9,  8,  7,  6,                    40, 41, 42, 43, 44, 45, // R2
+      12, 13, 14, 15, 16, 17,                    51, 50, 49, 48, 47, 46, // R3
+      23, 22, 21, 20, 19, 18,                    52, 53, 54, 55, 56, 57, // R4
+                      24, 25, 26, 27,    58, 59, 60, 61, //                 Thumb Cluster
+      28, 29, 30, 31, 32, 33,                    62, 63, 64, 65, 66, 67, // Underglow
+};
+
 void set_layer_color(int layer) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    HSV hsv = {
-      .h = pgm_read_byte(&ledmap[layer][i][0]),
-      .s = pgm_read_byte(&ledmap[layer][i][1]),
-      .v = pgm_read_byte(&ledmap[layer][i][2]),
-    };
-    if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
+  int position;
+  HSV hsv = {
+    .h = 0,
+    .s = 255,
+    .v = 170,
+  };
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++){
+    hsv.h = pgm_read_byte(&ledmap[layer][i]);
+    // get the position of the led that correspond with the key in ledmap
+    position = ledmap_to_index[i];
+
+    if (pgm_read_byte(&ledmap[layer][i]) == NONE) {
+        rgb_matrix_set_color(position, 0, 0, 0);
     } else {
         RGB rgb = hsv_to_rgb( hsv );
-        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+        rgb_matrix_set_color(position, rgb.r, rgb.g, rgb.b );
     }
   }
 }
