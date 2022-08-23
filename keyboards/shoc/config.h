@@ -25,7 +25,6 @@
 #define USE_SSD_I2C
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 300000
-#define OLED_BRIGHTNESS 255
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -36,7 +35,3 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
