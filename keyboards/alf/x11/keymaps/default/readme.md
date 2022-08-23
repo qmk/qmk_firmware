@@ -1,1 +1,1 @@
-# The default keymap for x11
+# The default keymap for ALF X1.1
