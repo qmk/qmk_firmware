@@ -1,4 +1,3 @@
-{
 // Copyright 2022 TDC
 
 // This program is free software: you can redistribute it and/or modify
