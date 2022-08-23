@@ -18,15 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID       0x7654
-#define PRODUCT_ID      0x0060
-#define DEVICE_VER      0x0001
-
-#define MANUFACTURER    ven0mtr0n
-#define PRODUCT         0-Sixty
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 5
@@ -40,9 +31,6 @@
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/* indicator leds */
-#define LED_CAPS_LOCK_PIN B6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -889,15 +889,15 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-Layer indicator on all flagged keys:
+Layer indicator on all keys:
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i <= led_max; i++) {
         switch(get_highest_layer(layer_state|default_layer_state)) {
-            case RAISE:
+            case 2:
                 rgb_matrix_set_color(i, RGB_BLUE);
                 break;
-            case LOWER:
+            case 1:
                 rgb_matrix_set_color(i, RGB_YELLOW);
                 break;
             default:
@@ -907,7 +907,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-Layer indicator with only configured keys:
+Layer indicator only on keys with configured keycodes:
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (get_highest_layer(layer_state) > 0) {

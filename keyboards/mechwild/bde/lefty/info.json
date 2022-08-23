@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "BDE Lefty",
+    "usb": {
+        "pid": "0x1701",
+        "device_version": "2.0.3"
+    }
+}
