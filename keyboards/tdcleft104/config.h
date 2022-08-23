@@ -1,3 +1,4 @@
+{
 // Copyright 2022 TDC
 
 // This program is free software: you can redistribute it and/or modify
@@ -61,4 +62,4 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
--{
+{
