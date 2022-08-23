@@ -4,6 +4,11 @@
     "processor": "STM32F103",
     "url": "https://github.com/JiaGengChang/qmk_firmware",
     "maintainer": "JiaGengChang",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xCE60",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
