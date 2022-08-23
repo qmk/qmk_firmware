@@ -13,10 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "kb.h"
-#include <stdio.h>
-
-char wpm_str[32];
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -164,15 +161,15 @@ static void render_anim(void) {
 bool oled_task_user(void) {
     render_anim();
     oled_set_cursor(0,6);
-    sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
-    oled_write(wpm_str, false);
+    oled_write_P(PSTR("       WPM: "), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
     if(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
         oled_set_cursor(0,5);
-        oled_write("      CAPS  LOCK", false);
+        oled_write_P(PSTR("      CAPS  LOCK"), false);
     }
     else{
         oled_set_cursor(0,5);
-        oled_write("                 ", false);
+        oled_write_P(PSTR("                 "), false);
     }
     return false;
 }
