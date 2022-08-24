@@ -1,6 +1,6 @@
 /*
 Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
+Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
 Copyright 2021 Rocco Meli <@RMeli>
 
 This program is free software: you can redistribute it and/or modify
@@ -68,17 +68,34 @@ enum layer_names {
 #define _CMK 1
 #define _CFG 4
 
+// clang-format off
+
+// Define wrapper for standard CRKB layout
+#define LAYOUT_split_3x6_3_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
+
+// Define free keys for base layout
+// K01-K0A are free keys for row 0, K11-K1A are free keys for row 1, K21-K2A are free keys for row 2
+#define LAYOUT_split_3x6_3_base( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+  ) \
+  LAYOUT_split_3x6_3_wrapper( \
+       KC_TAB,     K01,     K02,     K03,     K04,     K05,                          K06,     K07,     K08,     K09,     K0A, KC_BSPC, \
+        TD_ED,     K11,     K12,     K13,     K14,     K15,                          K16,     K17,     K18,      K19,    K1A, KC_QUOT, \
+      TD_LSPC,     K21,     K22,     K23,     K24,     K25,                          K26,     K27,     K28,     K29,     K2A, TD_RSPC, \
+                                          KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT, MO(_UP), KC_RCTL  \
+  )
+
+// Define wrapper for base layout, so that free keys can be filled
+// with partial row definitions in users/rmeli/krecords/wrappers.h
+#define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_split_3x6_3(
-  //|-----------------------------------------------------|                    |-----------------------------------------------------|
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        TD_ED,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TD_LSPC,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, TD_RSPC,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT,MO(_UP),  KC_RCTL
-                                      //|--------------------------|  |--------------------------|
+  [_QWERTY] = LAYOUT_base_wrapper(
+    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
   ),
 
   [_COLEMAK_DH] = LAYOUT_split_3x6_3(
@@ -89,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TD_LSPC,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, TD_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT,MO(_UP),  KC_RCTL
+                                          KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT, MO(_UP), KC_RCTL
                                       //|--------------------------|  |--------------------------|
   ),
 
@@ -129,3 +146,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //|--------------------------|  |--------------------------|
   )
 };
+
+// clang-format on

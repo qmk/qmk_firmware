@@ -30,6 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define AUTO_SHIFT_REPEAT
 
+//#define HOME_ROW_MODS_ENABLE
+
+#ifdef HOME_ROW_MODS_ENABLE
+// Allow auto shift with home row mods
+#define RETRO_SHIFT
+#endif
+
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_LIMIT_VAL 120
 #    define RGBLIGHT_HUE_STEP 10
