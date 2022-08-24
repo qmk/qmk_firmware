@@ -170,7 +170,7 @@ enum layer_names {
 #define ROW4_LEFT_GAMING KC_GRV         , KC_1   , KC_2   , KC_3   , KC_4   , KC_5
 #define ROW3_LEFT_GAMING LSFT_T(KC_TAB) , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T
 #define ROW2_LEFT_GAMING KC_LCTL        , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B
-#define ROW1_LEFT_GAMING                                    XXXXXXX, KC_LALT, KC_SPC
+#define ROW1_LEFT_GAMING                                    KC_GRV , KC_LALT, KC_SPC
 
 #define ROW5_RIGHT_GAMING                                                           SIX_TRNS
 #define ROW4_RIGHT_GAMING                                                           KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______
