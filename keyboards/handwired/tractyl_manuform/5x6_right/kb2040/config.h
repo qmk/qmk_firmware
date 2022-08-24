@@ -1,14 +1,12 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+        j* Copyright 2012 Jun Wako<wakojun @gmail.com> Copyright 2015 Jack Humbert
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
+            This program is free                                                                     software : you can redistribute it and /
+    or modify it under the terms of the GNU General Public License as published by the Free Software Foundation,
+    either version 2 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
+                                         This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
@@ -21,10 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT Tractyl Manuform(5x6) RP2040
 
 // wiring of each half
-#define MATRIX_COL_PINS \
-    { GP0, GP1, GP2, GP3, GP4, GP5 }
+#define MATRIX_COL_PINS_ \
+    { GP10, GP6, GP5, GP4, GP3, GP2 }
+
 #define MATRIX_ROW_PINS \
-    { GP6, GP7, GP8, GP9, GP27 }
+    { GP7, GP8, GP27, GP28, GP29 }
 
 #ifdef DIODE_DIRECTION
 #    undef DIODE_DIRECTION
@@ -51,8 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX // Enable full duplex operation mode.
-#define SERIAL_USART_TX_PIN GP28
-#define SERIAL_USART_RX_PIN GP29
+#define SERIAL_USART_TX_PIN GP1
+#define SERIAL_USART_RX_PIN GP0
 #define SERIAL_USART_DRIVER SD2
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
@@ -72,3 +71,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define POINTING_DEVICE_INVERT_Y
+#define POINTING_DEVICE_ROTATION_90
