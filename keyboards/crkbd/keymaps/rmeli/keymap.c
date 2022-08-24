@@ -82,7 +82,7 @@ enum layer_names {
   ) \
   LAYOUT_split_3x6_3_wrapper( \
        KC_TAB,     K01,     K02,     K03,     K04,     K05,                          K06,     K07,     K08,     K09,     K0A, KC_BSPC, \
-        TD_ED,     K11,     K12,     K13,     K14,     K15,                          K16,     K17,     K18,      K19,    K1A, KC_QUOT, \
+        TD_ED,     K11,     K12,     K13,     K14,     K15,                          K16,     K17,     K18,     K19,     K1A, KC_QUOT, \
       TD_LSPC,     K21,     K22,     K23,     K24,     K25,                          K26,     K27,     K28,     K29,     K2A, TD_RSPC, \
                                           KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT, MO(_UP), KC_RCTL  \
   )
@@ -98,16 +98,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
   ),
 
-  [_COLEMAK_DH] = LAYOUT_split_3x6_3(
-  //|-----------------------------------------------------|                    |-----------------------------------------------------|
-       KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U, KC_SCLN,   KC_P,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        TD_ED,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TD_LSPC,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, TD_RSPC,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT, MO(_UP), KC_RCTL
-                                      //|--------------------------|  |--------------------------|
+  [_COLEMAK_DH] = LAYOUT_base_wrapper(
+    ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+    ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+    ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
   ),
 
   [_DWN] = LAYOUT_split_3x6_3(
