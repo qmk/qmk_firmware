@@ -91,7 +91,7 @@ def _install_deps(requirements):
 
     elif not os.access(sys.prefix, os.W_OK):
         # We can't write to sys.prefix, attempt to install locally
-        command.append('--local')
+        command.append('--user')
 
     return _run_cmd(*command, '-r', requirements)
 
