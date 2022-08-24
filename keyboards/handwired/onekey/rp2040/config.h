@@ -5,7 +5,6 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey Raspberry Pi RP2040
 #define MATRIX_COL_PINS \
     { GP4 }
 #define MATRIX_ROW_PINS \
