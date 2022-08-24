@@ -5,16 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-// 0x4344 = CD for Charue Design
-#define VENDOR_ID    0x4344
-// 0x5335 = S2 for Sunsetter R2
-#define PRODUCT_ID   0x5335
-// 0x0001 = 1 for Base version
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Charue Design
-#define PRODUCT      Sunsetter R2
-
 /* Key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17

@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E58 //"NX"
-#define PRODUCT_ID      0x0A29 //2601
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Noxary
-#define PRODUCT         260
-
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x6E64  // Hai-Ninh Dang
-#define PRODUCT_ID   0x4D36
-#define DEVICE_VER   0x0001
-#define MANUFACTURER mrninhvn
-#define PRODUCT      Meow65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

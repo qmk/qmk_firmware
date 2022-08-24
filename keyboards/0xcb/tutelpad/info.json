@@ -1,7 +1,13 @@
 {
     "keyboard_name": "TutelPad",
+    "manufacturer": "ItsFiremanSam",
     "url": "",
     "maintainer": "ItsFiremanSam",
+    "usb": {
+        "vid": "0xCB00",
+        "pid": "0xF09F",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

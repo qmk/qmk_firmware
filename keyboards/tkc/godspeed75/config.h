@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544B //TK
-#define PRODUCT_ID      0x0006 //GodSpeed75
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    The Key Company
-#define PRODUCT         GodSpeed75
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 8

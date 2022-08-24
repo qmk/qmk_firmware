@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "NP_hhkb",
+    "keyboard_name": "NPhhkb",
+    "manufacturer": "Weirdo",
     "url": "",
     "maintainer": "weirdo-f",
+    "usb": {
+        "vid": "0x7764",
+        "pid": "0x7068",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_tsangan_hhkb"
     },

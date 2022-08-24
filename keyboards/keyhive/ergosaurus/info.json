@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Ergosaurus",
+    "manufacturer": "reggalicious",
     "maintainer": "cfbender",
+    "usb": {
+        "vid": "0x434B",
+        "pid": "0xE590",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

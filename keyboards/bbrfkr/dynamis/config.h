@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6262
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER bbrfkr
-#define PRODUCT dynamis
-
 /* key matrix */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7

@@ -18,12 +18,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x8989
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Clackery
-#define PRODUCT         Basketweave
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

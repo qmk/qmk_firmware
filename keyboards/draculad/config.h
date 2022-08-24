@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x1B1E
-#define DEVICE_VER 0x0001
-#define MANUFACTURER mangoiv
-#define PRODUCT draculad
-
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
 
