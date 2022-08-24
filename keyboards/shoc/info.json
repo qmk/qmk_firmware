@@ -1,5 +1,6 @@
 {
     "keyboard_name": "Shoc",
+    "manufacturer": "JannikB5825",
     "url": "https://github.com/JannikB5825/Shoc",
     "maintainer": "JannikB5825",
     "usb": {
@@ -12,6 +13,8 @@
         "rows": ["D3", "D2", "D4", "C6", "D7", "E6", "B4", "B5"]
     },
     "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
