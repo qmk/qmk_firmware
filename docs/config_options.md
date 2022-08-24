@@ -244,11 +244,15 @@ If you define these options you will enable the associated feature, which may in
 
 ## Mouse Key Options
 
+* `#define MOUSEKEY_DELAY 10`
 * `#define MOUSEKEY_INTERVAL 20`
-* `#define MOUSEKEY_DELAY 0`
-* `#define MOUSEKEY_TIME_TO_MAX 60`
-* `#define MOUSEKEY_MAX_SPEED 7`
-* `#define MOUSEKEY_WHEEL_DELAY 0`
+* `#define MOUSEKEY_MOVE_DELTA 8`
+* `#define MOUSEKEY_MAX_SPEED 10`
+* `#define MOUSEKEY_TIME_TO_MAX 100`
+* `#define MOUSEKEY_WHEEL_DELAY 10`
+* `#define MOUSEKEY_WHEEL_INTERVAL 80`
+* `#define MOUSEKEY_WHEEL_MAX_SPEED 8`
+* `#define MOUSEKEY_WHEEL_TIME_TO_MAX 40`
 
 ## Split Keyboard Options
 
