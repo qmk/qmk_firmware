@@ -55,7 +55,7 @@ enum custom_keycodes {
 /*
 TAP DANCE
 */
-enum { TD_PROVES_MODELS = 0, TD_LEFT_ARROW, TD_RIGHT_ARROW };
+enum { TD_PROVES_MODELS = 0, TD_LEFT_ARROW, TD_RIGHT_ARROW, TD_GIT_M };
 
 void proves_models(qk_tap_dance_state_t *state, void *user_data) {
     // Double tap: \models
@@ -88,10 +88,21 @@ void left_arrow(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void td_git_m(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count >= 2) {
+        SEND_STRING("master ");
+        reset_tap_dance(state);
+    } else {
+        SEND_STRING("main ");
+        reset_tap_dance(state);
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PROVES_MODELS] = ACTION_TAP_DANCE_FN(proves_models),
     [TD_LEFT_ARROW]    = ACTION_TAP_DANCE_FN(left_arrow),
     [TD_RIGHT_ARROW]   = ACTION_TAP_DANCE_FN(right_arrow),
+    [TD_GIT_M]   = ACTION_TAP_DANCE_FN(td_git_m),
 };
 
 /*
@@ -150,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH, _______, _______, RM,
         TAG, _______, _______, _______, REMOTE, _______, _______, UPSTREAM, INIT, ORIGIN, _______, _______, _______, REVERT,
         PUSH, _______, STATUS, DEVELOP, _______, GLOBAL, _______, _______, _______, LOG, _______, _______, COMMIT,
-        REBASE, _______, _______, _______, _______, _______, _______, _______, MAIN, _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
+        REBASE, _______, _______, _______, _______, _______, _______, _______, TD(TD_GIT_M), _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
         BRANCH, PULL, MERGE, SPC, SPC, SPC, STASH, STASH, FETCH, FETCH, CLONE
     ),
 };
@@ -818,12 +829,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case REBASE:
             if (record->event.pressed) {
                 SEND_STRING("rebase ");
-            } else {
-            }
-            break;
-        case MAIN:
-            if (record->event.pressed) {
-                SEND_STRING("main ");
             } else {
             }
             break;
