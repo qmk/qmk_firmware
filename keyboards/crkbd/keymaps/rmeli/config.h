@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define HOME_ROW_MODS_ENABLE
 
 #ifdef HOME_ROW_MODS_ENABLE
+#define IGNORE_MOD_TAP_INTERRUPT
 // Allow auto shift with home row mods
 #define RETRO_SHIFT
 #endif
