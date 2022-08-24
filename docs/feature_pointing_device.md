@@ -533,7 +533,6 @@ Callbacks for setting up additional key codes as mouse keys:
 | -------------------------------------------------------------------- | -------------------------------------------------- |
 | `bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record)`     |  keyboard level callback for adding mouse keys     |
 | `bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record)`   |  user/keymap level callback for adding mouse keys  |
-| `bool is_mouse_record_keymap(uint16_t keycode, keyrecord_t* record)` |  keymap level callback for adding mouse keys       |
 
 To use the callback function to add mouse keys:
 The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer).
