@@ -21,4 +21,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Bootloader
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (Esc key) and plug in the keyboard
 * **Physical reset button**: Short press the button under Spacebar keycap to enter the Bootloader and flash the firmware
-* **Keycode in layout**: Press the key mapped to RESET if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
