@@ -78,4 +78,3 @@ void auto_mouse_reset_trigger(void);    // reset the active layer timer, mouseke
 /* -----------Callbacks for adding keycodes to mouse record checking------------- */
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record);
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record);
-bool is_mouse_record_keymap(uint16_t keycode, keyrecord_t* record);
