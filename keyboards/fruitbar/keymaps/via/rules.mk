@@ -21,3 +21,5 @@ ENCODER_ENABLE = yes		# Encoder Enable
 OLED_DRIVER_ENABLE = yes	# OLED Screen Enable
 OLED_ENABLE = yes
 WPM_ENABLE = yes
+VIA_ENABLE = yes			# Enable VIA Support
+LTO_ENABLE = yes			# Optimize Complilations to reduce size
