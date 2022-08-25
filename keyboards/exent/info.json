@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Exent",
+    "manufacturer": "Quadcube",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5143",
+        "pid": "0x4558",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "AMJ84",
-    "maintainer": "peepeetee",
+    "manufacturer": "Han Chen",
     "url": "",
+    "maintainer": "peepeetee",
+    "usb": {
+        "vid": "0x00D8",
+        "pid": "0x6068",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

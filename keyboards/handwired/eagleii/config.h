@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x9789
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Eagle
-#define PRODUCT         II
-
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 12
 #define MATRIX_ROW_PINS { D0, B5, F1, B2, F7, F6, D4, D7, B4, B7, F5, B0 }

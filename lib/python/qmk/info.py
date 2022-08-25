@@ -318,7 +318,7 @@ def _extract_split_right_pins(info_data, config_c):
     unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
 
-    if row_pins and col_pins:
+    if row_pins or col_pins or direct_pins or unused_pins:
         if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
             _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
 
@@ -331,37 +331,17 @@ def _extract_split_right_pins(info_data, config_c):
         if 'right' not in info_data['split']['matrix_pins']:
             info_data['split']['matrix_pins']['right'] = {}
 
-        info_data['split']['matrix_pins']['right'] = {
-            'cols': _extract_pins(col_pins),
-            'rows': _extract_pins(row_pins),
-        }
+        if col_pins:
+            info_data['split']['matrix_pins']['right']['cols'] = _extract_pins(col_pins)
 
-    if direct_pins:
-        if info_data.get('split', {}).get('matrix_pins', {}).get('right', {}):
-            _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
+        if row_pins:
+            info_data['split']['matrix_pins']['right']['rows'] = _extract_pins(row_pins)
 
-        if 'split' not in info_data:
-            info_data['split'] = {}
+        if direct_pins:
+            info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
 
-        if 'matrix_pins' not in info_data['split']:
-            info_data['split']['matrix_pins'] = {}
-
-        if 'right' not in info_data['split']['matrix_pins']:
-            info_data['split']['matrix_pins']['right'] = {}
-
-        info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
-
-    if unused_pins:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'matrix_pins' not in info_data['split']:
-            info_data['split']['matrix_pins'] = {}
-
-        if 'right' not in info_data['split']['matrix_pins']:
-            info_data['split']['matrix_pins']['right'] = {}
-
-        info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
+        if unused_pins:
+            info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
 
 
 def _extract_matrix_info(info_data, config_c):
@@ -483,10 +463,17 @@ def _extract_config_h(info_data, config_c):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            replace_with = info_dict.get('replace_with')
             if config_key in config_c and info_dict.get('invalid', False):
-                _log_error(info_data, '%s in config.h is no longer a valid option' % config_key)
+                if replace_with:
+                    _log_error(info_data, '%s in config.h is no longer a valid option and should be replaced with %s' % (config_key, replace_with))
+                else:
+                    _log_error(info_data, '%s in config.h is no longer a valid option and should be removed' % config_key)
             elif config_key in config_c and info_dict.get('deprecated', False):
-                _log_warning(info_data, '%s in config.h is deprecated and will be removed at a later date' % config_key)
+                if replace_with:
+                    _log_warning(info_data, '%s in config.h is deprecated in favor of %s and will be removed at a later date' % (config_key, replace_with))
+                else:
+                    _log_warning(info_data, '%s in config.h is deprecated and will be removed at a later date' % config_key)
 
             if config_key in config_c and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
@@ -547,10 +534,17 @@ def _extract_rules_mk(info_data, rules):
         key_type = info_dict.get('value_type', 'raw')
 
         try:
+            replace_with = info_dict.get('replace_with')
             if rules_key in rules and info_dict.get('invalid', False):
-                _log_error(info_data, '%s in rules.mk is no longer a valid option' % rules_key)
+                if replace_with:
+                    _log_error(info_data, '%s in rules.mk is no longer a valid option and should be replaced with %s' % (rules_key, replace_with))
+                else:
+                    _log_error(info_data, '%s in rules.mk is no longer a valid option and should be removed' % rules_key)
             elif rules_key in rules and info_dict.get('deprecated', False):
-                _log_warning(info_data, '%s in rules.mk is deprecated and will be removed at a later date' % rules_key)
+                if replace_with:
+                    _log_warning(info_data, '%s in rules.mk is deprecated in favor of %s and will be removed at a later date' % (rules_key, replace_with))
+                else:
+                    _log_warning(info_data, '%s in rules.mk is deprecated and will be removed at a later date' % rules_key)
 
             if rules_key in rules and info_dict.get('to_json', True):
                 if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):

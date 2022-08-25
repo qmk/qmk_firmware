@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Glitch",
+    "manufacturer": "P3D Store",
     "url": "https://p3dstore.com/products/p3d-glitch-group-buy",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x7033",
+        "pid": "0x3568",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [{

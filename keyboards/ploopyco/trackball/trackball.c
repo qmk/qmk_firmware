@@ -112,14 +112,19 @@ void process_wheel(void) {
     int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    encoder_update_kb(0, dir == 1);
+    encoder_update_kb(0, dir > 0);
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     process_wheel();
 
     if (is_drag_scroll) {
+#ifdef PLOOPY_DRAGSCROLL_H_INVERT
+        // Invert horizontal scroll direction
+        mouse_report.h = -mouse_report.x;
+#else
         mouse_report.h = mouse_report.x;
+#endif
 #ifdef PLOOPY_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
         mouse_report.v = -mouse_report.y;

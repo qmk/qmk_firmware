@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D52
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    BB-66
-#define PRODUCT         Minshara Marauder
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9

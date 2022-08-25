@@ -24,7 +24,7 @@ jobs:
           stale-issue-label: stale
           days-before-issue-stale: 90
           days-before-issue-close: 30
-          exempt-issue-labels: awaiting review,breaking_change,in progress,on hold
+          exempt-issue-labels: bug,in progress,on hold,discussion,to do
 
           stale-issue-message: >
             This issue has been automatically marked as stale because it has not had activity in the
@@ -43,7 +43,7 @@ jobs:
           stale-pr-label: stale
           days-before-pr-stale: 45
           days-before-pr-close: 30
-          exempt-pr-labels: bug,in progress,on hold,discussion,to do
+          exempt-pr-labels: bug,awaiting review,breaking_change,in progress,on hold
 
           stale-pr-message: >
             Thank you for your contribution!
@@ -52,8 +52,8 @@ jobs:
             activity in the last 45 days. It will be closed in 30 days if no further activity occurs.
             Please feel free to give a status update now, or re-open when it's ready.
 
-            For maintainers: Please label with `awaiting review`, `breaking_change`, `in progress`, or `on hold` to prevent
-            the issue from being re-flagged.
+            For maintainers: Please label with `bug`, `awaiting review`, `breaking_change`, `in progress`, or `on hold`
+            to prevent the issue from being re-flagged.
 
           close-pr-message: >
             Thank you for your contribution!

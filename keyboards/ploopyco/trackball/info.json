@@ -1,8 +1,13 @@
 {
-    "keyboard_name": "PloopyCo Trackball",
+    "keyboard_name": "Trackball",
+    "manufacturer": "PloopyCo",
     "url": "www.ploopy.co",
     "maintainer": "drashna",
-    "manufacturer": "Ploopy Corporation",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x5442",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

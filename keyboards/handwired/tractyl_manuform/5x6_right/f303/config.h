@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT Tractyl Manuform(5x6) Proton C
-
 // wiring of each half
 #define MATRIX_COL_PINS \
     { B0, B1, B2, B3, B4, B5 }

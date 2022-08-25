@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Halberd", 
+    "manufacturer": "Kagizaraya",
     "url": "", 
     "maintainer": "ka2hiro", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"!", "x":0, "y":0}, {"label":"@", "x":1, "y":0}, {"label":"#", "x":2, "y":0}, {"label":"$", "x":3, "y":0}, {"label":"%", "x":4, "y":0}, {"label":"Tab", "x":5, "y":0}, {"label":"^", "x":6, "y":0}, {"label":"&", "x":7, "y":0}, {"label":"*", "x":8, "y":0}, {"label":"(", "x":9, "y":0}, {"label":")", "x":10, "y":0}, {"label":"Tab", "x":0, "y":1}, {"label":"_", "x":1, "y":1}, {"label":"+", "x":2, "y":1}, {"label":"|", "x":3, "y":1}, {"label":"~", "x":4, "y":1}, {"label":"BkSp", "x":5, "y":1}, {"label":":", "x":6, "y":1}, {"label":"\"", "x":7, "y":1}, {"label":">", "x":8, "y":1}, {"label":"{", "x":9, "y":1}, {"label":"}", "x":10, "y":1}, {"label":"Caps", "x":0, "y":2}, {"label":"-", "x":1, "y":2}, {"label":"=", "x":2, "y":2}, {"label":"\\", "x":3, "y":2}, {"label":"`", "x":4, "y":2}, {"label":"Enter", "x":5, "y":2}, {"label":";", "x":6, "y":2}, {"label":"'", "x":7, "y":2}, {"label":"<", "x":8, "y":2}, {"label":"[", "x":9, "y":2}, {"label":"]", "x":10, "y":2}, {"label":"GUI", "x":2, "y":3}, {"label":"Lower", "x":3, "y":3}, {"label":"Esc", "x":4, "y":3}, {"x":5, "y":3}, {"label":"Shift", "x":6, "y":3}, {"label":"Raise", "x":7, "y":3}, {"label":"Alt", "x":8, "y":3}]
