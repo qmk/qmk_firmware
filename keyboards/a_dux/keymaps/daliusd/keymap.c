@@ -17,6 +17,9 @@
 
 #include "flow.h"
 
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -41,6 +44,9 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
+  K_BSPC_X,
+  K_ESC_C,
+  K_ENT_V,
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
@@ -106,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_TILDE,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT ,KC_BSPC ,KC_ESC  ,KC_ENT  ,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
+     KC_LSFT ,K_BSPC_X,K_ESC_C ,K_ENT_V ,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -175,8 +181,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
 
+uint16_t code_bspc = KC_BSPC;
+uint16_t code_esc = KC_ESC;
+uint16_t code_ent = KC_ENT;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
+
+    uint8_t mods = get_mods();
 
     switch (keycode) {
         case TM_LEFT:
@@ -198,6 +210,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TM_NEW:
             if (!record->event.pressed) return true;
             SEND_STRING(TMUX_PREFIX "c");
+            return false;
+        case K_BSPC_X:
+            if (record->event.pressed) {
+                code_bspc = KC_BSPC;
+                if (mods & MODS_CTRL_MASK || mods & MODS_GUI_MASK) {
+                    code_bspc = KC_X;
+                }
+                register_code(code_bspc);
+            } else {
+                unregister_code(code_bspc);
+            }
+            return false;
+        case K_ESC_C:
+            if (record->event.pressed) {
+                code_esc = KC_ESC;
+                if (mods & MODS_CTRL_MASK || mods & MODS_GUI_MASK) {
+                    code_esc = KC_C;
+                }
+                register_code(code_esc);
+            } else {
+                unregister_code(code_esc);
+            }
+            return false;
+        case K_ENT_V:
+            if (record->event.pressed) {
+                code_ent = KC_ENT;
+                if (mods & MODS_CTRL_MASK || mods & MODS_GUI_MASK) {
+                    code_ent = KC_V;
+                }
+                register_code(code_ent);
+            } else {
+                unregister_code(code_ent);
+            }
             return false;
         case TM_SLCT:
             if (!record->event.pressed) return true;
