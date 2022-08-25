@@ -1,4 +1,9 @@
 {
+    "keyboard_name": "arcboard-mk9",
     "manufacturer": "QMK Community",
-    "maintainer": "Chris Trotter"
+    "maintainer": "Chris Trotter",
+    "url: "https://blog.practicaltech.ca/2022/06/learning-through-failure-keyboard.html",
+    "usb": {
+        "vid": "0x44DD"
+    }
 }
