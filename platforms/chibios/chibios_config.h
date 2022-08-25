@@ -16,7 +16,7 @@
 #pragma once
 
 #ifndef USB_VBUS_PIN
-#    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
+#    define SPLIT_USB_DETECT // Force this on when dedicated pin is not used
 #endif
 
 // STM32 compatibility
@@ -55,7 +55,7 @@
 #if defined(MCU_WB32)
 #    define CPU_CLOCK WB32_MAINCLK
 
-#    if defined(WB32F3G71xx)
+#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
 #        define PAL_OUTPUT_TYPE_OPENDRAIN PAL_WB32_OTYPE_OPENDRAIN
 #        define PAL_OUTPUT_TYPE_PUSHPULL PAL_WB32_OTYPE_PUSHPULL
 #        define PAL_OUTPUT_SPEED_HIGHEST PAL_WB32_OSPEED_HIGH
@@ -76,7 +76,7 @@
 
 #    if defined(K20x) || defined(KL2x)
 #        define USE_I2CV1
-#        define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
+#        define USE_I2CV1_CONTRIB // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
 #        define USE_GPIOV1
 #    endif
 #endif

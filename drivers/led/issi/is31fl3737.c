@@ -38,16 +38,16 @@
 #define ISSI_INTERRUPTMASKREGISTER 0xF0
 #define ISSI_INTERRUPTSTATUSREGISTER 0xF1
 
-#define ISSI_PAGE_LEDCONTROL 0x00  // PG0
-#define ISSI_PAGE_PWM 0x01         // PG1
-#define ISSI_PAGE_AUTOBREATH 0x02  // PG2
-#define ISSI_PAGE_FUNCTION 0x03    // PG3
+#define ISSI_PAGE_LEDCONTROL 0x00 // PG0
+#define ISSI_PAGE_PWM 0x01        // PG1
+#define ISSI_PAGE_AUTOBREATH 0x02 // PG2
+#define ISSI_PAGE_FUNCTION 0x03   // PG3
 
-#define ISSI_REG_CONFIGURATION 0x00  // PG3
-#define ISSI_REG_GLOBALCURRENT 0x01  // PG3
-#define ISSI_REG_RESET 0x11          // PG3
-#define ISSI_REG_SWPULLUP 0x0F       // PG3
-#define ISSI_REG_CSPULLUP 0x10       // PG3
+#define ISSI_REG_CONFIGURATION 0x00 // PG3
+#define ISSI_REG_GLOBALCURRENT 0x01 // PG3
+#define ISSI_REG_RESET 0x11         // PG3
+#define ISSI_REG_SWPULLUP 0x0F      // PG3
+#define ISSI_REG_CSPULLUP 0x10      // PG3
 
 #ifndef ISSI_TIMEOUT
 #    define ISSI_TIMEOUT 100
@@ -55,6 +55,10 @@
 
 #ifndef ISSI_PERSISTENCE
 #    define ISSI_PERSISTENCE 0
+#endif
+
+#ifndef ISSI_PWM_FREQUENCY
+#    define ISSI_PWM_FREQUENCY 0b000 // PFS - IS31FL3737B only
 #endif
 
 #ifndef ISSI_SWPULLUP
@@ -159,7 +163,7 @@ void IS31FL3737_init(uint8_t addr) {
     // Set global current to maximum.
     IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Disable software shutdown.
-    IS31FL3737_write_register(addr, ISSI_REG_CONFIGURATION, 0x01);
+    IS31FL3737_write_register(addr, ISSI_REG_CONFIGURATION, ((ISSI_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);

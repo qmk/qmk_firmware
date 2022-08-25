@@ -19,13 +19,17 @@ static HSV SOLID_REACTIVE_WIDE_math(HSV hsv, int16_t dx, int16_t dy, uint8_t dis
 }
 
 #            ifdef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-bool SOLID_REACTIVE_WIDE(effect_params_t* params) { return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_WIDE_math); }
+bool SOLID_REACTIVE_WIDE(effect_params_t* params) {
+    return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_WIDE_math);
+}
 #            endif
 
 #            ifdef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-bool SOLID_REACTIVE_MULTIWIDE(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_WIDE_math); }
+bool SOLID_REACTIVE_MULTIWIDE(effect_params_t* params) {
+    return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_WIDE_math);
+}
 #            endif
 
-#        endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif      // !defined(ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE) || !defined(ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE)
-#endif          // RGB_MATRIX_KEYREACTIVE_ENABLED
+#        endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#    endif     // !defined(ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE) || !defined(ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE)
+#endif         // RGB_MATRIX_KEYREACTIVE_ENABLED

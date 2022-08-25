@@ -48,11 +48,17 @@
 #    define PLOOPY_DPI_DEFAULT 2
 #endif
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { };
-
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+
+void cycle_dpi(void) {
+  keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+  pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
+#ifdef CONSOLE_ENABLE
+  uprintf("DPI is now %d\n", dpi_array[keyboard_config.dpi_config]);
+#endif
+}
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html

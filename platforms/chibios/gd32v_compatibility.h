@@ -97,10 +97,10 @@
 /* Serial USART redefines. */
 #if HAL_USE_SERIAL
 #    if !defined(SERIAL_USART_CR1)
-#        define SERIAL_USART_CR1 (USART_CTL0_PCEN | USART_CTL0_PM | USART_CTL0_WL)  // parity enable, odd parity, 9 bit length
+#        define SERIAL_USART_CR1 (USART_CTL0_PCEN | USART_CTL0_PM | USART_CTL0_WL) // parity enable, odd parity, 9 bit length
 #    endif
 #    if !defined(SERIAL_USART_CR2)
-#        define SERIAL_USART_CR2 (USART_CTL1_STB_1)  // 2 stop bits
+#        define SERIAL_USART_CR2 (USART_CTL1_STB_1) // 2 stop bits
 #    endif
 #    if !defined(SERIAL_USART_CR3)
 #        define SERIAL_USART_CR3 0x0

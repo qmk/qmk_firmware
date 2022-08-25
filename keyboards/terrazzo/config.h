@@ -17,14 +17,6 @@
 
 #include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4d4d // MM
-#define PRODUCT_ID      0x545a // TZ
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    MsMustard
-#define PRODUCT         Terrazzo
-
 /* key matrix size */
 
 // SWAP FOR PRO MICRO

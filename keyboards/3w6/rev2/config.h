@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x4658
-#define DEVICE_VER   0x0002
-#define MANUFACTURER weteor
-#define PRODUCT      3w6
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 10
@@ -56,8 +48,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-

@@ -15,13 +15,6 @@
  */
  #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4341
-#define PRODUCT_ID      0x0621
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CANARY
-#define PRODUCT         CANARY60RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -64,10 +57,6 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects

@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x16C0
-#define PRODUCT_ID 0x27DB
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Unicomp/Purdea Andrei
-#define PRODUCT Unicomp Spacesaver M
-#define DESCRIPTION QMK firmware for the Unicomp Spacesaver M keyboard with a replacement Overnumpad controller
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
 /* key matrix size */

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544B //TK
-#define PRODUCT_ID      0x0008
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    TKC
-#define PRODUCT         Portico
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -35,10 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4

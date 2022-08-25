@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544E // "TN"
-#define PRODUCT_ID      0x7033 // "P3"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tamanishi
-#define PRODUCT         Pinky3
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -107,8 +100,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

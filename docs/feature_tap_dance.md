@@ -243,7 +243,7 @@ Now, at the bottom of your `keymap.c` file, you'll need to add the following:
  *
  * How to figure out tap dance state: interrupted and pressed.
  *
- * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
+ * Interrupted: If the state of a dance is "interrupted", that means that another key has been hit
  *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
  *
  * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
@@ -305,7 +305,8 @@ void x_finished(qk_tap_dance_state_t *state, void *user_data) {
         // Last case is for fast typing. Assuming your key is `f`:
         // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
         // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
-        case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X);
+        case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X); break;
+        default: break;
     }
 }
 
@@ -314,8 +315,9 @@ void x_reset(qk_tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP: unregister_code(KC_X); break;
         case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
         case TD_DOUBLE_TAP: unregister_code(KC_ESC); break;
-        case TD_DOUBLE_HOLD: unregister_code(KC_LALT);
-        case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X);
+        case TD_DOUBLE_HOLD: unregister_code(KC_LALT); break;
+        case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X); break;
+        default: break;
     }
     xtap_state.state = TD_NONE;
 }

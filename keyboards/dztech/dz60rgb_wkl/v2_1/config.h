@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1321
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ60RGB_WKL
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -46,10 +39,6 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -86,7 +75,7 @@
 #    define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #    define ENABLE_RGB_MATRIX_HUE_WAVE
 #    define ENABLE_RGB_MATRIX_PIXEL_RAIN
-#    define ENABLE_RGB_MATRIX_PIXEL_FLOW
+// #    define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
 #    define ENABLE_RGB_MATRIX_TYPING_HEATMAP

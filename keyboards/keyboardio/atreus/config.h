@@ -18,14 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0x2303
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    Keyboardio
-#define PRODUCT         Atreus
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -77,5 +69,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

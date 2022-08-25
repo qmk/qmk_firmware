@@ -34,6 +34,10 @@ TestLogger& TestLogger::error() {
     return *this;
 }
 
-void TestLogger::reset() { this->m_log.str(""); };
+void TestLogger::reset() {
+    this->m_log.str("");
+};
 
-void TestLogger::print_log() { std::cerr << this->m_log.str(); }
+void TestLogger::print_log() {
+    std::cerr << this->m_log.str();
+}

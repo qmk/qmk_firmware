@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Polyandry",
+    "keyboard_name": "Polypad",
+    "manufacturer": "di0ib",
     "url": "",
     "maintainer": "QMK",
+    "usb": {
+        "vid": "0x4025",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

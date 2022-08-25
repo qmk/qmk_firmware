@@ -18,12 +18,6 @@
 
 #pragma once
 
-#define VENDOR_ID 0xA8F8
-#define PRODUCT_ID 0x1833
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Bastard Keyboards
-#define PRODUCT Charybdis
-
 /* Key matrix configuration. */
 
 // Rows are doubled-up.
@@ -59,10 +53,6 @@
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/* Disable action features. */
-#define NO_ACTION_MACRO     // Disable old-style macro handling.
-#define NO_ACTION_FUNCTION  // Disable old-style function handling.
 
 /* PMW3360 settings. */
 #define PMW3360_CS_PIN B0

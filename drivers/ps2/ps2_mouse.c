@@ -42,7 +42,7 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 void ps2_mouse_init(void) {
     ps2_host_init();
 
-    wait_ms(PS2_MOUSE_INIT_DELAY);  // wait for powering up
+    wait_ms(PS2_MOUSE_INIT_DELAY); // wait for powering up
 
     PS2_MOUSE_SEND(PS2_MOUSE_RESET, "ps2_mouse_init: sending reset");
 
@@ -113,9 +113,13 @@ void ps2_mouse_task(void) {
     ps2_mouse_clear_report(&mouse_report);
 }
 
-void ps2_mouse_disable_data_reporting(void) { PS2_MOUSE_SEND(PS2_MOUSE_DISABLE_DATA_REPORTING, "ps2 mouse disable data reporting"); }
+void ps2_mouse_disable_data_reporting(void) {
+    PS2_MOUSE_SEND(PS2_MOUSE_DISABLE_DATA_REPORTING, "ps2 mouse disable data reporting");
+}
 
-void ps2_mouse_enable_data_reporting(void) { PS2_MOUSE_SEND(PS2_MOUSE_ENABLE_DATA_REPORTING, "ps2 mouse enable data reporting"); }
+void ps2_mouse_enable_data_reporting(void) {
+    PS2_MOUSE_SEND(PS2_MOUSE_ENABLE_DATA_REPORTING, "ps2 mouse enable data reporting");
+}
 
 void ps2_mouse_set_remote_mode(void) {
     PS2_MOUSE_SEND_SAFE(PS2_MOUSE_SET_REMOTE_MODE, "ps2 mouse set remote mode");
@@ -127,13 +131,21 @@ void ps2_mouse_set_stream_mode(void) {
     ps2_mouse_mode = PS2_MOUSE_STREAM_MODE;
 }
 
-void ps2_mouse_set_scaling_2_1(void) { PS2_MOUSE_SEND_SAFE(PS2_MOUSE_SET_SCALING_2_1, "ps2 mouse set scaling 2:1"); }
+void ps2_mouse_set_scaling_2_1(void) {
+    PS2_MOUSE_SEND_SAFE(PS2_MOUSE_SET_SCALING_2_1, "ps2 mouse set scaling 2:1");
+}
 
-void ps2_mouse_set_scaling_1_1(void) { PS2_MOUSE_SEND_SAFE(PS2_MOUSE_SET_SCALING_1_1, "ps2 mouse set scaling 1:1"); }
+void ps2_mouse_set_scaling_1_1(void) {
+    PS2_MOUSE_SEND_SAFE(PS2_MOUSE_SET_SCALING_1_1, "ps2 mouse set scaling 1:1");
+}
 
-void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution) { PS2_MOUSE_SET_SAFE(PS2_MOUSE_SET_RESOLUTION, resolution, "ps2 mouse set resolution"); }
+void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution) {
+    PS2_MOUSE_SET_SAFE(PS2_MOUSE_SET_RESOLUTION, resolution, "ps2 mouse set resolution");
+}
 
-void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) { PS2_MOUSE_SET_SAFE(PS2_MOUSE_SET_SAMPLE_RATE, sample_rate, "ps2 mouse set sample rate"); }
+void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) {
+    PS2_MOUSE_SET_SAFE(PS2_MOUSE_SET_SAMPLE_RATE, sample_rate, "ps2 mouse set sample rate");
+}
 
 /* ============================= HELPERS ============================ */
 
@@ -165,7 +177,7 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
 #ifdef PS2_MOUSE_INVERT_X
     mouse_report->x = -mouse_report->x;
 #endif
-#ifndef PS2_MOUSE_INVERT_Y  // NOTE if not!
+#ifndef PS2_MOUSE_INVERT_Y // NOTE if not!
     // invert coordinate of y to conform to USB HID mouse
     mouse_report->y = -mouse_report->y;
 #endif

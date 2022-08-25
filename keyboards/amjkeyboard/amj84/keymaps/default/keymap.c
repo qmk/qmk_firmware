@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |      |Lef|Dow|Rig|   |   |   |   |   |   |Hom|PgU|        |
      * |-----------------------------------------------------------|
-     * |        |   |App|Fn1|Fn2|Fn3|VoD|VoU|Mut|End|PgD|      |   |
+     * |        |   |App|   |   |   |VoD|VoU|Mut|End|PgD|      |   |
      * |-----------------------------------------------------------|
      * |    |    |    |                        |    |    |    |    |
      * `-----------------------------------------------------------'
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_UP,  KC_TRNS,KC_TRNS,KC_TRNS,KC_CALC,KC_TRNS,KC_INS, KC_TRNS,KC_PSCR,KC_SLCK,KC_PAUS,KC_TRNS,KC_TRNS,
         BL_BRTG,KC_LEFT,KC_DOWN,KC_RGHT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_HOME,KC_PGUP,KC_TRNS,KC_TRNS,KC_TRNS,
-        BL_STEP,KC_NO,  KC_TRNS,KC_APP, KC_FN1, KC_FN2, KC_FN3, KC_VOLD,KC_VOLU,KC_MUTE,KC_END, KC_PGDN,KC_TRNS,KC_TRNS,KC_TRNS,
+        BL_STEP,KC_NO,  KC_TRNS,KC_APP, KC_TRNS,KC_TRNS,KC_TRNS,KC_VOLD,KC_VOLU,KC_MUTE,KC_END, KC_PGDN,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_SLEP,KC_TRNS,KC_TRNS,          KC_TRNS,          KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS)
 
 };

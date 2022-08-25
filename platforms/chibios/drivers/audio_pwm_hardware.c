@@ -72,7 +72,7 @@ static float channel_1_frequency = 0.0f;
 void         channel_1_set_frequency(float freq) {
     channel_1_frequency = freq;
 
-    if (freq <= 0.0)  // a pause/rest has freq=0
+    if (freq <= 0.0) // a pause/rest has freq=0
         return;
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
@@ -82,14 +82,18 @@ void         channel_1_set_frequency(float freq) {
                      PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
 }
 
-float channel_1_get_frequency(void) { return channel_1_frequency; }
+float channel_1_get_frequency(void) {
+    return channel_1_frequency;
+}
 
 void channel_1_start(void) {
     pwmStop(&AUDIO_PWM_DRIVER);
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 }
 
-void channel_1_stop(void) { pwmStop(&AUDIO_PWM_DRIVER); }
+void channel_1_stop(void) {
+    pwmStop(&AUDIO_PWM_DRIVER);
+}
 
 static void gpt_callback(GPTDriver *gptp);
 GPTConfig   gptCFG = {
@@ -108,9 +112,9 @@ void audio_driver_initialize(void) {
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
     // connect the AUDIO_PIN to the PWM hardware
-#if defined(USE_GPIOV1)  // STM32F103C8
+#if defined(USE_GPIOV1) // STM32F103C8
     palSetLineMode(AUDIO_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
-#else  // GPIOv2 (or GPIOv3 for f4xx, which is the same/compatible at this command)
+#else // GPIOv2 (or GPIOv3 for f4xx, which is the same/compatible at this command)
     palSetLineMode(AUDIO_PIN, PAL_MODE_ALTERNATE(AUDIO_PWM_PAL_MODE));
 #endif
 
@@ -135,10 +139,10 @@ void audio_driver_stop(void) {
  * and updates the pwm to output that frequency
  */
 static void gpt_callback(GPTDriver *gptp) {
-    float freq;  // TODO: freq_alt
+    float freq; // TODO: freq_alt
 
     if (audio_update_state()) {
-        freq = audio_get_processed_frequency(0);  // freq_alt would be index=1
+        freq = audio_get_processed_frequency(0); // freq_alt would be index=1
         channel_1_set_frequency(freq);
     }
 }

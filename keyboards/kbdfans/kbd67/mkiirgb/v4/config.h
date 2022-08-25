@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x1227
-#define DEVICE_VER      0x0004
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         KBD67 MKII RGB V4
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -36,9 +29,7 @@
 #define DIODE_DIRECTION COL2ROW
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 
 #define RGB_DI_PIN C7
@@ -94,9 +85,6 @@
 #    define ENABLE_RGB_MATRIX_HUE_BREATHING
 #    define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #    define ENABLE_RGB_MATRIX_HUE_WAVE
-#    define ENABLE_RGB_MATRIX_PIXEL_RAIN
-#    define ENABLE_RGB_MATRIX_PIXEL_FLOW
-#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
 #    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 // #define ENABLE_RGB_MATRIX_DIGITAL_RAIN

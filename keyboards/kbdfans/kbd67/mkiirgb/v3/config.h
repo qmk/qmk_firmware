@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42 // KB
-#define PRODUCT_ID      0x1226
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KBDfans
-#define PRODUCT         kbd67mkiirgb v3
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -37,9 +30,7 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended

@@ -22,7 +22,7 @@
 
 #if __has_include("user_song_list.h")
 #    include "user_song_list.h"
-#endif  // if file exists
+#endif // if file exists
 
 #define NO_SOUND
 

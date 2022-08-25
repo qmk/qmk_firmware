@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x0060 // Dawn60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Dawn60
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -67,8 +61,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_BACKLIGHT_ENABLED 1
 

@@ -7,6 +7,10 @@ RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 #        endif
 
 void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
+#        ifdef RGB_MATRIX_TYPING_HEATMAP_SLIM
+    // Limit effect to pressed keys
+    g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], 32);
+#        else
     uint8_t m_row = row - 1;
     uint8_t p_row = row + 1;
     uint8_t m_col = col - 1;
@@ -27,6 +31,7 @@ void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
         g_rgb_frame_buffer[m_row][col] = qadd8(g_rgb_frame_buffer[m_row][col], 16);
         if (p_col < MATRIX_COLS) g_rgb_frame_buffer[m_row][p_col] = qadd8(g_rgb_frame_buffer[m_row][p_col], 13);
     }
+#        endif
 }
 
 // A timer to track the last time we decremented all heatmap values.
@@ -82,5 +87,5 @@ bool TYPING_HEATMAP(effect_params_t* params) {
     return led_max < sizeof(g_rgb_frame_buffer);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)

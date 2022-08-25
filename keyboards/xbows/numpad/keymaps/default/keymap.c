@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,    KC_P2,    KC_P3,    KC_PENT,
          KC_P0,       KC_PDOT),
   [1] = LAYOUT(
-    RESET,     EEP_RST,   KC_TRNS,   KC_TRNS,
+    QK_BOOT,     EEP_RST,   KC_TRNS,   KC_TRNS,
     KC_CALC,   KC_MYCM,   KC_MSEL,   KC_MAIL,
     RGB_MOD,   RGB_VAI,   RGB_HUI,   KC_VOLD,
     RGB_SPD,   RGB_TOG,   RGB_SPI,   KC_VOLU,

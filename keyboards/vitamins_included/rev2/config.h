@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_PIN B4
 #define SOFT_SERIAL_PIN D0
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0002
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -80,5 +77,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

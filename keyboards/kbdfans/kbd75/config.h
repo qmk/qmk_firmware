@@ -1,11 +1,9 @@
+// Copyright 2017-2021 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         KBD75
 
 /* key matrix size */
 #define MATRIX_ROWS 6

@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3434
-#define MANUFACTURER    Keychron
-#define PRODUCT         Keychron Q2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -28,6 +23,8 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B4, B3, A15, A14, A13 }
 #define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, A8, A9, H3 }
+
+#define MATRIX_UNSELECT_DRIVE_HIGH
 
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {4, 4} }

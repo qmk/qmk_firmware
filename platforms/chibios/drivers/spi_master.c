@@ -54,7 +54,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         return false;
     }
 
-#ifndef WB32F3G71xx
+#if !(defined(WB32F3G71xx) || defined(WB32FQ95xx))
     uint16_t roundedDivisor = 2;
     while (roundedDivisor < divisor) {
         roundedDivisor <<= 1;
@@ -115,7 +115,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 
 #elif defined(HT32)
     spiConfig.cr0 = SPI_CR0_SELOEN;
-    spiConfig.cr1 = SPI_CR1_MODE | 8;  // 8 bits and in master mode
+    spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
 
     if (lsbFirst) {
         spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
@@ -138,7 +138,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 
     spiConfig.cpr = (roundedDivisor - 1) >> 1;
 
-#elif defined(WB32F3G71xx)
+#elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
     if (!lsbFirst) {
         osalDbgAssert(lsbFirst != FALSE, "unsupported lsbFirst");
     }

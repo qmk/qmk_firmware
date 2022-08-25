@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x0145
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         Minitomic
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
@@ -138,8 +131,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

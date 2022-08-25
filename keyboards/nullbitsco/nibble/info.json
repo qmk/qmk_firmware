@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "NIBBLE 65%",
+    "keyboard_name": "NIBBLE",
+    "manufacturer": "nullbits",
     "url": "https://nullbits.co/nibble/",
+    "usb": {
+        "vid": "0x6E61",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

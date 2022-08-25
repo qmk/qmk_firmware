@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID           0x04D8
-#define PRODUCT_ID          0xEED3
-#define DEVICE_VER          0x0101
-
 #define MANUFACTURER        "Massdrop Inc."
 #define PRODUCT             "ALT Keyboard"
 #define SERIAL_NUM          "Unavailable"
@@ -128,8 +124,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_LED_PROCESS_LIMIT 15

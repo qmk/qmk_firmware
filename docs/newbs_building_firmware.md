@@ -1,6 +1,6 @@
 # Building Your First Firmware
 
-Now that you have setup your build environment you are ready to start building custom firmware. For this section of the guide we will bounce between 3 programs- your file manager, your text editor, and your terminal window. Keep all 3 open until you are done and happy with your keyboard firmware.
+Now that you have set up your build environment you are ready to start building custom firmware. For this section of the guide we will bounce between 3 programs- your file manager, your text editor, and your terminal window. Keep all 3 open until you are done and happy with your keyboard firmware.
 
 ## Configure Your Build Environment Defaults (Optional)
 

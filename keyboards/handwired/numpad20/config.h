@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xBB80
-#define PRODUCT_ID      0x0504
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Hexwire
-#define PRODUCT         Numpad 20
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -100,5 +93,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

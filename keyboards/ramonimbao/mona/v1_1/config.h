@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xB16B
-#define PRODUCT_ID   0x404B
-#define DEVICE_VER   0x0011
-#define MANUFACTURER Ramon Imbao
-#define PRODUCT      Mona
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -55,8 +48,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

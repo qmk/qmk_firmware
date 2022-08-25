@@ -17,15 +17,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5241 // "RA"
-#define PRODUCT_ID      0x4B59 // "KY"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA WORKS
-#define PRODUCT         RAMA WORKS KOYU
-
-
-
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -66,8 +57,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_BACKLIGHT_ENABLED 1
 

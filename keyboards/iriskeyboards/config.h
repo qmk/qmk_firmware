@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x494B // IK (IrisKeyboards)
-#define PRODUCT_ID   0x3031 // 01 (PCB no.01)
-#define DEVICE_VER   0x0001
-#define MANUFACTURER SonOfAres
-#define PRODUCT      IrisRev0
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -144,10 +137,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Bathroom Epiphanies
-#define PRODUCT         frosty_flake
-
 /*
  * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies
  * Ported from the Bathroom Epiphanies TMK Firmware:
@@ -91,6 +84,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3

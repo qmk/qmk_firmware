@@ -339,8 +339,12 @@ static usb_driver_configs_t drivers = {
     .console_driver = QMK_USB_DRIVER_CONFIG(CONSOLE, 0, true),
 #endif
 #ifdef RAW_ENABLE
-#    define RAW_IN_CAPACITY 4
-#    define RAW_OUT_CAPACITY 4
+#    ifndef RAW_IN_CAPACITY
+#        define RAW_IN_CAPACITY 4
+#    endif
+#    ifndef RAW_OUT_CAPACITY
+#        define RAW_OUT_CAPACITY 4
+#    endif
 #    define RAW_IN_MODE USB_EP_MODE_TYPE_INTR
 #    define RAW_OUT_MODE USB_EP_MODE_TYPE_INTR
     .raw_driver = QMK_USB_DRIVER_CONFIG(RAW, 0, false),
@@ -734,7 +738,7 @@ void init_usb_driver(USBDriver *usbp) {
      * after a reset.
      */
     usbDisconnectBus(usbp);
-    wait_ms(1500);
+    wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 
@@ -775,7 +779,9 @@ void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
 /* start-of-frame handler
  * TODO: i guess it would be better to re-implement using timers,
  *  so that this is not going to have to be checked every 1ms */
-void kbd_sof_cb(USBDriver *usbp) { (void)usbp; }
+void kbd_sof_cb(USBDriver *usbp) {
+    (void)usbp;
+}
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
@@ -815,7 +821,9 @@ static void keyboard_idle_timer_cb(void *arg) {
 }
 
 /* LED status */
-uint8_t keyboard_leds(void) { return keyboard_led_state; }
+uint8_t keyboard_leds(void) {
+    return keyboard_led_state;
+}
 
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
@@ -915,7 +923,9 @@ void send_mouse(report_mouse_t *report) {
 }
 
 #else  /* MOUSE_ENABLE */
-void send_mouse(report_mouse_t *report) { (void)report; }
+void send_mouse(report_mouse_t *report) {
+    (void)report;
+}
 #endif /* MOUSE_ENABLE */
 
 /* ---------------------------------------------------------
@@ -972,6 +982,35 @@ void send_system(uint16_t data) {
 void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
+
+void send_programmable_button(uint32_t data) {
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+    static report_programmable_button_t report = {
+        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
+    };
+
+    report.usage = data;
+
+    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report));
+    osalSysUnlock();
 #endif
 }
 
@@ -1039,7 +1078,7 @@ void console_task(void) {
     uint8_t buffer[CONSOLE_EPSIZE];
     size_t  size = 0;
     do {
-        size_t size = chnReadTimeout(&drivers.console_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+        size = chnReadTimeout(&drivers.console_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
             console_receive(buffer, size);
         }
@@ -1067,7 +1106,7 @@ void raw_hid_task(void) {
     uint8_t buffer[RAW_EPSIZE];
     size_t  size = 0;
     do {
-        size_t size = chnReadTimeout(&drivers.raw_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+        size = chnReadTimeout(&drivers.raw_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
             raw_hid_receive(buffer, size);
         }
@@ -1078,7 +1117,9 @@ void raw_hid_task(void) {
 
 #ifdef MIDI_ENABLE
 
-void send_midi_packet(MIDI_EventPacket_t *event) { chnWrite(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t)); }
+void send_midi_packet(MIDI_EventPacket_t *event) {
+    chnWrite(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t));
+}
 
 bool recv_midi_packet(MIDI_EventPacket_t *const event) {
     size_t size = chnReadTimeout(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t), TIME_IMMEDIATE);
@@ -1088,7 +1129,7 @@ void midi_ep_task(void) {
     uint8_t buffer[MIDI_STREAM_EPSIZE];
     size_t  size = 0;
     do {
-        size_t size = chnReadTimeout(&drivers.midi_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+        size = chnReadTimeout(&drivers.midi_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
             MIDI_EventPacket_t event;
             recv_midi_packet(&event);
@@ -1101,7 +1142,9 @@ void midi_ep_task(void) {
 
 void virtser_init(void) {}
 
-void virtser_send(const uint8_t byte) { chnWrite(&drivers.serial_driver.driver, &byte, 1); }
+void virtser_send(const uint8_t byte) {
+    chnWrite(&drivers.serial_driver.driver, &byte, 1);
+}
 
 __attribute__((weak)) void virtser_recv(uint8_t c) {
     // Ignore by default
@@ -1145,7 +1188,7 @@ void send_joystick_packet(joystick_t *joystick) {
           joystick->axes[5],
 #        endif
         },
-#    endif  // JOYSTICK_AXES_COUNT>0
+#    endif // JOYSTICK_AXES_COUNT>0
 
 #    if JOYSTICK_BUTTON_COUNT > 0
         .buttons = {
@@ -1161,7 +1204,7 @@ void send_joystick_packet(joystick_t *joystick) {
             joystick->buttons[3],
 #        endif
         }
-#    endif  // JOYSTICK_BUTTON_COUNT>0
+#    endif // JOYSTICK_BUTTON_COUNT>0
     };
 
     // chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));

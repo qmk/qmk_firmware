@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEVICE_VER 0x0001
-#define PRODUCT_ID 0x6060
-
 #define LED_NUM_LOCK_PIN B12
 #define LED_SCROLL_LOCK_PIN B13
 #define LED_CAPS_LOCK_PIN C13

@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Thomas Baart <thomas@splitkb.com>
+Copyright 2022 Thomas Baart <thomas@splitkb.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x8D1D
-#define PRODUCT_ID   0x9D9D
-#define DEVICE_VER   0x0001
-#define MANUFACTURER splitKB
-#define PRODUCT      Kyria
 
 /* key matrix size */
 /* Rows are doubled up */

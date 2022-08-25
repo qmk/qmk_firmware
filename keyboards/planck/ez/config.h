@@ -18,17 +18,6 @@
 
 #pragma once
 
-#undef VENDOR_ID
-#define VENDOR_ID       0x3297
-#undef PRODUCT_ID
-#define PRODUCT_ID      0xC6CE
-#undef MANUFACTURER
-#define MANUFACTURER    ZSA Technology Labs
-#undef PRODUCT
-#define PRODUCT         Planck EZ
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0000
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -106,8 +95,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // #define WS2812_LED_N 2
 // #define RGBLED_NUM WS2812_LED_N

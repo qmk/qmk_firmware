@@ -15,13 +15,6 @@
  */
 #include "config_common.h"
 
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x0101
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         ODIN_SOLDERED
-
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 20
 
@@ -35,8 +28,7 @@
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 15
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
 #define RGBLED_NUM 4

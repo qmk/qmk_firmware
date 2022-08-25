@@ -16,18 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#undef VENDOR_ID
-#define VENDOR_ID 0x1209
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x345C
-#undef DEVICE_VER
-#define DEVICE_VER 0x0001
-#undef MANUFACTURER
-#define MANUFACTURER "https://github.com/stapelberg"
-#undef PRODUCT
-#define PRODUCT "kinT (kint36)"
-
 /* key matrix size */
 #define MATRIX_ROWS 15
 #define MATRIX_COLS 7
@@ -58,10 +46,6 @@
 #define DEBOUNCE 20
 
 #define IGNORE_MOD_TAP_INTERRUPT
-
-// Reduce input latency by lowering the USB polling interval
-// from its 10ms default to the 1ms minimum that USB 1.x (Full Speed) allows:
-#define USB_POLLING_INTERVAL_MS 1
 
 // The Teensy 3.6 consumes about 80 mA of current at its full speed of 180 MHz:
 // https://forum.pjrc.com/threads/47256-What-is-the-power-consumption-of-the-Teensy-3-6

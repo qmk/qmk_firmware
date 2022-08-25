@@ -17,10 +17,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0xA4F9
-#define DEVICE_VER 0x0006
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -102,9 +98,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
 
 /*
  * WS2812 Underglow Matrix options

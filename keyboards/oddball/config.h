@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xCA49
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Alexander Tulloh
-#define PRODUCT Oddball
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
@@ -44,10 +37,6 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* optical sensor settings */
 #define SCROLL_DIVIDER 12
