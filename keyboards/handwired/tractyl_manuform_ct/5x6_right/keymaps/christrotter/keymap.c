@@ -6,22 +6,6 @@
 */
 
 #include QMK_KEYBOARD_H
-// This fixed the no-layers-working issue... :S
-//#include "christrotter.h"
-/* 
-    putting the enum layers here might work, but it causes callbacks.c to blow up with:
-Compiling: users/christrotter/callbacks.c       users/christrotter/callbacks.c: In function 'layer_state_set_user':
-users/christrotter/callbacks.c:139:43: error: '_SYMBOLS' undeclared (first use in this function); did you mean 'SYMBOL_STR'?
-     state = update_tri_layer_state(state, _SYMBOLS, _MOUSE, _SYMBOLS);
-                                           ^~~~~~~~
-                                           SYMBOL_STR
-users/christrotter/callbacks.c:139:43: note: each undeclared identifier is reported only once for each function it appears in
-users/christrotter/callbacks.c:139:53: error: '_MOUSE' undeclared (first use in this function); did you mean 'MCUSR'?
-     state = update_tri_layer_state(state, _SYMBOLS, _MOUSE, _SYMBOLS);
-                                                     ^~~~~~
-                                                     MCUSR
- [ERRORS]
-*/
 
 enum custom_layers {
     _QWERTY,
@@ -71,7 +55,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     // we want to tap for oneshot, double tap to hold on, double tap to hold off
     // so tap= oneshot shift, doubletap= toggle shift on
     [TD_SHIFT] = ACTION_TAP_DANCE_DOUBLE(OSM(MOD_LSFT), KC_CAPS),
-    // 
+    //
 };
 
 // Left-hand home row mods
@@ -113,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,   KC_PERC,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_PIPE,         KC_DOT,    KC_7,    KC_8,    KC_9,  KC_BSLS, _______,
             _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______,            _______, _______, KC_SFTALTARROW_L, _______, _______, KC_SFTALTARROW_R
-), 
+),
 [_QWERTY] = LAYOUT( \
     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T,                                   KC_Y, KC_U, KC_I, KC_O, KC_P, KC_MINUS,
     _______, HOME_A, HOME_S, HOME_D, HOME_F, KC_G,                          KC_H, HOME_J, HOME_K, HOME_L, HOME_QUOT, KC_SCLN,

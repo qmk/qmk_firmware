@@ -24,7 +24,7 @@
 #include <string.h>
 
 // clang-format off
-    /* 
+    /*
      * ,-----------------------------------------,                                           ,-----------------------------------------,
      * |  1,1 |  1,2 |  1,3 |  1,4 |  1,5 |  1,6 |                                           |  1,1 |  1,2 |  1,3 |  1,4 |  1,5 |  1,6 |
      * |------+------+------+------+------+------|                                           |-------------+------+------+------+------|
@@ -42,20 +42,20 @@
      */
 // clang-format on
 #if defined(RGB_MATRIX_ENABLE)
-    led_config_t g_led_config = { 
+    led_config_t g_led_config = {
     // Key Matrix to LED Index
     {
         { 0, 1, 2, 3, 4, 5 },
         { 6, 7, 8, 9, 10, 11 },
         { 12, 13, 14, 15, 16, 17 },
         { 18, 19, 20, 21, 22 },
-        { 23, 24, 25, 26 }, 
-        { 27, 28, 29, 30, 31, 32 }, 
-        { 33, 34, 35, 36, 37, 38 }, 
-        { 39, 40, 41, 42, 43, 44 }, 
-        { 45, 46, 47, 48, 49, 50 }, 
+        { 23, 24, 25, 26 },
+        { 27, 28, 29, 30, 31, 32 },
+        { 33, 34, 35, 36, 37, 38 },
+        { 39, 40, 41, 42, 43, 44 },
+        { 45, 46, 47, 48, 49, 50 },
         { 51, 52, 53, 54, 55, 56 }
-    }, 
+    },
     // LED Index to Physical Position
     {
         { 102,   0 }, {  81,   0 }, {  61,   0 }, {  41,   0 }, {  20,   0 }, {   0,   0 },
@@ -69,7 +69,7 @@
         { 224,  48 }, { 204,  48 }, { 183,  48 }, { 163,  48 }, { 143,  48 }, { 122,  48 },
         { 224,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 122,  64 }
     },
-    // LED type bit mask - 4 is per-key 
+    // LED type bit mask - 4 is per-key
     {
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4, 4,
@@ -81,7 +81,7 @@
                 4, 4, 4, 4, 4, 4,
         4, 4, 4, 4, 4, 4,
         4, 4, 4, 4, 4, 4
-    } 
+    }
     };
 #endif
 
@@ -116,7 +116,7 @@
 
 typedef union {
     uint8_t raw;
-    uint8_t pointer_default_dpi : 4;  // 16 steps available.    
+    uint8_t pointer_default_dpi : 4;  // 16 steps available.
     struct {
         bool    is_dragscroll_enabled : 1;
     } __attribute__((packed));
@@ -233,7 +233,7 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
 }
 
 // void pointing_device_init_kb(void) {
-//     
+//
 // }
 // i moved the charybdis config into here so we don't have duplicate 'void pointing_device_init_kb' calls
 void pointing_device_init_kb(void) {
@@ -252,18 +252,6 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     return mouse_report;
 }
-
-// not sure what this is for...
-// #    if defined(POINTING_DEVICE_ENABLE) && !defined(NO_CHARYBDIS_KEYCODES)
-// /** \brief Whether SHIFT mod is enabled. */
-// static bool has_shift_mod(void) {
-// #        ifdef NO_ACTION_ONESHOT
-//     return mod_config(get_mods()) & MOD_MASK_SHIFT;
-// #        else
-//     return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-// #        endif  // NO_ACTION_ONESHOT
-// }
-// #    endif  // POINTING_DEVICE_ENABLE && !NO_CHARYBDIS_KEYCODES
 
 /**
  * \brief Outputs the Charybdis configuration to console.
