@@ -46,7 +46,6 @@ enum custom_keycodes {
   TM_URL,
   K_BSPC_X,
   K_ESC_C,
-  K_ENT_V,
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
@@ -110,9 +109,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_TILDE,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
+     KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT ,K_BSPC_X,K_ESC_C ,K_ENT_V ,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
+     KC_LSFT ,K_BSPC_X,K_ESC_C ,KC_TILDE,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -183,7 +182,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint16_t code_bspc = KC_BSPC;
 uint16_t code_esc = KC_ESC;
-uint16_t code_ent = KC_ENT;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
@@ -231,17 +229,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(code_esc);
             } else {
                 unregister_code(code_esc);
-            }
-            return false;
-        case K_ENT_V:
-            if (record->event.pressed) {
-                code_ent = KC_ENT;
-                if (mods & MODS_CTRL_MASK || mods & MODS_GUI_MASK) {
-                    code_ent = KC_V;
-                }
-                register_code(code_ent);
-            } else {
-                unregister_code(code_ent);
             }
             return false;
         case TM_SLCT:
