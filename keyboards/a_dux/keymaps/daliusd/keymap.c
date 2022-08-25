@@ -44,8 +44,8 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
-  K_BSPC_X,
   K_ESC_C,
+  K_BSPC_V,
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_GRV  ,KC_LBRC ,KC_RBRC ,KC_PLUS ,                          KC_MINS ,KC_PIPE ,KC_LCTL ,KC_LGUI ,KC_ALGR ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,KC_BSPC ,KC_LCBR ,KC_RCBR ,KC_EQL  ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,OS_MISC ,KC_BSLS ,
+     XXXXXXX ,XXXXXXX ,KC_LCBR ,KC_RCBR ,KC_EQL  ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,OS_MISC ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT ,K_BSPC_X,K_ESC_C ,KC_TILDE,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
+     KC_LSFT ,KC_TILDE,K_ESC_C ,K_BSPC_V,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_EQL  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -209,17 +209,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!record->event.pressed) return true;
             SEND_STRING(TMUX_PREFIX "c");
             return false;
-        case K_BSPC_X:
-            if (record->event.pressed) {
-                code_bspc = KC_BSPC;
-                if (mods & MODS_CTRL_MASK || mods & MODS_GUI_MASK) {
-                    code_bspc = KC_X;
-                }
-                register_code(code_bspc);
-            } else {
-                unregister_code(code_bspc);
-            }
-            return false;
         case K_ESC_C:
             if (record->event.pressed) {
                 code_esc = KC_ESC;
@@ -229,6 +218,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(code_esc);
             } else {
                 unregister_code(code_esc);
+            }
+            return false;
+        case K_BSPC_V:
+            if (record->event.pressed) {
+                code_bspc = KC_BSPC;
+                if (mods & MODS_CTRL_MASK || mods & MODS_GUI_MASK) {
+                    code_bspc = KC_V;
+                }
+                register_code(code_bspc);
+            } else {
+                unregister_code(code_bspc);
             }
             return false;
         case TM_SLCT:
