@@ -237,10 +237,16 @@ static void indicator_timer_cb(void *arg) {
     }
 
 #ifdef HOST_LED_PIN_LIST
-    if (indicator_config.value && (indicator_config.value & 0x80)) {
-        writePin(host_led_pin_list[indicator_config.value & 0x0F], HOST_LED_PIN_ON_STATE);
-    } else {
-        writePin(host_led_pin_list[indicator_config.value & 0x0F], !HOST_LED_PIN_ON_STATE);
+    if (indicator_config.value)
+    {
+        uint8_t idx = (indicator_config.value & 0x0F) - 1;
+        chDbgAssert(idx < HOST_DEVICES_COUNT, "array out of bounds");
+
+        if (indicator_config.value & 0x80) {
+           writePin(host_led_pin_list[idx], HOST_LED_PIN_ON_STATE);
+        } else {
+           writePin(host_led_pin_list[idx], !HOST_LED_PIN_ON_STATE);
+        }
     }
 #endif
 
