@@ -8,10 +8,6 @@ BOOTLOADER := tinyuf2
 SERIAL_DRIVER ?= usart
 WS2812_DRIVER ?= bitbang
 
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = legacy
-
-
 ifeq ($(strip $(STMC_US)), yes)
   OPT_DEFS += -DSTEMCELL_UART_SWAP
 endif
