@@ -110,13 +110,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false; // Skip all further processing of this key
 #ifdef BLUETOOTH_ENABLE
         case BT_HST1 ... BT_HST3:
-            if (record->event.pressed) {
-                host_idx = keycode - BT_HST1 + 1;
-                chVTSet(&pairing_key_timer, TIME_MS2I(2000), (vtfunc_t)pairing_key_timer_cb, &host_idx);
-                bluetooth_connect_ex(host_idx, 0);
-            } else {
-                host_idx = 0;
-                chVTReset(&pairing_key_timer);
+            if (get_transport() == TRANSPORT_BLUETOOTH) {
+                if (record->event.pressed) {
+                    host_idx = keycode - BT_HST1 + 1;
+                    chVTSet(&pairing_key_timer, TIME_MS2I(2000), (vtfunc_t)pairing_key_timer_cb, &host_idx);
+                    bluetooth_connect_ex(host_idx, 0);
+                } else {
+                    host_idx = 0;
+                    chVTReset(&pairing_key_timer);
+                }
             }
             break;
         case BAT_LVL:
