@@ -52,10 +52,6 @@ enum crkbd_layers {
     GAME
 };
 
-enum custom_keycodes {
-  RGBRST,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x6_3(
     TO(NSSL),          KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,         TO(MOUR),
@@ -64,37 +60,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL)
   ),
   [NAVR] = LAYOUT_split_3x6_3(
-    TO(NSSL),  KC_RST,  RGBRST,   KC_NA,   KC_NA,   KC_NA,   KC_AGIN, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE,  TO(MOUR),
+    TO(NSSL),  KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_AGIN, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE,  TO(MOUR),
     TO(NSL),   KC_LGUI, KC_LALT,  KC_LCTL, KC_LSFT, KC_NA,   KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,  TO(BASE),
     TO(FUNL),  KC_NA,   KC_ALGR,  KC_NA,   KC_NA,   KC_NA,   KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,   TO(MEDR),
                                   KC_NA,   KC_NA,   KC_NA,   KC_ENT,  KC_BSPC, KC_DEL
   ),
   [MOUR] = LAYOUT_split_3x6_3(
-    TO(NSSL),  KC_RST,  RGBRST,   KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,    TO(BASE),
+    TO(NSSL),  KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,    TO(BASE),
     TO(NSL),   KC_LGUI, KC_LALT,  KC_LCTL, KC_LSFT, KC_NA,   KC_NU,   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  TO(NAVR),
     TO(FUNL),  KC_NA,   KC_ALGR,  KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,  TO(MEDR),
                                   KC_NA,   KC_NA,   KC_NA,   KC_BTN1, KC_BTN3, KC_BTN2
   ),
   [MEDR] = LAYOUT_split_3x6_3(
-    TO(NSSL),  KC_RST,  RGBRST,   KC_NA,   KC_NA,   KC_NA,   KC_TOG,  KC_MOD,  KC_HUI,  KC_SAI,  KC_VAI,   TO(MOUR),
+    TO(NSSL),  KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_TOG,  KC_MOD,  KC_HUI,  KC_SAI,  KC_VAI,   TO(MOUR),
     TO(NSL),   KC_LGUI, KC_LALT,  KC_LCTL, KC_LSFT, KC_NA,   KC_NU,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT,  TO(NAVR),
     TO(FUNL),  KC_NA,   KC_ALGR,  KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,    TO(BASE),
                                   KC_NA,   KC_NA,   KC_NA,   KC_MSTP, KC_MPLY, KC_MUTE
   ),
   [FUNL] = LAYOUT_split_3x6_3(
-    TO(NSSL),  KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, KC_NA,   KC_NA,   KC_NA,   RGBRST,   KC_RST,   TO(MOUR),
+    TO(NSSL),  KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,   TO(MOUR),
     TO(NSL),   KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK, KC_NA,   KC_LSFT, KC_LCTL, KC_LALT,  KC_LGUI,  TO(NAVR),
     TO(BASE),  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR,  KC_NA,    TO(MEDR),
                                 KC_APP,  KC_SPC,  KC_TAB,  KC_NA,   KC_NA,   KC_NA
   ),
   [NSL] = LAYOUT_split_3x6_3(
-    TO(NSSL),  KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, KC_NA,   KC_NA,   KC_NA,   RGBRST,   KC_RST,   TO(MOUR),
+    TO(NSSL),  KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,   TO(MOUR),
     TO(BASE),  KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT,  KC_LGUI,  TO(NAVR),
     TO(FUNL),  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR,  KC_NA,    TO(MEDR),
                                 KC_DOT,  KC_0,    KC_MINS, TO(GAME),   KC_NA,   KC_NA
   ),
   [NSSL] = LAYOUT_split_3x6_3(
-    TO(BASE),  KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, KC_NA,   KC_NA,   KC_NA,   RGBRST,   KC_RST,  TO(MOUR),
+    TO(BASE),  KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,  TO(MOUR),
     TO(NSL),   KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_NA,   KC_LSFT, KC_LCTL, KC_LALT,  KC_LGUI, TO(NAVR),
     TO(FUNL),  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, KC_NA,   KC_NA,   KC_NA,   KC_ALGR,  KC_NA,   TO(MEDR),
                                 KC_GT,   KC_RPRN, KC_UNDS, KC_NA,   KC_NA,   KC_NA
