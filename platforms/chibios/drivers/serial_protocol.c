@@ -129,7 +129,7 @@ static inline bool initiate_transaction(uint8_t transaction_id) {
 
     /* Send transaction table index to the slave, which doubles as basic handshake token. */
     if (unlikely(!serial_transport_send(&transaction_id, sizeof(transaction_id)))) {
-        serial_dprintf("SPLIT: sending handshake failed\n");
+        serial_dprintf("SPLIT: 132 sending handshake failed\n");
         return false;
     }
 
@@ -140,7 +140,7 @@ static inline bool initiate_transaction(uint8_t transaction_id) {
      *   - without the read, write only transactions *always* succeed, even during the boot process where the slave is not ready.
      */
     if (unlikely(!serial_transport_receive(&transaction_id_shake, sizeof(transaction_id_shake)) || (transaction_id_shake != (transaction_id ^ NUM_TOTAL_TRANSACTIONS)))) {
-        serial_dprintf("SPLIT: receiving handshake failed\n");
+        serial_dprintf("SPLIT: 143 receiving handshake failed\n");
         return false;
     }
 

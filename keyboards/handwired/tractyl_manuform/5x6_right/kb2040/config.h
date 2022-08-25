@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
 // #define SPLIT_HAND_PIN C14 // high = left, low = right
 
-// #define EE_HANDS
+#define EE_HANDS
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN PIN_A0
@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_DEBUG
-// #define SERIAL_PIO_USE_PIO1      // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral
+#define SERIAL_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral
 #define SERIAL_USART_PIN_SWAP
 #define SERIAL_USART_FULL_DUPLEX // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN PIN_TX
@@ -67,8 +67,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_SPEED 230400
 
 #define SPLIT_USB_DETECT
+#define EE_HANDS
 
-#define MASTER_RIGHT
+// #define MASTER_RIGHT
 
 /* pmw3360 config  */
 #define PMW33XX_CS_PIN PIN_D10
