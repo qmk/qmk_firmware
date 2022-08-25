@@ -1,5 +1,5 @@
 #!/bin/bash
-HOME_DIR=/Users/chris.trotter/git/printing/qmk_fw
+HOME_DIR=/Users/christrotter/git/printing/qmk_fw
 KB_DIR=$HOME_DIR/keyboards/handwired/tractyl_manuform_ct/5x6_right
 USER_DIR=$HOME_DIR/users/christrotter
 
