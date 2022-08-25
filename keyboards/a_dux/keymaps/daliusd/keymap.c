@@ -41,18 +41,6 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
-  LT_AOGO, // Ą
-  LT_CCAR, // Č
-  LT_EOGO, // Ę
-  LT_EDOT, // Ė
-  LT_IOGO, // Į
-  LT_SCAR, // Š
-  LT_UOGO, // Ų
-  LT_UMAC, // Ū
-  LT_ZCAR, // Ž
-  CMD_X,
-  CMD_C,
-  CMD_V,
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
@@ -104,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,KC_GRV  ,KC_LBRC ,KC_RBRC ,KC_PLUS ,                          KC_MINS ,KC_PIPE ,KC_LCTL ,KC_LGUI ,KC_LALT ,
+     XXXXXXX ,KC_GRV  ,KC_LBRC ,KC_RBRC ,KC_PLUS ,                          KC_MINS ,KC_PIPE ,KC_LCTL ,KC_LGUI ,KC_ALGR ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_BSPC ,KC_LCBR ,KC_RCBR ,KC_EQL  ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,OS_MISC ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
@@ -114,11 +102,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,CMD_X   ,CMD_C   ,CMD_V   ,XXXXXXX ,                          KC_MS_L ,KC_MS_D ,KC_MS_U ,KC_MS_R ,KC_BTN1 ,
+     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,KC_BTN2 ,
+     KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_TILDE,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
+     KC_LSFT ,KC_BSPC ,KC_ESC  ,KC_ENT  ,OS_TMUX ,                          XXXXXXX ,OS_FUNC ,XXXXXXX ,KC_DEL  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -126,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MISC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     RESET   ,L_MOUSE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,XXXXXXX ,KC_PSCR ,K_PRINT ,
+     RESET   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,XXXXXXX ,KC_PSCR ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,DEBUG   ,XXXXXXX ,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,XXXXXXX ,KC_MNXT ,K_VIDEO ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
@@ -174,11 +162,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LT] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
+     KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_PLUS ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     LT_AOGO ,LT_CCAR ,LT_EOGO ,LT_EDOT ,LT_IOGO ,                          LT_SCAR ,LT_UOGO ,LT_UMAC ,LT_ZCAR ,XXXXXXX ,
+     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_EQL  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_LSFT ,
+     XXXXXXX ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -186,40 +174,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
-
-bool lang_layer_on = false;
-bool pressWithLangSwitch(keyrecord_t *record, uint8_t kc) {
-    if (record->event.pressed) {
-        uint8_t mods = get_mods();
-        if (mods & MOD_MASK_SHIFT) {
-            del_mods(MOD_MASK_SHIFT);
-        }
-        if (!lang_layer_on) {
-            lang_layer_on = true;
-            register_code(KC_LCTL);
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-            unregister_code(KC_LCTL);
-        }
-
-        set_mods(mods);
-
-        register_code(kc);
-    } else {
-        unregister_code(kc);
-
-        if (lang_layer_on) {
-            lang_layer_on = false;
-            register_code(KC_LCTL);
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-            unregister_code(KC_LCTL);
-        }
-    }
-    return false;
-}
-
-bool sw_win_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
@@ -253,40 +207,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!record->event.pressed) return true;
             SEND_STRING(TMUX_PREFIX "\t");
             return false;
-        case CMD_X:
-            if (!record->event.pressed) return true;
-            SEND_STRING(SS_LGUI("x"));
-            return false;
-        case CMD_C:
-            if (!record->event.pressed) return true;
-            SEND_STRING(SS_LGUI("c"));
-            return false;
-        case CMD_V:
-            if (!record->event.pressed) return true;
-            SEND_STRING(SS_LGUI("v"));
-            return false;
         case TM_URL:
             if (!record->event.pressed) return true;
             SEND_STRING(TMUX_PREFIX SS_LCTL("u"));
             return false;
-        case LT_AOGO: // Ą
-            return pressWithLangSwitch(record, KC_1);
-        case LT_CCAR: // Č
-            return pressWithLangSwitch(record, KC_2);
-        case LT_EOGO: // Ę
-            return pressWithLangSwitch(record, KC_3);
-        case LT_EDOT: // Ė
-            return pressWithLangSwitch(record, KC_4);
-        case LT_IOGO: // Į
-            return pressWithLangSwitch(record, KC_5);
-        case LT_SCAR: // Š
-            return pressWithLangSwitch(record, KC_6);
-        case LT_UOGO: // Ų
-            return pressWithLangSwitch(record, KC_7);
-        case LT_UMAC: // Ū
-            return pressWithLangSwitch(record, KC_8);
-        case LT_ZCAR: // Ž
-            return pressWithLangSwitch(record, KC_EQL);
     }
     return true;
 }
@@ -295,7 +219,23 @@ void matrix_scan_user(void) {
     flow_matrix_scan();
 }
 
+bool lang_layer_on = false;
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _SYM, _NAV, _LT);
+
+    uint8_t hl = get_highest_layer(state);
+    if (hl == _LT) {
+        if (!lang_layer_on) {
+            tap_code16(LCTL(KC_SPC));
+            lang_layer_on = true;
+        }
+    } else {
+        if (lang_layer_on) {
+            tap_code16(LCTL(KC_SPC));
+            lang_layer_on = false;
+        }
+    }
+
     return state;
 }
