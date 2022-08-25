@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x0035
-#define MANUFACTURER    kaylynb
-#define PRODUCT         MechLlama G35
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 7
 
