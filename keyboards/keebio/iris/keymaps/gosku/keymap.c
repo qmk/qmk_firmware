@@ -145,9 +145,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
+int ledmap[][DRIVER_LED_TOTAL] = {
     [_QWERTY] = {
-         RED, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,    RED,  // R1
+        PINK, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   PINK,  // R1
       YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R2
       YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R3
       YELLOW, YELLOW,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,    RED, YELLOW, YELLOW, YELLOW,  // R4
@@ -165,7 +165,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL] = {
     },
 
     [_RAISE] = {
-         RED, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,  GREEN, YELLOW,  GREEN,   NONE,    RED,  // R1
+        PINK, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,  GREEN, YELLOW,  GREEN,   NONE,   BLUE,  // R1
         NONE, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET, YELLOW, YELLOW, YELLOW,   PINK,   PINK,  // R2
         NONE, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,   NONE,   NONE,   NONE,   NONE,   NONE,  // R3
         NONE,   NONE,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,   NONE,   NONE,   NONE,   NONE,  // R4
@@ -198,31 +198,40 @@ const uint8_t ledmap_to_index[DRIVER_LED_TOTAL] = {
       28, 29, 30, 31, 32, 33,                    62, 63, 64, 65, 66, 67, // Underglow
 };
 
-void set_layer_color(int layer) {
-  int position;
-  HSV hsv = {
-    .h = 0,
-    .s = 255,
-    .v = 170,
-  };
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++){
-    hsv.h = pgm_read_byte(&ledmap[layer][i]);
-    // get the position of the led that correspond with the key in ledmap
-    position = ledmap_to_index[i];
 
-    if (pgm_read_byte(&ledmap[layer][i]) == NONE) {
-        rgb_matrix_set_color(position, 0, 0, 0);
-    } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        rgb_matrix_set_color(position, rgb.r, rgb.g, rgb.b );
-    }
+void set_led_color(int led_index, int hue){
+  // get the position of the led that correspond with the key in ledmap
+  int position = ledmap_to_index[led_index];
+  if (hue == NONE) {
+    rgb_matrix_set_color(position, 0, 0, 0);
+  } else {
+    HSV hsv = {
+      .h = hue,
+      .s = 255,
+      .v = 170,
+    };
+    RGB rgb = hsv_to_rgb( hsv );
+    rgb_matrix_set_color(position, rgb.r, rgb.g, rgb.b );
+  }
+
+}
+
+void set_layer_color(int layer) {
+
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++){
+    set_led_color(i, ledmap[layer][i]);
   }
 }
+
+
 
 void rgb_matrix_indicators_user(void) {
   switch (biton32(layer_state)) {
     case 0:
       set_layer_color(_QWERTY);
+      if (host_keyboard_led_state().caps_lock){
+        set_led_color(24, PINK); // assuming caps lock is at led with index #24
+      }
       break;
     case 1:
       set_layer_color(_LOWER);
@@ -238,6 +247,7 @@ void rgb_matrix_indicators_user(void) {
       rgb_matrix_set_color_all(0, 0, 0);
     break;
   }
+
 }
 
 
