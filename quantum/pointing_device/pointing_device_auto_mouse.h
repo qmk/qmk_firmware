@@ -72,8 +72,8 @@ void toggle_mouse_layer(void);     // toggle mouse layer flag disables mouse lay
 bool get_toggle_mouse_state(void); // return toggle mouse bool value
 
 /* --------------------------handling key events--------------------------------- */
-void auto_mouse_keyevent(bool pressed); // trigger auto mouse keyevent (true: keydown, false: keyup)
-void auto_mouse_reset_trigger(void);    // reset the active layer timer, mousekey_tracker and start debounce timer
+void auto_mouse_keyevent(keyrecord_t* record); // trigger auto mouse keyevent (true: keydown, false: keyup)
+void auto_mouse_reset_trigger(void);           // reset the active layer timer, mousekey_tracker and start debounce timer
 
 /* -----------Callbacks for adding keycodes to mouse record checking------------- */
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record);
