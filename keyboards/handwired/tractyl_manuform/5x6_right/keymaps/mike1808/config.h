@@ -1,4 +1,4 @@
-#define USE_SERIAL
+// #define USE_SERIAL
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+#define MASTER_RIGHT

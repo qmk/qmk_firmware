@@ -16,4 +16,5 @@
 
 #pragma once
 
+#include "pins.h"
 #include "5x6_right.h"

@@ -16,14 +16,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "pins.h"
+
 #define PRODUCT Tractyl Manuform(5x6) RP2040
 
 // wiring of each half
-#define MATRIX_COL_PINS_ \
-    { GP10, GP6, GP5, GP4, GP3, GP2 }
+#define MATRIX_COL_PINS \
+    { PIN_D10, PIN_D6, PIN_D5, PIN_D4, PIN_D3, PIN_D2 }
 
 #define MATRIX_ROW_PINS \
-    { GP7, GP8, GP27, GP28, GP29 }
+    { PIN_D7, PIN_D8, PIN_A1, PIN_A2, PIN_A3, PIN_D9 }
+
+#define MATRIX_COL_PINS_RIGHT \
+    { PIN_D2, PIN_D3, PIN_D4, PIN_D5, PIN_D6, PIN_D7 }
+
+#define MATRIX_ROW_PINS_RIGHT \
+    { PIN_D8, PIN_D9, PIN_A2, PIN_A3, PIN_A1, NO_PIN }
 
 #ifdef DIODE_DIRECTION
 #    undef DIODE_DIRECTION
@@ -37,8 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
 // #define SPLIT_HAND_PIN C14 // high = left, low = right
 
+// #define EE_HANDS
+
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN GP26
+#define RGB_DI_PIN PIN_A0
 #define WS2812_PWM_DRIVER vendor
 
 #define RGBLED_NUM 62
@@ -46,29 +56,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_SPLIT \
     { 32, 30 }
 
-// #define DEBUG_LED_PIN GP17
-
 /* serial.c configuration for split keyboard */
+#define SERIAL_DEBUG
+// #define SERIAL_PIO_USE_PIO1      // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral
+#define SERIAL_USART_PIN_SWAP
 #define SERIAL_USART_FULL_DUPLEX // Enable full duplex operation mode.
-#define SERIAL_USART_TX_PIN GP1
-#define SERIAL_USART_RX_PIN GP0
-#define SERIAL_USART_DRIVER SD2
-#define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
-#define SERIAL_USART_RX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
-#define SERIAL_USART_TIMEOUT 100   // USART driver timeout. default 100
-#define SERIAL_USART_SPEED 921600
+#define SERIAL_USART_TX_PIN PIN_TX
+#define SERIAL_USART_RX_PIN PIN_RX
+#define SERIAL_USART_TIMEOUT 100 // USART driver timeout. default 100
+#define SERIAL_USART_SPEED 230400
 
-/* i2c config for oleds */
-/* spi config for eeprom and pmw3360 sensor */
+#define SPLIT_USB_DETECT
 
-/* eeprom config */
+#define MASTER_RIGHT
 
 /* pmw3360 config  */
-#define PMW33XX_CS_PIN GP10
+#define PMW33XX_CS_PIN PIN_D10
 
 #ifdef POINTING_DEVICE_INVERT_X
 #    undef POINTING_DEVICE_INVERT_X
 #endif
 
-#define POINTING_DEVICE_INVERT_Y
 #define POINTING_DEVICE_ROTATION_90

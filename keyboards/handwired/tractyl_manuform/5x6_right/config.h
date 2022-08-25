@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define PRODUCT_ID 0x3536
+#define DEVICE_VER 0x0001
+
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 12
@@ -28,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define ROTATIONAL_TRANSFORM_ANGLE -25
+#define POINTING_DEVICE_INVERT_X
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

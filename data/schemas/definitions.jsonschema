@@ -99,6 +99,10 @@
             },
             {
                 "type": "string",
+                "pattern": "^PIN_.*$"
+            },
+            {
+                "type": "string",
                 "pattern": "^LINE_PIN\\d{1,2}$"
             },
             {
