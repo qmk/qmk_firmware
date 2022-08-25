@@ -33,7 +33,7 @@ It takes a village.  Without this list, this would not have happened.
 - Uses 97% of flash space (*room to improve...but not much room for much else*)
 
 ## Code
-I started by copying Drashna's userspace and the tractyl_manuform keyboard, and by the end stripped out everything I didn't need/understand.
+I started by copying Drashna's userspace and the tractyl_manuform keyboard, and by the end stripped out everything I didn't need/understand.  See my userspace for more code.
 
 ### Build environment
 Be sure to follow the QMK docs on getting your build environment working.
