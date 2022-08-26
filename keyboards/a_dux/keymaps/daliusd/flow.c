@@ -45,15 +45,6 @@ flow_state_t flow_layers_state[FLOW_LAYERS_COUNT] = {
 bool flow_layer_timeout_timers_active[FLOW_LAYERS_COUNT] = { [0 ... FLOW_LAYERS_COUNT - 1] = false };
 uint16_t flow_layer_timeout_timers_value[FLOW_LAYERS_COUNT] = { [0 ... FLOW_LAYERS_COUNT - 1] = 0 };
 
-bool is_flow_cancel_key(uint16_t keycode) {
-    for (int i = 0; i < FLOW_COUNT; i++) {
-        if (flow_config[i][0] == keycode) {
-            return true;
-        }
-    }
-    return false;
-}
-
 bool is_flow_ignored_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
         if (flow_config[i][0] == keycode) {
@@ -86,7 +77,6 @@ bool update_flow_mods(
     bool flow_key_list_pressed[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
 
     bool flow_triggered = false;
-    bool flow_second_key_pressed = false;
 
     for (uint8_t i = 0; i < FLOW_COUNT; i++) {
         // Layer key
@@ -95,9 +85,6 @@ bool update_flow_mods(
                 flow_pressed[i][0] = true;
             } else {
                 flow_pressed[i][0] = false;
-            }
-            if (flow_pressed[i][1]) {
-                flow_second_key_pressed = true;
             }
         // KC mod key
         } else if (keycode == flow_config[i][1]) {
@@ -156,13 +143,6 @@ bool update_flow_mods(
             }
         } else if (!flow_triggered) {
             if (pressed) {
-                if (is_flow_cancel_key(keycode)
-                        && flow_state[i] != flow_up_unqueued
-                        && !flow_second_key_pressed) {
-                    // Cancel oneshot on designated cancel keydown.
-                    flow_state[i] = flow_up_unqueued;
-                    unregister_code(flow_config[i][1]);
-                }
                 if (!is_flow_ignored_key(keycode)) {
                     switch (flow_state[i]) {
                     case flow_up_queued:
@@ -255,14 +235,6 @@ bool update_flow_layers(
             }
         } else {
             if (pressed) {
-                if (is_flow_cancel_key(keycode)
-                        && flow_layers_state[i] != flow_up_unqueued) {
-                    // Cancel oneshot layer on designated cancel keydown.
-                    flow_layers_state[i] = flow_up_unqueued;
-                    layer_off(layer);
-                    change_pressed_status(trigger, false);
-                    pass = false;
-                }
                 if (key_layer == layer) {
                     // On non-ignored keyup, consider the oneshot used.
                     switch (flow_layers_state[i]) {
