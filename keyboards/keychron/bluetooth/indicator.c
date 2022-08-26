@@ -213,8 +213,9 @@ static void indicator_timer_cb(void *arg) {
 
                 if ((indicator_config.duration == 0 || indicator_config.elapsed <= indicator_config.duration) && next_period != 0) {
                     indicator_config.elapsed += next_period;
-                } else
+                } else {
                     time_up = true;
+                }
             }
             break;
         default:
@@ -223,6 +224,21 @@ static void indicator_timer_cb(void *arg) {
             next_period = 0;
             break;
     }
+
+#ifdef HOST_LED_PIN_LIST
+    if (indicator_config.value)
+    {
+        uint8_t idx = (indicator_config.value & 0x0F) - 1;
+
+        if (idx < HOST_DEVICES_COUNT) {
+            if ((indicator_config.value & 0x80) && !time_up) {
+               writePin(host_led_pin_list[idx], HOST_LED_PIN_ON_STATE);
+            } else {
+               writePin(host_led_pin_list[idx], !HOST_LED_PIN_ON_STATE);
+            }
+        }
+    }
+#endif
 
     if (time_up) {
         /* Set indicator to off on timeup, avoid keeping light up until next update in raindrop effect */
@@ -235,20 +251,6 @@ static void indicator_timer_cb(void *arg) {
 #endif
         indicator_config.value = 0;
     }
-
-#ifdef HOST_LED_PIN_LIST
-    if (indicator_config.value)
-    {
-        uint8_t idx = (indicator_config.value & 0x0F) - 1;
-        chDbgAssert(idx < HOST_DEVICES_COUNT, "array out of bounds");
-
-        if (indicator_config.value & 0x80) {
-           writePin(host_led_pin_list[idx], HOST_LED_PIN_ON_STATE);
-        } else {
-           writePin(host_led_pin_list[idx], !HOST_LED_PIN_ON_STATE);
-        }
-    }
-#endif
 
     if (indicator_config.value == 0 && !indicator_is_backlit_enabled_eeprom()) {
         indicator_disable();
