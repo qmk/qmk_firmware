@@ -1,6 +1,6 @@
 # Nearfield
 
-![Nearfield](https://i.imgur.com/hNj44FY.jpg)
+![Nearfield](https://i.imgur.com/hNj44FYh.jpg)
 
 The LZ ErGO is a classic ergonomic design, predating the alice layout, and drawing inspiration from the "Microsoft natural ergonomic" series.
 Nearfield expands on this by increasing the rotation of the two halves of the alpha cluster, each half is rotated 15 degrees towards the center of the board.
