@@ -41,6 +41,46 @@ As you can see, you have a few functions. You can use `SEQ_ONE_KEY` for single-k
 
 Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
 
+## Leader_new_key
+Alternatively, the leader key also offers a hook to inspect the leader sequence as it grows. This allows for short circuiting when a prefix is matched.
+
+```c
+LEADER_EXTERNS();
+
+bool leader_match(const uint16_t pattern[], const int pattern_size) {
+    if (leader_sequence_size > pattern_size) {
+        return false;
+    }
+    for (int i = 0; i < pattern_size; i++) {
+        if (pattern[i] != leader_sequence[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void leader_new_key(void) {
+    if (leader_match( (uint16_t[]) { KC_T }, 1)) { // test
+        SEND_STRING("test");
+        leading = false;
+    } else if (leader_match( (uint16_t[]) { KC_P, KC_E }, 2)) { // personal email
+        SEND_STRING("email@example.com");
+        leading = false;
+    } else if (leader_match( (uint16_t[]) { KC_P, KC_P }, 2)) { // personal phone
+        SEND_STRING("888-888-8888");
+        leading = false;
+    }
+}
+
+void leader_start(void) {}
+
+void leader_end(void) {
+    if (did_leader_succeed) {
+    } else {
+    }
+}
+```
+
 ## Adding Leader Key Support in the `rules.mk`
 
 To add support for Leader Key you simply need to add a single line to your keymap's `rules.mk`:
