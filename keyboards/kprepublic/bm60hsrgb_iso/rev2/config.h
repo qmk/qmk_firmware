@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50
-#define PRODUCT_ID      0x1123
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KP REPUBLIC
-#define PRODUCT         BM60V2_ISO
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

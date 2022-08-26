@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1703
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    MechWild
-#define PRODUCT         Mercutio
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 7

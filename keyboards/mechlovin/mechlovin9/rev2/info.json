@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Mechlovin9 Rev2",
+    "usb": {
+        "pid": "0x6509",
+        "device_version": "0.0.2"
+    }
+}

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x7001
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         BOUNCE75_HOTSWAP
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

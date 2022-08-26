@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x6D77 // mw = "MechWild"
-#define PRODUCT_ID   0x170C
-#define DEVICE_VER   0x0103
-#define MANUFACTURER MechWild
-#define PRODUCT      Mokulua
-
 /* Key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6

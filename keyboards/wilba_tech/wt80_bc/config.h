@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x80B0 // 80-BC
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT80-BC
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17

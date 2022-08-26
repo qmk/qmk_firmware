@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B5C // "KP"
-#define PRODUCT_ID      0xB1E5
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KPrepublic
-#define PRODUCT         Cospad
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4

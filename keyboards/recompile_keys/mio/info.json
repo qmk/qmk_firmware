@@ -1,7 +1,13 @@
 {
   "keyboard_name": "MIO",
+  "manufacturer": "recompile keys",
   "url": "https://keys.recompile.net/projects/mio/",
   "maintainer": "recompile keys",
+  "usb": {
+    "vid": "0x524B",
+    "pid": "0x4D41",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

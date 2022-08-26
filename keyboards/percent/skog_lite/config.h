@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x5053 /* PS */
-#define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Percent Studios
-#define PRODUCT         Skog Lite
-
 #define RGBLED_NUM 18
 
 #define MATRIX_ROWS 7
