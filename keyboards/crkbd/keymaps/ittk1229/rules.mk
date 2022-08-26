@@ -1,12 +1,5 @@
-VPATH += keyboards/crkbd/lib
-LIB_SRC += ssd1306.c i2c.c
-
-# If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/glcdfont.c \
-        ./lib/rgb_state_reader.c \
-        ./lib/layer_state_reader.c \
-        ./lib/logo_reader.c \
-        ./lib/keylogger.c \
-        # ./lib/mode_icon_reader.c \
-        # ./lib/host_led_state_reader.c \
-        # ./lib/timelogger.c
+MOUSEKEY_ENABLE = yes    # Mouse keys
+RGBLIGHT_ENABLE = no     # Enable WS2812 RGB underlight.
+OLED_ENABLE     = yes
+OLED_DRIVER     = SSD1306
+LTO_ENABLE      = yes
