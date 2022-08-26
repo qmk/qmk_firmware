@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
 #include "thumbstick.c"
 
@@ -26,6 +27,13 @@ enum layer_names {
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
 #define ADJUST MO(_ADJUST)
+
+enum custom_keycodes {
+    AE_UMLAUT = SAFE_RANGE,
+    UE_UMLAUT,
+    OE_UMLAUT,
+    SS_UMLAUT
+};
 
 enum {
     TD_J_QUOTE,
@@ -47,25 +55,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LGUI(KC_TAB),  KC_Y,     KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_SCLN,
                                             KC_LCTL,   KC_LSFT,    KC_NO,   KC_SPC,    LOWER
   ),
-  
+
   [_LOWER] = LAYOUT_edinburgh41(
-    RGB_TOG,  KC_NO,  KC_LBRC,    KC_RBRC,  KC_NO,    KC_NO,            KC_NO,  LGUI(KC_SPC),  KC_MINUS,  LSFT(KC_EQUAL),  KC_NO,  KC_DEL,
+    RGB_TOG,  KC_NO,  KC_LBRC,    KC_RBRC,  KC_NO,    KC_NO,            KC_NO,  LGUI(KC_SPC),  KC_MINUS,  LSFT(KC_EQUAL),  KC_NO,  LGUI(LSFT(KC_4)),
     _______,  KC_1,  KC_2,  KC_3,  KC_4,   KC_5,            KC_6,  KC_7,  KC_8,    KC_9,  KC_0,   KC_DEL,
     _______,  KC_NO,   LSFT(KC_LBRC),  LSFT(KC_RBRC),  KC_NO,   KC_NO,            KC_NO,  KC_EQUAL,   KC_BSLS,  KC_GRAVE,  KC_NO,  KC_NO,
                                             _______,   _______,  KC_NO,   _______,  _______
   ),
-  
+
   [_RAISE] = LAYOUT_edinburgh41(
     _______,  KC_NO,     KC_UP,     KC_NO,     KC_NO,      KC_NO,               KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
-    _______,  KC_LEFT,  KC_DOWN,   KC_RIGHT,  KC_NO,   KC_NO,            KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_MS_BTN2,    KC_NO,
+    _______,  KC_LEFT,  KC_DOWN,   KC_RIGHT,  KC_NO,   KC_NO,            KC_NO,    UE_UMLAUT,    AE_UMLAUT,    OE_UMLAUT,    SS_UMLAUT,    KC_NO,
     _______,  KC_NO,   KC_NO,  KC_NO,  KC_NO,   KC_NO,            KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,   KC_NO,
                                             _______,   _______,  KC_NO,  _______,  _______
   ),
-  
+
   [_ADJUST] = LAYOUT_edinburgh41(
     RGB_VAI,   RGB_SAI, RGB_HUI,  RGB_MOD,  XXXXXXX,   RGB_TOG,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_VAD,   RGB_SAD, RGB_HUD,  RGB_RMOD, XXXXXXX,   XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            QK_BOOT,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
                                             _______,   _______,  XXXXXXX,  _______,  _______
   ),
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case AE_UMLAUT:
+        if (record->event.pressed) {
+            // when keycode AE_UMLAUT is pressed
+            SEND_STRING(SS_LALT("u") "a");
+        } else {
+            // when keycode AE_UMLAUT is released
+        }
+        break;
+        case UE_UMLAUT:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LALT("u") "u");
+        } else {
+        }
+        break;
+        case OE_UMLAUT:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LALT("u") "o");
+        } else {
+        }
+        break;
+        case SS_UMLAUT:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LALT("s"));
+        } else {
+        }
+        break;
+    }
+    return true;
 };

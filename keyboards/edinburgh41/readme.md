@@ -1,12 +1,12 @@
 # edinburgh41
 
-![edinburgh41](imgur.com image replace me!)
+![edinburgh41](https://imgur.com/a/zzuyEbS)
 
-*A short description of the keyboard/project*
+A small 40% board based on gtip's reviung41. The gasket mounted edinburgh41 features joystick with versatile functionality and rgb underglow.
 
-* Keyboard Maintainer: [L. Mistry](https://github.com/schwarzer-geiger)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Lalit Mistry](https://github.com/schwarzer-geiger)
+* Hardware Supported: edinburgh41 pcb with pro micro or wired equivalent
+* Hardware Availability: Contact me, lalitmistry1407@gmail.com
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Bootmagic reset**: Hold down top left key while plugging keyboard into computer
+* **Physical reset button**: Short RST and GND pins
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
