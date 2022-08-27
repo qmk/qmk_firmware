@@ -35,3 +35,4 @@ RGBLIGHT_DRIVER = WS2812
 
 VPATH += drivers/gpio
 SRC += mcp23018.c i2c_master.c
+OPT_DEFS += -DHAL_USE_I2C=TRUE
