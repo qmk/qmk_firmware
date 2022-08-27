@@ -1,6 +1,6 @@
 # edinburgh41
 
-![edinburgh41](https://imgur.com/a/zzuyEbS)
+![edinburgh41](https://imgur.com/a/zzuyEbS.jpg)
 
 A small 40% board based on gtip's reviung41. The gasket mounted edinburgh41 features joystick with versatile functionality and rgb underglow.
 
