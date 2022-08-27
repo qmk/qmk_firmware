@@ -10,7 +10,6 @@
 #    pragma message("ChibiOS is currently 'best effort' and might not report accurate results")
 
 i2c_status_t i2c_start_bodge(uint8_t address, uint16_t timeout) {
-    i2c_start(address);
 
     // except on ChibiOS where the only way is do do "something"
     uint8_t data = 0;
