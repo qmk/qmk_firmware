@@ -1,0 +1,38 @@
+{
+    "keyboard_name": "primer16", 
+    "url": "https://shop.yushakobo.jp/products/quick17",
+    "maintainer": "yushakobo",
+    "usb": {
+        "vid": "0x3265",
+        "pid": "0x000D",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"WheelUp", "x":1.25, "y":0, "w":1.25, "h":0.5},
+                {"label":"Vol+", "x":2.75, "y":0, "w":1.25, "h":0.5},
+                {"label":"WheelDown", "x":1.25, "y":0.5, "w":1.25, "h":0.5},
+                {"label":"Vol-", "x":2.75, "y":0.5, "w":1.25, "h":0.5},
+                {"label":"MS_BTN3", "x":1.25, "y":1.25, "w":1.25, "h":1.25},
+                {"label":"Mute", "x":2.75, "y":1.25, "w":1.25, "h":1.25},
+                {"label":"7", "x":0, "y":2.75},
+                {"label":"8", "x":1, "y":2.75},
+                {"label":"9", "x":2, "y":2.75},
+                {"label":"/", "x":3, "y":2.75},
+                {"label":"4", "x":0, "y":3.75},
+                {"label":"5", "x":1, "y":3.75},
+                {"label":"6", "x":2, "y":3.75},
+                {"label":"*", "x":3, "y":3.75},
+                {"label":"1", "x":0, "y":4.75},
+                {"label":"2", "x":1, "y":4.75},
+                {"label":"3", "x":2, "y":4.75},
+                {"label":"-", "x":3, "y":4.75},
+                {"label":"0", "x":0, "y":5.75},
+                {"label":".", "x":1, "y":5.75},
+                {"label":"Ent", "x":2, "y":5.75},
+                {"label":"+", "x":3, "y":5.75}
+            ]
+        }
+    }
+}
