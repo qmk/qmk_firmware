@@ -26,9 +26,9 @@
 
     // Rebrand the PCB
 #   undef PRODUCT
-#   define PRODUCT Protorne Keyboard
+#   define PRODUCT "Protorne Keyboard"
 #   undef MANUFACTURER
-#   define MANUFACTURER Waffles
+#   define MANUFACTURER "Waffles"
 
     // Remove OLED definitions? 
 #   undef USE_I2C
