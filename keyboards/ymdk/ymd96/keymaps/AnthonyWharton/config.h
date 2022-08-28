@@ -19,35 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    ymdkey
-#define PRODUCT         ymd96
-
-/* Matrix Size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-#define DIODE_DIRECTION COL2ROW
-
 /* Required for MX Locks installed */
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 
-#define PREVENT_STUCK_MODIFIERS
-#define TAPPING_TOGGLE 3
-#define NO_UART 1
-
+#undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 12
-
-/* RGB Underglow  */
-// The RGB_DI_PING value seems to be shared between all PS2AVRGB boards.
-// The same pin is used on the JJ40, at least.
-#define RGBLED_NUM 18
-#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are send
-                      //       via I2C to 0xB0
-
-#define RGBLIGHT_ANIMATIONS
 
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85 // 1.0-2.7
 #define RGBLIGHT_EFFECT_BREATHE_MAX 255     // 1-255
