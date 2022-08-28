@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "adukif_75",
+    "keyboard_name": "adukif 75%",
+    "manufacturer": "adukif",
     "url": "",
     "maintainer": "adukif",
+    "usb": {
+        "vid": "0x4254",
+        "pid": "0x7070",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
