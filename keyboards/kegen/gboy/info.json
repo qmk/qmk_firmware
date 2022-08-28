@@ -1,5 +1,6 @@
 {
-    "keyboard_name": "Kegen G-Boy", 
+    "keyboard_name": "G-Boy", 
+    "manufacturer": "Kegen",
     "url": "", 
     "maintainer": "@mattchan", 
     "usb": {
