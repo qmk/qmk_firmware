@@ -17,7 +17,7 @@
 #pragma once
 
 #undef PRODUCT
-#define PRODUCT Charybdis (4x6) Blackpill
+#define PRODUCT "Charybdis (4x6) Blackpill"
 
 #undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS \
