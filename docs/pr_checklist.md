@@ -46,9 +46,12 @@ Closed PRs (for inspiration, previous sets of review comments will help you elim
 https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
 - `info.json`
-    - valid URL
-    - valid maintainer
-    - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
+    - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
+    - the mandatory elements for a minimally complete `info.json` at present are:
+        - valid URL
+        - valid maintainer
+        - valid USB VID/PID and device version
+        - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
 - `readme.md`
     - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end

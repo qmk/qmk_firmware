@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID     0x4A57 // JW
-#define PRODUCT_ID    0x0000 // first keeb
-#define DEVICE_VER    0x0000 // first revision
-#define MANUFACTURER  percyjw
-#define PRODUCT       split65
-
 // Audio
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4

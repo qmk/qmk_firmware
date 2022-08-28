@@ -37,7 +37,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   if (RGB_encoder_dir != 0) {
     if (timer_elapsed(RGB_encoder_timer) > 1400) {
@@ -152,7 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
   RGB_encoder_timer = timer_read();
   RGB_encoder_timer2 = timer_read();
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   if (clockwise) {
     RGB_encoder_dir = 1;
   } else {

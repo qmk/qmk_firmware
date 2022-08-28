@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { F4, F5, F6, F7}
 #define MATRIX_COL_PINS { F1, F0, E6, C7, C6, B0, D4, B1, B7, B5, B4, D7}
-#define UNUSED_PINS
 
 #define LED_CAPS_LOCK_PIN B2
 #define LED_PIN_ON_STATE 0
