@@ -15,12 +15,6 @@
  */
 #include "eau_r2.h"
 
-void keyboard_post_init_kb(void) {
-#   ifdef RGBLIGHT_ENABLE
-    rgblight_reload_from_eeprom();
-#   endif
-}
-
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_TIM1_REMAP_PARTIALREMAP;
 }
