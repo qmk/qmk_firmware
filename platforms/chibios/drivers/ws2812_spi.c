@@ -181,7 +181,7 @@ void ws2812_init(void) {
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
     spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
 #ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
-    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+    spiStartSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
 #endif
 }
 
