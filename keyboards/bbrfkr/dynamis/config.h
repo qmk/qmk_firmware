@@ -19,9 +19,9 @@
 #include "config_common.h"
 
 /* key matrix */
-#define MATRIX_ROWS 11
+#define MATRIX_ROWS 10
 #define MATRIX_COLS 7
-#define MATRIX_ROW_PINS { B6, B4, D6, D5, D1, C6, B5, D7, D4, D0, NO_PIN }
+#define MATRIX_ROW_PINS { B6, B4, D6, D5, D1, C6, B5, D7, D4, D0 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7 }
 
 /* rgb num */

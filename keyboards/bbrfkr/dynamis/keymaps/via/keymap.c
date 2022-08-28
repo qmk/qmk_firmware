@@ -58,39 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-keyevent_t encoder_ccw = {
-    .key = (keypos_t){.row = 10, .col = 1},
-    .pressed = false
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QWERTY] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D), },
+    [_LOWER] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
+    [_RAISE] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
+    [_SETTINGS] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
 };
-
-keyevent_t encoder_cw = {
-    .key = (keypos_t){.row = 10, .col = 0},
-    .pressed = false
-};
-
-void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder_ccw)) {
-        encoder_ccw.pressed = false;
-        encoder_ccw.time = (timer_read() | 1);
-        action_exec(encoder_ccw);
-    }
-
-    if (IS_PRESSED(encoder_cw)) {
-        encoder_cw.pressed = false;
-        encoder_cw.time = (timer_read() | 1);
-        action_exec(encoder_cw);
-    }
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        encoder_cw.pressed = true;
-        encoder_cw.time = (timer_read() | 1);
-        action_exec(encoder_cw);
-    } else {
-        encoder_ccw.pressed = true;
-        encoder_ccw.time = (timer_read() | 1);
-        action_exec(encoder_ccw);
-    }
-    return false;
-}
+#endif

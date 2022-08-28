@@ -35,8 +35,7 @@
         { C60, C61, C62, C63, C64, C65, C66 }, \
         { C70, KC_NO, C72, C73, C74, C75, C76 }, \
         { C80, C81, C82, C83, C84, C85, C86 }, \
-        { C90, C91, C92, C93, C94, C95, C96 }, \
-        { KC_WH_D, KC_WH_U, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO } \
+        { C90, C91, C92, C93, C94, C95, C96 } \
     }
 
 #define LAYOUT_iso( \
@@ -56,6 +55,5 @@
         { KC_NO, C61, C62, C63, C64, C65, C66 }, \
         { C70, C71, C72, C73, C74, C75, C76 }, \
         { C80, C81, C82, C83, C84, C85, C86 }, \
-        { C90, C91, C92, C93, C94, C95, C96 }, \
-        { KC_WH_D, KC_WH_U, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO } \
+        { C90, C91, C92, C93, C94, C95, C96 } \
     }
