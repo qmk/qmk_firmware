@@ -20,6 +20,7 @@
 #include "haptic.h"
 #include "gpio.h"
 #include "usb_device_state.h"
+#include "util.h"
 #include <stdlib.h>
 
 uint8_t      solenoid_dwell  = SOLENOID_DEFAULT_DWELL;
