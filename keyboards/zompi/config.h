@@ -23,7 +23,9 @@
 #define MANUFACTURER tompi
 #define PRODUCT Zompi
 
-//#define SOFT_SERIAL_PIN GP0
+#define SOFT_SERIAL_PIN GP0
+#define CRC8_USE_TABLE
+#define CRC8_OPTIMIZE_SPEED
 
 //#define MASTER_RIGHT
 
