@@ -264,11 +264,12 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
         checksum_computed += split_trans_target2initiator_buffer(trans)[i];
     }
     checksum_computed ^= 7;
-    uint8_t checksum_received = serial_read_byte();
+    serial_read_byte();
 
     sync_recv();
     serial_delay();
 
+    /*
     if ((checksum_computed) != (checksum_received)) {
         serial_dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
         serial_output();
@@ -277,6 +278,7 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
         chSysUnlock();
         return false;
     }
+    */
 
     // always, release the line when not in use
     serial_high();
