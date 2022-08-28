@@ -5,9 +5,6 @@
 
 #include "config_common.h"
 
-/* Tapping Term */
-#define TAPPING_TERM 175
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
