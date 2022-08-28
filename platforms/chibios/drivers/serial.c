@@ -20,7 +20,8 @@
 #    error "chSysPolledDelayX method not supported on this platform"
 #else
 #    undef wait_us
-#    define wait_us(x) chSysPolledDelayX(US2RTC(CPU_CLOCK, x))
+// Force usage of polled waiting - in case WAIT_US_TIMER is activated
+#    define wait_us(us) chSysPolledDelayX(US2RTC(REALTIME_COUNTER_CLOCK, us))
 #endif
 
 #ifndef SELECT_SOFT_SERIAL_SPEED

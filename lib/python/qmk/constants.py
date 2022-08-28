@@ -20,6 +20,7 @@ VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 
 # Bootloaders of the supported processors
 MCU2BOOTLOADER = {
+    "RP2040": "rp2040",
     "MKL26Z64": "halfkay",
     "MK20DX128": "halfkay",
     "MK20DX256": "halfkay",
@@ -56,6 +57,59 @@ MCU2BOOTLOADER = {
     "atmega32a": "bootloadhid",
     "atmega328p": "usbasploader",
     "atmega328": "usbasploader",
+}
+
+# Map of legacy keycodes that can be automatically updated
+LEGACY_KEYCODES = {  # Comment here is to force multiline formatting
+    'RESET': 'QK_BOOT'
+}
+
+# Map VID:PID values to bootloaders
+BOOTLOADER_VIDS_PIDS = {
+    'atmel-dfu': {
+        ("03eb", "2fef"),  # ATmega16U2
+        ("03eb", "2ff0"),  # ATmega32U2
+        ("03eb", "2ff3"),  # ATmega16U4
+        ("03eb", "2ff4"),  # ATmega32U4
+        ("03eb", "2ff9"),  # AT90USB64
+        ("03eb", "2ffa"),  # AT90USB162
+        ("03eb", "2ffb")  # AT90USB128
+    },
+    'kiibohd': {("1c11", "b007")},
+    'stm32-dfu': {
+        ("1eaf", "0003"),  # STM32duino
+        ("0483", "df11")  # STM32 DFU
+    },
+    'apm32-dfu': {("314b", "0106")},
+    'gd32v-dfu': {("28e9", "0189")},
+    'bootloadhid': {("16c0", "05df")},
+    'usbasploader': {("16c0", "05dc")},
+    'usbtinyisp': {("1782", "0c9f")},
+    'md-boot': {("03eb", "6124")},
+    'caterina': {
+        # pid.codes shared PID
+        ("1209", "2302"),  # Keyboardio Atreus 2 Bootloader
+        # Spark Fun Electronics
+        ("1b4f", "9203"),  # Pro Micro 3V3/8MHz
+        ("1b4f", "9205"),  # Pro Micro 5V/16MHz
+        ("1b4f", "9207"),  # LilyPad 3V3/8MHz (and some Pro Micro clones)
+        # Pololu Electronics
+        ("1ffb", "0101"),  # A-Star 32U4
+        # Arduino SA
+        ("2341", "0036"),  # Leonardo
+        ("2341", "0037"),  # Micro
+        # Adafruit Industries LLC
+        ("239a", "000c"),  # Feather 32U4
+        ("239a", "000d"),  # ItsyBitsy 32U4 3V3/8MHz
+        ("239a", "000e"),  # ItsyBitsy 32U4 5V/16MHz
+        # dog hunter AG
+        ("2a03", "0036"),  # Leonardo
+        ("2a03", "0037")  # Micro
+    },
+    'hid-bootloader': {
+        ("03eb", "2067"),  # QMK HID
+        ("16c0", "0478")  # PJRC halfkay
+    }
 }
 
 # Common format strings

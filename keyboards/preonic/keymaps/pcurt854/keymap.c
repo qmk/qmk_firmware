@@ -212,8 +212,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Qwerty|Colemk|Dvorak|      |      |      |      |      |      |Print |RESET |
- * |      |      |      |      |      |      |      |      |      |      |screen|RESET |
+ * |      |Qwerty|Colemk|Dvorak|      |      |      |      |      |      |Print |QK_BOOT |
+ * |      |      |      |      |      |      |      |      |      |      |screen|QK_BOOT |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |Sleep |show  |      |      |finder|mv win|      |Lock  |      |      |
  * |      |      |      |Dsktp |      |      |Hddn  |clkw  |      |screen|      |      |
@@ -227,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), RESET,
+  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), QK_BOOT,
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),

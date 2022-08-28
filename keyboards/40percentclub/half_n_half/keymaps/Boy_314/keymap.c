@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 *                             `-------------'             `-------------'
 	 */
 	[_RAISE] = LAYOUT(/* Arrows, Shifted Numbers, Symbols, Delete, Macros */
-	  RESET,   KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS, PRVWIN,  CLSTAB,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
+	  QK_BOOT, KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS, PRVWIN,  CLSTAB,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
 	  KC_GRV,  KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, NEWTAB,  ALTF4,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
 	  KC_TRNS, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TRNS, KC_TRNS, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TRNS,
 										                    KC_TRNS,                            KC_TRNS

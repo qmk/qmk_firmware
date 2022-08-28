@@ -15,7 +15,7 @@
                         "properties": {
                             "pin_a": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                             "pin_b": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"} 
+                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                         }
                     }
                 }
@@ -34,7 +34,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "proton_c", "bluepill", "blackpill_f401", "blackpill_f411"]
+            "enum": ["promicro", "elite_c", "proton_c", "kb2040", "promicro_rp2040", "blok", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4"]
         },
         "pin_compatible": {
             "type": "string",
@@ -221,8 +221,7 @@
                     "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
                 },
                 "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
         },
         "mouse_key": {

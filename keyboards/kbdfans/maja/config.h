@@ -2,12 +2,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x6068
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         MAJA
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { F0, B6, B5, B4, D7 }

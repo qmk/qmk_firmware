@@ -274,3 +274,25 @@ Examples:
     }
 }
 ```
+
+### Secure
+
+The following options can be configured:
+
+|Key               |Description                                                                      |
+|------------------|---------------------------------------------------------------------------------|
+|`unlock_sequence` | Timeout for the user to perform the configured unlock sequence - `0` to disable |
+|`unlock_timeout`  | Timeout while unlocked before returning to locked - `0` to disable              |
+|`idle_timeout`    | Array of matrix locations describing a sequential sequence of keypresses        |
+
+Example:
+
+```json
+{
+    "secure": {
+        "unlock_sequence": [ [0,0], [0,1] ],
+        "unlock_timeout": 5000,
+        "idle_timeout": 60000
+    }
+}
+```

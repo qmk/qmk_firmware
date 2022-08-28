@@ -142,6 +142,7 @@ void pio_serve_interrupt(void) {
 // the generated low level with 360mV will generate a logical zero.
 static inline void enter_rx_state(void) {
     osalSysLock();
+    nvicEnableVector(RP_USBCTRL_IRQ_NUMBER, RP_IRQ_USB0_PRIORITY);
     // Wait for the transmitting state machines FIFO to run empty. At this point
     // the last byte has been pulled from the transmitting state machines FIFO
     // into the output shift register. We have to wait a tiny bit more until
@@ -151,7 +152,7 @@ static inline void enter_rx_state(void) {
     }
     // Wait for ~11 bits, 1 start bit + 8 data bits + 1 stop bit + 1 bit
     // headroom.
-    chSysPolledDelayX(US2RTC(1 * MHZ, (1000000U * 11 / SERIAL_USART_SPEED)));
+    wait_us(1000000U * 11U / SERIAL_USART_SPEED);
     // Disable tx state machine to not interfere with our tx pin manipulation
     pio_sm_set_enabled(pio, tx_state_machine, false);
     gpio_set_drive_strength(SERIAL_USART_TX_PIN, GPIO_DRIVE_STRENGTH_2MA);
@@ -163,6 +164,9 @@ static inline void enter_rx_state(void) {
 
 static inline void leave_rx_state(void) {
     osalSysLock();
+    // We don't want to be interrupted by frequent (1KHz) USB interrupts while
+    // doing our timing critical sending operation.
+    nvicDisableVector(RP_USBCTRL_IRQ_NUMBER);
     // In Half-duplex operation the tx pin dual-functions as sender and
     // receiver. To not receive the data we will send, we disable the receiving
     // state machine.
@@ -194,12 +198,22 @@ static inline msg_t sync_tx(sysinterval_t timeout) {
     msg_t msg = MSG_OK;
     osalSysLock();
     while (pio_sm_is_tx_fifo_full(pio, tx_state_machine)) {
+#if !defined(SERIAL_USART_FULL_DUPLEX)
+        // Enable USB interrupts again, because we might sleep for a long time
+        // here and don't want to be disconnected from the host.
+        nvicEnableVector(RP_USBCTRL_IRQ_NUMBER, RP_IRQ_USB0_PRIORITY);
+#endif
         pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + tx_state_machine, true);
         msg = osalThreadSuspendTimeoutS(&tx_thread, timeout);
         if (msg < MSG_OK) {
+            pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + tx_state_machine, false);
             break;
         }
     }
+#if !defined(SERIAL_USART_FULL_DUPLEX)
+    // Entering timing critical territory again.
+    nvicDisableVector(RP_USBCTRL_IRQ_NUMBER);
+#endif
     osalSysUnlock();
     return msg;
 }
@@ -252,6 +266,7 @@ static inline msg_t sync_rx(sysinterval_t timeout) {
         pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + rx_state_machine, true);
         msg = osalThreadSuspendTimeoutS(&rx_thread, timeout);
         if (msg < MSG_OK) {
+            pio_set_irq0_source_enabled(pio, pis_sm0_rx_fifo_not_empty + rx_state_machine, false);
             break;
         }
     }
@@ -412,11 +427,12 @@ static inline void pio_init(pin_t tx_pin, pin_t rx_pin) {
     pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + tx_state_machine, true);
     pio_set_irq0_source_enabled(pio, pis_interrupt0, true);
 
-    // Enable PIO specific interrupt vector
+    // Enable PIO specific interrupt vector, as the pio implementation is timing
+    // critical we use the highest possible priority.
 #if defined(SERIAL_PIO_USE_PIO1)
-    nvicEnableVector(RP_PIO1_IRQ_0_NUMBER, RP_IRQ_UART0_PRIORITY);
+    nvicEnableVector(RP_PIO1_IRQ_0_NUMBER, CORTEX_MAX_KERNEL_PRIORITY);
 #else
-    nvicEnableVector(RP_PIO0_IRQ_0_NUMBER, RP_IRQ_UART0_PRIORITY);
+    nvicEnableVector(RP_PIO0_IRQ_0_NUMBER, CORTEX_MAX_KERNEL_PRIORITY);
 #endif
 
     enter_rx_state();

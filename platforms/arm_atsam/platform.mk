@@ -24,6 +24,7 @@ COMPILEFLAGS += -fno-strict-aliasing
 COMPILEFLAGS += -mfloat-abi=hard
 COMPILEFLAGS += -mfpu=fpv4-sp-d16
 COMPILEFLAGS += -mthumb
+COMPILEFLAGS += -fno-builtin-printf
 
 #ALLOW_WARNINGS = yes
 

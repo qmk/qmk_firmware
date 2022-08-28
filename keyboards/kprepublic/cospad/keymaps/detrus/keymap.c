@@ -266,7 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			RGB_SAD, BL_ON,    COLEMAK,          \
 			RGB_SAI, RGB_TOG,  DVORAK,  _______, \
 			RGB_HUD, RGB_MOD,  KC_VOLD, _______, \
-			RGB_HUI, RGB_RMOD, KC_VOLU, RESET),
+			RGB_HUI, RGB_RMOD, KC_VOLU, QK_BOOT),
 };
 
 // Makes sure to update the good tri-layer if a layer changes

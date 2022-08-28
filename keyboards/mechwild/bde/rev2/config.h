@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x170A
-#define DEVICE_VER      0x0101
-#define MANUFACTURER    MechWild
-#define PRODUCT         BDE Rev2
-
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 7
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { C6, D7, B4, D4, E6, B2 }
 #define MATRIX_COL_PINS { B3, B1, F7, F6, F5, F4, B5 }
-#define UNUSED_PINS
 
 /* Encoder pins */
 #define ENCODERS_PAD_A { D3 }

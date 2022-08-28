@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------   ------------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12(
-  _______, RESET,   _______, _______, _______, _______, _______,   QWERTY,    COLEMAK,   DVORAK,    LCA(KC_7), LCA(KC_8),
+  _______, QK_BOOT, _______, _______, _______, _______, _______,   QWERTY,    COLEMAK,   DVORAK,    LCA(KC_7), LCA(KC_8),
   _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, LCA(KC_H), LCA(KC_J), LCA(KC_K), LCA(KC_L), LCA(KC_U), LCA(KC_I),
   _______, _______, _______, _______, _______, _______, _______,   RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   LCA(KC_ENT),
   _______, _______, _______, _______, _______, _______, _______,   _______,   RGB_M_K,   RGB_M_B,   RGB_TOG,   _______

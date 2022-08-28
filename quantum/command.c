@@ -161,7 +161,7 @@ static void command_common_help(void) {
 }
 
 static void print_version(void) {
-    print(/* clang-format off */
+    xprintf("%s", /* clang-format off */
         "\n\t- Version -\n"
         "VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
         "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "

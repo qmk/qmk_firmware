@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "POKER-87C",
+    "keyboard_name": "POKER-87C Hotswap",
+    "manufacturer": "mfkiiyd",
     "url": "",
     "maintainer": "mfkiiyd",
+    "usb": {
+        "vid": "0x6D66",
+        "pid": "0x087C",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

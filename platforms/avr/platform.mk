@@ -24,6 +24,7 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
 COMPILEFLAGS += -mcall-prologues
+COMPILEFLAGS += -fno-builtin-printf
 
 # Linker relaxation is only possible if
 # link time optimizations are not enabled.
