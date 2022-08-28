@@ -479,7 +479,7 @@ def _config_to_json(key_type, config_value):
         return int(config_value)
 
     elif key_type == 'str':
-        return config_value.strip('"')
+        return config_value.strip('"').replace('\\"', '"').replace('\\\\', '\\')
 
     elif key_type == 'bcd_version':
         major = int(config_value[2:4])
