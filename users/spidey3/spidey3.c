@@ -55,7 +55,8 @@ void matrix_scan_user(void) {
 }
 
 static uint32_t math_glyph_exceptions(const uint16_t keycode, const bool shifted) {
-    if (shifted) {
+    bool caps = host_keyboard_led_state().caps_lock;
+    if (shifted != caps) {
         switch (keycode) {
             // clang-format off
             case KC_C: return 0x2102;
@@ -97,7 +98,8 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
                     clear_oneshot_mods();
 #endif
 
-                    uint32_t base = shifted ? baseAlphaUpper : baseAlphaLower;
+                    bool caps = host_keyboard_led_state().caps_lock;
+                    uint32_t base = ((shifted == caps) ? baseAlphaLower : baseAlphaUpper);
                     _register(base + (keycode - KC_A));
                     set_mods(temp_mod);
                 }
@@ -201,11 +203,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-            case SPI_LNX: set_unicode_input_mode(UC_LNX); break;
-            case SPI_OSX: set_unicode_input_mode(UC_OSX); break;
-            case SPI_WIN: set_unicode_input_mode(UC_WINC); break;
-#endif
                 // clang-format on
 
             case SPI_NORMAL ... SPI_MATH:
