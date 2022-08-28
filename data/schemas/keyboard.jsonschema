@@ -89,7 +89,6 @@
             "enum": [
                 "atmel-dfu",
                 "bootloadhid",
-                "bootloadHID",
                 "caterina",
                 "custom",
                 "gd32v-dfu",
@@ -106,7 +105,6 @@
                 "tinyuf2",
                 "unknown",
                 "usbasploader",
-                "USBasp",
                 "wb32-dfu"
             ]
         },
