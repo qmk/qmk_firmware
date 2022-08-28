@@ -9,31 +9,6 @@ enum custom_keycodes {
     MLCKSCN,
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case MCOPY:
-        if (record->event.pressed) {
-            // Macro for copy
-            SEND_STRING(SS_LCTL("c"));
-        }
-        break;
-
-    case MPASTE:
-        if (record->event.pressed) {
-            // Macro for paste
-            SEND_STRING(SS_LCTL("v"));
-        }
-        break;
-
-    case MLCKSCN:
-        if (record->event.pressed) {
-           SEND_STRING(SS_LGUI("l")); // Locks windows
-        }
-        break;
-    }
-    return true;
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
       * ┌───┬───┬───┬───┬───┬───┐           ┌───┬───┬───┬───┬───┬───┐
@@ -45,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘           └───┴───┴───┴───┴───┴───┘
       *          ┌────┐                                ┌───┐
       *          │LCTL├───────┐                  ┌─────┤Alt│
-      *          └────┤GUI/Bsp├───────┐      ┌───┤TO(0)├───┘
+      *          └────┤GUI/Bsp├───────┐      ┌───┤TO(1)├───┘
       *               └───────┤ALT/ENT│      │SPC├─────┘
       *                       └───────┘      └───┘
       */
@@ -104,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
         KC_MSTP, KC_MPLY,    KC_MPRV,   KC_MNXT,  KC_NO,    KC_NO,              KC_PGUP,    KC_INS,    KC_UP,      KC_PSCR,    KC_NO,    KC_BSPC,
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
-        KC_NO,   KC_HOME,    KC_END,    MCOPY,    MPASTE,   KC_CAPS,            KC_PGDN,    KC_LEFT,   KC_DOWN,    KC_RGHT,    KC_DEL,   KC_NO,
+        KC_NO,   KC_HOME,    KC_END,    C(KC_C),    C(KC_V),   KC_CAPS,            KC_PGDN,    KC_LEFT,   KC_DOWN,    KC_RGHT,    KC_DEL,   KC_NO,
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
         KC_TAB,  KC_UNDO,    KC_CUT,    KC_COPY,  KC_PASTE, KC_APP,             KC_VOLD,    KC_VOLU,   KC_MUTE,    KC_NO,      KC_RGUI,  KC_NO,
       //--------------------------------------------------------------         ---------------------------------------------------------------------------------
