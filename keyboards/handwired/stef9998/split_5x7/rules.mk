@@ -19,4 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = handwired/stef9998/split_5x7x2/rev1
+DEFAULT_FOLDER = handwired/stef9998/split_5x7/rev1
