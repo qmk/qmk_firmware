@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C46 // LF
-#define PRODUCT_ID      0x3231 // 21
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    LFKeyboards
-#define PRODUCT         LFKPad 21
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D5, F4, F6, F7, C7, C6 }
 #define MATRIX_COL_PINS { F1, F0, D4, D6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -119,10 +111,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

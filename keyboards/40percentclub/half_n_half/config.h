@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025
-#define PRODUCT_ID      0x0A0C
-#define DEVICE_VER      0x4A1F
-#define MANUFACTURER    di0ib
-#define PRODUCT         half_n_half
-
 /* key matrix size */
 #define MATRIX_ROWS 4*2
 #define MATRIX_COLS 7
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -133,8 +125,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

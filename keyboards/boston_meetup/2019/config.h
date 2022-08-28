@@ -1,8 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x07E3
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -104,8 +101,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Haptic Driver initialization settings
  * Feedback Control Settings */

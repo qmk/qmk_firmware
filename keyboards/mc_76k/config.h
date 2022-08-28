@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x8968
-#define PRODUCT_ID 0x4D43
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Yiancar-Designs
-#define PRODUCT MC-76K
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C7, C6, B6, B0, D1, D0 }
 #define MATRIX_COL_PINS { D5, D3, D4, B1, D6, D7, B4, B5, F7, F6, F5, F4, F1, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -95,7 +87,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

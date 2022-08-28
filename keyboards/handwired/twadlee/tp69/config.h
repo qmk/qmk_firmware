@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xBEEF
-#define PRODUCT_ID 0xCACA
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Tracy Wadleigh
-#define PRODUCT tp69
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -43,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B2, B1, B0, C0, D1, D0, D3, D4, D2, C3 }
 /*                        20  21  18    0    1   3   4   5 */
 #define MATRIX_COL_PINS { D5, D6, A4, B16, B17, A1, A2, D7 }
-#define UNUSED_PINS
 
 /* for trackpoint: C1 (22)  C2 (23) */
 
@@ -139,10 +131,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

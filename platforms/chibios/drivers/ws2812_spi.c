@@ -16,6 +16,10 @@
 #    define WS2812_SPI_SCK_PAL_MODE 5
 #endif
 
+#ifndef WS2812_SPI_DIVISOR
+#    define WS2812_SPI_DIVISOR 16
+#endif
+
 // Push Pull or Open Drain Configuration
 // Default Push Pull
 #ifndef WS2812_EXTERNAL_PULLUP
@@ -42,7 +46,7 @@
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 8
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1)
-#elif WS2812_SPI_DIVISOR == 16  // same as default
+#elif WS2812_SPI_DIVISOR == 16 // default
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 32
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2)
@@ -53,14 +57,14 @@
 #elif WS2812_SPI_DIVISOR == 256
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #else
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)  // default
+#    error "Configured WS2812_SPI_DIVISOR value is not supported at this time."
 #endif
 
 // Use SPI circular buffer
 #ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
-#    define WS2812_SPI_BUFFER_MODE 1  // circular buffer
+#    define WS2812_SPI_BUFFER_MODE 1 // circular buffer
 #else
-#    define WS2812_SPI_BUFFER_MODE 0  // normal buffer
+#    define WS2812_SPI_BUFFER_MODE 0 // normal buffer
 #endif
 
 #if defined(USE_GPIOV1)
@@ -104,20 +108,30 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
     uint8_t* tx_start = &txbuf[PREAMBLE_SIZE];
 
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.g, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.r, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.r, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.b, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.b, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.r, j);
 #endif
 #ifdef RGBW
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 4 + j] = get_protocol_eq(color.w, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 4 + j] = get_protocol_eq(color.w, j);
 #endif
 }
 
@@ -126,10 +140,42 @@ void ws2812_init(void) {
 
 #ifdef WS2812_SPI_SCK_PIN
     palSetLineMode(WS2812_SPI_SCK_PIN, WS2812_SCK_OUTPUT_MODE);
-#endif  // WS2812_SPI_SCK_PIN
+#endif // WS2812_SPI_SCK_PIN
 
     // TODO: more dynamic baudrate
-    static const SPIConfig spicfg = {WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN), WS2812_SPI_DIVISOR_CR1_BR_X};
+    static const SPIConfig spicfg = {
+#ifndef HAL_LLD_SELECT_SPI_V2
+// HAL_SPI_V1
+#    if SPI_SUPPORTS_CIRCULAR == TRUE
+        WS2812_SPI_BUFFER_MODE,
+#    endif
+        NULL, // end_cb
+        PAL_PORT(RGB_DI_PIN),
+        PAL_PAD(RGB_DI_PIN),
+#    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
+        0,
+        0,
+        WS2812_SPI_DIVISOR
+#    else
+        WS2812_SPI_DIVISOR_CR1_BR_X,
+        0
+#    endif
+#else
+    // HAL_SPI_V2
+#    if SPI_SUPPORTS_CIRCULAR == TRUE
+        WS2812_SPI_BUFFER_MODE,
+#    endif
+#    if SPI_SUPPORTS_SLAVE_MODE == TRUE
+        false,
+#    endif
+        NULL, // data_cb
+        NULL, // error_cb
+        PAL_PORT(RGB_DI_PIN),
+        PAL_PAD(RGB_DI_PIN),
+        WS2812_SPI_DIVISOR_CR1_BR_X,
+        0
+#endif
+    };
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */

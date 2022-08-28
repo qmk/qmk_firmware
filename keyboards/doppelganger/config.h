@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x4447
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         Doppelganger
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 9
@@ -44,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { E6, F1, C7, F7, F6 }
 #define MATRIX_COL_PINS { F4, F0, B7, B3, B2, B1, D5, D3, D2 }
-#define UNUSED_PINS
 
 #define MATRIX_ROW_PINS_RIGHT { D7, D6, D4, E6, B5 }
 #define MATRIX_COL_PINS_RIGHT { F1, F0, F4, F5, F6, F7, C7, C6, B6 }
@@ -144,8 +136,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

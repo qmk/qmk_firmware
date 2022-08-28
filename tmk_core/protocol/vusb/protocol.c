@@ -97,7 +97,9 @@ static void vusb_wakeup(void) {
  *
  * FIXME: Needs doc
  */
-static void setup_usb(void) { initForUsbConnectivity(); }
+static void setup_usb(void) {
+    initForUsbConnectivity();
+}
 
 uint16_t sof_timer = 0;
 
@@ -156,7 +158,7 @@ void protocol_task(void) {
 #ifdef RAW_ENABLE
         usbPoll();
 
-        if (usbConfiguration && usbInterruptIsReady3()) {
+        if (usbConfiguration && usbInterruptIsReady4()) {
             raw_hid_task();
         }
 #endif

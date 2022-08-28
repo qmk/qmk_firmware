@@ -31,9 +31,8 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
     set_keymap({layer_key, regular_key, KeymapKey{1, 1, 0, KC_B}});
 
     /* Tap TT five times . */
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
     /* TODO: Tapping Force Hold breaks TT */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(10);
+    EXPECT_NO_REPORT(driver);
 
     layer_key.press();
     run_one_scan_loop();
@@ -67,13 +66,13 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A))).Times(1);
+    EXPECT_REPORT(driver, (KC_A)).Times(1);
     regular_key.press();
     run_one_scan_loop();
     expect_layer_state(0);
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_EMPTY_REPORT(driver).Times(1);
     regular_key.release();
     run_one_scan_loop();
     expect_layer_state(0);

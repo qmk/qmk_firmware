@@ -27,11 +27,14 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    l01, l02, l03, l04,           r01, r02, r03, r04,\
-    l05, l06, l07, l08, l09, r05, r06, r07, r08, r09 \
+    l01, l02, l03, l04,           r01, r02, r03, r04,   \
+    l05, l06, l07, l08, l09, r05, r06, r07, r08, r09,   \
+                   l10, l11, r10, r11                   \
 ) { \
-    { l01, l02, l03, l04, KC_NO }, \
-    { l05, l06, l07, l08, l09 },   \
-    { KC_NO, r01, r02, r03, r04,}, \
-    { r05, r06, r07, r08, r09 }    \
+    { l01, l02, l03, l04, KC_NO },      \
+    { l05, l06, l07, l08, l09 },        \
+    { l10, l11, KC_NO, KC_NO, KC_NO },   \
+    { KC_NO, r01, r02, r03, r04},      \
+    { r05, r06, r07, r08, r09 },        \
+    { r10, r11, KC_NO, KC_NO, KC_NO }    \
 }

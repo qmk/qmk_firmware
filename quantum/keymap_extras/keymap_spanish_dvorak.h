@@ -114,8 +114,8 @@
 #define DV_QUES S(DV_QUOT) // ?
 #define DV_IQUE S(DV_IEXL) // ¿
 // Row 2
-#define DV_COLN S(KC_DOT)  // :
-#define DV_SCLN S(KC_COMM) // ;
+#define DV_COLN S(DV_DOT)  // :
+#define DV_SCLN S(DV_COMM) // ;
 #define DV_CIRC S(DV_GRV)  // ^ (dead)
 #define DV_ASTR S(DV_PLUS) // *
 // Row 3

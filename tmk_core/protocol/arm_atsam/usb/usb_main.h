@@ -71,31 +71,31 @@ void                 main_kbd_disable(void);
 extern volatile bool main_b_nkro_enable;
 bool                 main_nkro_enable(void);
 void                 main_nkro_disable(void);
-#endif  // NKRO_ENABLE
+#endif // NKRO_ENABLE
 
 #ifdef EXTRAKEY_ENABLE
 extern volatile bool main_b_exk_enable;
 bool                 main_exk_enable(void);
 void                 main_exk_disable(void);
-#endif  // EXTRAKEY_ENABLE
+#endif // EXTRAKEY_ENABLE
 
 #ifdef CONSOLE_ENABLE
 extern volatile bool main_b_con_enable;
 bool                 main_con_enable(void);
 void                 main_con_disable(void);
-#endif  // CONSOLE_ENABLE
+#endif // CONSOLE_ENABLE
 
 #ifdef MOUSE_ENABLE
 extern volatile bool main_b_mou_enable;
 bool                 main_mou_enable(void);
 void                 main_mou_disable(void);
-#endif  // MOUSE_ENABLE
+#endif // MOUSE_ENABLE
 
 #ifdef RAW_ENABLE
 extern volatile bool main_b_raw_enable;
 bool                 main_raw_enable(void);
 void                 main_raw_disable(void);
 void                 main_raw_receive(uint8_t *buffer, uint8_t len);
-#endif  // RAW_ENABLE
+#endif // RAW_ENABLE
 
-#endif  // _MAIN_H_
+#endif // _MAIN_H_

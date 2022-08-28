@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Mike Hix
-#define PRODUCT chiron
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 
@@ -33,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Pro Micro Pins         A3, A2, A1, A0, 15, 14, 16
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 
-#define UNUSED_PINS
 
 // Pro Micro Pins      RX1
 #define SPLIT_HAND_PIN D2

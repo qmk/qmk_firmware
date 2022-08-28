@@ -1,0 +1,19 @@
+{
+  "keyboard_name": "Dozen0",
+  "manufacturer": "yynmt",
+  "url": "http://yynmt.com",
+  "maintainer": "yynmt",
+  "usb": {
+    "vid": "0x04D8",
+    "pid": "0xEA4F",
+    "device_version": "0.0.1"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0}, {"x":5, "y":0},
+        {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":4, "y":1}, {"x":5, "y":1}
+      ]
+    }
+  }
+}

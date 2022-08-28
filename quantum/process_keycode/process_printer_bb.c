@@ -25,13 +25,21 @@ uint8_t character_shift  = 0;
 #define SERIAL_PIN_MASK _BV(PD3)
 #define SERIAL_DELAY 52
 
-inline static void serial_delay(void) { _delay_us(SERIAL_DELAY); }
+inline static void serial_delay(void) {
+    _delay_us(SERIAL_DELAY);
+}
 
-inline static void serial_high(void) { SERIAL_PIN_PORT |= SERIAL_PIN_MASK; }
+inline static void serial_high(void) {
+    SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
+}
 
-inline static void serial_low(void) { SERIAL_PIN_PORT &= ~SERIAL_PIN_MASK; }
+inline static void serial_low(void) {
+    SERIAL_PIN_PORT &= ~SERIAL_PIN_MASK;
+}
 
-inline static void serial_output(void) { SERIAL_PIN_DDR |= SERIAL_PIN_MASK; }
+inline static void serial_output(void) {
+    SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
+}
 
 void enable_printing() {
     printing_enabled = true;
@@ -39,7 +47,9 @@ void enable_printing() {
     serial_high();
 }
 
-void disable_printing() { printing_enabled = false; }
+void disable_printing() {
+    printing_enabled = false;
+}
 
 uint8_t shifted_numbers[10] = {0x21, 0x40, 0x23, 0x24, 0x25, 0x5E, 0x26, 0x2A, 0x28, 0x29};
 
@@ -61,7 +71,8 @@ void print_char(char c) {
 }
 
 void print_string(char c[]) {
-    for (uint8_t i = 0; i < strlen(c); i++) print_char(c[i]);
+    for (uint8_t i = 0; i < strlen(c); i++)
+        print_char(c[i]);
 }
 
 bool process_printer(uint16_t keycode, keyrecord_t *record) {

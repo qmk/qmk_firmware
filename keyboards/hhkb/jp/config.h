@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4848 // HH = happy hacking
-#define PRODUCT_ID      0x0002 // HHKB JP
-#define DEVICE_VER      0x0104
-#define MANUFACTURER    q.m.k
-#define PRODUCT         HHKB mod
-
 /* key matrix size */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 8
@@ -87,5 +80,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

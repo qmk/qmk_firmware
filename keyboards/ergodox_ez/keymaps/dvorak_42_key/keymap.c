@@ -20,8 +20,6 @@
 // debounce settings
 // remove these after getting a new keyboard
 // #define DEBOUNCE 50
-// #define QMK_KEYS_PER_SCAN 4
-
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -79,9 +77,9 @@ enum custom_keycodes {
 
   SCREEN_READREG_1,
   SCREEN_READREG_2,
-  SCREEN_READREG_3, 
+  SCREEN_READREG_3,
   SCREEN_PASTEREG_1,
-  SCREEN_PASTEREG_2, 
+  SCREEN_PASTEREG_2,
   SCREEN_PASTEREG_3,
 
   // Windows 10 macros,
@@ -101,6 +99,7 @@ enum custom_keycodes {
 #define COMBINED         7 // combined numbers and symbols layer
 #define ANDROID_STUDIO   8 // android studio specific layer
 #define VSCODE           9 // visual studio code specific layer
+#define VSCODE_NAV       10 // visual studio code, navigation within IDE
 
 
 
@@ -131,22 +130,22 @@ enum custom_keycodes {
 #define VS_OPEN_FILE LCTL(KC_O)
 #define VS_LINE LCTL(KC_G)
 #define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
-#define VS_DEFINITION KC_F12
-#define VS_IMPLEMENTATION LCTL(KC_F12)
-#define VS_REFERENCES LSFT(KC_F12)
+#define VS_DEFINITION MEH(KC_F5)
+#define VS_IMPLEMENTATION MEH(KC_F6)
+#define VS_REFERENCES MEH(KC_F7)
 #define VS_BACK LALT(KC_LEFT)
 #define VS_BRACKET LCTL(LSFT(KC_BSLS))
-#define VS_TABLEFT LCTL(KC_PGUP)
-#define VS_TABRIGHT LCTL(KC_PGDN)
-#define VS_CLOSETAB LCTL(KC_W)
+#define VS_TABLEFT MEH(KC_F1)
+#define VS_TABRIGHT MEH(KC_F2)
+#define VS_CLOSETAB MEH(KC_F3)
 #define VS_CLOSEPANEL LCTL(LSFT(KC_W))
 #define VS_GROUP_1 LCTL(KC_1)
 #define VS_GROUP_2 LCTL(KC_2)
 #define VS_TERMINAL LCTL(KC_GRAVE)
 #define VS_BUILD LCTL(LSFT(KC_B))
-#define VS_COMMANDS LCTL(LSFT(KC_P))
+#define VS_COMMANDS MEH(KC_F4)
 #define VS_CMT_BLOCK LSFT(LALT(KC_A))
-#define VS_CMT_LINE LCTL(KC_SLSH)
+#define VS_CMT_LINE MEH(KC_F18)
 #define VS_DEL_LINE LCTL(LSFT(KC_K))
 #define VS_COPYLINEDOWN LSFT(LALT(KC_DOWN))
 // visual studio bookmark commands
@@ -156,6 +155,18 @@ enum custom_keycodes {
 #define VS_BM_NEXT LCTL(LALT(KC_N))
 #define VS_BM_TOGGLE LCTL(LALT(KC_K))
 #define VS_BM_CLEARALL LCTL(LALT(KC_C))
+// visual studio code navigation shortcuts
+#define VS_FOCUS_EDITOR MEH(KC_F8)
+#define VS_FOCUS_TERMINAL MEH(KC_F9)
+#define VS_TOGGLE_TERMINAL MEH(KC_F10)
+#define VS_CLEAR_TERMINAL MEH(KC_F11)
+#define VS_TERMINAL_PREV MEH(KC_F12)
+#define VS_TERMINAL_NEXT MEH(KC_F13)
+#define VS_TERMINAL_NEW MEH(KC_F14)
+#define VS_TERMINAL_DETACH MEH(KC_F15)
+#define VS_TERMINAL_RENAME MEH(KC_F16)
+#define VS_JUMPY MEH(KC_F17)
+#define VS_FIND MEH(KC_F19)
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -204,10 +215,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
       // left hand
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(ANDROID_STUDIO),
+      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(VSCODE_NAV),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
       OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
-      MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
+      MEH(KC_0),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
                 WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT,
@@ -215,14 +226,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
 
       // right hand
-      KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_9),
-      MEH(KC_7), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
+      KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_7),
+      MEH(KC_1), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
-      MEH(KC_8), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_F3),
-      KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_F4),
+      MEH(KC_2), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_8),
+      KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_9),
 
       // right thumb cluster
-      MEH(KC_F5),MEH(KC_F6),MEH(KC_F7),MEH(KC_F8),KC_ENTER,KC_SPACE
+      MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_6),KC_ENTER,KC_SPACE
 
   ),
 
@@ -256,7 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
            KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
                    // bottom row
-                   RESET,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                   QK_BOOT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                            // thumb cluster
                                            KC_TRNS,KC_TRNS,
                                                    KC_TRNS,
@@ -398,13 +409,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        VS_CMT_LINE,  VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
+       VS_CMT_BLOCK, VS_FIND,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
                                        VS_COMMANDS,   VS_BM_LIST,       VS_BM_LISTALL,       VS_CLOSEPANEL,   VS_BM_CLEARALL,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, VS_DEL_LINE, KC_TRNS
+  ),
+
+    // vscode navigation shortcuts
+  [VSCODE_NAV] = LAYOUT_ergodox(
+       // left hand
+       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
+       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
+                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,   VS_JUMPY,        KC_TRNS,            KC_TRNS,
+       KC_TRNS, VS_CLEAR_TERMINAL,   VS_TERMINAL_PREV,  VS_TERMINAL_NEXT,  VS_TERMINAL_NEW, VS_TERMINAL_DETACH, VS_TERMINAL_RENAME,
+                                       // bottom row
+                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
   [COMBINED] = LAYOUT_ergodox(
@@ -659,7 +696,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
             SEND_STRING("paste 1\n");
-            break;        
+            break;
         case SCREEN_PASTEREG_2:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
@@ -686,7 +723,7 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_2_off();

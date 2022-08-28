@@ -22,11 +22,11 @@ multi-chords! You can browse the available combo lists in combos/
 
 ## Engine
 This is the onboard chording engine for all sorts of fun shenanigans. Be aware that this currently is a bit of a QMK 
-replacement focused on pure chording. Take a look at the configuration in keyboards/ginny for ideas, all these dicts
+replacement focused on pure chording. Take a look at the configuration in keyboards/gboards/ginny for ideas, all these dicts
 are stored over in dicts/
 
 ## Installation
-You will need to add the following bits to your rules.mk, refer to keyboards/ginny for a working example
+You will need to add the following bits to your rules.mk, refer to keyboards/gboards/ginny for a working example
 `VPATH               +=  keyboards/gboards/`
 
 And if you're using the chording engine, this as well.
@@ -35,5 +35,5 @@ And if you're using the chording engine, this as well.
 For combos, add `#include "g/keymap_combos.h"` to keymap.c to compile your combos.def into your keymap
 
 For the chording engine, add `#include "g/keymap_engine.h"` to keymap.c compile your dicts.def into your keymap. If you
-don't have a config_engine.h file for your keyboard, you will need to create it. (Once again, look at keyboards/ginny/
+don't have a config_engine.h file for your keyboard, you will need to create it. (Once again, look at keyboards/gboards/ginny/
 for a example of how to do this.

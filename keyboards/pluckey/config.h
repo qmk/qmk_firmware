@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xF100
-#define PRODUCT_ID   0x91CE
-#define DEVICE_VER   0x0001
-#define MANUFACTURER floookay
-#define PRODUCT      pluckey
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B4, F5, F6, B6, B5 }
 #define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, F7 }
-#define UNUSED_PINS { F4, B1 }
 #define DIODE_DIRECTION COL2ROW
 
 /* encoder support */
@@ -80,10 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

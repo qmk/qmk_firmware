@@ -55,6 +55,7 @@ static debounce_counter_t *debounce_counters;
 static fast_timer_t        last_time;
 static bool                counters_need_update;
 static bool                matrix_need_update;
+static bool                cooked_changed;
 
 #    define DEBOUNCE_ELAPSED 0
 
@@ -77,8 +78,9 @@ void debounce_free(void) {
     debounce_counters = NULL;
 }
 
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     bool updated_last = false;
+    cooked_changed    = false;
 
     if (counters_need_update) {
         fast_timer_t now          = timer_read_fast();
@@ -102,6 +104,8 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
         transfer_matrix_values(raw, cooked, num_rows);
     }
+
+    return cooked_changed;
 }
 
 static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time) {
@@ -123,7 +127,9 @@ static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[],
                         matrix_need_update = true;
                     } else {
                         // key-up: defer
-                        cooked[row] = (cooked[row] & ~col_mask) | (raw[row] & col_mask);
+                        matrix_row_t cooked_next = (cooked[row] & ~col_mask) | (raw[row] & col_mask);
+                        cooked_changed |= cooked_next ^ cooked[row];
+                        cooked[row] = cooked_next;
                     }
                 } else {
                     debounce_pointer->time -= elapsed_time;
@@ -152,6 +158,7 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
                     if (debounce_pointer->pressed) {
                         // key-down: eager
                         cooked[row] ^= col_mask;
+                        cooked_changed = true;
                     }
                 }
             } else if (debounce_pointer->time != DEBOUNCE_ELAPSED) {
@@ -165,7 +172,6 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
     }
 }
 
-bool debounce_active(void) { return true; }
 #else
 #    include "none.c"
 #endif

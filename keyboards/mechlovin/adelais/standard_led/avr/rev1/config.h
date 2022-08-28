@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define PRODUCT_ID   0xAD04
-#define PRODUCT      Adelais AVR
 /*
  * Keyboard Matrix Assignments
  *
@@ -29,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

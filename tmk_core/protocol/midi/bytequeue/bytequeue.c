@@ -52,7 +52,9 @@ byteQueueIndex_t bytequeue_length(byteQueue_t* queue) {
 }
 
 // we don't need to avoid interrupts if there is only one reader
-uint8_t bytequeue_get(byteQueue_t* queue, byteQueueIndex_t index) { return queue->data[(queue->start + index) % queue->length]; }
+uint8_t bytequeue_get(byteQueue_t* queue, byteQueueIndex_t index) {
+    return queue->data[(queue->start + index) % queue->length];
+}
 
 // we just update the start index to remove elements
 void bytequeue_remove(byteQueue_t* queue, byteQueueIndex_t numToRemove) {

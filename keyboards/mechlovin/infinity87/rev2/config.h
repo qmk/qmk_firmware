@@ -16,10 +16,6 @@
 
 #pragma once
 
-#define PRODUCT_ID  0x8702
-#define DEVICE_VER  0x0001
-#define PRODUCT     Infinity87 rev.2
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -31,13 +27,9 @@
  *
 */
 #define MATRIX_ROW_PINS { D5, D2, D4, D3, D0, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-#define USB_POLLING_INTERVAL_MS 1
-
 
 #define LED_NUM_LOCK_PIN D7
 #define LED_CAPS_LOCK_PIN D6

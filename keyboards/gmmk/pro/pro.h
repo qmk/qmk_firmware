@@ -18,8 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_gmmk_pro_ansi)
-#    include "ansi.h"
-#elif defined(KEYBOARD_gmmk_pro_iso)
-#    include "iso.h"
+#if defined(KEYBOARD_gmmk_pro_rev1_ansi)
+#    include "rev1/ansi/ansi.h"
+#elif defined(KEYBOARD_gmmk_pro_rev1_iso)
+#    include "rev1/iso/iso.h"
+#elif defined(KEYBOARD_gmmk_pro_rev2_ansi)
+#    include "rev2/ansi/ansi.h"
+#elif defined(KEYBOARD_gmmk_pro_rev2_iso)
+#    include "rev2/iso/iso.h"
 #endif  // GMMK Pro revisions

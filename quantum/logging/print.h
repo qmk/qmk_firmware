@@ -32,12 +32,28 @@
 
 void print_set_sendchar(sendchar_func_t func);
 
+/**
+ * @brief This macro suppress format warnings for the function that is passed
+ * in. The main use-case is that `b` format specifier for printing binary
+ * numbers is not in the official C standard. Inclusion is planned for the
+ * upcoming C2X C standard, but until then GCC will always output a warning for
+ * a unknown format specifier.
+ */
+#define IGNORE_FORMAT_WARNING(func)                                \
+    do {                                                           \
+        _Pragma("GCC diagnostic push");                            \
+        _Pragma("GCC diagnostic ignored \"-Wformat\"");            \
+        _Pragma("GCC diagnostic ignored \"-Wformat-extra-args\""); \
+        func;                                                      \
+        _Pragma("GCC diagnostic pop");                             \
+    } while (0)
+
 #ifndef NO_PRINT
 #    if __has_include_next("_print.h")
 #        include_next "_print.h" /* Include the platforms print.h */
 #    else
 // Fall back to lib/printf
-#        include "printf.h"  // lib/printf/printf.h
+#        include "printf.h" // lib/printf/printf.h
 
 // Create user & normal print defines
 #        define print(s) printf(s)
@@ -78,25 +94,25 @@ void print_set_sendchar(sendchar_func_t func);
 #define print_hex16(i) xprintf("%04X", i)
 #define print_hex32(i) xprintf("%08lX", i)
 /* binary */
-#define print_bin4(i) xprintf("%04b", i)
-#define print_bin8(i) xprintf("%08b", i)
-#define print_bin16(i) xprintf("%016b", i)
-#define print_bin32(i) xprintf("%032lb", i)
-#define print_bin_reverse8(i) xprintf("%08b", bitrev(i))
-#define print_bin_reverse16(i) xprintf("%016b", bitrev16(i))
-#define print_bin_reverse32(i) xprintf("%032lb", bitrev32(i))
+#define print_bin4(i) IGNORE_FORMAT_WARNING(xprintf("%04b", i))
+#define print_bin8(i) IGNORE_FORMAT_WARNING(xprintf("%08b", i))
+#define print_bin16(i) IGNORE_FORMAT_WARNING(xprintf("%016b", i))
+#define print_bin32(i) IGNORE_FORMAT_WARNING(xprintf("%032lb", i))
+#define print_bin_reverse8(i) IGNORE_FORMAT_WARNING(xprintf("%08b", bitrev(i)))
+#define print_bin_reverse16(i) IGNORE_FORMAT_WARNING(xprintf("%016b", bitrev16(i)))
+#define print_bin_reverse32(i) IGNORE_FORMAT_WARNING(xprintf("%032lb", bitrev32(i)))
 /* print value utility */
 #define print_val_dec(v) xprintf(#v ": %u\n", v)
 #define print_val_decs(v) xprintf(#v ": %d\n", v)
 #define print_val_hex8(v) xprintf(#v ": %X\n", v)
 #define print_val_hex16(v) xprintf(#v ": %02X\n", v)
 #define print_val_hex32(v) xprintf(#v ": %04lX\n", v)
-#define print_val_bin8(v) xprintf(#v ": %08b\n", v)
-#define print_val_bin16(v) xprintf(#v ": %016b\n", v)
-#define print_val_bin32(v) xprintf(#v ": %032lb\n", v)
-#define print_val_bin_reverse8(v) xprintf(#v ": %08b\n", bitrev(v))
-#define print_val_bin_reverse16(v) xprintf(#v ": %016b\n", bitrev16(v))
-#define print_val_bin_reverse32(v) xprintf(#v ": %032lb\n", bitrev32(v))
+#define print_val_bin8(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %08b\n", v))
+#define print_val_bin16(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %016b\n", v))
+#define print_val_bin32(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %032lb\n", v))
+#define print_val_bin_reverse8(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %08b\n", bitrev(v)))
+#define print_val_bin_reverse16(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %016b\n", bitrev16(v)))
+#define print_val_bin_reverse32(v) IGNORE_FORMAT_WARNING(xprintf(#v ": %032lb\n", bitrev32(v)))
 
 // User print disables the normal print messages in the body of QMK/TMK code and
 // is meant as a lightweight alternative to NOPRINT. Use it when you only want to do
@@ -114,22 +130,22 @@ void print_set_sendchar(sendchar_func_t func);
 #define uprint_hex16(i) uprintf("%04X", i)
 #define uprint_hex32(i) uprintf("%08lX", i)
 /* binary */
-#define uprint_bin4(i) uprintf("%04b", i)
-#define uprint_bin8(i) uprintf("%08b", i)
-#define uprint_bin16(i) uprintf("%016b", i)
-#define uprint_bin32(i) uprintf("%032lb", i)
-#define uprint_bin_reverse8(i) uprintf("%08b", bitrev(i))
-#define uprint_bin_reverse16(i) uprintf("%016b", bitrev16(i))
-#define uprint_bin_reverse32(i) uprintf("%032lb", bitrev32(i))
+#define uprint_bin4(i) IGNORE_FORMAT_WARNING(uprintf("%04b", i))
+#define uprint_bin8(i) IGNORE_FORMAT_WARNING(uprintf("%08b", i))
+#define uprint_bin16(i) IGNORE_FORMAT_WARNING(uprintf("%016b", i))
+#define uprint_bin32(i) IGNORE_FORMAT_WARNING(uprintf("%032lb", i))
+#define uprint_bin_reverse8(i) IGNORE_FORMAT_WARNING(uprintf("%08b", bitrev(i)))
+#define uprint_bin_reverse16(i) IGNORE_FORMAT_WARNING(uprintf("%016b", bitrev16(i)))
+#define uprint_bin_reverse32(i) IGNORE_FORMAT_WARNING(uprintf("%032lb", bitrev32(i)))
 /* print value utility */
 #define uprint_val_dec(v) uprintf(#v ": %u\n", v)
 #define uprint_val_decs(v) uprintf(#v ": %d\n", v)
 #define uprint_val_hex8(v) uprintf(#v ": %X\n", v)
 #define uprint_val_hex16(v) uprintf(#v ": %02X\n", v)
 #define uprint_val_hex32(v) uprintf(#v ": %04lX\n", v)
-#define uprint_val_bin8(v) uprintf(#v ": %08b\n", v)
-#define uprint_val_bin16(v) uprintf(#v ": %016b\n", v)
-#define uprint_val_bin32(v) uprintf(#v ": %032lb\n", v)
-#define uprint_val_bin_reverse8(v) uprintf(#v ": %08b\n", bitrev(v))
-#define uprint_val_bin_reverse16(v) uprintf(#v ": %016b\n", bitrev16(v))
-#define uprint_val_bin_reverse32(v) uprintf(#v ": %032lb\n", bitrev32(v))
+#define uprint_val_bin8(v) IGNORE_FORMAT_WARNING(uprintf(#v ": %08b\n", v))
+#define uprint_val_bin16(v) IGNORE_FORMAT_WARNING(uprintf(#v ": %016b\n", v))
+#define uprint_val_bin32(v) IGNORE_FORMAT_WARNING(uprintf(#v ": %032lb\n", v))
+#define uprint_val_bin_reverse8(v) IGNORE_FORMAT_WARNING(uprintf(#v ": %08b\n", bitrev(v)))
+#define uprint_val_bin_reverse16(v) IGNORE_FORMAT_WARNING(uprintf(#v ": %016b\n", bitrev16(v)))
+#define uprint_val_bin_reverse32(v) IGNORE_FORMAT_WARNING(uprintf(#v ": %032lb\n", bitrev32(v)))
