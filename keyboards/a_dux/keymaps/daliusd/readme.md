@@ -35,6 +35,14 @@ This is my principles for layout:
   using FLOW_ONESHOT_TERM) where you have to press next key.
   Otherwise oneshot is canceled.
 
+* As well one shot keys are not working as one shot keys if held
+  for longer than FLOW_ONESHOT_WAIT_TERM (default 500ms)
+  milliseconds.
+
+* As GUI+C GUI+V (or CTRL+C CTRL+V) is used often and sometimes I
+  click different keys because of layers I have made them more
+  accessible. Check *K_ESC_C* and *K_BSPC_V*.
+
 Since differences are quite significant I named this `flow`.
 
 ## Using flow with your keyboard

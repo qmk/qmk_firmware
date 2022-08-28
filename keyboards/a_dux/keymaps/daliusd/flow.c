@@ -33,17 +33,25 @@ const int g_flow_oneshot_term = FLOW_ONESHOT_TERM;
 const int g_flow_oneshot_term = 500;
 #endif
 
+#ifdef FLOW_ONESHOT_WAIT_TERM
+const int g_flow_oneshot_wait_term = FLOW_ONESHOT_WAIT_TERM;
+#else
+const int g_flow_oneshot_wait_term = 500;
+#endif
+
 flow_state_t flow_state[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = flow_up_unqueued };
 bool flow_pressed[FLOW_COUNT][2] = { [0 ... FLOW_COUNT - 1] = {false, false} };
 uint16_t flow_timers[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 bool flow_timeout_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
 uint16_t flow_timeout_timers_value[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
+uint16_t flow_timeout_wait_timers_value[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 
 flow_state_t flow_layers_state[FLOW_LAYERS_COUNT] = {
     [0 ... FLOW_LAYERS_COUNT - 1] = flow_up_unqueued
 };
 bool flow_layer_timeout_timers_active[FLOW_LAYERS_COUNT] = { [0 ... FLOW_LAYERS_COUNT - 1] = false };
 uint16_t flow_layer_timeout_timers_value[FLOW_LAYERS_COUNT] = { [0 ... FLOW_LAYERS_COUNT - 1] = 0 };
+uint16_t flow_layer_timeout_wait_timers_value[FLOW_LAYERS_COUNT] = { [0 ... FLOW_LAYERS_COUNT - 1] = 0 };
 
 bool is_flow_ignored_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
@@ -118,16 +126,22 @@ bool update_flow_mods(
                 if (flow_state[i] == flow_up_unqueued) {
                     register_code(flow_config[i][1]);
                 }
+                flow_timeout_wait_timers_value[i] = timer_read();
                 flow_state[i] = flow_down_unused;
             } else {
                 // Trigger keyup
                 switch (flow_state[i]) {
                 case flow_down_unused:
-                    // If we didn't use the mod while trigger was held, queue it.
                     if (!flow_pressed[i][1]) {
-                        flow_state[i] = flow_up_queued;
-                        flow_timeout_timers_active[i] = true;
-                        flow_timeout_timers_value[i] = timer_read();
+                        if (timer_elapsed(flow_timeout_wait_timers_value[i]) > g_flow_oneshot_wait_term) {
+                            flow_state[i] = flow_up_unqueued;
+                            unregister_code(flow_config[i][1]);
+                        } else {
+                            // If we didn't use the mod while trigger was held, queue it.
+                            flow_state[i] = flow_up_queued;
+                            flow_timeout_timers_active[i] = true;
+                            flow_timeout_timers_value[i] = timer_read();
+                        }
                     }
                     break;
                 case flow_down_used:
@@ -209,18 +223,26 @@ bool update_flow_layers(
                     layer_on(layer);
                     change_pressed_status(trigger, true);
                 }
+                flow_layer_timeout_wait_timers_value[i] = timer_read();
                 flow_layers_state[i] = flow_down_unused;
                 pass = false;
             } else {
                 // Trigger keyup
                 switch (flow_layers_state[i]) {
                 case flow_down_unused:
-                    // If we didn't use the layer while trigger was held, queue it.
-                    flow_layers_state[i] = flow_up_queued;
-                    flow_layer_timeout_timers_active[i] = true;
-                    flow_layer_timeout_timers_value[i] = timer_read();
-                    pass = false;
-                    change_pressed_status(trigger, true);
+                    if (timer_elapsed(flow_layer_timeout_wait_timers_value[i]) > g_flow_oneshot_wait_term) {
+                        flow_layers_state[i] = flow_up_unqueued;
+                        layer_off(layer);
+                        change_pressed_status(trigger, false);
+                        pass = false;
+                    } else {
+                        // If we didn't use the layer while trigger was held, queue it.
+                        flow_layers_state[i] = flow_up_queued;
+                        flow_layer_timeout_timers_active[i] = true;
+                        flow_layer_timeout_timers_value[i] = timer_read();
+                        pass = false;
+                        change_pressed_status(trigger, true);
+                    }
                     break;
                 case flow_down_used:
                     // If we did use the layer while trigger was held, turn off it.

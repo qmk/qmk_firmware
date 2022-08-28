@@ -500,6 +500,37 @@ TEST("navD + altD + navU + altU + sD + kD + sU + kU = alt+s k")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
+// One shot should not happen if key is pressed for longer than 500ms
+TEST("navD + altD + 501ms + altU + navU + aD + aU = a")
+    reset();
+
+    bool pass = update_flow(L_NAV, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+
+    advance_timer_and_scan(501);
+
+    pass = update_flow(KC_LALT, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    pass = update_flow(L_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+    ASSERT_EQ(UINT, last_registered_code, KC_LALT);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
+
+    pass = update_flow(KC_A, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+
+    pass = update_flow(KC_A, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+END_TEST
+
+
 TEST("navD + altD + altU + navU + 501ms + aD + aU + aD + aU = a a")
     reset();
 
@@ -585,6 +616,26 @@ TEST("tmuxD + tmuxU + 501ms + tabD + tabU = tab")
     ASSERT_EQ(UINT, active_layer, _TMUX);
 
     advance_timer_and_scan(501);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+END_TEST
+
+TEST("tmuxD + 501ms + tmuxU + tabD + tabU = tab")
+    reset();
+
+    bool pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    advance_timer_and_scan(501);
+
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, active_layer, _BASE);
 
     pass = update_flow(KC_TAB, true, kp);
