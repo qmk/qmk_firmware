@@ -26,11 +26,23 @@
 #    define CEILING(dividend, divisor) (((dividend) + (divisor)-1) / (divisor))
 #endif
 
+#if !defined(IS_ARRAY)
+/**
+ * @brief Returns true if the value is an array, false if it's a pointer.
+ *
+ * This macro is ill-formed for scalars, which is OK for its intended use in
+ * ARRAY_SIZE.
+ */
+#    define IS_ARRAY(value) (!__builtin_types_compatible_p(typeof((value)), typeof(&(value)[0])))
+#endif
+
 #if !defined(ARRAY_SIZE)
 /**
  * @brief Computes the number of elements of the given array at compile time.
+ *
  * This Macro can only be used for statically allocated arrays that have not
- * been decayed into a pointer.
+ * been decayed into a pointer. This is detected at compile time, though the
+ * error message for scalar values is poor.
  */
-#    define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
+#    define ARRAY_SIZE(array) (__builtin_choose_expr(IS_ARRAY((array)), sizeof((array)) / sizeof((array)[0]), (void)0))
 #endif
