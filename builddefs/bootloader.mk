@@ -116,13 +116,13 @@ ifeq ($(strip $(BOOTLOADER)), caterina)
 
     BOOTLOADER_SIZE = 4096
 endif
-ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
+ifeq ($(strip $(BOOTLOADER)), bootloadhid)
     OPT_DEFS += -DBOOTLOADER_BOOTLOADHID
     BOOTLOADER_TYPE = bootloadhid
 
     BOOTLOADER_SIZE = 4096
 endif
-ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
+ifeq ($(strip $(BOOTLOADER)), usbasploader)
     OPT_DEFS += -DBOOTLOADER_USBASP
     BOOTLOADER_TYPE = usbasploader
 
