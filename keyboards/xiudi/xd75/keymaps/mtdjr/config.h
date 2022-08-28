@@ -18,5 +18,4 @@
 
 // place overrides here
 #undef MANUFACTURER
-#define MANUFACTURER    mtdjr
-#define PRODUCT         XD75
+#define MANUFACTURER    "mtdjr"

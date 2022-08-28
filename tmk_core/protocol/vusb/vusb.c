@@ -672,7 +672,7 @@ const PROGMEM uchar console_hid_report[] = {
 // clang-format off
 const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
     .header = {
-        .bLength         = USB_STRING_LEN(1),
+        .bLength         = 4,
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = {0x0409} // US English
@@ -680,24 +680,24 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorManufacturer = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
+        .bLength         = sizeof(USBSTR(MANUFACTURER)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(MANUFACTURER)
+    .bString             = USBSTR(MANUFACTURER)
 };
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
+        .bLength         = sizeof(USBSTR(PRODUCT)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(PRODUCT)
+    .bString             = USBSTR(PRODUCT)
 };
 
 #if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1),
+        .bLength         = sizeof(USBSTR(SERIAL_NUMBER)),
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = USBSTR(SERIAL_NUMBER)

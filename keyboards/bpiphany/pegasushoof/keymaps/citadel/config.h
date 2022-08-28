@@ -3,4 +3,4 @@
 /* overridden settings: */
 
 #undef PRODUCT
-#define PRODUCT Pegasus Hoof Citadel
+#define PRODUCT "Pegasus Hoof Citadel"

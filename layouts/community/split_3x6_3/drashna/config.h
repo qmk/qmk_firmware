@@ -87,9 +87,9 @@
 
 #undef PRODUCT
 #ifdef CONVERT_TO_PROTON_C
-#    define PRODUCT Drashna Hacked ARM Corne Keyboard
+#    define PRODUCT "Drashna Hacked ARM Corne Keyboard"
 #else
-#    define PRODUCT Drashna Hacked Corne Keyboard
+#    define PRODUCT "Drashna Hacked Corne Keyboard"
 #endif
 
 #define TAPPING_TERM_PER_KEY
