@@ -1,5 +1,4 @@
 {
-    "manufacturer": "CHAOSERA_Y&R",
     "keyboard_name": "eau75",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
