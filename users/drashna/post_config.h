@@ -113,13 +113,17 @@
 #    endif
 #endif  // MOUSEKEY_ENABLE
 
-#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
-#    define LAYER_STATE_16BIT
-#endif
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
-#endif
+#define MOUSE_EXTENDED_REPORT
 
 #ifndef TAPPING_TERM
 #    define TAPPING_TERM 175
+#endif
+
+#ifndef SECURE_UNLOCK_SEQUENCE
+#    define SECURE_UNLOCK_SEQUENCE    \
+        {                             \
+            {2, 1}, {2, 2}, {2, 3}, { \
+                2, 4                  \
+            }                         \
+        }
 #endif
