@@ -1,12 +1,9 @@
 {
-    "keyboard_name": "Charybdis",
+    "url": "https://bastardkb.com/charybdis",
     "manufacturer": "Bastard Keyboards",
-    "url": "https://www.bastardkb.com",
-    "maintainer": "Quentin Lebastard",
     "usb": {
         "vid": "0xA8F8",
         "pid": "0x1833",
-        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_charybdis_4x6": {

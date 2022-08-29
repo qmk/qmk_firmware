@@ -1,25 +1,32 @@
 # IDOBAO ID67
 
-![id67](https://idobao.github.io/assets/img/idobao-id67.png)
+![id67](https://i.imgur.com/XiEnksS.png)
 
 A 65% hotswap keyboard from IDOBAO.
 
 ## ANSI support:
 
-* Keyboard Maintainer: Tybera *(fmr.)*, [thewerther](https://github.com/thewerther) *(curr.)*
-* Hardware Supported: IDOBAO ID67, ID67V2, ID67 Crystal & ID67 Bestype
-* Hardware Availability: IDOBAO website: 
+* Keyboard Maintainer:
+  - [Tybera](https://github.com/tybera) *(fmr.)*
+  - [Werther](https://github.com/thewerther) *(curr.)*
+  - [Vino Rodrigues](https://github.com/vinorodrigues) *(curr.)*
+* Hardware Supported:
+  - **IDOBAO ID67**
+  - **ID67v2**
+  - **ID67 Crystal**
+  - **ID67 Bestype**
+* Hardware Availability: [IDOBAO.net](https://idobao.net/search?type=product&q=ID67*): 
   * [ID67](https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1)
-  * [ID67V2](https://idobao.net/products/idobao-id67v2-65-hot-swappable-mechanical-keyboard-kit)
+  * [ID67v2](https://idobao.net/products/idobao-id67v2-65-hot-swappable-mechanical-keyboard-kit)
   * [ID67 Crystal](https://idobao.net/products/idobao-id67-crystal-keyboard-kit-gasket-mount-version)
   * [ID67 Bestype](https://idobao.net/products/idobao-id67-bestype-keyboard-kit-aluminum-with-brass-weight)
 
-## Layout
+## ANSI Layout
 
-![ID67 layout](https://idobao.github.io/kle/idobao-id67.png)
+![ID67 Layout](https://idobao.github.io/kle/idobao-id67.png)
 
 
-## Compiling and flashing
+## Compiling and Flashing
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -37,4 +44,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the `Escape` key and plug in the keyboard.
 * **Physical reset button**: Briefly press the button on the back of the PCB.
-* **Keycode in layout**: Press the key mapped to `RESET` (FN+Z).
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` (FN+Z).

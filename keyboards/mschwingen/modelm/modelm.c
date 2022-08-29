@@ -163,8 +163,8 @@ void update_layer_leds(void) {
     static uint8_t old_layer         = 255;
     static uint8_t old_default_layer = 255;
 
-    layer         = biton32(layer_state);
-    default_layer = biton32(default_layer_state);
+    layer         = get_highest_layer(layer_state);
+    default_layer = get_highest_layer(default_layer_state);
 
     if (isRecording && timer_elapsed(blink_cycle_timer) > 150) {
         blink_state       = !blink_state;

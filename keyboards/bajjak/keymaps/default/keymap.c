@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+------'           `------+------+------+------+------+------+--------|
  * | LShift |      |MsWhL |      |MsWhR |      |                         |      |      |      |      |      |        |
  * `--------+------+------+------+------+------'                          `-----+------+------+------+------+-------'
- *   | CTRL |GUI\'"|ALT \ | Left | Right|                                       |  Up  | Down |      |      | RESET |
+ *   | CTRL |GUI\'"|ALT \ | Left | Right|                                       |  Up  | Down |      |      | QK_BOOT |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |Ctrl/ESC|LALT|       | RGUI |Ctrl/Alt|
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,     _______,    KC_BTN1,            KC_MS_U,    KC_BTN2,      KC_WH_U,      _______,       _______,     _______,      _______,      _______,    _______,    _______,    _______,
     KC_CAPS,    _______,    KC_MS_L,            KC_MS_D,    KC_MS_R,      KC_WH_D,      _______,       _______,     _______,      _______,      _______,    _______,    _______,    _______,
     KC_LSFT,    _______,    KC_WH_L,            _______,    KC_WH_R,      _______,                                  _______,      _______,      _______,    _______,    _______,    _______,
-    KC_LCTRL,   KC_LGUI,    ALT_T(KC_INSERT),   KC_LEFT,    KC_RGHT,                                                              KC_UP,        KC_DOWN,    _______,    _______,    RESET,
+    KC_LCTRL,   KC_LGUI,    ALT_T(KC_INSERT),   KC_LEFT,    KC_RGHT,                                                              KC_UP,        KC_DOWN,    _______,    _______,    QK_BOOT,
                                                                  CTL_T(KC_ESC), KC_LALT,       KC_RGUI, CTL_T(KC_RALT),
                                                                                 KC_HOME,       KC_PGUP,
                                                                 KC_BSPC, KC_DEL, KC_END,       KC_PGDN, KC_ENT, KC_SPC
