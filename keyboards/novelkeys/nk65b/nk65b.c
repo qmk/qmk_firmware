@@ -15,7 +15,6 @@
  */
 
 #include "nk65b.h"
-#include <lib/lib8tion/lib8tion.h>
 
 void led_init_ports(void) {
     // Set our LED pins as open drain outputs
