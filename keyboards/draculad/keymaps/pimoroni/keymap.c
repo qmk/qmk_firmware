@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT(
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
         KC_TAB,  KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT,
-        KC_LSFT, XXXXXXX, KC_MPRV, KC_MNXT, RESET,                        KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
+        KC_LSFT, XXXXXXX, KC_MPRV, KC_MNXT, QK_BOOT,                      KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
                                             XXXXXXX,                      KC_NO,
                                    KC_LCTL, KC_LALT, XXXXXXX,    KC_NO,   _______, KC_ENT
     ),
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    XXXXXXX, XXXXXXX,  XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_ADJ] = LAYOUT(
-        RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      BALL_HUI, BALL_WHT, BALL_DEC, XXXXXXX, XXXXXXX,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      BALL_HUI, BALL_WHT, BALL_DEC, XXXXXXX, XXXXXXX,
         EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI, RGB_TOG,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_RMOD, RGB_HUD,  RGB_SAD,  RGB_VAD, _______,
                                             XXXXXXX,                      _______,

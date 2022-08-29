@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x09f5
-#define MANUFACTURER    chemicalwill
-#define PRODUCT         bear_face
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -32,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* bear_face matrix pinout */
 #define MATRIX_ROW_PINS { F5, F6, F4, F1, B0, B6 }
 #define MATRIX_COL_PINS { B5, C7, C6, F0, E6, B7, D0, D1, D2, D3, D5, D4, D6, D7, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

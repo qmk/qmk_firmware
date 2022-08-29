@@ -15,31 +15,28 @@
  */
 #include QMK_KEYBOARD_H
 
-
-#define LAYOUT_via( \
-    k00, k01, k02, \
-    k00_a, k00_b \
-) { \
-    { k00, k01,   k02, k00_a, k00_b } \
-}
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT_via(
-        KC_PSCR, MACRO00, MO(1),
-        KC_PGDN, KC_PGUP
+    [0] = LAYOUT(
+        KC_PSCR, MACRO00, MO(1)
     ),
-    [1] = LAYOUT_via(
-        QK_BOOT,   MACRO01, _______,
-        _______, _______
+    [1] = LAYOUT(
+        QK_BOOT,   MACRO01, _______
     ),
-    [2] = LAYOUT_via(
-        _______, _______, _______,
-        _______, _______
+    [2] = LAYOUT(
+        _______, _______, _______
     ),
-    [3] = LAYOUT_via(
-        _______, _______, _______,
-        _______, _______
+    [3] = LAYOUT(
+        _______, _______, _______
     )
 };
+
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(KC_PGDN, KC_PGDN) },
+    [1] = { ENCODER_CCW_CW(_______, _______) },
+    [2] = { ENCODER_CCW_CW(_______, _______) },
+    [3] = { ENCODER_CCW_CW(_______, _______) },
+};
+#endif
