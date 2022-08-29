@@ -1,6 +1,6 @@
 # Keychron Q3
 
-A customizable 87 keys keyboard.
+A customizable 80% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q3

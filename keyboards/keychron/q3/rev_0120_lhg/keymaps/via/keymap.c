@@ -16,6 +16,9 @@
 
 #include QMK_KEYBOARD_H
 
+bool is_siri_active = false;
+uint32_t siri_timer = 0;
+
 enum layers{
     MAC_BASE,
     MAC_FN,
@@ -164,15 +167,12 @@ void set_layer_color(int layer) {
   }
 }
 
-uint16_t prev;
-bool siri;
-
 void matrix_scan_user(void) {
-    if (siri) {
-        if (timer_elapsed(prev) >= 500) {
-            siri = false;
+    if (is_siri_active) {
+        if (sync_timer_elapsed32(siri_timer) >= 500) {
             unregister_code(KC_LCMD);
             unregister_code(KC_SPACE);
+            is_siri_active = false;
         }
     }
 }
@@ -205,10 +205,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;  // Skip all further processing of this key
         case KC_SIRI:
             if (record->event.pressed) {
-                register_code(KC_LCMD);
-                register_code(KC_SPACE);
-                prev = timer_read() | 1;
-                siri = true;
+                    if (!is_siri_active) {
+                    is_siri_active = true;
+                    register_code(KC_LCMD);
+                    register_code(KC_SPACE);
+                }
+                siri_timer = sync_timer_read32();
             } else {
                 // Do something else when release
             }

@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,10 @@
 #    include "rev_0122.h"
 #elif defined(KEYBOARD_keychron_q3_rev_0123)
 #    include "rev_0123.h"
+#elif defined(KEYBOARD_keychron_q3_rev_0124)
+#    include "rev_0124.h"
+#elif defined(KEYBOARD_keychron_q3_rev_0125)
+#    include "rev_0125.h"
 #elif defined(KEYBOARD_keychron_q3_rev_0120_lhg)
 #    include "rev_0120_lhg.h"
 #endif

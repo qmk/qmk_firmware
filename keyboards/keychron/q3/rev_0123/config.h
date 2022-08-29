@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0x0123
-#define DEVICE_VER 0x0100
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
 #define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
@@ -34,6 +30,9 @@
 #define ENCODERS_PAD_B { A8 }
 #define ENCODER_RESOLUTION 4
 #define ENCODER_DEFAULT_POS 0x3
+
+#define CKLED2001_CURRENT_TUNE \
+    { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 49
