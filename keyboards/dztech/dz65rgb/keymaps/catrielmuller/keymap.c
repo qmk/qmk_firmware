@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_CONFIG] = LAYOUT_65_ansi(
         TO(_MAIN), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ACL2,
-        KC_NO, KC_PWR, KC_SLEP, KC_WAKE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET, DEBUG, EEP_RST, KC_NO, KC_ACL1,
+        KC_NO, KC_PWR, KC_SLEP, KC_WAKE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, DEBUG, EEP_RST, KC_NO, KC_ACL1,
         KC_NO, UC_RMOD, UC_MOD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ACL0,
         KC_NO, MAGIC_TOGGLE_NKRO, MAGIC_UNHOST_NKRO, MAGIC_HOST_NKRO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(_INDEX), KC_NO, KC_NO, KC_NO, KC_NO
@@ -238,5 +238,5 @@ void rgb_matrix_indicators_user(void) {
     }
 
     // Show Selected Layer
-    rgb_matrix_set_color(layers_leds_map[biton32(layer_state)], MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
+    rgb_matrix_set_color(layers_leds_map[get_highest_layer(layer_state)], MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
 }

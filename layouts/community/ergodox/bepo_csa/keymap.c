@@ -323,7 +323,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |VolUp |           |      |      |      |      |      |      | Pause  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  RESET |      |      | Calc | Mail |Browsr|------|           |------|      |      |      |      |      |        |
+ * |  QK_BOOT |      |      | Calc | Mail |Browsr|------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        | App  | cut  | copy |paste | Mute |VolDn |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -341,7 +341,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LR_FN] = LAYOUT_ergodox(
        TG(LR_CSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
-       RESET,      KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
+       QK_BOOT,    KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
        KC_TRNS,    KC_APP,  S(KC_DEL),    LCTL(KC_INS),S(KC_INS),    KC_MUTE, KC_VOLD,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 

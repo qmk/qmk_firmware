@@ -19,7 +19,7 @@
 #include QMK_KEYBOARD_H
 
 // non-KC_ keycodes
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 #define KC_TOG RGB_TOG
 #define KC_MOD RGB_MOD
 #define KC_HUI RGB_HUI

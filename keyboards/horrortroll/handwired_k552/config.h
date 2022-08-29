@@ -39,9 +39,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
-
 /* EEPROM size */
 #define EEPROM_PAGE_SIZE
 #define FEE_PAGE_SIZE 0x800
