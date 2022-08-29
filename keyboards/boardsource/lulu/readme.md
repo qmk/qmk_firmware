@@ -12,11 +12,18 @@ The lulu is what the ergo community has needed for a long time, a high-end aesth
 
 Make example for this keyboard (after setting up your build environment):
 
-    make boardsource/lulu:default
+    make boardsource/lulu/rp2040:default
+    make boardsource/lulu/avr:default
 
 Flashing example for this keyboard:
 
-    make boardsource/lulu:default:flash
+    make boardsource/lulu/rp2040:default:flash
+    make boardsource/lulu/avr:default:flash
+
+
+Compile `rp2040` firmware if you purchased PCB in lulu group buy (integrated microcontroller).
+Compile `avr` firmware if your PCB uses a drop-in microcontroller like Pro Micro.
+
 
 Reset keyboard by holding down top left key while you plug in the usb cable. Or by pushing the reset switch on the pcb.
 
