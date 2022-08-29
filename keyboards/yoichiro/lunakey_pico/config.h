@@ -21,9 +21,6 @@
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
-#define TAPPING_TERM 500
-#define PERMISSIVE_HOLD
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
