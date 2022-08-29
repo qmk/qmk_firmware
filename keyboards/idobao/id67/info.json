@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "ID67 RGB Matrix variant",
-    "url": "",
-    "maintainer": "qmk",
+    "keyboard_name": "ID67",
+    "url": "https://idobao.net",
+    "maintainer": "thewerther",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },

@@ -405,14 +405,18 @@ ISR(TIMERx_OVF_vect)
     uint16_t interval = (uint16_t)get_breathing_period() * breathing_ISR_frequency / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
     breathing_counter = (breathing_counter + 1) % (get_breathing_period() * breathing_ISR_frequency);
-    uint8_t index     = breathing_counter / interval % BREATHING_STEPS;
+    uint8_t index     = breathing_counter / interval;
+    // limit index to max step value
+    if (index >= BREATHING_STEPS) {
+        index = BREATHING_STEPS - 1;
+    }
 
     if (((breathing_halt == BREATHING_HALT_ON) && (index == BREATHING_STEPS / 2)) || ((breathing_halt == BREATHING_HALT_OFF) && (index == BREATHING_STEPS - 1))) {
         breathing_interrupt_disable();
     }
 
     // Set PWM to a brightnessvalue scaled to the configured resolution
-    set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * ICRx / 255))));
+    set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint32_t)pgm_read_byte(&breathing_table[index]) * ICRx / 255))));
 }
 
 #endif // BACKLIGHT_BREATHING

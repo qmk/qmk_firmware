@@ -40,25 +40,47 @@ typedef struct {
 /* equivalent test of keypos_t */
 #define KEYEQ(keya, keyb) ((keya).row == (keyb).row && (keya).col == (keyb).col)
 
+/* special keypos_t entries */
+#define KEYLOC_TICK 255
+#define KEYLOC_COMBO 254
+#define KEYLOC_ENCODER_CW 253
+#define KEYLOC_ENCODER_CCW 252
+
 /* Rules for No Event:
  * 1) (time == 0) to handle (keyevent_t){} as empty event
  * 2) Matrix(255, 255) to make TICK event available
  */
 static inline bool IS_NOEVENT(keyevent_t event) {
-    return event.time == 0 || (event.key.row == 255 && event.key.col == 255);
+    return event.time == 0 || (event.key.row == KEYLOC_TICK && event.key.col == KEYLOC_TICK);
+}
+static inline bool IS_KEYEVENT(keyevent_t event) {
+    return event.key.row < MATRIX_ROWS && event.key.col < MATRIX_COLS;
+}
+static inline bool IS_COMBOEVENT(keyevent_t event) {
+    return event.key.row == KEYLOC_COMBO;
+}
+static inline bool IS_ENCODEREVENT(keyevent_t event) {
+    return event.key.row == KEYLOC_ENCODER_CW || event.key.row == KEYLOC_ENCODER_CCW;
 }
 static inline bool IS_PRESSED(keyevent_t event) {
-    return (!IS_NOEVENT(event) && event.pressed);
+    return !IS_NOEVENT(event) && event.pressed;
 }
 static inline bool IS_RELEASED(keyevent_t event) {
-    return (!IS_NOEVENT(event) && !event.pressed);
+    return !IS_NOEVENT(event) && !event.pressed;
 }
 
+/* Common keyevent object factory */
+#define MAKE_KEYPOS(row_num, col_num) ((keypos_t){.row = (row_num), .col = (col_num)})
+#define MAKE_KEYEVENT(row_num, col_num, press) ((keyevent_t){.key = MAKE_KEYPOS((row_num), (col_num)), .pressed = (press), .time = (timer_read() | 1)})
+
 /* Tick event */
-#define TICK                                                                                    \
-    (keyevent_t) {                                                                              \
-        .key = (keypos_t){.row = 255, .col = 255}, .pressed = false, .time = (timer_read() | 1) \
-    }
+#define TICK_EVENT MAKE_KEYEVENT(KEYLOC_TICK, KEYLOC_TICK, false)
+
+#ifdef ENCODER_MAP_ENABLE
+/* Encoder events */
+#    define ENCODER_CW_EVENT(enc_id, press) MAKE_KEYEVENT(KEYLOC_ENCODER_CW, (enc_id), (press))
+#    define ENCODER_CCW_EVENT(enc_id, press) MAKE_KEYEVENT(KEYLOC_ENCODER_CCW, (enc_id), (press))
+#endif // ENCODER_MAP_ENABLE
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);

@@ -30,11 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_VOLU, KC_VOLD, KC_MNXT, KC_MPRV, R_M_MOD, R_M_RMOD
     ),
     [1] = LAYOUT_via(
-        RESET,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,  MO(2),  _______,
+        QK_BOOT,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,  MO(2),  _______,
         _______, _______, _______, _______, RGB_MOD, RGB_RMOD
     ),
     [2] = LAYOUT_via(
-        RESET,   _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______, _______,
+        QK_BOOT,   _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______, _______,
         _______, _______, _______, _______, R_M_MOD, R_M_RMOD
     ),
     [3] = LAYOUT_via(

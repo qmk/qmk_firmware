@@ -213,7 +213,7 @@
                 {"x":12.5, "y":4},
                 {"x":13.5, "y":4, "w":1.5}
             ]
-        }
+        },
         "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"x":0, "y":0},

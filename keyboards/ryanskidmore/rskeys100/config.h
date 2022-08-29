@@ -38,7 +38,7 @@
 /* RGB Data Pin */
 #define RGB_DI_PIN C7
 /* The number of RGB LEDs connected */
-#define DRIVER_LED_TOTAL 105
+#define DRIVER_LED_TOTAL 118
 /* Set the maximum brightness to 110 to avoid going over 500 mA.
  * At full brightness with all three indicator LEDs on, the power draw is about 450 mA. */
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 110
@@ -79,7 +79,3 @@
  *
  */
 #define FORCE_NKRO
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

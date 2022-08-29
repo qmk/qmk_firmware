@@ -1,0 +1,9 @@
+{
+  "keyboard_name": "AT1",
+  "maintainer": "atset",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [{"label":"k00", "x":0, "y":0}]
+    }
+  }
+}

@@ -8,7 +8,7 @@ _qmk_install() {
         clang diffutils git gcc glibc-headers kernel-devel kernel-headers \
         make unzip wget zip python3 avr-binutils avr-gcc avr-libc \
         arm-none-eabi-binutils-cs arm-none-eabi-gcc-cs arm-none-eabi-newlib \
-        avrdude dfu-programmer dfu-util hidapi
+        avrdude dfu-programmer dfu-util hidapi libusb1-devel
 
     python3 -m pip install --user -r $QMK_FIRMWARE_DIR/requirements.txt
 }

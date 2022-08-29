@@ -37,7 +37,7 @@
                 {"label":"_", "x":11, "y":1.25},
                 {"label":"+", "x":12, "y":1.25},
                 {"label":"Back Space", "x":13, "y":1.25},
-                {"label":"Back Space", "x":14, "y":1.25}
+                {"label":"Back Space", "x":14, "y":1.25},
                 {"label":"Insert", "x":15.25, "y":1.25},
                 {"label":"Home", "x":16.25, "y":1.25},
                 {"label":"PgUp", "x":17.25, "y":1.25},

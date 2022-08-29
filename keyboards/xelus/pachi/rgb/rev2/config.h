@@ -45,8 +45,8 @@
 #define LOCKING_RESYNC_ENABLE
 
 // I2C setup
-#define I2C1_SCL            6
-#define I2C1_SDA            7
+#define I2C1_SCL_PIN        B6
+#define I2C1_SDA_PIN        B7
 #define I2C1_SCL_PAL_MODE   4
 #define I2C1_SDA_PAL_MODE   4
 #define I2C1_TIMINGR_PRESC  0U

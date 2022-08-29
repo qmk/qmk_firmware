@@ -1,7 +1,7 @@
 {
   "keyboard_name": "Leeloo",
   "url": "https://clicketysplit.ca/pages/leeloo",
-  "maintainer": "Clickety Split Ltd",
+  "maintainer": "ClicketySplit",
   "layouts": {
     "LAYOUT": {
       "layout": [
@@ -53,7 +53,9 @@
         {"label":"C", "x":3, "y":3.0},
         {"label":"V", "x":4, "y":3.2},
         {"label":"B", "x":5, "y":3.4},
+        {"label":"GUI", "x":6.25, "y":3.4},
 
+        {"label":"GUI", "x":7.75, "y":3.4},
         {"label":"N", "x":9, "y":3.4},
         {"label":"M", "x":10, "y":3.2},
         {"label":",", "x":11, "y":3.0},
@@ -63,13 +65,11 @@
 
         {"label":"Alt", "x":2.7, "y":4.6},
         {"label":"Ctrl", "x":3.8, "y":4.5},
-        {"label":"Enter", "x":5.7, "y":3.57},
-        {"label":"MINS", "x":7.12, "y":2.96},
-        {"label":"GUI", "x":6.25, "y":3.4},
+        {"label":"Enter", "x":4.9, "y":4.55},
+        {"label":"MINS", "x":6.1, "y":4.65},
 
-        {"label":"GUI", "x":7.75, "y":3.4},
-        {"label":"EQL", "x":6.39, "y":6.86},
-        {"label":"Space", "x":8.08, "y":6.18},
+        {"label":"EQL", "x":7.9, "y":4.65},
+        {"label":"Space", "x":9.1, "y":4.55},
         {"label":"Back Space", "x":10.2, "y":4.5},
         {"label":"Delete", "x":11.3, "y":4.6}
       ]
