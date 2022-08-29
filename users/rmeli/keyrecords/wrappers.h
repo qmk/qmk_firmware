@@ -25,15 +25,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // https://precondition.github.io/home-row-mods
 
-#define HM_A KC_A
-#define HM_S LGUI_T(KC_S)
-#define HM_D LCTL_T(KC_D)
-#define HM_F LALT_T(KC_F)
+#define HM_A LCTL_T(KC_A)
+#define HM_S LALT_T(KC_S)
+#define HM_D LGUI_T(KC_D)
+#define HM_F LSFT_T(KC_F)
 
-#define HM_J LALT_T(KC_J)
-#define HM_K RCTL_T(KC_K)
-#define HM_L RGUI_T(KC_L)
-#define HM_SCLN KC_SCLN
+#define HM_J RSFT_T(KC_J)
+#define HM_K RGUI_T(KC_K)
+#define HM_L LALT_T(KC_L)
+#define HM_SCLN RCTL_T(KC_SCLN)
 
 // clang-format off
 

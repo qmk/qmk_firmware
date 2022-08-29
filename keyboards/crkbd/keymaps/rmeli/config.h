@@ -26,16 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 
+#ifdef UNICODEMAP_ENABLE
 #define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
+#endif
 
+#ifdef AUTO_SHIFT_ENABLED
 #define AUTO_SHIFT_REPEAT
+#endif
 
-//#define HOME_ROW_MODS_ENABLE
-
+#define HOME_ROW_MODS_ENABLE
 #ifdef HOME_ROW_MODS_ENABLE
 #define IGNORE_MOD_TAP_INTERRUPT
-// Allow auto shift with home row mods
-#define RETRO_SHIFT
 #endif
 
 #ifdef RGBLIGHT_ENABLE
