@@ -19,5 +19,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_BREATHING
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_BREATHING // default mode
-#define RGB_MATRIX_STARTUP_VAL 200 // default brightness
-#define RGB_MATRIX_STARTUP_SPD 127 // default speed
+#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // default brightness
+#define RGB_MATRIX_STARTUP_SPD 40 // default speed
