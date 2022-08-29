@@ -50,9 +50,9 @@ enum preonic_keycodes {
     K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A \
   ) \
   LAYOUT_preonic_grid_wrapper( \
-       KC_TAB,     K01,     K02,     K03,     K04,     K05,     K06,     K07,     K08,     K09,     K0A, KC_MINUS, \
-        TD_ED,     K11,     K12,     K13,     K14,     K15,     K16,     K17,     K18,     K19,     K1A, KC_BSPC, \
-      TD_LSPC,     K21,     K22,     K23,     K24,     K25,     K26,     K27,     K28,     K29,     K2A, KC_QUOT, \
+       KC_GRV,     K01,     K02,     K03,     K04,     K05,     K06,     K07,     K08,     K09,     K0A, KC_MINUS, \
+       KC_TAB,     K11,     K12,     K13,     K14,     K15,     K16,     K17,     K18,     K19,     K1A, KC_BSPC, \
+        TD_ED,     K21,     K22,     K23,     K24,     K25,     K26,     K27,     K28,     K29,     K2A, KC_QUOT, \
       TD_LSPC,     K31,     K32,     K33,     K34,     K35,     K36,     K37,     K38,     K39,     K3A, TD_RSPC, \
       BACKLIT, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_ENT,  RAISE,  KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT  \
   )
