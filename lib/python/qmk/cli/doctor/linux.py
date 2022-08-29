@@ -6,7 +6,7 @@ from pathlib import Path
 
 from milc import cli
 
-from qmk.constants import QMK_FIRMWARE
+from qmk.constants import QMK_FIRMWARE, BOOTLOADER_VIDS_PIDS
 from .check import CheckStatus
 
 
@@ -24,6 +24,18 @@ def _udev_rule(vid, pid=None, *args):
     if args:
         rule = ', '.join([rule, *args])
     return rule
+
+
+def _generate_desired_rules(bootloader_vids_pids):
+    rules = dict()
+    for bl in bootloader_vids_pids.keys():
+        rules[bl] = set()
+        for vid_pid in bootloader_vids_pids[bl]:
+            if bl == 'caterina' or bl == 'md-boot':
+                rules[bl].add(_udev_rule(vid_pid[0], vid_pid[1], 'ENV{ID_MM_DEVICE_IGNORE}="1"'))
+            else:
+                rules[bl].add(_udev_rule(vid_pid[0], vid_pid[1]))
+    return rules
 
 
 def _deprecated_udev_rule(vid, pid=None):
@@ -47,47 +59,8 @@ def check_udev_rules():
         Path("/run/udev/rules.d/"),
         Path("/etc/udev/rules.d/"),
     ]
-    desired_rules = {
-        'atmel-dfu': {
-            _udev_rule("03eb", "2fef"),  # ATmega16U2
-            _udev_rule("03eb", "2ff0"),  # ATmega32U2
-            _udev_rule("03eb", "2ff3"),  # ATmega16U4
-            _udev_rule("03eb", "2ff4"),  # ATmega32U4
-            _udev_rule("03eb", "2ff9"),  # AT90USB64
-            _udev_rule("03eb", "2ffa"),  # AT90USB162
-            _udev_rule("03eb", "2ffb")  # AT90USB128
-        },
-        'kiibohd': {_udev_rule("1c11", "b007")},
-        'stm32': {
-            _udev_rule("1eaf", "0003"),  # STM32duino
-            _udev_rule("0483", "df11")  # STM32 DFU
-        },
-        'bootloadhid': {_udev_rule("16c0", "05df")},
-        'usbasploader': {_udev_rule("16c0", "05dc")},
-        'massdrop': {_udev_rule("03eb", "6124", 'ENV{ID_MM_DEVICE_IGNORE}="1"')},
-        'caterina': {
-            # Spark Fun Electronics
-            _udev_rule("1b4f", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 3V3/8MHz
-            _udev_rule("1b4f", "9205", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 5V/16MHz
-            _udev_rule("1b4f", "9207", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # LilyPad 3V3/8MHz (and some Pro Micro clones)
-            # Pololu Electronics
-            _udev_rule("1ffb", "0101", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # A-Star 32U4
-            # Arduino SA
-            _udev_rule("2341", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
-            _udev_rule("2341", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Micro
-            # Adafruit Industries LLC
-            _udev_rule("239a", "000c", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Feather 32U4
-            _udev_rule("239a", "000d", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 3V3/8MHz
-            _udev_rule("239a", "000e", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 5V/16MHz
-            # dog hunter AG
-            _udev_rule("2a03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
-            _udev_rule("2a03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
-        },
-        'hid-bootloader': {
-            _udev_rule("03eb", "2067"),  # QMK HID
-            _udev_rule("16c0", "0478")  # PJRC halfkay
-        }
-    }
+
+    desired_rules = _generate_desired_rules(BOOTLOADER_VIDS_PIDS)
 
     # These rules are no longer recommended, only use them to check for their presence.
     deprecated_rules = {

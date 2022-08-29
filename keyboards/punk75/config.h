@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { D0, B1}
 #define ENCODERS_PAD_B { D1, B0 }
 
-#define UNUSED_PINS { C7 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

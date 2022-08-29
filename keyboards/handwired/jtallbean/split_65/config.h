@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { C6, B5, B4, D7, D6, D4, D2, D3, B7 } // B7 is not actually used, but it is needed since # of entries must equal 9
 #define MATRIX_ROW_PINS_RIGHT { E6, F0, F1, F7, D7 }
 #define MATRIX_COL_PINS_RIGHT { B4, B5, B6, C6, C7, D4, D6, D3, D2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

@@ -125,34 +125,37 @@ Layer conditions can also be used with the callback function like the following:
 
 ```c
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (get_highest_layer(layer_state|default_layer_state) > 0) {
-        if (index == 0) {
-            if (clockwise) {
-                tap_code(KC_WH_D);
-            } else {
-                tap_code(KC_WH_U);
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        case 0:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_PGDN);
+                } else {
+                    tap_code(KC_PGUP);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                    rgb_matrix_increase_speed();
+                } else {
+                    rgb_matrix_decrease_speed();
+                }
             }
-        } else if (index == 1) {
-            if (clockwise) {
-                tap_code_delay(KC_VOLU, 10);
-            } else {
-                tap_code_delay(KC_VOLD, 10);
+            break;
+        case 1:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_WH_D);
+                } else {
+                    tap_code(KC_WH_U);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                    tap_code_delay(KC_VOLU, 10);
+                } else {
+                    tap_code_delay(KC_VOLD, 10);
+                }
             }
-        }
-    } else {  /* Layer 0 */
-        if (index == 0) {
-            if (clockwise) {
-                tap_code(KC_PGDN);
-            } else {
-                tap_code(KC_PGUP);
-            }
-        } else if (index == 1) {
-            if (clockwise) {
-                rgb_matrix_increase_speed();
-            } else {
-                rgb_matrix_decrease_speed();
-            }
-        }
+            break;
     }
     return false;
 }
