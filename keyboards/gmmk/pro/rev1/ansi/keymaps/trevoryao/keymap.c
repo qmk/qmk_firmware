@@ -100,7 +100,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         default: break;
                     }
                 } else {
-                    register_code(KC_ENTER);
+                    tap_code(KC_ENTER);
                 }
 
                 return false;
@@ -109,14 +109,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LINE_UP:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_OPT) register_code16(LCMD(LSFT(KC_K)));
-                else register_code16(LSFT(KC_UP));
+                else tap_code16(LSFT(KC_UP));
                 return false;
             }
             break;
         case LINE_DOWN:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_OPT) register_code16(LCMD(KC_L));
-                else register_code16(LSFT(KC_DOWN));
+                else tap_code16(LSFT(KC_DOWN));
                 return false;
             }
             break;
@@ -218,7 +218,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 void rgb_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().caps_lock) {
         indicator_set(LED_CAPS);
-        indicator_set(LED_L2);
+        indicator_set(LED_L4);
+        indicator_set(LED_L5);
     }
 
     // highlight FUNC layer keys, different colours for different kinds
@@ -238,14 +239,14 @@ void rgb_matrix_indicators_kb(void) {
                 LED_B,
                 LED_R
             };
-            const uint8_t LED_SYS[] = {LED_N, LED_POWER};
+            const uint8_t LED_SYS[] = {LED_N, LED_POWER}; // not the right ones
 
             for (uint16_t i = 0; i < ARR_LEN(LED_MAIN); ++i)
                 rgb_matrix_set_color(LED_MAIN[i], RGB_WHITE);
             for (uint16_t i = 0; i < ARR_LEN(LED_GITHUB); ++i)
                 rgb_matrix_set_color(LED_GITHUB[i], RGB_GREEN);
             for (uint16_t i = 0; i < ARR_LEN(LED_SYS); ++i)
-                rgb_matrix_set_color(LED_GITHUB[i], RGB_RED);
+                rgb_matrix_set_color(LED_SYS[i], RGB_RED);
 
             break;
         }
