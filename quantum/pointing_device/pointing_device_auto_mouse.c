@@ -183,14 +183,18 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
 /**
  * @brief handle key press events for auto mouse
  *
- * mouse keys           : auto_mouse_keyevent()
+ * Will process keys differently depending on if key is defined as mousekey or not.
+ * Some keys have built in behaviour(not overwritable):
+ * mouse buttons        : auto_mouse_keyevent()
  * non-mouse keys       : auto_mouse_reset_trigger()
  * mod keys             : skip auto mouse key processing
- * non target layer keys: skip auto mouse key processing
- * MO(target layer)     : auto_mouse_keyevent()
- * target layer toggles : toggle_mouse_layer()
- * target layer tap     : default processing on tap mouse key on hold
  * mod tap              : skip on hold (mod keys)
+ * QK mods e.g. LCTL(kc): default to non-mouse key, add at kb/user level as needed
+ * non target layer keys: skip auto mouse key processing (same as mod keys)
+ * MO(target layer)     : auto_mouse_keyevent()
+ * target layer toggles : toggle_mouse_layer() (on both key up and keydown)
+ * target layer tap     : default processing on tap mouse key on hold
+ * all other keycodes   : default to non-mouse key, add at kb/user level as needed
  *
  * Will deactivate target layer once a non mouse key is pressed if nothing is holding the layer active
  * such as held mousekey, toggled current target layer, or auto_mouse_activation is true
