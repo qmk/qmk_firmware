@@ -487,3 +487,13 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
     return pointing_device_combine_reports(left_report, right_report);
 }
 ```
+
+# Troubleshooting
+
+If you are having issues with pointing device drivers debug messages can be enabled that will give you insights in the inner workings. To enable these add to your keyboards `config.h` file:
+
+```c
+#define POINTING_DEVICE_DEBUG
+```
+ 
+?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
