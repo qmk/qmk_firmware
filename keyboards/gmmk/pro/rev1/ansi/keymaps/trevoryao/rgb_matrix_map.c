@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ARR_LEN(arr) (sizeof(arr) / sizeof((arr)[0]))
 uint16_t current_colour_layer = 0;
 
-static void set_colour_all(const RGB *colour) {
-    rgb_matrix_set_color_all(colour->r, colour->g, colour->b);
+static void set_colour_all(const HSV *colour) {
+    rgb_matrix_sethsv_noeeprom(colour->h, colour->s, colour->v);
 }
 
 void init_colour_layer(void) {
@@ -35,19 +35,27 @@ void step_colour_layer(void) {
 }
 
 void reverse_colour_layer(void) {
-    uint16_t next_colour_layer = (current_colour_layer - 1) % ARR_LEN(COLOUR_LAYERS);
+    uint16_t next_colour_layer = current_colour_layer == 0 ?
+        ARR_LEN(COLOUR_LAYERS) - 1 :
+        (current_colour_layer - 1) % ARR_LEN(COLOUR_LAYERS);
+
     set_colour_all(&COLOUR_LAYERS[next_colour_layer]);
     current_colour_layer = next_colour_layer;
 }
 
-static bool is_white(const RGB *rgb) { return rgb->r == 0xFF && rgb->g == 0xFF && rgb->b == 0xFF; }
+static bool is_white(const HSV *hsv) { return hsv->h == 0x00 && hsv->s == 0x00 && hsv->v == 0xFF; }
 
 void indicator_set(int index) {
-    RGB cur = COLOUR_LAYERS[current_colour_layer];
-    if (is_white(&cur)) {
-        // set to something else (will turn off otherwise)
-        rgb_matrix_set_color(index, 0x81, 0xD8, 0xD0);
-    } else {
-        rgb_matrix_set_color(index, 0xFF - cur.r, 0xFF - cur.g, 0xFF - cur.b);
+    HSV cur = COLOUR_LAYERS[current_colour_layer];
+    HSV next = {.h = 0x7C, .s = 0x67, .v = 0xD8}; // default to teal if white
+
+    if (!is_white(&cur)) {
+        uint8_t inverted_h = (cur.h + 127) % 255;
+        next.h = inverted_h;
+        next.s = cur.s;
+        next.v = cur.v;
     }
+
+    RGB next_rgb = hsv_to_rgb(next);
+    rgb_matrix_set_color(index, next_rgb.r, next_rgb.g, next_rgb.b);
 }
