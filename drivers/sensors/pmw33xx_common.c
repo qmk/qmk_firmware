@@ -18,7 +18,7 @@
 extern const uint8_t pmw33xx_firmware_data[PMW33XX_FIRMWARE_LENGTH] PROGMEM;
 extern const uint8_t pmw33xx_firmware_signature[3] PROGMEM;
 
-static const pin_t cs_pins[]                                 = PMW33XX_CS_PINS;
+static const pin_t cs_pins[]                     = PMW33XX_CS_PINS;
 static bool        in_burst[ARRAY_SIZE(cs_pins)] = {0};
 
 const size_t pmw33xx_number_of_sensors = ARRAY_SIZE(cs_pins);
