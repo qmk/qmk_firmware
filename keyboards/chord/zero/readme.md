@@ -1,6 +1,6 @@
 # CHORD ZERO Stenographic Keyboard
 
-![CHORD ZERO](https://user-images.githubusercontent.com/461132/187019809-5aaccf27-c189-4561-801b-86f32a59df2b.jpg)
+![CHORD ZERO](https://i.imgur.com/aS2MPQ2h.jpg)
 
 CHORD ZERO is a stenographic keyboard that can be used with
 [Plover](https://www.openstenoproject.org/plover/) or any other application
