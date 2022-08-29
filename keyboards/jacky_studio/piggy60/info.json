@@ -46,7 +46,6 @@
         "tap_capslock_delay": 10,
         "term": 170
     },
-    "community_layouts": ["60_hhkb", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
