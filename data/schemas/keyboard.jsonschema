@@ -75,8 +75,7 @@
                 "driver": {
                     "type": "string",
                     "enum": ["BluefruitLE", "RN42"]
-                },
-                "lto": {"type": "boolean"}
+                }
             }
         },
         "board": {

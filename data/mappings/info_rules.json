@@ -12,7 +12,7 @@
     # replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
-    "BLUETOOTH": {"info_key": "bluetooth.driver"},
+    "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
     "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},
     "FIRMWARE_FORMAT": {"info_key": "build.firmware_format"},
