@@ -29,8 +29,6 @@ enum layer_base {
 
 enum custom_keycodes {
     HELLO = SAFE_RANGE,
-    CH_CPNL,  // AL Control Panel
-    CH_ASST,  // AL Context-aware Desktop Assistant
     CH_SUSP,  // Suspend
 };
 
@@ -40,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         A(S(KC_N)),    HELLO,         CH_SUSP,       TO(_MACRO),
         KC_MPRV,       KC_MPLY,       KC_MNXT,       TO(_NUMPAD),
         C(A(KC_COMM)), KC_F5,         C(A(KC_DOT)),  TO(_RGB),
-        MO(_FN),       CH_ASST,       CH_CPNL),
+        MO(_FN),       KC_ASST,       KC_CPNL),
 
     [_NUMPAD] = LAYOUT(
         KC_KP_7,   KC_KP_8,   KC_KP_9,   KC_TRNS,
@@ -199,18 +197,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
 
                 // clang-format off
-            case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
-            case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
             case HELLO:   SEND_STRING("Hello, world!"); return true;
                 // clang-format on
-        }
-    } else {
-        switch (keycode) {
-            case CH_CPNL:
-            case CH_ASST:
-                host_consumer_send(0);
-                return false;
         }
     }
 
