@@ -23,6 +23,10 @@
   "encoder": {
     "enabled": true
   },
+  "matrix_size": {
+     "cols": 6,
+     "rows": 10
+  },
   "rgb_matrix": {
     "driver": "WS2812",
     "layout": [
