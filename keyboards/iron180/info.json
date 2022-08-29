@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Iron180",
+    "manufacturer": "SmithRune",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x8384",
+        "pid": "0x1180",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "e7v1se",
+    "keyboard_name": "E7-V1 SE",
+    "manufacturer": "Exclusive / E-Team",
     "url": "https://geekhack.org/index.php?topic=101363",
     "maintainer": "Bart Riemens",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x7051",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

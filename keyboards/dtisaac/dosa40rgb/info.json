@@ -1,7 +1,13 @@
 {
-    "keyboard_name": ">_Dosa40rgb",
+    "keyboard_name": ">_Dosa40",
+    "manufacturer": "DTIsaac",
     "url": "",
     "maintainer": "DTIsaac",
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x4973",
+        "device_version": "0.0.4"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

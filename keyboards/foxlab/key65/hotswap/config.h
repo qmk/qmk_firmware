@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x464C // "FL"
-#define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0001
-#define MANUFACTURER Fox Lab
-#define PRODUCT Key 65 Hotswap
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

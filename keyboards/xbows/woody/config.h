@@ -1,10 +1,5 @@
 #pragma once
 #include "config_common.h"
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1224
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    X-BOWS
-#define PRODUCT         WOO-DY
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

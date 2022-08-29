@@ -17,14 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D54  // "MT"
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MT
-#define PRODUCT         MT64RGB
-
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -41,7 +33,6 @@
  */
 #define MATRIX_ROW_PINS { D7, D6, D5, D3, D2 }
 #define MATRIX_COL_PINS {B5, B6, C6, C7, F7, F6,F5, F4, F1, F0, B1, B2, B3, B7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

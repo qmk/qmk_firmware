@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xD00D
-#define PRODUCT_ID      0x0031
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Pimentoso
-#define PRODUCT         TouhouPad rev2
-
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 10
 

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0x6502
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Team Mechlovin
-#define PRODUCTION   Kay65 Rev. 1
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 

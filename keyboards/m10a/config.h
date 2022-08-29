@@ -20,13 +20,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5241 // "RA"
-#define PRODUCT_ID      0x00AA // 10-A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA WORKS
-#define PRODUCT         RAMA WORKS M10-A
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3
@@ -34,7 +27,6 @@
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { B6, F7, F6, D6 }
 #define MATRIX_COL_PINS { F5, F1, F0 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN B7
 

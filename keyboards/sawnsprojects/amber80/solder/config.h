@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5350
-#define PRODUCT_ID      0xA801
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SawnsProjects X Yuutsu X Zlane
-#define PRODUCT         Amber80 Solder
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
@@ -45,7 +38,6 @@
  */
 #define MATRIX_ROW_PINS { B1, B2, B3, B7, D0, D1, F1, F0, D7, B4, D5, D3 }
 #define MATRIX_COL_PINS { F4, F6, F7, C7, C6, B6, B5, D6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

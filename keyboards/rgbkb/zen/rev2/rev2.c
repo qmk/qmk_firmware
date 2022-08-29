@@ -37,7 +37,7 @@ void render_status(void) {
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_set_cursor(0, 3); // Line 3
   oled_write_P(PSTR("Layer"), false); // Line 4
-  oled_write_P(layer_name_user(biton32(layer_state)), false);
+  oled_write_P(layer_name_user(get_highest_layer(layer_state)), false);
 
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
