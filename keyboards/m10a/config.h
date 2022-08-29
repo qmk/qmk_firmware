@@ -27,7 +27,6 @@
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { B6, F7, F6, D6 }
 #define MATRIX_COL_PINS { F5, F1, F0 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN B7
 
