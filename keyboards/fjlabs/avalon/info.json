@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Avalon",
+    "manufacturer": "Trailblazer Keyboards",
     "url": "https://fjlaboratories.com/",
     "maintainer": "FJLaboratories",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x0015",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
