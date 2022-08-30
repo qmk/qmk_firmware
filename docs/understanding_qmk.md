@@ -71,7 +71,7 @@ At the keyboard level we define a C macro (typically named `LAYOUT()`) which map
 
 Notice how the second block of our `LAYOUT()` macro matches the Matrix Scanning array above? This macro is what will map the matrix scanning array to keycodes. However, if you look at a 17 key numpad you'll notice that it has 3 places where the matrix could have a switch but doesn't, due to larger keys. We have populated those spaces with `KC_NO` so that our keymap definition doesn't have to.
 
-You can also use this macro to handle unusual matrix layouts, for example the [Clueboard rev 2](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/keyboards/clueboard/66/rev2/rev2.h). Explaining that is outside the scope of this document.
+You can also use this macro to handle unusual matrix layouts, for example the [Alice](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/keyboards/sneakbox/aliceclone/aliceclone.h#L24). Explaining that is outside the scope of this document.
 
 ##### Keycode Assignment
 
