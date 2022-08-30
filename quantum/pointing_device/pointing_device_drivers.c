@@ -122,7 +122,7 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
 static bool is_touch_down;
 
 bool auto_mouse_activation(report_mouse_t mouse_report) {
-    return is_touch_down || mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0;
+    return is_touch_down || mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
 }
 #        endif
 
