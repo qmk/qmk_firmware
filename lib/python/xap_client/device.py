@@ -7,6 +7,7 @@ import gzip
 import random
 import threading
 import functools
+from typing import Optional
 from struct import pack, unpack
 from platform import platform
 
@@ -63,7 +64,7 @@ class XAPDeviceBase:
                     event._ret = data
                     event.set()
 
-    def transaction(self, *args) -> bytes | None:
+    def transaction(self, *args) -> Optional[bytes]:
         """Request/Receive Helper
         """
         # convert args to array of bytes
