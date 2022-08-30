@@ -1,4 +1,5 @@
-/* Copyright 2021 Don Kjer
+/* Copyright 2021 Don Kjer and Tyler Tidman
+ * Copyright 2021 Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,3 +18,8 @@
 #pragma once
 
 #include "config_common.h"
+
+/* key matrix size (cols in generic keyboard config) */
+#define MATRIX_ROWS 7
+
+#define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5, A6 }
