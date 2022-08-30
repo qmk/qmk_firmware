@@ -107,16 +107,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
     void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-        loop_colorset(LED_REGION_A,      (sizeof(LED_REGION_A) / sizeof(LED_REGION_A[0])),           hsv_cl_blue);
-        loop_colorset(LED_REGION_B,      (sizeof(LED_REGION_B) / sizeof(LED_REGION_B[0])),           hsv_cl_purple);
-        loop_colorset(LED_REGION_L_SIDE, (sizeof(LED_REGION_L_SIDE) / sizeof(LED_REGION_L_SIDE[0])), hsv_cl_purple);
-        loop_colorset(LED_REGION_R_SIDE, (sizeof(LED_REGION_R_SIDE) / sizeof(LED_REGION_R_SIDE[0])), hsv_cl_purple);
+        loop_colorset(LED_REGION_A,      ARRAY_SIZE(LED_REGION_A),
+                                 hsv_cl_blue);
+        loop_colorset(LED_REGION_B,      ARRAY_SIZE(LED_REGION_B),
+                                 hsv_cl_purple);
+        loop_colorset(LED_REGION_L_SIDE, ARRAY_SIZE(LED_REGION_L_SIDE),
+                      hsv_cl_purple);
+        loop_colorset(LED_REGION_R_SIDE, ARRAY_SIZE(LED_REGION_R_SIDE),
+                      hsv_cl_purple);
 
         switch(get_highest_layer(layer_state)){  // special handling per layer
             case 1:  //layer 1
                 //rgb_matrix_set_color_all(RGB_AZURE);
-                loop_colorset(LED_REGION_NUMPAD, (sizeof(LED_REGION_NUMPAD) / sizeof(LED_REGION_NUMPAD[0])), hsv_cl_numpad);
-                loop_colorset(LED_REGION_OTHER,  (sizeof(LED_REGION_OTHER) / sizeof(LED_REGION_OTHER[0])),   hsv_cl_mods);
+                loop_colorset(LED_REGION_NUMPAD,
+                              ARRAY_SIZE(LED_REGION_NUMPAD), hsv_cl_numpad);
+                loop_colorset(LED_REGION_OTHER,  ARRAY_SIZE(LED_REGION_OTHER),
+                                 hsv_cl_mods);
             break;
             default: //layer 0
                 //
@@ -148,7 +154,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             rgb_matrix_set_color(LED_L6,   bad_rgb.r, bad_rgb.g, bad_rgb.b);
             rgb_matrix_set_color(LED_L7,   bad_rgb.r, bad_rgb.g, bad_rgb.b);
             rgb_matrix_set_color(LED_L8,   bad_rgb.r, bad_rgb.g, bad_rgb.b);
-            loop_colorset(LED_REGION_CAPS, (sizeof(LED_REGION_CAPS) / sizeof(LED_REGION_CAPS[0])), hsv_cl_bad);
+            loop_colorset(LED_REGION_CAPS, ARRAY_SIZE(LED_REGION_CAPS),
+                          hsv_cl_bad);
         }
     }
 #endif

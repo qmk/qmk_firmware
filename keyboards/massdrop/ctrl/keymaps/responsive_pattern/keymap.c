@@ -129,8 +129,7 @@ static uint8_t COLOR_PATTERNS[][COLOR_PATTERN_RGB_COUNT][3] = {
         { 66,  66,  66}, { 45,  45,  45}, { 23,  23,  23},
     },
 };
-static const uint8_t COLOR_PATTERNS_COUNT = (
-        sizeof(COLOR_PATTERNS) / sizeof(COLOR_PATTERNS[0]));
+static const uint8_t COLOR_PATTERNS_COUNT = ARRAY_SIZE(COLOR_PATTERNS);
 
 /**
  * trimed down version of `ISSI3733_LED_MAP`:

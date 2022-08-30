@@ -551,7 +551,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
         } else if (paddle_lives == 0) {
             // Game over
-            for (uint8_t i = 0; i < sizeof(LED_GAME_OVER) / sizeof(LED_GAME_OVER[0]); i++) {
+            for (uint8_t i = 0; i < ARRAY_SIZE(LED_GAME_OVER); i++) {
                 rgb_matrix_set_color(LED_GAME_OVER[i], RGB_RED);
             }
 

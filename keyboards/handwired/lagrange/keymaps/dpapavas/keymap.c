@@ -191,8 +191,8 @@ void keyboard_post_init_user(void) {
     const pin_t pins[] = {D0, D1, D2};
     uint8_t i, j;
 
-    for (i = 0 ; i < sizeof(pins) / sizeof(pins[0]) + 2 ; i += 1) {
-        for (j = 0 ; j < sizeof(pins) / sizeof(pins[0]) ; j += 1) {
+    for (i = 0 ; i < ARRAY_SIZE(pins) + 2 ; i += 1) {
+        for (j = 0 ; j < ARRAY_SIZE(pins); j += 1) {
             setPinOutput(pins[j]);
             writePin(pins[j], (j == i || j == i - 1));
         }

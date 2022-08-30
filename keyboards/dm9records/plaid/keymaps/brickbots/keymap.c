@@ -242,7 +242,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void led_keypress_update(uint8_t led, uint8_t led_mode, uint16_t keycode, keyrecord_t *record) {
     switch (led_mode) {
       case LEDMODE_MODS:
-        for (int i=0;i<sizeof(modifiers) / sizeof(modifiers[0]);i++) {
+        for (int i=0;i<ARRAY_SIZE(modifiers);i++) {
           if(keycode==modifiers[i]) {
             if (record->event.pressed) {
               writePinHigh(led);

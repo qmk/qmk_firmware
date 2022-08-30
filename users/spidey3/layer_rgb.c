@@ -97,7 +97,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
 
 // clang-format on
 
-const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
+const uint8_t PROGMEM _n_rgb_layers = ARRAY_SIZE(_rgb_layers) - 1;
 
 void clear_rgb_layers() {
     for (uint8_t i = 0; i < _n_rgb_layers; i++) {

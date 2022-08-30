@@ -201,15 +201,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				else { ++rgb_value.r; }
 			}
 			
-            for (uint8_t i=0; i<sizeof(LED_RGB)/sizeof(LED_RGB[0]); i++) {
+            for (uint8_t i=0; i<ARRAY_SIZE(LED_RGB); i++) {
                 rgb_matrix_set_color(LED_RGB[i], rgb_value.r, rgb_value.g, rgb_value.b);
             }
 			
-            for (uint8_t i=0; i<sizeof(LED_WHITE)/sizeof(LED_WHITE[0]); i++) {
+            for (uint8_t i=0; i<ARRAY_SIZE(LED_WHITE); i++) {
                 rgb_matrix_set_color(LED_WHITE[i], RGB_WHITE);
             }
 
-            for (uint8_t i=0; i<sizeof(LED_GREEN)/sizeof(LED_GREEN[0]); i++) {
+            for (uint8_t i=0; i<ARRAY_SIZE(LED_GREEN); i++) {
                 rgb_matrix_set_color(LED_GREEN[i], RGB_GREEN);
             }
 			
@@ -274,7 +274,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 			} else if (paddle_lives == 0) {
 				// Game over
-				for (uint8_t i=0; i<sizeof(LED_GAME_OVER)/sizeof(LED_GAME_OVER[0]); i++) {
+				for (uint8_t i=0; i<ARRAY_SIZE(LED_GAME_OVER); i++) {
 					rgb_matrix_set_color(LED_GAME_OVER[i], RGB_RED);
 				}
 			
@@ -439,12 +439,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
             rgb_matrix_set_color(LED_CAPS, RGB_WHITE);
             if (caps_flash_on) {
-				for (uint8_t i=0; i<sizeof(LED_SIDE_LEFT)/sizeof(LED_SIDE_LEFT[0]); i++) {
+				for (uint8_t i=0; i<ARRAY_SIZE(LED_SIDE_LEFT); i++) {
 					rgb_matrix_set_color(LED_SIDE_LEFT[i], RGB_RED);
 					rgb_matrix_set_color(LED_SIDE_RIGHT[i], RGB_RED);
 				}
 			} else {
-				for (uint8_t i=0; i<sizeof(LED_SIDE_LEFT)/sizeof(LED_SIDE_LEFT[0]); i++) {
+				for (uint8_t i=0; i<ARRAY_SIZE(LED_SIDE_LEFT); i++) {
 					rgb_matrix_set_color(LED_SIDE_LEFT[i], 0, 0, 0);
 					rgb_matrix_set_color(LED_SIDE_RIGHT[i], 0, 0, 0);
 				}

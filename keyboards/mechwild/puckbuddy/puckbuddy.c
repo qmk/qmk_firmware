@@ -16,7 +16,7 @@
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = GLIDEPOINT_DPI_OPTIONS;
-#define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+#define DPI_OPTION_SIZE ARRAY_SIZE(dpi_array)
 
 void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
