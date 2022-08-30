@@ -105,5 +105,5 @@
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
 
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
+// Set USB polling rate to 100 Hz
+#define USB_POLLING_INTERVAL_MS 10

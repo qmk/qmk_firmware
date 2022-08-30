@@ -16,5 +16,4 @@
 
 #pragma once
 
-// Enable RGB Matrix
-#define VIA_QMK_RGBLIGHT_ENABLE
+#define QMK_KEYS_PER_SCAN 4

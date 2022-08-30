@@ -130,7 +130,4 @@
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// This allows VIA to control RGB Matrix settings in the 'Lighting' section.
-#define VIA_QMK_RGBLIGHT_ENABLE
-
 #endif /* RGB_MATRIX_ENABLE */

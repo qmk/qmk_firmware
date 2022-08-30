@@ -134,9 +134,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 32
 
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
-
 /* Custom EEPROM start addressing. This is to support
  * both 128kb and 256kb versions of F303.
  * Register 0x1FFFF7CC holds the size of the flash memory.
