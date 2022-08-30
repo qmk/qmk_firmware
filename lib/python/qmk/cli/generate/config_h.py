@@ -124,6 +124,7 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
     else:
         config_h_lines.append(generate_define(f'ENCODER_RESOLUTIONS{postfix}', f'{{ {", ".join(map(str,resolutions))} }}'))
 
+
 def generate_pointing_device_config(pointing_device_json, config_h_lines, postfix=''):
     try:
         rotation = pointing_device_json['rotation']
