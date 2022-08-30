@@ -656,7 +656,7 @@ void pointing_device_task(void) {
 
 In general the following two functions must be implemented in appropriate locations for auto mouse to function:
 
-| Function                                                       | Description                                  | Suggested location              |
-| -------------------------------------------------------------- | -------------------------------------------- | ------------------------------: |
-| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | Mouse input processing for auto mouse        |      pointing_device_task stack |
-| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse            |       post_process_record stack |
+| Function                                                       | Description                                  | Suggested location              | Returns   |
+| -------------------------------------------------------------- | -------------------------------------------- | ------------------------------- | --------: |
+| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | Mouse input processing for auto mouse        |      pointing_device_task stack |      void |
+| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse            |            process_record stack |      bool |
