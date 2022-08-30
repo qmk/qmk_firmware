@@ -126,10 +126,8 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
 
 
 def generate_pointing_device_config(pointing_device_json, config_h_lines, postfix=''):
-    try:
-        rotation = pointing_device_json['rotation']
-    except KeyError:
-        rotation = 0
+
+    rotation = pointing_device_json.get('rotation', 0)
 
     if rotation == 90:
         config_h_lines.append(f'#ifndef POINTING_DEVICE_ROTATION_90{postfix}')
