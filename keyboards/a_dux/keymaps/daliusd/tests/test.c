@@ -530,7 +530,7 @@ TEST("navD + altD + 501ms + altU + navU + aD + aU = a")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + altD + altU + navU + 400ms + aD + aU + navD + altD + altU + navU + 101ms + aD + aU = alt+a alt+a")
+TEST("navD + altD + altU + navU + 400ms + aD + aU + navD + altD + altU + 101ms + navU + aD + aU = alt+a alt+a")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
@@ -872,6 +872,45 @@ TEST("navD + navU + altD + altU + sD + sU = alt+s")
     ASSERT_EQ(UINT, active_layer, _BASE);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
+END_TEST
+
+TEST("tmuxD + tmuxU + tabD + tabU + 400ms + tmuxD + 101ms + tmuxU + tabD + tabU = tmux tab + tmux tab")
+    reset();
+
+    bool pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+
+    advance_timer_and_scan(400);
+
+    // second time
+
+    pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    advance_timer_and_scan(101);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
 END_TEST
 
 END

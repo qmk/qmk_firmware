@@ -266,6 +266,7 @@ bool update_flow_layers(
                         break;
                     case flow_up_queued:
                         flow_layers_state[i] = flow_up_queued_used;
+                        flow_layer_timeout_timers_active[i] = false;
                         break;
                    case flow_up_queued_used:
                         flow_layers_state[i] = flow_up_unqueued;
