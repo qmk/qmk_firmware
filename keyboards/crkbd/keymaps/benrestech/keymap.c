@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_NU KC_NO // available but not used
 
 // non-KC_ keycodes
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 #define KC_TOG RGB_TOG
 #define KC_MOD RGB_MOD
 #define KC_HUI RGB_HUI
