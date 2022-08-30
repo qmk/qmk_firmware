@@ -32,7 +32,16 @@
         "split": true,
         "split_count": [6, 6],
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": false,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         },
         "hue_steps": 8,
         "saturation_steps": 8,
