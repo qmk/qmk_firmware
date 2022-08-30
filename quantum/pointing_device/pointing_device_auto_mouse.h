@@ -16,8 +16,11 @@
 
 #pragma once
 
+#include <string.h>
 #include "quantum.h"
 #include "pointing_device.h"
+
+#include "print.h"
 
 /* check settings and set defaults */
 #ifndef POINTING_DEVICE_AUTO_MOUSE_ENABLE
@@ -42,7 +45,7 @@
 /* data structure */
 typedef struct {
     struct {
-        bool    enabled;
+        bool    is_enabled;
         uint8_t layer;
     } config;
     struct {
@@ -50,7 +53,8 @@ typedef struct {
         uint16_t delay;
     } timer;
     struct {
-        bool   layer_toggled;
+        bool   is_layer_toggled;
+        bool   is_active;
         int8_t mouse_key_tracker;
     } status;
 } auto_mouse_context_t;
@@ -60,7 +64,7 @@ void set_auto_mouse_layer(uint8_t layer); // set target layer
 
 /* ---------for use in custom pointing device/keyevent processing code----------- */
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report); // add to pointing_device_task_*
-void process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to process_record_*
+bool process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to process_record_*
 bool auto_mouse_activation(report_mouse_t mouse_report);           // handles trigger event for target layer activation (overwritable)
 
 /* -----------------------------State control------------------------------------ */
