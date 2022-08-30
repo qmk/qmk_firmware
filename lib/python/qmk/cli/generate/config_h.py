@@ -155,6 +155,26 @@ def generate_split_config(kb_info_json, config_h_lines):
     if 'right' in kb_info_json['split'].get('encoder', {}):
         generate_encoder_config(kb_info_json['split']['encoder']['right'], config_h_lines, '_RIGHT')
 
+def generate_pointing_device_config(kb_info_json, config_h_lines):
+    try:
+        rotation = kb_info_json['pointing_device']['rotation']
+    except KeyError:
+        rotation = 0
+
+    if rotation == 90:
+        config_h_lines.append(f'#ifndef POINTING_DEVICE_ROTATION_90')
+        config_h_lines.append(f'#   define POINTING_DEVICE_ROTATION_90')
+        config_h_lines.append(f'#endif // POINTING_DEVICE_ROTATION_90')
+    elif rotation == 180:
+        config_h_lines.append(f'#ifndef POINTING_DEVICE_ROTATION_180')
+        config_h_lines.append(f'#   define POINTING_DEVICE_ROTATION_180')
+        config_h_lines.append(f'#endif // POINTING_DEVICE_ROTATION_180')
+    elif rotation == 270:
+        config_h_lines.append(f'#ifndef POINTING_DEVICE_ROTATION_270')
+        config_h_lines.append(f'#   define POINTING_DEVICE_ROTATION_270')
+        config_h_lines.append(f'#endif // POINTING_DEVICE_ROTATION_270')
+
+
 
 def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
     for animation in led_feature_json.get('animations', {}):
@@ -200,6 +220,9 @@ def generate_config_h(cli):
 
     if 'rgblight' in kb_info_json:
         generate_led_animations_config(kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_')
+
+    if 'pointing_device' in kb_info_json:
+        generate_pointing_device_config(kb_info_json, config_h_lines)
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)

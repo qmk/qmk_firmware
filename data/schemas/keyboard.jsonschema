@@ -311,6 +311,32 @@
                 }
             }
         },
+        "pointing_device": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {"type": "string"},
+                "motion_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "cs_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "sdio_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "sclk_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "throttle": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "invert_x": {"type": "boolean"},
+                "invert_y": {"type": "boolean"},
+                "gestures": {
+                    "type": "object",
+                    "properties": {
+                        "cursor_glide": {"type": "boolean"},
+                        "scroll": {"type": "boolean"}
+                    }
+                },
+                "rotation": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "enum": [0, 90, 180, 270]
+                }
+            }
+        },
         "rgb_matrix": {
             "type": "object",
             "properties": {
