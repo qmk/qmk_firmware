@@ -517,6 +517,26 @@
                     "type": "string",
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
+                "pointing_device": {
+                    "right": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "type": "object",
+                        "properties": {
+                            "side": {
+                                "type": "string",
+                                "enum": ["left", "right", "combined"]
+                            },
+                            "invert_x": {"type": "boolean"},
+                            "invert_y": {"type": "boolean"},
+                            "rotation": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "enum": [0, 90, 180, 270]
+                            }
+                        }
+                    }
+                },
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {
                     "type": "integer",
