@@ -609,6 +609,8 @@ enum quantum_keycodes {
     MAGIC_UNSWAP_ESCAPE_CAPSLOCK,
     MAGIC_TOGGLE_ESCAPE_CAPSLOCK,
 
+    UNICODE_MODE_EMACS,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -797,15 +799,8 @@ enum quantum_keycodes {
 #define EH_LEFT MAGIC_EE_HANDS_LEFT
 #define EH_RGHT MAGIC_EE_HANDS_RIGHT
 
-// GOTO layer - 16 layers max
-// when:
-// ON_PRESS    = 1
-// ON_RELEASE  = 2
-// Unless you have a good reason not to do so, prefer  ON_PRESS (1) as your default.
-// In fact, we changed it to assume ON_PRESS for sanity/simplicity. If needed, you can add your own
-// keycode modeled after the old version, kept below for this.
-/* #define TO(layer, when) (QK_TO | (when << 0x4) | (layer & 0xFF)) */
-#define TO(layer) (QK_TO | (ON_PRESS << 0x4) | ((layer)&0xFF))
+// GOTO layer - 256 layer max
+#define TO(layer) (QK_TO | ((layer)&0xFF))
 
 // Momentary switch layer - 256 layer max
 #define MO(layer) (QK_MOMENTARY | ((layer)&0xFF))
@@ -901,6 +896,7 @@ enum quantum_keycodes {
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
+#define UC_M_EM UNICODE_MODE_EMACS
 
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))

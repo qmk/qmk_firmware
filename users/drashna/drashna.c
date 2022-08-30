@@ -76,49 +76,110 @@ void tap_code16_nomods(uint16_t kc) {
     set_mods(temp_mod);
 }
 
-/**
- * @brief Run shutdown routine and soft reboot firmware.
- *
- */
+#ifdef I2C_SCANNER_ENABLE
+#    include "i2c_master.h"
+#    include "debug.h"
 
-#ifdef HAPTIC_ENABLE
-#    include "haptic.h"
-#endif
-
-#ifdef AUDIO_ENABLE
-#    ifndef GOODBYE_SONG
-#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
+#    ifndef I2C_SCANNER_TIMEOUT
+#        define I2C_SCANNER_TIMEOUT 50
 #    endif
-float reset_song[][2] = GOODBYE_SONG;
+
+i2c_status_t i2c_start_bodge(uint8_t address, uint16_t timeout) {
+    i2c_start(address);
+
+    // except on ChibiOS where the only way is do do "something"
+    uint8_t data = 0;
+    return i2c_readReg(address, 0, &data, sizeof(data), I2C_SCANNER_TIMEOUT);
+}
+
+#    define i2c_start i2c_start_bodge
+
+void do_scan(void) {
+    uint8_t nDevices = 0;
+
+    dprintf("Scanning...\n");
+
+    for (uint8_t address = 1; address < 127; address++) {
+        // The i2c_scanner uses the return value of
+        // i2c_start to see if a device did acknowledge to the address.
+        i2c_status_t error = i2c_start(address << 1, I2C_SCANNER_TIMEOUT);
+        if (error == I2C_STATUS_SUCCESS) {
+            i2c_stop();
+            xprintf("  I2C device found at address 0x%02X\n", I2C_SCANNER_TIMEOUT);
+            nDevices++;
+        } else {
+            // dprintf("  Unknown error (%u) at address 0x%02X\n", error, address);
+        }
+    }
+
+    if (nDevices == 0)
+        xprintf("No I2C devices found\n");
+    else
+        xprintf("done\n");
+}
+
+uint16_t scan_timer = 0;
+
+void matrix_scan_i2c(void) {
+    if (timer_elapsed(scan_timer) > 5000) {
+        do_scan();
+        scan_timer = timer_read();
+    }
+}
+
+void keyboard_post_init_i2c(void) {
+    i2c_init();
+    scan_timer = timer_read();
+}
 #endif
 
-void software_reset(void) {
-    clear_keyboard();
-#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-    process_midi_all_notes_off();
-#endif
-#ifdef AUDIO_ENABLE
-#    ifndef NO_MUSIC_MODE
-    music_all_notes_off();
-#    endif
-    uint16_t timer_start = timer_read();
-    PLAY_SONG(reset_song);
-    shutdown_user();
-    while (timer_elapsed(timer_start) < 250) wait_ms(1);
-    stop_all_notes();
+void bootmagic_lite(void) {
+    bool perform_reset = false;
+    // We need multiple scans because debouncing can't be turned off.
+    matrix_scan();
+#if defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
 #else
-    shutdown_user();
-    wait_ms(250);
+    wait_ms(30);
 #endif
-#ifdef HAPTIC_ENABLE
-    haptic_shutdown();
+    matrix_scan();
+
+    // If the configured key (commonly Esc) is held down on power up,
+    // reset the EEPROM valid state and jump to bootloader.
+    // This isn't very generalized, but we need something that doesn't
+    // rely on user's keymaps in firmware or EEPROM.
+    uint8_t row = BOOTMAGIC_LITE_ROW, col = BOOTMAGIC_LITE_COLUMN;
+#if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN)
+    uint8_t row_e = BOOTMAGIC_LITE_EEPROM_ROW, col_e = BOOTMAGIC_LITE_EEPROM_COLUMN;
 #endif
 
-#if defined(PROTOCOL_LUFA)
-    wdt_enable(WDTO_250MS);
-#elif defined(PROTOCOL_CHIBIOS)
-#    if defined(MCU_STM32) || defined(MCU_KINETIS)
-    NVIC_SystemReset();
+#if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
+    if (!is_keyboard_left()) {
+        row = BOOTMAGIC_LITE_ROW_RIGHT;
+        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
+#if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN) && defined(BOOTMAGIC_LITE_EEPROM_ROW_RIGHT) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT)
+        row_e = BOOTMAGIC_LITE_EEPROM_ROW_RIGHT;
+        col_e = BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT;
 #    endif
+    }
 #endif
+
+#if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN)
+    if (matrix_get_row(row_e) & (1 << col_e)) {
+        eeconfig_disable();
+        perform_reset = true;
+    }
+#endif
+    if (matrix_get_row(row) & (1 << col)) {
+        perform_reset = true;
+    }
+#ifdef STM32F411xE
+    if (!readPin(A0)) {
+        perform_reset = true;
+    }
+#endif
+
+    if (perform_reset) {
+        bootloader_jump();
+    }
 }

@@ -64,6 +64,7 @@ enum unicode_input_modes {
     UC_WIN,   // Windows using EnableHexNumpad
     UC_BSD,   // BSD (not implemented)
     UC_WINC,  // Windows using WinCompose (https://github.com/samhocevar/wincompose)
+    UC_EMACS, // Emacs is an operating system in search of a good text editor
     UC__COUNT // Number of available input modes (always leave at the end)
 };
 

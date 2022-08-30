@@ -5,6 +5,7 @@
 #include "cirque_pinnacle_regdefs.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "pointing_device_internal.h"
 
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
@@ -78,7 +79,11 @@
 #            define CIRQUE_PINNACLE_SPI_DIVISOR 64
 #        endif
 #        ifndef CIRQUE_PINNACLE_SPI_CS_PIN
-#            error "No Chip Select pin has been defined -- missing CIRQUE_PINNACLE_SPI_CS_PIN define"
+#            ifdef POINTING_DEVICE_CS_PIN
+#                define CIRQUE_PINNACLE_SPI_CS_PIN POINTING_DEVICE_CS_PIN
+#            else
+#                error "No Chip Select pin has been defined -- missing POINTING_DEVICE_CS_PIN or CIRQUE_PINNACLE_SPI_CS_PIN define"
+#            endif
 #        endif
 #    endif
 #endif

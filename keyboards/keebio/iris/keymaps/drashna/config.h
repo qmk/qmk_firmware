@@ -51,11 +51,11 @@
 
 #undef PRODUCT
 #if defined(KEYBOARD_keebio_iris_rev2)
-#    define PRODUCT Drashna Hacked Iris Rev 2
+#    define PRODUCT "Drashna Hacked Iris Rev 2"
 #elif defined(KEYBOARD_keebio_iris_rev3)
-#    define PRODUCT Drashna Hacked Iris Rev 3
+#    define PRODUCT "Drashna Hacked Iris Rev 3"
 #elif defined(KEYBOARD_keebio_iris_rev4)
-#    define PRODUCT Drashna Hacked Iris Rev 4
+#    define PRODUCT "Drashna Hacked Iris Rev 4"
 #endif
 
 #define SHFT_LED1 6

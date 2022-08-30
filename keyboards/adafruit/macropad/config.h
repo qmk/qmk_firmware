@@ -22,12 +22,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 3
 
-#define VENDOR_ID    0x239A
-#define PRODUCT_ID   0x0108
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Adafruit
-#define PRODUCT      Macropad RP2040
-
 /* Keyboard Matrix Assignments */
 // clang-format off
 #define DIRECT_PINS { \

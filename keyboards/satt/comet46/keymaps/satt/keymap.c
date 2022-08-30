@@ -70,7 +70,7 @@ enum custom_keycodes {
 #define KC_IMON ALT_T(KC_F13)
 #define KC_IMOF GUI_T(KC_F14)
 #define KC_CAD LCA(KC_DEL)
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

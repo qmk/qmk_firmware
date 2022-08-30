@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0001
-#define VENDOR_ID 0x320F
-#define MANUFACTURER Glorious
-
-#define PRODUCT GMMK 2 96
-
 /* key matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 8

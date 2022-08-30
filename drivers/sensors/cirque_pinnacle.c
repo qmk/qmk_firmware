@@ -4,8 +4,6 @@
 // refer to documentation: Gen2 and Gen3 (Pinnacle ASIC) at https://www.cirque.com/documentation
 
 #include "cirque_pinnacle.h"
-#include "print.h"
-#include "debug.h"
 #include "wait.h"
 #include "timer.h"
 
@@ -26,12 +24,6 @@ void cirque_pinnacle_clear_flags(void);
 void cirque_pinnacle_enable_feed(bool feedEnable);
 void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count);
 void RAP_Write(uint8_t address, uint8_t data);
-
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte) {
-    xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0'));
-}
-#endif
 
 #if CIRQUE_PINNACLE_POSITION_MODE
 /*  Logical Scaling Functions */

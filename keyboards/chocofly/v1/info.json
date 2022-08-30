@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Chocofly V1",
+    "keyboard_name": "Chocofly",
+    "manufacturer": "vitvlkv",
     "url": "https://github.com/vlkv/chocofly",
     "maintainer": "vlkv",
+    "usb": {
+        "vid": "0xCEE2",
+        "pid": "0x1001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
