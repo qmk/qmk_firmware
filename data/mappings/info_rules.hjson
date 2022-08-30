@@ -43,6 +43,8 @@
     "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
     "WS2812_DRIVER": {"info_key": "ws2812.driver"},
+    "POINTING_DEVICE_ENABLE": {"info_key": "pointing_device.enabled", "value_type": "bool"},
+    "POINTING_DEVICE_DRIVER": {"info_key": "pointing_device.driver"},
 
     // Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
