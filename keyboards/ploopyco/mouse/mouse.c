@@ -199,8 +199,8 @@ void keyboard_pre_init_kb(void) {
      * pathways to ground. If you're messing with this, know this: driving ANY
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
-#ifdef UNUSED_PINS
-    const pin_t unused_pins[] = UNUSED_PINS;
+#ifdef UNUSABLE_PINS
+    const pin_t unused_pins[] = UNUSABLE_PINS;
 
     for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
         setPinOutput(unused_pins[i]);
