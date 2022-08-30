@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "quantum.h"
+
 #define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.
@@ -90,3 +92,24 @@
     { K50,  K51,  K52,  XXX,  XXX,  XXX,  K56,  XXX,  XXX,  XXX,  K5A,  K5B,  K5C,  K5D,  K5E,  K5F },  \
     { XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  K67,  K68,  K69,  K6A,  K6B,  K6C,  K6D,  K6E,  K6F }   \
 }
+
+
+#ifndef WINLOCK_DISABLED
+// Define the TGUI key here so it is available in QMK configurator
+enum K3x0_keycodes {
+#ifdef VIA_ENABLE
+    KC_TGUI = USER00,   // Toggle between GUI Lock or Unlock
+    NEW_SAFE_RANGE = SAFE_RANGE
+#else
+    KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
+    NEW_SAFE_RANGE
+#endif
+};
+
+#undef SAFE_RANGE
+#define SAFE_RANGE NEW_SAFE_RANGE
+#endif /* WINLOCK_DISABLED */
+
+/* Function Prototype */
+void off_all_leds(void);
+void on_all_leds(void);
