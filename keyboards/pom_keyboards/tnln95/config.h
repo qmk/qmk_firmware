@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544E
-#define PRODUCT_ID      0x3931
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    POM_keyboard
-#define PRODUCT         tnln95
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10
@@ -41,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B6, B4, B0, D7, E6, D4, F5, D6, C6, B5 }
 #define MATRIX_COL_PINS { F4, F1, F0, F6, F7, D0, D1, D2, D3, D5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

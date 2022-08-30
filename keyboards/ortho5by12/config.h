@@ -16,15 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* VID & PID from vusb project, see tmk_core/protocol/vusb/USB-IDs-for-free.txt"*/
-// These VID/PID is not verified. Use at your own risk.
-#define VENDOR_ID 0x16C0
-#define PRODUCT_ID 0x27DB
-#define DEVICE_VER 0x0002
-#define MANUFACTURER /u/squeezeonein
-#define PRODUCT ortho5by12
-
 /* key matrix size, duplex 10x6 */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
@@ -41,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                           0   1   2   3   4   5   6   7   8   9     */
 #define MATRIX_ROW_PINS { B5, B1, B2, B3, B4, C0, D5, D6, D7, B0 }
 #define MATRIX_COL_PINS { C2, D0, D1, D4, C3, C1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

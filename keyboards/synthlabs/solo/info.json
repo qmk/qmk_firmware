@@ -1,5 +1,6 @@
 {
-  "keyboard_name": "Synth Labs Solo",
+  "keyboard_name": "Solo",
+  "manufacturer": "Synth Labs",
   "url": "http://solo.synthlabs.io",
   "maintainer": "hongaaronc",
   "bootloader": "atmel-dfu",

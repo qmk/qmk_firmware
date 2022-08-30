@@ -82,7 +82,7 @@ TestFixture::~TestFixture() {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Verify that the matrix really is cleared */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     idle_for(TAPPING_TERM * 10);
     testing::Mock::VerifyAndClearExpectations(&driver);
 
@@ -99,6 +99,29 @@ void TestFixture::add_key(KeymapKey key) {
     }
 
     this->keymap.push_back(key);
+}
+
+void TestFixture::tap_key(KeymapKey key, unsigned delay_ms) {
+    key.press();
+    idle_for(delay_ms);
+    key.release();
+    run_one_scan_loop();
+}
+
+void TestFixture::tap_combo(const std::vector<KeymapKey>& chord_keys, unsigned delay_ms) {
+    for (KeymapKey key : chord_keys) { // Press each key.
+        key.press();
+        run_one_scan_loop();
+    }
+
+    if (delay_ms > 1) {
+        idle_for(delay_ms - 1);
+    }
+
+    for (KeymapKey key : chord_keys) { // Release each key.
+        key.release();
+        run_one_scan_loop();
+    }
 }
 
 void TestFixture::set_keymap(std::initializer_list<KeymapKey> keys) {
