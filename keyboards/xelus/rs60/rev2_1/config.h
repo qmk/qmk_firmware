@@ -37,11 +37,5 @@
 //Indicator
 #define LED_CAPS_LOCK_PIN A1
 
-// Hardware Defines
-#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-// HSE CLK
-#define STM32_HSECLK 16000000
-
 //Force NKRO
 #define FORCE_NKRO
