@@ -87,7 +87,7 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
 
     memmove(keylog_str, keylog_str + 1, OLED_KEYLOGGER_LENGTH - 1);
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+    if (keycode < ARRAY_SIZE(code_to_name)) {
         keylog_str[(OLED_KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
     }
 

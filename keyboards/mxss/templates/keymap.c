@@ -27,7 +27,7 @@ hs_set layer_colors[4] = {
     [2] = {.hue = 36,    .sat = 255},  // Color for Layer 2
     [3] = {.hue = 185,   .sat = 255},  // Color for Layer 3
 };
-size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
+size_t lc_size = ARRAY_SIZE(layer_colors);
 
 // Use NEW_SAFE_RANGE to define new custom keycodes in order to not overwrite the ones used for front LED control
 enum custom_keycodes {

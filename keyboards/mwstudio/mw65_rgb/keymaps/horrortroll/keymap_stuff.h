@@ -116,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     {{205, 250, 255}, {140, 215, 125}, false },
     };
 
-    uint8_t gp_length = sizeof(gradient_presets)/sizeof(gradient_presets[0]);
+    uint8_t gp_length = ARRAY_SIZE(gradient_presets);
 
     switch (keycode) {
         case G1_HUI:

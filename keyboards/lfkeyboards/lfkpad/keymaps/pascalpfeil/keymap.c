@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint8_t number_leds[] = {8, 9, 10, 11, 12, 13, 15, 16, 17};
-const uint8_t number_leds_size = sizeof(number_leds) / sizeof(uint8_t);
+const uint8_t number_leds_size = ARRAY_SIZE(number_leds);
 
 bool led_update_user(led_t led_state) {
     for (uint8_t i = 0; i < number_leds_size; i++)
