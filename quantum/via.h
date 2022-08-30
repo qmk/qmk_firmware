@@ -113,45 +113,17 @@ enum via_command_id {
     id_unhandled                            = 0xFF,
 };
 
-enum via_keyboard_value_id {
-    id_uptime              = 0x01,
-    id_layout_options      = 0x02,
-    id_switch_matrix_state = 0x03,
-    id_firmware_version    = 0x04,
-    id_device_indication   = 0x05
-};
+enum via_keyboard_value_id { id_uptime = 0x01, id_layout_options = 0x02, id_switch_matrix_state = 0x03, id_firmware_version = 0x04, id_device_indication = 0x05 };
 
-enum via_channel_id {
-    id_custom_channel         = 0,
-    id_qmk_backlight_channel  = 1,
-    id_qmk_rgblight_channel   = 2,
-    id_qmk_rgb_matrix_channel = 3,
-    id_qmk_audio_channel      = 4
-};
+enum via_channel_id { id_custom_channel = 0, id_qmk_backlight_channel = 1, id_qmk_rgblight_channel = 2, id_qmk_rgb_matrix_channel = 3, id_qmk_audio_channel = 4 };
 
-enum via_qmk_backlight_value {
-    id_qmk_backlight_brightness = 1,
-    id_qmk_backlight_effect     = 2
-};
+enum via_qmk_backlight_value { id_qmk_backlight_brightness = 1, id_qmk_backlight_effect = 2 };
 
-enum via_qmk_rgblight_value {
-    id_qmk_rgblight_brightness   = 1,
-    id_qmk_rgblight_effect       = 2,
-    id_qmk_rgblight_effect_speed = 3,
-    id_qmk_rgblight_color        = 4
-};
+enum via_qmk_rgblight_value { id_qmk_rgblight_brightness = 1, id_qmk_rgblight_effect = 2, id_qmk_rgblight_effect_speed = 3, id_qmk_rgblight_color = 4 };
 
-enum via_qmk_rgb_matrix_value {
-    id_qmk_rgb_matrix_brightness   = 1,
-    id_qmk_rgb_matrix_effect       = 2,
-    id_qmk_rgb_matrix_effect_speed = 3,
-    id_qmk_rgb_matrix_color        = 4
-};
+enum via_qmk_rgb_matrix_value { id_qmk_rgb_matrix_brightness = 1, id_qmk_rgb_matrix_effect = 2, id_qmk_rgb_matrix_effect_speed = 3, id_qmk_rgb_matrix_color = 4 };
 
-enum via_qmk_audio_value {
-    id_qmk_audio_enable        = 1,
-    id_qmk_audio_clicky_enable = 2
-};
+enum via_qmk_audio_value { id_qmk_audio_enable = 1, id_qmk_audio_clicky_enable = 2 };
 
 // Can't use SAFE_RANGE here, it might change if someone adds
 // new values to enum quantum_keycodes.
@@ -216,7 +188,7 @@ void     via_set_layout_options(uint32_t value);
 void     via_set_layout_options_kb(uint32_t value);
 
 // Used by VIA to tell a device to flash LEDs (or do something else) when that
-// device becomes the active device being configured, on startup or switching 
+// device becomes the active device being configured, on startup or switching
 // between devices.
 void via_set_device_indication(uint8_t value);
 

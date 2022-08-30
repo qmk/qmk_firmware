@@ -291,7 +291,7 @@ void dynamic_keymap_macro_send(uint8_t id) {
     }
 
     // Send the macro string by making a temporary string.
-    char data[8] = {0}; 
+    char data[8] = {0};
     // We already checked there was a null at the end of
     // the buffer, so this cannot go past the end
     while (1) {
@@ -308,7 +308,7 @@ void dynamic_keymap_macro_send(uint8_t id) {
             if (data[1] == 0) {
                 return;
             }
-            if ( data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE ) {
+            if (data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE) {
                 // Get the keycode
                 data[2] = eeprom_read_byte(p++);
                 // Unexpected null, abort.
@@ -317,25 +317,24 @@ void dynamic_keymap_macro_send(uint8_t id) {
                 }
                 // Null terminate
                 data[3] = 0;
-            }
-            else if ( data[1] == SS_DELAY_CODE ) {
+            } else if (data[1] == SS_DELAY_CODE) {
                 // Get the number and '|'
                 // At most this is 4 digits plus '|'
                 uint8_t i = 2;
-                while ( 1 ) {
+                while (1) {
                     data[i] = eeprom_read_byte(p++);
                     // Unexpected null, abort
-                    if ( data[i] == 0 ) {
+                    if (data[i] == 0) {
                         return;
                     }
                     // Found '|', send it
-                    if ( data[i] == '|') {
-                        data[i+1] = 0;
+                    if (data[i] == '|') {
+                        data[i + 1] = 0;
                         break;
                     }
                     // If haven't found '|' by i==6 then
                     // number too big, abort
-                    if ( i == 6 ) {
+                    if (i == 6) {
                         return;
                     }
                     ++i;
