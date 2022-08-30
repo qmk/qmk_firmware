@@ -33,7 +33,7 @@
 #endif
 
 #ifdef DIP_SWITCH_PINS
-#    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(pin_t))
+#    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
 static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
 #endif
 
@@ -43,7 +43,7 @@ typedef struct matrix_index_t {
     uint8_t col;
 } matrix_index_t;
 
-#    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(matrix_index_t))
+#    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
 static matrix_index_t dip_switch_pad[] = DIP_SWITCH_MATRIX_GRID;
 extern bool           peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
 static uint16_t       scan_count;

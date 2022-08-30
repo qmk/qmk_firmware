@@ -82,7 +82,7 @@ static const encoder_key PROGMEM encoder_keys[] = {
     {"Play", "", "", KC_MEDIA_PLAY_PAUSE}
 };
 
-#define NUMBER_OF_ENCODER_KEYS sizeof(encoder_keys)/sizeof(encoder_keys[0])
+#define NUMBER_OF_ENCODER_KEYS ARRAY_SIZE(encoder_keys)
 
 static uint8_t selected_encoder_key_id = 0;
 static encoder_key selected_encoder_key;
