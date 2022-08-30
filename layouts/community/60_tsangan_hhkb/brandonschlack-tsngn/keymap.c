@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QM_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MC_LHPD, MC_SLPD, \
     RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, BL_INC,  _______, _______, _______, _______, _______, _______, KC_UP,   MC_MSSN, KC_DELT, \
     RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, BL_DEC,  _______, _______, _______, KC_VOLD, KC_VOLU, KC_LEFT, KC_RGHT,          KC_MPLY, \
-    _______,          RGB_LYR, RGB_THM, BL_TOGG, _______, RESET,   _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_DOWN, PGU_SFT, _______, \
+    _______,          RGB_LYR, RGB_THM, BL_TOGG, _______, QK_BOOT, _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_DOWN, PGU_SFT, _______, \
     _______, _______, _______,                            _______,                                     HOM_CMD, PGD_OPT, END_CTL  \
 )
 /*  Layer

@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				 ),
 
 	[10] = LAYOUT_ortho(
-                  RESET,  KC_TRNS,    KC_TRNS, KC_TRNS,
+                  QK_BOOT,  KC_TRNS,    KC_TRNS, KC_TRNS,
                   TO(7),    TO(8),      TO(9),   KC_TRNS,
                   TO(4),    TO(5),      TO(6),   KC_TRNS,
          KC_TRNS, TO(1),    TO(2),      TO(3),   KC_TRNS,

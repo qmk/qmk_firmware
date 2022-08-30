@@ -35,9 +35,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
-
 /* Use the custom font */
 #define OLED_FONT_H "lib/glcdfont.c"
 

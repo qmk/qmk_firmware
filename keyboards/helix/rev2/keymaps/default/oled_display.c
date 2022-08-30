@@ -86,7 +86,7 @@ static void render_layer_status(void) {
         break;
     default:
         oled_write_P(PSTR("Undef-"), false);
-        snprintf(buf,sizeof(buf), "%ld", layer_state);
+        snprintf(buf,sizeof(buf), "%u", layer_state);
         oled_write(buf, false);
     }
     oled_write_P(PSTR("\n"), false);

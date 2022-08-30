@@ -47,8 +47,6 @@
 // #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#define QMK_KEYS_PER_SCAN 4
-
 // #define RGB_MATRIX_KEYRELEASES
 
 // some speed shit

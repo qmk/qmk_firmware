@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* pin-out */
 #define MATRIX_ROW_PINS { F5 }
 #define MATRIX_COL_PINS { F4, D4, B5, B6, B2, F6 }
-#define UNUSED_PINS
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7
