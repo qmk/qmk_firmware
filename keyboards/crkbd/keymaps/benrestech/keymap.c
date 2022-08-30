@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 #define KC_NP KC_NO // key is not present
 #define KC_NA KC_NO // present but not available for use
@@ -32,10 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_SAI RGB_SAI
 #define KC_VAI RGB_VAI
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -161,23 +156,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-int RGB_current_mode;
-
-void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-}
-
-#ifdef RGB_MATRIX_ENABLE
-
-void suspend_power_down_keymap(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_set_suspend_state(false);
-}
-
-#endif
 
