@@ -161,6 +161,7 @@ bool update_flow_mods(
                     switch (flow_state[i]) {
                     case flow_up_queued:
                         flow_state[i] = flow_up_queued_used;
+                        flow_timeout_timers_active[i] = false;
                         break;
                     case flow_up_queued_used:
                         flow_state[i] = flow_up_unqueued;

@@ -530,6 +530,60 @@ TEST("navD + altD + 501ms + altU + navU + aD + aU = a")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
+TEST("navD + altD + altU + navU + 400ms + aD + aU + navD + altD + altU + navU + 101ms + aD + aU = alt+a alt+a")
+    reset();
+
+    bool pass = update_flow(L_NAV, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+
+    pass = update_flow(KC_LALT, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    pass = update_flow(L_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+    ASSERT_EQ(UINT, last_registered_code, KC_LALT);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    advance_timer_and_scan(400);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    pass = update_flow(KC_A, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_A, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
+
+    // Second action with 101ms iteration
+    pass = update_flow(L_NAV, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, registered_codes_count, 2);
+    ASSERT_EQ(UINT, last_registered_code, KC_LALT);
+
+    // NOTE: timer from previous click should not be called here
+    advance_timer_and_scan(101);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+
+    pass = update_flow(KC_LALT, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+
+    pass = update_flow(L_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+
+    pass = update_flow(KC_A, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_A, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+
+    ASSERT_EQ(UINT, unregistered_codes_count, 2);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
+END_TEST
+
 
 TEST("navD + altD + altU + navU + 501ms + aD + aU + aD + aU = a a")
     reset();
