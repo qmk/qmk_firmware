@@ -171,9 +171,11 @@ __attribute__((weak)) void pointing_device_send(void) {
         host_mouse_send(&local_mouse_report);
     }
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
-    uint8_t buttons = local_mouse_report.buttons;
-    memset(&local_mouse_report, 0, sizeof(local_mouse_report));
-    local_mouse_report.buttons = buttons;
+    local_mouse_report.x = 0;
+    local_mouse_report.y = 0;
+    local_mouse_report.v = 0;
+    local_mouse_report.h = 0;
+
     memcpy(&old_report, &local_mouse_report, sizeof(local_mouse_report));
 }
 
@@ -272,10 +274,18 @@ __attribute__((weak)) void pointing_device_task(void) {
         local_mouse_report  = pointing_device_adjust_by_defines_right(local_mouse_report);
         shared_mouse_report = pointing_device_adjust_by_defines(shared_mouse_report);
     }
-    local_mouse_report = is_keyboard_left() ? pointing_device_task_combined_kb(local_mouse_report, shared_mouse_report) : pointing_device_task_combined_kb(shared_mouse_report, local_mouse_report);
+    local_mouse_report = is_keyboard_left() ? pointing_device_task_combined(local_mouse_report, shared_mouse_report) : pointing_device_task_combined(shared_mouse_report, local_mouse_report);
 #else
     local_mouse_report = pointing_device_adjust_by_defines(local_mouse_report);
     local_mouse_report = pointing_device_task_kb(local_mouse_report);
+#endif
+    // automatic mouse layer function
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    pointing_device_task_auto_mouse(local_mouse_report);
+#endif
+    // pointing device modes handling for single pointing device
+#if defined(POINTING_DEVICE_MODES_ENABLE) && !(defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED))
+    local_mouse_report = pointing_device_modes_task(local_mouse_report);
 #endif
     // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
@@ -378,7 +388,7 @@ static inline int8_t pointing_device_hv_clamp(int16_t value) {
 }
 
 /**
- * @brief clamps int16_t to int8_t
+ * @brief clamps clamp_range_t to mouse_xy_report_t
  *
  * @param[in] clamp_range_t value
  * @return mouse_xy_report_t clamped value
@@ -451,6 +461,28 @@ report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_repo
 }
 
 /**
+ * @brief Handle core combined pointing device tasks
+ *
+ * Takes 2 report_mouse_t structs allowing individual modification of either side and then returns pointing_device_task_combined_kb.
+ *
+ * NOTE: Only available when using both SPLIT_POINTING_ENABLE and POINTING_DEVICE_COMBINED
+ *
+ * @param[in] left_report report_mouse_t
+ * @param[in] right_report report_mouse_t
+ * @return pointing_device_task_combined_kb(left_report, right_report) by default
+ */
+report_mouse_t pointing_device_task_combined(report_mouse_t left_report, report_mouse_t right_report) {
+#    ifdef POINTING_DEVICE_MODES_ENABLE
+    if (is_pointing_mode_on_left()) {
+        left_report = pointing_device_modes_task(left_report);
+    } else {
+        right_report = pointing_device_modes_task(right_report);
+    }
+#    endif
+    return pointing_device_task_combined_kb(left_report, right_report);
+}
+
+/**
  * @brief Weak function allowing for keyboard level mouse report modification
  *
  * Takes 2 report_mouse_t structs allowing individual modification of sides at keyboard level then returns pointing_device_task_combined_user.
@@ -479,7 +511,6 @@ __attribute__((weak)) report_mouse_t pointing_device_task_combined_kb(report_mou
 __attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
     return pointing_device_combine_reports(left_report, right_report);
 }
-#endif
 
 __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
     if IS_MOUSEKEY_BUTTON (keycode) {
@@ -487,3 +518,5 @@ __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, boo
         pointing_device_send();
     }
 }
+
+#endif // defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)

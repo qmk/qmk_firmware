@@ -125,6 +125,14 @@
 #define QK_MOD_TAP_GET_MODS(kc) (((kc) >> 8) & 0x1F)
 #define QK_MOD_TAP_GET_TAP_KEYCODE(kc) ((kc)&0xFF)
 
+// Scroll mode keys 16 scroll mode max
+// pointing device mode key macros
+#define POINTING_MODE_COUNT ((QK_POINTING_MODE_MAX - QK_POINTING_MODE + 1) / 2)
+// Momentary scroll mode
+#define PM_MO(pm) (MIN((pm), (POINTING_MODE_COUNT - 1)) + QK_POINTING_MODE)
+// Toggle default scroll mode
+#define PM_TG(pm) (MIN((pm), (POINTING_MODE_COUNT - 1)) + QK_POINTING_MODE + POINTING_MODE_COUNT)
+
 #define LCTL_T(kc) MT(MOD_LCTL, kc)
 #define RCTL_T(kc) MT(MOD_RCTL, kc)
 #define CTL_T(kc) LCTL_T(kc)
@@ -219,5 +227,10 @@
 #define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : KC_NO)
 #define SQ_R(n) (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : KC_NO)
 #define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : KC_NO)
+
+// Scroll mode aliases
+#define PM_DRG PM_DRAG
+#define PM_CRT PM_CARET
+#define PM_VOL PM_VOLUME
 
 #include "quantum_keycodes_legacy.h"
