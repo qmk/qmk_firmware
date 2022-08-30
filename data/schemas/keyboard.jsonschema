@@ -518,6 +518,7 @@
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
                 "pointing_device": {
+                    "enabled": {"type": "boolean"},
                     "right": {
                         "type": "object",
                         "additionalProperties": false,
