@@ -1,6 +1,6 @@
 # Lunakey Pico
 
-![lunakey_pico](https://i.imgur.com/S5N8AFh.jpg)
+![lunakey_pico](https://i.imgur.com/S5N8AFhh.jpg)
 
 This is a 40% split keyboard which has 3x6 vertically staggered keys and 4 thumbnail keys.
 
