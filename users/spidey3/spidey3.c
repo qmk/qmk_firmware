@@ -393,6 +393,5 @@ void unicode_input_mode_set_user(uint8_t input_mode) {
 #    ifdef RGBLIGHT_ENABLE
     unicode_input_mode_set_user_rgb(input_mode);
 #    endif
-    dprintf("spidey3: unicode input mode set to %d\n", input_mode);
 }
 #endif
