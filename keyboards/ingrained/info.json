@@ -219,7 +219,7 @@
                 }
             ]
         },
-        "LAYOUT_3x5": {
+        "LAYOUT_split_3x5_3": {
           "layout": [
             {"label":"Q", "x":0, "y":0.3},
             {"label":"W", "x":1, "y":0.1},
