@@ -32,7 +32,7 @@ class TestDriver {
 
     MOCK_METHOD1(send_keyboard_mock, void(report_keyboard_t&));
     MOCK_METHOD1(send_mouse_mock, void(report_mouse_t&));
-    MOCK_METHOD2(send_extra_mock, void(uint8_t), void(uint16_t));
+    MOCK_METHOD2(send_extra_mock, void(uint8_t, uint16_t));
 
    private:
     static uint8_t     keyboard_leds(void);
