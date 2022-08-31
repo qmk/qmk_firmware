@@ -5,6 +5,7 @@
   "debounce": 5,
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "features": {
     "audio": true,
     "backlight": true,

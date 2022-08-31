@@ -8,6 +8,7 @@
     "tags": ["split", "column stagger", "choc v1", "choc spaced" ],
 
     "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
 
     "matrix_pins": {
         "rows": ["C6", "D7", "E6", "B4", "B5"],

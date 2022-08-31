@@ -4,6 +4,7 @@
   "maintainer": "skullydazed",
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "features": {
     "backlight": true,
     "bootmagic": false,
