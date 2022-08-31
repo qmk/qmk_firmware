@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* A Custom matrix.c is used to poll the port expander C6 shows that the pins are hardwired there */
 #define MATRIX_ROW_PINS { D5, D6, B6, D7, C7, B4, B5, D3, D4, C6 }
 #define MATRIX_COL_PINS { B2, D2, B3, B7, F5, F4, F1, F0 }
-#define UNUSED_PINS
 
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 25

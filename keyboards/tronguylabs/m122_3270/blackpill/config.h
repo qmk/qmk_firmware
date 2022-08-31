@@ -22,6 +22,3 @@
 // rows are inputs). Note that every usable I/O pin is used.
 #define MATRIX_COL_PINS { B0, B1, B10, B12, B13, B14, B15, A8, A7, A10, A6, A5, A15, B3, B4, B5, B6, B7, B8, B9 }
 #define MATRIX_ROW_PINS { C13, C14, C15, A0, A1, A2, A3, A4 }
-
-// The BlackPill version is version 2
-#define DEVICE_VER 0x0002

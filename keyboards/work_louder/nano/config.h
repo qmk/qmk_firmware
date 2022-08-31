@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS  1
-#define MATRIX_COLS  5
+#define MATRIX_COLS  3
 
 /*
  * Keyboard Matrix Assignments
@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS \
     { F7 }
 #define MATRIX_COL_PINS \
-    { B5, B6, C6, NO_PIN, NO_PIN }
+    { B5, B6, C6 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION        COL2ROW
@@ -195,14 +195,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D7 }
 #define ENCODERS_PAD_B \
     { B4 }
-
-#define ENCODERS 1
-
-#define ENCODERS_CW_KEY \
-    {                   \
-        { 3, 0 }        \
-    }
-#define ENCODERS_CCW_KEY \
-    {                    \
-        { 4, 0 }         \
-    }
