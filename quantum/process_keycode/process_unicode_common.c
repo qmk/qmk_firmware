@@ -29,6 +29,20 @@ static int8_t  selected_count = ARRAY_SIZE(selected);
 static int8_t  selected_index;
 #endif
 
+/** \brief Uunicode input mode set at user level
+ *
+ * Run user code on unicode input mode change
+ */
+__attribute__((weak)) void unicode_input_mode_set_user(uint8_t input_mode) {}
+
+/** \brief unicode input mode set at keyboard level
+ *
+ *  Run keyboard code on unicode input mode change
+ */
+__attribute__((weak)) void unicode_input_mode_set_kb(uint8_t input_mode) {
+    unicode_input_mode_set_user(input_mode);
+}
+
 void unicode_input_mode_init(void) {
     unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
 #if UNICODE_SELECTED_MODES != -1
@@ -50,6 +64,7 @@ void unicode_input_mode_init(void) {
     unicode_config.input_mode = selected[selected_index = 0];
 #    endif
 #endif
+    unicode_input_mode_set_kb(unicode_config.input_mode);
     dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
 }
 
@@ -60,6 +75,7 @@ uint8_t get_unicode_input_mode(void) {
 void set_unicode_input_mode(uint8_t mode) {
     unicode_config.input_mode = mode;
     persist_unicode_input_mode();
+    unicode_input_mode_set_kb(mode);
     dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
 
@@ -73,6 +89,7 @@ void cycle_unicode_input_mode(int8_t offset) {
 #    if UNICODE_CYCLE_PERSIST
     persist_unicode_input_mode();
 #    endif
+    unicode_input_mode_set_kb(unicode_config.input_mode);
     dprintf("Unicode input mode cycle to: %u\n", unicode_config.input_mode);
 #endif
 }

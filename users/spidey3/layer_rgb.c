@@ -112,8 +112,7 @@ void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
     }
 }
 
-void do_rgb_unicode(void) {
-    uint8_t uc_mode = get_unicode_input_mode();
+void do_rgb_unicode(uint8_t uc_mode) {
     for (uint8_t i = 0; i < UC__COUNT; i++) {
         bool is_on = i == uc_mode;
         rgblight_set_layer_state(UNICODE_OFFSET + i, is_on);
@@ -123,7 +122,7 @@ void do_rgb_unicode(void) {
 void do_rgb_all(void) {
     do_rgb_layers(default_layer_state, LAYER_BASE_DEFAULT, LAYER_BASE_REGULAR);
     do_rgb_layers(layer_state, LAYER_BASE_REGULAR, LAYER_BASE_END);
-    do_rgb_unicode();
+    do_rgb_unicode(get_unicode_input_mode());
     rgblight_set_layer_state(MISC_OFFSET + 0, spi_gflock);
     rgblight_set_layer_state(MISC_OFFSET + 1, spi_replace_mode != SPI_NORMAL);
 }
@@ -148,7 +147,7 @@ extern rgblight_status_t rgblight_status;
 #    define STARTUP_ANIMATION_CYCLE_STEP 2
 #    define STARTUP_ANIMATION_RAMP_TO_STEPS 70
 #    define STARTUP_ANIMATION_STEP_TIME 10
-#    define STARTUP_ANIMATION_INITIAL_DELAY 0  // milliseconds, must be < 255 * STEP_TIME
+#    define STARTUP_ANIMATION_INITIAL_DELAY 0 // milliseconds, must be < 255 * STEP_TIME
 
 // clang-format off
 typedef enum {
@@ -382,6 +381,13 @@ bool led_update_user_rgb(led_t led_state) {
     return true;
 }
 
+#if defined(UNICODE_COMMON_ENABLE)
+void unicode_input_mode_set_user_rgb(uint8_t input_mode) {
+    rgb_layer_ack(ACK_MEH);
+    do_rgb_unicode(input_mode);
+}
+#endif
+
 void rgb_layer_ack_yn(bool yn) { rgb_layer_ack(yn ? ACK_YES : ACK_NO); }
 
 void rgb_layer_ack(layer_ack_t n) {
@@ -458,7 +464,7 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case RGB_TOG:
-            // Hack - we only get called on the press for RGB_TOG, 
+            // Hack - we only get called on the press for RGB_TOG,
             // but the flag is only flipped on the release...
             rgb_layer_ack_yn(!rgblight_config.enable);
             break;
@@ -474,21 +480,6 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
         case NK_ON:
         case NK_OFF:
             rgb_layer_ack_yn(keymap_config.nkro);
-            break;
-#endif
-
-#if defined(UNICODE_COMMON_ENABLE)
-        case UC_M_MA:
-        case UC_M_LN:
-        case UC_M_WI:
-        case UC_M_BS:
-        case UC_M_WC:
-        case UC_M_EM:
-
-        case UC_MOD:
-        case UC_RMOD:
-            rgb_layer_ack(ACK_MEH);
-            do_rgb_unicode();
             break;
 #endif
     }
