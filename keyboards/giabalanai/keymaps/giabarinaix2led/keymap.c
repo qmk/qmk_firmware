@@ -252,6 +252,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_C_SYSTEM_BASE]        = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_C_SYSTEM_BASS2ROW]    = { ENCODER_CCW_CW(_______, _______) },
+    [_C_SYSTEM_ENTIRELY]    = { ENCODER_CCW_CW(_______, _______) },
+    [_CHROMATONE]           = { ENCODER_CCW_CW(_______, _______) },
+    [_QWERTY]               = { ENCODER_CCW_CW(_______, _______) },
+    [_FN]                   = { ENCODER_CCW_CW(_______, _______) },
+};
+#endif
+
 #ifdef RGBLIGHT_ENABLE
 
 // Light up fn layer keys

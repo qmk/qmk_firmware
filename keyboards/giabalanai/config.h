@@ -285,10 +285,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define ENCODERS_PAD_B_RIGHT { B6 }
 #   define ENCODER_RESOLUTIONS_RIGHT { 4 }
 #   define TAP_CODE_DELAY 10
-
-#   define ENCODERS 1
-#   define ENCODERS_CW_KEY  { {9, 6} }
-#   define ENCODERS_CCW_KEY { {8, 6} }
 #endif  // ENCODER_ENABLE
 
 /* 2021/01/22 added to shrink firmware size */

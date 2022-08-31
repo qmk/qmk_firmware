@@ -18,6 +18,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 MIDI_ENABLE = yes           # MIDI support
 ENCODER_ENABLE = yes        # encoder on mute button
+ENCODER_MAP_ENABLE = yes    # replacing ENCODERS_CW_KEY method to this on 2022/08/31.
 SPLIT_KEYBOARD = yes        # Enables split keyboard support
 # RGB_MATRIX_ENABLE is not suitable for giabalanai keyboard on the right side (there are dulpicate keys).
 RGB_MATRIX_ENABLE = no      # Use RGB matrix (Don't enable this when RGBLIGHT_ENABLE is used.)

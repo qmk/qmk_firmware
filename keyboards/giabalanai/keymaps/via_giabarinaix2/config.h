@@ -3,12 +3,6 @@
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 #define GIABARINAIX2
 #ifdef GIABARINAIX2
-// Change the ID for VIA support.
-#    undef PRODUCT_ID
-#    define PRODUCT_ID   0xF4B2
-#    undef PRODUCT
-#    define PRODUCT giabarinaix2
-
 #    undef MATRIX_ROW_PINS_RIGHT
 #    undef MATRIX_COL_PINS_RIGHT
 
