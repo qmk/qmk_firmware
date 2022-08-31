@@ -206,6 +206,17 @@ The functions for starting and finishing Unicode input on your platform can be o
 
 You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
 
+### Input Mode Callbacks
+
+There are callbacks functions available that are called whenever the unicode input mode changes. The new input mode is passed to the function.
+
+|Callback                                           |Description                                          |
+|---------------------------------------------------|-----------------------------------------------------|
+| `unicode_input_mode_set_kb(uint8_t input_mode)`   | Callback for unicode input mode set, for keyboard.  |
+| `unicode_input_mode_set_user(uint8_t input_mode)` | Callback for unicode input mode set, for users.     |
+
+This feature can be used, for instance, to implement LED indicators for the current unicode input mode.
+
 ### Input Key Configuration
 
 You can customize the keys used to trigger Unicode input for macOS, Linux and WinCompose by adding corresponding defines to your `config.h`. The default values match the platforms' default settings, so you shouldn't need to change this unless Unicode input isn't working, or you want to use a different key (e.g. in order to free up left or right Alt).
