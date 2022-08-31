@@ -255,7 +255,4 @@
 #   define ENCODERS_PAD_B_RIGHT { F4 }
 #   define ENCODER_RESOLUTIONS_RIGHT { 4 }
 #   define TAP_CODE_DELAY 10
-#   define ENCODERS 1
-#   define ENCODERS_CW_KEY  { {6, 5} }
-#   define ENCODERS_CCW_KEY { {5, 5} }
 #endif  // ENCODER_ENABLE
