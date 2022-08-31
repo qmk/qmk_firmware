@@ -38,15 +38,15 @@ led_config_t g_led_config = {
 
 
         { 60,     61,     62,  63,  64,  65,  66,  NO_LED },
-        { 84,     83,     82,  81,  80,  79,  78, NO_LED },
-        { 85,     86,     87,  88,  89,  90,  91, NO_LED },
+        { 84,     83,     82,  81,  80,  79,  78,  NO_LED },
+        { 85,     86,     87,  88,  89,  90,  91,  NO_LED },
         { 110,    109,    108, 107, 106, 105, 104, NO_LED },
         { NO_LED, 111,    112, 113, 114, 115, 116, NO_LED },
 
         { NO_LED, NO_LED, 71,  70,  69,  68,  67,  NO_LED },
-        { NO_LED, 72,     73,  74,  75,  76,  77, NO_LED },
-        { NO_LED, 97,     96,  95,  94,  93,  92, NO_LED },
-        { NO_LED, 98,     99, 100, 101, 102, 103, NO_LED },
+        { NO_LED, 72,     73,  74,  75,  76,  77,  NO_LED },
+        { NO_LED, 97,     96,  95,  94,  93,  92,  NO_LED },
+        { NO_LED, 98,     99, 100, 101, 102, 103,  NO_LED },
         { NO_LED, 122,    121, 120, 119, 118, 117, NO_LED }
     }, {
         {  88,  0 }, {  80,  0 }, {  72,  0 }, {  64,  0 }, {  56,  0 }, {  48,  0 }, {  40,  0 }, {  32,  0 }, {  24,  0 }, {  16,  0 }, {   8,  0 }, {   0,  0 },
@@ -229,52 +229,3 @@ void my_process_midi(uint8_t channel, uint16_t keycode, keyrecord_t *record, uin
     my_tone_status[tone] = MIDI_INVALID_NOTE;
     }
 }
-
-#ifdef ENCODER_ENABLE
-#    ifdef ENCODERS
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
-#    endif
-
-void encoder_action_unregister(void) {
-#    ifdef ENCODERS
-    for (int index = 0; index < ENCODERS; ++index) {
-        if (encoder_state[index]) {
-            keyevent_t encoder_event = (keyevent_t) {
-                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
-                .pressed = false,
-                .time = (timer_read() | 1)
-            };
-            encoder_state[index] = 0;
-            action_exec(encoder_event);
-        }
-    }
-#    endif
-}
-
-void encoder_action_register(uint8_t index, bool clockwise) {
-#    ifdef ENCODERS
-    keyevent_t encoder_event = (keyevent_t) {
-        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
-        .pressed = true,
-        .time = (timer_read() | 1)
-    };
-    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
-    action_exec(encoder_event);
-#    endif
-}
-
-void matrix_scan_kb(void) {
-    encoder_action_unregister();
-    matrix_scan_user();
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    encoder_action_register(index, clockwise);
-    // don't return user actions, because they are in the keymap
-    // encoder_update_user(index, clockwise);
-    return true;
-};
-
-#endif
