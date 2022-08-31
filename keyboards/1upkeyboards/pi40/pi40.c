@@ -132,7 +132,7 @@ void user_oled_magic(void) {
     oled_write_P(led_state.scroll_lock ? PSTR("Scrl(x)") : PSTR("Scrl( )"), false);
 
 
-    switch (rgblight_get_mode()) {
+    switch (rgb_matrix_get_mode()) {
         case 1:
             oled_write_P(PSTR("Solid Color\n                  "), false);
             break;
