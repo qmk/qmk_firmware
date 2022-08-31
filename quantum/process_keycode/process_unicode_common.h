@@ -87,6 +87,9 @@ void unicode_input_start(void);
 void unicode_input_finish(void);
 void unicode_input_cancel(void);
 
+void unicode_input_mode_set_user(uint8_t input_mode);
+void unicode_input_mode_set_kb(uint8_t input_mode);
+
 void register_hex(uint16_t hex);
 void register_hex32(uint32_t hex);
 void register_unicode(uint32_t code_point);
