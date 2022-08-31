@@ -33,8 +33,7 @@ static int8_t  selected_index;
  *
  * Run user code on unicode input mode change
  */
-__attribute__((weak)) void unicode_input_mode_set_user(uint8_t input_mode) {
-}
+__attribute__((weak)) void unicode_input_mode_set_user(uint8_t input_mode) {}
 
 /** \brief unicode input mode set at keyboard level
  *
