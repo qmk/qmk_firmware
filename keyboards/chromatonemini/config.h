@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { E6, D7, C6, D4, D0, D1 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -268,7 +267,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #   define ENCODERS_PAD_A { B5 }
 #   define ENCODERS_PAD_B { B4 }
-#   define ENCODER_RESOLUTION 4
+#   define ENCODER_RESOLUTIONS { 4 }
 #   define TAP_CODE_DELAY 10
 
 #define ENCODERS 1
