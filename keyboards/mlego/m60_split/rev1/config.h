@@ -17,10 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0x6361
-#define DEVICE_VER 0x0001
-
 #define MATRIX_ROW_PINS \
     { B0, A6, A7, B1, A5 }
 #define MATRIX_COL_PINS \
@@ -82,7 +78,3 @@
 #define BOOTMAGIC_LITE_ROW_RIGHT 5
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
 #endif
-
-#define UNUSED_PINS
-// you want to comment this if using stm32-dfu as bootloader
-#define FEE_PAGE_BASE_ADDRESS 0x08008000

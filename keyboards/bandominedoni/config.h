@@ -33,7 +33,6 @@
  */
 #define MATRIX_ROW_PINS { B5, B4, D7, F6, C6, D4 }
 #define MATRIX_COL_PINS { D1, E6, F7, B1, B3, B2, D0 }
-#define UNUSED_PINS
 
 #define MASTER_RIGHT
 #ifndef MASTER_RIGHT

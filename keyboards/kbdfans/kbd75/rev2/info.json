@@ -1,7 +1,13 @@
 {
     "keyboard_name": "KBD75 rev2",
+    "manufacturer": "KBDfans",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x6061",
+        "device_version": "0.0.2"
+    },
     "layout_aliases": {
         "LAYOUT_ansi_1u": "LAYOUT_75_ansi"
     },
