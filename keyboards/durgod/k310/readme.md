@@ -26,4 +26,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ### Initial Flash
 
 Instructions for Flashing from initial Stock Firmware:
-* [Initial Flashing](../readme.md#initial-flash)
+* [Initial Flashing](../k3x0/readme.md#initial-flash)
