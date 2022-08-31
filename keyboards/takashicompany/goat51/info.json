@@ -33,6 +33,11 @@
             "B6"
         ]
     },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "D1", "pin_b": "D0" }
+         ]
+    },
     "processor": "atmega32u4",
     "url": "https://github.com/takashicompany/goat51",
     "usb": {
