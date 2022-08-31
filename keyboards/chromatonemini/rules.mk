@@ -18,5 +18,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 MIDI_ENABLE = yes           # MIDI support
 ENCODER_ENABLE = yes        # encoder on mute button
+ENCODER_MAP_ENABLE = yes    # replacing ENCODERS_CW_KEY method to this on 2022/08/31.
 RGB_MATRIX_DRIVER = WS2812  #
 LTO_ENABLE = yes

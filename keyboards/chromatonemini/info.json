@@ -13,8 +13,6 @@
             "layout": [
                 {"label":"enc", "x":0.5, "y":0},
                 {"label":"sustain", "x":1.5, "y":0},
-                {"label":"ccw", "x":2.5, "y":0},
-                {"label":"cw", "x":3.5, "y":0},
                 {"label":"up", "x":0.5, "y":1.5},
                 {"label":"left", "x":0, "y":2.5},
                 {"label":"right", "x":1, "y":2.5},
