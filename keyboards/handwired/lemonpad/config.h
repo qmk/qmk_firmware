@@ -37,7 +37,6 @@
     { E6, D7, C6 }, 	\
     { B4, B5, D4 }  	\
 }
-#define UNUSED_PINS
 
 //#define BACKLIGHT_PIN B7
 //#define BACKLIGHT_LEVELS 3

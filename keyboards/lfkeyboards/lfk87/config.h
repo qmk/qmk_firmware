@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define MATRIX_ROW_PINS {D2, D3, D4, D5, D6, D7 }
     #define MATRIX_COL_PINS {A0, A1, A2, A3, A4, A5, A6, A7, E6, E7,\
                              F0, F1, F2, F3, C0, C1, C2 }
-    #define UNUSED_PINS {B0, B1, B2, B3, B4, B4, B5, B6, B7, C4, C5, C6, C7,\
-                         D0, D1, E0, E1, E2, E3, E4, F4, F5, F6, F7}
     #define RGBLED_NUM 25     // Number of LEDs
 #else
 /* RevC/D Matrix config */
@@ -37,8 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define MATRIX_COLS 16
     #define MATRIX_ROW_PINS {F2, D7, D6, D5, D4, D3, F3}
     #define MATRIX_COL_PINS {A0, A1, A2, A3, A4, A5, A6, A7, C7, C1, C0, E1, E0, C2, C3, C4}
-    #define UNUSED_PINS {B0, B1, B2, B3, B4, B4, B5, B6, B7, C5, C6, D2, E3, E4, E5, E6, E7, \
-                         F0, F1, F4, F5, F6, F7}
     #define RGBLED_NUM 24     // Number of LEDs
 #endif
 
