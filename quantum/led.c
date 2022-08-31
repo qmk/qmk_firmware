@@ -99,7 +99,7 @@ __attribute__((weak)) bool led_update_kb(led_t led_state) {
 
 /** \brief Write LED state to hardware
  */
-void led_update_ports(led_t led_state) {
+__attribute__((weak)) void led_update_ports(led_t led_state) {
 #if LED_PIN_ON_STATE == 0
     // invert the whole thing to avoid having to conditionally !led_state.x later
     led_state.raw = ~led_state.raw;
