@@ -186,7 +186,7 @@ enum custom_keycodes {
 
     MY_CHORD_MAX = MI_CH_BDim7,
 
-    VERSION,
+    VERSION = USER00,
     CSYSTEM,  // C-SYSTEM layout
     BSYSTEM,  // B-SYSTEM layout
     CNTBASC,  // CouNTer BASs C-system layout
