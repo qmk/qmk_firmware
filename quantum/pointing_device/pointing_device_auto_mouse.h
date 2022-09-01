@@ -53,7 +53,7 @@ typedef struct {
         uint16_t delay;
     } timer;
     struct {
-        bool   is_layer_toggled;
+        bool   is_toggled;
         bool   is_active;
         int8_t mouse_key_tracker;
     } status;
@@ -66,18 +66,19 @@ void set_auto_mouse_layer(uint8_t layer); // set target layer
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report); // add to pointing_device_task_*
 bool process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to process_record_*
 bool auto_mouse_activation(report_mouse_t mouse_report);           // handles trigger event for target layer activation (overwritable)
+void auto_mouse_reset(void);                                       // clear status and timers and deacivate target layer unless toggle/oneshot is active
 
 /* -----------------------------State control------------------------------------ */
 void set_auto_mouse_state(bool state); // enable/disable auto mouse feature must true in pointing_device_init_*
 bool get_auto_mouse_state(void);       // allows for checking auto_mouse_enable
 
 /* -------------------------Toggle layer control--------------------------------- */
-void toggle_mouse_layer(void);     // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
-bool get_toggle_mouse_state(void); // return toggle mouse bool value
+void auto_mouse_toggle(void);     // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
+bool get_auto_mouse_toggle(void); // return toggle mouse bool value
 
 /* --------------------------handling key events--------------------------------- */
-void auto_mouse_keyevent(keyrecord_t* record); // trigger auto mouse keyevent (true: keydown, false: keyup)
-void auto_mouse_reset_trigger(void);           // reset the active layer timer, mousekey_tracker and start debounce timer
+void auto_mouse_keyevent(bool pressed);      // trigger auto mouse keyevent: keytracker increment/decrement
+void auto_mouse_reset_trigger(bool pressed); // trigger non mouse keyevent: reset and start delay timer
 
 /* -----------Callbacks for adding keycodes to mouse record checking------------- */
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record);
