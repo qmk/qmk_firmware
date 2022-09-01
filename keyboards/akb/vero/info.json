@@ -1,6 +1,6 @@
 {
-    "manufacturer": "Antipode",
-    "keyboard_name": "antipode/vero",
+    "manufacturer": "AKB",
+    "keyboard_name": "akb/vero",
     "maintainer": "arnstadm",
     "bootloader": "stm32-dfu",
     "board": "GENERIC_STM32_F411XE",
