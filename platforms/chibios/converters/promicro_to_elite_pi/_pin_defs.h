@@ -17,13 +17,6 @@
 #define B4 8U
 #define B5 9U
 
-// Extra Elite-C compatible pins
-#define B7 12U
-#define D5 13U
-#define C7 14U
-#define F1 15U
-#define F0 16U
-
 // Right side (front)
 //      RAW
 //      GND
@@ -37,7 +30,3 @@
 #define B3 20U
 #define B2 23U
 #define B6 21U
-
-// Extra pads on back
-#define D6 10U
-#define B0 11U
