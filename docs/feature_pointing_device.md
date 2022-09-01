@@ -582,7 +582,7 @@ There are several functions that allow for more advanced interaction with
 | `auto_mouse_reset(void)`                             | Reset auto mouse status and clear target layer if not toggled/oneshot active     |  void(None) |
 | `set_auto_mouse_layer(uint8_t LAYER)`                | Change/set the target layer for auto mouse                                       |  void(None) |
 | `auto_mouse_keyevent(bool pressed)`                  | Auto mouse mouse key event (true: key down, false: key up)                       |  void(None) |
-| `auto_mouse_trigger_reset(void)`                     | Reset auto mouse status and start delay timer (non-mouse key event)              |  void(None) |
+| `auto_mouse_trigger_reset(bool pressed)`             | Reset auto mouse status on key down and start delay timer (non-mouse key event)  |  void(None) |
 | `auto_mouse_activation(report_mouse_t mouse_report)` | overwritable function that controls target layer activation (when true)          |        bool |
 | `auto_mouse_toggle(void)`                            | toggle target layer toggle state (disables layer deactivation when true)         |  void(None) |
 | `get_auto_mouse_toggle(void)`                        | Return value of layer toggling state variable                                    |        bool |
