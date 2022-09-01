@@ -34,7 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B1, B2, B3, B6, F7, F6 }
 #define DIODE_DIRECTION COL2ROW
 
-/* Encoder support */
+#define SPLIT_HAND_PIN B5
+
+// Encoder support
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F4 }
 #define ENCODERS_PAD_A_RIGHT { F4 }
@@ -48,14 +50,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SPLIT_MODS_ENABLE
 //#define SPLIT_TRANSPORT_MIRROR
 
-/* Basic RGB configuration */
+// Basic RGB configuration
 #define RGB_DI_PIN D3
+
 // Underglow LEDs
 //#define RGBLED_SPLIT { 6, 6 }
 //#define RGBLED_NUM 12
+
 // Full backlight
 //#define RGBLED_SPLIT { 29, 29 }
 //#define RGBLED_NUM 58
+
 // Full backlight + underglow
 #define RGBLED_SPLIT { 35, 35 }
 #define RGBLED_NUM 70
@@ -63,18 +68,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_EFFECT_BREATHING
 
-//
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_BREATHING
 #define RGBLIGHT_LAYERS_RETAIN_VAL
-#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_LIMIT_VAL 175
 #define RGBLIGHT_DEFAULT_VAL ( RGBLIGHT_LIMIT_VAL / 2 )
 
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 2000
 #define SPLIT_USB_TIMEOUT_POLL 10
-
-#define SPLIT_HAND_PIN B5
-//#define MASTER_RIGHT
 
 #define TAPPING_TERM 175
 #define TAPPING_TOGGLE 2
@@ -83,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_AUTO_SHIFT_SPECIAL
 //#define NO_AUTO_SHIFT_NUMERIC
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+// Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
 #define DEBOUNCE 5
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
@@ -91,22 +92,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define GRAVE_ESC_CTRL_OVERRIDE
 
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
+// disable action features
 #define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
+// Bootmagic Lite key configuration
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
 

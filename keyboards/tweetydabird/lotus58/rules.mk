@@ -28,6 +28,8 @@ AUTO_SHIFT_ENABLE = no		# Used in keymap
 
 AUDIO_ENABLE = no           # Audio output
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+
+# Saving space
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
