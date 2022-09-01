@@ -47,5 +47,5 @@
 #define B6 PAL_LINE(GPIOA, 4)
 
 // LEDs
-#define D5 PAL_LINE(GPIOC, 14) // bottom row
-#define B0 PAL_LINE(GPIOA, 9)  // unconnected pin
+#define D5 PAL_LINE(GPIOA, 8) // User LED
+#define B0 PAL_LINE(GPIOA, 9) // unconnected pin
