@@ -46,12 +46,6 @@
 #define B2 PAL_LINE(GPIOA, 7)
 #define B6 PAL_LINE(GPIOA, 4)
 
-// Extra elite-c compatible pinout
-#define B7 PAL_LINE(GPIOC, 13)
-#define D5 PAL_LINE(GPIOC, 14)
-#define C7 PAL_LINE(GPIOC, 15)
-#define F1 PAL_LINE(GPIOA, 0)
-#define F0 PAL_LINE(GPIOA, 1)
-
-// TX/RX pins of promicro
+// LEDs
+#define D5 PAL_LINE(GPIOA, 8) // User LED
 #define B0 PAL_LINE(GPIOA, 9) // unconnected pin
