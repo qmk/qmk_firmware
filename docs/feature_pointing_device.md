@@ -579,7 +579,7 @@ There are several functions that allow for more advanced interaction with
 | ---------------------------------------------------- | -------------------------------------------------------------------------------- | ----------: |
 | `set_auto_mouse_state(bool state)`                   | Enable or disable auto mouse (true:enable, false:disable)                        |  void(None) |
 | `get_auto_mouse_state(void)`                         | Return auto mouse enable state (true:enabled, false:disabled)                    |        bool |
-| `auto_mouse_reset(bool state)`                       | Reset auto mouse status and clear target layer if not toggled/oneshot active     |  void(None) |
+| `auto_mouse_reset(void)`                             | Reset auto mouse status and clear target layer if not toggled/oneshot active     |  void(None) |
 | `set_auto_mouse_layer(uint8_t LAYER)`                | Change/set the target layer for auto mouse                                       |  void(None) |
 | `auto_mouse_keyevent(bool pressed)`                  | Auto mouse mouse key event (true: key down, false: key up)                       |  void(None) |
 | `auto_mouse_trigger_reset(void)`                     | Reset auto mouse status and start delay timer (non-mouse key event)              |  void(None) |
