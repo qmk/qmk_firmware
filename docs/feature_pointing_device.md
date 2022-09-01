@@ -501,7 +501,6 @@ If you are having issues with pointing device drivers debug messages can be enab
 
 # Automatic Mouse Layer :id=pointing-device-auto-mouse
 
-
 When using a pointing device combined with a keyboard often the mouse buttons are kept on a separate layer from the default keyboard layer requiring pressing or holding a key to use the mouse. To make this easier and more efficient an additional feature may be enabled that will automatically activate a target layer as soon as the mouse cursor is moved and deactivate the target layer after a set time.  If any key that is defined as a mouse key(see below) is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key up. When a non-mouse key is pressed then the layer is deactivated early.  Mod & mod tap keys(When) are ignored (i.e. don't hold layer/reset timer but do not deactivate the layer either) allowing for shift/ctrl clicks etc.
 
 All of the standard layer keys (tap toggling, toggle, toggle on, one_shot, layer tap*, layer mod*) that activate the layer currently set in auto mouse settings will be treated as mouse keys with the addition of holding the layer on toggle.  The layer that is activated can be changed at any point during runtime by calling the `set_auto_mouse_layer(uint8_t LAYER)` function.
@@ -544,7 +543,7 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 
 While all default mouse keys and layer keys(for current mouse layer) are treated as mouse keys, additional Keyrecords can be added to mouse keys by adding them to the is_mouse_record_* stack. 
 
-Callbacks for setting up additional key codes as mouse keys:
+#### Callbacks for setting up additional key codes as mouse keys:
 | Callback                                                             | Description                                        |
 | -------------------------------------------------------------------- | -------------------------------------------------- |
 | `bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record)`     |  keyboard level callback for adding mouse keys     |
@@ -580,12 +579,13 @@ There are several functions that allow for more advanced interaction with
 | ---------------------------------------------------- | -------------------------------------------------------------------------------- | ----------: |
 | `set_auto_mouse_state(bool state)`                   | Enable or disable auto mouse (true:enable, false:disable)                        |  void(None) |
 | `get_auto_mouse_state(void)`                         | Return auto mouse enable state (true:enabled, false:disabled)                    |        bool |
+| `auto_mouse_reset(bool state)`                       | Reset auto mouse status and clear target layer if not toggled/oneshot active     |  void(None) |
 | `set_auto_mouse_layer(uint8_t LAYER)`                | Change/set the target layer for auto mouse                                       |  void(None) |
 | `auto_mouse_keyevent(bool pressed)`                  | Auto mouse mouse key event (true: key down, false: key up)                       |  void(None) |
-| `auto_mouse_trigger_reset(void)`                     | Reset mouse key tracker and active timer start delay timer (non-mouse key event) |  void(None) |
+| `auto_mouse_trigger_reset(void)`                     | Reset auto mouse status and start delay timer (non-mouse key event)              |  void(None) |
 | `auto_mouse_activation(report_mouse_t mouse_report)` | overwritable function that controls target layer activation (when true)          |        bool |
-| `toggle_mouse_layer(void)`                           | toggle target layer toggle state (disables layer deactivation when true)         |  void(None) |
-| `get_toggle_mouse_state(void)`                       | Return value of layer toggling state variable                                    |        bool |
+| `auto_mouse_toggle(void)`                            | toggle target layer toggle state (disables layer deactivation when true)         |  void(None) |
+| `get_auto_mouse_toggle(void)`                        | Return value of layer toggling state variable                                    |        bool |
 
 ### Examples of function use
 
@@ -628,7 +628,7 @@ enum custom_keycodes {
     AM_Toggle = SAFE_RANGE
 };
 
-static bool auto_mouse_toggled = true; // bool for disabling other code that may change auto mouse state
+static bool auto_mouse_enabled = true; // bool for disabling other code that may change auto mouse state
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -636,22 +636,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if(record->event.pressed) { // key down
                 set_auto_mouse_state(get_auto_mouse_state() ^= 1);
                 if(get_auto_mouse_state()) {
-                    auto_mouse_toggled = true;
+                    auto_mouse_enabled = true;
                 } else {
-                    auto_mouse_toggled = false;
+                    auto_mouse_enabled = false;
                 }
             } // do nothing on key up
             return false; // prevent further processing of keycode
     }
 }
 ```
-
 ## Custom Target Layer Activation
 
 Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every `pointing_device_task` cycle and activates the target layer when true barring the usual exceptions (e.g. delay time, or target layer is already active).
 By default it will return true if any of the mouse_report axes(x,y,h,v) are non zero.
-
 _Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement, currently this only works for the master side of split keyboards.
+
 
 ## Auto Mouse for Custom Pointing Device
 
@@ -672,9 +671,9 @@ void pointing_device_task(void) {
 
 In general the following two functions must be implemented in appropriate locations for auto mouse to function:
 
-| Function                                                       | Description                                  | Suggested location              | Returns   |
-| -------------------------------------------------------------- | -------------------------------------------- | ------------------------------- | --------: |
-| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | Mouse input processing for auto mouse        |      pointing_device_task stack |      void |
-| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse            |            process_record stack |      bool |
+| Function                                                       | Description                                                                                   | Suggested location              |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------: |
+| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | Target layer activation if `auto_mouse_activation` returns true, time out deactivation        |      pointing_device_task stack |
+| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse, layer hold on mouse key, and deactivation on non mouse key |            process_record stack |
 
 
