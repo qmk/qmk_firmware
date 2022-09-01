@@ -41,8 +41,6 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
-  K_ESC_C,
-  K_BSPC_V,
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
@@ -108,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT ,KC_TILDE,K_ESC_C ,K_BSPC_V,OS_TMUX ,                          OS_FUNC ,KC_DEL  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     KC_LSFT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          OS_FUNC ,KC_DEL  ,KC_COMM ,KC_DOT  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -168,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_EQL  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_BSPC ,XXXXXXX ,                          XXXXXXX ,KC_DEL  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,KC_DEL  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -177,13 +175,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
 
-uint16_t code_bspc = KC_BSPC;
-uint16_t code_esc = KC_ESC;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
-
-    uint8_t mods = get_mods();
 
     switch (keycode) {
         case TM_LEFT:
@@ -205,28 +198,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TM_NEW:
             if (!record->event.pressed) return true;
             SEND_STRING(TMUX_PREFIX "c");
-            return false;
-        case K_ESC_C:
-            if (record->event.pressed) {
-                code_esc = KC_ESC;
-                if (mods & MOD_BIT(KC_LCTL) || mods & MOD_BIT(KC_LGUI)) {
-                    code_esc = KC_C;
-                }
-                register_code(code_esc);
-            } else {
-                unregister_code(code_esc);
-            }
-            return false;
-        case K_BSPC_V:
-            if (record->event.pressed) {
-                code_bspc = KC_BSPC;
-                if (mods & MOD_BIT(KC_LCTL) || mods & MOD_BIT(KC_LGUI)) {
-                    code_bspc = KC_V;
-                }
-                register_code(code_bspc);
-            } else {
-                unregister_code(code_bspc);
-            }
             return false;
         case TM_SLCT:
             if (!record->event.pressed) return true;
