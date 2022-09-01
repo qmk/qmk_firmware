@@ -3,6 +3,7 @@
   "keyboard_name": "Clueboard 66% rev3",
   "maintainer": "skullydazed",
   "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "debounce": 5,
   "diode_direction": "COL2ROW",
   "features": {

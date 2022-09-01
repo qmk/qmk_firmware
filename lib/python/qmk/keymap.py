@@ -412,7 +412,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     rules = rules_mk(keyboard)
     names = set()
 
-    if rules:
+    if rules is not None:
         keyboards_dir = Path('keyboards')
         kb_path = keyboards_dir / keyboard
 
