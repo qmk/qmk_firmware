@@ -24,11 +24,10 @@ NKRO_ENABLE = no            # USB Nkey Rollover, if this doesn't work, see here:
 
 # RGB and Backlight
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = yes		# Enable RGB matrix
-RGB_MATRIX_DRIVER = WS2812	# Define matrix type
+RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
+RGB_MATRIX_ENABLE = no		# Enable RGB matrix
+#RGB_MATRIX_DRIVER = WS2812	# Define matrix type
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-
 

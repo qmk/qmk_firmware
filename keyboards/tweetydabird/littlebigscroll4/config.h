@@ -5,37 +5,27 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
+// USB Device descriptor parameter
 #define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0x1212
 #define DEVICE_VER   0x0001
 #define MANUFACTURER TweetyDaBird
 #define PRODUCT      littlebigscroll4
 
-/* key matrix size */
+// key matrix size
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 5
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-//#define DIRECT_PINS { E6, D7, B5, B4, F4 }
-//#define UNUSED_PINS
-
+// Keyboard Matrix Assignments
 #define DIRECT_PINS { { E6, D7, B5, B4, F4 } }
 #define UNUSED_PINS
 
+// Encoder Assignments
 #define ENCODERS_PAD_A { B1 }
 #define ENCODERS_PAD_B { F7 }
 #define ENCODER_RESOLUTION 2
 
+// RGB Assignments
 #define RGB_DI_PIN D2
 #define DRIVER_LED_TOTAL 6
 
@@ -47,11 +37,11 @@
 #   define RGBLIGHT_SAT_STEP 8
 #   define RGBLIGHT_VAL_STEP 8
 
-//#   define RGBLIGHT_LIMIT_VAL 175 // The maximum brightness level
-//# 	define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL
+#   define RGBLIGHT_LIMIT_VAL 175 // The maximum brightness level
+# 	define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL
 
-//#   define RGBLIGHT_SLEEP  // If defined, the RGB lighting will be switched off when the host goes to sleep
-//# 	define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
+#   define RGBLIGHT_SLEEP  // If defined, the RGB lighting will be switched off when the host goes to sleep
+# 	define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 
 //== all animations enable ==
 #    define RGBLIGHT_ANIMATIONS
