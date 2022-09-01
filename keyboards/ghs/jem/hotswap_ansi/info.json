@@ -1,7 +1,13 @@
 {
     "keyboard_name": "GHS.JEM",
+    "manufacturer": "Gone Hacking Studio",
     "url": "",
     "maintainer": "Ramon Imbao (ramonimbao)",
+    "usb": {
+        "vid": "0x0645",
+        "pid": "0x2003",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [
