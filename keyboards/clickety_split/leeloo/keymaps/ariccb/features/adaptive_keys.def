@@ -1,5 +1,5 @@
 // AK_BOTH_START(KC_Q, KC_EXLM)  // The first letter is the key. Second letter is what the default output is if none of the conditions are met
-//   R_BTH(KC_W, KC_Q, KC_U)   // for example, this would output "qu" if the keys "qw" were pressed
+//   R_BTH(KC_W, KC_B, KC_U)   // for example, this would output "bu" if the keys "qw" were pressed
 //   R_FST(KC_A, KC_Q)
 //   R_FST(KC_E, KC_Q)
 //   R_FST(KC_I, KC_Q)
@@ -22,11 +22,14 @@ AK_SND_ONLY_START(KC_F)
   R_SND(KC_P, KC_S)
 AK_SND_ONLY_START(KC_P)
   R_SND(KC_F, KC_T)
-AK_SND_ONLY_START(KC_U)
-  R_SND(KC_SCLN, KC_E)
+//AK_SND_ONLY_START(KC_U)
+//  R_SND(KC_SCLN, KC_E)
 AK_SND_ONLY_START(KC_D)
   R_SND(KC_X, KC_G)
 AK_SND_ONLY_START(KC_E)
   R_SND(KC_SLSH, KC_COMM)
-AK_SND_ONLY_START(KC_PMNS)
-  R_SND(KC_P0, KC_SPC)
+//AK_SND_ONLY_START(KC_PMNS)  // Have to disable this for now with trying the current configuration of my numpad layout. (0 next to encoder, . next to 1)
+//  R_SND(KC_P0, KC_SPC)
+AK_BOTH_START(KC_U, KC_U)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
+  R_BTH(KC_Y, KC_U, KC_E)     // If uy is pressed quickly, outputs ue
+  R_BTH(KC_SCLN, KC_U, KC_Y)  // If u; is pressed quickly, outputs uy

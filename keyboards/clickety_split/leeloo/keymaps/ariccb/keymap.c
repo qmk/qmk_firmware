@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|     management, zoom, and            |------+------+------+------+------+------|
  * | MTTAB|  A   |  R   |  S   |  T   |  G   |-------.                      .-------|  M   |  N   |  E   |  I   |  O   |CTRL,'|
  * |------+------+------+------+------+------| Ptoys |                      | Window|------+------+------+------+------+------|
- * | SHIFT| WIN_Z|  X   |  C   |  D   |  V   | Mute  |-->Powertoys Mute     | Switch|  K   |  H   |  ,   |  .   |  /   |SFT,\ |
+ * | SHIFT| WIN_Z|  X   |  C   |  D   |  V   | Mute  |-->Mute mic           | Switch|  K   |  H   |  ,   |  .   |  /   |SFT,\ |
  * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /                        \ LALT \       |     |MW R/L|  //This rotary for Play+Pause
  *                      | APP | ENTER| OSSft/ SPACE/                          \DELETE\ SPACE|RAISE| DIAL2|--> Right Scroll
@@ -109,22 +109,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------.                                      .-----------------------------------------.
  * | HYPER|   1  |   2  |   3  |   4  |   5  |                                      |   6  |   7  |   8  |   9  |   0  |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   _  |   7  |   8  |   9  |   :  | Bsp  |
+ * |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   @  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |S(TAB)|   ~  |   ^  |   %  |   (  |   )  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
- * | SHIFT|   |  |   &  |   "  |   {  |   }  | DIAL1 |--> Save As           | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
+ * | SHIFT|   |  |   &  |   "  |   {  |   }  | DIAL1 |--> Toggle HDR        | Lock  |   .  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    on Button Press   |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /                        \      \       |      |MW U/D|
- *                      | APP | ENTER| OSSft/ SPACE/                          \ SPACE\   0  |  .   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
+ *                      | APP | ENTER| OSSft/ SPACE/                          \ Del  \ Space|  0   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
  *                      `-------------------------'                            '--------------------------'
  */
   [_LOWER] = LAYOUT(
-  KC_HYPR,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                              KC_6,    KC_7,    KC_8,   KC_9,   KC_0,    KC_DEL,
-  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_UNDS, KC_P7,   KC_P8,  KC_P9,  KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL,  KC_P4,   KC_P5,  KC_P6,  KC_PMNS, KC_PPLS,
-  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, C(S(KC_S)),       LLOCK,  KC_AT,   KC_P1,   KC_P2,  KC_P3,  KC_PSLS, KC_PAST,
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_P0,   KC_PDOT, A(S(KC_J)) //Switch Audio Recording Source
+  KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                             KC_F6,   KC_F7, KC_F8, KC_F9, KC_F10,  KC_DEL,
+  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_AT,   KC_7,  KC_8,  KC_9,  KC_COLN, KC_BSPC,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL,  KC_4,  KC_5,  KC_6,  KC_PMNS, KC_PPLS,
+  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, G(A(KC_B)),       LLOCK,  KC_PDOT, KC_1,  KC_2,  KC_3,  KC_PSLS, KC_PAST,
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          ALT_DEL, KC_SPC, KC_P0, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
 /* MIT Layout (RAISE)
@@ -159,16 +159,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| Cursor |                     | Layer |------+------+------+------+------+------|
  * |      |      |      |      |      |AltTab| Word   |--> Resets Zoom      | Lock  |Ctrl D|PageUp|AltPDn|PageDn| PAUSE|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /                       \       \       |      |Volume|
- *                      | APP | ENTER| OSSft/ SPACE/                         \       \      |      | DIAL2|--> Next Song
- *                      `-------------------------'                           '---------------------------'    on Button Press
+ *                      | ALT | CTRL |  LOW  /Window /                       \       \       |      |Volume|
+ *                      | APP | ENTER| OSSft/Switch /                         \       \      |      | DIAL2|--> Next Song
+ *                      `--------------------------'                           '---------------------------'    on Button Press
  */
   [_ADJUST] = LAYOUT(
   KC_HYPR, DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGDN),    C(KC_PGUP), A(KC_LEFT),   A(KC_RIGHT), KC_NO,       KC_SLCK,
   KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS, KC_MYCM,                               KC_TRNS,       KC_HOME,    KC_UP,        KC_END,      KC_TRNS,     KC_DEL,
   KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, DESKTL,  DESKTR,                                C(KC_LEFT),    KC_LEFT,    KC_DOWN,      KC_RGHT,     C(KC_RGHT),  KC_CAPS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB, LCTL(KC_0),          KC_TRNS, LCTL(KC_D),    KC_PGUP,    LCA(KC_DOWN), KC_PGDN,     KC_PAUSE,    KC_INS,
-                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,             KC_TRNS, KC_TRNS,       KC_TRNS,    KC_MNXT
+                             KC_TRNS, KC_TRNS, KC_TRNS, WINDOWSW,            KC_TRNS, KC_TRNS,       KC_TRNS,    KC_MNXT
 )
 };
 
@@ -352,9 +352,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           clear_mods();  // Temporarily disable mods.
           clear_oneshot_mods();
           if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          SEND_STRING("{}");
-          } else {
           SEND_STRING("[]");
+          } else {
+          SEND_STRING("{}");
           }
           tap_code(KC_LEFT);  // Move cursor between braces.
           set_mods(mods);  // Restore mods.
