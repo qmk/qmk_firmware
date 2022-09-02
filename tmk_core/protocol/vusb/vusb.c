@@ -224,11 +224,10 @@ void console_task(void) {
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_system(uint16_t data);
-static void    send_consumer(uint16_t data);
+static void    send_extra(uint8_t report_id, uint16_t data);
 static void    send_programmable_button(uint32_t data);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra, send_programmable_button};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
@@ -284,18 +283,6 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     }
 }
 #endif
-
-static void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
-#endif
-}
-
-static void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_CONSUMER, data);
-#endif
-}
 
 void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE

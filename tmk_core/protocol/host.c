@@ -107,7 +107,7 @@ void host_system_send(uint16_t report) {
     last_system_report = report;
 
     if (!driver) return;
-    (*driver->send_system)(report);
+    (*driver->send_extra)(REPORT_ID_SYSTEM, report);
 }
 
 void host_consumer_send(uint16_t report) {
@@ -115,7 +115,7 @@ void host_consumer_send(uint16_t report) {
     last_consumer_report = report;
 
     if (!driver) return;
-    (*driver->send_consumer)(report);
+    (*driver->send_extra)(REPORT_ID_CONSUMER, report);
 }
 
 void host_digitizer_send(digitizer_t *digitizer) {
