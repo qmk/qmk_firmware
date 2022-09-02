@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x480E
-#define PRODUCT_ID      0x408F
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Vertex_eason
-#define PRODUCT         Angler2
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16

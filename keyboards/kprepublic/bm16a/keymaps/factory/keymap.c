@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P0,    KC_PDOT,  KC_SPC,   MO(_FN1)
   ),
   [_FN1] = LAYOUT_ortho_4x4(
-    RESET,    KC_PAST,  KC_PSLS,  _______,
+    QK_BOOT,  KC_PAST,  KC_PSLS,  _______,
     BL_TOGG,  BL_DEC,   BL_INC,   BL_STEP,
     RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,
     RGB_SAI,  RGB_SAD,  _______,  _______
