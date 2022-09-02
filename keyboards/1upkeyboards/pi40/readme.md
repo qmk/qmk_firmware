@@ -1,6 +1,6 @@
 # pi40
 
-![pi40](https://imgur.com/a/rFZnIzZ)
+![pi40](https://i.imgur.com/ONVtaVZh.jpeg)
 
 The pi40 is a 4x12 ortholinear keyboard with a fixed 2u spacebar using a Raspberry Pi Pico for the controller.
 
