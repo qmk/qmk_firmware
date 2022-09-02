@@ -37,14 +37,13 @@ void    main_subtasks(void);
 uint8_t keyboard_leds(void);
 void    send_keyboard(report_keyboard_t *report);
 void    send_mouse(report_mouse_t *report);
-void    send_system(uint16_t data);
-void    send_consumer(uint16_t data);
+void    send_extra(uint8_t report_id, uint16_t data);
 
 #ifdef DEFERRED_EXEC_ENABLE
 void deferred_exec_task(void);
 #endif // DEFERRED_EXEC_ENABLE
 
-host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
+host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 uint8_t led_states;
 
@@ -131,18 +130,6 @@ void send_extra(uint8_t report_id, uint16_t data) {
     __set_PRIMASK(irqflags);
 }
 #endif // EXTRAKEY_ENABLE
-
-void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
-#endif // EXTRAKEY_ENABLE
-}
-
-void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_CONSUMER, data);
-#endif // EXTRAKEY_ENABLE
-}
 
 #ifdef CONSOLE_ENABLE
 #    define CONSOLE_PRINTBUF_SIZE 512
