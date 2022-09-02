@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pi40.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 
@@ -90,34 +90,34 @@ void user_oled_magic(void) {
     oled_write_P(PSTR("Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
-        case _ONE:
+        case 0:
             oled_write_P(PSTR("One\n"), false);
             break;
-        case _TWO:
+        case 1:
             oled_write_P(PSTR("Two\n"), false);
             break;
-        case _THREE:
+        case 2:
             oled_write_P(PSTR("Three\n"), false);
             break;
-        case _FOUR:
+        case 3:
             oled_write_P(PSTR("Four\n"), false);
             break;
-        case _FIVE:
+        case 4:
             oled_write_P(PSTR("Five\n"), false);
             break;
-        case _SIX:
+        case 5:
             oled_write_P(PSTR("Six\n"), false);
             break;
-        case _SEVEN:
+        case 6:
             oled_write_P(PSTR("Seven\n"), false);
             break;
-        case _EIGHT:
+        case 7:
             oled_write_P(PSTR("Eight\n"), false);
             break;
-        case _NINE:
+        case 8:
             oled_write_P(PSTR("Nine\n"), false);
             break;
-        case _TEN:
+        case 9:
             oled_write_P(PSTR("Ten\n"), false);
             break;
         default:
@@ -289,6 +289,12 @@ void clear_screen(void) {
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
+}
+
+void keyboard_post_init_kb(void) {
+    init_timer();
+
+    keyboard_post_init_user();
 }
 
 #    define SHOW_LOGO 5000

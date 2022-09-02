@@ -28,8 +28,6 @@
 #define ENCODERS_PAD_A { GP14 }
 #define ENCODERS_PAD_B { GP13 }
 
-#define NOP_FUDGE 0.4
-
 #define RGB_DI_PIN GP0
 #define DRIVER_LED_TOTAL 47
 #define RGBLED_NUM 47
