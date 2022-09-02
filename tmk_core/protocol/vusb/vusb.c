@@ -268,8 +268,8 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
-#ifdef EXTRAKEY_ENABLE
 static void send_extra(uint8_t report_id, uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
     static uint8_t  last_id   = 0;
     static uint16_t last_data = 0;
     if ((report_id == last_id) && (data == last_data)) return;
@@ -281,8 +281,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     if (usbInterruptIsReadyShared()) {
         usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
     }
-}
 #endif
+}
 
 void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
