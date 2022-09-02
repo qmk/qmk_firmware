@@ -133,3 +133,7 @@ ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
     $(shell touch $(USER_PATH)/keyrecords/autocorrection/autocorrection.c)
     OPT_DEFS += -DAUTOCORRECTION_ENABLE
 endif
+
+ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+    SRC += bootmagic_better.c
+endif
