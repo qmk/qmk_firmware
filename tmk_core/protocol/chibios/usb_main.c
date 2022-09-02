@@ -946,8 +946,8 @@ void shared_in_cb(USBDriver *usbp, usbep_t ep) {
  * ---------------------------------------------------------
  */
 
-#ifdef EXTRAKEY_ENABLE
 void send_extra(uint8_t report_id, uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         osalSysUnlock();
@@ -970,8 +970,8 @@ void send_extra(uint8_t report_id, uint16_t data) {
 
     usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
     osalSysUnlock();
-}
 #endif
+}
 
 void send_programmable_button(uint32_t data) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
