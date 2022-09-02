@@ -113,8 +113,8 @@ void send_mouse(report_mouse_t *report) {
 #endif // MOUSEKEY_ENABLE
 }
 
-#ifdef EXTRAKEY_ENABLE
 void send_extra(uint8_t report_id, uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
     uint32_t irqflags;
 
     irqflags = __get_PRIMASK();
@@ -128,8 +128,8 @@ void send_extra(uint8_t report_id, uint16_t data) {
 
     __DMB();
     __set_PRIMASK(irqflags);
-}
 #endif // EXTRAKEY_ENABLE
+}
 
 #ifdef CONSOLE_ENABLE
 #    define CONSOLE_PRINTBUF_SIZE 512

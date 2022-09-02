@@ -745,8 +745,8 @@ static void send_report(void *report, size_t size) {
  *
  * FIXME: Needs doc
  */
-#ifdef EXTRAKEY_ENABLE
 static void send_extra(uint8_t report_id, uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
 #    ifdef BLUETOOTH_ENABLE
     if (report_id == REPORT_ID_CONSUMER && where_to_send() == OUTPUT_BLUETOOTH) {
 #        ifdef BLUETOOTH_BLUEFRUIT_LE
@@ -761,8 +761,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     static report_extra_t r;
     r = (report_extra_t){.report_id = report_id, .usage = data};
     send_report(&r, sizeof(r));
-}
 #endif
+}
 
 static void send_programmable_button(uint32_t data) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
