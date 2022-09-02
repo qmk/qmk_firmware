@@ -3,6 +3,10 @@
     "manufacturer": "Gone Hacking Studio",
     "url": "",
     "maintainer": "ramonimbao",
+    "usb": {
+        "vid": "0x0645",
+        "device_version": "1.0.0"
+    },
     "bootloader": "atmel-dfu",
     "processor": "atmega32u4",
     "features": {
