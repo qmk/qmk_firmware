@@ -12,4 +12,4 @@ Make example for this keyboard (after setting up your build environment):
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-To enter bootloader mode, double-press the reset button on the back of the PCB, or press and hold escape (top left key) when plugging in the board.
+To enter bootloader mode, double-press the reset button on the back of the PCB (yes, it's caterina for now, sorry!), or press and hold escape (top left key) when plugging in the board.
