@@ -361,8 +361,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
                 return false;
             case QK_CLEAR_EEPROM:
+#ifdef NO_RESET
                 eeconfig_init();
-#ifndef NO_RESET
+#else
+                eeconfig_disable();
                 soft_reset_keyboard();
 #endif
                 return false;
