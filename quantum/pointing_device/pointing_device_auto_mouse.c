@@ -94,7 +94,7 @@ void set_auto_mouse_layer(uint8_t layer) {
  */
 void auto_mouse_toggle(void) {
     auto_mouse_data.status.is_toggled ^= 1;
-    dprintf("Auto mouse toggled %s \n", get_auto_mouse_toggle() ? "on" : "off")
+    dprintf("Auto mouse toggled %s \n", get_auto_mouse_toggle() ? "on" : "off");
 }
 
 /**
