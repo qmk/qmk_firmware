@@ -236,6 +236,52 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1` for now).
 
 ---
+### IS31FL3236 :id=is31fl3236
+
+There is basic support for addressable RGB matrix lighting with the I2C IS31FL3236 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3236
+```
+
+Configure the hardware via your `config.h`:
+
+```c
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 00 <-> GND
+// 01 <-> SCL
+// 10 <-> SDA
+// 11 <-> VCC
+// ADDR1 represents A1:A0 of the 7-bit address.
+// The result is: 0b01111(ADDR1)
+#define DRIVER_ADDR_1 0b01111000
+
+#define DRIVER_LED_TOTAL 12
+```
+
+Currently only a single drivers is supported, but it would be trivial to support all 4 combinations.
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+/* Refer to IS31 manual for these locations
+ *   driver
+ *   |  R location
+ *   |  |       G location
+ *   |  |       |       B location
+ *   |  |       |       | */
+    {0, OUT_1,  OUT_2,  OUT_3},
+    ....
+}
+```
+
+Where `OUT_X` is pin of the LED defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3236.pdf) and the header file `drivers/led/issi/is31fl3236.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` for now).
+
+---
 ### IS31FLCOMMON :id=is31flcommon
 
 There is basic support for addressable RGB matrix lighting with a selection of I2C ISSI Lumissil RGB controllers through a shared common driver. To enable it, add this to your `rules.mk`:
