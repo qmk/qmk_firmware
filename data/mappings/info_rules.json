@@ -12,7 +12,7 @@
     # replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
-    "BLUETOOTH": {"info_key": "bluetooth.driver"},
+    "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
     "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},
     "FIRMWARE_FORMAT": {"info_key": "build.firmware_format"},
@@ -32,6 +32,9 @@
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
     "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
+    "PS2_ENABLE": {"info_key": "ps2.enabled", "value_type": "bool"},
+    "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
+    "PS2_DRIVER": {"info_key": "ps2.driver"},
 
     # Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},

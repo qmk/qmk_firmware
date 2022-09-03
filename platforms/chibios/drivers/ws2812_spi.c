@@ -181,7 +181,7 @@ void ws2812_init(void) {
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
     spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
 #ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
-    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+    spiStartSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
 #endif
 }
 
@@ -200,9 +200,9 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
     // Instead spiSend can be used to send synchronously (or the thread logic can be added back).
 #ifndef WS2812_SPI_USE_CIRCULAR_BUFFER
 #    ifdef WS2812_SPI_SYNC
-    spiSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+    spiSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
 #    else
-    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+    spiStartSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
 #    endif
 #endif
 }

@@ -479,7 +479,7 @@ def _config_to_json(key_type, config_value):
         return int(config_value)
 
     elif key_type == 'str':
-        return config_value.strip('"')
+        return config_value.strip('"').replace('\\"', '"').replace('\\\\', '\\')
 
     elif key_type == 'bcd_version':
         major = int(config_value[2:4])
@@ -755,9 +755,6 @@ def arm_processor_rules(info_data, rules):
     info_data['processor_type'] = 'arm'
     info_data['protocol'] = 'ChibiOS'
 
-    if 'bootloader' not in info_data:
-        info_data['bootloader'] = 'unknown'
-
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
     elif 'MCU_SERIES' in rules:
@@ -774,9 +771,6 @@ def avr_processor_rules(info_data, rules):
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
     info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
-
-    if 'bootloader' not in info_data:
-        info_data['bootloader'] = 'atmel-dfu'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
     # info_data['protocol'] = 'V-USB' if rules.get('PROTOCOL') == 'VUSB' else 'LUFA'

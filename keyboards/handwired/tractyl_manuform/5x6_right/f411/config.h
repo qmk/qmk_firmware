@@ -75,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SCL_PAL_MODE 4
 #define I2C1_SDA_PAL_MODE 4
 #define I2C1_CLOCK_SPEED  400000
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
 
 /* encoder config */
 #define ENCODERS_PAD_A \

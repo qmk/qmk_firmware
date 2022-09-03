@@ -18,7 +18,7 @@
 #include "print.h"
 #include "via.h"
 
-#define num_keycodes (sizeof(lookup_table)/sizeof(lookup_table[0]))
+#define num_keycodes ARRAY_SIZE(lookup_table)
 static char UNKNOWN_KEYCODE[] = "UNKNOWN";
 
 int cmp(const void *v1, const void *v2)
@@ -288,7 +288,7 @@ lookup_table_t lookup_table[334] =
  {"KC_LT", KC_LT},
  {"KC_GT", KC_GT},
  {"KC_QUES", KC_QUES},
- {"RESET", RESET},
+ {"RESET", QK_BOOT},
  {"DEBUG", DEBUG},
  {"MAGIC_TOGGLE_NKRO", MAGIC_TOGGLE_NKRO},
  {"KC_GESC", KC_GESC},

@@ -43,7 +43,7 @@ typedef uint32_t (*translator_function_t)(bool is_shifted, uint32_t keycode);
     static inline uint32_t translator_name(bool is_shifted, uint32_t keycode) { \
         static const uint32_t translation[] = {__VA_ARGS__};                    \
         uint32_t              ret           = keycode;                          \
-        if ((keycode - KC_A) < (sizeof(translation) / sizeof(uint32_t))) {      \
+        if ((keycode - KC_A) < ARRAY_SIZE(translation)) {      \
             ret = translation[keycode - KC_A];                                  \
         }                                                                       \
         return ret;                                                             \
@@ -142,7 +142,7 @@ DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_super,
                               0x2071, // i
                               0x02B2, // j
                               0x1D4F, // k
-                              0x1D4F, // l
+                              0x02E1, // l
                               0x1D50, // m
                               0x207F, // n
                               0x1D52, // o

@@ -25,7 +25,7 @@ public:
 	virtual void OnGamePadChanged(const GamePadEventData *evt);
 };
 
-#define RPT_GAMEPAD_LEN	sizeof(GamePadEventData)/sizeof(uint8_t)
+#define RPT_GAMEPAD_LEN	sizeof(GamePadEventData)
 
 class JoystickReportParser : public HIDReportParser
 {

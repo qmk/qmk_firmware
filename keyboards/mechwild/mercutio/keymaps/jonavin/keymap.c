@@ -71,7 +71,7 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"FLASH",   QK_BOOT},   // firmware flash mode
 };
 
-#define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
+#define MAX_KEYSELECTION ARRAY_SIZE(keyselection)
 
 static uint8_t selectedkey_idx = 0;
 static keycodedescType selectedkey_rec;

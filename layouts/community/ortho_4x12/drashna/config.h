@@ -70,11 +70,11 @@
 #if defined(KEYBOARD_planck)
 #    undef PRODUCT
 #    if defined(KEYBOARD_planck_light)
-#        define PRODUCT Drashna Hacked RGB Beacon(Planck Light)
+#        define PRODUCT "Drashna Hacked RGB Beacon(Planck Light)"
 #    elif defined(KEYBOARD_planck_rev6)
-#        define PRODUCT Drashna Hacked Planck Rev6
+#        define PRODUCT "Drashna Hacked Planck Rev6"
 #    elif defined(KEYBOARD_planck_ez)
-#        define PRODUCT Drashna Hacked Planck EZ
+#        define PRODUCT "Drashna Hacked Planck EZ"
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
 #    endif
 #endif
