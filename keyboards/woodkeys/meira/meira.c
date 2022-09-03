@@ -79,7 +79,7 @@ void matrix_scan_kb(void)
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // Test code that turns on the switch led for the key that is pressed
     // set_backlight_by_keymap(record->event.key.col, record->event.key.row);
-    if (keycode == RESET) {
+    if (keycode == QK_BOOT) {
         reset_keyboard_kb();
     } else {
     }
