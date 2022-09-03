@@ -518,7 +518,6 @@
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
                 "pointing_device": {
-                    "enabled": {"type": "boolean"},
                     "right": {
                         "type": "object",
                         "additionalProperties": false,
@@ -553,7 +552,8 @@
                             "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
                         "sync_matrix_state": {"type": "boolean"},
-                        "sync_modifiers": {"type": "boolean"}
+                        "sync_modifiers": {"type": "boolean"},
+                        "sync_pointing": {"type": "boolean"}
                     }
                 },
                 "usb_detect": {
