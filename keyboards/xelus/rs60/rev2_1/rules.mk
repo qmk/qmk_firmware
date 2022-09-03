@@ -1,6 +1,5 @@
 # MCU name
-MCU = STM32F401
-BOARD = GENERIC_STM32_F401XC
+MCU = STM32L412
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
@@ -18,7 +17,8 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-EEPROM_DRIVER = i2c
+EEPROM_DRIVER = wear_leveling
+WEAR_LEVELING_DRIVER = embedded_flash
 
 # Save hid interface
 KEYBOARD_SHARED_EP = yes
