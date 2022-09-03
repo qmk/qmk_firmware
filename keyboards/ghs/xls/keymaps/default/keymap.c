@@ -25,3 +25,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,            KC_PDOT, KC_PENT
     )
 };
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, 10);
+        } else {
+            tap_code_delay(KC_VOLD, 10);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code_delay(KC_BRIU, 10);
+        } else {
+            tap_code_delay(KC_BRID, 10);
+        }
+    } else if (index == 2) {
+        if (clockwise) {
+            tap_code(KC_RGHT);
+        } else {
+            tap_code(KC_LEFT);
+        }
+    } else {
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+
+    return false;
+}
