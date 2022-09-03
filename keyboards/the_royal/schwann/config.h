@@ -2,20 +2,12 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3521
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    TheRoyalSweatshirt
-#define PRODUCT         The Schwann PCB
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
 #define MATRIX_ROW_PINS { F0, F1, F6, C7 }
 #define MATRIX_COL_PINS { F4, F5, D5, D3, D2, C6, B6, B5, B4, D7, D6, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

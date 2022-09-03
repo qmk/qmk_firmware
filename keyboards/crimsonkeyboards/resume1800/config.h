@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xC18B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CrimsonKeyboards
-#define PRODUCT         Resume1800
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 20
@@ -41,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { A5, A0, A1, B1, B2, B0 }
 #define MATRIX_COL_PINS { A2, B3, A3, B4, A4, D1, D5, D6, A6, A7, C7, C6, C5, C4, D7, C3, C2, C1, C0, D0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

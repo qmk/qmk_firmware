@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0xD181
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Mechlovin.Studio
-#define PRODUCT      Olly BB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 19
@@ -41,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS {D6, A5, A4, A3, A6}
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_BREATHING

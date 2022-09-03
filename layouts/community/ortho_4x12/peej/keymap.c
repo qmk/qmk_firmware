@@ -56,7 +56,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     writePinLow(LED_RED);
     writePinLow(LED_GREEN);
 
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _FUNCTION:
         writePinHigh(LED_RED);
         break;

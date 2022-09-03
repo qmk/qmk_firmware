@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Seigaiha",
+    "manufacturer": "Yiancar-Designs",
     "url": "www.yiancar-designs.com",
     "maintainer": "Yiancar-Designs",
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x4750",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

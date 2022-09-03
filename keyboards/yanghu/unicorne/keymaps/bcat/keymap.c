@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/7eb0f1c437169f30cc18eac271ad2302 */
     [LAYER_ADJUST] = LAYOUT(
-        _______,  MU_TOG,   KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  RESET,    _______,  _______,  _______,  _______,
+        _______,  MU_TOG,   KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  QK_BOOT,  _______,  _______,  _______,  _______,
         _______,  MU_MOD,   KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,                      RGB_RMOD, RGB_VAD,  RGB_VAI,  RGB_MOD,  RGB_SPI,  _______,
         _______,  _______,  _______,  KC_MUTE,  _______,  _______,                      RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_HUD,  RGB_SPD,  _______,
                                       _______,  _______,  _______,  _______,  RGB_TOG,  _______,  _______,  _______

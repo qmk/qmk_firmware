@@ -17,23 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-enum layer_names {
-    _QW = 0,
-    _LWR,
-    _RSE,
-    _ADJ
-};
-
-#ifdef RGBLIGHT_ENABLE
-
-const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
-const rgblight_segment_t PROGMEM my_lwr_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_CYAN});
-const rgblight_segment_t PROGMEM my_rse_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
-const rgblight_segment_t PROGMEM my_adj_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
-
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
-#endif
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -68,24 +51,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
-
 bool led_update_user(led_t led_state) {
     // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
     return false;
 }
 
 void matrix_scan_user(void) {
-    led_lwr(toggle_lwr);
-    led_rse(toggle_rse);
-    led_t led_state = host_keyboard_led_state();
-    led_caps(led_state.caps_lock);
-    if (layer_state_is(_ADJ)) {
-        led_lwr(true);
-        led_rse(true);
-    }
+
+    toggle_leds();
+
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -93,13 +67,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         case (TT(_LWR)):
             if (!record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
                 // This runs before the TT() handler toggles the layer state, so the current layer state is the opposite of the final one after toggle.
-                toggle_lwr = !layer_state_is(_LWR);
+                set_led_toggle(_LWR, !layer_state_is(_LWR));
             }
             return true;
             break;
         case (TT(_RSE)):
             if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-                toggle_rse = !layer_state_is(_RSE);
+                set_led_toggle(_RSE, !layer_state_is(_RSE));
             }
             return true;
             break;
@@ -109,61 +83,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+
 #ifdef RGBLIGHT_ENABLE
 
-    rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _LWR));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _RSE));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJ));
+    set_rgb_layers(state);
 
 #endif
+
     return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
 }
 
 #ifdef RGBLIGHT_ENABLE
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
+    set_default_rgb_layers(state);
     return state;
 }
 
+#endif
+
 void keyboard_post_init_user(void) {
+
+#ifdef RGBLIGHT_ENABLE
+
     // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-}
+    rgblight_layers = my_rgb();
+
 #endif
 
-#ifdef ENCODER_ENABLE
+#ifdef OLED_ENABLE
 
-#    define MEDIA_KEY_DELAY 10
+    init_timer();
 
-static inline void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-        }
-    }
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    my_encoders(index, clockwise);
-    return true;
-}
 #endif
+}

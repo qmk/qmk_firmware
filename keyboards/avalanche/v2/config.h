@@ -3,12 +3,6 @@
 
 #pragma once
 
-#define VENDOR_ID       0xCEE2
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    vitvlkv
-#define PRODUCT         Avalanche
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 

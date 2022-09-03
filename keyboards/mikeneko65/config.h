@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7934
-#define PRODUCT_ID   0x6D54
-#define DEVICE_VER   0x0001
-#define MANUFACTURER takishim
-#define PRODUCT      Mikeneko 65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, C7 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, E6, B0, B7, D4, D6, D7, B6, B5, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOVE_LINUX]  = LAYOUT_60_ansi_tsangan_split_rshift(\
      KC_GRV,     VD_1,     VD_2,     VD_3,     KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL, \
-     KC_BACK,    WM_VD1,   WM_UH,    WM_VD2,   RESET,    KC_MSTP,  KC_MPLY,  KC_PGUP,  KC_HOME,  KC_END,   KC_PGDN,  _______,   _______,  KC_NEXT, \
+     KC_BACK,    WM_VD1,   WM_UH,    WM_VD2,   QK_BOOT,  KC_MSTP,  KC_MPLY,  KC_PGUP,  KC_HOME,  KC_END,   KC_PGDN,  _______,   _______,  KC_NEXT, \
      _______,    WM_LH,    WM_MAX,   WM_RH,    WD_FRWD,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  CS_RIGHT, CS_DOWN,   _______, \
      _______,    WM_VD3,   WM_BH,    OS_COPY,  OS_PAST,  WD_BACK,  KC_MNXT,  KC_MUTE,  KC_WBAK,  KC_WFWD,  _______,  _______,   _______, \
      _______,    _______,  _______,  _______,  _______,  _______,  _______),
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CONFIG]     = LAYOUT_60_ansi_tsangan_split_rshift(\
      _______,   KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL, \
-     _______,   NK_ON,    NK_OFF,   EEP_RST,  RESET,     _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_INS, \
+     _______,   NK_ON,    NK_OFF,   EEP_RST,  QK_BOOT,   _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_INS, \
      _______,   GE_SWAP,  GE_NORM,  DEBUG,    RGB_MOD,   RGB_HUI,  RGB_SAI,  RGB_SPI,  RGB_M_B,  _______,  _______,  RGB_TOG,   _______,  \
      _______,   LAG_SWP,  LAG_NRM,  _______,  RGB_RMOD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  RGB_M_K,  _______,  _______,  _______,   _______, \
      _______,   _______,  _______,  _______,  _______,   _______,  _______)

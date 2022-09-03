@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x1769
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    coseyfannitutti
-#define PRODUCT         DISCIPAD
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -43,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* A Custom matrix.c is used to poll the port expander C6 shows that the pins are hardwired there */
 #define MATRIX_ROW_PINS { B1, B0, D7, D6, D4 }
 #define MATRIX_COL_PINS { C0, C1, C2, C3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
