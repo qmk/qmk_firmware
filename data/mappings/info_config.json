@@ -20,9 +20,7 @@
     "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
     "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
-    "DEVICE_VER": {"info_key": "usb.device_ver", "value_type": "hex"},
-    # TODO: Replace ^^^ with vvv
-    #"DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version"},
+    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version"},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
     "DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.double_tap_shift_turns_on", "value_type": "bool"},
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
