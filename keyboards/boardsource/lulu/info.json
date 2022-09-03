@@ -2,11 +2,7 @@
   "manufacturer": "Boardsource",
   "keyboard_name": "lulu",
   "maintainer": "waffle87",
-  "bootloader": "atmel-dfu",
   "diode_direction": "COL2ROW",
-  "build": {
-    "lto": true
-  },
   "features": {
     "bootmagic": true,
     "extrakey": true,
@@ -15,11 +11,6 @@
     "rgb_matrix": true,
     "oled": true
   },
-  "matrix_pins": {
-    "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
-    "rows": ["C6", "D7", "E6", "B4", "B5"]
-  },
-  "processor": "atmega32u4",
   "url": "https://boardsource.xyz/projects/60de24d6847112054777bbdd",
   "usb": {
     "device_version": "1.0.0",
@@ -27,16 +18,17 @@
     "vid": "0x4273"
   },
   "split": {
-    "enabled": true,
-    "soft_serial_pin": "D2"
+    "enabled": true
   },
   "encoder": {
-    "enabled": true,
-    "rotary": [
-      { "pin_a": "F0", "pin_b": "F1" }
-    ]
+    "enabled": true
+  },
+  "matrix_size": {
+     "cols": 6,
+     "rows": 10
   },
   "rgb_matrix": {
+    "driver": "WS2812",
     "layout": [
       { "flags": 2, "x": 86, "y": 55 },
       { "flags": 2, "x": 51, "y": 55 },
