@@ -576,7 +576,15 @@
                         }
                     }
                 },
+                "main": {
+                    "$comment": "deprecated - see handedness instead",
+                    "deprecated": true,
+                    "type": "string",
+                    "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
+                },
                 "matrix_grid": {
+                    "$comment": "deprecated - see handedness instead",
+                    "deprecated": true,
                     "type": "array",
                     "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
                 },
@@ -608,9 +616,31 @@
                         }
                     }
                 },
-                "main": {
-                    "type": "string",
-                    "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
+                "handedness": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "method": {
+                            "type": "string",
+                            "enum": ["pin", "matrix_grid", "eeprom", "usb"]
+                        },
+                        "pin": {
+                            "$comment": "only needed if method=pin, ignored otherwise",
+                            "$ref": "qmk.definitions.v1#/mcu_pin"
+                        },
+                        "matrix_grid": {
+                            "$comment": "only needed if method=matrix_grid, ignored otherwise",
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                        },
+                        "determined_side": {
+                            "$comment": "defined which side is determined if the method evaluates positively: pin=High, matrix_grid=Low, eeprom=(ignored), usb=Host-detected",
+                            "type": "string",
+                            "enum": ["left", "right"]
+                        }
+                    }
                 },
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {

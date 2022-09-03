@@ -130,23 +130,31 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
 
 def generate_split_config(kb_info_json, config_h_lines):
     """Generate the config.h lines for split boards."""
-    if 'primary' in kb_info_json['split']:
-        if kb_info_json['split']['primary'] in ('left', 'right'):
+    if 'handedness' in kb_info_json['split'] and 'method' in kb_info_json['split']['handedness']:
+        if kb_info_json['split']['handedness']['method'] == 'usb':
             config_h_lines.append('')
             config_h_lines.append('#ifndef MASTER_LEFT')
             config_h_lines.append('#    ifndef MASTER_RIGHT')
-            if kb_info_json['split']['primary'] == 'left':
+            if kb_info_json['split']['handedness'].get('determined_side', None) == 'left':
                 config_h_lines.append('#        define MASTER_LEFT')
-            elif kb_info_json['split']['primary'] == 'right':
+            elif kb_info_json['split']['handedness'].get('determined_side', None) == 'right':
                 config_h_lines.append('#        define MASTER_RIGHT')
             config_h_lines.append('#    endif // MASTER_RIGHT')
             config_h_lines.append('#endif // MASTER_LEFT')
-        elif kb_info_json['split']['primary'] == 'pin':
-            config_h_lines.append(generate_define('SPLIT_HAND_PIN'))
-        elif kb_info_json['split']['primary'] == 'matrix_grid':
-            config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', f'{{ {",".join(kb_info_json["split"]["matrix_grid"])} }}'))
-        elif kb_info_json['split']['primary'] == 'eeprom':
+        elif kb_info_json['split']['handedness']['method'] == 'pin':
+            config_h_lines.append(generate_define('SPLIT_HAND_PIN', kb_info_json["split"]["handedness"]["pin"]))
+            if kb_info_json['split']['handedness'].get('determined_side', None) == 'right':
+                # Handedness by Pin defaults to left if high, and right if low.
+                config_h_lines.append(generate_define('SPLIT_HAND_PIN_LOW_IS_LEFT'))
+        elif kb_info_json['split']['handedness']['method'] == 'matrix_grid':
+            config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', f'{{ {",".join(kb_info_json["split"]["handedness"]["matrix_grid"])} }}'))
+            if kb_info_json['split']['handedness'].get('determined_side', None) == 'left':
+                # Handedness by Matrix Pin defaults to right if a diode is connected to this intersection, and right if not (intersection open).
+                config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT'))
+        elif kb_info_json['split']['handedness']['method'] == 'eeprom':
             config_h_lines.append(generate_define('EE_HANDS'))
+        else:
+            cli.log.debug("Unknown split.handedness.method configuration")
 
     if 'protocol' in kb_info_json['split'].get('transport', {}):
         if kb_info_json['split']['transport']['protocol'] == 'i2c':

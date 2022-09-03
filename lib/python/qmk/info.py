@@ -352,55 +352,134 @@ def _extract_secure_unlock(info_data, config_c):
         info_data['secure']['unlock_sequence'] = unlock_array
 
 
-def _extract_split_main(info_data, config_c):
-    """Populate data about the split configuration
-    """
-    # Figure out how the main half is determined
+def _extract_split_handedness(info_data, config_c):
+    _extract_split_handedness_pin(info_data, config_c)
+    _extract_split_handedness_matrix_grid(info_data, config_c)
+    _extract_split_handedness_eeprom(info_data, config_c)
+    _extract_split_handedness_usb(info_data, config_c)
+
+
+def _extract_split_handedness_pin(info_data, config_c):
     if config_c.get('SPLIT_HAND_PIN') is True:
         if 'split' not in info_data:
             info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
 
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+        if info_data['split']['handedness'].get('method', '') == 'pin':
+            if 'pin' in info_data['split']['handedness']:
+                _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.handedness.method and split.handedness.pin) (Value: %s), the config.h value wins.' % info_data['split']['handedness']['pin'])
 
-        info_data['split']['main'] = 'pin'
+        info_data['split']['handedness'] = 'pin'
+        info_data['split']['handedness']['pin'] = _extract_pins(config_c['SPLIT_HAND_PIN'])[0]
 
+    if config_c.get('SPLIT_HAND_PIN_LOW_IS_LEFT'):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
+
+        if info_data['split']['handedness'].get('method', '') == 'pin':
+            if info_data['split']['handedness'].get('determined_side', None) == 'left':
+                _log_warning(
+                    info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN_LOW_IS_LEFT) and info.json (split.handedness.method and split.handedness.determined_side) (Value: %s), the config.h value wins.' %
+                    info_data['split']['handedness']['determined_side']
+                )
+
+        info_data['split']['handedness']['determined_side'] = 'right'
+    else:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
+        info_data['split']['handedness']['determined_side'] = 'left'
+
+
+def _extract_split_handedness_matrix_grid(info_data, config_c):
     if config_c.get('SPLIT_HAND_MATRIX_GRID'):
         if 'split' not in info_data:
             info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
 
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+        if info_data['split']['handedness'].get('method', '') == 'matrix_grid':
+            if 'matrix_grid' in info_data['split']['handedness']:
+                _log_warning(
+                    info_data,
+                    'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.handedness.method and split.handedness.matrix_grid) (Value: %s), the config.h value wins.' % info_data['split']['handedness']['matrix_grid']
+                )
 
-        info_data['split']['main'] = 'matrix_grid'
-        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
+        info_data['split']['handedness']['method'] = 'matrix_grid'
+        info_data['split']['handedness']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
 
+    if config_c.get('SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT'):
+        if 'split' not in info_data:
+            info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
+
+        if info_data['split']['handedness'].get('method', '') == 'matrix_grid':
+            if info_data['split']['handedness'].get('determined_side', None) == 'right':
+                _log_warning(
+                    info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT) and info.json (split.handedness.method and split.handedness.determined_side) (Value: %s), the config.h value wins.' %
+                    info_data['split']['handedness']['determined_side']
+                )
+
+        info_data['split']['handedness']['determined_side'] = 'right'
+    else:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
+        info_data['split']['handedness']['determined_side'] = 'left'
+
+
+def _extract_split_handedness_eeprom(info_data, config_c):
     if config_c.get('EE_HANDS') is True:
         if 'split' not in info_data:
             info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
 
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+        if info_data['split']['handedness'].get('method', '') == 'eeprom':
+            if 'pin' in info_data['split']['handedness']:
+                _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.handedness.method) (Value: %s), the config.h value wins.' % info_data['split']['handedness']['method'])
 
-        info_data['split']['main'] = 'eeprom'
+        info_data['split']['handedness']['method'] = 'eeprom'
 
     if config_c.get('MASTER_RIGHT') is True:
         if 'split' not in info_data:
             info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
 
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+        if info_data['split']['handedness'].get('method', '') == 'usb':
+            if 'pin' in info_data['split']['handedness']:
+                _log_warning(
+                    info_data,
+                    'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.handedness.method and split.handedness.determined_side) (Value: %s), the config.h value wins.' % info_data['split']['handedness']['determined_side']
+                )
 
-        info_data['split']['main'] = 'right'
+        info_data['split']['handedness']['method'] = 'usb'
+        info_data['split']['handedness']['determined_side'] = 'right'
 
+
+def _extract_split_handedness_usb(info_data, config_c):
     if config_c.get('MASTER_LEFT') is True:
         if 'split' not in info_data:
             info_data['split'] = {}
+        if 'handedness' not in info_data['split']:
+            info_data['split']['handedness'] = {}
 
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
+        if info_data['split']['handedness'].get('method', '') == 'usb':
+            if 'pin' in info_data['split']['handedness']:
+                _log_warning(
+                    info_data,
+                    'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.handedness.method and split.handedness.determined_side) (Value: %s), the config.h value wins.' % info_data['split']['handedness']['determined_side']
+                )
 
-        info_data['split']['main'] = 'left'
+        info_data['split']['handedness']['method'] = 'usb'
+        info_data['split']['handedness']['determined_side'] = 'left'
 
 
 def _extract_split_transport(info_data, config_c):
@@ -583,7 +662,7 @@ def _extract_config_h(info_data, config_c):
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
-    _extract_split_main(info_data, config_c)
+    _extract_split_handedness(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
