@@ -43,3 +43,9 @@
 //#define OLED_FONT_H "keyboards/mlego/m65/lib/glcdfont.c"
 #endif
 
+/* RGB settings. */
+#define RGBLED_NUM 3
+ #define RGBLED_SPLIT { 18, 18 }
+#    define RGB_DI_PIN GP14
+#    define DRIVER_LED_TOTAL 3
+

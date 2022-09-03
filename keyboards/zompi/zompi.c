@@ -139,3 +139,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   }
   return false;
 }
+
+/* RGB Positioning */
+ led_config_t g_led_config = { {
+     {  0,   1,  2 },
+     {  3,   4,  5 },
+     {  6,   7,  8 },
+     {  9,  10, 11 }
+ }, {
+     { 0,  0 }, { 112,  0 }, { 224,  0}
+ }, {
+     
+ } };

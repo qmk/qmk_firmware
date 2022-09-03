@@ -9,8 +9,8 @@
         "enabled": true,
         "rotary": [
             {
-                "pin_a": "GP14",
-                "pin_b": "GP15",
+                "pin_a": "GP24",
+                "pin_b": "GP25",
                 "resolution": 4
             }
         ]
@@ -26,7 +26,6 @@
         "mousekey": true,
         "nkro": true,
         "oled": true,
-        "rgblight": false,
         "wpm": true
     },    
     "layouts": {
