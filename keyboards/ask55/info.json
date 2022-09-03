@@ -2,28 +2,8 @@
     "manufacturer": "Yiancar-Designs",
     "keyboard_name": "ASK55",
     "maintainer": "qmk",
-    "_invalid": {
-        "unused_pins": true,
-        "usb_description": "The 14.5u, Alps-compatible PCB"
-    },
+    "processor": "atmega32u4",
     "bootloader": "caterina",
-    "config_h_features": {
-        "audio": false,
-        "backlight": false,
-        "bluetooth": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "fauxclicky": false,
-        "hd44780": false,
-        "midi": false,
-        "mousekey": true,
-        "nkro": true,
-        "rgblight": true,
-        "sleep_led": false,
-        "unicode": false
-    },
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
@@ -34,9 +14,6 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "fauxclicky": false,
-        "hd44780": false,
-        "midi": false,
         "mousekey": true,
         "nkro": true,
         "rgblight": true,
@@ -44,24 +21,13 @@
         "unicode": false
     },
     "keyboard_folder": "ask55",
-    "keymaps": {},
     "matrix_pins": {
         "cols": ["E6", "D0", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7"],
         "rows": ["B0", "B1", "D1", "F6", "F5"]
     },
-    "matrix_size": {
-        "cols": 14,
-        "rows": 5
-    },
     "mouse_key": {
         "enabled": true
     },
-    "parse_errors": ["DESCRIPTION in config.h is no longer a valid option and should be removed"],
-    "parse_warnings": ["UNUSED_PINS in config.h is deprecated and will be removed at a later date", "RGBLIGHT_ANIMATIONS in config.h is deprecated and will be removed at a later date"],
-    "platform": "AVR8",
-    "processor": "atmega32u4",
-    "processor_type": "avr",
-    "protocol": "LUFA",
     "rgblight": {
         "animations": {
             "all": false,
@@ -84,7 +50,6 @@
         "sleep": false
     },
     "usb": {
-        "device_ver": "0x0001",
         "device_version": "0.0.1",
         "pid": "0x3535",
         "vid": "0x8968"
