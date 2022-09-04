@@ -30,3 +30,7 @@
 #define B3 20U
 #define B2 23U
 #define B6 21U
+
+// LEDs
+#define D5 12U
+#define B0 13U
