@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Idobao
-#define PRODUCT         Montex
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
@@ -32,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D4, D6, D7, B4, B5, C6 }
 #define MATRIX_COL_PINS { D5, D3, D2, D1, D0 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL

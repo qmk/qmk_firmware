@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x00DE
-#define MANUFACTURER    Mode
-#define PRODUCT         Eighty
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -38,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { A10, A15, B3, B9, A3, A4 }
 #define MATRIX_COL_PINS { B8, B7, B6, B5, B4, A2, A1, A0, F1, F0, C15, C14, C13, A7, A6, A5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -97,5 +91,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

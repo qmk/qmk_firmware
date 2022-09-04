@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Unikeyboard
-#define PRODUCT         Felix
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -25,7 +18,6 @@
 */
 #define MATRIX_ROW_PINS { B2, B3, B1, F7, F6 }
 #define MATRIX_COL_PINS { B5, B4, E6, D7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -119,8 +111,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

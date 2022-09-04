@@ -15,8 +15,10 @@ from milc.questions import yesno
 import_names = {
     # A mapping of package name to importable name
     'pep8-naming': 'pep8ext_naming',
+    'pyserial': 'serial',
     'pyusb': 'usb.core',
-    'qmk-dotty-dict': 'dotty_dict'
+    'qmk-dotty-dict': 'dotty_dict',
+    'pillow': 'PIL'
 }
 
 safe_commands = [
@@ -51,12 +53,16 @@ subcommands = [
     'qmk.cli.generate.dfu_header',
     'qmk.cli.generate.docs',
     'qmk.cli.generate.info_json',
+    'qmk.cli.generate.keyboard_c',
     'qmk.cli.generate.keyboard_h',
     'qmk.cli.generate.layouts',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
     'qmk.cli.generate.version_h',
     'qmk.cli.hello',
+    'qmk.cli.import.kbfirmware',
+    'qmk.cli.import.keyboard',
+    'qmk.cli.import.keymap',
     'qmk.cli.info',
     'qmk.cli.json2c',
     'qmk.cli.lint',
@@ -67,8 +73,10 @@ subcommands = [
     'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',
     'qmk.cli.new.keymap',
+    'qmk.cli.painter',
     'qmk.cli.pyformat',
     'qmk.cli.pytest',
+    'qmk.cli.via2json',
 ]
 
 
@@ -87,7 +95,7 @@ def _install_deps(requirements):
 
     elif not os.access(sys.prefix, os.W_OK):
         # We can't write to sys.prefix, attempt to install locally
-        command.append('--local')
+        command.append('--user')
 
     return _run_cmd(*command, '-r', requirements)
 
@@ -152,6 +160,18 @@ def _broken_module_imports(requirements):
     return False
 
 
+def _yesno(*args):
+    """Wrapper to only prompt if interactive
+    """
+    return sys.stdout.isatty() and yesno(*args)
+
+
+def _eprint(errmsg):
+    """Wrapper to print to stderr
+    """
+    print(errmsg, file=sys.stderr)
+
+
 # Make sure our python is new enough
 #
 # Supported version information
@@ -173,7 +193,7 @@ def _broken_module_imports(requirements):
 # void: 3.9
 
 if sys.version_info[0] != 3 or sys.version_info[1] < 7:
-    print('Error: Your Python is too old! Please upgrade to Python 3.7 or later.')
+    _eprint('Error: Your Python is too old! Please upgrade to Python 3.7 or later.')
     exit(127)
 
 milc_version = __VERSION__.split('.')
@@ -181,7 +201,7 @@ milc_version = __VERSION__.split('.')
 if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
     requirements = Path('requirements.txt').resolve()
 
-    print(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
+    _eprint(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
     exit(127)
 
 # Make sure we can run binaries in the same directory as our Python interpreter
@@ -191,7 +211,7 @@ if python_dir not in os.environ['PATH'].split(':'):
     os.environ['PATH'] = ":".join((python_dir, os.environ['PATH']))
 
 # Check to make sure we have all our dependencies
-msg_install = f'Please run `{sys.executable} -m pip install -r %s` to install required python dependencies.'
+msg_install = f'\nPlease run `{sys.executable} -m pip install -r %s` to install required python dependencies.'
 args = sys.argv[1:]
 while args and args[0][0] == '-':
     del args[0]
@@ -200,24 +220,20 @@ safe_command = args and args[0] in safe_commands
 
 if not safe_command:
     if _broken_module_imports('requirements.txt'):
-        if yesno('Would you like to install the required Python modules?'):
+        if _yesno('Would you like to install the required Python modules?'):
             _install_deps('requirements.txt')
         else:
-            print()
-            print(msg_install % (str(Path('requirements.txt').resolve()),))
-            print()
+            _eprint(msg_install % (str(Path('requirements.txt').resolve()),))
             exit(1)
 
     if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
-        if yesno('Would you like to install the required developer Python modules?'):
+        if _yesno('Would you like to install the required developer Python modules?'):
             _install_deps('requirements-dev.txt')
-        elif yesno('Would you like to disable developer mode?'):
+        elif _yesno('Would you like to disable developer mode?'):
             _run_cmd(sys.argv[0], 'config', 'user.developer=None')
         else:
-            print()
-            print(msg_install % (str(Path('requirements-dev.txt').resolve()),))
-            print('You can also turn off developer mode: qmk config user.developer=None')
-            print()
+            _eprint(msg_install % (str(Path('requirements-dev.txt').resolve()),))
+            _eprint('You can also turn off developer mode: qmk config user.developer=None')
             exit(1)
 
 # Import our subcommands
@@ -227,6 +243,6 @@ for subcommand in subcommands:
 
     except (ImportError, ModuleNotFoundError) as e:
         if safe_command:
-            print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
+            _eprint(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:
             raise

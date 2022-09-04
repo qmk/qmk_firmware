@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544B //TK
-#define PRODUCT_ID      0x0009
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    TKC
-#define PRODUCT         California
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 10
@@ -44,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { C7, C6, B6, D4, D3, D0, E6, B0, B1, B2, D2, B3 }
 #define MATRIX_COL_PINS { B5, B4, D7, D6, F7, F6, F5, D5, D1, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -115,8 +107,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

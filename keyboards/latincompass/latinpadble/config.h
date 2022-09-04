@@ -17,26 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #pragma once
 
 #include "config_common.h"
-#define VENDOR_ID       0x7C88 // "hw" = haierwangwei2005
-#define PRODUCT_ID      0x7C98 // "lp" = latinpadble
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    haierwangwei2005
-#define PRODUCT         latinpadble
 
 // #define NO_ACTION_LAYER
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
 #define MATRIX_ROW_PINS { F0, F6, F5, F4, F1 }
 #define MATRIX_COL_PINS { D6, D7, B5, B6 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION ROW2COL
 

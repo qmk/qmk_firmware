@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x5340
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         QUARK
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -32,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C5, C4, C6, C7, B7 }
 #define MATRIX_COL_PINS { B4, B5, B6, B3, C2, B2, D6, D2, D3, D4, D5, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -61,8 +53,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // ws2812 options
 #define RGB_DI_PIN D0 // pin the DI on the ws2812 is hooked-up to

@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x9991
-#define PRODUCT_ID      0xD408
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    I/O Keyboards
-#define PRODUCT         Aves 60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -28,7 +21,6 @@
  */
 #define MATRIX_ROW_PINS { F6, F7, F5, F1, F4 }
 #define MATRIX_COL_PINS { B2, B3, D0, D1, D2, D3, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS { B0, B7, E6, F0 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -129,10 +121,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 4

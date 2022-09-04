@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4443   // 'D' 'C'
-#define PRODUCT_ID 0x4D43  // 'M' 'C'
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Daniel Cormier
-#define PRODUCT DC MC 001
-
 /*
     BUTTON_MUTE           = _BV(4),
     BUTTON_STOP           = _BV(0),
@@ -37,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {                          \
         { B4, B0, B1, B2, B3 } \
     }
-#define UNUSED_PINS
 
 /*
     RE_CHANNEL_A          = _BV(6),
@@ -69,10 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // The (default) Stop key

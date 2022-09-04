@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964   // "id"
-#define PRODUCT_ID      0x0087
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IDOBAO
-#define PRODUCT         IDOBAO ID87
-
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 9
@@ -41,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { E6, B0, B1, B2, B3, B7, F7, F6, F5, F4, F1 }
 
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4 }
-//#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

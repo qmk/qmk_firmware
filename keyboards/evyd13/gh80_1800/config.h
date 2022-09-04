@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x8B23
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         GH80 1800
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 11
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS {D5,B4,B5,B6,C6,C7,B0,B2,B1,B3}
 #define MATRIX_COL_PINS {F0,F1,F4,F5,F6,F7,D3,D2,D1,D0,B7}
-#define UNUSED_PINS {E6}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -140,8 +132,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D53
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Mech Studio
-#define PRODUCT         UD_40 Ortholinear
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -33,7 +26,6 @@
 
 #define MATRIX_ROW_PINS {C2,B4,B5,B6}
 #define MATRIX_COL_PINS {C5,D0,B3,B2,B1,B0,D6,D5,D4,D3,D2,D1}
-#define UNUSED_PINS {C4,C6,C7}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

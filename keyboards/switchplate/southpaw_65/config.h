@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4084
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Switchplate Peripherals
-#define PRODUCT         Southpaw Extended 65%
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 19
@@ -41,7 +34,6 @@
 */
 //#define MATRIX_ROW_PINS { D0, D5 }
 //#define MATRIX_COL_PINS { F1, F0, B0 }
-//#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
@@ -127,8 +119,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

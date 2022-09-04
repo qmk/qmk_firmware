@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */ 
-#define VENDOR_ID       0x6C63 // "lc" = latincompass
-#define PRODUCT_ID      0x6C62 // "lb" = latin47BLE
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    latincompass
-#define PRODUCT         Latin47BLE
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3 }
 #define MATRIX_COL_PINS { D6, D7, B5, B6 ,C6, C7, F7, F6, F5, F4, F1, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -119,7 +111,5 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define VIA_HAS_BROKEN_KEYCODES

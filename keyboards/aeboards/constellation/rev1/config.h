@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4145 // AE
-#define PRODUCT_ID      0x065C // 65 - Constellation
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AEBoards
-#define PRODUCT         AEBoards Constellation Rev1
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -33,7 +26,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, B1, F0, F1, F4 }
 #define MATRIX_COL_PINS { E6, D5, B2, B3, D3, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

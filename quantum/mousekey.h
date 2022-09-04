@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        ifndef MK_KINETIC_SPEED
 #            define MOUSEKEY_MOVE_DELTA 8
 #        else
-#            define MOUSEKEY_MOVE_DELTA 5
+#            define MOUSEKEY_MOVE_DELTA 16
 #        endif
 #    endif
 #    ifndef MOUSEKEY_WHEEL_DELTA
@@ -82,7 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_INITIAL_SPEED 100
 #    endif
 #    ifndef MOUSEKEY_BASE_SPEED
-#        define MOUSEKEY_BASE_SPEED 1000
+#        define MOUSEKEY_BASE_SPEED 5000
 #    endif
 #    ifndef MOUSEKEY_DECELERATED_SPEED
 #        define MOUSEKEY_DECELERATED_SPEED 400
@@ -174,6 +174,7 @@ void           mousekey_off(uint8_t code);
 void           mousekey_clear(void);
 void           mousekey_send(void);
 report_mouse_t mousekey_get_report(void);
+bool           should_mousekey_report_send(report_mouse_t *mouse_report);
 
 #ifdef __cplusplus
 }

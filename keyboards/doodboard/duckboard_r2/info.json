@@ -1,7 +1,13 @@
 {
     "keyboard_name": "duckboard",
+    "manufacturer": "doodboard",
     "url": "https://doodboard.xyz/",
     "maintainer": "doodboard",
+    "usb": {
+        "vid": "0x4442",
+        "pid": "0x6462",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

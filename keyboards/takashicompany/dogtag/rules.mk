@@ -19,3 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 
 ENCODER_ENABLE = yes
 SPLIT_KEYBOARD = yes
+MOUSEKEY_ENABLE = yes

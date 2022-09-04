@@ -19,20 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xCA42
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    monksoffunk
-#define PRODUCT         cassette42
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 6
 
 #define DIRECT_PINS {{ B4, F6, F5, F4, B5, F7 }}
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B6, B3 }
 #define ENCODERS_PAD_B { B2, B1 }
