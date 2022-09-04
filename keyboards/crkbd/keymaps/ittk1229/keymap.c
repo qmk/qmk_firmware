@@ -98,6 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // OLEDの設定
 #ifdef OLED_ENABLE
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -109,7 +110,7 @@ void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (layer_state) {
         case _EUCALYN:
-            oled_write_ln_P(PSTR("EUCALYN"), false);
+            oled_write_ln_P(PSTR("Eucalyn"), false);
             break;
         case _LOWER:
             oled_write_ln_P(PSTR("Lower"), false);
@@ -250,6 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ESC_MHEN:
       register_code(KC_ESC);
       register_code(KC_MHEN);
+      unregister_code(KC_MHEN);
       return false;
     case LOWER:
       if (record->event.pressed) {
