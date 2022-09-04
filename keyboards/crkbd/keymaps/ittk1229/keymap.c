@@ -245,14 +245,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CTL_SPC:
       user_mt(record, KC_LCTL,  KC_SPC, &ctl_spc_pressed, &ctl_spc_pressed_time, true);
       return false;
+      break;
     case SFT_ENT:
       user_mt(record, KC_LSFT, KC_ENT, &sft_ent_pressed, &sft_ent_pressed_time, true);
       return false;
+      break;
     case ESC_MHEN:
       register_code(KC_ESC);
+      unregister_code(KC_ESC);
       register_code(KC_MHEN);
       unregister_code(KC_MHEN);
       return false;
+      break;
     case LOWER:
       if (record->event.pressed) {
         lower_pressed = true;
@@ -270,6 +274,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         lower_pressed = false;
       }
       return false;
+      break;
     case RAISE:
       if (record->event.pressed) {
         raise_pressed = true;
@@ -287,6 +292,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         raise_pressed = false;
       }
       return false;
+      break;
     default:  // case: defaultではない.。マクロキーでない他のすべてのキー
       if (record->event.pressed) {
         lower_pressed = false;
