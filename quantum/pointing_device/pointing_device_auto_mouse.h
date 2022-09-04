@@ -59,27 +59,34 @@ typedef struct {
     } status;
 } auto_mouse_context_t;
 
-/* ----------------------setting up use of automouse----------------------------- */
-void set_auto_mouse_layer(uint8_t layer); // set target layer
+/* ----------Setting up-------------------------------------------------------------------------------------- */
+void    set_auto_mouse_enable(bool enable);  // enable/disable auto mouse feature must true in pointing_device_init_*
+bool    get_auto_mouse_enable(void);         // get auto_mouse_enable
+void    set_auto_mouse_layer(uint8_t layer); // set target layer by index
+uint8_t get_auto_mouse_layer(void);          // get target layer index
 
-/* ---------for use in custom pointing device/keyevent processing code----------- */
+/* ----------For use in custom pointing device/keyevent processing ------------------------------------------ */
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report); // add to pointing_device_task_*
 bool process_auto_mouse(uint16_t keycode, keyrecord_t* record);    // add to process_record_*
 bool auto_mouse_activation(report_mouse_t mouse_report);           // handles trigger event for target layer activation (overwritable)
 void auto_mouse_reset(void);                                       // clear status and timers and deacivate target layer unless toggle/oneshot is active
+void auto_mouse_target_off(void);                                  // disable target layer if appropriate
 
-/* -----------------------------State control------------------------------------ */
-void set_auto_mouse_state(bool state); // enable/disable auto mouse feature must true in pointing_device_init_*
-bool get_auto_mouse_state(void);       // allows for checking auto_mouse_enable
+/* ----------Toggle layer control---------------------------------------------------------------------------- */
+void auto_mouse_toggle(void);     // toggle mouse layer flag disables mouse layer deactivation while on (meant for tap toggle or layer toggles)
+bool get_auto_mouse_toggle(void); // get toggle mouse layer
 
-/* -------------------------Toggle layer control--------------------------------- */
-void auto_mouse_toggle(void);     // toggle mouse layer flag disables mouse layer changes while on (meant for tap toggle or layer toggles)
-bool get_auto_mouse_toggle(void); // return toggle mouse bool value
+/* ----------Handle layer changes---------------------------------------------------------------------------- */
+layer_state_t remove_auto_mouse_target(layer_state_t state, bool force); // remove auto mouse target from layer state if appropriate (can be forced)
 
-/* --------------------------handling key events--------------------------------- */
+/* ----------Handling keyevents------------------------------------------------------------------------------ */
 void auto_mouse_keyevent(bool pressed);      // trigger auto mouse keyevent: keytracker increment/decrement
 void auto_mouse_reset_trigger(bool pressed); // trigger non mouse keyevent: reset and start delay timer
 
-/* -----------Callbacks for adding keycodes to mouse record checking------------- */
+/* ----------Callbacks for adding keycodes to mouse record checking------------------------------------------ */
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record);
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record);
+
+/* ----------Macros/Aliases---------------------------------------------------------------------------------- */
+#define AUTO_MOUSE_TARGET_LAYER get_auto_mouse_layer()
+#define AUTO_MOUSE_ENABLED get_auto_mouse_enable()
