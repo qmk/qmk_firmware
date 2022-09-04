@@ -19,26 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 8
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { E6, D7, C6, D4, D0, D1 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
@@ -170,9 +150,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   endif  // CONSOLE_ENABLE
 #endif  // RGB_MATRIX_ENABLE
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
@@ -260,16 +237,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
-
-/*
- * Encoder options
- */
-#ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { B5 }
-#   define ENCODERS_PAD_B { B4 }
-#   define ENCODER_RESOLUTIONS { 4 }
-#   define TAP_CODE_DELAY 10
-#endif  // ENCODER_ENABLE
 
 /* 2021/01/22 added to shrink firmware size */
 // NO_ACTION_TAPPING -1964 bytes, however, this disables Layer mods...
