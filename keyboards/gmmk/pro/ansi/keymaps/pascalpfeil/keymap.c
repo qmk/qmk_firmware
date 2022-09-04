@@ -16,6 +16,13 @@
 
 #include QMK_KEYBOARD_H
 
+enum my_keycodes {
+  MY_COPY = SAFE_RANGE,
+  MY_PSTE,
+  MY_UNDO,
+  MY_SRCH
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //      ESC      F1       F2       F3       F4       F5       F6       F7       F8       F9       F10      F11      F12	     Prt               Rotary(Mute)
@@ -27,21 +34,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [0] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS,          KC_HOME,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_DEL,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_GESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
+        KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS,          KC_HOME,
+        KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_DEL,
+        MO(1),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
+        KC_LCTL,  KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [1] = LAYOUT(
-        RESET,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BS_NORM,          RGB_VAI,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BS_SWAP,          RGB_HUI,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,          RGB_SPI,
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, RGB_MOD,
-        _______, AG_NORM, AG_SWAP,                            _______,                            _______, _______, _______, _______, _______, _______
+        RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, KC_NUM,           KC_MPLY,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   BS_NORM,          RGB_VAI,
+        _______, _______, _______, KC_END,  _______, _______, MY_COPY, MY_UNDO, _______, _______, MY_PSTE, _______, _______,  BS_SWAP,          RGB_HUI,
+        _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,            RGB_TOG,          RGB_SPI,
+        _______,          _______, KC_DEL,  _______, _______, KC_HOME, _______, _______, _______, _______, MY_SRCH,          _______, _______, RGB_MOD,
+        _______, AG_NORM, AG_SWAP,                            _______,                            _______, _______, _______, KC_MPRV, _______, KC_MNXT
     ),
 
     [2] = LAYOUT(
@@ -64,6 +71,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+inline bool is_mac_mode(void) {
+  return keymap_config.swap_lalt_lgui;
+}
+
+#define SEND_OS_SPECIFIC_COMMAND(string) (SEND_STRING(is_mac_mode() ? SS_LGUI(string) : SS_LCTRL(string)))
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case MY_COPY:
+      SEND_OS_SPECIFIC_COMMAND("c");
+      return false;
+    case MY_PSTE:
+      SEND_OS_SPECIFIC_COMMAND("v");
+      return false;
+    case MY_UNDO:
+      SEND_OS_SPECIFIC_COMMAND("z");
+      return false;
+    case MY_SRCH:
+      SEND_OS_SPECIFIC_COMMAND("f");
+      return false;
+    default:
+      return true;
+  }
+}
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(0)) {
         if (clockwise) {
@@ -75,9 +107,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     if (IS_LAYER_ON(1)) {
         if (clockwise) {
-            tap_code(KC_MS_WH_RIGHT);
+            tap_code(KC_BRIU);
         } else {
-            tap_code(KC_MS_WH_LEFT);
+            tap_code(KC_BRID);
         }
     }
    
