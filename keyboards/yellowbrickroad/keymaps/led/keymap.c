@@ -680,35 +680,19 @@ void select_layer_state_set(void){
             break;
 
         case _CHORDS:
-            if (is_trans_mode) {
-                layer_state_set(_LS_CHORDS_T);
-            } else {
-                layer_state_set(_LS_CHORDS);
-            }
+            layer_state_set(_LS_CHORDS_T);
             break;
 
         case _BASEANDCHORDS:
-            if (is_trans_mode) {
-                layer_state_set(_LS_BASEANDCHORDS_T);
-            } else {
-                layer_state_set(_LS_BASEANDCHORDS);
-            }
+            layer_state_set(_LS_BASEANDCHORDS_T);
             break;
 
         case _HEPTATONIC:
-            if (is_trans_mode) {
-                layer_state_set(_LS_HEPTATONIC_T);
-            } else {
-                layer_state_set(_LS_HEPTATONIC);
-            }
+            layer_state_set(_LS_HEPTATONIC_T);
             break;
 
         case _PENTATONIC:
-            if (is_trans_mode) {
-                layer_state_set(_LS_PENTATONIC_T);
-            } else {
-                layer_state_set(_LS_PENTATONIC);
-            }
+            layer_state_set(_LS_PENTATONIC_T);
             break;
 
         case _FLIP:
@@ -720,35 +704,19 @@ void select_layer_state_set(void){
             break;
 
         case _FLIPCHORDS:
-            if (is_trans_mode) {
-                layer_state_set(_LS_FLIPCHORDS_T);
-            } else {
-                layer_state_set(_LS_FLIPCHORDS);
-            }
+            layer_state_set(_LS_FLIPCHORDS_T);
             break;
 
         case _FLIPBASEANDCHORDS:
-            if (is_trans_mode) {
-                layer_state_set(_LS_FLIPBASEANDCHORDS_T);
-            } else {
-                layer_state_set(_LS_FLIPBASEANDCHORDS);
-            }
+            layer_state_set(_LS_FLIPBASEANDCHORDS_T);
             break;
 
         case _FLIPHEPTA:
-            if (is_trans_mode) {
-                layer_state_set(_LS_FLIPHEPTA_T);
-            } else {
-                layer_state_set(_LS_FLIPHEPTA);
-            }
+            layer_state_set(_LS_FLIPHEPTA_T);
             break;
 
         case _FLIPPENTA:
-            if (is_trans_mode) {
-                layer_state_set(_LS_FLIPPENTA_T);
-            } else {
-                layer_state_set(_LS_FLIPPENTA);
-            }
+            layer_state_set(_LS_FLIPPENTA_T);
             break;
 
         default:
