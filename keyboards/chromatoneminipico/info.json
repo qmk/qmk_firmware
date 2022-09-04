@@ -3,6 +3,25 @@
     "manufacturer": "3araht",
     "url": "https://github.com/3araht/chromatoneminipico",
     "maintainer": "3araht",
+    "bootloader": "rp2040",
+    "features": {
+        "midi": true,
+        "extrakey": true,
+        "encoder": true,
+        "bootmagic": false,
+        "console": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "audio": false
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "GP16", "GP17", "GP18", "GP19", "GP20", "GP21", "GP22", "GP26", "GP27", "GP28"  ],
+        "rows": [ "GP0", " GP1",  "GP2",  "GP3",  "GP4",  "GP5",  "GP6",  "GP7",  "GP8",  "GP9", "GP10", "GP11" ]
+    },
+    "debounce": 5,
+    "processor": "RP2040",
     "usb": {
         "vid": "0xFEED",
         "pid": "0xF4C4",
@@ -141,5 +160,10 @@
                 {"label":"k110", "x":20, "y":5}
             ]
         }
+    }
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP15", "pin_b": "GP14", "resolution": 4 }
+        ]
     }
 }
