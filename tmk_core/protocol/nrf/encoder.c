@@ -53,9 +53,9 @@ __attribute__((weak)) void encoder_key_interrupt_kb(int8_t index) {
     encoder_key_interrupt_user(index);
 }
 
-__attribute__((weak)) void encoder_no_move_kb(int8_t index) {}
+__attribute__((weak)) void encoder_no_move_user(int8_t index) {}
 
-__attribute__((weak)) void encoder_no_move_user(int8_t index) {
+__attribute__((weak)) void encoder_no_move_kb(int8_t index) {
     encoder_no_move_user(index);
 }
 
