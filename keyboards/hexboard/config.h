@@ -29,6 +29,8 @@
 
 #define TAPPING_TERM 500
 
+#define MIDI_ADVANCED
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
