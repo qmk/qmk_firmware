@@ -1,7 +1,13 @@
 {
     "keyboard_name": "pluckey",
+    "manufacturer": "floookay",
     "url": "https://github.com/floookay/pluckey",
     "maintainer": "floookay",
+    "usb": {
+        "vid": "0xF100",
+        "pid": "0x91CE",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

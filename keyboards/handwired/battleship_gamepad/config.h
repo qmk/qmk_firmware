@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4142
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    arbraini
-#define PRODUCT         Battleship Gamepad
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 8
@@ -32,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B6, B2, B3, B1, F7 }
 #define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, B4, B5 }
-#define UNUSED_PINS
 
 /* joystick configuration */
 #define JOYSTICK_BUTTON_COUNT 25

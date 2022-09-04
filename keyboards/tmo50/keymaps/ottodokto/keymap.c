@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   // RGB Control Layer
   [3] = LAYOUT_all(
-		RGB_SPI, RGB_TOG, RGB_HUD, RGB_VAI, RGB_HUI, _______, _______, _______, _______, _______,    _______,   _______,    _______, _______, RESET,
+		RGB_SPI, RGB_TOG, RGB_HUD, RGB_VAI, RGB_HUI, _______, _______, _______, _______, _______,    _______,   _______,    _______, _______, QK_BOOT,
 		RGB_SPD, _______, RGB_SAD, RGB_VAD, RGB_SAI, _______, _______, _______, _______, _______,    _______,   _______, _______, _______,
 		_______, _______, RGB_STA, RGB_BRE, RGB_RAI, RGB_SWI, RGB_SNA, RGB_KNI, RGB_GRA, VLK_TOG, _______, _______, _______, EEP_RST,
 		_______, _______, _______, _______, _______, _______, _______

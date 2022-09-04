@@ -1,5 +1,11 @@
 {
-    "keyboard_name": "Cypher",
+    "keyboard_name": "cypher",
+    "manufacturer": "westfoxtrot",
+    "usb": {
+      "vid": "0x21FF",
+      "pid": "0xAA98",
+      "device_version": "0.0.2"
+    },
     "layouts": {
       "LAYOUT_all": {
         "layout": [

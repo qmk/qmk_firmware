@@ -89,6 +89,7 @@ uint8_t ps2_host_send(uint8_t data);
 uint8_t ps2_host_recv_response(void);
 uint8_t ps2_host_recv(void);
 void    ps2_host_set_led(uint8_t usb_led);
+bool    pbuf_has_data(void);
 
 /*--------------------------------------------------------------------
  * static functions

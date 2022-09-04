@@ -1,7 +1,13 @@
 {
     "keyboard_name": "rabbit_capture_plan",
+    "manufacturer": "kakunpc",
     "url": "https://kakunpc.booth.pm/",
     "maintainer": "kakunpc",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEB59",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

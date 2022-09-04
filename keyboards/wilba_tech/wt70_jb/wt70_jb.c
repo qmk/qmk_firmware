@@ -38,9 +38,9 @@ bool led_update_kb(led_t led_state) {
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
 {
-    // If the EEPROM has the magic, the data is good.
-    // OK to load from EEPROM
-    if (via_eeprom_is_valid()) {
+    // This checks both an EEPROM reset (from bootmagic lite, keycodes)
+    // and also firmware build date (from via_eeprom_is_valid())
+    if (eeconfig_is_enabled()) {
     } else	{
         // Cache "first execution" state so we can do something
         // specific after QMK initialization has done its thing.

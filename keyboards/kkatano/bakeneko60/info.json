@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Bakeneko 60",
+    "manufacturer": "kkatano",
     "url": "https://github.com/kkatano/bakeneko-60-pcb",
     "maintainer": "kkatano",
+    "usb": {
+        "vid": "0x3A0E",
+        "pid": "0xCBDC",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

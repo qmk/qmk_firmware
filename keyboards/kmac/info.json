@@ -1,6 +1,12 @@
 {
-  "keyboard_name": "kmac",
+  "keyboard_name": "KMAC",
+  "manufacturer": "KBDMania",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4B4D",
+    "pid": "0x4143",
+    "device_version": "1.0.4"
+  },
   "layouts": {
     "LAYOUT_tkl_ansi": {
       "layout": [

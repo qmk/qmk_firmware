@@ -1,7 +1,13 @@
 {
     "keyboard_name": "dynamis",
+    "manufacturer": "bbrfkr",
     "url": "https://github.com/bbrfkr/keyboards",
     "maintainer": "bbrfkr",
+    "usb": {
+        "vid": "0x6262",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [
@@ -11,62 +17,62 @@
                     "y": 0
                 },
                 {
-                    "label": "F1",
+                    "label": "1",
                     "x": 1,
                     "y": 0
                 },
                 {
-                    "label": "F2",
+                    "label": "2",
                     "x": 2,
                     "y": 0
                 },
                 {
-                    "label": "F3",
+                    "label": "3",
                     "x": 3,
                     "y": 0
                 },
                 {
-                    "label": "F4",
+                    "label": "4",
                     "x": 4,
                     "y": 0
                 },
                 {
-                    "label": "F5",
+                    "label": "5",
                     "x": 5,
                     "y": 0
                 },
                 {
-                    "label": "F6",
+                    "label": "6",
                     "x": 6,
                     "y": 0
                 },
                 {
-                    "label": "F7",
+                    "label": "7",
                     "x": 7,
                     "y": 0
                 },
                 {
-                    "label": "F8",
+                    "label": "8",
                     "x": 8,
                     "y": 0
                 },
                 {
-                    "label": "F9",
+                    "label": "9",
                     "x": 9,
                     "y": 0
                 },
                 {
-                    "label": "F10",
+                    "label": "0",
                     "x": 10,
                     "y": 0
                 },
                 {
-                    "label": "F11",
+                    "label": "-",
                     "x": 11,
                     "y": 0
                 },
                 {
-                    "label": "F12",
+                    "label": "=",
                     "x": 12,
                     "y": 0
                 },
@@ -286,7 +292,7 @@
                     "w": 1.75
                 },
                 {
-                    "label": "Raise",
+                    "label": "Lower",
                     "x": 14,
                     "y": 3
                 },
@@ -302,13 +308,13 @@
                     "w": 1.25
                 },
                 {
-                    "label": "Super",
+                    "label": "Alt",
                     "x": 1.25,
                     "y": 4,
                     "w": 1.25
                 },
                 {
-                    "label": "Alt",
+                    "label": "Lower",
                     "x": 2.5,
                     "y": 4,
                     "w": 1.25
@@ -320,25 +326,25 @@
                     "w": 2.25
                 },
                 {
-                    "label": "Lower",
+                    "label": "Space",
                     "x": 6,
                     "y": 4,
                     "w": 1.25
                 },
                 {
-                    "label": "Raise",
+                    "label": "Enter",
                     "x": 7.25,
                     "y": 4,
                     "w": 2.75
                 },
                 {
-                    "label": "Alt",
+                    "label": "Raise",
                     "x": 10,
                     "y": 4,
                     "w": 1.25
                 },
                 {
-                    "label": "Super",
+                    "label": "Alt",
                     "x": 11.25,
                     "y": 4,
                     "w": 1.25
@@ -374,62 +380,62 @@
                     "y": 0
                 },
                 {
-                    "label": "F1",
+                    "label": "1",
                     "x": 1,
                     "y": 0
                 },
                 {
-                    "label": "F2",
+                    "label": "2",
                     "x": 2,
                     "y": 0
                 },
                 {
-                    "label": "F3",
+                    "label": "3",
                     "x": 3,
                     "y": 0
                 },
                 {
-                    "label": "F4",
+                    "label": "4",
                     "x": 4,
                     "y": 0
                 },
                 {
-                    "label": "F5",
+                    "label": "5",
                     "x": 5,
                     "y": 0
                 },
                 {
-                    "label": "F6",
+                    "label": "6",
                     "x": 6,
                     "y": 0
                 },
                 {
-                    "label": "F7",
+                    "label": "7",
                     "x": 7,
                     "y": 0
                 },
                 {
-                    "label": "F8",
+                    "label": "8",
                     "x": 8,
                     "y": 0
                 },
                 {
-                    "label": "F9",
+                    "label": "9",
                     "x": 9,
                     "y": 0
                 },
                 {
-                    "label": "F10",
+                    "label": "0",
                     "x": 10,
                     "y": 0
                 },
                 {
-                    "label": "F11",
+                    "label": "-",
                     "x": 11,
                     "y": 0
                 },
                 {
-                    "label": "F12",
+                    "label": "=",
                     "x": 12,
                     "y": 0
                 },
@@ -649,7 +655,7 @@
                     "w": 1.75
                 },
                 {
-                    "label": "Raise",
+                    "label": "Lower",
                     "x": 14,
                     "y": 3
                 },
@@ -665,13 +671,13 @@
                     "w": 1.25
                 },
                 {
-                    "label": "Super",
+                    "label": "Alt",
                     "x": 1.25,
                     "y": 4,
                     "w": 1.25
                 },
                 {
-                    "label": "Alt",
+                    "label": "Lower",
                     "x": 2.5,
                     "y": 4,
                     "w": 1.25
@@ -683,25 +689,25 @@
                     "w": 2.25
                 },
                 {
-                    "label": "Lower",
+                    "label": "Space",
                     "x": 6,
                     "y": 4,
                     "w": 1.25
                 },
                 {
-                    "label": "Raise",
+                    "label": "Enter",
                     "x": 7.25,
                     "y": 4,
                     "w": 2.75
                 },
                 {
-                    "label": "Alt",
+                    "label": "Raise",
                     "x": 10,
                     "y": 4,
                     "w": 1.25
                 },
                 {
-                    "label": "Super",
+                    "label": "Alt",
                     "x": 11.25,
                     "y": 4,
                     "w": 1.25
