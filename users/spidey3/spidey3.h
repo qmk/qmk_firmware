@@ -17,10 +17,7 @@ enum userspace_layers {
 };
 
 enum custom_keycodes {
-    SPI_LNX = SAFE_RANGE,  // Mode: Linux
-    SPI_OSX,               // Mode: Mac
-    SPI_WIN,               // Mode: Windows
-    CH_CPNL,               // AL Control Panel
+    CH_CPNL = SAFE_RANGE,  // AL Control Panel
     CH_ASST,               // AL Context-aware Desktop Assistant
     CH_SUSP,               // Suspend
 
