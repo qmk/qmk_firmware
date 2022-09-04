@@ -8,7 +8,6 @@
         "midi": true,
         "extrakey": true,
         "encoder": true,
-        "via": true,
         "bootmagic": false,
         "console": false,
         "mousekey": false,
