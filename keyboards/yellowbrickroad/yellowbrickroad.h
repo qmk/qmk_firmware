@@ -41,8 +41,7 @@
     { k24,   k25,   k26,   k27,   k28,   k29,   k30,   k31     }, \
     { k32,   k33,   k34,   k35,   k36,   k37,   k38,   k39     }, \
     { k40,   k41,   k42,   k43,   k44,   k45,   k46,   k47     }, \
-    { k48,   k49,   k50,   k51,   k52,   k53,   enc2,  sustain }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO   } \
+    { k48,   k49,   k50,   k51,   k52,   k53,   enc2,  sustain }  \
 }
 
 #ifdef RGB_MATRIX_ENABLE

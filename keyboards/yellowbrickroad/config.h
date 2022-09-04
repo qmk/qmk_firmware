@@ -19,42 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-// pin10 is a dummy.
-#define MATRIX_ROW_PINS { GP4, GP3, GP2, GP9,  GP6,  GP7,  GP26, GP10 }
-#define MATRIX_COL_PINS { GP5, GP1, GP0, GP18, GP19, GP20, GP27, GP8  }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
-
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
-//#define LED_SCROLL_LOCK_PIN B2
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
-
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
 #define RGB_DI_PIN GP12
 #define RGBLED_NUM 56
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
@@ -143,9 +107,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif  // RGB_MATRIX_ENABLE
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
@@ -221,17 +182,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
-
-/*
- * Encoder options
- */
-#ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { GP14, GP17 }
-#   define ENCODERS_PAD_B { GP15, GP16 }
-#   define ENCODER_RESOLUTIONS { 4, 4 }
-#   define TAP_CODE_DELAY 10
-// Enncoder settings for VIA support
-#endif  // ENCODER_ENABLE
 
 /* 2021/01/22 added to shrink firmware size */
 // NO_ACTION_TAPPING -1964 bytes, however, this disables Layer mods...

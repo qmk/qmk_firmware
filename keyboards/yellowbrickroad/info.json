@@ -3,6 +3,26 @@
     "manufacturer": "3araht",
     "url": "https://github.com/3araht/yellowbrickroad",
     "maintainer": "3araht",
+    "bootloader": "rp2040",
+    "features": {
+        "midi": true,
+        "extrakey": true,
+        "encoder": true,
+        "via": true,
+        "bootmagic": false,
+        "console": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "audio": false
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "GP5", "GP1", "GP0", "GP18", "GP19", "GP20", "GP27", "GP8"  ],
+        "rows": [ "GP4", "GP3", "GP2", "GP9",  "GP6",  "GP7",  "GP26" ]
+    },
+    "debounce": 5,
+    "processor": "RP2040",
     "usb": {
         "vid": "0xFEED",
         "pid": "0xF4D0",
@@ -69,5 +89,11 @@
                 {"label": "sustain", "x": 57.5, "y": 1}
             ]
         }
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP14", "pin_b": "GP15", "resolution": 4 },
+            { "pin_a": "GP17", "pin_b": "GP16", "resolution": 4 }
+        ]
     }
 }
