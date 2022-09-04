@@ -2,9 +2,9 @@
 
 The ASK55 is a 14.5u, Alps-compatible PCB available from Paradigm.  
 
-Keyboard Maintainer: [yiancar](https://github.com/yiancar) / [keyboard-magpie](https://github.com/keyboard-magpie)
-Hardware Supported: Paradigm ASK55 PCB  
-Hardware Availability: Paradigm GB
+* Keyboard Maintainer: [yiancar](https://github.com/yiancar) / [keyboard-magpie](https://github.com/keyboard-magpie)
+* Hardware Supported: Paradigm ASK55 PCB
+* Hardware Availability: Paradigm GB
 
 Make example for this keyboard (after setting up your build environment):
 
