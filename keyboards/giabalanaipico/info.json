@@ -201,10 +201,5 @@
                 {"label": "resr6", "x": 33.5, "y": 4}
             ]
         }
-    },
-    "encoder": {
-        "rotary": [
-            { "pin_a": "GP2", "pin_b": "GP3", "resolution": 4 }
-        ]
     }
 }
