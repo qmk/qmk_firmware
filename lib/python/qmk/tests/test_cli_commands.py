@@ -288,12 +288,6 @@ def test_generate_version_h():
     assert '#define QMK_VERSION' in result.stdout
 
 
-def test_generate_layouts():
-    result = check_subcommand('generate-layouts', '-kb', 'handwired/pytest/basic')
-    check_returncode(result)
-    assert '#define LAYOUT_custom(k0A) {' in result.stdout
-
-
 def test_format_json_keyboard():
     result = check_subcommand('format-json', '--format', 'keyboard', 'lib/python/qmk/tests/minimal_info.json')
     check_returncode(result)
