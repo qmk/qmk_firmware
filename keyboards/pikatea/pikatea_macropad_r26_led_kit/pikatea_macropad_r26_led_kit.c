@@ -13,20 +13,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_all(
-        KC_F13,   KC_F14,  KC_F15,  KC_F16,   KC_MEDIA_PREV_TRACK,    KC_MEDIA_PLAY_PAUSE,    KC_MEDIA_NEXT_TRACK,    KC_MUTE
-    ),
-    [1] = LAYOUT_all(
-        _______,   _______,   _______,   _______,   _______,    _______,    _______,    _______
-    ),
-    [2] = LAYOUT_all(
-        _______,   _______,   _______,   _______,   _______,    _______,    _______,    _______
-    ),
-    [3] = LAYOUT_all(
-        _______,   _______,   _______,   _______,   _______,    _______,    _______,    _______
-    )
-};
+#include "pikatea_macropad_r26_led_kit.h"
 
+#if !defined(VIA_ENABLE) && !defined(MIDI_ENABLE) && defined(ENCODER_ENABLE)
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+    if (clockwise) {
+        tap_code(KC_VOLD);
+    } else {
+        tap_code(KC_VOLU);
+    }
+    return true;
+}
+#endif

@@ -65,7 +65,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else {
         midi_send_cc(&midi_device, 0, currentLayer+1, 63);
     }
-    return true;
+    return false;
 }
 
 //save the layer state to a variable

@@ -21,14 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x5049
-#define PRODUCT_ID   0x001B
+#define PRODUCT_ID   0x000B
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Jack_Kester
-#define PRODUCT      Pikatea Macropad GB4
+#define PRODUCT      Pikatea Macropad R26 LED
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 11
 
 /*
  * Keyboard Matrix Assignments
@@ -40,9 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_COL_PINS { B6, B5, B4, B1, B0, E6, F0, D4 }
-#define MATRIX_ROW_PINS { F7, NO_PIN }
-#define UNUSED_PINS
+#define DIRECT_PINS {{ B3, B1, D1, D7, C6, B2, B6, F7, F4, NO_PIN, NO_PIN}}
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -50,17 +48,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Encoder setup */
 #define ENCODERS 1
 
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { D7 }
+#define ENCODERS_PAD_A { D0 }
+#define ENCODERS_PAD_B { D4 }
 
-#define ENCODERS_CW_KEY  { { 1, 1 } }
-#define ENCODERS_CCW_KEY { { 0, 1 } }
+#define ENCODERS_CW_KEY  { { 10, 0 } }
+#define ENCODERS_CCW_KEY { { 9, 0 } }
 
 /* RBG settings */
-#define RGB_DI_PIN C6
-
+#define RGB_DI_PIN D2
 #ifdef RGB_DI_PIN
-#    define RGBLED_NUM 7
+#    define RGBLED_NUM 8
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
@@ -73,7 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
+// #    define RGBLIGHT_EFFECT_KNIGHT
 // #    define RGBLIGHT_EFFECT_CHRISTMAS
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 // #    define RGBLIGHT_EFFECT_RGB_TEST
@@ -90,10 +87,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define NO_USB_STARTUP_CHECK
