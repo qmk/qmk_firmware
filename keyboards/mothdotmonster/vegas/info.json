@@ -5,7 +5,7 @@
     "maintainer": "mothdotmonster",
     "usb": {
         "vid": "0x86FE",
-        "pid": "0x0075",
+        "pid": "0x9109",
         "device_version": "0.1.0"
     },
     "processor": "atmega32u4",
