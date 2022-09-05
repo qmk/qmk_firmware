@@ -15,8 +15,6 @@ This is my principles for layout:
 * There is simple TMUX layer.
 
 * Common keys must be accessible using two keys where possible.
-  Therefore I have some keys accessible both using two keys, while
-  there is 3 keys access option as well.
 
 ## Improvements over Callum
 
@@ -38,10 +36,6 @@ This is my principles for layout:
 * As well one shot keys are not working as one shot keys if held
   for longer than FLOW_ONESHOT_WAIT_TERM (default 500ms)
   milliseconds.
-
-* As GUI+C GUI+V (or CTRL+C CTRL+V) is used often and sometimes I
-  click different keys because of layers I have made them more
-  accessible. Check *K_ESC_C* and *K_BSPC_V*.
 
 Since differences are quite significant I named this `flow`.
 
