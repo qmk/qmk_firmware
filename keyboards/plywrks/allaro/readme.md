@@ -1,6 +1,6 @@
 # Plywrks Allaro
 
-![Allaro](imgur.com image replace me!)
+![Allaro](https://i.imgur.com/SwVyLLzl.png)
 
 An Arisu-like hotswap PCB.
 
@@ -9,11 +9,11 @@ An Arisu-like hotswap PCB.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make plywrks/allaro:default
+    make plywrks/allaro:via
 
 Flashing example for this keyboard:
 
-    make plywrks/allaro:default:flash
+    make plywrks/allaro:via:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
