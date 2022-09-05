@@ -107,6 +107,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+#        include "bluefruit_le.h"
+#    elif BLUETOOTH_RN42
+#        include "rn42.h"
+#    endif
 #endif
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
@@ -346,8 +351,14 @@ void quantum_init(void) {
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
-#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
+#if defined(BLUETOOTH_ENABLE)
+#    if defined(BLUETOOTH_RN42)
+    rn42_init();
+#    endif
+
+#    if defined(OUTPUT_AUTO_ENABLE)
     set_output(OUTPUT_AUTO);
+#    endif
 #endif
 }
 
@@ -668,6 +679,10 @@ void keyboard_task(void) {
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     programmable_button_send();
+#endif
+
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+    bluefruit_le_task();
 #endif
 
     led_task();
