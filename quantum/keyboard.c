@@ -351,11 +351,6 @@ void quantum_init(void) {
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
-#if defined(BLUETOOTH_ENABLE)
-#    if defined(BLUETOOTH_RN42)
-    rn42_init();
-#    endif
-#endif
 }
 
 /** \brief keyboard_init
@@ -416,6 +411,9 @@ void keyboard_init(void) {
 #ifdef POINTING_DEVICE_ENABLE
     // init after split init
     pointing_device_init();
+#endif
+#if defined(BLUETOOTH_RN42)
+    rn42_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
