@@ -85,6 +85,7 @@
     * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
+    * [OS Detection](feature_os_detection.md)
     * [Raw HID](feature_rawhid.md)
     * [Secure](feature_secure.md)
     * [Send String](feature_send_string.md)
