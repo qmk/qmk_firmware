@@ -17,14 +17,6 @@
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x9000
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0004
-#define MANUFACTURER    StenoKeyboards
-#define PRODUCT         The Uni
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 11
@@ -54,11 +46,6 @@
 
 // /* Locking resynchronize hack */
 // #define LOCKING_RESYNC_ENABLE
-
-// /* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 
 // #ifdef RGB_DI_PIN
