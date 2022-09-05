@@ -355,10 +355,6 @@ void quantum_init(void) {
 #    if defined(BLUETOOTH_RN42)
     rn42_init();
 #    endif
-
-#    if defined(OUTPUT_AUTO_ENABLE)
-    set_output(OUTPUT_AUTO);
-#    endif
 #endif
 }
 
