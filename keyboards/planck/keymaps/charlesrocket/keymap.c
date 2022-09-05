@@ -12,8 +12,8 @@
 #define KC_PC_CUT LCTL(KC_X)
 #define KC_PC_COPY LCTL(KC_C)
 #define KC_PC_PASTE LCTL(KC_V)
-#define ES_LESS_MAC KC_GRAVE
-#define ES_GRTR_MAC LSFT(KC_GRAVE)
+#define ES_LABK_MAC KC_GRAVE
+#define ES_RABK_MAC LSFT(KC_GRAVE)
 #define ES_BSLS_MAC ALGR(KC_6)
 #define NO_PIPE_ALT KC_GRAVE
 #define NO_BSLS_ALT KC_EQUAL
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_planck_grid(
     _______,   CK_UP,   _______, _______, _______, _______, _______, _______, _______,_______,  _______, _______,
-    KC_DELETE, CK_TOGG, AU_ON,   AU_OFF,  AU_TOG,  _______, _______, _______, RGB_VAI,RGB_VAD , _______, RESET,
+    KC_DELETE, CK_TOGG, AU_ON,   AU_OFF,  AU_TOG,  _______, _______, _______, RGB_VAI,RGB_VAD , _______, QK_BOOT,
     _______,   CK_DOWN, MU_ON,   MU_OFF,  MU_TOG,  _______, _______, _______, _______, _______, _______, _______,
     _______,   _______, _______, _______, _______, _______, KC_NO,   _______, _______, _______, _______, _______
   ),
@@ -101,7 +101,7 @@ void set_layer_color(int layer) {
 
 void rgb_matrix_indicators_user(void) {
   if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case 0:
       set_layer_color(0);
       break;
@@ -139,7 +139,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-bool encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (muse_mode) {
         if (IS_LAYER_ON(_RAISE)) {
             if (clockwise) {

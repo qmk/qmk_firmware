@@ -1,4 +1,4 @@
-/* Copyright 2018 MechMerlin
+/* Copyright 2021 DonutCables <contact@donutcables.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 
 #include "quantum.h"
 
-// Written in the format K(row)(column) where numbering is in hexadecimal
 #define LAYOUT( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E,  \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E,  \

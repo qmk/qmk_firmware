@@ -1,0 +1,36 @@
+{
+    "keyboard_name": "MisteRdeck",
+    "manufacturer": "broekema",
+    "url": "https://www.thingiverse.com/thing:4627779",
+    "maintainer": "broekema",
+    "usb": {
+        "vid": "0xBEEF",
+        "pid": "0x6969",
+        "device_version": "0.0.1"
+    },
+    "diode_direction": "ROW2COL",
+    "matrix_pins": {
+        "cols": ["D7", "E6", "B4", "B5"],
+        "rows": ["D1", "D0", "D4"]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0},
+                {"x": 1, "y": 0},
+                {"x": 2, "y": 0},
+                {"x": 3, "y": 0},
+
+                {"x": 0, "y": 1},
+                {"x": 1, "y": 1},
+                {"x": 2, "y": 1},
+                {"x": 3, "y": 1},
+
+                {"x": 0, "y": 2},
+                {"x": 1, "y": 2},
+                {"x": 2, "y": 2},
+                {"x": 3, "y": 2}
+            ]
+        }
+    }
+}

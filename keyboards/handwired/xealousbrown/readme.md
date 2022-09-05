@@ -19,4 +19,7 @@ The brief list of speedhacks to make this keyboard blazing fast:
 3) Eager-per-key Debouncing algorithm (no 5ms delay before message is sent)
 4) 1000hz polling
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the 
+[make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. 
+
+Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

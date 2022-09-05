@@ -105,11 +105,11 @@ enum my_keycodes {
 
 Before opening a pull request, you can preview your changes if you have set up the development environment by running this command from the `qmk_firmware/` folder:
 
-    ./bin/qmk docs
+    qmk docs
 
 or if you only have Python 3 installed:
 
-    python3 -m http.server 8936
+    python3 -m http.server 8936 --directory docs
 
 and navigating to `http://localhost:8936/`.
 
@@ -148,7 +148,7 @@ Feature and Bug Fix PR's affect all keyboards. We are also in the process of res
 Here are some things to keep in mind when working on your feature or bug fix.
 
 * **Disabled by default** - memory is a pretty limited on most chips QMK supports, and it's important that current keymaps aren't broken, so please allow your feature to be turned **on**, rather than being turned off. If you think it should be on by default, or reduces the size of the code, please talk with us about it.
-* **Compile locally before submitting** - hopefully this one is obvious, but things need to compile! Our Travis system will catch any issues, but it's generally faster for you to compile a few keyboards locally instead of waiting for the results to come back.
+* **Compile locally before submitting** - hopefully this one is obvious, but things need to compile! You should always make sure your changes compile before opening a pull request.
 * **Consider revisions and different chip-bases** - there are several keyboards that have revisions that allow for slightly different configurations, and even different chip-bases. Try to make a feature supported in ARM and AVR, or automatically disabled on platforms it doesn't work on.
 * **Explain your feature** - Document it in `docs/`, either as a new file or as part of an existing file. If you don't document it other people won't be able to benefit from your hard work.
 
@@ -165,4 +165,4 @@ To maintain a clear vision of how things are laid out in QMK we try to plan out 
 
 # What Does the Code of Conduct Mean for Me?
 
-Our [Code of Conduct](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.
+Our [Code of Conduct](https://qmk.fm/coc/) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.

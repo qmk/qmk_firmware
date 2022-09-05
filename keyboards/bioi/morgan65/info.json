@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Morgan65",
+    "manufacturer": "Basic IO Instruments",
     "url": "",
     "maintainer": "scottywei",
-    "width": 16,
-    "height": 5,
+    "usb": {
+        "vid": "0x8101",
+        "pid": "0x6581",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
           "layout": [

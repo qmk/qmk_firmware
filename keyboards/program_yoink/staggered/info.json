@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "program_yoink",
+    "keyboard_name": "Program Yoink! Staggered",
+    "manufacturer": "melonbred",
     "url": "",
     "maintainer": "melonbred",
-    "width": 13.5,
-    "height": 4.25,
+    "usb": {
+        "vid": "0x7079",
+        "pid": "0xF10B",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

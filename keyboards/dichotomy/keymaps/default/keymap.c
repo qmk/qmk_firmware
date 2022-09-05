@@ -109,7 +109,7 @@ report_mouse_t currentReport = {};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	//uint8_t layer;
-	//layer = biton32(layer_state);  // get the current layer  //Or don't, I didn't use it.
+	//layer = get_highest_layer(layer_state);  // get the current layer  //Or don't, I didn't use it.
 	bool returnVal = true; //this is to determine if more key processing is needed.
 
 	 //custom layer handling for tri_layer,
@@ -437,7 +437,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 void matrix_scan_user(void) {
-	//uint8_t layer = biton32(layer_state);
+	//uint8_t layer = get_highest_layer(layer_state);
 	for (uint8_t i = 0; i<LONGPRESS_COUNT; i++){
 		if ((timer_elapsed(special_timers[i]) >= CUSTOM_LONGPRESS) && (!special_key_states[i]) && special_key_pressed[i]){
 			switch (i + SAFE_RANGE){

@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.12.45:docs/newbs_getting_started.md
-  git diff 0.12.45 HEAD -- docs/newbs_getting_started.md | cat
+  original document: 0.13.20:docs/newbs_getting_started.md
+  git diff 0.13.20 HEAD -- docs/newbs_getting_started.md | cat
 -->
 
 キーマップをビルドする前に、いくつかのソフトウェアをインストールしてビルド環境を構築する必要があります。
@@ -57,9 +57,7 @@ MSYS2 をインストールしたら、開いている MSYS の全ターミナ�
 
 次のコマンドを実行して、QMK CLI をインストールします:
 
-    PYTHONUTF8=1 python3 -m pip install qmk
-
-!> **訳注:** 現在、日本語版 Windows 環境では、環境変数として `PYTHONUTF8=1` を指定してインストールする必要があります。この環境変数を指定しない場合、システムのロケール設定が原因で一部の Python モジュールのインストールでエラーが発生します。この問題は該当モジュールのソースコードでは修正済みですが、配布モジュールはまだ修正されていません。
+    python3 -m pip install qmk
 
 </details>
 

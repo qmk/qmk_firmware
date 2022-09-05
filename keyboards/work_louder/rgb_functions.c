@@ -17,10 +17,13 @@
 #include QMK_KEYBOARD_H
 #include "rgb_functions.h"
 
-#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_EANBLE)
-#    undef RGB_DI_PIN
-#    define RGBLIGHT_DI_PIN
-#    include "ws2812.c"
+#ifdef RGBLIGHT_ENABLE
+#undef RGB_DI_PIN
+#define RGB_DI_PIN RGBLIGHT_DI_PIN
+
+#define ws2812_setleds ws2812_rgb_setleds
+
+#include "ws2812.c"
 
 void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
     ws2812_setleds(start_led, num_leds);

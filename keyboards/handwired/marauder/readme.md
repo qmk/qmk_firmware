@@ -1,10 +1,10 @@
 # Marauder
 
-90% hand-wired mechanical keyboard in an old Razer case; built around an Elite-C v3.1 controller.
+90% hand-wired mechanical keyboard in an old Razer case; built around an Elite-C v3.1 controller. Features a 128x32 OLED screen and RGB.
 
 [Build Log](https://imgur.com/a/TvsXpq5)
 
-* Keyboard Maintainer: [%YOUR_NAME%](https://github.com/BB-66)
+* Keyboard Maintainer: [BB-66](https://github.com/BB-66)
 * Hardware Supported: Elite-C, Razer Marauder
 
 Make example for this keyboard (after setting up your build environment):

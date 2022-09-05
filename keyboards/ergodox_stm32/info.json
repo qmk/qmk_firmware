@@ -1,10 +1,13 @@
 {
     "keyboard_name": "ErgoDox STM32",
+    "manufacturer": "ErgoDox",
     "url": "github.com/codetector1374",
     "maintainer": "codetector1374",
-    "width": 19.5,
-    "height": 9.375,
-
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1308",
+        "device_version": "1.0.1"
+    },
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [

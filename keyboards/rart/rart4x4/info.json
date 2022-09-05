@@ -1,9 +1,13 @@
 {
     "keyboard_name": "RART4X4",
+    "manufacturer": "Alabahuy",
     "url": "",
     "maintainer": "Alabahuy",
-    "width": 4,
-    "height": 4,
+    "usb": {
+        "vid": "0x414C",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

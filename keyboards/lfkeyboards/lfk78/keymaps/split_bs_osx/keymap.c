@@ -73,21 +73,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------'  `--------------------------------------------------------'  `--------------'
      */
     [SETTINGS] = LAYOUT_split_bs(
-        XXXXXXX, XXXXXXX, F(0),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX,          RGB_TOG, RGB_VAI,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX,          RGB_TOG, RGB_VAI,
         XXXXXXX, XXXXXXX, MU_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_TOGG,                   RGB_MOD, RGB_VAD,
-        XXXXXXX, XXXXXXX, AU_TOG,  F(1),    F(3),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          RESET,
-        XXXXXXX, XXXXXXX, F(5),    F(2),    F(4),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,                   RGB_HUI,
+        XXXXXXX, XXXXXXX, AU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          QK_BOOT,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,                   RGB_HUI,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX,                   RGB_SAD, RGB_HUD, RGB_SAI
     )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    ACTION_FUNCTION(LFK_CLEAR),              // FN0 - reset layers
-    ACTION_FUNCTION(LFK_CLICK_FREQ_HIGHER),  // FN1 - Increase Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_FREQ_LOWER),   // FN2 - Decrease Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_LONGER),  // FN3 - Increase length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER), // FN4 - Decrease length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TOGGLE)        // FN5 - Toggle audio click
 };
 
 void matrix_init_user(void) {

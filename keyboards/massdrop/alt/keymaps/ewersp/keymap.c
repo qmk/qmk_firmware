@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE,
         _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU,
-        _______, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, TG(ALT), _______, _______,          KC_PGUP, KC_VOLD,
+        _______, RGB_TOG, _______, _______, EEP_RST, MD_BOOT, NK_TOGG, DBG_TOG, _______, TG(ALT), _______, _______,          KC_PGUP, KC_VOLD,
         _______, _______, KC_LALT,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END
     ),
     [SUPR] = LAYOUT_65_ansi_blocker(
@@ -50,34 +50,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// If the super alt layer is the active layer
-bool super_alt_layer_active = false;
+// EEPROM storage mode
+enum alt_rgb_mode {
+    RGB_MODE_ALL,
+    RGB_MODE_KEYLIGHT,
+    RGB_MODE_UNDERGLOW,
+    RGB_MODE_NONE,
+};
 
-// If we need to unregister alt when leaving the super alt layer
-bool need_to_unregister_alt = false;
+// EEPROM storage type
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t rgb_mode :8;
+    };
+} alt_config_t;
+
+alt_config_t alt_config;
+
+// Read from EEPROM on init to load the last saved mode
+void keyboard_post_init_kb(void) {
+    alt_config.raw = eeconfig_read_user();
+    switch (alt_config.rgb_mode) {
+        case RGB_MODE_ALL:
+            rgb_matrix_set_flags(LED_FLAG_ALL);
+            rgb_matrix_enable_noeeprom();
+            break;
+        case RGB_MODE_KEYLIGHT:
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
+            rgb_matrix_set_color_all(0, 0, 0);
+            break;
+        case RGB_MODE_UNDERGLOW:
+            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+            rgb_matrix_set_color_all(0, 0, 0);
+            break;
+        case RGB_MODE_NONE:
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_disable_noeeprom();
+            break;
+    }
+}
 
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
-// Taken from 'g_led_config' in config_led.c
-#define CAPS_LOCK_LED_ID 30
+// If the super alt layer is the active layer
+bool super_alt_layer_active = false;
 
-// This runs every matrix scan (every 'frame')
-void rgb_matrix_indicators_user(void) {
-    led_flags_t flags = rgb_matrix_get_flags();
-
-    // If we're in either keylight or underglow modes (but not both simultaneously)
-    if (HAS_FLAGS(flags, LED_FLAG_KEYLIGHT) != HAS_FLAGS(flags, LED_FLAG_UNDERGLOW)) {
-
-        // This fixes a bug where the caps lock LED flickers when toggled in either keylight or underglow modes
-        if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
-            rgb_matrix_set_color(CAPS_LOCK_LED_ID, RGB_WHITE);
-        } else {
-            rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0, 0, 0);
-        }
-    }
-}
+// If we need to unregister alt when leaving the super alt layer
+bool need_to_unregister_alt = false;
 
 // This runs code every time that the layers get changed
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -117,6 +139,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             // We still want to process the keycode normally
+            return true;
+        case KC_F4:
+            // Map alt+shift+4 to alt+f4
+            if (super_alt_layer_active && (get_mods() & MOD_BIT(KC_LSHIFT))) {
+                if (record->event.pressed) {
+                    register_code(KC_LALT);
+                } else {
+                    unregister_code(KC_LALT);
+                }
+            }
             return true;
         case ALT_DEL:
             if (record->event.pressed) {
@@ -164,30 +196,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case EEP_RST:
+            if (record->event.pressed) {
+                key_timer = timer_read32();
+            } else {
+                if (timer_elapsed32(key_timer) >= 500) {
+                    eeconfig_init();
+                }
+            }
+            return false;
         case RGB_TOG:
             if (record->event.pressed) {
-              switch (rgb_matrix_get_flags()) {
-                case LED_FLAG_ALL: {
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
-                case LED_FLAG_KEYLIGHT: {
-                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
-                case LED_FLAG_UNDERGLOW: {
-                    rgb_matrix_set_flags(LED_FLAG_NONE);
-                    rgb_matrix_disable_noeeprom();
-                  }
-                  break;
-                default: {
-                    rgb_matrix_set_flags(LED_FLAG_ALL);
-                    rgb_matrix_enable_noeeprom();
-                  }
-                  break;
-              }
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                        alt_config.rgb_mode = RGB_MODE_KEYLIGHT;
+                        break;
+                    }
+                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
+                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                        alt_config.rgb_mode = RGB_MODE_UNDERGLOW;
+                        break;
+                    }
+                    case LED_FLAG_UNDERGLOW: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_disable_noeeprom();
+                        alt_config.rgb_mode = RGB_MODE_NONE;
+                        break;
+                    }
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                        rgb_matrix_enable_noeeprom();
+                        alt_config.rgb_mode = RGB_MODE_ALL;
+                        break;
+                    }
+                }
+                eeconfig_update_user(alt_config.raw);
             }
             return false;
         default:

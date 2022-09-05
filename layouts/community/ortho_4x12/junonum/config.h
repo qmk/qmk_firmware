@@ -35,3 +35,9 @@
 
 // Reduce power consumption for iOS compatibility
 #define USB_MAX_POWER_CONSUMPTION 100
+
+// Short tap threshold
+#define TAPPING_TERM 250
+
+// For homerow mods
+#define IGNORE_MOD_TAP_INTERRUPT

@@ -272,3 +272,43 @@ void matrix_scan_user(void) {
     ergodox_led_all_on();
 }
 
+#ifdef ST7565_ENABLE
+
+void st7565_task_user(void) {
+    // The colors will need to be ported over to the quantum painter API when
+    // https://github.com/qmk/qmk_firmware/pull/10174 is merged.
+
+    st7565_clear();
+    switch (get_highest_layer(layer_state)) {
+        case BASE:
+            //state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
+            st7565_write_P(PSTR("Default\n"), false);
+            break;
+        case CODEFLOW:
+            //state->target_lcd_color = LCD_COLOR(216, 90, 0xFF);
+            st7565_write_P(PSTR("Code\n"), false);
+            break;
+        case SYMB:
+            //state->target_lcd_color = LCD_COLOR(168, saturation, 0xFF);
+            st7565_write_P(PSTR("Symbol\n"), false);
+            break;
+        case MDIA:
+            //state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
+            st7565_write_P(PSTR("Media\n"), false);
+            break;
+        case VIM:
+            //state->target_lcd_color = LCD_COLOR(140, 100, 60);
+            st7565_write_P(PSTR("Movement\n"), false);
+            break;
+        case GAME:
+            //state->target_lcd_color = LCD_COLOR(0, 255, 60);
+            st7565_write_P(PSTR("Game\n"), false);
+            break;
+        case GAME_ARROW:
+            //state->target_lcd_color = LCD_COLOR(0, 255, 60);
+            st7565_write_P(PSTR("Game Arrow\n"), false);
+            break;
+    }
+}
+
+#endif

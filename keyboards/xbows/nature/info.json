@@ -1,9 +1,13 @@
 {
     "keyboard_name": "NATURE",
+    "manufacturer": "X-BOWS",
     "url": "",
     "maintainer": "xbows-qmk",
-    "width": 18,
-    "height": 6.5,
+    "usb": {
+        "vid": "0x5842",
+        "pid": "0x4E61",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

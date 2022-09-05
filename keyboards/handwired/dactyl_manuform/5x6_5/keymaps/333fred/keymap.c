@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [VIM] = LAYOUT_5x6_5(
-     _______, RESET,   _______, _______, _______, _______,                                         _______, _______, _______, _______, RESET,   _______,
+     _______, QK_BOOT, _______, _______, _______, _______,                                         _______, _______, _______, _______, QK_BOOT, _______,
      _______, _______, _______, _______, KC_LSFT, _______,                                         _______, _______, _______, _______, _______, _______,
      _______, DLEFT,   DRIGHT,  KC_LCTL, KC_LGUI, _______,                                         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
      _______, _______, _______, _______, _______, _______,                                         _______, _______, _______, _______, _______, _______,
@@ -115,7 +115,7 @@ void write_quote(const char* data, const uint8_t num_lines) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_logo();
         oled_advance_page(/* clearPageRemainder */ true);
@@ -559,6 +559,7 @@ void oled_task_user(void) {
                 break;
         }
     }
+    return false;
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

@@ -2,7 +2,7 @@
 
 Most of our style follows PEP8 with some local modifications to make things less nit-picky. 
 
-* We target Python 3.6 for compatability with all supported platforms.
+* We target Python 3.7 for compatability with all supported platforms.
 * We indent using four (4) spaces (soft tabs)
 * We encourage liberal use of comments
   * Think of them as a story describing the feature

@@ -9,7 +9,7 @@ firmware directly.
 Whenever you type on 1 particular key, here is the chain of actions taking
 place:
 
-``` text
+```
 +------+         +-----+       +----------+      +----------+     +----+
 | User |-------->| Key |------>| Firmware |----->| USB wire |---->| OS |
 +------+         +-----+       +----------+      +----------+     +----+
@@ -35,7 +35,7 @@ USB for a given key.
 
 ## 3. What the Event Input/Kernel Does
 
-The *scancode* is mapped to a *keycode* dependent on the keyboard [60-keyboard.hwdb at Master](https://github.com/systemd/systemd/blob/master/hwdb.d/60-keyboard.hwdb). Without this mapping, the operating system will not receive a valid keycode and will be unable to do anything useful with that key press.
+The *scancode* is mapped to a *keycode* dependent on the keyboard [60-keyboard.hwdb at Main](https://github.com/systemd/systemd/blob/main/hwdb.d/60-keyboard.hwdb). Without this mapping, the operating system will not receive a valid keycode and will be unable to do anything useful with that key press.
 
 ## 4. What the Operating System Does
 

@@ -62,7 +62,7 @@ This shows us that the job has made it through the queue and is currently runnin
 
 Once your compile job has finished you'll check the `result` key. The value of this key is a hash containing several key bits of information:
 
-* `firmware_binary_url`: A list of URLs for the the flashable firmware
-* `firmware_keymap_url`: A list of URLs for the the `keymap.c`
+* `firmware_binary_url`: A list of URLs for the flashable firmware
+* `firmware_keymap_url`: A list of URLs for the `keymap.c`
 * `firmware_source_url`: A list of URLs for the full firmware source code
 * `output`: The stdout and stderr for this compile job. Errors will be found here.

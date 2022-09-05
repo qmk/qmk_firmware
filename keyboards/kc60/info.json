@@ -1,9 +1,13 @@
 {
     "keyboard_name": "KC60",
+    "manufacturer": "NPKC",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x530A",
+        "pid": "0x6FFC",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Hub20",
+    "manufacturer": "Josh Johnson",
     "url": "https://github.com/joshajohnson/hub20",
     "maintainer": "joshajohnson",
-    "width": 4,
-    "height": 6,
+    "usb": {
+      "vid": "0x6A6A",
+      "pid": "0x4414",
+      "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT_all": {
         "layout": [

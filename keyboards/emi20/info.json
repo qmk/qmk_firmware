@@ -1,0 +1,41 @@
+{
+    "keyboard_name": "Emi20", 
+    "manufacturer": "Aquacylinder",
+    "url": "", 
+    "maintainer": "Aquacylinder", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_ortho_5x4": {
+            "layout": [
+                {"label":"K11 (F7,C7)", "x":0, "y":0},
+                {"label":"K21 (F1,C7)", "x":1, "y":0},
+                {"label":"K31 (B2,C7)", "x":2, "y":0},
+                {"label":"K41 (B2,F0)", "x":3, "y":0},
+
+                {"label":"K12 (F1,F0)", "x":0, "y":1},
+                {"label":"K22 (B2,B6)", "x":1, "y":1},
+                {"label":"K32 (F1,B6)", "x":2, "y":1},
+                {"label":"K42 (B2,B3)", "x":3, "y":1},
+
+                {"label":"K13 (F1,B3)", "x":0, "y":2},
+                {"label":"K23 (B2,C6)", "x":1, "y":2},
+                {"label":"K33 (F1,C6)", "x":2, "y":2},
+                {"label":"K43 (B2,E6)", "x":3, "y":2},
+
+                {"label":"K14 (F1,E6)", "x":0, "y":3},
+                {"label":"K24 (B2,D5)", "x":1, "y":3},
+                {"label":"K34 (F1,D5)", "x":2, "y":3},
+                {"label":"K44 (D0,B1)", "x":3, "y":3},
+
+                {"label":"K15 (D0,F4)", "x":0, "y":4},
+                {"label":"K25 (F7,D1)", "x":1, "y":4},
+                {"label":"K35 (F7,B3)", "x":2, "y":4},
+                {"label":"K45 (B5,C7)", "x":3, "y":4}
+            ]
+        }
+    }
+}

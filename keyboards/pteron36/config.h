@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4847 //HG
-#define PRODUCT_ID   0x5054 //PT
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Harshit Goel
-#define PRODUCT      Pteron36
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { E6, D7, B4, B5 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3,  B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -144,12 +136,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
 // for via
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
+
+//left encoder
+#define ENCODERS_PAD_A { F5 }
+#define ENCODERS_PAD_B { F4 }
+
+//right encoder
+#define ENCODERS_PAD_A_RIGHT { F4 }
+#define ENCODERS_PAD_B_RIGHT { F5 }
+
+//RGB Underglow
+#define RGB_DI_PIN B6
+#define RGBLED_NUM 10

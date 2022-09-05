@@ -212,7 +212,7 @@
 #define US_DIV  S(ALGR(US_EQL))  // ÷
 // Row 2
 #define US_LDQU S(ALGR(US_LBRC)) // “
-#define US_RDQU S(ALGR(US_LBRC)) // ”
+#define US_RDQU S(ALGR(US_RBRC)) // ”
 #define US_BRKP S(ALGR(US_BSLS)) // ¦
 // Row 3
 #define US_SECT S(ALGR(US_S))    // §

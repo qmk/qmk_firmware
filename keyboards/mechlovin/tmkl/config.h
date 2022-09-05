@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C // ML
-#define PRODUCT_ID   0xC601 // Commissions 60v1
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Team Mechlovin
-#define PRODUCT      TMKL
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
@@ -40,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { A8, A4, A5, A3, A2, A1, }
+#define MATRIX_ROW_PINS { A8, A4, A5, A3, A2, A1 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A0, C15, B4, B5, B3, C13, C14 }
 
 #define DIODE_DIRECTION COL2ROW
