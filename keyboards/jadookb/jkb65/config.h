@@ -21,8 +21,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-#define UNUSED_PINS
-
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN F0

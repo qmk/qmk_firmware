@@ -25,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B1, B2, C7, C6, B6 }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B5, B4, D7, D6, D4, D5, D3, D2 }
-#define UNUSED_PINS
 
 /* RGB Underglow */
 #define RGB_DI_PIN B0
