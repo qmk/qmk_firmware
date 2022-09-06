@@ -237,11 +237,50 @@ static void flush(void) {
 #        endif
 }
 
-const led_matrix_driver_t led_matrix_driver = {
-    .init = init,
-    .flush = flush,
-    .set_value = CKLED2001_set_value,
-    .set_value_all = CKLED2001_set_value_all,
+#        if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+static void shutdown(void) {
+#            if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinLow(LED_DRIVER_SHUTDOWN_PIN);
+#            else
+    CKLED2001_sw_shutdown(DRIVER_ADDR_1);
+#                if defined(DRIVER_ADDR_2)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_2);
+#                    if defined(DRIVER_ADDR_3)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_3);
+#                        if defined(DRIVER_ADDR_4)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_4);
+#                        endif
+#                    endif
+#                endif
+#            endif
+}
+
+static void exit_shutdown(void) {
+#            if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
+#            else
+    CKLED2001_sw_return_normal(DRIVER_ADDR_1);
+#                if defined(DRIVER_ADDR_2)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_2);
+#                    if defined(DRIVER_ADDR_3)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_3);
+#                        if defined(DRIVER_ADDR_4)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_4);
+#                        endif
+#                    endif
+#                endif
+#            endif
+}
+#        endif
+
+const led_matrix_driver_t led_matrix_driver = {.init = init,
+                                               .flush = flush,
+                                               .set_value = CKLED2001_set_value,
+                                               .set_value_all = CKLED2001_set_value_all,
+#        if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+                                               .shutdown = shutdown,
+                                               .exit_shutdown = exit_shutdown
+#        endif
 };
 #    endif
 #endif

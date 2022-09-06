@@ -105,7 +105,14 @@ static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
 static led_task_states led_task_state    = SYNCING;
 #if LED_DISABLE_TIMEOUT > 0
 static uint32_t led_anykey_timer;
+static uint32_t led_disable_timeout = LED_DISABLE_TIMEOUT;
 #endif // LED_DISABLE_TIMEOUT > 0
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+static bool driver_shutdown = false;
+#endif
+#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
+static uint8_t led_enable_eeprom = false;
+#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 
 // double buffers
 static uint32_t led_timer_buffer;
@@ -343,9 +350,23 @@ static void led_task_flush(uint8_t effect) {
     // update last trackers after the first full render so we can init over several frames
     led_last_effect = effect;
     led_last_enable = led_matrix_eeconfig.enable;
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+    // exit from shutdown if neccesary
+    if (driver_shutdown) {
+        led_matrix_driver.exit_shutdown();
+        driver_shutdown = false;
+    }
+#endif
 
     // update pwm buffers
     led_matrix_update_pwm_buffers();
+
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+    // shutdown if neccesary
+    if (effect == LED_MATRIX_NONE && !driver_shutdown && led_matrix_driver_allow_shutdown()) {
+        led_matrix_driver_shutdown();
+    }
+#endif
 
     // next task
     led_task_state = SYNCING;
@@ -358,7 +379,7 @@ void led_matrix_task(void) {
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight = suspend_state ||
 #if LED_DISABLE_TIMEOUT > 0
-                             (led_anykey_timer > (uint32_t)LED_DISABLE_TIMEOUT) ||
+                             (led_anykey_timer > led_disable_timeout) ||
 #endif // LED_DISABLE_TIMEOUT > 0
                              false;
 
@@ -383,6 +404,13 @@ void led_matrix_task(void) {
             break;
     }
 }
+
+#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
+static inline void led_enable_state_backup(void) {
+    dprintf("led_enable_state_backup\n");
+    led_enable_eeprom = led_matrix_eeconfig.enable;
+}
+#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 
 void led_matrix_indicators(void) {
     led_matrix_indicators_kb();
@@ -417,6 +445,9 @@ __attribute__((weak)) void led_matrix_indicators_advanced_user(uint8_t led_min, 
 
 void led_matrix_init(void) {
     led_matrix_driver.init();
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+    driver_shutdown = false;
+#endif
 
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
     g_last_hit_tracker.count = 0;
@@ -441,6 +472,9 @@ void led_matrix_init(void) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_led_matrix_default();
     }
+#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
+    led_enable_state_backup();
+#endif                           // LED_MATRIX_STATE_BACKUP_ENABLE
     eeconfig_debug_led_matrix(); // display current eeprom values
 }
 
@@ -462,6 +496,9 @@ void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
     led_task_state = STARTING;
     eeconfig_flag_led_matrix(write_to_eeprom);
+#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
+    if (write_to_eeprom) led_enable_state_backup();
+#endif // LED_MATRIX_STATE_BACKUP_ENABLE
     dprintf("led matrix toggle [%s]: led_matrix_eeconfig.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.enable);
 }
 void led_matrix_toggle_noeeprom(void) {
@@ -474,6 +511,9 @@ void led_matrix_toggle(void) {
 void led_matrix_enable(void) {
     led_matrix_enable_noeeprom();
     eeconfig_flag_led_matrix(true);
+#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
+    led_enable_state_backup();
+#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 }
 
 void led_matrix_enable_noeeprom(void) {
@@ -484,6 +524,9 @@ void led_matrix_enable_noeeprom(void) {
 void led_matrix_disable(void) {
     led_matrix_disable_noeeprom();
     eeconfig_flag_led_matrix(true);
+#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
+    led_enable_state_backup();
+#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 }
 
 void led_matrix_disable_noeeprom(void) {
@@ -494,6 +537,12 @@ void led_matrix_disable_noeeprom(void) {
 uint8_t led_matrix_is_enabled(void) {
     return led_matrix_eeconfig.enable;
 }
+
+#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
+uint8_t led_matrix_is_enabled_eeprom(void) {
+    return led_enable_eeprom;
+}
+#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 
 void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     if (!led_matrix_eeconfig.enable) {
@@ -563,6 +612,12 @@ uint8_t led_matrix_get_val(void) {
 }
 
 void led_matrix_increase_val_helper(bool write_to_eeprom) {
+#ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
+    if (!led_matrix_eeconfig.enable) {
+        dprintf("increase_val to enable");
+        led_matrix_toggle_eeprom_helper(write_to_eeprom);
+    }
+#endif
     led_matrix_set_val_eeprom_helper(qadd8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom);
 }
 void led_matrix_increase_val_noeeprom(void) {
@@ -574,6 +629,12 @@ void led_matrix_increase_val(void) {
 
 void led_matrix_decrease_val_helper(bool write_to_eeprom) {
     led_matrix_set_val_eeprom_helper(qsub8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom);
+#ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
+    if (led_matrix_eeconfig.enable && led_matrix_eeconfig.val <= LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL) {
+        dprintf("decrease_val to disable\n");
+        led_matrix_toggle_eeprom_helper(write_to_eeprom);
+    }
+#endif
 }
 void led_matrix_decrease_val_noeeprom(void) {
     led_matrix_decrease_val_helper(false);
@@ -635,3 +696,31 @@ void led_matrix_set_flags(led_flags_t flags) {
 void led_matrix_set_flags_noeeprom(led_flags_t flags) {
     led_matrix_set_flags_eeprom_helper(flags, false);
 }
+
+#if LED_DISABLE_TIMEOUT > 0
+uint32_t led_matrix_disable_timeout_get(void) {
+    return led_disable_timeout;
+}
+
+void led_matrix_disable_timeout_set(uint32_t timeout) {
+    led_disable_timeout = timeout;
+}
+void led_matrix_disable_time_reset(void) {
+    led_anykey_timer = 0;
+}
+#endif
+
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+void led_matrix_driver_shutdown(void) {
+    led_matrix_driver.shutdown();
+    driver_shutdown = true;
+};
+
+bool led_matrix_is_driver_shutdown(void) {
+    return driver_shutdown;
+}
+
+__attribute__((weak)) bool led_matrix_driver_allow_shutdown(void) {
+    return true;
+};
+#endif

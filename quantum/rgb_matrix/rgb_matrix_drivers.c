@@ -94,6 +94,11 @@ static void init(void) {
 #        endif
 
 #    elif defined(CKLED2001)
+#        if defined(LED_DRIVER_SHUTDOWN_PIN)
+    setPinOutput(LED_DRIVER_SHUTDOWN_PIN);
+    writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
+#        endif
+
     CKLED2001_init(DRIVER_ADDR_1);
 #        if defined(DRIVER_ADDR_2)
     CKLED2001_init(DRIVER_ADDR_2);
@@ -295,11 +300,50 @@ static void flush(void) {
 #        endif
 }
 
-const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = init,
-    .flush = flush,
-    .set_color = CKLED2001_set_color,
-    .set_color_all = CKLED2001_set_color_all,
+#        if defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+static void shutdown(void) {
+#            if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinLow(LED_DRIVER_SHUTDOWN_PIN);
+#            else
+    CKLED2001_sw_shutdown(DRIVER_ADDR_1);
+#                if defined(DRIVER_ADDR_2)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_2);
+#                    if defined(DRIVER_ADDR_3)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_3);
+#                        if defined(DRIVER_ADDR_4)
+    CKLED2001_sw_shutdown(DRIVER_ADDR_4);
+#                        endif
+#                    endif
+#                endif
+#            endif
+}
+
+static void exit_shutdown(void) {
+#            if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
+#            else
+    CKLED2001_sw_return_normal(DRIVER_ADDR_1);
+#                if defined(DRIVER_ADDR_2)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_2);
+#                    if defined(DRIVER_ADDR_3)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_3);
+#                        if defined(DRIVER_ADDR_4)
+    CKLED2001_sw_return_normal(DRIVER_ADDR_4);
+#                        endif
+#                    endif
+#                endif
+#            endif
+}
+#        endif
+
+const rgb_matrix_driver_t rgb_matrix_driver = {.init = init,
+                                               .flush = flush,
+                                               .set_color = CKLED2001_set_color,
+                                               .set_color_all = CKLED2001_set_color_all,
+#        if defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+                                               .shutdown = shutdown,
+                                               .exit_shutdown = exit_shutdown
+#        endif
 };
 #    endif
 
