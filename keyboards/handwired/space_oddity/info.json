@@ -1,13 +1,9 @@
 {
   "keyboard_name": "Space Oddity",
-  "manufacturer": "James Taylor",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x6060",
-    "device_version": "0.0.1"
-  },
+  "width": 14,
+  "height": 6,
   "layouts": {
     "LAYOUT": {
       "layout": [

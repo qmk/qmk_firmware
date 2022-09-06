@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Snap96",
-    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
-    "usb": {
-        "vid": "0x5845",
-        "pid": "0x5396",
-        "device_version": "0.0.1"
-    },
+    "width": 19,
+    "height": 6,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

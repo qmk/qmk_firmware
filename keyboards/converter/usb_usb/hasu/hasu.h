@@ -1,3 +1,6 @@
-#pragma once
+#ifndef HASU_H
+#define HASU_H
 
-#include "usb_usb.h"
+#include QMK_KEYBOARD_H
+
+#endif

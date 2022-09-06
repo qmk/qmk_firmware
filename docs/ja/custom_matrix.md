@@ -87,17 +87,17 @@ void matrix_init(void) {
 }
 
 uint8_t matrix_scan(void) {
-    bool changed = false;
+    bool matrix_has_changed = false;
 
     // TODO: ここにマトリックススキャンルーチンを追加します
 
     // ハードウェアによるデバウンスがない場合 - 設定されているデバウンスルーチンを使用します
-    changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
     // 正しいキーボード動作のためにこれを呼び出す*必要があります*
     matrix_scan_quantum();
 
-    return changed;
+    return matrix_has_changed;
 }
 ```
 

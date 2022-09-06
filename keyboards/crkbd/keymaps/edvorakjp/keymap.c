@@ -54,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
-layer_state_t layer_state_set_keymap(layer_state_t state) {
+uint32_t layer_state_set_keymap(uint32_t state) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    switch (get_highest_layer(state)) {
+    switch (biton32(state)) {
         case L_EDVORAKJP_LOWER:
             rgblight_sethsv_noeeprom_red();
             break;

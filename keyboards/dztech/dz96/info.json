@@ -1,13 +1,9 @@
 {
   "keyboard_name": "DZ96",
-  "manufacturer": "DZTECH",
   "url": "",
   "maintainer": "kb-elmo",
-  "usb": {
-    "vid": "0x445A",
-    "pid": "0xDB96",
-    "device_version": "0.0.1"
-  },
+  "width": 19,
+  "height": 6,
   "layouts": {
     "LAYOUT_default": {
       "layout": [

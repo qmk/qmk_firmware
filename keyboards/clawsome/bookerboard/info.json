@@ -1,15 +1,12 @@
 {
-    "keyboard_name": "Bookerboard",
-    "manufacturer": "AlisGraveNil",
+    "keyboard_name": "bookerboard",
     "url": "",
-    "maintainer": "AlisGraveNil",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x41CE",
-        "device_version": "0.0.1"
-    },
+    "maintainer": "qmk",
+    "width": 3,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
+            "key_count": 12,
             "layout": [
                 {"label":"K00 (B5,B6)", "x":0, "y":0},
                 {"label":"K01 (B5,B2)", "x":1, "y":0},
@@ -26,4 +23,6 @@
             ]
         }
     }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
+

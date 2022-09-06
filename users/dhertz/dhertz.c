@@ -1,6 +1,3 @@
-// Copyright 2022 Dan Hertz (@dhertz)
-// SPDX-License-Identifier: GPL-3.0
-
 #include "dhertz.h"
 
 // Add reconfigurable functions here, for keymap customization
@@ -18,7 +15,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 __attribute__ ((weak))
-layer_state_t layer_state_set_keymap (layer_state_t state) {
+uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
 }
 __attribute__ ((weak))
@@ -66,12 +63,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CMD_SFT_L:
                 SEND_STRING(SS_LGUI("L"));
                 break;
-            case CMD_SFT_A:
-                SEND_STRING(SS_LGUI("A"));
-                break;
-            case CMD_SFT_ALT_A:
-                SEND_STRING(SS_LGUI(SS_LALT("A")));
-                break;
             case ISO_COUNTRY_CODE:
                 SEND_STRING("country_iso_alpha2_code");
                 break;
@@ -107,3 +98,4 @@ layer_state_t layer_state_set_user (layer_state_t state) {
 void led_set_user(uint8_t usb_led) {
    led_set_keymap(usb_led);
 }
+

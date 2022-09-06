@@ -1,13 +1,9 @@
 {
   "keyboard_name": "Katana60 rev1",
-  "manufacturer": "RominRonin CandyKeys",
   "url": "",
   "maintainer": "rominronin",
-  "usb": {
-    "vid": "0x7272",
-    "pid": "0x0C2C",
-    "device_version": "0.0.1"
-  },
+  "width": 15,
+  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

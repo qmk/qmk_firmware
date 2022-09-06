@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "TW40",
-  "manufacturer": "KnoblesseOblige",
+  "keyboard_name": "Training Wheel 40",
   "url": "https://p3dstore.com/products/tw40-gb",
   "maintainer": "KnoblesseOblige",
-  "usb": {
-    "vid": "0x503D",
-    "pid": "0x5457",
-    "device_version": "0.0.1"
-  },
+  "width": 14,
+  "height": 4,
   "layouts": {
     "LAYOUT_all": {
       "layout": [

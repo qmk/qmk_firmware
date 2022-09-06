@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Redragon Vara",
-    "manufacturer": "PH",
+    "keyboard_name": "Handwired Redragon Vara",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x5048",
-        "pid": "0x0001",
-        "device_version": "0.0.1"
-    },
+    "width": 22.5,
+    "height": 6.5,
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [
@@ -118,4 +114,5 @@
             ]
         }
     }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

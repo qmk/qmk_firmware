@@ -1,2 +1,2 @@
-# Bootloader selection
+# Elite C
 BOOTLOADER = qmk-dfu

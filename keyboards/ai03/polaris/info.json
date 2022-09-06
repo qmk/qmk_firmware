@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Polaris",
-    "manufacturer": "ai03 Design Studio",
     "url": "https://kb.ai03.me/projects/polaris.html",
     "maintainer": "ai03",
-    "usb": {
-        "vid": "0xA103",
-        "pid": "0x0002",
-        "device_version": "0.0.1"
-    },
+    "width": 15,
+    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

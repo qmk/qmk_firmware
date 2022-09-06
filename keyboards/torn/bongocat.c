@@ -16,7 +16,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
@@ -34,10 +34,7 @@ static bool show_logo = true;
 
 __attribute__((weak)) extern const char PROGMEM bongocat_logo[];
 
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
+void oled_task_user(void) {
 
 // clang-format off
   static const char PROGMEM idle[][FRAME_SIZE] = {
@@ -350,7 +347,7 @@ bool oled_task_kb(void) {
     oled_off();
     anim_timer = 0;
     show_logo = true;
-    return false;
+    return;
   }
 
   if (timer_elapsed32(anim_timer) > FRAME_DURATION) {
@@ -372,7 +369,6 @@ bool oled_task_kb(void) {
     }
     current_frame++;
   }
-  return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

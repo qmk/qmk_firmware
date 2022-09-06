@@ -1,12 +1,9 @@
 {
     "keyboard_name": "Ext65",
-    "manufacturer": "AEBoards",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x4145",
-        "device_version": "0.0.1"
-    },
+    "width": 20.5,
+    "height": 5,
     "layouts": {
         "LAYOUT_ext65": {
             "layout": [

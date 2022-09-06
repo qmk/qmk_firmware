@@ -98,7 +98,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 
 void render_space(void) {
   oled_write_P(PSTR("     "), false);
@@ -117,10 +117,9 @@ void oled_render_layer_state(void) {
 }
 
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   oled_write_ln_P(PSTR("Plaid-Pad ///////////"), false);
   oled_render_layer_state();
-    return false;
 }
 
 #endif

@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Finger65",
-    "manufacturer": "LeeKu",
+    "keyboard_name": "Leeku Finger65",
     "url": "",
     "maintainer": "sidcarter",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x6050",
-        "device_version": "1.0.0"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

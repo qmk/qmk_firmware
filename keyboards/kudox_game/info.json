@@ -1,12 +1,9 @@
 {
-    "keyboard_name": "The Kudox Game Keyboard",
-    "manufacturer": "Kumao Kobo",
+    "keyboard_name": "Kudox Game Keyboard",
     "url": "",
     "maintainer": "Kumao Kobo",
-    "usb": {
-        "vid": "0xABBA",
-        "pid": "0x9696"
-    },
+    "width": 7.5,
+    "height": 6.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

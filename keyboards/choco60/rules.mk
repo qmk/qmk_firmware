@@ -1,0 +1,1 @@
+DEFAULT_FOLDER = choco60/rev1

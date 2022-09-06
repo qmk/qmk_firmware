@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Octopad",
-    "manufacturer": "Neil Brian Ramirez",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "usb": {
-    	"vid": "0xD812",
-    	"pid": "0x0004",
-    	"device_version": "0.0.1"
-    },
+    "width": 6.5,
+    "height": 3.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

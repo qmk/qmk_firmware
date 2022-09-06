@@ -1,5 +1,5 @@
 #include "tester.h"
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -29,12 +29,28 @@ led_config_t g_led_config = {
 } 
 };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
+
+
+void matrix_init_kb(void) {
+	matrix_init_user();
 }
 
-void suspend_wakeup_init_kb(void) {
+void matrix_scan_kb(void) {
+	matrix_scan_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+	return process_record_user(keycode, record);
+}
+
+void suspend_power_down_kb(void)
+{
+    rgb_matrix_set_suspend_state(true);
+        suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void)
+{
     rgb_matrix_set_suspend_state(false);
     suspend_wakeup_init_user();
 }

@@ -1,13 +1,9 @@
 {
     "keyboard_name": "BigMac",
-    "manufacturer": "Taylore101",
     "url": "",
     "maintainer": "Taylore101",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x1010",
-        "device_version": "0.0.1"
-    },
+    "width": 19,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -95,4 +91,5 @@
             ]
         }
     }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

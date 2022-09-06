@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "FM2U",
-    "manufacturer": "Botanical Keyboards",
+    "keyboard_name": "Botanical Keyboards FM2U",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x6969",
-        "pid": "0x0001",
-        "device_version": "0.0.1"
-    },
+    "width": 1,
+    "height": 1,
     "layouts": {
         "LAYOUT_1u": {
             "layout": [

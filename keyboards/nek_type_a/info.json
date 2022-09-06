@@ -1,13 +1,9 @@
 {
     "keyboard_name": "NEK Type A",
-    "manufacturer": "miker",
     "url": "",
     "maintainer": "ecopoesis",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 19.75,
+    "height": 6.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

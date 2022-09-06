@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Atreus",
-    "manufacturer": "Keyboardio",
+    "keyboard_name": "Keyboardio Atreus",
     "url": "",
     "maintainer": "keyboardio",
-    "usb": {
-        "vid": "0x1209",
-        "pid": "0x2303",
-        "device_version": "0.0.1"
-    },
+    "width": 13,
+    "height": 4.7,
     "layouts": {
         "LAYOUT": {
             "layout": [

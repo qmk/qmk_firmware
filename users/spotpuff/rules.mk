@@ -1,1 +1,1 @@
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = no

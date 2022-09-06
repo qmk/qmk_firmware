@@ -34,8 +34,7 @@ void dbg_print(uint32_t x) {
     while (t >= 0) {
         p2 = t;
         p  = 1;
-        while (p2--)
-            p *= 10;
+        while (p2--) p *= 10;
         n = x / p;
         x -= n * p;
         if (!n) {
@@ -56,7 +55,7 @@ void dbg_print(uint32_t x) {
     }
 
     for (w = DBG_PAUSE; w; w--)
-        ; // Long pause after number is complete
+        ;  // Long pause after number is complete
 }
 
 // Display unsigned 32-bit number through debug led
@@ -92,8 +91,7 @@ void dled_print(uint32_t x, uint8_t long_pause) {
     while (t >= 0) {
         p2 = t;
         p  = 1;
-        while (p2--)
-            p *= 10;
+        while (p2--) p *= 10;
         n = x / p;
         x -= n * p;
         if (!n) {
@@ -190,12 +188,12 @@ void debug_code_init(void) {
     DBGC(DC_UNSET);
 
     // Configure Ports for EIC
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].DIRCLR.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN; // Input
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].OUTSET.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN; // High
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.INEN    = 1;                           // Input Enable
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PULLEN  = 1;                           // Pull Enable
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PMUXEN  = 1;                           // Mux Enable
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PMUX[DEBUG_BOOT_TRACING_PIN / 2].bit.PMUXO = 0;                           // Mux A
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].DIRCLR.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN;  // Input
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].OUTSET.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN;  // High
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.INEN    = 1;                            // Input Enable
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PULLEN  = 1;                            // Pull Enable
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PMUXEN  = 1;                            // Mux Enable
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PMUX[DEBUG_BOOT_TRACING_PIN / 2].bit.PMUXO = 0;                            // Mux A
 
     // Enable CLK_EIC_APB
     MCLK->APBAMASK.bit.EIC_ = 1;
@@ -225,12 +223,12 @@ void debug_code_disable(void) {
     }
 
     // Default port configuration
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].DIRCLR.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN; // Input
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].OUTCLR.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN; // Low
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.INEN    = 0;                           // Input Disable
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PULLEN  = 0;                           // Pull Disable
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PMUXEN  = 0;                           // Mux Disable
-    PORT->Group[DEBUG_BOOT_TRACING_PORT].PMUX[DEBUG_BOOT_TRACING_PIN / 2].bit.PMUXO = 0;                           // Mux A
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].DIRCLR.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN;  // Input
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].OUTCLR.reg                                 = 1 << DEBUG_BOOT_TRACING_PIN;  // Low
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.INEN    = 0;                            // Input Disable
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PULLEN  = 0;                            // Pull Disable
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PINCFG[DEBUG_BOOT_TRACING_PIN].bit.PMUXEN  = 0;                            // Mux Disable
+    PORT->Group[DEBUG_BOOT_TRACING_PORT].PMUX[DEBUG_BOOT_TRACING_PIN / 2].bit.PMUXO = 0;                            // Mux A
 
     // Disable CLK_EIC_APB
     MCLK->APBAMASK.bit.EIC_ = 0;
@@ -241,4 +239,4 @@ void debug_code_disable(void) {
 void debug_code_init(void) {}
 void debug_code_disable(void) {}
 
-#endif // DEBUG_BOOT_TRACING_ENABLE
+#endif  // DEBUG_BOOT_TRACING_ENABLE

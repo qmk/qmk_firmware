@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE  = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE   = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE   = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE    = no         # Console for debug(+400)
@@ -10,7 +10,8 @@ NKRO_ENABLE       = yes
 SPACE_CADET_ENABLE = no
 
 INDICATOR_LIGHTS  = yes
+RGBLIGHT_TWINKLE  = no
 RGBLIGHT_STARTUP_ANIMATION = yes
-CUSTOM_UNICODE_ENABLE = no
+
 
 BOOTLOADER        = qmk-dfu

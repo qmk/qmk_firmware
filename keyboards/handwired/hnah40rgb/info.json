@@ -1,15 +1,12 @@
 {
-    "keyboard_name": "Hnah40V2", 
-    "manufacturer": "HnahKB",
+    "keyboard_name": "Hnah40", 
     "url": "",
     "maintainer": "HnahKB", 
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 12, 
+    "height": 4, 
     "layouts": {
         "LAYOUT_all": {
+            "key_count": 42,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"Q", "x":1, "y":0}, 
@@ -56,6 +53,7 @@
             ]
         },
         "LAYOUT_ansi": {
+            "key_count": 39,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"Q", "x":1, "y":0}, 

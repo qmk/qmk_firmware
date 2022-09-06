@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Hnah108",
-    "manufacturer": "HnahKB",
+    "keyboard_name": "hnah108",
     "url": "",
     "maintainer": "HnahKB",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.2"
-    },
+    "width": 22.5,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "matrix.h"
 #include "led.h"
-#include "avr/timer_avr.h"
 // #include QMK_KEYBOARD_H
 
 

@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Pan",
-    "manufacturer": "RGBKB",
+    "keyboard_name": "RGBKB Pan",
     "url": "https://www.rgbkb.net/collections/all/products/pan-keyboard-diy-kit",
     "maintainer": "Legonut",
-    "usb": {
-        "vid": "0x5247",
-        "pid": "0x8C9C",
-        "device_version": "0.0.2"
-    },
+    "width": 13,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

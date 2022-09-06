@@ -34,12 +34,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
-        | QK_BOOT          | Shift+CMD+B (Build VS Code) | Media Stop |
+        | RESET          | Shift+CMD+B (Build VS Code) | Media Stop |
         | Held: Layer 2  | Home | RGB Mode   |
         | Media Previous | End  | Media Next |
      */
     [1] = LAYOUT(
-        QK_BOOT, S(G(KC_B)), KC_STOP,
+        RESET  , S(G(KC_B)), KC_STOP,
         _______, KC_HOME, RGB_MOD,
         KC_MPRV, KC_END , KC_MNXT
     ),

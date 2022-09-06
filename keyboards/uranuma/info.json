@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "UraNuma", 
-  "manufacturer": "yohewi",
+  "keyboard_name": "Uranuma", 
   "url": "", 
   "maintainer": "yohewi", 
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x112D",
-    "device_version": "0.0.1"
-  },
+  "width": 13, 
+  "height": 5.7, 
   "layouts": {
     "LAYOUT": {
       "layout": [

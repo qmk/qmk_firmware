@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Tenkey++",
-    "manufacturer": "Lizard Trick Electronics",
+    "keyboard_name": "tenkey_plusplus",
     "url": "https://github.com/jonbobcar/tenkey_plusplus",
     "maintainer": "Jonathon Carstens",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 4,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

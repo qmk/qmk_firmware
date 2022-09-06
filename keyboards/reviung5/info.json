@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "reviung5",
+    "url": "",
+    "maintainer": "gtips",
+    "width": 5,
+    "height": 1,
+    "layouts": {
+        "LAYOUT_reviung5": {
+            "layout": [
+                {"label": "k00", "x": 0, "y": 0},
+                {"label": "k01", "x": 1, "y": 0.25},
+                {"label": "k02", "x": 2, "y": 0.25},
+                {"label": "k03", "x": 3, "y": 0.25},
+                {"label": "k04", "x": 4, "y": 0}
+            ]
+        }
+    }
+}

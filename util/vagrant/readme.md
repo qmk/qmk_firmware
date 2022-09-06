@@ -1,7 +1,7 @@
 # QMK Vagrant Utilities
 
 ## Dockerfile
-Vagrant-friendly `qmkfm/qmk_cli`.
+Vagrant-friendly `qmkfm/base_container`.
 
 In order for the Docker provider and `vagrant ssh` to function the container has a few extra requirements.
 

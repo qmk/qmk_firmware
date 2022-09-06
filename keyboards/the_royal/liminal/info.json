@@ -1,15 +1,12 @@
 {
-  "keyboard_name": "Liminal",
-  "manufacturer": "TheRoyalSweatshirt",
+  "keyboard_name": "liminal",
   "url": "",
   "maintainer": "TheRoyalSweatshirt",
-  "usb": {
-    "vid": "0x4B4B",
-    "pid": "0x0003",
-    "device_version": "0.0.1"
-  },
+  "width": 15,
+  "height": 4,
   "layouts": {
     "LAYOUT_base_kit_all": {
+      "key_count": 52,
       "layout": [
         {"label":"k01", "x":0, "y":0, "w":1},
         {"label":"k02", "x":1, "y":0, "w":1.5},
@@ -67,3 +64,5 @@
     }
   }
 }
+
+

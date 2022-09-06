@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Leftover30",
-    "manufacturer": "marksard",
     "url": "https://github.com/marksard/Keyboards",
     "maintainer": "marksard",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0xDFA8",
-        "device_version": "0.0.1"
-    },
+    "width": 11.5,
+    "height": 4,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

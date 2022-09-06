@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "XT65",
-    "manufacturer": "kopibeng",
+    "keyboard_name": "kopibeng XT65",
     "url": "",
     "maintainer": "kopibeng",
-    "usb": {
-        "vid": "0x4B50",
-        "pid": "0x0650",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 5,
     "layout_aliases": {
         "LAYOUT_65_7u_split_bs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
         "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs",

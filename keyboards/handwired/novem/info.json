@@ -1,13 +1,9 @@
 {
     "keyboard_name": "novem",
-    "manufacturer": "Jose I. Martinez",
     "url": "",
     "maintainer": "Jose I. Martinez",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 3,
+    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

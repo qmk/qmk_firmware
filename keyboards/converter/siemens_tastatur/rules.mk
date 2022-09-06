@@ -6,18 +6,15 @@ BOOTLOADER = stm32duino
 
 SRC = matrix.c
 
-# Build Options
-#   change yes to no to disable
-#
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+#BOOTMAGIC_ENABLE = full # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes   # Mouse keys
 EXTRAKEY_ENABLE = yes   # Audio control and System control
 CONSOLE_ENABLE = yes    # Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
-NKRO_ENABLE = yes           # Enable N-Key Rollover
+SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes       # USB Nkey Rollover
 BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = no
-SLEEP_LED_ENABLE = yes
 CUSTOM_MATRIX = yes
 
 

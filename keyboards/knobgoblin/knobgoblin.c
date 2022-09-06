@@ -38,11 +38,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 #endif
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 /* rotate screen for proper orentation*/
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
-}
+__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 /* byte map for the goblin logo, knob goblin text, and level text */
 static void render_goblin_logo(void) {
@@ -74,10 +72,7 @@ static void render_goblin_logo(void) {
 }
 
 /* text display for layer indication */
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
+__attribute__((weak)) void oled_task_user(void) {
 
 	render_goblin_logo();
 
@@ -104,6 +99,5 @@ bool oled_task_kb(void) {
 			break;
 
 	}
-    return false;
 }
 #endif

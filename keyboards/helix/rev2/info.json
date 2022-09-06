@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Helix Beta",
-    "manufacturer": "Yushakobo",
+    "keyboard_name": "Helix rev. 2",
     "url": "https://github.com/MakotoKurauchi/helix",
     "maintainer": "MakotoKurauchi",
-    "usb": {
-        "vid": "0x3265",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 15,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

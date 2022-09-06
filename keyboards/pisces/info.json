@@ -1,13 +1,9 @@
 {
     "keyboard_name": "pisces",
-    "manufacturer": "knaruo",
     "url": "https://github.com/knaruo/pisces",
     "maintainer": "knaruo",
-    "usb": {
-        "vid": "0x6B6E",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 15,
+    "height": 3,
     "layouts": {
         "LAYOUT_split_3x6_1": {
             "layout": [

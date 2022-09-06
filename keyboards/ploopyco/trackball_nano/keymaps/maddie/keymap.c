@@ -18,46 +18,36 @@
  */
 #include QMK_KEYBOARD_H
 
-// Configuration options
-#define SCROLL_TIMEOUT 25
-#define DELTA_X_THRESHOLD 60
-#define DELTA_Y_THRESHOLD 15
-
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
-bool scroll_enabled = false;
-bool lock_state     = false;
+uint8_t scroll_enabled = 0;
+uint8_t lock_state = 0;
+int16_t delta_x = 0;
+int16_t delta_y = 0;
 
-// State
-static int8_t delta_x = 0;
-static int8_t delta_y = 0;
+void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y) {
+	if (scroll_enabled) {
+		delta_x += x;
+		delta_y += y;
+		
+		if (delta_x > 60) {
+			mouse_report->h = 1;
+			delta_x = 0;
+		} else if (delta_x < -60) {
+			mouse_report->h = -1;
+			delta_x = 0;
+		}
 
-// Dummy
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    if (scroll_enabled) {
-        delta_x += mouse_report.x;
-        delta_y += mouse_report.y;
-
-        if (delta_x > DELTA_X_THRESHOLD) {
-            mouse_report.h = 1;
-            delta_x        = 0;
-        } else if (delta_x < -DELTA_X_THRESHOLD) {
-            mouse_report.h = -1;
-            delta_x        = 0;
-        }
-
-        if (delta_y > DELTA_Y_THRESHOLD) {
-            mouse_report.v = -1;
-            delta_y        = 0;
-        } else if (delta_y < -DELTA_Y_THRESHOLD) {
-            mouse_report.v = 1;
-            delta_y        = 0;
-        }
-        mouse_report.x = 0;
-        mouse_report.y = 0;
-    }
-    return mouse_report;
+		if (delta_y > 15) {
+			mouse_report->v = -1;
+			delta_y = 0;
+		} else if (delta_y < -15) {
+			mouse_report->v = 1;
+			delta_y = 0;
+		}
+	} else {
+		mouse_report->x = x;
+		mouse_report->y = y;
+	}
 }
 
 void keyboard_post_init_user(void) {
@@ -68,20 +58,22 @@ bool led_update_user(led_t led_state) {
 	static uint8_t lock_count = 0;
 	static uint16_t scroll_timer = 0;
 
-	if (timer_elapsed(scroll_timer) > SCROLL_TIMEOUT) {
+	if (timer_elapsed(scroll_timer) > 25) {
 		scroll_timer = timer_read();
 		lock_count = 0;
 	}
-
+    
 	if (led_state.num_lock != lock_state) {
 		lock_count++;
 
 		if (lock_count == 2) {
 			scroll_enabled = !scroll_enabled;
 			lock_count = 0;
+			delta_x = 0;
+			delta_y = 0;
 		}
 	}
-
+    
 	lock_state = led_state.num_lock;
 	return true;
 }

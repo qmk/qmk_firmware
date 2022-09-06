@@ -193,11 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KB_MAKE:
             if (!get_mods()) {
                 if (!record->event.pressed)
-#ifdef NO_SECRETS
-                    SEND_STRING("make NO_SECRETS=1 " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
-#else
                     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
-#endif
                 return false;
             }
             break;
@@ -205,15 +201,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KB_VRSN:
             if (!get_mods()) {
                 if (!record->event.pressed) {
-#ifdef DO_SECRETS
-# define SECRET_MSG " (with secrets)"
-#else
-# define SECRET_MSG
-#endif
                     if (user_config.system_mac) {
-                        SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " (mac mode)" SECRET_MSG);
+                        SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " (mac mode)");
                     } else {
-                        SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " (non-mac mode)" SECRET_MSG);
+                        SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " (non-mac mode)");
                     }
                 }
                 return false;
@@ -236,11 +227,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KB_FLSH:
             if (!get_mods()) {
                 if (!record->event.pressed) {
-#ifdef NO_SECRETS
-                    SEND_STRING("make NO_SECRETS=1 " QMK_KEYBOARD ":" QMK_KEYMAP ":flash\n");
-#else
                     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":flash\n");
-#endif
                     reset_keyboard();
                 }
                 return false;
@@ -248,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
 #ifdef DO_SECRETS
-        case KC_SECRET_1 ... KC_SECRET_6: // Secrets!  Externally defined strings, not stored in repo
+        case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
             if (!record->event.pressed) {
                 clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                 send_secret_string(keycode - KC_SECRET_1);

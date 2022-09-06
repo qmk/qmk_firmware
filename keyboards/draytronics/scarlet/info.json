@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "SCARLET",
-    "manufacturer": "Draytronics",
+    "keyboard_name": "Draytronics SCARLET",
     "url": "https://www.draytronics.co.uk/scarlet",
     "maintainer": "ghostseven",
-    "usb": {
-        "vid": "0x4454",
-        "pid": "0x5343",
-        "device_version": "0.0.1"
-    },
+    "width": 4,
+    "height": 5,
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

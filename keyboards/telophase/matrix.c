@@ -18,12 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 #include "matrix.h"
-#include "uart.h"
-
-#define UART_MATRIX_RESPONSE_TIMEOUT 10000
+#include "protocol/serial.h"
 
 void matrix_init_custom(void) {
-    uart_init(1000000);
+    serial_init();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -31,7 +29,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
     //the s character requests the RF slave to send the matrix
-    uart_write('s');
+    SERIAL_UART_DATA = 's';
 
     //trust the external keystates entirely, erase the last data
     uint8_t uart_data[13] = {0};
@@ -41,18 +39,13 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         //wait for the serial data, timeout if it's been too long
         //this only happened in testing with a loose wire, but does no
         //harm to leave it in here
-        while (!uart_available()) {
+        while (!SERIAL_UART_RXD_PRESENT) {
             timeout++;
-            if (timeout > UART_MATRIX_RESPONSE_TIMEOUT) {
+            if (timeout > 10000) {
                 break;
             }
         }
-
-        if (timeout < UART_MATRIX_RESPONSE_TIMEOUT) {
-            uart_data[i] = uart_read();
-        } else {
-            uart_data[i] = 0x00;
-        }
+        uart_data[i] = SERIAL_UART_DATA;
     }
 
     //check for the end packet, the key state bytes use the LSBs, so 0xE0

@@ -1,4 +1,4 @@
-# ortho5x14 handwired
+# ortho5x13 handwired
 
 Custom handwired ortho5x14 keyboard.
 

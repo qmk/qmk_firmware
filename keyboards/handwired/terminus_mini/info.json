@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "Terminus Mini",
-  "manufacturer": "James Morgan",
+  "keyboard_name": "handwired/terminus_mini",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x6060",
-    "device_version": "0.0.1"
-  },
+  "width": 12,
+  "height": 4,
   "layouts": {
     "LAYOUT": {
       "layout": [

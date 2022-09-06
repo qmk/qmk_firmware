@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 #ifndef NO_DEBUG
 #define NO_DEBUG
@@ -27,7 +28,7 @@
 
 #define LEADER_TIMEOUT 300
 
-#ifndef KEYBOARD_planck_light
+#ifndef LIGHT_CONFIG_H
 #define BACKLIGHT_BREATHING
 #endif
 
@@ -41,3 +42,6 @@
  * borrowed from basic keymap            */
 
 #define _____   KC_NO
+
+#endif
+

@@ -16,8 +16,14 @@
 
 #pragma once
 
-#include <float.h>
-#include <stdint.h>
+#if defined(__AVR__)
+#    include <avr/io.h>
+#    include <avr/interrupt.h>
+#    include <avr/pgmspace.h>
+#else
+#    include <ch.h>
+#    include <hal.h>
+#endif
 
 #define VIBRATO_LUT_LENGTH 20
 

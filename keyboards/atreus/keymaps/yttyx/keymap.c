@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
 
  /* RS: Reset
     .-------.------.-------.-----.-------.                                .------.-------.-----.-------.------.
-    | QK_BOOT |      |       |     |       |                                |      |       |     |       |      |
+    | RESET |      |       |     |       |                                |      |       |     |       |      |
     |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
     |       |      |       |     |       |                                |      |       |     |       |      |
     |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
                            '-----'-------'-----'                    '-----'------'-------'
   */
   [RS] = LAYOUT(
-    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(BA),  XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

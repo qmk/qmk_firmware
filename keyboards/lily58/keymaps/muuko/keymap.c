@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	if (!is_keyboard_master()) return OLED_ROTATION_180;
     else return rotation;
@@ -174,12 +174,11 @@ static void render_anim(void) {
     }
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();
     } else {
         render_anim();
     }
-    return false;
 }
 #endif

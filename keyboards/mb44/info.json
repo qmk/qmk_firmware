@@ -1,13 +1,9 @@
 {
     "keyboard_name": "MB-44",
-    "manufacturer": "melonbred",
     "url": "",
     "maintainer": "melonbred",
-    "usb": {
-        "vid": "0x6D62",
-        "pid": "0x6D62",
-        "device_version": "0.0.1"
-    },
+    "width": 3,
+    "height": 2,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

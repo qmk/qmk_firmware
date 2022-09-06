@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Roadster",
-    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
-    "maintainer": "AlisGraveNil",
-    "usb": {
-        "vid": "0x7767",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "maintainer": "AAClawson (AlisGraveNil)",
+    "width": 12,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -59,3 +55,4 @@
         }
     }
 }
+

@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Beegboy", 
-    "manufacturer": "Swiftrax",
     "url": "https://github.com/swiftrax", 
     "maintainer": "swiftrax", 
-    "usb": {
-        "vid": "0x04D8",
-        "pid": "0xEAC5",
-        "device_version": "0.0.1"
-    },
+    "width": 19.5, 
+    "height": 6.5, 
     "layouts": {
         "LAYOUT": {
             "layout": [

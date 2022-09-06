@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Program Yoink! Ortho",
-    "manufacturer": "melonbred",
+    "keyboard_name": "program_yoink",
     "url": "",
     "maintainer": "melonbred",
-    "usb": {
-        "vid": "0x7079",
-        "pid": "0xF10C",
-        "device_version": "0.0.1"
-    },
+    "width": 13.5,
+    "height": 4.25,
     "layouts": {
         "LAYOUT_ortho": {
             "layout": [

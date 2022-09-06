@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
@@ -186,7 +186,7 @@ const char *read_keylogs(void) {
 }
 //new
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   if (is_keyboard_master()) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -214,14 +214,13 @@ bool oled_task_user(void) {
   } else {
       render_logo();
   }
-    return false;
 }
-#endif // OLED_ENABLE
+#endif // OLED_DRIVER_ENABLE
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
     set_keylog(keycode, record);
 #endif
     // set_timelog();

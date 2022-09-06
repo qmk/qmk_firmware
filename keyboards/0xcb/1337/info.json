@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "1337",
-  "manufacturer": "0xCB",
+  "keyboard_name": "0xCB 1337",
   "url": "https://0xCB.dev",
   "maintainer": "Conor-Burns",
-  "usb": {
-    "vid": "0xCB00",
-    "pid": "0x1337",
-    "device_version": "0.0.1"
-  },
+  "width": 3,
+  "height": 3,
   "layouts": {
     "LAYOUT": {
       "layout": [

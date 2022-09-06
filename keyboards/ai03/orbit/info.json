@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Orbit", 
-    "manufacturer": "ai03 Keyboard Designs",
+    "keyboard_name": "orbit", 
     "url": "https://github.com/ai03-2725/Orbit", 
     "maintainer": "ai03", 
-    "usb": {
-        "vid": "0xA103",
-        "pid": "0x0003",
-        "device_version": "0.0.3"
-    },
+    "width": 16, 
+    "height": 6, 
     "layouts": {
         "LAYOUT": {
             "layout": [

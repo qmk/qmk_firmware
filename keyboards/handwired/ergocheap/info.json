@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Ergocheap",
-    "manufacturer": "xSteins",
     "url": "",
     "maintainer": "xSteins",
-    "usb": {
-        "vid": "0xFEDE",
-        "pid": "0x6942",
-        "device_version": "0.0.1"
-    },
+    "width": 20.75,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

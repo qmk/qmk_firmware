@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Álvaro "Gondolindrim" Volpato  <gondolindrim@acheronproject.com>
+Copyright 2015 Álvaro "Gondolindrim" Volpato  <gondolindrim@acheronproject.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x8384 //SR for Smith and Rune
+#define PRODUCT_ID      0x1180
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    SmithRune
+#define PRODUCT         IRON180
+
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -29,9 +36,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      1
-#define BACKLIGHT_LEVELS 20
+#define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 5
+#define BREATHING_PERIOD 6
+
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
@@ -41,5 +51,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// Turn backlight on-off according to capslock (off by default)
-#define CAPSLOCK_BACKLIGHT
+/*
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ */
+
+/* disable debug print */
+//#define NO_DEBUG
+
+/* disable print */
+//#define NO_PRINT
+
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION

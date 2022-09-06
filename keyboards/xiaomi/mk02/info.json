@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "MK02",
-    "manufacturer": "Xiaomi",
+    "keyboard_name": "Xiaomi MK02",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0B91",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

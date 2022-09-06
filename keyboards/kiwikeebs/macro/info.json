@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "MacroBoard v.1.0",
-    "manufacturer": "KiwiKeebs",
+    "keyboard_name": "KiwiKeebs MacroBoard v.10",
     "url": "https://www.reddit.com/r/mechmarket/comments/ibijrd/ic_kiwikeebs_6key_macroboard_rotary_encoder_diy/",
     "maintainer": "KiwiKeebs",
-    "usb": {
-        "vid": "0x4B51",
-        "pid": "0x4712",
-        "device_version": "0.0.1"
-    },
+    "width": 5,
+    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

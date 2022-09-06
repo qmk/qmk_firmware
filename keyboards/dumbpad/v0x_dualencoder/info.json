@@ -1,7 +1,10 @@
 {
-    "usb": {
-        "device_version": "0.0.6"
-    },
+    "keyboard_name": "dumbpad/v0x_dualencoder",
+    "keyboard_folder": "dumbpad/v0x_dualencoder",
+    "url": "https://www.github.com/imchipwood/dumbpad",
+    "maintainer": "imchipwood",
+    "width": 4,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

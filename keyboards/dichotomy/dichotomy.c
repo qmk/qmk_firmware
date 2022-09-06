@@ -1,13 +1,11 @@
 #include "dichotomy.h"
 
-//#include "uart.h"
-
 void pointing_device_task(void){
 	/*report_mouse_t currentReport = {};
     uint32_t timeout = 0;
 
     //the m character requests the RF slave to send the mouse report
-    uart_write('m');
+    SERIAL_UART_DATA = 'm';
 
     //trust the external inputs completely, erase old data
     uint8_t uart_data[5] = {0};
@@ -17,7 +15,7 @@ void pointing_device_task(void){
         //wait for the serial data, timeout if it's been too long
         //this only happened in testing with a loose wire, but does no
         //harm to leave it in here
-        while(!uart_available()){
+        while(!SERIAL_UART_RXD_PRESENT){
             timeout++;
             if (timeout > 10000){
 		xprintf("\r\nTIMED OUT");
@@ -25,7 +23,7 @@ void pointing_device_task(void){
             }
         }
 	xprintf("\r\nGOT DATA for %d",i);
-        uart_data[i] = uart_read();
+        uart_data[i] = SERIAL_UART_DATA;
     }
 
     //check for the end packet, bytes 1-4 are movement and scroll

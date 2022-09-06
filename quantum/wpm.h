@@ -22,11 +22,8 @@
 #ifndef WPM_ESTIMATED_WORD_SIZE
 #    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
-#ifndef WPM_SAMPLE_SECONDS
-#    define WPM_SAMPLE_SECONDS 5
-#endif
-#ifndef WPM_SAMPLE_PERIODS
-#    define WPM_SAMPLE_PERIODS 25
+#ifndef WPM_SMOOTHING
+#    define WPM_SMOOTHING 0.0487
 #endif
 
 bool wpm_keycode(uint16_t keycode);

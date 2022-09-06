@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "45ATS",
-    "manufacturer": "Abec13",
+    "keyboard_name": "45-ATS",
     "url": "",
     "maintainer": "The-Royal",
-    "usb": {
-      "vid": "0xAB13",
-      "pid": "0x4511",
-      "device_version": "0.0.1"
-    },
+    "width": 14.25,
+    "height": 4.25,
     "layouts": {
       "LAYOUT_split_space": {
         "layout": [
@@ -170,3 +166,4 @@
       }
     }
   }
+  

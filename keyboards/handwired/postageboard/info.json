@@ -1,12 +1,9 @@
 {
     "keyboard_name": "Postage Board",
-    "manufacturer": "LifeIsOnTheWire",
     "url": "",
     "maintainer": "LifeIsOnTheWire",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0xB07D"
-    },
+    "width": 1,
+    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

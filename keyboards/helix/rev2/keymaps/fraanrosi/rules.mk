@@ -5,8 +5,7 @@
 #   See TOP/keyboards/helix/rules.mk for a list of options that can be set.
 #   See TOP/docs/config_options.md for more information.
 #
-SPLIT_KEYBOARD = yes
-LTO_ENABLE = yes         # if firmware size over limit, try this option
+LTO_ENABLE = no  # if firmware size over limit, try this option
 MOUSEKEY_ENABLE = yes    # Mouse keys
 EXTRAKEY_ENABLE = yes    # Audio control and System control
 # AUDIO_ENABLE = yes       # Audio output on port C6
@@ -21,5 +20,6 @@ EXTRAKEY_ENABLE = yes    # Audio control and System control
 LED_ANIMATIONS = yes        # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
-LED_BACK_ENABLE = no
-LED_UNDERGLOW_ENABLE = yes
+# convert Helix-specific options (that represent combinations of standard options)
+#   into QMK standard options.
+include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

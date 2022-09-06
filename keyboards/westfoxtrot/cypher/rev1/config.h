@@ -19,6 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x21FF
+#define PRODUCT_ID      0xAA97
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    westfoxtrot
+#define PRODUCT         cypher
+
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10
@@ -35,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, F6, B6, B7, C6, C7 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D4, D5, D6, D7, E6, F0 }
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Split 78-key",
-    "manufacturer": "SpiderIsland",
+    "keyboard_name": "Spider Island 78-key split",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0xF4E4",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 6.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

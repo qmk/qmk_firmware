@@ -1,24 +1,26 @@
-"""Point people to the new command name.
+"""Format python code according to QMK's style.
 """
-import sys
-from pathlib import Path
+from subprocess import CalledProcessError, DEVNULL
 
 from milc import cli
 
 
-@cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually format.")
-@cli.subcommand('Pointer to the new command name: qmk format-python.', hidden=False if cli.config.user.developer else True)
+@cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
+@cli.subcommand("Format python code according to QMK's style.", hidden=False if cli.config.user.developer else True)
 def pyformat(cli):
-    """Pointer to the new command name: qmk format-python.
+    """Format python code according to QMK's style.
     """
-    cli.log.warning('"qmk pyformat" has been renamed to "qmk format-python". Please use the new command in the future.')
-    argv = [sys.executable, *sys.argv]
-    argv[argv.index('pyformat')] = 'format-python'
-    script_path = Path(argv[1])
-    script_path_exe = Path(f'{argv[1]}.exe')
+    edit = '--diff' if cli.args.dry_run else '--in-place'
+    yapf_cmd = ['yapf', '-vv', '--recursive', edit, 'bin/qmk', 'lib/python']
+    try:
+        cli.run(yapf_cmd, check=True, capture_output=False, stdin=DEVNULL)
+        cli.log.info('Python code in `bin/qmk` and `lib/python` is correctly formatted.')
+        return True
 
-    if not script_path.exists() and script_path_exe.exists():
-        # For reasons I don't understand ".exe" is stripped from the script name on windows.
-        argv[1] = str(script_path_exe)
+    except CalledProcessError:
+        if cli.args.dry_run:
+            cli.log.error('Python code in `bin/qmk` and `lib/python` incorrectly formatted!')
+        else:
+            cli.log.error('Error formatting python code!')
 
-    return cli.run(argv, capture_output=False).returncode
+    return False

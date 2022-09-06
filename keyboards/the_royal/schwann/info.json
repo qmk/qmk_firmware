@@ -1,15 +1,12 @@
 {
-  "keyboard_name": "The Schwann PCB",
-  "manufacturer": "TheRoyalSweatshirt",
+  "keyboard_name": "Schwann's PCB",
   "url": "https://github.com/TheRoyalSweatshirt/The_Royal_Projects/tree/schwann/PCBs/Schwann_PCB",
   "maintainer": "TheRoyalSweatshirt",
-  "usb": {
-      "vid": "0xFEED",
-      "pid": "0x3521",
-      "device_version": "0.0.1"
-  },
+  "width": 12,
+  "height": 4,
   "layouts": {
    "LAYOUT_mit": {
+    "key_count": 45,
       "layout": [
         {"label":"TAB", "x":0, "y":0},
         {"label":"Q", "x":1, "y":0}, 
@@ -60,6 +57,7 @@
     },
 
     "LAYOUT_full_ortho": {
+      "key_count": 46,
         "layout": [
         {"label":"TAB", "x":0, "y":0},
         {"label":"Q", "x":1, "y":0}, 
@@ -111,6 +109,7 @@
     },
 
     "LAYOUT_big_boy": {
+      "key_count": 39,
         "layout": [
         {"label":"TAB", "x":0, "y":0},
         {"label":"Q", "x":1, "y":0}, 

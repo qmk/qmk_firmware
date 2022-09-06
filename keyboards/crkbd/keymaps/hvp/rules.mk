@@ -1,5 +1,10 @@
+
+VPATH += keyboards/crkbd/lib
+LIB_SRC += ssd1306.c i2c.c
+
 # If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/rgb_state_reader.c \
+SRC +=  ./lib/glcdfont.c \
+        ./lib/rgb_state_reader.c \
         ./lib/layer_state_reader.c \
         ./lib/logo_reader.c \
         ./lib/keylogger.c \
@@ -9,6 +14,4 @@ SRC +=  ./lib/rgb_state_reader.c \
 
 TAP_DANCE_ENABLE = yes
 EXTRAKEY_ENABLE = yes        # Audio control and System control
-OLED_ENABLE     = yes
-OLED_DRIVER     = SSD1306
 # LOCAL_GLCDFONT = yes

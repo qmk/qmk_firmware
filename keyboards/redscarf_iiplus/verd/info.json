@@ -1,15 +1,12 @@
 {
-  "keyboard_name": "RedScarfII+ Ver.D",
-  "manufacturer": "RedScarf",
+  "keyboard_name": "Red Scarf II+ Ver D",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x7778",
-    "device_version": "0.0.1"
-  },
+  "width": 19,
+  "height": 5,
   "layouts": {  
     "LAYOUT_60_ansi_numpad_split0": {
+      "key_count": 79,
       "layout": [
 
         {"label":"~", "x":0, "y":0},
@@ -100,6 +97,7 @@
 
          },
       "LAYOUT_60_ansi_numpad": {
+      "key_count": 78,
       "layout": [
 
         {"label":"~", "x":0, "y":0},

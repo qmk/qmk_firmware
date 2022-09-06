@@ -138,7 +138,7 @@ void matrix_init_user(void) {
   }
 }
 
-layer_state_t default_layer_state_set_kb(layer_state_t state) {
+uint32_t default_layer_state_set_kb(uint32_t state) {
   // persist changes to default layers
   eeconfig_update_default_layer(state);
   return state;

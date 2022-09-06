@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "LFK7 Rev C-H",
-    "manufacturer": "LFKeyboards",
+    "keyboard_name": "LFK78/68 Rev C-H",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x4C46",
-        "pid": "0x3738",
-        "device_version": "0.0.1"
-    },
+    "width": 19.5,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

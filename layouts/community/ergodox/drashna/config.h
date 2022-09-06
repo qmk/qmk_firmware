@@ -45,7 +45,5 @@
 #    endif
 #endif
 
-#ifdef TAPPING_TERM
-#    undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 185
+#define PIMORONI_TRACKBALL_INVERT_X
+#define PIMORONI_TRACKBALL_INVERT_Y

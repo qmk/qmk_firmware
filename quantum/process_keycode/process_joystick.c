@@ -6,23 +6,38 @@
 #include <string.h>
 #include <math.h>
 
+bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record);
+
 bool process_joystick(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case JS_BUTTON0 ... JS_BUTTON_MAX:
-            if (record->event.pressed) {
-                register_joystick_button(keycode - JS_BUTTON0);
-            } else {
-                unregister_joystick_button(keycode - JS_BUTTON0);
-            }
-            return false;
+    if (process_joystick_buttons(keycode, record) && (joystick_status.status & JS_UPDATED) > 0) {
+        send_joystick_packet(&joystick_status);
+        joystick_status.status &= ~JS_UPDATED;
     }
+
     return true;
 }
 
 __attribute__((weak)) void joystick_task(void) {
-    if (process_joystick_analogread()) {
-        joystick_flush();
+    if (process_joystick_analogread() && (joystick_status.status & JS_UPDATED)) {
+        send_joystick_packet(&joystick_status);
+        joystick_status.status &= ~JS_UPDATED;
     }
+}
+
+bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record) {
+    if (keycode < JS_BUTTON0 || keycode > JS_BUTTON_MAX) {
+        return true;
+    } else {
+        if (record->event.pressed) {
+            joystick_status.buttons[(keycode - JS_BUTTON0) / 8] |= 1 << (keycode % 8);
+        } else {
+            joystick_status.buttons[(keycode - JS_BUTTON0) / 8] &= ~(1 << (keycode % 8));
+        }
+
+        joystick_status.status |= JS_UPDATED;
+    }
+
+    return true;
 }
 
 uint16_t savePinState(pin_t pin) {
@@ -58,9 +73,7 @@ void restorePinState(pin_t pin, uint16_t restoreState) {
 #endif
 }
 
-__attribute__((weak)) bool process_joystick_analogread() {
-    return process_joystick_analogread_quantum();
-}
+__attribute__((weak)) bool process_joystick_analogread() { return process_joystick_analogread_quantum(); }
 
 bool process_joystick_analogread_quantum() {
 #if JOYSTICK_AXES_COUNT > 0
@@ -106,7 +119,7 @@ bool process_joystick_analogread_quantum() {
 
         wait_us(10);
 
-#    if defined(ANALOG_JOYSTICK_ENABLE) && (defined(__AVR__) || defined(PROTOCOL_CHIBIOS))
+#    if defined(__AVR__) || defined(PROTOCOL_CHIBIOS)
         int16_t axis_val = analogReadPin(joystick_axes[axis_index].input_pin);
 #    else
         // default to resting position

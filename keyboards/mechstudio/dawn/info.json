@@ -1,13 +1,9 @@
 {
   "keyboard_name": "Dawn", 
-  "manufacturer": "Mech Studio",
   "url": "https://mech.studio/projects/dawn/", 
   "maintainer": "dejaeghered", 
-  "usb": {
-    "vid": "0x4D53",
-    "pid": "0x0004",
-    "device_version": "0.0.4"
-  },
+  "width": 15, 
+  "height": 6, 
   "layouts": {
     "LAYOUT": {
       "layout": [

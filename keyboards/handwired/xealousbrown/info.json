@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "XeaLous Brown Keyboard",
-  "manufacturer": "XeaL",
+  "keyboard_name": "Xealous-Brown",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x606A",
-    "device_version": "0.0.2"
-  },
+  "width": 15,
+  "height": 5,
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

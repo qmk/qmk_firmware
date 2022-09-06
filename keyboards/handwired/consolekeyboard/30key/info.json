@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Console Keyboard 30",
-    "manufacturer": "Streap Cheap",
+    "keyboard_name": "Console Keyboard",
     "url": "https://www.thingiverse.com/thing:3167050",
     "maintainer": "Gareth Edwards",
-    "usb": {
-        "vid": "0x6761",
-        "pid": "0x3433",
-        "device_version": "0.0.1"
-    },
+    "width": 12,
+    "height": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [

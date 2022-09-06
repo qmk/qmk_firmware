@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Maja",
-    "manufacturer": "KBDFans",
+    "keyboard_name": "MAJA",
     "url": "",
     "maintainer": "DZTECH",
-    "usb": {
-        "vid": "0x4B42",
-        "pid": "0x6068",
-        "device_version": "0.0.1"
-    },
+    "width": 18.75,
+    "height": 5.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

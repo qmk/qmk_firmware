@@ -1,6 +1,9 @@
 {
   "manufacturer": "CapsUnlocked",
+  "keyboard_name": "CapsUnlocked CU80 v2 ISO",
   "maintainer": "rys / maz0r",
+  "height": 6.5,
+  "width": 18.25,
   "bootloader": "atmel-dfu",
   "debounce": 5,
   "diode_direction": "COL2ROW",
@@ -8,7 +11,7 @@
     "audio": false,
     "backlight": false,
     "bluetooth": false,
-    "bootmagic": true,
+    "bootmagic_lite": true,
     "command": false,
     "console": false,
     "extrakey": true,
@@ -36,7 +39,8 @@
   },
   "url": "https://caps-unlocked.com/cu80-round-2/",
   "usb": {
-    "device_version": "0.0.1",
+    "device_ver": "0x0001",
+    "pid": "0x0080",
     "vid": "0x4355"
   },
   "community_layouts": ["tkl_iso"],

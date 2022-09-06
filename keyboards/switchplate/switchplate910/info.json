@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "910",
-    "manufacturer": "Switchplate Peripherals",
+    "keyboard_name": "southpaw910",
     "url": "",
     "maintainer": "MxBluE",
-    "usb": {
-        "vid": "0x54F3",
-        "pid": "0x2065",
-        "device_version": "0.0.1"
-    },
+    "width": 22.5,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

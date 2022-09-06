@@ -1,13 +1,9 @@
 {
     "keyboard_name": "CB87",
-    "manufacturer": "CherryB Studio",
     "url": "https://discord.gg/qVwv3gcq83",
     "maintainer": "duongaanh",
-    "usb": {
-        "vid": "0x4342",
-        "pid": "0x8787",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

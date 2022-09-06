@@ -1,12 +1,8 @@
 {
-    "keyboard_name": "Raine",
-    "manufacturer": "AKB",
+    "keyboard_name": "raine",
     "maintainer": "e11i0t23",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x6060",
-        "device_version": "0.0.1"
-    },
+    "width": 16.25,
+    "height": 5.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

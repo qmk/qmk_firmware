@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Uni660 V2 ANSI",
-    "manufacturer": "SiRius",
+    "keyboard_name": "Uni660",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x5352",
-        "pid": "0x0202",
-        "device_version": "20.0.4"
-    },
+    "width": 19,
+    "height": 5,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

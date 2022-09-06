@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Herringbone Pro",
-    "manufacturer": "Ramon Imbao",
     "url": "",
     "maintainer": "Ramon Imbao",
-    "usb": {
-        "vid": "0xB16B",
-        "pid": "0x440B",
-        "device_version": "0.1.2"
-    },
+    "width": 18.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

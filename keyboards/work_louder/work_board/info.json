@@ -1,12 +1,9 @@
 {
-    "keyboard_name": "Work Board",
-    "manufacturer": "Work Louder",
-    "url": "https://worklouder.cc/",
+    "keyboard_name": "work board",
+    "url": "",
     "maintainer": "Work Louder",
-    "usb": {
-      "vid": "0x574C",
-      "pid": "0xDCD1"
-    },
+    "width": 13,
+    "height": 4,
     "layouts": {
         "LAYOUT_2u_space": {
             "layout": [

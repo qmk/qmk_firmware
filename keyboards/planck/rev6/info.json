@@ -1,15 +1,12 @@
 {
-  "keyboard_name": "Planck",
-  "manufacturer": "OLKB",
+  "keyboard_name": "Planck rev 6",
   "url": "https://olkb.com/planck",
   "maintainer": "jackhumbert",
-  "usb": {
-    "vid": "0x03A8",
-    "pid": "0xA4F9",
-    "device_version": "0.0.6"
-  },
+  "width": 12,
+  "height": 4,
   "layouts": {
     "LAYOUT_ortho_4x12": {
+      "key_count": 48,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },
@@ -62,6 +59,7 @@
       ]
     },
     "LAYOUT_planck_1x2uC": {
+      "key_count": 47,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },
@@ -113,6 +111,7 @@
       ]
     },
     "LAYOUT_planck_1x2uL": {
+      "key_count": 47,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },
@@ -164,6 +163,7 @@
       ]
     },
     "LAYOUT_planck_1x2uR": {
+      "key_count": 47,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },
@@ -215,6 +215,7 @@
       ]
     },
     "LAYOUT_planck_2x2u": {
+      "key_count": 46,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },

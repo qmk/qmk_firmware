@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "J-01 Rev1",
-    "manufacturer": "Prototypist",
+    "keyboard_name": "J-01",
     "url": "https://prototypist.net/",
     "maintainer": "Flexerm",
-    "usb": {
-        "vid": "0x5450",
-        "pid": "0x6A31",
-        "device_version": "0.0.1"
-    },
+    "width": 19,
+    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

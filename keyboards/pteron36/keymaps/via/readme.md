@@ -1,1 +1,1 @@
-# Default keymap for via
+# Default keymap for Redox Wireless

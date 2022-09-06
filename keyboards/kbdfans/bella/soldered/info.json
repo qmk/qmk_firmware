@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Bella Soldered",
-    "manufacturer": "KBDfans",
+    "keyboard_name": "bella_soldered",
     "url": "",
     "maintainer": "kbdfans",
-    "usb": {
-        "vid": "0x4B42",
-        "pid": "0x0007",
-        "device_version": "0.0.1"
-    },
+    "width": 16.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

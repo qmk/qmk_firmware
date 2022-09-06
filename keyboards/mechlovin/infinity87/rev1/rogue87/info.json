@@ -1,15 +1,11 @@
 {
-    "keyboard_name": "Rogue87 Rev.1",
-    "manufacturer": "Mechlovin.Studio",
+    "keyboard_name": "Rogue87",
     "url": "",
     "maintainer": "Mechlovin' Studio",
-    "usb": {
-        "vid": "0x4D4C",
-        "pid": "0x8704",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.25,
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":2, "y":0},

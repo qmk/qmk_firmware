@@ -1,13 +1,9 @@
 {
     "keyboard_name": "stoutgat",
-    "manufacturer": "TKW",
     "url": "https://github.com/vattern/stoutgat",
     "maintainer": "vattern",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x7811",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 6,
     "layouts": {
         "LAYOUT_encoder": {
             "layout": [

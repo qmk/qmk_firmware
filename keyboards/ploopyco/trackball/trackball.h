@@ -19,8 +19,11 @@
 #pragma once
 
 #include "quantum.h"
+#include "spi_master.h"
+#include "pmw3360.h"
 #include "analog.h"
 #include "opt_encoder.h"
+#include "pointing_device.h"
 #if defined(KEYBOARD_ploopyco_trackball_rev1)
 #    include "rev1.h"
 #elif defined(KEYBOARD_ploopyco_trackball_rev1_005)
@@ -32,6 +35,11 @@
 #define OPT_ENC2 F4
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
+
+void process_mouse(report_mouse_t* mouse_report);
+void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
+void process_wheel(report_mouse_t* mouse_report);
+void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 
 #define LAYOUT(BL, BM, BR, BF, BB) \
     { {BL, BM, BR, BF, BB}, }
@@ -59,6 +67,3 @@ enum ploopy_keycodes {
     PLOOPY_SAFE_RANGE,
 #endif
 };
-
-bool encoder_update_user(uint8_t index, bool clockwise);
-bool encoder_update_kb(uint8_t index, bool clockwise);

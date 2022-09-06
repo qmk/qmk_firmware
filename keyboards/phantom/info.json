@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Phantom",
-    "manufacturer": "bpiphany",
     "url": "https://deskthority.net/wiki/Phantom",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x5B50",
-        "device_version": "0.0.3"
-    },
+    "width": 18.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Console Keyboard 18",
-    "manufacturer": "Stream Cheap",
+    "keyboard_name": "Console Keyboard",
     "url": "https://www.thingiverse.com/thing:3167050",
     "maintainer": "Gareth Edwards",
-    "usb": {
-        "vid": "0x6761",
-        "pid": "0x3332",
-        "device_version": "0.0.1"
-    },
+    "width": 11,
+    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

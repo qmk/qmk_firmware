@@ -2,12 +2,11 @@
 
 ![Pteron36](https://i.imgur.com/PuXPWYfh.jpg)
 
-A 36-key keyboard with a bit more natural thumb cluster.
+A 36 key keyboard with a bit more natural thumb cluster.
 
 * Keyboard Maintainer: [Harshit Goel](https://github.com/harshitgoel96)
 * Hardware Supported: Pteron36 using promicro.
-* Hardware Availability: Files are available in the [pteron36 repository](https://github.com/harshitgoel96/pteron36-split-keyboard/releases/tag/v1.2.0)
-  * The hardware is open source; you can simply send the Gerber to a PCB manufacturer and have them made.
+* Hardware Availability: Hardware is opensource, you can simply send the gerber to a PCB manufacturere and them made. File are availalbe in [pteron36 repository](https://github.com/harshitgoel96/pteron36-split-keyboard/releases/tag/v1.2.0)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -21,15 +20,12 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Default Keymap and Miryoku Layout support
 
-The keyboard was designed with miryoku layout in mind. The default layout is very basic and does not have much use, modify the keymap as you see fit. Build keyboard with manna-harbour_miryoku as keymap, qmk should compile the firmare without any issue.
+The keyboard was designed with miryoku layout in mind. The default layout is very basic and does not have much use. I will be opening a pr to make the keyboard available with miryoku layout soon. Currently to build the keyboard with miryoku you will have to checkout latest miryoku qmk repo, and add the keyboard folder there manually. After copying the folder run the following command
 
-    make pteron36:manna-harbour_miryoku
-
+  make pteron36:manna-harbour_miryoku 
+  
 Add miryoku params as required.
-Pteron36 uses community layout, hence there is no need for separate keymap folder for any keymap that support 5x3_3 layout.
 
-## VIA support
+## OLED and RotaryEncoder
 
-The VIA keymap is working as intended. 
-
-    make pteron36:via
+I am working on adding OLED and RotaryEncoder support in keyboard config. 

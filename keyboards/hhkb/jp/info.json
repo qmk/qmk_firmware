@@ -1,15 +1,11 @@
 {
-  "keyboard_name": "JP",
-  "manufacturer": "HHKB",
+  "keyboard_name": "HHKB JP",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0x4848",
-    "pid": "0x0002",
-    "device_version": "1.0.4"
-  },
+  "width": 15,
+  "height": 5,
   "layouts": {
-    "LAYOUT_jp": {
+    "LAYOUT_JP": {
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "!", "x": 1, "y": 0 },

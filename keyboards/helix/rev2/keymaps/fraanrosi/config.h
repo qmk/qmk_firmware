@@ -25,9 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // If you need more program area, try select and reduce rgblight modes to use.
 
-#ifndef LED_ANIMATIONS
-#    define LED_ANIMATIONS
-#endif
+#define RGBLIGHT_ANIMATIONS
 
 // Selection of RGBLIGHT MODE to use.
 #if defined(LED_ANIMATIONS)
@@ -40,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
    #define RGBLIGHT_EFFECT_RGB_TEST
    #define RGBLIGHT_EFFECT_ALTERNATING
-   #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 #undef RGBLIGHT_HUE_STEP

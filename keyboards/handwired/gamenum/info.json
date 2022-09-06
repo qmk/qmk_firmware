@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "GameNum", 
-  "manufacturer": "Seth-Senpai",
+  "keyboard_name": "gamenum", 
   "url": "", 
   "maintainer": "qmk", 
-  "usb": {
-    "vid": "0x1234",
-    "pid": "0x5678",
-    "device_version": "0.0.1"
-  },
+  "width": 4, 
+  "height": 5, 
   "layouts": {
     "LAYOUT": {
       "layout": [

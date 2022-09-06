@@ -1,15 +1,12 @@
 {
     "keyboard_name": "Key 65 Universal",
-    "manufacturer": "Fox Lab",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x464C",
-        "pid": "0x0004",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
+            "key_count": 68,
             "layout": [
                 {"label":"K00 (D0,B1)", "x":0, "y":0},
                 {"label":"K01 (D0,F5)", "x":1, "y":0},
@@ -82,6 +79,7 @@
             ]
         },
         "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
+            "key_count": 67,
             "layout": [
                 {"label":"K00 (D0,B1)", "x":0, "y":0},
                 {"label":"K01 (D0,F5)", "x":1, "y":0},
@@ -153,6 +151,7 @@
             ]
         },
         "LAYOUT_iso_all": {
+            "key_count": 71,
             "layout": [
                 {"label":"K00 (D0,B1)", "x":0, "y":0},
                 {"label":"K01 (D0,F5)", "x":1, "y":0},
@@ -228,6 +227,7 @@
             ]
         },
         "LAYOUT_all": {
+            "key_count": 71,
             "layout": [
                 {"label":"K00 (D0,B1)", "x":0, "y":0},
                 {"label":"K01 (D0,F5)", "x":1, "y":0},

@@ -1,15 +1,12 @@
 {
-    "keyboard_name": "The nori Keyboard",
-    "manufacturer": "di0ib",
+    "keyboard_name": "nori",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-      "vid": "0x4025",
-      "pid": "0x0A0C",
-      "device_version": "4.4.4"
-    },
+    "width": 12,
+    "height": 4,
     "layouts": {
       "LAYOUT_ortho_4x4": {
+          "key_count": 16,
           "layout": [
             { "w": 1, "x": 0, "y": 0 },
             { "w": 1, "x": 1, "y": 0 },
@@ -29,6 +26,7 @@
             { "w": 1, "x": 3, "y": 3 } ]
       },
       "LAYOUT_ortho_4x8": {
+          "key_count": 32,
           "layout": [
             { "w": 1, "x": 0, "y": 0 },
             { "w": 1, "x": 1, "y": 0 },
@@ -64,6 +62,7 @@
             { "w": 1, "x": 7, "y": 3 } ]
       },
         "LAYOUT_ortho_4x12": {
+            "key_count": 48,
             "layout": [
               { "w": 1, "x": 0, "y": 0 },
               { "w": 1, "x": 1, "y": 0 },

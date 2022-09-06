@@ -25,6 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 #define SOFT_SERIAL_PIN D0
 
+/* USB Device descriptor parameters */
+#define DEVICE_VER      0x0001
+
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -76,3 +79,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION

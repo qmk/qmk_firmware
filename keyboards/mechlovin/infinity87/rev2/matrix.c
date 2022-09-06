@@ -60,12 +60,61 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
+#elif (DIODE_DIRECTION == COL2ROW)
+
+static void select_row(uint8_t row) {
+    setPinOutput(row_pins[row]);
+    writePinLow(row_pins[row]);
+}
+
+static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInputHigh(row_pins[x]);
+    }
+}
+
+static void init_pins(void) {
+    unselect_rows();
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        setPinInputHigh(col_pins[x]);
+    }
+}
+
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value = current_matrix[current_row];
+
+    // Clear data in matrix row
+    current_matrix[current_row] = 0;
+
+    // Select row and wait for row selecton to stabilize
+    select_row(current_row);
+    wait_us(30);
+
+    // For each col...
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+
+        // Select the col pin to read (active low)
+        uint8_t pin_state = readPin(col_pins[col_index]);
+
+        // Populate the matrix row with the state of the col pin
+        current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+    }
+
+    // Unselect row
+    unselect_row(current_row);
+
+    return (last_row_value != current_matrix[current_row]);
+}
+
 #elif (DIODE_DIRECTION == ROW2COL)
 
 /* Cols 0 - 16
- * These columns use two 74HC138 3 to 8 bit demultiplexer. B0, F1 is the enable pin, must be set high (1) to use it.
+ * These columns use two 74HC138 3 to 8 bit demultiplexer. D6, D7 is the enable pin, must be set high (1) to use it.
  *
- * col / pin:     PB5  PB7  PF0  PB0  PF1  PE6
+ * col / pin:     PA0  PA1  PA2  PD6  PD7  PC4
  * 0:              0 ── 0 ── 0    1 ── 0    0 
  * ────────────────────────────────────────────
  * 1:              0 ── 0 ── 1    1 ── 0    0
@@ -104,103 +153,103 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 static void select_col(uint8_t col) {
     switch (col) {
         case 0:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinHigh(B0);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinHigh(D6);
           break;
         case 1:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinHigh(B0);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinHigh(D6);
           break;
         case 2:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinHigh(B0);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinHigh(D6);
           break;
         case 3:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinHigh(B0);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinHigh(D6);
           break;
         case 4:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinHigh(B0);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinHigh(D6);
           break;
         case 5:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinHigh(B0);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinHigh(D6);
           break;
         case 6:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinHigh(B0);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinHigh(D6);
           break;
         case 7:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinHigh(B0);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinHigh(D6);
           break;
         case 8:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinHigh(F1);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinHigh(D7);
           break;
         case 9:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinHigh(F1);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinHigh(D7);
           break;
         case 10:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinHigh(F1);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinHigh(D7);
           break;
         case 11:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinHigh(F1);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinHigh(D7);
           break;
         case 12:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinHigh(F1);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinHigh(D7);
           break;
         case 13:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinHigh(F1);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinHigh(D7);
           break;
         case 14:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinHigh(F1);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinHigh(D7);
           break;
         case 15:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinHigh(F1);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinHigh(D7);
           break;
         case 16:
-          writePinLow(E6);
+          writePinLow(C4);
           break;
     }
 }
@@ -208,117 +257,117 @@ static void select_col(uint8_t col) {
 static void unselect_col(uint8_t col) {
     switch (col) {
         case 0:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinLow(B0);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
           break;
         case 1:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinLow(B0);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D6);
           break;
         case 2:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinLow(B0);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
           break;
         case 3:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinLow(B0);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D6);
           break;
         case 4:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinLow(B0);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
           break;
         case 5:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinLow(B0);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D6);
           break;
         case 6:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinLow(B0);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D6);
           break;
         case 7:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinLow(B0);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D6);
           break;
         case 8:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinLow(F1);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
           break;
         case 9:
-          writePinHigh(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinLow(F1);
+          writePinHigh(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D7);
           break;
         case 10:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinLow(F1);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
           break;
         case 11:
-          writePinHigh(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinLow(F1);
+          writePinHigh(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D7);
           break;
         case 12:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinHigh(F0);
-          writePinLow(F1);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
           break;
         case 13:
-          writePinLow(B5);
-          writePinHigh(B7);
-          writePinLow(F0);
-          writePinLow(F1);
+          writePinLow(A0);
+          writePinHigh(A1);
+          writePinLow(A2);
+          writePinLow(D7);
           break;
         case 14:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinLow(F0);
-          writePinLow(F1);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinLow(A2);
+          writePinLow(D7);
           break;
         case 15:
-          writePinLow(B5);
-          writePinLow(B7);
-          writePinHigh(F0);
-          writePinLow(F1);
+          writePinLow(A0);
+          writePinLow(A1);
+          writePinHigh(A2);
+          writePinLow(D7);
           break;
         case 16:
-          writePinHigh(E6);
+          writePinHigh(C4);
           break;
     }
 }
 
 static void unselect_cols(void) {
     //Native
-    writePinHigh(E6);
+    writePinHigh(C4);
 
     //Demultiplexer
-    writePinLow(B0);
-    writePinLow(F1);
-    writePinHigh(B5);
-    writePinHigh(B7);
-    writePinHigh(F0);
+    writePinLow(D6);
+    writePinLow(D7);
+    writePinHigh(A0);
+    writePinHigh(A1);
+    writePinHigh(A2);
 }
 
 static void init_pins(void) {
@@ -326,12 +375,12 @@ static void init_pins(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinInputHigh(row_pins[x]);
     }
-    setPinOutput(B5);
-    setPinOutput(B7);
-    setPinOutput(F0);
-    setPinOutput(B0);
-    setPinOutput(F1);
-    setPinOutput(E6);
+    setPinOutput(A0);
+    setPinOutput(A1);
+    setPinOutput(A2);
+    setPinOutput(D6);
+    setPinOutput(D7);
+    setPinOutput(C4);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
@@ -377,7 +426,12 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
-#if defined(DIRECT_PINS) || (DIODE_DIRECTION == ROW2COL)
+#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
+    // Set row, read cols
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        changed |= read_cols_on_row(current_matrix, current_row);
+    }
+#elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
         changed |= read_rows_on_col(current_matrix, current_col);

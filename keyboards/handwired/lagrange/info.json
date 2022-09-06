@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Lagrange",
-    "manufacturer": "Dimitris Papavasiliou",
     "url": "https://github.com/dpapavas/lagrange-keyboard",
     "maintainer": "dpapavas",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x2718",
-        "device_version": "0.0.1"
-    },
+    "width": 19,
+    "height": 8.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -16,6 +16,7 @@
 //#define LEADER_TIMEOUT 300
 //#define BACKLIGHT_BREATHING
 //#define PERMISSIVE_HOLD
+// #define QMK_KEYS_PER_SCAN 4
 
 //audio clicky
   //#define AUDIO_CLICKY

@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "Pteron",
-  "manufacturer": "QMK",
+  "keyboard_name": "pteron",
   "url": "",
   "maintainer": "FSund",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x6060",
-    "device_version": "0.0.1"
-  },
+  "width": 17,
+  "height": 5.95,
   "layouts": {
     "LAYOUT": {
       "layout": [

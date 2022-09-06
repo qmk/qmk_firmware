@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      |QK_BOOT |DEBUG |      |      |      |      |DMREC1|DMREC2|      |      |      |
+ * |      |RESET |DEBUG |      |      |      |      |DMREC1|DMREC2|      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |GAMING|      |      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QK_BOOT, DEBUG,     _______,   _______,  _______, _______, DM_REC1, DM_REC2,   _______,   _______,   _______,
+    _______, RESET,   DEBUG,     _______,   _______,  _______, _______, DM_REC1, DM_REC2,   _______,   _______,   _______,
     _______, TG(_GAMING), ___,   _______,   _______,  _______, _______, DM_PLY1, DM_PLY2,   AU_OFF,    AU_ON,     _______,
     _______, _______, _______,   _______,   _______,  _______, _______, DM_RSTP, _______,   MU_OFF,    MU_ON,     MU_MOD,
     _______, _______, _______,   AG_TOGG,   _______,  _______, _______, _______, _______,   MUV_DE,    MUV_IN,    _______
@@ -190,7 +190,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-bool dip_switch_update_user(uint8_t index, bool active) {
+void dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 1:
             if (active) {
@@ -199,7 +199,6 @@ bool dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
-    return true;
 }
 
 void matrix_scan_user(void) {

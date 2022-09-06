@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Scarlet",
-    "manufacturer": "Lucid",
+    "keyboard_name": "Scarlet PCB's",
     "url": "http://www.lucidkb.com",
     "maintainer": "Lucid",
-    "usb": {
-        "vid": "0x7667",
-        "pid": "0x0004",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_tkl_all": {
             "layout": [

@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * ,-----------------------.
   * |RGB_TOG|RGBMOD+|       |
   * |-------+-------+-------|
-  * |RGBHUE+|RGBBRI+|Spec FN|   Hold along with previous to access special funtions (QK_BOOT)
+  * |RGBHUE+|RGBBRI+|Spec FN|   Hold along with previous to access special funtions (RESET)
   * `-------+-------+-------'
   */
   [1] = LAYOUT(
@@ -43,13 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* LAYER 2
   * ,-----------------------.
-  * | QK_BOOT |RGBMOD-|       |
+  * | RESET |RGBMOD-|       |
   * |-------+-------+-------|
   * |RGBHUE-|RGBBRI-|       |
   * `-------+-------+-------'
   */
   [2] = LAYOUT(
-    QK_BOOT, RGB_RMOD, KC_NO, \
+    RESET, RGB_RMOD, KC_NO, \
     RGB_HUD, RGB_VAD, KC_TRNS  \
   )
   

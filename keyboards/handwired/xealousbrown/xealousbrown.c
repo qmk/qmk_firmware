@@ -15,6 +15,15 @@
  */
 #include "xealousbrown.h"
 
+void matrix_init_kb(void) {
+	// put your keyboard start-up code here
+	// runs once when the firmware starts up
+
+	matrix_init_user();
+}
+
+
+
 #ifdef BENCHMARK_MATRIX
 #    include "timer.h"
 #    include <stdint.h>
@@ -41,9 +50,13 @@ void            matrix_scan_user(void) {
     
     last_timer = timer;
     if ((timer % 1000 == 0) && (timer != last_print_out)) {
-        print("Scans: ");
+        print("Benchmark:");
+        print("\n");
+        print_dec(timer);
+        print("\n");
         print_dec(scans);
         print("\n");
+        print("-------");
         scans          = 0;
         last_print_out = timer;
     }

@@ -1,15 +1,12 @@
 {
-  "keyboard_name": "retro_refit",
-  "manufacturer": "Nobody",
+  "keyboard_name": "handwired/retro_refit",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x6060",
-    "device_version": "0.0.1"
-  },
+  "width": 15.5,
+  "height": 6.5,
   "layouts": {
     "LAYOUT": {
+      "key_count": 81,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},

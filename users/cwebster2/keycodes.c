@@ -27,7 +27,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_LCTL);
             } else {
                 unregister_code(KC_LCTL);
-                if (timer_elapsed(my_colon_timer) < TAPPING_TERM - 50) {
+                if (timer_elapsed(my_colon_timer) < TAPPING_TERM) {
                     SEND_STRING(":");
                 }
             }
@@ -38,15 +38,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LSFT_T(KC_T):
-        case LSFT_T(KC_N):
-            return TAPPING_TERM - 50;
         case LGUI_T(KC_A):
-        case LALT_T(KC_R):
-        case LCTL_T(KC_S):
-        case LCTL_T(KC_E):
-        case LALT_T(KC_I):
-        case LGUI_T(KC_O):
+        case LALT_T(KC_S):
+        case LCTL_T(KC_D):
+        case LSFT_T(KC_F):
+        case RSFT_T(KC_J):
+        case RCTL_T(KC_K):
+        case RALT_T(KC_L):
+        case RGUI_T(KC_SCLN):
             return TAPPING_TERM + 150;
         default:
             return TAPPING_TERM;

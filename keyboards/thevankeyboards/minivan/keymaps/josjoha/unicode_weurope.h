@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#pragma once
-
 /*        An amount of Unicode #defines
  *        - western european accented characters
  *        - various punctuation symbols, different number formats, math symbols, other symbols. 

@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "RARTLITE",
-    "manufacturer": "Alabahuy",
+    "keyboard_name": "RART4X4",
     "url": "",
     "maintainer": "Alabahuy",
-    "usb": {
-        "vid": "0x414C",
-        "pid": "0x4040",
-        "device_version": "0.0.1"
-    },
+    "width": 15.25,
+    "height": 4.25,
     "layouts": {
         "LAYOUT_right_numpad": {
             "layout": [

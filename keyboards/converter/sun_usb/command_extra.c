@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "uart.h"
+#include "protocol/serial.h"
 
 bool sun_bell = false;
 bool sun_click = false;
@@ -20,41 +20,41 @@ bool command_extra(uint8_t code)
             return false;
         case KC_DEL:
             print("Reset\n");
-            uart_write(0x01);
+            serial_send(0x01);
             break;
         case KC_HOME:
 	    sun_bell = !sun_bell;
 	    if (sun_bell) {
                 print("Bell On\n");
-	        uart_write(0x02);
+	        serial_send(0x02);
 	    } else {
 	        print("Bell Off\n");
-	        uart_write(0x03);
+	        serial_send(0x03);
 	    }
             break;
         case KC_END:
 	    sun_click = !sun_click;
 	    if (sun_click) {
 	        print("Click On\n");
-		uart_write(0x0A);
+		serial_send(0x0A);
 	    } else {
 	        print("Click Off\n");
-                uart_write(0x0B);
+                serial_send(0x0B);
 	    }
 	    break;
         case KC_PGUP:
             print("LED all on\n");
-            uart_write(0x0E);
-            uart_write(0xFF);
+            serial_send(0x0E);
+            serial_send(0xFF);
             break;
         case KC_PGDOWN:
             print("LED all off\n");
-            uart_write(0x0E);
-            uart_write(0x00);
+            serial_send(0x0E);
+            serial_send(0x00);
             break;
         case KC_INSERT:
             print("layout\n");
-            uart_write(0x0F);
+            serial_send(0x0F);
             break;
         default:
             xprintf("Unknown extra command: %02X\n", code);

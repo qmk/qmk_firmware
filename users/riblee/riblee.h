@@ -23,7 +23,6 @@ enum layer_names {
     _HUNGARIAN,
     _COLEMAK,
     _DVORAK,
-    _WORKMAN,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -34,7 +33,7 @@ enum custom_keycodes {
     HUNGARIAN,
     COLEMAK,
     DVORAK,
-    WORKMAN,
+    BACKLIT
 };
 
 #define LOWER MO(_LOWER)

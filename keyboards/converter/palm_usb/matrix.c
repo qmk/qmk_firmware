@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "uart.h"
+#include "protocol/serial.h"
 #include "timer.h"
 
 
@@ -57,6 +57,8 @@ static uint16_t disconnect_counter = 0;
 #define ROW(code)    (( code & ROW_MASK ) >>3)
 #define COL(code)    ((code & COL_MASK) )
 #define KEYUP(code) ((code & KEY_MASK) >>7 )
+
+static bool is_modified = false;
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -164,7 +166,7 @@ uint8_t rts_reset(void) {
 uint8_t get_serial_byte(void) {
     static uint8_t code;
     while(1) {
-        code = uart_read();
+        code = serial_recv();
         if (code) { 
             debug_hex(code); debug(" ");
             return code;
@@ -240,7 +242,7 @@ void matrix_init(void)
     debug_enable = true;
     //debug_matrix =true;
     
-    uart_init(9600); // arguments all #defined 
+    serial_init(); // arguments all #defined 
  
 #if (HANDSPRING == 0)
     pins_init(); // set all inputs and outputs. 
@@ -290,7 +292,7 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     uint8_t code;
-    code = uart_read();
+    code = serial_recv();
     if (!code) {
 /*         
         disconnect_counter ++;
@@ -352,6 +354,11 @@ uint8_t matrix_scan(void)
     return code;
 }
 
+bool matrix_is_modified(void)
+{
+    return is_modified;
+}
+
 inline
 bool matrix_has_ghost(void)
 {
@@ -378,4 +385,13 @@ void matrix_print(void)
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
+}
+
+uint8_t matrix_key_count(void)
+{
+    uint8_t count = 0;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        count += bitpop(matrix[i]);
+    }
+    return count;
 }

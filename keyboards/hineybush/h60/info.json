@@ -1,13 +1,9 @@
 {
     "keyboard_name": "h60",
-    "manufacturer": "hineybush",
     "url": "",
     "maintainer": "hineybush",
-    "usb": {
-        "vid": "0x04D8",
-        "pid": "0xEBBE",
-        "device_version": "0.0.1"
-    },
+    "width": 15,
+    "height": 5,
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

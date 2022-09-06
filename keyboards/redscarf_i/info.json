@@ -1,15 +1,11 @@
 {
     "keyboard_name": "Red Scarf I",
-    "manufacturer": "Red Scarf",
     "url": "",
     "maintainer": "qmk, defying",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x5959",
-        "device_version": "0.0.1"
-    },
+    "width": 4,
     "layouts": {
         "LAYOUT_ortho_5x4": {
+            "key_count": 20,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -34,6 +30,7 @@
             ]
         },
         "LAYOUT_ortho_6x4": {
+            "key_count": 24,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -62,6 +59,7 @@
             ]
         },
         "LAYOUT_numpad_5x4": {
+            "key_count": 17,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -83,6 +81,7 @@
             ]
         },
         "LAYOUT_numpad_6x4": {
+            "key_count": 21,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

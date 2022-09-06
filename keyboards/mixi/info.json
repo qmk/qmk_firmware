@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Mixi",
-    "manufacturer": "gregorio",
     "url": "https://tokopedia.com/sell-stuffs",
     "maintainer": "ohchiko",
-    "usb": {
-        "vid": "0x4752",
-        "pid": "0x4D49",
-        "device_version": "0.0.1"
-    },
+    "width": 3,
+    "height": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [

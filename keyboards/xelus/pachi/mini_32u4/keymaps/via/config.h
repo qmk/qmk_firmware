@@ -18,3 +18,6 @@
 
 // 3 layers or else it will not fit in EEPROM
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
+
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 4

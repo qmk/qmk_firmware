@@ -1,12 +1,8 @@
 {
-    "keyboard_name": "TMKL",
-    "manufacturer": "Team Mechlovin",
+    "keyboard_name": "tmkl",
     "maintainer": "Team Mechlovin",
-    "usb": {
-        "vid": "0x4D4C",
-        "pid": "0xC601",
-        "device_version": "0.0.1"
-    },
+    "width": 15,
+    "height": 6,
     "layouts": {
         "LAYOUT": {
             "layout": [

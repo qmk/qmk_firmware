@@ -2,6 +2,8 @@
     "keyboard_name": "Ergodox layout",
     "url": "",
     "maintainer": "qmk",
+    "width": 19.75,
+    "height": 7.25,
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [

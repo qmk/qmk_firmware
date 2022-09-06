@@ -2,6 +2,8 @@
 
 #include "quantum.h"
 
+#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
+
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT( \

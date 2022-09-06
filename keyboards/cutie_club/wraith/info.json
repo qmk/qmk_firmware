@@ -1,15 +1,12 @@
 {
-    "keyboard_name": "Wraith",
-    "manufacturer": "Amber",
+    "keyboard_name": "wraith",
     "url": "",
     "maintainer": "amberstarlight",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 6,
     "layouts": {
         "LAYOUT_ansi": {
+            "key_count": 80,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
@@ -94,6 +91,7 @@
             ]
         },
         "LAYOUT_iso": {
+            "key_count": 81,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
