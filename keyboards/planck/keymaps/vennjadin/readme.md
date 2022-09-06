@@ -6,7 +6,7 @@ This is the layout that I use for my planck, for designing, coding and type desi
 - features a left-hand numpad for use while mainly using the mouse
 - has a clever setup for various Python syntax items that also work well in web dev stuff
 - is extremely space efficient, featuring all my needed keys/layouts in just three layers (plus the simple keyboard control layer)
-- targets mac os norwegian language keyboard
+- targets mac os norwegian language keyboard. Some codes seem not to match the ASCII art, but this is due to the disconnect between Mac and Windows keyboards. The QMK spec for Norwegian keyboard targets Windows keyboards.
 
 ## Layers
 ### Main
@@ -18,7 +18,7 @@ This is the layout that I use for my planck, for designing, coding and type desi
 |------+------+------+------+------+------+------+------+------+------+------+------|
 | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   Å  |Ent|shift|
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| 1pass| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | GUI  | Alt  |Mute  |@     |
+| 1pass| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | GUI  | Alt  |Ctrl  |@     |
 `-----------------------------------------------------------------------------------'
  ```
 
@@ -31,18 +31,18 @@ This is the layout that I use for my planck, for designing, coding and type desi
 |------+------+------+------+------+------+------+------+------+------+------+------|
 |      |  0   |  1   |  2   |  3   |  *   |  \   |   {  |  }   |  #   |   $  |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-|enter |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+|enter |      |      |      |      |             |      |      |      |      |      |
 `-----------------------------------------------------------------------------------'
 ```
 
 ### Raise
 ```
 ,-----------------------------------------------------------------------------------.
-|      |  ~   |  ¨   |   `  |  ´   |   ^  |      | BrD  |  up  |  BrU |      |      |
+|      |  ~   |  ¨   |   `  |  ´   |   ^  |      | BrD  |  up  |  BrU | next |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-|      |      |  sft | alt  |  cmd |      |      |  left|  down| right|      |      |
+|      |      |  sft | alt  |  cmd |      |      |  left|  down| right| play |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-|      |      |      |      |      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      | vol- | mute | vol+ | prev |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
 |      |      |      |      |      |             |      |      |      |      |      |
 `-----------------------------------------------------------------------------------'
