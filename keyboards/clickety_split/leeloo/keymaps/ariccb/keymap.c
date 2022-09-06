@@ -33,6 +33,7 @@
 // entirely and just use numbers.
 enum layer_names {
     _COLEMAKDH,
+    _QWERTY,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -41,6 +42,7 @@ enum layer_names {
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
 #define LOW_OSS LT(_LOWER, KC_F24)   // lower on hold, One Shot Shift on tap
+#define L_RAISE MO(_RAISE)
 #define MTLCTL_F9 MT(MOD_LCTL, KC_9)
 #define MTLSFT_F10 MT(MOD_LSFT, KC_F10)
 #define MTLALT_F11 MT(MOD_LALT, KC_F11)
@@ -66,8 +68,10 @@ enum layer_names {
 #define SUPERHUMAN A(KC_S)
 #define WINDOWSW C(G(A(KC_V)))
 
+
 enum planck_keycodes {
   COLEMAKDH = SAFE_RANGE,
+  QWERTY,
   LOWER,
   RAISE,
   ADJUST,
@@ -81,7 +85,8 @@ enum planck_keycodes {
   ALT_TAB,
   LLOCK,
   MULTILEFT,
-  MULTIRIGHT
+  MULTIRIGHT,
+  TOGGLE_LAYOUT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -104,7 +109,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   FNESC,   KC_Q,     KC_W,   KC_F,      KC_P,      KC_B,                             KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
   MTTAB,   KC_A,     KC_R,   KC_S,      KC_T,      KC_G,                             KC_M,    KC_N,   KC_E,    KC_I,   KC_O,    MTRCTLQUO,
   KC_LSFT, MTLGUI_Z, KC_X,   KC_C,      KC_D,      KC_V,    PTOYSMUTE,     WINDOWSW, KC_K,    KC_H,   KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
-                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  MO(2),  KC_MPLY //playpause
+                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  L_RAISE, KC_MPLY //playpause
+),
+
+/* MIT Layout (QWERTY)
+ * .------------F1---------------------------.                                      .--------------------------F8-------------.
+ * | HYPER|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Select|
+ * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
+ * |ADJ,ESC| Q   |  W   |  E   |  R   |  T   |  // this rotary is for window        |  Y   |  U   |  I   |  O   |  P   | BSPC |
+ * |------+------+------+------+------+------|     management, zoom, and            |------+------+------+------+------+------|
+ * | MTTAB|  A   |  S   |  D   |  F   |  G   |-------.                      .-------|  H   |  J   |  K   |  L   |  ;   |CTRL,'|
+ * |------+------+------+------+------+------| Ptoys |                      | Window|------+------+------+------+------+------|
+ * | SHIFT| WIN_Z|  X   |  C   |  V   |  B   | Mute  |-->Mute mic           | Switch|  N   |  M   |  ,   |  .   |  /   |SFT,\ |
+ * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
+ *                      | ALT | CTRL |  LOW  /      /                        \ LALT \       |     |MW R/L|  //This rotary for Play+Pause
+ *                      | APP | ENTER| OSSft/ SPACE/                          \DELETE\ SPACE|RAISE| DIAL2|--> Right Scroll
+ *                      `-------------------------'                            '-------------------------'
+ */
+  [_COLEMAKDH] = LAYOUT(
+  KC_HYPR, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,  KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
+  FNESC,   KC_Q,     KC_W,   KC_E,      KC_R,      KC_T,                             KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC,
+  MTTAB,   KC_A,     KC_S,   KC_D,      KC_F,      KC_G,                             KC_H,    KC_J,   KC_K,    KC_L,   KC_SCLN, MTRCTLQUO,
+  KC_LSFT, MTLGUI_Z, KC_X,   KC_C,      KC_V,      KC_B,    PTOYSMUTE,     WINDOWSW, KC_N,    KC_M,   KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
+                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  L_RAISE,  KC_MPLY //playpause
 ),
 
 /* MIT Layout (LOWER)
@@ -122,18 +149,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '--------------------------'
  */
   [_LOWER] = LAYOUT(
-  KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                             KC_F6,  KC_F7,  KC_F8, KC_F9, KC_F10,  KC_DEL,
-  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_AT,  KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL, KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, G(A(KC_B)),       LLOCK,  KC_AT,  KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_0,   KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
+  KC_HYPR,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                              KC_6,    KC_7,   KC_8,  KC_9,  KC_0,    KC_DEL,
+  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
+  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, G(A(KC_B)),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
 /* MIT Layout (RAISE)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | HYPER|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |      |
+ * | HYPER|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |TG_LAY|
  * |------+------+------+------+------+------|                               point  |------+------+------+------+------+------|
- * |      | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   =  | Bksp |
+ * |      | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   :  | Bksp |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |      | Menu | MsLft| MDown|Mright| Vol+ |-------.                      .-------|ARROW | MbLft|SELWORD|MbRgt|      |   !  |
  * |------+------+------+------+------+------|Cursor |                      | Layer |------+------+------+------+------+------|
@@ -144,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '--------------------------'    on Button Press
  */
   [_RAISE] = LAYOUT(
-  KC_HYPR, KC_NO,   KC_NO,   KC_NO,   KC_NO,   DEBUG,                                KC_BTN2, KC_NO,   KC_NUM,  KC_NO,   KC_NO,   KC_DEL,
+  KC_HYPR, KC_NO,   KC_NO,   KC_NO,   KC_NO,   DEBUG,                                KC_BTN2, KC_NO,   KC_NUM,  KC_NO,   KC_NO,   TOGGLE_LAYOUT,
   KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                              KC_TRNS, LLOCK,   KC_BTN3, KC_TRNS, KC_COLN, KC_BSPC,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                              ARROW,   KC_BTN1, SELWORD, KC_BTN2, KC_TRNS, KC_EXLM,
   KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),         LLOCK,   BRACES,  BRACES2, KC_LABK, KC_RABK, KC_QUES, KC_PIPE,
@@ -153,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (ADJUST)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | HYPER|      |      |      |      |Calc  |                                      | TabDn| TabUp| Back |Frward|      |SclLok|
+ * | HYPER|      |      |      |      |Calc  |                                      |TabUp | Back |      |Frward|      |SclLok|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |******| Ctrl | Shift| Alt  |      |MyComp|                                      |      | Home |  Up  |  End |      |Delete|
+ * |******| Ctrl | Shift| Alt  |      |MyComp|                                      |TabDn | Home |  Up  |  End |      |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |      |  F5  |      |      |DESKTL|DESKTR|--------.                     .-------|2xLeft| Left | Down | Right|2xRigt|CAPSLK|
  * |------+------+------+------+------+------| Cursor |                     | Layer |------+------+------+------+------+------|
@@ -166,8 +193,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `--------------------------'                           '---------------------------'    on Button Press
  */
   [_ADJUST] = LAYOUT(
-  KC_HYPR, DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGDN),    C(KC_PGUP), A(KC_LEFT),   A(KC_RIGHT), KC_NO,       KC_SLCK,
-  KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS, KC_MYCM,                               KC_TRNS,       KC_HOME,    KC_UP,        KC_END,      KC_TRNS,     KC_DEL,
+  KC_HYPR, DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGUP),    A(KC_LEFT), KC_NO,        A(KC_RIGHT), KC_NO,       KC_SLCK,
+  KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS, KC_MYCM,                               C(KC_PGDN),    KC_HOME,    KC_UP,        KC_END,      KC_TRNS,     KC_DEL,
   KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, DESKTL,  DESKTR,                                MULTILEFT,     KC_LEFT,    KC_DOWN,      KC_RGHT,     MULTIRIGHT,  KC_CAPS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB, LCTL(KC_0),          KC_TRNS, LCTL(KC_D),    KC_PGUP,    LCA(KC_DOWN), KC_PGDN,     KC_PAUSE,    KC_INS,
                              KC_TRNS, KC_TRNS, KC_TRNS, WINDOWSW,            KC_TRNS, KC_TRNS,       KC_TRNS,    KC_MNXT
@@ -335,6 +362,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   const uint8_t oneshot_mods = get_oneshot_mods();
 
   switch (keycode) {
+      case TOGGLE_LAYOUT:
+      if (record->event.pressed) {
+        if (layer_state_is(_QWERTY)) {
+          layer_off(_QWERTY);
+          layer_on(_COLEMAKDH);
+        } else if (layer_state_is(_COLEMAKDH)) {
+          layer_off(_COLEMAKDH);
+          layer_on(_QWERTY);
+        }
+      }
       case BRACES:  // Types (), or {}, and puts cursor between braces.
       if (record->event.pressed) {
           clear_mods();  // Temporarily disable mods.
@@ -488,12 +525,12 @@ const uint16_t PROGMEM pasteclip_combo[]            = {KC_X, KC_D, COMBO_END};
 const uint16_t PROGMEM pastetxt_combo[]             = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM selectall_combo[]            = {MTLGUI_Z, KC_D, COMBO_END};
 const uint16_t PROGMEM questionmark_combo[]         = {KC_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM exclamationmark_combo[]      = {KC_SLSH, KC_BSLS, COMBO_END};
+const uint16_t PROGMEM exclamationmark_combo[]      = {KC_SLSH, MTRSFTBSLS, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]           = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]            = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTCTL_ENT, COMBO_END};
 //const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END}; // this one was causing too many issues with confusion
-const uint16_t PROGMEM sleep_combo[]                = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM sleep_combo[]                = {KC_F2, KC_F9, KC_F10, KC_F11, COMBO_END};
 const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
 const uint16_t PROGMEM numlock_combo[]              = {KC_L, KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]             = {KC_LSFT, MTRSFTBSLS, COMBO_END};
