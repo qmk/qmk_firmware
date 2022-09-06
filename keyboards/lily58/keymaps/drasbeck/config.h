@@ -1,5 +1,5 @@
 /*
-Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck 
+Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck
  *
  * You are free to:
  *
@@ -19,8 +19,6 @@ Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
-
-#define USE_SERIAL_PD2
 
 #define ENCODERS_PAD_A { F4 }
 #define ENCODERS_PAD_B { F5 }
