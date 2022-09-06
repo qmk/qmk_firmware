@@ -174,14 +174,14 @@ uint8_t led_matrix_is_enabled_eeprom(void);
 uint32_t led_matrix_disable_timeout_get(void);
 void     led_matrix_disable_timeout_set(uint32_t timeout);
 void     led_matrix_disable_time_reset(void);
-#    endif
-#endif
+#    endif // LED_DISABLE_TIMEOUT > 0
+#endif // LED_DISABLE_TIMEOUT
 
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 void led_matrix_driver_shutdown(void);
 bool led_matrix_is_driver_shutdown(void);
 bool led_matrix_driver_allow_shutdown(void);
-#endif
+#endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
@@ -198,7 +198,7 @@ typedef struct {
     void (*shutdown)(void);
     /* Exit from shutdown state. */
     void (*exit_shutdown)(void);
-#endif
+#endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 } led_matrix_driver_t;
 
 static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {

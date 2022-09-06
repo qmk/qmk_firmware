@@ -418,7 +418,7 @@ static void rgb_task_flush(uint8_t effect) {
         rgb_matrix_driver.exit_shutdown();
         driver_shutdown = false;
     }
-#endif
+#endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
     // update pwm buffers
     rgb_matrix_update_pwm_buffers();
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
@@ -426,7 +426,7 @@ static void rgb_task_flush(uint8_t effect) {
     if (effect == RGB_MATRIX_NONE && !driver_shutdown && rgb_matrix_driver_allow_shutdown()) {
         rgb_matrix_driver_shutdown();
     }
-#endif
+#endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
     // next task
     rgb_task_state = SYNCING;
@@ -507,7 +507,7 @@ void rgb_matrix_init(void) {
     rgb_matrix_driver.init();
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
     driver_shutdown = false;
-#endif
+#endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
     g_last_hit_tracker.count = 0;
@@ -728,7 +728,7 @@ void rgb_matrix_increase_val_helper(bool write_to_eeprom) {
         dprintf("increase_val to enable");
         rgb_matrix_toggle_eeprom_helper(write_to_eeprom);
     }
-#endif
+#endif // RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL
     rgb_matrix_sethsv_eeprom_helper(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, qadd8(rgb_matrix_config.hsv.v, RGB_MATRIX_VAL_STEP), write_to_eeprom);
 }
 void rgb_matrix_increase_val_noeeprom(void) {
@@ -745,7 +745,7 @@ void rgb_matrix_decrease_val_helper(bool write_to_eeprom) {
         dprintf("decrease_val to disable\n");
         rgb_matrix_toggle_eeprom_helper(write_to_eeprom);
     }
-#endif
+#endif // RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL
 }
 void rgb_matrix_decrease_val_noeeprom(void) {
     rgb_matrix_decrease_val_helper(false);
@@ -819,7 +819,7 @@ void rgb_matrix_disable_timeout_set(uint32_t timeout) {
 void rgb_matrix_disable_time_reset(void) {
     rgb_anykey_timer = 0;
 }
-#endif
+#endif // RGB_DISABLE_TIMEOUT > 0
 
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 void rgb_matrix_driver_shutdown(void) {
@@ -834,4 +834,4 @@ bool rgb_matrix_is_driver_shutdown(void) {
 __attribute__((weak)) bool rgb_matrix_driver_allow_shutdown(void) {
     return true;
 };
-#endif
+#endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE

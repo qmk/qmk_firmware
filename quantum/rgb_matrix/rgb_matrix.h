@@ -196,13 +196,14 @@ uint8_t rgb_matrix_is_enabled_eeprom(void);
 uint32_t rgb_matrix_disable_timeout_get(void);
 void     rgb_matrix_disable_timeout_set(uint32_t timeout);
 void     rgb_matrix_disable_time_reset(void);
-#    endif
-#endif
+#    endif // RGB_DISABLE_TIMEOUT > 0
+#endif // RGB_DISABLE_TIMEOUT
+
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 void rgb_matrix_driver_shutdown(void);
 bool rgb_matrix_is_driver_shutdown(void);
 bool rgb_matrix_driver_allow_shutdown(void);
-#endif
+#endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
 #ifndef RGBLIGHT_ENABLE
 #    define eeconfig_update_rgblight_current eeconfig_update_rgb_matrix
@@ -262,7 +263,7 @@ typedef struct {
     void (*shutdown)(void);
     /* Exit from shutdown state. */
     void (*exit_shutdown)(void);
-#endif
+#endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 } rgb_matrix_driver_t;
 
 static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {

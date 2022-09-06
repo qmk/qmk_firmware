@@ -356,7 +356,7 @@ static void led_task_flush(uint8_t effect) {
         led_matrix_driver.exit_shutdown();
         driver_shutdown = false;
     }
-#endif
+#endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
     // update pwm buffers
     led_matrix_update_pwm_buffers();
@@ -366,7 +366,7 @@ static void led_task_flush(uint8_t effect) {
     if (effect == LED_MATRIX_NONE && !driver_shutdown && led_matrix_driver_allow_shutdown()) {
         led_matrix_driver_shutdown();
     }
-#endif
+#endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
     // next task
     led_task_state = SYNCING;
@@ -447,7 +447,7 @@ void led_matrix_init(void) {
     led_matrix_driver.init();
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
     driver_shutdown = false;
-#endif
+#endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
     g_last_hit_tracker.count = 0;
@@ -617,7 +617,7 @@ void led_matrix_increase_val_helper(bool write_to_eeprom) {
         dprintf("increase_val to enable");
         led_matrix_toggle_eeprom_helper(write_to_eeprom);
     }
-#endif
+#endif // LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
     led_matrix_set_val_eeprom_helper(qadd8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom);
 }
 void led_matrix_increase_val_noeeprom(void) {
@@ -634,7 +634,7 @@ void led_matrix_decrease_val_helper(bool write_to_eeprom) {
         dprintf("decrease_val to disable\n");
         led_matrix_toggle_eeprom_helper(write_to_eeprom);
     }
-#endif
+#endif // LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
 }
 void led_matrix_decrease_val_noeeprom(void) {
     led_matrix_decrease_val_helper(false);
@@ -708,7 +708,7 @@ void led_matrix_disable_timeout_set(uint32_t timeout) {
 void led_matrix_disable_time_reset(void) {
     led_anykey_timer = 0;
 }
-#endif
+#endif // LED_DISABLE_TIMEOUT > 0
 
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 void led_matrix_driver_shutdown(void) {
@@ -723,4 +723,4 @@ bool led_matrix_is_driver_shutdown(void) {
 __attribute__((weak)) bool led_matrix_driver_allow_shutdown(void) {
     return true;
 };
-#endif
+#endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE

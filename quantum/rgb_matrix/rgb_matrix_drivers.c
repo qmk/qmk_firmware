@@ -97,7 +97,7 @@ static void init(void) {
 #        if defined(LED_DRIVER_SHUTDOWN_PIN)
     setPinOutput(LED_DRIVER_SHUTDOWN_PIN);
     writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
-#        endif
+#        endif // LED_DRIVER_SHUTDOWN_PIN
 
     CKLED2001_init(DRIVER_ADDR_1);
 #        if defined(DRIVER_ADDR_2)
@@ -315,7 +315,7 @@ static void shutdown(void) {
 #                        endif
 #                    endif
 #                endif
-#            endif
+#            endif // LED_DRIVER_SHUTDOWN_PIN
 }
 
 static void exit_shutdown(void) {
@@ -332,9 +332,9 @@ static void exit_shutdown(void) {
 #                        endif
 #                    endif
 #                endif
-#            endif
+#            endif // LED_DRIVER_SHUTDOWN_PIN
 }
-#        endif
+#        endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
 const rgb_matrix_driver_t rgb_matrix_driver = {.init = init,
                                                .flush = flush,
@@ -343,7 +343,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {.init = init,
 #        if defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
                                                .shutdown = shutdown,
                                                .exit_shutdown = exit_shutdown
-#        endif
+#        endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 };
 #    endif
 

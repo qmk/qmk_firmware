@@ -252,7 +252,7 @@ static void shutdown(void) {
 #                        endif
 #                    endif
 #                endif
-#            endif
+#            endif // LED_DRIVER_SHUTDOWN_PIN
 }
 
 static void exit_shutdown(void) {
@@ -269,9 +269,9 @@ static void exit_shutdown(void) {
 #                        endif
 #                    endif
 #                endif
-#            endif
+#            endif // LED_DRIVER_SHUTDOWN_PIN
 }
-#        endif
+#        endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
 const led_matrix_driver_t led_matrix_driver = {.init = init,
                                                .flush = flush,
@@ -280,7 +280,7 @@ const led_matrix_driver_t led_matrix_driver = {.init = init,
 #        if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE)
                                                .shutdown = shutdown,
                                                .exit_shutdown = exit_shutdown
-#        endif
+#        endif // LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 };
 #    endif
 #endif
