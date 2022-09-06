@@ -69,7 +69,7 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 
 ## Encoder map :id=encoder-map
 
-Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your `rules.mk`:
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
 
 ```make
 ENCODER_MAP_ENABLE = yes
@@ -87,6 +87,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 ```
+
+?> This should only be enabled at the keymap level.
 
 Using encoder mapping pumps events through the normal QMK keycode processing pipeline, resulting in a _keydown/keyup_ combination pushed through `process_record_xxxxx()`. To configure the amount of time between the encoder "keyup" and "keydown", you can add the following to your `config.h`:
 
