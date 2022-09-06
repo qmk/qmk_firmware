@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
-/* Use I2C or Serial */
-#define USE_SERIAL
-//#define USE_MATRIX_I2C
-
 /* Soft Serial defines */
 #define SOFT_SERIAL_PIN D2
 #define SERIAL_USE_MULTI_TRANSACTION

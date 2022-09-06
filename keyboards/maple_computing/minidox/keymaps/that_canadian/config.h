@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../../config.h"
 
-#define USE_SERIAL
-
 #define EE_HANDS
 
 /* ws2812 RGB LED */

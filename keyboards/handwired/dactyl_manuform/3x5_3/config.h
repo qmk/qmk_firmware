@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// Communication
-// #define USE_I2C
-#define USE_SERIAL
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8

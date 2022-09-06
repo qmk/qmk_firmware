@@ -18,9 +18,6 @@
 #define DEBOUNCE 5
 
 
-/* Serial settings */
-#define USE_SERIAL
-
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2
 

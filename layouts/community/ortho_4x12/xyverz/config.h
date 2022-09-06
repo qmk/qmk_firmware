@@ -3,8 +3,6 @@
 
 #define MIDI_BASIC
 
-#define USE_SERIAL
-
 #define EE_HANDS
 
 #undef RGBLED_NUM
