@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_TIMEOUT 600000
 #endif
 
-#define USE_SERIAL_PD2
-
 // #define FORCE_NKRO
 
 #define QMK_ESC_OUTPUT F4  // usually COL
