@@ -1,4 +1,4 @@
-// AK_BOTH_START(KC_Q, KC_EXLM)  // The first letter is the key. Second letter is what the default output is if none of the conditions are met
+//AK_BOTH_START(KC_Q, KC_EXLM)  // The first letter is the key. Second letter is what the default output is if none of the conditions are met
 //   R_BTH(KC_W, KC_B, KC_U)   // for example, this would output "bu" if the keys "qw" were pressed
 //   R_FST(KC_A, KC_Q)
 //   R_FST(KC_E, KC_Q)
@@ -10,26 +10,26 @@
 //   R_FST(KC_S, KC_Q)
 //   R_FST(KC_M, KC_Q)
 //   R_FST(KC_SPC, KC_Q)
-AK_SND_ONLY_START(KC_L)
+AK_SND_ONLY_START(KC_L) // fixes LK bigram
   R_SND(KC_J, KC_K)
-AK_SND_ONLY_START(KC_J)
+AK_SND_ONLY_START(KC_J) // fixes JU stretch
   R_SND(KC_L, KC_U)
-AK_SND_ONLY_START(KC_S)
+AK_SND_ONLY_START(KC_S) // fixes SC bigram
   R_SND(KC_V, KC_C)
-  AK_SND_ONLY_START(KC_C)
+  AK_SND_ONLY_START(KC_C) // fixes CS bigram
   R_SND(KC_X, KC_S)
-AK_SND_ONLY_START(KC_F)
+AK_SND_ONLY_START(KC_F)   // fixes FS bigram
   R_SND(KC_P, KC_S)
-AK_SND_ONLY_START(KC_P)
+AK_SND_ONLY_START(KC_P)   // fixes PT bigram
   R_SND(KC_F, KC_T)
-//AK_SND_ONLY_START(KC_U)
-//  R_SND(KC_SCLN, KC_E)
-AK_SND_ONLY_START(KC_D)
+// fixes DG bigram        // fixes DG bigram
   R_SND(KC_X, KC_G)
-AK_SND_ONLY_START(KC_E)
+AK_SND_ONLY_START(KC_E)   // fixes E, bigram
   R_SND(KC_SLSH, KC_COMM)
-//AK_SND_ONLY_START(KC_PMNS)  // Have to disable this for now with trying the current configuration of my numpad layout. (0 next to encoder, . next to 1)
-//  R_SND(KC_P0, KC_SPC)
+AK_SND_ONLY_START(KC_W)   // fixes WR bigram
+  R_SND(KC_P, KC_R)
+AK_SND_ONLY_START(KC_PMNS)  // allows (-0) -> (- )(-space)
+  R_SND(KC_0, KC_SPC)
 AK_BOTH_START(KC_U, KC_U)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
-  R_BTH(KC_Y, KC_U, KC_E)     // If uy is pressed quickly, outputs ue
-  R_BTH(KC_SCLN, KC_U, KC_Y)  // If u; is pressed quickly, outputs uy
+  R_BTH(KC_Y, KC_U, KC_E)     // fixes UE bigram
+  R_BTH(KC_SCLN, KC_U, KC_Y)  // allows quickly typing UY now that UY->UE

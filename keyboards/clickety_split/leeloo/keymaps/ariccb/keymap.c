@@ -79,7 +79,9 @@ enum planck_keycodes {
   BRACES2,
   ARROW,
   ALT_TAB,
-  LLOCK
+  LLOCK,
+  MULTILEFT,
+  MULTIRIGHT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -109,22 +111,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------.                                      .-----------------------------------------.
  * | HYPER|   1  |   2  |   3  |   4  |   5  |                                      |   6  |   7  |   8  |   9  |   0  |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   @  |   7  |   8  |   9  |   :  | Bsp  |
+*  |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   ^  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |S(TAB)|   ~  |   ^  |   %  |   (  |   )  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
- * | SHIFT|   |  |   &  |   "  |   {  |   }  | DIAL1 |--> Toggle HDR        | Lock  |   .  |   1  |   2  |   3  |   /  |  *   |
+ * | SHIFT|   |  |   &  |   "  |   {  |   }  | DIAL1 |--> Toggle HDR        | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    on Button Press   |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /                        \      \       |      |MW U/D|
- *                      | APP | ENTER| OSSft/ SPACE/                          \ Del  \ Space|  0   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
+ *                      | APP | ENTER| OSSft/ SPACE/                          \ Space\   0  |  .   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
  *                      `-------------------------'                            '--------------------------'
  */
   [_LOWER] = LAYOUT(
-  KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                             KC_F6,   KC_F7, KC_F8, KC_F9, KC_F10,  KC_DEL,
-  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_AT,   KC_7,  KC_8,  KC_9,  KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL,  KC_4,  KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, G(A(KC_B)),       LLOCK,  KC_PDOT, KC_1,  KC_2,  KC_3,  KC_PSLS, KC_PAST,
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          ALT_DEL, KC_SPC, KC_P0, A(S(KC_J)) //Switch Audio Recording Source
+  KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                             KC_F6,  KC_F7,  KC_F8, KC_F9, KC_F10,  KC_DEL,
+  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_AT,  KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL, KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
+  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, G(A(KC_B)),       LLOCK,  KC_AT,  KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_0,   KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
 /* MIT Layout (RAISE)
@@ -149,13 +151,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_BTN1, KC_BTN3, KC_TRNS, LCTL(KC_F) // search on page (ctrl f)
 ),
 
-/* MIT Layout (FN)
+/* MIT Layout (ADJUST)
  * .-----------------------------------------.                                      .-----------------------------------------.
  * | HYPER|      |      |      |      |Calc  |                                      | TabDn| TabUp| Back |Frward|      |SclLok|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |******| Ctrl | Shift| Alt  |      |MyComp|                                      |      | Home |  Up  |  End |      |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |      |  F5  |      |      |DESKTL|DESKTR|--------.                     .-------|C Left| Left | Down | Right|CRight|CAPSLK|
+ * |      |  F5  |      |      |DESKTL|DESKTR|--------.                     .-------|2xLeft| Left | Down | Right|2xRigt|CAPSLK|
  * |------+------+------+------+------+------| Cursor |                     | Layer |------+------+------+------+------+------|
  * |      |      |      |      |      |AltTab| Word   |--> Resets Zoom      | Lock  |Ctrl D|PageUp|AltPDn|PageDn| PAUSE|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
@@ -166,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
   KC_HYPR, DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGDN),    C(KC_PGUP), A(KC_LEFT),   A(KC_RIGHT), KC_NO,       KC_SLCK,
   KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS, KC_MYCM,                               KC_TRNS,       KC_HOME,    KC_UP,        KC_END,      KC_TRNS,     KC_DEL,
-  KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, DESKTL,  DESKTR,                                C(KC_LEFT),    KC_LEFT,    KC_DOWN,      KC_RGHT,     C(KC_RGHT),  KC_CAPS,
+  KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, DESKTL,  DESKTR,                                MULTILEFT,     KC_LEFT,    KC_DOWN,      KC_RGHT,     MULTIRIGHT,  KC_CAPS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB, LCTL(KC_0),          KC_TRNS, LCTL(KC_D),    KC_PGUP,    LCA(KC_DOWN), KC_PGDN,     KC_PAUSE,    KC_INS,
                              KC_TRNS, KC_TRNS, KC_TRNS, WINDOWSW,            KC_TRNS, KC_TRNS,       KC_TRNS,    KC_MNXT
 )
@@ -398,6 +400,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
       }
       break;
+      case MULTILEFT:
+      if (record->event.pressed){
+        tap_code16(LCTL(KC_LEFT));
+        tap_code16(LCTL(KC_LEFT));
+      }
+      break;
+      case MULTIRIGHT:
+      if (record->event.pressed){
+        tap_code16(LCTL(KC_RGHT));
+        tap_code16(LCTL(KC_RGHT));
+      }
+      break;
   }
   return true;
 };
@@ -427,6 +441,7 @@ enum combo_events {
   PASTETEXT,
   SELECTALL,
   QUESTIONMARK,
+  EXCLAMATIONMARK,
   EQUALS,
   PLUS,
   MINUS,
@@ -473,10 +488,11 @@ const uint16_t PROGMEM pasteclip_combo[]            = {KC_X, KC_D, COMBO_END};
 const uint16_t PROGMEM pastetxt_combo[]             = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM selectall_combo[]            = {MTLGUI_Z, KC_D, COMBO_END};
 const uint16_t PROGMEM questionmark_combo[]         = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM exclamationmark_combo[]      = {KC_SLSH, KC_BSLS, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]           = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]            = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTCTL_ENT, COMBO_END};
-const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END};
+//const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END}; // this one was causing too many issues with confusion
 const uint16_t PROGMEM sleep_combo[]                = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
 const uint16_t PROGMEM numlock_combo[]              = {KC_L, KC_U, KC_Y, COMBO_END};
@@ -486,7 +502,7 @@ const uint16_t PROGMEM f8_combo[]                   = {KC_F6, KC_F7, COMBO_END};
 
 
 
-// const uint8_t combo_mods = get_mods();
+// const uint8_t combo_mods = get_mods();r
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
 
 combo_t key_combos[] = {
@@ -514,10 +530,11 @@ combo_t key_combos[] = {
   [PASTETEXT] = COMBO_ACTION(pastetxt_combo),
   [SELECTALL] = COMBO_ACTION(selectall_combo),
   [QUESTIONMARK] = COMBO_ACTION(questionmark_combo),
+  [EXCLAMATIONMARK] = COMBO_ACTION(exclamationmark_combo),
   [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
   [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
-  [MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
+  //[MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
   [SLEEP] = COMBO_ACTION(sleep_combo),
   [RESETKEY] = COMBO_ACTION(reset_combo),
   [NUMLOCKC] = COMBO_ACTION(numlock_combo),
@@ -691,6 +708,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(KC_QUES);
       }
       break;
+    case EXCLAMATIONMARK:
+      if (pressed) {
+        tap_code16(KC_EXLM);
+      }
+      break;
     case UNDERSCORE:
       if (pressed) {
         tap_code16(KC_UNDS);
@@ -724,21 +746,21 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         }
       }
       break;
-    case MOUSETOGGLE:
-      if (pressed) {
-        layer_invert(_ADJUST);
-        if(IS_LAYER_ON(_ADJUST)){
-          #ifdef AUDIO_ENABLE
-              PLAY_SONG(short_tone_on);
-          #endif
-        }
-        if(IS_LAYER_OFF(_ADJUST)){
-          #ifdef AUDIO_ENABLE
-              PLAY_SONG(short_tone_off);
-          #endif
-        }
-      }
-      break;
+    // case MOUSETOGGLE: this one was causing too many accidental confusions when it was activated.
+    //   if (pressed) {
+    //     layer_invert(_ADJUST);
+    //     if(IS_LAYER_ON(_ADJUST)){
+    //       #ifdef AUDIO_ENABLE
+    //           PLAY_SONG(short_tone_on);
+    //       #endif
+    //     }
+    //     if(IS_LAYER_OFF(_ADJUST)){
+    //       #ifdef AUDIO_ENABLE
+    //           PLAY_SONG(short_tone_off);
+    //       #endif
+    //     }
+    //   }
+    //   break;
     case SLEEP:
       if (pressed) {
         tap_code16(KC_SLEP);
