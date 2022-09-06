@@ -193,7 +193,7 @@ uint32_t rgb_matrix_disable_timeout_get(void);
 void     rgb_matrix_disable_timeout_set(uint32_t timeout);
 void     rgb_matrix_disable_time_reset(void);
 #    endif // RGB_DISABLE_TIMEOUT > 0
-#endif // RGB_DISABLE_TIMEOUT
+#endif         // RGB_DISABLE_TIMEOUT
 
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 void rgb_matrix_driver_shutdown(void);

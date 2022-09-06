@@ -334,7 +334,7 @@ static void exit_shutdown(void) {
 #                endif
 #            endif // LED_DRIVER_SHUTDOWN_PIN
 }
-#        endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+#        endif     // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 
 const rgb_matrix_driver_t rgb_matrix_driver = {.init = init,
                                                .flush = flush,

@@ -171,7 +171,7 @@ uint32_t led_matrix_disable_timeout_get(void);
 void     led_matrix_disable_timeout_set(uint32_t timeout);
 void     led_matrix_disable_time_reset(void);
 #    endif // LED_DISABLE_TIMEOUT > 0
-#endif // LED_DISABLE_TIMEOUT
+#endif         // LED_DISABLE_TIMEOUT
 
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 void led_matrix_driver_shutdown(void);
