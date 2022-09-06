@@ -90,14 +90,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 ?> This should only be enabled at the keymap level.
 
-Using encoder mapping pumps events through the normal QMK keycode processing pipeline, resulting in a _keydown/keyup_ combination pushed through `process_record_xxxxx()`. To configure the amount of time between the encoder "keyup" and "keydown", you can add the following to your `config.h`:
-
-```c
-#define ENCODER_MAP_KEY_DELAY 10
-```
-
-?> By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
-
 ## Callbacks
 
 When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
