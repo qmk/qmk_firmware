@@ -75,7 +75,7 @@ void rgb_theme_step_reverse(void) {
 
 rgb_theme_color_t get_rgb_theme_color(uint8_t index) {
     rgb_theme_t theme = get_rgb_theme();
-    size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
+    size_t rgb_theme_color_max = ARRAY_SIZE(theme.colors);
 
     if (index == _ADJUST) {
         return default_adjust;

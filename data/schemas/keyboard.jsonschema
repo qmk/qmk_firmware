@@ -75,8 +75,7 @@
                 "driver": {
                     "type": "string",
                     "enum": ["BluefruitLE", "RN42"]
-                },
-                "lto": {"type": "boolean"}
+                }
             }
         },
         "board": {
@@ -89,7 +88,6 @@
             "enum": [
                 "atmel-dfu",
                 "bootloadhid",
-                "bootloadHID",
                 "caterina",
                 "custom",
                 "gd32v-dfu",
@@ -106,7 +104,6 @@
                 "tinyuf2",
                 "unknown",
                 "usbasploader",
-                "USBasp",
                 "wb32-dfu"
             ]
         },
@@ -390,6 +387,20 @@
                 "protocol": {
                     "type": "string",
                     "enum": ["all", "geminipr", "txbolt"]
+                }
+            }
+        },
+        "ps2": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "mouse_enabled": {"type": "boolean"},
+                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "driver": {
+                    "type": "string",
+                    "enum": ["busywait", "interrupt", "usart", "vendor"]
                 }
             }
         },

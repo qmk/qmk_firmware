@@ -39,11 +39,11 @@ This is a C header file that is one of the first things included, and will persi
   * defines your VID, and for most DIY projects, can be whatever you want
 * `#define PRODUCT_ID 0x5678`
   * defines your PID, and for most DIY projects, can be whatever you want
-* `#define DEVICE_VER 0`
+* `#define DEVICE_VER 0x0100`
   * defines the device version (often used for revisions)
-* `#define MANUFACTURER Me`
+* `#define MANUFACTURER "Me"`
   * generally who/whatever brand produced the board
-* `#define PRODUCT Board`
+* `#define PRODUCT "Board"`
   * the name of the keyboard
 * `#define MATRIX_ROWS 5`
   * the number of rows in your keyboard's matrix

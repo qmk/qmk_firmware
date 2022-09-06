@@ -1,10 +1,5 @@
 #pragma once
 
-// Use serial comms for split keyboard
-// DO NOT enable USE_IDC - board will not respond.
-#define USE_SERIAL
-//#define USE_I2C
-
 #ifdef RGBLIGHT_ENABLE
    // Enable animations. +5500 bytes
    #define RGBLIGHT_ANIMATIONS

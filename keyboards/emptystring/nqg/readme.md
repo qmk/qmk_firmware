@@ -10,6 +10,6 @@ Hardware Availability: Kits are available from [SA_EndlessGame](http://twitter.c
 
 Make example for this keyboard (after setting up your build environment):
 
-    make emptystring/NQG:default
+    make emptystring/nqg:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

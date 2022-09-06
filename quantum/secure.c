@@ -3,6 +3,7 @@
 
 #include "secure.h"
 #include "timer.h"
+#include "util.h"
 
 #ifndef SECURE_UNLOCK_TIMEOUT
 #    define SECURE_UNLOCK_TIMEOUT 5000
@@ -59,7 +60,7 @@ void secure_activity_event(void) {
 
 void secure_keypress_event(uint8_t row, uint8_t col) {
     static const uint8_t sequence[][2] = SECURE_UNLOCK_SEQUENCE;
-    static const uint8_t sequence_len  = sizeof(sequence) / sizeof(sequence[0]);
+    static const uint8_t sequence_len  = ARRAY_SIZE(sequence);
 
     static uint8_t offset = 0;
     if ((sequence[offset][0] == row) && (sequence[offset][1] == col)) {

@@ -49,15 +49,6 @@
 #    define UNICODE_TYPE_DELAY 10
 #endif
 
-// Deprecated aliases
-#if !defined(UNICODE_KEY_MAC) && defined(UNICODE_KEY_OSX)
-#    define UNICODE_KEY_MAC UNICODE_KEY_OSX
-#endif
-#if !defined(UNICODE_SONG_MAC) && defined(UNICODE_SONG_OSX)
-#    define UNICODE_SONG_MAC UNICODE_SONG_OSX
-#endif
-#define UC_OSX UC_MAC
-
 enum unicode_input_modes {
     UC_MAC,   // macOS using Unicode Hex Input
     UC_LNX,   // Linux using IBus
@@ -86,6 +77,9 @@ void    persist_unicode_input_mode(void);
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void unicode_input_cancel(void);
+
+void unicode_input_mode_set_user(uint8_t input_mode);
+void unicode_input_mode_set_kb(uint8_t input_mode);
 
 void register_hex(uint16_t hex);
 void register_hex32(uint32_t hex);

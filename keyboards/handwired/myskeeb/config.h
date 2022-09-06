@@ -15,7 +15,6 @@
 
 // Comunication and Split Detection
 
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D3
 #define SELECT_SOFT_SERIAL_SPEED 1
 #define SPLIT_USB_DETECT
