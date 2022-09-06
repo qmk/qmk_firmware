@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 8
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3	
+#define DEBOUNCE 3
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -107,8 +107,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0	
+//#define BOOTMAGIC_LITE_COLUMN 0
 
-#define USE_SERIAL
 #define SPLIT_USB_DETECT
 #define EE_HANDS
