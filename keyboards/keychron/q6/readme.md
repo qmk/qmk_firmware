@@ -8,11 +8,41 @@ A customizable 100% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q6/rev_0160:default
+- **rev_0160** is ansi version of Q6, you can compile rev_0160 default keymap by using:
+
+```
+  make keychron/q6/rev_0160:default
+```
+
+- **rev_0161** is ansi version and with encoder of Q6, you can compile rev_0161 default keymap by using:
+
+```
+  make keychron/q6/rev_0161:default
+```
+
+- **rev_0162** is iso version of Q6, you can compile default rev_0162 keymap by using:
+
+```
+  make keychron/q6/rev_0162:default
+```
+
+- **rev_0163** is iso version and with encoder of Q6, you can compile rev_0163 default keymap by using:
+
+```
+  make keychron/q6/rev_0163:default
+```
 
 Flashing example for this keyboard:
 
-    make keychron/q6/rev_0160:flash
+- Put the keyboard into DFU/IAP mode by unplugging the keyboard, then holding the reset key while plugging it back in.
+- Run QMK Toolbox and flash the keyboard with the firmware you just built or just through command line by using:
+
+```
+  make keychron/q6/rev_0160:default:flash
+  make keychron/q6/rev_0161:default:flash
+  make keychron/q6/rev_0162:default:flash
+  make keychron/q6/rev_0163:default:flash
+```
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

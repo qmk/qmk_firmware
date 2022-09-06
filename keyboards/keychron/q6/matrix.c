@@ -15,14 +15,7 @@
  */
 
 #include "matrix.h"
-
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
-
-#include "debounce.h"
 #include "quantum.h"
-#include "util.h"
 
 // Pin connected to DS of 74HC595
 #define DATA_PIN C15
@@ -51,10 +44,6 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #ifndef CLR_VAL
 #    define CLR_VAL 0xFF
 #endif
-
-/* matrix state(1:on, 0:off) */
-extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
