@@ -2,7 +2,7 @@
   "keyboard_name": "Mars 6.5",
   "manufacturer": "FT",
   "url": "",
-  "maintainer": "qmk",
+  "maintainer": "wonderbeel",
   "usb": {
     "vid": "0x20A0",
     "pid": "0x422F",
