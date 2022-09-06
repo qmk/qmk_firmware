@@ -289,7 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case OS_MAC:
-      set_unicode_input_mode(UC_OSX);
+      set_unicode_input_mode(UC_MAC);
       return false;
       break;
 

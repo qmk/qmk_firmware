@@ -358,7 +358,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     return false;
     break;
   case OSX:
-    set_unicode_input_mode(UC_OSX);
+    set_unicode_input_mode(UC_MAC);
     return false;
     break;
    }

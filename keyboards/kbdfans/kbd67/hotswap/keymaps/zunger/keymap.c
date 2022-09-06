@@ -161,7 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_OSX);
+  set_unicode_input_mode(UC_MAC);
 }
 
 void matrix_init_user(void) {

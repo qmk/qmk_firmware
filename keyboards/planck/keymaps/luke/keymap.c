@@ -325,7 +325,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       set_unicode_input_mode(UC_LNX);
       break;
     case M_OSX:
-      set_unicode_input_mode(UC_OSX);
+      set_unicode_input_mode(UC_MAC);
       break;
     case M_FUNCTION:
       if (record->event.pressed) {

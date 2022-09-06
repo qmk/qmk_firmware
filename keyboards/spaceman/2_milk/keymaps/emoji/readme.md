@@ -16,7 +16,7 @@ You can change it permanently tapping 2 times the KeyOne to select the next mode
 
 ## Unicode Mode List
 - UC_LNX
-- UC_OSX
+- UC_MAC
 - UC_WIN
 - UC_WINC
 
