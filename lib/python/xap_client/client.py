@@ -1,13 +1,12 @@
 # Copyright 2022 QMK
 # SPDX-License-Identifier: GPL-2.0-or-later
-import hid
-
+from typing import List
 
 class XAPClient:
     """XAP device discovery
     """
     @staticmethod
-    def devices(search: str = None) -> list[dict]:
+    def devices(search: str = None) -> List[dict]:
         """Find compatible XAP devices
 
         Args:
@@ -19,6 +18,9 @@ class XAPClient:
         def _is_filtered_device(x):
             name = '%04x:%04x' % (x['vendor_id'], x['product_id'])
             return name.lower().startswith(search.lower())
+
+        # lazy import to avoid compile issues
+        import hid
 
         devices = filter(_is_xap_usage, hid.enumerate())
         if search:

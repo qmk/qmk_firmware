@@ -1,6 +1,5 @@
 # Copyright 2022 QMK
 # SPDX-License-Identifier: GPL-2.0-or-later
-import hid
 import json
 import time
 import gzip
@@ -39,6 +38,9 @@ class XAPDeviceBase:
         self.responses = {}
         self.timeout = timeout
         self.running = True
+
+        # lazy import to avoid compile issues
+        import hid
 
         self.dev = hid.Device(path=dev['path'])
 
