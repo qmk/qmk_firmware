@@ -10,25 +10,25 @@ Make example for this keyboard (after setting up your build environment):
 
 - **rev_0150** is ansi version of Q5, you can compile rev_0150 default keymap by using:
 
-```makefile
+```
   make keychron/q5/rev_0150:default
 ```
 
 - **rev_0151** is ansi version and with encoder of Q5, you can compile rev_0151 default keymap by using:
 
-```makefile
+```
   make keychron/q5/rev_0151:default
 ```
 
 - **rev_0152** is iso version of Q5, you can compile default rev_0152 keymap by using:
 
-```makefile
+```
   make keychron/q5/rev_0152:default
 ```
 
 - **rev_0153** is iso version and with encoder of Q5, you can compile rev_0153 default keymap by using:
 
-```makefile
+```
   make keychron/q5/rev_0153:default
 ```
 
@@ -37,7 +37,7 @@ Flashing example for this keyboard:
 - Put the keyboard into DFU/IAP mode by unplugging the keyboard, then holding the reset key while plugging it back in.
 - Run QMK Toolbox and flash the keyboard with the firmware you just built or just through command line by using:
 
-```makefile
+```
   make keychron/q5/rev_0150:default:flash
   make keychron/q5/rev_0151:default:flash
   make keychron/q5/rev_0152:default:flash
