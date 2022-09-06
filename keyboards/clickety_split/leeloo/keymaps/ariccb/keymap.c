@@ -85,8 +85,7 @@ enum planck_keycodes {
   ALT_TAB,
   LLOCK,
   MULTILEFT,
-  MULTIRIGHT,
-  TOGGLE_LAYOUT
+  MULTIRIGHT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -126,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      | APP | ENTER| OSSft/ SPACE/                          \DELETE\ SPACE|RAISE| DIAL2|--> Right Scroll
  *                      `-------------------------'                            '-------------------------'
  */
-  [_COLEMAKDH] = LAYOUT(
+  [_QWERTY] = LAYOUT(
   KC_HYPR, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,  KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
   FNESC,   KC_Q,     KC_W,   KC_E,      KC_R,      KC_T,                             KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC,
   MTTAB,   KC_A,     KC_S,   KC_D,      KC_F,      KC_G,                             KC_H,    KC_J,   KC_K,    KC_L,   KC_SCLN, MTRCTLQUO,
@@ -158,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (RAISE)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | HYPER|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |TG_LAY|
+ * | HYPER|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |QWERTY|
  * |------+------+------+------+------+------|                               point  |------+------+------+------+------+------|
  * |      | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   :  | Bksp |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
@@ -171,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '--------------------------'    on Button Press
  */
   [_RAISE] = LAYOUT(
-  KC_HYPR, KC_NO,   KC_NO,   KC_NO,   KC_NO,   DEBUG,                                KC_BTN2, KC_NO,   KC_NUM,  KC_NO,   KC_NO,   TOGGLE_LAYOUT,
+  KC_HYPR, KC_NO,   KC_NO,   KC_NO,   KC_NO,   DEBUG,                                KC_BTN2, KC_NO,   KC_NUM,  KC_NO,   KC_NO,   TG(_QWERTY),
   KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                              KC_TRNS, LLOCK,   KC_BTN3, KC_TRNS, KC_COLN, KC_BSPC,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                              ARROW,   KC_BTN1, SELWORD, KC_BTN2, KC_TRNS, KC_EXLM,
   KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),         LLOCK,   BRACES,  BRACES2, KC_LABK, KC_RABK, KC_QUES, KC_PIPE,
@@ -362,16 +361,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   const uint8_t oneshot_mods = get_oneshot_mods();
 
   switch (keycode) {
-      case TOGGLE_LAYOUT:
-      if (record->event.pressed) {
-        if (layer_state_is(_QWERTY)) {
-          layer_off(_QWERTY);
-          layer_on(_COLEMAKDH);
-        } else if (layer_state_is(_COLEMAKDH)) {
-          layer_off(_COLEMAKDH);
-          layer_on(_QWERTY);
-        }
-      }
       case BRACES:  // Types (), or {}, and puts cursor between braces.
       if (record->event.pressed) {
           clear_mods();  // Temporarily disable mods.
@@ -491,6 +480,7 @@ enum combo_events {
   MOUSETOGGLE,
   CAPSWORD,
   SLEEP,
+  TOGGLELAYOUT,
   RESETKEY,
   NUMLOCKC,
   F1COMBO,
@@ -531,6 +521,7 @@ const uint16_t PROGMEM twodquote_combo[]            = {KC_H, KC_COMMA, COMBO_END
 const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTCTL_ENT, COMBO_END};
 //const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END}; // this one was causing too many issues with confusion
 const uint16_t PROGMEM sleep_combo[]                = {KC_F2, KC_F9, KC_F10, KC_F11, COMBO_END};
+const uint16_t PROGMEM toggle_layout_combo[]        = {KC_F4, KC_F5, KC_F6, KC_F7, COMBO_END};
 const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
 const uint16_t PROGMEM numlock_combo[]              = {KC_L, KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]             = {KC_LSFT, MTRSFTBSLS, COMBO_END};
@@ -573,6 +564,7 @@ combo_t key_combos[] = {
   [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
   //[MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
   [SLEEP] = COMBO_ACTION(sleep_combo),
+  [TOGGLELAYOUT] = COMBO_ACTION(toggle_layout_combo),
   [RESETKEY] = COMBO_ACTION(reset_combo),
   [NUMLOCKC] = COMBO_ACTION(numlock_combo),
   [CAPSWORD] = COMBO_ACTION(capsword_combo),
@@ -801,6 +793,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case SLEEP:
       if (pressed) {
         tap_code16(KC_SLEP);
+      }
+      break;
+    case TOGGLELAYOUT:
+      if (layer_state_is(_QWERTY)) {
+          layer_off(_QWERTY);
+          layer_on(_COLEMAKDH);
+      } else if (layer_state_is(_COLEMAKDH)) {
+          layer_off(_COLEMAKDH);
+          layer_on(_QWERTY);
       }
       break;
     case RESETKEY:
