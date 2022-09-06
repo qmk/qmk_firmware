@@ -42,8 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* Serial settings */
-#define USE_SERIAL
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2
 

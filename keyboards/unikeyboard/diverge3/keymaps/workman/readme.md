@@ -16,6 +16,6 @@ Reverts the number row to the normal 1, 2, 3, etc... for better gaming compatibi
 
 ## Layer 3 - Raise Layer
 
-Volume and backlight controls (although backlight is not fully functional using `USE_SERIAL` in `../config.h`).
+Volume and backlight controls.
 
 ![Raise Layer Misc Buttons Picture](https://i.imgur.com/50L3O62.png)
