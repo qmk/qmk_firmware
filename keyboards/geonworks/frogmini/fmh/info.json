@@ -8,8 +8,11 @@
         "pid": "0x2D28",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_60_tsangan_hhkb"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1!", "x":1, "y":0},
