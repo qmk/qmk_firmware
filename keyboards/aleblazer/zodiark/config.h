@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 #define SOFT_SERIAL_PIN D3
-#define SERIAL_USE_MULTI_TRANSACTION
 #define SELECT_SOFT_SERIAL_SPEED 1
 
 /* key matrix size */
