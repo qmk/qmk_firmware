@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_COL_PINS \
     { F4, F5, F6, F7, B1 }
-#define USE_SERIAL
+
 #define SOFT_SERIAL_PIN D2
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
