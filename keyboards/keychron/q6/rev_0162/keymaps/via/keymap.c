@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
+
+bool     is_siri_active = false;
+uint32_t siri_timer     = 0;
 
 // clang-format off
 
@@ -93,13 +96,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-static uint32_t time;
-
 void matrix_scan_user(void) {
-    if (time && sync_timer_elapsed32(time) >= 500) {
-        time = 0;
-        unregister_code(KC_LCMD);
-        unregister_code(KC_SPACE);
+    if (is_siri_active) {
+        if (sync_timer_elapsed32(siri_timer) >= 500) {
+            unregister_code(KC_LCMD);
+            unregister_code(KC_SPACE);
+            is_siri_active = false;
+        }
     }
 }
 
@@ -130,14 +133,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;  // Skip all further processing of this key
         case KC_SIRI:
-            if (record->event.pressed && time == 0) {
-                register_code(KC_LCMD);
-                register_code(KC_SPACE);
-                time = sync_timer_read32();
+            if (record->event.pressed) {
+                if (!is_siri_active) {
+                    is_siri_active = true;
+                    register_code(KC_LCMD);
+                    register_code(KC_SPACE);
+                }
+                siri_timer = sync_timer_read32();
             } else {
                 // Do something else when release
             }
-            return false;  // Skip all further processing of this key
+            return false; // Skip all further processing of this key
         case KC_TASK:
         case KC_FLXP:
         case KC_SNAP:

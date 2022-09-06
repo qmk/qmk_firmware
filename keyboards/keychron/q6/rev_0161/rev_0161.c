@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
+
+// clang-format off
 
 const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
@@ -144,6 +146,7 @@ const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL] = {
 
 led_config_t g_led_config = {
     {
+        // Key Matrix to LED Index
         {  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11,  12,  __,  13,  14,  15,  39,  40, 16 },
         { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,  32,  33,  34,  35,  36,  37,  38, 17 },
         { 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,  53,  54,  55,  56,  57,  58,  59, 18 },
@@ -152,6 +155,7 @@ led_config_t g_led_config = {
         { 94, 95, 96, __, __, __, 97, __, __, __, 98, 99, 100, 101, 102, 103, 104, 105, 106, __ },
     },
     {
+        // LED Index to Physical Position
         {0,0},  {13,0},  {24,0},  {34,0},  {45,0},  {57,0},  {68,0},  {78,0},  {89,0},  {102,0},  {112,0},  {123,0},  {133,0},            {159,0},  {169,0},  {180,0},  {193,0},  {203,0},  {214,0},  {224,0},
         {0,15}, {10,15}, {21,15}, {31,15}, {42,15}, {52,15}, {63,15}, {73,15}, {83,15}, {94,15},  {104,15}, {115,15}, {125,15}, {141,15}, {159,15}, {169,15}, {180,15}, {193,15}, {203,15}, {214,15}, {224,15},
         {3,27}, {16,27}, {26,27}, {36,27}, {47,27}, {57,27}, {68,27}, {78,27}, {89,27}, {99,27},  {109,27}, {120,27}, {130,27}, {143,27}, {159,27}, {169,27}, {180,27}, {193,27}, {203,27}, {214,27},
@@ -160,49 +164,14 @@ led_config_t g_led_config = {
         {1,64}, {14,64}, {27,64},                            {66,64},                             {105,64}, {118,64}, {131,64}, {145,64}, {159,64}, {169,64}, {180,64}, {198,64},           {214,64}, {224,58},
     },
     {
+        // RGB LED Index to Flag
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    1, 1, 1, 1, 1, 1, 1,
-        1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 9, 4, 4, 4,
+        1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 8, 4, 4, 4,
         1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 4, 4, 4,
-        9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,          4, 4, 4, 4,
+        8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,          4, 4, 4, 4,
         1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,    1,    4, 4, 4,
         1, 1, 1,          4,          1, 1, 1, 1, 1, 1, 1, 1,    4, 1,
     }
 };
 
-#endif
-
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-    if (index == 0) {
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, TAP_CODE_DELAY);
-        } else {
-            tap_code_delay(KC_VOLD, TAP_CODE_DELAY);
-        }
-    }
-    return true;
-}
-
-#    ifdef PAL_USE_CALLBACKS
-
-void encoder0_pad_cb(void *param) {
-    (void)param;
-
-    encoder_insert_state(0);
-}
-
-void keyboard_post_init_kb(void) {
-    pin_t encoders_pad_a[] = ENCODERS_PAD_A;
-    pin_t encoders_pad_b[] = ENCODERS_PAD_B;
-    palEnableLineEvent(encoders_pad_a[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palEnableLineEvent(encoders_pad_b[0], PAL_EVENT_MODE_BOTH_EDGES);
-    palSetLineCallback(encoders_pad_a[0], encoder0_pad_cb, NULL);
-    palSetLineCallback(encoders_pad_b[0], encoder0_pad_cb, NULL);
-}
-
-#    endif
-#endif // ENCODER_ENABLE
+#endif // RGB_MATRIX_ENABLE

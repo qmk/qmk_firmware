@@ -18,12 +18,12 @@
 
 #include "quantum.h"
 
-#if   defined(KEYBOARD_keychron_q6_q6_ansi_stm32l432)
-#    include "q6_ansi_stm32l432.h"
-#elif defined(KEYBOARD_keychron_q6_q6_ansi_stm32l432_ec11)
-#    include "q6_ansi_stm32l432_ec11.h"
-#elif defined(KEYBOARD_keychron_q6_q6_iso_stm32l432)
-#    include "q6_iso_stm32l432.h"
-#elif defined(KEYBOARD_keychron_q6_q6_iso_stm32l432_ec11)
-#    include "q6_iso_stm32l432_ec11.h"
+#if   defined(KEYBOARD_keychron_q6_rev_0160)
+#    include "rev_0160.h"
+#elif defined(KEYBOARD_keychron_q6_rev_0161)
+#    include "rev_0161.h"
+#elif defined(KEYBOARD_keychron_q6_rev_0162)
+#    include "rev_0162.h"
+#elif defined(KEYBOARD_keychron_q6_rev_0163)
+#    include "rev_0163.h"
 #endif
