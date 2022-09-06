@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ____,   ____, ____, ____, ____, ____, XXXX, ____,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
     ),
     [PHI] = LAYOUT_planck_grid(
-        RESET, KC_F1,   KC_F2,   KC_F3,  KC_F4,  ____, ____, ____,       ____,       ____,     ____,    KC_DEL,
+        QK_BOOT, KC_F1,   KC_F2,   KC_F3,  KC_F4,  ____, ____, ____,       ____,       ____,     ____,    KC_DEL,
         ____,  KC_F5,   KC_F6,   KC_F7,  KC_F8,  ____, ____, DF(QWERTY), DF(NORMAL), DF(GAME), ____,    KC_F13,
         ____,  KC_F9,   KC_F10,  KC_F11, KC_F12, ____, ____, ____,       ____,       ____,     ____,    ____,
         ____,  RGB_TOG, RGB_MOD, ____,   ____,   ____, XXXX, ____,       KC_MNXT,    KC_VOLD,  KC_VOLU, KC_MPLY

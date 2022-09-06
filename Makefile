@@ -401,6 +401,7 @@ ifndef SKIP_GIT
 	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
 	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
 	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
+	if [ ! -e lib/pico-sdk ]; then git submodule sync lib/pico-sdk && git submodule update --depth 50 --init lib/pico-sdk; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \

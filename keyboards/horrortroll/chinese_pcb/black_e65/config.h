@@ -38,9 +38,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
-
 /* LED Indicator */
 #define LED_CAPS_LOCK_PIN C7
 
