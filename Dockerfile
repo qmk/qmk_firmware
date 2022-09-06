@@ -1,6 +1,7 @@
-FROM qmkfm/qmk_cli
+FROM qmkfm/base_container
 
 VOLUME /qmk_firmware
 WORKDIR /qmk_firmware
+COPY . .
 
-CMD qmk compile -kb all -km default
+CMD make all:default

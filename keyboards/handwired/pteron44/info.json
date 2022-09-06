@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "Pteron44",
-  "manufacturer": "QMK",
+  "keyboard_name": "pteron44",
   "url": "",
   "maintainer": "fidelcoria",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x542C",
-    "device_version": "0.0.1"
-  },
+  "width": 17,
+  "height": 5.95,
   "layouts": {
     "LAYOUT": {
       "layout": [

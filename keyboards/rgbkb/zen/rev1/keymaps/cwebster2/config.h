@@ -29,4 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define COMBO_COUNT 2
 #endif
 
+#define QMK_KEYS_PER_SCAN 4
+
 #define EE_HANDS

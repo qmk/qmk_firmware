@@ -1,15 +1,12 @@
 {
     "keyboard_name": "MK60",
-    "manufacturer": "MechKeys",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-      "vid": "0xFEED",
-      "pid": "0x0000",
-      "device_version": "0.0.1"
-    },
+    "width": 15,
+    "height": 5,
     "layouts": {
       "LAYOUT": {
+        "key_count": 68,
         "layout": [
           {"label":"K00", "x":0, "y":0},
           {"label":"K01", "x":1, "y":0},
@@ -83,3 +80,4 @@
       }
     }
   }
+  

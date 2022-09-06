@@ -24,7 +24,7 @@ std::vector<uint8_t> get_keys(const report_keyboard_t& report) {
     std::vector<uint8_t> result;
 #if defined(NKRO_ENABLE)
 #    error NKRO support not implemented yet
-#elif defined(RING_BUFFERED_6KRO_REPORT_ENABLE)
+#elif defined(USB_6KRO_ENABLE)
 #    error 6KRO support not implemented yet
 #else
     for (size_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
@@ -36,7 +36,7 @@ std::vector<uint8_t> get_keys(const report_keyboard_t& report) {
     std::sort(result.begin(), result.end());
     return result;
 }
-} // namespace
+}  // namespace
 
 bool operator==(const report_keyboard_t& lhs, const report_keyboard_t& rhs) {
     auto lhskeys = get_keys(lhs);
@@ -44,21 +44,16 @@ bool operator==(const report_keyboard_t& lhs, const report_keyboard_t& rhs) {
     return lhs.mods == rhs.mods && lhskeys == rhskeys;
 }
 
-std::ostream& operator<<(std::ostream& stream, const report_keyboard_t& report) {
-    auto keys = get_keys(report);
-
+std::ostream& operator<<(std::ostream& stream, const report_keyboard_t& value) {
+    stream << "Keyboard report:" << std::endl;
+    stream << "Mods: " << (uint32_t)value.mods << std::endl;
+    stream << "Keys: ";
     // TODO: This should probably print friendly names for the keys
-    stream << "Keyboard Report: Mods (" << (uint32_t)report.mods << ") Keys (";
-
-    for (auto key = keys.cbegin(); key != keys.cend();) {
-        stream << +(*key);
-        key++;
-        if (key != keys.cend()) {
-            stream << ",";
-        }
+    for (uint32_t k : get_keys(value)) {
+        stream << k << " ";
     }
-
-    return stream << ")" << std::endl;
+    stream << std::endl;
+    return stream;
 }
 
 KeyboardReportMatcher::KeyboardReportMatcher(const std::vector<uint8_t>& keys) {
@@ -72,14 +67,8 @@ KeyboardReportMatcher::KeyboardReportMatcher(const std::vector<uint8_t>& keys) {
     }
 }
 
-bool KeyboardReportMatcher::MatchAndExplain(report_keyboard_t& report, MatchResultListener* listener) const {
-    return m_report == report;
-}
+bool KeyboardReportMatcher::MatchAndExplain(report_keyboard_t& report, MatchResultListener* listener) const { return m_report == report; }
 
-void KeyboardReportMatcher::DescribeTo(::std::ostream* os) const {
-    *os << "is equal to " << m_report;
-}
+void KeyboardReportMatcher::DescribeTo(::std::ostream* os) const { *os << "is equal to " << m_report; }
 
-void KeyboardReportMatcher::DescribeNegationTo(::std::ostream* os) const {
-    *os << "is not equal to " << m_report;
-}
+void KeyboardReportMatcher::DescribeNegationTo(::std::ostream* os) const { *os << "is not equal to " << m_report; }

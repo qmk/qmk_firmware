@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Alice",
-    "manufacturer": "ProjectKB",
     "url": "https://store.projectkeyboard.com/",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x0159",
-        "pid": "0xA71C",
-        "device_version": "0.0.1"
-    },
+    "width": 19.75,
+    "height": 5.25,
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

@@ -17,6 +17,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "encoder_actions.h"
 #include "rgb_functions.h"
 
 /* This is a shortcut to help you visually see your layout.
@@ -31,4 +32,11 @@
     k00, k01, k02 \
 ) { \
     { k00, k01,   k02 } \
+}
+
+#define LAYOUT_via( \
+    k00, k01, k02, \
+    k00_a, k00_b \
+) { \
+    { k00, k01,   k02, k00_a, k00_b } \
 }

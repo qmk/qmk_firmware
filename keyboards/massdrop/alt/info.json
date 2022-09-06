@@ -2,11 +2,8 @@
     "keyboard_name": "ALT",
     "url": "https://www.massdrop.com/buy/massdrop-alt-mechanical-keyboard",
     "maintainer": "Massdrop",
-    "usb": {
-        "vid": "0x04D8",
-        "pid": "0xEED3",
-        "device_version": "1.0.1"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

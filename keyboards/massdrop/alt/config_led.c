@@ -50,8 +50,9 @@ led_config_t g_led_config = { {
 
 
 #ifdef USB_LED_INDICATOR_ENABLE
-void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    md_rgb_matrix_indicators_advanced(led_min, led_max);
+void rgb_matrix_indicators_kb(void)
+{
+  md_rgb_matrix_indicators();
 }
 #endif // USB_LED_INDICATOR_ENABLE
 

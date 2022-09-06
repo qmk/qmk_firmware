@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "southpaw default",
-    "manufacturer": "drewguy",
+    "keyboard_name": "Southpaw75",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x484F",
-        "pid": "0x5350",
-        "device_version": "0.0.1"
-    },
+    "width": 19,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

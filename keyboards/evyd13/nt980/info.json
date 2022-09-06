@@ -1,13 +1,9 @@
 {
     "keyboard_name": "nt980", 
-    "manufacturer": "Evyd13",
     "url": "", 
-    "maintainer": "evyd13", 
-    "usb": {
-        "vid": "0x4705",
-        "pid": "0xAAF8",
-        "device_version": "0.0.1"
-    },
+    "maintainer": "maartenwut", 
+    "width": 19.5, 
+    "height": 6.75, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

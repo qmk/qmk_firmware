@@ -16,9 +16,7 @@
 #include <usbdrv/usbdrv.h>
 #include "usb_util.h"
 
-void usb_disconnect(void) {
-    usbDeviceDisconnect();
-}
+void usb_disable(void) { usbDeviceDisconnect(); }
 
 bool usb_connected_state(void) {
     usbPoll();

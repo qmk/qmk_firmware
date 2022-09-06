@@ -114,6 +114,11 @@ uint8_t matrix_scan(void)
     return 1;
 }
 
+bool matrix_is_modified(void)
+{
+    return true;
+}
+
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
@@ -129,3 +134,13 @@ matrix_row_t matrix_get_row(uint8_t row)
 void matrix_print(void)
 {
 }
+
+uint8_t matrix_key_count(void)
+{
+    uint8_t count = 0;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        count += bitpop16(matrix[i]);
+    }
+    return count;
+}
+

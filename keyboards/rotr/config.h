@@ -2,6 +2,13 @@
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x726F
+#define PRODUCT_ID      0x0001
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    ROTR
+#define PRODUCT         ROTR
+
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 3
@@ -17,6 +24,7 @@
 /*Sets the number of pulses per increment*/
 #define ENCODER_RESOLUTION 2
 
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

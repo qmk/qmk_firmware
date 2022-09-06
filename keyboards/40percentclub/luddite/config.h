@@ -2,6 +2,13 @@
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x3430 // "40"
+#define PRODUCT_ID      0x4C55 // "LU"
+#define DEVICE_VER      0x1001
+#define MANUFACTURER    di0ib
+#define PRODUCT         Luddite
+
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
@@ -9,6 +16,7 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D3, D2, D1, D0, D4, C6, D7, E6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
+#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 

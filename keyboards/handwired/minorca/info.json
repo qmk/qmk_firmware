@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Minorca",
-    "manufacturer": "panc.co",
+    "keyboard_name": "Minorca Handwired",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x6660",
-        "device_version": "0.0.1"
-    },
+    "width": 12,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

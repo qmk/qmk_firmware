@@ -17,6 +17,8 @@
  */
 #include QMK_KEYBOARD_H
 #include "animation_frames.h"
+#include <stdio.h>
+
 
 enum layer_names {
   _BASE,
@@ -52,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_VIA1] = LAYOUT_all(
-              QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  KC_END,
+              RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  KC_END,
     RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -86,7 +88,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 #define IDLE_FRAME_DURATION 200 // Idle animation iteration rate in ms
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
@@ -95,6 +97,7 @@ uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
 uint8_t  current_idle_frame = 0;
 
+char wpm_str[10];
 bool tap_anim        = false;
 bool tap_anim_toggle = false;
 
@@ -155,27 +158,17 @@ static void render_anim(void) {
     }
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     render_anim();
     oled_set_cursor(0, 14);
-
-    uint8_t n = get_current_wpm();
-    char wpm_counter[6];
-    wpm_counter[5] = '\0';
-    wpm_counter[4] = '0' + n % 10;
-    wpm_counter[3] = '0' + (n /= 10) % 10;
-    wpm_counter[2] = '0' + n / 10 ;
-    wpm_counter[1] = '0';
-    wpm_counter[0] = '>';
-    oled_write_ln(wpm_counter, false);
-
-    return false;
+    sprintf(wpm_str, ">%04d", get_current_wpm());
+    oled_write_ln(wpm_str, false);
 }
 #endif
 
 // Animate tap
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef OLED_ENABLE
+    #ifdef OLED_DRIVER_ENABLE
     // Check if non-mod
     if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
         if (record->event.pressed) {
@@ -194,7 +187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case PROG:
           if (record->event.pressed) {
             rgblight_disable_noeeprom();
-            #ifdef OLED_ENABLE
+            #ifdef OLED_DRIVER_ENABLE
             oled_off();
             #endif
             bootloader_jump();

@@ -1,15 +1,12 @@
 {
-    "keyboard_name": "Think6.5° Hotswap",
-    "manufacturer": "Graystudio",
+    "keyboard_name": "THINK6.5",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x4753",
-        "pid": "0x4001",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
+            "key_count": 67,
             "layout": [
                 {"label":"K00 (B0,D1)", "x":0, "y":0},
                 {"label":"K01 (B0,D0)", "x":1, "y":0},

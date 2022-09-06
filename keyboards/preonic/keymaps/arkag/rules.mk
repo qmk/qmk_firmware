@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = no
 STENO_ENABLE = no
 EXTRAKEY_ENABLE = yes

@@ -61,12 +61,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef OLED_ENABLE
+void matrix_init_user(void) {
+
+}
+
+void matrix_scan_user(void) {
+
+}
+
+void led_set_user(uint8_t usb_led) {
+
+}
+
+#ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   //return OLED_ROTATION_180;
   return OLED_ROTATION_180;
 }
-bool oled_task_user(void) {
+void oled_task_user(void) {
   // Host Keyboard Layer Status
   /*oled_write_P(PSTR("Lyr: "), false);
   switch (get_highest_layer(layer_state)) {
@@ -92,6 +104,5 @@ bool oled_task_user(void) {
     };
 
   oled_write_P(qmk_logo, false);
-    return false;
 }
 #endif

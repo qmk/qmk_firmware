@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------------------------------------------------------------'
     */
     LAYOUT(
-        QK_BOOT,            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        RESET,            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_TOGG,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, BL_STEP,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, BL_INC,
@@ -52,29 +52,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
+
+void matrix_init_user(void) {
+}
+
+void matrix_scan_user(void) {
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+
 void led_set_user(uint8_t usb_led) {
 
     if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        setPinOutput(B0);
-        writePinLow(B0);
+        DDRB |= (1 << 0); PORTB &= ~(1 << 0);
     } else {
-        setPinInput(B0);
-        writePinLow(B0);
+        DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
     }
 
     if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        setPinOutput(B1);
-        writePinLow(B1);
+        DDRB |= (1 << 1); PORTB &= ~(1 << 1);
     } else {
-        setPinInput(B1);
-        writePinLow(B1);
+        DDRB &= ~(1 << 1); PORTB &= ~(1 << 1);
     }
 
     if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-        setPinOutput(B2);
-        writePinLow(B2);
+        DDRB |= (1 << 2); PORTB &= ~(1 << 2);
     } else {
-        setPinInput(B2);
-        writePinLow(B2);
+        DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
     }
 }

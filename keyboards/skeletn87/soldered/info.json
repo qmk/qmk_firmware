@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Skeletn87", 
-    "manufacturer": "BredWorks",
+    "keyboard_name": "skeletn87", 
     "url": "", 
     "maintainer": "kb-elmo<mail@elmo.space>", 
-    "usb": {
-        "vid": "0xF984",
-        "pid": "0xB5E8",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25, 
+    "height": 6.25, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

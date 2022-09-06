@@ -1,13 +1,9 @@
 # MCU name
 MCU = atmega32a
-
-# Bootloader selection
-BOOTLOADER = bootloadhid
+BOOTLOADER = bootloadHID
 
 # Build Options
-#   change yes to no to disable
-#
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

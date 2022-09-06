@@ -19,6 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x0000
+#define DEVICE_VER 0x0001
+#define MANUFACTURER Lizard Trick Electronics
+#define PRODUCT Tenkey++
+
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -34,8 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#define MATRIX_ROW_PINS { B7, D4, B5, B6, C6, C7 }
+#define MATRIX_ROW_PINS { B7, D4, B5, B6, C6, C7, }
 #define MATRIX_COL_PINS { D5, D3, D2, F7 }
+#define UNUSED_PINS
 
 #define ENCODERS_PAD_A \
     { B4, F0, F4 }
@@ -141,6 +149,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

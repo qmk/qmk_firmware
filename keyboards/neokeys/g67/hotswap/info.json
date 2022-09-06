@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Palette G67 Hotswap",
-    "manufacturer": "NEO Keys",
+    "keyboard_name": "NEO Keys Palette G67 Hotswap",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x4E4B",
-        "pid": "0x5048",
-        "device_version": "1.0.0"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

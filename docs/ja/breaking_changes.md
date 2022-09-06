@@ -117,4 +117,5 @@ git push --force
    * [ ] `git push origin develop`
 * GitHub Actions
    * [ ] `develop`の PR を作成します
+   * [ ] travis がクリーンに戻ったことを確認します
    * [ ] `develop` PR をマージします

@@ -1,2 +1,0 @@
-# Modified Default Planck Layout
-

@@ -50,17 +50,8 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data);
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset),
+    [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
 };
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case TD(TD_ESC_NUM):
-            return 275;
-        default:
-            return TAPPING_TERM;
-    }
-}
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -127,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT_ansi(
         _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,WIN,    _______,QK_BOOT,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,_______,   _______,_______,
+        _______,    _______,WIN,    _______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,_______,   _______,_______,
         _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,            _______,
         _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
@@ -253,7 +244,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     if (index == 1) { /* Second encoder, Left side */
-        switch(get_highest_layer(layer_state)) {
+        switch(biton32(layer_state)) {
             case _LOWER:
                 if (clockwise) {
                     rgblight_decrease_hue();
@@ -331,7 +322,7 @@ static tap ql_tap_state = {
 // Functions that control what our tap dance key does
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
-    switch(TAP_DANCE_KEYCODE(state)) {
+    switch(state->keycode) {
         case TD(TD_ESC_NUM): // ESC key action
             switch (ql_tap_state.state) {
                 case SINGLE_TAP:
@@ -360,7 +351,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch(TAP_DANCE_KEYCODE(state)) {
+    switch(state->keycode) {
         case TD(TD_ESC_NUM):
             // If the key was held down and now is released then switch off the layer
             if (ql_tap_state.state == TAP_HOLD) {

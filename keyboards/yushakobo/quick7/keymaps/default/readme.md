@@ -16,7 +16,7 @@ Right Encoder(CW: RGB HUE-, CCW: RGB HUE+)
 ### Func1 Layer
 ```
 ,----------- --------- ------------,
-|   QK_BOOT   |  Func1  | RGB TOGGLE |
+|   RESET   |  Func1  | RGB TOGGLE |
  ----------- --------- ------------
 |   HOME    |  VOL+   |    END     |
  ----------- --------- ------------

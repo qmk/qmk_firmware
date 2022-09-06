@@ -1,3 +1,10 @@
-NO_USB_STARTUP_CHECK = yes  # resolve possible sleep issue
+# MCU name
+MCU = atmega32u4
 
-DEFAULT_FOLDER = capsunlocked/cu80/v2_ansi/base
+# Bootloader selection
+BOOTLOADER = atmel-dfu
+
+# Build Options
+#   change yes to no to disable
+#
+NO_USB_STARTUP_CHECK = yes  # resolve possible sleep issue

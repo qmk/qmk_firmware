@@ -1,4 +1,4 @@
-FROM qmkfm/qmk_cli
+FROM qmkfm/base_container
 
 # Basic upgrades; install sudo and SSH.
 RUN apt-get update && apt-get install --no-install-recommends -y \

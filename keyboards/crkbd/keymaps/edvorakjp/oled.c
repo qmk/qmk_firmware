@@ -2,14 +2,14 @@
 #include <string.h>
 #include "oled.h"
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 void render_host_led_state(void) { oled_write(read_host_led_state(), false); }
 
 void render_layer_state(void) {
     char layer_name[17];
     oled_write_P(PSTR("Layer: "), false);
 
-    switch (get_highest_layer(layer_state)) {
+    switch (biton32(layer_state)) {
         case L_EDVORAKJP_BASE:
             oled_write_ln_P(PSTR("Default"), false);
             break;
@@ -43,7 +43,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return is_keyboard_left() ? rotation : rotation ^ OLED_ROTATION_180;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_left()) {
         render_mode_icon(!get_enable_kc_lang());
         render_layer_state();
@@ -51,6 +51,5 @@ bool oled_task_user(void) {
     } else {
         render_logo();
     }
-    return false;
 }
-#endif  // OLED_ENABLE
+#endif  // OLED_DRIVER_ENABLE

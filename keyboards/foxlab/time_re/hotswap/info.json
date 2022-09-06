@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Time 80 Reforged",
-    "manufacturer": "Fox Lab",
+    "keyboard_name": "Time RE Hotswap",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x464C",
-        "pid": "0x0006",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

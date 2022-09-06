@@ -1,15 +1,12 @@
 {
     "keyboard_name": "THE50", 
-    "manufacturer": "LazyDesigners",
     "url": "http://lazydesigners.cn", 
     "maintainer": "qmk", 
-    "usb": {
-        "vid": "0x4C44",
-        "pid": "0x0050",
-        "device_version": "0.0.1"
-    },
+    "width": 15.25, 
+    "height": 4, 
     "layouts": {
         "LAYOUT": {
+            "key_count": 54,
             "layout": [
               {"label":"Esc", "x":0, "y":0},
               {"label":"Q", "x":1, "y":0},

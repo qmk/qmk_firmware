@@ -1,13 +1,9 @@
 {
-    "keyboard":"Rebound Rev2",
-    "manufacturer": "Montsinger",
+    "keyboard":"montsinger/rebound/rev2",
     "url": "https://montsinger.net",
     "maintainer": "rossman360",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x552F",
-        "device_version": "0.0.2"
-    },
+    "width": 13,
+    "height": 4,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

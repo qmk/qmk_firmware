@@ -59,7 +59,7 @@ $ qmk compile -km 66_iso
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
 $ qmk compile
-Ψ Compiling keymap with make gh60/satan:colemak
+Ψ Compiling keymap with make make gh60/satan:colemak
 ...
 ```
 
@@ -211,7 +211,7 @@ qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 
 # 開発者用コマンド
 
-## `qmk format-c`
+## `qmk cformat`
 
 このコマンドは clang-format を使って C コードを整形します。
 
@@ -222,25 +222,25 @@ qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 **指定したファイルに対する使い方**:
 
 ```
-qmk format-c [file1] [file2] [...] [fileN]
+qmk cformat [file1] [file2] [...] [fileN]
 ```
 
 **全てのコアファイルに対する使い方**:
 
 ```
-qmk format-c -a
+qmk cformat -a
 ```
 
 **origin/master で変更されたファイルのみに対する使い方**:
 
 ```
-qmk format-c
+qmk cformat
 ```
 
 **branch_name で変更されたファイルのみに対する使い方**:
 
 ```
-qmk format-c -b branch_name
+qmk cformat -b branch_name
 ```
 
 ## `qmk docs`
@@ -275,14 +275,14 @@ $ qmk kle2json -f kle.txt -f
 Ψ Wrote out to info.json
 ```
 
-## `qmk format-python`
+## `qmk pyformat`
 
 このコマンドは `qmk_firmware` 内の python コードを整形します。
 
 **使用法**:
 
 ```
-qmk format-python
+qmk pyformat
 ```
 
 ## `qmk pytest`

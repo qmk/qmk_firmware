@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "RadPad",
-    "manufacturer": "Keybage",
+    "keyboard_name": "radpad",
     "url": "",
     "maintainer": "Brandon Schlack",
-    "usb": {
-        "vid": "0x4253",
-        "pid": "0x5250",
-        "device_version": "0.0.1"
-    },
+    "width": 4,
+    "height": 5,
     "layouts": {
         "LAYOUT_4x4_encoders": {
             "layout": [

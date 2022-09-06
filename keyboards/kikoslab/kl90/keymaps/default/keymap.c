@@ -61,7 +61,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_0;
@@ -140,8 +140,7 @@ static void render_anim(void){
     }
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     render_anim();
-    return false;
 }
 #endif

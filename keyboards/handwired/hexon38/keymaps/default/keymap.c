@@ -187,6 +187,8 @@ void matrix_init_user(void) {
     g_pending.head = NULL;
 }
 
+void matrix_scan_user(void) {}
+
 /*
 a_ a-: emit a
 a_ b_ b- a-: emit SHIFT+b

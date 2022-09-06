@@ -4,10 +4,11 @@ on:
   push:
     branches:
     - master
-    - develop
+    - future
   pull_request:
     paths:
     - 'lib/python/**'
+    - 'bin/qmk'
     - 'requirements.txt'
     - '.github/workflows/cli.yml'
 
@@ -15,13 +16,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: qmkfm/base_container
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
       with:
         submodules: recursive
     - name: Install dependencies
       run: pip3 install -r requirements-dev.txt
     - name: Run tests
-      run: qmk pytest
+      run: bin/qmk pytest

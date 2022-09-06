@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Special functions: _SP
  *
  *     ,-------------------------------------------.                            ,-------------------------------------------.
- *     |   TAB  |      |      |      | QK_BOOT|      |                            |      |      |      |      |      |  ESC   |
+ *     |   TAB  |      |      |      | RESET|      |                            |      |      |      |      |      |  ESC   |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
  *     |   CTRL |      |      | DEBUG|      |      |                            |      |      |      |      |      |        |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_SP] = LAYOUT_split_3x6_4(
    //,-----------------------------------------------------.                            ,-----------------------------------------------------.
-        KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,   QK_BOOT, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,
+        KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,   RESET, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
        KC_LCTL, XXXXXXX, XXXXXXX,   DEBUG, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
@@ -130,7 +130,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _NN, _MS, _SP);
 }
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
@@ -179,13 +179,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status_narrow();
     } else {
         render_logo();
     }
-    return false;
 }
 #endif
 

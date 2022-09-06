@@ -25,18 +25,10 @@
 
 /* Define layer names */
 enum userspace_layers {
-#if defined(ENABLE_QWERTY)
-    _QWERTY,
-#endif
-#if defined(ENABLE_COLEMAK)
+    _QWERTY  = 0,
     _COLEMAK,
-#endif
-#if defined(ENABLE_DVORAK)
     _DVORAK,
-#endif
-#if defined(ENABLE_WORKMAN)
     _WORKMAN,
-#endif
     _MODS,
     _LOWER,
     _RAISE,

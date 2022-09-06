@@ -1,13 +1,14 @@
 # Ferris 0.2
 
-![Ferris 0.2 family](https://i.imgur.com/SDVOlyZ.jpg)
+![Ferris 0.2 - bling, top view](https://i.imgur.com/LwKlmnzh.jpg)
+![Ferris 0.2 - bling, bottom view](https://i.imgur.com/qGnYGVOh.jpg)
 
-An STM32F072-based split 34-key column-staggered keyboard named and decorated after the Rust mascot. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris).
+An stm32f072 based split 34 keys column staggered keyboard named and decorated after the rustlang mascott. All PCB files and some thoughts on the design are available on the [project's github page](https://github.com/pierrechevalier83/ferris)
 
 * Keyboard Maintainer: [Pierre Chevalier](https://github.com/pierrechevalier83)
 * Hardware Supported:
 	* Ferris 0.2: stm32f072 chip. Comes in 4 variants: bling, mini, high and compact
-* Hardware Availability: [Cuddly Keyboards](https://cuddlykeyboards.com)
+* Hardware Availability: Pierre Chevalier has been selling keyboard kits (see the #ferris channel in the 40% discord chat). Wider availability is on the horizon.
 
 Make examples for this keyboard (after setting up your build environment):
 

@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "B.mini EX",
-  "manufacturer": "Winkeyless",
+  "keyboard_name": "winkeyless.kr B.mini EX",
   "url": "https://winkeyless.kr/product/b-mini-ex-x2-pcb/",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0x20A0",
-    "pid": "0x4258",
-    "device_version": "2.0.0"
-  },
+  "width": 20.25,
+  "height": 6.25,
   "layouts": {
     "LAYOUT": {
       "layout": [

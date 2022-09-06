@@ -1,5 +1,7 @@
 #pragma once
 
+extern uint8_t is_master;
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "rgb.c"
 #endif
@@ -142,7 +144,6 @@ void render_feature_status(void) {
 // Keylogger
 #define KEYLOGGER_LENGTH 5
 static uint16_t oled_timer                       = 0;
-static bool     is_key_processed                 = true;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
 // clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
@@ -245,16 +246,20 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
+    if (timer_elapsed(oled_timer) > 10000) {
+        oled_off();
+        return;
+    }
+    #ifndef SPLIT_KEYBOARD
+    else {
+        oled_on();
+    }
+    #endif
+
     if (is_keyboard_master()) {
-        if (is_key_processed && (timer_elapsed(oled_timer) < OLED_KEY_TIMEOUT)) {
-            render_status_main();
-        } else {
-            is_key_processed = false;
-            oled_off();
-        }
+        render_status_main();
     } else {
         render_status_secondary();
     }
-    return false;
 }

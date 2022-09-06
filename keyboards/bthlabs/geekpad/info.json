@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "GeekPad",
-  "manufacturer": "BTHLabs",
+  "keyboard_name": "BTHLabs GeekPad",
   "url": "https://git.bthlabs.pl/tomekwojcik/geekpad",
   "maintainer": "Tomek Wójcik <contact@bthlabs.pl>",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x4257",
-    "device_version": "0.0.1"
-  },
+  "width": 3,
+  "height": 3,
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -2,23 +2,31 @@
 MCU = atmega32u4
 
 # Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = caterina
 
 # Build Options
-#   change yes to no to disable
+#   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = yes       # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = yes        # Console for debug
-COMMAND_ENABLE = yes        # Commands for debug and configuration
-NKRO_ENABLE = yes           # Enable N-Key Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
-UNICODE_ENABLE = yes
-CUSTOM_MATRIX = lite
+#BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes	# Mouse keys
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+CONSOLE_ENABLE = yes	# Console for debug
+COMMAND_ENABLE = yes   # Commands for debug and configuration
+CUSTOM_MATRIX = yes    # Remote matrix from the wireless bridge
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
+# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+# MIDI_ENABLE = yes 		# MIDI controls
+UNICODE_ENABLE = yes 		# Unicode
+# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
-# project specific files
-SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
+# # project specific files
+SRC += matrix.c serial_uart.c

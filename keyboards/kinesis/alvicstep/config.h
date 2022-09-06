@@ -1,7 +1,12 @@
-#pragma once
+#ifndef ALVICSTEP_CONFIG_H
+#define ALVICSTEP_CONFIG_H
 
 #include "../config.h"
 #include "config_common.h"
+
+/* USB Device descriptor parameter */
+#define PRODUCT_ID      0x6060
+#define DEVICE_VER      0x0001
 
 /* key matrix size */
 #define MATRIX_ROWS 16
@@ -18,10 +23,14 @@
  *
 */
 //Passed through the port multipler, so 4 pins =16
-#define MATRIX_ROW_PINS { F0, F1, F2, F3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#define MATRIX_ROW_PINS { F0,F1, F2, F3  }
 
 // May be upside down. 
 #define MATRIX_COL_PINS { B0,B1, B2, B3, B4, B5, B6, B7 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+ 
+
+#endif

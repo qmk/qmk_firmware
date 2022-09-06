@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_A,    KC_1,    MO(_FN)
     ),
     [_FN] = LAYOUT(
-        QK_BOOT, QMKURL,  _______
+        RESET, QMKURL,  _______
     )
 };
 

@@ -4,9 +4,9 @@
 A ISO-friendly ortholinear keyboard, 13x4 keys.  
 See [screenshots](https://imgur.com/a/PPO18Lc).
 
-* Keyboard Maintainer: [farfalleflickan](https://github.com/farfalleflickan)
+* Keyboard Maintainer: [pastapojken](https://github.com/pastapojken)
 * Hardware Supported: nack PCB
-* Hardware Availability: [github repo](https://github.com/farfalleflickan/nack)
+* Hardware Availability: [github repo](https://github.com/pastapojken/nack)
 
 Make example for this keyboard (after setting up your build environment):
 

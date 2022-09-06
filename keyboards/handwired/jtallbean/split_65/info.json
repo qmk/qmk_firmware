@@ -1,13 +1,9 @@
 {
     "keyboard_name": "split_65",
-    "manufacturer": "jtallbean",
     "url": "",
     "maintainer": "jtallbean",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

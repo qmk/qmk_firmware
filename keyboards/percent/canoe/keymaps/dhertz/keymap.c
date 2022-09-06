@@ -49,8 +49,8 @@ void keyboard_post_init_user(void) {
     rgblight_sethsv_teal();
 }
 
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    switch (get_highest_layer(state)) {
+uint32_t layer_state_set_keymap(uint32_t state) {
+    switch (biton32(state)) {
         case 1:
             rgblight_sethsv_noeeprom_magenta();
             break;

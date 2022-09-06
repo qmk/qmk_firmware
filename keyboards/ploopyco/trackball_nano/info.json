@@ -1,13 +1,8 @@
 {
-    "keyboard_name": "Trackball Nano",
-    "manufacturer": "PloopyCo",
+    "keyboard_name": "Ploopy Trackball Nano",
     "url": "www.ploopy.co",
     "maintainer": "ploopyco",
-    "usb": {
-        "vid": "0x5043",
-        "pid": "0x54A3",
-        "device_version": "0.0.1"
-    },
+    "manufacturer": "Ploopy Corporation",
      "layouts": {
         "LAYOUT": {
             "layout": [

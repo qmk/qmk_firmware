@@ -4,6 +4,9 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
+#ifdef SSD1306OLED
+  #include "ssd1306.h"
+#endif
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -28,7 +31,7 @@ enum custom_keycodes {
 
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
-#define KC_RST   QK_BOOT
+#define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
 #define KC_LHUI  RGB_HUI
@@ -119,9 +122,14 @@ void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
+    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+    #ifdef SSD1306OLED
+        iota_gfx_init();   // turns on the display
+    #endif
 }
 
-#ifdef OLED_ENABLE
+//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
+#ifdef SSD1306OLED
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_layer_state(void);
@@ -130,23 +138,42 @@ void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 
-bool oled_task_user(void) {
-  if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
-  } else {
-    oled_write(read_logo(), false);
-  }
-  return false;
+void matrix_scan_user(void) {
+   iota_gfx_task();
 }
 
-#endif
+void matrix_render_user(struct CharacterMatrix *matrix) {
+  if (is_keyboard_master()) {
+    // If you want to change the display of OLED, you need to change here
+    matrix_write(matrix, read_layer_state());
+    matrix_write(matrix, "\n");
+    matrix_write(matrix, read_keylog());
+    matrix_write(matrix, "\n");
+    matrix_write(matrix, read_keylogs());
+    matrix_write(matrix, "\n");
+  } else {
+    matrix_write(matrix, read_logo());
+  }
+}
+
+void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
+  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
+    memcpy(dest->display, source->display, sizeof(dest->display));
+    dest->dirty = true;
+  }
+}
+
+void iota_gfx_task_user(void) {
+  struct CharacterMatrix matrix;
+  matrix_clear(&matrix);
+  matrix_render_user(&matrix);
+  matrix_update(&display, &matrix);
+}
+#endif//SSD1306OLED
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-#ifdef OLED_ENABLE
+#ifdef SSD1306OLED
     set_keylog(keycode, record);
 #endif
   }

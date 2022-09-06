@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "GoldPad",
-  "manufacturer": "Nobody",
+  "keyboard_name": "arrow_pad",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x4096",
-    "device_version": "0.0.1"
-  },
+  "width": 4,
+  "height": 6,
   "layouts": {
     "LAYOUT": {
       "layout": [

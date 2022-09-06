@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "TKL A/B87", 
-    "manufacturer": "TKC",
+    "keyboard_name": "TKC TKL A/B87", 
     "url": "", 
     "maintainer": "TerryMathews", 
-    "usb": {
-    	"vid": "0x544B",
-    	"pid": "0x0007",
-    	"device_version": "0.0.1"
-    },
+    "width": 18.25, 
+    "height": 6.5, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

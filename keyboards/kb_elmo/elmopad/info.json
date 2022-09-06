@@ -1,15 +1,11 @@
 {
-    "keyboard_name": "ElmoPad",
-    "manufacturer": "kb-elmo",
+    "keyboard_name": "elmopad",
     "url": "https://github.com/kb-elmo/numpad",
     "maintainer": "kb-elmo",
-    "usb": {
-        "vid": "0xA68C",
-        "pid": "0x8B35",
-        "device_version": "0.0.1"
-    },
+    "width": 3,
+    "height": 2,
     "layouts": {
-        "LAYOUT_numpad_6x4": {
+        "LAYOUT": {
             "layout": [
                 {"x":0, "y":0}, 
                 {"x":1, "y":0}, 

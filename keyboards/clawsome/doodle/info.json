@@ -1,13 +1,9 @@
 {
     "keyboard_name": "doodle",
-    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
-    "maintainer": "AlisGraveNil",
-    "usb": {
-        "vid": "0x7767",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    },
+    "maintainer": "AAClawson (AlisGraveNil)",
+    "width": 3,
+    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -21,3 +17,4 @@
         }
     }
 }
+

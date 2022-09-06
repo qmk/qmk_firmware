@@ -1,13 +1,9 @@
 {
   "keyboard_name": "Corin",
-  "manufacturer": "Longnald",
   "url": "https://github.com/longnald/corin",
   "maintainer": "Seaton Jiang <seaton@vtrois.com>",
-  "usb": {
-    "vid": "0x5633",
-    "pid": "0x1024",
-    "device_version": "0.0.4"
-  },
+  "width": 15,
+  "height": 5,
   "layouts": {
     "LAYOUT_64_ansi": {
       "layout": [

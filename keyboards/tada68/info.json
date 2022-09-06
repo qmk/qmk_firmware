@@ -1,15 +1,12 @@
 {
-    "keyboard_name": "TADA68",
-    "manufacturer": "TADA",
+    "keyboard_name": "Tada68",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x5441",
-        "pid": "0x0001",
-        "device_version": "0.0.3"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
+            "key_count": 68,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -86,6 +83,7 @@
             ]
         },
         "LAYOUT_65_iso": {
+            "key_count": 69,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -163,6 +161,7 @@
             ]
         },
         "LAYOUT_ansi_split_enter": {
+            "key_count": 69,
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k01", "x":1, "y":0},

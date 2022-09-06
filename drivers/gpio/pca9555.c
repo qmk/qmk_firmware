@@ -1,6 +1,18 @@
-// Copyright 2020 zvecr<git@zvecr.com>
-// SPDX-License-Identifier: GPL-2.0-or-later
-
+/* Copyright 2019
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "i2c_master.h"
 #include "pca9555.h"
 
@@ -33,59 +45,39 @@ void pca9555_init(uint8_t slave_addr) {
     // i2c_stop();
 }
 
-bool pca9555_set_config(uint8_t slave_addr, pca9555_port_t port, uint8_t conf) {
+void pca9555_set_config(uint8_t slave_addr, uint8_t port, uint8_t conf) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_CONFIG_1 : CMD_CONFIG_0;
 
     i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9555_set_config::FAILED\n");
-        return false;
     }
-
-    return true;
 }
 
-bool pca9555_set_output(uint8_t slave_addr, pca9555_port_t port, uint8_t conf) {
+void pca9555_set_output(uint8_t slave_addr, uint8_t port, uint8_t conf) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_OUTPUT_1 : CMD_OUTPUT_0;
 
     i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9555_set_output::FAILED\n");
-        return false;
     }
-
-    return true;
 }
 
-bool pca9555_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB) {
-    uint8_t addr    = SLAVE_TO_ADDR(slave_addr);
-    uint8_t conf[2] = {confA, confB};
-
-    i2c_status_t ret = i2c_writeReg(addr, CMD_OUTPUT_0, &conf[0], sizeof(conf), TIMEOUT);
-    if (ret != I2C_STATUS_SUCCESS) {
-        dprintf("pca9555_set_output::FAILED::%u\n", ret);
-        return false;
-    }
-
-    return true;
-}
-
-bool pca9555_readPins(uint8_t slave_addr, pca9555_port_t port, uint8_t* out) {
+uint8_t pca9555_readPins(uint8_t slave_addr, uint8_t port) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_INPUT_1 : CMD_INPUT_0;
 
-    i2c_status_t ret = i2c_readReg(addr, cmd, out, sizeof(uint8_t), TIMEOUT);
+    uint8_t      data = 0;
+    i2c_status_t ret  = i2c_readReg(addr, cmd, &data, sizeof(data), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9555_readPins::FAILED\n");
-        return false;
     }
-
-    return true;
+    return data;
 }
 
-bool pca9555_readPins_all(uint8_t slave_addr, uint16_t* out) {
+uint16_t pca9555_readAllPins(uint8_t slave_addr) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
 
     typedef union {
@@ -93,14 +85,11 @@ bool pca9555_readPins_all(uint8_t slave_addr, uint16_t* out) {
         uint16_t u16;
     } data16;
 
-    data16 data = {.u16 = 0};
+    data16 data;
 
     i2c_status_t ret = i2c_readReg(addr, CMD_INPUT_0, &data.u8[0], sizeof(data), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
-        print("pca9555_readPins_all::FAILED\n");
-        return false;
+        print("pca9555_readAllPins::FAILED\n");
     }
-
-    *out = data.u16;
-    return true;
+    return data.u16;
 }

@@ -15,13 +15,15 @@
  */
 #include QMK_KEYBOARD_H
 
+
+
 // #define LED_MERGE_NUMPAD_RIGHT_HANDED_PLUS TRUE
 // #define LED_MERGE_NUMPAD_RIGHT_HANDED_ENTER TRUE
 // #define LED_MERGE_NUMPAD_RIGHT_HANDED_ZERO TRUE
 
-#define MO_NLCK LT(1, KC_NLCK)  // Numlock on tap, layer change on hold
 
-// clang-format off
+#define MO_NLCK LT(1, KC_NLCK) // Numlock on tap, layer change on hold
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //NOT TESTED, WAITING ENDORSEMENT FROM MANUFACTURER
@@ -34,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,   KC_PDOT,          KC_PENT
 ),
     [1] = LAYOUT_right_handed(
-                   QK_BOOT,  _______,
+                   RESET,  _______,
        RGB_TOG, RGB_RMOD,  RGB_MOD,    _______,
        _______,  RGB_VAD,  RGB_VAI,
        _______,  RGB_HUD,  RGB_HUI,    _______,
@@ -42,9 +44,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______,        _______,    _______
 )
 };
-// clang-format on
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+
+
+
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -58,5 +62,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MPRV);
         }
     }
-    return true;
 }
+

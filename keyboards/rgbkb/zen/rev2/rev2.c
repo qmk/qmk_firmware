@@ -1,6 +1,6 @@
 #include "rev2.h"
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 #include "split_util.h"
 #include "oled_driver.h"
 
@@ -37,7 +37,7 @@ void render_status(void) {
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_set_cursor(0, 3); // Line 3
   oled_write_P(PSTR("Layer"), false); // Line 4
-  oled_write_P(layer_name_user(get_highest_layer(layer_state)), false);
+  oled_write_P(layer_name_user(biton32(layer_state)), false);
 
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
@@ -47,23 +47,20 @@ void render_status(void) {
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false); // Line 16
 }
 
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master())
     return OLED_ROTATION_270;  // flips the display 270 degrees if mainhand
   return rotation;
 }
 
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
+__attribute__((weak))
+void oled_task_user(void) {
   if (is_keyboard_master()) {
     render_status();
   } else {
     render_logo();
     oled_scroll_left();
   }
-  return false;
 }
 
 #endif

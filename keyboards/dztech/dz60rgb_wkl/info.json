@@ -1,11 +1,9 @@
 {
-    "keyboard_name": "DZ60RGB_WKL",
-    "manufacturer": "DZTECH",
+    "keyboard_name": "dz60rgb_wkl",
     "url": "",
     "maintainer": "dztech",
-    "usb": {
-        "vid": "0x445A"
-    },
+    "width": 15,
+    "height": 5,
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

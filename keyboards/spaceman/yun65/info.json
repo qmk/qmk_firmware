@@ -1,13 +1,9 @@
 {
-  "keyboard_name": "Yun 65",
-  "manufacturer": "Spaceman",
+  "keyboard_name": "yun65",
   "url": "",
   "maintainer": "Spaceman",
-  "usb": {
-    "vid": "0x5342",
-    "pid": "0x594E",
-    "device_version": "0.0.1"
-  },
+  "width": 1,
+  "height": 2,
   "layouts": {
     "LAYOUT": {
       "layout": [

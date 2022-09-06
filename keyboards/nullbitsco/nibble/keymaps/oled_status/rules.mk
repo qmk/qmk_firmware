@@ -1,8 +1,7 @@
-OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+OLED_DRIVER_ENABLE = yes
 WPM_ENABLE = yes
 VIA_ENABLE = yes
 
-ifeq ($(strip $(OLED_ENABLE)), yes)
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
 	SRC += oled_display.c
 endif

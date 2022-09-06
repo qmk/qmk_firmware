@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Splite Keyboard v3",
-    "manufacturer": "Whale Mo",
     "url": "https://github.com/ncwhale/Keyboard_Design/tree/master/Splite-Keyboard-v3",
     "maintainer": "ncwhale",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0495",
-        "device_version": "0.0.3"
-    },
+    "width": 20,
+    "height": 8,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

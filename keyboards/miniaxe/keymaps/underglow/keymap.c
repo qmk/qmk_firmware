@@ -16,12 +16,10 @@
 #include QMK_KEYBOARD_H
 
 // Defines the keycodes used by our macros in process_record_user
-enum layer_names {
-    _QWERTY,
-    _LOWER,
-    _RAISE,
-    _ADJUST
-};
+#define _QWERTY 0
+#define _LOWER 1
+#define _RAISE 2
+#define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -105,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, \
   KC_F11,  KC_F12,  RGB_RMOD, RGB_SAI, RGB_SAD,     RGB_VAI, RGB_VAD, _______, _______, _______, \
-  QK_BOOT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD,      KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, \
+  RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD,      KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, \
                     _______, _______, _______,      _______,  _______, _______                   \
 )
 };
@@ -149,4 +147,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
+}
+
+void matrix_init_user(void) {
+}
+
+void matrix_scan_user(void) {
+}
+
+void led_set_user(uint8_t usb_led) {
 }

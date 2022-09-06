@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "joystick.h"
+
 #ifndef ADC_PIN
 #    define ADC_PIN F6
 #endif

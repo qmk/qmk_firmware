@@ -1,2 +1,2 @@
 # Build Options
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = full     # Use full Bootmagic

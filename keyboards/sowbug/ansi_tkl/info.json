@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "ANSI TKL",
-    "manufacturer": "Sowbug",
+    "keyboard_name": "ansi_tkl",
     "url": "github.com/sowbug",
     "maintainer": "sowbug",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x8889",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

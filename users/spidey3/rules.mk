@@ -1,7 +1,6 @@
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = lite
 CONSOLE_ENABLE = yes   # Console for debug
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
-NKRO_ENABLE = yes
 LTO_ENABLE = yes
 
 SRC += init.c

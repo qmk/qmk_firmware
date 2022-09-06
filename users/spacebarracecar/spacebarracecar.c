@@ -178,11 +178,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
   case CU_AE:
-    UML(DE_ADIA)
+    UML(DE_AE)
   case CU_OE:
-    UML(DE_ODIA)
+    UML(DE_OE)
   case CU_UE:
-    UML(DE_UDIA)
+    UML(DE_UE)
   case CU_SS:
     if(record->event.pressed) {
       timer_timeout();
@@ -291,9 +291,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
   case CU_COMM:
-    SHIFT_NO(DE_COMM, DE_LABK)
+    SHIFT_NO(DE_COMM, DE_LESS)
   case CU_DOT:
-    SHIFT_NORM(DE_DOT, DE_LABK)
+    SHIFT_NORM(DE_DOT, DE_LESS)
   case CU_SLSH:
     SHIFT_ALL(DE_7, DE_SS)
   case CU_SCLN:
@@ -315,7 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CU_RBRC:
     SHIFT_ALGR(DE_9, DE_0)
   case CU_BSLS:
-    SHIFT_ALGR(DE_SS, DE_LABK)
+    SHIFT_ALGR(DE_SS, DE_LESS)
   case CU_Z:
     CTRL(DE_Z, KC_Z)
   case CU_Y:

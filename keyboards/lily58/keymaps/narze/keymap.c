@@ -277,7 +277,7 @@ void matrix_init_user(void) {
     #endif
 }
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
@@ -299,7 +299,7 @@ const char *read_timelog(void);
 
 char encoder_debug[24];
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   // Host Keyboard Layer Status
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
@@ -313,10 +313,9 @@ bool oled_task_user(void) {
     oled_write(read_logo(), false);
     // oled_write_ln(encoder_debug, false);
   }
-    return false;
 }
 
-#endif //OLED_ENABLE
+#endif //OLED_DRIVER_ENABLE
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
@@ -338,7 +337,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
     set_keylog(keycode, record);
 #endif
     // set_timelog();

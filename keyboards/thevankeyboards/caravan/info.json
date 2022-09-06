@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Caravan",
-    "manufacturer": "TheVan Keyboards",
+    "keyboard_name": "TheVanKeyboards Caravan",
     "url": "",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0xFEAE",
-        "pid": "0x8844",
-        "device_version": "0.0.1"
-    },
+    "width": 13.75,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

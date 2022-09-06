@@ -1,15 +1,12 @@
 {
-  "keyboard_name": "x268",
-  "manufacturer": "Noxary",
+  "keyboard_name": "Noxary x268",
   "url": "",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0x4E58",
-    "pid": "0x0A7B",
-    "device_version": "0.7.8"
-  },
+  "width": 16,
+  "height": 5,
   "layouts": {
     "LAYOUT": {
+      "key_count": 71,
       "layout": [
         {"label":"ESC", "x":0, "y":0},
         {"label":"1", "x":1, "y":0},
@@ -86,3 +83,4 @@
     }
   }
 }
+

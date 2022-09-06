@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "Hard Light Mk 2",
-    "manufacturer": "Everywhere Defense Industries",
-    "usb": {
-        "vid": "0xF7E0",
-        "pid": "0x2408",
-        "device_version": "0.0.7"
-    }
-}

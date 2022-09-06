@@ -1,13 +1,9 @@
 {
     "keyboard_name": "p65rgb",
-    "manufacturer": "marhalloweenvt",
     "url": "",
     "maintainer": "marhalloweenvt",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x75B4",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

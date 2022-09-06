@@ -1,15 +1,11 @@
 {
-  "keyboard_name": "The nein Keyboard",
-  "manufacturer": "di0ib",
+  "keyboard_name": "nein",
   "url": "http://www.40percent.club/2019/04/nein.html",
   "maintainer": "qmk",
-  "usb": {
-    "vid": "0x4025",
-    "pid": "0x9999",
-    "device_version": "99.9.9"
-  },
+  "width": 3,
+  "height": 3,
   "layouts": {
-    "LAYOUT_ortho_3x3": {
+    "LAYOUT": {
       "layout": [
         {"x":0, "y":0},
         {"x":1, "y":0},

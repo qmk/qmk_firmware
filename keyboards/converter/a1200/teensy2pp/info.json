@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "Amiga-1200",
-    "manufacturer": "8bits4ever",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "0.0.1"
-    }
-}

@@ -1,13 +1,9 @@
 {
     "keyboard_name": "BKS65 Solder",
-    "manufacturer": "FJLabs",
     "url": "https://www.bolsakeyboardsupply.com",
     "maintainer": "FJLabs",
-    "usb": {
-        "vid": "0x7074",
-        "pid": "0x0099",
-        "device_version": "0.0.1"
-    },
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

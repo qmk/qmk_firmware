@@ -2,7 +2,7 @@
   "manufacturer": "Clueboard",
   "maintainer": "skullydazed",
   "usb": {
-    "device_version": "0.0.1",
+    "device_ver": "0x0001",
     "vid": "0xC1ED"
   }
 }

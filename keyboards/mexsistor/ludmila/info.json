@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Ludmila Macropad",
-    "manufacturer": "Kevin M.",
+    "keyboard_name": "ludmila",
     "url": "",
     "maintainer": "Kevin M.",
-    "usb": {
-        "vid": "0x69CC",
-        "pid": "0x6BF6",
-        "device_version": "0.0.1"
-    },
+    "width": 4,
+    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

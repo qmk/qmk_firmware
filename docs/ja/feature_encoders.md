@@ -51,18 +51,15 @@ ENCODER_ENABLE = yes
 コールバック関数を `<keyboard>.c` に記述することができます:
 
 ```c
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-    
+void encoder_update_kb(uint8_t index, bool clockwise) {
+    encoder_update_user(index, clockwise);
 }
 ```
 
 あるいは `keymap.c` に記述することもできます:
 
 ```c
-bool encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_PGDN);
@@ -76,7 +73,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_UP);
         }
     }
-    return false;
 }
 ```
 

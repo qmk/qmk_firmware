@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define USE_SERIAL
-#define EE_HANDS
+#define MASTER_LEFT
 #define TAPPING_TERM 150
 #define TAPPING_TOGGLE 2
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD

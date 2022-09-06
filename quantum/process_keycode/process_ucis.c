@@ -27,7 +27,7 @@ void qk_ucis_start(void) {
 
 __attribute__((weak)) void qk_ucis_start_user(void) {
     unicode_input_start();
-    register_hex(0x2328); // ⌨
+    register_hex(0x2328);  // ⌨
     unicode_input_finish();
 }
 
@@ -46,7 +46,7 @@ static bool is_uni_seq(char *seq) {
             return false;
         }
     }
-    return qk_ucis_state.codes[i] == KC_ENTER || qk_ucis_state.codes[i] == KC_SPACE;
+    return qk_ucis_state.codes[i] == KC_ENT || qk_ucis_state.codes[i] == KC_SPC;
 }
 
 __attribute__((weak)) void qk_ucis_symbol_fallback(void) {
@@ -72,7 +72,7 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
-    bool special = keycode == KC_SPACE || keycode == KC_ENTER || keycode == KC_ESCAPE || keycode == KC_BACKSPACE;
+    bool special = keycode == KC_SPC || keycode == KC_ENT || keycode == KC_ESC || keycode == KC_BSPC;
     if (qk_ucis_state.count >= UCIS_MAX_SYMBOL_LENGTH && !special) {
         return false;
     }
@@ -81,7 +81,7 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
     qk_ucis_state.count++;
 
     switch (keycode) {
-        case KC_BACKSPACE:
+        case KC_BSPC:
             if (qk_ucis_state.count >= 2) {
                 qk_ucis_state.count -= 2;
                 return true;
@@ -90,16 +90,16 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
 
-        case KC_SPACE:
-        case KC_ENTER:
-        case KC_ESCAPE:
+        case KC_SPC:
+        case KC_ENT:
+        case KC_ESC:
             for (uint8_t i = 0; i < qk_ucis_state.count; i++) {
-                register_code(KC_BACKSPACE);
-                unregister_code(KC_BACKSPACE);
+                register_code(KC_BSPC);
+                unregister_code(KC_BSPC);
                 wait_ms(UNICODE_TYPE_DELAY);
             }
 
-            if (keycode == KC_ESCAPE) {
+            if (keycode == KC_ESC) {
                 qk_ucis_state.in_progress = false;
                 qk_ucis_cancel();
                 return false;

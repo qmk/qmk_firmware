@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "EK87",
-    "manufacturer": "Eniigma Keyboards",
+    "keyboard_name": "ek87",
     "url": "",
     "maintainer": "adamws",
-    "usb": {
-        "vid": "0x454B",
-        "pid": "0x0001",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout":[

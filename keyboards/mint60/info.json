@@ -1,13 +1,9 @@
 {
   "keyboard_name": "Mint60",
-  "manufacturer": "Eucalyn",
   "url": "",
   "maintainer": "eucalyn",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x0000",
-    "device_version": "0.0.1"
-  },
+  "width": 16,
+  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

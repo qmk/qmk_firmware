@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "Hannah60 RGB",
-    "manufacturer": "Team.Mechlovin",
+    "keyboard_name": "hannah60rgb",
     "url": "",
-    "maintainer": "mechlovin",
-    "usb": {
-        "vid": "0x4D4C",
-        "pid": "0x6001",
-        "device_version": "0.0.1"
-    },
+    "maintainer": "Team Mechlovin'",
+    "width": 15,
+    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

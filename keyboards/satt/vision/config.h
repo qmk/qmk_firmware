@@ -17,6 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x5454
+#define PRODUCT_ID      0x5649
+#define DEVICE_VER      0x0001
+#define MANUFACTURER SatT
+#define PRODUCT Vision
+
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 14
@@ -51,3 +58,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION

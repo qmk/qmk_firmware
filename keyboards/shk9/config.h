@@ -19,6 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID    0x5348
+#define PRODUCT_ID   0x4B39
+#define DEVICE_VER   0x0001
+#define MANUFACTURER Superhuman
+#define PRODUCT      SHK9
+
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -26,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { B0, B1, B2 }
 #define MATRIX_COL_PINS { B3, B4, B5 }
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -37,3 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION

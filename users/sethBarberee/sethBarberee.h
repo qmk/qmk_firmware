@@ -21,8 +21,6 @@
 
 enum layers {
     _QWERTY,
-    _COLEMAK,
-    _DVORAK,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -30,9 +28,6 @@ enum layers {
 
 enum userspace_keycodes {
     KC_VRSN = SAFE_RANGE,
-    KC_QWER,
-    KC_COLE,
-    KC_DVOR,
     NEW_SAFE_RANGE
 };
 

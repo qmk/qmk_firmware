@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#if defined(OLED_ENABLE)
+#if defined(OLED_DRIVER_ENABLE)
 static void render_logo(void) {
     //Logo for _MEDIA
     static const char PROGMEM logo1[] = {
@@ -113,9 +113,8 @@ static void render_logo(void) {
     }
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     render_logo();
-    return false;
 }
 #endif
 

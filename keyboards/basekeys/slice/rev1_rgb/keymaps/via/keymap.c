@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 
 static void render_qmk_logo(void) {
     static const char PROGMEM qmk_logo[] = {
@@ -99,7 +99,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return isLeftHand ? OLED_ROTATION_180 : OLED_ROTATION_0;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   if (is_keyboard_master()) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -123,6 +123,5 @@ bool oled_task_user(void) {
   } else {
     render_qmk_logo();
   }
-    return false;
 }
 #endif

@@ -1,7 +1,9 @@
 #pragma once
 
 #include "config_common.h"
-
+#define PRODUCT_ID      0x3632
+#define DEVICE_VER      0x0001
+#define PRODUCT  DMOTE (62-key)
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6
 
@@ -46,3 +48,5 @@
 #define RGB_DI_PIN D1
 #define RGBLED_NUM 6           // Used when chaining strips
 #define RGBLED_SPLIT { 3, 3 }  // Used when not chaining strips
+#define ws2812_PORTREG  PORTD
+#define ws2812_DDRREG   DDRD

@@ -1,9 +1,12 @@
-#ifdef OLED_ENABLE
+#ifdef SSD1306OLED
 #include QMK_KEYBOARD_H
+#include "ssd1306.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
 #endif
+
+extern uint8_t is_master;
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);
@@ -44,6 +47,7 @@ void update_keymap_status(void) {
 #endif
 
 void matrix_init_user(void) {
+  iota_gfx_init(!has_usb()); // turns on the display
   update_keymap_status();
 }
 
@@ -57,7 +61,7 @@ void keylog_set_keymap(uint16_t keycode, keyrecord_t *record) {
   set_keylog(keycode, record);
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+uint32_t layer_state_set_user(uint32_t state) {
   for (layer_name_idx = 0; layer_name_idx < LAYER_DISPLAY_MAX; ++layer_name_idx) {
     if (state == 0 && layer_display_name[layer_name_idx].state == default_layer_state) {
       break;
@@ -70,18 +74,31 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 static inline void render_keymap_status(struct CharacterMatrix *matrix) {
-  oled_write(layer_status_buf);
+  matrix_write(matrix, layer_status_buf);
 }
 
-bool oled_task_user(void) {
-  if (is_keyboard_master()) {
+void matrix_render_user(struct CharacterMatrix *matrix) {
+  if (is_master) {
     render_keymap_status(matrix);
-    oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
+    matrix_write_ln(matrix, read_keylog());
+    matrix_write_ln(matrix, read_keylogs());
   } else {
-    oled_write(read_logo(), false);
+    matrix_write(matrix, read_logo());
   }
-  return false;
+}
+
+void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
+  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
+    memcpy(dest->display, source->display, sizeof(dest->display));
+    dest->dirty = true;
+  }
+}
+
+void iota_gfx_task_user(void) {
+  struct CharacterMatrix matrix;
+  matrix_clear(&matrix);
+  matrix_render_user(&matrix);
+  matrix_update(&display, &matrix);
 }
 
 #endif

@@ -1,13 +1,9 @@
 {
-    "keyboard_name": "SiCK-PAD",
-    "manufacturer": "FedorSosnin",
+    "keyboard_name": "sick_pad",
     "url": "https://www.thingiverse.com/thing:3682168",
     "maintainer": "jmschneider",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0xDA20",
-        "device_version": "0.0.1"
-    },
+    "width": 4,
+    "height": 5,
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

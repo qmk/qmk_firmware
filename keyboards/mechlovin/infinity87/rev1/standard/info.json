@@ -1,15 +1,12 @@
 {
-    "keyboard_name": "infinity87 Rev.1",
-    "manufacturer": "Mechlovin.Studio",
+    "keyboard_name": "infinity87",
     "url": "",
     "maintainer": "Team Mechlovin'",
-    "usb": {
-        "vid": "0x4D4C",
-        "pid": "0x8701",
-        "device_version": "0.0.1"
-    },
+    "width": 18.25,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
+            "key_count": 91,
             "layout": [
                 {"label":"K00 (B0,B6)", "x":0, "y":0},
                 {"label":"K01 (B0,F4)", "x":2, "y":0},

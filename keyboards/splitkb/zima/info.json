@@ -1,13 +1,9 @@
 {
     "keyboard_name": "Zima",
-    "manufacturer": "splitkb",
     "url": "splitkb.com",
     "maintainer": "splitkb.com, drashna",
-    "usb": {
-        "vid": "0x8D1D",
-        "pid": "0xF75B",
-        "device_version": "0.0.1"
-    },
+    "width": 3,
+    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x3": {
             "layout": [

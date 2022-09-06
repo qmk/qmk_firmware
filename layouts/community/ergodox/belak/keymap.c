@@ -33,6 +33,11 @@ enum belak_keycodes {
     E_TSET,
 };
 
+inline void tap(uint16_t keycode) {
+    register_code(keycode);
+    unregister_code(keycode);
+};
+
 // TODO: Add LED support to the tap dance by using the advanced macro
 #define LTOGGLE TD(TD_LAYER_TOGGLE)
 
@@ -268,17 +273,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case E_SHRUG: // ¯\_(ツ)_/¯
         if (record->event.pressed) {
             process_unicode((0x00AF|QK_UNICODE), record);   // Hand
-            tap_code16(KC_BSLS);                                   // Arm
+            tap(KC_BSLS);                                   // Arm
             register_code(KC_RSFT);
-            tap_code16(KC_UNDS);                                   // Arm
-            tap_code16(KC_LPRN);                                   // Head
+            tap(KC_UNDS);                                   // Arm
+            tap(KC_LPRN);                                   // Head
             unregister_code(KC_RSFT);
             process_unicode((0x30C4|QK_UNICODE), record);   // Face
             register_code(KC_RSFT);
-            tap_code16(KC_RPRN);                                   // Head
-            tap_code16(KC_UNDS);                                   // Arm
+            tap(KC_RPRN);                                   // Head
+            tap(KC_UNDS);                                   // Arm
             unregister_code(KC_RSFT);
-            tap_code16(KC_SLSH);                                   // Arm
+            tap(KC_SLSH);                                   // Arm
             process_unicode((0x00AF|QK_UNICODE), record);   // Hand
         }
         return false;
@@ -286,19 +291,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case E_TFLIP: // (╯°□°)╯ ︵ ┻━┻
         if (record->event.pressed) {
             register_code(KC_RSFT);
-            tap_code16(KC_9);
+            tap(KC_9);
             unregister_code(KC_RSFT);
             process_unicode((0x256F|QK_UNICODE), record);   // Arm
             process_unicode((0x00B0|QK_UNICODE), record);   // Eye
             process_unicode((0x25A1|QK_UNICODE), record);   // Mouth
             process_unicode((0x00B0|QK_UNICODE), record);   // Eye
             register_code(KC_RSFT);
-            tap_code16(KC_0);
+            tap(KC_0);
             unregister_code(KC_RSFT);
             process_unicode((0x256F|QK_UNICODE), record);   // Arm
-            tap_code16(KC_SPC);
+            tap(KC_SPC);
             process_unicode((0x0361|QK_UNICODE), record);   // Flippy
-            tap_code16(KC_SPC);
+            tap(KC_SPC);
             process_unicode((0x253B|QK_UNICODE), record);   // Table
             process_unicode((0x2501|QK_UNICODE), record);   // Table
             process_unicode((0x253B|QK_UNICODE), record);   // Table
@@ -311,18 +316,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             process_unicode((0x2500|QK_UNICODE), record);   // Table
             process_unicode((0x2500|QK_UNICODE), record);   // Table
             process_unicode((0x252C|QK_UNICODE), record);   // Table
-            tap_code16(KC_SPC);
+            tap(KC_SPC);
             process_unicode((0x30CE|QK_UNICODE), record);   // Arm
             register_code(KC_RSFT);
-            tap_code16(KC_9);
+            tap(KC_9);
             unregister_code(KC_RSFT);
-            tap_code16(KC_SPC);
+            tap(KC_SPC);
             process_unicode((0x309C|QK_UNICODE), record);   // Eye
-            tap_code16(KC_MINS);
+            tap(KC_MINS);
             process_unicode((0x309C|QK_UNICODE), record);   // Eye
             process_unicode((0x30CE|QK_UNICODE), record);   // Arm
             register_code(KC_RSFT);
-            tap_code16(KC_0);
+            tap(KC_0);
             unregister_code(KC_RSFT);
         }
         return false;

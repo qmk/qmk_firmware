@@ -1,7 +1,10 @@
 {
-    "usb": {
-        "device_version": "0.1.0"
-    },
+    "keyboard_name": "dumbpad/v1x_right",
+    "keyboard_folder": "dumbpad/v1x_right",
+    "url": "https://www.github.com/imchipwood/dumbpad",
+    "maintainer": "imchipwood",
+    "width": 5,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
