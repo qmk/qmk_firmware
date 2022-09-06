@@ -165,10 +165,6 @@ led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
 void        led_matrix_set_flags_noeeprom(led_flags_t flags);
 
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-uint8_t led_matrix_is_enabled_eeprom(void);
-#endif // LED_MATRIX_STATE_BACKUP_ENABLE
-
 #ifdef LED_DISABLE_TIMEOUT
 #    if LED_DISABLE_TIMEOUT > 0
 uint32_t led_matrix_disable_timeout_get(void);

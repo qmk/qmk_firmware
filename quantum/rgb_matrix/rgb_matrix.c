@@ -133,9 +133,6 @@ static uint32_t rgb_disable_timeout = RGB_DISABLE_TIMEOUT;
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 static bool driver_shutdown = false;
 #endif // RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
-#ifdef RGB_MATRIX_STATE_BACKUP_ENABLE
-static uint8_t rgb_enable_eeprom = false;
-#endif // RGB_MATRIX_STATE_BACKUP_ENABLE
 
 // double buffers
 static uint32_t rgb_timer_buffer;
@@ -465,13 +462,6 @@ void rgb_matrix_task(void) {
     }
 }
 
-#ifdef RGB_MATRIX_STATE_BACKUP_ENABLE
-static inline void rgb_enable_state_backup(void) {
-    dprintf("rgb_enable_state_backup\n");
-    rgb_enable_eeprom = rgb_matrix_config.enable;
-}
-#endif // RGB_MATRIX_STATE_BACKUP_ENABLE
-
 void rgb_matrix_indicators(void) {
     rgb_matrix_indicators_kb();
     rgb_matrix_indicators_user();
@@ -532,9 +522,6 @@ void rgb_matrix_init(void) {
         dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_rgb_matrix_default();
     }
-#ifdef RGB_MATRIX_STATE_BACKUP_ENABLE
-    rgb_enable_state_backup();
-#endif                           // RGB_MATRIX_STATE_BACKUP_ENABLE
     eeconfig_debug_rgb_matrix(); // display current eeprom values
 }
 
@@ -556,9 +543,6 @@ void rgb_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     rgb_matrix_config.enable ^= 1;
     rgb_task_state = STARTING;
     eeconfig_flag_rgb_matrix(write_to_eeprom);
-#ifdef RGB_MATRIX_STATE_BACKUP_ENABLE
-    if (write_to_eeprom) rgb_enable_state_backup();
-#endif // RGB_MATRIX_STATE_BACKUP_ENABLE
     dprintf("rgb matrix toggle [%s]: rgb_matrix_config.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.enable);
 }
 void rgb_matrix_toggle_noeeprom(void) {
@@ -571,9 +555,6 @@ void rgb_matrix_toggle(void) {
 void rgb_matrix_enable(void) {
     rgb_matrix_enable_noeeprom();
     eeconfig_flag_rgb_matrix(true);
-#ifdef RGB_MATRIX_STATE_BACKUP_ENABLE
-    rgb_enable_state_backup();
-#endif // RGB_MATRIX_STATE_BACKUP_ENABLE
 }
 
 void rgb_matrix_enable_noeeprom(void) {
@@ -584,9 +565,6 @@ void rgb_matrix_enable_noeeprom(void) {
 void rgb_matrix_disable(void) {
     rgb_matrix_disable_noeeprom();
     eeconfig_flag_rgb_matrix(true);
-#ifdef RGB_MATRIX_STATE_BACKUP_ENABLE
-    rgb_enable_state_backup();
-#endif // RGB_MATRIX_STATE_BACKUP_ENABLE
 }
 
 void rgb_matrix_disable_noeeprom(void) {
@@ -597,12 +575,6 @@ void rgb_matrix_disable_noeeprom(void) {
 uint8_t rgb_matrix_is_enabled(void) {
     return rgb_matrix_config.enable;
 }
-
-#ifdef RGB_MATRIX_STATE_BACKUP_ENABLE
-uint8_t rgb_matrix_is_enabled_eeprom(void) {
-    return rgb_enable_eeprom;
-}
-#endif // RGB_MATRIX_STATE_BACKUP_ENABLE
 
 void rgb_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     if (!rgb_matrix_config.enable) {

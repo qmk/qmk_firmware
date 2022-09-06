@@ -110,9 +110,6 @@ static uint32_t led_disable_timeout = LED_DISABLE_TIMEOUT;
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 static bool driver_shutdown = false;
 #endif
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-static uint8_t led_enable_eeprom = false;
-#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 
 // double buffers
 static uint32_t led_timer_buffer;
@@ -405,13 +402,6 @@ void led_matrix_task(void) {
     }
 }
 
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-static inline void led_enable_state_backup(void) {
-    dprintf("led_enable_state_backup\n");
-    led_enable_eeprom = led_matrix_eeconfig.enable;
-}
-#endif // LED_MATRIX_STATE_BACKUP_ENABLE
-
 void led_matrix_indicators(void) {
     led_matrix_indicators_kb();
     led_matrix_indicators_user();
@@ -472,9 +462,7 @@ void led_matrix_init(void) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_led_matrix_default();
     }
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-    led_enable_state_backup();
-#endif                           // LED_MATRIX_STATE_BACKUP_ENABLE
+
     eeconfig_debug_led_matrix(); // display current eeprom values
 }
 
@@ -496,9 +484,6 @@ void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
     led_task_state = STARTING;
     eeconfig_flag_led_matrix(write_to_eeprom);
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-    if (write_to_eeprom) led_enable_state_backup();
-#endif // LED_MATRIX_STATE_BACKUP_ENABLE
     dprintf("led matrix toggle [%s]: led_matrix_eeconfig.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.enable);
 }
 void led_matrix_toggle_noeeprom(void) {
@@ -511,9 +496,6 @@ void led_matrix_toggle(void) {
 void led_matrix_enable(void) {
     led_matrix_enable_noeeprom();
     eeconfig_flag_led_matrix(true);
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-    led_enable_state_backup();
-#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 }
 
 void led_matrix_enable_noeeprom(void) {
@@ -524,9 +506,6 @@ void led_matrix_enable_noeeprom(void) {
 void led_matrix_disable(void) {
     led_matrix_disable_noeeprom();
     eeconfig_flag_led_matrix(true);
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-    led_enable_state_backup();
-#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 }
 
 void led_matrix_disable_noeeprom(void) {
@@ -537,12 +516,6 @@ void led_matrix_disable_noeeprom(void) {
 uint8_t led_matrix_is_enabled(void) {
     return led_matrix_eeconfig.enable;
 }
-
-#ifdef LED_MATRIX_STATE_BACKUP_ENABLE
-uint8_t led_matrix_is_enabled_eeprom(void) {
-    return led_enable_eeprom;
-}
-#endif // LED_MATRIX_STATE_BACKUP_ENABLE
 
 void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     if (!led_matrix_eeconfig.enable) {
