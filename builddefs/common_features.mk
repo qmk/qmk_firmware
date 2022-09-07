@@ -883,8 +883,8 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
         OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE
-        SRC += analog.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
+        QUANTUM_LIB_SRC += analog.c
         QUANTUM_LIB_SRC += spi_master.c
     endif
 

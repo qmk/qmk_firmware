@@ -579,10 +579,12 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
             snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, item->key.modifier, item->key.keys[0], item->key.keys[1], item->key.keys[2], item->key.keys[3], item->key.keys[4], item->key.keys[5]);
             return at_command(cmdbuf, NULL, 0, true, timeout);
 
+#ifdef EXTRAKEY_ENABLE
         case QTConsumer:
             strcpy_P(fmtbuf, PSTR("AT+BLEHIDCONTROLKEY=0x%04x"));
             snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, item->consumer);
             return at_command(cmdbuf, NULL, 0, true, timeout);
+#endif
 
 #ifdef MOUSE_ENABLE
         case QTMouseMove:
