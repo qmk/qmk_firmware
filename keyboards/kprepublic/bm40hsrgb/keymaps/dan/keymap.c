@@ -312,19 +312,21 @@ void rgb_matrix_indicators_user(void) {
             break;
     }
 
+	led_t led_state = host_keyboard_led_state();
+
     //Capslock led
-    if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         rgb_matrix_set_color(12, 145, 145, 145);
     }
 
     //Numlock led
-    if (host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) {
+    if (led_state.num_lock) {
     } else {
         rgb_matrix_set_color(0, 145, 145, 145);
     }
 
     //Scroll lock led
-    if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) {
+    if (led_state.scroll_lock) {
         rgb_matrix_set_color(24, 145, 145, 145);
     }
 
