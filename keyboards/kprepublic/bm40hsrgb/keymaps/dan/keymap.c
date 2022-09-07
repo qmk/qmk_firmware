@@ -320,8 +320,7 @@ void rgb_matrix_indicators_user(void) {
     }
 
     //Numlock led
-    if (led_state.num_lock) {
-    } else {
+    if (!led_state.num_lock) {
         rgb_matrix_set_color(0, 145, 145, 145);
     }
 
