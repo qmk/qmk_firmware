@@ -20,11 +20,12 @@ enum custom_key_codes {
     PASTE_NOSTYLE, // paste without formatting
     MOVE_BEGIN_LINE_TERMINAL, // move to the beginning of the line in the terminal
     MOVE_END_LINE_TERMINAL, // move to the end of the line in the terminal
-    PASTE_VIM,
-    ACIRCLE,
-    ADOT,
-    ODOT,
-    COMPOSE_MACRO
+    /* macros */
+    PASTE_VIM, // paste in vim from system register
+    ACIRCLE, // å 
+    ADOT, // ä
+    ODOT, // ö
+    COMPOSE_MACRO // compose key for mac or linux
     
 };
 
@@ -89,8 +90,9 @@ const uint16_t PROGMEM odot_combo[] = {KC_BSPACE, KC_SPACE, MT(MOD_LCTL,KC_SCLN)
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(compose_combo, COMPOSE_MACRO),
     COMBO(search_combo, FINDER),
-    COMBO(vim_paste_combo, PASTE_VIM),
     COMBO(calculator_combo, CALCULATOR),
+    /* macros */
+    COMBO(vim_paste_combo, PASTE_VIM),
     COMBO(acircle_combo, ACIRCLE),
     COMBO(adot_combo, ADOT),
     COMBO(odot_combo, ODOT)
@@ -116,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI,KC_PLUS,                    KC_EQL, KC_4,  KC_5,  KC_6,  KC_BSLASH, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCBR, KC_LBRACKET, KC_TILD, KC_GRAVE, PASTE_NOSTYLE, KC_AMPERSAND,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3, KC_RBRACKET, KC_RCBR,
+      KC_LCBR, KC_LBRACKET, KC_GRAVE, KC_TILD, PASTE_NOSTYLE, KC_AMPERSAND,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3, KC_RBRACKET, KC_RCBR,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+-C```-------+--------+--------|
                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_TRANSPARENT  ,  KC_UNDS, KC_0
                                       //`--------------------------'  `--------------------------'
