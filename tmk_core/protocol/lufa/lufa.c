@@ -65,15 +65,6 @@ extern keymap_config_t keymap_config;
 #    include "audio.h"
 #endif
 
-#ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-#        include "bluefruit_le.h"
-#    elif BLUETOOTH_RN42
-#        include "rn42.h"
-#    endif
-#endif
-
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
 #endif
@@ -648,17 +639,6 @@ static uint8_t keyboard_leds(void) {
 static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
 
-#ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif BLUETOOTH_RN42
-        rn42_send_keyboard(report);
-#    endif
-        return;
-    }
-#endif
-
     /* Select the Keyboard Report Endpoint */
     uint8_t ep   = KEYBOARD_IN_EPNUM;
     uint8_t size = KEYBOARD_REPORT_SIZE;
@@ -694,18 +674,6 @@ static void send_keyboard(report_keyboard_t *report) {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     uint8_t timeout = 255;
-
-#    ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef BLUETOOTH_BLUEFRUIT_LE
-        // FIXME: mouse buttons
-        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
-#        elif BLUETOOTH_RN42
-        rn42_send_mouse(report);
-#        endif
-        return;
-    }
-#    endif
 
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
@@ -747,17 +715,6 @@ static void send_report(void *report, size_t size) {
  */
 static void send_extra(uint8_t report_id, uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-#    ifdef BLUETOOTH_ENABLE
-    if (report_id == REPORT_ID_CONSUMER && where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_consumer_key(data);
-#        elif BLUETOOTH_RN42
-        rn42_send_consumer(data);
-#        endif
-        return;
-    }
-#    endif
-
     static report_extra_t r;
     r = (report_extra_t){.report_id = report_id, .usage = data};
     send_report(&r, sizeof(r));
@@ -1007,10 +964,6 @@ void protocol_pre_init(void) {
     setup_usb();
     sei();
 
-#if defined(BLUETOOTH_RN42)
-    rn42_init();
-#endif
-
     /* wait for USB startup & debug output */
 
 #ifdef WAIT_FOR_USB
@@ -1060,10 +1013,6 @@ void protocol_pre_task(void) {
 void protocol_post_task(void) {
 #ifdef MIDI_ENABLE
     MIDI_Device_USBTask(&USB_MIDI_Interface);
-#endif
-
-#ifdef BLUETOOTH_BLUEFRUIT_LE
-    bluefruit_le_task();
 #endif
 
 #ifdef VIRTSER_ENABLE
