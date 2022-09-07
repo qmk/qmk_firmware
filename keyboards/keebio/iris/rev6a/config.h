@@ -111,7 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
+#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #        define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define DRIVER_LED_TOTAL RGBLED_NUM
 #        define RGB_MATRIX_SPLIT { 34, 34 }
@@ -119,9 +119,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define RGB_MATRIX_KEYPRESSES
 //#    endif
 #endif
-
-#define VIA_QMK_RGBLIGHT_ENABLE
-
-// Enable the workaround for the speed parameter mismatch between RGBLIGHT and
-// RGB Matrix, so that the speed slider in VIA behaves in a more useful way.
-#define VIA_CUSTOM_LIGHTING_ENABLE
