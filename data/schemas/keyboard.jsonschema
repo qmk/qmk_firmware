@@ -38,7 +38,7 @@
         },
         "pin_compatible": {
             "type": "string",
-            "enum": ["promicro"]
+            "enum": ["promicro", "elite_c"]
         },
         "processor": {
             "type": "string",
