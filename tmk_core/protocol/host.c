@@ -24,6 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "digitizer.h"
 
+#ifdef BLUETOOTH_ENABLE
+#    include "outputselect.h"
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+#        include "bluefruit_le.h"
+#    elif BLUETOOTH_RN42
+#        include "rn42.h"
+#    endif
+#endif
+
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 extern keymap_config_t keymap_config;
@@ -63,6 +72,17 @@ led_t host_keyboard_led_state(void) {
 
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {
+#ifdef BLUETOOTH_ENABLE
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
+#    elif BLUETOOTH_RN42
+        rn42_send_keyboard(report);
+#    endif
+        return;
+    }
+#endif
+
     if (!driver) return;
 #if defined(NKRO_ENABLE) && defined(NKRO_SHARED_EP)
     if (keyboard_protocol && keymap_config.nkro) {
@@ -90,6 +110,18 @@ void host_keyboard_send(report_keyboard_t *report) {
 }
 
 void host_mouse_send(report_mouse_t *report) {
+#ifdef BLUETOOTH_ENABLE
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+        // FIXME: mouse buttons
+        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
+#    elif BLUETOOTH_RN42
+        rn42_send_mouse(report);
+#    endif
+        return;
+    }
+#endif
+
     if (!driver) return;
 #ifdef MOUSE_SHARED_EP
     report->report_id = REPORT_ID_MOUSE;
@@ -113,6 +145,17 @@ void host_system_send(uint16_t report) {
 void host_consumer_send(uint16_t report) {
     if (report == last_consumer_report) return;
     last_consumer_report = report;
+
+#ifdef BLUETOOTH_ENABLE
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_consumer_key(report);
+#    elif BLUETOOTH_RN42
+        rn42_send_consumer(report);
+#    endif
+        return;
+    }
+#endif
 
     if (!driver) return;
     (*driver->send_extra)(REPORT_ID_CONSUMER, report);

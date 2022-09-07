@@ -79,9 +79,7 @@ struct sdep_msg {
 enum queue_type {
     QTKeyReport, // 1-byte modifier + 6-byte key report
     QTConsumer,  // 16-bit key code
-#ifdef MOUSE_ENABLE
     QTMouseMove, // 4-byte mouse report
-#endif
 };
 
 struct queue_item {
@@ -442,7 +440,7 @@ bool bluefruit_le_enable_keyboard(void) {
     // Disable command echo
     static const char kEcho[] PROGMEM = "ATE=0";
     // Make the advertised name match the keyboard
-    static const char kGapDevName[] PROGMEM = "AT+GAPDEVNAME=" STR(PRODUCT);
+    static const char kGapDevName[] PROGMEM = "AT+GAPDEVNAME=" PRODUCT;
     // Turn on keyboard support
     static const char kHidEnOn[] PROGMEM = "AT+BLEHIDEN=1";
 
@@ -581,10 +579,12 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
             snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, item->key.modifier, item->key.keys[0], item->key.keys[1], item->key.keys[2], item->key.keys[3], item->key.keys[4], item->key.keys[5]);
             return at_command(cmdbuf, NULL, 0, true, timeout);
 
+#ifdef EXTRAKEY_ENABLE
         case QTConsumer:
             strcpy_P(fmtbuf, PSTR("AT+BLEHIDCONTROLKEY=0x%04x"));
             snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, item->consumer);
             return at_command(cmdbuf, NULL, 0, true, timeout);
+#endif
 
 #ifdef MOUSE_ENABLE
         case QTMouseMove:
@@ -658,7 +658,6 @@ void bluefruit_le_send_consumer_key(uint16_t usage) {
     }
 }
 
-#ifdef MOUSE_ENABLE
 void bluefruit_le_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
     struct queue_item item;
 
@@ -673,7 +672,6 @@ void bluefruit_le_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan,
         send_buf_send_one();
     }
 }
-#endif
 
 uint32_t bluefruit_le_read_battery_voltage(void) {
     return state.vbat;
