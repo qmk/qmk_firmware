@@ -18,18 +18,19 @@ AK_SND_ONLY_START(KC_S) // fixes SC bigram
   R_SND(KC_V, KC_C)
   AK_SND_ONLY_START(KC_C) // fixes CS bigram
   R_SND(KC_X, KC_S)
-AK_SND_ONLY_START(KC_F)   // fixes FS bigram
-  R_SND(KC_P, KC_S)
 AK_SND_ONLY_START(KC_P)   // fixes PT bigram
   R_SND(KC_F, KC_T)
-// fixes DG bigram        // fixes DG bigram
-  R_SND(KC_X, KC_G)
+AK_SND_ONLY_START(KC_F)   // fixes FS bigram
+  R_SND(KC_W, KC_S)
 AK_SND_ONLY_START(KC_E)   // fixes E, bigram
   R_SND(KC_SLSH, KC_COMM)
-AK_SND_ONLY_START(KC_W)   // fixes WR bigram
+AK_SND_ONLY_START(KC_W)   // fixes WR bigram wrong
   R_SND(KC_P, KC_R)
 AK_SND_ONLY_START(KC_PMNS)  // allows (-0) -> (- )(-space)
   R_SND(KC_0, KC_SPC)
 AK_BOTH_START(KC_U, KC_U)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_BTH(KC_Y, KC_U, KC_E)     // fixes UE bigram
   R_BTH(KC_SCLN, KC_U, KC_Y)  // allows quickly typing UY now that UY->UE
+AK_BOTH_START(KC_D, KC_D)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
+  R_BTH(KC_X, KC_D, KC_G)     // fixes DG bigram
+  R_BTH(KC_Z, KC_D, KC_B)     // fixes DB bigram

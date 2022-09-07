@@ -139,9 +139,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
 *  |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   ^  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |S(TAB)|   ~  |   ^  |   %  |   (  |   )  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
+ * |S(TAB)|   ~  |   ^  |   %  |   {  |   }  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
- * | SHIFT|   |  |   &  |   "  |   {  |   }  | DIAL1 |--> Toggle HDR        | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
+ * | SHIFT|   |  |   &  |   "  |   (  |   )  | DIAL1 |--> Toggle HDR        | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    on Button Press   |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /                        \      \       |      |MW U/D|
  *                      | APP | ENTER| OSSft/ SPACE/                          \ Space\   0  |  .   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
@@ -150,8 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
   KC_HYPR,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                              KC_6,    KC_7,   KC_8,  KC_9,  KC_0,    KC_DEL,
   KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN,                           KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, G(A(KC_B)),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LCBR, KC_RCBR,                           KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
+  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LPRN, KC_RPRN, G(A(KC_B)),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
                                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
@@ -477,10 +477,8 @@ enum combo_events {
   UNDERSCORE,
   TWODQUOTE,
   LOWERTOGGLE,
-  MOUSETOGGLE,
   CAPSWORD,
   SLEEP,
-  TOGGLELAYOUT,
   RESETKEY,
   NUMLOCKC,
   F1COMBO,
@@ -519,9 +517,7 @@ const uint16_t PROGMEM exclamationmark_combo[]      = {KC_SLSH, MTRSFTBSLS, COMB
 const uint16_t PROGMEM underscore_combo[]           = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]            = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTCTL_ENT, COMBO_END};
-//const uint16_t PROGMEM mousetoggle_combo[]          = {KC_U, KC_Y, COMBO_END}; // this one was causing too many issues with confusion
 const uint16_t PROGMEM sleep_combo[]                = {KC_F2, KC_F9, KC_F10, KC_F11, COMBO_END};
-const uint16_t PROGMEM toggle_layout_combo[]        = {KC_F4, KC_F5, KC_F6, KC_F7, COMBO_END};
 const uint16_t PROGMEM reset_combo[]                = {KC_BSPC, MTRCTLQUO, MTRSFTBSLS, COMBO_END};
 const uint16_t PROGMEM numlock_combo[]              = {KC_L, KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]             = {KC_LSFT, MTRSFTBSLS, COMBO_END};
@@ -562,9 +558,7 @@ combo_t key_combos[] = {
   [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
   [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
-  //[MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
   [SLEEP] = COMBO_ACTION(sleep_combo),
-  [TOGGLELAYOUT] = COMBO_ACTION(toggle_layout_combo),
   [RESETKEY] = COMBO_ACTION(reset_combo),
   [NUMLOCKC] = COMBO_ACTION(numlock_combo),
   [CAPSWORD] = COMBO_ACTION(capsword_combo),
@@ -775,33 +769,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         }
       }
       break;
-    // case MOUSETOGGLE: this one was causing too many accidental confusions when it was activated.
-    //   if (pressed) {
-    //     layer_invert(_ADJUST);
-    //     if(IS_LAYER_ON(_ADJUST)){
-    //       #ifdef AUDIO_ENABLE
-    //           PLAY_SONG(short_tone_on);
-    //       #endif
-    //     }
-    //     if(IS_LAYER_OFF(_ADJUST)){
-    //       #ifdef AUDIO_ENABLE
-    //           PLAY_SONG(short_tone_off);
-    //       #endif
-    //     }
-    //   }
-    //   break;
     case SLEEP:
       if (pressed) {
         tap_code16(KC_SLEP);
-      }
-      break;
-    case TOGGLELAYOUT:
-      if (layer_state_is(_QWERTY)) {
-          layer_off(_QWERTY);
-          layer_on(_COLEMAKDH);
-      } else if (layer_state_is(_COLEMAKDH)) {
-          layer_off(_COLEMAKDH);
-          layer_on(_QWERTY);
       }
       break;
     case RESETKEY:
