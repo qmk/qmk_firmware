@@ -108,6 +108,22 @@ void TestFixture::tap_key(KeymapKey key, unsigned delay_ms) {
     run_one_scan_loop();
 }
 
+void TestFixture::tap_combo(const std::vector<KeymapKey>& chord_keys, unsigned delay_ms) {
+    for (KeymapKey key : chord_keys) { // Press each key.
+        key.press();
+        run_one_scan_loop();
+    }
+
+    if (delay_ms > 1) {
+        idle_for(delay_ms - 1);
+    }
+
+    for (KeymapKey key : chord_keys) { // Release each key.
+        key.release();
+        run_one_scan_loop();
+    }
+}
+
 void TestFixture::set_keymap(std::initializer_list<KeymapKey> keys) {
     this->keymap.clear();
     for (auto& key : keys) {

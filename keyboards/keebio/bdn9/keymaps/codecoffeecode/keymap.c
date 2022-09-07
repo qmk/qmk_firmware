@@ -28,12 +28,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, MO(1),   KC_MNXT
     ),
     /*
-        |       RESET        | Home |    Media Stop      |
+        |       QK_BOOT        | Home |    Media Stop      |
         |                    | End  |                    |
         |      CTRL_END      |      |    CTRL_HOME       |
      */
     [1] = LAYOUT(
-        RESET  ,      KC_HOME, KC_STOP,
+        QK_BOOT,      KC_HOME, KC_STOP,
         _______,      KC_END,  _______,
         LCTL(KC_END), _______, LCTL(KC_HOME)
     ),
