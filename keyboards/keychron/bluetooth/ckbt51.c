@@ -34,7 +34,7 @@
 #define CKBT51_WAKE_WAIT_TIME 3000  // us
 
 enum {
-    /* HID Report  */ 
+    /* HID Report  */
     CKBT51_CMD_SEND_KB       = 0x11,
     CKBT51_CMD_SEND_KB_NKRO  = 0x12,
     CKBT51_CMD_SEND_CONSUMER = 0x13,
@@ -86,13 +86,13 @@ enum {
     CKBT51_EVT_BATTERY       = 0xB5,
 };
 
-enum { 
-    CKBT51_CONNECTED = 0x20, 
-    CKBT51_DISCOVERABLE = 0x21, 
-    CKBT51_RECONNECTING = 0x22, 
-    CKBT51_DISCONNECTED = 0x23, 
-    CKBT51_PINCODE_ENTRY = 0x24, 
-    CKBT51_EXIT_PINCODE_ENTRY = 0x25 
+enum {
+    CKBT51_CONNECTED = 0x20,
+    CKBT51_DISCOVERABLE = 0x21,
+    CKBT51_RECONNECTING = 0x22,
+    CKBT51_DISCONNECTED = 0x23,
+    CKBT51_PINCODE_ENTRY = 0x24,
+    CKBT51_EXIT_PINCODE_ENTRY = 0x25
 };
 
 enum {
@@ -106,15 +106,15 @@ static uint8_t payload[PACKET_MAX_LEN];
 static uint8_t reg_offset = 0xFF;
 
 bluetooth_transport_t bluetooth_transport = {
-    ckbt51_init, 
-    ckbt51_connect, 
-    ckbt51_become_discoverable, 
-    ckbt51_disconnect, 
-    ckbt51_send_keyboard, 
-    ckbt51_send_nkro, 
-    ckbt51_send_consumer, 
-    ckbt51_send_system, 
-    NULL, 
+    ckbt51_init,
+    ckbt51_connect,
+    ckbt51_become_discoverable,
+    ckbt51_disconnect,
+    ckbt51_send_keyboard,
+    ckbt51_send_nkro,
+    ckbt51_send_consumer,
+    ckbt51_send_system,
+    ckbt51_send_mouse,
     ckbt51_task
 };
 
@@ -152,7 +152,7 @@ void ckbt51_send_cmd(uint8_t* payload, uint8_t len, bool ack_enable) {
         while (chTimeI2US(chVTTimeElapsedSinceX(start)) < CKBT51_WAKE_WAIT_TIME / 3) {};
     }
     writePinHigh(CKBT51_INT_INPUT_PIN);
-    
+
     uint16_t checksum = 0;
     for (i = 0; i < len; i++) checksum += payload[i];
 
@@ -216,6 +216,22 @@ void ckbt51_send_system(uint16_t report) {
     ckbt51_send_cmd(payload, i, true);
 }
 
+void ckbt51_send_mouse(uint8_t* report) {
+    uint8_t i = 0;
+    memset(payload, 0, PACKET_MAX_LEN);
+
+    payload[i++] = CKBT51_CMD_SEND_MOUSE;		// Cmd type
+    payload[i++] = report[1];       // Button
+    payload[i++] = report[2];       // X
+    payload[i++] = (report[2] & 0x80) ? 0xff : 0x00; // ckbt51 use 16bit report, set high byte
+    payload[i++] = report[3];       // Y
+    payload[i++] = (report[3] & 0x80) ? 0xff : 0x00; // ckbt51 use 16bit report, set high byte
+    payload[i++] = report[4];       // V wheel
+    payload[i++] = report[5];       // H wheel
+
+    ckbt51_send_cmd(payload, i, false);
+}
+
 /* Send ack to connection event, bluetooth module will retry 2 times if no ack received */
 void ckbt51_send_conn_evt_ack(void) {
     uint8_t i = 0;
@@ -229,7 +245,7 @@ void ckbt51_send_conn_evt_ack(void) {
 void ckbt51_become_discoverable(uint8_t host_idx, void* param) {
     uint8_t i = 0;
     memset(payload, 0, PACKET_MAX_LEN);
-    
+
     pairing_param_t default_pairing_param = {0, 0, PAIRING_MODE_LESC_OR_SSP, BT_MODE_CLASSIC, 0, NULL};
 
     if (param == NULL) {
@@ -301,7 +317,7 @@ void ckbt51_get_info(module_info_t* info) {
     uint8_t i = 0;
     memset(payload, 0, PACKET_MAX_LEN);
 
-    payload[i++] = CKBT51_CMD_GET_MODULE_INFO; 
+    payload[i++] = CKBT51_CMD_GET_MODULE_INFO;
     ckbt51_send_cmd(payload, i, false);
 }
 
@@ -348,9 +364,9 @@ void ckbt51_get_local_name(char* name) {
 void ckbt51_factory_reset(void) {
     uint8_t i = 0;
     memset(payload, 0, PACKET_MAX_LEN);
-    
-    payload[i++] = CKBT51_CMD_FACTORY_RESET; 
-    
+
+    payload[i++] = CKBT51_CMD_FACTORY_RESET;
+
     ckbt51_send_cmd(payload, i, false);
 }
 
@@ -405,7 +421,7 @@ void ckbt51_dfu_rx(uint8_t* data, uint8_t length) {
         for (uint8_t i = 0; i < payload_len - 2; i++) {
             checksum += payload[i];
         }
-        
+
         /* Verify checksum */
         if ((checksum & 0xFF) != payload[payload_len - 2] || checksum >> 8 != payload[payload_len - 1]) return;
 

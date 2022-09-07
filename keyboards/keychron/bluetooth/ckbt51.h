@@ -69,12 +69,12 @@
 #define BDA_LEN 6
 #define PACKET_MAX_LEN 64
 
-enum { 
-    PAIRING_MODE_DEFAULT = 0x00, 
-    PAIRING_MODE_JUST_WORK, 
-    PAIRING_MODE_PASSKEY_ENTRY, 
-    PAIRING_MODE_LESC_OR_SSP, 
-    PAIRING_MODE_INVALID 
+enum {
+    PAIRING_MODE_DEFAULT = 0x00,
+    PAIRING_MODE_JUST_WORK,
+    PAIRING_MODE_PASSKEY_ENTRY,
+    PAIRING_MODE_LESC_OR_SSP,
+    PAIRING_MODE_INVALID
 };
 
 enum {
@@ -134,6 +134,7 @@ void ckbt51_send_keyboard(uint8_t* report);
 void ckbt51_send_nkro(uint8_t* report);
 void ckbt51_send_consumer(uint16_t report);
 void ckbt51_send_system(uint16_t report);
+void ckbt51_send_mouse(uint8_t* report);
 
 void ckbt51_become_discoverable(uint8_t host_idx, void* param);
 void ckbt51_connect(uint8_t hostIndex, uint16_t timeout);
