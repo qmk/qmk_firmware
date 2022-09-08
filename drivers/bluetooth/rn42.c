@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "rn42.h"
+
 #include "report.h"
 #include "uart.h"
 
