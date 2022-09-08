@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______, _______, _______
     ),
 	[_FN2] = LAYOUT_landscape(
-        _______,  _______, RESET,
+        _______,  _______, QK_BOOT,
 
         _______,  _______,  KC_MPLY,  KC_MPRV, KC_MNXT,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				          TT(_FN3), TT(_FN4), TT(_RGB)
     ),
     [_FN1] = LAYOUT(
-                  _______, _______, _______, RESET,
+                  _______, _______, _______, QK_BOOT,
                   KC_CALC, _______, _______, _______,
                   _______, _______, _______, _______,
         ENCFUNC,  KC_TAB,  _______, _______, _______,
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   _______, _______, _______, _______,
                   _______, _______, KC_MPLY, KC_MPRV,
                   _______, _______, _______, KC_MNXT,
-        RESET,    _______, _______, _______, _______,
+        QK_BOOT,  _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
 
@@ -175,7 +175,7 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"Break",   KC_PAUS},
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
-        {"RESET",   RESET},   // firmware flash mode
+        {"QK_BOOT",   QK_BOOT},   // firmware flash mode
 };
 
 #define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
@@ -200,7 +200,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
-            selectedkey_rec.keycode == RESET ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle RESET code
+            selectedkey_rec.keycode == QK_BOOT ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle QK_BOOT code
         } else {
             // when keycode is released
         }
@@ -274,7 +274,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 break;
             }
         }
-        return true;
+        return false;
     }
 #endif
 
@@ -296,6 +296,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 	}
 
     #ifdef LANDSCAPE_MODE
+    oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+       return OLED_ROTATION_0;       // do not flip the display
+    }
+
     bool oled_task_user(void) {
 
         render_logo();
@@ -365,10 +369,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
     // regular mode
     #ifndef LANDSCAPE_MODE
- 	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-		return OLED_ROTATION_270;       // flips the display 270 degrees
-	}
-
     bool oled_task_user(void) {
 		render_logo();
 		oled_set_cursor(0,5);

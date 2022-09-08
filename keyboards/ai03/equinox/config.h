@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0004
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ai03 Design Studio
-#define PRODUCT         Equinox
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D3, C5, D4, D5 }
 #define MATRIX_COL_PINS { D1, D2, C6, C7, B6, B5, B4, B3, B2, B1, B0, D6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

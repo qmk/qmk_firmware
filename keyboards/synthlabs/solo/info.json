@@ -1,5 +1,6 @@
 {
-  "keyboard_name": "Synth Labs Solo",
+  "keyboard_name": "Solo",
+  "manufacturer": "Synth Labs",
   "url": "http://solo.synthlabs.io",
   "maintainer": "hongaaronc",
   "bootloader": "atmel-dfu",
@@ -15,7 +16,7 @@
   "usb": {
     "vid": "0x534E",
     "pid": "0x3031",
-    "device_ver": "0x0001"
+    "device_version": "0.0.1"
   },
   "layouts": {
     "LAYOUT": {

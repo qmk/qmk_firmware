@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xA68C
-#define PRODUCT_ID   0x1DB0
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT      Noah AVR
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { B4, B6, D7, D5, D0 }
 #define MATRIX_COL_PINS { D1, D2, D3, D4, C6, C7, F7, F6, F5, F4, F0, F1, B3, B2, B1, B0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

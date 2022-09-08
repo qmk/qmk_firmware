@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Ahgase",
+    "manufacturer": "plywrks",
     "url": "",
     "maintainer": "Ramon Imbao (ramonimbao)",
+    "usb": {
+        "vid": "0x706C",
+        "pid": "0x7902",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

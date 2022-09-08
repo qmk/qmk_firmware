@@ -3,6 +3,8 @@ SRC += $(USER_PATH)/drashna.c \
         $(USER_PATH)/keyrecords/process_records.c \
         $(USER_PATH)/keyrecords/tapping.c
 
+# TOP_SYMBOLS = yes
+
 ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)
         LTO_ENABLE        = yes
@@ -13,8 +15,10 @@ GRAVE_ESC_ENABLE      = no
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
 ifneq ($(strip $(NO_SECRETS)), yes)
-    ifneq ("$(wildcard $(USER_PATH)/keyrecords/secrets.c)","")
-        SRC += $(USER_PATH)/keyrecords/secrets.c
+    ifneq ("$(wildcard $(USER_PATH)/../../../qmk_secrets/secrets.c)","")
+        SRC += $(USER_PATH)/../../../qmk_secrets/secrets.c
+        $(shell touch $(USER_PATH)/../../../qmk_secrets/secrets.c)
+        SECURE_ENABLE = yes
     endif
     ifeq ($(strip $(NO_SECRETS)), lite)
         OPT_DEFS += -DNO_SECRETS
@@ -30,6 +34,10 @@ endif
 # this should be handled per keyboard, but until that happens ...
 ifeq ($(strip $(PROTOCOL)), VUSB)
     NKRO_ENABLE       := no
+endif
+
+ifeq ($(strip $(PER_KEY_TAPPING)), yes)
+    OPT_DEFS += -DPER_KEY_TAPPING
 endif
 
 CUSTOM_UNICODE_ENABLE ?= yes
@@ -79,6 +87,11 @@ ifdef CONSOLE_ENABLE
     endif
 endif
 
+ifeq ($(strip $(I2C_SCANNER_ENABLE)), yes)
+    OPT_DEFS += -DI2C_SCANNER_ENABLE
+    CONSOLE_ENABLE := yes
+endif
+
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(OLED_DRIVER)), custom)
@@ -117,11 +130,10 @@ endif
 AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
     SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
+    $(shell touch $(USER_PATH)/keyrecords/autocorrection/autocorrection.c)
     OPT_DEFS += -DAUTOCORRECTION_ENABLE
 endif
 
-CAPS_WORD_ENABLE ?= no
-ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
-    SRC += $(USER_PATH)/keyrecords/caps_word.c
-    OPT_DEFS += -DCAPS_WORD_ENABLE
+ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+    SRC += bootmagic_better.c
 endif

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "montex numpad",
+    "keyboard_name": "Montex",
+    "manufacturer": "IDOBAO",
     "url": "https://www.idobao.net/products/ldobao-montex-pad-hot-swappable-mechanical-keyboard-kit",
     "maintainer": "NachoxMacho",
+    "usb": {
+        "vid": "0x6964",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x5": {
             "layout": [

@@ -53,9 +53,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool led_update_user(led_t led_state) {
-	
+
 	// Toggle CAPS_LOCK LED normally
-	
+
 #    if LED_PIN_ON_STATE == 0
         // invert the whole thing to avoid having to conditionally !led_state.x later
         led_state.raw = ~led_state.raw;
@@ -69,30 +69,30 @@ bool led_update_user(led_t led_state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-	
-	uint8_t layer = biton32(state);
-	
+
+	uint8_t layer = get_highest_layer(state);
+
 #if defined(LED_NUM_LOCK_PIN) && defined(LED_SCROLL_LOCK_PIN)
     switch (layer) {
         case 0:
-			writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE); 
-			writePin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE); 
+			writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
+			writePin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE);
             break;
         case 1:
-			writePin(LED_SCROLL_LOCK_PIN, LED_PIN_ON_STATE); 
-			writePin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE); 
+			writePin(LED_SCROLL_LOCK_PIN, LED_PIN_ON_STATE);
+			writePin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE);
             break;
         case 2:
-			writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE); 
-			writePin(LED_NUM_LOCK_PIN, LED_PIN_ON_STATE); 
+			writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
+			writePin(LED_NUM_LOCK_PIN, LED_PIN_ON_STATE);
             break;
         case 3:
-			writePin(LED_SCROLL_LOCK_PIN, LED_PIN_ON_STATE); 
-			writePin(LED_NUM_LOCK_PIN, LED_PIN_ON_STATE); 
+			writePin(LED_SCROLL_LOCK_PIN, LED_PIN_ON_STATE);
+			writePin(LED_NUM_LOCK_PIN, LED_PIN_ON_STATE);
             break;
     }
 #endif
 
-	return state;												
+	return state;
 
 }

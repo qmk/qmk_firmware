@@ -34,14 +34,14 @@ TEST_F(AutoShift, key_release_before_timeout) {
     set_keymap({regular_key});
 
     /* Press regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -55,15 +55,15 @@ TEST_F(AutoShift, key_release_after_timeout) {
     set_keymap({regular_key});
 
     /* Press regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     regular_key.press();
     idle_for(AUTO_SHIFT_TIMEOUT);
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+    EXPECT_REPORT(driver, (KC_LSFT));
+    EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);

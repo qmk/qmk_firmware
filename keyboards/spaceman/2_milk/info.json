@@ -1,7 +1,13 @@
 {
   "keyboard_name": "2% Milk",
+  "manufacturer": "Spaceman",
   "url": "",
   "maintainer": "Spaceman",
+  "usb": {
+    "vid": "0x5342",
+    "pid": "0x3225",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [ {"x": 0, "y": 0 }, {"x": 0, "y": 1 }]
