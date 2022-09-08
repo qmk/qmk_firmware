@@ -1,7 +1,13 @@
 {
     "keyboard_name": "bobPad",
+    "manufacturer": "Desiboards",
     "url": "",
     "maintainer": "Ananya Kirti",
+    "usb": {
+        "vid": "0x416B",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "nack",
+    "manufacturer": "farfalleflickan",
     "url": "https://github.com/farfalleflickan/nack",
     "maintainer": "farfalleflickan",
+    "usb": {
+        "vid": "0xDA12",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x13"
     },

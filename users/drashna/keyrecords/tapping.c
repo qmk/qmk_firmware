@@ -3,6 +3,7 @@
 
 #include "drashna.h"
 
+#ifdef TAPPING_TERM_PER_KEY
 __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case BK_LWER:
@@ -11,7 +12,9 @@ __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *r
             return TAPPING_TERM;
     }
 }
+#endif // TAPPING_TERM_PER_KEY
 
+#ifdef PERMISSIVE_HOLD_PER_KEY
 __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     // Immediately select the hold action when another key is tapped:
     // return true;
@@ -22,7 +25,9 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
             return false;
     }
 }
+#endif // PERMISSIVE_HOLD_PER_KEY
 
+#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     // Immediately select the hold action when another key is pressed.
     // return true;
@@ -32,10 +37,12 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 //        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
 //            return true;
         default:
-            return true;
+            return false;
     }
 }
+#endif // HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
+#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     // Do not force the mod-tap key press to be handled as a modifier
     // if any other key was pressed while the mod-tap key is held down.
@@ -48,17 +55,22 @@ __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrec
             return true;
     }
 }
+#endif // IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 
+#ifdef TAPPING_FORCE_HOLD_PER_KEY
 __attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         default:
             return false;
     }
 }
+#endif // TAPPING_FORCE_HOLD_PER_KEY
 
+#ifdef RETRO_TAPPING_PER_KEY
 __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         default:
             return false;
     }
 }
+#endif // RETRO_TAPPING_PER_KEY

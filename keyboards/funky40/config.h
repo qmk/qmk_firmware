@@ -17,14 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xC4B5
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    TheFourthCow
-#define PRODUCT         Funky40
-
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -32,7 +24,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D4, C6, B4, B5 }
 #define MATRIX_COL_PINS { D3, F5, F4, F7, B1, B6, B2, B3, D2, F6, E6, D7 }
-#define UNUSED_PINS 
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

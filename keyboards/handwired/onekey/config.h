@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x6465
-#define DEVICE_VER   0x0001
-#define MANUFACTURER QMK
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
@@ -42,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD
 
 /*
  * Feature disable options
