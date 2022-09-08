@@ -8,6 +8,9 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "community_layouts": [
+        "tkl_ansi_tsangan"
+    ],
     "layouts": {
         "LAYOUT_tkl_ansi_tsangan_split_bs": {
             "layout": [
