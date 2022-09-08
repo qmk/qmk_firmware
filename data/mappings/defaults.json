@@ -10,6 +10,12 @@
             "bootloader": "atmel-dfu",
             "pin_compatible": "promicro"
         },
+        "elite_pi": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040",
+            "pin_compatible": "promicro"
+        },
         "proton_c": {
             "processor": "STM32F303",
             "bootloader": "stm32-dfu",
