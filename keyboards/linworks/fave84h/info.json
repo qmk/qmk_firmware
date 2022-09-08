@@ -41,7 +41,7 @@
                 {"label":"0)", "x":10, "y":1.25},
                 {"label":"-_", "x":11, "y":1.25},
                 {"label":"=+", "x":12, "y":1.25},
-                {"label":"Backspace", "x":13, "y":1.25, "w":2},
+                {"label":"Backspace", "x":13, "y":1.25},
                 {"label":"Delete", "x":14, "y":1.25},
                 {"label":"Insert", "x":15.25, "y":1.25},
                 {"label":"Home", "x":16.25, "y":1.25},
