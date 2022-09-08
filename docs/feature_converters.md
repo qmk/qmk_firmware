@@ -51,7 +51,7 @@ Once a converter is enabled, it exposes the `CONVERT_TO_<target_uppercase>` flag
 
 ### Pin Compatibility
 
-To ensure compatibly, provide validation, and power future workflows, a keyboard should declare its `pin compatibility`. For legacy reasons, this is currently assumed to be `promicro`.
+To ensure compatibility, provide validation, and power future workflows, a keyboard should declare its `pin compatibility`. For legacy reasons, this is currently assumed to be `promicro`.
 
 Currently the following pin compatibility interfaces are defined:
 
@@ -156,11 +156,11 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 #define B0 PAL_LINE(GPIOA, 9)
 ```
 
-No peripherals are enabled by default at this time, but example code to enable SPI, I2C, PWM, and Serial communications can be found [here](/keyboards/custommk/bonsai_c4_template) 
+No peripherals are enabled by default at this time, but example code to enable SPI, I2C, PWM, and Serial communications can be found [here](/keyboards/custommk/bonsai_c4_template).
 
 ## Elite-C
 
-If a board currently supported in QMK uses a [Elite-C](https://keeb.io/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4), the supported alternative controllers are:
+If a board currently supported in QMK uses an [Elite-C](https://keeb.io/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4), the supported alternative controllers are:
 
 | Device                                               | Target            |
 |------------------------------------------------------|-------------------|
