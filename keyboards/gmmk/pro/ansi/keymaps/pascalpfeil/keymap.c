@@ -20,7 +20,9 @@ enum my_keycodes {
   MY_COPY = SAFE_RANGE,
   MY_PSTE,
   MY_UNDO,
-  MY_SRCH
+  MY_SRCH,
+  MY_BGNW,
+  MY_ENDW,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT(
-        RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, KC_NUM,           KC_MPLY,
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   BS_NORM,          RGB_VAI,
-        _______, _______, _______, KC_END,  _______, _______, MY_COPY, MY_UNDO, _______, _______, MY_PSTE, _______, _______,  BS_SWAP,          RGB_HUI,
-        _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,            RGB_TOG,          RGB_SPI,
+        RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NUM,           KC_MPLY,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  BS_SWAP,          RGB_VAI,
+        _______, _______, _______, KC_END,  _______, _______, MY_COPY, MY_UNDO, _______, _______, MY_PSTE, _______, _______, BS_NORM,          RGB_HUI,
+        _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          RGB_TOG,          RGB_SPI,
         _______,          _______, KC_DEL,  _______, _______, KC_HOME, _______, _______, _______, _______, MY_SRCH,          _______, _______, RGB_MOD,
         _______, AG_NORM, AG_SWAP,                            _______,                            _______, _______, _______, KC_MPRV, _______, KC_MNXT
     ),
@@ -71,26 +73,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-inline bool is_mac_mode(void) {
-  return keymap_config.swap_lalt_lgui;
+inline bool is_windows_mode(void) {
+  return !keymap_config.swap_lalt_lgui;
 }
 
-#define SEND_OS_SPECIFIC_COMMAND(string) (SEND_STRING(is_mac_mode() ? SS_LGUI(string) : SS_LCTRL(string)))
+#define SEND_OS_SPECIFIC(windows_modifier, mac_modifier, keycode) tap_code16(is_windows_mode() ? LCTL(keycode) : LCMD(keycode))
+
+#define KC_SEND_OS_SPECIFIC(windows_modifier, mac_modifier, keycode)  \
+if (record->event.pressed) { \
+  SEND_OS_SPECIFIC(windows_modifier, mac_modifier, keycode); \
+} \
+return false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case MY_COPY:
-      SEND_OS_SPECIFIC_COMMAND("c");
-      return false;
+      KC_SEND_OS_SPECIFIC(LCTL, LCMD, KC_C);
     case MY_PSTE:
-      SEND_OS_SPECIFIC_COMMAND("v");
-      return false;
+      KC_SEND_OS_SPECIFIC(LCTL, LCMD, KC_V);
     case MY_UNDO:
-      SEND_OS_SPECIFIC_COMMAND("z");
-      return false;
+      KC_SEND_OS_SPECIFIC(LCTL, LCMD, KC_Z);
     case MY_SRCH:
-      SEND_OS_SPECIFIC_COMMAND("f");
-      return false;
+      KC_SEND_OS_SPECIFIC(LCTL, LCMD, KC_F);
+    case MY_BGNW:
+      KC_SEND_OS_SPECIFIC(LCTL, LALT, KC_LEFT);
+    case MY_ENDW:
+      KC_SEND_OS_SPECIFIC(LCTL, LALT, KC_RIGHT);
     default:
       return true;
   }
@@ -98,19 +106,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(0)) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
+      tap_code(clockwise ? KC_VOLU : KC_VOLD);
     }
 
     if (IS_LAYER_ON(1)) {
-        if (clockwise) {
-            tap_code(KC_BRIU);
-        } else {
-            tap_code(KC_BRID);
-        }
+      tap_code(clockwise ? KC_BRIU : KC_BRID);
     }
    
     return true;
@@ -127,7 +127,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         for (uint8_t i = 0; i < left_side_leds_size; i++)
             RGB_MATRIX_INDICATOR_SET_COLOR(left_side_leds[i], 0xFF, 0x00, 0x00); // set to red
 
-    if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK))
+    if (IS_HOST_LED_ON(USB_LED_NUM_LOCK))
         for (uint8_t i = 0; i < right_side_leds_size; i++)
             RGB_MATRIX_INDICATOR_SET_COLOR(right_side_leds[i], 0xFF, 0x00, 0x00); // set to red
 }
