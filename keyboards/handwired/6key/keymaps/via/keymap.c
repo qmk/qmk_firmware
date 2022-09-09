@@ -1,4 +1,4 @@
- /* Copyright 2020 Bratzworth
+ /* Copyright 2022 Bratzworth
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,23 @@
   * You should have received a copy of the GNU General Public License
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
-#include "6key.h"
+#include QMK_KEYBOARD_H
 
-bool dip_switch_update_kb(uint8_t index, bool active) {
-    if (!dip_switch_update_user(index, active)) { return false; }
-    if (index == 0) {
-        default_layer_set(1UL << (active ? 1 : 0));
-    }
-    return true;
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT(
+        LCTL(KC_Z), LCTL(KC_Y), KC_A,
+        KC_C,       KC_D,       KC_S
+    ),
+    [1] = LAYOUT(
+        KC_F13, KC_F14, KC_F15,
+        KC_F16, KC_F17, KC_F18
+    ),
+    [2] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS
+        ),
+    [3] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS
+        ),
+};
