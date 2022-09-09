@@ -19,6 +19,7 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
+#define FORCE_NKRO
 
 #define RGB_DI_PIN GP1 // RGB LED pin
 #define RGBLED_NUM 15 // Number of LEDs
