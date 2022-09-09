@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define DEVICE_VER 0x0200
-
 #define SOFT_SERIAL_PIN D3
 
 #define MATRIX_COL_PINS { D4, D7, B3, F7, F6 }
