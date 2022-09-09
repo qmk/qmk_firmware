@@ -1,6 +1,7 @@
 # skmt_15k_macropad
 
-![skmt_15k_macropad](https://i.imgur.com/Sl6t4Lm.jpg)
+![skmt_15k_macropad](https://i.imgur.com/Sl6t4Lmh.jpg)
+![skmt_15k_macropad](https://i.imgur.com/SihSIVth.jpg)
 
 A diy, 3d-printed, 15 key (3x5), hotswap, RGB macropad.
 

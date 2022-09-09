@@ -1,3 +1,6 @@
+// Copyright 2022 Jimmy Lye (@satorusaka)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -11,9 +14,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴───┴───┴───┴────┘
      */
     [0] = LAYOUT_default(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   LT(1, KC_KB_MUTE),
-        KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_KB_VOLUME_UP,
-        KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_KB_VOLUME_DOWN
+        KC_F3,   KC_KP_9,   KC_KP_6,   KC_KP_3,   LT(1, KC_KP_ENTER),
+        KC_F2,   KC_KP_8,   KC_KP_5,   KC_KP_2,   KC_KP_DOT,
+        KC_F1,   KC_KP_7,   KC_KP_4,   KC_KP_1,   KC_KP_0
     ),
     [1] = LAYOUT_default(
         RGB_TOG,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,

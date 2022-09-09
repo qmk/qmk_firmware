@@ -1,7 +1,7 @@
 // Copyright 2022 Jimmy Lye (@satorusaka)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "skmt_15k_macropad.h"
+#include "15k.h"
 
 #ifdef RGB_MATRIX_ENABLE
     led_config_t g_led_config = { {
