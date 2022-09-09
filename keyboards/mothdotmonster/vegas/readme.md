@@ -1,10 +1,12 @@
 # VEGAS
 
-Point of sale inspired keyboard
+![keyboard](https://i.imgur.com/VFN43xa.jpg)
+
+Point of sale inspired keyboard with a unique layout.
 
 * Keyboard Maintainer: mothdotmonster
 * Hardware Supported: Pro Micro and compatibles
-* Hardware Availability: TBA
+* Hardware Availability: [shop.moth.monster](http://shop.moth.monster/product/vegas)
 
 Make example for this keyboard (after setting up your build environment):
 
