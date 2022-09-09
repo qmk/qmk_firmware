@@ -1,8 +1,22 @@
 // Copyright 2022 jack (@waffle87)
 // SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
-#undef RGB_DI_PIN
+#define DEVICE_VER 0x0200
+
+#define SOFT_SERIAL_PIN D3
+
+#define MATRIX_COL_PINS { D4, D7, B3, F7, F6 }
+#define MATRIX_ROW_PINS { F4, D2, C6, B1 }
+#define MATRIX_COL_PINS_RIGHT { F4, B1, D7, C6, B3 }
+#define MATRIX_ROW_PINS_RIGHT { F5, F7, F6, E6 }
+
+#define ENCODERS_PAD_A { E6 }
+#define ENCODERS_PAD_B { B2 }
+#define ENCODERS_PAD_A_RIGHT { B6 }
+#define ENCODERS_PAD_B_RIGHT { B2 }
+
 #define RGB_DI_PIN B5
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define DRIVER_LED_TOTAL 44

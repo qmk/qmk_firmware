@@ -3,18 +3,16 @@
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+#define DEVICE_VER 0x0100
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 12
+#define RGBLED_SPLIT { 6, 6 }
+#define RGBLIGHT_LIMIT_VAL 150
+#define RGBLIGHT_SLEEP
+#define SOFT_SERIAL_PIN D2
+#define RGBLIGHT_ANIMATIONS
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1 }
+#define MATRIX_ROW_PINS { B2, B6, B4, B5 }
 
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+/* number of backlight levels */
+// #define BACKLIGHT_LEVELS 3
