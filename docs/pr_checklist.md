@@ -67,6 +67,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - no `(-/+size)` comments related to enabling features
     - remove the list of alternate bootloaders if one has been specified
     - no re-definitions of the default MCU parameters if same value, when compared to the equivalent MCU in [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/builddefs/mcu_selection.mk)
+    - no "keymap only" features enabled
+      - `COMBO_ENABLE`
+      - `ENCODER_MAP_ENABLE`
 - keyboard `config.h`
     - don't repeat `MANUFACTURER` in the `PRODUCT` value
     - no `#define DESCRIPTION`
