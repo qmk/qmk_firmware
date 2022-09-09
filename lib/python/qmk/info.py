@@ -370,7 +370,7 @@ def _extract_split_right_pins(info_data, config_c):
     direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
 
     if row_pins or col_pins or direct_pins:
-        if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
+        if info_data.get('split', {}).get('matrix_pins', {}).get('right', None):
             _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
 
         if 'split' not in info_data:
