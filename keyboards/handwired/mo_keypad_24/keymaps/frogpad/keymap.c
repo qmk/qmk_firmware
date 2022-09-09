@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FUNCTION] = LAYOUT(
         KC_TRNS,       KC_ESC,       KC_HOME,   KC_END,    KC_PAUSE,   KC_PGUP,
-        KC_TRNS,       KC_INS,       OCTL,      OALT,   KC_UP,      KC_PGDN,
+        KC_TRNS,       KC_INS,       OCTL,      OALT,      KC_UP,      KC_PGDN,
         KC_TRNS,       KC_DEL,       KC_BSPC,   KC_LEFT,   KC_DOWN,    KC_RIGHT,
         KC_TRNS,       KC_TRNS,      KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS
     ),
@@ -114,7 +114,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,       XXXXXXX,      OGUI,      G(KC_1),   G(KC_2),    G(KC_3),
         XXXXXXX,       KC_LOCK,      KC_LSFT,   G(KC_0),   KC_LALT,    KC_TAB
     ),
-
 };
 // clang-format on
 

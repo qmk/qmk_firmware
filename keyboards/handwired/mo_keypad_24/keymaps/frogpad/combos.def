@@ -7,6 +7,7 @@ COMB(oe_Bsls,     KC_BSLS,          KC_O, KC_E)
 
 // backspace
 COMB(wP_BS,       KC_BSPC,          KC_W, KC_P)
+COMB(m9_BS,       KC_BSPC,          KC_9, KC_MINUS)
 // tmux
 SUBS(uI_TMUX,     SS_LCTL("b"),     KC_U, KC_I)
 SUBS(iN_TMUX_LB,  SS_LCTL("b") "[", KC_I, KC_N)
@@ -75,7 +76,6 @@ COMB(s1_F1,       KC_F1,       KC_SPACE, KC_1)
 COMB(s2_F2,       KC_F2,       KC_SPACE, KC_2)
 COMB(s3_F3,       KC_F3,       KC_SPACE, KC_3)
 COMB(sEqual_Dlr,  KC_F12,      KC_SPACE, KC_DLR)
-
 
 // These are the extra combos
 COMB(spaceSymComma,  KC_COMMA,    KC_SPACE, KC_SYMBOL)
