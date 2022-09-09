@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_MUTE, KC_WBAK, KC_WFWD,   KC_F7,   KC_F8,   KC_F9,                      _______,    KC_7,    KC_8,    KC_9, _______, RESET,
+      KC_MUTE, KC_WBAK, KC_WFWD,   KC_F7,   KC_F8,   KC_F9,                      _______,    KC_7,    KC_8,    KC_9, _______, QK_BOOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLU, _______, KC_MNXT,   KC_F6,   KC_F5,   KC_F6,                      _______,    KC_6,    KC_5,    KC_4, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -405,7 +405,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     #ifdef RGB_MATRIX_ENABLE
                     prev_hsv = rgb_matrix_get_hsv();
                     prev_mode = rgb_matrix_get_mode();
-                    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_MULTISPLASH);
+                    rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
                     rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
                     #endif
                 }

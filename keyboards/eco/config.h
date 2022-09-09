@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1337
-#define PRODUCT_ID      0x6006
-#define MANUFACTURER    Bishop Keyboards
-#define PRODUCT         The ECO Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 14
