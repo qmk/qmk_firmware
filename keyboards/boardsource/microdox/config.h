@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define MANUFACTURER Boardsource    
-#define PRODUCT microdox    
-#define PRODUCT_ID 0x0412    
-#define VENDOR_ID 0xF7E0
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8

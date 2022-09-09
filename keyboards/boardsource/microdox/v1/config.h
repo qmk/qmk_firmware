@@ -3,7 +3,6 @@
 
 #pragma once
 
-#define DEVICE_VER 0x0100
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 12
 #define RGBLED_SPLIT { 6, 6 }
