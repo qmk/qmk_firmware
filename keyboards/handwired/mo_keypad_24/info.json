@@ -2,6 +2,12 @@
     "keyboard_name": "mo_keypad_24",
     "url": "",
     "maintainer": "mo",
+    "manufacturer": "mo",
+    "usb": {
+        "vid": "0xBEAD",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

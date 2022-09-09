@@ -16,7 +16,7 @@
 
 #include "mo_keypad_24.h"
 
-#define MO_BUTTON_MAPS_MAX 2
+#define MO_BUTTON_MAPS_MAX 1
 typedef struct _mo_pad_t {
     int            current;
     const uint16_t codes[MO_BUTTON_MAPS_MAX][2];
@@ -26,20 +26,22 @@ mo_pad_t button_layers[2] = {
     {
         0,
         {
-            {KC_VOLU, KC_VOLD},
-            {KC_RIGHT, KC_LEFT},
+            {KC_MS_WH_DOWN, KC_MS_WH_UP},
         },
     },
     {
         0,
         {
-            {KC_MS_WH_DOWN, KC_MS_WH_UP},
             {KC_MS_WH_RIGHT, KC_MS_WH_LEFT},
         },
     },
 };
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+
     if (0 <= index && index <= 1) {
         mo_pad_t *ptr        = &(button_layers[index]);
         uint8_t   turn_index = (clockwise ? 0 : 1);
@@ -50,23 +52,24 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
+    if (!dip_switch_update_user(index, active)) {
+        return false;
+    }
+
     if (!active) {
         return true;
     }
 
     switch (index) {
         case 0: // left encoder
+            tap_code(KC_CAPSLOCK);
+            break;
         case 1: {
-            mo_pad_t *ptr = &button_layers[index];
-            ptr->current  = (ptr->current + 1) % MO_BUTTON_MAPS_MAX;
+            tap_code(KC_NUMLOCK);
             break;
         }
     }
 
-    return true;
-}
-
-__attribute__((weak)) bool led_update_user(led_t led_state) {
     return true;
 }
 
