@@ -18,12 +18,28 @@
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
 #    include "pointing_device_auto_mouse.h"
-
-static bool is_mouse_record(uint16_t keycode, keyrecord_t* record);
-static bool layer_hold_check(void);
+#    include "wait.h"
 
 /* local data structure for tracking auto mouse */
 static auto_mouse_context_t auto_mouse_context = {.config.layer = (uint8_t)AUTO_MOUSE_DEFAULT_LAYER};
+
+/* local functions */
+static bool is_mouse_record(uint16_t keycode, keyrecord_t* record);
+static void auto_mouse_reset(void);
+
+/* check for target layer deactivation overrides */
+static inline bool layer_hold_check(void) {
+    return get_auto_mouse_toggle() ||
+#    ifndef NO_ACTION_ONESHOT
+           get_oneshot_layer() == (AUTO_MOUSE_TARGET_LAYER) ||
+#    endif
+           false;
+}
+
+/* check all layer activation criteria */
+static inline bool is_auto_mouse_active(void) {
+    return auto_mouse_context.status.is_activated || auto_mouse_context.status.mouse_key_tracker || layer_hold_check();
+}
 
 /**
  * @brief Get auto mouse enable state
@@ -39,7 +55,7 @@ bool get_auto_mouse_enable(void) {
 /**
  * @brief get current target layer index
  *
- * NOTE: AUTO_MOUSE_TARGET_LAYER is an alias for this function
+ * NOTE: (AUTO_MOUSE_TARGET_LAYER) is an alias for this function
  *
  * @return uint8_t target layer index
  */
@@ -56,15 +72,6 @@ bool get_auto_mouse_toggle(void) {
     return auto_mouse_context.status.is_toggled;
 }
 
-/* check if targete layer should be active */
-static bool layer_hold_check(void) {
-    return get_auto_mouse_toggle() ||
-#    ifndef NO_ACTION_ONESHOT
-           get_oneshot_layer() == AUTO_MOUSE_TARGET_LAYER ||
-#    endif
-           false;
-}
-
 /**
  * @brief Reset auto mouse context
  *
@@ -72,7 +79,7 @@ static bool layer_hold_check(void) {
  *
  * NOTE: this will set is_toggled to false so careful when using it
  */
-void auto_mouse_reset(void) {
+static void auto_mouse_reset(void) {
     memset(&auto_mouse_context.status, 0, sizeof(auto_mouse_context.status));
     memset(&auto_mouse_context.timer, 0, sizeof(auto_mouse_context.timer));
 }
@@ -97,7 +104,7 @@ void set_auto_mouse_enable(bool enable) {
  *
  * Sets input as the new target layer if different from current and resets auto mouse
  *
- * NOTE: remove_auto_mouse_target(state, false) or auto_mouse_target_off should be called
+ * NOTE: remove_auto_mouse_layer(state, false) or auto_mouse_layer_off should be called
  *       before this function to avoid issues with layers getting stuck
  *
  * @param[in] layer uint8_t
@@ -124,20 +131,20 @@ void auto_mouse_toggle(void) {
 }
 
 /**
- * @brief Remove auto mouse layer from layer state
+ * @brief Remove current auto mouse target layer from layer state
  *
  * Will remove auto mouse target layer from given layer state if appropriate.
  *
- * NOTE: removal can be forced ignoring appropriate critera
+ * NOTE: Removal can be forced, ignoring appropriate critera
  *
  * @params state[in] layer_state_t original layer state
  * @params force[in] bool force removal
  *
  * @return layer_state_t modified layer state
  */
-layer_state_t remove_auto_mouse_target(layer_state_t state, bool force) {
-    if (force || (AUTO_MOUSE_ENABLED && !layer_hold_check())) {
-        state &= ~((layer_state_t)1 << AUTO_MOUSE_TARGET_LAYER);
+layer_state_t remove_auto_mouse_layer(layer_state_t state, bool force) {
+    if (force || ((AUTO_MOUSE_ENABLED) && !layer_hold_check())) {
+        state &= ~((layer_state_t)1 << (AUTO_MOUSE_TARGET_LAYER));
     }
     return state;
 }
@@ -146,10 +153,11 @@ layer_state_t remove_auto_mouse_target(layer_state_t state, bool force) {
  * @brief Disable target layer
  *
  * Will disable target layer if appropriate.
+ * NOTE: NOT TO BE USED in layer_state_set stack!!!
  */
-void auto_mouse_target_off(void) {
-    if (layer_state_is(AUTO_MOUSE_TARGET_LAYER) && AUTO_MOUSE_ENABLED && !layer_hold_check()) {
-        layer_off(AUTO_MOUSE_TARGET_LAYER);
+void auto_mouse_layer_off(void) {
+    if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && (AUTO_MOUSE_ENABLED) && !layer_hold_check()) {
+        layer_off((AUTO_MOUSE_TARGET_LAYER));
     }
 }
 
@@ -176,20 +184,21 @@ __attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
  * @param[in] mouse_report report_mouse_t
  */
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
-    // skip if disabled or delay timer running
-    if (!AUTO_MOUSE_ENABLED || timer_elapsed(auto_mouse_context.timer.delay) <= AUTO_MOUSE_DELAY) return;
-    // update active status
-    auto_mouse_context.status.is_active = auto_mouse_activation(mouse_report) || auto_mouse_context.status.mouse_key_tracker || layer_hold_check();
-    // check conditions and update
-    if (auto_mouse_context.status.is_active) {
+    // skip if disabled, delay timer running, or debounce
+    if (!(AUTO_MOUSE_ENABLED) || timer_elapsed(auto_mouse_context.timer.active) <= AUTO_MOUSE_DEBOUNCE || timer_elapsed(auto_mouse_context.timer.delay) <= AUTO_MOUSE_DELAY) {
+        return;
+    }
+    // update activation and reset debounce
+    auto_mouse_context.status.is_activated = auto_mouse_activation(mouse_report);
+    if (is_auto_mouse_active()) {
         auto_mouse_context.timer.active = timer_read();
         auto_mouse_context.timer.delay  = 0;
-        if (!layer_state_is(AUTO_MOUSE_TARGET_LAYER)) {
-            layer_on(AUTO_MOUSE_TARGET_LAYER);
+        if (!layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
+            layer_on((AUTO_MOUSE_TARGET_LAYER));
             dprintf("Target Layer ON! \n");
         }
-    } else if (layer_state_is(AUTO_MOUSE_TARGET_LAYER) && timer_elapsed(auto_mouse_context.timer.active) > AUTO_MOUSE_TIME) {
-        layer_off(AUTO_MOUSE_TARGET_LAYER);
+    } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > AUTO_MOUSE_TIME) {
+        layer_off((AUTO_MOUSE_TARGET_LAYER));
         auto_mouse_context.timer.active = 0;
         dprintf("Target Layer OFF! \n");
     }
@@ -216,19 +225,20 @@ void auto_mouse_keyevent(bool pressed) {
 /**
  * @brief Handle auto mouse non mousekey reset
  *
- * Start/restart delay timer and reset auto mouse on keydown
+ * Start/restart delay timer and reset auto mouse on keydown as well as turn the
+ * target layer off if on and reset toggle status
  *
- * NOTE: this will turn the target layer off if on and reset toggle status
+ * NOTE: NOT TO BE USED in layer_state_set stack!!!
  *
  * @param[in] pressed bool
  */
 void auto_mouse_reset_trigger(bool pressed) {
     if (pressed) {
-        if (layer_state_is(AUTO_MOUSE_TARGET_LAYER)) {
-            layer_off(AUTO_MOUSE_TARGET_LAYER);
+        if (layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
+            layer_off((AUTO_MOUSE_TARGET_LAYER));
         };
         auto_mouse_reset();
-        dprintf("Non-mouskey pressed \n");
+        dprintf("Non-mouskey event! \n");
     }
     auto_mouse_context.timer.delay = timer_read();
 }
@@ -257,47 +267,43 @@ void auto_mouse_reset_trigger(bool pressed) {
  */
 bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
     // skip if not enabled or mouse_layer not set
-    if (!AUTO_MOUSE_ENABLED) return true;
+    if (!(AUTO_MOUSE_ENABLED)) return true;
 
     switch (keycode) {
         // Skip Mod keys to avoid layer reset
         case KC_LEFT_CTRL ... KC_RIGHT_GUI:
             break;
-        // TO(AUTO_MOUSE_TARGET_LAYER)-------------------------------------------------------------------------------
+        // TO((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_TO ... QK_TO_MAX: // same proccessing as next
-        // TG(AUTO_MOUSE_TARGET_LAYER)-------------------------------------------------------------------------------
+        // TG((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
-            if ((keycode & 0xff) == AUTO_MOUSE_TARGET_LAYER) {
+            if ((keycode & 0xff) == (AUTO_MOUSE_TARGET_LAYER)) {
                 if (!(record->event.pressed)) auto_mouse_toggle();
             }
             break;
-        // MO(AUTO_MOUSE_TARGET_LAYER)-------------------------------------------------------------------------------
+        // MO((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-            if ((keycode & 0xff) == AUTO_MOUSE_TARGET_LAYER) {
+            if ((keycode & 0xff) == (AUTO_MOUSE_TARGET_LAYER)) {
                 auto_mouse_keyevent(record->event.pressed);
             }
         // DF -------------------------------------------------------------------------------------------------------
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
-            break;
 #    ifndef NO_ACTION_ONESHOT
-        // OSL(AUTO_MOUSE_TARGET_LAYER)------------------------------------------------------------------------------
+        // OSL((AUTO_MOUSE_TARGET_LAYER))------------------------------------------------------------------------------
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
-            if ((keycode & 0xff) == AUTO_MOUSE_TARGET_LAYER) {
-                auto_mouse_keyevent(record->event.pressed);
-            }
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
-            break;
 #    endif
-        // LM(AUTO_MOUSE_TARGET_LAYER, mod)--------------------------------------------------------------------------
+            break;
+        // LM((AUTO_MOUSE_TARGET_LAYER), mod)--------------------------------------------------------------------------
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
-            if (((keycode >> 8) & 0x0f) == AUTO_MOUSE_TARGET_LAYER) {
+            if (((keycode >> 8) & 0x0f) == (AUTO_MOUSE_TARGET_LAYER)) {
                 auto_mouse_keyevent(record->event.pressed);
             }
             break;
-            // TT(AUTO_MOUSE_TARGET_LAYER)---------------------------------------------------------------------------
+            // TT((AUTO_MOUSE_TARGET_LAYER))---------------------------------------------------------------------------
 #    ifndef NO_ACTION_TAPPING
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-            if ((keycode & 0xff) == AUTO_MOUSE_TARGET_LAYER) {
+            if ((keycode & 0xff) == (AUTO_MOUSE_TARGET_LAYER)) {
                 auto_mouse_keyevent(record->event.pressed);
 #        if TAPPING_TOGGLE != 0
                 if (record->tap.count == TAPPING_TOGGLE) {
@@ -311,10 +317,10 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
 #        endif
             }
             break;
-        // LT(AUTO_MOUSE_TARGET_LAYER, kc)---------------------------------------------------------------------------
+        // LT((AUTO_MOUSE_TARGET_LAYER), kc)---------------------------------------------------------------------------
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             if (!record->tap.count) {
-                if (((keycode >> 8) & 0x0f) == AUTO_MOUSE_TARGET_LAYER) {
+                if (((keycode >> 8) & 0x0f) == (AUTO_MOUSE_TARGET_LAYER)) {
                     auto_mouse_keyevent(record->event.pressed);
                 }
                 break;
@@ -330,11 +336,9 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
             // check if keyrecord is mousekey
             if (is_mouse_record(keycode, record)) {
                 auto_mouse_keyevent(record->event.pressed);
-            } else {
-                if (!auto_mouse_context.status.is_active) {
-                    // all non-mousekey presses restart delay timer and reset status
-                    auto_mouse_reset_trigger(record->event.pressed);
-                }
+            } else if (!is_auto_mouse_active()) {
+                // all non-mousekey presses restart delay timer and reset status
+                auto_mouse_reset_trigger(record->event.pressed);
             }
     }
     if (auto_mouse_context.status.mouse_key_tracker < 0) {
