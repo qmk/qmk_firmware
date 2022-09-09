@@ -86,6 +86,7 @@ void rn42_send_mouse(report_mouse_t *report) {
     uart_write(0xFD);
     uart_write(0x05);
     uart_write(0x02);
+
     uart_write(report->buttons);
     uart_write(report->x);
     uart_write(report->y);
