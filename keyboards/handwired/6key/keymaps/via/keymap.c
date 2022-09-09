@@ -15,25 +15,20 @@
   */
 #include QMK_KEYBOARD_H
 
-enum layers{
-  _MAIN,
-  _FN,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MAIN] = LAYOUT_all(
+    [0] = LAYOUT(
         LCTL(KC_Z), LCTL(KC_Y), KC_A,
         KC_C,       KC_D,       KC_S
     ),
-    [_FN] = LAYOUT_all(
+    [1] = LAYOUT(
         KC_F13, KC_F14, KC_F15,
         KC_F16, KC_F17, KC_F18
     ),
-    [2] = LAYOUT_all(
+    [2] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS
         ),
-    [3] = LAYOUT_all(
+    [3] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS
         ),
