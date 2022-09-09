@@ -514,18 +514,16 @@ All of the standard layer keys (tap toggling, toggle, toggle on, one_shot, layer
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 // only required if not setting mouse layer elsewhere
 #define AUTO_MOUSE_DEFAULT_LAYER [index of your mouse layer]
-```
 
-Because the auto mouse feature can be disabled/enabled during runtime and is disabled by default `set_auto_mouse_state(true);` must be added somewhere in firmware before the feature will work.  One of the easiest is to add to an initialization callback you may already using such as the following in `keymap.c`: 
-*Note setting the auto mouse layer is only required if it is not done through AUTO_MOUSE_DEFAULT_LAYER*
-
-```c
 // in keymap.c:
 void pointing_device_init_user(void) {
     set_auto_mouse_layer(_MOUSE_LAYER); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of _MOUSE_LAYER
     set_auto_mouse_state(true);
 }
 ```
+
+Because the auto mouse feature can be disabled/enabled during runtime and is disabled by default `set_auto_mouse_state(true);` must be added somewhere in firmware before the feature will work.  One of the easiest is to add to an initialization callback you may already using such as the following in `keymap.c`: 
+*Note setting the auto mouse layer is only required if it is not done through AUTO_MOUSE_DEFAULT_LAYER*
 
 ## How to Customize:
 
@@ -554,9 +552,7 @@ While all default mouse keys and layer keys(for current mouse layer) are treated
 
 The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer).
 ```c
-// in config.h ---------
-
-/* Auto mouse adding key records to mouse keys */
+// in keyboard.c:
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
     // should have the next step down set up like this to allow for override
     if(is_mouse_record_user(keycode, record)) {
@@ -605,7 +601,7 @@ The auto mouse feature can be disabled any time and this can be helpful if you w
 *NOTE: the `state = remove_auto_mouse_layer(state, false);` line is crucial to making sure that the auto mouse target layer will be removed appropriately before disabling auto mouse*   
 
 ```c
-// in keymap.c
+// in keymap.c:
 layer_state_t layer_state_set_user(layer_state_t state) {
     // checks highest layer other than target layer
     switch(get_highest_layer(remove_auto_mouse_layer(state, true))) {
@@ -630,7 +626,7 @@ The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when 
 *ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked to avoid turning off the target layer unless needed*   
 
 ```c
-// in keymap.c
+// in keymap.c:
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     // switch on change in default layer need to check if target layer already set to avoid turning off layer needlessly
     if(layer_state_is(_DEFAULT_LAYER_2) && (AUTO_MOUSE_TARGET_LAYER) != _MOUSE_LAYER_2) {
@@ -648,12 +644,12 @@ Custom key records could be created that control the auto mouse feature.
 
 The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.
 ```c
-// in config.h
+// in config.h:
 enum user_custom_keycodes {
     AM_Toggle = SAFE_RANGE
 };
 
-// in keymap.c
+// in keymap.c:
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         // toggle auto mouse enable key
