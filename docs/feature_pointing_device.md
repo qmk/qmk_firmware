@@ -499,6 +499,7 @@ If you are having issues with pointing device drivers debug messages can be enab
 ?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
 
 
+---
 # Automatic Mouse Layer :id=pointing-device-auto-mouse
 
 When using a pointing device combined with a keyboard often the mouse buttons are kept on a separate layer from the default keyboard layer requiring pressing or holding a key to use the mouse. To make this easier and more efficient an additional feature may be enabled that will automatically activate a target layer as soon as the mouse cursor is moved and deactivate the target layer after a set time.  If any key that is defined as a mouse key(see below) is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key up. When a non-mouse key is pressed then the layer is deactivated early.  Mod & mod tap keys(When) are ignored (i.e. don't hold layer/reset timer but do not deactivate the layer either) allowing for shift/ctrl clicks etc.
@@ -508,17 +509,18 @@ All of the standard layer keys (tap toggling, toggle, toggle on, one_shot, layer
 
 ## How to enable:
 
-add the following to `config.h`:
-
 ```c
+// in config.h:
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define AUTO_MOUSE_DEFAULT_LAYER = [index of your mouse layer] // only required if not setting mouse layer elsewhere
+// only required if not setting mouse layer elsewhere
+#define AUTO_MOUSE_DEFAULT_LAYER [index of your mouse layer]
 ```
 
 Because the auto mouse feature can be disabled/enabled during runtime and is disabled by default `set_auto_mouse_state(true);` must be added somewhere in firmware before the feature will work.  One of the easiest is to add to an initialization callback you may already using such as the following in `keymap.c`: 
 *Note setting the auto mouse layer is only required if it is not done through AUTO_MOUSE_DEFAULT_LAYER*
 
 ```c
+// in keymap.c:
 void pointing_device_init_user(void) {
     set_auto_mouse_layer(_MOUSE_LAYER); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of _MOUSE_LAYER
     set_auto_mouse_state(true);
@@ -530,12 +532,13 @@ void pointing_device_init_user(void) {
 There are a few ways to control the auto mouse feature with both `config.h` options and functions for controlling it during runtime.
 
 ### `config.h` Options:
-| Define                              | Description                                                                  | Default                |
-| ----------------------------------- | ---------------------------------------------------------------------------- | ---------------------: |
-| `POINTING_DEVICE_AUTO_MOUSE_ENABLE` | Enables auto mouse layer feature                                             |              Undefined |
-| `AUTO_MOUSE_DEFAULT_LAYER`          | Index of layer to use as default target layer                                |                      1 |
-| `AUTO_MOUSE_TIME`                   | Time layer remains active after `auto_mouse_activation` or mouse key (in ms) |                 650 ms |
-| `AUTO_MOUSE_DELAY`                  | Lockout time after non-mouse key is pressed (in ms)                          | TAPPING_TERM or 200 ms |
+| Define                              | Description                                                                             | Default                    |
+| ----------------------------------- | --------------------------------------------------------------------------------------- | -------------------------: |
+| `POINTING_DEVICE_AUTO_MOUSE_ENABLE` | (Required) Enables auto mouse layer feature                                             |              _Not defined_ |
+| `AUTO_MOUSE_DEFAULT_LAYER`          | (Optional) Index of layer to use as default target layer (0 - `LAYER_MAX`)              |                        `1` |
+| `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after `auto_mouse_activation` or mouse key (in ms) |                   `650 ms` |
+| `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed (in ms)                          | `TAPPING_TERM` or `200 ms` |
+| `AUTO_MOUSE_DEBOUNCE`               | (Optional) Delay between last detected mouse movement and checking again                |                    `25 ms` |
 
 ### Adding mouse keys
 
@@ -551,6 +554,8 @@ While all default mouse keys and layer keys(for current mouse layer) are treated
 
 The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer).
 ```c
+// in config.h ---------
+
 /* Auto mouse adding key records to mouse keys */
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
     // should have the next step down set up like this to allow for override
@@ -574,40 +579,39 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
 There are several functions that allow for more advanced interaction with the auto mouse feature allowing for greater control.
 
 ### Functions to interact with the auto mouse feature:   
-| Function                                                    | Description                                                                      | Aliases                   |   Return type |
-| :---------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------- | ------------: |
-| `set_auto_mouse_enable(bool enable)`                        | Enable or disable auto mouse (true:enable, false:disable)                        |                           |    void(None) |
-| `get_auto_mouse_enable(void)`                               | Return auto mouse enable state (true:enabled, false:disabled)                    | `AUTO_MOUSE_ENABLED`      |          bool |
-| `get_auto_mouse_layer(void)`                                | Return auto mouse target layer index                                             | `AUTO_MOUSE_TARGET_LAYER` |       uint8_t |
-| `auto_mouse_reset(void)`                                    | Reset auto mouse status and clear target layer if not toggled/oneshot active     |                           |    void(None) |
-| `set_auto_mouse_layer(uint8_t LAYER)`                       | Change/set the target layer for auto mouse                                       |                           |    void(None) |
-| `auto_mouse_keyevent(bool pressed)`                         | Auto mouse mouse key event (true: key down, false: key up)                       |                           |    void(None) |
-| `auto_mouse_trigger_reset(bool pressed)`                    | Reset auto mouse status on key down and start delay timer (non-mouse key event)  |                           |    void(None) |
-| `auto_mouse_activation(report_mouse_t mouse_report)`        | Overwritable function that controls target layer activation (when true)          |                           |          bool |
-| `auto_mouse_toggle(void)`                                   | Toggle target layer toggle state (disables layer deactivation when true)         |                           |    void(None) |
-| `get_auto_mouse_toggle(void)`                               | Return value of toggling state variable                                          |                           |          bool |
-| `remove_auto_mouse_target(layer_state_t state, bool force)` | Remove auto mouse target layer from `state` if appropriate (can be forced)       |                           | layer_state_t |
-| `auto_mouse_target_off(void)`                               | Disable target layer if appropriate will call 
+| Function                                                   | Description                                                                      | Aliases                   |     Return type |
+| :--------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------- | --------------: |
+| `set_auto_mouse_enable(bool enable)`                       | Enable or disable auto mouse (true:enable, false:disable)                        |                           |    `void`(None) |
+| `get_auto_mouse_enable(void)`                              | Return auto mouse enable state (true:enabled, false:disabled)                    | `AUTO_MOUSE_ENABLED`      |          `bool` |
+| `get_auto_mouse_layer(void)`                               | Return auto mouse target layer index                                             | `AUTO_MOUSE_TARGET_LAYER` |       `uint8_t` |
+| `set_auto_mouse_layer(uint8_t LAYER)`                      | Change/set the target layer for auto mouse                                       |                           |    `void`(None) |
+| `auto_mouse_keyevent(bool pressed)`                        | Auto mouse mouse key event (true: key down, false: key up)                       |                           |    `void`(None) |
+| `auto_mouse_trigger_reset(bool pressed)`                   | Reset auto mouse status on key down and start delay timer (non-mouse key event)  |                           |    `void`(None) |
+| `auto_mouse_activation(report_mouse_t mouse_report)`       | Overwritable function that controls target layer activation (when true)          |                           |          `bool` |
+| `auto_mouse_toggle(void)`                                  | Toggle target layer toggle state (disables layer deactivation when true)         |                           |    `void`(None) |
+| `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                          |                           |          `bool` |
+| `remove_auto_mouse_layer(layer_state_t state, bool force)` | Remove auto mouse target layer from `state` if appropriate (can be forced)       |                           | `layer_state_t` |
+| `auto_mouse_layer_off(void)`                               | Disable target layer if appropriate will call                                    |                           |   `void`(None)  |
 
-*NOTE: due to the nature of how some functions work the `auto_mouse_trigger_reset`, and `auto_mouse_target_off` functions should never be called in the `layer_state_set_*` stack.*    
-*It is recommended that `remove_auto_mouse_target` is used in the `layer_state_set_*` stack and `auto_mouse_target_off` is used everywhere else*   
-*ADDITIONAL NOTE: `remove_auto_mouse_target(state, false)` or `auto_mouse_target_off()` should be called before any instance of `set_auto_mouse_enabled(true/false)` and *  
+*NOTE: due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack.*    
+*It is recommended that `remove_auto_mouse_layer` is used in the `layer_state_set_*` stack and `auto_mouse_layer_off` is used everywhere else*   
+*ADDITIONAL NOTE: `remove_auto_mouse_layer(state, false)` or `auto_mouse_layer_off()` should be called before any instance of `set_auto_mouse_enabled(true/false)` or `set_auto_mouse_layer(layer)`*  
 
 ### Examples of function use
 
 #### Disable auto mouse on certain layers:
 
 The auto mouse feature can be disabled any time and this can be helpful if you want to disable the auto mouse feature under certain circumstances such as when particular layers are active. the following function would disable the auto_mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer (other than auto mouse target layer as it is intentionally ignored when checking highest in the below code).   
-*NOTE: the `state = remove_auto_mouse_target(state, false);` line is crucial to making sure that the auto mouse target layer will be removed appropriately before disabling auto mouse*   
+*NOTE: the `state = remove_auto_mouse_layer(state, false);` line is crucial to making sure that the auto mouse target layer will be removed appropriately before disabling auto mouse*   
 
 ```c
-/* auto mouse ignore layers in keymap.c or user files */
+// in keymap.c
 layer_state_t layer_state_set_user(layer_state_t state) {
     // checks highest layer other than target layer
-    switch(get_highest_layer(remove_auto_mouse_target(state, true))) {
+    switch(get_highest_layer(remove_auto_mouse_layer(state, true))) {
         case _LAYER5 ... _LAYER7:
             // remove_auto_mouse_target must be called to adjust state before setting enable
-            state = remove_auto_mouse_target(state, false);
+            state = remove_auto_mouse_layer(state, false);
             set_auto_mouse_enable(false);
             break;
         default:
@@ -623,15 +627,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is active.   
 *NOTE: that `auto_mouse_target_off` is used here instead of `remove_auto_mouse_target` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack*   
-*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked to avoid turning off the target layer unless needed*
+*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked to avoid turning off the target layer unless needed*   
+
 ```c
+// in keymap.c
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     // switch on change in default layer need to check if target layer already set to avoid turning off layer needlessly
-    if(layer_state_is(_DEFAULT_LAYER_2) && AUTO_MOUSE_TARGET_LAYER != _MOUSE_LAYER_2) {
-        auto_mouse_target_off();
+    if(layer_state_is(_DEFAULT_LAYER_2) && (AUTO_MOUSE_TARGET_LAYER) != _MOUSE_LAYER_2) {
+        auto_mouse_layer_off();
         set_auto_mouse_layer(_MOUSE_LAYER_2);
-    } else if(AUTO_MOUSE_TARGET_LAYER != _MOUSE_LAYER_1){
-        auto_mouse_target_off();
+    } else if((AUTO_MOUSE_TARGET_LAYER) != _MOUSE_LAYER_1){
+        auto_mouse_layer_off();
         set_auto_mouse_layer(_MOUSE_LAYER_1);
     }
 }
@@ -642,17 +648,19 @@ Custom key records could be created that control the auto mouse feature.
 
 The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.
 ```c
+// in config.h
 enum user_custom_keycodes {
     AM_Toggle = SAFE_RANGE
 };
 
+// in keymap.c
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         // toggle auto mouse enable key
         case AM_Toggle:
             if(record->event.pressed) { // key down
-                auto_mouse_target_off(); // disable target layer if needed
-                set_auto_mouse_enabled(AUTO_MOUSE_ENABLED ^= 1);
+                auto_mouse_layer_off(); // disable target layer if needed
+                set_auto_mouse_enabled((AUTO_MOUSE_ENABLED) ^ 1);
             } // do nothing on key up
             return false; // prevent further processing of keycode
     }
@@ -684,9 +692,7 @@ void pointing_device_task(void) {
 
 In general the following two functions must be implemented in appropriate locations for auto mouse to function:
 
-| Function                                                       | Description                                                  | Suggested location         |
-| -------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------: |
-| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | handles target layer activation and is_active status updates | pointing_device_task stack |
-| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse                            |       process_record stack |
-
-
+| Function                                                       | Description                                                  |           Suggested location |
+| -------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------: |
+| `pointing_device_task_auto_mouse(report_mouse_t mouse_report)` | handles target layer activation and is_active status updates | `pointing_device_task` stack |
+| `process_auto_mouse(uint16_t keycode, keyrecord_t* record)`    | Keycode processing for auto mouse                            |       `process_record` stack |
