@@ -24,4 +24,5 @@
   #define AUDIO_PIN_ALT A4
   #define AUDIO_PIN_ALT_AS_NEGATIVE
   #define STARTUP_SONG SONG(STARTUP_SOUND)
+  #define AUDIO_INIT_DELAY
 #endif
