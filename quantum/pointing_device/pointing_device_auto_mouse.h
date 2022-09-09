@@ -69,7 +69,7 @@ uint8_t       get_auto_mouse_layer(void);                               // get t
 void          auto_mouse_layer_off(void);                               // disable target layer if appropriate (DO NOT USE in layer_state_set stack!!)
 layer_state_t remove_auto_mouse_layer(layer_state_t state, bool force); // remove auto mouse target layer from state if appropriate (can be forced)
 
-/* ----------For custom pointind device activation----------------------------------------------------------- */
+/* ----------For custom pointing device activation----------------------------------------------------------- */
 bool auto_mouse_activation(report_mouse_t mouse_report); // handles pointing device trigger conditions for target layer activation (overwritable)
 
 /* ----------Handling keyevents------------------------------------------------------------------------------ */
