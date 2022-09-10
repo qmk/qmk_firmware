@@ -11,11 +11,11 @@ A diy, 3d-printed, 15 key (3x5), hotswap, RGB macropad.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make skmt_15k_macropad:default
+    make skmt/15k:default
 
 Flashing example for this keyboard:
 
-    make skmt_15k_macropad:default:flash
+    make skmt/15k:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
