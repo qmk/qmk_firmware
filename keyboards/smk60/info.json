@@ -1,7 +1,13 @@
 {
     "keyboard_name": "SMK60",
+    "manufacturer": "astro",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xDEAD",
+        "pid": "0x6585",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_wkl": {
             "layout": [

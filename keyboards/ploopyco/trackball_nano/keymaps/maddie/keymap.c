@@ -27,6 +27,10 @@
 bool scroll_enabled = false;
 bool lock_state     = false;
 
+// State
+static int8_t delta_x = 0;
+static int8_t delta_y = 0;
+
 // Dummy
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
 

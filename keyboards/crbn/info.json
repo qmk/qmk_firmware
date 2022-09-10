@@ -1,7 +1,13 @@
 {
   "keyboard_name": "CRBN",
+  "manufacturer": "Polarity Works",
   "url": "polarityworks.com",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x726F",
+    "pid": "0x0002",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_crbn_1x2u": {
       "layout": [

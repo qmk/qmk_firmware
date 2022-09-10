@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAC11
-#define PRODUCT_ID      0x5368
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AcheronProject
-#define PRODUCT         SharkPCB
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -52,7 +45,6 @@ EncA (B6) because it is not used in the default PCB
 All Extra pins (A8, B15, B14, B13, B3, B5, B8, B9) , for the same reason;
 B0, which is unconnected on the PCB
 */
-//#define UNUSED_PINS { B0, B6, B13, B14, B15, B8, B9, B5, B3 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

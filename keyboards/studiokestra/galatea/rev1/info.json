@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Galatea",
+    "manufacturer": "Studio Kestra",
     "url": "https://studiokestra.ca/galatea",
     "maintainer": "studiokestra",
+    "usb": {
+        "vid": "0x7C10",
+        "pid": "0x8801",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

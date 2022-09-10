@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1ABC
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    altosys
-#define PRODUCT         alt34
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -44,3 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Use I2C or Serial, not both */
+#define USE_I2C
+// #define USE_SERIAL
+
+/* Select hand configuration */
+#define EE_HANDS
+/* #define MASTER_LEFT */
+/* #define MASTER_RIGHT */

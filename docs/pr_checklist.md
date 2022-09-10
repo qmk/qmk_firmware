@@ -46,9 +46,12 @@ Closed PRs (for inspiration, previous sets of review comments will help you elim
 https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
 - `info.json`
-    - valid URL
-    - valid maintainer
-    - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
+    - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
+    - the mandatory elements for a minimally complete `info.json` at present are:
+        - valid URL
+        - valid maintainer
+        - valid USB VID/PID and device version
+        - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
 - `readme.md`
     - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
@@ -57,12 +60,16 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
+        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. `https://i.imgur.com/vqgE7Ok.jpg` becomes `https://i.imgur.com/vqgE7Okh.jpg`
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
     - no `(-/+size)` comments related to enabling features
     - remove the list of alternate bootloaders if one has been specified
     - no re-definitions of the default MCU parameters if same value, when compared to the equivalent MCU in [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/builddefs/mcu_selection.mk)
+    - no "keymap only" features enabled
+      - `COMBO_ENABLE`
+      - `ENCODER_MAP_ENABLE`
 - keyboard `config.h`
     - don't repeat `MANUFACTURER` in the `PRODUCT` value
     - no `#define DESCRIPTION`
@@ -79,6 +86,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
     - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
     - prefer LED indicator [Configuration Options](feature_led_indicators.md?id=configuration-options) to custom `led_update_*()` implementations where possible
+    - Encoder support should not be hacked into the keymap here -- no `tap_code(dynamic_keymap_get_keycode())` or `action_exec()` hacks.  The [Encoder Map](feature_encoders.md?id=encoder-map) feature already supports the dynamic keymap feature (what power's VIA's "live keymap updates" capability).
+      - If support is absolutely necessary, it should be implemented exclusively at the keymap level, with none of the implementation bleeding into the keyboard level (no empty rows/columns, no encoder specific layouts, etc.), as those configurations can be redefined at the keymap level. Keymaps can then choose to use the `action_exec` hack. <!-- because people will complain, give them a way to implement it, in the meanwhile.  To be removed. -->
+      - [Request for official proper VIA support](https://github.com/the-via/app/issues/26)
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
     - `LAYOUT` macros should use standard definitions if applicable

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "reviung5",
+    "manufacturer": "gtips",
     "url": "",
     "maintainer": "gtips",
+    "usb": {
+        "vid": "0x5C06",
+        "pid": "0x4F0D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_reviung5": {
             "layout": [

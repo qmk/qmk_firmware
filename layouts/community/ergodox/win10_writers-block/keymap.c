@@ -4,8 +4,8 @@
 #include "version.h"
 #include "wait.h"
 
-#define BASE 0 // default layer  -  helpful for writing in Office-style word processors. 
-#define SYMB 1 // symbol layer   -  NumPad, etc. - same as Ergodox EZ default but no EEPROM or Version key 
+#define BASE 0 // default layer  -  helpful for writing in Office-style word processors.
+#define SYMB 1 // symbol layer   -  NumPad, etc. - same as Ergodox EZ default but no EEPROM or Version key
 #define RIMW 2 // rimworld layer -  made for the game RimWorld, by Tynan Sylvester | feel free to remap for your favorite game!
 #define MDIA 3 // media layer    -  mouse and music - close to Ergodox EZ default media layer
 
@@ -27,19 +27,19 @@ enum {
 };
 
 void cake_count (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 2) {         
+  if (state->count == 2) {
     layer_on (SYMB);        //define double tap here
     layer_off (MDIA);
-  } 
-  else {    
+  }
+  else {
     layer_off (SYMB);       //define single tap or hold here
     layer_off (MDIA);
   }
-  if (state->count == 3) {         
+  if (state->count == 3) {
      layer_on (RIMW);       //define triple tap here
      layer_off (MDIA);
-  } 
-  else {    
+  }
+  else {
    	layer_off (RIMW);       //define single tap or hold here
 	layer_off (MDIA);
     reset_tap_dance (state);
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   `    |   1  |   2  |   3  |   4  |   5  | 6    |           |  7   |   7  |   8  |   9  |   0  |   -  |   =    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | F12/L1 |   Q  |   W  |   E  |   R  |   T  |  {/[ |           |TD(L0 |   Y  |   U  |   I  |   O  |   P  |   \    | 
+ * | F12/L1 |   Q  |   W  |   E  |   R  |   T  |  {/[ |           |TD(L0 |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |L1 L2)|------+------+------+------+------+--------|
  * |Caps/Win|   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
  * |--------+------+------+------+------+------|  }/] |           TD(ctrl|------+------+------+------+------+--------|
@@ -163,8 +163,8 @@ LT(SYMB, KC_F12),         KC_Q,         KC_W,         KC_E,        KC_R,   KC_T,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
-),	
-	
+),
+
 /* Keymap 2: RimWorld Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -186,7 +186,7 @@ LT(SYMB, KC_F12),         KC_Q,         KC_W,         KC_E,        KC_R,   KC_T,
  *                                 |      |      |  Q   |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// RIMWORLD 
+// RIMWORLD
 [RIMW] = LAYOUT_ergodox(
        // left hand
         KC_ESC,   KC_1,    KC_2,     KC_3,    KC_4,    KC_5,    KC_6,
@@ -300,7 +300,7 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
@@ -315,7 +315,7 @@ void matrix_scan_user(void) {
             break;
         case 3:
             ergodox_right_led_3_on();
-            break;			
+            break;
         default:
             // none
             break;

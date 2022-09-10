@@ -18,11 +18,8 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey Bluepill STM32F103
-
 #define MATRIX_COL_PINS { B0 }
 #define MATRIX_ROW_PINS { A7 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN         A0
 #define BACKLIGHT_PWM_DRIVER  PWMD2
