@@ -30,7 +30,7 @@
         "on_state": 0
     },
     "layouts": {
-        "LAYOUT_em8": {
+        "LAYOUT_em8_2u_backsp": {
             "layout": [
                 {"x":0, "y":0, "matrix":[1,0] },
                 {"x":1.25, "y":0, "matrix":[0,0] },
@@ -108,7 +108,7 @@
             ]
         },
 
-        "LAYOUT_em8_split_bs": {
+        "LAYOUT_em8_all": {
             "layout": [
                 {"x":0, "y":0, "matrix":[1,0] },
                 {"x":1.25, "y":0, "matrix":[0,0] },
