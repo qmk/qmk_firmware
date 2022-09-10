@@ -18,5 +18,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 
 ## How to enter the bootloader
-* **Bootmagic reset**: Hold down the key `~` key and plug in the keyboard (Top left most switch of the main alpha cluster)
+* **Bootmagic reset**: Hold down the key `ESC` key and plug in the keyboard (Top left most switch). On older firmware revisions, `~` (top left most switch of the alpha cluster) may be needed instead.
 * **Physical reset button**: Briefly press the button on the back of the PCB
