@@ -128,6 +128,7 @@ LED_TYPE led[RGBLED_NUM];
 
 #ifdef RGBLIGHT_LAYERS
 rgblight_segment_t const *const *rgblight_layers = NULL;
+bool deferred_rgblight_set_for_layers = false;
 #endif
 
 rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
@@ -752,7 +753,11 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
 #    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
     // If not enabled, then nothing else will actually set the LEDs...
     if (!rgblight_config.enable) {
-        rgblight_set();
+        // Doing rgblight_set() here could potentially cause timing
+        // issues when there are multiple successive calls to
+        // rgblight_set_layer_state(). Instead, set a flag and do the
+        // rgblight_set() the next time rgblight_task() runs.
+        deferred_rgblight_set_for_layers = true;
     }
 #    endif
 }
@@ -1150,8 +1155,15 @@ void rgblight_task(void) {
         }
     }
 
-#    ifdef RGBLIGHT_LAYER_BLINK
+#    ifdef RGBLIGHT_LAYERS
+#        ifdef RGBLIGHT_LAYER_BLINK
     rgblight_blink_layer_repeat_helper();
+#        endif
+
+    if (deferred_rgblight_set_for_layers) {
+        deferred_rgblight_set_for_layers = false;
+        rgblight_set();
+    }
 #    endif
 }
 
