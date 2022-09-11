@@ -83,36 +83,55 @@ __attribute__((weak)) void unicode_input_mode_set_kb(uint8_t input_mode) {
 }
 
 #ifdef AUDIO_ENABLE
+#    ifdef UNICODE_SONG_MAC
+static float song_mac[][2] = UNICODE_SONG_MAC;
+#    endif
+#    ifdef UNICODE_SONG_LNX
+static float song_lnx[][2] = UNICODE_SONG_LNX;
+#    endif
+#    ifdef UNICODE_SONG_WIN
+static float song_win[][2] = UNICODE_SONG_WIN;
+#    endif
+#    ifdef UNICODE_SONG_BSD
+static float song_bsd[][2] = UNICODE_SONG_BSD;
+#    endif
+#    ifdef UNICODE_SONG_WINC
+static float song_winc[][2] = UNICODE_SONG_WINC;
+#    endif
+#    ifdef UNICODE_SONG_EMACS
+static float song_emacs[][2] = UNICODE_SONG_EMACS;
+#    endif
+
 static void unicode_play_song(uint8_t mode) {
     switch (mode) {
 #    ifdef UNICODE_SONG_MAC
-        static float song_mac[][2] = UNICODE_SONG_MAC;
         case UC_MAC:
             PLAY_SONG(song_mac);
             break;
 #    endif
 #    ifdef UNICODE_SONG_LNX
-        static float song_lnx[][2] = UNICODE_SONG_LNX;
         case UC_LNX:
             PLAY_SONG(song_lnx);
             break;
 #    endif
 #    ifdef UNICODE_SONG_WIN
-        static float song_win[][2] = UNICODE_SONG_WIN;
         case UC_WIN:
             PLAY_SONG(song_win);
             break;
 #    endif
 #    ifdef UNICODE_SONG_BSD
-        static float song_bsd[][2] = UNICODE_SONG_BSD;
         case UC_BSD:
             PLAY_SONG(song_bsd);
             break;
 #    endif
 #    ifdef UNICODE_SONG_WINC
-        static float song_winc[][2] = UNICODE_SONG_WINC;
         case UC_WINC:
             PLAY_SONG(song_winc);
+            break;
+#    endif
+#    ifdef UNICODE_SONG_EMACS
+        case UC_EMACS:
+            PLAY_SONG(song_emacs);
             break;
 #    endif
     }
@@ -151,9 +170,9 @@ uint8_t get_unicode_input_mode(void) {
 void set_unicode_input_mode(uint8_t mode) {
     unicode_config.input_mode = mode;
     persist_unicode_input_mode();
-#    ifdef AUDIO_ENABLE
+#ifdef AUDIO_ENABLE
     unicode_play_song(mode);
-#    endif
+#endif
     unicode_input_mode_set_kb(mode);
     dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
