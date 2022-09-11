@@ -25,7 +25,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0645",
-        "vid": "0x0004"
+        "vid": "0x0002"
     },
     "encoder": {
         "rotary": [
