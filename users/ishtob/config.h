@@ -16,7 +16,6 @@
 //#define LEADER_TIMEOUT 300
 //#define BACKLIGHT_BREATHING
 //#define PERMISSIVE_HOLD
-// #define QMK_KEYS_PER_SCAN 4
 
 //audio clicky
   //#define AUDIO_CLICKY
@@ -49,9 +48,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

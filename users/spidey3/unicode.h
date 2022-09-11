@@ -1,3 +1,6 @@
+// Copyright 2022 Joshua Diamond josh@windowoffire.com (@spidey3)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include QMK_KEYBOARD_H
@@ -23,6 +26,6 @@ enum unicode_names {
 };
 
 #    define X_BUL (XP(BUL1, BUL2))
-#    define X_DASH (XP(ENDASH, EMDASH))
+#    define X_DASH (XP(EMDASH, ENDASH))
 
 #endif

@@ -302,10 +302,6 @@ void matrix_init_user(void) {
 #endif
 }
 
-void matrix_scan_user(void) {
-
-}
-
 void led_set_user(uint8_t usb_led) {
   lock_led_set(usb_led & (1<<USB_LED_NUM_LOCK), LED_NUM_LOCK);
   lock_led_set(usb_led & (1<<USB_LED_CAPS_LOCK), LED_CAPS_LOCK);

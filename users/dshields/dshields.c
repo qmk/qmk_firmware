@@ -2,6 +2,11 @@
 #include "dshields.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX)
+            || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)
+            || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        keycode = keycode & 0xFF;
+    }
     if (keycode == KC_ESC && record->event.pressed) {
         bool rc = true;
         uint8_t mods = 0;

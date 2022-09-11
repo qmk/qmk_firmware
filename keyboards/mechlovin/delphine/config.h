@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D4C
-#define MANUFACTURER    Mechlovin
-#define PRODUCT         Mechlovin Delphine
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -42,3 +37,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F7, D7, D6, D2 }
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN B5

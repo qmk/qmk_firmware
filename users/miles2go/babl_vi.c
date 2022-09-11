@@ -59,6 +59,7 @@ bool babblePaste_vi(uint16_t keycode) {
 
 #        ifdef BABL_APP
     BABLM(BABL_APP_SAVE, SS_TAP(X_ESCAPE) ":w");
+    BABLM(BABL_APP_SET_MARK, SS_TAP(X_ESCAPE) "ma"); // real vi people probably want multiple marks,not just a
 #            ifdef BABL_APP_WINDOWSPLITTING
     BABLM(BABL_SPLIT_FRAME_VERT, SS_TAP(X_ESCAPE) ":vsplit");
     BABLM(BABL_UNSPLIT_FRAME_VERT, SS_TAP(X_ESCAPE) ":hide");  // debatable.

@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
@@ -36,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,           KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
         KC_LGUI,          KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,          KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   TG(SYMB),
-        F(0),             KC_LCBR,      KC_LPRN,KC_PIPE,KC_COLN,
+        KC_NO,            KC_LCBR,      KC_LPRN,KC_PIPE,KC_COLN,
                                                LGUI(KC_LALT), KC_LALT,
                                                               KC_HOME,
                                      KC_BSPC,         KC_ESC,  KC_END,
@@ -45,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RBRC,    KC_Y,   KC_U,    KC_I,     KC_O,      KC_P,      KC_BSLS,
                          KC_H,   KC_J,    KC_K,     KC_L,      KC_SCLN,   KC_QUOT,
              TG(MDIA),   KC_N,   KC_M,    KC_COMM,  KC_DOT,    KC_SLSH,   KC_RSFT,
-                                 KC_MINS, KC_EQL,   KC_RPRN,   KC_RCBR,   F(1),
+                                 KC_MINS, KC_EQL,   KC_RPRN,   KC_RCBR,   KC_NO,
              KC_RALT, KC_MPLY,
              KC_PGUP,
              KC_PGDN, KC_ENT, KC_SPC
@@ -135,85 +133,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_MACRO_TAP(0),                // FN0 - Ctrl + a (For screen/tmux)
-  [1] = ACTION_MACRO_TAP(1)                 // FN1 - Ctrl + ` (For quake style console)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
-{
-  switch(id) {
-    case 0:
-      if (record->event.pressed) {
-        if (record->tap.count) {
-          if (record->tap.interrupted) {
-            record->tap.count = 0;
-            // hold press action
-            register_code(KC_LCTL);
-          } else {
-            // tap press action
-            return MACRO( D(LCTL), T(A), U(LCTL), END  );
-          }
-        } else {
-          // hold press action
-          register_code(KC_LCTL);
-        }
-      } else {
-        if (record->tap.count) {
-          // tap release action
-        } else {
-          // hold release action
-          unregister_code(KC_LCTL);
-        }
-        record->tap.count = 0;
-      }
-      break;
-    case 1:
-      if (record->event.pressed) {
-        if (record->tap.count) {
-          if (record->tap.interrupted) {
-            record->tap.count = 0;
-            // hold press action
-            register_code(KC_RCTL);
-          } else {
-            // tap press action
-            return MACRO( DOWN(KC_RCTL), TYPE(KC_GRV), UP(KC_RCTL), END  );
-          }
-        } else {
-          // hold press action
-          register_code(KC_RCTL);
-        }
-      } else {
-        if (record->tap.count) {
-          // tap release action
-        } else {
-          // hold release action
-          unregister_code(KC_RCTL);
-        }
-        record->tap.count = 0;
-      }
-      break;
-  }
-  return MACRO_NONE;
-};
-
-
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (layer) {
+
+    switch (get_highest_layer(layer_state)) {
       // TODO: Make this relevant to the ErgoDox EZ.
         case 1:
             ergodox_right_led_1_on();
@@ -225,5 +152,4 @@ void matrix_scan_user(void) {
             // none
             break;
     }
-
-};
+}

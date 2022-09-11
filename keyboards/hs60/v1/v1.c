@@ -91,7 +91,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 
 #ifdef HS60_ANSI
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -199,7 +199,7 @@ led_config_t g_led_config = { {
 
 #else
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -376,20 +376,6 @@ void matrix_init_kb(void) {
 	}*/
 
 	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-
-	matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
-	return process_record_user(keycode, record);
-}
-
-void led_set_kb(uint8_t usb_led) {
-	//backlight_set_indicator_state(usb_led);
 }
 
 void suspend_power_down_kb(void)

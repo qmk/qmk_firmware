@@ -1,0 +1,2 @@
+# Bootloader selection
+BOOTLOADER = halfkay

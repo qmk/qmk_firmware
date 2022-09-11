@@ -1,9 +1,13 @@
 {
   "keyboard_name": "Redox Wireless",
+  "manufacturer": "Mattia Dal Ben",
   "url": "",
   "maintainer": "qmk",
-  "width": 18.5,
-  "height": 6.25,
+  "usb": {
+    "vid": "0x4D44",
+    "pid": "0x5257",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

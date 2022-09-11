@@ -15,24 +15,3 @@
  */
 
 #include "infinity87.h"
-
-void matrix_init_kb(void) {
-    matrix_init_user();
-    led_init_ports();
-}
-
-void led_init_ports(void) {
-    setPinOutput(A3);
-    writePinLow(A3);
-    setPinOutput(A4);
-    writePinLow(A4);
-}
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(A4, led_state.caps_lock);
-        writePin(A3, led_state.num_lock);
-    }
-
-    return true;
-}

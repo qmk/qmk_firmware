@@ -26,15 +26,6 @@ enum tap_dance_codes {
     CT_DEL_ESC
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    //keyevent_t event = record->event;
-
-    switch (id) {
-
-    }
-    return MACRO_NONE;
-}
-
 qk_tap_dance_action_t tap_dance_actions[] = {
     [0] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_LPRN),
     [1] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_LCBR),
@@ -112,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_ACTIONS] = LAYOUT_planck_grid(
-        BL_STEP,   _______,    _______,    _______,    _______,    KC_SLEP,    RESET,      _______,    _______,    _______,    _______,    KC_DEL,
+        BL_STEP,   _______,    _______,    _______,    _______,    KC_SLEP,    QK_BOOT,    _______,    _______,    _______,    _______,    KC_DEL,
         _______,   LCTL(KC_Y),     _______,    _______,    _______,    _______,    _______,    KC_MPLY,    KC_MPRV,    KC_MNXT,    _______,    _______,
         _______,   LCTL(KC_Z),     LCTL(KC_X),     LCTL(KC_C),     LCTL(KC_V),     _______,    _______,    KC_MUTE,    KC_VOLD,    KC_VOLU,    _______,    _______,
         _______,   _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______

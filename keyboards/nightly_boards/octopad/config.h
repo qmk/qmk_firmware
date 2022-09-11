@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xD812
-#define PRODUCT_ID 0x0004
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Neil Brian Ramirez
-#define PRODUCT Octopad
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 5
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B2, B3, NO_PIN }
 #define MATRIX_COL_PINS { F1, F0, D0, D1, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -66,10 +58,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 
-#define B5_AUDIO
+#define AUDIO_PIN B5
 
 #define AUDIO_CLICKY
-
+#define NO_MUSIC_MODE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -81,5 +73,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-

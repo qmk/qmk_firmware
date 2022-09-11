@@ -13,30 +13,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "verd.h"
-
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
-    matrix_init_user();
-    led_init_ports();
-}
-
-void led_init_ports(void) {
-	setPinOutput(C7);
-	writePinHigh(C7);
-	setPinOutput(E6);
-	writePinHigh(E6);
-}
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        writePin(C7, !led_state.caps_lock);
-        writePin(E6, !led_state.num_lock);
-    }
-    return true;
-}

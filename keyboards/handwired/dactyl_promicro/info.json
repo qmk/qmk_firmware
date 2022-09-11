@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "Dactyl ProMicro",
+    "keyboard_name": "Dactyl Ergo(6x6)",
+    "manufacturer": "tshort",
     "url": "",
     "maintainer": "qmk",
-    "width": 17,
-    "height": 8,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_6x6": {
             "layout": [

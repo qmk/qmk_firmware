@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x0065
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         Rartlice
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -42,6 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define LED_NUM_LOCK_PIN A8
+#define LED_CAPS_LOCK_PIN B14
+#define LED_SCROLL_LOCK_PIN A9
+#define LED_PIN_ON_STATE 0
 
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN B15
@@ -63,5 +61,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

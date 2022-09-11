@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "lodestone",
+    "keyboard_name": "Lodestone",
+    "manufacturer": "FLX",
     "url": "https://prototypist.net/",
     "maintainer": "Flexerm",
-    "width": 16,
-    "height": 5,
+    "usb": {
+        "vid": "0x4658",
+        "pid": "0x4C53",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -19,4 +19,6 @@
 
 #if defined(KEYBOARD_xelus_dawn60_rev1)
     #include "rev1.h"
+#elif defined(KEYBOARD_xelus_dawn60_rev1_qmk)
+    #include "rev1_qmk.h"
 #endif

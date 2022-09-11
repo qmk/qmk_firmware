@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "bear_face",
-    "url": "https://github.com/chemicalwill/bear_face_pcb",
-    "maintainer": "chemicalwill",
-    "width": 15,
-    "height": 6,
+    "usb": {
+        "device_version": "2.0.0"
+    },
     "layouts": {
         "LAYOUT_83_ansi": {
             "layout": [

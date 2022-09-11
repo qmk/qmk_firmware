@@ -1,5 +1,11 @@
 #include QMK_KEYBOARD_H
 
+enum encoder_names {
+  _LEFT,
+  _RIGHT,
+  _MIDDLE,
+};
+
 enum layer_names {
   _ZERO,
   _ONE,
@@ -16,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ONE] = LAYOUT(
-    RESET,   BL_STEP, KC_STOP,
+    QK_BOOT,   BL_STEP, KC_STOP,
     _______, KC_HOME, RGB_MOD,
     KC_MPRV, KC_END , KC_MNXT
 ),
@@ -34,19 +40,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
-
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_WH_U);
-        } else {
-            tap_code(KC_WH_D);
-        }
-    }
-}

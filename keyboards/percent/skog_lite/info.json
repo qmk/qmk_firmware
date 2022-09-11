@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Skog Lite",
+    "manufacturer": "Percent Studios",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.25,
+    "usb": {
+        "vid": "0x5053",
+        "pid": "0x422D",
+        "device_version": "2.0.0"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

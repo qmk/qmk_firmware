@@ -31,20 +31,29 @@ static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 
 static uint8_t encoder_state  = 0;
 static int8_t  encoder_pulses = 0;
 
-extern const uint16_t PROGMEM encoder_keymaps[][2][2];
+__attribute__((weak)) extern const uint16_t PROGMEM encoder_keymaps[][2][2];
+
+const uint16_t encoder_default[2][2] =  { { KC_PGDN, KC_PGUP }, { KC__VOLDOWN, KC__VOLUP } };
 
 /**
  * Tap on encoder updates using the encoder keymap
  */
-void encoder_update_kb(uint8_t index, bool clockwise) {
-    int layer = get_highest_layer(layer_state);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    // if (!encoder_update_user(index, clockwise)) return false;
 
     uint16_t code;
-    do {
-        code = pgm_read_word(&encoder_keymaps[layer--][index][clockwise]);
-    } while (code == KC_TRNS);
+
+    if (encoder_keymaps) {
+      uint8_t layer = get_highest_layer(layer_state);
+      do {
+          code = pgm_read_word(&encoder_keymaps[layer--][index][clockwise]);
+      } while (code == KC_TRNS);
+    } else {
+      code = encoder_default[index][clockwise];
+    }
 
     tap_code16(code);
+    return true;
 }
 
 static bool encoder_read_state(uint8_t *state) {

@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "timer.h"
 #include "matrix.h"
+#include "avr/timer_avr.h"
 #include "hhkb_avr.h"
 #include <avr/wdt.h>
 #include "suspend.h"
@@ -163,15 +164,6 @@ uint8_t matrix_scan(void)
     return 1;
 }
 
-bool matrix_is_modified(void)
-{
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] != matrix_prev[i])
-            return true;
-    }
-    return false;
-}
-
 inline
 bool matrix_has_ghost(void)
 {
@@ -196,14 +188,6 @@ void matrix_print(void)
     for (uint8_t row = 0; row < matrix_rows(); row++) {
         xprintf("%02X: %08b\n", row, bitrev(matrix_get_row(row)));
     }
-}
-
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        count += bitpop16(matrix_get_row(r));
-    }
-    return count;
 }
 
 void matrix_power_up(void) {

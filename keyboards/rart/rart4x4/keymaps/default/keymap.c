@@ -25,16 +25,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,   KC_P2,   KC_P3,   KC_PENT
     ),
- 
+
     [1] = LAYOUT_ortho_4x4(
-        KC_TRNS, RGB_HUI, RGB_HUD,  KC_TRNS, 
-        RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV, 
-        RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY, 
+        KC_TRNS, RGB_HUI, RGB_HUD,  KC_TRNS,
+        RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV,
+        RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY,
         KC_COPY, KC_PSTE, KC_MYCM,  RGB_TOG
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -48,4 +48,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_WH_U);
         }
     }
+    return true;
 }

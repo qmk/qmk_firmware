@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x4454
-#define PRODUCT_ID 0x5444
-#define DEVICE_VER 0x0001
-
-#define MANUFACTURER "IktaS"
-#define PRODUCT "Pill60"
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 #define DIODE_DIRECTION COL2ROW
@@ -44,10 +37,3 @@
 #define ENCODERS_PAD_B \
     { B8 }
 #define ENCODER_RESOLUTION 2
-
-/* OLED */
-#define I2C_DRIVER I2CD1
-#define I2C1_SCL_BANK GPIOB
-#define I2C1_SDA_BANK GPIOB
-#define I2C1_SCL 6
-#define I2C1_SDA 7

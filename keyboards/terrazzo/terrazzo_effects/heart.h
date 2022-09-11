@@ -91,7 +91,7 @@ static uint8_t heart_frames[4][105] = {
 
 
 void HEART(uint8_t i, bool dir) {
-    led_matrix_set_index_value_all(0);
+    led_matrix_set_value_all(0);
     terrazzo_draw_at(0, 0, 7, 15, heart_frames[i % 4]);
 }
 

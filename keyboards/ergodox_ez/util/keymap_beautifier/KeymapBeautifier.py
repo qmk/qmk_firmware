@@ -164,7 +164,16 @@ class KeymapBeautifier:
                 key_symbols = [key_symbols[i] for i in self.index_conversion_map_reversed(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox)]
 
             padded_key_symbols = self.pad_key_symbols(key_symbols, input_layout)
-            current_pretty_output_layer = self.pretty_output_layer(layer.name[0].value, padded_key_symbols)
+           
+            layer_identifier = None
+            if hasattr(layer.name[0], "value"):
+                layer_identifier = layer.name[0].value
+            elif hasattr(layer.name[0], "name"):
+                layer_identifier = layer.name[0].name
+            else:
+                raise AttributeError("Layer is missing both index and name (e.g., [BASE] = LAYOUT_ergodox(...))")
+
+            current_pretty_output_layer = self.pretty_output_layer(layer_identifier, padded_key_symbols)
             # strip trailing spaces from padding
             layer_output.append(re.sub(r" +\n", "\n", current_pretty_output_layer))
 
@@ -218,7 +227,6 @@ class KeymapBeautifier:
             self.layer_keys_pointer = 0
 
         begin = self.layer_keys_pointer
-        end = begin + n_columns
         return self.layer_keys[self.layer_keys_pointer-n_keys:self.layer_keys_pointer]
 
     key_coordinates_counter = 0
@@ -361,6 +369,8 @@ class KeymapBeautifier:
                 args.append(arg.value)
             elif type(arg) is pycparser.c_ast.ID:
                 args.append(arg.name)
+            elif type(arg) is pycparser.c_ast.FuncCall:
+                args.append(self.function_expr(arg))
         return "{}({})".format(name, ",".join(args))
 
     def key_expr(self, raw):

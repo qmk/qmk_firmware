@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ANAVI
-#define PRODUCT         Macro Pad 8
-#define DESCRIPTION     8-key mechanical keyboard/keypad/macropad with backlit, mini OLED display and RGB LED strip
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4
@@ -52,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #define RGBLIGHT_SLEEP
 
-#define UNUSED_PINS
 
 /* ws2812B RGB LED */
 #ifdef RGBLIGHT_ENABLE
@@ -65,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_LIMIT_VAL 255
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #   define OLED_DISPLAY_128X64
 #   define OLED_TIMEOUT 60000
 #   define OLED_FONT_H "keyboards/anavi/macropad8/glcdfont.c"

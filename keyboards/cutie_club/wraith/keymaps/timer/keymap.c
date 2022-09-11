@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS,             KC_LALT,                                          KC_SPC,                                  KC_RALT,   KC_LEFT,   KC_DOWN,    KC_RGHT
   ),
   [1] = LAYOUT_all(
-    RESET,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     _______,    _______,
+    QK_BOOT,    KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_TRNS,
@@ -41,11 +41,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,                _______,                                        _______,                                                    KC_MPLY,    KC_MPRV,    _______,    KC_MNXT
   )
 };
-
-
-void matrix_init_user(void) {
-
-}
 
 void matrix_scan_user(void) {
   layer_time_remaining -= timer_read()-prev_loop_time; //amount of time elapsed since the start of the previous loop
@@ -84,7 +79,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
-
-void led_set_user(uint8_t usb_led) {
-
-}

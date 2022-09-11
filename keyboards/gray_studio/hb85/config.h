@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0x4753
-#define PRODUCT_ID      0x2000
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Gray Studio
-#define PRODUCT         HB85
-
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
@@ -33,6 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 5
 #define RGBLIGHT_ANIMATIONS
+
+#define LED_NUM_LOCK_PIN D0
+#define LED_CAPS_LOCK_PIN D1
+#define LED_SCROLL_LOCK_PIN D6
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3

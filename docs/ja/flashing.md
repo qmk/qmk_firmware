@@ -89,7 +89,7 @@ BOOTLOADER = caterina
 互換性のあるフラッシャ:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
-* avr109 を使った [avrdude](http://www.nongnu.org/avrdude/) / `:avrdude` (推奨のコマンドライン)
+* avr109 を使った [avrdude](https://www.nongnu.org/avrdude/) / `:avrdude` (推奨のコマンドライン)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 書き込み手順:
@@ -167,7 +167,7 @@ BOOTLOADER = USBasp
 互換性のあるフラッシャ:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
-* `usbasp` プログラマを使った [avrdude](http://www.nongnu.org/avrdude/)
+* `usbasp` プログラマを使った [avrdude](https://www.nongnu.org/avrdude/)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 書き込み手順:

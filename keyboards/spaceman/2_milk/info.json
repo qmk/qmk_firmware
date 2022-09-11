@@ -1,13 +1,15 @@
 {
   "keyboard_name": "2% Milk",
-  "keyboard_folder": "2_milk",
+  "manufacturer": "Spaceman",
   "url": "",
   "maintainer": "Spaceman",
-  "width": 1,
-  "height": 2,
+  "usb": {
+    "vid": "0x5342",
+    "pid": "0x3225",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
-      "key_count": 2,
       "layout": [ {"x": 0, "y": 0 }, {"x": 0, "y": 1 }]
     }
   }
