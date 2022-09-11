@@ -128,6 +128,7 @@ LED_TYPE led[RGBLED_NUM];
 
 #ifdef RGBLIGHT_LAYERS
 rgblight_segment_t const *const *rgblight_layers = NULL;
+bool deferred_rgblight_mode_for_layers = false;
 bool deferred_rgblight_set_for_layers = false;
 #endif
 
@@ -745,18 +746,20 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
         rgblight_status.enabled_layer_mask &= ~mask;
     }
     RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
+
+    // Calling rgblight_set() here (directly or indirectly) could 
+    // potentially cause timing issues when there are multiple 
+    // successive calls to rgblight_set_layer_state(). Instead,
+    // set a flag and do it the next time rgblight_task() runs.
+
     // Static modes don't have a ticker running to update the LEDs
     if (rgblight_status.timer_enabled == false) {
-        rgblight_mode_noeeprom(rgblight_config.mode);
+        deferred_rgblight_mode_for_layers = true;
     }
 
 #    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
     // If not enabled, then nothing else will actually set the LEDs...
     if (!rgblight_config.enable) {
-        // Doing rgblight_set() here could potentially cause timing
-        // issues when there are multiple successive calls to
-        // rgblight_set_layer_state(). Instead, set a flag and do the
-        // rgblight_set() the next time rgblight_task() runs.
         deferred_rgblight_set_for_layers = true;
     }
 #    endif
@@ -1160,6 +1163,10 @@ void rgblight_task(void) {
     rgblight_blink_layer_repeat_helper();
 #        endif
 
+    if (deferred_rgblight_mode_for_layers) {
+        deferred_rgblight_mode_for_layers = false;
+        rgblight_mode_noeeprom(rgblight_config.mode);
+    }
     if (deferred_rgblight_set_for_layers) {
         deferred_rgblight_set_for_layers = false;
         rgblight_set();
