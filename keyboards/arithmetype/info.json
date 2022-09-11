@@ -1,0 +1,101 @@
+{
+    "keyboard_name": "arithmetype",
+    "manufacturer": "ArithmeType",
+    "url": "",
+    "maintainer": "AD0ND",
+    "usb": {
+        "vid": "0xBB80",
+        "pid": "0x050D",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                // Row 0
+                { "label": "CUT", "x": 0, "y": 0 },
+                { "label": "COPY", "x": 1, "y": 0 },
+                { "label": "PASTE", "x": 2, "y": 0 },
+                { "label": "$", "x": 3, "y": 0 },
+                { "label": "(", "x": 4, "y": 0 },
+                { "label": ")", "x": 5, "y": 0 },
+                { "label": "DELETE", "x": 6, "y": 0 },
+                { "label": "GDOC", "x": 7, "y": 0 },
+                { "label": "Pi", "x": 8, "y": 0 },
+                { "label": "ANGLE", "x": 9, "y": 0 },
+                { "label": "2ND", "x": 10, "y": 0 },
+                { "label": "NO", "x": 11, "y": 0 },
+
+
+                // Row 1
+                { "label": ":", "x": 0, "y": 1 },
+                { "label": "DEG", "x": 1, "y": 1 },
+                { "label": "VBAR", "x": 2, "y": 1 },
+                { "label": "%", "x": 3, "y": 1 },
+                { "label": "DIV", "x": 4, "y": 1 },
+                { "label": "*", "x": 5, "y": 1 },
+                { "label": "-", "x": 6, "y": 1 },
+                { "label": "FRAC", "x": 7, "y": 1 },
+                { "label": "DELTA", "x": 8, "y": 1 },
+                { "label": "THETA", "x": 9, "y": 1 },
+                { "label": "RAD", "x": 10, "y": 1 },
+                { "label": "WINC", "x": 11, "y": 1 },
+
+                // Row 2
+                { "label": "LTEQ", "x": 0, "y": 2 },
+                { "label": "GTEQ", "x": 1, "y": 2 },
+                { "label": "APPRX", "x": 2, "y": 2 },
+                { "label": "7", "x": 3, "y": 2 },
+                { "label": "8", "x": 4, "y": 2 },
+                { "label": "9", "x": 5, "y": 2 },
+                { "label": "+", "x": 6, "y": 2 },
+                { "label": "^", "x": 7, "y": 2 },
+                { "label": "CONGR", "x": 8, "y": 2 },
+                { "label": "RAY", "x": 9, "y": 2 },
+                { "label": "SIN", "x": 10, "y": 2 },
+                { "label": "MAC", "x": 10, "y": 2 },
+
+                // Row 3
+                { "label": "<", "x": 0, "y": 3 },
+                { "label": ">", "x": 1, "y": 3 },
+                { "label": "NEQ", "x": 2, "y": 3 },
+                { "label": "4", "x": 3, "y": 3 },
+                { "label": "5", "x": 4, "y": 3 },
+                { "label": "6", "x": 5, "y": 3 },
+                { "label": "=", "x": 6, "y": 3 },
+                { "label": "SQRT", "x": 7, "y": 3 },
+                { "label": "PLUSMINUS", "x": 8, "y": 3 },
+                { "label": "90DEGBOT", "x": 9, "y": 3 },
+                { "label": "SIN", "x": 10, "y": 3 },
+                { "label": "LNX", "x": 10, "y": 3 },
+
+                // Row 4
+                { "label": "TAB", "x": 0, "y": 4 },
+                { "label": "UP", "x": 1, "y": 4 },
+                { "label": ",", "x": 2, "y": 4 },
+                { "label": "1", "x": 3, "y": 4 },
+                { "label": "2", "x": 4, "y": 4 },
+                { "label": "3", "x": 5, "y": 4 },
+                { "label": "ENTER", "x": 6, "y": 4 },
+                { "label": "M", "x": 7, "y": 4 },
+                { "label": "N", "x": 8, "y": 4 },
+                { "label": "FX", "x": 9, "y": 4 },
+                { "label": "COS", "x": 10, "y": 4 },
+                { "label": "NO", "x": 11, "y": 4 },
+
+                // Row 5
+                { "label": "LEFT", "x": 0, "y": 5 },
+                { "label": "DOWN", "x": 1, "y": 5 },
+                { "label": "RIGHT", "x": 2, "y": 5 },
+                { "label": "SPACE", "x": 3, "y": 5 },
+                { "label": "0", "x": 4, "y": 5 },
+                { "label": ".", "x": 5, "y": 5 },
+                { "label": "NO", "x": 6, "y": 5 },
+                { "label": "X", "x": 7, "y": 5 },
+                { "label": "Y", "x": 8, "y": 5 },
+                { "label": "Z", "x": 9, "y": 5 },
+                { "label": "TAN", "x": 10, "y": 5 },
+                { "label": "NO", "x": 11, "y": 5 },
+            ]
+        }
+    }
+}
