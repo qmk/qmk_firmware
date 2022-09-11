@@ -17,6 +17,7 @@
 #define S_END S(KC_END)
 #define CS_LEFT C(S(KC_LEFT))
 #define CS_RGHT C(S(KC_RGHT))
+#define W_S_TAB LGUI(S(KC_TAB))
 
 // Hue colors
 #define VIOLET 193
@@ -254,7 +255,7 @@ void rgb_matrix_indicators_user(void) {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LOWER] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
+    [_LOWER] = { ENCODER_CCW_CW(W_S_TAB, W_S_TAB), ENCODER_CCW_CW(W_S_TAB, W_S_TAB) },
     [_RAISE] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
     [_ADJUST] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
 // #   endif
