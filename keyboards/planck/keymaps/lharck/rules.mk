@@ -1,0 +1,4 @@
+SRC += muse.c
+CONSOLE_ENABLE = yes
+RGBLIGHT_ENABLE = false
+COMBO_ENABLE = yes
