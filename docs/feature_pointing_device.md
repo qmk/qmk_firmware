@@ -502,7 +502,7 @@ If you are having issues with pointing device drivers debug messages can be enab
 ---
 # Automatic Mouse Layer :id=pointing-device-auto-mouse
 
-When using a pointing device combined with a keyboard often the mouse buttons are kept on a separate layer from the default keyboard layer requiring pressing or holding a key to use the mouse. To make this easier and more efficient an additional feature may be enabled that will automatically activate a target layer as soon as the mouse cursor is moved and deactivate the target layer after a set time.  If any key that is defined as a mouse key(see below) is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key up. When a non-mouse key is pressed then the layer is deactivated early.  Mod & mod tap keys(When) are ignored (i.e. don't hold layer/reset timer but do not deactivate the layer either) allowing for shift/ctrl clicks etc.
+When using a pointing device combined with a keyboard often the mouse buttons are kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse.  To make this easier and more efficient an additional feature may be enabled for pointing devices that will automatically activate a target layer as soon as the mouse cursor is moved and deactivate the target layer after a set time.  If any key that is defined as a mouse key(see below) is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key up. When a non-mouse key is pressed then the layer is deactivated early.  Mod & mod tap keys(When) are ignored (i.e. don't hold layer/reset timer but do not deactivate the layer either) allowing for shift/ctrl clicks etc.
 
 All of the standard layer keys (tap toggling, toggle, toggle on, one_shot, layer tap*, layer mod*) that activate the layer currently set in auto mouse settings will be treated as mouse keys with the addition of holding the layer on toggle.  The layer that is activated can be changed at any point during runtime by calling the `set_auto_mouse_layer(uint8_t LAYER)` function.
 
@@ -512,8 +512,7 @@ All of the standard layer keys (tap toggling, toggle, toggle on, one_shot, layer
 ```c
 // in config.h:
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-// only required if not setting mouse layer elsewhere
-#define AUTO_MOUSE_DEFAULT_LAYER [index of your mouse layer]
+#define AUTO_MOUSE_DEFAULT_LAYER [index of your mouse layer] // only required if not setting mouse layer elsewhere (such as pointing_device_init_* stack)
 
 // in keymap.c:
 void pointing_device_init_user(void) {
@@ -536,7 +535,7 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 | `AUTO_MOUSE_DEFAULT_LAYER`          | (Optional) Index of layer to use as default target layer (0 - `LAYER_MAX`)              |                        `1` |
 | `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after `auto_mouse_activation` or mouse key (in ms) |                   `650 ms` |
 | `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed (in ms)                          | `TAPPING_TERM` or `200 ms` |
-| `AUTO_MOUSE_DEBOUNCE`               | (Optional) Delay between last detected mouse movement and checking again                |                    `25 ms` |
+| `AUTO_MOUSE_DEBOUNCE`               | (Optional) Delay between last detected mouse movement and next update                   |                    `25 ms` |
 
 ### Adding mouse keys
 
@@ -644,12 +643,11 @@ Custom key records could be created that control the auto mouse feature.
 
 The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.
 ```c
-// in config.h:
-enum user_custom_keycodes {
+// in keymap.c
+enum my_keycodes {
     AM_Toggle = SAFE_RANGE
 };
 
-// in keymap.c:
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         // toggle auto mouse enable key
@@ -666,7 +664,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every `pointing_device_task` cycle and activates the target layer when true barring the usual exceptions (e.g. delay time, or target layer is already active).
 By default it will return true if any of the mouse_report axes(x,y,h,v) are non zero.
-_Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement, currently this only works for the master side of split keyboards.
+_Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement, currently this only works for the master side of split keyboards as touchdown status is not transfered between sides.
 
 
 ## Auto Mouse for Custom Pointing Device
@@ -674,6 +672,7 @@ _Note: The Cirque pinnacle track pad already implements a custom activation func
 When using a custom pointing device (overwriting `pointing_device_task`) the following code should be somewhere in the `pointing_device_task_*` stack:
 
 ```c
+// in keyboard.c:
 void pointing_device_task(void) {
     //...Custom pointing device task code
     
