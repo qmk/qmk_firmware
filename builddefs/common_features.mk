@@ -773,8 +773,10 @@ endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
     OPT_DEFS += -DUNICODE_COMMON_ENABLE
+    COMMON_VPATH += $(QUANTUM_DIR)/unicode
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
-           $(QUANTUM_DIR)/utf8.c
+           $(QUANTUM_DIR)/unicode/unicode.c \
+           $(QUANTUM_DIR)/unicode/utf8.c
 endif
 
 MAGIC_ENABLE ?= yes
