@@ -324,19 +324,30 @@ void register_hex(uint16_t hex) {
 }
 
 void register_hex32(uint32_t hex) {
-    bool onzerostart = true;
+    bool suppress_zero = true;
+    bool winc_lz       = (unicode_config.input_mode == UC_WINC);
     for (int i = 7; i >= 0; i--) {
-        if (i <= 3) {
-            onzerostart = false;
+        if (i < 4) {
+            suppress_zero = false;
         }
+
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
-        if (digit == 0) {
-            if (!onzerostart) {
-                send_nibble_wrapper(digit);
-            }
+
+        /*
+         * WinCompose interprets codes with a leading alpha
+         * as accented characters. We work around this for A-F
+         * by adding a leading zero:
+         */
+        if (winc_lz && digit > 9) {
+            send_nibble_wrapper(0);
+        }
+
+        if (digit == 0 && suppress_zero) {
+            // do nothing
         } else {
             send_nibble_wrapper(digit);
-            onzerostart = false;
+            suppress_zero = false;
+            winc_lz       = false;
         }
     }
 }
