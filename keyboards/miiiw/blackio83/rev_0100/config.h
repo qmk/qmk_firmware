@@ -26,13 +26,53 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-
-#define MATRIX_ROW_PINS { F0, F1, F4, F5, F6 }
-#define MATRIX_COL_PINS { B0 ,B1, B2, B3, D2, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7 }
+#define MATRIX_ROW_PINS { A7, A6, A5, A4, A3, A2 }
+#define MATRIX_COL_PINS { H0, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
+/* Dip Switch */
+#define POWER_SWITCH_PIN B0
+#define DIP_SWITCH_PINS { POWER_SWITCH_PIN, B1, B8, B12 }
 
+/* 16 with dummy columns for shift registers */
+#define SHR_SERIES_NUM 2
+#define SHR_CLOCK_PIN A0
+#define SHR_DATA_PIN A1
+#define SHR_LATCH_PIN C15
+
+/* MIIIW Protocol Driver */
+#define MWPROTO_BITRATE 256000
+#define MWPROTO_DRIVER SD1
+#define MWPROTO_TX_PIN A9
+#define MWPROTO_TX_PAL_MODE 1
+#define MWPROTO_RX_PIN A10
+#define MWPROTO_RX_PAL_MODE 1
+#define MWPROTO_WAKEUP_PIN A15
+#define MWPROTO_STATUS_PIN C13
+
+/* RGB Matrix config */
+#define RGB_EN_PIN A8
+#define RGB_DI_PIN B15
+#define RGBLED_NUM 83
 #define DRIVER_LED_TOTAL 83
-#define DRIVER_INDICATOR_LED_TOTAL 6
+#define RGB_MATRIX_CENTER { 62, 42 }
+
+// PWM RGB Underglow Defines
+#define WS2812_SPI SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
+#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
+#define WS2812_TRST_US 200
+
+// I2C config
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U

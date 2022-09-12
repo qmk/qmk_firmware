@@ -17,7 +17,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = custom
-GW6606_DRIVER = spi
 DIP_SWITCH_ENABLE = yes     # Enable dip switches
 DEBOUNCE_TYPE = sym_defer_pk    # Debounce using eager_pk.
 CUSTOM_MATRIX = lite
