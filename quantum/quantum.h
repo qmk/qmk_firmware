@@ -49,7 +49,6 @@
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
-#include "send_string.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -141,12 +140,6 @@ extern layer_state_t layer_state;
 #    include "process_key_lock.h"
 #endif
 
-#ifdef TERMINAL_ENABLE
-#    include "process_terminal.h"
-#else
-#    include "process_terminal_nop.h"
-#endif
-
 #ifdef SPACE_CADET_ENABLE
 #    include "process_space_cadet.h"
 #endif
@@ -173,6 +166,10 @@ extern layer_state_t layer_state;
 
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
+#endif
+
+#ifdef SEND_STRING_ENABLE
+#    include "send_string.h"
 #endif
 
 #ifdef HAPTIC_ENABLE
@@ -233,6 +230,11 @@ extern layer_state_t layer_state;
 #    include "pointing_device.h"
 #endif
 
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word.h"
+#    include "process_caps_word.h"
+#endif
+
 // For tri-layer
 void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
@@ -254,6 +256,7 @@ void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
 void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 void reset_keyboard(void);
+void soft_reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
@@ -261,6 +264,7 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
+void tap_code16_delay(uint16_t code, uint16_t delay);
 
 const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
 const char *get_u8_str(uint8_t curr_num, char curr_pad);

@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#if defined(WB32F3G71xx)
+#if defined(WB32F3G71xx) || defined(WB32FQ95xx)
 static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD1_WRDLEN, SD1_STPBIT, SD1_PARITY, SD1_ATFLCT};
 #else
 static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD1_CR1, SD1_CR2, SD1_CR3};

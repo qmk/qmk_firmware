@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [2] = LAYOUT_625u_space(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        RESET,   KC_PWR,  _______, _______, KC_PSCR, KC_PAUS, BL_TOGG, BL_DEC,  BL_INC,  BL_STEP,          _______,
+        QK_BOOT,   KC_PWR,  _______, _______, KC_PSCR, KC_PAUS, BL_TOGG, BL_DEC,  BL_INC,  BL_STEP,          _______,
         KC_UP,            KC_MINS, KC_EQL,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_LPRN, KC_RPRN, _______,
         KC_LEFT, KC_DOWN, KC_RGHT,                            _______,                            _______, _______
     ),

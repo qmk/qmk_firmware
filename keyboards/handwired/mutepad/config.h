@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
-#define DEVICE_VER 0x0001
-#define MANUFACTURER JoshwJB
-#define PRODUCT MutePad
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 4
@@ -30,7 +23,6 @@
     { F6 }
 #define MATRIX_COL_PINS \
     { B1, B3, B2, B6 }
-#define UNUSED_PINS
 
 /* encoder support */
 #define ENCODERS_PAD_A \

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "bstk100",
+    "manufacturer": "FREE WING",
     "url": "http://www.neko.ne.jp/~freewing/",
     "maintainer": "FREE WING",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xB100",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

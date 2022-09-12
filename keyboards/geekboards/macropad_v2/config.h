@@ -15,19 +15,11 @@
  */
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x0483
-#define PRODUCT_ID      0xA372
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    GeekBoards
-#define PRODUCT         Macropad v2
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4
 
 #define DIRECT_PINS {{B13, B15, B3, B5}, {B12, B14, A13, B7}}
-#define UNUSED_PINS
 
 #define RGBLED_NUM 42
 #define DRIVER_LED_TOTAL 42

@@ -46,6 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
+#define UART_MATRIX_RESPONSE_TIMEOUT 10000
+
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 //extern int8_t encoderValue;
@@ -112,12 +114,16 @@ uint8_t matrix_scan(void)
         // harm to leave it in here
         while(!uart_available()){
             timeout++;
-            if (timeout > 10000){
-                xprintf("\r\nTime out in keyboard.");
+            if (timeout > UART_MATRIX_RESPONSE_TIMEOUT) {
                 break;
             }
         }
-        uart_data[i] = uart_read();
+
+        if (timeout < UART_MATRIX_RESPONSE_TIMEOUT) {
+            uart_data[i] = uart_read();
+        } else {
+            uart_data[i] = 0x00;
+        }
     }
 
     // Check for the end packet, it's our checksum.

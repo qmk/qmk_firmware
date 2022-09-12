@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x474B     // "GK"
-#define PRODUCT_ID   0x4201
-#define DEVICE_VER   0x0001
-#define MANUFACTURER gkeyboard
-#define PRODUCT      GKB-M16
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
@@ -41,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D4, D5, D6, D7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

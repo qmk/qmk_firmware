@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_KP_0,    KC_KP_DOT,                            KC_LCTL,  KC_LGUI,  KC_LALT,                KC_SPC,            KC_RALT, MO(1),          KC_LEFT, KC_DOWN, KC_RIGHT
   ),
   [1] = LAYOUT_ansi_rhnp(
-      KC_NO, KC_NO, KC_NO, KC_NO,   BL_TOGG, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO, KC_NO, KC_NO, KC_NO,     RESET,
+      KC_NO, KC_NO, KC_NO, KC_NO,   BL_TOGG, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO, KC_NO, KC_NO, KC_NO,     QK_BOOT,
       KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,   KC_NO,
       KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,
       KC_NO, KC_NO, KC_NO,          KC_NO,     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,      KC_NO,     KC_NO,
