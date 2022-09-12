@@ -45,6 +45,9 @@
 #    include "joystick.h"
 #endif
 
+// TODO: wb32 support defines ISO macro which breaks PRODUCT stringification
+#undef ISO
+
 // clang-format off
 
 /*
