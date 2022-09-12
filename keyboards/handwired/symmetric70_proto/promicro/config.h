@@ -25,7 +25,6 @@ DEBUG_MDELAY | D0/SCL       F5 | COL_2_3_L
              +-----------------+
 ***************************************/
 
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

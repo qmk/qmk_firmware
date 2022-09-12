@@ -33,7 +33,6 @@
          +-----------------+
 ***************************************/
 
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
