@@ -109,6 +109,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
 #    include "process_unicode_common.h"
 #endif
 
