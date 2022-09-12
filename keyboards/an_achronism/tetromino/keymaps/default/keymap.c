@@ -1,5 +1,5 @@
 /*
-Copyright 2022 an_achronism <87213873+an-achronism@users.noreply.github.com>
+Copyright 2022 an_achronism (@an-achronism)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
