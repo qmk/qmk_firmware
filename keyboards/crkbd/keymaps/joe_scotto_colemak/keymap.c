@@ -10,24 +10,26 @@
 // Tap Dance declarations
 enum {
     TD_Q_ESC,
-    TD_J_ENT
+    TD_J_ENT,
+    TD_COMM_ENT
 };
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-    [TD_J_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_J, KC_ENT)
+    [TD_J_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_J, KC_ENT),
+    [TD_COMM_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_ENT) 
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_split_3x6_3(
-        KC_NO, TD(TD_Q_ESC), KC_W, KC_F, KC_P, KC_G, TD(TD_J_ENT), KC_L, KC_U, KC_Y, KC_BSPC, KC_NO, 
+        KC_NO, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_BSPC, KC_NO, 
         KC_NO, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_NO, 
-        KC_NO, LSFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, RSFT_T(KC_SLSH), KC_NO, 
+        KC_NO, LSFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, TD(TD_COMM_ENT), KC_DOT, RSFT_T(KC_SLSH), KC_NO, 
         KC_LCTL, KC_LALT, LGUI_T(KC_SPC), LT(1, KC_TAB), LT(2, KC_ENT), LGUI(KC_SPC)
     ),
 	[1] = LAYOUT_split_3x6_3(
-        KC_NO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL, KC_COLN, KC_NO, KC_MRWD, KC_MPLY, KC_MFFD, KC_DEL, KC_NO, 
+        KC_NO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL, KC_COLN, KC_ESC, KC_MRWD, KC_MPLY, KC_MFFD, KC_DEL, KC_NO, 
         KC_NO, KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, KC_BSLS, KC_GRV, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_NO, 
         KC_NO, LSFT_T(KC_LBRC), KC_QUOT, KC_DQUO, KC_RBRC, KC_SCLN, KC_NO, KC_VOLD, KC_MUTE, KC_VOLU, RSFT_T(KC_CAPS), KC_NO, 
         KC_LCTL, KC_LALT, LGUI_T(KC_SPC), KC_TRNS, KC_NO, KC_LCTL
