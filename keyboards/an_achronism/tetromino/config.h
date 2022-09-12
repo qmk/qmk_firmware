@@ -17,12 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define WS2812_PIO_USE_PIO1 // Use PIO1 on Pi Pico for RGB LEDs
+// #define WS2812_PIO_USE_PIO1 // This appears to be optional and not required
 #define RGB_DI_PIN GP26 // Use GPIO26 (pin 31) for LED matrix logic
 #define DRIVER_LED_TOTAL 70
-/* The following line is now specified in info.json under the rgblight struct,
-so has been moved there instead: */
-// #define RGBLED_NUM 70
+// #define RGBLED_NUM 70 // Moved to info.json, under rgblight
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
