@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 
-#include "unicode.h"
+#include "spidey3_unicode.h"
 
 const uint32_t PROGMEM unicode_map[] = {
     [BUL1]     = 0x2022,   // •

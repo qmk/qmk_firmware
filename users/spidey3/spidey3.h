@@ -6,7 +6,7 @@
 #include QMK_KEYBOARD_H
 
 #ifdef UNICODEMAP_ENABLE
-#    include "unicode.h"
+#    include "spidey3_unicode.h"
 #endif
 
 enum userspace_layers {
