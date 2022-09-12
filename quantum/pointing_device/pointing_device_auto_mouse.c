@@ -18,7 +18,6 @@
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
 #    include "pointing_device_auto_mouse.h"
-#    include "wait.h"
 
 /* local data structure for tracking auto mouse */
 static auto_mouse_context_t auto_mouse_context = {.config.layer = (uint8_t)AUTO_MOUSE_DEFAULT_LAYER};
@@ -96,7 +95,6 @@ void set_auto_mouse_enable(bool enable) {
     if (auto_mouse_context.config.is_enabled == enable) return;
     auto_mouse_context.config.is_enabled = enable;
     auto_mouse_reset();
-    dprintf("Auto Mouse is %s \n", auto_mouse_context.config.is_enabled ? "enabled" : "disabled");
 }
 
 /**
@@ -114,7 +112,6 @@ void set_auto_mouse_layer(uint8_t layer) {
     if (auto_mouse_context.config.layer == layer) return;
     auto_mouse_context.config.layer = layer;
     auto_mouse_reset();
-    dprintf("auto mouse layer has been set to: %d \n", auto_mouse_context.config.layer);
 }
 
 /**
@@ -127,7 +124,6 @@ void set_auto_mouse_layer(uint8_t layer) {
 void auto_mouse_toggle(void) {
     auto_mouse_context.status.is_toggled ^= 1;
     auto_mouse_context.timer.delay = 0;
-    dprintf("Auto mouse is_toggled: %s \n", get_auto_mouse_toggle() ? "on" : "off");
 }
 
 /**
@@ -195,12 +191,10 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
         auto_mouse_context.timer.delay  = 0;
         if (!layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
             layer_on((AUTO_MOUSE_TARGET_LAYER));
-            dprintf("Target Layer ON! \n");
         }
     } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > AUTO_MOUSE_TIME) {
         layer_off((AUTO_MOUSE_TARGET_LAYER));
         auto_mouse_context.timer.active = 0;
-        dprintf("Target Layer OFF! \n");
     }
 }
 
@@ -214,10 +208,8 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
 void auto_mouse_keyevent(bool pressed) {
     if (pressed) {
         auto_mouse_context.status.mouse_key_tracker++;
-        dprintf("mousekey pressed, count: %d \n", auto_mouse_context.status.mouse_key_tracker);
     } else {
         auto_mouse_context.status.mouse_key_tracker--;
-        dprintf("mousekey released, count: %d \n", auto_mouse_context.status.mouse_key_tracker);
     }
     auto_mouse_context.timer.delay = 0;
 }
@@ -238,7 +230,6 @@ void auto_mouse_reset_trigger(bool pressed) {
             layer_off((AUTO_MOUSE_TARGET_LAYER));
         };
         auto_mouse_reset();
-        dprintf("Non-mouskey event! \n");
     }
     auto_mouse_context.timer.delay = timer_read();
 }
@@ -286,7 +277,7 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
             if ((keycode & 0xff) == (AUTO_MOUSE_TARGET_LAYER)) {
                 auto_mouse_keyevent(record->event.pressed);
             }
-        // DF -------------------------------------------------------------------------------------------------------
+        // DF ---------------------------------------------------------------------------------------------------------
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
 #    ifndef NO_ACTION_ONESHOT
         // OSL((AUTO_MOUSE_TARGET_LAYER))------------------------------------------------------------------------------
