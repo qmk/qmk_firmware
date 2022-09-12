@@ -15,6 +15,11 @@
  */
 
 #include "process_unicodemap.h"
+#include "unicode.h"
+#include "quantum_keycodes.h"
+#include "keycode.h"
+#include "action_util.h"
+#include "host.h"
 
 __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
     if (keycode >= QK_UNICODEMAP_PAIR) {
