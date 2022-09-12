@@ -3,7 +3,7 @@
     "url": "https://github.com/miiiw", 
     "maintainer": "johnny", 
     "layouts": {
-        "LAYOUT_ansi_98": {
+        "LAYOUT": {
             "layout": [
 				{"label":"ESC", "x": 0, "y": 0},
                 {"label":"F1", "x": 2, "y": 0},
