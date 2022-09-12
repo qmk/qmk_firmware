@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "BBS",
+    "keyboard_name": "BB Steno",
+    "manufacturer": "MechWild",
     "maintainer": "kylemccreery",
     "url": "https://mechwild.com/product/bb-steno/",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x170E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

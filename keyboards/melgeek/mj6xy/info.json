@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MJ6XY",
+    "manufacturer": "MelGeek",
     "url": "",
     "maintainer": "melgeek001365",
+    "usb": {
+        "vid": "0xEDED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

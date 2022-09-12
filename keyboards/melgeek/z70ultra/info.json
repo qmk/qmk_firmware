@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Z70Ultra",
+    "manufacturer": "MelGeek",
     "url": "",
     "maintainer": "melgeek001365",
+    "usb": {
+        "vid": "0xEDED",
+        "pid": "0x6570",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

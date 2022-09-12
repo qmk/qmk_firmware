@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1014
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    moyi4681
-#define PRODUCT         Primus75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -31,7 +24,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5, B7 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, F5, D4, B1, B0, B5, B4, D7, D6, B3, F4, F6 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

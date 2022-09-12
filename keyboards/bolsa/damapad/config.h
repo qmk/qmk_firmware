@@ -20,14 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D64
-#define PRODUCT_ID      0x6470
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Bolsa Keyboard Supply
-#define PRODUCT         Damapad
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 6
@@ -35,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { E6, F7, C7 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, B7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

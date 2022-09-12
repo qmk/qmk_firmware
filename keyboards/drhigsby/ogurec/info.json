@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ogurec", 
+    "manufacturer": "DrHigsby",
     "url": "http://www.keyboard-layout-editor.com/#/gists/f1bda3a87822868599cf6e3c4340f594", 
     "maintainer": "drhigsby", 
+    "usb": {
+        "vid": "0x0007",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_3x12": {
             "layout": [
