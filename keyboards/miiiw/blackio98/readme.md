@@ -1,6 +1,7 @@
 # MIIIW BlackIO98
 
-![BlackIO98](https://cdn.shopifycdn.net/s/files/1/0078/2863/5712/products/c34621677ffc53ea6d1c68ab82100749_1024x1024@2x.jpg?v=1612186093)
+![BlackIO98](https://i.imgur.com/XY3AahE.jpg)
+![BlackIO98](https://i.imgur.com/WlWAeC9.jpg)
 
 A customizable 98-keys keyboard.
 
