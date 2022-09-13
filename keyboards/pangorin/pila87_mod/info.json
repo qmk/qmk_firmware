@@ -1,7 +1,12 @@
 {
     "keyboard_name": "Pila87 / XM87 Pro",
-    "url": "https://item.taobao.com/item.htm?spm=a21wu.12321156-tw.0.0.22283343ytyJJv&id=649438917009",
-    "maintainer": "qmk",
+    "url": "",
+    "maintainer": "HorrorTroll",
+    "usb": {
+        "vid": "0x5048",
+        "pid": "0x5887",
+        "device_version": "0.0.1"
+     },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
