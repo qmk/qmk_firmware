@@ -16,13 +16,7 @@
   */
 
 //Setting up what encoder rotation does. If your encoder can be pressed as a button, that function can be set in Via.
-#ifndef CYPHER1_ENCODER_H_
-#define CYPHER1_ENCODER_H_
-
-#include QMK_KEYBOARD_H
 #ifdef ENCODER_ENABLE
-
-#include "state.h"
 
 #define BOOL_SIZE 2
 #define NUM_ENCODERS 2
@@ -46,4 +40,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #endif
-#endif // CYPHER1_ENCODER_H_

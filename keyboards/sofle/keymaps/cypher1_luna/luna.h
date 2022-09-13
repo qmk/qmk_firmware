@@ -15,12 +15,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#ifndef LUNA_H_
-#define LUNA_H_
-
-#include QMK_KEYBOARD_H
-#include "state.h"
-
 /* settings */
 #define MIN_WALK_SPEED      10
 #define MIN_RUN_SPEED       40
@@ -167,6 +161,3 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         oled_off();
     }
 }
-
-
-#endif // LUNA_H_

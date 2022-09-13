@@ -14,12 +14,6 @@
   * You should have received a copy of the GNU General Public License
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
-#ifndef CYPHER1_OLED_H_
-#define CYPHER1_OLED_H_
-
-#include QMK_KEYBOARD_H
-#include "luna.h"
-
 //Sets up what the OLED screens display.
 
 #ifdef OLED_ENABLE
@@ -114,4 +108,3 @@ bool oled_task_user(void) {
 }
 
 #endif
-#endif // CYPHER1_OLED_H_
