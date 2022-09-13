@@ -25,93 +25,108 @@ extern keymap_config_t keymap_config;
  */
 uint16_t keycode_config(uint16_t keycode) {
     switch (keycode) {
+        case QK_BASIC ... QK_MODS_MAX: /* 0x0000 ... 0x1fff*/
+            /* basic keycodes and keycodes with extra modifiers */
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:   /* 0x4000 ... 0x4fff */
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX: /* 0x5600 ... 0x56ff */
+            /* the low byte might also contain some special values, but
+             * these values should not be changed by the magic settings
+             */
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX: /* 0x6000 ... 0x7fff */
+            break;
+        default:
+            return keycode;
+    }
+    /* only the low byte of keycode swapped depending on the magic settings */
+    uint16_t mod = keycode & 0xff00;
+    switch (keycode & 0x00ff) {
         case KC_CAPS_LOCK:
         case KC_LOCKING_CAPS_LOCK:
             if (keymap_config.swap_control_capslock || keymap_config.capslock_to_control) {
-                return KC_LEFT_CTRL;
+                return KC_LEFT_CTRL | mod;
             } else if (keymap_config.swap_escape_capslock) {
-                return KC_ESCAPE;
+                return KC_ESCAPE | mod;
             }
             return keycode;
         case KC_LEFT_CTRL:
             if (keymap_config.swap_control_capslock) {
-                return KC_CAPS_LOCK;
+                return KC_CAPS_LOCK | mod;
             }
             if (keymap_config.swap_lctl_lgui) {
                 if (keymap_config.no_gui) {
-                    return KC_NO;
+                    return KC_NO | mod;
                 }
-                return KC_LEFT_GUI;
+                return KC_LEFT_GUI | mod;
             }
-            return KC_LEFT_CTRL;
+            return keycode;
         case KC_LEFT_ALT:
             if (keymap_config.swap_lalt_lgui) {
                 if (keymap_config.no_gui) {
-                    return KC_NO;
+                    return KC_NO | mod;
                 }
-                return KC_LEFT_GUI;
+                return KC_LEFT_GUI | mod;
             }
-            return KC_LEFT_ALT;
+            return keycode;
         case KC_LEFT_GUI:
             if (keymap_config.swap_lalt_lgui) {
-                return KC_LEFT_ALT;
+                return KC_LEFT_ALT | mod;
             }
             if (keymap_config.swap_lctl_lgui) {
-                return KC_LEFT_CTRL;
+                return KC_LEFT_CTRL | mod;
             }
             if (keymap_config.no_gui) {
-                return KC_NO;
+                return KC_NO | mod;
             }
-            return KC_LEFT_GUI;
+            return keycode;
         case KC_RIGHT_CTRL:
             if (keymap_config.swap_rctl_rgui) {
                 if (keymap_config.no_gui) {
-                    return KC_NO;
+                    return KC_NO | mod;
                 }
-                return KC_RIGHT_GUI;
+                return KC_RIGHT_GUI | mod;
             }
-            return KC_RIGHT_CTRL;
+            return keycode;
         case KC_RIGHT_ALT:
             if (keymap_config.swap_ralt_rgui) {
                 if (keymap_config.no_gui) {
-                    return KC_NO;
+                    return KC_NO | mod;
                 }
-                return KC_RIGHT_GUI;
+                return KC_RIGHT_GUI | mod;
             }
-            return KC_RIGHT_ALT;
+            return keycode;
         case KC_RIGHT_GUI:
             if (keymap_config.swap_ralt_rgui) {
-                return KC_RIGHT_ALT;
+                return KC_RIGHT_ALT | mod;
             }
             if (keymap_config.swap_rctl_rgui) {
-                return KC_RIGHT_CTRL;
+                return KC_RIGHT_CTRL | mod;
             }
             if (keymap_config.no_gui) {
-                return KC_NO;
+                return KC_NO | mod;
             }
-            return KC_RIGHT_GUI;
+            return keycode;
         case KC_GRAVE:
             if (keymap_config.swap_grave_esc) {
-                return KC_ESCAPE;
+                return KC_ESCAPE | mod;
             }
-            return KC_GRAVE;
+            return keycode;
         case KC_ESCAPE:
             if (keymap_config.swap_grave_esc) {
-                return KC_GRAVE;
+                return KC_GRAVE | mod;
             } else if (keymap_config.swap_escape_capslock) {
-                return KC_CAPS_LOCK;
+                return KC_CAPS_LOCK | mod;
             }
-            return KC_ESCAPE;
+            return keycode;
         case KC_BACKSLASH:
             if (keymap_config.swap_backslash_backspace) {
-                return KC_BACKSPACE;
+                return KC_BACKSPACE | mod;
             }
-            return KC_BACKSLASH;
+            return keycode;
         case KC_BACKSPACE:
             if (keymap_config.swap_backslash_backspace) {
-                return KC_BACKSLASH;
+                return KC_BACKSLASH | mod;
             }
-            return KC_BACKSPACE;
+            return keycode;
         default:
             return keycode;
     }
