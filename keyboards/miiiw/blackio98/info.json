@@ -1,7 +1,14 @@
 {
-    "keyboard_name": "BlackIO98", 
+    "keyboard_name": "MIIIW BlackIO 98", 
+    "manufacturer": "MIIIW", 
     "url": "https://github.com/miiiw", 
     "maintainer": "johnny", 
+    "usb": {
+        "vid": "0x3044",
+        "pid": "0x98A1",
+        "device_version": "0.0.1"
+    }, 
+    "debounce": 3, 
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -90,18 +97,18 @@
                 {"label":".>", "x": 10.25, "y": 4.5},
                 {"label":"/?", "x": 11.25, "y": 4.5},
                 {"label":"RSHIFT", "x": 12.25, "y": 4.5, "w": 1.75},
-                {"label":"up", "x": 14.25, "y": 4.75},
+                {"label":"UP", "x": 14.25, "y": 4.75},
                 {"label":"1", "x": 15.5, "y": 4.5},
                 {"label":"2", "x": 16.5, "y": 4.5},
                 {"label":"3", "x": 17.5, "y": 4.5},
 
                 {"label":"LCTRL", "x": 0, "y": 5.5, "w": 1.25},
-                {"label":"LWIN", "x": 1.25, "y": 5.5},
-                {"label":"LALT", "x": 2.25, "y": 5.5, "w": 1.25},
-                {"label":"SPACE", "x": 3.5, "y": 5.5, "w": 6.25},
-                {"label":"RALT", "x": 9.75, "y": 5.5},
-                {"label":"FN", "x": 10.75, "y": 5.5},
-                {"label":"RCTRL", "x": 11.75, "y": 5.5, "w": 1.25},
+                {"label":"LWIN", "x": 1.25, "y": 5.5, "w": 1.25},
+                {"label":"LALT", "x": 2.5, "y": 5.5, "w": 1.25},
+                {"label":"SPACE", "x": 3.75, "y": 5.5, "w": 6.25},
+                {"label":"RALT", "x": 10, "y": 5.5},
+                {"label":"FN", "x": 11, "y": 5.5},
+                {"label":"RCTRL", "x": 12, "y": 5.5},
                 {"label":"LEFT", "x": 13.25, "y": 5.75},
                 {"label":"DOWN", "x": 14.25, "y": 5.75},
                 {"label":"RIGHT", "x": 15.25, "y": 5.75},

@@ -23,8 +23,6 @@
 
 #define HAL_USE_SERIAL TRUE
 
-#define HAL_USE_SPI TRUE
-
 #define HAL_USE_I2C TRUE
 
 // This enables interrupt-driven mode

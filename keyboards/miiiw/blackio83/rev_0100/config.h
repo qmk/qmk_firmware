@@ -30,6 +30,9 @@
 #define MATRIX_COL_PINS { H0, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15 }
 #define UNUSED_PINS
 
+/* force n-key rollover*/
+#define FORCE_NKRO
+
 /* Dip Switch */
 #define POWER_SWITCH_PIN B0
 #define DIP_SWITCH_PINS { POWER_SWITCH_PIN, B1, B8, B12 }
@@ -58,10 +61,6 @@
 #define RGB_MATRIX_CENTER { 62, 42 }
 
 // PWM RGB Underglow Defines
-#define WS2812_SPI SPID2
-#define WS2812_SPI_MOSI_PAL_MODE 0
-#define WS2812_SPI_SCK_PAL_MODE 0
-#define WS2812_SPI_SCK_PIN B13
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
 #define WS2812_TRST_US 200
 

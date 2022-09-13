@@ -1,11 +1,18 @@
 {
-    "keyboard_name": "BlackIO83", 
+    "keyboard_name": "MIIIW BlackIO 83", 
+    "manufacturer": "MIIIW", 
     "url": "https://github.com/miiiw", 
     "maintainer": "johnny", 
+    "usb": {
+        "vid": "0x3044",
+        "pid": "0x83A1",
+        "device_version": "0.0.1"
+    },
+    "debounce": 3, 
     "layouts": {
         "LAYOUT": {
         	"layout": [
-				{"label":"Esc", "x":0, "y":0}, 
+				{"label":"ESC", "x":0, "y":0}, 
 	    		{"label":"F1", "x":1.25, "y":0}, 
 	    		{"label":"F2", "x":2.25, "y":0}, 
 	    		{"label":"F3", "x":3.25, "y":0},
@@ -18,8 +25,8 @@
 	    		{"label":"F10", "x":10.75, "y":0}, 
 	    		{"label":"F11", "x":11.75, "y":0}, 
 	    		{"label":"F12", "x":12.75, "y":0}, 
-	    		{"label":"Delete", "x":14, "y":0}, 
-	    		{"label":"Insert", "x":15.25, "y":0}, 
+	    		{"label":"DEL", "x":14, "y":0}, 
+	    		{"label":"INSERT", "x":15.25, "y":0}, 
 
 	    		{"label":"`~", "x":0, "y":1},
 	    		{"label":"1!", "x":1, "y":1}, 
@@ -34,10 +41,10 @@
 	    		{"label":"0)", "x":10, "y":1},
 	    		{"label":"-_", "x":11, "y":1}, 
 	    		{"label":"+=", "x":12, "y":1}, 
-	    		{"label":"Backspace", "x":13, "y":1, "w":2}, 
-	    		{"label":"Home", "x":15.25, "y":1}, 
+	    		{"label":"BS", "x":13, "y":1, "w":2}, 
+	    		{"label":"HOME", "x":15.25, "y":1}, 
 
-	    		{"label":"Tab", "x":0, "y":2, "w":1.5},
+	    		{"label":"TAB", "x":0, "y":2, "w":1.5},
 	    		{"label":"Q", "x":1.5, "y":2},
 	    		{"label":"W", "x":2.5, "y":2}, 
 	    		{"label":"E", "x":3.5, "y":2}, 
@@ -51,9 +58,9 @@
 	    		{"label":"[{", "x":11.5, "y":2}, 
 	    		{"label":"]}", "x":12.5, "y":2},
 	    		{"label":"\\|", "x":13.5, "y":2, "w":1.5}, 
-	    		{"label":"End", "x":15.25, "y":2}, 
+	    		{"label":"END", "x":15.25, "y":2}, 
 
-	    		{"label":"Caps Lock", "x":0, "y":3, "w":1.75}, 
+	    		{"label":"CAPS", "x":0, "y":3, "w":1.75}, 
 	    		{"label":"A", "x":1.75, "y":3}, 
 	    		{"label":"S", "x":2.75, "y":3},
 	    		{"label":"D", "x":3.75, "y":3}, 
@@ -65,10 +72,10 @@
 	    		{"label":"L", "x":9.75, "y":3}, 
 	    		{"label":";:", "x":10.75, "y":3},
 	    		{"label":"'\"", "x":11.75, "y":3}, 
-	    		{"label":"Enter", "x":12.75, "y":3, "w":2.25}, 
-	    		{"label":"Page Up", "x":15.25, "y":3}, 
+	    		{"label":"RETURN", "x":12.75, "y":3, "w":2.25}, 
+	    		{"label":"PGUP", "x":15.25, "y":3}, 
 
-	    		{"label":"Shift", "x":0, "y":4, "w":2.25}, 
+	    		{"label":"LSHIFT", "x":0, "y":4, "w":2.25}, 
 	    		{"label":"Z", "x":2.25, "y":4}, 
 	    		{"label":"X", "x":3.25, "y":4}, 
 	    		{"label":"C", "x":4.25, "y":4}, 
@@ -79,20 +86,20 @@
 	    		{"label":",<", "x":9.25, "y":4}, 
 	    		{"label":".>", "x":10.25, "y":4}, 
 	    		{"label":"/?", "x":11.25, "y":4}, 
-	    		{"label":"Shift", "x":12.25, "y":4, "w":1.75},
-	    		{"label":"\u2191", "x":14.25, "y":4.5}, 
-				{"label":"Page Down", "x":15.25, "y":4.25}, 
+	    		{"label":"RSHIFT", "x":12.25, "y":4, "w":1.75},
+	    		{"label":"UP", "x":14.25, "y":4.5}, 
+				{"label":"PGDN", "x":15.25, "y":4.25}, 
 
-	    		{"label":"Ctrl", "x":0, "y":5, "w":1.25}, 
-	    		{"label":"Win", "x":1.25, "y":5, "w":1.25},
-	    		{"label":"Alt", "x":2.5, "y":5, "w":1.25}, 
-	    		{"x":3.75, "y":5, "w":6.25}, 
-	    		{"label":"Alt", "x":10, "y":5}, 
-	    		{"label":"Fn", "x":11, "y":5}, 
-	    		{"label":"Ctrl", "x":12, "y":5}, 
-	    		{"label":"\u2190", "x":13.25, "y":5.5}, 
-	    		{"label":"\u2193", "x":14.25, "y":5.5}, 
-	    		{"label":"\u2192", "x":15.25, "y":5.5}
+	    		{"label":"LCTRL", "x":0, "y":5, "w":1.25}, 
+	    		{"label":"LWIN", "x":1.25, "y":5, "w":1.25},
+	    		{"label":"LALT", "x":2.5, "y":5, "w":1.25}, 
+	    		{"label":"SPACE", "x":3.75, "y":5, "w":6.25}, 
+	    		{"label":"RALT", "x":10, "y":5}, 
+	    		{"label":"FN", "x":11, "y":5}, 
+	    		{"label":"RCTRL", "x":12, "y":5}, 
+	    		{"label":"LEFT", "x":13.25, "y":5.5}, 
+	    		{"label":"DOWN", "x":14.25, "y":5.5}, 
+	    		{"label":"RIGHT", "x":15.25, "y":5.5}
 			]
         }
     }

@@ -18,27 +18,9 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3044
-#define PRODUCT_ID      0x98A1
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MIIIW
-#define PRODUCT         MIIIW BlackIO 98
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
-/* Larger keys per scan */
-//#define QMK_KEYS_PER_SCAN 4
-
-/* force n-key rollover*/
-#define FORCE_NKRO
-
-#define SERIAL_DEFAULT_BITRATE 230400
 
 // EEPROM i2c chip
 #define EEPROM_I2C_24LC256
