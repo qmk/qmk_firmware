@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5048 //Phage Studio
-#define PRODUCT_ID      0x5887
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Phage Studio
-#define PRODUCT         Pila87
-
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -36,9 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Direction of diode (COL2ROW or ROW2COL) */
 #define DIODE_DIRECTION COL2ROW
-
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
 
 /* LED Indicator */
 #define LED_CAPS_LOCK_PIN C14
