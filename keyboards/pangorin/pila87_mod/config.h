@@ -40,10 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming */
-#define USB_POLLING_INTERVAL_MS 1
-#define QMK_KEYS_PER_SCAN 12
-
 /* LED Indicator */
 #define LED_CAPS_LOCK_PIN C14
 #define LED_SCROLL_LOCK_PIN A0
