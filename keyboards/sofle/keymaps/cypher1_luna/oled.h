@@ -49,28 +49,30 @@ static void put_layer_name(uint16_t layer) {
 }
 
 static void print_status_narrow(void) {
-    // Print current default layer
-    oled_set_cursor(0, 0);
-
-    put_layer_name(get_highest_layer(default_layer_state));
     // Print current mode
-    oled_set_cursor(1, 0);
+    oled_set_cursor(0, 0);
     put_layer_name(get_highest_layer(layer_state));
 
-    oled_set_cursor(0, 5);
+    // Print current default layer
+    if (get_highest_layer(default_layer_state) != get_highest_layer(layer_state)) {
+      oled_set_cursor(0, 1);
+      put_layer_name(get_highest_layer(default_layer_state));
+    }
+
+    oled_set_cursor(0, 3);
     led_t led_usb_state = host_keyboard_led_state();
     if (led_usb_state.caps_lock) {
-        oled_write_ln_P(PSTR("CYPHER1"), true);
+        oled_write_ln_P(PSTR("C\nY\nP\nH\nE\nR\n1"), true);
     } else {
-        oled_write_ln_P(PSTR("cypher1"), false);
+        oled_write_ln_P(PSTR("c\ny\np\nh\ne\nr\n1"), false);
     }
     render_luna(0, 13);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    // if (is_keyboard_master()) {
-        // return OLED_ROTATION_270;
-    // }
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
     return rotation;
 }
 

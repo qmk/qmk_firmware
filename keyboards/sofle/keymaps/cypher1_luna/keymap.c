@@ -16,16 +16,14 @@
   */
 
 #include QMK_KEYBOARD_H
-#include "state.h"
-#include "luna.h"
-#include "oled.h"
-#include "encoder.h"
-
 #define L1_SPC LT(1, KC_SPC)
 #define L2_ENT LT(2, KC_ENT)
 #define L3_ENT LT(3, KC_ENT)
 
-//Default keymap. This can be changed in Via. Use oled.c and encoder.c to change beavior that Via cannot change.
+#include "state.h"
+#include "rotary.h"
+#include "luna.h"
+#include "oled.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* QWERT */
