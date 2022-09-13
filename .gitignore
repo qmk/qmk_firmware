@@ -82,7 +82,7 @@ user_song_list.h
 /util/win_downloaded
 /users/
 /layouts/
-/keyboards/
+/keyboards/*
 !/keyboards/ergodox_ez/
 !/keyboards/planck/
 !/keyboards/moonlander/
