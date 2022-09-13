@@ -279,9 +279,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    [TD_PGUP_HOME]  = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
    [TD_PGDN_END]   = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_END),
 
-   [TD_Q_LrALT] = ACTION_TAP_DANCE_DUAL_ROLE(KC_Q, _ALT),
-   [TD_R_LrKey] = ACTION_TAP_DANCE_DUAL_ROLE(KC_R, _RAISE),
-   [TD_T_LrMS]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_T, _MOUSE),
+   [TD_Q_LrALT] = ACTION_TAP_DANCE_LAYER_MOVE(KC_Q, _ALT),
+   [TD_R_LrKey] = ACTION_TAP_DANCE_LAYER_MOVE(KC_R, _RAISE),
+   [TD_T_LrMS]  = ACTION_TAP_DANCE_LAYER_MOVE(KC_T, _MOUSE),
 
    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lshift_finished, lshift_reset),
    [TD_SPC_ENT]    = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_ENT),
@@ -453,7 +453,7 @@ KC_PAUS
  */
 [_ADJUST] = LAYOUT(
   _______, _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
   XXXXXXX, XXXXXXX, XXXXXXX, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, _______, _______, _______, _______,     _______,            _______,    _______,_______,_______, _______, _______
@@ -492,7 +492,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed && is_oneshot_layer_active())
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
       return true;
-    case RESET:
+    case QK_BOOT:
       /* Don't allow reset from oneshot layer state */
       if (record->event.pressed && is_oneshot_layer_active()){
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);

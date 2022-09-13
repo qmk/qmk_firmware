@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,_______,KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,_______,      KC_HOME, 
          _______,     VLK_TOG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,_______,_______,_______,_______,_______,      _______,      KC_END, 
          _______,_______,BL_TOGG, BL_DEC, BL_INC, BL_BRTG,_______,_______,_______,_______,_______,_______,_______,        KC_PGUP,_______, 
-         KC_SLEP,RESET  ,_______,      LCA(KC_DEL),     LCA(KC_DEL),    LCA(KC_DEL),  LCA(KC_INS),KC_APP, _______,KC_HOME,KC_PGDN,KC_END),
+         KC_SLEP,QK_BOOT,_______,      LCA(KC_DEL),     LCA(KC_DEL),    LCA(KC_DEL),  LCA(KC_INS),KC_APP, _______,KC_HOME,KC_PGDN,KC_END),
        
     /* Keymap Numpad Layer
      * ,----------------------------------------------------------------.
