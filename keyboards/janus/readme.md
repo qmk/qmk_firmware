@@ -1,8 +1,8 @@
-# janus
+# Janus
 
-![janus](imgur.com image replace me!)
+![Janus](https://i.imgur.com/7Lzhafe.jpg)
 
-Janu
+A 34-key split ortholinear keyboard, powered by two Seeed XIAO RP2040.
 
 * Keyboard Maintainer: [Steven Karrmann](https://github.com/skarrmann)
 * Hardware Supported: Janus PCBs, Seeed XIAO RP2040
@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the top of the microcontroller
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Physical reset button**: Double-tap the reset button on the top of the microcontroller
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
