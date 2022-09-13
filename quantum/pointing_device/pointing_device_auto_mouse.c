@@ -263,6 +263,7 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         // Skip Mod keys to avoid layer reset
         case KC_LEFT_CTRL ... KC_RIGHT_GUI:
+        case QK_MODS ... QK_MODS_MAX:
             break;
         // TO((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_TO ... QK_TO_MAX: // same proccessing as next
