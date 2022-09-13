@@ -10,7 +10,7 @@
 #define PRODUCT_ID   0x1212
 #define DEVICE_VER   0x0001
 #define MANUFACTURER TweetyDaBird
-#define PRODUCT      littlebigscroll4
+#define PRODUCT      LBS4
 
 // key matrix size
 #define MATRIX_ROWS 1
@@ -18,7 +18,6 @@
 
 // Keyboard Matrix Assignments
 #define DIRECT_PINS { { E6, D7, B5, B4, F4 } }
-#define UNUSED_PINS
 
 // Encoder Assignments
 #define ENCODERS_PAD_A { B1 }
@@ -29,7 +28,6 @@
 #define RGB_DI_PIN D2
 #define DRIVER_LED_TOTAL 6
 
-
 #ifdef RGB_DI_PIN
 #   define RGBLED_NUM 6
 
@@ -37,7 +35,7 @@
 #   define RGBLIGHT_SAT_STEP 8
 #   define RGBLIGHT_VAL_STEP 8
 
-#   define RGBLIGHT_LIMIT_VAL 175 // The maximum brightness level
+#   define RGBLIGHT_LIMIT_VAL 200 // The maximum brightness level
 # 	define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL
 
 #   define RGBLIGHT_SLEEP  // If defined, the RGB lighting will be switched off when the host goes to sleep
@@ -55,28 +53,10 @@
 //#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //#    define RGBLIGHT_EFFECT_RGB_TEST
 //#    define RGBLIGHT_EFFECT_ALTERNATING
-
-
 #endif
 
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
 #define DEBOUNCE 5
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-// disable debug print
-//#define NO_DEBUG
-
-// disable print
-//#define NO_PRINT
-
-// disable action features
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
 
 // Bootmagic Lite key configuration
 #define BOOTMAGIC_LITE_ROW 0

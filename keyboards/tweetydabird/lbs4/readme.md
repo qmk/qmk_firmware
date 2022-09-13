@@ -1,17 +1,17 @@
-# littlebigscroll4
+# lbs4
 
-![littlebigscroll4](imgur.com image replace me!)
+![lbs4](imgur.com image replace me!)
 
 *A simple, easy to build, low cost macro pad with 4 Cherry MX hot swap keys and a clickable encoder wheel*
 
 
 * Keyboard Maintainer: [Markus Knutsson](https://github.com/TweetyDaBird)
 * Hardware Supported: LittleBigScroll 4 PCB, Pro Micro
-* Hardware Availability: https://www.tindie.com/stores/tweetydabird/
+* Hardware Availability: https://lectronz.com/stores/tweetys-wild-thinking/
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tweetydabird\littlebigscroll\littlebigscroll4:default
+    qmk compile -kb tweetydabird/lbs4 -km default
 
 Flashing example for this keyboard:
 
