@@ -5,7 +5,7 @@
 /* Smart Backspace Delete */
 
 bool            shift_held = false;
-static uint16_t held_shift = 0;
+// static uint16_t held_shift = 0;
 
 #endif // CYPHER1_STATE_H_
 

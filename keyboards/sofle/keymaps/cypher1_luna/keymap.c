@@ -70,7 +70,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LSFT:
             // Set shift status for other modules to use.
             shift_held = record->event.pressed;
-            held_shift = keycode;
+            // held_shift = keycode;
             break;
         case KC_LCTL:
         case KC_RCTL:
