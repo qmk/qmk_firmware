@@ -25,8 +25,8 @@ enum custom_key_codes {
     ACIRCLE, // å 
     ADOT, // ä
     ODOT, // ö
-    COMPOSE_MACRO // compose key for mac or linux
-    
+    COMPOSE_MACRO, // compose key for mac or linux
+    SCREENSHOT, // This is theoretically reprogrammable on Linux, but Gui(Shift(4)) or Gui(4) is reserved for '4th item on favorite menu' and doesn't remap so well
 };
 
 //Tap Dance Declarations
@@ -39,7 +39,6 @@ enum {
 // Mac-specific definitions of these functions
 // I've changed Linux to accept these defaults
 
-#define SCREENSHOT      LGUI(LSFT(KC_4)) //screenshot
 #define FINDER          LGUI(LALT(KC_SPACE)) //open the search bar for finding apps, docs in-computer, etc
 #define COMPOSE_KEY    KC_SCRL //manually set on linux, to create chars via .Xcompose ()
 #define COMPOSE_MAC     KC_F13 //manually set on mac using some tricks
@@ -167,11 +166,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MOVE_BEGIN_LINE_TERMINAL,      MOVE_END_LINE_TERMINAL, KC_F7,    KC_F8,    KC_F9,    KC_F11, KC_TRANSPARENT, 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI, KC_TRANSPARENT,                                               KC_TRANSPARENT, KC_F4,  KC_F5,  KC_F6,  KC_F12, KC_TRANSPARENT,
+      TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI, KC_LBRACKET,                                               KC_RBRACKET, KC_F4,  KC_F5,  KC_F6,  KC_F12, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRANSPARENT, KC_TRANSPARENT, MOVE_LEFT_TERMINAL, DEL_WORD_TERMINAL, MOVE_RIGHT_TERMINAL, KC_TRANSPARENT,                           KC_TRANSPARENT, KC_F1,  KC_F2,  KC_F3, KC_TRANSPARENT, KC_TRANSPARENT,
+      KC_TRANSPARENT, KC_TRANSPARENT, MOVE_LEFT_TERMINAL, DEL_WORD_TERMINAL, MOVE_RIGHT_TERMINAL, KC_LCBR,                           KC_RCBR, KC_F1,  KC_F2,  KC_F3, KC_TRANSPARENT, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_TRANSPARENT  ,  KC_TRANSPARENT, KC_F10
+                                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_HASH  ,  KC_TRANSPARENT, KC_F10
                                       //`--------------------------'  `--------------------------'
   )
   
@@ -248,6 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ADOT:
     case ODOT:
     case COMPOSE_MACRO:
+    case SCREENSHOT:
 
         if(record->event.pressed) {
             keymap_config.raw = eeconfig_read_keymap();
@@ -362,6 +362,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         tap_code16(COMPOSE_KEY);
                     } else { //osx
                         tap_code16(COMPOSE_MAC);
+                    }
+                break;
+                case SCREENSHOT: 
+                    if(keymap_config.swap_lctl_lgui){ //Linux
+                        tap_code16(KC_PSCR);
+                    } else { //osx
+                        tap_code16(LGUI(LSFT(KC_4)));
                     }
                 break;
             }
