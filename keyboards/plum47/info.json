@@ -20,7 +20,7 @@
     "url": "ihttps://github.com/takagi/plum47_buildguide",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
+        "pid": "0x5E14",
         "vid": "0xFEED"
     },
     "layouts": {
