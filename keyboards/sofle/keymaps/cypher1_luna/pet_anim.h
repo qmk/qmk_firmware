@@ -1,10 +1,11 @@
 // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 #define ANIM_SIZE 96
+#define ANIM_LENGTH 2
 
-typedef struct Anim {
-  char sit[2][ANIM_SIZE];
-  char walk[2][ANIM_SIZE];
-  char run[2][ANIM_SIZE];
-  char bark[2][ANIM_SIZE];
-  char sneak[2][ANIM_SIZE];
-} Anim;
+typedef struct PetAnim {
+  char sit[ANIM_LENGTH][ANIM_SIZE];
+  char walk[ANIM_LENGTH][ANIM_SIZE];
+  char run[ANIM_LENGTH][ANIM_SIZE];
+  char noisey[ANIM_LENGTH][ANIM_SIZE];
+  char sneak[ANIM_LENGTH][ANIM_SIZE];
+} PetAnim;

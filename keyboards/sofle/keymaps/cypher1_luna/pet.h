@@ -60,30 +60,26 @@ static void update_pet_jump(bool jump) {
 
 /* animation */
 void animate_pet(int PET_X, int PET_Y) {
-    /* jump */
-    if (isJumping || !showedJump) {
-        /* clear */
-        oled_set_cursor(PET_X, PET_Y + 2);
-        oled_write("     ", false);
-
-        oled_set_cursor(PET_X, PET_Y - 1);
-
-        showedJump = true;
-    } else {
-        /* clear */
-        oled_set_cursor(PET_X, PET_Y - 1);
-        oled_write("     ", false);
-
-        oled_set_cursor(PET_X, PET_Y);
-    }
-
     /* switch frame */
-    current_frame = (current_frame + 1) % 2;
-
+    current_frame = (current_frame + 1) % ANIM_LENGTH;
     int show_frame = abs(1 - current_frame);
+
+    /* handle jump */
+    int offset = 0;
+    if (isJumping || !showedJump) {
+        offset = 1;
+        showedJump = true;
+        oled_set_cursor(PET_X, PET_Y + 2); // Clear at the bottom.
+    } else {
+        oled_set_cursor(PET_X, PET_Y - 1); // Clear at the top.
+    }
+    // Clear the previous position.
+    oled_write("     ", false);
+    oled_set_cursor(PET_X, PET_Y - offset);
+
     /* current status */
     if (get_shift_held() || led_usb_state.caps_lock) {
-        oled_write_raw_P(PET.bark[show_frame], ANIM_SIZE);
+        oled_write_raw_P(PET.noisey[show_frame], ANIM_SIZE);
     } else if (isSneaking) {
         oled_write_raw_P(PET.sneak[show_frame], ANIM_SIZE);
     } else if (current_wpm <= MIN_WALK_SPEED) {
