@@ -4,3 +4,5 @@ BOARD = QMK_PROTON_C
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
+
+BACKLIGHT_ENABLE = yes
