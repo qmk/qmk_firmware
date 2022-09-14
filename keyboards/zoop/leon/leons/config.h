@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C52 // 2021 HuangJuanLR
-#define PRODUCT_ID      0x4C80 // Leon Rev.alpha 80% TKL
-#define DEVICE_VER      0x210A // 2021 Rev.a
-#define MANUFACTURER    ZooKeeper
-#define PRODUCT         Leon
+// #define VENDOR_ID       0x4C52 // 2021 HuangJuanLR
+// #define PRODUCT_ID      0x4C80 // Leon Rev.alpha 80% TKL
+// #define DEVICE_VER      0x210A // 2021 Rev.a
+// #define MANUFACTURER    ZooKeeper
+// #define PRODUCT         Leon
 
 /* key matrix size */
 #define MATRIX_ROWS 6
