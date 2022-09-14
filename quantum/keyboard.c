@@ -107,7 +107,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef BLUETOOTH_ENABLE
 #    include "bluetooth.h"
-#    include "outputselect.h"
 #endif
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
