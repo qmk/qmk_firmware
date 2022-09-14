@@ -2,7 +2,8 @@
     "manufacturer": "Plywrks",
     "keyboard_name": "Allaro",
     "maintainer": "ramonimbao",
-    "bootloader": "atmel-dfu",
+    "development_board": "promicro",
+
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
