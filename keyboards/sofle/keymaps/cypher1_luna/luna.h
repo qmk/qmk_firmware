@@ -21,6 +21,7 @@
 /* advanced settings */
 #define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
 
+#include "anim.h"
 #include "luna_anim.h"
 
 /* timers */
@@ -79,22 +80,20 @@ void animate_luna(int LUNA_X, int LUNA_Y) {
     /* switch frame */
     current_frame = (current_frame + 1) % 2;
 
+    const Anim pet = luna;
+
     int show_frame = abs(1 - current_frame);
     /* current status */
     if (get_shift_held() || led_usb_state.caps_lock) {
-        oled_write_raw_P(bark[show_frame], ANIM_SIZE);
-
+        oled_write_raw_P(pet.bark[show_frame], ANIM_SIZE);
     } else if (isSneaking) {
-        oled_write_raw_P(sneak[show_frame], ANIM_SIZE);
-
+        oled_write_raw_P(pet.sneak[show_frame], ANIM_SIZE);
     } else if (current_wpm <= MIN_WALK_SPEED) {
-        oled_write_raw_P(sit[show_frame], ANIM_SIZE);
-
+        oled_write_raw_P(pet.sit[show_frame], ANIM_SIZE);
     } else if (current_wpm <= MIN_RUN_SPEED) {
-        oled_write_raw_P(walk[show_frame], ANIM_SIZE);
-
+        oled_write_raw_P(pet.walk[show_frame], ANIM_SIZE);
     } else {
-        oled_write_raw_P(run[show_frame], ANIM_SIZE);
+        oled_write_raw_P(pet.run[show_frame], ANIM_SIZE);
     }
 }
 
