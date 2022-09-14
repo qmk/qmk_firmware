@@ -2,7 +2,6 @@
     "manufacturer": "Gone Hacking Studio",
     "keyboard_name": "GHS.XLS",
     "maintainer": "ramonimbao",
-    "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -20,12 +19,11 @@
     "indicators": {
         "num_lock": "B0"
     },
-    "processor": "STM32F072",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0645",
-        "vid": "0x0002"
+        "pid": "0x0002",
+        "vid": "0x0645"
     },
     "encoder": {
         "rotary": [
