@@ -20,11 +20,11 @@
 #define L2_ENT LT(2, KC_ENT)
 #define L3_ENT LT(3, KC_ENT)
 
-#include "state.h"
-#define PET luna
-#include "pet.h"
-#include "oled.h"
-#include "encoder.h"
+#include "state.h"   // Include the global state that the pet looks at.
+#include "luna.h"    // Include the pet you want.
+#include "pet.h"     // Include the pet library.
+#include "oled.h"    // Include the oled (call the pet from here).
+#include "encoder.h" // Include the encoder settings.
 
 enum LAYERS {
   QWERT, // All the bells and whistles for coding.
