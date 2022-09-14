@@ -1,4 +1,4 @@
-// Copyright 2022 Andrew Hamilton (@awh_tokyo)
+// Copyright 2022 Andrew Hamilton (@awh-tokyo)
 // Based on code by Masayuki Takagi (@takagi)
 // SPDX-License-Identifier: GPL-2.0-or-later
 

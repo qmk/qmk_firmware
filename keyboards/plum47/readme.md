@@ -7,7 +7,7 @@ home build kit.  It features MX sockets for hot-swap keyswitch support, and a be
 acrylic sandwich case.  The controller is a Pro Micro.
 
 * Keyboard Developer: [Masayuki Takagi](https://github.com/takagi)
-* Keyboard submitted by [Andrew Hamilton](https://github.com/awh_tokyo)
+* Keyboard submitted by [Andrew Hamilton](https://github.com/awh-tokyo)
 * Hardware Supported: plum47 keyboard kit including PCB and Pro Micro controller
 * Hardware Availability: https://shop.yushakobo.jp/products/consign_plum47
 
