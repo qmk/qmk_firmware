@@ -57,7 +57,7 @@ static void print_status_narrow(void) {
         oled_write_ln_P(PSTR("c\ny\np\nh\ne\nr\n1"), false);
     }
     if (is_keyboard_master()) {
-        render_luna(0, 13);
+        render_pet(0, 13);
     } else {
         /* wpm counter */
         uint8_t n = get_current_wpm();

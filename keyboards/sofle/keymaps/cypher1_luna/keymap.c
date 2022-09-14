@@ -21,7 +21,8 @@
 #define L3_ENT LT(3, KC_ENT)
 
 #include "state.h"
-#include "luna.h"
+#define PET luna
+#include "pet.h"
 #include "oled.h"
 #include "encoder.h"
 
@@ -79,10 +80,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_LCTL:
         case KC_RCTL:
-            update_luna_sneaking(record->event.pressed);
+            update_pet_sneaking(record->event.pressed);
             break;
         case KC_SPC:
-            update_luna_jump(record->event.pressed);
+            update_pet_jump(record->event.pressed);
             break;
     }
     return true;
