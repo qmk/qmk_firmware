@@ -58,23 +58,16 @@ static void update_pet(void) {
   /* switch frame */
   current_frame = (current_frame + 1) % ANIM_LENGTH;
 
-  if (isJumping || !showedJump) {
-    showedJump = true;
-  }
+  showedJump = (isJumping || !showedJump);
 }
 
 /* animation */
 static void animate_pet(int PET_X, int PET_Y) {
-  int show_frame = abs(1 - current_frame);
+  const int show_frame = abs(1 - current_frame);
 
   /* handle jump */
-  int offset = 0;
-  if (isJumping || !showedJump) {
-    offset = 1;
-    oled_set_cursor(PET_X, PET_Y + 2); // Clear at the bottom.
-  } else {
-    oled_set_cursor(PET_X, PET_Y - 1); // Clear at the top.
-  }
+  const int offset = (isJumping || !showedJump);
+  oled_set_cursor(PET_X, PET_Y -1 + offset * 3); // Clear at the top or bottom.
   // Clear the previous position.
   oled_write("     ", false);
   oled_set_cursor(PET_X, PET_Y - offset);

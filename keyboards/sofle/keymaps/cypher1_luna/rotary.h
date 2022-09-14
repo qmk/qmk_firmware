@@ -8,7 +8,7 @@ static const uint16_t PROGMEM encoder_table[NUM_ENCODERS][BOOL_SIZE][BOOL_SIZE] 
     { KC_VOLD,  KC_VOLU  }, // un-shifted
     { KC_MNXT,  KC_MPRV  }  // shifted
   },
-  [1] ={ // right
+  [1] = { // right
     { KC_UP,    KC_DOWN  }, // un-shifted
     { KC_LEFT,  KC_RIGHT }  // shifted
   }
