@@ -1,4 +1,3 @@
-/* via layer setting */
-/* default: 4 */
+#pragma once
 #undef DYNAMIC_KEYMAP_LAYER_COUNT
 #define DYNAMIC_KEYMAP_LAYER_COUNT 13
