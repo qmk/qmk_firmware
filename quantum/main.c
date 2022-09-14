@@ -63,6 +63,12 @@ int main(void) {
         // Run Quantum Painter animations
         void qp_internal_animation_tick(void);
         qp_internal_animation_tick();
+
+        #ifdef QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE
+             // Run LVGL ticks
+            void qp_lvgl_internal_tick(void);
+            qp_lvgl_internal_tick();
+        #endif
 #endif
 
 #ifdef DEFERRED_EXEC_ENABLE
