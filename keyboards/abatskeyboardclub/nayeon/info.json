@@ -7,10 +7,23 @@
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi_tsangan",
         "LAYOUT_iso": "LAYOUT_tkl_f13_iso_tsangan"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": false
+    },
     "usb": {
         "vid": "0x4B47",
         "pid": "0x0001",
-        "device_version": "0.0.1"
+        "device_version": "2.0.0"
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP24", "GP23", "GP22", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12", "GP11", "GP5"],
+        "rows": ["GP0", "GP1", "GP2", "GP21", "GP3", "GP4"]
     },
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {
