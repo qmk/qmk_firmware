@@ -22,16 +22,8 @@ enum layer_names {
     _RAISE
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-
-#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
