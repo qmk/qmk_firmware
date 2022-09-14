@@ -1,3 +1,6 @@
+# Copyright 2021 Your Name (@yourgithub)
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 # MCU name
 MCU = atmega32u4
 
