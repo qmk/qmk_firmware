@@ -1,6 +1,6 @@
 # plum47
 
-![plum47](https://imgur.com/t3rjsWI)
+![plum47](https://imgur.com/a/8HjaD8y.png)
 
 Plum47 is a 4-row, 12-column (47 key) ortholinear keyboard sold domestically in Japan as a 
 home build kit.  It features MX sockets for hot-swap keyswitch support, and a bezel-less
