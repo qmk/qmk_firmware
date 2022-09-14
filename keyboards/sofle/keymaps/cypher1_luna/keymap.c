@@ -24,7 +24,7 @@
 #include "luna.h"    // Include the pet you want.
 #include "pet.h"     // Include the pet library.
 #include "oled.h"    // Include the oled (call the pet from here).
-#include "encoder.h" // Include the encoder settings.
+#include "rotary.h" // Include the encoder settings.
 
 enum LAYERS {
   QWERT, // All the bells and whistles for coding.
