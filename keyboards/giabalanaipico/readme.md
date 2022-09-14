@@ -1,11 +1,7 @@
 # giabalanaipico
 
-<p align=center>
-<img width="700" alt="giabalanaipico_logo" src="https://github.com/3araht/giabalanaipico/blob/master/pictures/giabalanaipico_logo.png">
-</p>
-
-![giabalanaipico overview](https://github.com/3araht/giabalanaipico/blob/master/pictures/giabalanaipico_overview.jpg)
-
+![giabalanaipico_logo](https://i.imgur.com/ZAKmV17.png)
+![giabalanaipico overview](https://i.imgur.com/A5JE5vO.jpg)
 
 *A short description of the keyboard/project*
 
@@ -20,5 +16,16 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make giabalanaipico:default:flash
+or
+
+    qmk flash -kb giabalanaipico -km default
+
+Run this while Raspberry Pi Pico is in bootloader mode.
+## Bootloader
+
+Enter the bootloader in 2 ways:
+
+* **Physical reset button**: Briefly double-tap the reset button on the side of the PCB
+* **Physical BOOTSEL button**: Press the BOOTSEL button and hold it while you connect a micro USB cable to your computer.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
