@@ -106,12 +106,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "split_util.h"
 #endif
 #ifdef BLUETOOTH_ENABLE
+#    include "bluetooth.h"
 #    include "outputselect.h"
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-#        include "bluefruit_le.h"
-#    elif BLUETOOTH_RN42
-#        include "rn42.h"
-#    endif
 #endif
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
@@ -412,8 +408,8 @@ void keyboard_init(void) {
     // init after split init
     pointing_device_init();
 #endif
-#if defined(BLUETOOTH_RN42)
-    rn42_init();
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -675,8 +671,8 @@ void keyboard_task(void) {
     programmable_button_send();
 #endif
 
-#ifdef BLUETOOTH_BLUEFRUIT_LE
-    bluefruit_le_task();
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_task();
 #endif
 
     led_task();
