@@ -1,7 +1,6 @@
 #ifdef ENCODER_ENABLE
 
 #define BOOL_SIZE 2
-#define NUM_ENCODERS 2
 
 static const uint16_t PROGMEM encoder_table[NUM_ENCODERS][BOOL_SIZE][BOOL_SIZE] = {
   [0] = { // left
