@@ -1,6 +1,6 @@
 # Uni v4
 
-![Uni v4](https://cdn.shopify.com/s/files/1/0581/6798/4289/products/top4_1680x.png)
+![Uni v4](https://i.imgur.com/HyvMu26.png?1)
 
 -   Hardware Supported:
     -   The Uni v4
