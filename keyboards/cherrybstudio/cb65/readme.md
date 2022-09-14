@@ -1,6 +1,6 @@
-# CherryB Studio CB87
+# CherryB Works CB65
 
-![CB65](https://i.imgur.com/3qopFIW.jpg)
+![CB65](https://i.imgur.com/3qopFIWh.jpg)
 
 An universal 65 percents PCB for many keyboard with USB daughterboard 
 Board has a rotary encoder but disabled for VIA support.
