@@ -17,7 +17,7 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _QWERTY,
+    _QWERTY = 0,
     _LOWER,
     _RAISE
 };

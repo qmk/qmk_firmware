@@ -1,23 +1,9 @@
 // Copyright 2022 Andrew Hamilton (@awh_tokyo)
+// Based on code by Masayuki Takagi (@takagi)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
+// Set the upper left key as the boot loader key
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
