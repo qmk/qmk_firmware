@@ -3,7 +3,7 @@
 #define BOOL_SIZE 2
 #define NUM_ENCODERS 2
 
-const uint16_t encoder_table[NUM_ENCODERS][BOOL_SIZE][BOOL_SIZE] = {
+static const uint16_t PROGMEM encoder_table[NUM_ENCODERS][BOOL_SIZE][BOOL_SIZE] = {
   [0] = { // left
     { KC_VOLD,  KC_VOLU  }, // un-shifted
     { KC_MNXT,  KC_MPRV  }  // shifted

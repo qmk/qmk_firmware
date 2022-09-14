@@ -21,7 +21,7 @@
 /* advanced settings */
 #define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
 
-#include "anim.h"
+#include "pet_anim.h"
 #include "luna.h"
 
 /* timers */
