@@ -8,8 +8,6 @@
         "pid": "0x4C80",
         "device_version": "0.0.2"
     },
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
