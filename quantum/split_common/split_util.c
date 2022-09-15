@@ -139,6 +139,20 @@ void split_pre_init(void) {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
+    // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS within the emulated eeprom via dfu-util or another tool
+#    if defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
+#        if defined(INIT_EE_HANDS_LEFT)
+#            pragma message "Faking EE_HANDS for left hand"
+    const bool should_be_left = true;
+#        else
+#            pragma message "Faking EE_HANDS for right hand"
+    const bool should_be_left = false;
+#        endif
+    bool       is_left        = eeconfig_read_handedness();
+    if (is_left != should_be_left) {
+        eeconfig_update_handedness(should_be_left);
+    }
+#    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
 #endif
     isLeftHand = is_keyboard_left();
 
