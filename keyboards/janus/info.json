@@ -21,12 +21,12 @@
         "on_state": 0
     },
     "features": {
-      "bootmagic": true,
-      "command": false,
-      "console": false,
-      "extrakey": true,
-      "mousekey": true,
-      "nkro": true
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "split": {
         "enabled": true
