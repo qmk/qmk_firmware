@@ -34,11 +34,7 @@
 #    define AUTO_MOUSE_TIME 650
 #endif
 #ifndef AUTO_MOUSE_DELAY
-#    ifdef TAPPING_TERM
-#        define AUTO_MOUSE_DELAY TAPPING_TERM
-#    else
-#        define AUTO_MOUSE_DELAY 200
-#    endif
+    #define AUTO_MOUSE_DELAY GET_TAPPING_TERM(KC_XXX, &(keyrecord_t){})
 #endif
 #ifndef AUTO_MOUSE_DEBOUNCE
 #    define AUTO_MOUSE_DEBOUNCE 25
