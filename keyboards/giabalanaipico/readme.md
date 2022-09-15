@@ -1,7 +1,7 @@
 # giabalanaipico
 
-![giabalanaipico_logo](https://i.imgur.com/ZAKmV17.png)
-![giabalanaipico overview](https://i.imgur.com/A5JE5vO.jpg)
+![giabalanaipico_logo](https://i.imgur.com/ZAKmV17h.png)
+![giabalanaipico overview](https://i.imgur.com/A5JE5vOh.jpg)
 
 *A short description of the keyboard/project*
 
