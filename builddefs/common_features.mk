@@ -773,8 +773,10 @@ endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
     OPT_DEFS += -DUNICODE_COMMON_ENABLE
+    COMMON_VPATH += $(QUANTUM_DIR)/unicode
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
-           $(QUANTUM_DIR)/utf8.c
+           $(QUANTUM_DIR)/unicode/unicode.c \
+           $(QUANTUM_DIR)/unicode/utf8.c
 endif
 
 MAGIC_ENABLE ?= yes
@@ -805,31 +807,25 @@ ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
     OPT_DEFS += -DMOUSE_ENABLE
 endif
 
-ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
-    PS2_ENABLE := yes
-    SRC += ps2_busywait.c
-    SRC += ps2_io.c
-    OPT_DEFS += -DPS2_USE_BUSYWAIT
-endif
+VALID_PS2_DRIVER_TYPES := busywait interrupt usart vendor
 
-ifeq ($(strip $(PS2_USE_INT)), yes)
-    PS2_ENABLE := yes
-    SRC += ps2_interrupt.c
-    SRC += ps2_io.c
-    OPT_DEFS += -DPS2_USE_INT
-endif
-
-ifeq ($(strip $(PS2_USE_USART)), yes)
-    PS2_ENABLE := yes
-    SRC += ps2_usart.c
-    SRC += ps2_io.c
-    OPT_DEFS += -DPS2_USE_USART
-endif
-
+PS2_DRIVER ?= busywait
 ifeq ($(strip $(PS2_ENABLE)), yes)
+    ifeq ($(filter $(PS2_DRIVER),$(VALID_PS2_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid PS2_DRIVER,PS2_DRIVER="$(PS2_DRIVER)" is not a valid PS/2 driver)
+    endif
+
+    OPT_DEFS += -DPS2_DRIVER_$(strip $(shell echo $(PS2_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
     COMMON_VPATH += $(DRIVER_PATH)/ps2
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/ps2
     OPT_DEFS += -DPS2_ENABLE
+
+    ifneq ($(strip $(PS2_DRIVER)), vendor)
+        SRC += ps2_io.c
+    endif
+
+    SRC += ps2_$(strip $(PS2_DRIVER)).c
 endif
 
 JOYSTICK_ENABLE ?= no
@@ -888,14 +884,14 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     SRC += outputselect.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
-        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE
-        SRC += analog.c
+        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
+        QUANTUM_LIB_SRC += analog.c
         QUANTUM_LIB_SRC += spi_master.c
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
-        OPT_DEFS += -DBLUETOOTH_RN42
+        OPT_DEFS += -DBLUETOOTH_RN42 -DHAL_USE_SERIAL=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
         QUANTUM_LIB_SRC += uart.c
     endif

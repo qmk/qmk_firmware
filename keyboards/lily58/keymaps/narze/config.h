@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define USE_SERIAL_PD2
-
 #define COMBO_TERM 20
 #define COMBO_COUNT 3
 

@@ -265,8 +265,8 @@ def test_generate_config_h():
     check_returncode(result)
     assert '#   define DEVICE_VER 0x0001' in result.stdout
     assert '#   define DIODE_DIRECTION COL2ROW' in result.stdout
-    assert '#   define MANUFACTURER none' in result.stdout
-    assert '#   define PRODUCT pytest' in result.stdout
+    assert '#   define MANUFACTURER "none"' in result.stdout
+    assert '#   define PRODUCT "pytest"' in result.stdout
     assert '#   define PRODUCT_ID 0x6465' in result.stdout
     assert '#   define VENDOR_ID 0xFEED' in result.stdout
     assert '#   define MATRIX_COLS 1' in result.stdout

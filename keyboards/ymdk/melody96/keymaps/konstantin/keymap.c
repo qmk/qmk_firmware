@@ -2,7 +2,7 @@
 #include "konstantin.h"
 
 static const HSV *colors[] = { &godspeed_blue, &godspeed_yellow };
-static const size_t cnum = sizeof colors / sizeof *colors;
+static const size_t cnum = ARRAY_SIZE(colors);
 static size_t cidx = 0;
 
 enum keycodes_keymap {

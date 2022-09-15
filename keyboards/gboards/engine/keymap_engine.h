@@ -114,8 +114,8 @@ void testCollisions(void) {
 #include "dicts.def"
 
 // Get size data back into the engine
-size_t funcsLen   = sizeof(funDict) / sizeof(funDict[0]);
-size_t stringLen  = sizeof(strDict) / sizeof(strDict[0]);
-size_t keyLen     = sizeof(keyDict) / sizeof(keyDict[0]);
-size_t comboLen   = sizeof(cmbDict) / sizeof(cmbDict[0]);
-size_t specialLen = sizeof(spcDict) / sizeof(spcDict[0]);
+size_t funcsLen   = ARRAY_SIZE(funDict);
+size_t stringLen  = ARRAY_SIZE(strDict);
+size_t keyLen     = ARRAY_SIZE(keyDict);
+size_t comboLen   = ARRAY_SIZE(cmbDict);
+size_t specialLen = ARRAY_SIZE(spcDict);

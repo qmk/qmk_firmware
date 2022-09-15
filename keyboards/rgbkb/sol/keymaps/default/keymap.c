@@ -202,7 +202,7 @@ const rgb_matrix_f rgb_matrix_functions[6][2] = {
 #ifdef ENCODER_ENABLE
 
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
-#define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a)/sizeof(pin_t))
+#define NUMBER_OF_ENCODERS ARRAY_SIZE(encoders_pad_a)
 
 const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
     [_QWERTY] = ENCODER_LAYOUT(

@@ -159,7 +159,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         do {
             MATRIX_DEBUG_DELAY_START();
             is_pressed = false;
-            for (uint8_t i = 0; i < sizeof(delay_ports) / sizeof(pin_t); i++) {
+            for (uint8_t i = 0; i < ARRAY_SIZE(delay_ports); i++) {
 #            ifdef MATRIX_IO_DELAY_MULSEL
                 writePin(MATRIX_MUL_SELECT, delay_sel[i]);
                 waitInputPinDelay();

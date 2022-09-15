@@ -84,7 +84,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
     HSV tempHSV = {.h = 0, .s = 255, .v = current_value};
     RGB tempRGB = hsv_to_rgb(tempHSV);
-    for (uint8_t i = 0; i < sizeof(left_side_leds) / sizeof(left_side_leds[0]); i++) {
+    for (uint8_t i = 0; i < ARRAY_SIZE(left_side_leds); i++) {
         rgb_matrix_set_color(left_side_leds[i], tempRGB.r, tempRGB.g, tempRGB.b);
         rgb_matrix_set_color(right_side_leds[i], tempRGB.r, tempRGB.g, tempRGB.b);
         }
@@ -95,7 +95,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
        case 2:  //layer one
          break;
        case 1:
-         for (uint8_t i = 0; i < sizeof(l2_functions) / sizeof(l2_functions[0]); i++) {
+         for (uint8_t i = 0; i < ARRAY_SIZE(l2_functions); i++) {
              RGB_MATRIX_INDICATOR_SET_COLOR(l2_functions[i], 255, 0, 0);
          }
          break;
