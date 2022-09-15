@@ -47,7 +47,9 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
             case MAGIC_TOGGLE_CONTROL_CAPSLOCK:
             case MAGIC_SWAP_ESCAPE_CAPSLOCK ... MAGIC_TOGGLE_ESCAPE_CAPSLOCK:
                 /* keymap config */
+#ifndef KEYMAP_CONFIG_RAM
                 keymap_config.raw = eeconfig_read_keymap();
+#endif
                 switch (keycode) {
                     case MAGIC_SWAP_CONTROL_CAPSLOCK:
                         keymap_config.swap_control_capslock = true;
@@ -184,7 +186,9 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                         break;
                 }
 
+#ifndef KEYMAP_CONFIG_RAM
                 eeconfig_update_keymap(keymap_config.raw);
+#endif
                 clear_keyboard(); // clear to prevent stuck keys
 
                 return false;
