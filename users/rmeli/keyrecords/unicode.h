@@ -15,7 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef RMELI_UNICODE
+#define RMELI_UNICODE
+
 #include QMK_KEYBOARD_H
 
 // Needs to be active on the OS side as well
@@ -83,3 +85,5 @@ const uint32_t PROGMEM unicode_map[] = {
 #define O_UML XP(oUML, OUML)
 #define U_GRV XP(uGRV, UGRV)
 #define U_UML XP(uUML, UUML)
+
+#endif // RMELI_UNICODE

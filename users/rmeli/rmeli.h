@@ -15,6 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef RMELI
+#define RMELI
+
 #include "global_config.h"
 
 #include "keyrecords/wrappers.h"
@@ -30,3 +33,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 #    include "keyrecords/tap_dances.h"
 #endif
+
+#endif // RMELI

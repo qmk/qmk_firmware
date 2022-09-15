@@ -17,7 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef RMELI_WRAPPERS
+#define RMELI_WRAPPERS
 
 #ifdef UNICODEMAP_ENABLE
 #    include "keyrecords/unicode.h"
@@ -42,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // + ------ +
 
 #define _________________QWERTY_L1_________________    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#ifdef HOME_ROW_MODS_ENABLE
+#ifdef HOME_ROW_MODS_ENABLED
 #define _________________QWERTY_L2_________________    HM_A,    HM_S,    HM_D,    HM_F,    KC_G
 #else
 #define _________________QWERTY_L2_________________    KC_A,    KC_S,    KC_D,    KC_F,    KC_G
@@ -50,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _________________QWERTY_L3_________________    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
 #define _________________QWERTY_R1_________________    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#ifdef HOME_ROW_MODS_ENABLE
+#ifdef HOME_ROW_MODS_ENABLED
 #define _________________QWERTY_R2_________________    KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN
 #else
 #define _________________QWERTY_R2_________________    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
@@ -97,3 +98,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___________________BLANK___________________    _______, _______, _______, _______, _______
 
 // clang-format on
+
+#endif // RMELI_WRAPPERS

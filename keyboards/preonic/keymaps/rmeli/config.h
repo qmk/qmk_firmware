@@ -14,10 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-// Define before global_config
-#define HOME_ROW_MODS_ENABLE
+#ifndef RMELI_KM_PREONIC
+#define RMELI_KM_PREONIC
 
 #include "global_config.h"
 
@@ -51,3 +49,5 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
+
+#endif // RMELI_KM_PREONIC
