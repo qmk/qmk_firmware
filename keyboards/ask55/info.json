@@ -25,7 +25,6 @@
     },
     "rgblight": {
         "animations": {
-            "all": false,
             "alternating": false,
             "breathing": false,
             "christmas": false,
