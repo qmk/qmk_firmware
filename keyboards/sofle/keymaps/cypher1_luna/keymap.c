@@ -82,6 +82,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_RCTL:
             update_pet_sneaking(record->event.pressed);
             break;
+        case L1_SPC:
         case KC_SPC:
             update_pet_jump(record->event.pressed);
             break;
