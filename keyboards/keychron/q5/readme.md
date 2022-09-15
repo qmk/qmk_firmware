@@ -8,25 +8,25 @@ A customizable 96% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-- **rev_0150** is ansi version of Q5, you can compile rev_0150 default keymap by using:
+- **rev_0150** is for Q5 ansi version, you can compile rev_0150 default keymap by using:
 
 ```
   make keychron/q5/rev_0150:default
 ```
 
-- **rev_0151** is ansi version and with encoder of Q5, you can compile rev_0151 default keymap by using:
+- **rev_0151** is for Q5 ansi version with knob(encoder), you can compile rev_0151 default keymap by using:
 
 ```
   make keychron/q5/rev_0151:default
 ```
 
-- **rev_0152** is iso version of Q5, you can compile default rev_0152 keymap by using:
+- **rev_0152** is for Q5 iso version, you can compile default rev_0152 keymap by using:
 
 ```
   make keychron/q5/rev_0152:default
 ```
 
-- **rev_0153** is iso version and with encoder of Q5, you can compile rev_0153 default keymap by using:
+- **rev_0153** is for Q5 iso version with knob(encoder), you can compile rev_0153 default keymap by using:
 
 ```
   make keychron/q5/rev_0153:default
