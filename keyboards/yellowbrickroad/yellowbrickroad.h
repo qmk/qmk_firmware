@@ -45,7 +45,6 @@
 }
 
 #ifdef RGB_MATRIX_ENABLE
-extern led_config_t g_led_config;
 // C indicator
 
 // Max number of C indicator LEDs

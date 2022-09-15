@@ -1,6 +1,6 @@
 # yellowbrickroad
 
-![yellowbrickroad](https://i.imgur.com/sy1wYZo.jpg)
+![yellowbrickroad](https://i.imgur.com/sy1wYZoh.jpg)
 
 "There’s no place like home.” I designed this keyboard since I wanted to go back to Kansas, LOL.
 
