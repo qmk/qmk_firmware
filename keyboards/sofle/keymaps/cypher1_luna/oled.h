@@ -18,6 +18,8 @@
 
 #ifdef OLED_ENABLE
 
+uint16_t data_in = 0;
+
 static void put_layer_name(uint16_t layer) {
     switch (layer) {
         case 0:
@@ -48,6 +50,12 @@ static void print_status_narrow(void) {
       oled_set_cursor(0, 1);
       put_layer_name(get_highest_layer(default_layer_state));
     }
+    oled_set_cursor(0, 2);
+    char    data_str[2];
+    oled_set_cursor(0, 14);
+    data_str[1] = '\0';
+    data_str[0] = '0' + data_in;
+    oled_write(data_str, false);
 
     oled_set_cursor(0, 3);
     led_t led_usb_state = host_keyboard_led_state();

@@ -66,6 +66,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+uint16_t data_in;
+uint16_t message_counter = 0;
+
+bool led_update_user(led_t led_state) {
+  // I can now send two bits of data at a time!
+  // caps + num 0 = 0
+  // caps + num 1 = 1
+  // no caps = ignore (i.e. it's a clock).
+  if (led_state.caps_lock) {
+    uint16_t signal = led_state.num_lock << 0;
+    // | led_state.compose << 1
+    // | led_state.kana << 2;
+    // only num and caps seem to work.
+    data_in = data_in << 1 | signal;
+    message_counter++;
+
+  }
+
+  // if (led_state.caps_lock) {
+    // tap_code(KC_UP);
+  // }
+  return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
             /* Smart Backspace Delete */
