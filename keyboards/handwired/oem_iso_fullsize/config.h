@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x9856  // "Gamdias"
-#define PRODUCT_ID      0x7070
-#define DEVICE_VER      0x0001
-#define MANUFACTURER   Gamdias
-#define PRODUCT         teclado_oscar
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 21

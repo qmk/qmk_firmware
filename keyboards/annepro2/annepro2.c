@@ -106,6 +106,7 @@ void keyboard_post_init_kb(void) {
 
     #ifdef RGB_MATRIX_ENABLE
     ap2_led_enable();
+    ap2_led_set_manual_control(1);
     #endif
 
     keyboard_post_init_user();
@@ -129,7 +130,7 @@ void matrix_scan_kb() {
     if(rgb_row_changed[current_rgb_row])
     {
         rgb_row_changed[current_rgb_row] = 0;
-        ap2_led_mask_set_row(current_rgb_row);
+        ap2_led_colors_set_row(current_rgb_row);
     }
     current_rgb_row = (current_rgb_row + 1) % NUM_ROW;
     #endif

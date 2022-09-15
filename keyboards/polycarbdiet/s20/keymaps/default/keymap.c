@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
         KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS,
-        RESET,   MO(2),   KC_TRNS, KC_TRNS
+        QK_BOOT,   MO(2),   KC_TRNS, KC_TRNS
     ),
     [2] = LAYOUT_ortho_5x4(
         RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,

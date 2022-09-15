@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Titan 65 (soldered)",
+    "manufacturer": "Phase Studio",
     "url": "",
     "maintainer": "drashna",
+    "usb": {
+        "vid": "0x5054",
+        "pid": "0xBB92",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

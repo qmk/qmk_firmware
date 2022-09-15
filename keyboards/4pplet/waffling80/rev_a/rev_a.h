@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     k40, k50, k41, k51, k42, k52, k43, k53, k44, k54, k45, k55, k46, k56, k47, k77, kb7, \
     k60, k70, k61, k71, k62, k72, k63, k73, k64, k74, k65, k75, k66, k76,  \
     k80, k90, k81, k91, k82, k92, k83, k93, k84, k94, k85, k95, k86, k96, k87, \
-    ka0, ka1, kb1, kb2, ka3, kb3, ka4, kb4, ka5, kb5, ka6, kb6, ka7, \
+    ka0, kb1, ka1, kb2, ka3, kb3, ka4, kb4, ka5, kb5, ka6, kb6, ka7, \
     kb0, ka2 \
 ) \
 { \

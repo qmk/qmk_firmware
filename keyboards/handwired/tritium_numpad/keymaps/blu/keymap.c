@@ -9,7 +9,7 @@ void keyboard_pre_init_user(void)
 layer_state_t layer_state_set_user(layer_state_t state)
 {
 	// Switch layer LED accordingly
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case 0:
         writePinHigh(B0);
         break;

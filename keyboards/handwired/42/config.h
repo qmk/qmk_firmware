@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    nglgzz
-#define PRODUCT         42
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -25,7 +18,6 @@
 */
 #define MATRIX_COL_PINS { F5, F6, F7, F0, F1, F4, B6, B5, D7, C7, D6, B7 }
 #define MATRIX_ROW_PINS { D2, D3, D0, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

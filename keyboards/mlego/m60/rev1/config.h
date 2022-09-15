@@ -17,10 +17,11 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
+#define LED_NUM_LOCK_PIN B12
+#define LED_SCROLL_LOCK_PIN B13
+#define LED_CAPS_LOCK_PIN C13
 
+#ifdef ENCODER_ENABLE
 #define MATRIX_ROW_PINS \
     { A6, A7, B0, B1, B10 }
 #define MATRIX_COL_PINS \
@@ -31,19 +32,12 @@
 #define ENCODERS_PAD_B \
     { B8 }
 
-#define LED_NUM_LOCK_PIN B12
-#define LED_SCROLL_LOCK_PIN B13
-#define LED_CAPS_LOCK_PIN C13
+#endif
+
+#ifdef RGBLIGHT_ENABLE
 
 #define RGB_DI_PIN B15
-
-#define UNUSED_PINS
 #define RGBLIGHT_LAYERS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_IO_DELAY 5
 
 #define RGBLED_NUM 20
 #define RGBLIGHT_EFFECT_BREATHING
@@ -56,3 +50,4 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
+#endif
