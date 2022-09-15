@@ -26,9 +26,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 
+#ifdef UNICODEMAP_ENABLE
 #define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
+#endif
 
+#ifdef AUTO_SHIFT_ENABLED
 #define AUTO_SHIFT_REPEAT
+#endif
+
+#define HOME_ROW_MODS_ENABLE
+#ifdef HOME_ROW_MODS_ENABLE
+#define IGNORE_MOD_TAP_INTERRUPT
+#endif
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_LIMIT_VAL 120
@@ -46,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #    undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-#    undef ENABLE_RGB_MATRIX_BREATHING
+#    define ENABLE_RGB_MATRIX_BREATHING
 #    undef ENABLE_RGB_MATRIX_BAND_SAT
 #    undef ENABLE_RGB_MATRIX_BAND_VAL
 #    undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
@@ -57,8 +66,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef ENABLE_RGB_MATRIX_RAINDROPS
 #    undef ENABLE_RGB_MATRIX_HUE_BREATHING
 #    undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-//#   undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 #    undef ENABLE_RGB_MATRIX_SPLASH

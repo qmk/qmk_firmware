@@ -48,25 +48,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		case MANUAL:
-			if (record->event.pressed) 
-			{
-				// Keypress
+			if (record->event.pressed) {
 				SEND_STRING("https://kb.ai03.me/redir/orbit");
-			} 
-			else 
-			{
-				// Key release
 			}
 			break;
 		case DBLZERO:
-			if (record->event.pressed) 
-			{
-				// Keypress
+			if (record->event.pressed) {
 				SEND_STRING("00");
-			} 
-			else 
-			{
-				// Key release
 			}
 			break;
   }

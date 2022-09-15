@@ -48,11 +48,17 @@
 #    define PLOOPY_DPI_DEFAULT 2
 #endif
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { };
-
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+
+void cycle_dpi(void) {
+  keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+  pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
+#ifdef CONSOLE_ENABLE
+  uprintf("DPI is now %d\n", dpi_array[keyboard_config.dpi_config]);
+#endif
+}
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
@@ -80,8 +86,8 @@ void keyboard_pre_init_kb(void) {
      * pathways to ground. If you're messing with this, know this: driving ANY
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
-#ifdef UNUSED_PINS
-    const pin_t unused_pins[] = UNUSED_PINS;
+#ifdef UNUSABLE_PINS
+    const pin_t unused_pins[] = UNUSABLE_PINS;
 
     for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
         setPinOutput(unused_pins[i]);

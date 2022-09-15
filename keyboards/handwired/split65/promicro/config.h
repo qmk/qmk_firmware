@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID     0x4A57 // JW
-#define PRODUCT_ID    0x0000 // first keeb
-#define DEVICE_VER    0x0000 // first revision
-#define MANUFACTURER  percyjw
-#define PRODUCT       split65
-
 // Matrix Assignments
 #define MATRIX_ROWS 10 //Rows are doubled-up
 #define MATRIX_COLS 8
@@ -47,7 +40,5 @@
 // Feature diable options
 //#define NO_DEBUG
 //#define NO_PRINT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define OLED_DISPLAY_128X64

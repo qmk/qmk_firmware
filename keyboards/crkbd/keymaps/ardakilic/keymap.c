@@ -229,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ADJUST LAYER
   [_TPL] = LAYOUT_wrapper( \
   //,-----------------------------------------------------.      ,----------------------------------------------------.
-    |  RESET | EEPRST |        |        |        |        |      |        |        |        |        |        |       |
+    |  QK_BOOT | EEPRST |        |        |        |        |      |        |        |        |        |        |       |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
     | RGBTog |  HUE▲  |  SAT▲  | BRGHT▲ |        |        |      |        |        |        |        |        |       |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -241,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 */
   [_ADJUST] = LAYOUT_split_3x6_3(
-    RESET, EEP_RST, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+    QK_BOOT, EEP_RST, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                    _______, _______, _______, _______, _______, _______,
     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,                    _______, _______, _______, _______, _______, _______,
                                           KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
@@ -249,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // #include <stdio.h>
 
 // bongo cat

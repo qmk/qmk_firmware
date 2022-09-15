@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Meson",
+    "manufacturer": "Luciano M",
     "maintainer": "qmk",
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x0000",
+      "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT": {
         "layout": [

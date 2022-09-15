@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544B // "TK"
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    The Key Company
-#define PRODUCT         TKC1800
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 19
@@ -37,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Column pin configuration
  */
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, C1, C0, F5, F6, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -111,5 +103,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

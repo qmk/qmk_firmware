@@ -3,20 +3,28 @@
 {
     # Format:
     # <config.h key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
-    # value_type: one of "array", "array.int", "bool", "int", "hex", "list", "mapping"
+    # value_type: one of "array", "array.int", "bool", "int", "hex", "list", "mapping", "str", "raw"
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from config.h
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
+    # invalid: Default `false`. Set to `true` to generate errors when a value exists
+    # replace_with: use with a key marked deprecated or invalid to designate a replacement
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
+    "BACKLIGHT_ON_STATE": {"info_key": "backlight.on_state", "value_type": "int"},
     "BACKLIGHT_PIN": {"info_key": "backlight.pin"},
+    "BOTH_SHIFTS_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.both_shifts_turns_on", "value_type": "bool"},
+    "CAPS_WORD_IDLE_TIMEOUT": {"info_key": "caps_word.idle_timeout", "value_type": "int"},
     "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
     "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
     "DEVICE_VER": {"info_key": "usb.device_ver", "value_type": "hex"},
-    "DESCRIPTION": {"info_key": "keyboard_folder", "to_json": false},
+    # TODO: Replace ^^^ with vvv
+    #"DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version"},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
+    "DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.double_tap_shift_turns_on", "value_type": "bool"},
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
@@ -29,6 +37,9 @@
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
     "LED_SCROLL_LOCK_PIN": {"info_key": "indicators.scroll_lock"},
+    "LED_COMPOSE_PIN": {"info_key": "indicators.compose"},
+    "LED_KANA_PIN": {"info_key": "indicators.kana"},
+    "LED_PIN_ON_STATE": {"info_key": "indicators.on_state", "value_type": "int"},
     "MANUFACTURER": {"info_key": "manufacturer"},
     "MATRIX_HAS_GHOST": {"info_key": "matrix_pins.ghost", "value_type": "bool"},
     "MATRIX_IO_DELAY": {"info_key": "matrix_pins.io_delay", "value_type": "int"},
@@ -46,7 +57,6 @@
     "RGB_DI_PIN": {"info_key": "rgblight.pin"},
     "RGBLED_NUM": {"info_key": "rgblight.led_count", "value_type": "int"},
     "RGBLED_SPLIT": {"info_key": "rgblight.split_count", "value_type": "array.int"},
-    "RGBLIGHT_ANIMATIONS": {"info_key": "rgblight.animations.all", "value_type": "bool"},
     "RGBLIGHT_EFFECT_ALTERNATING": {"info_key": "rgblight.animations.alternating", "value_type": "bool"},
     "RGBLIGHT_EFFECT_BREATHING": {"info_key": "rgblight.animations.breathing", "value_type": "bool"},
     "RGBLIGHT_EFFECT_CHRISTMAS": {"info_key": "rgblight.animations.christmas", "value_type": "bool"},
@@ -73,9 +83,11 @@
     "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex"},
     "QMK_ESC_OUTPUT": {"info_key": "qmk_lufa_bootloader.esc_output"},
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
-    "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int"},
     "QMK_LED": {"info_key": "qmk_lufa_bootloader.led"},
     "QMK_SPEAKER": {"info_key": "qmk_lufa_bootloader.speaker"},
+    "SECURE_UNLOCK_SEQUENCE": {"info_key": "secure.unlock_sequence", "value_type": "array.array.int", "to_json": false},
+    "SECURE_UNLOCK_TIMEOUT": {"info_key": "secure.unlock_timeout", "value_type": "int"},
+    "SECURE_IDLE_TIMEOUT": {"info_key": "secure.idle_timeout", "value_type": "int"},
     "SENDSTRING_BELL": {"info_key": "audio.macro_beep", "value_type": "bool"},
     "SPLIT_MODS_ENABLE": {"info_key": "split.transport.sync_modifiers", "value_type": "bool"},
     "SPLIT_TRANSPORT_MIRROR": {"info_key": "split.transport.sync_matrix_state", "value_type": "bool"},
@@ -94,4 +106,14 @@
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
+
+    # Items we want flagged in lint
+    "NO_ACTION_MACRO": {"info_key": "_invalid.no_action_macro", "invalid": true},
+    "NO_ACTION_FUNCTION": {"info_key": "_invalid.no_action_function", "invalid": true},
+    "DESCRIPTION": {"info_key": "_invalid.usb_description", "invalid": true},
+    "DEBOUNCING_DELAY": {"info_key": "_invalid.debouncing_delay", "invalid": true, "replace_with": "DEBOUNCE"},
+    "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},
+    "UNUSED_PINS": {"info_key": "_invalid.unused_pins", "deprecated": true},
+    "RGBLIGHT_ANIMATIONS": {"info_key": "rgblight.animations.all", "value_type": "bool", "deprecated": true},
+    "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true}
 }

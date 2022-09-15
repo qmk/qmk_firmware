@@ -24,7 +24,7 @@ void matrix_scan_sub_kb(void) {
     }
 }
 
-void bootmagic_lite(void) {
+__attribute__((weak)) void bootmagic_lite(void) {
     // We need multiple scans because debouncing can't be turned off.
     matrix_scan();
 #if defined(DEBOUNCE) && DEBOUNCE > 0
@@ -58,3 +58,9 @@ bool usb_vbus_state(void) {
     return readPin(USB_VBUS_PIN);
 }
 #endif
+
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    for (int32_t i = 0; i < 40; i++) {
+        __asm__ volatile("nop" ::: "memory");
+    }
+}

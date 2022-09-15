@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0204
-#define DEVICE_VER 0x0001
-#define MANUFACTURER yanghu
-#define PRODUCT unicorne
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -41,6 +34,12 @@
     { B10, B2 }
 #define ENCODERS_PAD_B \
     { B12, B0 }
+
+/* I2C - required for custom i2c_init */
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 4
+#define I2C1_SDA_PAL_MODE 4
 
 /* Audio */
 #define AUDIO_PIN A8

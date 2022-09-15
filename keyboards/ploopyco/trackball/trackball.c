@@ -112,14 +112,19 @@ void process_wheel(void) {
     int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    encoder_update_kb(0, dir == 1);
+    encoder_update_kb(0, dir > 0);
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     process_wheel();
 
     if (is_drag_scroll) {
+#ifdef PLOOPY_DRAGSCROLL_H_INVERT
+        // Invert horizontal scroll direction
+        mouse_report.h = -mouse_report.x;
+#else
         mouse_report.h = mouse_report.x;
+#endif
 #ifdef PLOOPY_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
         mouse_report.v = -mouse_report.y;
@@ -199,8 +204,8 @@ void keyboard_pre_init_kb(void) {
      * pathways to ground. If you're messing with this, know this: driving ANY
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
-#ifdef UNUSED_PINS
-    const pin_t unused_pins[] = UNUSED_PINS;
+#ifdef UNUSABLE_PINS
+    const pin_t unused_pins[] = UNUSABLE_PINS;
 
     for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
         setPinOutput(unused_pins[i]);
@@ -218,7 +223,7 @@ void keyboard_pre_init_kb(void) {
 }
 
 void pointing_device_init_kb(void) {
-    pmw3360_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     // initialize the scroll wheel's optical encoder
     opt_encoder_init();
 }

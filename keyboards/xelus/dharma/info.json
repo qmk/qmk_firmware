@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Xelus Dharma",
+    "keyboard_name": "Dharma",
+    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x5845",
+        "pid": "0xDAAA",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

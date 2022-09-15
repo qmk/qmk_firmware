@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0x6C01
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Mechlovin Studio and Hex Keyboard
-#define PRODUCT      Hex6C
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 21
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { A10, B13, B12, B11, C14, C15 }
 #define MATRIX_COL_PINS { A13, A14, A1, A0, C13, B9, B4, B7, B8, B5, B6, A9, A5, A6, A7, B1, B2, B10, B3, B14, B15 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

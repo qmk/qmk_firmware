@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544B //TK
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0006
-#define MANUFACTURER    The Key Company
-#define PRODUCT         Candybar
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 17
@@ -77,8 +70,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // #define WS2812_LED_N 2
 // #define RGBLED_NUM WS2812_LED_N

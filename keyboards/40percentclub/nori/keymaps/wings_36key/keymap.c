@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |PntSrn|      |      | PgUp |BrtUp |      |      | Mute |VolDw |VolUp |Ply/Ps|RESET |
+ * |PntSrn|      |      | PgUp |BrtUp |      |      | Mute |VolDw |VolUp |Ply/Ps|QK_BOOT |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      | PgDw |BrtDw |      |      | Left | Down |  Up  |Right |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12(
-  KC_PSCR, XXXXXXX, XXXXXXX, KC_PGUP, KC_BRIU, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, RESET,
+  KC_PSCR, XXXXXXX, XXXXXXX, KC_PGUP, KC_BRIU, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, QK_BOOT,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_BRID, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

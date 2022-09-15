@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCAFE
-#define PRODUCT_ID      0x0FAD
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nightingale Studios/Cheshire Designs
-#define PRODUCT         Curiosity
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
 #define MATRIX_ROW_PINS { B13, B14, A4, A2, A1 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A5, B9, B8, B7, B6, B5, B4, B3, A15 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 
