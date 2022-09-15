@@ -1,6 +1,6 @@
 # [RART 80 Hotswap]
 
-![RART 80](https://i.imgur.com/QCeTuBe.png)
+![RART 80](https://i.imgur.com/QCeTuBeh.png)
 
 PCB layout TKL, based on IMKG (Indonesia Mechanical Keyboard Group)
 
