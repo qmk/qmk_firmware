@@ -8,25 +8,25 @@ A customizable 100% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-- **rev_0160** is ansi version of Q6, you can compile rev_0160 default keymap by using:
+- **rev_0160** is for Q6 ansi version, you can compile rev_0160 default keymap by using:
 
 ```
   make keychron/q6/rev_0160:default
 ```
 
-- **rev_0161** is ansi version and with encoder of Q6, you can compile rev_0161 default keymap by using:
+- **rev_0161** is for Q6 ansi version with knob(encoder), you can compile rev_0161 default keymap by using:
 
 ```
   make keychron/q6/rev_0161:default
 ```
 
-- **rev_0162** is iso version of Q6, you can compile default rev_0162 keymap by using:
+- **rev_0162** is for Q6 iso version, you can compile default rev_0162 keymap by using:
 
 ```
   make keychron/q6/rev_0162:default
 ```
 
-- **rev_0163** is iso version and with encoder of Q6, you can compile rev_0163 default keymap by using:
+- **rev_0163** is for Q6 iso version with knob(encoder), you can compile rev_0163 default keymap by using:
 
 ```
   make keychron/q6/rev_0163:default
