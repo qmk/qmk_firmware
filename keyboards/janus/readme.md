@@ -1,6 +1,6 @@
 # Janus
 
-![Janus](https://i.imgur.com/7Lzhafe.jpg)
+![Janus](https://i.imgur.com/7Lzhafeh.jpg)
 
 A 34-key split ortholinear keyboard, powered by two Seeed XIAO RP2040.
 

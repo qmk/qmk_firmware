@@ -1,6 +1,6 @@
 # Janus Default Keymap
 
-![Janus default keymap image](https://i.imgur.com/7FevUIZ.png)
+![Janus default keymap image](https://i.imgur.com/7FevUIZh.png)
 
 The default Janus keymap is simple and organized. The only QMK special features used are layers and one shot keys for modifiers.
 
