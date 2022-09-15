@@ -6,10 +6,6 @@
     "processor": "RP2040",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
-    "matrix_size": {
-        "cols": 5,
-        "rows": 8
-    },
     "matrix_pins": {
         "cols": ["GP6", "GP7", "GP2", "GP4", "GP3"],
         "rows": ["GP26", "GP27", "GP28", "GP29"]
