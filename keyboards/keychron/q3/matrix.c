@@ -105,12 +105,6 @@ static void unselect_col(uint8_t col) {
     }
 }
 
-// static void unselect_cols(void) {
-//     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-//         unselect_col(x);
-//     }
-// }
-
 static void unselect_cols(void) {
     // unselect column pins
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
