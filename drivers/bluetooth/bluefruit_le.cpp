@@ -617,12 +617,12 @@ void bluefruit_le_send_keyboard(report_keyboard_t *report) {
 
     item.queue_type   = QTKeyReport;
     item.key.modifier = report->mods;
-    item.key.keys[0] = report->keys[0];
-    item.key.keys[1] = report->keys[1];
-    item.key.keys[2] = report->keys[2];
-    item.key.keys[3] = report->keys[3];
-    item.key.keys[4] = report->keys[4];
-    item.key.keys[5] = report->keys[5];
+    item.key.keys[0]  = report->keys[0];
+    item.key.keys[1]  = report->keys[1];
+    item.key.keys[2]  = report->keys[2];
+    item.key.keys[3]  = report->keys[3];
+    item.key.keys[4]  = report->keys[4];
+    item.key.keys[5]  = report->keys[5];
 
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
