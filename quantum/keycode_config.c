@@ -23,7 +23,7 @@ extern keymap_config_t keymap_config;
  * This function is used to check a specific keycode against the bootmagic config,
  * and will return the corrected keycode, when appropriate.
  */
-uint16_t keycode_config(uint16_t keycode) {
+__attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
     switch (keycode) {
         case QK_BASIC ... QK_MODS_MAX: /* 0x0000 ... 0x1fff*/
             /* basic keycodes and keycodes with extra modifiers */
@@ -138,7 +138,7 @@ uint16_t keycode_config(uint16_t keycode) {
  *  and will remove or replace mods, based on that.
  */
 
-uint8_t mod_config(uint8_t mod) {
+__attribute__((weak)) uint8_t mod_config(uint8_t mod) {
     if (keymap_config.swap_lalt_lgui) {
         if ((mod & MOD_RGUI) == MOD_LGUI) {
             mod &= ~MOD_LGUI;

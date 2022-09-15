@@ -37,7 +37,7 @@ float cg_swap_song[][2] = CG_SWAP_SONG;
 /**
  * MAGIC actions (BOOTMAGIC without the boot)
  */
-bool process_magic(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) bool process_magic(uint16_t keycode, keyrecord_t *record) {
     // skip anything that isn't a keyup
     if (record->event.pressed) {
         switch (keycode) {
