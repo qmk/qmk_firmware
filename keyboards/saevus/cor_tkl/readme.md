@@ -2,8 +2,6 @@
 
 ![Cor TKL](https://i.imgur.com/RGctsaVl.png)
 
-Nayeon is a screwless TKL keyboard with an extra key, inspired by a K-pop artist named Im-Nayeon.
-
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: RP2040
 
