@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Double tap the reset button on the top of the microcontroller
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the top left key on the left half, or top right key on the right half, and then plug in the USB cable on that keyboard half.
+* **Physical reset button**: Double tap the reset button on the XIAO RP2040.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.
