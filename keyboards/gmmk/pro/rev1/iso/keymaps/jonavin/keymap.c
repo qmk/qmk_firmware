@@ -102,7 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 break;
             }
         }
-        return true;
+        //return true; //set to return false to counteract enabled encoder in pro.c
+        return false;
     }
 #endif // ENCODER_ENABLE && !ENCODER_DEFAULTACTIONS_ENABLE
 
