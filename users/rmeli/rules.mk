@@ -1,10 +1,11 @@
 # https://github.com/qmk/qmk_firmware/blob/develop/docs/squeezing_avr.md
 CONSOLE_ENABLE = no
-COMMAND_ENABLE = no # Needed for Space Cadet Shift
+COMMAND_ENABLE = no # Turned of for Space Cadet Shift and Caps Word
 MOUSEKEY_ENABLE = no
 SPACE_CADET_ENABLE = no # Implemented with tap dance
 GRAVE_ESC_ENABLE = no
 MUSIC_ENABLE = no
+CAPS_WORD_ENABLE = yes
 
 # VIA only support 4 layers by default
 # Use "#define DYNAMIC_KEYMAP_LAYER_COUNT" in config.h to change the limit

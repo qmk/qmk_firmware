@@ -21,30 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+// Define before global_config
+#define HOME_ROW_MODS_ENABLE
+
+#include "global_config.h"
+
 #define MASTER_LEFT  // Left side is the master
 #define SPLIT_LED_STATE_ENABLE
-
-#define TAPPING_TERM 200
-
-#ifdef UNICODEMAP_ENABLE
-#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
-#endif
-
-#ifdef AUTO_SHIFT_ENABLED
-#define AUTO_SHIFT_REPEAT
-#endif
-
-#define HOME_ROW_MODS_ENABLE
-#ifdef HOME_ROW_MODS_ENABLE
-#define IGNORE_MOD_TAP_INTERRUPT
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_LIMIT_VAL 120
-#    define RGBLIGHT_HUE_STEP 10
-#    define RGBLIGHT_SAT_STEP 17
-#    define RGBLIGHT_VAL_STEP 17
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB matrix options

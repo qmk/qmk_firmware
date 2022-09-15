@@ -16,20 +16,10 @@
 
 #pragma once
 
-#define TAPPING_TERM 200
-
-#ifdef UNICODEMAP_ENABLE
-#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
-#endif
-
-#ifdef AUTO_SHIFT_ENABLED
-#define AUTO_SHIFT_REPEAT
-#endif
-
+// Define before global_config
 #define HOME_ROW_MODS_ENABLE
-#ifdef HOME_ROW_MODS_ENABLE
-#define IGNORE_MOD_TAP_INTERRUPT
-#endif
+
+#include "global_config.h"
 
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(PREONIC_SOUND)

@@ -15,18 +15,33 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "global_config.h"
+#ifndef RMELI_GLOBAL_CONFIG
+#define RMELI_GLOBAL_CONFIG
 
-#include "keyrecords/wrappers.h"
+#define TAPPING_TERM 200
 
 #ifdef UNICODEMAP_ENABLE
-#    include "keyrecords/unicode.h"
+#   define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
 #endif
 
-#ifdef OLED_ENABLE
-#    include "oled/oled.h"
+#ifdef AUTO_SHIFT_ENABLED
+#   define AUTO_SHIFT_REPEAT
 #endif
 
-#ifdef TAP_DANCE_ENABLE
-#    include "keyrecords/tap_dances.h"
+#ifdef HOME_ROW_MODS_ENABLE
+#   define IGNORE_MOD_TAP_INTERRUPT
 #endif
+
+#ifdef CAPS_WORD_ENABLE
+#   define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+//#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+#    define RGBLIGHT_LIMIT_VAL 120
+#    define RGBLIGHT_HUE_STEP 10
+#    define RGBLIGHT_SAT_STEP 17
+#    define RGBLIGHT_VAL_STEP 17
+#endif
+
+#endif // RMELI_GLOBAL_CONFIG
