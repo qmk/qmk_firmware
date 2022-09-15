@@ -117,8 +117,11 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t   touchData = cirque_pinnacle_read_data();
     mouse_xy_report_t report_x = 0, report_y = 0;
     static uint16_t   x = 0, y = 0;
+#        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
+    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+#        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
-    cursor_glide_t    glide_report = {0};
+    cursor_glide_t glide_report = {0};
 
     if (cursor_glide_enable) {
         glide_report = cursor_glide_check(&glide);
