@@ -9,12 +9,6 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import is_keyboard, normpath
 from qmk.commands import dump_lines
 
-usb_properties = {
-    'vid': 'VENDOR_ID',
-    'pid': 'PRODUCT_ID',
-    'device_ver': 'DEVICE_VER',
-}
-
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
