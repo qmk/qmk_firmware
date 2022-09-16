@@ -32,31 +32,6 @@ enum custom_keycodes {
 	KC_SYSTEM,
 };
 
-/* Tap Dance declarations
-enum {
-    MEDIA_SCROLL,
-    PG_UP,
-    PG_DN,
-    DEL_INS,
-    ESC_PIPE,
-};*/
-
-/* Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [PG_DN] = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_PGDN),
-    [PG_UP] = ACTION_TAP_DANCE_DOUBLE(KC_UP, KC_PGUP),
-    [DEL_INS] = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_INS),
-};
-
-#define CK_LCTRL MT(MOD_LCTL, KC_LEFT)
-#define CK_LALT MT(MOD_LALT, KC_RGUI)
-#define CK_LSPC MT(MOD_LSFT, KC_SPC)
-#define CK_DELINS TD(DEL_INS)
-#define CK_ENT MT(MOD_RSFT, KC_ENT)
-#define CK_RALT MT(MOD_RALT, KC_APP)
-#define CK_RCTRL MT(MOD_RCTL, KC_RIGHT)
-*/
-
 /* Legend											    _____        _____
  * .--------.-------.-------.-------.-------.-------.  /     \      /     \  .-------.-------.-------.-------.-------.--------.
  * |  Esc   |   1   |   2   |   3   |   4   |   5   | ( Media )    ( Media ) |   6   |   7   |   8   |   9   |   0   |   -    |
@@ -67,7 +42,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  * |--------+-------+-------+-------+-------+-------+----------.  .----------+-------+-------+-------+-------+-------+--------|
  * |  Ctrl  |   Z   |   X   |   C   |   V   |   B   |   RGB    |  |   RGB    |   N   |   M   |   ,   |   .   |   /   |  Ctrl  |
  * '--------'-------'-------+-------+-------+-------+-.--------'  '--------.-+-------+-------+-------+-------'-------'--------'
- *                          |  Win  | Down  |  Alt  |/ Space  /    \  Enter \| AltGr |  Up   | Bksp  |
+ *                          |  Win  | Lower |  Alt  |/ Space  /    \  Enter \| AltGr | Raise | Bksp  |
  *                          '-------'-------'-------'--------'      '--------'-------'-------'-------'
  */
 
@@ -76,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC, 	KC_1, 	KC_2,   KC_3,	KC_4,    KC_5,	KC_MPLY,     	KC_MPLY, 	KC_6, 	KC_7,	KC_8,    KC_9,   KC_0,    KC_MINS,
     KC_TAB, 	KC_Q, 	KC_W,   KC_E,   KC_R,    KC_T,                             	KC_Y, 	KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,
 	KC_CAPS, 	KC_A, 	KC_S,   KC_D,   KC_F,    KC_G,                             	KC_H, 	KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-	KC_LCTRL, 	KC_Z, 	KC_X,   KC_C,   KC_V,    KC_B, 	RGB_TOG,     	RGB_TOG,  KC_N,	KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RCTRL,
-							KC_LGUI, KC_DOWN,  KC_LALT,    KC_SPC,      KC_ENT,	KC_RALT, KC_UP,	KC_BSPC
+	KC_LCTRL, 	KC_Z, 	KC_X,   KC_C,   KC_V,    KC_B, 	KC_DOWN,     	KC_UP,  KC_N,	KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RCTRL,
+							KC_LGUI, TO(_FN),  KC_LALT,    KC_SPC,      KC_ENT,	KC_RALT, TO(_NUM),	KC_BSPC
 	),
 
 [_NUM] = LAYOUT(
@@ -93,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______,
-							 _______, _______, _______, _______,        _______, _______, _______, RGB_TOG
+							 _______, _______, _______, _______,        _______, _______, _______, _______
 ),
 
 [_SYS] = LAYOUT(
@@ -120,21 +95,13 @@ static void render_logo(void) {
 
 
 static void print_status_narrow(void) {
-    // Print current mode
+    // Print header
     oled_write_P(PSTR("\n"), false);
   oled_write_P(PSTR(""), false);
     oled_write_P(PSTR("Lotus -58-"), false);
   oled_write_P(PSTR("\n"), false);
 
- /*   switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Qwrty"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undef"), false);
-    }
-    oled_write_P(PSTR("\n"), false);
-*/
+
     // Print current layer
     oled_write_P(PSTR("Layer"), false);
     switch (get_highest_layer(layer_state)) {
@@ -153,14 +120,13 @@ static void print_status_narrow(void) {
         default:
             oled_write_P(PSTR("Undef"), false);
     }
+
+/* not working!
+
     oled_write_P(PSTR("\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("Caps- lock"), led_usb_state.caps_lock);
-   
-	
-	
-/* not working!
-	
+
 	autoshift = get_autoshift_state();
 	
 		oled_write_P(PSTR("\n"), false);
@@ -208,26 +174,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code(KC_VOLD);
         } else {
-            tap_code(KC_PGUP);
+            tap_code(KC_VOLU);
         }
-    } /* else if (index == 1) {
+    } else if (index == 1) {
         if (clockwise) {
-            if (get_mods() & MOD_MASK_CTRL) {
                 tap_code(KC_MPRV);
-            } else {
-                tap_code(KC_VOLD);
-            }
-
-        } else {
-            if (get_mods() & MOD_MASK_CTRL) {
-                tap_code(KC_MNXT);
             } else {
                 tap_code(KC_VOLU);
             }
         }
-    }*/
+    }
     return true;
 }
 
