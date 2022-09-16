@@ -103,7 +103,8 @@
         }
     },
     "rgblight": {
-        "led_count": 70
+        "led_count": 70,
+        "pin": "GP26"
     },
     "rgb_matrix": {
         "driver": "WS2812",
