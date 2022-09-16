@@ -20,5 +20,3 @@
 #include "quantum.h"
 
 #include "rev1.h"
-
-#define LAYOUT_perigee_grid LAYOUT_ortho_5x12
