@@ -24,12 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global_config.h"
 
-#define MASTER_LEFT  // Left side is the master
+#define MASTER_LEFT // Left side is the master
 #define SPLIT_LED_STATE_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB matrix options
-#    define RGB_MATRIX_KEYPRESSES  // enable keypress effects
+#    define RGB_MATRIX_KEYPRESSES // enable keypress effects
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 // Disable unwanted R2G effects (from r2g/config.h)
@@ -67,6 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 #define NO_MUSIC_MODE
-#define LAYER_STATE_8BIT  // Limit to 8 layers
+#define LAYER_STATE_8BIT // Limit to 8 layers
 
 #endif // RMELI_KM_CRKBD

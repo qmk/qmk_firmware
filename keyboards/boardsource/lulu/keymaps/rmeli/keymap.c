@@ -20,19 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rmeli.h"
 
-enum layers {
-    _QWERTY,
-    _COLEMAK_DH,
-    _RAISE,
-    _LOWER,
-    _ADJUST
-};
+enum layers { _QWERTY, _COLEMAK_DH, _RAISE, _LOWER, _ADJUST };
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 
-#define QWY_DF   DF(_QWERTY)
-#define CMK_DF  DF(_COLEMAK_DH)
+#define QWY_DF DF(_QWERTY)
+#define CMK_DF DF(_COLEMAK_DH)
 
 // clang-format off
 
@@ -157,5 +151,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
