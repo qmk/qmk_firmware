@@ -462,6 +462,64 @@ void oled_write_ln(const char *data, bool invert) {
     oled_advance_page(true);
 }
 
+// Main handler that writes bitmap data to the display buffer by indexs
+void oled_write_index(const uint16_t data, bool invert) {
+    // Advance to the next line if newline
+    if ((char)data == '\n') {
+        // Old source wrote ' ' until end of line...
+        oled_advance_page(true);
+        return;
+    }
+
+    if ((char)data == '\r') {
+        oled_advance_page(false);
+        return;
+    }
+
+    // copy the current render buffer to check for dirty after
+    static uint8_t oled_temp_buffer[OLED_FONT_WIDTH];
+    memcpy(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH);
+
+    _Static_assert(sizeof(font) >= ((OLED_FONT_END + 1 - OLED_FONT_START) * OLED_FONT_WIDTH), "OLED_FONT_END references outside array");
+
+    // set the reder buffer data
+    if (data < OLED_FONT_START || data > OLED_FONT_END) {
+        memset(oled_cursor, 0x00, OLED_FONT_WIDTH);
+    } else {
+        const uint8_t *glyph = &font[(data - OLED_FONT_START) * OLED_FONT_WIDTH];
+        memcpy_P(oled_cursor, glyph, OLED_FONT_WIDTH);
+    }
+
+    // Invert if needed
+    if (invert) {
+        InvertCharacter(oled_cursor);
+    }
+
+    // Dirty check
+    if (memcmp(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH)) {
+        uint16_t index = oled_cursor - &oled_buffer[0];
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << (index / OLED_BLOCK_SIZE));
+        // Edgecase check if the written data spans the 2 chunks
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << ((index + OLED_FONT_WIDTH - 1) / OLED_BLOCK_SIZE));
+    }
+
+    // Finally move to the next char
+    oled_advance_char();
+}
+
+void oled_index(const uint16_t *data, const uint16_t size, bool invert) {
+    const uint16_t *end = data + size;
+    while (data < end) {
+        oled_write_index(*data, invert);
+        data++;
+    }
+}
+
+void oled_write_index_ln(const uint16_t *data, const uint16_t size, bool invert) {
+    oled_index(data, size, invert);
+    oled_advance_page(true);
+}
+
 void oled_pan(bool left) {
     uint16_t i = 0;
     for (uint16_t y = 0; y < OLED_DISPLAY_HEIGHT / 8; y++) {

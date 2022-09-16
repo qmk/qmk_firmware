@@ -226,6 +226,18 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
+
+void oled_write_index(const uint16_t data, bool invert);
+
+// Writes a string to the buffer at current cursor position
+// Advances the cursor while writing, inverts the pixels if true
+void oled_index(const uint16_t *data, uint16_t size, bool invert);
+
+// Writes a string to the buffer at current cursor position
+// Advances the cursor while writing, inverts the pixels if true
+// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
+void oled_write_index_ln(const uint16_t *data, const uint16_t size, bool invert);
+
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
 // Useful for moving the screen in preparation for new drawing
 void oled_pan(bool left);
