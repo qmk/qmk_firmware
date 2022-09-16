@@ -1,4 +1,4 @@
-# Moment
+# Moment Hotswap
 
 *A 60% keyboard from jjw_kb*
 
