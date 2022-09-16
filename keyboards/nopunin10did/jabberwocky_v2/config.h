@@ -40,8 +40,6 @@
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD        6
 
-#define STM32_HSECLK        8000000
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION     COL2ROW
 
