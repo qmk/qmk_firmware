@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Kintsugi",
+    "manufacturer": "adpenrose",
     "url": "https://github.com/ADPenrose/kintsugi_keeb",
     "maintainer": "adpenrose",
+    "usb": {
+        "vid": "0x4450",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "TIDBIT 19",
+    "keyboard_name": "TIDBIT",
+    "manufacturer": "nullbits",
     "url": "https://nullbits.co/tidbit/",
+    "usb": {
+        "vid": "0x6E61",
+        "pid": "0x6064",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

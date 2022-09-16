@@ -36,5 +36,5 @@
 
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
-#define UNUSED_PINS \
+#define UNUSABLE_PINS \
     { B5, C7, D0, D1, D3, D5, D6, F1, F3, F5, F6, F7 }

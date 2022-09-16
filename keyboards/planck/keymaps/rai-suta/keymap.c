@@ -3,7 +3,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#include "sendstring_jis.h"
+#include "sendstring_japanese.h"
 
 // JIS keyboard
 #define JK_CIRC KC_EQL      // ^
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GESC, KC_EXLM,  JK_DQT, KC_HASH,  KC_DLR, KC_PERC, JK_AMPR,  JK_SQT, JK_LPRN, JK_RPRN,   JK_S0,  KC_DEL,
     _______, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC,   JK_EQ,  JK_TLD,  JK_GRV, JK_LCBR, JK_PIPE,
     _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_Y), XXXXXXX,  KC_ENT, KC_LABK, KC_RABK, JK_RCBR, JK_UNDS,
-      RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
 
   [KL_RAISE] = LAYOUT_planck_grid(

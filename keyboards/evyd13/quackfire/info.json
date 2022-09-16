@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Quackfire",
+    "manufacturer": "Evyd13",
     "url": "https://github.com/evyd13/quackfire-controller",
     "maintainer": "evyd13",
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x87C9",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

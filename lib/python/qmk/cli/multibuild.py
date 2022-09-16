@@ -69,6 +69,7 @@ def multibuild(cli):
 all: {keyboard_safe}_binary
 {keyboard_safe}_binary:
 	@rm -f "{QMK_FIRMWARE}/.build/failed.log.{keyboard_safe}" || true
+	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{cli.args.keymap}'..." >>"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}"
 	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{cli.args.keymap}" REQUIRE_PLATFORM_KEY= COLOR=true SILENT=false {' '.join(cli.args.env)} \\
 		>>"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}" 2>&1 \\
 		|| cp "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}" "{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}"

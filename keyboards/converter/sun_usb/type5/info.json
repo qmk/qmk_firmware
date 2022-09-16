@@ -1,7 +1,4 @@
 {
-  "keyboard_name": "Sun Type 5",
-  "url": "",
-  "maintainer": "qmk",
   "layouts": {
     "LAYOUT_jp_unix": {
       "layout": [

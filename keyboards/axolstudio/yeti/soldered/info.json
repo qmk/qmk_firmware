@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "yeti soldered",
+  "keyboard_name": "Yeti Soldered",
+  "manufacturer": "Axolstudio",
   "url": "https://axolstudio.ca/yeti",
   "maintainer": "kb-elmo",
+  "usb": {
+    "vid": "0x525C",
+    "pid": "0x9F9F",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_alice": {
       "layout": [

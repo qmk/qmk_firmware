@@ -18,11 +18,8 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey Pro Micro
-
 #define MATRIX_COL_PINS { F4 }
 #define MATRIX_ROW_PINS { F5 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN B6
 
@@ -30,3 +27,6 @@
 #define RGB_CI_PIN B1
 
 #define ADC_PIN F6
+
+#define QMK_WAITING_TEST_BUSY_PIN F6
+#define QMK_WAITING_TEST_YIELD_PIN F7
