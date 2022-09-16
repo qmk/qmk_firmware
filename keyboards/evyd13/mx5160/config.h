@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x5160
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         MX-5160
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS {C6,C7,B5,B6,D7,B4,D4,D6,D5,D3}
 #define MATRIX_COL_PINS {D0,D1,D2,F7,F6,F5,F4,F1,F0,E6}
-#define UNUSED_PINS {B7,B0}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -144,8 +136,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

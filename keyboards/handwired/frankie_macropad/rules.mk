@@ -18,3 +18,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 LTO_ENABLE = yes
+SPACE_CADET_ENABLE = no
+MAGIC_ENABLE = no
+GRAVE_ESC_ENABLE = no

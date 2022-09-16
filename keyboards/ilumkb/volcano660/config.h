@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A  // "DZ"
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DZTECH
-#define PRODUCT         VOLCANO660
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -40,7 +33,6 @@
  */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B6 }
 #define MATRIX_COL_PINS { C6, C7, F7, F6, F5, F4, F1, F0, D3, D5, D4, D6, D7, B4, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

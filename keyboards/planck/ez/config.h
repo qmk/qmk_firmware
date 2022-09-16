@@ -18,17 +18,6 @@
 
 #pragma once
 
-#undef VENDOR_ID
-#define VENDOR_ID       0x3297
-#undef PRODUCT_ID
-#define PRODUCT_ID      0xC6CE
-#undef MANUFACTURER
-#define MANUFACTURER    ZSA Technology Labs
-#undef PRODUCT
-#define PRODUCT         Planck EZ
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0000
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -106,8 +95,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // #define WS2812_LED_N 2
 // #define RGBLED_NUM WS2812_LED_N
@@ -183,8 +170,11 @@
 
 #define TAPPING_TOGGLE  1
 
-#define MOUSEKEY_INTERVAL       20
-#define MOUSEKEY_DELAY          0
-#define MOUSEKEY_TIME_TO_MAX    60
-#define MOUSEKEY_MAX_SPEED      7
-#define MOUSEKEY_WHEEL_DELAY 0
+#define MOUSEKEY_INTERVAL           20
+#define MOUSEKEY_DELAY              0
+#define MOUSEKEY_TIME_TO_MAX        60
+#define MOUSEKEY_MAX_SPEED          7
+#define MOUSEKEY_WHEEL_DELAY        400
+#define MOUSEKEY_WHEEL_INTERVAL     MOUSEKEY_INTERVAL
+#define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX

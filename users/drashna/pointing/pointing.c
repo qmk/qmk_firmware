@@ -1,18 +1,5 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2021 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "pointing.h"
 
@@ -35,19 +22,19 @@ __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t 
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    int8_t x = mouse_report.x, y = mouse_report.y;
+    mouse_xy_report_t x = mouse_report.x, y = mouse_report.y;
     mouse_report.x = 0;
     mouse_report.y = 0;
 
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
 #ifdef OLED_ENABLE
-        oled_timer = timer_read32();
+        oled_timer_reset();
 #endif
         if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
             if (enable_acceleration) {
-                x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
-                y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+                x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+                y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
             }
             mouse_report.x = x;
             mouse_report.y = y;
@@ -55,19 +42,15 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                 layer_on(_MOUSE);
             }
         }
-    }
-    return pointing_device_task_keymap(mouse_report);
-}
-
-void matrix_scan_pointing(void) {
-    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
+    } else if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
         layer_off(_MOUSE);
-    }
-    if (tap_toggling) {
+    } else if (tap_toggling) {
         if (!layer_state_is(_MOUSE)) {
             layer_on(_MOUSE);
         }
     }
+
+    return pointing_device_task_keymap(mouse_report);
 }
 
 bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
@@ -97,9 +80,9 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             }
             break;
         case MO(_MOUSE):
-#if defined(KEYBOARD_ploopy) || defined(KEYBOARD_handwired_tractyl_manuform)
+#if defined(KEYBOARD_ploopy)
         case DPI_CONFIG:
-#elif defined(KEYBOARD_bastardkb_charybdis)
+#elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)) && !defined(NO_CHARYBDIS_KEYCODES)
         case SAFE_RANGE ... (CHARYBDIS_SAFE_RANGE-1):
 #endif
         case KC_MS_UP ... KC_MS_WH_RIGHT:
@@ -111,6 +94,14 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
             break;
+#if 0
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+            break;
+#endif
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            if (record->event.pressed || !record->tap.count) {
+                break;
+            }
         default:
             if (IS_NOEVENT(record->event)) break;
             if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) && (((keycode >> 0x8) & 0xF) == _MOUSE)) {
@@ -118,7 +109,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
                 mouse_timer = timer_read();
                 break;
             }
-            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
+            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
                 layer_off(_MOUSE);
             }
             mouse_keycode_tracker = 0;
@@ -129,7 +120,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_pointing(layer_state_t state) {
-    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) {
+    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO) || layer_state_cmp(state, _DIABLOII)) {
         state |= ((layer_state_t)1 << _MOUSE);
     }
     return state;

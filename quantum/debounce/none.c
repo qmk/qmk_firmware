@@ -17,15 +17,16 @@
 #include "matrix.h"
 #include "quantum.h"
 #include <stdlib.h>
+#include <string.h>
 
 void debounce_init(uint8_t num_rows) {}
 
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    for (int i = 0; i < num_rows; i++) {
-        cooked[i] = raw[i];
-    }
-}
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+    bool cooked_changed = memcmp(raw, cooked, sizeof(matrix_row_t) * num_rows) != 0;
 
-bool debounce_active(void) { return false; }
+    memcpy(cooked, raw, sizeof(matrix_row_t) * num_rows);
+
+    return cooked_changed;
+}
 
 void debounce_free(void) {}

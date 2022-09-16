@@ -1,7 +1,13 @@
 {
     "keyboard_name": "BM60HSRGB",
+    "manufacturer": "KP Republic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0xEF8C",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
       "LAYOUT": "LAYOUT_60_ansi_arrow"
     },

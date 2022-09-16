@@ -14,8 +14,6 @@ Tested combinations:
 
 Hardware configurations using Arm-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
-!> Warning: This OLED driver currently uses the new i2c_master driver from Split Common code. If your split keyboard uses I2C to communicate between sides, this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest Split Common code to fix this. In addition, the display timeout system to reduce OLED burn-in also uses Split Common to detect keypresses, so you will need to implement custom timeout logic for non-Split Common keyboards.
-
 ## Usage
 
 To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
@@ -83,6 +81,8 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 ```
+
+?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
 
 ## Buffer Read Example
 For some purposes, you may need to read the current state of the OLED display
@@ -162,7 +162,7 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_FONT_END`            |`223`            |The ending character index for custom fonts                                                                               |
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
-|`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
+|`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of screen update inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.      |
 |`OLED_FADE_OUT`            |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
 |`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |

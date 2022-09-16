@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Promethium51",
+  "keyboard_name": "Promethium",
+  "manufacturer": "Priyadi",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x17EF",
+    "pid": "0x6048",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

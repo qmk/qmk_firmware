@@ -13,7 +13,9 @@
 #    define WS2812_TIMEOUT 100
 #endif
 
-void ws2812_init(void) { i2c_init(); }
+void ws2812_init(void) {
+    i2c_init();
+}
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {

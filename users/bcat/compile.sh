@@ -49,3 +49,4 @@ compile kbdfans/kbd67/hotswap 65_ansi_blocker_split_bs
 compile keebio/bdn9/rev1
 compile keebio/quefrency/rev1
 compile lily58/rev1
+compile yanghu/unicorne/f411

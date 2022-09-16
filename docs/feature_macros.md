@@ -40,13 +40,13 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
 
 ### Selecting Your Host Keyboard Layout
 
-If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros- you may need to type different keys to get the same letters! To address this you can add the `host_language` key to your keymap.json, like so:
+If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros - you may need to type different keys to get the same letters! To address this you can add the `host_language` key to your `keymap.json`, like so:
 
 ```json
 {
     "keyboard": "handwired/my_macropad",
     "keymap": "my_keymap",
-    "host_layout": "dvorak",
+    "host_language": "dvorak",
     "macros": [
         ["Hello, World!"]
     ],
@@ -75,7 +75,7 @@ The current list of available languages is:
 
 ### Macro Basics
 
-Each macro is an array consisting of strings and objects (dictionaries.) Strings are typed to your computer while objects allow you to control how your macro is typed out.
+Each macro is an array consisting of strings and objects (dictionaries). Strings are typed to your computer while objects allow you to control how your macro is typed out.
 
 #### Object Format
 
@@ -105,6 +105,8 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
 ## Using Macros in C Keymaps
 
 ### `SEND_STRING()` & `process_record_user`
+
+See also: [Send String](feature_send_string.md)
 
 Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
@@ -192,6 +194,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     },
 };
 ```
+
+?> An enumerated list of custom keycodes (`enum custom_keycodes`) must be declared before `keymaps[]` array, `process_record_user()` and any other function that use the list for the compiler to recognise it.
 
 #### Advanced Macros
 
@@ -345,7 +349,7 @@ If the keycode is `KC_CAPS`, it waits `TAP_HOLD_CAPS_DELAY` milliseconds instead
 
 Like `tap_code(<kc>)`, but with a `delay` parameter for specifying arbitrary intervals before sending the unregister event.
 
-#### `register_code16(<kc>);`, `unregister_code16(<kc>);` and `tap_code16(<kc>);`
+#### `register_code16(<kc>);`, `unregister_code16(<kc>);`, `tap_code16(<kc>);` and `tap_code16_delay(<kc>, <delay>);`
 
 These functions work similar to their regular counterparts, but allow you to use modded keycodes (with Shift, Alt, Control, and/or GUI applied to them).
 

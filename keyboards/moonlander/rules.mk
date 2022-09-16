@@ -16,6 +16,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
+AUDIO_DRIVER = dac_additive
 CUSTOM_MATRIX = lite
 SWAP_HANDS_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
@@ -25,3 +26,5 @@ EEPROM_DRIVER = i2c
 #project specific files
 SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
+
+MOUSE_SHARED_EP = no

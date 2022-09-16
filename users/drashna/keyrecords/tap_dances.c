@@ -1,18 +1,5 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "tap_dances.h"
 
@@ -24,7 +11,12 @@ diablo_timer_t diablo_timer[NUM_OF_DIABLO_KEYS];
 // Otherwise, you will need to hit a bunch of times, or hit the "clear" command
 uint8_t diablo_times[] = {0, 1, 3, 5, 10, 30};
 
-// Cycle through the times for the macro, starting at 0, for disabled.
+/**
+ * @brief Main function for handling diable related tap dances.
+ *
+ * @param state Main data struction contining information about events
+ * @param user_data Local data for the dance. Allows customization to be passed on to function
+ */
 void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
     diable_keys_t *diablo_keys = (diable_keys_t *)user_data;
     // Sets the keycode based on the index
@@ -34,7 +26,7 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count >= (sizeof(diablo_times) / sizeof(uint8_t))) {
         diablo_timer[diablo_keys->index].key_interval = 0;
         reset_tap_dance(state);
-    } else {  // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)
+    } else { // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)
         diablo_timer[diablo_keys->index].key_interval = diablo_times[state->count - 1];
     }
 }
@@ -56,7 +48,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_D3_4] = ACTION_TAP_DANCE_DIABLO(3, KC_4),
 };
 
-// Checks each of the 4 timers/keys to see if enough time has elapsed
+/**
+ * @brief Runs check to see if timer has elapsed for each dance, and sends keycodes, if it has.
+ *
+ */
 void run_diablo_macro_check(void) {
     for (uint8_t index = 0; index < NUM_OF_DIABLO_KEYS; index++) {
         // if key_interval is 0, it's disabled, so only run if it's set.  If it's set, check the timer.

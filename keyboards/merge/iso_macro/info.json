@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ISO Macro",
+    "manufacturer": "Merge",
     "url": "",
     "maintainer": "duoshock",
+    "usb": {
+        "vid": "0x4D65",
+        "pid": "0x1200",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

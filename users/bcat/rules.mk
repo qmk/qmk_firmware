@@ -1,6 +1,6 @@
 # Enable Bootmagic Lite for keyboards that don't have an easily accessible
 # reset button, but keep it disabled for all others to reduce firmware size.
-ifneq ($(filter $(strip $(KEYBOARD)),ai03/polaris dz60 kbdfans/kbd67/hotswap),)
+ifneq ($(filter $(strip $(KEYBOARD)),ai03/polaris dz60 kbdfans/kbd67/hotswap yanghu/unicorne/f411),)
 	BOOTMAGIC_ENABLE = yes
 else
 	BOOTMAGIC_ENABLE = no
@@ -47,7 +47,6 @@ endif
 COMMAND_ENABLE = no
 CONSOLE_ENABLE = no
 MOUSEKEY_ENABLE = no
-TERMINAL_ENABLE = no
 
 # Disable unwanted hardware options on all keyboards. (Some keyboards turn
 # these features on by default even though they aren't actually required.)

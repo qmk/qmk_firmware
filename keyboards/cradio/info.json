@@ -1,9 +1,15 @@
 {
     "keyboard_name": "Cradio",
+    "manufacturer": "DPB",
     "url": "https://github.com/davidphilipbarr/Sweep",
     "maintainer": "@davidphilipbarr",
+    "usb": {
+      "vid": "0xC88B",
+      "pid": "0x3988",
+      "device_version": "0.0.1"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_3x5_2": {
             "layout": [
                 {"x": 0, "y": 1.27},
                 {"x": 1, "y": 0.31},

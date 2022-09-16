@@ -17,7 +17,8 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 # project specific files
-SRC += matrix.c serial_uart.c
+SRC += matrix.c
+QUANTUM_LIB_SRC += uart.c

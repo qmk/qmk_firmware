@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    	0x494B // "IB" for idb Keyboards
-#define PRODUCT_ID  	0x0001 // idb 60
-#define DEVICE_VER   	0x0001
-#define MANUFACTURER    idb Keyboards
-#define PRODUCT         idb 60
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -42,7 +35,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { C2, D0, D1, D2, D3, D4, D5, D6, B0, B1 }
 #define MATRIX_COL_PINS { B2, B3, B4, C6, B6, B7, C7, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -97,5 +89,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

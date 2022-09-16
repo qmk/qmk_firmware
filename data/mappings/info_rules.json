@@ -3,23 +3,38 @@
 {
     # Format:
     # <rules.mk key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
-    # value_type: one of "array", "array.int", "bool", "int", "list", "hex", "mapping"
+    # value_type: one of "array", "array.int", "bool", "int", "list", "hex", "mapping", "str", "raw"
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from rules.mk
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
+    # invalid: Default `false`. Set to `true` to generate errors when a value exists
+    # replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
     "BLUETOOTH": {"info_key": "bluetooth.driver"},
+    "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
+    "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},
     "FIRMWARE_FORMAT": {"info_key": "build.firmware_format"},
     "KEYBOARD_SHARED_EP": {"info_key": "usb.shared_endpoint.keyboard", "value_type": "bool"},
     "MOUSE_SHARED_EP": {"info_key": "usb.shared_endpoint.mouse", "value_type": "bool"},
     "LAYOUTS": {"info_key": "community_layouts", "value_type": "list"},
     "LED_MATRIX_DRIVER": {"info_key": "led_matrix.driver"},
+    "RGB_MATRIX_DRIVER": {"info_key": "rgb_matrix.driver"},
     "LTO_ENABLE": {"info_key": "build.lto", "value_type": "bool"},
     "MCU": {"info_key": "processor", "warn_duplicate": false},
     "MOUSEKEY_ENABLE": {"info_key": "mouse_key.enabled", "value_type": "bool"},
     "NO_USB_STARTUP_CHECK": {"info_key": "usb.no_startup_check", "value_type": "bool"},
+    "PIN_COMPATIBLE": {"info_key": "pin_compatible"},
+    "SECURE_ENABLE": {"info_key": "secure.enabled", "value_type": "bool"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
-    "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "value_type": "str", "to_c": false},
-    "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"}
+    "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
+    "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
+    "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
+    "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
+
+    # Items we want flagged in lint
+    "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
+    "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
+    "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true}
 }

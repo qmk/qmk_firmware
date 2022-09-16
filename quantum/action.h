@@ -19,23 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "progmem.h"
 #include "keyboard.h"
 #include "keycode.h"
 #include "action_code.h"
-#include "action_macro.h"
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-/* Disable macro and function features when LTO is enabled, since they break */
-#ifdef LTO_ENABLE
-#    ifndef NO_ACTION_MACRO
-#        define NO_ACTION_MACRO
-#    endif
-#    ifndef NO_ACTION_FUNCTION
-#        define NO_ACTION_FUNCTION
-#    endif
 #endif
 
 #ifndef TAP_CODE_DELAY
@@ -72,12 +62,6 @@ void action_exec(keyevent_t event);
 action_t action_for_key(uint8_t layer, keypos_t key);
 action_t action_for_keycode(uint16_t keycode);
 
-/* macro */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
-
-/* user defined special function */
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
-
 /* keyboard-specific key event (pre)processing */
 bool process_record_quantum(keyrecord_t *record);
 
@@ -88,7 +72,7 @@ extern bool disable_action_cache;
 
 /* Code for handling one-handed key modifiers. */
 #ifdef SWAP_HANDS_ENABLE
-extern bool           swap_hands;
+extern bool                   swap_hands;
 extern const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
 #    if (MATRIX_COLS <= 8)
 typedef uint8_t swap_state_row_t;
@@ -121,7 +105,6 @@ void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
 void clear_keyboard_but_mods_and_keys(void);
 void layer_switch(uint8_t new_layer);
-bool is_tap_key(keypos_t key);
 bool is_tap_record(keyrecord_t *record);
 bool is_tap_action(action_t action);
 

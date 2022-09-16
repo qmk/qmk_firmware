@@ -14,13 +14,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
-#include "keymap.h"  // to get keymaps[][][]
+#include "keymap.h" // to get keymaps[][][]
 #include "eeprom.h"
-#include "progmem.h"  // to read default from flash
-#include "quantum.h"  // for send_string()
+#include "progmem.h" // to read default from flash
+#include "quantum.h" // for send_string()
 #include "dynamic_keymap.h"
-#include "via.h"  // for default VIA_EEPROM_ADDR_END
+
+#ifdef VIA_ENABLE
+#    include "via.h" // for VIA_EEPROM_CONFIG_END
+#    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
+#else
+#    define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
+#endif
+
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
+#else
+#    define NUM_ENCODERS 0
+#endif
 
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 4
@@ -30,50 +41,52 @@
 #    define DYNAMIC_KEYMAP_MACRO_COUNT 16
 #endif
 
-// This is the default EEPROM max address to use for dynamic keymaps.
-// The default is the ATmega32u4 EEPROM max address.
-// Explicitly override it if the keyboard uses a microcontroller with
-// more EEPROM *and* it makes sense to increase it.
+#ifndef TOTAL_EEPROM_BYTE_COUNT
+#    error Unknown total EEPROM size. Cannot derive maximum for dynamic keymaps.
+#endif
+
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
-#    if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-#    elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
-#    elif defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATtiny85__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 511
-#    else
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
-#    endif
+#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (TOTAL_EEPROM_BYTE_COUNT - 1)
+#endif
+
+#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > (TOTAL_EEPROM_BYTE_COUNT - 1)
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > " STR((TOTAL_EEPROM_BYTE_COUNT - 1))
+#    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is configured to use more space than what is available for the selected EEPROM driver
 #endif
 
 // Due to usage of uint16_t check for max 65535
 #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 65535
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > 65535"
 #    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR must be less than 65536
 #endif
 
 // If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
-// default it start after VIA_EEPROM_CUSTOM_ADDR+VIA_EEPROM_CUSTOM_SIZE
 #ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
-#    ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
-#        define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
-#    else
-#        error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
-#    endif
+#    define DYNAMIC_KEYMAP_EEPROM_ADDR DYNAMIC_KEYMAP_EEPROM_START
 #endif
 
-// Dynamic macro starts after dynamic keymaps
-#ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
+// Dynamic encoders starts after dynamic keymaps
+#ifndef DYNAMIC_KEYMAP_ENCODER_EEPROM_ADDR
+#    define DYNAMIC_KEYMAP_ENCODER_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
 #endif
+
+// Dynamic macro starts after dynamic encoders, but only when using ENCODER_MAP
+#ifdef ENCODER_MAP_ENABLE
+#    ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#        define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_ENCODER_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * NUM_ENCODERS * 2 * 2))
+#    endif // DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#else      // ENCODER_MAP_ENABLE
+#    ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#        define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_ENCODER_EEPROM_ADDR)
+#    endif // DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#endif     // ENCODER_MAP_ENABLE
 
 // Sanity check that dynamic keymaps fit in available EEPROM
 // If there's not 100 bytes available for macros, then something is wrong.
 // The keyboard should override DYNAMIC_KEYMAP_LAYER_COUNT to reduce it,
 // or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
 // more than the default.
-#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR < 100
-#    error Dynamic keymaps are configured to use more EEPROM than is available.
-#endif
+_Static_assert((DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR) >= 100, "Dynamic keymaps are configured to use more EEPROM than is available.");
 
 // Dynamic macros are stored after the keymaps and use what is available
 // up to and including DYNAMIC_KEYMAP_EEPROM_MAX_ADDR.
@@ -81,7 +94,13 @@
 #    define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + 1)
 #endif
 
-uint8_t dynamic_keymap_get_layer_count(void) { return DYNAMIC_KEYMAP_LAYER_COUNT; }
+#ifndef DYNAMIC_KEYMAP_MACRO_DELAY
+#    define DYNAMIC_KEYMAP_MACRO_DELAY TAP_CODE_DELAY
+#endif
+
+uint8_t dynamic_keymap_get_layer_count(void) {
+    return DYNAMIC_KEYMAP_LAYER_COUNT;
+}
 
 void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column) {
     // TODO: optimize this with some left shifts
@@ -89,6 +108,7 @@ void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t c
 }
 
 uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || row >= MATRIX_ROWS || column >= MATRIX_COLS) return KC_NO;
     void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
     // Big endian, so we can read/write EEPROM directly from host if we want
     uint16_t keycode = eeprom_read_byte(address) << 8;
@@ -97,22 +117,59 @@ uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column) 
 }
 
 void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || row >= MATRIX_ROWS || column >= MATRIX_COLS) return;
     void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
     // Big endian, so we can read/write EEPROM directly from host if we want
     eeprom_update_byte(address, (uint8_t)(keycode >> 8));
     eeprom_update_byte(address + 1, (uint8_t)(keycode & 0xFF));
 }
 
+#ifdef ENCODER_MAP_ENABLE
+void *dynamic_keymap_encoder_to_eeprom_address(uint8_t layer, uint8_t encoder_id) {
+    return ((void *)DYNAMIC_KEYMAP_ENCODER_EEPROM_ADDR) + (layer * NUM_ENCODERS * 2 * 2) + (encoder_id * 2 * 2);
+}
+
+uint16_t dynamic_keymap_get_encoder(uint8_t layer, uint8_t encoder_id, bool clockwise) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || encoder_id >= NUM_ENCODERS) return KC_NO;
+    void *address = dynamic_keymap_encoder_to_eeprom_address(layer, encoder_id);
+    // Big endian, so we can read/write EEPROM directly from host if we want
+    uint16_t keycode = ((uint16_t)eeprom_read_byte(address + (clockwise ? 0 : 2))) << 8;
+    keycode |= eeprom_read_byte(address + (clockwise ? 0 : 2) + 1);
+    return keycode;
+}
+
+void dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwise, uint16_t keycode) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || encoder_id >= NUM_ENCODERS) return;
+    void *address = dynamic_keymap_encoder_to_eeprom_address(layer, encoder_id);
+    // Big endian, so we can read/write EEPROM directly from host if we want
+    eeprom_update_byte(address + (clockwise ? 0 : 2), (uint8_t)(keycode >> 8));
+    eeprom_update_byte(address + (clockwise ? 0 : 2) + 1, (uint8_t)(keycode & 0xFF));
+}
+#endif // ENCODER_MAP_ENABLE
+
 void dynamic_keymap_reset(void) {
     // Reset the keymaps in EEPROM to what is in flash.
-    // All keyboards using dynamic keymaps should define a layout
-    // for the same number of layers as DYNAMIC_KEYMAP_LAYER_COUNT.
     for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             for (int column = 0; column < MATRIX_COLS; column++) {
-                dynamic_keymap_set_keycode(layer, row, column, pgm_read_word(&keymaps[layer][row][column]));
+                if (layer < keymap_layer_count()) {
+                    dynamic_keymap_set_keycode(layer, row, column, pgm_read_word(&keymaps[layer][row][column]));
+                } else {
+                    dynamic_keymap_set_keycode(layer, row, column, KC_TRANSPARENT);
+                }
             }
         }
+#ifdef ENCODER_MAP_ENABLE
+        for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
+            if (layer < encodermap_layer_count()) {
+                dynamic_keymap_set_encoder(layer, encoder, true, pgm_read_word(&encoder_map[layer][encoder][0]));
+                dynamic_keymap_set_encoder(layer, encoder, false, pgm_read_word(&encoder_map[layer][encoder][1]));
+            } else {
+                dynamic_keymap_set_encoder(layer, encoder, true, KC_TRANSPARENT);
+                dynamic_keymap_set_encoder(layer, encoder, false, KC_TRANSPARENT);
+            }
+        }
+#endif // ENCODER_MAP_ENABLE
     }
 }
 
@@ -148,14 +205,24 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
     if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
         return dynamic_keymap_get_keycode(layer, key.row, key.col);
-    } else {
-        return KC_NO;
     }
+#ifdef ENCODER_MAP_ENABLE
+    else if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && key.row == KEYLOC_ENCODER_CW && key.col < NUM_ENCODERS) {
+        return dynamic_keymap_get_encoder(layer, key.col, true);
+    } else if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && key.row == KEYLOC_ENCODER_CCW && key.col < NUM_ENCODERS) {
+        return dynamic_keymap_get_encoder(layer, key.col, false);
+    }
+#endif // ENCODER_MAP_ENABLE
+    return KC_NO;
 }
 
-uint8_t dynamic_keymap_macro_get_count(void) { return DYNAMIC_KEYMAP_MACRO_COUNT; }
+uint8_t dynamic_keymap_macro_get_count(void) {
+    return DYNAMIC_KEYMAP_MACRO_COUNT;
+}
 
-uint16_t dynamic_keymap_macro_get_buffer_size(void) { return DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE; }
+uint16_t dynamic_keymap_macro_get_buffer_size(void) {
+    return DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE;
+}
 
 void dynamic_keymap_macro_get_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
     void *   source = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + offset);
@@ -245,6 +312,6 @@ void dynamic_keymap_macro_send(uint8_t id) {
                 break;
             }
         }
-        send_string(data);
+        send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);
     }
 }

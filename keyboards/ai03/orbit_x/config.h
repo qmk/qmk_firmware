@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xA103
-#define PRODUCT_ID 0x0014
-#define DEVICE_VER 0x0001
-#define MANUFACTURER ai03 Design Studio
-#define PRODUCT OrbitX
-
 /* key matrix size */
 #define MATRIX_ROWS 8 // Double the rows for split 
 #define MATRIX_COLS 6
@@ -44,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { E6, F6, B1, B0, C7, C6 }
 #define MATRIX_ROW_PINS_RIGHT { B5, D7, B4, D4 }
 #define MATRIX_COL_PINS_RIGHT { D6, B6, B1, B0, B3, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -109,10 +101,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

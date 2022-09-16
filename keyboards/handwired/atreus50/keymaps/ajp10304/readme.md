@@ -22,6 +22,16 @@ Refer to the README.md of the keyboard you want to flash.
 | Shft |   Z  |   X  |   C  |   V  |   B  |      |      |   N  |   M  |  ,<  |  .>  |  /?  | Shft |
 | Fn   | Ctrl | Alt  | GUI  |Lower | Bksp | Ctrl | Alt  |Space |Raise | Shift| MENU | Ctrl | Fn2  |
 
+##### Main Colemak-DHm Layer
+
+|      |      |      |     |       |      |      |      |       |       |       |      |      |      |
+| ---- |:----:| :---:|:---:|:-----:|:----:| :---:| :---:|:-----:|:-----:|:-----:|:----:|:----:| ----:|
+| Esc  |   Q  |   W  |  F  |   P   |  B   |      |      |   J   |   L   |   U   |  Y   |  ;:  | Bksp |
+| Tab  |   A  |   R  |  S  |   T   |  G   |      |      |   M   |   N   |   E   |  I   |  O   | Enter|
+| Shft |   Z  |   X  |  C  |   D   |  V   |      |      |   K   |   H   |  ,<   |  .>  |  /?  | Shft |
+| Fn   | Ctrl | Alt  | GUI | Lower | Bksp | Ctrl | Alt  | Space | Raise | Shift | MENU | Ctrl | Fn2  |
+
+
 ##### Function Layer
 Activated when `fn` held in the above `qwerty` layer.
 
@@ -73,12 +83,12 @@ To finish the recording, press STOP. To replay the macro, press either PLAY1 or 
 * MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER,
 MRSE with RAISE, MFNC with FUNC and MFNC2 with FUNC2 respectively.
 
-|       |      |      |      |      |      |      |      |      |      |      |      |      |      |
-| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ????  | Reset|Qwerty|      |      | REC1 |      |      | REC2 |      |      |      |      |  Del |
-| CAPS  |      |      |      |      | PLAY1|      |      |PLAY2 | Mute | Vol+ | Play |      |      |
-| MAC   |      |      |      |      | STOP1|      |      |STOP2 | Prev | Vol- | Next |      |      |
-|       |      |      |      |      |      | Ctrl | Alt  |      |      | DYN  |      |      |      |
+|       |      |      |      |      |      |      |      |      |      |      |      |      |         |
+| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|:-------:|
+| ????  | Reset|Qwerty|      |      | REC1 |      |      | REC2 |      |      |      |      |   Del   |
+| CAPS  |      |      |      |      | PLAY1|      |      |PLAY2 | Mute | Vol+ | Play |      | Qwerty  |
+| MAC   |      |      |      |      | STOP1|      |      |STOP2 | Prev | Vol- | Next |      | Colemak |
+|       |      |      |      |      |      | Ctrl | Alt  |      |      | DYN  |      |      |         |
 
 ##### Function 2 Layer
 Activated when `fn` held in the above `qwerty` layer.

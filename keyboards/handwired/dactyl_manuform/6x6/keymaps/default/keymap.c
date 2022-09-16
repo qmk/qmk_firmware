@@ -1,8 +1,13 @@
+// Copyright 2021 david@impstyle.com (@zwnk)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
+enum custom_layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+};
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
@@ -15,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,                         KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_QUOT,
         KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                         KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
                          KC_LBRC,KC_RBRC,                                                       KC_PLUS, KC_EQL,
-                                         RAISE,KC_SPC,                        KC_ENT, LOWER,
+                                         RAISE ,KC_SPC,                        KC_ENT, LOWER,
                                          KC_TAB,KC_HOME,                         KC_END,  KC_DEL,
                                          KC_BSPC, KC_GRV,                        KC_LGUI, KC_LALT
     ),

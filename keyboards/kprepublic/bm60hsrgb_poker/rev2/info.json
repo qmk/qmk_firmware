@@ -1,9 +1,15 @@
 {
-    "keyboard_name": "bm60v2_poker",
+    "keyboard_name": "BM60HSRGB Poker Rev2",
+    "manufacturer": "KPrepublic",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "bdtc123",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x1122",
+        "device_version": "0.0.2"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -60,7 +66,7 @@
                 {"x":9.25, "y":3},
                 {"x":10.25, "y":3},
                 {"x":11.25, "y":3},
-                {"x":14, "y":3,"w":2.75},
+                {"x":12.25, "y":3,"w":2.75},
 
                 {"x":0, "y":4, "w":1.25},
                 {"x":1.25, "y":4, "w":1.25},

@@ -25,8 +25,9 @@ def yapf_run(files):
 def filter_files(files):
     """Yield only files to be formatted and skip the rest
     """
+    files = list(map(normpath, filter(None, files)))
     for file in files:
-        if file and normpath(file).name.split('.')[-1] in py_file_suffixes:
+        if file.suffix[1:] in py_file_suffixes:
             yield file
         else:
             cli.log.debug('Skipping file %s', file)

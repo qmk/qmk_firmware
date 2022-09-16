@@ -3,6 +3,9 @@ MCU = STM32F072
 BOARD = ST_STM32F072B_DISCOVERY
 MCU_LDSCRIPT = STM32F072_0x2000_bootloader
 
+# Bootloader selection
+BOOTLOADER = custom
+
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08002000:leave
 DFU_SUFFIX_ARGS = -v 0483 -p DF11
 
