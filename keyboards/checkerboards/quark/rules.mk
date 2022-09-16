@@ -18,6 +18,7 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 ENCODER_ENABLE = yes	    # Enable Rotary Encoders
+ENCODER_MAP_ENABLE = yes    # replicates the normal keyswitch layer handling functionality, but with encoders
 
 
 # Disable unsupported hardware
