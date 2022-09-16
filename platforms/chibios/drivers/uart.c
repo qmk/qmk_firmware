@@ -38,12 +38,9 @@ void uart_init(uint32_t baud) {
         serialConfig.speed = baud;
 #endif
 
-#if defined(MCU_KINETIS)
+#if defined(USE_GPIOV1)
         palSetLineMode(SD1_TX_PIN, SD1_TX_PAL_MODE);
         palSetLineMode(SD1_RX_PIN, SD1_RX_PAL_MODE);
-#elif defined(USE_GPIOV1)
-        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE_OPENDRAIN);
-        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE_OPENDRAIN);
 #else
         palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
         palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
