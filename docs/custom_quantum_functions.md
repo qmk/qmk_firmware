@@ -293,7 +293,7 @@ If registrations fail, then you can increase this value in your keyboard or keym
 #define MAX_DEFERRED_EXECUTORS 16
 ```
 
-# Legacy Content :id=legacy-content
+# Advanced topics :id=advanced-topics
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
