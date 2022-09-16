@@ -18,6 +18,8 @@
 
 #ifdef OLED_ENABLE
 
+#define DATA_LEN 6
+char data_str[DATA_LEN] = {0};
 uint16_t data_in = 0;
 
 static void put_layer_name(uint16_t layer) {
@@ -51,10 +53,7 @@ static void print_status_narrow(void) {
       put_layer_name(get_highest_layer(default_layer_state));
     }
     oled_set_cursor(0, 2);
-    char    data_str[2];
-    oled_set_cursor(0, 14);
-    data_str[1] = '\0';
-    data_str[0] = '0' + data_in;
+    data_str[DATA_LEN-1] = '\0';
     oled_write(data_str, false);
 
     oled_set_cursor(0, 3);
