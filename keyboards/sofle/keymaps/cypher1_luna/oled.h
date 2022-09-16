@@ -56,7 +56,7 @@ static void print_status_narrow(void) {
     data_str[DATA_LEN-1] = '\0';
     oled_write(data_str, false);
 
-    oled_set_cursor(0, 3);
+    oled_set_cursor(0, 4);
     led_t led_usb_state = host_keyboard_led_state();
     if (led_usb_state.caps_lock) {
         oled_write_ln_P(PSTR("C\nY\nP\nH\nE\nR\n1"), true);
