@@ -5,7 +5,6 @@
     "bootloader": "halfkay",
     "diode_direction": "COL2ROW",
     "features": {
-        "midi": true
     },
     "matrix_pins": {
         "io_delay": 50,

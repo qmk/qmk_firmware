@@ -29,7 +29,7 @@
 
 #define TAPPING_TERM 500
 
-#define MIDI_ADVANCED
+//#define MIDI_ADVANCED
 
 /*
  * Feature disable options
@@ -59,3 +59,30 @@
 #define I2C1_SDA_PIN B1 // A3 on pinout = B1
 #define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
+
+// The pin connected to the data pin of the LEDs
+#define RGB_DI_PIN B1 // aka pin 17
+// The number of LEDs connected
+#define DRIVER_LED_TOTAL 140
+#define MATRIX_ROWS 14
+#define MATRIX_COLS 10
+#define NOP_FUDGE 1
+//#undef RGB_MATRIX_SAT_STEP
+//#undef RGB_MATRIX_SPD_STEP
+//#undef RGB_MATRIX_VAL_STEP
+
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // Don't draw too much and damage USB
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#define RGB_MATRIX_TYPING_HEATMAP_SLIM // Don't spread the heat to other keys.
+#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 10000 // persist a while
+
+
+#define RGB_MATRIX_KEYPRESSES
+//#define ENABLE_RGB_MATRIX_SPLASH
+#define ENABLED_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+//#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+//#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+//#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+
