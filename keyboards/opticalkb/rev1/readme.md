@@ -5,18 +5,18 @@
 
 This keyboard uses optical switches instead of mechanical switches.
 PCB for this keyboard can be found on [github](https://github.com/girishji/optical-keyboard).
-The matrix implementation uses column-to-row arrangement. The IR (infra-red) led's in each
-column is powered before reading the digital input pins connected to rows. After
-reading the rows, column is powered off and subsequent column is powered on before
-repeating the reading process. There is a delay after column is powered on, to
+The matrix implementation uses column-to-row arrangement. All the IR's (infra-red led) in a
+column are turned on before reading the digital input pins connected to rows. After
+reading all the rows, column is powered off and subsequent column is powered on before
+repeating the reading process. There is a delay after a column is powered on in order to
 accommodate PT (Phototransistor) 'rise' time. 
 
-This is not high-performance keyboard because the IR's are provided with very
+This is not a high-performance keyboard since the IR's are provided with very
 minimal current (way below the suggested operating value). This is done so as
-not to use additional components. A single GPIO pin of STM32F4 set as output
-can provide 20 ma. Each IR is supplied with ~3.6 ma, so total current for 5
+to keep the design simple. A single GPIO pin of STM32F4 set as output
+can provide 20 ma. Each IR is supplied with ~3.6 ma, so that the total current for 5
 rows (IRs) falls within the allowable maximum current per pin. Yet it achieves
-a scan rate of 400 hz. Since there is no debounce the latency before USB
+a scan rate of 400 hz. Since there is no debounce delay, the latency before USB
 transit is 2.5 ms. Compared to mechanical keyboards (with 5 ms debounce delay)
 this keyboard achieves respectable performance. It is possible to push scanning
 rate much higher, but it requires a different matrix design and additional switching
