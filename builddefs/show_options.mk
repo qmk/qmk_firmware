@@ -84,7 +84,8 @@ OTHER_OPTION_NAMES = \
   LTO_ENABLE \
   PROGRAMMABLE_BUTTON_ENABLE \
   SECURE_ENABLE \
-  CAPS_WORD_ENABLE
+  CAPS_WORD_ENABLE \
+  AUTOCORRECT_ENABLE
 
 define NAME_ECHO
        @printf "  %-30s = %-16s # %s\\n" "$1" "$($1)" "$(origin $1)"
