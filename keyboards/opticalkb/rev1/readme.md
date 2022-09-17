@@ -3,24 +3,24 @@
 * Keyboard Maintainer: [Girish](https://github.com/girishji)
 * Hardware Supported: Black pill STM32F401
 
-A keyboard using optical switches instead of pure mechanical switches.
-The main difference is in the way matrix scan is implemented. It is assumed
-that each column is selected (set pin to Output and High) and rows are read in
-sequence. Row pins are set as Input, with or without inbuilt pullup resistor.
-
-Column can be powered using a GPIO pin (for IR LED) and 3v3 or 5v pin for
-Phototransistor. Appropriate delay should be inserted before reading the row
-GPIO pins, thereby giving enough time for Phototransistor to 'rise'. This delay
-is generally around 15us and results in very high scan rate. It is also 
-possible to use transistors to boost current to IR LED to get better rise times
-and thereby improve scanning frequency, but this is generally not necessary.
-You can exceed 3kHz scanning frequency without transistors. Also, there is no
-need for debounce with optical switches. 
-
-You can use Geteron optical switches (MX profile), or similar ones from Kailh
-and Keychron (low profile).
-
+This keyboard uses optical switches instead of mechanical switches.
 PCB for this keyboard can be found on [github](https://github.com/girishji/optical-keyboard).
+The matrix implementation uses column-to-row arrangement. The IR (infra-red) led's in each
+column is powered before reading the digital input pins connected to rows. After
+reading the rows, column is powered off and subsequent column is powered on before
+repeating the reading process. There is a delay after column is powered on, to
+accommodate PT (Phototransistor) 'rise' time. 
+
+This is not high-performance keyboard because the IR's are provided with very
+minimal current (way below the suggested operating value). This is done so as
+not to use additional components. A single GPIO pin of STM32F4 set as output
+can provide 20 ma. Each IR is supplied with ~3.6 ma, so total current for 5
+rows (IRs) falls within the allowable maximum current per pin. Yet it achieves
+a scan rate of 400 hz. Since there is no debounce the latency before USB
+transit is 2.5 ms. Compared to mechanical keyboards (with 5 ms debounce delay)
+this keyboard achieves respectable performance. It is possible to push scanning
+rate much higher, but it requires a different matrix design and additional switching
+components to increase current to IR.
 
 ## Build
 
@@ -46,6 +46,6 @@ flashing.
 
 ## Wiring Instructions
 
-There is only one way to solder Blackpill (STM32F401) to the [PCB](https://github.com/girishji/optical-keyboard).
+There is only one way to solder Blackpill (STM32F401) to the [PCB](https://github.com/girishji/optical-keyboard-mx).
 If you are going to use Blackpill in other projects, note that certain pins are [not usable](https://docs.qmk.fm/#/platformdev_blackpill_f411).
 

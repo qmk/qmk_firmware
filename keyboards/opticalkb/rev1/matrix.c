@@ -20,15 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * https://github.com/qmk/qmk_firmware/blob/master/docs/custom_matrix.md
  */
 
-#include "matrix.h"
 #include "quantum.h"
 #include "wait.h"
+#include "print.h"
 
 // Optical keyboard does not need debounce
 #define DEBOUNCE 0
 
 #ifndef WAIT_AFTER_COL_SELECT
-#define WAIT_AFTER_COL_SELECT 40
+#define WAIT_AFTER_COL_SELECT 100
 #endif
 
 #ifdef MATRIX_ROW_PINS
@@ -40,13 +40,12 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 void matrix_init_custom(void) {
     // initialize column pins to be Output and set them Low
-    // https://github.com/qmk/qmk_firmware/blob/master/docs/gpio_control.md
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         pin_t pin = col_pins[col];
         if (pin != NO_PIN) {
             ATOMIC_BLOCK_FORCEON {
                 setPinOutput(pin);
-                writePinHigh(pin);
+                writePinLow(pin);
             }
         }
     }
@@ -88,11 +87,12 @@ static bool unselect_col(uint8_t col) {
 }
 
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {
+
     if (!select_col(current_col)) {
         dprintf("Error: failed to power on col %d\n", current_col);
         return;
     }
-    // Rise and fall time of pt is ~15us
+
     wait_us(WAIT_AFTER_COL_SELECT);
 
     // For each row...
@@ -111,6 +111,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     }
 
     unselect_col(current_col);
+
 #ifndef WAIT_AFTER_COL_UNSELECT
     waitInputPinDelay();
 #else
@@ -126,7 +127,6 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++, row_shifter <<= 1) {
         matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
     }
-
     bool changed = memcmp(current_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
     if (changed) {
         memcpy(current_matrix, curr_matrix, sizeof(curr_matrix));
