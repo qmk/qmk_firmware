@@ -67,29 +67,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // + ------ +
 
-#define _______________QWERTY_L1_x6________________   KC_TAB, _______________QWERTY_L1_x5________________
-
-#define _______________QWERTY_L2_x6________________    TD_ED, _______________QWERTY_L2_x5________________
-
-#define _______________QWERTY_L3_x6________________  TD_LSPC, _______________QWERTY_L3_x5________________
-
-#define _______________QWERTY_R1_x6________________  _______________QWERTY_R1_x5________________, KC_BSPC
-
-#define _______________QWERTY_R2_x6________________  _______________QWERTY_R2_x5________________, KC_QUOT
-
-#define _______________QWERTY_R3_x6________________  _______________QWERTY_R3_x5________________, TD_RSPC
+#define ___________________QWERTY_L1_x6_____________________   KC_TAB, _______________QWERTY_L1_x5________________
+#define ___________________QWERTY_L2_x6_____________________    TD_ED, _______________QWERTY_L2_x5________________
+#define ___________________QWERTY_L3_x6_____________________  TD_LSPC, _______________QWERTY_L3_x5________________
+#define ___________________QWERTY_R1_x6_____________________  _______________QWERTY_R1_x5________________, KC_BSPC
+#define ___________________QWERTY_R2_x6_____________________  _______________QWERTY_R2_x5________________, KC_QUOT
+#define ___________________QWERTY_R3_x6_____________________  _______________QWERTY_R3_x5________________, TD_RSPC
 
 // + -------------- +
 // + COLEMAK_MOD_DH |
 // + -------------- +
 
-#define ______________COLEMAK_MOD_DH_L1____________    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
-#define ______________COLEMAK_MOD_DH_L2____________    KC_A,    KC_R,    KC_S,    KC_T,    KC_G
-#define ______________COLEMAK_MOD_DH_L3____________    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+#define ____________COLEMAK_MOD_DH_L1_x5___________    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
+#define ____________COLEMAK_MOD_DH_L2_x5___________    KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+#define ____________COLEMAK_MOD_DH_L3_x5___________    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
 
-#define ______________COLEMAK_MOD_DH_R1____________    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define ______________COLEMAK_MOD_DH_R2____________    KC_M,    KC_N,    KC_E,    KC_I,    KC_O
-#define ______________COLEMAK_MOD_DH_R3____________    KC_K,    KC_H, KC_COMM,  KC_DOT,    KC_SLASH
+#define ____________COLEMAK_MOD_DH_R1_x5___________    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define ____________COLEMAK_MOD_DH_R2_x5___________    KC_M,    KC_N,    KC_E,    KC_I,    KC_O
+#define ____________COLEMAK_MOD_DH_R3_x5___________    KC_K,    KC_H, KC_COMM,  KC_DOT,    KC_SLASH
+
+// + ------- +
+
+#define ________________COLEMAK_MOD_DH_L1_x6________________   KC_TAB, ____________COLEMAK_MOD_DH_L1_x5___________
+#define ________________COLEMAK_MOD_DH_L2_x6________________    TD_ED, ____________COLEMAK_MOD_DH_L2_x5___________
+#define ________________COLEMAK_MOD_DH_L3_x6________________  TD_LSPC, ____________COLEMAK_MOD_DH_L3_x5___________
+#define ________________COLEMAK_MOD_DH_R1_x6________________  ____________COLEMAK_MOD_DH_R1_x5___________, KC_BSPC
+#define ________________COLEMAK_MOD_DH_R2_x6________________  ____________COLEMAK_MOD_DH_R2_x5___________, KC_QUOT
+#define ________________COLEMAK_MOD_DH_R3_x6________________  ____________COLEMAK_MOD_DH_R3_x5___________, TD_RSPC
 
 // + --------------- +
 // + NUMBERS/SYMBOLS |

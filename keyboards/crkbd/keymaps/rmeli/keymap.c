@@ -68,94 +68,78 @@ enum layer_names {
 #define _CMK 1
 #define _CFG 4
 
-#define _____THUMB_LEFT_x3_____ KC_LGUI,MO(_DWN),  KC_SPC
-#define _____THUMB_RIGHT_x3____  KC_ENT, MO(_UP), KC_RCTL
+#define ______THUMB_LEFT_x3______ KC_LGUI,MO(_DWN),  KC_SPC
+#define ______THUMB_RIGHT_x3_____  KC_ENT, MO(_UP), KC_RCTL
 
 // clang-format off
 
 // Define wrapper for standard CRKB layout
 #define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
-// Define free keys for base layout
-// K01-K0A are free keys for row 0, K11-K1A are free keys for row 1, K21-K2A are free keys for row 2
-// x5: 5 keys per row left to fill
-// x6: 6 keys per row left to fill
-#define LAYOUT_base_x5( \
-    K01, K02, K03, K04, K05,           K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A,  \
-                   K31, K32, K33, K34, K35, K36  \
-  ) \
-  LAYOUT_wrapper( \
-      XXXXXXX,     K01,     K02,     K03,     K04,     K05,                          K06,     K07,     K08,     K09,     K0A, XXXXXXX, \
-      XXXXXXX,     K11,     K12,     K13,     K14,     K15,                          K16,     K17,     K18,     K19,     K1A, XXXXXXX, \
-      XXXXXXX,     K21,     K22,     K23,     K24,     K25,                          K26,     K27,     K28,     K29,     K2A, XXXXXXX, \
-                                              K31,     K32,     K33,     K34,     K35,     K36 \
-  )
-
-#define LAYOUT_base_x6( \
-    K01, K02, K03, K04, K05,           K06, K07, K08, K09, K0A, K0B, K0C, \
-    K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, K1B, K1C, \
-    K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A, K2B, K2C, \
-                   K31, K32, K33, K34, K35, K36  \
-  ) \
-  LAYOUT_wrapper( \
-          K01,     K02,     K03,     K04,     K05,    K06,                       K07,     K08,     K09,     K0A,     K0B,     K0C, \
-          K11,     K12,     K13,     K14,     K15,    K16,                       K17,     K18,     K19,     K1A,     K1B,     K1C, \
-          K21,     K22,     K23,     K24,     K25,    K26,                       K27,     K28,     K29,     K2A,     K2B,     K2C, \
-                                             K31,     K32,     K33,     K34,     K35,     K36 \
-  )
-
-// Define wrapper for base layout, so that free keys can be filled
-// with partial row definitions in users/rmeli/krecords/wrappers.h
-#define LAYOUT_base_wrapper_x5(...)       LAYOUT_base_x5(__VA_ARGS__)
-#define LAYOUT_base_wrapper_x6(...)       LAYOUT_base_x6(__VA_ARGS__)
+// Layout
+// |-----------------------------|            |-----------------------------|
+// |    |    |    |    |    |    |            |    |    |    |    |    |    |
+// |----+----+----+----+----+----|            |----+----+----+----+----+----|
+// |    |    |    |    |    |    |            |    |    |    |    |    |    |
+// |----+----+----+----+----+----|            |----+----+----+----+----+----|
+// |    |    |    |    |    |    |            |    |    |    |    |    |    |
+// |----+----+----+----+----+----+----|  |----+----+----+----+----+----+----|
+//                     |    |    |    |  |    |    |    |
+//                     |--------------|  |--------------|
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_base_wrapper_x6(
-    _______________QWERTY_L1_x6________________, _______________QWERTY_R1_x6________________,
-    _______________QWERTY_L2_x6________________, _______________QWERTY_R2_x6________________,
-    _______________QWERTY_L3_x6________________, _______________QWERTY_R3_x6________________,
-                        _____THUMB_LEFT_x3_____, _____THUMB_RIGHT_x3____
+  [_QWERTY] = LAYOUT_wrapper(
+    // clang-format off
+    ___________________QWERTY_L1_x6_____________________,                      ___________________QWERTY_R1_x6_____________________,
+    ___________________QWERTY_L2_x6_____________________,                      ___________________QWERTY_R2_x6_____________________,
+    ___________________QWERTY_L3_x6_____________________,                      ___________________QWERTY_R3_x6_____________________,
+                                        ______THUMB_LEFT_x3______,     ______THUMB_RIGHT_x3_____
+    // clang-format on
   ),
 
-  [_COLEMAK_DH] = LAYOUT_base_wrapper_x5(
-    ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
-    ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
-    ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________,
-                      KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT, MO(_UP), KC_RCTL
+  [_COLEMAK_DH] = LAYOUT_wrapper(
+    // clang-format off
+    ________________COLEMAK_MOD_DH_L1_x6________________,                      ________________COLEMAK_MOD_DH_R1_x6________________,
+    ________________COLEMAK_MOD_DH_L2_x6________________,                      ________________COLEMAK_MOD_DH_R2_x6________________,
+    ________________COLEMAK_MOD_DH_L3_x6________________,                      ________________COLEMAK_MOD_DH_R3_x6________________,
+                                        ______THUMB_LEFT_x3______,     ______THUMB_RIGHT_x3_____
+  // clang-format on
   ),
 
-  [_DWN] = LAYOUT_base_wrapper_x5(
-    ______________NUMBER_LEFT_x5_______________, ______________NUMBER_RIGHT_x5______________,
-    ______________UNICODE_L2_x5________________, ________________NAV_R2_x5__________________,
-    ______________UNICODE_L3_x5________________, ________________NAV_R3_x5__________________,
-                      KC_LGUI, _______, _______,    _______,MO(_CFG), _______
+  [_DWN] = LAYOUT_wrapper(
+    // clang-format off
+    _______, ______________NUMBER_LEFT_x5_______________,                      ______________NUMBER_RIGHT_x5______________, _______,
+    _______, ______________UNICODE_L2_x5________________,                      ________________NAV_R2_x5__________________, _______,
+    _______, ______________UNICODE_L3_x5________________,                      ________________NAV_R3_x5__________________, _______,
+                                        KC_LGUI, _______, _______,     _______,MO(_CFG), _______
+    // clang-format on
   ),
 
   [_UP] = LAYOUT_split_3x6_3(
-  //|-----------------------------------------------------|                    |-----------------------------------------------------|
-      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______,MO(_CFG), _______,   _______, _______, _______
-                                      //|--------------------------|  |--------------------------|
+    // clang-format off
+//|-----------------------------------------------------|                    |-----------------------------------------------------|
+    _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    _______, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
+//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+//|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        _______,MO(_CFG), _______,    _______, _______, _______
+                                    //|--------------------------|  |--------------------------|
+    // clang-format on
   ),
 
   [_CONFIG] = LAYOUT_split_3x6_3(
-  //|-----------------------------------------------------|                    |-----------------------------------------------------|
-      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UC_MOD,  KC_ASUP,   NK_ON, XXXXXXX, XXXXXXX,DF(_QWY),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                      XXXXXXX, KC_ASTG, NK_TOGG, CG_TOGG, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                      UC_RMOD, KC_ASDN,  NK_OFF, CG_NORM, XXXXXXX,DF(_CMK),
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,   _______, _______, _______
-                                      //|--------------------------|  |--------------------------|
+  // clang-format off
+//|-----------------------------------------------------|                    |-----------------------------------------------------|
+    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UC_MOD,  KC_ASUP,   NK_ON, XXXXXXX, XXXXXXX,DF(_QWY),
+//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                      XXXXXXX, KC_ASTG, NK_TOGG, CG_TOGG, XXXXXXX, XXXXXXX,
+//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                      UC_RMOD, KC_ASDN,  NK_OFF, CG_NORM, XXXXXXX,DF(_CMK),
+//|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        _______, _______, _______,   _______, _______, _______
+                                    //|--------------------------|  |--------------------------|
+    // clang-format on
   )
 };
-
-// clang-format on
