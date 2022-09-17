@@ -23,8 +23,8 @@
 enum preonic_layers { _QWERTY, _COLEMAK, _LOWER, _RAISE, _ADJUST };
 enum preonic_keycodes { QWERTY = SAFE_RANGE, COLEMAK, LOWER, RAISE, BACKLIT };
 
-#define ____________________BOTTOM_L_x6_____________________ BACKLIT, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC
-#define ____________________BOTTOM_R_x6_____________________ KC_ENT,  RAISE,  KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT
+#define ____________________BOTTOM_L_x6_____________________ BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC
+#define ____________________BOTTOM_R_x6_____________________ KC_ENT, RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 
 /* LAYOUT
  *
