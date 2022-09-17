@@ -71,11 +71,8 @@ enum layer_names {
 #define ______THUMB_LEFT_x3______ KC_LGUI, MO(_DWN), KC_SPC
 #define ______THUMB_RIGHT_x3_____ KC_ENT, MO(_UP), KC_RCTL
 
-// Define wrapper for standard CRKB layout
-#define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
-
 // LAYOUT
-//
+// 
 // |-----------------------------|            |-----------------------------|
 // |    |    |    |    |    |    |            |    |    |    |    |    |    |
 // |----+----+----+----+----+----|            |----+----+----+----+----+----|
@@ -85,6 +82,9 @@ enum layer_names {
 // |----+----+----+----+----+----+----|  |----+----+----+----+----+----+----|
 //                     |    |    |    |  |    |    |    |
 //                     |--------------|  |--------------|
+
+// Define wrapper for standard CRKB layout
+#define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
