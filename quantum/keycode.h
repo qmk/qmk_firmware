@@ -514,11 +514,11 @@ enum mouse_keys {
 #ifdef VIA_ENABLE
     KC_MS_UP = 0xF0,
 #else
-    KC_MS_UP = 0xED,
+    KC_MS_UP = 0xCD,
 #endif
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT, // 0xF0
+    KC_MS_RIGHT,
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
@@ -543,7 +543,7 @@ enum mouse_keys {
     /* Acceleration */
     KC_MS_ACCEL0,
     KC_MS_ACCEL1,
-    KC_MS_ACCEL2 // 0xFF
+    KC_MS_ACCEL2 // 0xDF, or 0xFF if via enabled
 };
 
 #include "keycode_legacy.h"
