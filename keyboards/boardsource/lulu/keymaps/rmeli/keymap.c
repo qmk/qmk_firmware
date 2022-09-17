@@ -28,7 +28,7 @@ enum layers { _QWERTY, _COLEMAK_DH, _RAISE, _LOWER, _ADJUST };
 #define QWY_DF DF(_QWERTY)
 #define CMK_DF DF(_COLEMAK_DH)
 
-#define __________THUMB_LEFT_x4___________ KC_LALT, KC_LGUI, LOWER, KC_SPC,
+#define __________THUMB_LEFT_x4___________ KC_LALT, KC_LGUI, LOWER, KC_SPC
 #define __________THUMB_RIGHT_x4__________ KC_ENT, RAISE, KC_BSPC, KC_RGUI
 
 /* LAYOUT
