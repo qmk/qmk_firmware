@@ -773,8 +773,10 @@ endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
     OPT_DEFS += -DUNICODE_COMMON_ENABLE
+    COMMON_VPATH += $(QUANTUM_DIR)/unicode
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
-           $(QUANTUM_DIR)/utf8.c
+           $(QUANTUM_DIR)/unicode/unicode.c \
+           $(QUANTUM_DIR)/unicode/utf8.c
 endif
 
 MAGIC_ENABLE ?= yes
@@ -882,14 +884,14 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     SRC += outputselect.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
-        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE
-        SRC += analog.c
+        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
+        QUANTUM_LIB_SRC += analog.c
         QUANTUM_LIB_SRC += spi_master.c
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
-        OPT_DEFS += -DBLUETOOTH_RN42
+        OPT_DEFS += -DBLUETOOTH_RN42 -DHAL_USE_SERIAL=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
         QUANTUM_LIB_SRC += uart.c
     endif

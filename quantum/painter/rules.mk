@@ -8,9 +8,10 @@ VALID_QUANTUM_PAINTER_DRIVERS := ili9163_spi ili9341_spi ili9488_spi st7789_spi 
 #-------------------------------------------------------------------------------
 
 OPT_DEFS += -DQUANTUM_PAINTER_ENABLE
-COMMON_VPATH += $(QUANTUM_DIR)/painter
+COMMON_VPATH += $(QUANTUM_DIR)/painter \
+                $(QUANTUM_DIR)/unicode
 SRC += \
-    $(QUANTUM_DIR)/utf8.c \
+    $(QUANTUM_DIR)/unicode/utf8.c \
     $(QUANTUM_DIR)/color.c \
     $(QUANTUM_DIR)/painter/qp.c \
     $(QUANTUM_DIR)/painter/qp_stream.c \

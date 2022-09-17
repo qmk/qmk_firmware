@@ -34,7 +34,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Press the `RESET` keycode
+    * Press the `QK_BOOT` keycode
     * Press the `RESET` button on the PCB if available
     * Short RST to GND quickly
 2. Wait for the OS to detect the device
@@ -87,7 +87,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters; some variants may require you to reset twice within 750 milliseconds):
-    * Press the `RESET` keycode
+    * Press the `QK_BOOT` keycode
     * Press the `RESET` button on the PCB if available
     * Short RST to GND quickly
 2. Wait for the OS to detect the device
@@ -123,7 +123,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods (you only have 7 seconds to flash once it enters):
-    * Press the `RESET` keycode
+    * Press the `QK_BOOT` keycode
     * Press the `RESET` button on the Teensy or PCB if available
     * short RST to GND quickly
 2. Wait for the OS to detect the device
@@ -153,7 +153,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Press the `RESET` keycode
+    * Press the `QK_BOOT` keycode
     * Keep the `BOOT` button held while quickly tapping the `RESET` button on the PCB
 2. Wait for the OS to detect the device
 3. Flash a .hex file
@@ -182,7 +182,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode
+    * Tap the `QK_BOOT` keycode
     * Hold the salt key while plugging the keyboard in - for PS2AVRGB boards, this is usually the key connected to MCU pins A0 and B0, otherwise it will be documented in your keyboard's readme
 2. Wait for the OS to detect the device
 3. Flash a .hex file
@@ -223,7 +223,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Press the `RESET` keycode
+    * Press the `QK_BOOT` keycode
     * Press the `RESET` button on the PCB if available
     * short RST to GND quickly
 2. Wait for the OS to detect the device
@@ -256,7 +256,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode (may not work on STM32F042 devices)
+    * Tap the `QK_BOOT` keycode (may not work on STM32F042 devices)
     * If a reset circuit is present, tap the `RESET` button on the PCB; some boards may also have a toggle switch that must be flipped
     * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
 2. Wait for the OS to detect the device
@@ -292,7 +292,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode
+    * Tap the `QK_BOOT` keycode
     * If a reset circuit is present, tap the `RESET` button on the PCB
     * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
 2. Wait for the OS to detect the device
@@ -316,7 +316,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode
+    * Tap the `QK_BOOT` keycode
     * Press the `RESET` button on the PCB
 2. Wait for the OS to detect the device
 3. Flash a .bin file
@@ -342,7 +342,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode
+    * Tap the `QK_BOOT` keycode
     * Double-tap the `nRST` button on the PCB.
 2. Wait for the OS to detect the device
 3. Copy the .uf2 file to the new USB disk
@@ -353,7 +353,7 @@ or
 CLI Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode
+    * Tap the `QK_BOOT` keycode
     * Double-tap the `nRST` button on the PCB.
 2. Wait for the OS to detect the device
 3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/blackpill_f411_tinyuf2 --keymap default`
@@ -381,7 +381,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOTLOADER` keycode
+    * Tap the `QK_BOOT` keycode
     * Hold the `BOOTSEL` button on the PCB while plugin in the usb cable.
     * Double-tap the `RESET` button on the PCB<sup>1</sup>.
 2. Wait for the OS to detect the device
@@ -393,7 +393,7 @@ or
 CLI Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `QK_BOOTLOADER` keycode
+    * Tap the `QK_BOOT` keycode
     * Hold the `BOOTSEL` button on the PCB while plugin in the usb cable.
     * Double-tap the `RESET` button on the PCB<sup>1</sup>.
 2. Wait for the OS to detect the device
