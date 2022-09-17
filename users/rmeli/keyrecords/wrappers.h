@@ -101,8 +101,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ______________NUMBER_LEFT_x5_______________    KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ______________NUMBER_RIGHT_x5______________    KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-#define ______________NUMBER_LEFT_x6_______________    KC_GRV,  ______________NUMBER_LEFT_x5_______________
-#define ______________NUMBER_RIGHT_x6______________    ______________NUMBER_RIGHT_x5______________, KC_MINS
+#define ___________________NUMBER_LEFT_x6___________________    KC_GRV,  ______________NUMBER_LEFT_x5_______________
+#define ___________________NUMBER_RIGHT_x6__________________    ______________NUMBER_RIGHT_x5______________, KC_MINS
 
 #define ______________SYMBOL_LEFT_x5_______________    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
 #define ______________SYMBOL_RIGHT_x5______________    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN

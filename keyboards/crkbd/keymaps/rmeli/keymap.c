@@ -68,15 +68,14 @@ enum layer_names {
 #define _CMK 1
 #define _CFG 4
 
-#define ______THUMB_LEFT_x3______ KC_LGUI,MO(_DWN),  KC_SPC
-#define ______THUMB_RIGHT_x3_____  KC_ENT, MO(_UP), KC_RCTL
-
-// clang-format off
+#define ______THUMB_LEFT_x3______ KC_LGUI, MO(_DWN), KC_SPC
+#define ______THUMB_RIGHT_x3_____ KC_ENT, MO(_UP), KC_RCTL
 
 // Define wrapper for standard CRKB layout
 #define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
-// Layout
+// LAYOUT
+//
 // |-----------------------------|            |-----------------------------|
 // |    |    |    |    |    |    |            |    |    |    |    |    |    |
 // |----+----+----+----+----+----|            |----+----+----+----+----+----|
@@ -87,36 +86,32 @@ enum layer_names {
 //                     |    |    |    |  |    |    |    |
 //                     |--------------|  |--------------|
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
   [_QWERTY] = LAYOUT_wrapper(
     // clang-format off
     ___________________QWERTY_L1_x6_____________________,                      ___________________QWERTY_R1_x6_____________________,
     ___________________QWERTY_L2_x6_____________________,                      ___________________QWERTY_R2_x6_____________________,
     ___________________QWERTY_L3_x6_____________________,                      ___________________QWERTY_R3_x6_____________________,
                                         ______THUMB_LEFT_x3______,     ______THUMB_RIGHT_x3_____
-    // clang-format on
   ),
 
   [_COLEMAK_DH] = LAYOUT_wrapper(
-    // clang-format off
     ________________COLEMAK_MOD_DH_L1_x6________________,                      ________________COLEMAK_MOD_DH_R1_x6________________,
     ________________COLEMAK_MOD_DH_L2_x6________________,                      ________________COLEMAK_MOD_DH_R2_x6________________,
     ________________COLEMAK_MOD_DH_L3_x6________________,                      ________________COLEMAK_MOD_DH_R3_x6________________,
                                         ______THUMB_LEFT_x3______,     ______THUMB_RIGHT_x3_____
-  // clang-format on
   ),
 
   [_DWN] = LAYOUT_wrapper(
-    // clang-format off
     _______, ______________NUMBER_LEFT_x5_______________,                      ______________NUMBER_RIGHT_x5______________, _______,
     _______, ______________UNICODE_L2_x5________________,                      ________________NAV_R2_x5__________________, _______,
     _______, ______________UNICODE_L3_x5________________,                      ________________NAV_R3_x5__________________, _______,
                                         KC_LGUI, _______, _______,     _______,MO(_CFG), _______
-    // clang-format on
   ),
 
   [_UP] = LAYOUT_split_3x6_3(
-    // clang-format off
 //|-----------------------------------------------------|                    |-----------------------------------------------------|
     _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
 //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -126,11 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                         _______,MO(_CFG), _______,    _______, _______, _______
                                     //|--------------------------|  |--------------------------|
-    // clang-format on
   ),
 
   [_CONFIG] = LAYOUT_split_3x6_3(
-  // clang-format off
 //|-----------------------------------------------------|                    |-----------------------------------------------------|
     QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UC_MOD,  KC_ASUP,   NK_ON, XXXXXXX, XXXXXXX,DF(_QWY),
 //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -140,6 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                         _______, _______, _______,   _______, _______, _______
                                     //|--------------------------|  |--------------------------|
-    // clang-format on
   )
 };
+// clang-format on
