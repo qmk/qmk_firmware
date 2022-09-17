@@ -30,26 +30,29 @@ enum layers { _QWERTY, _COLEMAK_DH, _RAISE, _LOWER, _ADJUST };
 
 // clang-format off
 
-// Define wrapper for standard CRKB layout
+// Define wrapper for standard LULU layout
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 // Define free keys for base layout
 // K01-K0A are free keys for row 0, K11-K1A are free keys for row 1, K21-K2A are free keys for row 2
-#define LAYOUT_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A,  \
-    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A \
+// x5: 5 keys per row left to fill
+// x6: 6 keys per row left to fill
+#define LAYOUT_base_x5( \
+    K01, K02, K03, K04, K05,           K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A, \
+    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, \
+              K41, K42, K43, K44, K45, K46, K47, K48 \
   ) \
   LAYOUT_wrapper( \
-       KC_GRV,     K01,     K02,     K03,     K04,     K05,                       K06,     K07,     K08,     K09,     K0A, KC_MINUS, \
-       KC_TAB,     K11,     K12,     K13,     K14,     K15,                       K16,     K17,     K18,     K19,     K1A, KC_BSPC, \
-        TD_ED,     K21,     K22,     K23,     K24,     K25,                       K26,     K27,     K28,     K29,     K2A, KC_QUOT, \
-      TD_LSPC,     K31,     K32,     K33,     K34,     K35, KC_LBRC,KC_RBRC,      K36,     K37,     K38,     K39,     K3A, TD_RSPC, \
-                                 KC_LALT, KC_LGUI,   LOWER,  KC_SPC, KC_ENT,    RAISE, KC_BSPC, KC_RGUI \
+      XXXXXXX, K01, K02, K03, K04, K05,           K06, K07, K08, K09, K0A, XXXXXXX, \
+      XXXXXXX, K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, XXXXXXX, \
+      XXXXXXX, K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A, XXXXXXX, \
+      XXXXXXX, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, XXXXXXX, \
+                         K41, K42, K43, K44, K45, K46, K47, K48 \
   )
 
-#define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...) LAYOUT_base_x5(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
@@ -68,18 +71,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 
- [_QWERTY] = LAYOUT_base_wrapper(
-  ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
-  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-  _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+ [_QWERTY] = LAYOUT_wrapper(
+  ______________NUMBER_LEFT_x6_______________,                   ______________NUMBER_RIGHT_x6______________,
+  _______________QWERTY_L1_x6________________,                   _______________QWERTY_R1_x6________________,
+  _______________QWERTY_L2_x6________________,                   _______________QWERTY_R2_x6________________,
+  _______________QWERTY_L3_x6________________, KC_LBRC, KC_RBRC, _______________QWERTY_R3_x6________________,
+                    KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_ENT,   RAISE, KC_BSPC, KC_RGUI
 ),
 
  [_COLEMAK_DH] = LAYOUT_base_wrapper(
-  ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
+  ______________NUMBER_LEFT_x5_______________, ______________NUMBER_RIGHT_x5______________,
   ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
   ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
-  ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+  ______________COLEMAK_MOD_DH_L3____________, KC_LBRC, KC_RBRC, ______________COLEMAK_MOD_DH_R3____________,
+                    KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_ENT,   RAISE, KC_BSPC, KC_RGUI
 ),
 
 /* LOWER

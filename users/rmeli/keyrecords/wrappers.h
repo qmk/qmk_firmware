@@ -24,6 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "keyrecords/unicode.h"
 #endif
 
+// + ------------- +
+// + HOME ROW MODS |
+// + ------------- +
+
 // https://precondition.github.io/home-row-mods
 
 #define HM_A LCTL_T(KC_A)
@@ -42,21 +46,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // + QWERTY |
 // + ------ +
 
-#define _________________QWERTY_L1_________________    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#ifdef HOME_ROW_MODS_ENABLED
-#define _________________QWERTY_L2_________________    HM_A,    HM_S,    HM_D,    HM_F,    KC_G
-#else
-#define _________________QWERTY_L2_________________    KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#endif
-#define _________________QWERTY_L3_________________    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+#define _____________QWERTY_HRM_LEFT______________ HM_A, HM_S, HM_D, HM_F
+#define _____________QWERTY_HRM_RIGHT_____________ HM_J, HM_K, HM_L, HM_SCLN
 
-#define _________________QWERTY_R1_________________    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#define _______________QWERTY_L1_x5________________    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #ifdef HOME_ROW_MODS_ENABLED
-#define _________________QWERTY_R2_________________    KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN
+#define _______________QWERTY_L2_x5________________    _____________QWERTY_HRM_LEFT______________,    KC_G
 #else
-#define _________________QWERTY_R2_________________    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
+#define _______________QWERTY_L2_x5________________    KC_A,    KC_S,    KC_D,    KC_F,    KC_G
 #endif
-#define _________________QWERTY_R3_________________    KC_N,    KC_M, KC_COMM,  KC_DOT,    KC_SLSH
+#define _______________QWERTY_L3_x5________________    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _______________QWERTY_R1_x5________________    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#ifdef HOME_ROW_MODS_ENABLED
+#define _______________QWERTY_R2_x5________________    KC_H,    _____________QWERTY_HRM_RIGHT_____________
+#else
+#define _______________QWERTY_R2_x5________________    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
+#endif
+#define _______________QWERTY_R3_x5________________    KC_N,    KC_M, KC_COMM,  KC_DOT,    KC_SLSH
+
+// + ------ +
+
+#define _______________QWERTY_L1_x6________________   KC_TAB, _______________QWERTY_L1_x5________________
+
+#define _______________QWERTY_L2_x6________________    TD_ED, _______________QWERTY_L2_x5________________
+
+#define _______________QWERTY_L3_x6________________  TD_LSPC, _______________QWERTY_L3_x5________________
+
+#define _______________QWERTY_R1_x6________________  _______________QWERTY_R1_x5________________, KC_BSPC
+
+#define _______________QWERTY_R2_x6________________  _______________QWERTY_R2_x5________________, KC_QUOT
+
+#define _______________QWERTY_R3_x6________________  _______________QWERTY_R3_x5________________, TD_RSPC
 
 // + -------------- +
 // + COLEMAK_MOD_DH |
@@ -74,28 +95,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // + NUMBER |
 // + ------ +
 
-#define ________________NUMBER_LEFT________________    KC_1,    KC_2,    KC_3,    KC_4,    KC_5
-#define ________________NUMBER_RIGHT_______________    KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define ______________NUMBER_LEFT_x5_______________    KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define ______________NUMBER_RIGHT_x5______________    KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define ______________NUMBER_LEFT_x6_______________    KC_GRV,  ______________NUMBER_LEFT_x5_______________
+#define ______________NUMBER_RIGHT_x6______________    ______________NUMBER_RIGHT_x5______________, KC_MINS
 
 // + ------- +
 // + UNICODE |
 // + ------- +
 
-#define _________________UNICODE_L2________________    A_GRV,   E_GRV,   I_GRV,   O_GRV,   U_GRV
-#define _________________UNICODE_L3________________    A_UML,   E_ACT,   I_CIR,   O_UML,   U_UML
+#ifdef UNICODEMAP_ENABLE
+#define ______________UNICODE_L2_x5________________    A_GRV,   E_GRV,   I_GRV,   O_GRV,   U_GRV
+#define ______________UNICODE_L3_x5________________    A_UML,   E_ACT,   I_CIR,   O_UML,   U_UML
+#endif
 
 // + ---- +
 // + FUNC |
 // + ---- +
 
-#define _________________FUNC_LEFT_________________    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
-#define _________________FUNC_RIGHT________________    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+#define ______________FUNC_LEFT_5x_________________    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define ______________FUNC_RIGHT_5x________________    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+#define ______________FUNC_LEFT_6x_________________    ______________FUNC_LEFT_5x_________________, KC_F6
+#define ______________FUNC_RIGHT_6x________________    KC_F7, ______________FUNC_RIGHT_5x________________
 
-// + ------- +
+// + ---- +
 // + MISC |
-// + ------- +
+// + ---- +
 
-#define ___________________BLANK___________________    _______, _______, _______, _______, _______
+#define _________________BLANK_5x__________________    _______, _______, _______, _______, _______
+#define _________________BLANK_6x__________________    _________________BLANK_5x__________________, _______
+
+#define ________________NAV_R2_x5__________________    XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP
+#define ________________NAV_R3_x5__________________    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 
 // clang-format on
 

@@ -68,52 +68,69 @@ enum layer_names {
 #define _CMK 1
 #define _CFG 4
 
+#define _____THUMB_LEFT_x3_____ KC_LGUI,MO(_DWN),  KC_SPC
+#define _____THUMB_RIGHT_x3____  KC_ENT, MO(_UP), KC_RCTL
+
 // clang-format off
 
 // Define wrapper for standard CRKB layout
-#define LAYOUT_split_3x6_3_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
+#define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
 // Define free keys for base layout
 // K01-K0A are free keys for row 0, K11-K1A are free keys for row 1, K21-K2A are free keys for row 2
-#define LAYOUT_split_3x6_3_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+// x5: 5 keys per row left to fill
+// x6: 6 keys per row left to fill
+#define LAYOUT_base_x5( \
+    K01, K02, K03, K04, K05,           K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A,  \
+                   K31, K32, K33, K34, K35, K36  \
   ) \
-  LAYOUT_split_3x6_3_wrapper( \
-       KC_TAB,     K01,     K02,     K03,     K04,     K05,                          K06,     K07,     K08,     K09,     K0A, KC_BSPC, \
-        TD_ED,     K11,     K12,     K13,     K14,     K15,                          K16,     K17,     K18,     K19,     K1A, KC_QUOT, \
-      TD_LSPC,     K21,     K22,     K23,     K24,     K25,                          K26,     K27,     K28,     K29,     K2A, TD_RSPC, \
-                                          KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT, MO(_UP), KC_RCTL  \
+  LAYOUT_wrapper( \
+      XXXXXXX,     K01,     K02,     K03,     K04,     K05,                          K06,     K07,     K08,     K09,     K0A, XXXXXXX, \
+      XXXXXXX,     K11,     K12,     K13,     K14,     K15,                          K16,     K17,     K18,     K19,     K1A, XXXXXXX, \
+      XXXXXXX,     K21,     K22,     K23,     K24,     K25,                          K26,     K27,     K28,     K29,     K2A, XXXXXXX, \
+                                              K31,     K32,     K33,     K34,     K35,     K36 \
+  )
+
+#define LAYOUT_base_x6( \
+    K01, K02, K03, K04, K05,           K06, K07, K08, K09, K0A, K0B, K0C, \
+    K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, K1B, K1C, \
+    K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A, K2B, K2C, \
+                   K31, K32, K33, K34, K35, K36  \
+  ) \
+  LAYOUT_wrapper( \
+          K01,     K02,     K03,     K04,     K05,    K06,                       K07,     K08,     K09,     K0A,     K0B,     K0C, \
+          K11,     K12,     K13,     K14,     K15,    K16,                       K17,     K18,     K19,     K1A,     K1B,     K1C, \
+          K21,     K22,     K23,     K24,     K25,    K26,                       K27,     K28,     K29,     K2A,     K2B,     K2C, \
+                                             K31,     K32,     K33,     K34,     K35,     K36 \
   )
 
 // Define wrapper for base layout, so that free keys can be filled
 // with partial row definitions in users/rmeli/krecords/wrappers.h
-#define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper_x5(...)       LAYOUT_base_x5(__VA_ARGS__)
+#define LAYOUT_base_wrapper_x6(...)       LAYOUT_base_x6(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_base_wrapper(
-    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+  [_QWERTY] = LAYOUT_base_wrapper_x6(
+    _______________QWERTY_L1_x6________________, _______________QWERTY_R1_x6________________,
+    _______________QWERTY_L2_x6________________, _______________QWERTY_R2_x6________________,
+    _______________QWERTY_L3_x6________________, _______________QWERTY_R3_x6________________,
+                        _____THUMB_LEFT_x3_____, _____THUMB_RIGHT_x3____
   ),
 
-  [_COLEMAK_DH] = LAYOUT_base_wrapper(
+  [_COLEMAK_DH] = LAYOUT_base_wrapper_x5(
     ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
     ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
-    ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________,
+                      KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT, MO(_UP), KC_RCTL
   ),
 
-  [_DWN] = LAYOUT_split_3x6_3(
-  //|-----------------------------------------------------|                    |-----------------------------------------------------|
-      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,   A_GRV,   E_GRV,   I_GRV,   O_GRV,   U_GRV,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,   A_UML,   E_ACT,   I_CIR,   O_UML,   U_UML,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, KC_PGDN, _______,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______, _______,    _______,MO(_CFG), _______
-                                      //|--------------------------|  |--------------------------|
+  [_DWN] = LAYOUT_base_wrapper_x5(
+    ______________NUMBER_LEFT_x5_______________, ______________NUMBER_RIGHT_x5______________,
+    ______________UNICODE_L2_x5________________, ________________NAV_R2_x5__________________,
+    ______________UNICODE_L3_x5________________, ________________NAV_R3_x5__________________,
+                      KC_LGUI, _______, _______,    _______,MO(_CFG), _______
   ),
 
   [_UP] = LAYOUT_split_3x6_3(
