@@ -195,6 +195,8 @@ _Static_assert(KC_MFFD                == 0x00BB, "");
 _Static_assert(KC_MRWD                == 0x00BC, "");
 _Static_assert(KC_BRIU                == 0x00BD, "");
 _Static_assert(KC_BRID                == 0x00BE, "");
+_Static_assert(KC_CPNL                == 0x00BF, "");
+_Static_assert(KC_ASST                == 0x00C0, "");
 
 _Static_assert(KC_LEFT_CTRL           == 0x00E0, "");
 _Static_assert(KC_LEFT_SHIFT          == 0x00E1, "");
