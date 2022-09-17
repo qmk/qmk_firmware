@@ -46,7 +46,8 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER, 0);
     default_layer_state = 0;
     eeprom_update_byte(EECONFIG_KEYMAP_LOWER_BYTE, 0);
-    eeprom_update_byte(EECONFIG_KEYMAP_UPPER_BYTE, 0xC);
+    // Enable oneshot and autocorrect by default: 0b0001 0100
+    eeprom_update_byte(EECONFIG_KEYMAP_UPPER_BYTE, 0x14);
     eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
     eeprom_update_byte(EECONFIG_BACKLIGHT, 0);
     eeprom_update_byte(EECONFIG_AUDIO, 0xFF); // On by default
