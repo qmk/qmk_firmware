@@ -324,30 +324,26 @@ void register_hex(uint16_t hex) {
 }
 
 void register_hex32(uint32_t hex) {
-    bool suppress_zero = true;
-    bool winc_lz       = (unicode_config.input_mode == UC_WINC);
+    bool first_digit        = true;
+    bool needs_leading_zero = (unicode_config.input_mode == UC_WINC);
     for (int i = 7; i >= 0; i--) {
-        if (i < 4) {
-            suppress_zero = false;
-        }
-
+        // Work out the digit we're going to transmit
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
 
-        /*
-         * WinCompose interprets codes with a leading alpha
-         * as accented characters. We work around this for A-F
-         * by adding a leading zero:
-         */
-        if (winc_lz && digit > 9) {
+        // If we're still searching for the first digit, and found one
+        // that needs a leading zero sent out, send the zero.
+        if (first_digit && needs_leading_zero && digit > 9) {
             send_nibble_wrapper(0);
         }
 
-        if (digit == 0 && suppress_zero) {
-            // do nothing
-        } else {
+        // Always send digits (including zero) if we're down to the last
+        // two bytes of nibbles.
+        bool must_send = i < 4;
+
+        // If we've found a digit worth transmitting, do so.
+        if (digit != 0 || !first_digit || must_send) {
             send_nibble_wrapper(digit);
-            suppress_zero = false;
-            winc_lz       = false;
+            first_digit = false;
         }
     }
 }
