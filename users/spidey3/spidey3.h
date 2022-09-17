@@ -17,9 +17,7 @@ enum userspace_layers {
 };
 
 enum custom_keycodes {
-    CH_CPNL = SAFE_RANGE, // AL Control Panel
-    CH_ASST,              // AL Context-aware Desktop Assistant
-    CH_SUSP,              // Suspend
+    CH_SUSP = SAFE_RANGE,  // Suspend
 
     SPI_NORMAL,
     SPI_WIDE,

@@ -199,8 +199,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 // clang-format off
 
-            case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
-            case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
                 // clang-format on
@@ -285,11 +283,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     } else {
         switch (keycode) {
-            case CH_CPNL:
-            case CH_ASST:
-                host_consumer_send(0);
-                return false;
-
             case SPI_KP_00:
                 unregister_code(KC_KP_0);
                 return false;

@@ -207,6 +207,8 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Previous Track                         |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
 |`KC_BRIGHTNESS_UP`      |`KC_BRIU`                      |Brightness Up                          |✔            |✔            |✔                |
 |`KC_BRIGHTNESS_DOWN`    |`KC_BRID`                      |Brightness Down                        |✔            |✔            |✔                |
+|`KC_CONTROL_PANEL`      |`KC_CPNL`                      |Open Control Panel                     |✔            |             |                 |
+|`KC_ASSISTANT`          |`KC_ASST`                      |Launch Context-Aware Assistant         |✔            |             |                 |
 
 <sup>1. The Linux kernel HID driver recognizes [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c), but the default bindings depend on the DE/WM.</sup><br/>
 <sup>2. Treated as F13-F15.</sup><br/>

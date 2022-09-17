@@ -292,6 +292,10 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
             return AL_CALCULATOR;
         case KC_MY_COMPUTER:
             return AL_LOCAL_BROWSER;
+        case KC_CONTROL_PANEL:
+            return AL_CONTROL_PANEL;
+        case KC_ASSISTANT:
+            return AL_ASSISTANT;
         case KC_WWW_SEARCH:
             return AC_SEARCH;
         case KC_WWW_HOME:
