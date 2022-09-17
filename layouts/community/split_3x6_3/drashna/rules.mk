@@ -34,7 +34,7 @@ ifeq ($(strip $(USE_ARM_CONFIG)), yes)
     SERIAL_DRIVER          = usart
     SWAP_HANDS_ENABLE      = yes
     WPM_ENABLE             = yes
-    AUTOCORRECTION_ENABLE  = yes
+    AUTOCORRECT_ENABLE     = yes
     CAPS_WORD_ENABLE       = yes
 else
     CUSTOM_UNICODE_ENABLE  = no

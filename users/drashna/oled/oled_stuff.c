@@ -432,7 +432,7 @@ void render_bootmagic_status(uint8_t col, uint8_t line) {
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
-#if defined(AUTOCORRECTION_ENABLE) || defined(AUTOCORRECT_ENABLE)
+#if defined(AUTOCORRECT_ENABLE)
     oled_write_P(PSTR("CRCT"), autocorrect_is_enabled());
     oled_write_P(PSTR(" "), false);
 #else
