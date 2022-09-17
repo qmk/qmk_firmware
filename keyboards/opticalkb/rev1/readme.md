@@ -4,7 +4,7 @@
 * Hardware Supported: Black pill STM32F401
 
 This keyboard uses optical switches instead of mechanical switches.
-PCB for this keyboard can be found on [github](https://github.com/girishji/optical-keyboard).
+PCB for this keyboard can be found on [github](https://github.com/girishji/optical-keyboard-mx).
 The matrix implementation uses column-to-row arrangement. All the IR's (infra-red led) in a
 column are turned on before reading the digital input pins connected to rows. After
 reading all the rows, column is powered off and subsequent column is powered on before
