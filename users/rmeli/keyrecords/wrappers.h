@@ -91,14 +91,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ______________COLEMAK_MOD_DH_R2____________    KC_M,    KC_N,    KC_E,    KC_I,    KC_O
 #define ______________COLEMAK_MOD_DH_R3____________    KC_K,    KC_H, KC_COMM,  KC_DOT,    KC_SLASH
 
-// + ------ +
-// + NUMBER |
-// + ------ +
+// + --------------- +
+// + NUMBERS/SYMBOLS |
+// + --------------- +
 
 #define ______________NUMBER_LEFT_x5_______________    KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ______________NUMBER_RIGHT_x5______________    KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 #define ______________NUMBER_LEFT_x6_______________    KC_GRV,  ______________NUMBER_LEFT_x5_______________
 #define ______________NUMBER_RIGHT_x6______________    ______________NUMBER_RIGHT_x5______________, KC_MINS
+
+#define ______________SYMBOL_LEFT_x5_______________    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
+#define ______________SYMBOL_RIGHT_x5______________    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
+#define ___________________SYMBOL_LEFT_x6___________________    KC_GRV, ______________SYMBOL_LEFT_x5_______________
+#define ___________________SYMBOL_RIGHT_x6__________________    ______________SYMBOL_RIGHT_x5______________, KC_TILD
 
 // + ------- +
 // + UNICODE |
@@ -115,8 +120,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ______________FUNC_LEFT_5x_________________    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define ______________FUNC_RIGHT_5x________________    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
-#define ______________FUNC_LEFT_6x_________________    ______________FUNC_LEFT_5x_________________, KC_F6
-#define ______________FUNC_RIGHT_6x________________    KC_F7, ______________FUNC_RIGHT_5x________________
+#define ____________________FUNC_LEFT_x6____________________    ______________FUNC_LEFT_5x_________________, KC_F6
+#define ____________________FUNC_RIGHT_x6___________________    KC_F7, ______________FUNC_RIGHT_5x________________
 
 // + ---- +
 // + MISC |
