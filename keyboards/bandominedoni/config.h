@@ -91,7 +91,7 @@
 #ifdef RGB_MATRIX_ENABLE
 
 /* ws2812 RGB MATRIX */
-#   define DRIVER_LED_TOTAL 76
+#   define RGB_MATRIX_LED_COUNT 76
 
  // reacts to keypresses
 #   define RGB_MATRIX_KEYPRESSES
