@@ -265,6 +265,7 @@
             "type": "object",
             "properties": {
                 "driver": {"type": "string"},
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "layout": {
                     "type": "array",
                     "items": {
@@ -292,6 +293,7 @@
             "type": "object",
             "properties": {
                 "driver": {"type": "string"},
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "layout": {
                     "type": "array",
                     "items": {
