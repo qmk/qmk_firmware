@@ -134,6 +134,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___________________SYMBOL_LEFT_x6___________________  KC_GRV, ______________SYMBOL_LEFT_x5_______________
 #define ___________________SYMBOL_RIGHT_x6__________________ ______________SYMBOL_RIGHT_x5______________, KC_TILD
 
+#define ____________________SYMBOL_R2_x6____________________ KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV
+#define ____________________SYMBOL_R3_x6____________________ KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD
+
 // + ------- +
 // + UNICODE |
 // + ------- +
@@ -157,10 +160,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // + ---- +
 
 #define _________________BLANK_5x__________________ _______, _______, _______, _______, _______
-#define _________________BLANK_6x__________________ _________________BLANK_5x__________________, _______
+#define ______________________BLANK_6x______________________ _________________BLANK_5x__________________, _______
+
+#define _________________NONE_5x___________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ______________________NONE_6x_______________________ _________________NONE_5x___________________, XXXXXXX
 
 #define ________________NAV_R2_x5__________________ XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP
 #define ________________NAV_R3_x5__________________ XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
+#define ____________NAV_VIM_x4____________ KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT
+
+#define _______________CONFIG_R1_x5________________ UC_MOD,  KC_ASUP,   NK_ON, XXXXXXX, XXXXXXX
+#define _______________CONFIG_R2_x5________________ XXXXXXX, KC_ASTG, NK_TOGG, CG_TOGG, XXXXXXX
+#define _______________CONFIG_R3_x5________________ UC_RMOD, KC_ASDN,  NK_OFF, CG_NORM, XXXXXXX
+
+#define ________________RGB_L2_x5__________________  RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI
+#define ________________RGB_L3_x5__________________ RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD
 
 // clang-format on
 

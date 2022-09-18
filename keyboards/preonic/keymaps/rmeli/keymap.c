@@ -64,27 +64,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER] = LAYOUT_wrapper(
-  KC_GRV,  ______________NUMBER_LEFT_x5_______________, ______________NUMBER_RIGHT_x5______________, XXXXXXX,
+  ____________________FUNC_LEFT_x6____________________, ____________________FUNC_RIGHT_x6___________________,
   ___________________NUMBER_LEFT_x6___________________, ___________________NUMBER_RIGHT_x6__________________,
   _______, ______________UNICODE_L2_x5________________, ________________NAV_R2_x5__________________, XXXXXXX,
   _______, ______________UNICODE_L3_x5________________, ________________NAV_R3_x5__________________, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  ______________________BLANK_6x______________________, ______________________BLANK_6x______________________
 ),
 
 [_RAISE] = LAYOUT_wrapper(
-  ____________________FUNC_LEFT_x6____________________, ____________________FUNC_RIGHT_x6___________________,
+  ___________________NUMBER_LEFT_x6___________________, ___________________NUMBER_RIGHT_x6__________________,
   ___________________SYMBOL_LEFT_x6___________________, ___________________SYMBOL_RIGHT_x6__________________,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, ____________NAV_VIM_x4____________, XXXXXXX, ____________________SYMBOL_R2_x6____________________,
+  _______, _________________NONE_5x___________________, ____________________SYMBOL_R3_x6____________________,
+  ______________________BLANK_6x______________________, ______________________BLANK_6x______________________
 ),
 
 [_ADJUST] = LAYOUT_wrapper(
-  ____________________FUNC_LEFT_x6____________________, ____________________FUNC_RIGHT_x6___________________,
-  XXXXXXX, MU_ON,   AU_ON,   MI_ON,   XXXXXXX, XXXXXXX, XXXXXXX, KC_ASUP, NK_ON,   CG_SWAP, QWERTY, XXXXXXX,
-  RESET,   MU_MOD,  AU_TOG,  MI_TOG,  XXXXXXX, XXXXXXX, XXXXXXX, KC_ASTG, NK_TOGG, CG_TOGG, XXXXXXX, XXXXXXX,
-  XXXXXXX, MU_OFF,  AU_OFF,  MI_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, KC_ASDN, NK_OFF,  CG_NORM, COLEMAK, XXXXXXX,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  QK_BOOT, _________________NONE_5x___________________, ______________________NONE_6x_______________________,
+  XXXXXXX, MU_ON,   AU_ON,   MI_ON,   XXXXXXX, XXXXXXX, _______________CONFIG_R1_x5________________,  QWERTY,
+  RESET,   MU_MOD,  AU_TOG,  MI_TOG,  XXXXXXX, XXXXXXX, _______________CONFIG_R2_x5________________, XXXXXXX,
+  XXXXXXX, MU_OFF,  AU_OFF,  MI_OFF,  XXXXXXX, XXXXXXX, _______________CONFIG_R3_x5________________, COLEMAK,
+  ______________________BLANK_6x______________________, ______________________BLANK_6x______________________
 )
 };
 // clang-format on
