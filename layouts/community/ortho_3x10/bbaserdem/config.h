@@ -17,5 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef KEYBOARD_40percentclub_gherkin
     #define MUSIC_MAP
     #define RGB_DI_PIN F6
-    #define DRIVER_LED_TOTAL 10
+    #define RGB_MATRIX_LED_COUNT 10
 #endif
