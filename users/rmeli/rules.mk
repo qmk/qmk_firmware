@@ -1,6 +1,6 @@
 # https://github.com/qmk/qmk_firmware/blob/develop/docs/squeezing_avr.md
 CONSOLE_ENABLE = no
-COMMAND_ENABLE = no # Turned of for Space Cadet Shift and Caps Word
+COMMAND_ENABLE = no # Turned off for Space Cadet Shift and Caps Word
 MOUSEKEY_ENABLE = no
 SPACE_CADET_ENABLE = no # Implemented with tap dance
 GRAVE_ESC_ENABLE = no
