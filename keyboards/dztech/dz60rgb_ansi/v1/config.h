@@ -81,5 +81,5 @@
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 61
+#    define RGB_MATRIX_LED_COUNT 61
 #endif
