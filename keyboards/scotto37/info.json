@@ -1,6 +1,6 @@
 {
     "manufacturer": "Joe Scotto",
-    "keyboard_name": "scotto36",
+    "keyboard_name": "scotto37",
     "maintainer": "joe-scotto",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
@@ -13,8 +13,8 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2"],
-        "rows": ["D1", "D1", "D1", "D1"]
+        "cols": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5", "F4", "F5"],
+        "rows": ["B1", "B3", "B2", "B6"]
     },
     "processor": "atmega32u4",
     "url": "",
@@ -24,7 +24,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ortho_4x10": {
+        "LAYOUT_ortho_3x10_7": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
@@ -57,15 +57,12 @@
                 { "matrix": [2, 8], "x": 8, "y": 2 },
                 { "matrix": [2, 9], "x": 9, "y": 2 },
                 { "matrix": [3, 0], "x": 0, "y": 3 },
-                { "matrix": [3, 1], "x": 1, "y": 3 },
-                { "matrix": [3, 2], "x": 2, "y": 3 },
-                { "matrix": [3, 3], "x": 3, "y": 3 },
-                { "matrix": [3, 4], "x": 4, "y": 3 },
-                { "matrix": [3, 5], "x": 5, "y": 3 },
-                { "matrix": [3, 6], "x": 6, "y": 3 },
-                { "matrix": [3, 7], "x": 7, "y": 3 },
-                { "matrix": [3, 8], "x": 8, "y": 3 },
-                { "matrix": [3, 9], "x": 9, "y": 3 }
+                { "matrix": [3, 1], "x": 2, "y": 3 },
+                { "matrix": [3, 2], "x": 3, "y": 3 },
+                { "matrix": [3, 3], "x": 4, "y": 3 },
+                { "matrix": [3, 4], "x": 5, "y": 3 },
+                { "matrix": [3, 5], "x": 6, "y": 3 },
+                { "matrix": [3, 6], "x": 9, "y": 3 }
             ]
         }
     }
