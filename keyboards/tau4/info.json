@@ -12,6 +12,36 @@
         "rows": [ "F4", "F5", "F6", "F7" ],
         "cols": [ "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F1", "F0", "B0", "B1" ]
     },
+    "features": {
+        "rgblight": true
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "brightness_steps": 8,
+        "hue_steps": 8,
+        "layers": {
+            "blink": false,
+            "enabled": true,
+            "max": 5,
+            "override_rgb": false
+        },
+        "led_count": 10,
+        "max_brightness": 128,
+        "pin": "B2",
+        "saturation_steps": 16,
+        "sleep": true
+    },
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [
