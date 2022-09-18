@@ -69,7 +69,7 @@ void matrix_scan_user(void) {
 
 void rgb_matrix_indicators_user(void) {
 
-  for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
     if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
         rgb_matrix_set_color(i, 0, 0, 0);
     }
@@ -80,7 +80,7 @@ void rgb_matrix_indicators_user(void) {
 
   //capslock
   if (host_keyboard_led_state().caps_lock) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
       if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             rgb_matrix_set_color(i, 255, 255, 255);
       }
@@ -89,7 +89,7 @@ void rgb_matrix_indicators_user(void) {
 
   //game layer
   if (IS_LAYER_ON(GAME)) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
       if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             rgb_matrix_set_color(i, 0, 204, 255);
       }
@@ -98,7 +98,7 @@ void rgb_matrix_indicators_user(void) {
 
   //secgame layer
   if (IS_LAYER_ON(SECGAME)) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
       if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             rgb_matrix_set_color(i, 255, 0, 0);
       }

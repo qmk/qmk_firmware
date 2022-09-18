@@ -67,7 +67,7 @@
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 63
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled

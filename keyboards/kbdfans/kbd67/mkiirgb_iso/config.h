@@ -32,7 +32,7 @@
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 
 #define RGB_DI_PIN C7
-#define DRIVER_LED_TOTAL 68
+#define RGB_MATRIX_LED_COUNT 68
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES           // reacts to keypresses
