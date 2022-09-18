@@ -65,7 +65,7 @@ void rgb_matrix_indicators_user(void) {
     }
 
     if (host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
             if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
                 rgb_matrix_set_color(i, _CAPS_COLOR_RGB);
             }
