@@ -639,6 +639,17 @@ void housekeeping_task_user(void) {
 
 ### ** Image Functions **
 
+Making an image available for use requires compiling it into your firmware. To do so, assuming you've created `my_image.qgf.c` and `my_image.qgf.h` as per the CLI examples above, you'd add the following to your `rules.mk`:
+
+```make
+SRC += my_image.qgf.c
+```
+
+...and in your `keymap.c`, you'd add to the top of the file:
+```c
+#include "my_image.qgf.h"
+```
+
 <!-- tabs:start -->
 
 #### ** Load Image **
@@ -735,6 +746,17 @@ void housekeeping_task_user(void) {
 
 ### ** Font Functions **
 
+Making a font available for use requires compiling it into your firmware. To do so, assuming you've created `my_font.qff.c` and `my_font.qff.h` as per the CLI examples above, you'd add the following to your `rules.mk`:
+
+```make
+SRC += noto11.qff.c
+```
+
+...and in your `keymap.c`, you'd add to the top of the file:
+```c
+#include "noto11.qff.h"
+```
+
 <!-- tabs: start -->
 
 #### ** Load Font **
@@ -786,7 +808,7 @@ The `qp_drawtext` and `qp_drawtext_recolor` functions draw the supplied string t
 // Draw a text message on the bottom-right of the 240x320 display on initialisation
 static painter_font_handle_t my_font;
 void keyboard_post_init_kb(void) {
-    my_font = qp_load_font_mem(font_opensans);
+    my_font = qp_load_font_mem(font_noto11);
     if (my_font != NULL) {
         static const char *text = "Hello from QMK!";
         int16_t width = qp_textwidth(my_font, text);
