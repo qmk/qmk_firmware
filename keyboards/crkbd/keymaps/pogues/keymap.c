@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             ALT_TAB, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,TO(LCMK), XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
+            XXXXXXX,TO(LCMK), C(KC_X), C(KC_C), XXXXXXX, C(KC_V),                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______, TO(LCMK), _______,     _______,  XXXXXXX, _______
                                             //`--------------------------'  `--------------------------'
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             ALT_TAB, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, XXXXXXX,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, MY_LLCK, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
+            XXXXXXX, MY_LLCK, C(KC_X), C(KC_C), XXXXXXX, C(KC_V),                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______, TO(LCMK), _______,     _______,  XXXXXXX, _______
                                             //`--------------------------'  `--------------------------'
@@ -192,12 +192,11 @@ enum combo_keys {
     // left hand only
     WF_ESC,
     CD_TAB,
-    XC_TAB,   // try out a duplicate...
     // right hand only
     UY_DEL,
     NUM_89_DEL,  // same as UY on num layer
     HCOM_ENT,
-    LY_CTLBSP,
+    JY_CTLBSP,
     COMDOT_UNDS,
 
     // both hands
@@ -210,11 +209,10 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM combo_wf[] = {KC_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_xc[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM combo_uy[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_89[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_hcom[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_ly[] = {KC_L, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_jy[] = {KC_J, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_comdot[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM combo_fu[] = {KC_F, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_wy[] = {KC_W, KC_Y, COMBO_END};
@@ -223,12 +221,11 @@ const uint16_t PROGMEM combo_pl[] = {KC_P, KC_L, COMBO_END};
 combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_wf, KC_ESC),
     [CD_TAB] = COMBO(combo_cd, KC_TAB),
-    [XC_TAB] = COMBO(combo_xc, KC_TAB),
 
     [UY_DEL] = COMBO(combo_uy, KC_DEL),
     [NUM_89_DEL] = COMBO(combo_89, KC_DEL),
     [HCOM_ENT] = COMBO(combo_hcom, KC_ENT),
-    [LY_CTLBSP] = COMBO(combo_ly, LCTL(KC_BSPC)),
+    [JY_CTLBSP] = COMBO(combo_jy, LCTL(KC_BSPC)),
     [COMDOT_UNDS] = COMBO(combo_comdot, KC_UNDS),
 
     [FU_LMOV] = COMBO(combo_fu, TO(LMOV)),
