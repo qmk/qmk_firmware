@@ -3,7 +3,7 @@ QUANTUM_PAINTER_DRIVERS ?=
 QUANTUM_PAINTER_ANIMATIONS_ENABLE ?= yes
 
 # The list of permissible drivers that can be listed in QUANTUM_PAINTER_DRIVERS
-VALID_QUANTUM_PAINTER_DRIVERS := ili9163_spi ili9341_spi ili9488_spi st7789_spi st7735_spi gc9a01_spi ssd1351_spi
+VALID_QUANTUM_PAINTER_DRIVERS := rgb565_surface ili9163_spi ili9341_spi ili9488_spi st7789_spi st7735_spi gc9a01_spi ssd1351_spi
 
 #-------------------------------------------------------------------------------
 
@@ -39,6 +39,13 @@ define handle_quantum_painter_driver
 
     ifeq ($$(filter $$(strip $$(CURRENT_PAINTER_DRIVER)),$$(VALID_QUANTUM_PAINTER_DRIVERS)),)
         $$(error "$$(CURRENT_PAINTER_DRIVER)" is not a valid Quantum Painter driver)
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),rgb565_surface)
+        OPT_DEFS += -DQUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/generic
+        SRC += \
+            $(DRIVER_PATH)/painter/generic/qp_rgb565_surface.c \
 
     else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ili9163_spi)
         QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
