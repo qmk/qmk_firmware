@@ -35,7 +35,7 @@ painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_hei
  * @param surface[in] the surface to copy from
  * @param display[in] the display to copy into
  * @param x[in] the x-location of the original position of the framebuffer
- * @param y[in] the x-location of the original position of the framebuffer
+ * @param y[in] the y-location of the original position of the framebuffer
  * @return whether the draw operation completed successfully
  */
 bool qp_rgb565_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y);
