@@ -4,8 +4,6 @@
 #include "qp_rgb565_surface.h"
 #include "qp_draw.h"
 
-#define BYTE_SWAP(x) (((((uint16_t)(x)) >> 8) & 0x00FF) | ((((uint16_t)(x)) << 8) & 0xFF00))
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Common
 
@@ -117,7 +115,7 @@ static bool qp_rgb565_surface_clear(painter_device_t device) {
 static bool qp_rgb565_surface_flush(painter_device_t device) {
     struct painter_driver_t *        driver  = (struct painter_driver_t *)device;
     rgb565_surface_painter_device_t *surface = (rgb565_surface_painter_device_t *)driver;
-    surface->dirty_l = surface->dirty_t = 0xFFFF;
+    surface->dirty_l = surface->dirty_t = UINT16_MAX;
     surface->dirty_r = surface->dirty_b = 0;
     surface->is_dirty                   = false;
     return true;
@@ -152,7 +150,7 @@ static bool qp_rgb565_surface_palette_convert_rgb565_swapped(painter_device_t de
     for (int16_t i = 0; i < palette_size; ++i) {
         RGB      rgb      = hsv_to_rgb_nocie((HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
         uint16_t rgb565   = (((uint16_t)rgb.r) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.b) >> 3);
-        palette[i].rgb565 = BYTE_SWAP(rgb565);
+        palette[i].rgb565 = __builtin_bswap16(rgb565);
     }
     return true;
 }
