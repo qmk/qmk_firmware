@@ -266,6 +266,12 @@
             "properties": {
                 "driver": {"type": "string"},
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
@@ -294,6 +300,12 @@
             "properties": {
                 "driver": {"type": "string"},
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
