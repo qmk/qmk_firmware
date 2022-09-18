@@ -128,8 +128,8 @@ LED_TYPE led[RGBLED_NUM];
 
 #ifdef RGBLIGHT_LAYERS
 rgblight_segment_t const *const *rgblight_layers = NULL;
-    
-bool deferred_set_layer_state = false; 
+
+bool deferred_set_layer_state = false;
 #endif
 
 rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
@@ -747,13 +747,12 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
     }
     RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
 
-    // Calling rgblight_set() here (directly or indirectly) could 
-    // potentially cause timing issues when there are multiple 
+    // Calling rgblight_set() here (directly or indirectly) could
+    // potentially cause timing issues when there are multiple
     // successive calls to rgblight_set_layer_state(). Instead,
     // set a flag and do it the next time rgblight_task() runs.
 
     deferred_set_layer_state = true;
-
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
