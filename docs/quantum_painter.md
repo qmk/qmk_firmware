@@ -8,7 +8,7 @@ To enable overall Quantum Painter to be built into your firmware, add the follow
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ......
+QUANTUM_PAINTER_DRIVERS += ......
 ```
 
 You will also likely need to select an appropriate driver in `rules.mk`, which is listed below.
@@ -17,17 +17,18 @@ You will also likely need to select an appropriate driver in `rules.mk`, which i
 
 The QMK CLI can be used to convert from normal images such as PNG files or animated GIFs, as well as fonts from TTF files.
 
-Hardware supported:
+Supported devices:
 
-| Display Panel | Panel Type         | Size             | Comms Transport | Driver                                  |
-|---------------|--------------------|------------------|-----------------|-----------------------------------------|
-| GC9A01        | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = gc9a01_spi`  |
-| ILI9163       | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9163_spi` |
-| ILI9341       | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9341_spi` |
-| ILI9488       | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9488_spi` |
-| SSD1351       | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ssd1351_spi` |
-| ST7789        | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = st7789_spi`  |
-| ST7735        | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = st7735_spi`  |
+| Display Panel  | Panel Type         | Size             | Comms Transport | Driver                                      |
+|----------------|--------------------|------------------|-----------------|---------------------------------------------|
+| GC9A01         | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`     |
+| ILI9163        | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi`    |
+| ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi`    |
+| ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi`    |
+| SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi`    |
+| ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`     |
+| ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`     |
+| RGB565 Surface | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += rgb565_surface` |
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
@@ -396,7 +397,7 @@ painter_image_handle_t qp_load_image_mem(const void *buffer);
 
 The `qp_load_image_mem` function loads a QGF image from memory or flash.
 
-`qp_load_image_mem` returns a handle to the loaded image, which can then be used to draw to the screen using `qp_drawimage`, `qp_drawimage_recolor`, `qp_animate`, or `qp_animate_recolor`. If an image is no longer required, it can be unloaded by calling `qp_close_image` below. 
+`qp_load_image_mem` returns a handle to the loaded image, which can then be used to draw to the screen using `qp_drawimage`, `qp_drawimage_recolor`, `qp_animate`, or `qp_animate_recolor`. If an image is no longer required, it can be unloaded by calling `qp_close_image` below.
 
 See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructions on how to convert images to [QGF](quantum_painter_qgf.md).
 
@@ -488,7 +489,7 @@ painter_font_handle_t qp_load_font_mem(const void *buffer);
 
 The `qp_load_font_mem` function loads a QFF font from memory or flash.
 
-`qp_load_font_mem` returns a handle to the loaded font, which can then be measured using `qp_textwidth`, or drawn to the screen using `qp_drawtext`, or `qp_drawtext_recolor`. If a font is no longer required, it can be unloaded by calling `qp_close_font` below. 
+`qp_load_font_mem` returns a handle to the loaded font, which can then be measured using `qp_textwidth`, or drawn to the screen using `qp_drawtext`, or `qp_drawtext_recolor`. If a font is no longer required, it can be unloaded by calling `qp_close_font` below.
 
 See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructions on how to convert TTF fonts to [QFF](quantum_painter_qff.md).
 
@@ -576,6 +577,48 @@ The `qp_pixdata` function allows raw pixel data to be streamed to the display. I
 
 ## Quantum Painter Display Drivers :id=quantum-painter-drivers
 
+### Common: Surfaces
+
+Quantum Painter has surface drivers which are able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
+
+!> These generally require significant amounts of RAM, so at large sizes and/or higher bit depths, they may not be usable on all MCUs.
+
+### RGB565 Surface :id=qp-driver-rgb565surface
+
+Enabling support for RGB565 surfaces in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += rgb565_surface
+```
+
+Creating a RGB565 surface in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+```
+
+The `buffer` is a user-supplied area of memory, and is assumed to be of the size `sizeof(uint16_t) * panel_width * panel_height`.
+
+The device handle returned from the `qp_make_rgb565_surface` function can be used to perform all other drawing operations.
+
+The maximum number of RGB565 surfaces can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 surfaces:
+#define RGB565_SURFACE_NUM_DEVICES 3
+```
+
+To transfer the contents of the RGB565 surface to another display, the following API can be invoked:
+
+```c
+bool qp_rgb565_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y);
+```
+
+The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws.
+
+?> Calling `qp_flush()` on the surface resets its dirty region. Copying the surface contents to the display also automatically resets the dirty region.
+
 ### Common: Standard TFT (SPI + D/C + RST)
 
 Most TFT display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
@@ -590,7 +633,7 @@ Enabling support for the GC9A01 in Quantum Painter is done by adding the followi
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = gc9a01_spi
+QUANTUM_PAINTER_DRIVERS += gc9a01_spi
 ```
 
 Creating a GC9A01 device in firmware can then be done with the following API:
@@ -614,7 +657,7 @@ Enabling support for the ILI9163 in Quantum Painter is done by adding the follow
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ili9163_spi
+QUANTUM_PAINTER_DRIVERS += ili9163_spi
 ```
 
 Creating a ILI9163 device in firmware can then be done with the following API:
@@ -638,7 +681,7 @@ Enabling support for the ILI9341 in Quantum Painter is done by adding the follow
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ili9341_spi
+QUANTUM_PAINTER_DRIVERS += ili9341_spi
 ```
 
 Creating a ILI9341 device in firmware can then be done with the following API:
@@ -662,7 +705,7 @@ Enabling support for the ILI9488 in Quantum Painter is done by adding the follow
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ili9488_spi
+QUANTUM_PAINTER_DRIVERS += ili9488_spi
 ```
 
 Creating a ILI9488 device in firmware can then be done with the following API:
@@ -686,7 +729,7 @@ Enabling support for the SSD1351 in Quantum Painter is done by adding the follow
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ssd1351_spi
+QUANTUM_PAINTER_DRIVERS += ssd1351_spi
 ```
 
 Creating a SSD1351 device in firmware can then be done with the following API:
@@ -710,7 +753,7 @@ Enabling support for the ST7789 in Quantum Painter is done by adding the followi
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = st7789_spi
+QUANTUM_PAINTER_DRIVERS += st7789_spi
 ```
 
 Creating a ST7789 device in firmware can then be done with the following API:
@@ -736,7 +779,7 @@ Enabling support for the ST7735 in Quantum Painter is done by adding the followi
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = st7735_spi
+QUANTUM_PAINTER_DRIVERS += st7735_spi
 ```
 
 Creating a ST7735 device in firmware can then be done with the following API:
