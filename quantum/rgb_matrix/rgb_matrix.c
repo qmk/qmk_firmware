@@ -202,7 +202,7 @@ void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++)
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++)
         rgb_matrix_set_color(i, red, green, blue);
 #else
     rgb_matrix_driver.set_color_all(red, green, blue);
@@ -461,13 +461,13 @@ void rgb_matrix_indicators_advanced(effect_params_t *params) {
      * and not sure which would be better. Otherwise, this should be called from
      * rgb_task_render, right before the iter++ line.
      */
-#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
     uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
     uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;
-    if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+    if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;
 #else
     uint8_t min = 0;
-    uint8_t max = DRIVER_LED_TOTAL;
+    uint8_t max = RGB_MATRIX_LED_COUNT;
 #endif
     rgb_matrix_indicators_advanced_kb(min, max);
     rgb_matrix_indicators_advanced_user(min, max);
