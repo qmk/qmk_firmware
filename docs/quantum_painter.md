@@ -383,12 +383,23 @@ QUANTUM_PAINTER_DRIVERS += rgb565_surface
 Creating a RGB565 surface in firmware can then be done with the following API:
 
 ```c
-painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+painter_device_t qp_rgb565_make_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
 ```
 
 The `buffer` is a user-supplied area of memory, and is assumed to be of the size `sizeof(uint16_t) * panel_width * panel_height`.
 
-The device handle returned from the `qp_make_rgb565_surface` function can be used to perform all other drawing operations.
+The device handle returned from the `qp_rgb565_make_surface` function can be used to perform all other drawing operations.
+
+Example:
+
+```c
+static painter_device_t my_surface;
+static uint16_t my_framebuffer[320 * 240]; // Allocate a buffer for a 320x240 RGB565 display
+void keyboard_post_init_kb(void) {
+    my_surface = qp_rgb565_make_surface(320, 240, my_framebuffer);
+    qp_init(my_surface, QP_ROTATION_0);
+}
+```
 
 The maximum number of RGB565 surfaces can be configured by changing the following in your `config.h` (default is 1):
 

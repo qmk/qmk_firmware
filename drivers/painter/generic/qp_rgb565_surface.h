@@ -25,7 +25,7 @@
  * @param buffer[in] pointer to a preallocated buffer of size `(sizeof(uint16_t) * panel_width * panel_height)`
  * @return the device handle used with all drawing routines in Quantum Painter
  */
-painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+painter_device_t qp_rgb565_make_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
 
 /**
  * Helper method to draw the dirty contents of the framebuffer to the target device.

@@ -206,7 +206,7 @@ struct painter_comms_vtable_t rgb565_surface_driver_comms_vtable = {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Factory function for creating a handle to an rgb565 surface
 
-painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer) {
+painter_device_t qp_rgb565_make_surface(uint16_t panel_width, uint16_t panel_height, void *buffer) {
     for (uint32_t i = 0; i < RGB565_SURFACE_NUM_DEVICES; ++i) {
         rgb565_surface_painter_device_t *driver = &surface_drivers[i];
         if (!driver->base.driver_vtable) {
