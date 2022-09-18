@@ -46,7 +46,7 @@
 
 #    define RGB_DI_PIN B5
 #    define RGBLED_NUM 86
-#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 #    define RGBLIGHT_VAL_STEP 5
