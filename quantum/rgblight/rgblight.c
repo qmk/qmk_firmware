@@ -129,7 +129,7 @@ LED_TYPE led[RGBLED_NUM];
 #ifdef RGBLIGHT_LAYERS
 rgblight_segment_t const *const *rgblight_layers = NULL;
 
-bool deferred_set_layer_state = false;
+static bool deferred_set_layer_state = false;
 #endif
 
 rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
