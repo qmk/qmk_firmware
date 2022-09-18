@@ -37,9 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HM_F LSFT_T(KC_F)
 
 // Left, COLEMAK
-#define HM_R LALT_T(KC_R)
-#define HM_S LGUI_T(KC_S)
-#define HM_T LSFT_T(KC_T)
+#define HMCMK_A LCTL_T(KC_A)
+#define HMCMK_R LALT_T(KC_R)
+#define HMCMK_S LGUI_T(KC_S)
+#define HMCMK_T LSFT_T(KC_T)
 
 // Right, QWERTY
 #define HM_J RSFT_T(KC_J)
@@ -48,10 +49,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HM_SCLN RCTL_T(KC_SCLN)
 
 // Right, COLEMAK
-#define HM_N RSFT_T(KC_N)
-#define HM_E RGUI_T(KC_E)
-#define HM_I LALT_T(KC_I) // LALT, not RALT
-#define HM_O RCTL_T(KC_O)
+#define HMCMK_N RSFT_T(KC_N)
+#define HMCMK_E RGUI_T(KC_E)
+#define HMCMK_I LALT_T(KC_I) // LALT, not RALT
+#define HMCMK_O RCTL_T(KC_O)
 
 // clang-format off
 
@@ -91,8 +92,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // + COLEMAK_MOD_DH |
 // + -------------- +
 
-#define _____COLEMAK_MOD_DH_HRM_LEFT______    HM_A,    HM_R,    HM_S,    HM_T
-#define _____COLEMAK_MOD_DH_HMR_RIGHT_____    HM_N,    HM_E,    HM_I,    HM_O
+#define _____COLEMAK_MOD_DH_HRM_LEFT______ HMCMK_A, HMCMK_R, HMCMK_S, HMCMK_T
+#define _____COLEMAK_MOD_DH_HMR_RIGHT_____ HMCMK_N, HMCMK_E, HMCMK_I, HMCMK_O
 
 #define ____________COLEMAK_MOD_DH_L1_x5___________    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #ifdef HOME_ROW_MODS_ENABLED
