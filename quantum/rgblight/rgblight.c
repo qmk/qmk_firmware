@@ -745,6 +745,7 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
     } else {
         rgblight_status.enabled_layer_mask &= ~mask;
     }
+    RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
 
     // Calling rgblight_set() here (directly or indirectly) could 
     // potentially cause timing issues when there are multiple 
@@ -1155,7 +1156,6 @@ void rgblight_task(void) {
 
     if (deferred_set_layer_state) {
         deferred_set_layer_state = false;
-        RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
 
         // Static modes don't have a ticker running to update the LEDs
         if (rgblight_status.timer_enabled == false) {
