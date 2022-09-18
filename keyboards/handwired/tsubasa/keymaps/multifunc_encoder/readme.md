@@ -8,3 +8,14 @@
     2. Scroll
     3. Volume up/down
     4. Screen brightness
+
+## Build and Flash
+```bash
+qmk compile -kb handwired/tsubasa -km multifunc_encoder
+```
+
+Flashing example for this keyboard:
+
+```bash
+qmk flash -kb handwired/tsubasa -km multifunc_encoder
+```
