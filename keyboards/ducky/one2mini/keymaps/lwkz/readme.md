@@ -1,1 +1,1 @@
-# The default keymap for one2mini (ISO & ANSI combined)
+# Lwkz's keymap for Ducky One 2 Mini RGB (UK ISO)
