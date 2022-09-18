@@ -3,7 +3,15 @@ QUANTUM_PAINTER_DRIVERS ?=
 QUANTUM_PAINTER_ANIMATIONS_ENABLE ?= yes
 
 # The list of permissible drivers that can be listed in QUANTUM_PAINTER_DRIVERS
-VALID_QUANTUM_PAINTER_DRIVERS := rgb565_surface ili9163_spi ili9341_spi ili9488_spi st7789_spi st7735_spi gc9a01_spi ssd1351_spi
+VALID_QUANTUM_PAINTER_DRIVERS := \
+	rgb565_surface \
+	ili9163_spi \
+	ili9341_spi \
+	ili9488_spi \
+	st7789_spi \
+	st7735_spi \
+	gc9a01_spi \
+	ssd1351_spi
 
 #-------------------------------------------------------------------------------
 

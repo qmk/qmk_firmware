@@ -181,13 +181,18 @@ const struct painter_driver_vtable_t rgb565_surface_driver_vtable = {
 // Comms vtable
 
 static bool qp_rgb565_surface_comms_init(painter_device_t device) {
+    // No-op.
     return true;
 }
 static bool qp_rgb565_surface_comms_start(painter_device_t device) {
+    // No-op.
     return true;
 }
-static void qp_rgb565_surface_comms_stop(painter_device_t device) {}
-uint32_t    qp_rgb565_surface_comms_send(painter_device_t device, const void *data, uint32_t byte_count) {
+static void qp_rgb565_surface_comms_stop(painter_device_t device) {
+    // No-op.
+}
+uint32_t qp_rgb565_surface_comms_send(painter_device_t device, const void *data, uint32_t byte_count) {
+    // No-op.
     return byte_count;
 }
 
