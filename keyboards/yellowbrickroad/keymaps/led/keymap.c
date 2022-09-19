@@ -424,7 +424,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,        XXXXXXX,        VERSION,        EEP_RST,
         XXXXXXX,
         XXXXXXX
-    ),
+    )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
@@ -441,7 +441,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_FLIPHEPTA]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
     [_FLIPPENTA]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
     [_FLIPTRANS]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(MI_TRNSU, MI_TRNSD) },
-    [_FN]                = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(MI_OCTD,  MI_OCTU)  },
+    [_FN]                = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(MI_OCTD,  MI_OCTU)  }
 };
 #endif
 

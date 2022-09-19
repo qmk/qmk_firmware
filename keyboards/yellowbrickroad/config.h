@@ -128,10 +128,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
 
-/* via layer setting */
-/* default: 4 */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -26,15 +26,12 @@ extern midi_config_t midi_config;
 enum _names {
     _BASE,
     _RESERVE01,
-    _RESERVE02,
-    _RESERVE03,
-    _RESERVE04,
     _FN                  //  FN layer
 };
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    VERSION = USER00
+    VERSION = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -61,39 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______
     ),
 
-    [_RESERVE02] = LAYOUT(
-        _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______,
-        _______
-    ),
-
-    [_RESERVE03] = LAYOUT(
-        _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______,
-        _______
-    ),
-
-    [_RESERVE04] = LAYOUT(
-        _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______,
-        _______
-    ),
-
     [_FN] = LAYOUT(
         _______,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -103,17 +67,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EEP_RST,
         XXXXXXX,
         XXXXXXX
-    ),
+    )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE]        = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MI_TRNSD, MI_TRNSU) },
     [_RESERVE01]   = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_RESERVE02]   = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_RESERVE03]   = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_RESERVE04]   = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_FN]          = { ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(MI_OCTD,  MI_OCTU)  },
+    [_FN]          = { ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(MI_OCTD,  MI_OCTU)  }
 };
 #endif
 
