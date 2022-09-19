@@ -70,6 +70,50 @@ def show_matrix(kb_info_json, title_caps=True):
         print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
 
 
+def show_led_config(kb_info_json, title_caps=True):
+    if 'layout' in kb_info_json.get('rgb_matrix', {}):
+        config_type = 'rgb_matrix'
+    elif 'layout' in kb_info_json.get('led_matrix', {}):
+        config_type = 'led_matrix'
+    else:
+        return
+
+    (layout_name, layout), *_ = kb_info_json["layouts"].items()
+    led_config = kb_info_json[config_type]['layout']
+
+    labels = []
+    for key in layout['layout']:
+        for index, item in enumerate(led_config, start=0):
+            if 'matrix' in item:
+                if item['matrix'] == key['matrix']:
+                    labels.append(str(index))
+
+    # guess at width and height now its optional
+    width, height = (0, 0)
+    for item in layout['layout']:
+        width = max(width, int(item["x"]) + 1)
+        height = max(height, int(item["y"]) + 1)
+
+    # Handle any non-matrix leds
+    underglow = []
+    underglow_labels = []
+    for index, item in enumerate(led_config, start=0):
+        if 'matrix' not in item:
+            x = item['x'] / 224 * (width + 2)
+            y = item['y'] / 64 * (height + 2)
+            underglow.append({'x': x, 'y': y, 'w': 0.75, 'h': 0.75})
+            underglow_labels.append(str(index))
+
+    # Print the header
+    if title_caps:
+        cli.echo('{fg_blue}LED Layout for "%s"{fg_reset}:', layout_name)
+    else:
+        cli.echo('{fg_blue}led_layout_%s{fg_reset}:', layout_name)
+
+    print(render_layout(layout['layout'], cli.config.info.ascii, labels))
+    print(render_layout(underglow, cli.config.info.ascii, underglow_labels))
+
+
 def print_friendly_output(kb_info_json):
     """Print the info.json in a friendly text format.
     """
@@ -139,6 +183,7 @@ def print_parsed_rules_mk(keyboard_name):
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
+@cli.argument('--led', action='store_true', help='Render the LED config with layout information.')
 @cli.argument('--ascii', action='store_true', default=not UNICODE_SUPPORT, help='Render layout box drawings in ASCII only.')
 @cli.argument('-r', '--rules-mk', action='store_true', help='Render the parsed values of the keyboard\'s rules.mk file.')
 @cli.subcommand('Keyboard information.')
@@ -191,6 +236,9 @@ def info(cli):
 
     if cli.config.info.matrix:
         show_matrix(kb_info_json, title_caps)
+
+    if cli.config.info.led:
+        show_led_config(kb_info_json, title_caps)
 
     if cli.config.info.keymap:
         show_keymap(kb_info_json, title_caps)
