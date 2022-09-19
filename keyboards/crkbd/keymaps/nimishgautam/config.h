@@ -1,3 +1,6 @@
+// Copyright 2022 Nimish Gåtam (@nimishgautam)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 // OS-specific stuff
