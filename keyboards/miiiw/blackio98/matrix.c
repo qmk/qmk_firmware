@@ -32,11 +32,6 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
 #endif
 
-__attribute__((weak)) void matrix_wakeup_cb(void *arg) {
-    (void)arg;
-    dprint("matrix wakeup\n");
-}
-
 void matrix_init_custom(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         setPinInputLow(row_pins[row]);
@@ -75,7 +70,7 @@ void matrix_power_up(void) {
     init_cols();
 #ifdef DIP_SWITCH_PINS
     for (uint8_t i = 1; i < NUMBER_OF_DIP_SWITCHES; i++) {
-        palDisableLineEvent(dip_switch_pad[i]);
+        setPinInputHigh(dip_switch_pad[i]);
     }
 #endif
 }
@@ -85,13 +80,11 @@ void matrix_power_down(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         setPinInputLow(row_pins[row]);
         palEnableLineEvent(row_pins[row], PAL_EVENT_MODE_RISING_EDGE);
-        palSetLineCallback(row_pins[row], matrix_wakeup_cb, NULL);
     }
 #ifdef DIP_SWITCH_PINS
-    // for (uint8_t i = 1; i < NUMBER_OF_DIP_SWITCHES; i++) {
-    //     palEnableLineEvent(dip_switch_pad[i], PAL_EVENT_MODE_BOTH_EDGES);
-    //     palSetLineCallback(dip_switch_pad[i], matrix_wakeup_cb, NULL);
-    // }
+    for (uint8_t i = 1; i < NUMBER_OF_DIP_SWITCHES; i++) {
+        setPinInputLow(dip_switch_pad[i]);
+    }
 #endif
 }
 

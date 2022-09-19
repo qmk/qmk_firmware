@@ -30,9 +30,6 @@
 #define MATRIX_COL_PINS { H0, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, B3, B4 }
 #define UNUSED_PINS
 
-/* force n-key rollover*/
-#define FORCE_NKRO
-
 /* Dip Switch */
 #define POWER_SWITCH_PIN B0
 #define DIP_SWITCH_PINS { POWER_SWITCH_PIN, B1, B8, B12 }

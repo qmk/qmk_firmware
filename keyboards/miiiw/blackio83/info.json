@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x3044",
         "pid": "0x83A1",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+		"force_nkro": true
     },
     "debounce": 3, 
     "layouts": {

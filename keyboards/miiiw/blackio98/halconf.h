@@ -27,7 +27,6 @@
 
 // This enables interrupt-driven mode
 #define PAL_USE_WAIT TRUE
-#define PAL_USE_CALLBACKS TRUE
 #define USB_USE_WAIT TRUE
 
 #include_next <halconf.h>

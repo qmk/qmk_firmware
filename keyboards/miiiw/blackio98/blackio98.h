@@ -57,14 +57,17 @@
 // Defining all the custom keycodes.
 enum custom_keycodes {
 #ifdef VIA_ENABLE
-    CUSTOM_START = USER00,
+    DEV_BT1 = USER00,
 #else
-    CUSTOM_START = SAFE_RANGE,
+    DEV_BT1 = SAFE_RANGE,
 #endif
-    DEV_BT1 = CUSTOM_START,
     DEV_BT2,
     DEV_BT3,
     DEV_RF24,
     ALT_TAB,
     RGB_RST,
+	NEW_SAFE_RANGE
 };
+
+#undef SAFE_RANGE
+#define SAFE_RANGE NEW_SAFE_RANGE

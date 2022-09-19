@@ -18,10 +18,6 @@
 #include "usb_main.h"
 #include "usb_util.h"
 
-#ifndef USBD_DP_PIN
-#   define USBD_DP_PIN A12
-#endif
-
 #define LOOP_10HZ_PERIOD    100
 deferred_token loop10hz_token  = INVALID_DEFERRED_TOKEN;
 uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg);
@@ -55,14 +51,18 @@ void keyboard_pre_init_kb() {
 
 	palSetLineMode(MWPROTO_TX_PIN, PAL_MODE_ALTERNATE(MWPROTO_TX_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
 	sdStart(&MWPROTO_DRIVER, &mwproto_uart_config);
-
-    print("<--QMK Keyboard-->\n");
-    print("Manufacturer: "STR(MANUFACTURER)"\n");
-    print("Product: "STR(PRODUCT)"\n");
 }
 
 void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
+
+    print(/* clang-format off */
+        "\n<--QMK Keyboard-->\n"
+        "Vendor: " STR(MANUFACTURER) "(" STR(VENDOR_ID) ")\n"
+        "Product: " STR(PRODUCT) " (" STR(PRODUCT_ID) ")\n"
+        "Version: " STR(DEVICE_VER) "\n"
+        "BUILD: " __DATE__ "\n"
+    ); /* clang-format on */
 
     writePinLow(MWPROTO_WAKEUP_PIN);
     wait_ms(50);
@@ -76,7 +76,7 @@ void keyboard_post_init_kb(void) {
     loop10hz_token = defer_exec(LOOP_10HZ_PERIOD, loop_10Hz, NULL);
 }
 
-bool led_update_user(led_t led_state) {
+bool led_update_kb(led_t led_state) {
     writePinLow(MWPROTO_WAKEUP_PIN);
     if(readPin(MWPROTO_STATUS_PIN))
         wait_us(500);
@@ -107,10 +107,8 @@ bool dip_switch_update_mask_kb(uint32_t state) {
     
     if(state & 0x01) {
         led_suspend();
-        usbStop(&USB_DRIVER);
         usbDisconnectBus(&USB_DRIVER);
-        setPinOutput(USBD_DP_PIN);
-        writePinLow(USBD_DP_PIN);
+        usbStop(&USB_DRIVER);
         shutdown_user();
         setPinInputHigh(POWER_SWITCH_PIN);
         palEnableLineEvent(POWER_SWITCH_PIN, PAL_EVENT_MODE_RISING_EDGE);

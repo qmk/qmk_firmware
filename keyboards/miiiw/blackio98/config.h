@@ -36,8 +36,9 @@
 #   define RGB_MATRIX_HUE_STEP 36
 #   define RGB_MATRIX_SAT_STEP 8
 #   define RGB_MATRIX_VAL_STEP 32
-#   define RGB_MATRIX_SPD_STEP 64
+#   define RGB_MATRIX_SPD_STEP 60
 #   define RGB_MATRIX_STARTUP_HUE 170
+#   define RGB_MATRIX_STARTUP_SPD (RGB_MATRIX_SPD_STEP + 15) 
 
 /* Disable the animations you don't want/need.  You will need to disable a good number of these    *
  * because they take up a lot of space.  Disable until you can successfully compile your firmware. */

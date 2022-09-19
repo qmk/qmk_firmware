@@ -20,7 +20,6 @@ RGB_MATRIX_DRIVER = custom
 DIP_SWITCH_ENABLE = yes     # Enable dip switches
 DEBOUNCE_TYPE = sym_defer_pk    # Debounce using eager_pk.
 CUSTOM_MATRIX = lite
-RAW_ENABLE = yes
 DEFERRED_EXEC_ENABLE = yes
 NO_USB_STARTUP_CHECK = yes
 # EEPROM_DRIVER = i2c
