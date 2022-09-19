@@ -134,14 +134,9 @@ void keyboard_pre_init_kb(void) {
     // Set the handedness pin to low by default.
     // Left side keyboard will have an external wire shorted to 3.3V, to have HIGH state.
     setPinInputLow(SPLIT_HAND_PIN);
-}
 
-// void keyboard_post_init_kb(void) {
-//     debug_enable = true;
-//     debug_matrix = true;
-//     debug_keyboard=true;
-//     keyboard_post_init_user();
-// }
+    keyboard_pre_init_user();
+}
 
 void my_process_midi4Bass(uint8_t channel, keyrecord_t *record,
                           uint8_t *chord_status, uint8_t chord, uint16_t root_note, bool is_single_bass) {

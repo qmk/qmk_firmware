@@ -39,6 +39,28 @@ extern volatile bool isLeftHand;
 #define ADJ_EIS  LT(_ADJUST,KC_LANG2)
 #define MIS_KAN  LT(_MISC,KC_LANG1)
 
+#define _________________QWERTY_L1_________________ KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
+#define _________________QWERTY_L2_________________ KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+#define _________________QWERTY_L3_________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________QWERTY_R1_________________ KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#define _________________QWERTY_R2_________________ KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
+#define _________________QWERTY_R3_________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+#define _________________COLEMAK_L1________________ KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
+#define _________________COLEMAK_L2________________ KC_A,    KC_R,    KC_S,    KC_T,    KC_D
+#define _________________COLEMAK_L3________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________COLEMAK_R1________________ KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define _________________COLEMAK_R2________________ KC_H,    KC_N,    KC_E,    KC_I,    KC_O
+#define _________________COLEMAK_R3________________ KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+#define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+
+#define _________________FUNC__L___________________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNC__R___________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
 uint8_t midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
@@ -48,10 +70,6 @@ static bool melody_dyad_high = false;  //  true when +1 octave unison dyad is en
 static bool melody_dyad_low  = false;  //  true when -1 octave unison dyad is enabled.
 
 static bool melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
-
-#ifdef RGB_MATRIX_ENABLE
-extern rgb_config_t rgb_matrix_config;
-#endif
 
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
@@ -77,8 +95,7 @@ enum layer_names {
     _QWERTY,
     _COLEMAK,
     _ADJUST,             //  for Fn keys, etc.
-    _FN,                 //  for changing layers, octaves, etc.
-    _RESERVED            //  Reserved
+    _FN                  //  for changing layers, octaves, etc.
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -377,31 +394,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT(
-    _______, _______, CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, CNTBASB, CSYSFBS, XXXXXXX, XXXXXXX, RGB_MOD, RGB_TOG,
+    _______, _______, CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, CNTBASB, CSYSFBS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       _______, _______, DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,
         _______, _______, DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
           _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
-               CSYSTEM,   BSYSTEM,   CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B,  CNTBASB, CSYSFBS, XXXXXXX, MI_VELD, MI_VELU, RGB_MOD,            _______, _______,
+               CSYSTEM,   BSYSTEM,   CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B,  CNTBASB, CSYSFBS, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX,            _______, _______,
              XXXXXXX, DF_QWER,   TGLBASS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH,                _______,
                MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EEP_RST,   _______,
-             CSYSTEM, BSYSTEM,   CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B,  CNTBASB, CSYSFBS, XXXXXXX, MI_VELD, MI_VELU, RGB_MOD, RGB_TOG,                _______,
+             CSYSTEM, BSYSTEM,   CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B,  CNTBASB, CSYSFBS, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, XXXXXXX,                _______,
     _______,   DF_QWER,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH,            _______, _______
-  ),
-
-  [_RESERVED] = LAYOUT(
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-
-               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______,
-             _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,
-             _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-    _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______
   )
 };
 
@@ -418,8 +421,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY]               = { ENCODER_CCW_CW(_______,  _______) },
     [_COLEMAK]              = { ENCODER_CCW_CW(_______,  _______) },
     [_ADJUST]               = { ENCODER_CCW_CW(_______,  _______) },
-    [_FN]                   = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
-    [_RESERVED]             = { ENCODER_CCW_CW(_______,  _______) },
+    [_FN]                   = { ENCODER_CCW_CW(_______,  _______) }
 };
 #endif
 
@@ -448,69 +450,7 @@ void eeconfig_init_user(void) {
 
     //  Reset the midi keyboard layout
     set_single_persistent_default_layer(_C_SYSTEM_BASS2ROW);
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_sethsv(HSV_BLUE);
-    //  party mode (for LED soldering test.)
-    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-#endif
 }
-
-#ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void) {
-    uint8_t i;
-
-    if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
-
-        uint8_t layer = biton32(layer_state);
-
-        switch (layer) {
-            case _ADJUST:
-                rgb_matrix_set_color(30, RGB_DARKORANGE);
-                rgb_matrix_set_color(34, RGB_DARKORANGE);
-                // rgb_matrix_set_color(72, RGB_DARKORANGE);
-                break;
-            case _FN:
-                for (i = 0;i < 8;i++) {
-                    rgb_matrix_set_color(74 - i, RGB_DARKORANGE);      //  MIDI layouts
-                    //  right keyboard
-                    rgb_matrix_set_color(i, RGB_DARKORANGE);      //  MIDI layouts
-                    rgb_matrix_set_color(50 - i, RGB_DARKORANGE);      //  MIDI layouts
-                }
-
-                // rgb_matrix_set_color(pgm_read_byte(&convert_led_location2number[11]),  RGB_RED);         //  RGB_TOG  <- too heavy.
-                rgb_matrix_set_color(64,  RGB_DARKBLUE);        //  RGB_MOD
-                rgb_matrix_set_color(63,  RGB_DARKRED);         //  RGB_TOG
-                rgb_matrix_set_color(76,  RGB_DARKCORAL);       //  TGLBASS
-
-                rgb_matrix_set_color(75,  RGB_DARKWHITE);       //  DF_QWER
-                rgb_matrix_set_color(98,  RGB_DARKWHITE);       //  DF_COLE
-                rgb_matrix_set_color(86,  RGB_DARKPINK);        //  EEP_RST
-                rgb_matrix_set_color(87,  RGB_DARKTEAL);        //  TGLMICH
-
-                rgb_matrix_set_color(22, RGB_DARKCORAL);        //  TGLBASS  // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(23, RGB_DARKWHITE);        //  DF_QWER
-                rgb_matrix_set_color(25, RGB_DARKBLUE);         //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(26, RGB_DARKCYAN);         //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(27, RGB_DARKSPRINGGREEN);  //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(28, RGB_DARKGREEN);        //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(29, RGB_DARKCHARTREUSE);   //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(37, RGB_DARKPINK);         //  EEP_RST
-                rgb_matrix_set_color(41, RGB_DARKYELLOW);       //  MI_VELD
-                rgb_matrix_set_color(40, RGB_DARKGREEN);        //  MI_VELU
-                rgb_matrix_set_color(39, RGB_DARKBLUE);         //  RGB_MOD
-                rgb_matrix_set_color(38, RGB_DARKRED);          //  RGB_TOG
-                rgb_matrix_set_color(51, RGB_DARKWHITE);        //  DF_QWER
-                rgb_matrix_set_color(52, RGB_DARKCORAL);        //  TGLBASS
-                rgb_matrix_set_color(59, RGB_DARKCORAL);        //  TGLUVEL
-                rgb_matrix_set_color(60, RGB_DARKCYAN);         //  MELDYAL
-                rgb_matrix_set_color(61, RGB_DARKGOLD);         //  MELODYS
-                rgb_matrix_set_color(62, RGB_DARKSPRINGGREEN);  //  MELDYAH
-                break;
-        }
-    }
-}
-#endif
 
 void keyboard_post_init_user(void) {
     my_init();
@@ -529,24 +469,18 @@ void keyboard_post_init_user(void) {
     if (is_keyboard_master() && isLeftHand) {
         default_layer_set(1UL << _QWERTY);
     }
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_sethsv(HSV_BLUE);
-    //  party mode (for LED soldering test.)
-    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-#endif
 };
 
 void toggle_isSingleBass(void) {
 #ifdef CONSOLE_ENABLE
-  uprintf("isSingleBass(before) %u\n", user_config.isSingleBass);
+    uprintf("isSingleBass(before) %u\n", user_config.isSingleBass);
 #endif
-  user_config.isSingleBass = !user_config.isSingleBass;
+    user_config.isSingleBass = !user_config.isSingleBass;
 #ifdef CONSOLE_ENABLE
-  uprintf("isSingleBass(after) %u\n", user_config.isSingleBass);
+    uprintf("isSingleBass(after) %u\n", user_config.isSingleBass);
 #endif
 
-  eeconfig_update_user(user_config.raw);
+    eeconfig_update_user(user_config.raw);
 }
 
 void toggle_MIDI_channel_separation(void) {

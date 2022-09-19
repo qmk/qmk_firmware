@@ -3,7 +3,7 @@
 ![giabalanaipico_logo](https://i.imgur.com/ZAKmV17h.png)
 ![giabalanaipico overview](https://i.imgur.com/A5JE5vOh.jpg)
 
-*A short description of the keyboard/project*
+A chromatic button accordion MIDI keyboard without bellows, Raspberry Pi Pico version.
 
 * Keyboard Maintainer: [3araht](https://github.com/3araht)
 * Hardware Supported: giabalanaipico keyboard, a split keyboard mainly work as MIDI keyboard.

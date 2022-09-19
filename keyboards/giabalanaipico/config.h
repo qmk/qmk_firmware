@@ -159,7 +159,9 @@
 
 /* via layer setting */
 /* default: 4 */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 12
+#ifdef VIA_ENABLE
+#   define DYNAMIC_KEYMAP_LAYER_COUNT 12
+#endif  //  VIA_ENABLE
 
 /*
  * Encoder options

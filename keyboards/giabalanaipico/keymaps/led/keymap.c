@@ -39,6 +39,28 @@ extern volatile bool isLeftHand;
 #define ADJ_EIS  LT(_ADJUST,KC_LANG2)
 #define MIS_KAN  LT(_MISC,KC_LANG1)
 
+#define _________________QWERTY_L1_________________ KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
+#define _________________QWERTY_L2_________________ KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+#define _________________QWERTY_L3_________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________QWERTY_R1_________________ KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#define _________________QWERTY_R2_________________ KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
+#define _________________QWERTY_R3_________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+#define _________________COLEMAK_L1________________ KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
+#define _________________COLEMAK_L2________________ KC_A,    KC_R,    KC_S,    KC_T,    KC_D
+#define _________________COLEMAK_L3________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________COLEMAK_R1________________ KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define _________________COLEMAK_R2________________ KC_H,    KC_N,    KC_E,    KC_I,    KC_O
+#define _________________COLEMAK_R3________________ KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+#define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+
+#define _________________FUNC__L___________________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNC__R___________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
 uint8_t midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
@@ -77,8 +99,7 @@ enum layer_names {
     _QWERTY,
     _COLEMAK,
     _ADJUST,             //  for Fn keys, etc.
-    _FN,                 //  for changing layers, octaves, etc.
-    _RESERVED            //  Reserved
+    _FN                  //  for changing layers, octaves, etc.
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -388,20 +409,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EEP_RST,   _______,
              CSYSTEM, BSYSTEM,   CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B,  CNTBASB, CSYSFBS, XXXXXXX, MI_VELD, MI_VELU, RGB_MOD, RGB_TOG,                _______,
     _______,   DF_QWER,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH,            _______, _______
-  ),
-
-  [_RESERVED] = LAYOUT(
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-
-               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______,
-             _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,
-             _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-    _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______
   )
 };
 
@@ -418,8 +425,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY]               = { ENCODER_CCW_CW(_______,  _______) },
     [_COLEMAK]              = { ENCODER_CCW_CW(_______,  _______) },
     [_ADJUST]               = { ENCODER_CCW_CW(_______,  _______) },
-    [_FN]                   = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
-    [_RESERVED]             = { ENCODER_CCW_CW(_______,  _______) },
+    [_FN]                   = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) }
 };
 #endif
 
