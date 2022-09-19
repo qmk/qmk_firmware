@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MK61-RGB-ANSI",
+    "manufacturer": "Mechanical Keyboards LLC",
     "url": "https://www.fjlaboratories.com/",
     "maintainer": "Mechanical Keyboards, LLC",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x1011",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ID87", 
+    "manufacturer": "IDOBAO",
     "url": "https://www.idobao.net/products/idobao-id87-80-hot-swappable-mechanical-keyboard-kit", 
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0x6964",
+        "pid": "0x0087",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

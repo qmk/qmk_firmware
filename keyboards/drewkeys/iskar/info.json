@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Iskar",
+    "manufacturer": "Drewkeys",
     "url": "https://bitmapstudio.xyz/collections/iskar",
     "maintainer": "Drewkeys",
+    "usb": {
+        "vid": "0xDE43",
+        "pid": "0x1284",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

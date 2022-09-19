@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Genesis Hotswap",
+    "manufacturer": "GG Keyboards",
     "url": "",
     "maintainer": "Spooknik",
+    "usb": {
+        "vid": "0xBB00",
+        "pid": "0xD4D3",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_ansi"
     },

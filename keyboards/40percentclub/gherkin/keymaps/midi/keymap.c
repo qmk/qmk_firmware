@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MENU] = LAYOUT_ortho_3x10(
     IONIAN,   LYDIAN,     LOCRIAN, _______, _______, _______, _______, _______, _______, _______,
     DORIAN,   MIXOLYDIAN, _______, _______, _______, _______, _______, _______, _______, _______,
-    PHRYGIAN, AEOLIAN,    _______, _______, _______, _______, _______, _______, RESET,   _______
+    PHRYGIAN, AEOLIAN,    _______, _______, _______, _______, _______, _______, QK_BOOT, _______
   )
 };
 

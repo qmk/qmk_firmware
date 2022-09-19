@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0001
-#define VENDOR_ID 0x320F
-#define PRODUCT_ID 0x5044
-#define MANUFACTURER Glorious
-#define PRODUCT GMMK Pro
-
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 8
@@ -112,9 +105,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Send up to 4 key press events per scan */
-#define QMK_KEYS_PER_SCAN 4
 
 /* Set debounce time to 5ms */
 #define DEBOUNCE 5

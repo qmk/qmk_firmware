@@ -1,5 +1,5 @@
 /* Copyright 2021 Jonavin Eng @Jonavin
-   Copyright 2022 gourdo1 <jcblake@outlook.com>
+   Copyright 2022 gourdo1 <gourdo1@outlook.com>
    
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include QMK_KEYBOARD_H
+
 #include "gourdo1.h"
 
 #ifdef ENCODER_ENABLE

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "hbcp",
+    "manufacturer": "hineybush",
     "url": "",
     "maintainer": "hineybush",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xECE8",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
