@@ -15,12 +15,5 @@
  */
 
 #pragma once
-#ifdef RGB_MATRIX_ENABLE
-
-#include "quantum.h"
-#include "rgb_matrix.h"
 
 extern const uint8_t led_map[DRIVER_LED_TOTAL];
-
-
-#endif

@@ -28,6 +28,6 @@ CUSTOM_MATRIX = lite
 RAW_ENABLE = yes
 
 QUANTUM_LIB_SRC += i2c_master.c
-SRC += leds.c matrix.c
+SRC += matrix.c
 
 DEFAULT_FOLDER = handwired/dygma/raise/ansi

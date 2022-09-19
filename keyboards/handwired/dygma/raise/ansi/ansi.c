@@ -16,7 +16,6 @@
 
 #include "quantum.h"
 
-#ifdef RGB_MATRIX_ENABLE
 // "led_map" is taken from kaleidoscope
 // LHK = Left Hand Keys
 // LPH = "Leds per hand", which isn't _actually_ the number of leds, but instead
@@ -80,5 +79,3 @@ led_config_t g_led_config = { {
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4
   }
 };
-
-#endif
