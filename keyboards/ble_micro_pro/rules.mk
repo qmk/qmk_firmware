@@ -8,7 +8,7 @@ CUSTOM_MATRIX = yes # This flag should be on for nrf52
 # Build Options
 #   change yes to no to disable
 #
-OLED_DRIVER_ENABLE = no
+OLED_ENABLE = no
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 MOUSE_SHARED_EP = no		# Should be disabled for BLE Micro Pro
