@@ -545,13 +545,13 @@ _Note: for setting the target layer during initialization either setting `AUTO_M
 There are a few ways to control the auto mouse feature with both `config.h` options and functions for controlling it during runtime.
 
 ### `config.h` Options:
-| Define                              | Description                                                           |        Range       |    Units    |                    Default |
-| ----------------------------------- | --------------------------------------------------------------------- | :----------------: | :---------: | -------------------------: |
-| `POINTING_DEVICE_AUTO_MOUSE_ENABLE` | (Required) Enables auto mouse layer feature                           |                    |   _None_    |              _Not defined_ |
-| `AUTO_MOUSE_DEFAULT_LAYER`          | (Optional) Index of layer to use as default target layer              |   0 - `LAYER_MAX`  | _`uint8_t`_ |                        `1` |
-| `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after activation                 | _ideal_ (250-1000) |     _ms_    |                   `650 ms` |
-| `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed                | _ideal_ (100-1000) |     _ms_    | `TAPPING_TERM` or `200 ms` |
-| `AUTO_MOUSE_DEBOUNCE`               | (Optional) Time delay from last activation to next update             | _ideal_ (10 - 100) |     _ms_    |                    `25 ms` |
+| Define                              | Description                                                           |         Range        |    Units    |                    Default |
+| ----------------------------------- | --------------------------------------------------------------------- | :------------------: | :---------: | -------------------------: |
+| `POINTING_DEVICE_AUTO_MOUSE_ENABLE` | (Required) Enables auto mouse layer feature                           |                      |   _None_    |              _Not defined_ |
+| `AUTO_MOUSE_DEFAULT_LAYER`          | (Optional) Index of layer to use as default target layer              |    0 - `LAYER_MAX`   | _`uint8_t`_ |                        `1` |
+| `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after activation                 | _ideally_ (250-1000) |     _ms_    |                   `650 ms` |
+| `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed                | _ideally_ (100-1000) |     _ms_    | `TAPPING_TERM` or `200 ms` |
+| `AUTO_MOUSE_DEBOUNCE`               | (Optional) Time delay from last activation to next update             | _ideally_ (10 - 100) |     _ms_    |                    `25 ms` |
 
 ### Adding mouse keys
 
@@ -602,7 +602,7 @@ There are several functions that allow for more advanced interaction with the au
 _NOTES:_   
     - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   
     - _It is recommended that `remove_auto_mouse_layer` is used in the `layer_state_set_*` stack of functions and `auto_mouse_layer_off` is used everywhere else_   
-    - _`remove_auto_mouse_layer(state, false)` or `auto_mouse_layer_off()` should be called before any instance of `set_auto_mouse_enabled(false)` or `set_auto_mouse_layer(layer)` to ensure that the target layer will be removed appropriately before disabling auto mouse to avoid a stuck layer_   
+    - _`remove_auto_mouse_layer(state, false)` or `auto_mouse_layer_off()` should be called before any instance of `set_auto_mouse_enabled(false)` or `set_auto_mouse_layer(layer)` to ensure that the target layer will be removed appropriately before disabling auto mouse or changing target to avoid a stuck layer_      
     
 ### Functions for handling custom key events:   
 | Function                                                   | Description                                                                      |     Return type |
@@ -611,13 +611,13 @@ _NOTES:_
 | `auto_mouse_trigger_reset(bool pressed)`                   | Reset auto mouse status on key down and start delay timer (non-mouse key event)  |    `void`(None) |
 | `auto_mouse_toggle(void)`                                  | Toggle on/off target toggle state (disables layer deactivation when true)        |    `void`(None) |
 | `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                          |          `bool` |   
-_NOTE: Generally it would be preferable to use the `is_mouse_record_*` functions to add key records to _
+_NOTE: Generally it would be preferable to use the `is_mouse_record_*` functions to add any additional keys that should act as mouse keys rather than adding `auto_mouse_keyevent(record.event->pressed)` to `process_records_*`_
 
 ### Advanced control examples   
 
 #### Disable auto mouse on certain layers:   
 
-The auto mouse feature can be disabled any time and this can be helpful if you want to disable the auto mouse feature under certain circumstances such as when particular layers are active. the following function would disable the auto_mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer _(ignoring target layer)_.   
+The auto mouse feature can be disabled any time and this can be helpful if you want to disable the auto mouse feature under certain circumstances such as when particular layers are active. One issue however is the handling of the target layer, it needs to be removed appropriately **before** disabling auto mouse _(see notes under control functions above)_. The following function would disable the auto_mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer _(ignoring target layer)_.   
 
 ```c
 // in keymap.c:
@@ -641,7 +641,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #### Set different target layer when a particular layer is active:
 
 The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is highest default layer state.   
-*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack*    
+*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack* if something similar was to be done in `layer_state_set_user `state = remove_auto_mouse_layer(state, false)` should be used instead    
 *ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked if already set to avoid deactivating the target layer unless needed*   
 
 ```c
@@ -664,8 +664,8 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 ```
 
-### Use custom keys to control auto mouse:
-Custom key records could be created that control the auto mouse feature.   
+### Use custom keys to control auto mouse:  
+Custom key records could also be created that control the auto mouse feature.   
 The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.   
 
 ```c
@@ -675,6 +675,9 @@ enum user_custom_keycodes {
 };
 
 // in keymap.c:
+// set up global bool to adjust other user code
+bool auto_mouse_tg_off = !AUTO_MOUSE_ENABLED;
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         // toggle auto mouse enable key
@@ -682,6 +685,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if(record->event.pressed) { // key down
                 auto_mouse_layer_off(); // disable target layer if needed
                 set_auto_mouse_enabled((AUTO_MOUSE_ENABLED) ^ 1);
+                auto_mouse_tg_off = !get_auto_mouse_enabled();
             } // do nothing on key up
             return false; // prevent further processing of keycode
     }
@@ -691,10 +695,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 ## Customize Target Layer Activation
 
-Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every `pointing_device_task` cycle when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active and evaluates pointing device conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions _(e.g. delay time has not expired)_.   
+Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every time `pointing_device_task` is called when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active, and will evaluate pointing device level conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions _(e.g. delay time has not expired)_.   
 
-By default it will return true if any of the mouse_report axes `x`,`y`,`h`,`v` are non zero or if there is any mouse buttons active in `mouse_report`.
-_Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement, currently this only works for the master side of split keyboards._
+By default it will return true if any of the `mouse_report` axes `x`,`y`,`h`,`v` are non zero, or if there is any mouse buttons active in `mouse_report`.
+_Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement all of the default conditions, currently this only works for the master side of split keyboards._
  
 | Function                                                   | Description                                                                      |     Return type |
 | :--------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------: |
