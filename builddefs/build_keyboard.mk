@@ -241,21 +241,20 @@ endif
 #
 #    https://docs.qmk.fm/#/feature_layouts?id=tips-for-making-layouts-keyboard-agnostic
 #
-QMK_KEYBOARD_H = $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/$(KEYBOARD_FOLDER_1).h)","")
-    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_1).h
+    FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_1).h
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_2)/$(KEYBOARD_FOLDER_2).h)","")
-    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_2).h
+    FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_2).h
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_3)/$(KEYBOARD_FOLDER_3).h)","")
-    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_3).h
+    FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_3).h
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_4)/$(KEYBOARD_FOLDER_4).h)","")
-    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_4).h
+    FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_4).h
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
-    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
+    FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
 endif
 
 # Determine and set parameters based on the keyboard's processor family.
@@ -329,7 +328,7 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
     INFO_JSON_FILES += $(KEYBOARD_PATH_5)/info.json
 endif
 
-CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
+CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h
 KEYBOARD_SRC += $(KEYBOARD_OUTPUT)/src/default_keyboard.c
 
 $(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
@@ -344,15 +343,10 @@ $(KEYBOARD_OUTPUT)/src/default_keyboard.c: $(INFO_JSON_FILES)
 
 $(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h)
+	$(eval CMD=$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --include $(FOUND_KEYBOARD_H) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h)
 	@$(BUILD_CMD)
 
-$(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
-	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h)
-	@$(BUILD_CMD)
-
-generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
+generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 
 .INTERMEDIATE : generated-files
 
@@ -471,7 +465,7 @@ ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) \
--DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" \
+-DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(KEYBOARD_OUTPUT)/src/default_keyboard.h\" \
 -DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\"
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
