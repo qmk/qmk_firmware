@@ -16,7 +16,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-#include "wait.h"
 #include "progmem.h"
 #include "sync_timer.h"
 #include "rgblight.h"
@@ -410,7 +409,6 @@ void rgblight_disable(void) {
     dprintf("rgblight disable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
-    wait_ms(50);
     rgblight_set();
 }
 
@@ -419,7 +417,6 @@ void rgblight_disable_noeeprom(void) {
     dprintf("rgblight disable [NOEEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
-    wait_ms(50);
     rgblight_set();
 }
 
@@ -704,7 +701,6 @@ void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8
 #endif
     }
     rgblight_set();
-    wait_ms(1);
 }
 
 void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
