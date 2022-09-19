@@ -1,3 +1,6 @@
+// Copyright 2022 Kevin Ohlin (@ohlin)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #define RGBLIGHT_ANIMATIONS
