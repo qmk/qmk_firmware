@@ -51,11 +51,11 @@ led_config_t g_led_config = { {
     { 26 , 27 , 28 , 29 , 30 , NO_LED , 31     , 32     } ,
 
     // right hand
-    { 0 + LHK  , 1 + LHK  , 2 + LHK  , 3 + LHK  , 4 + LHK  , 5 + LHK  , 6 + LHK , NO_LED } ,
-    { 7 + LHK , 8 + LHK , 9 + LHK , 10 + LHK , 11 + LHK , 12 + LHK  , 13 + LHK  , 14 + LHK  } ,
-    { 15 + LHK , 16 + LHK , 17 + LHK , 18 + LHK , 19 + LHK , 20 + LHK , 21 + LHK, NO_LED } ,
-    { 22 + LHK , 23 + LHK , 24 + LHK , 25 + LHK , 26 + LHK , 27 + LHK, NO_LED, NO_LED    } ,
-    { 28 + LHK , 29 + LHK , 30 + LHK , 31 + LHK , 32 + LHK , 33 + LHK , 34 + LHK , 35 + LHK }
+    { 33  , 34  , 35  , 36  , 37 , 38  , 39     , NO_LED } ,
+    { 40 ,  41 ,  42 ,  43 ,  44 , 45  , 46     , 47     } ,
+    { 48 ,  49 ,  50 ,  51 ,  52 , 53  , 54     , NO_LED } ,
+    { 55 ,  56 ,  57 ,  58 ,  59 , 60 ,  NO_LED ,  NO_LED    } ,
+    { 61 ,  62 ,  63 ,  64 ,  65 , 66 ,  67 ,  68 }
   }, {
     // generated from the svg image of the keyboard, see create-led-config.js
     {82, 3}, {88, 3}, {94, 3}, {100, 3}, {106, 3}, {112, 3}, {118, 3}, {84, 10}, {91, 10}, {97, 10}, {103, 10}, {109, 10},
