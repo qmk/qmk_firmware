@@ -121,7 +121,7 @@
 // For perkey leds
 #ifdef RGB_MATRIX_ENABLE
 // This is not working
-//#   define RGB_DISABLE_TIMEOUT 1800000
+//#   define RGB_MATRIX_TIMEOUT 1800000
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED true
     // Start using this mode
 #   define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_RAINBOW_BEACON
