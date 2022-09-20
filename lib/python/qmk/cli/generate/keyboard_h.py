@@ -87,6 +87,11 @@ def generate_keyboard_h(cli):
     if keyboard_h:
         keyboard_h_lines.append(f'#include "{Path(keyboard_h).name}"')
 
+    keyboard_h_lines.append('')
+    keyboard_h_lines.append('// Legacy content - only included for keymaps')
+    keyboard_h_lines.append('#include "keycode_legacy.h"')
+    keyboard_h_lines.append('#include "quantum_keycodes_legacy.h"')
+
     # Protect against poorly configured keyboards
     if not valid_config:
         keyboard_h_lines.append('#error("<keyboard>.h is required unless your keyboard uses data-driven configuration. Please rename your keyboard\'s header file to <keyboard>.h")')
