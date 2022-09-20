@@ -580,6 +580,10 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
                     dprintf("rgblight rainbow set hsv: %d,%d,%d,%u\n", i, _hue, direction, range);
                     sethsv(_hue, sat, val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
                 }
+#ifdef RGBLIGHT_LAYERS_RETAIN_VAL
+                // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
+                rgblight_config.val = val;
+#endif
                 rgblight_set();
             }
 #endif
