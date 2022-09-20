@@ -1,6 +1,6 @@
 # 🐐 GOAT51
 
-![takashicompany/GOAT51](https://i.imgur.com/7xD9a4z.jpg)
+![takashicompany/GOAT51](https://i.imgur.com/7xD9a4zh.jpg)
 
 GOAT51は51キーのキーボードです。
 特徴的な放射状のキーレイアウトは指を自然に置くことができ、効率的な入力が可能です。
