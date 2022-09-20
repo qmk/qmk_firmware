@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xABCD
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nyhxis
-#define PRODUCT         NFR-70
-
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 7
