@@ -753,6 +753,16 @@ Combo the primary and secondary thumb keys to emulate the tertiary thumb key.  C
 - [[https://github.com/manna-harbour/qmk_firmware/issues/33][Retro Shift]]
 
 
+*** 𝑥MK
+
+Use Miryoku QMK with any keyboard with [[https://github.com/manna-harbour/xmk][𝑥MK]].
+
+For [[#local-builds][local builds]], merge https://github.com/manna-harbour/qmk_firmware/tree/xmk and build for keyboard ~converter/xmk~.
+
+For [[#workflow-builds][workflow builds]], use the Build Inputs workflow and build with keyboard ~converter/xmk~ and merge ~manna-harbour/qmk_firmware/xmk~, or use the Build Example 𝑥MK workflow.
+
+Also see [[https://github.com/manna-harbour/miryoku_kmonad][Miryoku KMonad]].
+
 ** 
 
 [[https://github.com/manna-harbour][https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/logos/manna-harbour-boa-32.png]]
