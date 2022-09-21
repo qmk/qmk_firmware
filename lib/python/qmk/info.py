@@ -621,7 +621,7 @@ def _extract_led_config(info_data, keyboard):
     elif features.get("led_matrix", False):
         feature = "led_matrix"
 
-    if feature is not None:
+    if feature:
         # Process
         for file in find_keyboard_c(keyboard):
             try:
