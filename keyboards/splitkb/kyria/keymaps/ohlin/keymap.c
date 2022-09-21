@@ -31,7 +31,6 @@ enum layers {
 #define OPT_ENT  MT(MOD_LALT, KC_ENT)
 #define SFT_SPC  MT(MOD_LSFT, KC_SPC)
 #define YTC      LOPT(KC_C)
-#define YTS      LOPT(KC_S)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                                               |------+------+------+------+------+--------|
  * |Ctrl/Esc| CTL/A| OPT/S| CMD/D| SFT/F|   G  |                                               |   H  | SFT/J| CMD/K| OPT/L| CTL/;| RClick |
  * |--------+------+------+------+------+------+-------------.                   ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  | [ {  | Hyper|                   | Hyper|  ] } |   N  |   M  | ,  < | . >  | /  ? | LClick |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  | [ {  | Hyper|                   | Hyper|  ] } |   N  |   M  | ,  < | . >  |  / ? | LClick |
  * `----------------------+------+------+------+------+------|                   |------+------+------+------+------+----------------------'
- *                        |      | LCMD | LOPT/| Space| Lower|                   | Raise| Space| OPTGr| RCMD |Scroll|
- *                        |      |      | Enter|      |      |                   |      |      |      |      |      |
+ *                        |      | LCMD | LOPT/|Shift/| Lower|                   | Raise|Shift/| Bcksp| RCMD |Scroll|
+ *                        |      |      | Enter| Space|      |                   |      | Space|      |      |      |
  *                        `----------------------------------'                   `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
