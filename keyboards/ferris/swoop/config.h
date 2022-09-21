@@ -31,9 +31,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 // communication between sides
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
-#define SERIAL_USE_MULTI_TRANSACTION
 #define EE_HANDS
 
 // encoders

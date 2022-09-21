@@ -13,8 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-//Disable unused functionality
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#pragma once
 #define ONESHOT_TIMEOUT 1000
 #define COMBO_COUNT 2

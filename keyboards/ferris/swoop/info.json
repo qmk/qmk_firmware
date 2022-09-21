@@ -2,13 +2,12 @@
   "keyboard_name": "Swoop",
   "url": "https://github.com/jimmerricks/swoop",
   "maintainer": "jmnw",
+  "manufacturer": "jmnw",
   "usb": {
     "vid": "0x1804",
     "pid": "0x3046",
     "device_ver": "0x0001"
   },
-  "width": 12,
-  "height": 4.55,
   "layouts": {
     "LAYOUT": {
       "layout": [
