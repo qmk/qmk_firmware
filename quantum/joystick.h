@@ -17,7 +17,6 @@
 #pragma once
 
 #include <stdint.h>
-#include <stdbool.h>
 #include "gpio.h"
 
 #ifndef JOYSTICK_BUTTON_COUNT
