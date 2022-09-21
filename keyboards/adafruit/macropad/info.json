@@ -1,0 +1,30 @@
+{
+    "keyboard_name": "Macropad RP2040",
+    "manufacturer": "Adafruit",
+    "url": "https://learn.adafruit.com/adafruit-macropad-rp2040",
+    "maintainer": "Jpe230",
+    "usb": {
+        "vid": "0x239A",
+        "pid": "0x0108",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"Mute", "x":2, "y":0},
+                {"label":"Enter", "x":0, "y":1},
+                {"label":"KC_0", "x":1, "y":1},
+                {"label":"BackSpace", "x":2, "y":1},
+                {"label":"KC_7", "x":0, "y":2},
+                {"label":"KC_8", "x":1, "y":2},
+                {"label":"KC_9", "x":2, "y":2},
+                {"label":"KC_4", "x":0, "y":3},
+                {"label":"KC_5", "x":1, "y":3},
+                {"label":"KC_6", "x":2, "y":3},
+                {"label":"KC_1", "x":0, "y":4},
+                {"label":"KC_2", "x":1, "y":4},
+                {"label":"KC_3", "x":2, "y":4}
+            ]
+        }
+    }
+}

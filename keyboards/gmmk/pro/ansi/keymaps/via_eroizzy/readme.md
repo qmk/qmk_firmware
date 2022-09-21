@@ -30,3 +30,4 @@ rgb_matrix_set_color(3, RGB_WHITE);
 //or
 rgb_matrix_set_color(3, 255, 255, 255);
 ```
+Thanks

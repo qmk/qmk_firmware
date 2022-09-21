@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "foobar",
+    "keyboard_name": "The 5x5 Keyboard",
+    "manufacturer": "di0ib",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4025",
+        "pid": "0x0F25",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT_ortho_5x5": {
             "layout": [

@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define PRODUCT_ID                  0x3536
-#define DEVICE_VER                  0x0001
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS                 12
@@ -47,7 +44,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define POINTING_DEVICE_RIGHT

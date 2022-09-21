@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x416B
-#define PRODUCT_ID      0x0081
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Atlantis
-#define PRODUCT         AK81_VE
-
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -32,15 +25,14 @@
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { F1, F7, F6, F5, F4, D5 }
 #define MATRIX_COL_PINS { F0, C7, C6, B6, B5, B4, D7, D6, B2, B7, D3, D2, D1, D0, B3 }
-#define UNUSED_PINS
 
 /* Encoder pins */
-#define ENCODERS_PAD_A { B0 }
-#define ENCODERS_PAD_B { E6 }
+#define ENCODERS_PAD_A { E6 }
+#define ENCODERS_PAD_B { B0 }
 #define ENCODER_RESOLUTION 4
 #define ENCODERS 1
-#define ENCODERS_CCW_KEY { { 3, 5 } } // Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 4, 5 } } // Note:  array is { col, row )
+#define ENCODERS_CCW_KEY { { 4, 5 } } // Note:  array is { col, row )
+#define ENCODERS_CW_KEY  { { 3, 5 } } // Note:  array is { col, row )
 
 /* LED pins */
 #define LED_CAPS_LOCK_PIN D4

@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Treadstone48",
+  "manufacturer": "marksard",
   "url": "https://github.com/marksard/Keyboards",
   "maintainer": "marksard",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0xDFA3",
+    "device_version": "0.1.0"
+  },
   "layouts": {
     "LAYOUT_base": {
       "layout": [

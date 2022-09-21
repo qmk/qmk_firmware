@@ -1,9 +1,9 @@
 {
-  "manufacturer": "fumbucker",
+  "manufacturer": "xia0",
   "keyboard_name": "Wakizashi 40",
-  "maintainer": "fumbucker",
+  "maintainer": "xia0",
   "debounce": 5,
-  "processor": "at90usb1286",
+  "processor": "atmega32u4",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": false,
@@ -20,13 +20,13 @@
     "unicode": false
   },
   "matrix_pins": {
-    "cols": ["C5", "C4", "D2", "D3", "D4", "D5", "C6", "D7", "B0", "B1", "B2", "B3", "B4"],
-    "rows": ["C0", "C1", "C2", "C3"]
+    "cols": ["F4", "F6", "F7", "B1", "B3", "B2", "B6", "B5", "B4", "E6", "D7", "C6", "D4"],
+    "rows": ["D3", "D2", "D1", "D0"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "vid": "0x6662",
     "pid": "0x7740",
-    "vid": "0x6662"
+    "device_version": "0.0.1"
   },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"

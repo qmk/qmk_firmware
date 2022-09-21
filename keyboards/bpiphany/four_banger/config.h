@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2004
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    1up Keyboards
-#define PRODUCT         Four Banger
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 2
@@ -16,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B2, B6 }
 #define MATRIX_COL_PINS { B5, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

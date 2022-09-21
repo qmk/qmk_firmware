@@ -1,7 +1,13 @@
 {
     "keyboard_name": "spacey",
+    "manufacturer": "vanilla",
     "url": "",
     "maintainer": "vanilla",
+    "usb": {
+        "vid": "0x5641",
+        "pid": "0x2045",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

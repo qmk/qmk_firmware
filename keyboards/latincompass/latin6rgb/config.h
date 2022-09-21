@@ -19,11 +19,6 @@
 
 /* USB Device descriptor parameter */
 #include "config_common.h"
-#define VENDOR_ID       0x7C88 // "hw" = haierwangwei
-#define PRODUCT_ID      0x7C96 // "lp" = latin6RGB
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    18438880
-#define PRODUCT         Latin6rgb
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -41,17 +36,12 @@
  */
 #define MATRIX_ROW_PINS {C7, C6 }
 #define MATRIX_COL_PINS {F7, F6, F5}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
-
-/* disable these deprecated features by default */
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects

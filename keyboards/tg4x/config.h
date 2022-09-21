@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4D4D // "MM"
-#define PRODUCT_ID 0x0458 // 4 "X"
-#define DEVICE_VER 0x0021
-#define MANUFACTURER MythosMann
-#define PRODUCT TG4x
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 7
@@ -43,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  //                        0   1   2   3   4   5   6   7
 #define MATRIX_ROW_PINS { B5, B4, E6, D7, C6, D4, D0, D1 }
 #define MATRIX_COL_PINS { D3, B3, B1, F7, F6, F5, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -138,8 +130,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

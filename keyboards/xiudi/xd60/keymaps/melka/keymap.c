@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // 2: RGB Layer
   LAYOUT_melka(
-      RGB_TOG,  RGB_M_P,    RGB_RMOD,   RGB_MOD,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_X,    RGB_M_G,    RGB_M_T,    _______,    _______,    RESET,
+      RGB_TOG,  RGB_M_P,    RGB_RMOD,   RGB_MOD,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_X,    RGB_M_G,    RGB_M_T,    _______,    _______,    QK_BOOT,
       _______,  RGB_HUD,    RGB_HUI,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
       _______,  RGB_SAD,    RGB_SAI,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
       TO(0),    _______,    RGB_VAD,    RGB_VAI,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    PASS_A,      PASS_B,    _______,    _______,

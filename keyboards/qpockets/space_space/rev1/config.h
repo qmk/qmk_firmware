@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7170
-#define PRODUCT_ID 0x7373
-#define DEVICE_VER 0x3000
-#define MANUFACTURER qpockets
-#define PRODUCT space_space
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
@@ -34,7 +27,6 @@
 #define MATRIX_COL_PINS \
     { D4, B4, B5, B6, C6, F7, F6, F0, B0, E6, B1 }
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

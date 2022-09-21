@@ -15,7 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_br_abnt2.h"
+#include "keymap_brazilian_abnt2.h"
 
 enum layers {
   _WORKMAN,
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // adjust layer ok
 [_ADJUST] = LAYOUT_planck_mit(
-    RESET,   RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______,
+    QK_BOOT, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______,
     KC_CAPS, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, QWERTY,  DVORAK,  COLEMAK, WORKMAN, MIDI,
     _______, MI_ON,   MI_OFF,  MI_TOG,  MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  AU_ON,   AU_OFF,  _______, _______,
     RGB_TOG, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______

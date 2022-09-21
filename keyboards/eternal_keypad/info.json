@@ -1,7 +1,13 @@
 {
     "keyboard_name": "eternal_keypad",
+    "manufacturer": "duckyb",
     "url": "https://github.com/duckyb/eternal-keypad",
     "maintainer": "duckyb",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0xDB00",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
