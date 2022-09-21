@@ -72,6 +72,7 @@ endif
 
 $(TEST)_SRC += \
 	tests/test_common/main.c \
+	$(QUANTUM_PATH)/keymap_introspection.c \
 	$(QUANTUM_PATH)/logging/print.c
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
