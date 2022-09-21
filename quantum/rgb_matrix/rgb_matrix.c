@@ -479,7 +479,9 @@ __attribute__((weak)) bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, ui
     return rgb_matrix_indicators_advanced_user(led_min, led_max);
 }
 
-__attribute__((weak)) bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) { return true; }
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
 
 void rgb_matrix_init(void) {
     rgb_matrix_driver.init();
