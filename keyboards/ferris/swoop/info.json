@@ -9,7 +9,7 @@
     "device_ver": "0x0001"
   },
   "layouts": {
-    "LAYOUT_split_3x5_3": {
+    "LAYOUT": {
       "layout": [
         {"label":"SW1",  "x":0, "y":0.375},
         {"label":"SW2",  "x":1, "y":0.125},
