@@ -27,15 +27,9 @@ void td_esc_spotlight_emoji (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code(KC_ESC);
     } else if (state->count == 2) {
-        register_code(KC_LGUI);
-        tap_code(KC_SPC);
-        unregister_code(KC_LGUI);
+        tap_code16(G(KC_SPC));
     } else if (state->count == 3) {
-        register_code(KC_LGUI);
-        register_code(KC_LCTL);
-        tap_code(KC_SPC);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LCTL);
+        tap_code16(C(G(KC_SPC)));
     }
 }
 
@@ -45,18 +39,15 @@ void td_esc_windows_emoji (qk_tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 2) {
         tap_code(KC_LGUI);
     } else if (state->count == 3) {
-        register_code(KC_LGUI);
-        tap_code(KC_DOT);
-        unregister_code(KC_LGUI);
+        tap_code16(G(KC_DOT));
     }
 };
 
  // Tap Dance definitions
- qk_tap_dance_action_t tap_dance_actions[] = {
-     [TD_ESC_SPOTLIGHT_EMOJI] = ACTION_TAP_DANCE_FN(td_esc_spotlight_emoji),
-     [TD_ESC_WINDOWS_EMOJI] = ACTION_TAP_DANCE_FN(td_esc_windows_emoji)
- };
-
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_ESC_SPOTLIGHT_EMOJI] = ACTION_TAP_DANCE_FN(td_esc_spotlight_emoji),
+    [TD_ESC_WINDOWS_EMOJI] = ACTION_TAP_DANCE_FN(td_esc_windows_emoji)
+};
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -72,14 +63,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 };
 
 // Layer Names
-#define _MAC_DEFAULT  0
-#define _MAC_CODE 1
-#define _MAC_NUM 2
-#define _MAC_FUNC 3
-#define _WIN_DEFAULT  4
-#define _WIN_CODE 5
-#define _WIN_NUM 6
-#define _WIN_FUNC 7
+enum layer_names {
+    _MAC_DEFAULT,
+    _MAC_CODE,
+    _MAC_NUM,
+    _MAC_FUNC,
+    _WIN_DEFAULT,
+    _WIN_CODE,
+    _WIN_NUM,
+    _WIN_FUNC
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_3x10_6(
@@ -133,5 +126,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if OLED_ENABLE
-#include <oled.c>
+    #include "oled.h"
 #endif
