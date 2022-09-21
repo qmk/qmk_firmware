@@ -3,7 +3,6 @@
     "keyboard_name": "tkk",
     "maintainer": "jfass",
     "bootloader": "halfkay",
-    "comment_diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "command": false,
