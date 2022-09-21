@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Or:
 
-    qmk compile -kb tkk -km default
+    qmk compile -kb handwired/tkk -km default
 
 In my build environment (Ubuntu), I needed to unset quite a few environment variables like CONDA\_BACKUP\_LDFLAGS that contained hardware options qmk didn't like, before this succeeded.
 
