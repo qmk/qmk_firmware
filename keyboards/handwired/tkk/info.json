@@ -2,7 +2,7 @@
     "manufacturer": "Joe Fass",
     "keyboard_name": "tkk",
     "maintainer": "jfass",
-    "bootloader": "atmel-dfu",
+    "bootloader": "halfkay",
     "comment_diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
