@@ -49,21 +49,21 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             for (uint8_t i = 0; i < 8; i++) {
                 rgb_matrix_set_color(qwerty_leds[i], RGB_CORAL);
             }
-            rgb_matrix_set_color(13, RGB_GOLDENROD);    // To Numbers
-            rgb_matrix_set_color(6, RGB_ORANGE);         // To Symbols
-            rgb_matrix_set_color(25, RGB_PINK);         // To Nav
-            rgb_matrix_set_color(40, RGB_PINK);        // To Nav
-            rgb_matrix_set_color(33, RGB_MAGENTA);        // To Function keys
+            rgb_matrix_set_color(13, RGB_GOLDENROD);        // To Numbers
+            rgb_matrix_set_color(6, RGB_ORANGE);            // To Symbols
+            rgb_matrix_set_color(25, RGB_PINK);             // To Nav
+            rgb_matrix_set_color(40, RGB_PINK);             // To Nav
+            rgb_matrix_set_color(33, RGB_MAGENTA);          // To Function keys
             break;
         case _NAVIGATION:
             for (uint8_t i = 0; i < 4; i++) {
                 rgb_matrix_set_color(nav_leds[i], RGB_PINK);
                 rgb_matrix_set_color(mouse_leds[i], RGB_PINK);
             }
-            rgb_matrix_set_color(33, RGB_CORAL);        // To qwerty
-            rgb_matrix_set_color(25, RGB_CORAL);        // To qwerty
-            rgb_matrix_set_color(41, RGB_RED);        // To Adjust
-            rgb_matrix_set_color(20, RGB_MAGENTA);        // To Function keys
+            rgb_matrix_set_color(33, RGB_CORAL);            // To qwerty
+            rgb_matrix_set_color(26, RGB_CORAL);            // To qwerty
+            rgb_matrix_set_color(41, RGB_RED);              // To Adjust
+            rgb_matrix_set_color(20, RGB_MAGENTA);          // To Function keys
             break;
         case _GAMING:
             if (is_keyboard_master()) {
@@ -71,10 +71,11 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     rgb_matrix_set_color(gaming_leds[i], RGB_SPRINGGREEN);
                 }
             }
-            rgb_matrix_set_color(33, RGB_CORAL);        // To qwerty
-            rgb_matrix_set_color(13, RGB_SPRINGGREEN);        // Spacebar
-            rgb_matrix_set_color(6, RGB_GOLDENROD);        // To numbers
-            rgb_matrix_set_color(40, RGB_MAGENTA);        // To function keys
+            rgb_matrix_set_color(33, RGB_CORAL);            // To qwerty
+            rgb_matrix_set_color(13, RGB_SPRINGGREEN);      // Spacebar
+            rgb_matrix_set_color(6, RGB_GOLDENROD);         // To numbers
+            rgb_matrix_set_color(40, RGB_MAGENTA);          // To function keys
+            rgb_matrix_set_color(14, RGB_MAGENTA);          // To function keys
             break;
         case _NUMBER:
             for (uint8_t i = 0; i < 10; i++) {
@@ -83,6 +84,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             for (uint8_t i = 0; i < 5; i++) {
                 rgb_matrix_set_color(top_right_leds[i], RGB_GOLDENROD);
             }
+            rgb_matrix_set_color(26, RGB_CORAL);            // To qwerty
+            rgb_matrix_set_color(33, RGB_CORAL);            // To qwerty
             break;
         case _SYMBOL:
             for (uint8_t i = 0; i < 20; i++) {
@@ -91,8 +94,9 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             for (uint8_t i = 0; i < 5; i++) {
                 rgb_matrix_set_color(top_right_leds[i], RGB_ORANGE);
             }
-            rgb_matrix_set_color(6, RGB_ORANGE);         // To Symbols
-            rgb_matrix_set_color(33, RGB_CORAL);        // To qwerty
+            rgb_matrix_set_color(6, RGB_ORANGE);            // To Symbols
+            rgb_matrix_set_color(33, RGB_CORAL);            // To qwerty
+            rgb_matrix_set_color(13, RGB_GOLDENROD);        // To Numbers
             break;
         case _FUNCTION:
             for (uint8_t i = 0; i < 12; i++) {
@@ -101,22 +105,22 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             for (uint8_t i = 0; i < 5; i++) {
                 rgb_matrix_set_color(top_right_leds[i], RGB_MAGENTA);
             }
-            rgb_matrix_set_color(33, RGB_CORAL);        // To qwerty
-            rgb_matrix_set_color(41, RGB_SPRINGGREEN);        // To gaming
-            rgb_matrix_set_color(40, RGB_PINK);        // To navigation
-            rgb_matrix_set_color(6, RGB_RED);        // To Adjust
+            rgb_matrix_set_color(33, RGB_CORAL);            // To qwerty
+            rgb_matrix_set_color(41, RGB_SPRINGGREEN);      // To gaming
+            rgb_matrix_set_color(40, RGB_PINK);             // To navigation
+            rgb_matrix_set_color(6, RGB_RED);               // To Adjust
             break;
         case _ADJUST:
-            rgb_matrix_set_color(24, RGB_GREEN);        // Reset key
+            rgb_matrix_set_color(24, RGB_GREEN);            // Reset key
             for (uint8_t i = 0; i < 8; i++) {
                 rgb_matrix_set_color(adjust_leds[i], RGB_RED);
             }
             for (uint8_t i = 0; i < 9; i++) {
                 rgb_matrix_set_color(adjust_other_leds[i], RGB_RED);
             }
-            rgb_matrix_set_color(33, RGB_CORAL);        // To qwerty
-            rgb_matrix_set_color(41, RGB_SPRINGGREEN);        // To gaming
-            rgb_matrix_set_color(40, RGB_PINK);        // To navigation
+            rgb_matrix_set_color(33, RGB_CORAL);            // To qwerty
+            rgb_matrix_set_color(41, RGB_SPRINGGREEN);      // To gaming
+            rgb_matrix_set_color(40, RGB_PINK);             // To navigation
             rgb_matrix_set_color(35, RGB_GOLDENROD);        // To number
             break;
     }

@@ -50,6 +50,7 @@ enum crkbd_layers {
 #define LQWERTY TO(_QWERTY)
 #define LNAV    TO(_NAVIGATION)
 #define LADJUST TO(_ADJUST)
+#define LNUM    TO(_NUMBER)
 // #define LNAVCSX C(S(LT(_NAVIGATION, XXXXXXX)))  // This is a test
 // #define LNAVENT C(LT(_NAVIGATION, KC_ENT))      // This is a test
 
@@ -58,6 +59,7 @@ enum crkbd_layers {
 #define CTRLSFT C(KC_LSFT)
 #define COLON S(KC_SCLN)
 #define TABLGUI LGUI_T(KC_TAB)
+#define LCAPSFT LSFT_T(KC_CAPS)
 
 // Tab movement
 #define TABFWRD C(KC_TAB)
