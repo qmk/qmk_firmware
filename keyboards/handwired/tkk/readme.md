@@ -10,7 +10,7 @@ This is 'tkk', a ten key split keyboard wired as a single "row," ten "column" di
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tkk:default
+    make handwired/tkk:default
 
 Or:
 
