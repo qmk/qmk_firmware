@@ -144,10 +144,14 @@ led_config_t g_led_config = { {
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 } };
 
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(26, 255, 255, 255);
     } else {
         rgb_matrix_set_color(26, 0, 0, 0);
     }
+    return true;
 }
