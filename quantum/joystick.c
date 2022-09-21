@@ -60,43 +60,7 @@ void unregister_joystick_button(uint8_t button) {
     joystick_flush();
 }
 
-uint16_t joystick_savePinState(pin_t pin) {
-#ifdef __AVR__
-    uint8_t pinNumber = pin & 0xF;
-    return ((PORTx_ADDRESS(pin) >> pinNumber) & 0x1) << 1 | ((DDRx_ADDRESS(pin) >> pinNumber) & 0x1);
-#elif defined(PROTOCOL_CHIBIOS)
-    /*
-    The pin configuration is backed up in the following format :
- bit  15    9  8   7   6  5  4   3     2    1 0
-      |unused|ODR|IDR|PUPDR|OSPEEDR|OTYPER|MODER|
-    */
-    return ((PAL_PORT(pin)->MODER >> (2 * PAL_PAD(pin))) & 0x3) | (((PAL_PORT(pin)->OTYPER >> (1 * PAL_PAD(pin))) & 0x1) << 2) | (((PAL_PORT(pin)->OSPEEDR >> (2 * PAL_PAD(pin))) & 0x3) << 3) | (((PAL_PORT(pin)->PUPDR >> (2 * PAL_PAD(pin))) & 0x3) << 5) | (((PAL_PORT(pin)->IDR >> (1 * PAL_PAD(pin))) & 0x1) << 7) | (((PAL_PORT(pin)->ODR >> (1 * PAL_PAD(pin))) & 0x1) << 8);
-#else
-    return 0;
-#endif
-}
-
-void joystick_restorePinState(pin_t pin, uint16_t restoreState) {
-#if defined(PROTOCOL_LUFA)
-    uint8_t pinNumber  = pin & 0xF;
-    PORTx_ADDRESS(pin) = (PORTx_ADDRESS(pin) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
-    DDRx_ADDRESS(pin)  = (DDRx_ADDRESS(pin) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
-#elif defined(PROTOCOL_CHIBIOS)
-    PAL_PORT(pin)->MODER   = (PAL_PORT(pin)->MODER & ~(0x3 << (2 * PAL_PAD(pin)))) | (restoreState & 0x3) << (2 * PAL_PAD(pin));
-    PAL_PORT(pin)->OTYPER  = (PAL_PORT(pin)->OTYPER & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 2) & 0x1) << (1 * PAL_PAD(pin));
-    PAL_PORT(pin)->OSPEEDR = (PAL_PORT(pin)->OSPEEDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 3) & 0x3) << (2 * PAL_PAD(pin));
-    PAL_PORT(pin)->PUPDR   = (PAL_PORT(pin)->PUPDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 5) & 0x3) << (2 * PAL_PAD(pin));
-    PAL_PORT(pin)->IDR     = (PAL_PORT(pin)->IDR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 7) & 0x1) << (1 * PAL_PAD(pin));
-    PAL_PORT(pin)->ODR     = (PAL_PORT(pin)->ODR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 8) & 0x1) << (1 * PAL_PAD(pin));
-#else
-    return;
-#endif
-}
-
 int16_t joystick_read_axis(uint8_t axis) {
-    // save previous input pin status as well
-    uint16_t inputSavedState = joystick_savePinState(joystick_axes[axis].input_pin);
-
     // disable pull-up resistor
     writePinLow(joystick_axes[axis].input_pin);
 
@@ -106,21 +70,12 @@ int16_t joystick_read_axis(uint8_t axis) {
 
     wait_us(10);
 
-    // save and apply output pin status
-    uint16_t outputSavedState = 0;
     if (joystick_axes[axis].output_pin != JS_VIRTUAL_AXIS) {
-        // save previous output pin status
-        outputSavedState = joystick_savePinState(joystick_axes[axis].output_pin);
-
         setPinOutput(joystick_axes[axis].output_pin);
         writePinHigh(joystick_axes[axis].output_pin);
     }
 
-    uint16_t groundSavedState = 0;
     if (joystick_axes[axis].ground_pin != JS_VIRTUAL_AXIS) {
-        // save previous output pin status
-        groundSavedState = joystick_savePinState(joystick_axes[axis].ground_pin);
-
         setPinOutput(joystick_axes[axis].ground_pin);
         writePinLow(joystick_axes[axis].ground_pin);
     }
@@ -152,16 +107,6 @@ int16_t joystick_read_axis(uint8_t axis) {
     // clamp the result in the valid range
     ranged_val = ranged_val < -JOYSTICK_RESOLUTION ? -JOYSTICK_RESOLUTION : ranged_val;
     ranged_val = ranged_val > JOYSTICK_RESOLUTION ? JOYSTICK_RESOLUTION : ranged_val;
-
-    // restore output, ground and input status
-    if (joystick_axes[axis].output_pin != JS_VIRTUAL_AXIS) {
-        joystick_restorePinState(joystick_axes[axis].output_pin, outputSavedState);
-    }
-    if (joystick_axes[axis].ground_pin != JS_VIRTUAL_AXIS) {
-        joystick_restorePinState(joystick_axes[axis].ground_pin, groundSavedState);
-    }
-
-    joystick_restorePinState(joystick_axes[axis].input_pin, inputSavedState);
 
     return ranged_val;
 }
