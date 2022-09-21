@@ -14,7 +14,7 @@ from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
 def generate_define(define, value=None):
-    value = f' {value}' if value else ''
+    value = f' {value}' if value is not None else ''
     return f"""
 #ifndef {define}
 #    define {define}{value}
