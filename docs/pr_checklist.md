@@ -135,6 +135,7 @@ Also, specific to ChibiOS:
     - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
     - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided
     - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) -- consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
+- any features adding `_kb`/`_user` callbacks must return a `bool`, to allow for user override of keyboard-level callbacks. 
 - other requirements are at the discretion of QMK collaborators
     - core is a lot more subjective given the breadth of posted changes
 
