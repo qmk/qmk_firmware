@@ -16,10 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-// USB device descriptor parameter
-#define MANUFACTURER    jmnw
-#define PRODUCT         swoop
-// #define DESCRIPTION     A 36 key column-staggered split keyboard.
 
 // key matrix size (rows are doubled)
 #define MATRIX_ROWS 8
