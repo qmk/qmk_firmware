@@ -20,6 +20,7 @@ $(TEST)_SRC := \
 	$(TMK_COMMON_SRC) \
 	$(QUANTUM_SRC) \
 	$(SRC) \
+	$(QUANTUM_PATH)/keymap_introspection.c \
 	tests/test_common/matrix.c \
 	tests/test_common/test_driver.cpp \
 	tests/test_common/keyboard_report_util.cpp \
