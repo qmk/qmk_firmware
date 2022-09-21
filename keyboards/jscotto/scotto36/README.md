@@ -1,6 +1,6 @@
 # Scotto36
 
-![Scotto36](imgur.com image replace me!)
+![Scotto36](https://imgur.com/MCGv0ZH)
 
 A 36 key handwired ortholinear ergo keyboard. Featuring an OLED display with Bongo Cat. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
