@@ -13,7 +13,7 @@ from qmk.path import normpath
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
-def generate_define(define, value = None):
+def generate_define(define, value=None):
     value = f' {value}' if value else ''
     return f"""
 #ifndef {define}
