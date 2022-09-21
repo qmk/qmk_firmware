@@ -94,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_LCTL, KC_LALT, LGUI_T(KC_SPC), KC_TRNS, KC_TRNS, TD(TD_ESC_SPOTLIGHT_EMOJI)
     ),
     [3] = LAYOUT_ortho_3x10_6(
--        KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,          KC_NO,   KC_NO,   KC_NO,                     KC_NO, TO(4),
--        KC_F1,   KC_F2, KC_F3,   KC_F4,   KC_F5,          KC_F6,   KC_F7,   KC_F8,                     KC_F9, KC_F10,
--        KC_F11,  KC_NO, KC_NO,   QK_BOOT, KC_TRNS,        KC_NO,   KC_NO,   KC_NO,                     KC_NO, KC_F12,
--                        KC_LCTL, KC_LALT, LGUI_T(KC_SPC), KC_TRNS, KC_TRNS, TD(TD_ESC_SPOTLIGHT_EMOJI)
+         KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,          KC_NO,   KC_NO,   KC_NO,                     KC_NO, TO(4),
+         KC_F1,   KC_F2, KC_F3,   KC_F4,   KC_F5,          KC_F6,   KC_F7,   KC_F8,                     KC_F9, KC_F10,
+         KC_F11,  KC_NO, KC_NO,   QK_BOOT, KC_TRNS,        KC_NO,   KC_NO,   KC_NO,                     KC_NO, KC_F12,
+                         KC_LCTL, KC_LALT, LGUI_T(KC_SPC), KC_TRNS, KC_TRNS, TD(TD_ESC_SPOTLIGHT_EMOJI)
      ),
      [4] = LAYOUT_ortho_3x10_6(
         KC_Q,         KC_W, KC_F,    KC_P,    KC_G,   KC_J,          KC_L,          KC_U,                    KC_Y,   KC_BSPC,
@@ -118,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_LALT, KC_LCTL, KC_SPC,  KC_TRNS, KC_TRNS, TD(TD_ESC_WINDOWS_EMOJI)
     ),
     [7] = LAYOUT_ortho_3x10_6(
--        KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                   KC_NO, TO(0),
--        KC_F1,   KC_F2, KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,                   KC_F9, KC_F10,
--        KC_F11,  KC_NO, KC_NO,   QK_BOOT, KC_TRNS, KC_NO,   KC_NO,   KC_NO,                   KC_NO, KC_F12,
+         KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                   KC_NO, TO(0),
+         KC_F1,   KC_F2, KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,                   KC_F9, KC_F10,
+         KC_F11,  KC_NO, KC_NO,   QK_BOOT, KC_TRNS, KC_NO,   KC_NO,   KC_NO,                   KC_NO, KC_F12,
                          KC_LALT, KC_LCTL, KC_SPC,  KC_TRNS, KC_TRNS, TD(TD_ESC_WINDOWS_EMOJI)
      )
 };
