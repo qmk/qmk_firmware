@@ -1,7 +1,0 @@
-{
-    "keyboard_name": "Sinc Rev. 2",
-    "usb": {
-        "pid": "0x2267",
-        "device_version": "2.0.0"
-    }
-}
