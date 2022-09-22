@@ -102,7 +102,7 @@ const uint16_t PROGMEM encoder_map[][1][2] = {
 };
 #endif
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     if (is_siri_active) {
         if (sync_timer_elapsed32(siri_timer) >= 500) {
             unregister_code(KC_LCMD);
