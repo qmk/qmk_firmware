@@ -81,7 +81,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 
-bool rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_user(void) {
     switch(get_highest_layer(layer_state|default_layer_state)) {
         case 1:
             rgb_matrix_set_color_all(RGB_BLACK);

@@ -117,7 +117,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 
-bool rgb_matrix_indicators_kb(void)
+bool rgb_matrix_indicators_user(void)
 {
 	if (!g_suspend_state && rgb_matrix_config.enable) {
         switch (get_highest_layer(layer_state)) {
