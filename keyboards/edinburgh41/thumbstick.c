@@ -17,7 +17,7 @@
 // import thumbstick settings from config
 #pragma once
 
-#include "config.h"
+#include "edinburgh41.h"
 
 bool cursor_mode = false;
 bool scrolling_mode = false;
@@ -27,10 +27,10 @@ bool tapping_mode = false;
 bool returned_to_zero = true;
 
 // tracks how many times mouse_report.x/y have been read zero in succession
-int zero_reads = 0;
+uint16_t zero_reads = 0;
 
 // manipulate mouse report based on current mode
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     if (cursor_mode) {
         mouse_report.x = CURSOR_SPEED * mouse_report.x;
         mouse_report.y = CURSOR_SPEED * mouse_report.y;
@@ -74,7 +74,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 // set mode depending on layer
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case SCROLLING_LAYER:
             if (scrolling_mode == false) {
