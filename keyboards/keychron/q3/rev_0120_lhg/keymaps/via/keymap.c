@@ -167,7 +167,7 @@ void set_layer_color(int layer) {
   }
 }
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     if (is_siri_active) {
         if (sync_timer_elapsed32(siri_timer) >= 500) {
             unregister_code(KC_LCMD);
