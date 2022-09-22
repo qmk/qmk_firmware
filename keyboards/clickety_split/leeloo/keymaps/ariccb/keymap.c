@@ -84,8 +84,8 @@ enum planck_keycodes {
   ARROW,
   ALT_TAB,
   LLOCK,
-  MULTILEFT,
-  MULTIRIGHT
+  SELWLEFT,
+  SELWRIGHT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -135,24 +135,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (LOWER)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | HYPER|   1  |   2  |   3  |   4  |   5  |                                      |   6  |   7  |   8  |   9  |   0  |Delete|
+ * | HYPER|  F1  |  F2  |  F3  |  F4  |  F5  |                                      |  F6  |  F7  |  F8  |  F9  | F10  |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
-*  |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   ^  |   7  |   8  |   9  |   :  | Bsp  |
+*  |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   *  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |S(TAB)|   ~  |   ^  |   %  |   {  |   }  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
- * | SHIFT|   |  |   &  |   "  |   (  |   )  | DIAL1 |--> Toggle HDR        | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
+ * |   <  |   >  |   &  |   "  |   (  |   )  | DIAL1 |--> Reset Zoom        | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    on Button Press   |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /                        \      \       |      |MW U/D|
- *                      | APP | ENTER| OSSft/ SPACE/                          \ Space\   0  |  .   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
+ *                      | APP | ENTER| OSSft/ SHIFT/                          \ Space\   0  |  .   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
  *                      `-------------------------'                            '--------------------------'
  */
   [_LOWER] = LAYOUT(
-  KC_HYPR,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                              KC_6,    KC_7,   KC_8,  KC_9,  KC_0,    KC_DEL,
-  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
+  KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                             KC_F6,   KC_F7,  KC_F8, KC_F9, KC_F10,    KC_DEL,
+  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_PAST, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
   S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LCBR, KC_RCBR,                           KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LPRN, KC_RPRN, G(A(KC_B)),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
+  KC_LABK,   KC_RABK, KC_AMPR, KC_DQUO, KC_LPRN, KC_RPRN, LCTL(KC_0),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_LSFT,          KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
 /* MIT Layout (RAISE)
@@ -161,9 +161,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                               point  |------+------+------+------+------+------|
  * |      | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   :  | Bksp |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |      | Menu | MsLft| MDown|Mright| Vol+ |-------.                      .-------|ARROW | MbLft|SELWORD|MbRgt|      |   !  |
+ * |      | Menu | MsLft| MDown|Mright| Vol+ |-------.                      .-------|ARROW | MbLft|SELWORD|MbRgt|      |   "  |
  * |------+------+------+------+------+------|Cursor |                      | Layer |------+------+------+------+------+------|
- * |      | MWLft| MWUp | NWDn |NWRght| Vol- | DIAL1 |-->pins current       | Lock  | ()<> | []{} |  <   |   >  |   ?  |   |  |
+ * |      | MWLft| MWUp | NWDn |NWRght| Vol- | DIAL1 |-->pins current       | Lock  | ()<> | []{} |   !  |   !  |   ?  |   |  |
  * .-----------------------------------------|-------|   window to all      |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /    virtual destktops on\ Mouse\ Mouse |******|Search|
  *                      | APP | ENTER| OSSft/ SPACE/     Button Press         \ Btn 1\ Btn 3|******| DIAL2|--> sends CTRL(KC_F)
@@ -172,8 +172,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT(
   KC_HYPR, KC_NO,   KC_NO,   KC_NO,   KC_NO,   DEBUG,                                KC_BTN2, KC_NO,   KC_NUM,  KC_NO,   KC_NO,   TG(_QWERTY),
   KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                              KC_TRNS, LLOCK,   KC_BTN3, KC_TRNS, KC_COLN, KC_BSPC,
-  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                              ARROW,   KC_BTN1, SELWORD, KC_BTN2, KC_TRNS, KC_EXLM,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),         LLOCK,   BRACES,  BRACES2, KC_LABK, KC_RABK, KC_QUES, KC_PIPE,
+  KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                              ARROW,   KC_BTN1, SELWORD, KC_BTN2, KC_TRNS, KC_DQUO,
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),         LLOCK,   BRACES,  BRACES2, KC_EXLM, KC_EXLM, KC_QUES, KC_PIPE,
                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_BTN1, KC_BTN3, KC_TRNS, LCTL(KC_F) // search on page (ctrl f)
 ),
 
@@ -183,9 +183,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |******| Ctrl | Shift| Alt  |      |MyComp|                                      |TabDn | Home |  Up  |  End |      |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |      |  F5  |      |      |DESKTL|DESKTR|--------.                     .-------|2xLeft| Left | Down | Right|2xRigt|CAPSLK|
+ * |      |  F5  |      |      |DESKTL|DESKTR|--------.                     .-------|SWLeft| Left | Down | Right|SWRigt|CAPSLK|
  * |------+------+------+------+------+------| Cursor |                     | Layer |------+------+------+------+------+------|
- * |      |      |      |      |      |AltTab| Word   |--> Resets Zoom      | Lock  |Ctrl D|PageUp|AltPDn|PageDn| PAUSE|INSERT|
+ * |      |      |      |      |      |AltTab| Word   |--> Toggle HDR       | Lock  |Ctrl D|PageUp|AltPDn|PageDn| PAUSE|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /Window /                       \       \       |      |Volume|
  *                      | APP | ENTER| OSSft/Switch /                         \       \      |      | DIAL2|--> Next Song
@@ -194,8 +194,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
   KC_HYPR, DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGUP),    A(KC_LEFT), KC_NO,        A(KC_RIGHT), KC_NO,       KC_SLCK,
   KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS, KC_MYCM,                               C(KC_PGDN),    KC_HOME,    KC_UP,        KC_END,      KC_TRNS,     KC_DEL,
-  KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, DESKTL,  DESKTR,                                MULTILEFT,     KC_LEFT,    KC_DOWN,      KC_RGHT,     MULTIRIGHT,  KC_CAPS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB, LCTL(KC_0),          KC_TRNS, LCTL(KC_D),    KC_PGUP,    LCA(KC_DOWN), KC_PGDN,     KC_PAUSE,    KC_INS,
+  KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, DESKTL,  DESKTR,                                SELWLEFT,      KC_LEFT,    KC_DOWN,      KC_RGHT,     SELWRIGHT,   KC_CAPS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB, G(A(KC_B)),          KC_TRNS, LCTL(KC_D),    KC_PGUP,    LCA(KC_DOWN), KC_PGDN,     KC_PAUSE,    KC_INS,
                              KC_TRNS, KC_TRNS, KC_TRNS, WINDOWSW,            KC_TRNS, KC_TRNS,       KC_TRNS,    KC_MNXT
 )
 };
@@ -235,25 +235,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // Save As on button press
                 break;
             case _RAISE:
-            // cursor control
-             if (clockwise) {
-                  tap_code(KC_LEFT);
-                } else {
-                  tap_code(KC_RIGHT);
-                }
-                break;
-                //Pins current window to all desktops C(A(KC_P))
-            case _ADJUST:
-                // Skip words
-                 if (clockwise) {
-                  tap_code16(LCTL(KC_LEFT));
-                  } else {
-                    tap_code16(LCTL(KC_RGHT));
-                    }
-                // Resets Zoom on button press
-                break;
-            default:
-                 // ALT Tab through open windows
+              // ALT Tab through open windows
               if (!clockwise) {
                   tabtimer = timer_read();
                   if(!tabbing) {
@@ -271,6 +253,25 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                   tap_code(KC_TAB);
                   unregister_code(KC_LSFT);
                 }
+                break;
+                //Pins current window to all desktops C(A(KC_P))
+            case _ADJUST:
+                // Skip words
+                 if (clockwise) {
+                  tap_code16(LCTL(KC_LEFT));
+                  } else {
+                    tap_code16(LCTL(KC_RGHT));
+                    }
+                // Resets Zoom on button press
+                break;
+            default:
+              // Forward/Back Windows Virtual Desktops
+                if (!clockwise) {
+                  tap_code16(G(C(KC_RGHT)));
+                  } else {
+                    tap_code16(G(C(KC_LEFT)));
+                    }
+                // Save As on button press
                 break;
                 //Superhuman Mail on button press Alt(KC_S)
         }
@@ -366,9 +367,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           clear_mods();  // Temporarily disable mods.
           clear_oneshot_mods();
           if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          SEND_STRING("<>");
-          } else {
           SEND_STRING("()");
+          } else {
+          SEND_STRING("<>");
           }
           tap_code(KC_LEFT);  // Move cursor between braces.
           set_mods(mods);  // Restore mods.
@@ -380,9 +381,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           clear_mods();  // Temporarily disable mods.
           clear_oneshot_mods();
           if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          SEND_STRING("[]");
-          } else {
           SEND_STRING("{}");
+          } else {
+          SEND_STRING("[]");
           }
           tap_code(KC_LEFT);  // Move cursor between braces.
           set_mods(mods);  // Restore mods.
@@ -426,16 +427,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
       }
       break;
-      case MULTILEFT:
+      case SELWLEFT:
       if (record->event.pressed){
-        tap_code16(LCTL(KC_LEFT));
-        tap_code16(LCTL(KC_LEFT));
+        tap_code16(LCTL(LSFT(KC_LEFT)));
+        tap_code16(LCTL(LSFT(KC_LEFT)));
       }
       break;
-      case MULTIRIGHT:
+      case SELWRIGHT:
       if (record->event.pressed){
-        tap_code16(LCTL(KC_RGHT));
-        tap_code16(LCTL(KC_RGHT));
+        tap_code16(LCTL(LSFT(KC_RGHT)));
+        tap_code16(LCTL(LSFT(KC_RGHT)));
       }
       break;
   }
@@ -468,11 +469,6 @@ enum combo_events {
   SELECTALL,
   QUESTIONMARK,
   EXCLAMATIONMARK,
-  EQUALS,
-  PLUS,
-  MINUS,
-  MULTIPLY,
-  DIVIDE,
   DQUOTE,
   UNDERSCORE,
   TWODQUOTE,
@@ -514,6 +510,7 @@ const uint16_t PROGMEM pastetxt_combo[]             = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM selectall_combo[]            = {MTLGUI_Z, KC_D, COMBO_END};
 const uint16_t PROGMEM questionmark_combo[]         = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM exclamationmark_combo[]      = {KC_SLSH, MTRSFTBSLS, COMBO_END};
+const uint16_t PROGMEM dquote_combo[]               = {KC_O, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]           = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]            = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM lowertoggle_combo[]          = {LT(_LOWER, KC_F24), MTCTL_ENT, COMBO_END};
@@ -555,6 +552,7 @@ combo_t key_combos[] = {
   [SELECTALL] = COMBO_ACTION(selectall_combo),
   [QUESTIONMARK] = COMBO_ACTION(questionmark_combo),
   [EXCLAMATIONMARK] = COMBO_ACTION(exclamationmark_combo),
+  [DQUOTE] = COMBO_ACTION(dquote_combo),
   [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
   [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
@@ -734,6 +732,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case EXCLAMATIONMARK:
       if (pressed) {
         tap_code16(KC_EXLM);
+      }
+      break;
+    case DQUOTE:
+      if (pressed) {
+        tap_code16(KC_DQUO);
       }
       break;
     case UNDERSCORE:
