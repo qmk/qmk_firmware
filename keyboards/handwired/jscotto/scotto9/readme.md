@@ -1,5 +1,7 @@
 # Scotto9
 
+![Scotto9](https://imgur.com/inbmNSE.jpeg)
+
 A 9 key handwired macropad. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
