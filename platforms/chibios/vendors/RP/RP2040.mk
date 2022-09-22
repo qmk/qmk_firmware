@@ -11,7 +11,8 @@ endif
 # Raspberry Pi Pico SDK Support
 ##############################################################################
 ADEFS  += -DCRT0_VTOR_INIT=1 \
-		  -DCRT0_EXTRA_CORES_NUMBER=0
+		  -DCRT0_EXTRA_CORES_NUMBER=0 \
+          -DCRT0_INIT_VECTORS=1
 
 CFLAGS += -DPICO_NO_FPGA_CHECK \
           -DNDEBUG
