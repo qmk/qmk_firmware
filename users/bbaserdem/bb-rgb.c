@@ -23,7 +23,7 @@
 
 // Allow hooking into the RGB matrix indications using keymap code
 
-// Modulates the brightness of indicator 
+// Modulates the brightness of indicator
 RGB helper_dimmer(uint8_t r, uint8_t g, uint8_t b) {
     RGB output;
     output.r = r / 2;
@@ -63,12 +63,12 @@ __attribute__ ((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_mi
     return false;
 }
 // Set RGB state depending on layer
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t thisInd = 3;
     RGB thisCol;
     // Load keymap hooks
     if(rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
-        return;
+        return false;
     }
     // Grab color info
     switch (get_highest_layer(layer_state)) {
@@ -110,6 +110,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
     }
     helper_painter(led_min, led_max, thisCol, thisInd);
+    return false;
 }
 
 // Hook into shutdown code to make all perkey LED's red on hitting reset
@@ -119,12 +120,4 @@ void shutdown_rgb(void) {
     rgb_matrix_set_color_all(RGB_CORAL);
     // Delay until this registers
     while(timer_elapsed(timer_start) < 250) {wait_ms(1);}
-}
-
-// Hook into suspend code
-void suspend_power_down_rgb(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-void suspend_wakeup_init_rgb(void) {
-    rgb_matrix_set_suspend_state(false);
 }

@@ -257,7 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 {36, 37, 38, 39, 40,   41,   42, 43, 44, 45, 46}
 
 */
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     switch (get_highest_layer(layer_state)) {
         case _ALPHA:
             break;
@@ -328,5 +328,5 @@ void rgb_matrix_indicators_user(void) {
     if (led_state.scroll_lock) {
         rgb_matrix_set_color(24, 145, 145, 145);
     }
-
+    return false;
 }

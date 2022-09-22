@@ -78,6 +78,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(25, rgblight_get_val(), rgblight_get_val(), rgblight_get_val());
     }
+    return true;
 }
 
 

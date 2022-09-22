@@ -51,7 +51,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (rgb_matrix_config.enable) {
         HSV hsv = rgb_matrix_config.hsv;
         if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
@@ -87,6 +87,7 @@ void rgb_matrix_indicators_user(void) {
         set_hsv_at(hsv1, 63);
         set_hsv_at(hsv2, 57);
     }
+    return false;
 }
 
 void set_hsv_at(HSV hsv, uint8_t index) {

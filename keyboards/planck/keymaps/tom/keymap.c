@@ -226,7 +226,7 @@ bool music_mask_user(uint16_t keycode) {
   }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
   switch (get_highest_layer(layer_state)) {
     case _RAISE:
@@ -260,4 +260,5 @@ void rgb_matrix_indicators_user(void) {
       break;
   }
   #endif
+    return false;
 }

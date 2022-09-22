@@ -110,7 +110,7 @@ static void set_rgb_wlck_leds() {
     rgb_matrix_set_color(92, 0x77, 0xFF, 0x77);  // Right side LED 8
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         set_rgb_caps_leds();
     }
@@ -120,6 +120,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         set_rgb_wlck_leds();
     }
+    return false;
 }
 
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {

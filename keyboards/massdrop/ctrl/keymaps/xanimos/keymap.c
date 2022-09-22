@@ -1,18 +1,18 @@
 /* Copyright 2022 Daniel Weeks (@xanimos)
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
 
 #include "keymap.h"
 
@@ -334,7 +334,7 @@ void set_layer_color(int layer) {
             float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
             rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
             continue;
-        } 
+        }
         if(layer == _FL && i <= 4 && i >= 1) {
             continue; // Leave RGB for F1-F4 of function layer to adjust RGB settings
         }
@@ -343,13 +343,14 @@ void set_layer_color(int layer) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (disable_layer_color ||
         rgb_matrix_get_flags() == LED_FLAG_NONE ||
         rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) {
             return;
         }
     set_layer_color(get_highest_layer(layer_state));
+    return false;
 }
 
 

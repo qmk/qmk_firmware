@@ -166,7 +166,7 @@ void set_layer_color(int layer) {
   }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
   if (g_suspend_state || disable_layer_color) { return; }
   switch (get_highest_layer(layer_state)) {
     case 0:
@@ -182,6 +182,7 @@ void rgb_matrix_indicators_user(void) {
       set_layer_color(4);
       break;
   }
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

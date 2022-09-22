@@ -36,7 +36,7 @@ void check_default_layer(uint8_t mode, uint8_t type) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change && rgb_matrix_config.enable) {
         switch (get_highest_layer(layer_state)) {
             case _RAISE:
@@ -55,6 +55,7 @@ void rgb_matrix_indicators_user(void) {
         }
         check_default_layer(0, LED_FLAG_MODIFIER);
     }
+    return false;
 }
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {

@@ -55,7 +55,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (IS_LAYER_ON(_TRAN)) {
         rgb_matrix_set_color_all(_TRAN_COLOR_RGB);
     } else if (IS_LAYER_ON(_GAME)) {
@@ -71,4 +71,5 @@ void rgb_matrix_indicators_user(void) {
             }
         }
     }
+    return false;
 }
