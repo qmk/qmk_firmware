@@ -14,6 +14,12 @@ Make example for this keyboard (after setting up your build environment):
   make keychron/q3/rev_0120:default
 ```
 
+- **rev_0120_lhg** is for Q3 ansi version, you can compile rev_0120_lhg default keymap by using:
+
+```
+  make keychron/q3/rev_0120_lhg:default
+```
+
 - **rev_0121** is for Q3 ansi version with knob(encoder), you can compile rev_0121 default keymap by using:
 
 ```
@@ -51,6 +57,7 @@ Flashing example for this keyboard:
 
 ```
   make keychron/q3/rev_0120:default:flash
+  make keychron/q3/rev_0120_lhg:default:flash
   make keychron/q3/rev_0121:default:flash
   make keychron/q3/rev_0122:default:flash
   make keychron/q3/rev_0123:default:flash

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "rev_0125.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -150,10 +150,10 @@ led_config_t g_led_config = {
         1,    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1,
         1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,       1, 1, 1,
-        9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
+        8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
         1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,       1,
         1, 1, 1, 1,       4,       1, 1, 1, 1, 1,    1, 1, 1,
     }
 };
 
-#endif
+#endif // RGB_MATRIX_ENABLE

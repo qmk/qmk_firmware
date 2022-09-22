@@ -96,7 +96,7 @@ const uint16_t PROGMEM encoder_map[][1][2] = {
     [WIN_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [WIN_FN]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI) }
 };
-#endif
+#endif // ENCODER_MAP_ENABLE
 
 void housekeeping_task_user(void) {
     if (is_siri_active) {
