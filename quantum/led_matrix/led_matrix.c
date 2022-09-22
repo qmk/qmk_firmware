@@ -83,6 +83,9 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
+#if defined(LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL) && (LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL >= LED_MATRIX_MAXIMUM_BRIGHTNESS)
+#    pragma error("LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL must be less than LED_MATRIX_MAXIMUM_BRIGHTNESS")
+#endif
 // globals
 led_eeconfig_t led_matrix_eeconfig; // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
 uint32_t       g_led_timer;
@@ -97,7 +100,6 @@ last_hit_t g_last_hit_tracker;
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 static bool            driver_shutdown   = false;
 #endif
-static uint8_t         led_enable_eeprom = false;
 static bool            suspend_state     = false;
 static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
@@ -120,6 +122,8 @@ const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
 EECONFIG_DEBOUNCE_HELPER(led_matrix, EECONFIG_LED_MATRIX, led_matrix_eeconfig);
+
+void led_matrix_increase_val_helper(bool write_to_eeprom);
 
 void eeconfig_update_led_matrix(void) {
     eeconfig_flush_led_matrix(true);
@@ -409,11 +413,6 @@ void led_matrix_task(void) {
     }
 }
 
-static inline void led_enable_state_backup(void) {
-    dprintf("led_enable_state_backup\n");
-    led_enable_eeprom = led_matrix_eeconfig.enable;
-}
-
 void led_matrix_indicators(void) {
     led_matrix_indicators_kb();
     led_matrix_indicators_user();
@@ -482,7 +481,6 @@ void led_matrix_init(void) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_led_matrix_default();
     }
-    led_enable_state_backup();
     eeconfig_debug_led_matrix(); // display current eeprom values
 }
 
@@ -504,8 +502,12 @@ void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
     led_task_state = STARTING;
     eeconfig_flag_led_matrix(write_to_eeprom);
-    if (write_to_eeprom) led_enable_state_backup();
     dprintf("led matrix toggle [%s]: led_matrix_eeconfig.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.enable);
+#ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
+    while (led_matrix_eeconfig.enable && led_matrix_eeconfig.val <= LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL)  {
+       led_matrix_increase_val_helper(write_to_eeprom);
+    }
+#endif
 }
 void led_matrix_toggle_noeeprom(void) {
     led_matrix_toggle_eeprom_helper(false);
@@ -517,18 +519,26 @@ void led_matrix_toggle(void) {
 void led_matrix_enable(void) {
     led_matrix_enable_noeeprom();
     eeconfig_flag_led_matrix(true);
-    led_enable_state_backup();
+#ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
+    while (led_matrix_eeconfig.val <= LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL)  {
+       led_matrix_increase_val_helper(true);
+    }
+#endif
 }
 
 void led_matrix_enable_noeeprom(void) {
     if (!led_matrix_eeconfig.enable) led_task_state = STARTING;
     led_matrix_eeconfig.enable = 1;
+#ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
+    while (led_matrix_eeconfig.val <= LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL)  {
+       led_matrix_increase_val_helper(false);
+    }
+#endif
 }
 
 void led_matrix_disable(void) {
     led_matrix_disable_noeeprom();
     eeconfig_flag_led_matrix(true);
-    led_enable_state_backup();
 }
 
 void led_matrix_disable_noeeprom(void) {
@@ -538,11 +548,6 @@ void led_matrix_disable_noeeprom(void) {
 
 uint8_t led_matrix_is_enabled(void) {
     return led_matrix_eeconfig.enable;
-}
-
-
-uint8_t led_matrix_is_enabled_eeprom(void) { 
-    return led_enable_eeprom; 
 }
 
 void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
@@ -615,8 +620,8 @@ uint8_t led_matrix_get_val(void) {
 void led_matrix_increase_val_helper(bool write_to_eeprom) {
 #ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
     if (!led_matrix_eeconfig.enable) {
-        dprintf("increase_val to enable");
         led_matrix_toggle_eeprom_helper(write_to_eeprom);
+        return;
     }
 #endif
     led_matrix_set_val_eeprom_helper(qadd8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom);
@@ -632,7 +637,6 @@ void led_matrix_decrease_val_helper(bool write_to_eeprom) {
     led_matrix_set_val_eeprom_helper(qsub8(led_matrix_eeconfig.val, LED_MATRIX_VAL_STEP), write_to_eeprom);
 #ifdef LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL
     if (led_matrix_eeconfig.enable && led_matrix_eeconfig.val <= LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL) {
-        dprintf("decrease_val to disable\n");
         led_matrix_toggle_eeprom_helper(write_to_eeprom);
     }
 #endif

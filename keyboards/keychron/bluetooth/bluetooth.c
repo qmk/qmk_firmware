@@ -432,10 +432,12 @@ bluetooth_state_t bluetooth_get_state(void) {
     return bt_state;
 };
 
+__attribute__((weak)) bool process_record_kb_bt(uint16_t keycode, keyrecord_t *record) { return true;};
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (get_transport() == TRANSPORT_BLUETOOTH) {
         lpm_timer_reset();
     }
-
+    process_record_kb_bt(keycode, record);
     return process_record_user(keycode, record);
 }

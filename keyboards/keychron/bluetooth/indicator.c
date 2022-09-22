@@ -30,6 +30,7 @@
 #    endif
 #    include "i2c_master.h"
 #    include "bat_level_animation.h"
+#    include "eeprom.h"
 #endif
 
 #ifdef LED_MATRIX_ENABLE
@@ -40,19 +41,7 @@
 #endif
 
 #define LED_ON 0x80
-
-#define INDICATOR_SET(s)                               \
-    indicator_config.type      = s##_config.type;      \
-    indicator_config.on_time   = s##_config.on_time;   \
-    indicator_config.off_time  = s##_config.off_time;  \
-    indicator_config.duration  = s##_config.duration;  \
-    indicator_config.highlight = s##_config.highlight; \
-    indicator_config.elapsed   = 0;
-
-indicator_config_t pairing_config      = INDICATOR_CONFIG_PARING;
-indicator_config_t connected_config    = INDICATOR_CONFIG_CONNECTD;
-indicator_config_t reconnecting_config = INDICATOR_CONFIG_RECONNECTING;
-indicator_config_t disconnected_config = INDICATOR_CONFIG_DISCONNECTED;
+#define INDICATOR_SET(s) memcpy(&indicator_config, &s##_config, sizeof(indicator_config_t));
 
 enum {
     BACKLIGHT_OFF            = 0x00,
@@ -60,8 +49,11 @@ enum {
     BACKLIGHT_ON_UNCONNECTED = 0x02,
 };
 
+static indicator_config_t pairing_config      = INDICATOR_CONFIG_PARING;
+static indicator_config_t connected_config    = INDICATOR_CONFIG_CONNECTD;
+static indicator_config_t reconnecting_config = INDICATOR_CONFIG_RECONNECTING;
+static indicator_config_t disconnected_config = INDICATOR_CONFIG_DISCONNECTED;
 indicator_config_t indicator_config;
-
 static bluetooth_state_t indicator_state;
 static uint16_t          next_period;
 static indicator_type_t  type;
@@ -78,6 +70,51 @@ static uint8_t host_led_matrix_list[HOST_DEVICES_COUNT] = HOST_LED_MATRIX_LIST;
 static pin_t host_led_pin_list[HOST_DEVICES_COUNT] = HOST_LED_PIN_LIST;
 #endif
 
+#ifndef BACKLIGHT_TURN_OFF_VALUE
+#    define BACKLIGHT_TURN_OFF_VALUE 32
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    define LED_DRIVER led_matrix_driver
+#    define LED_INDICATORS_KB led_matrix_indicators_kb
+#    define LED_NONE_INDICATORS_KB led_matrix_none_indicators_kb
+#    define SET_ALL_LED_OFF() led_matrix_set_value_all(0)
+#    define SET_LED_OFF(idx) led_matrix_set_value(idx, 0)
+#    define SET_LED_ON(idx) led_matrix_set_value(idx, 255)
+#    define SET_LED_BT(idx) led_matrix_set_value(idx, 255)
+#    define LED_DRIVER_IS_ENABLED led_matrix_is_enabled
+#    define LED_DRIVER_EECONFIG_RELOAD() \
+        eeprom_read_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); \
+        if (!led_matrix_eeconfig.mode) { \
+            eeconfig_update_led_matrix_default(); \
+        }
+#    define LED_DRIVER_ALLOW_SHUTDOWN led_matrix_driver_allow_shutdown
+#    define LED_DRIVER_ENABLE_NOEEPROM led_matrix_enable_noeeprom
+#    define LED_DRIVER_DISABLE_NOEEPROM led_matrix_disable_noeeprom
+#    define LED_DRIVER_DISABLE_TIMEOUT_SET led_matrix_disable_timeout_set
+#    define LED_DRIVER_DISABLE_TIME_RESET led_matrix_disable_time_reset
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+#    define LED_DRIVER rgb_matrix_driver
+#    define LED_INDICATORS_KB rgb_matrix_indicators_kb
+#    define LED_NONE_INDICATORS_KB rgb_matrix_none_indicators_kb
+#    define SET_ALL_LED_OFF() rgb_matrix_set_color_all(0, 0, 0)
+#    define SET_LED_OFF(idx) rgb_matrix_set_color(idx, 0, 0, 0)
+#    define SET_LED_ON(idx) rgb_matrix_set_color(idx, 255, 255, 255)
+#    define SET_LED_BT(idx) rgb_matrix_set_color(idx, 0, 0, 255)
+#    define LED_DRIVER_IS_ENABLED rgb_matrix_is_enabled
+#    define LED_DRIVER_EECONFIG_RELOAD() \
+        eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config)); \
+        if (!rgb_matrix_config.mode) {  \
+            eeconfig_update_rgb_matrix_default();  \
+        }
+#    define LED_DRIVER_ALLOW_SHUTDOWN rgb_matrix_driver_allow_shutdown
+#    define LED_DRIVER_ENABLE_NOEEPROM rgb_matrix_enable_noeeprom
+#    define LED_DRIVER_DISABLE_NOEEPROM rgb_matrix_disable_noeeprom
+#    define LED_DRIVER_DISABLE_TIMEOUT_SET rgb_matrix_disable_timeout_set
+#    define LED_DRIVER_DISABLE_TIME_RESET rgb_matrix_disable_time_reset
+#endif
 void indicator_init(void) {
     memset(&indicator_config, 0, sizeof(indicator_config));
     
@@ -96,69 +133,39 @@ void indicator_init(void) {
 
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
 void indicator_enable(void) {
-#    ifdef LED_MATRIX_ENABLE
-    if (!led_matrix_is_enabled()) {
-        led_matrix_enable_noeeprom();
+    if (!LED_DRIVER_IS_ENABLED()) {
+        LED_DRIVER_ENABLE_NOEEPROM();
     }
-#    endif
-#    ifdef RGB_MATRIX_ENABLE
-    if (!rgb_matrix_is_enabled()) {
-        rgb_matrix_enable_noeeprom();
-    }
-#    endif
 }
 
-void indicator_disable(void) {
-#    ifdef LED_MATRIX_ENABLE
-    led_matrix_disable_noeeprom();
-#    endif
-#    ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_disable_noeeprom();
-#    endif
+inline void indicator_disable(void) {
+    LED_DRIVER_DISABLE_NOEEPROM();
 }
 
 void indicator_set_backlit_timeout(uint32_t time) {
-#    ifdef LED_MATRIX_ENABLE
-    led_matrix_disable_timeout_set(time);
-#    endif
-#    ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_disable_timeout_set(time);
-#    endif
+    LED_DRIVER_DISABLE_TIMEOUT_SET(time);
 }
 
 static inline void indicator_reset_backlit_time(void) {
-#    ifdef LED_MATRIX_ENABLE
-    led_matrix_disable_time_reset();
-#    endif
-#    ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_disable_time_reset();
-#    endif
+    LED_DRIVER_DISABLE_TIME_RESET();
 }
 
 bool indicator_is_enabled(void) {
-#    ifdef LED_MATRIX_ENABLE
-    return led_matrix_is_enabled();
-#    endif
-#    ifdef RGB_MATRIX_ENABLE
-    return rgb_matrix_is_enabled();
-#    endif
+    return LED_DRIVER_IS_ENABLED();
 }
 
-bool indicator_is_backlit_enabled_eeprom(void) {
-#    ifdef LED_MATRIX_ENABLE
-    return led_matrix_is_enabled_eeprom();
-#    endif
-#    ifdef RGB_MATRIX_ENABLE
-    return rgb_matrix_is_enabled_eeprom();
-#    endif
-    return false;
+void indicator_eeconfig_reload(void) {
+    LED_DRIVER_EECONFIG_RELOAD();
 }
 
 #endif
 
-bool indicator_is_running(void) { return !!indicator_config.value; }
+bool indicator_is_running(void) {
+    return !!indicator_config.value;
+}
 
 static void indicator_timer_cb(void *arg) {
+uprintf("indicator_timer_cb: %02x\n", (uint8_t)(*(indicator_type_t *)arg));
     if (*(indicator_type_t *)arg != INDICATOR_LAST) type = *(indicator_type_t *)arg;
 
     bool time_up = false;
@@ -226,8 +233,7 @@ static void indicator_timer_cb(void *arg) {
     }
 
 #ifdef HOST_LED_PIN_LIST
-    if (indicator_config.value)
-    {
+    if (indicator_config.value) {
         uint8_t idx = (indicator_config.value & 0x0F) - 1;
 
         if (idx < HOST_DEVICES_COUNT) {
@@ -243,17 +249,15 @@ static void indicator_timer_cb(void *arg) {
     if (time_up) {
         /* Set indicator to off on timeup, avoid keeping light up until next update in raindrop effect */
         indicator_config.value = indicator_config.value & 0x0F;
-#ifdef LED_MATRIX_ENABLE
-        led_matrix_indicators_kb();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_indicators_kb();
+#if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
+        LED_INDICATORS_KB();
 #endif
         indicator_config.value = 0;
     }
 
-    if (indicator_config.value == 0 && !indicator_is_backlit_enabled_eeprom()) {
-        indicator_disable();
+    if (indicator_config.value == 0) {
+        indicator_eeconfig_reload();
+        if (!LED_DRIVER_IS_ENABLED()) indicator_disable();
     }
 }
 
@@ -335,8 +339,9 @@ void indicator_set(bluetooth_state_t state, uint8_t host_index) {
 
 void indicator_stop(void) {
     indicator_config.value = 0;
+    indicator_eeconfig_reload();
 
-    if (indicator_is_backlit_enabled_eeprom()) {
+    if (indicator_is_enabled()) {
         indicator_enable();
     } else {
         indicator_disable();
@@ -366,50 +371,44 @@ void indicator_task(void) {
     }
 }
 
-#ifdef LED_MATRIX_ENABLE
-void led_matrix_indicators_kb(void) {
-    if (get_transport() == TRANSPORT_BLUETOOTH) {
-        if (battery_is_critical_low()) {
-            /* Prevent backlight flash caused by key activities */
-            led_matrix_set_value_all(0);
-            return;
-        }
-
-        if (bat_level_animiation_actived()) {
-            bat_level_animiation_indicate();
-        }
-
-        static uint8_t last_host_index = 0xFF;
-        if (indicator_config.value) {
-            uint8_t host_index = indicator_config.value & 0x0F;
-
-            if (indicator_config.highlight) {
-                led_matrix_set_value_all(0);
-            } else if (last_host_index != host_index) {
-                led_matrix_set_value(host_led_matrix_list[last_host_index - 1], 0);
-                last_host_index = host_index;
-            }
-
-            if (indicator_config.value & 0x80)
-                led_matrix_set_value(host_led_matrix_list[host_index - 1], 255);
-            else
-                led_matrix_set_value(host_led_matrix_list[host_index - 1], 0);
-        }
-#    if defined(DIM_CAPS_LOCK) && defined(CAPS_LOCK_INDEX)
-        else if (host_keyboard_led_state().caps_lock) {
-            led_matrix_set_value(CAPS_LOCK_INDEX, 0);
-        }
-#    endif
+#if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
+static void os_state_indicate(void) {
+#    if defined(NUM_LOCK_INDEX)
+    if (host_keyboard_led_state().num_lock) {
+        SET_LED_ON(NUM_LOCK_INDEX);
     }
+#    endif
+#    if defined(CAPS_LOCK_INDEX)
+    if (host_keyboard_led_state().caps_lock) {
+#        if defined(DIM_CAPS_LOCK)
+        SET_LED_OFF(CAPS_LOCK_INDEX);
+#        else
+        SET_LED_ON(CAPS_LOCK_INDEX);
+#        endif
+    }
+#    endif
+#    if defined(SCROLL_LOCK_INDEX)
+    if (host_keyboard_led_state().scroll_lock) {
+        SET_LED_ON(SCROLL_LOCK_INDEX);
+    }
+#    endif
+#    if defined(COMPOSE_LOCK_INDEX)
+    if (host_keyboard_led_state().compose) {
+        SET_LED_ON(COMPOSE_LOCK_INDEX);
+    }
+#    endif
+#    if defined(KANA_LOCK_INDEX)
+    if (host_keyboard_led_state().kana) {
+        SET_LED_ON(KANA_LOCK_INDEX);
+    }
+#    endif
 }
-#endif
 
-#ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_kb(void) {
-    {
+void LED_INDICATORS_KB(void) {
+    if (get_transport() == TRANSPORT_BLUETOOTH) {
+        /* Prevent backlight flash caused by key activities */
         if (battery_is_critical_low()) {
-            /* Prevent backlight flash caused by key activities */
-            rgb_matrix_set_color_all(0, 0, 0);
+            SET_ALL_LED_OFF();
             return;
         }
 
@@ -422,23 +421,62 @@ void rgb_matrix_indicators_kb(void) {
             uint8_t host_index = indicator_config.value & 0x0F;
 
             if (indicator_config.highlight) {
-                rgb_matrix_set_color_all(0, 0, 0);
+                SET_ALL_LED_OFF();
             } else if (last_host_index != host_index) {
-                rgb_matrix_set_color(host_led_matrix_list[last_host_index - 1], 0, 0, 0);
+                SET_LED_OFF(host_led_matrix_list[last_host_index - 1]);
                 last_host_index = host_index;
             }
 
             if (indicator_config.value & 0x80) {
-                rgb_matrix_set_color(host_led_matrix_list[host_index - 1], 0, 0, 255);
+                SET_LED_BT(host_led_matrix_list[host_index - 1]);
             } else {
-                rgb_matrix_set_color(host_led_matrix_list[host_index - 1], 0, 0, 0);
+                SET_LED_OFF(host_led_matrix_list[host_index - 1]);
             }
-        }
-#    if defined(DIM_CAPS_LOCK) && defined(CAPS_LOCK_INDEX)
-        else if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(CAPS_LOCK_INDEX, 0, 0, 0);
-        }
+        } else
+            os_state_indicate();
+
+    } else
+        os_state_indicate();
+}
+
+bool led_update_user(led_t led_state) {
+    if (!LED_DRIVER_IS_ENABLED()) {
+#    ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+        LED_DRIVER.exit_shutdown();
+#    endif
+        SET_ALL_LED_OFF();
+        os_state_indicate();
+        LED_DRIVER.flush();
+#    ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+        if (LED_DRIVER_ALLOW_SHUTDOWN()) LED_DRIVER.shutdown();
 #    endif
     }
+    return true;
 }
+
+void LED_NONE_INDICATORS_KB(void) {
+    os_state_indicate();
+}
+
+#    ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+bool LED_DRIVER_ALLOW_SHUTDOWN(void) {
+#        if defined(NUM_LOCK_INDEX)
+    if (host_keyboard_led_state().num_lock) return false;
+#        endif
+#        if defined(CAPS_LOCK_INDEX) && !defined(DIM_CAPS_LOCK)
+    if (host_keyboard_led_state().caps_lock) return false;
+#        endif
+#        if defined(SCROLL_LOCK_INDEX)
+    if (host_keyboard_led_state().scroll_lock) return false;
+#        endif
+#        if defined(COMPOSE_LOCK_INDEX)
+    if (host_keyboard_led_state().compose) return false;
+#        endif
+#        if defined(KANA_LOCK_INDEX)
+    if (host_keyboard_led_state().kana) return false;
+#        endif
+    return true;
+}
+#    endif
+
 #endif

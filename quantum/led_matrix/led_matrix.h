@@ -143,7 +143,6 @@ void        led_matrix_enable_noeeprom(void);
 void        led_matrix_disable(void);
 void        led_matrix_disable_noeeprom(void);
 uint8_t     led_matrix_is_enabled(void);
-uint8_t     led_matrix_is_enabled_eeprom(void);
 void        led_matrix_mode(uint8_t mode);
 void        led_matrix_mode_noeeprom(uint8_t mode);
 uint8_t     led_matrix_get_mode(void);

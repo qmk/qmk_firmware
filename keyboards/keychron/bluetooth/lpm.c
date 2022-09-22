@@ -41,7 +41,11 @@ static matrix_row_t empty_matrix[MATRIX_ROWS] = {0};
 
 void lpm_init(void) {
 #ifdef USB_POWER_SENSE_PIN
+#    if (USB_POWER_CONNECTED_LEVEL == 0)
     setPinInputHigh(USB_POWER_SENSE_PIN);
+#    else
+    setPinInputLow(USB_POWER_SENSE_PIN);
+#    endif
 #endif
     lpm_timer_reset();
 }

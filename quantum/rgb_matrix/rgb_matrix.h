@@ -154,7 +154,6 @@ void        rgb_matrix_enable_noeeprom(void);
 void        rgb_matrix_disable(void);
 void        rgb_matrix_disable_noeeprom(void);
 uint8_t     rgb_matrix_is_enabled(void);
-uint8_t     rgb_matrix_is_enabled_eeprom(void);
 void        rgb_matrix_mode(uint8_t mode);
 void        rgb_matrix_mode_noeeprom(uint8_t mode);
 uint8_t     rgb_matrix_get_mode(void);

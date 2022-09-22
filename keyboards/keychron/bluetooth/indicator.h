@@ -81,7 +81,7 @@ bool indicator_hook_key(uint16_t keycode);
 void indicator_enable(void);
 void indicator_disable(void);
 void indicator_stop(void);
-bool indicator_is_backlit_enabled_eeprom(void);
+void indicator_eeconfig_reload(void);
 bool indicator_is_running(void);
 
 void indicator_battery_low_enable(bool enable);

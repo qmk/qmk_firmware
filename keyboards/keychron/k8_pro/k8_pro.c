@@ -67,7 +67,11 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     return true;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef BLUETOOTH_ENABLE
+bool process_record_kb_bt(uint16_t keycode, keyrecord_t *record) {
+#else
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+#endif
     static uint8_t host_idx = 0;
 
     switch (keycode) {
@@ -136,7 +140,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     dip_switch_read(true);
 
 #ifdef BLUETOOTH_ENABLE
@@ -158,9 +162,11 @@ void keyboard_post_init_user(void) {
 #ifdef BLUETOOTH_ENABLE
     writePin(H3, HOST_LED_PIN_ON_STATE);
 #    endif
+
+    keyboard_post_init_user();
 }
 
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {
     if (power_on_indicator_timer_buffer) {
         if (sync_timer_elapsed32(power_on_indicator_timer_buffer) > POWER_ON_LED_DURATION) {
             power_on_indicator_timer_buffer = 0;
@@ -184,6 +190,7 @@ void matrix_scan_user(void) {
 #ifdef FACTORY_RESET_TASK
     FACTORY_RESET_TASK();
 #    endif
+    matrix_scan_user();
 }
 
 #ifdef BLUETOOTH_ENABLE

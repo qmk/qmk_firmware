@@ -192,12 +192,6 @@ static inline void lpm_wakeup(void) {
     PWR->SCR |= PWR_SCR_CWUF;
     PWR->SCR |= PWR_SCR_CSBF;
 
-#if defined(KEEP_USB_CONNECTION_IN_BLUETOOTH_MODE)
-    /* Remove USB isolation.*/
-    PWR->CR2 |= PWR_CR2_USV; /* PWR_CR2_USV is available on STM32L4x2xx and STM32L4x3xx devices only. */
-    usb_start(&USBD1);
-#endif
-
     /* TIMx is disable during stop/standby/sleep mode, init after wakeup */
     stInit();
     timer_init();
@@ -211,7 +205,20 @@ static inline void lpm_wakeup(void) {
         }
     }
     palDisableLineEvent(BLUETOOTH_INT_INPUT_PIN);
+
+#ifdef USB_POWER_SENSE_PIN
     palDisableLineEvent(USB_POWER_SENSE_PIN);
+
+#if defined(KEEP_USB_CONNECTION_IN_BLUETOOTH_MODE)
+    if (usb_power_connected()) {
+        /* Remove USB isolation.*/
+        //PWR->CR2 |= PWR_CR2_USV; /* PWR_CR2_USV is available on STM32L4x2xx and STM32L4x3xx devices only. */
+        usb_power_connect();
+        usb_start(&USBD1);
+    }
+#endif
+
+#endif
 
 #if defined(DIP_SWITCH_PINS)
     dip_switch_init();
@@ -222,6 +229,7 @@ static inline void lpm_wakeup(void) {
     rtcSTM32SetPeriodicWakeup(&RTCD1, NULL);
     nvicDisableVector(STM32_EXTI20_NUMBER);
 #endif
+
 }
 
 /*

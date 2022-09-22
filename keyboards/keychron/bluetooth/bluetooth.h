@@ -83,3 +83,6 @@ bluetooth_state_t bluetooth_get_state(void);
 
 void bluetooth_low_battery_shutdown(void);
 
+bool process_record_kb_bt(uint16_t keycode, keyrecord_t *record);
+
+

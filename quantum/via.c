@@ -696,7 +696,17 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
         case id_qmk_rgb_matrix_brightness: {
+#ifdef RGB_MATRIX_TURN_OFF_VAL
+            if (!rgb_matrix_is_enabled() && value_data[0] >= RGB_MATRIX_TURN_OFF_VAL)  {
+                rgb_matrix_toggle_noeeprom();
+            }
+#endif
             rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), scale8(value_data[0], RGB_MATRIX_MAXIMUM_BRIGHTNESS));
+#ifdef RGB_MATRIX_TURN_OFF_VAL
+            if (rgb_matrix_is_enabled() && value_data[0] < RGB_MATRIX_TURN_OFF_VAL)  {
+                rgb_matrix_toggle_noeeprom();
+            }
+#endif
             break;
         }
         case id_qmk_rgb_matrix_effect: {

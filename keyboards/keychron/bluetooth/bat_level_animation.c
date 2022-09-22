@@ -8,6 +8,7 @@
 #elif if defined(PROTOCOL_LUFA)
 #    include "lufa.h"
 #endif
+#include "eeprom.h"
 
 #ifndef BAT_LEVEL_GROWING_INTERVAL
 #    define BAT_LEVEL_GROWING_INTERVAL 150
@@ -15,6 +16,14 @@
 
 #ifndef BAT_LEVEL_ON_INTERVAL
 #    define BAT_LEVEL_ON_INTERVAL 3000
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    define LED_DRIVER_IS_ENABLED led_matrix_is_enabled
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+#    define LED_DRIVER_IS_ENABLED rgb_matrix_is_enabled
 #endif
 
 enum {
@@ -113,7 +122,8 @@ void bat_level_animiation_update(void) {
 
         case BAT_LVL_ANI_BLINK_ON:
             animation_state = BAT_LVL_ANI_NONE;
-            if (indicator_config.value == 0 && !indicator_is_backlit_enabled_eeprom()) {
+            indicator_eeconfig_reload();
+            if (indicator_config.value == 0 && !LED_DRIVER_IS_ENABLED()) {
                 indicator_disable();
             }
             break;
