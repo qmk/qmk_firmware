@@ -3,7 +3,6 @@ Custom keymap created by: Chad Stovern <hello@chadstovern.com>
 */
 
 #include QMK_KEYBOARD_H
-#include "g/keymap_combo.h" // enables combos.def support
 #include "bit-c_led.h" // enables micro-controller led confirguration
 
 enum layers {
@@ -46,6 +45,9 @@ enum layers {
 #define HOME_L CTL_T(KC_L)
 #define HOME_QT RSFT_T(KC_QUOT)
 #define HOME_SC RSFT_T(KC_SCLN)
+
+/* enables combos.def support: imported after defines so they can be referenced */
+#include "g/keymap_combo.h"
 
 /* layer definitions */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

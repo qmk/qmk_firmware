@@ -1,9 +1,16 @@
-//   name            result           chord keys
+/*
+combos.def: This file defines chords that when pressed emulate a single key press.
+
+     name           result            chord keys
+*/
+//// main layer
 COMB(capsLock,       KC_CAPS,         KC_G, KC_M)
-COMB(altEscape,      KC_ESC,          KC_Q, KC_W)
-COMB(altBackspace,   KC_BSPC,         KC_Y, KC_SCLN)
-// for gaming layer
-COMB(gameT,           KC_T,            KC_E, KC_R)
-COMB(gameG,           KC_G,            KC_D, KC_F)
-COMB(gameB,           KC_B,            KC_C, KC_V)
-COMB(gameBSPC,        KC_BSPC,         KC_O, KC_P)
+//COMB(altTab,         KC_TAB,          KC_Q, KC_W)
+COMB(altEscape,      KC_ESC,          HOME_A, HOME_R)
+COMB(altBackspace,   KC_BSPC,         KC_Y, KC_QUOT)
+//COMB(altEnter,       KC_ENT,          HOME_I, HOME_O)
+//// gaming layer
+COMB(gameT,          KC_T,            KC_E, KC_R)
+COMB(gameG,          KC_G,            KC_D, KC_F)
+COMB(gameB,          KC_B,            KC_C, KC_V)
+COMB(gameBSPC,       KC_BSPC,         KC_O, KC_P)
