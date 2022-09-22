@@ -18,3 +18,8 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+#define LED_NUM_LOCK_PIN A6
+#define LED_CAPS_LOCK_PIN B14
+#define LED_SCROLL_LOCK_PIN B8
+#define LED_ON_STATE 0
