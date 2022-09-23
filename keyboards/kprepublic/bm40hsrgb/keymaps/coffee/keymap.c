@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
 #define LAYER (get_highest_layer(layer_state))
 #define LAYER_SIZE (MATRIX_ROWS * MATRIX_COLS)
 #define CHECK_LED() \
-    if ((i >= DRIVER_LED_TOTAL) \
+    if ((i >= RGB_MATRIX_LED_COUNT) \
     || ((g_led_config.flags[pos] == LED_FLAG_NONE) || (g_led_config.flags[pos] == LED_FLAG_UNDERGLOW))) \
         continue
 

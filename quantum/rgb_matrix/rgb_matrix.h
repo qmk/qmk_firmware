@@ -47,15 +47,15 @@
 #endif
 
 #ifndef RGB_MATRIX_LED_PROCESS_LIMIT
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
+#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5
 #endif
 
-#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
 #    if defined(RGB_MATRIX_SPLIT)
 #        define RGB_MATRIX_USE_LIMITS(min, max)                                                   \
             uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
             uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;                                     \
-            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;                                   \
+            if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;                           \
             uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                                     \
             if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
             if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
@@ -63,20 +63,20 @@
 #        define RGB_MATRIX_USE_LIMITS(min, max)                        \
             uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
             uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
-            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+            if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;
 #    endif
 #else
 #    if defined(RGB_MATRIX_SPLIT)
 #        define RGB_MATRIX_USE_LIMITS(min, max)                                                   \
             uint8_t       min                   = 0;                                              \
-            uint8_t       max                   = DRIVER_LED_TOTAL;                               \
+            uint8_t       max                   = RGB_MATRIX_LED_COUNT;                           \
             const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                               \
             if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
             if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
 #    else
 #        define RGB_MATRIX_USE_LIMITS(min, max) \
             uint8_t min = 0;                    \
-            uint8_t max = DRIVER_LED_TOTAL;
+            uint8_t max = RGB_MATRIX_LED_COUNT;
 #    endif
 #endif
 
@@ -246,9 +246,9 @@ static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
         uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
         return led_idx < k_rgb_matrix_split[0];
     } else
-        return led_idx < DRIVER_LED_TOTAL;
+        return led_idx < RGB_MATRIX_LED_COUNT;
 #else
-    return led_idx < DRIVER_LED_TOTAL;
+    return led_idx < RGB_MATRIX_LED_COUNT;
 #endif
 }
 

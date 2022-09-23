@@ -423,7 +423,7 @@ void set_layer_color(int layer) {
     }
     // non key specific lighting instead led flag based
     if (layer == _LVL7_){
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
             if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
                 set_led_color_by_hsv(i, C_HSV_DARKGOLD);
             }
