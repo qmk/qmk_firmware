@@ -21,7 +21,8 @@
     { B5, B4, B3, A15, A14, A13 }
 #define MATRIX_COL_PINS \
     { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, C14 }
-#define COL_OFFSET 1
+#define NO_PIN_START 11
+#define NO_PIN_OFFSET 1
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 60

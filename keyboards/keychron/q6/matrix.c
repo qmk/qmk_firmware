@@ -37,12 +37,12 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #    define NO_PIN_NUM 8
 #endif
 
-#ifndef COL_OFFSET
-#    define COL_OFFSET 0
+#ifndef NO_PIN_OFFSET
+#    define NO_PIN_OFFSET 0
 #endif
 
-#ifndef CLR_VAL
-#    define CLR_VAL 0xFF
+#ifndef CLR_REG_VAL
+#    define CLR_REG_VAL 0xFF
 #endif
 
 static inline void setPinOutput_writeLow(pin_t pin) {
@@ -88,14 +88,31 @@ static void shiftOut(uint16_t dataOut) {
     setPinOutput_writeLow(LATCH_PIN);
 }
 
+static void shiftout_single(uint8_t data) {
+    if (data & 0x1) {
+        setPinOutput_writeHigh(DATA_PIN);
+    } else {
+        setPinOutput_writeLow(DATA_PIN);
+    }
+    setPinOutput_writeHigh(CLOCK_PIN);
+    setPinOutput_writeLow(CLOCK_PIN);
+
+    setPinOutput_writeHigh(LATCH_PIN);
+    setPinOutput_writeLow(LATCH_PIN);
+}
+
 static bool select_col(uint8_t col) {
     pin_t pin = col_pins[col];
 
-    if (pin == NO_PIN) {
-        shiftOut(~(0x1 << ((MATRIX_COLS - COL_OFFSET) - col - 1)));
+    if (pin != NO_PIN) {
+        setPinOutput_writeLow(pin);
         return true;
     } else {
-        setPinOutput_writeLow(pin);
+        if (col == NO_PIN_START) {
+            shiftout_single(0x00);
+        } else {
+            shiftout_single(0x01);
+        }
         return true;
     }
     return false;
@@ -104,28 +121,34 @@ static bool select_col(uint8_t col) {
 static void unselect_col(uint8_t col) {
     pin_t pin = col_pins[col];
 
-    if (pin == NO_PIN) {
-        shiftOut(CLR_VAL);
-    } else {
+    if (pin != NO_PIN) {
+#ifdef MATRIX_UNSELECT_DRIVE_HIGH
+        setPinOutput_writeHigh(pin);
+#else
         setPinInputHigh_atomic(pin);
-    }
-}
-
-static void unselect_col_my(uint8_t col) {
-    pin_t pin = col_pins[col];
-
-    if (pin == NO_PIN) {
-        if (col == (MATRIX_COLS - COL_OFFSET - 1)) {
-            shiftOut(CLR_VAL);
-        }
+#endif
     } else {
-        setPinInputHigh_atomic(pin);
+        if (col == (MATRIX_COLS - NO_PIN_OFFSET - 1))
+        setPinOutput_writeHigh(CLOCK_PIN);
+        setPinOutput_writeLow(CLOCK_PIN);
+        setPinOutput_writeHigh(LATCH_PIN);
+        setPinOutput_writeLow(LATCH_PIN);
     }
 }
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        unselect_col_my(x);
+        pin_t pin = col_pins[x];
+        if (pin != NO_PIN) {
+#ifdef MATRIX_UNSELECT_DRIVE_HIGH
+            setPinOutput_writeHigh(pin);
+#else
+            setPinInputHigh_atomic(pin);
+#endif
+        }
+        if (x == (MATRIX_COLS - NO_PIN_OFFSET - 1))
+            // unselect shift Register
+            shiftOut(CLR_REG_VAL);
     }
 }
 
@@ -145,7 +168,17 @@ static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t curre
     if (!select_col(current_col)) { // select col
         return;                     // skip NO_PIN col
     }
-    matrix_output_select_delay();
+
+    if (current_col < 10) {
+        matrix_output_select_delay();
+    } else {
+        for (int8_t cycle = 4; cycle > 0; cycle--) {
+            matrix_output_select_delay(); // 0.25us
+            matrix_output_select_delay();
+            matrix_output_select_delay();
+            matrix_output_select_delay();
+        }
+    }
 
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
