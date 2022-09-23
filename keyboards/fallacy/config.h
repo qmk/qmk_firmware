@@ -36,7 +36,7 @@
  */
 #define LED_DRIVER_ADDR_1 0b1110100
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 3
+#define LED_MATRIX_LED_COUNT 3
 
 /* Set 0 if debouncing isn't needed
  */

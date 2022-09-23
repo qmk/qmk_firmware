@@ -22,13 +22,13 @@
 #        include "ws2812.h"
 
 // LED color buffer
-LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
+LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 
 static void init(void) {}
 
 static void flush(void) {
     // Assumes use of RGB_DI_PIN
-    ws2812_setleds(rgb_matrix_ws2812_array, DRIVER_LED_TOTAL);
+    ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
 }
 
 // Set an led in the buffer to a color

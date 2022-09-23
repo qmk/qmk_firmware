@@ -199,9 +199,9 @@ void raw_hid_led(uint8_t *data) {
     //rgb_matrix_set_color(data[1], data[2], data[3], data[4]);
     const uint8_t led = data[1];
 
-    if (led >= DRIVER_LED_TOTAL) {
+    if (led >= RGB_MATRIX_LED_COUNT) {
         raw_hid_buffer[1] = CTRL_HID_NOK;
-        raw_hid_buffer[2] = DRIVER_LED_TOTAL;
+        raw_hid_buffer[2] = RGB_MATRIX_LED_COUNT;
         raw_hid_buffer[3] = CTRL_HID_EOM;
         return;
     }
@@ -219,7 +219,7 @@ void raw_hid_leds(uint8_t *data) {
     const uint8_t number_leds = data[2];
 
     uint8_t i = 0;
-    while (i < number_leds && first_led + i < DRIVER_LED_TOTAL && i * 3 + 5 < RAW_EPSIZE) {
+    while (i < number_leds && first_led + i < RGB_MATRIX_LED_COUNT && i * 3 + 5 < RAW_EPSIZE) {
         rgb_matrix_led_state[first_led + i].r = data[3 + i * 3 + 0];
         rgb_matrix_led_state[first_led + i].g = data[3 + i * 3 + 1];
         rgb_matrix_led_state[first_led + i].b = data[3 + i * 3 + 2];

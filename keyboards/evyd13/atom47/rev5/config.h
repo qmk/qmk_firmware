@@ -146,7 +146,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The result is: 0b101(ADDR2)(ADDR1)
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 64
+#define RGB_MATRIX_LED_COUNT 64
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
