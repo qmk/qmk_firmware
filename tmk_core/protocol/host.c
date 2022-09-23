@@ -23,7 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "debug.h"
 #include "digitizer.h"
-#include "joystick.h"
+
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
@@ -163,51 +166,53 @@ void host_consumer_send(uint16_t report) {
 }
 
 void host_joystick_send(joystick_t *joystick) {
+#ifdef JOYSTICK_ENABLE
     if (!driver) return;
 
     report_joystick_t report = {
-#if JOYSTICK_AXES_COUNT > 0
+#    if JOYSTICK_AXES_COUNT > 0
         .axes =
             {
                 joystick->axes[0],
 
-#    if JOYSTICK_AXES_COUNT >= 2
+#        if JOYSTICK_AXES_COUNT >= 2
                 joystick->axes[1],
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 3
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
                 joystick->axes[2],
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 4
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
                 joystick->axes[3],
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 5
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
                 joystick->axes[4],
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 6
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
                 joystick->axes[5],
-#    endif
+#        endif
             },
-#endif
+#    endif
 
-#if JOYSTICK_BUTTON_COUNT > 0
+#    if JOYSTICK_BUTTON_COUNT > 0
         .buttons =
             {
                 joystick->buttons[0],
 
-#    if JOYSTICK_BUTTON_COUNT > 8
+#        if JOYSTICK_BUTTON_COUNT > 8
                 joystick->buttons[1],
-#    endif
-#    if JOYSTICK_BUTTON_COUNT > 16
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
                 joystick->buttons[2],
-#    endif
-#    if JOYSTICK_BUTTON_COUNT > 24
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
                 joystick->buttons[3],
-#    endif
+#        endif
             },
-#endif
+#    endif
     };
 
     send_joystick(&report);
+#endif
 }
 
 __attribute__((weak)) void send_joystick(report_joystick_t *report) {}
