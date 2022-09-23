@@ -123,11 +123,12 @@ const uint8_t right_side_leds[] = {68, 71, 74, 77, 81, 84, 88, 92};
 const uint8_t right_side_leds_size = sizeof(right_side_leds) / sizeof(uint8_t);
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
+    led_t led_state = host_keyboard_led_state();
+    if (led_state.caps_lock)
         for (uint8_t i = 0; i < left_side_leds_size; i++)
             RGB_MATRIX_INDICATOR_SET_COLOR(left_side_leds[i], 0xFF, 0x00, 0x00); // set to red
 
-    if (IS_HOST_LED_ON(USB_LED_NUM_LOCK))
+    if (led_state.num_lock)
         for (uint8_t i = 0; i < right_side_leds_size; i++)
             RGB_MATRIX_INDICATOR_SET_COLOR(right_side_leds[i], 0xFF, 0x00, 0x00); // set to red
 }
