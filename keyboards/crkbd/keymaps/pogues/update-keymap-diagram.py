@@ -559,12 +559,12 @@ def main():
         help='the name of the output svg file to create.'
     )
     parser.add_argument(
-        '-f',
-        '--file_per_layer',
-        type=bool,
+        '-l',
+        '--layer',
+        type=str,
         nargs='?',
-        default=False,
-        help='create a file for each layer (layer name appended)'
+        default='',
+        help='create a file for the single layer (default is all)'
     )
     parser.add_argument(
         '-s',
@@ -574,22 +574,6 @@ def main():
         default=True,
         help='is the keyboard split (default) or not'
     )
-#    parser.add_argument(
-#        '-r'
-#        '--rows',
-#        type=int,
-#        nargs='+',
-#        default=[12, 12, 12, 6],
-#        help='the number of keys on each row from the top, i.e. "10 10 10 6" for a 36 key.'
-#    )
-#    parser.add_argument(
-#        '-b',
-#        '--blanks',
-#        type=int,
-#        nargs='+',
-#        default=[2, 0, 1, 0],
-#        help='keys to exclude from the start / end of each row'
-#    )
 
     args = parser.parse_args()
 
@@ -597,9 +581,13 @@ def main():
     svg_header = create_svg_header(args, keymap)
     svg_for_layers = []
     base_layer = None
-    for idx, (layer_name, layer_data) in enumerate(keymap.items()):
+    layer_idx = 0
+    for layer_name, layer_data in keymap.items():
         base_layer = base_layer or layer_data  # TODO better way to get first one.
-        svg_for_layers.append(create_svg_for_layer(args, layer_name, layer_data, idx, base_layer))
+        if args.layer and layer_name != args.layer:
+            continue
+        svg_for_layers.append(create_svg_for_layer(args, layer_name, layer_data, layer_idx, base_layer))
+        layer_idx += 1
 
     with open(args.output, 'w') as svg_file:
         svg_file.write(svg_header)
