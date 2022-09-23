@@ -1,4 +1,4 @@
-/* Copyright 2022 QMK
+/* Copyright 2022 Thomas Baart <thomas@splitkb.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,5 @@
 
 #pragma once
 
-#define HAL_USE_PWM TRUE
-#define HAL_USE_PAL TRUE
-
-#include_next <halconf.h>
+// Lets you roll mod-tap keys
+#define IGNORE_MOD_TAP_INTERRUPT
