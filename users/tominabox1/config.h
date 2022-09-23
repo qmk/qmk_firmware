@@ -22,7 +22,7 @@
   #ifdef RGB_MATRIX_ENABLE
   #undef RGBLED_NUM
   #define RGBLED_NUM 50
-  #define DRIVER_LED_TOTAL RGBLED_NUM
+  #define RGB_MATRIX_LED_COUNT RGBLED_NUM
   #endif // RGBL_MATRIX_ENABLE
 #endif // KEYBOARD_lazydesigners_dimple
 

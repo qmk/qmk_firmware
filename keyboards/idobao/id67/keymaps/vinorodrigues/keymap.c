@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define LED_FLAG_ALPHA_KEY 0x10  // Alpha keys (for Caps Lock)
 #define LED_FLAG_LAYER_IND 0x20  // Layer indicator
 
-const uint8_t g_led_config_new_flags[DRIVER_LED_TOTAL] = {
+const uint8_t g_led_config_new_flags[RGB_MATRIX_LED_COUNT] = {
     // Extended LED Index to Flag
     // ** Remember: on ID67 this is in reverse order
     0x21, 0x01, 0x01, 0x01, 0x01,                   0x04,             0x01,       0x01, 0x21,  // Spc row
@@ -147,7 +147,7 @@ static uint16_t recording_timer;
 
 void keyboard_pre_init_user(void) {
     // override `config.h` flags with new values
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) g_led_config.flags[i] = g_led_config_new_flags[i];
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) g_led_config.flags[i] = g_led_config_new_flags[i];
 }
 
 void keyboard_post_init_user(void) {

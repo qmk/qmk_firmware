@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#define DRIVER_LED_TOTAL 70
+#define RGB_MATRIX_LED_COUNT 70
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

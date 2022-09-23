@@ -129,7 +129,7 @@ static enum rgb_matrix_effects mode_map[] = {
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
-RGB raw_rgb_data[DRIVER_LED_TOTAL];
+RGB raw_rgb_data[RGB_MATRIX_LED_COUNT];
 
 // clang-format off
 rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
@@ -294,7 +294,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case CMD_LED_GET_COLOR:
             if (!bootloader_unlocked) {
                 uint8_t index = data[2];
-                if (index < DRIVER_LED_TOTAL) {
+                if (index < RGB_MATRIX_LED_COUNT) {
                     data[3] = raw_rgb_data[index].r;
                     data[4] = raw_rgb_data[index].g;
                     data[5] = raw_rgb_data[index].b;
@@ -322,7 +322,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     .b = data[5],
                 };
 
-                if (index < DRIVER_LED_TOTAL) {
+                if (index < RGB_MATRIX_LED_COUNT) {
                     raw_rgb_data[index] = rgb;
                     data[1] = 0;
                 } else {

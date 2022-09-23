@@ -25,7 +25,7 @@
 
 #define DEBOUNCE 5
 #define RGBLED_NUM 110
-#define DRIVER_LED_TOTAL 110
+#define RGB_MATRIX_LED_COUNT 110
 #define RGB_DI_PIN B15
 
 #ifdef RGB_MATRIX_ENABLE

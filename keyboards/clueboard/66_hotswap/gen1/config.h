@@ -79,7 +79,7 @@
 #define I2C1_SDA_PIN B9
 
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 71
+#define LED_MATRIX_LED_COUNT 71
 
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
