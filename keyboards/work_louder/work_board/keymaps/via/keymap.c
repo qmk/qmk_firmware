@@ -51,10 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
     ),
     [_ADJUST] = LAYOUT(
-        KC_TRNS, RESET,   KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL, USER00,
-        KC_TRNS, KC_TRNS, MU_MOD,  USER00,  USER01,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, USER05,  USER03,  USER02,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, USER06,  USER04,  USER02,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        _______, QK_BOOT,  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL, R_M_TOG,
+        _______, _______, MU_MOD,  R_M_TOG, R_M_MOD, _______, _______, _______, _______, _______, R_M_HUD, R_M_HUI,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, R_M_SAD, R_M_SAI,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
 };
 
@@ -116,7 +116,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LOWER]  = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
-    [_RAISE]  = { ENCODER_CCW_CW(KC_DOWN, KC_UP  ) },
-    [_ADJUST] = { ENCODER_CCW_CW(R_M_HUD, R_M_HUI) },
+    [_RAISE]  = { ENCODER_CCW_CW(R_M_RMOD, R_M_MOD) },
+    [_ADJUST] = { ENCODER_CCW_CW(R_M_HUI, R_M_HUD) },
 };
 #endif
