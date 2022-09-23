@@ -56,7 +56,7 @@ Templete
 #undef _______
 #define _______ {0, 0, 0}
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [1] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,   _______,
         GREEN,   BLUE, {0, 0, 255}, PURPLE, AZURE, _______, {0, 0, 255}, {0, 0, 255}, {0, 0, 255}, _______, _______, _______, _______,  _______, _______,
@@ -270,7 +270,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void set_layer_color(int layer) {
     if (layer == 0) { return; }
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         HSV hsv = {
             .h = pgm_read_byte(&ledmap[layer][i][0]),
             .s = pgm_read_byte(&ledmap[layer][i][1]),

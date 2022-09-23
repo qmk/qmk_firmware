@@ -113,7 +113,7 @@ static void set_rgb_layer(int layer) {
 
     switch (cur->type) {
         case type_hsv:
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL ; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT ; i++) {
                 if (!(g_led_config.flags[i] & cur->flags))
                     rgb_matrix_set_color(i, 0, 0, 0);
             }
@@ -130,7 +130,7 @@ static void set_rgb_layer(int layer) {
                 rgb_matrix_mode_noeeprom(rgbs[cur->mode - RGB_MATRIX_EFFECT_MAX].mode);
             else
                 rgb_matrix_mode_noeeprom(cur->mode);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 const RGB *m = &cur->rgb[i];
                 if (!RGB_IS_NULL(*m))
                     rgb_matrix_set_color(i, m->r, m->g, m->b);

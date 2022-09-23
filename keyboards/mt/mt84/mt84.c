@@ -16,7 +16,7 @@
 #include "mt84.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
  /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

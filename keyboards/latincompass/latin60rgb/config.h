@@ -96,5 +96,5 @@
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 60
+#    define RGB_MATRIX_LED_COUNT 60
 #endif

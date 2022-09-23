@@ -106,7 +106,7 @@ static void init(void) {
 #        endif
 #    endif
 
-    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
+    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         bool enabled = true;
 
         // This only caches it for later
@@ -336,13 +336,13 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    endif
 
 // LED color buffer
-LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
+LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 
 static void init(void) {}
 
 static void flush(void) {
     // Assumes use of RGB_DI_PIN
-    ws2812_setleds(rgb_matrix_ws2812_array, DRIVER_LED_TOTAL);
+    ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
 }
 
 // Set an led in the buffer to a color

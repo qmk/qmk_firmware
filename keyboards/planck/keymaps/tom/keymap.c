@@ -230,7 +230,7 @@ void rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
   switch (get_highest_layer(layer_state)) {
     case _RAISE:
-      for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+      for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
           rgb_matrix_set_color(i, 0x6B, 0x00, 0x80);
         } else {
@@ -240,7 +240,7 @@ void rgb_matrix_indicators_user(void) {
       break;
 
     case _LOWER:
-      for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+      for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
           rgb_matrix_set_color(i, 0xFF, 0xA5, 0x00);
         } else {
@@ -250,7 +250,7 @@ void rgb_matrix_indicators_user(void) {
       break;
 
     case _ADJUST:
-      for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+      for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         rgb_matrix_set_color(i, 0xFF, 0x99, 0x00);
       }
       rgb_matrix_set_color(1, 0xFF, 0x00, 0x00);

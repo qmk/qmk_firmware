@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
 #define LAYER (get_highest_layer(layer_state))
 #define LAYER_SIZE (MATRIX_ROWS * MATRIX_COLS)
 #define CHECK_LED() \
-    if ((i >= DRIVER_LED_TOTAL) \
+    if ((i >= RGB_MATRIX_LED_COUNT) \
     || ((g_led_config.flags[pos] == LED_FLAG_NONE) || (g_led_config.flags[pos] == LED_FLAG_UNDERGLOW))) \
         continue
 
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
     #ifdef UNDERGLOW_DISABLE
     void keyboard_pre_init_user(void) {
         
-        for (int key_id = 0; key_id < DRIVER_LED_TOTAL; key_id++ ) {
+        for (int key_id = 0; key_id < RGB_MATRIX_LED_COUNT; key_id++ ) {
             if (g_led_config.flags[key_id] == LED_FLAG_UNDERGLOW) {
                 g_led_config.flags[key_id] = LED_FLAG_NONE;
             }

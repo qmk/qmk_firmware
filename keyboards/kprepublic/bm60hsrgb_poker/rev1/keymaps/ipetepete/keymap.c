@@ -109,7 +109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
         rgb_matrix_set_color( i, red, green, blue );
     }

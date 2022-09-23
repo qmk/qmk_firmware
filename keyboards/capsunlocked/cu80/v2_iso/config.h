@@ -25,5 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* Define RGB */
-#define DRIVER_LED_TOTAL 88
+#define RGB_MATRIX_LED_COUNT 88
 #define RGBLIGHT_ANIMATIONS

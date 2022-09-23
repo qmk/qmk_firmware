@@ -59,5 +59,5 @@
 
 #    define DRIVER_ADDR_1 0b1110111
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 22
+#    define RGB_MATRIX_LED_COUNT 22
 #endif

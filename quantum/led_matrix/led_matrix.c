@@ -170,7 +170,7 @@ void led_matrix_set_value(int index, uint8_t value) {
 
 void led_matrix_set_value_all(uint8_t value) {
 #if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++)
+    for (uint8_t i = 0; i < LED_MATRIX_LED_COUNT; i++)
         led_matrix_set_value(i, value);
 #else
 #    ifdef USE_CIE1931_CURVE
@@ -399,13 +399,13 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
      * and not sure which would be better. Otherwise, this should be called from
      * led_task_render, right before the iter++ line.
      */
-#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < LED_MATRIX_LED_COUNT
     uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
     uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;
-    if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+    if (max > LED_MATRIX_LED_COUNT) max = LED_MATRIX_LED_COUNT;
 #else
     uint8_t min = 0;
-    uint8_t max = DRIVER_LED_TOTAL;
+    uint8_t max = LED_MATRIX_LED_COUNT;
 #endif
     led_matrix_indicators_advanced_kb(min, max);
     led_matrix_indicators_advanced_user(min, max);

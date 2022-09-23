@@ -70,7 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_STARTUP_VAL        128
 #    define DRIVER_ADDR_1                 0b0110000
 #    define DRIVER_COUNT                  1
-#    define DRIVER_LED_TOTAL              71
+#    define RGB_MATRIX_LED_COUNT              71
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //    
 //
-//    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+//    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
 //        HSV hsv = {
 //            .h = (*l)[i][0],
 //            .s = (*l)[i][1],

@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLED_SPLIT { 30, 30 }
 #endif
 
-#define DRIVER_LED_TOTAL 60
+#define RGB_MATRIX_LED_COUNT 60
 #define RGB_MATRIX_SPLIT { 30, 30 }
 
 #ifdef IOS_DEVICE_ENABLE

@@ -87,7 +87,7 @@ void rgb_matrix_indicators_user(void) {
         case _QWERTY:
             isSneaking = false;
             mod_state  = get_mods();
-            for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     isBarking = true;
                     rgb_matrix_set_color(52, 255, 255, 255);
@@ -135,7 +135,7 @@ void rgb_matrix_indicators_user(void) {
 
         case _RAISE:
             isSneaking = true;
-            for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 switch (i) {
                     case 7:                                     // B key off
                     case 8:                                     // G key off
@@ -169,7 +169,7 @@ void rgb_matrix_indicators_user(void) {
 
         case _LOWER:
             isSneaking = true;
-            for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 switch (i) {
                     case 7:                                     // Delete key
                     case 51:                                    // ESC key
@@ -210,7 +210,7 @@ void rgb_matrix_indicators_user(void) {
 
         case _NUMP:
             isSneaking = true;
-            for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 switch (i) {
                     case 12:                                    // RGB speed-
                     case 15:                                    // RGB brigthness-

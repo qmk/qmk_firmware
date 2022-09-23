@@ -29,7 +29,7 @@ for more options.
 #    define RGBLED_SPLIT \
         { 36, 36 }
 #    ifdef RGB_MATRIX_ENABLE
-#        define DRIVER_LED_TOTAL RGBLED_NUM
+#        define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #        define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #        define SPLIT_TRANSPORT_MIRROR
 #    else

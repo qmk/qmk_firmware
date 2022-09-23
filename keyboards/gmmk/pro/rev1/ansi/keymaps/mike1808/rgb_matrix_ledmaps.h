@@ -48,7 +48,7 @@
         ka4, k73 \
     }
 // clang-format on
-typedef uint8_t ledmap[DRIVER_LED_TOTAL][3];
+typedef uint8_t ledmap[RGB_MATRIX_LED_COUNT][3];
 extern const ledmap ledmaps[];
 
 void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer);

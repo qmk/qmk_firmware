@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D0
-// #define DRIVER_LED_TOTAL 32
+// #define RGB_MATRIX_LED_COUNT 32
 
 #define RGB_MATRIX_KEYPRESSES
 
@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
 #undef RGBLED_NUM
 #define RGBLED_NUM       64 // Number of LEDs
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_SPLIT \
         { 32, 32  }
 #define SPLIT_TRANSPORT_MIRROR

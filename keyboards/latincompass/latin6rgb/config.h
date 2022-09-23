@@ -107,7 +107,7 @@
 #define DRIVER_ADDR_1 0b1110100
 
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 6
+#define RGB_MATRIX_LED_COUNT 6
 #endif
 //#define RGB_DI_PIN B7
 //#ifdef RGB_DI_PIN

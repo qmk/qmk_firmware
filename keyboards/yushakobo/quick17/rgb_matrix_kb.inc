@@ -27,7 +27,7 @@ enum lighting_types {
     NUM_L
 };
 
-const uint8_t rgb_keymaps [][DRIVER_LED_TOTAL] = {
+const uint8_t rgb_keymaps [][RGB_MATRIX_LED_COUNT] = {
     [_CONTROL] = LED_LAYOUT(
         _____, INDC2, INDC1, INDC2, INDC3, INDC4,
         _____, INDC1, INDC1, INDC1, INDC3, INDC4,

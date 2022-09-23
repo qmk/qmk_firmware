@@ -44,7 +44,7 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
 
     uint8_t val = rgb_matrix_get_val();
 
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         HSV hsv = {
             .h = (*l)[i][0],
             .s = (*l)[i][1],

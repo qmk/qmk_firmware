@@ -41,7 +41,7 @@
 #    undef RGB_MATRIX_LED_PROCESS_LIMIT
 #    undef RGB_MATRIX_LED_FLUSH_LIMIT
 #    ifdef KEYBOARD_planck_rev6
-#        define DRIVER_LED_TOTAL RGBLED_NUM
+#        define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    endif
 #endif
 
