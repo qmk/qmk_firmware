@@ -1,6 +1,6 @@
 {
-    "manufacturer": "Controller Works LLC",
-    "keyboard_name": "mini42",
+    "manufacturer": "Controller Works",
+    "keyboard_name": "Controller Works mini42",
     "maintainer": "controller-works",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -16,8 +16,8 @@
     "url": "https://controller.works",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0003",
+        "vid": "0x4357"
     },
     "community_layouts": ["split_3x6_3"],
     "layouts": {
