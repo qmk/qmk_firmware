@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-
 #include "quantum.h"
 
 /* This is a shortcut to help you visually see your layout.
@@ -14,8 +13,11 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    K00, K01, \
-	K02, K03, EN0    \
+    EN0, \
+	K00, K01, K02, \
+	K03, K04, K05    \
 ) { \
-    { K00, K01, K02, K03, EN0 }  \
+    { EN0, KC_NO, KC_NO }, \
+	{ K00, K01, K02 }, \
+	{ K03, K04, K05 }  \
 }

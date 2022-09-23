@@ -10,26 +10,27 @@
 #define PRODUCT_ID   0x1212
 #define DEVICE_VER   0x0001
 #define MANUFACTURER TweetyDaBird
-#define PRODUCT      LBS4
+#define PRODUCT      LBS6
 
 // key matrix size
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 3
 
 // Keyboard Matrix Assignments
-#define DIRECT_PINS { { E6, D7, B5, B4, F4 } }
+#define DIRECT_PINS { { F5, NO_PIN, NO_PIN },{ C6, E6, B5 }, { D4, D7, B4 } }
+//#define DIRECT_PINS { {F5, C6, E6, B5, D4, D7, B4  } }
 
 // Encoder Assignments
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { F7 }
+#define ENCODERS_PAD_A { F7 }
+#define ENCODERS_PAD_B { F6 }
 #define ENCODER_RESOLUTION 2
 
 // RGB Assignments
 #define RGB_DI_PIN D2
-#define DRIVER_LED_TOTAL 6
+#define DRIVER_LED_TOTAL 8
 
 #ifdef RGB_DI_PIN
-#   define RGBLED_NUM 6
+#   define RGBLED_NUM 8
 
 #   define RGBLIGHT_HUE_STEP 8
 #   define RGBLIGHT_SAT_STEP 8

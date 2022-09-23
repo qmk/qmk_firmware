@@ -1,0 +1,75 @@
+{
+	"keyboard_name": "Little Big Scroll 6",
+	"manufacturer": "Tweety's Wild Thinking",
+	"url": "https://lectronz.com/stores/tweetys-wild-thinking",
+	"maintainer": "TweetyDaBird",	
+	
+	"debounce": 5,
+	
+	"processor": "atmega32u4",
+	"features": {
+		"backlight": false,
+		"bootmagic": true,
+		"command": false,
+		"console": false,
+		"extrakey": true,
+		"midi": false,
+		"mousekey": true,
+		"nkro": false,
+		"rgblight": true,
+		"unicode": false
+	},
+  	
+    "matrix_pins": {
+        "direct": [
+			[null, "F5", null],
+            ["C6", "E6", "B5"],
+			["D4", "D7", "B4"]
+        ]
+    },
+	
+	"layout_aliases": {
+		"LAYOUT": "LAYOUT_macropad_3x2+encoder"
+	},
+	
+	"layouts": {
+		"LAYOUT_macropad_3x2+encoder": {
+		"layout": [
+			{ "label": "1", "matrix": [ 0, 1 ], "x": 1, "y": 0, "w": 1, "h": 1 }, 
+						
+			{ "label": "F1", "matrix": [1, 0], "x": 0, "y": 1, "w": 1, "h": 1 }, 
+			{ "label": "F2", "matrix": [1, 1], "x": 1, "y": 1, "w": 1, "h": 1 }, 
+			{ "label": "F3", "matrix": [1, 2], "x": 2, "y": 1, "w": 1, "h": 1 },
+			
+			{ "label": "F4", "matrix": [2, 0], "x": 0, "y": 2, "w": 1, "h": 1 },
+			{ "label": "F5", "matrix": [2, 1], "x": 1, "y": 2, "w": 1, "h": 1 },
+			{ "label": "F6", "matrix": [2, 2], "x": 2, "y": 2, "w": 1, "h": 1 },
+			
+			]
+		}
+	}
+	
+
+	"rgblight": {
+        "led_count": 8,
+        "pin": "D2",
+        "hue_steps": 8,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+        "animations": {
+            "all": true
+        }
+    },
+	
+    "encoder": {
+        "rotary": [
+            { "pin_a": "F7", "pin_b": "F6", "resolution": 2 }
+        ]
+    },
+	
+	"usb": {
+		"vid": "0xFEED",
+        "pid": "0x23B0",
+		"device_version": "1.1.0"
+	}
+}
