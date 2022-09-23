@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK_DH] = LAYOUT_split_3x5_3(
 /*
  .------.------.------.------.------.            .------.------.------.------.------.
- | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ' "  |
+ | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ; :  |
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
  | A    | R    | S    | T    | G    |            | M    | N    | E    | I    | O    |
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   |      | CMD  | LNUM |      | LFUN | CMD  |      |
                   '------'------'------'      '------'------'------'
 */
-  KC_Q,   KC_W,   KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,   KC_QUOT,
+  KC_Q,   KC_W,   KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,
   HOME_A, HOME_R, HOME_S,  HOME_T,  KC_G,         KC_M,    HOME_N,  HOME_E,  HOME_I, HOME_O,
   SFT_Z,  KC_X,   KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT, SFT_SLSH,
                   XXXXXXX, CMD_TAB, NUM_BSPC,     FUN_SPC, CMD_ENT, XXXXXXX
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
- | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ; :  |
+ | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
  | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
  |------+------+------+------+------|            |------+------+------+------+------|
  |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   '------'------'------'      '------'------'------'
 */
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SC,
+  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QT,
   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, SFT_BSLS,
                     KC_TRNS, KC_TRNS,  KC_TRNS,     KC_DEL,  KC_TRNS, KC_TRNS
 ),
