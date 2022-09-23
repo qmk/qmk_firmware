@@ -34,16 +34,13 @@ joystick_t joystick_status = {
 // array defining the reading of analog values for each axis
 __attribute__((weak)) joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {};
 
-// to be implemented in the hid protocol library
-void send_joystick_packet(joystick_t *joystick);
-
 __attribute__((weak)) void joystick_task(void) {
     joystick_read_axes();
 }
 
 void joystick_flush(void) {
     if ((joystick_status.status & JS_UPDATED) > 0) {
-        send_joystick_packet(&joystick_status);
+        host_joystick_send(&joystick_status);
         joystick_status.status &= ~JS_UPDATED;
     }
 }

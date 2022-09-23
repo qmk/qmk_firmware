@@ -93,3 +93,5 @@ void unregister_joystick_button(uint8_t button);
 int16_t joystick_read_axis(uint8_t axis);
 void    joystick_read_axes(void);
 void    joystick_set_axis(uint8_t axis, int16_t value);
+
+void host_joystick_send(joystick_t *joystick);
