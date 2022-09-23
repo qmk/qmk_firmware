@@ -16,6 +16,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#define ___ KC_NO
+
 /*
  * ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┐
  * │00 │   │02 │03 │04 │05 │ │06 │07 │08 │09 │ │0A │0B │0C │0D │ │0E │0F │0G │
@@ -42,10 +44,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A,      K4C,            K4F,      \
     K50, K51, K52,           K55,                K59, K5A,      K5C, K5D,  K5E, K5F, K5G  \
 ) { \
-    { K00, KC_NO, K02, K03,   K04,   K05, K06,   K07,   K08,   K09, K0A, K0B,   K0C, K0D,   K0E,   K0F,   K0G   }, \
-    { K10, K11,   K12, K13,   K14,   K15, K16,   K17,   K18,   K19, K1A, K1B,   K1C, K1D,   K1E,   K1F,   K1G   }, \
-    { K20, K21,   K22, K23,   K24,   K25, K26,   K27,   K28,   K29, K2A, K2B,   K2C, K2D,   K2E,   K2F,   K2G   }, \
-    { K30, K31,   K32, K33,   K34,   K35, K36,   K37,   K38,   K39, K3A, K3B,   K3C, K3D,   KC_NO, KC_NO, KC_NO }, \
-    { K40, K41,   K42, K43,   K44,   K45, K46,   K47,   K48,   K49, K4A, KC_NO, K4C, KC_NO, KC_NO, K4F,   KC_NO }, \
-    { K50, K51,   K52, KC_NO, KC_NO, K55, KC_NO, KC_NO, KC_NO, K59, K5A, KC_NO, K5C, K5D,   K5E,   K5F,   K5G   }  \
+    { K00, ___, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K0F, K0G }, \
+    { K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, K1F, K1G }, \
+    { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E, K2F, K2G }, \
+    { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, ___, ___, ___ }, \
+    { K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, ___, K4C, ___, ___, K4F, ___ }, \
+    { K50, K51, K52, ___, ___, K55, ___, ___, ___, K59, K5A, ___, K5C, K5D, K5E, K5F, K5G }  \
 }
