@@ -165,8 +165,8 @@ void host_consumer_send(uint16_t report) {
     (*driver->send_extra)(REPORT_ID_CONSUMER, report);
 }
 
-void host_joystick_send(joystick_t *joystick) {
 #ifdef JOYSTICK_ENABLE
+void host_joystick_send(joystick_t *joystick) {
     if (!driver) return;
 
     report_joystick_t report = {
@@ -212,8 +212,8 @@ void host_joystick_send(joystick_t *joystick) {
     };
 
     send_joystick(&report);
-#endif
 }
+#endif
 
 __attribute__((weak)) void send_joystick(report_joystick_t *report) {}
 
