@@ -1,4 +1,4 @@
-/* Copyright 2020 Boardsource
+/* Copyright 2022 Boardsource
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,30 +18,23 @@
 
 enum layers {
     _MAIN,
-    _RAISE,
-    _LOWER,
+    _RAISE
 };
 
-// Readability keycodes
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [_MAIN] = LAYOUT(
      KC_7,  KC_8,  KC_9,
      KC_4,  KC_5,  KC_6,
      KC_1,  KC_2,  KC_3,
      KC_0,  KC_PENT,RAISE
   ),
-
   [_RAISE] = LAYOUT(
      KC_7,  KC_8,  RGB_TOG,
      KC_4,  KC_5,  RGB_MOD,
      KC_1,  KC_2,  KC_3,
-     KC_0,  KC_PENT,KC_TRNS
-
+     KC_0,  KC_PENT,_______
   )
-
 };
-

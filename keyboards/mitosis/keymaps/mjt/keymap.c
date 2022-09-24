@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_ADJUST] = LAYOUT( /* Adjust layer for fancy stuff and macros */
-    RESET,   FNPC,    _______, _______,  _______,       _______, DYN_REC_START1,  DYN_REC_START2,  _______,  _______,
+    QK_BOOT, FNPC,    _______, _______,  _______,       _______, DYN_REC_START1,  DYN_REC_START2,  _______,  _______,
     FNMAC,   _______,   AU_ON, AU_OFF,   _______,       _______, _______,         _______,         MACSLEEP, _______,
     MUV_DE,  MUV_IN,    MU_ON, MU_OFF,   _______,       _______, KC_MUTE,         KC_MPRV,         KC_MNXT,  KC_MPLY,
              __MOD__, _______, _______,  _______,       _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  _______,
@@ -181,7 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   uint8_t layer;
-  layer = biton32(layer_state);  // get the current layer
+  layer = get_highest_layer(layer_state);  // get the current layer
 
   //custom layer handling for tri_layer,
   switch (keycode) {
@@ -310,7 +310,7 @@ void music_scale_user(void)
 #endif
 
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   switch (layer) {
   case _QWERTY:

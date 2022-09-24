@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
     "$id": "qmk.definitions.v1",
     "title": "Common definitions used across QMK's jsonschemas.",
     "type": "object",
@@ -41,8 +41,6 @@
                     "LAYOUT_2x2uC",
                     "LAYOUT_2x3uC",
                     "LAYOUT_625uC",
-                    "LAYOUT_ANSI_DEFAULT",
-                    "LAYOUT_JP",
                     "LAYOUT_ortho_3x12_1x2uC",
                     "LAYOUT_ortho_4x12_1x2uC",
                     "LAYOUT_ortho_4x12_1x2uL",
@@ -57,8 +55,7 @@
                     "LAYOUT_planck_1x2uR",
                     "LAYOUT_preonic_1x2uC",
                     "LAYOUT_preonic_1x2uL",
-                    "LAYOUT_preonic_1x2uR",
-                    "LAYOUT_reviung34_2uL"
+                    "LAYOUT_preonic_1x2uR"
                 ]
             },
             {
@@ -68,8 +65,23 @@
         ]
     },
     "key_unit": {
-        "type": "number",
-        "min": 0.25
+        "type": "number"
+    },
+    "keyboard": {
+        "oneOf": [
+            {
+                "type": "string",
+                "enum": [
+                    "converter/numeric_keypad_IIe",
+                    "emptystring/NQG",
+                    "maple_computing/christmas_tree/V2017"
+                ]
+            },
+            {
+                "type": "string",
+                "pattern": "^[0-9a-z][0-9a-z_/]*$"
+            }
+        ]
     },
     "mcu_pin_array": {
         "type": "array",
@@ -90,8 +102,11 @@
                 "pattern": "^LINE_PIN\\d{1,2}$"
             },
             {
-                "type": "number",
-                "multipleOf": 1
+                "type": "string",
+                "pattern": "^GP\\d{1,2}$"
+            },
+            {
+                "type": "integer"
             },
             {
                 "type": "null"
@@ -102,14 +117,12 @@
         "type": "number"
     },
     "signed_int": {
-        "type": "number",
-        "multipleOf": 1
+        "type": "integer"
     },
     "signed_int_8": {
-        "type": "number",
-        "min": -127,
-        "max": 127,
-        "multipleOf": 1
+        "type": "integer",
+        "minimum": -127,
+        "maximum": 127
     },
     "string_array": {
         "type": "array",
@@ -125,17 +138,20 @@
     },
     "unsigned_decimal": {
         "type": "number",
-        "min": 0
+        "minimum": 0
     },
     "unsigned_int": {
-        "type": "number",
-        "min": 0,
-        "multipleOf": 1
+        "type": "integer",
+        "minimum": 0
     },
     "unsigned_int_8": {
-        "type": "number",
-        "min": 0,
-        "max": 255,
-        "multipleOf": 1
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+    },
+    "bit": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1
     }
 }

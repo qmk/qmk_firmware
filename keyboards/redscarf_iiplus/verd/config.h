@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x7778
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    RedScarf
-#define PRODUCT         RedScarfII+
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 18
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { }
 #define MATRIX_COL_PINS { F4, F1, F0, B3, D0, D1, D4, D5, D6, D7, F7, F6, D2, D3, B6, B5, B4, F5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

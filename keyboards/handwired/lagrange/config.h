@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2718
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Dimitris Papavasiliou
-#define PRODUCT         Lagrange
-
 #define EE_HANDS
 #define SPLIT_USB_DETECT
 
@@ -37,7 +30,6 @@
 #define MATRIX_COL_PINS { B4, B5, D7, B6, C6, D6 }
 #define MATRIX_ROW_PINS_RIGHT { B5, B4, D7, B6, C6, D6, D4 }
 #define MATRIX_COL_PINS_RIGHT { C7, F7, F6, F5, F4, F1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL

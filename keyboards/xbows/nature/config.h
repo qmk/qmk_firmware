@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x1226
-#define DEVICE_VER   0x0001
-#define MANUFACTURER X-BOWS
-#define PRODUCT      NATURE
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
@@ -35,7 +29,7 @@
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #    define RGB_DISABLE_AFTER_TIMEOUT 0          // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED       // turn off effects when suspended
-// #    define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_MATRIX_CENTER \
         { 92, 33 }

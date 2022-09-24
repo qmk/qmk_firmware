@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "ErgoDox EZ",
+    "usb": {
+        "pid": "0x4974"
+    }
+}

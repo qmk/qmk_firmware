@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * /-----------------------------------------\  /-----------------------------------------\
    * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-   * |      | SAD  | VAI  | SAI  | RESET|      |  |      |      |      |      |      |      |
+   * |      | SAD  | VAI  | SAI  | QK_BOOT|      |  |      |      |      |      |      |      |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
    * |      | HUD  | VAD  | HUI  |RGBRST|      |  |      |QWERTY|COLEMK|      |      |      |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJ] =  LAYOUT_ortho_5x12(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, _______, _______, _______, _______, _______, _______,
+    _______, RGB_SAD, RGB_VAI, RGB_SAI, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______,
     _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, _______, QWERTY,  COLEMAK, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
     _______, _______, _______, RGB_MOD, _______, _______, _______, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD
@@ -198,7 +198,7 @@ static void render_status(void) {
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case _QWERTY:
       oled_write_ln_P(PSTR("QWERTY"), false);
       break;

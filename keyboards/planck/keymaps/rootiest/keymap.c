@@ -502,7 +502,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             if (index == 0) { /* First encoder */
                 uint16_t held_keycode_timer = timer_read();
-                switch (biton32(layer_state)) {
+                switch (get_highest_layer(layer_state)) {
                     case 0:                                 // Base Layer
                         if ((get_mods() & MOD_MASK_GUI)) {  // GUI-ed
                             if (clockwise) {
@@ -1656,12 +1656,25 @@ void sml_reset(qk_tap_dance_state_t* state, void* user_data) { sml_state.state =
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for °, twice for ℉, thrice for ℃
-    [TD_DEG_DEGF]    = ACTION_TAP_DANCE_FN(send_degree_symbol),                                    //
-    [TD_LSHFT_CAPS]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, scap_finished, scap_reset, 200),    //
-    [TD_LCTL_STICKY] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, slctl_finished, slctl_reset, 200),  //
-    [TD_LALT_STICKY] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, slalt_finished, slalt_reset, 200),  //
-    [TD_SMILEY]      = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, sml_finished, sml_reset, 500),
+    [TD_DEG_DEGF]    = ACTION_TAP_DANCE_FN(send_degree_symbol),                          //
+    [TD_LSHFT_CAPS]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scap_finished, scap_reset),    //
+    [TD_LCTL_STICKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slctl_finished, slctl_reset),  //
+    [TD_LALT_STICKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slalt_finished, slalt_reset),  //
+    [TD_SMILEY]      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sml_finished, sml_reset),
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_LSHFT_CAPS):
+        case TD(TD_LCTL_STICKY):
+        case TD(TD_LALT_STICKY):
+            return 200;
+        case TD(TD_SMILEY):
+            return 500;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 // Dip-Switch controls
 void dip_switch_update_user(uint8_t index, bool active) {

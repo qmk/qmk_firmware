@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "vn66",
+    "keyboard_name": "VN66",
+    "manufacturer": "HnahKB",
     "url": "fb.com/groups/VietNamMechKey/",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xCA2C",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

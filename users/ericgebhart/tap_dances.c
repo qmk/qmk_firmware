@@ -47,7 +47,7 @@ void tap_dance_mouse_btns (qk_tap_dance_state_t *state, void *user_data) {
 
 // counting on all the qwerty layers to be less than dvorak_on_bepo
 int on_qwerty(){
-    uint8_t deflayer = (biton32(default_layer_state));
+    uint8_t deflayer = (get_highest_layer(default_layer_state));
     return (deflayer < _DVORAK_BP);
 }
 
@@ -58,7 +58,7 @@ static void switch_default_layer(uint8_t layer) {
 
 // so the keyboard remembers which layer it's in after power disconnect.
 /*
-  uint32_t default_layer_state_set_kb(uint32_t state) {
+  layer_state_t default_layer_state_set_kb(layer_state_t state) {
   eeconfig_update_default_layer(state);
   return state;
   }

@@ -473,9 +473,9 @@ enum quantum_keycodes {
     // Lock Key
     KC_LOCK, // 5D2B
 
-    // Terminal
-    TERM_ON,  // 5D2C
-    TERM_OFF, // 5D2D
+    // Unused slots
+    UNUSED_000, // 5D2C
+    UNUSED_001, // 5D2D
 
     // Sequencer
     SQ_ON,  // 5D2E
@@ -595,6 +595,22 @@ enum quantum_keycodes {
 
     MAGIC_TOGGLE_CONTROL_CAPSLOCK,
 
+    QK_MAKE,
+    QK_REBOOT,
+
+    SECURE_LOCK,
+    SECURE_UNLOCK,
+    SECURE_TOGGLE,
+    SECURE_REQUEST,
+
+    CAPS_WORD,
+
+    MAGIC_SWAP_ESCAPE_CAPSLOCK,
+    MAGIC_UNSWAP_ESCAPE_CAPSLOCK,
+    MAGIC_TOGGLE_ESCAPE_CAPSLOCK,
+
+    UNICODE_MODE_EMACS,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -711,6 +727,7 @@ enum quantum_keycodes {
 #define QK_BOOT QK_BOOTLOADER
 #define DB_TOGG QK_DEBUG_TOGGLE
 #define EE_CLR QK_CLEAR_EEPROM
+#define QK_RBT QK_REBOOT
 
 // Audio Clicky aliases
 #define CK_TOGG CLICKY_TOGGLE
@@ -745,6 +762,10 @@ enum quantum_keycodes {
 #define CL_CAPS MAGIC_UNCAPSLOCK_TO_CONTROL
 #define CL_TOGG MAGIC_TOGGLE_CONTROL_CAPSLOCK
 
+#define EC_SWAP MAGIC_SWAP_ESCAPE_CAPSLOCK
+#define EC_NORM MAGIC_UNSWAP_ESCAPE_CAPSLOCK
+#define EC_TOGG MAGIC_TOGGLE_ESCAPE_CAPSLOCK
+
 #define LCG_SWP MAGIC_SWAP_LCTL_LGUI
 #define LCG_NRM MAGIC_UNSWAP_LCTL_LGUI
 #define RCG_SWP MAGIC_SWAP_RCTL_RGUI
@@ -778,15 +799,8 @@ enum quantum_keycodes {
 #define EH_LEFT MAGIC_EE_HANDS_LEFT
 #define EH_RGHT MAGIC_EE_HANDS_RIGHT
 
-// GOTO layer - 16 layers max
-// when:
-// ON_PRESS    = 1
-// ON_RELEASE  = 2
-// Unless you have a good reason not to do so, prefer  ON_PRESS (1) as your default.
-// In fact, we changed it to assume ON_PRESS for sanity/simplicity. If needed, you can add your own
-// keycode modeled after the old version, kept below for this.
-/* #define TO(layer, when) (QK_TO | (when << 0x4) | (layer & 0xFF)) */
-#define TO(layer) (QK_TO | (ON_PRESS << 0x4) | ((layer)&0xFF))
+// GOTO layer - 256 layer max
+#define TO(layer) (QK_TO | ((layer)&0xFF))
 
 // Momentary switch layer - 256 layer max
 #define MO(layer) (QK_MOMENTARY | ((layer)&0xFF))
@@ -882,6 +896,7 @@ enum quantum_keycodes {
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
+#define UC_M_EM UNICODE_MODE_EMACS
 
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))
@@ -956,5 +971,6 @@ enum quantum_keycodes {
 #define PB_32 PROGRAMMABLE_BUTTON_32
 #define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
 #define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32
+#define CAPSWRD CAPS_WORD
 
 #include "quantum_keycodes_legacy.h"

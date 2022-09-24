@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE9 // When changing, decrement this value to avoid future re-init issues
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE8 // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 

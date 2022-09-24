@@ -16,12 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xAC12
-#define PRODUCT_ID 0x4176
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Pylon
-#define PRODUCT Boston
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 19

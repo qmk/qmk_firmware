@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3680
-#define PRODUCT_ID      0x5658
-#define DEVICE_VER      0x0005
-#define MANUFACTURER    Omkbd
-#define PRODUCT         runner3680
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10

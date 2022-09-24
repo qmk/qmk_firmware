@@ -5,6 +5,10 @@
 .DS_Store
 ._*
 
+# Merge files
+*.orig
+*.rej
+
 # Build artifacts
 .clang_complete
 .build/
@@ -27,16 +31,11 @@ quantum/version.h
 *.uf2
 
 # Old-style QMK Makefiles
-/keyboards/*/Makefile
-/keyboards/*/*/Makefile
-/keyboards/*/*/*/Makefile
-/keyboards/*/*/*/*/Makefile
-/keyboards/*/*/*/*/*/Makefile
-/keyboards/*/keymaps/Makefile
-/keyboards/*/*/keymaps/Makefile
-/keyboards/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/*/keymaps/Makefile
+/keyboards/**/Makefile
+
+# kbfirmware....
+/keyboards/**/kb.h
+/keyboards/**/kb.c
 
 # Eclipse/PyCharm/Other IDE Settings
 *.iml
@@ -67,10 +66,12 @@ CMakeLists.txt
 .vscode/temp.sql
 tags
 
-# Ignore image files
+# Ignore image/font files
 *.gif
 *.jpg
 *.png
+*.ttf
+*.otf
 
 # Things Travis sees
 /.vs
@@ -91,3 +92,6 @@ user_song_list.h
 compile_commands.json
 .clangd/
 .cache/
+
+# VIA(L) json files that don't belong in QMK repo
+via*.json
