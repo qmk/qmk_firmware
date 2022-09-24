@@ -1,21 +1,20 @@
-# G-Boy
+# OM60
 
-![G-Boy](https://i.imgur.com/APwppRwh.png)
+![OM60](https://i.imgur.com/WoO8oezh.jpg)
 
-65% board that resembles a handheld gaming console
+The 60% Poker compatible Ortholinear keyboard or jumbo Macropad.
 
-* Keyboard Maintainer: [Matt Chan](https://github.com/mattchan)
-* Hardware Supported: Kegen G-Boy
-* Hardware Availability: Unfortunately, there is no site for this, and the Kegen Discord is no longer active. The group buy runners appear to have disappeared after round two units were delivered.
+* Keyboard Maintainer: [jun10000](https://github.com/jun10000)
+* Hardware Supported: OM60 PCB, Pro Micro
+* Hardware Availability: [junsgamingstore.booth.pm](https://junsgamingstore.booth.pm/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kegen/gboy:default
+    make om60:default
 
 Flashing example for this keyboard:
 
-    make kegen/gboy:default:flash
-
+    make om60:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
