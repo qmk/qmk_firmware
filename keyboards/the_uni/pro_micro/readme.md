@@ -1,6 +1,6 @@
 # The Uni v1 and v2
 
-![Uni v2](https://github.com/petercpark/The_Uni/blob/main/Pics/uni%20v2/uni-v2.JPG?raw=true)
+![Uni v2](https://i.imgur.com/hIIK8xN.jpg)
 
 -   Keyboard Maintainer: [Peter](https://github.com/petercpark)
 -   Link to Keyboard Files: [The_Uni](https://github.com/petercpark/The_Uni) (For personal use only)
