@@ -27,6 +27,11 @@
         "pid": "0xF4C4",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP15", "pin_b": "GP14", "resolution": 4 }
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -160,10 +165,5 @@
                 {"label":"k110", "x":20, "y":5}
             ]
         }
-    }
-    "encoder": {
-        "rotary": [
-            { "pin_a": "GP15", "pin_b": "GP14", "resolution": 4 }
-        ]
     }
 }

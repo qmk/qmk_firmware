@@ -1,5 +1,5 @@
 /*
-Copyright 2021 3araht
+Copyright 2022 3araht
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -192,13 +192,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MIDI_ENABLE
 #   define MIDI_ADVANCED
 #endif  //  MIDI_ENABLE
-
-/* 2021/01/22 added to shrink firmware size */
-// NO_ACTION_TAPPING -1964 bytes, however, this disables Layer mods...
-// #define NO_ACTION_TAPPING
-// NO_ACTION_ONESHOT -388 bytes
-#define NO_ACTION_ONESHOT
-
-/* via layer setting */
-/* default: 4 */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 12
