@@ -27,18 +27,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 #    include "drivers/sensors/adns5050.h"
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 #    include "spi_master.h"
 #    include "drivers/sensors/adns9800.h"
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
 #    include "analog.h"
 #    include "drivers/sensors/analog_joystick.h"
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    include "drivers/sensors/cirque_pinnacle.h"
 #    include "drivers/sensors/cirque_pinnacle_gestures.h"
 #    include "pointing_device_gestures.h"
 #elif defined(POINTING_DEVICE_DRIVER_paw3204)
 #    include "drivers/sensors/paw3204.h"
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 #    include "i2c_master.h"
 #    include "drivers/sensors/pimoroni_trackball.h"
@@ -52,9 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifdef PIMORONI_TRACKBALL_ROTATE
 #        define POINTING_DEVICE_ROTATION_90
 #    endif
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360) || defined(POINTING_DEVICE_DRIVER_pmw3389)
 #    include "spi_master.h"
 #    include "drivers/sensors/pmw33xx_common.h"
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #else
 void           pointing_device_driver_init(void);
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report);
