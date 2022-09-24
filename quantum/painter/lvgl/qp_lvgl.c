@@ -87,8 +87,8 @@ bool qp_lvgl_start(painter_device_t device) {
 
     // Setting up lvgl display buffer
     static lv_disp_draw_buf_t draw_buf;
-    static lv_color_t color_buffer[QUANTUM_PAINTER_LVGL_DISPLAY_WIDTH*10];                        /*Declare a buffer for 1/10 screen size*/
-    lv_disp_draw_buf_init(&draw_buf, color_buffer, NULL, QUANTUM_PAINTER_LVGL_DISPLAY_WIDTH*10);  /*Initialize the display buffer.*/
+    static lv_color_t color_buffer[QUANTUM_PAINTER_LVGL_DISPLAY_WIDTH*(QUANTUM_PAINTER_LVGL_DISPLAY_HEIGHT / 10)];                       /*Declare a buffer for 1/10 screen size*/
+    lv_disp_draw_buf_init(&draw_buf, color_buffer, NULL, QUANTUM_PAINTER_LVGL_DISPLAY_WIDTH*(QUANTUM_PAINTER_LVGL_DISPLAY_HEIGHT / 10)); /*Initialize the display buffer.*/
 
     // Setting up display driver
     static lv_disp_drv_t disp_drv;                            /*Descriptor of a display driver*/

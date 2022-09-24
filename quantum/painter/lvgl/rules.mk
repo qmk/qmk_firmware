@@ -7,6 +7,11 @@ LVGL_DIR_NAME = lvgl
 LVGL_DIR = $(LIB_DIR)
 LVGL_PATH = $(LVGL_DIR)/$(LVGL_DIR_NAME)
 
+ifeq ($(strip $(QUANTUM_PAINTER_LVGL_USE_CUSTOM_CONF)), yes)
+	OPT_DEFS += -DLV_CONF_INCLUDE_SIMPLE
+	OPT_DEFS += -DQUANTUM_PAINTER_LVGL_USE_CUSTOM_CONF
+endif
+
 COMMON_VPATH += \
                 $(QUANTUM_DIR)/painter/$(LVGL_DIR_NAME) \
                 $(LVGL_PATH)
@@ -16,6 +21,7 @@ SRC += $(shell find $(LVGL_PATH)/src -type f -name '*.c')
 CFLAGS += "-I$(LVGL_PATH)"
 
 # Fix this: Should include their makefile
+
 # include $(LVGL_PATH)/src/extra/extra.mk
 # include $(LVGL_PATH)/src/core/lv_core.mk
 # include $(LVGL_PATH)/src/draw/lv_draw.mk
