@@ -265,6 +265,12 @@
             "type": "object",
             "properties": {
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
@@ -304,6 +310,12 @@
             "type": "object",
             "properties": {
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},

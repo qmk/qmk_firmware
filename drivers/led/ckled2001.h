@@ -27,7 +27,7 @@ typedef struct ckled2001_led {
     uint8_t b;
 } __attribute__((packed)) ckled2001_led;
 
-extern const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL];
+extern const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT];
 
 void CKLED2001_init(uint8_t addr);
 bool CKLED2001_write_register(uint8_t addr, uint8_t reg, uint8_t data);

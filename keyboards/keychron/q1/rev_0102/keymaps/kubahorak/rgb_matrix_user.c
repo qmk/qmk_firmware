@@ -18,7 +18,7 @@
 #include "rgb_matrix_user.h"
 #include "keymap_user.h"
 
-keypos_t led_index_key_position[DRIVER_LED_TOTAL];
+keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
 
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
