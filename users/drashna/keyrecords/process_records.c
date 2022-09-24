@@ -3,6 +3,9 @@
 
 #include "drashna.h"
 #include "version.h"
+#ifdef OS_DETECTION_ENABLE
+#include "os_detection.h"
+#endif
 
 uint16_t copy_paste_timer;
 bool     host_driver_disabled = false;
@@ -206,6 +209,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
 #endif
             break;
+#if defined(OS_DETECTION_ENABLE) && defined(OS_DETECTION_DEBUG_ENABLE)
+        case STORE_SETUPS:
+            if (record->event.pressed) {
+                store_setups_in_eeprom();
+            }
+            return false;
+        case PRINT_SETUPS:
+            if (record->event.pressed) {
+                print_stored_setups();
+            }
+            return false;
+#endif
     }
     return true;
 }

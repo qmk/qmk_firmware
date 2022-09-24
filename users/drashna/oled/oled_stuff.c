@@ -735,7 +735,7 @@ void render_kitty(uint8_t col, uint8_t line) {
 }
 
 void render_unicode_mode(uint8_t col, uint8_t line) {
-#ifdef CUSTOM_UNICODE_ENABLE
+#if defined(CUSTOM_UNICODE_ENABLE) && defined(UNICODE_COMMON_ENABLE)
     oled_set_cursor(col, line);
     oled_write_P(PSTR("Unicode:"), false);
     oled_write_P(unicode_mode_str[unicode_typing_mode], false);

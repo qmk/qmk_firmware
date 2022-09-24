@@ -27,6 +27,9 @@
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing/pointing.h"
 #endif
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 /* Define layer names */
 enum userspace_layers {
