@@ -1,6 +1,6 @@
 # ScottoSlant
 
-![ScottoSlant](imgur.com image replace me!)
+![ScottoSlant](https://i.imgur.com/9K7qAOPh.jpg)
 
 A 37key ~0.25u row staggered keyboard. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
