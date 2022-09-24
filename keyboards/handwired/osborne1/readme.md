@@ -1,6 +1,6 @@
 # osborne1
 
-![osborne1](https://en.wikipedia.org/wiki/Osborne_1#/media/File:Osborne_1_open.jpg)
+![osborne1](https://i.imgur.com/221nQ5E.jpeg)
 
 The Osborne keyboard doesn't contain any electronics, so the pins of the 8x8 keyboard matrix are easily available right on the normal connector. 17 jumper wires and a Feather BlueFruit is all the additional hardware needed.
 
