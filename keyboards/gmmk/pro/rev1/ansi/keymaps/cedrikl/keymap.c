@@ -68,7 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         } else {
             tap_code(KC_VOLD);
         }
-        return true;
+        //return true; //set to return false to counteract enabled encoder in pro.c
+        return false;
     }
 #endif // ENCODER_ENABLE
 
@@ -77,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
 //    const ledmap *l = &(ledmaps[layer]);
 //
-//    
+//
 //
 //    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
 //        HSV hsv = {

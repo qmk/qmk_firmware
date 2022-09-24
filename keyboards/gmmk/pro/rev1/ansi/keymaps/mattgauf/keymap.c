@@ -173,7 +173,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
 }
 
 
