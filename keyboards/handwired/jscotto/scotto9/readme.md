@@ -1,6 +1,6 @@
 # Scotto9
 
-![Scotto9](https://imgur.com/inbmNSE.jpeg)
+![Scotto9](https://imgur.com/inbmNSEh.jpeg)
 
 A 9 key handwired macropad. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
