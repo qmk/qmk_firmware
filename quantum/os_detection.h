@@ -25,17 +25,14 @@ typedef enum {
     OS_WINDOWS,
     OS_MACOS,
     OS_IOS,
-} OSVariant;
+} os_variant_t;
 
 void      process_wlength(const uint16_t w_length);
-OSVariant detected_host_os(void);
+os_variant_t detected_host_os(void);
+void erase_wlength_data(void);
 #endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void);
 void store_setups_in_eeprom(void);
-#endif
-
-#ifdef OS_DETECTION_TESTS
-void clean_wlength_data(void);
 #endif

@@ -23,11 +23,11 @@ extern "C" {
 class OsDetectionTest : public ::testing::Test {
    protected:
     void SetUp() override {
-        clean_wlength_data();
+        erase_wlength_data();
     }
 };
 
-OSVariant check_sequence(const std::vector<uint16_t> &w_lengths) {
+os_variant_t check_sequence(const std::vector<uint16_t> &w_lengths) {
     for (auto &w_length : w_lengths) {
         process_wlength(w_length);
     }

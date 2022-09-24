@@ -15,7 +15,7 @@ OS_DETECTION_ENABLE = yes
 ```
 
 Include `"os_detection.h"` in your `keymap.c`.
-It declares `OSVariant detected_host_os(void);` which you can call to get detected OS.
+It declares `os_variant_t detected_host_os(void);` which you can call to get detected OS.
 
 It returns one of the following values:
 
@@ -26,7 +26,7 @@ enum {
     OS_WINDOWS,
     OS_MACOS,
     OS_IOS,
-} OSVariant;
+} os_variant_t;
 ```
 
 ?> Note that it takes some time after firmware is booted to detect the OS.

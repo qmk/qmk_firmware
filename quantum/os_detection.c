@@ -16,9 +16,7 @@
 
 #include "os_detection.h"
 
-#ifdef OS_DETECTION_TESTS
-#    include <string.h>
-#endif
+#include <string.h>
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
 #    include "eeconfig.h"
@@ -38,7 +36,7 @@ struct setups_data_t {
     uint8_t   cnt_04;
     uint8_t   cnt_ff;
     uint16_t  last_wlength;
-    OSVariant detected_os;
+    os_variant_t detected_os;
 };
 
 struct setups_data_t setups_data = {
@@ -100,8 +98,12 @@ void process_wlength(const uint16_t w_length) {
     make_guess();
 }
 
-OSVariant detected_host_os(void) {
+os_variant_t detected_host_os(void) {
     return setups_data.detected_os;
+}
+
+void erase_wlength_data(void) {
+    memset(&setups_data, 0, sizeof(setups_data));
 }
 #endif // OS_DETECTION_ENABLE
 
@@ -110,8 +112,8 @@ void print_stored_setups(void) {
 #    ifdef CONSOLE_ENABLE
     uint8_t cnt = eeprom_read_byte(EEPROM_USER_OFFSET);
     for (uint16_t i = 0; i < cnt; ++i) {
-        uint16_t* addr = EEPROM_USER_OFFSET + i * sizeof(uint16_t) + sizeof(uint8_t);
-        uprintf("i: %d, wLength: %X\n", i, eeprom_read_word(addr));
+        uint16_t* addr = (uint16_t*)EEPROM_USER_OFFSET + i * sizeof(uint16_t) + sizeof(uint8_t);
+        xprintf("i: %d, wLength: 0x%02X\n", i, eeprom_read_word(addr));
     }
 #    endif
 }
@@ -119,14 +121,9 @@ void print_stored_setups(void) {
 void store_setups_in_eeprom(void) {
     eeprom_update_byte(EEPROM_USER_OFFSET, setups_data.count);
     for (uint16_t i = 0; i < setups_data.count; ++i) {
-        uint16_t* addr = EEPROM_USER_OFFSET + i * sizeof(uint16_t) + sizeof(uint8_t);
+        uint16_t* addr = (uint16_t*)EEPROM_USER_OFFSET + i * sizeof(uint16_t) + sizeof(uint8_t);
         eeprom_update_word(addr, usb_setups[i]);
     }
 }
-#endif // OS_DETECTION_DEBUG_ENABLE
 
-#ifdef OS_DETECTION_TESTS
-void clean_wlength_data(void) {
-    memset(&setups_data, 0, sizeof(setups_data));
-}
-#endif
+#endif // OS_DETECTION_DEBUG_ENABLE
