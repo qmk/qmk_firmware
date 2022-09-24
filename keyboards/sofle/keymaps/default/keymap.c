@@ -47,9 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     KC_MPLY ,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
                  KC_LCTRL,KC_LALT,KC_LGUI, KC_LOWER, KC_ENT,        KC_SPC,  KC_RAISE, KC_RGUI, KC_RALT, KC_RCTRL
 ),
-/*
- * COLEMAK - ------------------------------- DISABLED by Dor Zvulun ----------------------------------------------
- */
+
 
 
 /* LOWER -1
@@ -364,13 +362,30 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDOWN);
-            // tap_code(KC_WH_D);
-        } else {
-            tap_code(KC_PGUP);
-            // tap_code(KC_WH_U);
-        }
+			switch (get_highest_layer(layer_state)) {
+				case _QWERTY:
+					if (clockwise) {
+						tap_code(KC_WH_D);
+					} else {
+						tap_code(KC_WH_U);
+					}
+				break;
+			case _RAISE:
+			case _LOWER:
+					if (clockwise) {
+						tap_code(KC_DOWN);
+					} else {
+						tap_code(KC_UP);
+					}
+				break;
+			default:
+					if (clockwise) {
+						tap_code(KC_WH_D);
+					} else {
+						tap_code(KC_WH_U);
+					}
+				break;
+		}
     }
     return true;
 }

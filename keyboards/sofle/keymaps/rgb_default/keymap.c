@@ -66,8 +66,6 @@
 enum sofle_layers {
     _DEFAULTS = 0,
     _QWERTY = 0,
-    _COLEMAK,
-	  _COLEMAKDH,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -77,8 +75,6 @@ enum sofle_layers {
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
-    KC_COLEMAK,
-	  KC_COLEMAKDH,
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
@@ -173,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
 ),
 
-/* LOWER
+/* 
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | trans|  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -241,6 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
+                                
   [_ADJUST] = LAYOUT(
   //,------------------------------------------------.                    ,---------------------------------------------------.
   EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
