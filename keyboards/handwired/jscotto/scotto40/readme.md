@@ -1,6 +1,6 @@
 # Scotto40
 
-![Scotto40](https://i.imgur.com/wtW5xOt.jpeg)
+![Scotto40](https://i.imgur.com/wtW5xOth.jpeg)
 
 A 37, 38, or 40 key handwired ortholinear keyboard. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
