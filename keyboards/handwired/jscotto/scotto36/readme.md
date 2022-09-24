@@ -9,7 +9,7 @@ A 36 key handwired ortholinear ergo keyboard. Featuring an OLED display with Bon
 -   Hardware Availability: [Amazon](https://amazon.com)
 
 
-# Flashing
+# Compiling
 
 Make example for this keyboard (after setting up your build environment):
 
