@@ -144,7 +144,11 @@ __attribute__((weak)) void pointing_device_init(void) {
     {
         pointing_device_driver.init();
 #ifdef POINTING_DEVICE_MOTION_PIN
+#    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
         setPinInputHigh(POINTING_DEVICE_MOTION_PIN);
+#    else
+        setPinInput(POINTING_DEVICE_MOTION_PIN);
+#    endif
 #endif
     }
 
@@ -236,7 +240,11 @@ __attribute__((weak)) void pointing_device_task(void) {
 #    if defined(SPLIT_POINTING_ENABLE)
 #        error POINTING_DEVICE_MOTION_PIN not supported when sharing the pointing device report between sides.
 #    endif
+#    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
     if (!readPin(POINTING_DEVICE_MOTION_PIN))
+#    else
+    if (readPin(POINTING_DEVICE_MOTION_PIN))
+#    endif
 #endif
 
 #if defined(SPLIT_POINTING_ENABLE)
