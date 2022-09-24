@@ -179,12 +179,13 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 
             encoder_value[index]++;
             changed = true;
+#ifdef SPLIT_KEYBOARD
+            if (is_keyboard_master())
+#endif // SPLIT_KEYBOARD
 #ifdef ENCODER_MAP_ENABLE
-            encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
+                encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
-            if (is_keyboard_master()) {
-                encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
-            }
+        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE
         }
 
@@ -195,12 +196,13 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 #endif
             encoder_value[index]--;
             changed = true;
+#ifdef SPLIT_KEYBOARD
+            if (is_keyboard_master())
+#endif // SPLIT_KEYBOARD
 #ifdef ENCODER_MAP_ENABLE
-            encoder_exec_mapping(index, ENCODER_CLOCKWISE);
+                encoder_exec_mapping(index, ENCODER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
-            if (is_keyboard_master()) {
-                encoder_update_kb(index, ENCODER_CLOCKWISE);
-            }
+        encoder_update_kb(index, ENCODER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE
         }
         encoder_pulses[i] %= resolution;
