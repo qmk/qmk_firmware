@@ -258,11 +258,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 void rgb_matrix_indicators_user(void) {
-    int red[3] = {50, 5, 0};
-    int yellow[3] = {50, 50, 0};
-    int blue[3] = {0, 15, 50};
-    int green[3] = {15, 33, 1};
-    int white[3] = {255, 255, 255};
+    uint8_t red[3] = {50, 5, 0};
+    uint8_t yellow[3] = {50, 50, 0};
+    uint8_t blue[3] = {0, 15, 50};
+    uint8_t green[3] = {15, 33, 1};
+    uint8_t white[3] = {255, 255, 255};
 
     switch (get_highest_layer(layer_state)) {
         case _ALPHA:
