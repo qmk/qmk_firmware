@@ -32,9 +32,6 @@
  * affected. */
 #define WAIT_AFTER_COL_UNSELECT 110
 
-// Enable 1000hz scan rate
-#define USB_POLLING_INTERVAL_MS 1
-
 /* turn off after debugging */
 // #define DEBUG_MATRIX_SCAN_RATE
 
@@ -79,8 +76,6 @@
 // #    define RGBLIGHT_VAL_STEP 8
 // #    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 // #    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-// #    define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
 // #    define RGBLIGHT_EFFECT_BREATHING
 // #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
