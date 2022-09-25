@@ -1,6 +1,6 @@
 # Swoop
 
-![Swoop](https://i.imgur.com/mMlmEsd.jpg)
+![Swoop](https://i.imgur.com/mMlmEsdh.jpg)
 
 *The Swoop is an open source split keyboard based on the Ferris/Sweep.*
 
