@@ -502,7 +502,10 @@ report_mouse_t mousekey_get_report(void) {
 }
 
 bool should_mousekey_report_send(report_mouse_t *mouse_report) {
-    bool changed          = mouse_report->x != previous_mouse_report.x || mouse_report->y != previous_mouse_report.y || mouse_report->v != previous_mouse_report.v || mouse_report->h != previous_mouse_report.h || mouse_report->buttons != previous_mouse_report.buttons;
-    previous_mouse_report = *mouse_report;
-    return changed;
+    static report_mouse_t previous_mouse_report = {0};
+    if (memcmp(&previous_mouse_report, mouse_report, sizeof(report_mouse_t)) != 0) {
+        memcpy(&previous_mouse_report, mouse_report, sizeof(report_mouse_t));
+        return true;
+    }
+    return false;
 }
