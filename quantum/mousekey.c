@@ -33,7 +33,6 @@ inline int8_t times_inv_sqrt2(int8_t x) {
 }
 
 static report_mouse_t mouse_report          = {0};
-static report_mouse_t previous_mouse_report = {0};
 static void           mousekey_debug(void);
 static uint8_t        mousekey_accel        = 0;
 static uint8_t        mousekey_repeat       = 0;
