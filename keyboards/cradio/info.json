@@ -8,7 +8,9 @@
       "pid": "0x3988",
       "device_version": "0.0.1"
     },
-    "development_board": "elite_c",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "pin_compatible": "promicro",
     "debounce": 5,
     "features": {
         "bootmagic": true,
