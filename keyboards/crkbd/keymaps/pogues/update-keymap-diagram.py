@@ -11,6 +11,16 @@
 #   GitHub:     https://github.com/mattgemmell
 #
 # ============================================
+
+# TODO
+#  1.   need to add the combos to the keymap
+#  2.   add non adjacent combos to a different section
+#  3.   look at tidying up the templates so you dont need to pass the constants - what about f strings
+#  4.   svg_for_compose could be broken up
+#  5.   look at the text anchors for the combo comments... left align?
+#  5.   general code tidy up??
+#  6.   fancy combo mappings for non adjacent keys
+
 import argparse
 from collections import OrderedDict
 from string import Template
@@ -29,7 +39,7 @@ class SVG:
     split_spacing = 40 # if using split keyboard this is the gap between the sides
 
     layer_title_height = 20
-    layer_title_spacing = 10
+    layer_title_spacing = 15
 
     held_css_class = 'held'
     mods_css_class = 'mods'
@@ -39,7 +49,7 @@ class SVG:
 keycode_blank = 'NO'
 transparent_keycodes = ('_______', 'KC_TRNS')
 
-annotation_keycodes = { 
+annotation_keycodes = {
     'layer': ['TD(TD_LSYM)', 'TD(TD_LNUM)'],
     'one-shot': ['OSM_ALT', 'OSM_GUI', 'OSM_CTL', 'OSM_SFT'],
     'held': []
@@ -206,6 +216,7 @@ MODS_HELD_KEYCODES = {
     # indicate which keys are dual role tap/mods
     # here we list the mods key, the tap is defined in key_names
     'CTL_BSP': 'Ctrl',
+    'CTL_SPC': 'Ctrl',
     'SFT_SPC': '&#8679;',
     'SFT_BSP': '&#8679;',
     'CTL_Z': 'Ctrl',
@@ -283,6 +294,7 @@ key_names = {
     "KC_EXLM": "&#33;",
     "KC_AT": "&#64;",
     "MY_AT": "&#64;",
+    "KC_CAPS": "CapsWd",  #"&#20;",
     "KC_HASH": "&#35;",
     "MY_GBP": "&#163;",
     "KC_DLR": "&#36;",
@@ -306,21 +318,19 @@ key_names = {
     "KC_RCBR": "}",
     "KC_GRV": "`",
     "KC_QUES": "?",
-    #"OSM_ALT": "Alt",
-    #"OSM_GUI": "Gui",
-    #"OSM_CTL": "Ctrl",
-    #"OSM_SFT": "Shft",
+    "KC_LCTL": "&#94;",
     "OSM_SFT": "&#8679;",
     "OSM_CTL": "&#94;",
     "OSM_ALT": "&#8997;",
     "KC_LALT": "&#8997;",
-    "ALT_TAB": "&#8997;&#8677;",   #   TODO
+    "ALT_TAB": "&#8997;&#8677;",
     "OSM_GUI": "&#8984;",
     "KC_LGUI": "&#8984;",
     "TD(TD_LNUM)": "Num",
     "TD(TD_LSYM)": "Sym",
     "SFT_SPC": "&#9251;",
     "CTL_BSP": "&#9003;",
+    "CTL_SPC": "&#9251;",
     "SFT_BSP": "&#9003;",
     "CTL_Z": "Z",
     "CTL_SLS": "/",
@@ -371,28 +381,43 @@ def extract_layer_data(args):
     return ret
 
 
-def calculate_layer_dimensions(args, layer_data):
-    num_cols = calculate_num_cols(layer_data)
-    num_rows = len(layer_data)
+def calculate_layer_dimensions(args, keymap):
+    first_layer_data = next(iter(keymap.values()))
+    num_cols = calculate_num_cols(first_layer_data)
+    num_rows = len(first_layer_data)
 
-    width = num_cols * (SVG.key_spacing + SVG.key_width) 
+    width = num_cols * (SVG.key_spacing + SVG.key_width)
     # add the split spacing if needed, or another key space
-    width += SVG.split_spacing if args.split else SVG.key_spacing
+    width += SVG.key_spacing if args.mono else SVG.split_spacing
 
     height = num_rows * (SVG.key_height + SVG.key_spacing) + SVG.key_spacing + SVG.last_row_pad
 
     return width, height
 
-def create_svg_header(args, keymap):
-    first_layer_data = next(iter(keymap.values()))
-    layer_width, layer_height = calculate_layer_dimensions(args, first_layer_data)
-    num_layers = len(keymap)
+def _layer_y_offset(layer_index, layer_height):
+    # note that the last layer spacing was not originally included.. if you change this work on _svg_layer_height too
+    y = SVG.diagram_inset + layer_index * (layer_height + SVG.layer_title_height + SVG.layer_title_spacing + SVG.layer_spacing)
+    return y
 
+def _svg_layer_height(num_layers, layer_height):
+    """the height of the layer part of the svg."""
+    # add the inset top/bottom, height for each title, layer and layer spacing
+    #svg_height = (2 * SVG.diagram_inset)
+    #svg_height += num_layers * (SVG.layer_title_height + SVG.layer_title_spacing + layer_height + SVG.layer_spacing)
+    svg_height = SVG.diagram_inset + _layer_y_offset(num_layers, layer_height)
+    return svg_height
+
+def _svg_height(num_layers, layer_height, num_compose, num_compose_groups):
+    """the total height of the svg"""
+    svg_height = _svg_layer_height(num_layers, layer_height)
+    # now add in the compose mappings
+    svg_height += num_compose * (SVG.key_spacing + SVG.key_height) + 2 * num_compose_groups * (SVG.layer_title_spacing + SVG.layer_title_height)
+    return svg_height
+
+def create_svg_header(layer_width, layer_height, num_layers, num_compose, num_compose_groups):
+    svg_height = _svg_height(num_layers, layer_height, num_compose, num_compose_groups)
     svg_width = (2 * SVG.diagram_inset) + layer_width
-    svg_height = (2 * SVG.diagram_inset) + (num_layers * layer_height) + ((num_layers - 1) * SVG.layer_spacing)
-    # add in the titles
-    svg_height += num_layers * (SVG.layer_title_height + SVG.layer_title_spacing)
-    
+
     svg_raw = svg_header_template.substitute({
         'svg_width': svg_width,
         'svg_height': svg_height,
@@ -420,7 +445,8 @@ def calculate_num_cols(layer_data):
         max_cols = max(max_cols, len(valid_keys_in_row(row)))
     return max_cols
 
-def create_svg_for_layer(args, layer_name, layer_data, layer_index, base_layer):
+
+def create_svg_for_layer(args, layer_name, layer_data, layer_index, base_layer, layer_width, layer_height):
     """create the svg data for layer of the keymap
 
     :param args: the program args
@@ -431,15 +457,14 @@ def create_svg_for_layer(args, layer_name, layer_data, layer_index, base_layer):
     :param list[list] base_layer: the base layer keymap, needed to look up transparent keys.
     """
     # work out how far down we are for this layer
-    w, h = calculate_layer_dimensions(args, layer_data)
-    y = SVG.diagram_inset + layer_index * (h + SVG.layer_title_height + SVG.layer_title_spacing)
+    y = _layer_y_offset(layer_index, layer_height)
     x = SVG.diagram_inset
 
     # show the title
     layer_title = LAYER_DISPLAY_NAMES[layer_name]
     # SVG boxes are positioned at their centre point
     layer_title_y = y + SVG.layer_title_height / 2.0
-    svg_width = (2 * SVG.diagram_inset) + w
+    svg_width = (2 * SVG.diagram_inset) + layer_width
     layer_title_x = svg_width / 2.0
     svg_raw = svg_layer_title_template.substitute({
         'layer_title_x': layer_title_x,
@@ -460,7 +485,7 @@ def create_svg_for_layer(args, layer_name, layer_data, layer_index, base_layer):
     x += SVG.key_spacing
 
     num_cols = calculate_num_cols(layer_data)
-    i=0  
+    i=0
     for row, base_row in zip(layer_data[:-1], base_layer[:-1]):
         svg_raw += create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row)
         y += (SVG.key_spacing + SVG.key_height)
@@ -484,7 +509,7 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
     :param list[list] base_row: the base layer keymap, needed to look up transparent keys.
     """
     keys = valid_keys_in_row(row)
-    # TODO assumption of symmetry here
+    # assumption of symmetry here
     padding = (num_cols - len(keys)) // 2
     assert padding >= 0
 
@@ -496,7 +521,6 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
         key_classes = []
         # for transparent keys look up on the base layer
         if key in (transparent_keycodes):
-            key_is_transparent = True
             key_classes.append(SVG.transparent_css_class)
             key = base_row[idx-padding]
 
@@ -514,8 +538,7 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
             annotation = '<div class="annotation layer">held</div>'
         elif key in MODS_HELD_KEYCODES:
             key_classes.append(SVG.mods_css_class)
-            annotation = f'<div class="annotation layer">{MODS_HELD_KEYCODES[key]}</div>'  
-            # TODO
+            annotation = f'<div class="annotation layer">{MODS_HELD_KEYCODES[key]}</div>'
         else:  # get the annnotation
             for antype, keys in annotation_keycodes.items():
                 if key in keys:
@@ -535,10 +558,285 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
         # move to next key
         x += SVG.key_width + SVG.key_spacing
         # handling the split if needs be
-        if args.split and (idx +1)== num_cols / 2:
+        if not args.mono and (idx +1)== num_cols / 2:
             x += SVG.split_spacing
 
     return svg_raw
+
+
+################################################################################
+# this section handles the compose mappings.  should be in a different file
+# but there is a desire to keep this script contained..
+################################################################################
+def extract_compose_mappings(args):
+    """take the compose key presses from the keymap and return as a dict"""
+    with open(args.keymap, 'r') as keymapfile:
+        keymap_c = keymapfile.read()
+
+    compose_mapping_re = re.compile(
+        r'compose_mapping\(uint16_t\* [^,]*, uint8_t [^)]*\)\s*\{(?P<mappings>.*?)COMPOSE_ERROR',
+        re.MULTILINE | re.DOTALL
+    )
+
+    compose_mapping = compose_mapping_re.search(keymap_c)
+    return compose_mapping.group('mappings')
+
+def extract_compose_section(compose_text):
+    """yield a generator for each compose section with the section title and the section"""
+    # here we expect sections to start with a /*...*/ block and end with the next one
+    # having problems with regex so process the lines directly
+    in_section_name = ''
+    seen_section_start = False  # have we seen the start to the section
+    compose_block = []
+
+    section_start_re = re.compile(r'\s*\/\*')
+    section_end_re = re.compile(r'\s*\*+\/')
+    section_name_re = re.compile(r'\s*\*\s*(?P<name>.*)\s*')
+
+    for line in compose_text.split('\n'):
+        if in_section_name:
+            if section_start_re.search(line):
+                # start of the next section so return the set so far
+                yield in_section_name, '\n'.join(compose_block)
+                in_section_name = ''
+                compose_block = []
+                seen_section_start = True
+            elif section_end_re.search(line):
+                continue  # this is the closing comment for the section header
+            else:
+                compose_block.append(line)
+        else:
+            if seen_section_start:
+                seen_section_start = False
+                m = section_name_re.search(line)
+                if m:
+                    in_section_name = m.group('name')
+                else:
+                    raise Exception(f"oops {line=} is supposed to be a section name")
+
+            else:
+                if section_start_re.search(line):
+                    seen_section_start = True
+
+    # yield the last block
+    if compose_block:
+        yield in_section_name, '\n'.join(compose_block)
+
+    # had a failed attempt at the above with the following regex...
+    # did not return all the sections
+    # r'\/\*+\s*\n\s*\*\s*(?P<section_title>.*?)(?P<throw>\n\s*\*+\/\n)(?P<compose_items>[^*]*)'
+
+
+def extract_compose_keys(compose_section):
+    """for a section of compose keys extract each returning a generator of tuple
+    (press keys), (action keys)"""
+    compose_mapping_defn_re = re.compile(
+        # working without the comment...
+        #r'COMPOSE_MAPPING\(.*?COMPOSE_INPUT\((?P<keys>[^)]*)\),.*?\{\s*(?P<action>[^}]*);\s*\}',
+        r'//\s*(?P<comment>[^\n]*)$\s*COMPOSE_MAPPING\(.*?COMPOSE_INPUT\((?P<keys>[^)]*)\),.*?\{\s*(?P<action>[^}]*);\s*\}',
+        re.MULTILINE | re.DOTALL
+    )
+
+    for mapping in compose_mapping_defn_re.finditer(compose_section):
+        keys = tuple(mapping.group('keys').replace(' ', '').split(','))
+        action = extract_compose_action(mapping.group('action'))
+        yield keys, action, mapping.group('comment')
+
+
+def _send_string_to_keypresses(ss):
+    ret = []
+    for item in ss:
+        if item == 'SS_TAP':
+            continue  # dont need this in the picture
+        if item.startswith('SS_'):
+            ret.append(item.replace('SS_', 'KC_'))
+        else:
+            # we are at the end here, mods captured - need to extract the final presses
+            item = item.strip('")\'')
+            if item.startswith('X_'):
+                ret.append(item.replace('X_', 'KC_'))
+                return ret
+            else:
+                # need to handle C(S("ac")) meaning C+S+a then C+S+c
+                rtn = []
+                for key in item:
+                    rtn.extend(ret)
+                    rtn.append(key)
+                    rtn.append(',')  # use a comma to indicate the separation
+                return rtn[:-1]  # dont need the trailing comma
+
+    return ret
+
+def extract_compose_action(action_text):
+    """turn the action like SEND_STRING / tap_code to the sequence of key presses."""
+    if action_text.startswith('caps_word'):
+        return ['KC_CAPS']
+
+    tap_code_re = re.compile(r'tap_code\s*\(\s*(?P<key>[^\s]*)\)')
+    m = tap_code_re.match(action_text)
+    if m:  # tap code so just return the key
+        return [m.group('key')]
+
+    # now we just support SEND_STRING, as we have minimal usage now just support what we use
+    ss_code_re = re.compile(r'SEND_STRING\s*\(\s*(?P<sequence>[^\s]*)\)')
+    m = ss_code_re.match(action_text)
+    if m:
+        sequence = m.group('sequence')
+        return _send_string_to_keypresses(sequence.split("("))
+
+    raise ValueError(f'Do not know how to handle {action_text}.')
+
+
+def _longest_compose_key(compose_data):
+    longest_key = 0
+    for group_name, keys_actions in compose_data.items():
+        longest_key = max(longest_key, max(len(ka[0]) for ka in keys_actions))
+    return longest_key
+
+def _action_length(action_keys):
+    # allow for the half width of the comma separator
+    keys = len(list(filter(lambda a: a != ',', action_keys)))
+    separators = len(list(filter(lambda a: a == ',', action_keys)))
+    return keys + 0.5 * separators
+
+def _longest_compose_action(compose_data):
+    longest_action = 0
+    for group_name, keys_actions in compose_data.items():
+        longest_action = max(longest_action, max(_action_length(ka[1]) for ka in keys_actions))
+    return longest_action
+
+def _num_compose_actions(compose_data):
+    return sum(map(len, compose_data.values()))
+
+def extract_compose_data(args):
+    compose = OrderedDict()
+    if args.exclude_compose:
+        return compose
+    compose_mappings = extract_compose_mappings(args)
+    for group_name, compose_code in extract_compose_section(compose_mappings):
+        key_actions = list(extract_compose_keys(compose_code))
+        compose[group_name] = key_actions
+
+    return compose
+
+
+def _create_svg_background(y, width, height):
+    return f'<rect rx="{SVG.key_radius}" x="{SVG.diagram_inset}" y="{y}" width="{width}px" fill="#c0c0c0" height="{height}px"/>'
+
+def create_svg_for_compose(compose_data, y, layer_width):
+    svg_width = (2 * SVG.diagram_inset) + layer_width
+    title_x = svg_width / 2.0
+
+    svg_raw = ''
+
+    longest_key = _longest_compose_key(compose_data)
+    longest_action = _longest_compose_action(compose_data)
+
+    for group_name, keys_actions in compose_data.items():
+        # create a header of the group name
+        y = y + SVG.layer_title_height + SVG.layer_title_spacing
+        svg_raw += svg_layer_title_template.substitute({
+            'layer_title_x': title_x,
+            'layer_title_y': y + SVG.layer_title_height / 2.0,
+            'layer_title': 'compose mappings: ' + group_name,
+        })
+        y = y + SVG.layer_title_height + SVG.layer_title_spacing
+
+        height = len(keys_actions) * (SVG.key_height + SVG.key_spacing)
+        svg_raw += _create_svg_background(y, layer_width, height)
+
+        for keys, actions, comment in keys_actions:
+            x = SVG.diagram_inset
+
+            for k in keys:
+                svg_raw += svg_key_template.substitute({
+                    'key_radius': SVG.key_radius,
+                    'key_x': x,
+                    'key_y': y,
+                    'key_classes': ' ',
+                    'key_width': SVG.key_width,
+                    'key_height': SVG.key_height,
+                    'key_label': key_names.get(k, k.removeprefix(keycode_prefix)),
+                    'annotation': '',
+                })
+                # move to next key
+                x += SVG.key_width + SVG.key_spacing
+
+            # padding to longest key length
+            x += (SVG.key_width + SVG.key_spacing) * (longest_key - len(keys))
+            # add a half key separator
+            x += 0.5 * (SVG.key_width + SVG.key_spacing)
+
+            for a in actions:
+                if a == ',':  # the , is a split between actions so leave blank
+                    x += (SVG.key_width + SVG.key_spacing) / 2
+                else:
+                    svg_raw += svg_key_template.substitute({
+                        'key_radius': SVG.key_radius,
+                        'key_x': x,
+                        'key_y': y,
+                        'key_classes': '',
+                        'key_width': SVG.key_width,
+                        'key_height': SVG.key_height,
+                        'key_label': key_names.get(a, a.removeprefix(keycode_prefix)),
+                        'annotation': '',
+                    })
+                    # move to next key
+                    x += SVG.key_width + SVG.key_spacing
+
+            # add the comment
+            text_y = y + 0.5 * (SVG.key_width + SVG.key_spacing)
+            action_width = longest_action * (SVG.key_width + SVG.key_spacing)
+            text_x = action_width + (layer_width - action_width) / 2
+            print(f"{text_x=}   {x=}")
+            svg_raw += f'<text x="{text_x}px" y="{text_y}">{comment}</text>'
+
+            y += SVG.key_spacing + SVG.key_height
+
+    return svg_raw
+
+################################################################################
+# end of compose code...
+################################################################################
+
+def create_and_write_svg(args):
+    """do the work..."""
+    keymap = extract_layer_data(args)
+    compose_data = extract_compose_data(args)
+    first_layer_data = next(iter(keymap.values()))
+
+    # get the layer dimensions for layout
+    layer_width, layer_height = calculate_layer_dimensions(args, keymap)
+    num_layers = 1 if args.layer else len(keymap)
+    # and the number of compose
+    num_compose = _num_compose_actions(compose_data)
+    num_compose_groups = len(compose_data)
+
+    svg_header = create_svg_header(layer_width, layer_height, num_layers, num_compose, num_compose_groups)
+    svg_for_layers = []
+    base_layer = None
+    layer_idx = 0
+    for layer_name, layer_data in keymap.items():
+        base_layer = base_layer or layer_data  # save the first layer
+        if args.layer and layer_name != args.layer:
+            continue
+        svg_for_layers.append(create_svg_for_layer(args, layer_name, layer_data, layer_idx, base_layer, layer_width, layer_height))
+        layer_idx += 1
+
+    y = _layer_y_offset(num_layers, layer_height)
+    svg_compose = ''
+    if not args.exclude_compose:
+        svg_compose = create_svg_for_compose(compose_data, y, layer_width) # assume layer is widest bit
+
+    with open(args.output, 'w') as svg_file:
+        svg_file.write(svg_header)
+        for svgl in svg_for_layers:
+            svg_file.write(svgl)
+
+        svg_file.write(svg_compose)
+
+        svg_file.write(svg_footer)
+
 
 def main():
     parser = argparse.ArgumentParser(description='Generate a keymap diagram.')
@@ -567,34 +865,24 @@ def main():
         help='create a file for the single layer (default is all)'
     )
     parser.add_argument(
-        '-s',
-        '--split',
-        type=bool,
-        nargs='?',
-        default=True,
-        help='is the keyboard split (default) or not'
+        '-m',
+        '--mono',
+        action='store_true',
+        default=False,
+        help='is the keyboard a mono board or split (default)'
+    )
+    parser.add_argument(
+        '-x',
+        '--exclude_compose',
+        action='store_true',
+        default=False,
+        help='should the compose mappings be added to the bottom of the diagram'
     )
 
     args = parser.parse_args()
 
-    keymap = extract_layer_data(args)
-    svg_header = create_svg_header(args, keymap)
-    svg_for_layers = []
-    base_layer = None
-    layer_idx = 0
-    for layer_name, layer_data in keymap.items():
-        base_layer = base_layer or layer_data  # TODO better way to get first one.
-        if args.layer and layer_name != args.layer:
-            continue
-        svg_for_layers.append(create_svg_for_layer(args, layer_name, layer_data, layer_idx, base_layer))
-        layer_idx += 1
+    create_and_write_svg(args)
 
-    with open(args.output, 'w') as svg_file:
-        svg_file.write(svg_header)
-        for svgl in svg_for_layers:
-            svg_file.write(svgl)
-
-        svg_file.write(svg_footer)
 
 if __name__ == "__main__":
     main()
