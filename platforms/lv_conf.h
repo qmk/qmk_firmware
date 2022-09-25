@@ -12,23 +12,22 @@
  */
 
 /* clang-format off */
-#ifndef QUANTUM_PAINTER_LVGL_USE_CUSTOM_CONF
+#if 1 /*Set it to "1" to enable content*/
 
 #ifndef LV_CONF_H
 #define LV_CONF_H
 
 #include <stdint.h>
-#include "qp_lvgl.h"
 
 /*====================
    COLOR SETTINGS
  *====================*/
 
 /*Color depth: 1 (1 byte per pixel), 8 (RGB332), 16 (RGB565), 32 (ARGB8888)*/
-#define LV_COLOR_DEPTH QUANTUM_PAINTER_LVGL_COLOR_DEPTH
+#define LV_COLOR_DEPTH 16
 
 /*Swap the 2 bytes of RGB565 color. Useful if the display has an 8-bit interface (e.g. SPI)*/
-#define LV_COLOR_16_SWAP QUANTUM_PAINTER_LVGL_16BIT_SWAP_BYTES
+#define LV_COLOR_16_SWAP 1
 
 /*Enable more complex drawing routines to manage screens transparency.
  *Can be used if the UI is above another layer, e.g. an OSD menu or video player.
@@ -47,7 +46,9 @@
  *=========================*/
 
 /*1: use custom malloc/free, 0: use the built-in `lv_mem_alloc()` and `lv_mem_free()`*/
+#ifndef LV_MEM_CUSTOM
 #define LV_MEM_CUSTOM 1
+#endif // LV_MEM_CUSTOM
 #if LV_MEM_CUSTOM == 0
     /*Size of the memory available for `lv_mem_alloc()` in bytes (>= 2kB)*/
     #define LV_MEM_SIZE (48U * 1024U)          /*[bytes]*/
@@ -86,7 +87,9 @@
 
 /*Use a custom tick source that tells the elapsed time in milliseconds.
  *It removes the need to manually update the tick with `lv_tick_inc()`)*/
+#ifndef LV_TICK_CUSTOM
 #define LV_TICK_CUSTOM 0
+#endif // LV_TICK_CUSTOM
 #if LV_TICK_CUSTOM
     #define LV_TICK_CUSTOM_INCLUDE "Arduino.h"         /*Header for the system time function*/
     #define LV_TICK_CUSTOM_SYS_TIME_EXPR (millis())    /*Expression evaluating to current system time in ms*/
@@ -106,7 +109,9 @@
 
 /*Enable complex draw engine.
  *Required to draw shadow, gradient, rounded corners, circles, arc, skew lines, image transformations or any masks*/
+#ifndef LV_DRAW_COMPLEX
 #define LV_DRAW_COMPLEX 1
+#endif // LV_DRAW_COMPLEX
 #if LV_DRAW_COMPLEX != 0
 
     /*Allow buffering some shadow calculation.
@@ -142,7 +147,9 @@
 /*Allow dithering the gradients (to achieve visual smooth color gradients on limited color depth display)
  *LV_DITHER_GRADIENT implies allocating one or two more lines of the object's rendering surface
  *The increase in memory consumption is (32 bits * object width) plus 24 bits * object width if using error diffusion */
+#ifndef LV_DITHER_GRADIENT
 #define LV_DITHER_GRADIENT      0
+#endif
 #if LV_DITHER_GRADIENT
     /*Add support for error diffusion dithering.
      *Error diffusion dithering gets a much better visual result, but implies more CPU consumption and memory when drawing.
@@ -159,7 +166,9 @@
  *-----------*/
 
 /*Use STM32's DMA2D (aka Chrom Art) GPU*/
+#ifndef LV_USE_GPU_STM32_DMA2D
 #define LV_USE_GPU_STM32_DMA2D 0
+#endif // LV_USE_GPU_STM32_DMA2D
 #if LV_USE_GPU_STM32_DMA2D
     /*Must be defined to include path of CMSIS header of target processor
     e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
@@ -167,7 +176,9 @@
 #endif
 
 /*Use NXP's PXP GPU iMX RTxxx platforms*/
+#ifndef LV_USE_GPU_NXP_PXP
 #define LV_USE_GPU_NXP_PXP 0
+#endif // LV_USE_GPU_NXP_PXP
 #if LV_USE_GPU_NXP_PXP
     /*1: Add default bare metal and FreeRTOS interrupt handling routines for PXP (lv_gpu_nxp_pxp_osa.c)
     *   and call lv_gpu_nxp_pxp_init() automatically during lv_init(). Note that symbol SDK_OS_FREE_RTOS
@@ -181,7 +192,9 @@
 #define LV_USE_GPU_NXP_VG_LITE 0
 
 /*Use SDL renderer API*/
+#ifndef LV_USE_GPU_SDL
 #define LV_USE_GPU_SDL 0
+#endif // LV_USE_GPU_SDL
 #if LV_USE_GPU_SDL
     #define LV_GPU_SDL_INCLUDE_PATH <SDL2/SDL.h>
     /*Texture cache size, 8MB by default*/
@@ -195,7 +208,9 @@
  *-----------*/
 
 /*Enable the log module*/
+#ifndef LV_USE_LOG
 #define LV_USE_LOG 0
+#endif // LV_USE_LOG
 #if LV_USE_LOG
 
     /*How important log should be added:
@@ -244,14 +259,18 @@
  *-----------*/
 
 /*1: Show CPU usage and FPS count*/
+#ifndef LV_USE_PERF_MONITOR
 #define LV_USE_PERF_MONITOR 0
+#endif // LV_USE_PERF_MONITOR
 #if LV_USE_PERF_MONITOR
     #define LV_USE_PERF_MONITOR_POS LV_ALIGN_BOTTOM_RIGHT
 #endif
 
 /*1: Show the used memory and the memory fragmentation
  * Requires LV_MEM_CUSTOM = 0*/
+#ifndef LV_USE_MEM_MONITOR
 #define LV_USE_MEM_MONITOR 0
+#endif // LV_USE_MEM_MONITOR
 #if LV_USE_MEM_MONITOR
     #define LV_USE_MEM_MONITOR_POS LV_ALIGN_BOTTOM_LEFT
 #endif
@@ -260,7 +279,9 @@
 #define LV_USE_REFR_DEBUG 0
 
 /*Change the built in (v)snprintf functions*/
+#ifndef LV_SPRINTF_CUSTOM
 #define LV_SPRINTF_CUSTOM 1
+#endif // LV_SPRINTF_CUSTOM
 #if LV_SPRINTF_CUSTOM
     #define LV_SPRINTF_INCLUDE <stdio.h>
     #define lv_snprintf  snprintf
@@ -273,7 +294,9 @@
 
 /*Garbage Collector settings
  *Used if lvgl is bound to higher level language and the memory is managed by that language*/
+#ifndef LV_ENABLE_GC
 #define LV_ENABLE_GC 0
+#endif // LV_ENABLE_GC
 #if LV_ENABLE_GC != 0
     #define LV_GC_INCLUDE "gc.h"                           /*Include Garbage Collector related things*/
 #endif /*LV_ENABLE_GC*/
@@ -375,7 +398,9 @@
 #define LV_USE_FONT_COMPRESSED 0
 
 /*Enable subpixel rendering*/
+#ifndef LV_USE_FONT_SUBPX
 #define LV_USE_FONT_SUBPX 0
+#endif // LV_USE_FONT_SUBPX
 #if LV_USE_FONT_SUBPX
     /*Set the pixel order of the display. Physical order of RGB channels. Doesn't matter with "normal" fonts.*/
     #define LV_FONT_SUBPX_BGR 0  /*0: RGB; 1:BGR order*/
@@ -414,7 +439,9 @@
 /*Support bidirectional texts. Allows mixing Left-to-Right and Right-to-Left texts.
  *The direction will be processed according to the Unicode Bidirectional Algorithm:
  *https://www.w3.org/International/articles/inline-bidi-markup/uba-basics*/
+#ifndef LV_USE_BIDI
 #define LV_USE_BIDI 0
+#endif // LV_USE_BIDI
 #if LV_USE_BIDI
     /*Set the default direction. Supported values:
     *`LV_BASE_DIR_LTR` Left-to-Right
@@ -451,7 +478,9 @@
 
 #define LV_USE_IMG        1   /*Requires: lv_label*/
 
+#ifndef LV_USE_LABEL
 #define LV_USE_LABEL      1
+#endif // LV_USE_LABEL
 #if LV_USE_LABEL
     #define LV_LABEL_TEXT_SELECTION 1 /*Enable selecting text of the label*/
     #define LV_LABEL_LONG_TXT_HINT 1  /*Store some extra info in labels to speed up drawing of very long texts*/
@@ -459,7 +488,9 @@
 
 #define LV_USE_LINE       1
 
+#ifndef LV_USE_ROLLER
 #define LV_USE_ROLLER     1   /*Requires: lv_label*/
+#endif // LV_USE_ROLLER
 #if LV_USE_ROLLER
     #define LV_ROLLER_INF_PAGES 7 /*Number of extra "pages" when the roller is infinite*/
 #endif
@@ -468,7 +499,9 @@
 
 #define LV_USE_SWITCH     1
 
+#ifndef LV_USE_TEXTAREA
 #define LV_USE_TEXTAREA   1   /*Requires: lv_label*/
+#endif // LV_USE_TEXTAREA
 #if LV_USE_TEXTAREA != 0
     #define LV_TEXTAREA_DEF_PWD_SHOW_TIME 1500    /*ms*/
 #endif
@@ -482,7 +515,9 @@
 /*-----------
  * Widgets
  *----------*/
+#ifndef LV_USE_CALENDAR
 #define LV_USE_CALENDAR   1
+#endif // LV_USE_CALENDAR
 #if LV_USE_CALENDAR
     #define LV_CALENDAR_WEEK_STARTS_MONDAY 0
     #if LV_CALENDAR_WEEK_STARTS_MONDAY
@@ -524,7 +559,9 @@
 
 #define LV_USE_WIN        1
 
+#ifndef LV_USE_SPAN
 #define LV_USE_SPAN       1
+#endif // LV_USE_SPAN
 #if LV_USE_SPAN
     /*A line text can contain maximum num of span descriptor */
     #define LV_SPAN_SNIPPET_STACK_SIZE 64
@@ -535,7 +572,9 @@
  *----------*/
 
 /*A simple, impressive and very complete theme*/
+#ifndef LV_USE_THEME_DEFAULT
 #define LV_USE_THEME_DEFAULT 1
+#endif // LV_USE_THEME_DEFAULT
 #if LV_USE_THEME_DEFAULT
 
     /*0: Light mode; 1: Dark mode*/
@@ -571,7 +610,9 @@
 /*File system interfaces for common APIs */
 
 /*API for fopen, fread, etc*/
+#ifndef LV_USE_FS_STDIO
 #define LV_USE_FS_STDIO 0
+#endif // LV_USE_FS_STDIO
 #if LV_USE_FS_STDIO
     #define LV_FS_STDIO_LETTER '\0'     /*Set an upper cased letter on which the drive will accessible (e.g. 'A')*/
     #define LV_FS_STDIO_PATH ""         /*Set the working directory. File/directory paths will be appended to it.*/
@@ -579,7 +620,9 @@
 #endif
 
 /*API for open, read, etc*/
+#ifndef LV_USE_FS_POSIX
 #define LV_USE_FS_POSIX 0
+#endif // LV_USE_FS_POSIX
 #if LV_USE_FS_POSIX
     #define LV_FS_POSIX_LETTER '\0'     /*Set an upper cased letter on which the drive will accessible (e.g. 'A')*/
     #define LV_FS_POSIX_PATH ""         /*Set the working directory. File/directory paths will be appended to it.*/
@@ -587,7 +630,9 @@
 #endif
 
 /*API for CreateFile, ReadFile, etc*/
+#ifndef LV_USE_FS_WIN32
 #define LV_USE_FS_WIN32 0
+#endif // LV_USE_FS_WIN32
 #if LV_USE_FS_WIN32
     #define LV_FS_WIN32_LETTER  '\0'    /*Set an upper cased letter on which the drive will accessible (e.g. 'A')*/
     #define LV_FS_WIN32_PATH ""         /*Set the working directory. File/directory paths will be appended to it.*/
@@ -595,7 +640,9 @@
 #endif
 
 /*API for FATFS (needs to be added separately). Uses f_open, f_read, etc*/
+#ifndef LV_USE_FS_FATFS
 #define LV_USE_FS_FATFS  0
+#endif // LV_USE_FS_FATFS
 #if LV_USE_FS_FATFS
     #define LV_FS_FATFS_LETTER '\0'     /*Set an upper cased letter on which the drive will accessible (e.g. 'A')*/
     #define LV_FS_FATFS_CACHE_SIZE 0    /*>0 to cache this number of bytes in lv_fs_read()*/
@@ -618,7 +665,9 @@
 #define LV_USE_QRCODE 0
 
 /*FreeType library*/
+#ifndef LV_USE_FREETYPE
 #define LV_USE_FREETYPE 0
+#endif // LV_USE_FREETYPE
 #if LV_USE_FREETYPE
     /*Memory used by FreeType to cache characters [bytes] (-1: no caching)*/
     #define LV_FREETYPE_CACHE_SIZE (16 * 1024)
@@ -639,7 +688,9 @@
 
 /*FFmpeg library for image decoding and playing videos
  *Supports all major image formats so do not enable other image decoder with it*/
+#ifndef LV_USE_FFMPEG
 #define LV_USE_FFMPEG  0
+#endif // LV_USE_FFMPEG
 #if LV_USE_FFMPEG
     /*Dump input information to stderr*/
     #define LV_FFMPEG_AV_DUMP_FORMAT 0
@@ -670,7 +721,9 @@
  ====================*/
 
 /*Show some widget. It might be required to increase `LV_MEM_SIZE` */
+#ifndef LV_USE_DEMO_WIDGETS
 #define LV_USE_DEMO_WIDGETS        0
+#endif // LV_USE_DEMO_WIDGETS
 #if LV_USE_DEMO_WIDGETS
 #define LV_DEMO_WIDGETS_SLIDESHOW  0
 #endif
@@ -685,7 +738,9 @@
 #define LV_USE_DEMO_STRESS      0
 
 /*Music player demo*/
+#ifndef LV_USE_DEMO_MUSIC
 #define LV_USE_DEMO_MUSIC       0
+#endif // LV_USE_DEMO_MUSIC
 #if LV_USE_DEMO_MUSIC
 # define LV_DEMO_MUSIC_SQUARE       0
 # define LV_DEMO_MUSIC_LANDSCAPE    0
