@@ -31,11 +31,11 @@ uint16_t usb_setups[STORED_USB_SETUPS];
 
 #ifdef OS_DETECTION_ENABLE
 struct setups_data_t {
-    uint8_t   count;
-    uint8_t   cnt_02;
-    uint8_t   cnt_04;
-    uint8_t   cnt_ff;
-    uint16_t  last_wlength;
+    uint8_t      count;
+    uint8_t      cnt_02;
+    uint8_t      cnt_04;
+    uint8_t      cnt_ff;
+    uint16_t     last_wlength;
     os_variant_t detected_os;
 };
 
