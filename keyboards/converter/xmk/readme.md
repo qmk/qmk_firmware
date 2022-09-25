@@ -1,7 +1,5 @@
 # converter/xmk
 
-![𝑥MK](https://raw.githubusercontent.com/manna-harbour/xmk/main/docs/images/xmk-banner.jpg)
-
 `converter/xmk` is the QMK keyboard definition for [𝑥MK](https://github.com/manna-harbour/xmk).
 
 * Keyboard Maintainer: [Manna Harbour](https://github.com/manna-harbour)
