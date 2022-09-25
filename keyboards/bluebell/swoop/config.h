@@ -35,7 +35,6 @@
 #define ENCODERS_PAD_B { B5 }
 #define ENCODERS_PAD_A_RIGHT { B5 }
 #define ENCODERS_PAD_B_RIGHT { B4 }
-#define ENCODER_RESOLUTION 4
 
 // OLED driver
 #ifdef OLED_DRIVER_ENABLE
