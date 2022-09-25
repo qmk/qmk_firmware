@@ -4,7 +4,7 @@ Y="\033[1;33m"
 NC="\033[0m"
 
 if [[ -z "${1}" ]]; then
-    layout="default"
+    layout="rgb_default"
 else
     layout=${1}
 fi
