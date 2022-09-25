@@ -613,20 +613,24 @@ def _extract_led_config(info_data, keyboard):
     cols = info_data['matrix_size']['cols']
     rows = info_data['matrix_size']['rows']
 
-    # Assume what feature owns g_led_config
-    feature = "rgb_matrix"
-    if info_data.get("features", {}).get("led_matrix", False):
+    # Determine what feature owns g_led_config
+    features = info_data.get("features", {})
+    feature = None
+    if features.get("rgb_matrix", False):
+        feature = "rgb_matrix"
+    elif features.get("led_matrix", False):
         feature = "led_matrix"
 
-    # Process
-    for file in find_keyboard_c(keyboard):
-        try:
-            ret = find_led_config(file, cols, rows)
-            if ret:
-                info_data[feature] = info_data.get(feature, {})
-                info_data[feature]["layout"] = ret
-        except Exception as e:
-            _log_warning(info_data, f'led_config: {file.name}: {e}')
+    if feature:
+        # Process
+        for file in find_keyboard_c(keyboard):
+            try:
+                ret = find_led_config(file, cols, rows)
+                if ret:
+                    info_data[feature] = info_data.get(feature, {})
+                    info_data[feature]["layout"] = ret
+            except Exception as e:
+                _log_warning(info_data, f'led_config: {file.name}: {e}')
 
     return info_data
 

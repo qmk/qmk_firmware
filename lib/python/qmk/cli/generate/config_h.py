@@ -13,6 +13,14 @@ from qmk.path import normpath
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
+def generate_define(define, value=None):
+    value = f' {value}' if value is not None else ''
+    return f"""
+#ifndef {define}
+#    define {define}{value}
+#endif // {define}"""
+
+
 def direct_pins(direct_pins, postfix):
     """Return the config.h lines that set the direct pins.
     """
@@ -22,11 +30,7 @@ def direct_pins(direct_pins, postfix):
         cols = ','.join(map(str, [col or 'NO_PIN' for col in row]))
         rows.append('{' + cols + '}')
 
-    return f"""
-#ifndef DIRECT_PINS{postfix}
-#   define DIRECT_PINS{postfix} {{ {", ".join(rows)} }}
-#endif // DIRECT_PINS{postfix}
-"""
+    return generate_define(f'DIRECT_PINS{postfix}', f'{{ {", ".join(rows)} }}')
 
 
 def pin_array(define, pins, postfix):
@@ -34,11 +38,7 @@ def pin_array(define, pins, postfix):
     """
     pin_array = ', '.join(map(str, [pin or 'NO_PIN' for pin in pins]))
 
-    return f"""
-#ifndef {define}_PINS{postfix}
-#   define {define}_PINS{postfix} {{ {pin_array} }}
-#endif // {define}_PINS{postfix}
-"""
+    return generate_define(f'{define}_PINS{postfix}', f'{{ {pin_array} }}')
 
 
 def matrix_pins(matrix_pins, postfix=''):
@@ -62,18 +62,8 @@ def generate_matrix_size(kb_info_json, config_h_lines):
     """Add the matrix size to the config.h.
     """
     if 'matrix_pins' in kb_info_json:
-        col_count = kb_info_json['matrix_size']['cols']
-        row_count = kb_info_json['matrix_size']['rows']
-
-        config_h_lines.append(f"""
-#ifndef MATRIX_COLS
-#   define MATRIX_COLS {col_count}
-#endif // MATRIX_COLS
-
-#ifndef MATRIX_ROWS
-#   define MATRIX_ROWS {row_count}
-#endif // MATRIX_ROWS
-""")
+        config_h_lines.append(generate_define('MATRIX_COLS', kb_info_json['matrix_size']['cols']))
+        config_h_lines.append(generate_define('MATRIX_ROWS', kb_info_json['matrix_size']['rows']))
 
 
 def generate_config_items(kb_info_json, config_h_lines):
@@ -95,44 +85,23 @@ def generate_config_items(kb_info_json, config_h_lines):
             continue
 
         if key_type.startswith('array.array'):
-            config_h_lines.append('')
-            config_h_lines.append(f'#ifndef {config_key}')
-            config_h_lines.append(f'#   define {config_key} {{ {", ".join(["{" + ",".join(list(map(str, x))) + "}" for x in config_value])} }}')
-            config_h_lines.append(f'#endif // {config_key}')
+            config_h_lines.append(generate_define(config_key, f'{{ {", ".join(["{" + ",".join(list(map(str, x))) + "}" for x in config_value])} }}'))
         elif key_type.startswith('array'):
-            config_h_lines.append('')
-            config_h_lines.append(f'#ifndef {config_key}')
-            config_h_lines.append(f'#   define {config_key} {{ {", ".join(map(str, config_value))} }}')
-            config_h_lines.append(f'#endif // {config_key}')
+            config_h_lines.append(generate_define(config_key, f'{{ {", ".join(map(str, config_value))} }}'))
         elif key_type == 'bool':
             if config_value:
-                config_h_lines.append('')
-                config_h_lines.append(f'#ifndef {config_key}')
-                config_h_lines.append(f'#   define {config_key}')
-                config_h_lines.append(f'#endif // {config_key}')
+                config_h_lines.append(generate_define(config_key))
         elif key_type == 'mapping':
             for key, value in config_value.items():
-                config_h_lines.append('')
-                config_h_lines.append(f'#ifndef {key}')
-                config_h_lines.append(f'#   define {key} {value}')
-                config_h_lines.append(f'#endif // {key}')
+                config_h_lines.append(generate_define(key, value))
         elif key_type == 'str':
             escaped_str = config_value.replace('\\', '\\\\').replace('"', '\\"')
-            config_h_lines.append('')
-            config_h_lines.append(f'#ifndef {config_key}')
-            config_h_lines.append(f'#   define {config_key} "{escaped_str}"')
-            config_h_lines.append(f'#endif // {config_key}')
+            config_h_lines.append(generate_define(config_key, f'"{escaped_str}"'))
         elif key_type == 'bcd_version':
             (major, minor, revision) = config_value.split('.')
-            config_h_lines.append('')
-            config_h_lines.append(f'#ifndef {config_key}')
-            config_h_lines.append(f'#   define {config_key} 0x{major.zfill(2)}{minor}{revision}')
-            config_h_lines.append(f'#endif // {config_key}')
+            config_h_lines.append(generate_define(config_key, f'0x{major.zfill(2)}{minor}{revision}'))
         else:
-            config_h_lines.append('')
-            config_h_lines.append(f'#ifndef {config_key}')
-            config_h_lines.append(f'#   define {config_key} {config_value}')
-            config_h_lines.append(f'#endif // {config_key}')
+            config_h_lines.append(generate_define(config_key, config_value))
 
 
 def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
@@ -145,24 +114,15 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
         b_pads.append(encoder["pin_b"])
         resolutions.append(encoder.get("resolution", None))
 
-    config_h_lines.append(f'#ifndef ENCODERS_PAD_A{postfix}')
-    config_h_lines.append(f'#   define ENCODERS_PAD_A{postfix} {{ { ", ".join(a_pads) } }}')
-    config_h_lines.append(f'#endif // ENCODERS_PAD_A{postfix}')
-
-    config_h_lines.append(f'#ifndef ENCODERS_PAD_B{postfix}')
-    config_h_lines.append(f'#   define ENCODERS_PAD_B{postfix} {{ { ", ".join(b_pads) } }}')
-    config_h_lines.append(f'#endif // ENCODERS_PAD_B{postfix}')
+    config_h_lines.append(generate_define(f'ENCODERS_PAD_A{postfix}', f'{{ {", ".join(a_pads)} }}'))
+    config_h_lines.append(generate_define(f'ENCODERS_PAD_B{postfix}', f'{{ {", ".join(b_pads)} }}'))
 
     if None in resolutions:
         cli.log.debug("Unable to generate ENCODER_RESOLUTION configuration")
     elif len(set(resolutions)) == 1:
-        config_h_lines.append(f'#ifndef ENCODER_RESOLUTION{postfix}')
-        config_h_lines.append(f'#   define ENCODER_RESOLUTION{postfix} { resolutions[0] }')
-        config_h_lines.append(f'#endif // ENCODER_RESOLUTION{postfix}')
+        config_h_lines.append(generate_define(f'ENCODER_RESOLUTION{postfix}', resolutions[0]))
     else:
-        config_h_lines.append(f'#ifndef ENCODER_RESOLUTIONS{postfix}')
-        config_h_lines.append(f'#   define ENCODER_RESOLUTIONS{postfix} {{ { ", ".join(map(str,resolutions)) } }}')
-        config_h_lines.append(f'#endif // ENCODER_RESOLUTIONS{postfix}')
+        config_h_lines.append(generate_define(f'ENCODER_RESOLUTIONS{postfix}', f'{{ {", ".join(map(str,resolutions))} }}'))
 
 
 def generate_split_config(kb_info_json, config_h_lines):
@@ -171,35 +131,23 @@ def generate_split_config(kb_info_json, config_h_lines):
         if kb_info_json['split']['primary'] in ('left', 'right'):
             config_h_lines.append('')
             config_h_lines.append('#ifndef MASTER_LEFT')
-            config_h_lines.append('#   ifndef MASTER_RIGHT')
+            config_h_lines.append('#    ifndef MASTER_RIGHT')
             if kb_info_json['split']['primary'] == 'left':
-                config_h_lines.append('#       define MASTER_LEFT')
+                config_h_lines.append('#        define MASTER_LEFT')
             elif kb_info_json['split']['primary'] == 'right':
-                config_h_lines.append('#       define MASTER_RIGHT')
-            config_h_lines.append('#   endif // MASTER_RIGHT')
+                config_h_lines.append('#        define MASTER_RIGHT')
+            config_h_lines.append('#    endif // MASTER_RIGHT')
             config_h_lines.append('#endif // MASTER_LEFT')
         elif kb_info_json['split']['primary'] == 'pin':
-            config_h_lines.append('')
-            config_h_lines.append('#ifndef SPLIT_HAND_PIN')
-            config_h_lines.append('#   define SPLIT_HAND_PIN')
-            config_h_lines.append('#endif // SPLIT_HAND_PIN')
+            config_h_lines.append(generate_define('SPLIT_HAND_PIN'))
         elif kb_info_json['split']['primary'] == 'matrix_grid':
-            config_h_lines.append('')
-            config_h_lines.append('#ifndef SPLIT_HAND_MATRIX_GRID')
-            config_h_lines.append('#   define SPLIT_HAND_MATRIX_GRID {%s}' % (','.join(kb_info_json["split"]["matrix_grid"],)))
-            config_h_lines.append('#endif // SPLIT_HAND_MATRIX_GRID')
+            config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', f'{{ {",".join(kb_info_json["split"]["matrix_grid"])} }}'))
         elif kb_info_json['split']['primary'] == 'eeprom':
-            config_h_lines.append('')
-            config_h_lines.append('#ifndef EE_HANDS')
-            config_h_lines.append('#   define EE_HANDS')
-            config_h_lines.append('#endif // EE_HANDS')
+            config_h_lines.append(generate_define('EE_HANDS'))
 
     if 'protocol' in kb_info_json['split'].get('transport', {}):
         if kb_info_json['split']['transport']['protocol'] == 'i2c':
-            config_h_lines.append('')
-            config_h_lines.append('#ifndef USE_I2C')
-            config_h_lines.append('#   define USE_I2C')
-            config_h_lines.append('#endif // USE_I2C')
+            config_h_lines.append(generate_define('USE_I2C'))
 
     if 'right' in kb_info_json['split'].get('matrix_pins', {}):
         config_h_lines.append(matrix_pins(kb_info_json['split']['matrix_pins']['right'], '_RIGHT'))
