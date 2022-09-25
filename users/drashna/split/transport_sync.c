@@ -98,8 +98,8 @@ void user_transport_update(void) {
 #if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
         user_state.is_oled_enabled = is_oled_enabled;
 #endif
-#if defined(CUSTOM_POINTING_DEVICE)
-        user_state.tap_toggling = tap_toggling;
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+        user_state.tap_toggling = get_auto_mouse_toggle();
 #endif
 #ifdef UNICODE_COMMON_ENABLE
         user_state.unicode_mode        = unicode_config.input_mode;
@@ -122,8 +122,10 @@ void user_transport_update(void) {
 #if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
         is_oled_enabled = user_state.is_oled_enabled;
 #endif
-#if defined(CUSTOM_POINTING_DEVICE)
-        tap_toggling = user_state.tap_toggling;
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+        if (get_auto_mouse_toggle() != user_state.tap_toggling) {
+            auto_mouse_toggle();
+        }
 #endif
 #ifdef SWAP_HANDS_ENABLE
         swap_hands = user_state.swap_hands;
