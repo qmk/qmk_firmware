@@ -71,3 +71,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 Then please open an issue on Github with this information and tell what OS was not detected correctly and if you have any intermediate devices between keyboard and your computer.
 
+
+## Credits
+
+Original idea is coming from [FingerprintUSBHost](https://github.com/keyboardio/FingerprintUSBHost) project.
