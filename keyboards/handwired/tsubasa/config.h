@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kuriatsu
-#define PRODUCT      tsubasa
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
@@ -69,8 +62,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F5 }
+#define ENCODERS_PAD_A { }
+#define ENCODERS_PAD_B { }
+#define ENCODER_RESOLUTIONS { }
+#define ENCODERS_PAD_A_RIGHT { F4 }
+#define ENCODERS_PAD_B_RIGHT { F5 }
+#define ENCODER_RESOLUTIONS_RIGHT { 4 }
 
 #define SPLIT_WPM_ENABLE
-#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE

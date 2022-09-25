@@ -1,4 +1,4 @@
-/* Copyright 2021 kuriatsu <kuriatsubayashi712@gmail.com>
+/* Copyright 2021 @kuriatsu
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,3 @@
  */
 
 #include "tsubasa.h"
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    return encoder_update_user(index, clockwise);
-}

@@ -40,9 +40,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
+    [_FN]   =   { ENCODER_CCW_CW(    KC_VOLU,       KC_VOLD)}
+};
+#endif
 
 
 #ifdef OLED_ENABLE
