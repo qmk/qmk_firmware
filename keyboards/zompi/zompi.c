@@ -17,6 +17,24 @@
 
 #include "zompi.h"
 
+#ifdef RGB_MATRIX
+ led_config_t g_led_config = { {
+     {  1,  2,  1,  1,  1 },
+     {  1,  2,  1,  1,  1 },
+     {  1,  2,  1,  1,  1 },
+     {  1,  2,  1,  1,  1 },
+     {  1,  2,  1,  1,  1 },
+     {  1,  2,  1,  1,  1 },
+     {  1,  2,  1,  1,  1 },
+     {  1,  2,  1,  1,  1 }
+ }, {
+     {  85,  16 }, {  50,  13 }, {  16,  20 }, {  16,  38 }, {  50,  48 }, {  85,  52 }
+ }, {
+     4, 4, 4, 4, 4, 4
+ } };
+#endif
+
+
 #ifdef OLED_ENABLE
 static void render_logo(void) {
     static const char PROGMEM raw_logo[] = {
@@ -93,10 +111,8 @@ static void render_status(void) {
 }
 
 bool oled_task_kb(void) {
-        render_logo();
-        return true;
   if (!oled_task_user()) { return false; }
-    if (is_keyboard_left()) {
+  if (is_keyboard_left()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();
@@ -140,14 +156,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   return false;
 }
 
-/* RGB Positioning */
- led_config_t g_led_config = { {
-     {  0,   1,  2 },
-     {  3,   4,  5 },
-     {  6,   7,  8 },
-     {  9,  10, 11 }
- }, {
-     { 0,  0 }, { 112,  0 }, { 224,  0}
- }, {
-     
- } };
