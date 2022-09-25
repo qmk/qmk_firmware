@@ -8,8 +8,7 @@
       "pid": "0x3988",
       "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "protocol": "atmel-dfu",
+    "development_board": "elite_c",
     "debounce": 5,
     "features": {
         "bootmagic": true,
