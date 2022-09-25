@@ -32,7 +32,8 @@ inline int8_t times_inv_sqrt2(int8_t x) {
     return (x * 181) >> 8;
 }
 
-static report_mouse_t mouse_report = {0};
+static report_mouse_t mouse_report          = {0};
+static report_mouse_t previous_mouse_report = {0};
 static void           mousekey_debug(void);
 static uint8_t        mousekey_accel        = 0;
 static uint8_t        mousekey_repeat       = 0;
@@ -502,5 +503,7 @@ report_mouse_t mousekey_get_report(void) {
 }
 
 bool should_mousekey_report_send(report_mouse_t *mouse_report) {
-    return mouse_report->x || mouse_report->y || mouse_report->v || mouse_report->h;
+    bool changed          = mouse_report->x != previous_mouse_report.x || mouse_report->y != previous_mouse_report.y || mouse_report->v != previous_mouse_report.v || mouse_report->h != previous_mouse_report.h || mouse_report->buttons != previous_mouse_report.buttons;
+    previous_mouse_report = *mouse_report;
+    return changed;
 }
