@@ -1,10 +1,3 @@
-<!--
-Copyright 2022 Manna Harbour (@manna-harbour)
-https://github.com/manna-harbour/xmk
-
-SPDX-License-Identifier: GPL-2.0-or-later
--->
-
 # converter/xmk
 
 ![𝑥MK](https://raw.githubusercontent.com/manna-harbour/xmk/main/docs/images/xmk-banner.jpg)
