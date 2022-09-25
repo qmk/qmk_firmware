@@ -3,7 +3,7 @@
 #include "rgb_matrix.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 // top underglow sd2-sd17
     { 0, B_2,  A_2,  C_2  },
     { 0, B_3,  A_3,  C_3  },
