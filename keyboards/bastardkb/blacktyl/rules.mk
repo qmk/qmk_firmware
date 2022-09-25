@@ -24,3 +24,5 @@ SPLIT_KEYBOARD         = yes
 # WS2812_DRIVER          = pwm
 MOUSEKEY_ENABLE = yes 
 EXTRAKEY_ENABLE = yes
+
+CAPS_WORD_ENABLE = yes
