@@ -1,21 +1,13 @@
-MOUSEKEY_ENABLE = yes    # Mouse keys
-RGBLIGHT_ENABLE = no   # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
-#RGB_MATRIX_DRIVER = WS2812
 OLED_ENABLE     = yes
 OLED_DRIVER     = SSD1306
-LTO_ENABLE      = yes     # dynamic linking, saves memory
 COMBO_ENABLE = yes
-TAP_DANCE_ENABLE = yes  # enable tap dance featurs
-#UNICODE_ENABLE = yes     # enable unicode
-CONSOLE_ENABLE = no     # no interactive console (is the default, but just in case)
-COMMAND_ENABLE = no
+TAP_DANCE_ENABLE = yes  # enable tap dance features
 EXTRAKEY_ENABLE = no
 GRAVE_ESC_ENABLE = no
 SPACE_CADET_ENABLE = no
 SPLIT_KEYBOARD = yes
 #WPM_ENABLE = yes
-
 #CAPS_WORD_ENABLE = yes # if you hold down both shifts, you get lshift enabled for 1 word, but only works with KC shift, not MOD shift :(
 #AUTO_SHIFT_ENABLE = yes
-#SRC += features/caps_word.c
+#UNICODE_ENABLE = yes     # enable unicode

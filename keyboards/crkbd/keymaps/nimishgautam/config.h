@@ -6,8 +6,6 @@
 // OS-specific stuff
 //#define UNICODE_SELECTED_MODES UC_MAC
 
-//#define USE_MATRIX_I2C
-
 /* Select hand configuration */
 //#define MASTER_LEFT
 #define MASTER_RIGHT
@@ -29,12 +27,6 @@
 
 // Try to save some memory
 #define NO_ACTION_ONESHOT
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 #define LAYER_STATE_8BIT  //8 layers max

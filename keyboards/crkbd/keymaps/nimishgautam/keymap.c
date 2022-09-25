@@ -10,7 +10,6 @@ enum custom_key_codes {
     SHOW_WIN_LEFT = SAFE_RANGE, // show windows on tap, move active window left on hold
     NUMERIC_WIN_RIGHT, // lock to numeric layer on press, move active window right on hold
     DEL_WORD, //delete a word
-    NLK_BASE, // switch the numlock back along with going back to base layer
     SELECT_LEFT_WD, // select word left of cursor
     SELECT_RIGHT_WD, // select word right of cursor
     SELECT_LEFT_LINE, // select all from left of cursor to beginning of line
@@ -60,12 +59,14 @@ enum {
 #define MOVE_RIGHT_TERMINAL LALT(KC_RIGHT) //move cursor one word left on the terminal... does not work if .inputrc is set to use vim bindings!
 #define DEL_WORD_TERMINAL LALT(KC_BSPACE) // delete one word back on terminal ... does not work if .inputrc is set to use vim bindings!
 
-#define _BASE 0
-#define _NUMS 1
-#define _NUM_MASK 2
-#define _TEXT_NAV 3
-#define _ADJUST 4
-#define _FN_KEYS 5
+enum custom_layers {
+    _BASE,
+    _NUMS,
+    _NUM_MASK,
+    _TEXT_NAV,
+    _ADJUST,
+    _FN_KEYS,
+};
 
 // combo - press space and backspace together to get 'scroll lock', used as the compose key on my custom linux
 const uint16_t PROGMEM compose_combo[] = {KC_BSPACE, KC_SPACE, COMBO_END};
@@ -166,11 +167,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_FN_KEYS] = LAYOUT_split_3x6_3( //fn keys, terminal text navigation keys
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-     KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MOVE_BEGIN_LINE_TERMINAL,      MOVE_END_LINE_TERMINAL, KC_F7,    KC_F8,    KC_F9,    KC_F11, KC_TRANSPARENT, 
+     KC_TRANSPARENT, KC_LCBR,KC_LBRACKET, KC_RBRACKET, KC_RCBR, MOVE_BEGIN_LINE_TERMINAL,                           MOVE_END_LINE_TERMINAL, KC_F7,    KC_F8,    KC_F9,    KC_F11, KC_TRANSPARENT, 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI, KC_LBRACKET,                                               KC_RBRACKET, KC_F4,  KC_F5,  KC_F6,  KC_F12, KC_TRANSPARENT,
+      TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI, KC_TRANSPARENT,                                               KC_TRANSPARENT, KC_F4,  KC_F5,  KC_F6,  KC_F12, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRANSPARENT, KC_TRANSPARENT, MOVE_LEFT_TERMINAL, DEL_WORD_TERMINAL, MOVE_RIGHT_TERMINAL, KC_LCBR,                           KC_RCBR, KC_F1,  KC_F2,  KC_F3, KC_TRANSPARENT, KC_TRANSPARENT,
+      KC_TRANSPARENT, KC_TRANSPARENT, MOVE_LEFT_TERMINAL, DEL_WORD_TERMINAL, MOVE_RIGHT_TERMINAL, KC_TRANSPARENT,                           KC_TRANSPARENT, KC_F1,  KC_F2,  KC_F3, KC_TRANSPARENT, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_HASH  ,  KC_TRANSPARENT, KC_F10
                                       //`--------------------------'  `--------------------------'
@@ -200,12 +201,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false; 
         }
     break;
-    case LT(_TEXT_NAV, KC_ASTR): // Shift to _TEXT_NAV on hold, send * on press
-        if (record->tap.count && record->event.pressed) {
-            tap_code16(KC_ASTR); 
-            return false; 
-        }
-    break;
 
     case LT(0,SHOW_WIN_LEFT):
             if (record->tap.count && record->event.pressed) {
@@ -227,7 +222,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case PASTE_VIM:
         if (record->event.pressed){
-            SEND_STRING("\"+p");
+            SEND_STRING(SS_TAP(X_ESCAPE)"\"+pi");
         }
         return false;
         break;
