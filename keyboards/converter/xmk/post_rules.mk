@@ -6,6 +6,4 @@
 ifeq ($(strip $(XMK_DEBUG)), yes)
   CONSOLE_ENABLE = yes
   OPT_DEFS += -DXMK_DEBUG
-else
-  CONSOLE_ENABLE = no
 endif
