@@ -1,0 +1,9 @@
+MOUSEKEY_ENABLE = no    # Mouse keys
+# RGB Matrix
+RGBLIGHT_ENABLE = no 
+RGB_MATRIX_ENABLE = yes   # Enable WS2812 RGB underlight.
+LTO_ENABLE      = yes
+AUTO_SHIFT_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+COMMAND_ENABLE = no
+VIA_ENABLE = yes
