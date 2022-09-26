@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "KD83A_BFG_Edition",
+    "keyboard_name": "kd83a_bfg_edition",
+    "manufacturer": "kd83a_bfg_edition",
     "url": "",
-    "maintainer": "GSKY",
+    "maintainer": "Gsky",
+    "usb": {
+        "vid": "0x342D",
+        "pid": "0xE392",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -95,7 +101,7 @@
                 { "label": "Ctrl", "x": 12, "y": 5 },
                 { "label": "Left", "x": 13.25, "y": 5 },
                 { "label": "Down", "x": 14.25, "y": 5 },
-                { "label": "Right", "x": 15.25, "y": 5 },
+                { "label": "Right", "x": 15.25, "y": 5 }
                 
                                      
             ]
