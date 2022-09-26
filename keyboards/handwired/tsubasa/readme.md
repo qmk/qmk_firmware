@@ -1,6 +1,6 @@
 # TSUBASA
 
-![tsubasa](https://imgur.com/q5JlhvM)
+![tsubasa](https://i.imgur.com/q5JlhvMh.jpeg)
 
 Hotswap split row-staggerd keyboard with an OLED and a rotary encoder
 
