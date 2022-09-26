@@ -6,7 +6,29 @@
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
 {%- for subid, subroute in route.routes | dictsort %}
+{%- if not subroute.routes %}
+{%- with route=subroute %}
 | {{ subroute.name }} | `{{ id }} {{ subid }}` | {% if 'secure' == subroute.permissions %}__Secure__{% endif %} | {%- include 'route_request.md.j2' -%}{%- if subroute.return_type and subroute.request_type -%}<br><br>{% endif %}{%- include 'route_response.md.j2' -%} | {{ subroute.description.replace('\n', '<br>') }}|
+{%- endwith %}
+{%- endif %}
+{%- endfor %}
+
+{%- for subid, subroute in route.routes | dictsort %}
+{%- if subroute.routes %}
+
+#### {{ subroute.name }} - `{{ id }} {{ subid }}`
+{{ subroute.description }}
+
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
+{%- for subsubid, subsubroute in subroute.routes | dictsort %}
+{%- if not subsubroute.routes %}
+{%- with route=subsubroute %}
+| {{ subsubroute.name }} | `{{ id }} {{ subid }} {{ subsubid }}` | {% if 'secure' == subsubroute.permissions %}__Secure__{% endif %} | {%- include 'route_request.md.j2' -%}{%- if subsubroute.return_type and subsubroute.request_type -%}<br><br>{% endif %}{%- include 'route_response.md.j2' -%} | {{ subsubroute.description.replace('\n', '<br>') }}|
+{%- endwith %}
+{%- endif %}
+{%- endfor %}
+{%- endif %}
 {%- endfor %}
 {% endif %}
 {%- endfor %}

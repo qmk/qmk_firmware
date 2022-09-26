@@ -53,6 +53,8 @@ def _get_route_type(container):
             return 'XAP_CONST_MEM'
         elif container['return_type'] == 'u32':
             return 'XAP_CONST_MEM'
+        elif container['return_type'] == 'u64':
+            return 'XAP_CONST_MEM'
         elif container['return_type'] == 'struct':
             return 'XAP_CONST_MEM'
         elif container['return_type'] == 'string':
@@ -97,6 +99,11 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
             constant = container['return_constant']
             lines.append('')
             lines.append(f'static const uint32_t {route_name}_data PROGMEM = {constant};')
+
+        elif container['return_type'] == 'u64':
+            constant = container['return_constant']
+            lines.append('')
+            lines.append(f'static const uint64_t {route_name}_data PROGMEM = {constant};')
 
         elif container['return_type'] == 'struct':
             lines.append('')
@@ -195,6 +202,8 @@ def _append_routing_table_entry(lines, container, container_id, route_stack):
         elif container['return_type'] == 'u16':
             _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
         elif container['return_type'] == 'u32':
+            _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
+        elif container['return_type'] == 'u64':
             _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
         elif container['return_type'] == 'struct':
             _append_routing_table_entry_const_data(lines, container, container_id, route_stack)

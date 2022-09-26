@@ -147,8 +147,12 @@ class XAPDevice(XAPDeviceBase):
             XAPRouteError: Access to invalid route attempted
         """
         # TODO: Remove assumption that capability is always xx01
-        (sub, rt) = route
-        cap = bytes([sub, 1])
+        (remain, sub, rt) = (route[:-2], route[-2], route[-1])
+        cap = remain + bytes([sub, 1])
+
+        # recurse for nested routes
+        if remain:
+            self._ensure_route(remain + bytes([sub]))
 
         if self.subsystems() & (1 << sub) == 0:
             raise XAPRouteError("subsystem not available")
