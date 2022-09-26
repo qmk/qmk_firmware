@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Neil Brian Ramirez
+Copyright 2022 DeskDaily
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F6, D3 }
 #define MATRIX_COL_PINS { E6, F5, C7, D7, F4, D2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -44,9 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Encoders */
 
 #define ENCODERS 2
-#define ENCODERS_PAD_A { D1, F0 }
-#define ENCODERS_PAD_B { D0, F1 }
+#define ENCODERS_PAD_A { F0, D1 }
+#define ENCODERS_PAD_B { F1, D0 }
 #define TAP_CODE_DELAY 10
+#define ENCODER_RESOLUTION 5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
