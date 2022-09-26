@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-
-extern keymap_config_t keymap_config;
 
 enum custom_key_codes {
     SHOW_WIN_LEFT = SAFE_RANGE, // show windows on tap, move active window left on hold
