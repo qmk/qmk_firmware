@@ -1,7 +1,7 @@
 {
     "manufacturer": "keyquest",
     "keyboard_name": "Enclave-1",
-    "maintainer": "the keyquest team",
+    "maintainer": "keyquesttech",
     "usb": {
         "vid": "0x1117",
         "pid": "0x0E0E",
