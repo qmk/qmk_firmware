@@ -52,3 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // We don't actually use MISO, so set it to a pin we don't use.
 // Otherwise it likely get's tripped up as we use GP16 for D/C
 #define SPI_MISO_PIN GP10 
+
+#define QUANTUM_PAINTER_SUPPORTS_256_PALETTE TRUE
+#define QUANTUM_PAINTER_LOAD_FONTS_TO_RAM TRUE
+#define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 128
+// #define QUANTUM_PAINTER_DEBUG

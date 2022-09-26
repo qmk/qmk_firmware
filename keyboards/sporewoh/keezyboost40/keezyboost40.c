@@ -24,12 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "hal.h"
 #include "stdlib.h"
 
-#include "monke.qgf.h"
+#include "iosevka11.qff.h"
+#include "kicub.qgf.h"
 #include "qp.h"
 
 
-painter_device_t lcd;
-painter_image_handle_t image;
+static painter_device_t lcd;
+static painter_image_handle_t image;
+// static painter_font_handle_t font;
+
 const int HEIGHT = 160;
 const int WIDTH = 128;
 
@@ -53,16 +56,29 @@ void keyboard_post_init_kb(void) {
     //qp_rect(lcd, 0, 0, 239, 319, 255, 255, 255, true);
 
     // begin drawing space
-    qp_rect(lcd, 0, 0, 200, 200, 150, 0, 255, true);
+    // qp_rect(lcd, 0, 0, 200, 200, 150, 0, 255, true);
+    qp_rect(lcd, 0, 0, WIDTH, HEIGHT, 127, 230, 255, true);
+
 
     // draw sun 
     qp_circle(lcd, (WIDTH/2), (HEIGHT/2), SUN_RADIUS, 5, 255, 255, true);
 
     // qp_rect(lcd, 0, 100, 60, 319, 0,0,0, tque);                
     
-    image = qp_load_image_mem(gfx_monke);
+    image = qp_load_image_mem(gfx_kicub);
     
-    qp_drawimage(lcd,0,0,image);
+    if (image != NULL) {
+        // qp_drawimage(lcd, 0, 0, image);
+        qp_drawimage_recolor(lcd, 2, 8, image, 0, 255, 0, 127, 230, 255);
+        // qp_drawimage_recolor(lcd, 0, 0, image, 0, 255, 255, 0, 255, 0);
+
+        qp_flush(lcd);
+    }
+
+    // font = qp_load_font_mem(font_iosevka11);
+    // if (font != NULL) {
+    //     qp_drawtext(lcd, 40, 160, font, "QUANTUM PAINTER @ RP2040");
+    // }
 
     // Allow for user post-init
     keyboard_post_init_user();
@@ -89,8 +105,14 @@ void housekeeping_task_user(void) {
     if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
         last_draw = timer_read32();
         // // Draw r=4 filled circles down the left side of the display
-        // i++;
-        // qp_rect(lcd, 0, 0, 200, 200, (i*8)%255, 225, 255, true);
+        i++;
+        // qp_drawimage_recolor(lcd, 2, 8, image, 0, 0, 0, rand()%255, 190, 255);
+
+        //qp_rect(lcd, 0, 0, 200, 200, (i*8)%255, 225, 255, true);
+        //qp_drawimage_recolor(lcd, 0, 0, image, 50, 255, 255, 50, 255, 0);
+        //qp_drawimage_recolor(lcd, 0, 0, image, 0, 0, 0, 0, 0, 0);
+
+
 
         
 
@@ -114,6 +136,6 @@ void housekeeping_task_user(void) {
         //     qp_circle(lcd, planets_x[i], planets_y[i], PLANET_RADIUS_SIZE, (i+1)*64, 0, 255, true);
         // }
 
-        qp_flush(lcd);
+        //qp_flush(lcd);
     }
 }
