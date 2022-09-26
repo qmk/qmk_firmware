@@ -121,20 +121,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-             KC_TAB, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
+            MY_LLCK, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, MY_LLCK,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
+            XXXXXXX,  KC_TAB,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                _______, _______, _______,    _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,   KC_NO,   KC_NO, KC_PERC, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,   KC_NO,   KC_NO,   KC_NO, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-              KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT, KC_BSPC,
+            MY_LLCK, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT, KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, MY_LLCK,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3,  KC_TAB, XXXXXXX,
+            XXXXXXX,   KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______, _______,  _______,     KC_0,  _______, _______
                                             //`--------------------------'  `--------------------------'
@@ -143,9 +143,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX,TO(LQWE),   KC_NO,   KC_NO,   KC_NO,                       KC_F10,   KC_F7,   KC_F8,   KC_F9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-              KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,  KC_ENT,  KC_DEL,
+           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,  KC_ENT,  KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,TO(LCMK),   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
+            XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______, TO(LCMK), _______,     KC_F10,    KC_NO, _______
                                             //`--------------------------'  `--------------------------'
@@ -154,24 +154,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // holding both LNUM and LSYM.
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            ALT_TAB, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
+           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,TO(LCMK), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
+            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______, TO(LCMK), _______,     _______,    KC_NO, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV2] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            ALT_TAB, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
+            MY_LLCK, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, MY_LLCK, C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
+            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK), _______,     _______,    KC_NO, _______
+                                               _______, _______, _______,     _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
@@ -182,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN2,                      KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                _______,TO(LCMK), _______,   KC_BTN1,    KC_NO, _______
+                                                _______,TO(LCMK), _______,   KC_BTN1,  KC_BNT2, KC_BNT3
                                             //`--------------------------'  `--------------------------'
     )
 };
@@ -269,28 +269,34 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // NOTE that the COMPOSE_MAPPING will return if there is a full or partial
     // match to the sequence.
 
-    // c to enter caps word mode.
+    /**********************************************************************
+     * general
+     *********************************************************************/
+    // caps word
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_C),
-        {   // toggle capsword
-            caps_word_set(!caps_word_get());
-        }
+        { caps_word_set(!caps_word_get()); }
     )
-    // q to quit dwm
+    // quit dwm
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_Q),
         { SEND_STRING(SS_LGUI(SS_LSFT("q"))); }
     )
 
-    //  all copy  /  all cut ?
+    /**********************************************************************
+     * copy paste
+     *********************************************************************/
+    // copy all
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_A, KC_C),
         { SEND_STRING(SS_LCTL("ac")); }
     )
+    // cut all
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_A, KC_X),
         { SEND_STRING(SS_LCTL("ax")); }
     )
+    // paste
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_A, KC_P),
         { SEND_STRING(SS_LCTL("v")); }
@@ -299,12 +305,15 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     /**********************************************************************
      * qzdev
      *********************************************************************/
-    // o to open a file
+    // open a file
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_O),
         { SEND_STRING(SS_LCTL(SS_LSFT("o"))); }
     )
 
+    /**********************************************************************
+     * qzdev diff
+     *********************************************************************/
     // diff current
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_D, KC_C),
@@ -331,26 +340,28 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         { SEND_STRING(SS_LCTL(SS_LSFT("d"))); }
     )
 
-    // vc operations
-    // blame
+    /**********************************************************************
+     * qzdev vc
+     *********************************************************************/
+    // vc blame
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_V, KC_B),
         { SEND_STRING(SS_LCTL(SS_LSFT("b"))); }
     )
 
-    // log
+    // vc log
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_V, KC_L),
         { SEND_STRING(SS_LCTL(SS_LSFT("l"))); }
     )
 
-    // commit
+    // vc commit
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_V, KC_C),
         { SEND_STRING(SS_LCTL(SS_LSFT("c"))); }
     )
 
-    // request review
+    // vc request review
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_V, KC_R),
         { SEND_STRING(SS_LCTL(SS_LSFT("w"))); }
@@ -362,28 +373,34 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         { SEND_STRING(SS_LCTL(SS_LSFT("s"))); }
     )
 
-    // update
+    // vc update
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_V, KC_U),
         { SEND_STRING(SS_LCTL(SS_LSFT("u"))); }
     )
 
-    // test function
+    /**********************************************************************
+     * qzdev run test
+     *********************************************************************/
+    // run test function
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_T, KC_F),
         { SEND_STRING(SS_LCTL(SS_TAP(X_F10))); }
     )
-    // test class
+    // run test class
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_T, KC_C),
         { SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_F10)))); }
     )
-    // test script
+    // run test module
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_T, KC_S),
         { SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_F10)))); }
     )
 
+    /**********************************************************************
+     * qzdev run
+     *********************************************************************/
     // run script
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_R, KC_S),
