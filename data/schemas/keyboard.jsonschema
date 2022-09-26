@@ -316,10 +316,16 @@
             "properties": {
                 "enabled": {"type": "boolean"},
                 "driver": {"type": "string"},
-                "motion_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "cs_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "sdio_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "sclk_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "pins": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "motion": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "cs": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "sdio": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "sclk": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
                 "throttle": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "invert_x": {"type": "boolean"},
                 "invert_y": {"type": "boolean"},
