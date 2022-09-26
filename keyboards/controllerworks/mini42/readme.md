@@ -33,7 +33,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Reset and boot tactile switches
 - USB C host connection
 - Hot swap connectors for Kailh Chocolate PG1350 switches
-- Chocolate key spacing (18mm horizontal x 17mm vertical)
+- Chocolate key spacing (18mm horizontal x 17mm vertical) 
 ## Bootloader
 
 Enter the bootloader in 3 ways:
