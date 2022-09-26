@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xECED
-#define PRODUCT_ID      0x3663
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Fancytech
-#define PRODUCT         FancyAlice66
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
