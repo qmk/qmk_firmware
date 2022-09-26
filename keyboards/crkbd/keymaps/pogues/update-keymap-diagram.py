@@ -80,6 +80,11 @@ svg_header_template = Template('''<svg width="${svg_width}" height="${svg_height
         flex-direction: column;
         overflow: hidden;
     }
+    .combo-font {
+        font-family: -apple-system, "Helvetica Neue", sans-serif;
+        font-size: 12px;
+        text-rendering: optimizeLegibility;
+    }
     .glyph {
         padding: 1px 2px;
         display: flex;
@@ -217,10 +222,14 @@ MODS_HELD_KEYCODES = {
     # here we list the mods key, the tap is defined in key_names
     'CTL_BSP': 'Ctrl',
     'CTL_SPC': 'Ctrl',
-    'SFT_SPC': '&#8679;',
-    'SFT_BSP': '&#8679;',
+    'SFT_SPC': 'Shift',
+    'SFT_BSP': 'Shift',
     'CTL_Z': 'Ctrl',
     'CTL_SLS': 'Ctrl',
+    'CTL_W': 'Ctrl',
+    'CTL_Y': 'Ctrl',
+    'SFT_Z': 'Shift',
+    'SFT_SLS': 'Shift',
 }
 
 keycode_prefix = 'KC_'
@@ -332,8 +341,12 @@ key_names = {
     "CTL_BSP": "&#9003;",
     "CTL_SPC": "&#9251;",
     "SFT_BSP": "&#9003;",
+    "CTL_W": "W",
+    "CTL_Y": "Y",
     "CTL_Z": "Z",
     "CTL_SLS": "/",
+    "SFT_Z": "Z",
+    "SFT_SLS": "/",
     "MY_LLCK": "Lock",
     "KC_NUBS": "\\",
     "KC_NUHS": "#",
@@ -565,6 +578,113 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
 
 
 ################################################################################
+# this section handles the combo keys.  
+################################################################################
+def extract_combo_keys(keymap_str):
+    """take the combo key presses from the keymap and return as a dict"""
+    keys_re = re.compile(r'PROGMEM (?P<name>[^[]*)\[\]\s*=\s*\{(?P<keys>.*)COMBO_END')
+
+    result = {}
+    for combo_keys in keys_re.finditer(keymap_str):
+        keys = tuple(filter(None, combo_keys.group('keys').replace(' ', '').split(',')))
+        result[combo_keys.group('name')] = keys
+
+    return result
+
+
+def extract_combo_actions(keymap_str):
+    """take the combo actions from the keymap and return as a dict."""
+    action_re = re.compile(r'COMBO\((?P<name>[^,]*),\s*(?P<action>.*)\),')
+    result = {}
+    for combo_action in action_re.finditer(keymap_str):
+        result[combo_action.group('name')] = combo_action.group('action')
+
+    return result
+
+
+def extract_combo_mapping(args):
+    """extract the mapping of the keys pressed to the action taken"""
+    with open(args.keymap, 'r') as keymap_file:
+        keymap_c = keymap_file.read()
+
+    keys = extract_combo_keys(keymap_c)
+    actions = extract_combo_actions(keymap_c)
+
+    result = {}
+    for name, keys in keys.items():
+        result[keys] = actions[name]
+
+    return result
+
+
+def _svg_for_adjacent_combo(keys, action, layer_idx, layer_height, row_idx, key_idx, split):
+
+    # get the y from the layer_idx and row_idx
+    y = _layer_y_offset(layer_idx, layer_height)
+    y += SVG.layer_title_height + SVG.layer_title_spacing
+    y += SVG.key_spacing
+    y += row_idx * (SVG.key_spacing + SVG.key_height)
+    # get the x from the key_idx
+    x = SVG.diagram_inset
+    x += SVG.key_spacing
+    x += key_idx * (SVG.key_width + SVG.key_spacing)
+    if key_idx > split:
+        x += 0.5 * (SVG.key_width + SVG.key_spacing) + SVG.key_spacing
+
+    action = key_names.get(action, action.removeprefix(keycode_prefix))
+
+    svg_raw = '<g>' 
+    x += 49
+    y += 1
+    svg_raw += f'<rect x="{x}" y="{y}" width="33" height="20" fill="#3399ff" rx="6" style="opacity:0.8"></rect>'
+    x += 17
+    y += 11
+    svg_raw += f'<text x="{x}" y="{y}" class="combo-font">{action}</text>'
+    svg_raw += '</g>'
+    return svg_raw
+
+def create_svg_for_adjacent_combo(args, layer_data, layer_height, layer_idx):
+    """create the svg for the combo keys that are (horizontally) adjacent and can be shown on 
+    the layer (easily)"""
+    combo_mapping = extract_combo_mapping(args)
+
+    svg_raw = ''
+
+    for keys, action in combo_mapping.items():
+        if len(keys) != 2:
+            continue   # TODO work out how to show triples better...
+
+        # look for adjacent keys on the keymap
+        for row_idx, row in enumerate(layer_data):
+            # know where the split is so we dont count items over the split as adjacent
+            split = len(row) if args.mono else len(row) / 2
+
+            if keys[0] in row:
+                key_idx = row.index(keys[0])
+                next_idx = key_idx + 1
+                if next_idx == split:
+                    continue  # we are at the split point
+                # guard against the end of the row
+                if next_idx < len(row) and row[next_idx] == keys[1]:
+                    svg_raw += _svg_for_adjacent_combo(keys, action, layer_idx, layer_height, row_idx, key_idx, split)
+
+    return svg_raw
+
+
+""" examples - prev key x=606, y=44
+
+  <g>
+    <rect x="201" y="50" width="33" height="20" fill="#3399ff" rx="3" style="opacity:0.8"></rect>
+    <text x="218" y="61" class="combo-font">Esc</text>
+  </g>
+"""
+
+
+################################################################################
+# end of combo section
+################################################################################
+
+################################################################################
 # this section handles the compose mappings.  should be in a different file
 # but there is a desire to keep this script contained..
 ################################################################################
@@ -788,7 +908,6 @@ def create_svg_for_compose(compose_data, y, layer_width):
             text_y = y + 0.5 * (SVG.key_width + SVG.key_spacing)
             action_width = longest_action * (SVG.key_width + SVG.key_spacing)
             text_x = action_width + (layer_width - action_width) / 2
-            print(f"{text_x=}   {x=}")
             svg_raw += f'<text x="{text_x}px" y="{text_y}">{comment}</text>'
 
             y += SVG.key_spacing + SVG.key_height
@@ -821,6 +940,7 @@ def create_and_write_svg(args):
         if args.layer and layer_name != args.layer:
             continue
         svg_for_layers.append(create_svg_for_layer(args, layer_name, layer_data, layer_idx, base_layer, layer_width, layer_height))
+        svg_for_layers.append(create_svg_for_adjacent_combo(args, layer_data, layer_height, layer_idx))
         layer_idx += 1
 
     y = _layer_y_offset(num_layers, layer_height)
