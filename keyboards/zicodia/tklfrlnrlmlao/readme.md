@@ -1,12 +1,23 @@
-# zicodia/tklfrlnrlmlao
+# TKLFRLNRLMLAO "LMAO"
 
-![zicodia/tklfrlnrlmlao](imgur.com image replace me!)
+![TKLFRLNRLMLAO "LMAO"](https://imgur.com/a/NdomFca)
 
-*A short description of the keyboard/project*
+A "totally normal" TKL.
+
+This keyboard is a unique 40% keyboard, designed with form in mind over function. Purely designed to immitate the TKL layout in a small form factor.
+
+What the name means:
+- TKL = Ten-Key-Less
+- FRL = Function-Row-Less
+- NRL = Number-Row-Less
+- ML = Modifier-less
+- AO = Alpha-Only
+
+Additionally, a WKL (Windows-Key-Less) option is available, which results in the variation WKLTKLFRLNRLMLAO "WLMAO"
 
 * Keyboard Maintainer: [Zicodia](https://github.com/Zicodia)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: TKLFRLNRLMLAO PCB
+* Hardware Availability: TBA
 
 Make example for this keyboard (after setting up your build environment):
 
