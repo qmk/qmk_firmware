@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "k3x0.h"
+#include "k320.h"
 #include <ch.h>
 #include <hal.h>
 
