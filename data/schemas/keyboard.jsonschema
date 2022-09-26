@@ -316,6 +316,7 @@
             "properties": {
                 "enabled": {"type": "boolean"},
                 "driver": {"type": "string"},
+                "auto_mouse": {"type": "boolean"},
                 "pins": {
                     "type": "object",
                     "additionalProperties": false,

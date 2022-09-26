@@ -82,6 +82,7 @@
     "RGB_MATRIX_VAL_STEP": {"info_key": "rgb_matrix.val_steps", "value_type": "int"},
     "RGB_MATRIX_SPD_STEP": {"info_key": "rgb_matrix.speed_steps", "value_type": "int"},
     "RGBW": {"info_key": "rgblight.rgbw", "value_type": "bool"},
+    "POINTING_DEVICE_AUTO_MOUSE_ENABLE": {"info_key": "pointing_device.auto_mouse"},
     "POINTING_DEVICE_CS_PIN": {"info_key": "pointing_device.pins.cs"},
     "POINTING_DEVICE_INVERT_X": {"info_key": "pointing_device.invert_x", "value_type": "bool"},
     "POINTING_DEVICE_INVERT_X_RIGHT": {"info_key": "split.pointing_device.right.invert_x", "value_type": "bool"},
