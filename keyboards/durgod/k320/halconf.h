@@ -1,4 +1,4 @@
-/* Copyright 2021 Don Kjer
+/* Copyright 2021 Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
+#define HAL_USE_PAL                 TRUE
+#define PAL_USE_CALLBACKS           TRUE
+
+#define HAL_USE_GPT                 TRUE
+
+#include_next <halconf.h>
