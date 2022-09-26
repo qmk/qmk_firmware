@@ -129,18 +129,7 @@ def generate_pointing_device_config(pointing_device_json, config_h_lines, postfi
 
     rotation = pointing_device_json.get('rotation', 0)
 
-    if rotation == 90:
-        config_h_lines.append(f'#ifndef POINTING_DEVICE_ROTATION_90{postfix}')
-        config_h_lines.append(f'#   define POINTING_DEVICE_ROTATION_90{postfix}')
-        config_h_lines.append(f'#endif // POINTING_DEVICE_ROTATION_90{postfix}')
-    elif rotation == 180:
-        config_h_lines.append(f'#ifndef POINTING_DEVICE_ROTATION_180{postfix}')
-        config_h_lines.append(f'#   define POINTING_DEVICE_ROTATION_180{postfix}')
-        config_h_lines.append(f'#endif // POINTING_DEVICE_ROTATION_180{postfix}')
-    elif rotation == 270:
-        config_h_lines.append(f'#ifndef POINTING_DEVICE_ROTATION_270{postfix}')
-        config_h_lines.append(f'#   define POINTING_DEVICE_ROTATION_270{postfix}')
-        config_h_lines.append(f'#endif // POINTING_DEVICE_ROTATION_270{postfix}')
+    generate_define(f'POINTING_DEVICE_ROTATION_{rotation}{postfix}')
 
 
 def generate_split_config(kb_info_json, config_h_lines):
