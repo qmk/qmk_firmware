@@ -10,6 +10,9 @@
         "rgblight": true,
         "backlight": true,
     },
+    "indicators": {
+        "caps_lock": "B6"
+    },
     "split": {
         "enabled": true,
         "soft_serial_pin": "D0",
