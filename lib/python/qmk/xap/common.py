@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import OrderedDict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from qmk.casing import to_snake
 from qmk.constants import QMK_FIRMWARE
 from qmk.json_schema import json_load, validate
 from qmk.decorators import lru_cache
@@ -24,7 +25,7 @@ def _get_jinja2_env(data_templates_xap_subdir: str):
 
 def render_xap_output(data_templates_xap_subdir, file_to_render, defs):
     j2 = _get_jinja2_env(data_templates_xap_subdir)
-    return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs))
+    return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs), to_snake=to_snake)
 
 
 def _find_kb_spec(kb):

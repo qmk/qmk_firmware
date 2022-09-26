@@ -181,7 +181,6 @@
                 '''
                 This subsystem allows for control over the lighting subsystem.
                 '''
-            enable_if_preprocessor: defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             routes: {
                 0x01: {
                     type: command

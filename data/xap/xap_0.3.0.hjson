@@ -1,0 +1,78 @@
+{
+    version: 0.3.0
+
+    routes: {
+
+        0x06: {
+            routes: {
+                0x03: {
+                    type: router
+                    name: rgblight
+                    define: RGBLIGHT
+                    description:
+                        '''
+                        This subsystem allows for control over the rgblight subsystem.
+                        '''
+                    enable_if_preprocessor: defined(RGBLIGHT_ENABLE)
+                    routes: {
+                        0x01: {
+                            type: command
+                            name: Capabilities Query
+                            define: CAPABILITIES_QUERY
+                            description:
+                                '''
+                                rgblight subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                                '''
+                            return_type: u32
+                            return_purpose: capabilities
+                            return_constant: XAP_ROUTE_LIGHTING_RGBLIGHT_CAPABILITIES
+                        }
+                        0x02: {
+                            type: command
+                            name: Get Enabled Effects
+                            define: GET_ENABLED_EFFECTS
+                            description: Each bit should be considered as a "usable" effect id
+                            return_type: u64
+                            return_constant: ENABLED_RGBLIGHT_EFFECTS
+                        }
+                        0x03: {
+                            type: command
+                            name: Get Config
+                            define: GET_CONFIG
+                            description: Query the current config.
+                            return_type: struct
+                            return_struct_length: 6
+                            return_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: hue
+                                },
+                                {
+                                    type: u8
+                                    name: sat
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                                {
+                                    type: u8
+                                    name: speed
+                                },
+                            ]
+                            return_execute: get_rgblight_config
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

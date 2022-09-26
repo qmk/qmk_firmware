@@ -2,10 +2,9 @@ from collections import namedtuple
 from enum import IntFlag, IntEnum
 from struct import Struct
 
-{% set type_definitions = [{'name':'XAPRequest', 'members': 'token length data', 'fmt':'<HB61s'}, {'name':'XAPResponse', 'members': 'token flags length data', 'fmt':'<HBB60s'}] %}
-{% for item in type_definitions -%}
-class {{ item.name }}(namedtuple('{{ item.name }}', '{{ item.members }}')):
-    fmt = Struct('{{ item.fmt }}')
+{% macro gen_struct(name, members, fmt) -%}
+class {{ name }}(namedtuple('{{ name }}', '{{ members }}')):
+    fmt = Struct('{{ fmt }}')
 
     def __new__(cls, *args):
         return super().__new__(cls, *args)
@@ -18,7 +17,29 @@ class {{ item.name }}(namedtuple('{{ item.name }}', '{{ item.members }}')):
         return self.fmt.pack(*list(self))
 
 
-{% endfor -%}
+{% endmacro -%}
+
+{% set type_definitions = [
+  {'name':'XAPRequest', 'members': 'token length data', 'fmt':'<HB61s'},
+  {'name':'XAPResponse', 'members': 'token flags length data', 'fmt':'<HBB60s'},
+  {'name':'XAPConfigRgblight', 'members': 'enable mode hue sat val speed', 'fmt':'<BBBBBB'}
+] %}
+{% for item in type_definitions -%}{{ gen_struct(item.name, item.members, item.fmt) }}{% endfor -%}
+
+# Spec structs
+{%- for item in xap.routes.values() recursive -%}
+    {%- if item.routes -%}
+        {{ loop(item.routes.values()) }}
+    {%- endif -%}
+    {% if item.request_struct_members %}
+# TODO: gen inbound object for {{ to_snake(item.define) }}
+    {%- endif -%}
+    {% if item.return_struct_members %}
+# TODO: gen outbound object for {{ to_snake(item.define) }}
+    {%- endif -%}
+{%- endfor %}
+
+
 class XAPSecureStatus(IntEnum):
     LOCKED = 0x00
     UNLOCKING = 0x01

@@ -181,3 +181,20 @@ bool xap_respond_dynamic_encoder_set_keycode(xap_token_t token, const void *data
     return true;
 }
 #endif
+
+#if ((defined(RGBLIGHT_ENABLE)))
+extern rgblight_config_t rgblight_config;
+
+bool xap_respond_get_rgblight_config(xap_token_t token, const void *data, size_t length) {
+    xap_route_lighting_rgblight_get_config_t ret;
+
+    ret.enable = rgblight_config.enable;
+    ret.mode   = rgblight_config.mode;
+    ret.hue    = rgblight_config.hue;
+    ret.sat    = rgblight_config.sat;
+    ret.val    = rgblight_config.val;
+    ret.speed  = rgblight_config.speed;
+
+    return xap_respond_data(token, &ret, sizeof(ret));
+}
+#endif

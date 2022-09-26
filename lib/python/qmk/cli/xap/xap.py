@@ -7,7 +7,7 @@ from milc import cli
 from qmk.keyboard import render_layout
 from qmk.xap.common import get_xap_keycodes
 
-from xap_client import XAPClient, XAPEventType, XAPSecureStatus
+from xap_client import XAPClient, XAPEventType, XAPSecureStatus, XAPConfigRgblight
 
 KEYCODE_MAP = get_xap_keycodes('latest')
 
@@ -186,6 +186,14 @@ class XAPShell(cmd.Cmd):
         except KeyboardInterrupt:
             print('^C')
         return False
+
+    def do_dump(self, line):
+        ret = self.device.transaction(b'\x06\x03\x03')
+        ret = XAPConfigRgblight.from_bytes(ret)
+        print(ret)
+
+        ret = self.device.int_transaction(b'\x06\x03\x02')
+        print(f'XAPEffectRgblight(enabled={bin(ret)})')
 
 
 @cli.argument('-v', '--verbose', arg_only=True, action='store_true', help='Turns on verbose output.')
