@@ -156,6 +156,12 @@ def generate_split_config(kb_info_json, config_h_lines):
         generate_encoder_config(kb_info_json['split']['encoder']['right'], config_h_lines, '_RIGHT')
 
 
+def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
+    for animation in led_feature_json.get('animations', {}):
+        if led_feature_json['animations'][animation]:
+            config_h_lines.append(generate_define(f'{prefix}{animation.upper()}'))
+
+
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, required=True, help='Keyboard to generate config.h for.')
@@ -185,6 +191,15 @@ def generate_config_h(cli):
 
     if 'split' in kb_info_json:
         generate_split_config(kb_info_json, config_h_lines)
+
+    if 'led_matrix' in kb_info_json:
+        generate_led_animations_config(kb_info_json['led_matrix'], config_h_lines, 'ENABLE_LED_MATRIX_')
+
+    if 'rgb_matrix' in kb_info_json:
+        generate_led_animations_config(kb_info_json['rgb_matrix'], config_h_lines, 'ENABLE_RGB_MATRIX_')
+
+    if 'rgblight' in kb_info_json:
+        generate_led_animations_config(kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_')
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
