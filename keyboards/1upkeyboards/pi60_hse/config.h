@@ -6,9 +6,6 @@
 #include "config_common.h"
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
-
-#define NOP_FUDGE 0.4
-
 #define RGB_DI_PIN GP15
 #define DRIVER_LED_TOTAL 16
 #define RGBLED_NUM 16
