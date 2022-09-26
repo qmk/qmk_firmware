@@ -95,8 +95,8 @@ bool qp_lvgl_attach(painter_device_t device) {
 
     // Set up lvgl display buffer
     static lv_disp_draw_buf_t draw_buf;
-    // Allocate a buffer for 1/16 screen size
-    const size_t count_required = driver->panel_width * driver->panel_height / 16;
+    // Allocate a buffer for 1/10 screen size
+    const size_t count_required = driver->panel_width * driver->panel_height / 10;
     color_buffer                = color_buffer ? realloc(color_buffer, sizeof(lv_color_t) * count_required) : malloc(sizeof(lv_color_t) * count_required);
     if (!color_buffer) {
         qp_dprintf("qp_lvgl_attach: fail (could not set up memory buffer)\n");

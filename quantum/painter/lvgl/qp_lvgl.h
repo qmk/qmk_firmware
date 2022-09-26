@@ -5,12 +5,7 @@
 #pragma once
 
 #include "qp.h"
-
-#if __has_include("lvgl/lvgl.h")
-#    include "lvgl/lvgl.h"
-#else
-#    include "lvgl.h"
-#endif //__has_include("lvgl.h")
+#include "lvgl.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter - LVGL External API
