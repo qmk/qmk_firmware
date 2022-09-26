@@ -1,6 +1,6 @@
 {
     "manufacturer": "Controller Works",
-    "keyboard_name": "Controller Works mini42",
+    "keyboard_name": "mini42",
     "maintainer": "controller-works",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -13,7 +13,7 @@
         "nkro": true
     },
     "processor": "RP2040",
-    "url": "https://controller.works",
+    "url": "https://controller.works/products/mini42-low-profile-ergonomic-keyboard",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0003",
@@ -61,8 +61,8 @@
                 { "matrix": [6, 5], "x": 13, "y": 2.25 },
                 { "matrix": [3, 0], "x": 3.5, "y": 3.25 },
                 { "matrix": [3, 1], "x": 4.5, "y": 3.5 },
-                { "matrix": [3, 2], "x": 5.5, "y": 3.75 },
-                { "matrix": [7, 0], "x": 7.5, "y": 3.75 },
+                { "matrix": [3, 2], "x": 5.5, "y": 3.75, "h":1.5 },
+                { "matrix": [7, 0], "x": 7.5, "y": 3.75, "h":1.5 },
                 { "matrix": [7, 1], "x": 8.5, "y": 3.5 },
                 { "matrix": [7, 2], "x": 9.5, "y": 3.25 }
             ]

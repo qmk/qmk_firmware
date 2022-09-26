@@ -1,3 +1,4 @@
+LTO_ENABLE = yes
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = vendor
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
