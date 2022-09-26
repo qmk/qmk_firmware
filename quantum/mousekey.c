@@ -503,8 +503,8 @@ report_mouse_t mousekey_get_report(void) {
 
 bool should_mousekey_report_send(report_mouse_t *mouse_report) {
     static report_mouse_t previous_mouse_report = {0};
-    if (memcmp(&previous_mouse_report, mouse_report, sizeof(report_mouse_t)) != 0) {
-        memcpy(&previous_mouse_report, mouse_report, sizeof(report_mouse_t));
+    if (has_mouse_report_changed(&previous_mouse_report, mouse_report)) {
+        previous_mouse_report = *mouse_report;
         return true;
     }
     return false;
