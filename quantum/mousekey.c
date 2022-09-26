@@ -502,10 +502,10 @@ report_mouse_t mousekey_get_report(void) {
 }
 
 bool should_mousekey_report_send(report_mouse_t *mouse_report) {
-    static report_mouse_t previous_mouse_report = {0};
-    if (has_mouse_report_changed(&previous_mouse_report, mouse_report)) {
-        previous_mouse_report = *mouse_report;
+    static char previous_buttons = 0;
+    if (previous_buttons != mouse_report->buttons) {
+        previous_buttons = mouse_report->buttons;
         return true;
     }
-    return false;
+    return mouse_report->x || mouse_report->y || mouse_report->v || mouse_report->h;
 }
