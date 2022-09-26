@@ -10,7 +10,7 @@
     },
     "usb": {
         "vid": "0xABCD",
-        "pid": "0001",
+        "pid": "0x0001",
         "device_version": "1.0.0"
     },
     "layouts": {
