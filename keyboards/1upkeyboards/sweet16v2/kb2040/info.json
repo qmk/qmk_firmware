@@ -3,6 +3,9 @@
     "keyboard_name": "sweet16v2",
     "url": "1upkeyboards.com/shop/keyboard-kits/macro-pads/sweet-16-v2-macropad-kit/",
     "maintainer": "ziptyze",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5518",
@@ -22,8 +25,30 @@
         "rgb_matrix": true,
         "rgblight": false
     },
+    "matrix_pins": {
+        "cols": ["GP2",  "GP9", "GP8",  "GP7"],
+        "rows": ["GP26", "GP1", "GP18", "GP5"]
+    },
+    "matrix_size": {
+        "cols": 4,
+        "rows": 4
+    },
     "mouse_key": {
         "enabled": true
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP27",
+                "pin_b": "GP28"
+            },
+            {
+                "pin_a": "GP4",
+                "pin_b": "GP3"
+            }
+        ]
     },
     "rgb_matrix": {
         "driver": "WS2812",

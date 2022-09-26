@@ -20,17 +20,6 @@
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
-
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_ROW_PINS { GP2,  GP9, GP8,  GP7 }
-#define MATRIX_COL_PINS { GP26, GP1, GP18, GP5 }
-
-#define ENCODERS_PAD_A { GP27, GP4 }
-#define ENCODERS_PAD_B { GP28, GP3 }
-
 #define NOP_FUDGE 0.4
 
 #define RGB_DI_PIN GP6
