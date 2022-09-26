@@ -264,6 +264,12 @@
         "led_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
                 "center_point": {
                     "type": "array",
@@ -308,6 +314,12 @@
         "rgb_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
                 "center_point": {
                     "type": "array",
