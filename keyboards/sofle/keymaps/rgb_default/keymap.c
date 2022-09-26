@@ -1,3 +1,8 @@
+/*
+ * This is my configured keymap, based on rgb_default, without COLEMAK and VIA support disabled in rules.mk because it caused errors with default layer
+ *
+ * THIS FILE IS READ ONLY
+ */
 
 /* Copyright 2021 Dane Evans
  *
