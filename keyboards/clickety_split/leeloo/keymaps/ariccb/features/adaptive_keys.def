@@ -30,6 +30,12 @@ AK_SND_ONLY_START(KC_PMNS)  // allows (-0) -> (- ) aka dash zero will make dash 
   R_SND(KC_0, KC_SPC)
 AK_SND_ONLY_START(KC_EQL)  // allows (=0) -> (= ) aka equals zero will make equals space
   R_SND(KC_0, KC_SPC)
+AK_SND_ONLY_START(KC_PPLS)  // allows (+0) -> (+ ) aka plus zero will make plus space
+  R_SND(KC_0, KC_SPC)
+AK_SND_ONLY_START(KC_PSLS)  // allows (/0) -> (/ ) aka backslash zero will make backslash space
+  R_SND(KC_0, KC_SPC)
+AK_SND_ONLY_START(KC_PAST)  // allows (*0) -> (* ) aka asterisk zero will make asterisk space
+  R_SND(KC_0, KC_SPC)
 AK_BOTH_START(KC_U, KC_U)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_BTH(KC_Y, KC_U, KC_E)     // fixes UE bigram
   R_BTH(KC_SCLN, KC_U, KC_Y)  // allows quickly typing UY now that UY->UE

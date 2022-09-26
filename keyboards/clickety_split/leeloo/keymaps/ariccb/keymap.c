@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |      |  F5  |      |      |      |MyComp|                                      |TabDn | Home |  Up  |  End |      |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |******| Ctrl | Shift| Alt  |      |      |--------.                     .-------|SWLeft| Left | Down | Right|SWRigt|CAPSLK|
+ * |******|      | Ctrl | Shift| Alt  |      |--------.                     .-------|SWLeft| Left | Down | Right|SWRigt|CAPSLK|
  * |------+------+------+------+------+------| Cursor |                     | Layer |------+------+------+------+------+------|
  * |      |      |      |      |      |AltTab| Word   |-->  Next Song       | Lock  | Back |PageUp|AltPDn|PageDn| PAUSE|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
   KC_HYPR, DESKTL,  DESKTR,  KC_NO,   KC_NO,   KC_CALC,                               C(KC_PGUP), BWSRLEFT, BWSRTABSRCH,  BWSRRHGT, KC_NO,     KC_SLCK,
   KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, KC_TRNS, KC_MYCM,                               C(KC_PGDN), KC_HOME,  KC_UP,        KC_END,   KC_TRNS,   KC_DEL,
-  KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS, KC_TRNS,                               SELWLEFT,   KC_LEFT,  KC_DOWN,      KC_RGHT,  SELWRIGHT, KC_CAPS,
+  KC_TRNS, KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS,                               SELWLEFT,   KC_LEFT,  KC_DOWN,      KC_RGHT,  SELWRIGHT, KC_CAPS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB, KC_MNXT,             KC_TRNS, BWSRLEFT,   KC_PGUP,  LCA(KC_DOWN), KC_PGDN,  KC_PAUSE,  KC_INS,
                              KC_TRNS, KC_TRNS, KC_TRNS, ALT_TAB,             KC_TRNS, KC_TRNS,    KC_TRNS,  G(A(KC_B))
 )
@@ -287,7 +287,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch (biton32(layer_state)) {
             case _LOWER:
                 // go to last selection in VSCode
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code16(LALT(KC_LEFT));
                 } else {
                     tap_code16(LALT(KC_RGHT));
@@ -305,7 +305,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             case _ADJUST:
                 // Select Whole Word
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code16(LCTL(LSFT(KC_LEFT)));
                 } else {
                     tap_code16(LCTL(LSFT(KC_LEFT)));
@@ -314,7 +314,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // Next song on button press
             default:
                 // Mouse Wheel Right/Left
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code16(LCTL(KC_LEFT));
                 } else {
                     tap_code16(LCTL(KC_RGHT));
