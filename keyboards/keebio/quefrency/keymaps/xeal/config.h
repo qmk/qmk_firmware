@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Use I2C or Serial, not both */
 
+//#define DEBUG_MATRIX_SCAN_RATE
+
 #define FORCE_NKRO
 
 #undef RGBLIGHT_EFFECT_SNAKE
