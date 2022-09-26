@@ -2,7 +2,7 @@
     "keyboard_name": "Aperture",
     "manufacturer": "Bizunow",
     "url": "",
-    "maintainer": "keyten",
+    "maintainer": "key10iq",
     "usb": {
         "vid": "0xEB69",
         "pid": "0x6501",
