@@ -18,6 +18,8 @@
         "rows": ["D5", "B5", "B4", "D7"]
     },
     "usb": {
+        "vid": "0x4A4C",
+        "pid": "0x0000",
         "device_version": "1.0.0"
     },
     "processor": "atmega32u4",
