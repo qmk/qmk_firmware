@@ -30,7 +30,6 @@
 // 0b0110011 AD <-> VCC
 // 0b0110001 AD <-> SCL
 // 0b0110010 AD <-> SDA
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 #undef ENABLE_RGB_MATRIX_SPLASH

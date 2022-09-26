@@ -33,7 +33,6 @@
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
