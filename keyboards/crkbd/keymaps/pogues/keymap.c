@@ -65,6 +65,11 @@ enum userspace_layers {
 #define CTL_Z CTL_T(KC_Z)
 #define CTL_SLS CTL_T(KC_SLSH)
 
+#define CTL_W CTL_T(KC_W)
+#define CTL_Y CTL_T(KC_Y)
+#define SFT_Z SFT_T(KC_Z)
+#define SFT_SLS SFT_T(KC_SLSH)
+
 enum custom_keycodes {
     MY_LLCK = SAFE_RANGE,   // layer lock key
     MY_COMP,
@@ -89,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
     [LCMK] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,   CTL_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,   CTL_Y, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
                KC_Q,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, MY_COMP,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,   CTL_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, CTL_SLS, XXXXXXX,
+            XXXXXXX,   SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                            // original
                                            //KC_LGUI, TD(TD_LNUM), SFT_SPC,    CTL_BSP, TD(TD_LSYM), KC_LALT
@@ -101,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            //KC_LGUI, TD(TD_LNUM), CTL_SPC,    SFT_BSP, TD(TD_LSYM), KC_LALT
 
                                            // now have no dual role key on space...  but use z and / as dual ctrl
-                                           KC_LGUI, TD(TD_LNUM), KC_SPC,    SFT_BSP, TD(TD_LSYM), KC_LALT
+                                           //KC_LGUI, TD(TD_LNUM), KC_SPC,    SFT_BSP, TD(TD_LSYM), KC_LALT
                                            // now have no dual role keys...  backspace on a combo too
-                                           //KC_LCTL, TD(TD_LNUM), KC_SPC,    KC_LSFT, TD(TD_LSYM), KC_BSPC
+                                           KC_LGUI, TD(TD_LNUM), KC_SPC,    KC_BSPC, TD(TD_LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LQWE] = LAYOUT_split_3x6_3(
@@ -182,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,TO(LCMK), KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN2,                      KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                _______,TO(LCMK), _______,   KC_BTN1,  KC_BNT2, KC_BNT3
+                                                _______,TO(LCMK), _______,   KC_BTN1,  KC_BTN2, KC_BTN3
                                             //`--------------------------'  `--------------------------'
     )
 };
@@ -233,16 +238,16 @@ enum combo_keys {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM combo_wf[] = {KC_W, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_uy[] = {KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_uy[] = {KC_U, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_lu[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_89[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_hcom[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_jy[] = {KC_J, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_jy[] = {KC_J, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_comdot[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM combo_fu[] = {KC_F, KC_U, COMBO_END};
-const uint16_t PROGMEM combo_wy[] = {KC_W, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_wy[] = {CTL_W, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_pl[] = {KC_P, KC_L, COMBO_END};
 
 combo_t key_combos[] = {
