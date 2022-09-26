@@ -1,8 +1,12 @@
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
-RGBLIGHT_ENABLE = yes
 ENCODER_ENABLE = yes
 LTO_ENABLE = yes
+
+# RGB Configurations
+RGBLIGHT_ENABLE = yes
+# RGB_MATRIX_ENABLE = yes
+# RGB_MATRIX_DRIVER = WS2812
 
 # VIA Support created problems with default layers nooked the keyboard
 VIA_ENABLE = no
