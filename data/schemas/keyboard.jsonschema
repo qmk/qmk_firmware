@@ -316,7 +316,16 @@
             "properties": {
                 "enabled": {"type": "boolean"},
                 "driver": {"type": "string"},
-                "auto_mouse": {"type": "boolean"},
+                "auto_mouse":  {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "default_layer": {"type":  "qmk.definitions.v1#/unsigned_int_8"},
+                        "time": {"type":  "qmk.definitions.v1#/unsigned_int"},
+                        "delay": {"type":  "qmk.definitions.v1#/unsigned_int"},
+                        "debounce": {"type":  "qmk.definitions.v1#/unsigned_int"}
+                    }
+                }
                 "pins": {
                     "type": "object",
                     "additionalProperties": false,
