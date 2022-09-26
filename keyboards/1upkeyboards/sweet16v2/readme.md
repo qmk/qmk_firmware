@@ -8,19 +8,19 @@ A 4x4 macropad with RGB inswitch lighting and underglow.
 
 Make example for this keyboard using an atmel-based controller (after setting up your build environment):
 
-    make 1upkeyboards/sweet16v2/pico:default
+    make 1upkeyboards/sweet16v2/promicro:default
 
 Flashing example for this keyboard using an atmel-based controller:
 
-    make 1upkeyboards/sweet16v2/pico:default:flash
+    make 1upkeyboards/sweet16v2/promicro:default:flash
 
 Make example for this keyboard using an rp2040-based controller (after setting up your build environment):
 
-    make 1upkeyboards/sweet16v2/rp2040:default
+    make 1upkeyboards/sweet16v2/kb2040:default
 
 Flashing example for this keyboard using an rp2040-based controller:
 
-    make 1upkeyboards/sweet16v2/pico:rp2040:flash
+    make 1upkeyboards/sweet16v2/kb2040:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
