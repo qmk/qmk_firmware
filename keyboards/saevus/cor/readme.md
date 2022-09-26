@@ -1,6 +1,6 @@
 # saevus cor
 
-![saevus cor](https://i.imgur.com/jqoNEcHl.jpeg)
+![saevus cor](https://i.imgur.com/AOT6mmMl.jpg)
 
 An exploded 65% with a macro column.
 
