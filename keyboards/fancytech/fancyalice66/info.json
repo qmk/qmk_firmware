@@ -1,7 +1,13 @@
 {
 	"keyboard_name": "FancyAlice66",
+	"manufacturer": "Fancytech",
 	"url": "https://www.aliexpress.com/item/1005004272392611.html",
 	"maintainer": "chent7",
+	"usb": {
+	    "vid": "0xECED",
+	    "pid": "0x3663",
+	    "device_version": "0.0.1"
+	},
 	"layouts": {
 		"LAYOUT": {
 			"layout": [{
