@@ -92,6 +92,7 @@ static void shiftout_single(uint8_t data) {
 
 static bool select_col(uint8_t col) {
     pin_t pin = col_pins[col];
+
     if (pin != NO_PIN) {
         setPinOutput_writeLow(pin);
         return true;
