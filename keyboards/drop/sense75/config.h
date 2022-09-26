@@ -13,7 +13,7 @@
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_ADDR_2 0b1011111
 #    define DRIVER_COUNT 2
-#    define DRIVER_LED_TOTAL (58 + 53)
+#    define RGB_MATRIX_LED_COUNT (58 + 53)
 #    define ISSI_PWM_FREQUENCY 0b010 // 26k
 
 #    define RGB_DISABLE_TIMEOUT 0

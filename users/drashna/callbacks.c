@@ -49,7 +49,7 @@ void                       keyboard_post_init_user(void) {
     keyboard_post_init_transport_sync();
 #endif
 #ifdef I2C_SCANNER_ENABLE
-    matrix_scan_i2c();
+    keyboard_post_init_i2c();
 #endif
 
     keyboard_post_init_keymap();
