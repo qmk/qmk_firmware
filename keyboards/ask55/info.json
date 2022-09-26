@@ -25,15 +25,15 @@
     },
     "rgblight": {
         "animations": {
-            "alternating": false,
-            "breathing": false,
-            "christmas": false,
-            "knight": false,
-            "rainbow_mood": false,
-            "rainbow_swirl": false,
-            "rgb_test": false,
-            "snake": false,
-            "static_gradient": false
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true
         },
         "brightness_steps": 8,
         "hue_steps": 8,
