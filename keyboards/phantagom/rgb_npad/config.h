@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    phantagom
 #define PRODUCT         rgb npad
-#define DESCRIPTION     rgb numpad with extra function row
 
 #define TAPPING_TERM 400
 
