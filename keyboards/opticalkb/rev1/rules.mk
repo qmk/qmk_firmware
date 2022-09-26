@@ -1,6 +1,3 @@
-# https://docs.qmk.fm/#/squeezing_avr?id=rulesmk-settings
-#
-
 # MCU name
 MCU = STM32F401
 BOARD = BLACKPILL_STM32_F401
@@ -9,7 +6,7 @@ BOARD = BLACKPILL_STM32_F401
 BOOTLOADER = stm32-dfu
 
 # Build Options
-#   change yes to no to disable
+#   Change yes to no to disable
 #
 KEYBOARD_SHARED_EP = yes
 
@@ -22,9 +19,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 DYNAMIC_MACRO_ENABLE = yes  # Dynamic macros
+CONSOLE_ENABLE = no         # Console for debug
 
-# turn this off after debugging
-# CONSOLE_ENABLE = yes        # Console for debug
-
-CUSTOM_MATRIX = lite
+CUSTOM_MATRIX = lite        # Substitute custom matrix
 SRC += matrix.c
