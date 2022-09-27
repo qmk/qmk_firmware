@@ -1,7 +1,7 @@
 # mini42
 
-![mini42](https://i.imgur.com/xrSKhqR.png)
-![mini42PCB](https://i.imgur.com/R7u1KB8.png)
+![mini42](https://i.imgur.com/xrSKhqRh.png)
+![mini42PCB](https://i.imgur.com/R7u1KB8h.png)
 
 *A pre-built, low profile, split mechanical keyboard based on the RP2040 processor*
 
