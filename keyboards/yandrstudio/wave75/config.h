@@ -19,9 +19,3 @@
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-#define MATRIX_COL_PINS { B0,  A7,  A6,  B15, B14, B13, A5,  B7,  B6,  B5,  A4,  B12, A3,  B2,  A2 }
-#define MATRIX_ROW_PINS { A9,  A10, C15, A8,  B1, A1 }
