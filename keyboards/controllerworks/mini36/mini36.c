@@ -24,10 +24,10 @@ led_config_t g_led_config = {{// Key Matrix to LED Index
                               {22, 19, 16, 11, 8},
                               {21, 20, 15, 12, 7},
                               {14, 13, 6, NO_LED, NO_LED},
-                              {36, 37, 44, 45, 50},
-                              {35, 38, 43, 46, 49},
-                              {34, 39, 42, 47, 48},
-                              {33, 40, 41, NO_LED, NO_LED}},
+                              {33, 34, 41, 42, 47},
+                              {32, 35, 40, 43, 46},
+                              {31, 36, 39, 44, 45},
+                              {30, 37, 38, NO_LED, NO_LED}},
                              {// LED Index to Physical Position
                               // Left half
                               {71, 4},   {32, 2},   {0, 24},   {16, 51},  {63, 58},  {94, 55}, //Backlight LEDs
