@@ -403,9 +403,9 @@ void process_action(keyrecord_t *record, action_t action) {
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 dprint("MODS_TAP: Toggling oneshot");
+                                register_mods(mods);
                                 clear_oneshot_mods();
                                 set_oneshot_locked_mods(mods | get_oneshot_locked_mods());
-                                register_mods(mods);
 #        endif
                             } else {
                                 register_mods(mods | get_oneshot_mods());
@@ -418,16 +418,16 @@ void process_action(keyrecord_t *record, action_t action) {
                                 // Retain Oneshot mods
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                                 if (mods & get_mods()) {
+                                    unregister_mods(mods);
                                     clear_oneshot_mods();
                                     set_oneshot_locked_mods(~mods & get_oneshot_locked_mods());
-                                    unregister_mods(mods);
                                 }
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 // Toggle Oneshot Layer
 #        endif
                             } else {
-                                clear_oneshot_mods();
                                 unregister_mods(mods);
+                                clear_oneshot_mods();
                             }
                         }
                     }
@@ -918,6 +918,10 @@ __attribute__((weak)) void register_code(uint8_t code) {
         mousekey_on(code);
         mousekey_send();
     }
+#elif defined(POINTING_DEVICE_ENABLE)
+    else if IS_MOUSEKEY (code) {
+        pointing_device_keycode_handler(code, true);
+    }
 #endif
 }
 
@@ -977,6 +981,10 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
     else if IS_MOUSEKEY (code) {
         mousekey_off(code);
         mousekey_send();
+    }
+#elif defined(POINTING_DEVICE_ENABLE)
+    else if IS_MOUSEKEY (code) {
+        pointing_device_keycode_handler(code, false);
     }
 #endif
 }
