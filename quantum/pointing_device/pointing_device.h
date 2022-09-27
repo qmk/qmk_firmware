@@ -110,6 +110,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report);
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
 report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report);
+void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
 
 #if defined(SPLIT_POINTING_ENABLE)
 void     pointing_device_set_shared_report(report_mouse_t report);

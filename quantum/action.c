@@ -918,6 +918,10 @@ __attribute__((weak)) void register_code(uint8_t code) {
         mousekey_on(code);
         mousekey_send();
     }
+#elif defined(POINTING_DEVICE_ENABLE)
+    else if IS_MOUSEKEY (code) {
+        pointing_device_keycode_handler(code, true);
+    }
 #endif
 }
 
@@ -977,6 +981,10 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
     else if IS_MOUSEKEY (code) {
         mousekey_off(code);
         mousekey_send();
+    }
+#elif defined(POINTING_DEVICE_ENABLE)
+    else if IS_MOUSEKEY (code) {
+        pointing_device_keycode_handler(code, false);
     }
 #endif
 }

@@ -22,6 +22,7 @@
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
+
 #if (defined(POINTING_DEVICE_ROTATION_90) + defined(POINTING_DEVICE_ROTATION_180) + defined(POINTING_DEVICE_ROTATION_270)) > 1
 #    error More than one rotation selected.  This is not supported.
 #endif
@@ -479,3 +480,10 @@ __attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_m
     return pointing_device_combine_reports(left_report, right_report);
 }
 #endif
+
+__attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
+    if IS_MOUSEKEY_BUTTON (keycode) {
+        local_mouse_report.buttons = pointing_device_handle_buttons(local_mouse_report.buttons, pressed, keycode - KC_MS_BTN1);
+        pointing_device_send();
+    }
+}
