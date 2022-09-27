@@ -93,10 +93,7 @@ bool  process_record_user ( uint16_t keycode, keyrecord_t *record) {
 }
 
 void  oled_write_type_count ( void ) {
-     static  char type_count_str[ 7 ];
-     oled_write_P ( PSTR ( "Type count: " ), false );
-     itoa (type_count, type_count_str, 10 );
-     oled_write_ln (type_count_str, false );
+     oled_write_ln(get_u16_str(type_count, ` `), false );
 }
 
 // Layer state
