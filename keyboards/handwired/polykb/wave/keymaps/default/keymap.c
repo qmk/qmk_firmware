@@ -494,6 +494,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 force_layer_switch();
                 break;
             case KC_RIGHT_SHIFT:
+            case KC_LEFT_SHIFT:
                 force_layer_switch();
                 break;
             case KC_NEXT_LAYER:
@@ -528,6 +529,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         switch (keycode)
         {
         case KC_RIGHT_SHIFT:
+        case KC_LEFT_SHIFT:
             force_layer_switch();
             break;
         default:
@@ -535,9 +537,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
     }
 
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u display: %d SR bitmask: 0x%02X%02X%02X%02X%02X\n",
-        keycode, record->event.key.col, record->event.key.row, record->event.pressed,
-        record->event.time, record->tap.interrupted, record->tap.count, disp_idx, bitmask[4], bitmask[3], bitmask[2], bitmask[1], bitmask[0]);
+    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %d, time: %u, interrupt: %d, count: %u display: %d SR bitmask: 0x%02X%02X%02X%02X%02X\n",
+        keycode, record->event.key.col, record->event.key.row, record->event.pressed ? 1 : 0,
+        record->event.time, record->tap.interrupted ? 1 : 0, record->tap.count, disp_idx, bitmask[4], bitmask[3], bitmask[2], bitmask[1], bitmask[0]);
 
    update_performed();
 };

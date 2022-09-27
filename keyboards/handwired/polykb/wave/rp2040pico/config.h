@@ -28,8 +28,8 @@
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN GP0
 #define I2C1_SDA_PIN GP1
-#define I2C1_SCL_PAL_MODE 4
-#define I2C1_SDA_PAL_MODE 4
+//#define I2C1_SCL_PAL_MODE 4
+//#define I2C1_SDA_PAL_MODE 4
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 100000
 #define I2C1_DUTY_CYCLE STD_DUTY_CYCLE
@@ -53,6 +53,7 @@ TRES  > 280µs
 #define WS2812_T1L	700
 #define WS2812_TRST_US 300
 
+#define NOP_FUDGE 0.4
 /*
 #define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #define WS2812_PWM_CHANNEL 2  // default: 2
@@ -71,9 +72,9 @@ TRES  > 280µs
 #define SPI_DC_PIN GP8
 #define SPI_RST_PIN GP9
 #define SPI_SCK_PIN GP6
-#define SPI_SCK_PAL_MODE 5
+//#define SPI_SCK_PAL_MODE 5
 #define SPI_MOSI_PIN GP7
-#define SPI_MOSI_PAL_MODE 5
+//#define SPI_MOSI_PAL_MODE 5
 #define SPI_MISO_PIN GP4 //can be used as uart tx as well?
 #define SPI_DIVISOR (CPU_CLOCK / 5000000) //(CPU_CLOCK / 20000000)
 //#define SPI_MISO_PAL_MODE 5
@@ -93,8 +94,9 @@ TRES  > 280µs
 //#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
-
+/*
 #define ENCODERS_PAD_A { 0 }
 #define ENCODERS_PAD_B { 1 }
 #define ENCODER_RESOLUTION 1
+*/
 #define CUSTOM_PROCESS_RECORD_USER

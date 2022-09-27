@@ -5,7 +5,8 @@ MCU = RP2040
 BOOTLOADER = rp2040
 
 # Build Options
-WS2812_DRIVER = pio
+WS2812_DRIVER = vendor
+# WS2812_DRIVER = pio
 
 # RP2040-specific options
 ALLOW_WARNINGS = yes
