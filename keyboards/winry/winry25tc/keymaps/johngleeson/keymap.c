@@ -173,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case MUTE_ZOOM:
         if (record->event.pressed) {
-            // Left ctrl, left alt, c
+            // Left GUI (CMD), left shift, a
             SEND_STRING(SS_LGUI(SS_LSFT("a")));
          } else {
         }
