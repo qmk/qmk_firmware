@@ -2,13 +2,13 @@
 #include "layer_lock.h"
 
 static uint8_t prior_saved_mods = 0;
-static uint16_t prior_keycode =
-    KC_NO;
-static uint32_t prior_keydown =
-    0;
+static uint16_t prior_keycode = KC_NO;
+static uint32_t prior_keydown = 0;
 static bool tabbing = false;
+static bool ctrl_tabbing = false;
 static uint16_t tabtimer;
-#define TABBING_TIMER 1150
+static uint16_t ctrl_tabtimer;
+#define TABBING_TIMER 1600
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 
@@ -118,6 +118,12 @@ void matrix_scan_user(void) {
     if (timer_elapsed(tabtimer) > TABBING_TIMER) {
       unregister_code(KC_LALT);
       tabbing = false;
+    }
+  }
+  if(ctrl_tabbing){
+    if (timer_elapsed(ctrl_tabtimer) > TABBING_TIMER) {
+      unregister_code(KC_LCTL);
+      ctrl_tabbing = false;
     }
   }
 }
