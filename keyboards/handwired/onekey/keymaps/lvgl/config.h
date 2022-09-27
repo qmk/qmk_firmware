@@ -1,3 +1,8 @@
+// Copyright 2022 Jose Pablo Ramirez (@jpe230)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
+
 /* SPI pins */
 #define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP18
