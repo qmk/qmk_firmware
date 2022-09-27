@@ -127,3 +127,10 @@
 #define HIRAGANA_ITERATION_MARK                     u"\x309D"
 #define HIRAGANA_VOICED_ITERATION_MARK              u"\x309E"
 #define HIRAGANA_DIGRAPH_YORI                       u"\x309F"
+
+#define CJK_IDEOGRAPHIC_COMMA                       u"\x3001"
+#define CJK_IDEOGRAPHIC_FULL_STOP                   u"\x3002"
+#define LFET_CORNER_BRACKET                         u"\x300C"
+#define RIGHT_CORNER_BRACKET                        u"\x300D"
+#define KATAKANA_MIDDLE_DOT                         u"\x30FB"
+#define KH_PROLONGED_SOUND_MARK                     u"\x30FC"

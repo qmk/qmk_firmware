@@ -18,8 +18,8 @@ or
 $ rm -rf .build
 
 ## Build
-$ make handwired/polykb/4x5:default
-$ qmk compile -kb handwired/polykb/4x5 -km default
+$ make handwired/polykb/wave:default
+$ qmk compile -kb handwired/polykb/wave -km default
 
 ## After merging master into branch update dependencies with
 
@@ -31,11 +31,11 @@ $ git submodule update --init --recursive
 
 ## Check image size
 
-$ size .build//handwired_polykb_4x5_rp2040pico_default.elf -B
+$ size .build//handwired_polykb_wave_rp2040pico_default.elf -B
 
 ### Copy image to RPI
 
-$ cp .build/handwired_polykb_4x5_rp2040pico_default.uf2 /media/$USER/RPI-RP2/
+$ cp .build/handwired_polykb_wave_rp2040pico_default.uf2 /media/$USER/RPI-RP2/
 
 # General
 
