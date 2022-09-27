@@ -46,11 +46,11 @@
 #define AW_PWM_REGISTER_COUNT 216
 
 #ifndef AW_SCALING_MAX
-#    define AW_SCALING_MAX 150
+#    define AW_SCALING_MAX 255
 #endif
 
 #ifndef AW_GLOBAL_CURRENT_MAX
-#    define AW_GLOBAL_CURRENT_MAX 150
+#    define AW_GLOBAL_CURRENT_MAX 175
 #endif
 
 #ifndef AW_SPI_MODE
