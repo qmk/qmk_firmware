@@ -77,10 +77,6 @@ extern keymap_config_t keymap_config;
 #    include "raw_hid.h"
 #endif
 
-#ifdef JOYSTICK_ENABLE
-#    include "joystick.h"
-#endif
-
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
@@ -261,50 +257,9 @@ static void Console_Task(void) {
 /*******************************************************************************
  * Joystick
  ******************************************************************************/
+void send_joystick(report_joystick_t *report) {
 #ifdef JOYSTICK_ENABLE
-void send_joystick_packet(joystick_t *joystick) {
     uint8_t timeout = 255;
-
-    static joystick_report_t r;
-    r = (joystick_report_t) {
-#    if JOYSTICK_AXES_COUNT > 0
-        .axes =
-        { joystick->axes[0],
-
-#        if JOYSTICK_AXES_COUNT >= 2
-          joystick->axes[1],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 3
-          joystick->axes[2],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 4
-          joystick->axes[3],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 5
-          joystick->axes[4],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 6
-          joystick->axes[5],
-#        endif
-        },
-#    endif // JOYSTICK_AXES_COUNT>0
-
-#    if JOYSTICK_BUTTON_COUNT > 0
-        .buttons = {
-            joystick->buttons[0],
-
-#        if JOYSTICK_BUTTON_COUNT > 8
-            joystick->buttons[1],
-#        endif
-#        if JOYSTICK_BUTTON_COUNT > 16
-            joystick->buttons[2],
-#        endif
-#        if JOYSTICK_BUTTON_COUNT > 24
-            joystick->buttons[3],
-#        endif
-        }
-#    endif // JOYSTICK_BUTTON_COUNT>0
-    };
 
     /* Select the Joystick Report Endpoint */
     Endpoint_SelectEndpoint(JOYSTICK_IN_EPNUM);
@@ -315,12 +270,12 @@ void send_joystick_packet(joystick_t *joystick) {
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     /* Write Joystick Report Data */
-    Endpoint_Write_Stream_LE(&r, sizeof(joystick_report_t), NULL);
+    Endpoint_Write_Stream_LE(report, sizeof(report_joystick_t), NULL);
 
     /* Finalize the stream transfer to send the last packet */
     Endpoint_ClearIN();
-}
 #endif
+}
 
 /*******************************************************************************
  * USB Events

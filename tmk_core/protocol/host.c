@@ -24,6 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "digitizer.h"
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #    ifdef BLUETOOTH_BLUEFRUIT_LE
@@ -160,6 +164,58 @@ void host_consumer_send(uint16_t report) {
     if (!driver) return;
     (*driver->send_extra)(REPORT_ID_CONSUMER, report);
 }
+
+#ifdef JOYSTICK_ENABLE
+void host_joystick_send(joystick_t *joystick) {
+    if (!driver) return;
+
+    report_joystick_t report = {
+#    if JOYSTICK_AXES_COUNT > 0
+        .axes =
+            {
+                joystick->axes[0],
+
+#        if JOYSTICK_AXES_COUNT >= 2
+                joystick->axes[1],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
+                joystick->axes[2],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
+                joystick->axes[3],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
+                joystick->axes[4],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
+                joystick->axes[5],
+#        endif
+            },
+#    endif
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+        .buttons =
+            {
+                joystick->buttons[0],
+
+#        if JOYSTICK_BUTTON_COUNT > 8
+                joystick->buttons[1],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
+                joystick->buttons[2],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
+                joystick->buttons[3],
+#        endif
+            },
+#    endif
+    };
+
+    send_joystick(&report);
+}
+#endif
+
+__attribute__((weak)) void send_joystick(report_joystick_t *report) {}
 
 void host_digitizer_send(digitizer_t *digitizer) {
     if (!driver) return;
