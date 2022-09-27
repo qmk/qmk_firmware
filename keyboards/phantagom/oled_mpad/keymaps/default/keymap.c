@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void matrix_init_kb(void) {
+void matrix_init_user(void) {
   // set CapsLock LED to output and low
   setPinOutput(GP4);
   writePinLow(GP4);
