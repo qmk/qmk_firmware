@@ -8,6 +8,10 @@
         "pid": "0x0180",
         "device_version": "0.0.2"
     },
+    "layout_aliases": {
+        "LAYOUT_tkl_nofrow_ansi": "LAYOUT_ansi",
+        "LAYOUT_tkl_nofrow_iso": "LAYOUT_iso"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -97,7 +101,7 @@
                 { "label": "4,17", "x": 19, "y": 4 }
             ]
         },
-        "LAYOUT_tkl_nofrow_ansi": {
+        "LAYOUT_ansi": {
             "layout": [
                 { "label": "0,0", "x": 0, "y": 0 },
                 { "label": "0,1", "x": 1.5, "y": 0 },
@@ -181,7 +185,7 @@
                 { "label": "4,17", "x": 19, "y": 4 }
             ]
         },
-        "LAYOUT_tkl_nofrow_iso": {
+        "LAYOUT_iso": {
             "layout": [
                 { "label": "0,0", "x": 0, "y": 0 },
                 { "label": "0,1", "x": 1.5, "y": 0 },
