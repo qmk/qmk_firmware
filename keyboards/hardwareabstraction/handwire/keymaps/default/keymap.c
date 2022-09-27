@@ -1,3 +1,6 @@
+// Copyright 2022 Andy Tsai (@atsai)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #ifdef BUZZER_ENABLE

@@ -1,3 +1,6 @@
+// Copyright 2022 Andy Tsai (@atsai)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "progmem.h"
 
 static const unsigned char font[] PROGMEM = {
