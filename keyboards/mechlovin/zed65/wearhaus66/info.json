@@ -2,7 +2,7 @@
     "keyboard_name": "Wearhaus66", 
     "manufacturer": "Mechlovin Studio",
     "url": "", 
-    "maintainer": "Mechlovin' Studio", 
+    "maintainer": "mechlovin",
     "usb": {
         "vid": "0x4D4C",
         "pid": "0x6602",
