@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xF8E8
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    phantagom
-#define PRODUCT         mega numpad with oled and extra function rows 
 
 #define TAPPING_TERM 400
 
