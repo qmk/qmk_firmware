@@ -76,7 +76,7 @@ bool led_update_user(led_t led_state) {
     return res;
 }
 
-static  unsigned  int type_count = 0 ;
+static uint16_t type_count = 0;
  void  count_type ( void ) {
     type_count++;
 }
