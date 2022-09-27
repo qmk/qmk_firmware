@@ -23,19 +23,16 @@
 #define MATRIX_COLS         10
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS     { B8, C2, C3, C4, C5, B4, D2, B3, C12, C11, C10, C9 }
-#define MATRIX_COL_PINS     { B9, A1, A2, A3, A4, A5, B0, C7, C6, B1 }
+#define MATRIX_ROW_PINS     { B2, B3, B1, D4, B4, D1, E6, B0, F0, F1, F4, F5 }
+#define MATRIX_COL_PINS     { D0, D2, D3, D5, B5, D7, F6, F7, C7, B6 }
 #define UNUSED_PINS
 
-/* Indicator LEDs */
-#define LED_NUM_LOCK_PIN    B12
-#define LED_CAPS_LOCK_PIN   B10
+/* LED Configuration */
+#define BACKLIGHT_PINS          {D6}
+// To have all lights shine uniformly, add C6 and B7 to the list above, then undefine the constants below.
+#define LED_NUM_LOCK_PIN        C6
+#define LED_CAPS_LOCK_PIN       B7
 
-/* In-switch LEDs */
-#define BACKLIGHT_PIN  	        A6
-#define BACKLIGHT_PWM_DRIVER    PWMD3
-#define BACKLIGHT_PWM_CHANNEL   1
-#define BACKLIGHT_PAL_MODE      1
 #define BACKLIGHT_LEVELS        6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD        6
