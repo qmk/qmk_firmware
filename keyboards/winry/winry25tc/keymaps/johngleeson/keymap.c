@@ -34,7 +34,8 @@ enum custom_keycodes {
   RIGHT_THIRD,
   PREVIOUS_DISPLAY,
   NEXT_DISPLAY,
-  CENTRE
+  CENTRE,
+  MUTE_ZOOM
 };
 
 enum combos { 
@@ -170,6 +171,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          } else {
         }
         break;
+    case MUTE_ZOOM:
+        if (record->event.pressed) {
+            // Left ctrl, left alt, c
+            SEND_STRING(SS_LGUI(SS_LSFT("a")));
+         } else {
+        }
+        break;
     }
     return true;
 };
@@ -187,10 +195,10 @@ combo_t key_combos[COMBO_COUNT] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT(
-        TOP_LEFT_SIXTH,     TOP_CENTRE_SIXTH,       TOP_RIGHT_SIXTH,        KC_SCROLL_LOCK, KC_PAUSE,
-        BOTTOM_LEFT_SIXTH,  BOTTOM_CENTRE_SIXTH,    BOTTOM_RIGHT_SIXTH,     KC_KB_VOLUME_DOWN, KC_KB_VOLUME_UP,
-        CENTRE,             PREVIOUS_DISPLAY,       NEXT_DISPLAY,           KC_PENT, RGB_MOD,
-        KC_P1,              KC_P2,                  KC_P3,                  KC_UP,   KC_UP,
-        KC_P0,              KC_PDOT,                KC_LEFT,                KC_DOWN, KC_RGHT
+        TOP_LEFT_SIXTH,     TOP_CENTRE_SIXTH,       TOP_RIGHT_SIXTH,        KC_SCROLL_LOCK,     KC_PAUSE,
+        BOTTOM_LEFT_SIXTH,  BOTTOM_CENTRE_SIXTH,    BOTTOM_RIGHT_SIXTH,     KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,
+        CENTRE,             PREVIOUS_DISPLAY,       NEXT_DISPLAY,           KC_PENT,            RGB_MOD,
+        KC_P1,              KC_P2,                  KC_P3,                  KC_UP,              KC_UP,
+        KC_P0,              KC_PDOT,                KC_LEFT,                KC_DOWN,            MUTE_ZOOM
     )
 };
