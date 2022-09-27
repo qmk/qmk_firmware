@@ -66,7 +66,7 @@ void matrix_init_user(void) {
   writePinLow(GP6);
 }
 
-bool led_update_kb(led_t led_state) {
+bool led_update_user(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
         writePin(GP4, led_state.num_lock);
