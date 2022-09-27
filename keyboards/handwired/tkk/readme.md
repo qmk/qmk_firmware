@@ -1,6 +1,6 @@
 # tkk
 
-![tkk](https://imgur.com/a/Vh43bd9)
+![tkk](https://i.imgur.com/gXAjt3Oh.jpeg)
 
 This is 'tkk', a ten key split keyboard wired as a single "row," ten "column" diode-less numpad. I've been dreaming of my own ten key layout since before discovering [ASETIOP](https://asetniop.com/), and [gboard's Ginny](https://www.gboards.ca/) ... but I'm too new to QMK and too rusty with C to figure out how to modify the Ginny's layout / chording engine. So here we are. The tkk [layout](https://imgur.com/a/eQzhSgw) is built around a vaguely DVORAK-ish letter layout (with some adjustments meant to aid memorization), with "modules" for numbers, movement, modifiers, and even mouse keys.
 
