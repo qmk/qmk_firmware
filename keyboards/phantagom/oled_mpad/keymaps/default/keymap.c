@@ -82,7 +82,7 @@ void matrix_init_user(void) {
   writePinLow(GP6);
 }
 
-bool led_update_user(led_t led_state) {
+bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
         writePin(GP4, led_state.num_lock);
@@ -109,7 +109,8 @@ bool  process_record_user ( uint16_t keycode, keyrecord_t *record) {
 }
 
 void  oled_write_type_count ( void ) {
-     oled_write_ln(get_u16_str(type_count, ` `), false );
+     oled_write_P ( PSTR ( "Type count: " ), false );
+     oled_write_ln (get_u16_str(type_count, ' '), false );
 }
 
 // Layer state
@@ -190,5 +191,3 @@ bool oled_task_user(void) {
     return false;
 }
 #endif
-
-

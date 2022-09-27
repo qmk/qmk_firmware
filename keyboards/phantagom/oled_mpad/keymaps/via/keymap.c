@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void matrix_init_kb(void) {
+void matrix_init_user(void) {
   // set CapsLock LED to output and low
   setPinOutput(GP4);
   writePinLow(GP4);
@@ -92,7 +92,7 @@ bool led_update_kb(led_t led_state) {
     return res;
 }
 
-static  unsigned  int type_count = 0 ;
+static uint16_t type_count = 0;
  void  count_type ( void ) {
     type_count++;
 }
@@ -109,10 +109,8 @@ bool  process_record_user ( uint16_t keycode, keyrecord_t *record) {
 }
 
 void  oled_write_type_count ( void ) {
-     static  char type_count_str[ 7 ];
      oled_write_P ( PSTR ( "Type count: " ), false );
-     itoa (type_count, type_count_str, 10 );
-     oled_write_ln (type_count_str, false );
+     oled_write_ln (get_u16_str(type_count, ' '), false );
 }
 
 // Layer state
@@ -193,5 +191,3 @@ bool oled_task_user(void) {
     return false;
 }
 #endif
-
-
