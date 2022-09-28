@@ -87,8 +87,7 @@ void dance_LBRC_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_LBRC_reset(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		unregister_code(KC_LALT);
-		unregister_code(KC_LBRC);
+		unregister_code16(A(KC_LBRC));
 	} else {
 		unregister_code(KC_LBRC);
 	}
