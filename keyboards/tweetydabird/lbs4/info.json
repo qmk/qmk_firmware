@@ -8,17 +8,17 @@
 	"bootloader": "caterina",
 	
 	"features": {
-		"backlight": false,
 		"bootmagic": true,
-		"encoder": true,
 		"command": false,
 		"console": false,
 		"extrakey": true,
-		"midi": false,
-		"mousekey": false,
+		"mousekey": true,
 		"nkro": false,
 		"rgblight": true,
-		"unicode": false,
+		"encoder": true
+	},
+
+	"build": {
 		"lto": true
 	},
 	
