@@ -16,7 +16,8 @@
 
 #include QMK_KEYBOARD_H
 
-
+#define _BASE_MAC 0
+#define _WINDOWS 1
 
 enum custom_keycodes {
   TOP_LEFT = SAFE_RANGE,
@@ -35,7 +36,8 @@ enum custom_keycodes {
   PREVIOUS_DISPLAY,
   NEXT_DISPLAY,
   CENTRE,
-  MUTE_ZOOM
+  MUTE_ZOOM,
+  FULLSCREEN
 };
 
 enum combos { 
@@ -178,6 +180,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          } else {
         }
         break;
+    case FULLSCREEN:
+        if (record->event.pressed) {
+            // Left ctrl , left alt, enter
+            SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_ENTER))));
+         } else {
+        }
+        break;
     }
     return true;
 };
@@ -194,11 +203,18 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(
-        TOP_LEFT_SIXTH,     TOP_CENTRE_SIXTH,       TOP_RIGHT_SIXTH,        KC_SCROLL_LOCK,     KC_PAUSE,
-        BOTTOM_LEFT_SIXTH,  BOTTOM_CENTRE_SIXTH,    BOTTOM_RIGHT_SIXTH,     KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,
-        CENTRE,             PREVIOUS_DISPLAY,       NEXT_DISPLAY,           KC_PENT,            RGB_MOD,
-        KC_P1,              KC_P2,                  KC_P3,                  KC_UP,              KC_UP,
-        KC_P0,              KC_PDOT,                KC_LEFT,                KC_DOWN,            MUTE_ZOOM
-    )
+   [_BASE_MAC] = LAYOUT(
+        KC_NO,              KC_NO,                KC_NO,                KC_SCROLL_LOCK,     KC_PAUSE,
+        KC_NO,              KC_NO,                KC_NO,                KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,
+        CENTRE,             PREVIOUS_DISPLAY,     NEXT_DISPLAY,         KC_PENT,            RGB_MOD,
+        TOP_LEFT_SIXTH,     TOP_CENTRE_SIXTH,     TOP_RIGHT_SIXTH,      KC_NO,              KC_NO,
+        BOTTOM_LEFT_SIXTH,  BOTTOM_CENTRE_SIXTH,  BOTTOM_RIGHT_SIXTH,   KC_NO,              MUTE_ZOOM
+    ),
+    [_WINDOWS] = LAYOUT(
+        KC_NO,            KC_NO,                KC_NO,                KC_NO,     KC_NO,
+        KC_NO,            KC_NO,                KC_NO,                KC_NO,  KC_NO,
+        KC_NO,             KC_NO,       KC_NO,           KC_PENT,            KC_NO,
+        KC_NO,     KC_NO,       KC_NO,        KC_NO,            KC_NO,
+        KC_NO,  KC_NO,    KC_NO,     KC_NO,            KC_NO
+    ),
 };
