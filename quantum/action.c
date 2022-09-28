@@ -329,7 +329,7 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
 #elif defined(POINTING_DEVICE_ENABLE)
     // if mousekeys isn't enabled, and pointing device is enabled, then
     // let pointing device do all the heavy lifting, then
-    if IS_MOUSEKEY(mouse_keycode) {
+    if IS_MOUSEKEY (mouse_keycode) {
         pointing_device_keycode_handler(mouse_keycode, pressed);
     }
 #endif
@@ -338,7 +338,7 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
     // make sure that ps2 mouse has button report synced
     if (KC_MS_BTN1 <= mouse_keycode && mouse_keycode <= KC_MS_BTN3) {
         uint8_t tmp_button_msk = MOUSE_BTN_MASK(mouse_keycode - KC_MS_BTN1);
-        tp_buttons = pressed ? tp_buttons | tmp_button_msk : tp_buttons & ~tmp_button_msk;
+        tp_buttons             = pressed ? tp_buttons | tmp_button_msk : tp_buttons & ~tmp_button_msk;
     }
 #endif
 }
