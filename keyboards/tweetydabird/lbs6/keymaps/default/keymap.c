@@ -15,17 +15,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#ifdef ENCODER_ENABLE
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-		if(clockwise){
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		} 
-    } 
-	return true;
-};
-
-#endif
+    if (index == 0) { // First encoder
+        if (clockwise) {
+            tap_code_delay(KC_VOLU,0);
+        } else {
+            tap_code_delay(KC_VOLD,0);
+        }
+    } /*else if (index == 1) { // Second encoder
+        if (clockwise) {
+            rgb_matrix_increase_hue();
+        } else {
+            rgb_matrix_decrease_hue();
+        }
+    }*/
+    return false;
+}
