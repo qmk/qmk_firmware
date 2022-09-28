@@ -14,7 +14,7 @@ static bool buzzer_active = false;
 static bool initial_keypress = false;
 
 enum custom_keycodes{
-    KC_HPTON = USER00,
+    KC_HPTON = SAFE_RANGE,
     KC_HPTOFF,
     KC_HPTTOG,
     KC_HPTRST,
