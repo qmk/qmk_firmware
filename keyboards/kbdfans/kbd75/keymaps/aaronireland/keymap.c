@@ -160,11 +160,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *  QRT   - QWERTY Layout
    *  CLK   - COLEMAK Layout
    *  DVK   - DVORAK Layout
-   *  RESET - Put PCB into Bootstrap mode
+   *  QK_BOOT - Put PCB into Bootstrap mode
    * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
    * │   │   │   │   │   │   │   │   │   │   │   │   │   │PSN│   │   │
    * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┴───┼───┤
-   * │   │TOG│MOD│HU+│HU-│SA+│SA-│VA+│VA-│   │   │   │   │ RESET │F13│
+   * │   │TOG│MOD│HU+│HU-│SA+│SA-│VA+│VA-│   │   │   │   │ QK_BOOT │F13│
    * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
    * │ TAB │QRT│   │   │   │   │   │   │   │   │   │   │   │     │SNU│
    * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
@@ -178,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FL] = LAYOUT_ansi_1u(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CAPP, _______, _______,
-    _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, RESET  ,          KC_F13 ,
+    _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, QK_BOOT,          KC_F13 ,
     KC_TAB , QWERTY , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_SNU ,
     KC_CAPS, _______, _______, DVORAK , _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_SND ,
     _______,          _______, _______, COLEMAK, BL_DEC , BL_TOGG, BL_INC , BL_STEP, _______, _______, _______, _______,          KC_PAUS, KC_MUTE,

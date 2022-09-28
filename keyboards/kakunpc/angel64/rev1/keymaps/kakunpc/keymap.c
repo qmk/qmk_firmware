@@ -175,7 +175,7 @@ void matrix_scan_user(void) {
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
   oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case BASE:
       oled_write_P(PSTR("Default\n"), false);
       break;

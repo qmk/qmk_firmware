@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "XD60 Rev 3",
+    "usb": {
+        "pid": "0x6363"
+    }
+}

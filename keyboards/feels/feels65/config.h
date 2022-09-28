@@ -24,6 +24,5 @@
 /* default pinout */
 #define MATRIX_ROW_PINS { D5, D3, D2, D1, D0 }
 #define MATRIX_COL_PINS { B4, B5, B6, C6, C7, F7, F6, F5, F4, F1, F0, E6, B0, B1, B2, B3 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW

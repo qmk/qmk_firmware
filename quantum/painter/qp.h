@@ -440,9 +440,17 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 #    include "qp_ili9341.h"
 #endif // QUANTUM_PAINTER_ILI9341_ENABLE
 
+#ifdef QUANTUM_PAINTER_ILI9488_ENABLE
+#    include "qp_ili9488.h"
+#endif // QUANTUM_PAINTER_ILI9488_ENABLE
+
 #ifdef QUANTUM_PAINTER_ST7789_ENABLE
 #    include "qp_st7789.h"
 #endif // QUANTUM_PAINTER_ST7789_ENABLE
+
+#ifdef QUANTUM_PAINTER_ST7735_ENABLE
+#    include "qp_st7735.h"
+#endif // QUANTUM_PAINTER_ST7735_ENABLE
 
 #ifdef QUANTUM_PAINTER_GC9A01_ENABLE
 #    include "qp_gc9a01.h"

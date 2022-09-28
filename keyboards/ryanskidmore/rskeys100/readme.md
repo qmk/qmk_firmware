@@ -19,4 +19,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-To enter the bootloader, press the `RESET` button on your daughterboard PCB while it's plugged in.
+To enter the bootloader, press the `QK_BOOT` button on your daughterboard PCB while it's plugged in.

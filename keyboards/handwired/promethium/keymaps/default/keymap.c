@@ -529,7 +529,7 @@ void led_reset(void) {
 }
 
 void led_set_default_layer_indicator(void) {
-  uint8_t default_layer = biton32(default_layer_state);
+  uint8_t default_layer = get_highest_layer(default_layer_state);
   if (default_layer == _QWERTY) {
     rgbsps_set(LED_IND_QWERTY, THEME_COLOR_QWERTY);
     rgbsps_set(LED_IND_ALT, COLOR_BLANK);
@@ -553,7 +553,7 @@ void led_set_layer_indicator(void) {
   rgbsps_set(LED_IND_GREEK, COLOR_BLANK);
   rgbsps_set(LED_IND_EMOJI, COLOR_BLANK);
 
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   if (oldlayer == layer) {
     return;
   }
@@ -1014,7 +1014,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
   rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
-  layer = biton32(layer_state);
+  layer = get_highest_layer(layer_state);
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
   // double-space: send space immediately if any other key depressed before space is released
