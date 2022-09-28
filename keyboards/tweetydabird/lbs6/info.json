@@ -17,7 +17,11 @@
 		"rgblight": true,
 		"encoder": true
 	},
-	
+
+  "build": {
+    "lto": true
+  },
+
 	"usb": {
 		"vid": "0xFEED",
         "pid": "0x23B0",
