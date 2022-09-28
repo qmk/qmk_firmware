@@ -1,7 +1,7 @@
-// fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf -s16 0x61f 0x64a 0x660 0x669 
+// fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf -s16 -v _Isolated_ 0x61f 0x64a 0x660 0x669 
 // Visualize your font via https://tchapi.github.io/Adafruit-GFX-Font-Customiser
 
-const uint8_t NotoSansArabic_Regular16pt16bBitmaps[] PROGMEM = {
+const uint8_t NotoSansArabic_Regular_Isolated_16pt16bBitmaps[] PROGMEM = {
   0x1F, 0xC3, 0xFF, 0x70, 0x7E, 0x00, 0xE0, 0x0E, 0x00, 0xE0, 0x0F, 0x00,
   0x70, 0x07, 0x80, 0x3C, 0x00, 0xE0, 0x06, 0x00, 0x70, 0x03, 0x00, 0x30,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x30, 0x07, 0x80, 0x78, 0x03, 0x00, 0x00,
@@ -235,7 +235,7 @@ const uint8_t NotoSansArabic_Regular16pt16bBitmaps[] PROGMEM = {
   0x07, 0x00, 0x38, 0x00, 0xC0, 0x06, 0x00, 0x30, 0x01, 0x80, 0x0E, 0x00,
   0x70, 0x01, 0x80 };
 
-const GFXglyph NotoSansArabic_Regular16pt16bGlyphs[] PROGMEM = {
+const GFXglyph NotoSansArabic_Regular_Isolated_16pt16bGlyphs[] PROGMEM = {
 // bmpOff,   w,   h,xAdv, xOff, yOff      range 0 (0x61f - 0x64a)
   {     0,  12,  23,  14,    1,  -21 },   // 0x61F uni061F  (#0)
   {    35,  22,  24,  24,    1,  -12 },   // 0x620 uni0620  (#1)
@@ -314,12 +314,12 @@ const GFXglyph NotoSansArabic_Regular16pt16bGlyphs[] PROGMEM = {
   {  2698,  16,  21,  18,    1,  -20 },   // 0x668 uni0668  (#52)
   {  2740,  13,  21,  16,    1,  -20 } }; // 0x669 uni0669  (#53)
 
-const GFXfont NotoSansArabic_Regular16pt16b PROGMEM = {
-  (uint8_t  *)NotoSansArabic_Regular16pt16bBitmaps,
-  (GFXglyph *)NotoSansArabic_Regular16pt16bGlyphs,
+const GFXfont NotoSansArabic_Regular_Isolated_16pt16b PROGMEM = {
+  (uint8_t  *)NotoSansArabic_Regular_Isolated_16pt16bBitmaps,
+  (GFXglyph *)NotoSansArabic_Regular_Isolated_16pt16bGlyphs,
   0x61F, // first
   0x669, // last
-  66  // height
+  40  // height
  };
 
 // Approx. 3307 bytes

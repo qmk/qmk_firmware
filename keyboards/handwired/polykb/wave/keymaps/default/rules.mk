@@ -1,0 +1,1 @@
+SRC += lang_lut.c

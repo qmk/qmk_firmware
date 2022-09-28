@@ -95,25 +95,19 @@ const GFXfont IconsFont PROGMEM = {
   40
 };
 
-// Approx. 2586 bytes
 
-#define ICON_LAYER        u"\x0080"
-#define ICON_UP           u"\x0081"
-#define ICON_DOWN         u"\x0082"
-#define ICON_LEFT         u"\x0083"
-#define ICON_RIGHT        u"\x0084"
-#define ICON_SPACE        u"\x0085"
-#define ICON_LMB          u"\x0086"
-#define ICON_MMB          u"\x0087"
-#define ICON_RMB          u"\x0088"
-#define ICON_VOL_UP       u"\x0089"
-#define ICON_VOL_DOWN     u"\x008A"
-#define ICON_BACKSPACE    u"\x008B"
-#define ICON_NUMLOCK_OFF  u"\x008C"
-#define ICON_NUMLOCK_ON   u"\x008D"
-#define ICON_CAPSLOCK_OFF u"\x008E"
-#define ICON_CAPSLOCK_ON  u"\x008F"
-#define ICON_SHIFT        u"\x0090"
-#define ICON_SWITCH_ON    u"\x0091"
-#define ICON_SWITCH_OFF   u"\x0092"
-#define ICON_BONGO_CAT    u"\x0093"
+
+const GFXglyph HelperGlyphs[] PROGMEM = {
+// bmpOff,   w,   h,xAdv, xOff, yOff      range 0 (0x20 - 0x7e)
+  {     0,   0,   0,   -1,    0,    0 },   // 0x08 (backspace)
+};
+
+const GFXfont HelperFont PROGMEM = {
+  NULL,
+  (GFXglyph *)HelperGlyphs,
+  0x08, // first
+  0x08, // last
+  20  // height
+ };
+
+// Approx. 2586 bytes

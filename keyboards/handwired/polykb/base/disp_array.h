@@ -2,13 +2,13 @@
 
 #include "fonts/gfxfont.h"
 
-uint8_t kdisp_write_gfx_char(const GFXfont **fonts, uint8_t num_fonts, int16_t x, int16_t y, uint16_t c);
+int8_t kdisp_write_gfx_char(const GFXfont **fonts, uint8_t num_fonts, int8_t x, int8_t y, uint16_t c);
 
-void kdisp_write_gfx_text(const GFXfont **fonts, uint8_t num_fonts, int16_t x, int16_t y, const uint16_t *text);
+void kdisp_write_gfx_text(const GFXfont **fonts, uint8_t num_fonts, int8_t x, int8_t y, const uint16_t *text);
 
-void kdisp_write_base_char(uint16_t x, uint16_t y, char c);
+void kdisp_write_base_char(int8_t x, int8_t y, char c);
 
-void kdisp_draw_bitmap(uint16_t x, uint16_t y, const uint8_t pgm_bmp[], uint8_t bmp_width, uint8_t bmp_height);
+void kdisp_draw_bitmap(int8_t x, int8_t y, const uint8_t pgm_bmp[], int8_t bmp_width, int8_t bmp_height);
 
 void kdisp_set_buffer(uint8_t vertical_pixel_row_of_8_pixels);
 

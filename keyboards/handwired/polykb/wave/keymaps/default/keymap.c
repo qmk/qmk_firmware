@@ -8,7 +8,8 @@
 
 #include "quantum/quantum_keycodes.h"
 
-enum lang_layer { LANG_EN = 0, LANG_KO = 1, LANG_JP = 2, NUM_LANG = 3};
+#include "lang_lut.h"
+
 static enum lang_layer current_lang = LANG_EN;
 
 enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, // _LAYER2 = 2, _LAYER3 = 3, _LAYER4 = 4, _LAYER5 = 5, _LAYER6 = 6, _LAYER7 = 7,
@@ -128,109 +129,6 @@ struct diplay_info key_display[] = {
         {BITMASK5(0)}, {BITMASK5(1)}, {BITMASK5(2)}, {BITMASK5(3)}, {BITMASK5(4)}, {BITMASK5(5)}, {BITMASK5(6)}, {BITMASK5(7)}
     };
 
-enum {ALPHA = 26, NUM = 10, ADDITIONAL = 17};
-
-const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
-    //           [  E N G L I S H - U S  ]          [          K O R E A N              ]      [          J A P A N E S E             ]
-    //            glyph     shift   caps            glyph           shift           caps         glyph           shift           caps
-    /* KC_A */   {u"a",     u"A",   NULL,           HANGEUL_MIEUM,  NULL,               NULL,   HIRAGANA_LETTER_TI, NULL,                   NULL},
-    /* KC_B */   {u"b",     u"B",   NULL,           HANGEUL_YU,     NULL,               NULL,   HIRAGANA_LETTER_KO, NULL,                   NULL},
-    /* KC_C */   {u"c",     u"C",   NULL,           HANGEUL_CHIEUCH,NULL,               NULL,   HIRAGANA_LETTER_SO, NULL,                   NULL},
-    /* KC_D */   {u"d",     u"D",   NULL,           HANGEUL_IEUNG,  NULL,               NULL,   HIRAGANA_LETTER_SI, NULL,                   NULL},
-    /* KC_E */   {u"e",     u"E",   NULL,           HANGEUL_TIKEUT, HANGEUL_SSANGTIKEUT,NULL,   HIRAGANA_LETTER_I,  HIRAGANA_LETTER_SMALL_I,NULL},
-    /* KC_F */   {u"f",     u"F",   NULL,           HANGEUL_RIEUL,  NULL,               NULL,   HIRAGANA_LETTER_HA, NULL,                   NULL},
-    /* KC_G */   {u"g",     u"G",   NULL,           HANGEUL_HIEUH,  NULL,               NULL,   HIRAGANA_LETTER_KI, NULL,                   NULL},
-    /* KC_H */   {u"h",     u"H",   NULL,           HANGEUL_O,      NULL,               NULL,   HIRAGANA_LETTER_KU, NULL,                   NULL},
-    /* KC_I */   {u"i",     u"I",   NULL,           HANGEUL_YA,     NULL,               NULL,   HIRAGANA_LETTER_RI, NULL,                   NULL},
-    /* KC_J */   {u"j",     u"J",   NULL,           HANGEUL_EO,     NULL,               NULL,   HIRAGANA_LETTER_MA, NULL,                   NULL},
-    /* KC_K */   {u"k",     u"K",   NULL,           HANGEUL_A,      NULL,               NULL,   HIRAGANA_LETTER_NO, NULL,                   NULL},
-    /* KC_L */   {u"l",     u"L",   NULL,           HANGEUL_I,      NULL,               NULL,   HIRAGANA_LETTER_RI, NULL,                   NULL},
-    /* KC_M */   {u"m",     u"M",   NULL,           HANGEUL_EU,     NULL,               NULL,   HIRAGANA_LETTER_MO, NULL,                   NULL},
-    /* KC_N */   {u"n",     u"N",   NULL,           HANGEUL_U,      NULL,               NULL,   HIRAGANA_LETTER_MI, NULL,                   NULL},
-    /* KC_O */   {u"o",     u"O",   NULL,           HANGEUL_AE,     HANGEUL_YAE,        NULL,   HIRAGANA_LETTER_RA, NULL,                   NULL},
-    /* KC_P */   {u"p",     u"P",   NULL,           HANGEUL_E,      HANGEUL_YE,         NULL,   HIRAGANA_LETTER_SE, NULL,                   NULL},
-    /* KC_Q */   {u"q",     u"Q",   NULL,           HANGEUL_PIEUP,  HANGEUL_SSANGPIEUP, NULL,   HIRAGANA_LETTER_TA, NULL,                   NULL},
-    /* KC_R */   {u"r",     u"R",   NULL,           HANGEUL_KIYEOK, HANGEUL_SSANGKIYEOK,NULL,   HIRAGANA_LETTER_SU, NULL,                   NULL},
-    /* KC_S */   {u"s",     u"S",   NULL,           HANGEUL_NIEUN,  NULL,               NULL,   HIRAGANA_LETTER_TO, NULL,                   NULL},
-    /* KC_T */   {u"t",     u"T",   NULL,           HANGEUL_SIOS,   HANGEUL_SSANGSIOS,  NULL,   HIRAGANA_LETTER_KA, NULL,                   NULL},
-    /* KC_U */   {u"u",     u"U",   NULL,           HANGEUL_YEO,    NULL,               NULL,   HIRAGANA_LETTER_NA, NULL,                   NULL},
-    /* KC_V */   {u"v",     u"V",   NULL,           HANGEUL_PHIEUPH,NULL,               NULL,   HIRAGANA_LETTER_HI, NULL,                   NULL},
-    /* KC_W */   {u"w",     u"W",   NULL,           HANGEUL_CIEUC,  HANGEUL_SSANGCIEUC, NULL,   HIRAGANA_LETTER_TE, NULL,                   NULL},
-    /* KC_X */   {u"x",     u"X",   NULL,           HANGEUL_THIEUTH,NULL,               NULL,   HIRAGANA_LETTER_SA, NULL,                   NULL},
-    /* KC_Y */   {u"y",     u"Y",   NULL,           HANGEUL_YO,     NULL,               NULL,   HIRAGANA_LETTER_N,  NULL,                   NULL},
-    /* KC_Z */   {u"z",     u"Z",   NULL,           HANGEUL_KHIEUKH,NULL,               NULL,   HIRAGANA_LETTER_TU, HIRAGANA_LETTER_SMALL_TU,NULL},
-
-    /* KC_1 */   {u"1",     u"!",   u"1",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_NU, NULL,                   NULL},
-    /* KC_2 */   {u"2",     u"@",   u"2",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_HU, NULL,                   NULL},
-    /* KC_3 */   {u"3",     u"#",   u"3",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_A,  HIRAGANA_LETTER_SMALL_A,NULL},
-    /* KC_4 */   {u"4",     u"$",   u"4",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_U,  HIRAGANA_LETTER_SMALL_U,NULL},
-    /* KC_5 */   {u"5",     u"%",   u"5",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_E,  HIRAGANA_LETTER_SMALL_E,NULL},
-    /* KC_6 */   {u"6",     u"^",   u"6",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_O,  HIRAGANA_LETTER_SMALL_O,NULL},
-    /* KC_7 */   {u"7",     u"&",   u"7",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_YA, HIRAGANA_LETTER_SMALL_YA,NULL},
-    /* KC_8 */   {u"8",     u"*",   u"8",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_YU, HIRAGANA_LETTER_SMALL_YU,NULL},
-    /* KC_9 */   {u"9",     u"(",   u"9",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_YO, HIRAGANA_LETTER_SMALL_YO,NULL},
-    /* KC_0 */   {u"0",     u")",   u"0",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_WA, HIRAGANA_LETTER_WO,     NULL},
-
-/*KC_ENTER     */{u"Ent",   NULL,   NULL,           NULL,           NULL,               NULL,   NULL,               NULL,                   NULL},  
-/*KC_ESCAPE    */{u"ESC",   NULL,   NULL,           NULL,           NULL,               NULL,   NULL,               NULL,                   NULL}, 
-/*KC_BACKSPACE */{ICON_BACKSPACE,NULL,NULL,         NULL,           NULL,               NULL,   NULL,               NULL,                   NULL}, 
-/*KC_TAB       */{u"Tab",   NULL,   NULL,           NULL,           NULL,               NULL,   NULL,               NULL,                   NULL}, 
-/*KC_SPACE     */{ICON_SPACE,NULL,  NULL,           NULL,           NULL,               NULL,   NULL,               NULL,                   NULL},  
-/*KC_MINUS     */{u"-",     u"_",   u"-",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_HO, KH_PROLONGED_SOUND_MARK,NULL}, 
-/*KC_EQUAL     */{u"=",     u"+",   u"=",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_HE, NULL,                   NULL},  
-/*KC_LBRC      */{u"[",     u"{",   u"[",           NULL,           NULL,               NULL,   KH_VOICED_SOUND_MARK,LFET_CORNER_BRACKET,   NULL}, 
-/*KC_RBRC      */{u"]",     u"}",   u"]",           NULL,           NULL,               NULL,   KH_SEMI_VOICED_SOUND_MARK,RIGHT_CORNER_BRACKET,NULL}, 
-/*KC_BACKSLASH */{u"\\",    u"|",   u"\\",          NULL,           NULL,               NULL,   HIRAGANA_LETTER_MU, NULL,                   NULL},
-/*KC_NONUS_HASH*/{u"#",     u"~",   u"#",           NULL,           NULL,               NULL,   NULL,               NULL,                   NULL}, 
-/*KC_SEMICOLON */{u";",     u":",   u";",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_RE, NULL,                   NULL},
-/*KC_QUOTE     */{u"'",     u"\"",  u"'",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_KE, NULL,                   NULL}, 
-/*KC_GRAVE     */{u"`",     u"~",   u"`",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_RO, NULL,                   NULL},
-/*KC_COMMA     */{u",",     u"<",   u",",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_NE, CJK_IDEOGRAPHIC_COMMA,  NULL},
-/*KC_DOT       */{u".",     u">",   u".",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_RU, CJK_IDEOGRAPHIC_FULL_STOP,NULL},
-/*KC_SLASH     */{u"/",     u"?",   u"/",           NULL,           NULL,               NULL,   HIRAGANA_LETTER_ME, KATAKANA_MIDDLE_DOT,    NULL}
-};
-
-#define CJK_IDEOGRAPHIC_COMMA                       u"\x3001"
-#define CJK_IDEOGRAPHIC_FULL_STOP                   u"\x3002"
-#define LFET_CORNER_BRACKET                         u"\x300C"
-#define RIGHT_CORNER_BRACKET                        u"\x300D"
-#define KATAKANA_MIDDLE_DOT                         u"\x30FB"
-#define KH_PROLONGED_SOUND_MARK                     u"\x30FC"
-
-
-const uint16_t* translate_keycode(uint16_t keycode, bool shift, bool caps_lock) {
-    if(keycode < KC_A || keycode > KC_SLASH) return NULL;
-
-    uint16_t index = keycode - KC_A;
-    
-    uint8_t used_lang = current_lang;
-
-    const uint16_t* lower_case = lang_plane[index][used_lang*3];
-    if(lower_case==NULL) {
-        lower_case = lang_plane[index][0]; //english as backup
-        used_lang = 0;
-    }
-
-    if(caps_lock) {
-        const uint16_t* caps_case = lang_plane[index][used_lang*3 + 2];
-        if(caps_case!=NULL) {
-            if(!shift) {
-                return caps_case;
-            }
-        } else {
-           shift = !shift;
-        }
-    }
-
-    if(shift) {
-        const uint16_t* upper_case = lang_plane[index][used_lang*3 + 1];
-        if(upper_case!=NULL) {
-            return upper_case;
-        }
-    }
-    return lower_case;
-}
-
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
         case KC_NUM_LOCK:
@@ -328,7 +226,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         case KC_INSERT:
             return u"Ins";
         case KC_HOME:
-            return u"Home";
+            return GO_BACK u"Home";
         case KC_PAGE_UP:
             return u"PgUp";
         case KC_PAGE_DOWN:
@@ -362,13 +260,17 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         case KC_F12:
             return u" F12";
         case KC_LEFT_CTRL:
-            return u"LCtrl";
+        case KC_RIGHT_CTRL:
+            return u"Ctrl";
         case KC_LEFT_ALT:
-            return u"LAlt";
+            return u"Alt";
+        case KC_RIGHT_ALT:
+            return u"AltGr";
         case KC_TAB:
             return u"Tab";
         case KC_LWIN:
-            return u"LWin";
+        case KC_RWIN:
+            return u" Win";
         case KC_LEFT:
             return u"  " ICON_LEFT;
         case KC_RIGHT:
@@ -378,11 +280,10 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         case KC_DOWN:
             return u"  " ICON_DOWN;
         case KC_CAPSLOCK:
-            return state.caps_lock ? u"CL " ICON_CAPSLOCK_ON : u"CL " ICON_CAPSLOCK_OFF;
+            return state.caps_lock ? u"Cap" ICON_CAPSLOCK_ON : u"Cap" ICON_CAPSLOCK_OFF;
         case KC_LSHIFT:
-            return state.caps_lock ? u"L " ICON_SHIFT u"  " ICON_CAPSLOCK_ON : u"L " ICON_SHIFT u"  " ICON_CAPSLOCK_OFF;
         case KC_RSHIFT:
-            return state.caps_lock ? u"R " ICON_SHIFT u"  " ICON_CAPSLOCK_ON : u"R " ICON_SHIFT u"  " ICON_CAPSLOCK_OFF;
+            return u" " ICON_SHIFT;
         case KC_NO:
             return u"";
         case KC_DISP_CMINUS:
@@ -394,17 +295,18 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         case KC_NEXT_LANG:
             {
                 switch((current_lang + 1) % NUM_LANG) {
-                    case LANG_KO: return u"KOR";
-                    case LANG_JP: return u"JPN";
-                    default: return u"ENG";
+                    case LANG_KO: return u" Kor";
+                    case LANG_JP: return u" Jpn";
+                    case LANG_AR: return u" Arab";
+                    default: return u" Eng";
                 }
             }
         case KC_APP:
-            return u"Ctx";
+            return u" Ctx";
         default:
             {
                 bool shift = ((get_mods() & MOD_MASK_SHIFT)!=0);
-                const uint16_t* text = translate_keycode(keycode, shift, state.caps_lock);
+                const uint16_t* text = translate_keycode(current_lang, keycode, shift, state.caps_lock);
                 if(text!=NULL) {
                     return text;
                 }

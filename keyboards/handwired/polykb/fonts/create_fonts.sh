@@ -1,15 +1,15 @@
 #! /bin/bash
 
-echo "Enter Latin font size (eg. 12):"
+echo "Enter Latin font size (eg. 14):"
 read size_lat
 
-echo "Enter Korean font size (eg. 12):"
+echo "Enter Korean font size (eg. 19):"
 read size_kr
 
-echo "Enter Japanese font size (eg. 12):"
+echo "Enter Japanese font size (eg. 15):"
 read size_jp
 
-echo "Enter Arabic font size (eg. 12):"
+echo "Enter Arabic font size (eg. 16):"
 read size_ar
 
 fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf "-s${size_lat}" -v _Base_ 0x20 0x7e > "NotoSans_Regular_Base_${size_lat}pt.h"
@@ -19,7 +19,8 @@ fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _Pun
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _PunctSupl_ 0x30fb 0x30fc > "NotoSansJP_Regular_PunctSupl_${size_jp}pt.h"
 fontconvert -f~/repos/noto-sans-kr/NotoSansKR-Regular.otf "-s${size_kr}" -v _Vowels_ 0x1161 0x1169 0x116d 0x116e 0x1172 0x1175 > "NotoSansKR_Regular_Vowels_${size_kr}pt.h"
 fontconvert -f~/repos/noto-sans-kr/NotoSansKR-Regular.otf "-s${size_kr}" -v _Consonants_ 0x1100 0x1112 > "NotoSansKR_Regular_Consonants_${size_kr}pt.h"
-fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" 0x61f 0x64a 0x660 0x669 > "NotoSansArabicStatic_Regular_${size_ar}pt.h"
+fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -v _Isolated_ 0x61f 0x64a 0x660 0x669 > "NotoSansAR_Regular_Isolated_${size_ar}pt.h"
+fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -v _FormsB_ 0xfef5 0xfef5 0xfefb 0xfefb > "NotoSansAR_Regular_FormsB_${size_ar}pt.h"
 
 echo -e "#pragma once\n" >gfx_used_fonts.h
 ls -1 *pt.h | while read line; do echo '#include "'${line}'"'; done >> gfx_used_fonts.h

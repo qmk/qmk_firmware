@@ -95,7 +95,7 @@ inline uint8_t *pgm_read_bitmap_ptr(const GFXfont *font) {
 #endif  //__AVR__
 }
 
-void kdisp_fill_rect(uint16_t x_start, uint16_t y_start, uint8_t width, uint8_t height) {
+void kdisp_fill_rect(int8_t x_start, int8_t y_start, int8_t width, int8_t height) {
     for (int x = x_start; x < (x_start + width); ++x) {
         for (int y = y_start; y < (x_start + width); ++y) {
             SET_PIXEL_CLIPPED(x, y);
@@ -112,7 +112,7 @@ void kdisp_fill_rect(uint16_t x_start, uint16_t y_start, uint8_t width, uint8_t 
     @param    ch  The 16-bit font-indexed character
 */
 /**************************************************************************/
-uint8_t kdisp_write_gfx_char(const GFXfont **fonts, uint8_t num_fonts, int16_t x, int16_t y, uint16_t ch) {
+int8_t kdisp_write_gfx_char(const GFXfont **fonts, uint8_t num_fonts, int8_t x, int8_t y, uint16_t ch) {
     const GFXfont * currentFont = 0;
     uint16_t first = 0;
     uint16_t last = 0;
@@ -141,9 +141,9 @@ uint8_t kdisp_write_gfx_char(const GFXfont **fonts, uint8_t num_fonts, int16_t x
     y += pgm_read_byte(&currentFont->yAdvance) - pgm_read_byte(&fonts[0]->yAdvance);
 
     uint16_t bo = pgm_read_word(&glyph->bitmapOffset);
-    uint8_t  w = pgm_read_byte(&glyph->width), h = pgm_read_byte(&glyph->height);
+    int8_t  w = pgm_read_byte(&glyph->width), h = pgm_read_byte(&glyph->height);
     int8_t   xo = pgm_read_byte(&glyph->xOffset), yo = pgm_read_byte(&glyph->yOffset);
-    uint8_t  xx, yy, bits = 0, bit = 0;
+    int8_t  xx, yy, bits = 0, bit = 0;
 
     // Todo: Add character clipping here
     for (yy = 0; yy < h; yy++) {
@@ -161,8 +161,8 @@ uint8_t kdisp_write_gfx_char(const GFXfont **fonts, uint8_t num_fonts, int16_t x
     return pgm_read_byte(&glyph->xAdvance);
 }
 
-void kdisp_write_gfx_text(const GFXfont **fonts, uint8_t num_fonts, int16_t x, int16_t y, const uint16_t *text) {
-    uint16_t x_cursor = x;
+void kdisp_write_gfx_text(const GFXfont **fonts, uint8_t num_fonts, int8_t x, int8_t y, const uint16_t *text) {
+    int8_t x_cursor = x;
     while (*text != 0) {
         if(*text==u'\n') {
             y += pgm_read_byte(&fonts[0]->yAdvance);
@@ -174,8 +174,8 @@ void kdisp_write_gfx_text(const GFXfont **fonts, uint8_t num_fonts, int16_t x, i
     }
 }
 
-void kdisp_write_base_char(uint16_t x, uint16_t y, const char ch) {
-    uint8_t font_index = (uint8_t)ch;  // font based on unsigned type for index
+void kdisp_write_base_char(int8_t x, int8_t y, const char ch) {
+    int8_t font_index = (uint8_t)ch;  // font based on unsigned type for index
     if (font_index < BASIC_FONT_START || font_index > BASIC_FONT_END) {
         memset(&scratch_buffer[GET_BUFFER_OFFSET(x, y)], 0x00, BASIC_FONT_WIDTH);
     } else {
@@ -184,12 +184,12 @@ void kdisp_write_base_char(uint16_t x, uint16_t y, const char ch) {
     }
 }
 
-void kdisp_draw_bitmap(uint16_t x, uint16_t y, const uint8_t pgm_bmp[], uint8_t bmp_width, uint8_t bmp_height) {
-    uint8_t byte_width           = (bmp_width + 7) / 8;
+void kdisp_draw_bitmap(int8_t x, int8_t y, const uint8_t pgm_bmp[], int8_t bmp_width, int8_t bmp_height) {
+    int8_t byte_width           = (bmp_width + 7) / 8;
     uint8_t vertical_pixel_row_8 = 0;
 
-    for (uint8_t bmp_y = 0; bmp_y < bmp_height; bmp_y++, y++) {
-        for (uint8_t bmp_x = 0; bmp_x < bmp_width; bmp_x++) {
+    for (int8_t bmp_y = 0; bmp_y < bmp_height; bmp_y++, y++) {
+        for (int8_t bmp_x = 0; bmp_x < bmp_width; bmp_x++) {
             if (bmp_x & 0x07) {
                 vertical_pixel_row_8 <<= 1;
             } else {
