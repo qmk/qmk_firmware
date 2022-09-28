@@ -1,11 +1,10 @@
-# lsb4
+# lsb6
 
-![lsb6](https://imgur.com/MMGSDz2)
 
-*A simple 6-key nacro pad with a clickable scrollwheel, for media controls and whatever else you can imagine.*
+*A simple 6-key macro pad with a clickable scrollwheel, for media controls and whatever else you can imagine.*
 
 * Keyboard Maintainer: [Markus Knutsson](https://github.com/TweetyDaBird/)
-* Hardware Supported: LSB6 PCB plus Pro Micro or pin compatible
+* Hardware Supported: LBS6 PCB plus Pro Micro or pin compatible
 * Hardware Availability: https://lectronz.com/stores/tweetys-wild-thinking
 * Hardware Design: https://github.com/TweetyDaBird/Little-Big-Scroll
 
@@ -24,6 +23,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the top left key and plug in the keyboard
+* **Bootmagic reset**: Hold down the bottom right key and plug in the keyboard
 * **Physical reset**: Briefly short the marked pads on PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if mapped (not in default keymap)
