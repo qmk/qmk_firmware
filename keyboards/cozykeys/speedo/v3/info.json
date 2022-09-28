@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Speedo",
+  "manufacturer": "CozyKeys",
   "url": "https://github.com/cozykeys/speedo",
   "maintainer": "pcewing",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1192",
+    "device_version": "0.0.3"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

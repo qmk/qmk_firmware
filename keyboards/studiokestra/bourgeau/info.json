@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Bourgeau",
+    "manufacturer": "Studio Kestra",
     "url": "https://studiokestra.ca/bourgeau/",
     "maintainer": "studiokestra",
+    "usb": {
+        "vid": "0x7C10",
+        "pid": "0x7501",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_75_ansi_rwkl"
     },

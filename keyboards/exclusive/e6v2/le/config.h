@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* QMK E6-V2 PCB default pin-out */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4 }
 #define MATRIX_COL_PINS { B5, D0, D1, D2, D3, D4, D5, D6, D7, C6, C7, F4, F5, F6, F7 }
-#define UNUSED_PINS
 
 #define LED_CAPS_LOCK_PIN B7
 #define LED_PIN_ON_STATE 0

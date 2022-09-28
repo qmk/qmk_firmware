@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		     _______,          KC_MSEL,                   KC_MUTE,                                     _______,          _______),
 
 [_F2] = LAYOUT_true_hhkb( //function Layer 2
-	RESET,   RGB_STA, RGB_BRE, RGB_RAI, RGB_SWI, RGB_SNA, RGB_KNI, RGB_GRA, _______, _______, _______, _______, _______, KC_SLEP, KC_PWR,  \
+	QK_BOOT, RGB_STA, RGB_BRE, RGB_RAI, RGB_SWI, RGB_SNA, RGB_KNI, RGB_GRA, _______, _______, _______, _______, _______, KC_SLEP, KC_PWR,  \
 	RGB_TOG,          RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, KC_ACL2, KC_BTN1, KC_MS_U, KC_BTN2, _______, \
 	RGB_MOD,          RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, KC_ACL1, KC_MS_L, KC_MS_R, _______,          \
 	BL_TOGG, XXXXXXX, BL_STEP, BL_INC,  BL_DEC,  _______, _______, _______, _______, _______, KC_ACL0, KC_MS_D,          _______, _______, \

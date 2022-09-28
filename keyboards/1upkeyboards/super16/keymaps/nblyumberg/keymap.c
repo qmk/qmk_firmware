@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [4] = LAYOUT_ortho_4x4(
                 KC_MPRV, KC_MPLY, KC_MNXT,   KC_VOLU,
                 RGB_TOG, RGB_MOD, RGB_RMOD,  KC_MUTE,
-                TO(0),   RESET,   EEP_RST, KC_VOLD,
+                TO(0),   QK_BOOT, EEP_RST, KC_VOLD,
                 KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS         //Transparent to let you go between layers
         ),
 };

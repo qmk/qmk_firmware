@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x574D // WM
-#define PRODUCT_ID      0x0201
-#define DEVICE_VER      0x0001 // Revision prototype
-#define MANUFACTURER    WestM
-#define PRODUCT         WestMErgo
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

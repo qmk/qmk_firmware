@@ -1,7 +1,13 @@
 {
   "keyboard_name": "KagaMidget",
+  "manufacturer": "yynmt",
   "url": "http://yynmt.com",
   "maintainer": "yynmt",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
