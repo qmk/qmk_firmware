@@ -523,10 +523,19 @@ void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
 
 void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
     if (rgblight_config.enable) {
+#ifdef RGBLIGHT_SPLIT
+        if (rgblight_config.hue != hue || rgblight_config.sat != sat || rgblight_config.val != val) {
+            RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
+        }
+#endif
         rgblight_status.base_mode = mode_base_table[rgblight_config.mode];
         if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
             // same static color
             LED_TYPE tmp_led;
+#ifdef RGBLIGHT_LAYERS_RETAIN_VAL
+            // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
+            rgblight_config.val = val;
+#endif
             sethsv(hue, sat, val, &tmp_led);
             rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
         } else {
@@ -568,15 +577,14 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
                     dprintf("rgblight rainbow set hsv: %d,%d,%d,%u\n", i, _hue, direction, range);
                     sethsv(_hue, sat, val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
                 }
+#    ifdef RGBLIGHT_LAYERS_RETAIN_VAL
+                // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
+                rgblight_config.val = val;
+#    endif
                 rgblight_set();
             }
 #endif
         }
-#ifdef RGBLIGHT_SPLIT
-        if (rgblight_config.hue != hue || rgblight_config.sat != sat || rgblight_config.val != val) {
-            RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
-        }
-#endif
         rgblight_config.hue = hue;
         rgblight_config.sat = sat;
         rgblight_config.val = val;
