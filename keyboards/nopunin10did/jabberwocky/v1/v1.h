@@ -1,4 +1,4 @@
-/* Copyright 2021 W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
+/* Copyright 2022 W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_rh_any( \
+#define LAYOUT_rh( \
 	K0007, K0101, K0100, K0201, K0200, K0301, K0300,               K0400, K0401, K0500, K0501, K0600, K0601, K0700, K0701, K0000, K0001, K0800, K0801, K0900, K0901, \
            K0004, K0102, K0103, K0202, K0203, K0302,               K0402, K0403, K0502, K0503, K0602, K0603, K0702, K0703, K0002,        K0802, K0803, K0902, K0903, \
            K0006, K0104, K0105, K0204, K0205, K0304,               K0404, K0405, K0504, K0505, K0604, K0605, K0704, K0705,               K0804, K0805, K0904, K0905, \
@@ -41,7 +41,7 @@
 	{ KC_NO, KC_NO, KC_NO, K0311, K0411, K0511, K0611, K0711, K0811, K0911 }  \
 }
 
-#define LAYOUT_lh_any( \
+#define LAYOUT_lh( \
 	K0800, K0801, K0900, K0901, K0007, K0101, K0100, K0201, K0200, K0301, K0300,               K0400, K0401, K0500, K0501, K0600, K0601, K0700, K0701, K0000, K0001,  \
     K0802, K0803, K0902, K0903,        K0004, K0102, K0103, K0202, K0203, K0302,               K0402, K0403, K0502, K0503, K0602, K0603, K0702, K0703, K0002,         \
     K0804, K0805, K0904, K0905,        K0006, K0104, K0105, K0204, K0205, K0304,               K0404, K0405, K0504, K0505, K0604, K0605, K0704, K0705,                \
