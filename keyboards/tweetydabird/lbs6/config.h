@@ -5,6 +5,6 @@
 #include "config_common.h"
 
 // Bootmagic Lite key configuration
-// Not yet supported in info.json
+// Not yet supported in info.json ?
 #define BOOTMAGIC_LITE_ROW 2
 #define BOOTMAGIC_LITE_COLUMN 2
