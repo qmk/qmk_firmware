@@ -16,19 +16,7 @@
  */
 
 #pragma once
-
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM 54 // Number of LEDs
-#    define RGBLED_SPLIT \
-        { 27, 27 }
-#    define RGBLIGHT_SPLIT
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
-#    define RGBLED_NUM       54 // Number of LEDs
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGB_MATRIX_SPLIT \
-        { 27, 27 }
 //#    define SPLIT_TRANSPORT_MIRROR
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
