@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Jabberwocky",
     "manufacturer": "NoPunIn10Did",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/railroad",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/jabberwocky",
     "maintainer": "NoPunIn10Did",
     "usb": {
         "vid": "0x4E50",
