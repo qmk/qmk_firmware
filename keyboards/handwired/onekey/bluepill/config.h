@@ -22,3 +22,5 @@
 #define BACKLIGHT_PWM_CHANNEL 1
 
 #define ADC_PIN A0
+
+#define RGB_CI_PIN A2
