@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN A9
 
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 #define RGBLED_NUM 6
 #define RGBLIGHT_HUE_STEP 8
