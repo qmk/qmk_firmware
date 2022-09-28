@@ -11,16 +11,19 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT(
-        KC_MPLY,	KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_NO,	KC_MSEL,	KC_NO
+        KC_MPLY,	
+		RGB_MOD,	RGB_VAI,	RGB_TOG,
+		KC_MPRV,	KC_MPLY,	KC_MNXT
+		
     )
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { // First encoder
         if (clockwise) {
-            tap_code_delay(KC_VOLU,0);
+            tap_code(KC_VOLU);
         } else {
-            tap_code_delay(KC_VOLD,0);
+            tap_code(KC_VOLD);
         }
     } /*else if (index == 1) { // Second encoder
         if (clockwise) {
