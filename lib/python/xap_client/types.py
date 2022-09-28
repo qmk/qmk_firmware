@@ -59,8 +59,36 @@ class XAPResponse(namedtuple('XAPResponse', 'token flags length data')):
         return self.fmt.pack(*list(self))
 
 
+class XAPConfigBacklight(namedtuple('XAPConfigBacklight', 'enable mode val')):
+    fmt = Struct('<BBB')
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args)
+
+    @classmethod
+    def from_bytes(cls, data):
+        return cls._make(cls.fmt.unpack(data))
+
+    def to_bytes(self):
+        return self.fmt.pack(*list(self))
+
+
 class XAPConfigRgblight(namedtuple('XAPConfigRgblight', 'enable mode hue sat val speed')):
     fmt = Struct('<BBBBBB')
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args)
+
+    @classmethod
+    def from_bytes(cls, data):
+        return cls._make(cls.fmt.unpack(data))
+
+    def to_bytes(self):
+        return self.fmt.pack(*list(self))
+
+
+class XAPConfigRgbMatrix(namedtuple('XAPConfigRgbMatrix', 'enable mode hue sat val speed flags')):
+    fmt = Struct('<BBBBBBB')
 
     def __new__(cls, *args):
         return super().__new__(cls, *args)
@@ -79,6 +107,8 @@ class XAPConfigRgblight(namedtuple('XAPConfigRgblight', 'enable mode hue sat val
 # TODO: gen inbound object for get_encoder_keycode
 # TODO: gen inbound object for set_keymap_keycode
 # TODO: gen inbound object for set_encoder_keycode
+# TODO: gen outbound object for get_config
+# TODO: gen outbound object for get_config
 # TODO: gen outbound object for get_config
 
 

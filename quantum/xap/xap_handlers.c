@@ -182,18 +182,135 @@ bool xap_respond_dynamic_encoder_set_keycode(xap_token_t token, const void *data
 }
 #endif
 
+#if ((defined(BACKLIGHT_ENABLE)))
+#    include "backlight.h"
+
+extern backlight_config_t backlight_config;
+
+bool xap_respond_get_backlight_config(xap_token_t token, const void *data, size_t length) {
+    xap_route_lighting_backlight_get_config_t ret;
+
+    ret.enable = backlight_config.enable;
+    ret.mode   = backlight_config.breathing;
+    ret.val    = backlight_config.level;
+
+    return xap_respond_data(token, &ret, sizeof(ret));
+}
+
+#endif
+
 #if ((defined(RGBLIGHT_ENABLE)))
+#    include "rgblight.h"
+
 extern rgblight_config_t rgblight_config;
+
+// static uint8_t effect_map[][2] = {
+//     {1, RGBLIGHT_MODE_STATIC_LIGHT},
+// #    ifdef RGBLIGHT_EFFECT_BREATHING
+//     {2, RGBLIGHT_MODE_BREATHING},
+//     {3, RGBLIGHT_MODE_BREATHING + 1},
+//     {4, RGBLIGHT_MODE_BREATHING + 2},
+//     {5, RGBLIGHT_MODE_BREATHING + 3},
+// #    endif
+//     /*...*/
+// };
+
+// static uint8_t xap2rgb(uint8_t val) {
+//     for(uint8_t i = 0; i < ARRAY_SIZE(effect_map); i++){
+//         if (effect_map[i][0] == val) {
+//             return effect_map[i][1];
+//         }
+//     }
+//     return 0;
+// }
+
+// static uint8_t rgb2xap(uint8_t val) {
+//     for(uint8_t i = 0; i < ARRAY_SIZE(effect_map); i++){
+//         if (effect_map[i][1] == val) {
+//             return effect_map[i][0];
+//         }
+//     }
+//     return 0;
+// }
+
+static uint8_t effect_map[43] = {
+    0,                          //
+    RGBLIGHT_MODE_STATIC_LIGHT, //
+#    ifdef RGBLIGHT_EFFECT_BREATHING
+    RGBLIGHT_MODE_BREATHING,
+    RGBLIGHT_MODE_BREATHING + 1,
+    RGBLIGHT_MODE_BREATHING + 2,
+    RGBLIGHT_MODE_BREATHING + 3,
+#    endif
+    0,
+    /*...*/
+};
+
+// static uint8_t xap2rgb(uint8_t val) {
+//     return effect_map[val];
+// }
+
+static uint8_t rgb2xap(uint8_t val) {
+    for (uint8_t i = 0; i < ARRAY_SIZE(effect_map); i++) {
+        if (effect_map[i] == val) {
+            return i;
+        }
+    }
+    return 0;
+}
 
 bool xap_respond_get_rgblight_config(xap_token_t token, const void *data, size_t length) {
     xap_route_lighting_rgblight_get_config_t ret;
 
     ret.enable = rgblight_config.enable;
-    ret.mode   = rgblight_config.mode;
+    ret.mode   = rgb2xap(rgblight_config.mode);
     ret.hue    = rgblight_config.hue;
     ret.sat    = rgblight_config.sat;
     ret.val    = rgblight_config.val;
     ret.speed  = rgblight_config.speed;
+
+    return xap_respond_data(token, &ret, sizeof(ret));
+}
+#endif
+
+#if ((defined(RGB_MATRIX_ENABLE)))
+#    include "rgb_matrix.h"
+
+extern rgb_config_t rgb_matrix_config;
+
+static uint8_t effect_map[43] = {
+    0,                      //
+    RGB_MATRIX_SOLID_COLOR, //
+#    ifdef ENABLE_RGB_MATRIX_ALPHAS_MODS
+    RGB_MATRIX_ALPHAS_MODS,
+#    endif
+    0,
+    /*...*/
+};
+
+// static uint8_t xap2rgb(uint8_t val) {
+//     return effect_map[val];
+// }
+
+static uint8_t rgb2xap(uint8_t val) {
+    for (uint8_t i = 0; i < ARRAY_SIZE(effect_map); i++) {
+        if (effect_map[i] == val) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+bool xap_respond_get_rgb_matrix_config(xap_token_t token, const void *data, size_t length) {
+    xap_route_lighting_rgb_matrix_get_config_t ret;
+
+    ret.enable = rgb_matrix_config.enable;
+    ret.mode   = rgb2xap(rgb_matrix_config.mode);
+    ret.hue    = rgb_matrix_config.hsv.h;
+    ret.sat    = rgb_matrix_config.hsv.s;
+    ret.val    = rgb_matrix_config.hsv.v;
+    ret.speed  = rgb_matrix_config.speed;
+    ret.flags  = rgb_matrix_config.flags;
 
     return xap_respond_data(token, &ret, sizeof(ret));
 }

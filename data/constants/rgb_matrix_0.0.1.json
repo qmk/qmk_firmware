@@ -1,0 +1,156 @@
+{
+    "groups": {
+        "framebuffer": {},
+        "reactive": {}
+    },
+    "effects": {
+        "0x01": {
+            "key": "SOLID_COLOR"
+        },
+        "0x02": {
+            "key": "ALPHAS_MODS"
+        },
+        "0x03": {
+            "key": "GRADIENT_UP_DOWN"
+        },
+        "0x04": {
+            "key": "GRADIENT_LEFT_RIGHT"
+        },
+        "0x05": {
+            "key": "BREATHING"
+        },
+        "0x06": {
+            "key": "BAND_SAT"
+        },
+        "0x07": {
+            "key": "BAND_VAL"
+        },
+        "0x08": {
+            "key": "BAND_PINWHEEL_SAT"
+        },
+        "0x09": {
+            "key": "BAND_PINWHEEL_VAL"
+        },
+        "0x0A": {
+            "key": "BAND_SPIRAL_SAT"
+        },
+        "0x0B": {
+            "key": "BAND_SPIRAL_VAL"
+        },
+        "0x0C": {
+            "key": "CYCLE_ALL"
+        },
+        "0x0D": {
+            "key": "CYCLE_LEFT_RIGHT"
+        },
+        "0x0E": {
+            "key": "CYCLE_UP_DOWN"
+        },
+        "0x0F": {
+            "key": "CYCLE_OUT_IN"
+        },
+        "0x10": {
+            "key": "CYCLE_OUT_IN_DUAL"
+        },
+        "0x11": {
+            "key": "RAINBOW_MOVING_CHEVRON"
+        },
+        "0x12": {
+            "key": "CYCLE_PINWHEEL"
+        },
+        "0x13": {
+            "key": "CYCLE_SPIRAL"
+        },
+        "0x14": {
+            "key": "DUAL_BEACON"
+        },
+        "0x15": {
+            "key": "RAINBOW_BEACON"
+        },
+        "0x16": {
+            "key": "RAINBOW_PINWHEELS"
+        },
+        "0x17": {
+            "key": "RAINDROPS"
+        },
+        "0x18": {
+            "key": "JELLYBEAN_RAINDROPS"
+        },
+        "0x19": {
+            "key": "HUE_BREATHING"
+        },
+        "0x1A": {
+            "key": "HUE_PENDULUM"
+        },
+        "0x1B": {
+            "key": "HUE_WAVE"
+        },
+        "0x1C": {
+            "key": "PIXEL_FRACTAL"
+        },
+        "0x1D": {
+            "key": "PIXEL_FLOW"
+        },
+        "0x1E": {
+            "key": "PIXEL_RAIN"
+        },
+
+        "0x1F": {
+            "key": "TYPING_HEATMAP",
+            "group": "framebuffer"
+        },
+        "0x20": {
+            "key": "DIGITAL_RAIN",
+            "group": "framebuffer"
+        },
+
+        "0x21": {
+            "key": "SOLID_REACTIVE_SIMPLE",
+            "group": "reactive"
+        },
+        "0x22": {
+            "key": "RGB_MATRIX_SOLID_REACTIVE",
+            "group": "reactive"
+        },
+        "0x23": {
+            "key": "RGB_MATRIX_SOLID_REACTIVE_WIDE",
+            "group": "reactive"
+        },
+        "0x24": {
+            "key": "SOLID_REACTIVE_MULTIWIDE",
+            "group": "reactive"
+        },
+        "0x25": {
+            "key": "SOLID_REACTIVE_CROSS",
+            "group": "reactive"
+        },
+        "0x26": {
+            "key": "SOLID_REACTIVE_MULTICROSS",
+            "group": "reactive"
+        },
+        "0x27": {
+            "key": "SOLID_REACTIVE_NEXUS",
+            "group": "reactive"
+        },
+        "0x28": {
+            "key": "SOLID_REACTIVE_MULTINEXUS",
+            "group": "reactive"
+        },
+        "0x29": {
+            "key": "SPLASH",
+            "group": "reactive"
+        },
+        "0x2A": {
+            "key": "MULTISPLASH",
+            "group": "reactive"
+        },
+        "0x2B": {
+            "key": "SOLID_SPLASH",
+            "group": "reactive"
+        },
+        "0x2C": {
+            "key": "SOLID_MULTISPLASH",
+            "group": "reactive"
+        }
+    }
+}

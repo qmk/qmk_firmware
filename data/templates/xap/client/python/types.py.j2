@@ -22,7 +22,9 @@ class {{ name }}(namedtuple('{{ name }}', '{{ members }}')):
 {% set type_definitions = [
   {'name':'XAPRequest', 'members': 'token length data', 'fmt':'<HB61s'},
   {'name':'XAPResponse', 'members': 'token flags length data', 'fmt':'<HBB60s'},
-  {'name':'XAPConfigRgblight', 'members': 'enable mode hue sat val speed', 'fmt':'<BBBBBB'}
+  {'name':'XAPConfigBacklight', 'members': 'enable mode val', 'fmt':'<BBB'},
+  {'name':'XAPConfigRgblight', 'members': 'enable mode hue sat val speed', 'fmt':'<BBBBBB'},
+  {'name':'XAPConfigRgbMatrix', 'members': 'enable mode hue sat val speed flags', 'fmt':'<BBBBBBB'}
 ] %}
 {% for item in type_definitions -%}{{ gen_struct(item.name, item.members, item.fmt) }}{% endfor -%}
 
