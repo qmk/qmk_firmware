@@ -4,9 +4,8 @@
 	"url": "https://lectronz.com/stores/tweetys-wild-thinking",
 	"maintainer": "TweetyDaBird",	
 	
+	"bootloader": "caterina",
 	"processor": "atmega32u4",
-	
-	"debounce": 5,
 	
 	"features": {
 		"backlight": false,
@@ -18,8 +17,44 @@
 		"mousekey": false,
 		"nkro": false,
 		"rgblight": true,
-		"unicode": false
+		"unicode": false,
+		"encoder": true,
+		"lto": true
 	},
+	
+	"usb": {
+		"vid": "0xFEED",
+        "pid": "0x23B0",
+		"device_version": "1.1.0"
+	},
+	
+	"debounce": 5,
+	
+	"matrix_pins": {
+        "direct": [
+			[null, "F5", null],
+            ["D4", "D7", "B4"],
+			["C6", "E6", "B5"]
+        ]
+    },
+
+	"encoder": {
+        "rotary": [
+            { "pin_a": "F7", "pin_b": "F6", "resolution": 2 }
+        ]
+    },
+
+	"rgblight": {
+        "led_count": 8,
+        "pin": "D2",
+        "hue_steps": 8,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+		"max_brightness": 200,
+        "animations": {
+            "all": true
+        }
+    },
 	
 	"layouts": {
         "LAYOUT": {
@@ -36,30 +71,4 @@
 			]
 		}
 	}
-	
-	"matrix_pins": {
-        "direct": [
-			[null, "F5", null],
-            ["D4", "D7", "B4"],
-			["C6", "E6", "B5"]
-        ]
-    },
-
-	"rgblight": {
-        "led_count": 8,
-        "pin": "D2",
-        "hue_steps": 8,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
-        "animations": {
-            "all": true
-        }
-    },
-	
-	"usb": {
-		"vid": "0xFEED",
-        "pid": "0x23B0",
-		"device_version": "1.1.0"
-	}
-
 }
