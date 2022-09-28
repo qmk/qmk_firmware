@@ -8,18 +8,14 @@
 	"processor": "atmega32u4",
 	
 	"features": {
-		"backlight": false,
 		"bootmagic": true,
 		"command": false,
 		"console": false,
 		"extrakey": true,
-		"midi": false,
-		"mousekey": false,
+		"mousekey": true,
 		"nkro": false,
 		"rgblight": true,
-		"unicode": false,
-		"encoder": true,
-		"lto": true
+		"encoder": true
 	},
 	
 	"usb": {
