@@ -12,7 +12,7 @@
 
 static enum lang_layer current_lang = LANG_EN;
 
-enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, // _LAYER2 = 2, _LAYER3 = 3, _LAYER4 = 4, _LAYER5 = 5, _LAYER6 = 6, _LAYER7 = 7,
+enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, _LAYER2 = 2, //, _LAYER3 = 3, _LAYER4 = 4, _LAYER5 = 5, _LAYER6 = 6, _LAYER7 = 7,
                  NUM_LAYERS = 2 };
 
 enum my_keycodes {
@@ -25,7 +25,16 @@ enum my_keycodes {
   RGB_PREV,
   KC_DISP_CMINUS,
   KC_DISP_CONTRAST,
-  KC_DISP_CPLUS
+  KC_DISP_CPLUS,
+  KC_LANG_EN,
+  KC_LANG_DE,
+  KC_LANG_ES,
+  KC_LANG_PT,
+  KC_LANG_FR,
+  KC_LANG_TR,
+  KC_LANG_KR,
+  KC_LANG_JP,
+  KC_LANG_AR,
 };
 
 
@@ -63,17 +72,23 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_LAYER0] = LAYOUT( KC_ESC,    KC_1,        KC_2,         KC_3,       KC_4,       KC_5,           KC_NEXT_LAYER, /*no key*/KC_NO,
-                        KC_GRAVE,  KC_Q,        KC_W,         KC_E,       KC_R,       KC_T,           KC_EQUAL,     KC_ENC_UP,
-                        KC_TAB,    KC_A,        KC_S,         KC_D,       KC_F,       KC_G,           KC_MINUS,     KC_ENC_DOWN,
-                        KC_LSHIFT, KC_Z,        KC_X,         KC_C,       KC_V,       KC_B,           KC_CAPSLOCK,  KC_MS_BTN1,
-                        KC_LCTL,   KC_LALT,     KC_NEXT_LANG, KC_APP,   KC_LWIN,    KC_SPACE,      KC_END,   KC_HOME
+    [_LAYER0] = LAYOUT( KC_GRAVE,       KC_1,        KC_2,         KC_3,       KC_4,       KC_5,           KC_NEXT_LAYER,   KC_NO,
+                        KC_TAB,         KC_Q,        KC_W,         KC_E,       KC_R,       KC_T,           KC_EQUAL,        KC_ENC_UP,
+                        KC_CAPSLOCK,    KC_A,        KC_S,         KC_D,       KC_F,       KC_G,           KC_MINUS,        KC_ENC_DOWN,
+                        KC_LSHIFT,      KC_Z,        KC_X,         KC_C,       KC_V,       KC_B,           KC_ESC,          KC_MS_BTN1, /*encoder switch*/
+                        KC_LCTL,        KC_LALT,     KC_NEXT_LANG, KC_APP,      KC_LWIN,    KC_SPACE,      KC_END,          KC_HOME
                         ),
     [_LAYER1] = LAYOUT( KC_NO,     KC_NO,           KC_NO,              KC_NO,              KC_NO,      KC_MEDIA_PREV_TRACK,    KC_NEXT_LAYER,        /*no key*/KC_NO,
                         RGB_PREV,  KC_AUDIO_VOL_UP, QK_DEBUG_TOGGLE,    KC_DISP_CMINUS,     KC_NO,      KC_MEDIA_PLAY_PAUSE,    KC_NO,                KC_ENC_UP,
                         RGB_TOGGLE,KC_AUDIO_MUTE,   QK_CLEAR_EEPROM,    KC_DISP_CONTRAST,   KC_NO,      KC_MEDIA_STOP,          KC_NO,                KC_ENC_DOWN,
                         RGB_NEXT,  KC_AUDIO_VOL_DOWN,QK_BOOTLOADER,     KC_DISP_CPLUS,     KC_NO,      KC_MEDIA_NEXT_TRACK,    KC_NO,                KC_MS_BTN1,
                         KC_LCTL,   KC_LALT,         KC_NO,            KC_APP,           KC_LWIN,    KC_SPACE,               KC_END,               KC_HOME
+                        ),
+    [_LAYER2] = LAYOUT( KC_LEAD,        KC_F1,       KC_F2,        KC_F3,      KC_F4,      KC_F5,          KC_F6,       KC_NO,
+                        KC_NO,          KC_LANG_PT,  KC_LANG_ES,   KC_LANG_AR, KC_NO,      KC_NO,          KC_NO,       KC_ENC_UP,
+                        KC_NO,          KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JP, KC_NO,      KC_NO,          KC_NO,       KC_ENC_DOWN,
+                        KC_NO,          KC_LANG_TR,  KC_LANG_EN,   KC_LANG_KR, KC_NO,      KC_NO,          KC_NO,       KC_MS_BTN1, /*encoder switch*/
+                        KC_NO,          KC_NO,       KC_NEXT_LANG, KC_NO,      KC_NO,      KC_NO,          KC_NO,       KC_NO
                         )
 };
 
@@ -131,6 +146,8 @@ struct diplay_info key_display[] = {
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
+        case KC_LEAD:
+            return u"Lead";
         case KC_NUM_LOCK:
             return !state.num_lock ? u"Num" ICON_NUMLOCK_OFF : u"Num" ICON_NUMLOCK_ON;
         case KC_KP_SLASH:
@@ -301,6 +318,15 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
                     default: return u" Eng";
                 }
             }
+        case KC_LANG_EN: return u" Eng";
+        case KC_LANG_DE: return u" Deu";
+        case KC_LANG_ES: return u" Esp";
+        case KC_LANG_PT: return u" Port";
+        case KC_LANG_FR: return u" Fra";
+        case KC_LANG_TR: return u" Tur";
+        case KC_LANG_KR: return u" Kor";
+        case KC_LANG_JP: return u" Jpn";
+        case KC_LANG_AR: return u" Arab";
         case KC_APP:
             return u" Ctx";
         default:
@@ -431,8 +457,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 inc_brightness();
                 break;
             case KC_NEXT_LANG:
-                current_lang = (current_lang + 1) % NUM_LANG;
                 force_layer_switch();
+                break;
+            case KC_LANG_EN:
+                current_lang = LANG_EN;
                 break;
             /*case KC_ENC_DOWN:
                 encDownHigh = true;
@@ -449,6 +477,25 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_RIGHT_SHIFT:
         case KC_LEFT_SHIFT:
             force_layer_switch();
+            break;
+        case KC_NEXT_LANG:
+            current_lang = (current_lang + 1) % NUM_LANG;
+            process_layer_switch_user(_LAYER2);
+            break;
+        case KC_LANG_DE:
+        case KC_LANG_ES:
+        case KC_LANG_PT:
+        case KC_LANG_FR:
+        case KC_LANG_TR:
+            break;
+        case KC_LANG_KR:
+            current_lang = LANG_KO;
+            break;
+        case KC_LANG_JP:
+            current_lang = LANG_JP;
+            break;
+        case KC_LANG_AR:
+            current_lang = LANG_AR;
             break;
         default:
             break;
@@ -483,5 +530,3 @@ void show_splash_screen(void) {
     display_message(1, 1, u"POLY", &FreeSansBold24pt7b);
     display_message(2, 2, u"KB", &FreeSansBold24pt7b);
 }
-
-
