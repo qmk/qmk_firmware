@@ -23,9 +23,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 		case CTRL_C_UP:
 			if (record->event.pressed) {
-				register_mods(MOD_BIT(KC_LCTRL));
+				register_mods(MOD_BIT(KC_LEFT_CTRL));
 			} else {
-				unregister_mods(MOD_BIT(KC_LCTRL));
+				unregister_mods(MOD_BIT(KC_LEFT_CTRL));
 				if (timer_elapsed(key_timer) < TAPPING_TERM) {
 					tap_code16(C(KC_UP));
 				}
@@ -64,25 +64,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* Screenshoot */
 void dance_SSHT_finished(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		register_code(KC_LGUI);
-		register_code(KC_LCTRL);
-		register_code(KC_LSHIFT);
-		register_code(KC_4);
-		unregister_code(KC_LGUI);
-		unregister_code(KC_LCTRL);
-		unregister_code(KC_LSHIFT);
-		unregister_code(KC_4);
+		tap_code16(C(S(G(KC_4))));
 	} else {
-		register_code(KC_4);
-		unregister_code(KC_4);
+		tap_code(KC_4);
 	}
 }
 void dance_SSHT_reset(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		unregister_code(KC_LGUI);
-		unregister_code(KC_LCTRL);
-		unregister_code(KC_LSHIFT);
-		unregister_code(KC_4);
+		unregister_code16(C(S(G(KC_4))));
 	} else {
 		unregister_code(KC_4);
 	}
@@ -91,13 +80,9 @@ void dance_SSHT_reset(qk_tap_dance_state_t *state, void *user_data) {
 /* Å */
 void dance_LBRC_finished(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		register_code(KC_LALT);
-		register_code(KC_LBRC);
-		unregister_code(KC_LALT);
-		unregister_code(KC_LBRC);
+		tap_code16(A(KC_LBRC));
 	} else {
-		register_code(KC_LBRC);
-		unregister_code(KC_LBRC);
+		tap_code(KC_LBRC);
 	}
 }
 void dance_LBRC_reset(qk_tap_dance_state_t *state, void *user_data) {
@@ -112,19 +97,14 @@ void dance_LBRC_reset(qk_tap_dance_state_t *state, void *user_data) {
 /* Ö */
 void dance_SCLN_finished(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		register_code(KC_LALT);
-		register_code(KC_SCLN);
-		unregister_code(KC_LALT);
-		unregister_code(KC_SCLN);
+		tap_code16(A(KC_SCLN));
 	} else {
-		register_code(KC_SCLN);
-		unregister_code(KC_SCLN);
+		tap_code(KC_SCLN);
 	}
 }
 void dance_SCLN_reset(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		unregister_code(KC_LALT);
-		unregister_code(KC_SCLN);
+		unregister_code16(A(KC_SCLN));
 	} else {
 		unregister_code(KC_SCLN);
 	}
@@ -133,19 +113,14 @@ void dance_SCLN_reset(qk_tap_dance_state_t *state, void *user_data) {
 /* Ä */
 void dance_QUOT_finished(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		register_code(KC_LALT);
-		register_code(KC_QUOT);
-		unregister_code(KC_LALT);
-		unregister_code(KC_QUOT);
+		tap_code16(A(KC_QUOT));
 	} else {
-		register_code(KC_QUOT);
-		unregister_code(KC_QUOT);
+		tap_code(KC_QUOT);
 	}
 }
 void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
-		unregister_code(KC_LALT);
-		unregister_code(KC_QUOT);
+		unregister_code16(A(KC_QUOT));
 	} else {
 		unregister_code(KC_QUOT);
 	}
