@@ -5,7 +5,8 @@
 enum custom_keycodes {
 	CTRL_C_UP = SAFE_RANGE,
 	L1_EXPL,
-	ROPT_SRH
+	ROPT_SRH,
+	C_BLK
 };
 
 enum tap_dances {

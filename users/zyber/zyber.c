@@ -6,10 +6,21 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 uint16_t key_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (record->event.pressed) { key_timer = timer_read(); }
-	if (!process_caps_word(keycode, record)) { return false; }
+	if (record->event.pressed) {
+		key_timer = timer_read();
+	}
+
+	if (!process_caps_word(keycode, record)) {
+		return false;
+	}
 
 	switch(keycode) {
+		case C_BLK:
+			if (record->event.pressed) {
+				send_string("```" SS_DELAY(80) SS_LCMD("v") SS_DELAY(80) "```");
+			}
+			break;
+
 		case CTRL_C_UP:
 			if (record->event.pressed) {
 				register_mods(MOD_BIT(KC_LCTRL));
@@ -46,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 			break;
 	}
-	//return true;
+
 	return process_record_keymap(keycode, record);
 }
 
