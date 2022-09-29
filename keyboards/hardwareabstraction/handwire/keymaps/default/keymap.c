@@ -178,7 +178,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // WPM_ENABLE = yes
 #ifdef OLED_ENABLE
 
-#include <stdio.h>
 
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 20   // Idle WPM
