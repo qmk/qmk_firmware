@@ -193,7 +193,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Variables for display layer and haptic status on OLED
 static uint8_t layer = 0;
-char layer_str[10];
 haptic_config_t haptic_config;
 
 // Variables for frames, timer, and sleep
