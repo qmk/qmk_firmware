@@ -2,14 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-
-#ifdef BUZZER_ENABLE
 static uint16_t buzzer_timer = 0;
 static uint8_t buzzer_dwell = 15;
 static uint8_t buzzer_dwell_change = 1;
 static bool buzzer_on = false;
 static bool buzzer_active = false;
-#endif
 
 static bool initial_keypress = false;
 
@@ -46,22 +43,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         LT(1, KC_CAPS), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_HPTTOG,
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  MT(MOD_LSFT, KC_SLSH), KC_UP,   KC_DEL,
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    KC_RALT, KC_APP, KC_LEFT,  KC_DOWN, KC_RIGHT
     ),
     [1] = LAYOUT_60_arrows(
         KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,
-        KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,
-        KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,          KC_TRNS,
+        KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_BZDWLD, KC_BZDWLI,  KC_BZTOG,
+        KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_HPTDWLD, KC_HPTDWLI,          KC_HPTTOG,
         KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,      KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                                 KC_TRNS,                           KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS
     ),
     [2] = LAYOUT_60_arrows(
         KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,
-        KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_BZDWLD, KC_BZDWLI,  KC_BZTOG,
+        KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,
         KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,          KC_TRNS,
         KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,      KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS,                                 KC_TRNS,                           KC_TRNS,     KC_TRNS,     KC_HPTDWLD,     KC_TRNS,     KC_HPTDWLI
+        KC_TRNS, KC_TRNS, KC_TRNS,                                 KC_TRNS,                           KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS
     ),
     [3] = LAYOUT_60_arrows(
         KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,
@@ -74,27 +71,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Documentation: custom_quantum_functions.md
 void keyboard_post_init_user(void){
-    #ifdef BUZZER_ENABLE
     setPinOutput(BUZZER_PIN);
-    #endif
 }
 
 void housekeeping_task_user(void){
-    #ifdef BUZZER_ENABLE
     if(buzzer_on){
         if(buzzer_active && timer_elapsed(buzzer_timer) > buzzer_dwell){
         buzzer_active = false;
         writePinLow(BUZZER_PIN);
         }
     }
-    #endif
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed){                         // true when pressed, false when released
         initial_keypress = true;
 
-        #ifdef BUZZER_ENABLE
         if(buzzer_on){
             if(!buzzer_active){
                 buzzer_active = true;
@@ -102,7 +94,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 writePinHigh(BUZZER_PIN);
             }
         }
-        #endif
 
         switch (keycode) {
             #ifdef HAPTIC_ENABLE
@@ -139,7 +130,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
             #endif
 
-            #ifdef BUZZER_ENABLE
             case KC_BZTOG:
                 buzzer_on = !buzzer_on;
                 if(buzzer_on == true){
@@ -164,21 +154,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case KC_BZDWLD:
                 buzzer_dwell -= buzzer_dwell_change;
                 break;
-            #endif
         }
     }
     return true;
 }
 
 
-//feature_oled_driver.md
-// http://javl.github.io/image2cpp/
-// Rules.mk make sure to have:
-// OLED_DRIVER_ENABLE = yes
-// WPM_ENABLE = yes
 #ifdef OLED_ENABLE
 
-#include <stdio.h>
 
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 20   // Idle WPM
@@ -193,11 +176,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Variables for display layer and haptic status on OLED
 static uint8_t layer = 0;
-char layer_str[5];
 haptic_config_t haptic_config;
 
 // Variables for frames, timer, and sleep
-char wpm_str[10];           // Used for words per minute OLED printout
 uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
 uint8_t  current_idle_frame = 0;
@@ -302,13 +283,13 @@ bool oled_task_user(void) {
 
         // Display WPM
         oled_set_cursor(0, 0);                            // Sets cursor to (column, row) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
-        sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // Edit the string to change wwhat shows up, edit %03d to change how many digits show up
-        oled_write(wpm_str, false);                       // Writes wpm on top left corner of string
+        oled_write_P(PSTR("WPM:"), false);
+        oled_write(get_u8_str(get_current_wpm(), '0'), false);
 
         // Display Current Layer
-        oled_set_cursor(17, 0);
-        sprintf(layer_str, "L:%d", layer);
-        oled_write(layer_str, false);
+        oled_set_cursor(16, 0);
+        oled_write_P(PSTR("L:"), false);
+        oled_write(get_u8_str(layer, ' '), false);
 
         // Display Buzzer State
         oled_set_cursor(0, 1);
