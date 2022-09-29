@@ -274,7 +274,7 @@ The following items can be set. Not every value is required.
 Examples:
 
 ```json
-{ 
+{
     "encoder": {
         "rotary": [
             { "pin_a": "B5", "pin_b": "A2" }
