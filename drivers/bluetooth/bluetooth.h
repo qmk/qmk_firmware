@@ -32,21 +32,21 @@ void bluetooth_task(void);
 
 /**
  * \brief Send a keyboard report.
- * 
+ *
  * \param report The keyboard report to send.
  */
 void bluetooth_send_keyboard(report_keyboard_t *report);
 
 /**
  * \brief Send a mouse report.
- * 
+ *
  * \param report The mouse report to send.
  */
 void bluetooth_send_mouse(report_mouse_t *report);
 
 /**
  * \brief Send a consumer usage.
- * 
+ *
  * \param usage The consumer usage to send.
  */
 void bluetooth_send_consumer(uint16_t usage);
