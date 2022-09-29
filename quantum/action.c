@@ -293,18 +293,55 @@ void process_record_handler(keyrecord_t *record) {
     process_action(record, action);
 }
 
-#if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-void register_button(bool pressed, enum mouse_buttons button) {
-#    ifdef PS2_MOUSE_ENABLE
-    tp_buttons = pressed ? tp_buttons | button : tp_buttons & ~button;
+/**
+ * @brief handles all the messy mouse stuff
+ *
+ * Handles all the edgecases and special stuff that is needed for coexistense
+ * of the multiple mouse subsystems.
+ *
+ * @param mouse_keycode[in] uint8_t mouse keycode
+ * @param pressed[in] bool
+ */
+
+void register_mouse(uint8_t mouse_keycode, bool pressed) {
+#ifdef MOUSEKEY_ENABLE
+    // if mousekeys is enabled, let it do the brunt of the work
+    if (pressed) {
+        mousekey_on(mouse_keycode);
+    } else {
+        mousekey_off(mouse_keycode);
+    }
+    // should mousekeys send report, or does something else handle this?
+    switch (mouse_keycode) {
+#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+        case KC_MS_BTN1 ... KC_MS_BTN8:
+            // let pointing device handle the buttons
+            // expand if/when it handles more of the code
+#        if defined(POINTING_DEVICE_ENABLE)
+            pointing_device_keycode_handler(mouse_keycode, pressed);
+#        endif
+            break;
 #    endif
-#    ifdef POINTING_DEVICE_ENABLE
-    report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.buttons        = pressed ? currentReport.buttons | button : currentReport.buttons & ~button;
-    pointing_device_set_report(currentReport);
-#    endif
-}
+        default:
+            mousekey_send();
+            break;
+    }
+#elif defined(POINTING_DEVICE_ENABLE)
+    // if mousekeys isn't enabled, and pointing device is enabled, then
+    // let pointing device do all the heavy lifting, then
+    if IS_MOUSEKEY (mouse_keycode) {
+        pointing_device_keycode_handler(mouse_keycode, pressed);
+    }
 #endif
+
+#ifdef PS2_MOUSE_ENABLE
+    // make sure that ps2 mouse has button report synced
+    if (KC_MS_BTN1 <= mouse_keycode && mouse_keycode <= KC_MS_BTN3) {
+        uint8_t tmp_button_msk = MOUSE_BTN_MASK(mouse_keycode - KC_MS_BTN1);
+        tp_buttons             = pressed ? tp_buttons | tmp_button_msk : tp_buttons & ~tmp_button_msk;
+    }
+#endif
+}
 
 /** \brief Take an action and processes it.
  *
@@ -506,30 +543,10 @@ void process_action(keyrecord_t *record, action_t action) {
             }
             break;
 #endif
-#ifdef MOUSEKEY_ENABLE
         /* Mouse key */
         case ACT_MOUSEKEY:
-            if (event.pressed) {
-                mousekey_on(action.key.code);
-            } else {
-                mousekey_off(action.key.code);
-            }
-            switch (action.key.code) {
-#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-#        ifdef POINTING_DEVICE_ENABLE
-                case KC_MS_BTN1 ... KC_MS_BTN8:
-#        else
-                case KC_MS_BTN1 ... KC_MS_BTN3:
-#        endif
-                    register_button(event.pressed, MOUSE_BTN_MASK(action.key.code - KC_MS_BTN1));
-                    break;
-#    endif
-                default:
-                    mousekey_send();
-                    break;
-            }
+            register_mouse(action.key.code, event.pressed);
             break;
-#endif
 #ifndef NO_ACTION_LAYER
         case ACT_LAYER:
             if (action.layer_bitop.on == 0) {
@@ -913,16 +930,9 @@ __attribute__((weak)) void register_code(uint8_t code) {
         host_consumer_send(KEYCODE2CONSUMER(code));
     }
 #endif
-#ifdef MOUSEKEY_ENABLE
     else if IS_MOUSEKEY (code) {
-        mousekey_on(code);
-        mousekey_send();
+        register_mouse(code, true);
     }
-#elif defined(POINTING_DEVICE_ENABLE)
-    else if IS_MOUSEKEY (code) {
-        pointing_device_keycode_handler(code, true);
-    }
-#endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
@@ -976,17 +986,9 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         host_system_send(0);
     } else if IS_CONSUMER (code) {
         host_consumer_send(0);
+    } else if IS_MOUSEKEY (code) {
+        register_mouse(code, false);
     }
-#ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY (code) {
-        mousekey_off(code);
-        mousekey_send();
-    }
-#elif defined(POINTING_DEVICE_ENABLE)
-    else if IS_MOUSEKEY (code) {
-        pointing_device_keycode_handler(code, false);
-    }
-#endif
 }
 
 /** \brief Tap a keycode with a delay.
