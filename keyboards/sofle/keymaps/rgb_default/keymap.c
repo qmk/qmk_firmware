@@ -68,8 +68,6 @@ enum sofle_layers /**/
 {
     _DEFAULTS = 0,
     _QWERTY   = 0,
-    _COLEMAK,
-    _COLEMAKDH,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -80,8 +78,6 @@ enum sofle_layers /**/
 enum custom_keycodes /**/
 {
     KC_QWERTY = SAFE_RANGE,
-    COLEMAKDH,
-    COLEMAK,
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
@@ -168,11 +164,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,------------------------------------------------.                    ,---------------------------------------------------.
         /**/ KC_TILD, _______, _______, _______, _______, _______, /*           */ _______, _______, _______, _______, _______, KC_BSLS,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        /**/ _______, KC_INS, KC_PSCR, KC_APP, KC_NO, KC_NO, /*                 */ KC_PGUP, KC_PRVWD, KC_UP, KC_NXTWD, KC_DLINE, KC_DEL,
+        /**/ _______, KC_INS, KC_PSCR, KC_APP, KC_NO, KC_NO, /*                 */ KC_PGUP, LALT(KC_LEFT), KC_UP, LALT(KC_RGHT), LGUI(KC_BSPC), KC_DEL,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
         /**/ _______, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_CAPS, /*             */ KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL, KC_BSLS,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-        /**/ _______, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, XXXXXXX, _______, KC_LSFT,
+        /**/ _______, LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), XXXXXXX, _______, _______, KC_LSTRT, XXXXXXX, KC_LEND, XXXXXXX, _______, KC_LSFT,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         /*           */ _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______
         //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -183,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * |QK_BOOT|     |      |      |      |      |                    |      |      |      |      |      | bri_d|
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |RGB_TOG|hue^ |sat ^ | bri ^|      |      |-------.    ,-------|desk <|      |      |desk >|      |      |
+     * |RGB_TOG|hue^ |sat ^ | bri ^|      |      |-------.    ,-------|      |desk <|      |desk >|      |      |
      * |------+------+------+------+------+------|  MUTE |    | PLAY  |------+------+------+------+------+------|
      * | mode | hue dn|sat d|bri dn|      |QWERTY|-------|    |-------|      | PREV | PLAY | NEXT |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -197,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, KC_NO, C(G(KC_LEFT)), KC_NO, KC_NO, C(G(KC_RGHT)), XXXXXXX, XXXXXXX,
+        RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, KC_NO, KC_NO, C(KC_LEFT), KC_NO, C(KC_RGHT), XXXXXXX, XXXXXXX,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_QWERTY, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
@@ -303,7 +299,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state, _QWERTY));
-    rgblight_set_layer_state(7, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state, _COLEMAKDH));
+    // rgblight_set_layer_state(7, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state, _COLEMAKDH));
 
     rgblight_set_layer_state(1, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(2, layer_state_cmp(state, _RAISE));
@@ -465,6 +461,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             // case _COLEMAK:
             case _QWERTY:
+            case _RAISE:
             // case _COLEMAKDH:
                 if (clockwise) {
                     tap_code(KC_WH_D);
@@ -472,12 +469,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_WH_U);
                 }
                 break;
-            case _RAISE:
             case _LOWER:
                 if (clockwise) {
-                    tap_code(KC_DOWN);
+                    tap_code(KC_MNXT);
                 } else {
-                    tap_code(KC_UP);
+                    tap_code(KC_MNXT);
                 }
                 break;
             default:
