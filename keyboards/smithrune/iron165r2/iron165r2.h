@@ -19,13 +19,23 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
+/*
+ *              ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐    ┌───────┐
+ *              │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0A │0B │0C │0D │0E │4E │    │0D     │ 2u Backspace
+ *              ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┼───┤    └─┬─────┤
+ *              │10   │11 │12 │13 │14 │15 │16 │17 │18 │19 │1A │1B │1C │1D   │1E │      │     │
+ *  2.25u       ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤   ┌──┴┐2D  │ ISO Enter
+ *  LShift      │20    │21 │22 │23 │24 │25 │26 │27 │28 │29 │2A │2B │2D      │2E │   │2C │    │
+ * ┌────────┐   ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤   └───┴────┘
+ * │30      │   │30  │31 │32 │33 │34 │35 │36 │37 │38 │39 │3A │3B │3C    │3D │3E │
+ * └────────┘   ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+ *              │40  │41  │42  │46                      │49  │4A  │ │4B │4C │4D │
+ *              └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+ *              ┌─────┬───┬─────┬───────────────────────────┬─────┐
+ *              │40   │41 │42   │46                         │4A   │ Tsangan
+ *              └─────┴───┴─────┴───────────────────────────┴─────┘
  *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the Keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
+ * Position K4E exists on the PCB, but is physically unavailable with the Iron165R2 case.
  */
 
 #define LAYOUT( \
