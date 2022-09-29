@@ -9,6 +9,4 @@
 #endif
 
 #define BUZZER_ENABLE
-#ifdef BUZZER_ENABLE
 #define BUZZER_PIN B2
-#endif
