@@ -1,6 +1,6 @@
 # eau87
 
-![eau87](https://i.imgur.com/JkRIt6Kh.png)
+![eau87](https://i.imgur.com/1V2JmGlh.png)
 A 80% keyboard.
 This keyboard use 16mhz HSE and APM32F103 as MCU.
 
