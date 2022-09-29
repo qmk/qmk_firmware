@@ -202,19 +202,21 @@ combo_t key_combos[COMBO_COUNT] = {
   
 };
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_BASE_MAC] = LAYOUT(
-        KC_NO,              KC_NO,                KC_NO,                KC_SCROLL_LOCK,     KC_PAUSE,
+        DF(_WINDOWS),              RGB_TOG,                KC_NO,                KC_SCROLL_LOCK,     KC_PAUSE,
         KC_NO,              KC_NO,                KC_NO,                KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,
         CENTRE,             PREVIOUS_DISPLAY,     NEXT_DISPLAY,         KC_PENT,            RGB_MOD,
         TOP_LEFT_SIXTH,     TOP_CENTRE_SIXTH,     TOP_RIGHT_SIXTH,      KC_NO,              KC_NO,
         BOTTOM_LEFT_SIXTH,  BOTTOM_CENTRE_SIXTH,  BOTTOM_RIGHT_SIXTH,   KC_NO,              MUTE_ZOOM
     ),
     [_WINDOWS] = LAYOUT(
-        KC_NO,            KC_NO,                KC_NO,                KC_NO,     KC_NO,
+        DF(_BASE_MAC),            KC_NO,                KC_NO,                KC_NO,     RGB_TOG,
         KC_NO,            KC_NO,                KC_NO,                KC_NO,  KC_NO,
         KC_NO,             KC_NO,       KC_NO,           KC_PENT,            KC_NO,
         KC_NO,     KC_NO,       KC_NO,        KC_NO,            KC_NO,
-        KC_NO,  KC_NO,    KC_NO,     KC_NO,            KC_NO
+        KC_NO,  KC_NO,    KC_NO,     KC_NO,            MUTE_ZOOM
     ),
 };
+
