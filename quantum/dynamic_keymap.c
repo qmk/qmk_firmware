@@ -159,16 +159,16 @@ static uint32_t dynamic_keymap_compute_hash(void) {
     for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             for (int column = 0; column < MATRIX_COLS; column++) {
-                keycode = pgm_read_word(&keymaps[layer][row][column]);
+                keycode = keycode_at_keymap_location_raw(layer, row, column);
                 hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
             }
         }
 #    ifdef ENCODER_MAP_ENABLE
         for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
-            keycode = pgm_read_word(&encoder_map[layer][encoder][0]);
+            keycode = keycode_at_encodermap_location_raw(layer, encoder, true);
             hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
 
-            keycode = pgm_read_word(&encoder_map[layer][encoder][1]);
+            keycode = keycode_at_encodermap_location_raw(layer, encoder, false);
             hash    = fnv_32a_buf(&keycode, sizeof(keycode), hash);
         }
 #    endif // ENCODER_MAP_ENABLE
