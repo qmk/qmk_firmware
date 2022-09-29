@@ -28,9 +28,7 @@ bool get_config_blob_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
     return true;
 }
 
-// TODO: return actual values
-#define ENABLED_RGBLIGHT_EFFECTS 0xFFFFFFFF
-#define ENABLED_RGB_MATRIX_EFFECTS 0xFFFFFFFF
+// TODO: move to better location?
 #ifdef BACKLIGHT_BREATHING
 #    define ENABLED_BACKLIGHT_EFFECTS 0b00000001
 #else

@@ -19,11 +19,11 @@ def xap_generate_qmk_inc(cli):
     # Determine our keyboard/keymap
     if not cli.args.keyboard:
         cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['xap-generate-info-h'].print_help()
+        cli.subcommands['xap-generate-qmk-inc'].print_help()
         return False
     if not cli.args.keymap:
         cli.log.error('Missing parameter: --keymap')
-        cli.subcommands['xap-generate-info-h'].print_help()
+        cli.subcommands['xap-generate-qmk-inc'].print_help()
         return False
 
     generate_inline(cli.args.output, cli.args.keyboard, cli.args.keymap)
@@ -39,11 +39,11 @@ def xap_generate_qmk_h(cli):
     # Determine our keyboard/keymap
     if not cli.args.keyboard:
         cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['xap-generate-info-h'].print_help()
+        cli.subcommands['xap-generate-qmk-h'].print_help()
         return False
     if not cli.args.keymap:
         cli.log.error('Missing parameter: --keymap')
-        cli.subcommands['xap-generate-info-h'].print_help()
+        cli.subcommands['xap-generate-qmk-h'].print_help()
         return False
 
     generate_header(cli.args.output, cli.args.keyboard, cli.args.keymap)
@@ -59,11 +59,11 @@ def xap_generate_qmk_blob_h(cli):
     # Determine our keyboard/keymap
     if not cli.args.keyboard:
         cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['xap-generate-info-h'].print_help()
+        cli.subcommands['xap-generate-qmk-blob-h'].print_help()
         return False
     if not cli.args.keymap:
         cli.log.error('Missing parameter: --keymap')
-        cli.subcommands['xap-generate-info-h'].print_help()
+        cli.subcommands['xap-generate-qmk-blob-h'].print_help()
         return False
 
     generate_blob(cli.args.output, cli.args.keyboard, cli.args.keymap)

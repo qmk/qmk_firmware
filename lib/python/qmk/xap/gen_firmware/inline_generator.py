@@ -1,9 +1,46 @@
 """This script generates the XAP protocol generated header to be compiled into QMK.
 """
+import re
+from pathlib import Path
+
 from qmk.casing import to_snake
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.xap.common import merge_xap_defs, route_conditions
+from qmk.json_schema import json_load
+
+PREFIX_MAP = {
+    'rgblight': {
+        'ifdef': 'RGBLIGHT_EFFECT',
+        'def': 'RGBLIGHT_MODE',
+    },
+    'rgb_matrix': {
+        'ifdef': 'ENABLE_RGB_MATRIX',
+        'def': 'RGB_MATRIX',
+    },
+    'led_matrix': {
+        'ifdef': 'ENABLE_LED_MATRIX',
+        'def': 'LED_MATRIX',
+    },
+}
+
+
+def _get_lighting_spec(xap_defs, feature):
+    version = xap_defs["uses"][feature]
+    spec = json_load(Path(f'data/constants/{feature}_{version}.json'))
+
+    # preprocess for gross rgblight "mode + n"
+    for obj in spec.get('effects', {}).values():
+        define = obj["key"]
+        offset = 0
+        found = re.match("(.*)_(\\d+)$", define)
+        if found:
+            define = found.group(1)
+            offset = int(found.group(2)) - 1
+        obj["define"] = define
+        obj["offset"] = offset
+
+    return spec
 
 
 def _get_c_type(xap_type):
@@ -276,6 +313,82 @@ def _append_broadcast_messages(lines, container):
             lines.append(f'void {name}(const void *data, size_t length){{ xap_broadcast({key}, data, length); }}')
 
 
+def _append_lighting_map(lines, feature, spec):
+    """TODO:
+    """
+    ifdef_prefix = PREFIX_MAP[feature]['ifdef']
+    def_prefix = PREFIX_MAP[feature]['def']
+
+    lines.append(f'static uint8_t {feature}_effect_map[][2] = {{')
+    for id, obj in spec.get('effects', {}).items():
+        define = obj["define"]
+        offset = f' + {obj["offset"]}' if obj["offset"] else ''
+
+        lines.append(f'''
+#ifdef {ifdef_prefix}_{define}
+    {{ {id}, {def_prefix}_{define}{offset}}},
+#endif''')
+
+    lines.append('};')
+
+    # add helper funcs
+    lines.append(
+        f'''
+uint8_t {feature}2xap(uint8_t val) {{
+    for(uint8_t i = 0; i < ARRAY_SIZE({feature}_effect_map); i++) {{
+        if ({feature}_effect_map[i][1] == val)
+            return {feature}_effect_map[i][0];
+    }}
+    return 0xFF;
+}}
+
+uint8_t xap2{feature}(uint8_t val) {{
+    for(uint8_t i = 0; i < ARRAY_SIZE({feature}_effect_map); i++) {{
+        if ({feature}_effect_map[i][0] == val)
+            return {feature}_effect_map[i][1];
+    }}
+    return 0xFF;
+}}'''
+    )
+
+
+def _append_lighting_bitmask(lines, feature, spec):
+    """TODO:
+    """
+    ifdef_prefix = PREFIX_MAP[feature]['ifdef']
+
+    lines.append(f"static const uint64_t ENABLED_{feature.upper()}_EFFECTS = 0")
+    for id, obj in spec.get('effects', {}).items():
+        define = obj["define"]
+
+        lines.append(f'''
+#ifdef {ifdef_prefix}_{define}
+    | (1ULL << {id})
+#endif''')
+    lines.append(';')
+
+
+def _append_lighting_mapping(lines, xap_defs):
+    """TODO:
+    """
+    # TODO: remove bodge for always enabled effects
+    lines.append('''
+#define RGBLIGHT_EFFECT_STATIC_LIGHT
+#define ENABLE_RGB_MATRIX_SOLID_COLOR
+#define ENABLE_LED_MATRIX_SOLID
+''')
+
+    for feature in PREFIX_MAP.keys():
+        spec = _get_lighting_spec(xap_defs, feature)
+
+        lines.append(f"#ifdef {feature.upper()}_ENABLE")
+        _append_lighting_map(lines, feature, spec)
+        lines.append(f"#endif //{feature.upper()}_ENABLE")
+
+        # TODO: should be inside ifdef but causes build issues
+        _append_lighting_bitmask(lines, feature, spec)
+
+
 def generate_inline(output_file, keyboard, keymap):
     """Generates the XAP protocol header file, generated during normal build.
     """
@@ -283,6 +396,9 @@ def generate_inline(output_file, keyboard, keymap):
 
     # Preamble
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '']
+
+    # TODO: gen somewhere else?
+    _append_lighting_mapping(lines, xap_defs)
 
     # Add all the generated code
     _append_broadcast_messages(lines, xap_defs)
