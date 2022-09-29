@@ -107,13 +107,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_QWERTY] = LAYOUT(
         //,------------------------------------------------.                    ,---------------------------------------------------.
-        /**/ LT(_RAISE,KC_ESC), KC_1, KC_2, KC_3, KC_4, KC_5, /*                            */ LT(_SWITCH, KC_6), KC_7, KC_8, KC_9, KC_0, KC_GRV,
+        /**/ QK_GESC, LT(_SWITCH, KC_1), LT(_SWITCH, KC_2), LT(_SWITCH, KC_3), LT(_SWITCH, KC_4), LT(_SWITCH, KC_5), /*                            */ LT(_SWITCH, KC_6), KC_7, KC_8, KC_9, KC_0, KC_GRV,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
         /**/ LT(_NUMPAD, KC_TAB), KC_Q, KC_W, KC_E, /*                           */ KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
         /**/ KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, /*                           */ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-        /**/ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /*      */ KC_MUTE, /**/ KC_MPLY, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
+        /**/ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /*      */ KC_MUTE, /**/ KC_MPLY, KC_N, KC_M, LT(4,KC_COMM), LT(4,KC_DOT), KC_SLSH, KC_RSFT,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         /*             */ KC_LCTL, KC_LALT, KC_LGUI, KC_LOWER, KC_ENT, /**/ KC_SPC, KC_RAISE, KC_RGUI, KC_RALT, KC_RCTL
         //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -175,13 +175,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     /* ADJUST
      * ,-----------------------------------------.                    ,-----------------------------------------.
-     * |      |      |      |      |      |      |                    |      |      |      |      |      | bri_u|
+     * |      |      |      |      |      |      |                    |      |      |      |      |QWERTY| bri_u|
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |QK_BOOT|     |      |      |      |      |                    |      |      |      |      |      | bri_d|
+     * |QK_BOOT|     |      |      |      |BL_TOG|                    |      |      |      |      |      | bri_d|
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |RGB_TOG|hue^ |sat ^ | bri ^|      |      |-------.    ,-------|      |desk <|      |desk >|      |      |
+     * |RGB_TOG|hue^ |sat ^ | bri ^|      |BL_MOD|-------.    ,-------|      |desk <|      |desk >|      |      |
      * |------+------+------+------+------+------|  MUTE |    | PLAY  |------+------+------+------+------+------|
-     * | mode | hue dn|sat d|bri dn|      |QWERTY|-------|    |-------|      | PREV | PLAY | NEXT |      |      |
+     * |rgb_mod|hue dn|sat d|bri dn|      |BL_BRT|-------|    |-------|      | PREV | PLAY | NEXT |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
      *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
      *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -189,13 +189,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_ADJUST] = LAYOUT(
         //,------------------------------------------------.                    ,---------------------------------------------------.
-        EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRIU,
+        EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QWERTY, KC_BRIU,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, KC_NO, KC_NO, C(KC_LEFT), KC_NO, C(KC_RGHT), XXXXXXX, XXXXXXX,
+        RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, BL_STEP, KC_NO, C(KC_LEFT), KC_NO, C(KC_RGHT), XXXXXXX, XXXXXXX,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-        RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_QWERTY, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+        RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, BL_BRTG, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
         //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -210,19 +210,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
      * | trans|      |      |      |      |      |-------|    |-------|   +  |   0  |   .  |EQ/Entr|     | Shift|
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *            | LGUI | LAlt  |LCTR | LOWER| / Enter /       \Space \  |RAISE | 0    |  .   |EQUALS|
-     *            |      |      |      |      |/       /         \      \ |      |      |      |(entr)|
+     *            | LGUI | LAlt  |LCTR | LOWER| / Enter /       \Space \  |RAISE | 0    |  .   |      |
+     *            |      |      |      |      |/       /         \      \ |      |      |      |      |
      *            `----------------------------------'           '------''---------------------------'
      */
     [_NUMPAD] = LAYOUT(
         //,------------------------------------------------.                    ,---------------------------------------------------.
-        /**/ _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, LT(_NUMPAD, KC_P7), LT(_NUMPAD, KC_P8), LT(_NUMPAD, KC_P9), LT(_NUMPAD, KC_ASTR), XXXXXXX,
+        /**/ _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /*          */ _______, KC_P7, KC_P8, KC_P9, KC_ASTR, XXXXXXX,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LT(_NUMPAD, KC_CIRC), LT(_NUMPAD, KC_P4), LT(_NUMPAD, KC_P5), LT(_NUMPAD, KC_P6), LT(_NUMPAD, KC_EQL), XXXXXXX,
+        /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /*          */ KC_CIRC, KC_P4, KC_P5, KC_P6, KC_EQL, XXXXXXX,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LT(_NUMPAD, KC_MINS), LT(_NUMPAD, KC_P1), LT(_NUMPAD, KC_P2), LT(_NUMPAD, KC_P3), LT(_NUMPAD, KC_SLSH), LT(_NUMPAD, KC_PIPE),
+        /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /*          */ KC_MINS, KC_P1, KC_P2, KC_P3, KC_SLSH, KC_PIPE,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-        /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, LT(_NUMPAD, KC_PLUS), LT(_NUMPAD, KC_P0), LT(_NUMPAD, KC_PDOT), LT(_NUMPAD, KC_ENT), _______, /**/ _______,
+        /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, KC_PLUS,KC_P0, KC_PDOT, KC_ENT, _______, /**/ _______,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         /*           */ _______, OSM(MOD_MEH), _______, _______, _______, _______, _______, _______, _______, _______
         //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |EEP_RST|
      * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
-     * | SLEEP|      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+     * | SLEEP|      |      |      |      |      |-------|    |-------|      |      |win_lft|win_rgt|      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
      *            | Bspc | WIN  |LOWER | Enter| /Space  /       \Enter \  |SPACE | 0    |  .   | RAlt |
      *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -247,11 +247,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,------------------------------------------------.                    ,---------------------------------------------------.
         /**/ _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /*            */ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        /**/ TO(0), TO(1), TO(2), TO(3), TO(4), TO(5), /*                        */ TO(6), KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
+        /**/ TO(0), TO(1), TO(2), TO(3), TO(4), TO(5), /*                        */ TO(4), KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
         /**/ KC_NO, KC_NO, KC_BRIU, KC_NO, KC_NO, KC_NO, /*                      */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, EEP_RST,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-        /**/ KC_SYSTEM_SLEEP, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, /**/ KC_NO, KC_NO, /**/ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        /**/ KC_SYSTEM_SLEEP, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, /**/ KC_NO, KC_NO, /**/ KC_NO, KC_NO, LCA(KC_COMM), LCA(KC_DOT), KC_NO, KC_NO,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         /*             */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, /*              */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
         //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
