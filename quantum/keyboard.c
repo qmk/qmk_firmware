@@ -175,12 +175,11 @@ uint32_t get_matrix_scan_rate(void) {
 #endif
 
 #ifdef MATRIX_HAS_GHOST
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-static matrix_row_t   get_real_keys(uint8_t row, matrix_row_t rowdata) {
+static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata) {
     matrix_row_t out = 0;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         // read each key in the row data and check if the keymap defines it as a real key
-        if (pgm_read_byte(&keymaps[0][row][col]) && (rowdata & (1 << col))) {
+        if (keycode_at_keymap_location(0, row, col) && (rowdata & (1 << col))) {
             // this creates new row data, if a key is defined in the keymap, it will be set here
             out |= 1 << col;
         }
