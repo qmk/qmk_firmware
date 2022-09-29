@@ -8,8 +8,11 @@
         "pid": "0x7902",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi"
+    },
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},
