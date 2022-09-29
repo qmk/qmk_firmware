@@ -1,5 +1,6 @@
-// M60-A layout
-#include QMK_KEYBOARD_H
+// Copyright 2022 ZyBeR (@ZyberSE)
+// SPDX-License-Identifier: GPL-2.0
+
 #include "zyber.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

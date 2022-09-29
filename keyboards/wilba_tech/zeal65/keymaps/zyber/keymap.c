@@ -1,5 +1,6 @@
-// ZyBeRs layout for Zeal65
-#include QMK_KEYBOARD_H
+// Copyright 2022 ZyBeR (@ZyberSE)
+// SPDX-License-Identifier: GPL-2.0
+
 #include "zyber.h"
 
 

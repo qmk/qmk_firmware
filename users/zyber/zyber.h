@@ -1,5 +1,9 @@
+// Copyright 2022 ZyBeR (@ZyberSE)
+// SPDX-License-Identifier: GPL-2.0
+
 #pragma once
 
+#include QMK_KEYBOARD_H
 #include "quantum.h"
 
 enum custom_keycodes {

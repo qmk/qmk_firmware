@@ -1,9 +1,11 @@
-#include QMK_KEYBOARD_H
+// Copyright 2022 ZyBeR (@ZyberSE)
+// SPDX-License-Identifier: GPL-2.0
+
 #include "zyber.h"
 
 enum keyboard_layers {
-  _BL = 0, // Base Layer
-  _FL     // Function Layer
+  _BL = 0,
+  _FL
 };
 
 // Custom #defined keycodes (shorter macros for readability)

@@ -1,3 +1,6 @@
+// Copyright 2022 ZyBeR (@ZyberSE)
+// SPDX-License-Identifier: GPL-2.0
+
 #include "zyber.h"
 
 
