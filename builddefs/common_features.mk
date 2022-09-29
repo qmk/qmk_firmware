@@ -882,7 +882,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_ENABLE
     NO_USB_STARTUP_CHECK := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c
+    SRC += outputselect.c bluetooth.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
         OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE
