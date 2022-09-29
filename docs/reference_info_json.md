@@ -284,7 +284,7 @@ Examples:
 ```
 
 ```json
-{ 
+{
     "encoder": {
         "rotary": [
             { "pin_a": "B5", "pin_b": "A2", "resolution": 4 }
