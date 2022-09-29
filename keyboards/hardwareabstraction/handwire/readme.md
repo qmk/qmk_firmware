@@ -4,7 +4,7 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Andy Tsai](https://github.com/atsai)
+* Keyboard Maintainer: [Andy Tsai](https://github.com/cgmandy)
 * Hardware Supported: *The PCBs, controllers supported*
 * Hardware Availability: *Links to where you can find this hardware*
 
