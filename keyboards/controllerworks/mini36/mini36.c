@@ -14,42 +14,71 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include QMK_KEYBOARD_H
 #include "mini36.h"
+#include "split_util.h"
 
-#ifdef RGB_MATRIX_ENABLE
+#ifdef OLED_ENABLE
 
-led_config_t g_led_config = {{// Key Matrix to LED Index
-                              {23, 18, 17, 10, 9},
-                              {22, 19, 16, 11, 8},
-                              {21, 20, 15, 12, 7},
-                              {14, 13, 6, NO_LED, NO_LED},
-                              {33, 34, 41, 42, 47},
-                              {32, 35, 40, 43, 46},
-                              {31, 36, 39, 44, 45},
-                              {30, 37, 38, NO_LED, NO_LED}},
-                             {// LED Index to Physical Position
-                              // Left half
-                              {71, 4},   {32, 2},   {0, 24},   {16, 51},  {63, 58},  {94, 55}, //Backlight LEDs
-                              {90, 64},  {79, 39},  {79, 22},  {79, 5},   {61, 2},   {61, 19},
-                              {61, 37},  {74, 58},  {53, 55},  {43, 34},  {43, 17},  {43, 0},
-                              {25, 2},   {25, 19},  {25, 37},  {7, 41},   {7, 24},   {7, 7},
-                              // Right half
-                              {153, 4},  {192, 2},  {224, 24},  {204, 53}, {161, 57}, {130, 55}, //Backlight LEDs
-                              {134, 64}, {145, 39}, {145, 22}, {145, 5},  {163, 2},  {163, 19},
-                              {163, 37}, {150, 58}, {171, 55}, {181, 34}, {181, 17}, {181, 0},
-                              {199, 2},  {199, 19}, {199, 37}, {217, 41}, {217, 24}, {217, 7}
+static void render_logo(void) {
+    static const char PROGMEM raw_logo[] = {
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 12, 12,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 12, 12,  0,  0,  0,  0,  0,  0,  0,  6,  6,  6,  6,  6,134,230,126, 30,  6,  0,  0,  0,  0,  0,128,192, 96, 56, 28,  6,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,248,252,  6,  3,  3,  3,  3,  7,254,252,  6,  3,  3,  3,  3,  6,252,248,  0,  0,  0,  0,  0,  0,255,255,  0,  0,  0,  0,  0,  0,248,252,  6,  3,  3,  3,  3,  3,  3,  6,252,248,  0,  0,  0,  0,  0,  0,255,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 28, 31, 27, 24, 48,224,192,  0,  0,240,252, 62, 27, 25, 24, 24, 24, 24, 48,224,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,127,127,  0,  0,  0,  0,  0,  0,127,127,  0,  0,  0,  0,  0,  0,127,127,  0,  0,  0,  0,  0,  0,127,127,  0,  0,  0,  0,  0,  0,127,127,  0,  0,  0,  0,  0,  0,  0,  0,127,127,  0,  0,  0,  0,  0,  0,127,127,  0,  0,  0,  0,  0, 12, 24, 48, 96, 96, 96, 96, 96, 96, 48, 31, 15,  0,  0, 15, 31, 48, 96, 96, 96, 96, 96, 96, 48, 31, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    };
+    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+}
 
-                             },
-                             {// LED Index to Flag
-                              // 0x01 = 1 = modifier key
-                              // 0x02 = 2 = underglow
-                              // 0x04 = 4 = key backlight
-                              // 0x08 = 8 = keyboard state indication
-                              // Left half
-                              2, 2, 2, 2, 2, 2, 1, 4, 4, 4, 4, 4, 4, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-                              // Right half
-                              2, 2, 2, 2, 2, 2, 1, 4, 4, 4, 4, 4, 4, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4 }};
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
 
-#endif // RGB_MATRIX_ENABLE
+    return rotation;
+}
 
+bool render_status(void) {
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer: "), false);
+
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("BASE\n"), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("LOWER\n"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("RAISE\n"), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("ADJUST\n"), false);
+            break;            
+        default:
+            // Or use the write_ln shortcut over adding '\n' to the end of your string
+            oled_write_ln_P(PSTR("Undefined"), false);
+    }
+
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    
+    return false;
+}
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+    if (is_keyboard_master()) {
+        render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+        render_logo();  // Renders a static logo
+        oled_scroll_left();  // Turns on scrolling
+    }
+    return false;
+}
+
+#endif

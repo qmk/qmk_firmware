@@ -19,26 +19,19 @@
 
 #include "config_common.h"
 
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 5
-
-#define DIRECT_PINS {{GP3, GP4, GP5, GP6, GP7}, \
-                     {GP9, GP10, GP11, GP12, GP13}, \
-                     {GP15, GP16, GP17, GP18, GP19}, \
-                     {GP20, GP21, GP22, NO_PIN, NO_PIN}}
-#define DIRECT_PINS_RIGHT {{GP7, GP6, GP5, GP4, GP3}, \
-                           {GP13, GP12, GP11, GP10, GP9}, \
-                           {GP19, GP18, GP17, GP16, GP15}, \
-                           {GP22, GP21, GP20, NO_PIN, NO_PIN}}
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 /* #define DEBOUNCE 5 */
 
-/* Serial settings */
-#undef SOFT_SERIAL_PIN
-#define SOFT_SERIAL_PIN GP1
 #define WS2812_PIO_USE_PIO1
-#define RGB_DI_PIN GP0
+#define RGBLED_NUM 48
+#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_SPLIT \
+        { 24, 24 }
+
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
 
 #undef I2C_DRIVER
 #define I2C_DRIVER I2CD1
@@ -47,16 +40,16 @@
 #undef I2C1_SDA_PIN
 #define I2C1_SDA_PIN GP24
 
-/* #define EE_HANDS */
-#define MASTER_LEFT
+/* #define EE_HANDS  */
+/* #define MASTER_LEFT */
 /* #define MASTER_RIGHT */
 
 /* Top left key on left half */
 #define BOOTMAGIC_LITE_ROW    0
 #define BOOTMAGIC_LITE_COLUMN 0
 /* Top right key on right half */
-#define BOOTMAGIC_LITE_ROW_RIGHT    4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 4
+#define BOOTMAGIC_LITE_ROW_RIGHT    0
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -72,4 +65,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define OLED_FONT_H "keyboards/controllerworks/mini36/lib/glcdfont.c"
