@@ -171,11 +171,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-//feature_oled_driver.md
-// http://javl.github.io/image2cpp/
-// Rules.mk make sure to have:
-// OLED_DRIVER_ENABLE = yes
-// WPM_ENABLE = yes
 #ifdef OLED_ENABLE
 
 
