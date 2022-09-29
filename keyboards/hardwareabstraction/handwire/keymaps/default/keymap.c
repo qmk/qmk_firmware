@@ -295,7 +295,8 @@ bool oled_task_user(void) {
 
         // Display WPM
         oled_set_cursor(0, 0);                            // Sets cursor to (column, row) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
-        sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // Edit the string to change wwhat shows up, edit %03d to change how many digits show up
+        oled_write_P(PSTR("WPM:"), false);
+        oled_write(get_u8_str(get_current_wpm(), '0'), false);
         oled_write(wpm_str, false);                       // Writes wpm on top left corner of string
 
         // Display Current Layer
