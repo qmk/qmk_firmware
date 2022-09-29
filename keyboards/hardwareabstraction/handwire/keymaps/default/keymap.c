@@ -301,8 +301,8 @@ bool oled_task_user(void) {
 
         // Display Current Layer
         oled_set_cursor(17, 0);
-        sprintf(layer_str, "L:%d", layer);
-        oled_write(layer_str, false);
+        oled_write_P(PSTR("L:"), false);
+        oled_write(get_u8_str(layer, '0'), false);
 
         // Display Buzzer State
         oled_set_cursor(0, 1);
