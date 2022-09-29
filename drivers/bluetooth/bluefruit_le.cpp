@@ -5,7 +5,7 @@
 #include <alloca.h>
 #include "debug.h"
 #include "timer.h"
-#include "action_util.h"
+#include "gpio.h"
 #include "ringbuffer.hpp"
 #include <string.h>
 #include "spi_master.h"
@@ -288,7 +288,7 @@ static void resp_buf_wait(const char *cmd) {
     }
 }
 
-static bool ble_init(void) {
+void bluefruit_le_init(void) {
     state.initialized  = false;
     state.configured   = false;
     state.is_connected = false;
@@ -307,7 +307,6 @@ static bool ble_init(void) {
     wait_ms(1000); // Give it a second to initialize
 
     state.initialized = true;
-    return state.initialized;
 }
 
 static inline uint8_t min(uint8_t a, uint8_t b) {
@@ -431,7 +430,7 @@ bool bluefruit_le_is_connected(void) {
 bool bluefruit_le_enable_keyboard(void) {
     char resbuf[128];
 
-    if (!state.initialized && !ble_init()) {
+    if (!state.initialized) {
         return false;
     }
 
@@ -613,41 +612,24 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
     }
 }
 
-void bluefruit_le_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys) {
+void bluefruit_le_send_keyboard(report_keyboard_t *report) {
     struct queue_item item;
-    bool              didWait = false;
 
     item.queue_type   = QTKeyReport;
-    item.key.modifier = hid_modifier_mask;
-    item.added        = timer_read();
+    item.key.modifier = report->mods;
+    item.key.keys[0]  = report->keys[0];
+    item.key.keys[1]  = report->keys[1];
+    item.key.keys[2]  = report->keys[2];
+    item.key.keys[3]  = report->keys[3];
+    item.key.keys[4]  = report->keys[4];
+    item.key.keys[5]  = report->keys[5];
 
-    while (nkeys >= 0) {
-        item.key.keys[0] = keys[0];
-        item.key.keys[1] = nkeys >= 1 ? keys[1] : 0;
-        item.key.keys[2] = nkeys >= 2 ? keys[2] : 0;
-        item.key.keys[3] = nkeys >= 3 ? keys[3] : 0;
-        item.key.keys[4] = nkeys >= 4 ? keys[4] : 0;
-        item.key.keys[5] = nkeys >= 5 ? keys[5] : 0;
-
-        if (!send_buf.enqueue(item)) {
-            if (!didWait) {
-                dprint("wait for buf space\n");
-                didWait = true;
-            }
-            send_buf_send_one();
-            continue;
-        }
-
-        if (nkeys <= 6) {
-            return;
-        }
-
-        nkeys -= 6;
-        keys += 6;
+    while (!send_buf.enqueue(item)) {
+        send_buf_send_one();
     }
 }
 
-void bluefruit_le_send_consumer_key(uint16_t usage) {
+void bluefruit_le_send_consumer(uint16_t usage) {
     struct queue_item item;
 
     item.queue_type = QTConsumer;
@@ -658,15 +640,15 @@ void bluefruit_le_send_consumer_key(uint16_t usage) {
     }
 }
 
-void bluefruit_le_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
+void bluefruit_le_send_mouse(report_mouse_t *report) {
     struct queue_item item;
 
     item.queue_type        = QTMouseMove;
-    item.mousemove.x       = x;
-    item.mousemove.y       = y;
-    item.mousemove.scroll  = scroll;
-    item.mousemove.pan     = pan;
-    item.mousemove.buttons = buttons;
+    item.mousemove.x       = report->x;
+    item.mousemove.y       = report->y;
+    item.mousemove.scroll  = report->v;
+    item.mousemove.pan     = report->h;
+    item.mousemove.buttons = report->buttons;
 
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();

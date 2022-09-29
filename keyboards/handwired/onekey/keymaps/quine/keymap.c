@@ -1,7 +1,7 @@
-#include <handwired/onekey/onekey.h>
+#include <quantum.h>
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { LAYOUT_ortho_1x1(KC_A) };
 const char *buf[30] = {
-"#include <handwired/onekey/onekey.h>",
+"#include <quantum.h>",
 "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { LAYOUT_ortho_1x1(KC_A) };",
 "const char *buf[30] = {",
 "",
