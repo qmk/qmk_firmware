@@ -189,7 +189,7 @@ The following items can be set. Not every value is required.
     * For split keyboards, the number of LEDs on each side
     * Example `[ 10 , 10 ]`
 * `max_brightness`
-    * What the maxmimum brightness (value) level is (0-255)
+    * What the maximum brightness (value) level is (0-255)
 * `hue_steps`
     * How many steps of adjustment to have for hue
 * `saturation_steps`
