@@ -65,11 +65,9 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
 #endif
-#ifdef MOUSEKEY_ENABLE
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(keycode);
             break;
-#endif
         case KC_TRANSPARENT:
             action.code = ACTION_TRANSPARENT;
             break;
