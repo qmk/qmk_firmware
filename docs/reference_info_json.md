@@ -118,7 +118,9 @@ This section controls basic 2-pin LEDs, which typically pass through keyswitches
 Enable by setting 
 
 ```json
-    "features": { "backlight": true }
+    "features": {
+        "backlight": true
+    }
 ```
 
 * `breathing`
