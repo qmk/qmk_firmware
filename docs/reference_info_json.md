@@ -257,7 +257,9 @@ This section controls the basic [rotary encoder](feature_encoders.md) support.
 Enable by setting 
 
 ```json
-    "features": { "encoder": true }
+    "features": {
+        "encoder": true
+    }
 ```
 
 The following items can be set. Not every value is required.
