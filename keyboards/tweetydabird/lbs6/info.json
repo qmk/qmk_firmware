@@ -4,8 +4,7 @@
 	"url": "https://lectronz.com/stores/tweetys-wild-thinking",
 	"maintainer": "TweetyDaBird",	
 	
-	"bootloader": "caterina",
-	"processor": "atmega32u4",
+	"development_board": "promicro",
 	
 	"features": {
 		"bootmagic": true,
