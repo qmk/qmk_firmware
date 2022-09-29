@@ -66,7 +66,7 @@
 	"layouts": {
         "LAYOUT": {
             "layout": [	
-			{ "label": "Play", 	"matrix": [0, 1], "x": 1.5, "y": 0, "w": 1.5, "h": 1.5 }, 
+			{ "label": "Play", 	"matrix": [0, 1], "x": 2, "y": 1.5, "w": 1.5, "h": 1.5 }, 
 			
 			{ "label": "F1", 	"matrix": [1, 0], "x": 0, "y": 0, "w": 1, "h": 1 }, 
 			{ "label": "F2", 	"matrix": [1, 1], "x": 1, "y": 0, "w": 1, "h": 1 }, 
