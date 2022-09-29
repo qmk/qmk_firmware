@@ -100,15 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           // original
-                                           //KC_LGUI, TD(TD_LNUM), SFT_SPC,    CTL_BSP, TD(TD_LSYM), KC_LALT
-                                           // swapped the control and shift
-                                           //KC_LGUI, TD(TD_LNUM), CTL_SPC,    SFT_BSP, TD(TD_LSYM), KC_LALT
-
-                                           // now have no dual role key on space...  but use z and / as dual ctrl
-                                           //KC_LGUI, TD(TD_LNUM), KC_SPC,    SFT_BSP, TD(TD_LSYM), KC_LALT
-                                           // now have no dual role keys...  backspace on a combo too
-                                           KC_LGUI, TD(TD_LNUM), KC_SPC,    KC_BSPC, TD(TD_LSYM), KC_LALT
+                                           // thumb keys.   originally had SFT_SPC and CTL_BSP on inner thumbs but mistyped space/shift alot
+                                           // tried swapping to be CTL_SPC and SFT_BSP but hit ctrl too often accidentally TODO reconsider
+                                           // tried no dual role keys on inner thumbs but found shift/backspace ok
+                                           // now have no dual role key on space and use dual role alphas for that
+                                           KC_LGUI, TD(TD_LNUM), KC_SPC,    SFT_BSP, TD(TD_LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LQWE] = LAYOUT_split_3x6_3(
@@ -130,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_TAB,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, _______, _______,    _______,  _______, _______
+                                               _______, _______, KC_LCTL,    _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
@@ -139,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             MY_LLCK, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT, KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,   KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3,  KC_TAB, XXXXXXX,
+            XXXXXXX,   KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______, _______,  _______,     KC_0,  _______, _______
                                             //`--------------------------'  `--------------------------'
@@ -224,7 +220,6 @@ enum combo_keys {
     CD_TAB,
     // right hand only
     UY_DEL,
-    LU_BSP,
     NUM_89_DEL,  // same as UY on num layer
     HCOM_ENT,
     JY_CTLBSP,
@@ -234,6 +229,11 @@ enum combo_keys {
     FU_LMOV,
     WY_LFUN,
     PL_LMSE,
+    
+    // triples
+    NEI_QUO,
+    RST_DQUO,
+
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -241,7 +241,6 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_uy[] = {KC_U, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_lu[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_89[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_hcom[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_jy[] = {KC_J, CTL_Y, COMBO_END};
@@ -249,13 +248,14 @@ const uint16_t PROGMEM combo_comdot[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM combo_fu[] = {KC_F, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_wy[] = {CTL_W, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_pl[] = {KC_P, KC_L, COMBO_END};
+const uint16_t PROGMEM combo_nei[] = {KC_N, KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM combo_rst[] = {KC_R, KC_S, KC_T, COMBO_END};
 
 combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_wf, KC_ESC),
     [CD_TAB] = COMBO(combo_cd, KC_TAB),
 
     [UY_DEL] = COMBO(combo_uy, KC_DEL),
-    [LU_BSP] = COMBO(combo_lu, KC_BSPC),
     [NUM_89_DEL] = COMBO(combo_89, KC_DEL),
     [HCOM_ENT] = COMBO(combo_hcom, KC_ENT),
     [JY_CTLBSP] = COMBO(combo_jy, LCTL(KC_BSPC)),
@@ -264,6 +264,9 @@ combo_t key_combos[] = {
     [FU_LMOV] = COMBO(combo_fu, TO(LMOV)),
     [WY_LFUN] = COMBO(combo_wy, TO(LFUN)),
     [PL_LMSE] = COMBO(combo_pl, TO(LMSE)),
+
+    [NEI_BSP] = COMBO(combo_nei, KC_QUOT),
+    [RST_BSP] = COMBO(combo_rst, MY_DQUO),
 };
  /******************************************************************************/
 
