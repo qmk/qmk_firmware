@@ -4,7 +4,6 @@
     "maintainer": "Zicodia",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
-    "lighting": "none",
     "features": {
         "bootmagic": true,
         "command": false,

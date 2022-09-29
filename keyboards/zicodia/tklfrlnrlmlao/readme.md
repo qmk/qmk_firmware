@@ -1,6 +1,6 @@
 # TKLFRLNRLMLAO "LMAO"
 
-![TKLFRLNRLMLAO "LMAO"](https://imgur.com/a/NdomFca.jpg)
+![TKLFRLNRLMLAO "LMAO"](https://i.imgur.com/rmHpYEyh.jpeg)
 
 A "totally normal" TKL.
 
