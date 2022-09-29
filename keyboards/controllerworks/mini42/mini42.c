@@ -27,7 +27,7 @@ static void render_logo(void) {
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
     }
