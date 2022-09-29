@@ -357,9 +357,9 @@ bool oled_task_user() {
 
     //WPM text
     oled_set_cursor(0, 9);
-    sprintf(wpm_str, "  %03d WPM  ", get_current_wpm()); // %03d defines digits to display
-    oled_write(wpm_str, false);
-
+    oled_write(get_u8_str(get_current_wpm, '0'), false);
+    oled_write_P(PSTR(" WPM"), false);
+    
     static const char PROGMEM logos[][256] = {
             // Apple
             {
