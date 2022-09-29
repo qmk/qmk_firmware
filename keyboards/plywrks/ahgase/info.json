@@ -12,6 +12,10 @@
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi",
         "LAYOUT_iso": "LAYOUT_tkl_f13_iso"
     },
+    "community_layouts": [
+        "tkl_f13_ansi",
+        "tkl_f13_iso"
+    ],
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {
             "layout": [
