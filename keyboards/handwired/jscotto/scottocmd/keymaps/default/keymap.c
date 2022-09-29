@@ -357,7 +357,7 @@ bool oled_task_user() {
 
     //WPM text
     oled_set_cursor(0, 9);
-    oled_write(get_u8_str(get_current_wpm, '0'), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
     oled_write_P(PSTR(" WPM"), false);
     
     static const char PROGMEM logos[][256] = {
