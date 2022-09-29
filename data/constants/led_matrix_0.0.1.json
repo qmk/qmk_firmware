@@ -1,6 +1,8 @@
 {
     "groups": {
-        "reactive": {}
+        "reactive": {
+            "define": "LED_MATRIX_KEYREACTIVE_ENABLED"
+        }
     },
     "effects": {
         "0x00": {

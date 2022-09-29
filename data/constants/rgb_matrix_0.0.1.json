@@ -1,7 +1,11 @@
 {
     "groups": {
-        "framebuffer": {},
-        "reactive": {}
+        "framebuffer": {
+            "define": "RGB_MATRIX_FRAMEBUFFER_EFFECTS"
+        },
+        "reactive": {
+            "define": "RGB_MATRIX_KEYREACTIVE_ENABLED"
+        }
     },
     "effects": {
         "0x00": {
@@ -109,11 +113,11 @@
             "group": "reactive"
         },
         "0x21": {
-            "key": "RGB_MATRIX_SOLID_REACTIVE",
+            "key": "SOLID_REACTIVE",
             "group": "reactive"
         },
         "0x22": {
-            "key": "RGB_MATRIX_SOLID_REACTIVE_WIDE",
+            "key": "SOLID_REACTIVE_WIDE",
             "group": "reactive"
         },
         "0x23": {

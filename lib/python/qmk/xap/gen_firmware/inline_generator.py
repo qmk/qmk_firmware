@@ -316,6 +316,7 @@ def _append_broadcast_messages(lines, container):
 def _append_lighting_map(lines, feature, spec):
     """TODO:
     """
+    groups = spec.get('groups', {})
     ifdef_prefix = PREFIX_MAP[feature]['ifdef']
     def_prefix = PREFIX_MAP[feature]['def']
 
@@ -324,10 +325,19 @@ def _append_lighting_map(lines, feature, spec):
         define = obj["define"]
         offset = f' + {obj["offset"]}' if obj["offset"] else ''
 
-        lines.append(f'''
+        line = f'''
 #ifdef {ifdef_prefix}_{define}
     {{ {id}, {def_prefix}_{define}{offset}}},
-#endif''')
+#endif'''
+
+        group = groups.get(obj.get("group", None), {}).get('define', None)
+        if group:
+            line = f'''
+#ifdef {group}
+{line}
+#endif'''
+
+        lines.append(line)
 
     lines.append('};')
 
@@ -355,16 +365,27 @@ uint8_t xap2{feature}(uint8_t val) {{
 def _append_lighting_bitmask(lines, feature, spec):
     """TODO:
     """
+    groups = spec.get('groups', {})
     ifdef_prefix = PREFIX_MAP[feature]['ifdef']
 
     lines.append(f"static const uint64_t ENABLED_{feature.upper()}_EFFECTS = 0")
     for id, obj in spec.get('effects', {}).items():
         define = obj["define"]
 
-        lines.append(f'''
+        line = f'''
 #ifdef {ifdef_prefix}_{define}
     | (1ULL << {id})
-#endif''')
+#endif'''
+
+        group = groups.get(obj.get("group", None), {}).get('define', None)
+        if group:
+            line = f'''
+#ifdef {group}
+{line}
+#endif'''
+
+        lines.append(line)
+
     lines.append(';')
 
 
