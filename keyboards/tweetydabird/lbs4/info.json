@@ -56,7 +56,10 @@
         "brightness_steps": 17,
 		"max_brightness": 175,
         "animations": {
-            "all": true
+            "alternating": true
+            "breathing": true,
+            "rainbow_mood": true,
+            "static_gradient": true,
         }
     },
 
