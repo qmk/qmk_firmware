@@ -29,12 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef BLUETOOTH_ENABLE
+#    include "bluetooth.h"
 #    include "outputselect.h"
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-#        include "bluefruit_le.h"
-#    elif BLUETOOTH_RN42
-#        include "rn42.h"
-#    endif
 #endif
 
 #ifdef NKRO_ENABLE
@@ -78,11 +74,7 @@ led_t host_keyboard_led_state(void) {
 void host_keyboard_send(report_keyboard_t *report) {
 #ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif BLUETOOTH_RN42
-        rn42_send_keyboard(report);
-#    endif
+        bluetooth_send_keyboard(report);
         return;
     }
 #endif
@@ -116,12 +108,7 @@ void host_keyboard_send(report_keyboard_t *report) {
 void host_mouse_send(report_mouse_t *report) {
 #ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-        // FIXME: mouse buttons
-        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
-#    elif BLUETOOTH_RN42
-        rn42_send_mouse(report);
-#    endif
+        bluetooth_send_mouse(report);
         return;
     }
 #endif
@@ -152,11 +139,7 @@ void host_consumer_send(uint16_t report) {
 
 #ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_consumer_key(report);
-#    elif BLUETOOTH_RN42
-        rn42_send_consumer(report);
-#    endif
+        bluetooth_send_consumer(report);
         return;
     }
 #endif
