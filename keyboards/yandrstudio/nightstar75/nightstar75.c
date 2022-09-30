@@ -27,10 +27,13 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_kb(void) {
     rgblight_layers = my_rgb_layers;
     rgblight_reload_from_eeprom();
+    keyboard_post_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
+    if (led_update_user(led_state)) {
+        rgblight_set_layer_state(0, led_state.caps_lock);
+    }
     return true;
 }
 #endif
