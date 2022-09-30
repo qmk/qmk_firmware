@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Not yet supported in json
 #define SPLIT_HAND_PIN B5
-#define SERIAL_USE_MULTI_TRANSACTION
 
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
