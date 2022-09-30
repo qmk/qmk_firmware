@@ -13,7 +13,7 @@ EXTRAKEY_ENABLE = no
 # link time optimization to make the binary smaller
 LTO_ENABLE      = yes
 
-SRC += features/caps_word.c
+SRC += features/casemodes.c
 SRC += features/layer_lock.c
 SRC += features/custom_shift_keys.c	
 SRC += features/compose.c

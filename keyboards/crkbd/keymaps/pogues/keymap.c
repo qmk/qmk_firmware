@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-#include "features/caps_word.h"
+#include "features/casemodes.h"
 #include "features/compose.h"
 #include "features/custom_shift_keys.h"
 #include "features/layer_lock.h"
@@ -199,7 +199,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
     }
-    if (!process_caps_word(keycode, record)) {
+    if (!process_case_modes(keycode, record)) {
         return false;
     }
     if (!process_custom_shift_keys(keycode, record)) {
@@ -265,9 +265,11 @@ combo_t key_combos[] = {
     [WY_LFUN] = COMBO(combo_wy, TO(LFUN)),
     [PL_LMSE] = COMBO(combo_pl, TO(LMSE)),
 
-    [NEI_BSP] = COMBO(combo_nei, KC_QUOT),
-    [RST_BSP] = COMBO(combo_rst, MY_DQUO),
+    [NEI_QUO] = COMBO(combo_nei, KC_QUOT),
+    [RST_DQUO] = COMBO(combo_rst, MY_DQUO),
 };
+
+
  /******************************************************************************/
 
 /******************************************************************************
@@ -283,7 +285,22 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // caps word
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_C),
-        { caps_word_set(!caps_word_get()); }
+        { toggle_caps_word(); }
+    )
+    // snake_case
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_S),
+        { enable_xcase_with(KC_UNDS); }
+    )
+    // camelCase
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_K),
+        { enable_xcase_with(OSM(MOD_LSFT)); }
+    )
+    // path (/) case
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_P),
+        { enable_xcase_with(KC_SLSH); }
     )
     // quit dwm
     COMPOSE_MAPPING(

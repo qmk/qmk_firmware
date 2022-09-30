@@ -304,6 +304,8 @@ key_names = {
     "KC_AT": "&#64;",
     "MY_AT": "&#64;",
     "KC_CAPS": "CapsWd",  #"&#20;",
+    "KC_SNAKE": "SnakeCs",
+    "KC_CAMEL": "CamelCs",
     "KC_HASH": "&#35;",
     "MY_GBP": "&#163;",
     "KC_DLR": "&#36;",
@@ -789,8 +791,17 @@ def _send_string_to_keypresses(ss):
 
 def extract_compose_action(action_text):
     """turn the action like SEND_STRING / tap_code to the sequence of key presses."""
-    if action_text.startswith('caps_word'):
+    if action_text.startswith(('caps_word', 'toggle_caps')):
         return ['KC_CAPS']
+
+    if action_text.startswith('enable_xcase_with(KC_UNDS)'):
+        return ['KC_SNAKE']
+
+    if action_text.startswith('enable_xcase_with(OSM(MOD_LSFT))'):
+        return ['KC_CAMEL']
+
+    if action_text.startswith('enable_xcase_with(KC_SLSH)'):
+        return ['KC_PATH']
 
     tap_code_re = re.compile(r'tap_code\s*\(\s*(?P<key>[^\s]*)\)')
     m = tap_code_re.match(action_text)
