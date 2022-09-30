@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-// #define DEVICE_VER 0x0002
-// #define VENDOR_ID 0x342D
-// #define PRODUCT_ID 0xE392
-// #define MANUFACTURER GSKY
-// #define PRODUCT KD83A_BFG_Edition
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 /* key matrix size */

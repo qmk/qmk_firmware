@@ -1,4 +1,4 @@
-/* Copyright 2022 GSKY <gskyGit@gsky.com.tw>
+/* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -167,15 +167,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void rgb_matrix_indicators_user(void) {
-	if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-		setPinInputHigh (C14);
+	if (host_keyboard_led_state().caps_lock) {
+    	setPinInputHigh (C14);
 	}
 	else {
 		setPinInputLow (C14);
 	}
-    
-
-	if (IS_LAYER_ON(0)) { 
+    	if (IS_LAYER_ON(0)) { 
 		setPinInputLow (C0);
 	}
 	if (IS_LAYER_ON(1)) {   
