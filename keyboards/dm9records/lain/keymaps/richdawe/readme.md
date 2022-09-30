@@ -7,7 +7,9 @@
 ## Changes from default layout
 
 - Tab and ESC swapped - Tab next to Q, ESC next to A (where Caps Lock usually is)
+- TODO: what other changes?
 
 TODO:
 
-make the spaces mod-tap, shift on hold
+- make the spaces mod-tap, shift on hold
+- should B be on the RHS?
