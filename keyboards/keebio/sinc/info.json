@@ -6,7 +6,7 @@
         "vid": "0xCB10"
     },
     "processor": "atmega32u4",
-    "protocol": "atmel-dfu",
+    "bootloader": "atmel-dfu",
     "features": {
         "audio": false,
         "bootmagic": true,
