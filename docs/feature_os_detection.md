@@ -1,6 +1,6 @@
 # OS Detection
 
-This feature allows to detect host OS based on OS specific behaviour during USB setup.
+This feature makes a best guess at the host OS based on OS specific behavior during USB setup.  It may not always get the correct OS, and shouldn't be relied on as for critical functionality.
 
 Using it you can have OS specific key mappings or combos which work differently on different devices.
 
