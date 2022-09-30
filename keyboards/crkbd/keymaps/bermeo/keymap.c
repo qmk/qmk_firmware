@@ -273,7 +273,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #    define ANIM_SIZE 96            // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 /* timers */
 uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
 /* current frame */
 uint8_t current_frame = 0;
 /* status variables */
@@ -351,19 +350,19 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         current_frame = (current_frame + 1) % 2;
         /* draw */
         if (isBarking) {
-            oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(bark[current_frame], ANIM_SIZE);
 
         } else if (isSneaking) {
-            oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(sneak[current_frame], ANIM_SIZE);
 
         } else if (current_wpm <= MIN_WALK_SPEED) {
-            oled_write_raw_P(sit[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(sit[current_frame], ANIM_SIZE);
 
         } else if (current_wpm <= MIN_RUN_SPEED) {
-            oled_write_raw_P(walk[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(walk[current_frame], ANIM_SIZE);
 
         } else {
-            oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(run[current_frame], ANIM_SIZE);
         }
     }
     /* animation timer */
