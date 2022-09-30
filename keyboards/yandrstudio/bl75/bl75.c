@@ -53,22 +53,22 @@ led_config_t g_led_config = {
     }
 };
 
-// globol
+/* global */
 typedef union {
     uint32_t raw;
     uint8_t  underground_rgb_sw : 8;
-} user_config_t;
-user_config_t user_config;
+} kb_config_t;
+kb_config_t kb_config;
 
 void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (rgb_matrix_is_enabled()) {
-        if (user_config.underground_rgb_sw == 1) {
+        if (kb_config.underground_rgb_sw == 1) {
             for (uint8_t i = led_min; i < led_max; ++i) {
                 if ((g_led_config.flags[i] == 4)) {
                     rgb_matrix_set_color(i, 0, 0, 0);
                 }
             }
-        } else if (user_config.underground_rgb_sw == 2) {
+        } else if (kb_config.underground_rgb_sw == 2) {
             for (uint8_t i = led_min; i < led_max; ++i) {
                 if ((g_led_config.flags[i] == 2)) {
                     rgb_matrix_set_color(i, 0, 0, 0);
@@ -82,14 +82,13 @@ void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 
 void eeconfig_init_kb(void) {
-    user_config.raw = 0;
-    eeconfig_update_kb(user_config.raw);
+    kb_config.raw = 0;
+    eeconfig_update_kb(kb_config.raw);
     eeconfig_init_user();
 }
 
-extern const rgb_matrix_driver_t rgb_matrix_driver;
 void keyboard_post_init_kb(void) {
-    user_config.underground_rgb_sw = eeconfig_read_kb();
+    kb_config.underground_rgb_sw = eeconfig_read_kb();
     rgb_matrix_reload_from_eeprom();
     keyboard_post_init_user();
 }
@@ -105,9 +104,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
         case RGB_KG_T:
             if (rgb_matrix_config.enable && record->event.pressed) {
-                user_config.underground_rgb_sw += 1;
-                user_config.underground_rgb_sw %= 3;
-                eeconfig_update_kb(user_config.raw);
+                kb_config.underground_rgb_sw += 1;
+                kb_config.underground_rgb_sw %= 3;
+                eeconfig_update_kb(kb_config.raw);
             }
             return false;
 #endif

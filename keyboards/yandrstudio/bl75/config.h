@@ -19,7 +19,6 @@
 #ifdef ENCODER_ENABLE
 #    define ENCODERS_PAD_A { B12 }
 #    define ENCODERS_PAD_B { B13 }
-#    define ENCODER_RESOLUTION 4
 #endif
 
 /* RGB Matrix */
@@ -35,7 +34,6 @@
 #    define RGB_MATRIX_CENTER { 112, 32 }
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGBLIGHT_ANIMATIONS
 
 #   define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
