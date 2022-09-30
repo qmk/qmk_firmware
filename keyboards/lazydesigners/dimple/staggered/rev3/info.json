@@ -1,6 +1,6 @@
 {
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0, "matrix": [0, 0]},
                 {"label":"Q", "x":1, "y":0, "matrix": [0, 1]},
