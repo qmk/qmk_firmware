@@ -59,6 +59,16 @@ enum keyboard_keycodes {
 #define KC_MACOS  TOG_MACOS_KEYMAP
 #define KC_MCTL   KC_MISSION_CONTROL
 #define KC_LPAD   KC_LAUNCHPAD
+
 #ifdef RGB_MATRIX_ENABLE
+
 #   define RGB_KG_T  KC_KEY_UNDER_RGBSW
+
+/* global */
+typedef union {
+    uint32_t raw;
+    uint8_t  underground_rgb_sw : 8;
+} kb_config_t;
+kb_config_t kb_config;
+
 #endif

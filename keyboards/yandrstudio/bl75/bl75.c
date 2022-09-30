@@ -53,12 +53,7 @@ led_config_t g_led_config = {
     }
 };
 
-/* global */
-typedef union {
-    uint32_t raw;
-    uint8_t  underground_rgb_sw : 8;
-} kb_config_t;
-kb_config_t kb_config;
+
 
 void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (rgb_matrix_is_enabled()) {
