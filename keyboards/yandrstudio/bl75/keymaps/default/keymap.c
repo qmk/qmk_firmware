@@ -32,10 +32,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,          RGB_TOG, RGB_MOD, RGB_RMOD,RGB_VAI, RGB_VAD, KC_TRNS,  KC_MACOS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_LG,   KC_TRNS,                            KC_TRNS,                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
-
-#if defined(ENCODER_MAP_ENABLE) && defined(ENCODER_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [0]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [1]  = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)}
-};
-#endif
