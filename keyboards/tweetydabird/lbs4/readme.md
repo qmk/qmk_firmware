@@ -1,6 +1,6 @@
 # Little Big Scroll 4
 
-![lsb4](https://imgur.com/MMGSDz2)
+![lsb4](https://i.imgur.com/MMGSDz2h.jpeg)
 
 * A simple 4-key or 2-key plus OLED macropad with a clickable scrollwheel, for media controls and whatever else you can imagine.*
 
