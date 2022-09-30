@@ -1,22 +1,12 @@
-/* Copyright021 TweetyDaBird
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-#include QMK_KEYBOARD_H
-#include "quantum.h"
+// Copyright 2022 Markus Knutsson (@TweetyDaBird)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-bool autoshift;
+#include QMK_KEYBOARD_H
+
+void keyboard_post_init_user(void) {
+	autoshift_disable();
+}
+
 
 enum layers {
     _QWERTY,
@@ -49,11 +39,11 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-    KC_ESC, 	KC_1, 	KC_2,   KC_3,	KC_4,    KC_5,	KC_MPLY,     	KC_MPLY, 	KC_6, 	KC_7,	KC_8,    KC_9,   KC_0,    KC_MINS,
-    KC_TAB, 	KC_Q, 	KC_W,   KC_E,   KC_R,    KC_T,                             	KC_Y, 	KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,
-	KC_CAPS, 	KC_A, 	KC_S,   KC_D,   KC_F,    KC_G,                             	KC_H, 	KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-	LCTL_T(KC_LEFT), 	KC_Z, 	KC_X,   KC_C,   KC_V,    KC_B, 	KC_DOWN,     	KC_UP,  KC_N,	KC_M,   KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_RGHT),
-							KC_LGUI, TG(_FN),  KC_LALT,    LSFT_T(KC_SPC),      RSFT_T(KC_ENT),	KC_RALT, TG(_NUM),	KC_BSPC
+    KC_ESC, 	KC_1, 	KC_2,   KC_3,	KC_4,    KC_5,	KC_MPLY,     			KC_MPLY, 	KC_6, 	KC_7,	KC_8,    KC_9,   KC_0,    KC_MINS,
+    KC_TAB, 	KC_Q, 	KC_W,   KC_E,   KC_R,    KC_T,                     		 	       	KC_Y, 	KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,
+	KC_CAPS, 	KC_A, 	KC_S,   KC_D,   KC_F,    KC_G,                     			       	KC_H, 	KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+	LCTL_T(KC_LEFT), 	KC_Z, 	KC_X,   KC_C,   KC_V,  KC_B, KC_DOWN,   		  	KC_UP,  KC_N,	KC_M,   KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_RGHT),
+						KC_LGUI, TG(_FN),  KC_LALT,   LSFT_T(KC_SPC),   			 RSFT_T(KC_ENT),	KC_RALT, TG(_NUM),	MT(MOD_RGUI,KC_BSPC)
 	),
 
 [_NUM] = LAYOUT(
@@ -73,10 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYS] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX ,  XXXXXXX, XXXXXXX, XXXXXXX, _______,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX ,  XXXXXXX, XXXXXXX, XXXXXXX, _______,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_P,
   QK_BOOT, XXXXXXX, KC_QWERTY, XXXXXXX, XXXXXXX, KC_ASTG,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
-  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_CAPS,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_CAPS,                       XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUI, RGB_VAI, RGB_MOD,
+  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUD, RGB_VAD, RGB_RMOD,
 								_______, _______, _______, _______,     _______, _______, _______, _______  \
   )
 };
@@ -122,26 +112,26 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Undef"), false);
     }
 
-/* not working!
+ //not working!
 
     oled_write_P(PSTR("\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("Caps- lock"), led_usb_state.caps_lock);
 
-	autoshift = get_autoshift_state();
+	bool autoshift = get_autoshift_state();
 	
 		oled_write_P(PSTR("\n"), false);
 		oled_write_P(PSTR("Auto-Shift"), autoshift);
 		oled_write_P(PSTR("\n"), false);
-	*/
+	
 	
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
+    if (is_keyboard_left()) {
         return OLED_ROTATION_90;
-    }
-    return rotation;
+	}
+    return OLED_ROTATION_270;
 }
 
 bool oled_task_user(void) {
