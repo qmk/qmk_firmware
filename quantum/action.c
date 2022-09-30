@@ -527,18 +527,10 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_USAGE:
             switch (action.usage.page) {
                 case PAGE_SYSTEM:
-                    if (event.pressed) {
-                        host_system_send(action.usage.code);
-                    } else {
-                        host_system_send(0);
-                    }
+                    host_system_send(event.pressed ? action.usage.code : 0);
                     break;
                 case PAGE_CONSUMER:
-                    if (event.pressed) {
-                        host_consumer_send(action.usage.code);
-                    } else {
-                        host_consumer_send(0);
-                    }
+                    host_consumer_send(event.pressed ? action.usage.code : 0);
                     break;
             }
             break;
@@ -852,9 +844,9 @@ void process_action(keyrecord_t *record, action_t action) {
 __attribute__((weak)) void register_code(uint8_t code) {
     if (code == KC_NO) {
         return;
-    }
+
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS_LOCK == code) {
+    } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is on
         if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) return;
@@ -864,9 +856,8 @@ __attribute__((weak)) void register_code(uint8_t code) {
         wait_ms(TAP_HOLD_CAPS_DELAY);
         del_key(KC_CAPS_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_NUM_LOCK == code) {
+    } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) return;
 #    endif
@@ -875,9 +866,8 @@ __attribute__((weak)) void register_code(uint8_t code) {
         wait_ms(100);
         del_key(KC_NUM_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_SCROLL_LOCK == code) {
+    } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) return;
 #    endif
@@ -886,10 +876,9 @@ __attribute__((weak)) void register_code(uint8_t code) {
         wait_ms(100);
         del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-    }
 #endif
 
-    else if IS_KEY (code) {
+    } else if IS_KEY (code) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
@@ -922,15 +911,15 @@ __attribute__((weak)) void register_code(uint8_t code) {
     } else if IS_MOD (code) {
         add_mods(MOD_BIT(code));
         send_keyboard_report();
-    }
+
 #ifdef EXTRAKEY_ENABLE
-    else if IS_SYSTEM (code) {
+    } else if IS_SYSTEM (code) {
         host_system_send(KEYCODE2SYSTEM(code));
     } else if IS_CONSUMER (code) {
         host_consumer_send(KEYCODE2CONSUMER(code));
-    }
 #endif
-    else if IS_MOUSEKEY (code) {
+
+    } else if IS_MOUSEKEY (code) {
         register_mouse(code, true);
     }
 }
@@ -942,9 +931,9 @@ __attribute__((weak)) void register_code(uint8_t code) {
 __attribute__((weak)) void unregister_code(uint8_t code) {
     if (code == KC_NO) {
         return;
-    }
+
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS_LOCK == code) {
+    } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is off
         if (!(host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK))) return;
@@ -953,9 +942,8 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
         del_key(KC_CAPS_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_NUM_LOCK == code) {
+    } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) return;
 #    endif
@@ -963,9 +951,8 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
         del_key(KC_NUM_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_SCROLL_LOCK == code) {
+    } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (!(host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK))) return;
 #    endif
@@ -973,19 +960,22 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
         del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-    }
 #endif
 
-    else if IS_KEY (code) {
+    } else if IS_KEY (code) {
         del_key(code);
         send_keyboard_report();
     } else if IS_MOD (code) {
         del_mods(MOD_BIT(code));
         send_keyboard_report();
+
+#ifdef EXTRAKEY_ENABLE
     } else if IS_SYSTEM (code) {
         host_system_send(0);
     } else if IS_CONSUMER (code) {
         host_consumer_send(0);
+#endif
+
     } else if IS_MOUSEKEY (code) {
         register_mouse(code, false);
     }
