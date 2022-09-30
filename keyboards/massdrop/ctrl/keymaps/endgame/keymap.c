@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_CTRL_TERM),  TD(TD_LGUI_ML), KC_LALT,                   KC_SPC,                             KC_RALT, TT(_FL), TD(TD_APP_YL), KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FL] = LAYOUT(
-        _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,          KC_MUTE, TERM_ON, TERM_OFF,
+        _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,          KC_MUTE, _______, _______,
         _______, _______, TG(_ML), TG(_GL),  TG(_VL), TG(_YL), _______, _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
         RGB_M_P, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
