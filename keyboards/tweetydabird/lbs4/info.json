@@ -4,15 +4,15 @@
 	"url": "https://lectronz.com/stores/tweetys-wild-thinking",
 	"maintainer": "TweetyDaBird",	
 	
-	"processor": "atmega32u4",
-	"bootloader": "caterina",
+	"development_board": "promicro",
+	"bootloader_instructions": "Short marked pads on PCB, or hold top left key when plugging in.",
 	
 	"features": {
 		"bootmagic": true,
 		"command": false,
 		"console": false,
 		"extrakey": true,
-		"mousekey": true,
+		"mousekey": false,
 		"nkro": false,
 		"rgblight": true,
 		"encoder": true
@@ -32,9 +32,8 @@
 
 	"matrix_pins": {
         "direct": [
-			[null, "F4"],
-			["E6", "D7"],
-			["B5", "B4"]
+			["E6", "D7", "F4"],
+			["B5", "B4", null]
         ]
     },
 
@@ -66,13 +65,13 @@
 	"layouts": {
         "LAYOUT": {
             "layout": [	
-			{ "label": "Play", 	"matrix": [0, 1], "x": 2, "y": 0, "w": 2, "h": 2 }, 
+			{ "label": "Play", 	"matrix": [0, 2], "x": 2, "y": 0, "w": 2, "h": 2 }, 
 			
-			{ "label": "F1", 	"matrix": [1, 0], "x": 0, "y": 0, "w": 1, "h": 1 }, 
-			{ "label": "F2", 	"matrix": [1, 1], "x": 1, "y": 0, "w": 1, "h": 1 }, 
+			{ "label": "F1", 	"matrix": [0, 0], "x": 0, "y": 0, "w": 1, "h": 1 }, 
+			{ "label": "F2", 	"matrix": [0, 1], "x": 1, "y": 0, "w": 1, "h": 1 }, 
 			
-			{ "label": "F3", 	"matrix": [2, 0], "x": 0, "y": 1, "w": 1, "h": 1 },
-			{ "label": "F4", 	"matrix": [2, 1], "x": 1, "y": 1, "w": 1, "h": 1 },
+			{ "label": "F3", 	"matrix": [1, 0], "x": 0, "y": 1, "w": 1, "h": 1 },
+			{ "label": "F4", 	"matrix": [1, 1], "x": 1, "y": 1, "w": 1, "h": 1 },
 			]
 		}
 	}	

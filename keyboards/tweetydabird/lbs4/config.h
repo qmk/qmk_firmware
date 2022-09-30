@@ -6,5 +6,5 @@
 
 // Bootmagic Lite key configuration
 // Not yet supported in info.json ?
-#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0

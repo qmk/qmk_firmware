@@ -1,8 +1,8 @@
-# lsb4
+# Little Big Scroll 4
 
 ![lsb4](https://imgur.com/MMGSDz2)
 
-*A simple 4-key or 2-key plus OLED macropad with a clickable scrollwheel, for media controls and whatever else you can imagine.*
+* A simple 4-key or 2-key plus OLED macropad with a clickable scrollwheel, for media controls and whatever else you can imagine.*
 
 * Keyboard Maintainer: [Markus Knutsson](https://github.com/TweetyDaBird/)
 * Hardware Supported: LBS4 PCB plus Pro Micro or pin compatible
@@ -14,11 +14,8 @@ Make example for this keyboard (after setting up your build environment):
 
     make tweetydabird/lbs4:default
 
-Flashing example for this keyboard:
-
-    make tweetydabird/lbs4:default:flash
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. 
+Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
