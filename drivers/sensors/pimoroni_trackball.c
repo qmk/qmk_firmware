@@ -33,6 +33,14 @@
 
 static uint16_t precision = 128;
 
+uint8_t pimoroni_get_max_speed(void) {
+    uint8_t max_speed = precision / 10;
+    if (max_speed == 0) {
+        max_speed = 1;
+    }
+    return max_speed;
+}
+
 uint16_t pimoroni_trackball_get_cpi(void) {
     return (precision * 125);
 }
@@ -78,17 +86,4 @@ i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
 __attribute__((weak)) void pimoroni_trackball_device_init(void) {
     i2c_init();
     pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
-}
-
-int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
-    uint8_t offset     = 0;
-    bool    isnegative = false;
-    if (negative_dir > positive_dir) {
-        offset     = negative_dir - positive_dir;
-        isnegative = true;
-    } else {
-        offset = positive_dir - negative_dir;
-    }
-    uint16_t magnitude = (scale * offset * offset * precision) >> 7;
-    return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
 }
