@@ -1,7 +1,7 @@
 # mini36
 
 ![mini36](https://i.imgur.com/xrSKhqR.png)
-![mini36PCB](https://i.imgur.com/R7u1KB8.png)
+![mini36PCB](https://i.imgur.com/6NjZ8Cq.jpg)
 
 *A pre-built, low profile, split mechanical keyboard with 36 keys based on the RP2040 processor*
 
