@@ -41,4 +41,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_RIGHT
 
 /* PMW3360 Settings */
-#define PMW3360_CS_PIN B0
+#define POINTING_DEVICE_CS_PIN B0
