@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define "PRODUCT Tractyl Manuform(5x6) Aruino Micro (r)/ Pro Micro (l)"
+#define PRODUCT "Tractyl Manuform(5x6) Aruino Micro (r)/ Pro Micro (l)"
 
 /* key matrix size */
 // Rows are doubled-up
