@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4744 // GD for Greenwald Designs
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Greenwald Designs
-#define PRODUCT         Waldo
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -32,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6 }
 #define MATRIX_COL_PINS { F7, D5, D3, D2, B3, B2, C7, C6, B6, B5, B4, D7, D6, D4, B1 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING

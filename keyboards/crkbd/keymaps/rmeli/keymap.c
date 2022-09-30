@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CONFIG] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
-        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UC_MOD,  KC_ASUP,   NK_ON, XXXXXXX, XXXXXXX,DF(_QWY),
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UC_MOD,  KC_ASUP,   NK_ON, XXXXXXX, XXXXXXX,DF(_QWY),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                      XXXXXXX, KC_ASTG, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

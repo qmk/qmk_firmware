@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Bacca70",
+    "manufacturer": "Viktus Design LLC",
     "url": "https://3dkeebs.com/",
     "maintainer": "keebnewb",
+    "usb": {
+        "vid": "0xBACA",
+        "pid": "0x6970",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
           "layout": [

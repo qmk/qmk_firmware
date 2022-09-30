@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEEF
-#define PRODUCT_ID      0xFED0
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    nacly
-#define PRODUCT         sodium42
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
