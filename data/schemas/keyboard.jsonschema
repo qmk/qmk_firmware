@@ -1,4 +1,4 @@
-	{
+{
     "$schema": "https://json-schema.org/draft/2020-12/schema#",
     "$id": "qmk.keyboard.v1",
     "title": "Keyboard Information",
