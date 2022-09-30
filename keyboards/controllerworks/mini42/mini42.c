@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "mini42.h"
 
 #ifdef OLED_ENABLE
+#include "quantum.h"
 
 static void render_logo(void) {
     static const char PROGMEM raw_logo[] = {
