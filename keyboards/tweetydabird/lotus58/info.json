@@ -89,11 +89,6 @@
         "toggle": 2
     },
 	
-	"matrix_size": {
-        "cols": 6,
-        "rows": 10
-    },
-	
 	"diode_direction": "COL2ROW",
 	"matrix_pins": {
 		"rows": ["D4", "C6", "D7", "E6", "B4"],
