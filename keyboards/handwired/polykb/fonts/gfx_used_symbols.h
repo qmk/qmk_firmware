@@ -218,3 +218,25 @@
 #define ARABIC_INDIC_7                      u"\x0667"
 #define ARABIC_INDIC_8                      u"\x0668"
 #define ARABIC_INDIC_9                      u"\x0669"
+
+
+//private range:
+#define PRIVATE_HOME            u"\xE3E0"
+#define PRIVATE_WORLD           u"\xE310"
+
+#define DINGBAT_BLACK_DIA_X     u"\x2756"
+
+#define SECTION                 u"\xA7"
+#define ESZETT                  u"\xDF"
+#define DEGREE                  u"\xB0"
+#define GRAVE_ACCENT            u"\x60"
+#define ACUTE_ACCENT            u"\xB4"
+#define UMLAUT_A                u"\xc4"
+#define UMLAUT_A_SMALL          u"\xe4"
+#define UMLAUT_O                u"\xd6"
+#define UMLAUT_O_SMALL          u"\xf6"
+#define UMLAUT_U                u"\xdc"
+#define UMLAUT_U_SMALL          u"\xfc"
+
+#define SUPER_SCRIPT_2          u"\xb2"
+#define SUPER_SCRIPT_3          u"\xb3"

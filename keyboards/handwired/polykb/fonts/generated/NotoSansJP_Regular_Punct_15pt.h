@@ -31,7 +31,7 @@ const GFXfont NotoSansJP_Regular_Punct_15pt16b PROGMEM = {
   (GFXglyph *)NotoSansJP_Regular_Punct_15pt16bGlyphs,
   0x3001, // first
   0x300D, // last
-  43  // height
+  43   //height
  };
 
 // Approx. 163 bytes

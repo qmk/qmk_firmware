@@ -657,7 +657,7 @@ const GFXfont NotoSansJP_Regular_Hiragana_15pt16b PROGMEM = {
   (GFXglyph *)NotoSansJP_Regular_Hiragana_15pt16bGlyphs,
   0x3041, // first
   0x309F, // last
-  43  // height
+  43   //height
  };
 
 // Approx. 7277 bytes

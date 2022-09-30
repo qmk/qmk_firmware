@@ -95,7 +95,7 @@ const GFXfont NotoSansKR_Regular_Consonants_19pt16b PROGMEM = {
   (GFXglyph *)NotoSansKR_Regular_Consonants_19pt16bGlyphs,
   0x1100, // first
   0x1112, // last
-  54  // height
+  54   //height
  };
 
 // Approx. 915 bytes

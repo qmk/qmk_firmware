@@ -1,4 +1,4 @@
-// fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf -s16 -v _Isolated_ 0x61f 0x64a 0x660 0x669 
+// fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf -s16 -r40 -v _Isolated_ 0x61f 0x64a 0x660 0x669 
 // Visualize your font via https://tchapi.github.io/Adafruit-GFX-Font-Customiser
 
 const uint8_t NotoSansArabic_Regular_Isolated_16pt16bBitmaps[] PROGMEM = {
@@ -319,7 +319,7 @@ const GFXfont NotoSansArabic_Regular_Isolated_16pt16b PROGMEM = {
   (GFXglyph *)NotoSansArabic_Regular_Isolated_16pt16bGlyphs,
   0x61F, // first
   0x669, // last
-  40  // height
+  40   //height
  };
 
 // Approx. 3307 bytes

@@ -163,12 +163,28 @@ int8_t kdisp_write_gfx_char(const GFXfont **fonts, uint8_t num_fonts, int8_t x, 
 
 void kdisp_write_gfx_text(const GFXfont **fonts, uint8_t num_fonts, int8_t x, int8_t y, const uint16_t *text) {
     int8_t x_cursor = x;
+    int8_t y_cursor = y;
     while (*text != 0) {
-        if(*text==u'\n') {
-            y += pgm_read_byte(&fonts[0]->yAdvance);
-            x_cursor = x;
-        } else {
-            x_cursor += kdisp_write_gfx_char(fonts, num_fonts, x_cursor, y, *text);
+        switch(*text) {
+            case u'\b':
+                x_cursor = x_cursor>1 ? x_cursor - 2 : 0;
+                break;
+            case u'\t':
+                x_cursor += ((x_cursor-x)/40+1)*40;
+                break;
+            case u'\n':
+                y_cursor += pgm_read_byte(&fonts[0]->yAdvance);
+                x_cursor = x;
+                break;
+            case u'\v':
+                y_cursor += ((y_cursor-y)/15+1)*15;
+                break;
+            case u'\r':
+                x_cursor = x;
+                break;
+            default:
+                x_cursor += kdisp_write_gfx_char(fonts, num_fonts, x_cursor, y_cursor, *text);
+                break;
         }
         text++;
     }

@@ -17,6 +17,7 @@ enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, _LAYER2 = 2, //, _LAYER3 = 3, _LAYER
 
 enum my_keycodes {
   KC_NEXT_LAYER = SAFE_RANGE,
+  KC_LANG,
   KC_NEXT_LANG,
   KC_ENC_UP,
   KC_ENC_DOWN,
@@ -76,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_TAB,         KC_Q,        KC_W,         KC_E,       KC_R,       KC_T,           KC_EQUAL,        KC_ENC_UP,
                         KC_CAPSLOCK,    KC_A,        KC_S,         KC_D,       KC_F,       KC_G,           KC_MINUS,        KC_ENC_DOWN,
                         KC_LSHIFT,      KC_Z,        KC_X,         KC_C,       KC_V,       KC_B,           KC_ESC,          KC_MS_BTN1, /*encoder switch*/
-                        KC_LCTL,        KC_LALT,     KC_NEXT_LANG, KC_APP,      KC_LWIN,    KC_SPACE,      KC_END,          KC_HOME
+                        KC_LCTL,        KC_LALT,     KC_LANG, KC_APP,      KC_LWIN,    KC_SPACE,      KC_END,          KC_HOME
                         ),
     [_LAYER1] = LAYOUT( KC_NO,     KC_NO,           KC_NO,              KC_NO,              KC_NO,      KC_MEDIA_PREV_TRACK,    KC_NEXT_LAYER,        /*no key*/KC_NO,
                         RGB_PREV,  KC_AUDIO_VOL_UP, QK_DEBUG_TOGGLE,    KC_DISP_CMINUS,     KC_NO,      KC_MEDIA_PLAY_PAUSE,    KC_NO,                KC_ENC_UP,
@@ -86,9 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         ),
     [_LAYER2] = LAYOUT( KC_LEAD,        KC_F1,       KC_F2,        KC_F3,      KC_F4,      KC_F5,          KC_F6,       KC_NO,
                         KC_NO,          KC_LANG_PT,  KC_LANG_ES,   KC_LANG_AR, KC_NO,      KC_NO,          KC_NO,       KC_ENC_UP,
-                        KC_NO,          KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JP, KC_NO,      KC_NO,          KC_NO,       KC_ENC_DOWN,
-                        KC_NO,          KC_LANG_TR,  KC_LANG_EN,   KC_LANG_KR, KC_NO,      KC_NO,          KC_NO,       KC_MS_BTN1, /*encoder switch*/
-                        KC_NO,          KC_NO,       KC_NEXT_LANG, KC_NO,      KC_NO,      KC_NO,          KC_NO,       KC_NO
+                        KC_LANG_TR,     KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JP, KC_NO,      KC_NO,          KC_NO,       KC_ENC_DOWN,
+                        KC_NO,          KC_LANG_EN,  KC_NEXT_LANG, KC_LANG_KR, KC_NO,      KC_NO,          KC_NO,       KC_MS_BTN1, /*encoder switch*/
+                        KC_NO,          KC_NO,       KC_LANG,      KC_NO,      KC_NO,      KC_NO,          KC_NO,       KC_NO
                         )
 };
 
@@ -243,7 +244,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         case KC_INSERT:
             return u"Ins";
         case KC_HOME:
-            return GO_BACK u"Home";
+            return PRIVATE_HOME;
         case KC_PAGE_UP:
             return u"PgUp";
         case KC_PAGE_DOWN:
@@ -287,7 +288,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u"Tab";
         case KC_LWIN:
         case KC_RWIN:
-            return u" Win";
+            return  DINGBAT_BLACK_DIA_X;
         case KC_LEFT:
             return u"  " ICON_LEFT;
         case KC_RIGHT:
@@ -309,13 +310,16 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u"Bright";
         case KC_DISP_CPLUS:
             return u" +";
+        case KC_LANG:
+            return PRIVATE_WORLD;
         case KC_NEXT_LANG:
             {
                 switch((current_lang + 1) % NUM_LANG) {
-                    case LANG_KO: return u" Kor";
-                    case LANG_JP: return u" Jpn";
-                    case LANG_AR: return u" Arab";
-                    default: return u" Eng";
+                    case LANG_DE: return u"Nxt D";
+                    case LANG_KO: return u"Nxt K";
+                    case LANG_JP: return u"Nxt J";
+                    case LANG_AR: return u"Nxt A";
+                    default: return u"Nxt E";
                 }
             }
         case KC_LANG_EN: return u" Eng";
@@ -457,11 +461,39 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 inc_brightness();
                 break;
             case KC_NEXT_LANG:
-                force_layer_switch();
+                current_lang = (current_lang + 1) % NUM_LANG;
+                process_layer_switch_user(_LAYER0);
                 break;
             case KC_LANG_EN:
                 current_lang = LANG_EN;
+                process_layer_switch_user(_LAYER0);
                 break;
+            case KC_LANG_DE:
+                current_lang = LANG_DE;
+                process_layer_switch_user(_LAYER0);
+                break;
+            case KC_LANG_ES:
+            case KC_LANG_PT:
+            case KC_LANG_FR:
+            case KC_LANG_TR:
+                break;
+            case KC_LANG_KR:
+                current_lang = LANG_KO;
+                process_layer_switch_user(_LAYER0);
+                break;
+            case KC_LANG_JP:
+                current_lang = LANG_JP;
+                process_layer_switch_user(_LAYER0);
+                break;
+            case KC_LANG_AR:
+                current_lang = LANG_AR;
+                process_layer_switch_user(_LAYER0);
+                break;
+            case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
+            case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
+                process_layer_switch_user(_LAYER0);
+                break;
+
             /*case KC_ENC_DOWN:
                 encDownHigh = true;
                 break;
@@ -478,24 +510,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_LEFT_SHIFT:
             force_layer_switch();
             break;
-        case KC_NEXT_LANG:
-            current_lang = (current_lang + 1) % NUM_LANG;
+        case KC_LANG:
             process_layer_switch_user(_LAYER2);
-            break;
-        case KC_LANG_DE:
-        case KC_LANG_ES:
-        case KC_LANG_PT:
-        case KC_LANG_FR:
-        case KC_LANG_TR:
-            break;
-        case KC_LANG_KR:
-            current_lang = LANG_KO;
-            break;
-        case KC_LANG_JP:
-            current_lang = LANG_JP;
-            break;
-        case KC_LANG_AR:
-            current_lang = LANG_AR;
             break;
         default:
             break;

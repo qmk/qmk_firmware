@@ -324,7 +324,7 @@ const GFXfont NotoSans_Regular_Base_14pt7b PROGMEM = {
   (GFXglyph *)NotoSans_Regular_Base_14pt7bGlyphs,
   0x20, // first
   0x7E, // last
-  37  // height
+  37   //height
  };
 
 // Approx. 3281 bytes
