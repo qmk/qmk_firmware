@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef RMELI_UNICODE
-#define RMELI_UNICODE
+#pragma once
 
 #include QMK_KEYBOARD_H
 
