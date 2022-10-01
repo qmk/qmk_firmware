@@ -24,7 +24,6 @@
 #define MANUFACTURER whtk
 #define PRODUCT whtkbrd
 
-#define SPLIT_USB_DETECT
 #define MASTER_RIGHT
 
 #define SERIAL_USART_FULL_DUPLEX
@@ -42,8 +41,6 @@
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 #define DIODE_DIRECTION COL2ROW
-/* Strong debounce as kailh choc keys are bouncy. At least the pro-reds I use. */
-#define DEBOUNCE 50
 
 #define MATRIX_COL_PINS \
     { A0, A1, A2, A3, A4, A5 }

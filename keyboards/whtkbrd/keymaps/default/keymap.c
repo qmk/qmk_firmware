@@ -89,8 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void update_leds(void) {
-    switch (get_highest_layer(layer_state)) {
+void update_leds(layer_state_t state) {
+    switch (get_highest_layer(state)) {
         case LAYER_ALPHA:
             pwr_led_off();
             stat_led_off();
@@ -114,10 +114,8 @@ void update_leds(void) {
     }
 }
 
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_leds();
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, LAYER_SYM_NAV, LAYER_BRA_SYM, LAYER_FUN_NUM);
+  state = update_tri_layer_state(state, LAYER_SYM_NAV, LAYER_BRA_SYM, LAYER_FUN_NUM);
+  update_leds(state);
+  return state;
 }
