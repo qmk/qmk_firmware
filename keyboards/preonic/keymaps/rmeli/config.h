@@ -14,10 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RMELI_KM_PREONIC
-#define RMELI_KM_PREONIC
-
-#include "global_config.h"
+#pragma once
 
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(PREONIC_SOUND)
