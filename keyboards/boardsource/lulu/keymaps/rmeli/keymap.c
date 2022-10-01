@@ -20,13 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rmeli.h"
 
-enum layers {
-    _QWERTY,
-    _COLEMAK_DH,
-    _RAISE,
-    _LOWER,
-    _ADJUST
-};
+enum layers { _QWERTY, _COLEMAK_DH, _RAISE, _LOWER, _ADJUST };
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
