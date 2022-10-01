@@ -27,7 +27,7 @@ enum layer_number {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
   //,-----------------------------------------------------+--------------------------------------------------------------------------------.
-       KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_VOLD, KC_VOLU, KC_WH_D, KC_WH_U,
+       KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
        KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_FN] = LAYOUT(
   //,-----------------------------------------------------+--------------------------------------------------------------------------------.
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -57,27 +57,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    keypos_t key;
-    if (index == 0) {
-        if (clockwise) {
-            key.row = 0;
-            key.col = 8;
-        } else {
-            key.row = 1;
-            key.col = 8;
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            key.row = 2;
-            key.col = 8;
-        } else {
-            key.row = 3;
-            key.col = 8;
-        }
-    }
-    action_exec((keyevent_t){.key = key, .pressed = true, .time = (timer_read() | 1)});
-    action_exec((keyevent_t){.key = key, .pressed = false, .time = (timer_read() | 1)});
-    return true;
-}
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QWERTY] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
+    [_FN] =       { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
+};
+#endif
+
 

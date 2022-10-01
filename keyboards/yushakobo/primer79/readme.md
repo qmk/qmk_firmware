@@ -1,6 +1,6 @@
 # Primer79
 
-![Primer79](https://github.com/yushakobo/build-documents/blob/master/Primer79/imgs/Completed_assembly_Front.JPG)
+![Primer79](https://i.imgur.com/n57Td4Th.jpg)
 
 This is 79 keys keyboard.
 It is designed for beginners.

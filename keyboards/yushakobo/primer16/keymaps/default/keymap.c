@@ -18,11 +18,6 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-           //,-----------------|
-               KC_WH_U, KC_VOLU,
-           //|--------+--------|
-               KC_WH_D, KC_VOLD,
-           //,-----------------|
   //,-----------------------------------|
                  KC_F2,  KC_EQL,
   //|--------+--------+--------+--------|
@@ -59,26 +54,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 return state;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    keypos_t key;
-    if (index == 0) {
-        if (clockwise) {
-            key.row = 5;
-            key.col = 1;
-        } else {
-            key.row = 6;
-            key.col = 1;
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            key.row = 5;
-            key.col = 2;
-        } else {
-            key.row = 6;
-            key.col = 2;
-        }
-    }
-    action_exec((keyevent_t){.key = key, .pressed = true, .time = (timer_read() | 1)});
-    action_exec((keyevent_t){.key = key, .pressed = false, .time = (timer_read() | 1)});
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
+};
+#endif

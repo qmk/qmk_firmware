@@ -1,6 +1,6 @@
 # Primer16
 
-![Primer16](https://github.com/yushakobo/build-documents/blob/master/Primer16/imgs/Completed_assembly_Front.JPG)
+![Primer16](https://i.imgur.com/60cc5Nmh.jpg)
 
 This is 16 keys keyboard.
 It is designed for beginners.
