@@ -34,7 +34,7 @@ Special Features
             {"Break",   KC_PAUS},
             {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
             {"AltF4",   KC_AF4},
-            {"RESET",   RESET},   // firmware flash mode
+            {"RESET",   QK_BOOT},   // firmware flash mode
           };
 
   - Additional encoder functionality
