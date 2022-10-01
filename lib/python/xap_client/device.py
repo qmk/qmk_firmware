@@ -225,3 +225,9 @@ class XAPDevice(XAPDeviceBase):
         """
         status = self.int_transaction(XAPRoutes.QMK_BOOTLOADER_JUMP)
         return status == 1
+
+    def reinit(self):
+        """Request device reset EEPROM - Requires previous unlock
+        """
+        status = self.int_transaction(XAPRoutes.QMK_EEPROM_RESET)
+        return status == 1

@@ -321,7 +321,7 @@
                         '''
                         Jump to bootloader
 
-                        May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported
+                        May not be present - if QMK capabilities query returns “true”, then jump to bootloader is supported
 
                         * 0 means secure routes are disabled, and should be considered as a failure
                         * 1 means successful, board will jump to bootloader
@@ -336,6 +336,24 @@
                     description: Retrieves a unique identifier for the board.
                     return_type: u32[4]
                     return_execute: get_hardware_id
+                }
+                0x09: {
+                    type: command
+                    name: Reinitialize EEPROM
+                    define: EEPROM_RESET
+                    permissions: secure
+                    enable_if_preprocessor: !defined(NO_RESET)
+                    description:
+                        '''
+                        Reinitializes the keyboard's EEPROM (persistent memory)
+
+                        May not be present - if QMK capabilities query returns “true”, then reinitialize is supported
+
+                        * 0 means secure routes are disabled, and should be considered as a failure
+                        * 1 means successful, board will reinitialize and then reboot
+                        '''
+                    return_type: u8
+                    return_execute: request_eeprom_reset
                 }
             }
         },

@@ -49,6 +49,7 @@ class XAPRoutes():
     QMK_CONFIG_BLOB_CHUNK = b'\x01\x06'
     QMK_BOOTLOADER_JUMP = b'\x01\x07'
     QMK_HARDWARE_ID = b'\x01\x08'
+    QMK_EEPROM_RESET = b'\x01\x09'
     # KEYMAP
     KEYMAP_CAPABILITIES_QUERY = b'\x04\x01'
     KEYMAP_GET_LAYER_COUNT = b'\x04\x02'

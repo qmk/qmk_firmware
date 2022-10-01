@@ -111,8 +111,9 @@ This subsystem is always present, and provides the ability to address QMK-specif
 | Product Name | `0x01 0x04` |  |__Response:__ `string`| Retrieves the product name|
 | Config Blob Length | `0x01 0x05` |  |__Response:__ `u16`| Retrieves the length of the configuration data bundled within the firmware|
 | Config Blob Chunk | `0x01 0x06` |  |__Request:__ `u16`<br><br>__Response:__ `u8[32]`| Retrieves a chunk of the configuration data bundled within the firmware|
-| Jump to bootloader | `0x01 0x07` | __Secure__ |__Response:__ `u8`| Jump to bootloader<br><br>May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader|
+| Jump to bootloader | `0x01 0x07` | __Secure__ |__Response:__ `u8`| Jump to bootloader<br><br>May not be present - if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader|
 | Hardware Identifier | `0x01 0x08` |  |__Response:__ `u32[4]`| Retrieves a unique identifier for the board.|
+| Reinitialize EEPROM | `0x01 0x09` | __Secure__ |__Response:__ `u8`| Reinitializes the keyboard's EEPROM (persistent memory)<br><br>May not be present - if QMK capabilities query returns “true”, then reinitialize is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will reinitialize and then reboot|
 
 ### Keyboard - `0x02`
 This subsystem is always present, and reserved for vendor-specific functionality. No routes are defined by XAP.

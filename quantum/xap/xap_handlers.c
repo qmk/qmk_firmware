@@ -100,6 +100,18 @@ bool xap_respond_request_bootloader_jump(xap_token_t token, const void *data, si
 }
 #endif
 
+#ifndef NO_RESET
+bool xap_respond_request_eeprom_reset(xap_token_t token, const void *data, size_t length) {
+    uint8_t ret = secure_is_unlocked();
+
+    // TODO: post to deferred queue so this request can return?
+    bool res = xap_respond_data(token, &ret, sizeof(ret));
+    eeconfig_disable();
+    soft_reset_keyboard();
+    return res;
+}
+#endif
+
 bool xap_respond_get_hardware_id(xap_token_t token, const void *data, size_t length) {
     hardware_id_t ret = get_hardware_id();
     return xap_respond_data(token, &ret, sizeof(ret));
