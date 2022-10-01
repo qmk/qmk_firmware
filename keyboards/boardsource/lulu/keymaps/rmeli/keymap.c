@@ -20,7 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rmeli.h"
 
-enum layers { _QWERTY, _COLEMAK_DH, _RAISE, _LOWER, _ADJUST };
+enum layers {
+    _QWERTY,
+    _COLEMAK_DH,
+    _RAISE,
+    _LOWER,
+    _ADJUST
+};
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
@@ -28,8 +34,10 @@ enum layers { _QWERTY, _COLEMAK_DH, _RAISE, _LOWER, _ADJUST };
 #define QWY_DF DF(_QWERTY)
 #define CMK_DF DF(_COLEMAK_DH)
 
+// clang-format off
 #define __________THUMB_LEFT_x4___________ KC_LALT, KC_LGUI,   LOWER,  KC_SPC
 #define __________THUMB_RIGHT_x4__________  KC_ENT,   RAISE, KC_LCTL, KC_RGUI
+// clang-format on
 
 /* LAYOUT
  *
