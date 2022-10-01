@@ -68,11 +68,12 @@ enum sofle_layers /**/
 {
     _DEFAULTS = 0,
     _QWERTY   = 0,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
-    _NUMPAD,
-    _SWITCH
+    _LOWER = 1,
+    _RAISE = 2,
+    _ADJUST = 3,
+    _NUMPAD = 4,
+    _SWITCH = 5,
+    _CONTROLS = 6
 };
 
 enum custom_keycodes /**/
@@ -113,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
         /**/ KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, /*                           */ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-        /**/ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /*      */ KC_MUTE, /**/ KC_MPLY, KC_N, KC_M, LT(4,KC_COMM), LT(4,KC_DOT), KC_SLSH, KC_RSFT,
+        /**/ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /*      */ KC_MUTE, /**/ KC_MPLY, KC_N, KC_M, LT(_SWITCH,KC_COMM), LT(_SWITCH,KC_DOT), KC_SLSH, KC_RSFT,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         /*             */ KC_LCTL, KC_LALT, KC_LGUI, KC_LOWER, KC_ENT, /**/ KC_SPC, KC_RAISE, KC_RGUI, KC_RALT, KC_RCTL
         //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -245,9 +246,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // layer switcher
     [_SWITCH] = LAYOUT(
         //,------------------------------------------------.                    ,---------------------------------------------------.
-        /**/ _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /*            */ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        /**/ _______, TO(0), TO(1), TO(2), TO(3), TO(4), /*            */ TO(5), TO(6), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        /**/ TO(0), TO(1), TO(2), TO(3), TO(4), TO(5), /*                        */ TO(4), KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
+        /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /*                        */ XXXXXXX, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
         /**/ KC_NO, KC_NO, KC_BRIU, KC_NO, KC_NO, KC_NO, /*                      */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, EEP_RST,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
