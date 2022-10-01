@@ -26,19 +26,19 @@ PREFIX_MAP = {
 
 
 def _get_lighting_spec(xap_defs, feature):
-    version = xap_defs["uses"][feature]
+    version = xap_defs['uses'][feature]
     spec = json_load(Path(f'data/constants/{feature}_{version}.json'))
 
     # preprocess for gross rgblight "mode + n"
     for obj in spec.get('effects', {}).values():
-        define = obj["key"]
+        define = obj['key']
         offset = 0
-        found = re.match("(.*)_(\\d+)$", define)
+        found = re.match('(.*)_(\\d+)$', define)
         if found:
             define = found.group(1)
             offset = int(found.group(2)) - 1
-        obj["define"] = define
-        obj["offset"] = offset
+        obj['define'] = define
+        obj['offset'] = offset
 
     return spec
 
@@ -322,15 +322,15 @@ def _append_lighting_map(lines, feature, spec):
 
     lines.append(f'static uint8_t {feature}_effect_map[][2] = {{')
     for id, obj in spec.get('effects', {}).items():
-        define = obj["define"]
-        offset = f' + {obj["offset"]}' if obj["offset"] else ''
+        define = obj['define']
+        offset = f' + {obj["offset"]}' if obj['offset'] else ''
 
         line = f'''
 #ifdef {ifdef_prefix}_{define}
     {{ {id}, {def_prefix}_{define}{offset}}},
 #endif'''
 
-        group = groups.get(obj.get("group", None), {}).get('define', None)
+        group = groups.get(obj.get('group', None), {}).get('define', None)
         if group:
             line = f'''
 #ifdef {group}
@@ -368,16 +368,16 @@ def _append_lighting_bitmask(lines, feature, spec):
     groups = spec.get('groups', {})
     ifdef_prefix = PREFIX_MAP[feature]['ifdef']
 
-    lines.append(f"static const uint64_t ENABLED_{feature.upper()}_EFFECTS = 0")
+    lines.append(f'enum {{ ENABLED_{feature.upper()}_EFFECTS = 0')
     for id, obj in spec.get('effects', {}).items():
-        define = obj["define"]
+        define = obj['define']
 
         line = f'''
 #ifdef {ifdef_prefix}_{define}
     | (1ULL << {id})
 #endif'''
 
-        group = groups.get(obj.get("group", None), {}).get('define', None)
+        group = groups.get(obj.get('group', None), {}).get('define', None)
         if group:
             line = f'''
 #ifdef {group}
@@ -386,7 +386,7 @@ def _append_lighting_bitmask(lines, feature, spec):
 
         lines.append(line)
 
-    lines.append(';')
+    lines.append('};')
 
 
 def _append_lighting_mapping(lines, xap_defs):
@@ -402,9 +402,9 @@ def _append_lighting_mapping(lines, xap_defs):
     for feature in PREFIX_MAP.keys():
         spec = _get_lighting_spec(xap_defs, feature)
 
-        lines.append(f"#ifdef {feature.upper()}_ENABLE")
+        lines.append(f'#ifdef {feature.upper()}_ENABLE')
         _append_lighting_map(lines, feature, spec)
-        lines.append(f"#endif //{feature.upper()}_ENABLE")
+        lines.append(f'#endif //{feature.upper()}_ENABLE')
 
         # TODO: should be inside ifdef but causes build issues
         _append_lighting_bitmask(lines, feature, spec)
