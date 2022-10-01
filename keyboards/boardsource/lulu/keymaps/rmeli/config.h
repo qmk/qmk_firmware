@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
 #define MASTER_LEFT // Left side is the master
 #define SPLIT_LED_STATE_ENABLE
 
@@ -44,5 +43,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_COLOR
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
 #endif
-
-#endif // RMELI_KM_LULU

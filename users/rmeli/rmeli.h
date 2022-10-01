@@ -30,5 +30,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 #    include "keyrecords/tap_dances.h"
 #endif
-
-#endif // RMELI

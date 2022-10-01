@@ -176,5 +176,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ________________RGB_L3_x5__________________ RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD
 
 // clang-format on
-
-#endif // RMELI_WRAPPERS

@@ -19,10 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef RMELI_KM_CRKBD
-#define RMELI_KM_CRKBD
-
-#include "global_config.h"
+#pragma once
 
 #define MASTER_LEFT // Left side is the master
 #define SPLIT_LED_STATE_ENABLE
@@ -68,5 +65,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef LOCKING_RESYNC_ENABLE
 #define NO_MUSIC_MODE
 #define LAYER_STATE_8BIT // Limit to 8 layers
-
-#endif // RMELI_KM_CRKBD

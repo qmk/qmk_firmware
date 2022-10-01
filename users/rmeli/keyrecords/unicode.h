@@ -84,5 +84,3 @@ const uint32_t PROGMEM unicode_map[] = {
 #define O_UML XP(oUML, OUML)
 #define U_GRV XP(uGRV, UGRV)
 #define U_UML XP(uUML, UUML)
-
-#endif // RMELI_UNICODE
