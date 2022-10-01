@@ -124,26 +124,26 @@ include $(BUILDDEFS_PATH)/build_json.mk
 # Pull in keymap level rules.mk
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
-    ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_5)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_4)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_3)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+    ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_1)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
     else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
         -include $(MAIN_KEYMAP_PATH_2)/rules.mk
         KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
         KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_1)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
+    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_3)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_4)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
+    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_5)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
     else ifneq ($(LAYOUTS),)
         # If we haven't found a keymap yet fall back to community layouts
         include $(BUILDDEFS_PATH)/build_layout.mk
