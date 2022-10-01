@@ -107,9 +107,12 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
     route_name = to_snake('_'.join([r['define'] for r in route_stack]))
 
+    condition = route_conditions(route_stack)
+    if condition:
+        lines.append(f'#if {condition}')
+
     if 'routes' in container:
         pass
-
     elif 'return_execute' in container:
         execute = container['return_execute']
         lines.append(f'bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len);')
@@ -164,6 +167,10 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
         elif container['return_type'] == 'struct':
             pass
+
+    if condition:
+        lines.append(f'#endif  // {condition}')
+        lines.append('')
 
     route_stack.pop()
 
@@ -404,10 +411,8 @@ def _append_lighting_mapping(lines, xap_defs):
 
         lines.append(f'#ifdef {feature.upper()}_ENABLE')
         _append_lighting_map(lines, feature, spec)
-        lines.append(f'#endif //{feature.upper()}_ENABLE')
-
-        # TODO: should be inside ifdef but causes build issues
         _append_lighting_bitmask(lines, feature, spec)
+        lines.append(f'#endif //{feature.upper()}_ENABLE')
 
 
 def generate_inline(output_file, keyboard, keymap):
