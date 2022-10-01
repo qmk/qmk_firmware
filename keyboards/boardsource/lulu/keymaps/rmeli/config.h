@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef RMELI_KM_LULU
-#define RMELI_KM_LULU
-
-#include "global_config.h"
+#pragma once
 
 
 #define MASTER_LEFT // Left side is the master
