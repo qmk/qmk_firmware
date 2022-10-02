@@ -93,14 +93,8 @@ void eeconfig_enable(void) {
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
 }
 
-/** \brief eeconfig disable
- *
- * FIXME: needs doc
- */
+/** \brief Invalidates eeconfig, only use before resetting the MCU or entering bootloader */
 void eeconfig_disable(void) {
-#if defined(EEPROM_DRIVER)
-    eeprom_driver_erase();
-#endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
 
