@@ -18,7 +18,7 @@ enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, _LAYER2 = 2, //, _LAYER3 = 3, _LAYER
 enum my_keycodes {
   KC_NEXT_LAYER = SAFE_RANGE,
   KC_LANG,
-  KC_NEXT_LANG,
+  //KC_NEXT_LANG,
   KC_ENC_UP,
   KC_ENC_DOWN,
   RGB_TOGGLE,
@@ -87,8 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         ),
     [_LAYER2] = LAYOUT( KC_LEAD,        KC_F1,       KC_F2,        KC_F3,      KC_F4,      KC_F5,          KC_F6,       KC_NO,
                         KC_NO,          KC_LANG_PT,  KC_LANG_ES,   KC_LANG_AR, KC_NO,      KC_NO,          KC_NO,       KC_ENC_UP,
-                        KC_LANG_TR,     KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JP, KC_NO,      KC_NO,          KC_NO,       KC_ENC_DOWN,
-                        KC_NO,          KC_LANG_EN,  KC_NEXT_LANG, KC_LANG_KR, KC_NO,      KC_NO,          KC_NO,       KC_MS_BTN1, /*encoder switch*/
+                        KC_NO,          KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JP, KC_NO,      KC_NO,          KC_NO,       KC_ENC_DOWN,
+                        KC_NO,          KC_LANG_TR,  KC_LANG_EN, KC_LANG_KR, KC_NO,      KC_NO,          KC_NO,       KC_MS_BTN1, /*encoder switch*/
                         KC_NO,          KC_NO,       KC_LANG,      KC_NO,      KC_NO,      KC_NO,          KC_NO,       KC_NO
                         )
 };
@@ -312,8 +312,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u" +";
         case KC_LANG:
             return PRIVATE_WORLD;
-        case KC_NEXT_LANG:
-            {
+        //case KC_NEXT_LANG: return u"Next";
+            /*{
                 switch((current_lang + 1) % NUM_LANG) {
                     case LANG_DE: return u"Nxt D";
                     case LANG_KO: return u"Nxt K";
@@ -321,16 +321,16 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
                     case LANG_AR: return u"Nxt A";
                     default: return u"Nxt E";
                 }
-            }
-        case KC_LANG_EN: return u" Eng";
-        case KC_LANG_DE: return u" Deu";
-        case KC_LANG_ES: return u" Esp";
-        case KC_LANG_PT: return u" Port";
-        case KC_LANG_FR: return u" Fra";
-        case KC_LANG_TR: return u" Tur";
-        case KC_LANG_KR: return u" Kor";
-        case KC_LANG_JP: return u" Jpn";
-        case KC_LANG_AR: return u" Arab";
+            }*/
+        case KC_LANG_EN: return current_lang==LANG_EN ? u"[Eng]" : u"Eng";
+        case KC_LANG_DE: return current_lang==LANG_DE ? u"[Deu]" :  u" Deu";
+        case KC_LANG_ES: return /*current_lang==LANG_ES ? u"[Esp]" :*/  u" Esp";
+        case KC_LANG_PT: return /*current_lang==LANG_PT ? u"[Port]":*/  u" Port";
+        case KC_LANG_FR: return /*current_lang==LANG_FR ? u"[Fra]" :*/  u" Fra";
+        case KC_LANG_TR: return /*current_lang==LANG_TR ? u"[Tur]" :*/  u" Tur";
+        case KC_LANG_KR: return current_lang==LANG_KO ? u"[Kor]" :  u" Kor";
+        case KC_LANG_JP: return current_lang==LANG_JP ? u"[Jpn]" :  u" Jpn";
+        case KC_LANG_AR: return current_lang==LANG_AR ? u"[Arab]":  u" Arab";
         case KC_APP:
             return u" Ctx";
         default:
@@ -362,7 +362,7 @@ void process_layer_switch_user(uint16_t new_layer) {
                 const uint16_t* text = keycode_to_disp_text(keycode, state);
                 sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));
                 kdisp_set_buffer(0x00);
-                kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 26, 22, text);
+                kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
                 kdisp_send_buffer();
             }
         }
@@ -460,10 +460,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             case KC_DISP_CPLUS:
                 inc_brightness();
                 break;
-            case KC_NEXT_LANG:
+            /*case KC_NEXT_LANG:
                 current_lang = (current_lang + 1) % NUM_LANG;
                 process_layer_switch_user(_LAYER0);
-                break;
+                break;*/
             case KC_LANG_EN:
                 current_lang = LANG_EN;
                 process_layer_switch_user(_LAYER0);
@@ -511,7 +511,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             force_layer_switch();
             break;
         case KC_LANG:
-            process_layer_switch_user(_LAYER2);
+            if(biton32(layer_state)==_LAYER2) {
+                current_lang = (current_lang + 1) % NUM_LANG;
+                process_layer_switch_user(_LAYER0);
+            } else {
+                process_layer_switch_user(_LAYER2);
+            }
             break;
         default:
             break;

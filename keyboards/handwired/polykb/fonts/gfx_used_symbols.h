@@ -1,7 +1,5 @@
 #pragma once
 
-#define GO_BACK                             u"\x0008"
-
 #define ICON_LAYER                          u"\x0080"
 #define ICON_UP                             u"\x0081"
 #define ICON_DOWN                           u"\x0082"
