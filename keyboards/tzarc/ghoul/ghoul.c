@@ -1,6 +1,6 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-3.0-or-later
-#include "ghoul.h"
+#include QMK_KEYBOARD_H
 #include "analog.h"
 #include "spi_master.h"
 

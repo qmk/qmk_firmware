@@ -1,7 +1,7 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include <stdio.h>
-#include "ghoul.h"
+#include QMK_KEYBOARD_H
 #include "analog.h"
 #include "qp.h"
 #include "qp_ssd1351.h"
