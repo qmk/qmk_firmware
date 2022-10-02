@@ -44,12 +44,6 @@
 		"main": "pin",
 		"soft_serial_pin": "D2",
 		
-		"usb_detect": { 
-			"enabled": true,
-			"polling_interval": 2000,
-			"timeout": 25
-		},
-		
 		"transport": {
 			"protocol": "serial",
 			"sync_matrix_state": true,
