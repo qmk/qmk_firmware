@@ -31,38 +31,42 @@
 
 // Light combinations
 #define SET_INDICATORS(hsv)                                 \
-    {0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, { \
-        35 + 0, 1, hsv                                      \
-    }
+    {0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)},\
+    {35 + 0, 1, hsv}
 #define SET_UNDERGLOW(hsv) \
-    {1, 6, hsv}, {         \
-        35 + 1, 6, hsv     \
-    }
+    {1, 6, hsv},\
+    {35 + 1, 6, hsv}
 #define SET_NUMPAD(hsv)                     \
-    {35 + 15, 5, hsv}, {35 + 22, 3, hsv}, { \
-        35 + 27, 3, hsv                     \
-    }
+    {35 + 18, 14, hsv}\
+    // {35 + 22, 3, hsv}, 
+    // {35 + 27, 3, hsv}
 #define SET_NUMROW(hsv)                                                               \
-    {10, 2, hsv}, {20, 2, hsv}, {30, 2, hsv}, {35 + 10, 2, hsv}, {35 + 20, 2, hsv}, { \
-        35 + 30, 2, hsv                                                               \
-    }
+    {11, 2, hsv}, {21, 2, hsv}, {31, 2, hsv}, \
+    {35 + 11, 2, hsv}, {35 + 21, 2, hsv}, {35 + 31, 2, hsv}
 #define SET_INNER_COL(hsv) \
-    {33, 4, hsv}, {        \
-        35 + 33, 4, hsv    \
-    }
-
+    {32, 4, hsv},\
+    {35 + 32, 4, hsv}
 #define SET_OUTER_COL(hsv) \
-    {7, 4, hsv}, {         \
-        35 + 7, 4, hsv     \
-    }
+    {8, 4, hsv},\
+    {17, 2, hsv},\
+    {35 + 8, 4, hsv},\
+    {35 + 17, 2, hsv}
 #define SET_THUMB_CLUSTER(hsv) \
-    {25, 2, hsv}, {            \
-        35 + 25, 2, hsv        \
-    }
-#define SET_LAYER_ID(hsv)                                                                                                                                                                          \
-    {0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, {35 + 0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, {1, 6, hsv}, {35 + 1, 6, hsv}, {7, 4, hsv}, {35 + 7, 4, hsv}, {25, 2, hsv}, { \
-        35 + 25, 2, hsv                                                                                                                                                                            \
-    }
+    {8, 1, hsv},\
+    {17, 2, hsv},\
+    {26, 2, hsv},\
+    {35 + 8, 1, hsv},\
+    {35 + 17, 2, hsv},\
+    {35 + 26, 2, hsv}
+#define SET_LAYER_ID(hsv)\
+/*ind*/    {0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)},\
+/*ind*/    {35 + 0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)},\
+/*und_glw*/    {1, 6, hsv},\
+/*und_glw*/    {35 + 1, 6, hsv},\
+/*ctrl*/    {7, 4, hsv},\
+/*ctrl*/    {35 + 7, 4, hsv},\
+/*cmd_alt*/    {26, 2, hsv},\
+/*cmd_alt*/    {35 + 26, 2, hsv}
 
 enum sofle_layers /**/
 {
@@ -239,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
      * | SLEEP|      |      |      |      |      |-------|    |-------|      |      |win_lft|win_rgt|      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *            | Bspc | WIN  |LOWER | Enter| /Space  /       \Enter \  |SPACE | 0    |  .   | RAlt |
+     *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
      *            |      |      |      |      |/       /         \      \ |      |      |      |      |
      *            `----------------------------------'           '------''---------------------------'
      */
