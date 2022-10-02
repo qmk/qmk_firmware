@@ -17,6 +17,7 @@
 #include "usb_util.h"
 
 void usb_disconnect(void) {
+    usbDisconnectBus(&USBD1);
     usbStop(&USBD1);
 }
 
