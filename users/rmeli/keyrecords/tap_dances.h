@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef RMELI_TAP_DANCES
-#define RMELI_TAP_DANCES
+#pragma once
 
 #include QMK_KEYBOARD_H
 
@@ -70,5 +69,3 @@ void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
 // Right Shift Parenthesis Close (RSPC) and Caps Lock (CAPS) on DOUBLE_TAP
 void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
 void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
-
-#endif // RMELI_TAP_DANCES
