@@ -24,7 +24,7 @@
     "pid": "0x4920"
   },
   "layouts": {
-    "LAYOUT_all": {
+    "LAYOUT": {
       "layout": [
         { "label": "Q", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "W", "matrix": [0, 4], "w": 1, "x": 1, "y": 0 },

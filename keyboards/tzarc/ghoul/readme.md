@@ -2,11 +2,11 @@
 
 ![Ghoul](https://i.imgur.com/T8wp7cE.jpg)
 
-*A short description of the keyboard/project*
+Planck-like development board for QMK, using SparkFun MicroMod for hot-swap MCU capability.
 
 * Keyboard Maintainer: [tzarc](https://github.com/tzarc)
 * Hardware Supported: Ghoul rev1 PCB + MicroMod STM32, MicroMod RP2040
-Hardware Availability: [Open-source](https://github.com/tzarc/ghoul)
+* Hardware Availability: [Open-source](https://github.com/tzarc/ghoul)
 
 Make example for this keyboard (after setting up your build environment):
 
