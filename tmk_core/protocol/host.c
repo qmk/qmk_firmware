@@ -204,9 +204,9 @@ __attribute__((weak)) void send_joystick(report_joystick_t *report) {}
 #ifdef DIGITIZER_ENABLE
 void host_digitizer_send(digitizer_t *digitizer) {
     report_digitizer_t report = {
-#ifdef DIGITIZER_SHARED_EP
+#    ifdef DIGITIZER_SHARED_EP
         .report_id = REPORT_ID_DIGITIZER,
-#endif
+#    endif
         .tip     = digitizer->tipswitch & 0x1,
         .inrange = digitizer->inrange & 0x1,
         .x       = (uint16_t)(digitizer->x * 0x7FFF),
@@ -223,7 +223,7 @@ __attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
 void host_programmable_button_send(uint32_t data) {
     report_programmable_button_t report = {
         .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
-        .usage = data,
+        .usage     = data,
     };
 
     send_programmable_button(&report);
