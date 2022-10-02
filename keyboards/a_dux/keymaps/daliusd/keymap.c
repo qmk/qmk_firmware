@@ -29,7 +29,8 @@ enum layers {
     _TMUX,
     _MOUSE,
     _FUNC,
-    _LT,
+    _LT_MAC,
+    _LT_LINUX,
 };
 
 enum custom_keycodes {
@@ -44,6 +45,7 @@ enum custom_keycodes {
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
+  LT_OSLNX,
 };
 
 // Shortcut to make keymap more readable
@@ -73,6 +75,71 @@ const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
     {OS_TMUX, _TMUX},
     {OS_FUNC, _FUNC},
 };
+
+// Unicode characters
+enum unicode_names {
+    SNEK,
+    EURO,
+    LT_S_A,
+    LT_L_A,
+    LT_S_C,
+    LT_L_C,
+    LT_S_E1,
+    LT_L_E1,
+    LT_S_E2,
+    LT_L_E2,
+    LT_S_I,
+    LT_L_I,
+    LT_S_S,
+    LT_L_S,
+    LT_S_U1,
+    LT_L_U1,
+    LT_S_U2,
+    LT_L_U2,
+    LT_S_Z,
+    LT_L_Z,
+    LT_OB,
+    LT_CB,
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [SNEK]  = 0x1F40D, // 🐍
+    [EURO]  = 0x20ac, // €
+    [LT_S_A] = 0x105, // ą
+    [LT_L_A] = 0x104, // Ą
+    [LT_S_C] = 0x10d, // č
+    [LT_L_C] = 0x10c, // Č
+    [LT_S_E1] = 0x119, // ę
+    [LT_L_E1] = 0x118, // Ę
+    [LT_S_E2] = 0x117, // ė
+    [LT_L_E2] = 0x116, // Ė
+    [LT_S_I] = 0x12f, // į
+    [LT_L_I] = 0x12e, // Į
+    [LT_S_S] = 0x161, // š
+    [LT_L_S] = 0x160, // Š
+    [LT_S_U1] = 0x173, // ų
+    [LT_L_U1] = 0x172, // Ų
+    [LT_S_U2] = 0x16b, // ū
+    [LT_L_U2] = 0x16a, // Ū
+    [LT_S_Z] = 0x17e, // ž
+    [LT_L_Z] = 0x17d, // Ž
+    [LT_OB] = 0x201e, // „
+    [LT_CB] = 0x201c, // “
+};
+
+#define K_SNEK      X(SNEK)
+#define K_EURO      X(EURO)
+#define K_LT_A      XP(LT_S_A, LT_L_A)
+#define K_LT_C      XP(LT_S_C, LT_L_C)
+#define K_LT_E1     XP(LT_S_E1, LT_L_E1)
+#define K_LT_E2     XP(LT_S_E2, LT_L_E2)
+#define K_LT_I      XP(LT_S_I, LT_L_I)
+#define K_LT_S      XP(LT_S_S, LT_L_S)
+#define K_LT_U1     XP(LT_S_U1, LT_L_U1)
+#define K_LT_U2     XP(LT_S_U2, LT_L_U2)
+#define K_LT_Z      XP(LT_S_Z, LT_L_Z)
+#define K_LT_OB     X(LT_OB)
+#define K_LT_CB     X(LT_CB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -116,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      RESET   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,KC_PSCR ,XXXXXXX ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,DEBUG   ,XXXXXXX ,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,KC_MNXT ,XXXXXXX ,K_VIDEO ,
+     XXXXXXX ,XXXXXXX ,DEBUG   ,LT_OSLNX,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,KC_MNXT ,XXXXXXX ,K_VIDEO ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_VOLD ,KC_VOLU ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
@@ -160,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
-  [_LT] = LAYOUT(
+  [_LT_MAC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_PLUS ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
@@ -168,12 +235,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
+                                     XXXXXXX ,    XXXXXXX ,        _______ ,    XXXXXXX
+  //                                └────────┘   └────────┘       └────────┘   └────────┘
+  ),
+
+  [_LT_LINUX] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX ,KC_BSPC ,XXXXXXX ,K_SNEK  ,K_LT_OB ,                          K_LT_CB ,K_EURO  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
+                                     XXXXXXX ,    XXXXXXX ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 };
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
+
+bool lt_os_is_linux = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
@@ -211,6 +292,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!record->event.pressed) return true;
             SEND_STRING(TMUX_PREFIX SS_LCTL("u"));
             return false;
+        case LT_OSLNX:
+            if (!record->event.pressed) return true;
+            lt_os_is_linux = !lt_os_is_linux;
+            return false;
     }
     return true;
 }
@@ -222,10 +307,10 @@ void matrix_scan_user(void) {
 bool lang_layer_on = false;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _SYM, _NAV, _LT);
+    state = update_tri_layer_state(state, _SYM, _NAV, lt_os_is_linux ? _LT_LINUX : _LT_MAC);
 
     uint8_t hl = get_highest_layer(state);
-    if (hl == _LT) {
+    if (hl == _LT_MAC) {
         if (!lang_layer_on) {
             tap_code16(LCTL(KC_SPC));
             lang_layer_on = true;
