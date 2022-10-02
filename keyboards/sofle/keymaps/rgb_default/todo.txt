@@ -1,0 +1,4 @@
+space to use as meh or lower/raise double tap to use as layers +2/-2
+double tap on raise/lower will go to new layer, keys are meh(kc) shortcuts
+
+check if ctrl+esc can do ctrl+~
