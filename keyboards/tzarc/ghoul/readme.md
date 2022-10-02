@@ -1,6 +1,6 @@
 # Ghoul
 
-![Ghoul](https://i.imgur.com/T8wp7cE.jpg)
+![Ghoul](https://i.imgur.com/T8wp7cEh.jpg)
 
 Planck-like development board for QMK, using SparkFun MicroMod for hot-swap MCU capability.
 
