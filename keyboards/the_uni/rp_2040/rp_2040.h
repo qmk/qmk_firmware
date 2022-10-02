@@ -1,4 +1,5 @@
-/* Copyright 2021 Danny Nguyen <danny@keeb.io>
+/*
+Copyright 2021 Peter C. Park <peter@stenokeyboards.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,18 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define SPLIT_HAND_PIN F7
+#include "quantum.h"
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* ws2812 RGB LED */
-#define RGBLIGHT_LED_MAP { 1, 2, 3, 12, 13, 14, 15, 0, 7, 6, 5, 4, 11, 10, 9, 8 }
-#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
-
-// Set right column, left macro, 1.75u shift, split spaces, and 5x1u on by default
-#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00DE
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
+#define LAYOUT( \
+	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, \
+	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, \
+	            K202, K203, K204, K205, K206, K207  \
+) { \
+	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010 }, \
+	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110 }, \
+	{ KC_NO, KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  KC_NO, KC_NO, KC_NO }  \
+}
