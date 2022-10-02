@@ -5,8 +5,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
-// #include "keymap_norwegian.h"
+#include "keymap_norwegian.h"
 
 
 enum planck_layers {
@@ -23,43 +22,68 @@ enum planck_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
-/* ISRT
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Y  |   C  |   L  |   M  |   K  |   Z  |   F  |   U  |   ,  |   '  | Del  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   I  |   S  |   R  |   T  |   G  |   P  |   N  |   E  |   A  |   O  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Q  |   V  |   W  |   D  |   J  |   B  |   H  |   /  |   .  |   X  |Shift |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Space | Sym  | Func |Bksp  | Nav  | GUI  | Left |Right |
- * `-----------------------------------------------------------------------------------'
- */
+  /* ISRT
+   * ,-----------------------------------------------------------------------------------.
+   * | Tab  |   Y  |   C  |   L  |   M  |   K  |   Z  |   F  |   U  |   ,  |   '  | Del  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Esc  |   I  |   S  |   R  |   T  |   G  |   P  |   N  |   E  |   A  |   O  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|   Q  |   V  |   W  |   D  |   J  |   B  |   H  |   /  |   .  |   X  |Shift |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Brite| Ctrl | Alt  | GUI  |Space | Sym  | Func |Bksp  | Nav  | GUI  | Left |Right |
+   * `-----------------------------------------------------------------------------------'
+   */
 
-[_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,         KC_Y,    KC_C,    KC_L,    KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,    KC_COMM, KC_QUOT, KC_DEL,
-    LCTL_T(KC_ESC), KC_I,    KC_S,    KC_R,    KC_T,   KC_G,   KC_P,     KC_N,    KC_E,    KC_A,    KC_O,    RSFT_T(KC_ENT),
-    KC_LSFT,        KC_Q,    KC_V,    KC_W,    KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
-    BL_STEP,        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,     KC_RGUI, KC_LEFT, KC_RGHT
-),
+  [_ISRT] = LAYOUT_ortho_4x12(
+    KC_TAB,         KC_Y,    KC_C,    KC_L,    KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,         KC_COMM,      NO_QUOT,      KC_DEL,
+    LCTL_T(KC_ESC), KC_I,    KC_S,    KC_R,    KC_T,   KC_G,   KC_P,     KC_N,    LT(0,KC_E),   LT(0,KC_A),   LT(0,KC_O),   RSFT_T(KC_ENT),
+    KC_LSFT,        KC_Q,    KC_V,    KC_W,    KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,      KC_DOT,       KC_X,         KC_RSFT,
+    CAPSWRD,        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,          KC_RGUI,      KC_LEFT,      KC_RGHT
+    ),
 
-[_SYMBOL] = LAYOUT_ortho_4x12(
+  [_SYMBOL] = LAYOUT_ortho_4x12(
     KC_TILD, KC_1,    KC_2,    KC_3,    KC_EQL,  KC_NO, KC_NO, KC_LCBR, KC_RCBR, KC_AT, KC_NO,   KC_NO,
     KC_NO,   KC_4,    KC_5,    KC_6,    KC_MINS, KC_NO, KC_NO, KC_LPRN, KC_RPRN, KC_NO, KC_SCLN, KC_NO,
     KC_LSFT, KC_7,    KC_8,    KC_9,    KC_0,    KC_NO, KC_NO, KC_LBRC, KC_RBRC, KC_NO, KC_NO,   KC_RSFT,
     KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,  KC_RCTL, KC_NO,   KC_NO, KC_NO,   KC_NO
-),
+    ),
 
-[_FUNCTION] = LAYOUT_ortho_4x12(
-    RGB_TOG,        KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,  KC_PSCR,  KC_NO, KC_NO, KC_NO, QK_BOOT,
+  [_FUNCTION] = LAYOUT_ortho_4x12(
+    BL_TOGG,        KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,  KC_PSCR,  KC_NO, KC_NO, KC_NO, QK_BOOT,
     LCTL_T(KC_ESC), KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_NO, KC_NO,  KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,          KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NO, KC_NO,  KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,          KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO, KC_NO, KC_NO, KC_NO
-),
+    ),
 
-[_NAV] = LAYOUT_ortho_4x12(
+  [_NAV] = LAYOUT_ortho_4x12(
     KC_NO,          KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
-    LCTL_T(KC_ESC), KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
+    LCTL_T(KC_ESC), KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_ENT,
     KC_NO,          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_NO, KC_NO,
     KC_NO,          KC_NO,   KC_NO,   KC_NO,   KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO, KC_NO
-)
+    )
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  switch (keycode) {
+  case LT(0,KC_E):
+    if (!record->tap.count && record->event.pressed) {
+      tap_code16(NO_AE); // Intercept hold function to send æ
+      return false;
+    }
+    return true; 	// Return true for normal processing of tap keycode
+  case LT(0,KC_A):
+    if (!record->tap.count && record->event.pressed) {
+      tap_code16(NO_OSTR); // Intercept hold function to send ø
+      return false;
+    }
+    return true; 	// Return true for normal processing of tap keycode
+  case LT(0,KC_O):
+    if (!record->tap.count && record->event.pressed) {
+      tap_code16(NO_ARNG); // Intercept hold function to send å
+      return false;
+    }
+    return true; 	// Return true for normal processing of tap keycode
+  }
+  return true;
+}

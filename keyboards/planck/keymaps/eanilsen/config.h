@@ -47,3 +47,10 @@
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
+
+// Turn off PCB backlight
+#define RGBLIGHT_SLEEP
+
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define TAPPING_TERM 150
