@@ -4,6 +4,7 @@
     "url": "https://github.com/3araht/chromatoneminipico",
     "maintainer": "3araht",
     "bootloader": "rp2040",
+    "processor": "RP2040",
     "features": {
         "midi": true,
         "extrakey": true,
@@ -21,7 +22,6 @@
         "rows": [ "GP0",  "GP1",  "GP2",  "GP3",  "GP4",  "GP5",  "GP6",  "GP7",  "GP8",  "GP9", "GP10", "GP11" ]
     },
     "debounce": 5,
-    "processor": "RP2040",
     "usb": {
         "vid": "0xFEED",
         "pid": "0xF4C4",
