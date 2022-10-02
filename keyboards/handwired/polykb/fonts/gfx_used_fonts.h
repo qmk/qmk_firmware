@@ -14,8 +14,6 @@
 #include "generated/NotoSansSymbols2_Regular_Diamond_20pt.h"
 #include "gfx_icons.h"
 
-#include "gfx_used_symbols.h"
-
 #include "FreeSansBold24pt7b.h"
 
 const GFXfont* ALL_FONTS [] = {

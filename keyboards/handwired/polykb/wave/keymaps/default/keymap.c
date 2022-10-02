@@ -8,7 +8,7 @@
 
 #include "quantum/quantum_keycodes.h"
 
-#include "lang_lut.h"
+#include "lang/lang_lut.h"
 
 static enum lang_layer current_lang = LANG_EN;
 
@@ -34,7 +34,7 @@ enum my_keycodes {
   KC_LANG_FR,
   KC_LANG_TR,
   KC_LANG_KR,
-  KC_LANG_JP,
+  KC_LANG_JA,
   KC_LANG_AR,
 };
 
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         ),
     [_LAYER2] = LAYOUT( KC_LEAD,        KC_F1,       KC_F2,        KC_F3,      KC_F4,      KC_F5,          KC_F6,       KC_NO,
                         KC_NO,          KC_LANG_PT,  KC_LANG_ES,   KC_LANG_AR, KC_NO,      KC_NO,          KC_NO,       KC_ENC_UP,
-                        KC_NO,          KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JP, KC_NO,      KC_NO,          KC_NO,       KC_ENC_DOWN,
+                        KC_NO,          KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JA, KC_NO,      KC_NO,          KC_NO,       KC_ENC_DOWN,
                         KC_NO,          KC_LANG_TR,  KC_LANG_EN, KC_LANG_KR, KC_NO,      KC_NO,          KC_NO,       KC_MS_BTN1, /*encoder switch*/
                         KC_NO,          KC_NO,       KC_LANG,      KC_NO,      KC_NO,      KC_NO,          KC_NO,       KC_NO
                         )
@@ -317,7 +317,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
                 switch((current_lang + 1) % NUM_LANG) {
                     case LANG_DE: return u"Nxt D";
                     case LANG_KO: return u"Nxt K";
-                    case LANG_JP: return u"Nxt J";
+                    case LANG_JA: return u"Nxt J";
                     case LANG_AR: return u"Nxt A";
                     default: return u"Nxt E";
                 }
@@ -329,7 +329,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         case KC_LANG_FR: return /*current_lang==LANG_FR ? u"[Fra]" :*/  u" Fra";
         case KC_LANG_TR: return /*current_lang==LANG_TR ? u"[Tur]" :*/  u" Tur";
         case KC_LANG_KR: return current_lang==LANG_KO ? u"[Kor]" :  u" Kor";
-        case KC_LANG_JP: return current_lang==LANG_JP ? u"[Jpn]" :  u" Jpn";
+        case KC_LANG_JA: return current_lang==LANG_JA ? u"[Jpn]" :  u" Jpn";
         case KC_LANG_AR: return current_lang==LANG_AR ? u"[Arab]":  u" Arab";
         case KC_APP:
             return u" Ctx";
@@ -481,8 +481,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 current_lang = LANG_KO;
                 process_layer_switch_user(_LAYER0);
                 break;
-            case KC_LANG_JP:
-                current_lang = LANG_JP;
+            case KC_LANG_JA:
+                current_lang = LANG_JA;
                 process_layer_switch_user(_LAYER0);
                 break;
             case KC_LANG_AR:

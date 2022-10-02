@@ -27,6 +27,6 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 
 QUANTUM_LIB_SRC += spi_master.c
-SRC += base/disp_array.c base/shift_reg.c base/spi_helper.c polyatom.c
+SRC += base/disp_array.c base/shift_reg.c base/spi_helper.c lang/lang_lut.c polyatom.c
 
 DEFAULT_FOLDER = handwired/polykb/wave/rp2040pico

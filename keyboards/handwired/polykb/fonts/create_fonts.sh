@@ -31,7 +31,6 @@ fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s${size
 echo -e "#pragma once\n" >gfx_used_fonts.h
 ls -1 generated/*pt.h | while read line; do echo '#include "'${line}'"'; done >> gfx_used_fonts.h
 echo -e '#include "gfx_icons.h"\n' >> gfx_used_fonts.h
-echo -e '#include "gfx_used_symbols.h"\n' >> gfx_used_fonts.h
 echo -e '#include "FreeSansBold24pt7b.h"\n' >> gfx_used_fonts.h
 echo -e 'const GFXfont* ALL_FONTS [] = {' >> gfx_used_fonts.h
 echo -e '  &IconsFont,' >> gfx_used_fonts.h
