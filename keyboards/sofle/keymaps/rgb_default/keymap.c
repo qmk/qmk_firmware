@@ -478,7 +478,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 if (clockwise) {
                     tap_code(KC_MNXT);
                 } else {
-                    tap_code(KC_MNXT);
+                    tap_code(KC_MPRV);
                 }
                 break;
             default:
