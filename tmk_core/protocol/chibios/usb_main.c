@@ -734,6 +734,7 @@ void init_usb_driver(USBDriver *usbp) {
      * after a reset.
      */
     usbDisconnectBus(usbp);
+    usbStop(usbp);
     wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
@@ -742,8 +743,8 @@ void init_usb_driver(USBDriver *usbp) {
 }
 
 __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
-    usbStop(usbp);
     usbDisconnectBus(usbp);
+    usbStop(usbp);
 
 #if USB_SUSPEND_WAKEUP_DELAY > 0
     // Some hubs, kvm switches, and monitors do
