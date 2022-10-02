@@ -225,9 +225,8 @@ static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_extra(uint8_t report_id, uint16_t data);
-static void    send_programmable_button(uint32_t data);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra, send_programmable_button};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
@@ -292,16 +291,10 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
-static void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    static report_programmable_button_t report = {
-        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
-    };
-
-    report.usage = data;
-
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report));
+        usbSetInterruptShared((void *)report, sizeof(report_programmable_button_t));
     }
 #endif
 }
