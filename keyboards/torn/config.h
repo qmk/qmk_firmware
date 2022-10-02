@@ -37,7 +37,6 @@
     { D4, D1, D0, D5 }
 #define MATRIX_COL_PINS \
     { B3, B4, B5, B0, D7, D6 }
-#define UNUSED_PINS
 
 #define SECONDARY_ROW_PINS \
     { (1 << 5), (1 << 6), (1 << 7), (1 << 4) }

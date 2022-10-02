@@ -85,7 +85,6 @@
     * [スワップハンド](ja/feature_swap_hands.md)
     * [タップダンス](ja/feature_tap_dance.md)
     * [タップホールド設定](ja/tap_hold.md)
-    * [ターミナル](ja/feature_terminal.md)
     * [ユニコード](ja/feature_unicode.md)
     * [ユーザスペース](ja/feature_userspace.md)
     * [WPM 計算](ja/feature_wpm.md)

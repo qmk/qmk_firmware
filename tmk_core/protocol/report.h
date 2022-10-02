@@ -201,15 +201,25 @@ typedef struct {
     uint32_t usage;
 } __attribute__((packed)) report_programmable_button_t;
 
+#ifdef MOUSE_EXTENDED_REPORT
+typedef int16_t mouse_xy_report_t;
+#else
+typedef int8_t mouse_xy_report_t;
+#endif
+
 typedef struct {
 #ifdef MOUSE_SHARED_EP
     uint8_t report_id;
 #endif
     uint8_t buttons;
-    int8_t  x;
-    int8_t  y;
-    int8_t  v;
-    int8_t  h;
+#ifdef MOUSE_EXTENDED_REPORT
+    int8_t boot_x;
+    int8_t boot_y;
+#endif
+    mouse_xy_report_t x;
+    mouse_xy_report_t y;
+    int8_t            v;
+    int8_t            h;
 } __attribute__((packed)) report_mouse_t;
 
 typedef struct {

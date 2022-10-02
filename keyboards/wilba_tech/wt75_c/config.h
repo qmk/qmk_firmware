@@ -34,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { F1, F0, E6, F4, F6, F7 }
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, B7, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -100,6 +99,9 @@
 
 // enable the mono backlight
 #define MONO_BACKLIGHT_ENABLED 1
+
+// enable the specific indicators
+#define MONO_BACKLIGHT_WT75_C
 
 // disable backlight when USB suspended (PC sleep/hibernate/shutdown)
 #define MONO_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0

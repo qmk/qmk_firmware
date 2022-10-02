@@ -17,4 +17,4 @@ RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 
-LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift
+LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift 60_hhkb
