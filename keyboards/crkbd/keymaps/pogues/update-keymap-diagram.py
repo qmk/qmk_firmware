@@ -222,20 +222,22 @@ MODS_HELD_KEYCODES = {
     # here we list the mods key, the tap is defined in key_names
     'CTL_BSP': 'Ctrl',
     'CTL_SPC': 'Ctrl',
-    'SFT_SPC': 'Shift',
-    'SFT_BSP': 'Shift',
     'CTL_Z': 'Ctrl',
     'CTL_SLS': 'Ctrl',
     'CTL_W': 'Ctrl',
     'CTL_Y': 'Ctrl',
+    'SFT_SPC': 'Shift',
+    'SFT_BSP': 'Shift',
     'SFT_Z': 'Shift',
     'SFT_SLS': 'Shift',
+    'SFT_QUO': 'Shift',
 }
 
 keycode_prefix = 'KC_'
 key_names = {
     "KC_NO": "",
     "M_UNDO": "Undo",
+    "C(KC_Z)": "Undo",
     "M_CUT": "Cut",
     "C(KC_X)": "Cut",
     "M_COPY": "Copy",
@@ -349,6 +351,7 @@ key_names = {
     "CTL_SLS": "/",
     "SFT_Z": "Z",
     "SFT_SLS": "/",
+    "SFT_QUO": "'",
     "MY_LLCK": "Lock",
     "KC_NUBS": "\\",
     "KC_NUHS": "#",
