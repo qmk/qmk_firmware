@@ -322,15 +322,15 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
                     default: return u"Nxt E";
                 }
             }*/
-        case KC_LANG_EN: return current_lang==LANG_EN ? u"[Eng]" : u"Eng";
-        case KC_LANG_DE: return current_lang==LANG_DE ? u"[Deu]" :  u" Deu";
-        case KC_LANG_ES: return /*current_lang==LANG_ES ? u"[Esp]" :*/  u" Esp";
-        case KC_LANG_PT: return /*current_lang==LANG_PT ? u"[Port]":*/  u" Port";
-        case KC_LANG_FR: return /*current_lang==LANG_FR ? u"[Fra]" :*/  u" Fra";
-        case KC_LANG_TR: return /*current_lang==LANG_TR ? u"[Tur]" :*/  u" Tur";
-        case KC_LANG_KR: return current_lang==LANG_KO ? u"[Kor]" :  u" Kor";
-        case KC_LANG_JA: return current_lang==LANG_JA ? u"[Jpn]" :  u" Jpn";
-        case KC_LANG_AR: return current_lang==LANG_AR ? u"[Arab]":  u" Arab";
+        case KC_LANG_EN: return current_lang==LANG_EN ? u"[EN]" : u" EN";
+        case KC_LANG_DE: return current_lang==LANG_DE ? u"[DE]" : u" DE";
+        case KC_LANG_ES: return current_lang==LANG_ES ? u"[ES]" : u" ES";
+        case KC_LANG_PT: return /*current_lang==LANG_PT ? u"[Port]":*/  u" PT";
+        case KC_LANG_FR: return current_lang==LANG_FR ? u"[FR]" : u" FR";
+        case KC_LANG_TR: return /*current_lang==LANG_TR ? u"[Tur]" :*/  u" TR";
+        case KC_LANG_KR: return current_lang==LANG_KO ? u"[KO]" : u" KO";
+        case KC_LANG_JA: return current_lang==LANG_JA ? u"[JA]" : u" JA";
+        case KC_LANG_AR: return current_lang==LANG_AR ? u"[AR]":  u" AR";
         case KC_APP:
             return u" Ctx";
         default:
@@ -472,9 +472,15 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 current_lang = LANG_DE;
                 process_layer_switch_user(_LAYER0);
                 break;
-            case KC_LANG_ES:
-            case KC_LANG_PT:
             case KC_LANG_FR:
+                current_lang = LANG_FR;
+                process_layer_switch_user(_LAYER0);
+                break;
+            case KC_LANG_ES:
+                current_lang = LANG_ES;
+                process_layer_switch_user(_LAYER0);
+                break;
+            case KC_LANG_PT:
             case KC_LANG_TR:
                 break;
             case KC_LANG_KR:

@@ -12,7 +12,7 @@
     glyph_index = 2
     glyph_key = sheet["A2"].value
     glyph_code = sheet["D2"].value
-    while glyph_key:
+    while glyph_key and glyph_code:
         cog.outl(f"#define {glyph_key : <28}\tu\"\\x{glyph_code}\"")
 
         glyph_index = glyph_index + 1
@@ -246,4 +246,29 @@
 #define UMLAUT_U_SMALL              	u"\x00FC"
 #define SUPER_SCRIPT_2              	u"\x00B2"
 #define SUPER_SCRIPT_3              	u"\x00B3"
+#define MASC_ORDINAL_IND            	u"\x00BA"
+#define FEM_ORDINAL_IND             	u"\x00AA"
+#define INVERTED_QMARK              	u"\x00BF"
+#define INVERTED_EMARK              	u"\x00A1"
+#define N_WITH_TILDE_SMALL          	u"\x00F1"
+#define N_WITH_TILDE                	u"\x00D1"
+#define C_WITH_CEDILLA_SMALL        	u"\x00E7"
+#define C_WITH_CEDILLA              	u"\x00C7"
+#define DIAERESIS                   	u"\x00A8"
+#define MIDDLE_DOT                  	u"\x00B7"
+#define EURO_SIGN                   	u"\x20AC"
+#define POUND_SIGN                  	u"\x00A3"
+#define YEN_SIGN                    	u"\x00A5"
+#define NOT_SIGN                    	u"\x00AC"
+#define E_WITH_ACUTE_SMALL          	u"\x00E9"
+#define E_WITH_ACUTE                	u"\x00C9"
+#define E_WITH_GRAVE_SMALL          	u"\x00E8"
+#define E_WITH_GRAVE                	u"\x00C8"
+#define MICRO_SIGN                  	u"\x00B5"
+#define CURRENCY_SIGN               	u"\x00A4"
+#define U_WITH_GRAVE_SMALL          	u"\x00F9"
+#define U_WITH_GRAVE                	u"\x00D9"
+#define A_WITH_GRAVE_SMALL          	u"\x00E0"
+#define A_WITH_GRAVE                	u"\x00C0"
+#define EQUALS                      	u"\x003D"
 //[[[end]]]

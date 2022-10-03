@@ -1,4 +1,4 @@
-// fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf -s20 -v _Diamond_ 0x2756 0x2756 
+// fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf -s20 -r50 -v _Diamond_ 0x2756 0x2756 
 // Visualize your font via https://tchapi.github.io/Adafruit-GFX-Font-Customiser
 
 const uint8_t NotoSansSymbols2_Regular_Diamond_20pt16bBitmaps[] PROGMEM = {

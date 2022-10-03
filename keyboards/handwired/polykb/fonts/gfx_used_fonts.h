@@ -10,6 +10,7 @@
 #include "generated/NotoSansKR_Regular_Consonants_19pt.h"
 #include "generated/NotoSansKR_Regular_Vowels_19pt.h"
 #include "generated/NotoSans_Regular_Base_14pt.h"
+#include "generated/NotoSans_Regular_EuroSign_14pt.h"
 #include "generated/NotoSans_Regular_SupAndExtA_14pt.h"
 #include "generated/NotoSansSymbols2_Regular_Diamond_20pt.h"
 #include "gfx_icons.h"
@@ -28,6 +29,7 @@ const GFXfont* ALL_FONTS [] = {
   &NotoSansKR_Regular_Consonants_19pt16b,
   &NotoSansKR_Regular_Vowels_19pt16b,
   &NotoSans_Regular_Base_14pt7b,
+  &NotoSans_Regular_EuroSign_14pt16b,
   &NotoSans_Regular_SupAndExtA_14pt16b,
   &NotoSansSymbols2_Regular_Diamond_20pt16b,
 };

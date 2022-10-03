@@ -24,6 +24,8 @@ enum lang_layer {
     ]]]*/
     LANG_EN = 0,
     LANG_DE,
+    LANG_FR,
+    LANG_ES,
     LANG_KO,
     LANG_JA,
     LANG_AR,

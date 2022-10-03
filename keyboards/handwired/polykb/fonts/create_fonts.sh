@@ -17,6 +17,7 @@ read size_em
 
 fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf "-s${size_lat}" -v _Base_ 0x20 0x7e > "generated/NotoSans_Regular_Base_${size_lat}pt.h"
 fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf "-s${size_lat}" -v _SupAndExtA_  0xa1 0x16d > "generated/NotoSans_Regular_SupAndExtA_${size_lat}pt.h"
+fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf "-s${size_lat}" -v _EuroSign_  0x20ac 0x20ac > "generated/NotoSans_Regular_EuroSign_${size_lat}pt.h"
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _Hiragana_ 12353 12447 > "generated/NotoSansJP_Regular_Hiragana_${size_jp}pt.h"
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _Punct_ 0x3001 0x3002 0x300c 0x300d > "generated/NotoSansJP_Regular_Punct_${size_jp}pt.h"
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _PunctSupl_ 0x30fb 0x30fc > "generated/NotoSansJP_Regular_PunctSupl_${size_jp}pt.h"
