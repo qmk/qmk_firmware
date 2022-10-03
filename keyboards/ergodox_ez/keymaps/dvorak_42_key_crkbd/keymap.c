@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(VSCODE_NAV),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
       OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
-      KC_TRNS,           OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    MO(KEYSEL),   MO(BROWSER_CONTROL),
 
       // left thumb cluster
                 KC_TRNS,KC_TRNS,
