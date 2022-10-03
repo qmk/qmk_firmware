@@ -19,8 +19,8 @@ bool ALPHAS_MODS(effect_params_t* params) {
             rgb_matrix_set_color(i, rgb1.r, rgb1.g, rgb1.b);
         }
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_MATRIX_ALPHAS_MODS
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // ENABLE_RGB_MATRIX_ALPHAS_MODS

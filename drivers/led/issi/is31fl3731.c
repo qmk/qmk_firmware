@@ -1,5 +1,6 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2018 Jack Humbert
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,11 +40,14 @@
 
 #define ISSI_REG_PICTUREFRAME 0x01
 
+// Not defined in the datasheet -- See AN for IC
+#define ISSI_REG_GHOST_IMAGE_PREVENTION 0xC2 // Set bit 4 to enable de-ghosting
+
 #define ISSI_REG_SHUTDOWN 0x0A
 #define ISSI_REG_AUDIOSYNC 0x06
 
 #define ISSI_COMMANDREGISTER 0xFD
-#define ISSI_BANK_FUNCTIONREG 0x0B  // helpfully called 'page nine'
+#define ISSI_BANK_FUNCTIONREG 0x0B // helpfully called 'page nine'
 
 #ifndef ISSI_TIMEOUT
 #    define ISSI_TIMEOUT 100
@@ -132,6 +136,9 @@ void IS31FL3731_init(uint8_t addr) {
 
     // enable software shutdown
     IS31FL3731_write_register(addr, ISSI_REG_SHUTDOWN, 0x00);
+#ifdef ISSI_3731_DEGHOST // set to enable de-ghosting of the array
+    IS31FL3731_write_register(addr, ISSI_REG_GHOST_IMAGE_PREVENTION, 0x10);
+#endif
 
     // this delay was copied from other drivers, might not be needed
     wait_ms(10);
@@ -174,8 +181,9 @@ void IS31FL3731_init(uint8_t addr) {
 }
 
 void IS31FL3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    is31_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
         g_pwm_buffer[led.driver][led.r - 0x24]   = red;
@@ -192,7 +200,8 @@ void IS31FL3731_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3731_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     uint8_t control_register_r = (led.r - 0x24) / 8;
     uint8_t control_register_g = (led.g - 0x24) / 8;

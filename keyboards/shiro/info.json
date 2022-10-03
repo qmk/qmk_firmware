@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Shiro",
+  "manufacturer": "T.Shinohara",
   "url": "https://github.com/ShinoharaTa/keyboards/blob/master/Shiro/manual/build_guide_ja.md",
   "maintainer": "T.Shinohara",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

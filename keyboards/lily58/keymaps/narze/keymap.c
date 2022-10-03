@@ -299,7 +299,7 @@ const char *read_timelog(void);
 
 char encoder_debug[24];
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
@@ -313,6 +313,7 @@ void oled_task_user(void) {
     oled_write(read_logo(), false);
     // oled_write_ln(encoder_debug, false);
   }
+    return false;
 }
 
 #endif //OLED_ENABLE

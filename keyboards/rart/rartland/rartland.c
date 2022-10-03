@@ -31,7 +31,10 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef OLED_ENABLE
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     // Host Keyboard Layer Status
     oled_write_P(PSTR("R A R T L A N D\nLayer: "), false);
 
@@ -52,5 +55,7 @@ __attribute__((weak)) void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return false;
 }
 #endif

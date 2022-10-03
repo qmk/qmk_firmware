@@ -39,9 +39,9 @@ led_config_t g_led_config = { {
     { 80, 58 }, { 40, 50 }, { 8, 43 }, { 8, 5 }, { 40, 1 }, { 72, 3 },
     // Right Half
     { 224, 5 }, { 208, 5 }, { 192, 2 }, { 176, 0 }, { 160, 2 }, { 144, 3 },
-    { 144, 18 }, { 160, 18 }, { 176, 15 }, { 192, 13 }, { 208, 15 }, { 244, 17 },
+    { 144, 18 }, { 160, 18 }, { 176, 15 }, { 192, 13 }, { 208, 15 }, { 224, 17 },
     { 224, 32 }, { 208, 32 }, { 192, 28 }, { 176, 27 }, { 160, 28 }, { 144, 30 },
-    { 144, 45 }, { 160, 45 }, { 176, 42 }, { 192, 40 }, { 208, 42 }, { 244, 43 },
+    { 144, 45 }, { 160, 45 }, { 176, 42 }, { 192, 40 }, { 208, 42 }, { 224, 43 },
     { 168, 47 }, { 152, 58 }, { 134, 64 }, { 126, 52 },
     { 144, 58 }, { 184, 50 }, { 216, 43 }, { 216, 5 }, { 184, 1 }, { 152, 3 }
 }, {
@@ -62,4 +62,24 @@ led_config_t g_led_config = { {
     2, 2, 2, 2, 2, 2
 
 } };
+#endif
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    return false;
+}
 #endif

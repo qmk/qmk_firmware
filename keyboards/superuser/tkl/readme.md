@@ -2,7 +2,7 @@
 
 An F12 TKL PCB supporting 7u bottom row only.
 
-* Keyboard Maintainer: superuser
+* Keyboard Maintainer: [kaylanm](https://github.com/kaylanm)
 * Hardware Supported: superuser tkl
 * Hardware Availability: Group buy
 

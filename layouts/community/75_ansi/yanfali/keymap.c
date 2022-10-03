@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [FN] = LAYOUT_75_ansi(\
         _______,   RGB_M_P,  RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, _______, _______, _______, _______, _______, _______, _______,
         _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        BL_TOGG, BL_INC,   BL_DEC,  BL_STEP, _______,  _______,  _______, _______, _______, _______, _______, _______, EEP_RST, RESET,   _______,
+        BL_TOGG, BL_INC,   BL_DEC,  BL_STEP, _______,  _______,  _______, _______, _______, _______, _______, _______, EEP_RST, QK_BOOT, _______,
         RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI,  RGB_SPI,  _______, _______, _______, _______, _______, _______, _______, _______,
         VLK_TOG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD,  RGB_SPD,  _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_PGUP, _______,
         _______, _______,  _______,          _______,            _______, _______, _______, KC_HOME, KC_PGDN, KC_END)

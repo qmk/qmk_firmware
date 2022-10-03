@@ -6,4 +6,4 @@ It also has a 'Super Alt-F4' key for Windows that, when tapped does Alt-F4, unle
 
 ## Build
 
-To build the keymap, simply run `make xd004:system_and_media`.
+To build the keymap, simply run `make xiudi/xd004:system_and_media`.

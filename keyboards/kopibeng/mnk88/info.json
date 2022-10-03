@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MNK88",
-    "maintainer": "kopibeng",
+    "manufacturer": "kopibeng",
     "url": "https://monokei.co/",
+    "maintainer": "kopibeng",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x8800",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -103,7 +109,7 @@
                 {"label":"K4G", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_f13": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
@@ -200,7 +206,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_tsangan_f13": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
@@ -296,7 +302,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_iso_f13": {
+        "LAYOUT_tkl_f13_iso": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
@@ -394,7 +400,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_iso_tsangan_f13": {
+        "LAYOUT_tkl_f13_iso_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
