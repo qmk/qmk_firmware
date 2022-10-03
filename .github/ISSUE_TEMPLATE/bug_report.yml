@@ -1,0 +1,40 @@
+name: Bug report
+description: Create a report to help us improve QMK Firmware.
+title: "[Bug] "
+labels: ["bug", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Provide a general summary of the bug in the title above.
+  - type: textarea
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+  - type: input
+    attributes:
+      label: Keyboard Used
+  - type: input
+    attributes:
+      label: Revision (if applicable)
+  - type: input
+    attributes:
+      label: Operating System
+  - type: textarea
+    attributes:
+      label: qmk doctor Output
+      description: Output from running the `qmk doctor` command.
+      render: shell
+  - type: checkboxes
+    attributes:
+      label: Is AutoHotKey / Karabiner installed
+      options:
+        - label: AutoHotKey (Windows)
+        - label: Karabiner (macOS)
+  - type: input
+    attributes:
+      label: Other keyboarded related software installed
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Add any other relevant information about the problem here.
