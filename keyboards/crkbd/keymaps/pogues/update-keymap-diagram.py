@@ -308,6 +308,7 @@ key_names = {
     "KC_CAPS": "CapsWd",  #"&#20;",
     "KC_SNAKE": "SnakeCs",
     "KC_CAMEL": "CamelCs",
+    "KC_NUMWD": "NumWord",
     "KC_HASH": "&#35;",
     "MY_GBP": "&#163;",
     "KC_DLR": "&#36;",
@@ -796,6 +797,9 @@ def extract_compose_action(action_text):
     """turn the action like SEND_STRING / tap_code to the sequence of key presses."""
     if action_text.startswith(('caps_word', 'toggle_caps')):
         return ['KC_CAPS']
+
+    if action_text.startswith(('toggle_num_word')):
+        return ['KC_NUMWD']
 
     if action_text.startswith('enable_xcase_with(KC_UNDS)'):
         return ['KC_SNAKE']
