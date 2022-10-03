@@ -130,14 +130,23 @@ const uint32_t PROGMEM unicode_map[] = {
 #define K_SNEK      X(SNEK)
 #define K_EURO      X(EURO)
 #define K_LT_A      XP(LT_S_A, LT_L_A)
+#define K_LT_AU     X(LT_L_A)
 #define K_LT_C      XP(LT_S_C, LT_L_C)
+#define K_LT_CU     X(LT_L_C)
 #define K_LT_E1     XP(LT_S_E1, LT_L_E1)
+#define K_LT_E1U    X(LT_L_E1)
 #define K_LT_E2     XP(LT_S_E2, LT_L_E2)
+#define K_LT_E2U    X(LT_L_E2)
 #define K_LT_I      XP(LT_S_I, LT_L_I)
+#define K_LT_IU     X(LT_L_I)
 #define K_LT_S      XP(LT_S_S, LT_L_S)
+#define K_LT_SU     X(LT_L_S)
 #define K_LT_U1     XP(LT_S_U1, LT_L_U1)
+#define K_LT_U1U    X(LT_L_U1)
 #define K_LT_U2     XP(LT_S_U2, LT_L_U2)
+#define K_LT_U2U    X(LT_L_U2)
 #define K_LT_Z      XP(LT_S_Z, LT_L_Z)
+#define K_LT_ZU     X(LT_L_Z)
 #define K_LT_OB     X(LT_OB)
 #define K_LT_CB     X(LT_CB)
 
@@ -241,7 +250,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LT_LINUX] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     K_LT_AU ,K_LT_CU ,K_LT_E1U,K_LT_E2U,K_LT_IU ,                          K_LT_SU ,K_LT_U1U,K_LT_U2U,K_LT_ZU ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
