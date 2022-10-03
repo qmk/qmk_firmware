@@ -108,8 +108,11 @@ class XAPConfigRgbMatrix(namedtuple('XAPConfigRgbMatrix', 'enable mode hue sat v
 # TODO: gen inbound object for set_keymap_keycode
 # TODO: gen inbound object for set_encoder_keycode
 # TODO: gen outbound object for get_config
+# TODO: gen inbound object for set_config
 # TODO: gen outbound object for get_config
+# TODO: gen inbound object for set_config
 # TODO: gen outbound object for get_config
+# TODO: gen inbound object for set_config
 
 
 class XAPSecureStatus(IntEnum):

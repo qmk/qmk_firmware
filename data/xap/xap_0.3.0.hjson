@@ -65,6 +65,36 @@
                             ]
                             return_execute: get_backlight_config
                         }
+                        0x04: {
+                            type: command
+                            name: Set Config
+                            define: SET_CONFIG
+                            description: Set the current config.
+                            request_type: struct
+                            request_struct_length: 3
+                            request_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                            ]
+                            return_execute: set_backlight_config
+                        }
+                        0x05: {
+                            type: command
+                            name: Save Config
+                            define: SAVE_CONFIG
+                            description: Save the current config.
+                            return_execute: save_backlight_config
+                        }
                     }
                 }
 
@@ -132,6 +162,48 @@
                                 },
                             ]
                             return_execute: get_rgblight_config
+                        }
+                        0x04: {
+                            type: command
+                            name: Set Config
+                            define: SET_CONFIG
+                            description: Set the current config.
+                            request_type: struct
+                            request_struct_length: 6
+                            request_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: hue
+                                },
+                                {
+                                    type: u8
+                                    name: sat
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                                {
+                                    type: u8
+                                    name: speed
+                                },
+                            ]
+                            return_execute: set_rgblight_config
+                        }
+                        0x05: {
+                            type: command
+                            name: Save Config
+                            define: SAVE_CONFIG
+                            description: Save the current config.
+                            return_execute: save_rgblight_config
                         }
                     }
                 }
@@ -204,6 +276,52 @@
                                 },
                             ]
                             return_execute: get_rgb_matrix_config
+                        }
+                        0x04: {
+                            type: command
+                            name: Set Config
+                            define: SET_CONFIG
+                            description: Set the current config.
+                            request_type: struct
+                            request_struct_length: 7
+                            request_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: hue
+                                },
+                                {
+                                    type: u8
+                                    name: sat
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                                {
+                                    type: u8
+                                    name: speed
+                                },
+                                {
+                                    type: u8
+                                    name: flags
+                                },
+                            ]
+                            return_execute: set_rgb_matrix_config
+                        }
+                        0x05: {
+                            type: command
+                            name: Save Config
+                            define: SAVE_CONFIG
+                            description: Save the current config.
+                            return_execute: save_rgb_matrix_config
                         }
                     }
                 }

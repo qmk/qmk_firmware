@@ -161,6 +161,8 @@ This subsystem allows for control over the backlight subsystem.
 | Capabilities Query | `0x06 0x02 0x01` |  |__Response:__ `u32`| backlight subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
 | Get Enabled Effects | `0x06 0x02 0x02` |  |__Response:__ `u8`| Each bit should be considered as a "usable" effect id|
 | Get Config | `0x06 0x02 0x03` |  |__Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`| Query the current config.|
+| Set Config | `0x06 0x02 0x04` |  |__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`| Set the current config.|
+| Save Config | `0x06 0x02 0x05` |  || Save the current config.|
 
 #### rgblight - `0x06 0x03`
 This subsystem allows for control over the rgblight subsystem.
@@ -170,6 +172,8 @@ This subsystem allows for control over the rgblight subsystem.
 | Capabilities Query | `0x06 0x03 0x01` |  |__Response:__ `u32`| rgblight subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
 | Get Enabled Effects | `0x06 0x03 0x02` |  |__Response:__ `u64`| Each bit should be considered as a "usable" effect id|
 | Get Config | `0x06 0x03 0x03` |  |__Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* hue: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* sat: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* speed: `u8`| Query the current config.|
+| Set Config | `0x06 0x03 0x04` |  |__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* hue: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* sat: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* speed: `u8`| Set the current config.|
+| Save Config | `0x06 0x03 0x05` |  || Save the current config.|
 
 #### rgbmatrix - `0x06 0x04`
 This subsystem allows for control over the rgb matrix subsystem.
@@ -179,6 +183,8 @@ This subsystem allows for control over the rgb matrix subsystem.
 | Capabilities Query | `0x06 0x04 0x01` |  |__Response:__ `u32`| rgb matrix subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
 | Get Enabled Effects | `0x06 0x04 0x02` |  |__Response:__ `u64`| Each bit should be considered as a "usable" effect id|
 | Get Config | `0x06 0x04 0x03` |  |__Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* hue: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* sat: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* speed: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* flags: `u8`| Query the current config.|
+| Set Config | `0x06 0x04 0x04` |  |__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* hue: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* sat: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* speed: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* flags: `u8`| Set the current config.|
+| Save Config | `0x06 0x04 0x05` |  || Save the current config.|
 
 
 ## Broadcast messages
