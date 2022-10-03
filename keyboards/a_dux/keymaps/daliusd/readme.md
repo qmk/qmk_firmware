@@ -112,17 +112,6 @@ void matrix_scan_user(void) {
 
 ```
 
-## Development
-
-Note that `flow` is covered with tests. You can run tests in two
-ways:
-
-* Run `./tests/test.sh` directly
-
-* Install `fswatch` to your system and run `./tests/monitor.sh` in
-  separate terminal, tab or tmux pane. Make changes to `flow.c` or
-  `./tests/test.c` and see if you have not broken any tests.
-
 ## Lithuanian letters
 
 There are at least two ways how to enter Lithuanian letters: to
