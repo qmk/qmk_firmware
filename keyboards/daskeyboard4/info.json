@@ -1,8 +1,8 @@
 {
     "manufacturer": "Commander1024",
-    "keyboard_name": "daskeyboard4pro",
+    "keyboard_name": "daskeyboard4",
     "maintainer": "Commander1024",
-    "bootloader": "atmel-dfu",
+    "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -16,7 +16,7 @@
         "cols": ["C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2"],
         "rows": ["D1", "D1", "D1", "D1", "D1", "D1"]
     },
-    "processor": "atmega32u4",
+    "processor": "STM32F411",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
