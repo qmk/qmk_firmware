@@ -15,6 +15,7 @@
 #define XMK_SHELL_KEY_PRESS "press "
 #define XMK_SHELL_KEY_RELEASE "release "
 #define XMK_SHELL_BOOT "boot"
+#define XMK_SHELL_RESET "reset"
 
 void xmk_shell(char *line) {
   dprintf("xmk_shell: line: '%s'\n", line);
@@ -32,6 +33,9 @@ void xmk_shell(char *line) {
   } else if (strcmp(line, XMK_SHELL_BOOT) == 0) {
     dprintf("xmk_shell: XMK_SHELL_BOOT\n");
     reset_keyboard();
+  } else if (strcmp(line, XMK_SHELL_RESET) == 0) {
+    dprintf("xmk_shell: XMK_SHELL_RESET\n");
+    soft_reset_keyboard();
   }
 }
 
