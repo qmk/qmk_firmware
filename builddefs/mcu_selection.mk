@@ -348,8 +348,6 @@ ifneq ($(findstring STM32F401, $(MCU)),)
   #   or <keyboard_dir>/ld/
   ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     MCU_LDSCRIPT ?= STM32F401xC_tinyuf2
-    EEPROM_DRIVER ?= wear_leveling
-    WEAR_LEVELING_DRIVER ?= legacy
   else
     MCU_LDSCRIPT ?= STM32F401xC
   endif
@@ -465,8 +463,6 @@ ifneq ($(findstring STM32F411, $(MCU)),)
   #   or <keyboard_dir>/ld/
   ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     MCU_LDSCRIPT ?= STM32F411xE_tinyuf2
-    EEPROM_DRIVER ?= wear_leveling
-    WEAR_LEVELING_DRIVER ?= legacy
   else
     MCU_LDSCRIPT ?= STM32F411xE
   endif
