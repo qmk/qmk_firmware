@@ -100,6 +100,7 @@ enum custom_keycodes {
 #define ANDROID_STUDIO   8 // android studio specific layer
 #define VSCODE           9 // visual studio code specific layer
 #define VSCODE_NAV       10 // visual studio code, navigation within IDE
+#define SHORTCUTS        11 // shortcuts to be intercepted by autohotkey
 
 
 
@@ -215,10 +216,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
       // left hand
       KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
-      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(VSCODE_NAV),
+      OSL(VSCODE),       KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    KC_TRNS,
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
-      KC_TRNS,           KC_TRNS,       KC_TRNS,    MO(KEYSEL),   MO(BROWSER_CONTROL),
+      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      MO(BROWSER_CONTROL),
 
       // left thumb cluster
                 KC_TRNS,KC_TRNS,
@@ -230,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MEH(KC_1), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
       MEH(KC_2), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   OSM(MOD_LSFT),
-      RCTL(KC_BSPC), RCTL(KC_BSPC), KC_TRNS, KC_TRNS, KC_TRNS,
+      OSL(SHORTCUTS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 
       // right thumb cluster
         KC_TRNS, KC_TRNS,
@@ -494,6 +495,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,
            KC_TRNS, RCTL(KC_W), RCTL(KC_T)
     ),
+
+  // shortcuts to be intercepted by autohotkey
+  [SHORTCUTS] = LAYOUT_ergodox(
+       // left hand
+       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+                KC_TRNS,            MEH(KC_1),   MEH(KC_7),   MEH(KC_8),   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+                                    // bottom row
+                                    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
 
 
 };
