@@ -1,6 +1,6 @@
 # RART60
 
-![rart60](https://i.imgur.com/8RkCYQE.jpg)
+![rart60](https://i.imgur.com/8RkCYQEh.jpg)
 
 PCB 60% support optional macro with RP2040
 
