@@ -20,12 +20,12 @@
   * [개요](ko/newbs_building_firmware_configurator.md)
   * [Step by Step](ko/configurator_step_by_step.md)
   * [Troubleshooting](ko/configurator_troubleshooting.md)
-  * [Architecture](ko/configurator_architecture.md)
+  * [아키텍처](ko/configurator_architecture.md)
   * QMK API
-    * [Overview](ko/api_overview.md)
-    * [API Documentation](ko/api_docs.md)
-    * [Keyboard Support](ko/reference_configurator_support.md)
-    * [Adding Default Keymaps](ko/configurator_default_keymaps.md)
+    * [개요](ko/api_overview.md)
+    * [API 문서](ko/api_docs.md)
+    * [키보드 지원](ko/reference_configurator_support.md)
+    * [기본 키맵 추가하기](ko/configurator_default_keymaps.md)
 
 * CLI
     * [Overview](ko/cli.md)
@@ -166,7 +166,7 @@
 
   * QMK Reference
     * [Contributing to QMK](ko/contributing.md)
-    * [Translating the QMK Docs](ko/translating.md)
+    * [QMK 문서 번역](ko/translating.md)
     * [Config Options](ko/config_options.md)
     * [Data Driven Configuration](ko/data_driven_config.md)
     * [Make Documentation](ko/getting_started_make_guide.md)
