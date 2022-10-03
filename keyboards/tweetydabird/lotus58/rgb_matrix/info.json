@@ -16,7 +16,6 @@
 		"extrakey": true,
 		"mousekey": false,
 		"nkro": true,
-		"rgblight": true,
 		"encoder": true,
 		"oled": true,
 		"audio": false,
@@ -25,7 +24,8 @@
 		"grave_esc": false,
 		"space_cadet": false
 		"tap_dance": false,
-		"auto_shift": true
+		"auto_shift": true,
+		"rgb_matrix": true,
 	},
 
 	"build": {
@@ -50,28 +50,20 @@
             "sync_modifiers": true
 		},
 	},
+	    
+	"rgb_matrix": {
+        "driver": "WS2812"
+    },
+	
+	"rgblight": {
+        "pin": "D3"
+    },
 	
 	"encoder": {
         "rotary": [
             { "pin_a": "F5", "pin_b": "F4", "resolution": 2 }
             { "pin_a": "F4", "pin_b": "F5", "resolution": 2 }
         ]
-    },
-	
-	"rgblight": {
-        "led_count": 58,
-        "pin": "D3",
-		"split": true,
-		"split_count": [ 29, 29 ],
-        "hue_steps": 8,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
-		"max_brightness": 175,
-		"animations": {
-            "breathing": true,
-			"rainbow_mood": true,
-			"static_gradient": true
-        }
     },
 	
 	"qmk": {
