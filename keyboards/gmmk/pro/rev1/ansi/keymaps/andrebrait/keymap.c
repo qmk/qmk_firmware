@@ -320,7 +320,20 @@ static void start_effects() {
 //  91, led 08                                                                                                                                                                      92, led 19
 
 static void set_rgb_caps_leds() {
-    rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
+    rgb_matrix_set_color(0, 0xFF, 0x0, 0x0); // ESC
+    rgb_matrix_set_color(6, 0xFF, 0x0, 0x0); // F1
+    rgb_matrix_set_color(12, 0xFF, 0x0, 0x0); // F2
+    rgb_matrix_set_color(18, 0xFF, 0x0, 0x0); // F3
+    rgb_matrix_set_color(23, 0xFF, 0x0, 0x0); // F4
+    rgb_matrix_set_color(28, 0xFF, 0x0, 0x0); // F5
+    rgb_matrix_set_color(34, 0xFF, 0x0, 0x0); // F6
+    rgb_matrix_set_color(39, 0xFF, 0x0, 0x0); // F7
+    rgb_matrix_set_color(44, 0xFF, 0x0, 0x0); // F8
+    rgb_matrix_set_color(50, 0xFF, 0x0, 0x0); // F9
+    rgb_matrix_set_color(56, 0xFF, 0x0, 0x0); // F10
+    rgb_matrix_set_color(61, 0xFF, 0x0, 0x0); // F11
+    rgb_matrix_set_color(66, 0xFF, 0x0, 0x0); // F12
+    rgb_matrix_set_color(69, 0xFF, 0x0, 0x0); // Prt
     rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
     rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2
     rgb_matrix_set_color(71, 0xFF, 0x0, 0x0); // Right side LED 2
