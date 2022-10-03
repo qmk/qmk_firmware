@@ -13,8 +13,8 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2"],
-        "rows": ["D1", "D1", "D1", "D1", "D1", "D1"]
+        "cols": ["PC13", "PA1", "PA2", "PA4", "PA6", "PA7", "PB0", "PB1", "PB2", "PB10", "PB9", "PB8", "PB6", "PB4", "PB3", "PA15", "PA9"],
+        "rows": ["PC14", "PC15", "PA3", "PA5", "PB7", "PA12", "PA11", "PA10"]
     },
     "processor": "STM32F411",
     "url": "",
