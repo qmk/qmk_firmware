@@ -64,7 +64,6 @@ const uint16_t flow_config[FLOW_COUNT][2] = {
     {L_NAV, KC_LALT},
     {L_NAV, KC_LGUI},
     {L_NAV, KC_LCTL},
-    {L_NAV, KC_LSFT},
     {L_SYM, KC_RCTL},
     {L_SYM, KC_RGUI},
     {L_SYM, KC_RALT},

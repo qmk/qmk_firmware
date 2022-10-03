@@ -14,7 +14,11 @@ This is my principles for layout:
 
 * There is simple TMUX layer.
 
-* Common keys must be accessible using two keys where possible.
+* Common keys must be accessible using two keys if possible.
+
+* It should be possible to work with left keyboard side and mouse
+  in right hand without lifting hands for some scenarios (that's
+  why I had to duplicate Shift key).
 
 ## Improvements over Callum
 
@@ -22,22 +26,29 @@ This is my principles for layout:
   keys.
 
 * There is one issue with accidental uppercase characters fixed
-  that exists in original Callum layout.
+  that exists in original Callum layout's implementation.
 
 * Another annoying feature of Callum layer is one shot keys are
   frozen until you cancel them. This is problem when you use one
   hand for keyboard and another for mouse. E.g. you click Ctrl and
-  mouse to get some menu, and then you want to click some item in
-  that menu. You have to remember to cancel one shot in such
-  situation. I have added default 500ms period (can be changed
-  using FLOW_ONESHOT_TERM) where you have to press next key.
-  Otherwise oneshot is canceled.
+  mouse to get some menu (on Mac OS X), and then you want to click
+  some item in that menu. You have to remember to cancel one shot in such
+  situation. I have added two settings two handle situations like
+  this:
 
-* As well one shot keys are not working as one shot keys if held
-  for longer than FLOW_ONESHOT_WAIT_TERM (default 500ms)
-  milliseconds.
+  * `FLOW_ONESHOT_WAIT_TERM` - if hold one shot key longer than
+    `FLOW_ONESHOT_WAIT_TERM` ms then mod key / layer key is not
+    treated as one shot key (defaults to 500ms).
 
-Since differences are quite significant I named this `flow`.
+  * `FLOW_ONESHOT_TERM` - if you do not click another key in
+  `FLOW_ONESHOT_TERM` ms then one shot key / layer key is treated
+  as normal key. Therefore if you lift it after `FLOW_ONESHOT_TERM`
+  it will not be treated as one shot (defaults to 500ms).
+
+  After adding those two settings I have found out that I don't
+  need one shot cancel key anymore so I have removed it.
+
+Since differences are significant I named this layout `flow`.
 
 ## Using flow with your keyboard
 
@@ -49,7 +60,7 @@ Add following line to `rules.mk`:
 SRC += flow.c
 ```
 
-Define following in `config.h`:
+Define following in `config.h` for modifiers and layers:
 
 ```c
 #define FLOW_COUNT 7
@@ -77,6 +88,9 @@ const uint16_t flow_config[FLOW_COUNT][2] = {
 };
 
 
+// for layers configuration follow this format:
+// * custom layer key
+// * layer name
 const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
     {OS_TMUX, _TMUX},
     {OS_MISC, _MISC},
@@ -124,6 +138,8 @@ necessary. Unicode support has some problems:
 
 * Unicode Hex Input in Mac OS X is not perfect and there are some
   minor issue while using it.
+
+On Linux Unicode support meanwhile works perfectly.
 
 This leaves us with other option to use OS language switching as
 you most probably have done before. Still there is space for
