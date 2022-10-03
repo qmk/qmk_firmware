@@ -230,10 +230,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MEH(KC_1), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
       MEH(KC_2), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_8),
-      KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_9),
+      RCTL(KC_BSPC), RCTL(KC_BSPC), KC_TRNS, KC_TRNS, KC_TRNS,
 
       // right thumb cluster
-      MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_6),KC_ENTER,KC_SPACE
+        KC_TRNS, KC_TRNS,
+        KC_TRNS,
+        KC_TRNS, KC_ENTER,KC_SPACE
 
   ),
 
@@ -474,7 +476,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
            KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,      KC_BTN2, KC_TRNS,
            KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,      KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       WINDOWS10_WORKSPACE_LEFT,   WINDOWS10_WORKSPACE_RIGHT,      KC_TRNS, KC_TRNS,
 		   // bottom row
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
 
