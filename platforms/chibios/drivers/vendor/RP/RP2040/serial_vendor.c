@@ -181,12 +181,13 @@ static inline void leave_rx_state(void) {}
 #endif
 
 /**
- * @brief Clear the RX and TX hardware FIFOs of the state machines.
+ * @brief Clear the FIFO of the RX state machine.
  */
 inline void serial_transport_driver_clear(void) {
     osalSysLock();
-    pio_sm_clear_fifos(pio, rx_state_machine);
-    pio_sm_clear_fifos(pio, tx_state_machine);
+    while (!pio_sm_is_rx_fifo_empty(pio, rx_state_machine)) {
+        pio_sm_clear_fifos(pio, rx_state_machine);
+    }
     osalSysUnlock();
 }
 
