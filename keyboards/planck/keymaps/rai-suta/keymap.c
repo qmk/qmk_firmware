@@ -20,7 +20,7 @@
 #define JK_S0   S(KC_0)     // Tilde(~) at IBM 5576-A01 spec
 #define JK_EQ   S(KC_MINS)  // =
 #define JK_TLD  S(JK_CIRC)  // ~
-#define JK_PIPE S(KC_JYEN)  // |
+#define JK_PIPE S(JP_YEN)  // |
 #define JK_GRV  S(JK_AT)    // `
 #define JK_LCBR S(JK_LBRC)  // {
 #define JK_PLUS S(KC_SCLN)  // +
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [KL_RAISE] = LAYOUT_planck_grid(
     KC_CAPS,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
-    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, KC_MINS, JK_CIRC,   JK_AT, JK_LBRC, KC_JYEN,
+    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, KC_MINS, JK_CIRC,   JK_AT, JK_LBRC, JP_YEN,
     _______,   KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11,  KC_F12, XXXXXXX, KC_COMM,  KC_DOT, JK_RBRC, JK_BSLS,
     M_DEBUG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),

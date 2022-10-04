@@ -189,7 +189,7 @@ lookup_table_t lookup_table[333] =
  {"KC_KP_EQUAL_AS400", KC_KP_EQUAL_AS400},
  {"KC_INT1", KC_INT1},
  {"KC_INT2", KC_INT2},
- {"KC_JYEN", KC_JYEN},
+ {"KC_INT3", KC_INT3},
  {"KC_HENK", KC_HENK},
  {"KC_MHEN", KC_MHEN},
  {"KC_INT6", KC_INT6},

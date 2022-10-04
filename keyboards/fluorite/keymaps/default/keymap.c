@@ -38,7 +38,7 @@ enum custom_keycodes {
 #define KC_ALTKN ALT_T(KC_LANG1)
 #define KC_RSHM RSFT(KC_HOME)
 #define KC_RSEN RSFT(KC_END)
-#define KC_RSJY RSFT(KC_JYEN)
+#define KC_RSJY RSFT(KC_INT3)
 #define KC_RSRO RSFT(KC_INT1)
 #define KC_LSTAB LSFT(KC_TAB)
 #define KC_LSFCO LSFT(KC_COMM)
