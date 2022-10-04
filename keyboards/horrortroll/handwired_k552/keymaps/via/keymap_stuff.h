@@ -75,7 +75,7 @@ enum layer_keycodes {
     G_PRE,               //Gradient presets
     REF_G,               //Toggle between linear and reflected gradient
     G_FLIP,              //Flip the gradient colors
-  
+
     //Custom led effect keycode
     RGB_C_E,             //Cycle user effect
 };
@@ -252,7 +252,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     uint8_t  side_leds_left[3]  = {17, 18, 19};
     uint8_t  side_leds_right[3] = { 4,  5,  6};
     HSV      hsv = rgb_matrix_config.hsv;
@@ -297,4 +297,5 @@ void rgb_matrix_indicators_user(void) {
             }
         }
     }
+    return false;
 }

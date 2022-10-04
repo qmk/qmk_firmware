@@ -46,7 +46,7 @@ void keyboard_post_init_user(void) {
     rgb_matrix_enable_noeeprom();
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     /* We use RGB for the indicator RGB colours since we don't need to adjust the brightness.
      * If any of the indicators are enabled, set the key to white. This overrides the active RGB
      * matrix animation. */
@@ -62,4 +62,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().scroll_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(14, 255, 255, 255);
     }
+    return false;
 }

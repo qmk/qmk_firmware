@@ -91,7 +91,10 @@ led_config_t g_led_config = { {
 // clang-format on
 
 #    ifdef USB_LED_INDICATOR_ENABLE
-void rgb_matrix_indicators_kb(void) { md_rgb_matrix_indicators(); }
+bool rgb_matrix_indicators_kb(void) {
+    md_rgb_matrix_indicators();
+    return rgb_matrix_indicators_user();
+}
 #    endif  // USB_LED_INDICATOR_ENABLE
 
 #endif
