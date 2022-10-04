@@ -16,13 +16,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-//#include <avr/interrupt.h>
 #include "keyboard.h"
 #include "keycode.h"
 #include "host.h"
 #include "util.h"
 #include "debug.h"
-#include "digitizer.h"
+
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
+#endif
 
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
@@ -39,9 +41,8 @@ extern keymap_config_t keymap_config;
 #endif
 
 static host_driver_t *driver;
-static uint16_t       last_system_report              = 0;
-static uint16_t       last_consumer_report            = 0;
-static uint32_t       last_programmable_button_report = 0;
+static uint16_t       last_system_report   = 0;
+static uint16_t       last_consumer_report = 0;
 
 void host_set_driver(host_driver_t *d) {
     driver = d;
@@ -200,13 +201,12 @@ void host_joystick_send(joystick_t *joystick) {
 
 __attribute__((weak)) void send_joystick(report_joystick_t *report) {}
 
+#ifdef DIGITIZER_ENABLE
 void host_digitizer_send(digitizer_t *digitizer) {
-    if (!driver) return;
-
     report_digitizer_t report = {
-#ifdef DIGITIZER_SHARED_EP
+#    ifdef DIGITIZER_SHARED_EP
         .report_id = REPORT_ID_DIGITIZER,
-#endif
+#    endif
         .tip     = digitizer->tipswitch & 0x1,
         .inrange = digitizer->inrange & 0x1,
         .x       = (uint16_t)(digitizer->x * 0x7FFF),
@@ -215,16 +215,22 @@ void host_digitizer_send(digitizer_t *digitizer) {
 
     send_digitizer(&report);
 }
+#endif
 
 __attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
 
-void host_programmable_button_send(uint32_t report) {
-    if (report == last_programmable_button_report) return;
-    last_programmable_button_report = report;
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+void host_programmable_button_send(uint32_t data) {
+    report_programmable_button_t report = {
+        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
+        .usage     = data,
+    };
 
-    if (!driver) return;
-    (*driver->send_programmable_button)(report);
+    send_programmable_button(&report);
 }
+#endif
+
+__attribute__((weak)) void send_programmable_button(report_programmable_button_t *report) {}
 
 uint16_t host_last_system_report(void) {
     return last_system_report;
@@ -232,8 +238,4 @@ uint16_t host_last_system_report(void) {
 
 uint16_t host_last_consumer_report(void) {
     return last_consumer_report;
-}
-
-uint32_t host_last_programmable_button_report(void) {
-    return last_programmable_button_report;
 }
