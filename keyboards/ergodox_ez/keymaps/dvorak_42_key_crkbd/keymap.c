@@ -434,11 +434,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // right hand
     KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
-    KC_TRNS, KC_PLUS,     KC_7,    KC_8,    KC_9,    KC_ASTR,     KC_TRNS,
-             KC_MINS,     KC_4,    KC_5,    KC_6,    KC_SLSH,     KC_TRNS,
-    KC_TRNS, KC_EQUAL,    KC_1,    KC_2,    KC_3,    KC_QUES,     KC_TRNS,
+    KC_TRNS, KC_PLUS,     KC_7,    KC_8,    KC_9,    KC_ASTR,     KC_PIPE,
+             KC_MINS,     KC_4,    KC_5,    KC_6,    KC_SLSH,     KC_BSLS,
+    KC_TRNS, KC_EQUAL,    KC_1,    KC_2,    KC_3,    KC_QUES,     KC_DOT,
     // bottom row
-                          KC_0,    KC_DOT,  KC_PIPE, KC_BSLS,     KC_TRNS,
+                          KC_0,    KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
     // thumb cluster
     KC_TRNS,KC_TRNS,
 	KC_TRNS,
