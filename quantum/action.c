@@ -1053,6 +1053,10 @@ __attribute__((weak)) void unregister_weak_mods(uint8_t mods) {
 void clear_keyboard(void) {
     clear_mods();
     clear_keyboard_but_mods();
+#ifdef MOUSEKEY_ENABLE
+    mousekey_clear();
+    mousekey_send();
+#endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
@@ -1075,10 +1079,6 @@ void clear_keyboard_but_mods_and_keys() {
 #endif
     clear_weak_mods();
     send_keyboard_report();
-#ifdef MOUSEKEY_ENABLE
-    mousekey_clear();
-    mousekey_send();
-#endif
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     programmable_button_clear();
     programmable_button_send();
