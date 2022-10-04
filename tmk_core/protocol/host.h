@@ -51,7 +51,6 @@ void    host_programmable_button_send(uint32_t data);
 
 uint16_t host_last_system_report(void);
 uint16_t host_last_consumer_report(void);
-uint32_t host_last_programmable_button_report(void);
 
 #ifdef __cplusplus
 }

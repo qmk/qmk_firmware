@@ -61,10 +61,6 @@
 extern keymap_config_t keymap_config;
 #endif
 
-#ifdef AUDIO_ENABLE
-#    include "audio.h"
-#endif
-
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
 #endif
@@ -89,8 +85,7 @@ static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_extra(uint8_t report_id, uint16_t data);
-static void    send_programmable_button(uint32_t data);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra, send_programmable_button};
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 #ifdef VIRTSER_ENABLE
 // clang-format off
@@ -676,11 +671,9 @@ static void send_extra(uint8_t report_id, uint16_t data) {
 #endif
 }
 
-static void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    static report_programmable_button_t r;
-    r = (report_programmable_button_t){.report_id = REPORT_ID_PROGRAMMABLE_BUTTON, .usage = data};
-    send_report(&r, sizeof(r));
+    send_report(report, sizeof(report_programmable_button_t));
 #endif
 }
 
