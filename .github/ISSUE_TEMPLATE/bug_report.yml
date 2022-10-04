@@ -16,7 +16,7 @@ body:
       label: Keyboard Used
   - type: input
     attributes:
-      label: Revision (if applicable)
+      label: Link to product page (if applicable)
   - type: input
     attributes:
       label: Operating System
