@@ -90,16 +90,18 @@ enum custom_keycodes {
 
 
 #define BASE             0 // base dvorak layer
-#define KEYNAV           1 // arrow navigation (right hand)
-#define KEYSEL           2 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV        3 // bash shortcuts
-#define SHELL_SCREEN     4 // linux screen shortcuts
-#define BROWSER_CONTROL  6 // control browser and mouse
-#define COMBINED         7 // combined numbers and symbols layer
-#define ANDROID_STUDIO   8 // android studio specific layer
-#define VSCODE           9 // visual studio code specific layer
-#define VSCODE_NAV       10 // visual studio code, navigation within IDE
-#define SHORTCUTS        11 // shortcuts to be intercepted by autohotkey
+#define BASE_IOS         1 // base dvorak layer, for ipad / IOS
+#define KEYNAV           2 // arrow navigation (right hand)
+#define KEYSEL           3 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV        4 // bash shortcuts
+#define SHELL_SCREEN     5 // linux screen shortcuts
+#define BROWSER_CONTROL  7 // control browser and mouse
+#define BROWSER_CONTROL_IOS 8 // control browser and mouse
+#define COMBINED            9 // combined numbers and symbols layer
+#define ANDROID_STUDIO     10 // android studio specific layer
+#define VSCODE             11 // visual studio code specific layer
+#define VSCODE_NAV         12 // visual studio code, navigation within IDE
+#define SHORTCUTS          13 // shortcuts to be intercepted by autohotkey
 
 
 
@@ -236,6 +238,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS,
         KC_TRNS,
         KC_TRNS, KC_ENTER, KC_SPACE
+
+  ),
+
+  [BASE_IOS] = LAYOUT_ergodox(
+      // left hand
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      MO(BROWSER_CONTROL_IOS),
+
+      // left thumb cluster
+                KC_TRNS,KC_TRNS,
+                        KC_TRNS,
+      KC_TRNS,MO(KEYNAV), KC_TRNS,
+
+      // right hand
+      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+      // right thumb cluster
+        KC_TRNS, KC_TRNS,
+        KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS
 
   ),
 
@@ -469,6 +498,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS, RCTL(KC_W), RCTL(KC_T)
     ),
 
+    [BROWSER_CONTROL_IOS] = LAYOUT_ergodox(
+		   // left hand
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,      KC_BTN2, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       WINDOWS10_WORKSPACE_LEFT,   WINDOWS10_WORKSPACE_RIGHT,      KC_TRNS, KC_TRNS,
+		   // bottom row
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+
+                                               KC_TRNS, KC_TRNS,
+                                                        KC_TRNS,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,
+          // right hand
+           KC_TRNS,  KC_TRNS,   KC_TRNS,            KC_TRNS,              KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS,  KC_UP,     KC_PGUP,            KC_PGDN,              KC_MS_WH_UP,   KC_TRNS,       KC_TRNS,
+                     KC_DOWN,   RGUI(LALT(KC_LEFT)), RGUI(LALT(KC_RIGHT)), KC_MS_WH_DOWN, LALT(KC_LEFT), KC_TRNS,
+           KC_TRNS,  KC_TRNS,   RCTL(KC_1),         RCTL(KC_9),           KC_F6,         KC_F5,         KC_TRNS,
+                                // bottom row
+                                RCTL(LSFT(KC_TAB)), RCTL(KC_TAB),      KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, RCTL(KC_W), RCTL(KC_T)
+    ),
+
   // shortcuts to be intercepted by autohotkey
   [SHORTCUTS] = LAYOUT_ergodox(
        // left hand
@@ -480,8 +533,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
                                        KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
+                                               TG(BASE_IOS),
+                               KC_TRNS,DF(BASE),DF(BASE_IOS),
        // right hand
        KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,     QK_BOOT,
        KC_TRNS, MEH(KC_I), MEH(KC_J), MEH(KC_K), MEH(KC_L),   MEH(KC_M),   MEH(KC_N),
@@ -731,6 +784,9 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
+        case BASE_IOS:
+            ergodox_right_led_1_on();
+            break;
         case COMBINED:
             ergodox_right_led_2_on();
             break;
