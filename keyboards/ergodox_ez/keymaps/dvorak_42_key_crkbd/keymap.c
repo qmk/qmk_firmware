@@ -244,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // left hand
     KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
     KC_TRNS,KC_ESC,      KC_TRNS,   RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),       KC_TRNS,
-    KC_TRNS,KC_LSFT,     KC_TRNS,   RSFT(KC_TAB),    KC_TAB,           KC_TRNS,
+    KC_TRNS,MO(KEYSEL),  KC_TRNS,   RSFT(KC_TAB),    KC_TAB,           KC_TRNS,
     KC_TRNS,KC_TRNS,     OSM(MOD_LGUI),  OSM(MOD_LALT),   OSM(MOD_LCTL),    KC_TRNS,     KC_TRNS,
     KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,
     // left thumb cluster
@@ -252,16 +252,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     // right hand
-    KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,          MEH(KC_G),
-    KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,          MEH(KC_7),
-            LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),   MEH(KC_I),
-    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,        MEH(KC_8),
-                           KC_BSPC,    KC_TRNS,         KC_TRNS,    KC_TRNS,          MEH(KC_K),
+    KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,          KC_BSPC,
+            LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),   RCTL(KC_BSPC),
+    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,        KC_DELETE,
+                           KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,          KC_TRNS,
 
     // right thumb cluster
     KC_TRNS, KC_TRNS,
     KC_TRNS,
-    KC_TRNS, LCTL(KC_DELETE), KC_DELETE
+    KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
     // key selection layer
@@ -501,7 +501,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shortcuts to be intercepted by autohotkey
   [SHORTCUTS] = LAYOUT_ergodox(
        // left hand
-       QK_BOOT,   KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
        MEH(KC_0), MEH(KC_1), MEH(KC_2), MEH(KC_3),   MEH(KC_4),   MEH(KC_5), KC_TRNS,
        MEH(KC_6), MEH(KC_7), MEH(KC_8), MEH(KC_9),   MEH(KC_A),   MEH(KC_B),
        MEH(KC_C), MEH(KC_D), MEH(KC_E), MEH(KC_F),   MEH(KC_G),   MEH(KC_H),   KC_TRNS,
@@ -512,7 +512,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,     QK_BOOT,
        KC_TRNS, MEH(KC_I), MEH(KC_J), MEH(KC_K), MEH(KC_L),   MEH(KC_M),   MEH(KC_N),
                 MEH(KC_O), MEH(KC_P), MEH(KC_Q), MEH(KC_R),   MEH(KC_S),   MEH(KC_T),
        KC_TRNS, MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X),   MEH(KC_Y),   MEH(KC_Z),
