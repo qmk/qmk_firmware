@@ -83,7 +83,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   switch(id) {
 
     case UM_MHEN: {
-      return MACRO_TAP_HOLD_LAYER( record, MACRO(TYPE(KC_MHEN), END), KL_LOWER );
+      return MACRO_TAP_HOLD_LAYER( record, MACRO(TYPE(JP_MHEN), END), KL_LOWER );
     } break;
 
     case UM_HENK: {

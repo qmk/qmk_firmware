@@ -343,8 +343,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                 register_code(KC_LANG2);
                                 unregister_code(KC_LANG2);
                             } else {
-                                register_code(KC_MHEN);
-                                unregister_code(KC_MHEN);
+                                register_code(KC_INT5);
+                                unregister_code(KC_INT5);
                             }
                         } else {
                             register_code(l_inner);

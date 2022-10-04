@@ -39,7 +39,7 @@ enum custom_keycodes {
 // Use Dynamic macro
 
 // Fillers to make layering more clear
-#define LOWER   LT(_LOWER, KC_MHEN)    // タップで無変換     ホールドでLower
+#define LOWER   LT(_LOWER, JP_MHEN)    // タップで無変換     ホールドでLower
 #define RAISE   LT(_RAISE, JP_HENK)    // タップで変換       ホールドでRaise
 #define GUI_ESC GUI_T(KC_ESC)          // タップでESC        ホールドでGUI
 #define SFT_BS  SFT_T(KC_BSPC)         // タップでBackSpace  ホールドでSHIFT

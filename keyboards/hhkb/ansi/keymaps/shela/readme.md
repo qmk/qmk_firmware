@@ -53,7 +53,7 @@ Mac mode: Disabled
 
 | Key         | Keycode | Tap     | Hold    |
 | ----------- | ------- | ------- | ------- |
-| Left Inner  | L_INNER | KC_MHEN | KC_LALT |
+| Left Inner  | L_INNER | KC_INT5 | KC_LALT |
 | Left Outer  | L_OUTER | KC_LGUI | KC_LGUI |
 | Right Inner | R_INNER | KC_INT2 | KC_RALT |
 | Right Outer | R_OUTER | KC_RGUI | KC_RGUI |
