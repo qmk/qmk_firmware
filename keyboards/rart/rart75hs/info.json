@@ -1,7 +1,13 @@
 {
     "keyboard_name": "RART75 Hotswap",
+    "manufacturer": "Alabahuy",
     "url": "",
     "maintainer": "Alabahuy",
+    "usb": {
+        "vid": "0x414C",
+        "pid": "0x5575",
+        "device_version": "0.0.3"
+    },
     "layouts": {
             "LAYOUT_all": {
             "layout": [

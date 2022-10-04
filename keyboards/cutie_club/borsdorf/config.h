@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFB9C
-#define PRODUCT_ID 0x6D8A
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Cutie Club
-#define PRODUCT Borsdorf
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -35,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { A15, A14, B12, B5, B4 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A5, A4, A3, A2, A1, A0, F1, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

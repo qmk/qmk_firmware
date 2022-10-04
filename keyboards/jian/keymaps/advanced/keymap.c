@@ -212,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_symmetric(
-  RESET,   DEBUG,   KC_ASUP, CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,
+  QK_BOOT, DEBUG,   KC_ASUP, CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,
            KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,
            BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT,
                                       _______, SW_TG,   _______

@@ -70,7 +70,7 @@ void keyboard_post_init_kb(void) {
     wait_ms(150);
 
     // Initialise the LCD
-    lcd = qp_ili9341_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 3);
+    lcd = qp_ili9341_make_spi_device(240, 320, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);
     qp_init(lcd, QP_ROTATION_0);
 
     // Turn on the LCD and clear the display
@@ -129,7 +129,7 @@ RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 //----------------------------------------------------------
 // UI Placeholder, implemented in themes
 
-__attribute__((weak)) void draw_ui_user(void) {}
+__attribute__((weak)) void draw_ui_user(bool force_redraw) {}
 
 //----------------------------------------------------------
 // Housekeeping
@@ -223,7 +223,7 @@ void housekeeping_task_kb(void) {
 
     // Draw the UI
     if (kb_state.lcd_power) {
-        draw_ui_user();
+        draw_ui_user(false);
     }
 
     // Go into low-scan interrupt-based mode if we haven't had any matrix activity in the last 250 milliseconds

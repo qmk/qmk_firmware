@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "Portal 66",
+    "keyboard_name": "Portal 66 Soldered",
+    "manufacturer": "Parallel Limited",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x504C",
+        "pid": "0x5066",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_split_bs": "LAYOUT_65_ansi_blocker_split_bs",
         "LAYOUT_65_ansi": "LAYOUT_65_ansi_blocker",

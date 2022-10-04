@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Alicia Cook",
+  "manufacturer": "Ibnu D. Aji",
   "url": "https://github.com/ibnuda/alicia-cook",
   "maintainer": "ibnuda",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6955",
+    "device_version": "8.9.9"
+  },
   "layouts": {
       "LAYOUT_all": {
           "layout": [

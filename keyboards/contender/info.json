@@ -1,7 +1,13 @@
 {
     "keyboard_name": "contender",
+    "manufacturer": "sotoba",
     "url": "https://github.com/sotoba/contender",
     "maintainer": "sotoba",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xC010",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

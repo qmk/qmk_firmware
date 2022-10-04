@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Jones",
+  "manufacturer": "jpskenn",
   "url": "https://github.com/jpskenn/Jones",
   "maintainer": "jpskenn",
+  "usb": {
+    "vid": "0xB9DD",
+    "pid": "0x175A",
+    "device_version": "0.3.0"
+  },
   "layouts": {
     "LAYOUT_ansi": {
       "layout": [

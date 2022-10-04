@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4853
-#define PRODUCT_ID      0x980C
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    Hasu
-#define PRODUCT         FC980C
-
 /* Maximum dynamic keymap layers (constrained by EEPROM space) */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
@@ -35,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define MATRIX_ROW_PINS { B0, B2, B4, B5, B6 }
 // #define MATRIX_COL_PINS { F5, B1, F0, F1, F4, B3, D7, D6, D4, D5, D3, D2, D1, D0 }
-// #define UNUSED_PINS
 
 //#define DIODE_DIRECTION
 

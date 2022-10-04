@@ -1,7 +1,13 @@
 {
     "keyboard_name": "PLX",
+    "manufacturer": "Peac Design",
     "url": "https://peac.design/",
     "maintainer": "2Moons-JP",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xE972",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_ansi_tsangan"
     },

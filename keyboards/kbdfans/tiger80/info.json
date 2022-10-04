@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "tiger80", 
+    "keyboard_name": "Tiger80", 
+    "manufacturer": "KBDFans",
     "url": "", 
     "maintainer": "kbdfans", 
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x0011",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_tkl_f13_ansi_tsangan"
     },

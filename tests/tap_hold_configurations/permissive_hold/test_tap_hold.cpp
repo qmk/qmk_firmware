@@ -46,9 +46,9 @@ TEST_F(PermissiveHold, tap_regular_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release regular key */
-    EXPECT_REPORT(driver, (KC_LSHIFT));
-    EXPECT_REPORT(driver, (KC_LSHIFT, regular_key.report_code));
-    EXPECT_REPORT(driver, (KC_LSHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, regular_key.report_code));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     regular_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -81,9 +81,9 @@ TEST_F(PermissiveHold, tap_mod_tap_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release second mod-tap-hold key */
-    EXPECT_REPORT(driver, (KC_LSHIFT));
-    EXPECT_REPORT(driver, (KC_LSHIFT, second_mod_tap_hold_key.report_code));
-    EXPECT_REPORT(driver, (KC_LSHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, second_mod_tap_hold_key.report_code));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     second_mod_tap_hold_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
