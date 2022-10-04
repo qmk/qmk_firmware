@@ -59,7 +59,7 @@
 
         {"label":"Enter", "x":8, "y":3.2, "h":1.5},
         {"label":"Raise", "x":9, "y":3.7},
-        {"label":"Alt / KC_HAEN", "x":10, "y":3.7}
+        {"label":"Alt", "x":10, "y":3.7}
       ]
     },
     "LAYOUT_split_3x5_3": {
@@ -106,7 +106,7 @@
 
         {"label":"Enter", "x":7, "y":3.2, "h":1.5},
         {"label":"Raise", "x":8, "y":3.7},
-        {"label":"Alt / KC_HAEN", "x":9, "y":3.7}
+        {"label":"Alt", "x":9, "y":3.7}
       ]
     }
   }

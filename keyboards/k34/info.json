@@ -51,7 +51,7 @@
                 { "label": "Lower", "x": 4, "y": 3.7 },
 
                 { "label": "Raise", "x": 8, "y": 3.7 },
-                { "label": "Alt / KC_HAEN", "x": 9, "y": 3.7 }
+                { "label": "Alt", "x": 9, "y": 3.7 }
             ]
         }
     }
