@@ -60,9 +60,9 @@ Mac mode: Disabled
 
 Mac mode: Enabled
 
-| Key         | Keycode | Tap      | Hold    |
-| ----------- | ------- | -------- | ------- |
-| Left Inner  | L_INNER | KC_LANG2 | KC_LCMD |
-| Left Outer  | L_OUTER | KC_LOPT  | KC_LOPT |
-| Right Inner | R_INNER | KC_LANG1 | KC_RCMD |
-| Right Outer | R_OUTER | KC_ROPT  | KC_ROPT |
+| Key         | Keycode | Tap     | Hold    |
+| ----------- | ------- | ------- | ------- |
+| Left Inner  | L_INNER | KC_LNG2 | KC_LCMD |
+| Left Outer  | L_OUTER | KC_LOPT | KC_LOPT |
+| Right Inner | R_INNER | KC_LNG1 | KC_RCMD |
+| Right Outer | R_OUTER | KC_ROPT | KC_ROPT |

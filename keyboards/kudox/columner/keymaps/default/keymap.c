@@ -14,8 +14,8 @@
 #define KC_LGENT MT(KC_LGUI, KC_ENT)
 #define KC_RGENT MT(KC_RGUI, KC_ENT)
 
-#define KC_L1NUM LT(_NUMB, KC_LANG1)
-#define KC_L2SYM LT(_SYMB, KC_LANG2)
+#define KC_L1NUM LT(_NUMB, KC_LNG1)
+#define KC_L2SYM LT(_SYMB, KC_LNG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

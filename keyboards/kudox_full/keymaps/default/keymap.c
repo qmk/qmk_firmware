@@ -16,8 +16,8 @@ enum layer_number {
 
 // Shortcut to make keymap more readable
 #define LT_AESC LALT_T(KC_ESC)
-#define LT_ALN1 LALT_T(KC_LANG1)
-#define LT_ALN2 LALT_T(KC_LANG2)
+#define LT_ALN1 LALT_T(KC_LNG1)
+#define LT_ALN2 LALT_T(KC_LNG2)
 #define LT_GENT LGUI_T(KC_ENT)
 #define LT_GSPC LGUI_T(KC_SPC)
 #define LT_F1F  LT(_FN1, KC_F)

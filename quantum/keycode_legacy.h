@@ -22,15 +22,6 @@
 #define KC_LOCKING_CAPS   KC_LOCKING_CAPS_LOCK
 #define KC_LOCKING_NUM    KC_LOCKING_NUM_LOCK
 #define KC_LOCKING_SCROLL KC_LOCKING_SCROLL_LOCK
-#define KC_LANG1          KC_LANGUAGE_1
-#define KC_LANG2          KC_LANGUAGE_2
-#define KC_LANG3          KC_LANGUAGE_3
-#define KC_LANG4          KC_LANGUAGE_4
-#define KC_LANG5          KC_LANGUAGE_5
-#define KC_LANG6          KC_LANGUAGE_6
-#define KC_LANG7          KC_LANGUAGE_7
-#define KC_LANG8          KC_LANGUAGE_8
-#define KC_LANG9          KC_LANGUAGE_9
 #define KC_ALT_ERASE      KC_ALTERNATE_ERASE
 #define KC_SYSREQ         KC_SYSTEM_REQUEST
 
