@@ -970,7 +970,7 @@ void send_extra(uint8_t report_id, uint16_t data) {
 #endif
 }
 
-void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
@@ -988,13 +988,8 @@ void send_programmable_button(uint32_t data) {
             return;
         }
     }
-    static report_programmable_button_t report = {
-        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
-    };
 
-    report.usage = data;
-
-    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report));
+    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(report_programmable_button_t));
     osalSysUnlock();
 #endif
 }
