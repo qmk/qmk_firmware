@@ -243,7 +243,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
 }
 
 // Indicators
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock || caps_word_enabled) {
         // Left master
         rgb_matrix_set_color(3, RGB_RED);
@@ -262,6 +262,7 @@ void rgb_matrix_indicators_user(void) {
         // Right master
         rgb_matrix_set_color(23, RGB_GREEN);
     }
+    return false;
 }
 
 // Quantum keys / Abbreviations

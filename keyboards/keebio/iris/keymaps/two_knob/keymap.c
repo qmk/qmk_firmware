@@ -22,7 +22,7 @@ enum custom_layers {
 
 /* Rotary encoder variables used to hold down Command (GUI) key while cycling through open programs. */
 bool is_cmd_tab_active = false;
-uint16_t cmd_tab_timer = 0;  
+uint16_t cmd_tab_timer = 0;
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
@@ -64,7 +64,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  * You can download/upload the two_know.json to the configurator:
  * https://config.qmk.fm/#/keebio/iris/rev6a/LAYOUT
  *
- * If you make changes and download the json, you can run qmk json2c two_knob.json to get converted text. 
+ * If you make changes and download the json, you can run qmk json2c two_knob.json to get converted text.
  * You can copy and paste it here.
  * You will have to reneame the array keys from ints to the custom keycode names.
  *
@@ -173,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * |64|--|--|63|--|--|--|    |--|--|--|29|--|--|30|
  *             |--|62|--|    |--|28|--|
  */
-// void rgb_matrix_indicators_user(void) {
+// bool rgb_matrix_indicators_user(void) {
 //   if (IS_LAYER_ON(1)) {
 //     /* Upperleft most key red: */
 //     rgb_matrix_set_color(0,255,0,0);
@@ -217,6 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     rgb_matrix_set_color(02, 255, 200, 0);
 //     rgb_matrix_set_color(03, 255, 235, 0);
 //   }
+//    return false;
 // }
 
 /**
@@ -225,8 +226,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * This can't be programmed through configurator. You must do it here.
  *
  * This uses the amazing "Encoder map" feature which replicates the normal keyswitch layer handling functionality, but with encoders.
- * https://docs.qmk.fm/#/feature_encoders?id=encoder-map 
- * 
+ * https://docs.qmk.fm/#/feature_encoders?id=encoder-map
+ *
  * Uses a variant of the Super-alt-tab macro to switch between open applications on a mac. (Command-tab)
  * https://docs.qmk.fm/#/feature_macros?id=super-alt%e2%86%aftab
  */

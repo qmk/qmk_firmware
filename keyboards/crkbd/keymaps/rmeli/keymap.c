@@ -29,12 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //      https://github.com/foostan/crkbd/blob/main/corne-classic/doc/buildguide_en.md
 
 // Change LED color to red when CAPS LOCK is active
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(26, 255, 0, 0);
         // Only works with SPLIT_LED_STATE_ENABLE
         rgb_matrix_set_color(53, 255, 0, 0);
     }
+    return false;
 }
 
 // + ---- +

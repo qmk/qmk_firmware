@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //**************** MATRIX SCANS *********************//
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
     #ifdef RGB_MATRIX_ENABLE
 
@@ -192,6 +192,7 @@ void rgb_matrix_indicators_user(void) {
     }
 
     #endif /* RGB_MATRIX */
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

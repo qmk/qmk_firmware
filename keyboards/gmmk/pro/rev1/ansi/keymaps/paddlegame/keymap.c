@@ -77,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT(
-        KC_SLEP,  KC_MYCM,  KC_WHOM,  KC_CALC,  KC_MSEL,  KC_MPRV,  KC_MNXT,  KC_MPLY,  KC_MSTP,  KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  KC_INS,             _______, 
-        RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_HUI,  _______,            RGB_M_P, 
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TO(_MO2), RGB_SAD,  RGB_SAI,  QK_BOOT,            RGB_M_B, 
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_RMOD, RGB_MOD,            _______,            RGB_M_R, 
-        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  RGB_VAI,  RGB_M_SW, 
+        KC_SLEP,  KC_MYCM,  KC_WHOM,  KC_CALC,  KC_MSEL,  KC_MPRV,  KC_MNXT,  KC_MPLY,  KC_MSTP,  KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  KC_INS,             _______,
+        RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_HUI,  _______,            RGB_M_P,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TO(_MO2), RGB_SAD,  RGB_SAI,  QK_BOOT,            RGB_M_B,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_RMOD, RGB_MOD,            _______,            RGB_M_R,
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  RGB_VAI,  RGB_M_SW,
         _______,  KC_WINLK, _______,                                _______,                                _______,  _______,  _______,  RGB_SPD,  RGB_VAD,  RGB_SPI
     ),
 
@@ -180,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	}
 
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
-    void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 		switch(get_highest_layer(layer_state)) {
 			case _FN1:
 			// Light up FN layer keys
@@ -201,11 +201,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				if (rgb_value.g > 0) { --rgb_value.g; }
 				else { ++rgb_value.r; }
 			}
-			
+
             for (uint8_t i=0; i<ARRAY_SIZE(LED_RGB); i++) {
                 rgb_matrix_set_color(LED_RGB[i], rgb_value.r, rgb_value.g, rgb_value.b);
             }
-			
+
             for (uint8_t i=0; i<ARRAY_SIZE(LED_WHITE); i++) {
                 rgb_matrix_set_color(LED_WHITE[i], RGB_WHITE);
             }
@@ -459,6 +459,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         if (keymap_config.no_gui) {
             rgb_matrix_set_color(LED_LWIN, RGB_RED);  //light up Win key when disabled
         }
+    return false;
     }
 
 #endif

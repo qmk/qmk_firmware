@@ -67,9 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     led_t host_leds = host_keyboard_led_state();
     if (host_leds.caps_lock) {
         rgb_matrix_set_color(0, 254, 189, 41); // set caps lock led color first number is index, R G B
     }
+    return false;
 }

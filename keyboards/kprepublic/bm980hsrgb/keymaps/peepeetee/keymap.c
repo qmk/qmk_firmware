@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
     led_t host_leds = host_keyboard_led_state();
     if (host_leds.num_lock) {
@@ -58,4 +58,5 @@ void rgb_matrix_indicators_user(void) {
     }
         //set_layer_color(get_highest_layer(layer_state));
 
+    return false;
 }

@@ -93,12 +93,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(24, 0, 0, 0);
     rgb_matrix_set_color(30, 0, 0, 0);
     rgb_matrix_set_color(35, 0, 0, 0);
     rgb_matrix_set_color(36, 0, 0, 0);
     rgb_matrix_set_color(41, 0, 0, 0);
+    return false;
 }
 #endif

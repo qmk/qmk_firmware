@@ -115,9 +115,9 @@ void terrazzo_scroll_pixel(bool clockwise) {
         terrazzo_led_index = terrazzo_led_index + 1;
     } else {
         terrazzo_led_index = terrazzo_led_index - 1;
-    } 
-    
-    if (terrazzo_led_index >= LED_MATRIX_LED_COUNT) {
+    }
+
+    if (terrazzo_led_index >= DRIVER_LED_TOTAL) {
         terrazzo_led_index = 0;
     } else if (terrazzo_led_index <= 0 ) {
         terrazzo_led_index = LED_MATRIX_LED_COUNT - 1;
@@ -156,8 +156,12 @@ void terrazzo_render(void) {
     }
 }
 
-void led_matrix_indicators_kb(void) {
+bool led_matrix_indicators_kb(void) {
+    if (!led_matrix_indicators_user()) {
+        return false;
+    }
     terrazzo_render();
+    return true;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

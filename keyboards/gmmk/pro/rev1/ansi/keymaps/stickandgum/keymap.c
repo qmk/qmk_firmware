@@ -218,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         set_rgb_caps_leds_on();
     } else {
@@ -233,6 +233,7 @@ void rgb_matrix_indicators_user(void) {
         set_rgb_scroll_leds_off();
       }
     }
+    return false;
 }
 
 // RGB led number layout, function of the key

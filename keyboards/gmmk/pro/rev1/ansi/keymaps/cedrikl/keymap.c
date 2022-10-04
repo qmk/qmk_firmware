@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
 
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
-    void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         loop_colorset(LED_REGION_A,      ARRAY_SIZE(LED_REGION_A),
                                  hsv_cl_blue);
         loop_colorset(LED_REGION_B,      ARRAY_SIZE(LED_REGION_B),
@@ -158,5 +158,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             loop_colorset(LED_REGION_CAPS, ARRAY_SIZE(LED_REGION_CAPS),
                           hsv_cl_bad);
         }
+    return false;
     }
 #endif

@@ -8,10 +8,10 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-enum layers { 
-    _QWERTY, 
-    _LOWER, 
-    _RAISE, 
+enum layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
     _NUMP,
 };
 
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY] = LAYOUT
     )};
 
 //Per key lights
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
@@ -179,7 +179,7 @@ void rgb_matrix_indicators_user(void) {
                     case 15:                                    // C key off
                     case 20:                                    // X key off
                     case 21:                                    // Z key off
-                    
+
                     case 26:                                    // shift key off
                     case 52 ... 53:                             // right column off
                         rgb_matrix_set_color(i, 0, 0, 0);       // off
@@ -256,6 +256,7 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(14, 0, 255, 0);            // Green layer active
             }
     }
+    return false;
 };
 #endif
 

@@ -288,7 +288,7 @@ void set_layer_color(int layer) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
     led_t host_leds = host_keyboard_led_state();
     if (host_leds.caps_lock) {
@@ -300,4 +300,5 @@ void rgb_matrix_indicators_user(void) {
     }
         set_layer_color(get_highest_layer(layer_state));
 
+    return false;
 }

@@ -82,8 +82,7 @@ CPS, A,   S,   D,   F,   G,   H,   J,   K,   L,   COL, QOT,  RETURN,   +
 SFT, Z,   X,   C,   V,   B,   N,   M,   COM, DOT, SLS, SHIFT,    UP,   0
 CTL, GUI, ALT,        SPACEBAR,              ALT, FN, CTL, LFT, DWN, RIT
 */
-void rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
 	if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
 		rgb_matrix_set_color(8, 0xFF, 0xFF, 0xFF);
 	}
@@ -208,16 +207,7 @@ void rgb_matrix_indicators_user(void)
 		break;
 		}
 	}
-}
-
-void matrix_init_user(void)
-{
-	//user initialization
-}
-
-void matrix_scan_user(void)
-{
-	//user matrix
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record)

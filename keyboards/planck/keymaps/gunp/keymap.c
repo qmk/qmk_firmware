@@ -275,10 +275,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-  void rgb_matrix_indicators_kb(void) {
+  bool rgb_matrix_indicators_user(void) {
     // `42` is the index of the middle light at the bottom row (in planck light)
     // it is disabled because it does not have a cover, hence irritates my eyes
     rgb_matrix_set_color(42, 0, 0, 0);
+    return false;
   }
 #endif
 

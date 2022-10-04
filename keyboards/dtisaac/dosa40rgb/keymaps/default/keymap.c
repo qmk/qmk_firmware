@@ -52,20 +52,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void rgb_matrix_indicators_user(void)
-{
- 	if (host_keyboard_led_state().caps_lock)
-	{
-		rgb_matrix_set_color(22, 200, 200, 200);
-	}
-	if (IS_LAYER_ON(_L1))
-	{
-		rgb_matrix_set_color(35, 0, 200, 200);
-	}
-	if (IS_LAYER_ON(_L2))
-	{
-		rgb_matrix_set_color(22, 200, 0, 200);
-	}
+bool rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(22, 200, 200, 200);
+    }
+    if (IS_LAYER_ON(_L1)) {
+        rgb_matrix_set_color(35, 0, 200, 200);
+    }
+    if (IS_LAYER_ON(_L2)) {
+        rgb_matrix_set_color(22, 200, 0, 200);
+    }
+    return false;
 }
 
 void keyboard_pre_init_user(void) {

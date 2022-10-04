@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______,                   _______,                   _______, _______, _______,          _______, _______, _______),
 };
 // Runs constantly in the background, in a loop.
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (rgb_matrix_get_flags() & (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER)) {
 
         if (IS_LAYER_ON(_UTILITY)) {
@@ -108,6 +108,7 @@ void rgb_matrix_indicators_user(void) {
         }
 
     }
+    return false;
 }
 
 

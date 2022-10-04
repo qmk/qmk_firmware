@@ -475,7 +475,7 @@ void eeconfig_init_user(void) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     uint8_t i;
     // uint32_t mode = rgblight_get_mode();
 
@@ -525,6 +525,7 @@ void rgb_matrix_indicators_user(void) {
                 break;
         }
     }
+    return false;
 }
 #endif
 

@@ -154,11 +154,7 @@ void keyboard_post_init_user(void) {
     isRGBOff = false;
 }
 
-void rgb_matrix_indicators_user(void) {
-    // do nothing, override base <<weak>> function to disable it
-}
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     uint8_t v = MIN( rgblight_get_val() + RGB_BRIGHTER_BY, 0xFF );
     uint8_t current_layer = get_highest_layer(layer_state);
@@ -239,18 +235,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
             break;
     }
-}
-
-/*
- * Sleep mode stuff (untested)
- */
-
-void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
+    return false;
 }
 
 #endif

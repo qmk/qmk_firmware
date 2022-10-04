@@ -120,12 +120,12 @@ void led_matrix_task(void);
 // This runs after another backlight effect and replaces
 // values already set
 void led_matrix_indicators(void);
-void led_matrix_indicators_kb(void);
-void led_matrix_indicators_user(void);
+bool led_matrix_indicators_kb(void);
+bool led_matrix_indicators_user(void);
 
 void led_matrix_indicators_advanced(effect_params_t *params);
-void led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
-void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
+bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
+bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
 void led_matrix_init(void);
 

@@ -1,17 +1,17 @@
 /* Copyright 2021 Yuannan (https://github.com/yuannan)
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
@@ -169,7 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 				}
 			}
 			break;
-    } 
+    }
 
     return true;
 };
@@ -179,20 +179,21 @@ RGB get_inverted_RGB(void){
 	current_HSV.h = 255 - current_HSV.h;
 	current_HSV.s = 255;
 	current_HSV.v = 255;
-	
+
 	return hsv_to_rgb(current_HSV);
 }
 
 // Move Caps indicator to the ctrl key where it belongs
-void rgb_matrix_indicators_user(void){
+bool rgb_matrix_indicators_user(void){
 	RGB inverted_RGB = get_inverted_RGB();
     if (host_keyboard_led_state().caps_lock){
         rgb_matrix_set_color(58, inverted_RGB.r, inverted_RGB.g, inverted_RGB.b);
     }
+    return false;
 }
 
 // show coloured indicator for layers with a keybind
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
     uint8_t layer = get_highest_layer(layer_state);
     if (layer > 0) {
 		RGB inverted_RGB = get_inverted_RGB();
@@ -207,4 +208,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
             }
         }
     }
+    return false;
 }

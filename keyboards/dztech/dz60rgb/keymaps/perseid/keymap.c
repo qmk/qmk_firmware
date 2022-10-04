@@ -34,8 +34,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
   }
 }
 
-void rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
 	if (!g_suspend_state) {
 		switch (get_highest_layer(layer_state)) {
 		case _QWERTY:
@@ -113,6 +112,7 @@ void rgb_matrix_indicators_user(void)
 		rgb_matrix_set_color(62, 0x00, 0x00, 0x00);
 		break;
 	}
+    return false;
 }
 
 

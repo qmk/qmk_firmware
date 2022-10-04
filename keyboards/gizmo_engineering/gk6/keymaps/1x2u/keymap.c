@@ -93,12 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void)
+bool rgb_matrix_indicators_user(void)
 {
     rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(30, 0, 0, 0);
     rgb_matrix_set_color(35, 0, 0, 0);
     rgb_matrix_set_color(42, 0, 0, 0);
+    return false;
 }
 
 void keyboard_pre_init_user(void) {

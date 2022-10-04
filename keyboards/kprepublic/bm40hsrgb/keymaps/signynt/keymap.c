@@ -67,7 +67,7 @@ void matrix_scan_user(void) {
 
 //layer led colors
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
 //game indicators
 
@@ -160,6 +160,7 @@ if(IS_LAYER_ON(NSSL)) {
   rgb_matrix_set_color(28, 0, 50, 1.9);
   rgb_matrix_set_color(29, 0, 50, 1.9);
 
+    return false;
 }
 
 //capslock leds
