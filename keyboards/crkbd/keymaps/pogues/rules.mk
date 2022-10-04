@@ -15,6 +15,5 @@ LTO_ENABLE      = yes
 
 SRC += features/casemodes.c
 SRC += features/num_word.c
-SRC += features/layer_lock.c
 SRC += features/custom_shift_keys.c	
 SRC += features/compose.c

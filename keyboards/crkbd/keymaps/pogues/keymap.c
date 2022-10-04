@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/num_word.h"
 #include "features/compose.h"
 #include "features/custom_shift_keys.h"
-#include "features/layer_lock.h"
 
 enum userspace_layers {
     LCMK = 0,
@@ -71,8 +70,7 @@ enum userspace_layers {
 #define SFT_QUO SFT_T(KC_QUOT)
 
 enum custom_keycodes {
-    MY_LLCK = SAFE_RANGE,   // layer lock key
-    MY_COMP,
+    MY_COMP = SAFE_RANGE,
 };
 
 // tap dance key enumaration
@@ -112,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            MY_LLCK, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
+              KC_NO, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -123,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX,   KC_NO, KC_UNDS,   KC_NO, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            MY_LLCK, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT, KC_BSPC,
+              KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT, KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -141,8 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               _______, TO(LCMK), _______,     KC_F10,    KC_NO, _______
                                             //`--------------------------'  `--------------------------'
     ),
-    // LMOV is entered by the combo of fu, the only difference to LMOV2 is the layer lock / LMOV2 is entered as a tristate layer
-    // holding both LNUM and LSYM.
+    // LMOV is entered by the combo of fu, LMOV2 is the same but entered with the tristate layer on num/sym 
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
@@ -158,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            MY_LLCK, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
+              KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -183,9 +180,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * user specific key processing
  ******************************************************************************/
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    if (!process_layer_lock(keycode, record, MY_LLCK)) {
-        return false;
-    }
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
     }
@@ -495,10 +489,7 @@ void layer_dance_reset(uint8_t layer,  td_tap_t *tap_state, qk_tap_dance_state_t
         case DOUBLE_TAP:
             break;
         case HELD:
-            // with the layer lock feature we want to check if the layer has been locked.
-            if (!is_layer_locked(layer)) {
-                layer_off(layer);
-            }
+            layer_off(layer);
             break;
     }
     tap_state->step = 0;
@@ -509,7 +500,6 @@ void layer_dance_reset(uint8_t layer,  td_tap_t *tap_state, qk_tap_dance_state_t
  *   single tap enters num_word mode, or exits if we are in num_word mode or the number layer
  *   double tap enters the layer as TO(layer)
  *   hold enters the layer as MO(layer) until released
- * it also supports the layer being locked (TODO do we still use this)
  */
 void tapdance_lnum_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state_lnum.step = current_dance_step(state);
@@ -517,8 +507,6 @@ void tapdance_lnum_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             if (is_num_word_enabled()) {
                 disable_num_word(LNUM);
-            } else if (is_layer_locked(LNUM)) {
-                layer_lock_off(LNUM);
             } else if (layer_state_is(LNUM)) {
                 layer_off(LNUM);
             } else {
@@ -543,7 +531,6 @@ void tapdance_lnum_reset(qk_tap_dance_state_t *state, void *user_data) {
  *   single tap enters the layer as one shot, or exits if we are in the layer
  *   double tap enters the layer as TO(layer)
  *   hold enters the layer as MO(layer) until released
- * it also supports the layer lock being in place on the held layer (TODO do we use this)
  */
 void tapdance_lsym_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state_lsym.step = current_dance_step(state);
@@ -667,10 +654,8 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // check for the tristate layer, but only if the layer lock is not on.
-    if (!is_layer_locked(LMOV2)) {
-        state = update_tri_layer_state(state, LNUM, LSYM, LMOV2);
-    }
+    // check for the tristate layer
+    state = update_tri_layer_state(state, LNUM, LSYM, LMOV2);
 
     // set the led status to indicate layer
     rgblight_set_layer_state(1, layer_state_cmp(state, LCMK));
