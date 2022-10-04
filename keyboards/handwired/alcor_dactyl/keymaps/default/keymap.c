@@ -1,23 +1,26 @@
+// Copyright 2022 Ethan (@rocketstrong)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_alcor(
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-                                        KC_SPC, KC_SPC,
-                                            KC_SPC, KC_SPC,
-                                            KC_SPC, KC_SPC,
+    [0] = LAYOUT(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO,
+                                        KC_NO, KC_NO,
+                                            KC_NO, KC_NO,
+                                            KC_NO, KC_NO,
 //-----------------------------------------------------------------------
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-        KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-                KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-                                KC_SPC, KC_SPC, KC_SPC, KC_SPC,
-                KC_SPC, KC_SPC,
-            KC_SPC, KC_SPC,
-            KC_SPC, KC_SPC
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                                KC_NO, KC_NO, KC_NO, KC_NO,
+                KC_NO, KC_NO,
+            KC_NO, KC_NO,
+            KC_NO, KC_NO
     )
 };
