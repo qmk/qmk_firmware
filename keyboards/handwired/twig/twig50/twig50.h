@@ -18,4 +18,3 @@
 	{ K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, ___, K2D }, \
 	{ K30, K31, K32, ___, K34, K35, ___, K37, K38, K39, K3A, K3B, ___, K3D }  \
 }
-#define LAYOUT LAYOUT_diag_4x14
