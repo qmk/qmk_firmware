@@ -108,8 +108,7 @@ enum custom_keycodes {
 #define COMBINED            10 // combined numbers and symbols layer
 #define ANDROID_STUDIO     11 // android studio specific layer
 #define VSCODE             12 // visual studio code specific layer
-#define VSCODE_NAV         13 // visual studio code, navigation within IDE
-#define SHORTCUTS          14 // shortcuts to be intercepted by autohotkey
+#define SHORTCUTS          13 // shortcuts to be intercepted by autohotkey
 
 
 
@@ -136,6 +135,8 @@ enum custom_keycodes {
 #define AS_BM_LIST LSFT(KC_F11)
 
 // visual studio code shortcuts
+// ============================
+
 #define VS_FILE LCTL(KC_P)
 #define VS_OPEN_FILE LCTL(KC_O)
 #define VS_LINE LCTL(KC_G)
@@ -158,25 +159,31 @@ enum custom_keycodes {
 #define VS_CMT_LINE MEH(KC_F18)
 #define VS_DEL_LINE LCTL(LSFT(KC_K))
 #define VS_COPYLINEDOWN LSFT(LALT(KC_DOWN))
+
 // visual studio bookmark commands
-#define VS_BM_LIST LCTL(LALT(KC_L))
-#define VS_BM_LISTALL LCTL(LALT(KC_A))
 #define VS_BM_PREV LCTL(LALT(KC_P))
 #define VS_BM_NEXT LCTL(LALT(KC_N))
 #define VS_BM_TOGGLE LCTL(LALT(KC_K))
-#define VS_BM_CLEARALL LCTL(LALT(KC_C))
+
 // visual studio code navigation shortcuts
 #define VS_FOCUS_EDITOR MEH(KC_F8)
 #define VS_FOCUS_TERMINAL MEH(KC_F9)
 #define VS_TOGGLE_TERMINAL MEH(KC_F10)
 #define VS_CLEAR_TERMINAL MEH(KC_F11)
-#define VS_TERMINAL_PREV MEH(KC_F12)
-#define VS_TERMINAL_NEXT MEH(KC_F13)
-#define VS_TERMINAL_NEW MEH(KC_F14)
-#define VS_TERMINAL_DETACH MEH(KC_F15)
-#define VS_TERMINAL_RENAME MEH(KC_F16)
-#define VS_JUMPY MEH(KC_F17)
-#define VS_FIND MEH(KC_F19)
+
+
+// unused vscode shortcuts
+// #define VS_BM_LIST LCTL(LALT(KC_L))
+// #define VS_BM_LISTALL LCTL(LALT(KC_A))
+// #define VS_BM_CLEARALL LCTL(LALT(KC_C))
+
+// #define VS_TERMINAL_PREV MEH(KC_F12)
+// #define VS_TERMINAL_NEXT MEH(KC_F13)
+// #define VS_TERMINAL_NEW MEH(KC_F14)
+// #define VS_TERMINAL_DETACH MEH(KC_F15)
+// #define VS_TERMINAL_RENAME MEH(KC_F16)
+// #define VS_JUMPY MEH(KC_F17)
+// #define VS_FIND MEH(KC_F19)
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -462,10 +469,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // vscode shortcuts shortcuts
   [VSCODE] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_NO,  KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,           KC_TRNS,             VS_CMT_BLOCK,      VS_CMT_LINE,         KC_TRNS,   KC_TRNS,
+       KC_TRNS,VS_CLEAR_TERMINAL, VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,     KC_TRNS,
+       KC_TRNS,KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,   KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -474,42 +481,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
-       VS_CMT_LINE,  VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
+       KC_TRNS,      VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       VS_CMT_BLOCK, VS_FIND,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
+       KC_TRNS,      KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
-                                       VS_COMMANDS,   VS_BM_LIST,       VS_BM_LISTALL,       VS_CLOSEPANEL,   VS_BM_CLEARALL,
+                                       VS_COMMANDS,   KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, VS_DEL_LINE, KC_TRNS
   ),
 
-    // vscode navigation shortcuts
-  [VSCODE_NAV] = LAYOUT_ergodox(
-       // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
-       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
-                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,   VS_JUMPY,        KC_TRNS,            KC_TRNS,
-       KC_TRNS, VS_CLEAR_TERMINAL,   VS_TERMINAL_PREV,  VS_TERMINAL_NEXT,  VS_TERMINAL_NEW, VS_TERMINAL_DETACH, VS_TERMINAL_RENAME,
-                                       // bottom row
-                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-  ),
 
   [COMBINED] = LAYOUT_ergodox(
 
