@@ -498,12 +498,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS, RCTL(KC_W), RCTL(KC_T)
     ),
 
+    // https://support.brave.com/hc/en-us/articles/360032272171-What-keyboard-shortcuts-can-I-use-in-Brave-
     [BROWSER_CONTROL_IOS] = LAYOUT_ergodox(
 		   // left hand
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
            KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,      KC_BTN2, KC_TRNS,
            KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,      KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_TRNS,       WINDOWS10_WORKSPACE_LEFT,   WINDOWS10_WORKSPACE_RIGHT,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       WINDOWS10_WORKSPACE_LEFT,    RGUI(KC_RIGHT), KC_TRNS, KC_TRNS,
 		   // bottom row
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
 
@@ -511,15 +512,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                         KC_TRNS,
                                       KC_TRNS, KC_TRNS, KC_TRNS,
           // right hand
-           KC_TRNS,  KC_TRNS,   KC_TRNS,            KC_TRNS,              KC_TRNS,       KC_TRNS,       KC_TRNS,
-           KC_TRNS,  KC_UP,     KC_PGUP,            KC_PGDN,              KC_MS_WH_UP,   KC_TRNS,       KC_TRNS,
+           KC_TRNS,  KC_TRNS,   KC_TRNS,             KC_TRNS,              KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS,  KC_UP,     KC_PGUP,             KC_PGDN,              KC_MS_WH_UP,   KC_TRNS,       KC_TRNS,
                      KC_DOWN,   RGUI(LALT(KC_LEFT)), RGUI(LALT(KC_RIGHT)), KC_MS_WH_DOWN, LALT(KC_LEFT), KC_TRNS,
-           KC_TRNS,  KC_TRNS,   RCTL(KC_1),         RCTL(KC_9),           KC_F6,         KC_F5,         KC_TRNS,
+           KC_TRNS,  KC_TRNS,   RCTL(KC_1),          RCTL(KC_9),           RGUI(KC_L),    KC_F5,         KC_TRNS,
                                 // bottom row
-                                RCTL(LSFT(KC_TAB)), RCTL(KC_TAB),      KC_TRNS,       KC_TRNS,       KC_TRNS,
+                                RCTL(LSFT(KC_TAB)),  RCTL(KC_TAB),         KC_TRNS,       KC_TRNS,       KC_TRNS,
            KC_TRNS, KC_TRNS,
            KC_TRNS,
-           KC_TRNS, RCTL(KC_W), RCTL(KC_T)
+           KC_TRNS, RGUI(KC_W), RGUI(KC_T)
     ),
 
   // shortcuts to be intercepted by autohotkey
@@ -530,10 +531,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MEH(KC_6), MEH(KC_7), MEH(KC_8), MEH(KC_9),   MEH(KC_A),   MEH(KC_B),
        MEH(KC_C), MEH(KC_D), MEH(KC_E), MEH(KC_F),   MEH(KC_G),   MEH(KC_H),   KC_TRNS,
                // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TG(BASE_IOS),
                                        // thumb cluster
                                        KC_TRNS,KC_TRNS,
-                                               TG(BASE_IOS),
+                                               KC_TRNS,
                                KC_TRNS,DF(BASE),DF(BASE_IOS),
        // right hand
        KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,     QK_BOOT,
@@ -786,6 +787,7 @@ void matrix_scan_user(void) {
     switch (layer) {
         case BASE_IOS:
             ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
             break;
         case COMBINED:
             ergodox_right_led_2_on();
