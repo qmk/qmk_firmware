@@ -149,7 +149,7 @@ enum custom_keycodes {
 #define VS_TABLEFT MEH(KC_F1)
 #define VS_TABRIGHT MEH(KC_F2)
 #define VS_CLOSETAB MEH(KC_F3)
-#define VS_CLOSEPANEL LCTL(LSFT(KC_W))
+
 #define VS_GROUP_1 LCTL(KC_1)
 #define VS_GROUP_2 LCTL(KC_2)
 #define VS_TERMINAL LCTL(KC_GRAVE)
@@ -184,6 +184,7 @@ enum custom_keycodes {
 // #define VS_TERMINAL_RENAME MEH(KC_F16)
 // #define VS_JUMPY MEH(KC_F17)
 // #define VS_FIND MEH(KC_F19)
+// #define VS_CLOSEPANEL LCTL(LSFT(KC_W))
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
