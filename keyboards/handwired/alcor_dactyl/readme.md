@@ -1,6 +1,6 @@
 # alcor_dactyl
 
-![alcor_dactyl](https://i.imgur.com/F0E1JCQ.jpg)
+![alcor_dactyl](https://i.imgur.com/F0E1JCQh.jpg)
 
 *A short description of the keyboard/project*
 
