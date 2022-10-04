@@ -499,12 +499,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     // https://support.brave.com/hc/en-us/articles/360032272171-What-keyboard-shortcuts-can-I-use-in-Brave-
+    // note: need ctrl to be mapped to Globe in iOS setting
     [BROWSER_CONTROL_IOS] = LAYOUT_ergodox(
 		   // left hand
-           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,      KC_BTN2, KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,      KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_TRNS,       WINDOWS10_WORKSPACE_LEFT,    RGUI(KC_RIGHT), KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,        KC_BTN2,     KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,        KC_TRNS,
+           KC_TRNS, KC_TRNS,      RCTL(KC_DOWN), RCTL(KC_LEFT), RCTL(KC_RIGHT), RCTL(KC_UP), KC_TRNS,
 		   // bottom row
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
 
