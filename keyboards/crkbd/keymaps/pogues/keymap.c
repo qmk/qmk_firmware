@@ -253,8 +253,10 @@ combo_t key_combos[] = {
     [PL_LMSE] = COMBO(combo_pl, TO(LMSE)),
 };
 
+/******************************************************************************
+ * combo keys end
+ ******************************************************************************/
 
- /******************************************************************************/
 
 /******************************************************************************
  * compose key mapping function
@@ -270,11 +272,6 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_C),
         { toggle_caps_word(); }
-    )
-    // num word
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_N),
-        { toggle_num_word(LNUM); }
     )
     // snake_case
     COMPOSE_MAPPING(
@@ -429,9 +426,11 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     return COMPOSE_ERROR;
 }
 
+
 void compose_start(void) {
     rgblight_set_layer_state(8, true);
 }
+
 
 void compose_end(uint8_t state) {
     rgblight_set_layer_state(8, false);
@@ -444,6 +443,10 @@ void compose_end(uint8_t state) {
         rgblight_blink_layer(15, 900);
     }
 }
+/******************************************************************************
+ * compose end
+ ******************************************************************************/
+
 
 /*******************************************************************************
  * caps word mode
@@ -471,6 +474,7 @@ enum {
     HELD,
 };
 
+
 uint8_t current_dance_step(qk_tap_dance_state_t *state) {
     if (state->pressed) {
         return HELD;
@@ -482,24 +486,7 @@ uint8_t current_dance_step(qk_tap_dance_state_t *state) {
     }
 }
 
-void layer_dance_finished(uint8_t layer, td_tap_t *tap_state, qk_tap_dance_state_t *state, void *user_data) {
-    tap_state->step = current_dance_step(state);
-    switch (tap_state->step) {
-        case SINGLE_TAP:
-            // if we are in the layer, exit, otherwise toggle the one shot mod
-            if (layer_state_is(layer)) {
-                layer_off(layer);
-            } else {
-                set_oneshot_layer(layer, ONESHOT_START);
-                clear_oneshot_layer_state(ONESHOT_PRESSED);
-            }
-            break;
-        case DOUBLE_TAP:
-        case HELD:
-            layer_on(layer);
-            break;
-    }
-}
+/* no common layer_dance_finished as we are using numword not a one shot */
 
 void layer_dance_reset(uint8_t layer,  td_tap_t *tap_state, qk_tap_dance_state_t *state, void *user_data) {
     wait_ms(10);
@@ -516,26 +503,81 @@ void layer_dance_reset(uint8_t layer,  td_tap_t *tap_state, qk_tap_dance_state_t
     }
     tap_state->step = 0;
 }
+
+/** 
+ * for the num layer
+ *   single tap enters num_word mode, or exits if we are in num_word mode or the number layer
+ *   double tap enters the layer as TO(layer)
+ *   hold enters the layer as MO(layer) until released
+ * it also supports the layer being locked (TODO do we still use this)
+ */
 void tapdance_lnum_finished(qk_tap_dance_state_t *state, void *user_data) {
-    layer_dance_finished(LNUM, &dance_state_lnum, state, user_data);
+    dance_state_lnum.step = current_dance_step(state);
+    switch (dance_state_lnum.step) {
+        case SINGLE_TAP:
+            if (is_num_word_enabled()) {
+                disable_num_word(LNUM);
+            } else if (is_layer_locked(LNUM)) {
+                layer_lock_off(LNUM);
+            } else if (layer_state_is(LNUM)) {
+                layer_off(LNUM);
+            } else {
+                enable_num_word(LNUM);
+            }
+            break;
+        case DOUBLE_TAP:
+        case HELD:
+            layer_on(LNUM);
+            break;
+    }
 }
+
 
 void tapdance_lnum_reset(qk_tap_dance_state_t *state, void *user_data) {
     layer_dance_reset(LNUM, &dance_state_lnum, state, user_data);
 }
 
+
+/* 
+ * for the symbol layer
+ *   single tap enters the layer as one shot, or exits if we are in the layer
+ *   double tap enters the layer as TO(layer)
+ *   hold enters the layer as MO(layer) until released
+ * it also supports the layer lock being in place on the held layer (TODO do we use this)
+ */
 void tapdance_lsym_finished(qk_tap_dance_state_t *state, void *user_data) {
-    layer_dance_finished(LSYM, &dance_state_lsym, state, user_data);
+    dance_state_lsym.step = current_dance_step(state);
+    switch (dance_state_lsym.step) {
+        case SINGLE_TAP:
+            // if we are in the layer, exit, otherwise toggle the one shot mod
+            if (layer_state_is(LSYM)) {
+                layer_off(LSYM);
+            } else {
+                set_oneshot_layer(LSYM, ONESHOT_START);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+            break;
+        case DOUBLE_TAP:
+        case HELD:
+            layer_on(LSYM);
+            break;
+    }
 }
+
 
 void tapdance_lsym_reset(qk_tap_dance_state_t *state, void *user_data) {
     layer_dance_reset(LSYM, &dance_state_lsym, state, user_data);
 }
 
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LNUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lnum_finished, tapdance_lnum_reset),
     [TD_LSYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lsym_finished, tapdance_lsym_reset)
 };
+
+/*******************************************************************************
+* Tap Dance end
+*******************************************************************************/
 
 /*******************************************************************************
  * RGB lighting on layer change
