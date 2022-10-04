@@ -300,11 +300,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // 
   [KEYNAV_IOS] = LAYOUT_ergodox(
     // left hand
-    KC_TRNS,         KC_TRNS,     KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,     KC_TRNS,
-    KC_TRNS,         KC_ESC,      KC_TRNS,        RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),  KC_TRNS,
-    RCTL(KC_DELETE), MO(KEYSEL),  KC_TRNS,        RSFT(KC_TAB),    KC_TAB,           RCTL(KC_F),
-    KC_TRNS,         KC_TRNS,     OSM(MOD_LGUI),  OSM(MOD_LALT),   OSM(MOD_LCTL),    KC_TRNS,     KC_TRNS,
-    KC_TRNS,         KC_TRNS,     KC_TRNS,        KC_TRNS,         KC_TRNS,
+    KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,     KC_TRNS,
+    KC_TRNS,         KC_ESC,          KC_TRNS,        RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),  KC_TRNS,
+    RCTL(KC_DELETE), MO(KEYSEL_IOS),  KC_TRNS,        RSFT(KC_TAB),    KC_TAB,           RCTL(KC_F),
+    KC_TRNS,         KC_TRNS,         OSM(MOD_LGUI),  OSM(MOD_LALT),   OSM(MOD_LCTL),    KC_TRNS,     KC_TRNS,
+    KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,         KC_TRNS,
     // left thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 
@@ -313,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,KC_TRNS,       KC_TRNS,       KC_TRNS,         KC_TRNS,        KC_TRNS,          KC_TRNS,
     KC_TRNS,KC_NO,         RGUI(KC_LEFT), KC_UP,           RGUI(KC_RIGHT), KC_PGUP,          KC_DELETE,
             LALT(KC_LEFT), KC_LEFT,       KC_DOWN,         KC_RIGHT,       LALT(KC_RIGHT),   LALT(KC_DELETE),
-    KC_TRNS,KC_TRNS,       RCTL(KC_C),    RCTL(KC_X),      RCTL(KC_V),     KC_PGDOWN,        KC_NO,
+    KC_TRNS,KC_TRNS,       RGUI(KC_C),    RGUI(KC_X),      RGUI(KC_V),     KC_PGDOWN,        KC_NO,
                            KC_TRNS,       KC_TRNS,         KC_TRNS,        KC_TRNS,          KC_TRNS,
 
     // right thumb cluster
@@ -347,6 +347,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,
            KC_TRNS, KC_TRNS, KC_TRNS
     ),
+
+    // key selection layer
+    [KEYSEL_IOS] = LAYOUT_ergodox(
+           // left hand
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+                   // bottom row
+                   QK_BOOT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                           // thumb cluster
+                                           KC_TRNS,KC_TRNS,
+                                                   KC_TRNS,
+                                   KC_TRNS,KC_TRNS,KC_TRNS,
+           // right hand
+           KC_TRNS,   KC_TRNS,             KC_TRNS,             KC_TRNS,       KC_TRNS,              KC_TRNS,              KC_TRNS,
+           KC_TRNS,   KC_TRNS,             RSFT(RGUI(KC_LEFT)), RSFT(KC_UP),   RSFT(RGUI(KC_RIGHT)), RSFT(KC_PGUP),        KC_TRNS,
+                      RSFT(LALT(KC_LEFT)), RSFT(KC_LEFT),       RSFT(KC_DOWN), RSFT(KC_RIGHT),       RSFT(LALT(KC_RIGHT)), KC_TRNS,
+           KC_TRNS,   KC_TRNS,             RGUI(KC_C),          RGUI(KC_X),    RGUI(KC_V),           RSFT(KC_PGDN),        KC_TRNS,
+                    // bottom row
+                      KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,
+           // thumb cluster
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, KC_TRNS, KC_TRNS
+    ),    
 
   // shell navigation layer
   [SHELL_NAV] = LAYOUT_ergodox(
