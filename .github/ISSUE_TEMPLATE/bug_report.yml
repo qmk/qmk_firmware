@@ -25,6 +25,7 @@ body:
     attributes:
       label: qmk doctor Output
       description: Output from running the `qmk doctor` command.
+      render: text
   - type: checkboxes
     attributes:
       label: Is AutoHotKey / Karabiner installed
