@@ -28,13 +28,6 @@
         "cols": ["F7", "D2", "B1", "C6"],
         "rows": ["D1", "B5", "B4", "E6"]
     },
-    "matrix_size": {
-        "cols": 4,
-        "rows": 4
-    },
-    "mouse_key": {
-        "enabled": true
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
