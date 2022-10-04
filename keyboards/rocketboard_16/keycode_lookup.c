@@ -190,7 +190,7 @@ lookup_table_t lookup_table[333] =
  {"KC_INT1", KC_INT1},
  {"KC_INT2", KC_INT2},
  {"KC_INT3", KC_INT3},
- {"KC_HENK", KC_HENK},
+ {"KC_INT4", KC_INT4},
  {"KC_MHEN", KC_MHEN},
  {"KC_INT6", KC_INT6},
  {"KC_INT7", KC_INT7},
