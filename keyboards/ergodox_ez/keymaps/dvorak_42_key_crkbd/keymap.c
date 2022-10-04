@@ -90,7 +90,8 @@ enum custom_keycodes {
   // these macros assume that caps lock is mapped to globe in iOS preferences
   IOS_APP_PREV,
   IOS_APP_NEXT,
-  IOS_APP_LIST
+  IOS_APP_LIST,
+  IOS_SHOW_SLIDEOVER,
 };
 
 
@@ -563,10 +564,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // note: need ctrl to be mapped to Globe in iOS setting
     [BROWSER_CONTROL_IOS] = LAYOUT_ergodox(
 		   // left hand
-           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,      KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,        KC_BTN2,      KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,        KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_TRNS,       IOS_APP_PREV,  IOS_APP_NEXT,   IOS_APP_LIST, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,            KC_TRNS,       KC_TRNS,        KC_TRNS,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_BTN3,            KC_MS_U,       KC_BTN1,        KC_BTN2,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_MS_L,            KC_MS_D,       KC_MS_R,        KC_TRNS,
+           KC_TRNS, KC_TRNS,      IOS_SHOW_SLIDEOVER, IOS_APP_PREV,  IOS_APP_NEXT,   IOS_APP_LIST, KC_TRNS,
 		   // bottom row
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
 
@@ -739,6 +740,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case IOS_APP_LIST:
             SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_UP) SS_UP(X_CAPS));
             break;                        
+        case IOS_SHOW_SLIDEOVER:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_BSLS) SS_UP(X_CAPS));
+            break;                                    
         // linux screen shortcuts
         case SCREEN_TAB_LEFT:
             SEND_STRING(SS_LCTL("a") "p");
