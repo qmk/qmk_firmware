@@ -76,7 +76,7 @@ void keyboard_post_init_user(void) {
   val = rgb_matrix_get_val();
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
   if (host_keyboard_led_state().caps_lock) {
     rgb_matrix_set_color_all(val,0,0);
@@ -84,4 +84,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     rgb_matrix_set_color_all(val, val, val);
     val = rgb_matrix_get_val();
   }
+    return false;
 }

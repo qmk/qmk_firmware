@@ -67,7 +67,7 @@ void matrix_scan_user(void) {
 
 //layer led colors
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
     if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
@@ -105,6 +105,7 @@ void rgb_matrix_indicators_user(void) {
     }
   }
 
+    return false;
 }
 
 //tap dance declarations

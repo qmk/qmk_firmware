@@ -2,7 +2,7 @@
    Copyright 2021 Jonavin Eng @Jonavin
    Copyright 2022 RustyBrakes (ISO conversion)
    Copyright 2022 gourdo1 <gourdo1@outlook.com>
-   
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -243,7 +243,7 @@ void hurt_paddle(void) {
 #endif //GAME_ENABLE
 
 // Capslock, Scroll lock and Numlock indicator on Left side lights.
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (get_rgb_nightmode()) rgb_matrix_set_color_all(RGB_OFF);
 
     // Scroll Lock RGB setup
@@ -367,7 +367,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         #endif // GAME_ENABLE
 
         // System NumLock warning indicator RGB setup
-        #ifdef INVERT_NUMLOCK_INDICATOR 
+        #ifdef INVERT_NUMLOCK_INDICATOR
         if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
             rgb_matrix_set_color(LED_N, RGB_ORANGE2);
         }
@@ -444,7 +444,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
         // Numpad & Mouse Keys overlay RGB
     case _NUMPADMOUSE:
-        #ifdef INVERT_NUMLOCK_INDICATOR 
+        #ifdef INVERT_NUMLOCK_INDICATOR
         if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) { // on if NUM lock is OFF to bring attention to overlay numpad not functional when enabled
             rgb_matrix_set_color(LED_N, RGB_ORANGE2);
         }
@@ -712,6 +712,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         #endif //GAME_ENABLE
         break;
     }
+    return false;
 }
 #endif
 
