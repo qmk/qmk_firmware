@@ -32,9 +32,6 @@
         "cols": 4,
         "rows": 4
     },
-    "mouse_key": {
-        "enabled": true
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
