@@ -85,7 +85,12 @@ enum custom_keycodes {
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
-  WINDOWS10_TASK_VIEW
+  WINDOWS10_TASK_VIEW,
+
+  // these macros assume that caps lock is mapped to globe in iOS preferences
+  IOS_APP_PREV,
+  IOS_APP_NEXT,
+  IOS_APP_LIST
 };
 
 
@@ -558,10 +563,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // note: need ctrl to be mapped to Globe in iOS setting
     [BROWSER_CONTROL_IOS] = LAYOUT_ergodox(
 		   // left hand
-           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,        KC_BTN2,     KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,        KC_BTN2,      KC_TRNS,
            KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,        KC_TRNS,
-           KC_TRNS, KC_TRNS,      RCTL(KC_DOWN), RCTL(KC_LEFT), RCTL(KC_RIGHT), RCTL(KC_UP), KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       IOS_APP_PREV,  IOS_APP_NEXT,   IOS_APP_LIST, KC_TRNS,
 		   // bottom row
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
 
@@ -710,20 +715,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SHELL_EXPAND_OE_TRANPATTERN:
                 SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
             break;
-            case SHELL_DUMPTLOG:
-                SEND_STRING(" | dumptlog - ");
-                return true;
-                break;
-            case WINDOWS10_WORKSPACE_LEFT:
-                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
-                return true;
-                break;
-            case WINDOWS10_WORKSPACE_RIGHT:
-                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
-                break;
-            case WINDOWS10_TASK_VIEW:
-                SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
-                break;
+        case SHELL_DUMPTLOG:
+            SEND_STRING(" | dumptlog - ");
+            return true;
+            break;
+        case WINDOWS10_WORKSPACE_LEFT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+            return true;
+            break;
+        case WINDOWS10_WORKSPACE_RIGHT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            break;
+        case WINDOWS10_TASK_VIEW:
+            SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+            break;
+        // IOS shortcuts
+        case IOS_APP_PREV:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_LEFT) SS_UP(X_CAPS));
+            break;
+        case IOS_APP_NEXT:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_RIGHT) SS_UP(X_CAPS));
+            break;            
+        case IOS_APP_LIST:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_UP) SS_UP(X_CAPS));
+            break;                        
         // linux screen shortcuts
         case SCREEN_TAB_LEFT:
             SEND_STRING(SS_LCTL("a") "p");
