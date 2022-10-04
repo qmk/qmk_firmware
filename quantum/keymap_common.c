@@ -120,11 +120,14 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
             break;
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX: {
-            bool has_right_hand_mods = keycode & 0x10;
+            const uint8_t mod5bits = mod_config(keycode & 0x1F);
+            const bool has_right_hand_mods = mod5bits & 0x10;
+            // Converting from the 5-bits [LR]GASC format
+            // to the 8-bits GASCGASC format.
             if (has_right_hand_mods) {
-                mod = (keycode << 4) & 0xF0;
+                mod = (mod5bits << 4) & 0xF0;
             } else { // has only left mods
-                mod = keycode & 0xF;
+                mod = mod5bits & 0xF;
             }
             action_layer = (keycode >> 5) & 0x7;
             action.code  = ACTION_LAYER_MODS(action_layer, mod);
