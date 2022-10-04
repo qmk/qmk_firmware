@@ -16,7 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "rev_b.h"
 
+
+
 void keyboard_pre_init_kb(void) {
+    setPinOutput(CAPS_PIN);
+    setPinOutput(SCROLL_PIN);
+    setPinOutput(NUM_PIN);
     setPinOutput(LAYER_1);
     setPinOutput(LAYER_2);
     setPinOutput(LAYER_3);
@@ -25,34 +30,67 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
+/* Set indicator leds to indicate lock states */
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res && LOCK_LIGHTS) {
+        writePin(NUM_PIN, led_state.num_lock);
+        writePin(CAPS_PIN, led_state.caps_lock);
+        writePin(SCROLL_PIN, led_state.scroll_lock);
+    }
+    return true;
+}
+
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
-    setLayerLed(state);
+    if(DISPLAY_LAYERS){
+        setLayerLed(state);
+    }
     return state;
 }
 /* Set indicator leds to indicate which layer is active */
 void setLayerLed(layer_state_t state){
-    writePinLow(LAYER_1);
-    writePinLow(LAYER_2);
-    writePinLow(LAYER_3);
-    writePinLow(LAYER_4);
-    writePinLow(LAYER_5);
-    switch (get_highest_layer(state)) {
-        case 0:
-            writePinHigh(LAYER_1);
+    switch(get_highest_layer(state)){
+        case 0 :
+            writePin(LAYER_1, 1);
+            writePin(LAYER_2, 0);
+            writePin(LAYER_3, 0);
+            writePin(LAYER_4, 0);
+            writePin(LAYER_5, 0);
             break;
-        case 1:
-            writePinHigh(LAYER_2);
+        case 1 :
+            writePin(LAYER_1, 0);
+            writePin(LAYER_2, 1);
+            writePin(LAYER_3, 0);
+            writePin(LAYER_4, 0);
+            writePin(LAYER_5, 0);
             break;
-        case 2:
-            writePinHigh(LAYER_3);
+        case 2 :
+            writePin(LAYER_1, 0);
+            writePin(LAYER_2, 0);
+            writePin(LAYER_3, 1);
+            writePin(LAYER_4, 0);
+            writePin(LAYER_5, 0);
             break;
-        case 3:
-            writePinHigh(LAYER_4);
+        case 3 :
+            writePin(LAYER_1, 0);
+            writePin(LAYER_2, 0);
+            writePin(LAYER_3, 0);
+            writePin(LAYER_4, 1);
+            writePin(LAYER_5, 0);
             break;
-        case 4:
-            writePinHigh(LAYER_5);
+        case 4 :
+            writePin(LAYER_1, 0);
+            writePin(LAYER_2, 0);
+            writePin(LAYER_3, 0);
+            writePin(LAYER_4, 0);
+            writePin(LAYER_5, 1);
             break;
+        default :
+            writePin(LAYER_1, 0);
+            writePin(LAYER_2, 0);
+            writePin(LAYER_3, 0);
+            writePin(LAYER_4, 0);
+            writePin(LAYER_5, 0);
     }
 }
-
