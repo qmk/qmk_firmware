@@ -197,7 +197,7 @@ lookup_table_t lookup_table[333] =
  {"KC_INT8", KC_INT8},
  {"KC_INT9", KC_INT9},
  {"KC_LNG1", KC_LNG1},
- {"KC_HANJ", KC_HANJ},
+ {"KC_LNG2", KC_LNG2},
  {"KC_LANG3", KC_LANG3},
  {"KC_LANG4", KC_LANG4},
  {"KC_LANG5", KC_LANG5},

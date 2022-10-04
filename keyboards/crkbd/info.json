@@ -53,7 +53,7 @@
         {"label":"/", "x":13, "y":2.3},
         {"label":"Shift", "x":14, "y":2.3},
 
-        {"label":"GUI / KC_HANJ", "x":4, "y":3.7},
+        {"label":"GUI", "x":4, "y":3.7},
         {"label":"Lower", "x":5, "y":3.7},
         {"label":"Space", "x":6, "y":3.2, "h":1.5},
 
@@ -100,7 +100,7 @@
         {"label":".", "x":11, "y":2.1},
         {"label":"/", "x":12, "y":2.3},
 
-        {"label":"GUI / KC_HANJ", "x":3, "y":3.7},
+        {"label":"GUI", "x":3, "y":3.7},
         {"label":"Lower", "x":4, "y":3.7},
         {"label":"Space", "x":5, "y":3.2, "h":1.5},
 
