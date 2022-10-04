@@ -5,7 +5,7 @@ abbreviations like "QMK", or in code, identifiers like `KC_SPC`. "Caps Word" is
 a modern alternative to Caps Lock:
 
 * While active, letters are capitalized and `-` becomes `_`. The `_` makes it easier
-  to define PROGRAM\_CONSTANTS.
+  to type constant names (eg 'PROGRAM\_CONSTANTS').
 
 * Caps Word automatically disables
   itself at the end of the word. That is, it stops by default once a space or
