@@ -21,7 +21,7 @@ This service is an asynchronous API for compiling custom keymaps. You POST some 
 }
 ```
 
-As you can see the payload describes all aspects of a keyboard necessary to create and generate a firmware. Each layer is a single list of QMK keycodes the same length as the keyboard's `LAYOUT` macro. If a keyboard supports mulitple `LAYOUT` macros you can specify which macro to use.
+As you can see the payload describes all aspects of a keyboard necessary to create and generate a firmware. Each layer is a single list of QMK keycodes the same length as the keyboard's `LAYOUT` macro. If a keyboard supports multiple `LAYOUT` macros you can specify which macro to use.
 
 ## Submitting a Compile Job
 
