@@ -360,7 +360,6 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
 }
 
 TEST_F(ActionLayer, LayerTapReleasedBeforeKeypressReleaseWithModifiers) {
-    GTEST_SKIP() << "TODO: Modifiers are erroneously discarded on layer changes, although a key that introduced the modifier is still held.";
     TestDriver driver;
     InSequence s;
 
