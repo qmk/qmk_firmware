@@ -4,7 +4,10 @@ It is often useful to type a single word in all capitals, for instance
 abbreviations like "QMK", or in code, identifiers like `KC_SPC`. "Caps Word" is
 a modern alternative to Caps Lock:
 
-* Letters are capitalized while active, and Caps Word automatically disables
+* While active, letters are capitalized and `-` becomes `_`. The `_` makes it easier
+  to type constant names (eg 'PROGRAM\_CONSTANTS').
+
+* Caps Word automatically disables
   itself at the end of the word. That is, it stops by default once a space or
   any key other than `KC_A`--`KC_Z`, `KC_0`--`KC_9`, `KC_MINS`, `KC_UNDS`,
   `KC_DELETE`, or `KC_BACKSPACE` is pressed. Caps Word also disables itself if
