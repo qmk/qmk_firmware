@@ -31,7 +31,7 @@ enum custom_keycodes {
 #define KC_LSLB MT(MOD_LSFT, JP_LBRC)  // タップで[          ホールドで左Shift
 #define KC_RSRB MT(MOD_RSFT, JP_RBRC)  // タップで]          ホールドで右Shift
 #define KC_ALTB MT(MOD_LALT, KC_TAB)   // タップでTAB        ホールドで左Alt
-#define CTL_ZH  CTL_T(KC_ZKHK)         // タップで半角/全角  ホールドで左Control     (Windows)
+#define CTL_ZH  CTL_T(JP_ZKHK)         // タップで半角/全角  ホールドで左Control     (Windows)
 #define WN_CAPS S(KC_CAPS)             // Caps Lock                                  (Windows)
 #define KC_ALPS LALT(KC_PSCR)          // Alt + PrintScreen
 #define LOWER MO(_LOWER)

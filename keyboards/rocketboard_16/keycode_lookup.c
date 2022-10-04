@@ -55,7 +55,7 @@ char* translate_keycode_to_string(uint16_t code)
     return (return_p);
 }
 
-lookup_table_t lookup_table[334] =
+lookup_table_t lookup_table[333] =
 {
  {"KC_NO", KC_NO},
  {"KC_TRNS", KC_TRNS},
@@ -109,7 +109,6 @@ lookup_table_t lookup_table[334] =
  {"KC_SCLN", KC_SCLN},
  {"KC_QUOT", KC_QUOT},
  {"KC_GRV", KC_GRV},
- {"KC_ZKHK", KC_ZKHK},
  {"KC_COMM", KC_COMM},
  {"KC_DOT", KC_DOT},
  {"KC_SLSH", KC_SLSH},
