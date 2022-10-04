@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Blaster 75", 
+    "manufacturer": "Altain",
     "url": "", 
     "maintainer": "Altain", 
+    "usb": {
+        "vid": "0xA122",
+        "pid": "0xB075",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -34,8 +40,8 @@
                 {"label": ")", "y": 1.25,"x": 10},
                 {"label": "_", "y": 1.25,"x": 11},
                 {"label": "+", "y": 1.25,"x": 12},
-                {"label": "Backspace", "y": 1.5,"x": 13, "w": 2},
-                {"label": "Home", "y": 1.5,"x": 15},
+                {"label": "Backspace", "y": 1.25,"x": 13, "w": 2},
+                {"label": "Home", "y": 1.25,"x": 15},
             
                 {"label": "Tab", "y": 2.25,"x": 0, "w": 1.5},
                 {"label": "Q", "y": 2.25,"x": 1.5},
@@ -124,8 +130,8 @@
                 {"label": ")", "y": 1.25,"x": 10},
                 {"label": "_", "y": 1.25,"x": 11},
                 {"label": "+", "y": 1.25,"x": 12},
-                {"label": "Backspace", "y": 1.5,"x": 13, "w": 2},
-                {"label": "Home", "y": 1.5,"x": 15},
+                {"label": "Backspace", "y": 1.25,"x": 13, "w": 2},
+                {"label": "Home", "y": 1.25,"x": 15},
             
                 {"label": "Tab", "y": 2.25,"x": 0, "w": 1.5},
                 {"label": "Q", "y": 2.25,"x": 1.5},

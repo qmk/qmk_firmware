@@ -152,14 +152,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------|             |------+------+------+------+------|
    * |      |      |      |      |      |             |      |      |      |      |      |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |RESET |      |      |      |      |      |      |      |      |      |      |      |
+   * |QK_BOOT |      |      |      |      |      |      |      |      |      |      |      |
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT(
       MCR1,    MCR2,    MCR3,    MCR4,    MCR5,                DM_PLY1, DM_PLY2, DM_REC1, DM_REC2, DM_RSTP,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME,                      XXXXXXX, QWERTY,  HDBX,    XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      RESET,   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
       )
 };
 

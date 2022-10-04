@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x9692
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    Kumao Kobo
-#define PRODUCT         Pico Keyboard
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10

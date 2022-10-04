@@ -225,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------'
    */
   [_FUNC] = LAYOUT_half( \
-      RGBRST,RGB_HUI, TO_101,  RESET,   MAC,     WIN,               \
+      RGBRST,RGB_HUI, TO_101,  QK_BOOT, MAC,     WIN,               \
       RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   TO_106,            \
       RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,            \
       RGB3,  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,   _______, \

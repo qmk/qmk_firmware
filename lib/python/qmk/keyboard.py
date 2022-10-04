@@ -103,7 +103,7 @@ def list_keyboards():
     """
     # We avoid pathlib here because this is performance critical code.
     kb_wildcard = os.path.join(base_path, "**", "rules.mk")
-    paths = [path for path in glob(kb_wildcard, recursive=True) if 'keymaps' not in path]
+    paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
     return sorted(set(map(resolve_keyboard, map(_find_name, paths))))
 

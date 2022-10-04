@@ -20,17 +20,17 @@ _Static_assert((QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE > 0) && (QUANTUM_PAINTER_PIX
 //
 
 // Buffer used for transmitting native pixel data to the downstream device.
-uint8_t qp_internal_global_pixdata_buffer[QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE];
+__attribute__((__aligned__(4))) uint8_t qp_internal_global_pixdata_buffer[QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE];
 
 // Static buffer to contain a generated color palette
-static bool       generated_palette = false;
-static int16_t    generated_steps   = -1;
-static qp_pixel_t interpolated_fg_hsv888;
-static qp_pixel_t interpolated_bg_hsv888;
+static bool                                       generated_palette = false;
+static int16_t                                    generated_steps   = -1;
+__attribute__((__aligned__(4))) static qp_pixel_t interpolated_fg_hsv888;
+__attribute__((__aligned__(4))) static qp_pixel_t interpolated_bg_hsv888;
 #if QUANTUM_PAINTER_SUPPORTS_256_PALETTE
-qp_pixel_t qp_internal_global_pixel_lookup_table[256];
+__attribute__((__aligned__(4))) qp_pixel_t qp_internal_global_pixel_lookup_table[256];
 #else
-qp_pixel_t qp_internal_global_pixel_lookup_table[16];
+__attribute__((__aligned__(4))) qp_pixel_t qp_internal_global_pixel_lookup_table[16];
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

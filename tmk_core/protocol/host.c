@@ -94,6 +94,11 @@ void host_mouse_send(report_mouse_t *report) {
 #ifdef MOUSE_SHARED_EP
     report->report_id = REPORT_ID_MOUSE;
 #endif
+#ifdef MOUSE_EXTENDED_REPORT
+    // clip and copy to Boot protocol XY
+    report->boot_x = (report->x > 127) ? 127 : ((report->x < -127) ? -127 : report->x);
+    report->boot_y = (report->y > 127) ? 127 : ((report->y < -127) ? -127 : report->y);
+#endif
     (*driver->send_mouse)(report);
 }
 

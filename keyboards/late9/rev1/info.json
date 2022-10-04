@@ -1,8 +1,13 @@
 {
     "keyboard_name": "LATE-9",
-    "keyboard_folder": "late9/rev1",
+    "manufacturer": "rookiebwoy",
     "url": "https://github.com/rookiebwoy/late-9)",
     "maintainer": "rookiebwoy",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3777",
+        "device_version": "0.1.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

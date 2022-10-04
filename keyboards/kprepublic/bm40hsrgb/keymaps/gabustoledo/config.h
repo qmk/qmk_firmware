@@ -30,9 +30,6 @@
 #define AUTO_SHIFT_TIMEOUT TAPPING_TERM
 #define AUTO_SHIFT_NO_SETUP
 
-// Recommended for heavy chording.
-#define QMK_KEYS_PER_SCAN 4
-
 // Mouse key speed and acceleration.
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY          0
@@ -59,10 +56,6 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGBLIGHT_LIMIT_VAL 10
-
-//bootmagic
-#define BOOTMAGIC_KEY_SALT KC_V
-#define BOOTMAGIC_KEY_EEPROM_CLEAR KC_Q
 
 #ifdef RGB_MATRIX_ENABLE
 
