@@ -14,6 +14,7 @@ body:
   - type: input
     attributes:
       label: Keyboard Used
+      description: The name of the keyboard from the `make` or `qmk compile`/`qmk flash` commands, eg. `planck/rev6`.
   - type: input
     attributes:
       label: Link to product page (if applicable)
