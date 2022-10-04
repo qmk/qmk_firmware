@@ -20,12 +20,15 @@ enum lang_layer {
         else:
             cog.outl(f"\t{lang_key},")
         lang_index = lang_index + 1
-        lang_key = sheet[chr(ord('B')+lang_index*3)+"1"].value
+        lang_key = sheet.cell(row = 1, column = 2 + lang_index*3).value
     ]]]*/
     LANG_EN = 0,
     LANG_DE,
     LANG_FR,
     LANG_ES,
+    LANG_PT,
+    LANG_IT,
+    LANG_TR,
     LANG_KO,
     LANG_JA,
     LANG_AR,

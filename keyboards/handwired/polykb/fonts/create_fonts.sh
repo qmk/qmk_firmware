@@ -23,7 +23,7 @@ fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _Pun
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _PunctSupl_ 0x30fb 0x30fc > "generated/NotoSansJP_Regular_PunctSupl_${size_jp}pt.h"
 fontconvert -f~/repos/noto-sans-kr/NotoSansKR-Regular.otf "-s${size_kr}" -v _Vowels_ 0x1161 0x1169 0x116d 0x116e 0x1172 0x1175 > "generated/NotoSansKR_Regular_Vowels_${size_kr}pt.h"
 fontconvert -f~/repos/noto-sans-kr/NotoSansKR-Regular.otf "-s${size_kr}" -v _Consonants_ 0x1100 0x1112 > "generated/NotoSansKR_Regular_Consonants_${size_kr}pt.h"
-fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -r40 -v _Isolated_ 0x61f 0x64a 0x660 0x669 > "generated/NotoSansAR_Regular_Isolated_${size_ar}pt.h"
+fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -r40 -v _Isolated_ 0x60c 0x669 > "generated/NotoSansAR_Regular_Isolated_${size_ar}pt.h"
 fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -r40 -v _FormsB_ 0xfef5 0xfef5 0xfefb 0xfefb > "generated/NotoSansAR_Regular_FormsB_${size_ar}pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s${size_em}" -r50 -v _World_ -n0x11000 0x1F310 0x1F310 > "generated/NotoEmoji_Medium_World_${size_em}pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s${size_em}" -r50 -v _Home_ -n0x11000 0x1F3E0 0x1F3E0 > "generated/NotoEmoji_Medium_Home_${size_em}pt.h"
