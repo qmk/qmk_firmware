@@ -33,7 +33,7 @@ body:
         - label: Karabiner (macOS)
   - type: input
     attributes:
-      label: Other keyboarded related software installed
+      label: Other keyboard-related software installed
   - type: textarea
     attributes:
       label: Additional Context
