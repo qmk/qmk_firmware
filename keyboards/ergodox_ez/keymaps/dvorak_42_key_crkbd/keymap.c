@@ -243,9 +243,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [KEYNAV] = LAYOUT_ergodox(
     // left hand
     KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
-    KC_TRNS,KC_ESC,      KC_TRNS,   RCTL(KC_Z),      RCTL(KC_S),       KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_ESC,      KC_TRNS,   RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),       KC_TRNS,
     KC_TRNS,KC_LSFT,     KC_TRNS,   RSFT(KC_TAB),    KC_TAB,           KC_TRNS,
-    KC_TRNS,KC_TRNS,     OSM(MOD_LGUI),  OSM(MOD_LALT),   OSM(MOD_LCTL),    KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_TRNS,     OSM(MOD_LGUI),  OSM(MOD_LALT),   OSM(MOD_LCTL),    KC_TRNS,     KC_TRNS,
     KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,
     // left thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -501,7 +501,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shortcuts to be intercepted by autohotkey
   [SHORTCUTS] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       QK_BOOT,   KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
        MEH(KC_0), MEH(KC_1), MEH(KC_2), MEH(KC_3),   MEH(KC_4),   MEH(KC_5), KC_TRNS,
        MEH(KC_6), MEH(KC_7), MEH(KC_8), MEH(KC_9),   MEH(KC_A),   MEH(KC_B),
        MEH(KC_C), MEH(KC_D), MEH(KC_E), MEH(KC_F),   MEH(KC_G),   MEH(KC_H),   KC_TRNS,
