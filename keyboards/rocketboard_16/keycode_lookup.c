@@ -187,7 +187,7 @@ lookup_table_t lookup_table[333] =
  {"KC_LSCR", KC_LSCR},
  {"KC_PCMM", KC_PCMM},
  {"KC_KP_EQUAL_AS400", KC_KP_EQUAL_AS400},
- {"KC_RO", KC_RO},
+ {"KC_INT1", KC_INT1},
  {"KC_KANA", KC_KANA},
  {"KC_JYEN", KC_JYEN},
  {"KC_HENK", KC_HENK},

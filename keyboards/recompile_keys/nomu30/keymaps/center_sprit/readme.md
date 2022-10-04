@@ -51,7 +51,7 @@ At first, Move to Lower layer with long push. After that Adjust key with long pu
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_LSFT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  KC_SLSH,    KC_RO
+       KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  KC_SLSH,  KC_INT1
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------'
   ),
 

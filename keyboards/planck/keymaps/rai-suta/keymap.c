@@ -11,7 +11,7 @@
 #define JK_LBRC KC_RBRC     // [
 #define JK_CLN  KC_QUOT     // :
 #define JK_RBRC KC_BSLS     // ]
-#define JK_BSLS KC_RO       // Backslash(\)
+#define JK_BSLS JP_RO       // Backslash(\)
 #define JK_DQT  S(KC_2)     // "
 #define JK_AMPR S(KC_6)     // &
 #define JK_SQT  S(KC_7)     // '

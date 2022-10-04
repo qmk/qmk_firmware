@@ -21,7 +21,7 @@
 #define RWINEND RGUI_T(KC_END)
 #define RCTLEND RCTL_T(KC_END)
 #define LSHNUBS LSFT_T(KC_NUBS)
-#define RSHF_RO RSFT_T(KC_RO)
+#define RSHF_RO RSFT_T(KC_INT1)
 #define FN_CALC LT(1,KC_CALC)
 #define FN_MENU LT(1,KC_MENU)
 #define FN_PENT LT(1,KC_PENT)

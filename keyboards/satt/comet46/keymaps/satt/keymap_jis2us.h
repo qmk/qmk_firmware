@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymap_jis2us[][2] = {
   [KC_8]    = { KC_8,    KC_DQT     }, /* 8 and ( -> 8 and * */
   [KC_9]    = { KC_9,    KC_ASTR    }, /* 9 and ) -> 9 and ( */
   [KC_0]    = { KC_0,    KC_LPRN    }, /* 0 and (no assign) -> 0 and ) */
-  [KC_MINS] = { KC_MINS, S(KC_RO)   }, /* - and = -> - and _ */
+  [KC_MINS] = { KC_MINS, S(KC_INT1) }, /* - and = -> - and _ */
   [KC_EQL]  = { KC_UNDS, KC_COLN    }, /* ^ and ~ -> = and + */
   [KC_LBRC] = { KC_RBRC, KC_RCBR    }, /* @ and ` -> [ and { */
   [KC_RBRC] = { KC_BSLS, KC_PIPE    }, /* [ and { -> ] and } */
