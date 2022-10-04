@@ -92,16 +92,18 @@ enum custom_keycodes {
 #define BASE             0 // base dvorak layer
 #define BASE_IOS         1 // base dvorak layer, for ipad / IOS
 #define KEYNAV           2 // arrow navigation (right hand)
-#define KEYSEL           3 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV        4 // bash shortcuts
-#define SHELL_SCREEN     5 // linux screen shortcuts
-#define BROWSER_CONTROL  7 // control browser and mouse
-#define BROWSER_CONTROL_IOS 8 // control browser and mouse
-#define COMBINED            9 // combined numbers and symbols layer
-#define ANDROID_STUDIO     10 // android studio specific layer
-#define VSCODE             11 // visual studio code specific layer
-#define VSCODE_NAV         12 // visual studio code, navigation within IDE
-#define SHORTCUTS          13 // shortcuts to be intercepted by autohotkey
+#define KEYNAV_IOS       3 // arrow navigation (right hand)
+#define KEYSEL           4 // arrow navigation + shift (allow text selection)
+#define KEYSEL_IOS       5 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV        6 // bash shortcuts
+#define SHELL_SCREEN     7 // linux screen shortcuts
+#define BROWSER_CONTROL  8 // control browser and mouse
+#define BROWSER_CONTROL_IOS 9 // control browser and mouse
+#define COMBINED            10 // combined numbers and symbols layer
+#define ANDROID_STUDIO     11 // android studio specific layer
+#define VSCODE             12 // visual studio code specific layer
+#define VSCODE_NAV         13 // visual studio code, navigation within IDE
+#define SHORTCUTS          14 // shortcuts to be intercepted by autohotkey
 
 
 
@@ -252,12 +254,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       // left thumb cluster
                 KC_TRNS,KC_TRNS,
                         KC_TRNS,
-      KC_TRNS,MO(KEYNAV), KC_TRNS,
+      KC_TRNS,MO(KEYNAV_IOS), KC_TRNS,
 
       // right hand
       KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(KC_BSPC),
       KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 
@@ -291,6 +293,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS
   ),
+
+  // https://medium.com/macoclock/best-text-editing-keyboard-shortcuts-for-ipad-41e8234a4c42
+  // alt == option
+  // gui/win == command
+  // 
+  [KEYNAV_IOS] = LAYOUT_ergodox(
+    // left hand
+    KC_TRNS,         KC_TRNS,     KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,     KC_TRNS,
+    KC_TRNS,         KC_ESC,      KC_TRNS,        RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),  KC_TRNS,
+    RCTL(KC_DELETE), MO(KEYSEL),  KC_TRNS,        RSFT(KC_TAB),    KC_TAB,           RCTL(KC_F),
+    KC_TRNS,         KC_TRNS,     OSM(MOD_LGUI),  OSM(MOD_LALT),   OSM(MOD_LCTL),    KC_TRNS,     KC_TRNS,
+    KC_TRNS,         KC_TRNS,     KC_TRNS,        KC_TRNS,         KC_TRNS,
+    // left thumb cluster
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+
+
+    // right hand
+    KC_TRNS,KC_TRNS,       KC_TRNS,       KC_TRNS,         KC_TRNS,        KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_NO,         RGUI(KC_LEFT), KC_UP,           RGUI(KC_RIGHT), KC_PGUP,          KC_DELETE,
+            LALT(KC_LEFT), KC_LEFT,       KC_DOWN,         KC_RIGHT,       LALT(KC_RIGHT),   LALT(KC_DELETE),
+    KC_TRNS,KC_TRNS,       RCTL(KC_C),    RCTL(KC_X),      RCTL(KC_V),     KC_PGDOWN,        KC_NO,
+                           KC_TRNS,       KC_TRNS,         KC_TRNS,        KC_TRNS,          KC_TRNS,
+
+    // right thumb cluster
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS
+  ),  
 
     // key selection layer
     [KEYSEL] = LAYOUT_ergodox(
