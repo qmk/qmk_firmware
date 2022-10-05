@@ -224,7 +224,7 @@ void console_task(void) {
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_extra(uint8_t report_id, uint16_t data);
+static void    send_extra(report_extra_t *report);
 
 static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
@@ -267,18 +267,10 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
-static void send_extra(uint8_t report_id, uint16_t data) {
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-    static uint8_t  last_id   = 0;
-    static uint16_t last_data = 0;
-    if ((report_id == last_id) && (data == last_data)) return;
-    last_id   = report_id;
-    last_data = data;
-
-    static report_extra_t report;
-    report = (report_extra_t){.report_id = report_id, .usage = data};
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
+        usbSetInterruptShared((void *)report, sizeof(report_extra_t));
     }
 #endif
 }

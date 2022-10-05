@@ -943,7 +943,7 @@ void shared_in_cb(USBDriver *usbp, usbep_t ep) {
  * ---------------------------------------------------------
  */
 
-void send_extra(uint8_t report_id, uint16_t data) {
+void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
@@ -962,10 +962,7 @@ void send_extra(uint8_t report_id, uint16_t data) {
         }
     }
 
-    static report_extra_t report;
-    report = (report_extra_t){.report_id = report_id, .usage = data};
-
-    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
+    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(report_extra_t));
     osalSysUnlock();
 #endif
 }
