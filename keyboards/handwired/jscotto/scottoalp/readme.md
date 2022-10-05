@@ -1,8 +1,8 @@
 # ScottoAlp
 
-<!-- ![ScottoAlp](https://i.imgur.com/uXUWY7wh.jpg) -->
+![ScottoAlp](https://i.imgur.com/Tx90LBth.jpg)
 
-A 41 key ortholinear keyboard that supports MX and Alp switches. Case files available [here](https://github.com/joe-scotto/keyboards.git).
+A 35 key ortholinear keyboard that supports MX and Alp switches. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
