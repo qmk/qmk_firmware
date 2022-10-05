@@ -55,7 +55,7 @@ enum custom_keycodes {
 
 // qk_tap_dance_action_t tap_dance_actions[] = {
 //   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-//   [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, JP_RO),
+//   [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, JP_BSLS),
 // };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_LSFT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       _______,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SLSH,    JP_RO,  _______
+       _______,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SLSH,  JP_BSLS,  _______
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------'
   ),
 

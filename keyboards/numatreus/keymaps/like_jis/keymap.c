@@ -58,7 +58,7 @@ enum tapdances{
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(JP_RO)),
+  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(JP_BSLS)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|             |------+------+------+------+------|
     KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,           XXXXXXX, XXXXXXX, KC_SCLN, KC_QUOT, KC_BSLS,
   //|------+------+------+------+------|             |------+------+------+------+------|
-    KC_11SF, KC_F12, KC_DLNP, KANJI, KC_ENT,         XXXXXXX, KC_COMM, KC_DOT, KC_SLSH, JP_RO,
+    KC_11SF, KC_F12, KC_DLNP, KANJI, KC_ENT,         XXXXXXX, KC_COMM, KC_DOT, KC_SLSH, JP_BSLS,
   //|------+------+------+------+------|------+------+------+------+------+------+------|
    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   //|------+------+------+------+-------------+------+------+------+------+------+------|

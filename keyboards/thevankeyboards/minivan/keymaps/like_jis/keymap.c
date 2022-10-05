@@ -35,7 +35,7 @@ enum tapdances{
 
 // Layer Mode aliases
 #define KC_TBSF  LSFT_T(KC_TAB)
-#define KC_ROSF  RSFT_T(JP_RO)
+#define KC_ROSF  RSFT_T(JP_BSLS)
 #define KC_ALAP  LALT_T(KC_APP)
 
 // Layer tap

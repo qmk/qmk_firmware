@@ -19,7 +19,7 @@
  // 2019/03/04 takashiski
  // NORTICE
  // This layout is for Japanese Keyboard User.
- // So there are logicalparing symbols and special keycode like a JP_RO, JP_HENK, JP_MHEN, JP_YEN.
+ // So there are logicalparing symbols and special keycode like a JP_BSLS, JP_HENK, JP_MHEN, JP_YEN.
  // 日本語キーボードとして認識させて使うことが前提なので、記号位置が英語キーボードとは異なります。
  // また、日本語キーボードでないと認識されない特殊なキーコードが含まれています。
 
