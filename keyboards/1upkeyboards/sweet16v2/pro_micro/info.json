@@ -5,7 +5,6 @@
     "maintainer": "ziptyze",
     "bootloader": "atmel-dfu",
     "processor": "atmega32u4",
-    "processor_type": "avr",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5518",
