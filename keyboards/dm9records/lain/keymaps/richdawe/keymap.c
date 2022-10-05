@@ -49,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    |     |  /     /     /  -  /     /           \     \  -  \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, _______, KC_1,    KC_2,    KC_3,    KC_COLON, KC_LPRN,   _______, KC_MINS, KC_EQL,  KC_0,    KC_DOT,  KC_BSPC,
-        _______, _______, KC_4,    KC_5,    KC_6,    KC_DOT,   KC_RPRN,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,_______, _______,
-        _______, _______, KC_7,    KC_8,    KC_9,    KC_0,                _______, _______, _______, _______, _______, _______,
-        _______,          _______, _______, KC_MINS, _______,             _______, KC_MINS, _______, _______, _______, _______
+        _______, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_COLON, KC_LPRN,   XXXXXXX, KC_MINS, KC_EQL,  KC_0,    KC_DOT,  KC_BSPC,
+        _______, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_DOT,   KC_RPRN,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,XXXXXXX, XXXXXXX,
+        _______, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______,          _______, _______, KC_MINS, _______,             _______, KC_MINS, _______, _______, XXXXXXX, XXXXXXX
     ),
 
     [SYM] = LAYOUT(
@@ -64,13 +64,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------'     \-----------------------------------|
  * |     |     /  &  /  *  /  (  /  )  /           \     \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
- *    |     |  /     /     /     /     /           \     \     \     \     \     |     |
+ *    |     |  /     /     /  -  /     /           \     \  -  \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, _______, S(KC_1), S(KC_2), S(KC_3), _______, KC_LPRN,   _______, S(KC_MINS), S(KC_EQL), _______, _______, KC_BSPC,
-        _______, _______, S(KC_4), S(KC_5), S(KC_6), _______, KC_RPRN,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
-        _______, _______, S(KC_7), S(KC_8), S(KC_9), S(KC_0),            _______, _______, _______, _______, _______, _______,
-        _______,          _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______
+        _______, XXXXXXX, S(KC_1), S(KC_2), S(KC_3), _______, KC_LPRN,   XXXXXXX, S(KC_MINS), S(KC_EQL), XXXXXXX, XXXXXXX, KC_BSPC,
+        _______, XXXXXXX, S(KC_4), S(KC_5), S(KC_6), _______, KC_RPRN,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, XXXXXXX,
+        _______, XXXXXXX, S(KC_7), S(KC_8), S(KC_9), S(KC_0),            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______,          _______, _______, KC_MINS, _______,            _______, KC_MINS, _______, _______, XXXXXXX, XXXXXXX
     ),
 
     [FUNC] = LAYOUT(
@@ -85,10 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    |Bootl|  / F10 / F11 / F12 /     /           \     \MPlay\     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, _______, KC_F1,   KC_F2,   KC_F3,   _______, _______,   _______, _______, _______, _______, _______, KC_DEL,
-        KC_CAPS, LED_EN,  KC_F4,   KC_F5,   KC_F6,   _______, _______,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,
-        _______, _______, KC_F7,   KC_F8,   KC_F9,   _______,            _______, _______, KC_MUTE, _______, _______, _______,
-        QK_BOOT,          KC_F10,  KC_F11,  KC_F12,  _______,            _______, KC_MPLY, _______, _______, _______, _______
+        _______, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
+        KC_CAPS, LED_EN,  KC_F4,   KC_F5,   KC_F6,   XXXXXXX, XXXXXXX,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, XXXXXXX, _______,
+        _______, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   XXXXXXX,            XXXXXXX, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX, _______,
+        QK_BOOT,          KC_F10,  KC_F11,  KC_F12,  _______,            _______, KC_MPLY, _______, _______, XXXXXXX, XXXXXXX
     ),
 };
 
