@@ -12,4 +12,4 @@
 TODO:
 
 - make the spaces mod-tap, shift on hold
-- should B be on the RHS?
+- should B be on the RHS? Answer: no
