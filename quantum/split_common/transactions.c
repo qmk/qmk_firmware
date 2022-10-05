@@ -727,6 +727,7 @@ static bool watchdog_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     bool okay = true;
     if (!split_watchdog_check()) {
         okay = transport_write(PUT_WATCHDOG, &okay, sizeof(okay));
+        split_watchdog_update(okay);
     }
     return okay;
 }
