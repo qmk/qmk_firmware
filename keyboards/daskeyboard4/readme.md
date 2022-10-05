@@ -2,7 +2,7 @@
 
 ![daskeyboard4pro](https://imgur.com/a/JWwQ2hh)
 
-*reverse engineered PCB definition of daskeyboard 4 (Professional)*
+*Reverse engineered PCB definition of daskeyboard 4 (Professional)*
 
 * Keyboard Maintainer: [Commander1024](https://github.com/Commander1024)
 * Hardware Supported: *The PCB*
