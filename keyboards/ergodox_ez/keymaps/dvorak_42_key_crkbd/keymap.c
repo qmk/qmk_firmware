@@ -26,6 +26,7 @@ enum custom_keycodes {
   EPRM,
   VRSN,
   RGB_SLD,
+  
   // shell nav macros
   SHELL_LS,
   SHELL_LSLTR,
@@ -36,20 +37,14 @@ enum custom_keycodes {
   SHELL_PGREP,
   SHELL_TAILF,
 
-  SHELL_PWD,
-  SHELL_H3,
-  SHELL_AMMCOLO,
   SHELL_SCREENRD,
   SHELL_SCREEN_NEW,
   SHELL_SCREEN_LIST,
-  SHELL_MKE,
-  SHELL_HTCSTATUS,
-  SHELL_HTCBOUNCE,
-  SHELL_DUMPTLOG,
 
-  SHELL_EXPAND_OE_LOGPATTERN,
-  SHELL_EXPAND_OE_TRANPATTERN,
+  SHELL_GIT_DIFF,
+  SHELL_GIT_STATUS,
 
+  // linux screen macros
   SCREEN_TAB_LEFT,
   SCREEN_TAB_RIGHT,
 
@@ -82,7 +77,7 @@ enum custom_keycodes {
   SCREEN_PASTEREG_2,
   SCREEN_PASTEREG_3,
 
-  // Windows 10 macros,
+  // Windows 10 macros
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
   WINDOWS10_TASK_VIEW,
@@ -396,10 +391,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shell navigation layer
   [SHELL_NAV] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,         KC_TRNS,
-       KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  SHELL_HTCBOUNCE, SHELL_H3,
-       KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_LSLA,
-       KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, SHELL_HTCSTATUS, SHELL_AMMCOLO,
+       KC_NO,  KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,SHELL_GIT_DIFF,    SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  KC_TRNS,     KC_TRNS,
+       KC_TRNS,SHELL_GIT_STATUS,  SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_LSLA,
+       KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, KC_TRNS,     KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -662,18 +657,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("tail -f ");
             return true;
             break;
-        case SHELL_PWD:
-            SEND_STRING("echo `pwd`/");
-            return true;
-            break;
-        case SHELL_H3:
-            SEND_STRING("h3\n");
-            return true;
-            break;
-        case SHELL_AMMCOLO:
-            SEND_STRING("ammcolo\n");
-            return true;
-            break;
         case SHELL_SCREENRD:
             SEND_STRING("screen -r -d ");
             return true;
@@ -686,28 +669,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("screen -list\n");
             return true;
             break;
-        case SHELL_MKE:
-            SEND_STRING("mki -j8\n");
+
+        case SHELL_GIT_DIFF:
+            SEND_STRING("git diff\n");
             return true;
             break;
-        case SHELL_HTCSTATUS:
-            SEND_STRING("htcStatus -j ");
+
+        case SHELL_GIT_STATUS:
+            SEND_STRING("git status\n");
             return true;
-            break;
-        case SHELL_HTCBOUNCE:
-            SEND_STRING("htcBounce -j ");
-            return true;
-            break;
-        case SHELL_EXPAND_OE_LOGPATTERN:
-                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
-            break;
-        case SHELL_EXPAND_OE_TRANPATTERN:
-                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
-            break;
-        case SHELL_DUMPTLOG:
-            SEND_STRING(" | dumptlog - ");
-            return true;
-            break;
+            break;            
+
         case WINDOWS10_WORKSPACE_LEFT:
             SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
             return true;
