@@ -81,11 +81,11 @@ static inline bool usbIsActive(void) {
 #        else
 #            define SPLIT_WATCHDOG_TIMEOUT 3000
 #        endif
-#    else
-#        if defined(SPLIT_USB_TIMEOUT)
-_Static_assert(SPLIT_USB_TIMEOUT > SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
-#        endif
 #    endif
+#    if defined(SPLIT_USB_DETECT)
+_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+#    endif
+_Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
 
 static uint32_t split_watchdog_started = 0;
 static bool     split_watchdog_done    = false;
