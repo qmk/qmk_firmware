@@ -28,6 +28,12 @@
         "pid": "0x0002",
         "vid": "0x4143"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "split": {
+        "enabled": true
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
