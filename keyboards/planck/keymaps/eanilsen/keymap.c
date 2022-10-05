@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,         KC_Y,    KC_C,    KC_L,    KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,         KC_COMM,      NO_QUOT,      KC_DEL,
+    KC_TAB,         KC_Y,    KC_C,    KC_L,    KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,         KC_COMM,      KC_QUOT,      KC_DEL,
     LCTL_T(KC_ESC), KC_I,    KC_S,    KC_R,    KC_T,   KC_G,   KC_P,     KC_N,    LT(0,KC_E),   LT(0,KC_A),   LT(0,KC_O),   RSFT_T(KC_ENT),
     KC_LSFT,        KC_Q,    KC_V,    KC_W,    KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,      KC_DOT,       KC_X,         KC_RSFT,
     CAPSWRD,        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,          KC_RGUI,      KC_LEFT,      KC_RGHT
