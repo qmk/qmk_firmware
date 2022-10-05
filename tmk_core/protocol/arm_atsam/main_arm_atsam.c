@@ -122,7 +122,7 @@ void send_extra(report_extra_t *report) {
     __DMB();
 
     memcpy(udi_hid_exk_report, report, UDI_HID_EXK_REPORT_SIZE);
-    udi_hid_exk_b_report_valid          = 1;
+    udi_hid_exk_b_report_valid = 1;
     udi_hid_exk_send_report();
 
     __DMB();

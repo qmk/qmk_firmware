@@ -134,7 +134,7 @@ void host_system_send(uint16_t usage) {
 
     report_extra_t report = {
         .report_id = REPORT_ID_SYSTEM,
-        .usage = usage,
+        .usage     = usage,
     };
     (*driver->send_extra)(&report);
 }
@@ -154,7 +154,7 @@ void host_consumer_send(uint16_t usage) {
 
     report_extra_t report = {
         .report_id = REPORT_ID_CONSUMER,
-        .usage = usage,
+        .usage     = usage,
     };
     (*driver->send_extra)(&report);
 }

@@ -371,8 +371,8 @@ static uint8_t udi_hid_exk_rate;
 COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_exk_protocol;
 
-//COMPILER_WORD_ALIGNED
-//uint8_t udi_hid_exk_report_set;
+// COMPILER_WORD_ALIGNED
+// uint8_t udi_hid_exk_report_set;
 
 bool udi_hid_exk_b_report_valid;
 
