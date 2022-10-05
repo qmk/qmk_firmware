@@ -83,7 +83,7 @@ static inline bool usbIsActive(void) {
 #        endif
 #    else
 #        if defined(SPLIT_USB_TIMEOUT)
-_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+_Static_assert(SPLIT_USB_TIMEOUT > SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
 #        endif
 #    endif
 

@@ -190,7 +190,7 @@ typedef struct _split_shared_memory_t {
 
 #if defined(SPLIT_WATCHDOG_ENABLE)
     bool watchdog_pinged;
-#endif // efined(SPLIT_USB_DETECT) && defined(SPLIT_WATCHDOG_ENABLE)
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
