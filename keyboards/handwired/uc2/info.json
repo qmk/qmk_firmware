@@ -5,12 +5,17 @@
     "bootloader": "caterina",
     "diode_direction": "ROW2COL",
     "features": {
-        "bootmagic": false,
-        "command": false,
-        "console": false,
-        "extrakey": false,
+        "bootmagic": true,
         "mousekey": true,
-        "nkro": true
+        "extrakey": false,
+        "console": false,
+        "command": false,
+        "nkro": false,
+        "backlight": false,
+        "rgblight": true,
+        "audio": false,
+        "rgb_matrix": false,
+        "encoder": true
     },
     "matrix_pins": {
         "cols": ["F4","F5","F6","F7","B1","B3","B2","B6"],
