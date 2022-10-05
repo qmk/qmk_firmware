@@ -28,10 +28,6 @@
         "cols": ["GP2",  "GP9", "GP8",  "GP7"],
         "rows": ["GP26", "GP1", "GP18", "GP5"]
     },
-    "matrix_size": {
-        "cols": 4,
-        "rows": 4
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
