@@ -257,7 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 */
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     uint8_t red[3] = {50, 5, 0};
     uint8_t yellow[3] = {50, 50, 0};
     uint8_t blue[3] = {0, 15, 50};
@@ -323,5 +323,5 @@ void rgb_matrix_indicators_user(void) {
     if (led_state.scroll_lock) {
         rgb_matrix_set_color(23, green[0], green[1], green[2]);
     }
-
+    return false;
 }

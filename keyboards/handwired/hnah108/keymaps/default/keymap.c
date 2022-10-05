@@ -65,7 +65,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     led_t led_state = host_keyboard_led_state();
 
     if (led_state.caps_lock) {
@@ -77,4 +77,5 @@ void rgb_matrix_indicators_user(void) {
     } else {
         rgb_matrix_set_color(30, 0x00, 0x00, 0x00);
     }
+    return false;
 }

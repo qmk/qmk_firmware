@@ -79,6 +79,19 @@
 #define RP_SPI_DMA_ERROR_HOOK(spip)
 
 /*
+ * PWM driver system settings.
+ */
+#define RP_PWM_USE_PWM0                     FALSE
+#define RP_PWM_USE_PWM1                     FALSE
+#define RP_PWM_USE_PWM2                     FALSE
+#define RP_PWM_USE_PWM3                     FALSE
+#define RP_PWM_USE_PWM4                     FALSE
+#define RP_PWM_USE_PWM5                     FALSE
+#define RP_PWM_USE_PWM6                     FALSE
+#define RP_PWM_USE_PWM7                     FALSE
+#define RP_PWM_IRQ_WRAP_NUMBER_PRIORITY     3
+
+/*
  * I2C driver system settings.
  */
 #define RP_I2C_USE_I2C0                     FALSE

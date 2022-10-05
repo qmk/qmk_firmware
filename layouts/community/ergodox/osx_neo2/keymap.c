@@ -687,9 +687,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if ((capslock_state & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
     // CAPSLOCK is currently active, disable it
     if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
-      unregister_code(KC_LOCKING_CAPS);
+      unregister_code(KC_LOCKING_CAPS_LOCK);
     } else {
-      register_code(KC_LOCKING_CAPS);
+      register_code(KC_LOCKING_CAPS_LOCK);
     }
     return false;
   }

@@ -80,12 +80,13 @@ static void set_rgb_side_leds() {
     rgb_matrix_set_color(92, RGB_WHITE); // Right side LED 8
 }
 
-void rgb_matrix_indicators_user() {
+bool rgb_matrix_indicators_user() {
     rgb_matrix_set_color_all(0x0, 0x0, 0x0);
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         rgb_matrix_set_color(3, RGB_WHITE); // CAPS
     }
     set_rgb_side_leds();
+    return false;
 }
 
 #endif

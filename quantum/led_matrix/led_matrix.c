@@ -385,9 +385,13 @@ void led_matrix_indicators(void) {
     led_matrix_indicators_user();
 }
 
-__attribute__((weak)) void led_matrix_indicators_kb(void) {}
+__attribute__((weak)) bool led_matrix_indicators_kb(void) {
+    return led_matrix_indicators_user();
+}
 
-__attribute__((weak)) void led_matrix_indicators_user(void) {}
+__attribute__((weak)) bool led_matrix_indicators_user(void) {
+    return true;
+}
 
 void led_matrix_indicators_advanced(effect_params_t *params) {
     /* special handling is needed for "params->iter", since it's already been incremented.
@@ -407,9 +411,13 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
     led_matrix_indicators_advanced_user(min, max);
 }
 
-__attribute__((weak)) void led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {}
+__attribute__((weak)) bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    return led_matrix_indicators_advanced_user(led_min, led_max);
+}
 
-__attribute__((weak)) void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {}
+__attribute__((weak)) bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
 
 void led_matrix_init(void) {
     led_matrix_driver.init();
