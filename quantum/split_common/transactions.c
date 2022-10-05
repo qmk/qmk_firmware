@@ -623,7 +623,7 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 }
 
 #    define TRANSACTIONS_ST7565_MASTER() TRANSACTION_HANDLER_MASTER(st7565)
-#    define TRANSACTIONS_ST7565_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(st7565)
+#    define TRANSACTIONS_ST7565_SLAVE() TRANSACTION_HANDLER_SLAVE(st7565)
 #    define TRANSACTIONS_ST7565_REGISTRATIONS [PUT_ST7565] = trans_initiator2target_initializer(current_st7565_state),
 
 #else // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
