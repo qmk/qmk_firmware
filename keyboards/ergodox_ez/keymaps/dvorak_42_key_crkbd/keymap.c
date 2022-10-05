@@ -584,10 +584,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shortcuts to be intercepted by autohotkey
   [SHORTCUTS] = LAYOUT_ergodox(
        // left hand
-       KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_F1,     KC_F2,      KC_F3,       KC_F4,       KC_F5,       KC_F6,     KC_TRNS,
-       KC_F7,     KC_F8,      KC_F9,       KC_F10,      KC_F11,      KC_F12,
-       MEH(KC_C), MEH(KC_D), MEH(KC_E), MEH(KC_F),   MEH(KC_G),   MEH(KC_H),   KC_TRNS,
+       KC_TRNS,   KC_TRNS,       KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,   KC_TRNS,
+       KC_F1,     KC_F2,         KC_F3,          KC_F4,          KC_F5,          KC_F6,     KC_TRNS,
+       KC_F7,     KC_F8,         KC_F9,          KC_F10,         KC_F11,         KC_F12,
+       KC_TRNS,   OSM(MOD_LSFT), OSM(MOD_LGUI),  OSM(MOD_LALT),  OSM(MOD_LCTL),  KC_TRNS,   KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TG(BASE_IOS),
                                        // thumb cluster
