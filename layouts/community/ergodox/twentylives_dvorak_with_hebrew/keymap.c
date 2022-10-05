@@ -161,11 +161,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS,
 	KC_TRNS,KC_TRNS,KC_TRNS,
 	// Right Hand
-	KC_TRNS, KC_TRNS,  KC_LOCKING_NUM, KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS, KC_TRNS,
-	KC_TRNS, KC_TRNS,  KC_KP_7,        KC_KP_8,     KC_KP_9,        KC_KP_PLUS,  KC_TRNS,
-	         KC_TRNS,  KC_KP_4,        KC_KP_5,     KC_KP_6,        KC_KP_PLUS,  KC_TRNS,
-	KC_TRNS, KC_TRNS,  KC_KP_1,        KC_KP_2,     KC_KP_3,        KC_ENTER,    KC_TRNS,
-	                   KC_KP_0,        KC_KP_0,     KC_KP_DOT,      KC_ENTER,    KC_TRNS,
+	KC_TRNS, KC_TRNS,  KC_LNUM, KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS, KC_TRNS,
+	KC_TRNS, KC_TRNS,  KC_KP_7, KC_KP_8,     KC_KP_9,        KC_KP_PLUS,  KC_TRNS,
+	         KC_TRNS,  KC_KP_4, KC_KP_5,     KC_KP_6,        KC_KP_PLUS,  KC_TRNS,
+	KC_TRNS, KC_TRNS,  KC_KP_1, KC_KP_2,     KC_KP_3,        KC_ENTER,    KC_TRNS,
+	                   KC_KP_0, KC_KP_0,     KC_KP_DOT,      KC_ENTER,    KC_TRNS,
 	KC_TRNS,  KC_TRNS,
 	KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS
