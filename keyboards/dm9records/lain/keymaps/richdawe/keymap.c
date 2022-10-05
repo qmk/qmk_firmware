@@ -14,6 +14,8 @@ ps2pdf lain-keymap-richdawe.ps lain-keymap-richdawe.pdf
 enum layers { BASE, NUM, SYM, FUNC };
 enum custom_keycodes { LED_EN = SAFE_RANGE };
 
+#define LTS_SPC LT(SYM, KC_SPC)
+#define LTN_SPC LT(NUM, KC_SPC)
 #define LTF_TAB LT(FUNC, KC_TAB)
 
 // clang-format off
@@ -28,13 +30,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------'     \-----------------------------------|
  * |LShft|  Z  /  X  /  C  /  V  /  B  /           \  \  \  N  \  M  \  ,  \  .  |ShEnt|
  * `-----------------------------------'           \-----------------------------------|
- *    |LCtrl|  /LGUI /LAlt /Space/LSym /           \LNum \Space\RAlt \RCtrl\  /  |  `  |
+ *    |LCtrl|  /LGUI /LAlt /SpLSy/SpLSy/           \SpLNu\SpLNu\RAlt \RCtrl\  /  |  `  |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
         LTF_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_RBRC,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,               KC_BSLS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SFTENT,
-        KC_LCTL,          KC_LGUI, KC_LALT, KC_SPC,  MO(SYM),            MO(NUM), KC_SPC,  KC_RALT, KC_RCTL, KC_SLSH, KC_GRV
+        KC_LCTL,          KC_LGUI, KC_LALT, LTS_SPC, LTS_SPC,            LTN_SPC, LTN_SPC, KC_RALT, KC_RCTL, KC_SLSH, KC_GRV
     ),
 
     [NUM] = LAYOUT(
@@ -46,13 +48,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------'     \-----------------------------------|
  * |     |     /  7  /  8  /  9  /  0  /           \     \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
- *    |     |  /     /     /  -  /     /           \     \  -  \     \     \     |     |
+ *    |     |  /     /     /  -  /  -  /           \     \     \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
         _______, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_COLON, KC_LPRN,   XXXXXXX, KC_MINS, KC_EQL,  KC_0,    KC_DOT,  KC_BSPC,
         _______, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_DOT,   KC_RPRN,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,XXXXXXX, XXXXXXX,
         _______, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______,          _______, _______, KC_MINS, _______,             _______, KC_MINS, _______, _______, XXXXXXX, XXXXXXX
+        _______,          _______, KC_MINS, KC_MINS, _______,             _______, _______, _______, _______, XXXXXXX, XXXXXXX
     ),
 
     [SYM] = LAYOUT(
@@ -64,13 +66,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------'     \-----------------------------------|
  * |     |     /  &  /  *  /  (  /  )  /           \     \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
- *    |     |  /     /     /  -  /     /           \     \  -  \     \     \     |     |
+ *    |     |  /     /     /     /     /           \  -  \  -  \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
         _______, XXXXXXX, S(KC_1), S(KC_2), S(KC_3), XXXXXXX, KC_LPRN,   XXXXXXX, S(KC_MINS), S(KC_EQL), XXXXXXX, XXXXXXX, KC_BSPC,
         _______, XXXXXXX, S(KC_4), S(KC_5), S(KC_6), XXXXXXX, KC_RPRN,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, XXXXXXX,
         _______, XXXXXXX, S(KC_7), S(KC_8), S(KC_9), S(KC_0),            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______,          _______, _______, KC_MINS, _______,            _______, KC_MINS, _______, _______, XXXXXXX, XXXXXXX
+        _______,          _______, _______, _______, _______,            KC_MINS, KC_MINS, _______, _______, XXXXXXX, XXXXXXX
     ),
 
     [FUNC] = LAYOUT(
