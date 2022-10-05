@@ -255,7 +255,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // right hand
       KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS,   KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_BSPC,
+      KC_TRNS,   KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   TD(TD_BSPC_CTL_BSPC),
       KC_TRNS,   KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   OSM(MOD_LSFT),
       OSL(SHORTCUTS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
