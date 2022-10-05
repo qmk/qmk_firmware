@@ -6,7 +6,7 @@ A hotswap 60% keyboard with an arrow key cluster. Board features support for an 
 
 * Keyboard Maintainer: [Andy Tsai](https://github.com/cgmandy)
 * Hardware Supported: ATMEGA32U4, Push-Pull Solenoid, Active Buzzer, SSD1306 128x32 OLED
-* Hardware Availibility: https://hardwareabstraction.com
+* Hardware Availability: https://hardwareabstraction.com
 
 Make example for this keyboard (after setting up your build environment):
 
