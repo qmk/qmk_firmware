@@ -64,7 +64,8 @@ bool xap_respond_get_config_blob_chunk(xap_token_t token, const void *data, size
         return false;
     }
 
-    uint16_t offset = *((uint16_t *)data);
+    uint16_t offset;
+    memcpy(&offset, data, sizeof(uint16_t));
 
     xap_route_qmk_config_blob_chunk_t ret = {0};
 
