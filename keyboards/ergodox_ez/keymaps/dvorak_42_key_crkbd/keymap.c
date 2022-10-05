@@ -89,6 +89,16 @@ enum custom_keycodes {
   IOS_SHOW_SLIDEOVER,
 };
 
+enum {
+    TD_BSPC_CTL_BSPC,
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_BSPC_CTL_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, RCTL(KC_BSPC)),
+};
+
 
 #define BASE             0 // base dvorak layer
 #define BASE_IOS         1 // base dvorak layer, for ipad / IOS
@@ -246,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       // right hand
       KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS,   KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_BSPC,
-                 KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
+                 KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   TD(TD_BSPC_CTL_BSPC),
       KC_TRNS,   KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   OSM(MOD_LSFT),
       OSL(SHORTCUTS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 
