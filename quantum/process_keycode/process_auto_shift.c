@@ -17,7 +17,6 @@
 #ifdef AUTO_SHIFT_ENABLE
 
 #    include <stdbool.h>
-#    include <stdio.h>
 #    include "process_auto_shift.h"
 
 #    ifndef AUTO_SHIFT_DISABLED_AT_STARTUP
@@ -331,11 +330,12 @@ void autoshift_disable(void) {
 #    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
 #        ifdef SEND_STRING_ENABLE
-    char display[8];
-
-    snprintf(display, 8, "\n%d\n", autoshift_timeout);
-
-    send_string((const char *)display);
+    const char *autoshift_timeout_str = get_u16_str(autoshift_timeout, ' ');
+    // Skip padding spaces
+    while (*autoshift_timeout_str == ' ') {
+        autoshift_timeout_str++;
+    }
+    send_string(autoshift_timeout_str);
 #        endif
 }
 #    endif
