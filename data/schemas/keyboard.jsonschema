@@ -508,7 +508,9 @@
                             "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
                         "sync_matrix_state": {"type": "boolean"},
-                        "sync_modifiers": {"type": "boolean"}
+                        "sync_modifiers": {"type": "boolean"},
+                        "watchdog": {"type": "boolean"},
+                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
                 },
                 "usb_detect": {
