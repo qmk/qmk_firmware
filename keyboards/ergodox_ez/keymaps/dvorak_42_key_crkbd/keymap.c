@@ -166,7 +166,7 @@ enum custom_keycodes {
 // visual studio bookmark commands
 #define VS_BM_PREV          MEH(KC_1) // bookmarks.jumpToPrevious
 #define VS_BM_NEXT          MEH(KC_2) // bookmarks.jumpToNext
-#define VS_BM_TOGGLE        MEH(KC_3) // bookmarks.toggle
+#define VS_BM_TOGGLE        MEH(KC_8) // bookmarks.toggle
 
 // visual studio code navigation shortcuts
 #define VS_FOCUS_EDITOR     MEH(KC_4) // workbench.action.focusActiveEditorGroup
