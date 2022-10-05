@@ -1165,7 +1165,7 @@ void xap_task(void) {
     uint8_t buffer[XAP_EPSIZE];
     size_t  size = 0;
     do {
-        size_t size = chnReadTimeout(&drivers.xap_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+        size = chnReadTimeout(&drivers.xap_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
             xap_receive_base(buffer);
         }
