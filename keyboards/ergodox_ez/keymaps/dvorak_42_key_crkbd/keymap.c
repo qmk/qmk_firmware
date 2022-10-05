@@ -817,7 +817,7 @@ void matrix_scan_user(void) {
 
     uint8_t layer = get_highest_layer(layer_state);
 
-    ergodox_board_led_off();
+    ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
