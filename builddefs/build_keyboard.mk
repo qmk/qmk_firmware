@@ -236,7 +236,7 @@ endif
 # that the same keymap may be used on multiple keyboards.
 #
 # We grab the most top-level include file that we can. That file should
-# use #ifdef statements to include all the neccesary subfolder includes,
+# use #ifdef statements to include all the necessary subfolder includes,
 # as described here:
 #
 #    https://docs.qmk.fm/#/feature_layouts?id=tips-for-making-layouts-keyboard-agnostic
