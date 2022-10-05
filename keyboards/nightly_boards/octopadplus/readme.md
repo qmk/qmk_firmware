@@ -1,8 +1,8 @@
 # DeskDaily Octopad+
 
-![Octopad+](https://i.imgur.com/MkSzzGBl.jpg)
+![Octopad+](https://i.imgur.com/Sa83N0G.jpg)
 
-An 8 key macropad with 2 rotary encoders
+Aluminum version of the Octopad. An 8 key macropad with 2 rotary encoders.
 
 * Keyboard Maintainer: [Neil Brian Ramirez](https://github.com/NightlyBoards)
 * Hardware Supported: atmega32u4
