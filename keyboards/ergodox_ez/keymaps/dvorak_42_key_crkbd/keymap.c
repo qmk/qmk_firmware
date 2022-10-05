@@ -573,8 +573,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SHORTCUTS] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       MEH(KC_0), MEH(KC_1), MEH(KC_2), MEH(KC_3),   MEH(KC_4),   MEH(KC_5), KC_TRNS,
-       MEH(KC_6), MEH(KC_7), MEH(KC_8), MEH(KC_9),   MEH(KC_A),   MEH(KC_B),
+       KC_F1,     KC_F2,      KC_F3,       KC_F4,       KC_F5,       KC_F6,     KC_TRNS,
+       KC_F7,     KC_F8,      KC_F9,       KC_F10,      KC_F11,      KC_F12,
        MEH(KC_C), MEH(KC_D), MEH(KC_E), MEH(KC_F),   MEH(KC_G),   MEH(KC_H),   KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TG(BASE_IOS),
