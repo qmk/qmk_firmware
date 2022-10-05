@@ -334,6 +334,7 @@ static void set_rgb_caps_leds() {
     rgb_matrix_set_color(61, 0xFF, 0x0, 0x0); // F11
     rgb_matrix_set_color(66, 0xFF, 0x0, 0x0); // F12
     rgb_matrix_set_color(69, 0xFF, 0x0, 0x0); // Prt
+    rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
     rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
     rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2
     rgb_matrix_set_color(71, 0xFF, 0x0, 0x0); // Right side LED 2
