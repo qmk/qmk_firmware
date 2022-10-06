@@ -172,6 +172,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define VS_BM_PREV          MEH(KC_1) // bookmarks.jumpToPrevious
 #define VS_BM_NEXT          MEH(KC_2) // bookmarks.jumpToNext
 #define VS_BM_TOGGLE        MEH(KC_8) // bookmarks.toggle
+#define VS_BM_CLEARALL      MEH(KC_9) // bookmarks.clearFromAllFiles
 
 // visual studio code navigation shortcuts
 #define VS_FOCUS_EDITOR     MEH(KC_4) // workbench.action.focusActiveEditorGroup
@@ -297,7 +298,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [KEYNAV] = LAYOUT_ergodox(
     // left hand
     KC_TRNS,         KC_TRNS,       KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,      KC_TRNS,
-    KC_TRNS,         KC_ESC,        RCTL(KC_K),     RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),   KC_TRNS,
+    KC_ESC,          KC_TRNS,       RCTL(KC_K),     RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),   KC_TRNS,
     KC_TRNS,         MO(KEYSEL),    KC_TRNS,        RSFT(KC_TAB),    KC_TAB,           RCTL(KC_F),
     KC_TRNS,         KC_TRNS,       KC_TRNS,        KC_TRNS,         KC_TRNS,          NP_DUPE_LINE, KC_TRNS,
     KC_TRNS,         KC_TRNS,       KC_TRNS,        KC_TRNS,         KC_TRNS,
@@ -480,10 +481,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // vscode shortcuts shortcuts
   [VSCODE] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,           KC_TRNS,             VS_CMT_BLOCK,      VS_CMT_LINE,         KC_TRNS,   KC_TRNS,
-       KC_TRNS,VS_CLEAR_TERMINAL, VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,     KC_TRNS,
-       KC_TRNS,KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,   KC_TRNS,
+       KC_NO,  KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,        KC_TRNS,
+       KC_TRNS,KC_TRNS,           KC_TRNS,             VS_CMT_BLOCK,      VS_CMT_LINE,         KC_TRNS,        KC_TRNS,
+       KC_TRNS,VS_CLEAR_TERMINAL, VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,     VS_BM_CLEARALL,
+       KC_TRNS,KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,        KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
