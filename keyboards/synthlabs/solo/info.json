@@ -19,7 +19,7 @@
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"P2 1", "x":3, "y":0, "w":0.5, "h":1.5, "matrix":[0,0]},
                 {"label":"P1 2", "x":3.5, "y":0, "w":0.5, "h":1.5, "matrix":[0,1]},
