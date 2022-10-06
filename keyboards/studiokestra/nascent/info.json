@@ -2,7 +2,7 @@
     "keyboard_name": "Nascent",
     "manufacturer": "Studio Kestra",
     "url": "https://studiokestra.ca/",
-    "maintainer": "Studio Kestra",
+    "maintainer": "studiokestra",
     "usb": {
         "vid": "0x7C10",
         "pid": "0x0165",
