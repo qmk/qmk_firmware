@@ -3,8 +3,6 @@
 #define EE_HANDS
 #define SPLIT_USB_DETECT
 
-#define USE_SERIAL_PD2
-
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 250

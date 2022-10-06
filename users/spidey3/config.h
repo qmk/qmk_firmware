@@ -42,7 +42,7 @@
 #define SPI_DEBUG_SCAN_RATE
 
 #undef MANUFACTURER
-#define MANUFACTURER Window of Fire
+#define MANUFACTURER "Window of Fire"
 
 // Some keyboards enable BACKLIGHT_CAPS_LOCK without checking if backlight is enabled.
 // Undef as appropriate to avoid compiler warnings in that case.

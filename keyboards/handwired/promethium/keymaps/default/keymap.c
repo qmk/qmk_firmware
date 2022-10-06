@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #include "outputselect.h"
 #include "led.h"
-#define COUNT(x) (sizeof (x) / sizeof (*(x)))
+#define COUNT(x) ARRAY_SIZE((x))
 
 #define KC_WWWB KC_WWW_BACK
 #define KC_WWWF KC_WWW_FORWARD
@@ -606,7 +606,7 @@ void led_set_unicode_input_mode(void) {
     case UC_LNX:
       rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
       break;
-    case UC_OSX:
+    case UC_MAC:
       rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
       break;
     case UC_WIN:
@@ -1213,7 +1213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case OSX:
-      set_unicode_input_mode(UC_OSX);
+      set_unicode_input_mode(UC_MAC);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif

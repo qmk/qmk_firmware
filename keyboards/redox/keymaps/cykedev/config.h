@@ -15,7 +15,6 @@
 
 #pragma once
 
-#define USE_SERIAL
 #define MASTER_LEFT
 #undef  RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS

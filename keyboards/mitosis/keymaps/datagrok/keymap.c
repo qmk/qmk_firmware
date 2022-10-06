@@ -97,7 +97,7 @@ const bool defaultlayers[] = {
   [_xN] = false,
   [_xF] = false,
 };
-const size_t defaultlayers_n = sizeof(defaultlayers) / sizeof(defaultlayers[0]);
+const size_t defaultlayers_n = ARRAY_SIZE(defaultlayers);
 
 // New keycode KC_LAYO rotates between available default layers (for e.g.,
 // selecting a base layout). Shift+KC_LAYO makes the current one persistent.

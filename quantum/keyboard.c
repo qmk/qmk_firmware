@@ -106,7 +106,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "split_util.h"
 #endif
 #ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
+#    include "bluetooth.h"
 #endif
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
@@ -170,12 +170,11 @@ uint32_t get_matrix_scan_rate(void) {
 #endif
 
 #ifdef MATRIX_HAS_GHOST
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-static matrix_row_t   get_real_keys(uint8_t row, matrix_row_t rowdata) {
+static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata) {
     matrix_row_t out = 0;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         // read each key in the row data and check if the keymap defines it as a real key
-        if (pgm_read_byte(&keymaps[0][row][col]) && (rowdata & (1 << col))) {
+        if (keycode_at_keymap_location(0, row, col) && (rowdata & (1 << col))) {
             // this creates new row data, if a key is defined in the keymap, it will be set here
             out |= 1 << col;
         }
@@ -346,9 +345,6 @@ void quantum_init(void) {
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
-#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
-    set_output(OUTPUT_AUTO);
-#endif
 }
 
 /** \brief keyboard_init
@@ -409,6 +405,9 @@ void keyboard_init(void) {
 #ifdef POINTING_DEVICE_ENABLE
     // init after split init
     pointing_device_init();
+#endif
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -587,6 +586,10 @@ void keyboard_task(void) {
 
     quantum_task();
 
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    split_watchdog_task();
+#endif
+
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
 #endif
@@ -668,6 +671,10 @@ void keyboard_task(void) {
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     programmable_button_send();
+#endif
+
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_task();
 #endif
 
     led_task();

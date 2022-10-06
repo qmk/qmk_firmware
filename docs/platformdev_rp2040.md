@@ -6,6 +6,7 @@ The following table shows the current driver status for peripherals on RP2040 MC
 | ---------------------------------------------------------------- | ---------------------------------------------- |
 | [ADC driver](adc_driver.md)                                      | Support planned (no ETA)                       |
 | [Audio](audio_driver.md)                                         | Support planned (no ETA)                       |
+| [Backlight](feature_backlight.md)                                | :heavy_check_mark:                             |
 | [I2C driver](i2c_driver.md)                                      | :heavy_check_mark:                             |
 | [SPI driver](spi_driver.md)                                      | :heavy_check_mark:                             |
 | [WS2812 driver](ws2812_driver.md)                                | :heavy_check_mark: using `PIO` driver          |

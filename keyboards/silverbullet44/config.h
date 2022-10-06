@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_SPLIT {26, 26}
   #define RGBLED_NUM 52
   #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 52
+    #define RGB_MATRIX_LED_COUNT 52
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
     #define RGB_MATRIX_HUE_STEP 8

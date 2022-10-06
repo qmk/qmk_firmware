@@ -16,4 +16,10 @@
 
 #pragma once
 
-extern const uint8_t led_map[DRIVER_LED_TOTAL];
+#include "quantum.h"
+#include "rgb_matrix.h"
+
+extern const uint8_t led_map[RGB_MATRIX_LED_COUNT];
+
+void set_all_leds_to(uint8_t r, uint8_t g, uint8_t b);
+void set_led_to(int led, uint8_t r, uint8_t g, uint8_t b);

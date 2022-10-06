@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN E2
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 74
+#define RGB_MATRIX_LED_COUNT 74
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 74
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses

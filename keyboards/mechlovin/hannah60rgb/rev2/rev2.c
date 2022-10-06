@@ -17,7 +17,7 @@
 #include "rev2.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -123,8 +123,8 @@ led_config_t g_led_config = { {
   {  0,  0},  { 16,  0},  { 32, 0 },  { 48,  0}, //9-59-68-76
   {  0, 16},  { 16, 16},  { 32, 16},  { 48, 16}, //10-60-72-77
   {  0, 32},  { 16, 32},  { 32, 32},  { 48, 32}, //46-61-73-78
-  {  0, 48},  {  0, 48},  { 12, 48},  { 16, 48}, //126-51-63-74  
-  {  0, 64},  { 16, 64}, //56-67  
+  {  0, 48},  {  0, 48},  { 12, 48},  { 16, 48}, //126-51-63-74
+  {  0, 64},  { 16, 64}, //56-67
   { 64,  0},  { 80,  0},   { 96, 0},  { 112, 0}, //80-84-89-94
   { 64, 16},  { 80, 16},   { 96,16},  { 112,16}, //81-85-90-95
   { 64, 32},  { 80, 32},   { 96,32},  { 112,32}, //82-86-91-96
@@ -133,34 +133,38 @@ led_config_t g_led_config = { {
   { 128, 0},  { 144, 0},  { 160, 0},  { 176, 0},    {192,  0},   {220,  0},   {210, 0}, //98-102-106-111-116-121-130
   { 128,16},   {144,16},   {160,16},  {176, 16},    {192, 16},   {220, 16},   {220,16}, //99-103-107-112-117-129-122
   { 128,32},  { 144,32},  { 160,32},  { 176,32},    {192, 32},   {220, 32}, //100-104-108-113-118-123
-  {  96,48},   {112,48},  {128, 48},  {144, 48},    {160, 48},   {200, 48},   {220,48},   {220,48}, //97-101-105-109-114-119-128-124 
+  {  96,48},   {112,48},  {128, 48},  {144, 48},    {160, 48},   {200, 48},   {220,48},   {220,48}, //97-101-105-109-114-119-128-124
   {  96,64},   {144,64},   {160,64},   {176,64},    {220, 64}, //127-110-115-120-125
-  { 220, 0},   //140                  
+  { 220, 0},   //140
 }, {
   1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,
-  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,  
-  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,  
-  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,  
-  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1, 
+  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,
+  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,
+  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,
+  1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,
 } };
 
-__attribute__((weak)) void rgb_matrix_indicators_user(void) {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(8, 255, 255, 255);
-            rgb_matrix_set_color(70, 255, 0, 0);
-        } else {
-            rgb_matrix_set_color(70, 0, 0, 0);
-        }
-        if (host_keyboard_led_state().num_lock) {
-            rgb_matrix_set_color(71, 255, 0, 0);
-        } else {
-            rgb_matrix_set_color(71, 0, 0, 0);
-        }
-        if (host_keyboard_led_state().scroll_lock) {
-            rgb_matrix_set_color(72, 255, 0, 0);
-        } else {
-            rgb_matrix_set_color(72, 0, 0, 0);
-        }
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(8, 255, 255, 255);
+        rgb_matrix_set_color(70, 255, 0, 0);
+    } else {
+        rgb_matrix_set_color(70, 0, 0, 0);
+    }
+    if (host_keyboard_led_state().num_lock) {
+        rgb_matrix_set_color(71, 255, 0, 0);
+    } else {
+        rgb_matrix_set_color(71, 0, 0, 0);
+    }
+    if (host_keyboard_led_state().scroll_lock) {
+        rgb_matrix_set_color(72, 255, 0, 0);
+    } else {
+        rgb_matrix_set_color(72, 0, 0, 0);
+    }
+    return true;
 }
 
 __attribute__((weak))

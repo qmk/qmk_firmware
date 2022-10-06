@@ -90,6 +90,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 ?> This should only be enabled at the keymap level.
 
+Using encoder mapping pumps events through the normal QMK keycode processing pipeline, resulting in a _keydown/keyup_ combination pushed through `process_record_xxxxx()`. To configure the amount of time between the encoder "keyup" and "keydown", you can add the following to your `config.h`:
+
+```c
+#define ENCODER_MAP_KEY_DELAY 10
+```
+
+?> By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
+
 ## Callbacks
 
 When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
@@ -121,7 +129,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-!> If you return `true`, it will allow the keyboard level code to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard function is set up. 
+!> If you return `true`, it will allow the keyboard level code to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard function is set up.
 
 Layer conditions can also be used with the callback function like the following:
 
@@ -174,7 +182,7 @@ The A an B lines of the encoders should be wired directly to the MCU, and the C/
 Multiple encoders may share pins so long as each encoder has a distinct pair of pins when the following conditions are met:
 - using detent encoders
 - pads must be high at the detent stability point which is called 'default position' in QMK
-- no more than two encoders sharing a pin can be turned at the same time 
+- no more than two encoders sharing a pin can be turned at the same time
 
 For example you can support two encoders using only 3 pins like this
 ```
@@ -187,4 +195,4 @@ You could even support three encoders using only three pins (one per encoder) ho
 #define ENCODERS_PAD_A { B1, B1, B2 }
 #define ENCODERS_PAD_B { B2, B3, B3 }
 ```
-Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case 
+Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case
