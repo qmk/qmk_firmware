@@ -1,9 +1,9 @@
-Gvalchca Alpine Noon
-======
+# Gvalchca x Alectardy98 Alpinenoon
 
-Alps + MX PCB for RAMA.WORKS Zenith
+Alps and MX 65% +10 PCB with ANSI and iso Enter support. To update the firmware connect the PCB to your computer and press Reset button.
+![SpaccBoard image](https://i.imgur.com/0mB5HFx.jpeg)
 
-Keyboard Maintainer: [Gvalchca](https://github.com/Gvalch-ca)  
+Keyboard Maintainer: [Alectardy98](https://github.com/alectardy98)  
 Hardware Supported: Alpine Noon
 Hardware Availability: [keebal](https://keebal.com)
 
