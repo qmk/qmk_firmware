@@ -1,9 +1,13 @@
 {
     "keyboard_name": "craftwalk",
+    "manufacturer": "sotoba",
     "url": "https://github.com/sotoba/craftwalk",
     "maintainer": "sotoba",
-    "width": 7.25,
-    "height": 4.5,
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x2E8F",
+      "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

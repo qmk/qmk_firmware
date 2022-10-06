@@ -1,2 +1,2 @@
-# Teensy 2.0
+# Bootloader selection
 BOOTLOADER = halfkay

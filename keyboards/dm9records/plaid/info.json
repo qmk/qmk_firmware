@@ -1,12 +1,15 @@
 {
-  "keyboard_name": "Plaid // Through Hole",
+  "keyboard_name": "Plaid",
+  "manufacturer": "Dm9Records",
   "url": "https://github.com/hsgw/plaid",
   "maintainer": "hsgw(Takuya Urakawa)",
-  "width": 12,
-  "height": 4,
+  "usb": {
+    "vid": "0x16C0",
+    "pid": "0x27DB",
+    "device_version": "0.0.2"
+  },
   "layouts": {
     "LAYOUT_plaid_mit": {
-      "key_count": 47,
       "layout": [
         { "w": 1, "x": 0, "y": 0 },
         { "w": 1, "x": 1, "y": 0 },
@@ -57,7 +60,6 @@
         { "w": 1, "x": 11, "y": 3 } ]
     },
     "LAYOUT_plaid_grid": {
-      "key_count": 48,
       "layout": [
         { "w": 1, "x": 0, "y": 0 },
         { "w": 1, "x": 1, "y": 0 },

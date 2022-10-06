@@ -1,9 +1,13 @@
 {
     "keyboard_name": "oem_ansi_fullsize",
+    "manufacturer": "Cian Johnston",
     "url": "https://github.com/johnstcn/qmk",
     "maintainer": "johnstcn",
-    "width": 22.5,
-    "height": 6.25,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [

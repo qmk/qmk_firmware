@@ -490,7 +490,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   /* Use layer 3 when 1 & 2 are pressed. */
   state = update_tri_layer_state(state, LAYER_KPAD, LAYER_FKEY, LAYER_WORD);
   return state;
@@ -662,7 +662,7 @@ void matrix_init_user(void) {
 /* Runs constantly in the background, in a loop. */
 void matrix_scan_user(void) {
 
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   ergodox_board_led_off();
   ergodox_right_led_1_off();

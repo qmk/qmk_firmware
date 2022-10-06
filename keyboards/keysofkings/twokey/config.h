@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xAE12
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Keys of Kings
-#define PRODUCT         Twokey
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 2
@@ -32,13 +25,11 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B4, B5 }
 #define MATRIX_COL_PINS { B3, B2 }
-#define UNUSED_PINS
 
 
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { D7 }
+#define ENCODERS_PAD_A { D7 }
+#define ENCODERS_PAD_B { E6 }
 #define ENCODER_RESOLUTION 1
-#define ENCODER_DIRECTION_FLIP
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

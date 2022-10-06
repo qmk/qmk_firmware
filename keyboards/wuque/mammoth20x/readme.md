@@ -1,11 +1,11 @@
 # mammoth20x
-​
-More Info at[wuquestudio](https://shop.wuquestudio.com/).
-​
+
+More info at [Wuque Studio](https://shop.wuquestudio.com/).
+
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
 * Hardware Supported: mammoth20x Standard
-* Hardware Availability: [mammoth20x](https://shop.wuquestudio.com/)
-​
+* Hardware Availability: [Wuque Studio](https://shop.wuquestudio.com/)
+
 Make example for this keyboard (after setting up your build environment):
 
     make wuque/mammoth20x:default

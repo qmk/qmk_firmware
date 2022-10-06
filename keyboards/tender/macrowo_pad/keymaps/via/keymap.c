@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT(
 		SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,
 		SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,   SAY_OWO,              SAY_OWO,   SAY_OWO,   SAY_OWO),
-  
+
 	[1] = LAYOUT(
     KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
     KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,              KC_TRNS,   KC_TRNS,   KC_TRNS),
@@ -53,12 +53,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,              KC_TRNS,   KC_TRNS,   KC_TRNS)
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;  
+    return OLED_ROTATION_270;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   oled_write_P(PSTR("OWO\nWhat's\nthis?"), false);
+    return false;
 }
 #endif

@@ -1,12 +1,15 @@
 {
   "keyboard_name": "Pterodactyl",
+  "manufacturer": "myoung34",
   "url": "https://marcyoung.us/post/pterodactyl/",
   "maintainer": "Marcus Young",
-  "width": 17,
-  "height": 8,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1308",
+    "device_version": "0.0.2"
+  },
   "layouts": {
     "LAYOUT_pterodactyl": {
-      "key_count": 70,
       "layout": [
         {"x":0, "y":0},
         {"x":1, "y":0},

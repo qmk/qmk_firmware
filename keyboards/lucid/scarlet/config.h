@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7667 // Lucid
-#define PRODUCT_ID   0x0004 // Scarlet PCB's
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    Lucid
-#define PRODUCT         Scarlet
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -44,7 +37,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Checked with Eagle Schematic
 #define MATRIX_ROW_PINS { B4, B5, B6, C0, E1, E0 }
 #define MATRIX_COL_PINS { F2, F3, F4, F5, F6, F7, A0, A1, A2, A3, A4, A5, A6, A7, D5, D6, D7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -98,5 +90,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

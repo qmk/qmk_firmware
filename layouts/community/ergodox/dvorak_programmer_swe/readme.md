@@ -25,7 +25,7 @@ Known issues:
   * Switched position on Alt and Alt-shift
   * Added tilde character to symbol layer
   * Added Print Screen to keymap 3
-  * Added ' (NO_APOS) to keymap 3
+  * Added ' (NO_QUOT) to keymap 3
   * Added how to install help in this readme
 
 * 2017-05-16

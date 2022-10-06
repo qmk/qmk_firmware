@@ -48,7 +48,7 @@ typedef struct {
     bool                   enabled;
     uint8_t                steps[SEQUENCER_STEPS];
     uint16_t               track_notes[SEQUENCER_TRACKS];
-    uint8_t                tempo;  // Is a maximum tempo of 255 reasonable?
+    uint8_t                tempo; // Is a maximum tempo of 255 reasonable?
     sequencer_resolution_t resolution;
 } sequencer_config_t;
 
@@ -57,9 +57,9 @@ typedef struct {
  * We use a "phase" state machine to delay some of the events.
  */
 typedef enum sequencer_phase_t {
-    SEQUENCER_PHASE_ATTACK,   // t=0ms, send the MIDI note on signal
-    SEQUENCER_PHASE_RELEASE,  // t=SEQUENCER_PHASE_RELEASE_TIMEOUT ms, send the MIDI note off signal
-    SEQUENCER_PHASE_PAUSE     // t=step duration ms, loop
+    SEQUENCER_PHASE_ATTACK,  // t=0ms, send the MIDI note on signal
+    SEQUENCER_PHASE_RELEASE, // t=SEQUENCER_PHASE_RELEASE_TIMEOUT ms, send the MIDI note off signal
+    SEQUENCER_PHASE_PAUSE    // t=step duration ms, loop
 } sequencer_phase_t;
 
 typedef struct {
@@ -119,4 +119,4 @@ uint16_t sequencer_get_step_duration(void);
 uint16_t get_beat_duration(uint8_t tempo);
 uint16_t get_step_duration(uint8_t tempo, sequencer_resolution_t resolution);
 
-void matrix_scan_sequencer(void);
+void sequencer_task(void);

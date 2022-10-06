@@ -1,10 +1,11 @@
 {
-    "keyboard_name": "ErgoDox EZ",
+    "manufacturer": "ZSA Technology Labs",
     "url": "ergodox-ez.com",
     "maintainer": "ZSA via Drashna",
-    "width": 17,
-    "height": 8,
-
+    "usb": {
+        "vid": "0x3297",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [

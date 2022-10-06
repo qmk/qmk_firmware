@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "rect44",
+    "keyboard_name": "Rect44",
+    "manufacturer": "koshinoya",
     "url": "",
     "maintainer": "koshinoya",
-    "width": 14,
-    "height": 4,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4DD7",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -18,14 +18,14 @@
 #include <i2c_master.h>
 #include <led_tables.h>
 #include <rgb_matrix.h>
-#include "drivers/issi/is31fl3731.h"
+#include "drivers/led/issi/is31fl3731.h"
 #include "ws2812.h"
 #include "rev1_qmk.h"
 
 #ifdef RGB_MATRIX_ENABLE
 LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

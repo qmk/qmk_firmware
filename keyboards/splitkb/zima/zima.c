@@ -21,7 +21,7 @@
 extern haptic_config_t haptic_config;
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static bool is_asleep = false;
 static uint32_t oled_timer;
 
@@ -35,12 +35,17 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_asleep) {
         oled_off();
-        return;
+        return false;
     }
 
     if (timer_elapsed32(oled_timer) < 30000) {
@@ -83,6 +88,7 @@ __attribute__((weak)) void oled_task_user(void) {
             oled_off();
         }
     }
+    return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -94,7 +100,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
     oled_timer = timer_read32();
 #    endif
 #    if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)

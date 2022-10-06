@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x558E
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    mschwingen
-#define PRODUCT         IBM Model M 101/102
-
 /* key matrix size */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 8
@@ -57,8 +50,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 //#define DEBUG_MATRIX_SCAN_RATE
 #define DYNAMIC_MACRO_NO_NESTING

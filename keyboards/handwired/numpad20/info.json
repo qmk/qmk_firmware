@@ -1,9 +1,13 @@
 {
-  "keyboard_name": "numpad20 handwired",
+  "keyboard_name": "Numpad 20",
+  "manufacturer": "Hexwire",
   "url": "",
   "maintainer": "qmk",
-  "width": 4,
-  "height": 5,
+  "usb": {
+    "vid": "0xBB80",
+    "pid": "0x0504",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

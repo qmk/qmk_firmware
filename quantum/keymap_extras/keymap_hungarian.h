@@ -169,22 +169,3 @@
 #define HU_RCBR ALGR(HU_N)    // }
 #define HU_SCLN ALGR(HU_COMM) // ;
 #define HU_ASTR ALGR(HU_MINS) // *
-
-// DEPRECATED
-#define HU_OE   HU_ODIA
-#define HU_UE   HU_UDIA
-#define HU_OO   HU_OACU
-#define HU_OEE  HU_ODAC
-#define HU_UU   HU_UACU
-#define HU_EE   HU_EACU
-#define HU_AA   HU_AACU
-#define HU_UEE  HU_UDAC
-#define HU_II   HU_IACU
-#define HU_PARA HU_SECT
-#define HU_DQOT HU_DQUO
-#define HU_QST  HU_QUES
-#define HU_BRV  HU_BREV
-#define HU_RING HU_RNGA
-#define HU_CRSS HU_MUL
-#define HU_LESS HU_LABK
-#define HU_MORE HU_RABK

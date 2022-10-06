@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,           KC_SPC,                    KC_SPC,  KC_RALT, MO(1),   MO(2)
 ),
 [_FN2] = LAYOUT_all(
-                                                                                                       RESET,
+                                                                                                       QK_BOOT,
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,           _______,
     _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -107,7 +107,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 /* oled stuff :) */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 20 // below this wpm value your animation will idle
 #define TAP_FRAMES 2
@@ -262,7 +262,7 @@ static void render_cat(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 3000)) {
         render_logo();
@@ -286,6 +286,7 @@ void oled_task_user(void) {
             render_layer();
         }
     }
+    return false;
 }
 #endif
 

@@ -2,8 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 66% HotSwap Prototype",
   "maintainer": "skullydazed",
-  "height": 5,
-  "width": 16.5,
   "debounce": 5,
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
@@ -39,18 +37,16 @@
     "saturation_steps": 17
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2390",
     "vid": "0xC1ED"
   },
   "community_layouts": ["66_ansi"],
   "layout_aliases": {
-    "KEYMAP": "LAYOUT_all",
     "LAYOUT": "LAYOUT_all"
   },
   "layouts": {
     "LAYOUT_66_ansi": {
-      "key_count": 66,
       "layout": [
         { "label": "k00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "k01", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -121,7 +117,6 @@
       ]
     },
     "LAYOUT_all": {
-      "key_count": 70,
       "layout": [
         { "label": "k00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "k01", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },

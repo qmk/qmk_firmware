@@ -1,9 +1,11 @@
 {
-  "keyboard_name": "Sweet 16",
+  "keyboard_name": "Sweet16",
+  "manufacturer": "1up Keyboards",
   "url": "",
   "maintainer": "skullydazed",
-  "width": 4,
-  "height": 4,
+  "usb": {
+    "vid": "0x6F75"
+  },
   "layouts": {
       "LAYOUT_ortho_4x4": {
           "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}, {"x":3, "y":2}, {"x":0, "y":3}, {"x":1, "y":3}, {"x":2, "y":3}, {"x":3, "y":3}]

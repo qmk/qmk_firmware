@@ -1,12 +1,15 @@
 {
     "keyboard_name": "sick68",
+    "manufacturer": "umbynos",
     "url": "",
     "maintainer": "umbynos",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x5E68",
+        "pid": "0x5F00",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
-            "key_count": 68,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
