@@ -49,13 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
       OSL(VSCODE),       KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    KC_TRNS,
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-<<<<<<< HEAD
       OSL(SHELL_SCREEN), KC_SCLN,       KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
       MEH(KC_0),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
-=======
-      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    KC_TRNS,
-      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      MO(BROWSER_CONTROL),
->>>>>>> move keymap to dvorak_42_key
 
       // left thumb cluster
                 KC_TRNS,KC_TRNS,
@@ -63,19 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO(COMBINED),MO(KEYNAV), KC_TRNS,
 
       // right hand
-<<<<<<< HEAD
       KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_7),
       MEH(KC_1), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
       MEH(KC_2), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_8),
       KC_BSPC,   RCTL(KC_BSPC), KC_CAPS, OSM(MOD_LSFT),MEH(KC_9),
-=======
-      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS,   KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
-                 KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   TD(TD_BSPC_CTL_BSPC),
-      KC_TRNS,   KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   OSM(MOD_LSFT),
-      OSL(SHORTCUTS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
->>>>>>> move keymap to dvorak_42_key
 
       // right thumb cluster
         KC_TRNS, KC_TRNS,
@@ -123,19 +110,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     // right hand
-<<<<<<< HEAD
     KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
     KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
             LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
     KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDN,         MEH(KC_J),
                            KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
-=======
-    KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,          KC_TRNS,
-    KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,          KC_DELETE,
-            LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),   RCTL(KC_DELETE),
-    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,        KC_NO,
-                           KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,          KC_TRNS,
->>>>>>> move keymap to dvorak_42_key
 
     // right thumb cluster
     KC_TRNS, KC_TRNS,
@@ -332,17 +311,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COMBINED] = LAYOUT_ergodox(
 
     // left hand
-<<<<<<< HEAD
     KC_NO,  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS,
     KC_TRNS,KC_EXLM, KC_AT,      KC_HASH,     KC_DLR,      KC_PERC, KC_TRNS,
     KC_TRNS,KC_LPRN, KC_RPRN,    KC_LBRC,     KC_RBRC,     KC_UNDS,
     KC_TRNS,KC_COLN, KC_DQUO,    KC_LCBR,     KC_RCBR,     KC_AMPR, KC_TRNS,
-=======
-    KC_NO,    KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS,
-    KC_TILD,  KC_EXLM, KC_AT,      KC_HASH,     KC_DLR,      KC_PERC, KC_TRNS,
-    KC_GRAVE, KC_LPRN, KC_RPRN,    KC_LBRACKET, KC_RBRACKET, KC_UNDS,
-    KC_CIRC,  KC_COLN, KC_DQUO,    KC_LCBR,     KC_RCBR,     KC_AMPR, KC_TRNS,
->>>>>>> move keymap to dvorak_42_key
     // bottom row
     KC_TRNS,KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,
     // thumb cluster
@@ -441,6 +413,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+<<<<<<< HEAD
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
@@ -662,6 +635,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
+=======
+>>>>>>> move macros and tapdance definions to user space
 
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
