@@ -769,7 +769,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTL("a") "]");
             break;
         case SCREEN_KILL:
-            SEND_STRING(SS_LCTL("a") "k");
+            SEND_STRING(SS_LCTL("a") "k" "y");
             break;            
         case SCREEN_READREG_1:
             tap_code16(C(KC_A));
