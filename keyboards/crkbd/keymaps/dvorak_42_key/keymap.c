@@ -68,6 +68,18 @@ KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, NP_DUPE_LINE,               KC_T
                                       //`--------------------------'  `--------------------------'
   ),
 
+  [KEYSEL_IOS] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, RSFT(RGUI(KC_LEFT)), RSFT(KC_UP), RSFT(RGUI(KC_RIGHT)), RSFT(KC_PGUP), KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         RSFT(LALT(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(LALT(KC_RIGHT)), KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                KC_TRNS, RGUI(KC_C), RGUI(KC_X), RGUI(KC_V), RSFT(KC_PGDN), KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+                                      //`--------------------------'  `--------------------------'
+  ),
+
   /*
   // empty layer
   [15] = LAYOUT_split_3x6_3(
