@@ -30,4 +30,3 @@ BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 LTO_ENABLE = yes  #make the file smaller
 ENCODER_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
-VIA_ENABLE = no
