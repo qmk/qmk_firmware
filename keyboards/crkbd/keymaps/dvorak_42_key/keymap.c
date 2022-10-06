@@ -140,6 +140,18 @@ KC_TRNS, KC_TRNS, KC_TRNS, WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT, 
                                       //`--------------------------'                   `--------------------------'
   ),
 
+  [BROWSER_CONTROL_IOS] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   RGUI(LALT(KC_LEFT)), RGUI(LALT(KC_RIGHT)), KC_TRNS, LALT(KC_LEFT), KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, RGUI(KC_L), KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,     RGUI(KC_W), RGUI(KC_T), KC_TRNS
+                                      //`--------------------------'  `--------------------------'
+  ),
+
   /*
   // empty layer
   [15] = LAYOUT_split_3x6_3(
