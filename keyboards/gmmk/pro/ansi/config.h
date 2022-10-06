@@ -25,4 +25,4 @@
 // Timeout lights after 5m or sleep/usb suspended
 #define RGBLIGHT_SLEEP
 #define RGB_DISABLE_TIMEOUT 300000
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
