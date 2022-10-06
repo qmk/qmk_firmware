@@ -2,11 +2,19 @@
 
 ![daskeyboard4pro](https://imgur.com/a/JWwQ2hh)
 
+![PCB](https://imgur.com/a/AWrHyiB)
+
 *Reverse engineered PCB definition of daskeyboard 4 (Professional)*
 
 * Keyboard Maintainer: [Commander1024](https://github.com/Commander1024)
 * Hardware Supported: *The PCB*
 * Hardware Availability: *https://www.daskeyboard.com/de/daskeyboard-4-professional/*
+
+I used an STM32 development board to replace the keyboards destroyed controller. This keyboard definition is here, to enable to painless usage of the OEM PCB in a custom keyboard, as the rows and columns are placed in a very unintuitive fashion.
+
+The layout definition in **info.json** contains the magic. The rows and columns appear in the pin definition in the order they appear on the 26 pads, where the original ribbon cable was connected for intuitive cabling and adoption to other microcontrollers.
+
+**Note**: Pad 25 is not connected.
 
 Make example for this keyboard (after setting up your build environment):
 
