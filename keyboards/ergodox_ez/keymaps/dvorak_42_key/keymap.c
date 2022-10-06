@@ -22,83 +22,6 @@
 // remove these after getting a new keyboard
 // #define DEBOUNCE 50
 
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
-  VRSN,
-  RGB_SLD,
-  
-  // shell nav macros
-  SHELL_LS,
-  SHELL_LSLTR,
-  SHELL_LSLA,
-  SHELL_CDPRE,
-  SHELL_LESS,
-  SHELL_PLESS,
-  SHELL_PGREP,
-  SHELL_TAILF,
-
-  SHELL_SCREENRD,
-  SHELL_SCREEN_NEW,
-  SHELL_SCREEN_LIST,
-
-  SHELL_GIT_DIFF,
-  SHELL_GIT_STATUS,
-
-  // linux screen macros
-  SCREEN_TAB_LEFT,
-  SCREEN_TAB_RIGHT,
-
-  SCREEN_NEW_TAB,
-  SCREEN_DETACH,
-  SCREEN_RENAME,
-  SCREEN_NUMBER,
-  SCREEN_KILL,
-
-  SCREEN_0,
-  SCREEN_1,
-  SCREEN_2,
-  SCREEN_3,
-  SCREEN_4,
-  SCREEN_5,
-  SCREEN_6,
-  SCREEN_7,
-  SCREEN_8,
-  SCREEN_9,
-
-  SCREEN_COPY_MODE,
-  SCREEN_PASTE,
-
-  SCREEN_READREG_1,
-  SCREEN_READREG_2,
-  SCREEN_READREG_3,
-  SCREEN_PASTEREG_1,
-  SCREEN_PASTEREG_2,
-  SCREEN_PASTEREG_3,
-
-  // Windows 10 macros
-  WINDOWS10_WORKSPACE_LEFT,
-  WINDOWS10_WORKSPACE_RIGHT,
-  WINDOWS10_TASK_VIEW,
-
-  // these macros assume that caps lock is mapped to globe in iOS preferences
-  IOS_APP_PREV,
-  IOS_APP_NEXT,
-  IOS_APP_LIST,
-  IOS_SHOW_SLIDEOVER,
-};
-
-enum {
-    TD_BSPC_CTL_BSPC,
-    TD_BSPC_CTL_BSPC_IOS,
-};
-
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
-    [TD_BSPC_CTL_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, RCTL(KC_BSPC)),
-    [TD_BSPC_CTL_BSPC_IOS] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
-};
 
 
 #define BASE             0 // base dvorak layer
@@ -118,46 +41,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 
 
-#define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
-        case MACRO_NAME:\
-             if (record->event.pressed) {\
-                return MACRO( D(LCTL), T(A), U(LCTL), T(NUM), END);\
-            }\
-        break;\
-
-#define MACRO_SCREEN_REG(MACRO_NAME,NUM) \
-        case MACRO_NAME:\
-             if (record->event.pressed) {\
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),\
-                              T(R),\
-                              T(E),\
-                              T(A),\
-                              T(D),\
-                              T(R),\
-                              T(E),\
-							  T(G),\
-                              T(SPC),\
-							  T(NUM),\
-							  T(ENTER),\
-                             END);\
-            }\
-        break;\
-
-#define MACRO_SCREEN_PASTE(MACRO_NAME,NUM)\
-        case MACRO_NAME:\
-             if (record->event.pressed) {\
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),\
-                              T(P),\
-                              T(A),\
-                              T(S),\
-                              T(T),\
-                              T(E),\
-                              T(SPC),\
-							  T(NUM),\
-							  T(ENTER),\
-                             END);\
-            }\
-        break;\
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
