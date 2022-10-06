@@ -26,6 +26,7 @@ enum custom_keycodes {
   EPRM,
   VRSN,
   RGB_SLD,
+  
   // shell nav macros
   SHELL_LS,
   SHELL_LSLTR,
@@ -36,20 +37,14 @@ enum custom_keycodes {
   SHELL_PGREP,
   SHELL_TAILF,
 
-  SHELL_PWD,
-  SHELL_H3,
-  SHELL_AMMCOLO,
   SHELL_SCREENRD,
   SHELL_SCREEN_NEW,
   SHELL_SCREEN_LIST,
-  SHELL_MKE,
-  SHELL_HTCSTATUS,
-  SHELL_HTCBOUNCE,
-  SHELL_DUMPTLOG,
 
-  SHELL_EXPAND_OE_LOGPATTERN,
-  SHELL_EXPAND_OE_TRANPATTERN,
+  SHELL_GIT_DIFF,
+  SHELL_GIT_STATUS,
 
+  // linux screen macros
   SCREEN_TAB_LEFT,
   SCREEN_TAB_RIGHT,
 
@@ -57,6 +52,7 @@ enum custom_keycodes {
   SCREEN_DETACH,
   SCREEN_RENAME,
   SCREEN_NUMBER,
+  SCREEN_KILL,
 
   SCREEN_0,
   SCREEN_1,
@@ -72,9 +68,6 @@ enum custom_keycodes {
   SCREEN_COPY_MODE,
   SCREEN_PASTE,
 
-  SCREEN_UP_JUMP,
-  SCREEN_DOWN_JUMP,
-
   SCREEN_READREG_1,
   SCREEN_READREG_2,
   SCREEN_READREG_3,
@@ -82,25 +75,50 @@ enum custom_keycodes {
   SCREEN_PASTEREG_2,
   SCREEN_PASTEREG_3,
 
-  // Windows 10 macros,
+  // Windows 10 macros
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
-  WINDOWS10_TASK_VIEW
+  WINDOWS10_TASK_VIEW,
+
+  // these macros assume that caps lock is mapped to globe in iOS preferences
+  IOS_APP_PREV,
+  IOS_APP_NEXT,
+  IOS_APP_LIST,
+  IOS_SHOW_SLIDEOVER,
+};
+
+enum {
+    TD_BSPC_CTL_BSPC,
+    TD_BSPC_CTL_BSPC_IOS,
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_BSPC_CTL_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, RCTL(KC_BSPC)),
+    [TD_BSPC_CTL_BSPC_IOS] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
 };
 
 
 #define BASE             0 // base dvorak layer
-#define KEYNAV           1 // arrow navigation (right hand)
-#define KEYSEL           2 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV        3 // bash shortcuts
-#define SHELL_SCREEN     4 // linux screen shortcuts
-#define SCREEN_NAV       5 // navigate between linux screen tabs
-#define BROWSER_CONTROL  6 // control browser and mouse
-#define COMBINED         7 // combined numbers and symbols layer
-#define ANDROID_STUDIO   8 // android studio specific layer
-#define VSCODE           9 // visual studio code specific layer
-#define VSCODE_NAV       10 // visual studio code, navigation within IDE
+#define BASE_IOS         1 // base dvorak layer, for ipad / IOS
+#define KEYNAV           2 // arrow navigation (right hand)
+#define KEYNAV_IOS       3 // arrow navigation (right hand)
+#define KEYSEL           4 // arrow navigation + shift (allow text selection)
+#define KEYSEL_IOS       5 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV        6 // bash shortcuts
+#define SHELL_SCREEN     7 // linux screen shortcuts
+#define BROWSER_CONTROL  8 // control browser and mouse
+#define BROWSER_CONTROL_IOS 9 // control browser and mouse
+#define COMBINED            10 // combined numbers and symbols layer
+#define ANDROID_STUDIO     11 // android studio specific layer
+#define VSCODE             12 // visual studio code specific layer
+#define SHORTCUTS          13 // shortcuts to be intercepted by autohotkey
 
+
+// Notepad++ shortcuts
+// ===================
+#define NP_DUPE_LINE LCTL(KC_D)
 
 
 // Android Studio shortcuts
@@ -126,48 +144,61 @@ enum custom_keycodes {
 #define AS_BM_LIST LSFT(KC_F11)
 
 // visual studio code shortcuts
-#define VS_FILE LCTL(KC_P)
-#define VS_OPEN_FILE LCTL(KC_O)
-#define VS_LINE LCTL(KC_G)
-#define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
-#define VS_DEFINITION MEH(KC_F5)
-#define VS_IMPLEMENTATION MEH(KC_F6)
-#define VS_REFERENCES MEH(KC_F7)
-#define VS_BACK LALT(KC_LEFT)
-#define VS_BRACKET LCTL(LSFT(KC_BSLS))
-#define VS_TABLEFT MEH(KC_F1)
-#define VS_TABRIGHT MEH(KC_F2)
-#define VS_CLOSETAB MEH(KC_F3)
-#define VS_CLOSEPANEL LCTL(LSFT(KC_W))
-#define VS_GROUP_1 LCTL(KC_1)
-#define VS_GROUP_2 LCTL(KC_2)
-#define VS_TERMINAL LCTL(KC_GRAVE)
-#define VS_BUILD LCTL(LSFT(KC_B))
-#define VS_COMMANDS MEH(KC_F4)
-#define VS_CMT_BLOCK LSFT(LALT(KC_A))
-#define VS_CMT_LINE MEH(KC_F18)
-#define VS_DEL_LINE LCTL(LSFT(KC_K))
-#define VS_COPYLINEDOWN LSFT(LALT(KC_DOWN))
-// visual studio bookmark commands
-#define VS_BM_LIST LCTL(LALT(KC_L))
-#define VS_BM_LISTALL LCTL(LALT(KC_A))
-#define VS_BM_PREV LCTL(LALT(KC_P))
-#define VS_BM_NEXT LCTL(LALT(KC_N))
-#define VS_BM_TOGGLE LCTL(LALT(KC_K))
-#define VS_BM_CLEARALL LCTL(LALT(KC_C))
-// visual studio code navigation shortcuts
-#define VS_FOCUS_EDITOR MEH(KC_F8)
-#define VS_FOCUS_TERMINAL MEH(KC_F9)
-#define VS_TOGGLE_TERMINAL MEH(KC_F10)
-#define VS_CLEAR_TERMINAL MEH(KC_F11)
-#define VS_TERMINAL_PREV MEH(KC_F12)
-#define VS_TERMINAL_NEXT MEH(KC_F13)
-#define VS_TERMINAL_NEW MEH(KC_F14)
-#define VS_TERMINAL_DETACH MEH(KC_F15)
-#define VS_TERMINAL_RENAME MEH(KC_F16)
-#define VS_JUMPY MEH(KC_F17)
-#define VS_FIND MEH(KC_F19)
+// ============================
 
+#define VS_FILE             MEH(KC_F1) // workbench.action.quickOpen
+
+#define VS_LINE             MEH(KC_F3) // workbench.action.gotoLine
+#define VS_SYMBOLEDITOR     MEH(KC_F4) // workbench.action.gotoSymbol
+#define VS_DEFINITION       MEH(KC_F5) // editor.action.revealDefinition
+#define VS_IMPLEMENTATION   MEH(KC_F6) // editor.action.goToImplementation
+#define VS_REFERENCES       MEH(KC_F7) // editor.action.goToReferences
+#define VS_BACK             MEH(KC_F8) // workbench.action.navigateBack
+#define VS_BRACKET          MEH(KC_F9) // editor.action.jumpToBracket
+#define VS_TABLEFT          MEH(KC_F10) // workbench.action.previousEditor
+#define VS_TABRIGHT         MEH(KC_F11) // workbench.action.nextEditor
+#define VS_CLOSETAB         MEH(KC_F12) // workbench.action.closeActiveEditor
+
+#define VS_GROUP_1          MEH(KC_F13) // workbench.action.focusFirstEditorGroup
+#define VS_GROUP_2          MEH(KC_F14) // workbench.action.focusSecondEditorGroup
+
+#define VS_COMMANDS         MEH(KC_F16) // workbench.action.showCommands
+#define VS_CMT_BLOCK        MEH(KC_F17) // editor.action.blockComment
+#define VS_CMT_LINE         MEH(KC_F18) // editor.action.commentLine
+#define VS_DEL_LINE         MEH(KC_F19) // editor.action.deleteLines
+#define VS_COPYLINEDOWN     MEH(KC_0) // editor.action.copyLinesDownAction
+
+// visual studio bookmark commands
+#define VS_BM_PREV          MEH(KC_1) // bookmarks.jumpToPrevious
+#define VS_BM_NEXT          MEH(KC_2) // bookmarks.jumpToNext
+#define VS_BM_TOGGLE        MEH(KC_8) // bookmarks.toggle
+#define VS_BM_CLEARALL      MEH(KC_9) // bookmarks.clearFromAllFiles
+#define VS_BM_LIST          MEH(KC_A) // bookmarks.list
+#define VS_BM_LISTALL       MEH(KC_B) // bookmarks.listFromAllFiles
+#define VS_JUMPY            MEH(KC_C) // extension.jumpy-word
+
+// visual studio code navigation shortcuts
+#define VS_FOCUS_EDITOR     MEH(KC_4) // workbench.action.focusActiveEditorGroup
+#define VS_FOCUS_TERMINAL   MEH(KC_5) // workbench.action.terminal.focus
+#define VS_TOGGLE_TERMINAL  MEH(KC_6) // workbench.action.terminal.toggleTerminal
+
+
+// unused vscode shortcuts
+// #define VS_BM_LIST LCTL(LALT(KC_L))
+// #define VS_BM_LISTALL LCTL(LALT(KC_A))
+// #define VS_BM_CLEARALL LCTL(LALT(KC_C))
+
+// #define VS_TERMINAL_PREV MEH(KC_F12)
+// #define VS_TERMINAL_NEXT MEH(KC_F13)
+// #define VS_TERMINAL_NEW MEH(KC_F14)
+// #define VS_TERMINAL_DETACH MEH(KC_F15)
+// #define VS_TERMINAL_RENAME MEH(KC_F16)
+// #define VS_JUMPY MEH(KC_F17)
+// #define VS_FIND MEH(KC_F19)
+// #define VS_CLOSEPANEL LCTL(LSFT(KC_W))
+// #define VS_BUILD LCTL(LSFT(KC_B))
+// #define VS_OPEN_FILE        MEH(KC_F2)
+// #define VS_TERMINAL         MEH(KC_F15)
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
         case MACRO_NAME:\
@@ -214,58 +245,138 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = LAYOUT_ergodox(
       // left hand
-      KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(VSCODE_NAV),
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
+      OSL(VSCODE),       KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    KC_TRNS,
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
+<<<<<<< HEAD
       OSL(SHELL_SCREEN), KC_SCLN,       KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
       MEH(KC_0),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
+=======
+      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      MO(BROWSER_CONTROL),
+>>>>>>> move keymap to dvorak_42_key
 
       // left thumb cluster
-                WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT,
-                                WINDOWS10_TASK_VIEW,
-      MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
+                KC_TRNS,KC_TRNS,
+                        KC_TRNS,
+      MO(COMBINED),MO(KEYNAV), KC_TRNS,
 
       // right hand
+<<<<<<< HEAD
       KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_7),
       MEH(KC_1), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
       MEH(KC_2), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_8),
       KC_BSPC,   RCTL(KC_BSPC), KC_CAPS, OSM(MOD_LSFT),MEH(KC_9),
+=======
+      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,   KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
+                 KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   TD(TD_BSPC_CTL_BSPC),
+      KC_TRNS,   KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   OSM(MOD_LSFT),
+      OSL(SHORTCUTS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+>>>>>>> move keymap to dvorak_42_key
 
       // right thumb cluster
-      MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_6),KC_ENTER,KC_SPACE
+        KC_TRNS, KC_TRNS,
+        KC_TRNS,
+        KC_TRNS, KC_ENTER, KC_SPACE
+
+  ),
+
+  [BASE_IOS] = LAYOUT_ergodox(
+      // left hand
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,           KC_TRNS,       KC_TRNS,    KC_TRNS,      MO(BROWSER_CONTROL_IOS),
+
+      // left thumb cluster
+                KC_TRNS,KC_TRNS,
+                        KC_TRNS,
+      KC_TRNS,MO(KEYNAV_IOS), KC_TRNS,
+
+      // right hand
+      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TD(TD_BSPC_CTL_BSPC_IOS),
+      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+      // right thumb cluster
+        KC_TRNS, KC_TRNS,
+        KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS
 
   ),
 
   [KEYNAV] = LAYOUT_ergodox(
     // left hand
-    KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
-    KC_TRNS,KC_ESC,      KC_TRNS,   RCTL(KC_Z),      RCTL(KC_S),       KC_TRNS,          KC_TRNS,
-    KC_TRNS,KC_LSFT,     KC_TRNS,   RSFT(KC_TAB),    KC_TAB,           KC_TRNS,
-    KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
-    KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,
+    KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,      KC_TRNS,
+    KC_ESC,          RCTL(KC_ENTER), RCTL(KC_K),     RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),   KC_TRNS,
+    KC_TRNS,         MO(KEYSEL),     KC_TRNS,        RSFT(KC_TAB),    KC_TAB,           RCTL(KC_F),
+    KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,         KC_TRNS,          NP_DUPE_LINE, KC_TRNS,
+    KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,         KC_TRNS,
     // left thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 
 
     // right hand
+<<<<<<< HEAD
     KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
     KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
             LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
     KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDN,         MEH(KC_J),
                            KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
+=======
+    KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,          KC_DELETE,
+            LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),   RCTL(KC_DELETE),
+    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,        KC_NO,
+                           KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,          KC_TRNS,
+>>>>>>> move keymap to dvorak_42_key
 
     // right thumb cluster
-    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS
   ),
+
+  // https://medium.com/macoclock/best-text-editing-keyboard-shortcuts-for-ipad-41e8234a4c42
+  // alt == option
+  // gui/win == command
+  // 
+  [KEYNAV_IOS] = LAYOUT_ergodox(
+    // left hand
+    KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,     KC_TRNS,
+    KC_TRNS,         KC_ESC,          KC_TRNS,        RGUI(KC_Z),      RCTL(KC_S),       KC_TRNS,     KC_TRNS,
+    KC_TRNS,         MO(KEYSEL_IOS),  KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,
+    KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,     KC_TRNS,
+    KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,         KC_TRNS,
+    // left thumb cluster
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+
+
+    // right hand
+    KC_TRNS,KC_TRNS,       KC_TRNS,       KC_TRNS,         KC_TRNS,        KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_NO,         RGUI(KC_LEFT), KC_UP,           RGUI(KC_RIGHT), KC_PGUP,          KC_DELETE,
+            LALT(KC_LEFT), KC_LEFT,       KC_DOWN,         KC_RIGHT,       LALT(KC_RIGHT),   LALT(KC_DELETE),
+    KC_TRNS,KC_TRNS,       RGUI(KC_C),    RGUI(KC_X),      RGUI(KC_V),     KC_PGDOWN,        KC_NO,
+                           KC_TRNS,       KC_TRNS,         KC_TRNS,        KC_TRNS,          KC_TRNS,
+
+    // right thumb cluster
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS
+  ),  
 
     // key selection layer
     [KEYSEL] = LAYOUT_ergodox(
            // left hand
            KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-           KC_TRNS,MEH(KC_G), MEH(KC_H),MEH(KC_I), MEH(KC_J), MEH(KC_K), KC_TRNS,
-           KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
-           KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
                    // bottom row
                    QK_BOOT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                            // thumb cluster
@@ -273,25 +384,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_TRNS,
                                    KC_TRNS,KC_TRNS,KC_TRNS,
            // right hand
-           KC_TRNS,       KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,              MEH(KC_Q),
-           RSFT(KC_PGUP), KC_TRNS,             RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),        MEH(KC_R),
-                          RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)), MEH(KC_S),
-           RSFT(KC_PGDN), KC_TRNS,             RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RSFT(KC_PGDN),        MEH(KC_T),
+           KC_TRNS,   KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,              KC_TRNS,
+           KC_TRNS,   KC_TRNS,             RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),        KC_TRNS,
+                      RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)), KC_TRNS,
+           KC_TRNS,   KC_TRNS,             RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RSFT(KC_PGDN),        KC_TRNS,
                     // bottom row
-                    KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE),                                      MEH(KC_U),
+                      KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,
            // thumb cluster
            KC_TRNS, KC_TRNS,
            KC_TRNS,
            KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
+    // key selection layer
+    [KEYSEL_IOS] = LAYOUT_ergodox(
+           // left hand
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+                   // bottom row
+                   QK_BOOT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                           // thumb cluster
+                                           KC_TRNS,KC_TRNS,
+                                                   KC_TRNS,
+                                   KC_TRNS,KC_TRNS,KC_TRNS,
+           // right hand
+           KC_TRNS,   KC_TRNS,             KC_TRNS,             KC_TRNS,       KC_TRNS,              KC_TRNS,              KC_TRNS,
+           KC_TRNS,   KC_TRNS,             RSFT(RGUI(KC_LEFT)), RSFT(KC_UP),   RSFT(RGUI(KC_RIGHT)), RSFT(KC_PGUP),        KC_TRNS,
+                      RSFT(LALT(KC_LEFT)), RSFT(KC_LEFT),       RSFT(KC_DOWN), RSFT(KC_RIGHT),       RSFT(LALT(KC_RIGHT)), KC_TRNS,
+           KC_TRNS,   KC_TRNS,             RGUI(KC_C),          RGUI(KC_X),    RGUI(KC_V),           RSFT(KC_PGDN),        KC_TRNS,
+                    // bottom row
+                      KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,
+           // thumb cluster
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, KC_TRNS, KC_TRNS
+    ),    
+
   // shell navigation layer
   [SHELL_NAV] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,         KC_TRNS,
-       KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  SHELL_HTCBOUNCE, SHELL_H3,
-       KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_LSLA,
-       KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, SHELL_HTCSTATUS, SHELL_AMMCOLO,
+       KC_NO,  KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,SHELL_GIT_DIFF,    SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  KC_TRNS,     KC_TRNS,
+       KC_TRNS,SHELL_GIT_STATUS,  SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_LSLA,
+       KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, KC_TRNS,     KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -299,12 +436,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    SHELL_EXPAND_OE_TRANPATTERN,
-       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    SHELL_EXPAND_OE_LOGPATTERN,
+       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    KC_TRNS,
+       KC_TRNS,    KC_TRNS,    KC_HOME,             KC_UP,           KC_END,     RCTL(KC_L), RCTL(KC_X),
                    LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), RCTL(KC_W),
-       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      KC_BTN2,    RCTL(KC_K), SHELL_DUMPTLOG,
-                   // bottom row (match functionality of base layer)
-                   KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
+       KC_TRNS,    RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      KC_BTN2,    RCTL(KC_K), RCTL(KC_C),
+                   // bottom row 
+                   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -315,10 +452,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // linux screen layer
   [SHELL_SCREEN] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_NO,  KC_TRNS,   KC_TRNS,            KC_TRNS,             KC_TRNS,            KC_TRNS,       KC_TRNS,
+       KC_TRNS,KC_TRNS,   SCREEN_READREG_3,   SCREEN_READREG_2,    SCREEN_READREG_1,   KC_TRNS,       KC_TRNS,
+       KC_TRNS,KC_TRNS,   SCREEN_PASTEREG_3,  SCREEN_PASTEREG_2,   SCREEN_PASTEREG_1,  SCREEN_DETACH,
+       KC_TRNS,KC_TRNS,   KC_TRNS,            KC_TRNS,             KC_TRNS,            KC_TRNS,       KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -327,44 +464,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
-       KC_TRNS, SCREEN_NEW_TAB,     SCREEN_7,    SCREEN_8,    SCREEN_9,    SCREEN_RENAME,       KC_TRNS,
-                SCREEN_TAB_LEFT,    SCREEN_4,    SCREEN_5,    SCREEN_6,    SCREEN_TAB_RIGHT,    KC_TRNS,
-       KC_TRNS, KC_TRNS,            SCREEN_1,    SCREEN_2,    SCREEN_3,    SCREEN_NUMBER,       KC_TRNS,
+       KC_TRNS, KC_TRNS,            SCREEN_7,    SCREEN_8,    SCREEN_9,    SCREEN_RENAME,       KC_TRNS,
+                SCREEN_TAB_LEFT,    SCREEN_4,    SCREEN_5,    SCREEN_6,    SCREEN_TAB_RIGHT,    SCREEN_COPY_MODE,
+       KC_TRNS, KC_TRNS,            SCREEN_1,    SCREEN_2,    SCREEN_3,    SCREEN_NUMBER,       SCREEN_PASTE,
                                     // bottom row
-                                    SCREEN_0,    KC_TRNS,     KC_TRNS,     KC_TRNS,             SCREEN_DETACH,
+                                    SCREEN_0,    KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_TRNS, SCREEN_KILL, SCREEN_NEW_TAB
   ),
-
-  // navigation within screen (for copy/paste)
-  [SCREEN_NAV] = LAYOUT_ergodox(
-       // left hand
-       // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,              KC_TRNS,     		  KC_TRNS,               KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    SCREEN_READREG_3,     SCREEN_READREG_2,    SCREEN_READREG_1,      KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    SCREEN_PASTEREG_3,    SCREEN_PASTEREG_2,   SCREEN_PASTEREG_1,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     		 KC_TRNS,     	      KC_TRNS,               KC_TRNS,   KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,          KC_TRNS,
-       KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          SCREEN_UP_JUMP,   KC_TRNS,
-                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,             SCREEN_COPY_MODE,
-       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         SCREEN_PASTE,    SCREEN_DOWN_JUMP, MEH(KC_V),
-                   // bottom row (match functionality of base layer)
-                   KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,    KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-  ),
-
 
     // android studio shortcuts
   [ANDROID_STUDIO] = LAYOUT_ergodox(
@@ -395,74 +504,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // vscode shortcuts shortcuts
   [VSCODE] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_NO,   KC_TRNS,    KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,        KC_TRNS,
+       KC_TRNS, KC_TRNS,    KC_TRNS,             VS_CMT_BLOCK,      VS_CMT_LINE,         VS_BM_LISTALL,  KC_TRNS,
+       KC_TRNS, KC_TRNS,    VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,     VS_BM_LIST,
+       KC_TRNS, KC_TRNS,    KC_TRNS,             KC_TRNS,           KC_TRNS,             VS_BM_CLEARALL, KC_TRNS,
+                // bottom row
+                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
-       VS_CMT_LINE,  VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
+       KC_TRNS,      VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       VS_CMT_BLOCK, VS_FIND,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
+       KC_TRNS,      VS_JUMPY,         VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
-                                       VS_COMMANDS,   VS_BM_LIST,       VS_BM_LISTALL,       VS_CLOSEPANEL,   VS_BM_CLEARALL,
+                                       VS_COMMANDS,   KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, VS_DEL_LINE, KC_TRNS
   ),
 
-    // vscode navigation shortcuts
-  [VSCODE_NAV] = LAYOUT_ergodox(
-       // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
-       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
-                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,   VS_JUMPY,        KC_TRNS,            KC_TRNS,
-       KC_TRNS, VS_CLEAR_TERMINAL,   VS_TERMINAL_PREV,  VS_TERMINAL_NEXT,  VS_TERMINAL_NEW, VS_TERMINAL_DETACH, VS_TERMINAL_RENAME,
-                                       // bottom row
-                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-  ),
 
   [COMBINED] = LAYOUT_ergodox(
 
     // left hand
+<<<<<<< HEAD
     KC_NO,  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS,
     KC_TRNS,KC_EXLM, KC_AT,      KC_HASH,     KC_DLR,      KC_PERC, KC_TRNS,
     KC_TRNS,KC_LPRN, KC_RPRN,    KC_LBRC,     KC_RBRC,     KC_UNDS,
     KC_TRNS,KC_COLN, KC_DQUO,    KC_LCBR,     KC_RCBR,     KC_AMPR, KC_TRNS,
+=======
+    KC_NO,    KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS,
+    KC_TILD,  KC_EXLM, KC_AT,      KC_HASH,     KC_DLR,      KC_PERC, KC_TRNS,
+    KC_GRAVE, KC_LPRN, KC_RPRN,    KC_LBRACKET, KC_RBRACKET, KC_UNDS,
+    KC_CIRC,  KC_COLN, KC_DQUO,    KC_LCBR,     KC_RCBR,     KC_AMPR, KC_TRNS,
+>>>>>>> move keymap to dvorak_42_key
     // bottom row
-    KC_TRNS,KC_TRNS, KC_TILD,    KC_GRAVE,    KC_CIRC,
+    KC_TRNS,KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,
     // thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 
     // right hand
-    KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     MEH(KC_L),
-    KC_TRNS, KC_PLUS,     KC_7,    KC_8,    KC_9,    KC_ASTR,     MEH(KC_M),
-             KC_MINS,     KC_4,    KC_5,    KC_6,    KC_SLSH,     MEH(KC_N),
-    KC_TRNS, KC_EQUAL,    KC_1,    KC_2,    KC_3,    KC_QUES,     MEH(KC_O),
+    KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
+    KC_TRNS, KC_PLUS,     KC_7,    KC_8,    KC_9,    KC_ASTR,     KC_PIPE,
+             KC_MINS,     KC_4,    KC_5,    KC_6,    KC_SLSH,     KC_BSLS,
+    KC_TRNS, KC_EQUAL,    KC_1,    KC_2,    KC_3,    KC_QUES,     KC_DOT,
     // bottom row
-                          KC_0,    KC_DOT,  KC_PIPE, KC_BSLS,     MEH(KC_P),
+                          KC_0,    KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
     // thumb cluster
     KC_TRNS,KC_TRNS,
 	KC_TRNS,
@@ -474,7 +565,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
            KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,      KC_BTN2, KC_TRNS,
            KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,      KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       WINDOWS10_WORKSPACE_LEFT,   WINDOWS10_WORKSPACE_RIGHT,      KC_TRNS, KC_TRNS,
 		   // bottom row
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
 
@@ -492,6 +583,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,
            KC_TRNS, RCTL(KC_W), RCTL(KC_T)
     ),
+
+    // https://support.brave.com/hc/en-us/articles/360032272171-What-keyboard-shortcuts-can-I-use-in-Brave-
+    // note: need capslock to be mapped to Globe in iOS setting
+    [BROWSER_CONTROL_IOS] = LAYOUT_ergodox(
+		   // left hand
+           KC_TRNS, KC_TRNS,      KC_TRNS,            KC_TRNS,       KC_TRNS,        KC_TRNS,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_BTN3,            KC_MS_U,       KC_BTN1,        KC_BTN2,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_MS_L,            KC_MS_D,       KC_MS_R,        KC_TRNS,
+           KC_TRNS, KC_TRNS,      IOS_SHOW_SLIDEOVER, IOS_APP_PREV,  IOS_APP_NEXT,   IOS_APP_LIST, KC_TRNS,
+		   // bottom row
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+
+                                               KC_TRNS, KC_TRNS,
+                                                        KC_TRNS,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,
+          // right hand
+           KC_TRNS,  KC_TRNS,   KC_TRNS,             KC_TRNS,              KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS,  KC_UP,     KC_PGUP,             KC_PGDN,              KC_MS_WH_UP,   KC_TRNS,       KC_TRNS,
+                     KC_DOWN,   RGUI(LALT(KC_LEFT)), RGUI(LALT(KC_RIGHT)), KC_MS_WH_DOWN, LALT(KC_LEFT), KC_TRNS,
+           KC_TRNS,  KC_TRNS,   RCTL(KC_1),          RCTL(KC_9),           RGUI(KC_L),    KC_F5,         KC_TRNS,
+                                // bottom row
+                                RCTL(LSFT(KC_TAB)),  RCTL(KC_TAB),         KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, RGUI(KC_W), RGUI(KC_T)
+    ),
+
+  // shortcuts to be intercepted by autohotkey
+  [SHORTCUTS] = LAYOUT_ergodox(
+       // left hand
+       KC_TRNS,   KC_TRNS,       KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,   KC_TRNS,
+       KC_F1,     KC_F2,         KC_F3,          KC_F4,          KC_F5,          KC_F6,     KC_TRNS,
+       KC_F7,     KC_F8,         KC_F9,          KC_F10,         KC_F11,         KC_F12,
+       KC_TRNS,   OSM(MOD_LSFT), OSM(MOD_LGUI),  OSM(MOD_LALT),  OSM(MOD_LCTL),  KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TG(BASE_IOS),
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,DF(BASE),DF(BASE_IOS),
+       // right hand
+       KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,     QK_BOOT,
+       KC_TRNS, MEH(KC_I), MEH(KC_J), MEH(KC_K), MEH(KC_L),   MEH(KC_M),   MEH(KC_N),
+                MEH(KC_O), MEH(KC_P), MEH(KC_Q), MEH(KC_R),   MEH(KC_S),   MEH(KC_T),
+       KC_TRNS, MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X),   MEH(KC_Y),   MEH(KC_Z),
+                                    // bottom row
+                KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
 
 
 };
@@ -555,18 +698,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("tail -f ");
             return true;
             break;
-        case SHELL_PWD:
-            SEND_STRING("echo `pwd`/");
-            return true;
-            break;
-        case SHELL_H3:
-            SEND_STRING("h3\n");
-            return true;
-            break;
-        case SHELL_AMMCOLO:
-            SEND_STRING("ammcolo\n");
-            return true;
-            break;
         case SHELL_SCREENRD:
             SEND_STRING("screen -r -d ");
             return true;
@@ -579,18 +710,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("screen -list\n");
             return true;
             break;
-        case SHELL_MKE:
-            SEND_STRING("mki -j8\n");
+
+        case SHELL_GIT_DIFF:
+            SEND_STRING("git diff\n");
             return true;
             break;
-        case SHELL_HTCSTATUS:
-            SEND_STRING("htcStatus -j ");
+
+        case SHELL_GIT_STATUS:
+            SEND_STRING("git status\n");
+            return true;
+            break;            
+
+        case WINDOWS10_WORKSPACE_LEFT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
             return true;
             break;
-        case SHELL_HTCBOUNCE:
-            SEND_STRING("htcBounce -j ");
-            return true;
-            break;
+<<<<<<< HEAD
         case SHELL_EXPAND_OE_LOGPATTERN:
                 SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTL("x")SS_LSFT("8"));
             break;
@@ -611,6 +746,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case WINDOWS10_TASK_VIEW:
                 SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
                 break;
+=======
+        case WINDOWS10_WORKSPACE_RIGHT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            break;
+        case WINDOWS10_TASK_VIEW:
+            SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+            break;
+        // IOS shortcuts
+        case IOS_APP_PREV:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_LEFT) SS_UP(X_CAPS));
+            break;
+        case IOS_APP_NEXT:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_RIGHT) SS_UP(X_CAPS));
+            break;            
+        case IOS_APP_LIST:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_UP) SS_UP(X_CAPS));
+            break;                        
+        case IOS_SHOW_SLIDEOVER:
+            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_BSLS) SS_UP(X_CAPS));
+            break;                                    
+>>>>>>> move keymap to dvorak_42_key
         // linux screen shortcuts
         case SCREEN_TAB_LEFT:
             SEND_STRING(SS_LCTL("a") "p");
@@ -666,16 +822,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SCREEN_PASTE:
             SEND_STRING(SS_LCTL("a") "]");
             break;
-
-        case SCREEN_UP_JUMP:
-            tap_code(KC_5);
-            tap_code(KC_UP);
-            break;
-		case SCREEN_DOWN_JUMP:
-            tap_code(KC_5);
-            tap_code(KC_DOWN);
-            break;
-
+        case SCREEN_KILL:
+            SEND_STRING(SS_LCTL("a") "k" "y");
+            break;            
         case SCREEN_READREG_1:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SEMICOLON));
@@ -725,10 +874,14 @@ void matrix_scan_user(void) {
 
     uint8_t layer = get_highest_layer(layer_state);
 
-    ergodox_board_led_off();
+    ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
+        case BASE_IOS:
+            ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
+            break;
         case COMBINED:
             ergodox_right_led_2_on();
             break;
@@ -736,7 +889,6 @@ void matrix_scan_user(void) {
         case SHELL_SCREEN:
         case KEYNAV:
         case KEYSEL:
-		case SCREEN_NAV:
         case VSCODE:
             ergodox_right_led_3_on();
             break;
@@ -744,6 +896,11 @@ void matrix_scan_user(void) {
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;
+	case SHORTCUTS:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+            break;            
         default:
             break;
     }
