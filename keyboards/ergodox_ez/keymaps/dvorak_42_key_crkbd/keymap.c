@@ -173,12 +173,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define VS_BM_NEXT          MEH(KC_2) // bookmarks.jumpToNext
 #define VS_BM_TOGGLE        MEH(KC_8) // bookmarks.toggle
 #define VS_BM_CLEARALL      MEH(KC_9) // bookmarks.clearFromAllFiles
+#define VS_BM_LIST          MEH(KC_A) // bookmarks.list
+#define VS_BM_LISTALL       MEH(KC_B) // bookmarks.listFromAllFiles
 
 // visual studio code navigation shortcuts
 #define VS_FOCUS_EDITOR     MEH(KC_4) // workbench.action.focusActiveEditorGroup
 #define VS_FOCUS_TERMINAL   MEH(KC_5) // workbench.action.terminal.focus
 #define VS_TOGGLE_TERMINAL  MEH(KC_6) // workbench.action.terminal.toggleTerminal
-#define VS_CLEAR_TERMINAL   MEH(KC_7) // workbench.action.terminal.clear
 
 
 // unused vscode shortcuts
@@ -481,12 +482,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // vscode shortcuts shortcuts
   [VSCODE] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,        KC_TRNS,
-       KC_TRNS,KC_TRNS,           KC_TRNS,             VS_CMT_BLOCK,      VS_CMT_LINE,         KC_TRNS,        KC_TRNS,
-       KC_TRNS,VS_CLEAR_TERMINAL, VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,     VS_BM_CLEARALL,
-       KC_TRNS,KC_TRNS,           KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,        KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_NO,   KC_TRNS,    KC_TRNS,             KC_TRNS,           KC_TRNS,             KC_TRNS,        KC_TRNS,
+       KC_TRNS, KC_TRNS,    KC_TRNS,             VS_CMT_BLOCK,      VS_CMT_LINE,         VS_BM_LISTALL,  KC_TRNS,
+       KC_TRNS, KC_TRNS,    VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,     VS_BM_LIST,
+       KC_TRNS, KC_TRNS,    KC_TRNS,             KC_TRNS,           KC_TRNS,             VS_BM_CLEARALL, KC_TRNS,
+                // bottom row
+                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
