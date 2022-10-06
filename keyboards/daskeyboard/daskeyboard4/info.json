@@ -3,7 +3,7 @@
     "keyboard_name": "daskeyboard4",
     "maintainer": "Commander1024",
     "url": "https://www.daskeyboard.com/de/daskeyboard-4-professional/",
-    "bootloader": "stm32-dfu",
+    "bootloader": "tinyuf2",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
