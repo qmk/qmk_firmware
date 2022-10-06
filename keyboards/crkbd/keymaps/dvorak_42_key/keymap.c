@@ -190,29 +190,50 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
 
 void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
     switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
+        case BASE:
+            oled_write_ln_P(PSTR("BASE"), false);
             break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
+        case BASE_IOS:
+            oled_write_ln_P(PSTR("BASE IOS"), false);
+            break;            
+        case KEYNAV:
+            oled_write_ln_P(PSTR("KEYNAV"), false);
+            break;            
+        case KEYNAV_IOS:
+            oled_write_ln_P(PSTR("KEYNAV IOS"), false);
+            break;                        
+        case KEYSEL:
+            oled_write_ln_P(PSTR("KEYSEL"), false);
             break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
+        case KEYSEL_IOS:
+            oled_write_ln_P(PSTR("KEYSEL IOS"), false);
+            break;            
+        case SHELL_NAV:
+            oled_write_ln_P(PSTR("SHELL NAV"), false);
+            break;            
+        case SHELL_SCREEN:
+            oled_write_ln_P(PSTR("SHELL SCREEN"), false);
+            break;                        
+        case BROWSER_CONTROL:
+            oled_write_ln_P(PSTR("BROWSER"), false);
             break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
+        case BROWSER_CONTROL_IOS:
+            oled_write_ln_P(PSTR("BROWSER IOS"), false);
+            break;            
+        case COMBINED:
+            oled_write_ln_P(PSTR("SYMBOLS"), false);
             break;
+        case VSCODE:
+            oled_write_ln_P(PSTR("VSCODE"), false);
+            break;
+        case SHORTCUTS:
+            oled_write_ln_P(PSTR("SHORTCUTS"), false);
+            break;                        
+
+
     }
 }
 
