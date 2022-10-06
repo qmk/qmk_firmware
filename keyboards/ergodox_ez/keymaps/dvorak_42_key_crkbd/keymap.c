@@ -299,11 +299,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [KEYNAV] = LAYOUT_ergodox(
     // left hand
-    KC_TRNS,         KC_TRNS,       KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,      KC_TRNS,
-    KC_ESC,          KC_TRNS,       RCTL(KC_K),     RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),   KC_TRNS,
-    KC_TRNS,         MO(KEYSEL),    KC_TRNS,        RSFT(KC_TAB),    KC_TAB,           RCTL(KC_F),
-    KC_TRNS,         KC_TRNS,       KC_TRNS,        KC_TRNS,         KC_TRNS,          NP_DUPE_LINE, KC_TRNS,
-    KC_TRNS,         KC_TRNS,       KC_TRNS,        KC_TRNS,         KC_TRNS,
+    KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,         KC_TRNS,          KC_TRNS,      KC_TRNS,
+    KC_ESC,          RCTL(KC_ENTER), RCTL(KC_K),     RCTL(KC_Z),      RCTL(KC_S),       RCTL(KC_N),   KC_TRNS,
+    KC_TRNS,         MO(KEYSEL),     KC_TRNS,        RSFT(KC_TAB),    KC_TAB,           RCTL(KC_F),
+    KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,         KC_TRNS,          NP_DUPE_LINE, KC_TRNS,
+    KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,         KC_TRNS,
     // left thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 
