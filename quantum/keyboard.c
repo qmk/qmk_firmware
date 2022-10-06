@@ -586,6 +586,10 @@ void keyboard_task(void) {
 
     quantum_task();
 
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    split_watchdog_task();
+#endif
+
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
 #endif

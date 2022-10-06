@@ -422,6 +422,17 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
+```c
+#define SPLIT_WATCHDOG_ENABLE
+```
+
+This will enable a software watchdog on any side delegated as slave and will reboot the keyboard if no successful communication occurs within `SPLIT_WATCHDOG_TIMEOUT`. This can be particularly helpful when `SPLIT_USB_DETECT` delegates both sides as slave in some circumstances.
+
+```c
+#define SPLIT_WATCHDOG_TIMEOUT 3000
+```
+This set the maximum slave timeout when waiting for communication from master when using `SPLIT_WATCHDOG_ENABLE`
+
 ## Hardware Considerations and Mods
 
 Master/slave delegation is made either by detecting voltage on VBUS connection or waiting for USB communication (`SPLIT_USB_DETECT`). Pro Micro boards can use VBUS detection out of the box and be used with or without `SPLIT_USB_DETECT`.
