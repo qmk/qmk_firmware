@@ -2,6 +2,7 @@
     "manufacturer": "Commander1024",
     "keyboard_name": "daskeyboard4",
     "maintainer": "Commander1024",
+    "url": "https://www.daskeyboard.com/de/daskeyboard-4-professional/",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
