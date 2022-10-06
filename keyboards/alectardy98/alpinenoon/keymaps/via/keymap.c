@@ -20,11 +20,6 @@ enum _layer {
   _BASE,
   _FN
 };
-
-enum encoder_names {
-  _ENC,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT(
