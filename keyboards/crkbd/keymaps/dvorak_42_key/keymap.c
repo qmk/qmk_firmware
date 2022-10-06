@@ -80,6 +80,18 @@ KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, NP_DUPE_LINE,               KC_T
                                       //`--------------------------'  `--------------------------'
   ),
 
+  [SHELL_NAV] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                              ,-----------------------------------------------------.
+KC_TRNS,SHELL_GIT_DIFF, SHELL_PGREP, SHELL_PLESS, SHELL_LESS, KC_TRNS,              RCTL(KC_D), KC_HOME, KC_UP, KC_END, RCTL(KC_L), RCTL(KC_X),
+  //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
+KC_TRNS,SHELL_GIT_STATUS,SHELL_CDPRE,SHELL_LSLTR,SHELL_LS, SHELL_LSLA,              LALT(KC_B), KC_LEFT, KC_DOWN, KC_RIGHT, LALT(KC_F), RCTL(KC_W),
+  //|--------+--------+--------+--------+--------+--------|                           |--------+--------+--------+--------+--------+--------|
+KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, KC_TRNS,   RCTL(KC_U), LALT(KC_DOT), RCTL(KC_R), KC_BTN2, RCTL(KC_K), RCTL(KC_C),
+  //|--------+--------+--------+--------+--------+--------+--------|            |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS
+                                      //`--------------------------'            `--------------------------'
+  ),
+
   /*
   // empty layer
   [15] = LAYOUT_split_3x6_3(
