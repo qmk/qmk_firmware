@@ -52,6 +52,7 @@ enum custom_keycodes {
   SCREEN_DETACH,
   SCREEN_RENAME,
   SCREEN_NUMBER,
+  SCREEN_KILL,
 
   SCREEN_0,
   SCREEN_1,
@@ -66,9 +67,6 @@ enum custom_keycodes {
 
   SCREEN_COPY_MODE,
   SCREEN_PASTE,
-
-  SCREEN_UP_JUMP,
-  SCREEN_DOWN_JUMP,
 
   SCREEN_READREG_1,
   SCREEN_READREG_2,
@@ -430,10 +428,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // linux screen layer
   [SHELL_SCREEN] = LAYOUT_ergodox(
        // left hand
-       KC_NO,  KC_TRNS,   KC_TRNS,            KC_TRNS,             KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,   SCREEN_READREG_3,   SCREEN_READREG_2,    SCREEN_READREG_1,      KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,   SCREEN_PASTEREG_3,  SCREEN_PASTEREG_2,   SCREEN_PASTEREG_1,     KC_TRNS,
-       KC_TRNS,KC_TRNS,   KC_TRNS,            KC_TRNS,             KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_NO,  KC_TRNS,   KC_TRNS,            KC_TRNS,             KC_TRNS,            KC_TRNS,       KC_TRNS,
+       KC_TRNS,KC_TRNS,   SCREEN_READREG_3,   SCREEN_READREG_2,    SCREEN_READREG_1,   KC_TRNS,       KC_TRNS,
+       KC_TRNS,KC_TRNS,   SCREEN_PASTEREG_3,  SCREEN_PASTEREG_2,   SCREEN_PASTEREG_1,  SCREEN_DETACH,
+       KC_TRNS,KC_TRNS,   KC_TRNS,            KC_TRNS,             KC_TRNS,            KC_TRNS,       KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -442,15 +440,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
-       KC_TRNS, SCREEN_NEW_TAB,     SCREEN_7,    SCREEN_8,    SCREEN_9,    SCREEN_RENAME,       KC_TRNS,
+       KC_TRNS, KC_TRNS,            SCREEN_7,    SCREEN_8,    SCREEN_9,    SCREEN_RENAME,       KC_TRNS,
                 SCREEN_TAB_LEFT,    SCREEN_4,    SCREEN_5,    SCREEN_6,    SCREEN_TAB_RIGHT,    SCREEN_COPY_MODE,
-       KC_TRNS, SCREEN_DETACH,      SCREEN_1,    SCREEN_2,    SCREEN_3,    SCREEN_NUMBER,       KC_TRNS,
+       KC_TRNS, KC_TRNS,            SCREEN_1,    SCREEN_2,    SCREEN_3,    SCREEN_NUMBER,       SCREEN_PASTE,
                                     // bottom row
-                                    SCREEN_0,    KC_TRNS,     KC_TRNS,     KC_TRNS,             SCREEN_DETACH,
+                                    SCREEN_0,    KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_TRNS, SCREEN_KILL, SCREEN_NEW_TAB
   ),
 
     // android studio shortcuts
@@ -770,16 +768,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SCREEN_PASTE:
             SEND_STRING(SS_LCTL("a") "]");
             break;
-
-        case SCREEN_UP_JUMP:
-            tap_code(KC_5);
-            tap_code(KC_UP);
-            break;
-		case SCREEN_DOWN_JUMP:
-            tap_code(KC_5);
-            tap_code(KC_DOWN);
-            break;
-
+        case SCREEN_KILL:
+            SEND_STRING(SS_LCTL("a") "k");
+            break;            
         case SCREEN_READREG_1:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
