@@ -175,6 +175,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define VS_BM_CLEARALL      MEH(KC_9) // bookmarks.clearFromAllFiles
 #define VS_BM_LIST          MEH(KC_A) // bookmarks.list
 #define VS_BM_LISTALL       MEH(KC_B) // bookmarks.listFromAllFiles
+#define VS_JUMPY            MEH(KC_C) // extension.jumpy-word
 
 // visual studio code navigation shortcuts
 #define VS_FOCUS_EDITOR     MEH(KC_4) // workbench.action.focusActiveEditorGroup
@@ -496,7 +497,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        KC_TRNS,      VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       KC_TRNS,      KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
+       KC_TRNS,      VS_JUMPY,         VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
                                        VS_COMMANDS,   KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        // thumb cluster
