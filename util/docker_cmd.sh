@@ -15,7 +15,7 @@ for arg; do
 	fi
 done
 
-# Allow $RUNTIME to be overriden by the user as an environment variable
+# Allow $RUNTIME to be overridden by the user as an environment variable
 # Else check if either docker or podman exit and set them as runtime
 # if none are found error out
 if [ -z "$RUNTIME" ]; then
