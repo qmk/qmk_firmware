@@ -414,6 +414,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
@@ -635,8 +636,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-=======
->>>>>>> move macros and tapdance definions to user space
+
 
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
@@ -645,6 +645,7 @@ void led_set_user(uint8_t usb_led) {
         ergodox_right_led_1_off();
     }
 }
+
 
 void matrix_scan_user(void) {
 
