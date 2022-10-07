@@ -54,8 +54,8 @@ enum layer_names {
 #define MTCTL_ENT MT(MOD_LCTL, KC_ENT)
 #define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
 #define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
-#define MTESC MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_ESC) // MEH on hold, Esc on tap
-#define FNTAB LT(_ADJUST, KC_TAB)
+#define HYPERESC MT(MOD_LCTL | MOD_LGUI | MOD_LALT | MOD_LSFT, KC_ESC) // Hyper on hold, Esc on tap
+#define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB) // MEH on hold, Tab on tap
 #define FN_A LT(_ADJUST, KC_A)
 #define MTPLAY MT(MOD_RALT, KC_MPLY)
 #define KC_COPY LCTL(KC_C)
@@ -70,6 +70,7 @@ enum layer_names {
 #define BWSRLEFT A(KC_LEFT)
 #define BWSRRHGT A(KC_RGHT)
 #define BWSRTABSRCH A(KC_A)
+#define ALT_TAB LALT(KC_TAB)
 
 
 enum planck_keycodes {
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |ADJ,ESC| Q   |  W   |  F   |  P   |  B   |                                      |  J   |  L   |  U   |  Y   |  ;   | BSPC |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * | MTESC|  A   |  R   |  S   |  T   |  G   |-------.                      .-------|  M   |  N   |  E   |  I   |  O   |CTRL,'|
+ * |HYPERESC|  A   |  R   |  S   |  T   |  G |-------.                      .-------|  M   |  N   |  E   |  I   |  O   |CTRL,'|
  * |------+------+------+------+------+------|Virtual|                      | Ctrl  |------+------+------+------+------+------|
  * | SHIFT| WIN_Z|  X   |  C   |  D   |  V   |Desctop|-->Play/Pause         | Tab   |  K   |  H   |  ,   |  .   |  /   |SFT,\ |
  * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
@@ -107,11 +108,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '-------------------------'
  */
   [_COLEMAKDH] = LAYOUT(
-  KC_HYPR, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
-  MTESC,   KC_Q,     KC_W,   KC_F,      KC_P,      KC_B,                             KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
-  FNTAB,   FN_A,     KC_R,   KC_S,      KC_T,      KC_G,                             KC_M,    KC_N,    KC_E,    KC_I,   KC_O,    MTRCTLQUO,
-  KC_LSFT, MTLGUI_Z, KC_X,   KC_C,      KC_D,      KC_V,    KC_MPLY,       CTRL_TAB, KC_K,    KC_H,    KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
-                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  L_RAISE, PTOYSMUTE //Mute Mic
+  KC_HYPR,  KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
+  HYPERESC, KC_Q,     KC_W,   KC_F,      KC_P,      KC_B,                             KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
+  MTTAB,    FN_A,     KC_R,   KC_S,      KC_T,      KC_G,                             KC_M,    KC_N,    KC_E,    KC_I,   KC_O,    MTRCTLQUO,
+  KC_LSFT,  MTLGUI_Z, KC_X,   KC_C,      KC_D,      KC_V,    KC_MPLY,       CTRL_TAB, KC_K,    KC_H,    KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
+                              MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  L_RAISE, PTOYSMUTE //Mute Mic
 ),
 
 /* MIT Layout (QWERTY)
@@ -120,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |ADJ,ESC| Q   |  W   |  E   |  R   |  T   |                                      |  Y   |  U   |  I   |  O   |  P   | BSPC |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * | MTESC|  A   |  S   |  D   |  F   |  G   |-------.                      .-------|  H   |  J   |  K   |  L   |  ;   |CTRL,'|
+ * |HYPERESC|  A |  S   |  D   |  F   |  G   |-------.                      .-------|  H   |  J   |  K   |  L   |  ;   |CTRL,'|
  * |------+------+------+------+------+------|Virtual|                      | Ctrl  |------+------+------+------+------+------|
  * | SHIFT| WIN_Z|  X   |  C   |  V   |  B   |Desktop|-->Play/Pause         | Tab   |  N   |  M   |  ,   |  .   |  /   |SFT,\ |
  * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
@@ -129,11 +130,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '-------------------------'
  */
   [_QWERTY] = LAYOUT(
-  KC_HYPR, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
-  MTESC,   KC_Q,     KC_W,   KC_E,      KC_R,      KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC,
-  FNTAB,   FN_A,     KC_S,   KC_D,      KC_F,      KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, MTRCTLQUO,
-  KC_LSFT, MTLGUI_Z, KC_X,   KC_C,      KC_V,      KC_B,    KC_MPLY,       CTRL_TAB, KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
-                             MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  L_RAISE, PTOYSMUTE
+  KC_HYPR,  KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
+  HYPERESC, KC_Q,     KC_W,   KC_E,      KC_R,      KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC,
+  MTTAB,    FN_A,     KC_S,   KC_D,      KC_F,      KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, MTRCTLQUO,
+  KC_LSFT,  MTLGUI_Z, KC_X,   KC_C,      KC_V,      KC_B,    KC_MPLY,       CTRL_TAB, KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
+                              MTALT_APP, MTCTL_ENT, LOW_OSS, KC_SPC,        ALT_DEL,  KC_SPC,  L_RAISE, PTOYSMUTE
 ),
 
 /* MIT Layout (LOWER)
@@ -155,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
   S(KC_TAB), KC_TILD, KC_PERC, KC_COLN, KC_LCBR, KC_RCBR,                           KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
   KC_LSFT,   KC_LABK, KC_RABK, KC_AMPR, KC_LPRN, KC_RPRN, LCTL(KC_0),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_0,   KC_SPC,  KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
 /* MIT Layout (RAISE)
@@ -190,8 +191,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| Window |                     | Layer |------+------+------+------+------+------|
  * |      |      |      |      |      |      |Selector   |-->  Next Song    | Lock  | Back |PageUp|AltPDn|PageDn| PAUSE|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  / Ctrl  /                       \       \       |      |Volume|
- *                      | APP | ENTER| OSSft/  Tab  /                         \       \      |      | DIAL2|--> Toggle HDR
+ *                      | ALT | CTRL |  Alt  / Ctrl  /                       \       \       |      |Volume|
+ *                      | APP | ENTER| Tab  /  Tab  /                         \       \      |      | DIAL2|--> Toggle HDR
  *                      `--------------------------'                           '---------------------------'    on Button Press
  */
   [_ADJUST] = LAYOUT(
@@ -199,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, KC_TRNS, KC_MYCM,                               C(KC_PGDN), KC_HOME,  KC_UP,        KC_END,   KC_TRNS,   KC_DEL,
   KC_TRNS, KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS,                               SELWLEFT,   KC_LEFT,  KC_DOWN,      KC_RGHT,  SELWRIGHT, KC_CAPS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MNXT,             KC_TRNS, BWSRLEFT,   KC_PGUP,  LCA(KC_DOWN), KC_PGDN,  KC_PAUSE,  KC_INS,
-                             KC_TRNS, KC_TRNS, KC_TRNS, CTRL_TAB,            KC_TRNS, KC_TRNS,    KC_TRNS,  G(A(KC_B))
+                             KC_TRNS, KC_TRNS, ALT_TAB, CTRL_TAB,            KC_TRNS, KC_TRNS,    KC_TRNS,  G(A(KC_B))
 )
 };
 
@@ -271,6 +272,31 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
                 //Pins current window to all desktops C(A(KC_P))
+            // case _ADJUST:
+            //     // ALT Tab through open windows
+            //   if (!clockwise) {
+            //       tabtimer = timer_read();
+            //       if(!tabbing) {
+            //         register_code(KC_LGUI);
+            //         register_code(KC_TAB);
+            //         unregister_code(KC_LGUI);
+            //         unregister_code(KC_TAB);
+            //         tabbing = true;
+            //       }
+            //       tap_code(KC_RGHT);
+            //   } else {
+            //       tabtimer = timer_read();
+            //       if(!tabbing) {
+            //           register_code(KC_LGUI);
+            //           register_code(KC_TAB);
+            //           unregister_code(KC_LGUI);
+            //           unregister_code(KC_TAB);
+            //           tabbing = true;
+            //       }
+            //       tap_code(KC_LEFT);
+            //     }
+            //     break;
+            //     //Pins current window to all desktops C(A(KC_P))
             default:
               // Forward/Back Windows Virtual Desktops
                 if (!clockwise) {
@@ -287,9 +313,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             case _LOWER:
                 // go to last selection in VSCode
                 if (!clockwise) {
-                    tap_code16(LALT(KC_LEFT));
+                    tap_code16(LALT(LSFT(KC_LEFT)));
                 } else {
-                    tap_code16(LALT(KC_RGHT));
+                    tap_code16(LALT(LSFT(KC_RGHT)));
                 }
                 break;
                 // Change Audio Recording Source on button press (Alt Shift J)
@@ -307,7 +333,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 if (!clockwise) {
                     tap_code16(LCTL(LSFT(KC_LEFT)));
                 } else {
-                    tap_code16(LCTL(LSFT(KC_LEFT)));
+                    tap_code16(LCTL(LSFT(KC_RGHT)));
                 }
                 break;
                 // Next song on button press

@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "*.def": "c"
+        "*.def": "c",
+        "caps_word.h": "c"
     }
 }

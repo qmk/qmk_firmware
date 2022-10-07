@@ -39,6 +39,7 @@ AK_SND_ONLY_START(KC_PAST)  // allows (*0) -> (* ) aka asterisk zero will make a
 AK_BOTH_START(KC_U, KC_U)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_BTH(KC_Y, KC_U, KC_E)     // fixes UE bigram
   R_BTH(KC_SCLN, KC_U, KC_Y)  // allows quickly typing UY now that UY->UE
+  R_FST(KC_SPC, KC_U)
 AK_BOTH_START(KC_D, KC_D)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_BTH(KC_X, KC_D, KC_G)     // fixes DG bigram
   R_BTH(KC_Z, KC_D, KC_B)     // fixes DB bigram
