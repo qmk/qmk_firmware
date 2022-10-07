@@ -60,110 +60,110 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case TEST:
             if (record->event.pressed) {
                 SEND_STRING("TEST");
-                } else {}break;
+                }break;
             case VDRT:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI( SS_DOWN(X_LCTRL) SS_TAP(X_RIGHT) SS_UP(X_LCTRL) ));
-                } else {}break;
+                }break;
             case VDLT:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI( SS_DOWN(X_LCTRL) SS_TAP(X_LEFT) SS_UP(X_LCTRL) ));
-                } else {}break;
+                }break;
             case VDUP:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI(SS_TAP(X_TAB)"t"));
-                } else {}break;
+                }break;
             case VDDN:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI("d"));
-                } else {}break;
+                }break;
             case EXPL:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI("e"));
-                } else {}break;
+                }break;
             case SNIP:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI(SS_LSFT("s")));
-                } else {}break;
+                }break;
             case COPY:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_F2) SS_LCTRL("ac"));
-                } else {}break;
+                }break;
             case PAST:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_F2) SS_LCTRL("v"));
-                } else {}break;
+                }break;
             case TASK:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTRL(SS_DOWN(X_RSHIFT)SS_TAP(X_ESCAPE)SS_UP(X_RSHIFT)));       // Windows
                 SEND_STRING(SS_LCTRL(SS_DOWN(X_LALT)SS_TAP(X_ESCAPE)SS_UP(X_LALT)));           //Mac
-                } else {}break;
+                }break;
             case QUIT:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_F4)));                                          //Windows
                 SEND_STRING(SS_LCTRL("w"));                                                   //Mac
-                } else {}break;
+                }break;
             case DZRO:
             if (record->event.pressed) {
                 SEND_STRING("00");
-                } else {}break;
+                }break;
             case ATAB:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
-                } else {}break;
+                }break;
             case LPRC:
             if (record->event.pressed) {
                 SEND_STRING("(");
-                } else {}break;
+                }break;
             case RPRC:
             if (record->event.pressed) {
                 SEND_STRING(")");
-                } else {}break;
+                }break;
                 //Discord Section
                 case THIS:
                 if (record->event.pressed) {
                     SEND_STRING(":this:" SS_TAP(X_ENTER) );
-                    } else {}break;
+                    }break;
                 case OOF:
                 if (record->event.pressed) {
                     SEND_STRING(":oof:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case PIKA:
                 if (record->event.pressed) {
                     SEND_STRING(":surprised:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case SCAT:
                 if (record->event.pressed) {
                     SEND_STRING(":smiley_cat_spanish:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case FCAT:
                 if (record->event.pressed) {
                     SEND_STRING(":smiley_cat_fancy:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case HART:
                 if (record->event.pressed) {
                     SEND_STRING(":heart:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case DROL:
                 if (record->event.pressed) {
                     SEND_STRING(":drooling_face:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case MONY:
                 if (record->event.pressed) {
                     SEND_STRING(":smiley_takemoney:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case FHAT:
                 if (record->event.pressed) {
                     SEND_STRING(":smiley_tip_fedora:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case SPIT:
                 if (record->event.pressed) {
                     SEND_STRING(":smiley_spit_surprised:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
                 case KING:
                 if (record->event.pressed) {
                     SEND_STRING(":pepe_king_royal:" SS_TAP(X_ENTER));
-                    } else {}break;
+                    }break;
         }
     }
 #ifdef CONSOLE_ENABLE //Console Debug
