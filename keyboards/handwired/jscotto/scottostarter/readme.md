@@ -1,6 +1,6 @@
 # ScottoStarter
 
-<!-- ![ScottoStarter](https://i.imgur.com/uXUWY7wh.jpg) -->
+![ScottoStarter](https://i.imgur.com/bspbVPah.jpg)
 
 A 52 key ortholinear keyboard that is designed to help transition you into smaller layouts. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
