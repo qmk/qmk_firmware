@@ -240,7 +240,7 @@ enum usb_endpoints {
 #        ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #        else
-    CONSOLE_OUT_EPNUM   = NEXT_EPNUM,
+    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
 #        endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
