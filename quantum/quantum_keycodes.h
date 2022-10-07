@@ -656,67 +656,7 @@ enum quantum_keycodes {
 #define MOD_MEH 0x7
 
 // US ANSI shifted keycode aliases
-#define KC_TILDE LSFT(KC_GRAVE) // ~
-#define KC_TILD KC_TILDE
-
-#define KC_EXCLAIM LSFT(KC_1) // !
-#define KC_EXLM KC_EXCLAIM
-
-#define KC_AT LSFT(KC_2) // @
-
-#define KC_HASH LSFT(KC_3) // #
-
-#define KC_DOLLAR LSFT(KC_4) // $
-#define KC_DLR KC_DOLLAR
-
-#define KC_PERCENT LSFT(KC_5) // %
-#define KC_PERC KC_PERCENT
-
-#define KC_CIRCUMFLEX LSFT(KC_6) // ^
-#define KC_CIRC KC_CIRCUMFLEX
-
-#define KC_AMPERSAND LSFT(KC_7) // &
-#define KC_AMPR KC_AMPERSAND
-
-#define KC_ASTERISK LSFT(KC_8) // *
-#define KC_ASTR KC_ASTERISK
-
-#define KC_LEFT_PAREN LSFT(KC_9) // (
-#define KC_LPRN KC_LEFT_PAREN
-
-#define KC_RIGHT_PAREN LSFT(KC_0) // )
-#define KC_RPRN KC_RIGHT_PAREN
-
-#define KC_UNDERSCORE LSFT(KC_MINUS) // _
-#define KC_UNDS KC_UNDERSCORE
-
-#define KC_PLUS LSFT(KC_EQUAL) // +
-
-#define KC_LEFT_CURLY_BRACE LSFT(KC_LEFT_BRACKET) // {
-#define KC_LCBR KC_LEFT_CURLY_BRACE
-
-#define KC_RIGHT_CURLY_BRACE LSFT(KC_RIGHT_BRACKET) // }
-#define KC_RCBR KC_RIGHT_CURLY_BRACE
-
-#define KC_LEFT_ANGLE_BRACKET LSFT(KC_COMMA) // <
-#define KC_LABK KC_LEFT_ANGLE_BRACKET
-#define KC_LT KC_LEFT_ANGLE_BRACKET
-
-#define KC_RIGHT_ANGLE_BRACKET LSFT(KC_DOT) // >
-#define KC_RABK KC_RIGHT_ANGLE_BRACKET
-#define KC_GT KC_RIGHT_ANGLE_BRACKET
-
-#define KC_COLON LSFT(KC_SEMICOLON) // :
-#define KC_COLN KC_COLON
-
-#define KC_PIPE LSFT(KC_BACKSLASH) // |
-
-#define KC_QUESTION LSFT(KC_SLASH) // ?
-#define KC_QUES KC_QUESTION
-
-#define KC_DOUBLE_QUOTE LSFT(KC_QUOTE) // "
-#define KC_DQUO KC_DOUBLE_QUOTE
-#define KC_DQT KC_DOUBLE_QUOTE
+#include "keymap_us.h"
 
 #define KC_DELT KC_DELETE // Del key (four letter code)
 
