@@ -265,13 +265,9 @@ enum usb_endpoints {
     CDC_OUT_EPNUM         = NEXT_EPNUM,
 #    endif
 #endif
+
 #ifdef JOYSTICK_ENABLE
     JOYSTICK_IN_EPNUM = NEXT_EPNUM,
-#    ifdef USB_ENDPOINTS_ARE_REORDERABLE
-    JOYSTICK_OUT_EPNUM = JOYSTICK_IN_EPNUM,
-#    else
-    JOYSTICK_OUT_EPNUM    = NEXT_EPNUM,
-#    endif
 #endif
 
 #ifdef DIGITIZER_ENABLE
