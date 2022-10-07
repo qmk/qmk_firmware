@@ -19,12 +19,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "report.h"
 
-void     programmable_button_clear(void);
-void     programmable_button_send(void);
-void     programmable_button_on(uint8_t index);
-void     programmable_button_off(uint8_t index);
-bool     programmable_button_is_on(uint8_t index);
+/**
+ * \defgroup programmable_button
+ *
+ * HID Programmable Buttons
+ * \{
+ */
+
+/**
+ * \brief Clear the programmable button report.
+ */
+void programmable_button_clear(void);
+
+/**
+ * \brief Add a button press to the report.
+ *
+ * \param index The index of the button to add, from 0 to 31.
+ */
+void programmable_button_add(uint8_t index);
+
+/**
+ * \brief Remove a button press from the report.
+ *
+ * \param index The index of the button to remove, from 0 to 31.
+ */
+void programmable_button_remove(uint8_t index);
+
+/**
+ * \brief Add a button press to the report, and flush it.
+ *
+ * \param index The index of the button to add, from 0 to 31.
+ */
+void programmable_button_register(uint8_t index);
+
+/**
+ * \brief Remove a button press from the report, and flush it.
+ *
+ * \param index The index of the button to remove, from 0 to 31.
+ */
+void programmable_button_unregister(uint8_t index);
+
+/**
+ * \brief Get the state of a programmable button.
+ *
+ * \param index The index of the button to check, from 0 to 31.
+ *
+ * \return `true` if the button is asserted.
+ */
+bool programmable_button_is_on(uint8_t index);
+
+/**
+ * \brief Send the programmable button report to the host.
+ */
+void programmable_button_flush(void);
+
+/**
+ * \brief Get the programmable button report.
+ *
+ * \return The bitmask of programmable buttons.
+ */
 uint32_t programmable_button_get_report(void);
-void     programmable_button_set_report(uint32_t report);
+
+/**
+ * \brief Set the programmable button report.
+ *
+ * \param report A bitmask of programmable buttons.
+ */
+void programmable_button_set_report(uint32_t report);
+
+/** \} */
