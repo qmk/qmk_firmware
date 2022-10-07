@@ -112,7 +112,7 @@ KC_TRNS, KC_TRNS, VS_TOGGLE_TERMINAL, VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR, VS_BM_
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VS_BM_CLEARALL,                             VS_JUMPY,        VS_BM_PREV,    VS_BM_NEXT,    VS_GROUP_1,        VS_GROUP_2, VS_BM_TOGGLE,
 //|--------+--------+--------+--------+--------+--------+--------|                |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,                KC_TRNS, KC_TRNS, KC_TRNS
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,                VS_DEL_LINE, KC_TRNS, KC_TRNS
                                       //`--------------------------'            `--------------------------'
   ),
   
@@ -245,7 +245,7 @@ bool oled_task_user(void) {
         oled_render_layer_state();
     } else {
         oled_render_logo();
-    }
+     }
     return false;
 }
 
