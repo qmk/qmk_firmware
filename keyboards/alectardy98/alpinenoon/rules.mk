@@ -17,3 +17,4 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 LTO_ENABLE = yes  #make the file smaller
 ENCODER_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
+UNICODE_ENABLE = yes 		# Unicode
