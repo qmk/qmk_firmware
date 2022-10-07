@@ -201,63 +201,18 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void oled_render_layer_state(void) {
   DISPLAY_LAYER_NAME(SHORTCUTS, "SHORTCUTS");
   DISPLAY_LAYER_NAME(VSCODE, "VSCODE");
+  DISPLAY_LAYER_NAME(COMBINED, "SYMBOLS");
+  DISPLAY_LAYER_NAME(BROWSER_CONTROL_IOS, "BROWSER IOS");
+  DISPLAY_LAYER_NAME(BROWSER_CONTROL, "BROWSER");
+  DISPLAY_LAYER_NAME(SHELL_SCREEN, "SHELL SCREEN");
+  DISPLAY_LAYER_NAME(SHELL_NAV, "SHELL NAV");
+  DISPLAY_LAYER_NAME(KEYSEL_IOS, "KEYSEL IOS");
+  DISPLAY_LAYER_NAME(KEYSEL, "KEYSEL");
+  DISPLAY_LAYER_NAME(KEYNAV_IOS, "KEYNAV IOS");
+  DISPLAY_LAYER_NAME(KEYNAV, "KEYNAV");
+  DISPLAY_LAYER_NAME(BASE_IOS, "BASE IOS");
+  DISPLAY_LAYER_NAME(BASE, "BASE");
 
-  if(biton32(layer_state) == SHORTCUTS) {
-      oled_write_ln_P(PSTR("SHORTCUTS"), false);
-      return;    
-  }
-  if(biton32(layer_state) == SHORTCUTS) {
-      oled_write_ln_P(PSTR("SHORTCUTS"), false);
-      return;    
-  }  
-
-  if(biton32(layer_state) == BASE) {
-      oled_write_ln_P(PSTR("BASE"), false);
-      return;    
-  }
-    switch (layer_state) {
-        case 0:
-            oled_write_ln_P(PSTR("BASE"), false);
-            break;
-        case 2:
-            oled_write_ln_P(PSTR("BASE IOS"), false);
-            break;            
-        case 4:
-            oled_write_ln_P(PSTR("KEYNAV"), false);
-            break;            
-        case 8:
-            oled_write_ln_P(PSTR("KEYNAV IOS"), false);
-            break;                        
-        case 16:
-            oled_write_ln_P(PSTR("KEYSEL"), false);
-            break;
-        case 32:
-            oled_write_ln_P(PSTR("KEYSEL IOS"), false);
-            break;            
-        case 64:
-            oled_write_ln_P(PSTR("SHELL NAV"), false);
-            break;            
-        case 128:
-            oled_write_ln_P(PSTR("SHELL SCREEN"), false);
-            break;                        
-        case 256:
-            oled_write_ln_P(PSTR("BROWSER"), false);
-            break;
-        case 512:
-            oled_write_ln_P(PSTR("BROWSER IOS"), false);
-            break;            
-        case 1024:
-            oled_write_ln_P(PSTR("SYMBOLS"), false);
-            break;
-        case 2048:
-            oled_write_ln_P(PSTR("VSCODE"), false);
-            break;
-        case 4096:
-            oled_write_ln_P(PSTR("SHORTCUTS"), false);
-            break;                        
-
-
-    }
 }
 
 
