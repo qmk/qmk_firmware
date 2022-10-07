@@ -53,8 +53,8 @@ void TestDriver::send_mouse(report_mouse_t* report) {
     m_this->send_mouse_mock(*report);
 }
 
-void TestDriver::send_extra(uint8_t report_id, uint16_t data) {
-    m_this->send_extra_mock(report_id, data);
+void TestDriver::send_extra(report_extra_t* report) {
+    m_this->send_extra_mock(*report);
 }
 
 namespace internal {

@@ -96,7 +96,7 @@ static void bluefruit_serial_send(uint8_t data)
 static uint8_t keyboard_leds(void);
 static void send_keyboard(report_keyboard_t *report);
 static void send_mouse(report_mouse_t *report);
-static void send_extra(uint8_t report_id, uint16_t data);
+static void send_extra(report_extra_t *report);
 
 host_driver_t bluefruit_driver = {
     keyboard_leds,
@@ -177,15 +177,10 @@ static void send_mouse(report_mouse_t *report)
 #define CONSUMER2BLUEFRUIT(usage) \
     (usage == AUDIO_MUTE ? 0x00e2 : (usage == AUDIO_VOL_UP ? 0x00e9 : (usage == AUDIO_VOL_DOWN ? 0x00ea : (usage == TRANSPORT_NEXT_TRACK ? 0x00b5 : (usage == TRANSPORT_PREV_TRACK ? 0x00b6 : (usage == TRANSPORT_STOP ? 0x00b7 : (usage == TRANSPORT_STOP_EJECT ? 0x00b8 : (usage == TRANSPORT_PLAY_PAUSE ? 0x00b1 : (usage == AL_CC_CONFIG ? 0x0183 : (usage == AL_EMAIL ? 0x018c : (usage == AL_CALCULATOR ? 0x0192 : (usage == AL_LOCAL_BROWSER ? 0x0196 : (usage == AC_SEARCH ? 0x021f : (usage == AC_HOME ? 0x0223 : (usage == AC_BACK ? 0x0224 : (usage == AC_FORWARD ? 0x0225 : (usage == AC_STOP ? 0x0226 : (usage == AC_REFRESH ? 0x0227 : (usage == AC_BOOKMARKS ? 0x022a : 0)))))))))))))))))))
 
-static void send_extra(uint8_t report_id, uint16_t data)
+static void send_extra(report_extra_t *report)
 {
-    if (report_id == REPORT_ID_CONSUMER) {
-        static uint16_t last_data = 0;
-        if (data == last_data)
-            return;
-        last_data = data;
-
-        uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
+    if (report->report_id == REPORT_ID_CONSUMER) {
+        uint16_t bitmap = CONSUMER2BLUEFRUIT(report->usage);
 
 #ifdef BLUEFRUIT_TRACE_SERIAL
         dprintf("\nData: ");

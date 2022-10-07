@@ -24,7 +24,7 @@
 /* -------------------- Static Function Prototypes -------------------------- */
 static uint8_t ap2_ble_leds(void);
 static void    ap2_ble_mouse(report_mouse_t *report);
-static void    ap2_ble_extra(uint8_t report_id, uint16_t data);
+static void    ap2_ble_extra(report_extra_t *report);
 static void    ap2_ble_keyboard(report_keyboard_t *report);
 
 static void ap2_ble_swtich_ble_driver(void);
@@ -149,11 +149,11 @@ static inline uint16_t CONSUMER2AP2(uint16_t usage) {
     }
 }
 
-static void ap2_ble_extra(uint8_t report_id, uint16_t data) {
-    if (report_id == REPORT_ID_CONSUMER) {
+static void ap2_ble_extra(report_extra_t *report) {
+    if (report->report_id == REPORT_ID_CONSUMER) {
         sdPut(&SD1, 0x0);
         sdWrite(&SD1, ble_mcu_send_consumer_report, sizeof(ble_mcu_send_consumer_report));
-        sdPut(&SD1, CONSUMER2AP2(data));
+        sdPut(&SD1, CONSUMER2AP2(report->usage));
         static const uint8_t dummy[3] = {0};
         sdWrite(&SD1, dummy, sizeof(dummy));
     }
