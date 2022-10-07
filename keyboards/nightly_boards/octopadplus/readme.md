@@ -1,10 +1,10 @@
 # DeskDaily Octopad+
 
-![Octopad+](https://i.imgur.com/Sa83N0G.jpg)
+![Octopad+](https://i.imgur.com/Sa83N0Gh.jpg)
 
 Aluminum version of the Octopad. An 8 key macropad with 2 rotary encoders.
 
-* Keyboard Maintainer: [Neil Brian Ramirez](https://github.com/NightlyBoards)
+* Keyboard Maintainer: [DeskDaily](https://github.com/DeskDaily)
 * Hardware Supported: atmega32u4
 
 Make example for this keyboard (after setting up your build environment):
