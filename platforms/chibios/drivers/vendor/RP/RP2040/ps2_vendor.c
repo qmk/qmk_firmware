@@ -47,52 +47,44 @@ OSAL_IRQ_HANDLER(RP_PIO0_IRQ_0_HANDLER) {
 #endif
 
 #define PS2_WRAP_TARGET 0
-#define PS2_WRAP 28
+#define PS2_WRAP 20
 
 // clang-format off
 static const uint16_t ps2_program_instructions[] = {
             //     .wrap_target
-    0xe020, //  0: set    x, 0
-    0x8080, //  1: pull   noblock
-    0xa027, //  2: mov    x, osr
-    0x0046, //  3: jmp    x--, 6
-    0x00c0, //  4: jmp    pin, 0
-    0x0015, //  5: jmp    21
-    0xe082, //  6: set    pindirs, 2
-    0xef00, //  7: set    pins, 0                [15]
-    0xaf42, //  8: nop                           [15]
-    0xe283, //  9: set    pindirs, 3             [2]
-    0xe081, // 10: set    pindirs, 1
-    0xe002, // 11: set    pins, 2
-    0xe029, // 12: set    x, 9
-    0x2021, // 13: wait   0 pin, 1
-    0x6601, // 14: out    pins, 1                [6]
-    0x004d, // 15: jmp    x--, 13
-    0xe080, // 16: set    pindirs, 0
-    0xe001, // 17: set    pins, 1
-    0x2021, // 18: wait   0 pin, 1
-    0x20a1, // 19: wait   1 pin, 1
-    0x0000, // 20: jmp    0
-    0xe080, // 21: set    pindirs, 0
-    0x4001, // 22: in     pins, 1
-    0x20a1, // 23: wait   1 pin, 1
-    0xe029, // 24: set    x, 9
-    0x2021, // 25: wait   0 pin, 1
-    0x4001, // 26: in     pins, 1
-    0x20a1, // 27: wait   1 pin, 1
-    0x0059, // 28: jmp    x--, 25
+    0x00c7, //  0: jmp    pin, 7
+    0xe02a, //  1: set    x, 10
+    0x2021, //  2: wait   0 pin, 1
+    0x4001, //  3: in     pins, 1
+    0x20a1, //  4: wait   1 pin, 1
+    0x0042, //  5: jmp    x--, 2
+    0x0000, //  6: jmp    0
+    0x00e9, //  7: jmp    !osre, 9
+    0x0000, //  8: jmp    0
+    0xff81, //  9: set    pindirs, 1             [31]
+    0xe280, // 10: set    pindirs, 0             [2] 
+    0xe082, // 11: set    pindirs, 2
+    0x2021, // 12: wait   0 pin, 1
+    0xe029, // 13: set    x, 9
+    0x6081, // 14: out    pindirs, 1
+    0x20a1, // 15: wait   1 pin, 1
+    0x2021, // 16: wait   0 pin, 1
+    0x004e, // 17: jmp    x--, 14
+    0xe083, // 18: set    pindirs, 3
+    0x2021, // 19: wait   0 pin, 1
+    0x20a1, // 20: wait   1 pin, 1
             //     .wrap
 };
 // clang-format on
 
 static const struct pio_program ps2_program = {
     .instructions = ps2_program_instructions,
-    .length       = 29,
+    .length       = 21,
     .origin       = -1,
 };
 
 static int         state_machine = -1;
-thread_reference_t tx_thread     = NULL;
+static thread_reference_t tx_thread     = NULL;
 
 #define BUFFER_SIZE 32
 static input_buffers_queue_t pio_rx_queue;
@@ -140,13 +132,13 @@ void ps2_host_init(void) {
 
     pio_sm_config c = pio_get_default_sm_config();
     sm_config_set_wrap(&c, offset + PS2_WRAP_TARGET, offset + PS2_WRAP);
-    sm_config_set_sideset(&c, 1, false, false);
 
-    pio_sm_set_consecutive_pindirs(pio, state_machine, PS2_DATA_PIN, 2, false);
+    // Set pindirs to input (output enable is inverted below)
+    pio_sm_set_consecutive_pindirs(pio, state_machine, PS2_DATA_PIN, 2, true);
     sm_config_set_clkdiv(&c, (float)clock_get_hz(clk_sys) / (200.0f * KHZ));
     sm_config_set_set_pins(&c, PS2_DATA_PIN, 2);
     sm_config_set_out_pins(&c, PS2_DATA_PIN, 1);
-    sm_config_set_out_shift(&c, true, false, 10);
+    sm_config_set_out_shift(&c, true, true, 10);
     sm_config_set_in_shift(&c, true, true, 11);
     sm_config_set_jmp_pin(&c, PS2_CLOCK_PIN);
     sm_config_set_in_pins(&c, PS2_DATA_PIN);
@@ -156,7 +148,13 @@ void ps2_host_init(void) {
                         PAL_RP_GPIO_OE |
                         PAL_RP_PAD_SLEWFAST |
                         PAL_RP_PAD_DRIVE12 |
-                        PAL_RP_IOCTRL_OEOVER_DRVPERI |
+                        // Invert output enable so that pindirs=1 means input
+                        // and indirs=0 means output. This way, out pindirs
+                        // works correctly with the open-drain PS/2 interface.
+                        // Setting pindirs=1 effectively pulls the line high,
+                        // due to the pull-up resistor, while pindirs=0 pulls
+                        // the line low.
+                        PAL_RP_IOCTRL_OEOVER_DRVINVPERI |
                         (pio_idx == 0 ? PAL_MODE_ALTERNATE_PIO0 : PAL_MODE_ALTERNATE_PIO1);
     // clang-format on
 
