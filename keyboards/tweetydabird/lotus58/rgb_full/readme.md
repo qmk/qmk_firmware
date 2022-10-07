@@ -6,8 +6,8 @@
 
 * Keyboard Maintainer: [TweetyDaBird](https://github.com/TweetyDaBird)
 * Hardware Supported: *Lotus 58 Glow v1.11 - 1.24 PCB, Pro Micro or pin-compatible*
-* Hardware Availability: [Lectronz Store]https://lectronz.com/stores/tweetys-wild-thinking
-* Hardware Design: https://github.com/TweetyDaBird/Lotus58
+* Hardware Availability: [Lectronz Store](https://lectronz.com/stores/tweetys-wild-thinking)
+* Hardware Design: [Link](https://github.com/TweetyDaBird/Lotus58)
 
 Make example for this keyboard (after setting up your build environment):
 
