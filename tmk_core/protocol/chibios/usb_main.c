@@ -127,7 +127,7 @@ static USBInEndpointState kbd_ep_state;
 static const USBEndpointConfig kbd_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    kbd_in_cb,              /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     KEYBOARD_EPSIZE,        /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -145,7 +145,7 @@ static USBInEndpointState mouse_ep_state;
 static const USBEndpointConfig mouse_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    mouse_in_cb,            /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     MOUSE_EPSIZE,           /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -163,7 +163,7 @@ static USBInEndpointState shared_ep_state;
 static const USBEndpointConfig shared_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    shared_in_cb,           /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     SHARED_EPSIZE,          /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -181,7 +181,7 @@ static USBInEndpointState joystick_ep_state;
 static const USBEndpointConfig joystick_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    joystick_in_cb,         /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     JOYSTICK_EPSIZE,        /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -199,7 +199,7 @@ static USBInEndpointState digitizer_ep_state;
 static const USBEndpointConfig digitizer_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    joystick_in_cb,         /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     DIGITIZER_EPSIZE,       /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -710,7 +710,6 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 
 /* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
-    kbd_sof_cb(usbp);
     osalSysLockFromISR();
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
         qmkusbSOFHookI(&drivers.array[i].driver);
@@ -784,21 +783,6 @@ __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
  *                  Keyboard functions
  * ---------------------------------------------------------
  */
-/* keyboard IN callback hander (a kbd report has made it IN) */
-#ifndef KEYBOARD_SHARED_EP
-void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
-    /* STUB */
-    (void)usbp;
-    (void)ep;
-}
-#endif
-
-/* start-of-frame handler
- * TODO: i guess it would be better to re-implement using timers,
- *  so that this is not going to have to be checked every 1ms */
-void kbd_sof_cb(USBDriver *usbp) {
-    (void)usbp;
-}
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
@@ -909,15 +893,6 @@ unlock:
  */
 
 #ifdef MOUSE_ENABLE
-
-#    ifndef MOUSE_SHARED_EP
-/* mouse IN callback hander (a mouse report has made it IN) */
-void mouse_in_cb(USBDriver *usbp, usbep_t ep) {
-    (void)usbp;
-    (void)ep;
-}
-#    endif
-
 void send_mouse(report_mouse_t *report) {
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
@@ -944,19 +919,6 @@ void send_mouse(report_mouse_t *report) {
     (void)report;
 }
 #endif /* MOUSE_ENABLE */
-
-/* ---------------------------------------------------------
- *                   Shared EP functions
- * ---------------------------------------------------------
- */
-#ifdef SHARED_EP_ENABLE
-/* shared IN callback hander */
-void shared_in_cb(USBDriver *usbp, usbep_t ep) {
-    /* STUB */
-    (void)usbp;
-    (void)ep;
-}
-#endif
 
 /* ---------------------------------------------------------
  *                   Extrakey functions
@@ -1010,15 +972,6 @@ void send_programmable_button(report_programmable_button_t *report) {
     osalSysUnlock();
 #endif
 }
-
-#ifdef JOYSTICK_ENABLE
-/* joystick IN callback handler */
-void joystick_in_cb(USBDriver *usbp, usbep_t ep) {
-    /* STUB */
-    (void)usbp;
-    (void)ep;
-}
-#endif
 
 void send_joystick(report_joystick_t *report) {
 #ifdef JOYSTICK_ENABLE
