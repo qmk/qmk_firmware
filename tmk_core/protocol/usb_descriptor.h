@@ -273,11 +273,6 @@ enum usb_endpoints {
 #ifdef DIGITIZER_ENABLE
 #    if !defined(DIGITIZER_SHARED_EP)
     DIGITIZER_IN_EPNUM = NEXT_EPNUM,
-#        ifdef USB_ENDPOINTS_ARE_REORDERABLE
-    DIGITIZER_OUT_EPNUM = DIGITIZER_IN_EPNUM,
-#        else
-    DIGITIZER_OUT_EPNUM = NEXT_EPNUM,
-#        endif
 #    else
 #        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
 #    endif

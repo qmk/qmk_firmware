@@ -93,6 +93,14 @@ void shared_in_cb(USBDriver *usbp, usbep_t ep);
 /* joystick IN request callback handler */
 void joystick_in_cb(USBDriver *usbp, usbep_t ep);
 
+/* ---------------
+ * Digitizer EP header
+ * ---------------
+ */
+
+/* digitizer IN request callback handler */
+void digitizer_in_cb(USBDriver *usbp, usbep_t ep);
+
 /* --------------
  * Console header
  * --------------
