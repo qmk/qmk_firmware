@@ -27,7 +27,7 @@ OSL(SHELL_SCREEN),KC_SCOLON, KC_Q,  KC_J,    KC_K,   KC_X,                      
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                        MO(BROWSER_CONTROL_IOS),  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+                        MO(BROWSER_CONTROL_IOS),  KC_TRNS, MO(KEYNAV_IOS),     KC_TRNS, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -160,7 +160,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT, 
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 KC_TRNS, OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,            MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), MEH(KC_Y), MEH(KC_Z),
   //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 QK_BOOT, KC_TRNS, KC_TRNS
+                                        TG(BASE_IOS),  DF(BASE),DF(BASE_IOS),                 QK_BOOT, KC_TRNS, KC_TRNS
                                       //`--------------------------'             `--------------------------'
   ),
 
