@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-//#include "config_common.h"
+#include "config_common.h"
 
 // Not working correct in json implementation
 #define SPLIT_USB_DETECT

@@ -7,6 +7,16 @@
 	"development_board": "promicro",
 	"bootloader_instructions": "Short marked pads on PCB, or hold top left key when plugging in.",
 	
+	"keyboard_folder": "tweetydabird/lbs4",                                                                
+
+	"usb": {
+		"vid": "0xFEED",
+        "pid": "0x23B0",
+		"device_version": "1.1.0"
+	},
+	
+	"debounce": 5,
+		
 	"features": {
 		"bootmagic": true,
 		"command": false,
@@ -22,21 +32,6 @@
 		"lto": true
 	},
 	
-	"debounce": 5,
-	
-	"usb": {
-		"vid": "0xFEED",
-        "pid": "0x23B0",
-		"device_version": "1.1.0"
-	},
-
-	"matrix_pins": {
-        "direct": [
-			["E6", "D7", "F4"],
-			["B5", "B4", null]
-        ]
-    },
-
 	"encoder": {
         "rotary": [
             { 
@@ -62,6 +57,19 @@
         }
     },
 
+	"matrix_pins": {
+        "direct": [
+			["E6", "D7", "F4"],
+			["B5", "B4", null]
+        ]
+    },
+	
+	"matrix_size": {                                                                                       
+        "cols": 3,                                                                                         
+        "rows": 2
+    },    
+
+	
 	"layouts": {
         "LAYOUT": {
             "layout": [	
