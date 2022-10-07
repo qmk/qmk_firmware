@@ -19,6 +19,7 @@
 #define ANDROID_STUDIO     11 // android studio specific layer
 #define VSCODE             12 // visual studio code specific layer
 #define SHORTCUTS          13 // shortcuts to be intercepted by autohotkey
+#define RGB_CONTROL        14 // control RGB effects
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here

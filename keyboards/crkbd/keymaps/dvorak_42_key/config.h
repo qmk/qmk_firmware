@@ -44,4 +44,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
+ // #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+ #define RGB_MATRIX_KEYPRESSES // reacts to keypresses 
+ // #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+ #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+ // #define ENABLE_RGB_MATRIX_SPLASH
+ //#define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#endif
+
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"

@@ -158,10 +158,22 @@ KC_TRNS, KC_TRNS, KC_TRNS, WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT, 
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
     KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                               MEH(KC_O), MEH(KC_P), MEH(KC_Q), MEH(KC_R), MEH(KC_S), MEH(KC_T),
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
-KC_TRNS, OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,            MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), MEH(KC_Y), MEH(KC_Z),
+TG(RGB_CONTROL), OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,            MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), MEH(KC_Y), MEH(KC_Z),
   //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
                                         TG(BASE_IOS),  DF(BASE),DF(BASE_IOS),                 QK_BOOT, KC_TRNS, KC_TRNS
                                       //`--------------------------'             `--------------------------'
+  ),
+
+  [RGB_CONTROL] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+    KC_TRNS,   KC_TRNS, RGB_SAI, RGB_SAD, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+RGB_TOG, RGB_MODE_FORWARD, RGB_HUI, RGB_HUD, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    TG(RGB_CONTROL),   KC_TRNS, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+                                      //`--------------------------'  `--------------------------'
   ),
 
   /*
@@ -200,6 +212,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 
 void oled_render_layer_state(void) {
+  DISPLAY_LAYER_NAME(RGB_CONTROL, "RGB_CONTROL");
   DISPLAY_LAYER_NAME(SHORTCUTS, "SHORTCUTS");
   DISPLAY_LAYER_NAME(VSCODE, "VSCODE");
   DISPLAY_LAYER_NAME(COMBINED, "SYMBOLS");
