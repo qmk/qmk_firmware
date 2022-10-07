@@ -12,7 +12,7 @@
 static uint8_t keyboard_leds(void);
 static void send_keyboard(report_keyboard_t *report);
 static void send_mouse(report_mouse_t *report);
-static void send_extra(uint8_t report_id, uint16_t data);
+static void send_extra(report_extra_t *report);
 
 host_driver_t rn42_driver = {
     keyboard_leds,
@@ -221,10 +221,10 @@ static uint16_t usage2bits(uint16_t usage)
 }
 
 
-static void send_extra(uint8_t report_id, uint16_t data)
+static void send_extra(report_extra_t *report)
 {
-    if (report_id == REPORT_ID_CONSUMER) {
-        uint16_t bits = usage2bits(data);
+    if (report->report_id == REPORT_ID_CONSUMER) {
+        uint16_t bits = usage2bits(report->usage);
         serial_send(0xFD);  // Raw report mode
         serial_send(3);     // length
         serial_send(3);     // descriptor type
@@ -238,7 +238,7 @@ static void send_extra(uint8_t report_id, uint16_t data)
 static uint8_t config_keyboard_leds(void);
 static void config_send_keyboard(report_keyboard_t *report);
 static void config_send_mouse(report_mouse_t *report);
-static void config_send_extra(uint8_t report_id, uint16_t data);
+static void config_send_extra(report_extra_t *report);
 
 host_driver_t rn42_config_driver = {
     config_keyboard_leds,
@@ -250,4 +250,4 @@ host_driver_t rn42_config_driver = {
 static uint8_t config_keyboard_leds(void) { return leds; }
 static void config_send_keyboard(report_keyboard_t *report) {}
 static void config_send_mouse(report_mouse_t *report) {}
-static void config_send_extra(uint8_t report_id, uint16_t data) {}
+static void config_send_extra(report_extra_t *report) {}

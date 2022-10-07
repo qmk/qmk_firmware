@@ -27,7 +27,7 @@ typedef struct {
     uint8_t (*keyboard_leds)(void);
     void (*send_keyboard)(report_keyboard_t *);
     void (*send_mouse)(report_mouse_t *);
-    void (*send_extra)(uint8_t, uint16_t);
+    void (*send_extra)(report_extra_t *);
 } host_driver_t;
 
 void send_joystick(report_joystick_t *report);

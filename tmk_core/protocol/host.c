@@ -41,8 +41,8 @@ extern keymap_config_t keymap_config;
 #endif
 
 static host_driver_t *driver;
-static uint16_t       last_system_report   = 0;
-static uint16_t       last_consumer_report = 0;
+static uint16_t       last_system_usage   = 0;
+static uint16_t       last_consumer_usage = 0;
 
 void host_set_driver(host_driver_t *d) {
     driver = d;
@@ -126,27 +126,37 @@ void host_mouse_send(report_mouse_t *report) {
     (*driver->send_mouse)(report);
 }
 
-void host_system_send(uint16_t report) {
-    if (report == last_system_report) return;
-    last_system_report = report;
+void host_system_send(uint16_t usage) {
+    if (usage == last_system_usage) return;
+    last_system_usage = usage;
 
     if (!driver) return;
-    (*driver->send_extra)(REPORT_ID_SYSTEM, report);
+
+    report_extra_t report = {
+        .report_id = REPORT_ID_SYSTEM,
+        .usage     = usage,
+    };
+    (*driver->send_extra)(&report);
 }
 
-void host_consumer_send(uint16_t report) {
-    if (report == last_consumer_report) return;
-    last_consumer_report = report;
+void host_consumer_send(uint16_t usage) {
+    if (usage == last_consumer_usage) return;
+    last_consumer_usage = usage;
 
 #ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-        bluetooth_send_consumer(report);
+        bluetooth_send_consumer(usage);
         return;
     }
 #endif
 
     if (!driver) return;
-    (*driver->send_extra)(REPORT_ID_CONSUMER, report);
+
+    report_extra_t report = {
+        .report_id = REPORT_ID_CONSUMER,
+        .usage     = usage,
+    };
+    (*driver->send_extra)(&report);
 }
 
 #ifdef JOYSTICK_ENABLE
@@ -232,10 +242,10 @@ void host_programmable_button_send(uint32_t data) {
 
 __attribute__((weak)) void send_programmable_button(report_programmable_button_t *report) {}
 
-uint16_t host_last_system_report(void) {
-    return last_system_report;
+uint16_t host_last_system_usage(void) {
+    return last_system_usage;
 }
 
-uint16_t host_last_consumer_report(void) {
-    return last_consumer_report;
+uint16_t host_last_consumer_usage(void) {
+    return last_consumer_usage;
 }

@@ -84,7 +84,7 @@ static report_keyboard_t keyboard_report_sent;
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_extra(uint8_t report_id, uint16_t data);
+static void    send_extra(report_extra_t *report);
 host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 #ifdef VIRTSER_ENABLE
@@ -663,11 +663,9 @@ static void send_report(void *report, size_t size) {
  *
  * FIXME: Needs doc
  */
-static void send_extra(uint8_t report_id, uint16_t data) {
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-    static report_extra_t r;
-    r = (report_extra_t){.report_id = report_id, .usage = data};
-    send_report(&r, sizeof(r));
+    send_report(report, sizeof(report_extra_t));
 #endif
 }
 
