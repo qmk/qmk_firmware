@@ -58,7 +58,7 @@
 
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
-#define VIA_PROTOCOL_VERSION 0x000A
+#define VIA_PROTOCOL_VERSION 0x000B
 
 enum via_command_id {
     id_get_protocol_version                 = 0x01, // always 0x01
@@ -103,13 +103,8 @@ enum via_lighting_value {
     id_qmk_rgblight_color        = 0x83,
 };
 
-// Can't use SAFE_RANGE here, it might change if someone adds
-// new values to enum quantum_keycodes.
-// Need to keep checking 0x5F10 is still in the safe range.
-// TODO: merge this into quantum_keycodes
-// Backlight keycodes are in range 0x5F00-0x5F0F
 enum via_keycodes {
-    FN_MO13 = 0x5F10,
+    FN_MO13 = QK_MACRO,
     FN_MO23,
     MACRO00,
     MACRO01,
@@ -130,7 +125,7 @@ enum via_keycodes {
 };
 
 enum user_keycodes {
-    USER00 = 0x5F80,
+    USER00 = QK_USER,
     USER01,
     USER02,
     USER03,
