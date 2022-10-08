@@ -134,9 +134,7 @@ bool xap_respond_get_keymap_keycode(xap_token_t token, const void *data, size_t 
         return false;
     }
 
-    keypos_t pos = MAKE_KEYPOS(arg->row, arg->column);
-
-    uint16_t keycode = keymap_key_to_keycode(arg->layer, pos);
+    uint16_t keycode = keycode_at_keymap_location(arg->layer, arg->row, arg->column);
     return xap_respond_data(token, &keycode, sizeof(keycode));
 }
 
@@ -152,9 +150,7 @@ bool xap_respond_get_encoder_keycode(xap_token_t token, const void *data, size_t
         return false;
     }
 
-    keypos_t pos = MAKE_KEYPOS(arg->clockwise ? KEYLOC_ENCODER_CW : KEYLOC_ENCODER_CCW, arg->encoder);
-
-    uint16_t keycode = keymap_key_to_keycode(arg->layer, pos);
+    uint16_t keycode = keycode_at_encodermap_location(arg->layer, arg->encoder, arg->clockwise);
     return xap_respond_data(token, &keycode, sizeof(keycode));
 }
 #endif
