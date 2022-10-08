@@ -43,11 +43,14 @@ KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, NP_DUPE_LINE,               KC_T
                                       //`--------------------------'  `--------------------------'
   ),
 
+  // https://medium.com/macoclock/best-text-editing-keyboard-shortcuts-for-ipad-41e8234a4c42
+  // alt == option
+  // gui/win == command
   [KEYNAV_IOS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
     KC_ESC,   KC_TRNS, KC_TRNS, RGUI(KC_Z),RCTL(KC_S), KC_TRNS,                KC_TRNS, RGUI(KC_LEFT), KC_UP, RGUI(KC_RIGHT), KC_PGUP, KC_DELETE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_TRNS,MO(KEYSEL_IOS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           LALT(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LALT(KC_RIGHT), LALT(KC_DELETE),
+    KC_TRNS,MO(KEYSEL_IOS), KC_TRNS, KC_TRNS, KC_TRNS, RGUI(KC_F),           LALT(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LALT(KC_RIGHT), LALT(KC_DELETE),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS, RGUI(KC_C), RGUI(KC_X), RGUI(KC_V), KC_PGDOWN, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
