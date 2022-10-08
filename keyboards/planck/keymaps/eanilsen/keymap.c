@@ -37,17 +37,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,         KC_Y,    KC_C,    KC_L,    KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,         KC_COMM,      KC_QUOT,      KC_DEL,
-    KC_ESC, KC_I,    KC_S,    MT(MOD_LALT,KC_R),    MT(MOD_LGUI,KC_T),   KC_G,   KC_P,     MT(MOD_RGUI,KC_N),    MT(MOD_RALT,KC_E),   LT(0,KC_A),   LT(0,KC_O),   RSFT_T(KC_ENT),
-    KC_LSFT,        KC_Q,    KC_V,    KC_W,    KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,      KC_DOT,       KC_X,         KC_RSFT,
-    CAPSWRD,        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,          KC_LGUI,      KC_LEFT,      KC_RGHT
+    KC_TAB,  KC_Y,    KC_C,    KC_L,              KC_M,              KC_K,   KC_Z,     KC_F,              KC_U,              KC_COMM, KC_QUOT, KC_DEL,
+    KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MT(MOD_LCTL,KC_T), KC_G,   KC_P,     MT(MOD_RCTL,KC_N), MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
+    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,              KC_J,   KC_B,     KC_H,              KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
+    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           KC_SPC,            SYMBOL, FUNCTION, KC_BSPC,           NAV,               KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   [_SYMBOL] = LAYOUT_ortho_4x12(
-    KC_TILD,  KC_1,    KC_2,    KC_3,    KC_EQL,  KC_NO, KC_CIRC,        KC_AMPR, KC_ASTR, KC_AT, 	  KC_NO,   KC_NO,
+    KC_TILD,  KC_1,    KC_2,    KC_3,    KC_EQL,  KC_NO, KC_CIRC,        KC_AMPR, KC_ASTR, KC_AT, 	  KC_NO,         KC_NO,
     KC_GRV,   KC_4,    KC_5,    KC_6,    KC_MINS, KC_NO, LT(0,KC_BSLS),  KC_LCBR, KC_RCBR, LT(0,CT_PIPE), LT(0,KC_SCLN), KC_NO,
-    KC_LSFT,  KC_7,    KC_8,    KC_9,    KC_0,    KC_NO, KC_LBRC,        KC_LPRN, KC_RPRN, KC_RBRC,       KC_NO,   KC_RSFT,
-    KC_NO,    KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,           KC_RCTL, KC_NO,   KC_NO,         KC_NO,   KC_NO
+    KC_LSFT,  KC_7,    KC_8,    KC_9,    KC_0,    KC_NO, KC_LBRC,        KC_LPRN, KC_RPRN, KC_RBRC,       KC_NO,         KC_RSFT,
+    KC_NO,    KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,           KC_RCTL, KC_NO,   KC_NO,         KC_NO,         KC_NO
     ),
 
   [_FUNCTION] = LAYOUT_ortho_4x12(
