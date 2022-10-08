@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "boston",
+    "keyboard_name": "Boston",
+    "manufacturer": "Pylon",
     "url": "https://github.com/bluepylons/Boston",
     "maintainer": "bluepylons",
-    "width": 20.5,
-    "height": 7.75,
+    "usb": {
+        "vid": "0xAC12",
+        "pid": "0x4176",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

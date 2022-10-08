@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "skeletn87 hotswap", 
+    "keyboard_name": "Skeletn87 Hotswap", 
+    "manufacturer": "BredWorks",
     "url": "", 
     "maintainer": "kb-elmo<mail@elmo.space>", 
-    "width": 18.25, 
-    "height": 6.25, 
+    "usb": {
+        "vid": "0xF984",
+        "pid": "0xB5E9",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

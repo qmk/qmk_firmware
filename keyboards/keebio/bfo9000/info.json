@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "Keebio BFO-9000",
+    "keyboard_name": "BFO-9000",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "Keebio",
-    "width": 19,
-    "height": 6,
+    "usb": {
+      "vid": "0xCB10",
+      "pid": "0x1169",
+      "device_version": "1.0.0"
+    },
     "layouts": {
       "LAYOUT": {
         "layout": [
@@ -124,4 +128,3 @@
       }
     }
   }
-  

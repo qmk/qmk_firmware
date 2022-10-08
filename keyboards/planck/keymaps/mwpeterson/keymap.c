@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *               Swap GUI/Alt _/________/             \_____________\_           _/
    */
   [ADJUST_LAYER] = LAYOUT_planck_grid(
-    XXXXXXX, RESET,   SEND_MAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SEND_VERSION, XXXXXXX,
+    XXXXXXX, QK_BOOT, SEND_MAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SEND_VERSION, XXXXXXX,
     QWERTY,  XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
     XXXXXXX, MUV_DE,  MUV_IN,    MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,       XXXXXXX,
     STENO,   XXXXXXX, AG_SWAP,   AG_NORM, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX
@@ -258,7 +258,7 @@ void matrix_init_user(void) {
     set_unicode_input_mode(UC_LNX);
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, LOWER_LAYER, RAISE_LAYER, ADJUST_LAYER);
 }
 

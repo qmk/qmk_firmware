@@ -105,7 +105,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
     return OLED_ROTATION_180;
@@ -114,8 +114,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 const char *read_logo(void);
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   oled_write_ln(read_logo(), false);
+    return false;
 }
-#endif // OLED_DRIVER_ENABLE
-
+#endif // OLED_ENABLE

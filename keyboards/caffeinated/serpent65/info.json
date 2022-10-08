@@ -1,10 +1,13 @@
 {
     "keyboard_name": "Serpent65",
-    "keyboard_folder": "caffeinated/serpent65",
-    "url": "https",
+    "manufacturer": "Caffeinated Studios",
+    "url": "",
     "maintainer": "jrfhoutx",
-    "width": 16.25,
-    "height": 5.25,
+    "usb": {
+        "vid": "0x4353",
+        "pid": "0x6501",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Karina",
+    "manufacturer": "MisonoWorks",
     "url": "https://github.com/autumnisacutie/karina",
     "maintainer": "MisonoWorks",
-    "width": 11,
-    "height": 5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xC456",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

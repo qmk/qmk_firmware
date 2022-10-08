@@ -2,14 +2,13 @@
 
 ![The first NiceKey](https://s3.eu-central-1.amazonaws.com/mindlevel/nicekey.jpg)
 
-
 Custom handwired nicekey, a one key keyboard that writes random compliments.
 
-Keyboard Maintainer: [spydon](https://github.com/spydon)  
-Hardware Supported: Custom handwired one key  
-Hardware Availability:
+* Keyboard Maintainer: [spydon](https://github.com/spydon)
+* Hardware Supported: Custom handwired one key
+* Hardware Availability: n/a
 
-Switch must be connected to pins C6 and B6. 
+Switch must be connected to pins C6 and B6.
 
 Make example for this keyboard (after setting up your build environment):
 

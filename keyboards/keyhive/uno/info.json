@@ -1,0 +1,14 @@
+{
+    "manufacturer": "Broekhuijsen",
+    "url": "https://www.reddit.com/r/mechmarket/comments/gyijm7/gb_uno/",
+    "maintainer": "Snipeye",
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0xACC8"
+    },
+    "layouts": {
+      "LAYOUT": {
+        "layout": [ {"x": 0, "y": 0 }]
+      }
+    }
+  }

@@ -1,9 +1,11 @@
 {
-    "keyboard_name": "0-Sixty",
+    "manufacturer": "ven0mtr0n",
     "url": "",
     "maintainer": "vinamarora8",
-    "width": 12,
-    "height": 5,
+    "usb": {
+        "vid": "0x7654",
+        "device_version": "0.0.1"
+    },
     "layouts": {
 	"LAYOUT_1x2uC": {
             "layout": [

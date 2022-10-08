@@ -2,7 +2,7 @@
 
 ![TKL-FF](https://i.imgur.com/GJCo3F5l.png)
 
-A TKL PCB made for the Geonworks Frog keyboard that supports both F12 and F13.
+A TKL PCB made for the Geonworks Frog keyboard that supports both F12 and F13. V2 simply adds RGB indicator LEDs.
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: ATmega32u4

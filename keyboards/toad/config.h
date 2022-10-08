@@ -1,14 +1,6 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6776
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    farmakon
-#define PRODUCT         "TOAD"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -17,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, F6, F5, F4, F1, F0 }
 #define MATRIX_COL_PINS { B3, B2, B1, E6, B7, C7, C6, D4, D6, D7, B4, D0, D1, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -47,6 +38,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif

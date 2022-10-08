@@ -1,9 +1,13 @@
 {
     "keyboard_name": "eiri",
+    "manufacturer": "EMajesty",
     "url": "https://github.com/EMajesty/eiri",
     "maintainer": "EMajesty",
-    "width": 15,
-    "height": 4.5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x9372",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

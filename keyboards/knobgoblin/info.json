@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "knobgoblin",
+    "keyboard_name": "Knob Goblin",
+    "manufacturer": "MrT1ddl3s",
     "url": "",
     "maintainer": "MrT1ddl3s",
-    "width": 5,
-    "height": 5,
+    "usb": {
+        "vid": "0x4B47",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho": {
             "layout": [

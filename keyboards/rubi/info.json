@@ -1,9 +1,13 @@
 {
    "keyboard_name": "Rubi",
+   "manufacturer": "gregorio",
    "url": "https://github.com/ohchiko/qmk_firmware/tree/master/keyboards/rubi",
    "maintainer": "gregorio",
-   "width": 4,
-   "height": 5,
+   "usb": {
+      "vid": "0x4752",
+      "pid": "0x5242",
+      "device_version": "0.0.1"
+   },
    "layouts": {
       "LAYOUT": {
          "layout": [

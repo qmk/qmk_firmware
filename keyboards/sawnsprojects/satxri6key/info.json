@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Satxri6key",
+    "manufacturer": "MaiTheSan",
     "url": "",
     "maintainer": "qmk",
-    "width": 3,
-    "height": 2,
+    "usb": {
+        "vid": "0x5350",
+        "pid": "0x0727",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -16,5 +20,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

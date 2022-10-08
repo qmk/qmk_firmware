@@ -161,11 +161,3 @@
 #define SI_LCBR ALGR(SI_B)    // {
 #define SI_RCBR ALGR(SI_N)    // }
 #define SI_SECT ALGR(SI_M)    // §
-
-// DEPRECATED
-#define SI_QOT  SI_QUOT
-#define SI_SV   SI_SCAR
-#define SI_CV   SI_CCAR
-#define SI_ZV   SI_ZCAR
-#define SI_DQOT SI_DQUO
-#define SI_QST  SI_QUES

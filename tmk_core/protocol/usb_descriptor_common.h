@@ -16,6 +16,10 @@
 
 #pragma once
 
+// Prefix string literal with L for descriptors
+#define USBCONCAT(a, b) a##b
+#define USBSTR(s) USBCONCAT(L, s)
+
 /////////////////////
 // RAW Usage page and ID configuration
 

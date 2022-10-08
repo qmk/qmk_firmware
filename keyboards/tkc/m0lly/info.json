@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "TKC M0LLY",
+    "keyboard_name": "M0lly",
+    "manufacturer": "The Key Company",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 5,
+    "usb": {
+        "vid": "0x544B",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

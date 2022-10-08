@@ -1,9 +1,13 @@
 {
     "keyboard_name": "UniGo66",
+    "manufacturer": "Sirius",
     "url": "https://discord.gg/GJ8bdM",
     "maintainer": "qmk",
-    "width": 17,
-    "height": 7,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1001",
+        "device_version": "19.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

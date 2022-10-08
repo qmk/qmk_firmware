@@ -117,7 +117,7 @@ better location.
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/fZouko5.png)
+![Adjust layer layout](https://i.imgur.com/Q4rN6cQ.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/77e7572e077b36a23eb2086017e16fee))
 

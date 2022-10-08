@@ -13,10 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef DC60_H
-#define DC60_H
+
+#pragma once
 
 #include "quantum.h"
+
+#define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
@@ -25,18 +27,15 @@
 // The second converts the arguments into a two-dimensional array which
 // represents the switch matrix.
 #define LAYOUT_all( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, KOD, KOE, \
-    K10,      K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, \
-    K20,      K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      \
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, K3E, \
-    K40,      K42, K43,      K45,      K47, K48,      K4A, K4B, K4C, K4D, K4E  \
-) \
-{ \
-    { K00, K01,   K02, K03, K04,   K05, K06,   K07, K08, K09,   K0A, K0B, K0C, KOD, KOE },   \
-    { K10, KC_NO, K12, K13, K14,   K15, K16,   K17, K18, K19,   K1A, K1B, K1C, K1D, K1E },   \
-    { K20, KC_NO, K22, K23, K24,   K25, K26,   K27, K28, K29,   K2A, K2B, K2C, K2D, KC_NO }, \
-    { K30, K31,   K32, K33, K34,   K35, K36,   K37, K38, K39,   K3A, K3B, K3C, K3D, K3E },   \
-    { K40, KC_NO, K42, K43, KC_NO, K45, KC_NO, K47, K48, KC_NO, K4A, K4B, K4C, K4D, K4E },   \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, \
+    k40,      k42, k43,      k45,      k47, k48,      k4A, k4B, k4C, k4D, k4E \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, XXX }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E }, \
+    { k40, XXX, k42, k43, XXX, k45, XXX, k47, k48, XXX, k4A, k4B, k4C, k4D, k4E } \
 }
-
-#endif

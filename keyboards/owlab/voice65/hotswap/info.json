@@ -1,11 +1,18 @@
 {
-    "keyboard_name": "voice65 hotswap",
+    "keyboard_name": "Voice65 Hotswap",
+    "manufacturer": "OwLab",
     "url": "https://www.popkeyboard.com/products/67968vn00mzx",
     "maintainer": "kb-elmo",
-    "width": 16,
-    "height": 5,
+    "usb": {
+        "vid": "0x4F53",
+        "pid": "0x564F",
+        "device_version": "0.0.1"
+    },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

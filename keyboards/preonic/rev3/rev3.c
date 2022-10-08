@@ -43,23 +43,6 @@ led_config_t g_led_config = { {
 //     7 8 1 2
 #endif
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}
-
-#ifdef DIP_SWITCH_ENABLE
- __attribute__((weak))
-void dip_update(uint8_t index, bool active) {}
-
- __attribute__((weak))
-void dip_switch_update_user(uint8_t index, bool active) {
-    dip_update(index, active);
-}
-#endif
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
@@ -75,4 +58,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 8}, {4, 8}, {3, 8}, {2, 8}, {1, 8}, {0, 8}},
     {{5, 9}, {4, 9}, {3, 9}, {2, 9}, {1, 9}, {0, 9}},
 };
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {0};
+#    endif
 #endif

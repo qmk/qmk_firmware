@@ -1,14 +1,6 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KeyPCB
-#define PRODUCT         Fractal
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -18,7 +10,6 @@
 #define MATRIX_ROW_PINS { B1, F7, F6, F5, F4 }
 #define MATRIX_COL_PINS { B3, B2, B6, B5, B4, E6, D7, C6, D4, D0, D1, D3 }
 
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -44,6 +35,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif

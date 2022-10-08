@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Adellein",
+    "manufacturer": "Neil Brian Ramirez",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "width": 16.25, 
-    "height": 5, 
+    "usb": {
+    	"vid": "0xD812",
+    	"pid": "0x0010",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_40ergo_split_ent": {
             "layout": [

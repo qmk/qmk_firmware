@@ -31,7 +31,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
-#include "outputselect.h"
 
 #include "print.h"
 

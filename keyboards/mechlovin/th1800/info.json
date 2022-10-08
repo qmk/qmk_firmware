@@ -1,9 +1,13 @@
 {
     "keyboard_name": "th-1800",
+    "manufacturer": "Team Mechlovin",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 7.25,
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x1800",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

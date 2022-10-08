@@ -124,8 +124,8 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
     }
 }
 
-// SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
+// SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -171,7 +171,7 @@ void write_layer_state(void) {
     oled_advance_page(true);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         write_layer_state();
         oled_write_ln(read_keylog(), false);
@@ -179,12 +179,13 @@ void oled_task_user(void) {
     } else {
         oled_write(read_logo(), false);
     }
+    return false;
 }
-#endif  // OLED_DRIVER_ENABLE
+#endif  // OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         set_keylog(keycode, record);
 #endif
     }

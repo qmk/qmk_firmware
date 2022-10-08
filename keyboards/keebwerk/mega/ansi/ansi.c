@@ -18,7 +18,7 @@
 #endif
 
 #include "ansi.h"
-#include "drivers/issi/is31fl3733.h"
+#include "drivers/led/issi/is31fl3733.h"
 
 uint8_t R = 0;
 uint8_t G = 0;

@@ -1,9 +1,13 @@
 {
     "keyboard_name": "HHKB Lite 2",
+    "manufacturer": "PFU",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5.75,
+    "usb": {
+        "vid": "0x88B2",
+        "pid": "0x88B2",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

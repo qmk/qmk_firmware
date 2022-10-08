@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Compound",
+    "manufacturer": "Sabomov",
     "url": "https://geekhack.org/index.php?topic=111187.0",
     "maintainer": "yumagulovrn",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x420A",
+        "pid": "0xB0BA",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

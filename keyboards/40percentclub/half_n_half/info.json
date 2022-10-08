@@ -1,12 +1,15 @@
 {
   "keyboard_name": "half_n_half",
+  "manufacturer": "di0ib",
   "url": "",
   "maintainer": "qmk",
-  "width": 14,
-  "height": 4,
+  "usb": {
+    "vid": "0x4025",
+    "pid": "0x4A1F",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
-      "key_count": 44,
       "layout": [
           {"label":"L00", "x":0, "y":0},
           {"label":"L01", "x":1, "y":0},
@@ -59,4 +62,3 @@
     }
   }
 }
-  

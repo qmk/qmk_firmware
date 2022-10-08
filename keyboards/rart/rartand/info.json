@@ -1,9 +1,13 @@
 {
   "keyboard_name": "Rartand",
+  "manufacturer": "Alabahuy",
   "url": "",
   "maintainer": "Alabahuy",
-  "width": 15,
-  "height": 4,
+  "usb": {
+    "vid": "0x414C",
+    "pid": "0x5050",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_all": {
       "layout": [

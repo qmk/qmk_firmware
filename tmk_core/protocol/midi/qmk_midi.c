@@ -4,9 +4,6 @@
 #include "midi.h"
 #include "usb_descriptor.h"
 #include "process_midi.h"
-#if API_SYSEX_ENABLE
-#    include "api_sysex.h"
-#endif
 
 /*******************************************************************************
  * MIDI
@@ -53,7 +50,7 @@ static void usb_send_func(MidiDevice* device, uint16_t cnt, uint8_t byte0, uint8
                     event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
                 break;
             default:
-                return;  // invalid cnt
+                return; // invalid cnt
         }
     } else {
         // deal with 'system common' messages
@@ -124,41 +121,6 @@ static void cc_callback(MidiDevice* device, uint8_t chan, uint8_t num, uint8_t v
     // midi_send_cc(device, (chan + 1) % 16, num, val);
 }
 
-#ifdef API_SYSEX_ENABLE
-uint8_t midi_buffer[MIDI_SYSEX_BUFFER] = {0};
-
-static void sysex_callback(MidiDevice* device, uint16_t start, uint8_t length, uint8_t* data) {
-    // SEND_STRING("\n");
-    // send_word(start);
-    // SEND_STRING(": ");
-    // Don't store the header
-    int16_t pos = start - 4;
-    for (uint8_t place = 0; place < length; place++) {
-        // send_byte(*data);
-        if (pos >= 0) {
-            if (*data == 0xF7) {
-                // SEND_STRING("\nRD: ");
-                // for (uint8_t i = 0; i < start + place + 1; i++){
-                //     send_byte(midi_buffer[i]);
-                // SEND_STRING(" ");
-                // }
-                const unsigned decoded_length = sysex_decoded_length(pos);
-                uint8_t        decoded[API_SYSEX_MAX_SIZE];
-                sysex_decode(decoded, midi_buffer, pos);
-                process_api(decoded_length, decoded);
-                return;
-            } else if (pos >= MIDI_SYSEX_BUFFER) {
-                return;
-            }
-            midi_buffer[pos] = *data;
-        }
-        // SEND_STRING(" ");
-        data++;
-        pos++;
-    }
-}
-#endif
-
 void midi_init(void);
 
 void setup_midi(void) {
@@ -170,7 +132,4 @@ void setup_midi(void) {
     midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
     midi_register_fallthrough_callback(&midi_device, fallthrough_callback);
     midi_register_cc_callback(&midi_device, cc_callback);
-#ifdef API_SYSEX_ENABLE
-    midi_register_sysex_callback(&midi_device, sysex_callback);
-#endif
 }

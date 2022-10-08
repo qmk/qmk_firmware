@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "bt66tech60",
+    "keyboard_name": "bt66tech 60%",
+    "manufacturer": "bt66tech",
     "url": "",
     "maintainer": "bt66tech",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x4254",
+        "pid": "0x7070",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
 "layout": [
@@ -12,4 +16,3 @@
     }
   }
 }
-
