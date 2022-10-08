@@ -160,7 +160,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT, 
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 TG(RGB_CONTROL), OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,            MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), MEH(KC_Y), MEH(KC_Z),
   //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
-                                        TG(BASE_IOS),  DF(BASE),DF(BASE_IOS),                 QK_BOOT, KC_TRNS, KC_TRNS
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 TG(BASE_IOS), KC_TRNS, KC_TRNS
                                       //`--------------------------'             `--------------------------'
   ),
 
