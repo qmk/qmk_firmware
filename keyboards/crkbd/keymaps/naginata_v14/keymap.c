@@ -21,7 +21,7 @@
   #include "split_util.h"
 #endif
 
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 // 薙刀式
 #include "naginata.h"

@@ -26,7 +26,7 @@
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 const uint16_t us2jis[][2] = {
   {KC_LPRN, JP_LPRN},

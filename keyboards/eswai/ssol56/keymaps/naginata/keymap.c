@@ -18,7 +18,7 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 extern keymap_config_t keymap_config;
 

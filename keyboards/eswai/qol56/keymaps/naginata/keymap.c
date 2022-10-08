@@ -15,7 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 // 薙刀式
 #include "naginata.h"

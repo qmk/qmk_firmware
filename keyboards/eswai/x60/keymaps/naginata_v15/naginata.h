@@ -27,9 +27,14 @@ void naginata_on(void);
 void naginata_off(void);
 bool naginata_state(void);
 
+void switchOS(uint8_t);
+void ng_set_unicode_mode(uint8_t);
+void ng_show_os(void);
 void mac_live_conversion_toggle(void);
-void mac_live_conversion_on(void);
-void mac_live_conversion_off(void);
+void tategaki_toggle(void);
+void kouchi_shift_toggle(void);
+void ty_send_string(char *);
+void copyTYtable(void);
 
 bool process_naginata(uint16_t, keyrecord_t *);
 // void set_naginata(uint8_t);
@@ -37,6 +42,9 @@ void set_naginata(uint8_t, uint16_t *, uint16_t *);
 
 // bool enable_naginata(uint16_t, keyrecord_t *);
 
+// なぜKC_キーコードを使わず、NG_キーコードを定義するのか
+// 1. 英字レイアウトがQWERTYでない場合でもOK
+// 2. 薙刀式レイヤーでもKC_を定義すれば、かな変換せず出力できる
 typedef enum naginata_keycodes {
   NG_Q = SAFE_RANGE, // 薙刀式シフトキー
   NG_W,
@@ -73,8 +81,35 @@ typedef enum naginata_keycodes {
 
   NG_SHFT,
   NG_SHFT2,
+
+  NG_ON,
+  NG_OFF,
+  NG_CLR,
+  NGSW_WIN,
+  NGSW_MAC,
+  NGSW_LNX,
+  NG_MLV,
+  NG_SHOS,
+  NG_TAYO,
+  NG_KOTI,
 } NGKEYS;
 
-#define NG_SAFE_RANGE SAFE_RANGE+32
+// EEPROMに保存する設定
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t os;
+    bool live_conv :1;
+    bool tategaki :1;
+    bool kouchi_shift :1;
+  };
+} user_config_t;
 
+user_config_t naginata_config;
+
+#define NG_SAFE_RANGE SAFE_RANGE + 42
+
+#define NG_WIN 1
+#define NG_MAC 2
+#define NG_LINUX 3
 
