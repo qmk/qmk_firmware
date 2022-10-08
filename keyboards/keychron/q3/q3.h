@@ -30,6 +30,4 @@
 #    include "jis.h"
 #elif defined(KEYBOARD_keychron_q3_jis_encoder)
 #    include "jis_encoder.h"
-#elif defined(KEYBOARD_keychron_q3_ansi_lhg)
-#    include "ansi_lhg.h"
 #endif
