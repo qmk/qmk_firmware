@@ -251,7 +251,7 @@ Reads from a register with a 16-bit address (big endian) on the I2C device.
    The register address to read from.
  - `uint16_t length`  
  The number of bytes to read. Take care not to overrun the length of `data`.
- - `uint16_t timeout`
+ - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
 #### Return Value
@@ -271,9 +271,9 @@ Start an I2C transaction.
 
 #### Arguments
 
- - `uint8_t address`
+ - `uint8_t address`  
    The 7-bit I2C address of the device (ie. without the read/write bit - this will be set automatically).
- - `uint16_t timeout`
+ - `uint16_t timeout`  
    On AVR only.
    The time in milliseconds to wait for a response from the target device.
 
