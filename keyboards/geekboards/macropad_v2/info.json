@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "macropad_v2",
+  "keyboard_name": "Macropad v2",
+  "manufacturer": "GeebBoards",
   "url": "https://geekboards.ru/",
   "maintainer": "ruddy17",
+  "usb": {
+    "vid": "0x0483",
+    "pid": "0xA372",
+    "device_version": "0.0.2"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

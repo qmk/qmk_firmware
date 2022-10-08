@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4747
-#define PRODUCT_ID   0x7012
-#define DEVICE_VER   0x0001
-#define MANUFACTURER psuieee
-#define PRODUCT      pluto12
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
@@ -19,7 +12,6 @@
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D0, D4, C6 }
 #define MATRIX_COL_PINS { D7, E6, B4, B5 }
-#define UNUSED_PINS
 
 /* Encoder Assignments */
 #define ENCODERS_PAD_A { B6 }

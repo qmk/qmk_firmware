@@ -45,6 +45,9 @@
 #    include "joystick.h"
 #endif
 
+// TODO: wb32 support defines ISO macro which breaks PRODUCT stringification
+#undef ISO
+
 // clang-format off
 
 /*
@@ -126,14 +129,27 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_REPORT_SIZE(8, 0x01),
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 
-            // X/Y position (2 bytes)
+#    ifdef MOUSE_EXTENDED_REPORT
+            // Boot protocol XY ignored in Report protocol
+            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_REPORT_SIZE(8, 0x08),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+#    endif
+            // X/Y position (2 or 4 bytes)
             HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
             HID_RI_USAGE(8, 0x30),         // X
             HID_RI_USAGE(8, 0x31),         // Y
+#    ifndef MOUSE_EXTENDED_REPORT
             HID_RI_LOGICAL_MINIMUM(8, -127),
             HID_RI_LOGICAL_MAXIMUM(8, 127),
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x08),
+#    else
+            HID_RI_LOGICAL_MINIMUM(16, -32767),
+            HID_RI_LOGICAL_MAXIMUM(16,  32767),
+            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_REPORT_SIZE(8, 0x10),
+#    endif
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 
             // Vertical wheel (1 byte)
@@ -347,49 +363,44 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
 #endif
 
 #ifdef JOYSTICK_ENABLE
-#    if JOYSTICK_AXES_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
-#        error Need at least one axis or button for joystick
-#    endif
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
-    HID_RI_USAGE_PAGE(8, 0x01),         // Generic Desktop
-    HID_RI_USAGE(8, 0x04),              // Joystick
-    HID_RI_COLLECTION(8, 0x01),         // Application
-        HID_RI_COLLECTION(8, 0x00),     // Physical
+    HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
+    HID_RI_USAGE(8, 0x04),          // Joystick
+    HID_RI_COLLECTION(8, 0x01),     // Application
+        HID_RI_COLLECTION(8, 0x00), // Physical
+#    if JOYSTICK_AXES_COUNT > 0
             HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
-#    if JOYSTICK_AXES_COUNT >= 1
             HID_RI_USAGE(8, 0x30),      // X
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 2
+#        if JOYSTICK_AXES_COUNT > 1
             HID_RI_USAGE(8, 0x31),      // Y
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 3
+#        endif
+#        if JOYSTICK_AXES_COUNT > 2
             HID_RI_USAGE(8, 0x32),      // Z
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 4
+#        endif
+#        if JOYSTICK_AXES_COUNT > 3
             HID_RI_USAGE(8, 0x33),      // Rx
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 5
+#        endif
+#        if JOYSTICK_AXES_COUNT > 4
             HID_RI_USAGE(8, 0x34),      // Ry
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 6
+#        endif
+#        if JOYSTICK_AXES_COUNT > 5
             HID_RI_USAGE(8, 0x35),      // Rz
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 1
-     # if JOYSTICK_AXES_RESOLUTION == 8
+#        endif
+#        if JOYSTICK_AXES_RESOLUTION == 8
             HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_RESOLUTION),
             HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_RESOLUTION),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
             HID_RI_REPORT_SIZE(8, 0x08),
-     # else
+#        else
             HID_RI_LOGICAL_MINIMUM(16, -JOYSTICK_RESOLUTION),
             HID_RI_LOGICAL_MAXIMUM(16, JOYSTICK_RESOLUTION),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
             HID_RI_REPORT_SIZE(8, 0x10),
-     # endif
+#        endif
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 #    endif
 
-#    if JOYSTICK_BUTTON_COUNT >= 1
+#    if JOYSTICK_BUTTON_COUNT > 0
             HID_RI_USAGE_PAGE(8, 0x09), // Button
             HID_RI_USAGE_MINIMUM(8, 0x01),
             HID_RI_USAGE_MAXIMUM(8, JOYSTICK_BUTTON_COUNT),

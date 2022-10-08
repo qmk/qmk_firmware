@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x726B
-#define PRODUCT_ID      0x645C
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    rainkeebs
-#define PRODUCT         Delilah
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -31,7 +24,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B5, B6, C6, C7 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F0, E6, D5, D3, D4, D6, D7, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

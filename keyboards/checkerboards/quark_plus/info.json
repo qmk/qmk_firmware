@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Quark_Plus",
+    "keyboard_name": "Quark Plus",
+    "manufacturer": "Nasp",
     "url": "https://www.github.com/qmk/qmk_firmware/tree/master/keyboards/checkerboards/quark_plus",
     "maintainer": "nasp",
+    "usb": {
+        "vid": "0x7070",
+        "pid": "0x5344",
+        "device_version": "0.0.1"
+    },
     "layouts": {
           "LAYOUT_grid": {
               "layout":

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "m0116 usb", 
+    "keyboard_name": "M0116 USB", 
+    "manufacturer": "kb-elmo",
     "url": "https://github.com/kb-elmo/m0116_usb", 
     "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0x8F7E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

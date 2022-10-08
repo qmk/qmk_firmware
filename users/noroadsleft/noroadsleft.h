@@ -1,4 +1,4 @@
-/* Copyright 2020-2021 James Young (@noroadsleft)
+/* Copyright 2020-2022 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@ enum userspace_keycodes {
     G_PUSH,
     G_FTCH,
     G_BRCH,
+    G_PWD,
     M_SALL,
     M_UNDO,
     M_CUT,

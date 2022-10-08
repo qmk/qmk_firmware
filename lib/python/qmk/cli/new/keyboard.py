@@ -14,7 +14,7 @@ from qmk.git import git_get_username
 from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
-from qmk.json_schema import deep_update
+from qmk.json_schema import deep_update, json_load
 from qmk.constants import MCU2BOOTLOADER
 
 COMMUNITY = Path('layouts/default/')
@@ -23,13 +23,14 @@ TEMPLATE = Path('data/templates/keyboard/')
 # defaults
 schema = dotty(load_jsonschema('keyboard'))
 mcu_types = sorted(schema["properties.processor.enum"], key=str.casefold)
+dev_boards = sorted(schema["properties.development_board.enum"], key=str.casefold)
 available_layouts = sorted([x.name for x in COMMUNITY.iterdir() if x.is_dir()])
 
 
 def mcu_type(mcu):
     """Callable for argparse validation.
     """
-    if mcu not in mcu_types:
+    if mcu not in (dev_boards + mcu_types):
         raise ValueError
     return mcu
 
@@ -176,14 +177,14 @@ https://docs.qmk.fm/#/compatible_microcontrollers
 
 MCU? """
     # remove any options strictly used for compatibility
-    filtered_mcu = [x for x in mcu_types if not any(xs in x for xs in ['cortex', 'unknown'])]
+    filtered_mcu = [x for x in (dev_boards + mcu_types) if not any(xs in x for xs in ['cortex', 'unknown'])]
 
     return choice(prompt, filtered_mcu, default=filtered_mcu.index("atmega32u4"))
 
 
 @cli.argument('-kb', '--keyboard', help='Specify the name for the new keyboard directory', arg_only=True, type=keyboard_name)
 @cli.argument('-l', '--layout', help='Community layout to bootstrap with', arg_only=True, type=layout_type)
-@cli.argument('-t', '--type', help='Specify the keyboard MCU type', arg_only=True, type=mcu_type)
+@cli.argument('-t', '--type', help='Specify the keyboard MCU type (or "development_board" preset)', arg_only=True, type=mcu_type)
 @cli.argument('-u', '--username', help='Specify your username (default from Git config)', dest='name')
 @cli.argument('-n', '--realname', help='Specify your real name if you want to use that. Defaults to username', arg_only=True)
 @cli.subcommand('Creates a new keyboard directory')
@@ -198,7 +199,6 @@ def new_keyboard(cli):
     real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
     mcu = cli.args.type if cli.args.type else prompt_mcu()
-    bootloader = select_default_bootloader(mcu)
 
     if not validate_keyboard_name(kb_name):
         cli.log.error('Keyboard names must contain only {fg_cyan}lowercase a-z{fg_reset}, {fg_cyan}0-9{fg_reset}, and {fg_cyan}_{fg_reset}! Please choose a different name.')
@@ -207,6 +207,16 @@ def new_keyboard(cli):
     if keyboard(kb_name).exists():
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
         return 1
+
+    # Preprocess any development_board presets
+    if mcu in dev_boards:
+        defaults_map = json_load(Path('data/mappings/defaults.json'))
+        board = defaults_map['development_board'][mcu]
+
+        mcu = board['processor']
+        bootloader = board['bootloader']
+    else:
+        bootloader = select_default_bootloader(mcu)
 
     tokens = {  # Comment here is to force multiline formatting
         'YEAR': str(date.today().year),

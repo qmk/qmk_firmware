@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D4B // MechanicKeys
-#define PRODUCT_ID      0x6D6E
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MechanicKeys
-#define PRODUCT         MINI ASHEN 40
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { B1, B2, B3, B4 }
 #define MATRIX_COL_PINS { C5, C4, C3, D0, C2, D1, C1, C0, D4, B0, D7, D6, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

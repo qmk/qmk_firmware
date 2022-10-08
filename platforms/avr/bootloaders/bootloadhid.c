@@ -31,3 +31,10 @@ __attribute__((weak)) void bootloader_jump(void) {
     for (;;)
         ;
 }
+
+__attribute__((weak)) void mcu_reset(void) {
+    // watchdog reset
+    wdt_enable(WDTO_250MS);
+    for (;;)
+        ;
+}

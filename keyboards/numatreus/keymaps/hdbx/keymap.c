@@ -4,8 +4,8 @@
 //  ・Muhenkan（入力文字なし/直接入力）に「IMEを無効化」を割り当て
 
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"       // qmk_firmware-master/quantum/keymap_extras/keymap_jp.h 日本語キーボード設定用
-#include <sendstring_jis.h>  // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
+#include "keymap_japanese.h"     // qmk_firmware-master/quantum/keymap_extras/keymap_japanese.h 日本語キーボード設定用
+#include "sendstring_japanese.h" // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -152,14 +152,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------|             |------+------+------+------+------|
    * |      |      |      |      |      |             |      |      |      |      |      |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |RESET |      |      |      |      |      |      |      |      |      |      |      |
+   * |QK_BOOT |      |      |      |      |      |      |      |      |      |      |      |
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT(
       MCR1,    MCR2,    MCR3,    MCR4,    MCR5,                DM_PLY1, DM_PLY2, DM_REC1, DM_REC2, DM_RSTP,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME,                      XXXXXXX, QWERTY,  HDBX,    XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      RESET,   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
       )
 };
 

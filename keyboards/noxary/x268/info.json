@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Noxary x268",
+  "keyboard_name": "x268",
+  "manufacturer": "Noxary",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4E58",
+    "pid": "0x0A7B",
+    "device_version": "0.7.8"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

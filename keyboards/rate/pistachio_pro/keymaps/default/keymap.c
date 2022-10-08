@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 #include "lib/bme280.h"
 
 // Defines names for use in layer keycodes and the keymap
