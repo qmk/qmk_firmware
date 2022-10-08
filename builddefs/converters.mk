@@ -29,7 +29,7 @@ ifneq ($(CONVERT_TO),)
 
     # Configure any defaults
     OPT_DEFS += -DCONVERT_TO_$(strip $(shell echo $(CONVERT_TO) | tr '[:lower:]' '[:upper:]'))
-    OPT_DEFS += -DTARGET_CONVERT=\"$(strip $(CONVERT_TO))\"
+    OPT_DEFS += -DCONVERTER_TARGET=\"$(strip $(CONVERT_TO))\"
     OPT_DEFS += -DCONVERTER_ENABLED
     VPATH += $(CONVERTER)
 

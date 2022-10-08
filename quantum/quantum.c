@@ -423,7 +423,7 @@ bool process_record_quantum(keyrecord_t *record) {
                     SEND_STRING_DELAY(" compile ", TAP_CODE_DELAY);
                 }
 #    if defined(CONVERTER_ENABLED)
-                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -e CONVERT_TO=" TARGET_CONVERT SS_TAP(X_ENTER), TAP_CODE_DELAY);
+                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -e CONVERT_TO=" CONVERTER_TARGET SS_TAP(X_ENTER), TAP_CODE_DELAY);
 #    else
                 SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER), TAP_CODE_DELAY);
 #    endif
