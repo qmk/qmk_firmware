@@ -3,7 +3,7 @@ COMBO_ENABLE = yes
 SRC += jugemu.c
 
 ifeq ($(strip $(COMBO_ENABLE)), yes)
-	SRC += combo.c
+	SRC += custom_combo.c
 endif
 
 # ifeq ($(strip $(WPM_ENABLE)), yes)
