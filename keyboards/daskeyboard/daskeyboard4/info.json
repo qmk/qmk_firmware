@@ -4,18 +4,18 @@
     "maintainer": "Commander1024",
     "url": "https://www.daskeyboard.com/de/daskeyboard-4-professional/",
     "bootloader": "tinyuf2",
-    "diode_direction": "COL2ROW",
+    "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
+        "mousekey": false
         "nkro": true
     },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A2", "A4", "A5", "A6", "A7", "B0", "B1", "B10", "B9", "B7", "B6", "B5", "B4", "A8"],
-        "rows": ["A13", "A14", "A1", "A3", "B8", "B3", "A15", "A9"]
+        "rows": ["A13", "A14", "A1", "A3", "B8", "B3", "A15", "B15"]
     },
     "board": "BLACKPILL_STM32_F411",
     "processor": "STM32F411",
