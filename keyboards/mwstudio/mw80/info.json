@@ -19,8 +19,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "7BA1",
-        "vid": "8001"
+        "pid": "0x7BA1",
+        "vid": "0x8001"
     },
     "layouts": {
         "LAYOUT": {
