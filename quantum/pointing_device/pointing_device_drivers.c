@@ -265,7 +265,7 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
     pimoroni_data_t pimoroni_data = {0};
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
-        i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
+        i2c_status_t status = pimoroni_trackball_read(&pimoroni_data);
         last_read_elapsed   = timer_elapsed_fast(last_read);
         last_read           = timer_read_fast();
 
@@ -307,7 +307,7 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                             began_motion += elapsed_time - PIMORONI_TRACKBALL_TIME_TO_MAX;
                         }
 #    ifndef PIMORONI_TRACKBALL_USE_FLOAT
-                        uint32_t speed_modifier = pimoroni_get_max_speed() * ((elapsed_time << 8) / PIMORONI_TRACKBALL_TIME_TO_MAX);
+                        uint32_t speed_modifier = pimoroni_trackball_get_max_speed() * ((elapsed_time << 8) / PIMORONI_TRACKBALL_TIME_TO_MAX);
                         if (speed_modifier < 256) {
                             speed_modifier = 256;
                         }

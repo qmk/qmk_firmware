@@ -33,7 +33,7 @@
 static uint8_t      max_speed        = 10;
 static i2c_status_t last_read_status = I2C_STATUS_SUCCESS;
 
-uint8_t pimoroni_get_max_speed(void) {
+uint8_t pimoroni_trackball_get_max_speed(void) {
     return max_speed;
 }
 
@@ -70,7 +70,7 @@ void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     }
 }
 
-i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
+i2c_status_t pimoroni_trackball_read(pimoroni_data_t* data) {
     last_read_status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
 
 #ifdef POINTING_DEVICE_DEBUG

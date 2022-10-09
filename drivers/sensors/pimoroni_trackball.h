@@ -62,5 +62,5 @@ void         pimoroni_trackball_device_init(void);
 void         pimoroni_trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
 uint16_t     pimoroni_trackball_get_cpi(void);
 void         pimoroni_trackball_set_cpi(uint16_t cpi);
-i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data);
-uint8_t      pimoroni_get_max_speed(void);
+i2c_status_t pimoroni_trackball_read(pimoroni_data_t* data);
+uint8_t      pimoroni_trackball_get_max_speed(void);
