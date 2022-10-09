@@ -43,10 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,  KC_Y,    LT_LABK, LT_RABK,           KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,              KC_COMM, KC_QUOT, KC_DEL,
-    KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MTLCTL, KC_G,   KC_P,     MTRCTL,  MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
-    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
-    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,               KC_LGUI, KC_LEFT, KC_RGHT
+    KC_TAB,  KC_Y,    LT_LABK, LT_RABK,           KC_M,   KC_K,   KC_Z,     KC_F,          KC_U,              KC_COMM, KC_QUOT, KC_DEL,
+    KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MTLCTL, KC_G,   KC_P,     MTRCTL,        MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
+    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,   KC_J,   KC_B,     KC_H,          KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
+    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           KC_SPC, SYMBOL, FUNCTION, LT(0,KC_BSPC), NAV,               KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   [_SYMBOL] = LAYOUT_ortho_4x12(
@@ -134,6 +134,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       return false;
     }
     return true;
+  case LT(0,KC_BSPC):
+    if (isHeld) {
+      uint16_t code = is_mac_the_default() ? A(KC_BSPC) : C(KC_BSPC);
+      tap_code16(code);
+      return false;
+    }
+    return true;
   case LT(0,CT_PIPE):
     if (record->tap.count && isPressed) {
       tap_code16(S(KC_BSLS));
@@ -141,12 +148,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       tap_code16(KC_END);
     }
     return false;
-  case LT(0,KC_BSPC):
-    if (isHeld) {
-      send_mac_or_win(A(KC_BSPC), C(KC_BSPC), isPressed);
-      return false;
-    }
-    return true;
   case MW_PSTE:
     send_mac_or_win(G(KC_V), C(KC_V), isPressed);
     return false;
