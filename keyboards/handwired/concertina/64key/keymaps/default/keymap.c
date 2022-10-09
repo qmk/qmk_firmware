@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_64key(
                       KC_LSPO, KC_MINS, KC_EQL,                           KC_VOLD, KC_VOLU, KC_RSPC,
-                      KC_LCPO, KC_LGUI, KC_HAEN, KC_ENT,         KC_MUTE, TD(PNX), LAYER_N, KC_RCPC,
+                      KC_LCPO, KC_LGUI, KC_LNG1, KC_ENT,         KC_MUTE, TD(PNX), LAYER_N, KC_RCPC,
                                KC_LAPO, KC_SPC,  SLQ,            SRQ,     KC_ESC,  KC_RAPC,
 
                       CM_W,    CM_F,    CM_P,    CM_G,           CM_J,    CM_L,    CM_U,    CM_Y,

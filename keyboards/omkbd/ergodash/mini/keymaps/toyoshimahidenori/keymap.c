@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_UNDS,                       KC_PLUS, KC_6,    KC_7,    KC_8,   KC_9,    KC_0,    KC_PIPE,
     KC_LCTL, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_LCBR,                       KC_RCBR, KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT, KC_COLN, KC_DQT ,
     KC_LSFT, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LGUI,                       KC_RGUI, KC_MINS, KC_EQL,  KC_LT,  KC_GT,   KC_QUES, KC_RSFT,
-    KC_LCTL, KC_ESC, KC_LALT,  KC_LANG2,         KC_LANG1,RAISE,   KC_SPC,       KC_ENT, LOWER,   KC_DEL,           KC_HOME,KC_PGDN, KC_PGUP, KC_END
+    KC_LCTL, KC_ESC, KC_LALT,  KC_LNG2,          KC_LNG1, RAISE,   KC_SPC,       KC_ENT, LOWER,   KC_DEL,           KC_HOME,KC_PGDN, KC_PGUP, KC_END
   ),
 
   /* Raise
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV , KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_UNDS,                       KC_PLUS, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PIPE,
     KC_LCTL, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_LCBR,                       KC_RCBR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_COLN, KC_DQT ,
     KC_LSFT, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LGUI,                       KC_RGUI, KC_UNDS, KC_PLUS, KC_LT,   KC_GT,   KC_QUES, KC_RSFT,
-    KC_LCTL, KC_ESC,  KC_LALT, KC_LANG2,         KC_LANG1,RAISE,   KC_SPC,       KC_ENT, LOWER,   KC_DEL,           KC_HOME, KC_PGDN, KC_PGUP, KC_END
+    KC_LCTL, KC_ESC,  KC_LALT, KC_LNG2,          KC_LNG1, RAISE,   KC_SPC,       KC_ENT, LOWER,   KC_DEL,           KC_HOME, KC_PGDN, KC_PGUP, KC_END
   ),
 
   /* Adjust
