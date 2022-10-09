@@ -51,6 +51,9 @@
 // Turn off PCB backlight
 #define RGBLIGHT_SLEEP
 
+// Tapping term settings
 #define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 160
 
-#define TAPPING_TERM 150
+// Disable audio
+#define NO_MUSIC_MODE
