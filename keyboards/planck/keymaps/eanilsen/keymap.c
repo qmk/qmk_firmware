@@ -24,7 +24,9 @@ enum planck_layers {
 #define HOME TO(_ISRT)
 #define MTLCTL MT(MOD_LCTL,KC_T)
 #define MTRCTL MT(MOD_RCTL,KC_N)
-#define MTLALT MT(MOD_LALT,KC_R)
+#define LT_LABK LT(0,KC_C)
+#define LT_RABK LT(0,KC_L)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
@@ -41,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,  KC_Y,    KC_C,    KC_L,              KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,              KC_COMM, KC_QUOT, KC_DEL,
+    KC_TAB,  KC_Y,    LT_LABK, LT_RABK,           KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,              KC_COMM, KC_QUOT, KC_DEL,
     KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MTLCTL, KC_G,   KC_P,     MTRCTL,  MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
     KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
     CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,               KC_LGUI, KC_LEFT, KC_RGHT
@@ -108,6 +110,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
   switch (keycode) {
+  case LT_LABK:
+    if (isHeld) {
+      tap_code16(KC_LABK);
+      return false;
+    }
+    return true;
+  case LT_RABK:
+    if (isHeld) {
+      tap_code16(KC_RABK);
+      return false;
+    }
+    return true;
   case LT(0,KC_SCLN):
     if (isHeld) {
       tap_code16(KC_COLN);
@@ -160,24 +174,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return false;
   }
-  case LT(0,KC_E):
-    if (isHeld) {
-      tap_code16(NO_AE); // Intercept hold function to send æ
-      return false;
-    }
-    return true; 	// Return true for normal processing of tap keycode
-  case LT(0,KC_A):
-    if (isHeld) {
-      tap_code16(NO_OSTR); // Intercept hold function to send ø
-      return false;
-    }
-    return true; 	// Return true for normal processing of tap keycode
-  case LT(0,KC_O):
-    if (isHeld) {
-      tap_code16(NO_ARNG); // Intercept hold function to send å
-      return false;
-    }
-    return true; 	// Return true for normal processing of tap keycode
   }
   return true;
 }
@@ -189,7 +185,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM + 200;
   case MTRCTL:
     return TAPPING_TERM + 200;
-  case MTLALT:
+  case MT(MOD_LALT,KC_R):
+    return TAPPING_TERM + 200;
+  case LT_LABK:
+    return TAPPING_TERM + 200;
+  case LT_RABK:
     return TAPPING_TERM + 200;
   default:
     return TAPPING_TERM;
