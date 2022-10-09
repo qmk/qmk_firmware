@@ -9,16 +9,9 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B3, B2 }
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 0
-#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

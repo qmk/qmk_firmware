@@ -29,7 +29,6 @@
 #define MATRIX_ROW_PINS { A2, A1, A0, B8 }
 #define MATRIX_COL_PINS { B5, B4, B3, B2, B1, B0 }
 
-// #define UNUSED_PINS { B14 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

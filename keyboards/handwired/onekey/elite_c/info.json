@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Onekey Elite-C",
+    "development_board": "elite_c",
+    "matrix_pins": {
+        "cols": ["F4"],
+        "rows": ["F5"]
+    },
+    "backlight": {
+        "pin": "B6"
+    },
+    "rgblight": {
+        "pin": "F6"
+    }
+}

@@ -25,7 +25,6 @@
 #define ENCODERS_PAD_A { B7 }
 #define ENCODERS_PAD_B { B0 }
 #define ENCODER_RESOLUTION 4
-#define UNUSED_PINS
 
 #define LED_CAPS_LOCK_PIN B6
 #define BACKLIGHT_ON_STATE  0
