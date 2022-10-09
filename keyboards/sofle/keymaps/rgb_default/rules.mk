@@ -11,6 +11,6 @@ RGBLIGHT_ENABLE = yes
 
 # VIA Support created problems with default layers nooked the keyboard
 VIA_ENABLE = no
-OLED_ENABLE = no
 CONSOLE_ENABLE = no
+OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
