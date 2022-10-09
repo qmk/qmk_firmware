@@ -30,7 +30,8 @@
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
 // clang-format on
 
-static uint8_t max_speed = 10;
+static uint8_t      max_speed        = 10;
+static i2c_status_t last_read_status = I2C_STATUS_SUCCESS;
 
 uint8_t pimoroni_get_max_speed(void) {
     return max_speed;
@@ -60,24 +61,27 @@ void pimoroni_trackball_set_cpi(uint16_t cpi) {
 }
 
 void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
-    uint8_t                              data[4] = {r, g, b, w};
-    __attribute__((unused)) i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
-
-    pd_dprintf("Trackball RGBW i2c_status_t: %d\n", status);
+    uint8_t data[4] = {r, g, b, w};
+    if (last_read_status == I2C_STATUS_SUCCESS) {
+        __attribute__((unused)) i2c_status_t status = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
+        pd_dprintf("Trackball RGBW i2c_status_t: %d\n", status);
+    } else {
+        pd_dprintf("Trackball RGBW last read not successful.");
+    }
 }
 
 i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
-    i2c_status_t status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
+    last_read_status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
 
 #ifdef POINTING_DEVICE_DEBUG
     static uint16_t d_timer;
     if (timer_elapsed(d_timer) > PIMORONI_TRACKBALL_DEBUG_INTERVAL) {
-        pd_dprintf("Trackball READ i2c_status_t: %d L: %d R: %d Up: %d D: %d SW: %d\n", status, data->left, data->right, data->up, data->down, data->click);
+        pd_dprintf("Trackball READ i2c_status_t: %d L: %d R: %d Up: %d D: %d SW: %d\n", last_read_status, data->left, data->right, data->up, data->down, data->click);
         d_timer = timer_read();
     }
 #endif
 
-    return status;
+    return last_read_status;
 }
 
 __attribute__((weak)) void pimoroni_trackball_device_init(void) {
