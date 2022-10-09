@@ -294,7 +294,7 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                     if (in_motion) {
                         mouse_report.x = CONSTRAIN_HID((int8_t)pimoroni_data.left - pimoroni_data.right);
                         mouse_report.y = CONSTRAIN_HID((int8_t)pimoroni_data.up - pimoroni_data.down);
-                        if (abs(mouse_report.x > 2) || abs(mouse_report.y > 2)) {
+                        if (abs(mouse_report.x) > 2 || abs(mouse_report.y) > 2) {
                             fast_motion      = true;
                             last_fast_motion = last_read;
                         }
