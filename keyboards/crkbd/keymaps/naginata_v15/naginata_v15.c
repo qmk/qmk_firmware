@@ -871,8 +871,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
-        // バッファが一杯になったら処理を開始
-        if (ng_chrcount >= NGBUFFER) {
+        // 変換候補が絞られるか、バッファが一杯になったら処理を開始
+        int nc = number_of_candidates();
+        if (nc == 0 || nc == 1 || ng_chrcount >= NGBUFFER) {
           naginata_type();
         }
         return false;
@@ -905,6 +906,46 @@ void naginata_type(void) {
     nt--; // 最後の1キーを除いて、もう一度仮名テーブルを検索する
   }
   compress_buffer(1);
+}
+
+// 組み合わせが複数ある > 1: 変換しない
+// 組み合わせが一つしかない = 1: 変換を開始する
+// 組み合わせが一つしかない、ただしキーを全て押していない =-1: 変換しない
+// 組み合わせがない = 0: 変換を開始する
+int number_of_candidates() {
+  naginata_keymap bngmap; // PROGMEM buffer
+  int c = 0;
+  uint32_t hit = 0;
+
+  // keycomb_bufはバッファ内のキーの組み合わせ、keycombはリリースしたキーを含んでいない
+  uint32_t keycomb_buf = 0UL;
+
+  // バッファ内のキーを組み合わせる
+  for (int i = 0; i < ng_chrcount; i++) {
+    keycomb_buf |= ng_key[ninputs[i] - NG_Q];
+  }
+
+  for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
+    memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
+    if ((keycomb_buf & bngmap.key) == keycomb_buf) {
+      c++;
+      hit = bngmap.key;
+    }
+  }
+  if (c == 1 && ng_chrcount < count_bit(hit)) {
+    return -1;
+  }
+  return c;
+}
+
+// 押すキーの数
+int count_bit(uint32_t b) {
+  int c = 0;
+  while (b > 0) {
+    if ((b & 1UL) == 1UL) c++;
+    b = b >> 1;
+  }
+  return c;
 }
 
 // バッファの頭からnt文字の範囲を検索キーにしてテーブル検索し、文字に変換して出力する

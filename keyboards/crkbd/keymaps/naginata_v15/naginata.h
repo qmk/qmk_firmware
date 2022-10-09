@@ -20,6 +20,8 @@ void naginata_type(void);
 void naginata_clear(void);
 void compress_buffer(int nt);
 bool naginata_lookup(int nt, bool shifted);
+int number_of_candidates(void);
+int count_bit(uint32_t);
 
 bool process_modifier(uint16_t, keyrecord_t *);
 
