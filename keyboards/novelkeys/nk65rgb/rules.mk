@@ -30,7 +30,3 @@ CONSOLE_ENABLE = no
 CIE1931_CURVE = yes
 
 LAYOUTS = 65_ansi
-
-# project specific files
-SRC =	quantum/color.c \
-		i2c_master.c
