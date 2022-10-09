@@ -18,3 +18,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+/* Set HSE clock since it differs from F411 default */
+#define STM32_HSECLK 16000000
