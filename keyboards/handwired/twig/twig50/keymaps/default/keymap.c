@@ -3,9 +3,9 @@
 
 #include "twig50.h"
 
-#define LAL_NCV  LALT_T(KC_LANG2)
-#define RAL_CNV  RALT_T(KC_LANG1)
-#define LGU_NCV  LGUI_T(KC_LANG2)
+#define LAL_NCV  LALT_T(KC_LNG2)
+#define RAL_CNV  RALT_T(KC_LNG1)
+#define LGU_NCV  LGUI_T(KC_LNG2)
 #define RGU_ENT  RGUI_T(KC_ENT)
 #define RGU_IN8  RGUI_T(KC_INT8)
 
