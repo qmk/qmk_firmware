@@ -21,6 +21,9 @@ enum planck_layers {
 #define FUNCTION OSL(_FUNCTION)
 #define NAV TO(_NAV)
 #define HOME TO(_ISRT)
+#define MTLCTL MT(MOD_LCTL,KC_T)
+#define MTRCTL MT(MOD_RCTL,KC_N)
+#define MTLALT MT(MOD_LALT,KC_R)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
@@ -37,17 +40,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,         KC_Y,    KC_C,    KC_L,    KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,         KC_COMM,      KC_QUOT,      KC_DEL,
-    LCTL_T(KC_ESC), KC_I,    KC_S,    KC_R,    KC_T,   KC_G,   KC_P,     KC_N,    LT(0,KC_E),   LT(0,KC_A),   LT(0,KC_O),   RSFT_T(KC_ENT),
-    KC_LSFT,        KC_Q,    KC_V,    KC_W,    KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,      KC_DOT,       KC_X,         KC_RSFT,
-    CAPSWRD,        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,          KC_LGUI,      KC_LEFT,      KC_RGHT
+    KC_TAB,  KC_Y,    KC_C,    KC_L,              KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,              KC_COMM, KC_QUOT, KC_DEL,
+    KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MTLCTL, KC_G,   KC_P,     MTRCTL,  MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
+    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
+    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,               KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   [_SYMBOL] = LAYOUT_ortho_4x12(
-    KC_TILD, KC_1,    KC_2,    KC_3,    KC_EQL,  KC_NO, KC_NO, KC_LCBR, KC_RCBR, KC_AT, KC_NO,   KC_NO,
-    KC_NO,   KC_4,    KC_5,    KC_6,    KC_MINS, KC_NO, KC_NO, KC_LPRN, KC_RPRN, KC_NO, KC_SCLN, KC_NO,
-    KC_LSFT, KC_7,    KC_8,    KC_9,    KC_0,    KC_NO, KC_NO, KC_LBRC, KC_RBRC, KC_NO, KC_NO,   KC_RSFT,
-    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,  KC_RCTL, KC_NO,   KC_NO, KC_NO,   KC_NO
+    KC_TILD,  KC_1,    KC_2,    KC_3,    KC_EQL,  KC_NO, KC_CIRC,        KC_AMPR, KC_ASTR, KC_AT, 	  KC_NO,         KC_NO,
+    KC_GRV,   KC_4,    KC_5,    KC_6,    KC_MINS, KC_NO, LT(0,KC_BSLS),  KC_LPRN, KC_RPRN, LT(0,CT_PIPE), LT(0,KC_SCLN), KC_NO,
+    KC_LSFT,  KC_7,    KC_8,    KC_9,    KC_0,    KC_NO, KC_LBRC,        KC_LCBR, KC_RCBR, KC_RBRC,       KC_NO,         KC_RSFT,
+    KC_NO,    KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,           KC_RCTL, KC_NO,   KC_NO,         KC_NO,         KC_NO
     ),
 
   [_FUNCTION] = LAYOUT_ortho_4x12(
@@ -71,7 +74,8 @@ bool is_shift_held(void) { return (get_mods() & MOD_BIT(KC_LSFT)) || (get_mods()
 bool is_ctrl_held(void) { return get_mods() & MOD_BIT(KC_LCTL); }
 bool is_gui_held(void) { return get_mods() & MOD_BIT(KC_LGUI); }
 
-void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed) {
+void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed)
+{
   uint16_t code = is_mac_the_default() ? mac_code : win_code;
   if (is_pressed) {
     register_code16(code);
@@ -79,6 +83,17 @@ void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed) {
     unregister_code16(code);
   }
 }
+
+/* static bool process_tap_or_long_press_key(keyrecord_t *record, uint16_t long_press_keycode) */
+/* { */
+/*   if (!record->tap.count) { // Key is being held */
+/*     if (record->event.pressed) { */
+/*       tap_code16(long_press_keycode); */
+/*     } */
+/*     return false; */
+/*   } */
+/*   return true; */
+/* } */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
@@ -90,6 +105,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   /* } */
 
   switch (keycode) {
+  case RSWPAPP:
+    if (!record->tap.count) {
+      uint16_t code = is_mac_the_default() ? G(KC_TAB) : A(KC_TAB);
+      if (isPressed) {
+	register_code16(code);
+      } else {
+	unregister_code16(code);
+      }
+      return false;
+    }
+    return true;
+  case LT(0,KC_SCLN):
+    if (isHeld) {
+      tap_code16(KC_COLN);
+      return false;
+    }
+    return true;
+  case LT(0,KC_BSLS):
+    if (isHeld) {
+      tap_code16(KC_HOME);
+      return false;
+    }
+    return true;
+  case LT(0,CT_PIPE):
+    if (record->tap.count && isPressed) {
+      tap_code16(S(KC_BSLS));
+    } else if (isHeld) {
+      tap_code16(KC_END);
+    }
+    return false;
   case LT(0,KC_BSPC):
     if (isHeld) {
       send_mac_or_win(A(KC_BSPC), C(KC_BSPC), isPressed);
@@ -144,3 +189,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   }
   return true;
 }
+
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case MTLCTL:
+    return TAPPING_TERM + 200;
+  case MTRCTL:
+    return TAPPING_TERM + 200;
+  case MTLALT:
+    return TAPPING_TERM + 200;
+  default:
+    return TAPPING_TERM;
+  }
+}
+#endif
