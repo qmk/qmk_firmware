@@ -34,17 +34,17 @@
 #define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 
-#define CONSTANT_CURRENT_STEP \
+#define CKLED2001_CURRENT_TUNE \
     { 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70 }
+
+#define RGB_MATRIX_CENTER \
+    { 56, 16 }
 
 /* NKRO */
 #define FORCE_NKRO
 
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-/* We have 2KB EEPROM size on STM32L432 */
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

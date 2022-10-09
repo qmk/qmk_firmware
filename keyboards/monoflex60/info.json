@@ -1,13 +1,17 @@
 {
     "keyboard_name": "Monoflex 60",
-    "manufacturer": "SanitGo Customs",
+    "manufacturer": "SantiGo Customs",
     "url": "",
-    "maintainer": "keyten",
+    "maintainer": "key10iq",
     "usb": {
         "vid": "0xDEB4",
         "pid": "0x60EB",
         "device_version": "0.0.1"
     },
+    "community_layouts": [
+        "60_tsangan_hhkb",
+        "60_iso_tsangan"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
