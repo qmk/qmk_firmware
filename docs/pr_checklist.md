@@ -113,7 +113,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
 - Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine.
-  - For instance, only `wilba_tech` boards using be including `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine.
+  - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards.
   - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
 
 Also, specific to ChibiOS:
