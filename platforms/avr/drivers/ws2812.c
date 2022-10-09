@@ -20,10 +20,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ws2812.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "ws2812.h"
+#include "pin_defs.h"
 
 #define pinmask(pin) (_BV((pin)&0xF))
 
@@ -52,20 +53,15 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
   using the fast 800kHz clockless WS2811/2812 protocol.
 */
 
-// Timing in ns
-#define w_zeropulse 350
-#define w_onepulse 900
-#define w_totalperiod 1250
-
 // Fixed cycles used by the inner loop
 #define w_fixedlow 2
 #define w_fixedhigh 4
 #define w_fixedtotal 8
 
 // Insert NOPs to match the timing, if possible
-#define w_zerocycles (((F_CPU / 1000) * w_zeropulse) / 1000000)
-#define w_onecycles (((F_CPU / 1000) * w_onepulse + 500000) / 1000000)
-#define w_totalcycles (((F_CPU / 1000) * w_totalperiod + 500000) / 1000000)
+#define w_zerocycles (((F_CPU / 1000) * WS2812_T0H) / 1000000)
+#define w_onecycles (((F_CPU / 1000) * WS2812_T1H + 500000) / 1000000)
+#define w_totalcycles (((F_CPU / 1000) * WS2812_TIMING + 500000) / 1000000)
 
 // w1_nops - nops between rising edge and falling edge - low
 #if w_zerocycles >= w_fixedlow
@@ -115,7 +111,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 
         asm volatile("       ldi   %0,8  \n\t"
                      "loop%=:            \n\t"
-                     "       out   %2,%3 \n\t"  //  '1' [01] '0' [01] - re
+                     "       out   %2,%3 \n\t" //  '1' [01] '0' [01] - re
 #if (w1_nops & 1)
                      w_nop1
 #endif
@@ -131,9 +127,9 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 #if (w1_nops & 16)
                                      w_nop16
 #endif
-                     "       sbrs  %1,7  \n\t"  //  '1' [03] '0' [02]
-                     "       out   %2,%4 \n\t"  //  '1' [--] '0' [03] - fe-low
-                     "       lsl   %1    \n\t"  //  '1' [04] '0' [04]
+                     "       sbrs  %1,7  \n\t" //  '1' [03] '0' [02]
+                     "       out   %2,%4 \n\t" //  '1' [--] '0' [03] - fe-low
+                     "       lsl   %1    \n\t" //  '1' [04] '0' [04]
 #if (w2_nops & 1)
                      w_nop1
 #endif
@@ -149,7 +145,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 #if (w2_nops & 16)
                                      w_nop16
 #endif
-                     "       out   %2,%4 \n\t"  //  '1' [+1] '0' [+1] - fe-high
+                     "       out   %2,%4 \n\t" //  '1' [+1] '0' [+1] - fe-high
 #if (w3_nops & 1)
                      w_nop1
 #endif
@@ -166,8 +162,8 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                      w_nop16
 #endif
 
-                     "       dec   %0    \n\t"  //  '1' [+2] '0' [+2]
-                     "       brne  loop%=\n\t"  //  '1' [+3] '0' [+4]
+                     "       dec   %0    \n\t" //  '1' [+2] '0' [+2]
+                     "       brne  loop%=\n\t" //  '1' [+3] '0' [+4]
                      : "=&d"(ctr)
                      : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), "r"(maskhi), "r"(masklo));
     }

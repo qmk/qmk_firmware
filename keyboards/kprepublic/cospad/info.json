@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Cospad",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B5C",
+        "pid": "0xB1E5",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

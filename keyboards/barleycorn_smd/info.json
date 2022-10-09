@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Barleycorn SMD",
+    "manufacturer": "P3D Store",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x7033",
+        "pid": "0x4749",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

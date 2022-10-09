@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Neito",
+    "manufacturer": "Oliver Granlund",
     "url": "olli.works",
     "maintainer": "Oliver Granlund",
+    "usb": {
+        "vid": "0xB9F7",
+        "pid": "0xB44C",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

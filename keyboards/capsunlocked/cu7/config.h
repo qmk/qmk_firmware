@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4355
-#define PRODUCT_ID      0x0007
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CapsUnlocked
-#define PRODUCT         CU7
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -47,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { D7, F0, F6 }
 #define MATRIX_COL_PINS { F5, F7, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW

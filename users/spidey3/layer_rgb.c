@@ -1,3 +1,6 @@
+// Copyright 2022 Joshua Diamond josh@windowoffire.com (@spidey3)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "spidey3.h"
@@ -13,20 +16,14 @@ bool     rgb_saved = 0;
 extern bool     spi_gflock;
 extern uint16_t spi_replace_mode;
 
-void spidey_glow(void) {
+static void set_rgb_default(void) {
     rgblight_enable();
-    rgblight_sethsv(213, 255, 128);
-    if ((RGBLIGHT_MODE_TWINKLE <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_TWINKLE_end)) {
-        rgblight_step();
-    } else {
-        rgblight_mode(RGBLIGHT_MODE_TWINKLE);
-    }
+    rgblight_sethsv(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
+    rgblight_mode(RGBLIGHT_DEFAULT_MODE);
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled()) velocikey_toggle();
 #endif
 }
-
-void eeconfig_init_user_rgb(void) { spidey_glow(); }
 
 // clang-format off
 
@@ -68,6 +65,7 @@ const rgblight_segment_t PROGMEM _uc_mac_layer[]  = RGBLIGHT_LAYER_SEGMENTS(CORN
 // UC_WIN disabled in config.h
 // UC_BSD not implemented
 const rgblight_segment_t PROGMEM _uc_winc_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_CYAN));
+const rgblight_segment_t PROGMEM _uc_emacs_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_GREEN));
 
 // Now define the array of layers. Higher numbered layers take precedence.
 const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
@@ -92,6 +90,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [UNICODE_OFFSET + UC_WIN]  = _none,
     [UNICODE_OFFSET + UC_BSD]  = _none,
     [UNICODE_OFFSET + UC_WINC] = _uc_winc_layer,
+    [UNICODE_OFFSET + UC_EMACS] = _uc_emacs_layer,
 
     [UNICODE_OFFSET + UC__COUNT] = NULL
 };
@@ -101,7 +100,6 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
 const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
 
 void clear_rgb_layers() {
-    dprint("clear_rgb_layers()\n");
     for (uint8_t i = 0; i < _n_rgb_layers; i++) {
         rgblight_set_layer_state(i, false);
     }
@@ -110,7 +108,6 @@ void clear_rgb_layers() {
 void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
     for (uint8_t i = start; i < end; i++) {
         bool is_on = layer_state_cmp(state, i);
-        dprintf("layer[%u]=rl[%u]=%u\n", i, LAYER_OFFSET + i, is_on);
         rgblight_set_layer_state(LAYER_OFFSET + i, is_on);
     }
 }
@@ -119,7 +116,6 @@ void do_rgb_unicode(void) {
     uint8_t uc_mode = get_unicode_input_mode();
     for (uint8_t i = 0; i < UC__COUNT; i++) {
         bool is_on = i == uc_mode;
-        dprintf("unicode[%u]=rl[%u]=%u\n", i, UNICODE_OFFSET + i, is_on);
         rgblight_set_layer_state(UNICODE_OFFSET + i, is_on);
     }
 }
@@ -138,7 +134,7 @@ int8_t change_sat = 0;
 int8_t change_val = 0;
 
 // timer to control color change speed
-uint16_t change_timer = 0;
+uint16_t       change_timer = 0;
 const uint16_t change_tick  = 15;
 
 extern rgblight_config_t rgblight_config;
@@ -146,14 +142,15 @@ extern rgblight_status_t rgblight_status;
 
 #if defined(RGBLIGHT_STARTUP_ANIMATION)
 
-#define STARTUP_ANIMATION_SATURATION 200
-#define STARTUP_ANIMATION_VALUE 255
-#define STARTUP_ANIMATION_FADE_STEP 5
-#define STARTUP_ANIMATION_CYCLE_STEP 2
-#define STARTUP_ANIMATION_RAMP_TO_STEPS 70
-#define STARTUP_ANIMATION_STEP_TIME 10
-#define STARTUP_ANIMATION_INITIAL_DELAY 0 // milliseconds, must be < 255 * STEP_TIME
+#    define STARTUP_ANIMATION_SATURATION 200
+#    define STARTUP_ANIMATION_VALUE 255
+#    define STARTUP_ANIMATION_FADE_STEP 5
+#    define STARTUP_ANIMATION_CYCLE_STEP 2
+#    define STARTUP_ANIMATION_RAMP_TO_STEPS 70
+#    define STARTUP_ANIMATION_STEP_TIME 10
+#    define STARTUP_ANIMATION_INITIAL_DELAY 0  // milliseconds, must be < 255 * STEP_TIME
 
+// clang-format off
 typedef enum {
     DISABLED,
     WAITING,
@@ -167,18 +164,18 @@ typedef enum {
     CLEAN_UP,
     DONE
 } startup_animation_state_t;
+// clang-format on
 
-static rgblight_config_t old_config;
-static uint8_t old_base_mode;
+static rgblight_config_t         old_config;
+static uint8_t                   old_base_mode;
 static startup_animation_state_t startup_animation_state = DISABLED;
-static uint16_t rgblight_startup_loop_timer;
+static uint16_t                  rgblight_startup_loop_timer;
 
 void startup_animation_init(void) {
     old_config.raw = rgblight_config.raw;
     old_base_mode  = rgblight_status.base_mode;
 
-    if (!old_config.enable)
-        rgblight_enable_noeeprom();
+    if (!old_config.enable) rgblight_enable_noeeprom();
 }
 #endif
 
@@ -202,9 +199,9 @@ void matrix_scan_user_rgb(void) {
 
             switch (startup_animation_state) {
                 case WAITING:
-#ifdef STARTUP_ANIMATION_DEBUG
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintf("sua WAITING counter=%u\n", counter);
-#endif
+#    endif
                     if (counter < STARTUP_ANIMATION_INITIAL_DELAY / STARTUP_ANIMATION_STEP_TIME) {
                         counter++;
                     } else {
@@ -213,83 +210,87 @@ void matrix_scan_user_rgb(void) {
                     break;
 
                 case RESTART:
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintln("sua RESTART");
+#    endif
                     startup_animation_init();
                 case START:
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintln("sua START");
+#    endif
                     startup_animation_state = FADE_OLD;
-                    counter = old_config.val;
+                    counter                 = old_config.val;
                     // No break! Just roll into FADE_OLD in the same iteration...
 
                 case FADE_OLD:
-#ifdef STARTUP_ANIMATION_DEBUG
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintf("sua FADE_OLD counter=%u\n", counter);
-#endif
+#    endif
                     if (counter >= STARTUP_ANIMATION_FADE_STEP) {
                         rgblight_sethsv_noeeprom(old_config.hue, old_config.sat, counter);
                         counter -= STARTUP_ANIMATION_FADE_STEP;
                     } else {
-                        counter = 0;
+                        counter                 = 0;
                         startup_animation_state = FADE_IN;
                         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
                     }
                     break;
 
                 case FADE_IN:
-#ifdef STARTUP_ANIMATION_DEBUG
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintf("sua FADE_IN counter=%u\n", counter);
-#endif
+#    endif
                     if (counter < STARTUP_ANIMATION_VALUE) {
                         rgblight_sethsv_noeeprom(old_config.hue, STARTUP_ANIMATION_SATURATION, counter);
                         counter += STARTUP_ANIMATION_FADE_STEP;
                     } else {
-                        counter = 255;
+                        counter                 = 255;
                         startup_animation_state = CYCLE;
                     }
                     break;
 
                 case CYCLE:
-#ifdef STARTUP_ANIMATION_DEBUG
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintf("sua CYCLE counter=%u\n", counter);
-#endif
+#    endif
                     if (counter >= STARTUP_ANIMATION_CYCLE_STEP) {
                         rgblight_sethsv_noeeprom((counter + old_config.hue) % 255, STARTUP_ANIMATION_SATURATION, STARTUP_ANIMATION_VALUE);
                         counter -= STARTUP_ANIMATION_CYCLE_STEP;
                     } else {
                         if (
-#ifdef RGBLIGHT_EFFECT_BREATHING
+#    ifdef RGBLIGHT_EFFECT_BREATHING
                             (old_base_mode == RGBLIGHT_MODE_BREATHING) ||
-#endif
-#ifdef RGBLIGHT_EFFECT_SNAKE
+#    endif
+#    ifdef RGBLIGHT_EFFECT_SNAKE
                             (old_base_mode == RGBLIGHT_MODE_SNAKE) ||
-#endif
-#ifdef RGBLIGHT_EFFECT_KNIGHT
+#    endif
+#    ifdef RGBLIGHT_EFFECT_KNIGHT
                             (old_base_mode == RGBLIGHT_MODE_KNIGHT) ||
-#endif
-#ifdef RGBLIGHT_EFFECT_TWINKLE
+#    endif
+#    ifdef RGBLIGHT_EFFECT_TWINKLE
                             (old_base_mode == RGBLIGHT_MODE_TWINKLE) ||
-#endif
+#    endif
                             !old_config.enable) {
-                            counter = STARTUP_ANIMATION_VALUE;
+                            counter                 = STARTUP_ANIMATION_VALUE;
                             startup_animation_state = RAMP_DOWN;
                         } else if (
-#ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
                             (old_base_mode == RGBLIGHT_MODE_STATIC_GRADIENT) ||
-#endif
-#ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
                             (old_base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) ||
-#endif
-#ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
                             (old_base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) ||
-#endif
-#ifdef RGBLIGHT_EFFECT_RAINBOW_CHRISTMAS
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_CHRISTMAS
                             (old_base_mode == RGBLIGHT_MODE_CHRISTMAS) ||
-#endif
-#ifdef RGBLIGHT_EFFECT_RAINBOW_RGB_TEST_
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_RGB_TEST
                             (old_base_mode == RGBLIGHT_MODE_RGB_TEST) ||
-#endif
+#    endif
                             (old_base_mode == RGBLIGHT_MODE_STATIC_LIGHT)) {
-                            counter = 0;
+                            counter                 = 0;
                             startup_animation_state = RAMP_TO;
                         } else {
                             startup_animation_state = CLEAN_UP;
@@ -298,39 +299,41 @@ void matrix_scan_user_rgb(void) {
                     break;
 
                 case RAMP_DOWN:
-#ifdef STARTUP_ANIMATION_DEBUG
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintf("sua RAMP_DOWN counter=%u\n", counter);
-#endif
+#    endif
+                    rgblight_sethsv_noeeprom(old_config.hue, STARTUP_ANIMATION_SATURATION, counter);
                     if (counter >= STARTUP_ANIMATION_FADE_STEP) {
-                        rgblight_sethsv_noeeprom(old_config.hue, STARTUP_ANIMATION_SATURATION, counter);
                         counter -= STARTUP_ANIMATION_FADE_STEP;
                     } else {
                         startup_animation_state = CLEAN_UP;
                     }
                     break;
 
-                case RAMP_TO:
-                    {
-#ifdef STARTUP_ANIMATION_DEBUG
-                        dprintf("sua RAMP_TO s=%u, v=%u, counter=%u\n", old_config.sat, old_config.val, counter);
-#endif
-                        uint8_t steps = STARTUP_ANIMATION_RAMP_TO_STEPS;
-                        if (counter < steps) {
-                            uint8_t s = STARTUP_ANIMATION_SATURATION + counter * (((float)old_config.sat - STARTUP_ANIMATION_SATURATION) / (float)steps);
-                            uint8_t v = STARTUP_ANIMATION_VALUE + counter * (((float)old_config.val - STARTUP_ANIMATION_VALUE) / (float)steps);
-                            rgblight_sethsv_noeeprom(old_config.hue, s, v);
-                            counter++;
-                        } else {
-                            startup_animation_state = CLEAN_UP;
-                        }
+                case RAMP_TO: {
+#    ifdef STARTUP_ANIMATION_DEBUG
+                    dprintf("sua RAMP_TO s=%u, v=%u, counter=%u\n", old_config.sat, old_config.val, counter);
+#    endif
+                    uint8_t steps = STARTUP_ANIMATION_RAMP_TO_STEPS;
+                    if (counter < steps) {
+                        uint8_t s = STARTUP_ANIMATION_SATURATION + counter * (((float)old_config.sat - STARTUP_ANIMATION_SATURATION) / (float)steps);
+                        uint8_t v = STARTUP_ANIMATION_VALUE + counter * (((float)old_config.val - STARTUP_ANIMATION_VALUE) / (float)steps);
+                        rgblight_sethsv_noeeprom(old_config.hue, s, v);
+                        counter++;
+                    } else {
+                        startup_animation_state = CLEAN_UP;
                     }
-                    break;
+                } break;
 
                 case CLEAN_UP:
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintln("sua CLEAN_UP");
+#    endif
                     rgblight_reload_from_eeprom();
                     startup_animation_state = DONE;
+#    ifdef STARTUP_ANIMATION_DEBUG
                     dprintln("sua DONE");
+#    endif
                     break;
 
                 default:
@@ -344,8 +347,8 @@ void matrix_scan_user_rgb(void) {
         if (timer_elapsed(change_timer) > change_tick) {
             HSV hsv = rgblight_get_hsv();
             hsv.h += change_hue;
-            hsv.s = change_sat > 0 ? qadd8(hsv.s, (uint8_t) change_sat) : qsub8(hsv.s, (uint8_t) -change_sat);
-            hsv.v = change_val > 0 ? qadd8(hsv.v, (uint8_t) change_val) : qsub8(hsv.v, (uint8_t) -change_val);
+            hsv.s = change_sat > 0 ? qadd8(hsv.s, (uint8_t)change_sat) : qsub8(hsv.s, (uint8_t)-change_sat);
+            hsv.v = change_val > 0 ? qadd8(hsv.v, (uint8_t)change_val) : qsub8(hsv.v, (uint8_t)-change_val);
             rgblight_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
             change_timer = timer_read();
         }
@@ -372,8 +375,6 @@ layer_state_t layer_state_set_user_rgb(layer_state_t state) {
 }
 
 bool led_update_user_rgb(led_t led_state) {
-    dprintf("num=%u, cap=%u, scl=%u, cmp=%u, kan=%u\n", led_state.num_lock, led_state.caps_lock, led_state.scroll_lock, led_state.compose, led_state.kana);
-
     rgblight_set_layer_state(LOCK_OFFSET + USB_LED_NUM_LOCK, led_state.num_lock);
     rgblight_set_layer_state(LOCK_OFFSET + USB_LED_CAPS_LOCK, led_state.caps_lock);
     rgblight_set_layer_state(LOCK_OFFSET + USB_LED_SCROLL_LOCK, led_state.scroll_lock);
@@ -385,7 +386,6 @@ void rgb_layer_ack_yn(bool yn) { rgb_layer_ack(yn ? ACK_YES : ACK_NO); }
 
 void rgb_layer_ack(layer_ack_t n) {
     uint8_t layer = ACK_OFFSET + n;
-    dprintf("rgb_layer_ack(%u) ==> %u\n", n, layer);
     rgblight_blink_layer(layer, RGB_LAYER_ACK_DURATION);
 }
 
@@ -395,11 +395,9 @@ extern rgblight_config_t rgblight_config;
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case SPI_GLO:
-                spidey_glow();
-                return false;
-
                 // clang-format off
+            case SPI_GLO: set_rgb_default(); return false;
+
             case RGB_HUI: change_timer = timer_read(); change_hue =  1; return false;
             case RGB_HUD: change_timer = timer_read(); change_hue = -1; return false;
             case RGB_SAI: change_timer = timer_read(); change_sat =  1; return false;
@@ -460,7 +458,9 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case RGB_TOG:
-            rgb_layer_ack_yn(rgblight_config.enable);
+            // Hack - we only get called on the press for RGB_TOG, 
+            // but the flag is only flipped on the release...
+            rgb_layer_ack_yn(!rgblight_config.enable);
             break;
 
 #ifdef VELOCIKEY_ENABLE
@@ -477,10 +477,14 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 #endif
 
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-        case SPI_LNX:
-        case SPI_OSX:
-        case SPI_WIN:
+#if defined(UNICODE_COMMON_ENABLE)
+        case UC_M_MA:
+        case UC_M_LN:
+        case UC_M_WI:
+        case UC_M_BS:
+        case UC_M_WC:
+        case UC_M_EM:
+
         case UC_MOD:
         case UC_RMOD:
             rgb_layer_ack(ACK_MEH);

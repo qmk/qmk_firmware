@@ -240,7 +240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //one_ring=2__rule__them-all
   [_GRVTABL] = LAYOUT( \
-    LALT(KC_PSCR), M(4),            KC_PWR,      KC_POWER,     RESET,                          RESET,        KC_R,         KC_E,        KC_I,            LALT(KC_PSCR), \
+    LALT(KC_PSCR), M(4),            KC_PWR,      KC_POWER,     QK_BOOT,                        QK_BOOT,      KC_R,         KC_E,        KC_I,            LALT(KC_PSCR), \
     TG(_NINEKEY),  TG(_FNCTION),    TG(_MLAYER), TG(_IKASHFT), TG(_IKAPILA),                   TG(_IKAPILA), KC_S,         KC_U,        KC_B,            TG(_NINEKEY),  \
     M(3),          TG(_GAMEQWERTY), XXXXXXX,     XXXXXXX,      XXXXXXX,                        KC_MYCM,      KC_CALC,      XXXXXXX,     TG(_GAMEQWERTY), M(3),          \
     TT(_GRVTABL),  TG(_FNCTION),    TG(_MLAYER), TG(_IKASHFT), TG(_IKAPILA), _______, _______, TG(_IKAPILA), TG(_IKASHFT), TG(_MLAYER), TG(_MLAYER),     TG(_NINEKEY)   \

@@ -16,20 +16,16 @@
 
 #include "oddball.h"
 #include "pointing_device.h"
-#include "optical_sensor/optical_sensor.h"
-
-#define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
+extern const pointing_device_driver_t pointing_device_driver;
 
 static bool scroll_pressed;
 static bool mouse_buttons_dirty;
 static int8_t scroll_h;
 static int8_t scroll_v;
 
-void pointing_device_init(void){
+void pointing_device_init_kb(void){
     if(!is_keyboard_master())
         return;
-
-    optical_sensor_init();
 
     // read config from EEPROM and update if needed
 
@@ -41,21 +37,17 @@ void pointing_device_init(void){
         eeconfig_update_kb(kb_config.raw);
     }
 
-    optical_sensor_set_config((config_optical_sensor_t){ kb_config.cpi });
+    pointing_device_set_cpi(kb_config.cpi);
 }
 
-void pointing_device_task(void){
-    if(!is_keyboard_master())
-        return;
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    if (!is_keyboard_master()) return mouse_report;
 
-    report_mouse_t mouse_report = pointing_device_get_report();
-    report_optical_sensor_t sensor_report = optical_sensor_get_report();
+    int8_t clamped_x = mouse_report.x, clamped_y = mouse_report.y;
+    mouse_report.x = 0;
+    mouse_report.y = 0;
 
-    int8_t clamped_x = CLAMP_HID(sensor_report.x);
-    int8_t clamped_y = CLAMP_HID(sensor_report.y);
-
-    if(scroll_pressed) {
-
+    if (scroll_pressed) {
         // accumulate scroll
         scroll_h += clamped_x;
         scroll_v += clamped_y;
@@ -65,33 +57,21 @@ void pointing_device_task(void){
 
         // clear accumulated scroll on assignment
 
-        if(scaled_scroll_h != 0){
+        if (scaled_scroll_h != 0) {
             mouse_report.h = -scaled_scroll_h;
-            scroll_h = 0;
+            scroll_h       = 0;
         }
 
-        if(scaled_scroll_v != 0){
+        if (scaled_scroll_v != 0) {
             mouse_report.v = -scaled_scroll_v;
-            scroll_v = 0;
+            scroll_v       = 0;
         }
-    }
-    else {
+    } else {
         mouse_report.x = -clamped_x;
         mouse_report.y = clamped_y;
     }
 
-    pointing_device_set_report(mouse_report);
-
-    // only send report on change as even sending report with no change is treated as movement
-    if(mouse_buttons_dirty ||
-       mouse_report.x != 0 ||
-       mouse_report.y != 0 ||
-       mouse_report.h != 0 ||
-       mouse_report.v != 0){
-
-        mouse_buttons_dirty = false;
-        pointing_device_send();
-    }
+    return mouse_report;
 }
 
 static void on_cpi_button(uint16_t cpi, keyrecord_t *record) {
@@ -99,7 +79,7 @@ static void on_cpi_button(uint16_t cpi, keyrecord_t *record) {
     if(!record->event.pressed)
         return;
 
-    optical_sensor_set_config((config_optical_sensor_t){ cpi });
+    pointing_device_set_cpi(cpi);
 
     config_oddball_t kb_config;
     kb_config.cpi = cpi;
@@ -165,5 +145,5 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         default:
             return true;
-  }
+    }
 }

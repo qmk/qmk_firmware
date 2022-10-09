@@ -1,6 +1,3 @@
-# Build Options
-#   comment out to disable the options.
-#
 BACKLIGHT_DRIVER = custom
 
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes

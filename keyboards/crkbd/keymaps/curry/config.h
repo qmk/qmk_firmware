@@ -13,3 +13,9 @@
 #    define RGB_MATRIX_VAL_STEP 5
 #    define RGB_MATRIX_SPD_STEP 10
 #endif
+
+//  comment out unnecessary layouts
+#define ENABLE_QWERTY
+#define ENABLE_COLEMAK
+#define ENABLE_DVORAK
+#define ENABLE_WORKMAN

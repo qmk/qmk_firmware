@@ -30,6 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_TOG,  RGB_RMOD, RGB_MOD, RGB_M_R, RGB_M_T, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   KC_TRNS, KC_CLR,
         KC_TRNS,  KC_VOLD,  KC_VOLU, KC_MUTE, KC_EJCT, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,         KC_TRNS,
         BL_TOGG,  BL_DEC,   BL_INC,  KC_CALC, KC_MPLY, KC_MNXT, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN,          KC_TRNS, KC_TRNS,
-        KC_TRNS,  RESET,    KC_TRNS,                            KC_TRNS,                                     KC_STOP, KC_TRNS, KC_TRNS
+        KC_TRNS,  QK_BOOT,    KC_TRNS,                            KC_TRNS,                                     KC_STOP, KC_TRNS, KC_TRNS
     ),
 };

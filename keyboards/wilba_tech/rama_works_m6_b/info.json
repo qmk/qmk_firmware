@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "RAMA WORKS M6-B",
+  "keyboard_name": "M6-B",
+  "manufacturer": "RAMA WORKS",
   "url": "http://rama.works",
   "maintainer": "Wilba",
+  "usb": {
+    "vid": "0x5241",
+    "pid": "0x006B",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

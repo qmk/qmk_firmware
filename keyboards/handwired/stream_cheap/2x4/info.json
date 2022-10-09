@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Stream Cheap 2x4",
+    "keyboard_name": "2x4",
+    "manufacturer": "Stream Cheap",
     "url": "https://www.thingiverse.com/thing:4497991",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7363",
+        "pid": "0x1214",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_2x4": {
             "layout": [

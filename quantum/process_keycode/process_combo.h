@@ -43,8 +43,8 @@ typedef struct {
 #ifdef EXTRA_SHORT_COMBOS
     uint8_t state;
 #else
-    bool disabled;
-    bool active;
+    bool     disabled;
+    bool     active;
 #    if defined(EXTRA_EXTRA_LONG_COMBOS)
     uint32_t state;
 #    elif defined(EXTRA_LONG_COMBOS)

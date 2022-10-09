@@ -13,5 +13,5 @@ bool effect_runner_dx_dy_dist(effect_params_t* params, dx_dy_dist_f effect_func)
         uint8_t dist = sqrt16(dx * dx + dy * dy);
         led_matrix_set_value(i, effect_func(led_matrix_eeconfig.val, dx, dy, dist, time));
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_matrix_check_finished_leds(led_max);
 }

@@ -111,7 +111,7 @@
 #define CZ_8    S(CZ_AACU) // 8
 #define CZ_9    S(CZ_IACU) // 9
 #define CZ_0    S(CZ_EACU) // 0
-#define CZ_PERC S(CZ_PLUS) // %
+#define CZ_PERC S(CZ_EQL)  // %
 #define CZ_CARN S(CZ_ACUT) // ˇ (dead)
 // Row 2
 #define CZ_SLSH S(CZ_UACU) // /

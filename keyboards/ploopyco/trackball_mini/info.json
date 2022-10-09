@@ -1,8 +1,13 @@
 {
-    "keyboard_name": "Ploopy Trackball Mini",
+    "keyboard_name": "Trackball Mini",
+    "manufacturer": "PloopyCo",
     "url": "www.ploopy.co",
     "maintainer": "ploopyco",
-    "manufacturer": "Ploopy Corporation",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x1EAB",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

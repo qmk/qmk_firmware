@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "db63",
+    "keyboard_name": "DB63v1 Hotswap",
+    "manufacturer": "HNB",
     "url": "http://www.keyboard-layout-editor.com/#/gists/dadea703fc8bfc87dc7c480de9f3ef38",
     "maintainer": "QMK Community",
+    "usb": {
+        "vid": "0xFAAD",
+        "pid": "0x422D",
+        "device_version": "2.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

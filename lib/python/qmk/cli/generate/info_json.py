@@ -5,7 +5,7 @@ Compile an info.json for a particular keyboard and pretty-print it.
 import json
 
 from argcomplete.completers import FilesCompleter
-from jsonschema import Draft7Validator, RefResolver, validators
+from jsonschema import Draft202012Validator, RefResolver, validators
 from milc import cli
 from pathlib import Path
 
@@ -18,7 +18,7 @@ from qmk.path import is_keyboard, normpath
 
 
 def pruning_validator(validator_class):
-    """Extends Draft7Validator to remove properties that aren't specified in the schema.
+    """Extends Draft202012Validator to remove properties that aren't specified in the schema.
     """
     validate_properties = validator_class.VALIDATORS["properties"]
 
@@ -37,10 +37,10 @@ def strip_info_json(kb_info_json):
     """Remove the API-only properties from the info.json.
     """
     schema_store = compile_schema_store()
-    pruning_draft_7_validator = pruning_validator(Draft7Validator)
+    pruning_draft_validator = pruning_validator(Draft202012Validator)
     schema = schema_store['qmk.keyboard.v1']
     resolver = RefResolver.from_schema(schema_store['qmk.keyboard.v1'], store=schema_store)
-    validator = pruning_draft_7_validator(schema, resolver=resolver).validate
+    validator = pruning_draft_validator(schema, resolver=resolver).validate
 
     return validator(kb_info_json)
 

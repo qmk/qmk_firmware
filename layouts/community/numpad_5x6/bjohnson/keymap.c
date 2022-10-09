@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F9,   KC_F10,        KC_P0,       KC_PDOT, KC_PENT
   ),
 	[1] = LAYOUT_numpad_5x6(
-		RGB_TOG, _______,  _______, _______, _______, RESET,
+		RGB_TOG, _______,  _______, _______, _______, QK_BOOT,
 		RGB_MOD, RGB_RMOD, _______, _______, _______,
 		RGB_HUI, RGB_HUD,  _______, _______, _______, _______,
 		RGB_SAI, RGB_SAD,  _______, _______, _______,

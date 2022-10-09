@@ -97,7 +97,9 @@ static void vusb_wakeup(void) {
  *
  * FIXME: Needs doc
  */
-static void setup_usb(void) { initForUsbConnectivity(); }
+static void setup_usb(void) {
+    initForUsbConnectivity();
+}
 
 uint16_t sof_timer = 0;
 
@@ -111,22 +113,16 @@ void protocol_setup(void) {
     // clock prescaler
     clock_prescale_set(clock_div_1);
 #endif
-    keyboard_setup();
 }
 
-void protocol_init(void) {
+void protocol_pre_init(void) {
     setup_usb();
     sei();
+}
 
-    keyboard_init();
-
+void protocol_post_init(void) {
     host_set_driver(vusb_driver());
-
     wait_ms(50);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_init();
-#endif
 }
 
 void protocol_task(void) {
@@ -162,7 +158,7 @@ void protocol_task(void) {
 #ifdef RAW_ENABLE
         usbPoll();
 
-        if (usbConfiguration && usbInterruptIsReady3()) {
+        if (usbConfiguration && usbInterruptIsReady4()) {
             raw_hid_task();
         }
 #endif

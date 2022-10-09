@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_Q,  KC_R,  KC_S,  KC_T
 ),
     [_CTRL] = LAYOUT_all(
-                   RESET,  _______,
+                   QK_BOOT,  _______,
        RGB_TOG, RGB_RMOD,  RGB_MOD,   TD(BASE),
        _______,  RGB_VAD,  RGB_VAI,    _______,
        _______,  RGB_HUD,  RGB_HUI,    _______,

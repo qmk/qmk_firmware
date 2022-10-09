@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
    [_FL1] = LAYOUT(
      _______, _______, _______, _______,
-     _______, STOKEN5, KC_NUBS, RESET),
+     _______, STOKEN5, KC_NUBS, QK_BOOT),
   /* Keymap base layer (_FL2) - function layer 2
    * ,---------------------------.
    * |      |      |      |      |

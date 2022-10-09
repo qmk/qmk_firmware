@@ -45,7 +45,7 @@ void matrix_scan_rgb(void) {
 }
 
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_osm) {
-  if (biton32(layer_state) == _QWERTY) {
+  if (get_highest_layer(layer_state) == _QWERTY) {
     if ((this_mod | this_osm) & MOD_MASK_SHIFT) {
       rgblight_setrgb_gold_at(SHFT_LED1);
     } else {

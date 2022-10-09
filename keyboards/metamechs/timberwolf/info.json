@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Timber Wolf",
+    "manufacturer": "MetaMechs",
     "url": "https://geekhack.org/index.php?topic=102520.0",
     "maintainer": "Croktopus",
+    "usb": {
+        "vid": "0x6D6D",
+        "pid": "0x5754",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

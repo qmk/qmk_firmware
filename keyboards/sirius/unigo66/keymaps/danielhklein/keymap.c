@@ -74,7 +74,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 /* FN
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | RESET  |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * | QK_BOOT  |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | MAC    |      |      |      |      |      |      |           |      |      | PgDn |  Up  | PgUp | Print|  Home  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -91,7 +91,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
  *                                        `-------------'       `--------------'
  */
     [_FN] = LAYOUT(
-  RESET,   XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  QK_BOOT, XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   MAC,     XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_UP,   KC_PGUP, KC_PSCR, KC_HOME,
   WINDOWS, XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,                     XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_END, 
   _______, XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_MRWD, KC_MFFD,

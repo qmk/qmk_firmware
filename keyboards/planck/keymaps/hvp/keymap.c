@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,  AG_NORM, AG_SWAP, _______, _______, _______, KC_7, KC_8, KC_9, KC_0, _______,
   _______, _______, MU_MOD, AU_ON, AU_OFF, _______, _______, KC_4, KC_5, KC_6, _______, _______,
   KC_PSCR, MUV_DE, MUV_IN, MU_ON, MU_OFF, _______, _______,  KC_0, KC_1, KC_2, KC_3, _______,
-  RESET, _______, TERM_ON, TERM_OFF, MI_ON, MI_OFF, _______, _______, _______, _______, _______, DEBUG
+  QK_BOOT, _______, TERM_ON, TERM_OFF, MI_ON, MI_OFF, _______, _______, _______, _______, _______, DEBUG
 )};
 
 #ifdef AUDIO_ENABLE

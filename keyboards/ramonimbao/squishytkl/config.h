@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xB16B
-#define PRODUCT_ID   0x00B1
-#define DEVICE_VER   0xE500
-#define MANUFACTURER Ramon Imbao
-#define PRODUCT      SquishyTKL
-
 /* key matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 26
@@ -43,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, B5, C13, B9, B8, A0, A1, A9, A8, B11, A6, A5, C0 }
 #define MATRIX_COL_PINS { A15, C10, C11, C12, D2, A7, C4, C5, B0, B1, B2, B10, B12, B13, B14, B15, C6, C9, C7, C8, A10, A4, C14, A3, A2, C3 }
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -143,10 +135,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "model01",
+  "keyboard_name": "Model 01",
+  "manufacturer": "Keyboardio",
   "url": "https://keyboard.io",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x1209",
+    "pid": "0x2301",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -1,6 +1,3 @@
-#ifndef VER2_H
-#define VER2_H
+#pragma once
 
-#include "../hadron.h"
-
-#endif
+#include "hadron.h"

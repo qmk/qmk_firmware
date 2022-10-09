@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "NEO Keys Palette G67 Soldered",
+    "keyboard_name": "Palette G67 Soldered",
+    "manufacturer": "NEO Keys",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4E4B",
+        "pid": "0x5053",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

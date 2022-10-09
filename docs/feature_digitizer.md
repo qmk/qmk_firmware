@@ -4,7 +4,7 @@ The digitizer HID interface allows setting the mouse cursor position at absolute
 
 To enable the digitizer interface, add the following line to your rules.mk: 
 
-```makefile
+```make
 DIGITIZER_ENABLE = yes
 ```
 

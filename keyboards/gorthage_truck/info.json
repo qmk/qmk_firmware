@@ -1,7 +1,13 @@
 {
     "keyboard_name": "gorthage_truck",
+    "manufacturer": "s8erdude",
     "url": "https://github.com/jpuerto96",
     "maintainer": "jpuerto96 (s8erdude)",
+    "usb": {
+        "vid": "0xB33F",
+        "pid": "0x58E4",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_3u": {
             "layout": [

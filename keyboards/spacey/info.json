@@ -1,7 +1,13 @@
 {
     "keyboard_name": "spacey",
+    "manufacturer": "vanilla",
     "url": "",
     "maintainer": "vanilla",
+    "usb": {
+        "vid": "0x5641",
+        "pid": "0x2045",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -71,10 +77,10 @@
                 {"label":"k43", "x":3, "y":4},
                 {"label":"k44", "x":4, "y":4},
                 {"label":"k45", "x":5, "y":4},
-               
+                {"label":"k46", "x":6, "y":4},
                 {"label":"k47", "x":7, "y":4},
                 {"label":"k48", "x":8, "y":4},
-                
+                {"label":"k49", "x":9, "y":4},
                 {"label":"k4A", "x":10, "y":4},
                 {"label":"k4B", "x":11, "y":4},
                 {"label":"k4C", "x":12, "y":4},

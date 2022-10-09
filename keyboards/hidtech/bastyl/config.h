@@ -18,11 +18,6 @@
 
 #pragma once
 #include "config_common.h"
-#define VENDOR_ID 0xA8F7
-#define PRODUCT_ID 0x1827
-#define DEVICE_VER 0x0001
-#define MANUFACTURER HID Technologies
-#define PRODUCT Bastyl
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6

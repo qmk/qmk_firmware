@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Tada68",
+    "keyboard_name": "TADA68",
+    "manufacturer": "TADA",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5441",
+        "pid": "0x0001",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

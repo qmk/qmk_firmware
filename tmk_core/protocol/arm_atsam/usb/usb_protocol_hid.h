@@ -121,13 +121,13 @@ COMPILER_PACK_SET(1)
 
 //! \brief HID Descriptor
 typedef struct {
-    uint8_t bLength;            //!< Size of this descriptor in bytes
-    uint8_t bDescriptorType;    //!< HID descriptor type
-    le16_t  bcdHID;             //!< Binary Coded Decimal Spec. release
-    uint8_t bCountryCode;       //!< Hardware target country
-    uint8_t bNumDescriptors;    //!< Number of HID class descriptors to follow
-    uint8_t bRDescriptorType;   //!< Report descriptor type
-    le16_t  wDescriptorLength;  //!< Total length of Report descriptor
+    uint8_t bLength;           //!< Size of this descriptor in bytes
+    uint8_t bDescriptorType;   //!< HID descriptor type
+    le16_t  bcdHID;            //!< Binary Coded Decimal Spec. release
+    uint8_t bCountryCode;      //!< Hardware target country
+    uint8_t bNumDescriptors;   //!< Number of HID class descriptors to follow
+    uint8_t bRDescriptorType;  //!< Report descriptor type
+    le16_t  wDescriptorLength; //!< Total length of Report descriptor
 } usb_hid_descriptor_t;
 
 COMPILER_PACK_RESET()
@@ -151,45 +151,45 @@ COMPILER_PACK_RESET()
 
 //! \name Country code
 //! @{
-#define USB_HID_NO_COUNTRY_CODE 0             // Not Supported
-#define USB_HID_COUNTRY_ARABIC 1              // Arabic
-#define USB_HID_COUNTRY_BELGIAN 2             // Belgian
-#define USB_HID_COUNTRY_CANADIAN_BILINGUAL 3  // Canadian-Bilingual
-#define USB_HID_COUNTRY_CANADIAN_FRENCH 4     // Canadian-French
-#define USB_HID_COUNTRY_CZECH_REPUBLIC 5      // Czech Republic
-#define USB_HID_COUNTRY_DANISH 6              // Danish
-#define USB_HID_COUNTRY_FINNISH 7             // Finnish
-#define USB_HID_COUNTRY_FRENCH 8              // French
-#define USB_HID_COUNTRY_GERMAN 9              // German
-#define USB_HID_COUNTRY_GREEK 10              // Greek
-#define USB_HID_COUNTRY_HEBREW 11             // Hebrew
-#define USB_HID_COUNTRY_HUNGARY 12            // Hungary
-#define USB_HID_COUNTRY_INTERNATIONAL_ISO 13  // International (ISO)
-#define USB_HID_COUNTRY_ITALIAN 14            // Italian
-#define USB_HID_COUNTRY_JAPAN_KATAKANA 15     // Japan (Katakana)
-#define USB_HID_COUNTRY_KOREAN 16             // Korean
-#define USB_HID_COUNTRY_LATIN_AMERICAN 17     // Latin American
-#define USB_HID_COUNTRY_NETHERLANDS_DUTCH 18  // Netherlands/Dutch
-#define USB_HID_COUNTRY_NORWEGIAN 19          // Norwegian
-#define USB_HID_COUNTRY_PERSIAN_FARSI 20      // Persian (Farsi)
-#define USB_HID_COUNTRY_POLAND 21             // Poland
-#define USB_HID_COUNTRY_PORTUGUESE 22         // Portuguese
-#define USB_HID_COUNTRY_RUSSIA 23             // Russia
-#define USB_HID_COUNTRY_SLOVAKIA 24           // Slovakia
-#define USB_HID_COUNTRY_SPANISH 25            // Spanish
-#define USB_HID_COUNTRY_SWEDISH 26            // Swedish
-#define USB_HID_COUNTRY_SWISS_FRENCH 27       // Swiss/French
-#define USB_HID_COUNTRY_SWISS_GERMAN 28       // Swiss/German
-#define USB_HID_COUNTRY_SWITZERLAND 29        // Switzerland
-#define USB_HID_COUNTRY_TAIWAN 30             // Taiwan
-#define USB_HID_COUNTRY_TURKISH_Q 31          // Turkish-Q
-#define USB_HID_COUNTRY_UK 32                 // UK
-#define USB_HID_COUNTRY_US 33                 // US
-#define USB_HID_COUNTRY_YUGOSLAVIA 34         // Yugoslavia
+#define USB_HID_NO_COUNTRY_CODE 0            // Not Supported
+#define USB_HID_COUNTRY_ARABIC 1             // Arabic
+#define USB_HID_COUNTRY_BELGIAN 2            // Belgian
+#define USB_HID_COUNTRY_CANADIAN_BILINGUAL 3 // Canadian-Bilingual
+#define USB_HID_COUNTRY_CANADIAN_FRENCH 4    // Canadian-French
+#define USB_HID_COUNTRY_CZECH_REPUBLIC 5     // Czech Republic
+#define USB_HID_COUNTRY_DANISH 6             // Danish
+#define USB_HID_COUNTRY_FINNISH 7            // Finnish
+#define USB_HID_COUNTRY_FRENCH 8             // French
+#define USB_HID_COUNTRY_GERMAN 9             // German
+#define USB_HID_COUNTRY_GREEK 10             // Greek
+#define USB_HID_COUNTRY_HEBREW 11            // Hebrew
+#define USB_HID_COUNTRY_HUNGARY 12           // Hungary
+#define USB_HID_COUNTRY_INTERNATIONAL_ISO 13 // International (ISO)
+#define USB_HID_COUNTRY_ITALIAN 14           // Italian
+#define USB_HID_COUNTRY_JAPAN_KATAKANA 15    // Japan (Katakana)
+#define USB_HID_COUNTRY_KOREAN 16            // Korean
+#define USB_HID_COUNTRY_LATIN_AMERICAN 17    // Latin American
+#define USB_HID_COUNTRY_NETHERLANDS_DUTCH 18 // Netherlands/Dutch
+#define USB_HID_COUNTRY_NORWEGIAN 19         // Norwegian
+#define USB_HID_COUNTRY_PERSIAN_FARSI 20     // Persian (Farsi)
+#define USB_HID_COUNTRY_POLAND 21            // Poland
+#define USB_HID_COUNTRY_PORTUGUESE 22        // Portuguese
+#define USB_HID_COUNTRY_RUSSIA 23            // Russia
+#define USB_HID_COUNTRY_SLOVAKIA 24          // Slovakia
+#define USB_HID_COUNTRY_SPANISH 25           // Spanish
+#define USB_HID_COUNTRY_SWEDISH 26           // Swedish
+#define USB_HID_COUNTRY_SWISS_FRENCH 27      // Swiss/French
+#define USB_HID_COUNTRY_SWISS_GERMAN 28      // Swiss/German
+#define USB_HID_COUNTRY_SWITZERLAND 29       // Switzerland
+#define USB_HID_COUNTRY_TAIWAN 30            // Taiwan
+#define USB_HID_COUNTRY_TURKISH_Q 31         // Turkish-Q
+#define USB_HID_COUNTRY_UK 32                // UK
+#define USB_HID_COUNTRY_US 33                // US
+#define USB_HID_COUNTRY_YUGOSLAVIA 34        // Yugoslavia
 #define USB_HID_COUNTRY_TURKISH_F \
-    35  // Turkish-F
-        //! @}
-        //! @}
+    35 // Turkish-F
+       //! @}
+       //! @}
 //! @}
 
 //! \name HID KEYS values
@@ -237,12 +237,12 @@ COMPILER_PACK_RESET()
 #define HID_SPACEBAR 44
 #define HID_UNDERSCORE 45
 #define HID_PLUS 46
-#define HID_OPEN_BRACKET 47   // {
-#define HID_CLOSE_BRACKET 48  // }
+#define HID_OPEN_BRACKET 47  // {
+#define HID_CLOSE_BRACKET 48 // }
 #define HID_BACKSLASH 49
-#define HID_ASH 50    // # ~
-#define HID_COLON 51  // ; :
-#define HID_QUOTE 52  // ' "
+#define HID_ASH 50   // # ~
+#define HID_COLON 51 // ; :
+#define HID_QUOTE 52 // ' "
 #define HID_TILDE 53
 #define HID_COMMA 54
 #define HID_DOT 55
@@ -314,4 +314,4 @@ COMPILER_PACK_RESET()
 #define HID_LED_KANA (1 << 4)
 //! @}
 
-#endif  // _USB_PROTOCOL_HID_H_
+#endif // _USB_PROTOCOL_HID_H_

@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,           KC_CMDQ, KC_CMDD, KC_CSTB, KC_C_TB, _______, _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, _______, KC_INS,  \
   KC_LSFT,          KC_CMDA, KC_CMDS, KC_C_LF, KC_C_RT, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END,  _______, KC_BSPC, \
   KC_LSFT, _______, KC_CMDZ, KC_CMDX, _______, KC_CMDC, KC_CMDV, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______,          _______, _______, \
-  KC_LCTL, KC_LALT, KC_LGUI,                   KC_TRNS,          _______, KC_RALT, KC_RGUI, KC_RCTL, RESET),
+  KC_LCTL, KC_LALT, KC_LGUI,                   KC_TRNS,          _______, KC_RALT, KC_RGUI, KC_RCTL, QK_BOOT),
 
 // mouse layer
 /*

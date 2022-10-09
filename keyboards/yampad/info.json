@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Yampad",
+    "manufacturer": "Mattia Dal Ben",
     "url": "",
     "maintainer": "mattdibi",
+    "usb": {
+        "vid": "0x5950",
+        "pid": "0x8369",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

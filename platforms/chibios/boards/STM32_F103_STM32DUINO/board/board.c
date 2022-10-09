@@ -16,9 +16,6 @@
 
 #include <hal.h>
 
-// Value to place in RTC backup register 10 for persistent bootloader mode
-#define RTC_BOOTLOADER_FLAG 0x424C
-
 /**
  * @brief   PAL setup.
  * @details Digital I/O ports static configuration as defined in @p board.h.
@@ -31,7 +28,9 @@ const PALConfig pal_default_config =
   {VAL_GPIOBODR, VAL_GPIOBCRL, VAL_GPIOBCRH},
   {VAL_GPIOCODR, VAL_GPIOCCRL, VAL_GPIOCCRH},
   {VAL_GPIODODR, VAL_GPIODCRL, VAL_GPIODCRH},
+#    if STM32_HAS_GPIOE
   {VAL_GPIOEODR, VAL_GPIOECRL, VAL_GPIOECRH},
+#    endif
 };
 #endif
 

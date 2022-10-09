@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,		KC_LGUI,	KC_LALT,	TG(_L3),	KC_SPC, 				KC_SPC,					MO(_L2),	KC_RALT,	KC_APP,					KC_RCTRL),
  
 [_L2] = LAYOUT_split_space(
-  _______,		KC_VOLD,	KC_VOLU,	KC_MUTE,	RESET,		_______,	KC_CALC,	KC_PGUP,	KC_UP,		KC_PGDN,	KC_PSCR,	KC_SLCK,	KC_PAUS,
+  _______,		KC_VOLD,	KC_VOLU,	KC_MUTE,	QK_BOOT,		_______,	KC_CALC,	KC_PGUP,	KC_UP,		KC_PGDN,	KC_PSCR,	KC_SLCK,	KC_PAUS,
   KC_CAPS,		KC_MPRV,	KC_MPLY,	KC_MNXT,	_______,	_______,	KC_HOME,	KC_LEFT,	KC_DOWN,	KC_RIGHT,	KC_INS,					_______,
   _______,		_______,	_______,	_______,	_______,	_______,	_______,	BL_TOGG,	BL_DEC,		BL_INC,		_______,				_______,
   _______,		_______,	_______,	_______,	_______, 				_______,				_______,	_______,	_______,				_______),
@@ -46,5 +46,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,		_______,	_______,	   KC_7,	   KC_8,	   KC_9,	_______,	_______,	_______,	_______,	_______,	_______,	_______,
   _______,		_______,	_______,	   KC_4,	   KC_5,	   KC_6,	_______,	_______,	_______,	_______,	_______,				_______,
   _______,		_______,	_______,	   KC_1,	   KC_2,	   KC_3,	_______,	_______,	_______,	_______,	_______,				_______,
-  _______,		_______,	_______,	   _______,    KC_0,	  KC_DOT, 	        	            _______,	_______,	_______,				RESET)
+  _______,		_______,	_______,	   _______,    KC_0,	  KC_DOT, 	        	            _______,	_______,	_______,				QK_BOOT)
 };

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MJ63",
+    "manufacturer": "MelGeek",
     "url": "",
     "maintainer": "melgeek001365",
+    "usb": {
+        "vid": "0xEDED",
+        "pid": "0x6063",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

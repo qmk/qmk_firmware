@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Matrix Lab Falcon",
+    "keyboard_name": "Falcon",
+    "manufacturer": "Matrix Lab",
     "url": "",
     "maintainer": "yulei (Astro)",
+    "usb": {
+        "vid": "0x4D58",
+        "pid": "0x474E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_hhkb": {
             "layout": [

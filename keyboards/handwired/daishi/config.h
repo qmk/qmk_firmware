@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D6D
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MetaMechs
-#define PRODUCT         Daishi
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 18
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D6, D7, E0, E1, C0, C1, C2 }
 #define MATRIX_COL_PINS { E6, E7, E3, B0, B1, B2, A6, A5, A4, A3, A2, A1, A0, F7, F6, F5, F4, F3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x0335
-#define PRODUCT_ID   0x0021
-#define DEVICE_VER   0x0001
-#define MANUFACTURER n2
-#define PRODUCT      halfcliff
-
 /* key matrix size */
 #define MATRIX_ROWS 20
 #define MATRIX_COLS 5
 
 #define MATRIX_ROW_PINS { F5, F6, F7, D7, B5, F5, F6, F7, D7, B5 }
 #define MATRIX_COL_PINS { B4, E6, C6, B6, B2 }
-#define UNUSED_PINS
 
 //#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { D4 }
@@ -63,7 +55,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

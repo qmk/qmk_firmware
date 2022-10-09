@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Torn / Split Through Hole",
+  "keyboard_name": "Torn",
+  "manufacturer": "richard.titmuss",
   "url": "https://github.com/rtitmuss/torn",
   "maintainer": "rtitmuss",
+  "usb": {
+    "vid": "0x7274",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_split_3x6_4": {
       "layout": [

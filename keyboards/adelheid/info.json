@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Adelheid",
+    "manufacturer": "floookay",
     "url": "https://github.com/floookay/adelheid",
     "maintainer": "floookay",
+    "usb": {
+        "vid": "0xF100",
+        "pid": "0xAD78",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

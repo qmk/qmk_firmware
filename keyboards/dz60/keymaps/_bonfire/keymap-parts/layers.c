@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * 
      * This is the KEYB/System layer.
      * Other keymaps call this a NAV layer, but it's more than just NAV-ing the board's layers.
-     * This Layer currently handles RGB and puts the board into RESET for flashing.
+     * This Layer currently handles RGB and puts the board into QK_BOOT for flashing.
      *
      * ~ key resets board to [BASE].
      * 1 key toggles [NRMN].
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * BACKSPACE puts board into reset.
      */
     [KEYB] = LAYOUT_bonfire(
-        TO(BASE), TG(NRMN), TO(GAME), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, 
+        TO(BASE), TG(NRMN), TO(GAME), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, 
         XXXXXXX,  RGB_TOG,  RGB_MOD,  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX,  BL_DEC,   BL_TOGG,  BL_INC,  BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,

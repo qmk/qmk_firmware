@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    __________, __________, __________, KC_END,     __________, __________, __________, __________, KC_INS,     __________, KC_DEL,     RALT(KC_Y) ,
    KC_TRNS,    __________, RALT(KC_S), __________, KC_PGDN,    RALT(KC_5), KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    RALT(KC_P), RALT(KC_Q) ,
    __________, KC_HOME,    __________, __________, __________, KC_PGUP,    __________, __________, __________, __________, __________, KC_ENT     ,
-   RESET,      __________, __________, __________, __________, KC_SPC,     KC_SPC,     __________, __________, __________, __________, __________
+   QK_BOOT,    __________, __________, __________, __________, KC_SPC,     KC_SPC,     __________, __________, __________, __________, __________
 ),
 
 // function key layer and some shift + (missing key at the small form factor)

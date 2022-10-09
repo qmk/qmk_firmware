@@ -39,7 +39,7 @@ For more customization possibilities, you may directly create a `key_override_t`
 This shows how the mentioned example of sending `delete` when `shift` + `backspace` are pressed is realized:
 
 ```c
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -107,10 +107,10 @@ The [Grave Escape feature](feature_grave_esc.md) is limited in its configurabili
 
 ```c
 // Shift + esc = ~
-const key_override_t tilde_esc_override = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, S(KC_GRAVE));
+const key_override_t tilde_esc_override = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, S(KC_GRV));
 
 // GUI + esc = `
-const key_override_t grave_esc_override = ko_make_basic(MOD_MASK_GUI, KC_ESC, KC_GRAVE);
+const key_override_t grave_esc_override = ko_make_basic(MOD_MASK_GUI, KC_ESC, KC_GRV);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
 	&tilde_esc_override,

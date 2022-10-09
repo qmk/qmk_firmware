@@ -2,10 +2,10 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-#include "keymap_fr_ch.h"
+#include "keymap_swiss_fr.h"
 #include "keymap_french.h"
 #include "keymap_german.h"
-#include "keymap_german_ch.h"
+#include "keymap_swiss_de.h"
 #include "keymap_nordic.h"
 #include "keymap_norwegian.h"
 #include "keymap_spanish.h"
@@ -35,7 +35,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

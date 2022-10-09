@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "108 Key with TrackPoint",
+  "keyboard_name": "108Key-TrackPoint",
+  "manufacturer": "QMK",
   "url": "",
   "maintainer": "mkem114",
+  "usb": {
+    "vid": "0x1234",
+    "pid": "0x5678",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

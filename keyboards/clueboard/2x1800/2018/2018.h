@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef TWOX1800_H
-#define TWOX1800_H
+
+#pragma once
 
 #include "quantum.h"
-
-#endif

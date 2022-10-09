@@ -7,6 +7,7 @@
 
 #undef  TAPPING_TERM
 #define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
 
 #undef  DEBOUNCE
 #define DEBOUNCE 15
@@ -24,7 +25,6 @@
 
 #define LEADER_TIMEOUT 1000
 #define PERMISSIVE_HOLD
-#define QMK_KEYS_PER_SCAN 4
 #define DANCING_TERM 175
 
 #define ONESHOT_TAP_TOGGLE 5

@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // 2: Cool Layer
   LAYOUT_all(
-    RESET,   BL_DEC,   BL_INC,  BL_ON,   BL_OFF, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, RGB_MODE_PLAIN, KC_TRNS,    \
+    QK_BOOT, BL_DEC,   BL_INC,  BL_ON,   BL_OFF, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, RGB_MODE_PLAIN, KC_TRNS,    \
     KC_NO,    KC_WH_U, KC_UP,   KC_WH_D, KC_BSPC,KC_HOME,KC_CALC,KC_NO,  KC_INS, KC_NO,   KC_PSCR, KC_SLCK,  KC_PAUS,           KC_DEL,       \
     KC_NO,    KC_LEFT, KC_DOWN, KC_RIGHT,KC_DEL, KC_END, KC_PGDN,KC_NO,  KC_NO,  KC_NO,   KC_HOME, KC_PGUP,  KC_NO,             KC_ENT,       \
     KC_LSFT,  KC_NO,   KC_NO,   KC_APP,  BL_STEP,KC_NO,  KC_NO,  KC_VOLD,KC_VOLU,KC_MUTE, KC_END,  KC_PGDN,  KC_RSFT, KC_PGUP,  TG(2),       \
@@ -47,7 +47,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     edit = false;
   }
 
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case 1:
       rgblight_mode(1);
       rgblight_setrgb(0xD3, 0x7F, 0xED);

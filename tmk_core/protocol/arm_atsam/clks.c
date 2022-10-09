@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 volatile clk_t    system_clks;
 volatile uint64_t ms_clk;
 uint32_t          usec_delay_mult;
-#define USEC_DELAY_LOOP_CYCLES 3  // Sum of instruction cycles in us delay loop
+#define USEC_DELAY_LOOP_CYCLES 3 // Sum of instruction cycles in us delay loop
 
 const uint32_t sercom_apbbase[] = {(uint32_t)SERCOM0, (uint32_t)SERCOM1, (uint32_t)SERCOM2, (uint32_t)SERCOM3, (uint32_t)SERCOM4, (uint32_t)SERCOM5};
 const uint8_t  sercom_pchan[]   = {7, 8, 23, 24, 34, 35};
@@ -59,9 +59,9 @@ void CLK_oscctrl_init(void) {
     while (posctrl->Dpll[USE_DPLL_IND].DPLLSYNCBUSY.bit.ENABLE) {
         DBGC(DC_CLK_OSC_INIT_DPLL_SYNC_DISABLE);
     }
-    posctrl->Dpll[USE_DPLL_IND].DPLLCTRLB.bit.REFCLK = 2;          // select XOSC0 (16MHz)
-    posctrl->Dpll[USE_DPLL_IND].DPLLCTRLB.bit.DIV    = 7;          // 16 MHz / (2 * (7 + 1)) = 1 MHz
-    posctrl->Dpll[USE_DPLL_IND].DPLLRATIO.bit.LDR    = PLL_RATIO;  // 1 MHz * (PLL_RATIO(47) + 1) = 48MHz
+    posctrl->Dpll[USE_DPLL_IND].DPLLCTRLB.bit.REFCLK = 2;         // select XOSC0 (16MHz)
+    posctrl->Dpll[USE_DPLL_IND].DPLLCTRLB.bit.DIV    = 7;         // 16 MHz / (2 * (7 + 1)) = 1 MHz
+    posctrl->Dpll[USE_DPLL_IND].DPLLRATIO.bit.LDR    = PLL_RATIO; // 1 MHz * (PLL_RATIO(47) + 1) = 48MHz
     while (posctrl->Dpll[USE_DPLL_IND].DPLLSYNCBUSY.bit.DPLLRATIO) {
         DBGC(DC_CLK_OSC_INIT_DPLL_SYNC_RATIO);
     }
@@ -87,7 +87,7 @@ void CLK_oscctrl_init(void) {
     system_clks.freq_gclk[0] = system_clks.freq_dpll[0];
 
     usec_delay_mult = system_clks.freq_gclk[0] / (USEC_DELAY_LOOP_CYCLES * 1000000);
-    if (usec_delay_mult < 1) usec_delay_mult = 1;  // Never allow a multiplier of zero
+    if (usec_delay_mult < 1) usec_delay_mult = 1; // Never allow a multiplier of zero
 
     DBGC(DC_CLK_OSC_INIT_COMPLETE);
 }
@@ -240,7 +240,7 @@ uint32_t CLK_enable_timebase(void) {
     // ptc4->COUNT16.DBGCTRL.bit.DBGRUN = 1;
 
     // wave mode
-    ptc4->COUNT16.WAVE.bit.WAVEGEN = 1;  // MFRQ match frequency mode, toggle each CC match
+    ptc4->COUNT16.WAVE.bit.WAVEGEN = 1; // MFRQ match frequency mode, toggle each CC match
     // generate event for next stage
     ptc4->COUNT16.EVCTRL.bit.MCEO0 = 1;
 
@@ -272,9 +272,9 @@ uint32_t CLK_enable_timebase(void) {
         DBGC(DC_CLK_ENABLE_TIMEBASE_TC0_SYNC_SWRST_2);
     }
     // CTRLA as default
-    ptc0->COUNT32.CTRLA.bit.MODE   = 2;  // 32 bit mode
-    ptc0->COUNT32.EVCTRL.bit.TCEI  = 1;  // enable incoming events
-    ptc0->COUNT32.EVCTRL.bit.EVACT = 2;  // count events
+    ptc0->COUNT32.CTRLA.bit.MODE   = 2; // 32 bit mode
+    ptc0->COUNT32.EVCTRL.bit.TCEI  = 1; // enable incoming events
+    ptc0->COUNT32.EVCTRL.bit.EVACT = 2; // count events
 
     DBGC(DC_CLK_ENABLE_TIMEBASE_TC0_COMPLETE);
 
@@ -284,10 +284,10 @@ uint32_t CLK_enable_timebase(void) {
     pmclk->APBBMASK.bit.EVSYS_               = 1;
     pgclk->PCHCTRL[EVSYS_GCLK_ID_0].bit.GEN  = GEN_TC45;
     pgclk->PCHCTRL[EVSYS_GCLK_ID_0].bit.CHEN = 1;
-    pevsys->USER[44].reg                     = EVSYS_ID_USER_PORT_EV_0;               // TC0 will get event channel 0
-    pevsys->Channel[0].CHANNEL.bit.EDGSEL    = EVSYS_CHANNEL_EDGSEL_RISING_EDGE_Val;  // Rising edge
-    pevsys->Channel[0].CHANNEL.bit.PATH      = EVSYS_CHANNEL_PATH_SYNCHRONOUS_Val;    // Synchronous
-    pevsys->Channel[0].CHANNEL.bit.EVGEN     = EVSYS_ID_GEN_TC4_MCX_0;                // TC4 MC0
+    pevsys->USER[44].reg                     = EVSYS_ID_USER_PORT_EV_0;              // TC0 will get event channel 0
+    pevsys->Channel[0].CHANNEL.bit.EDGSEL    = EVSYS_CHANNEL_EDGSEL_RISING_EDGE_Val; // Rising edge
+    pevsys->Channel[0].CHANNEL.bit.PATH      = EVSYS_CHANNEL_PATH_SYNCHRONOUS_Val;   // Synchronous
+    pevsys->Channel[0].CHANNEL.bit.EVGEN     = EVSYS_ID_GEN_TC4_MCX_0;               // TC4 MC0
 
     DBGC(DC_CLK_ENABLE_TIMEBASE_EVSYS_COMPLETE);
 
@@ -301,15 +301,15 @@ uint32_t CLK_enable_timebase(void) {
 }
 
 void CLK_delay_us(uint32_t usec) {
-    asm("CBZ R0, return\n\t"  // If usec == 0, branch to return label
+    asm("CBZ R0, return\n\t" // If usec == 0, branch to return label
     );
-    asm("MULS R0, %0\n\t"        // Multiply R0(usec) by usec_delay_mult and store in R0
-        ".balign 16\n\t"         // Ensure loop is aligned for fastest performance
-        "loop: SUBS R0, #1\n\t"  // Subtract 1 from R0 and update flags (1 cycle)
-        "BNE loop\n\t"           // Branch if non-zero to loop label (2 cycles)  NOTE: USEC_DELAY_LOOP_CYCLES is the sum of loop cycles
-        "return:\n\t"            // Return label
-        :                        // No output registers
-        : "r"(usec_delay_mult)   // For %0
+    asm("MULS R0, %0\n\t"       // Multiply R0(usec) by usec_delay_mult and store in R0
+        ".balign 16\n\t"        // Ensure loop is aligned for fastest performance
+        "loop: SUBS R0, #1\n\t" // Subtract 1 from R0 and update flags (1 cycle)
+        "BNE loop\n\t"          // Branch if non-zero to loop label (2 cycles)  NOTE: USEC_DELAY_LOOP_CYCLES is the sum of loop cycles
+        "return:\n\t"           // Return label
+        :                       // No output registers
+        : "r"(usec_delay_mult)  // For %0
     );
     // Note: BX LR generated
 }

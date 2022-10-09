@@ -4,9 +4,9 @@
 
 A 4x5 keyboard with rotary encoder, QWIIC connector, and header pinouts for easy access to all pins on the Proton C. This keyboard was built for QMK exploration big and small. What will you discover next?
 
-Keyboard Maintainer: [brandenbyers](https://github.com/brandenbyers)  
-Hardware Supported: theDora  
-Hardware Availability: [cKeys.org](https://ckeys.org)
+* Keyboard Maintainer: [brandenbyers](https://github.com/brandenbyers)
+* Hardware Supported: theDora
+* Hardware Availability: [cKeys.org](https://ckeys.org)
 
 Make example for this keyboard (after setting up your build environment):
 

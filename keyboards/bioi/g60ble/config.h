@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6583
-#define PRODUCT_ID 0x6080
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Basic IO Instruments
-#define PRODUCT BIOI G60 BLE
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -18,7 +11,6 @@
     { E6, B0, F1, F5, F4 }
 #define MATRIX_COL_PINS \
     { F6, F7, B3, C7, C6, B6, B5, D5, B4, D7, D6, D4, D1, D0 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

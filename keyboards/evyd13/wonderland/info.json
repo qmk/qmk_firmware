@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Wonderland",
+    "manufacturer": "Evyd13",
     "url": "",
     "maintainer": "evyd13",
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0xA71C",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

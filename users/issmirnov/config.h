@@ -1,8 +1,5 @@
 #pragma once
 
-// Allows sending more than one key per scan. Useful for chords.
-#define QMK_KEYS_PER_SCAN 4
-
 // how long before a tap becomes a hold
 #undef TAPPING_TERM
 #define TAPPING_TERM 100

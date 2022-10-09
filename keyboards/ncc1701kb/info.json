@@ -1,7 +1,13 @@
 {
   "keyboard_name": "NCC-1701-KB",
+  "manufacturer": "J2L Designs",
   "url": "",
   "maintainer": "jessel92",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1701",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

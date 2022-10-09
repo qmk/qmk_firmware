@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "eeconfig.h"  // for EECONFIG_SIZE
+#include "eeconfig.h" // for EECONFIG_SIZE
 
 // Keyboard level code can change where VIA stores the magic.
 // The magic is the build date YYMMDD encoded as BCD in 3 bytes,
@@ -54,12 +54,14 @@
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0
 #endif
 
+#define VIA_EEPROM_CONFIG_END (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
-#define VIA_PROTOCOL_VERSION 0x0009
+#define VIA_PROTOCOL_VERSION 0x000A
 
 enum via_command_id {
-    id_get_protocol_version                 = 0x01,  // always 0x01
+    id_get_protocol_version                 = 0x01, // always 0x01
     id_get_keyboard_value                   = 0x02,
     id_set_keyboard_value                   = 0x03,
     id_dynamic_keymap_get_keycode           = 0x04,
@@ -78,11 +80,13 @@ enum via_command_id {
     id_dynamic_keymap_get_layer_count       = 0x11,
     id_dynamic_keymap_get_buffer            = 0x12,
     id_dynamic_keymap_set_buffer            = 0x13,
+    id_dynamic_keymap_get_encoder           = 0x14,
+    id_dynamic_keymap_set_encoder           = 0x15,
     id_unhandled                            = 0xFF,
 };
 
 enum via_keyboard_value_id {
-    id_uptime              = 0x01,  //
+    id_uptime              = 0x01, //
     id_layout_options      = 0x02,
     id_switch_matrix_state = 0x03
 };
@@ -159,6 +163,7 @@ void via_init(void);
 // Used by VIA to store and retrieve the layout options.
 uint32_t via_get_layout_options(void);
 void     via_set_layout_options(uint32_t value);
+void     via_set_layout_options_kb(uint32_t value);
 
 // Called by QMK core to process VIA-specific keycodes.
 bool process_record_via(uint16_t keycode, keyrecord_t *record);

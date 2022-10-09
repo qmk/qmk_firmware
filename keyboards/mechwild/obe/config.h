@@ -19,18 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1707
-#define DEVICE_VER      0x0201
-#define MANUFACTURER    MechWild
-#define PRODUCT         OrangeBoyErgo
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 10
-
-#define EEPROM_I2C_24LC64
 
 /*
  * Keyboard Matrix Assignments
@@ -44,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { A8, B15, B14, B13, B12, A15, B3 }
 #define MATRIX_COL_PINS { B10, B1, B0, A7, A6, A5, A4, A3, A2, A1 }
-#define UNUSED_PINS
 
 /* encoder pins */
 #define ENCODERS_PAD_A { B5 }
@@ -62,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN B9
 
 /* RGB settings, uncomment this define to enable RGB */
-//#define RGB_DI_PIN A0
+#define RGB_DI_PIN A0
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 10
 #    define RGBLIGHT_HUE_STEP 8
@@ -139,10 +129,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 5

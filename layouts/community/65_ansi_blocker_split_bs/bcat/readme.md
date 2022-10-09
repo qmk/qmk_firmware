@@ -12,6 +12,6 @@ keys, an HHKB-style (split) backspace, and media controls in the function layer
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/CsxfVfd.png)
+![Function layer layout](https://i.imgur.com/s4hS9ZK.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/f29128427f674c43777f045e363d1b44))

@@ -34,7 +34,7 @@ def generate_rgb_breathe_table(cli):
     """
     breathe_values = [0] * 256
     for pos in range(0, 256):
-        breathe_values[pos] = (int)((math.exp(math.sin((pos/255) * math.pi)) - cli.args.center / math.e) * (cli.args.max / (math.e - 1 / math.e)))  # noqa: yapf insists there be no whitespace around /
+        breathe_values[pos] = (int)((math.exp(math.sin((pos / 255) * math.pi)) - cli.args.center / math.e) * (cli.args.max / (math.e - 1 / math.e)))
 
     values_template = ''
     for s in range(0, 3):
@@ -46,7 +46,7 @@ def generate_rgb_breathe_table(cli):
             values_template += '    ' if pos % 8 == 0 else ''
             values_template += '0x{:02X}'.format(breathe_values[pos])
             values_template += ',' if (pos + step) < 256 else ''
-            values_template += '\n' if (pos+step) % 8 == 0 else ' '  # noqa: yapf insists there be no whitespace around +
+            values_template += '\n' if (pos + step) % 8 == 0 else ' '
 
         values_template += '#endif'
         values_template += '\n\n' if s < 2 else ''

@@ -33,7 +33,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
-#include "outputselect.h"
 
 #ifdef NKRO_ENABLE
 #include "keycode_config.h"
@@ -46,8 +45,8 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-#ifdef MODULE_ADAFRUIT_BLE
-#include "adafruit_ble.h"
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+#include "bluefruit_le.h"
 #else
 #include "bluetooth.h"
 #endif
@@ -320,7 +319,7 @@ int main(void)
     setup_usb();
     sei();
 
-#if defined(MODULE_ADAFRUIT_EZKEY) || defined(MODULE_RN42)
+#if defined(BLUETOOTH_RN42)
     serial_init();
 #endif
 

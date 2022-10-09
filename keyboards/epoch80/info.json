@@ -1,7 +1,13 @@
 {
     "keyboard_name": "epoch80",
+    "manufacturer": "caryworks",
     "url": "https://kbdfans.com/collections/80-diy-kit/products/coming-soon-epoch-80-mechanical-keyboard",
     "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0x6463",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

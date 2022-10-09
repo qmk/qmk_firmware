@@ -1,7 +1,13 @@
 {
     "keyboard_name": "NEISO",
+    "manufacturer": "Space City Keyboards",
     "url": "",
     "maintainer": "jrfhoutx",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0.25, "y":0, "w":2, "h":1.25}, {"x":2.75, "y":0.25, "w":1.25, "h":2}, {"x":1.5, "y":1.5}, {"x":0, "y":1.75, "w":1.25, "h":2}, {"x":1.75, "y":2.75, "w":2, "h":1.25}]

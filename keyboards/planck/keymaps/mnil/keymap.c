@@ -29,8 +29,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_QWERTY] = LAYOUT_planck_2x2u(
-    KC_TRNS, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_AA,
-    KC_TRNS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    SE_OSLH, SE_AE,
+    KC_TRNS, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG,
+    KC_TRNS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    SE_ODIA, SE_ADIA,
     KC_TRNS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYMBOLS] = LAYOUT_planck_2x2u(
     KC_TRNS, KC_NO,   SE_PIPE, SE_LBRC, SE_RBRC, KC_NO,   S(KC_5), SE_QUES, SE_AT,   SE_EQL,  SE_DLR,  KC_BSPC,
     KC_TRNS, SE_LCBR, SE_RCBR, SE_LPRN, SE_RPRN, KC_NO,   SE_PLUS, S(KC_1), S(KC_2), S(KC_3), SE_AMPR, KC_QUOT,
-    KC_TRNS, M_TILD,  M_CIRC,  SE_LESS, SE_GRTR, KC_NO,   SE_APOS, SE_SLSH, SE_BSLS, SE_ASTR, M_BTCK,  KC_ENT,
+    KC_TRNS, M_TILD,  M_CIRC,  SE_LABK, SE_RABK, KC_NO,   SE_QUOT, SE_SLSH, SE_BSLS, SE_ASTR, M_BTCK,  KC_ENT,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUMPAD] = LAYOUT_planck_2x2u(
-    KC_TRNS, QUIT,    WIN,     MVWSL,   MVWSR,   CRYWS,   TERM,    KC_7,    KC_8,    KC_9,    KC_COMM, RESET,
+    KC_TRNS, QUIT,    WIN,     MVWSL,   MVWSR,   CRYWS,   TERM,    KC_7,    KC_8,    KC_9,    KC_COMM, QK_BOOT,
     KC_TRNS, CS_TAB,  C_TAB,   PRVWS,   NXTWS,   I3MOD,   OPEN,    KC_4,    KC_5,    KC_6,    KC_0,    KC_NO,
     KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, MOVWS,   BROWSER, KC_1,    KC_2,    KC_3,    KC_DOT,  KC_NO,
     QWE_COL, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS

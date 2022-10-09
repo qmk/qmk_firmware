@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FNMS] = LAYOUT_65_ansi_split_bs(
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, _______, KC_DEL,  KC_MPLY,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         RESET,   KC_VOLU,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         QK_BOOT, KC_VOLU,
     AG_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          EEP_RST,         KC_VOLD,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   KC_BTN1, KC_MS_U,KC_MNXT,
     _______, _______, _______,                            _______,                   _______,          _______,          KC_MS_L,KC_MS_D, KC_MS_R
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // layer_state_t layer_state_set_user(layer_state_t state) {
-//   switch(biton32(state)) {
+//   switch(get_highest_layer(state)) {
 //   case _FNMS:
 //     led_off();
 //     rgb_on();

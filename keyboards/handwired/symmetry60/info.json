@@ -1,7 +1,13 @@
 {
   "Keyboard_name": "Symmetry60",
+  "manufacturer": "Marhalloweenvt",
   "url": "",
   "maintainer": "marhalloweenvt",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
   "layouts": {
       "LAYOUT_ortho_5x14": {
           "layout": [

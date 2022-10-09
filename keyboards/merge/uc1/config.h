@@ -16,19 +16,12 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4D65
-#define PRODUCT_ID      0x5543
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Merge
-#define PRODUCT         UC-1
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 2
 
 #define MATRIX_ROW_PINS { B1, B2 }
 #define MATRIX_COL_PINS { B3, B4 }
-#define UNUSED_PINS
 
 #define RGB_DI_PIN B5
 #define RGBLED_NUM 12

@@ -1,6 +1,12 @@
 {
     "keyboard_name": "eb46",
+    "manufacturer": "Elliot Powell",
     "maintainer": "e11i0t23",
+    "usb": {
+        "vid": "0x4646",
+        "pid": "0xFEED",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

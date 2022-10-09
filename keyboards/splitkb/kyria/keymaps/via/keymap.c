@@ -191,7 +191,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         // QMK Logo and version information
         // clang-format off
@@ -244,5 +244,6 @@ void oled_task_user(void) {
         // clang-format on
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
+    return false;
 }
 #endif

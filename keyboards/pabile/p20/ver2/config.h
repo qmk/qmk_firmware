@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6666
-#define PRODUCT_ID      0x6667
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Pabile
-#define PRODUCT         P20 ver2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* pin-out */
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { D1, D0, D4, B2 }
-#define UNUSED_PINS
  
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

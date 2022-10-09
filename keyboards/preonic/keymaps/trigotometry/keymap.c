@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, XXXXXXX, XXXXXXX, KC_PSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
   _______, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_LABK, KC_RABK, KC_RPRN, KC_RCBR, KC_RBRC, KC_PIPE, XXXXXXX, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_PMNS, KC_UNDS, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, QWERTY ,  GAMING, XXXXXXX, RESET    \
+  _______, _______, _______, _______, _______, _______, _______, _______, QWERTY ,  GAMING, XXXXXXX, QK_BOOT    \
 )
 
 };

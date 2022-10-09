@@ -16,6 +16,10 @@
 
 #pragma once
 
+//#ifdef KEYBOARD_mechwild_obe_eeprom
+//#    include "eeprom.h"
+//#endif
+
 #include "quantum.h"
 
 /* This is a shortcut to help you visually see your layout.

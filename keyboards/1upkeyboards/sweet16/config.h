@@ -2,11 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6F75 // OU
-#define MANUFACTURER    1up Keyboards
-#define PRODUCT         Sweet16
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4

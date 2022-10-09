@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "walter",
+    "keyboard_name": "Walter",
+    "manufacturer": "Swiftrax",
     "url": "https://github.com/swiftrax",
     "maintainer": "swiftrax",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xE964",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

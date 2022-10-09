@@ -1,13 +1,18 @@
 {
-    "keyboard_name": "Perixx Periboard-512",
+    "keyboard_name": "Periboard 512",
+    "manufacturer": "Sife",
     "url": "https://github.com/Sife-ops/qmk_firmware/tree/periboard_512/keyboards/converter/periboard_512",
     "maintainer": "Sife-ops",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "cols": ["B7", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "E0", "E1", "C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7"],
         "rows": ["B6", "B5", "B4", "B3", "B2", "B1", "B0", "E7"]
     },
-    "url": "",
     "layouts": {
         "LAYOUT": {
             "layout": [

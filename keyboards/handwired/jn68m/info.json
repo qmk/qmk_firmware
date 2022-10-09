@@ -1,7 +1,13 @@
 {
   "keyboard_name": "JN68M",
+  "manufacturer": "MxBlue",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xC714",
+    "pid": "0x1010",
+    "device_version": "0.0.1"
+  },
   "bootloader": "atmel-dfu",
   "layouts": {
       "LAYOUT": {

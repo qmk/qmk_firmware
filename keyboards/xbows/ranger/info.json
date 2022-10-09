@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Ranger",
+    "manufacturer": "X-BOWS",
     "url": "",
     "maintainer": "xbows-qmk",
+    "usb": {
+        "vid": "0x5842",
+        "pid": "0x5261",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_ansi"
     },

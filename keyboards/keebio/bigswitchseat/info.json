@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "Big Switch Seat",
+    "manufacturer": "Keebio",
+    "url": "https://robotcandy.company/",
+    "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x1011",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"x": 0, "y": 0, "w": 4, "h": 4}]
+        }
+    }
+}

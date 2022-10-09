@@ -164,7 +164,7 @@ LAYOUT_ergodox(
         KC_NO,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,
         KC_NO,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_NO,
         KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-                                      KC_FN4, KC_NO,
+                                      KC_NO, KC_NO,
                                            KC_NO,
                                  KC_C,   KC_V,   KC_NO,
         // right hand
@@ -182,7 +182,7 @@ LAYOUT_ergodox(
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

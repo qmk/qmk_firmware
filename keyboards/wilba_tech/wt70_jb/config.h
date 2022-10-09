@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x001F // PCB #31
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT70-JB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17
@@ -40,7 +33,6 @@
 */
 #define MATRIX_ROW_PINS { E6, F0, F4, F6, F7 }
 #define MATRIX_COL_PINS { F5, D5, D3, D2, D1, D0, B7, C7, C6, B6, B5, B4, D7, D6, D4, B0, B3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

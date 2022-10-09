@@ -183,7 +183,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |-----------------------------------|  |-----------------------------------|
  * |     |     | App | LCAD|MRDCC|NmLck|  |MVTDL|MVTDC|MVTDN|MVTDR|     |     |
  * |-----------------------------------|  |-----------------------------------|
- * |     |     |     |     |     |     |  |     |     |     |     |     |     |
+ * |     |     |MStop|MPrev|MPlay|MNext|  |MMute|MVolD|MVolD|     |     |     |
  * |-----------------------------------|  |-----------------------------------|
  * |     |     |     |     |     |     |  |     |     |     |     |     |     |
  * `-----------------------------------'  `-----------------------------------'
@@ -191,12 +191,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SLCK,  KC_PSCR,  XXXXXXX
 #define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_lcad,  MC_rdcc,  KC_NLCK
-#define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+#define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  KC_MSTP,  KC_MPRV,  KC_MPLY,  KC_MNXT
 #define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,  _______,  _______
 
 #define ___________________CONVENIENCE_R1__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC
 #define ___________________CONVENIENCE_R2__________________  MC_vtdl,  MC_vtdc,  MC_vtdn,  MC_vtdr,  XXXXXXX,  XXXXXXX
-#define ___________________CONVENIENCE_R3__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
+#define ___________________CONVENIENCE_R3__________________  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  _______
 #define ___________________CONVENIENCE_R4__________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
 
 /* Windows Terminal Layer
@@ -321,3 +321,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     CUSTOM_NAME(vtdc)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_F4))))     CUSTOM_DELIM() \
     CUSTOM_NAME(vtdn)       CUSTOM_STRING(SS_LCTL(SS_LGUI("d")))              CUSTOM_DELIM() \
     CUSTOM_NAME(vtdr)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))))
+
+// Additional color definitions for simplicity
+#define HS_AZURE       132, 102
+#define HS_BLACK         0,   0
+#define HS_BLUE        170, 255
+#define HS_CHARTREUSE   64, 255
+#define HS_CORAL        11, 176
+#define HS_CYAN        128, 255
+#define HS_GOLD         36, 255
+#define HS_GOLDENROD    30, 218
+#define HS_GRAY          0,   0
+#define HS_GREEN        85, 255
+#define HS_MAGENTA     213, 255
+#define HS_ORANGE       28, 255
+#define HS_PINK        234, 128
+#define HS_PURPLE      191, 255
+#define HS_RED           0, 255
+#define HS_SPRINGGREEN 106, 255
+#define HS_TEAL        128, 255
+#define HS_TURQUOISE   123,  90
+#define HS_WHITE         0,   0
+#define HS_YELLOW       43, 255

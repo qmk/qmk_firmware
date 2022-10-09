@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "ketch",
+  "keyboard_name": "Ketch",
+  "manufacturer": "trash man",
   "url": "https://trashman.wiki/pcbs/ketch",
   "maintainer": "jetpacktuxedo",
+  "usb": {
+    "vid": "0xFEAE",
+    "pid": "0x8947",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

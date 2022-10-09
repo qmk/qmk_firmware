@@ -37,7 +37,7 @@ enum tap_dances{
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder*/
-    switch(biton32(layer_state)){
+    switch(get_highest_layer(layer_state)){
 		case _MAIN:
 			if (clockwise) {
 			  tap_code(KC_VOLU);

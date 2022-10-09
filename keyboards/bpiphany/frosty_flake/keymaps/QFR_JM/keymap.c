@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ),
 
 [_LOWER] = LAYOUT_tkl(\
-      RESET,    _______,    _______,   _______, _______,  KC_MPLY,   KC_MSTP,   KC_MPRV,   KC_MNXT,  _______, KC_MUTE, KC_VOLD, KC_VOLU,           QWERTY, COLEMAK,DVORAK, \
+      QK_BOOT,  _______,    _______,   _______, _______,  KC_MPLY,   KC_MSTP,   KC_MPRV,   KC_MNXT,  _______, KC_MUTE, KC_VOLD, KC_VOLU,           QWERTY, COLEMAK,DVORAK, \
       KC_TILD,  KC_EXLM,    KC_AT,     KC_HASH,  KC_DLR,  KC_PERC,   KC_CIRC,   KC_AMPR,   KC_ASTR,  KC_LBRC, KC_RBRC, KC_UNDS, KC_PLUS, KC_BSPC,  _______,_______,_______, \
       KC_TAB,   KC_PGUP,    KC_HOME,   KC_UP,    KC_END,  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_PIPE,  _______,_______,_______, \
       KC_CAPS,  KC_PGDN,    KC_LEFT,   KC_DOWN,  KC_RGHT, XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, _______,          _______,                           \

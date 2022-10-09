@@ -1,0 +1,57 @@
+{
+    "keyboard_name": "Dactyl Min (3x5_5)",
+    "manufacturer": "skakunm",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_3x5_5": {
+            "layout": [
+                {"label":"L10", "x":0, "y":0},
+                {"label":"L11", "x":1, "y":0},
+                {"label":"L12", "x":2, "y":0},
+                {"label":"L13", "x":3, "y":0},
+                {"label":"L14", "x":4, "y":0},
+                {"label":"R13", "x":9, "y":0},
+                {"label":"R13", "x":10, "y":0},
+                {"label":"R12", "x":11, "y":0},
+                {"label":"R11", "x":12, "y":0},
+                {"label":"R10", "x":13, "y":0},
+                {"label":"L20", "x":0, "y":1},
+                {"label":"L21", "x":1, "y":1},
+                {"label":"L22", "x":2, "y":1},
+                {"label":"L23", "x":3, "y":1},
+                {"label":"L24", "x":4, "y":1},
+                {"label":"R23", "x":9, "y":1},
+                {"label":"R23", "x":10, "y":1},
+                {"label":"R22", "x":11, "y":1},
+                {"label":"R21", "x":12, "y":1},
+                {"label":"R20", "x":13, "y":1},
+                {"label":"L30", "x":0, "y":2},
+                {"label":"L31", "x":1, "y":2},
+                {"label":"L32", "x":2, "y":2},
+                {"label":"L33", "x":3, "y":2},
+                {"label":"L34", "x":4, "y":2},
+                {"label":"R33", "x":9, "y":2},
+                {"label":"R33", "x":10, "y":2},
+                {"label":"R32", "x":11, "y":2},
+                {"label":"R31", "x":12, "y":2},
+                {"label":"R30", "x":13, "y":2},
+                {"label":"L00", "x":4, "y":3},
+                {"label":"L01", "x":5, "y":3},
+                {"label":"R01", "x":8, "y":3},
+                {"label":"R00", "x":9, "y":3},
+                {"label":"L02", "x":4, "y":4},
+                {"label":"L03", "x":5, "y":4},
+                {"label":"L04", "x":6, "y":4},
+                {"label":"R04", "x":7, "y":4},
+                {"label":"R03", "x":8, "y":4},
+                {"label":"R02", "x":9, "y":4}
+            ]
+        }
+    }
+}

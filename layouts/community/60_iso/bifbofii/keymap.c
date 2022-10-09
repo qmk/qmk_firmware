@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------------------------------+ tog +
      * |         |     |     |     |     |Gamin|     |     |     | Lnx |     |     |       |     |
      * |-----------------------------------------------------------------------------------------+
-     * |           |     |     |     |     |RESET|     |     |     |     |     |                 |
+     * |           |     |     |     |     |QK_BOOT|     |     |     |     |     |                 |
      * |-----------------------------------------------------------------------------------------+
      * |      |       |       |                                   |       |       |       | Trans|
      * `-----------------------------------------------------------------------------------------'
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, RGB_VAI, XXXXXXX,
         XXXXXXX, XXXXXXX, UC_M_WC, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, UC_M_OS, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG(GAMING), XXXXXXX, XXXXXXX, XXXXXXX, UC_M_LN, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX,                               XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS
     ),
 

@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox(
        // left hand
           VRSN,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
-         RESET,_______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______,
+         QK_BOOT,_______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______,
        _______,_______,KC_MS_L,KC_MS_D,KC_MS_R,_______,
        _______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,
         _______,_______,_______,_______,_______,
@@ -139,7 +139,7 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-   uint8_t layer = biton32(layer_state);
+   uint8_t layer = get_highest_layer(layer_state);
 
    if(layer == 1)
    {
@@ -157,7 +157,7 @@ void matrix_scan_user(void) {
    }
 
   if(keyboard_report->mods & MOD_BIT(KC_LSFT))
-  { 
+  {
       ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
       ergodox_right_led_1_on ();
   } else {
@@ -182,7 +182,7 @@ void matrix_scan_user(void) {
   }
 
   if(keyboard_report->mods & MOD_BIT(KC_LCTRL))
-  { 
+  {
       ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
       ergodox_right_led_3_on ();
   } else {
@@ -195,7 +195,7 @@ void matrix_scan_user(void) {
 };
 
 void led_set_user(uint8_t usb_led){
- if (usb_led & (1 << USB_LED_CAPS_LOCK)) 
+ if (usb_led & (1 << USB_LED_CAPS_LOCK))
    {
       capsOn = true;
    }else {

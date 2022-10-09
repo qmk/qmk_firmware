@@ -40,4 +40,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-enum layers { _MAIN, _LOWER, _UPPER, _ADJUST };
+enum layers { _MAIN, _GAMING, _LOWER, _UPPER, _ADJUST };

@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_AMPR            ,KC_LPRN            ,KC_RPRN            ,CLN_EQ             ,KC_KP_PLUS         ,KC_PIPE            ,
     LALT(LSFT(KC_DOWN)),KC_EXLM            ,KC_TILD            ,KC_CIRC            ,ARROW              ,KC_BSLASH          ,KC_BSLASH          ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
-    RESET              ,KC_TRANSPARENT     ,
+    QK_BOOT              ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_SPACE
 ),

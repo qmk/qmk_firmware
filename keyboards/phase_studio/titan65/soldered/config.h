@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5054
-#define PRODUCT_ID      0xBB92
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Phase Studio
-#define PRODUCT         Titan 65 (soldered)
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

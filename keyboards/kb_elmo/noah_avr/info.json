@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Noah AVR",
+    "manufacturer": "kb-elmo",
     "url": "https://github.com/kb-elmo/noah_avr",
     "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0x1DB0",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
         "LAYOUT_ansi_splitbs": "LAYOUT_65_ansi_blocker_split_bs",

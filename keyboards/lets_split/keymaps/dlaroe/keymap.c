@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT( \
-  LALT(LCTL(KC_INS)), QWERTY,   _______, _______, RESET, M(0),  _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), \
+  LALT(LCTL(KC_INS)), QWERTY,   _______, _______, QK_BOOT, M(0),  _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), \
   _______, _______, _______, AU_ON,   AU_OFF,  GAME, AG_SWAP, AG_NORM,  _______, _______,  _______,  _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  KC_MPRV, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, \
   BACKLIT, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, BL_TOGG, BL_DEC , BL_INC , BL_STEP \

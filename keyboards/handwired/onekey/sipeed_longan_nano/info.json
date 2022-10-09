@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "Onekey Sipeed Longan Nano",
+    "processor": "GD32VF103",
+    "bootloader": "gd32v-dfu",
+    "board": "SIPEED_LONGAN_NANO",
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["A7"]
+    },
+    "backlight": {
+        "pin": "A1"
+    },
+    "rgblight": {
+        "pin": "A2"
+    }
+}

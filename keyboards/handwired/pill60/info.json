@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Pill60",
+    "manufacturer": "IktaS",
     "url": "https://github.com/IktaS/Pill60",
     "maintainer": "IktaS <imamrafiiia@gmail.com>",
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x5444",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

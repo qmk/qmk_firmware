@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,    OSX_ALT,    KC_LGUI,                                KC_SPC,                                                 KC_RGUI,    KC_RALT,    RAISE ,     KC_RCTL),
 
 [_RAISE] = LAYOUT_60_iso( /* Configuration */
-    RESET,       KC_F1,     KC_F2,     KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,       KC_F10,     KC_F11,     KC_F12,     KC_DEL ,\
+    QK_BOOT,     KC_F1,     KC_F2,     KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,       KC_F10,     KC_F11,     KC_F12,     KC_DEL ,\
     KC_TRNS,     QWERTY,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    OSX,         KC_TRNS,    KC_TRNS,    KC_TRNS,            \
     KC_TRNS,     EF_INC,    H1_INC,    S1_INC,     H2_INC,     S2_INC,     BR_INC,     ES_INC,     KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,\
     KC_TRNS,     KC_UP,     EF_DEC,    H1_DEC,     S2_DEC,     H2_DEC,     S2_DEC,     BR_DEC,     ES_DEC,     KC_TRNS,     KC_TRNS,    KC_TRNS,                KC_TRNS,\

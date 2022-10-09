@@ -1,5 +1,5 @@
 {
-    "keyboard": "ez_maker/directpins/teensy2",
+    "keyboard": "ez_maker/directpins/teensy_2",
     "keymap": "default",
     "layout": "LAYOUT_all",
     "layers": [

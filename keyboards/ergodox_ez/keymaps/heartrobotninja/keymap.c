@@ -370,7 +370,7 @@ LEADER_EXTERNS();
 void matrix_scan_user(void)
 {
 
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
       ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) &&

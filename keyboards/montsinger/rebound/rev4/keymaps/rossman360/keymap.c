@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 [_DEL] = LAYOUT_all(
-    RESET,   _______, _______, _______, _______, _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
+    QK_BOOT, _______, _______, _______, _______, _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
     REMCAPS, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP  ,KC_RIGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DOWN, _______, _______, _______,
     _______, _______, _______, BLINE  , KC_BSPC, BWORD  , _______, KC_NO  , KC_NO  , _______, _______, _______, _______
@@ -84,7 +84,7 @@ case _DEL:
 }
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR(""), false);
 
@@ -116,6 +116,7 @@ void oled_task_user(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 
+    return false;
 }
 
 #endif

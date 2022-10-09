@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "videowriter",
+    "keyboard_name": "Videowriter",
+    "manufacturer": "Magnavox",
     "url": "https://deskthority.net/viewtopic.php?f=7&t=20210",
     "maintainer": "DmNosachev",
+    "usb": {
+        "vid": "0x515A",
+        "pid": "0x5657",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

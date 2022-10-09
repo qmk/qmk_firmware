@@ -1,7 +1,13 @@
 {
     "keyboard_name": "rs60",
+    "manufacturer": "rs",
     "url": "",
     "maintainer": "rs",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4260",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

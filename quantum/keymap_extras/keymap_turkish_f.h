@@ -111,7 +111,7 @@
 #define TR_LPRN S(TR_8)    // (
 #define TR_RPRN S(TR_9)    // )
 #define TR_EQL  S(TR_0)    // =
-#define TR_QUES S(TR_ASTR) // ?
+#define TR_QUES S(TR_SLSH) // ?
 #define TR_UNDS S(TR_MINS) // _
 // Row 4
 #define TR_RABK S(TR_LABK) // >
@@ -187,7 +187,7 @@
 #define TR_CURR S(ALGR(TR_4))    // ¤
 #define TR_IQUE S(ALGR(TR_SLSH)) // ¿
 // Row 2
-#define TR_REGD S(ALGR(TR_I)     // ®
+#define TR_REGD S(ALGR(TR_I))    // ®
 // Row 3
 #define TR_SECT S(ALGR(TR_IDOT)) // §
 #define TR_FORD S(ALGR(TR_A))    // ª

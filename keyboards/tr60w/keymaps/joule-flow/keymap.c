@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			),
 
     LAYOUT_60_tsangan_hhkb(
-        RESET,   KC_F1,   KC_F2,			KC_F3,   		KC_F4,   		KC_F5,   		KC_F6,   	KC_F7,   	KC_F8,   	KC_F9,   	KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS,
+        QK_BOOT, KC_F1,   KC_F2,			KC_F3,   		KC_F4,   		KC_F5,   		KC_F6,   	KC_F7,   	KC_F8,   	KC_F9,   	KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS,
         _______, KC_BSPC, KC_UP, 			KC_ENT, 		_______, 		_______, 		_______, 	KC_WH_U, 	KC_BTN1 , KC_MS_U , KC_BTN2, KC_WH_L, _______, KC_DEL,
         _______, KC_LEFT, KC_DOWN,		KC_RIGHT, 	_______, 		_______, 		_______, 	KC_WH_D, 	KC_MS_L , KC_MS_D , KC_MS_R, KC_WH_R,          _______,
         _______,          RCTL(KC_Y), RCTL(KC_X),	RCTL(KC_C),	RCTL(KC_V),	_______,  _______, 	_______, 	_______, 	_______, _______, _______, _______,

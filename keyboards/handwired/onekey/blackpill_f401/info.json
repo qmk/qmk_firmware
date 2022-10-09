@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Onekey Blackpill STM32F401",
+    "development_board": "blackpill_f401",
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["A7"]
+    },
+    "backlight": {
+        "pin": "A0"
+    },
+    "rgblight": {
+        "pin": "A1"
+    }
+}

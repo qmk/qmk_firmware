@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4442
-#define PRODUCT_ID      0x6462
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    doodboard
-#define PRODUCT         duckboard
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 5
@@ -32,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F7, B1, B3, B2, B6 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { F6 }
 #define ENCODERS_PAD_B { F5 }

@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*,      */ _______, _______, TT(_xF), _______,        _______, TT(_xF), KC_0,    KC_DOT,
       /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______),
   [_xF] = LAYOUT(
-      RESET,   KC_INS,     KC_PGUP, DEBUG,   KC_VOLU,        KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_PMNS,
+      QK_BOOT, KC_INS,     KC_PGUP, DEBUG,   KC_VOLU,        KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_PMNS,
       CK_TOGG, KC_HOME,    KC_PGDN, KC_END,  KC_VOLD,        KC_NLCK, KC_P4,   KC_P5,   KC_P6,    KC_PENT,
       KC_LAYO, KC_MPRV,    KC_MPLY, KC_MNXT, KC_MUTE,        KC_PAST, KC_P1,   KC_P2,   KC_P3,    KC_PSLS,
       /*,      */ CK_UP,   MU_TOG,  _______, _______,        _______, _______, KC_P0,   KC_PDOT,
@@ -102,7 +102,7 @@ const size_t defaultlayers_n = sizeof(defaultlayers) / sizeof(defaultlayers[0]);
 // New keycode KC_LAYO rotates between available default layers (for e.g.,
 // selecting a base layout). Shift+KC_LAYO makes the current one persistent.
 bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
-  uint32_t default_layer;
+  uint8_t default_layer;
   uint8_t i;
   #if defined(AUDIO_ENABLE)
   float saved_song[][2] = SONG(COIN_SOUND);
@@ -121,7 +121,7 @@ bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
   } else {
     // rotate default layer.
     // find the current default layer
-    default_layer = biton32(default_layer_state);
+    default_layer = get_highest_layer(default_layer_state);
     // find next valid default layer
     for (i = 1; i < defaultlayers_n; i++) {
       if (defaultlayers[(default_layer + i) % defaultlayers_n]) {

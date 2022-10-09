@@ -1,0 +1,30 @@
+{
+    "keyboard_name": "tenpad",
+    "manufacturer": "evancook.audio",
+    "url": "https://evancook.audio/",
+    "maintainer": "evanmcook",
+    "usb": {
+        "vid": "0x636F",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+
+	"LAYOUT_ortho_2x5": {
+        "layout": [
+            { "label": "K01", "x": 0, "y": 0 },
+            { "label": "K02", "x": 1, "y": 0 },
+            { "label": "K03", "x": 2, "y": 0 },
+            { "label": "K04", "x": 3, "y": 0 },
+            { "label": "K05", "x": 4, "y": 0 },
+
+            { "label": "K06", "x": 0, "y": 1 },
+            { "label": "K07", "x": 1, "y": 1 },
+            { "label": "K08", "x": 2, "y": 1 },
+            { "label": "K09", "x": 3, "y": 1 },
+            { "label": "K10", "x": 4, "y": 1 }
+  
+            ]
+	    }   
+    }
+}

@@ -22,13 +22,19 @@
 
 #    ifdef MIDI_BASIC
 
-void process_midi_basic_noteon(uint8_t note) { midi_send_noteon(&midi_device, 0, note, 127); }
+void process_midi_basic_noteon(uint8_t note) {
+    midi_send_noteon(&midi_device, 0, note, 127);
+}
 
-void process_midi_basic_noteoff(uint8_t note) { midi_send_noteoff(&midi_device, 0, note, 0); }
+void process_midi_basic_noteoff(uint8_t note) {
+    midi_send_noteoff(&midi_device, 0, note, 0);
+}
 
-void process_midi_all_notes_off(void) { midi_send_cc(&midi_device, 0, 0x7B, 0); }
+void process_midi_all_notes_off(void) {
+    midi_send_cc(&midi_device, 0, 0x7B, 0);
+}
 
-#    endif  // MIDI_BASIC
+#    endif // MIDI_BASIC
 
 #    ifdef MIDI_ADVANCED
 
@@ -41,7 +47,9 @@ static int8_t   midi_modulation_step;
 static uint16_t midi_modulation_timer;
 midi_config_t   midi_config;
 
-inline uint8_t compute_velocity(uint8_t setting) { return setting * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN)); }
+inline uint8_t compute_velocity(uint8_t setting) {
+    return setting * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN));
+}
 
 void midi_init(void) {
     midi_config.octave              = MI_OCT_2 - MIDI_OCTAVE_MIN;
@@ -60,7 +68,9 @@ void midi_init(void) {
     midi_modulation_timer = 0;
 }
 
-uint8_t midi_compute_note(uint16_t keycode) { return 12 * midi_config.octave + (keycode - MIDI_TONE_MIN) + midi_config.transpose; }
+uint8_t midi_compute_note(uint16_t keycode) {
+    return 12 * midi_config.octave + (keycode - MIDI_TONE_MIN) + midi_config.transpose;
+}
 
 bool process_midi(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -238,7 +248,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#    endif  // MIDI_ADVANCED
+#    endif // MIDI_ADVANCED
 
 void midi_task(void) {
     midi_device_process(&midi_device);
@@ -263,4 +273,4 @@ void midi_task(void) {
 #    endif
 }
 
-#endif  // MIDI_ENABLE
+#endif // MIDI_ENABLE

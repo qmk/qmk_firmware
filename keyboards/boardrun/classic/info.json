@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Boardrun Classic",
+    "manufacturer": "shensmobile",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/boardrun/classic",
     "maintainer": "QMK Community",
+    "usb": {
+        "vid": "0xCDCD",
+        "pid": "0x5338",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_classic": {
             "layout": [

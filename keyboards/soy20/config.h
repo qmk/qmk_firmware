@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4452 // "DR" short for DrewKeys
-#define PRODUCT_ID      0x534f // "SO" short for Soy
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    drewkeys
-#define PRODUCT         soy20
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -32,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4 }
 #define MATRIX_COL_PINS { B5, B6, B7, C7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

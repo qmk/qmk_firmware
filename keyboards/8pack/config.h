@@ -2,12 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2171
-#define MANUFACTURER    Charles Garcia
-#define PRODUCT         8-Pack
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

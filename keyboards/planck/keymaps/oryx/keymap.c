@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    KC_DEL,  _______, AU_ON,   AU_OFF,  AU_TOG,  _______, _______, RGB_TOG, RGB_VAI, RGB_VAD, LED_LEVEL, RESET,
+    KC_DEL,  _______, AU_ON,   AU_OFF,  AU_TOG,  _______, _______, RGB_TOG, RGB_VAI, RGB_VAD, LED_LEVEL, QK_BOOT,
     _______, _______, MU_ON,   MU_OFF,  MU_TOG,  _______, _______, RGB_MOD, RGB_HUI, RGB_HUD, TOGGLE_LAYER_COLOR, _______,
     _______, _______, _______, _______, _______, _______, KC_NO,   _______, _______, _______, _______, _______
   ),
@@ -91,10 +91,10 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-    if (g_suspend_state || keyboard_config.disable_layer_led) {
+    if (keyboard_config.disable_layer_led) {
         return;
     }
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case 1:
             set_layer_color(0);
             break;

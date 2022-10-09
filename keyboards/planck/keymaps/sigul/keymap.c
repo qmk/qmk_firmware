@@ -13,7 +13,7 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
-#include "keymap_italian_osx_ansi.h"
+#include "keymap_italian_mac_ansi.h"
 #include "sigul.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-    _______, DF(QWERTY), _______, EEP_RST, RESET,   _______, _______, _______, _______, _______, _______, _______,
+    _______, DF(QWERTY), _______, EEP_RST, QK_BOOT, _______, _______, _______, _______, _______, _______, _______,
     _______, _______,    _______, DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______,    _______, _______, _______, _______, MU_MOD,  MU_ON,   MU_OFF,  _______, _______, _______,
     _______, _______,    _______, _______, _______, _______, _______, _______, MUV_DE,  AU_ON,   AU_OFF,  MUV_IN

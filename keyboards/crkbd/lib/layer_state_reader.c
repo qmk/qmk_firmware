@@ -29,7 +29,11 @@ const char *read_layer_state(void) {
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
     break;
   default:
+#if defined (LAYER_STATE_32BIT)
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+#else
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%d", layer_state);
+#endif
   }
 
   return layer_state_str;

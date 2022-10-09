@@ -59,11 +59,6 @@ extern i2c_status_t mcp23017_status;
 bool         i2c_initialized = 0;
 i2c_status_t mcp23017_status = I2C_ADDR;
 
-#define I2C2_SCL_BANK GPIOB
-#define I2C2_SCL 10
-#define I2C2_SDA_BANK GPIOB
-#define I2C2_SDA 11
-
 uint8_t init_mcp23017(void) {
     print("init mcp23017\n");
     mcp23017_status = I2C_ADDR;

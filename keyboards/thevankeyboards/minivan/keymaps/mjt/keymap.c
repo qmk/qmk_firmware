@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_F6, KC_F7,  KC_F8,  KC_F9,  KC_F10, _______},
   {KC_DEL, KC_F11, KC_F12,  KC_F13,  KC_F14,  KC_F15, _______, _______,  _______,  MACSLEEP, DYN_REC_START1, DYN_REC_START2 },
   {KC_CAPS,  _______, _______,  _______,  _______, _______, _______, _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,_______,DYN_REC_STOP},
-  {_______,_______,_______,LAYERRESET,XXXXXXX,XXXXXXX,XXXXXXX,LAYERRESET,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______,_______,_______,LAYERRESET,XXXXXXX,XXXXXXX,XXXXXXX,LAYERQK_BOOT,  KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 [_PLOVER] = {
   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {LAYERRESET, XXXXXXX, KC_C,    KC_V,   XXXXXXX ,  XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
 },
 [_ADJUST] = {
- {_______ , RESET,   _______, _______, _______, _______, _______, _______, KC_SLCK, KC_PAUS, KC_PSCR, KC_DEL },
+ {_______ , QK_BOOT, _______, _______, _______, _______, _______, _______, KC_SLCK, KC_PAUS, KC_PSCR, KC_DEL },
  {_______ , _______, _______, _______, _______,  AG_NORM, AG_SWAP, QWERTY,  _______, MACSLEEP,  PLOVER, _______},
  {_______ , _______,  _______,  _______,   _______,  _______,   _______,  _______, _______, _______, _______, _______},
  {BACKLIT, _______, _______, LAYERRESET, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______}

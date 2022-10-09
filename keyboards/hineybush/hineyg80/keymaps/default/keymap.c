@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_ansi_100u_mods( /* Fn */KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_MPRV,   KC_MPLY,   KC_MNXT,    KC_VOLU,  
                                                                           KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_VOLD,  
     KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_DEL,   KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,  
-    KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, RESET , KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,  
+    KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, QK_BOOT , KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,  
     KC_CAPS,  KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,  
     KC_TRNS,             KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,  
     KC_TRNS,   KC_TRNS,   KC_TRNS,          KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                               KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS          

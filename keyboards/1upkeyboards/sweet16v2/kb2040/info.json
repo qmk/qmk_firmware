@@ -1,0 +1,95 @@
+{
+    "manufacturer": "1upkeyboards",
+    "keyboard_name": "sweet16v2",
+    "url": "1upkeyboards.com/shop/keyboard-kits/macro-pads/sweet-16-v2-macropad-kit/",
+    "maintainer": "ziptyze",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5518",
+        "vid": "0x6F75"
+    },
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgb_matrix": true,
+        "rgblight": false
+    },
+    "matrix_pins": {
+        "cols": ["GP2",  "GP9", "GP8",  "GP7"],
+        "rows": ["GP26", "GP1", "GP18", "GP5"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP27",
+                "pin_b": "GP28"
+            },
+            {
+                "pin_a": "GP4",
+                "pin_b": "GP3"
+            }
+        ]
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 4, "matrix": [0, 0], "x": 28, "y": 12 },
+            { "flags": 4, "matrix": [0, 1], "x": 84, "y": 12 },
+            { "flags": 4, "matrix": [0, 2], "x": 140, "y": 12 },
+            { "flags": 4, "matrix": [0, 3], "x": 196, "y": 12 },
+            { "flags": 2, "x": 196, "y": 17 },
+            { "flags": 4, "matrix": [1, 3], "x": 196, "y": 28 },
+            { "flags": 4, "matrix": [1, 2], "x": 140, "y": 28 },
+            { "flags": 4, "matrix": [1, 1], "x": 84, "y": 28 },
+            { "flags": 2, "x": 28, "y": 17 },
+            { "flags": 4, "matrix": [1, 0], "x": 28, "y": 28 },
+            { "flags": 4, "matrix": [2, 0], "x": 28, "y": 44 },
+            { "flags": 4, "matrix": [2, 1], "x": 84, "y": 44 },
+            { "flags": 4, "matrix": [2, 2], "x": 140, "y": 44 },
+            { "flags": 4, "matrix": [2, 3], "x": 196, "y": 44 },
+            { "flags": 2, "x": 196, "y": 47 },
+            { "flags": 4, "matrix": [3, 3], "x": 196, "y": 60 },
+            { "flags": 4, "matrix": [3, 2], "x": 140, "y": 60 },
+            { "flags": 4, "matrix": [3, 1], "x": 84, "y": 60 },
+            { "flags": 2, "x": 28, "y": 47 },
+            { "flags": 4, "matrix": [3, 0], "x": 28, "y": 60 }
+        ]
+    },
+    "community_layouts": [
+        "ortho_4x4"
+    ],
+    "layouts": {
+        "LAYOUT_ortho_4x4": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 },
+                { "matrix": [0, 3], "x": 3, "y": 0 },
+                { "matrix": [1, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 1], "x": 1, "y": 1 },
+                { "matrix": [1, 2], "x": 2, "y": 1 },
+                { "matrix": [1, 3], "x": 3, "y": 1 },
+                { "matrix": [2, 0], "x": 0, "y": 2 },
+                { "matrix": [2, 1], "x": 1, "y": 2 },
+                { "matrix": [2, 2], "x": 2, "y": 2 },
+                { "matrix": [2, 3], "x": 3, "y": 2 },
+                { "matrix": [3, 0], "x": 0, "y": 3 },
+                { "matrix": [3, 1], "x": 1, "y": 3 },
+                { "matrix": [3, 2], "x": 2, "y": 3 },
+                { "matrix": [3, 3], "x": 3, "y": 3 }
+            ]
+        }
+    }
+}

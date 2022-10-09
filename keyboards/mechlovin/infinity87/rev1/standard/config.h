@@ -16,10 +16,6 @@
 
 #pragma once
 
-#define PRODUCT_ID  0x8701
-#define DEVICE_VER  0x0001
-#define PRODUCT     Infinity 87 rev1
-
 #define RGB_DI_PIN A15
 #define RGBLED_NUM 26
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */

@@ -37,7 +37,7 @@ static void render_icon(void)
 
 static void render_layer(void)
 {
-    uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
+    uint8_t layer = layer_state ? get_highest_layer(layer_state) : get_highest_layer(default_layer_state);
 #ifdef OLED_90ROTATION
     oled_write_P(PSTR("Layer"), false);
 #else
@@ -176,7 +176,7 @@ static void render_status(void)
 
 #endif // OLED_90ROTATION
 
-void oled_task_user(void)
+bool oled_task_user(void)
 {
     if (is_keyboard_master())
         render_status();
@@ -185,4 +185,5 @@ void oled_task_user(void)
         render_logo();
         oled_scroll_left();
     }
+    return false;
 }

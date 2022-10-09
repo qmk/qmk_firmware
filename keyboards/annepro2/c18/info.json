@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "Anne Pro 2 C18 (QMK)",
+    "usb": {
+        "pid": "0xAC18"
+    }
+}

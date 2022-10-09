@@ -1,7 +1,13 @@
 {
     "keyboard_name": "2x5keypad",
+    "manufacturer": "Jonathan Cameron",
     "url": "",
     "maintainer": "jmcameron",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x2020",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

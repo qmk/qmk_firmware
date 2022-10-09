@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7983
-#define PRODUCT_ID      0x4B69 //Ki
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Keycapsss
-#define PRODUCT         Kimiko
-
 /* key matrix size */
 // rows are doubled-up for split-keyboard
 #define MATRIX_ROWS 10

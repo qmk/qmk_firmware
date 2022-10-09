@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
    * |Shift |      |      |      |      |      |                            |      |      |      | Pause| Back | Next |
    * |------+------+------+------+------+------+------.              .------+------+------+------+------+------+------|
-   * | Ctrl | GUI  | Alt  |RGBMOD|      |      |      |              | RESET|      |      |      | Mute | VOLUP| VOLDN|
+   * | Ctrl | GUI  | Alt  |RGBMOD|      |      |      |              | QK_BOOT|      |      |      | Mute | VOLUP| VOLDN|
    * `------------------------------------------------'              '------------------------------------------------'
    */
   [_NAV] = LAYOUT(
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, RGB_SAI, RGB_VAI, RGB_SAD, _______, KC_LBRC,                   KC_RBRC, KC_PGUP,  KC_UP,   KC_PGDN, KC_INS,  KC_HOME,
     _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______,                   _______, KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  KC_END,
     KC_LSFT, _______, _______, _______, _______, _______,                   _______, _______,  _______, KC_MPLY, KC_MPRV, KC_MNXT,
-    KC_LCTL, KC_LGUI, KC_LALT, RGB_MOD, _______, _______, _______, RESET,   _______, _______,  _______, KC_MUTE, KC_VOLU, KC_VOLD
+    KC_LCTL, KC_LGUI, KC_LALT, RGB_MOD, _______, _______, _______, QK_BOOT, _______, _______,  _______, KC_MUTE, KC_VOLU, KC_VOLD
   ),
 
 };

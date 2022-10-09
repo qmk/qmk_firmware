@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6562 // "eb"
-#define PRODUCT_ID      0x1337
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ebastler
-#define PRODUCT        isometria 75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
 
 #define MATRIX_ROW_PINS { A15, B4, B5, B6, B7, B8}
 #define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A10, A13, A14, B9, C13, F0, F1, A0, B2, B10, B11 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

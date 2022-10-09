@@ -17,11 +17,3 @@
 #pragma once
 
 #include "quantum.h"
-
-#ifdef KEYBOARD_mechlovin_infinity87_rev1_rogue87
-    #include "rogue87.h"
-#elif KEYBOARD_mechlovin_infinity87_rev1_rouge87
-    #include "rouge87.h"
-#elif KEYBOARD_mechlovin_infinity87_rev1_standard
-    #include "infinity87.h"
-#endif

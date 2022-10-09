@@ -39,6 +39,6 @@ nothing really useful to bind them to anyway.
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/J2rOshm.png)
+![Adjust layer layout](https://i.imgur.com/63vm0ke.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/b18aafa0327d7e83eaf485546c067a21))

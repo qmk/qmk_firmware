@@ -8,7 +8,7 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 
 ## Installation
 
-Put your keyboard into bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch that's usually located on the underside of the board. If your keyboard has neither, try holding Escape or Space+`B` as you plug it in (see the [Bootmagic Lite](feature_bootmagic.md) docs for more details). Some boards use [Command](feature_command.md) instead of Bootmagic; in this case, you can enter bootloader mode by hitting Left Shift+Right Shift+`B` or Left Shift+Right Shift+Escape at any point while the keyboard is plugged in.
+Put your keyboard into bootloader mode, either by hitting the `QK_BOOT` keycode (which may be on a different layer), or by pressing the reset switch that's usually located on the underside of the board. If your keyboard has neither, try holding Escape or Space+`B` as you plug it in (see the [Bootmagic Lite](feature_bootmagic.md) docs for more details). Some boards use [Command](feature_command.md) instead of Bootmagic; in this case, you can enter bootloader mode by hitting Left Shift+Right Shift+`B` or Left Shift+Right Shift+Escape at any point while the keyboard is plugged in.
 Some keyboards may have specific instructions for entering the bootloader. For example, the [Bootmagic Lite](feature_bootmagic.md) key (default: Escape) might be on a different key, e.g. Left Control; or the magic combination for Command (default: Left Shift+Right Shift) might require you to hold something else, e.g. Left Control+Right Control. Refer to the board's README file if you are unsure.
 
 To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
@@ -93,6 +93,7 @@ The device name here is the name that appears in Zadig, and may not be what the 
 |`usbasploader`|USBasp                        |`16C0:05DC`   |libusbK|
 |`apm32-dfu`   |APM32 DFU ISP Mode            |`314B:0106`   |WinUSB |
 |`stm32-dfu`   |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
+|`gd32v-dfu`   |GD32V BOOTLOADER              |`28E9:0189`   |WinUSB |
 |`kiibohd`     |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
 |`stm32duino`  |Maple 003                     |`1EAF:0003`   |WinUSB |
 |`qmk-hid`     |(keyboard name) Bootloader    |`03EB:2067`   |HidUsb |

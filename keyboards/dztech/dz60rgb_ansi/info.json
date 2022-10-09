@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "dz60rgb_ansi",
+    "keyboard_name": "DZ60RGB_ANSI",
+    "manufacturer": "DZTECH",
     "url": "",
     "maintainer": "dztech",
+    "usb": {
+        "vid": "0x445A"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

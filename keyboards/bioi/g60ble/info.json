@@ -1,7 +1,13 @@
 {
     "keyboard_name": "BIOI G60 BLE",
+    "manufacturer": "Basic IO Instruments",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x6583",
+        "pid": "0x6080",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

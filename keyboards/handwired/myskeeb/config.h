@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device Descriptor Parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    DAG3
-#define PRODUCT         MySKeeb
-
 // Key Matrix Size //
 // Rows are Doubled-up
 #define MATRIX_ROWS 10

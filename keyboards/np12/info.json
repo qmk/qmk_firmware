@@ -1,7 +1,13 @@
 {
   "keyboard_name": "np12",
+  "manufacturer": "nut1414",
   "url": "https://github.com/nut1414/np12",
   "maintainer": "nut1414",
+  "usb": {
+    "vid": "0xA4A4",
+    "pid": "0x4401",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout":   [

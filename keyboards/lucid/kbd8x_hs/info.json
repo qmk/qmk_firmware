@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "KBD8X Hotswap PCB's",
+    "keyboard_name": "KBD8X Hotswap",
+    "manufacturer": "Lucid",
     "url": "http://www.lucidkb.com",
     "maintainer": "Lucid",
+    "usb": {
+        "vid": "0x7667",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

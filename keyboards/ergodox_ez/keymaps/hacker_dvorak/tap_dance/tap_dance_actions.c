@@ -13,14 +13,32 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [RPRN_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
     [LCBR_LABK] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_LABK),
     [RCBR_RABK] = ACTION_TAP_DANCE_DOUBLE(KC_RCBR, KC_RABK),
-    [SCLN_COLN] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, scln_coln_finished,       scln_coln_reset,      DANCING_TERM),
-    [QUOT_DQUO] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, quot_dquot_finished,      quot_dquot_reset,     DANCING_TERM),
-    [DOT_COMM]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, dot_comm_finished,        dot_comm_reset,       DANCING_TERM),
-    [NONE_LEAD] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, none_lead_finished,       none_lead_reset,      DANCING_TERM),
-    [U_ARR_GUI] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, u_arrows_gui_finished,    u_arrows_gui_reset,   DANCING_TERM),
-    [H_MOU_GUI] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, h_mouse_gui_finished,     h_mouse_gui_reset,    DANCING_TERM),
-    [J_MED_MEH] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, j_media_meh_finished,     j_media_meh_reset,    DANCING_TERM),
-    [W_MED_MEH] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, w_media_meh_finished,     w_media_meh_reset,    DANCING_TERM),
-    [K_NUM_HYP] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, k_numpad_hyper_finished,  k_numpad_hyper_reset, DANCING_TERM),
-    [M_CHO_HYP] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, m_chords_hyper_finished,  m_chords_hyper_reset, DANCING_TERM),
+    [SCLN_COLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scln_coln_finished,       scln_coln_reset),
+    [QUOT_DQUO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, quot_dquot_finished,      quot_dquot_reset),
+    [DOT_COMM]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_comm_finished,        dot_comm_reset),
+    [NONE_LEAD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, none_lead_finished,       none_lead_reset),
+    [U_ARR_GUI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, u_arrows_gui_finished,    u_arrows_gui_reset),
+    [H_MOU_GUI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, h_mouse_gui_finished,     h_mouse_gui_reset),
+    [J_MED_MEH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, j_media_meh_finished,     j_media_meh_reset),
+    [W_MED_MEH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, w_media_meh_finished,     w_media_meh_reset),
+    [K_NUM_HYP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, k_numpad_hyper_finished,  k_numpad_hyper_reset),
+    [M_CHO_HYP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, m_chords_hyper_finished,  m_chords_hyper_reset),
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(SCLN_COLN):
+        case TD(QUOT_DQUO):
+        case TD(DOT_COMM):
+        case TD(NONE_LEAD):
+        case TD(U_ARR_GUI):
+        case TD(H_MOU_GUI):
+        case TD(J_MED_MEH):
+        case TD(W_MED_MEH):
+        case TD(K_NUM_HYP):
+        case TD(M_CHO_HYP):
+            return DANCING_TERM;
+        default:
+            return TAPPING_TERM;
+    }
+}

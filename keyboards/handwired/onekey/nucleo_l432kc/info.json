@@ -1,0 +1,15 @@
+{
+    "keyboard_name": "Onekey Nucleo L432KC",
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "cols": ["A2"],
+        "rows": ["A1"]
+    },
+    "backlight": {
+        "pin": "B8"
+    },
+    "rgblight": {
+        "pin": "A0"
+    }
+}

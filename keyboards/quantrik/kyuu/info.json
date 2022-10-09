@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Kyuu",
+    "manufacturer": "Quantrik",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+      "vid": "0x5154",
+      "pid": "0x0009",
+      "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT": {
         "layout": [

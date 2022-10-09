@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   KC_MUTE,_______,KC_VOLD, \
 		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,                            \
 		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           KC_MPLY,         \
-		_______,_______,_______,                        _______,                        _______,_______,RESET  ,_______,   KC_MPRV,KC_MSTP,KC_MNXT),
+		_______,_______,_______,                        _______,                        _______,_______,QK_BOOT,_______,   KC_MPRV,KC_MSTP,KC_MNXT),
 	/* Layer 3: Programming layer */
 	[KM_HAXHAX] = LAYOUT( \
 		_______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______, \
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_scan_user(void)
 {
-	uint8_t layer = biton32(layer_state);
+	uint8_t layer = get_highest_layer(layer_state);
 	switch (layer) {
 		case KM_BLOWRAK:
 			ph_caps_led_on();

@@ -15,11 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
-
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0003
+#pragma once
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
@@ -42,7 +38,6 @@
 
 #define MATRIX_ROW_PINS { C15, C14, A10, A9, A8 }
 #define MATRIX_COL_PINS { B8,  B2,  B10, A0, A1, A2, B0, A3, B1, A6, A7, B12, C13, B11, B9 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B13 }
 #define ENCODERS_PAD_B { B14 }
@@ -70,16 +65,8 @@
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 #endif
 
-//configure qwiic micro_oled driver for the 128x32 oled
-#ifdef QWIIC_MICRO_OLED_ENABLE
-
-#undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
-#define micro_oled_rotate_180
-
-#endif
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 33 // ~30fps
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
@@ -125,8 +112,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Haptic Driver initialization settings
  * Feedback Control Settings */
@@ -186,5 +171,3 @@
 // #define RGB_MATRIX_KEYPRESSES
 
 #define SOLENOID_PIN A14
-
-#endif

@@ -15,7 +15,7 @@ or send gamepad reports based on values computed by the keyboard.
 
 To use analog input you must first enable it in `rules.mk`:
 
-```makefile
+```make
 JOYSTICK_ENABLE = yes
 JOYSTICK_DRIVER = analog # or 'digital'
 ```
@@ -150,3 +150,5 @@ Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MC
 
 Joystick buttons are normal Quantum keycodes, defined as `JS_BUTTON0` to `JS_BUTTON31`, depending on the number of buttons you have configured.
 To trigger a joystick button, just add the corresponding keycode to your keymap.
+
+You can also trigger joystick buttons in code with `register_joystick_button(button)` and `unregister_joystick_button(button)`, where `button` is the 0-based button index (0 = button 1).

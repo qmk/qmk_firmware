@@ -93,7 +93,7 @@ see `qmk_firmware/keyboards/sol/rev1/keymaps/default/rules.mk`
 
 # Variables you can set for SOL
 
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

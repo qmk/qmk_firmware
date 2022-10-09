@@ -44,6 +44,10 @@ void backlight_pins_init(void) {
     FOR_EACH_LED(setPinOutput(backlight_pin); backlight_off(backlight_pin);)
 }
 
-void backlight_pins_on(void) { FOR_EACH_LED(backlight_on(backlight_pin);) }
+void backlight_pins_on(void) {
+    FOR_EACH_LED(backlight_on(backlight_pin);)
+}
 
-void backlight_pins_off(void) { FOR_EACH_LED(backlight_off(backlight_pin);) }
+void backlight_pins_off(void) {
+    FOR_EACH_LED(backlight_off(backlight_pin);)
+}

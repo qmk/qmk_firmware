@@ -1,4 +1,4 @@
-/* Copyright 2020 Jay Greco
+/* Copyright 2021 Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,14 +23,6 @@
 
 // Workaround for freezing after MacOS sleep
 #define NO_USB_STARTUP_CHECK
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6E61
-#define PRODUCT_ID      0x6060
-
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    nullbits
-#define PRODUCT         NIBBLE
 
 /* key matrix size */
 #define MATRIX_ROWS 5

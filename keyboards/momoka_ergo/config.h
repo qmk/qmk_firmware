@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER StefanGrindelwald
-#define PRODUCT      Momoka Ergo
-
 /* key matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 6
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5, B6, B7 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -113,19 +105,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0	
-#define BOOTMAGIC_KEY_SALT     KC_RSFT||KC_LSFT
-#define BOOTMAGIC_KEY_SKIP 	KC_ESC
-#define BOOTMAGIC_KEY_EEPROM_CLEAR 	KC_NO
-#define OOTMAGIC_KEY_BOOTLOADER 	KC_RCTL||KC_LCTL
-#define BOOTMAGIC_KEY_EE_HANDS_LEFT 	KC_T
-#define BOOTMAGIC_KEY_EE_HANDS_RIGHT 	KC_Y
+
 #define USE_SERIAL
 #define SPLIT_USB_DETECT
 #define EE_HANDS

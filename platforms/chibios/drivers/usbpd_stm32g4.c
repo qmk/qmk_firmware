@@ -18,7 +18,7 @@
 
 #ifndef USBPD_UCPD1_CFG1
 #    define USBPD_UCPD1_CFG1 (UCPD_CFG1_PSC_UCPDCLK_0 | UCPD_CFG1_TRANSWIN_3 | UCPD_CFG1_IFRGAP_4 | UCPD_CFG1_HBITCLKDIV_4)
-#endif  // USBPD_UCPD1_CFG1
+#endif // USBPD_UCPD1_CFG1
 
 // Initialises the USBPD subsystem
 __attribute__((weak)) void usbpd_init(void) {
@@ -64,7 +64,7 @@ __attribute__((weak)) usbpd_allowance_t usbpd_get_allowance(void) {
         switch (vstate_max) {
             case 0:
             case 1:
-                return USBPD_500MA;  // Note that this is 500mA (i.e. max USB 2.0), not 900mA, as we're not using USB 3.1 as a sink device.
+                return USBPD_500MA; // Note that this is 500mA (i.e. max USB 2.0), not 900mA, as we're not using USB 3.1 as a sink device.
             case 2:
                 return USBPD_1500MA;
             case 3:

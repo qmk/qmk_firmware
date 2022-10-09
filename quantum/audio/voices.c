@@ -32,11 +32,17 @@ voice_type voice = AUDIO_VOICE_DEFAULT;
 voice_type voice = default_voice;
 #endif
 
-void set_voice(voice_type v) { voice = v; }
+void set_voice(voice_type v) {
+    voice = v;
+}
 
-void voice_iterate() { voice = (voice + 1) % number_of_voices; }
+void voice_iterate() {
+    voice = (voice + 1) % number_of_voices;
+}
 
-void voice_deiterate() { voice = (voice - 1 + number_of_voices) % number_of_voices; }
+void voice_deiterate() {
+    voice = (voice - 1 + number_of_voices) % number_of_voices;
+}
 
 #ifdef AUDIO_VOICES
 float mod(float a, int b) {
@@ -67,8 +73,8 @@ float voice_envelope(float frequency) {
     // envelope_index ranges from 0 to 0xFFFF, which is preserved at 880.0 Hz
 //    __attribute__((unused)) uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
 #ifdef AUDIO_VOICES
-    uint16_t envelope_index    = timer_elapsed(voices_timer);  // TODO: multiply in some factor?
-    uint16_t compensated_index = envelope_index / 100;         // TODO: correct factor would be?
+    uint16_t envelope_index    = timer_elapsed(voices_timer); // TODO: multiply in some factor?
+    uint16_t compensated_index = envelope_index / 100;        // TODO: correct factor would be?
 #endif
 
     switch (voice) {
@@ -303,7 +309,7 @@ float voice_envelope(float frequency) {
             //         note_timbre = TIMBRE_25;
             //     break;
 
-#endif  // AUDIO_VOICES
+#endif // AUDIO_VOICES
 
         default:
             break;
@@ -318,19 +324,31 @@ float voice_envelope(float frequency) {
         // TODO: where to keep track of the start-frequency?
         // frequency = voice_add_glissando(??, frequency);
     }
-#endif  // AUDIO_VOICES
+#endif // AUDIO_VOICES
 
     return frequency;
 }
 
 // Vibrato functions
 
-void voice_set_vibrato_rate(float rate) { vibrato_rate = rate; }
-void voice_increase_vibrato_rate(float change) { vibrato_rate *= change; }
-void voice_decrease_vibrato_rate(float change) { vibrato_rate /= change; }
-void voice_set_vibrato_strength(float strength) { vibrato_strength = strength; }
-void voice_increase_vibrato_strength(float change) { vibrato_strength *= change; }
-void voice_decrease_vibrato_strength(float change) { vibrato_strength /= change; }
+void voice_set_vibrato_rate(float rate) {
+    vibrato_rate = rate;
+}
+void voice_increase_vibrato_rate(float change) {
+    vibrato_rate *= change;
+}
+void voice_decrease_vibrato_rate(float change) {
+    vibrato_rate /= change;
+}
+void voice_set_vibrato_strength(float strength) {
+    vibrato_strength = strength;
+}
+void voice_increase_vibrato_strength(float change) {
+    vibrato_strength *= change;
+}
+void voice_decrease_vibrato_strength(float change) {
+    vibrato_strength /= change;
+}
 
 // Timbre functions
 
@@ -339,4 +357,6 @@ void voice_set_timbre(uint8_t timbre) {
         note_timbre = timbre;
     }
 }
-uint8_t voice_get_timbre(void) { return note_timbre; }
+uint8_t voice_get_timbre(void) {
+    return note_timbre;
+}

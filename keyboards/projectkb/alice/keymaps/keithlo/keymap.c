@@ -38,6 +38,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_MOD,  _______,  _______, KC_UP,  _______, _______, _______,          RGB_SAI, RGB_HUI, RGB_VAI, _______, KC_F11,  KC_F12, _______, _______,
     RGB_RMOD, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______,          _______,
               _______, BL_INC,  BL_DEC,  BL_TOGG, BL_BRTG, _______,          RGB_SAD, RGB_HUD, RGB_VAD, _______, _______, _______, _______, _______,
-              _______,          _______, _______, _______,                            _______,          _______,          RESET
+              _______,          _______, _______, _______,                            _______,          _______,          QK_BOOT
   )
 };

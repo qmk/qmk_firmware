@@ -105,8 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,    _______, _______
     ),
     [_ADJUST] = LAYOUT_4x6_right_wrapper(
-        KC_MAKE, _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, KC_RST,
-        VRSN,    _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, EEP_RST,
+        QK_MAKE, _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, QK_BOOT,
+        VRSN,    _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, EE_CLR,
         UC_MOD,  _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, TG_MODS,
                           HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
                                             HPT_TOG, HPT_BUZ,                               KC_NUKE,
@@ -115,103 +115,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 // clang-format on
-
-#ifdef POINTING_DEVICE_ENABLE
-static uint16_t mouse_timer           = 0;
-static uint16_t mouse_debounce_timer  = 0;
-static uint8_t  mouse_keycode_tracker = 0;
-bool            tap_toggling          = false;
-
-void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
-    if ((x || y) && timer_elapsed(mouse_timer) > 125) {
-        mouse_timer = timer_read();
-        if (!layer_state_is(_MOUSE) && !(layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO)) && timer_elapsed(mouse_debounce_timer) > 125) {
-            layer_on(_MOUSE);
-        }
-    }
-
-#    ifdef TAPPING_TERM_PER_KEY
-    if (timer_elapsed(mouse_debounce_timer) > get_tapping_term(KC_BTN1, NULL)
-#    else
-    if (timer_elapsed(mouse_debounce_timer) > TAPPING_TERM
-#    endif
-        || (layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO))) {
-        mouse_report->x = x;
-        mouse_report->y = y;
-    }
-#    ifdef OLED_ENABLE
-    if (x || y) oled_timer = timer_read32();
-#    endif
-}
-
-void matrix_scan_keymap(void) {
-    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
-        layer_off(_MOUSE);
-    }
-    if (tap_toggling) {
-        if (!layer_state_is(_MOUSE)) {
-            layer_on(_MOUSE);
-        }
-    }
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case TT(_MOUSE):
-            {
-                if (record->event.pressed) {
-                    mouse_keycode_tracker++;
-                } else {
-#    if TAPPING_TOGGLE != 0
-                    if (record->tap.count == TAPPING_TOGGLE) {
-                        tap_toggling ^= 1;
-#        if TAPPING_TOGGLE == 1
-                        if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
-#        else
-                        if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
-#        endif
-                    } else {
-                        mouse_keycode_tracker--;
-                    }
-#    endif
-                }
-                mouse_timer = timer_read();
-                break;
-            }
-        case MO(_MOUSE):
-        case DPI_CONFIG:
-        case KC_MS_UP ... KC_MS_WH_RIGHT:
-            record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
-            mouse_timer = timer_read();
-            break;
-        default:
-            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
-                layer_off(_MOUSE);
-            }
-            mouse_keycode_tracker = 0;
-            mouse_debounce_timer  = timer_read();
-            break;
-    }
-    return true;
-}
-
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) {
-        state |= (1UL << _MOUSE);
-    }
-    return state;
-}
-#endif
-
-void matrix_init_keymap(void) {
-#ifdef AUDIO_ENABLE
-    extern audio_config_t audio_config;
-
-    if (!is_keyboard_master()) {
-        audio_stop_all();
-        audio_config.enable = false;
-    }
-#endif
-}
-
-void keyboard_post_init_keymap(void) { matrix_init_keymap(); }

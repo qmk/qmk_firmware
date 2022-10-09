@@ -1,7 +1,13 @@
 {
     "keyboard_name": "GHS.RAR",
+    "manufacturer": "Gone Hacking Studio",
     "url": "https://gonehacking.studio/",
     "maintainer": "Gone Hacking Studio",
+    "usb": {
+        "vid": "0x0645",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

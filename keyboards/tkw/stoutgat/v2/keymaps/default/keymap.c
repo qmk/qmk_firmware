@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_encoder(
                  /* esc   1        2        3        4        5        6        7        8        9        0        -        =        bkspc    `~      */
-                 KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  RESET,
+                 KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  QK_BOOT,
                  /* tab   Q        W        E        R        T        Y        U        I        O        P        [        ]                 delete  */
                  RGB_MOD, RGB_VAI, RGB_SAI, RGB_HUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_PAUS,          KC_TRNS,
                  /* caps  A        S        D        F        G        H        J        K        L        ;        '        #        enter    pg up   */

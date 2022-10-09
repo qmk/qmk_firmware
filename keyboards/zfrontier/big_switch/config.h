@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0A01
-#define DEVICE_VER 0x0005
-#define MANUFACTURER zFrontier
-#define PRODUCT Red Comet Big Switch
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { F0 }
 #define MATRIX_COL_PINS { F1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -51,3 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* long tapping config */
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "HelixPico",
+    "manufacturer": "Yushakobo",
     "url": "https://github.com/MakotoKurauchi/helix",
     "maintainer": "MakotoKurauchi",
+    "usb": {
+        "vid": "0x3265",
+        "pid": "0x0001",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

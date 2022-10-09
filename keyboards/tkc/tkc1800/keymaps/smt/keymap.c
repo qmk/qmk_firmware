@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FUNCTION] = LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   KC_INS,  KC_HOME, KC_PGUP, KC_PSCR, \
                                                                                                                                            KC_DEL,  KC_END,  KC_PGDN, KC_SLCK, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   KC_NLCK, KC_PSLS, KC_PAST, KC_PAUS, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, KC_NLCK, KC_PSLS, KC_PAST, KC_PAUS, \
     _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, DVORAK,  _______, _______, _______, _______,          KC_P7,   KC_P8,   KC_P9,   KC_PMNS, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______,          KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
     _______, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_STEP, _______, _______,      KC_UP,       KC_P1,   KC_P2,   KC_P3,   XXXXXXX, \
@@ -145,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
     oled_write_P(PSTR("TKC1800\n"),false);
 	// Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -173,5 +173,7 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return false;
 }
 #endif

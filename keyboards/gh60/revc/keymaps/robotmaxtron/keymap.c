@@ -97,7 +97,7 @@ void matrix_scan_user(void) {
 
 // Layer LED indicators
 // ESC led on when in function layer, WASD cluster leds enabled when on arrow cluster
-    uint32_t layer = layer_state;
+    layer_state_t layer = layer_state;
     if (layer & (1<<1)) {
         gh60_wasd_leds_on();
     } else {

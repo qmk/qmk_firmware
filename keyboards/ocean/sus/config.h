@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x9624
-#define PRODUCT_ID      0x0009
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Ocean
-#define PRODUCT         Sus
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3
@@ -41,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*                        0    1    2    3    4    5    6    7    8    9   10  11  12  13  14*/
 #define MATRIX_ROW_PINS { B5, B4, E6, D7 }
 #define MATRIX_COL_PINS { C6, D4, D0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

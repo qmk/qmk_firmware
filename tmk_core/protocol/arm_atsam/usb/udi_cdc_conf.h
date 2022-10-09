@@ -59,9 +59,9 @@
 extern "C" {
 #endif
 
-#define UDI_CDC_DATA_EP_IN_0 ((CDC_TX_ENDPOINT) | (USB_EP_DIR_IN))    // TX
-#define UDI_CDC_DATA_EP_OUT_0 ((CDC_RX_ENDPOINT) | (USB_EP_DIR_OUT))  // RX
-#define UDI_CDC_COMM_EP_0 ((CDC_ACM_ENDPOINT) | (USB_EP_DIR_IN))      // Notify endpoint
+#define UDI_CDC_DATA_EP_IN_0 ((CDC_TX_ENDPOINT) | (USB_EP_DIR_IN))   // TX
+#define UDI_CDC_DATA_EP_OUT_0 ((CDC_RX_ENDPOINT) | (USB_EP_DIR_OUT)) // RX
+#define UDI_CDC_COMM_EP_0 ((CDC_ACM_ENDPOINT) | (USB_EP_DIR_IN))     // Notify endpoint
 
 #define UDI_CDC_COMM_IFACE_NUMBER_0 (CDC_STATUS_INTERFACE)
 #define UDI_CDC_DATA_IFACE_NUMBER_0 (CDC_DATA_INTERFACE)
@@ -69,4 +69,4 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif  // _UDI_CDC_CONF_H_
+#endif // _UDI_CDC_CONF_H_

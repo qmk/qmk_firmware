@@ -17,20 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x504B // PK
-#define PRODUCT_ID      0x707A // PZ
-#define DEVICE_VER      0x0001
-#define MANUFACTURER pizzakeyboards
-#define PRODUCT      pizza65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
 #define MATRIX_ROW_PINS { B15, A10, F1, A0, A1 }
 #define MATRIX_COL_PINS { A9, A8, F0, A2, A3, A4, B9, B8, B7, B6, B5, B4, B3, A15, A14, A13}
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -48,10 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

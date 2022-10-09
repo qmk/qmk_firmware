@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xA68C
-#define PRODUCT_ID 0x8B35
-#define DEVICE_VER 0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT ElmoPad
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -35,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C5, C4, B2, B1, D7, B0 }
 #define MATRIX_COL_PINS { C0, C1, C2, C3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

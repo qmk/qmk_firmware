@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x4854
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         HS60 V2
-
 #define HS60_ANSI
 
 /* key matrix size */

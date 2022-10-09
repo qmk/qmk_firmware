@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #ifdef LED_ENABLE
-  #include "protocol/serial.h"
+  #include "uart.h"
 
 #endif
 
@@ -96,7 +96,7 @@ LAYOUT( /* Left modifier - L2 */
    * |-------------------------------------------------------------------------+
    * |      |     |     |     |     |     |     |VolDn|VolUp|     |     |      |
    * |-------------------------------------------------------------------------+
-   * |       |LEDtg|LEDch|     |     |RESET|     | Mute|     |MouB1|MousU|MouB2|
+   * |       |LEDtg|LEDch|     |     |QK_BOOT|     | Mute|     |MouB1|MousU|MouB2|
    * |-------------------------------------------------------------------------+
    * |     |     |     |     |      |          |       |     |MousL|MousD|MousR|
    * `-------------------------------------------------------------------------'
@@ -105,7 +105,7 @@ LAYOUT( /* Left modifier - L2 */
 LAYOUT( /* Hold Tab down - L3 */
   KC_ESC,  KC_CALC, KC_WHOM, KC_MYCM, KC_WREF, _______, _______, _______, _______, _______, KC_PSCR, CTRADEL,
   _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, _______, _______, _______,
-  _______, LED_TOG, LED_CHG, _______, _______,   RESET, _______, KC_MUTE, _______, KC_MS_BTN1, KC_MS_U, KC_MS_BTN2,
+  _______, LED_TOG, LED_CHG, _______, _______, QK_BOOT, _______, KC_MUTE, _______, KC_MS_BTN1, KC_MS_U, KC_MS_BTN2,
   _______, _______, _______, _______, _______,     _______,      _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
 ),
 
@@ -151,11 +151,11 @@ LAYOUT( /* GAMING, toggled on and off - L5 */
 //LED keymap functions
  #ifdef LED_ENABLE
 void led_chmode(void) {
-  serial_send(101);
+  uart_write(0x65);
 }
 
 void led_toggle(void) {
-  serial_send(100);
+  uart_write(0x64);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

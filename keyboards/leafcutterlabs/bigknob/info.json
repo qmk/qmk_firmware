@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "bigknob",
+  "keyboard_name": "bigKNOB",
+  "manufacturer": "leafcutterlabs",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xCEEB",
+    "pid": "0x0007",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_ortho_1x5": {
       "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0}]

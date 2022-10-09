@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Atlas",
+    "manufacturer": "CannonKeys",
     "url": "https://cannonkeys.com",
     "maintainer": "awkannan",
+    "usb": {
+        "vid": "0xCA04",
+        "pid": "0xA7A5",
+        "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT_ortho_5x12": {
         "layout": [

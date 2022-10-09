@@ -1,0 +1,6 @@
+{
+    "usb": {
+        "pid": "0xDEF2",
+        "device_version": "0.0.1"
+    }
+}

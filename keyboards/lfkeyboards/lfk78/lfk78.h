@@ -25,22 +25,9 @@ typedef struct Layer_Info {
 extern const uint32_t layer_count;
 extern const Layer_Info layer_info[];
 
-enum action_functions {
-    LFK_CLEAR = 0,          // Resets all layers
-    LFK_ESC_TILDE,          // esc+lshift = ~
-    LFK_SET_DEFAULT_LAYER,  // changes and saves current base layer to eeprom
-    LFK_CLICK_TOGGLE,       // Adjusts click duration
-    LFK_CLICK_FREQ_HIGHER,  // Adjusts click frequency
-    LFK_CLICK_FREQ_LOWER,   // Adjusts click frequency
-    LFK_CLICK_TIME_LONGER,  // Adjusts click duration
-    LFK_CLICK_TIME_SHORTER, // Adjusts click duration
-    LFK_DEBUG_SETTINGS,     // prints LED and click settings to HID
-    LFK_LED_TEST            // cycles through switch and RGB LEDs
-};
-
 #define CLICK_HZ 500
 #define CLICK_MS 2
 #define CLICK_ENABLED 0
 
 void reset_keyboard_kb(void);
-void click(uint16_t freq, uint16_t duration);
+void clicking_notes(uint16_t freq, uint16_t duration);

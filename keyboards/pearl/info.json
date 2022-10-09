@@ -1,6 +1,12 @@
 {
   "keyboard_name": "Pearl",
+  "manufacturer": "Pearl Boards",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0348",
+    "device_version": "2.0.0"
+  },
   "layouts": {
     "LAYOUT_all": {
       "layout": [{"label":"Esc", "x":0, "y":0}, {"label":"Q", "x":1, "y":0}, {"label":"W", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"R", "x":4, "y":0}, {"label":"T", "x":5, "y":0}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}, {"label":"I", "x":8, "y":0}, {"label":"O", "x":9, "y":0}, {"label":"P", "x":10, "y":0}, {"label":"{", "x":11, "y":0}, {"label":"Backspace", "x":12, "y":0}, {"label":"Tab", "x":0, "y":1, "w":1.5}, {"label":"A", "x":1.5, "y":1}, {"label":"S", "x":2.5, "y":1}, {"label":"D", "x":3.5, "y":1}, {"label":"F", "x":4.5, "y":1}, {"label":"G", "x":5.5, "y":1}, {"label":"H", "x":6.5, "y":1}, {"label":"J", "x":7.5, "y":1}, {"label":"K", "x":8.5, "y":1}, {"label":"L", "x":9.5, "y":1}, {"label":":", "x":10.5, "y":1}, {"label":"\\", "x":11.5, "y":1, "w":1.5}, {"label":"Caps Lock", "x":0, "y":2, "w":1.75}, {"label":"Z", "x":1.75, "y":2}, {"label":"X", "x":2.75, "y":2}, {"label":"C", "x":3.75, "y":2}, {"label":"V", "x":4.75, "y":2}, {"label":"B", "x":5.75, "y":2}, {"label":"N", "x":6.75, "y":2}, {"label":"M", "x":7.75, "y":2}, {"label":"<", "x":8.75, "y":2}, {"label":">", "x":9.75, "y":2}, {"label":"?", "x":10.75, "y":2}, {"label":"Shift", "x":11.75, "y":2, "w":1.25}, {"label":"Alt", "x":1.13, "y":3}, {"label":"Ctrl", "x":2.13, "y":3, "w":1.25}, {"label":"Win", "x":3.375, "y":3, "w":1.25}, {"label":"Shift", "x":4.625, "y":3, "w":2.25}, {"x":6.875, "y":3, "w":1.25}, {"x":8.125, "y":3, "w":1.5}, {"label":"Menu", "x":9.625, "y":3}, {"label":"Fn", "x":10.63, "y":3, "w":1.25}]

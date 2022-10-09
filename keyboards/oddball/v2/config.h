@@ -28,4 +28,3 @@
  */
 #define MATRIX_ROW_PINS { D4, E6, D7, C6 }
 #define MATRIX_COL_PINS { B7, B5, B4, F5, F6, F7 }
-#define UNUSED_PINS { D3, D5, C7, F1, F0, B6, F4 }

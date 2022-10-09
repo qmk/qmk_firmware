@@ -274,7 +274,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // OLED Display
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // get layer Number
   uint8_t currentDefault = get_highest_layer(default_layer_state);
   uint8_t currentLayer = get_highest_layer(layer_state);
@@ -326,5 +326,6 @@ void oled_task_user(void) {
     // pressed key / 4th line of the logo
     render_row(3, "    ");
   }
+    return false;
 }
 #endif // #ifdef OLED_ENABLE

@@ -16,14 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID 0x524D
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0002
-#define MANUFACTURER Montsinger
-#define PRODUCT Rebound
-
 /* key matrix size */
 
 #define MATRIX_ROWS 8
@@ -43,7 +35,6 @@ diode)
 
 #define MATRIX_ROW_PINS { D1, D0, D4, C6, F7, F6, F5, F4 }
 #define MATRIX_COL_PINS { D7, E6, B4, B5, B2, B3, B1 }
-#define UNUSED_PINS { B6 }
 
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { D3 }

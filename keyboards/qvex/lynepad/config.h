@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5156
-#define PRODUCT_ID      0x4C50
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    QVEX
-#define PRODUCT         Lynepad
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Basic matrix config */
 #define MATRIX_ROW_PINS { C7, F7, F6}
 #define MATRIX_COL_PINS { F0, F1, F4, F5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

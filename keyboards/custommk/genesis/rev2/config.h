@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xF35B
-#define PRODUCT_ID      0xFAB1
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    customMK
-#define PRODUCT         GenesisRev2
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -32,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F0, C7, C6, B6, B5, B0}
 #define MATRIX_COL_PINS { F4, F5, D7, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

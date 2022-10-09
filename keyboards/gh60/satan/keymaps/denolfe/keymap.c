@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _FL: Function Layer
    * ,-----------------------------------------------------------.
-   * |   |   |   |   |   |   |   |   |   |   |   |   |   |  RESET|
+   * |   |   |   |   |   |   |   |   |   |   |   |   |   |  QK_BOOT|
    * |-----------------------------------------------------------|
    * |     |   |   |   |   |   |   |   |   |   |   |BL-|BL+|BL   |
    * |-----------------------------------------------------------|
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = LAYOUT_60_ansi(
   #ifdef RGBLIGHT_ENABLE
-  KC_GRV,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,   \
+  KC_GRV,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_INC,  BL_TOGG, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, \
   KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI,  RGB_VAD, KC_TRNS, KC_TRNS,                   KC_TRNS, \
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   KC_F1,    KC_F2,    KC_F3,     KC_F4,    KC_F5,    KC_F6,    KC_F7,          KC_F8,        KC_F9,          KC_F10,   KC_F11,  KC_F12,  KC_DEL,  \
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PGDN,        KC_PGUP,      KC_TRNS,        KC_END,   KC_MPRV, KC_MNXT, KC_MPLY, \
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_LEFT,  KC_DOWN,        KC_UP,        KC_RIGHT,       KC_TRNS,  KC_TRNS,          KC_TRNS, \
-  KC_TRNS,  KC_TRNS,  KC_TRNS,  BL_DEC,    BL_TOGG,  BL_INC,   KC_HOME,  LCTL(KC_LEFT),  LCTL(KC_END), LCTL(KC_RIGHT), KC_TRNS,                    RESET,   \
+  KC_TRNS,  KC_TRNS,  KC_TRNS,  BL_DEC,    BL_TOGG,  BL_INC,   KC_HOME,  LCTL(KC_LEFT),  LCTL(KC_END), LCTL(KC_RIGHT), KC_TRNS,                    QK_BOOT, \
   KC_TRNS,  KC_TRNS,  LM(2, MOD_LSFT),                         KC_TRNS,                                                KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
   #endif
 
@@ -66,6 +66,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,         KC_F7,               KC_F8,              KC_F9,                KC_F10,       KC_F11,  KC_F12,  KC_DEL,  \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_PGDN,             KC_PGUP,            KC_TRNS,              LSFT(KC_END), KC_MPRV, KC_MNXT, KC_MPLY, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LSFT(KC_LEFT), LSFT(KC_DOWN),       LSFT(KC_UP),        LSFT(KC_RIGHT),       KC_TRNS,      KC_TRNS,          KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_TOGG, BL_INC,  LSFT(KC_HOME), LCTL(LSFT(KC_LEFT)), LCTL(LSFT(KC_END)), LCTL(LSFT(KC_RIGHT)), KC_TRNS,                        RESET,   \
+  KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_TOGG, BL_INC,  LSFT(KC_HOME), LCTL(LSFT(KC_LEFT)), LCTL(LSFT(KC_END)), LCTL(LSFT(KC_RIGHT)), KC_TRNS,                        QK_BOOT, \
   KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                                                      KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS),
 };

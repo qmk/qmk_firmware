@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "specskeys",
+    "keyboard_name": "Specskeys",
+    "manufacturer": "Specs32",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xCAFE",
+        "pid": "0x0080",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_iso_tsangan"
     },

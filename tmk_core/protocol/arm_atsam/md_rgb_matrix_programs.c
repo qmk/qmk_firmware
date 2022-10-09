@@ -97,5 +97,5 @@ void *led_setups[] = {leds_rainbow_s, leds_rainbow_ns, leds_teal_salmon, leds_ye
 
 const uint8_t led_setups_count = sizeof(led_setups) / sizeof(led_setups[0]);
 
-#    endif  // USE_MASSDROP_CONFIGURATOR
-#endif      // RGB_MATRIX_ENABLE
+#    endif // USE_MASSDROP_CONFIGURATOR
+#endif     // RGB_MATRIX_ENABLE

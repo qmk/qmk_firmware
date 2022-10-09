@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |1        |2        |3        |         |Prev     |Pause    |Next     |LowerVol |RaiseVol |Mute     |         |         |         |         |         |
 |Enter    |---------+---------+---------|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-|         |.        |0        |00       |RESET    |ESCT     |         |         |         |         |         |         |         |         |         |Game     |
+|         |.        |0        |00       |QK_BOOT    |ESCT     |         |         |         |         |         |         |         |         |         |Game     |
 `---------------------------------------------------------------------------------------------------------------------------------------------------------------'
 */
 
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   CU_EQL,   _______,  _______,  _______,  _______,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   CU_EQL,   _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     EMOJI,    KC_ENT,
   _______,  _______,  _______,  _______,  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-  _______,  _______,  _______,  _______,  RESET,    ALTF4,    _______,  _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
+  _______,  _______,  _______,  _______,  QK_BOOT,  ALTF4,    _______,  _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
 ),
 
 // Can be used to place macros on the numpad

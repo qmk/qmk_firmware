@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Borsdorf",
+    "manufacturer": "Cutie Club",
     "url": "",
     "maintainer": "Cutie Club",
+    "usb": {
+        "vid": "0xFB9C",
+        "pid": "0x6D8A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

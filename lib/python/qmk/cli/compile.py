@@ -32,8 +32,9 @@ def compile(cli):
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
-        command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
-        cli.run(command, capture_output=False, stdin=DEVNULL)
+        if cli.config.compile.keyboard and cli.config.compile.keymap:
+            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
+            cli.run(command, capture_output=False, stdin=DEVNULL)
 
     # Build the environment vars
     envs = {}

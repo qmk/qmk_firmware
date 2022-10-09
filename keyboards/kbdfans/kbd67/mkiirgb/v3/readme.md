@@ -2,6 +2,12 @@
 
 A hotswap 65% keyboard with USB C, inswitch RGB, and ESD protection.
 
+Originally sold as a replacement to the V2 as it offered a much simpler firmware flashing experience for customers. This board expects `.bin` files.
+
+As of 10/2021 this board has no visible markings differentiating it from the previous V2.
+
+It has since been sold with the KBD67Lite R2, D64, and Blade 65.
+
 * Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)
 * Hardware Supported: KBD67 Mk.II RGB V3
 * Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)

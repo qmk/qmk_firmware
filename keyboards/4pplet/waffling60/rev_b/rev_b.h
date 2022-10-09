@@ -16,13 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-// defines to set RGB-led behaviour. Off by default
-#define CAPS_LOCK_ENABLE false
-#define CAPS_LOCK_COLOR HSV_ORANGE
+#define CAPS_LOCK_ENABLE true
+//#define CAPS_LOCK_COLOR HSV_ORANGE
 
 #include "quantum.h"
 
-#define LAYOUT_all( \
+#define LAYOUT( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k1d, \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k2c, \
     k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2d, \

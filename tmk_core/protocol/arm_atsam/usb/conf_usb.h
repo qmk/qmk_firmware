@@ -59,7 +59,7 @@
 #define USB_DEVICE_VENDOR_ID VENDOR_ID
 #define USB_DEVICE_PRODUCT_ID PRODUCT_ID
 #define USB_DEVICE_VERSION DEVICE_VER
-#define USB_DEVICE_POWER 500  // Consumption on Vbus line (mA)
+#define USB_DEVICE_POWER 500 // Consumption on Vbus line (mA)
 #define USB_DEVICE_ATTR (USB_CONFIG_ATTR_REMOTE_WAKEUP | USB_CONFIG_ATTR_BUS_POWERED)
 //                                      (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_BUS_POWERED)
 //                                      (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_SELF_POWERED)
@@ -161,4 +161,4 @@
 #include "usb_main.h"
 #include "ui.h"
 
-#endif  // _CONF_USB_H_
+#endif // _CONF_USB_H_

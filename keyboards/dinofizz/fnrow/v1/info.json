@@ -1,7 +1,13 @@
 {
   "keyboard_name": "FnRow v1",
+  "manufacturer": "Dino Fizzotti",
   "maintainer": "dinofizz",
   "url": "https://github.com/dinofizz/fnrow-pcb",
+  "usb": {
+    "vid": "0xD1F1",
+    "pid": "0x0100",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_fn_row": {
       "layout": [

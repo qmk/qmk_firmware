@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Zen",
+    "keyboard_name": "Project Zen",
+    "manufacturer": "Legonut",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x3061",
+      "device_version": "0.0.2"
+    },
     "layouts": {
       "LAYOUT": {
         "layout": [

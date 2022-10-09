@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Aves65",
+    "manufacturer": "I/O Keyboards",
     "url": "",
     "maintainer": "Hund",
+    "usb": {
+        "vid": "0x9991",
+        "pid": "0x9038",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

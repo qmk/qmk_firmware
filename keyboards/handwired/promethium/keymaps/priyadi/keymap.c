@@ -140,7 +140,7 @@ enum planck_keycodes {
 #ifndef FAUXCLICKY_ENABLE
   FC_TOG,
 #endif
-#ifndef MODULE_ADAFRUIT_BLE
+#ifndef BLUETOOTH_BLUEFRUIT_LE
   OUT_BT,
 #endif
   RGBDEMO,
@@ -532,7 +532,7 @@ void led_reset(void) {
 }
 
 void led_set_default_layer_indicator(void) {
-  uint8_t default_layer = biton32(default_layer_state);
+  uint8_t default_layer = get_highest_layer(default_layer_state);
   if (default_layer == _QWERTY) {
     rgbsps_set(LED_IND_QWERTY, THEME_COLOR_QWERTY);
     rgbsps_set(LED_IND_ALT, COLOR_BLANK);
@@ -556,7 +556,7 @@ void led_set_layer_indicator(void) {
   rgbsps_set(LED_IND_GREEK, COLOR_BLANK);
   rgbsps_set(LED_IND_EMOJI, COLOR_BLANK);
 
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   if (oldlayer == layer) {
     return;
   }
@@ -943,7 +943,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYS] = LAYOUT(
-  DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, RGBDEMO,
+  DEBUG,   QWERTY,  WIN,     XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, RGBDEMO,
   XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BT,  NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
@@ -989,7 +989,7 @@ void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *
 }
 #endif
 
-uint32_t layer_state_set_kb(uint32_t state)
+layer_state_t layer_state_set_kb(layer_state_t state)
 {
   // turn on punc layer if both fun & num are on
   if ((state & ((1UL<<_NUM) | (1UL<<_FUN))) == ((1UL<<_NUM) | (1UL<<_FUN))) {
@@ -1017,7 +1017,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
   rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
-  layer = biton32(layer_state);
+  layer = get_highest_layer(layer_state);
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
   // double-space: send space immediately if any other key depressed before space is released
@@ -1264,7 +1264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void set_output_user(uint8_t output) {
-#ifdef MODULE_ADAFRUIT_BLE
+#ifdef BLUETOOTH_BLUEFRUIT_LE
   switch(output) {
     case OUTPUT_USB:
       led_set_output_usb();
@@ -1288,7 +1288,7 @@ void matrix_init_user() {
 #endif
 
   // auto detect output on init
-#ifdef MODULE_ADAFRUIT_BLE
+#ifdef BLUETOOTH_BLUEFRUIT_LE
   uint8_t output = auto_detect_output();
   if (output == OUTPUT_USB) {
     set_output(OUTPUT_USB);

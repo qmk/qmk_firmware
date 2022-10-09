@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "RAMA WORKS M10-C",
+  "keyboard_name": "M10-C",
+  "manufacturer": "RAMA WORKS",
   "url": "http://rama.works",
   "maintainer": "Wilba",
+  "usb": {
+    "vid": "0x5241",
+    "pid": "0x00AC",
+    "device_version": "0.0.1"
+  },
   "layouts": {
       "LAYOUT": {
           "layout": [{"label":"0,0", "x":0, "y":0}, {"label":"0,1", "x":1, "y":0}, {"label":"0,2", "x":2, "y":0}, {"label":"0,3", "x":0, "y":1}, {"label":"0,4", "x":1, "y":1}, {"label":"0,5", "x":2, "y":1}, {"label":"0,6", "x":0, "y":2}, {"label":"0,7", "x":1, "y":2}, {"label":"0,8", "x":2, "y":2}, {"label":"0,9", "x":1, "y":3, "w":2}]

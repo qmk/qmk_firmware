@@ -1,4 +1,4 @@
-/* Copyright 2020-2021 James Young (@noroadsleft)
+/* Copyright 2020-2022 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,19 +19,18 @@
 #include QMK_KEYBOARD_H
 
 #define MOD_MASK_RALT (MOD_BIT(KC_RALT))
-extern bool macroMode;
 
 enum userspace_keycodes {
     VRSN = SAFE_RANGE,
     G_PUSH,
     G_FTCH,
     G_BRCH,
+    G_PWD,
     M_SALL,
     M_UNDO,
     M_CUT,
     M_COPY,
     M_PASTE,
-    M_MDSWP,
     KEYMAP_SAFE_RANGE
 };
 

@@ -1,5 +1,5 @@
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
-#    if !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS)
+#    if defined(ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS) || defined(ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS)
 
 #        ifdef ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS
 LED_MATRIX_EFFECT(SOLID_REACTIVE_CROSS)
@@ -23,13 +23,17 @@ static uint8_t SOLID_REACTIVE_CROSS_math(uint8_t val, int16_t dx, int16_t dy, ui
 }
 
 #            ifdef ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS
-bool SOLID_REACTIVE_CROSS(effect_params_t* params) { return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_CROSS_math); }
+bool SOLID_REACTIVE_CROSS(effect_params_t* params) {
+    return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_CROSS_math);
+}
 #            endif
 
 #            ifdef ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS
-bool SOLID_REACTIVE_MULTICROSS(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_CROSS_math); }
+bool SOLID_REACTIVE_MULTICROSS(effect_params_t* params) {
+    return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_CROSS_math);
+}
 #            endif
 
-#        endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif      // !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS)
-#endif          // LED_MATRIX_KEYREACTIVE_ENABLED
+#        endif // LED_MATRIX_CUSTOM_EFFECT_IMPLS
+#    endif     // defined(ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS) || defined(ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS)
+#endif         // LED_MATRIX_KEYREACTIVE_ENABLED

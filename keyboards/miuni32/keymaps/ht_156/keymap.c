@@ -45,14 +45,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,---------------------------------------------------------------------------------------.
      * |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |   _   |   =   |   ?   |
      * |---------------------------------------------------------------------------------------|
-     * | RESET |  LSFT |   ~   |   {   |   }   |   \   |   |   |   ;   |   :   |   `   |   "   |
+     * | QK_BOOT |  LSFT |   ~   |   {   |   }   |   \   |   |   |   ;   |   :   |   `   |   "   |
      * |---------------------------------------------------------------------------------------|
      * | !TRNS!|  LCTL |  TRNS |   [   |   ]   |  TAB  |   <   |   >   |  TRNS |  RCTL |  TRNS |
      * |---------------------------------------------------------------------------------------|
      */
   [SYMBOLS] = LAYOUT_ortho_3x11(
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_EQL, KC_QUES,
-    RESET,   KC_LSFT, KC_TILD, KC_LCBR, KC_RCBR, KC_BSLS, KC_PIPE, KC_SCLN, KC_COLN, KC_GRV, KC_DQUO,
+    QK_BOOT, KC_LSFT, KC_TILD, KC_LCBR, KC_RCBR, KC_BSLS, KC_PIPE, KC_SCLN, KC_COLN, KC_GRV, KC_DQUO,
     _______, KC_LCTL, _______, KC_LBRC, KC_RBRC, KC_TAB,  KC_LABK, KC_RABK, _______, KC_RCTL, _______
   ),
   /* Level 3: Media Layer

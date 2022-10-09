@@ -1,7 +1,12 @@
 {
     "keyboard_name": "RS60",
+    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x5845",
+        "pid": "0x5253"
+    },
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5644 //VD
-#define PRODUCT_ID      0x5111
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Viktus Design
-#define PRODUCT         SP111
-
 /* key matrix size */
 #define MATRIX_ROWS 6*2
 #define MATRIX_COLS 11
@@ -77,7 +70,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

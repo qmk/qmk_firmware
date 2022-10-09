@@ -13,18 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "quantum.h"
 
-#ifndef KNOPS_MINI_H
-#define KNOPS_MINI_H
+#pragma once
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT( \
-	K00, K01, K02, K03, K04, K05  \
+    k00, k01, k02, k03, k04, k05 \
 ) { \
-	{ K00,   K01,   K02,   K03,   K04,   K05 },  \
+    { k00, k01, k02, k03, k04, k05 } \
 }
-#endif

@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_UTILSLAYER] = LAYOUT_planck_grid(
-    _______, XXXXXXX, WINDOWS, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  XXXXXXX, KC_PAUS, _______,
+    _______, XXXXXXX, WINDOWS, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  XXXXXXX, KC_PAUS, _______,
     _______, XXXXXXX, KC_SLCK, DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     _______, XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX, XXXXXXX, KC_NLCK, MACOS,   XXXXXXX, XXXXXXX, XXXXXXX, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______

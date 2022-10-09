@@ -17,12 +17,6 @@
 #pragma once
 #include "config_common.h"
 
-#define VENDOR_ID 0x77C8
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0000
-#define MANUFACTURER 7c8
-#define PRODUCT Framework
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 

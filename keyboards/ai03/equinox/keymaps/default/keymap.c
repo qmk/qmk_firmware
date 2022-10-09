@@ -14,12 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-/*
-    K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, \
-    K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, \
-    K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, \
-    K300, K301, K302,     K304,       K306,       K308,   K309, K310, K311  \
-*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all( /* Base */
@@ -38,6 +32,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, 
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, _______, _______, 
     _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, 
-    _______, _______, _______,          _______,          _______,     _______,      _______, _______, RESET
+    _______, _______, _______,          _______,          _______,     _______,      _______, _______, QK_BOOT
   )
 };

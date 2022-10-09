@@ -168,7 +168,7 @@ k33   | {"label":"Enter", "x":3, "y":3, "h":2}
 k40   | {"label":"0", "x":0, "y":4, "w":2}
 k42   | {"label":".", "x":2, "y":4}
 
-When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NLCK` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
+When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NUM` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
 
 
 ## Issues and Hazards

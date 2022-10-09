@@ -1,7 +1,13 @@
 {
     "keyboard_name": "edc40",
+    "manufacturer": "OJ",
     "url": "",
     "maintainer": "ojthetiny",
+    "usb": {
+        "vid": "0x4F4A",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

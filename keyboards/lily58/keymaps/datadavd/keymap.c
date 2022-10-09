@@ -219,12 +219,13 @@ static void render_lfc_logo(void) {
   oled_write_raw_P(my_lfc_logo, sizeof(my_lfc_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     render_logo();
   } else {
     render_lfc_logo();
   }
+    return false;
 }
 #endif // OLED_ENABLE
 
@@ -263,4 +264,3 @@ const char *read_layer_state(void) {
 
   return layer_state_str;
 }
-

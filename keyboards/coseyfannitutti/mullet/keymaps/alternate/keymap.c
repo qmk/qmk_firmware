@@ -36,7 +36,7 @@
    * .---------------------------------------------------------------------------------------------.
    * | ` ~ |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |  Delete |     |
    * |---------------------------------------------------------------------------------------------+
-   * | Tab    |STATC|BRTHE|RNBOW|RESET|     |     |     |     |     |     |PrScr|     |  \   | Home|
+   * | Tab    |STATC|BRTHE|RNBOW|QK_BOOT|     |     |     |     |     |     |PrScr|     |  \   | Home|
    * |---------------------------------------------------------------------------------------------+
    * | Caps    |RGBH+|RGBS+|RGBB+|     |     |     |     |     |     |     |     |    Enter  | End |
    * |---------------------------------------------------------------------------------------------+
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /* esc      1        2        3        4       5       6       7       8       9         0        -         =     bkspc     delete */
       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_DEL,   KC_PSCR,
      /*  tab      Q       W        E        R        T      Y        U      I        O        P        [         ]        \       pg up */ 
-      KC_TRNS, RGB_M_P, RGB_M_B, RGB_M_R, RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_INS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_PSCR, KC_BSLS,  KC_HOME,
+      KC_TRNS, RGB_M_P, RGB_M_B, RGB_M_R, QK_BOOT,  KC_TRNS,KC_TRNS,KC_TRNS,KC_INS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_PSCR, KC_BSLS,  KC_HOME,
      /*  caps     A       S        D        F        G      H        J      K        L        ;        '        enter             pg dn */
       KC_TRNS, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_INS,            KC_END, 
      /* shift             Z         X        C       V       B       N      M        ,        .        /        shift     up        fn  */

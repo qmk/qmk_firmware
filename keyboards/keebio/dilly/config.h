@@ -1,14 +1,6 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x113a
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    Keebio
-#define PRODUCT         Dilly
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -17,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D7, E6, B4, B1, B3, B2 }
 #define MATRIX_COL_PINS { D2, D4, C6, F6, F5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -46,5 +37,3 @@
 #define RGB_DI_PIN D3
 
 #define RGBLED_NUM 10
-
-#endif

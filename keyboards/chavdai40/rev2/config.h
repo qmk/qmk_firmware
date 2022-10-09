@@ -21,13 +21,6 @@
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x16D0
-#define PRODUCT_ID      0x0F95
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    t-miyajima
-#define PRODUCT         Chavdai40 rev2
-
 /* usb power settings */
 #define USB_MAX_POWER_CONSUMPTION 100
 
@@ -38,7 +31,6 @@
 
 #define MATRIX_ROW_PINS { A0, A15, B5, B6 }
 #define MATRIX_COL_PINS { B7, B4, B3, A8, B1, B0, A7, A6, A5, A4, A3, A2, A1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

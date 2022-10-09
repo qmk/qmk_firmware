@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "KabeDon980", 
+    "keyboard_name": "980", 
+    "manufacturer": "Kabe_Don",
     "url": "https://kabedon.taobao.com", 
     "maintainer": "370490639", 
+    "usb": {
+    	"vid": "0x4B44",
+    	"pid": "0x3938",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

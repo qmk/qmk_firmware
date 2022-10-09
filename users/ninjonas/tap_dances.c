@@ -107,6 +107,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_GUI_GUISPC]   = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, LGUI(KC_SPC)),
 
   // Advanced Tap Dances
-  [TD_COPY_PASTE_APP] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, copy_paste_app_finished, copy_paste_app_reset, 300),
-  [TD_Y_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, y_numpad_finished, y_numpad_reset, 300),
+  [TD_COPY_PASTE_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_app_finished, copy_paste_app_reset),
+  [TD_Y_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, y_numpad_finished, y_numpad_reset),
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_COPY_PASTE_APP):
+        case TD(TD_Y_NUMPAD):
+            return 300;
+        default:
+            return TAPPING_TERM;
+    }
+}

@@ -106,12 +106,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * F1-12
      * Del on backspace
      * Lots of RGB controls
-     * RESET firmware on backslash
+     * QK_BOOT firmware on backslash
      * Screen brightness: Z (decrease), X (increase)
      */
     [_FN] = LAYOUT_60_ansi(
         _______, KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-        _______, RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, RGB_M_P,  RGB_M_B,  RGB_M_R, _______, _______, _______, RESET,
+        _______, RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, RGB_M_P,  RGB_M_B,  RGB_M_R, _______, _______, _______, QK_BOOT,
         _______, _______, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, RGB_M_SW, RGB_M_SN, RGB_M_K, _______, _______,          _______,
         _______,          KC_BRID,  KC_BRIU, _______, _______, _______, _______,  RGB_M_X,  RGB_M_G, RGB_M_T, _______,          _______,
         _______, _______, _______,                             _______,                              _______, _______, _______, _______

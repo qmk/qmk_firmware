@@ -1,6 +1,7 @@
 #pragma once
 
 #define TAPPING_TERM 505
+#define PERMISSIVE_HOLD
 #define RETRO_TAPPING
 
 // smooth mousekeys (copied from the ergo ez config)

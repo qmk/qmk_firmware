@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0x2328
-#define DEVICE_VER      0x0205
-#define MANUFACTURER    K.T.E.C.
-#define PRODUCT         Staryu
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -34,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { NO_PIN, D0,     D1 }, \
     { D4,     D3,     D2 }, \
 }
-#define UNUSED_PINS
 
 #define RGB_DI_PIN C6
 #define RGBLED_NUM 1     // Number of LEDs

@@ -1,9 +1,8 @@
 {
-    "keyboard_name": "Ferris",
     "url": "https://github.com/pierrechevalier83/ferris/",
     "maintainer": "@pierrec83",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_3x5_2": {
             "layout": [
                 {"x": 0, "y": 0.93},
                 {"x": 1, "y": 0.31},
