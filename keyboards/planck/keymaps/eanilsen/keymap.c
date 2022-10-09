@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
   [_NAV] = LAYOUT_ortho_4x12(
-    KC_NO,          KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
-    LCTL_T(KC_ESC), KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_ENT,
-    KC_NO,          SW_APP,  KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_NO, KC_NO,
-    KC_NO,          KC_NO,   KC_NO,   KC_NO,   KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO, KC_NO
+    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
+    KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_ENT,
+    KC_NO,  SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_NO, KC_NO,
+    KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO, KC_NO
     )
 };
 
@@ -76,6 +76,7 @@ bool is_ctrl_held(void) { return get_mods() & MOD_BIT(KC_LCTL); }
 bool is_gui_held(void) { return get_mods() & MOD_BIT(KC_LGUI); }
 
 bool sw_app_active = false;
+bool sw_win_active = false;
 
 void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed)
 {
@@ -107,6 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     uint16_t mod = is_mac_the_default() ? KC_LGUI : KC_LALT;
     update_swapper(&sw_app_active, mod, KC_TAB, SW_APP, keycode, record);
   }
+  update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
   switch (keycode) {
   case LT(0,KC_SCLN):
