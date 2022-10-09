@@ -37,7 +37,7 @@ KC_ESC, RCTL(KC_ENTER), RCTL(KC_K), RCTL(KC_Z), RCTL(KC_S), RCTL(KC_N),         
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 KC_TRNS, MO(KEYSEL), KC_TRNS, RSFT(KC_TAB), KC_TAB, RCTL(KC_F),         LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LCTL(KC_RIGHT), RCTL(KC_DELETE),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-KC_TRNS, KC_TRNS,   KC_TRNS,  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,               KC_TRNS, RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), KC_PGDOWN, KC_TRNS,
+KC_TRNS, RCTL(KC_P), KC_TRNS,  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,               KC_TRNS, RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), KC_PGDOWN, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                         KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
@@ -125,9 +125,9 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VS_BM_CLEARALL,                    
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  KC_GRAVE,  KC_LPRN, KC_RPRN, KC_LBRACKET, KC_RBRACKET, KC_UNDS,                  KC_MINS,   KC_4,  KC_5,   KC_6,  KC_SLSH,  KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- KC_CIRC,  KC_COLN,  KC_DQUO,   KC_LCBR,   KC_RCBR,     KC_AMPR,                  KC_EQUAL,  KC_1,  KC_2,   KC_3,  KC_QUES,  KC_DOT,
+ KC_CIRC,  KC_COLN,  KC_DQUO,   KC_LCBR,   KC_RCBR,     KC_AMPR,                  KC_EQUAL,  KC_1,  KC_2,   KC_3,  KC_QUES,  KC_TRNS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_0
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_0, KC_DOT
                                       //`--------------------------'  `--------------------------'
   ),
 
