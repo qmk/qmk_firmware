@@ -422,7 +422,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #ifdef MIDI_ENABLE
     /* Setup MIDI stream endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
 #endif
 
 #ifdef VIRTSER_ENABLE
