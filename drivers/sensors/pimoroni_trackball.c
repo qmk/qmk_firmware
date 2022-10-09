@@ -17,7 +17,6 @@
 
 #include "pointing_device_internal.h"
 #include "pimoroni_trackball.h"
-#include "i2c_master.h"
 #include "timer.h"
 
 // clang-format off
@@ -31,18 +30,14 @@
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
 // clang-format on
 
-static uint16_t precision = 128;
+static uint8_t max_speed = 10;
 
 uint8_t pimoroni_get_max_speed(void) {
-    uint8_t max_speed = precision / 10;
-    if (max_speed == 0) {
-        max_speed = 1;
-    }
     return max_speed;
 }
 
 uint16_t pimoroni_trackball_get_cpi(void) {
-    return (precision * 125);
+    return (max_speed * 320);
 }
 /**
  * @brief Sets the scaling value for pimoroni trackball
@@ -50,15 +45,17 @@ uint16_t pimoroni_trackball_get_cpi(void) {
  * Sets a scaling value for pimoroni trackball to allow runtime adjustment. This isn't used by the sensor and is an
  * approximation so the functions are consistent across drivers.
  *
- * NOTE: This rounds down to the nearest number divisable by 125 that's a positive integer, values below 125 are clamped to 125.
+ * NOTE: This clamps cpi to between 320 and 32000. Default 3200.
  *
  * @param cpi uint16_t
  */
 void pimoroni_trackball_set_cpi(uint16_t cpi) {
-    if (cpi < 249) {
-        precision = 1;
+    if (cpi < 320) {
+        max_speed = 1;
+    } else if (cpi > 32000) {
+        max_speed = 100;
     } else {
-        precision = (cpi - (cpi % 125)) / 125;
+        max_speed = (cpi - (cpi % 320)) / 320;
     }
 }
 
