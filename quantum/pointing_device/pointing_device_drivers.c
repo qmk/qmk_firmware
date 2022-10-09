@@ -22,7 +22,6 @@
 #include "wait.h"
 #include "timer.h"
 #include <stddef.h>
-#include <stdlib.h>
 
 #define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
 #define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
@@ -305,9 +304,9 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                     }
 
                     if (in_motion) {
-                        mouse_report.x = (int8_t)pimoroni_data.left - (int8_t)pimoroni_data.right;
-                        mouse_report.y = (int8_t)pimoroni_data.up - (int8_t)pimoroni_data.down;
-                        if (abs(mouse_report.x) > 2 || abs(mouse_report.y) > 2) {
+                        mouse_report.x = CONSTRAIN_HID((int8_t)pimoroni_data.left - pimoroni_data.right);
+                        mouse_report.y = CONSTRAIN_HID((int8_t)pimoroni_data.up - pimoroni_data.down);
+                        if (mouse_report.x > 2 || mouse_report.y > 2 || mouse_report.x < -2 || mouse_report.y < -2) {
                             fast_motion      = true;
                             last_fast_motion = last_read;
                         }
@@ -320,12 +319,16 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                         if (elapsed_time > PIMORONI_TRACKBALL_TIME_TO_MAX) {
                             began_motion += elapsed_time - PIMORONI_TRACKBALL_TIME_TO_MAX;
                         }
-                        uint32_t temp = (pimoroni_get_max_speed() * ((elapsed_time << 7) / PIMORONI_TRACKBALL_TIME_TO_MAX)) >> 7;
-                        if (temp == 0) {
-                            temp = 1;
+#    ifndef PIMORONI_TRACKBALL_USE_FLOAT
+                        uint8_t speed_modifier = (pimoroni_get_max_speed() * ((elapsed_time << 8) / PIMORONI_TRACKBALL_TIME_TO_MAX)) >> 8;
+#    else
+                        float speed_modifier = pimoroni_get_max_speed() * ((float)elapsed_time / PIMORONI_TRACKBALL_TIME_TO_MAX);
+#    endif // PIMORONI_TRACKBALL_FLOAT
+                        if (speed_modifier == 0) {
+                            speed_modifier = 1;
                         }
-                        mouse_report.x = mouse_report.x * temp;
-                        mouse_report.y = mouse_report.y * temp;
+                        mouse_report.x = CONSTRAIN_HID_XY(mouse_report.x * speed_modifier);
+                        mouse_report.y = CONSTRAIN_HID_XY(mouse_report.y * speed_modifier);
                     }
                 } else {
                     debounce--;
