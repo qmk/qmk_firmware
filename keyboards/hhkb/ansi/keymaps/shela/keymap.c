@@ -340,11 +340,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     } else {
                         if (TIMER_DIFF_16(record->event.time, l_time) < TAPPING_TERM) {
                             if (mac_mode) {
-                                register_code(KC_LANG2);
-                                unregister_code(KC_LANG2);
+                                register_code(KC_LNG2);
+                                unregister_code(KC_LNG2);
                             } else {
-                                register_code(KC_MHEN);
-                                unregister_code(KC_MHEN);
+                                register_code(KC_INT5);
+                                unregister_code(KC_INT5);
                             }
                         } else {
                             register_code(l_inner);
@@ -367,11 +367,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     } else {
                         if (TIMER_DIFF_16(record->event.time, r_time) < TAPPING_TERM) {
                             if (mac_mode) {
-                                register_code(KC_LANG1);
-                                unregister_code(KC_LANG1);
+                                register_code(KC_LNG1);
+                                unregister_code(KC_LNG1);
                             } else {
-                                register_code(KC_KANA);
-                                unregister_code(KC_KANA);
+                                register_code(KC_INT2);
+                                unregister_code(KC_INT2);
                             }
                         } else {
                             register_code(r_inner);

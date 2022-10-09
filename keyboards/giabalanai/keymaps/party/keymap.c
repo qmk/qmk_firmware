@@ -26,8 +26,8 @@
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE  LT(_FN, KC_MUTE)
 #define SHIF_UP  RSFT_T(KC_UP)
-#define ADJ_EIS  LT(_ADJUST,KC_LANG2)
-#define MIS_KAN  LT(_MISC,KC_LANG1)
+#define ADJ_EIS  LT(_ADJUST,KC_LNG2)
+#define MIS_KAN  LT(_MISC,KC_LNG1)
 
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
@@ -301,7 +301,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_DEL,
         KC_CAPS, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_ENT,
           KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_RSFT,
-            KC_LCTL, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LANG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
+            KC_LCTL, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LNG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
 
     _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,
@@ -315,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_DEL,
         KC_LCTL, _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_ENT,
           KC_LSFT, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, SHIF_UP,
-            KC_CAPS, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LANG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
+            KC_CAPS, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LNG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
 
     _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,

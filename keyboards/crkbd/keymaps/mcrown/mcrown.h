@@ -27,8 +27,8 @@
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
 #define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUIEI GUI_T(KC_LANG2)
-#define KC_ALTKN ALT_T(KC_LANG1)
+#define KC_GUIEI GUI_T(KC_LNG2)
+#define KC_ALTKN ALT_T(KC_LNG1)
 
 #define LAYOUT_wrapper(...)   LAYOUT(__VA_ARGS__)
 
