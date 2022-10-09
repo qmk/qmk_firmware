@@ -54,6 +54,7 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
+BUILD_DIR := $(ROOT_DIR)/.build
 
 include paths.mk
 
