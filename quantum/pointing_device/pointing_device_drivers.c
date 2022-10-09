@@ -22,7 +22,6 @@
 #include "wait.h"
 #include "timer.h"
 #include <stddef.h>
-#include <stdlib.h>
 
 #define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
 #define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
@@ -294,7 +293,7 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                     if (in_motion) {
                         mouse_report.x = CONSTRAIN_HID((int8_t)pimoroni_data.left - pimoroni_data.right);
                         mouse_report.y = CONSTRAIN_HID((int8_t)pimoroni_data.up - pimoroni_data.down);
-                        if (abs(mouse_report.x) > 2 || abs(mouse_report.y) > 2) {
+                        if (mouse_report.x > 2 || mouse_report.y > 2 || mouse_report.x < -2 || mouse_report.y < -2) {
                             fast_motion      = true;
                             last_fast_motion = last_read;
                         }
@@ -312,10 +311,16 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                         if (speed_modifier < 256) {
                             speed_modifier = 256;
                         }
-                        bool     x_neg    = mouse_report.x < 0;
-                        bool     y_neg    = mouse_report.y < 0;
-                        uint16_t x_amount = (abs(mouse_report.x) * speed_modifier) >> 8;
-                        uint16_t y_amount = (abs(mouse_report.y) * speed_modifier) >> 8;
+                        bool x_neg = mouse_report.x < 0;
+                        bool y_neg = mouse_report.y < 0;
+                        if (x_neg) {
+                            mouse_report.x = -mouse_report.x;
+                        }
+                        if (y_neg) {
+                            mouse_report.y = -mouse_report.y;
+                        }
+                        uint16_t x_amount = (mouse_report.x * speed_modifier) >> 8;
+                        uint16_t y_amount = (mouse_report.y * speed_modifier) >> 8;
                         mouse_report.x    = CONSTRAIN_HID_XY((int32_t)x_amount);
                         mouse_report.y    = CONSTRAIN_HID_XY((int32_t)y_amount);
                         if (x_neg) {
