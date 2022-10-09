@@ -27,7 +27,6 @@
     { F7, B1, B3 }, \
     { B2, B6, B5 }  \
 }
-#define UNUSED_PINS
 
 /* Rotary Encoder Assignments */
 #define ENCODERS_PAD_A { C6, E6 }

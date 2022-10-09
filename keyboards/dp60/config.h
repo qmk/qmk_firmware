@@ -20,7 +20,6 @@
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
-#define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

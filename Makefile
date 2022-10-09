@@ -264,7 +264,7 @@ define PARSE_KEYMAP
     # The rest of the rule is the target
     # Remove the leading ":" from the target, as it acts as a separator
     MAKE_TARGET := $$(patsubst :%,%,$$(RULE))
-    # We need to generate an unique indentifer to append to the COMMANDS list
+    # We need to generate an unique identifier to append to the COMMANDS list
     CURRENT_KB_UNDER := $$(subst /,_,$$(CURRENT_KB))
     COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB_UNDER)_KEYMAP_$$(CURRENT_KM)
     # If we are compiling a keyboard without a subproject, we want to display just the name
@@ -401,6 +401,7 @@ ifndef SKIP_GIT
 	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
 	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
 	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
+	if [ ! -e lib/pico-sdk ]; then git submodule sync lib/pico-sdk && git submodule update --depth 50 --init lib/pico-sdk; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \

@@ -3,6 +3,26 @@
     "manufacturer": "3araht",
     "url": "https://github.com/3araht/chromatonemini",
     "maintainer": "3araht",
+    "bootloader": "caterina",
+    "processor": "atmega32u4",
+    "features": {
+        "midi": true,
+        "extrakey": true,
+        "encoder": true,
+        "via": true,
+        "bootmagic": false,
+        "console": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "audio": false
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6" ],
+        "rows": [ "E6", "D7", "C6", "D4", "D0", "D1" ]
+    },
+    "debounce": 5,
     "usb": {
         "vid": "0xFEED",
         "pid": "0xF4B4",
@@ -13,8 +33,6 @@
             "layout": [
                 {"label":"enc", "x":0.5, "y":0},
                 {"label":"sustain", "x":1.5, "y":0},
-                {"label":"ccw", "x":2.5, "y":0},
-                {"label":"cw", "x":3.5, "y":0},
                 {"label":"up", "x":0.5, "y":1.5},
                 {"label":"left", "x":0, "y":2.5},
                 {"label":"right", "x":1, "y":2.5},
@@ -57,5 +75,10 @@
                 {"label":"k34", "x":19, "y":3.5},
                 {"label":"k36", "x":20, "y":3.5}]
         }
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B5", "pin_b": "B4", "resolution": 4 }
+        ]
     }
 }

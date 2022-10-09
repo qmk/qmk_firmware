@@ -31,7 +31,6 @@
 #define MATRIX_ROW_PINS { D2, D7, E6, B4, B5, B6, B2, B3, F0 }
 #define MATRIX_COL_PINS { D3, F4, F5, F6, F7, B1 }
 
-#define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
 /* ROTARY ENCODERS */

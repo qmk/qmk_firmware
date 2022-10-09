@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MI_D_1, MI_B_1, MI_G_3, MI_A_3, MI_Ds_3, MI_Fs_2, MI_Ds_1, MI_C_1,
 
      MO_SWAP,    MI_B_5, MI_Gs_5, MI_G_5, MI_F_5,     FN_MUTE,
-         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5,
         MI_C_3, MI_D_3, MI_G_3, MI_As_4, MI_C_5, MI_D_5,
      TG_SWAP, MI_B_2, MI_E_3, MI_Cs_4, MI_Fs_3, MI_A_3, MI_C_4, MI_E_4,
        MI_A_2, MI_F_3, MI_As_3, MI_Gs_3, MI_B_3, MI_D_4, MI_Gs_4, MI_B_4,
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MI_E_1, MI_E_2, MI_Fs_3, MI_Gs_3, MI_B_3, MI_F_2, MI_Cs_1, MI_F_1,
 
      MO_SWAP,    MI_A_5, MI_Gs_5, MI_Fs_5, MI_F_5,     FN_MUTE,
-         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5,
         MI_D_3, MI_Cs_3, MI_Gs_3, MI_As_3, MI_C_4, MI_D_5,
      TG_SWAP, MI_B_2, MI_Fs_3, MI_Fs_4, MI_G_3, MI_B_3, MI_D_4, MI_G_4,
        MI_A_2, MI_F_3, MI_E_3, MI_A_3, MI_Cs_4, MI_E_4, MI_A_4, MI_Cs_5,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
 
      MO(_MISC),        KC_LBRC, KC_RBRC, KC_BSLS, KC_0,         _______,
-                  KC_6, KC_7, KC_8, KC_9, KC_BSPC, _______, _______,
+                  KC_6, KC_7, KC_8, KC_9, KC_BSPC,
                 _________________QWERTY_R1_________________, KC_DEL,
      KC_PGUP, KC_G, _________________QWERTY_R2_________________, KC_ENT,
             KC_PGDN, KC_B, _________________QWERTY_R3_________________, KC_RSFT,
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_CAPS, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
 
      MO(_MISC),        KC_LBRC, KC_RBRC, KC_BSLS, KC_0,         _______,
-                  KC_6, KC_7, KC_8, KC_9, KC_BSPC, _______, _______,
+                  KC_6, KC_7, KC_8, KC_9, KC_BSPC,
                 _________________COLEMAK_R1________________, KC_DEL,
      KC_PGUP, KC_D, _________________COLEMAK_R2________________, KC_ENT,
             KC_PGDN, KC_B, _________________COLEMAK_R3________________, KC_RSFT,
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, _______, _______, _______, _______, _______, _______, _______,
 
      _______,        _______, _______, _______, KC_F10,         _______,
-                  KC_F6, KC_F7, KC_F8, KC_F9, _______, _______, _______,
+                  KC_F6, KC_F7, KC_F8, KC_F9, _______,
                 _______, _______, _______, _______, _______, _______,
      _______, _______, _______, _______, _______, _______, KC_QUOT, _______,
             _______, _______, _______, _______, _______, _______, _______, _______,
@@ -146,13 +146,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
-                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_RMOD, RGB_MOD,
+                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG
     )
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_OPEN]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_CLOSE]    = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_QWERTY]   = { ENCODER_CCW_CW(_______, _______) },
+    [_COLEMAK]  = { ENCODER_CCW_CW(_______, _______) },
+    [_MISC]     = { ENCODER_CCW_CW(_______, _______) },
+    [_FN]       = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+};
+#endif
 
 void my_init(void){
     //  Set octave to MI_OCT_0
@@ -196,7 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
-        uint8_t layer = biton32(layer_state);
+        uint8_t layer = get_highest_layer(layer_state);
         switch (layer) {
             case _CLOSE:
                 // rgb_matrix_set_color(pgm_read_byte(&convert_led_location2number[11]),  RGB_RED);         //  RGB_TOG  <- too heavy.
