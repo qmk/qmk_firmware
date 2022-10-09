@@ -1,12 +1,12 @@
 # antipode/vero
 
-![antipode/vero](imgur.com image replace me!)
+![antipode/vero](https://imgur.com/znKP8XQ.jpeg)
 
-*A short description of the keyboard/project*
+AKB Vero - Vero means true. This keyboard brings you a truly great typing experience in a true HHKB layout. With its 6U spacebar and asymmetrical blockers it brings the classic design of the HHKB to MX keyboards.
 
-* Keyboard Maintainer: [Martin Arnstad](https://github.com/arnstadm)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Antipode](https://antipode.no)
+* Hardware Supported: AKB Vero PCB
+* Hardware Availability: https://www.antipode.no/products/akb-vero
 
 Make example for this keyboard (after setting up your build environment):
 
