@@ -12,7 +12,7 @@
 1. Convert to `keymap.c`:
 
    ```bash
-   cd keyboards/splitkb/kyria/keymaps/ArtFlag
+   cd keyboards/splitkb/kyria/keymaps/artflag
    qmk json2c workman-artflag.json > keymap.c
    cd ../../../../..
    ```
@@ -23,4 +23,3 @@
    ```bash
    qmk compile && qmk flash
    ```
-   

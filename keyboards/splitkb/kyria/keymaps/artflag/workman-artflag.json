@@ -38,7 +38,7 @@
       "KC_C",
       "KC_V",
       "KC_BSLS",
-      "TT(2)",
+      "MO(2)",
       "KC_LBRC",
       "KC_RBRC",
       "KC_K",
@@ -51,8 +51,8 @@
       "KC_LALT",
       "KC_SPC",
       "KC_LSPO",
-      "TT(1)",
-      "TT(1)",
+      "MO(1)",
+      "MO(1)",
       "KC_RSPC",
       "KC_ENT",
       "KC_MINS",
@@ -158,7 +158,7 @@
       "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
-      "KC_NO",
+      "KC_TRNS",
       "KC_NO",
       "KC_NO"
     ]
