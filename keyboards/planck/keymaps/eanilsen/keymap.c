@@ -21,6 +21,8 @@ enum planck_layers {
 #define FUNCTION OSL(_FUNCTION)
 #define NAV TO(_NAV)
 #define HOME TO(_ISRT)
+#define MTLCTL MT(MOD_LCTL,KC_T)
+#define MTRCTL MT(MOD_RCTL,KC_N)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
@@ -37,10 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,  KC_Y,    KC_C,    KC_L,              KC_M,              KC_K,   KC_Z,     KC_F,              KC_U,              KC_COMM, KC_QUOT, KC_DEL,
-    KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MT(MOD_LCTL,KC_T), KC_G,   KC_P,     MT(MOD_RCTL,KC_N), MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
-    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,              KC_J,   KC_B,     KC_H,              KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
-    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           KC_SPC,            SYMBOL, FUNCTION, KC_BSPC,           NAV,               KC_LGUI, KC_LEFT, KC_RGHT
+    KC_TAB,  KC_Y,    KC_C,    KC_L,              KC_M,   KC_K,   KC_Z,     KC_F,    KC_U,              KC_COMM, KC_QUOT, KC_DEL,
+    KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MTLCTL, KC_G,   KC_P,     MTRCTL,  MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
+    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,   KC_J,   KC_B,     KC_H,    KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
+    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           KC_SPC, SYMBOL, FUNCTION, KC_BSPC, NAV,               KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   [_SYMBOL] = LAYOUT_ortho_4x12(
@@ -77,6 +79,17 @@ void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed) {
     register_code16(code);
   } else {
     unregister_code16(code);
+  }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case MTLCTL:
+    return TAPPING_TERM + 200;
+  case MTRCTL:
+    return TAPPING_TERM + 200;
+  default:
+    return TAPPING_TERM;
   }
 }
 
