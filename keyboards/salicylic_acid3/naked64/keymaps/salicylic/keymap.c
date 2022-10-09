@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
                KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                  KC_N,    KC_M, JP_COMM,  JP_DOT, JP_SLSH,   KC_UP, KC_RSFT, \
   //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
-               KC_ZKHK,  LGUI_T(KC_MHEN),LT(_LOWER,KC_ENT), KC_BSPC,                KC_DEL,LT(_RAISE,KC_SPC),ALT_T(KC_HENK),KC_LEFT,KC_DOWN,KC_RIGHT  \
+               JP_ZKHK,  LGUI_T(JP_MHEN),LT(_LOWER,KC_ENT), KC_BSPC,                KC_DEL,LT(_RAISE,KC_SPC),ALT_T(JP_HENK),KC_LEFT,KC_DOWN,KC_RIGHT  \
           //`-----------------------------------------------------------------------------------------------------------------------------------'
   ),
 
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
                JP_CIRC, JP_PERC, JP_AMPR, JP_SCLN, JP_COLN, JP_PIPE,                 KC_P0,   KC_P1,   KC_P2,   KC_P3, JP_PLUS,   KC_UP, KC_RSFT, \
   //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
-               KC_ZKHK,          _______,       MO(_LOWER), _______,               _______,       MO(_RAISE),  JP_DOT, KC_LEFT, KC_DOWN, KC_RIGHT  \
+               JP_ZKHK,          _______,       MO(_LOWER), _______,               _______,       MO(_RAISE),  JP_DOT, KC_LEFT, KC_DOWN, KC_RIGHT  \
           //`-----------------------------------------------------------------------------------------------------------------------------------'
   ),
 
