@@ -914,6 +914,8 @@ void naginata_type(void) {
 // 組み合わせがない = 0: 変換を開始する
 int number_of_candidates() {
   naginata_keymap bngmap; // PROGMEM buffer
+  naginata_keymap_long bngmapl; // PROGMEM buffer
+  naginata_keymap_unicode bngmapu; // PROGMEM buffer
   int c = 0;
   uint32_t hit = 0;
 
@@ -925,6 +927,7 @@ int number_of_candidates() {
     keycomb_buf |= ng_key[ninputs[i] - NG_Q];
   }
 
+  // 通常の仮名
   for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
     memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
     if ((keycomb_buf & bngmap.key) == keycomb_buf) {
@@ -932,6 +935,41 @@ int number_of_candidates() {
       hit = bngmap.key;
     }
   }
+
+  // 編集モード Mac
+  if (naginata_config.os == NG_MAC) {
+    for (int i = 0; i < sizeof ngmapl_mac / sizeof bngmapl; i++) {
+      memcpy_P(&bngmapl, &ngmapl_mac[i], sizeof(bngmapl));
+      if ((keycomb_buf & bngmapl.key) == keycomb_buf) {
+        c++;
+        hit = bngmapl.key;
+      }
+    }
+  }
+  // 編集モード 共通
+  for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+    memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
+    if ((keycomb_buf & bngmapl.key) == keycomb_buf) {
+      c++;
+      hit = bngmapl.key;
+    }
+  }
+  // 編集モード 縦書き横書き
+  for (int i = 0; i < sizeof ngmapl_ty / sizeof bngmapl; i++) {
+    if ((keycomb_buf & ngmapl_ty[i].key) == keycomb_buf) {
+      c++;
+      hit = ngmapl_ty[i].key;
+    }
+  }
+  // 編集モード UNICODE文字
+  for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
+    memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
+    if ((keycomb_buf & bngmapu.key) == keycomb_buf) {
+      c++;
+      hit = bngmapu.key;
+    }
+  }
+
   if (c == 1 && ng_chrcount < count_bit(hit)) {
     return -1;
   }
