@@ -70,24 +70,6 @@
 #    define VIA_FIRMWARE_VERSION 0x00000000
 #endif
 
-// Enable the VIA command handlers for QMK Core features if those features
-// are enabled.
-#if defined(BACKLIGHT_ENABLE)
-#    define VIA_QMK_BACKLIGHT_ENABLE
-#endif
-
-#if defined(RGBLIGHT_ENABLE)
-#    define VIA_QMK_RGBLIGHT_ENABLE
-#endif
-
-#if defined(RGB_MATRIX_ENABLE)
-#    define VIA_QMK_RGB_MATRIX_ENABLE
-#endif
-
-#if defined(AUDIO_ENABLE)
-#    define VIA_QMK_AUDIO_ENABLE
-#endif
-
 enum via_command_id {
     id_get_protocol_version                 = 0x01, // always 0x01
     id_get_keyboard_value                   = 0x02,
@@ -113,17 +95,45 @@ enum via_command_id {
     id_unhandled                            = 0xFF,
 };
 
-enum via_keyboard_value_id { id_uptime = 0x01, id_layout_options = 0x02, id_switch_matrix_state = 0x03, id_firmware_version = 0x04, id_device_indication = 0x05 };
+enum via_keyboard_value_id {
+    id_uptime              = 0x01,
+    id_layout_options      = 0x02,
+    id_switch_matrix_state = 0x03,
+    id_firmware_version    = 0x04,
+    id_device_indication   = 0x05,
+};
 
-enum via_channel_id { id_custom_channel = 0, id_qmk_backlight_channel = 1, id_qmk_rgblight_channel = 2, id_qmk_rgb_matrix_channel = 3, id_qmk_audio_channel = 4 };
+enum via_channel_id {
+    id_custom_channel         = 0,
+    id_qmk_backlight_channel  = 1,
+    id_qmk_rgblight_channel   = 2,
+    id_qmk_rgb_matrix_channel = 3,
+    id_qmk_audio_channel      = 4,
+};
 
-enum via_qmk_backlight_value { id_qmk_backlight_brightness = 1, id_qmk_backlight_effect = 2 };
+enum via_qmk_backlight_value {
+    id_qmk_backlight_brightness = 1,
+    id_qmk_backlight_effect     = 2,
+};
 
-enum via_qmk_rgblight_value { id_qmk_rgblight_brightness = 1, id_qmk_rgblight_effect = 2, id_qmk_rgblight_effect_speed = 3, id_qmk_rgblight_color = 4 };
+enum via_qmk_rgblight_value {
+    id_qmk_rgblight_brightness   = 1,
+    id_qmk_rgblight_effect       = 2,
+    id_qmk_rgblight_effect_speed = 3,
+    id_qmk_rgblight_color        = 4,
+};
 
-enum via_qmk_rgb_matrix_value { id_qmk_rgb_matrix_brightness = 1, id_qmk_rgb_matrix_effect = 2, id_qmk_rgb_matrix_effect_speed = 3, id_qmk_rgb_matrix_color = 4 };
+enum via_qmk_rgb_matrix_value {
+    id_qmk_rgb_matrix_brightness   = 1,
+    id_qmk_rgb_matrix_effect       = 2,
+    id_qmk_rgb_matrix_effect_speed = 3,
+    id_qmk_rgb_matrix_color        = 4,
+};
 
-enum via_qmk_audio_value { id_qmk_audio_enable = 1, id_qmk_audio_clicky_enable = 2 };
+enum via_qmk_audio_value {
+    id_qmk_audio_enable        = 1,
+    id_qmk_audio_clicky_enable = 2,
+};
 
 // Can't use SAFE_RANGE here, it might change if someone adds
 // new values to enum quantum_keycodes.
@@ -196,28 +206,28 @@ void via_set_device_indication(uint8_t value);
 bool process_record_via(uint16_t keycode, keyrecord_t *record);
 
 // These are made external so that keyboard level custom value handlers can use them.
-#if defined(VIA_QMK_BACKLIGHT_ENABLE)
+#if defined(BACKLIGHT_ENABLE)
 void via_qmk_backlight_command(uint8_t *data, uint8_t length);
 void via_qmk_backlight_set_value(uint8_t *data);
 void via_qmk_backlight_get_value(uint8_t *data);
 void via_qmk_backlight_save(void);
 #endif
 
-#if defined(VIA_QMK_RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
 void via_qmk_rgblight_command(uint8_t *data, uint8_t length);
 void via_qmk_rgblight_set_value(uint8_t *data);
 void via_qmk_rgblight_get_value(uint8_t *data);
 void via_qmk_rgblight_save(void);
 #endif
 
-#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
 void via_qmk_rgb_matrix_command(uint8_t *data, uint8_t length);
 void via_qmk_rgb_matrix_set_value(uint8_t *data);
 void via_qmk_rgb_matrix_get_value(uint8_t *data);
 void via_qmk_rgb_matrix_save(void);
 #endif
 
-#if defined(VIA_QMK_AUDIO_ENABLE)
+#if defined(AUDIO_ENABLE)
 void via_qmk_audio_command(uint8_t *data, uint8_t length);
 void via_qmk_audio_set_value(uint8_t *data);
 void via_qmk_audio_get_value(uint8_t *data);
