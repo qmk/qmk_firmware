@@ -57,12 +57,12 @@ enum custom_keycodes {
 #define US_OSX_CENT                 LALT(KC_4)                  // ¢
 #define US_OSX_YEN                  LALT(KC_Y)                  // ¥
 #define US_OSX_SBQUO                LALT(LSFT(KC_0))            // ‚
-#define US_OSX_LEFT_SINGLE_QUOTE    LALT(KC_RBRACKET)           // ‘
-#define US_OSX_RIGHT_SINGLE_QUOTE   LALT(LSFT(KC_RBRACKET))     // ’
+#define US_OSX_LEFT_SINGLE_QUOTE    LALT(KC_RBRC)               // ‘
+#define US_OSX_RIGHT_SINGLE_QUOTE   LALT(LSFT(KC_RBRC))         // ’
 #define US_OSX_ELLIPSIS             LALT(KC_SCOLON)             // …
 #define US_OSX_UNDERSCORE           LSFT(KC_MINUS)              // _
-#define US_OSX_LBRACKET             KC_LBRACKET                 // [
-#define US_OSX_RBRACKET             KC_RBRACKET                 // ]
+#define US_OSX_LBRACKET             KC_LBRC                     // [
+#define US_OSX_RBRACKET             KC_RBRC                     // ]
 #define US_OSX_CIRCUMFLEX           LSFT(KC_6)                  // ^
 #define US_OSX_EXCLAMATION          LSFT(KC_1)                  // !
 #define US_OSX_LESSTHAN             LSFT(KC_COMMA)              // <
@@ -72,8 +72,8 @@ enum custom_keycodes {
 #define US_OSX_SMALL_LONG_S         KC_NO                       // ſ
 #define US_OSX_BSLASH               KC_BSLASH
 #define US_OSX_SLASH                KC_SLASH                    // /
-#define US_OSX_CLBRACKET            LSFT(KC_LBRACKET)           // {
-#define US_OSX_CRBRACKET            LSFT(KC_RBRACKET)           // }
+#define US_OSX_CLBRACKET            LSFT(KC_LBRC)               // {
+#define US_OSX_CRBRACKET            LSFT(KC_RBRC)               // }
 #define US_OSX_ASTERISK             LSFT(KC_8)                  // *
 #define US_OSX_QUESTIONMARK         LSFT(KC_SLASH)              // ?
 #define US_OSX_LPARENTHESES         LSFT(KC_9)                  // (
@@ -375,7 +375,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // right hand side - main
     TO(NEO_1),        KC_6,         KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,
-    KC_LBRACKET,      KC_Y,         KC_U,       KC_I,       KC_O,       KC_P,       KC_RBRACKET,
+    KC_LBRC,          KC_Y,         KC_U,       KC_I,       KC_O,       KC_P,       KC_RBRC,
     /* --- */         KC_H,         KC_J,       KC_K,       KC_L,       KC_SCOLON,  KC_QUOTE,
     KC_NO /* NOOP */, KC_N,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSHIFT,
     /* --- */         /* --- */     KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   KC_RGUI,
@@ -511,11 +511,11 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
         break;
       case NEO2_9:
         // left double quote
-        tap_code16(A(KC_LBRACKET));
+        tap_code16(A(KC_LEFT_BRACKET));
         break;
       case NEO2_0:
         // right double quote
-        tap_code16(S(A(KC_LBRACKET)));
+        tap_code16(S(A(KC_LEFT_BRACKET)));
         break;
       case NEO2_MINUS:
         // em dash

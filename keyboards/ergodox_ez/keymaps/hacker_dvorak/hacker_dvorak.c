@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
                                                              //                        |                         |                         |                         |                         //
                                                             //                         |                         |                         |                         |                         //
-                                                                      KC_LEFT,                   KC_UP,                    KC_DOWN,                 KC_RGHT,                  KC_SYSREQ,       //
+                                                                      KC_LEFT,                   KC_UP,                    KC_DOWN,                 KC_RGHT,                  KC_SYRQ,         //
                                                             //                         |                         |                         |                         |                         //
                                                             //                         |                         |                         |                         |                         //
                                                              //------------------------+-------------------------+-------------------------+-------------------------+------------------------//
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,    XXXXXXX,       KC_MS_BTN2, KC_MS_UP,   KC_MS_BTN1,  KC_MS_BTN3, GUI_T(KC_NO),
         KC_ESC,     KC_MS_BTN4,    KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_BTN5, PV_NUM,
         KC_TAB,     PV_LS,         PV_LT,      PV_LP,      PV_LH,       PV_STAR,
-        KC_CLCK,    PV_LS,         PV_LK,      PV_LW,      PV_LR,       PV_STAR,    PV_STAR,
+        KC_CAPS,    PV_LS,         PV_LK,      PV_LW,      PV_LR,       PV_STAR,    PV_STAR,
         XXXXXXX, TG(LAYERS), PV_NUM,     PV_NUM,     PV_NUM,
 
         // left thumb
@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, KC_F9,         KC_F7,      KC_F5,   KC_F3,        KC_F1,   KC_WWW_HOME,
         KC_PAUS,            KC_F19,        KC_F17,     KC_F15,  KC_F13,       KC_F11,
         RGB_HUD,             XXXXXXX,       XXXXXXX,    _______, KC_F23,       KC_F21,  KC_WWW_BACK,
-        RGB_VAD,             KC_CLCK,       KC_PSCREEN, XXXXXXX, MO(FIRMWARE),
+        RGB_VAD,             KC_CAPS,       KC_PSCREEN, XXXXXXX, MO(FIRMWARE),
 
         // left thumb
                  _______, XXXXXXX,

@@ -62,8 +62,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               LCTL(KC_C),
                                                GUI_T(KC_ENTER),SFT_T(KC_SPACE),LCTL(KC_V),
         // right hand
-             LCTL(KC_S)  ,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,     KC_LBRACKET,
-             KC_DELETE,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_RBRACKET,
+             LCTL(KC_S)  ,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,     KC_LBRC,
+             KC_DELETE,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_RBRC,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_UNDS,LCTL(KC_Y),
              KC_SCOLON,KC_N,   KC_M, KC_QUOTE  ,KC_EXLM , LSFT(KC_SLASH),   LCTL(KC_Z),
                                   KC_EQUAL,KC_PLUS  ,  KC_MINUS,KC_ASTR  ,     TG(1),

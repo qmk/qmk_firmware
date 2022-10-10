@@ -372,7 +372,7 @@ bool command_extra(uint8_t code)
                 config_mode = false;
             }
             return true;
-        case KC_SCROLLLOCK:
+        case KC_SCROLL_LOCK:
             init_rn42();
             return true;
 #ifdef NKRO_ENABLE
@@ -451,8 +451,8 @@ static uint8_t code2asc(uint8_t code)
         case KC_SPACE: return ' ';
         case KC_MINUS: return (shifted ? '_' : '-');
         case KC_EQUAL: return (shifted ? '+' : '=');
-        case KC_LBRACKET: return (shifted ? '{' : '[');
-        case KC_RBRACKET: return (shifted ? '}' : ']');
+        case KC_LEFT_BRACKET: return (shifted ? '{' : '[');
+        case KC_RIGHT_BRACKET: return (shifted ? '}' : ']');
         case KC_BSLASH: return (shifted ? '|' : '\\');
         case KC_NONUS_HASH: return (shifted ? '|' : '\\');
         case KC_SCOLON: return (shifted ? ':' : ';');

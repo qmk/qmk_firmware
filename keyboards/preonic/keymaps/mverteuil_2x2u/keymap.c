@@ -303,7 +303,7 @@ void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code16(KC_LEFT_PAREN);
             break;
         case DOUBLE_TAP:
-            register_code(KC_LBRACKET);
+            register_code(KC_LEFT_BRACKET);
             break;
         case TRIPLE_TAP:
             register_code16(KC_LEFT_CURLY_BRACE);
@@ -319,7 +319,7 @@ void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code16(KC_LEFT_PAREN);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_LBRACKET);
+            unregister_code(KC_LEFT_BRACKET);
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_LEFT_CURLY_BRACE);
@@ -337,7 +337,7 @@ void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code16(KC_RIGHT_PAREN);
             break;
         case DOUBLE_TAP:
-            register_code(KC_RBRACKET);
+            register_code(KC_RIGHT_BRACKET);
             break;
         case TRIPLE_TAP:
             register_code16(KC_RIGHT_CURLY_BRACE);
@@ -353,7 +353,7 @@ void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code16(KC_RIGHT_PAREN);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_RBRACKET);
+            unregister_code(KC_RIGHT_BRACKET);
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_RIGHT_CURLY_BRACE);

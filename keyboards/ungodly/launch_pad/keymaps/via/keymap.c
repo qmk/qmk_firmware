@@ -20,7 +20,7 @@
 /* Force Numlock on */
 void matrix_init_user (void) {
   if (!host_keyboard_led_state().num_lock) {
-      tap_code(KC_NUMLOCK);
+      tap_code(KC_NUM_LOCK);
   }
 }
 
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-------------------'
 */
 [1] = LAYOUT_ortho_5x4(
-  KC_LUP, KC_NUMLOCK, XXXXXXX,    XXXXXXX,
+  KC_LUP,    KC_NUM,  XXXXXXX,    XXXXXXX,
   KC_HOME,   KC_UP,   KC_PGUP,    XXXXXXX,
   KC_LEFT, XXXXXXX,   KC_RGHT,    XXXXXXX,
   KC_END,  KC_DOWN,   KC_PGDN,    KC_PENT,
