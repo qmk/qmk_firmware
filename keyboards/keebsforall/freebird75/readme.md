@@ -1,8 +1,8 @@
 # Freebird 75
 
-![fb75](https://cdn.shopify.com/s/files/1/0466/1408/5790/products/Scene_03_1200x.jpg?v=1664496240)
+![fb75](https://i.imgur.com/fGRQZ2g.jpg)
 
-*A short description of the keyboard/project*
+The Freebird75 is the latest addition to the Freebird line at KeebsForAll, a series aiming to provide a set of good quality keyboards at an affordable price
 
 * Keyboard Maintainer: [Elliot Powell](https://github.com/e11i0t23)
 * Hardware Supported: Freebird75
