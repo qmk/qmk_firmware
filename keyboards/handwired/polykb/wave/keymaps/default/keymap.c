@@ -10,7 +10,26 @@
 
 #include "lang/lang_lut.h"
 
-static enum lang_layer current_lang = LANG_EN;
+static enum lang_layer current_lang = 
+    /*[[[cog
+    import cog
+    import os
+    from openpyxl import load_workbook
+    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "..", "..", "..", "lang", "lang_lut.xlsx"))
+    sheet = wb['key_lut']
+
+    languages = []
+    lang_index = 0
+    lang_key = sheet["B1"].value
+    while lang_key:
+        languages.append(lang_key)
+        if lang_index==0:
+            cog.outl(f"{lang_key};")
+        lang_index = lang_index + 1
+        lang_key = sheet.cell(row = 1, column = 2 + lang_index*3).value
+    ]]]*/
+    LANG_EN;
+    //[[[end]]]
 
 enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, _LAYER2 = 2, //, _LAYER3 = 3, _LAYER4 = 4, _LAYER5 = 5, _LAYER6 = 6, _LAYER7 = 7,
                  NUM_LAYERS = 2 };
@@ -27,16 +46,23 @@ enum my_keycodes {
   KC_DISP_CMINUS,
   KC_DISP_CONTRAST,
   KC_DISP_CPLUS,
+  KC_SAVE_EE,
+  KC_RESET_DISPLAYS,
+  /*[[[cog
+    for lang in languages:
+        cog.outl(f"KC_{lang},")
+  ]]]*/
   KC_LANG_EN,
   KC_LANG_DE,
+  KC_LANG_FR,
   KC_LANG_ES,
   KC_LANG_PT,
-  KC_LANG_FR,
   KC_LANG_IT,
   KC_LANG_TR,
-  KC_LANG_KR,
+  KC_LANG_KO,
   KC_LANG_JA,
   KC_LANG_AR,
+  //[[[end]]]
 };
 
 
@@ -74,23 +100,23 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_LAYER0] = LAYOUT( KC_GRAVE,       KC_1,        KC_2,         KC_3,       KC_4,       KC_5,           KC_NEXT_LAYER,   KC_NO,
-                        KC_TAB,         KC_Q,        KC_W,         KC_E,       KC_R,       KC_T,           KC_EQUAL,        KC_ENC_UP,
-                        KC_CAPSLOCK,    KC_A,        KC_S,         KC_D,       KC_F,       KC_G,           KC_MINUS,        KC_ENC_DOWN,
-                        KC_LSHIFT,      KC_Z,        KC_X,         KC_C,       KC_V,       KC_B,           KC_ESC,          KC_MS_BTN1, /*encoder switch*/
-                        KC_LCTL,        KC_LALT,     KC_LANG, KC_APP,      KC_LWIN,    KC_SPACE,      KC_END,          KC_HOME
+    [_LAYER0] = LAYOUT( KC_GRAVE,       KC_1,               KC_2,               KC_3,               KC_4,               KC_5,                   KC_NEXT_LAYER,      /*no key*/KC_NO,
+                        KC_TAB,         KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,                   KC_EQUAL,           KC_ENC_UP,
+                        KC_CAPSLOCK,    KC_A,               KC_S,               KC_D,               KC_F,               KC_G,                   KC_MINUS,           KC_ENC_DOWN,
+                        KC_LSHIFT,      KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,                   KC_ESC,             KC_MS_BTN1, /*encoder switch*/
+                        KC_LCTL,        KC_LALT,            KC_LANG,            KC_APP,             KC_LWIN,            KC_SPACE,               KC_END,             KC_HOME
                         ),
-    [_LAYER1] = LAYOUT( KC_NO,     KC_NO,           KC_NO,              KC_NO,              KC_NO,      KC_MEDIA_PREV_TRACK,    KC_NEXT_LAYER,        /*no key*/KC_NO,
-                        RGB_PREV,  KC_AUDIO_VOL_UP, QK_DEBUG_TOGGLE,    KC_DISP_CMINUS,     KC_NO,      KC_MEDIA_PLAY_PAUSE,    KC_NO,                KC_ENC_UP,
-                        RGB_TOGGLE,KC_AUDIO_MUTE,   QK_CLEAR_EEPROM,    KC_DISP_CONTRAST,   KC_NO,      KC_MEDIA_STOP,          KC_NO,                KC_ENC_DOWN,
-                        RGB_NEXT,  KC_AUDIO_VOL_DOWN,QK_BOOTLOADER,     KC_DISP_CPLUS,     KC_NO,      KC_MEDIA_NEXT_TRACK,    KC_NO,                KC_MS_BTN1,
-                        KC_LCTL,   KC_LALT,         KC_NO,            KC_APP,           KC_LWIN,    KC_SPACE,               KC_END,               KC_HOME
+    [_LAYER1] = LAYOUT( KC_NO,          KC_NO,              KC_SAVE_EE,         KC_NO,              KC_NO,              KC_MEDIA_PREV_TRACK,    KC_NEXT_LAYER,      /*no key*/KC_NO,
+                        RGB_PREV,       KC_AUDIO_VOL_UP,    QK_DEBUG_TOGGLE,    KC_DISP_CMINUS,     KC_NO,              KC_MEDIA_PLAY_PAUSE,    KC_NO,              KC_ENC_UP,
+                        RGB_TOGGLE,     KC_AUDIO_MUTE,      QK_CLEAR_EEPROM,    KC_DISP_CONTRAST,   KC_RESET_DISPLAYS,  KC_MEDIA_STOP,          KC_NO,              KC_ENC_DOWN,
+                        RGB_NEXT,       KC_AUDIO_VOL_DOWN,  QK_BOOTLOADER,      KC_DISP_CPLUS,      KC_NO,              KC_MEDIA_NEXT_TRACK,    KC_NO,              KC_MS_BTN1, /*encoder switch*/
+                        KC_NO,          KC_NO,              QK_MAKE,            QK_REBOOT,          KC_NO,              KC_NO,                  KC_NO,              KC_NO
                         ),
-    [_LAYER2] = LAYOUT( KC_LEAD,        KC_F1,       KC_F2,        KC_F3,      KC_F4,      KC_F5,          KC_F6,       KC_NO,
-                        KC_NO,          KC_LANG_PT,  KC_LANG_ES,   KC_LANG_AR, KC_NO,      KC_NO,          KC_NO,       KC_ENC_UP,
-                        KC_NO,          KC_LANG_FR,  KC_LANG_DE,   KC_LANG_JA, KC_LANG_TR,      KC_NO,          KC_NO,       KC_ENC_DOWN,
-                        KC_NO,          KC_LANG_IT,  KC_LANG_EN, KC_LANG_KR, KC_NO,      KC_NO,          KC_NO,       KC_MS_BTN1, /*encoder switch*/
-                        KC_NO,          KC_NO,       KC_LANG,      KC_NO,      KC_NO,      KC_NO,          KC_NO,       KC_NO
+    [_LAYER2] = LAYOUT( KC_LEAD,        KC_F1,              KC_F2,              KC_F3,              KC_F4,              KC_F5,                  KC_F6,              /*no key*/KC_NO,
+                        KC_NO,          KC_LANG_PT,         KC_LANG_ES,         KC_LANG_AR,         KC_NO,              KC_NO,                  KC_NO,              KC_ENC_UP,
+                        KC_NO,          KC_LANG_FR,         KC_LANG_DE,         KC_LANG_JA,         KC_LANG_TR,         KC_NO,                  KC_NO,              KC_ENC_DOWN,
+                        KC_NO,          KC_LANG_IT,         KC_LANG_EN,         KC_LANG_KO,         KC_NO,              KC_NO,                  KC_NO,              KC_MS_BTN1, /*encoder switch*/
+                        KC_NO,          KC_NO,              KC_LANG,            KC_NO,              KC_NO,              KC_NO,                  KC_NO,              KC_NO
                         )
 };
 
@@ -313,6 +339,14 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u" +";
         case KC_LANG:
             return PRIVATE_WORLD;
+        case QK_MAKE:
+            return u"Make";
+        case QK_REBOOT:
+            return u"Reset";
+        case KC_RESET_DISPLAYS:
+            return u"Reset\r\vDisp";
+        case KC_SAVE_EE:
+            return u"Save\r\v\tEE";
         //case KC_NEXT_LANG: return u"Next";
             /*{
                 switch((current_lang + 1) % NUM_LANG) {
@@ -323,16 +357,23 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
                     default: return u"Nxt E";
                 }
             }*/
+
+        /*[[[cog
+            for lang in languages:
+                short = lang.split("_")[1]
+                cog.outl(f'case KC_{lang}: return current_lang=={lang} ? u"[{short}]" : u" {short}";')
+        ]]]*/
         case KC_LANG_EN: return current_lang==LANG_EN ? u"[EN]" : u" EN";
         case KC_LANG_DE: return current_lang==LANG_DE ? u"[DE]" : u" DE";
+        case KC_LANG_FR: return current_lang==LANG_FR ? u"[FR]" : u" FR";
         case KC_LANG_ES: return current_lang==LANG_ES ? u"[ES]" : u" ES";
         case KC_LANG_PT: return current_lang==LANG_PT ? u"[PT]" : u" PT";
-        case KC_LANG_FR: return current_lang==LANG_FR ? u"[FR]" : u" FR";
+        case KC_LANG_IT: return current_lang==LANG_IT ? u"[IT]" : u" IT";
         case KC_LANG_TR: return current_lang==LANG_TR ? u"[TR]" : u" TR";
-        case KC_LANG_IT: return current_lang==LANG_TR ? u"[IT]" : u" IT";
-        case KC_LANG_KR: return current_lang==LANG_KO ? u"[KO]" : u" KO";
+        case KC_LANG_KO: return current_lang==LANG_KO ? u"[KO]" : u" KO";
         case KC_LANG_JA: return current_lang==LANG_JA ? u"[JA]" : u" JA";
-        case KC_LANG_AR: return current_lang==LANG_AR ? u"[AR]":  u" AR";
+        case KC_LANG_AR: return current_lang==LANG_AR ? u"[AR]" : u" AR";
+        //[[[end]]]
         case KC_APP:
             return u" Ctx";
         default:
@@ -367,6 +408,29 @@ void process_layer_switch_user(uint16_t new_layer) {
                 kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
                 kdisp_send_buffer();
             }
+        }
+    }
+}
+
+void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GFXfont* font) {
+
+    const GFXfont* displayFont [] = {font};
+    uint8_t index = 0;
+    for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
+
+        uint8_t disp_idx = LAYOUT_TO_INDEX(row, c);
+
+        if (disp_idx != 255) {
+            
+            sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));
+            kdisp_set_buffer(0x00);
+            
+            if(c>=col && message[index]!=0) {
+                const uint16_t text[2] = {message[index], 0};
+                kdisp_write_gfx_text(displayFont, 1, 49, 38, text);
+                index++;
+            }
+            kdisp_send_buffer();
         }
     }
 }
@@ -462,50 +526,36 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             case KC_DISP_CPLUS:
                 inc_brightness();
                 break;
+            case KC_SAVE_EE:
+                rgb_matrix_mode(rgb_matrix_get_mode());
+                if(rgb_matrix_is_enabled()) {
+                    rgb_matrix_enable();
+                } else {
+                    rgb_matrix_disable();
+                }
+                break;
+            case KC_RESET_DISPLAYS:
+                kdisp_init(NUM_SHIFT_REGISTERS, true);
+                break;
             /*case KC_NEXT_LANG:
                 current_lang = (current_lang + 1) % NUM_LANG;
                 process_layer_switch_user(_LAYER0);
                 break;*/
-            case KC_LANG_EN:
-                current_lang = LANG_EN;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_DE:
-                current_lang = LANG_DE;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_FR:
-                current_lang = LANG_FR;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_ES:
-                current_lang = LANG_ES;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_PT:
-                current_lang = LANG_PT;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_IT:
-                current_lang = LANG_IT;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_TR:
-                current_lang = LANG_TR;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_KR:
-                current_lang = LANG_KO;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_JA:
-                current_lang = LANG_JA;
-                process_layer_switch_user(_LAYER0);
-                break;
-            case KC_LANG_AR:
-                current_lang = LANG_AR;
-                process_layer_switch_user(_LAYER0);
-                break;
+            /*[[[cog
+            for lang in languages:
+                cog.outl(f'case KC_{lang}: current_lang = {lang}; process_layer_switch_user(_LAYER0); break;')
+            ]]]*/
+            case KC_LANG_EN: current_lang = LANG_EN; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_DE: current_lang = LANG_DE; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_FR: current_lang = LANG_FR; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_ES: current_lang = LANG_ES; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_PT: current_lang = LANG_PT; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_IT: current_lang = LANG_IT; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_TR: current_lang = LANG_TR; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_KO: current_lang = LANG_KO; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_JA: current_lang = LANG_JA; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_AR: current_lang = LANG_AR; process_layer_switch_user(_LAYER0); break;
+            //[[[end]]]
             case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
             case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
                 process_layer_switch_user(_LAYER0);
@@ -552,7 +602,7 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
-uint8_t selsect_display(uint8_t row, uint8_t col) {
+uint8_t select_display(uint8_t row, uint8_t col) {
     uint8_t  disp_idx = LAYOUT_TO_INDEX(row, col);
     if (disp_idx != 255) {
         sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));

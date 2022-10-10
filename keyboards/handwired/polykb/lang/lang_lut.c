@@ -7,16 +7,16 @@
 static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*[[[cog
     import cog
+    import os
     from openpyxl import load_workbook
-
-    wb = load_workbook(filename = 'lang_lut.xlsx', data_only=True)
+    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang_lut.xlsx"), data_only=True)
     sheet = wb['key_lut']
 
     #build a list of known glyphs
     named_glyphs = []
     sheet_named_glyphs = wb['named_glyphs']
-    for row in range(2,sheet_named_glyphs.max_row+1):
-        named_glyphs.append(sheet_named_glyphs[f"A{row}"].value)
+    for r in range(2,sheet_named_glyphs.max_row+1):
+        named_glyphs.append(sheet_named_glyphs.cell(row = r, column = 1).value)
 
     #build a dict with all languages
     lang_dict = {}
@@ -75,7 +75,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
         cog.outl("},")
 
         key_index = key_index + 2
-        key_name = sheet[f"A{key_index}"].value
+        key_name = sheet.cell(row = key_index, column = 1).value
 
     ]]]*/
     /*KC_A       */ {u"a",                         u"A",                         NULL,                         

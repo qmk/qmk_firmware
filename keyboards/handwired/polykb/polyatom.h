@@ -48,15 +48,13 @@ void dec_brightness(void);
 
 void set_displays(enum diplay_state state, uint8_t contrast);
 
-uint8_t selsect_display(uint8_t row, uint8_t col);
+uint8_t select_display(uint8_t row, uint8_t col);
 
 bool display_wakeup(keyrecord_t* record);
 
 void show_splash_screen(void);
 
 void clear_all_displays(void);
-
-void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GFXfont* font);
 
 void set_last_key(uint16_t keycode);
 

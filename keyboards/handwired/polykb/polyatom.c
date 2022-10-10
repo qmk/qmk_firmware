@@ -139,28 +139,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 void clear_all_displays(void) {
     select_all_displays();
+    
     kdisp_set_buffer(0x00);
     kdisp_send_buffer();
-}
-
-void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GFXfont* font) {
-
-    const GFXfont* displayFont [] = {font};
-    uint8_t index = 0;
-    for (uint8_t c = col; c < MATRIX_COLS; ++c) {
-
-        if (selsect_display(row, c) != 255) {
-            const uint16_t text[2] = {message[index], 0};
-            kdisp_set_buffer(0x00);
-            kdisp_write_gfx_text(displayFont, 1, 49, 38, text);
-            kdisp_send_buffer();
-        }
-        index++;
-        if(message[index]==0) {
-            return;
-        }
-    }
-
 }
 
 void early_hardware_init_post(void) {

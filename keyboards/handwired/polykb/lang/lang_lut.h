@@ -8,8 +8,9 @@ enum {ALPHA = 26, NUM = 10, ADDITIONAL = 17};
 enum lang_layer { 
     /*[[[cog
     import cog
+    import os
     from openpyxl import load_workbook
-    wb = load_workbook(filename = 'lang_lut.xlsx')
+    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang_lut.xlsx"), data_only=True)
     sheet = wb['key_lut']
 
     lang_index = 0
