@@ -117,7 +117,7 @@ static void comma_period(uint16_t keycode) {
   case VIM_PERIOD:
     if (SHIFTED) {
       // outdent
-      CMD(KC_RBRACKET);
+      CMD(KC_RIGHT_BRACKET);
     }
     break;
   }

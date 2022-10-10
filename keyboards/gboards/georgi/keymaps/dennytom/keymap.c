@@ -166,7 +166,7 @@ bool handle_US_ANSI_shifted_keys(int16_t keycode, bool in) {
             regular_keycode = KC_LEFT_BRACKET;
             break;
         case KC_RIGHT_CURLY_BRACE:
-            regular_keycode = KC_RBRACKET;
+            regular_keycode = KC_RIGHT_BRACKET;
             break;
         case KC_PIPE:
             regular_keycode = KC_BSLASH;

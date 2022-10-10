@@ -253,8 +253,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         if (record->tap.count && !record->tap.interrupted) {
           add_weak_mods(MOD_LSFT);
-          register_code(KC_RBRACKET);
-          unregister_code(KC_RBRACKET);
+          register_code(KC_RIGHT_BRACKET);
+          unregister_code(KC_RIGHT_BRACKET);
           del_weak_mods(MOD_LSFT);
         }
 

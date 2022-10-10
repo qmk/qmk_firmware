@@ -162,9 +162,9 @@ case KC_T_LCTL:
 	break;
 case KC_T_RCTL:
 	if (record->event.pressed) {
-	   mod_press(KC_RBRACKET, KC_RCTL, 5);
+	   mod_press(KC_RIGHT_BRACKET, KC_RCTL, 5);
 	} else {
-	   mod_lift(KC_RBRACKET, KC_RCTL, 5);
+	   mod_lift(KC_RIGHT_BRACKET, KC_RCTL, 5);
 	}
 	return false;
 	break;

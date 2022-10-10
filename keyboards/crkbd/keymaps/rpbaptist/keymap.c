@@ -62,7 +62,7 @@ user_config_t user_config;
 #define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
 // Tap/mod keys
-#define RCTL_BR RCTL_T(KC_RBRACKET)
+#define RCTL_BR RCTL_T(KC_RBRC)
 #define LCTL_BR LCTL_T(KC_LBRC)
 
 #define SFT_SPC LSFT_T(KC_SPACE)

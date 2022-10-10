@@ -79,7 +79,7 @@ static void comma_period(uint16_t keycode) {
   case VIM_PERIOD:
     if (SHIFTED) {
       // outdent
-      tap_code16(LGUI(KC_RBRACKET));
+      tap_code16(LGUI(KC_RIGHT_BRACKET));
     }
     break;
   }

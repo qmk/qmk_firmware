@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_PUNCT] = LAYOUT(
     KC_HASH,     KC_AT,       KC_AMPERSAND, KC_DOT,      KC_SCOLON, KC_UNDERSCORE, KC_COMMA,    KC_PIPE, KC_CIRCUMFLEX, KC_PERCENT,
     KC_ASTERISK, KC_PLUS,     KC_LCBR,      KC_LPRN,     KC_COLON,  KC_DQUO,       KC_RPRN,     KC_RCBR, KC_MINUS,      KC_EQUAL,
-    KC_BSLASH,   KC_QUESTION, KC_LT,        KC_LBRC,     KC_DOLLAR, KC_TILDE,      KC_RBRACKET, KC_GT,   KC_EXCLAIM,    KC_SLASH,
+    KC_BSLASH,   KC_QUESTION, KC_LT,        KC_LBRC,     KC_DOLLAR, KC_TILDE,      KC_RBRC,     KC_GT,   KC_EXCLAIM,    KC_SLASH,
                  _______,     _______,      _______,     TG( 4 ),   TG( 3 ),       _______,     _______, _______,
                  _______,     KC_3,         _______,     _______,   _______,       _______,     _______, _______
   ),

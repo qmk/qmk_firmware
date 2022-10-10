@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_preonic_grid( \
-  KC_PSCREEN, KC_PGUP, KC_PGDOWN, KC_HOME, KC_END, KC_INSERT, KC_SCRL, KC_NUM, KC_PAUSE, KC_LBRC, KC_RBRACKET, KC_MINUS, \
+  KC_PSCREEN, KC_PGUP, KC_PGDOWN, KC_HOME, KC_END, KC_INSERT, KC_SCRL, KC_NUM, KC_PAUSE, KC_LBRC, KC_RBRC, KC_MINUS, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DELETE, \
   KC_CAPSLOCK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_RSHIFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSLASH, KC_MENU, \

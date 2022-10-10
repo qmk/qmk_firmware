@@ -18,7 +18,7 @@ enum layer_names {
 #define SRQ     RALT(KC_0)
 #define EMDASH  RALT(LSFT(KC_MINUS))  // Em dash character (in Colemak).
 #define BK_LCTL CTL_T(KC_LEFT_BRACKET)
-#define BK_RCTL RCTL_T(KC_RBRACKET)
+#define BK_RCTL RCTL_T(KC_RIGHT_BRACKET)
 // TODO: Mod-tap ALT with a curvilinear brace.
 // https://github.com/qmk/qmk_firmware/pull/2055
 

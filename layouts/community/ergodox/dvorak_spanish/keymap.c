@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_ENT,KC_TAB,MT((MOD_LALT | MOD_LSFT), KC_F3),
         // right hand
                     KC_EQL,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINUS,
-                    TT(AUX),   KC_F,   KC_G,   KC_C,   KC_H,   KC_L,   ALL_T(KC_RBRACKET),
+                    TT(AUX),   KC_F,   KC_G,   KC_C,   KC_H,   KC_L,   ALL_T(KC_RBRC),
                                KC_D,   KC_R,   KC_T,   KC_N,   KC_S,   CTL_T(KC_QUOTE),
                     KC_RALT,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   M(CBRACE),
                                        KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,M(CBRACK),
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     KC_ENT,KC_TAB,KC_TRNS,
         // right hand
                     KC_EQL,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINUS,
-                    KC_TRNS,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   ALL_T(KC_RBRACKET),
+                    KC_TRNS,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   ALL_T(KC_RBRC),
                                KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,CTL_T(KC_QUOTE),
                     KC_RALT,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,M(CBRACE),
                                        KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,M(CBRACK),
@@ -226,8 +226,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 unregister_code(KC_LALT);
                 if (timer_elapsed(key_timer) < KEY_TAP_SLOW) {
                     register_code(KC_RALT);
-                    register_code(KC_RBRACKET);
-                    unregister_code(KC_RBRACKET);
+                    register_code(KC_RIGHT_BRACKET);
+                    unregister_code(KC_RIGHT_BRACKET);
                     unregister_code(KC_RALT);
                 }
             }
