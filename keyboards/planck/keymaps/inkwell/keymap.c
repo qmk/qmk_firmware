@@ -166,7 +166,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
           if (clockwise) {
             tap_code16(KC_PAUSE);
           } else {
-            tap_code16(KC_SCROLLLOCK);
+            tap_code16(KC_SCROLL_LOCK);
           }
           set_mods(mod_state);
       } else {

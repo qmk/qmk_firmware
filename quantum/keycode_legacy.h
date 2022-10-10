@@ -11,7 +11,6 @@
 #define KC_SCOLON         KC_SEMICOLON
 #define KC_CAPSLOCK       KC_CAPS_LOCK
 #define KC_PSCREEN        KC_PRINT_SCREEN
-#define KC_SCROLLLOCK     KC_SCROLL_LOCK
 #define KC_PGDOWN         KC_PAGE_DOWN
 #define KC_POWER          KC_KB_POWER
 #define KC__MUTE          KC_KB_MUTE

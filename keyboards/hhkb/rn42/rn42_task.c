@@ -372,7 +372,7 @@ bool command_extra(uint8_t code)
                 config_mode = false;
             }
             return true;
-        case KC_SCROLLLOCK:
+        case KC_SCROLL_LOCK:
             init_rn42();
             return true;
 #ifdef NKRO_ENABLE
