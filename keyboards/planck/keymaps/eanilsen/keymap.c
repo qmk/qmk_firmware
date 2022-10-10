@@ -29,7 +29,7 @@ enum planck_layers {
 #define LT_COMM LT(0,KC_COMM)
 #define LT_DOT LT(0,KC_DOT)
 #define LT_EXLM LT(0,KC_Y)
-
+#define LT_UP LT(0,KC_UP)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
   [_NAV] = LAYOUT_ortho_4x12(
-    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U,   KC_NO,   KC_NO, KC_MUTE, KC_VOLD, KC_UP,   KC_VOLU, KC_NO,   KC_NO,
+    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U,   KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   KC_NO,
     KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D,   KC_MS_R, KC_NO, KC_BTN4, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN5, KC_ENT,
     KC_NO,  SW_APP,  SW_WIN,  KC_NO,     KC_NO,   KC_NO, KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_NO,   KC_NO,
     KC_NO,  KC_NO,   KC_NO,   KC_BTN3,   KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO,   KC_NO
@@ -113,6 +113,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
   switch (keycode) {
+  case LT_UP:
+    if (isHeld) {
+      tap_code16(C(KC_UP));
+      return false;
+    }
+    return true;
   case LT_EXLM:
     if (isHeld) {
       tap_code16(KC_EXLM);
@@ -213,9 +219,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM + 200;
   case LT_RABK:
     return TAPPING_TERM + 200;
-  case LT_COMM:
-    return TAPPING_TERM + 200;
-  case LT_DOT:
+  case LT_UP:
     return TAPPING_TERM + 200;
   case LT_EXLM:
     return TAPPING_TERM + 200;
