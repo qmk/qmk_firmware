@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 OSL(SHELL_NAV), KC_A,     KC_O,     KC_E,    KC_U,   KC_I,                         KC_D,   KC_H,   KC_T,     KC_N,  KC_S,   TD(TD_BSPC_CTL_BSPC),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-OSL(SHELL_SCREEN),KC_SCOLON, KC_Q,  KC_J,    KC_K,   KC_X,                         KC_B,   KC_M,   KC_W,     KC_V,  KC_Z,   OSM(MOD_LSFT),
+OSM(MOD_LSFT),KC_SCOLON, KC_Q,  KC_J,    KC_K,   KC_X,                             KC_B,   KC_M,   KC_W,     KC_V,  KC_Z,   CAPS_WORD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                       MO(BROWSER_CONTROL), MO(COMBINED),MO(KEYNAV),     KC_ENTER, KC_SPACE, OSL(SHORTCUTS)
                                       //`--------------------------'  `--------------------------'
@@ -85,9 +85,9 @@ KC_TRNS, RCTL(KC_P), KC_TRNS,  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,            
 
   [SHELL_NAV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                              ,-----------------------------------------------------.
-KC_TRNS,SHELL_GIT_DIFF, SHELL_PGREP, SHELL_PLESS, SHELL_LESS, KC_TRNS,              RCTL(KC_D), KC_HOME, KC_UP, KC_END, RCTL(KC_L), RCTL(KC_X),
+SHELL_GIT_STATUS,SHELL_GIT_DIFF, SHELL_PGREP, SHELL_PLESS, SHELL_LESS, KC_TRNS,              RCTL(KC_D), KC_HOME, KC_UP, KC_END, RCTL(KC_L), RCTL(KC_X),
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
-KC_TRNS,SHELL_GIT_STATUS,SHELL_CDPRE,SHELL_LSLTR,SHELL_LS, SHELL_LSLA,              LALT(KC_B), KC_LEFT, KC_DOWN, KC_RIGHT, LALT(KC_F), LALT(KC_BSPC),
+KC_TRNS,OSL(SHELL_SCREEN),SHELL_CDPRE,SHELL_LSLTR,SHELL_LS, SHELL_LSLA,              LALT(KC_B), KC_LEFT, KC_DOWN, KC_RIGHT, LALT(KC_F), LALT(KC_BSPC),
   //|--------+--------+--------+--------+--------+--------|                           |--------+--------+--------+--------+--------+--------|
 KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, KC_TRNS,   RCTL(KC_U), LALT(KC_DOT), RCTL(KC_R), KC_BTN2, RCTL(KC_K), RCTL(KC_C),
   //|--------+--------+--------+--------+--------+--------+--------|            |--------+--------+--------+--------+--------+--------+--------|
