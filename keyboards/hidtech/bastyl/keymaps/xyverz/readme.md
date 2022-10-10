@@ -17,6 +17,6 @@ See the [keyboard build instructions](https://hid-technologies.github.io/Bastyl-
 
 ## Important information regarding the reset
 
-If you modify this firmware, make sure to always have a RESET key that can be triggered using only the master side ! This way you ensure that you can always flash the keyboard, even if you mess up.
+If you modify this firmware, make sure to always have a `QK_BOOT` key that can be triggered using only the master side ! This way you ensure that you can always flash the keyboard, even if you mess up.
 
 Otherwise if you're stuck, open the case and reset manually by shorting Gnd and Rst, or pressing the RST button.

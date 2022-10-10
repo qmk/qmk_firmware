@@ -44,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 26
 #    define DEBOUNCE 3
-#    define RGB_DISABLE_AFTER_TIMEOUT 0     // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 
@@ -100,12 +99,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_ADDR_1 0b0110000
 #    define DRIVER_COUNT 1
 #    define DRIVER_1_LED_TOTAL 98
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #    define DRIVER_INDICATOR_LED_TOTAL 0
 #else
 // WT_RGB IS31FL3741 driver code
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 98
+#    define RGB_MATRIX_LED_COUNT 98
 
 #    define RGB_BACKLIGHT_ENABLED 1
 

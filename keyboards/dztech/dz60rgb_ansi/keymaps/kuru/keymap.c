@@ -84,7 +84,7 @@ void highlight_layer3(void){
     rgb_matrix_set_color(46, 0x00, 0x99, 0x00);
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 	  uint8_t this_led = host_keyboard_leds();
       if (!g_suspend_state) {
         switch (get_highest_layer(layer_state)) {
@@ -97,4 +97,5 @@ void rgb_matrix_indicators_user(void) {
 	  if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
 	        rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	  }
+    return false;
 }

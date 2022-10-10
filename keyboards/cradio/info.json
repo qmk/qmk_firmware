@@ -9,7 +9,8 @@
       "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
-    "protocol": "atmel-dfu",
+    "bootloader": "atmel-dfu",
+    "pin_compatible": "promicro",
     "debounce": 5,
     "features": {
         "bootmagic": true,

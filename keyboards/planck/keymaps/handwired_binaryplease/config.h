@@ -1,9 +1,9 @@
 #pragma once
 
 #undef MANUFACTURER
-#define MANUFACTURER binaryplease
+#define MANUFACTURER "binaryplease"
 #undef PRODUCT
-#define PRODUCT      Teensy_Planck
+#define PRODUCT      "Teensy_Planck"
 
 #undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS { D3, D2, D1, D0 }

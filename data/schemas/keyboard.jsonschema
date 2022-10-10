@@ -34,11 +34,11 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "proton_c", "kb2040", "promicro_rp2040", "blok", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4"]
         },
         "pin_compatible": {
             "type": "string",
-            "enum": ["promicro"]
+            "enum": ["promicro", "elite_c"]
         },
         "processor": {
             "type": "string",
@@ -75,8 +75,7 @@
                 "driver": {
                     "type": "string",
                     "enum": ["BluefruitLE", "RN42"]
-                },
-                "lto": {"type": "boolean"}
+                }
             }
         },
         "board": {
@@ -89,7 +88,6 @@
             "enum": [
                 "atmel-dfu",
                 "bootloadhid",
-                "bootloadHID",
                 "caterina",
                 "custom",
                 "gd32v-dfu",
@@ -106,7 +104,6 @@
                 "tinyuf2",
                 "unknown",
                 "usbasploader",
-                "USBasp",
                 "wb32-dfu"
             ]
         },
@@ -267,7 +264,31 @@
         "led_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
@@ -294,7 +315,31 @@
         "rgb_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
@@ -393,6 +438,20 @@
                 }
             }
         },
+        "ps2": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "mouse_enabled": {"type": "boolean"},
+                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "driver": {
+                    "type": "string",
+                    "enum": ["busywait", "interrupt", "usart", "vendor"]
+                }
+            }
+        },
         "split": {
             "type": "object",
             "additionalProperties": false,
@@ -449,7 +508,9 @@
                             "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
                         "sync_matrix_state": {"type": "boolean"},
-                        "sync_modifiers": {"type": "boolean"}
+                        "sync_modifiers": {"type": "boolean"},
+                        "watchdog": {"type": "boolean"},
+                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
                 },
                 "usb_detect": {

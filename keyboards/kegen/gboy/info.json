@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Kegen G-Boy", 
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kegen/gboy", 
-    "maintainer": "@mattchan", 
-    "maintainer": "mattchan", 
+    "keyboard_name": "G-Boy",
+    "manufacturer": "Kegen",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kegen/gboy",
+    "maintainer": "mattchan",
     "usb": {
         "vid": "0x4B65",
         "pid": "0x6762",
@@ -27,7 +27,7 @@
                 {"label": "BSPC",  "x":13,     "y":0},
                 {"label": "BSPC",  "x":14,     "y":0},
                 {"label": "HOME",  "x":15,     "y":0},
-                
+
                 {"label": "TAB",   "x":0,      "y":1, "w":1.5},
                 {"label": "Q",     "x":1.5,    "y":1},
                 {"label": "W",     "x":2.5,    "y":1},

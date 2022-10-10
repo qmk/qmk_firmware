@@ -61,19 +61,6 @@
 extern keymap_config_t keymap_config;
 #endif
 
-#ifdef AUDIO_ENABLE
-#    include "audio.h"
-#endif
-
-#ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-#        include "bluefruit_le.h"
-#    elif BLUETOOTH_RN42
-#        include "rn42.h"
-#    endif
-#endif
-
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
 #endif
@@ -84,10 +71,6 @@ extern keymap_config_t keymap_config;
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
-#endif
-
-#ifdef JOYSTICK_ENABLE
-#    include "joystick.h"
 #endif
 
 uint8_t keyboard_idle = 0;
@@ -101,10 +84,8 @@ static report_keyboard_t keyboard_report_sent;
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_system(uint16_t data);
-static void    send_consumer(uint16_t data);
-static void    send_programmable_button(uint32_t data);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+static void    send_extra(report_extra_t *report);
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 #ifdef VIRTSER_ENABLE
 // clang-format off
@@ -271,50 +252,9 @@ static void Console_Task(void) {
 /*******************************************************************************
  * Joystick
  ******************************************************************************/
+void send_joystick(report_joystick_t *report) {
 #ifdef JOYSTICK_ENABLE
-void send_joystick_packet(joystick_t *joystick) {
     uint8_t timeout = 255;
-
-    static joystick_report_t r;
-    r = (joystick_report_t) {
-#    if JOYSTICK_AXES_COUNT > 0
-        .axes =
-        { joystick->axes[0],
-
-#        if JOYSTICK_AXES_COUNT >= 2
-          joystick->axes[1],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 3
-          joystick->axes[2],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 4
-          joystick->axes[3],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 5
-          joystick->axes[4],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 6
-          joystick->axes[5],
-#        endif
-        },
-#    endif // JOYSTICK_AXES_COUNT>0
-
-#    if JOYSTICK_BUTTON_COUNT > 0
-        .buttons = {
-            joystick->buttons[0],
-
-#        if JOYSTICK_BUTTON_COUNT > 8
-            joystick->buttons[1],
-#        endif
-#        if JOYSTICK_BUTTON_COUNT > 16
-            joystick->buttons[2],
-#        endif
-#        if JOYSTICK_BUTTON_COUNT > 24
-            joystick->buttons[3],
-#        endif
-        }
-#    endif // JOYSTICK_BUTTON_COUNT>0
-    };
 
     /* Select the Joystick Report Endpoint */
     Endpoint_SelectEndpoint(JOYSTICK_IN_EPNUM);
@@ -325,12 +265,12 @@ void send_joystick_packet(joystick_t *joystick) {
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     /* Write Joystick Report Data */
-    Endpoint_Write_Stream_LE(&r, sizeof(joystick_report_t), NULL);
+    Endpoint_Write_Stream_LE(report, sizeof(report_joystick_t), NULL);
 
     /* Finalize the stream transfer to send the last packet */
     Endpoint_ClearIN();
-}
 #endif
+}
 
 /*******************************************************************************
  * USB Events
@@ -482,7 +422,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #ifdef MIDI_ENABLE
     /* Setup MIDI stream endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -649,17 +589,6 @@ static uint8_t keyboard_leds(void) {
 static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
 
-#ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif BLUETOOTH_RN42
-        rn42_send_keyboard(report);
-#    endif
-        return;
-    }
-#endif
-
     /* Select the Keyboard Report Endpoint */
     uint8_t ep   = KEYBOARD_IN_EPNUM;
     uint8_t size = KEYBOARD_REPORT_SIZE;
@@ -695,18 +624,6 @@ static void send_keyboard(report_keyboard_t *report) {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     uint8_t timeout = 255;
-
-#    ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef BLUETOOTH_BLUEFRUIT_LE
-        // FIXME: mouse buttons
-        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
-#        elif BLUETOOTH_RN42
-        rn42_send_mouse(report);
-#        endif
-        return;
-    }
-#    endif
 
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
@@ -746,50 +663,15 @@ static void send_report(void *report, size_t size) {
  *
  * FIXME: Needs doc
  */
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-static void send_extra(uint8_t report_id, uint16_t data) {
-    static report_extra_t r;
-    r = (report_extra_t){.report_id = report_id, .usage = data};
-    send_report(&r, sizeof(r));
-}
-#endif
-
-/** \brief Send System
- *
- * FIXME: Needs doc
- */
-static void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
+    send_report(report, sizeof(report_extra_t));
 #endif
 }
 
-/** \brief Send Consumer
- *
- * FIXME: Needs doc
- */
-static void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-#    ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_consumer_key(data);
-#        elif BLUETOOTH_RN42
-        rn42_send_consumer(data);
-#        endif
-        return;
-    }
-#    endif
-
-    send_extra(REPORT_ID_CONSUMER, data);
-#endif
-}
-
-static void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    static report_programmable_button_t r;
-    r = (report_programmable_button_t){.report_id = REPORT_ID_PROGRAMMABLE_BUTTON, .usage = data};
-    send_report(&r, sizeof(r));
+    send_report(report, sizeof(report_programmable_button_t));
 #endif
 }
 
@@ -1028,10 +910,6 @@ void protocol_pre_init(void) {
     setup_usb();
     sei();
 
-#if defined(BLUETOOTH_RN42)
-    rn42_init();
-#endif
-
     /* wait for USB startup & debug output */
 
 #ifdef WAIT_FOR_USB
@@ -1081,10 +959,6 @@ void protocol_pre_task(void) {
 void protocol_post_task(void) {
 #ifdef MIDI_ENABLE
     MIDI_Device_USBTask(&USB_MIDI_Interface);
-#endif
-
-#ifdef BLUETOOTH_BLUEFRUIT_LE
-    bluefruit_le_task();
 #endif
 
 #ifdef VIRTSER_ENABLE

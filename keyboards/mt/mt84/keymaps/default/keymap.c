@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       )
 };
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 	led_t led_state = host_keyboard_led_state();
 	    switch (get_highest_layer(layer_state)) {
 	      case _FN:
@@ -52,4 +52,5 @@ void rgb_matrix_indicators_user(void) {
     if (led_state.caps_lock) {
           rgb_matrix_set_color(46, 0xFF, 0xFF, 0xFF);
     }
+    return false;
 }

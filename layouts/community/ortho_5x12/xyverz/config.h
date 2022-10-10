@@ -23,7 +23,6 @@
 #endif
 
 // for the split boards //
-#define USE_SERIAL
 #define EE_HANDS
 
 #endif

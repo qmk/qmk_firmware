@@ -17,7 +17,7 @@
 #include "rev1.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -86,16 +86,6 @@ led_config_t g_led_config = {
 #undef P
 
 // clang-format on
-
-// Set custom key colors here, in order to change the RGB effect, either reserve some keys
-// in the keymap to adjust the pattern (see QMK docs, incompatible with wrapper keys) or
-// change the default pattern in config.h.
-/*
-void rgb_matrix_indicators_kb(void) {
-    //rgb_matrix_set_color(0, 255, 255, 255);
-    //rgb_matrix_set_color_all(0x86,0xff,0xff);
-}
-*/
 
 void keyboard_pre_init_kb(void) {
     // Light power LED

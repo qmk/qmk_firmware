@@ -23,7 +23,7 @@
 #define LHK 33
 #define LPH 72
 
-const uint8_t led_map[DRIVER_LED_TOTAL] = {
+const uint8_t led_map[RGB_MATRIX_LED_COUNT] = {
   // left side - 32 keys includes LP: key 19 is missing for ANSI layout
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 0xff, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 68, 69,
 

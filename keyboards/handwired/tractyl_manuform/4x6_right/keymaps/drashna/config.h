@@ -18,7 +18,6 @@
 
 // #define USE_I2C
 // #define SELECT_SOFT_SERIAL_SPEED 1
-// #define SERIAL_USE_MULTI_TRANSACTION
 #define SPLIT_MODS_ENABLE
 #define EE_HANDS
 

@@ -52,16 +52,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code16(LALT(KC_GRV));
                 } else {
                     if(input_mode()){
-                        register_code(KC_LANG2);
+                        register_code(KC_LNG2);
                         set_input_mode(false);
                     } else {
-                        register_code(KC_LANG1);
+                        register_code(KC_LNG1);
                         set_input_mode(true);
                     }
                 }
             } else {
-                unregister_code(KC_LANG1);
-                unregister_code(KC_LANG2);
+                unregister_code(KC_LNG1);
+                unregister_code(KC_LNG2);
             }
             break;
         default:
