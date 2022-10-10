@@ -330,14 +330,14 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                             mouse_report.y = -mouse_report.y;
                         }
 #    else
-                        float speed_modifier = pimoroni_get_max_speed() * ((float)elapsed_time / PIMORONI_TRACKBALL_TIME_TO_MAX);
+                        float speed_modifier = pimoroni_trackball_get_max_speed() * ((float)elapsed_time / PIMORONI_TRACKBALL_TIME_TO_MAX);
 
                         if (speed_modifier == 0) {
                             speed_modifier = 1;
                         }
-                        temp_mouse.x = CONSTRAIN_HID_XY(temp_mouse.x * speed_modifier);
-                        temp_mouse.y = CONSTRAIN_HID_XY(temp_mouse.y * speed_modifier);
-#    endif // PIMORONI_TRACKBALL_FLOAT
+                        mouse_report.x = CONSTRAIN_HID_XY(mouse_report.x * speed_modifier);
+                        mouse_report.y = CONSTRAIN_HID_XY(mouse_report.y * speed_modifier);
+#    endif // PIMORONI_TRACKBALL_USE_FLOAT
                     }
                 } else {
                     debounce--;
