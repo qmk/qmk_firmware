@@ -4,7 +4,7 @@
 #define WORD_FORWARD A(KC_RIGHT)
 #define DELETE_WORD_BACK A(KC_BSPACE)
 #define DELETE_WORD_FORWARD A(KC_DELETE)
-#define FINE_VOLUP S(A(KC__VOLUP))
+#define FINE_VOLUP S(A(KC_VOLU))
 #define FINE_VOLDOWN S(A(KC_VOLD))
 
 enum layers {

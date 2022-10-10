@@ -11,7 +11,6 @@
 #define KC_PGDOWN         KC_PAGE_DOWN
 #define KC_POWER          KC_KB_POWER
 #define KC__MUTE          KC_KB_MUTE
-#define KC__VOLUP         KC_KB_VOLUME_UP
 
 #define KC_LCTRL          KC_LEFT_CTRL
 #define KC_LSHIFT         KC_LEFT_SHIFT

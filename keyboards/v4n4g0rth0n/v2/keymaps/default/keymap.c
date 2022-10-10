@@ -46,7 +46,7 @@ void matrix_scan_user(void){
                 tap_code(KC_VOLD);
             }
             for (int i = 0; i<num_ticks;++i){
-                tap_code(KC__VOLUP);
+                tap_code(KC_VOLU);
             }
             moving = false;
         }
