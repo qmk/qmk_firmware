@@ -317,7 +317,7 @@ static void render_anim(void) {
 //      oled_write_raw_P(skull, 801);
 //  }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         //render_skull();
         //oled_set_cursor(7,6);
@@ -335,12 +335,13 @@ void oled_task_user(void) {
         oled_write(wpm_str, false);
 
     }
+    return false;
 }
 #endif
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch(biton32(layer_state)){
+    switch(get_highest_layer(layer_state)){
         case 1:
             if (clockwise) {
                 tap_code16(C(KC_TAB));

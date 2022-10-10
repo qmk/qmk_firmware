@@ -104,7 +104,9 @@ RGB hsv_to_rgb(HSV hsv) {
 #endif
 }
 
-RGB hsv_to_rgb_nocie(HSV hsv) { return hsv_to_rgb_impl(hsv, false); }
+RGB hsv_to_rgb_nocie(HSV hsv) {
+    return hsv_to_rgb_impl(hsv, false);
+}
 
 #ifdef RGBW
 #    ifndef MIN

@@ -27,11 +27,11 @@
 #    if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 #        include "transport.h"
 #        define I2C_SLAVE_REG_COUNT sizeof(split_shared_memory_t)
-#    else  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#    else // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 #        define I2C_SLAVE_REG_COUNT 30
-#    endif  // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
+#    endif // defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
 
-#endif  // I2C_SLAVE_REG_COUNT
+#endif // I2C_SLAVE_REG_COUNT
 
 _Static_assert(I2C_SLAVE_REG_COUNT < 256, "I2C target registers must be single byte");
 

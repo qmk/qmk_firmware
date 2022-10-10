@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 #include "split_util.h"
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -39,8 +39,8 @@ enum tapdances{
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_ESFL] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _FLOCK),
-  [TD_ESQW] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _QWERTY),
+  [TD_ESFL] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _FLOCK),
+  [TD_ESQW] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _QWERTY),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT( /* Base */
   //,-------------------------------------------------------------------------|   |---------------------------------------------------------------------------.
-      XXXXXXX,TG(_ADJUST),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        RESET,
+      XXXXXXX,TG(_ADJUST),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        QK_BOOT,
   //|-------------------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+----------+----------|
       XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX,
   //|-------------------+--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+----------+----------|
@@ -202,7 +202,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return isLeftHand ? OLED_ROTATION_180 : OLED_ROTATION_0;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -232,5 +232,6 @@ void oled_task_user(void) {
   } else {
     oled_write(read_logo(), false);
   }
+    return false;
 }
 #endif

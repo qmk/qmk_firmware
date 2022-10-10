@@ -15,7 +15,7 @@
  */
  #include "knight.h"
  #ifdef RGB_MATRIX_ENABLE
- const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 
    {0, C1_3, C2_3, C3_3},   // L01
    {0, C1_4, C2_4, C3_4},   // L02
@@ -133,7 +133,6 @@
      4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
      4, 4, 4,    4, 4, 4, 4,    4, 4, 4, 1, 1, 1
  } };
-
 
 
  __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {

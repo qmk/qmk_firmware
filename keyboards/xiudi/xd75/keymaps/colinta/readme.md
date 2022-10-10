@@ -1,7 +1,7 @@
 # colinta's keymap for XD75
 
 ```
-make xd75:colinta:dfu
+make xiudi/xd75:colinta:dfu
 ```
 
 The default layout is a Colemak keyboard with "one-shot" keys assigned to the modifier keys.
@@ -41,13 +41,13 @@ If you would *also* like to take advantage of this feature, you'll first want to
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
-/keyboards/xd75/keymaps/colinta/secrets.h
+/keyboards/xiudi/xd75/keymaps/colinta/secrets.h
 ```
 
 Then you can create this file and add your macro strings to it:
 
 ```
-$EDITOR keyboards/xd75/keymaps/colinta/secrets.h
+$EDITOR keyboards/xiudi/xd75/keymaps/colinta/secrets.h
 ```
 
 ###### secrets.h
@@ -60,5 +60,5 @@ $EDITOR keyboards/xd75/keymaps/colinta/secrets.h
 To include the feature at compile time, include the flag `IS_COLINTA` like so:
 
 ```
-make xd75:colinta:dfu EXTRAFLAGS=-DIS_COLINTA
+make xiudi/xd75:colinta:dfu EXTRAFLAGS=-DIS_COLINTA
 ```

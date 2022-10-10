@@ -64,8 +64,4 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE

@@ -19,4 +19,4 @@ There are a few `#define` lines at the beginning of the keymap file that enable 
 
 
 # Build
-To build, simply run `make xd60:Jos`
+To build, simply run `make xiudi/xd60:Jos`

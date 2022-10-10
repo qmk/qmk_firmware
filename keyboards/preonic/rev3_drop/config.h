@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0003
-#define PRODUCT_ID 0xA649
-#undef MANUFACTURER
-#define MANUFACTURER Drop
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -33,7 +27,6 @@
 #undef MATRIX_COL_PINS
 #define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2, A3, A6 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
@@ -91,8 +84,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /*
  * WS2812 Underglow Matrix options

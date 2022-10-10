@@ -104,7 +104,7 @@ static void render_ein60_logo(void) {
 
 
 static void render_status(void) {
-//void oled_task_user(void) {
+//bool oled_task_user(void) {
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -145,12 +145,13 @@ static void render_status(void) {
 
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
     render_status();
     oled_write_ln_P(PSTR(""), false);
     render_ein60_logo();
 
+    return false;
 }
 
 #endif
@@ -172,5 +173,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
-
-

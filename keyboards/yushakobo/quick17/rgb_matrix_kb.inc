@@ -111,7 +111,7 @@ static bool quick17_rgbm_effect (effect_params_t* params) {
             led_color_set(i, rgb_keymaps[_CONTROL][i]);
         }
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 #endif

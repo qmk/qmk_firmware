@@ -17,7 +17,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_macro( /* Base */
-    KC_F19,   KC_F20,   KC_F21, \
-    KC_F22,   KC_F23,   KC_F24  \
+    KC_F19,   KC_F20,   KC_F21,
+    KC_F22,   KC_F23,   KC_F24
   ),
 };

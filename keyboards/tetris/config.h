@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Fengz
-#define PRODUCT         Tetris
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -16,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B3, B2, B1, B0, E6 }
 #define MATRIX_COL_PINS { D7, B4, B6, C6, C7, F6, F7, D4, D2, D3, D5, D6 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -29,9 +21,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN B5

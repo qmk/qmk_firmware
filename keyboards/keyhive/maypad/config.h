@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B48 //KH for Keyhive
-#define PRODUCT_ID      0x4D50 // MP
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KeyHive
-#define PRODUCT         maypad
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -39,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -135,8 +127,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
