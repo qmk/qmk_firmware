@@ -1,6 +1,6 @@
 # antipode/vero
 
-![antipode/vero](https://imgur.com/znKP8XQ.jpeg)
+![antipode/vero](https://i.imgur.com/znKP8XQh.jpeg)
 
 AKB Vero - Vero means true. This keyboard brings you a truly great typing experience in a true HHKB layout. With its 6U spacebar and asymmetrical blockers it brings the classic design of the HHKB to MX keyboards.
 
