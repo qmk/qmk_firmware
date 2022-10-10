@@ -104,6 +104,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
-
-// Set USB polling rate to 100 Hz
-#define USB_POLLING_INTERVAL_MS 10
