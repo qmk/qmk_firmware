@@ -6,7 +6,7 @@ void left(qk_tap_dance_state_t* state, void* user_data) {
     switch (state->count) {
         case 1:
             if (state->pressed)
-                tap_code16(S(KC_LBRACKET));
+                tap_code16(S(KC_LEFT_BRACKET));
             else
                 tap_code16(S(KC_9));
             break;
@@ -14,7 +14,7 @@ void left(qk_tap_dance_state_t* state, void* user_data) {
             if (state->pressed)
                 tap_code16(S(KC_COMM));
             else
-                tap_code(KC_LBRACKET);
+                tap_code(KC_LEFT_BRACKET);
             break;
         default:
             reset_tap_dance(state);

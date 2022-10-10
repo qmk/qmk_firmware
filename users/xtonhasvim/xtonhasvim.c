@@ -108,7 +108,7 @@ static void comma_period(uint16_t keycode) {
   case VIM_COMMA:
     if (SHIFTED) {
       // indent
-      CMD(KC_LBRACKET);
+      CMD(KC_LEFT_BRACKET);
     } else {
       // toggle comment
       CMD(KC_SLASH);

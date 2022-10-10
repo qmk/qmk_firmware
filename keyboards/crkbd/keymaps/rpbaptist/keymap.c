@@ -63,7 +63,7 @@ user_config_t user_config;
 
 // Tap/mod keys
 #define RCTL_BR RCTL_T(KC_RBRACKET)
-#define LCTL_BR LCTL_T(KC_LBRACKET)
+#define LCTL_BR LCTL_T(KC_LBRC)
 
 #define SFT_SPC LSFT_T(KC_SPACE)
 #define SFT_ENT RSFT_T(KC_ENTER)

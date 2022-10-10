@@ -12,7 +12,7 @@
 
 // KC codes that are too long
 #define DOLLAR    KC_DOLLAR
-#define LSQUIGLY  KC_LBRACKET
+#define LSQUIGLY  KC_LBRC
 #define RSQUIGLY  KC_RBRACKET
 #define NUMLOCK   KC_NUM_LOCK
 #define CAPLOCK   KC_CAPSLOCK

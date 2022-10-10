@@ -154,9 +154,9 @@ case KC_T_RGUI:
 	break;
 case KC_T_LCTL:
 	if (record->event.pressed) {
-	   mod_press(KC_LBRACKET, KC_LCTL, 4);
+	   mod_press(KC_LEFT_BRACKET, KC_LCTL, 4);
 	} else {
-	   mod_lift(KC_LBRACKET, KC_LCTL, 4);
+	   mod_lift(KC_LEFT_BRACKET, KC_LCTL, 4);
 	}
 	return false;
 	break;

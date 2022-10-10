@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 KC_BTN1, KC_BTN2, TG(QWERTY),
        // right hand
             KC_PWR,  KC_F6,   KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,
-            KC_TRNS, KC_NO,   KC_7,   KC_8,   KC_9,    KC_PAST, KC_LBRACKET,
+            KC_TRNS, KC_NO,   KC_7,   KC_8,   KC_9,    KC_PAST, KC_LBRC,
                      KC_NO,   KC_4,   KC_5,   KC_6,    KC_PPLS, KC_BSLASH,
             KC_PSCR, KC_NO,   KC_1,   KC_2,   KC_3,    KC_PSLS, KC_NO,
                               KC_NO  ,KC_DOT, KC_0,    KC_PEQL, KC_NO,
@@ -211,8 +211,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 unregister_code(KC_LALT);
                 if (timer_elapsed(key_timer) < KEY_TAP_SLOW) {
                     register_code(KC_RALT);
-                    register_code(KC_LBRACKET);
-                    unregister_code(KC_LBRACKET);
+                    register_code(KC_LEFT_BRACKET);
+                    unregister_code(KC_LEFT_BRACKET);
                     unregister_code(KC_RALT);
                 }
             }

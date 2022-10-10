@@ -5,7 +5,6 @@
 // These keycode names have been deprecated
 
 #define KC_BSPACE         KC_BACKSPACE
-#define KC_LBRACKET       KC_LEFT_BRACKET
 #define KC_RBRACKET       KC_RIGHT_BRACKET
 #define KC_BSLASH         KC_BACKSLASH
 #define KC_SCOLON         KC_SEMICOLON

@@ -23,7 +23,7 @@
 #define __EDVORAKJP_SYMBOL_L__            KC_EXCLAIM,         KC_AT,              KC_HASH,      KC_DOLLAR
 #define __EDVORAKJP_SYMBOL_R__            KC_PERCENT, KC_CIRCUMFLEX,         KC_AMPERSAND,    KC_ASTERISK
 
-#define __EDVORAKJP_BRACKET_L__  KC_LEFT_CURLY_BRACE,   KC_LBRACKET,        KC_LEFT_PAREN
+#define __EDVORAKJP_BRACKET_L__  KC_LEFT_CURLY_BRACE,   KC_LBRC,            KC_LEFT_PAREN
 #define __EDVORAKJP_BRACKET_R__       KC_RIGHT_PAREN,   KC_RBRACKET, KC_RIGHT_CURLY_BRACE
 
 #define __EDVORAKJP_PAGE__                   KC_HOME,     KC_PGDOWN,              KC_PGUP,         KC_END

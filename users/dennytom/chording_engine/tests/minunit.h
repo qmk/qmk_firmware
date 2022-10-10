@@ -113,7 +113,7 @@ enum keycodes {
     KC_PLUS,
     KC_EQUAL,
     KC_LEFT_CURLY_BRACE,
-    KC_LBRACKET,
+    KC_LEFT_BRACKET,
     KC_RIGHT_CURLY_BRACE,
     KC_RBRACKET,
     KC_PIPE,
