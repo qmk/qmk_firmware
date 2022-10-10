@@ -76,7 +76,7 @@ static const encoder_key PROGMEM encoder_keys[] = {
     {"Teams", "Toggle", "Mic", KC_TEAMS_MUTE},
     {"Teams", "Toggle", "Cam", KC_TEAMS_CAM},
     {"Ctrl", "Alt", "Del", KC_CAD},
-    {"Caps", "Lock", "", KC_CAPSLOCK},
+    {"Caps", "Lock", "", KC_CAPS_LOCK},
     {"Pause", "", "", KC_PAUSE},
     {"PrtScr", "", "", KC_PSCR},
     {"Insert", "", "", KC_INS},

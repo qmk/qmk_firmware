@@ -7,7 +7,6 @@
 #define KC_BSPACE         KC_BACKSPACE
 #define KC_BSLASH         KC_BACKSLASH
 #define KC_SCOLON         KC_SEMICOLON
-#define KC_CAPSLOCK       KC_CAPS_LOCK
 #define KC_PSCREEN        KC_PRINT_SCREEN
 #define KC_PGDOWN         KC_PAGE_DOWN
 #define KC_POWER          KC_KB_POWER

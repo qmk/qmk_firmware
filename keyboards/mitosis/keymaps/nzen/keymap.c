@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,     KC_H,      KC_J,        KC_K,        KC_L,   KC_SCOLON,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,     KC_N,      KC_M,        KC_COMM,     KC_DOT, KC_QUOTE,
                KC_BSPACE, KC_DELETE, KC_LCTRL,  TG( 2 ),  TG( 3 ),   KC_RCTRL,    KC_ENTER,    KC_BSPACE,
-               KC_LALT,   KC_0,      KC_LSHIFT, KC_SPACE, KC_SPACE,  KC_RSHIFT,   KC_CAPSLOCK, KC_RALT
+               KC_LALT,   KC_0,      KC_LSHIFT, KC_SPACE, KC_SPACE,  KC_RSHIFT,   KC_CAPS,     KC_RALT
   ),
   /*
   ['Q', 'D', 'R', 'W', 'B',/ ** / 'J', 'F', 'U', 'P', '; :' ],

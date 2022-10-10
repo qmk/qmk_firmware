@@ -235,9 +235,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
         case CAPS: {
             if (record->event.pressed) {
-                register_code(KC_CAPSLOCK);
+                register_code(KC_CAPS_LOCK);
             } else {
-                unregister_code(KC_CAPSLOCK);
+                unregister_code(KC_CAPS_LOCK);
             }
             break;
         }
