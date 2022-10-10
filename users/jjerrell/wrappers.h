@@ -320,7 +320,7 @@
 
 // Adjust
 #define __________________ADJUST_L1__________________   KC_MAKE,        DEBUG,     RESET, XXXXXXX, XXXXXXX
-#define __________________ADJUST_L2__________________   KC__MUTE, KC__VOLDOWN, KC__VOLUP, KC_MPLY, KC_MNXT
+#define __________________ADJUST_L2__________________   KC__MUTE,     KC_VOLD, KC__VOLUP, KC_MPLY, KC_MNXT
 #define __________________ADJUST_L3__________________   KC_VRSN,        AU_ON,    AU_OFF, CG_SWAP, CG_NORM
 
 #define __________________ADJUST_R1__________________   MU_MOD, MU_ON,   MU_OFF,  MI_ON,   MI_OFF

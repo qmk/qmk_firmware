@@ -133,7 +133,7 @@ uint16_t encoder_rotated_timer;
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
-#define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
+#define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC_VOLD
 
 #if defined(KEYBOARD_crkbd_rev1) || defined(KEYBOARD_kyria_rev1)
   #define ________MOD_LEFT_________ T_GUI, KC_LCTL, LT_RAI

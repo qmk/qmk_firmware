@@ -15,13 +15,6 @@ enum layers {
 #define RESIZE  LGUI(KC_R)
 #define BROWSER LSG(KC_ENT) // Left Shift + GUI, ENT.
 
-// required for my PC
-#undef KC_VOLU
-#undef KC_VOLD
-#define KC_VOLU KC__VOLUP
-#define KC_VOLD KC__VOLDOWN
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
                  KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                                     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_DEL ,

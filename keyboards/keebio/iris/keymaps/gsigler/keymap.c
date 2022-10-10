@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,  KC_HASH, KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                            KC_QUES, KC_LEFT,KC_DOWN, KC_RGHT, XXXXXXX,  KC__VOLUP,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //|        |    %   |    ^   |   [    |   ]    |    ~   |  ESC            | ALT  |    &   |        |        |        |  MUTE  |  VOLDN |
-     XXXXXXX, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,  KC_TRNS,          KC_TRNS, KC_AMPR, XXXXXXX, XXXXXXX,XXXXXXX, KC__MUTE,KC__VOLDOWN,
+     XXXXXXX, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,  KC_TRNS,          KC_TRNS, KC_AMPR, XXXXXXX, XXXXXXX,XXXXXXX, KC__MUTE,KC_VOLD,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               |  CTRL  | COMMAND| BKSPACE|                 | SPACE  |  ENTER | SHIFT|
                                     KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,  KC_TRNS, KC_TRNS

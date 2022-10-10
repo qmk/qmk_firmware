@@ -24,7 +24,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC__VOLUP);
         } else {
-            tap_code(KC__VOLDOWN);
+            tap_code(KC_VOLD);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {

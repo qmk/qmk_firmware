@@ -96,7 +96,7 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define SFT_QOT LSFT_T(KC_QUOT)
 #define SYM_OS OSL(_SYM)
 #define SYS_Z LT(_SYS, KC_Z)
-#define VOL_DN S(LALT(KC__VOLDOWN))
+#define VOL_DN S(LALT(KC_VOLD))
 #define VOL_UP S(LALT(KC__VOLUP))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
