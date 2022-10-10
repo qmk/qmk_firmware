@@ -79,7 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case PSCSYSR: {
             if (record->event.pressed) {
                 if (keyboard_report->mods & MODS_ALT_MASK) {
-                    tap_code(KC_SYSREQ);
+                    tap_code(KC_SYSTEM_REQUEST);
                 } else {
                     register_code(KC_PAUS);
                 }

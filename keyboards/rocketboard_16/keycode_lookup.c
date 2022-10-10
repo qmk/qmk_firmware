@@ -206,7 +206,7 @@ lookup_table_t lookup_table[333] =
  {"KC_LNG8", KC_LNG8},
  {"KC_LNG9", KC_LNG9},
  {"KC_ERAS", KC_ERAS},
- {"KC_SYSREQ", KC_SYSREQ},
+ {"KC_SYRQ", KC_SYRQ},
  {"KC_CANCEL", KC_CANCEL},
  {"KC_CLR", KC_CLR},
  {"KC_CLEAR", KC_CLEAR},

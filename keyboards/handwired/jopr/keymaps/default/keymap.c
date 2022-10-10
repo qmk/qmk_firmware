@@ -49,7 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         else {
             switch(keycode) {
-                case KC_SYSREQ:
+                case KC_SYSTEM_REQUEST:
                     sysreq_led = true;
                     writePinHigh(F4);
             }

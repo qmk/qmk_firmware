@@ -19,8 +19,6 @@
 #define KC__MUTE          KC_KB_MUTE
 #define KC__VOLUP         KC_KB_VOLUME_UP
 #define KC__VOLDOWN       KC_KB_VOLUME_DOWN
-#define KC_ALT_ERASE      KC_ALTERNATE_ERASE
-#define KC_SYSREQ         KC_SYSTEM_REQUEST
 
 #define KC_LCTRL          KC_LEFT_CTRL
 #define KC_LSHIFT         KC_LEFT_SHIFT
