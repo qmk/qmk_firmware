@@ -1,6 +1,6 @@
 # Hardware Abstraction Handwire
 
-![handwire](https://imgur.com/PK5HfM3.jpg)
+![handwire](https://i.imgur.com/PK5HfM3h.jpg)
 
 A hotswap 60% keyboard with an arrow key cluster. Board features support for an OLED screen, push pull solenoid, and an active buzzer. 
 
