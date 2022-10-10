@@ -1,6 +1,6 @@
 {
     "manufacturer": "AKB",
-    "keyboard_name": "akb/vero",
+    "keyboard_name": "Vero",
     "maintainer": "arnstadm",
     "bootloader": "stm32-dfu",
     "board": "GENERIC_STM32_F411XE",
