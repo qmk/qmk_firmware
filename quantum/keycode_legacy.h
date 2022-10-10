@@ -23,6 +23,5 @@
 #define KC_RCTRL          KC_RIGHT_CTRL
 #define KC_RSHIFT         KC_RIGHT_SHIFT
 
-#define KC_CLCK KC_CAPS_LOCK
 #define KC_SLCK KC_SCROLL_LOCK
 #define KC_NLCK KC_NUM_LOCK
