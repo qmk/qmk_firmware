@@ -11,7 +11,7 @@
 #define _MEDIA 2
 
 // dual-role shortcuts
-#define FN_CAPS   LT(_MEDIA, KC_CAPSLOCK)
+#define FN_CAPS   LT(_MEDIA, KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _DEF: Default Layer

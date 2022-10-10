@@ -136,7 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (layer == PROG2) {
          if (keycode >= KC_A && keycode <= KC_EXSEL && \
              !(  // do not send LSFT + these keycodes, they are needed for emulating the US layout
-                 keycode == KC_NONUS_BSLASH ||
+                 keycode == KC_NUBS ||
                  keycode == KC_RBRC ||
                  keycode == KC_BSLS ||
                  keycode == KC_GRV

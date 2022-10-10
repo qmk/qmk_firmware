@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(_ADJUST, KC_SPACE),  KC_KP_DOT                       \
     ),
   [_ADJUST] = LAYOUT_numpad_4x4( /* Adjustments */
-    KC_NUMLOCK, TG(_FPHNOISY), TG(_FPH), TG(_NUMPAD), \
+    KC_NUM,     TG(_FPHNOISY), TG(_FPH), TG(_NUMPAD), \
     KC_BSPC,    BACKLIT,       KC_DEL,                \
     MACSLEEP,   _______,       _______,  _______,     \
     _______,                   MO(_DYN)               \

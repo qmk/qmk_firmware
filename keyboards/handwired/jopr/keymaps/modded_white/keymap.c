@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LWIN,   KC_LALT,   KC_SPC,                                                KC_RALT, KC_RWIN, LT(_FN,KC_APP), KC_RCTL,      KC_P0,            KC_PDOT,            KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FN] = LAYOUT(
-		_______,   _______, _______, _______, _______,   _______, _______, _______, _______,   _______, _______, _______, _______,   _______,   KC_SYSREQ, _______, _______, _______,
+		_______,   _______, _______, _______, _______,   _______, _______, _______, _______,   _______, _______, _______, _______,   _______,   KC_SYRQ, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______,
 		_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,       KC_MSTP, KC_VOLU, _______, _______,
 		_______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              KC_MPRV, KC_MPLY, KC_MNXT,            _______, KC_MUTE, _______,
@@ -37,7 +37,7 @@ void led_set_user(uint8_t usb_led) {
     }
     
     if (!(IS_LED_ON(usb_led, USB_LED_NUM_LOCK))) {
-        tap_code(KC_NUMLOCK);
+        tap_code(KC_NUM_LOCK);
     }
 }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -49,7 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         else {
             switch(keycode) {
-                case KC_SYSREQ:
+                case KC_SYSTEM_REQUEST:
                     sysreq_led = true;
                     writePinHigh(F4);
             }

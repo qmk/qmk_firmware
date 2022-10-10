@@ -16,9 +16,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Numpad
     [_NUMPAD] = LAYOUT_65_ansi_blocker(
-        XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_NUMLOCK, XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_0,    KC_PMNS,    KC_PEQL,                _______,    _______,
+        XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_NUM,     XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_0,    KC_PMNS,    KC_PEQL,                _______,    _______,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PCMM,    _______,    _______,                _______,    _______,
-        KC_NUMLOCK, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PPLS,    KC_PAST,                            KC_PENT,    _______,
+        KC_NUM,     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PPLS,    KC_PAST,                            KC_PENT,    _______,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_0,    SPI_KP_00,  KC_PDOT,    KC_PSLS,                            _______,    _______,    _______,
         _______,    _______,    _______,                                    _______,                                            _______,    _______,                _______,    _______,    _______
     ),

@@ -59,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'
  */
 [1] = LAYOUT_ortho_4x12(
-    M0,         M1, M4, M7, KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_LEFT,    M2, M5, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_RIGHT,   M3, M6, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NUMLOCK, QK_BOOT, KC_NO, KC_NO, KC_CALC, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+    M0,       M1, M4, M7, KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_LEFT,  M2, M5, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_RIGHT, M3, M6, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NUM,   QK_BOOT, KC_NO, KC_NO, KC_CALC, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 )
 };
 

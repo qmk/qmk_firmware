@@ -54,7 +54,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_0_BASE] = LAYOUT_ergodox(
-  KC_NONUS_BSLASH,      KC_EXLM,              KC_AT,         KC_HASH,        KC_DLR,       KC_PERC,   KC_AUDIO_MUTE,
+  KC_NUBS,              KC_EXLM,              KC_AT,         KC_HASH,        KC_DLR,       KC_PERC,   KC_AUDIO_MUTE,
   KC_LEAD,              KC_Q,                 KC_W,          E_NUMBERS,      R_MOUSE,      KC_T,      XXXXXXX,
   LCTL(KC_B),           LSFT_T(KC_A),         LCTL_T(KC_S),  LALT_T(KC_D),   LGUI_T(KC_F), KC_G,
   KC_BSLASH,            KC_Z,                 KC_X,          KC_C,           KC_V,         KC_B,      XXXXXXX,
@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,
   XXXXXXX,
   KC_ENTER,             KC_TAB,               KC_ESCAPE,
-  KC_CAPSLOCK,          KC_CIRC,              KC_AMPR,       KC_ASTR,       KC_LPRN,            KC_RPRN,   KC_MINUS,
-  XXXXXXX,              KC_Y,                 KC_U,          KC_I,          KC_O,               KC_P,      KC_LBRACKET,
+  KC_CAPS,              KC_CIRC,              KC_AMPR,       KC_ASTR,       KC_LPRN,            KC_RPRN,   KC_MINUS,
+  XXXXXXX,              KC_Y,                 KC_U,          KC_I,          KC_O,               KC_P,      KC_LBRC,
   KC_H,                 RGUI_T(KC_J),         RALT_T(KC_K),  RCTL_T(KC_L),  RSFT_T(KC_SCOLON),  KC_QUOTE,
-  KC_RBRACKET,          KC_N,                 KC_M,          KC_COMMA,      KC_DOT,             KC_SLASH,  KC_EQUAL,
+  KC_RBRC,              KC_N,                 KC_M,          KC_COMMA,      KC_DOT,             KC_SLASH,  KC_EQUAL,
   XXXXXXX,              XXXXXXX,              XXXXXXX,       XXXXXXX,       XXXXXXX,
   KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK,
   XXXXXXX,

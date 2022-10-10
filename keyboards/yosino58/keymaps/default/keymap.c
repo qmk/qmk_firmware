@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_PSLS, KC_PMNS, KC_P7, KC_P8,   KC_P9,                                        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_F12,
   _______, KC_PAST, KC_PPLS, KC_P4, KC_P5,   KC_P6,                                        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
   _______, KC_PDOT, KC_P0,   KC_P1, KC_P2,   KC_P3,   _______,  _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-                                    _______, KC_LGUI, _______,                    XXXXXXX, KC_CLCK, KC_NLCK
+                                    _______, KC_LGUI, _______,                    XXXXXXX, KC_CAPS, KC_NLCK
 
   ),
 

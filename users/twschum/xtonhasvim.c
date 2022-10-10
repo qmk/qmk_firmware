@@ -70,7 +70,7 @@ static void comma_period(uint16_t keycode) {
   case VIM_COMMA:
     if (SHIFTED) {
       // indent
-      tap_code16(LGUI(KC_LBRACKET));
+      tap_code16(LGUI(KC_LEFT_BRACKET));
     } else {
       // toggle comment
       tap_code16(LGUI(KC_SLASH));
@@ -79,7 +79,7 @@ static void comma_period(uint16_t keycode) {
   case VIM_PERIOD:
     if (SHIFTED) {
       // outdent
-      tap_code16(LGUI(KC_RBRACKET));
+      tap_code16(LGUI(KC_RIGHT_BRACKET));
     }
     break;
   }

@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [4] = LAYOUT_ergodox(
-       QK_BOOT,        KC_LSFT,    KC_LSFT,    KC_SYSREQ,  KC_PSCR,    KC_SLCK,    KC_PAUSE,
+       QK_BOOT,        KC_LSFT,    KC_LSFT,    KC_SYRQ,    KC_PSCR,    KC_SLCK,    KC_PAUSE,
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_HYPR,

@@ -257,7 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RAISE] = LAYOUT_preonic_grid( \
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_SLCK,  KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
         KC_TAB,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, XXXXXXX,  KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_DEL,
-        KC_CLCK, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, XXXXXXX,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX,
+        KC_CAPS, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, XXXXXXX,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX,
         _______, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DYN_REC_START1,   DYN_REC_START2, DYN_REC_STOP,
         KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT,  __LYB__, DYN_MACRO_PLAY1,  DYN_MACRO_PLAY2, LLSWIT
     ),
@@ -321,7 +321,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_EXTRA] = LAYOUT_preonic_grid( \
         KC_ESC,   _______,  _______,  _______,  _______,  KC_SLCK,  _______,  _______,  _______,  _______,  _______,  _______,
         KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL,
-        KC_CLCK,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        KC_CAPS,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP,
         KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DEL,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,  DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  LLSWIT
     ),

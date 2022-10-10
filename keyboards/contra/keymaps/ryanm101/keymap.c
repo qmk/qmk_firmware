@@ -114,10 +114,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_L2] = LAYOUT_ortho_4x12(
-    KC_SYSREQ, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_NLCK, KC_P7,   KC_P8,    KC_P9,   KC_PAST, KC_BSPC,
-    XXXXXXX,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_P4,   KC_P5,    KC_P6,   KC_PSLS, _______,
-    XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_P1,   KC_P2,    KC_P3,   KC_PPLS, KC_PENT,
-    _______,   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  XXXXXXX, KC_P0,    KC_PDOT, KC_PMNS, _______
+    KC_SYRQ, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_NLCK, KC_P7,   KC_P8,    KC_P9,   KC_PAST, KC_BSPC,
+    XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_P4,   KC_P5,    KC_P6,   KC_PSLS, _______,
+    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_P1,   KC_P2,    KC_P3,   KC_PPLS, KC_PENT,
+    _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  XXXXXXX, KC_P0,    KC_PDOT, KC_PMNS, _______
   ),
 
   /* L3
@@ -222,13 +222,13 @@ void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
 void cmd_sft_slash_pipe_down (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (state->interrupted || state->pressed==0) {
-      register_code (KC_NONUS_BSLASH);
+      register_code (KC_NONUS_BACKSLASH);
     } else {
       register_code (KC_LSFT);
     }
   } else if (state->count == 2) {
     register_mods(MOD_BIT(KC_LSFT));
-    register_code(KC_NONUS_BSLASH);
+    register_code(KC_NONUS_BACKSLASH);
   }
 }
 
@@ -237,11 +237,11 @@ void cmd_sft_slash_pipe_up (qk_tap_dance_state_t *state, void *user_data) {
     if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
       unregister_code (KC_LSFT);
     } else {
-      unregister_code (KC_NONUS_BSLASH);
+      unregister_code (KC_NONUS_BACKSLASH);
     }
   } else if (state->count == 2) {
     unregister_mods(MOD_BIT(KC_LSFT));
-    unregister_code(KC_NONUS_BSLASH);
+    unregister_code(KC_NONUS_BACKSLASH);
   }
 }
 

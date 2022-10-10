@@ -57,7 +57,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false; }
     switch (index) {
         case 0:
-            if(active) { tap_code(KC_CLCK); }
+            if(active) { tap_code(KC_CAPS_LOCK); }
             break;
         break;
     }

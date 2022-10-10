@@ -16,7 +16,7 @@ Additionally, there are some common chars that we dit not yet define:
 
 
 // NQN key definitions in no particular order
-#define N_LT KC_NONUS_BSLASH
+#define N_LT KC_NONUS_BACKSLASH
 #define N_HS KC_NONUS_HASH
 #define N_DOTS RALT(KC_DOT) // …
 #define N_USC LSFT(KC_SLASH) // _
@@ -24,7 +24,7 @@ Additionally, there are some common chars that we dit not yet define:
 #define N_RSQBR RALT(KC_9) // ]
 #define N_CIRC KC_GRAVE // ^
 #define N_EXKL LSFT(KC_1) // !
-#define N_GT LSFT(KC_NONUS_BSLASH) // >
+#define N_GT LSFT(KC_NONUS_BACKSLASH) // >
 #define N_EQ LSFT(KC_0) // =
 #define N_AMP LSFT(KC_6) // &
 #define N_BSLS RALT(KC_MINS) // \ backslash
@@ -39,7 +39,7 @@ Additionally, there are some common chars that we dit not yet define:
 #define N_COLN LSFT(KC_DOT) // :
 #define N_HASH KC_BSLASH // #
 #define N_DLR LSFT(KC_4) // $
-#define N_PIPE RALT(KC_NONUS_BSLASH) // |
+#define N_PIPE RALT(KC_NONUS_BACKSLASH) // |
 #define N_TILD RALT(KC_RBRC) // ~
 #define N_GRAVE LSFT(KC_EQUAL) // `
 #define N_PLUS KC_RBRC // +
@@ -53,7 +53,7 @@ Additionally, there are some common chars that we dit not yet define:
 #define N_Y KC_Z
 #define N_AE KC_QUOTE // ä
 #define N_OE KC_SCOLON // ö
-#define N_UE KC_LBRACKET // ü
+#define N_UE KC_LBRC // ü
 #define N_MU RALT(KC_M) // µ
 #define N_SS KC_MINS // ß
 #define N_DEGRE LSFT(KC_GRAVE) // °

@@ -152,10 +152,10 @@ bool handle_US_ANSI_shifted_keys(int16_t keycode, bool in) {
             regular_keycode = KC_EQUAL;
             break;
         case KC_LEFT_CURLY_BRACE:
-            regular_keycode = KC_LBRACKET;
+            regular_keycode = KC_LEFT_BRACKET;
             break;
         case KC_RIGHT_CURLY_BRACE:
-            regular_keycode = KC_RBRACKET;
+            regular_keycode = KC_RIGHT_BRACKET;
             break;
         case KC_PIPE:
             regular_keycode = KC_BSLASH;
@@ -726,10 +726,10 @@ uint8_t counter_76 = 0;
 const struct Chord chord_76 PROGMEM = {H_BOT3, NUM, &state_76, &counter_76, KC_EQUAL, 0, autoshift_dance};
 uint8_t state_77 = IDLE;
 uint8_t counter_77 = 0;
-const struct Chord chord_77 PROGMEM = {H_BOT4, NUM, &state_77, &counter_77, KC_LBRACKET, 0, autoshift_dance};
+const struct Chord chord_77 PROGMEM = {H_BOT4, NUM, &state_77, &counter_77, KC_LEFT_BRACKET, 0, autoshift_dance};
 uint8_t state_78 = IDLE;
 uint8_t counter_78 = 0;
-const struct Chord chord_78 PROGMEM = {H_BOT5, NUM, &state_78, &counter_78, KC_RBRACKET, 0, autoshift_dance};
+const struct Chord chord_78 PROGMEM = {H_BOT5, NUM, &state_78, &counter_78, KC_RIGHT_BRACKET, 0, autoshift_dance};
 uint8_t state_79 = IDLE;
 uint8_t counter_79 = 0;
 const struct Chord chord_79 PROGMEM = {H_BOT6, NUM, &state_79, &counter_79, KC_BSLASH, 0, autoshift_dance};
@@ -883,9 +883,9 @@ const struct Chord chord_152 PROGMEM = {H_TOP2 + H_TOP9, ASETNIOP, &state_152, N
 uint8_t state_153 = IDLE;
 const struct Chord chord_153 PROGMEM = {H_TOP3 + H_TOP0, ASETNIOP, &state_153, NULL, KC_QUOTE, 0, single_dance};
 uint8_t state_154 = IDLE;
-const struct Chord chord_154 PROGMEM = {H_TOP1 + H_TOP9, ASETNIOP, &state_154, NULL, KC_LBRACKET, 0, single_dance};
+const struct Chord chord_154 PROGMEM = {H_TOP1 + H_TOP9, ASETNIOP, &state_154, NULL, KC_LEFT_BRACKET, 0, single_dance};
 uint8_t state_155 = IDLE;
-const struct Chord chord_155 PROGMEM = {H_TOP2 + H_TOP0, ASETNIOP, &state_155, NULL, KC_RBRACKET, 0, single_dance};
+const struct Chord chord_155 PROGMEM = {H_TOP2 + H_TOP0, ASETNIOP, &state_155, NULL, KC_RIGHT_BRACKET, 0, single_dance};
 uint8_t state_156 = IDLE;
 const struct Chord chord_156 PROGMEM = {H_TOP1 + H_TOP0, ASETNIOP, &state_156, NULL, KC_SLASH, 0, single_dance};
 uint8_t state_157 = IDLE;

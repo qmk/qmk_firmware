@@ -56,7 +56,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
          case TG(1):
            if (record->event.pressed) {
-                tap_code(KC_NUMLOCK);
+                tap_code(KC_NUM_LOCK);
 		return true;
 		}
 	   break;
@@ -67,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user (void) {
   if (!host_keyboard_led_state ().num_lock) {
-      tap_code(KC_NUMLOCK);
+      tap_code(KC_NUM_LOCK);
   }
 }
 

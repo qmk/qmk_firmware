@@ -5,7 +5,7 @@
 #define ENTER_OR_SQL LT(SQLMACROS,KC_ENT)
 #define ESCAP KC_ESC
 #define PSCR KC_PSCREEN
-#define SCRL KC_SCROLLLOCK
+#define SCRL KC_SCRL
 #define PAUS KC_PAUSE
 #define NSRT KC_INSERT
 #define HOME KC_HOME
@@ -29,7 +29,7 @@
 #define KP_8 KC_KP_8
 #define KP_9 KC_KP_9
 #define KP_0 KC_KP_0
-#define NMLK KC_NUMLOCK
+#define NMLK KC_NUM_LOCK
 #define STAR KC_KP_ASTERISK
 #define KSSH KC_KP_SLASH
 #define KMIN KC_KP_MINUS

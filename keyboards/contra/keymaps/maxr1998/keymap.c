@@ -179,7 +179,7 @@ void update_tri_layer_user(void) {
 void led_set_user(uint8_t usb_led) {
   // Force-enable Numlock
   if (!(usb_led & (1<<USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
-    unregister_code(KC_NUMLOCK);
+    register_code(KC_NUM_LOCK);
+    unregister_code(KC_NUM_LOCK);
   }
 }

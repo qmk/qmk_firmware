@@ -154,17 +154,17 @@ case KC_T_RGUI:
 	break;
 case KC_T_LCTL:
 	if (record->event.pressed) {
-	   mod_press(KC_LBRACKET, KC_LCTL, 4);
+	   mod_press(KC_LEFT_BRACKET, KC_LCTL, 4);
 	} else {
-	   mod_lift(KC_LBRACKET, KC_LCTL, 4);
+	   mod_lift(KC_LEFT_BRACKET, KC_LCTL, 4);
 	}
 	return false;
 	break;
 case KC_T_RCTL:
 	if (record->event.pressed) {
-	   mod_press(KC_RBRACKET, KC_RCTL, 5);
+	   mod_press(KC_RIGHT_BRACKET, KC_RCTL, 5);
 	} else {
-	   mod_lift(KC_RBRACKET, KC_RCTL, 5);
+	   mod_lift(KC_RIGHT_BRACKET, KC_RCTL, 5);
 	}
 	return false;
 	break;

@@ -8,7 +8,7 @@ The changes that were applied over default layout:
 
 * Make Win/cmd keys right next to space bar just like Apple keyboards.
 * Adding a power (`KC_POWER`) key, so the lock screen shortcut works.
-* Re-use the page up and page down keys to make ["é] (`KC_NONUS_BSLASH`) and [<>|] (`KC_GRAVE`) keys more accessible.
+* Re-use the page up and page down keys to make ["é] (`KC_NUBS`) and [<>|] (`KC_GRAVE`) keys more accessible.
 * Optimize the function layer, by removing the mouse movement combinations and adding additional media keys.
 * Swap the positions of volume up and volume down and mute buttons on function layer, so these keys are actually with the same order as Apple keyboard layout.
 

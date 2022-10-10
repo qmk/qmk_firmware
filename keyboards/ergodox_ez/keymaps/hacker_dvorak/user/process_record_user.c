@@ -9,7 +9,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case KC_CLCK:
+        case KC_CAPS_LOCK:
             if (record->event.pressed) {
                 if (!(CAPS_LOCK)) {
                     ergodox_right_led_1_on();

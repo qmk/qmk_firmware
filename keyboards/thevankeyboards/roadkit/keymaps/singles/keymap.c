@@ -22,10 +22,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_KP_0, KC_KP_DOT, TG(_L1), KC_BSPC
   ),
   [_L1] = LAYOUT_ortho_4x4( /* LAYER 1 */
-    KC_NUMLOCK, _______, _______,  KC_VOLU, \
-    _______,    KC_UP,   _______,  KC_VOLD, \
-    KC_LEFT,    KC_DOWN, KC_RIGHT, _______, \
-    _______,    _______, _______,  _______
+    KC_NUM,  _______, _______,  KC_VOLU, \
+    _______, KC_UP,   _______,  KC_VOLD, \
+    KC_LEFT, KC_DOWN, KC_RIGHT, _______, \
+    _______, _______, _______,  _______
   )
 };
 

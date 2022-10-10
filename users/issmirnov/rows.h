@@ -22,7 +22,7 @@
 
 #define _________________SYMB_L1___________________        KC_MINS , KC_AT   , KC_LCBR     , KC_RCBR     , KC_GRV
 #define _________________SYMB_L2___________________        KC_CIRC , KC_UNDS , KC_LPRN     , KC_RPRN     , KC_DLR
-#define _________________SYMB_L3___________________        KC_LABK , KC_RABK , KC_LBRACKET , KC_RBRACKET , KC_TILD
+#define _________________SYMB_L3___________________        KC_LABK , KC_RABK , KC_LBRC     , KC_RBRC     , KC_TILD
 
 #define _________________SYMB_R1___________________        KC_ASTR , KC_EXLM , KC_PIPE     , KC_PERC     , KC_PLUS
 #define _________________SYMB_R2___________________        KC_HASH , KC_EQL  , KC_COLN     , KC_SCLN     , TAP_TOG_LAYER
