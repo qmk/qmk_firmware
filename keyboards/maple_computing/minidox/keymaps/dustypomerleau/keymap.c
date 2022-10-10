@@ -162,10 +162,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  QK_BOOT, DEBUG,   QWERTY,  CMK_DHM, _______,       _______,  KC_VOLD, KC_VOLU, KC_BRID,  KC_BRIU, \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_POWER, VOL_DN,  VOL_UP,  KC__MUTE, KC_MPLY, \
-  _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E, KC_MRWD, KC_MFFD,  _______, \
-                    _______, _______, _______,       _______,  _______, _______                     \
+  QK_BOOT, DEBUG,   QWERTY,  CMK_DHM, _______,       _______,  KC_VOLD, KC_VOLU, KC_BRID, KC_BRIU, \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_POWER, VOL_DN,  VOL_UP,  KC_MUTE, KC_MPLY, \
+  _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E, KC_MRWD, KC_MFFD, _______, \
+                    _______, _______, _______,       _______,  _______, _______                    \
 ),
 
 /* Navigation + mouse keys

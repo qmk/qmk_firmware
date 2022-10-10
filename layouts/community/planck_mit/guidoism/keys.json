@@ -178,7 +178,7 @@
   "KC_SYSTEM_WAKE": "System Wake",
   "KC_WAKE": "System Wake",
   "KC_STOP": "Stop",
-  "KC__MUTE": "Mute (macOS)",
+  "KC_KB_MUTE": "Mute (macOS)",
   "KC_KB_VOLUME_UP": "vol+",
   "KC_KB_VOLUME_DOWN": "vol-",
   "KC_AUDIO_MUTE": "Mute",

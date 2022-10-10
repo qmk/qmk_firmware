@@ -3,7 +3,7 @@
 
 #define PGMOD LT(_MOD, KC_PGDN)
 #define SPCMOD LT(_MOD, KC_SPACE)
-#define VOLMOD LT(_MOD, KC__MUTE)
+#define VOLMOD LT(_MOD, KC_MUTE)
 
 enum layer_names {
   _BASE,
