@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [JSYM] = LAYOUT_stack(
         _______, KC_GRV,  KC_AT  , KC_LCBR,     KC_RCBR,     _______,
         _______, KC_HASH, KC_DLR , KC_LPRN,     KC_RPRN,     KC_LEFT,
-        _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, _______,
+        _______, KC_PERC, KC_CIRC, KC_LBRC,     KC_RBRC, _______, _______, _______,
                                                 _______, _______, _______, _______, _______,
 
                                 _______, _______, _______, _______,  _______, _______,

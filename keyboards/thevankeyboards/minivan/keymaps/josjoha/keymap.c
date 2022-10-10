@@ -1289,7 +1289,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 , TRANS_MIDLEFT
 #             endif
 
-                                                , KC_NUMLOCK , XXXXXXX , KC__YGUI
+                                                , KC_NUM , XXXXXXX , KC__YGUI
 
 #             ifdef TRANSMINIVAN_RIGHTSIDE
                                                                                   , TRANS_RIGHT
@@ -1381,7 +1381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     , TRANS_MIDLEFT
 #             endif
 
-                                                    , KC_NUMLOCK , KC_KP_0 
+                                                    , KC_NUM , KC_KP_0 
 
 // See comment in ./base_numpad.c on the first layout (double handed Base layer), about the next few keys:
 // This layer follows that layout Base Numpad.

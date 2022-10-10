@@ -17,7 +17,7 @@
 #include "hid_liber.h"
 
 // Helpful defines
-#define FN_CAPS LT(_FL, KC_CAPSLOCK)
+#define FN_CAPS LT(_FL, KC_CAPS)
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.

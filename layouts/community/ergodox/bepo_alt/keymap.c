@@ -41,7 +41,7 @@ KC_LCTL,    KC_LGUI,    KC_LGUI,  KC_LGUI,  KC_LALT,
 
 /* Right hand */
                 BP_PLUS, BP_MINS,    BP_MINS, BP_SLSH, BP_ASTR,  BP_EQL, BP_PERC,
-        KC_CAPSLOCK,  BP_DCIR,  BP_V,   BP_D,   BP_L,   BP_J,   BP_Z,
+        KC_CAPS,  BP_DCIR,  BP_V,   BP_D,   BP_L,   BP_J,   BP_Z,
             BP_C,   BP_T,   BP_S,   BP_R,   BP_N,   BP_M,
         KC_ESC, BP_QUOT,  BP_Q,   BP_G,   BP_H,   BP_F,   BP_CCED,
                 KC_ALGR,  KC_RGUI,  KC_RGUI,  KC_RCTL,  KC_ENTER,

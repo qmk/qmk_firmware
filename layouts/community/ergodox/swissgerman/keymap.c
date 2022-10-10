@@ -21,10 +21,10 @@
 #define HTML_BR M(14)
 
 #define SEND_TAG(TAG) do {\
-    send_key(KC_NONUS_BSLASH); \
+    send_key(KC_NONUS_BACKSLASH); \
     SEND_STRING(TAG); \
     send_larger_than(); \
-    send_key(KC_NONUS_BSLASH); \
+    send_key(KC_NONUS_BACKSLASH); \
     SEND_STRING("&"); \
     SEND_STRING(TAG); \
     send_larger_than(); \
@@ -32,7 +32,7 @@
   } while (0)
 
 #define SEND_SHORT_TAG(TAG) do {\
-    send_key(KC_NONUS_BSLASH); \
+    send_key(KC_NONUS_BACKSLASH); \
     SEND_STRING(TAG); \
     SEND_STRING("&"); \
     send_larger_than();	       \
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DEL,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
         KC_BSPC,        LT(MDIA, KC_A),KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        CTL_T(KC_Z),  ALT_T(KC_X),   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
-        LT(SYMB,KC_NONUS_BSLASH), KC_EQL, KC_BSLS,  KC_LEFT,KC_RGHT,
+        LT(SYMB,KC_NUBS), KC_EQL, KC_BSLS,  KC_LEFT,KC_RGHT,
                                               ALT_T(KC_APP),  KC_LGUI,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,ACTION_MODS_KEY(MOD_LSFT, KC_RBRC), ACTION_MODS_KEY(MOD_RALT, KC_2),  ACTION_MODS_KEY(MOD_RALT, KC_QUOT), ACTION_MODS_KEY(MOD_RALT, KC_BSLS),ACTION_MODS_KEY(MOD_RALT,KC_7),KC_TRNS,
        KC_TRNS,ACTION_MODS_KEY(MOD_RALT,KC_3),KC_BSLS, ACTION_MODS_KEY(MOD_LSFT, KC_8), ACTION_MODS_KEY(MOD_RSFT, KC_9),ACTION_MODS_KEY(MOD_LSFT,KC_EQL),
        KC_TRNS,ACTION_MODS_KEY(MOD_LSFT,KC_5),KC_EQL, ACTION_MODS_KEY(MOD_RALT, KC_LBRC), ACTION_MODS_KEY(MOD_RALT, KC_RBRC),ACTION_MODS_KEY(MOD_RALT,KC_EQL),KC_TRNS,
-          KC_TRNS,EPRM,KC_TRNS,KC_NONUS_BSLASH, ACTION_MODS_KEY(MOD_LSFT, KC_NONUS_BSLASH)/*KC_TRNS,KC_TRNS*/,
+          KC_TRNS,EPRM,KC_TRNS,KC_NUBS, ACTION_MODS_KEY(MOD_LSFT, KC_NUBS)/*KC_TRNS,KC_TRNS*/,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    ACTION_MODS_KEY(MOD_RSFT,KC_3), KC_F12,
        KC_DOWN, KC_4,   KC_5,    KC_6,    ACTION_MODS_KEY(MOD_RSFT,KC_1), KC_TRNS,
-       KC_TRNS, ACTION_MODS_KEY(MOD_RSFT,KC_6), KC_1,   KC_2,    KC_3,  ACTION_MODS_KEY(MOD_RALT,KC_NONUS_BSLASH), KC_TRNS,
+       KC_TRNS, ACTION_MODS_KEY(MOD_RSFT,KC_6), KC_1,   KC_2,    KC_3,  ACTION_MODS_KEY(MOD_RALT,KC_NUBS), KC_TRNS,
        ACTION_MODS_KEY(MOD_RSFT,KC_MINS),KC_DOT,  KC_0,   KC_EQL, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -278,6 +278,6 @@ void go_back_based_on_tag(char* tag) {
 
 void send_larger_than() {
   register_code(KC_LSFT);
-  send_key(KC_NONUS_BSLASH);
+  send_key(KC_NONUS_BACKSLASH);
   unregister_code(KC_LSFT);
 }

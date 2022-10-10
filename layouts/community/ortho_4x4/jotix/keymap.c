@@ -47,7 +47,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t led_state) {
   // NumLock allways on
   if (!led_state.num_lock) {
-    tap_code(KC_NUMLOCK);
+    tap_code(KC_NUM_LOCK);
   }
   return true;
 }
