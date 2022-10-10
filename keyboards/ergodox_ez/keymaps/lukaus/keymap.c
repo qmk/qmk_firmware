@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
 
-    KC_NO,     KC_NUMLOCK,     KC_KP_SLASH,    KC_KP_ASTERISK, KC_KP_MINUS,     KC_NO,   KC_NO,
+    KC_NO,     KC_NUM,         KC_KP_SLASH,    KC_KP_ASTERISK, KC_KP_MINUS,     KC_NO,   KC_NO,
     TO(0),     KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_PLUS,      KC_NO,   KC_NO,
                KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_EQUAL,        KC_NO,  KC_NO,
     KC_NO,     KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_KP_ENTER,     KC_NO,  KC_NO,
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
 
-    KC_NO,          KC_NUMLOCK,     KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,    KC_NO,      RGB_VAI,
+    KC_NO,          KC_NUM,         KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,    KC_NO,      RGB_VAI,
     TO(0),          KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,      KC_NO,      RGB_VAD,
                     KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_KP_PLUS,       KC_NO,    RGB_HUI,
     KC_NO,          KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_EQUAL,         RGB_SLD,    RGB_HUD,
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
 
-    KC_NO,    KC_I,       KC_NUMLOCK,     KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,  RGB_VAI,
+    KC_NO,    KC_I,       KC_NUM,         KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,  RGB_VAI,
     TO(0),    KC_G,       KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,    RGB_VAD,
               SHFT_COMMA,       KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_KP_PLUS,     RGB_HUI,
     KC_NO,    SHFT_DOT,       KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_EQUAL,       RGB_HUD,
@@ -203,7 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
     break;
-    case KC_NUMLOCK:
+    case KC_NUM_LOCK:
 
       if (record->event.pressed)
       {

@@ -144,7 +144,7 @@ void matrix_init_keymap(void) {
     set_rgb_layer(_QWERTY);
     // force numlock on upon startup
     if (!NUMLOCK_ON) {
-        tap_code(KC_NUMLOCK);
+        tap_code(KC_NUM_LOCK);
     }
 };
 

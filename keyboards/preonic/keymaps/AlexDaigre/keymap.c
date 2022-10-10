@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_preonic_grid( \
-  KC_PSCREEN, KC_PGUP, KC_PGDOWN, KC_HOME, KC_END, KC_INSERT, KC_SCROLLLOCK, KC_NUMLOCK, KC_PAUSE, KC_LBRACKET, KC_RBRACKET, KC_MINUS, \
+  KC_PSCREEN, KC_PGUP, KC_PGDOWN, KC_HOME, KC_END, KC_INSERT, KC_SCROLLLOCK, KC_NUM, KC_PAUSE, KC_LBRACKET, KC_RBRACKET, KC_MINUS, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DELETE, \
   KC_CAPSLOCK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_RSHIFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSLASH, KC_MENU, \
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid( \
-  KC_PSCREEN, KC_PGUP, KC_PGDOWN, KC_HOME, KC_END, KC_INSERT, KC_SCROLLLOCK, KC_NUMLOCK, KC_PAUSE, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, KC_UNDERSCORE, \
+  KC_PSCREEN, KC_PGUP, KC_PGDOWN, KC_HOME, KC_END, KC_INSERT, KC_SCROLLLOCK, KC_NUM, KC_PAUSE, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, KC_UNDERSCORE, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DELETE, \
   KC_CAPSLOCK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_RSHIFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PIPE, KC_MENU, \

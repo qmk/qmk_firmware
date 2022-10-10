@@ -29,7 +29,7 @@
 #define KP_8 KC_KP_8
 #define KP_9 KC_KP_9
 #define KP_0 KC_KP_0
-#define NMLK KC_NUMLOCK
+#define NMLK KC_NUM_LOCK
 #define STAR KC_KP_ASTERISK
 #define KSSH KC_KP_SLASH
 #define KMIN KC_KP_MINUS
