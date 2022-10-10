@@ -1,6 +1,17 @@
 #include "dvorak_42_key.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // tap dance processing
+    qk_tap_dance_action_t *action;
+    switch (keycode) {
+        case TD(TD_DEL_WORD_DEL):  // list all tap dance keycodes with tap-hold configurations
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+    }
+
   // shell macros
   if(record->event.pressed) {
     switch (keycode) {
@@ -177,9 +188,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void tap_dance_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (state->pressed) {
+        if (state->count == 1
+#ifndef PERMISSIVE_HOLD
+            && !state->interrupted
+#endif
+        ) {
+            register_code16(tap_hold->hold);
+            tap_hold->held = tap_hold->hold;
+        } else {
+            register_code16(tap_hold->tap);
+            tap_hold->held = tap_hold->tap;
+        }
+    }
+}
+
+void tap_dance_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (tap_hold->held) {
+        unregister_code16(tap_hold->held);
+        tap_hold->held = 0;
+    }
+}
+
+
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
-    [TD_BSPC_CTL_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, RCTL(KC_BSPC)),
-    [TD_BSPC_CTL_BSPC_IOS] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
+    // [TD_BSPC_CTL_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, RCTL(KC_BSPC)),
+    // [TD_BSPC_CTL_BSPC_IOS] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
+    [TD_DEL_WORD_DEL] = ACTION_TAP_DANCE_TAP_HOLD(RCTL(KC_BSPC), KC_BSPC),
 };
