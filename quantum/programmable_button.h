@@ -33,39 +33,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void programmable_button_clear(void);
 
 /**
- * \brief Add a button press to the report.
+ * \brief Set the state of a button.
  *
- * \param index The index of the button to add, from 0 to 31.
+ * \param index The index of the button to press, from 0 to 31.
  */
 void programmable_button_add(uint8_t index);
 
 /**
- * \brief Remove a button press from the report.
+ * \brief Reset the state of a button.
  *
- * \param index The index of the button to remove, from 0 to 31.
+ * \param index The index of the button to release, from 0 to 31.
  */
 void programmable_button_remove(uint8_t index);
 
 /**
- * \brief Add a button press to the report, and flush it.
+ * \brief Set the state of a button, and flush the report.
  *
- * \param index The index of the button to add, from 0 to 31.
+ * \param index The index of the button to press, from 0 to 31.
  */
 void programmable_button_register(uint8_t index);
 
 /**
- * \brief Remove a button press from the report, and flush it.
+ * \brief Reset the state of a button, and flush the report.
  *
- * \param index The index of the button to remove, from 0 to 31.
+ * \param index The index of the button to release, from 0 to 31.
  */
 void programmable_button_unregister(uint8_t index);
 
 /**
- * \brief Get the state of a programmable button.
+ * \brief Get the state of a button.
  *
  * \param index The index of the button to check, from 0 to 31.
  *
- * \return `true` if the button is asserted.
+ * \return `true` if the button is pressed.
  */
 bool programmable_button_is_on(uint8_t index);
 
@@ -77,14 +77,14 @@ void programmable_button_flush(void);
 /**
  * \brief Get the programmable button report.
  *
- * \return The bitmask of programmable buttons.
+ * \return The bitmask of programmable button states.
  */
 uint32_t programmable_button_get_report(void);
 
 /**
  * \brief Set the programmable button report.
  *
- * \param report A bitmask of programmable buttons.
+ * \param report A bitmask of programmable button states.
  */
 void programmable_button_set_report(uint32_t report);
 

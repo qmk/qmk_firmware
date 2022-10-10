@@ -61,51 +61,51 @@ Clear the programmable button report.
 
 ### `void programmable_button_add(uint8_t index)` :id=api-programmable-button-add
 
-Add a button press to the report.
+Set the state of a button.
 
 #### Arguments :id=api-programmable-button-add-arguments
 
  - `uint8_t index`  
-   The index of the button to add, from 0 to 31.
+   The index of the button to press, from 0 to 31.
 
 ---
 
 ### `void programmable_button_remove(uint8_t index)` :id=api-programmable-button-remove
 
-Remove a button press from the report.
+Reset the state of a button.
 
 #### Arguments :id=api-programmable-button-remove-arguments
 
  - `uint8_t index`  
-   The index of the button to remove, from 0 to 31.
+   The index of the button to release, from 0 to 31.
 
 ---
 
 ### `void programmable_button_register(uint8_t index)` :id=api-programmable-button-register
 
-Add a button press to the report, and flush it.
+Set the state of a button, and flush the report.
 
 #### Arguments :id=api-programmable-button-register-arguments
 
  - `uint8_t index`  
-   The index of the button to add, from 0 to 31.
+   The index of the button to press, from 0 to 31.
 
 ---
 
 ### `void programmable_button_unregister(uint8_t index)` :id=api-programmable-button-unregister
 
-Remove a button press from the report, and flush it.
+Reset the state of a button, and flush the report.
 
 #### Arguments :id=api-programmable-button-unregister-arguments
 
  - `uint8_t index`  
-   The index of the button to remove, from 0 to 31.
+   The index of the button to release, from 0 to 31.
 
 ---
 
 ### `bool programmable_button_is_on(uint8_t index)` :id=api-programmable-button-is-on
 
-Get the state of a programmable button.
+Get the state of a button.
 
 #### Arguments :id=api-programmable-button-is-on-arguments
 
@@ -114,7 +114,7 @@ Get the state of a programmable button.
 
 #### Return Value :id=api-programmable-button-is-on-return
 
-`true` if the button is asserted.
+`true` if the button is pressed.
 
 ---
 
@@ -130,7 +130,7 @@ Get the programmable button report.
 
 #### Return Value :id=api-programmable-button-get-report-return
 
-The bitmask of programmable buttons.
+The bitmask of programmable button states.
 
 ---
 
@@ -141,4 +141,4 @@ Set the programmable button report.
 #### Arguments :id=api-programmable-button-set-report-arguments
 
  - `uint32_t report`  
-   A bitmask of programmable buttons.
+   A bitmask of programmable button states.
