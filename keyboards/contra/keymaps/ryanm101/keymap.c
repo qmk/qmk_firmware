@@ -222,13 +222,13 @@ void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
 void cmd_sft_slash_pipe_down (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (state->interrupted || state->pressed==0) {
-      register_code (KC_NONUS_BSLASH);
+      register_code (KC_NONUS_BACKSLASH);
     } else {
       register_code (KC_LSFT);
     }
   } else if (state->count == 2) {
     register_mods(MOD_BIT(KC_LSFT));
-    register_code(KC_NONUS_BSLASH);
+    register_code(KC_NONUS_BACKSLASH);
   }
 }
 
@@ -237,11 +237,11 @@ void cmd_sft_slash_pipe_up (qk_tap_dance_state_t *state, void *user_data) {
     if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
       unregister_code (KC_LSFT);
     } else {
-      unregister_code (KC_NONUS_BSLASH);
+      unregister_code (KC_NONUS_BACKSLASH);
     }
   } else if (state->count == 2) {
     unregister_mods(MOD_BIT(KC_LSFT));
-    unregister_code(KC_NONUS_BSLASH);
+    unregister_code(KC_NONUS_BACKSLASH);
   }
 }
 

@@ -8,7 +8,7 @@
 /* use UK keymap */
 
 #define UK_HASH KC_NONUS_HASH
-#define UK_BSLS KC_NONUS_BSLASH
+#define UK_BSLS KC_NONUS_BACKSLASH
 #define UK_PIPE LSFT(UK_BSLS)
 
 #define BASE 0 // default layer

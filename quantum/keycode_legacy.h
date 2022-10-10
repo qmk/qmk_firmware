@@ -14,7 +14,6 @@
 #define KC_SCROLLLOCK     KC_SCROLL_LOCK
 #define KC_PGDOWN         KC_PAGE_DOWN
 #define KC_NUMLOCK        KC_NUM_LOCK
-#define KC_NONUS_BSLASH   KC_NONUS_BACKSLASH
 #define KC_POWER          KC_KB_POWER
 #define KC__MUTE          KC_KB_MUTE
 #define KC__VOLUP         KC_KB_VOLUME_UP

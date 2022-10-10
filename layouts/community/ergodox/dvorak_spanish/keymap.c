@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox(
         // left hand
-        KC_GRAVE,       KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NONUS_BSLASH,
+        KC_GRAVE,       KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NUBS,
         LT(AUX, KC_F1), KC_DOT, KC_COMM,KC_SCLN,KC_P,   KC_Y,   MEH_T(KC_DEL),
         CTL_T(KC_ESC),  KC_A,   KC_O,   KC_E,   KC_U,   KC_I,
         M(OBRACE),      KC_SLSH,KC_Q,   KC_J,   KC_K,   KC_X,   KC_LGUI,
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [AUX] = LAYOUT_ergodox(
        // left hand
        KC_NO  , KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_SLEP,
-       KC_TRNS, KC_NONUS_BSLASH, LSFT(KC_NONUS_BSLASH), KC_MS_U, KC_NO, KC_NO, KC_NO,
+       KC_TRNS, KC_NUBS, LSFT(KC_NUBS), KC_MS_U, KC_NO, KC_NO, KC_NO,
        KC_NO  , KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO  ,
        M(CAPS), KC_NO, KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO,
        LCTL(KC_S), LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V),
@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [QWERTY] = LAYOUT_ergodox(
         // left hand
-        KC_GRAVE,       KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NONUS_BSLASH,
+        KC_GRAVE,       KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NUBS,
         KC_TRNS,        KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   MEH_T(KC_DEL),
         CTL_T(KC_ESC),  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,
         M(OBRACE),      KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LGUI,
