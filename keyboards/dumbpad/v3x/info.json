@@ -2,6 +2,9 @@
     "keyboard_name": "dumbpad/v3x",
     "url": "https://www.github.com/imchipwood/dumbpad",
     "maintainer": "imchipwood",
+    "usb": {
+        "device_version": "0.1.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
