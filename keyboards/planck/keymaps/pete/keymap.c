@@ -39,7 +39,7 @@ extern keymap_config_t keymap_config;
 #define WINPRNT KC_PSCR
 #define WINPRNT2 LGUI(KC_PSCR)
 #define CYCLWIN LGUI(KC_GRV)
-#define MACSLEEP LSFT(LCTL(KC_POWER))
+#define MACSLEEP LSFT(LCTL(KC_PWR))
 #define WINSLEEP KC_SLEP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
