@@ -20,7 +20,7 @@ It *should* work for ANSI as well as ISO variants, although I only tested the la
 
 ## Media key mapping
 KC_RGUI (right super key) is used to switch or toggle (double tap) to media layer.  
-The rotary encoder is used for volume control or scrolling (with L_CTRL).
+The rotary encoder is used for volume control or scrolling (with L_CTRL + L_SFT).
 ![mediakeys](https://i.imgur.com/9g7tQzF.jpg)
 
 Make example for this keyboard (after setting up your build environment):

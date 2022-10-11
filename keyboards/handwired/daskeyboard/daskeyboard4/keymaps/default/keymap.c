@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // rotary encoder
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // scroll with CTRL
-    if (get_mods() & MOD_BIT(KC_LCTL)) {
+    if (get_mods() & MOD_BIT(KC_CAPS)) {
         if (clockwise) {
             tap_code(KC_WH_U);
         } else {
