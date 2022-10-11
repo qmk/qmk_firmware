@@ -10,7 +10,7 @@
 * Hardware Supported: *The PCB*
 * Hardware Availability: *https://www.daskeyboard.com/de/daskeyboard-4-professional/*
 
-I used a STM32 development board to replace the keyboards destroyed controller. This keyboard definition is here to enable to painlessly use the OEM PCB in a custom keyboard, as the rows and columns are placed in a very unintuitive fashion.
+I used a STM32 development board to replace the keyboard's destroyed controller. This keyboard definition is here to enable to painlessly use the OEM PCB in a custom keyboard, as the rows and columns are placed in an unintuitive way.
 
 The layout definition in **info.json** contains the magic. The rows and columns appear in the pin definition in the order they appear on the 26 pads, where the original ribbon cable was connected for intuitive cabling and adoption to other microcontrollers.
 
