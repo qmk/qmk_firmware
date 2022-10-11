@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_ortho_4x12_wrapper(
   ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,    KC_PLUS,  KC_BSLS,
   _______, KC_A,    KC_UP,   KC_D,    KC_PSCR,  KC_VOLU, KC_4,    KC_5,    KC_6,    KC_PAST, KC_COLN, KC_QUOT,
-  _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC__MUTE, KC_VOLD, KC_1,    KC_2,    KC_3,    KC_UP, KC_SLSH,   _______,
+  _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC_MUTE, KC_VOLD, KC_1,    KC_2,    KC_3,    KC_UP, KC_SLSH,   _______,
   _______, _______, _______, _______, _______, KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_NLCK
 ),
  

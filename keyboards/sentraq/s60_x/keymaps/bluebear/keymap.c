@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				   DEBUG,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN1,  KC_MS_UP,  KC_BTN2,  KC_WH_U,  KC_NO,  KC_NO,  KC_NO, \
 				   TFS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_TRNS,  \
 				   MAGSYS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_TRNS,  KC_NO, \
-				   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_POWER,  KC_TRNS, KC_TRNS,  KC_NO,  KC_NO
+				   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PWR,  KC_TRNS, KC_TRNS,  KC_NO,  KC_NO
 				   ),
 
   /* 3: Midi Base Layer
