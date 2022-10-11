@@ -56,7 +56,7 @@ enum tap_dance_codes {
 		    NO_PERC, NO_CIRC, NO_LCBR,NO_RCBR ,NO_TILD ,                            KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_F12,
 		                                   TT(4), KC_TRANSPARENT,                   KC_TRANSPARENT, KC_TRANSPARENT),
 
-[_NAV] = LAYOUT(MACRO_QUIT, LCTL(KC_W), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
+ [_NAV] = LAYOUT(MACRO_QUIT, LCTL(KC_W), KC_TRANSPARENT, LCTL(KC_R), LCTL(KC_T),     KC_TRANSPARENT, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
 		KC_TRANSPARENT, MACRO_SAVE, MACRO_LINE, MACRO_TIME, KC_TRANSPARENT,         KC_TRANSPARENT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
 		MACRO_UNDO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 		                                   TO(0), KC_TRANSPARENT,                   KC_TRANSPARENT, KC_TRANSPARENT),
@@ -70,13 +70,13 @@ enum tap_dance_codes {
 
 //combo declarations
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};
 const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM ap_combo[] = {KC_A,KC_P, COMBO_END};
 const uint16_t PROGMEM aoe_combo[] = {KC_A,NO_OSTR, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(df_combo, KC_ESC),
-    COMBO(jk_combo, KC_ENT),
+    COMBO(jl_combo, KC_ENT),
     COMBO(sd_combo, KC_DEL),
     COMBO(ap_combo, NO_ARNG),
     COMBO(aoe_combo, NO_AE),
