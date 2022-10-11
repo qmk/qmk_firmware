@@ -33,3 +33,6 @@
 #define LED_CAPS_LOCK_PIN B14
 #define LED_SCROLL_LOCK_PIN B2
 #define LED_PIN_ON_STATE 1
+
+/* 2 taps for layer switching with TC_RGUI */
+#define TAPPING_TOGGLE 2
