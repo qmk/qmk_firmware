@@ -19,6 +19,10 @@
         "cols": ["F7", "F6", "F5", "F4", "F1", "F0", "E6"],
         "rows": ["D6", "D7", "B4", "B5", "B6", "C6"]
     },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "D2"
+    }
     "processor": "atmega32u4",
     "url": "https://kono.store/products/ergodox-76-hot-dox-mechanical-keyboard-v2",
     "usb": {

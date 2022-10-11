@@ -1,4 +1,4 @@
-/* Copyright 2021 JasonRen(biu)
+/* Copyright 2022 IFo Hancroft
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,75 +17,40 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0001
-#define PRODUCT         hotdox76V2
-
-/* key matrix size */
-#define MATRIX_ROWS 6*2
-#define MATRIX_COLS 7
-
-// enable the nkro when using the VIA.
 #define FORCE_NKRO
 
 // fix VIA RGB_light
-#define VIA_HAS_BROKEN_KEYCODES
+//#define VIA_HAS_BROKEN_KEYCODES
 
-/* RGN Matrix */
-#ifdef RGB_MATRIX_ENABLE
+#define RGB_MATRIX_SPLIT {43, 43}
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 86
+#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+#define RGBLIGHT_VAL_STEP 15
+#define RGB_MATRIX_CENTER { 112, 32 }
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+//#define RGB_MATRIX_KEYPRESSES
+//#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+//#define RGBLIGHT_ANIMATIONS
 
-#    define RGB_MATRIX_SPLIT {43, 43}
-#    define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_MODS_ENABLE
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_OLED_ENABLE
+#define SPLIT_TRANSACTION_IDS_KB KEYBOARD_CURRENT_ALPA_SYNC
 
-#    define RGB_DI_PIN D3
-#    define RGBLED_NUM (43*2)
-#    define DRIVER_LED_TOTAL RGBLED_NUM
+//#ifdef RGBLIGHT_ENABLE
 
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
-#    define RGBLIGHT_VAL_STEP 15
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true
-#    define RGB_MATRIX_CENTER { 112, 32 }
+//#    define RGBLIGHT_SPLIT
+//#    define RGBLED_SPLIT {43, 43}
+//#    define RGB_DI_PIN D3
+//#    define DRIVER_LED_TOTAL RGBLED_NUM
+//#    define RGBLIGHT_LIMIT_VAL 150
+//#    define RGBLIGHT_SLEEP
+//#    define WS2812_TRST_US 100
 
-#    define RGB_MATRIX_KEYPRESSES
+ //#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGBLIGHT_ANIMATIONS
-
-// #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-#endif
-
-
-#ifdef RGBLIGHT_ENABLE
-
-#    define RGBLIGHT_SPLIT
-#    define RGBLED_SPLIT {43, 43}
-#    define RGB_DI_PIN D3
-#    define RGBLED_NUM (43*2)
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGBLIGHT_LIMIT_VAL 150
-#    define RGBLIGHT_SLEEP
-#    define WS2812_TRST_US 100
-
-// #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-
-#endif
-
-#ifdef SPLIT_KEYBOARD
-
-// #   define MASTER_RIGHT
-
-#   define USE_SERIAL
-
-#   define SOFT_SERIAL_PIN D2
-
-#   define SPLIT_TRANSPORT_MIRROR
-
-// #   define SPLIT_USB_DETECT
-
-#   define SPLIT_MODS_ENABLE
-#   define SPLIT_LAYER_STATE_ENABLE
-#   define SPLIT_LED_STATE_ENABLE
-#   define SPLIT_OLED_ENABLE
-#   define SPLIT_TRANSACTION_IDS_KB KEYBOARD_CURRENT_ALPA_SYNC
-
-#endif
+//#endif
