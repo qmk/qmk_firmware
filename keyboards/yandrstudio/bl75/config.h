@@ -19,6 +19,7 @@
 #ifdef ENCODER_ENABLE
 #    define ENCODERS_PAD_A { B12 }
 #    define ENCODERS_PAD_B { B13 }
+#    define ENCODER_DEFAULT_POS 0x3
 #endif
 
 /* RGB Matrix */
