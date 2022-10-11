@@ -71,6 +71,7 @@ enum layer_names {
 #define BWSRRHGT A(KC_RGHT)
 #define BWSRTABSRCH A(KC_A)
 #define ALT_TAB LALT(KC_TAB)
+#define TIDYTABS LCTL(LALT(LGUI(KC_R)))
 
 
 enum planck_keycodes {
@@ -99,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |ADJ,ESC| Q   |  W   |  F   |  P   |  B   |                                      |  J   |  L   |  U   |  Y   |  ;   | BSPC |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |HYPERESC|  A   |  R   |  S   |  T   |  G |-------.                      .-------|  M   |  N   |  E   |  I   |  O   |CTRL,'|
+ * |HYPERESC| A  |  R   |  S   |  T   |  G   |-------.                      .-------|  M   |  N   |  E   |  I   |  O   |CTRL,'|
  * |------+------+------+------+------+------|Virtual|                      | Ctrl  |------+------+------+------+------+------|
  * | SHIFT| WIN_Z|  X   |  C   |  D   |  V   |Desctop|-->Play/Pause         | Tab   |  K   |  H   |  ,   |  .   |  /   |SFT,\ |
  * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
@@ -121,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |ADJ,ESC| Q   |  W   |  E   |  R   |  T   |                                      |  Y   |  U   |  I   |  O   |  P   | BSPC |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |HYPERESC|  A |  S   |  D   |  F   |  G   |-------.                      .-------|  H   |  J   |  K   |  L   |  ;   |CTRL,'|
+ * |HYPERESC| A  |  S   |  D   |  F   |  G   |-------.                      .-------|  H   |  J   |  K   |  L   |  ;   |CTRL,'|
  * |------+------+------+------+------+------|Virtual|                      | Ctrl  |------+------+------+------+------+------|
  * | SHIFT| WIN_Z|  X   |  C   |  V   |  B   |Desktop|-->Play/Pause         | Tab   |  N   |  M   |  ,   |  .   |  /   |SFT,\ |
  * .-----------------------------------------|-------|   on Button Press    |-------|-----------------------------------------'
@@ -143,20 +144,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
 *  |   `  |   !  |   #  |   $  |   [  |   ]  |                                      |   ^  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |S(TAB)|   ~  |   %  |   :  |   {  |   }  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
+ * |S(TAB)|   ~  |   %  |   :  |   (  |   )  |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
- * |SHIFT |   <  |   >  |   &  |   (  |   )  | DIAL1 |--> Reset Zoom        | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
+ * |SHIFT |   <  |   >  |   &  |   {  |   }  | DIAL1 |--> Reset Zoom        | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    on Button Press   |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /                        \      \       |      |MW U/D|
- *                      | APP | ENTER| OSSft/ SPACE/                          \ Space\   0  |  .   | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
- *                      `-------------------------'                            '--------------------------'
+ *                      | ALT | CTRL |  LOW  /      /                        \      \       |     |MW U/D|
+ *                      | APP | ENTER| OSSft/ SPACE/                          \ Space \  0  |  .  | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
+ *                      `-------------------------'                            '-------------------------'
  */
   [_LOWER] = LAYOUT(
   KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                             KC_F6,   KC_F7,  KC_F8, KC_F9, KC_F10,  KC_DEL,
   KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC,                           KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_PERC, KC_COLN, KC_LCBR, KC_RCBR,                           KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_LSFT,   KC_LABK, KC_RABK, KC_AMPR, KC_LPRN, KC_RPRN, LCTL(KC_0),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_0,   KC_SPC,  KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
+  S(KC_TAB), KC_TILD, KC_PERC, KC_COLN, KC_LPRN, KC_RPRN,                           KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
+  KC_LSFT,   KC_LABK, KC_RABK, KC_AMPR, KC_LCBR, KC_RCBR, LCTL(KC_0),       LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //Switch Audio Recording Source
 ),
 
 /* MIT Layout (RAISE)
@@ -191,8 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| Window |                     | Layer |------+------+------+------+------+------|
  * |      |      |      |      |      |      |Selector   |-->  Next Song    | Lock  | Back |PageUp|AltPDn|PageDn| PAUSE|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
- *                      | ALT | CTRL |  Alt  / Ctrl  /                       \       \       |      |Volume|
- *                      | APP | ENTER| Tab  /  Tab  /                         \       \      |      | DIAL2|--> Toggle HDR
+ *                      | ALT | CTRL |  Alt  / Next  /                       \       \       |      |Volume|
+ *                      | APP | ENTER| Tab  /TidyTab/                         \       \      |      | DIAL2|--> Toggle HDR
  *                      `--------------------------'                           '---------------------------'    on Button Press
  */
   [_ADJUST] = LAYOUT(
@@ -200,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_F5,   KC_TRNS, KC_TRNS, KC_TRNS, KC_MYCM,                               C(KC_PGDN), KC_HOME,  KC_UP,        KC_END,   KC_TRNS,   KC_DEL,
   KC_TRNS, KC_TRNS, KC_LCTL, KC_LSFT, KC_LALT, KC_TRNS,                               SELWLEFT,   KC_LEFT,  KC_DOWN,      KC_RGHT,  SELWRIGHT, KC_CAPS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MNXT,             KC_TRNS, BWSRLEFT,   KC_PGUP,  LCA(KC_DOWN), KC_PGDN,  KC_PAUSE,  KC_INS,
-                             KC_TRNS, KC_TRNS, ALT_TAB, CTRL_TAB,            KC_TRNS, KC_TRNS,    KC_TRNS,  G(A(KC_B))
+                             KC_TRNS, KC_TRNS, ALT_TAB, TIDYTABS,            KC_TRNS, KC_TRNS,    KC_TRNS,  G(A(KC_B))
 )
 };
 
@@ -448,7 +449,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 enum combo_events {
   EM_EMAIL,
   EM_WORK_EMAIL,
-  EM_MAX_WORK_EMAIL,
   HOME_ADDRESS,
   HTML_P,
   HTML_TITLE,
@@ -489,8 +489,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this
 
 const uint16_t PROGMEM email_combo[]                = {KC_E, KC_M, COMBO_END};
 const uint16_t PROGMEM email_work_combo[]           = {KC_E, KC_K, COMBO_END};
-const uint16_t PROGMEM email_max_work_combo[]       = {KC_E, KC_J, COMBO_END};
-const uint16_t PROGMEM home_address_combo[]         = {KC_E, KC_L, COMBO_END};
+const uint16_t PROGMEM home_address_combo[]         = {KC_E, KC_J, COMBO_END};
 const uint16_t PROGMEM html_p_combo[]               = {KC_P, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_title_combo[]           = {KC_T, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_div_combo[]             = {KC_D, KC_DOT, COMBO_END};
@@ -531,7 +530,6 @@ const uint16_t PROGMEM f8_combo[]                   = {KC_F6, KC_F7, COMBO_END};
 combo_t key_combos[] = {
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [EM_WORK_EMAIL] = COMBO_ACTION(email_work_combo),
-  [EM_MAX_WORK_EMAIL] = COMBO_ACTION(email_max_work_combo),
   [HOME_ADDRESS] = COMBO_ACTION(home_address_combo),
   [HTML_P] = COMBO_ACTION(html_p_combo),
   [HTML_TITLE] = COMBO_ACTION(html_title_combo),
@@ -580,11 +578,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case EM_WORK_EMAIL:
       if (pressed) {
         SEND_STRING("acbouwers@freedomsadvocate.ca");
-      }
-      break;
-    case EM_MAX_WORK_EMAIL:
-      if (pressed) {
-        SEND_STRING("aric@maxtechnologies.ca");
       }
       break;
     case HOME_ADDRESS:
