@@ -50,7 +50,7 @@ keycode_blank = 'NO'
 transparent_keycodes = ('_______', 'KC_TRNS')
 
 annotation_keycodes = {
-    'layer': ['TD(TD_LSYM)', 'TD(TD_LNUM)', 'TT(LSYM)', 'TT(LNUM)'],
+    'layer': ['TD(TD_LSYM)', 'TD(TD_LNUM)', 'TT(LSYM)', 'TT(LNUM)', 'OSL(LSYM)', 'OSL(LNUM)'],
     'one-shot': ['OSM_ALT', 'OSM_GUI', 'OSM_CTL', 'OSM_SFT'],
     'held': []
 }
@@ -213,10 +213,9 @@ LAYER_DISPLAY_NAMES = {
 }
 
 LAYER_HELD_KEYCODES = {  # indicate which keys are held to get to a layer
-    #'LSYM': ['TD(TD_LSYM)'],
-    'LSYM': ['TT(LSYM)'],
-    'LNUM': ['TT(LNUM)'],
-    'LMOV': ['TD(TD_LSYM', 'TD(TD_LNUM)'],
+    'LSYM': ['TD(TD_LSYM)', 'TT(LSYM)', 'OSL(LSYM)'],
+    'LNUM': ['TD(TD_LNUM)', 'TT(LNUM)', 'OSL(LSYM)'],
+    'LMOV': ['TD(TD_LSYM', 'TD(TD_LNUM)'],  # this assumes tristate layer
 }
 MODS_HELD_KEYCODES = {
     # indicate which keys are dual role tap/mods
@@ -346,6 +345,8 @@ key_names = {
     "TD(TD_LSYM)": "Sym",
     "TT(LSYM)": "Sym",
     "TT(LNUM)": "Num",
+    "OSL(LSYM)": "Sym",
+    "OSL(LNUM)": "Num",
     "SFT_SPC": "&#9251;",
     "CTL_SPC": "&#9251;",
     "MOV_SPC": "&#9251;",
