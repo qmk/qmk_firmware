@@ -16,12 +16,6 @@
 #pragma once
 
 // place overrides here
-#ifdef NO_ACTION_ONESHOT
-#    undef NO_ACTION_ONESHOT
-#endif
-#ifdef NO_ACTION_FUNCTION
-#    undef NO_ACTION_FUNCTION
-#endif
 #ifdef TAPPING_TOGGLE
 #    undef TAPPING_TOGGLE
 #endif
