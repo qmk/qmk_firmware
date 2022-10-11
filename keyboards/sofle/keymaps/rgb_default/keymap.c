@@ -499,9 +499,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             case _RAISE:
             case _COLEMAKDH:
                 if (clockwise) {
-                    tap_code(KC_WH_D);
+                    tap_code(LSA(KC_WH_D));
                 } else {
-                    tap_code(KC_WH_U);
+                    tap_code(LSA(KC_WH_U));
                 }
                 break;
             case _LOWER:
@@ -513,9 +513,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             default:
                 if (clockwise) {
-                    tap_code(KC_WH_D);
+                    tap_code(LSA(KC_WH_D));
                 } else {
-                    tap_code(KC_WH_U);
+                    tap_code(LSA(KC_WH_U));
                 }
                 break;
         }
