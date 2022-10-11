@@ -7,14 +7,21 @@
 *Reverse engineered PCB definition of daskeyboard 4 (Professional)*
 
 * Keyboard Maintainer: [Commander1024](https://github.com/Commander1024)
-* Hardware Supported: *The PCB*
+* Hardware Supported: *The PCB, rotary encoder, LEDs*
 * Hardware Availability: *https://www.daskeyboard.com/de/daskeyboard-4-professional/*
 
 I used a STM32 development board to replace the keyboard's destroyed controller. This keyboard definition is here to enable to painlessly use the OEM PCB in a custom keyboard, as the rows and columns are placed in an unintuitive way.
 
 The layout definition in **info.json** contains the magic. The rows and columns appear in the pin definition in the order they appear on the 26 pads, where the original ribbon cable was connected for intuitive cabling and adoption to other microcontrollers.
 
+It *should* work for ANSI as well as ISO variants, although I only tested the latter.
+
 **Note**: Pad 25 is not connected.
+
+## Media key mapping
+KC_RGUI (right super key) is used to switch or toggle (double tap) to media layer.  
+The rotary encoder is used for volume control or scrolling (with L_CTRL).
+![mediakeys](https://i.imgur.com/9g7tQzF.jpg)
 
 Make example for this keyboard (after setting up your build environment):
 
