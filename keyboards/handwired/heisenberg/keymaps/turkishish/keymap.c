@@ -44,7 +44,7 @@ enum heisenberg_layers {
 #define BACKTICK RALT(KC_BSLS)
 #define TILDE RALT(KC_RBRC)
 #define NUMBER_SIGN RALT(KC_3)
-#define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
+#define LOCKSCREEN LCTL(LSFT(KC_PWR)) // Screen Lock shortcut for OSX
 
 /* 
 // Unicode Turkish characters, in case it's needed

@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                           KC_HOME,
                                                                     KC_BSPC,    KC_DEL,   KC_END,
               //right half
-              KC_POWER,       KC_6,       KC_7,     KC_8,           KC_9,       KC_0,     KC_MINS,
+              KC_PWR,         KC_6,       KC_7,     KC_8,           KC_9,       KC_0,     KC_MINS,
               MEH_T(KC_F17),  KC_Y,       KC_U,     KC_I,           KC_O,       KC_P,     KC_EQL,
                               KC_H,       KC_J,     KC_K,           KC_L,       KC_SCLN,  CTL_T(KC_QUOT),
               ALL_T(KC_F19),  KC_N,       KC_M,     KC_COMM,        KC_DOT,     KC_SLSH,  OSM(MOD_LSFT),

@@ -13,7 +13,7 @@ enum layer {
 #define FN    MO(3)
 
 // Mac sleep
-#define __SLEEP S(LCTL(KC_POWER))
+#define __SLEEP S(LCTL(KC_PWR))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_ortho_hhkb(

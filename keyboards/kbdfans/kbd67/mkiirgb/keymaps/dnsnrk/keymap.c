@@ -32,13 +32,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_LSFT, KC_Z,     KC_X,     KC_C,  KC_V,  KC_B,  KC_N,    KC_M,  KC_COMM, KC_DOT,   KC_SLSH,  KC_RSFT,           KC_UP,     TT(2),
                                        KC_LCTL, KC_LGUI,  KC_LALT,                KC_SPC,                KC_RALT,           TT(1),    KC_LEFT,           KC_DOWN,   KC_RIGHT),
     [_LAYER1] = LAYOUT_65_ansi_blocker( /* FN, RGB Controls */
-                                       KC_GRV,   KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_POWER,
+                                       KC_GRV,   KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_PWR,
                                        _______,  RGB_TOG,  RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME,
                                        _______,  RGB_RMOD, RGB_SPD, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
                                        _______,  _______,  _______, _______, _______, _______, _______, _______, RGB_SAD, RGB_SAI, _______,          _______, RGB_VAI, _______,
                                        _______,  _______,  _______,                   _______,                   _______,          _______,          RGB_HUD, RGB_VAD, RGB_HUI),
     [_LAYER2] = LAYOUT_65_ansi_blocker( /* Media, Programming */
-                                       _______,  KC_BRMD, KC_BRMU, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE, KC_VOLD, KC_VOLU, KC_EJCT, _______,
+                                       _______,  KC_BRMD, KC_BRMU, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE,  KC_VOLD, KC_VOLU, KC_EJCT, _______,
                                        _______,  _______, _______, EEP_RST, QK_BOOT, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,
                                        _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______, _______,
                                        _______,  _______, _______, _______, _______, _______, AG_NORM, AG_SWAP, _______, _______,  _______,          _______, _______, _______,

@@ -319,9 +319,9 @@
 #define __________________RAISE_R3___________________   KC_AT,   KC_QUOT, KC_DQUO, KC_PLUS, KC_CIRC
 
 // Adjust
-#define __________________ADJUST_L1__________________   KC_MAKE,        DEBUG,     RESET, XXXXXXX, XXXXXXX
-#define __________________ADJUST_L2__________________   KC__MUTE, KC__VOLDOWN, KC__VOLUP, KC_MPLY, KC_MNXT
-#define __________________ADJUST_L3__________________   KC_VRSN,        AU_ON,    AU_OFF, CG_SWAP, CG_NORM
+#define __________________ADJUST_L1__________________   KC_MAKE, DEBUG,   RESET,   XXXXXXX, XXXXXXX
+#define __________________ADJUST_L2__________________   KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MNXT
+#define __________________ADJUST_L3__________________   KC_VRSN, AU_ON,   AU_OFF,  CG_SWAP, CG_NORM
 
 #define __________________ADJUST_R1__________________   MU_MOD, MU_ON,   MU_OFF,  MI_ON,   MI_OFF
 #define __________________ADJUST_R2__________________   MUV_IN, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD

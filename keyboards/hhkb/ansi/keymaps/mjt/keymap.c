@@ -8,7 +8,7 @@
 #define FUNK 2
 #define DYN 3
 #define CTL_ESC CTL_T(KC_ESC)
-#define MACSLEEP LCTL(LSFT(KC_POWER))
+#define MACSLEEP LCTL(LSFT(KC_PWR))
 
 enum hhkb_keycodes
 {

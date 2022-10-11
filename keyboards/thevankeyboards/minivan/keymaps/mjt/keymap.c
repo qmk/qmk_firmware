@@ -89,8 +89,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
               register_code(KC_RSFT);
               register_code(KC_RCTL);
-              register_code(KC_POWER);
-              unregister_code(KC_POWER);
+              register_code(KC_PWR);
+              unregister_code(KC_PWR);
               unregister_code(KC_RCTL);
               unregister_code(KC_RSFT);
             }

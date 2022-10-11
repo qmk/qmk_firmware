@@ -157,7 +157,7 @@ lookup_table_t lookup_table[333] =
  {"KC_PDOT", KC_PDOT},
  {"KC_NUBS", KC_NUBS},
  {"KC_APP", KC_APP},
- {"KC_POWER", KC_POWER},
+ {"KC_KB_POWER", KC_KB_POWER},
  {"KC_PEQL", KC_PEQL},
  {"KC_F13", KC_F13},
  {"KC_F14", KC_F14},

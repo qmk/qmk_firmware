@@ -79,10 +79,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    KC_SLEP, KC_BRID, KC_BRIU, KC_MPRV,  KC_MPLY, KC_MNXT, KC_MUTE, KC__VOLDOWN, KC__VOLUP, KC_LPRN, KC_RPRN,  KC_BSPC,
-    KC_ESC,  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_DQT,      KC_BSLS,   KC_LBRC, KC_RBRC,  KC_PEQL,
-    KC_LSFT, KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_QUES,     KC_COLN,   KC_LABK, KC_RABK,  KC_ENT,
-    RSFT_T(KC_MPLY),  KC_LCTL, KC_LALT,  KC_LGUI, KC_SPC,  LOWER,   RAISE,       KC_SPC,    KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT
+    KC_SLEP, KC_BRID, KC_BRIU, KC_MPRV,  KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_LPRN, KC_RPRN,  KC_BSPC,
+    KC_ESC,  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_DQT,  KC_BSLS,   KC_LBRC, KC_RBRC,  KC_PEQL,
+    KC_LSFT, KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_QUES, KC_COLN,   KC_LABK, KC_RABK,  KC_ENT,
+    RSFT_T(KC_MPLY),  KC_LCTL, KC_LALT,  KC_LGUI, KC_SPC,  LOWER,   RAISE,   KC_SPC,    KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT
 ),
 
 /* Adjust (Lower + Raise)
@@ -172,9 +172,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       } else {
           // VOLUME
           if (clockwise) {
-            tap_code(KC__VOLUP);
+            tap_code(KC_VOLU);
           } else {
-            tap_code(KC__VOLDOWN);
+            tap_code(KC_VOLD);
           }
       }
   }

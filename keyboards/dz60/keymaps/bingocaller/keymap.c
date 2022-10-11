@@ -4,8 +4,8 @@
 #define WORD_FORWARD A(KC_RIGHT)
 #define DELETE_WORD_BACK A(KC_BSPACE)
 #define DELETE_WORD_FORWARD A(KC_DELETE)
-#define FINE_VOLUP S(A(KC__VOLUP))
-#define FINE_VOLDOWN S(A(KC__VOLDOWN))
+#define FINE_VOLUP S(A(KC_VOLU))
+#define FINE_VOLDOWN S(A(KC_VOLD))
 
 enum layers {
   _BASE,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_ARROWS] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, WORD_FORWARD, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE, FINE_VOLDOWN, FINE_VOLUP, _______,
+        _______, _______, WORD_FORWARD, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE, FINE_VOLDOWN, FINE_VOLUP, _______,
         _______, _______, _______, _______, LT(_HDUE, _______), _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, WORD_BACK, KC_BSPC, KC_DEL, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
