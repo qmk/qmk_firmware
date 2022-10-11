@@ -54,3 +54,6 @@
  //#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
 //#endif
+
+#define TAPPING_TERM    200
+#define IGNORE_MOD_TAP_INTERRUPT
