@@ -3,9 +3,9 @@
 Alps and MX 65% +10 PCB with ANSI and iso Enter support. To update the firmware connect the PCB to your computer and press Reset button.
 ![alpinenoon](https://i.imgur.com/0mB5HFxh.jpeg)
 
-Keyboard Maintainer: [Alectardy98](https://github.com/alectardy98)  
-Hardware Supported: Alpine Noon
-Hardware Availability: [keebal](https://keebal.com)
+* Keyboard Maintainer: [Alectardy98](https://github.com/alectardy98)
+* Hardware Supported: Alpine Noon
+* Hardware Availability: [keebal](https://keebal.com)
 
 Make example for this keyboard (after setting up your build environment):
 
