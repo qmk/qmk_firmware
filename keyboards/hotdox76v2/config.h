@@ -18,10 +18,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAA9
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    JasonRen biu
+#define DEVICE_VER      0x001
 #define PRODUCT         hotdox76V2
 
 /* key matrix size */
@@ -39,12 +36,6 @@
 
 // fix VIA RGB_light
 #define VIA_HAS_BROKEN_KEYCODES
-
-#define USB_POLLING_INTERVAL_MS 1
-#define QMK_KEYS_PER_SCAN 4
-
-#define TAP_CODE_DELAY 15
-
 
 /* RGN Matrix */
 #ifdef RGB_MATRIX_ENABLE
@@ -104,18 +95,3 @@
 #   define SPLIT_TRANSACTION_IDS_KB KEYBOARD_CURRENT_ALPA_SYNC
 
 #endif
-
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable action features */
-// #define NO_ACTION_LAYER
-// #define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
