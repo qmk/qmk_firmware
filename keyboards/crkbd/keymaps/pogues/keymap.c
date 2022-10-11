@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "features/casemodes.h"
-#include "features/num_word.h"
 #include "features/compose.h"
 
 enum userspace_layers {
@@ -28,18 +27,17 @@ enum userspace_layers {
     LNUM = 2,
     LFUN = 3,
     LMOV = 4,
-    LMOV2 = 5,
-    LMSE = 6,
+    LMSE = 5,
 };
 
-// the layer mask
+/* the layer mask
 #define L_COLEMAK LCMK
 #define LMASK_SYM (1 << LSYM)
 #define LMASK_NUM (1 << LNUM)
 #define LMASK_FUN (1 << LFUN)
 #define LMASK_MOV (1 << LMOV)
-#define LMASK_MOV2 (1 << LMOV2)
 #define LMASK_MSE (1 << LMSE)
+*/
 
 // rename some keys here to allow for the difference in keymap between US and GB
 #define MY_PIPE LSFT(KC_NUBS)
@@ -55,27 +53,22 @@ enum userspace_layers {
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_SFT OSM(MOD_LSFT)
 
-#define CTL_BSP CTL_T(KC_BSPC)
-#define SFT_SPC SFT_T(KC_SPC)
+//#define CTL_BSP CTL_T(KC_BSPC)
+//#define SFT_SPC SFT_T(KC_SPC)
 #define SFT_BSP SFT_T(KC_BSPC)
 #define CTL_SPC CTL_T(KC_SPC)
-#define CTL_Z CTL_T(KC_Z)
-#define CTL_SLS CTL_T(KC_SLSH)
+//#define CTL_Z CTL_T(KC_Z)
+//#define CTL_SLS CTL_T(KC_SLSH)
 
 #define CTL_W CTL_T(KC_W)
 #define CTL_Y CTL_T(KC_Y)
 #define SFT_Z SFT_T(KC_Z)
 #define SFT_SLS SFT_T(KC_SLSH)
-#define SFT_QUO SFT_T(KC_QUOT)
+//#define SFT_QUO SFT_T(KC_QUOT)
+#define MOV_SPC LT(LMOV, KC_SPC)
 
 enum custom_keycodes {
     MY_COMP = SAFE_RANGE,
-};
-
-// tap dance key enumaration
-enum {
-    TD_LNUM,
-    TD_LSYM,
 };
 
 
@@ -89,11 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           // thumb keys.   originally had SFT_SPC and CTL_BSP on inner thumbs but mistyped space/shift alot
-                                           // tried swapping to be CTL_SPC and SFT_BSP but hit ctrl too often accidentally TODO reconsider
-                                           // tried no dual role keys on inner thumbs but found shift/backspace ok
-                                           // now have no dual role key on space and use dual role alphas for that
-                                           KC_LGUI, TD(TD_LNUM), KC_SPC,    SFT_BSP, TD(TD_LSYM), KC_LALT
+                                               KC_LGUI,OSL(LNUM), MOV_SPC,    SFT_BSP,OSL(LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
@@ -104,52 +93,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, _______, CTL_SPC,    _______,  _______, _______
+                                               _______, TO(LCMK), CTL_SPC,    _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX,   KC_NO, KC_UNDS,   KC_NO, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6,  KC_ENT, KC_BSPC,
+           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR, KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,  _______,     KC_0,  _______, _______
+                                              _______, _______,  _______,     KC_0,  TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F10,   KC_F7,   KC_F8,   KC_F9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,  KC_ENT,  KC_DEL,
+           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,   KC_NO,   KC_NO,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,  KC_TAB, XXXXXXX,
+            XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK), _______,     KC_F10,    KC_NO, _______
+                                              _______, TO(LCMK),   KC_SPC,     KC_F10, TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
-    // LMOV is entered by the combo of fu, LMOV2 is the same but entered with the tristate layer on num/sym
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
+           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_ENT, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
+            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                      KC_PSCR,  KC_TAB, KC_PGDN, KC_PGUP,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK), _______,     _______,    KC_NO, _______
-                                            //`--------------------------'  `--------------------------'
-    ),
-    [LMOV2] = LAYOUT_split_3x6_3(
-        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_UP,   KC_NO, XXXXXXX, XXXXXXX,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT,  KC_END, KC_DEL,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_HOME, KC_PGDN, KC_PGUP,  KC_TAB, XXXXXXX,
-        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, _______, _______,     _______,  _______, _______
+                                              _______, TO(LCMK),   KC_SPC,     _______, TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
@@ -160,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                      KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                _______,TO(LCMK), _______,   KC_BTN1,  KC_BTN2, KC_BTN3
+                                                _______,TO(LCMK),  KC_SPC,   KC_BTN1,  KC_BTN2, KC_BTN3
                                             //`--------------------------'  `--------------------------'
     )
 };
@@ -174,9 +151,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return false;
     }
     if (!process_case_modes(keycode, record)) {
-        return false;
-    }
-    if (!process_record_num_word(keycode, record, LNUM)) {
         return false;
     }
 
@@ -438,122 +412,6 @@ void caps_word_set_user(bool active) {
 
 
 /*******************************************************************************
-* Tap Dance definitions
-*******************************************************************************/
-typedef struct {
-    bool is_press_action;
-    uint8_t step;
-} td_tap_t;
-
-static td_tap_t dance_state_lnum = {.is_press_action = true, .step = 0};
-static td_tap_t dance_state_lsym = {.is_press_action = true, .step = 0};
-
-// simplified dance steps to indicate held, one tap or two
-enum {
-    SINGLE_TAP = 1,
-    DOUBLE_TAP,
-    HELD,
-};
-
-
-uint8_t current_dance_step(qk_tap_dance_state_t *state) {
-    if (state->pressed) {
-        return HELD;
-    }
-    if (state->count == 1) {
-        return SINGLE_TAP;
-    } else {  // everything over one is taken as double
-        return DOUBLE_TAP;
-    }
-}
-
-/* no common layer_dance_finished as we are using numword not a one shot */
-
-void layer_dance_reset(uint8_t layer,  td_tap_t *tap_state, qk_tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (tap_state->step) {
-        case SINGLE_TAP:
-        case DOUBLE_TAP:
-            break;
-        case HELD:
-            layer_off(layer);
-            break;
-    }
-    tap_state->step = 0;
-}
-
-/**
- * for the num layer
- *   single tap enters num_word mode, or exits if we are in num_word mode or the number layer
- *   double tap enters the layer as TO(layer)
- *   hold enters the layer as MO(layer) until released
- */
-void tapdance_lnum_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state_lnum.step = current_dance_step(state);
-    switch (dance_state_lnum.step) {
-        case SINGLE_TAP:
-            if (is_num_word_enabled()) {
-                disable_num_word(LNUM);
-            } else if (layer_state_is(LNUM)) {
-                layer_off(LNUM);
-            } else {
-                enable_num_word(LNUM);
-            }
-            break;
-        case DOUBLE_TAP:
-        case HELD:
-            layer_on(LNUM);
-            break;
-    }
-}
-
-
-void tapdance_lnum_reset(qk_tap_dance_state_t *state, void *user_data) {
-    layer_dance_reset(LNUM, &dance_state_lnum, state, user_data);
-}
-
-
-/*
- * for the symbol layer
- *   single tap enters the layer as one shot, or exits if we are in the layer
- *   double tap enters the layer as TO(layer)
- *   hold enters the layer as MO(layer) until released
- */
-void tapdance_lsym_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state_lsym.step = current_dance_step(state);
-    switch (dance_state_lsym.step) {
-        case SINGLE_TAP:
-            // if we are in the layer, exit, otherwise toggle the one shot mod
-            if (layer_state_is(LSYM)) {
-                layer_off(LSYM);
-            } else {
-                set_oneshot_layer(LSYM, ONESHOT_START);
-                clear_oneshot_layer_state(ONESHOT_PRESSED);
-            }
-            break;
-        case DOUBLE_TAP:
-        case HELD:
-            layer_on(LSYM);
-            break;
-    }
-}
-
-
-void tapdance_lsym_reset(qk_tap_dance_state_t *state, void *user_data) {
-    layer_dance_reset(LSYM, &dance_state_lsym, state, user_data);
-}
-
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LNUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lnum_finished, tapdance_lnum_reset),
-    [TD_LSYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tapdance_lsym_finished, tapdance_lsym_reset)
-};
-
-/*******************************************************************************
-* Tap Dance end
-*******************************************************************************/
-
-/*******************************************************************************
  * RGB lighting on layer change
  * following are the LED numbers (in code it looks like we need to index one lower)
  * |------|------|------|------|------|------|            |------|------|------|------|------|
@@ -641,15 +499,12 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // check for the tristate layer
-    state = update_tri_layer_state(state, LNUM, LSYM, LMOV2);
-
     // set the led status to indicate layer
     rgblight_set_layer_state(1, layer_state_cmp(state, LCMK));
     rgblight_set_layer_state(2, layer_state_cmp(state, LSYM));
     rgblight_set_layer_state(3, layer_state_cmp(state, LNUM));
     rgblight_set_layer_state(4, layer_state_cmp(state, LFUN));
-    rgblight_set_layer_state(5, layer_state_cmp(state, LMOV) || layer_state_cmp(state, LMOV2));
+    rgblight_set_layer_state(5, layer_state_cmp(state, LMOV));
     rgblight_set_layer_state(6, layer_state_cmp(state, LMSE));
     return state;
 }

@@ -50,7 +50,7 @@ keycode_blank = 'NO'
 transparent_keycodes = ('_______', 'KC_TRNS')
 
 annotation_keycodes = {
-    'layer': ['TD(TD_LSYM)', 'TD(TD_LNUM)'],
+    'layer': ['TD(TD_LSYM)', 'TD(TD_LNUM)', 'TT(LSYM)', 'TT(LNUM)'],
     'one-shot': ['OSM_ALT', 'OSM_GUI', 'OSM_CTL', 'OSM_SFT'],
     'held': []
 }
@@ -213,8 +213,9 @@ LAYER_DISPLAY_NAMES = {
 }
 
 LAYER_HELD_KEYCODES = {  # indicate which keys are held to get to a layer
-    'LSYM': ['TD(TD_LSYM)'],
-    'LNUM': ['TD(TD_LNUM)'],
+    #'LSYM': ['TD(TD_LSYM)'],
+    'LSYM': ['TT(LSYM)'],
+    'LNUM': ['TT(LNUM)'],
     'LMOV': ['TD(TD_LSYM', 'TD(TD_LNUM)'],
 }
 MODS_HELD_KEYCODES = {
@@ -231,6 +232,7 @@ MODS_HELD_KEYCODES = {
     'SFT_Z': 'Shift',
     'SFT_SLS': 'Shift',
     'SFT_QUO': 'Shift',
+    'MOV_SPC': 'Mov',
 }
 
 keycode_prefix = 'KC_'
@@ -342,9 +344,12 @@ key_names = {
     "KC_LGUI": "&#8984;",
     "TD(TD_LNUM)": "Num",
     "TD(TD_LSYM)": "Sym",
+    "TT(LSYM)": "Sym",
+    "TT(LNUM)": "Num",
     "SFT_SPC": "&#9251;",
-    "CTL_BSP": "&#9003;",
     "CTL_SPC": "&#9251;",
+    "MOV_SPC": "&#9251;",
+    "CTL_BSP": "&#9003;",
     "SFT_BSP": "&#9003;",
     "CTL_W": "W",
     "CTL_Y": "Y",
