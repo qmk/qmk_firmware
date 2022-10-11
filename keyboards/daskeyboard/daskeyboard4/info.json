@@ -23,8 +23,8 @@
     "processor": "STM32F411",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x24f0",
+        "vid": "0x0140"
     },
     "indicators": {
         "num_lock": "C13",
