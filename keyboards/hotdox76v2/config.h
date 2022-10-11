@@ -18,7 +18,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define DEVICE_VER      0x001
+#define DEVICE_VER      0x0001
 #define PRODUCT         hotdox76V2
 
 /* key matrix size */
@@ -26,8 +26,6 @@
 #define MATRIX_COLS 7
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { D6, D7, B4, B5, B6, C6 }
-#define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, E6 }
 #define MATRIX_ROW_PINS_RIGHT { D6, D7, B4, B5, B6, C6 }
 #define MATRIX_COL_PINS_RIGHT { F7, F6, F5, F4, F1, F0, E6 }
 
