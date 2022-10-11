@@ -45,14 +45,14 @@ enum layers {
 enum {
     TD_LNG1_LNG2,
     TD_LCTL_CAPS,
-    TD_LALT_INS,
+    TD_LGUI_INS,
     TD_LSFT_PSCR
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LNG1_LNG2] = ACTION_TAP_DANCE_DOUBLE(KC_LNG1, KC_LNG2),
     [TD_LCTL_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
-    [TD_LALT_INS] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_INS),
+    [TD_LGUI_INS] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_INS),
     [TD_LSFT_PSCR] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_PSCR)
 };
 
@@ -66,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |SFT/PS|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |ESC/TK|KOR/HN| Win  |Alt/CO|LEFTFN|    Space    |RFN/- |   =  |Delete|  \   | Enter|
+ * |ESC/TK|KOR/HN| Win  |Alt/IN|LEFTFN|    Space    |RFN/- |   =  |Delete|  \   | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_ALPHA] = LAYOUT_planck_mit(
-    KC_TAB,             KC_Q,             KC_W,    KC_E,            KC_R,   KC_T,   KC_Y, KC_U,                 KC_I,    KC_O,    KC_P,    KC_BSPC,
-    TD(TD_LCTL_CAPS),   KC_A,             KC_S,    KC_D,            KC_F,   KC_G,   KC_H, KC_J,                 KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    TD(TD_LSFT_PSCR),   KC_Z,             KC_X,    KC_C,            KC_V,   KC_B,   KC_N, KC_M,                 KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-    LT(NUMPAD, KC_ESC), TD(TD_LNG1_LNG2), KC_LGUI, TD(TD_LALT_INS), LEFTFN,    KC_SPC,    LT(RIGHTFN, KC_MINS), KC_EQL,  KC_DEL,  KC_BSLS, KC_PENT
+    KC_TAB,             KC_Q,             KC_W,            KC_E,    KC_R,   KC_T,   KC_Y, KC_U,                 KC_I,    KC_O,    KC_P,    KC_BSPC,
+    TD(TD_LCTL_CAPS),   KC_A,             KC_S,            KC_D,    KC_F,   KC_G,   KC_H, KC_J,                 KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    TD(TD_LSFT_PSCR),   KC_Z,             KC_X,            KC_C,    KC_V,   KC_B,   KC_N, KC_M,                 KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+    LT(NUMPAD, KC_ESC), TD(TD_LNG1_LNG2), TD(TD_LGUI_INS), KC_LALT, LEFTFN,    KC_SPC,    LT(RIGHTFN, KC_MINS), KC_EQL,  KC_DEL,  KC_BSLS, KC_PENT
 ),
 
 /* LEFTFN
