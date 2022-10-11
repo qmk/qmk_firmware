@@ -34,23 +34,11 @@
 #define MATRIX_ROW_PINS_RIGHT { D6, D7, B4, B5, B6, C6 }
 #define MATRIX_COL_PINS_RIGHT { F7, F6, F5, F4, F1, F0, E6 }
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-
-
 // enable the nkro when using the VIA.
 #define FORCE_NKRO
 
 // fix VIA RGB_light
 #define VIA_HAS_BROKEN_KEYCODES
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4
