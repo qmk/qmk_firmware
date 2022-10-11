@@ -25,10 +25,6 @@
 #define MATRIX_ROWS 6*2
 #define MATRIX_COLS 7
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS_RIGHT { D6, D7, B4, B5, B6, C6 }
-#define MATRIX_COL_PINS_RIGHT { F7, F6, F5, F4, F1, F0, E6 }
-
 // enable the nkro when using the VIA.
 #define FORCE_NKRO
 
