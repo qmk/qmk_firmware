@@ -34,6 +34,10 @@
 #define POWER_SWITCH_PIN B0
 #define DIP_SWITCH_PINS { POWER_SWITCH_PIN, B1, B8, B12 }
 
+/* LED indicator lights */
+#define LED_CAPS_LOCK_PIN B2
+#define LED_NUM_LOCK_PIN B14
+
 /* 16 with dummy columns for shift registers */
 #define SHR_SERIES_NUM 2
 #define SHR_CLOCK_PIN A0

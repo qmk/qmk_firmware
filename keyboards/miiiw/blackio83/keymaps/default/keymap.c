@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap WIN_FL: Win Function Layer
    */
 	[WIN_FL] = LAYOUT(
-        RGB_RST,          KC_BRID, KC_BRIU, ALT_TAB, G(KC_D), KC_WBAK, KC_WSCH, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_PSCR,
+        _______,          KC_BRID, KC_BRIU, ALT_TAB, G(KC_D), KC_WBAK, KC_WSCH, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_PSCR,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,           _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap MAC_FL: Mac Function Layer
    */
 	[MAC_FL] = LAYOUT(
-        RGB_RST,          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_PSCR,
+        _______,          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_PSCR,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,           _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______,
@@ -69,77 +69,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                   _______, _______, _______,         RGB_RMOD, RGB_VAD, RGB_MOD
 	),
 };
-
-// Implement Super-alt↯tab
-// See https://docs.qmk.fm/#/feature_macros?id=super-alt↯tab
-static bool is_alt_tab_active = false;
-static uint32_t alt_tab_timer = 0;
-
-#ifdef DIP_SWITCH_ENABLE
-bool dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-    case 2:
-        default_layer_set(1UL << (active ? WIN_BL : MAC_BL));
-        break;
-   }
-   return true;
-}
-#endif
-
-// Processing all the key pressed.
-// Alt+tab.
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    uint8_t shift_mods = get_mods() & MOD_MASK_SHIFT;
-    switch (keycode) { // This will do most of the grunt work with the keycodes.
-    case ALT_TAB:
-        if (record->event.pressed) {
-            if (!is_alt_tab_active) {
-                is_alt_tab_active = true;
-                register_code(KC_LALT);
-            }
-            alt_tab_timer = timer_read32();
-            register_code(KC_TAB);
-        } else {
-            unregister_code(KC_TAB);
-        }
-        return false;
-    case RGB_RST:
-        if (record->event.pressed) {
-            eeconfig_update_rgb_matrix_default();
-        }
-        return false;
-    case RGB_VAI:
-        if(shift_mods) {
-            if (record->event.pressed) rgb_matrix_increase_speed();
-            return false;
-        }
-        break;
-    case RGB_VAD:
-        if(shift_mods) {
-            if (record->event.pressed && rgb_matrix_get_speed() >= RGB_MATRIX_SPD_STEP) rgb_matrix_decrease_speed();
-            return false;
-        }
-        break;
-    case RGB_MOD:
-        if(shift_mods) {
-            if (record->event.pressed) rgb_matrix_increase_hue();
-            return false;
-        }
-        break;
-    case RGB_RMOD:
-        if(shift_mods) {
-            if (record->event.pressed) rgb_matrix_decrease_hue();
-            return false;
-        }
-        break;
-    }
-
-    return true;
-}
-
-void matrix_scan_user(void) {     // The very important timer.
-    if (is_alt_tab_active && timer_elapsed32(alt_tab_timer) > 750) {
-        unregister_code(KC_LALT);
-        is_alt_tab_active = false;
-    }
-}

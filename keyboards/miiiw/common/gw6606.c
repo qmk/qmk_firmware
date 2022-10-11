@@ -111,8 +111,6 @@ static void set_led_current(uint8_t ri, uint8_t gi, uint8_t bi) {
     writePinHigh(RGB_DI_PIN);
     wait_bit0H();
     writePinLow(RGB_DI_PIN);
-    wait_ns(WS2812_RES);
-    writePinHigh(RGB_DI_PIN);
 
     chSysUnlock();
 }
@@ -210,8 +208,6 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
     writePinHigh(RGB_DI_PIN);
     wait_bit0H();
     writePinLow(RGB_DI_PIN);
-    wait_ns(WS2812_RES);
-    writePinHigh(RGB_DI_PIN);
 
     chSysUnlock();
 }

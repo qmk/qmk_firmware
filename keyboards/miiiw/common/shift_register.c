@@ -35,12 +35,18 @@ void shift_enable(void) {
 #ifdef SHR_OE_PIN
     writePinLow(SHR_OE_PIN);
 #endif
+    writePinLow(SHR_DATA_PIN);
+    writePinLow(SHR_LATCH_PIN);
+    writePinLow(SHR_CLOCK_PIN);
 }
 
 void shift_disable(void) {
 #ifdef SHR_OE_PIN
     writePinHigh(SHR_OE_PIN);
 #endif
+    writePinLow(SHR_DATA_PIN);
+    writePinLow(SHR_LATCH_PIN);
+    writePinLow(SHR_CLOCK_PIN);
 }
 
 void shift_writePin(pin_t pin, int level) {
