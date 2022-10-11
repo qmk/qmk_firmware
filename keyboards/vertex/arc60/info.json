@@ -1,8 +1,8 @@
 {
     "keyboard_name": "ARC60",
+    "manufacturer": "vertex",
     "url": "",
     "maintainer": "EasonQian1, Vertex-kb",
-    "manufacturer": "vertex",
     "usb": {
         "vid": "0x8354",
         "pid": "0x8370",
