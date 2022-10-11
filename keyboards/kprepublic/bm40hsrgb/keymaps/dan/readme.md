@@ -76,9 +76,9 @@
 
 |         | _A_ | _B_ | _C_ | _D_ | _E_ | _F_ | _G_ | _H_ | _I_ | _J_ | _K_ | _L_ |
 |---------|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|
-| **_1_** |  *  |  7  |  8  |  9  | NUM |     |     |     |     |     |     | BSP |
-| **_2_** | ALT |  4  |  5  |  6  | RET | ENT |     |     |     |     | SFT |     |
-| **_3_** |  -  |  1  |  2  |  3  | BSP |  /  |     |     |  ,  |  .  | CTL | RET |
+| **_1_** |  /  |  7  |  8  |  9  |*/NUM|     |     |     |     |     |     | BSP |
+| **_2_** | ALT |  4  |  5  |  6  | RET |     |     |     |     |     | SFT |     |
+| **_3_** |  -  |  1  |  2  |  3  | BSP |     |     |     |  ,  |  .  | CTL | RET |
 | **_4_** | TRN | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;. | &nbsp;&nbsp;&nbsp;0 | SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;LY1 | &nbsp;LY2 | &nbsp;LY3 | &nbsp;LY4 | &nbsp;LY5 |
 >This layer is the numpad.
 

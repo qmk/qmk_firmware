@@ -46,14 +46,16 @@ enum {
     TD_LNG1_LNG2,
     TD_LCTL_CAPS,
     TD_LGUI_INS,
-    TD_LSFT_PSCR
+    TD_LSFT_PSCR,
+    TD_PAST_NLCK
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LNG1_LNG2] = ACTION_TAP_DANCE_DOUBLE(KC_LNG1, KC_LNG2),
     [TD_LCTL_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
     [TD_LGUI_INS] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_INS),
-    [TD_LSFT_PSCR] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_PSCR)
+    [TD_LSFT_PSCR] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_PSCR),
+    [TD_PAST_NLCK] = ACTION_TAP_DANCE_DOUBLE(KC_PAST, KC_NLCK)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -114,20 +116,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* NUMPAD
  * ,-----------------------------------------------------------------------------------.
- * |   *  |   7  |   8  |   9  | NumLk|      |      |      |      |      |      | Bksp |
+ * |   /  |   7  |   8  |   9  |*NumLk|      |      |      |      |      |      | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Alt |   4  |   5  |   6  |Return| Enter|      |      |      |      | Shift|      |
+ * |  Alt |   4  |   5  |   6  |Return|      |      |      |      |      | Shift|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   -  |   1  |   2  |   3  | Bksp |   /  |      |      |   ,  |   .  | Ctrl |Return|
+ * |   -  |   1  |   2  |   3  | Bksp |      |      |      |   ,  |   .  | Ctrl |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Trns |   ,  |   +  |   .  |   0  |    Space    |LEAGUE| PUBG | OVWCh|  SC  |TETRIS|
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_mit(
-    KC_PAST, KC_P7,   KC_P8,   KC_P9,   KC_NLCK, KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
-    KC_LALT, KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_PENT, KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
-    KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_PSLS, KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
-    KC_TRNS, KC_COMM, KC_PPLS, KC_PDOT, KC_P0,      KC_SPC,    LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
+    KC_PSLS, KC_P7,   KC_P8,   KC_P9,   TD(TD_PAST_NLCK), KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
+    KC_LALT, KC_P4,   KC_P5,   KC_P6,   KC_ENT,           KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
+    KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_BSPC,          KC_NO,   KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
+    KC_TRNS, KC_COMM, KC_PPLS, KC_PDOT, KC_P0,                 KC_SPC,    LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
 ),
 
 /* LEAGUE
