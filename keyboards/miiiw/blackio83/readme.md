@@ -1,7 +1,7 @@
 # MIIIW BlackIO83
 
-![BlackIO83](https://i.imgur.com/jZ7HrTC.jpg)
-![BlackIO83](https://i.imgur.com/AnlUIfp.jpg)
+![BlackIO83](https://i.imgur.com/jZ7HrTCh.jpg)
+![BlackIO83](https://i.imgur.com/AnlUIfph.jpg)
 
 A customizable 75% keyboard.
 
