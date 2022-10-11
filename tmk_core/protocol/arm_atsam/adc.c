@@ -27,10 +27,10 @@ uint16_t v_con_2_boot;
 void ADC0_clock_init(void) {
     DBGC(DC_ADC0_CLOCK_INIT_BEGIN);
 
-    MCLK->APBDMASK.bit.ADC0_ = 1;  // ADC0 Clock Enable
+    MCLK->APBDMASK.bit.ADC0_ = 1; // ADC0 Clock Enable
 
-    GCLK->PCHCTRL[ADC0_GCLK_ID].bit.GEN  = GEN_OSC0;  // Select generator clock
-    GCLK->PCHCTRL[ADC0_GCLK_ID].bit.CHEN = 1;         // Enable peripheral clock
+    GCLK->PCHCTRL[ADC0_GCLK_ID].bit.GEN  = GEN_OSC0; // Select generator clock
+    GCLK->PCHCTRL[ADC0_GCLK_ID].bit.CHEN = 1;        // Enable peripheral clock
 
     DBGC(DC_ADC0_CLOCK_INIT_COMPLETE);
 }
@@ -39,15 +39,15 @@ void ADC0_init(void) {
     DBGC(DC_ADC0_INIT_BEGIN);
 
     // MCU
-    PORT->Group[1].DIRCLR.reg           = 1 << 0;  // PB00 as input 5V
-    PORT->Group[1].DIRCLR.reg           = 1 << 1;  // PB01 as input CON2
-    PORT->Group[1].DIRCLR.reg           = 1 << 2;  // PB02 as input CON1
-    PORT->Group[1].PMUX[0].bit.PMUXE    = 1;       // PB00 mux select B ADC 5V
-    PORT->Group[1].PMUX[0].bit.PMUXO    = 1;       // PB01 mux select B ADC CON2
-    PORT->Group[1].PMUX[1].bit.PMUXE    = 1;       // PB02 mux select B ADC CON1
-    PORT->Group[1].PINCFG[0].bit.PMUXEN = 1;       // PB01 mux ADC Enable 5V
-    PORT->Group[1].PINCFG[1].bit.PMUXEN = 1;       // PB01 mux ADC Enable CON2
-    PORT->Group[1].PINCFG[2].bit.PMUXEN = 1;       // PB02 mux ADC Enable CON1
+    PORT->Group[1].DIRCLR.reg           = 1 << 0; // PB00 as input 5V
+    PORT->Group[1].DIRCLR.reg           = 1 << 1; // PB01 as input CON2
+    PORT->Group[1].DIRCLR.reg           = 1 << 2; // PB02 as input CON1
+    PORT->Group[1].PMUX[0].bit.PMUXE    = 1;      // PB00 mux select B ADC 5V
+    PORT->Group[1].PMUX[0].bit.PMUXO    = 1;      // PB01 mux select B ADC CON2
+    PORT->Group[1].PMUX[1].bit.PMUXE    = 1;      // PB02 mux select B ADC CON1
+    PORT->Group[1].PINCFG[0].bit.PMUXEN = 1;      // PB01 mux ADC Enable 5V
+    PORT->Group[1].PINCFG[1].bit.PMUXEN = 1;      // PB01 mux ADC Enable CON2
+    PORT->Group[1].PINCFG[2].bit.PMUXEN = 1;      // PB02 mux ADC Enable CON1
 
     // ADC
     ADC0->CTRLA.bit.SWRST = 1;
@@ -81,7 +81,7 @@ void ADC0_init(void) {
     }
 
     // Settling
-    ADC0->SAMPCTRL.bit.SAMPLEN = 45;  // Sampling Time Length: 1-63, 1 ADC CLK per
+    ADC0->SAMPCTRL.bit.SAMPLEN = 45; // Sampling Time Length: 1-63, 1 ADC CLK per
     while (ADC0->SYNCBUSY.bit.SAMPCTRL) {
         DBGC(DC_ADC0_SAMPCTRL_SYNCING_1);
     }

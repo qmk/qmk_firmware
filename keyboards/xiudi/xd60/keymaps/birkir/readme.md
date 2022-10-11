@@ -42,4 +42,4 @@ RGB settings are persisted for layer 0 when done.
 - More dynamic keyboard configuration on Layer 2
 
 ## Build
-To build the default keymap, simply run `make xd60:birkir`.
+To build the default keymap, simply run `make xiudi/xd60:birkir`.

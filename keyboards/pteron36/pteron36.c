@@ -36,12 +36,15 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 //common oled support.
-#ifdef OLED_DRIVER_ENABLE
-__attribute__((weak)) void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_keyboard_master()) {
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state)) {
-            case _QWERTY:
+            case 0:
                 oled_write_ln_P(PSTR("Default"), false);
                 break;
             default:
@@ -62,5 +65,6 @@ __attribute__((weak)) void oled_task_user(void) {
         oled_write_P(qmk_logo, false);
         oled_scroll_left();  // Turns on scrolling
     }
+    return false;
 }
 #endif

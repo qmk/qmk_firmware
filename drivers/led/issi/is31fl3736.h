@@ -1,4 +1,5 @@
 /* Copyright 2018 Jason Williams (Wilba)
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +39,7 @@ typedef struct is31_led {
     uint8_t b;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL];
 
 void IS31FL3736_init(uint8_t addr);
 void IS31FL3736_write_register(uint8_t addr, uint8_t reg, uint8_t data);
@@ -59,6 +60,15 @@ void IS31FL3736_mono_set_led_control_register(uint8_t index, bool enabled);
 // If the buffer is dirty, it will update the driver with the buffer.
 void IS31FL3736_update_pwm_buffers(uint8_t addr1, uint8_t addr2);
 void IS31FL3736_update_led_control_registers(uint8_t addr1, uint8_t addr2);
+
+#define PUR_0R 0x00   // No PUR resistor
+#define PUR_05KR 0x01 // 0.5k Ohm resistor
+#define PUR_1KR 0x02  // 1.0k Ohm resistor
+#define PUR_2KR 0x03  // 2.0k Ohm resistor
+#define PUR_4KR 0x04  // 4.0k Ohm resistor
+#define PUR_8KR 0x05  // 8.0k Ohm resistor
+#define PUR_16KR 0x06 // 16k Ohm resistor
+#define PUR_32KR 0x07 // 32k Ohm resistor
 
 #define A_1 0x00
 #define A_2 0x02

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xB06B
-#define PRODUCT_ID      0x0005
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wuque studio
-#define PRODUCT         mammoth20x
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -49,6 +42,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { D2 }
 
 #define ENCODERS 1
+
+#ifdef ENCODER_RESOLUTION
+    #undef ENCODER_RESOLUTION
+#endif
+#define ENCODER_RESOLUTION 2
+
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 3, 2 } }
 #define ENCODERS_CCW_KEY { { 3, 4 } }

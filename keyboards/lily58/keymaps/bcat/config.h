@@ -16,4 +16,6 @@
 
 #pragma once
 
+#define BCAT_ORTHO_LAYERS
+
 #define EE_HANDS

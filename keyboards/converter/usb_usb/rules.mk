@@ -5,19 +5,22 @@ MCU = atmega32u4
 BOOTLOADER = caterina
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-#MOUSEKEY_ENABLE  = yes  # Mouse keys
-EXTRAKEY_ENABLE  = yes  # Audio control and System control
-#CONSOLE_ENABLE   = yes  # Console for debug
-#COMMAND_ENABLE   = yes  # Commands for debug and configuration
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-#NKRO_ENABLE      = yes  # USB Nkey Rollover - not yet supported in LUFA
-#BACKLIGHT_ENABLE = yes
-USB_HID_ENABLE   = yes
-CUSTOM_MATRIX    = yes
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+NKRO_ENABLE = no            # Enable N-Key Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+AUDIO_ENABLE = no           # Audio output
+USB_HID_ENABLE = yes
+CUSTOM_MATRIX = yes
 
-SRC = custom_matrix.cpp
+SRC += custom_matrix.cpp
 
 DEFAULT_FOLDER = converter/usb_usb/hasu
+
+LAYOUTS = fullsize_ansi fullsize_iso

@@ -16,16 +16,15 @@
 
 #include "bcat.h"
 
-#if defined(RGBLIGHT_ENABLE)
-/* Adjust RGB static hue ranges for shorter gradients than default. */
-const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 127, 63, 31, 15};
-#endif
+#include "quantum.h"
 
 static int8_t alt_tab_layer = -1;
 
+__attribute__((weak)) void process_record_oled(uint16_t keycode, const keyrecord_t *record) {}
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    process_record_oled(keycode, record);
     if (!process_record_keymap(keycode, record)) {
         return false;
     }
@@ -51,6 +50,9 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = layer_state_set_keymap(state);
+#if defined(BCAT_ORTHO_LAYERS)
+    state = update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
+#endif
     if (alt_tab_layer >= 0 && !layer_state_cmp(state, alt_tab_layer)) {
         unregister_code(KC_LALT);
         alt_tab_layer = -1;

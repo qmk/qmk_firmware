@@ -15,7 +15,7 @@ The reasons to use this feature include:
 Implementing custom matrix usually involves compilation of an additional source file. It is recommended that for consistency, this file is called `matrix.c`.
 
 Add a new file to your keyboard directory:
-```text
+```
 keyboards/<keyboard>/matrix.c
 ```
 
@@ -81,17 +81,17 @@ void matrix_init(void) {
 }
 
 uint8_t matrix_scan(void) {
-    bool matrix_has_changed = false;
+    bool changed = false;
 
     // TODO: add matrix scanning routine here
 
     // Unless hardware debouncing - use the configured debounce routine
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
     // This *must* be called for correct keyboard behavior
     matrix_scan_quantum();
 
-    return matrix_has_changed;
+    return changed;
 }
 ```
 

@@ -48,7 +48,7 @@ extern "C" {
  *
  * @param device the device to initialize
  */
-void midi_device_init(MidiDevice* device);  // [implementation in midi_device.c]
+void midi_device_init(MidiDevice* device); // [implementation in midi_device.c]
 
 /**
  * @brief Process input data
@@ -58,7 +58,7 @@ void midi_device_init(MidiDevice* device);  // [implementation in midi_device.c]
  *
  * @param device the device to process
  */
-void midi_device_process(MidiDevice* device);  // [implementation in midi_device.c]
+void midi_device_process(MidiDevice* device); // [implementation in midi_device.c]
 
 /**@}*/
 
@@ -115,7 +115,7 @@ void midi_send_aftertouch(MidiDevice* device, uint8_t chan, uint8_t note_num, ui
  * @param chan the channel to send on, 0-15
  * @param amt the bend amount range: -8192..8191, 0 means no bend
  */
-void midi_send_pitchbend(MidiDevice* device, uint8_t chan, int16_t amt);  // range -8192, 8191
+void midi_send_pitchbend(MidiDevice* device, uint8_t chan, int16_t amt); // range -8192, 8191
 
 /**
  * @brief Send a program change message via the given device.

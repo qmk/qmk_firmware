@@ -18,7 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // DEFINE MACROS
+#ifndef ARRAYSIZE
 #define ARRAYSIZE(arr)  sizeof(arr)/sizeof(arr[0])
+#endif // !ARRAYSIZE
 
 
 // LAYERS
@@ -44,6 +46,8 @@ enum custom_user_keycodes {
   EMO_NERVOUS,  // (~_~;)
   EMO_JOY,      // (^o^)
   EMO_TEARS,    // (T_T)
+
+  KC_TSTOG,     // Tab Scroll Toggle
 
   NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
@@ -91,6 +95,12 @@ enum custom_user_keycodes {
         void encoder_action_rgb_brightness(bool clockwise);
         void encoder_action_rgb_mode(bool clockwise);
     #endif // RGB_MATRIX_ENABLE / RGBLIGHT_ENABLE
+
+    #ifdef ALTTAB_SCROLL_ENABLE
+        void encoder_action_alttabscroll(bool clockwise);
+        void encoder_toggle_alttabscroll(void);
+        void encoder_tick_alttabscroll(void);
+    #endif // ALTTAB_SCROLL_ENABLE
 #endif // ENCODER_ENABLE
 
 

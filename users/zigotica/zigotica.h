@@ -26,7 +26,7 @@ enum userspace_layers {
 };
 #else
 enum userspace_layers {
-    _TERMINAL = 0,
+    _BASE = 0,
     _FIGMA,
     _BROWSER,
     _VIM,

@@ -49,6 +49,6 @@ bool process_midi(uint16_t keycode, keyrecord_t *record);
 #        define MIDI_TONE_COUNT (MIDI_TONE_MAX - MIDI_TONE_MIN + 1)
 
 uint8_t midi_compute_note(uint16_t keycode);
-#    endif  // MIDI_ADVANCED
+#    endif // MIDI_ADVANCED
 
-#endif  // MIDI_ENABLE
+#endif // MIDI_ENABLE
