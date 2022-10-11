@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |SFT/PS|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |ESC/TK|KOR/HN| Win  |Alt/IN|LEFTFN|    Space    |RFN/- |   =  |Delete|  \   | Enter|
+ * |ESC/NU|KOR/HN| Win  |  Alt |LEFTFN|    Space    |RFN/- |   =  |Delete|  \   | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_ALPHA] = LAYOUT_planck_mit(
