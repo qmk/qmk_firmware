@@ -4,6 +4,7 @@
     "maintainer": "Commander1024",
     "url": "https://www.daskeyboard.com/de/daskeyboard-4-professional/",
     "bootloader": "tinyuf2",
+    "bootloader_instructions": "Hold ESC while plugging USB in",
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
@@ -11,7 +12,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A2", "A4", "A5", "A6", "A7", "B0", "B1", "B10", "B9", "B7", "B6", "B5", "B4", "A8"],
@@ -23,6 +25,24 @@
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
+    },
+    "indicators": {
+        "caps_lock": "C13",
+        "num_lock": "B14",
+        "scroll_lock": "B2",
+        "on_state": 1,
+    },
+    "encoder": {
+        "rotary": [
+            {
+            "pin_a": "B13",
+            "pin_b": "B12",
+            "resolution": 4
+            }
+        ]
+    },
+    "tapping": {
+        "toggle": 2
     },
     "layouts": {
         "LAYOUT_fullsize_iso": {
