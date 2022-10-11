@@ -120,14 +120,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   -  |   1  |   2  |   3  | Bksp |   /  |      |      |   ,  |   .  | Ctrl |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ALPHA|   ,  |   +  |   .  |   0  |    Space    |LEAGUE| PUBG | OVWCh|  SC  |TETRIS|
+ * | Trns |   ,  |   +  |   .  |   0  |    Space    |LEAGUE| PUBG | OVWCh|  SC  |TETRIS|
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_mit(
     KC_PAST, KC_P7,   KC_P8,   KC_P9,   KC_NLCK, KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
     KC_LALT, KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_PENT, KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
     KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_PSLS, KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
-    ALPHA, KC_COMM, KC_PPLS, KC_PDOT, KC_P0,      KC_SPC,    LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
+    KC_TRNS, KC_COMM, KC_PPLS, KC_PDOT, KC_P0,      KC_SPC,    LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
 ),
 
 /* LEAGUE
