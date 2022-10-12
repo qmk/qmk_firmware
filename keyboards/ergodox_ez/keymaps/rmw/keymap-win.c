@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(CTLAND),       OSL(ADJUST),    TD(SCAG),  TD(TDGUI),  TD(ACG), 
                                                                OS_ALT,    OS_CTL   , 
                                                                           KC_ESCAPE, 
-                                                   KC_BSPACE,  TD(SHENT), OSL(EDIT), 
+                                                   KC_BSPC,  TD(SHENT), OSL(EDIT), 
 
                      // RIGHT HAND
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 

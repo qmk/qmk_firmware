@@ -446,7 +446,7 @@ static uint8_t code2asc(uint8_t code)
         case KC_0: return (shifted ? ')' : '0');
         case KC_ENTER: return '\n';
         case KC_ESCAPE: return 0x1B;
-        case KC_BSPACE: return '\b';
+        case KC_BACKSPACE: return '\b';
         case KC_TAB: return '\t';
         case KC_SPACE: return ' ';
         case KC_MINUS: return (shifted ? '_' : '-');

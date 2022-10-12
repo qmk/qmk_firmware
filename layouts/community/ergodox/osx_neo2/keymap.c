@@ -135,8 +135,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // left hand side - thumb cluster
     /* --- */         MO(FKEYS),        KC_HOME,
-    /* KC_BSPACE */   /* KC_DELETE */   KC_END,
-    KC_BSPACE,        KC_DELETE,        NEO2_LMOD4,
+    /* KC_BSPC */     /* KC_DELETE */   KC_END,
+    KC_BSPC,          KC_DELETE,        NEO2_LMOD4,
 
     // right hand side - main
     TO(US_1),         NEO2_6,           NEO2_7,           NEO2_8,           NEO2_9,           NEO2_0,           NEO2_MINUS,
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NEO_4] = LAYOUT_ergodox(
     // left hand side - main
     KC_NO /* NOOP */,   US_OSX_FEMININE_ORDINAL,  US_OSX_MASCULINE_ORDINAL, KC_NO /* NOOP */,     US_OSX_MIDDLE_DOT,  US_OSX_BRITISH_POUND, _______,
-    _______,            KC_PGUP,                  KC_BSPACE,                KC_UP,                KC_DELETE,          KC_PGDN,              _______,
+    _______,            KC_PGUP,                  KC_BSPC,                  KC_UP,                KC_DELETE,          KC_PGDN,              _______,
     _______,            KC_HOME,                  KC_LEFT,                  KC_DOWN,              KC_RIGHT,           KC_END,               /* --- */
     _______,            KC_ESCAPE,                KC_TAB,                   KC_INSERT,            KC_ENTER,           KC_NO /* NOOP */,     _______,
     _______,            _______,                  _______,                  _______,              _______,            /* --- */             /* --- */
@@ -371,7 +371,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // left hand side - thumb cluster
     /* --- */         KC_LCTRL,     KC_LALT,
     /* --- */         /* --- */     KC_HOME,
-    KC_BSPACE,        KC_DELETE,    KC_END,
+    KC_BSPC,          KC_DELETE,    KC_END,
 
     // right hand side - main
     TO(NEO_1),        KC_6,         KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,

@@ -169,7 +169,7 @@ bool handle_del_bspace(void) {
     layer_off(GIT_R);
     layer_off(GIT_S);
 
-    press_n_times(char_to_bspace, KC_BSPACE);
+    press_n_times(char_to_bspace, KC_BACKSPACE);
     char_to_bspace = 1;
     press_n_times(char_to_del, KC_DEL);
     char_to_del = 0;

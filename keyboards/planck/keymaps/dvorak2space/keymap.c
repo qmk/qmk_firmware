@@ -196,9 +196,9 @@ int cur_dance(qk_tap_dance_state_t *state) {
   return press;
 }
 
-void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BSPACE); }
+void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BACKSPACE); }
 
-void back_finished(qk_tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) tap_code16(LCTL(KC_BSPACE)); }
+void back_finished(qk_tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) tap_code16(LCTL(KC_BACKSPACE)); }
 
 void slash_finished(qk_tap_dance_state_t *state, void *user_data) {
   int td_state = cur_dance(state);

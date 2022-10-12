@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(CTLALL),     OSL(ADJUST),    TD(GUCTL),  TD(SGCA),  TD(AGC), 
                                                                OS_CMD,    OS_CTL   , 
                                                                           KC_ESCAPE, 
-                                                   KC_BSPACE,  TD(SHENT), OSL(EDIT), 
+                                                   KC_BSPC,  TD(SHENT), OSL(EDIT), 
 
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 
         TO(NUMPAD),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(CTLALL),     OSL(ADJUST),    TD(GUCTL),  TD(SGCA),  TD(AGC), 
                                                                OS_CMD,    OS_CTL   , 
                                                                           KC_ESCAPE, 
-                                                   KC_BSPACE,  TD(SHENT), OSL(EDIT), 
+                                                   KC_BSPC,  TD(SHENT), OSL(EDIT), 
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 
         TO(NUMPAD),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
                      KC_H,     LT(JSYM,KC_J),   KC_E,    KC_L,    LT(EDIT,KC_SCLN),       KC_QUOTE, 

@@ -4,8 +4,6 @@
 
 // These keycode names have been deprecated
 
-#define KC_BSPACE         KC_BACKSPACE
-
 #define KC_LCTRL          KC_LEFT_CTRL
 #define KC_LSHIFT         KC_LEFT_SHIFT
 #define KC_RCTRL          KC_RIGHT_CTRL

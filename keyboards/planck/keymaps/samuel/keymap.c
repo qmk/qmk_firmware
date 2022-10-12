@@ -207,7 +207,7 @@ if (record->event.pressed) {
 } else {
     layer_off(_RISE);
     if (last_mod == 9 && timer_elapsed(tap_timer) < TAPPING_TERM) {
-        tap_code16(KC_BSPACE);
+        tap_code16(KC_BACKSPACE);
         last_mod = 10;
     }
 }

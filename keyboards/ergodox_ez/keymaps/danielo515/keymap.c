@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSLS             ,OSM(MOD_LCTL)       ,OSM(MOD_LALT)       ,KC_LEFT             ,KC_RIGHT            ,
     OSM_SF_CMD          ,KC_PLUS             ,
     KC_INSERT           ,
-    OSM(MOD_LSFT)       ,LT(2,KC_BSPACE)     ,OSM(MOD_LGUI)              ,
+    OSM(MOD_LSFT)       ,LT(2,KC_BSPC)     ,OSM(MOD_LGUI)              ,
 
 
     TO(1)               ,KC_6                ,KC_7                ,KC_8                ,KC_9                ,LT(3,KC_0)          ,KC_DQUO             ,
@@ -73,14 +73,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT,KC_TRANSPARENT,
                                   RGB_HUI       ,
     KC_TRANSPARENT,KC_TRANSPARENT,RGB_HUD       ,
-    KC_DELETE     ,KC_A          ,KC_B          ,KC_C          ,KC_D          ,KC_E          ,KC_BSPACE     ,
+    KC_DELETE     ,KC_A          ,KC_B          ,KC_C          ,KC_D          ,KC_E          ,KC_BSPC     ,
     KC_ENTER      ,KC_F          ,KC_7          ,KC_8          ,KC_9          ,KC_PERC       ,KC_TRANSPARENT,
                    KC_HASH       ,KC_4          ,KC_5          ,KC_6          ,KC_PLUS       ,KC_KP_ASTERISK,
     KC_KP_ENTER   ,KC_COLON      ,KC_1          ,KC_2          ,KC_3          ,KC_SLASH      ,KC_BSLS       ,
                                   KC_0          ,KC_COMMA      ,KC_DOT        ,KC_EQUAL      ,KC_TRANSPARENT,
     RGB_TOG       ,RGB_SLD       ,
     RGB_VAI       ,
-    RGB_VAD       ,KC_BSPACE     ,KC_SPACE
+    RGB_VAD       ,KC_BSPC     ,KC_SPACE
   ),
 
   [3] = LAYOUT_ergodox(
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT                                             ,LSFT(KC_DOWN)      ,KC_PGDN            ,WIN_TO_LEFT        ,WIN_TO_RIGHT     ,
     KC_TRANSPARENT     ,KC_SYSTEM_SLEEP    ,
     KC_TRANSPARENT     ,
-    KC_TRANSPARENT     ,KC_BSPACE          ,KC_TRANSPARENT
+    KC_TRANSPARENT     ,KC_BSPC          ,KC_TRANSPARENT
   ),
 
   [5] = LAYOUT_ergodox(

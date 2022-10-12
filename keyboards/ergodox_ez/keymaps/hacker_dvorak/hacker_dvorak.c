@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, TG(LAYERS), PV_NUM,     PV_NUM,     PV_NUM,
 
         // left thumb
-              KC_SPACE, KC_BSPACE,
+              KC_SPACE, KC_BSPC,
                         KC_HOME,
         PV_A, PV_O,     KC_END,
 
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left thumb
                    MO(MEDIA_FN), KC_NLCK,
                                  KC_SCLN,
-         KC_SPACE, KC_ENTER,     KC_BSPACE,
+         KC_SPACE, KC_ENTER,     KC_BSPC,
 
         // right hand
         KC_QUOT,       KC_Y,       KC_K,        KC_U,        KC_KP_7, KC_KP_8,  KC_KP_9,
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left thumb
                   XXXXXXX,   XXXXXXX,
                              KC_HOME,
-        KC_SPACE, KC_BSPACE, KC_END,
+        KC_SPACE, KC_BSPC,   KC_END,
 
         // right hand
         LGUI(KC_X), XXXXXXX,       LCTL(KC_X), KC_MS_WH_UP,   XXXXXXX,       XXXXXXX,        XXXXXXX,
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left thumb
                   XXXXXXX,   XXXXXXX,
                              KC_HOME,
-        KC_SPACE, KC_BSPACE, KC_END,
+        KC_SPACE, KC_BSPC,   KC_END,
 
         // right hand
         KC_X, KC_A, KC_B,   KC_C, KC_D,     KC_E,    KC_F,

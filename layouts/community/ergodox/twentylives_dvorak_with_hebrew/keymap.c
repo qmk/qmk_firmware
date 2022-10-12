@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	MO(3),     LCTL(KC_C), LCTL(KC_X), LCTL(KC_V), MO(2),
 	                                          KC_DELETE, KC_TRNS,
 	                                                     KC_LGUI,
-	                              KC_BSPACE,CTL_T(KC_NO),KC_LALT,
+	                                KC_BSPC,CTL_T(KC_NO),KC_LALT,
 
 	KC_TILD,   KC_6,    KC_7,        KC_8,        KC_9,      KC_0,     KC_EQUAL,
 	KC_TRNS,   KC_F,    KC_G,        KC_C,        KC_R,      KC_L,     KC_SLASH,

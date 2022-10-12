@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,              XXXXXXX,              XXXXXXX,       XXXXXXX,       XXXXXXX,
   KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK,
   XXXXXXX,
-  KC_ESCAPE,            KC_BSPACE,            KC_SPACE
+  KC_ESCAPE,            KC_BSPC,              KC_SPACE
 ),
 [_1_NUMBERS] = LAYOUT_ergodox(
   _______,  KC_F1,      KC_F2,    KC_F3,     KC_F4,    KC_F5,      _______,

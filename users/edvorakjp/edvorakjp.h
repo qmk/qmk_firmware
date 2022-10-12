@@ -31,7 +31,7 @@
 
 #define LA_TAB  LALT_T(KC_TAB)
 #define LS_SPC  LSFT_T(KC_SPACE)
-#define RC_BSPC RCTL_T(KC_BSPACE)
+#define RC_BSPC RCTL_T(KC_BACKSPACE)
 #define RC_DEL  RCTL_T(KC_DELETE)
 #define RG_ENT  RGUI_T(KC_ENTER)
 

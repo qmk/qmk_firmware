@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_AT,            KC_HASH,  KC_GRAVE, KC_LEFT, KC_RIGHT,                                                   KC_UP,   KC_DOWN,   KC_HOME, KC_END,      TO(QWERTY),
                                          ALT_T(KC_APPLICATION), ALL_T(KC_NO),           KC_PGUP, KC_LGUI,
                                                                    KC_BSLS,             TO(MAC),
-                                          KC_ENTER, KC_TAB, CTL_T(KC_ESCAPE),           CTL_T(KC_ESCAPE), KC_BSPACE,  KC_SPACE),
+                                          KC_ENTER, KC_TAB, CTL_T(KC_ESCAPE),           CTL_T(KC_ESCAPE), KC_BSPC,  KC_SPACE),
 
   // Layer 1: function and numpad keys.
   [NUM] = LAYOUT_ergodox_pretty(
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___,  ___,     ___,      ___,         ___,                                                ___,    KC_0,   KC_KP_DOT,  KC_EQUAL,     ___,
                                                            ___,    ___,         KC_KP_ASTERISK, KC_KP_SLASH,
                                                                KC_LCTL,         ___,
-                                      KC_KP_PLUS,  KC_KP_MINUS, KC_DLR,         KC_DELETE, KC_BSPACE,  KC_SPACE),
+                                      KC_KP_PLUS,  KC_KP_MINUS, KC_DLR,         KC_DELETE, KC_BSPC,  KC_SPACE),
 
   // Layer 2: QWERTY control.
   [QWERTY] = LAYOUT_ergodox_pretty(
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRAVE,   KC_QUOTE, LALT(KC_TAB), KC_LEFT,  KC_RIGHT,                                                   KC_UP,  KC_DOWN,  KC_LBRC,      KC_RBRC,      TO(BASE),
                                                   ___, KC_LGUI,                         ___, KC_ESCAPE,
                                                        KC_HOME,                         KC_PGUP,
-                                      KC_ENTER, KC_TAB, KC_END,                         KC_PGDN, KC_BSPACE, KC_SPACE),
+                                      KC_ENTER, KC_TAB, KC_END,                         KC_PGDN, KC_BSPC, KC_SPACE),
 
     // Layer 3: Mac layer
     [MAC] = LAYOUT_ergodox_pretty(

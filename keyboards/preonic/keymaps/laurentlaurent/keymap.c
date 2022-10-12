@@ -57,7 +57,7 @@
             // Space into Shift
         #define LSHFSP SFT_T(KC_SPACE)
             // Backspace into Shift
-        #define LSHFBK SFT_T(KC_BSPACE)
+        #define LSHFBK SFT_T(KC_BSPC)
 
     // Switching layers
         #define LTO_BS TO(_QWERTY_MAC)          // Go to Base Layer
@@ -66,7 +66,7 @@
         #define LLY_A LT(_NAV, KC_A)            // From A
             // Go to _PUNC
         #define LLY_TB LT(_PUNC, KC_TAB)        // From Tab
-        #define LLY_BK LT(_PUNC, KC_BSPACE)     // From Backspace
+        #define LLY_BK LT(_PUNC, KC_BSPC)       // From Backspace
         #define LLY_BS LT(_PUNC, KC_BSLS)       // From Backslash
             // Others
         #define LLY_GR LT(_ONEHD, KC_GRV)       // Go to _ONEHD from `
@@ -386,7 +386,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_Y,     KC_U,     KC_I,     KC_O,      KC_P,     LMW_L3,   LMW_FS,   LMW_R3,   LMW_TL,   LMW_TR,  XXXXXXX,
         _______,  KC_H,     KC_J,     KC_K,     KC_L,      KC_SCLN,  LMW_L1,   LMW_M1,   LMW_R1,   LMW_BL,   LMW_BR,  XXXXXXX,
         _______,  KC_N,     KC_M,     KC_COMM,  KC_DOT,    KC_SLSH,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
-        __LYB__,  KC_ESC,  KC_DEL,    KC_ENT,   KC_BSPACE, KC_SPC,   KC_SPC,   LMW_LT,   LMW_BT,   LMW_TP,   LMW_RT,  LLSWIT
+        __LYB__,  KC_ESC,  KC_DEL,    KC_ENT,   KC_BSPC,   KC_SPC,   KC_SPC,   LMW_LT,   LMW_BT,   LMW_TP,   LMW_RT,  LLSWIT
     ),
 
     /* Layer Switcher
