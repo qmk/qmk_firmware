@@ -287,6 +287,7 @@ void housekeeping_task_kb(void) {
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
+__attribute__((weak))
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{0,  6}, {1,  6}, {2,  6}, {3,  6}, {4,  6}, {5,  6}, {6, 6}},
