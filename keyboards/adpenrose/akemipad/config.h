@@ -33,6 +33,11 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 #define ENCODERS_PAD_B { B3 }
 #define TAP_CODE_DELAY 10
 
+/* Audio functionality */
+#define AUDIO_PIN C6
+#define AUDIO_ENABLE_TONE_MULTIPLEXING
+#define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 10
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
