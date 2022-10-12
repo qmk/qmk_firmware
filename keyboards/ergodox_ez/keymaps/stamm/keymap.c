@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ENTER,             KC_TAB,               KC_ESCAPE,
   KC_CAPS,              KC_CIRC,              KC_AMPR,       KC_ASTR,       KC_LPRN,            KC_RPRN,   KC_MINUS,
   XXXXXXX,              KC_Y,                 KC_U,          KC_I,          KC_O,               KC_P,      KC_LBRC,
-  KC_H,                 RGUI_T(KC_J),         RALT_T(KC_K),  RCTL_T(KC_L),  RSFT_T(KC_SCOLON),  KC_QUOTE,
+  KC_H,                 RGUI_T(KC_J),         RALT_T(KC_K),  RCTL_T(KC_L),  RSFT_T(KC_SCLN),    KC_QUOTE,
   KC_RBRC,              KC_N,                 KC_M,          KC_COMMA,      KC_DOT,             KC_SLASH,  KC_EQUAL,
   XXXXXXX,              XXXXXXX,              XXXXXXX,       XXXXXXX,       XXXXXXX,
   KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK,
@@ -217,7 +217,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     case RGUI_T(KC_J):
     case RALT_T(KC_K):
     case RCTL_T(KC_L):
-    case RSFT_T(KC_SCOLON):
+    case RSFT_T(KC_SEMICOLON):
     case ARROWS:
       return true;
     default:
@@ -237,7 +237,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     case RGUI_T(KC_J):
     case RALT_T(KC_K):
     case RCTL_T(KC_L):
-    case RSFT_T(KC_SCOLON):
+    case RSFT_T(KC_SEMICOLON):
     case ARROWS:
       return false;
     default:

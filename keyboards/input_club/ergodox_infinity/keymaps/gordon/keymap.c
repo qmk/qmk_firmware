@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                   ________, ________, ________, ________, ________, ________, NUMLOCK,
                   ________,TIL_SLASH,  KC_PIPE,  KC_PLUS,  KC_AMPR, ________, CAPLOCK,
-                             EQRIGHT,  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCOLON, ________,
+                             EQRIGHT,  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCLN, ________,
                   ________, KC_M, BK_SLASH,  ASTERSK,   KC_DOT, KC_SLASH, ________,
                   ________,________ ,________,TILD3,________,
                                                               ________,________,
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                    KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,   KC_NO ,
                   KC_NO  ,    KC_Y,      KC_U, KC_I,     KC_O,      KC_P,    KC_NO ,
-                             KC_H,   KC_J,     KC_K,    KC_L,    KC_SCOLON , KC_NO,
+                             KC_H,   KC_J,     KC_K,    KC_L,    KC_SCLN , KC_NO,
                KC_NO ,     KC_N,    KC_M,   KC_COMMA ,   KC_DOT ,  KC_SLASH,   KC_NO ,
                                        KC_UP,  KC_DOWN,   KC_DELETE,    KC_TILD,    KC_UNDS,
 

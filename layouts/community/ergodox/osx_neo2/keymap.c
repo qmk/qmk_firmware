@@ -59,7 +59,7 @@ enum custom_keycodes {
 #define US_OSX_SBQUO                LALT(LSFT(KC_0))            // ‚
 #define US_OSX_LEFT_SINGLE_QUOTE    LALT(KC_RBRC)               // ‘
 #define US_OSX_RIGHT_SINGLE_QUOTE   LALT(LSFT(KC_RBRC))         // ’
-#define US_OSX_ELLIPSIS             LALT(KC_SCOLON)             // …
+#define US_OSX_ELLIPSIS             LALT(KC_SCLN)               // …
 #define US_OSX_UNDERSCORE           LSFT(KC_MINUS)              // _
 #define US_OSX_LBRACKET             KC_LBRC                     // [
 #define US_OSX_RBRACKET             KC_RBRC                     // ]
@@ -79,7 +79,7 @@ enum custom_keycodes {
 #define US_OSX_LPARENTHESES         LSFT(KC_9)                  // (
 #define US_OSX_RPARENTHESES         LSFT(KC_0)                  // )
 #define US_OSX_HYPHEN_MINUS         KC_MINUS                    // -
-#define US_OSX_COLON                LSFT(KC_SCOLON)             // :
+#define US_OSX_COLON                LSFT(KC_SCLN)               // :
 #define US_OSX_AT                   LSFT(KC_2)                  // @
 #define US_OSX_HASH                 LSFT(KC_3)                  // #
 #define US_OSX_PIPE                 LSFT(KC_BSLASH)             // |
@@ -89,7 +89,7 @@ enum custom_keycodes {
 #define US_OSX_PERCENT              LSFT(KC_5)                  // %
 #define US_OSX_DOUBLE_QUOTE         LSFT(KC_QUOTE)              // "
 #define US_OSX_SINGLE_QUOTE         KC_QUOTE                    // '
-#define US_OSX_SEMICOLON            KC_SCOLON                   // ;
+#define US_OSX_SEMICOLON            KC_SCLN                     // ;
 
 // NEO_4 special characters
 #define US_OSX_FEMININE_ORDINAL     LALT(KC_9)                  // ª
@@ -376,7 +376,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // right hand side - main
     TO(NEO_1),        KC_6,         KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,
     KC_LBRC,          KC_Y,         KC_U,       KC_I,       KC_O,       KC_P,       KC_RBRC,
-    /* --- */         KC_H,         KC_J,       KC_K,       KC_L,       KC_SCOLON,  KC_QUOTE,
+    /* --- */         KC_H,         KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOTE,
     KC_NO /* NOOP */, KC_N,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSHIFT,
     /* --- */         /* --- */     KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   KC_RGUI,
 

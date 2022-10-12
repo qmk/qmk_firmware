@@ -6,7 +6,6 @@
 
 #define KC_BSPACE         KC_BACKSPACE
 #define KC_BSLASH         KC_BACKSLASH
-#define KC_SCOLON         KC_SEMICOLON
 
 #define KC_LCTRL          KC_LEFT_CTRL
 #define KC_LSHIFT         KC_LEFT_SHIFT

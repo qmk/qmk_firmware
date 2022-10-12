@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Programmer's Dvorak layer
   [0] = LAYOUT_ergodox(
     DVP_ESC,      DVP_AMPR,         DVP_LBRACKET, DVP_LCBR,         DVP_RCBR,     DVP_LPRN,   DVP_AT,
-    KC_TAB,       KC_SCOLON,        KC_COMMA,     KC_DOT,           KC_P,         KC_Y,       MO(4),
+    KC_TAB,       KC_SCLN,          KC_COMMA,     KC_DOT,           KC_P,         KC_Y,       MO(4),
     MO(3),        KC_A,             KC_O,         KC_E,             KC_U,         KC_I,
     KC_LSHIFT,    KC_QUOTE,         KC_Q,         KC_J,             KC_K,         KC_X,       KC_HYPR,
     KC_LCTL,      KC_LALT,          KC_LGUI,      LCTL(KC_C),       LCTL(KC_V),
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_6,       KC_7,   KC_8,     KC_9,         KC_0,       KC_MINUS,   KC_EQUAL,
     KC_F24,     KC_Y,   KC_U,     KC_I,         KC_O,       KC_P,       KC_BSLASH,
-                KC_H,   KC_J,     KC_K,         KC_L,       KC_SCOLON,  KC_QUOTE,
+                KC_H,   KC_J,     KC_K,         KC_L,       KC_SCLN,    KC_QUOTE,
     KC_F17,     KC_N,   KC_M,     KC_COMMA,     KC_DOT,     KC_SLASH,   KC_RSHIFT,
             KC_DELETE,  KC_F19,   KC_LGUI,       KC_F21,     KC_F22,
 

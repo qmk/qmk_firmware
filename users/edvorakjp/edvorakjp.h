@@ -8,7 +8,7 @@
 // clang-format off
 #define __EDVORAKJP_BASE_L1__               KC_QUOTE,      KC_COMMA,               KC_DOT,           KC_Y,          KC_Q
 #define __EDVORAKJP_BASE_L2__                   KC_A,  LALT_T(KC_O),         LGUI_T(KC_E),   LCTL_T(KC_I),          KC_U
-#define __EDVORAKJP_BASE_L3__              KC_SCOLON,          KC_X,                 KC_C,           KC_V,          KC_Z
+#define __EDVORAKJP_BASE_L3__                KC_SCLN,          KC_X,                 KC_C,           KC_V,          KC_Z
 
 #define __EDVORAKJP_BASE_R1__                   KC_F,          KC_G,                 KC_R,           KC_W,          KC_P
 #define __EDVORAKJP_BASE_R2__                   KC_D,  RSFT_T(KC_T),         RGUI_T(KC_N),   RALT_T(KC_S),          KC_M

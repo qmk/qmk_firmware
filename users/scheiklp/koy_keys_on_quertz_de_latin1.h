@@ -52,7 +52,7 @@ Additionally, there are some common chars that we dit not yet define:
 #define N_Z KC_Y
 #define N_Y KC_Z
 #define N_AE KC_QUOTE // ä
-#define N_OE KC_SCOLON // ö
+#define N_OE KC_SCLN // ö
 #define N_UE KC_LBRC // ü
 #define N_MU RALT(KC_M) // µ
 #define N_SS KC_MINS // ß

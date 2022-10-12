@@ -172,7 +172,7 @@ bool handle_US_ANSI_shifted_keys(int16_t keycode, bool in) {
             regular_keycode = KC_BSLASH;
             break;
         case KC_COLON:
-            regular_keycode = KC_SCOLON;
+            regular_keycode = KC_SEMICOLON;
             break;
         case KC_DOUBLE_QUOTE:
             regular_keycode = KC_QUOTE;
@@ -619,7 +619,7 @@ uint8_t state_23 = IDLE;
 uint8_t counter_23 = 0;
 const struct Chord chord_23 PROGMEM = {H_TOP10 + H_BOT10, QWERTY, &state_23, &counter_23, KC_L, KC_RALT, key_key_dance};
 uint8_t state_24 = IDLE;
-const struct Chord chord_24 PROGMEM = {H_TOP11 + H_BOT11, QWERTY, &state_24, NULL, KC_SCOLON, 0, single_dance};
+const struct Chord chord_24 PROGMEM = {H_TOP11 + H_BOT11, QWERTY, &state_24, NULL, KC_SEMICOLON, 0, single_dance};
 uint8_t state_25 = IDLE;
 const struct Chord chord_25 PROGMEM = {H_BOT1, QWERTY, &state_25, NULL, KC_TAB, 0, single_dance};
 uint8_t state_26 = IDLE;

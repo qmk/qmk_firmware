@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_DEL,
   KC_RBRC,     KC_Y, KC_U,  KC_I,    KC_O,    KC_P,                KC_BSPACE,
-               KC_H, KC_J,  KC_K,    KC_L,    KC_SCOLON,           KC_QUOTE,
+               KC_H, KC_J,  KC_K,    KC_L,    KC_SCLN,             KC_QUOTE,
   _______,     KC_N, KC_M,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), RSFT_T(KC_ENT),
                      RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,
 
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_DEL,
-  KC_RBRC,     KC_J, KC_F,  KC_U,    KC_P,    KC_SCOLON,           KC_BSPACE,
+  KC_RBRC,     KC_J, KC_F,  KC_U,    KC_P,    KC_SCLN,             KC_BSPACE,
                KC_Y, KC_N,  KC_E,    KC_O,    KC_I,                KC_QUOTE,
   _______,     KC_K, KC_L,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), RSFT_T(KC_ENT),
                      RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   KC_1,      KC_2,    KC_3,    KC_4,  KC_5, KC_ESC,
   KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,  KC_Y, KC_LBRC,
   KC_ESC,   KC_A,      KC_O,    KC_E,    KC_U,  KC_I,
-  KC_LSFT,  KC_SCOLON, KC_Q,    KC_J,    KC_K,  KC_X, _______,
+  KC_LSFT,  KC_SCLN,   KC_Q,    KC_J,    KC_K,  KC_X, _______,
   TT(_NUM), KC_LCTL,   KC_LALT, KC_LGUI, LOWER,
 
                                                   KC_MPLY,  _______,
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_DEL,
-  KC_RBRC,     KC_J, KC_L,  KC_U,    KC_Y,    KC_SCOLON,           KC_BSPACE,
+  KC_RBRC,     KC_J, KC_L,  KC_U,    KC_Y,    KC_SCLN,             KC_BSPACE,
                KC_H, KC_N,  KC_E,    KC_I,    KC_O,                KC_QUOTE,
   _______,     KC_K, KC_M,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), RSFT_T(KC_ENT),
                      RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,

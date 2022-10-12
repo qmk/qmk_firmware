@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TG(1),     KC_1,       KC_2,       KC_3,       KC_4,  KC_5, LALT(KC_LSHIFT),
 	KC_TAB,    KC_QUOTE,   KC_COMMA,   KC_DOT,     KC_P,  KC_Y, TG(3),
 	KC_ESCAPE, KC_A,       KC_O,       KC_E,       KC_U,  KC_I,
-	KC_LSHIFT, KC_SCOLON,  KC_Q,       KC_J,       KC_K,  KC_X, TG(2),
+	KC_LSHIFT, KC_SCLN,    KC_Q,       KC_J,       KC_K,  KC_X, TG(2),
 	MO(3),     LCTL(KC_C), LCTL(KC_X), LCTL(KC_V), MO(2),
 	                                          KC_DELETE, KC_TRNS,
 	                                                     KC_LGUI,
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,
 	KC_TRNS, KC_Y,    KC_U,    KC_E,     KC_O,      KC_P,      KC_TRNS,
-	         KC_H,    KC_J,    KC_K,     KC_L,      KC_SCOLON, KC_TRNS,
+	         KC_H,    KC_J,    KC_K,     KC_L,      KC_SCLN,   KC_TRNS,
 	KC_TRNS, KC_N,    KC_M,    KC_COMMA, KC_DOT,    KC_I,      KC_TRNS,
                     KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,
 	KC_TRNS, KC_TRNS,

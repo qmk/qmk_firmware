@@ -455,7 +455,7 @@ static uint8_t code2asc(uint8_t code)
         case KC_RIGHT_BRACKET: return (shifted ? '}' : ']');
         case KC_BSLASH: return (shifted ? '|' : '\\');
         case KC_NONUS_HASH: return (shifted ? '|' : '\\');
-        case KC_SCOLON: return (shifted ? ':' : ';');
+        case KC_SEMICOLON: return (shifted ? ':' : ';');
         case KC_QUOTE: return (shifted ? '"' : '\'');
         case KC_GRAVE: return (shifted ? '~' : '`');
         case KC_COMMA: return (shifted ? '<' : ',');

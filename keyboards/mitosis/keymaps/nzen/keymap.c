@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_QWERTY] = LAYOUT(
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,     KC_Y,      KC_U,        KC_I,        KC_O,   KC_P,
-    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,     KC_H,      KC_J,        KC_K,        KC_L,   KC_SCOLON,
+    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,     KC_H,      KC_J,        KC_K,        KC_L,   KC_SCLN,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,     KC_N,      KC_M,        KC_COMM,     KC_DOT, KC_QUOTE,
                KC_BSPACE, KC_DELETE, KC_LCTRL,  TG( 2 ),  TG( 3 ),   KC_RCTRL,    KC_ENTER,    KC_BSPACE,
                KC_LALT,   KC_0,      KC_LSHIFT, KC_SPACE, KC_SPACE,  KC_RSHIFT,   KC_CAPS,     KC_RALT
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ '', '4', '', '',/ ** / '', '', '', '',  ]
    */
   [_WORKMAN] = LAYOUT(
-    KC_Q, KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,     KC_P,    KC_SCOLON,
+    KC_Q, KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,     KC_P,    KC_SCLN,
     KC_A, KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,     KC_O,    KC_I,
     KC_Z, KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMMA, KC_DOT,  KC_QUOTE,
           _______, _______, _______, _______, _______, _______, _______,  _______,
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ['', '7', '', '',/ ** / '', '', '', '',  ]
    */
   [_PUNCT] = LAYOUT(
-    KC_HASH,     KC_AT,       KC_AMPERSAND, KC_DOT,      KC_SCOLON, KC_UNDERSCORE, KC_COMMA,    KC_PIPE, KC_CIRCUMFLEX, KC_PERCENT,
+    KC_HASH,     KC_AT,       KC_AMPERSAND, KC_DOT,      KC_SCLN,   KC_UNDERSCORE, KC_COMMA,    KC_PIPE, KC_CIRCUMFLEX, KC_PERCENT,
     KC_ASTERISK, KC_PLUS,     KC_LCBR,      KC_LPRN,     KC_COLON,  KC_DQUO,       KC_RPRN,     KC_RCBR, KC_MINUS,      KC_EQUAL,
     KC_BSLASH,   KC_QUESTION, KC_LT,        KC_LBRC,     KC_DOLLAR, KC_TILDE,      KC_RBRC,     KC_GT,   KC_EXCLAIM,    KC_SLASH,
                  _______,     _______,      _______,     TG( 4 ),   TG( 3 ),       _______,     _______, _______,

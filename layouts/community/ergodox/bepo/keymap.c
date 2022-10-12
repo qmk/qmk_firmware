@@ -150,7 +150,7 @@ KC_TRNS,	MO(QW_S),	KC_ENTER),
 // Left hand
 KC_HASH,	KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_TRNS,
 KC_GRV,		S(KC_B),	S(KC_E),	S(KC_P),	S(KC_O),	S(KC_E),	KC_TRNS,
-S(KC_W),	S(KC_A),	S(KC_U),	S(KC_I),	S(KC_E),	KC_SCOLON,
+S(KC_W),	S(KC_A),	S(KC_U),	S(KC_I),	S(KC_E),	KC_SCLN,
 S(KC_E),	S(KC_A),	S(KC_Y),	S(KC_X),	KC_COLON,	S(KC_K),	S(KC_TAB),
 S(KC_ESC),	S(KC_INS),	S(KC_LGUI),	S(KC_LCTL),	S(KC_LALT),
 														KC_TRNS,	KC_TRNS,

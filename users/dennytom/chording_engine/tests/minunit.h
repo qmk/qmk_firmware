@@ -119,7 +119,7 @@ enum keycodes {
     KC_PIPE,
     KC_BSLASH,
     KC_COLON,
-    KC_SCOLON,
+    KC_SEMICOLON,
     KC_DOUBLE_QUOTE,
     KC_QUOTE,
     KC_LEFT_ANGLE_BRACKET,
