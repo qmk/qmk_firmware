@@ -1,6 +1,6 @@
 # Dan's KPrepublic BM40 Keymap
 
-> ** The new bm40 v2 pcb no longer supports qmk_firmware. Check with the vendor before purchasing.  
+> ** There isn't a qmk firmware for the new bm40 v2 pcb yet. Check with your vendor before purchasing.  
 >  
 >This is my personal keymap with an LED indicator support for num lock, caps lock and scroll lock.
 
@@ -53,8 +53,8 @@
 |         | _A_ | _B_ | _C_ | _D_ | _E_ | _F_ | _G_ | _H_ | _I_ | _J_ | _K_ | _L_ |
 |---------|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|
 | **_1_** |  \` |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  | BSP |
-| **_2_** | CTL | LFT | DN  | UP  | RHT | C+/ |     |  [  |  ]  |  )  |  :  |  "  |
-| **_3_** | SFT | PGU | PGD | HOM | END |     |     |  (  |  ,  |  .  |  /  | RET |
+| **_2_** | CTL | LFT | DN  | UP  | RHT | C+/ | PGU |  [  |  ]  |  )  |  :  |  "  |
+| **_3_** | SFT | CAP | INS | HOM | END | PGD | PRN |  (  |  ,  |  .  |  /  | RET |
 | **_4_** | RGB |  [  |  ]  | &nbsp;ALT | TRN | &nbsp;SPC || &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_ | &nbsp;&nbsp;&nbsp;&nbsp;+ | &nbsp;INS | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ENT |
 >This is the layer dedicated to number, symbol and navigation keys. ie) arrow keys
 
@@ -76,7 +76,7 @@
 
 |         | _A_ | _B_ | _C_ | _D_ | _E_ | _F_ | _G_ | _H_ | _I_ | _J_ | _K_ | _L_ |
 |---------|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|
-| **_1_** |  /  |  7  |  8  |  9  |*/NUM|     |     |     |     |     |     | BSP |
+| **_1_** |  *  |  7  |  8  |  9  | NUM |  /  |     |     |     |     |     | BSP |
 | **_2_** | ALT |  4  |  5  |  6  | RET |     |     |     |     |     | SFT |     |
 | **_3_** |  -  |  1  |  2  |  3  | BSP |     |     |     |  ,  |  .  | CTL | RET |
 | **_4_** | TRN | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;. | &nbsp;&nbsp;&nbsp;0 | SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;LY1 | &nbsp;LY2 | &nbsp;LY3 | &nbsp;LY4 | &nbsp;LY5 |

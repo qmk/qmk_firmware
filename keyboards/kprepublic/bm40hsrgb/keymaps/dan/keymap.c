@@ -43,57 +43,49 @@ enum layers {
 
 // Tap dance declarations
 enum {
-    TD_LNG1_LNG2,
-    TD_LCTL_CAPS,
-    TD_LGUI_INS,
-    TD_LSFT_PSCR,
-    TD_PAST_NLCK
+    TD_LNG1_LNG2
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LNG1_LNG2] = ACTION_TAP_DANCE_DOUBLE(KC_LNG1, KC_LNG2),
-    [TD_LCTL_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
-    [TD_LGUI_INS] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_INS),
-    [TD_LSFT_PSCR] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_PSCR),
-    [TD_PAST_NLCK] = ACTION_TAP_DANCE_DOUBLE(KC_PAST, KC_NLCK)
+    [TD_LNG1_LNG2] = ACTION_TAP_DANCE_DOUBLE(KC_LNG1, KC_LNG2)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ALPHA
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |  Tab |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |CTL/CP|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |  CTL |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |SFT/PS|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Return|
+ * |  SFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |ESC/NU|KOR/HN| Win  |  Alt |LEFTFN|    Space    |RFN/- |   =  |Delete|  \   | Enter|
+ * |ESC/NU|KOR/HN|  Win |  Alt |LEFTFN|    Space    |RFN/- |   =  |Delete|  \   | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_ALPHA] = LAYOUT_planck_mit(
-    KC_TAB,             KC_Q,             KC_W,            KC_E,    KC_R,   KC_T,   KC_Y, KC_U,                 KC_I,    KC_O,    KC_P,    KC_BSPC,
-    TD(TD_LCTL_CAPS),   KC_A,             KC_S,            KC_D,    KC_F,   KC_G,   KC_H, KC_J,                 KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    TD(TD_LSFT_PSCR),   KC_Z,             KC_X,            KC_C,    KC_V,   KC_B,   KC_N, KC_M,                 KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-    LT(NUMPAD, KC_ESC), TD(TD_LNG1_LNG2), TD(TD_LGUI_INS), KC_LALT, LEFTFN,    KC_SPC,    LT(RIGHTFN, KC_MINS), KC_EQL,  KC_DEL,  KC_BSLS, KC_PENT
+    KC_TAB,             KC_Q,             KC_W,    KC_E,    KC_R,   KC_T, KC_Y, KC_U,                 KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_LCTRL,           KC_A,             KC_S,    KC_D,    KC_F,   KC_G, KC_H, KC_J,                 KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LSFT,            KC_Z,             KC_X,    KC_C,    KC_V,   KC_B, KC_N, KC_M,                 KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    LT(NUMPAD, KC_ESC), TD(TD_LNG1_LNG2), KC_LGUI, KC_LALT, LEFTFN,   KC_SPC,   LT(RIGHTFN, KC_MINS), KC_EQL,  KC_DEL,  KC_BSLS, KC_PENT
 ),
 
 /* LEFTFN
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Left | Down | Up   |Right |Ctrl+/|      |   [  |   ]  |   )  |   :  |  "   |
+ * | Ctrl | Left | Down | Up   |Right |Ctrl+/| PGUP |   [  |   ]  |   )  |   :  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift| PGUP | PGDN | Home | End  |      |      |   (  |   ,  |   .  |   /  |Return|
+ * | Shift|CapLck| Ins  | Home | End  | PGDN |PrntSc|   (  |   ,  |   .  |   /  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | RGB  |   [  |   ]  | Alt  | Trns |    Space    |   _  |   +  |Delete|   |  | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_LEFTFN] = LAYOUT_planck_mit(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,          KC_6,  KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_NO, KC_LBRC, KC_RBRC, KC_RPRN, KC_COLN, KC_DQUO,
-    KC_LSFT, KC_PGUP, KC_PGDN, KC_HOME, KC_END,   KC_NO,         KC_NO, KC_LPRN, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    RGB,     KC_LBRC, KC_RBRC, KC_LALT, KC_TRNS,           KC_SPC,      KC_UNDS, KC_PLUS, KC_DEL,  KC_PIPE, KC_PENT
+    KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,     KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+    KC_LCTRL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_PGUP, KC_LBRC, KC_RBRC, KC_RPRN, KC_COLN, KC_DQUO,
+    KC_LSFT,  KC_CAPS, KC_INS,  KC_HOME, KC_END,   KC_PGDN,       KC_PSCR, KC_LPRN, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    RGB,      KC_LBRC, KC_RBRC, KC_LALT, KC_TRNS,        KC_SPC,           KC_UNDS, KC_PLUS, KC_DEL,  KC_PIPE, KC_PENT
 ),
 
 /* RIGHTFN
@@ -116,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* NUMPAD
  * ,-----------------------------------------------------------------------------------.
- * |   /  |   7  |   8  |   9  |*NumLk|      |      |      |      |      |      | Bksp |
+ * |   *  |   7  |   8  |   9  | NumLk|  /   |      |      |      |      |      | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Alt |   4  |   5  |   6  |Return|      |      |      |      |      | Shift|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -126,10 +118,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_mit(
-    KC_PSLS, KC_P7,   KC_P8,   KC_P9,   TD(TD_PAST_NLCK), KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
-    KC_LALT, KC_P4,   KC_P5,   KC_P6,   KC_ENT,           KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
-    KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_BSPC,          KC_NO,   KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
-    KC_TRNS, KC_COMM, KC_PPLS, KC_PDOT, KC_P0,                 KC_SPC,    LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
+    KC_PAST, KC_P7,   KC_P8,   KC_P9,   KC_NUM,  KC_PSLS,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
+    KC_LALT, KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_NO,     KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
+    KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_NO,     KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
+    KC_TRNS, KC_COMM, KC_PPLS, KC_PDOT, KC_P0,       KC_SPC,       LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
 ),
 
 /* LEAGUE
@@ -271,10 +263,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 {36, 37, 38, 39, 40,   41,   42, 43, 44, 45, 46}
 */
 void rgb_matrix_indicators_user(void) {
-    uint8_t red[3] = {50, 5, 0};
-    uint8_t yellow[3] = {50, 50, 0};
-    uint8_t blue[3] = {0, 15, 50};
-    uint8_t green[3] = {15, 33, 1};
+    uint8_t red[3] = {22, 2, 0};
+    uint8_t yellow[3] = {20, 22, 0};
+    uint8_t blue[3] = {0, 6, 20};
+    uint8_t green[3] = {14, 22, 0};
     uint8_t white[3] = {255, 255, 255};
 
     switch (get_highest_layer(layer_state)) {
@@ -287,8 +279,8 @@ void rgb_matrix_indicators_user(void) {
         case _NUMPAD:
             break;
         case _LEAGUE:
-            rgb_matrix_set_color(15, yellow[0], yellow[1], yellow[2]);
             rgb_matrix_set_color(16, red[0], red[1], red[2]);
+            rgb_matrix_set_color(15, yellow[0], yellow[1], yellow[2]);
             rgb_matrix_set_color(29, blue[0], blue[1], blue[2]);
             rgb_matrix_set_color(42, green[0], green[1], green[2]);
             break;
