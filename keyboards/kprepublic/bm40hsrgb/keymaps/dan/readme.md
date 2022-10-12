@@ -43,7 +43,7 @@
 | **_1_** | TAB |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  | BSP |
 | **_2_** | CTL |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |
 | **_3_** | SFT |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | RET |
-| **_4_** | &nbsp;ESC | KOR | WIN | &nbsp;&nbsp;ALT | &nbsp;&nbsp;&nbsp;FN | &nbsp;SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- | &nbsp;&nbsp;&nbsp;&nbsp;= | DEL | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\ | ENT |
+| **_4_** | &nbsp;ESC | KOR | WIN | &nbsp;&nbsp;ALT | &nbsp;&nbsp;&nbsp;FN | &nbsp;SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- | &nbsp;&nbsp;&nbsp;&nbsp;= | DEL | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\ | ENT |
 >This is a base layer for typing.
 
 <br />
@@ -54,8 +54,8 @@
 |---------|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|
 | **_1_** |  \` |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  | BSP |
 | **_2_** | CTL | LFT | DN  | UP  | RHT | C+/ | PGU |  [  |  ]  |  )  |  :  |  "  |
-| **_3_** | SFT | CAP | INS | HOM | END | PGD | PRN |  (  |  ,  |  .  |  /  | RET |
-| **_4_** | RGB |  [  |  ]  | &nbsp;ALT | TRN | &nbsp;SPC || &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_ | &nbsp;&nbsp;&nbsp;&nbsp;+ | &nbsp;INS | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ENT |
+| **_3_** | SFT | CAPS| INS | HOM | END | PGD | PRN |  (  |  ,  |  .  |  /  | RET |
+| **_4_** | RGB |  [  |  ]&nbsp;  | ALT | TRN | &nbsp;SPC || &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_ | &nbsp;&nbsp;&nbsp;&nbsp;+ | &nbsp;DEL | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\| | ENT |
 >This is the layer dedicated to number, symbol and navigation keys. ie) arrow keys
 
 <br />
