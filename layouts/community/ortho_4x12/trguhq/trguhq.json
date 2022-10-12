@@ -308,7 +308,7 @@
     ],
     [
       "ANY(UNICODE_MODE_MAC)",
-      "RESET",
+      "QK_BOOT",
       "DEBUG",
       "RGB_TOG",
       "RGB_MOD",
