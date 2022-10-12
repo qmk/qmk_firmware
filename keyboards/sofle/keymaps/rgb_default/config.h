@@ -36,8 +36,16 @@
 #endif
 
 #ifdef TAP_DANCE_ENABLE
-// #       define TAPPING_TERM 200 // defined in rev1/config.h = 100
+// #       define TAPPING_TERMz 200 // defined in rev1/config.h = 100
 #       define TAPPING_TERM_PER_KEY
+#endif
+
+// OLED settings
+#ifdef OLED_ENABLE
+        #undef OLED_TIMEOUT
+        #undef OLED_BRIGHTNESS
+        #define OLED_TIMEOUT    80000
+        #define OLED_BRIGHTNESS 90
 #endif
 
 #define ENCODER_DIRECTION_FLIP
@@ -66,7 +74,7 @@
 
 // #define RGBLIGHT_ANIMATIONS
 //#define RGBLIGHT_EFFECT_BREATHING
-#       define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//#       define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #       define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //#define RGBLIGHT_EFFECT_SNAKE
 //#define RGBLIGHT_EFFECT_KNIGHT

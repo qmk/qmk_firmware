@@ -267,11 +267,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------.                    ,-----------------------------------------.
      * |      |      |      | low  | raise| adj  |                    |numpad|      |      |      |      |      |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |      |AG-SWAP|AG-UNSWAP|  |      |      |                    |      |      |      |      |      |QK_BOOT |
+     * |      |QWERTY|WinMod|      |      |      |                    |      |      |      |      |      |QK_BOOT |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |      |QWERTY|COLEMAKDH|   |      |      |-------.    ,-------|      |      |      |      |      |EEP_RST|
+     * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |EEP_RST|
      * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
-     * | SLEEP|      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+     * | SLEEP|      |COLEMAKDH|   |      |      |-------|    |-------|      |MacMod|      |      |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
      *            | CTRL | ALT  |  CMD | LOWER| / Enter /       \Space \  |RAISE | CMD  | ALT  | CTRL |
      *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -282,11 +282,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,------------------------------------------------.                    ,---------------------------------------------------.
         /**/ _______, TO(_QWERTY), TO(_COLEMAKDH), TO(2), TO(3), TO(4), /*            */ TO(5), TO(6), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        /**/ XXXXXXX, AG_SWAP, AG_NORM, XXXXXXX, XXXXXXX, XXXXXXX, /*                        */ XXXXXXX, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
+        /**/ XXXXXXX, KC_QWERTY, AG_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, /*                        */ XXXXXXX, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
         //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-        /**/ KC_NO, KC_QWERTY, KC_COLEMAKDH, KC_NO, KC_NO, KC_NO, /*                      */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, EEP_RST,
+        /**/ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, /*                      */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, EEP_RST,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-        /**/ KC_SYSTEM_SLEEP, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, /**/ KC_NO, KC_NO, /**/ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        /**/ KC_SYSTEM_SLEEP, KC_NO, KC_NO, KC_COLEMAKDH, KC_NO, KC_NO, /**/ KC_NO, KC_NO, /**/ KC_NO, AG_NORM, KC_NO, KC_NO, KC_NO, KC_NO,
         //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
         /*             */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, /*              */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
         //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -362,7 +362,7 @@ static void render_logo(void) {
 static void print_status_narrow(void) {
     // Print current mode
     oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("Dor\nZvulun"), false);
+    oled_write_ln_P(PSTR("Dor\nZvln"), false);
 
     oled_write_ln_P(PSTR(""), false);
 
