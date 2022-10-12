@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, KC_F9,         KC_F7,      KC_F5,   KC_F3,        KC_F1,   KC_WWW_HOME,
         KC_PAUS,            KC_F19,        KC_F17,     KC_F15,  KC_F13,       KC_F11,
         RGB_HUD,             XXXXXXX,       XXXXXXX,    _______, KC_F23,       KC_F21,  KC_WWW_BACK,
-        RGB_VAD,             KC_CAPS,       KC_PSCREEN, XXXXXXX, MO(FIRMWARE),
+        RGB_VAD,             KC_CAPS,       KC_PSCR,    XXXXXXX, MO(FIRMWARE),
 
         // left thumb
                  _______, XXXXXXX,

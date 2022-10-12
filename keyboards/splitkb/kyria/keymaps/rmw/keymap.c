@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL(KC_LEFT), R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO , TO(NUMPAD), FORM_GET,
                                             _______, _______, _______, DEL_WRD, _______,
 
-                                    NEW_TAB , KC_PGUP, KC_UP, KC_PGDN, KC_PSCREEN, _______,
+                                    NEW_TAB , KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, _______,
                                     R_HOME  , KC_LEFT, KC_DOWN, KC_RIGHT, R_END, _______,
                 FORM_PUT, TO(QWERTY), SEL_HOME, S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), SEL_END, _______,
                 _______, _______, _______, _______, _______

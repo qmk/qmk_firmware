@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT     ,KC_F1              ,KC_F2              ,KC_F3              ,KC_F4              ,KC_F5              ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,LCTL(KC_Q)         ,LCTL(KC_DOWN)      ,LGUI(KC_DOWN)      ,WIN_LEFT_HALF      ,WIN_RIGHT_HALF     ,LALT(LSFT(KC_UP))  ,
     LCTL(LSFT(KC_P))   ,LCTL(KC_A)         ,SAVE               ,LCTL(KC_D)         ,KC_TRANSPARENT     ,RGUI(KC_R)         ,
-    LCTL(LSFT(KC_F))   ,UNDO               ,CUT                ,KC_PSCREEN         ,KC_TRANSPARENT     ,LGUI(KC_RIGHT)     ,LALT(LSFT(KC_DOWN)),
+    LCTL(LSFT(KC_F))   ,UNDO               ,CUT                ,KC_PSCR            ,KC_TRANSPARENT     ,LGUI(KC_RIGHT)     ,LALT(LSFT(KC_DOWN)),
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,
