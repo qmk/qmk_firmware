@@ -4,12 +4,11 @@ import cmd
 
 from milc import cli
 
+from qmk.keycodes import load_spec
+from qmk.decorators import lru_cache
 from qmk.keyboard import render_layout
-from qmk.xap.common import get_xap_keycodes
 
 from xap_client import XAPClient, XAPEventType, XAPSecureStatus, XAPConfigRgblight, XAPConfigBacklight, XAPConfigRgbMatrix, XAPRoutes
-
-KEYCODE_MAP = get_xap_keycodes('latest')
 
 
 def print_dotted_output(kb_info_json, prefix=''):
@@ -38,6 +37,16 @@ def print_dotted_output(kb_info_json, prefix=''):
             cli.echo('    {fg_blue}%s{fg_reset}: %s', new_prefix, kb_info_json[key])
 
 
+@lru_cache(timeout=5)
+def _load_keycodes(keycode_version):
+    """Gets keycode data for the required version of the XAP definitions.
+    """
+    spec = load_spec(keycode_version)
+
+    # Transform into something more usable - { raw_value : first alias || keycode }
+    return {int(k, 16): v.get('aliases', [v.get('key')])[0] for k, v in spec['keycodes'].items()}
+
+
 def _list_devices():
     """Dump out available devices
     """
@@ -62,7 +71,7 @@ class XAPShell(cmd.Cmd):
         cmd.Cmd.__init__(self)
         self.device = device
         # cache keycodes for this device
-        self.keycodes = get_xap_keycodes(device.version()['xap'])
+        self.keycodes = _load_keycodes(device.version().get('keycodes', 'latest'))
 
     def do_about(self, arg):
         """Prints out the version info of QMK

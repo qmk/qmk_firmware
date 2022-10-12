@@ -135,12 +135,6 @@
         "define": {
             "$ref": "qmk.definitions.v1#/define"
         },
-        "uses": {
-            "type": "object",
-            "additionalProperties": {
-                "$ref": "qmk.definitions.v1#/bcd_version"
-            }
-        },
         "documentation": {
             "type": "object",
             "properties": {

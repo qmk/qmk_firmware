@@ -817,7 +817,7 @@
             "key": "KC_LOCKING_NUM_LOCK",
             "label": "Num Lock",
             "aliases": [
-                "KC_LSCR"
+                "KC_LNUM"
             ]
         },
         "0x0084": {
@@ -825,7 +825,7 @@
             "key": "KC_LOCKING_SCROLL_LOCK",
             "label": "Scroll Lock",
             "aliases": [
-                "KC_LCAP"
+                "KC_LSCR"
             ]
         },
         "0x0085": {
@@ -1246,23 +1246,23 @@
             "key": "KC_WWW_FAVORITES",
             "label": "Browser Favorites",
             "aliases": [
-                "KC_WREF"
+                "KC_WFAV"
             ]
         },
         "0x00bb": {
             "group": "media",
             "key": "KC_MEDIA_FAST_FORWARD",
-            "label": "Browser Favorites",
+            "label": "Next Track",
             "aliases": [
-                "KC_WREF"
+                "KC_MFFD"
             ]
         },
         "0x00bc": {
             "group": "media",
             "key": "KC_MEDIA_REWIND",
-            "label": "Browser Favorites",
+            "label": "Previous Track",
             "aliases": [
-                "KC_WFAV"
+                "KC_MRWD"
             ]
         },
         "0x00bd": {

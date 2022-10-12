@@ -1,12 +1,6 @@
 {
     version: 0.3.0
 
-    uses: {
-        rgblight: 0.0.1
-        rgb_matrix: 0.0.1
-        led_matrix: 0.0.1
-    }
-
     routes: {
 
         0x06: {

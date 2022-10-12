@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from qmk.casing import to_snake
 from qmk.constants import QMK_FIRMWARE
-from qmk.json_schema import json_load, validate
+from qmk.json_schema import validate
 from qmk.decorators import lru_cache
 from qmk.keymap import locate_keymap
 from qmk.path import keyboard
@@ -147,20 +147,6 @@ def merge_xap_defs(kb, km):
         exit(1)
 
     return defs
-
-
-@lru_cache(timeout=5)
-def get_xap_keycodes(xap_version):
-    """Gets keycode data for the required version of the XAP definitions.
-    """
-    defs = get_xap_defs(xap_version)
-
-    # Load DD keycodes for the dependency
-    keycode_version = defs['uses']['keycodes']
-    spec = json_load(Path(f'data/constants/keycodes_{keycode_version}.json'))
-
-    # Transform into something more usable - { raw_value : first alias || keycode }
-    return {int(k, 16): v.get('aliases', [v.get('key')])[0] for k, v in spec['keycodes'].items()}
 
 
 def route_conditions(route_stack):
