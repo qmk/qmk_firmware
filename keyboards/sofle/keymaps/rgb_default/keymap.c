@@ -362,7 +362,7 @@ static void render_logo(void) {
 static void print_status_narrow(void) {
     // Print current mode
     oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("Dane\nEvans"), false);
+    oled_write_ln_P(PSTR("Dor\nZvulun"), false);
 
     oled_write_ln_P(PSTR(""), false);
 
@@ -401,7 +401,7 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Adj\n"), false);
             break;
         case _NUMPAD:
-            oled_write_P(PSTR("Nump\n"), false);
+            oled_write_P(PSTR("Num\nPad"), false);
             break;
         case _SWITCH:
             oled_write_P(PSTR("Swit\n"), false);
@@ -506,9 +506,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             case _LOWER:
                 if (clockwise) {
-                    tap_code(KC_MNXT);
-                } else {
                     tap_code(KC_MPRV);
+                } else {
+                    tap_code(KC_MNXT);
                 }
                 break;
             default:
