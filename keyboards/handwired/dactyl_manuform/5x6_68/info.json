@@ -4,8 +4,8 @@
     "url": "",
     "maintainer": "kpagratis",
     "usb": {
-        "vid": "0x444D",
-        "pid": "0x3536",
+        "vid": "0xFEED",
+        "pid": "0x0016",
         "device_version": "0.0.1"
     },
     "layouts": {
