@@ -1,6 +1,6 @@
 # Planck Ortho 4x12 Unicode Futhark Rune layout
 
-![Planck Futhark Layout Image](https://imgur.com/a/1JTcbOo)
+![Planck Futhark Layout Image](https://i.imgur.com/9PWhagl.png)
 
 * Layout Maintainer: [trguhq](https://github.com/trguhq)
 
