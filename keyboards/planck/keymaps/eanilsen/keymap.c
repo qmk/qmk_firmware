@@ -16,13 +16,15 @@ enum planck_layers {
   _ISRT,
   _SYMBOL,
   _FUNCTION,
-  _NAV
+  _NAV,
+  _NUM
 };
 
 #define SYMBOL OSL(_SYMBOL)
 #define FUNCTION OSL(_FUNCTION)
 #define NAV TO(_NAV)
 #define HOME TO(_ISRT)
+#define NUM TO(_NUM)
 #define MTLCTL MT(MOD_LCTL,KC_T)
 #define MTRCTL MT(MOD_RCTL,KC_N)
 #define MEH_SPC MT(MOD_MEH,KC_SPC)
@@ -43,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Q  |   V  |   W  |   D  |   J  |   B  |   H  |   /  |   .  |   X  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |CPSWRD| Ctrl | Alt  | GUI  |Space | Sym  | Func |Bksp  | Nav  | GUI  | Left |Right |
+   * |CPSWRD| Ctrl | Alt  | GUI  |Space | Num  | Func |Bksp  | Nav  | GUI  | Left |Right |
    * `-----------------------------------------------------------------------------------'
    */
 
@@ -56,13 +58,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* SYMBOL
    * ,-----------------------------------------------------------------------------------.
-   * |  ~   |   Y  |   C  |   L  |   M  |   K  |   Z  |   F  |   U  |   ,  |   '  | Del  |
+   * |  --- |  --- |   !  |   <  |   >  |   +  |   ^  |   _  |   |  |   ~  |   %  | Del  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Esc  |   I  |   S  |   R  |   T  |   G  |   P  |   N  |   E  |   A  |   O  |Enter |
+   * | Esc  |   {  |   }  |   (  |   )  |   @  |   #  |   &  |   *  |   "  |   $  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   Q  |   V  |   W  |   D  |   J  |   B  |   H  |   /  |   .  |   X  |Shift |
+   * | Shift|  --- |   :  |   [  |   ]  |   ;  |   =  |   -  |   \  |   `  |  --- |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |CPSWRD| Ctrl | Alt  | GUI  |Space | Sym  | Func |Bksp  | Nav  | GUI  | Left |Right |
+   * |  --- | Ctrl | Alt  | GUI  |Space |  --- | Home |  Num |  --- |  --- |  --- | --- |
    * `-----------------------------------------------------------------------------------'
    */
 
@@ -70,7 +72,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD,  KC_NO,    KC_NO,    KC_NO,    KC_EQL,  KC_NO, KC_CIRC,       KC_AMPR, KC_ASTR, KC_AT, 	    KC_NO,         KC_NO,
     KC_GRV,   KC_NO,    KC_NO,    KC_NO,    KC_MINS, KC_NO, LT(0,KC_BSLS), KC_LPRN, KC_RPRN, LT(0,CT_PIPE), LT(0,KC_SCLN), KC_NO,
     KC_LSFT,  KC_NO,    KC_NO,    KC_NO,    KC_0,    KC_NO, KC_LBRC,       KC_LCBR, KC_RCBR, KC_RBRC,       KC_NO,         KC_RSFT,
-    KC_NO,    KC_LCTL,  KC_LALT,  KC_LGUI , KC_SPC,  KC_NO, HOME,          KC_RCTL, KC_NO,   KC_NO,         KC_NO,         KC_NO
+    KC_NO,    KC_LCTL,  KC_LALT,  KC_LGUI , KC_SPC,  KC_NO, HOME,          NUM,     KC_NO,   KC_NO,         KC_NO,         KC_NO
+    ),
+
+  /* NUM
+   * ,-----------------------------------------------------------------------------------.
+   * | ---  |   /  |   1  |   2  |   3  |   +  | ---  | ---  | ---  | ---  | ---  | ---  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Esc  |   0  |   4  |   5  |   6  |   -  | ---  | ---  | ---  | ---  | ---  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|   *  |   7  |   8  |   9  |   =  | ---  | ---  | ---  | ---  | ---  |Shift |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | ---  | Ctrl | Alt  | GUI  |Space | Home | ---  |Bkspc | ---  | ---  | ---  | ---  |
+   * `-----------------------------------------------------------------------------------'
+   */
+
+  [_NUM] = LAYOUT_ortho_4x12(
+    KC_NO,  KC_SLSH, KC_1,    KC_2,    KC_3,   KC_PLUS, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_ESC, KC_0,    KC_4,    KC_5,    KC_6,   KC_MINS, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_ENT,
+    KC_NO,  KC_ASTR, KC_7,    KC_8,    KC_9,   KC_EQL,  KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_RSFT,
+    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,    KC_NO, KC_BSPC, KC_NO, KC_NO, KC_NO, KC_NO
     ),
 
   /* FUNCTION
