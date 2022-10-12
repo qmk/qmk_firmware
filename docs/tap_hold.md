@@ -16,7 +16,7 @@ You can set the global time for this by adding the following setting to your `co
 #define TAPPING_TERM 200
 ```
 
-This setting is defined in milliseconds and does default to 200ms.  This is a good average for the majority of people.
+This setting is defined in milliseconds and defaults to 200ms.  This is a good average for the majority of people.
 
 For more granular control of this feature, you can add the following to your `config.h`:
 ```c
