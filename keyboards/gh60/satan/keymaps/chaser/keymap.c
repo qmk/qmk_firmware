@@ -45,5 +45,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MS_BTN3  ,KC_MS_BTN2 ,KC_MS_UP   ,KC_MS_BTN1 ,KC_MS_WH_UP  ,_______,_______,_______,KC_INS ,_______,QK_BOOT,_______,_______    ,KC_PSCREEN ,          \
     _______     ,KC_MS_LEFT ,KC_MS_DOWN ,KC_MS_RIGHT,KC_MS_WH_DOWN,_______,_______,_______,_______,_______,_______,_______,_______    ,_______    ,          \
     _______     ,_______    ,_______    ,_______    ,_______      ,_______,_______,_______,_______,_______,_______,_______,KC_PGUP    ,_______    ,          \
-    KC_LCTL     ,_______    ,KC_LALT    ,                                  _______,                        KC_RCTL,KC_HOME,KC_PGDOWN  ,KC_END ),
+    KC_LCTL     ,_______    ,KC_LALT    ,                                  _______,                        KC_RCTL,KC_HOME,KC_PGDN    ,KC_END ),
 };

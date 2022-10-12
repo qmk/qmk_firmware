@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MEH,       KC_B,             KC_M,         KC_W,             KC_V,         KC_Z,       MO(3),
                                     KC_DELETE,    KC_BSLASH,        KC_RGUI,      KC_RCTL,    LCTL(KC_F),
 
-      KC_F17,     KC_F18,   KC_PGUP,  KC_PGDOWN,  KC_ENTER,   KC_BSPACE
+      KC_F17,     KC_F18,   KC_PGUP,  KC_PGDN,  KC_ENTER,   KC_BSPACE
   ),
   // Gaming QWERTY layer
   [1] = LAYOUT_ergodox(
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F17,     KC_N,   KC_M,     KC_COMMA,     KC_DOT,     KC_SLASH,   KC_RSHIFT,
             KC_DELETE,  KC_F19,   KC_LGUI,       KC_F21,     KC_F22,
 
-      KC_F17,   KC_F18, KC_PGUP,  KC_PGDOWN,    KC_ENTER,   KC_BSPACE
+      KC_F17,   KC_F18, KC_PGUP,  KC_PGDN,    KC_ENTER,   KC_BSPACE
   ),
   [2] = LAYOUT_ergodox(
     KC_ESCAPE,  KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_C,
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,     KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_KP_ENTER,     KC_NO,  KC_NO,
                KC_KP_0,        KC_KP_DOT,      KC_NO,          KC_NO,           KC_NO,
 
-      TO(0), KC_F18, KC_PGUP,  KC_PGDOWN,  KC_ENTER, KC_BSPACE
+      TO(0), KC_F18, KC_PGUP,  KC_PGDN,  KC_ENTER, KC_BSPACE
   ),
   // Function Layer
   [3] = LAYOUT_ergodox(
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSHIFT,      LALT(KC_Z),       KC_TRANSPARENT,     KC_TRANSPARENT,     KC_F12,             KC_TRANSPARENT, ALL_T(KC_NO),
     KC_LCTL,        KC_LALT,          KC_LGUI,            KC_CAPS,            LSFT(KC_F12),
 
-     KC_PSCREEN, KC_PGUP,  KC_PGDOWN,  KC_SPACE, KC_LSHIFT,  KC_INSERT,
+     KC_PSCREEN, KC_PGUP,  KC_PGDN,  KC_SPACE, KC_LSHIFT,  KC_INSERT,
 
     KC_F6,          KC_F7,            KC_F8,              KC_F9,              KC_F10,             KC_F11,         KC_F12,
     KC_NO,          KC_HOME,          KC_TRANSPARENT,     KC_PSCREEN,         KC_SLCK,            KC_TRANSPARENT, KC_TRANSPARENT,
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_EQUAL,         RGB_SLD,    RGB_HUD,
                                     KC_KP_0,        KC_KP_DOT,      KC_KP_ENTER,      RGB_MOD,   RGB_TOG,
 
-      KC_F17, KC_F18, KC_PGUP,  KC_PGDOWN,  KC_ENTER, KC_BSPACE
+      KC_F17, KC_F18, KC_PGUP,  KC_PGDN,  KC_ENTER, KC_BSPACE
   )
   //*/
   /*
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,    SHFT_DOT,       KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_EQUAL,       RGB_HUD,
               KC_NO,                       KC_KP_0,        KC_KP_DOT,      KC_KP_ENTER,    RGB_TOG,
 
-      KC_F17, KC_F18, KC_PGUP,  KC_PGDOWN,  KC_ENTER, KC_BSPACE
+      KC_F17, KC_F18, KC_PGUP,  KC_PGDN,  KC_ENTER, KC_BSPACE
   )
   */
 

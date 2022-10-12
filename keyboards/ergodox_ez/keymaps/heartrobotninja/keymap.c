@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_ESC, LGUI(KC_R), KC_LEFT, KC_DOWN, KC_RGHT,
             KC_HOME, KC_END,
             KC_PGUP,
-            KC_PGDOWN, KC_ENT, OSM(MOD_LSFT)),
+            KC_PGDN, KC_ENT, OSM(MOD_LSFT)),
 
         /* Keymap 2: LOWER Layer
          *

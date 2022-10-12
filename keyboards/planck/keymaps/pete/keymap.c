@@ -89,13 +89,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   CYCLWIN,MACSLEEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DEL ,
   _______, MICMUTE, KC_MUTE, KC_VOLD, KC_VOLU, MACPRNT,MACPRNT2, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX,
   _______, BL_STEP, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDOWN,KC_PGUP,KC_END
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,KC_END
 ),
 [_WIN] = LAYOUT_planck_grid( /* Windows */
   CYCLWIN,WINSLEEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DEL ,
   _______, MICMUTE, KC_MUTE, KC_VOLD, KC_VOLU, WINPRNT,WINPRNT2, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX,
   _______, BL_STEP, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDOWN,KC_PGUP,KC_END
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,KC_END
 ),
 [_LIN] = LAYOUT_planck_grid( /* Linux */
   KC_L,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,

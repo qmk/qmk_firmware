@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                    KC_LBRC,     KC_RBRC,     KC_BSLASH, KC_UNDO,  LCTL(KC_A),
 	KC_END,    KC_HOME,
 	KC_PGUP,
-	KC_PGDOWN, KC_ENTER, KC_SPACE
+	KC_PGDN,   KC_ENTER, KC_SPACE
 ),
 
  /* Keymap 1: Hebrew layer

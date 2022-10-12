@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         KC_DELETE, KC_ENTER,
         KC_PGUP,
-        KC_PGDOWN, PV_E,     PV_U
+        KC_PGDN, PV_E,     PV_U
     ),
 
     [GAMING] = LAYOUT_ergodox(
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         XXXXXXX,   XXXXXXX,
         KC_PGUP,
-        KC_PGDOWN, KC_DELETE, KC_ENTER
+        KC_PGDN, KC_DELETE, KC_ENTER
     ),
 
     [MOUSE] = LAYOUT_ergodox(
@@ -243,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         XXXXXXX,   XXXXXXX,
         KC_PGUP,
-        KC_PGDOWN, KC_DELETE, KC_ENTER
+        KC_PGDN, KC_DELETE, KC_ENTER
     ),
 
     [LAYERS] = LAYOUT_ergodox(

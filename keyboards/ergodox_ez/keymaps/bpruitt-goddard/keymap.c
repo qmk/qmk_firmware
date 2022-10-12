@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRAVE,   KC_QUOTE, LALT(KC_TAB), KC_LEFT,  KC_RIGHT,                                                   KC_UP,  KC_DOWN,  KC_LBRC,      KC_RBRC,      TO(BASE),
                                                   ___, KC_LGUI,                         ___, KC_ESCAPE,
                                                        KC_HOME,                         KC_PGUP,
-                                      KC_ENTER, KC_TAB, KC_END,                         KC_PGDOWN, KC_BSPACE, KC_SPACE),
+                                      KC_ENTER, KC_TAB, KC_END,                         KC_PGDN, KC_BSPACE, KC_SPACE),
 
     // Layer 3: Mac layer
     [MAC] = LAYOUT_ergodox_pretty(

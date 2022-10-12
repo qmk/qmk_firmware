@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   TT(_STREET_FIGHTER),  ________,
          KC_PGUP,
-  KC_PGDOWN, LT(_NAV,KC_ENTER), SPAC_TXT),
+  KC_PGDN, LT(_NAV,KC_ENTER), SPAC_TXT),
 
 
   //**************************SYMBOLS LAYER**************************

@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, M(MACRO_TODO),   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_F12,
                 M(MACRO_NEW), KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
        KC_TILD, M(MACRO_PARENTHESE), KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
-                         KC_PGUP,KC_PGDOWN,  KC_INSERT,   KC_PSCREEN,  KC_TRNS,
+                         KC_PGUP,KC_PGDN,  KC_INSERT,   KC_PSCREEN,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_LEFT, KC_RIGHT

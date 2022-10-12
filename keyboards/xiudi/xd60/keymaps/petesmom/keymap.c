@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,   RGB_MOD, RGB_VAI,  KC_TRNS,  KC_TRNS, KC_HOME, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_MPLY, KC_MRWD,  KC_MFFD,            KC_MSTP, \
       KC_TRNS,   RGB_TOG, RGB_VAD,  KC_MUTE,  KC_VOLU, KC_VOLD, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_TRNS, KC_TRNS,  KC_NO,              KC_ENT,    \
       KC_TRNS,   KC_NO,   KC_TRNS,  KC_TRNS,  KC_CIRC, KC_AMPR, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,  KC_VOLU, KC_NO,   KC_MUTE,KC_PGUP,  QK_BOOT, \
-      KC_TRNS,   KC_TRNS, KC_TRNS,                              KC_SPC,                              KC_TRNS, KC_TRNS,  KC_HOME,  KC_PGDOWN,KC_END
+      KC_TRNS,   KC_TRNS, KC_TRNS,                              KC_SPC,                              KC_TRNS, KC_TRNS,  KC_HOME,  KC_PGDN,KC_END
       ),
 
 };

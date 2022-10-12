@@ -385,7 +385,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code(KC_PGUP);
                 // tap_code(KC_MS_WH_UP);
             } else {
-                tap_code(KC_PGDOWN);
+                tap_code(KC_PGDN);
                 // tap_code(KC_MS_WH_DOWN);
             }
         } else if (index == 0) { /* Second encoder */

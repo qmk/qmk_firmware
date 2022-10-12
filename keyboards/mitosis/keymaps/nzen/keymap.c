@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ '', '6', '', '',/ ** / '', '', '', '',  ]
    */
   [_NUMBERS] = LAYOUT(
-    KC_9,       KC_8,       KC_7,       KC_6,       KC_5,    KC_F2,   KC_PGDOWN,     KC_UP,    KC_TAB,   KC_PGUP,
+    KC_9,       KC_8,       KC_7,       KC_6,       KC_5,    KC_F2,   KC_PGDN,       KC_UP,    KC_TAB,   KC_PGUP,
     KC_4,       KC_3,       KC_2,       KC_1,       KC_0,    KC_HOME, KC_LEFT,       KC_DOWN,  KC_RIGHT, KC_END,
     LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_LGUI, KC_D,    KC_UNDERSCORE, KC_COMMA, KC_MINUS, KC_DOT,
                 _______,    _______,    _______,    TG( 2 ), TG( 3 ), _______,       _______,  _______,

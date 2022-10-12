@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_CAPS,  SFT_T(KC_ENT),  KC_SPC), 
 
   [NUMPAD] = LAYOUT_ergodox(VRSN, KC_F11, KC_F12, KC_F1, KC_F2, KC_F3, _______, 
-    _______, _______, KC_PGUP, KC_UP, KC_PGDOWN, _______, TO(QWERTY), 
+    _______, _______, KC_PGUP, KC_UP, KC_PGDN, _______, TO(QWERTY), 
     _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, 
     _______, LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_Y), _______,
     _______, _______, _______, _______, _______, 
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, TO(NUMPAD), 
     _______, _______, _______, S(KC_UP), _______, _______, KC_DELETE, 
-    TO(QWERTY), LGUI(KC_T), KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
+    TO(QWERTY), LGUI(KC_T), KC_PGUP, KC_UP, KC_PGDN, KC_PSCREEN, _______, 
              LGUI(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LGUI(KC_RIGHT), _______, 
     _______, S(LGUI(KC_LEFT)), S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), S(LGUI(KC_RIGHT)), LCTL(KC_LEFT), 
     _______, _______, FORM_GET, FORM_PUT, _______, 

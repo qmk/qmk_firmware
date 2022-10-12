@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // right hand side - thumb cluster
     KC_PGUP,          MO(FKEYS),        /* --- */
-    KC_PGDOWN,        /* --- */         /* --- */
+    KC_PGDN,          /* --- */         /* --- */
     NEO2_RMOD4,       KC_ENTER,         KC_SPACE
   ),
 
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NEO_4] = LAYOUT_ergodox(
     // left hand side - main
     KC_NO /* NOOP */,   US_OSX_FEMININE_ORDINAL,  US_OSX_MASCULINE_ORDINAL, KC_NO /* NOOP */,     US_OSX_MIDDLE_DOT,  US_OSX_BRITISH_POUND, _______,
-    _______,            KC_PGUP,                  KC_BSPACE,                KC_UP,                KC_DELETE,          KC_PGDOWN,            _______,
+    _______,            KC_PGUP,                  KC_BSPACE,                KC_UP,                KC_DELETE,          KC_PGDN,              _______,
     _______,            KC_HOME,                  KC_LEFT,                  KC_DOWN,              KC_RIGHT,           KC_END,               /* --- */
     _______,            KC_ESCAPE,                KC_TAB,                   KC_INSERT,            KC_ENTER,           KC_NO /* NOOP */,     _______,
     _______,            _______,                  _______,                  _______,              _______,            /* --- */             /* --- */
@@ -383,7 +383,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // right hand side - thumb cluster
     KC_RALT,          KC_RCTRL,     /* --- */
     KC_PGUP,          /* --- */     /* --- */
-    KC_PGDOWN,        KC_ENTER,     KC_SPACE
+    KC_PGDN,          KC_ENTER,     KC_SPACE
   ),
 
   /* FKEYS: Function keys
