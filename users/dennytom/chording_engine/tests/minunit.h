@@ -117,7 +117,7 @@ enum keycodes {
     KC_RIGHT_CURLY_BRACE,
     KC_RIGHT_BRACKET,
     KC_PIPE,
-    KC_BSLASH,
+    KC_BACKSLASH,
     KC_COLON,
     KC_SEMICOLON,
     KC_DOUBLE_QUOTE,

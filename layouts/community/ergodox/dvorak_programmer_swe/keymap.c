@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLASH,
+             KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
              TG(1),       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             SE_ARNG,
                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,             SE_ADIA,
              TG(MDIA),KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSFT,
@@ -276,7 +276,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			}
 		case MACRO_TODO:
 			if (record->event.pressed) {
-				return MACRO( KC_BSLASH, D(LSHIFT) ,T(T), T(O), T(D), T(O), KC_DOT, U(LSHIFT),  T(SPACE),END);
+				return MACRO( KC_BSLS, D(LSHIFT) ,T(T), T(O), T(D), T(O), KC_DOT, U(LSHIFT),  T(SPACE),END);
 			}
 			break;
         case MACRO_SAVE:

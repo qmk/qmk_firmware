@@ -16,7 +16,7 @@
 #define RSQUIGLY  KC_RBRC
 #define NUMLOCK   KC_NUM_LOCK
 #define CAPLOCK   KC_CAPS_LOCK
-#define BK_SLASH  KC_BSLASH
+#define BK_SLASH  KC_BACKSLASH
 #define ASTERSK   KC_KP_ASTERISK
 
 // Navigation

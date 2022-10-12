@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     //right hand
     KC_F7,           KC_F8,     KC_F9,    KC_F10,   KC_F11,        KC_F12,           KC_MINUS,
-    MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLASH,
+    MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLS,
                       KC_H,     KC_J, ALT_T(KC_K),  LGUI_T(KC_L),  LT(MEDIA,KC_SCLN),  ALL_T(KC_QUOTE),
     TD(CT_RBP),       KC_N,     KC_M,     KC_COMMA, ALT_T(KC_DOT), CTL_T(KC_SLASH),  SCMD_T(_______),
                 LSFT(KC_MINUS), _______,  DBLE_ZER0, DBLE_ZER0,   TO(OLD_BASE),
@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       //right hand
       TD(TD_SNAGIT),    KC_6,     KC_7,     KC_8,     KC_9,          KC_0,             KC_MINUS,
-      MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLASH,
+      MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLS,
                         KC_H,     KC_J,     KC_K,     LGUI_T(KC_L),  LT(MEDIA,KC_SCLN),  ALL_T(KC_QUOTE),
       TD(CT_RBP),       KC_N,     KC_M,     KC_COMMA, ALT_T(KC_DOT), CTL_T(KC_SLASH),  SCMD_T(_______),
                   LSFT(KC_MINUS), _______,  DBLE_ZER0, DBLE_ZER0,   TO(BASE),

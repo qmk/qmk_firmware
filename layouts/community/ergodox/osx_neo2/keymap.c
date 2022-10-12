@@ -70,7 +70,7 @@ enum custom_keycodes {
 #define US_OSX_EQUAL                KC_EQUAL                    // =
 #define US_OSX_AMPERSAND            LSFT(KC_7)                  // &
 #define US_OSX_SMALL_LONG_S         KC_NO                       // ſ
-#define US_OSX_BSLASH               KC_BSLASH
+#define US_OSX_BSLASH               KC_BACKSLASH
 #define US_OSX_SLASH                KC_SLASH                    // /
 #define US_OSX_CLBRACKET            LSFT(KC_LBRC)               // {
 #define US_OSX_CRBRACKET            LSFT(KC_RBRC)               // }
@@ -82,7 +82,7 @@ enum custom_keycodes {
 #define US_OSX_COLON                LSFT(KC_SCLN)               // :
 #define US_OSX_AT                   LSFT(KC_2)                  // @
 #define US_OSX_HASH                 LSFT(KC_3)                  // #
-#define US_OSX_PIPE                 LSFT(KC_BSLASH)             // |
+#define US_OSX_PIPE                 LSFT(KC_BACKSLASH)          // |
 #define US_OSX_TILDE                LSFT(KC_GRAVE)              // ~
 #define US_OSX_BACKTICK             KC_GRAVE                    // `
 #define US_OSX_PLUS                 LSFT(KC_EQUAL)              // +
@@ -363,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [US_1] = LAYOUT_ergodox(
     // left hand side - main
     KC_EQUAL,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,       KC_ESCAPE,
-    KC_BSLASH,        KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,       KC_NO /* NOOP */,
+    KC_BSLS,          KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,       KC_NO /* NOOP */,
     KC_TAB,           KC_A,         KC_S,       KC_D,       KC_F,       KC_G,       /* --- */
     KC_LSHIFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,       KC_NO /* NOOP */,
     KC_LGUI,          KC_GRAVE,     KC_NO,      KC_NO,      MO(FKEYS),  /* --- */   /* --- */
@@ -486,7 +486,7 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
         if (command) {
           tap_code16(S(G(KC_4)));
         } else {
-          tap_code16(S(A(KC_BSLASH)));
+          tap_code16(S(A(KC_BACKSLASH)));
         }
         break;
       case NEO2_5:
@@ -494,7 +494,7 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
           tap_code16(S(G(KC_5)));
         } else {
           // left angled quote
-          tap_code16(A(KC_BSLASH));
+          tap_code16(A(KC_BACKSLASH));
         }
         break;
       case NEO2_6:

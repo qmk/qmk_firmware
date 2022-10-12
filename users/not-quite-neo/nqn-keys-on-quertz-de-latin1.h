@@ -44,7 +44,7 @@ Additionally, there are some common chars that we dit not yet define:
 #define N_RPARN LSFT(KC_9) // )
 #define N_MINS KC_SLASH // -
 #define N_COLN LSFT(KC_DOT) // :
-#define N_HASH KC_BSLASH // #
+#define N_HASH KC_BACKSLASH // #
 #define N_DLR LSFT(KC_4) // $
 #define N_PIPE RALT(KC_NONUS_BACKSLASH) // |
 #define N_TILD RALT(KC_RBRC) // ~
@@ -52,7 +52,7 @@ Additionally, there are some common chars that we dit not yet define:
 #define N_PLUS KC_RBRC // +
 #define N_PERC LSFT(KC_5) // %
 #define N_QUOT LSFT(KC_2) // "
-#define N_SING LSFT(KC_BSLASH) // '
+#define N_SING LSFT(KC_BACKSLASH) // '
 #define N_SEMI LSFT(KC_COMM) // ;
 #define N_EURO RALT(KC_E) // €
 #define N_AT RALT(KC_Q) // @
