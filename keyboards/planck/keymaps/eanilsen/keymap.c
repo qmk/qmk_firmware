@@ -114,6 +114,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
   switch (keycode) {
+  case KC_PSCR:
+    send_mac_or_win(G(S(KC_4)), KC_PSCR, isPressed);
+    return false;
   case LT_UP:
     if (isHeld) {
       tap_code16(C(KC_UP));
