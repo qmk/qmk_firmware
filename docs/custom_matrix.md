@@ -49,6 +49,27 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 }
 ```
 
+## 'shared'
+
+Almost complete default implementation for all scanning functions, removing only the scan routine. This allows flexibility in keyboards with shared matrix wiring, where the scan timing is essential.
+To configure it, add this to your `rules.mk`:
+
+```make
+CUSTOM_MATRIX = shared
+```
+
+And implement the following functions in a `matrix.c` file in your keyboard folder:
+
+```c
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool matrix_has_changed = false;
+
+    // TODO: add matrix scanning routine here
+
+    return matrix_has_changed;
+}
+```
+
 
 ## Full Replacement
 
