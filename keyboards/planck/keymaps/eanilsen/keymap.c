@@ -58,21 +58,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* SYMBOL
    * ,-----------------------------------------------------------------------------------.
-   * |  --- |  --- |   !  |   <  |   >  |   +  |   ^  |   _  |   |  |   ~  |   %  | Del  |
+   * |  --- |   !  |   <  |   >  |   +  |  --- |  --- |   _  |   |  |   ~  |   %  | Del  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Esc  |   {  |   }  |   (  |   )  |   @  |   #  |   &  |   *  |   "  |   $  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|  --- |   :  |   [  |   ]  |   ;  |   =  |   -  |   \  |   `  |  --- |Shift |
+   * | Shift|   :  |   ;  |   [  |   ]  |  --- |   =  |   -  |   \  |   `  |   ^  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * |  --- | Ctrl | Alt  | GUI  |Space |  --- | Home |  Num |  --- |  --- |  --- | ---  |
    * `-----------------------------------------------------------------------------------'
    */
 
   [_SYMBOL] = LAYOUT_ortho_4x12(
-    KC_NO,   KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_CIRC, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
-    KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT,   KC_HASH, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
-    KC_LSFT, KC_NO,   KC_COLN, KC_LBRC, KC_RBRC, KC_SCLN, KC_EQL,  KC_MINS, KC_BSLS, KC_GRV,  KC_NO,   KC_RSFT,
-    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO,   HOME,    NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
+    KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_NO, KC_NO,   KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
+    KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT, KC_HASH, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
+    KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_EQL,  KC_MINS, KC_BSLS, KC_GRV,  KC_CIRC, KC_RSFT,
+    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,    NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
   /* NUM
