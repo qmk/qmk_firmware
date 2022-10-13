@@ -112,10 +112,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_FUNCTION] = LAYOUT_ortho_4x12(
-    CG_TOGG,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,   KC_PSCR, KC_NO,   KC_NO,   NO_AE,   QK_BOOT,
-    KC_NO,     KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_NO, KC_NO,   MW_COPY, MW_PSTE, NO_ARNG, NO_OSTR, KC_NO,
-    KC_LSFT,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NO, KC_NO,   SEL_WRD, KC_NO,   KC_NO,   KC_NO,   KC_RSFT,
-    KC_NO,     KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO,   KC_NO,   KC_NO,   KC_NO
+    CG_TOGG,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,   KC_PSCR, KC_NO,    KC_NO,   NO_AE,   QK_BOOT,
+    KC_NO,     KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_NO, KC_NO,   MW_COPY, MW_PSTE,  NO_ARNG, NO_OSTR, KC_NO,
+    KC_LSFT,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NO, KC_NO,   SEL_WRD, SEL_SRCH, KC_NO,   KC_NO,   KC_RSFT,
+    KC_NO,     KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO,    KC_NO,   KC_NO,   KC_NO
     ),
 
   /* NAV
@@ -182,6 +182,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
+  case SEL_SRCH:
+    if (isPressed) {
+      if (is_mac_the_default()) {
+	SEND_STRING(SS_LGUI("ct") SS_DELAY(100) SS_LGUI("v") SS_TAP(X_ENTER));
+      } else {
+	SEND_STRING(SS_LCTL("ct") SS_DELAY(100) SS_LCTL("v") SS_TAP(X_ENTER));
+      }
+    }
+    return false;
   case ARROW:
     if (isPressed) {
       if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {

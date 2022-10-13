@@ -23,5 +23,6 @@ enum custom_keycodes {
   MW_REDO,
   CT_PIPE,
   SEL_WRD,
+  SEL_SRCH,
   ARROW
 };
