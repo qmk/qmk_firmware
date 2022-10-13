@@ -64,15 +64,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|  --- |   :  |   [  |   ]  |   ;  |   =  |   -  |   \  |   `  |  --- |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |  --- | Ctrl | Alt  | GUI  |Space |  --- | Home |  Num |  --- |  --- |  --- | --- |
+   * |  --- | Ctrl | Alt  | GUI  |Space |  --- | Home |  Num |  --- |  --- |  --- | ---  |
    * `-----------------------------------------------------------------------------------'
    */
 
   [_SYMBOL] = LAYOUT_ortho_4x12(
-    KC_TILD,  KC_NO,    KC_NO,    KC_NO,    KC_EQL,  KC_NO, KC_CIRC,       KC_AMPR, KC_ASTR, KC_AT, 	    KC_NO,         KC_NO,
-    KC_GRV,   KC_NO,    KC_NO,    KC_NO,    KC_MINS, KC_NO, LT(0,KC_BSLS), KC_LPRN, KC_RPRN, LT(0,CT_PIPE), LT(0,KC_SCLN), KC_NO,
-    KC_LSFT,  KC_NO,    KC_NO,    KC_NO,    KC_0,    KC_NO, KC_LBRC,       KC_LCBR, KC_RCBR, KC_RBRC,       KC_NO,         KC_RSFT,
-    KC_NO,    KC_LCTL,  KC_LALT,  KC_LGUI , KC_SPC,  KC_NO, HOME,          NUM,     KC_NO,   KC_NO,         KC_NO,         KC_NO
+    KC_NO,   KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_CIRC, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
+    KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT,   KC_HASH, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
+    KC_LSFT, KC_NO,   KC_COLN, KC_LBRC, KC_RBRC, KC_SCLN, KC_EQL,  KC_MINS, KC_BSLS, KC_GRV,  KC_NO,   KC_RSFT,
+    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO,   HOME,    NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
   /* NUM
@@ -126,10 +126,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_NAV] = LAYOUT_ortho_4x12(
-    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U,   KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   KC_NO,
-    KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D,   KC_MS_R, KC_NO, KC_BTN4, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN5, KC_ENT,
-    KC_NO,  SW_APP,  SW_WIN,  KC_NO,     KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-    KC_NO,  KC_NO,   KC_NO,   KC_BTN3,   KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO,   KC_NO
+    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   KC_NO,
+    KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_BTN4, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN5, KC_ENT,
+    KC_NO,  SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,  KC_NO,   KC_NO,   KC_BTN3, KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO,   KC_NO
     )
 };
 
