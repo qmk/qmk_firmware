@@ -25,8 +25,8 @@ PREFIX_MAP = {
 }
 
 
-def _get_lighting_spec(xap_defs, feature):
-    version = xap_defs['uses'][feature]
+def _get_lighting_spec(feature):
+    version = '0.0.1'
     spec = json_load(Path(f'data/constants/{feature}_{version}.json'))
 
     # preprocess for gross rgblight "mode + n"
@@ -407,7 +407,7 @@ def _append_lighting_mapping(lines, xap_defs):
 ''')
 
     for feature in PREFIX_MAP.keys():
-        spec = _get_lighting_spec(xap_defs, feature)
+        spec = _get_lighting_spec(feature)
 
         lines.append(f'#ifdef {feature.upper()}_ENABLE')
         _append_lighting_map(lines, feature, spec)

@@ -82,6 +82,7 @@ secrets.tar
 # Python things
 __pycache__
 .python-version
+*.egg-info
 
 # Prerequisites for updating ChibiOS
 /util/fmpp*

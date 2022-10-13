@@ -13,7 +13,7 @@ def xap_generate_python(cli):
     defs = latest_xap_defs()
 
     parent = QMK_FIRMWARE / 'lib' / 'python' / 'xap_client'
-    for name in ['types.py', 'routes.py']:
+    for name in ['types.py', 'routes.py', 'constants.py']:
         lines = [GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE]
 
         output = render_xap_output('client/python', f'{name}.j2', defs)

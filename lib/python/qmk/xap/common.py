@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from qmk.casing import to_snake
 from qmk.constants import QMK_FIRMWARE
-from qmk.json_schema import validate
+from qmk.json_schema import json_load, validate
 from qmk.decorators import lru_cache
 from qmk.keymap import locate_keymap
 from qmk.path import keyboard
@@ -25,7 +25,14 @@ def _get_jinja2_env(data_templates_xap_subdir: str):
 
 def render_xap_output(data_templates_xap_subdir, file_to_render, defs):
     j2 = _get_jinja2_env(data_templates_xap_subdir)
-    return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs), to_snake=to_snake)
+
+    j2.globals['to_snake'] = to_snake
+
+    constants = {}
+    for feature in ['rgblight', 'rgb_matrix']:
+        constants[feature] = json_load(Path(f'data/constants/{feature}_0.0.1.json'))
+
+    return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs), constants=constants)
 
 
 def _find_kb_spec(kb):
