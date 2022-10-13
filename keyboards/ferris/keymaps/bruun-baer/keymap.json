@@ -6,14 +6,14 @@
     "keymap": "bruun-baer",
     "layout": "LAYOUT_split_3x5_2",
     "layers": [
-        ["KC_Q"        , "KC_D"        , "KC_R"        , "KC_W"          , "KC_B",
-         "KC_J"        , "KC_F"        , "KC_U"        , "KC_P"          , "KC_QUOT",
+        ["KC_Q"        , "KC_W"        , "KC_E"        , "KC_R"          , "KC_T",
+         "KC_Y"        , "KC_U"        , "KC_I"        , "KC_O"          , "KC_P",
 
-         "LGUI_T(KC_A)", "LALT_T(KC_S)", "LSFT_T(KC_H)", "LCTL_T(KC_T)"  , "KC_G",
-         "KC_Y"        , "LCTL_T(KC_N)", "LSFT_T(KC_E)", "LALT_T(KC_O)"  , "LGUI_T(KC_I)",
+         "LGUI_T(KC_A)", "LALT_T(KC_S)", "LSFT_T(KC_D)", "LCTL_T(KC_F)"  , "KC_G",
+         "KC_H"        , "LCTL_T(KC_J)", "LSFT_T(KC_K)", "LALT_T(KC_L)"  , "LGUI_T(KC_QUOT)",
 
-         "KC_Z"        , "RALT_T(KC_X)", "KC_M"        , "KC_C"          , "KC_V",
-         "KC_K"        , "KC_L"        , "KC_COMM"     , "RALT_T(KC_DOT)", "KC_SLSH",
+         "KC_Z"        , "RALT_T(KC_X)", "KC_C"        , "KC_V"          , "KC_B",
+         "KC_N"        , "KC_M"        , "KC_COMM"     , "RALT_T(KC_DOT)", "KC_SLSH",
 
          "LT(3,KC_SPC)", "LT(4,KC_TAB)",
          "LT(2,KC_ENT)", "LT(1,KC_BSPC)"
@@ -65,7 +65,19 @@
 
          "KC_NO"       , "KC_NO",
          "KC_BTN1"     , "KC_BTN2"
-        ]
+        ],
+        // ["KC_"         , "KC_"         , "KC_W"        , "KC_"           , "KC_",
+        //  "KC_NO"       ,  "KC_NO"      , "KC_NO"       , "KC_NO"         , "KC_NO",
+
+        //  "KC_SHIFT"    , "KC_A"        , "KC_S"        , "KC_D"          , "KC_",
+        //  "KC_NO"       , "KC_NO"       , "KC_NO"       , "KC_NO"         , "KC_NO",
+
+        //  "KC_CTL"      , "KC_"         , "KC_"         , "KC_"           , "KC_",
+        //  "KC_NO"       , "KC_NO"       , "KC_NO"       , "KC_NO"         , "KC_NO",
+
+        //  "KC_SPC"      , "KC_LT()",
+        //  "KC_NO"       , "KC_NO"
+        // ]
     ],
     "author": "@bruun-baer"
 }
