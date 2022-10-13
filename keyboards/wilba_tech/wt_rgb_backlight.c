@@ -144,7 +144,6 @@ backlight_config g_config = {
 };
 
 bool g_suspend_state = false;
-uint8_t g_indicator_state = 0;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -1982,11 +1981,6 @@ void backlight_set_suspend_state(bool state)
     g_suspend_state = state;
 }
 
-void backlight_set_indicator_state(uint8_t state)
-{
-    g_indicator_state = state;
-}
-
 void backlight_effect_rgb_test(void)
 {
     // Mask out bits 4 and 5
@@ -2425,8 +2419,7 @@ void backlight_effect_indicators_set_colors( uint8_t index, HS color )
 // colors already set
 void backlight_effect_indicators(void)
 {
-    if ( g_config.caps_lock_indicator.index != 255 &&
-            ( g_indicator_state & (1<<USB_LED_CAPS_LOCK) ) )
+    if ( g_config.caps_lock_indicator.index != 255 && host_keyboard_led_state().caps_lock )
     {
         backlight_effect_indicators_set_colors( g_config.caps_lock_indicator.index, g_config.caps_lock_indicator.color );
     }
