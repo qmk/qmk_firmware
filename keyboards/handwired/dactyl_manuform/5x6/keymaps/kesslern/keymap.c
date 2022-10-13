@@ -51,43 +51,33 @@ enum custom_keycodes {
 // Tap Dance declarations
 enum {
     MR1,
-    MR2,
 };
 
 void macro1(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count > 3) return;
+
     keyrecord_t kr;
+    kr.event.pressed = false;
+    uint16_t action  = DYN_REC_STOP;
 
     if (state->count == 1) {
+        action = DYN_MACRO_PLAY1;
         kr.event.pressed = false;
-        process_dynamic_macro(DYN_MACRO_PLAY1, &kr);
     } else if (state->count == 2) {
+        action = DYN_REC_STOP;
         kr.event.pressed = true;
-        process_dynamic_macro(DYN_REC_STOP, &kr);
     } else if (state->count == 3) {
+        action = DYN_REC_START1;
         kr.event.pressed = false;
-        process_dynamic_macro(DYN_REC_START1, &kr);
     }
-}
 
-void macro2(qk_tap_dance_state_t *state, void *user_data) {
-    keyrecord_t kr;
-
-    if (state->count == 1) {
-        kr.event.pressed = false;
-        process_dynamic_macro(DYN_MACRO_PLAY2, &kr);
-    } else if (state->count == 2) {
-        kr.event.pressed = true;
-        process_dynamic_macro(DYN_REC_STOP, &kr);
-    } else if (state->count == 3) {
-        kr.event.pressed = false;
-        process_dynamic_macro(DYN_REC_START2, &kr);
-    }
+    process_dynamic_macro(action, &kr);
 }
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [MR1] = ACTION_TAP_DANCE_FN(macro1),
-    [MR2] = ACTION_TAP_DANCE_FN(macro2),
+    [TDTEST] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -101,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_F13 , KC_F14 ,          KC_F13 , KC_F14 ,
                                         CT_BSPC, ALT_DEL,          ALT_ENT, CT_SPC ,
                                         KC_DOWN, WIN_UP ,          WINRGHT, KC_LEFT,
-                                        MO_UTIL, XXXXXXX,          XXXXXXX, MO_UTIL
+                                        MO_UTIL, TD(MR1),          XXXXXXX, MO_UTIL
   ),
 
   [_SYM] = LAYOUT_5x6(
@@ -133,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     QK_BOOT, _______, _______, _______, _______, L_FLASH,          R_FLASH, _______, _______, _______, _______, QK_BOOT,
     _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_VOLU,          _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, TD(MR1), TD(MR2),          _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, KC_VOLD,          _______, _______, _______, _______, _______, _______,
                                         _______, _______,          _______, _______,
                                         _______, _______,          _______, _______,
