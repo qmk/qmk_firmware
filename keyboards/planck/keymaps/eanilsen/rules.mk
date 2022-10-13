@@ -19,3 +19,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SRC += features/swapper.c
 SRC += features/select_word.c
+SRC += features/custom_shift_keys.c
