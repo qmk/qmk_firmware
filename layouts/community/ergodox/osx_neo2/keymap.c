@@ -59,7 +59,7 @@ enum custom_keycodes {
 #define US_OSX_SBQUO                LALT(LSFT(KC_0))            // ‚
 #define US_OSX_LEFT_SINGLE_QUOTE    LALT(KC_RBRC)               // ‘
 #define US_OSX_RIGHT_SINGLE_QUOTE   LALT(LSFT(KC_RBRC))         // ’
-#define US_OSX_ELLIPSIS             LALT(KC_SCOLON)             // …
+#define US_OSX_ELLIPSIS             LALT(KC_SCLN)               // …
 #define US_OSX_UNDERSCORE           LSFT(KC_MINUS)              // _
 #define US_OSX_LBRACKET             KC_LBRC                     // [
 #define US_OSX_RBRACKET             KC_RBRC                     // ]
@@ -70,7 +70,7 @@ enum custom_keycodes {
 #define US_OSX_EQUAL                KC_EQUAL                    // =
 #define US_OSX_AMPERSAND            LSFT(KC_7)                  // &
 #define US_OSX_SMALL_LONG_S         KC_NO                       // ſ
-#define US_OSX_BSLASH               KC_BSLASH
+#define US_OSX_BSLASH               KC_BACKSLASH
 #define US_OSX_SLASH                KC_SLASH                    // /
 #define US_OSX_CLBRACKET            LSFT(KC_LBRC)               // {
 #define US_OSX_CRBRACKET            LSFT(KC_RBRC)               // }
@@ -79,17 +79,17 @@ enum custom_keycodes {
 #define US_OSX_LPARENTHESES         LSFT(KC_9)                  // (
 #define US_OSX_RPARENTHESES         LSFT(KC_0)                  // )
 #define US_OSX_HYPHEN_MINUS         KC_MINUS                    // -
-#define US_OSX_COLON                LSFT(KC_SCOLON)             // :
+#define US_OSX_COLON                LSFT(KC_SCLN)               // :
 #define US_OSX_AT                   LSFT(KC_2)                  // @
 #define US_OSX_HASH                 LSFT(KC_3)                  // #
-#define US_OSX_PIPE                 LSFT(KC_BSLASH)             // |
+#define US_OSX_PIPE                 LSFT(KC_BACKSLASH)          // |
 #define US_OSX_TILDE                LSFT(KC_GRAVE)              // ~
 #define US_OSX_BACKTICK             KC_GRAVE                    // `
 #define US_OSX_PLUS                 LSFT(KC_EQUAL)              // +
 #define US_OSX_PERCENT              LSFT(KC_5)                  // %
 #define US_OSX_DOUBLE_QUOTE         LSFT(KC_QUOTE)              // "
 #define US_OSX_SINGLE_QUOTE         KC_QUOTE                    // '
-#define US_OSX_SEMICOLON            KC_SCOLON                   // ;
+#define US_OSX_SEMICOLON            KC_SCLN                     // ;
 
 // NEO_4 special characters
 #define US_OSX_FEMININE_ORDINAL     LALT(KC_9)                  // ª
@@ -135,8 +135,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // left hand side - thumb cluster
     /* --- */         MO(FKEYS),        KC_HOME,
-    /* KC_BSPACE */   /* KC_DELETE */   KC_END,
-    KC_BSPACE,        KC_DELETE,        NEO2_LMOD4,
+    /* KC_BSPC */     /* KC_DELETE */   KC_END,
+    KC_BSPC,          KC_DELETE,        NEO2_LMOD4,
 
     // right hand side - main
     TO(US_1),         NEO2_6,           NEO2_7,           NEO2_8,           NEO2_9,           NEO2_0,           NEO2_MINUS,
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // right hand side - thumb cluster
     KC_PGUP,          MO(FKEYS),        /* --- */
-    KC_PGDOWN,        /* --- */         /* --- */
+    KC_PGDN,          /* --- */         /* --- */
     NEO2_RMOD4,       KC_ENTER,         KC_SPACE
   ),
 
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NEO_4] = LAYOUT_ergodox(
     // left hand side - main
     KC_NO /* NOOP */,   US_OSX_FEMININE_ORDINAL,  US_OSX_MASCULINE_ORDINAL, KC_NO /* NOOP */,     US_OSX_MIDDLE_DOT,  US_OSX_BRITISH_POUND, _______,
-    _______,            KC_PGUP,                  KC_BSPACE,                KC_UP,                KC_DELETE,          KC_PGDOWN,            _______,
+    _______,            KC_PGUP,                  KC_BSPC,                  KC_UP,                KC_DELETE,          KC_PGDN,              _______,
     _______,            KC_HOME,                  KC_LEFT,                  KC_DOWN,              KC_RIGHT,           KC_END,               /* --- */
     _______,            KC_ESCAPE,                KC_TAB,                   KC_INSERT,            KC_ENTER,           KC_NO /* NOOP */,     _______,
     _______,            _______,                  _______,                  _______,              _______,            /* --- */             /* --- */
@@ -363,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [US_1] = LAYOUT_ergodox(
     // left hand side - main
     KC_EQUAL,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,       KC_ESCAPE,
-    KC_BSLASH,        KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,       KC_NO /* NOOP */,
+    KC_BSLS,          KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,       KC_NO /* NOOP */,
     KC_TAB,           KC_A,         KC_S,       KC_D,       KC_F,       KC_G,       /* --- */
     KC_LSHIFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,       KC_NO /* NOOP */,
     KC_LGUI,          KC_GRAVE,     KC_NO,      KC_NO,      MO(FKEYS),  /* --- */   /* --- */
@@ -371,19 +371,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // left hand side - thumb cluster
     /* --- */         KC_LCTRL,     KC_LALT,
     /* --- */         /* --- */     KC_HOME,
-    KC_BSPACE,        KC_DELETE,    KC_END,
+    KC_BSPC,          KC_DELETE,    KC_END,
 
     // right hand side - main
     TO(NEO_1),        KC_6,         KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,
     KC_LBRC,          KC_Y,         KC_U,       KC_I,       KC_O,       KC_P,       KC_RBRC,
-    /* --- */         KC_H,         KC_J,       KC_K,       KC_L,       KC_SCOLON,  KC_QUOTE,
+    /* --- */         KC_H,         KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOTE,
     KC_NO /* NOOP */, KC_N,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSHIFT,
     /* --- */         /* --- */     KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   KC_RGUI,
 
     // right hand side - thumb cluster
     KC_RALT,          KC_RCTRL,     /* --- */
     KC_PGUP,          /* --- */     /* --- */
-    KC_PGDOWN,        KC_ENTER,     KC_SPACE
+    KC_PGDN,          KC_ENTER,     KC_SPACE
   ),
 
   /* FKEYS: Function keys
@@ -486,7 +486,7 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
         if (command) {
           tap_code16(S(G(KC_4)));
         } else {
-          tap_code16(S(A(KC_BSLASH)));
+          tap_code16(S(A(KC_BACKSLASH)));
         }
         break;
       case NEO2_5:
@@ -494,7 +494,7 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
           tap_code16(S(G(KC_5)));
         } else {
           // left angled quote
-          tap_code16(A(KC_BSLASH));
+          tap_code16(A(KC_BACKSLASH));
         }
         break;
       case NEO2_6:

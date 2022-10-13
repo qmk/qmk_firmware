@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,             KC_TRNS,    \
       KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT,  KC_MSTP,  KC_TRNS,   KC_NO,               KC_TRNS,    \
       KC_TRNS, TG(3),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,  KC_PGUP,   KC_TRNS,    \
-      KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDOWN, KC_END),
+      KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDN,   KC_END),
                                                                                                                                            
   // 2: GUI/Function 2 Layer                                                                                                                   
   LAYOUT_all(                                                                                                                                  
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, AC_G_W,  AC_G_E,  KC_TRNS, AC_G_T,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,              KC_TRNS,   \
       KC_TRNS, KC_TRNS, AC_G_S,  AC_G_D,  KC_TRNS, KC_TRNS, AC_G_H,  KC_TRNS, KC_TRNS, AC_G_L,   KC_TRNS,  KC_TRNS,   KC_NO,                KC_TRNS,   \
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_PGUP,    KC_TRNS,   \
-      KC_TRNS, KC_TRNS, KC_TRNS,                            AC_G_SPC,                            KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDOWN,  KC_END),
+      KC_TRNS, KC_TRNS, KC_TRNS,                            AC_G_SPC,                            KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDN,  KC_END),
                                                                                                                                            
   // 3: NumPad/Function 3 Toggle Layer                                                                                                                   
   LAYOUT_all(                                                                                                                                  

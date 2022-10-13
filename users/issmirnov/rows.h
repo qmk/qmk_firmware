@@ -26,7 +26,7 @@
 
 #define _________________SYMB_R1___________________        KC_ASTR , KC_EXLM , KC_PIPE     , KC_PERC     , KC_PLUS
 #define _________________SYMB_R2___________________        KC_HASH , KC_EQL  , KC_COLN     , KC_SCLN     , TAP_TOG_LAYER
-#define _________________SYMB_R3___________________        KC_AMPR , KC_QUES , KC_SLASH    , KC_BSLASH   , TG(_NUMP)
+#define _________________SYMB_R3___________________        KC_AMPR , KC_QUES , KC_SLASH    , KC_BSLS     , TG(_NUMP)
 
 
 #define _________________NUMP_L1___________________        KC_NO   , KC_NO         , LGUI(KC_UP)   , XXXXXXX             , XXXXXXX
@@ -42,7 +42,7 @@
 #define ______________OVERWATCH_L2_________________       KC_LCTL   , KC_A  , KC_S       , KC_D , KC_F , KC_P
 #define ______________OVERWATCH_L3_________________       KC_LSHIFT , KC_Z  , KC_X       , KC_C , KC_V , KC_GRAVE
 // Ergodox only has 5 keys on bottom row:
-#define ______________OVERWATCH_L4_________________       KC_LCTL   , KC_F9 , KC_PSCREEN , KC_H , KC_R
+#define ______________OVERWATCH_L4_________________       KC_LCTL   , KC_F9 , KC_PSCR , KC_H , KC_R
 
 
 

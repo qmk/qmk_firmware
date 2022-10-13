@@ -408,7 +408,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     panic_del = true;
                 }
                 else {
-                    register_code(KC_BSPACE);
+                    register_code(KC_BACKSPACE);
                 }
             }
             else {
@@ -418,7 +418,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     panic_del = false;
                 }
                 else {
-                    unregister_code(KC_BSPACE);
+                    unregister_code(KC_BACKSPACE);
                 }
             }
             return false;
