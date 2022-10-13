@@ -16,13 +16,15 @@ enum planck_layers {
   _ISRT,
   _SYMBOL,
   _FUNCTION,
-  _NAV
+  _NAV,
+  _NUM
 };
 
 #define SYMBOL OSL(_SYMBOL)
 #define FUNCTION OSL(_FUNCTION)
 #define NAV TO(_NAV)
 #define HOME TO(_ISRT)
+#define NUM TO(_NUM)
 #define MTLCTL MT(MOD_LCTL,KC_T)
 #define MTRCTL MT(MOD_RCTL,KC_N)
 #define MEH_SPC MT(MOD_MEH,KC_SPC)
@@ -43,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Q  |   V  |   W  |   D  |   J  |   B  |   H  |   /  |   .  |   X  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Brite| Ctrl | Alt  | GUI  |Space | Sym  | Func |Bksp  | Nav  | GUI  | Left |Right |
+   * |CPSWRD| Ctrl | Alt  | GUI  |Space | Num  | Func |Bksp  | Nav  | GUI  | Left |Right |
    * `-----------------------------------------------------------------------------------'
    */
 
@@ -54,12 +56,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           MEH_SPC, SYMBOL, FUNCTION, LT(0,KC_BSPC), NAV,               KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
+  /* SYMBOL
+   * ,-----------------------------------------------------------------------------------.
+   * |  --- |  --- |   !  |   <  |   >  |   +  |   ^  |   _  |   |  |   ~  |   %  | Del  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Esc  |   {  |   }  |   (  |   )  |   @  |   #  |   &  |   *  |   "  |   $  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|  --- |   :  |   [  |   ]  |   ;  |   =  |   -  |   \  |   `  |  --- |Shift |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * |  --- | Ctrl | Alt  | GUI  |Space |  --- | Home |  Num |  --- |  --- |  --- | ---  |
+   * `-----------------------------------------------------------------------------------'
+   */
+
   [_SYMBOL] = LAYOUT_ortho_4x12(
-    KC_TILD,  KC_1,    KC_2,    KC_3,    KC_EQL,  KC_NO, KC_CIRC,        KC_AMPR, KC_ASTR, KC_AT, 	  KC_NO,         KC_NO,
-    KC_GRV,   KC_4,    KC_5,    KC_6,    KC_MINS, KC_NO, LT(0,KC_BSLS),  KC_LPRN, KC_RPRN, LT(0,CT_PIPE), LT(0,KC_SCLN), KC_NO,
-    KC_LSFT,  KC_7,    KC_8,    KC_9,    KC_0,    KC_NO, KC_LBRC,        KC_LCBR, KC_RCBR, KC_RBRC,       KC_NO,         KC_RSFT,
-    KC_NO,    KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,           KC_RCTL, KC_NO,   KC_NO,         KC_NO,         KC_NO
+    KC_NO,   KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_CIRC, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
+    KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT,   KC_HASH, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
+    KC_LSFT, KC_NO,   KC_COLN, KC_LBRC, KC_RBRC, KC_SCLN, KC_EQL,  KC_MINS, KC_BSLS, KC_GRV,  KC_NO,   KC_RSFT,
+    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO,   HOME,    NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
+
+  /* NUM
+   * ,-----------------------------------------------------------------------------------.
+   * | ---  |   /  |   1  |   2  |   3  |   +  | ---  | ---  | ---  | ---  | ---  | ---  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Esc  |   0  |   4  |   5  |   6  |   -  | ---  | ---  | ---  | ---  | ---  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|   *  |   7  |   8  |   9  |   =  | ---  | ---  | ---  | ---  | ---  |Shift |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | ---  | Ctrl | Alt  | GUI  |Space | Home | ---  |Bkspc | ---  | ---  | ---  | ---  |
+   * `-----------------------------------------------------------------------------------'
+   */
+
+  [_NUM] = LAYOUT_ortho_4x12(
+    KC_NO,  KC_SLSH, KC_1,    KC_2,    KC_3,   KC_PLUS, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_ESC, KC_0,    KC_4,    KC_5,    KC_6,   KC_MINS, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_ENT,
+    KC_NO,  KC_ASTR, KC_7,    KC_8,    KC_9,   KC_EQL,  KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_RSFT,
+    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,    KC_NO, KC_BSPC, KC_NO, KC_NO, KC_NO, KC_NO
+    ),
+
+  /* FUNCTION
+   * ,-----------------------------------------------------------------------------------.
+   * |CG_TGL|  F1  |  F2  |  F3  |  F4  | ---  | ---  |PrScr | ---  | ---  |   Æ  |Reset |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | ---  |  F5  |  F6  |  F7  |  F8  | ---  | ---  | Copy |Paste |   Å  |   Ø  | ---  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|  F9  | F10  | F11  | F12  | ---  | ---  |SelWrd| ---  | ---  | ---  |Shift |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | ---  | Ctrl | Alt  | GUI  |Space | Home | Trns | Ctrl | ---  | ---  | ---  |  --- |
+   * `-----------------------------------------------------------------------------------'
+   */
 
   [_FUNCTION] = LAYOUT_ortho_4x12(
     CG_TOGG,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,   KC_PSCR, KC_NO,   KC_NO,   NO_AE,   QK_BOOT,
@@ -68,11 +113,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,     KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
+  /* NAV
+   * ,-----------------------------------------------------------------------------------.
+   * | ---  |ScrlUp| ---  | MsUp | ---  | ---  | Mute |VolDwn|  Up  |VolUp | ---  | ---  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Esc  |ScrlDn|MsLft |MsDwn |MsRgt | ---  | Btn4 | Left | Down |Right | Btn5 |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | ---  |SwApp |SwWin | ---  | ---  | ---  | ---  | ---  | ---  | ---  | ---  | ---  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | ---  | ---  | ---  | Btn3 | Btn1 | Home | ---  | Btn2 | ---  | ---  | ---  | ---  |
+   * `-----------------------------------------------------------------------------------'
+   */
+
   [_NAV] = LAYOUT_ortho_4x12(
-    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U,   KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   KC_NO,
-    KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D,   KC_MS_R, KC_NO, KC_BTN4, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN5, KC_ENT,
-    KC_NO,  SW_APP,  SW_WIN,  KC_NO,     KC_NO,   KC_NO, KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_NO,   KC_NO,
-    KC_NO,  KC_NO,   KC_NO,   KC_BTN3,   KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO,   KC_NO
+    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   KC_NO,
+    KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_BTN4, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN5, KC_ENT,
+    KC_NO,  SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO,  KC_NO,   KC_NO,   KC_BTN3, KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO,   KC_NO
     )
 };
 
