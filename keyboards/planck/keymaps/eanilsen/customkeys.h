@@ -22,5 +22,6 @@ enum custom_keycodes {
   MW_PSTE,
   MW_REDO,
   CT_PIPE,
-  SEL_WRD
+  SEL_WRD,
+  ARROW
 };
