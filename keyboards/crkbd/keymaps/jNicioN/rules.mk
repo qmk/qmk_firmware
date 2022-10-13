@@ -4,6 +4,10 @@ OLED_ENABLE     = yes
 OLED_DRIVER     = SSD1306
 LTO_ENABLE      = yes
 EXTRAKEY_ENABLE = yes # for media keys
+TAP_DANCE_ENABLE = yes
+RGB_MATRIX_ENABLE = yes
+
+SRC += oled.c
 
 #Prueba 
 BOOTMAGIC_ENABLE  =	no
@@ -22,6 +26,3 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESCAPE_ENABLE = no
 #Prueba 
 
-# bongo cat
-WPM_ENABLE = yes
-# bongo cat
