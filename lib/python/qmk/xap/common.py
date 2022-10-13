@@ -1,5 +1,6 @@
 """This script handles the XAP protocol data files.
 """
+import re
 import os
 import hjson
 import jsonschema
@@ -17,6 +18,39 @@ from qmk.path import keyboard
 XAP_SPEC = 'xap.hjson'
 
 
+def list_lighting_versions(feature):
+    """Return available versions - sorted newest first
+    """
+    ret = []
+    for file in Path('data/constants/').glob(f'{feature}_[0-9].[0-9].[0-9].json'):
+        ret.append(file.stem.split('_')[-1])
+
+    ret.sort(reverse=True)
+    return ret
+
+
+def load_lighting_spec(feature, version='latest'):
+    """Build lighting data from the requested spec file
+    """
+    if version == 'latest':
+        version = list_lighting_versions(feature)[0]
+
+    spec = json_load(Path(f'data/constants/{feature}_{version}.json'))
+
+    # preprocess for gross rgblight "mode + n"
+    for obj in spec.get('effects', {}).values():
+        define = obj['key']
+        offset = 0
+        found = re.match('(.*)_(\\d+)$', define)
+        if found:
+            define = found.group(1)
+            offset = int(found.group(2)) - 1
+        obj['define'] = define
+        obj['offset'] = offset
+
+    return spec
+
+
 def _get_jinja2_env(data_templates_xap_subdir: str):
     templates_dir = os.path.join(QMK_FIRMWARE, 'data', 'templates', 'xap', data_templates_xap_subdir)
     j2 = Environment(loader=FileSystemLoader(templates_dir), autoescape=select_autoescape())
@@ -29,8 +63,8 @@ def render_xap_output(data_templates_xap_subdir, file_to_render, defs):
     j2.globals['to_snake'] = to_snake
 
     constants = {}
-    for feature in ['rgblight', 'rgb_matrix']:
-        constants[feature] = json_load(Path(f'data/constants/{feature}_0.0.1.json'))
+    for feature in ['rgblight', 'rgb_matrix', 'led_matrix']:
+        constants[feature] = load_lighting_spec(feature)
 
     return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs), constants=constants)
 

@@ -1,13 +1,9 @@
 """This script generates the XAP protocol generated header to be compiled into QMK.
 """
-import re
-from pathlib import Path
-
 from qmk.casing import to_snake
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
-from qmk.xap.common import merge_xap_defs, route_conditions
-from qmk.json_schema import json_load
+from qmk.xap.common import merge_xap_defs, route_conditions, load_lighting_spec
 
 PREFIX_MAP = {
     'rgblight': {
@@ -23,24 +19,6 @@ PREFIX_MAP = {
         'def': 'LED_MATRIX',
     },
 }
-
-
-def _get_lighting_spec(feature):
-    version = '0.0.1'
-    spec = json_load(Path(f'data/constants/{feature}_{version}.json'))
-
-    # preprocess for gross rgblight "mode + n"
-    for obj in spec.get('effects', {}).values():
-        define = obj['key']
-        offset = 0
-        found = re.match('(.*)_(\\d+)$', define)
-        if found:
-            define = found.group(1)
-            offset = int(found.group(2)) - 1
-        obj['define'] = define
-        obj['offset'] = offset
-
-    return spec
 
 
 def _get_c_type(xap_type):
@@ -407,7 +385,7 @@ def _append_lighting_mapping(lines, xap_defs):
 ''')
 
     for feature in PREFIX_MAP.keys():
-        spec = _get_lighting_spec(feature)
+        spec = load_lighting_spec(feature)
 
         lines.append(f'#ifdef {feature.upper()}_ENABLE')
         _append_lighting_map(lines, feature, spec)
