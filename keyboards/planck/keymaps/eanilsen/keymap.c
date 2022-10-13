@@ -10,6 +10,17 @@
 #include "customkeys.h"
 #include "features/swapper.h"
 #include "features/select_word.h"
+#include "features/custom_shift_keys.h"
+
+#define SYMBOL OSL(_SYMBOL)
+#define FUNCTION OSL(_FUNCTION)
+#define NAV TO(_NAV)
+#define HOME TO(_ISRT)
+#define NUM TO(_NUM)
+#define MTLCTL MT(MOD_LCTL,KC_T)
+#define MTRCTL MT(MOD_RCTL,KC_N)
+#define MEH_SPC MT(MOD_MEH,KC_SPC)
+#define LT_UP LT(0,KC_UP)
 
 
 enum planck_layers {
@@ -20,20 +31,14 @@ enum planck_layers {
   _NUM
 };
 
-#define SYMBOL OSL(_SYMBOL)
-#define FUNCTION OSL(_FUNCTION)
-#define NAV TO(_NAV)
-#define HOME TO(_ISRT)
-#define NUM TO(_NUM)
-#define MTLCTL MT(MOD_LCTL,KC_T)
-#define MTRCTL MT(MOD_RCTL,KC_N)
-#define MEH_SPC MT(MOD_MEH,KC_SPC)
-#define LT_LABK LT(0,KC_C)
-#define LT_RABK LT(0,KC_L)
-#define LT_COMM LT(0,KC_COMM)
-#define LT_DOT LT(0,KC_DOT)
-#define LT_EXLM LT(0,KC_Y)
-#define LT_UP LT(0,KC_UP)
+const custom_shift_key_t custom_shift_keys[] = {
+  {KC_DOT, KC_EQL},
+  {KC_COMM, KC_EXLM},
+  {KC_QUOT, KC_QUES},
+  {KC_SLSH, KC_BSLS}
+};
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+  sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
@@ -50,9 +55,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,  LT_EXLM, LT_LABK, LT_RABK,           KC_M,    KC_K,   KC_Z,     KC_F,          KC_U,              LT_COMM, KC_QUOT, KC_DEL,
+    KC_TAB,  KC_Y,    KC_C,    KC_L,              KC_M,    KC_K,   KC_Z,     KC_F,          KC_U,              KC_COMM, KC_QUOT, KC_DEL,
     KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MTLCTL,  KC_G,   KC_P,     MTRCTL,        MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
-    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,    KC_J,   KC_B,     KC_H,          KC_SLSH,           LT_DOT,  KC_X,    KC_RSFT,
+    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,    KC_J,   KC_B,     KC_H,          KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
     CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           MEH_SPC, SYMBOL, FUNCTION, LT(0,KC_BSPC), NAV,               KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
@@ -60,19 +65,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------------------------------------.
    * |  --- |   !  |   <  |   >  |   +  |  --- |  --- |   _  |   |  |   ~  |   %  | Del  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Esc  |   {  |   }  |   (  |   )  |   @  |   #  |   &  |   *  |   "  |   $  |Enter |
+   * | Esc  |   {  |   }  |   (  |   )  |   @  |  --- |   &  |   *  |   "  |   $  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   :  |   ;  |   [  |   ]  |  --- |   =  |   -  |   \  |   `  |   ^  |Shift |
+   * | Shift|   :  |   ;  |   [  |   ]  |  --- |  --- |   -  |   #  |   `  |   ^  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * |  --- | Ctrl | Alt  | GUI  |Space |  --- | Home |  Num |  --- |  --- |  --- | ---  |
    * `-----------------------------------------------------------------------------------'
    */
 
   [_SYMBOL] = LAYOUT_ortho_4x12(
-    KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_NO, KC_NO,   KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
-    KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT, KC_HASH, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
-    KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_EQL,  KC_MINS, KC_BSLS, KC_GRV,  KC_CIRC, KC_RSFT,
-    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,    NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
+    KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_NO, KC_NO, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
+    KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT, KC_NO, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
+    KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_NO, KC_MINS, KC_HASH, KC_GRV,  KC_CIRC, KC_RSFT,
+    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,  NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
   /* NUM
@@ -171,6 +176,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   }
   update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
@@ -180,36 +186,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case LT_UP:
     if (isHeld) {
       tap_code16(C(KC_UP));
-      return false;
-    }
-    return true;
-  case LT_EXLM:
-    if (isHeld) {
-      tap_code16(KC_EXLM);
-      return false;
-    }
-    return true;
-  case LT_COMM:
-    if (isHeld) {
-      tap_code16(KC_MINS);
-      return false;
-    }
-    return true;
-  case LT_DOT:
-    if (isHeld) {
-      tap_code16(S(KC_MINS));
-      return false;
-    }
-    return true;
-  case LT_LABK:
-    if (isHeld) {
-      tap_code16(KC_LABK);
-      return false;
-    }
-    return true;
-  case LT_RABK:
-    if (isHeld) {
-      tap_code16(KC_RABK);
       return false;
     }
     return true;
@@ -279,13 +255,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM + 200;
   case MT(MOD_LALT,KC_R):
     return TAPPING_TERM + 200;
-  case LT_LABK:
-    return TAPPING_TERM + 200;
-  case LT_RABK:
-    return TAPPING_TERM + 200;
   case LT_UP:
-    return TAPPING_TERM + 200;
-  case LT_EXLM:
     return TAPPING_TERM + 200;
   case MEH_SPC:
     return TAPPING_TERM + 60;
