@@ -15,10 +15,10 @@
  */
 
 #include "stdint.h"
-#include "quantum_keycodes.h"
+#include "via.h"
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
+    KC_MISSION_CONTROL = USER00,
     KC_LAUNCHPAD,
     KC_LOPTN,
     KC_ROPTN,
