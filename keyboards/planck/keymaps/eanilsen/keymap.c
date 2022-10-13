@@ -270,7 +270,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 }
 
 #ifdef TAPPING_TERM_PER_KEY
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
+{
   switch (keycode) {
   case MTLCTL:
     return TAPPING_TERM + 200;
