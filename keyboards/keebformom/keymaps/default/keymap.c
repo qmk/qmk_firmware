@@ -15,23 +15,20 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "midi.h"
-extern MidiDevice midi_device;
 
 
 enum layers {
     _FIRST = 0,
     _SECOND,
     _THIRD,
-    _FOURTH,
-    _MIDI
+    _FOURTH
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* 
+/* FIRST
  * ,---------------------------------------------------------------------.
- * |   Q (ESC) W |   E  |   R  |   T(MIDI)Y  |   U  |   I  |   O(DEL) P  |
+ * |   Q (ESC) W |   E  |   R  |   T  |   Y  |   U  |   I  |   O(DEL) P  |
  * |------+------+------+------+------+------+------+------+------+------|
  * |   A (TAB) S |   D  |   F  |   G(TO 1)H  |   J  |   K  |   L(CAPS);: |
  * |------+------+------+------+------+------+------+------+------+------|
@@ -46,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
   KC_LCTL, KC_LALT, KC_LSFT, MO(1),   KC_ENT,  KC_SPC, MO(2),    KC_MUTE, KC_MPLY, KC_BSPC
 ),
-/* 
+/* SECOND
  * ,---------------------------------------------------------------------.
  * |   !  |   @  |   {  |   }  |   '  |   "  |   -  |   7  |   8  |   9  |
  * |------+------+------+------+------+-------------+------+------+------|
@@ -65,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TO(0),      _______,   KC_BSLS,    KC_PIPE,   _______,   _______,    _______,     KC_EQL,     KC_0,       KC_BSPC
 ),              
 
-/* 
+/* THIRD
  * ,---------------------------------------------------------------------.
  * |  INS | HOME | PGUP |      | CAPT |SELECT|      |      |  UP  |      |
  * |------+------+------+------+------+-------------+------+------+------|
@@ -82,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,   KC_NO,   KC_NO,    LWIN(KC_E),   LCTL(KC_V),   KC_NO,    KC_NO,   KC_NO,   KC_NO,
   TO(0),   _______, _______, _______,  _______,      _______,      _______,  KC_VOLD, _______, KC_VOLU
 ),    
-/* Adjust
+/* FOURTH
  * ,---------------------------------------------------------------------.
  * |RGB M+|  HUD |  HUI |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |
  * |------+------+------+------+------+-------------+------+------+------|
@@ -98,79 +95,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_RMOD,RGB_SAD, RGB_SAI, KC_NO,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
   RGB_TOG, RGB_VAD, RGB_VAI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   TO(0),   _______, _______, _______, _______, _______, _______, _______, _______, _______
-),
-/* Midi
- * ,---------------------------------------------------------------------.
- * |      |      |  Eb  |  Gb  |  Ab  |   Ab |   Bb |  Db  |      | TR+  |
- * |------+------+------+------+------+-------------+------+------+------|
- * |      |   G  |  A   |  B   |   C  |   D  |   E  |   F  |      | TR-  |
- * |------+------+------+------+------+------+------+------+------+------|
- * |   C  |  D   |  E   |  F   |   G  |   A  |   B  |   C  |   D  | OT+  |
- * |------+------+------+------+------+------+------+------+------+------|
- * | BASE |      |      |      |      |      |      |      |      | OT-  |
- * `---------------------------------------------------------------------'
- */
-[_MIDI] = LAYOUT_ortho_4x10(  
-  KC_NO  , KC_NO,   MI_Eb ,  MI_Gb,     MI_Ab ,  MI_Ab ,  MI_Bb,   MI_Db,   KC_NO,  MI_TRNSU,
-  KC_NO  , MI_G ,   MI_A ,   MI_B ,     MI_C,    MI_D,    MI_E,    MI_F,    KC_NO,  MI_TRNSD,
-  MI_C ,   MI_D ,   MI_E ,   MI_F ,     MI_G,    MI_A,    MI_B,    MI_C,    MI_D,   MI_OCTU,
-  TO(0),   KC_NO,   KC_NO,   KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  MI_OCTD
 )
 };
-
-#ifdef AUDIO_ENABLE
-  float my_song1[][2]     = SONG(AUDIO_OFF_SOUND);
-  float my_song2[][2]     = SONG(AUDIO_ON_SOUND);
-  float my_song3[][2]     = SONG(GUITAR_SOUND);
-  float my_song4[][2]     = SONG(VIOLIN_SOUND);
-#endif
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-	switch (get_highest_layer(state)) {
-        case 1:
-            #ifdef AUDIO_ENABLE
-          PLAY_SONG(my_song1);
-
-        #endif
-	break;
-        case 2:
-            #ifdef AUDIO_ENABLE
-          PLAY_SONG(my_song2);
-
-        #endif
-	break;
-        case 3:
-            #ifdef AUDIO_ENABLE
-          PLAY_SONG(my_song3);
-
-        #endif
-	break;
-        case 4:
-            #ifdef AUDIO_ENABLE
-          PLAY_SONG(my_song4);
-
-        #endif
-	break;
-    }
-    return state;
-}
 
 // Combo key
 const uint16_t PROGMEM test_combo1[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM test_combo2[] = {KC_MPLY, KC_BSPC, COMBO_END};
 const uint16_t PROGMEM test_combo3[] = {KC_L, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM test_combo4[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM test_combo5[] = {KC_T, KC_Y, COMBO_END};
-const uint16_t PROGMEM test_combo6[] = {KC_G, KC_H, COMBO_END};
-const uint16_t PROGMEM test_combo7[] = {KC_B, KC_N, COMBO_END};
-const uint16_t PROGMEM test_combo8[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM test_combo5[] = {KC_G, KC_H, COMBO_END};
+const uint16_t PROGMEM test_combo6[] = {KC_B, KC_N, COMBO_END};
+const uint16_t PROGMEM test_combo7[] = {KC_O, KC_P, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(test_combo1, KC_ESC),
     COMBO(test_combo2, TO(3)),
     COMBO(test_combo3, KC_CAPS),
     COMBO(test_combo4, KC_TAB),
-    COMBO(test_combo5, TO(4)),
-    COMBO(test_combo6, TO(1)),
-    COMBO(test_combo7, TO(2)),
-    COMBO(test_combo8, KC_DEL),
+    COMBO(test_combo5, TO(1)),
+    COMBO(test_combo6, TO(2)),
+    COMBO(test_combo7, KC_DEL),
 };
