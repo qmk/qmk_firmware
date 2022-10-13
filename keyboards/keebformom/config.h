@@ -42,11 +42,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN F4
 #ifdef RGB_DI_PIN
-#define RGBLED_NUM 8
+#define RGBLED_NUM 40
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
+#define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -90,10 +90,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#ifdef AUDIO_ENABLE
-#define AUDIO_PIN B6     
-#define NO_MUSIC_MODE   
-#define STARTUP_SONG SONG(MAJOR_SOUND)                    
-#endif
 	
