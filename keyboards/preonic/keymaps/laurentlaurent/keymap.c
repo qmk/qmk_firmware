@@ -57,7 +57,7 @@
             // Space into Shift
         #define LSHFSP SFT_T(KC_SPACE)
             // Backspace into Shift
-        #define LSHFBK SFT_T(KC_BSPACE)
+        #define LSHFBK SFT_T(KC_BSPC)
 
     // Switching layers
         #define LTO_BS TO(_QWERTY_MAC)          // Go to Base Layer
@@ -66,8 +66,8 @@
         #define LLY_A LT(_NAV, KC_A)            // From A
             // Go to _PUNC
         #define LLY_TB LT(_PUNC, KC_TAB)        // From Tab
-        #define LLY_BK LT(_PUNC, KC_BSPACE)     // From Backspace
-        #define LLY_BS LT(_PUNC, KC_BSLASH)     // From Backslash
+        #define LLY_BK LT(_PUNC, KC_BSPC)       // From Backspace
+        #define LLY_BS LT(_PUNC, KC_BSLS)       // From Backslash
             // Others
         #define LLY_GR LT(_ONEHD, KC_GRV)       // Go to _ONEHD from `
         #define LLY_ET LT(_EXTRA, KC_ENT)       // Go to _EXTRA from Enter
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_GAMING] = LAYOUT_preonic_grid( \
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLASH,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    LLY_SC,  KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQUAL,
         KC_LCTL, KC_ESC,  KC_LALT, LOWER,   LLY_BK,  KC_SPC,  KC_SPC,  LLY_ET,  RAISE,   KC_LBRC, KC_RBRC, LLSWIT
@@ -386,7 +386,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_Y,     KC_U,     KC_I,     KC_O,      KC_P,     LMW_L3,   LMW_FS,   LMW_R3,   LMW_TL,   LMW_TR,  XXXXXXX,
         _______,  KC_H,     KC_J,     KC_K,     KC_L,      KC_SCLN,  LMW_L1,   LMW_M1,   LMW_R1,   LMW_BL,   LMW_BR,  XXXXXXX,
         _______,  KC_N,     KC_M,     KC_COMM,  KC_DOT,    KC_SLSH,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
-        __LYB__,  KC_ESC,  KC_DEL,    KC_ENT,   KC_BSPACE, KC_SPC,   KC_SPC,   LMW_LT,   LMW_BT,   LMW_TP,   LMW_RT,  LLSWIT
+        __LYB__,  KC_ESC,  KC_DEL,    KC_ENT,   KC_BSPC,   KC_SPC,   KC_SPC,   LMW_LT,   LMW_BT,   LMW_TP,   LMW_RT,  LLSWIT
     ),
 
     /* Layer Switcher

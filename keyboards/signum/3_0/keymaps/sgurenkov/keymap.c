@@ -117,7 +117,7 @@ void matrix_scan_user(void) {
 
             tap_code(KC_RIGHT);
 
-            tap_code(KC_BSPACE);
+            tap_code(KC_BACKSPACE);
 
             unregister_code(KC_LGUI);
         }

@@ -35,7 +35,7 @@ KC_TAB, BP_B,   BP_EACU,    BP_P,   BP_O,   BP_EGRV, KC_BSPC,
 BP_W,   BP_A,   BP_U,   BP_I,   BP_E,   BP_COMM,
 KC_LSHIFT,  BP_ECIR,  BP_AGRV,   BP_Y,   BP_X,   BP_DOT,   BP_K,
 KC_LCTL,    KC_LGUI,    KC_LGUI,  KC_LGUI,  KC_LALT,
-                            KC_PGUP,  KC_PGDOWN,
+                            KC_PGUP,  KC_PGDN,
                                 KC_INS,
                         KC_SPC,   KC_LSHIFT,  DF(FNAV),
 

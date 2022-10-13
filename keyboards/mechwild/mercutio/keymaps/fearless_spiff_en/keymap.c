@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                set_selected_encoder_key(selected_encoder_key_id);
             }
             if (IS_LAYER_ON(FN_1)) {
-                tap_code16(KC_PGDOWN);
+                tap_code16(KC_PGDN);
             }
             if (IS_LAYER_ON(FN_2)) {
                 tap_code(KC_VOLU);

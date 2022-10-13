@@ -686,7 +686,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [MATH] = LAYOUT_ergodox(
 	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
-	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLASH,
+	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLS,
 	X(arwr), X(root), X(and), X(imply), X(nexists), X(forall),
 	KC_LSPO,	KC_SCLN,	X(intgrl),	X(Mn),	X(Mz),	X(member),	X(arwl),
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,

@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_WH_U, KC_UP,   KC_WH_D,  _______, _______,_______,  _______,  _______,  _______,   KC_PSCR, _______,  _______,                      _______,   \
       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_HOME, _______,  _______,  _______,   KC_HOME, _______,                        _______,   \
       _______,           _______,  KC_APP,  BL_STEP,_______,  KC_END,   KC_VOLD,  KC_VOLU,   KC_MUTE, _______,  _______,  _______, KC_PGUP,   _______,   \
-      _______, _______, _______,                                _______,_______,_______,                _______, _______,         KC_HOME, KC_PGDOWN, KC_END),
+      _______, _______, _______,                                _______,_______,_______,                _______, _______,         KC_HOME, KC_PGDN, KC_END),
 
 /* Keymap _L2: (Layer 2) This is function layer 2
  * This layer is activated while the Fn2 key is being held down.

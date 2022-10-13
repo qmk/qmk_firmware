@@ -4,7 +4,7 @@
 #define BACKSPC KC_BSPC
 #define ENTER_OR_SQL LT(SQLMACROS,KC_ENT)
 #define ESCAP KC_ESC
-#define PSCR KC_PSCREEN
+#define PSCR KC_PSCR
 #define SCRL KC_SCRL
 #define PAUS KC_PAUSE
 #define NSRT KC_INSERT

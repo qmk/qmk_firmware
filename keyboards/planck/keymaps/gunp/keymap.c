@@ -85,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PGDN, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, STICK,
   KC_L2_0, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M,
                                 KC_R2_1, KC_R2_2,    KC_R2_3, KC_UP,   KC_R2_5,
-  KC_L3_0, KC_L3_1, KC_L3_2, KC_ESCAPE,  KC_BSPACE,  KC_ENTER,
-                       KC_R3_0, KC_R3_1, KC_PSCREEN, KC_LEFT, KC_DOWN, KC_RIGHT
+  KC_L3_0, KC_L3_1, KC_L3_2, KC_ESCAPE,  KC_BSPC,    KC_ENTER,
+                       KC_R3_0, KC_R3_1, KC_PSCR,    KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 [LY_1000] = LAYOUT_gunp(
   XXXXXXX,   KC_PERC,   KC_QUES,   KC_EXLM,   KC_GRV,    XXXXXXX,

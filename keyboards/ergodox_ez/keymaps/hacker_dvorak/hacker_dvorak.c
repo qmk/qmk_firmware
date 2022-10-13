@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, TG(LAYERS), PV_NUM,     PV_NUM,     PV_NUM,
 
         // left thumb
-              KC_SPACE, KC_BSPACE,
+              KC_SPACE, KC_BSPC,
                         KC_HOME,
         PV_A, PV_O,     KC_END,
 
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         KC_DELETE, KC_ENTER,
         KC_PGUP,
-        KC_PGDOWN, PV_E,     PV_U
+        KC_PGDN, PV_E,     PV_U
     ),
 
     [GAMING] = LAYOUT_ergodox(
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left thumb
                    MO(MEDIA_FN), KC_NLCK,
                                  KC_SCLN,
-         KC_SPACE, KC_ENTER,     KC_BSPACE,
+         KC_SPACE, KC_ENTER,     KC_BSPC,
 
         // right hand
         KC_QUOT,       KC_Y,       KC_K,        KC_U,        KC_KP_7, KC_KP_8,  KC_KP_9,
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left thumb
                   XXXXXXX,   XXXXXXX,
                              KC_HOME,
-        KC_SPACE, KC_BSPACE, KC_END,
+        KC_SPACE, KC_BSPC,   KC_END,
 
         // right hand
         LGUI(KC_X), XXXXXXX,       LCTL(KC_X), KC_MS_WH_UP,   XXXXXXX,       XXXXXXX,        XXXXXXX,
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         XXXXXXX,   XXXXXXX,
         KC_PGUP,
-        KC_PGDOWN, KC_DELETE, KC_ENTER
+        KC_PGDN, KC_DELETE, KC_ENTER
     ),
 
     [MOUSE] = LAYOUT_ergodox(
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left thumb
                   XXXXXXX,   XXXXXXX,
                              KC_HOME,
-        KC_SPACE, KC_BSPACE, KC_END,
+        KC_SPACE, KC_BSPC,   KC_END,
 
         // right hand
         KC_X, KC_A, KC_B,   KC_C, KC_D,     KC_E,    KC_F,
@@ -243,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         XXXXXXX,   XXXXXXX,
         KC_PGUP,
-        KC_PGDOWN, KC_DELETE, KC_ENTER
+        KC_PGDN, KC_DELETE, KC_ENTER
     ),
 
     [LAYERS] = LAYOUT_ergodox(
@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, KC_F9,         KC_F7,      KC_F5,   KC_F3,        KC_F1,   KC_WWW_HOME,
         KC_PAUS,            KC_F19,        KC_F17,     KC_F15,  KC_F13,       KC_F11,
         RGB_HUD,             XXXXXXX,       XXXXXXX,    _______, KC_F23,       KC_F21,  KC_WWW_BACK,
-        RGB_VAD,             KC_CAPS,       KC_PSCREEN, XXXXXXX, MO(FIRMWARE),
+        RGB_VAD,             KC_CAPS,       KC_PSCR,    XXXXXXX, MO(FIRMWARE),
 
         // left thumb
                  _______, XXXXXXX,

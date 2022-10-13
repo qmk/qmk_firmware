@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, KC_DEL, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, KC_LEFT,  KC_DOWN, KC_RGHT, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PERC, KC_GRV, KC_TILD, \
-  KC_ASDN, KC_ASUP, KC_ASRP, _______, _______, _______, _______, KC_RBRC, KC_LBRC, KC_MINS, KC_EQL, KC_BSLASH \
+  KC_ASDN, KC_ASUP, KC_ASRP, _______, _______, _______, _______, KC_RBRC, KC_LBRC, KC_MINS, KC_EQL, KC_BSLS \
 )
 
 

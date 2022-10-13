@@ -265,14 +265,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else {
               unregister_code(KC_RSHIFT);
             }
-          register_code(KC_BSLASH);
+          register_code(KC_BACKSLASH);
         }
         else {
           register_code(KC_SLSH);
         }
       }
       else {
-        unregister_code(KC_BSLASH);
+        unregister_code(KC_BACKSLASH);
         unregister_code (KC_SLSH);
       }
       return false;

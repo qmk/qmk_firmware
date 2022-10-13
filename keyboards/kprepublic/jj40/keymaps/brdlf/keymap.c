@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(
-  KC_GRV,        KC_BSLS,       KC_NO,        KC_LBRC,       KC_RBRC,       KC_NO,   KC_NO,         KC_PGUP, KC_HOME,      KC_PGDOWN, KC_NO,          KC_PSCREEN         ,
+  KC_GRV,        KC_BSLS,       KC_NO,        KC_LBRC,       KC_RBRC,       KC_NO,   KC_NO,         KC_PGUP, KC_HOME,      KC_PGDN,   KC_NO,          KC_PSCR            ,
   LSFT(KC_BSLS), LSFT(KC_MINS), KC_EQL,       LSFT(KC_9),    LSFT(KC_0),    KC_NO,   KC_NO,         KC_HOME, KC_UP,        KC_END,    KC_NO,          LCTL(LSFT(KC_EQL)) ,
   LSFT(KC_GRV),  KC_MINS,       LSFT(KC_EQL), LSFT(KC_LBRC), LSFT(KC_RBRC), KC_NO,   LCTL(KC_LEFT), KC_LEFT, KC_DOWN,      KC_RIGHT,  LCTL(KC_RIGHT), LCTL(KC_MINS)      ,
   _______,       _______,       _______,      _______,       _______,       KC_SPC,  LCTL(KC_BSPC), _______, LCTL(KC_DEL), _______,   _______,        _______

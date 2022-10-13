@@ -2,7 +2,7 @@
 
 #define WORD_BACK A(KC_LEFT)
 #define WORD_FORWARD A(KC_RIGHT)
-#define DELETE_WORD_BACK A(KC_BSPACE)
+#define DELETE_WORD_BACK A(KC_BACKSPACE)
 #define DELETE_WORD_FORWARD A(KC_DELETE)
 #define FINE_VOLUP S(A(KC_VOLU))
 #define FINE_VOLDOWN S(A(KC_VOLD))
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_HDUE] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, DELETE_WORD_FORWARD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDOWN, KC_PGUP, KC_END, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, DELETE_WORD_BACK, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
 

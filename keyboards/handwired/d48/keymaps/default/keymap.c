@@ -143,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         (new_time[4]) * 10 + (new_time[5])
                 );
                 for (int i = 0; i < 6; i++) {
-                    tap_code(KC_BSPACE);
+                    tap_code(KC_BACKSPACE);
                 }
             }
         }
