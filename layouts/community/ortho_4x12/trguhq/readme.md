@@ -12,7 +12,7 @@ With both modifiers (either side of spacebar) selected, layer 6
 lets you select which OS mode to use with the first vertical column
 of keys:
 
-macOS
-Linux
-Windows Unicode
-Windows WinCompose
+1. macOS
+2. Linux
+3. Windows Unicode
+4. Windows WinCompose
