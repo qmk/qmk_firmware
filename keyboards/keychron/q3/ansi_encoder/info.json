@@ -9,7 +9,7 @@
         "device_version": "1.0.0"
     },
     "layouts": {
-        "LAYOUT_ansi_88": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"matrix":[0, 0], "x":0, "y":0},
                 {"matrix":[0, 1], "x":1.25, "y":0},
