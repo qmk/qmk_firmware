@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                        KC_PGUP,
                                      KC_SPACE,KC_LSHIFT,KC_PGDN,
   //--
-  XXXXXXX,  KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPACE,
+  XXXXXXX,  KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_LEAD,                L01_RIGHT_01,                 KC_ENTER,
                           L01_RIGHT_02,                 MO(L03),
   MO(LFN),                L01_RIGHT_03,                 KC_RSHIFT,
@@ -244,7 +244,7 @@ L06 -> <TBD>: UNSPECIFIED
                                       _______, _______, _______,
   //--
   _______, _______, _______, _______, _______, _______, QK_BOOT,
-  _______,                 L06_RIGHT_01,                KC_BSPACE,
+  _______,                 L06_RIGHT_01,                KC_BSPC,
                            L06_RIGHT_02,                KC_INSERT,
   _______,                 L06_RIGHT_03,                KC_DELETE,
                     KC_VOLU, KC_VOLD, KC_MUTE, _______, _______,

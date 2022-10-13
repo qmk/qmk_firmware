@@ -95,7 +95,7 @@ combo_t key_combos[] = {
   [ED_F10] = COMBO(combo_f10, KC_F10),
   [ED_F11] = COMBO(combo_f11, KC_F11),
   [ED_F12] = COMBO(combo_f12, KC_F12),
-  [ED_PSCREEN] = COMBO(combo_pscreen, KC_PSCREEN),
+  [ED_PSCREEN] = COMBO(combo_pscreen, KC_PRINT_SCREEN),
 
   [ED_CS_ENTER] = COMBO_ACTION(done_sm),
   #endif
@@ -169,7 +169,7 @@ bool handle_del_bspace(void) {
     layer_off(GIT_R);
     layer_off(GIT_S);
 
-    press_n_times(char_to_bspace, KC_BSPACE);
+    press_n_times(char_to_bspace, KC_BACKSPACE);
     char_to_bspace = 1;
     press_n_times(char_to_del, KC_DEL);
     char_to_del = 0;

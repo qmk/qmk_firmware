@@ -183,7 +183,7 @@ enum {
  * |     |     |     |     |     |     ||     |     |     |     |     |     |
  * `------------------------------------------------------------------------' */
 #define ALTCHAR \
-    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCREEN,		KC_BSLASH,	KC_SLSH, \
+    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCR,		KC_BSLS,	KC_SLSH, \
     REDO,	DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS,	KC_END, KC_PGDN,KC_SCRL,	CUR_BIT,	KC_MINUS, \
     UNDO,	CUT,    COPY,   PASTE,	EXIT,	KC_LSFT,_______,_______,_______,_______,		CUR_YEN,	KC_EQUAL,   \
     _______,_______,_______,_______,_______,_______,_______,DBL_SPC,_______,_______,		_______,	_______

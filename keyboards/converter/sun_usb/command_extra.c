@@ -47,7 +47,7 @@ bool command_extra(uint8_t code)
             uart_write(0x0E);
             uart_write(0xFF);
             break;
-        case KC_PGDOWN:
+        case KC_PGDN:
             print("LED all off\n");
             uart_write(0x0E);
             uart_write(0x00);
