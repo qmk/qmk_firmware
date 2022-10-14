@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Compacx",
+    "manufacturer": "takashicompany",
     "url": "https://github.com/takashicompany/compacx",
     "maintainer": "takashicompany",
+    "usb": {
+        "vid": "0x7463",
+        "pid": "0x0014",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

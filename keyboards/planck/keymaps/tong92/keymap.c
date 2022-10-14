@@ -131,7 +131,7 @@ KC_TRNS,_______            ,_______             ,MOUSE  ,MOUSE           ,XXXXXX
 ),
 /* 10: mouse layer
 * ,-----------------------------------------------------------------------.
-* |     |     |     |Mo_Up|     |     |     |M_WhL|M_WhU|M_WhR|     |RESET|
+* |     |     |     |Mo_Up|     |     |     |M_WhL|M_WhU|M_WhR|     |QK_BOOT|
 * |-----------------------------------------------------------------------|
 * |     |     |Mo_Le|Mo_Do|Mo_Ri|     |     |M_Bt1|M_WhD|M_Bt2|     |     |
 * |-----------------------------------------------------------------------|
@@ -141,7 +141,7 @@ KC_TRNS,_______            ,_______             ,MOUSE  ,MOUSE           ,XXXXXX
 * `-----------------------------------------------------------------------'
 */
 [_MOUSE] = LAYOUT_planck_grid(
-XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,RESET,
+XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,QK_BOOT,
 XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,XXXXXXX,KC_BTN1,KC_WH_D,KC_BTN2,XXXXXXX,XXXXXXX,
 XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,WINDOW,
 XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,EXT_MOUSE,EXT_MOUSE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MAC

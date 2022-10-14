@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    riconken
-#define PRODUCT         hifumi
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -41,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D4, C6 }
 #define MATRIX_COL_PINS { F4, F5, F6 }
-#define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

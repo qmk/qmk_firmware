@@ -17,10 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0x6362
-#define DEVICE_VER 0x0001
-
 #define MATRIX_ROW_PINS \
     { B0, A6, A7, B1, A5 }
 #define MATRIX_COL_PINS \
@@ -81,4 +77,3 @@
 #define BOOTMAGIC_LITE_ROW_RIGHT 5
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
 
-#define UNUSED_PINS

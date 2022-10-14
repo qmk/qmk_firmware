@@ -249,8 +249,15 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
-    if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
-        process_rgb_matrix_typing_heatmap(row, col);
+#    if defined(RGB_MATRIX_KEYRELEASES)
+    if (!pressed)
+#    else
+    if (pressed)
+#    endif // defined(RGB_MATRIX_KEYRELEASES)
+    {
+        if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
+            process_rgb_matrix_typing_heatmap(row, col);
+        }
     }
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
 }
@@ -724,10 +731,20 @@ void rgb_matrix_decrease_speed(void) {
     rgb_matrix_decrease_speed_helper(true);
 }
 
+void rgb_matrix_set_flags_eeprom_helper(led_flags_t flags, bool write_to_eeprom) {
+    rgb_matrix_config.flags = flags;
+    eeconfig_flag_rgb_matrix(write_to_eeprom);
+    dprintf("rgb matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.flags);
+}
+
 led_flags_t rgb_matrix_get_flags(void) {
     return rgb_matrix_config.flags;
 }
 
 void rgb_matrix_set_flags(led_flags_t flags) {
-    rgb_matrix_config.flags = flags;
+    rgb_matrix_set_flags_eeprom_helper(flags, true);
+}
+
+void rgb_matrix_set_flags_noeeprom(led_flags_t flags) {
+    rgb_matrix_set_flags_eeprom_helper(flags, false);
 }

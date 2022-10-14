@@ -1,7 +1,13 @@
 {
     "keyboard_name": "AMJ60",
+    "manufacturer": "Han Chen",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x00D8",
+        "pid": "0x6066",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

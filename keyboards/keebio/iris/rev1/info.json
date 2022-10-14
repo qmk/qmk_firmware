@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Iris Rev. 1",
+    "usb": {
+        "pid": "0x1256",
+        "device_version": "1.0.0"
+    }
+}

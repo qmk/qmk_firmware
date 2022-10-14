@@ -1,7 +1,13 @@
 {
     "keyboard_name": "coarse60",
+    "manufacturer": "KeebsForAll",
     "url":"https://keebsforall.com",
     "maintainer": "keebsforall",
+    "usb": {
+        "vid": "0x6B66",
+        "pid": "0x5341",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

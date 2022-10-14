@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Mini Ashen 40",
+    "manufacturer": "MechanicKeys",
     "url": "",
     "maintainer": "jfescobar18",
+    "usb": {
+        "vid": "0x4D4B",
+        "pid": "0x6D6E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
