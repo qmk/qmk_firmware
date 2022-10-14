@@ -157,6 +157,23 @@ void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed)
   }
 }
 
+void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_pressed)
+{
+  const uint8_t mods = get_mods();
+  const uint8_t oneshot_mods = get_oneshot_mods();
+  if (is_pressed) {
+    del_mods(MOD_MASK_SHIFT);
+    del_oneshot_mods(MOD_MASK_SHIFT);
+    if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
+    else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
+    if ((mods | oneshot_mods) & MOD_MASK_SHIFT) tap_code16(shifted_keycode);
+    else tap_code16(keycode);
+    if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
+    else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
+    set_mods(mods);
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   bool isPressed = record->event.pressed;
@@ -175,40 +192,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
   switch (keycode) {
   case CT_AA:
-    if (isPressed) {
-      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-	del_mods(MOD_MASK_SHIFT);
-	del_oneshot_mods(MOD_MASK_SHIFT);
-	tap_code16(KC_LCBR);
-	set_mods(mods);
-      } else {
-	tap_code16(KC_LBRC);
-      }
-    }
+    send_norwegian_letter(KC_LBRC, KC_LCBR, isPressed);
     return false;
   case CT_OE:
-    if (isPressed) {
-      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-	del_mods(MOD_MASK_SHIFT);
-	del_oneshot_mods(MOD_MASK_SHIFT);
-	tap_code16(KC_COLN);
-	set_mods(mods);
-      } else {
-	tap_code16(KC_SCLN);
-      }
-    }
+    send_norwegian_letter(KC_SCLN, KC_COLN, isPressed);
     return false;
   case CT_AE:
-    if (isPressed) {
-      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-	del_mods(MOD_MASK_SHIFT);
-	del_oneshot_mods(MOD_MASK_SHIFT);
-	tap_code16(KC_DQUO);
-	set_mods(mods);
-      } else {
-	tap_code16(KC_QUOT);
-      }
-    }
+    send_norwegian_letter(KC_QUOT, KC_DQUO, isPressed);
     return false;
   case GRAVE:
     if (isPressed) {
