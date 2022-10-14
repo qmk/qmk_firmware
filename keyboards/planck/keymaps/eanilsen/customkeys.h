@@ -11,10 +11,6 @@ enum custom_keycodes {
   SW_WIN,
   // Close window: cmd+w on Mac, ctrl+w on Windows
   CLS_WIN,
-  // Type three backticks at once
-  KC_3GRV,
-  // Ctrl+backspace on Windows, alt+backspace on Mac
-  KC_DWRD,
   // Mac/Windows variants for common commands
   MW_UNDO,
   MW_CUT,
@@ -24,5 +20,6 @@ enum custom_keycodes {
   CT_PIPE,
   SEL_WRD,
   SEL_SRCH,
-  ARROW
+  ARROW,
+  GRAVE
 };

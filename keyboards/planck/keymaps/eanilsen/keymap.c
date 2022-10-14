@@ -17,10 +17,14 @@
 #define NAV TO(_NAV)
 #define HOME TO(_ISRT)
 #define NUM TO(_NUM)
-#define MTLCTL MT(MOD_LCTL,KC_T)
-#define MTRCTL MT(MOD_RCTL,KC_N)
 #define MEH_SPC MT(MOD_MEH,KC_SPC)
+#define BSP_DWRD LT(0,KC_BSPC)
 #define LT_UP LT(0,KC_UP)
+/* Home row mods */
+#define HOME_R LALT_T(KC_R)
+#define HOME_T LCTL_T(KC_T)
+#define HOME_N RCTL_T(KC_N)
+#define HOME_E RALT_T(KC_E)
 
 
 enum planck_layers {
@@ -35,7 +39,7 @@ const custom_shift_key_t custom_shift_keys[] = {
   {KC_DOT, KC_EQL},
   {KC_COMM, KC_EXLM},
   {KC_QUOT, KC_QUES},
-  {KC_SLSH, KC_BSLS}
+  {KC_SLSH, KC_BSLS},
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
   sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
@@ -55,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,  KC_Y,    KC_C,    KC_L,              KC_M,    KC_K,   KC_Z,     KC_F,          KC_U,              KC_COMM, KC_QUOT, KC_DEL,
-    KC_ESC,  KC_I,    KC_S,    MT(MOD_LALT,KC_R), MTLCTL,  KC_G,   KC_P,     MTRCTL,        MT(MOD_RALT,KC_E), KC_A,    KC_O,    KC_ENT,
-    KC_LSFT, KC_Q,    KC_V,    KC_W,              KC_D,    KC_J,   KC_B,     KC_H,          KC_SLSH,           KC_DOT,  KC_X,    KC_RSFT,
-    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI,           MEH_SPC, SYMBOL, FUNCTION, LT(0,KC_BSPC), NAV,               KC_LGUI, KC_LEFT, KC_RGHT
+    KC_TAB,  KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
+    KC_ESC,  KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
+    KC_LSFT, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
+    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI, MEH_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   /* SYMBOL
@@ -76,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_SYMBOL] = LAYOUT_ortho_4x12(
     KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_NO, KC_NO, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
     KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT, ARROW, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
-    KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_NO, KC_MINS, KC_HASH, KC_GRV,  KC_CIRC, KC_RSFT,
+    KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_NO, KC_MINS, KC_HASH, GRAVE,  KC_CIRC, KC_RSFT,
     KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,  NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
@@ -154,17 +158,6 @@ void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed)
   }
 }
 
-/* static bool process_tap_or_long_press_key(keyrecord_t *record, uint16_t long_press_keycode) */
-/* { */
-/*   if (!record->tap.count) { // Key is being held */
-/*     if (record->event.pressed) { */
-/*       tap_code16(long_press_keycode); */
-/*     } */
-/*     return false; */
-/*   } */
-/*   return true; */
-/* } */
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   bool isPressed = record->event.pressed;
@@ -182,6 +175,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
+  case GRAVE:
+    if (isPressed) {
+      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+	del_mods(MOD_MASK_SHIFT);
+	del_oneshot_mods(MOD_MASK_SHIFT);
+	for (uint8_t i = 0; i < 3; i++) tap_code16(KC_GRV);
+	set_mods(mods);
+      } else {
+	tap_code16(KC_GRV);
+      }
+    }
+    return false;
   case SEL_SRCH:
     if (isPressed) {
       if (is_mac_the_default()) {
@@ -256,15 +261,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case MW_REDO:
     send_mac_or_win(G(S(KC_Z)), C(KC_Y), isPressed);
     return false;
-  case KC_DWRD:
-    send_mac_or_win(A(KC_BSPC), C(KC_BSPC), isPressed);
-    return false;
-  case KC_3GRV: {
-    if (isPressed) {
-      for (uint8_t i = 0; i < 3; i++) tap_code16(KC_GRV);
-    }
-    return false;
-  }
   }
   return true;
 }
@@ -273,15 +269,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
 {
   switch (keycode) {
-  case MTLCTL:
+  case HOME_R:
     return TAPPING_TERM + 200;
-  case MTRCTL:
+  case HOME_T:
     return TAPPING_TERM + 200;
-  case MT(MOD_LALT,KC_R):
+  case HOME_N:
+    return TAPPING_TERM + 200;
+  case HOME_E:
     return TAPPING_TERM + 200;
   case LT_UP:
     return TAPPING_TERM + 200;
   case MEH_SPC:
+    return TAPPING_TERM + 60;
+  case BSP_DWRD:
     return TAPPING_TERM + 60;
   default:
     return TAPPING_TERM;
