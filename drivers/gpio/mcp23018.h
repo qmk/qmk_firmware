@@ -33,7 +33,7 @@ enum {
 /**
  * Init expander and any other dependent drivers
  */
-bool mcp23018_init(uint8_t slave_addr);
+void mcp23018_init(uint8_t slave_addr);
 
 /**
  * Configure input/output to a given port
