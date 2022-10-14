@@ -23,10 +23,10 @@ To configure the Quantum Painter Display Drivers please read the [Quantum Painte
 ### Quantum Painter LVGL Attach :id=lvgl-api-init
 
 ```c
-bool qp_lvgl_attach(painter_device_t device)
+bool qp_lvgl_attach(painter_device_t device);
 ```
 
-The `qp_lvgl_attach` function is used to set up LVGL with the supplied display, it requires an already configured display.
+The `qp_lvgl_attach` function is used to set up LVGL with the supplied display, and requires an already configured display.
 
 ```c
 static painter_device_t display;
@@ -41,6 +41,7 @@ void keyboard_post_init_kb(void) {
 ```
 To init. the display please read the [Display Initialisation](quantum_painter.md#quantum-painter-api-init) section.
 
+!> Attaching LVGL to a display means LVGL subsequently "owns" the display. Using standard Quantum Painter drawing operations with the display after LVGL attachment will likely result in display artifacts.
 ### Quantum Painter LVGL Detach :id=lvgl-api-init
 
 ```c
@@ -50,4 +51,5 @@ void qp_lvgl_detach()
 The `qp_lvgl_detach` function stops the internal LVGL ticks and releases resources related to it.
 
 ## Enabling/Disabling LVGL features :id=lvgl-configuring
+
 You can overwrite LVGL specific features in your `lv_conf.h` file.
