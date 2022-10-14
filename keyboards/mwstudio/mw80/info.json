@@ -16,6 +16,7 @@
         "rows": ["B4", "B5", "B6", "B13", "B12", "B11" ]
     },
     "processor": "STM32F103",
+    "bootloader": "stm32-dfu",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
