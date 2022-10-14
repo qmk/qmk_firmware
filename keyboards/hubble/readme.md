@@ -1,6 +1,6 @@
 # hubble
 
-![hubble](https://raw.githubusercontent.com/ch3rny/hubble-keyboard/main/assets/main.jpg)
+![hubble](https://i.imgur.com/buTSdUq.jpg)
 
 *A short description of the keyboard/project*
 

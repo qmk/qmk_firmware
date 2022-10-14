@@ -2,7 +2,7 @@
     "manufacturer": "Anton Chernenko",
     "keyboard_name": "hubble",
     "maintainer": "ch3rny",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -10,13 +10,14 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true,
+        "velocikey": true
     },
     "matrix_pins": {
         "cols": ["F5", "F6", "B4", "E6", "D7", "C6", "D4", "D0"],
         "rows": ["D1", "F4", "F7", "B5", "B1", "B3", "B6", "B2"]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "vid": "0x1234",
