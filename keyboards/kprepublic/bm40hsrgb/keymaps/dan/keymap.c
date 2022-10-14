@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_mit(
-    KC_ASTR, KC_P7,   KC_P8,   KC_P9,   KC_NLCK, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO,     KC_NO,     KC_BSPC,
+    KC_ASTR, KC_P7,   KC_P8,   KC_P9,   KC_NUM,  KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO,     KC_NO,     KC_BSPC,
     KC_LALT, KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO,     KC_LSFT,   KC_NO,
     KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO,     KC_LCTL,   KC_ENT,
     KC_TRNS, KC_COMM, KC_PPLS, KC_PDOT, KC_0,       KC_SPC,    LEAGUE, PUBG,  OVERWATCH, STARCRAFT, TETRIS

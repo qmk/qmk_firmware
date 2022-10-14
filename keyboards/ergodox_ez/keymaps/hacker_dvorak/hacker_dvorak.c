@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //         LAYERS SWITCHER | APPLICATION MENU        |                         |                         |                        //
         //                         |                         |                         |                         |                  SCROLL //
-                 TG(LAYERS),                 KC_APP,                  KC_NLCK,                  KC_SCRL,                   KC_CAPS,        //
+                 TG(LAYERS),                 KC_APP,                  KC_NUM,                   KC_SCRL,                   KC_CAPS,        //
         //                         |                         |                         |                         |                  NUM    //
         //            LAYER TOGGLE |                         |                         |                         |       TAP DANCE: CAPS   //
          //------------------------+-------------------------+-------------------------+-------------------------+------------------------//
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,           TG(LAYERS),  KC_COMM, KC_DOT, KC_LBRC,
 
         // left thumb
-                   MO(MEDIA_FN), KC_NLCK,
+                   MO(MEDIA_FN), KC_NUM,
                                  KC_SCLN,
          KC_SPACE, KC_ENTER,     KC_BSPC,
 

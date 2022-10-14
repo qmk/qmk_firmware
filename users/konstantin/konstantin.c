@@ -49,7 +49,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     bool numpad = IS_LAYER_ON_STATE(state, L_NUMPAD);
     bool num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
     if (numpad != num_lock) {
-        tap_code(KC_NLCK);  // Toggle Num Lock to match Numpad layer state
+        tap_code(KC_NUM_LOCK);  // Toggle Num Lock to match Numpad layer state
     }
 #endif
 

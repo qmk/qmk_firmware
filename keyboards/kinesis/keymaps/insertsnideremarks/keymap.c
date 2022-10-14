@@ -268,7 +268,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 [_NUMPAD] = LAYOUT_pretty(
   _______, _______, _______, _______,    _______,   _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, KC_NLCK, _______, _______,    _______,   _______,                                                         KC_TAB,  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______,
+  _______, KC_NUM,  _______, _______,    _______,   _______,                                                         KC_TAB,  KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, _______,
   _______, KC_P6,   KC_P7,   KC_P8,      KC_P9,     KC_P0,                                                           _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
   _______, KC_P1,   KC_P2,   KC_P3,      KC_P4,     KC_P5,                                                           _______, KC_P4,   KC_P5,   KC_P6,   KC_EQL,  _______,
   _______, _______, KC_PDOT, TD(PSLPAS), TD(PMNUN), TD(PPLEQ),                                                       _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,

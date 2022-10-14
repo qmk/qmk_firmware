@@ -138,7 +138,7 @@ lookup_table_t lookup_table[333] =
  {"KC_LEFT", KC_LEFT},
  {"KC_DOWN", KC_DOWN},
  {"KC_UP", KC_UP},
- {"KC_NLCK", KC_NLCK},
+ {"KC_NUM", KC_NUM},
  {"KC_PSLS", KC_PSLS},
  {"KC_PAST", KC_PAST},
  {"KC_PMNS", KC_PMNS},

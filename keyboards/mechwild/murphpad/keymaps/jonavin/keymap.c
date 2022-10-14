@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_landscape(
         TT(_FN1), TT(_FN2), KC_MUTE,
 
-        KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_BSPC,
+        KC_NUM,   KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_BSPC,
         KC_TAB,   KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RGUI,
         KC_RSFT,  KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
         KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
                   TT(_FN2),TT(_FN3),TT(_FN4),LT(_RGB,KC_PSCR),
-				  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+				  KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
                   KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_MUTE,  KC_P4,   KC_P5,   KC_P6,   _______,
         TT(_FN1), KC_P1,   KC_P2,   KC_P3,   KC_PENT,
