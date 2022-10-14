@@ -230,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
     // CapsLock Light
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
@@ -239,4 +239,5 @@ void rgb_matrix_indicators_user(void) {
 
     // Show Selected Layer
     rgb_matrix_set_color(layers_leds_map[get_highest_layer(layer_state)], MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
+    return false;
 }

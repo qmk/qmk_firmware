@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   [RAISE] = LAYOUT(
       _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, _______,
-      KC__VOLUP, _______, KC_BTN1, KC_BTN3, KC_BTN2, KC_WH_U, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_BRIU, _______,
-      KC__VOLDOWN, KC__MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_WH_D, KC_WH_L, KC_WH_R, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BRID, _______,
+      KC_VOLU, _______, KC_BTN1, KC_BTN3, KC_BTN2, KC_WH_U, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_BRIU, _______,
+      KC_VOLD, KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_WH_D, KC_WH_L, KC_WH_R, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BRID, _______,
       _______, _______, _______, _______, _______, _______, _______, KC_DEL, _______, _______
       ),
   [FUNCS] = LAYOUT(

@@ -364,8 +364,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_KEYPRESSES // reacts to keypresses
 #define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
-#define LED_DISABLE_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
-#define LED_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
+#define LED_MATRIX_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define LED_MATRIX_LED_PROCESS_LIMIT (LED_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define LED_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
@@ -442,8 +441,12 @@ Where `28` is an unused index from `eeconfig.h`.
 
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that: 
 ```c
-void led_matrix_indicators_kb(void) {
+bool led_matrix_indicators_kb(void) {
+    if (!led_matrix_indicators_user()) {
+        return false;
+    }
     led_matrix_set_value(index, value);
+    return true;
 }
 ```
 
@@ -452,5 +455,6 @@ In addition, there are the advanced indicator functions.  These are aimed at tho
 ```c
 void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     LED_MATRIX_INDICATOR_SET_VALUE(index, value);
+    return false;
 }
 ```

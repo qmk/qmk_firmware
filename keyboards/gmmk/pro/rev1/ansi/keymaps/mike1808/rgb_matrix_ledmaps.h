@@ -96,5 +96,5 @@ void rgb_matrix_layers_disable(void);
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED
 
-void rgb_matrix_indicators_keymap(void);
-void rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max);
+bool rgb_matrix_indicators_keymap(void);
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max);

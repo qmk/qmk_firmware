@@ -1,5 +1,5 @@
 /*
-Copyright 2021 adpenrose
+Copyright 2022 adpenrose
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -56,9 +56,6 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-// #    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -78,56 +75,6 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

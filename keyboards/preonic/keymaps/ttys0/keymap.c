@@ -128,7 +128,7 @@
 #define func MO(FUNC)
 
 #define rset QK_BOOT
-#define powr KC_POWER
+#define powr KC_PWR
 
 #define ____ KC_TRNS
 #define xxxx KC_NO

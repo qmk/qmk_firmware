@@ -185,7 +185,7 @@ uint32_t processQwerty(bool lookup) {
 	P( SYM | RL,			SEND_STRING("]"));
 	P( SYM | RT,			SEND_STRING("?"));
 
-	P( SYM | ST3 | ST4,		SEND(KC_BSLASH));
+	P( SYM | ST3 | ST4,		SEND(KC_BACKSLASH));
 	P( SYM | RF  | RR,		SEND(KC_EQUAL));
 	P( SYM | RP  | RB,		SEND_STRING("\""));
 	P( SYM | RG  | RL,		SEND_STRING("+"));

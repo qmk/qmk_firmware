@@ -127,8 +127,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
-    unregister_code(KC_NUMLOCK);
+    register_code(KC_NUM_LOCK);
+    unregister_code(KC_NUM_LOCK);
   }
 }
 

@@ -30,7 +30,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-                           KC_ESCAPE,   KC_LSFT,      KC_TAB,          KC_BSPACE,
+                           KC_ESCAPE,   KC_LSFT,      KC_TAB,          KC_BSPC,
                            KC_NLCK,     KC_KP_SLASH,  KC_KP_ASTERISK,  KC_EQUAL,
                            KC_KP_7,     KC_KP_8,      KC_KP_9,         KC_KP_MINUS,
       MO(_FUNCTION),       KC_KP_4,     KC_KP_5,      KC_KP_6,         KC_KP_PLUS,
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Lightning */
     [_UNRULY] = LAYOUT(
-                           KC_ESCAPE,   KC_LSFT,      KC_TAB,          KC_BSPACE,
+                           KC_ESCAPE,   KC_LSFT,      KC_TAB,          KC_BSPC,
                            KC_NLCK,     KC_KP_SLASH,  KC_KP_ASTERISK,  KC_EQUAL,
                            KC_KP_7,     KC_KP_8,      KC_KP_9,         KC_KP_MINUS,
       KC_TRNS,             KC_KP_4,     KC_KP_5,      KC_KP_6,         KC_KP_PLUS,

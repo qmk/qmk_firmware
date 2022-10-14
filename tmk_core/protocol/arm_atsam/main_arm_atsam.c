@@ -37,7 +37,7 @@ void    main_subtasks(void);
 uint8_t keyboard_leds(void);
 void    send_keyboard(report_keyboard_t *report);
 void    send_mouse(report_mouse_t *report);
-void    send_extra(uint8_t report_id, uint16_t data);
+void    send_extra(report_extra_t *report);
 
 #ifdef DEFERRED_EXEC_ENABLE
 void deferred_exec_task(void);
@@ -113,7 +113,7 @@ void send_mouse(report_mouse_t *report) {
 #endif // MOUSEKEY_ENABLE
 }
 
-void send_extra(uint8_t report_id, uint16_t data) {
+void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
     uint32_t irqflags;
 
@@ -121,9 +121,8 @@ void send_extra(uint8_t report_id, uint16_t data) {
     __disable_irq();
     __DMB();
 
-    udi_hid_exk_report.desc.report_id   = report_id;
-    udi_hid_exk_report.desc.report_data = data;
-    udi_hid_exk_b_report_valid          = 1;
+    memcpy(udi_hid_exk_report, report, UDI_HID_EXK_REPORT_SIZE);
+    udi_hid_exk_b_report_valid = 1;
     udi_hid_exk_send_report();
 
     __DMB();

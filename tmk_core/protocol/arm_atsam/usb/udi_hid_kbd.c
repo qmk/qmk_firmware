@@ -371,13 +371,13 @@ static uint8_t udi_hid_exk_rate;
 COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_exk_protocol;
 
-COMPILER_WORD_ALIGNED
-uint8_t udi_hid_exk_report_set;
+// COMPILER_WORD_ALIGNED
+// uint8_t udi_hid_exk_report_set;
 
 bool udi_hid_exk_b_report_valid;
 
 COMPILER_WORD_ALIGNED
-udi_hid_exk_report_t udi_hid_exk_report;
+uint8_t udi_hid_exk_report[UDI_HID_EXK_REPORT_SIZE];
 
 static bool udi_hid_exk_b_report_trans_ongoing;
 
@@ -415,38 +415,23 @@ UDC_DESC_STORAGE udi_hid_exk_report_desc_t udi_hid_exk_report_desc = {{
     //clang-format on
 }};
 
-static bool udi_hid_exk_setreport(void);
-
 static void udi_hid_exk_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep);
-
-static void udi_hid_exk_setreport_valid(void);
 
 bool udi_hid_exk_enable(void) {
     // Initialize internal values
     udi_hid_exk_rate                   = 0;
     udi_hid_exk_protocol               = 0;
     udi_hid_exk_b_report_trans_ongoing = false;
-    memset(udi_hid_exk_report.raw, 0, UDI_HID_EXK_REPORT_SIZE);
+    memset(udi_hid_exk_report, 0, UDI_HID_EXK_REPORT_SIZE);
     udi_hid_exk_b_report_valid = false;
     return UDI_HID_EXK_ENABLE_EXT();
 }
 
 void udi_hid_exk_disable(void) { UDI_HID_EXK_DISABLE_EXT(); }
 
-bool udi_hid_exk_setup(void) { return udi_hid_setup(&udi_hid_exk_rate, &udi_hid_exk_protocol, (uint8_t *)&udi_hid_exk_report_desc, udi_hid_exk_setreport); }
+bool udi_hid_exk_setup(void) { return udi_hid_setup(&udi_hid_exk_rate, &udi_hid_exk_protocol, (uint8_t *)&udi_hid_exk_report_desc, NULL); }
 
 uint8_t udi_hid_exk_getsetting(void) { return 0; }
-
-static bool udi_hid_exk_setreport(void) {
-    if ((USB_HID_REPORT_TYPE_OUTPUT == (udd_g_ctrlreq.req.wValue >> 8)) && (0 == (0xFF & udd_g_ctrlreq.req.wValue)) && (1 == udd_g_ctrlreq.req.wLength)) {
-        // Report OUT type on report ID 0 from USB Host
-        udd_g_ctrlreq.payload      = &udi_hid_exk_report_set;
-        udd_g_ctrlreq.callback     = udi_hid_exk_setreport_valid;
-        udd_g_ctrlreq.payload_size = 1;
-        return true;
-    }
-    return false;
-}
 
 bool udi_hid_exk_send_report(void) {
     if (!main_b_exk_enable) {
@@ -457,7 +442,7 @@ bool udi_hid_exk_send_report(void) {
         return false;
     }
 
-    memcpy(udi_hid_exk_report_trans, udi_hid_exk_report.raw, UDI_HID_EXK_REPORT_SIZE);
+    memcpy(udi_hid_exk_report_trans, udi_hid_exk_report, UDI_HID_EXK_REPORT_SIZE);
     udi_hid_exk_b_report_valid         = false;
     udi_hid_exk_b_report_trans_ongoing = udd_ep_run(UDI_HID_EXK_EP_IN | USB_EP_DIR_IN, false, udi_hid_exk_report_trans, UDI_HID_EXK_REPORT_SIZE, udi_hid_exk_report_sent);
 
@@ -473,8 +458,6 @@ static void udi_hid_exk_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
         udi_hid_exk_send_report();
     }
 }
-
-static void udi_hid_exk_setreport_valid(void) {}
 
 #endif  // EXTRAKEY_ENABLE
 

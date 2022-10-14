@@ -266,19 +266,19 @@ void set_led_color_by_hsv(int ledkey, uint8_t h_in, uint8_t s_in, uint8_t v_in){
 void set_led_color_by_layer(int layer, int ledkey){
     set_led_color_by_hsv(ledkey, pgm_read_byte(&ledmap[layer][0]),
                               pgm_read_byte(&ledmap[layer][1]),
-                              pgm_read_byte(&ledmap[layer][2]));    
+                              pgm_read_byte(&ledmap[layer][2]));
 }
 
 void set_ledkey_by_layer_type(int layer, int ledkey, uint16_t key){
     if (rgb_matrix_get_flags() != LED_FLAG_ALL){
         if ( key == KC_TRNS ) {
             if ((pgm_read_byte(&ledmap[layer][3]) == LYR_TRANS) && (layer > 0)){
-                // this key is transparent and the layer below does something 
+                // this key is transparent and the layer below does something
                 // - light it up in  (lower) layer-1 specific color
-                set_led_color_by_layer(layer-1, ledkey);      
-            } 
+                set_led_color_by_layer(layer-1, ledkey);
+            }
             if (pgm_read_byte(&ledmap[layer][3]) == LYR_BLACK){
-                // this key is transparent but the lower layer is not intended 
+                // this key is transparent but the lower layer is not intended
                 // to be used, it still works but not intended; type BLACK
                 set_led_color_by_hsv(ledkey, HSV_BLACK);
             }
@@ -300,7 +300,7 @@ void set_caps_lock(int layer) {
         // it might be used for displaying led pattern
         if((rgb_matrix_get_flags() != LED_FLAG_ALL)) {
             // or to keep the correct lighting on for the layer that use all keys
-            // on all other layers turn the led off, so only switch it of when 
+            // on all other layers turn the led off, so only switch it of when
             // layer is BLACK
             if(pgm_read_byte(&ledmap[layer][3]) == LYR_BLACK){
               set_led_color_by_hsv(caps_lock_led, HSV_BLACK);
@@ -316,14 +316,14 @@ void set_layer_color(int layer) {
         uint8_t row = keyindex/MATRIX_COLS;
         uint8_t col = (keyindex-(keyindex/MATRIX_COLS)*MATRIX_COLS);
         uint16_t key=pgm_read_word(&keymaps[layer][row][col]);
-        
+
         // continue if this is not a valid key
         if (key==KC_NO) { continue; }
-        
+
         // handle layer specific coloring
         set_ledkey_by_layer_type(layer, ledkey, key);
         /* === below this function add custom overriding ledkey lighting === */
-    
+
         // gaming layer with highlighted keys
         //if (IS_LAYER_ON(_LVL4_)) {
         if (layer == _LVL4_) {
@@ -439,10 +439,11 @@ void set_layer_color(int layer) {
     return;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     int layer = get_highest_layer(layer_state);
     set_layer_color(layer);
     set_caps_lock(layer);
+    return false;
 }
 
 #ifdef LEADER_ENABLE

@@ -245,7 +245,7 @@ typedef struct {
 #if JOYSTICK_BUTTON_COUNT > 0
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
-} __attribute__((packed)) joystick_report_t;
+} __attribute__((packed)) report_joystick_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {

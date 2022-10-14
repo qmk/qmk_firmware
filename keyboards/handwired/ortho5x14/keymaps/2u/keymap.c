@@ -349,7 +349,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lshift_finished, lshift_reset),
    [TD_SPC_ENT]    = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_ENT),
-   [TD_SPC_BKSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_BSPACE),
+   [TD_SPC_BKSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_BSPC),
    [TD_LSPACE]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lspace_finished,lspace_reset),
 
    [ALT_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset),
@@ -383,7 +383,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_QWERTY] = LAYOUT(
   //,-----------------+-----------------+---------------+--------------+--------------+--------------+--------------+------+-----------+-----------------+----------------+-----------------+-----------------+------------------.
-     TD(TD_DEL_BSPC)  , KC_BSPACE       , KC_1           , KC_2        , KC_3         , KC_4         , KC_5         , KC_6 , KC_7      , KC_8            , TD(TD_9_LPRN)  , TD(TD_0_RPRN)   ,TD(TD_MINS_UNDS) , TD(TD_EQL_PLUS),
+     TD(TD_DEL_BSPC)  , KC_BSPC         , KC_1           , KC_2        , KC_3         , KC_4         , KC_5         , KC_6 , KC_7      , KC_8            , TD(TD_9_LPRN)  , TD(TD_0_RPRN)   ,TD(TD_MINS_UNDS) , TD(TD_EQL_PLUS),
   //|-----------------+-----------------+---------------+--------------+--------------+--------------+--------------+------+-----------+-----------------+----------------+-----------------+-----------------+------------------|
      TD(TD_PGUP_HOME) , TD(TD_TAB_TILDE), TD(TD_Q_LrALT), KC_W         , KC_E         , KC_R         , KC_T         , KC_Y , KC_U      , KC_I            , KC_O           , KC_P            ,TD(TD_LBRC_LCBR) , TD(TD_RBRC_RCBR),
   //|-----------------+-----------------+---------------+--------------+--------------+--------------+--------------+------+-----------+-----------------+----------------+-----------------+-----------------+------------------|

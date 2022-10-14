@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,          KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, JP_SLSH, JP_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
-LALT_T(KC_ZKHK),KC_LGUI,  KC_UP, KC_MHEN,LT(_LOWER,KC_ENT),KC_BSPC,KC_DEL,KC_BSPC,KC_DEL,LT(_RAISE,KC_SPC),KC_HENK,KC_UP,KC_RSFT, KC_APP,
+LALT_T(JP_ZKHK),KC_LGUI,  KC_UP, JP_MHEN,LT(_LOWER,KC_ENT),KC_BSPC,KC_DEL,KC_BSPC,KC_DEL,LT(_RAISE,KC_SPC),JP_HENK,KC_UP,KC_RSFT, KC_APP,
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
                KC_LEFT, KC_DOWN, KC_RGHT,                                                             KC_LEFT, KC_DOWN, KC_RGHT    
   //|--------------------------------------------------------------|     |--------------------------------------------------------------'
