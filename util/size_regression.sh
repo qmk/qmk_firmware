@@ -64,6 +64,7 @@ fixup_submodules() {
     [ -e lib/ugfx ] && rm -rf lib/ugfx
     [ -e lib/pico-sdk ] && rm -rf lib/pico-sdk
     [ -e lib/chibios-contrib/ext/mcux-sdk ] && rm -rf lib/chibios-contrib/ext/mcux-sdk
+    [ -e lib/lvgl ] && rm -rf lib/lvgl
     make git-submodule
 }
 
