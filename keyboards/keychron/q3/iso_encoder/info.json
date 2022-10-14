@@ -5,11 +5,11 @@
     "maintainer": "lalalademaxiya1",
     "usb": {
         "vid": "0x3434",
-        "pid": "0x0122",
+        "pid": "0x0123",
         "device_version": "1.0.0"
     },
     "layouts": {
-        "LAYOUT_iso_89": {
+        "LAYOUT_tkl_f13_iso": {
             "layout": [
                 {"matrix":[0, 0], "x":0, "y":0},
                 {"matrix":[0, 1], "x":1.25, "y":0},
