@@ -11,6 +11,7 @@ enum unicode_typing_mode {
     UCTM_REGIONAL,
     UCTM_AUSSIE,
     UCTM_ZALGO,
+    UCTM_SUPER,
 };
 
 extern uint8_t typing_mode;

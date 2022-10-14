@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "sesame",
+  "keyboard_name": "Sesame",
+  "manufacturer": "kb-elmo",
   "url": "https://github.com/kb-elmo/sesame",
   "maintainer": "kb-elmo",
+  "usb": {
+    "vid": "0xA68C",
+    "pid": "0xE2BD",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_alice": {
       "layout": [

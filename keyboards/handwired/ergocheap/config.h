@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEDE //0xFEED
-#define PRODUCT_ID      0x6942 //0x6465
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    xSteins
-#define PRODUCT         ERGOCHEAP
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -47,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE   5
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD
 
 /*
  * Feature disable options

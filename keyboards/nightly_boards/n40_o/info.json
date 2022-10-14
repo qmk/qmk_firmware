@@ -1,7 +1,13 @@
 {
     "keyboard_name": "[n]40-o",
+    "manufacturer": "Neil Brian Ramirez",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
+    "usb": {
+    	"vid": "0xD812",
+    	"pid": "0x0009",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_4x13_encoders": {
             "layout": [

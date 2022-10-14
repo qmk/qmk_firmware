@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MechWild Waka60",
+    "keyboard_name": "Waka60",
+    "manufacturer": "MechWild",
     "url": "mechwild.com",
     "maintainer": "Kyle McCreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x1709",
+        "device_version": "1.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

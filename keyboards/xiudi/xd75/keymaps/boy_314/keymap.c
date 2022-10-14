@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |   `    |   !    |   @    |   #    |   $    |   %    |        |        |        |    ^   |   &    |   *    |   (    |   )    | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |   ~    |   !    |   @    |   #    |   $    |   %    | RESET  |RGB HUE-|RGB HUE+|    ^   |   &    |   *    |   (    |   )    | DEL    |
+ * |   ~    |   !    |   @    |   #    |   $    |   %    | QK_BOOT  |RGB HUE-|RGB HUE+|    ^   |   &    |   *    |   (    |   )    | DEL    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | DEL    |   F1   |   F2   |   F3   |   F4   |   F5   |   F6   |RGB SAT-|RGB SAT+| DVORAK |   _    |   +    |   {    |   }    |   |    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
  [_FN1] = LAYOUT_ortho_5x15( /* FUNCTION1 */
   KC_GRV , KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-  KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,   RESET, RGB_HUD, RGB_HUI, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
+  KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,   QK_BOOT, RGB_HUD, RGB_HUI, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
   KC_DEL,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, RGB_SAD, RGB_SAI, TO(_DV), KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
   _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, RGB_VAD, RGB_VAI, TO(_QW), _______, _______, KC_HOME,  KC_END, _______,
   _______, _______, _______, _______, _______, _______, _______,RGB_RMOD, RGB_MOD, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |   `    | 1      | 2      | 3      | 4      | 5      |        |        |        | 6      | 7      | 8      | 9      | 0      | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |   `    |        |        |   UP   |        |        | RESET  |RGB HUE-|RGB HUE+| NUMPAD |        |        |        |        |        |
+ * |   `    |        |        |   UP   |        |        | QK_BOOT  |RGB HUE-|RGB HUE+| NUMPAD |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | DEL    |        |  LEFT  |  DOWN  | RIGHT  |        |        |RGB SAT-|RGB SAT+| DVORAK |   -    |   =    |   [    |   ]    |   \    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
  [_FN2] = LAYOUT_ortho_5x15( /* FUNCTION2 */
   KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______, _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_GRV, _______, _______,   KC_UP, _______, _______,   RESET, RGB_HUD, RGB_HUI, TG(_NP), _______, _______, _______, _______, KC_DEL,
+  KC_GRV, _______, _______,   KC_UP, _______, _______,   QK_BOOT, RGB_HUD, RGB_HUI, TG(_NP), _______, _______, _______, _______, KC_DEL,
   KC_DEL, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, RGB_SAD, RGB_SAI, TG(_DV), KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
   _______, _______, _______, _______, _______, _______, _______, RGB_VAD, RGB_VAI, TG(_QW), _______, _______, KC_PGDN, KC_PGUP, _______,
   _______, _______, _______, _______, _______, _______, _______,RGB_RMOD, RGB_MOD, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY

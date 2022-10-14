@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "kinT (kintlc)",
+    "manufacturer": "https://github.com/stapelberg",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x345C",
+        "device_version": "0.0.1"
+    }
+}

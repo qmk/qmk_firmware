@@ -1,7 +1,13 @@
 {
     "keyboard_name": "infinity81",
+    "manufacturer": "Ada",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xADA0",
+        "pid": "0x0081",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
