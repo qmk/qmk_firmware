@@ -9,14 +9,15 @@
 * Keyboard Maintainer: [Commander1024](https://github.com/Commander1024)
 * Hardware Supported: *The PCB, rotary encoder, LEDs*
 * Hardware Availability: *https://www.daskeyboard.com/de/daskeyboard-4-professional/*
+* Microcontroller used: *https://stm32-base.org/boards/STM32F401CEU6-WeAct-Black-Pill-V3.0.html*
 
-I used a STM32 development board to replace the keyboard's destroyed controller. This keyboard definition is here to enable to painlessly use the OEM PCB in a custom keyboard, as the rows and columns are placed in an unintuitive way.
+I used a WeAct Black Pill V3.0 featuring the STM32F401CEU6 processor to replace the keyboard's destroyed controller. This keyboard definition can also be easily adopted to use any other microcontroller compatible with QMK and with sufficient I/O ports.
 
-The layout definition in **info.json** contains the magic. The rows and columns appear in the pin definition in the order they appear on the 26 pads, where the original ribbon cable was connected for intuitive cabling and adoption to other microcontrollers.
+The layout definition in **info.json** contains the magic. The rows and columns appear in the pin definition in the order they appear on the 26 pads, where the original ribbon cable was connected. **Note**: Pad 25 is not connected.
 
 It *should* work for ANSI as well as ISO variants, although I only tested the latter.
 
-**Note**: Pad 25 is not connected.
+Rotary encoder and LEDs are handwired.
 
 ## Media key mapping
 KC_RGUI (right super key) is used to switch or toggle (double tap) to media layer.  
