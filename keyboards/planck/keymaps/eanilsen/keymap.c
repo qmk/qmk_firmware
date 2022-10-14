@@ -6,7 +6,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_norwegian.h"
 #include "customkeys.h"
 #include "features/swapper.h"
 #include "features/select_word.h"
@@ -105,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* FUNCTION
    * ,-----------------------------------------------------------------------------------.
-   * |CG_TGL|  F1  |  F2  |  F3  |  F4  | ---  | ---  |PrScr | ---  | ---  |   Æ  |Reset |
+   * |CG_TGL|  F1  |  F2  |  F3  |  F4  | ---  | ---  |PrnScr| ---  | ---  |   Æ  |Reset |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | ---  |  F5  |  F6  |  F7  |  F8  | ---  | ---  | Copy |Paste |   Å  |   Ø  | ---  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -116,10 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_FUNCTION] = LAYOUT_ortho_4x12(
-    CG_TOGG,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,   KC_PSCR, KC_NO,    KC_NO,   NO_AE,   QK_BOOT,
-    KC_NO,     KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_NO, KC_NO,   MW_COPY, MW_PSTE,  NO_ARNG, NO_OSTR, KC_NO,
-    KC_LSFT,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NO, KC_NO,   SEL_WRD, SEL_SRCH, KC_NO,   KC_NO,   KC_RSFT,
-    KC_NO,     KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO,    KC_NO,   KC_NO,   KC_NO
+    CG_TOGG,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,   KC_PSCR, KC_NO,    KC_NO, CT_AE, QK_BOOT,
+    KC_NO,     KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_NO, KC_NO,   MW_COPY, MW_PSTE,  CT_AA, CT_OE, KC_NO,
+    KC_LSFT,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NO, KC_NO,   SEL_WRD, SEL_SRCH, KC_NO, KC_NO, KC_RSFT,
+    KC_NO,     KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO,    KC_NO, KC_NO, KC_NO
     ),
 
   /* NAV
@@ -175,6 +174,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
+  case CT_AA:
+    if (isPressed) {
+      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+	del_mods(MOD_MASK_SHIFT);
+	del_oneshot_mods(MOD_MASK_SHIFT);
+	tap_code16(KC_LCBR);
+	set_mods(mods);
+      } else {
+	tap_code16(KC_LBRC);
+      }
+    }
+    return false;
+  case CT_OE:
+    if (isPressed) {
+      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+	del_mods(MOD_MASK_SHIFT);
+	del_oneshot_mods(MOD_MASK_SHIFT);
+	tap_code16(KC_COLN);
+	set_mods(mods);
+      } else {
+	tap_code16(KC_SCLN);
+      }
+    }
+    return false;
+  case CT_AE:
+    if (isPressed) {
+      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+	del_mods(MOD_MASK_SHIFT);
+	del_oneshot_mods(MOD_MASK_SHIFT);
+	tap_code16(KC_DQUO);
+	set_mods(mods);
+      } else {
+	tap_code16(KC_QUOT);
+      }
+    }
+    return false;
   case GRAVE:
     if (isPressed) {
       if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
@@ -214,12 +249,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case LT_UP:
     if (isHeld) {
       tap_code16(C(KC_UP));
-      return false;
-    }
-    return true;
-  case LT(0,KC_SCLN):
-    if (isHeld) {
-      tap_code16(KC_COLN);
       return false;
     }
     return true;

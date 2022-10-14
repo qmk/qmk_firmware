@@ -21,5 +21,9 @@ enum custom_keycodes {
   SEL_WRD,
   SEL_SRCH,
   ARROW,
-  GRAVE
+  GRAVE,
+  // Norwegian keys
+  CT_AA,
+  CT_AE,
+  CT_OE
 };
