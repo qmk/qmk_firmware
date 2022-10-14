@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //         LAYERS SWITCHER | APPLICATION MENU        |                         |                         |                        //
         //                         |                         |                         |                         |                  SCROLL //
-                 TG(LAYERS),                 KC_APP,                  KC_NLCK,                  KC_SLCK,                   KC_CAPS,        //
+                 TG(LAYERS),                 KC_APP,                  KC_NLCK,                  KC_SCRL,                   KC_CAPS,        //
         //                         |                         |                         |                         |                  NUM    //
         //            LAYER TOGGLE |                         |                         |                         |       TAP DANCE: CAPS   //
          //------------------------+-------------------------+-------------------------+-------------------------+------------------------//
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LGUI(KC_C), XXXXXXX,       LCTL(KC_C), KC_UP,         SCTL(KC_C),    LCTL(KC_Z),     LGUI(KC_Z),
                     KC_MS_WH_LEFT, KC_LEFT,    KC_DOWN,       KC_RIGHT,      KC_MS_WH_RIGHT, KC_APPLICATION,
         LGUI(KC_V), XXXXXXX,       LCTL(KC_V), KC_MS_WH_DOWN, SCTL(KC_V),    LCTL(KC_Y),     SGUI(KC_Z),
-        XXXXXXX,    XXXXXXX,       XXXXXXX,    XXXXXXX,       KC_SLCK,
+        XXXXXXX,    XXXXXXX,       XXXXXXX,    XXXXXXX,       KC_SCRL,
 
         // right thumb
         XXXXXXX,   XXXXXXX,
@@ -200,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LGUI(KC_Z),    LCTL(KC_Z),    SCTL(KC_C), KC_MS_UP,      LCTL(KC_C),  KC_MS_BTN4,     LGUI(KC_C),
         KC_MS_BTN3,    KC_MS_WH_LEFT, KC_MS_LEFT, KC_MS_DOWN,    KC_MS_RIGHT, KC_MS_WH_RIGHT,
         LGUI(KC_Z),    LCTL(KC_Y),    SCTL(KC_V), KC_MS_WH_DOWN, LCTL(KC_V),  KC_MS_BTN5,     LGUI(KC_V),
-        KC_SLCK,       XXXXXXX,       XXXXXXX,    XXXXXXX,       XXXXXXX,
+        KC_SCRL,       XXXXXXX,       XXXXXXX,    XXXXXXX,       XXXXXXX,
 
         // left thumb
                     XXXXXXX,    XXXXXXX,

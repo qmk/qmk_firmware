@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, AP_READ_RDAC, AP_READ_EEPROM, AP_DN, AP_UP, _______, _______, KC_HOME, KC_END,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        KC_CAPS, KC_MPRV, KC_VOLU, KC_MNXT, KC_PGUP, KC_INS, KC_HOME, LCTL(KC_LEFT), LCTL(KC_RGHT), KC_END, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, _______, _______,
+        KC_CAPS, KC_MPRV, KC_VOLU, KC_MNXT, KC_PGUP, KC_INS, KC_HOME, LCTL(KC_LEFT), LCTL(KC_RGHT), KC_END, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, _______, _______, _______,
         _______, KC_MUTE, KC_VOLD, KC_MPLY, KC_PGDN, KC_DEL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, LCTL(KC_BSPC), LCTL(KC_DEL), _______, _______, _______, _______, KC_PGUP, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, KC_APP, _______, KC_HOME, KC_PGDN, KC_END, _______, _______),

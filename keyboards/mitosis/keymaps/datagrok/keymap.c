@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*,      */ _______, _______, TT(_xF), _______,        _______, TT(_xF), _______, _______),
   [_xN] = LAYOUT(
       KC_PSCR, KC_F7,      KC_F8,   KC_F9,   KC_F10,         KC_PPLS, KC_7,    KC_8,    KC_9,     KC_PMNS,
-      KC_SLCK, KC_F4,      KC_F5,   KC_F6,   KC_F11,         KC_NLCK, KC_4,    KC_5,    KC_6,     KC_PENT,
+      KC_SCRL, KC_F4,      KC_F5,   KC_F6,   KC_F11,         KC_NLCK, KC_4,    KC_5,    KC_6,     KC_PENT,
       KC_PAUS, KC_F1,      KC_F2,   KC_F3,   KC_F12,         KC_PAST, KC_1,    KC_2,    KC_3,     KC_PSLS,
       /*,      */ _______, _______, TT(_xF), _______,        _______, TT(_xF), KC_0,    KC_DOT,
       /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______),

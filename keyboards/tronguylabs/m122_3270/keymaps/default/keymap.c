@@ -126,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {    // This assumes that the Linux Compose has been set to Scroll Lock
                 if (record->event.pressed) {
-                    tap_code16(KC_SLCK);
+                    tap_code16(KC_SCRL);
                     SEND_STRING("c/");
                 }
             }
@@ -201,10 +201,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {
                 if (record->event.pressed) {
-                    register_code(KC_SLCK);
+                    register_code(KC_SCRL);
                 }
                 else {
-                    unregister_code(KC_SLCK);
+                    unregister_code(KC_SCRL);
                 }
             }
             return false;

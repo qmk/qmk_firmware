@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FNL2] = LAYOUT_preonic_grid( \
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
-  TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS, _______, KC_PSCR,  KC_INS, KC_HOME, KC_PGUP, KC_SLCK,
+  TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS, _______, KC_PSCR,  KC_INS, KC_HOME, KC_PGUP, KC_SCRL,
   _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NLCK, _______, _______,  KC_DEL,  KC_END, KC_PGDN, KC_PAUS,
   _______,    CTLZ,    CTLX,    CTLC,    CTLV, _______, _______, _______, _______,   KC_UP, _______, KC_ENT,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, TO(_QWERTY)

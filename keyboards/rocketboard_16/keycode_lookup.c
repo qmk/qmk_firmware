@@ -126,7 +126,7 @@ lookup_table_t lookup_table[333] =
  {"KC_F11", KC_F11},
  {"KC_F12", KC_F12},
  {"KC_PSCR", KC_PSCR},
- {"KC_SLCK", KC_SLCK},
+ {"KC_SCRL", KC_SCRL},
  {"KC_PAUS", KC_PAUS},
  {"KC_INS", KC_INS},
  {"KC_HOME", KC_HOME},

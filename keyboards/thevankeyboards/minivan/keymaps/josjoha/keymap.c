@@ -1191,7 +1191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2    , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>        , index>  , middl>           , ring>              , pinky>  , pink2>        ,
 //                ,                  ,                  ,                  , -*-              ,                 <|,>              ,         ,                  ,                    ,         ,               ,
         CTO_BASE  , COUNT_TOG        , COUNT_NULL       , COUNT_WORDMIN    , COUNT_REPORT     , SPEED_TOG         , SPEED_REPORT  , KC_MPLY , KC_MNXT          , KC_MPRV            , KC_MSTP , KC_RSFT       ,
-        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
+        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SCRL           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
         XP_DRA_CG , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         LEDS_ON  

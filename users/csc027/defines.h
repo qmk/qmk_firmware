@@ -189,7 +189,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SLCK,  KC_PSCR,  XXXXXXX
+#define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SCRL,  KC_PSCR,  XXXXXXX
 #define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_lcad,  MC_rdcc,  KC_NLCK
 #define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  KC_MSTP,  KC_MPRV,  KC_MPLY,  KC_MNXT
 #define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,  _______,  _______

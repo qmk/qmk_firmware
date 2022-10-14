@@ -44,7 +44,7 @@ void dance_lock_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_CAPS);
             break;
         case 4:
-            register_code(KC_SLCK);
+            register_code(KC_SCRL);
             break;
         default:
             break;
@@ -63,7 +63,7 @@ void dance_lock_reset(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_CAPS);
             break;
         case 4:
-            register_code(KC_SLCK);
+            register_code(KC_SCRL);
             break;
         default:
             break;

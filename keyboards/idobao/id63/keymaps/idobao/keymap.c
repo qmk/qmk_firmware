@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_FN1] = LAYOUT_60_ansi_arrow(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
-        _______, _______, KC_UP,   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, KC_PSCR,  KC_SLCK, KC_PAUS, KC_INS,
+        _______, _______, KC_UP,   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, KC_PSCR,  KC_SCRL, KC_PAUS, KC_INS,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______,  _______,          _______,
         _______,          _______, _______, _______, KB_VRSN, QK_BOOT, NK_TOGG, _______, _______, _______,  _______, KC_PGUP, _______,
         _______, _______,          _______,                    _______,                   _______, MO(_FN3), KC_HOME, KC_PGDN, KC_END

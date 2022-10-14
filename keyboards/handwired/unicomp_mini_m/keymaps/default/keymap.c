@@ -57,10 +57,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (keyboard_report->mods & MODS_SHIFT_MASK) {
                     tap_code(KC_NLCK);
                 } else {
-                    register_code(KC_SLCK);
+                    register_code(KC_SCRL);
                 }
             } else {
-                unregister_code(KC_SLCK);
+                unregister_code(KC_SCRL);
             }
             break;
         }
