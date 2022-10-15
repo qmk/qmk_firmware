@@ -13,10 +13,10 @@ void led_set_kb(uint8_t usb_led) {
 
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
 		setPinOutput(B2);
-		writePinHigh(B2);
+		writePinLow(B2);
 	} else {
 		setPinOutput(B2);
-		writePinLow(B2);
+		writePinHigh(B2);
   }
 
   // if (usb_led & (1<<USB_LED_NUM_LOCK)) {
