@@ -78,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BR_UP:
       // Clear the RGUI modifier placed by LM for _ML layer as brightness don't
       // work with modifiers.
-      key = (keycode == BR_DOWN) ? KC_SLCK : KC_PAUS;
+      key = (keycode == BR_DOWN) ? KC_SCRL : KC_PAUS;
       if (record->event.pressed) {
           unregister_mods(MOD_RGUI);
           add_key(key);

@@ -93,7 +93,7 @@ LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,
  */
 [_NUMPD] = LAYOUT_planck_grid(
  SFT_T(KC_PASTE),KC_P7,   KC_P8, KC_P9,  DE_SLSH, _______, _______, _______, _______, _______, _______,  _______,
-    KC_NLCK,    KC_P4,   KC_P5, KC_P6,  DE_MINS, _______, _______, _______, _______, _______, _______,  _______,
+    KC_NUM,     KC_P4,   KC_P5, KC_P6,  DE_MINS, _______, _______, _______, _______, _______, _______,  _______,
     _______,    KC_P1,   KC_P2, KC_P3,  DE_PLUS, _______, _______, _______, _______, _______, _______,  _______,
  CTL_T(KC_COPY),KC_DOT,  KC_P0, KC_COMM, NUMPD,  KC_ENT,  KC_ENT,  _______, _______, _______, _______,  _______
 ),

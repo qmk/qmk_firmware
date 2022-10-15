@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   */
 [_MEDIA] = LAYOUT(
-           QK_BOOT,   KC_SLCK, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NLCK,
+           QK_BOOT,   KC_SCRL, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NUM,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MNXT, KC_MPLY,                                     KC_MPLY, KC_MPRV, KC_MNXT, KC_MSTP, KC_TRNS, KC_PMNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_U, KC_TRNS, KC_BTN4, KC_BTN5,                                     KC_BTN4, KC_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_D, KC_BTN3, KC_BTN2, KC_BTN1,                                     KC_BTN1, KC_BTN2, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_TRNS,
@@ -235,13 +235,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case M_LP: //left pedal
       if (record->event.pressed) {
         layer_on(1);
-        register_code (KC_SLCK);
+        register_code (KC_SCRL);
         key_timer_left_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_left_pedal) < KEY_DELAY) {
            tap_code (KC_BTN2);
         }
-        unregister_code (KC_SLCK);
+        unregister_code (KC_SCRL);
         layer_off(1);
       }
       break;
