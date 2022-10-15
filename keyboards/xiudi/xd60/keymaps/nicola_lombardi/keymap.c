@@ -14,6 +14,13 @@
     { K40,  K41,  K42, KC_NO, K44,  K45,  K46,  K47,  K48, KC_NO, K4A,  K4B,  K4C,  K4D }  \
 }
 
+// LAYERS
+#define L_BASE 0
+#define L_GAMING 1
+#define L_ARROWS_SYMBOLS 2
+#define L_EXTRA 3    
+
+// TAP DANCES
 enum {
     TD_RIGHT_GAMINGPROFILE,
     TD_ACCENTED_A,
@@ -106,7 +113,7 @@ void accented_letter_u(qk_tap_dance_state_t *state, void *user_data){
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Right Arrow, Tap twice to toggle the gaming layer
-    [TD_RIGHT_GAMINGPROFILE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_RGHT, 3),
+    [TD_RIGHT_GAMINGPROFILE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_RGHT, L_GAMING),
 
     [TD_ACCENTED_A] = ACTION_TAP_DANCE_FN(accented_letter_a),
     [TD_ACCENTED_E] = ACTION_TAP_DANCE_FN(accented_letter_e),
@@ -123,9 +130,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,     KC_E,  KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_NO,  KC_NO, KC_BSLS,
         KC_CAPS, KC_A,    KC_S,     KC_D,  KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT,  KC_NO,   KC_ENT,
         KC_LSFT, KC_NO,   KC_Z,     KC_X,  KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH,  KC_NO,   KC_RSFT, KC_UP,
-        KC_LCTL, KC_LGUI, KC_LALT,         MO(1),    KC_SPC,     KC_RCTL, MO(2),   KC_DEL,  KC_LEFT, KC_DOWN,   KC_RGHT),
+        KC_LCTL, KC_LGUI, KC_LALT,         MO(L_ARROWS_SYMBOLS),    KC_SPC,     KC_RCTL, MO(L_EXTRA),   KC_DEL,  KC_LEFT, KC_DOWN,   KC_RGHT),
 
-    // 1: Function Layer
+    // 1: Gaming layer
+    LAYOUT_split_spacebar(
+        KC_ESC,  KC_1,    KC_2,     KC_3,  KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,    KC_0,    KC_MINS,  KC_EQL,  KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,     KC_E,  KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_LBRC,  KC_RBRC, KC_BSLS,
+        KC_CAPS, KC_A,    KC_S,     KC_D,  KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT,  KC_NO,   KC_ENT,
+        KC_LSFT, KC_NO,   KC_Z,     KC_X,  KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH,  KC_NO,   KC_RSFT, KC_UP,
+        KC_LCTL, KC_LGUI, KC_LALT,         KC_SPC,    MO(L_ARROWS_SYMBOLS),     KC_RCTL, KC_RALT,   KC_DEL,  KC_LEFT, KC_DOWN,   TD(TD_RIGHT_GAMINGPROFILE)),
+
+    // 2: Function Layer
     LAYOUT_split_spacebar(
         KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_BSPC,
         KC_TAB, LSFT(KC_LBRC), LSFT(KC_RBRC), KC_LBRC, KC_RBRC, LCTL(LSFT(KC_F5)), KC_NO, KC_HOME, KC_UP, KC_END, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -133,19 +148,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_NO, KC_F12, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_RIGHT)), KC_NO, KC_NO, KC_NO, KC_DEL, KC_NO, KC_NO, KC_NO, KC_NO, KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,       KC_TRNS, KC_SPC,         KC_RCTL, KC_NO,  KC_DEL,  KC_LEFT, KC_DOWN, TD(TD_RIGHT_GAMINGPROFILE)),
 
-    // 2: Extra functions layer and accented letters
+    // 3: Extra functions layer and accented letters
     LAYOUT_split_spacebar(
         QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, TD(TD_ACCENTED_E), KC_NO, KC_NO, KC_NO, TD(TD_ACCENTED_U), TD(TD_ACCENTED_I), TD(TD_ACCENTED_O), KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, TD(TD_ACCENTED_A), KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, KC_NO, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO,       KC_NO, KC_NO,         KC_NO, KC_TRNS,  RGB_TOG,  RGB_VAD, RGB_VAI, RGB_MOD),
+        KC_NO, KC_NO, KC_NO,       KC_NO, KC_NO,         KC_NO, KC_TRNS,  KC_NO,  KC_NO, KC_NO, KC_NO),
     
-    // 3: A standard layer used for gaming
-    LAYOUT_split_spacebar(
-        KC_GRV,  KC_1,    KC_2,     KC_3,  KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,    KC_0,    KC_MINS,  KC_EQL,  KC_BSPC,
-        KC_TAB,  KC_Q,    KC_W,     KC_E,  KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_LBRC,  KC_RBRC, KC_BSLS,
-        KC_CAPS, KC_A,    KC_S,     KC_D,  KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT,  KC_NO,   KC_ENT,
-        KC_LSFT, KC_NO,   KC_Z,     KC_X,  KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH,  KC_NO,   KC_RSFT, KC_UP,
-        KC_LCTL, KC_LGUI, KC_LALT,         KC_SPC,    KC_SPC,     KC_RCTL, KC_RALT,   KC_DEL,  KC_LEFT, KC_DOWN,   TD(TD_RIGHT_GAMINGPROFILE)),
+    
 };
