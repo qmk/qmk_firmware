@@ -12,9 +12,11 @@ void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-		xd60_caps_led_on();
+		setPinOutput(B2);
+		writePinHigh(B2);
 	} else {
-		xd60_caps_led_off();
+		setPinOutput(B2);
+		writePinLow(B2);
   }
 
   // if (usb_led & (1<<USB_LED_NUM_LOCK)) {
