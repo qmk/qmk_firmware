@@ -15,7 +15,7 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 TAP_DANCE_ENABLE = yes      # Enables tapdance.
 UNICODE_ENABLE = yes        # Enables the sending of unicode characters
 
