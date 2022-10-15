@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_5x12": {
             "layout": [
                 {
                     "label": "`",
