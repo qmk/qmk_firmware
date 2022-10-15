@@ -1081,7 +1081,6 @@ void clear_keyboard_but_mods_and_keys() {
 #endif
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     programmable_button_clear();
-    programmable_button_send();
 #endif
 }
 

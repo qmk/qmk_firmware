@@ -22,9 +22,9 @@ bool process_programmable_button(uint16_t keycode, keyrecord_t *record) {
     if (keycode >= PROGRAMMABLE_BUTTON_MIN && keycode <= PROGRAMMABLE_BUTTON_MAX) {
         uint8_t button = keycode - PROGRAMMABLE_BUTTON_MIN + 1;
         if (record->event.pressed) {
-            programmable_button_on(button);
+            programmable_button_register(button);
         } else {
-            programmable_button_off(button);
+            programmable_button_unregister(button);
         }
     }
     return true;
