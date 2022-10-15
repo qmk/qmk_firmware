@@ -15,15 +15,105 @@
 }
 
 enum {
-    TD_NO_GAMINGPROFILE,
     TD_RIGHT_GAMINGPROFILE,
+    TD_ACCENTED_A,
+    TD_ACCENTED_E,
+    TD_ACCENTED_I,
+    TD_ACCENTED_O,
+    TD_ACCENTED_U
 };
+
+void accented_letter_a(qk_tap_dance_state_t *state, void *user_data){
+    switch (state->count) {
+        case 1:
+            send_unicode_string("à");
+            break;
+        case 2:
+            send_unicode_string("À");
+            break;
+        case 3:
+            send_unicode_string("á");
+            break;
+        case 4:
+            send_unicode_string("Á");
+            break;
+    }
+}
+void accented_letter_e(qk_tap_dance_state_t *state, void *user_data){
+    switch (state->count) {
+        case 1:
+            send_unicode_string("è");
+            break;
+        case 2:
+            send_unicode_string("È");
+            break;
+        case 3:
+            send_unicode_string("é");
+            break;
+        case 4:
+            send_unicode_string("É");
+            break;
+    }
+}
+void accented_letter_i(qk_tap_dance_state_t *state, void *user_data){
+    switch (state->count) {
+        case 1:
+            send_unicode_string("ì");
+            break;
+        case 2:
+            send_unicode_string("Ì");
+            break;
+        case 3:
+            send_unicode_string("í");
+            break;
+        case 4:
+            send_unicode_string("Í");
+            break;
+    }
+}
+void accented_letter_o(qk_tap_dance_state_t *state, void *user_data){
+    switch (state->count) {
+        case 1:
+            send_unicode_string("ò");
+            break;
+        case 2:
+            send_unicode_string("Ò");
+            break;
+        case 3:
+            send_unicode_string("ó");
+            break;
+        case 4:
+            send_unicode_string("Ó");
+            break;
+    }
+}
+void accented_letter_u(qk_tap_dance_state_t *state, void *user_data){
+    switch (state->count) {
+        case 1:
+            send_unicode_string("ù");
+            break;
+        case 2:
+            send_unicode_string("Ù");
+            break;
+        case 3:
+            send_unicode_string("ú");
+            break;
+        case 4:
+            send_unicode_string("Ú");
+            break;
+    }
+}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Right Arrow, Tap twice to toggle the gaming layer
     [TD_RIGHT_GAMINGPROFILE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_RGHT, 3),
-};
 
+    [TD_ACCENTED_A] = ACTION_TAP_DANCE_FN(accented_letter_a),
+    [TD_ACCENTED_E] = ACTION_TAP_DANCE_FN(accented_letter_e),
+    [TD_ACCENTED_I] = ACTION_TAP_DANCE_FN(accented_letter_i),
+    [TD_ACCENTED_O] = ACTION_TAP_DANCE_FN(accented_letter_o),
+    [TD_ACCENTED_U] = ACTION_TAP_DANCE_FN(accented_letter_u),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -43,11 +133,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_NO, KC_F12, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_RIGHT)), KC_NO, KC_NO, KC_NO, KC_DEL, KC_NO, KC_NO, KC_NO, KC_NO, KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,       KC_TRNS, KC_SPC,         KC_RCTL, KC_NO,  KC_DEL,  KC_LEFT, KC_DOWN, TD(TD_RIGHT_GAMINGPROFILE)),
 
-    // 2: Extra functions layer
+    // 2: Extra functions layer and accented letters
     LAYOUT_split_spacebar(
         QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, KC_NO, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, TD(TD_ACCENTED_E), KC_NO, KC_NO, KC_NO, TD(TD_ACCENTED_U), TD(TD_ACCENTED_I), TD(TD_ACCENTED_O), KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, TD(TD_ACCENTED_A), KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, KC_NO, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO,       KC_NO, KC_NO,         KC_NO, KC_TRNS,  RGB_TOG,  RGB_VAD, RGB_VAI, RGB_MOD),
     

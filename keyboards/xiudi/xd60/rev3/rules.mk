@@ -17,5 +17,6 @@ BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 TAP_DANCE_ENABLE = yes      # Enables tapdance.
+UNICODE_ENABLE = yes        # Enables the sending of unicode characters
 
 LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso 60_iso_split_bs_rshift
