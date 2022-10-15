@@ -81,7 +81,7 @@ void reset_tap_dance(qk_tap_dance_state_t *state);
 
 /* To be used internally */
 
-void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record);
+bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record);
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record);
 void tap_dance_task(void);
 

@@ -458,7 +458,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    case KC_BSPACE:
+    case KC_BACKSPACE:
       if (record->event.pressed) {
         state = active;
         velocikey_accelerate();

@@ -263,16 +263,16 @@ def test_generate_rgb_breathe_table():
 def test_generate_config_h():
     result = check_subcommand('generate-config-h', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
-    assert '#   define DEVICE_VER 0x0001' in result.stdout
-    assert '#   define DIODE_DIRECTION COL2ROW' in result.stdout
-    assert '#   define MANUFACTURER "none"' in result.stdout
-    assert '#   define PRODUCT "pytest"' in result.stdout
-    assert '#   define PRODUCT_ID 0x6465' in result.stdout
-    assert '#   define VENDOR_ID 0xFEED' in result.stdout
-    assert '#   define MATRIX_COLS 1' in result.stdout
-    assert '#   define MATRIX_COL_PINS { F4 }' in result.stdout
-    assert '#   define MATRIX_ROWS 1' in result.stdout
-    assert '#   define MATRIX_ROW_PINS { F5 }' in result.stdout
+    assert '#    define DEVICE_VER 0x0001' in result.stdout
+    assert '#    define DIODE_DIRECTION COL2ROW' in result.stdout
+    assert '#    define MANUFACTURER "none"' in result.stdout
+    assert '#    define PRODUCT "pytest"' in result.stdout
+    assert '#    define PRODUCT_ID 0x6465' in result.stdout
+    assert '#    define VENDOR_ID 0xFEED' in result.stdout
+    assert '#    define MATRIX_COLS 1' in result.stdout
+    assert '#    define MATRIX_COL_PINS { F4 }' in result.stdout
+    assert '#    define MATRIX_ROWS 1' in result.stdout
+    assert '#    define MATRIX_ROW_PINS { F5 }' in result.stdout
 
 
 def test_generate_rules_mk():
@@ -286,12 +286,6 @@ def test_generate_version_h():
     result = check_subcommand('generate-version-h')
     check_returncode(result)
     assert '#define QMK_VERSION' in result.stdout
-
-
-def test_generate_layouts():
-    result = check_subcommand('generate-layouts', '-kb', 'handwired/pytest/basic')
-    check_returncode(result)
-    assert '#define LAYOUT_custom(k0A) {' in result.stdout
 
 
 def test_format_json_keyboard():

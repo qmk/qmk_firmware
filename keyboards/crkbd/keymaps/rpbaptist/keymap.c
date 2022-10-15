@@ -62,8 +62,8 @@ user_config_t user_config;
 #define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
 // Tap/mod keys
-#define RCTL_BR RCTL_T(KC_RBRACKET)
-#define LCTL_BR LCTL_T(KC_LBRACKET)
+#define RCTL_BR RCTL_T(KC_RBRC)
+#define LCTL_BR LCTL_T(KC_LBRC)
 
 #define SFT_SPC LSFT_T(KC_SPACE)
 #define SFT_ENT RSFT_T(KC_ENTER)
@@ -324,7 +324,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 
     RGB rgb = hsv_to_rgb(hsv);
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
@@ -342,7 +342,7 @@ void check_default_layer(uint8_t type) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
   if (
     user_config.rgb_layer_change && rgb_matrix_config.enable &&
       (!user_config.rgb_matrix_idle_anim || rgb_matrix_get_mode() != user_config.rgb_matrix_idle_mode)
@@ -370,6 +370,7 @@ void rgb_matrix_indicators_user(void) {
             }
         }
     }
+    return false;
 }
 
 void rgb_matrix_update_current_mode(uint8_t mode, uint8_t speed) {

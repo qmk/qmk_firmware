@@ -35,13 +35,12 @@
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses (will slow down matrix scan by a lot)
 // #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-// #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    undef RGB_MATRIX_LED_PROCESS_LIMIT
 #    undef RGB_MATRIX_LED_FLUSH_LIMIT
 #    ifdef KEYBOARD_planck_rev6
-#        define DRIVER_LED_TOTAL RGBLED_NUM
+#        define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    endif
 #endif
 

@@ -38,7 +38,7 @@
         },
         "pin_compatible": {
             "type": "string",
-            "enum": ["promicro"]
+            "enum": ["promicro", "elite_c"]
         },
         "processor": {
             "type": "string",
@@ -117,7 +117,7 @@
             "properties": {
                 "debounce_type": {
                     "type": "string",
-                    "enum": ["custom", "eager_pk", "eager_pr", "sym_defer_pk", "sym_defer_pr", "sym_eager_pk"]
+                    "enum": ["asym_eager_defer_pk", "custom", "sym_defer_g", "sym_defer_pk", "sym_defer_pr", "sym_eager_pk", "sym_eager_pr"]
                 },
                 "firmware_format": {
                     "type": "string",
@@ -264,7 +264,31 @@
         "led_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
@@ -291,7 +315,31 @@
         "rgb_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
@@ -460,7 +508,9 @@
                             "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
                         "sync_matrix_state": {"type": "boolean"},
-                        "sync_modifiers": {"type": "boolean"}
+                        "sync_modifiers": {"type": "boolean"},
+                        "watchdog": {"type": "boolean"},
+                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
                 },
                 "usb_detect": {

@@ -118,11 +118,11 @@ const uint16_t PROGMEM keymaps[_LAYER_MAX][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO,      KC_NO,                            KC_NO,                    KC_NO, _______, KC_NO, KC_NO, KC_NO
     ),
     [_KP] = LAYOUT(
-        _______,    _______, _______, _______, _______, _______, _______, _______, KC_KP_ASTERISK, _______, _______,       _______, _______, _______, _______,
-        KC_NUMLOCK, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, KC_KP_7, KC_KP_8,        KC_KP_9, KC_KP_MINUS,   _______, _______, _______, _______,
-        _______,    KC_KP_4, KC_KP_5, KC_KP_6, _______, _______, _______, KC_KP_4, KC_KP_5,        KC_KP_6, KC_KP_PLUS,    _______, _______,          _______,
-        _______,    KC_KP_1, KC_KP_2, KC_KP_3, _______, _______, _______, KC_KP_1, KC_KP_2,        KC_KP_3, KC_KP_SLASH,   _______,          _______, _______,
-        _______,    _______, _______,                            KC_KP_0,                                       KC_KP_DOT, TG(_KP), _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_ASTERISK, _______, _______,       _______, _______, _______, _______,
+        KC_NUM,  KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, KC_KP_7, KC_KP_8,        KC_KP_9, KC_KP_MINUS,   _______, _______, _______, _______,
+        _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______, _______, KC_KP_4, KC_KP_5,        KC_KP_6, KC_KP_PLUS,    _______, _______,          _______,
+        _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______, _______, KC_KP_1, KC_KP_2,        KC_KP_3, KC_KP_SLASH,   _______,          _______, _______,
+        _______, _______, _______,                            KC_KP_0,                                       KC_KP_DOT, TG(_KP), _______, _______, _______
     ),
     [_SECRETS] = LAYOUT(
         KC_NO, KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, KC_SEC6, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,
@@ -230,7 +230,7 @@ static void set_rgb_layer(int layer) {
 
     switch (cur->type) {
         case type_hsv:
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL ; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT ; i++) {
                 if (!(g_led_config.flags[i] & cur->flags))
                     rgb_matrix_set_color(i, 0, 0, 0);
             }
@@ -247,7 +247,7 @@ static void set_rgb_layer(int layer) {
                 rgb_matrix_mode_noeeprom(rgbs[cur->mode - RGB_MATRIX_EFFECT_MAX].mode);
             else
                 rgb_matrix_mode_noeeprom(cur->mode);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 const RGB *m = &cur->rgb[i];
                 if (!RGB_IS_NULL(*m))
                     rgb_matrix_set_color(i, m->r, m->g, m->b);
@@ -260,7 +260,7 @@ static void set_rgb_layer(int layer) {
 void matrix_init_keymap(void) {
     // force numlock on upon startup
     if (!NUMLOCK_ON) {
-        tap_code(KC_NUMLOCK);
+        tap_code(KC_NUM_LOCK);
     }
 };
 

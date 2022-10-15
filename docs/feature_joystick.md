@@ -70,71 +70,44 @@ When the ADC reads 900 or higher, the returned axis value will be -127, whereas 
 
 In this example, the first axis will be read from the `A4` pin while `B0` is set high and `A7` is set low, using `analogReadPin()`, whereas the second axis will not be read.
 
-In order to give a value to the second axis, you can do so in any customizable entry point: as an action, in `process_record_user()` or in `matrix_scan_user()`, or even in `joystick_task()` which is called even when no key has been pressed.
-You assign a value by writing to `joystick_status.axes[axis_index]` a signed 8-bit value (ranging from -127 to 127). Then it is necessary to assign the flag `JS_UPDATED` to `joystick_status.status` in order for an updated HID report to be sent.
+#### Virtual Axes
 
-The following example writes two axes based on keypad presses, with `KC_P5` as a precision modifier:
+To give a value to virtual axes, call `joystick_set_axis(axis, value)`.
+
+The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P5` as a precision modifier:
 
 ```c
-#ifdef ANALOG_JOYSTICK_ENABLE
-static uint8_t precision_val = 70;
-static uint8_t axesFlags = 0;
-enum axes {
-    Precision = 1,
-    Axis1High = 2,
-    Axis1Low = 4,
-    Axis2High = 8,
-    Axis2Low = 16
+joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+    [0] = JOYSTICK_AXIS_VIRTUAL, // x
+    [1] = JOYSTICK_AXIS_VIRTUAL  // y
 };
-#endif
+
+static bool precision = false;
+static uint16_t precision_mod = 64;
+static uint16_t axis_val = 127;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-#ifdef ANALOG_JOYSTICK_ENABLE
-        // virtual joystick
-#    if JOYSTICK_AXES_COUNT > 1
+    int16_t precision_val = axis_val;
+    if (precision) {
+        precision_val -= precision_mod;
+    }
+
+    switch (keycode) {
         case KC_P8:
-            if (record->event.pressed) {
-                axesFlags |= Axis2Low;
-            } else {
-                axesFlags &= ~Axis2Low;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
+            joystick_set_axis(1, record->event.pressed ? -precision_val : 0);
+            return false;
         case KC_P2:
-            if (record->event.pressed) {
-                axesFlags |= Axis2High;
-            } else {
-                axesFlags &= ~Axis2High;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
-#    endif
+            joystick_set_axis(1, record->event.pressed ? precision_val : 0);
+            return false;
         case KC_P4:
-            if (record->event.pressed) {
-                axesFlags |= Axis1Low;
-            } else {
-                axesFlags &= ~Axis1Low;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
+            joystick_set_axis(0, record->event.pressed ? -precision_val : 0);
+            return false;
         case KC_P6:
-            if (record->event.pressed) {
-                axesFlags |= Axis1High;
-            } else {
-                axesFlags &= ~Axis1High;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
+            joystick_set_axis(0, record->event.pressed ? precision_val : 0);
+            return false;
         case KC_P5:
-            if (record->event.pressed) {
-                axesFlags |= Precision;
-            } else {
-                axesFlags &= ~Precision;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
-#endif
+            precision = record->event.pressed;
+            return false;
     }
     return true;
 }

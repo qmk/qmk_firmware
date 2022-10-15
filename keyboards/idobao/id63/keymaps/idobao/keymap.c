@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN2] = LAYOUT_60_ansi_arrow(
-        KC_ESC,  KC_BRID, KC_BRIU, KC_MCON, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, KC_POWER,
+        KC_ESC,  KC_BRID, KC_BRIU, KC_MCON, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, KC_PWR,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
@@ -196,7 +196,7 @@ void eeconfig_init_user(void) {
     id63_update_rgb_mode();
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // Caps Lock key stuff
 
     if (host_keyboard_led_state().caps_lock) {
@@ -214,6 +214,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     } else if (user_config.rgb_disable_perkey) {
         rgb_matrix_set_color(ID63_CAPS_LOCK_KEY_INDEX, HSV_OFF);  // off
     }
+    return false;
 }
 
 #endif  // RGB_MATRIX_ENABLE

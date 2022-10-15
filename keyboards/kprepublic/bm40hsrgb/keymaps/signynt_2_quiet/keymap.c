@@ -67,9 +67,9 @@ void matrix_scan_user(void) {
 
 //layer led colors
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
-  for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
     if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
         rgb_matrix_set_color(i, 0, 0, 0);
     }
@@ -80,7 +80,7 @@ void rgb_matrix_indicators_user(void) {
 
   //capslock
   if (host_keyboard_led_state().caps_lock) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
       if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             rgb_matrix_set_color(i, 255, 255, 255);
       }
@@ -89,7 +89,7 @@ void rgb_matrix_indicators_user(void) {
 
   //game layer
   if (IS_LAYER_ON(GAME)) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
       if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             rgb_matrix_set_color(i, 0, 204, 255);
       }
@@ -98,13 +98,14 @@ void rgb_matrix_indicators_user(void) {
 
   //secgame layer
   if (IS_LAYER_ON(SECGAME)) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
       if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             rgb_matrix_set_color(i, 255, 0, 0);
       }
     }
   }
 
+    return false;
 }
 
 //tap dance declarations
@@ -135,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //layers
   [NAVR] = LAYOUT_planck_mit(
     KC_LALT,              KC_RST,            KC_NO,             KC_NO,              KC_NO,            KC_NO,             C(S(KC_Z)),        C(A(KC_LEFT)),     C(KC_X),           C(KC_C),           C(A(KC_RGHT)),     KC_LALT,
-    KC_LSFT,              G(S(C(KC_F1))),    G(S(C(KC_F3))),    G(S(C(KC_F4))),     G(S(C(KC_F2))),   KC_NO,             KC_CLCK,           KC_LEFT,           KC_DOWN,           KC_UP,             KC_RGHT,           KC_LSFT,
+    KC_LSFT,              G(S(C(KC_F1))),    G(S(C(KC_F3))),    G(S(C(KC_F4))),     G(S(C(KC_F2))),   KC_NO,             KC_CAPS,           KC_LEFT,           KC_DOWN,           KC_UP,             KC_RGHT,           KC_LSFT,
     KC_LCTL,              KC_NO,             KC_ALGR,           KC_NO,              G(S(C(KC_F5))),   KC_NO,             KC_INS,            KC_HOME,           KC_PGDN,           KC_PGUP,           KC_END,            KC_LCTL,
     TG(GAME),             KC_NO,             KC_NO,             KC_NO,              KC_NO,                     KC_ENT,                      KC_BSPC,           KC_DEL,            KC_NO,             C(G(KC_LEFT)),     C(G(KC_RIGHT))
   ),

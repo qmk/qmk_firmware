@@ -33,7 +33,7 @@ static int8_t  encoder_pulses = 0;
 
 __attribute__((weak)) extern const uint16_t PROGMEM encoder_keymaps[][2][2];
 
-const uint16_t encoder_default[2][2] =  { { KC_PGDN, KC_PGUP }, { KC__VOLDOWN, KC__VOLUP } };
+const uint16_t encoder_default[2][2] =  { { KC_PGDN, KC_PGUP }, { KC_VOLD, KC_VOLU } };
 
 /**
  * Tap on encoder updates using the encoder keymap

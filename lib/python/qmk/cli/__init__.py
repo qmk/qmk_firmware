@@ -56,7 +56,6 @@ subcommands = [
     'qmk.cli.generate.info_json',
     'qmk.cli.generate.keyboard_c',
     'qmk.cli.generate.keyboard_h',
-    'qmk.cli.generate.layouts',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
     'qmk.cli.generate.version_h',

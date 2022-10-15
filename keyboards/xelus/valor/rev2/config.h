@@ -58,7 +58,7 @@
 /* RGB Matrix */
 #define RGB_DI_PIN A9
 #define RGBLED_NUM 28
-#define DRIVER_LED_TOTAL 28
+#define RGB_MATRIX_LED_COUNT 28
 #define NOP_FUDGE 0.4
 
 // RGB PWM

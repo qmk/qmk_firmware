@@ -5,7 +5,16 @@
 
 // because layouts seem to not be respecting config.h order atm
 #ifdef RGBLIGHT_ENABLE
-#    undef RGBLIGHT_ANIMATIONS
+#    undef RGBLIGHT_EFFECT_BREATHING
+#    undef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    undef RGBLIGHT_EFFECT_SNAKE
+#    undef RGBLIGHT_EFFECT_KNIGHT
+#    undef RGBLIGHT_EFFECT_CHRISTMAS
+#    undef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    undef RGBLIGHT_EFFECT_RGB_TEST
+#    undef RGBLIGHT_EFFECT_ALTERNATING
+#    undef RGBLIGHT_EFFECT_TWINKLE
 #    if defined(__AVR__) && (!defined(__AVR_AT90USB1286__) && !defined(RGBLIGHT_ALL_ANIMATIONS))
 #        define RGBLIGHT_EFFECT_BREATHING
 #        define RGBLIGHT_EFFECT_SNAKE
@@ -126,4 +135,8 @@
                 2, 4                  \
             }                         \
         }
+#endif
+
+#if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
+#    define USB_SUSPEND_WAKEUP_DELAY 200
 #endif

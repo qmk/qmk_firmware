@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+// DEFINE MACROS
+#ifndef ARRAYSIZE
+#define ARRAYSIZE(arr)  sizeof(arr)/sizeof(arr[0])
+#endif // !ARRAYSIZE
 
 // LAYERS
 enum custom_user_layers {

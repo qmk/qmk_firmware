@@ -80,7 +80,7 @@ const uint32_t PROGMEM unicode_map[] = {
 bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // AltGr + Caps should change the oled layout variable
-        case KC_CAPSLOCK:
+        case KC_CAPS_LOCK:
             if (record->event.pressed) {
                 if (get_mods() & MOD_BIT(KC_RALT)) {
                     userspace_config.layout = (userspace_config.layout + 1) % 3;

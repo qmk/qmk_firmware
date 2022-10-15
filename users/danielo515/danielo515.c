@@ -37,7 +37,7 @@ void matrix_scan_user(void) {
             }
         }
         // tripe delete!
-        SEQ_ONE_KEY(KC_BSPACE) { SEND_STRING(SS_TAP(X_BSPACE) SS_TAP(X_BSPACE) SS_TAP(X_BSPACE)); }
+        SEQ_ONE_KEY(KC_BACKSPACE) { SEND_STRING(SS_TAP(X_BSPACE) SS_TAP(X_BSPACE) SS_TAP(X_BSPACE)); }
         SEQ_TWO_KEYS(KC_P, KC_G) { SEND_STRING("ps -ef | grep "); }
         SEQ_TWO_KEYS(KC_J, KC_A) { SEND_STRING("() => {}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT)); }
         // this is a pain to type

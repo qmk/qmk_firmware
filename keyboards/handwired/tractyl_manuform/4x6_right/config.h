@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN       E7
-#define DRIVER_LED_TOTAL 62
+#define RGB_MATRIX_LED_COUNT 62
 #define RGB_MATRIX_SPLIT { 32, 30 }
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES

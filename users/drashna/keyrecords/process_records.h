@@ -46,9 +46,6 @@ enum userspace_custom_keycodes {
     KC_ZALGO,
     KC_SUPER,
     KC_ACCEL,
-    AUTOCORRECT_ON,
-    AUTOCORRECT_OFF,
-    AUTOCORRECT_TOGGLE,
     NEW_SAFE_RANGE // use "NEWPLACEHOLDER for keymap specific codes
 };
 

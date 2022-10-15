@@ -119,13 +119,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 if (clockwise) {
                 //    tap_code(KC_VOLU);
                     if(keymap_config.swap_lalt_lgui==false){
-                        tap_code(KC_LANG2);
+                        tap_code(KC_LNG2);
                     }else {
                         tap_code16(A(KC_GRV));
                     }
                 } else {
                     if(keymap_config.swap_lalt_lgui==false){
-                    tap_code(KC_LANG1);
+                    tap_code(KC_LNG1);
                     } else {
                         tap_code16(A(KC_GRV));
                     }

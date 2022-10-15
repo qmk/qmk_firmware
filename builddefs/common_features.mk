@@ -136,6 +136,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         VPATH += $(QUANTUM_DIR)/pointing_device
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device.c
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_drivers.c
+        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
@@ -271,7 +272,7 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), rp2040_flash)
       SRC += wear_leveling_rp2040_flash.c
-      POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
+      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
       SRC += flash_stm32.c wear_leveling_legacy.c
@@ -881,7 +882,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_ENABLE
     NO_USB_STARTUP_CHECK := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c
+    SRC += outputselect.c bluetooth.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
         OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE

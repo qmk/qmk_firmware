@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 4
 
 #define RGB_DI_PIN E2
-#define DRIVER_LED_TOTAL 31
+#define RGB_MATRIX_LED_COUNT 31
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

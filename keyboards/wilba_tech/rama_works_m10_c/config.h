@@ -47,7 +47,7 @@
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 12
+#define RGB_MATRIX_LED_COUNT 12
 
 // Enable WT RGB backlight
 #define RGB_BACKLIGHT_ENABLED 1
