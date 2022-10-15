@@ -258,6 +258,9 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
                         position_raw.append(_coerce_led_token(_type, value))
                     if section == 3 and bracket_count == 2:
                         flags.append(_coerce_led_token(_type, value))
+                elif _type in [Token.Comment.Preproc]:
+                    # TODO: Promote to error
+                    return None
 
     # Slightly better intrim format
     matrix = list(_get_chunks(matrix_raw, matrix_cols))

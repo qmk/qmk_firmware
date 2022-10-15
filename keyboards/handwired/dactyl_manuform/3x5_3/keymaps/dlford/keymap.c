@@ -355,7 +355,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
          LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, RESET,                        KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                      KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,    TG(4),    VVV,         VVV,    VVV,     VVV
         //                           |--------+--------+--------|  |--------+--------+--------|

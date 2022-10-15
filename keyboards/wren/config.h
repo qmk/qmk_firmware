@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D3, D2, C6, D4, B5 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4, D7, F0 }
-#define UNUSED_PINS
 
 // define encoders
 #define ENCODERS_PAD_A \
