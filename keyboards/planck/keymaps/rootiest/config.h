@@ -71,12 +71,21 @@
  * RGB options
  */
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_SLEEP                    // Allows rgb to sleep when the host/keyboard does
-#    define RGBLIGHT_ANIMATIONS               // Enable using rgb animations
-#    define RGBLIGHT_LAYERS                   // Enable indicating layers using layered rgb assignments
-#    define RGBLIGHT_LAYER_BLINK              // Allows rgb layers to be blinked (activate for a set amount of time)
-#    define RGBLIGHT_MAX_LAYERS 32            // Overides the default (8) max number of rgb layers
-#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF  // Allows rgb layers to work even when rgb is toggled off
+#    define RGBLIGHT_SLEEP // Allows rgb to sleep when the host/keyboard does
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
+#    define RGBLIGHT_LAYERS                  // Enable indicating layers using layered rgb assignments
+#    define RGBLIGHT_LAYER_BLINK             // Allows rgb layers to be blinked (activate for a set amount of time)
+#    define RGBLIGHT_MAX_LAYERS 32           // Overides the default (8) max number of rgb layers
+#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Allows rgb layers to work even when rgb is toggled off
 #endif
 
 /*
