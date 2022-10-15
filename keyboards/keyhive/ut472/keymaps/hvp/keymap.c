@@ -62,6 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  G(S(KC_1)), G(S(KC_2)), G(S(KC_3)), G(S(KC_4)), G(S(KC_5)), G(S(KC_6)), G(S(KC_7)), G(S(KC_8)), G(S(KC_9)), G(S(KC_0)), _______,
   RGB_TOG, RGB_MOD, RGB_M_P, RGB_HUD, RGB_HUI, _______, _______, _______, _______, _______, _______, _______,
   KC_PSCR, _______, RGB_RMOD, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, _______, KC_CAPS,
-  QK_BOOT, _______, RGB_VAD, RGB_VAI, _______,     _______,      _______, _______, _______, _______, KC_NLCK
+  QK_BOOT, _______, RGB_VAD, RGB_VAI, _______,     _______,      _______, _______, _______, _______, KC_NUM
 ),
 };

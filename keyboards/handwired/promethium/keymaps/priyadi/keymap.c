@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WWWF KC_WWW_FORWARD
 
 // hybrid right-alt & scroll lock (mapped to Compose in OS)
-#define C_RALT MT(MOD_RALT, KC_SLCK)
+#define C_RALT MT(MOD_RALT, KC_SCRL)
 
 // dual use right-shift & del key
 // #define C_RSFT MT(MOD_RSFT, KC_DEL)
