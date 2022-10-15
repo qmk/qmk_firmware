@@ -66,3 +66,7 @@ Have you looked at the Page Up, Page Down, Home, and End keys on the EDSF keys a
 F16, accessed by holding ; and pressing the ' key next to it, is intended for Siri.
 
 \* I pronounce “fn” as “effin’”. Your mileage may vary.
+
+## use it with an iPad
+
+This layout overrides `USB_MAX_POWER_CONSUMPTION` to turn it down to 100 mA instead of the default of 500 mA. This is not what you want if your Ergodox EZ has the Shine or Glow lights, but good if you want to be able to plug it into your iPad’s lightning port with a USB adapter. The indicator lights that tell you what layer you’re on are _not_ Shine or Glow lights.
