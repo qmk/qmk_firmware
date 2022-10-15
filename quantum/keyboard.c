@@ -66,9 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef JOYSTICK_ENABLE
 #    include "process_joystick.h"
 #endif
-#ifdef PROGRAMMABLE_BUTTON_ENABLE
-#    include "programmable_button.h"
-#endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -667,10 +664,6 @@ void keyboard_task(void) {
 
 #ifdef DIGITIZER_ENABLE
     digitizer_task();
-#endif
-
-#ifdef PROGRAMMABLE_BUTTON_ENABLE
-    programmable_button_send();
 #endif
 
 #ifdef BLUETOOTH_ENABLE
