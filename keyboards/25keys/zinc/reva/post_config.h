@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // RGB LED support
-//#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
+// see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_SPLIT
