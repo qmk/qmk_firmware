@@ -27,7 +27,7 @@ I also have a few keys dedicated to window management:
 
 Cut, Copy, and Paste (⌘X, ⌘C, and ⌘V) are also available on the three bottommost right-thumb buttons if you hold ;.
 
-## use lots of modifier keys in OS X menu-item shortcuts
+## use lots of modifier keys in macOS menu-item shortcuts
 
 I wanted to preserve the feel of a number of shortcuts that involve pressing lots of modifier keys at once. This is why the bottom left of the keyboard has Shift, Control, Option, and Command in the usual spots. Further I’ve added affordances so some key combinations are easier to press with just the right hand.
 
@@ -40,16 +40,18 @@ I also put a second Backspace (⌫) key on the right half of the keyboard to mak
 
 Pressing and holding / will give you Option. This makes a number of keyboard shortcuts easy to press with just the right hand:
 
-- ⌥↑ — Move Line Up
-- ⌥↓ — Move Line Down
+- ⌥↑ — Move Line Up   (in Visual Studio Code)
+- ⌥↓ — Move Line Down (in Visual Studio Code)
 - ⌥⇧↑ — Copy Line Up / Go To Previous Channel With Unread Messages
 - ⌥⇧↓ — Copy Line Down / Go To Next Channel With Unread Messages
 
 ## use Emacs-style shortcuts
 
-I press C-a, C-e, and C-k all the time. It’s difficult to press these key combinations with the Control key on the far left, so the leftmost thumb button on the right side is another Control key.
+I press C-a, C-e, and C-k all the time. It’s difficult to press these key combinations with the Control key on the far left, so the innermost thumb buttons are Control keys. Above/inside them are Option keys.
 
-Having trouble remembering which innermost thumb key is Alt and which is Control? The two’re like on the lower right of a normal keyboard — leftmost is Alt, rightmost is Control.
+## use Visual Studio Code
+
+;-W and ;-R are bound to ⌥↑ and ⌥↓, respectively, for moving lines up and down in Visual Studio Code. In normal macOS applications, they’re used for moving the cursor to the beginning and end of a line, and then on to the previous/next line.
 
 ## use spreadsheets
 
