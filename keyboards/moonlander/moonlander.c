@@ -370,12 +370,8 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 #endif
 
 #ifdef CAPS_LOCK_STATUS
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        ML_LED_6(led_state.caps_lock);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    ML_LED_6(led_state.caps_lock);
 }
 #endif
 
