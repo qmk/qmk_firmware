@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // right hand side - main
     TO(US_1),         NEO2_6,           NEO2_7,           NEO2_8,           NEO2_9,           NEO2_0,           NEO2_MINUS,
-    KC_RCTRL,         KC_K,             KC_H,             KC_G,             KC_F,             KC_Q,             NEO2_SHARP_S,
+    KC_RCTL,          KC_K,             KC_H,             KC_G,             KC_F,             KC_Q,             NEO2_SHARP_S,
     /* --- */         KC_S,             KC_N,             KC_R,             KC_T,             KC_D,             NEO2_RMOD3,
     KC_RALT,          KC_B,             KC_M,             NEO2_COMMA,       NEO2_DOT,         KC_J,             KC_RSFT,
     /* --- */         /* --- */         KC_RGUI,          KC_LEFT,          KC_DOWN,          KC_UP,            KC_RIGHT,
@@ -381,7 +381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* --- */         /* --- */     KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   KC_RGUI,
 
     // right hand side - thumb cluster
-    KC_RALT,          KC_RCTRL,     /* --- */
+    KC_RALT,          KC_RCTL,      /* --- */
     KC_PGUP,          /* --- */     /* --- */
     KC_PGDN,          KC_ENTER,     KC_SPACE
   ),

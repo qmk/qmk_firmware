@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         DE_G, DE_V, DE_C, DE_L, DE_M, DE_B, KC_NO,
                   DE_D, DE_T, DE_R, DE_N, DE_S, TG(ARW),
         LCTL(DE_U), DE_J, DE_G, DE_Z, DE_W, DE_F, KC_RSFT,
-                         KC_H, KC_J, KC_K, KC_L, KC_RCTRL,
+                         KC_H, KC_J, KC_K, KC_L, KC_RCTL,
 
 	// right thumb-cluster
         DE_QUES, DE_DLR,

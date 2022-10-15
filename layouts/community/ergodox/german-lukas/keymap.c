@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_H,   KC_J,    KC_K,    KC_L,    DE_ODIA,     LT(MDIA,DE_ADIA),
         MEH_T(KC_NO),     KC_N,   KC_M,    KC_COMM, KC_DOT,  DE_MINS,     KC_RSFT,
                               KC_UP,   KC_DOWN, DE_HASH, DE_PLUS,     LCA_T(KC_NO),
-        KC_RALT, KC_RCTRL,
+        KC_RALT, KC_RCTL,
         KC_PGUP,
         KC_PGDN, KC_BSPC, KC_ENT
     ),
