@@ -427,7 +427,7 @@ const PROGMEM naginata_keymap_long ngmapl_tate[] = {
   {.key = B_C|B_V|B_SLSH		, .kana = SS_LSFT(SS_TAP(NGLT))}, // +{←}
 };
 
-static naginata_keymap_long ngmapl_ty[12];
+static naginata_keymap_long ngmapl_ty[15];
 
 const PROGMEM naginata_keymap_long ngmapl_mac[] = {
 // 編集モード Mac
