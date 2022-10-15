@@ -156,12 +156,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case NL:
         if (!host_keyboard_led_state().num_lock) {
-             tap_code16(KC_NLCK);
+             tap_code16(KC_NUM_LOCK);
         }
         break;
     default: //  for any other layers, or the default layer
         if (host_keyboard_led_state().num_lock) {
-             tap_code16(KC_NLCK);
+             tap_code16(KC_NUM_LOCK);
         }
         break;
     }

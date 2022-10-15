@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `--------------------------------------------------------------------------------'
      */
 
-    [_RAISE] = LAYOUT_planck_mit(KC_NLCK, KC_P1, KC_P2, KC_P3, KC_PMNS, KC_NO, KC_NO, KC_NO, KC_EXLM, KC_HASH, KC_DLR, KC_PLUS, KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO, KC_NO, KC_NO, KC_PERC, KC_ASTR, KC_AMPR, KC_EQL, KC_PAST, KC_P7, KC_P8, KC_P9, KC_PCMM, KC_NO, KC_NO, KC_NO, KC_UNDS, KC_MINS, KC_AT, KC_TILDE, KC_NO, KC_P0, KC_PDOT, KC_PENT, KC_PEQL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_GRV),
+    [_RAISE] = LAYOUT_planck_mit(KC_NUM, KC_P1, KC_P2, KC_P3, KC_PMNS, KC_NO, KC_NO, KC_NO, KC_EXLM, KC_HASH, KC_DLR, KC_PLUS, KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO, KC_NO, KC_NO, KC_PERC, KC_ASTR, KC_AMPR, KC_EQL, KC_PAST, KC_P7, KC_P8, KC_P9, KC_PCMM, KC_NO, KC_NO, KC_NO, KC_UNDS, KC_MINS, KC_AT, KC_TILDE, KC_NO, KC_P0, KC_PDOT, KC_PENT, KC_PEQL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_GRV),
 
     /* Function (Lower + Raise)
      * ,-----------------------------------------------------------------------------------------------------------------------.

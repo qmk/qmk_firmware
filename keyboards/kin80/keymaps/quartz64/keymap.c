@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 [_NM] = LAYOUT_all(
     KC_F1,   AU_ON,   AU_OFF,  _______, _______, _______,   CK_TOGG, CK_UP,   CK_DOWN, CK_RST,  KC_F11,  KC_F12,
-    _______, _______, _______, _______, _______, _______,   KC_SLCK, KC_NLCK, KC_PEQL, KC_PSLS, KC_PAST, _______,
+    _______, _______, _______, _______, _______, _______,   KC_SCRL, KC_NUM,  KC_PEQL, KC_PSLS, KC_PAST, _______,
     _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,    KC_CAPS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
     _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,   _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______,
     _______, _______, _______, _______, _______, _______,   KC_PDOT, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,

@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */ 
     [3] = LAYOUT_60_ansi_split_bs_rshift(
         KC_NO,           KC_F1,   KC_F2,   KC_F3,   KC_F4,          KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,   \
-        KC_NO,           KC_BTN1, KC_MS_U, KC_BTN2, LALT(KC_F4),    KC_HOME, KC_PGUP, KC_PSCR, KC_SLCK, KC_UP,   KC_NO,   KC_LPRN, KC_RPRN, KC_DEL,      \
+        KC_NO,           KC_BTN1, KC_MS_U, KC_BTN2, LALT(KC_F4),    KC_HOME, KC_PGUP, KC_PSCR, KC_SCRL, KC_UP,   KC_NO,   KC_LPRN, KC_RPRN, KC_DEL,      \
         MO(6),           KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,          KC_END,  KC_PGDN, KC_TILD, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,           \
         LGUI(KC_SPC),    KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_CALC, KC_MENU, KC_TRNS, TG(4),           \
         KC_TRNS,         KC_TRNS, KC_TRNS,                       LT(3, KC_SPC),                KC_TRNS, KC_VOLD, KC_MUTE, KC_VOLU),

@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             return true;
 
-        case KC_NLCK:
+        case KC_NUM_LOCK:
             if (record->event.pressed) {
                 if (!(NUM_LOCK)) {
                     ergodox_right_led_2_on();
@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             return true;
 
-        case KC_SLCK:
+        case KC_SCROLL_LOCK:
             if (record->event.pressed) {
                 if (!(SCROLL_LOCK)) {
                     ergodox_right_led_3_on();

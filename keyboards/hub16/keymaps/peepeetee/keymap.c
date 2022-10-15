@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [0] = LAYOUT(
                         KC_MPLY, KC_MUTE,
                 TG(3), TG(2), TG(1), TG(0),
-                KC_PSCR, KC_SLCK, KC_PAUS, A(KC_F4),
+                KC_PSCR, KC_SCRL, KC_PAUS, A(KC_F4),
                 KC_INS, KC_HOME, KC_PGUP, KC_F12,    //Transparent to let you go between layers
                 KC_DEL, A(KC_F4), KC_PGDN, KC_CALCULATOR
 

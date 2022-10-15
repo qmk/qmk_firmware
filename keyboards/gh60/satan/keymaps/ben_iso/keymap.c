@@ -47,7 +47,7 @@
 #define HOME KC_HOME  // Go to beginning of line
 #define ENDI  KC_END  // go to end of line
 #define PSCR  KC_PSCR   // Print Screen
-#define SLCK  KC_SLCK   // go to end of line
+#define SLCK  KC_SCRL   // go to end of line
 #define PGDN  KC_PGDN   // go to end of line
 #define PGUP  KC_PGUP   // go to end of line
 #define PLPS KC_MPLY  // Play/Pause

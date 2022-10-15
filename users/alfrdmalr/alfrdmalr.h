@@ -148,7 +148,7 @@ enum alfrdmalr_keycodes {
 
 // RIGHT
 // - CORE
-#define ____NUMPAD_R1____    KC_NLCK,  KC_7,  KC_8,  KC_9,  KC_MINS
+#define ____NUMPAD_R1____    KC_NUM,   KC_7,  KC_8,  KC_9,  KC_MINS
 #define ____NUMPAD_R2____    KC_SPC,   KC_4,  KC_5,  KC_6,  KC_PLUS
 #define ____NUMPAD_R3____    KC_NO,    KC_1,  KC_2,  KC_3,  KC_SLSH
 

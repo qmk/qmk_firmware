@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(1),      KC_LCTL,    	KC_LALT,        KC_LGUI,        MO(2),          LT(5,KC_ENT),   LT(4,KC_SPC), 	MO(3),      	KC_SLSH,    	KC_LEFT,        KC_DOWN,        CTL_T(KC_RGHT)),
 
   LAYOUT_planck_grid(
-    KC_ESC,     KC_NLCK,    	LCTL(KC_SPC),   KC_UP,          LSFT(KC_SPC),   KC_DLR,         KC_EQL,     	KC_P7,      	KC_P8,      	KC_P9,          KC_PPLS,        LCTL(KC_BSPC), 
+    KC_ESC,     KC_NUM,     	LCTL(KC_SPC),   KC_UP,          LSFT(KC_SPC),   KC_DLR,         KC_EQL,     	KC_P7,      	KC_P8,      	KC_P9,          KC_PPLS,        LCTL(KC_BSPC), 
     KC_TAB,     FIND,       	KC_LEFT,        KC_DOWN,        KC_RGHT,        KC_PERC,        KC_CIRC,    	KC_P4,      	KC_P5,      	KC_P6,          KC_PMNS,        KC_BSLS, 
     KC_LSFT,    UNDO,       	CUT,            COPY,           PASTE,          EXCEL_HOME,     KC_PSCR,    	KC_P1,      	KC_P2,      	KC_P3,          KC_PSLS,        KC_LSFT, 
     KC_TRNS, 	KC_LCTL,    	KC_LALT,        KC_LGUI,        TO(1),          KC_ENT,         KC_SPC,     	KC_PENT,    	KC_P0,      	KC_PDOT,        KC_PAST,        KC_LCTL),

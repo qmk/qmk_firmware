@@ -117,7 +117,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!numlock_set && record->event.pressed) {
         led_t led_state = host_keyboard_led_state();
         if (!led_state.num_lock) {
-            register_code(KC_NLCK);
+            register_code(KC_NUM_LOCK);
         }
         numlock_set = true;
     }

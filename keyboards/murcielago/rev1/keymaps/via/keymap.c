@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX,                   XXXXXXX, KC_P7,   KC_P8,   KC_P9,   XXXXXXX, XXXXXXX,
     KC_CAPS, XXXXXXX, KC_TILD, KC_LCBR, KC_RCBR, XXXXXXX,                   KC_PPLS, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, XXXXXXX,
     XXXXXXX, XXXXXXX, KC_GRV,  KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, KC_PENT, KC_PAST, KC_P1,   KC_P2,   KC_P3,   KC_PSLS, XXXXXXX,
-             XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_P0,   XXXXXXX, XXXXXXX, KC_NLCK
+             XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_P0,   XXXXXXX, XXXXXXX, KC_NUM
   ),
 
   /* FN - one-shot access to F-keys with modifiers

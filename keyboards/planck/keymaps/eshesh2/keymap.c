@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_grid(
-    XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX,    KC_NLCK, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_BSPC,
+    XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX,    KC_NUM,  KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_BSPC,
     XXXXXXX, KC_LEFT, KC_DOWN,  KC_UP,     KC_RIGHT,   XXXXXXX, XXXXXXX,    XXXXXXX, KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_ENTER,
     XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_TAB,
     EXT_NUM, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, KC_KP_DOT,  KC_KP_0,    XXXXXXX,    XXXXXXX

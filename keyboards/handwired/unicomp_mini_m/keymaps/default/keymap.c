@@ -55,12 +55,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case NUMSLCK: {
             if (record->event.pressed) {
                 if (keyboard_report->mods & MODS_SHIFT_MASK) {
-                    tap_code(KC_NLCK);
+                    tap_code(KC_NUM);
                 } else {
-                    register_code(KC_SLCK);
+                    register_code(KC_SCRL);
                 }
             } else {
-                unregister_code(KC_SLCK);
+                unregister_code(KC_SCRL);
             }
             break;
         }

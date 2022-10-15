@@ -189,8 +189,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SLCK,  KC_PSCR,  XXXXXXX
-#define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_lcad,  MC_rdcc,  KC_NLCK
+#define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SCRL,  KC_PSCR,  XXXXXXX
+#define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_lcad,  MC_rdcc,  KC_NUM
 #define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  KC_MSTP,  KC_MPRV,  KC_MPLY,  KC_MNXT
 #define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,  _______,  _______
 
@@ -266,7 +266,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___________________CSGO_4x12_L4____________________  KC_LCTL, KC_Z,   KC_LALT,  KC_X,     KC_B,     KC_SPC
 
 #define ___________________CSGO_4x12_R1____________________  KC_6,    KC_P7,  KC_P8,    KC_P9,    KC_0,     KC_BSPC
-#define ___________________CSGO_4x12_R2____________________  KC_Y,    KC_P4,  KC_P5,    KC_P6,    XXXXXXX,  KC_NLCK
+#define ___________________CSGO_4x12_R2____________________  KC_Y,    KC_P4,  KC_P5,    KC_P6,    XXXXXXX,  KC_NUM
 #define ___________________CSGO_4x12_R3____________________  KC_H,    KC_P1,  KC_P2,    KC_P3,    KC_PENT,  KC_ESC
 #define ___________________CSGO_4x12_R4____________________  KC_SPC,  KC_P0,  KC_P0,    KC_PDOT,  TO(_QW),  TO(_QW)
 
