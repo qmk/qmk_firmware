@@ -73,11 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,  KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_LEAD,                L01_RIGHT_01,                 KC_ENTER,
                           L01_RIGHT_02,                 MO(L03),
-  MO(LFN),                L01_RIGHT_03,                 KC_RSHIFT,
+  MO(LFN),                L01_RIGHT_03,                 KC_RSFT,
                     MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL,
   KC_LEFT, KC_RIGHT,
   KC_UP,
-  KC_DOWN, KC_RSHIFT, KC_SPACE
+  KC_DOWN, KC_RSFT, KC_SPACE
 ),
 
 

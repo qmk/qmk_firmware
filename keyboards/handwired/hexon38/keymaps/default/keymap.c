@@ -41,7 +41,7 @@
 
 #define ______ KC_TRNS
 #define LSHIFT KC_LSHIFT
-#define RSHIFT KC_RSHIFT
+#define RSHIFT KC_RSFT
 #define COMMA KC_COMM
 #define SLASH KC_SLSH
 #define SPACE KC_SPC

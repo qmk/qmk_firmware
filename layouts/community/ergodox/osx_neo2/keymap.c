@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(US_1),         NEO2_6,           NEO2_7,           NEO2_8,           NEO2_9,           NEO2_0,           NEO2_MINUS,
     KC_RCTRL,         KC_K,             KC_H,             KC_G,             KC_F,             KC_Q,             NEO2_SHARP_S,
     /* --- */         KC_S,             KC_N,             KC_R,             KC_T,             KC_D,             NEO2_RMOD3,
-    KC_RALT,          KC_B,             KC_M,             NEO2_COMMA,       NEO2_DOT,         KC_J,             KC_RSHIFT,
+    KC_RALT,          KC_B,             KC_M,             NEO2_COMMA,       NEO2_DOT,         KC_J,             KC_RSFT,
     /* --- */         /* --- */         KC_RGUI,          KC_LEFT,          KC_DOWN,          KC_UP,            KC_RIGHT,
 
     // right hand side - thumb cluster
@@ -377,7 +377,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(NEO_1),        KC_6,         KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,
     KC_LBRC,          KC_Y,         KC_U,       KC_I,       KC_O,       KC_P,       KC_RBRC,
     /* --- */         KC_H,         KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOTE,
-    KC_NO /* NOOP */, KC_N,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSHIFT,
+    KC_NO /* NOOP */, KC_N,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
     /* --- */         /* --- */     KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   KC_RGUI,
 
     // right hand side - thumb cluster
@@ -627,11 +627,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         capslock_state &= ~(MOD_BIT(KC_LSHIFT));
       }
       break;
-    case KC_RSHIFT:
+    case KC_RIGHT_SHIFT:
       if (record->event.pressed) {
-        capslock_state |= MOD_BIT(KC_RSHIFT);
+        capslock_state |= MOD_BIT(KC_RSFT);
       } else {
-        capslock_state &= ~(MOD_BIT(KC_RSHIFT));
+        capslock_state &= ~(MOD_BIT(KC_RSFT));
       }
       break;
     case NEO2_LMOD3:

@@ -154,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
     break;
-    case KC_RSHIFT:
+    case KC_RIGHT_SHIFT:
 
       if (record->event.pressed)
       {
@@ -209,7 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if(left_shift_down)
             unregister_code(KC_LSHIFT);
           if(right_shift_down)
-            unregister_code(KC_RSHIFT);
+            unregister_code(KC_RIGHT_SHIFT);
 
           register_code(KC_7);
           unregister_code(KC_7);
@@ -217,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if(left_shift_down)
             register_code(KC_LSHIFT);
           if(right_shift_down)
-            register_code(KC_RSHIFT);
+            register_code(KC_RIGHT_SHIFT);
         }
       return false;
     }
@@ -237,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if(left_shift_down)
             unregister_code(KC_LSHIFT);
           if(right_shift_down)
-            unregister_code(KC_RSHIFT);
+            unregister_code(KC_RIGHT_SHIFT);
 
           register_code(KC_5);
           unregister_code(KC_5);
@@ -245,7 +245,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if(left_shift_down)
             register_code(KC_LSHIFT);
           if(right_shift_down)
-            register_code(KC_RSHIFT);
+            register_code(KC_RIGHT_SHIFT);
         }
       return false;
     }
@@ -265,7 +265,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_3);
         unregister_code(KC_3);
@@ -273,7 +273,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
       return false;
     }
@@ -294,7 +294,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_1);
         unregister_code(KC_1);
@@ -302,7 +302,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     return false;
     }
@@ -322,7 +322,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_LSHIFT);
         register_code(KC_6);
@@ -332,7 +332,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     return false;
     }
@@ -353,7 +353,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_9);
         unregister_code(KC_9);
@@ -361,7 +361,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     return false;
     }
@@ -381,7 +381,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_0);
         unregister_code(KC_0);
@@ -389,7 +389,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     return false;
     }
@@ -409,7 +409,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_2);
         unregister_code(KC_2);
@@ -417,7 +417,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     return false;
     }
@@ -437,7 +437,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_4);
         unregister_code(KC_4);
@@ -445,7 +445,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     }
     else
@@ -464,7 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_6);
         unregister_code(KC_6);
@@ -472,7 +472,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     }
     else
@@ -491,7 +491,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_8);
         unregister_code(KC_8);
@@ -499,7 +499,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     }
     else
@@ -518,7 +518,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           unregister_code(KC_LSHIFT);
         if(right_shift_down)
-          unregister_code(KC_RSHIFT);
+          unregister_code(KC_RIGHT_SHIFT);
 
         register_code(KC_GRAVE);
         unregister_code(KC_GRAVE);
@@ -526,7 +526,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(left_shift_down)
           register_code(KC_LSHIFT);
         if(right_shift_down)
-          register_code(KC_RSHIFT);
+          register_code(KC_RIGHT_SHIFT);
       }
     }
     else

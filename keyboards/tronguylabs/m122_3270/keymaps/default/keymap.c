@@ -88,7 +88,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LSHIFT:
             left_shift_down = record->event.pressed;
             break;
-        case KC_RSHIFT:
+        case KC_RSFT:
             right_shift_down = record->event.pressed;
             break;
         case KC_LALT:

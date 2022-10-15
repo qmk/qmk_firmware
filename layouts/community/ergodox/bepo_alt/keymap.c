@@ -47,7 +47,7 @@ KC_LCTL,    KC_LGUI,    KC_LGUI,  KC_LGUI,  KC_LALT,
                 KC_ALGR,  KC_RGUI,  KC_RGUI,  KC_RCTL,  KC_ENTER,
 DF(BEPO), KC_DEL,
 DF(FNAV),
-MO(FNAV), KC_RSHIFT,  KC_ENTER),
+MO(FNAV), KC_RSFT,  KC_ENTER),
 
 /* Keymap 1: function / navigation / mouse layer
  *

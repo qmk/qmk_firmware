@@ -242,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_LSHIFT);
           }
           else {
-            unregister_code(KC_RSHIFT);
+            unregister_code(KC_RIGHT_SHIFT);
           }
           register_code(KC_DEL);
         }
@@ -263,7 +263,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               unregister_code(KC_LSHIFT);
             }
             else {
-              unregister_code(KC_RSHIFT);
+              unregister_code(KC_RIGHT_SHIFT);
             }
           register_code(KC_BACKSLASH);
         }

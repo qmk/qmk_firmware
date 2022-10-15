@@ -50,7 +50,7 @@ Optionally, it can also render [LAYOUT_ergodox_pretty](https://github.com/qmk/qm
   KC_ESCAPE,        KC_1,     KC_2,    KC_3,     KC_4,           KC_5,          KC_LEAD,      KC_LEAD, KC_6          , KC_7            , KC_8            , KC_9               , KC_0              , KC_BSPC             ,
      KC_TAB,        KC_Q,     KC_W,    KC_E,     KC_R,           KC_T,          KC_HYPR,      KC_HYPR, KC_Y          , KC_U            , KC_I            , KC_O               , KC_P              , KC_BSLS             ,
    KC_LCTRL,        KC_A,     KC_S,    KC_D,     KC_F,           KC_G,                                 KC_H          , KC_J            , KC_K            , KC_L               , KC_SCLN           , KC_QUOTE            ,
-  KC_LSHIFT,        KC_Z,     KC_X,    KC_C,     KC_V,           KC_B,           SH_MON,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSHIFT           ,
+  KC_LSHIFT,        KC_Z,     KC_X,    KC_C,     KC_V,           KC_B,           SH_MON,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSFT             ,
 LT(6,KC_NO), LT(7,KC_NO), KC_LCTRL, KC_LGUI,  KC_LALT,                                                                 ALGR_T(KC_MINUS), RGUI_T(KC_EQUAL), RCTL_T(KC_LBRC),     LT(10,KC_RBRC),     LT(6,KC_APPLICATION),
 
                                                        LT(6,KC_GRAVE),     MEH_T(KC_NO),      KC_LEFT, KC_RIGHT      ,
@@ -65,7 +65,7 @@ We can also align everythng t othe left (easier editing in my opinon):
 KC_ESCAPE  , KC_1       , KC_2    , KC_3   , KC_4    , KC_5          , KC_LEAD         ,      KC_LEAD, KC_6          , KC_7            , KC_8            , KC_9               , KC_0              , KC_BSPC             ,
 KC_TAB     , KC_Q       , KC_W    , KC_E   , KC_R    , KC_T          , KC_HYPR         ,      KC_HYPR, KC_Y          , KC_U            , KC_I            , KC_O               , KC_P              , KC_BSLS             ,
 KC_LCTRL   , KC_A       , KC_S    , KC_D   , KC_F    , KC_G          ,                                 KC_H          , KC_J            , KC_K            , KC_L               , KC_SCLN           , KC_QUOTE            ,
-KC_LSHIFT  , KC_Z       , KC_X    , KC_C   , KC_V    , KC_B          , SH_MON          ,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSHIFT           ,
+KC_LSHIFT  , KC_Z       , KC_X    , KC_C   , KC_V    , KC_B          , SH_MON          ,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSFT             ,
 LT(6,KC_NO), LT(7,KC_NO), KC_LCTRL, KC_LGUI, KC_LALT ,                                                                 ALGR_T(KC_MINUS), RGUI_T(KC_EQUAL), RCTL_T(KC_LBRC),     LT(10,KC_RBRC),     LT(6,KC_APPLICATION),
 
                                                        LT(6,KC_GRAVE), MEH_T(KC_NO)    ,      KC_LEFT, KC_RIGHT      ,

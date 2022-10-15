@@ -382,7 +382,7 @@ void render_mod_status(uint8_t modifiers, uint8_t col, uint8_t line) {
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_RCTL)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_RALT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_RGUI)));
-    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSHIFT)));
+    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSFT)));
 #else
     oled_write_P(mod_status[0], (modifiers & MOD_MASK_SHIFT));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_MASK_GUI));
