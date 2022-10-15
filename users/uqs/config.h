@@ -4,7 +4,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
-//#    define RGBLIGHT_ANIMATIONS      // disabled to save space
 #    define RGBLIGHT_LAYERS
 #    define RGBLIGHT_MAX_LAYERS 8      // default is 16
 #    define RGBLIGHT_DISABLE_KEYCODES  // RGB_foo keys no longer work, saves 600 bytes
