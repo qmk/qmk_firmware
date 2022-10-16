@@ -4,7 +4,7 @@ from milc import cli
 
 from qmk.path import normpath
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.xap.common import render_xap_output
+from qmk.xap.common import render_xap_output, merge_xap_defs
 from qmk.xap.gen_firmware.blob_generator import generate_blob
 from qmk.xap.gen_firmware.inline_generator import generate_inline
 
@@ -28,8 +28,9 @@ def xap_generate_qmk_inc(cli):
 
     generate_inline(cli.args.output, cli.args.keyboard, cli.args.keymap)
 
+    defs = merge_xap_defs(cli.args.keyboard, cli.args.keymap)
     with open(normpath(str(cli.args.output.resolve()) + '.generated.j2'), 'w', encoding='utf-8') as out_file:
-        r = render_xap_output('firmware', 'xap_generated.inl.j2', keyboard=cli.args.keyboard, keymap=cli.args.keymap)
+        r = render_xap_output('firmware', 'xap_generated.inl.j2', defs, keyboard=cli.args.keyboard, keymap=cli.args.keymap)
         while r.find('\n\n\n') != -1:
             r = r.replace('\n\n\n', '\n\n')
         out_file.write(r)
@@ -52,8 +53,9 @@ def xap_generate_qmk_h(cli):
         cli.subcommands['xap-generate-qmk-h'].print_help()
         return False
 
+    defs = merge_xap_defs(cli.args.keyboard, cli.args.keymap)
     with open(cli.args.output, 'w', encoding='utf-8') as out_file:
-        r = render_xap_output('firmware', 'xap_generated.h.j2', keyboard=cli.args.keyboard, keymap=cli.args.keymap)
+        r = render_xap_output('firmware', 'xap_generated.h.j2', defs, keyboard=cli.args.keyboard, keymap=cli.args.keymap)
         while r.find('\n\n\n') != -1:
             r = r.replace('\n\n\n', '\n\n')
         out_file.write(r)
