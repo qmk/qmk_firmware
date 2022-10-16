@@ -41,33 +41,3 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the upper left key on the left hand keyboard half or the upper right key on the right hand keyboard half while plugging in USB
 * **Physical reset button**: Press the RST button twice, rapidly
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
-
-## Pin Assignment
-| Name   | Pin  |  Left Row | Left Column | Right Row | *Right Column |
-|--------|------|-----------|-------------|-----------|--------------|
-| LED    | GP0  |           |             |           |              |
-| DATA   | GP1  |           |             |           |              |
-| DATA2  | GP28 |           |             |           |              |
-| KEY0   | GP3  | 0         | 0           | 4         | 0            |
-| KEY1   | GP4  | 0         | 1           | 4         | 1            |
-| KEY2   | GP5  | 0         | 2           | 4         | 2            |
-| KEY3   | GP6  | 0         | 3           | 4         | 3            |
-| KEY4   | GP7  | 0         | 4           | 4         | 4            |
-| KEY5   | GP9  | 1         | 0           | 5         | 0            |
-| KEY6   | GP10 | 1         | 1           | 5         | 1            |
-| KEY7   | GP11 | 1         | 2           | 5         | 2            |
-| KEY8   | GP12 | 1         | 3           | 5         | 3            |
-| KEY9   | GP13 | 1         | 4           | 5         | 4            |
-| KEY10  | GP15 | 2         | 0           | 6         | 0            |
-| KEY11  | GP16 | 2         | 1           | 6         | 1            |
-| KEY12  | GP17 | 2         | 2           | 6         | 2            |
-| KEY13  | GP18 | 2         | 3           | 6         | 3            |
-| KEY14  | GP19 | 2         | 4           | 6         | 4            |
-| KEY15  | GP20 | 3         | 0           | 7         | 0            |
-| KEY16  | GP21 | 3         | 1           | 7         | 1            |
-| KEY17  | GP22 | 3         | 2           | 7         | 2            |
-| SDA    | GP24 |           |             |           |              |
-| SCL    | GP25 |           |             |           |              |
-
-
-\* Right Column numbers run right (pinky position) to left (thumb position)
