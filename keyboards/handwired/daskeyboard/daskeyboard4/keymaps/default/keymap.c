@@ -1,3 +1,5 @@
+// Copyright 2022 Commander1024 (@Commander1024)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
 #define _BASE 0
