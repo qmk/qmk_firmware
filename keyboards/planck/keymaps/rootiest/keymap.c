@@ -1470,7 +1470,7 @@ void scap_finished(qk_tap_dance_state_t* state, void* user_data) {
 
 // Left-Shift->Sticky-Caps tap-dance reset
 void scap_reset(qk_tap_dance_state_t* state, void* user_data) {
-    unregister_code(KC_LSHIFT);
+    unregister_code(KC_LSFT);
     scap_state.state = TD_NONE;
 }
 

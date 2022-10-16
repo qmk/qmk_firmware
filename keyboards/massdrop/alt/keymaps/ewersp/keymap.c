@@ -91,8 +91,8 @@ void keyboard_post_init_kb(void) {
     }
 }
 
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
 // If the super alt layer is the active layer
@@ -142,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         case KC_F4:
             // Map alt+shift+4 to alt+f4
-            if (super_alt_layer_active && (get_mods() & MOD_BIT(KC_LSHIFT))) {
+            if (super_alt_layer_active && (get_mods() & MOD_BIT(KC_LSFT))) {
                 if (record->event.pressed) {
                     register_code(KC_LALT);
                 } else {

@@ -13,7 +13,7 @@ Will require heavy modification for most people.
 
 extern keymap_config_t keymap_config;
 
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 
 enum my_layers {
   _QWERTY,

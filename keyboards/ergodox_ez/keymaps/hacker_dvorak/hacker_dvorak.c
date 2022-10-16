@@ -146,8 +146,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_ESCAPE,            GUI_T(KC_MINS), KC_I,     KC_O,   KC_P,   ALGR_T(KC_EQL), KC_T,
         KC_TAB,               KC_LALT,        KC_Q,     KC_W,   KC_E,   ALL_T(KC_R),    KC_G,
-        LT(MOUSE, KC_GRV), KC_LCTRL,       KC_A,     KC_S,   KC_D,   MEH_T(KC_F),
-        KC_BSLS,              KC_LSHIFT,      KC_Z,     KC_X,   KC_C,   SCMD_T(KC_V),   KC_M,
+        LT(MOUSE, KC_GRV), KC_LCTL,        KC_A,     KC_S,   KC_D,   MEH_T(KC_F),
+        KC_BSLS,              KC_LSFT,      KC_Z,     KC_X,   KC_C,   SCMD_T(KC_V),   KC_M,
         XXXXXXX,           TG(LAYERS),  KC_COMM, KC_DOT, KC_LBRC,
 
         // left thumb
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         XXXXXXX, XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,    XXXXXXX, XXXXXXX,
         XXXXXXX, SCMD_T(KC_NO), MEH_T(KC_NO), ALL_T(KC_NO), XXXXXXX,    XXXXXXX, XXXXXXX,
-        XXXXXXX, KC_LCTRL,      KC_LSHIFT,    XXXXXXX,      _______,    XXXXXXX,
+        XXXXXXX, KC_LCTL,       KC_LSFT,      XXXXXXX,      _______,    XXXXXXX,
         XXXXXXX, KC_RALT,       KC_LALT,      GUI_T(KC_NO), XXXXXXX,    XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,
 
@@ -210,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, ALL_T(KC_NO), MEH_T(KC_NO), SCMD_T(KC_NO), XXXXXXX,
-                 XXXXXXX, _______, KC_MS_ACCEL1, KC_LSHIFT,    KC_LCTRL,      KC_MS_ACCEL2,
+                 XXXXXXX, _______, KC_MS_ACCEL1, KC_LSFT,      KC_LCTL,       KC_MS_ACCEL2,
         XXXXXXX, XXXXXXX, XXXXXXX, GUI_T(KC_NO), KC_LALT,      KC_RALT,       XXXXXXX,
                           XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,
 
@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         XXXXXXX, XXXXXXX,  XXXXXXX,      XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX,  GUI_T(KC_NO), XXXXXXX, ALL_T(KC_NO),  XXXXXXX, XXXXXXX,
-        _______, KC_LCTRL, KC_LSHIFT,    _______, MEH_T(KC_NO),  XXXXXXX,
+        _______, KC_LCTL,  KC_LSFT,      _______, MEH_T(KC_NO),  XXXXXXX,
         XXXXXXX, KC_RALT,  KC_LALT,      XXXXXXX, SCMD_T(KC_NO), XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX,  XXXXXXX,      XXXXXXX, XXXXXXX,
 

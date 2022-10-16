@@ -94,7 +94,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk){
       if (record->event.pressed) {
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)){
            unregister_code(KC_LSFT);
            unregister_code(KC_RSFT);
            register_code(sk);
@@ -111,7 +111,7 @@ bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk){
 
 bool sh_key8(keyrecord_t *record, uint8_t sk, uint8_t nk){
       if (record->event.pressed) {
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)){
            register_code(sk);
         } else {
            register_code(nk);
