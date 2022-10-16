@@ -593,7 +593,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 #ifdef CFQ_USE_SHIFT_QUOTES
-    case KC_LSHIFT:  /* '' */
+    case KC_LEFT_SHIFT:  /* '' */
       if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_RSFT)))) {
         WITHOUT_MODS({
             SEND_STRING("''" SS_TAP(X_LEFT) SS_DOWN(X_RSHIFT) SS_DOWN(X_LSHIFT));

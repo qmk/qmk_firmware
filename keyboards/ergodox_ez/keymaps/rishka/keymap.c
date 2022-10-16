@@ -75,7 +75,7 @@ _______, _______, _______, _______, _______,                                    
   // left hand
   KC_ESCAPE, KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5,
   KC_F1, KC_Y, KC_Q, KC_W, KC_E, KC_R, KC_T,
-  KC_TAB, KC_LSHIFT, KC_A, KC_S, KC_D, KC_F,
+  KC_TAB, KC_LSFT, KC_A, KC_S, KC_D, KC_F,
   KC_LCTRL, KC_B, KC_Z, KC_X, KC_C, KC_V, KC_G,
   LT(BASE, KC_L), KC_J, KC_I, KC_O, KC_M,
                                                KC_ESCAPE, _______,

@@ -9,7 +9,7 @@
 
 #define LSPO_KEY KC_9
 #define RSPC_KEY KC_0
-#define LSPO_MOD KC_LSHIFT
+#define LSPO_MOD KC_LSFT
 #define RSPC_MOD KC_RSFT
 
 // This makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when

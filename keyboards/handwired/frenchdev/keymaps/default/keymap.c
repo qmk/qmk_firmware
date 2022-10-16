@@ -176,33 +176,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void hold_shift(void) {
   shift_count = shift_count + 1;
-  register_code(KC_LSHIFT);
+  register_code(KC_LSFT);
 }
 
 void release_shift(void) {
   shift_count = shift_count - 1;
   if(shift_count <= 0){
-    unregister_code(KC_LSHIFT);
+    unregister_code(KC_LSFT);
     shift_count = 0;
   }
 }
 
 void press_space(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code(KC_SPACE);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 void press_enter(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code (KC_ENT);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 void press_underscore(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code ((unsigned char) BP_UNDS);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 // Bleah globals need to be initialized.

@@ -169,7 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         case KC_F4:
             // Map alt+shift+4 to alt+f4
-            if (super_alt_layer_active && (get_mods() & MOD_BIT(KC_LSHIFT))) {
+            if (super_alt_layer_active && (get_mods() & MOD_BIT(KC_LSFT))) {
                 if (record->event.pressed) {
                     register_code(KC_LALT);
                 } else {

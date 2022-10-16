@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO /* NOOP */, NEO2_1,                   NEO2_2,                   NEO2_3,                   NEO2_4,           NEO2_5,           KC_ESCAPE,
     KC_TAB,           KC_X,                     KC_V,                     KC_L,                     KC_C,             KC_W,             KC_LCTRL,
     NEO2_LMOD3,       KC_U,                     KC_I,                     KC_A,                     KC_E,             KC_O,             /* --- */
-    KC_LSHIFT,        NEO2_UE,                  NEO2_OE,                  NEO2_AE,                  KC_P,             KC_Z,             KC_LALT,
+    KC_LSFT,          NEO2_UE,                  NEO2_OE,                  NEO2_AE,                  KC_P,             KC_Z,             KC_LALT,
     KC_NO /* NOOP */, KC_NO /* NOOP */,         KC_LCTRL,                 KC_LALT,                  KC_LGUI,          /* --- */         /* --- */
 
     // left hand side - thumb cluster
@@ -365,7 +365,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_EQUAL,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,       KC_ESCAPE,
     KC_BSLS,          KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,       KC_NO /* NOOP */,
     KC_TAB,           KC_A,         KC_S,       KC_D,       KC_F,       KC_G,       /* --- */
-    KC_LSHIFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,       KC_NO /* NOOP */,
+    KC_LSFT,          KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,       KC_NO /* NOOP */,
     KC_LGUI,          KC_GRAVE,     KC_NO,      KC_NO,      MO(FKEYS),  /* --- */   /* --- */
 
     // left hand side - thumb cluster
@@ -620,11 +620,11 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
 // Runs for each key down or up event.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case KC_LSHIFT:
+    case KC_LSFT:
       if (record->event.pressed) {
-        capslock_state |= (MOD_BIT(KC_LSHIFT));
+        capslock_state |= (MOD_BIT(KC_LSFT));
       } else {
-        capslock_state &= ~(MOD_BIT(KC_LSHIFT));
+        capslock_state &= ~(MOD_BIT(KC_LSFT));
       }
       break;
     case KC_RIGHT_SHIFT:

@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSFT)) || \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) || \
     get_mods() == (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RSFT)) \
 )
 

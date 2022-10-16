@@ -239,7 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (keyboard_report->mods & shift) {
           if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
-            unregister_code(KC_LSHIFT);
+            unregister_code(KC_LEFT_SHIFT);
           }
           else {
             unregister_code(KC_RIGHT_SHIFT);
@@ -260,7 +260,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (keyboard_report->mods & shift) {
             if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
-              unregister_code(KC_LSHIFT);
+              unregister_code(KC_LEFT_SHIFT);
             }
             else {
               unregister_code(KC_RIGHT_SHIFT);

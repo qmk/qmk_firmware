@@ -5,4 +5,3 @@
 // These keycode names have been deprecated
 
 #define KC_LCTRL          KC_LEFT_CTRL
-#define KC_LSHIFT         KC_LEFT_SHIFT

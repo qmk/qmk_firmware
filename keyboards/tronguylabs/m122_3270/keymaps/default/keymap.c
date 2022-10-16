@@ -85,7 +85,7 @@ bool right_alt_down = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LSHIFT:
+        case KC_LSFT:
             left_shift_down = record->event.pressed;
             break;
         case KC_RSFT:

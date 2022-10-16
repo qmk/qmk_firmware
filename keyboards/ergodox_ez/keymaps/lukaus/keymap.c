@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     DVP_ESC,      DVP_AMPR,         DVP_LBRACKET, DVP_LCBR,         DVP_RCBR,     DVP_LPRN,   DVP_AT,
     KC_TAB,       KC_SCLN,          KC_COMMA,     KC_DOT,           KC_P,         KC_Y,       MO(4),
     MO(3),        KC_A,             KC_O,         KC_E,             KC_U,         KC_I,
-    KC_LSHIFT,    KC_QUOTE,         KC_Q,         KC_J,             KC_K,         KC_X,       KC_HYPR,
+    KC_LSFT,      KC_QUOTE,         KC_Q,         KC_J,             KC_K,         KC_X,       KC_HYPR,
     KC_LCTL,      KC_LALT,          KC_LGUI,      LCTL(KC_C),       LCTL(KC_V),
 
       KC_MS_BTN3, TO(1),    KC_HOME,  KC_SPACE,   MO(4),  KC_END,
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,  KC_1,   KC_2,     KC_3,         KC_4,       KC_5,         KC_F14,
     KC_TAB,     KC_Q,   KC_W,     KC_E,         KC_R,       KC_T,         KC_F23,
     MO(3),      KC_A,   KC_S,     KC_D,         KC_F,       KC_G,
-    KC_LSHIFT,  KC_Z,   KC_X,     KC_C,         KC_V,       KC_B,         KC_F24,
+    KC_LSFT,    KC_Z,   KC_X,     KC_C,         KC_V,       KC_B,         KC_F24,
     KC_LCTL,    KC_F8,  KC_LALT,  KC_F14,      KC_F13,
 
       KC_HOME,  TO(0),  KC_F15,  KC_SPACE, KC_LCTL,  KC_LALT,
@@ -87,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,  KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_C,
     KC_TAB,     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      TO(0),
     MO(3),      KC_1,      KC_2,      KC_3,      KC_4,      KC_5,
-    KC_LSHIFT,  KC_6,      KC_7,      KC_8,      KC_9,      KC_0,     KC_NO,
+    KC_LSFT,    KC_6,      KC_7,      KC_8,      KC_9,      KC_0,     KC_NO,
     KC_LCTL,    KC_F8,     KC_LALT,   KC_I,      KC_S,
 
-    KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
+    KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSFT,  KC_END,
 
     KC_NO,     KC_NUM,         KC_KP_SLASH,    KC_KP_ASTERISK, KC_KP_MINUS,     KC_NO,   KC_NO,
     TO(0),     KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_PLUS,      KC_NO,   KC_NO,
@@ -105,10 +105,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_DLR,         KC_F1,            KC_F2,              KC_F3,              KC_F4,              KC_F5,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT,   KC_MEDIA_PREV_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_NO,          TT(4),
     KC_TRANSPARENT, KC_TRANSPARENT,   KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,    KC_AUDIO_MUTE,      KC_TRANSPARENT,
-    KC_LSHIFT,      LALT(KC_Z),       KC_TRANSPARENT,     KC_TRANSPARENT,     KC_F12,             KC_TRANSPARENT, ALL_T(KC_NO),
+    KC_LSFT,        LALT(KC_Z),       KC_TRANSPARENT,     KC_TRANSPARENT,     KC_F12,             KC_TRANSPARENT, ALL_T(KC_NO),
     KC_LCTL,        KC_LALT,          KC_LGUI,            KC_CAPS,            LSFT(KC_F12),
 
-     KC_PSCR,    KC_PGUP,  KC_PGDN,  KC_SPACE, KC_LSHIFT,  KC_INSERT,
+     KC_PSCR,    KC_PGUP,  KC_PGDN,  KC_SPACE, KC_LSFT,   KC_INSERT,
 
     KC_F6,          KC_F7,            KC_F8,              KC_F9,              KC_F10,             KC_F11,         KC_F12,
     KC_NO,          KC_HOME,          KC_TRANSPARENT,     KC_PSCR,            KC_SCRL,            KC_TRANSPARENT, KC_TRANSPARENT,
@@ -124,10 +124,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
     KC_TAB,     KC_NO,      KC_MS_BTN2,   KC_MS_UP,   KC_MS_BTN1,   KC_MS_WH_UP,    TO(0),
     KC_NO,      KC_NO,      KC_MS_LEFT,   KC_MS_DOWN, KC_MS_RIGHT,  KC_MS_WH_DOWN,
-    KC_LSHIFT,  KC_NO,      KC_NO,        KC_UP,      KC_NO,        KC_NO,          TO(5),
+    KC_LSFT,    KC_NO,      KC_NO,        KC_UP,      KC_NO,        KC_NO,          TO(5),
     KC_LCTL,    KC_NO,      KC_LEFT,      KC_DOWN,    KC_RIGHT,
 
-    KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
+    KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSFT,  KC_END,
 
     KC_NO,          KC_NUM,         KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,    KC_NO,      RGB_VAI,
     TO(0),          KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,      KC_NO,      RGB_VAD,
@@ -144,10 +144,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
     KC_TAB,     KC_NO,      KC_MS_BTN2,   KC_MS_UP,   KC_MS_BTN1,   KC_MS_WH_UP,    TO(0),
     KC_NO,      KC_NO,      KC_MS_LEFT,   KC_MS_DOWN, KC_MS_RIGHT,  KC_MS_WH_DOWN,
-    KC_LSHIFT,  KC_NO,      KC_NO,        KC_UP,      KC_NO,        KC_NO,          TO(5),
+    KC_LSFT,   KC_NO,      KC_NO,        KC_UP,      KC_NO,        KC_NO,          TO(5),
     KC_LCTL,    KC_NO,      KC_LEFT,      KC_DOWN,    KC_RIGHT,
 
-    KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSHIFT,  KC_END,
+    KC_MS_BTN3, TO(1),  KC_HOME,  KC_SPACE, KC_LSFT,  KC_END,
 
     KC_NO,    KC_I,       KC_NUM,         KC_KP_SLASH,    KC_KP_ASTERISK, KC_CALCULATOR,  RGB_VAI,
     TO(0),    KC_G,       KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,    RGB_VAD,
@@ -178,7 +178,7 @@ bool numlock = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
-    case KC_LSHIFT:
+    case KC_LEFT_SHIFT:
     if (record->event.pressed)
       {
         left_shift_down = true;
@@ -262,7 +262,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
         {
           if(left_shift_down)
-            unregister_code(KC_LSHIFT);
+            unregister_code(KC_LEFT_SHIFT);
           if(right_shift_down)
             unregister_code(KC_RIGHT_SHIFT);
 
@@ -270,7 +270,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_7);
 
           if(left_shift_down)
-            register_code(KC_LSHIFT);
+            register_code(KC_LEFT_SHIFT);
           if(right_shift_down)
             register_code(KC_RIGHT_SHIFT);
         }
@@ -291,7 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
        {
           if(left_shift_down)
-            unregister_code(KC_LSHIFT);
+            unregister_code(KC_LEFT_SHIFT);
           if(right_shift_down)
             unregister_code(KC_RIGHT_SHIFT);
 
@@ -299,7 +299,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_5);
 
           if(left_shift_down)
-            register_code(KC_LSHIFT);
+            register_code(KC_LEFT_SHIFT);
           if(right_shift_down)
             register_code(KC_RIGHT_SHIFT);
         }
@@ -318,7 +318,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -326,7 +326,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_3);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -345,7 +345,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -353,7 +353,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_1);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -372,17 +372,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
-        register_code(KC_LSHIFT);
+        register_code(KC_LEFT_SHIFT);
         register_code(KC_6);
         unregister_code(KC_6);
-        unregister_code(KC_LSHIFT);
+        unregister_code(KC_LEFT_SHIFT);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -402,7 +402,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -410,7 +410,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_9);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -429,7 +429,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -437,7 +437,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_0);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -456,7 +456,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -464,7 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_2);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -483,7 +483,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -491,7 +491,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_4);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -510,7 +510,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -518,7 +518,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_6);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -537,7 +537,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -545,7 +545,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_8);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -564,7 +564,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -572,7 +572,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_GRAVE);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -592,7 +592,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -600,7 +600,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_GRAVE);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -618,7 +618,7 @@ case RU_3:
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -626,7 +626,7 @@ case RU_3:
         unregister_code(KC_GRAVE);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -644,7 +644,7 @@ case RU_4:
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -652,7 +652,7 @@ case RU_4:
         unregister_code(KC_GRAVE);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -670,7 +670,7 @@ case RU_6:
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -678,7 +678,7 @@ case RU_6:
         unregister_code(KC_GRAVE);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -696,7 +696,7 @@ case RU_7:
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -704,7 +704,7 @@ case RU_7:
         unregister_code(KC_GRAVE);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
@@ -723,7 +723,7 @@ case RU_7:
       if(record->event.pressed)
       {
         if(left_shift_down)
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           unregister_code(KC_RIGHT_SHIFT);
 
@@ -731,7 +731,7 @@ case RU_7:
         unregister_code(KC_GRAVE);
 
         if(left_shift_down)
-          register_code(KC_LSHIFT);
+          register_code(KC_LEFT_SHIFT);
         if(right_shift_down)
           register_code(KC_RIGHT_SHIFT);
       }
