@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NEO_1] = LAYOUT_ergodox(
     // left hand side - main
     KC_NO /* NOOP */, NEO2_1,                   NEO2_2,                   NEO2_3,                   NEO2_4,           NEO2_5,           KC_ESCAPE,
-    KC_TAB,           KC_X,                     KC_V,                     KC_L,                     KC_C,             KC_W,             KC_LCTRL,
+    KC_TAB,           KC_X,                     KC_V,                     KC_L,                     KC_C,             KC_W,             KC_LCTL,
     NEO2_LMOD3,       KC_U,                     KC_I,                     KC_A,                     KC_E,             KC_O,             /* --- */
-    KC_LSHIFT,        NEO2_UE,                  NEO2_OE,                  NEO2_AE,                  KC_P,             KC_Z,             KC_LALT,
-    KC_NO /* NOOP */, KC_NO /* NOOP */,         KC_LCTRL,                 KC_LALT,                  KC_LGUI,          /* --- */         /* --- */
+    KC_LSFT,          NEO2_UE,                  NEO2_OE,                  NEO2_AE,                  KC_P,             KC_Z,             KC_LALT,
+    KC_NO /* NOOP */, KC_NO /* NOOP */,         KC_LCTL,                  KC_LALT,                  KC_LGUI,          /* --- */         /* --- */
 
     // left hand side - thumb cluster
     /* --- */         MO(FKEYS),        KC_HOME,
@@ -140,9 +140,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // right hand side - main
     TO(US_1),         NEO2_6,           NEO2_7,           NEO2_8,           NEO2_9,           NEO2_0,           NEO2_MINUS,
-    KC_RCTRL,         KC_K,             KC_H,             KC_G,             KC_F,             KC_Q,             NEO2_SHARP_S,
+    KC_RCTL,          KC_K,             KC_H,             KC_G,             KC_F,             KC_Q,             NEO2_SHARP_S,
     /* --- */         KC_S,             KC_N,             KC_R,             KC_T,             KC_D,             NEO2_RMOD3,
-    KC_RALT,          KC_B,             KC_M,             NEO2_COMMA,       NEO2_DOT,         KC_J,             KC_RSHIFT,
+    KC_RALT,          KC_B,             KC_M,             NEO2_COMMA,       NEO2_DOT,         KC_J,             KC_RSFT,
     /* --- */         /* --- */         KC_RGUI,          KC_LEFT,          KC_DOWN,          KC_UP,            KC_RIGHT,
 
     // right hand side - thumb cluster
@@ -365,11 +365,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_EQUAL,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,       KC_ESCAPE,
     KC_BSLS,          KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,       KC_NO /* NOOP */,
     KC_TAB,           KC_A,         KC_S,       KC_D,       KC_F,       KC_G,       /* --- */
-    KC_LSHIFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,       KC_NO /* NOOP */,
+    KC_LSFT,          KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,       KC_NO /* NOOP */,
     KC_LGUI,          KC_GRAVE,     KC_NO,      KC_NO,      MO(FKEYS),  /* --- */   /* --- */
 
     // left hand side - thumb cluster
-    /* --- */         KC_LCTRL,     KC_LALT,
+    /* --- */         KC_LCTL,      KC_LALT,
     /* --- */         /* --- */     KC_HOME,
     KC_BSPC,          KC_DELETE,    KC_END,
 
@@ -377,11 +377,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(NEO_1),        KC_6,         KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,
     KC_LBRC,          KC_Y,         KC_U,       KC_I,       KC_O,       KC_P,       KC_RBRC,
     /* --- */         KC_H,         KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOTE,
-    KC_NO /* NOOP */, KC_N,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSHIFT,
+    KC_NO /* NOOP */, KC_N,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
     /* --- */         /* --- */     KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   KC_RGUI,
 
     // right hand side - thumb cluster
-    KC_RALT,          KC_RCTRL,     /* --- */
+    KC_RALT,          KC_RCTL,      /* --- */
     KC_PGUP,          /* --- */     /* --- */
     KC_PGDN,          KC_ENTER,     KC_SPACE
   ),
@@ -439,7 +439,7 @@ void tap_with_modifiers(uint16_t keycode, uint8_t force_modifiers) {
   uint8_t active_modifiers = get_mods();
 
   if ((force_modifiers & MOD_MASK_SHIFT) && !(active_modifiers & MOD_MASK_SHIFT)) register_code(KC_LSFT);
-  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) register_code(KC_LCTRL);
+  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) register_code(KC_LCTL);
   if ((force_modifiers & MOD_MASK_ALT) && !(active_modifiers & MOD_MASK_ALT)) register_code(KC_LALT);
   if ((force_modifiers & MOD_MASK_GUI) && !(active_modifiers & MOD_MASK_GUI)) register_code(KC_LGUI);
 
@@ -447,7 +447,7 @@ void tap_with_modifiers(uint16_t keycode, uint8_t force_modifiers) {
   unregister_code(keycode);
 
   if ((force_modifiers & MOD_MASK_SHIFT) && !(active_modifiers & MOD_MASK_SHIFT)) unregister_code(KC_LSFT);
-  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) unregister_code(KC_LCTRL);
+  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) unregister_code(KC_LCTL);
   if ((force_modifiers & MOD_MASK_ALT) && !(active_modifiers & MOD_MASK_ALT)) unregister_code(KC_LALT);
   if ((force_modifiers & MOD_MASK_GUI) && !(active_modifiers & MOD_MASK_GUI)) unregister_code(KC_LGUI);
 }
@@ -620,18 +620,18 @@ bool process_record_user_shifted(uint16_t keycode, keyrecord_t *record) {
 // Runs for each key down or up event.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case KC_LSHIFT:
+    case KC_LSFT:
       if (record->event.pressed) {
-        capslock_state |= (MOD_BIT(KC_LSHIFT));
+        capslock_state |= (MOD_BIT(KC_LSFT));
       } else {
-        capslock_state &= ~(MOD_BIT(KC_LSHIFT));
+        capslock_state &= ~(MOD_BIT(KC_LSFT));
       }
       break;
-    case KC_RSHIFT:
+    case KC_RIGHT_SHIFT:
       if (record->event.pressed) {
-        capslock_state |= MOD_BIT(KC_RSHIFT);
+        capslock_state |= MOD_BIT(KC_RSFT);
       } else {
-        capslock_state &= ~(MOD_BIT(KC_RSHIFT));
+        capslock_state &= ~(MOD_BIT(KC_RSFT));
       }
       break;
     case NEO2_LMOD3:

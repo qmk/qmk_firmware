@@ -219,7 +219,7 @@ enum alfrdmalr_keycodes {
 // LEFT
 // - CORE
 #define __NAVIGATION_L1__    KC_NO,    KC_NO,     KC_SPC,   KC_F5,     KC_NO
-#define __NAVIGATION_L2__    KC_LSFT,  KC_LCTRL,  KC_LALT,  KC_LGUI,   KC_NO
+#define __NAVIGATION_L2__    KC_LSFT,  KC_LCTL,   KC_LALT,  KC_LGUI,   KC_NO
 #define __NAVIGATION_L3__    WINUNDO,  WINCUT,    WINCOPY,  WINPASTE,  KC_NO
 
 // - MODS

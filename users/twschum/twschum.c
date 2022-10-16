@@ -79,7 +79,7 @@ static inline bool tap_ctrl_other_pressed(void) {
                 // need to send the plain keycode plus potential mods
                 if (get_mods() & MOD_MASK_CTRL) {
                     // make sure to send a shift if prssed
-                    repeat_send_keys(key->count, KC_RSHIFT, key->keycode);
+                    repeat_send_keys(key->count, KC_RSFT, key->keycode);
                 }
                 else {
                     repeat_send_keys(key->count, key->keycode);

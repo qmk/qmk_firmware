@@ -59,7 +59,7 @@ user_config_t user_config;
 #define NAV_0 LT(_NAV, KC_0)
 #define TAB_NUM LT(_NUMPAD, KC_TAB)
 
-#define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
+#define EXT_SF LT(_GAMING_EXT, KC_LSFT)
 
 // Tap/mod keys
 #define RCTL_BR RCTL_T(KC_RBRC)

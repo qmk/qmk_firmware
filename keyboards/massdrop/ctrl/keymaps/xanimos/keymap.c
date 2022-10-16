@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //   SHIFT      Z        X        C        V        B        N        M        ,        .        /      RSHIFT                               UP
         KC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,  KC_N  ,  KC_M  , KC_COMM, KC_DOT , KC_SLSH, KC_RSPC,                             KC_UP ,
     //   CTRL      GUI      ALT                       SPACE                               RALT     MENU     RGUI     RCTRL             LEFT     DOWN     RIGHT
-       KC_LCTRL, KC_LGUI, KC_LALT,                    KC_SPC,                   TD(TD_FN_SWITCH), KC_RALT, KC_RGUI, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
+       KC_LCTL,  KC_LGUI, KC_LALT,                    KC_SPC,                   TD(TD_FN_SWITCH), KC_RALT, KC_RGUI, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FL] = LAYOUT(
     //    ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10     F11      F12              PRINT    SCLCK    PAUSE

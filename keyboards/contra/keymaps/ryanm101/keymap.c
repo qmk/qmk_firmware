@@ -185,21 +185,21 @@ void tmux_dance (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING("tmux"); register_code(KC_ENT); unregister_code(KC_ENT);
   } else if (state->count == 2) {
-    register_mods(MOD_BIT(KC_LCTRL));
+    register_mods(MOD_BIT(KC_LCTL));
     register_code(KC_B); unregister_code(KC_B);
-    unregister_mods(MOD_BIT(KC_LCTRL));
-    register_mods(MOD_BIT(KC_LSHIFT));
+    unregister_mods(MOD_BIT(KC_LCTL));
+    register_mods(MOD_BIT(KC_LSFT));
     register_code(KC_5); unregister_code(KC_5);
-    unregister_mods(MOD_BIT(KC_LSHIFT));
+    unregister_mods(MOD_BIT(KC_LSFT));
   }
 }
 
 void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    register_mods(MOD_BIT(KC_LCTRL));
+    register_mods(MOD_BIT(KC_LCTL));
     register_mods(MOD_BIT(KC_LALT));
     register_code(KC_DELETE);
-    unregister_mods(MOD_BIT(KC_LCTRL));
+    unregister_mods(MOD_BIT(KC_LCTL));
     unregister_mods(MOD_BIT(KC_LALT));
     unregister_code(KC_DELETE);
   } else if (state->count == 2) {
@@ -211,10 +211,10 @@ void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_ESC);
   } else if (state->count == 3) {
     register_mods(MOD_BIT(KC_LGUI));
-    register_mods(MOD_BIT(KC_LSHIFT));
+    register_mods(MOD_BIT(KC_LSFT));
     register_code(KC_4);
     unregister_mods(MOD_BIT(KC_LGUI));
-    unregister_mods(MOD_BIT(KC_LSHIFT));
+    unregister_mods(MOD_BIT(KC_LSFT));
     unregister_code(KC_4);
   }
 }

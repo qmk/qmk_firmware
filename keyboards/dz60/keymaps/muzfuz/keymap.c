@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 #define ESC_CTL     CTL_T(KC_ESCAPE)            // Tap for Esc, hold for Ctrl
 
 enum custom_keycodes {

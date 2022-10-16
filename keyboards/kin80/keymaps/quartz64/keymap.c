@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL_T(KC_GRV),   KC_A,   KC_S,          KC_D,    KC_F,    KC_G,      KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, LT(_NM, KC_QUOT),
     KC_LSPO,    LCTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,      KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
     KC_MPLY,         MO(_MC), LCTL(KC_LSFT), KC_LBRC, KC_RBRC, KC_NO,     KC_NO,  KC_LEFT,KC_DOWN, KC_UP,  KC_RGHT,KC_NO,
-			                                        MO(_NM),  KC_ENTER,            KC_RGUI,KC_RCTRL,
+			                                        MO(_NM),  KC_ENTER,            KC_RGUI,KC_RCTL,
                                                         KC_HOME,             KC_PGUP,
                                        KC_SPC, KC_BSPC, KC_END,              KC_PGDN,KC_DEL, KC_ENTER
     ),

@@ -28,7 +28,7 @@ enum custom_keycodes {
 };
 
 // Mod key detection
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 #define MODS_ALT_MASK (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

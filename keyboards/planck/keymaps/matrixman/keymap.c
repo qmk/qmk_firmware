@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    LT(_NAV_L,KC_Q), KC_W,  KC_E,      KC_R,        KC_T,         KC_DELETE, KC_BSPC,          KC_Y,       KC_U,    KC_I,     KC_O, LT(_NAV_R,KC_P)
   ,KC_A,            KC_S,  KC_D,      KC_F,        KC_G,     CTL_T(KC_ESC), CTL_T(KC_SCLN),   KC_H,       KC_J,    KC_K,     KC_L,     KC_QUOT
   ,SFT_T(KC_Z),     KC_X,  KC_C,      KC_V,        KC_B,     ALT_T(KC_TAB), ALT_T(KC_INS),    KC_N,       KC_M,    KC_COMM,  KC_DOT,   SFT_T(KC_SLSH)
-  ,KC_LCTRL,     KC_LGUI,  LM(_NAV_ALT, MOD_LALT), KC_TAB, LT(_SYMB_L, KC_ESC), KC_LSFT,  KC_LSFT,  LT(_SYMB_R,KC_SPC), KC_BSPC, LM(_NAV_ALT, MOD_LALT), KC_RCTRL, KC_ENT
+  ,KC_LCTL,      KC_LGUI,  LM(_NAV_ALT, MOD_LALT), KC_TAB, LT(_SYMB_L, KC_ESC), KC_LSFT,  KC_LSFT,  LT(_SYMB_R,KC_SPC), KC_BSPC, LM(_NAV_ALT, MOD_LALT), KC_RCTL, KC_ENT
 ),
     // accessed via the left symb-layer key, includes a semicolon where the right symb-layer key was
 [_SYMB_L] = LAYOUT_planck_grid(

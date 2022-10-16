@@ -18,7 +18,7 @@ enum planck_keycodes {
 };
 
 // Useful defines
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 #define FN_CAPS     LT(_FL, KC_CAPS)            // Tap for Caps Lock, Hold for Function Layer
 
 // clang-format off

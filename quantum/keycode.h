@@ -545,5 +545,3 @@ enum mouse_keys {
     KC_MS_ACCEL1,
     KC_MS_ACCEL2 // 0xDF, or 0xFF if via enabled
 };
-
-#include "keycode_legacy.h"

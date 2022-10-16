@@ -36,7 +36,7 @@ _I physically switched around my RALT and Menu keys as my personal preference. T
   |____________________|__________|__________|__________|__________|__________|__________|__________|__________|__________|__________|_________________________________|     __________|__________|__________
   |    CTRL     |    GUI      |    ALT      |                       SPACE                                     |    RALT      |   MENU      |   RGUI      |    RCTRL    |    |   LEFT   |   DOWN   |  RIGHT   |
   |   ------    |   ------    |   ------    |                       ------                                    |    ------    |   ------    |   ------    |    ------   |    |  ------  |  ------  |  ------  |
-  |  KC_LCTRL   |   KC_LGUI   |   KC_LALT   |                       KC_SPC                                    |   FN_SWTCH   |   KC_RALT   |   KC_RGUI   |    KC_RCTL  |    |  KC_LEFT |  KC_DOWN |  KC_RGHT |
+  |  KC_LCTL    |   KC_LGUI   |   KC_LALT   |                       KC_SPC                                    |   FN_SWTCH   |   KC_RALT   |   KC_RGUI   |    KC_RCTL  |    |  KC_LEFT |  KC_DOWN |  KC_RGHT |
   |_____________|_____________|_____________|_________________________________________________________________|______________|_____________|_____________|_____________|    |__________|__________|__________|
 
   ```

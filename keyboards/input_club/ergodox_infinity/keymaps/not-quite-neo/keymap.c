@@ -64,20 +64,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,
   KC_ESC,                 L01_LEFT_01,                 KC_LEAD,
   MO(L03),                L01_LEFT_02,
-  KC_LSHIFT,              L01_LEFT_03,                 MO(LFN),
-  KC_LCTRL,KC_LGUI,KC_LALT, MO(L05), MO(L04),
+  KC_LSFT,                L01_LEFT_03,                 MO(LFN),
+  KC_LCTL, KC_LGUI,KC_LALT, MO(L05), MO(L04),
                                               XXXXXXX, XXXXXXX,
                                                        KC_PGUP,
-                                     KC_SPACE,KC_LSHIFT,KC_PGDN,
+                                     KC_SPACE,KC_LSFT, KC_PGDN,
   //--
   XXXXXXX,  KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_LEAD,                L01_RIGHT_01,                 KC_ENTER,
                           L01_RIGHT_02,                 MO(L03),
-  MO(LFN),                L01_RIGHT_03,                 KC_RSHIFT,
-                    MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL,
+  MO(LFN),                L01_RIGHT_03,                 KC_RSFT,
+                    MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTL,
   KC_LEFT, KC_RIGHT,
   KC_UP,
-  KC_DOWN, KC_RSHIFT, KC_SPACE
+  KC_DOWN, KC_RSFT, KC_SPACE
 ),
 
 

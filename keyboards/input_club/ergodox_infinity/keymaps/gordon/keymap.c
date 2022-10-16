@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                               LSFT(KC_INSERT),  TT(_QWERTY_KIDS),
                                                           ________ ,
-                                    KC_LSHIFT, SYMB_BSP,  KC_INSERT   ,
+                                    KC_LSFT,   SYMB_BSP,  KC_INSERT   ,
 
                  F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, TD(CALCCOMP),
                 CALTDEL ,    KC_Y,      KC_U,     KC_I,     KC_O,      KC_P,  MODRESET,
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                 KC_NO ,    TT(_QWERTY_KIDS) ,
                                                             KC_NO  ,
-                                    KC_LSHIFT, KC_BSPC,      KC_NO    ,
+                                    KC_LSFT,   KC_BSPC,      KC_NO    ,
 
                    KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,   KC_NO ,
                   KC_NO  ,    KC_Y,      KC_U, KC_I,     KC_O,      KC_P,    KC_NO ,
