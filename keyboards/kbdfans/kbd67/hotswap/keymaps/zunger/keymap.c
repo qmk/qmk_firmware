@@ -137,7 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static bool shifted = false;
   static bool magic = false;
 
-  if (keycode == KC_LSHIFT || keycode == KC_RSHIFT) {
+  if (keycode == KC_LSFT || keycode == KC_RSFT) {
     shifted = record->event.pressed;
   } else if (keycode == MAGIC) {
     magic = record->event.pressed;

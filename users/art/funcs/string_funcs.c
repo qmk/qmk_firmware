@@ -46,8 +46,8 @@ const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_left[] = {KC_S, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_right[] = {KC_F, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_down[] = {KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_prev_word[] = {KC_S, KC_LCTRL, COMBO_END};
-const uint16_t PROGMEM combo_next_word[] = {KC_F, KC_LCTRL, COMBO_END};
+const uint16_t PROGMEM combo_prev_word[] = {KC_S, KC_LCTL, COMBO_END};
+const uint16_t PROGMEM combo_next_word[] = {KC_F, KC_LCTL, COMBO_END};
 const uint16_t PROGMEM combo_end[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_home[] = {KC_E, KC_R, COMBO_END};
 
@@ -64,7 +64,7 @@ const uint16_t PROGMEM combo_f8[] = {KC_8, KC_I, COMBO_END};
 const uint16_t PROGMEM combo_f9[] = {KC_9, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_f10[] = {KC_0, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_f11[] = {LT(GIT,KC_SLSH), KC_RSFT, COMBO_END};
-const uint16_t PROGMEM combo_f12[] = {KC_RALT, KC_RCTRL, COMBO_END};
+const uint16_t PROGMEM combo_f12[] = {KC_RALT, KC_RCTL, COMBO_END};
 const uint16_t PROGMEM combo_pscreen[] = {TO(WORKMAN), KC_RALT, COMBO_END};
 
 const uint16_t PROGMEM done_sm[] = {KC_LEFT, KC_RIGHT, COMBO_END};

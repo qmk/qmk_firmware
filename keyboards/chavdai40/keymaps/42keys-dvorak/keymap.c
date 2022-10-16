@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     LAYOUT_42key( /* Base */
         KC_TAB, KC_SLASH, KC_COMMA, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_MINUS, KC_BSPC,
-        KC_LCTRL, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_ENTER,
+        KC_LCTL, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_ENTER,
         KC_LSFT, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, MO(1),
         KC_LALT, KC_LGUI, KC_SPACE, KC_RGUI, KC_RALT),
     LAYOUT_42key( /* layer 1 */

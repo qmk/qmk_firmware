@@ -64,37 +64,37 @@ void matrix_scan_user(void) {
     // Close a program in i3wm
     SEQ_ONE_KEY(KC_Q) {
       register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_Q);
       unregister_code(KC_Q);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LGUI);
     }
     // Exit i3wm
     SEQ_ONE_KEY(KC_E) {
       register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_E);
       unregister_code(KC_E);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LGUI);
     }
     // Copy selected text in suckless terminal
     SEQ_ONE_KEY(KC_C) {
       register_code(KC_LCTL);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_C);
       unregister_code(KC_C);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
     // Paste text in suckless terminal
     SEQ_ONE_KEY(KC_V) {
       register_code(KC_LCTL);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_V);
       unregister_code(KC_V);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
     // FZF shortcut to fuzzy switch directories

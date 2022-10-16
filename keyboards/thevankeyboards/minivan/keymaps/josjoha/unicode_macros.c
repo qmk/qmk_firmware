@@ -652,7 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Shift detection system.
                                                   // Disused because it turned out 'one shot' like Unicode input. Shift detection copied from.
                                                   // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
-                                                  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                                                  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
 
         // Crude but self contained in this source file shift detection.
         // ... right shift

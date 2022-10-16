@@ -224,7 +224,7 @@ void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
       #endif
       break;
     case DOUBLE_TAP:
-	  register_code(KC_LCTRL);
+	  register_code(KC_LCTL);
       register_code(KC_C);
 	  break;
 	case DOUBLE_HOLD:
@@ -237,7 +237,7 @@ void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (BSWtap_state.state) {
     case SINGLE_TAP: unregister_code(KC_ENTER); break;
     case DOUBLE_TAP:
-	  unregister_code(KC_LCTRL);
+	  unregister_code(KC_LCTL);
 	  unregister_code(KC_C);
 	  break;
   }

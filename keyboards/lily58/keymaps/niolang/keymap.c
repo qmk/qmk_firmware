@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BEPO] = LAYOUT(
   MT(KC_CAPS, KC_ESC), BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN,                                 BP_AT,    BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_W,
   KC_TAB,              BP_B,    BP_EACU, BP_P,    BP_O,    BP_EGRV,                                 BP_DCIR,  BP_V,    BP_D,    BP_L,    BP_J,    BP_Z,
-  KC_LCTRL,            BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,                        MT(BP_CCED, BP_C), BP_T,    BP_S,    BP_R,    BP_N,    BP_M,
+  KC_LCTL,             BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,                        MT(BP_CCED, BP_C), BP_T,    BP_S,    BP_R,    BP_N,    BP_M,
   KC_LSFT,             BP_AGRV, BP_Y,    BP_X,  BP_DOT,    BP_K, LSFT(KC_PSCR),     KC_DEL,  BP_QUOT,  BP_Q,    BP_G,    BP_H,    BP_F,    KC_RSFT,
                                         KC_LALT, KC_LGUI, LOWER, KC_SPC,                    KC_ENT,  RAISE, KC_BSPC, KC_RALT
 ),
