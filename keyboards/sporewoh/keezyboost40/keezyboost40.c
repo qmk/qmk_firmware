@@ -45,7 +45,6 @@ void keyboard_post_init_kb(void) {
     // Let the LCD get some power...
     wait_ms(150);
     // Initialise the LCD
-    int SUN_RADIUS = 7;
     lcd = qp_st7789_make_spi_device(HEIGHT, WIDTH, GP17, GP16, GP14, 1, 3);
 
     qp_init(lcd, QP_ROTATION_180);
