@@ -55,11 +55,11 @@ int cur_dance(qk_tap_dance_state_t *state) {
 
 void dance_lctl_finished(qk_tap_dance_state_t *state, void *user_data) {
   rbw_led_keys[RBW_LCTL].status = ENABLED;
-  register_code(KC_LCTRL);
+  register_code(KC_LCTL);
 };
 
 void dance_lctl_reset(qk_tap_dance_state_t *state, void *user_data) {
-  unregister_code(KC_LCTRL);
+  unregister_code(KC_LCTL);
   rbw_led_keys[RBW_LCTL].status = DISABLED;
 };
 

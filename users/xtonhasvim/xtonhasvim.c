@@ -36,9 +36,9 @@ static void CMD(uint16_t keycode) {
 }
 
 static void CTRL(uint16_t keycode) {
-  PRESS(KC_LCTRL);
+  PRESS(KC_LCTL);
     TAP(keycode);
-  RELEASE(KC_LCTRL);
+  RELEASE(KC_LCTL);
 }
 
 static void SHIFT(uint16_t keycode) {

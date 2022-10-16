@@ -91,7 +91,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for right parenthesis, twice for right bracket, thrice for right brace */
     [TD_BRACKETS_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_brackets_right_finished, td_brackets_right_reset),
     /* Tap once for control, twice for escape */
-    [TD_CONTROL_ESCAPE] = ACTION_TAP_DANCE_DOUBLE(KC_LCTRL, KC_ESCAPE),
+    [TD_CONTROL_ESCAPE] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_ESCAPE),
     /* Tap once for plus, twice for equals */
     [TD_PLUS_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_PLUS, KC_EQUAL),
     /* Hold for numpad, tap twice to toggle function row, double hold for temporary function row */

@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(SYMBOLS), DE_P, DE_U, OSL(DIAK), DE_COMM, DE_Q, LSFT(DE_G),
         OSL(SYMBOLS), DE_H, DE_I, DE_E, DE_A, DE_O,
      	SFT_T(KC_TAB), DE_K, DE_Y, DE_DOT, DE_QUOT, DE_X, LCTL(DE_D),
-        KC_LCTRL, KC_LALT, KC_NO, KC_NO, KC_NO,
+        KC_LCTL, KC_LALT, KC_NO, KC_NO, KC_NO,
         
 
 	// left hand thumb-cluster

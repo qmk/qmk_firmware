@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NEO_1] = LAYOUT_ergodox(
     // left hand side - main
     KC_NO /* NOOP */, NEO2_1,                   NEO2_2,                   NEO2_3,                   NEO2_4,           NEO2_5,           KC_ESCAPE,
-    KC_TAB,           KC_X,                     KC_V,                     KC_L,                     KC_C,             KC_W,             KC_LCTRL,
+    KC_TAB,           KC_X,                     KC_V,                     KC_L,                     KC_C,             KC_W,             KC_LCTL,
     NEO2_LMOD3,       KC_U,                     KC_I,                     KC_A,                     KC_E,             KC_O,             /* --- */
     KC_LSFT,          NEO2_UE,                  NEO2_OE,                  NEO2_AE,                  KC_P,             KC_Z,             KC_LALT,
-    KC_NO /* NOOP */, KC_NO /* NOOP */,         KC_LCTRL,                 KC_LALT,                  KC_LGUI,          /* --- */         /* --- */
+    KC_NO /* NOOP */, KC_NO /* NOOP */,         KC_LCTL,                  KC_LALT,                  KC_LGUI,          /* --- */         /* --- */
 
     // left hand side - thumb cluster
     /* --- */         MO(FKEYS),        KC_HOME,
@@ -369,7 +369,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LGUI,          KC_GRAVE,     KC_NO,      KC_NO,      MO(FKEYS),  /* --- */   /* --- */
 
     // left hand side - thumb cluster
-    /* --- */         KC_LCTRL,     KC_LALT,
+    /* --- */         KC_LCTL,      KC_LALT,
     /* --- */         /* --- */     KC_HOME,
     KC_BSPC,          KC_DELETE,    KC_END,
 
@@ -439,7 +439,7 @@ void tap_with_modifiers(uint16_t keycode, uint8_t force_modifiers) {
   uint8_t active_modifiers = get_mods();
 
   if ((force_modifiers & MOD_MASK_SHIFT) && !(active_modifiers & MOD_MASK_SHIFT)) register_code(KC_LSFT);
-  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) register_code(KC_LCTRL);
+  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) register_code(KC_LCTL);
   if ((force_modifiers & MOD_MASK_ALT) && !(active_modifiers & MOD_MASK_ALT)) register_code(KC_LALT);
   if ((force_modifiers & MOD_MASK_GUI) && !(active_modifiers & MOD_MASK_GUI)) register_code(KC_LGUI);
 
@@ -447,7 +447,7 @@ void tap_with_modifiers(uint16_t keycode, uint8_t force_modifiers) {
   unregister_code(keycode);
 
   if ((force_modifiers & MOD_MASK_SHIFT) && !(active_modifiers & MOD_MASK_SHIFT)) unregister_code(KC_LSFT);
-  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) unregister_code(KC_LCTRL);
+  if ((force_modifiers & MOD_MASK_CTRL) && !(active_modifiers & MOD_MASK_CTRL)) unregister_code(KC_LCTL);
   if ((force_modifiers & MOD_MASK_ALT) && !(active_modifiers & MOD_MASK_ALT)) unregister_code(KC_LALT);
   if ((force_modifiers & MOD_MASK_GUI) && !(active_modifiers & MOD_MASK_GUI)) unregister_code(KC_LGUI);
 }

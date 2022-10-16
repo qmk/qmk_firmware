@@ -385,7 +385,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   } else if (keycode == KC_LALT || keycode == KC_RALT) {
     alt_held = record->event.pressed;
     ignore_accent_change = true;
-  } else if (keycode == KC_LCTRL || keycode == KC_RCTL) {
+  } else if (keycode == KC_LCTL || keycode == KC_RCTL) {
     ctrl_held = record->event.pressed;
     ignore_accent_change = true;
   } else if (keycode == KC_LGUI || keycode == KC_RGUI) {

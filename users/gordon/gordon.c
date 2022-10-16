@@ -60,12 +60,12 @@ void unregister_shift_f6 (void) {
 
 void register_ctrl_shift (void) {
   register_code (KC_LSFT);
-  register_code (KC_LCTRL);
+  register_code (KC_LCTL);
 }
 
 void unregister_ctrl_shift (void) {
   unregister_code (KC_LSFT);
-  unregister_code (KC_LCTRL);
+  unregister_code (KC_LCTL);
 }
 
 void register_alt_shift (void) {

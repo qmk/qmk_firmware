@@ -94,9 +94,9 @@ void CMD(uint16_t keycode) {
 }
 
 void CTRL(uint16_t keycode) {
-  PRESS(KC_LCTRL);
+  PRESS(KC_LCTL);
     TAP(keycode);
-  RELEASE(KC_LCTRL);
+  RELEASE(KC_LCTL);
 }
 
 void SHIFT(uint16_t keycode) {

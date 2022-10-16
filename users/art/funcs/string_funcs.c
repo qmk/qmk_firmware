@@ -46,8 +46,8 @@ const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_left[] = {KC_S, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_right[] = {KC_F, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_down[] = {KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_prev_word[] = {KC_S, KC_LCTRL, COMBO_END};
-const uint16_t PROGMEM combo_next_word[] = {KC_F, KC_LCTRL, COMBO_END};
+const uint16_t PROGMEM combo_prev_word[] = {KC_S, KC_LCTL, COMBO_END};
+const uint16_t PROGMEM combo_next_word[] = {KC_F, KC_LCTL, COMBO_END};
 const uint16_t PROGMEM combo_end[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_home[] = {KC_E, KC_R, COMBO_END};
 
