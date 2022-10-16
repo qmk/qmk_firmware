@@ -1,4 +1,4 @@
-# Gamepad Synth Labs Solo Layout
+# IIDX Synth Labs Solo Layout
 
 This keymap is intended for usage as a gamepad for [beatmania IIDX INFINITAS](https://p.eagate.573.jp/game/infinitas/2/index.html).
 
