@@ -75,6 +75,7 @@ class RgblightModes(IntEnum):
     TWINKLE_6 = 0x29
 
 
+# version: 0.0.1
 class RgbMatrixModes(IntEnum):
     SOLID_COLOR = 0x00
     ALPHAS_MODS = 0x01

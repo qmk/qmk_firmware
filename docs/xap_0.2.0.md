@@ -1,3 +1,29 @@
+<!--- Copyright 2022 QMK --->
+<!--- SPDX-License-Identifier: GPL-2.0-or-later --->
+
+<!---
+*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************
+--->
 # QMK Firmware XAP Specs
 
 This document describes the requirements of the QMK XAP ("extensible application protocol") API.
@@ -91,12 +117,12 @@ This subsystem is always present, and provides the ability to query information 
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
-| Version Query | `0x00 0x00` |  |__Response:__ `u32`| XAP protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.|
-| Capabilities Query | `0x00 0x01` |  |__Response:__ `u32`| XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
-| Enabled subsystem query | `0x00 0x02` |  |__Response:__ `u32`| XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying.|
-| Secure Status | `0x00 0x03` |  |__Response:__ `u8`| Query secure route status<br><br>* 0 means secure routes are disabled<br>* 1 means unlock sequence initiated but incomplete<br>* 2 means secure routes are allowed<br>* any other value should be interpreted as disabled|
-| Secure Unlock | `0x00 0x04` |  || Initiate secure route unlock sequence|
-| Secure Lock | `0x00 0x05` |  || Disable secure routes|
+| Version Query | `0x00 0x00` |  | __Response:__ `u32` | XAP protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.|
+| Capabilities Query | `0x00 0x01` |  | __Response:__ `u32` | XAP subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Enabled subsystem query | `0x00 0x02` |  | __Response:__ `u32` | XAP protocol subsystem query. Each bit should be considered as a "usable" subsystem. For example, checking `(value & (1 << XAP_ROUTE_QMK) != 0)` means the QMK subsystem is enabled and available for querying.|
+| Secure Status | `0x00 0x03` |  | __Response:__ `u8` | Query secure route status<br><br>* 0 means secure routes are disabled<br>* 1 means unlock sequence initiated but incomplete<br>* 2 means secure routes are allowed<br>* any other value should be interpreted as disabled|
+| Secure Unlock | `0x00 0x04` |  |  | Initiate secure route unlock sequence|
+| Secure Lock | `0x00 0x05` |  |  | Disable secure routes|
 
 ### QMK - `0x01`
 This subsystem is always present, and provides the ability to address QMK-specific functionality.
@@ -104,16 +130,16 @@ This subsystem is always present, and provides the ability to address QMK-specif
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
-| Version Query | `0x01 0x00` |  |__Response:__ `u32`| QMK protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.|
-| Capabilities Query | `0x01 0x01` |  |__Response:__ `u32`| QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
-| Board identifiers | `0x01 0x02` |  |__Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Vendor ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product Version: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* QMK Unique Identifier: `u32`| Retrieves the set of identifying information for the board.|
-| Board Manufacturer | `0x01 0x03` |  |__Response:__ `string`| Retrieves the name of the manufacturer|
-| Product Name | `0x01 0x04` |  |__Response:__ `string`| Retrieves the product name|
-| Config Blob Length | `0x01 0x05` |  |__Response:__ `u16`| Retrieves the length of the configuration data bundled within the firmware|
-| Config Blob Chunk | `0x01 0x06` |  |__Request:__ `u16`<br><br>__Response:__ `u8[32]`| Retrieves a chunk of the configuration data bundled within the firmware|
-| Jump to bootloader | `0x01 0x07` | __Secure__ |__Response:__ `u8`| Jump to bootloader<br><br>May not be present - if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader|
-| Hardware Identifier | `0x01 0x08` |  |__Response:__ `u32[4]`| Retrieves a unique identifier for the board.|
-| Reinitialize EEPROM | `0x01 0x09` | __Secure__ |__Response:__ `u8`| Reinitializes the keyboard's EEPROM (persistent memory)<br><br>May not be present - if QMK capabilities query returns “true”, then reinitialize is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will reinitialize and then reboot|
+| Version Query | `0x01 0x00` |  | __Response:__ `u32` | QMK protocol version query.<br><br>* Returns the BCD-encoded version in the format of XX.YY.ZZZZ => `0xXXYYZZZZ`<br>    * e.g. 3.2.115 will match `0x03020115`, or bytes {0x15,0x01,0x02,0x03}.|
+| Capabilities Query | `0x01 0x01` |  | __Response:__ `u32` | QMK subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Board identifiers | `0x01 0x02` |  | __Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Vendor ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product ID: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Product Version: `u16`<br>&nbsp;&nbsp;&nbsp;&nbsp;* QMK Unique Identifier: `u32` | Retrieves the set of identifying information for the board.|
+| Board Manufacturer | `0x01 0x03` |  | __Response:__ `string` | Retrieves the name of the manufacturer|
+| Product Name | `0x01 0x04` |  | __Response:__ `string` | Retrieves the product name|
+| Config Blob Length | `0x01 0x05` |  | __Response:__ `u16` | Retrieves the length of the configuration data bundled within the firmware|
+| Config Blob Chunk | `0x01 0x06` |  | __Request:__ `u16`<br><br>__Response:__ `u8[32]` | Retrieves a chunk of the configuration data bundled within the firmware|
+| Jump to bootloader | `0x01 0x07` | __Secure__ | __Response:__ `u8` | Jump to bootloader<br><br>May not be present - if QMK capabilities query returns “true”, then jump to bootloader is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will jump to bootloader|
+| Hardware Identifier | `0x01 0x08` |  | __Response:__ `u32[4]` | Retrieves a unique identifier for the board.|
+| Reinitialize EEPROM | `0x01 0x09` | __Secure__ | __Response:__ `u8` | Reinitializes the keyboard's EEPROM (persistent memory)<br><br>May not be present - if QMK capabilities query returns “true”, then reinitialize is supported<br><br>* 0 means secure routes are disabled, and should be considered as a failure<br>* 1 means successful, board will reinitialize and then reboot|
 
 ### Keyboard - `0x02`
 This subsystem is always present, and reserved for vendor-specific functionality. No routes are defined by XAP.
@@ -129,10 +155,10 @@ This subsystem allows for query of currently configured keycodes.
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
-| Capabilities Query | `0x04 0x01` |  |__Response:__ `u32`| Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
-| Get Layer Count | `0x04 0x02` |  |__Response:__ `u8`| Query maximum number of layers that can be addressed within the keymap.|
-| Get Keycode | `0x04 0x03` |  |__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br><br>__Response:__ `u16`| Query the Keycode at the requested location.|
-| Get Encoder Keycode | `0x04 0x04` |  |__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br><br>__Response:__ `u16`| Query the Keycode at the requested location.|
+| Capabilities Query | `0x04 0x01` |  | __Response:__ `u32` | Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Get Layer Count | `0x04 0x02` |  | __Response:__ `u8` | Query maximum number of layers that can be addressed within the keymap.|
+| Get Keycode | `0x04 0x03` |  | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br><br>__Response:__ `u16` | Query the Keycode at the requested location.|
+| Get Encoder Keycode | `0x04 0x04` |  | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br><br>__Response:__ `u16` | Query the Keycode at the requested location.|
 
 ### Remapping - `0x05`
 This subsystem allows for live reassignment of keycodes without rebuilding the firmware.
@@ -140,10 +166,10 @@ This subsystem allows for live reassignment of keycodes without rebuilding the f
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
-| Capabilities Query | `0x05 0x01` |  |__Response:__ `u32`| Remapping subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
-| Get Layer Count | `0x05 0x02` |  |__Response:__ `u8`| Query maximum number of layers that can be addressed within the keymap.|
-| Set Keycode | `0x05 0x03` | __Secure__ |__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16`| Modify the Keycode at the requested location.|
-| Set Encoder Keycode | `0x05 0x04` | __Secure__ |__Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16`| Modify the Keycode at the requested location.|
+| Capabilities Query | `0x05 0x01` |  | __Response:__ `u32` | Remapping subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Get Layer Count | `0x05 0x02` |  | __Response:__ `u8` | Query maximum number of layers that can be addressed within the keymap.|
+| Set Keycode | `0x05 0x03` | __Secure__ | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Row: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Column: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16` | Modify the Keycode at the requested location.|
+| Set Encoder Keycode | `0x05 0x04` | __Secure__ | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* Layer: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Encoder: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Clockwise: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* Keycode: `u16` | Modify the Keycode at the requested location.|
 
 ### Lighting - `0x06`
 This subsystem allows for control over the lighting subsystem.
@@ -151,7 +177,7 @@ This subsystem allows for control over the lighting subsystem.
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
-| Capabilities Query | `0x06 0x01` |  |__Response:__ `u32`| Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Capabilities Query | `0x06 0x01` |  | __Response:__ `u32` | Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
 
 
 ## Broadcast messages

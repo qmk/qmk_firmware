@@ -1,3 +1,22 @@
+{%- macro gen_payload(name, type, members) -%}
+{%- if type == 'struct' -%}
+__{{ name }}:__
+{%- for member in members -%}
+<br>{{ "&nbsp;"|safe*4 }}* {{ member.name }}: `{{ member.type }}`
+{%- endfor -%}
+{%- elif type -%}
+__{{ name }}:__ `{{ type }}`
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro gen_payloads(route) -%}
+{{ gen_payload('Request', route.request_type, route.request_struct_members) }}{%- if route.return_type and route.request_type -%}<br><br>{% endif %}{{ gen_payload('Response', route.return_type, route.return_struct_members) }}
+{%- endmacro -%}
+
+{%- macro gen_tags(route) -%}
+{% if 'secure' == route.permissions %}__Secure__{% endif %}
+{%- endmacro -%}
+
 {%- for id, route in xap.routes | dictsort %}
 ### {{ route.name }} - `{{ id }}`
 {{ route.description }}
@@ -7,9 +26,7 @@
 | -- | -- | -- | -- | -- |
 {%- for subid, subroute in route.routes | dictsort %}
 {%- if not subroute.routes %}
-{%- with route=subroute %}
-| {{ subroute.name }} | `{{ id }} {{ subid }}` | {% if 'secure' == subroute.permissions %}__Secure__{% endif %} | {%- include 'route_request.md.j2' -%}{%- if subroute.return_type and subroute.request_type -%}<br><br>{% endif %}{%- include 'route_response.md.j2' -%} | {{ subroute.description.replace('\n', '<br>') }}|
-{%- endwith %}
+| {{ subroute.name }} | `{{ id }} {{ subid }}` | {{ gen_tags(subroute) }} | {{ gen_payloads(subroute) }} | {{ subroute.description | newline_to_br }}|
 {%- endif %}
 {%- endfor %}
 
@@ -23,9 +40,7 @@
 | -- | -- | -- | -- | -- |
 {%- for subsubid, subsubroute in subroute.routes | dictsort %}
 {%- if not subsubroute.routes %}
-{%- with route=subsubroute %}
-| {{ subsubroute.name }} | `{{ id }} {{ subid }} {{ subsubid }}` | {% if 'secure' == subsubroute.permissions %}__Secure__{% endif %} | {%- include 'route_request.md.j2' -%}{%- if subsubroute.return_type and subsubroute.request_type -%}<br><br>{% endif %}{%- include 'route_response.md.j2' -%} | {{ subsubroute.description.replace('\n', '<br>') }}|
-{%- endwith %}
+| {{ subsubroute.name }} | `{{ id }} {{ subid }} {{ subsubid }}` | {{ gen_tags(subsubroute) }} | {{ gen_payloads(subsubroute) }} | {{ subsubroute.description | newline_to_br }}|
 {%- endif %}
 {%- endfor %}
 {%- endif %}

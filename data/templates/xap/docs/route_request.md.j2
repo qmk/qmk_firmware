@@ -1,8 +1,0 @@
-{%- if route.request_type == 'struct' -%}
-__Request:__
-{%- for member in route.request_struct_members -%}
-<br>{{ "&nbsp;"|safe*4 }}* {{ member.name }}: `{{ member.type }}`
-{%- endfor -%}
-{%- elif route.request_type -%}
-__Request:__ `{{ route.request_type }}`
-{%- endif -%}

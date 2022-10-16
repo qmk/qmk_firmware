@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import OrderedDict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from qmk.constants import QMK_FIRMWARE, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
+import qmk.constants
 from qmk.git import git_get_version
 from qmk.json_schema import json_load, validate
 from qmk.decorators import lru_cache
@@ -53,7 +53,7 @@ def load_lighting_spec(feature, version='latest'):
 
 
 def _get_jinja2_env(data_templates_xap_subdir: str):
-    templates_dir = os.path.join(QMK_FIRMWARE, 'data', 'templates', 'xap', data_templates_xap_subdir)
+    templates_dir = os.path.join(qmk.constants.QMK_FIRMWARE, 'data', 'templates', 'xap', data_templates_xap_subdir)
     j2 = Environment(loader=FileSystemLoader(templates_dir), autoescape=select_autoescape())
     return j2
 
@@ -65,11 +65,11 @@ def render_xap_output(data_templates_xap_subdir, file_to_render, defs=None, **kw
 
     attach_filters(j2)
 
-    constants = {}
+    specs = {}
     for feature in ['rgblight', 'rgb_matrix', 'led_matrix']:
-        constants[feature] = load_lighting_spec(feature)
+        specs[feature] = load_lighting_spec(feature)
 
-    return j2.get_template(file_to_render).render(xap=defs, qmk_version=git_get_version(), xap_str=hjson.dumps(defs), constants=constants, GPL2_HEADER_C_LIKE=GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE=GENERATED_HEADER_C_LIKE, **kwargs)
+    return j2.get_template(file_to_render).render(xap=defs, qmk_version=git_get_version(), xap_str=hjson.dumps(defs), specs=specs, constants=qmk.constants, **kwargs)
 
 
 def _find_kb_spec(kb):
@@ -130,7 +130,7 @@ def _merge_ordered_dicts(dicts):
 def get_xap_definition_files():
     """Get the sorted list of XAP definition files, from <QMK>/data/xap.
     """
-    xap_defs = QMK_FIRMWARE / "data" / "xap"
+    xap_defs = qmk.constants.QMK_FIRMWARE / "data" / "xap"
     return list(sorted(xap_defs.glob('**/xap_*.hjson')))
 
 

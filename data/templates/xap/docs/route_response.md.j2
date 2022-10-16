@@ -1,8 +1,0 @@
-{%- if route.return_type == 'struct' -%}
-__Response:__
-{%- for member in route.return_struct_members -%}
-<br>{{ "&nbsp;"|safe*4 }}* {{ member.name }}: `{{ member.type }}`
-{%- endfor -%}
-{%- elif route.return_type -%}
-__Response:__ `{{ route.return_type }}`
-{%- endif -%}

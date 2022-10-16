@@ -61,8 +61,13 @@ def _triplet_to_bcd(value: str):
     return f'0x{int(m.group(1)):02d}{int(m.group(2)):02d}{int(m.group(3)):04d}'
 
 
+def _newline_to_br(value: str):
+    return value.replace('\n', '<br>')
+
+
 def attach_filters(j2: Environment):
     j2.filters['to_snake'] = to_snake
+    j2.filters['newline_to_br'] = _newline_to_br
     j2.filters['triplet_to_bcd'] = _triplet_to_bcd
     j2.filters['fnv1a_32'] = _fnv1a_32
     j2.filters['type_to_c'] = _xap_type_to_c
