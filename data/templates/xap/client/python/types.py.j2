@@ -34,10 +34,10 @@ class {{ name }}(namedtuple('{{ name }}', '{{ members }}')):
         {{ loop(item.routes.values()) }}
     {%- endif -%}
     {% if item.request_struct_members %}
-# TODO: gen inbound object for {{ to_snake(item.define) }}
+# TODO: gen inbound object for {{ item.define | to_snake }}
     {%- endif -%}
     {% if item.return_struct_members %}
-# TODO: gen outbound object for {{ to_snake(item.define) }}
+# TODO: gen outbound object for {{ item.define | to_snake }}
     {%- endif -%}
 {%- endfor %}
 

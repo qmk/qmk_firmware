@@ -9,11 +9,13 @@ from typing import OrderedDict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from qmk.casing import to_snake
-from qmk.constants import QMK_FIRMWARE
+from qmk.constants import QMK_FIRMWARE, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
+from qmk.git import git_get_version
 from qmk.json_schema import json_load, validate
 from qmk.decorators import lru_cache
 from qmk.keymap import locate_keymap
 from qmk.path import keyboard
+from qmk.xap.jinja2_filters import attach_filters
 
 XAP_SPEC = 'xap.hjson'
 
@@ -57,16 +59,18 @@ def _get_jinja2_env(data_templates_xap_subdir: str):
     return j2
 
 
-def render_xap_output(data_templates_xap_subdir, file_to_render, defs):
+def render_xap_output(data_templates_xap_subdir, file_to_render, defs=None, **kwargs):
+    if defs is None:
+        defs = latest_xap_defs()
     j2 = _get_jinja2_env(data_templates_xap_subdir)
 
-    j2.globals['to_snake'] = to_snake
+    attach_filters(j2)
 
     constants = {}
     for feature in ['rgblight', 'rgb_matrix', 'led_matrix']:
         constants[feature] = load_lighting_spec(feature)
 
-    return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs), constants=constants)
+    return j2.get_template(file_to_render).render(xap=defs, qmk_version=git_get_version(), xap_str=hjson.dumps(defs), constants=constants, GPL2_HEADER_C_LIKE=GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE=GENERATED_HEADER_C_LIKE, **kwargs)
 
 
 def _find_kb_spec(kb):

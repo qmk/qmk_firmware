@@ -7,7 +7,7 @@ from pathlib import Path
 from qmk.info import keymap_json
 from qmk.commands import get_chunks, dump_lines
 from qmk.json_schema import deep_update, json_load
-
+from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
@@ -56,6 +56,12 @@ def generate_blob(output_file, keyboard, keymap):
         data += f'  {", ".join(chunk)},\n'
 
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
+
+    lines.append(f'#if 0')
+    lines.append('// Blob contains a minified+gzipped version of the following:')
+    lines.append(json.dumps(info_json, cls=InfoJSONEncoder))
+    lines.append(f'#endif')
+    lines.append('')
 
     # Gen output file
     lines.append('static const unsigned char config_blob_gz[] PROGMEM = {')
