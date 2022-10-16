@@ -57,10 +57,10 @@ void encoder_action_register(uint8_t index, bool clockwise) {
         .time = (timer_read() | 1)
     };
 
-    // Record the time that the encoder was detected as rotated
+    /* Record the time that the encoder was detected as rotated */
     encoder_last_update_time[index] = timer_read();
 
-    // Check if the encoder direction has reversed, and if so unregister the opposite direction's event
+    /* Check if the encoder direction has reversed, and if so unregister the opposite direction's event */
     enum encoder_direction new_direction = clockwise ? DIRECTION_CW : DIRECTION_CCW;
     if (encoder_last_direction[index] != new_direction) {
         encoder_action_unregister(index);
@@ -73,7 +73,7 @@ void encoder_action_register(uint8_t index, bool clockwise) {
 }
 
 void matrix_scan_user(void) {
-    // If an encoder has been stationary for encoder_stationary_release_delay_ms, then unregister its event
+    /* If an encoder has been stationary for encoder_stationary_release_delay_ms, then unregister its event */
     uint16_t current_time = timer_read();
     for (int index = 0; index < ENCODERS; ++index) {
         uint16_t elapsed_time_since_last_update = current_time - encoder_last_update_time[index];
