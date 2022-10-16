@@ -42,7 +42,7 @@ def _xap_type_to_c_after(xt: str):
         try:
             extent = int(m.group(2))
             return f'[{extent}]'
-        except:
+        except ValueError:
             return '[]'
     return ''
 

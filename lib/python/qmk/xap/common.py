@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import OrderedDict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from qmk.casing import to_snake
 from qmk.constants import QMK_FIRMWARE, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.git import git_get_version
 from qmk.json_schema import json_load, validate

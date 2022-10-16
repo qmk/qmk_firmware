@@ -57,10 +57,10 @@ def generate_blob(output_file, keyboard, keymap):
 
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
 
-    lines.append(f'#if 0')
+    lines.append('#if 0')
     lines.append('// Blob contains a minified+gzipped version of the following:')
     lines.append(json.dumps(info_json, cls=InfoJSONEncoder))
-    lines.append(f'#endif')
+    lines.append('#endif')
     lines.append('')
 
     # Gen output file
