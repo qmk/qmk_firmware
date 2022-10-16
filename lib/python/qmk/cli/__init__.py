@@ -81,6 +81,7 @@ subcommands = [
     'qmk.cli.xap',
     'qmk.cli.xap.generate_docs',
     'qmk.cli.xap.generate_json',
+    'qmk.cli.xap.generate_lighting',
     'qmk.cli.xap.generate_python',
     'qmk.cli.xap.generate_qmk',
 ]
