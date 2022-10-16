@@ -1,8 +1,8 @@
 # daskeyboard4
 
-![daskeyboard4pro](https://i.imgur.com/Y3xT9Zu.jpeg)
+![daskeyboard4pro](https://i.imgur.com/Y3xT9Zuh.jpeg)
 
-![PCB](https://i.imgur.com/UfzVHcj.jpeg)
+![PCB](https://i.imgur.com/UfzVHcjh.jpeg)
 
 *Reverse engineered PCB definition of daskeyboard 4 (Professional)*
 
