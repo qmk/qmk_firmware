@@ -90,7 +90,7 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
             bitmove *= 0x10; // next digit
         }
     
-        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ); // lead-in for Unicode on Linux, 'descramble' mode
+        SEND_STRING ( SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) "f" SS_UP(X_LSFT) SS_UP(X_LCTL) ); // lead-in for Unicode on Linux, 'descramble' mode
         send_string (output + index); // pointer to argument with formatted string
         SEND_STRING ( " " ); // Ends the Unicode numerical input mode
     }

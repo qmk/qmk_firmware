@@ -596,7 +596,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LEFT_SHIFT:  /* '' */
       if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_RSFT)))) {
         WITHOUT_MODS({
-            SEND_STRING("''" SS_TAP(X_LEFT) SS_DOWN(X_RSHIFT) SS_DOWN(X_LSHIFT));
+            SEND_STRING("''" SS_TAP(X_LEFT) SS_DOWN(X_RSFT) SS_DOWN(X_LSFT));
           });
         return false;
       }
@@ -604,7 +604,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_RIGHT_SHIFT:  /* "" */
       if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_LSFT)))) {
         WITHOUT_MODS({
-            SEND_STRING("\x22\x22" SS_TAP(X_LEFT) SS_DOWN(X_LSHIFT) SS_DOWN(X_RSHIFT));
+            SEND_STRING("\x22\x22" SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_DOWN(X_RSFT));
           });
         return false;
       }

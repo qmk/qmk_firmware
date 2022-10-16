@@ -347,7 +347,7 @@ void send_french_accent(uint8_t letter, uint8_t accent) {
 
     if (onMac) {
         if (isCaps) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK));
+            SEND_STRING(SS_TAP(X_CAPS_LOCK));
             register_code(KC_LALT);
             tap_code(osx_mod_key_map[accent]);
             unregister_code(KC_LALT);

@@ -250,9 +250,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NLK:
     if (pressed) {
       toggle_numlock();
-      SEND_STRING(SS_DOWN(X_NUMLOCK));
+      SEND_STRING(SS_DOWN(X_NUM_LOCK));
     } else {
-      SEND_STRING(SS_UP(X_NUMLOCK));
+      SEND_STRING(SS_UP(X_NUM_LOCK));
     }
     break;
     
