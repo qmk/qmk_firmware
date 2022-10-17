@@ -47,6 +47,7 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
