@@ -59,11 +59,11 @@ user_config_t user_config;
 #define NAV_0 LT(_NAV, KC_0)
 #define TAB_NUM LT(_NUMPAD, KC_TAB)
 
-#define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
+#define EXT_SF LT(_GAMING_EXT, KC_LSFT)
 
 // Tap/mod keys
-#define RCTL_BR RCTL_T(KC_RBRACKET)
-#define LCTL_BR LCTL_T(KC_LBRACKET)
+#define RCTL_BR RCTL_T(KC_RBRC)
+#define LCTL_BR LCTL_T(KC_LBRC)
 
 #define SFT_SPC LSFT_T(KC_SPACE)
 #define SFT_ENT RSFT_T(KC_ENTER)
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PPLS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NLCK,                       KC_EQL,   KC_P1,   KC_P2,   KC_P3, KC_PSLS, KC_PAST,\
+      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM,                        KC_EQL,   KC_P1,   KC_P2,   KC_P3, KC_PSLS, KC_PAST,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______,   KC_P0,  KC_DOT \
                                       //`--------------------------'  `--------------------------'
@@ -342,7 +342,7 @@ void check_default_layer(uint8_t type) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
   if (
     user_config.rgb_layer_change && rgb_matrix_config.enable &&
       (!user_config.rgb_matrix_idle_anim || rgb_matrix_get_mode() != user_config.rgb_matrix_idle_mode)
@@ -370,6 +370,7 @@ void rgb_matrix_indicators_user(void) {
             }
         }
     }
+    return false;
 }
 
 void rgb_matrix_update_current_mode(uint8_t mode, uint8_t speed) {

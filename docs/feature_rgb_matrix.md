@@ -270,7 +270,7 @@ Configure the hardware via your `config.h`:
 | `ISSI_CONFIGURATION` | (Optional) Configuration for the Configuration Register | |
 | `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
 | `ISSI_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | |
-| `ISSI_TEMP` | (Optional) Configuration for the Tempature Register | |
+| `ISSI_TEMP` | (Optional) Configuration for the Temperature Register | |
 | `ISSI_PWM_ENABLE` | (Optional) Configuration for the PWM Enable Register | |
 | `ISSI_PWM_SET` | (Optional) Configuration for the PWM Setting Register | |
 | `ISSI_SCAL_RED` | (Optional) Configuration for the RED LEDs in Scaling Registers | 0xFF |
@@ -791,8 +791,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
-#define RGB_DISABLE_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
+#define RGB_MATRIX_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
@@ -889,16 +888,21 @@ Where `28` is an unused index from `eeconfig.h`.
 
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that:
 ```c
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     rgb_matrix_set_color(index, red, green, blue);
+    return true;
 }
 ```
 
 In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  Such as some of the "drashna" layouts.  This includes a special macro to help make this easier to use: `RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b)`.
 
 ```c
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
+    return false;
 }
 ```
 
@@ -906,21 +910,22 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 Caps Lock indicator on alphanumeric flagged keys:
 ```c
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = led_min; i <= led_max; i++) {
+        for (uint8_t i = led_min; i < led_max; i++) {
             if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
                 rgb_matrix_set_color(i, RGB_RED);
             }
         }
     }
+    return false;
 }
 ```
 
 Layer indicator on all keys:
 ```c
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    for (uint8_t i = led_min; i <= led_max; i++) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i < led_max; i++) {
         switch(get_highest_layer(layer_state|default_layer_state)) {
             case 2:
                 rgb_matrix_set_color(i, RGB_BLUE);
@@ -932,12 +937,13 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 break;
         }
     }
+    return false;
 }
 ```
 
 Layer indicator only on keys with configured keycodes:
 ```c
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (get_highest_layer(layer_state) > 0) {
         uint8_t layer = get_highest_layer(layer_state);
 
@@ -945,13 +951,14 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
                 uint8_t index = g_led_config.matrix_co[row][col];
 
-                if (index >= led_min && index <= led_max && index != NO_LED &&
+                if (index >= led_min && index < led_max && index != NO_LED &&
                 keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS) {
                     rgb_matrix_set_color(index, RGB_GREEN);
                 }
             }
         }
     }
+    return false;
 }
 ```
 
@@ -962,7 +969,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
 
 ```c
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     HSV hsv = {0, 255, 255};
 
     if (layer_state_is(layer_state, 2)) {
@@ -976,23 +983,25 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
     RGB rgb = hsv_to_rgb(hsv);
 
-    for (uint8_t i = led_min; i <= led_max; i++) {
+    for (uint8_t i = led_min; i < led_max; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
     }
+    return false;
 }
 ```
 
 If you want to indicate a Host LED status (caps lock, num lock, etc), you can use something like this to light up the caps lock key:
 
 ```c
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(5, 255, 255, 255); // assuming caps lock is at led #5
     } else {
         RGB_MATRIX_INDICATOR_SET_COLOR(5, 0, 0, 0);
     }
+    return false;
 }
 ```
 

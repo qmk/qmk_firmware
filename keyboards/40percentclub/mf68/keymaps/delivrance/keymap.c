@@ -26,7 +26,6 @@
 #define KC_BLUP BL_INC   // Backlight increase
 #define KC_BLDN BL_DEC   // Backlight decrease
 #define KC_BLTOG BL_TOGG // Backlight toggle
-#define KC_TERM TERM_ON  // Terminal mode on
 #define KC_REC1 DM_REC1  // Record macro 1
 #define KC_PLY1 DM_PLY1  // Play macro 1
 #define KC_REC2 DM_REC2  // Record macro 2
@@ -71,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┣Esc ┻ 1! ┻ 2@ ┻ 3# ┻ 4$ ┻ 5% ┻ 6^ ┻ 7& ┻ 8* ┻ 9( ┻ 0) ┻ -_ ┻ =+ ┻━┳━ ←─ ━┫ ┣Ins ╋PgUp┫ */
   _______ ,KC_PLY1,KC_PLY2,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_7  , KC_8  , KC_9  ,KC_BLDN,KC_BLUP,KC_BLTOG ,KC_TRNS  ,KC_END , /*
    ┣ Tab ━┻ Q ━┻ W ━┻ E ━┻ R ━┻ T ━┻ Y ━┻ U ━┻ I ━┻ O ━┻ P ━┻ [{ ┻ ]} ┻━ \| ━┫ ┗Del ┻PgDn┛ */
-    _______ ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_4  , KC_5  , KC_6  ,KC_TRNS,   KC_TERM  ,         /*
+    _______ ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_4  , KC_5  , KC_6  ,KC_TRNS,   KC_TRNS  ,         /*
    ┣━ Caps ━┻ A ━┻ S ━┻ D ━┻ F ━┻ G ━┻ H ━┻ J ━┻ K ━┻ L ━┻ ;: ┻ '" ┻━ Enter ━┫ ┏━━━━┓      */
     _______   ,KC_REC1,KC_REC2,KC_TRNS,KC_TRNS,KC_MSTP,KC_TRNS,KC_MUTE, KC_1  , KC_2  , KC_3  ,KC_TRNS        ,  KC_VOLU,  /*
    ┣━━ Shift ━┻ Z ━┻ X ━┻ C ━┻ V ━┻ B ━┻ N ━┻ M ━┻ ,< ┻ .> ╋ /? ┻┳━━ Shift ━━┻━╋ ↑ ━╋━━━━┓ */

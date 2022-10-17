@@ -29,7 +29,7 @@ enum layers {
 /* Word movement/deletetion */
 #define WORD_BK A(KC_LEFT)
 #define WORD_FW A(KC_RIGHT)
-#define D_WORD_BK A(KC_BSPACE)
+#define D_WORD_BK A(KC_BACKSPACE)
 #define D_WORD_FW A(KC_DELETE)
 /* Fine volume control */
 #define FVOLU S(A(KC_VOLU))

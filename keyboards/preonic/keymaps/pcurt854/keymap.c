@@ -233,8 +233,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),
                                                                  LCA(KC_J), XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, SCMD(KC_V),
-                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, LCAG(KC_UP), TG(_ADJUST),
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, LCAG(KC_DOWN), XXXXXXX
+                                               XXXXXXX, XXXXXXX, KC_MUTE,  KC_VOLU,     XXXXXXX, LCAG(KC_UP), TG(_ADJUST),
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_VOLD,     XXXXXXX, LCAG(KC_DOWN), XXXXXXX
 )
 
 

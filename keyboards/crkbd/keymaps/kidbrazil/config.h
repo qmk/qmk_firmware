@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
     //#undef RGBLED_NUM
-    //#define RGBLIGHT_ANIMATIONS
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
     #define RGBLIGHT_EFFECT_KNIGHT
@@ -50,7 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
     //#   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
     // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-    // #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
     #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     // #   define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)

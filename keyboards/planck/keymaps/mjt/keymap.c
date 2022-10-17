@@ -226,11 +226,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MACSLEEP:
       if (record->event.pressed) {
-          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
+          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_PWR);
           register_code(KC_RSFT);
           register_code(KC_RCTL);
-          register_code(KC_POWER);
-          unregister_code(KC_POWER);
+          register_code(KC_PWR);
+          unregister_code(KC_PWR);
           unregister_code(KC_RCTL);
           unregister_code(KC_RSFT);
       }

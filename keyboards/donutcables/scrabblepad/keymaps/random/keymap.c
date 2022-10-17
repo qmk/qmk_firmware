@@ -22,12 +22,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         keystroke = random_keycode();
         if (rand() % 2 > 0) {
           shift_pressed = 1;
-          register_code(KC_LSHIFT);
+          register_code(KC_LSFT);
         }
         register_code(keystroke);
       } else {
         if (shift_pressed > 0) {
-          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LSFT);
         }
         unregister_code(keystroke);
       }

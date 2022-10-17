@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10,    KC_F11,     KC_F12,   _______, _______,
     BL_BRTG, BL_TOGG, BL_INC,  BL_DEC, BL_ON, BL_OFF, _______, _______, _______, _______,   _______,   KC_PGUP,    KC_INSERT,  KC_DEL,
     _______, RGB_TOG, RGB_MOD, RGB_RMOD, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,  KC_HOME,   KC_END,     _______,
-    _______, BL_DEC,  _______, _______, _______, _______, _______, DF(_L1), DF(_L2), _______,   KC_PGDOWN, _______, _______,
+    _______, BL_DEC,  _______, _______, _______, _______, _______, DF(_L1), DF(_L2), _______,   KC_PGDN,   _______, _______,
              _______, _______,          _______,          _______,          _______, _______,   _______,   _______
   )
 };
@@ -64,37 +64,37 @@ void matrix_scan_user(void) {
     // Close a program in i3wm
     SEQ_ONE_KEY(KC_Q) {
       register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_Q);
       unregister_code(KC_Q);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LGUI);
     }
     // Exit i3wm
     SEQ_ONE_KEY(KC_E) {
       register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_E);
       unregister_code(KC_E);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LGUI);
     }
     // Copy selected text in suckless terminal
     SEQ_ONE_KEY(KC_C) {
       register_code(KC_LCTL);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_C);
       unregister_code(KC_C);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
     // Paste text in suckless terminal
     SEQ_ONE_KEY(KC_V) {
       register_code(KC_LCTL);
-      register_code(KC_LSHIFT);
+      register_code(KC_LSFT);
       register_code(KC_V);
       unregister_code(KC_V);
-      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
     // FZF shortcut to fuzzy switch directories

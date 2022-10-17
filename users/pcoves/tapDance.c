@@ -6,7 +6,7 @@ void left(qk_tap_dance_state_t* state, void* user_data) {
     switch (state->count) {
         case 1:
             if (state->pressed)
-                tap_code16(S(KC_LBRACKET));
+                tap_code16(S(KC_LEFT_BRACKET));
             else
                 tap_code16(S(KC_9));
             break;
@@ -14,7 +14,7 @@ void left(qk_tap_dance_state_t* state, void* user_data) {
             if (state->pressed)
                 tap_code16(S(KC_COMM));
             else
-                tap_code(KC_LBRACKET);
+                tap_code(KC_LEFT_BRACKET);
             break;
         default:
             reset_tap_dance(state);
@@ -25,7 +25,7 @@ void right(qk_tap_dance_state_t* state, void* user_data) {
     switch (state->count) {
         case 1:
             if (state->pressed)
-                tap_code16(S(KC_RBRACKET));
+                tap_code16(S(KC_RIGHT_BRACKET));
             else
                 tap_code16(S(KC_0));
             break;
@@ -33,7 +33,7 @@ void right(qk_tap_dance_state_t* state, void* user_data) {
             if (state->pressed)
                 tap_code16(S(KC_DOT));
             else
-                tap_code(KC_RBRACKET);
+                tap_code(KC_RIGHT_BRACKET);
             break;
         default:
             reset_tap_dance(state);
@@ -60,7 +60,7 @@ void       altFinish(qk_tap_dance_state_t* state, void* user_data) {
         case 3:
             if (state->pressed) {
                 register_code(KC_RALT);
-                register_code(KC_RSHIFT);
+                register_code(KC_RSFT);
                 Alt = HOLD3;
             }
             break;
@@ -78,7 +78,7 @@ void altReset(qk_tap_dance_state_t* state, void* user_data) {
             unregister_code(KC_RALT);
             break;
         case HOLD3:
-            unregister_code(KC_RSHIFT);
+            unregister_code(KC_RSFT);
             unregister_code(KC_RALT);
             break;
     }

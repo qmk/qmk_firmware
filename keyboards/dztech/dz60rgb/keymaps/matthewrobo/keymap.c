@@ -46,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _V_V_V_,                   _______,                   _______, _______,          _______, _______, _______  \
 	),
 	[_NAV] = LAYOUT(
-		KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_PMNS, KC_PPLS, KC_DEL,  \
-		_______, KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PSLS, KC_PSCR, KC_SLCK, KC_INS,  \
+		KC_NUM,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_PMNS, KC_PPLS, KC_DEL,  \
+		_______, KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PSLS, KC_PSCR, KC_SCRL, KC_INS,  \
 		_V_V_V_, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______, KC_PENT,          \
 		_______, _______, _______, _______, _______, _______, KC_P0,   KC_P0,   KC_P0,   KC_PDOT, _______,          _______, _______, \
 		_______, _______, _______,                   _______,                   _______, _______,          _______, _______, _______  \
@@ -91,8 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 };
 
-void rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
 	uint8_t this_led = host_keyboard_leds();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
@@ -218,6 +217,7 @@ void rgb_matrix_indicators_user(void)
 	if (this_led & (1 << USB_LED_CAPS_LOCK)) {
 		rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	}
+    return false;
 }
 
 void matrix_init_user(void)

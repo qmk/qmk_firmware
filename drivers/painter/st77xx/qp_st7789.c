@@ -48,7 +48,7 @@ static inline void st7789_automatic_viewport_offsets(painter_device_t device, pa
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
     const uint8_t st7789_init_sequence[] = {
         // Command,                 Delay, N, Data[N]

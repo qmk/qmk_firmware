@@ -201,7 +201,7 @@ void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (state->pressed) {
       fib_bspc.state = HOLD_CTRL;
-      register_code(KC_LCTRL);
+      register_code(KC_LCTL);
     } else {
       register_code(KC_BSPC);
     }
@@ -210,7 +210,7 @@ void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_backspace_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (fib_bspc.state) {
-    case HOLD_CTRL: unregister_code(KC_LCTRL); break;
+    case HOLD_CTRL: unregister_code(KC_LCTL); break;
     case BSPC_WORD: unregister_code(KC_BSPC); unregister_code(KC_LALT); break;
     case BSPC_LETTER: unregister_code(KC_BSPC); break;
   }

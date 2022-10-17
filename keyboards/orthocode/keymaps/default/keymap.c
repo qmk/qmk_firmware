@@ -18,7 +18,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
      /* Rotary                                                                                                                                  */
-        KC__MUTE,
+        KC_MUTE,
      /*           esc      1        2        3        4        5        6        7        8        9        0        -        =        home     */
         RGB_TOG,    KC_GESC, KC_1,    KC_2,    KC_3,  KC_4,    KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_HOME,
      /*           tab      Q        W        E        R        T        Y        U        I        O        P        \        delete   end      */

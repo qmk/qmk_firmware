@@ -27,7 +27,7 @@ void ios_media(qk_tap_dance_state_t *state, void *user_data) {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [0] = ACTION_TAP_DANCE_FN(ios_media),
-    [1] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_SCOLON),
+    [1] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_SCLN),
     [2] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COLON),
     [3] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
     [4] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_RPRN),

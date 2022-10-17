@@ -15,19 +15,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // 1: Function Layer
   LAYOUT_all(
     KC_GRAVE, KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  BL_DEC,   BL_INC,  KC_F13,   KC_F14,    \
-    KC_NO,    KC_WH_U, KC_UP,   KC_WH_D, KC_BSPC,KC_HOME,KC_CALC,KC_NO,  KC_INS, KC_NO,   KC_PSCR, KC_SLCK,  KC_PAUS,           KC_DEL,    \
+    KC_NO,    KC_WH_U, KC_UP,   KC_WH_D, KC_BSPC,KC_HOME,KC_CALC,KC_NO,  KC_INS, KC_NO,   KC_PSCR, KC_SCRL,  KC_PAUS,           KC_DEL,    \
     KC_NO,    KC_LEFT, KC_DOWN, KC_RIGHT,KC_DEL, KC_END, KC_PGDN,KC_NO,  KC_NO,  KC_NO,   KC_HOME, KC_PGUP,  KC_NO,             KC_ENT,    \
     KC_LSFT,  KC_NO,   KC_NO,   KC_APP,  BL_STEP,KC_NO,  KC_NO,  KC_VOLD,KC_VOLU,KC_MUTE, KC_END,  KC_PGDN,  KC_RSFT, KC_PGUP,  TG(2),     \
-    KC_LCTL,  KC_LGUI, KC_LALT,                          KC_SPC,                          KC_RGUI, MO(1),    KC_HOME, KC_PGDOWN,KC_END
+    KC_LCTL,  KC_LGUI, KC_LALT,                          KC_SPC,                          KC_RGUI, MO(1),    KC_HOME, KC_PGDN,  KC_END
   ),
 
   // 2: Cool Layer
   LAYOUT_all(
     QK_BOOT, BL_DEC,   BL_INC,  BL_ON,   BL_OFF, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, RGB_MODE_PLAIN, KC_TRNS,    \
-    KC_NO,    KC_WH_U, KC_UP,   KC_WH_D, KC_BSPC,KC_HOME,KC_CALC,KC_NO,  KC_INS, KC_NO,   KC_PSCR, KC_SLCK,  KC_PAUS,           KC_DEL,       \
+    KC_NO,    KC_WH_U, KC_UP,   KC_WH_D, KC_BSPC,KC_HOME,KC_CALC,KC_NO,  KC_INS, KC_NO,   KC_PSCR, KC_SCRL,  KC_PAUS,           KC_DEL,       \
     KC_NO,    KC_LEFT, KC_DOWN, KC_RIGHT,KC_DEL, KC_END, KC_PGDN,KC_NO,  KC_NO,  KC_NO,   KC_HOME, KC_PGUP,  KC_NO,             KC_ENT,       \
     KC_LSFT,  KC_NO,   KC_NO,   KC_APP,  BL_STEP,KC_NO,  KC_NO,  KC_VOLD,KC_VOLU,KC_MUTE, KC_END,  KC_PGDN,  KC_RSFT, KC_PGUP,  TG(2),       \
-    KC_LCTL,  KC_LGUI, KC_LALT,                          KC_SPC,                          KC_RGUI, MO(1),    KC_HOME, KC_PGDOWN,KC_END
+    KC_LCTL,  KC_LGUI, KC_LALT,                          KC_SPC,                          KC_RGUI, MO(1),    KC_HOME, KC_PGDN,  KC_END
   )
 };
 

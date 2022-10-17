@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_BLUE_] = LAYOUT_65_iso_blocker(
-      _______, DM_PLY1, DM_PLY2, _______, _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______, _______, _______,
+      _______, DM_PLY1, DM_PLY2, _______, _______, _______, _______, _______, KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, _______, _______, _______,
       _______, DM_REC1, DM_REC2, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS,          _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, TO(0),   _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______, _______,
@@ -249,9 +249,10 @@ void set_layer_color(int layer) {
   return;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
   set_layer_color(get_highest_layer(layer_state));
 
+    return false;
 }
 
 #ifdef LEADER_ENABLE

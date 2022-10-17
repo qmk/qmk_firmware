@@ -56,7 +56,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_BSPC: {
             if (record->event.pressed) {
                 const uint8_t current_mods = get_mods();
-                const uint8_t shift = current_mods & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                const uint8_t shift = current_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
                 const uint8_t ctrl = current_mods & (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL));
                 bspc_mods = current_mods;
                 if(shift || ctrl) {
@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             else {
-                if(bspc_mods & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL))) {
+                if(bspc_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)|MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL))) {
                     // if Shift or Ctrl was pressed with Backspace, than that was intepreted as Del, so we need
                     // to unregister the Del key 
                     del_key(KC_DEL);

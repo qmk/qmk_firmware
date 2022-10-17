@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,  _______,                            RGB_RST,                   _______, _______,  KC_PWR,   AMDREC,  AMDREP
     ),
     [_NUM] = LAYOUT(
-        KC_NLCK, _______,  _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,    _______,  _______, _______,
+        KC_NUM,  _______,  _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,    _______,  _______, _______,
         _______, _______,  _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,    _______,  _______, _______,
         _______, _______,  _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,    KC_PENT,           KC_PENT,
         _______,           _______, _______, _______, _______, _______, _______, _______, KC_P0,   KC_PDOT,  TG(_NUM), _______, _______,
@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     led_t led_state = host_keyboard_led_state();
 
     if (led_state.caps_lock) {
@@ -227,4 +227,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x33, 0x66, 0x99);
         RGB_MATRIX_INDICATOR_SET_COLOR(26, 0x33, 0x66, 0x99);
     }
+    return false;
 }

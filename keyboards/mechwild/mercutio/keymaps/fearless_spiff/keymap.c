@@ -76,7 +76,7 @@ static const encoder_key PROGMEM encoder_keys[] = {
     {"Teams", "Toggle", "Mic", KC_TEAMS_MUTE},
     {"Teams", "Toggle", "Cam", KC_TEAMS_CAM},
     {"Ctrl", "Alt", "Del", KC_CAD},
-    {"Caps", "Lock", "", KC_CAPSLOCK},
+    {"Caps", "Lock", "", KC_CAPS_LOCK},
     {"Pause", "", "", KC_PAUSE},
     {"PrtScr", "", "", KC_PSCR},
     {"Insert", "", "", KC_INS},
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                set_selected_encoder_key(selected_encoder_key_id);
             }
             if (IS_LAYER_ON(FN_1)) {
-                tap_code16(KC_PGDOWN);
+                tap_code16(KC_PGDN);
             }
             if (IS_LAYER_ON(FN_2)) {
                 tap_code(KC_VOLU);

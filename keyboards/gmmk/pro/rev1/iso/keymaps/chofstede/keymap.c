@@ -71,7 +71,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     static uint32_t cycle_led_timer = 0;
     static uint8_t  current_value   = 0;
     static uint8_t  left_side_leds[8] = {68, 71, 74, 77, 81, 84, 88, 92};
@@ -103,4 +103,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
          break;
        break;
     }
+    return false;
 }
