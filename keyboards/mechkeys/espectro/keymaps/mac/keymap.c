@@ -137,16 +137,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     // dynamically generate these.
       case EXPOSE:
-        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_UP) SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_UP) SS_UP(X_LCTL));
         return false;
       case LAUNCH:
-        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_L) SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_L) SS_UP(X_LCTL));
         return false;
       case DOCK:
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_D) SS_UP(X_LGUI) SS_UP(X_LALT));
         return false;
       case SCRCAP:  //screen capture
-        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_S) SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_S) SS_UP(X_LCTL));
         return false;
       case CS1:  //custom shortcut 1
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_1) SS_UP(X_LGUI) SS_UP(X_LALT));

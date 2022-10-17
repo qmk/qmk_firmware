@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case IJ_OMN:
-        SEND_STRING(SS_TAP(X_LSHIFT)SS_TAP(X_LSHIFT));
+        SEND_STRING(SS_TAP(X_LSFT)SS_TAP(X_LSFT));
         return false;
     }
   }

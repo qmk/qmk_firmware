@@ -261,7 +261,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
             case TBMACRO:
-                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSHIFT) SS_TAP(X_HOME) SS_UP(X_LSHIFT) SS_TAP(X_DELETE));
+                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE));
                 return false;
             case DGRMCRO:
                 if(!bnumlock) {

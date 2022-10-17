@@ -40,7 +40,7 @@ enum {
 #define FINDER          LGUI(LALT(KC_SPACE)) //open the search bar for finding apps, docs in-computer, etc
 #define COMPOSE_KEY    KC_SCRL //manually set on linux, to create chars via .Xcompose ()
 #define COMPOSE_MAC     KC_F13 //manually set on mac using some tricks
-#define X_COMPOSE_KEY    X_SCROLLLOCK //for use with macros
+#define X_COMPOSE_KEY    X_SCROLL_LOCK //for use with macros
 #define SHOW_WINDOWS    LCTL(KC_UP) //'Expose' on Mac, overview on linux. Just all the windows
 #define WINDOW_LEFT LCTL(LGUI(LSFT(KC_LEFT))) //custom shortcut for this feature -- make window take up 50% left screen (using gui and ctl to make it os agnostic)
 #define WINDOW_RIGHT LCTL(LGUI(LSFT(KC_RIGHT))) //custom shortcut for this feature -- make window take up 50% right screen (using gui and ctl to make it os agnostic)/fully custom shortcut, using ctl and gui keys so will need them both irrespective of os

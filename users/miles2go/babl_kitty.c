@@ -42,7 +42,7 @@ bool babblePaste_kitty(uint16_t keycode) {
     // BABLM(BABL_GO_NEXT_LINE, OMSFT(IMCTL(X_DOWN)));
     // BABLM(BABL_GO_PREV_LINE, OMSFT(IMCTL(X_UP)));
     // passthrough
-    BABLM(BABL_PGDN, OMSFT(IMCTL(X_PGDOWN)));  // kitty pagedown
+    BABLM(BABL_PGDN, OMSFT(IMCTL(X_PGDN)));  // kitty pagedown
     BABLM(BABL_PGUP, OMSFT(IMCTL(X_PGUP)));    // kitty pageup
                                                // passthrough to commanrd line/shell.
     BABLM(BABL_DEL_RIGHT_1C, SS_LCTL("d"));
@@ -84,7 +84,7 @@ bool babblePaste_kitty(uint16_t keycode) {
                                                     // KITTY - missing close window.
     // BABLM( BABL_HELP,		(SS_TAP(X_F1))	); // NA?
     // BABLM(BABL_LOCK, OMCTL(IMALT(X_L))); // NA passthrough
-    // BABLM(BABL_SCREENCAPTURE, IMSFT(X_PSCREEN)); // NA passthrough
+    // BABLM(BABL_SCREENCAPTURE, IMSFT(X_PRINT_SCREEN)); // NA passthrough
 #        endif
 #        ifdef BABL_BROWSER
 
