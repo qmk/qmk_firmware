@@ -1,6 +1,6 @@
 # Hillside 46 Default Keymap
 
-For easier initial use, this keymap follows the layout of more standard keyboards where possible. It is a starting point for you to tweak over time to suit your preferences better. You can easily customize it with the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/46/LAYOUT).
+For easier initial use, this keymap follows the layout of more standard keyboards where possible. It is a starting point for you to tweak over time to suit your preferences better. You can easily customize it with the [QMK configurator](https://config.qmk.fm/#/hillside/46/LAYOUT).
 
 Some of its key features are:
 
@@ -110,8 +110,8 @@ If you wish, you can edit the ```keymap.json``` directly in a text editor,  comp
 
 Or, you can use the graphical configurator to edit the keymap. To do that:
 
-- Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/46/LAYOUT)
-- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/46/keymaps/default/keymap.json```
+- Open the [QMK configurator](https://config.qmk.fm/#/hillside/46/LAYOUT)
+- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/hillside/46/keymaps/default/keymap.json```
 - Make the changes you wish to the layout
 - Save the keymap using the green down arrow button.
 - Move the downloaded keymap back into your QMK repository 

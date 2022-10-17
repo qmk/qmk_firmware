@@ -13,11 +13,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/hillside/48:default
+    make hillside/48:default
 
 Flashing example for this keyboard:
 
-    make handwired/hillside/48:default:flash
+    make hillside/48:default:flash
 
 ## Bootloader
 

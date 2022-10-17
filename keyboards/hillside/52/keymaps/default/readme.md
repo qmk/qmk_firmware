@@ -1,6 +1,6 @@
 # Hillside 52 Default Keymap
 
-For easier initial use, this keymap follows the layout of more standard keyboards where possible. It is a starting point for you to tweak over time to suit your preferences better. You can easily customize it with the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/52/LAYOUT).
+For easier initial use, this keymap follows the layout of more standard keyboards where possible. It is a starting point for you to tweak over time to suit your preferences better. You can easily customize it with the [QMK configurator](https://config.qmk.fm/#/hillside/52/LAYOUT).
 
 Some of its key features are:
 
@@ -77,7 +77,7 @@ If you are coming from a traditional keyboard,
 This default layout tries to simplify that adjustment by keeping things in the expected spots when possible.
 
 Yet this layout is only a decent compromise and is not optimal for each user.
-The online [configurator](https://config.qmk.fm/#/handwired/hillside/52/LAYOUT) makes it easy to tweak this layout to your needs.
+The online [configurator](https://config.qmk.fm/#/hillside/52/LAYOUT) makes it easy to tweak this layout to your needs.
 You can add additional layers or completely switch around what these do.
 
 A good metaphor is to think of your keymap as a bonsai tree that you tweak slightly over time
@@ -130,8 +130,8 @@ If you wish, you can edit the ```keymap.json``` directly in a text editor,  comp
 
 Or, you can use the graphical configurator to edit the keymap. To do that:
 
-- Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/52/LAYOUT)
-- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/52/keymaps/default/keymap.json```
+- Open the [QMK configurator](https://config.qmk.fm/#/hillside/52/LAYOUT)
+- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/hillside/52/keymaps/default/keymap.json```
 - Make the changes you wish to the layout
 - Save the keymap using the green down arrow button.
 - Move the downloaded keymap back into your QMK repository 

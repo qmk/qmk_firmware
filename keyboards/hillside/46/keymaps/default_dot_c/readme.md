@@ -2,14 +2,14 @@
 
 This layout is for those who prefer defining their layout in a keymap.c,
   instead of graphically with a keymap.json.
-It is the same as the [default keymap.json layout](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/hillside/46/keymaps/default),
+It is the same as the [default keymap.json layout](https://github.com/qmk/qmk_firmware/blob/master/keyboards/hillside/46/keymaps/default),
   except for having only a QWERTY base layer.
   
 The make and flash commands are
 
 ```
-make handwired/hillside/46:default_dot_c
-make handwired/hillside/46:default_doc_c:flash
+make hillside/46:default_dot_c
+make hillside/46:default_doc_c:flash
 
 ```
 
