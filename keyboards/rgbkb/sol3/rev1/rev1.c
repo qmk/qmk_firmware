@@ -238,7 +238,7 @@ bool oled_task_kb(void) {
         oled_write_P(PSTR("     "), false);
         render_layer_status();
 	   write_mod_state();
-     //    render_rgb_menu();
+        render_rgb_menu();
     }
     else {
         render_icon();
