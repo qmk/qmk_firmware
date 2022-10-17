@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_CAPS  , KC_VOLD , KC_MUTE , KC_VOLU , DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_REC_STOP , KC_PGUP  , KC_HOME , ______   , KC_PSCR , KC_UP   , ______       , KC_DEL , \
       KC_LCTL  , KC_END  , ______  , KC_PGDN , ______         , ______          , KC_LEFT      , KC_DOWN  , KC_UP   , KC_RIGHT , KC_LEFT , KC_RGHT , KC_ENT       , \
       KC_LSFT  , KC_MPRV , KC_MPLY , KC_MNXT , BL_DEC         , BL_TOGG         , BL_INC       , ______   , ______  , ______   , KC_DOWN , KC_RSFT , TO(_DEFAULT) , \
-      ______   , ______  , KC_LALT , KC_SPC  , KC_RALT        , RESET           , ______       , ______ \
+      ______   , ______  , KC_LALT , KC_SPC  , KC_RALT        , QK_BOOT           , ______       , ______ \
       ),
 
 /* VIM Layer
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXX       , XXXXXX  , KC_NEXT_WORD , KC_NEXT_WORD , XXXXXX  , XXXXXX       , XXXXXX  , XXXXXX   , I_MACRO , O_MACRO  , XXXXXX , XXXXXX  , XXXXXX       , KC_DEL  , \
       XXXXXX       , A_MACRO , XXXXXX       , KC_PGDN      , XXXXXX  , XXXXXX       , KC_LEFT , KC_DOWN  , KC_UP   , KC_RIGHT , XXXXXX , XXXXXX  , KC_ENTER     , \
       XXXXXX       , XXXXXX  , XXXXXX       , XXXXXX       , XXXXXX  , KC_PREV_WORD , XXXXXX  , XXXXXX   , XXXXXX  , XXXXXX   , XXXXXX , KC_RSFT , TO(_DEFAULT) , \
-      XXXXXX       , XXXXXX  , KC_LALT      , KC_SPC       , KC_RALT , RESET        , XXXXXX  , XXXXXX \
+      XXXXXX       , XXXXXX  , KC_LALT      , KC_SPC       , KC_RALT , QK_BOOT        , XXXXXX  , XXXXXX \
       ),
 
 /* FN Layer
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXX       , XXXXXX  , KC_NEXT_WORD , KC_NEXT_WORD , XXXXXX  , XXXXXX       , XXXXXX  , XXXXXX   , I_MACRO , O_MACRO  , XXXXXX , XXXXXX  , XXXXXX       , KC_DEL  , \
       XXXXXX       , A_MACRO , XXXXXX       , KC_PGDN      , XXXXXX  , XXXXXX       , KC_LEFT , KC_DOWN  , KC_UP   , KC_RIGHT , XXXXXX , XXXXXX  , KC_ENTER     , \
       XXXXXX       , XXXXXX  , XXXXXX       , XXXXXX       , XXXXXX  , KC_PREV_WORD , XXXXXX  , XXXXXX   , XXXXXX  , XXXXXX   , XXXXXX , KC_RSFT , TO(_DEFAULT) , \
-      XXXXXX       , XXXXXX  , KC_LALT      , KC_SPC       , KC_RALT , RESET        , XXXXXX  , XXXXXX \
+      XXXXXX       , XXXXXX  , KC_LALT      , KC_SPC       , KC_RALT , QK_BOOT        , XXXXXX  , XXXXXX \
       )            ,
 };
 
@@ -177,7 +177,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   if (old_layer != layer) {
     switch (layer) {

@@ -25,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B6 }
 #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5}
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { E6 }
 #define ENCODERS_PAD_B { D1 }
@@ -35,12 +34,6 @@
 
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 5
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 0
-#endif
-
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

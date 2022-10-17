@@ -146,7 +146,7 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
     transaction_register_rpc( RPC_ID_CONFIG_SYNC, userspace_config_sync );
     transaction_register_rpc(RPC_ID_RUNTIME_SYNC, userspace_runtime_sync);
     // Load default config values
-    if (is_keyboard_master()) { 
+    if (is_keyboard_master()) {
         // If we are main; load from eeconfig
         userspace_config.raw = eeconfig_read_user();
         // And update the transport variable
@@ -321,7 +321,7 @@ void led_set_user(uint8_t usb_led) {
 /*-----------------*\
 |*-----SUSPEND-----*|
 \*-----------------*/
-/* Suspend stuff here, mostly for the rgb lighting. 
+/* Suspend stuff here, mostly for the rgb lighting.
  */
 __attribute__ ((weak)) void suspend_power_down_keymap (void) { }
 void suspend_power_down_user(void) {
@@ -340,6 +340,21 @@ void suspend_wakeup_init_user(void) {
 #   endif // RGB_MATRIX_ENABLE
 }
 
+<<<<<<< HEAD
+    state = layer_state_set_keymap (state);
+#ifdef RGBLIGHT_ENABLE
+    // Change RGB lighting depending on the last layer activated
+    rgblight_change( get_highest_layer(state) );
+#endif
+    return state;
+||||||| f439fe6055
+    state = layer_state_set_keymap (state);
+#ifdef RGBLIGHT_ENABLE
+    // Change RGB lighting depending on the last layer activated
+    rgblight_change( biton32(state) );
+#endif
+    return state;
+=======
 /*------------------*\
 |*-----SHUTDOWN-----*|
 \*------------------*/
@@ -357,4 +372,5 @@ void shutdown_user(void) {
 #   endif // RGB_MATRIX_ENABLE
     // Keymap hooks
     shutdown_keymap();
+>>>>>>> upstream/master
 }
