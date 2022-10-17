@@ -2,10 +2,13 @@
 
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
-#include "audio.h"
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"
+
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif
 
 uint16_t click_hz = CLICK_HZ;
 uint16_t click_time = CLICK_MS;
