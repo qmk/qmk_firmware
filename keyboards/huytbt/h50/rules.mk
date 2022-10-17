@@ -14,4 +14,3 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Disable keyboard backlight functionality
-MIDI_ENABLE = no            # MIDI support
