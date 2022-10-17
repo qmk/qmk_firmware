@@ -22,10 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
-/* Use I2C or Serial */
-#define USE_SERIAL
-//#define USE_MATRIX_I2C
-
 /* Soft Serial defines */
 #define SOFT_SERIAL_PIN D2
 #define SERIAL_SLAVE_BUFFER_LENGTH  ((MATRIX_ROWS)/2)
@@ -74,7 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
 
 // Helix keyboard RGB LED support
-//#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLED_BACK
   #define RGBLED_NUM 25

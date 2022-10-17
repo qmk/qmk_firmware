@@ -13,11 +13,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // 1: Function Layer
   LAYOUT_all(
-      RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_F13,   KC_F14,    \
+      QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_F13,   KC_F14,    \
       KC_CAPS, KC_MPRV, KC_UP,   KC_MNXT, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,             KC_DEL,    \
       MO(1),   KC_LEFT, KC_DOWN, KC_RIGHT,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,             KC_ENT,    \
       KC_LSFT, KC_NO,   KC_VOLD, KC_MUTE, KC_VOLU,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_PGUP,  KC_INS,    \
-      KC_LCTL, KC_LALT, KC_LGUI,                          KC_MPLY,                         KC_RGUI, KC_RALT,  KC_HOME, KC_PGDOWN,KC_END),
+      KC_LCTL, KC_LALT, KC_LGUI,                          KC_MPLY,                         KC_RGUI, KC_RALT,  KC_HOME, KC_PGDN,  KC_END),
 
   // 2: RGB Layer
   LAYOUT_all(

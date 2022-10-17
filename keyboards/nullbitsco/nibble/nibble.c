@@ -16,10 +16,6 @@
 #include QMK_KEYBOARD_H
 
 // Use Bit-C LED to show CAPS LOCK status
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        set_bitc_LED(led_state.caps_lock ? LED_DIM : LED_OFF);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    set_bitc_LED(led_state.caps_lock ? LED_DIM : LED_OFF);
 }

@@ -9,9 +9,9 @@ ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)
         LTO_ENABLE        = yes
     endif
+    SPACE_CADET_ENABLE    = no
+    GRAVE_ESC_ENABLE      = no
 endif
-SPACE_CADET_ENABLE    = no
-GRAVE_ESC_ENABLE      = no
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
 ifneq ($(strip $(NO_SECRETS)), yes)
@@ -34,6 +34,10 @@ endif
 # this should be handled per keyboard, but until that happens ...
 ifeq ($(strip $(PROTOCOL)), VUSB)
     NKRO_ENABLE       := no
+endif
+
+ifeq ($(strip $(PER_KEY_TAPPING)), yes)
+    OPT_DEFS += -DPER_KEY_TAPPING
 endif
 
 CUSTOM_UNICODE_ENABLE ?= yes
@@ -83,6 +87,11 @@ ifdef CONSOLE_ENABLE
     endif
 endif
 
+ifeq ($(strip $(I2C_SCANNER_ENABLE)), yes)
+    OPT_DEFS += -DI2C_SCANNER_ENABLE
+    CONSOLE_ENABLE := yes
+endif
+
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(OLED_DRIVER)), custom)
@@ -106,6 +115,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
         SRC += $(USER_PATH)/pointing/pointing.c
         OPT_DEFS += -DCUSTOM_POINTING_DEVICE
+        OPT_DEFS += -DPOINTING_DEVICE_AUTO_MOUSE_ENABLE
     endif
 endif
 
@@ -118,9 +128,10 @@ ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
 
 endif
 
-AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
-    SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
-    $(shell touch $(USER_PATH)/keyrecords/autocorrection/autocorrection.c)
-    OPT_DEFS += -DAUTOCORRECTION_ENABLE
+   AUTOCORRECT_ENABLE = yes
+endif
+
+ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+    SRC += bootmagic_better.c
 endif

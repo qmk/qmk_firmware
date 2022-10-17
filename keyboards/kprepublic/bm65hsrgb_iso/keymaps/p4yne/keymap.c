@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef DYNAMIC_MACRO_ENABLE
   /* 3: Dynamic macro, NUMPAD and settings */
   [_LVL3_] = LAYOUT_65_iso_blocker(
-      _______, DM_PLY1, DM_PLY2, _______, _______,  _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______,    _______,
+      _______, DM_PLY1, DM_PLY2, _______, _______,  _______, _______, _______, _______, KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, _______,    _______,
       _______, DM_REC1, DM_REC2, _______, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS,             _______,
       _______, _______, _______, _______, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, TO(_LVL0_), _______,
       _______, _______, _______, _______, _______,  _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,    _______,
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #else
   /* 3: NUMPAD and settings */
   [_LVL3_] = LAYOUT_65_iso_blocker(
-      _______, _______, _______, _______, _______,  _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______,    _______,
+      _______, _______, _______, _______, _______,  _______, _______, _______, _______, KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, _______,    _______,
       _______, _______, _______, _______, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS,             _______,
       _______, _______, _______, _______, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, TO(_LVL0_), _______,
       _______, _______, _______, _______, _______,  _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,    _______,
@@ -266,19 +266,19 @@ void set_led_color_by_hsv(int ledkey, uint8_t h_in, uint8_t s_in, uint8_t v_in){
 void set_led_color_by_layer(int layer, int ledkey){
     set_led_color_by_hsv(ledkey, pgm_read_byte(&ledmap[layer][0]),
                               pgm_read_byte(&ledmap[layer][1]),
-                              pgm_read_byte(&ledmap[layer][2]));    
+                              pgm_read_byte(&ledmap[layer][2]));
 }
 
 void set_ledkey_by_layer_type(int layer, int ledkey, uint16_t key){
     if (rgb_matrix_get_flags() != LED_FLAG_ALL){
         if ( key == KC_TRNS ) {
             if ((pgm_read_byte(&ledmap[layer][3]) == LYR_TRANS) && (layer > 0)){
-                // this key is transparent and the layer below does something 
+                // this key is transparent and the layer below does something
                 // - light it up in  (lower) layer-1 specific color
-                set_led_color_by_layer(layer-1, ledkey);      
-            } 
+                set_led_color_by_layer(layer-1, ledkey);
+            }
             if (pgm_read_byte(&ledmap[layer][3]) == LYR_BLACK){
-                // this key is transparent but the lower layer is not intended 
+                // this key is transparent but the lower layer is not intended
                 // to be used, it still works but not intended; type BLACK
                 set_led_color_by_hsv(ledkey, HSV_BLACK);
             }
@@ -300,7 +300,7 @@ void set_caps_lock(int layer) {
         // it might be used for displaying led pattern
         if((rgb_matrix_get_flags() != LED_FLAG_ALL)) {
             // or to keep the correct lighting on for the layer that use all keys
-            // on all other layers turn the led off, so only switch it of when 
+            // on all other layers turn the led off, so only switch it of when
             // layer is BLACK
             if(pgm_read_byte(&ledmap[layer][3]) == LYR_BLACK){
               set_led_color_by_hsv(caps_lock_led, HSV_BLACK);
@@ -316,14 +316,14 @@ void set_layer_color(int layer) {
         uint8_t row = keyindex/MATRIX_COLS;
         uint8_t col = (keyindex-(keyindex/MATRIX_COLS)*MATRIX_COLS);
         uint16_t key=pgm_read_word(&keymaps[layer][row][col]);
-        
+
         // continue if this is not a valid key
         if (key==KC_NO) { continue; }
-        
+
         // handle layer specific coloring
         set_ledkey_by_layer_type(layer, ledkey, key);
         /* === below this function add custom overriding ledkey lighting === */
-    
+
         // gaming layer with highlighted keys
         //if (IS_LAYER_ON(_LVL4_)) {
         if (layer == _LVL4_) {
@@ -423,7 +423,7 @@ void set_layer_color(int layer) {
     }
     // non key specific lighting instead led flag based
     if (layer == _LVL7_){
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
             if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
                 set_led_color_by_hsv(i, C_HSV_DARKGOLD);
             }
@@ -439,10 +439,11 @@ void set_layer_color(int layer) {
     return;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     int layer = get_highest_layer(layer_state);
     set_layer_color(layer);
     set_caps_lock(layer);
+    return false;
 }
 
 #ifdef LEADER_ENABLE

@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LCTRL,   MO(1),  KC_SPC,     KC_ENT,   MO(2), KC_RALT
+                                        KC_LCTL,    MO(1),  KC_SPC,     KC_ENT,   MO(2), KC_RALT
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,  KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,                         KC_0,    KC_1,    KC_2,    KC_3,  KC_DOT, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LCTRL, _______,  KC_SPC,     KC_ENT,   MO(3), KC_RALT
+                                        KC_LCTL,  _______,  KC_SPC,     KC_ENT,   MO(3), KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC, JP_EXLM,  JP_DQT, JP_HASH,  KC_DLR, JP_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_MINS, JP_CIRC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,  KC_GRV, XXXXXXX, XXXXXXX, KC_MHEN,    KC_G,                      XXXXXXX, KC_HENK, JP_LBRC, JP_RBRC, XXXXXXX,  JP_YEN,
+      KC_LCTL,  KC_GRV, XXXXXXX, XXXXXXX, JP_MHEN,    KC_G,                      XXXXXXX, JP_HENK, JP_LBRC, JP_RBRC, XXXXXXX,  JP_YEN,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     JP_EQL,JP_AT,LSFT(JP_LBRC),LSFT(JP_RBRC),XXXXXXX,JP_UNDS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|

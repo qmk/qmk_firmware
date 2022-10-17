@@ -38,15 +38,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT( \
   KC_QUOTE,    KC_COMMA, KC_DOT,  KC_P,    KC_Y, KC_TAB, KC_BSPC, KC_F,  KC_G,    KC_C,    KC_R,    KC_L, \
   KC_A,        KC_O,     KC_E,    KC_U,    KC_I, KC_ENT, KC_ENT,  KC_D,  KC_H,    KC_T,    KC_N,    KC_S, \
-  KC_SCOLON,   KC_Q,     KC_J,    KC_K,    KC_X, OSM(MOD_LSFT), OSM(MOD_RSFT), KC_B,  KC_M,    KC_W,    KC_V,    KC_Z, \
+  KC_SCLN,     KC_Q,     KC_J,    KC_K,    KC_X, OSM(MOD_LSFT), OSM(MOD_RSFT), KC_B,  KC_M,    KC_W,    KC_V,    KC_Z, \
   KC_LCTL, KC_LGUI, KC_LALT, OSM(MOD_LSFT), KC_SPC, LOWER, RAISE, KC_SPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 
 /*[BASE] = LAYOUT(
  *   KC_QUOTE,      KC_COMMA,      KC_DOT,     KC_P,                KC_Y,                                 KC_F,       KC_G,      KC_C,    KC_R,          KC_L,
  *   KC_A,          KC_O,          KC_E,       KC_U,                KC_I,                                 KC_D,       KC_H,      KC_T,    KC_N,          KC_S,
- *   KC_SCOLON,     KC_Q,          KC_J,       KC_K,                KC_X,                                 KC_B,       KC_M,      KC_W,    KC_V,          KC_Z,
- *   OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL), MO(COMBINED), MO(KEYNAV), KC_ENTER,   KC_SPACE,  KC_BSPC, RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT)
+ *   KC_SCLN,       KC_Q,          KC_J,       KC_K,                KC_X,                                 KC_B,       KC_M,      KC_W,    KC_V,          KC_Z,
+ *   OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL), MO(COMBINED), MO(KEYNAV), KC_ENTER,   KC_SPACE,  KC_BSPC, RCTL(KC_BSPC), KC_CAPS, OSM(MOD_LSFT)
  * ),
  *KC_GRV,
  */
@@ -94,14 +94,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |BLSTEP|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      | RESET|
+ * |      |      |      |      |      |      |      |      |      |      |      | QK_BOOT|
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT( \
   TSKMGR,  _______, _______, _______, _______, _______, KC_DEL,  _______, RGB_VAI, RGB_SAI, RGB_HUI, CALTDEL, \
   _______, _______, _______, _______, _______, _______, _______, DVORAK,  RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_STEP, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET    \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT    \
 ),
 
 /* Function

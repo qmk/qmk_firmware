@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Navigation _NA
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * | RESET  | COLEMA | DVORAK | QWERTY |        | RGB_TG |        |        |        |        |        |        |        |        |        |
+ * | QK_BOOT  | COLEMA | DVORAK | QWERTY |        | RGB_TG |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | Esc    | Ctrl L | Up     | Ctrl R |        | RGB HD | RGB HI |        |        |        |        | PtSn   | ScLk   | Pause  |        |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -206,15 +206,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
   [nal] = LAYOUT_ortho_5x15( \
-    RESET,   DF(cm),  DF(dv),  DF(qw),  _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    KC_ESC,  _C_LEFT, KC_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
+    QK_BOOT, DF(cm),  DF(dv),  DF(qw),  _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    KC_ESC,  _C_LEFT, KC_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, \
     KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _TERM  , \
-    _S_TAB,  _A_LEFT, IJ_OMN,  __NAL,   _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, KC_SLCK, KC_END,  KC_PGDN, _______, \
+    _S_TAB,  _A_LEFT, IJ_OMN,  __NAL,   _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, KC_SCRL, KC_END,  KC_PGDN, _______, \
     _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
   [nar] = LAYOUT_ortho_5x15( \
-    RESET,   DF(cm),  DF(dv),  DF(qw),  _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    KC_ESC,  _C_LEFT, KC_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
+    QK_BOOT, DF(cm),  DF(dv),  DF(qw),  _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    KC_ESC,  _C_LEFT, KC_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, \
     KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _TERM  , \
     _S_TAB,  _A_LEFT, IJ_OMN,  _A_RGHT, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, __NAR,   KC_END,  KC_PGDN, _______, \
     _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ \
@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case IJ_OMN:
-        SEND_STRING(SS_TAP(X_LSHIFT)SS_TAP(X_LSHIFT));
+        SEND_STRING(SS_TAP(X_LSFT)SS_TAP(X_LSFT));
         return false;
     }
   }

@@ -81,7 +81,7 @@
 #define LEFT0 KC_GRV
 #define LEFT1 KC_GRV
 #define LEFT2 KC_TAB
-#define LEFT3 KC_BSLASH
+#define LEFT3 KC_BSLS
 //#define LEFT3 KC_COLN
 
 #define LEFT0_BP DB_GRV
@@ -181,10 +181,10 @@
 // I do not use those pinky keys. I had useful things there but there
 // are better more useful ways than those pinkys.
 #define ___5_BOTTOM_LEFT___  ___X2___,  KC_INS,  KC_LEFT, KC_RIGHT
-#define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLASH, ___X2___
+#define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLS, ___X2___
 
 #define ___4_BOTTOM_LEFT___  LCTL(KC_V),  KC_INS,  KC_LEFT,   KC_RIGHT
-#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLASH, LCTL(KC_C)
+#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLS, LCTL(KC_C)
 
 // the bottom rows  for keyboards on bepo.
 // bepo on bepo - not enough space to go around....

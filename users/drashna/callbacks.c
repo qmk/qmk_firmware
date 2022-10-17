@@ -3,6 +3,12 @@
 
 #include "drashna.h"
 
+
+#ifdef I2C_SCANNER_ENABLE
+void matrix_scan_i2c(void);
+void keyboard_post_init_i2c(void);
+#endif
+
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 void                       keyboard_pre_init_user(void) {
     userspace_config.raw = eeconfig_read_user();
@@ -42,6 +48,10 @@ void                       keyboard_post_init_user(void) {
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
     keyboard_post_init_transport_sync();
 #endif
+#ifdef I2C_SCANNER_ENABLE
+    keyboard_post_init_i2c();
+#endif
+
     keyboard_post_init_keymap();
 }
 
@@ -54,10 +64,10 @@ void                       shutdown_user(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
-    rgblight_setrgb_red();
+    rgblight_setrgb(rgblight_get_val(), 0x00, 0x00);
 #endif // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
+    rgb_matrix_set_color_all(rgb_matrix_get_val(), 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
 #endif // RGB_MATRIX_ENABLE
 #ifdef OLED_ENABLE
@@ -112,6 +122,12 @@ void                       matrix_scan_user(void) {
 #endif
 #if defined(CUSTOM_RGB_MATRIX)
     matrix_scan_rgb_matrix();
+#endif
+#ifdef I2C_SCANNER_ENABLE
+    matrix_scan_i2c();
+#endif
+#ifdef CUSTOM_OLED_DRIVER
+    matrix_scan_oled();
 #endif
     matrix_scan_secret();
 

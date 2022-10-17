@@ -194,13 +194,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------------------------------------------------------------------------'
  */
  [nal] = LAYOUT_ortho_4x12( \
-   KC_ESC,  _C_LEFT, KC_UP,   _C_RGHT, RGB_RMOD,RGB_HUD, RGB_HUI, RGB_TOG, KC_PSCR, KC_SLCK, KC_PAUS, DF(dv), \
+   KC_ESC,  _C_LEFT, KC_UP,   _C_RGHT, RGB_RMOD,RGB_HUD, RGB_HUI, RGB_TOG, KC_PSCR, KC_SCRL, KC_PAUS, DF(dv), \
    KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, RGB_MOD, RGB_SAD, RGB_SAI, DF(cm),  KC_INS,  KC_HOME, KC_PGUP, _TERM, \
-   _S_TAB,  _A_LEFT, IJ_OMN,  __NAL,   _______, RGB_VAD, RGB_VAI, _______, KC_SLCK, KC_END,  KC_PGDN, DF(qw), \
+   _S_TAB,  _A_LEFT, IJ_OMN,  __NAL,   _______, RGB_VAD, RGB_VAI, _______, KC_SCRL, KC_END,  KC_PGDN, DF(qw), \
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
  ),
  [nar] = LAYOUT_ortho_4x12( \
-   KC_ESC,  _C_LEFT, KC_UP,   _C_RGHT, RGB_RMOD,RGB_HUD, RGB_HUI, RGB_TOG, KC_PSCR, KC_SLCK, KC_PAUS, DF(dv), \
+   KC_ESC,  _C_LEFT, KC_UP,   _C_RGHT, RGB_RMOD,RGB_HUD, RGB_HUI, RGB_TOG, KC_PSCR, KC_SCRL, KC_PAUS, DF(dv), \
    KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, RGB_MOD, RGB_SAD, RGB_SAI, DF(cm),  KC_INS,  KC_HOME, KC_PGUP, _TERM, \
    _S_TAB,  _A_LEFT, IJ_OMN,  _A_RGHT, _______, RGB_VAD, RGB_VAI, _______, __NAR,   KC_END,  KC_PGDN, DF(qw), \
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
@@ -211,7 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case IJ_OMN:
-        SEND_STRING(SS_TAP(X_LSHIFT)SS_TAP(X_LSHIFT));
+        SEND_STRING(SS_TAP(X_LSFT)SS_TAP(X_LSFT));
         return false;
     }
   }

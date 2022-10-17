@@ -254,7 +254,11 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 
 #ifdef TAP_DANCE_ENABLE
-    preprocess_tap_dance(keycode, record);
+    if (preprocess_tap_dance(keycode, record)) {
+        // The tap dance might have updated the layer state, therefore the
+        // result of the keycode lookup might change.
+        keycode = get_record_keycode(record, true);
+    }
 #endif
 
     if (!(
@@ -274,6 +278,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
+#endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+            process_auto_mouse(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
 #if defined(SECURE_ENABLE)
@@ -339,6 +346,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
             process_programmable_button(keycode, record) &&
 #endif
+#ifdef AUTOCORRECT_ENABLE
+            process_autocorrect(keycode, record) &&
+#endif
             true)) {
         return false;
     }
@@ -364,8 +374,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
                 return false;
             case QK_CLEAR_EEPROM:
+#ifdef NO_RESET
                 eeconfig_init();
-#ifndef NO_RESET
+#else
+                eeconfig_disable();
                 soft_reset_keyboard();
 #endif
                 return false;
@@ -413,7 +425,11 @@ bool process_record_quantum(keyrecord_t *record) {
                 } else {
                     SEND_STRING_DELAY(" compile ", TAP_CODE_DELAY);
                 }
+#    if defined(CONVERTER_ENABLED)
+                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -e CONVERT_TO=" CONVERTER_TARGET SS_TAP(X_ENTER), TAP_CODE_DELAY);
+#    else
                 SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER), TAP_CODE_DELAY);
+#    endif
                 if (temp_mod & MOD_MASK_SHIFT && temp_mod & MOD_MASK_CTRL) {
                     reset_keyboard();
                 }

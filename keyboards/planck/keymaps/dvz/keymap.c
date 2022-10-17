@@ -93,7 +93,7 @@ LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,
  */
 [_NUMPD] = LAYOUT_planck_grid(
  SFT_T(KC_PASTE),KC_P7,   KC_P8, KC_P9,  DE_SLSH, _______, _______, _______, _______, _______, _______,  _______,
-    KC_NLCK,    KC_P4,   KC_P5, KC_P6,  DE_MINS, _______, _______, _______, _______, _______, _______,  _______,
+    KC_NUM,     KC_P4,   KC_P5, KC_P6,  DE_MINS, _______, _______, _______, _______, _______, _______,  _______,
     _______,    KC_P1,   KC_P2, KC_P3,  DE_PLUS, _______, _______, _______, _______, _______, _______,  _______,
  CTL_T(KC_COPY),KC_DOT,  KC_P0, KC_COMM, NUMPD,  KC_ENT,  KC_ENT,  _______, _______, _______, _______,  _______
 ),
@@ -141,16 +141,16 @@ LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |PowOff|      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf|      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-    KC_POWER,_______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  _______, _______, _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
+    _______, QK_BOOT, DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+    KC_PWR,  _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
+    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
 };

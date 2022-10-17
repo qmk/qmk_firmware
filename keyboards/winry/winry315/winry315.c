@@ -223,7 +223,7 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
 void winry315_set_orientation(uint8_t orientation) {
     (void)orientation;
 #if defined(RGB_MATRIX_ENABLE)
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
         led_point_t *      dst_point = &g_led_config.point[i];
         const led_point_t *src_point = &initial_led_config.point[i];
         uint8_t            x         = pgm_read_byte(&src_point->x);

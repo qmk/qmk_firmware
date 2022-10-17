@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,  KC_T,   TG(1),
     KC_CAPS,  KC_A,   KC_S,   KC_D,   KC_F,  KC_G,
     KC_LSFT,  KC_Z,   KC_X,   KC_C,   KC_V,  KC_B,   MO(2),
-    KC_LCTRL, MO(3),  KC_EQL, KC_LGUI, KC_LALT,
-                                            KC_NLCK,  KC_SLCK,
+    KC_LCTL,  MO(3),  KC_EQL, KC_LGUI, KC_LALT,
+                                            KC_NUM,   KC_SCRL,
                                             KC_HOME,
                                             KC_SPC,   KC_DEL, KC_END,
 
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSLS,  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,
     TG(1),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,
               KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
-    MO(2),    KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_NONUS_BSLASH,
+    MO(2),    KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_NUBS,
     KC_LEFT,  KC_DOWN, KC_UP, KC_RIGHT, KC_RBRC,
     KC_RGUI,  KC_RALT,
     KC_PGUP,
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 3: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | RESET  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * | QK_BOOT  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      | Lclk | MsUp | Rclk |      |      |           |      |      |VolDwn| Mute |VolUp |      |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
-   RESET,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,
+   QK_BOOT,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,
    _______,  _______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  _______,  _______,
    _______,  KC_BTN4,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_BTN5,
    _______,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  KC_BTN3,  _______,

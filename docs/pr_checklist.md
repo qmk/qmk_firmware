@@ -52,6 +52,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - valid maintainer
         - valid USB VID/PID and device version
         - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
+        - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
+            - should use standard definitions if applicable
+            - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
 - `readme.md`
     - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
@@ -67,6 +70,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - no `(-/+size)` comments related to enabling features
     - remove the list of alternate bootloaders if one has been specified
     - no re-definitions of the default MCU parameters if same value, when compared to the equivalent MCU in [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/builddefs/mcu_selection.mk)
+    - no "keymap only" features enabled
+      - `COMBO_ENABLE`
+      - `ENCODER_MAP_ENABLE`
 - keyboard `config.h`
     - don't repeat `MANUFACTURER` in the `PRODUCT` value
     - no `#define DESCRIPTION`
@@ -79,17 +85,15 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - Vial-related files or changes will not be accepted, as they are not used by QMK firmware (no Vial-specific core code has been submitted or merged)
 - `<keyboard>.c`
     - empty `xxxx_xxxx_kb()` or other weak-defined default implemented functions removed
+    - empty `xxxx_xxxx_user()` or other user-level functions are disallowed at the keyboard level and must be moved to keymaps
     - commented-out functions removed too
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
     - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
     - prefer LED indicator [Configuration Options](feature_led_indicators.md?id=configuration-options) to custom `led_update_*()` implementations where possible
-    - Encoder support should not be hacked into the keymap here -- no `tap_code(dynamic_keymap_get_keycode())` or `action_exec()` hacks.  The [Encoder Map](feature_encoders.md?id=encoder-map) feature already supports the dynamic keymap feature (what power's VIA's "live keymap updates" capability).
-      - If support is absolutely necessary, it should be implemented exclusively at the keymap level, with none of the implementation bleeding into the keyboard level (no empty rows/columns, no encoder specific layouts, etc.), as those configurations can be redefined at the keymap level. Keymaps can then choose to use the `action_exec` hack. <!-- because people will complain, give them a way to implement it, in the meanwhile.  To be removed. -->
-      - [Request for official proper VIA support](https://github.com/the-via/app/issues/26)
+    - Encoder support should not require any keyboard-level code, and associated keymaps should now leverage the [Encoder Map](feature_encoders.md?id=encoder-map) feature instead.
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
-    - `LAYOUT` macros should use standard definitions if applicable
-        - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
+    - `LAYOUT` macros should be moved to `info.json`
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
@@ -108,8 +112,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
-- Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine. 
-  - For instance, only `wilba_tech` boards using be including `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine.
+- Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine.
+  - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards.
   - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
 
 Also, specific to ChibiOS:
@@ -131,6 +135,7 @@ Also, specific to ChibiOS:
     - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
     - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided
     - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) -- consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
+- any features adding `_kb`/`_user` callbacks must return a `bool`, to allow for user override of keyboard-level callbacks. 
 - other requirements are at the discretion of QMK collaborators
     - core is a lot more subjective given the breadth of posted changes
 

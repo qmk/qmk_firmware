@@ -55,9 +55,9 @@ extern bool mcp23018_leds[];
     { k60, k61, k62, k63, k64, k65, k66 }, \
     { k70, k71, k72, k73, k74, k75, k76 }, \
     { k80, k81, k82, k83, k84, k85, k86 }, \
-    { KC_NO,k91, k92, k93, k94, k95, k96 }, \
+    { KC_NO, k91, k92, k93, k94, k95, k96 }, \
     { KC_NO, KC_NO, ka2, ka3, ka4, ka5, ka6 }, \
-    { KC_NO, KC_NO, KC_NO, kb3, kb4, kb5, kb6  } \
+    { KC_NO, KC_NO, KC_NO, kb3, kb4, kb5, kb6 } \
 }
 // clang-format on
 
@@ -82,3 +82,5 @@ typedef union {
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
+
+bool is_transport_connected(void);

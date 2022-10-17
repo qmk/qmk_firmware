@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "bajjak",
+    "keyboard_name": "BAJJAK",
+    "manufacturer": "garykong",
     "maintainer": "garykong",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_6x7": {
             "layout": [

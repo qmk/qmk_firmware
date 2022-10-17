@@ -1,6 +1,6 @@
-# This is the `develop` branch!
+# THIS IS THE DEVELOP BRANCH
 
-See the [Breaking Changes](https://docs.qmk.fm/#/breaking_changes) document for more information.
+Warning- This is the `develop` branch of QMK Firmware. You may encounter broken code here. Please see [Breaking Changes](https://docs.qmk.fm/#/breaking_changes) for more information.
 
 # Quantum Mechanical Keyboard Firmware
 

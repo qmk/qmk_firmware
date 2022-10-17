@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    KC_ESC,    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    KC_DEL,
         _______ ,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   KC_PSCR,   _______,   _______,
         _______,   KC_MS_LEFT,KC_MS_DOWN,KC_MS_UP,  KC_MS_RIGHT,_______,  _______,   KC_LEFT,   KC_DOWN,   KC_UP,     KC_RIGHT,  _______,   _______,   _______,
-        _______,   _______,   _______,   _______,   _______,   KC_MS_BTN1,KC_MS_BTN2,_______,   KC_HOME,   KC_PGDOWN, KC_PGUP,   KC_END,    _______,
+        _______,   _______,   _______,   _______,   _______,   KC_MS_BTN1,KC_MS_BTN2,_______,   KC_HOME,   KC_PGDN,   KC_PGUP,   KC_END,    _______,
         _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______),
 
   /* Keymap NL: Numpad Layer
@@ -156,12 +156,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case NL:
         if (!host_keyboard_led_state().num_lock) {
-             tap_code16(KC_NLCK);
+             tap_code16(KC_NUM_LOCK);
         }
         break;
     default: //  for any other layers, or the default layer
         if (host_keyboard_led_state().num_lock) {
-             tap_code16(KC_NLCK);
+             tap_code16(KC_NUM_LOCK);
         }
         break;
     }

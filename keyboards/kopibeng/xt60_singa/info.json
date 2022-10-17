@@ -1,7 +1,13 @@
 {
     "keyboard_name": "XT60_SINGA",
-    "maintainer": "Kopibeng",
+    "manufacturer": "kopibeng",
     "url": "",
+    "maintainer": "Kopibeng",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x0601",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

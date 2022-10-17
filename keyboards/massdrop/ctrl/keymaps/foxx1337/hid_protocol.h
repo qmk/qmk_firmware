@@ -75,6 +75,6 @@ extern uint8_t raw_hid_buffer[RAW_EPSIZE];
 
 // Defined in rgb_matrix_user.inc
 // It's 119 for Massdrop CTRL, 0 - 118.
-extern RGB rgb_matrix_led_state[DRIVER_LED_TOTAL];
+extern RGB rgb_matrix_led_state[RGB_MATRIX_LED_COUNT];
 
 void raw_hid_perform_send(void);

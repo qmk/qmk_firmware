@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Function layer is mostly for keyboard meta-control operations, but also contains the combining
   // accent marks. These are deliberately placed to match where the analogous controls go on Mac OS.
 	[_FUNCTION] = LAYOUT_hotswap(
-    KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, RESET,
+    KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, QK_BOOT,
     KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
     _______, _______, _______, KC_CAGU, _______, _______, _______, KC_CDIA, KC_CCIR, _______, _______, _______, _______,          _______, _______, _______, _______,
     _______, _______, _______, UC_M_OS, UC_M_LN, UC_M_WI, UC_M_BS, UC_M_WC, _______, _______, _______, _______,                   _______, _______, _______, _______, _______,
@@ -379,13 +379,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool ignore_accent_change = !record->event.pressed;
 
   // Step 1: Process any modifier key state changes, so we can maintain that state.
-  if (keycode == KC_LSHIFT || keycode == KC_RSHIFT) {
+  if (keycode == KC_LSFT || keycode == KC_RSFT) {
     shift_held = record->event.pressed;
     ignore_accent_change = true;
   } else if (keycode == KC_LALT || keycode == KC_RALT) {
     alt_held = record->event.pressed;
     ignore_accent_change = true;
-  } else if (keycode == KC_LCTRL || keycode == KC_RCTRL) {
+  } else if (keycode == KC_LCTL || keycode == KC_RCTL) {
     ctrl_held = record->event.pressed;
     ignore_accent_change = true;
   } else if (keycode == KC_LGUI || keycode == KC_RGUI) {
