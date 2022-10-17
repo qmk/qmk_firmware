@@ -93,4 +93,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
 
 //Auto Mouse Layer
-//#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#define AUTO_MOUSE_TIME 1000
