@@ -84,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_WCLS:
             if (record->event.pressed) {
-                SEND_STRING (SS_LCTRL("w"));
+                SEND_STRING (SS_LCTL("w"));
             }
             return false;
             break;

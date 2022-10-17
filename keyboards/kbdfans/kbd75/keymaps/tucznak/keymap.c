@@ -53,7 +53,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MACRO1:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("c") SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT) SS_LCTRL("v") SS_TAP(X_TAB));
+                SEND_STRING(SS_LCTL("c") SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT) SS_LCTL("v") SS_TAP(X_TAB));
                 _delay_ms(50);
                 SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT) SS_TAP(X_TAB));
             } else {

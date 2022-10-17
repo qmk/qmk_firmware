@@ -147,13 +147,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case _COMP1:
             if (record->event.pressed) {
-                // SEND_STRING(SS_TAP(X_RCTRL) SS_DELAY(100) SS_TAP(X_RCTRL) SS_DELAY(100) "1" SS_TAP(X_ENTER));
+                // SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) "1" SS_TAP(X_ENTER));
                 keymap_config.swap_lalt_lgui = false;
             }
             return false;
         case _COMP2:
             if (record->event.pressed) {
-                // SEND_STRING(SS_TAP(X_RCTRL) SS_DELAY(100) SS_TAP(X_RCTRL) SS_DELAY(100) "2" SS_TAP(X_ENTER));
+                // SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) "2" SS_TAP(X_ENTER));
                 keymap_config.swap_lalt_lgui = true;
             }
             return false;

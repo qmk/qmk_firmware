@@ -55,7 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
                         SEND_STRING(SS_TAP(X_DELETE));
                         set_mods(current_mods);
                     } else {
-                        SEND_STRING(SS_TAP(X_BSPACE));
+                        SEND_STRING(SS_TAP(X_BACKSPACE));
                     }
                 }
                 return false;

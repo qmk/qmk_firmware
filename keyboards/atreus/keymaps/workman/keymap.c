@@ -64,11 +64,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch(keycode) {
 		case DIAERESIS:
 			// assuming KC_CAPS is your Multi Key
-			SEND_STRING(SS_TAP(X_CAPSLOCK)"\"");
+			SEND_STRING(SS_TAP(X_CAPS_LOCK)"\"");
 			return false;
 		case EN_DASH:
 			// assuming KC_CAPS is your Multi Key
-			SEND_STRING(SS_TAP(X_CAPSLOCK)"--.");
+			SEND_STRING(SS_TAP(X_CAPS_LOCK)"--.");
 			return false;
         }
     }

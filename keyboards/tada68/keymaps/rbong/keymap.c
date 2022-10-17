@@ -18,7 +18,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case TRMEXIT:
-        SEND_STRING(SS_LCTRL("\\")SS_LCTRL("n"));
+        SEND_STRING(SS_LCTL("\\")SS_LCTL("n"));
         return false;
     }
   }

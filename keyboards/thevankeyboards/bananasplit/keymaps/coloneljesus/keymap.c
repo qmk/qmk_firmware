@@ -78,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // Designed to switch between two keyboard layouts on Windows using a locking switch.
       // Does nothing if right shift is pressed for easy resync.
       if (!(get_mods() & MOD_BIT(KC_RSFT)))
-        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_LSHIFT)SS_UP(X_LALT));
+        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_LSFT)SS_UP(X_LALT));
       return false;
     }
 

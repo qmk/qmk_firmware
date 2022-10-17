@@ -592,21 +592,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
             break;
         case SHELL_EXPAND_OE_LOGPATTERN:
-                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTL("x")SS_LSFT("8"));
             break;
         case SHELL_EXPAND_OE_TRANPATTERN:
-                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTL("x")SS_LSFT("8"));
             break;
             case SHELL_DUMPTLOG:
                 SEND_STRING(" | dumptlog - ");
                 return true;
                 break;
             case WINDOWS10_WORKSPACE_LEFT:
-                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+                SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_LEFT))));
                 return true;
                 break;
             case WINDOWS10_WORKSPACE_RIGHT:
-                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+                SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_RIGHT))));
                 break;
             case WINDOWS10_TASK_VIEW:
                 SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));

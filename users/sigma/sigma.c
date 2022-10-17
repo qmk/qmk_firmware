@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTRL("x"));
+        SEND_STRING(SS_LCTL("x"));
       break;
     }
     break;
@@ -190,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTRL("c"));
+        SEND_STRING(SS_LCTL("c"));
       break;
     }
     break;
@@ -208,7 +208,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTRL("v"));
+        SEND_STRING(SS_LCTL("v"));
       break;
     }
     break;
@@ -226,7 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTRL("z"));
+        SEND_STRING(SS_LCTL("z"));
       break;
     }
     break;
@@ -244,7 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTRL(SS_LSFT("z")));
+        SEND_STRING(SS_LCTL(SS_LSFT("z")));
       break;
     }
     break;
@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (os_target) {
     case _OS_MACOS:
       if (pressed)
-        SEND_STRING(SS_LGUI(SS_LCTRL("q")));
+        SEND_STRING(SS_LGUI(SS_LCTL("q")));
       break;
     case _OS_LINUX:
       pressed ?
