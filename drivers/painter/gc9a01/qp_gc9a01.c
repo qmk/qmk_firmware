@@ -17,7 +17,7 @@ tft_panel_dc_reset_painter_device_t gc9a01_drivers[GC9A01_NUM_DEVICES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool qp_gc9a01_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotation_t rotation) {
     // A lot of these "unknown" opcodes are sourced from other OSS projects and are seemingly required for this display to function.
     // clang-format off
     const uint8_t gc9a01_init_sequence[] = {

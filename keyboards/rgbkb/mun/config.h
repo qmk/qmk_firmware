@@ -11,12 +11,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3535
-#define PRODUCT_ID      0x3505
-#define MANUFACTURER    RGBKB
-#define PRODUCT         Mün
-
 /* Matrix Configuration - Rows are doubled up */
 #define MATRIX_ROWS 14
 // Last pins reserved for encoder / touch encoder support
@@ -75,9 +69,18 @@
 #define RGB_DI_PIN B5
 #define RGBLED_NUM 98
 #define RGBLED_SPLIT { 49, 49 }
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #define RGB_MATRIX_CENTER { 128, 34 }
 #define RGB_MATRIX_LED_FLUSH_LIMIT 33

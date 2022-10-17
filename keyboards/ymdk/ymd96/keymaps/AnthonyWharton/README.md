@@ -8,7 +8,7 @@ keyboard:
 **Note:** This setup has locking Caps Lock and Num Lock keys, so if you wish
 to use this layout and do not have such keys, you should :
 
- - Change the keys `KC_LCAP` and `KC_LNUM` to `KC_CAPS`  and `KC_NUMLOCK` 
+ - Change the keys `KC_LCAP` and `KC_LNUM` to `KC_CAPS`  and `KC_NUM` 
    respectively.
  - Remove the `LOCKING_SUPPORT_ENABLE` and `LOCKING_RESYNC_ENABLE` lines
    from `config.h`.

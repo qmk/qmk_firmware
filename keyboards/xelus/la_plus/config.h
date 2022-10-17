@@ -42,7 +42,7 @@
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN F1
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 32
+#define RGB_MATRIX_LED_COUNT 32
 
 #define RGB_MATRIX_STARTUP_VAL 80
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended

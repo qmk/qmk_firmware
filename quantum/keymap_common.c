@@ -61,15 +61,13 @@ action_t action_for_keycode(uint16_t keycode) {
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
             break;
-        case KC_AUDIO_MUTE ... KC_BRIGHTNESS_DOWN:
+        case KC_AUDIO_MUTE ... KC_ASSISTANT:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
 #endif
-#ifdef MOUSEKEY_ENABLE
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(keycode);
             break;
-#endif
         case KC_TRANSPARENT:
             action.code = ACTION_TRANSPARENT;
             break;
@@ -147,13 +145,13 @@ action_t action_for_keycode(uint16_t keycode) {
 // translates key to keycode
 __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        return pgm_read_word(&keymaps[layer][key.row][key.col]);
+        return keycode_at_keymap_location(layer, key.row, key.col);
     }
 #ifdef ENCODER_MAP_ENABLE
     else if (key.row == KEYLOC_ENCODER_CW && key.col < NUM_ENCODERS) {
-        return pgm_read_word(&encoder_map[layer][key.col][0]);
+        return keycode_at_encodermap_location(layer, key.col, true);
     } else if (key.row == KEYLOC_ENCODER_CCW && key.col < NUM_ENCODERS) {
-        return pgm_read_word(&encoder_map[layer][key.col][1]);
+        return keycode_at_encodermap_location(layer, key.col, false);
     }
 #endif // ENCODER_MAP_ENABLE
     return KC_NO;

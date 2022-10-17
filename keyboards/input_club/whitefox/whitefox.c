@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "whitefox.h"
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 // The numbers in the comments are the led numbers DXX on the PCB
 /* Refer to IS31 manual for these locations
  *  driver

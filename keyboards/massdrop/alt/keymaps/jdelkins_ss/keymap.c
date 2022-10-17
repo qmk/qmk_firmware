@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,  KC_INS,
-        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_CALC, KC_END,
+        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_CALC, KC_END,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______,          KC_MPLY,
         _______, RGB_TOG, _______, _______, _______, KB_BOOT, _______, _______, _______, _______, _______, _______,          KC_VOLU, KC_MUTE,
         _______, _______, _______,                            _______,                            _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
@@ -113,7 +113,7 @@ static void set_rgb_layer(int layer) {
 
     switch (cur->type) {
         case type_hsv:
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL ; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT ; i++) {
                 if (!(g_led_config.flags[i] & cur->flags))
                     rgb_matrix_set_color(i, 0, 0, 0);
             }
@@ -130,7 +130,7 @@ static void set_rgb_layer(int layer) {
                 rgb_matrix_mode_noeeprom(rgbs[cur->mode - RGB_MATRIX_EFFECT_MAX].mode);
             else
                 rgb_matrix_mode_noeeprom(cur->mode);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 const RGB *m = &cur->rgb[i];
                 if (!RGB_IS_NULL(*m))
                     rgb_matrix_set_color(i, m->r, m->g, m->b);
@@ -144,7 +144,7 @@ void matrix_init_keymap(void) {
     set_rgb_layer(_QWERTY);
     // force numlock on upon startup
     if (!NUMLOCK_ON) {
-        tap_code(KC_NUMLOCK);
+        tap_code(KC_NUM_LOCK);
     }
 };
 

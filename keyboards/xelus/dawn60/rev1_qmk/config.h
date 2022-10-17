@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x0060 // Dawn60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Dawn60
-
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -55,7 +48,7 @@
 #define DRIVER_1_LED_TOTAL 32
 #define DRIVER_2_LED_TOTAL 32
 #define ISSI_DRIVER_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL + WS2812_LED_TOTAL)
 
 #define RGB_MATRIX_STARTUP_VAL 80
 #define RGB_MATRIX_KEYPRESSES

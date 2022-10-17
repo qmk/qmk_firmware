@@ -17,6 +17,7 @@
  */
 
 #include "pointing_device.h"
+#include "pointing_device_internal.h"
 #include "debug.h"
 #include "wait.h"
 #include "timer.h"
@@ -32,10 +33,7 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
 
     if (data.dx != 0 || data.dy != 0) {
-#    ifdef CONSOLE_ENABLE
-        if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
-#    endif
-
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
         mouse_report.x = (mouse_xy_report_t)data.dx;
         mouse_report.y = (mouse_xy_report_t)data.dy;
     }
@@ -76,9 +74,7 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
 
-#    ifdef CONSOLE_ENABLE
-    if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
-#    endif
+    pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 
     mouse_report.x = data.x;
     mouse_report.y = data.y;
@@ -117,12 +113,24 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
 #    endif
 
 #    if CIRQUE_PINNACLE_POSITION_MODE
+
+#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+static bool is_touch_down;
+
+bool auto_mouse_activation(report_mouse_t mouse_report) {
+    return is_touch_down || mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
+}
+#        endif
+
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t   touchData = cirque_pinnacle_read_data();
     mouse_xy_report_t report_x = 0, report_y = 0;
     static uint16_t   x = 0, y = 0;
+#        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
+    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+#        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
-    cursor_glide_t    glide_report = {0};
+    cursor_glide_t glide_report = {0};
 
     if (cursor_glide_enable) {
         glide_report = cursor_glide_check(&glide);
@@ -140,10 +148,12 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         return mouse_report;
     }
 
-#        if CONSOLE_ENABLE
-    if (debug_mouse && touchData.touchDown) {
-        dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
+    if (touchData.touchDown) {
+        pd_dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
     }
+
+#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    is_touch_down = touchData.touchDown;
 #        endif
 
     // Scale coordinates to arbitrary X, Y resolution
@@ -227,9 +237,7 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
     report_paw3204_t data = paw3204_read();
     if (data.isMotion) {
-#    ifdef CONSOLE_ENABLE
-        dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
-#    endif
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 
         mouse_report.x = data.x;
         mouse_report.y = data.y;
@@ -329,7 +337,7 @@ report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report) {
 
     if (!in_motion) {
         in_motion = true;
-        dprintf("PWM3360 (0): starting motion\n");
+        pd_dprintf("PWM3360 (0): starting motion\n");
     }
 
     mouse_report.x = CONSTRAIN_HID_XY(report.delta_x);

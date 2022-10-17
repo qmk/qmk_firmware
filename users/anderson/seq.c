@@ -11,7 +11,7 @@ void seq_start(void) {
 bool seq_feed(uint16_t keycode) {
     if (keycode == KC_ENTER) {
         for (int i = 0; i < buffer_size + 1; i++) {
-            tap_code(KC_BSPACE);
+            tap_code(KC_BACKSPACE);
         }
         for (int i = 0; i < seq_config_size; i++) {
             seq_t item = seq_config[i];
@@ -21,7 +21,7 @@ bool seq_feed(uint16_t keycode) {
         }
         buffer_size = 0;
         return false;
-    } else if (keycode == KC_BSPACE) {
+    } else if (keycode == KC_BACKSPACE) {
         if (buffer_size) {
             buffer_size--;
             tap_code(keycode);

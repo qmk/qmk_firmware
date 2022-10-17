@@ -18,7 +18,7 @@
 #include "print.h"
 #include "via.h"
 
-#define num_keycodes (sizeof(lookup_table)/sizeof(lookup_table[0]))
+#define num_keycodes ARRAY_SIZE(lookup_table)
 static char UNKNOWN_KEYCODE[] = "UNKNOWN";
 
 int cmp(const void *v1, const void *v2)
@@ -55,7 +55,7 @@ char* translate_keycode_to_string(uint16_t code)
     return (return_p);
 }
 
-lookup_table_t lookup_table[334] =
+lookup_table_t lookup_table[333] =
 {
  {"KC_NO", KC_NO},
  {"KC_TRNS", KC_TRNS},
@@ -109,7 +109,6 @@ lookup_table_t lookup_table[334] =
  {"KC_SCLN", KC_SCLN},
  {"KC_QUOT", KC_QUOT},
  {"KC_GRV", KC_GRV},
- {"KC_ZKHK", KC_ZKHK},
  {"KC_COMM", KC_COMM},
  {"KC_DOT", KC_DOT},
  {"KC_SLSH", KC_SLSH},
@@ -127,7 +126,7 @@ lookup_table_t lookup_table[334] =
  {"KC_F11", KC_F11},
  {"KC_F12", KC_F12},
  {"KC_PSCR", KC_PSCR},
- {"KC_SLCK", KC_SLCK},
+ {"KC_SCRL", KC_SCRL},
  {"KC_PAUS", KC_PAUS},
  {"KC_INS", KC_INS},
  {"KC_HOME", KC_HOME},
@@ -139,7 +138,7 @@ lookup_table_t lookup_table[334] =
  {"KC_LEFT", KC_LEFT},
  {"KC_DOWN", KC_DOWN},
  {"KC_UP", KC_UP},
- {"KC_NLCK", KC_NLCK},
+ {"KC_NUM", KC_NUM},
  {"KC_PSLS", KC_PSLS},
  {"KC_PAST", KC_PAST},
  {"KC_PMNS", KC_PMNS},
@@ -158,7 +157,7 @@ lookup_table_t lookup_table[334] =
  {"KC_PDOT", KC_PDOT},
  {"KC_NUBS", KC_NUBS},
  {"KC_APP", KC_APP},
- {"KC_POWER", KC_POWER},
+ {"KC_KB_POWER", KC_KB_POWER},
  {"KC_PEQL", KC_PEQL},
  {"KC_F13", KC_F13},
  {"KC_F14", KC_F14},
@@ -188,26 +187,26 @@ lookup_table_t lookup_table[334] =
  {"KC_LSCR", KC_LSCR},
  {"KC_PCMM", KC_PCMM},
  {"KC_KP_EQUAL_AS400", KC_KP_EQUAL_AS400},
- {"KC_RO", KC_RO},
- {"KC_KANA", KC_KANA},
- {"KC_JYEN", KC_JYEN},
- {"KC_HENK", KC_HENK},
- {"KC_MHEN", KC_MHEN},
+ {"KC_INT1", KC_INT1},
+ {"KC_INT2", KC_INT2},
+ {"KC_INT3", KC_INT3},
+ {"KC_INT4", KC_INT4},
+ {"KC_INT5", KC_INT5},
  {"KC_INT6", KC_INT6},
  {"KC_INT7", KC_INT7},
  {"KC_INT8", KC_INT8},
  {"KC_INT9", KC_INT9},
- {"KC_HAEN", KC_HAEN},
- {"KC_HANJ", KC_HANJ},
- {"KC_LANG3", KC_LANG3},
- {"KC_LANG4", KC_LANG4},
- {"KC_LANG5", KC_LANG5},
- {"KC_LANG6", KC_LANG6},
- {"KC_LANG7", KC_LANG7},
- {"KC_LANG8", KC_LANG8},
- {"KC_LANG9", KC_LANG9},
+ {"KC_LNG1", KC_LNG1},
+ {"KC_LNG2", KC_LNG2},
+ {"KC_LNG3", KC_LNG3},
+ {"KC_LNG4", KC_LNG4},
+ {"KC_LNG5", KC_LNG5},
+ {"KC_LNG6", KC_LNG6},
+ {"KC_LNG7", KC_LNG7},
+ {"KC_LNG8", KC_LNG8},
+ {"KC_LNG9", KC_LNG9},
  {"KC_ERAS", KC_ERAS},
- {"KC_SYSREQ", KC_SYSREQ},
+ {"KC_SYRQ", KC_SYRQ},
  {"KC_CANCEL", KC_CANCEL},
  {"KC_CLR", KC_CLR},
  {"KC_CLEAR", KC_CLEAR},
@@ -288,7 +287,7 @@ lookup_table_t lookup_table[334] =
  {"KC_LT", KC_LT},
  {"KC_GT", KC_GT},
  {"KC_QUES", KC_QUES},
- {"RESET", RESET},
+ {"RESET", QK_BOOT},
  {"DEBUG", DEBUG},
  {"MAGIC_TOGGLE_NKRO", MAGIC_TOGGLE_NKRO},
  {"KC_GESC", KC_GESC},

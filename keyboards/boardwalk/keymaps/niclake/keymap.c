@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          '-----------------------------------------------------------------------------------------------------------'
      */
     [_NUM] = LAYOUT_ortho_hhkb(
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_SLCK, KC_PAUS,
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, KC_SCRL, KC_PAUS,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, _______, _______,
         ADJ,     _______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, _______, _______,
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * .-----------------------------------------------------------------------------------------------------------------------------.
      * |        | Static | Breath | Rainbw | Swirl  | Gradnt | Twnkle | Test   |        |        |        |        |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
-     * |        | On/Off | ModeUp | Hue Up | Sat Up | Val Up |        |        |        |        |        |        | RESET  |        |
+     * |        | On/Off | ModeUp | Hue Up | Sat Up | Val Up |        |        |        |        |        |        | QK_BOOT  |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
      * | XXXXXX | MACWIN |        | Hue Dn | Sat Dn | Val Dn |        |        |        |        |        |        |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_ADJ] = LAYOUT_ortho_hhkb(
         XXXXXXX, RGB_ON,  RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_G, RGB_M_TW, RGB_M_T, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI,  RGB_VAI, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX,
+        XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI,  RGB_VAI, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX,
         XXXXXXX, MACWIN,  XXXXXXX, RGB_HUD, RGB_SAD,  RGB_VAD, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, COLEMAK, QWERTY,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

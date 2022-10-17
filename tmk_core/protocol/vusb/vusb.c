@@ -224,11 +224,9 @@ void console_task(void) {
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_system(uint16_t data);
-static void    send_consumer(uint16_t data);
-static void    send_programmable_button(uint32_t data);
+static void    send_extra(report_extra_t *report);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
@@ -269,31 +267,11 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-static void send_extra(uint8_t report_id, uint16_t data) {
-    static uint8_t  last_id   = 0;
-    static uint16_t last_data = 0;
-    if ((report_id == last_id) && (data == last_data)) return;
-    last_id   = report_id;
-    last_data = data;
-
-    static report_extra_t report;
-    report = (report_extra_t){.report_id = report_id, .usage = data};
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
+        usbSetInterruptShared((void *)report, sizeof(report_extra_t));
     }
-}
-#endif
-
-static void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
-#endif
-}
-
-static void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_CONSUMER, data);
 #endif
 }
 
@@ -305,16 +283,10 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
-static void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    static report_programmable_button_t report = {
-        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
-    };
-
-    report.usage = data;
-
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report));
+        usbSetInterruptShared((void *)report, sizeof(report_programmable_button_t));
     }
 #endif
 }
@@ -672,7 +644,7 @@ const PROGMEM uchar console_hid_report[] = {
 // clang-format off
 const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
     .header = {
-        .bLength         = USB_STRING_LEN(1),
+        .bLength         = 4,
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = {0x0409} // US English
@@ -680,24 +652,24 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorManufacturer = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
+        .bLength         = sizeof(USBSTR(MANUFACTURER)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(MANUFACTURER)
+    .bString             = USBSTR(MANUFACTURER)
 };
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
+        .bLength         = sizeof(USBSTR(PRODUCT)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(PRODUCT)
+    .bString             = USBSTR(PRODUCT)
 };
 
 #if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1),
+        .bLength         = sizeof(USBSTR(SERIAL_NUMBER)),
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = USBSTR(SERIAL_NUMBER)

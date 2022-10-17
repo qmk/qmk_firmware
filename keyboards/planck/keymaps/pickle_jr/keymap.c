@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(record->event.pressed) {
     switch(keycode) {
       case CTLALTD:
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LALT)SS_DOWN(X_DELETE)SS_UP(X_DELETE)SS_UP(X_LALT)SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LALT)SS_DOWN(X_DELETE)SS_UP(X_DELETE)SS_UP(X_LALT)SS_UP(X_LCTL));
         return false;
       case VIMSAVE:
         SEND_STRING(":w");
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid(
   _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  KC_PLUS, _______,
-  _______, _______, KC_TILD, KC_GRV,  KC_LCTRL, _______, KC_PIPE, _______, KC_UNDS, _______, _______, _______,
+  _______, _______, KC_TILD, KC_GRV,  KC_LCTL,  _______, KC_PIPE, _______, KC_UNDS, _______, _______, _______,
   _______, _______, _______, _______, _______,  _______, KC_TRNS, _______, _______, _______, _______, _______
 ),
 
@@ -167,10 +167,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  _______, RESET,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  _______, _______, _______,
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
-  _______, _______, _______, _______, _______, KC_TRNS, KC_TRNS, _______, _______,  _______, _______, _______
+  _______, QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
+  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, KC_TRNS, KC_TRNS, _______, _______, _______, _______, _______
 )
 
 

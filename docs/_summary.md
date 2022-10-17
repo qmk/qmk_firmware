@@ -76,9 +76,11 @@
 
   * Software Features
     * [Auto Shift](feature_auto_shift.md)
+    * [Autocorrect](feature_autocorrect.md)
     * [Caps Word](feature_caps_word.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
+    * [EEPROM](feature_eeprom.md)
     * [Key Lock](feature_key_lock.md)
     * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
@@ -135,7 +137,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20220528.md "QMK v0.17.0 - 2022 May 28")
+    * [Most Recent ChangeLog](ChangeLog/20220827.md "QMK v0.18.0 - 2022 Aug 27")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development

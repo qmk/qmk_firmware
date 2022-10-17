@@ -1,5 +1,5 @@
 /*
-Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck 
+Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck
  *
  * You are free to:
  *
@@ -20,8 +20,6 @@ Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define USE_SERIAL_PD2
-
 #define ENCODERS_PAD_A { F4 }
 #define ENCODERS_PAD_B { F5 }
 #define ENCODER_RESOLUTION 4
@@ -30,7 +28,16 @@ Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck
 #define TAPPING_TERM 180
 
 #undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 27
 #define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_HUE_STEP 10
@@ -41,6 +48,5 @@ Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020 Max Drasbeck
 /*
 #undef RGBLED_NUM
 #define RGBLED_NUM 14    // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 */

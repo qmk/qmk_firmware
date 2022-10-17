@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x0060 // Dawn60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Dawn60
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -37,7 +31,7 @@
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 64
+#define RGB_MATRIX_LED_COUNT 64
 
 // COL2ROW or ROW2COL
 #define DIODE_DIRECTION COL2ROW

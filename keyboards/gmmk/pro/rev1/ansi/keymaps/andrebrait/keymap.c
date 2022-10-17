@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      Ct_L     Win_L    Alt_L                               SPACE                               Alt_R    FN       Ct_R     Left     Down     Right
 
 
-    // The FN key by default maps to a momentary toggle to layer 1 to provide access to the RESET key (to put the board into bootloader mode). Without
+    // The FN key by default maps to a momentary toggle to layer 1 to provide access to the QK_BOOT key (to put the board into bootloader mode). Without
     // this mapping, you have to open the case to hit the button on the bottom of the PCB (near the USB cable attachment) while plugging in the USB
     // cable to get the board into bootloader mode - definitely not fun when you're working on your QMK builds. Remove this and put it back to KC_RGUI
     // if that's your preference.
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_FN] = LAYOUT(
         _______, KC_BRID,  KC_BRIU, KC_TASK, KC_FLXP, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
         XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
-        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,            KC_PAUS,
+        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,          KC_PAUS,
         TO_MACB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_SCRL,
         _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_FN] = LAYOUT(
         _______, KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
         XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
-        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,            KC_BRMU,
+        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,          KC_BRMU,
         TO_WINB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_BRMD,
         _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
@@ -102,20 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
-    return true;
-}
-#endif // ENCODER_ENABLE
-
 #ifdef RGB_MATRIX_ENABLE
-
-#define RGB_CONFIRMATION_BLINKING_TIME 2000 // 2 seconds
 
 /* Renaming those to make the purpose on this keymap clearer */
 #define LED_FLAG_CAPS LED_FLAG_NONE
@@ -127,12 +114,18 @@ static uint16_t effect_started_time = 0;
 static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
 static void start_effects(void);
 
-/* The higher this is, the slower the blinking will be */
-#ifndef TIME_SELECTED_BIT
-    #define TIME_SELECTED_BIT 8
+/* The interval time in ms */
+#ifndef EFFECTS_TIME
+    #define EFFECTS_TIME 2000
 #endif
-#if TIME_SELECTED_BIT < 0 || TIME_SELECTED_BIT >= 16
-    #error "TIME_SELECTED_BIT must be a positive integer smaller than 16"
+#ifndef EFFECTS_INTERVAL
+    #define EFFECTS_INTERVAL 250
+#endif
+#if EFFECTS_TIME <= 0 || EFFECTS_TIME >= 32767
+    #error "EFFECTS_TIME must be a positive integer smaller than 32767"
+#endif
+#if EFFECTS_INTERVAL <= 0 || EFFECTS_INTERVAL >= 32767
+    #error "EFFECTS_INTERVAL must be a positive integer smaller than 32767"
 #endif
 #define effect_red() r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0
 #define effect_green() r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0
@@ -264,12 +257,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user() {
+bool rgb_matrix_indicators_user(void) {
     if (effect_started_time > 0) {
         /* Render blinking EFFECTS */
         const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
-        if (deltaTime <= RGB_CONFIRMATION_BLINKING_TIME) {
-            const uint8_t led_state = ((~deltaTime) >> TIME_SELECTED_BIT) & 0x01;
+        if (deltaTime <= EFFECTS_TIME) {
+            const uint8_t led_state = ((deltaTime / EFFECTS_INTERVAL) + 1) & 0x01;
             const uint8_t val_r = led_state * r_effect;
             const uint8_t val_g = led_state * g_effect;
             const uint8_t val_b = led_state * b_effect;
@@ -277,7 +270,7 @@ void rgb_matrix_indicators_user() {
             if (host_keyboard_led_state().caps_lock) {
                 set_rgb_caps_leds();
             }
-            return;
+            return false;
         } else {
             /* EFFECTS duration is finished */
             effect_started_time = 0;
@@ -300,6 +293,7 @@ void rgb_matrix_indicators_user() {
     if (host_keyboard_led_state().caps_lock) {
         set_rgb_caps_leds();
     }
+    return false;
 }
 
 static void start_effects() {
@@ -326,6 +320,20 @@ static void start_effects() {
 //  91, led 08                                                                                                                                                                      92, led 19
 
 static void set_rgb_caps_leds() {
+    rgb_matrix_set_color(0, 0xFF, 0x0, 0x0); // ESC
+    rgb_matrix_set_color(6, 0xFF, 0x0, 0x0); // F1
+    rgb_matrix_set_color(12, 0xFF, 0x0, 0x0); // F2
+    rgb_matrix_set_color(18, 0xFF, 0x0, 0x0); // F3
+    rgb_matrix_set_color(23, 0xFF, 0x0, 0x0); // F4
+    rgb_matrix_set_color(28, 0xFF, 0x0, 0x0); // F5
+    rgb_matrix_set_color(34, 0xFF, 0x0, 0x0); // F6
+    rgb_matrix_set_color(39, 0xFF, 0x0, 0x0); // F7
+    rgb_matrix_set_color(44, 0xFF, 0x0, 0x0); // F8
+    rgb_matrix_set_color(50, 0xFF, 0x0, 0x0); // F9
+    rgb_matrix_set_color(56, 0xFF, 0x0, 0x0); // F10
+    rgb_matrix_set_color(61, 0xFF, 0x0, 0x0); // F11
+    rgb_matrix_set_color(66, 0xFF, 0x0, 0x0); // F12
+    rgb_matrix_set_color(69, 0xFF, 0x0, 0x0); // Prt
     rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
     rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
     rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2

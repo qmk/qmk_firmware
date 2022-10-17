@@ -4,9 +4,6 @@
 #include "transport_sync.h"
 #include "transactions.h"
 #include <string.h>
-#ifdef __AVR__
-#    include <avr/wdt.h>
-#endif
 
 #ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
@@ -17,6 +14,9 @@ extern unicode_config_t unicode_config;
 #    include "audio.h"
 extern audio_config_t audio_config;
 extern bool           delayed_tasks_run;
+#endif
+#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+extern bool is_oled_enabled;
 #endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
 extern bool tap_toggling;
@@ -95,8 +95,11 @@ void user_transport_update(void) {
         user_state.audio_enable        = is_audio_on();
         user_state.audio_clicky_enable = is_clicky_on();
 #endif
-#if defined(CUSTOM_POINTING_DEVICE)
-        user_state.tap_toggling = tap_toggling;
+#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+        user_state.is_oled_enabled = is_oled_enabled;
+#endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+        user_state.tap_toggling = get_auto_mouse_toggle();
 #endif
 #ifdef UNICODE_COMMON_ENABLE
         user_state.unicode_mode        = unicode_config.input_mode;
@@ -116,8 +119,13 @@ void user_transport_update(void) {
         unicode_config.input_mode = user_state.unicode_mode;
         typing_mode               = user_state.unicode_typing_mode;
 #endif
-#if defined(CUSTOM_POINTING_DEVICE)
-        tap_toggling = user_state.tap_toggling;
+#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+        is_oled_enabled = user_state.is_oled_enabled;
+#endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+        if (get_auto_mouse_toggle() != user_state.tap_toggling) {
+            auto_mouse_toggle();
+        }
 #endif
 #ifdef SWAP_HANDS_ENABLE
         swap_hands = user_state.swap_hands;
@@ -226,7 +234,7 @@ void user_transport_sync(void) {
             }
         } else {
             if (timer_elapsed32(watchdog_timer) > 3500) {
-                software_reset();
+                mcu_reset();
                 while (1) {
                 }
             }

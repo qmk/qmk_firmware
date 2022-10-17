@@ -2,11 +2,12 @@
 appdirs
 argcomplete
 colorama
+dotty-dict
 hid
 hjson
 jsonschema>=4
 milc>=1.4.2
 pygments
+pyserial
 pyusb
-qmk-dotty-dict
 pillow

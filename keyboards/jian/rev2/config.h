@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xC0DE
-#define PRODUCT_ID      0x1337
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    KgOfHedgehogs
-#define PRODUCT         Jian
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -36,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F4, F5, B1, B3 }
 #define MATRIX_COL_PINS { D3, D2, B4, F6, F7, B2 }
 
-//#define USE_I2C
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D1
 
 //#define EE_HANDS
@@ -63,7 +54,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D4
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 7    // Number of LEDs
-#define RGBLIGHT_ANIMATIONS //not working with splits right now
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_SPLIT

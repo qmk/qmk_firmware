@@ -35,15 +35,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT(
         _______, RGB_RMOD,RGB_MOD, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        RGB_SPI, RGB_SAI, RGB_VAI, RGB_HUI, RESET,   QWERTY,  _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______, _______, \
+        RGB_SPI, RGB_SAI, RGB_VAI, RGB_HUI, QK_BOOT, QWERTY,  _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______, _______, \
         RGB_SPD, RGB_SAD, RGB_VAD, RGB_HUD, RGBRST,  GAME,    _______, _______, _______, _______, _______, _______,          _______, _______, \
         _______, _______, _______, _______, _______, _______, TG_NKRO, _______, _______, _______, _______, _______,          _______, _______, \
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______ \
     )
 };
 
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record)

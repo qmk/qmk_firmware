@@ -17,10 +17,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0xA4F9
-#define DEVICE_VER 0x0006
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -107,7 +103,7 @@
  */
 #define RGB_DI_PIN A1
 #define RGBLED_NUM 9
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2

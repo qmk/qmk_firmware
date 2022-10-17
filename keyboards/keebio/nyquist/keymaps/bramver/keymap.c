@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_EMOJI] = LAYOUT( \
-    TO(0)   , XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     , /**/  RESET       ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   _______   , \
+    TO(0)   , XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     , /**/  QK_BOOT       ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   XXXXXXX     ,   _______   , \
     _______ , X(CLAP)     ,   X(CUM)      ,   X(BNIS)     ,   X(BUTT)     ,   X(CAR)      , /**/  X(FIRE)     ,   X(REDB)     ,   X(MONY)     ,   X(HNDR)     ,   X(SOS)      ,   _______   , \
     XXXXXXX , X(CELE)     ,   X(PRAY)     ,   X(NAIL)     ,   X(OK)       ,   X(THNK)     , /**/  X(UNAM)     ,   X(HEYE)     ,   X(COOL)     ,   X(EYES)     ,   X(SMIR)     ,   KC_DEL    , \
     _______ , X(TRIU)     ,   X(SCRM)     ,   X(VOMI)     ,   X(DTIV)     ,   X(EXPL)     , /**/  X(HAIR)     ,   X(DANC)     ,   X(STRN)     ,   X(LEFT)     ,   X(RGHT)     ,   _______   , \
@@ -250,16 +250,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case CTRL_Z:
-        SEND_STRING(SS_LCTRL("z"));
+        SEND_STRING(SS_LCTL("z"));
         return false;
       case CTRL_X:
-        SEND_STRING(SS_LCTRL("x"));
+        SEND_STRING(SS_LCTL("x"));
         return false;
       case CTRL_C:
-        SEND_STRING(SS_LCTRL("c"));
+        SEND_STRING(SS_LCTL("c"));
         return false;
       case CTRL_V:
-        SEND_STRING(SS_LCTRL("v"));
+        SEND_STRING(SS_LCTL("v"));
         return false;
     }
   }

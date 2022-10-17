@@ -20,12 +20,14 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _COLEMAK,
+    _DVORAK,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -46,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F3, KC_F4,   KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_LBRC,KC_RBRC,KC_BSLS, KC_PGDN,
         KC_F5, KC_F6,   KC_CAPS,KC_A,KC_S,KC_D,KC_F, KC_G, KC_H,KC_J,KC_K,KC_L, KC_SCLN,KC_QUOT,KC_ENT, KC_HOME,
         KC_F7, KC_F8,   KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT,KC_SLASH,KC_RSFT,KC_UP,KC_END,
-        KC_F9, KC_F10,  KC_LCTL,KC_LGUI,KC_LALT, RAISE, KC_SPACE, LOWER, KC_RALT,KC_APP,KC_RCTRL,KC_LEFT,KC_DOWN,KC_RIGHT),
+        KC_F9, KC_F10,  KC_LCTL,KC_LGUI,KC_LALT, RAISE, KC_SPACE, LOWER, KC_RALT,KC_APP,KC_RCTL,KC_LEFT,KC_DOWN,KC_RIGHT),
 
         [_RAISE] = LAYOUT_all(
         RGB_MOD, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______, _______,

@@ -2,10 +2,10 @@
 
 #define WORD_BACK A(KC_LEFT)
 #define WORD_FORWARD A(KC_RIGHT)
-#define DELETE_WORD_BACK A(KC_BSPACE)
+#define DELETE_WORD_BACK A(KC_BACKSPACE)
 #define DELETE_WORD_FORWARD A(KC_DELETE)
-#define FINE_VOLUP S(A(KC__VOLUP))
-#define FINE_VOLDOWN S(A(KC__VOLDOWN))
+#define FINE_VOLUP S(A(KC_VOLU))
+#define FINE_VOLDOWN S(A(KC_VOLD))
 
 enum layers {
   _BASE,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_ARROWS] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, WORD_FORWARD, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE, FINE_VOLDOWN, FINE_VOLUP, _______,
+        _______, _______, WORD_FORWARD, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE, FINE_VOLDOWN, FINE_VOLUP, _______,
         _______, _______, _______, _______, LT(_HDUE, _______), _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, WORD_BACK, KC_BSPC, KC_DEL, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_HDUE] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, DELETE_WORD_FORWARD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDOWN, KC_PGUP, KC_END, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, DELETE_WORD_BACK, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
 
@@ -73,12 +73,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         * F1-12
         * Del on backspace
         * RGB (underglow) controls
-        * RESET firmware on backslash
+        * QK_BOOT firmware on backslash
         * Screen brightness: Z (decrease), X (increase)
     */
     [_FN] = LAYOUT(
         _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, KC_DEL,
-        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, RESET,
+        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, QK_BOOT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, KC_BRMD, KC_BRMU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),

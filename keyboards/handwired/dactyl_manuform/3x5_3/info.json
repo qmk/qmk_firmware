@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Dactyl Manuform 3x5_3",
+    "keyboard_name": "Dactyl Minidox (3x5+3)",
+    "manufacturer": "DLFord",
     "url": "https://www.dlford.io/keyboard-build-guide-per-key-rgb-leds/",
     "maintainer": "dlford",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3536",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

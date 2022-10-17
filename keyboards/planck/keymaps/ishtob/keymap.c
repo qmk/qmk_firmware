@@ -99,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_ortho_4x12_wrapper(
   ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,    KC_PLUS,  KC_BSLS,
   _______, KC_A,    KC_UP,   KC_D,    KC_PSCR,  KC_VOLU, KC_4,    KC_5,    KC_6,    KC_PAST, KC_COLN, KC_QUOT,
-  _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC__MUTE, KC_VOLD, KC_1,    KC_2,    KC_3,    KC_UP, KC_SLSH,   _______,
-  _______, _______, _______, _______, _______, KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_NLCK
+  _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC_MUTE, KC_VOLD, KC_1,    KC_2,    KC_3,    KC_UP, KC_SLSH,   _______,
+  _______, _______, _______, _______, _______, KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_NUM
 ),
  
 /* Plover layer (http://opensteno.org)
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_Q,    KC_UP,   KC_H,     XXXXXXX, XXXXXXX,  KC_P7,   KC_P8,  KC_P9,   KC_MINS,   KC_PLUS,  KC_BSPC,
   _______, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, XXXXXXX,  KC_P4,  KC_P5,  KC_P6,   KC_PAST, KC_COLN,  KC_ENT,
   _______, KC_Z,    KC_X,    KC_C,     KC_V,    XXXXXXX,  KC_P1,  KC_P2,  KC_P3,   KC_PDOT, KC_PSLS,  _______,
-  _______, _______, _______, _______, _______, _______,   KC_P0,  KC_PDOT, _______, _______, KC_NLCK, KC_MPLY
+  _______, _______, _______, _______, _______, _______,   KC_P0,  KC_PDOT, _______, _______, KC_NUM,  KC_MPLY
 ),
  
 /* Mouse Layer (semi-col)

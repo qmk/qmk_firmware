@@ -58,7 +58,6 @@
 #define RGBLIGHT_SAT_STEP   8
 #define RGBLIGHT_VAL_STEP   8
 
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -133,7 +132,7 @@
 #    define WS2812_LED_TOTAL RGBLED_NUM
 #endif
 
-#define DRIVER_LED_TOTAL (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES

@@ -12,14 +12,16 @@
     # replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
-    "BLUETOOTH": {"info_key": "bluetooth.driver"},
+    "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
+    "DEBOUNCE_TYPE": {"info_key": "build.debounce_type"},
     "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},
     "FIRMWARE_FORMAT": {"info_key": "build.firmware_format"},
     "KEYBOARD_SHARED_EP": {"info_key": "usb.shared_endpoint.keyboard", "value_type": "bool"},
     "MOUSE_SHARED_EP": {"info_key": "usb.shared_endpoint.mouse", "value_type": "bool"},
     "LAYOUTS": {"info_key": "community_layouts", "value_type": "list"},
     "LED_MATRIX_DRIVER": {"info_key": "led_matrix.driver"},
+    "RGB_MATRIX_DRIVER": {"info_key": "rgb_matrix.driver"},
     "LTO_ENABLE": {"info_key": "build.lto", "value_type": "bool"},
     "MCU": {"info_key": "processor", "warn_duplicate": false},
     "MOUSEKEY_ENABLE": {"info_key": "mouse_key.enabled", "value_type": "bool"},
@@ -31,9 +33,12 @@
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
     "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
+    "PS2_ENABLE": {"info_key": "ps2.enabled", "value_type": "bool"},
+    "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
+    "PS2_DRIVER": {"info_key": "ps2.driver"},
 
     # Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
-    "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true},
+    "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true}
 }

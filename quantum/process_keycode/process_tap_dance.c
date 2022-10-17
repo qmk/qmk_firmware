@@ -115,12 +115,12 @@ static inline void process_tap_dance_action_on_dance_finished(qk_tap_dance_actio
     }
 }
 
-void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
+bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
     qk_tap_dance_action_t *action;
 
-    if (!record->event.pressed) return;
+    if (!record->event.pressed) return false;
 
-    if (!active_td || keycode == active_td) return;
+    if (!active_td || keycode == active_td) return false;
 
     action                             = &tap_dance_actions[TD_INDEX(active_td)];
     action->state.interrupted          = true;
@@ -130,6 +130,12 @@ void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
     // Tap dance actions can leave some weak mods active (e.g., if the tap dance is mapped to a keycode with
     // modifiers), but these weak mods should not affect the keypress which interrupted the tap dance.
     clear_weak_mods();
+
+    // Signal that a tap dance has been finished due to being interrupted,
+    // therefore the keymap lookup for the currently processed event needs to
+    // be repeated with the current layer state that might have been updated by
+    // the finished tap dance.
+    return true;
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {

@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FUNCTION] = LAYOUT_60_tsangan_hhkb(
         XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   XXXXXXX, XXXXXXX,
-        XXXXXXX,  XXXXXXX,  KC_MPLY,  KC_MPRV,  KC_MNXT,  XXXXXXX,  XXXXXXX,  KC_HOME,  KC_UP,    KC_END,   KC_PSCR,  KC_SLCK,  KC_PAUS,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  KC_MPLY,  KC_MPRV,  KC_MNXT,  XXXXXXX,  XXXXXXX,  KC_HOME,  KC_UP,    KC_END,   KC_PSCR,  KC_SCRL,  KC_PAUS,  XXXXXXX,
         _______,            XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_DEL,   KC_INS,   _______,
         _______,            KC_UNDO,  KC_CUT,   KC_COPY,  KC_PSTE,  KC_AGIN,  XXXXXXX,  XXXXXXX,  KC_WBAK,  KC_WFWD,  KC_WREF,  _______,  KC_WHOM,
         _______,  _______,  _______,                                          _______,                                          _______,  KC_APP,  _______
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ADJUST] = LAYOUT_60_tsangan_hhkb(
         C(A(KC_DEL)),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BRID,  KC_BRIU,  XXXXXXX, XXXXXXX,
-        C(S(KC_ESC)),  TO(0),    XXXXXXX,  XXXXXXX,  RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        C(S(KC_ESC)),  TO(0),    XXXXXXX,  XXXXXXX,  QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  TO(1),    XXXXXXX,  XXXXXXX,  NK_TOGG,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                          _______,                                          XXXXXXX,  XXXXXXX, XXXXXXX

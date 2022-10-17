@@ -188,7 +188,11 @@ If you've done all of this, and your firmware is still too large, then it's time
 That said, there are a number of Pro Micro replacements with ARM controllers: 
 * [Proton C](https://qmk.fm/proton-c/) (out of stock)
 * [Bonsai C](https://github.com/customMK/Bonsai-C) (Open Source, DIY/PCBA)
-* [Raspberry Pi 2040](https://www.sparkfun.com/products/18288) (not currently supported, no ETA)
+* [STeMCell](https://github.com/megamind4089/STeMCell) (Open Source, DIY/PCBA)
+* [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)
+* [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)
+* [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)
+* [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)
 
 There are other, non-Pro Micro compatible boards out there. The most popular being:
 * [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 USD)

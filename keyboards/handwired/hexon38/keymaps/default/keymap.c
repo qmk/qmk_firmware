@@ -40,8 +40,8 @@
 #define COLN_CTL CTL_T(KC_SCLN)
 
 #define ______ KC_TRNS
-#define LSHIFT KC_LSHIFT
-#define RSHIFT KC_RSHIFT
+#define LSHIFT KC_LSFT
+#define RSHIFT KC_RSFT
 #define COMMA KC_COMM
 #define SLASH KC_SLSH
 #define SPACE KC_SPC

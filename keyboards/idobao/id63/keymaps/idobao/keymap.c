@@ -98,14 +98,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_FN1] = LAYOUT_60_ansi_arrow(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
-        _______, _______, KC_UP,   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, KC_PSCR,  KC_SLCK, KC_PAUS, KC_INS,
+        _______, _______, KC_UP,   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, KC_PSCR,  KC_SCRL, KC_PAUS, KC_INS,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______,  _______,          _______,
         _______,          _______, _______, _______, KB_VRSN, QK_BOOT, NK_TOGG, _______, _______, _______,  _______, KC_PGUP, _______,
         _______, _______,          _______,                    _______,                   _______, MO(_FN3), KC_HOME, KC_PGDN, KC_END
     ),
 
     [_FN2] = LAYOUT_60_ansi_arrow(
-        KC_ESC,  KC_BRID, KC_BRIU, KC_MCON, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, KC_POWER,
+        KC_ESC,  KC_BRID, KC_BRIU, KC_MCON, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, KC_PWR,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
@@ -196,7 +196,7 @@ void eeconfig_init_user(void) {
     id63_update_rgb_mode();
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // Caps Lock key stuff
 
     if (host_keyboard_led_state().caps_lock) {
@@ -214,6 +214,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     } else if (user_config.rgb_disable_perkey) {
         rgb_matrix_set_color(ID63_CAPS_LOCK_KEY_INDEX, HSV_OFF);  // off
     }
+    return false;
 }
 
 #endif  // RGB_MATRIX_ENABLE

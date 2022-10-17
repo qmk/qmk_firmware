@@ -11,17 +11,17 @@ enum
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DVOR] = LAYOUT_jp(
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_LBRC, KC_RBRC, KC_JYEN, KC_BSPC,
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_LBRC, KC_RBRC, KC_INT3, KC_BSPC,
         KC_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH, KC_EQL,
         KC_LCTL, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS, KC_BSLS, KC_ENT,
-        KC_LSFT, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RO, KC_UP, KC_RSFT,
-        MO(FUNC), KC_ZKHK, KC_LALT, MO(NEW_CMD), MO(SYMB), MT(MOD_LSFT, KC_SPC), MO(SYMB), KC_TAB, KC_RGUI, TG(QWER), KC_LEFT, KC_DOWN, KC_RGHT),
+        KC_LSFT, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_INT1, KC_UP, KC_RSFT,
+        MO(FUNC), KC_GRV, KC_LALT, MO(NEW_CMD), MO(SYMB), MT(MOD_LSFT, KC_SPC), MO(SYMB), KC_TAB, KC_RGUI, TG(QWER), KC_LEFT, KC_DOWN, KC_RGHT),
     [QWER] = LAYOUT_jp(
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_JYEN, KC_BSPC,
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_INT3, KC_BSPC,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC,
         KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_BSLS, KC_ENT,
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RO, KC_UP, KC_RSFT,
-        MO(FUNC), KC_ZKHK, KC_LALT, MO(NEW_CMD), MO(SYMB), MT(MOD_LSFT, KC_SPC), MO(SYMB), KC_TAB, KC_RGUI, _______, KC_LEFT, KC_DOWN, KC_RGHT),
+        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_INT1, KC_UP, KC_RSFT,
+        MO(FUNC), KC_GRV, KC_LALT, MO(NEW_CMD), MO(SYMB), MT(MOD_LSFT, KC_SPC), MO(SYMB), KC_TAB, KC_RGUI, _______, KC_LEFT, KC_DOWN, KC_RGHT),
 
     [NEW_CMD] = LAYOUT_jp(
         _______, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), _______, _______, _______, LGUI(KC_BSPC),
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FUNC] = LAYOUT_jp(
         KC_PWR, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, _______,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, _______,
         _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_PWR, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, _______, KC_PENT,
         _______, _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};

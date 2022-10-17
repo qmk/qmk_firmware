@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                               LSFT(KC_INSERT),  TT(_QWERTY_KIDS),
                                                           ________ ,
-                                    KC_LSHIFT, SYMB_BSP,  KC_INSERT   ,
+                                    KC_LSFT,   SYMB_BSP,  KC_INSERT   ,
 
                  F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, TD(CALCCOMP),
                 CALTDEL ,    KC_Y,      KC_U,     KC_I,     KC_O,      KC_P,  MODRESET,
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   TT(_STREET_FIGHTER),  ________,
          KC_PGUP,
-  KC_PGDOWN, LT(_NAV,KC_ENTER), SPAC_TXT),
+  KC_PGDN, LT(_NAV,KC_ENTER), SPAC_TXT),
 
 
   //**************************SYMBOLS LAYER**************************
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                   ________, ________, ________, ________, ________, ________, NUMLOCK,
                   ________,TIL_SLASH,  KC_PIPE,  KC_PLUS,  KC_AMPR, ________, CAPLOCK,
-                             EQRIGHT,  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCOLON, ________,
+                             EQRIGHT,  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCLN, ________,
                   ________, KC_M, BK_SLASH,  ASTERSK,   KC_DOT, KC_SLASH, ________,
                   ________,________ ,________,TILD3,________,
                                                               ________,________,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //**************************MOUSE MOVEMENT LAYER**************************
   [_MOUSE] = LAYOUT_ergodox(UP_ENTER_RESET,________,________,________,________,________,MODRESET,
-                    RESET,KC_SECRET_5,________,KC_MS_UP,KC_SECRET_4,KC_MS_WH_UP,________,
+                    QK_BOOT,KC_SECRET_5,________,KC_MS_UP,KC_SECRET_4,KC_MS_WH_UP,________,
                     ________,________,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_MS_WH_DOWN,
                     KC_SECRET_5,KC_SECRET_4,KC_SECRET_3,_XXXXXX_,KC_SECRET_2,KC_SECRET_1,_XXXXXX_,
                     ________,________,HYPR(KC_F15),KC_MS_WH_LEFT,KC_MS_WH_RIGHT,
@@ -218,11 +218,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                 KC_NO ,    TT(_QWERTY_KIDS) ,
                                                             KC_NO  ,
-                                    KC_LSHIFT, KC_BSPACE,    KC_NO    ,
+                                    KC_LSFT,   KC_BSPC,      KC_NO    ,
 
                    KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,   KC_NO ,
                   KC_NO  ,    KC_Y,      KC_U, KC_I,     KC_O,      KC_P,    KC_NO ,
-                             KC_H,   KC_J,     KC_K,    KC_L,    KC_SCOLON , KC_NO,
+                             KC_H,   KC_J,     KC_K,    KC_L,    KC_SCLN , KC_NO,
                KC_NO ,     KC_N,    KC_M,   KC_COMMA ,   KC_DOT ,  KC_SLASH,   KC_NO ,
                                        KC_UP,  KC_DOWN,   KC_DELETE,    KC_TILD,    KC_UNDS,
 

@@ -34,13 +34,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TMUX_WN:                   // Moves to the next tmux window
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("a") "n");
+                SEND_STRING(SS_LCTL("a") "n");
             }
             break;
 
         case TMUX_WL:                   // Moves to the last tmux window
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("a") "n");
+                SEND_STRING(SS_LCTL("a") "n");
             }
             break;
     }
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
             RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,  KC_NO,   KC_INS,  KC_HOME,  AU_ON,   KC_NO,   GAME,
         // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-             KC_NO,  RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, KC_SLEP,  KC_DEL,  KC_END,  AU_OFF,  KC_NO,   RESET,
+             KC_NO,  RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, KC_SLEP,  KC_DEL,  KC_END,  AU_OFF,  KC_NO,   QK_BOOT,
         // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
             _______, _______, _______, _______,  UTILS,  _______, _______,  UTILS,  _______, _______, _______, _______
         // └────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┘

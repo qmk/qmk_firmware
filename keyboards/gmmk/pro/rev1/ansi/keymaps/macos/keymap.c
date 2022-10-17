@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      Ct_L     Opt_L    Cmd_L                               SPACE                               Cmd_R    Opt_R    FN       Left     Down     Right
 
 
-  // The FN key by default maps to a momentary toggle to layer 1 to provide access to the RESET key (to put the board into bootloader mode). Without
+  // The FN key by default maps to a momentary toggle to layer 1 to provide access to the QK_BOOT key (to put the board into bootloader mode). Without
   // this mapping, you have to open the case to hit the button on the bottom of the PCB (near the USB cable attachment) while plugging in the USB
   // cable to get the board into bootloader mode - definitely not fun when you're working on your QMK builds. Remove this and put it back to KC_RGUI
   // if that's your preference.
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT(
     _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  _______,           RGB_TOG,
     LED_TLDE, LED_1,   LED_2,   LED_3,   LED_4,   LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   LED_MINS, LED_EQL, _______,           KC_PSCR,
-    _______,  RGB_HUI, RGB_VAI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______,  _______, RESET,             _______,
+    _______,  RGB_HUI, RGB_VAI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______,  _______, QK_BOOT,           _______,
     _______,  RGB_HUD, RGB_VAD, RGB_SAD, TG(2),   _______, _______, _______, _______, _______, _______, _______,           _______,           _______,
     _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,           _______, RGB_MOD,  RGB_TOG,
     _______,  _______, _______,                            _______,                            _______, _______,  _______, RGB_SPD, RGB_RMOD, RGB_SPI
@@ -144,7 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     } else {
       tap_code(KC_VOLD);
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
   }
 #endif //ENCODER_ENABLE
 
@@ -371,7 +372,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 
 
-  void rgb_matrix_indicators_user() {
+  bool rgb_matrix_indicators_user(void) {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time > 0) {
       /* Render blinking EFFECTS */
@@ -409,6 +410,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     if (host_keyboard_led_state().caps_lock) {
       set_rgb_caps_leds();
     }
+    return false;
   }
 
   #if RGB_CONFIRMATION_BLINKING_TIME > 0

@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----------------------------------------------------------------------------------------+
     * |         | BL T| BL M| BL+ | BL- |     |     |     |     |     |     |     |             |
     * |-----------------------------------------------------------------------------------------+
-    * |           |     |     |     |     |RESET|     |     |     |     |     |     | PgUp|     |
+    * |           |     |     |     |     |QK_BOOT|     |     |     |     |     |     | PgUp|     |
     * |-----------------------------------------------------------------------------------------+
     * |      |       |       |                                   |     |      | Home| PgDn| End |
     * `-----------------------------------------------------------------------------------------'
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , _______, KC_DEL ,
         _______,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______,
         _______,          BL_TOGG, BL_STEP, BL_INC , BL_DEC , _______, _______, _______, _______, _______, _______, _______, _______,
-        _______,          _______, _______, _______, _______, RESET  , _______, _______, _______, _______, _______, _______, KC_PGUP, _______,
+        _______,          _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, KC_PGUP, _______,
         _______, _______,          _______, _______,          _______,          _______,          _______, _______, KC_HOME, KC_PGDN, KC_END
         ),
 };
@@ -56,7 +56,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_BSPC: {
             if (record->event.pressed) {
                 const uint8_t current_mods = get_mods();
-                const uint8_t shift = current_mods & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                const uint8_t shift = current_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
                 const uint8_t ctrl = current_mods & (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL));
                 bspc_mods = current_mods;
                 if(shift || ctrl) {
@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             else {
-                if(bspc_mods & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL))) {
+                if(bspc_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)|MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL))) {
                     // if Shift or Ctrl was pressed with Backspace, than that was intepreted as Del, so we need
                     // to unregister the Del key 
                     del_key(KC_DEL);

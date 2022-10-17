@@ -24,10 +24,11 @@ SERIAL_DRIVER         = usart
 AUDIO_DRIVER          = pwm_hardware
 BACKLIGHT_DRIVER      = pwm
 
-AUTOCORRECTION_ENABLE = yes
+AUTOCORRECT_ENABLE = yes
 CAPS_WORD_ENABLE      = yes
 SWAP_HANDS_ENABLE     = yes
 TAP_DANCE_ENABLE      = yes
 DEBOUNCE_TYPE         = asym_eager_defer_pk
 WPM_ENABLE            = yes
 LTO_ENABLE            = no
+# OPT                   = 3

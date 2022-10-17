@@ -20,22 +20,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL,  KC_LALT,  KC_LGUI,                KC_SPC,                FNM,     KC_RALT,  KC_LEFT,    KC_DOWN,           KC_RIGHT),
 	[_FNM] = LAYOUT( /* FN */
 		KC_TRNS,  KC_F1,    KC_F2,   KC_F3,    KC_F4,   KC_F5,    KC_F6,    KC_F7,   KC_F8,    KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_DEL,
-		KC_TRNS,  RGB_TOG,  RGB_MOD, RGB_HUI,  RGB_HUD, RGB_SAI,  RGB_SAD,  RGB_VAI, RGB_VAD,  KC_TRNS, KC_PSCR, KC_SLCK,  KC_PAUS, RESET,
+		KC_TRNS,  RGB_TOG,  RGB_MOD, RGB_HUI,  RGB_HUD, RGB_SAI,  RGB_SAD,  RGB_VAI, RGB_VAD,  KC_TRNS, KC_PSCR, KC_SCRL,  KC_PAUS, QK_BOOT,
 		KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, RGB_SPI,  RGB_SPD, KC_HOME, KC_PGUP,    EEP_RST,
 		KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_END,  KC_PGDN, KC_VOLU,    KC_MUTE,
 		KC_TRNS,  KC_TRNS,  KC_TRNS,                    KC_TRNS,                     KC_TRNS,  KC_TRNS, KC_MPRV, KC_VOLD,    KC_MNXT)
 };
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
         rgb_matrix_set_color( i, red, green, blue );
     }
   }
 }
 
-void rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
 	if (!g_suspend_state) {
 		switch (get_highest_layer(layer_state)) {
 		case _QWERTY:
@@ -113,6 +112,7 @@ void rgb_matrix_indicators_user(void)
 		rgb_matrix_set_color(62, 0x00, 0x00, 0x00);
 		break;
 	}
+    return false;
 }
 
 

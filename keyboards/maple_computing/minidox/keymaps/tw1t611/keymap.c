@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,                       DE_Z,    DE_U,    DE_I,    DE_O,    DE_P, \
   DE_A,    DE_S,    DE_D,    DE_F,    DE_G,                       DE_H,    DE_J,    DE_K,    DE_L,    KC_SPC,  \
   DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,                       DE_N,    DE_M,    DE_COMM, DE_DOT,  DE_MINS,  \
-                     KC_LCTRL, MO(_LOWER), MO(_RAISE),		      KC_LGUI, KC_LSFT, KC_LALT \
+                     KC_LCTL, MO(_LOWER), MO(_RAISE),		      KC_LGUI, KC_LSFT, KC_LALT \
 ),
 
 [_RAISE] = LAYOUT( \
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER] = LAYOUT( \
-  KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,  DE_LBRC,  DE_RBRC,  KC_AUDIO_VOL_UP,  KC_HOME,      KC_PGDOWN,  KC_PGUP,  KC_END,   DE_TILD,  \
+  KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,  DE_LBRC,  DE_RBRC,  KC_AUDIO_VOL_UP,  KC_HOME,      KC_PGDN,    KC_PGUP,  KC_END,   DE_TILD,  \
   KC_ESC,   DE_LABK,  DE_LPRN,  DE_RPRN,  DE_RABK,                          KC_LEFT,      KC_DOWN,    KC_UP,    KC_RIGHT, KC_ENT,  \
   KC_BSPC,  KC_DEL,   DE_LCBR,  DE_RCBR,  KC_PSCR,                        	_______,  DE_ADIA,  DE_ODIA,  DE_UDIA,  DE_SS,  \
                         _______, _______, _______,                    _______,  MO(_ADJUST), _______  \
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT( \
   _______,  _______,  _______,  _______,  _______,             _______,   KC_F7,    KC_F8,    KC_F9,   KC_F10,  \
   CALTESC,  CALTDEL,  _______,  CALT,     _______,             _______,   KC_F4,    KC_F5,    KC_F6,   KC_F11,  \
-  RESET,    _______,  _______,  _______,  _______,             _______,   KC_F1,     KC_F2,    KC_F3,   KC_F12,  \
+  QK_BOOT,  _______,  _______,  _______,  _______,             _______,   KC_F1,     KC_F2,    KC_F3,   KC_F12,  \
                           _______,  _______,  _______,      _______,  _______,  _______  \
 )};
 
