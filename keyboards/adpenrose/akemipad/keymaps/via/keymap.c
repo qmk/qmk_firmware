@@ -3,6 +3,17 @@
 
 #include QMK_KEYBOARD_H
 
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     split_zero :1;
+    bool     split_enter :1;
+    bool     split_plus :1;
+  };
+} via_layout_t;
+
+via_layout_t via_layouts;
+
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
   { 0, 1, 2, 3, NO_LED },
@@ -64,3 +75,13 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
 };
 #endif
+
+void via_set_layout_options_kb(uint32_t value) { 
+  via_layouts.raw = value;
+
+  if(via_layouts.split_zero && !(via_layouts.split_enter) &&!(via_layouts.split_plus)) {
+    xprintf("SZ is the only layout active with a value of: %d\n", value);
+  } else if (!(via_layouts.split_zero) && via_layouts.split_enter &&!(via_layouts.split_plus)){
+    xprintf("SE is the only layout active with a value of %d\n", value); 
+  }
+}
