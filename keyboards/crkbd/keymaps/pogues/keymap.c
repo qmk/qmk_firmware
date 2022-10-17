@@ -245,25 +245,7 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         COMPOSE_INPUT(KC_C),
         { toggle_caps_word(); }
     )
-    // snake_case,  next char is the sep (default _)
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_S),
-        { toggle_xcase(); }
-    )
-    //COMPOSE_MAPPING(
-    //    COMPOSE_INPUT(KC_S),
-    //    { enable_xcase_with(KC_UNDS); }
-    //)
-    // camelCase
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_K),
-        { enable_xcase_with(OSM(MOD_LSFT)); }
-    )
-    /* path (/) case
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_P),
-        { enable_xcase_with(KC_SLSH); }
-    )*/
+
     // quit dwm
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_Q),
