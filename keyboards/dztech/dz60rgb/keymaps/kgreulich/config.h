@@ -7,8 +7,6 @@
 #define TAP_HOLD_CAPS_DELAY 0
 #define USB_POLLING_INTERVAL_MS 1
 
-#define QMK_KEYS_PER_SCAN 4
-
 // some speed shit
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION

@@ -1,10 +1,7 @@
-#pragma once
+// Copyright 2022 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-#define VENDOR_ID       0x594D
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    YMDK
-#define PRODUCT         Split75
+#pragma once
 
 /* matrix size */
 #define MATRIX_ROWS 8
@@ -19,3 +16,5 @@
 #define RGBLIGHT_SLEEP
 
 #define BACKLIGHT_PIN D4
+
+#define I2C_START_RETRY_COUNT 1

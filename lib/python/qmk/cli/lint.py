@@ -87,7 +87,7 @@ def keymap_check(kb, km):
         return ok
 
     # Additional checks
-    invalid_files = git_get_ignored_files(keymap_path.parent)
+    invalid_files = git_get_ignored_files(keymap_path.parent.as_posix())
     for file in invalid_files:
         cli.log.error(f'{kb}/{km}: The file "{file}" should not exist!')
         ok = False

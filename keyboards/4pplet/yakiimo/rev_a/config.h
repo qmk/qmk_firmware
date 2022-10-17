@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4444
-#define PRODUCT_ID      0x000A
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    4pplet
-#define PRODUCT         Yakiimo Rev A
-
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
 
@@ -40,5 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
-
-#define STM32_HSECLK 8000000

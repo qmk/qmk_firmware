@@ -17,11 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEVICE_VER      0x0001
-
 /* Let's Macro V2 pin-out */
 #define MATRIX_ROW_PINS { F1, B2, D3 }
 #define MATRIX_COL_PINS { F5, B3, D5 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW

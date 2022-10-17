@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Adelie",
+    "manufacturer": "Abec13",
     "url": "",
     "maintainer": "Abec13",
+    "usb": {
+        "vid": "0xCA04",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
