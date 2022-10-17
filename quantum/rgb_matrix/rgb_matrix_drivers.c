@@ -76,12 +76,12 @@ static void init(void) {
     IS31FL3737_init(DRIVER_ADDR_1);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_init(DRIVER_ADDR_2);
-#           if defined(DRIVER_ADDR_3)
+#            if defined(DRIVER_ADDR_3)
     IS31FL3737_init(DRIVER_ADDR_3);
-#               if defined(DRIVER_ADDR_4)
+#                if defined(DRIVER_ADDR_4)
     IS31FL3737_init(DRIVER_ADDR_4);
-#               endif
-#           endif
+#                endif
+#            endif
 #        endif
 
 #    elif defined(IS31FL3741)
@@ -160,12 +160,12 @@ static void init(void) {
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_2, 1);
-#           if defined(DRIVER_ADDR_3)
+#            if defined(DRIVER_ADDR_3)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_3, 2);
-#               if defined(DRIVER_ADDR_4)
+#                if defined(DRIVER_ADDR_4)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_4, 3);
-#               endif
-#           endif
+#                endif
+#            endif
 #        endif
 
 #    elif defined(IS31FL3741)
@@ -247,12 +247,12 @@ static void flush(void) {
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_2, 1);
-#           if defined(DRIVER_ADDR_3)
+#            if defined(DRIVER_ADDR_3)
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_3, 2);
-#               if defined(DRIVER_ADDR_4)
+#                if defined(DRIVER_ADDR_4)
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_4, 3);
-#               endif
-#           endif
+#                endif
+#            endif
 #        endif
 }
 
