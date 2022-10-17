@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MY_OTHER_MACRO:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("ac")); // selects all and copies
+                SEND_STRING(SS_LCTL("ac")); // selects all and copies
                 return false;
             }
 

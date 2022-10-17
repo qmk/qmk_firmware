@@ -306,7 +306,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // ======================================================== CUSTOM KEYCOADS BELOW ========================================================
             case COPY_ALL:
                 // Selects all and text and copy
-                SEND_STRING(SS_LCTRL("ac"));
+                SEND_STRING(SS_LCTL("ac"));
                 return false;
             case SEL_CPY:
                 // Select word under cursor and copy. Double mouse click then ctrl+c

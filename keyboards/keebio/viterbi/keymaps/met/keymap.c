@@ -87,14 +87,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   layer_off(_ALPHA);
   SEND_STRING(SS_TAP(X_N));
   SEND_STRING(SS_TAP(X_N));
-  SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+  SEND_STRING(SS_LCTL(SS_TAP(X_C)));
 }
   break;
   case RESUME:
   if (record->event.pressed) {
   layer_off(_PLAYED);
   layer_on(_PLAYING);
-  SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+  SEND_STRING(SS_LCTL(SS_TAP(X_C)));
   SEND_STRING(SS_TAP(X_UP));
   SEND_STRING(SS_TAP(X_ENTER));
 }
@@ -116,14 +116,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   break;
   case SHUTDOWN:
   if (record->event.pressed) {
-  SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+  SEND_STRING(SS_LCTL(SS_TAP(X_C)));
   SEND_STRING("shutdown now");
   SEND_STRING(SS_TAP(X_ENTER));
 }
   break;
   case REBOOT:
   if (record->event.pressed) {
-  SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+  SEND_STRING(SS_LCTL(SS_TAP(X_C)));
   SEND_STRING("reboot");
   SEND_STRING(SS_TAP(X_ENTER));
   }
@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   layer_off(_ALPHA);
   layer_off(_PLAYED);
   layer_on(_PLAYING);
-  SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+  SEND_STRING(SS_LCTL(SS_TAP(X_C)));
   _delay_ms(250);
   SEND_STRING("play Desktop/met/a_lazoom.mp3");
   SEND_STRING(SS_TAP(X_ENTER));
@@ -200,18 +200,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case PMERGE:
   if (record->event.pressed) {
   SEND_STRING(SS_TAP(X_HOME));
-  SEND_STRING(SS_TAP(X_BSPACE));
+  SEND_STRING(SS_TAP(X_BACKSPACE));
   SEND_STRING(SS_TAP(X_SPACE));
-  SEND_STRING(SS_LCTRL(SS_TAP(X_BSPACE)));
+  SEND_STRING(SS_LCTL(SS_TAP(X_BACKSPACE)));
   SEND_STRING(SS_TAP(X_SPACE));
       }
 break;
 case CSPEAK:
   if (record->event.pressed) {
-  SEND_STRING(SS_TAP(X_PGDOWN));
+  SEND_STRING(SS_TAP(X_PAGE_DOWN));
   SEND_STRING(SS_TAP(X_ENTER));
   SEND_STRING(SS_TAP(X_ENTER));
-  SEND_STRING(SS_TAP(X_PGDOWN));
+  SEND_STRING(SS_TAP(X_PAGE_DOWN));
 }
  break;
 };

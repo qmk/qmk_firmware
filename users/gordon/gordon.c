@@ -387,8 +387,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       case SPRK_TCK:
           SEND_STRING ("```");
-          SEND_STRING (SS_DOWN(X_LSHIFT) SS_TAP(X_ENTER) SS_UP(X_LSHIFT));
-          SEND_STRING (SS_DOWN(X_LSHIFT) SS_TAP(X_ENTER) SS_UP(X_LSHIFT));
+          SEND_STRING (SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT));
+          SEND_STRING (SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT));
           SEND_STRING ("```");
           SEND_STRING (SS_TAP(X_UP));
           return false; break;
