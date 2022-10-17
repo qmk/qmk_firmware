@@ -23,9 +23,6 @@
 #ifndef PIMORONI_TRACKBALL_ADDRESS
 #    define PIMORONI_TRACKBALL_ADDRESS 0x0A
 #endif
-#ifndef PIMORONI_TRACKBALL_SCALE
-#    define PIMORONI_TRACKBALL_SCALE 5
-#endif
 #ifndef PIMORONI_TRACKBALL_DEBOUNCE_CYCLES
 #    define PIMORONI_TRACKBALL_DEBOUNCE_CYCLES 20
 #endif
@@ -41,6 +38,18 @@
 #    define PIMORONI_TRACKBALL_DEBUG_INTERVAL 100
 #endif
 
+#ifndef PIMORONI_TRACKBALL_RESET_DELAY
+#    define PIMORONI_TRACKBALL_RESET_DELAY 400
+#endif
+
+#ifndef PIMORONI_TRACKBALL_LIFTOFF_DELAY
+#    define PIMORONI_TRACKBALL_LIFTOFF_DELAY 300
+#endif
+
+#ifndef PIMORONI_TRACKBALL_TIME_TO_MAX
+#    define PIMORONI_TRACKBALL_TIME_TO_MAX 1000
+#endif
+
 typedef struct {
     uint8_t left;
     uint8_t right;
@@ -51,7 +60,7 @@ typedef struct {
 
 void         pimoroni_trackball_device_init(void);
 void         pimoroni_trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
-int16_t      pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale);
 uint16_t     pimoroni_trackball_get_cpi(void);
 void         pimoroni_trackball_set_cpi(uint16_t cpi);
-i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data);
+i2c_status_t pimoroni_trackball_read(pimoroni_data_t* data);
+uint8_t      pimoroni_trackball_get_max_speed(void);

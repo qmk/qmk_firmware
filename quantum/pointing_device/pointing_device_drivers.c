@@ -253,28 +253,21 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 
-mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t* offset) {
-    if (*offset > XY_REPORT_MAX) {
-        *offset -= XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MAX;
-    } else if (*offset < XY_REPORT_MIN) {
-        *offset += XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MIN;
-    } else {
-        mouse_xy_report_t temp_return = *offset;
-        *offset                       = 0;
-        return temp_return;
-    }
-}
-
+#    include "print.h"
 report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
-    static uint16_t      debounce      = 0;
-    static uint8_t       error_count   = 0;
-    pimoroni_data_t      pimoroni_data = {0};
-    static clamp_range_t x_offset = 0, y_offset = 0;
+    static uint16_t debounce    = 0;
+    static uint8_t  error_count = 0;
+
+    static fast_timer_t began_motion, last_motion, last_read, last_read_elapsed, last_fast_motion = 0;
+    static bool         in_motion   = false;
+    bool                fast_motion = false;
+
+    pimoroni_data_t pimoroni_data = {0};
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
-        i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
+        i2c_status_t status = pimoroni_trackball_read(&pimoroni_data);
+        last_read_elapsed   = timer_elapsed_fast(last_read);
+        last_read           = timer_read_fast();
 
         if (status == I2C_STATUS_SUCCESS) {
             error_count = 0;
@@ -282,10 +275,70 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
             if (!(pimoroni_data.click & 128)) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
                 if (!debounce) {
-                    x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_SCALE);
-                    y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_SCALE);
-                    mouse_report.x = pimoroni_trackball_adapt_values(&x_offset);
-                    mouse_report.y = pimoroni_trackball_adapt_values(&y_offset);
+                    if (pimoroni_data.left || pimoroni_data.right || pimoroni_data.up || pimoroni_data.down) {
+                        last_motion = last_read;
+                        if (!in_motion) {
+                            in_motion = true;
+                        }
+                    } else {
+                        if (timer_elapsed_fast(last_motion) > PIMORONI_TRACKBALL_RESET_DELAY) {
+                            in_motion = false;
+                            began_motion += last_read_elapsed * 4;
+                            if (began_motion > last_read) {
+                                began_motion = last_read;
+                            }
+                        }
+                    }
+
+                    if (in_motion) {
+                        mouse_report.x = CONSTRAIN_HID((int8_t)pimoroni_data.left - pimoroni_data.right);
+                        mouse_report.y = CONSTRAIN_HID((int8_t)pimoroni_data.up - pimoroni_data.down);
+                        if (mouse_report.x > 2 || mouse_report.y > 2 || mouse_report.x < -2 || mouse_report.y < -2) {
+                            fast_motion      = true;
+                            last_fast_motion = last_read;
+                        }
+                        fast_timer_t elapsed_time = timer_elapsed_fast(began_motion);
+                        if (!fast_motion && timer_elapsed_fast(last_fast_motion) > PIMORONI_TRACKBALL_LIFTOFF_DELAY) {
+                            began_motion += last_read_elapsed * 2;
+                            began_motion = began_motion > last_read ? last_read : began_motion;
+                            elapsed_time = timer_elapsed_fast(began_motion);
+                        }
+                        if (elapsed_time > PIMORONI_TRACKBALL_TIME_TO_MAX) {
+                            began_motion += elapsed_time - PIMORONI_TRACKBALL_TIME_TO_MAX;
+                        }
+#    ifndef PIMORONI_TRACKBALL_USE_FLOAT
+                        uint32_t speed_modifier = pimoroni_trackball_get_max_speed() * ((elapsed_time << 8) / PIMORONI_TRACKBALL_TIME_TO_MAX);
+                        if (speed_modifier < 256) {
+                            speed_modifier = 256;
+                        }
+                        bool x_neg = mouse_report.x < 0;
+                        bool y_neg = mouse_report.y < 0;
+                        if (x_neg) {
+                            mouse_report.x = -mouse_report.x;
+                        }
+                        if (y_neg) {
+                            mouse_report.y = -mouse_report.y;
+                        }
+                        uint16_t x_amount = (mouse_report.x * speed_modifier) >> 8;
+                        uint16_t y_amount = (mouse_report.y * speed_modifier) >> 8;
+                        mouse_report.x    = CONSTRAIN_HID_XY((int32_t)x_amount);
+                        mouse_report.y    = CONSTRAIN_HID_XY((int32_t)y_amount);
+                        if (x_neg) {
+                            mouse_report.x = -mouse_report.x;
+                        }
+                        if (y_neg) {
+                            mouse_report.y = -mouse_report.y;
+                        }
+#    else
+                        float speed_modifier = pimoroni_trackball_get_max_speed() * ((float)elapsed_time / PIMORONI_TRACKBALL_TIME_TO_MAX);
+
+                        if (speed_modifier == 0) {
+                            speed_modifier = 1;
+                        }
+                        mouse_report.x = CONSTRAIN_HID_XY(mouse_report.x * speed_modifier);
+                        mouse_report.y = CONSTRAIN_HID_XY(mouse_report.y * speed_modifier);
+#    endif // PIMORONI_TRACKBALL_USE_FLOAT
+                    }
                 } else {
                     debounce--;
                 }
