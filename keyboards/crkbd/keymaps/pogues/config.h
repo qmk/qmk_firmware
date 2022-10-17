@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 175
 
 #define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 4000
+#define ONESHOT_TIMEOUT 2500
 
 // Turn off Caps Word after 5 seconds.
 //#define CAPS_WORD_IDLE_TIMEOUT 5000

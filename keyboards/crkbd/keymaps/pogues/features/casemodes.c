@@ -58,6 +58,7 @@ static int8_t delimiters_count = 0;
 
 // allow the user to capture the capsword state change and do something
 __attribute__((weak)) void caps_word_set_user(bool active) {}
+__attribute__((weak)) void case_mode_set_user(bool active) {}
 
 // Check whether caps word is on
 bool caps_word_enabled(void) {
@@ -92,8 +93,7 @@ void disable_caps_word(void) {
 void toggle_caps_word(void) {
     if (caps_word_on) {
         disable_caps_word();
-    }
-    else {
+    } else {
         enable_caps_word();
     }
 }
@@ -106,6 +106,7 @@ enum xcase_state get_xcase_state(void) {
 // Enable xcase and pickup the next keystroke as the delimiter
 void enable_xcase(void) {
     xcase_state = XCASE_WAIT;
+    case_mode_set_user(true);
 }
 
 // Enable xcase with the specified delimiter
@@ -114,11 +115,22 @@ void enable_xcase_with(uint16_t delimiter) {
     xcase_delimiter = delimiter;
     distance_to_last_delim = -1;
     delimiters_count = 0;
+    case_mode_set_user(true);
 }
 
 // Disable xcase
 void disable_xcase(void) {
     xcase_state = XCASE_OFF;
+    case_mode_set_user(false);
+}
+
+// toggle xcase state (uses next keystroke as the delimiter)
+void toggle_xcase(void) {
+    if (xcase_state == XCASE_OFF) {
+        enable_xcase();
+    } else {
+        disable_xcase();
+    }
 }
 
 // Place the current xcase delimiter
@@ -191,11 +203,11 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
 __attribute__ ((weak))
 bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
     // for example:
-    /* switch (keycode) { */
-    /*     case KC_A ... KC_Z: */
-    /*     case KC_1 ... KC_0: */
-    /*         return true; */
-    /* } */
+    switch (keycode) {
+        case KC_A ... KC_Z:
+        case KC_1 ... KC_0:
+            return true;
+    }
     return false;
 }
 

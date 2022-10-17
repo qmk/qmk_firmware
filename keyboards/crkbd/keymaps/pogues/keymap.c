@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, TO(LCMK), CTL_SPC,    _______,  _______, _______
+                                               _______, TO(LCMK), CTL_SPC,    KC_LSFT,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
@@ -120,13 +120,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, ALT_TAB,   KC_NO,   KC_NO,   KC_NO,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, ALT_TAB, RGB_VAD, RGB_VAI, RGB_TOG,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
            TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_ENT, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                      KC_PSCR,  KC_TAB, KC_PGDN, KC_PGUP,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK),   KC_SPC,     _______, TO(LCMK), _______
+                                              _______, TO(LCMK),   KC_SPC,     KC_LSFT, TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
@@ -146,6 +146,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /******************************************************************************
  * user specific key processing
  ******************************************************************************/
+void set_mods_lights(uint16_t keycode, bool active) {
+    switch (keycode) {
+        case KC_LSFT:
+        case SFT_BSP:
+            rgblight_set_layer_state(12, active);
+        break;
+        case KC_LCTL:
+        case CTL_Y:
+        case CTL_W:
+            rgblight_set_layer_state(11, active);
+        break;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
@@ -153,6 +167,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_case_modes(keycode, record)) {
         return false;
     }
+
+    // set the mods lights the same as the one shots
+    set_mods_lights(keycode, record->event.pressed);
 
     return true;
 }
@@ -228,21 +245,25 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         COMPOSE_INPUT(KC_C),
         { toggle_caps_word(); }
     )
-    // snake_case
+    // snake_case,  next char is the sep (default _)
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_S),
-        { enable_xcase_with(KC_UNDS); }
+        { toggle_xcase(); }
     )
+    //COMPOSE_MAPPING(
+    //    COMPOSE_INPUT(KC_S),
+    //    { enable_xcase_with(KC_UNDS); }
+    //)
     // camelCase
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_K),
         { enable_xcase_with(OSM(MOD_LSFT)); }
     )
-    // path (/) case
+    /* path (/) case
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_P),
         { enable_xcase_with(KC_SLSH); }
-    )
+    )*/
     // quit dwm
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_Q),
@@ -389,10 +410,9 @@ void compose_start(void) {
 
 void compose_end(uint8_t state) {
     rgblight_set_layer_state(8, false);
-    if (state == COMPOSE_ERROR) {
+    // show cancelled and error as the same state- we can only cancel by hitting the compose again
+    if (state == COMPOSE_ERROR || state == COMPOSE_CANCELLED) {
         rgblight_blink_layer(9, 900);
-    } else if (state == COMPOSE_CANCELLED) {
-        rgblight_blink_layer(10, 900);
     } else {
         // the compose action was activated
         rgblight_blink_layer(15, 900);
@@ -404,10 +424,14 @@ void compose_end(uint8_t state) {
 
 
 /*******************************************************************************
- * caps word mode
+ * caps word and xcase modes
  *******************************************************************************/
 void caps_word_set_user(bool active) {
     rgblight_set_layer_state(7, active);
+}
+
+void case_mode_set_user(bool active) {
+    rgblight_set_layer_state(10, active);
 }
 
 
@@ -448,24 +472,41 @@ void caps_word_set_user(bool active) {
     {7, 3, HSV_ ##colour}, \
     {34, 3, HSV_ ##colour} \
 );
+#define INDEX_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
+    {10, 3, HSV_ ##colour}, \
+    {37, 3, HSV_ ##colour} \
+);
+#define MIDDLE_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
+    {15, 3, HSV_ ##colour}, \
+    {42, 3, HSV_ ##colour} \
+);
+#define RING_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
+    {18, 3, HSV_ ##colour}, \
+    {45, 3, HSV_ ##colour} \
+);
+#define PINKIE_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
+    {21, 3, HSV_ ##colour}, \
+    {48, 3, HSV_ ##colour} \
+);
 
 const rgblight_segment_t PROGMEM layer_default_lights[] = THUMB_KEYS(OFF)
 const rgblight_segment_t PROGMEM layer_numpad_lights[] = THUMB_KEYS(ORANGE)
 const rgblight_segment_t PROGMEM layer_symbols_lights[] = THUMB_KEYS(GREEN)
 const rgblight_segment_t PROGMEM layer_motion_lights[] = THUMB_KEYS(BLUE)
 const rgblight_segment_t PROGMEM layer_functions_lights[] = THUMB_KEYS(PURPLE)
-const rgblight_segment_t PROGMEM layer_mouse_lights[] = THUMB_KEYS(MAGENTA)
+const rgblight_segment_t PROGMEM layer_mouse_lights[] = THUMB_KEYS(RED)
 
-const rgblight_segment_t PROGMEM oneshot_ctrl_active[] = RGBLIGHT_LAYER_SEGMENTS({8, 1, HSV_BLUE});
-const rgblight_segment_t PROGMEM oneshot_shift_active[] = RGBLIGHT_LAYER_SEGMENTS({9, 1, HSV_GREEN});
-const rgblight_segment_t PROGMEM oneshot_gui_active[] = RGBLIGHT_LAYER_SEGMENTS({35, 1, HSV_ORANGE});
-const rgblight_segment_t PROGMEM oneshot_alt_active[] = RGBLIGHT_LAYER_SEGMENTS({36, 1, HSV_PURPLE});
+const rgblight_segment_t PROGMEM oneshot_ctrl_active[] = MIDDLE_KEYS(BLUE)
+const rgblight_segment_t PROGMEM oneshot_shift_active[] = INDEX_KEYS(GREEN)
+const rgblight_segment_t PROGMEM oneshot_gui_active[] = RING_KEYS(RED)
+const rgblight_segment_t PROGMEM oneshot_alt_active[] = PINKIE_KEYS(PURPLE)
 
-const rgblight_segment_t PROGMEM caps_word_lights[] = INNER_KEYS(GREEN)
+// was INNER_KEYS(GREEN) but as this is similar to shift moved it to index.
+const rgblight_segment_t PROGMEM caps_word_lights[] = INDEX_KEYS(GREEN)
+const rgblight_segment_t PROGMEM snake_case_lights[] = INNER_KEYS(PURPLE)
 
 const rgblight_segment_t PROGMEM compose_mode_lights[] = INNER_KEYS(ORANGE)
-const rgblight_segment_t PROGMEM compose_fail_lights[] = INNER_KEYS(RED)
-const rgblight_segment_t PROGMEM compose_cancel_lights[] = INNER_KEYS(PURPLE)
+const rgblight_segment_t PROGMEM compose_cancel_lights[] = INNER_KEYS(RED)
 const rgblight_segment_t PROGMEM compose_success_lights[] = INNER_KEYS(BLUE)
 
 const rgblight_segment_t PROGMEM layer_no_lights[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -483,8 +524,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     layer_mouse_lights,
     caps_word_lights,
     compose_mode_lights,
-    compose_fail_lights,
     compose_cancel_lights,
+    snake_case_lights,
     oneshot_ctrl_active,
     oneshot_shift_active,
     oneshot_gui_active,
