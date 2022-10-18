@@ -123,6 +123,7 @@ enum custom_keycodes {
 // ============================
 
 #define VS_FILE             MEH(KC_F1) // workbench.action.quickOpen
+#define VS_COMMANDS         MEH(KC_F2) // workbench.action.showCommands
 
 #define VS_LINE             MEH(KC_F3) // workbench.action.gotoLine
 #define VS_SYMBOLEDITOR     MEH(KC_F4) // workbench.action.gotoSymbol
@@ -135,28 +136,27 @@ enum custom_keycodes {
 #define VS_TABRIGHT         MEH(KC_F11) // workbench.action.nextEditor
 #define VS_CLOSETAB         MEH(KC_F12) // workbench.action.closeActiveEditor
 
-#define VS_GROUP_1          MEH(KC_F13) // workbench.action.focusFirstEditorGroup
-#define VS_GROUP_2          MEH(KC_F14) // workbench.action.focusSecondEditorGroup
+#define VS_GROUP_1          HYPR(KC_F1) // workbench.action.focusFirstEditorGroup
+#define VS_GROUP_2          HYPR(KC_F2) // workbench.action.focusSecondEditorGroup
 
-#define VS_COMMANDS         MEH(KC_F16) // workbench.action.showCommands
-#define VS_CMT_BLOCK        MEH(KC_F17) // editor.action.blockComment
-#define VS_CMT_LINE         MEH(KC_F18) // editor.action.commentLine
-#define VS_DEL_LINE         MEH(KC_F19) // editor.action.deleteLines
-#define VS_COPYLINEDOWN     MEH(KC_0) // editor.action.copyLinesDownAction
+#define VS_CMT_BLOCK        HYPR(KC_F3) // editor.action.blockComment
+#define VS_CMT_LINE         HYPR(KC_F4) // editor.action.commentLine
+#define VS_DEL_LINE         HYPR(KC_F5) // editor.action.deleteLines
+#define VS_COPYLINEDOWN     HYPR(KC_F6) // editor.action.copyLinesDownAction
 
 // visual studio bookmark commands
-#define VS_BM_PREV          MEH(KC_1) // bookmarks.jumpToPrevious
-#define VS_BM_NEXT          MEH(KC_2) // bookmarks.jumpToNext
-#define VS_BM_TOGGLE        MEH(KC_8) // bookmarks.toggle
-#define VS_BM_CLEARALL      MEH(KC_9) // bookmarks.clearFromAllFiles
-#define VS_BM_LIST          MEH(KC_A) // bookmarks.list
-#define VS_BM_LISTALL       MEH(KC_B) // bookmarks.listFromAllFiles
-#define VS_JUMPY            MEH(KC_C) // extension.jumpy-word
+#define VS_BM_PREV          HYPR(KC_F7) // bookmarks.jumpToPrevious
+#define VS_BM_NEXT          HYPR(KC_F8) // bookmarks.jumpToNext
+#define VS_BM_TOGGLE        HYPR(KC_F9) // bookmarks.toggle
+#define VS_BM_CLEARALL      HYPR(KC_F10) // bookmarks.clearFromAllFiles
+#define VS_BM_LIST          HYPR(KC_F11) // bookmarks.list
+#define VS_BM_LISTALL       HYPR(KC_F12) // bookmarks.listFromAllFiles
+#define VS_JUMPY            HYPR(KC_A) // extension.jumpy-word
 
 // visual studio code navigation shortcuts
-#define VS_FOCUS_EDITOR     MEH(KC_4) // workbench.action.focusActiveEditorGroup
-#define VS_FOCUS_TERMINAL   MEH(KC_5) // workbench.action.terminal.focus
-#define VS_TOGGLE_TERMINAL  MEH(KC_6) // workbench.action.terminal.toggleTerminal
+#define VS_FOCUS_EDITOR     HYPR(KC_B) // workbench.action.focusActiveEditorGroup
+#define VS_FOCUS_TERMINAL   HYPR(KC_C) // workbench.action.terminal.focus
+#define VS_TOGGLE_TERMINAL  HYPR(KC_D) // workbench.action.terminal.toggleTerminal
 
 
 // unused vscode shortcuts
