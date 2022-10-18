@@ -270,7 +270,7 @@ Configure the hardware via your `config.h`:
 | `ISSI_CONFIGURATION` | (Optional) Configuration for the Configuration Register | |
 | `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
 | `ISSI_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | |
-| `ISSI_TEMP` | (Optional) Configuration for the Tempature Register | |
+| `ISSI_TEMP` | (Optional) Configuration for the Temperature Register | |
 | `ISSI_PWM_ENABLE` | (Optional) Configuration for the PWM Enable Register | |
 | `ISSI_PWM_SET` | (Optional) Configuration for the PWM Setting Register | |
 | `ISSI_SCAL_RED` | (Optional) Configuration for the RED LEDs in Scaling Registers | 0xFF |
