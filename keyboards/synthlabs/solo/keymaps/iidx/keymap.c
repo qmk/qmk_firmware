@@ -12,9 +12,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     JS_BUTTON0,JS_BUTTON1,JS_BUTTON2,JS_BUTTON3,JS_BUTTON4,JS_BUTTON5,JS_BUTTON6
     ),
     [1] = LAYOUT_all(
-                                    JS_BUTTON9, _______,JS_BUTTON10, _______,JS_BUTTON11, _______,JS_BUTTON12,
+                                    JS_BUTTON9,JS_BUTTON0,JS_BUTTON10, _______,JS_BUTTON11,JS_BUTTON1,JS_BUTTON12,
         _______, _______, _______,
-                                    JS_BUTTON10, _______,JS_BUTTON9, _______,JS_BUTTON11, _______,JS_BUTTON12
+                                    JS_BUTTON10,JS_BUTTON0,JS_BUTTON9, _______,JS_BUTTON11,JS_BUTTON1,JS_BUTTON12
     ),
 };
 
