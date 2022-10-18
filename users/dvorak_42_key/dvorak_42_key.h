@@ -158,6 +158,10 @@ enum custom_keycodes {
 #define VS_FOCUS_TERMINAL   HYPR(KC_C) // workbench.action.terminal.focus
 #define VS_TOGGLE_TERMINAL  HYPR(KC_D) // workbench.action.terminal.toggleTerminal
 
+// line editing
+#define VS_DEL_LEFT         HYPR(KC_E) // deleteAllLeft
+#define VS_DEL_RIGHT        HYPR(KC_F) // deleteAllRight
+
 
 // unused vscode shortcuts
 // #define VS_BM_LIST LCTL(LALT(KC_L))
