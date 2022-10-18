@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // This keyboard defaults to 6KRO instead of NKRO for compatibility reasons (some KVMs and BIOSes are incompatible with NKRO).
     // Since this is, among other things, a "gaming" keyboard, a key combination to enable NKRO on the fly is provided for convenience.
     // Press Fn+N to toggle between 6KRO and NKRO. This setting is persisted to the EEPROM and thus persists between restarts.
-    
+
     [MAC_BASE] = LAYOUT( // macOS layout - press knob to switch to Windows
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MAC_PS,           TO_WINB,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_PGUP,
@@ -145,6 +145,7 @@ static void start_effects(void);
 
 static uint8_t previous_effect_layer = 255;
 
+// --- LAYER STATE INDICATOR ---------------------------------------------------
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t current_layer = get_highest_layer(state);
     switch (current_layer) {
@@ -166,6 +167,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+// --- CAPSLOCK INDICATOR ------------------------------------------------------
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock) {
         if (!rgb_matrix_is_enabled()) {
@@ -215,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("<>" SS_TAP(X_LEFT));
         }
         break;
-            
+
     case KC_MISSION_CONTROL:
         if (record->event.pressed) {
             host_consumer_send(0x29F);
@@ -223,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             host_consumer_send(0);
         }
         return false;  // Skip all further processing of this key
-            
+
     case KC_LAUNCHPAD:
         if (record->event.pressed) {
             host_consumer_send(0x2A0);
@@ -231,7 +233,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             host_consumer_send(0);
         }
         return false;  // Skip all further processing of this key
-            
+
     #ifdef RGB_MATRIX_ENABLE
     #ifdef NKRO_ENABLE
     case NK_TOGG:
@@ -247,7 +249,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
     #endif // NKRO_ENABLE
-            
+
     case RGB_MOD:
     case RGB_RMOD:
     case RGB_HUI:
@@ -265,7 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         break;
-            
+
     case RGB_TOG:
         if (record->event.pressed) {
             if (rgb_matrix_is_enabled()) {
@@ -298,7 +300,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
     #endif // RGB_MATRIX_ENABLE
-            
+
     }
     return true;
 };

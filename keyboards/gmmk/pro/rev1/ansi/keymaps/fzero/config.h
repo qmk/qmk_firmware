@@ -1,4 +1,5 @@
 /* Copyright 2021 Andre Brait
+ * Copyright 2022 Fabio Neves
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,3 +21,5 @@
     #define RGB_DISABLE_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
+
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD

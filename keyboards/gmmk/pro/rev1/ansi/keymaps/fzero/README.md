@@ -30,6 +30,8 @@ Oh, **and pressing the knob changes layers**. The keyboard will flash white for 
 What else?
 
 - **Via-enabled!** You won't be able to tweak Knob or RGB settings (for now?), but everything else works fine
+- All layers:
+  - [Caps Word](https://docs.qmk.fm/#/feature_caps_word) enabled by double-tapping `L-SHIFT`
 - Layer 0 (macOS):
   - `PrintScreen` &rarr; `CMD + SHIFT + 4` (macOS region PrintScreen)
 - Layer 1 (accessed by pressing Fn):
