@@ -35,6 +35,7 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 
 /* Audio functionality */
 #define AUDIO_PIN C6
+#define AUDIO_CLICKY
 #define AUDIO_ENABLE_TONE_MULTIPLEXING
 #define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 10
 
@@ -43,12 +44,15 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 // The number of LEDs connected
 #define DRIVER_LED_TOTAL 27
 #define RGB_MATRIX_CENTER { 60, 77 }
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
