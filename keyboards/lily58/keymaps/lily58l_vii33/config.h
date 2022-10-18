@@ -21,23 +21,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Select hand configuration */
-#define MASTER_LEFT
+/* Select hand configuration. Either select master_left or -right before compiling/flashing or
+use define EE_HANDS at flashing time*/
+// #define MASTER_LEFT
 // #define MASTER_RIGHT
-// #define EE_HANDS
+#define EE_HANDS
 
-//vii:
-//#define RGBLIGHT_ENABLE
-//#define ENCODER_ENABLE
+
+#define ENCODER_DIRECTION_FLIP    // Change analog encoder rotation direction
+#define ENCODER_RESOLUTION 1
+
+// Optimizations
+#define NO_MUSIC_MODE
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+//#define SPLIT_LAYER_STATE_ENABLE  // layer activation needs to be send to slave side for RGB change
+//#define RGBLIGHT_ENABLE is already defined
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_HUE_STEP 6 // number of steps to cycle through the hue by
-#    define RGBLIGHT_SAT_STEP 6 // number of steps to increment the saturation by
-#    define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
-#    define RGBLIGHT_SLEEP //  the RGB lighting will be switched off when the host goes to sleep
+// RGBLIGHT_SPLIT      bereits hier definiert: ./keyboards/lily58/light/config.h
+// RGBLIGHT_LIMIT_VAL LED max. bright level: ./keyboards/lily58/light/config.h
+//#  define RGBLIGHT_LAYERS_RETAIN_VAL // Lightning layers should retain the set main brightness 
+  
+#  define RGBLIGHT_SLEEP      // the RGB lighting will be switched off when the host goes to sleep
+#  define RGBLIGHT_ANIMATIONS
+#  define RGBLIGHT_HUE_STEP 6 // number of steps to cycle through the hue by
+#  define RGBLIGHT_SAT_STEP 6 // number of steps to increment the saturation by
+#  define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
 #endif
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-// #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+//#define SPLIT_USB_DETECT
+//#define NO_USB_STARTUP_CHECK
