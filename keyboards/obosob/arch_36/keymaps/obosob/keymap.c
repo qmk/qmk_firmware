@@ -203,8 +203,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    QUESSPC, QUOT,    DQUOT,    COMMSPC, DOTSPC,  EXLMSPC
         ),
 //   Adjust            ________                                                          ________
-//            ________|  RESET |________                                        ________|        |________
-//           |        | EEPROM |  RESET |________                      ________|        |        |        |
+//            ________|  QK_BOOT |________                                        ________|        |________
+//           |        | EEPROM |  QK_BOOT |________                      ________|        |        |        |
 //   ________|        |________|        |        |                    |        |        |________|        |________
 //  |        |________| RGB    |________|        |                    |        |________|        |________|        |
 //  |        | RGB    | Hue+   | RGB    |________|                    |________|        |        |        |        |
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
     [_ADJUST] = LAYOUT_split_3x5_3(
-        XXXXXXX, WOKE,    EEP_RST, RESET,   XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, WOKE,    EEP_RST, QK_BOOT, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,                     XXXXXXX, QWERTY,  COLEMAK, XXXXXXX, XXXXXXX,
         XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX

@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x7256
-#define DEVICE_VER      0x0700
-#define MANUFACTURER    Keebio
-#define PRODUCT         Iris Rev. 7
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
@@ -118,7 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
 //#        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //#        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
+#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #        define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define DRIVER_LED_TOTAL RGBLED_NUM
 #        define RGB_MATRIX_SPLIT { 34, 34 }

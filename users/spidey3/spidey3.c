@@ -1,3 +1,6 @@
+// Copyright 2022 Joshua Diamond josh@windowoffire.com (@spidey3)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "spidey3.h"
@@ -18,7 +21,7 @@ static uint32_t matrix_timer = 0;
 #    endif
 
 void report_version(void) {
-    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " - " QMK_BUILDDATE);
     reported_version = true;
 }
 #endif
@@ -51,8 +54,42 @@ void matrix_scan_user(void) {
 #endif
 }
 
-bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph, uint8_t temp_mod, uint8_t temp_osm) {
+static uint32_t math_glyph_exceptions(const uint16_t keycode, const bool shifted) {
+    bool caps = host_keyboard_led_state().caps_lock;
+    if (shifted != caps) {
+        switch (keycode) {
+            // clang-format off
+            case KC_C: return 0x2102;
+            case KC_H: return 0x210D;
+            case KC_N: return 0x2115;
+            case KC_P: return 0x2119;
+            case KC_Q: return 0x211A;
+            case KC_R: return 0x211D;
+            case KC_Z: return 0x2124;
+                // clang-format on
+        }
+    }
+    return 0;
+}
+
+bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph, uint32_t (*exceptions)(const uint16_t keycode, const bool shifted), uint8_t temp_mod, uint8_t temp_osm) {
+    void _register(uint32_t codepoint) {
+        unicode_input_start();
+        register_hex32(codepoint);
+        unicode_input_finish();
+    }
+
     if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
+        bool shifted = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
+        if (exceptions) {
+            uint32_t res = exceptions(keycode, shifted);
+            if (res) {
+                if (record->event.pressed) {
+                    _register(res);
+                }
+                return false;
+            }
+        }
         switch (keycode) {
             case KC_A ... KC_Z:
                 if (record->event.pressed) {
@@ -61,39 +98,31 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
                     clear_oneshot_mods();
 #endif
 
-                    unicode_input_start();
-                    uint32_t base = ((temp_mod | temp_osm) & MOD_MASK_SHIFT) ? baseAlphaUpper : baseAlphaLower;
-                    register_hex32(base + (keycode - KC_A));
-                    unicode_input_finish();
-
+                    bool caps = host_keyboard_led_state().caps_lock;
+                    uint32_t base = ((shifted == caps) ? baseAlphaLower : baseAlphaUpper);
+                    _register(base + (keycode - KC_A));
                     set_mods(temp_mod);
                 }
                 return false;
             case KC_0:
-                if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {  // skip shifted numbers, so that we can still use symbols etc.
+                if (shifted) {  // skip shifted numbers, so that we can still use symbols etc.
                     return true;
                 }
                 if (record->event.pressed) {
-                    unicode_input_start();
-                    register_hex32(zeroGlyph);
-                    unicode_input_finish();
+                    _register(zeroGlyph);
                 }
                 return false;
             case KC_1 ... KC_9:
-                if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {  // skip shifted numbers, so that we can still use symbols etc.
+                if (shifted) {  // skip shifted numbers, so that we can still use symbols etc.
                     return true;
                 }
                 if (record->event.pressed) {
-                    unicode_input_start();
-                    register_hex32(baseNumberOne + (keycode - KC_1));
-                    unicode_input_finish();
+                    _register(baseNumberOne + (keycode - KC_1));
                 }
                 return false;
             case KC_SPACE:
                 if (record->event.pressed) {
-                    unicode_input_start();
-                    register_hex32(spaceGlyph);  // em space
-                    unicode_input_finish();
+                    _register(spaceGlyph);  // em space
                 }
                 return false;
         }
@@ -163,7 +192,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     debug_keyboard = 0;
                     debug_matrix   = 0;
                 }
-                uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+                uprintf("DEBUG: enable=%u, kb=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
                 eeconfig_update_debug(debug_config.raw);
                 return false;
 #endif
@@ -174,21 +203,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-            case SPI_LNX: set_unicode_input_mode(UC_LNX); break;
-            case SPI_OSX: set_unicode_input_mode(UC_OSX); break;
-            case SPI_WIN: set_unicode_input_mode(UC_WINC); break;
-#endif
                 // clang-format on
 
-            case SPI_NORMAL ... SPI_FRAKTR:
+            case SPI_NORMAL ... SPI_MATH:
                 spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL : keycode;
-                dprintf("spi_replace_mode = %u\n", spi_replace_mode);
                 break;
 
             case SPI_GFLOCK:
                 spi_gflock = !spi_gflock;
-                dprintf("spi_gflock = %u\n", spi_gflock);
                 break;
 
             case SPI_KP_00:
@@ -279,19 +301,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_SPACE:
             switch (spi_replace_mode) {
                 case SPI_WIDE:
-                    return process_record_glyph_replacement(keycode, record, 0xFF41, 0xFF21, 0xFF10, 0xFF11, 0x2003, mods, osm);
+                    return process_record_glyph_replacement(keycode, record, 0xFF41, 0xFF21, 0xFF10, 0xFF11, 0x2003, NULL, mods, osm);
                 case SPI_SCRIPT:
-                    return process_record_glyph_replacement(keycode, record, 0x1D4EA, 0x1D4D0, 0x1D7CE, 0x1D7CF, 0x2002, mods, osm);
+                    return process_record_glyph_replacement(keycode, record, 0x1D4EA, 0x1D4D0, 0x1D7CE, 0x1D7CF, 0x2002, NULL, mods, osm);
                 case SPI_BLOCKS:
-                    return process_record_glyph_replacement(keycode, record, 0x1F170, 0x1F170, '0', '1', 0x2002, mods, osm);
+                    return process_record_glyph_replacement(keycode, record, 0x1F170, 0x1F170, '0', '1', 0x2002, NULL, mods, osm);
                 case SPI_CIRCLE:
-                    return process_record_glyph_replacement(keycode, record, 0x1F150, 0x1F150, '0', '1', 0x2002, mods, osm);
+                    return process_record_glyph_replacement(keycode, record, 0x1F150, 0x1F150, '0', '1', 0x2002, NULL, mods, osm);
                 case SPI_SQUARE:
-                    return process_record_glyph_replacement(keycode, record, 0x1F130, 0x1F130, '0', '1', 0x2002, mods, osm);
+                    return process_record_glyph_replacement(keycode, record, 0x1F130, 0x1F130, '0', '1', 0x2002, NULL, mods, osm);
                 case SPI_PARENS:
-                    return process_record_glyph_replacement(keycode, record, 0x1F110, 0x1F110, '0', '1', 0x2002, mods, osm);
+                    return process_record_glyph_replacement(keycode, record, 0x1F110, 0x1F110, '0', '1', 0x2002, NULL, mods, osm);
                 case SPI_FRAKTR:
-                    return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002, mods, osm);
+                    return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002, NULL, mods, osm);
+                case SPI_BOLD:
+                    return process_record_glyph_replacement(keycode, record, 0x1D41A, 0x1D400, '0', '1', 0x2002, NULL, mods, osm);
+                case SPI_MATH:
+                    return process_record_glyph_replacement(keycode, record, 0x1D552, 0x1D538, '0', '1', 0x2002, &math_glyph_exceptions, mods, osm);
             }
             break;
 
@@ -304,9 +330,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if ((mods | osm) & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-#ifndef NO_ACTION_ONESHOT
+#    ifndef NO_ACTION_ONESHOT
                     clear_oneshot_mods();
-#endif
+#    endif
                     register_code(KC_DEL);
                     delkey_registered = true;
                     set_mods(mods);

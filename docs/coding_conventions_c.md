@@ -24,7 +24,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Readability is more important than consistency.
   * Follow the file's existing style. If the file is mixed, follow the style that makes sense for the section you are modifying.
   * When indenting, keep the hash at the start of the line and add whitespace between `#` and `if`, starting with 4 spaces after the `#`.
-  * You can follow the indention level of the surrounding C code, or preprocessor directives can have their own indentation levels. Choose the style that best communicates the intent of your code.
+  * You can follow the indentation level of the surrounding C code, or preprocessor directives can have their own indentation levels. Choose the style that best communicates the intent of your code.
 
 Here is an example for easy reference:
 

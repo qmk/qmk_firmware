@@ -1,0 +1,25 @@
+{
+    "keyboard": "ez_maker/directpins/rp2040",
+    "keymap": "default",
+    "layout": "LAYOUT_all",
+    "layers": [
+        [
+            "KC_0",
+            "KC_1",
+            "KC_2",
+            "KC_3",
+            "KC_4",
+            "KC_5", "KC_P",
+            "KC_6", "KC_O",
+            "KC_7", "KC_N",
+            "KC_8",
+            "KC_9", "KC_M",
+            "KC_A", "KC_L",
+            "KC_B", "KC_K",
+            "KC_C", "KC_J",
+            "KC_D", "KC_I",
+            "KC_E", "KC_H",
+            "KC_F", "KC_G"
+        ]
+    ]
+}

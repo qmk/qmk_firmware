@@ -64,6 +64,15 @@ void td_raise_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_EDVORAKJP_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_lower_finished, td_lower_reset, 150),
-    [TD_EDVORAKJP_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_raise_finished, td_raise_reset, 150),
+    [TD_EDVORAKJP_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lower_finished, td_lower_reset),
+    [TD_EDVORAKJP_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_raise_finished, td_raise_reset),
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+            return 150;
+        default:
+            return TAPPING_TERM;
+    }
+}

@@ -242,9 +242,6 @@
     honeycomb: {
         target: 'keyhive/honeycomb'
     },
-    id80: {
-          target: 'id80/ansi'
-    },
     idb_60: {
           target: 'idb/idb_60',
           layouts: {
@@ -826,6 +823,9 @@
     geminate60: {
         target: 'weirdo/geminate60'
     },
+    gentleman65: {
+        target: 'jkeys_design/gentleman65'
+    },
     georgi: {
         target: 'gboards/georgi'
     },
@@ -844,6 +844,9 @@
     halberd: {
         target: 'kagizaraya/halberd'
     },
+    handwired/hillside/0_1: {
+        target: 'handwired/hillside/48'
+    }
     hecomi/alpha: {
         target: 'takashiski/hecomi/alpha'
     },
@@ -857,7 +860,13 @@
         target: 'idobao/id67/rgb'
     },
     id80: {
-        target: 'idobao/id80/v1'
+        target: 'idobao/id80/v2/ansi'
+    },
+    idobao/id80/v1/ansi: {
+        target: 'idobao/id80/v2/ansi'
+    },
+    idobao/id80/v1/iso: {
+        target: 'idobao/id80/v2/iso'
     },
     id87: {
         target: 'idobao/id87/v1'
