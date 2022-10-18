@@ -79,9 +79,24 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 void via_set_layout_options_kb(uint32_t value) { 
   via_layouts.raw = value;
 
-  if(via_layouts.split_zero && !(via_layouts.split_enter) &&!(via_layouts.split_plus)) {
-    xprintf("SZ is the only layout active with a value of: %d\n", value);
-  } else if (!(via_layouts.split_zero) && via_layouts.split_enter &&!(via_layouts.split_plus)){
-    xprintf("SE is the only layout active with a value of %d\n", value); 
+  if (via_layouts.split_zero && via_layouts.split_enter && via_layouts.split_plus){
+    xprintf("All three layouts are active with a value of: %d\n", value);
+    rgb_matrix_set_color(12, 0, 0, 0);
+    rgb_matrix_set_color(21, 0, 0, 0);
+    rgb_matrix_set_color(23, 0, 0, 0);
+  } else if (!(via_layouts.split_zero) && via_layouts.split_enter && via_layouts.split_plus){
+    xprintf("SE and SP layouts are active with a value of: %d\n", value);
+  } else if (via_layouts.split_zero && !(via_layouts.split_enter) && via_layouts.split_plus){
+    xprintf("SZ and SP layouts are active with a value of: %d\n", value);
+  } else if (!(via_layouts.split_zero) && !(via_layouts.split_enter) && via_layouts.split_plus){
+    xprintf("SP is the only layout active with a value of: %d\n", value);
+  } else if (via_layouts.split_zero && via_layouts.split_enter && !(via_layouts.split_plus)){
+    xprintf("SE and SZ layouts are active with a value of: %d\n", value);
+  } else if (!(via_layouts.split_zero) && via_layouts.split_enter && !(via_layouts.split_plus)) {
+    xprintf("SE is the only layout active with a value of: %d\n", value);
+  } else if (via_layouts.split_zero && !(via_layouts.split_enter) && !(via_layouts.split_plus)){
+    xprintf("SZ is the only layout active with a value of: %d\n", value); 
+  } else if (!(via_layouts.split_zero) && !(via_layouts.split_enter) && !(via_layouts.split_plus)){
+    xprintf("The base layout is active with a value of: %d\n", value);
   }
 }
