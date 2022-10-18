@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_reviung39(
-    _______, RCMD(LALT(KC_1)), RCMD(LALT(KC_2)), RCMD(LALT(KC_3)), RCMD(LALT(KC_4)), RCMD(LALT(KC_5)), RCMD(LALT(KC_6)), RCMD(LALT(KC_7)), _______, _______, RCMD(LALT(KC_0)), _______,
+    _______, _______, _______, _______, RCMD(LALT(KC_1)), RCMD(LALT(KC_2)), RCMD(LALT(KC_3)), RCMD(LALT(KC_4)), RCMD(LALT(KC_5)), RCMD(LALT(KC_6)), RCMD(LALT(KC_7)), RCMD(LALT(KC_0)),
     RGB_SAI, RGB_HUI,  RGB_MOD,  _______,   RGB_TOG,    RGB_VAI,   RGB_VAD,   RGB_SAD, RGB_HUD,  RGB_RMOD, _______,   _______,
     KC_MUTE, KC_VOLD, KC_VOLU, KC_BRID, KC_BRIU,  QK_BOOT,   _______,  _______,  _______,  _______,  _______,  _______,
                                                    KC_LGUI,  _______,  _______
