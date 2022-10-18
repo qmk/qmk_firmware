@@ -6,7 +6,7 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of[I]
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
@@ -16,17 +16,17 @@
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_HUE_STEP  8
-#    define RGBLIGHT_SAT_STEP  8
-#    define RGBLIGHT_VAL_STEP  8
-#    define RGBLIGHT_LIMIT_VAL 150
-#endif
 
-#define PIMORONI_TRACKBALL_SCALE 10
+
 // Lets you roll mod-tap keys
 #define IGNORE_MOD_TAP_INTERRUPT
 #define SPLIT_POINTING_ENABLE
-#define POINTING_DEVICE_RIGHT
+#define POINTING_DEVICE_COMBINED
 #define POINTING_DEVICE_TASK_THROTTLE_MS 8
+#define POINTING_DEVICE_ROTATION_180_RIGHT
+
+//CIRQUE STUFF
+#define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
+#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
+#define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+//#define CIRQUE_PINNACLE_ATTENUATION ADC_ATTENUATE_4X
