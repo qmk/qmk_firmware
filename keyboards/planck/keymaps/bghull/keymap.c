@@ -15,8 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#include "keymap_steno.h"
 #include "g/keymap_combo.h"
+#include "muse.h"
 
 #define COMBO_ONLY_FROM_LAYER QWERTY
 
@@ -25,35 +26,33 @@ enum planck_layers {
   COLMAK,
   NAVNUM,
   FUNC
+  
 };
 
-#define GUIEsc LGUI_T(KC_ESC)
 #define BspNAV LT(NAVNUM, KC_BSPC)
 #define SpcFUN LT(FUNC, KC_SPC)
 #define OneSFT OSM(MOD_LSFT)
 #define OneALT OSM(MOD_LALT)
 #define OneCTL OSM(MOD_LCTL)
 #define OneWIN OSM(MOD_LGUI)
-#define TabBak LSFT_T(KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
 /* QWERTY
  * ,-----------------------------------------------------------------------------------.
- * |   Q  |   W  |   E  |   R  |   T  |      |      |   Y  |   U  |   I  |   O  |   P  |
+ * |   Q  |   W  |   E  |   R  |   T  |             |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   A  |   S  |   D  |   F  |   G  |      |      |   H  |   J  |   K  |   L  |  ; : |
+ * |   A  |   S  |   D  |   F  |   G  |             |   H  |   J  |   K  |   L  |  ; : |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   Z  |   X  |   C  |   V  |   B  |      |      |   N  |   M  | ,  < | .  > |  ' " |
+ * |   Z  |   X  |   C  |   V  |   B  |             |   N  |   M  | ,  < | .  > |  ' " |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Ctrl |NAVNUM|             |Space |BspNAV|      |      | Del  |
+ * |                    | Ctrl |NAVNUM|             |Space |BspNAV|                    |
  * `-----------------------------------------------------------------------------------'
  */
 [QWERTY] = LAYOUT_planck_grid(
     KC_Q,   KC_W,    KC_E,     KC_R,    KC_T,	   _______, _______, KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,
     KC_A,   KC_S,    KC_D,     KC_F,    KC_G,	   _______, _______, KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN,
     KC_Z,   KC_X,    KC_C,     KC_V,    KC_B,	   _______, _______, KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_QUOT,
-    _______, _______, _______, KC_LCTL, MO(NAVNUM), _______, _______, KC_SPC, BspNAV, _______, _______, _______
+    _______, _______, _______, KC_LCTL, MO(NAVNUM),_______, _______, KC_SPC, BspNAV, _______, _______, _______
 ),
 
 [COLMAK] = LAYOUT_planck_grid(
@@ -63,39 +62,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, KC_LCTL, MO(NAVNUM), _______, _______, KC_SPC, BspNAV, _______, _______, _______
 
 ),
-/* NAVNUM: Arrows and numbers/symbols TODO pgup pgdn
+/* NAVNUM
  * ,-----------------------------------------------------------------------------------.
- * |Enter | Home |  Up  | End  |      |      |  RST |  -   |   7  |   8  |   9  |   0  |
+ * |Enter | Home |  Up  | End  |      |         RST |  -   |   7  |   8  |   9  |   0  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |SftOSM| Left | Down | Rght | ` ~  |      | CLMK |  +   |   4  |   5  |   6  |Enter |
+ * |OneSFT| Left | Down |Right | ` ~  |        CLMK |  +   |   4  |   5  |   6  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |CtlOSM|AltOSM| Tab  |   _  | GUI  |      | QWER |  =   |   1  |   2  |   3  |      |
+ * |OneCTL|AltOSM| Tab  |   _  |OneWIN|        QWER |  =   |   1  |   2  |   3  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |SpcFNC| Ctrl |      |      |      |
+ * |                    |      |      |             |SpcFUN| Ctrl |                    |
  * `-----------------------------------------------------------------------------------'
  */
 [NAVNUM] = LAYOUT_planck_grid(
-  KC_ENT,  KC_HOME, KC_UP,   KC_END, _______, _______, RESET, KC_PMNS, KC_7,    KC_8,   KC_9,     KC_0,
+  KC_ENT,  KC_HOME, KC_UP,   KC_END, _______,  _______, RESET,      KC_PMNS, KC_7,    KC_8,   KC_9,     KC_0,
   OneSFT,  KC_LEFT, KC_DOWN, KC_RGHT, KC_GRV,  _______, DF(COLMAK), KC_PPLS, KC_4,    KC_5,   KC_6,     KC_ENT,
-  OneCTL,   OneALT, KC_TAB,  KC_UNDS, OneWIN, _______, DF(QWERTY), KC_EQL,  KC_1,    KC_2,   KC_3,     _______,
-  _______, _______, _______, _______, _______, _______, _______, SpcFUN,  KC_LCTL, _______, _______, TO(QWERTY)
+  OneCTL,   OneALT, KC_TAB,  KC_UNDS, OneWIN,  _______, DF(QWERTY), KC_EQL,  KC_1,    KC_2,   KC_3,     _______,
+  _______, _______, _______, _______, _______, _______, _______,    SpcFUN,  KC_LCTL, _______, _______, _______
 ),
 /* FUNC: Mousekeys + F keys
  * ,-----------------------------------------------------------------------------------.
- * |      |Rclick| MsUp |Lclick| WhUp |      |      |      |  F7  |  F8  |  F9  |  F10 |
+ * |      |Rclick| MsUp |Lclick| WhUp |             |      |  F7  |  F8  |  F9  |  F10 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | MsLt | MsDn | MsRt | WhDn |      |      |      |  F4  |  F5  |  F6  |  F11 |
+ * |      | MsLt | MsDn | MsRt | WhDn |             |      |  F4  |  F5  |  F6  |  F11 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |Mclick|      |      |      |      |      |  F1  |  F2  |  F3  |  F12 |
+ * |      |      |Mclick|      |      |             |      |  F1  |  F2  |  F3  |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |                    |      |      |             |      |      |                    |
  * `-----------------------------------------------------------------------------------'
  */
 [FUNC] = LAYOUT_planck_grid(
-  _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, _______, _______, _______, KC_F7, KC_F8, KC_F9, KC_F10,
-  _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, KC_F4, KC_F5, KC_F6, KC_F11,
-  _______, _______, KC_BTN3, _______, _______, _______, _______, _______, KC_F1, KC_F2, KC_F3, KC_F12,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
+  _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, _______, _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,
+  _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,
+  _______, _______, KC_BTN3, _______, _______, _______, _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 };
