@@ -22,3 +22,4 @@
 #define ENCODERS_PAD_A { D1 }
 #define ENCODERS_PAD_B { D0 }
 #define ENCODER_RESOLUTION 4
+#define TAP_CODE_DELAY 100
