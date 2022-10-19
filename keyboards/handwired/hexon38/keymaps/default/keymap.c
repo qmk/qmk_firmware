@@ -378,7 +378,7 @@ bool parse_next(kring_t *pending) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == DEBUG) {
+    if (keycode == QK_DEBUG_TOGGLE) {
         return true;
     }
 

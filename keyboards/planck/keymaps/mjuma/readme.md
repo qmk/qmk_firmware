@@ -119,7 +119,7 @@ stack of layers                     array_of_action_code[row][column]
 
 ```ascii
 ,-----------------------------------------------------------------------------------.
-|      |RESET |DEBUG |      |      |      |      |DMREC1|DMREC2|      |      |      |
+|      |RESET |Debug |      |      |      |      |DMREC1|DMREC2|      |      |      |
 |------+------+------+------+------+-------------+------+------+------+------+------|
 |      |GAMING|      |      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
 |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -133,7 +133,7 @@ stack of layers                     array_of_action_code[row][column]
 
 ```text
 RESET:       Put the keyboard into bootloader mode for flashing
-DEBUG:       Toggle debug mode
+Debug:       Toggle debug mode
 EEP_RST:     Reinitializes the keyboard’s EEPROM (persistent memory)
 
 AG_TOG:      Toggle Alt and GUI swap on both sides (Mac)
