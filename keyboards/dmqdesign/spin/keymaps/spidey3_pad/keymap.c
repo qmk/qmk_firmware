@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_RMOD,  RGB_TOG,   RGB_MOD),
 
     [_FN] = LAYOUT(
-        KC_NO,     DEBUG,     QK_BOOT,   KC_TRNS,
+        KC_NO,     DB_TOGG,   QK_BOOT,   KC_TRNS,
         KC_NO,     KC_NO,     EEP_RST,   KC_TRNS,
         KC_NO,     KC_NO,     KC_NO,     KC_TRNS,
         KC_TRNS,   KC_NO,     KC_NO),
@@ -179,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             // Re-implement this here, but fix the persistence!
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 if (!debug_enable) {
                     debug_enable = 1;
                 } else if (!debug_keyboard) {
@@ -210,7 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Acks follow...
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgb_layer_ack_yn(debug_enable);
             break;
         case RGB_TOG:

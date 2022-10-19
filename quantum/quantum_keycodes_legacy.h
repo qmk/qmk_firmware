@@ -4,7 +4,6 @@
 
 // Deprecated Quantum keycodes
 
-#define DEBUG        QK_DEBUG_TOGGLE
 #define GRAVE_ESC    QK_GRAVE_ESCAPE
 #define EEPROM_RESET QK_CLEAR_EEPROM
 

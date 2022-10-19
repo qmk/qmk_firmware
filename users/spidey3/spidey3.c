@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
 #ifndef NO_DEBUG
             // Re-implement this here, but fix the persistence!
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 if (get_mods() & MOD_MASK_SHIFT) {
                     debug_enable   = 0;
                     debug_keyboard = 0;
