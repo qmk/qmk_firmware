@@ -2,13 +2,13 @@
 """
 import os
 import sys
+import json
 import shutil
 from pathlib import Path
 
 from milc import cli
 import jsonschema
 
-import qmk.keymap
 from qmk.constants import KEYBOARD_OUTPUT_PREFIX
 from qmk.json_schema import json_load, validate
 
@@ -134,12 +134,11 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
     keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
     keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
-    c_text = qmk.keymap.generate_c(user_keymap)
     keymap_dir = keymap_output / 'src'
-    keymap_c = keymap_dir / 'keymap.c'
+    keymap_json = keymap_dir / 'keymap.json'
 
     keymap_dir.mkdir(exist_ok=True, parents=True)
-    keymap_c.write_text(c_text)
+    keymap_json.write_text(json.dumps(user_keymap), encoding='utf-8')
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
@@ -175,7 +174,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'MAIN_KEYMAP_PATH_3={keymap_output}',
         f'MAIN_KEYMAP_PATH_4={keymap_output}',
         f'MAIN_KEYMAP_PATH_5={keymap_output}',
-        f'KEYMAP_C={keymap_c}',
+        f'KEYMAP_JSON={keymap_json}',
         f'KEYMAP_PATH={keymap_dir}',
         f'VERBOSE={verbose}',
         f'COLOR={color}',
