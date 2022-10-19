@@ -99,7 +99,7 @@ Navigation layer on space.
 */
 /* _ADJUST
 * ,-----------------------------------------------------------------------------------.
-* | A-SFT| RESET| DEBUG|RGBTOG|RGBMOD|RGBHUI|RGBHUD|RGBSAI|RGBSAD|RGBVAI|RGBVAD| DE_SW|
+* | A-SFT| RESET| Debug|RGBTOG|RGBMOD|RGBHUI|RGBHUD|RGBSAI|RGBSAD|RGBVAI|RGBVAD| DE_SW|
 * |------+------+------+------+------+------+------+------+------+------+------+------|
 * | A-GRV|EEPRST|MU_MOD| AU_ON|AU_OFF|AGNORM|AGSWAP|!HRWCM| !WCM | A-GRV| !LANG| !GAME|
 * |------+------+------+------+------+------+------+------+------+------+------+------|
