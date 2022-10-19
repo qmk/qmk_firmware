@@ -138,7 +138,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     keymap_json = keymap_dir / 'keymap.json'
 
     keymap_dir.mkdir(exist_ok=True, parents=True)
-    keymap_json.write_text(json.dumps(user_keymap))
+    keymap_json.write_text(json.dumps(user_keymap), encoding='utf-8')
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
