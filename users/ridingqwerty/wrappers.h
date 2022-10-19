@@ -93,7 +93,7 @@
 #define ________________EDITOR_R3__________________        KC_PGDN, _______, _______, _______, KC_BSLS
 
 
-#define ________________DEBUG_L1___________________        DEBUG,   _______, _______, RNGWORD, SARCASM
+#define ________________DEBUG_L1___________________        DB_TOGG, _______, _______, RNGWORD, SARCASM
 #define ________________DEBUG_L2___________________        GREEK,   RUSSIAN, HIRAGAN, RUNES,   _______
 #define ________________DEBUG_L3___________________        _______, _______, _______, VERSION, _______
 

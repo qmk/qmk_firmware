@@ -25,6 +25,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_UP,    BL_INC,    BL_DEC,  BL_STEP,  \
       KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,   KC_TRNS,  \
       KC_TRNS,  KC_NO,    KC_MPRV,  KC_MPLY,   KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,   KC_TRNS,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,                       KC_SPC,                                 KC_NO,    DEBUG,    QK_BOOT,   KC_TRNS, KC_NO     \
+      KC_TRNS,  KC_TRNS,  KC_TRNS,                       KC_SPC,                                 KC_NO,    DB_TOGG,  QK_BOOT,   KC_TRNS, KC_NO     \
       ),
 };

@@ -444,7 +444,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Acks follow...
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             if (debug_matrix || debug_keyboard)
                 rgb_layer_ack(ACK_HUH);
             else if (debug_enable)

@@ -378,7 +378,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
      */
 
     [_FEATURS] = LAYOUT_planck_mit(                                                                                                         //
-        LCTL(LALT(KC_DEL)), DO_RESET, DEBUG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, TD(TD_DEG_DEGF), TD(TD_SMILEY), KC_DEL,  //
+        LCTL(LALT(KC_DEL)), DO_RESET, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, TD(TD_DEG_DEGF), TD(TD_SMILEY), KC_DEL,  //
         RGB_VAI, RGB_VAD, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, DF(_BASE), DF(_COLEMAK), DF(_DVORAK), TO(_PLOVER), MY_RGBCON,            //
         KC_TRNS, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_TRNS, KC_TRNS, CK_ON, CK_OFF, KC_ENTER,                                  //
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(_MOUSY), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
@@ -1169,7 +1169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 // Runs *after* a key is pressed
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             // Blink the warning layer when the debug key is pressed
             rgblight_blink_layer_repeat(debug_enable ? 11 : 12, 1500, 3);
 
