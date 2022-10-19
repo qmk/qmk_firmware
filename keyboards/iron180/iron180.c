@@ -18,8 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "iron180.h"
 
 #ifdef CAPSLOCK_BACKLIGHT
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
+void led_update_ports(led_t led_state) {
     if (!led_state.caps_lock){
         if (is_backlight_breathing()) breathing_disable();
         backlight_disable();
@@ -28,6 +27,5 @@ bool led_update_kb(led_t led_state) {
 	if (is_backlight_breathing()) breathing_enable();
         backlight_enable();
     }
-    return res;
 }
 #endif

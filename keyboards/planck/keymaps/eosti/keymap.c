@@ -34,13 +34,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TMUX_WN:                   // Moves to the next tmux window
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("a") "n");
+                SEND_STRING(SS_LCTL("a") "n");
             }
             break;
 
         case TMUX_WL:                   // Moves to the last tmux window
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("a") "n");
+                SEND_STRING(SS_LCTL("a") "n");
             }
             break;
     }

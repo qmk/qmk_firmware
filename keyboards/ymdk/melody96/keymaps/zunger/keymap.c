@@ -379,13 +379,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool ignore_accent_change = !record->event.pressed;
 
   // Step 1: Process any modifier key state changes, so we can maintain that state.
-  if (keycode == KC_LSHIFT || keycode == KC_RSHIFT) {
+  if (keycode == KC_LSFT || keycode == KC_RSFT) {
     shift_held = record->event.pressed;
     ignore_accent_change = true;
   } else if (keycode == KC_LALT || keycode == KC_RALT) {
     alt_held = record->event.pressed;
     ignore_accent_change = true;
-  } else if (keycode == KC_LCTRL || keycode == KC_RCTRL) {
+  } else if (keycode == KC_LCTL || keycode == KC_RCTL) {
     ctrl_held = record->event.pressed;
     ignore_accent_change = true;
   } else if (keycode == KC_LGUI || keycode == KC_RGUI) {

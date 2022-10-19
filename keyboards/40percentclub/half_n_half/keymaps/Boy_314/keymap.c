@@ -147,7 +147,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// Control + T
 		case NEWTAB:
 			if (record->event.pressed) {
-				SEND_STRING(SS_LCTRL("t"));
+				SEND_STRING(SS_LCTL("t"));
 			}
 			break;
 		// Alt + F4
@@ -159,13 +159,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// Control + W
 		case CLSTAB:
 			if (record->event.pressed) {
-				SEND_STRING(SS_LCTRL("w"));
+				SEND_STRING(SS_LCTL("w"));
 			}
 			break;
 		// Control + Shift + N
 		case PRVWIN:
 			if (record->event.pressed) {
-				SEND_STRING(SS_LCTRL(SS_LSFT("n")));
+				SEND_STRING(SS_LCTL(SS_LSFT("n")));
 			}
 			break;
 	}

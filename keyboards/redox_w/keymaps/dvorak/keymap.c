@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     KC_LCTL ,KC_MS_L ,KC_MS_D  ,KC_MS_R ,KC_WH_D ,KC_CUT  ,KC_VOLD ,                          KC_VOLU ,KC_CUT ,KC_P4 	,KC_P5   ,KC_P6   ,KC_MNXT ,KC_PMNS ,
 //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    KC_LSFT ,KC_WH_L ,KC_UP   ,KC_WH_R ,KC_LGUI ,KC_PSTE ,KC_WH_U ,KC_SLCK ,        KC_NLCK ,KC_WH_D ,KC_PSTE ,KC_P1 	,KC_P2   ,KC_P3   ,KC_PEQL ,KC_PAST ,
+    KC_LSFT ,KC_WH_L ,KC_UP   ,KC_WH_R ,KC_LGUI ,KC_PSTE ,KC_WH_U ,KC_SCRL ,        KC_NUM  ,KC_WH_D ,KC_PSTE ,KC_P1 	,KC_P2   ,KC_P3   ,KC_PEQL ,KC_PAST ,
 //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
     KC_CAPS ,KC_LEFT ,KC_DOWN ,KC_RGHT, LT(3,KC_MUTE)     ,KC_SPC  ,KC_ESC ,        KC_DEL  ,KC_ENT ,    KC_APP   ,     KC_P0   ,KC_PDOT ,KC_PENT ,KC_PSLS 
 //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘

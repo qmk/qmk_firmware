@@ -40,7 +40,7 @@ enum {
 #define FINDER          LGUI(LALT(KC_SPACE)) //open the search bar for finding apps, docs in-computer, etc
 #define COMPOSE_KEY    KC_SCRL //manually set on linux, to create chars via .Xcompose ()
 #define COMPOSE_MAC     KC_F13 //manually set on mac using some tricks
-#define X_COMPOSE_KEY    X_SCROLLLOCK //for use with macros
+#define X_COMPOSE_KEY    X_SCROLL_LOCK //for use with macros
 #define SHOW_WINDOWS    LCTL(KC_UP) //'Expose' on Mac, overview on linux. Just all the windows
 #define WINDOW_LEFT LCTL(LGUI(LSFT(KC_LEFT))) //custom shortcut for this feature -- make window take up 50% left screen (using gui and ctl to make it os agnostic)
 #define WINDOW_RIGHT LCTL(LGUI(LSFT(KC_RIGHT))) //custom shortcut for this feature -- make window take up 50% right screen (using gui and ctl to make it os agnostic)/fully custom shortcut, using ctl and gui keys so will need them both irrespective of os
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TO(_BASE), KC_TRANSPARENT, KC_LEFT, KC_DOWN, KC_RIGHT,KC_TRANSPARENT,         KC_TRANSPARENT, KC_4,  KC_5,  KC_6, KC_TRANSPARENT, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3,KC_TRANSPARENT, KC_NLCK,
+     KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3,KC_TRANSPARENT, KC_NUM,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_TRANSPARENT  ,  KC_TRANSPARENT, KC_0
                                       //`--------------------------'  `--------------------------'
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       LOCK_SCREEN, KC_PSCR, SELECT_LEFT_LINE, KC_UP, SELECT_RIGHT_LINE, TD(TD_MOVE_BEGIN_LINE),                    TD(TD_MOVE_END_LINE), KC_MS_WH_UP, EMOJI_KBD, KC_TRANSPARENT, KC_TRANSPARENT, RESET,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TO(_BASE), SELECT_LEFT_WD, KC_LEFT, KC_DOWN, KC_RIGHT,SELECT_RIGHT_WD,              KC_MS_WH_LEFT, KC_RGUI, KC_RSFT, KC_RALT,KC_RCTRL, KC_CAPS,
+      TO(_BASE), SELECT_LEFT_WD, KC_LEFT, KC_DOWN, KC_RIGHT,SELECT_RIGHT_WD,              KC_MS_WH_LEFT, KC_RGUI, KC_RSFT, KC_RALT,KC_RCTL, KC_CAPS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_INSERT, KC_TRANSPARENT, MOVE_LEFT_WD,KC_PAGE_DOWN,MOVE_RIGHT_WD, KC_PAGE_UP,                    KC_MS_WH_RIGHT, KC_MS_WH_DOWN, KC_HOME, KC_END,KC_TRANSPARENT, TO(_ADJUST),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|

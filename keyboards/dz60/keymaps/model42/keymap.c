@@ -52,10 +52,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			layer_off(1);
 			if (timer_elapsed(custom_lt_timer) < 200) {
 				register_code(KC_LGUI);
-				register_code(KC_RSHIFT);
+				register_code(KC_RSFT);
 				register_code(KC_R);
 				unregister_code(KC_R);
-				unregister_code(KC_RSHIFT);
+				unregister_code(KC_RSFT);
 				unregister_code(KC_LGUI);
 			}
 		}

@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LBRC, KC_RBRC,                                              KC_QUOT, KC_GRV,
                                     SH_ESC,                            KC_BSPC,
                                     KC_LGUI, KC_TAB,          KC_RSFT, KC_SPC,
-                                    RAISE,   KC_LCTRL,        LOWER,  KC_ENT
+                                    RAISE,   KC_LCTL,         LOWER,  KC_ENT
     ),
    
     /* Colemak
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LBRC, KC_RBRC,                                              KC_QUOT, KC_GRV,
                                     KC_ESC,                            KC_BSPC,
                                     KC_LGUI, KC_TAB,          KC_RSFT, KC_SPC,
-                                    RAISE,   KC_LCTRL,        LOWER,  KC_ENT
+                                    RAISE,   KC_LCTL,         LOWER,  KC_ENT
     ),
     /*  RAISE
      * ,----------------------------------,                  ,----------------------------------,

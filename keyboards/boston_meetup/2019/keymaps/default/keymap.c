@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_LOWER] = LAYOUT(
-  KC_NLCK,
+  KC_NUM,
   KC_COLN,  KC_PSLS, KC_PAST, KC_PMNS,
   _______,  XXXXXXX, KC_EQL,  KC_PPLS,
   _______,  KC_P0,   KC_PDOT, KC_PENT
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_RAISE] = LAYOUT(
-  KC_NLCK,
+  KC_NUM,
   RGB_TOG, RGB_MOD, RGB_RMOD, XXXXXXX,
   _______, RGB_HUI, RGB_SAI,  RGB_VAI,
   _______, RGB_HUD, RGB_SAD,  RGB_VAD

@@ -144,7 +144,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CK_ESCG:
             /* if pressed, inject key, otherwise delete it */
             if (record->event.pressed) {
-                bool shifted = get_mods() & MOD_BIT(KC_LSHIFT);
+                bool shifted = get_mods() & MOD_BIT(KC_LSFT);
                 add_key(shifted ? KC_ESC : KC_GRV);
                 ck_escg_last_shifted = shifted;
             } else {

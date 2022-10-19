@@ -473,7 +473,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING ("Todoist");
           SEND_STRING (SS_TAP(X_ENTER));
         } else {
-          SEND_STRING (SS_LGUI(SS_LCTRL("a"))); //macro to open Todoist new task dialog
+          SEND_STRING (SS_LGUI(SS_LCTL("a"))); //macro to open Todoist new task dialog
         }
       }
       break;

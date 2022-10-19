@@ -60,7 +60,7 @@ void       altFinish(qk_tap_dance_state_t* state, void* user_data) {
         case 3:
             if (state->pressed) {
                 register_code(KC_RALT);
-                register_code(KC_RSHIFT);
+                register_code(KC_RSFT);
                 Alt = HOLD3;
             }
             break;
@@ -78,7 +78,7 @@ void altReset(qk_tap_dance_state_t* state, void* user_data) {
             unregister_code(KC_RALT);
             break;
         case HOLD3:
-            unregister_code(KC_RSHIFT);
+            unregister_code(KC_RSFT);
             unregister_code(KC_RALT);
             break;
     }

@@ -81,9 +81,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LAST:
       if(record->event.pressed){
         macro_timer = timer_read();
-        register_mods(MOD_BIT(KC_LCTRL));
+        register_mods(MOD_BIT(KC_LCTL));
       } else {
-        unregister_mods(MOD_BIT(KC_LCTRL));
+        unregister_mods(MOD_BIT(KC_LCTL));
         if (timer_elapsed(macro_timer) < 150) {
           SEND_STRING("!$");
         }

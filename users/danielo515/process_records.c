@@ -114,7 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // == Multi Os START ===
         case KC_HOME:  // make the home behave the same on OSX
             if (record->event.pressed && onMac) {
-                SEND_STRING(SS_LCTRL("a"));
+                SEND_STRING(SS_LCTL("a"));
                 return false;
             }
         case KC_END:  // make the end behave the same on OSX
@@ -138,32 +138,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) return CMD(KC_X);
         case COPY:
             if (record->event.pressed) {
-                onMac ? SEND_STRING(SS_LGUI("c")) : SEND_STRING(SS_LCTRL("c"));
+                onMac ? SEND_STRING(SS_LGUI("c")) : SEND_STRING(SS_LCTL("c"));
             }
             return false;
         case PASTE:
             if (record->event.pressed) {
-                onMac ? SEND_STRING(SS_LGUI("v")) : SEND_STRING(SS_LCTRL("v"));
+                onMac ? SEND_STRING(SS_LGUI("v")) : SEND_STRING(SS_LCTL("v"));
             }
             return false;
         case SAVE:
             if (record->event.pressed) {
-                onMac ? SEND_STRING(SS_LGUI("s")) : SEND_STRING(SS_LCTRL("s"));
+                onMac ? SEND_STRING(SS_LGUI("s")) : SEND_STRING(SS_LCTL("s"));
             }
             return false;
         case UNDO:
             if (record->event.pressed) {
-                onMac ? SEND_STRING(SS_LGUI("z")) : SEND_STRING(SS_LCTRL("z"));
+                onMac ? SEND_STRING(SS_LGUI("z")) : SEND_STRING(SS_LCTL("z"));
             }
             return false;
         case REDO:
             if (record->event.pressed) {
-                onMac ? SEND_STRING(SS_LGUI(SS_LSFT("z"))) : SEND_STRING(SS_LCTRL("y"));
+                onMac ? SEND_STRING(SS_LGUI(SS_LSFT("z"))) : SEND_STRING(SS_LCTL("y"));
             }
             return false;
         case FIND:
             if (record->event.pressed) {
-                onMac ? SEND_STRING(SS_LGUI("f")) : SEND_STRING(SS_LCTRL("f"));
+                onMac ? SEND_STRING(SS_LGUI("f")) : SEND_STRING(SS_LCTL("f"));
             }
             return false;
         case WIN_TO_RIGHT:
@@ -178,7 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case CHG_LAYOUT:
             if (record->event.pressed) {
-                onMac ? SEND_STRING(SS_LCTRL(" ")) : SEND_STRING(SS_LCTRL("f"));
+                onMac ? SEND_STRING(SS_LCTL(" ")) : SEND_STRING(SS_LCTL("f"));
             }
             return false;
             // == Multi Os END ===
