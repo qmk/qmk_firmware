@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Unicorn",
+    "manufacturer": "Keyprez",
     "url": "",
     "maintainer": "Keyprez",
+    "usb": {
+        "vid": "0x6B7A",
+        "pid": "0x7563",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

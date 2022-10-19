@@ -1,6 +1,4 @@
-/*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+/* Copyright 2021 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,4 +16,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
+// wiring of each half
+#define SPLIT_HAND_PIN F7
+
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
+
+/* ws2812 RGB LED */
+#define RGBLIGHT_LED_MAP { 1, 2, 3, 12, 13, 14, 15, 0, 7, 6, 5, 4, 11, 10, 9, 8 }
+#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
+
+// Set right column, left macro, 1.75u shift, split spaces, and 5x1u on by default
+#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00DE
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2

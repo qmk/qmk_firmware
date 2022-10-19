@@ -1,9 +1,5 @@
 #pragma once
 
-#define PRODUCT_ID   0x6002
-#define DEVICE_VER   0x0001
-#define PRODUCT      Hannah60 RGB Rev.2
-
 #ifdef RGBLIGHT_ENABLE
 #    define RGB_DI_PIN A15
 #    define RGBLED_NUM      18

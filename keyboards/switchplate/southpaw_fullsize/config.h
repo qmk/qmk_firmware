@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xA103
-#define PRODUCT_ID 0x0017
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Switchplate Peripherals
-#define PRODUCT Southpaw Fullsize
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 22
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { E1, C0, C1, C2, C3, C4 }
 #define MATRIX_COL_PINS { A7, C7, C6, C5, F0, F1, F2, F3, F4, F5, F6, F7, A0, A1, A2, A3, A4, A5, A6, E0, D7, D6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -77,10 +69,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

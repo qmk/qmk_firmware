@@ -21,12 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4A53
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER klackygears
-#define PRODUCT Brain
 
 #define SPLIT_USB_DETECT
 
@@ -96,10 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
-//#define PREVENT_STUCK_MODIFIERS
 //#define TAPPING_TERM 150
 //#define IGNORE_MOD_TAP_INTERRUPT
 //#define TAPPING_FORCE_HOLD

@@ -1,7 +1,13 @@
 {
   "keyboard_name": "half_n_half",
+  "manufacturer": "di0ib",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4025",
+    "pid": "0x4A1F",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

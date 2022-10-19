@@ -42,7 +42,6 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
-#    define NUMBER_OF_ENCODERS (sizeof((pin_t[])ENCODERS_PAD_A) / sizeof(pin_t))
 #endif // ENCODER_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
@@ -67,7 +66,7 @@ typedef struct _split_master_matrix_sync_t {
 #ifdef ENCODER_ENABLE
 typedef struct _split_slave_encoder_sync_t {
     uint8_t checksum;
-    uint8_t state[NUMBER_OF_ENCODERS];
+    uint8_t state[NUM_ENCODERS_MAX_PER_SIDE];
 } split_slave_encoder_sync_t;
 #endif // ENCODER_ENABLE
 
@@ -117,9 +116,12 @@ typedef struct _split_slave_pointing_sync_t {
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {
-    int8_t  transaction_id;
-    uint8_t m2s_length;
-    uint8_t s2m_length;
+    uint8_t checksum;
+    struct {
+        int8_t  transaction_id;
+        uint8_t m2s_length;
+        uint8_t s2m_length;
+    } payload;
 } rpc_sync_info_t;
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 

@@ -1,0 +1,8 @@
+{
+    "url": "https://github.com/Oh-My-Mechanical-Keyboard",
+    "maintainer": "Jason Ren (biu)",
+    "manufacturer": "Y&R",
+    "usb": {
+        "vid": "0xAA96"
+    }
+}

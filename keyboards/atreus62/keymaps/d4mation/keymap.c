@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------.                ,-----------------------------------------.
    * |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |                |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
    * |------+------+------+------+------+------|                |------+------+------+------+------+------|
-   * |  NO  |RESET |  NO  |  NO  |  NO  |  NO  |                |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
+   * |  NO  |QK_BOOT |  NO  |  NO  |  NO  |  NO  |                |  NO  |  NO  |  NO  |  NO  |  NO  |  NO  |
    * |------+------+------+------+------+------|                |------+------+------+------+------+------|
    * |  NO  |  NO  |  NO  |UC WIN|UC OSX|  NO  |,------.,------.|  NO  |Dvorak|Qwerty|  NO  |  NO  |  NO  |
    * |------+------+------+------+------+------|| Swap ||      ||------+------+------+------+------+------|
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, UC_M_WI, UC_M_OS, XXXXXXX,                   XXXXXXX, DF(_DVR),DF(_QWR),XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, CG_SWAP, CG_NORM, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

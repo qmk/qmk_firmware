@@ -1,20 +1,9 @@
 #include QMK_KEYBOARD_H
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-
-extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
-
-extern uint8_t is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -26,8 +15,7 @@ extern uint8_t is_master;
 #define _ADJUST 3
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   ADJUST,
   RGBRST
@@ -60,11 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                                  ,-----------------------------------------.
  * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |                                  |  F6  |  F7  |  F8  |  F9  |  F10 |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * | Tab  |   /  |   -  |   7  |   8  |   9  |                                  | PSCR | SLCK | Pause|      |  ª  |      |
+ * | Tab  |   /  |   -  |   7  |   8  |   9  |                                  | PSCR | SLCK | Pause|      |  ï¿½ï¿½  |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * |LShift|   *  |   +  |   4  |   5  |   6  |                                  |Insert| Home |PageUP|      |  «  |  ¨  |
+ * |LShift|   *  |   +  |   4  |   5  |   6  |                                  |Insert| Home |PageUP|      |  ï¿½ï¿½  |  ï¿½ï¿½  |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * |LCTRL |   .  |   0  |   1  |   2  |   3  |-------.-------.  ,---------------|  Del | End  |PageDN|  ©  | Num  | Caps |
+ * |LCTRL |   .  |   0  |   1  |   2  |   3  |-------.-------.  ,---------------|  Del | End  |PageDN|  ï¿½ï¿½  | Num  | Caps |
  * `-----------------------------------------/  F11  /       /   \       \  F12  \----------------------------------------'
  *                          | LAlt | LGUI | /-------/ Space /     \ Enter \-------\  |      |      |
  *                          |      |      |/ LOWER /       /       \       \       \ |      |      |
@@ -80,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* RAISE
  * ,-----------------------------------------.                                  ,-----------------------------------------.
- * |RESET |      |      |      |      |      |                                  | Mute | Vol+ | Play |      |      |      |
+ * |QK_BOOT |      |      |      |      |      |                                  | Mute | Vol+ | Play |      |      |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                                  | Prev | Vol- | Next |      |      |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
@@ -93,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          `-----------------------------'         '------------------------------'
  */
  [_RAISE] = LAYOUT( \
-  RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,                                     KC_MUTE, KC_VOLU, KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, \
+  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,                                     KC_MUTE, KC_VOLU, KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,                                     KC_MPRV, KC_VOLD, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,    KC_WH_L,                                     XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,    KC_WH_R, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGBRST,  RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, \
@@ -102,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*   ADJUST
  * ,-----------------------------------------.                                  ,-----------------------------------------.
- * |RESET |      |      |      |      |      |                                  |      |      |      |      |      |      |
+ * |QK_BOOT |      |      |      |      |      |                                  |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                                  |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
@@ -115,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          `-----------------------------'         '------------------------------'
 
  [_ADJUST] = LAYOUT( \
-  RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -126,11 +114,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 int RGB_current_mode;
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
@@ -145,18 +128,9 @@ void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-      #ifdef SSD1306_128X64
-        iota_gfx_init(false);   // turns on the display
-      #else
-        iota_gfx_init(!has_usb());   // turns on the display
-      #endif
-    #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 
 //assign the right code to your layers for OLED display
 #define L_QWERTY 0
@@ -167,12 +141,8 @@ void matrix_init_user(void) {
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);
 
-void matrix_scan_user(void) {
-   iota_gfx_task();
-}
-
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
+bool oled_task_user(void) {
+  if (is_keyboard_master()) {
     static char indctr[2][20][5]=
     {
       // white icon
@@ -236,58 +206,40 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
     if (layer_state == L_RAISE) { rowr = 1; }
     if (layer_state == L_ADJUST) { rowa = 1; }
 
-    matrix_write(matrix, indctr[rowl]  [0]);
-    matrix_write(matrix, indctr[rowr]  [1]);
-    matrix_write(matrix, indctr[rowa]  [2]);
-    matrix_write(matrix, indctr[rowc]  [3]);
-    matrix_write(matrix, indctr[rown]  [4]);
-    matrix_write_char(matrix, 0x13);
-    matrix_write(matrix, indctr[rowl]  [5]);
-    matrix_write(matrix, indctr[rowr]  [6]);
-    matrix_write(matrix, indctr[rowa]  [7]);
-    matrix_write(matrix, indctr[rowc]  [8]);
-    matrix_write(matrix, indctr[rown]  [9]);
-    matrix_write_char(matrix, 0x13);
-    matrix_write(matrix, indctr[rowl]  [10]);
-    matrix_write(matrix, indctr[rowr]  [11]);
-    matrix_write(matrix, indctr[rowa]  [12]);
-    matrix_write(matrix, indctr[rowc]  [13]);
-    matrix_write(matrix, indctr[rown]  [14]);
-    matrix_write_char(matrix, 0x13);
-    matrix_write(matrix, indctr[rowl]  [15]);
-    matrix_write(matrix, indctr[rowr]  [16]);
-    matrix_write(matrix, indctr[rowa]  [17]);
-    matrix_write(matrix, indctr[rowc]  [18]);
-    matrix_write(matrix, indctr[rown]  [19]);
+    oled_write(indctr[rowl]  [0], false);
+    oled_write(indctr[rowr]  [1], false);
+    oled_write(indctr[rowa]  [2], false);
+    oled_write(indctr[rowc]  [3], false);
+    oled_write(indctr[rown]  [4], false);
+    oled_write_char(0x13, false);
+    oled_write(indctr[rowl]  [5], false);
+    oled_write(indctr[rowr]  [6], false);
+    oled_write(indctr[rowa]  [7], false);
+    oled_write(indctr[rowc]  [8], false);
+    oled_write(indctr[rown]  [9], false);
+    oled_write_char(0x13, false);
+    oled_write(indctr[rowl]  [10], false);
+    oled_write(indctr[rowr]  [11], false);
+    oled_write(indctr[rowa]  [12], false);
+    oled_write(indctr[rowc]  [13], false);
+    oled_write(indctr[rown]  [14], false);
+    oled_write_char(0x13, false);
+    oled_write(indctr[rowl]  [15], false);
+    oled_write(indctr[rowr]  [16], false);
+    oled_write(indctr[rowa]  [17], false);
+    oled_write(indctr[rowc]  [18], false);
+    oled_write(indctr[rown]  [19], false);
 
   }else{
-    matrix_write(matrix, read_logo());
+    oled_write(read_logo(), false);
   }
+  return false;
 }
 
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);  
-}
-#endif//SSD1306OLED
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

@@ -18,15 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#undef PRODUCT_ID
-#define PRODUCT_ID      0x0061
-#undef PRODUCT
-#define PRODUCT         0-Sixty-underglow
-
-/* no caps lock with underglow */
-#undef LED_CAPS_LOCK_PIN
-
 /* underglow */
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 24
@@ -58,5 +49,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

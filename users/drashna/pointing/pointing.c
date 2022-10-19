@@ -22,19 +22,19 @@ __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t 
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    int8_t x = mouse_report.x, y = mouse_report.y;
+    mouse_xy_report_t x = mouse_report.x, y = mouse_report.y;
     mouse_report.x = 0;
     mouse_report.y = 0;
 
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
 #ifdef OLED_ENABLE
-        oled_timer = timer_read32();
+        oled_timer_reset();
 #endif
         if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
             if (enable_acceleration) {
-                x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
-                y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+                x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+                y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
             }
             mouse_report.x = x;
             mouse_report.y = y;
@@ -94,8 +94,10 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
             break;
+#if 0
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
             break;
+#endif
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (record->event.pressed || !record->tap.count) {
                 break;
@@ -118,7 +120,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_pointing(layer_state_t state) {
-    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) {
+    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO) || layer_state_cmp(state, _DIABLOII)) {
         state |= ((layer_state_t)1 << _MOUSE);
     }
     return state;

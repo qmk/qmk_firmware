@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | RESET|      |QWERTY|COLEMAK|      |      |                    |      |      |      |      |      |      |
+ * | QK_BOOT|      |QWERTY|COLEMAK|      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX,                    RGB_MOD,  RGB_VAI, RGB_SAI, RGB_HUI, XXXXXXX, RGB_TOG,
-  RESET  ,  XXXXXXX,  KC_QWERTY,KC_COLEMAK,CG_TOGG, XXXXXXX,                    RGB_RMOD, RGB_VAD, RGB_SAD, RGB_HUD, XXXXXXX, XXXXXXX,
+  QK_BOOT  ,  XXXXXXX,  KC_QWERTY,KC_COLEMAK,CG_TOGG, XXXXXXX,                    RGB_RMOD, RGB_VAD, RGB_SAD, RGB_HUD, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,  CG_TOGG,  XXXXXXX,   XXXXXXX, XXXXXXX,                    XXXXXXX,  KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
             _______, _______, _______,          _______, _______,         _______, _______,        _______, _______, _______

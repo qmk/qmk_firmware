@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x1C11
-#define PRODUCT_ID   0xB04D
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Input:Club
-#define PRODUCT      K-Type (QMK)
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10
@@ -40,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D5, D6, D7, C1, C2, C3, C4, C5, C6, C7 }
 #define MATRIX_COL_PINS { B2, B3, B18, B19, C0, C8, C9, D0, D1, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -97,10 +89,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x4069
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    nacly
-#define PRODUCT         juliet
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -133,9 +127,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
 
 /* Bootmagic Lite key configuration
 #define BOOTMAGIC_LITE_ROW 0

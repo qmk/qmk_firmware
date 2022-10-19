@@ -21,14 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter
-   VID & PID are lisenced from microchip sublisence program, Don't use other project! */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEE60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Dm9Records
-#define PRODUCT         ergoinu
-
 #define USE_SERIAL
 
 /* serial.c configuration for split keyboard */
@@ -106,5 +98,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

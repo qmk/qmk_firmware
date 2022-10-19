@@ -4,13 +4,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025 // 40%
-#define PRODUCT_ID      0x05B5
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    di0ib
-#define PRODUCT         The 5x5 Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -27,7 +20,6 @@
 */
 #define MATRIX_ROW_PINS { B2, D1, D0, D4, C6 }
 #define MATRIX_COL_PINS { D7, E6, B4, B5, B6, B7, D6, F7, F6, F5, F4, F1, F0, B3, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -99,5 +91,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

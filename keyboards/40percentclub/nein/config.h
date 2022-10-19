@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025 // "40%", changed since 0x3430 is already officially registered
-#define PRODUCT_ID      0x9999
-#define DEVICE_VER      0x9999
-#define MANUFACTURER    di0ib
-#define PRODUCT         The nein Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -35,7 +28,6 @@
     { F7, B1, B3 }, \
     { B2, B6, B5 }  \
 }
-#define UNUSED_PINS
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -128,8 +120,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
