@@ -9,7 +9,6 @@ from pathlib import Path
 from milc import cli
 import jsonschema
 
-import qmk.keymap
 from qmk.constants import KEYBOARD_OUTPUT_PREFIX
 from qmk.json_schema import json_load, validate
 
