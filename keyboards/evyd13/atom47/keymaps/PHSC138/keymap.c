@@ -37,7 +37,7 @@ enum {
 };
 
 enum custom_keycodes {
-    PROFILE_MACRO
+    PROF_MAC
 };
 
 
@@ -84,40 +84,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Macro for 'fn1' is spin constantly
 // Macro for right shift is D20
 [_GAME] = LAYOUT_split_space(
-    _______,    _______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,
-    _______,    _______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,				_______,
-    _______,    _______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	TD(D20),				XXXXXXX,
-    _______,    _______,	_______,	TO(_BASE),	_______,				XXXXXXX,				XXXXXXX,	_______,	XXXXXXX,				_______),
+    _______,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    _______,   _______, _______,
+    _______,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    _______,            _______,
+    _______,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    TD(D20),            XXXXXXX,
+    _______,  _______,  _______,  TO(_BASE),                _______,             XXXXXXX,            XXXXXXX,    _______,   XXXXXXX, _______),
 
 
 [_FN] = LAYOUT_split_space(
-    _______,    KC_VOLD,	KC_VOLU,	KC_MUTE,	RESET,		_______,	KC_CALC,	KC_PGUP,	_______,	KC_PGDN,	KC_PSCR,	KC_SLCK,	KC_PAUS,
-    KC_CAPS,    KC_MPRV,	KC_MPLY,	KC_MNXT,	_______,	_______,	KC_LEFT,	KC_DOWN,	KC_UP,		KC_RIGHT,	KC_INS,					_______,
-    _______,    _______,	_______,	_______,	_______,	KC_HOME,	KC_END,		BL_TOGG,	BL_DEC,		BL_INC,		_______,				_______,
-    _______,    _______,	_______,	_______,	_______,				_______,				_______,	_______,	_______,				_______),
+    _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,     RESET,       _______,    KC_CALC, KC_PGUP,   _______, KC_PGDN,    KC_PSCR,   KC_SLCK,  KC_PAUS,
+    KC_CAPS,  KC_MPRV,  KC_MPLY,  KC_MNXT,     _______,     _______,    KC_LEFT, KC_DOWN,   KC_UP,   KC_RIGHT,   KC_INS,              _______,
+    _______,  _______,  _______,  _______,     _______,     KC_HOME,    KC_END,  BL_TOGG,   BL_DEC,  BL_INC,     _______,             _______,
+    _______,  _______,  _______,  _______,                  _______,             _______,            _______,    _______,   _______,  _______),
 
 
 [_FN1] = LAYOUT_split_space(
-    KC_GRV,    KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,		KC_F12,
-    KC_1,    	KC_2,		KC_3,		KC_4,		KC_5,		KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,				KC_EQL,
-    _______,    _______,	_______,	_______,	_______,	KC_QUOT,	KC_SLSH,	KC_LBRC,	KC_RBRC,	KC_BSLS,	KC_RSFT,				_______,
-    _______,    _______,	_______,	_______,	_______,				_______,				_______,	_______,	_______,				_______),
+    KC_GRV,   KC_F1,    KC_F2,    KC_F3,       KC_F4,       KC_F5,      KC_F6,   KC_F7,     KC_F8,   KC_F9,      KC_F10,    KC_F11,   KC_F12,
+    KC_1,     KC_2,     KC_3,     KC_4,        KC_5,        KC_6,       KC_7,    KC_8,      KC_9,    KC_0,       KC_MINS,             KC_EQL,
+    _______,  _______,  _______,  _______,     _______,     KC_QUOT,    KC_SLSH, KC_LBRC,   KC_RBRC, KC_BSLS,    KC_RSFT,             _______,
+    _______,  _______,  _______,  _______,     _______,     _______,             _______,            _______,    _______,             _______),
 
 
 [_NUM] = LAYOUT_split_space(
-    _______,    _______,	_______,	_______,	_______,	_______,	KC_7,		KC_8,		KC_9,		_______,	PROFILE_MACRO,	_______,	_______,
-    _______,    _______,	_______,	_______,	_______,	_______,	KC_4,		KC_5,		KC_6,		_______,	_______,				_______,
-    _______,    _______,	_______,	_______,	_______,	KC_1,		KC_2,		KC_3,		KC_DOT,		_______,	_______,				_______,
-    _______,    _______,	_______,	_______,	_______,				KC_0,					_______,	_______,	DEBUG,					RESET),
+    _______,  _______,  _______,  _______,     _______,     _______,    KC_7,    KC_8,      KC_9,    _______,    PROF_MAC,  _______,  _______,
+    _______,  _______,  _______,  _______,     _______,     _______,    KC_4,    KC_5,      KC_6,    _______,    _______,             _______,
+    _______,  _______,  _______,  _______,     _______,     KC_1,       KC_2,    KC_3,      KC_DOT,  _______,    _______,             _______,
+    _______,  _______,  _______,  _______,     _______,     KC_0,                 _______,           _______,    DEBUG,               RESET),
 };
 
 
 /*--- Profile Macro ---*/
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case PROFILE_MACRO:
+    case PROF_MAC:
       if (record->event.pressed) {
-        // When keycode PROFILE_MACRO is pressed
+        // When keycode PROF_MAC is pressed
         SEND_STRING("if [ $shell = 'zsh' ]; then echo \"echo \"Lock your computer -PHSC138\"\" >> ~/.zshrc\nclear; else echo \"echo \"Lock your computer -PHSC138\"\" >> ~/.profile\nclear; fi\n");
       } else {
         // When keycode QMKBEST is released
