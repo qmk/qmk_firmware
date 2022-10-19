@@ -1,3 +1,19 @@
+/* Copyright 2022 PHSC138
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #include "config.h"
 
@@ -37,7 +53,7 @@ enum {
 };
 
 enum custom_keycodes {
-    PROF_MAC
+    PROF_MAC = SAFE_RANGE
 };
 
 
@@ -301,21 +317,21 @@ static tap d20_tap_state = {
 };
 
 int d20_srand = 0;
-uint16_t timer_seed;
+uint32_t timer_seed;
 
 void d20_finished(qk_tap_dance_state_t *state, void *user_data) {
     d20_tap_state.state = cur_dance(state);
     switch(d20_tap_state.state) {
         case SINGLE_HOLD: {
             if(d20_srand == 0){
-                timer_seed = timer_read();
+                timer_seed = timer_read32();
                 srand((unsigned int)timer_seed);
                 d20_srand = 1;
             }
 
             SEND_STRING("Seed: ");
-            // uint16_t has max size of 65536, so not a lot of randomness here, but it's a d20, so should be fine
-            char SEED_STR_SIZE = 8;
+            // uint32_t has max size of 4294967296
+            char SEED_STR_SIZE = 16;
             // Initialize seed_str
             char seed_str[SEED_STR_SIZE];
             for (int iter=0;iter < SEED_STR_SIZE;iter++) seed_str[iter] = 0;
