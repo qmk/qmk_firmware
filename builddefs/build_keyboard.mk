@@ -162,7 +162,7 @@ ifneq ("$(wildcard $(KEYMAP_JSON))", "")
     -include $(KEYMAP_PATH)/rules.mk
 
     # Load any rules.mk content from keymap.json
-    INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/src/rules.mk)
+    INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --output $(KEYMAP_OUTPUT)/src/rules.mk $(KEYMAP_JSON))
     include $(INFO_RULES_MK)
 
 # Add rules to generate the keymap files - indentation here is important
@@ -173,7 +173,7 @@ $(KEYMAP_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
 
 $(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_H))
+	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --output $(KEYMAP_H) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
 generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
