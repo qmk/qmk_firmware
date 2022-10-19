@@ -2417,7 +2417,7 @@ void backlight_effect_indicators_set_colors( uint8_t index, HS color )
 
 // This runs after another backlight effect and replaces
 // colors already set
-void backlight_effect_indicators(void)
+__attribute__ ((weak)) void backlight_effect_indicators(void)
 {
     if ( g_config.caps_lock_indicator.index != 255 && host_keyboard_led_state().caps_lock )
     {
