@@ -118,7 +118,7 @@
 #define ES_ASTR S(ES_PLUS) // *
 // Row 3
 #define ES_LBRC S(ES_LCBR) // [
-#define ES_RBRC ALGR(ES_PLUS) // ]
+#define ES_RBRC S(ES_RCBR) // ]
 // Row 4
 #define ES_RABK S(ES_LABK) // >
 #define ES_SCLN S(KC_COMM) // ;
@@ -140,7 +140,7 @@
  */
  // Row 1
 #define ES_NOT ALGR(ES_PIPE) // ¬
-#define ES_BSLS ALGR(KC_GRV) // (backslash)
+#define ES_BSLS ALGR(ES_QUOT) // (backslash)
 // Row 2
 #define ES_AT ALGR(KC_Q)  // @
 #define ES_TILD ALGR(ES_PLUS)    // ~
