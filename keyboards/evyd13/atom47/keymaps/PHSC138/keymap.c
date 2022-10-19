@@ -1,19 +1,18 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
-#include <stdlib.h>
 
-// These are all aliases for the  function layers.
-#define _BASE	0
-#define _PROG	1
-#define _GAME	2
-#define _FN		7
-#define _FN1	8
-#define _NUM	9
+// These are all aliases for the function layers.
+#define _BASE 0
+#define _PROG 1
+#define _GAME 2
+#define _FN   7
+#define _FN1  8
+#define _NUM  9
 
 
-/* Tap Dance  */
+// Tap Dance
 typedef struct {
-    bool is_press_action;
+    char is_press_action;
     int state;
 } tap;
 
@@ -22,12 +21,12 @@ enum {
     SINGLE_HOLD = 2,
     DOUBLE_TAP = 3,
     DOUBLE_HOLD = 4,
-    DOUBLE_SINGLE_TAP = 5, //send two single taps
+    DOUBLE_SINGLE_TAP = 5, // Send two single taps
     TRIPLE_TAP = 6,
     TRIPLE_HOLD = 7
 };
 
-//Tap dance enums
+// Tap dance enums
 enum {
     PN_SWAP = 0,
     LAPO = 1,
@@ -57,59 +56,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // _PROG
         // _FN
         // _FN1
-        // TODO: _NUM
+        // _NUM
         // _GAME
     // _GAME
     // _BASE
 
 // Tap pn for toggle to _PROG, or hold for numpad
-[_BASE] = LAYOUT(
-    KC_ESC,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_DEL,		KC_BSPC,	\
-    KC_TAB,		KC_A,		KC_S,		KC_D,		KC_F,		KC_G,		KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,				KC_ENT,		\
-    KC_LSFT,		KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_RSFT,				MO(_FN1),	\
-    KC_LCTL,		KC_LGUI,	KC_LALT,	TD(PN_SWAP),KC_SPC,					KC_SPC,					MO(_FN),	KC_RALT,	KC_APP,					KC_RCTRL),	\
+[_BASE] = LAYOUT_split_space(
+    KC_GESC,  KC_Q,     KC_W,     KC_E,        KC_R,        KC_T,       KC_Y,    KC_U,      KC_I,    KC_O,       KC_P,     KC_DEL,   KC_BSPC,
+    KC_TAB,   KC_A,     KC_S,     KC_D,        KC_F,        KC_G,       KC_H,    KC_J,      KC_K,    KC_L,       KC_SCLN,            KC_ENT,
+    KC_LSFT,  KC_Z,     KC_X,     KC_C,        KC_V,        KC_B,       KC_N,    KC_M,      KC_COMM, KC_DOT,     KC_RSFT,            MO(_FN1),
+    KC_LCTL,  KC_LGUI,  KC_LALT,  TD(PN_SWAP),              KC_SPC,              KC_SPC,             MO(_FN),    KC_RALT,  KC_APP,   KC_RCTRL),
 
 
 // LEFT AND RIGHT SHIFT: '(' and ')' when tapped, shift when held
 // LEFT AND RIGHT CTRL: '{' and '}' when tapped, ctrl when held
 // LEFT AND RIGHT ALT: '[' and ']' when tapped, ctrl when held
-[_PROG] = LAYOUT(
-    _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	\
-    _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,				_______,	\
-    KC_LSPO,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_RSPC,				_______,	\
-    TD(LCPO),		_______,	TD(LAPO),	TO(_GAME),	_______,				_______,				_______,	TD(RAPC),	_______,				TD(RCPC)),	\
+[_PROG] = LAYOUT_split_space(
+    _______,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    _______,   _______, _______,
+    _______,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    _______,            _______,
+    KC_LSPO,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    KC_RSPC,            _______,
+    TD(LCPO), _______,  TD(LAPO), TO(_GAME),                _______,             _______,            _______,    TD(RAPC),  _______, TD(RCPC)),
 
 
 // Macro for right space is bhop
 // Maco for 'fn' is move forward
 // Macro for 'fn1' is spin constantly
 // Macro for right shift is D20
-[_GAME] = LAYOUT(
-    _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	\
-    _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,				_______,	\
-    _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	TD(D20),				XXXXXXX,	\
-    _______,		_______,	_______,	TO(_BASE),	_______,				XXXXXXX,				XXXXXXX,	_______,	XXXXXXX,				_______),	\
+[_GAME] = LAYOUT_split_space(
+    _______,    _______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,
+    _______,    _______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,				_______,
+    _______,    _______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	TD(D20),				XXXXXXX,
+    _______,    _______,	_______,	TO(_BASE),	_______,				XXXXXXX,				XXXXXXX,	_______,	XXXXXXX,				_______),
 
 
-[_FN] = LAYOUT(
-    _______,		KC_VOLD,	KC_VOLU,	KC_MUTE,	RESET,		_______,	KC_CALC,	KC_PGUP,	_______,	KC_PGDN,	KC_PSCR,	KC_SLCK,	KC_PAUS,	\
-    KC_CAPS,		KC_MPRV,	KC_MPLY,	KC_MNXT,	_______,	_______,	KC_LEFT,	KC_DOWN,	KC_UP,		KC_RIGHT,	KC_INS,					_______,	\
-    _______,		_______,	_______,	_______,	_______,	KC_HOME,	KC_END,		BL_TOGG,	BL_DEC,		BL_INC,		_______,				_______,	\
-    _______,		_______,	_______,	_______,	_______,				_______,				_______,	_______,	_______,				_______),	\
+[_FN] = LAYOUT_split_space(
+    _______,    KC_VOLD,	KC_VOLU,	KC_MUTE,	RESET,		_______,	KC_CALC,	KC_PGUP,	_______,	KC_PGDN,	KC_PSCR,	KC_SLCK,	KC_PAUS,
+    KC_CAPS,    KC_MPRV,	KC_MPLY,	KC_MNXT,	_______,	_______,	KC_LEFT,	KC_DOWN,	KC_UP,		KC_RIGHT,	KC_INS,					_______,
+    _______,    _______,	_______,	_______,	_______,	KC_HOME,	KC_END,		BL_TOGG,	BL_DEC,		BL_INC,		_______,				_______,
+    _______,    _______,	_______,	_______,	_______,				_______,				_______,	_______,	_______,				_______),
 
 
-[_FN1] = LAYOUT(
-    KC_GRV,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,		KC_F12,		\
-    KC_1,			KC_2,		KC_3,		KC_4,		KC_5,		KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,				KC_EQL,		\
-    _______,		_______,	_______,	_______,	_______,	KC_QUOT,	KC_SLSH,	KC_LBRC,	KC_RBRC,	KC_BSLS,	KC_RSFT,				_______,	\
-    _______,		_______,	_______,	_______,	_______,				_______,				_______,	_______,	_______,				_______),	\
+[_FN1] = LAYOUT_split_space(
+    KC_GRV,    KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,		KC_F12,
+    KC_1,    	KC_2,		KC_3,		KC_4,		KC_5,		KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,				KC_EQL,
+    _______,    _______,	_______,	_______,	_______,	KC_QUOT,	KC_SLSH,	KC_LBRC,	KC_RBRC,	KC_BSLS,	KC_RSFT,				_______,
+    _______,    _______,	_______,	_______,	_______,				_______,				_______,	_______,	_______,				_______),
 
 
-[_NUM] = LAYOUT(
-    _______,		_______,	_______,	_______,	_______,	_______,	KC_7,		KC_8,		KC_9,		_______,	PROFILE_MACRO,	_______,	_______,	\
-    _______,		_______,	_______,	_______,	_______,	_______,	KC_4,		KC_5,		KC_6,		_______,	_______,				_______,	\
-    _______,		_______,	_______,	_______,	_______,	KC_1,		KC_2,		KC_3,		KC_DOT,		_______,	_______,				_______,	\
-    _______,		_______,	_______,	_______,	_______,				KC_0,					_______,	_______,	DEBUG,					RESET),	\
+[_NUM] = LAYOUT_split_space(
+    _______,    _______,	_______,	_______,	_______,	_______,	KC_7,		KC_8,		KC_9,		_______,	PROFILE_MACRO,	_______,	_______,
+    _______,    _______,	_______,	_______,	_______,	_______,	KC_4,		KC_5,		KC_6,		_______,	_______,				_______,
+    _______,    _______,	_______,	_______,	_______,	KC_1,		KC_2,		KC_3,		KC_DOT,		_______,	_______,				_______,
+    _______,    _______,	_______,	_______,	_______,				KC_0,					_______,	_______,	DEBUG,					RESET),
 };
 
 
@@ -118,11 +117,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case PROFILE_MACRO:
       if (record->event.pressed) {
-        // when keycode PROFILE_MACRO is pressed
+        // When keycode PROFILE_MACRO is pressed
         SEND_STRING("if [ $shell = 'zsh' ]; then echo \"echo \"Lock your computer -PHSC138\"\" >> ~/.zshrc\nclear; else echo \"echo \"Lock your computer -PHSC138\"\" >> ~/.profile\nclear; fi\n");
-        //SEND_STRING("if [ $shell = 'zsh' ]; then echo \"echo \"Lock your computer -PHSC138\"\" >> ~/.zshrc; else echo \"echo \"Lock your computer -PHSC138\"\" >> ~/.profile; fi\n");
       } else {
-        // when keycode QMKBEST is released
+        // When keycode QMKBEST is released
       }
       break;
   }
@@ -184,7 +182,7 @@ int cur_dance(qk_tap_dance_state_t *state) {
 
 //instanalize an instance of 'tap' for the 'pn' tap dance.
 static tap pn_tap_state = {
-    .is_press_action = true,
+    .is_press_action = 1,
     .state = 0
 };
 
@@ -214,7 +212,7 @@ void pn_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 static tap lalt_tap_state = {
-    .is_press_action = true,
+    .is_press_action = 1,
     .state = 0
 };
 
@@ -235,7 +233,7 @@ void lalt_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 static tap ralt_tap_state = {
-    .is_press_action = true,
+    .is_press_action = 1,
     .state = 0
 };
 
@@ -256,7 +254,7 @@ void ralt_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 static tap rctl_tap_state = {
-    .is_press_action = true,
+    .is_press_action = 1,
     .state = 0
 };
 
@@ -277,7 +275,7 @@ void rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 static tap lctl_tap_state = {
-    .is_press_action = true,
+    .is_press_action = 1,
     .state = 0
 };
 
@@ -298,7 +296,7 @@ void lctl_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 static tap d20_tap_state = {
-    .is_press_action = true,
+    .is_press_action = 1,
     .state = 0,
 };
 
@@ -316,9 +314,29 @@ void d20_finished(qk_tap_dance_state_t *state, void *user_data) {
             }
 
             SEND_STRING("Seed: ");
-            char *string = (char*)malloc(sizeof(char*) * 16);
-            snprintf(string, 10, "%u", (unsigned int)timer_seed);
-            send_string(string);
+            // uint16_t has max size of 65536, so not a lot of randomness here, but it's a d20, so should be fine
+            char SEED_STR_SIZE = 8;
+            // Initialize seed_str
+            char seed_str[SEED_STR_SIZE];
+            for (int iter=0;iter < SEED_STR_SIZE;iter++) seed_str[iter] = 0;
+
+            int i = SEED_STR_SIZE - 2; // Leave null byte on end of string
+            while (timer_seed && i >= 0) {
+                seed_str[i] = timer_seed % 10 + '0';
+                timer_seed /= 10;
+                i -= 1;
+            }
+            i++;
+
+            // Move all characters over i spaces
+            char move = i;
+            while (i < SEED_STR_SIZE -1) {
+                seed_str[i-move] = seed_str[i];
+                seed_str[i] = 0;
+                i += 1;
+            }
+
+            send_string(seed_str);
             break;
             // Else allow fall through
         }
@@ -328,10 +346,14 @@ void d20_finished(qk_tap_dance_state_t *state, void *user_data) {
                 srand((unsigned int)timer_seed);
                 d20_srand = 1;
             }
-            int r = rand() % 20 + 1;
-            char *string = (char*)malloc(sizeof(char*) * 4);
-            snprintf(string, 4, "%d", r);
-            send_string(string);
+
+            unsigned char roll = rand() % 20 + 1;
+            char res[3];
+            res[0] = (char)((char)(roll / 10) + '0');
+            res[1] = (char)(roll % 10 + '0');
+
+            send_string(res);
+
             break;
                          }
     }
@@ -342,10 +364,10 @@ void d20_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [PN_SWAP]	= ACTION_TAP_DANCE_FN_ADVANCED(NULL, pn_finished, pn_reset),
-    [LAPO]		= ACTION_TAP_DANCE_FN_ADVANCED(NULL, lalt_finished, lalt_reset),
-    [RAPC]		= ACTION_TAP_DANCE_FN_ADVANCED(NULL, ralt_finished, ralt_reset),
-    [LCPO]		= ACTION_TAP_DANCE_FN_ADVANCED(NULL, lctl_finished, lctl_reset),
-    [RCPC]		= ACTION_TAP_DANCE_FN_ADVANCED(NULL, rctl_finished, rctl_reset),
-    [D20]		= ACTION_TAP_DANCE_FN_ADVANCED(NULL, d20_finished, d20_reset),
+    [PN_SWAP]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, pn_finished, pn_reset),
+    [LAPO]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lalt_finished, lalt_reset),
+    [RAPC]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ralt_finished, ralt_reset),
+    [LCPO]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lctl_finished, lctl_reset),
+    [RCPC]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rctl_finished, rctl_reset),
+    [D20]      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, d20_finished, d20_reset),
 };
