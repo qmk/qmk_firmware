@@ -18,7 +18,7 @@
 
 #include QMK_KEYBOARD_H
 //#include "keymap_us_international.h"
-// #include "sendstring_us_international.h"
+//#include "sendstring_us_international.h"
 
 extern uint8_t is_master;
 
@@ -38,8 +38,21 @@ enum layers {
 #define GAME TG(_GAME)
 
 // Key quick names
+#define QC_AT  S(KC_2)     // @
+#define QC_EUR ALGR(KC_5)  // €
+#define QC_SS  ALGR(KC_S)  // ß
+#define QC_SECT S(ALGR(KC_S))    // §
+#define QC_DEG  S(ALGR(KC_SCLN)) // °
+#define QC_HAT  S(KC_6)  // ^
+
+#define QC_UNDO LCTL(KC_Z)
+#define QC_REDO LCTL(KC_Y)
+#define QC_CTLX  KC_LCTL(KC_X)
+#define QC_CTLC  KC_LCTL(KC_C)
+#define QC_CTLV  KC_LCTL(KC_V)
+#define GMESCN LSFT(KC_F11)
 #define CTALDEL LCTL(LALT(KC_DEL))  // CTRL+ALT+DEL
-#define GAMESCRN LSFT(KC_F11)
+#define WINSCNS LSFT(KC_LGUI(KC_S))
 
 // Custom Keycodes / Keys  https://docs.qmk.fm/#/custom_quantum_functions?id=defining-a-new-keycode
 enum custom_keycodes {
@@ -91,8 +104,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,    KC_5,                           KC_6,   KC_7,   KC_8,     KC_9,    KC_0,    CC_BckDel, 
   KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                           KC_Z,   KC_U,   KC_I,     KC_O,    KC_P,    CC_UE, 
   KC_QUOT,  KC_A,   KC_S,   KC_D,    KC_F,    KC_G,                           KC_H,   KC_J,   KC_K,     KC_L,    CC_OE,   CC_AE, 
-  CC_APHO,   KC_Y,   KC_X,  KC_C,    KC_V,    KC_B,  KC_MUTE,        _______, KC_N,   KC_M,   CC_SCOLN, CC_COLN, CC_EXLM, KC_MINS, 
-                            CC_SLH,  MOD,     LOWER, LSFT_T(KC_SPC), RSFT_T(KC_ENT),  RAISE,  KC_DEL,   XXXXXXX
+  CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,     KC_B,  KC_MUTE,        _______, KC_N,   KC_M,   CC_SCOLN, CC_COLN, CC_EXLM, KC_MINS, 
+                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_ENT),  RAISE,  KC_DEL,   XXXXXXX
 ),
 
 
@@ -120,8 +133,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT(
   _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11, 
-  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_PEQL, 
-  XXXXXXX,  KC_LGUI, KC_LSFT, KC_LALT, KC_LCTL, KC_PERC,                    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, XXXXXXX, 
+  _______,  XXXXXXX, WINSCNS, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_F12, 
+  XXXXXXX,  KC_LGUI, QC_CTLX, QC_CTLC, QC_CTLV, XXXXXXX,                    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, XXXXXXX, 
   XXXXXXX,  KC_RGUI, KC_RSFT, KC_RALT, KC_RCTL, _______, _______, _______,  XXXXXXX, KC_BSPC, KC_DEL,  XXXXXXX,  XXXXXXX, KC_PENT, 
                               _______, _______, _______, _______, _______,  _______, _______, _______
 ),
@@ -151,11 +164,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ),
 
 [_UPPER] = LAYOUT(
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,                      _______,  _______,  _______,  _______, _______, _______, 
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_HELP,  KC_HELP, KC_HELP,                      KC_PSLS,  KC_LCBR,  KC_RCBR,  KC_PMNS, KC_HELP, _______,
-  XXXXXXX,  XXXXXXX,  KC_CUT,   KC_COPY,  KC_PSTE, XXXXXXX,                      KC_PAST,  KC_LBRC,  KC_RBRC,  KC_PPLS, KC_TILD, _______, 
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_UNDO,  KC_AGIN, XXXXXXX, _______,   _______,  KC_PIPE,  KC_PEQL,  KC_LT,    KC_GT,   XXXXXXX,   GAME,
-                                _______,  _______, _______, _______,   _______,  _______,  _______,  _______
+  _______,  _______,  _______,  _______,  _______,  _______,                     _______,  _______,  _______,  _______, _______, _______, 
+  _______,  QC_AT,    KC_TILD,  QC_EUR,   KC_PSCR,  _______,                     KC_PAST,  KC_PPLS,  KC_LCBR,  KC_RCBR, QC_DEG, _______,
+  XXXXXXX,  XXXXXXX,  QC_SS,    QC_UNDO,  QC_REDO,  CTALDEL,                     QC_HAT,   KC_PEQL,  KC_LPRN,  KC_RPRN, KC_LT,   KC_GT, 
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, _______, _______,   KC_PSLS,  KC_PMNS,  KC_LBRC,  KC_RBRC, KC_PIPE, KC_PENT,
+                                _______,  _______,  _______, _______, _______,   _______,  _______,  _______
 ),
 
 /* MOD
@@ -181,10 +194,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   )
 
   [_MOD] = LAYOUT(
-  RGB_TOG,  _______,  _______,  _______,  _______,  _______,                       _______,  _______,  _______,  _______,  _______,  GAME, 
-  RGB_MOD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                       KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  _______,
-  RGB_VAI,  KC_LGUI,  KC_LSFT,  KC_LALT,  KC_LCTL,  XXXXXXX,                       KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,  KC_PERC, 
-  RGB_VAD,  KC_RGUI,  KC_RSFT,  KC_RALT,  KC_RCTL,  XXXXXXX,  _______,   _______,  KC_P0,    KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  KC_PENT, 
+  RGB_TOG,  RGB_M_P,  RGB_M_B,  RGB_M_SW, RGB_M_G,  RGB_M_SN,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GAME, 
+  RGB_MOD,  RGB_SAI,  RGB_SPI,  XXXXXXX,  XXXXXXX,  RGB_M_T,                       KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_PEQL,
+  XXXXXXX,  RGB_SAD,  RGB_SPD,  XXXXXXX,  XXXXXXX,  XXXXXXX,                       KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,  KC_PERC, 
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_NUM,   XXXXXXX,  _______,   _______,  KC_P0,    KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  KC_PENT, 
                                  XXXXXXX, _______,  _______,  _______,   _______,   _______,  _______, _______
 ),
 
@@ -194,14 +207,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_1,  KC_2,  KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,   KC_0,     GAME, 
   KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,                     KC_Z,    KC_U,    KC_I,    KC_O,   KC_P,     KC_PGUP, 
   KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,   KC_GRV,   KC_PGDN, 
-  KC_LCTL, KC_Y,  KC_X,  KC_C,    KC_V,    KC_B,   GAMESCRN, KC_F12, KC_N,    KC_M,    KC_LEFT, KC_UP,  KC_RIGHT, KC_DOWN, 
+  KC_LCTL, KC_Y,  KC_X,  KC_C,    KC_V,    KC_B,   GMESCN, KC_F12, KC_N,    KC_M,    KC_LEFT, KC_UP,  KC_RIGHT, KC_DOWN, 
                          KC_CAPS, KC_LALT, KC_SPC, KC_SPC,   KC_ENT, _______, KC_HOME, KC_END
 )
 
 };
 
-
-// Runs everytime a layer is changed ??
 
 // existing variant:
 // layer_state_t layer_state_set_user(layer_state_t state) {
@@ -332,10 +343,10 @@ void render_default_layer_state(void) {
             oled_write_P(PSTR("QRTY"), false);
             break;
         case _LOWER:
-            oled_write_ln_P(PSTR("LOWER"), false);
+            oled_write_ln_P(PSTR("LOWR"), false);
             break;
         case _UPPER:
-            oled_write_P(PSTR("UPPER"), false);
+            oled_write_P(PSTR("UPPR"), false);
             break;
         case _MOD:
             oled_write_ln_P(PSTR("MOD"), false);
@@ -390,67 +401,88 @@ bool oled_task_user(void) {
   }
     return false;
 }
-
+#endif // OLED_ENABLE
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // For OLED Key Printer
     if (record->event.pressed) {
         add_keylog(keycode);
     }
     
-  switch (keycode) {
-    case KC_SLSH:
-        // On shift send ? (question mark)
-        SEND_STRING("KC:SLASH-");
-        if ((get_mods() & MOD_BIT(MOD_MASK_SHIFT)) == MOD_BIT(MOD_MASK_SHIFT)) {
-            SEND_STRING("KC:SHIFT ");
-            if (record->event.pressed) { // On key down
-                tap_code(KC_9);
-                tap_code16(ALGR(KC_Q));   // ? Important: tapcode16 allows you to use modifiers!
-                return false;
-                // No need to register KC_...SHIFT because it's already active.
-                // The SHIFT modifier will apply on this KC.
-                // register_code(---);
-            // } else {
-                // unregister_code(KC_TAB);
-            }
-            // Do not let QMK process the keycode further
-            // return false;
+            // ? Important: tapcode16() allows you to use modifiers!
+    if (record->event.pressed) { // On key down
+        switch (keycode) {
+            case CC_BckDel:
+                if ( get_mods() & MOD_MASK_SHIFT ) {  // Shift pressed
+                    del_mods(MOD_MASK_SHIFT);  // cancel the shifts so they are not applied to the keycodes
+                    tap_code(KC_DEL);
+                    return false;
+                }
+                else { // No shift is pressed
+                    tap_code(KC_BSPC);
+                    return false;
+                }
+            
+            case CC_AE:
+            case CC_OE:
+            case CC_UE:
+            case CC_SLH:
+            case CC_APHO:
+            case CC_SCOLN:
+            case CC_COLN:
+            case CC_EXLM:
+                break;
         }
-        else { // No shift is pressed
-            tap_code16(ALGR(KC_S));
-            return false;
-        }
-  }
+    }
 
-
+            // SEND_STRING("BackDel Key pressed-");
+            //     SEND_STRING("MOD:shift ");
+            //     SEND_STRING("KC_delete.");
+            
     return true;
 }
 
 
 
-#endif // OLED_ENABLE
+// #endif // OLED_ENABLE
 // --------------------------------------------------------------------------------
 
 // Rotary encoder related code
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {             // Encoder on master side
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
+    if (IS_LAYER_ON(_MOD))          // _MOD LAYER
+    {
+        if (clockwise) {
+            tap_code(RGB_HUI);          // Increase Hue
+        } else {
+            tap_code(RGB_HUD);
+        }
     }
-    
+    else {                          // _QWERTY LAYER and others
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
   }
   else if (index == 1) {        // Encoder on slave side
-    if(IS_LAYER_ON(_LOWER)) { 
+    if(IS_LAYER_ON(_LOWER)) {       // _LOWER LAYER
       if (clockwise) {
         tap_code(KC_PGDN);
       } else {
         tap_code(KC_PGUP);
       }
     }
-    else {
+    else if (IS_LAYER_ON(_MOD))     // _MOD LAYER
+    {
+        if (clockwise) {
+            tap_code(RGB_VAI);          // Increase Brightness
+        } else {
+            tap_code(RGB_VAD);
+        }
+    }
+    else {                          // _QWERTY LAYER and others
       if (clockwise) {
           tap_code(KC_DOWN);
       } else {

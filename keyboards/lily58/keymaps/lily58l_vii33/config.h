@@ -27,13 +27,13 @@ use define EE_HANDS at flashing time*/
 // #define MASTER_RIGHT
 #define EE_HANDS
 
+#define TAPPING_TERM 150  // mod tap hold time (shift) in ms, default 200
 
 #define ENCODER_DIRECTION_FLIP    // Change analog encoder rotation direction
 #define ENCODER_RESOLUTION 1
 
 // Optimizations
 #define NO_MUSIC_MODE
-#undef RGBLIGHT_EFFECT_CHRISTMAS
 //#define SPLIT_LAYER_STATE_ENABLE  // layer activation needs to be send to slave side for RGB change
 //#define RGBLIGHT_ENABLE is already defined
 
@@ -43,12 +43,23 @@ use define EE_HANDS at flashing time*/
 //#  define RGBLIGHT_LAYERS_RETAIN_VAL // Lightning layers should retain the set main brightness 
   
 #  define RGBLIGHT_SLEEP      // the RGB lighting will be switched off when the host goes to sleep
-#  define RGBLIGHT_ANIMATIONS
+// #  define RGBLIGHT_ANIMATIONS  // deprecated!
 #  define RGBLIGHT_HUE_STEP 6 // number of steps to cycle through the hue by
 #  define RGBLIGHT_SAT_STEP 6 // number of steps to increment the saturation by
 #  define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
+
+// #  define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+
+#  define RGBLIGHT_EFFECT_ALTERNATING  // manuell ansteuern
+#  define RGBLIGHT_EFFECT_BREATHING
+#  define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#  define RGBLIGHT_EFFECT_RGB_TEST
+#  define RGBLIGHT_EFFECT_SNAKE
+#  define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #endif
 
+
+
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-//#define SPLIT_USB_DETECT
-//#define NO_USB_STARTUP_CHECK
+#define SPLIT_USB_DETECT
+#define NO_USB_STARTUP_CHECK
