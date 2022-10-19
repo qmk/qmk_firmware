@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5453 // TS - ToastyStoemp
-#define PRODUCT_ID   0x0055 // Sabre
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    ToastyStoemp
-#define PRODUCT         Sabre
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
@@ -44,7 +37,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Checked with Eagle Schematic
 #define MATRIX_ROW_PINS { D0, D1, F1, F0, B5, B6, C7, C6, F6, F7, F4, F5 }
 #define MATRIX_COL_PINS { D2, D3, D5, D4, D6, D7, B4, B2, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

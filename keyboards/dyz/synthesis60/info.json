@@ -1,5 +1,6 @@
 {
-    "keyboard_name": "synthesis60",
+    "keyboard_name": "Synthesis60 v2.1",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/synthesis60",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",

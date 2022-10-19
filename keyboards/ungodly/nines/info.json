@@ -1,7 +1,13 @@
 {
   "keyboard_name": "The Nines",
+  "manufacturer": "Ungodly Design",
   "url": "https://www.qlavier.com/",
   "maintainer": "Ungodly Design",
+  "usb": {
+    "vid": "0x5544",
+    "pid": "0x544E",
+    "device_version": "99.9.9"
+  },
   "layouts": {
     "LAYOUT_ortho_3x3": {
       "layout": [

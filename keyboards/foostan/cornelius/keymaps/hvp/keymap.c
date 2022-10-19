@@ -54,13 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), LGUI(KC_6), LGUI(KC_7), KC_7, KC_8, KC_9, KC_BSPC,
      _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_4, KC_5, KC_6, KC_0,
      _______, _______, _______, _______, _______, _______, XXXXXXX, KC_0, KC_1, KC_2, KC_3, _______,
-     RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+     QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
 
 [5] = LAYOUT(
      _______,  G(S(KC_1)), G(S(KC_2)), G(S(KC_3)), G(S(KC_4)), G(S(KC_5)), G(S(KC_6)), G(S(KC_7)), G(S(KC_8)), G(S(KC_9)), G(S(KC_0)), _______,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
      KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,
-     RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NLCK
+     QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NLCK
   ),
 };

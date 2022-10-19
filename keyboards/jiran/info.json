@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "jiran", 
+    "keyboard_name": "Jiran", 
+    "manufacturer": "Ladniy",
     "url": "t.me/s/ladniys", 
     "maintainer": "Ladniy", 
+    "usb": {
+         "vid": "0x1209",
+         "pid": "0x3735",
+         "device_version": "3.0.0"
+     },
     "layouts": {
         "LAYOUT": {
             "layout": [

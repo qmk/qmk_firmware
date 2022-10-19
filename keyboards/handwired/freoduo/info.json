@@ -1,7 +1,13 @@
 {
 "keyboard_name": "Freoduo",
+"manufacturer": "ParyzFilip",
 "url": "https://github.com/FilipParyz",
 "maintainer": "https://github.com/FilipParyz",
+"usb": {
+    "vid": "0xB141",
+    "pid": "0x0602",
+    "device_version": "0.0.1"
+},
 "layouts": {
     "LAYOUT": {
         "layout": [

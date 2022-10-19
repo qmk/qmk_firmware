@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Lily58",
+    "keyboard_name": "Lily58GlowEnc",
+    "manufacturer": "ORVISEVANS+",
     "url": "https://keycapsss.com",
     "maintainer": "BenRoe",
+    "usb": {
+        "vid": "0xFC51",
+        "pid": "0x0059",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

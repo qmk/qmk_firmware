@@ -108,6 +108,8 @@ However, this does rely on the bootloader being set by the keyboard. If this inf
 
 In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing.md) Guide for more details.
 
+!> If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
+
 ## Test It Out!
 
 Congrats! Your custom firmware has been programmed to your keyboard and you're ready to test it out!

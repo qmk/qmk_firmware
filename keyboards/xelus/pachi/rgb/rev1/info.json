@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Xelus Pachi RGB Rev 1",
+    "keyboard_name": "Pachi RGB Rev 1",
+    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x5845",
+        "pid": "0x5052",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_ansi_tsangan": "LAYOUT_tkl_ansi_tsangan"
     },

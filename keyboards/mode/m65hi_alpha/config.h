@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x00DE
-#define PRODUCT_ID      0x6574 // For 65I + 1 (for alpha, since pre-alpha 6573)
-#define DEVICE_VER      0x0065 // A for A (alpha)
-#define MANUFACTURER    Mode
-#define PRODUCT         SixtyFive HI
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

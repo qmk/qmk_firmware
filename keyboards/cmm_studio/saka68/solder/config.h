@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x434D
-#define PRODUCT_ID      0x534B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CMM.Studio
-#define PRODUCT         Saka68 Solder
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17
