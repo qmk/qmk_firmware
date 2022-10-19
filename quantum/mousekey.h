@@ -36,9 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 
 #    ifndef MOUSEKEY_MOVE_DELTA
-#        if defined (MK_KINETIC_SPEED)
+#        if defined(MK_KINETIC_SPEED)
 #            define MOUSEKEY_MOVE_DELTA 16
-#        elif defined (MOUSEKEY_INERTIA)
+#        elif defined(MOUSEKEY_INERTIA)
 #            define MOUSEKEY_MOVE_DELTA 1
 #        else
 #            define MOUSEKEY_MOVE_DELTA 8
@@ -48,32 +48,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_WHEEL_DELTA 1
 #    endif
 #    ifndef MOUSEKEY_DELAY
-#        if defined (MK_KINETIC_SPEED)
+#        if defined(MK_KINETIC_SPEED)
 #            define MOUSEKEY_DELAY 5
-#        elif defined (MOUSEKEY_INERTIA)
-#            define MOUSEKEY_DELAY 150  // allow single-pixel movements before repeat activates
+#        elif defined(MOUSEKEY_INERTIA)
+#            define MOUSEKEY_DELAY 150 // allow single-pixel movements before repeat activates
 #        else
 #            define MOUSEKEY_DELAY 10
 #        endif
 #    endif
 #    ifndef MOUSEKEY_INTERVAL
-#        if defined (MK_KINETIC_SPEED)
+#        if defined(MK_KINETIC_SPEED)
 #            define MOUSEKEY_INTERVAL 10
-#        elif defined (MOUSEKEY_INERTIA)
-#            define MOUSEKEY_INTERVAL 16  // 60 fps
+#        elif defined(MOUSEKEY_INERTIA)
+#            define MOUSEKEY_INTERVAL 16 // 60 fps
 #        else
 #            define MOUSEKEY_INTERVAL 20
 #        endif
 #    endif
 #    ifndef MOUSEKEY_MAX_SPEED
-#        if defined (MOUSEKEY_INERTIA)
+#        if defined(MOUSEKEY_INERTIA)
 #            define MOUSEKEY_MAX_SPEED 32
 #        else
 #            define MOUSEKEY_MAX_SPEED 10
 #        endif
 #    endif
 #    ifndef MOUSEKEY_TIME_TO_MAX
-#        if defined (MOUSEKEY_INERTIA)
+#        if defined(MOUSEKEY_INERTIA)
 #            define MOUSEKEY_TIME_TO_MAX 32
 #        else
 #            define MOUSEKEY_TIME_TO_MAX 30

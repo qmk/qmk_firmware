@@ -38,11 +38,11 @@ static uint8_t        mousekey_accel        = 0;
 static uint8_t        mousekey_repeat       = 0;
 static uint8_t        mousekey_wheel_repeat = 0;
 #ifdef MOUSEKEY_INERTIA
-static uint8_t        mousekey_frame        = 0;  // track whether gesture is inactive, first frame, or repeating
-static int8_t         mousekey_x_dir        = 0;  // -1 / 0 / 1 = left / neutral / right
-static int8_t         mousekey_y_dir        = 0;  // -1 / 0 / 0 = up / neutral / down
-static int8_t         mousekey_x_inertia    = 0;  // current velocity, limit +/- MOUSEKEY_TIME_TO_MAX
-static int8_t         mousekey_y_inertia    = 0;  // ...
+static uint8_t mousekey_frame     = 0; // track whether gesture is inactive, first frame, or repeating
+static int8_t  mousekey_x_dir     = 0; // -1 / 0 / 1 = left / neutral / right
+static int8_t  mousekey_y_dir     = 0; // -1 / 0 / 0 = up / neutral / down
+static int8_t  mousekey_x_inertia = 0; // current velocity, limit +/- MOUSEKEY_TIME_TO_MAX
+static int8_t  mousekey_y_inertia = 0; // ...
 #endif
 #ifdef MK_KINETIC_SPEED
 static uint16_t mouse_timer = 0;
@@ -105,7 +105,7 @@ static uint8_t move_unit(void) {
     return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }
 
-#            else  // MOUSEKEY_INERTIA mode
+#            else // MOUSEKEY_INERTIA mode
 
 static int8_t move_unit(uint8_t axis) {
     int16_t unit;
@@ -114,39 +114,43 @@ static int8_t move_unit(uint8_t axis) {
     int8_t inertia, dir;
     if (axis) {
         inertia = mousekey_y_inertia;
-        dir = mousekey_y_dir;
+        dir     = mousekey_y_dir;
     } else {
         inertia = mousekey_x_inertia;
-        dir = mousekey_x_dir;
+        dir     = mousekey_x_dir;
     }
 
-    if (mousekey_frame == 0) {  // first frame
+    if (mousekey_frame == 0) { // first frame
         unit = dir * MOUSEKEY_MOVE_DELTA;
-        if (unit) mousekey_frame ++;
-    } else if (inertia > mk_time_to_max) {  // should never happen
+        if (unit) mousekey_frame++;
+    } else if (inertia > mk_time_to_max) { // should never happen
         unit = mk_max_speed;
-    } else if (inertia < -mk_time_to_max) {  // should never happen
+    } else if (inertia < -mk_time_to_max) { // should never happen
         unit = -mk_max_speed;
-    } else {  // acceleration
+    } else { // acceleration
         // linear acceleration
-        //unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * inertia) / mk_time_to_max;
+        // unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * inertia) / mk_time_to_max;
 
         // x**2 acceleration (more precise for short movements)
         float percent = (float)inertia / (float)mk_time_to_max;
-        percent = percent * percent;
+        percent       = percent * percent;
         if (inertia < 0) percent = -percent;
         unit = 0;
-        if (inertia > 0) unit = 1;
-        else if (inertia < 0) unit = -1;
+        if (inertia > 0)
+            unit = 1;
+        else if (inertia < 0)
+            unit = -1;
         unit = unit + (mk_max_speed * percent);
     }
 
-    if (unit > MOUSEKEY_MOVE_MAX) unit = MOUSEKEY_MOVE_MAX;
-    else if (unit < -MOUSEKEY_MOVE_MAX) unit = -MOUSEKEY_MOVE_MAX;
+    if (unit > MOUSEKEY_MOVE_MAX)
+        unit = MOUSEKEY_MOVE_MAX;
+    else if (unit < -MOUSEKEY_MOVE_MAX)
+        unit = -MOUSEKEY_MOVE_MAX;
     return unit;
 }
 
-#            endif  // end MOUSEKEY_INERTIA mode
+#            endif // end MOUSEKEY_INERTIA mode
 
 static uint8_t wheel_unit(void) {
     uint16_t unit;
@@ -264,37 +268,36 @@ static uint8_t wheel_unit(void) {
 
 #    endif /* #ifndef MK_COMBINED */
 
-#ifdef MOUSEKEY_INERTIA
+#    ifdef MOUSEKEY_INERTIA
 
 static int8_t calc_inertia(int8_t direction, int8_t velocity) {
     // simulate acceleration and deceleration
 
     // deceleration
     if (direction > -1) {
-        if (velocity < -16) velocity ++;
-        if (velocity <  -4) velocity ++;
-        if (velocity <   0) velocity ++;
+        if (velocity < -16) velocity++;
+        if (velocity < -4) velocity++;
+        if (velocity < 0) velocity++;
     }
     if (direction < 1) {
-        if (velocity >  16) velocity --;
-        if (velocity >   4) velocity --;
-        if (velocity >   0) velocity --;
+        if (velocity > 16) velocity--;
+        if (velocity > 4) velocity--;
+        if (velocity > 0) velocity--;
     }
 
     // acceleration
     if (direction > 0) {
-        if (velocity < 1) velocity ++;
-        if (velocity < mk_time_to_max) velocity ++;
-    }
-    else if (direction < 0) {
-        if (velocity > -1) velocity --;
-        if (velocity > -mk_time_to_max) velocity --;
+        if (velocity < 1) velocity++;
+        if (velocity < mk_time_to_max) velocity++;
+    } else if (direction < 0) {
+        if (velocity > -1) velocity--;
+        if (velocity > -mk_time_to_max) velocity--;
     }
 
     return velocity;
 }
 
-#endif
+#    endif
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently
@@ -305,11 +308,10 @@ void mousekey_task(void) {
     mouse_report.v = 0;
     mouse_report.h = 0;
 
-#   ifdef MOUSEKEY_INERTIA
+#    ifdef MOUSEKEY_INERTIA
 
     // if an animation is in progress and it's time for the next frame
     if ((mousekey_frame) && timer_elapsed(last_timer_c) > ((mousekey_frame > 1) ? mk_interval : mk_delay * 10)) {
-
         mousekey_x_inertia = calc_inertia(mousekey_x_dir, mousekey_x_inertia);
         mousekey_y_inertia = calc_inertia(mousekey_y_dir, mousekey_y_inertia);
 
@@ -317,20 +319,26 @@ void mousekey_task(void) {
         mouse_report.y = move_unit(1);
 
         // prevent sticky "drift"
-        if ((!mousekey_x_dir) && (!mousekey_x_inertia)) { mouse_report.x = 0; tmpmr.x = 0; }
-        if ((!mousekey_y_dir) && (!mousekey_y_inertia)) { mouse_report.y = 0; tmpmr.y = 0; }
+        if ((!mousekey_x_dir) && (!mousekey_x_inertia)) {
+            mouse_report.x = 0;
+            tmpmr.x        = 0;
+        }
+        if ((!mousekey_y_dir) && (!mousekey_y_inertia)) {
+            mouse_report.y = 0;
+            tmpmr.y        = 0;
+        }
 
-        if (mousekey_frame != UINT8_MAX) mousekey_frame ++;
+        if (mousekey_frame != UINT8_MAX) mousekey_frame++;
     }
 
     // reset if not moving and no movement keys are held
     if ((!mousekey_x_dir) && (!mousekey_y_dir) && (!mousekey_x_inertia) && (!mousekey_y_inertia)) {
         mousekey_frame = 0;
-        tmpmr.x = 0;
-        tmpmr.y = 0;
+        tmpmr.x        = 0;
+        tmpmr.y        = 0;
     }
 
-#   else  // default acceleration
+#    else // default acceleration
 
     if ((tmpmr.x || tmpmr.y) && timer_elapsed(last_timer_c) > (mousekey_repeat ? mk_interval : mk_delay * 10)) {
         if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
@@ -350,7 +358,7 @@ void mousekey_task(void) {
         }
     }
 
-#   endif  // MOUSEKEY_INERTIA or not
+#    endif // MOUSEKEY_INERTIA or not
 
     if ((tmpmr.v || tmpmr.h) && timer_elapsed(last_timer_w) > (mousekey_wheel_repeat ? mk_wheel_interval : mk_wheel_delay * 10)) {
         if (mousekey_wheel_repeat != UINT8_MAX) mousekey_wheel_repeat++;
@@ -384,27 +392,24 @@ void mousekey_on(uint8_t code) {
     }
 #    endif /* #ifdef MK_KINETIC_SPEED */
 
-#   ifdef MOUSEKEY_INERTIA
+#    ifdef MOUSEKEY_INERTIA
 
     // initial keypress sets impulse and activates first frame of movement
     if (code == KC_MS_UP) {
         mousekey_y_dir = -1;
         mouse_report.y = move_unit(1);
-    }
-    else if (code == KC_MS_DOWN) {
+    } else if (code == KC_MS_DOWN) {
         mousekey_y_dir = 1;
         mouse_report.y = move_unit(1);
-    }
-    else if (code == KC_MS_LEFT) {
+    } else if (code == KC_MS_LEFT) {
         mousekey_x_dir = -1;
         mouse_report.x = move_unit(0);
-    }
-    else if (code == KC_MS_RIGHT) {
+    } else if (code == KC_MS_RIGHT) {
         mousekey_x_dir = 1;
         mouse_report.x = move_unit(0);
     }
 
-#   else  // no inertia
+#    else // no inertia
 
     if (code == KC_MS_UP)
         mouse_report.y = move_unit() * -1;
@@ -415,7 +420,7 @@ void mousekey_on(uint8_t code) {
     else if (code == KC_MS_RIGHT)
         mouse_report.x = move_unit();
 
-#   endif  // inertia or not
+#    endif // inertia or not
 
     else if (code == KC_MS_WH_UP)
         mouse_report.v = wheel_unit();
@@ -436,19 +441,19 @@ void mousekey_on(uint8_t code) {
 }
 
 void mousekey_off(uint8_t code) {
-#   ifdef MOUSEKEY_INERTIA
+#    ifdef MOUSEKEY_INERTIA
 
     // key release clears impulse unless opposite direction is held
-    if ((code == KC_MS_UP) && (mousekey_y_dir <  1))
+    if ((code == KC_MS_UP) && (mousekey_y_dir < 1))
         mousekey_y_dir = 0;
     else if ((code == KC_MS_DOWN) && (mousekey_y_dir > -1))
         mousekey_y_dir = 0;
-    else if ((code == KC_MS_LEFT) && (mousekey_x_dir <  1))
+    else if ((code == KC_MS_LEFT) && (mousekey_x_dir < 1))
         mousekey_x_dir = 0;
     else if ((code == KC_MS_RIGHT) && (mousekey_x_dir > -1))
         mousekey_x_dir = 0;
 
-#   else  // no inertia
+#    else // no inertia
 
     if (code == KC_MS_UP && mouse_report.y < 0)
         mouse_report.y = 0;
@@ -459,7 +464,7 @@ void mousekey_off(uint8_t code) {
     else if (code == KC_MS_RIGHT && mouse_report.x > 0)
         mouse_report.x = 0;
 
-#   endif  // inertia or not
+#    endif // inertia or not
 
     else if (code == KC_MS_WH_UP && mouse_report.v > 0)
         mouse_report.v = 0;
@@ -632,13 +637,13 @@ void mousekey_clear(void) {
     mousekey_repeat       = 0;
     mousekey_wheel_repeat = 0;
     mousekey_accel        = 0;
-#   ifdef MOUSEKEY_INERTIA
-    mousekey_frame        = 0;
-    mousekey_x_inertia    = 0;
-    mousekey_y_inertia    = 0;
-    mousekey_x_dir        = 0;
-    mousekey_y_dir        = 0;
-#   endif
+#ifdef MOUSEKEY_INERTIA
+    mousekey_frame     = 0;
+    mousekey_x_inertia = 0;
+    mousekey_y_inertia = 0;
+    mousekey_x_dir     = 0;
+    mousekey_y_dir     = 0;
+#endif
 }
 
 static void mousekey_debug(void) {
