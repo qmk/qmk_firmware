@@ -132,4 +132,4 @@ enum userspace_layers {
 
 #define _________________FUNCTN_R1_________________  KC_VOLU, KC_F10,  KC_F11,  KC_F12,  KC_INS
 #define _________________FUNCTN_R2_________________  KC_VOLD, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT
-#define _________________FUNCTN_R3_________________  KC_MUTE, KC_PAUS, QWERTY,  PROXIM,  DEBUG
+#define _________________FUNCTN_R3_________________  KC_MUTE, KC_PAUS, QWERTY,  PROXIM,  DB_TOGG
