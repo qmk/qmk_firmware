@@ -26,7 +26,9 @@
  */
 
 /* The USB driver to use */
-#define USB_DRIVER USBD1
+#ifndef USB_DRIVER
+#    define USB_DRIVER USBD1
+#endif // USB_DRIVER
 
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
