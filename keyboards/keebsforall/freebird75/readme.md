@@ -1,6 +1,6 @@
 # Freebird 75
 
-![fb75](https://i.imgur.com/fGRQZ2g.jpg)
+![fb75](https://i.imgur.com/fGRQZ2gh.jpg)
 
 The Freebird75 is the latest addition to the Freebird line at KeebsForAll, a series aiming to provide a set of good quality keyboards at an affordable price
 
