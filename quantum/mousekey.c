@@ -309,6 +309,10 @@ void mousekey_task(void) {
         mouse_report.x = move_unit(0);
         mouse_report.y = move_unit(1);
 
+        // prevent sticky "drift"
+        if ((!mousekey_x_dir) && (!mousekey_x_inertia)) tmpmr.x = 0;
+        if ((!mousekey_y_dir) && (!mousekey_y_inertia)) tmpmr.y = 0;
+
         if (mousekey_frame < 2) mousekey_frame++;
     }
 
