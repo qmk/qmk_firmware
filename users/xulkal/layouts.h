@@ -14,7 +14,7 @@
   * `-----------------------------------------'  `-----------------------------------------'
   */
 
-#define _________________QWERTY_L1_________________ KC_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5
+#define _________________QWERTY_L1_________________ QK_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5
 #define _________________QWERTY_L2_________________ KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T
 #define _________________QWERTY_L3_________________ RIS_CAPS, KC_A,     KC_S,     KC_D,     KC_F,     KC_G
 #define _________________QWERTY_L4_________________ KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B
