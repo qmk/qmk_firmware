@@ -630,7 +630,7 @@
 #define ___6_ADJUST_L3___ MG_NKRO,  ___RGB_HUE_SAT_INT_DN___,        KC_RGB_T
 
 #define ___6_ADJUST_R1___  ___5___,                          KC_RESET
-#define ___6_ADJUST_R2___  ___,     ___PRV_PLAY_NXT_STOP___, EEP_RST
+#define ___6_ADJUST_R2___  ___,     ___PRV_PLAY_NXT_STOP___, EE_CLR
 #define ___6_ADJUST_R3___  MG_NKRO, ___VDN_MUTE_VUP___, ___, RGB_IDL
 
 /********************************************************************************/
