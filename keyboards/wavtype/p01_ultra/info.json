@@ -8,6 +8,10 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_tkl_ansi_7u": "LAYOUT_tkl_ansi_tsangan",
+        "LAYOUT_tkl_iso_7u": "LAYOUT_tkl_iso_tsangan"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
@@ -105,7 +109,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_7u": {
+        "LAYOUT_tkl_ansi_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":2, "y":0},
@@ -297,7 +301,7 @@
                 {"x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_iso_7u": {
+        "LAYOUT_tkl_iso_tsangan": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":2, "y":0},
