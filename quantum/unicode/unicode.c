@@ -23,9 +23,12 @@
 #include "host.h"
 #include "keycode.h"
 #include "wait.h"
-#include "audio.h"
 #include "send_string.h"
 #include "utf8.h"
+
+#if defined(AUDIO_ENABLE)
+#    include "audio.h"
+#endif
 
 #if defined(UNICODE_ENABLE) + defined(UNICODEMAP_ENABLE) + defined(UCIS_ENABLE) > 1
 #    error "Cannot enable more than one Unicode method (UNICODE, UNICODEMAP, UCIS) at the same time"
