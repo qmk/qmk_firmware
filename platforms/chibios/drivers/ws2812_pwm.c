@@ -88,8 +88,8 @@
  */
 #define WS2812_COLOR_BITS (WS2812_CHANNELS * 8)
 #define WS2812_RESET_BIT_N (1000 * WS2812_TRST_US / WS2812_TIMING)
-#define WS2812_COLOR_BIT_N (RGBLED_NUM * WS2812_COLOR_BITS)    /**< Number of data bits */
-#define WS2812_BIT_N (WS2812_COLOR_BIT_N + WS2812_RESET_BIT_N) /**< Total number of bits in a frame */
+#define WS2812_COLOR_BIT_N (WS2812_LED_COUNT * WS2812_COLOR_BITS) /**< Number of data bits */
+#define WS2812_BIT_N (WS2812_COLOR_BIT_N + WS2812_RESET_BIT_N)    /**< Total number of bits in a frame */
 
 /**
  * @brief   High period for a zero, in ticks
@@ -133,7 +133,7 @@
 /**
  * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given bit
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] byte:                 The byte number [0, 2]
  * @param[in] bit:                  The bit number [0, 7]
  *
@@ -147,7 +147,7 @@
  *
  * @note    The red byte is the middle byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit number [0, 7]
  *
  * @return                          The bit index
@@ -159,7 +159,7 @@
  *
  * @note    The red byte is the first byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit number [0, 7]
  *
  * @return                          The bit index
@@ -171,7 +171,7 @@
  *
  * @note    The red byte is the last byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit index [0, 7]
  *
  * @return                          The bit index
@@ -184,7 +184,7 @@
  *
  * @note    The red byte is the middle byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit number [0, 7]
  *
  * @return                          The bit index
@@ -196,7 +196,7 @@
  *
  * @note    The red byte is the first byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit number [0, 7]
  *
  * @return                          The bit index
@@ -208,7 +208,7 @@
  *
  * @note    The red byte is the last byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit index [0, 7]
  *
  * @return                          The bit index
@@ -221,7 +221,7 @@
  *
  * @note    The red byte is the middle byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit number [0, 7]
  *
  * @return                          The bit index
@@ -233,7 +233,7 @@
  *
  * @note    The red byte is the first byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit number [0, 7]
  *
  * @return                          The bit index
@@ -245,7 +245,7 @@
  *
  * @note    The red byte is the last byte in the color packet
  *
- * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_COUNT)
  * @param[in] bit:                  The bit index [0, 7]
  *
  * @return                          The bit index
