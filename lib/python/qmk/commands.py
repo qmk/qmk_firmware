@@ -107,7 +107,7 @@ def get_make_parallel_args(parallel=1):
     return parallel_args
 
 
-def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
+def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=False, **env_vars):
     """Convert a configurator export JSON file into a C file and then compile it.
 
     Args:
@@ -129,7 +129,6 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
     user_keymap["keymap"] = user_keymap.get("keymap", "default_json")
 
-    # Write the keymap.c file
     keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
     keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
@@ -137,8 +136,25 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     keymap_dir = keymap_output / 'src'
     keymap_json = keymap_dir / 'keymap.json'
 
+    if clean:
+        if keyboard_output.exists():
+            shutil.rmtree(keyboard_output)
+        if keymap_output.exists():
+            shutil.rmtree(keymap_output)
+
+    # begin with making the deepest folder in the tree
     keymap_dir.mkdir(exist_ok=True, parents=True)
-    keymap_json.write_text(json.dumps(user_keymap), encoding='utf-8')
+
+    # Compare minified to ensure consistent comparison
+    new_content = json.dumps(user_keymap, separators=(',', ':'))
+    if keymap_json.exists():
+        old_content = json.dumps(json.loads(keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
+        if old_content == new_content:
+            new_content = None
+
+    # Write the keymap.json file if different
+    if new_content:
+        keymap_json.write_text(new_content, encoding='utf-8')
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
@@ -208,6 +224,19 @@ def parse_configurator_json(configurator_file):
             user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
+
+
+def build_environment(args):
+    """Common processing for cli.args.env
+    """
+    envs = {}
+    for env in args:
+        if '=' in env:
+            key, value = env.split('=', 1)
+            envs[key] = value
+        else:
+            cli.log.warning('Invalid environment variable: %s', env)
+    return envs
 
 
 def in_virtualenv():
