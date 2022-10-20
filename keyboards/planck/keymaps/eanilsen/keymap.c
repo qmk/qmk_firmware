@@ -185,12 +185,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     uint16_t mod = is_mac_the_default() ? KC_LGUI : KC_LALT;
     update_swapper(&sw_app_active, mod, KC_TAB, SW_APP, keycode, record);
   }
-  update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
   if (!process_custom_shift_keys(keycode, record)) { return false; }
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
+  case SW_WIN:
+    // Only applicable on mac
+    if (is_mac_the_default()) SEND_STRING(SS_LGUI(SS_TAP(X_GRV)));
+    return false;
   case LT_LEFT:
     // Guard close returning true if the key is tapped,
     // meaning the rest of the code will only run when the
