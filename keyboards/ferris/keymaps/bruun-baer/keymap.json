@@ -7,12 +7,12 @@
     "layout": "LAYOUT_split_3x5_2",
     "layers": [
         ["KC_Q"        , "KC_W"        , "KC_E"        , "KC_R"          , "KC_T",
-         "KC_Y"        , "KC_U"        , "KC_I"        , "KC_O"          , "KC_P",
+         "KC_Z"        , "KC_U"        , "KC_I"        , "KC_O"          , "KC_P",
 
          "LGUI_T(KC_A)", "LALT_T(KC_S)", "LSFT_T(KC_D)", "LCTL_T(KC_F)"  , "KC_G",
          "KC_H"        , "LCTL_T(KC_J)", "LSFT_T(KC_K)", "LALT_T(KC_L)"  , "LGUI_T(KC_QUOT)",
 
-         "KC_Z"        , "RALT_T(KC_X)", "KC_C"        , "KC_V"          , "KC_B",
+         "KC_Y"        , "RALT_T(KC_X)", "KC_C"        , "KC_V"          , "KC_B",
          "KC_N"        , "KC_M"        , "KC_COMM"     , "RALT_T(KC_DOT)", "KC_SLSH",
 
          "LT(3,KC_SPC)", "LT(4,KC_TAB)",
@@ -51,7 +51,7 @@
          "KC_F10"      , "KC_F1"       , "KC_F2"       , "KC_F3"         , "KC_PAUS",
          "KC_INS"      , "KC_HOME"     , "KC_PGDN"     , "KC_PGUP"       , "KC_END",
 
-         "KC_NO"       , "KC_NO",
+         "KC_NO"       , "QK_BOOT",
          "KC_ESC"      , "KC_DEL"
         ],
         ["KC_NO"       , "KC_NO"       , "KC_NO"       , "KC_NO"         , "KC_NO",
@@ -69,8 +69,8 @@
         ["KC_TAB"      , "KC_Q"        , "KC_W"        , "KC_E"          , "KC_R",
          "KC_NO"       , "KC_NO"       , "KC_NO"       , "KC_NO"         , "KC_NO",
 
-         "KC_LSFT"    , "KC_A"        , "KC_S"        , "KC_D"          , "KC_F",
-         "KC_NO"       , "KC_NO"       , "KC_NO"       , "KC_NO"         , "KC_NO",
+         "KC_LSFT"     , "KC_A"        , "KC_S"        , "KC_D"          , "KC_F",
+         "KC_NO"       , "KC_LEFT"     , "KC_DOWN"     , "KC_UP"         , "KC_RGHT",
 
          "KC_LCTL"     , "KC_Z"        , "KC_X"        , "KC_C"          , "KC_V",
          "KC_NO"       , "KC_NO"       , "KC_NO"       , "KC_NO"         , "KC_NO",
