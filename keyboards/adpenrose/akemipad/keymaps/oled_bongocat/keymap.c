@@ -170,10 +170,10 @@ bool oled_task_user(void) {
     
     // Host Keyboard LED Status
     led_t led_state = host_keyboard_led_state();
-    oled_set_cursor(0,2);
-    oled_write_P(led_state.num_lock ? PSTR("NUMLK") :"    ", true);
-    oled_set_cursor(0,3);
+    oled_set_cursor(0,14);
     oled_write_P(led_state.caps_lock ? PSTR("CPSLK") :"    ", true);
+    oled_set_cursor(0,15);
+    oled_write_P(led_state.num_lock ? PSTR("NUMLK") :"    ", true);
     
   return false;
 }
