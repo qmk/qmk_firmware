@@ -1,12 +1,12 @@
-# adpenrose/akemipad
+# AkemiPad
 
-![adpenrose/akemipad](imgur.com image replace me!)
+![adpenrose/akemipad](https://i.imgur.com/2q4kJOAl.png)
 
-*A short description of the keyboard/project*
+A numpad powered by a ProMicro, with multiple layout options and support for an encoder, a piezo buzzer, an OLED, and per-key RGB lighting.
 
 * Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: AkemiPad v1 PCB
+* Hardware Availability: [Arturo Avila](https://github.com/ADPenrose) 
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Quickly press two times the button on the back of the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
