@@ -1,4 +1,4 @@
-// Copyright 2022 Arturo Avila (@ADPenrose)
+// Copyright 2022 Arturo Avila (@ADPenrose), Christopher Courtney/Drashna Jael're (@drashna)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
@@ -153,11 +153,13 @@ void rgb_matrix_indicators_user(void){
   }
 }
 
+/* OLED stuff */
 #ifdef OLED_ENABLE
 bool oled_task_user(void) { 
     render_anim();
+    
+    // WPM render
     oled_set_cursor(0, 0);
-
     uint8_t n = get_current_wpm();
     char wpm_counter[6];
     wpm_counter[5] = '\0';
@@ -178,6 +180,7 @@ bool oled_task_user(void) {
   return false;
 }
 
+/* WPM calculation considerations */
 bool wpm_keycode_user(uint16_t keycode) {
   if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
       (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) ||

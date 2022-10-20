@@ -1,3 +1,6 @@
+// Copyright 2022 Arturo Avila (@ADPenrose)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "animation_frames.h"
 
@@ -76,7 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef OLED_ENABLE
     // Check if non-mod
      if ((keycode >= KC_TAB && keycode <= KC_SLASH) || // Tab - Slash (Symbols, Punctuation, Space)
-      (keycode >= KC_KP_SLASH && keycode <= KC_KP_COMMA) ||  // Keypad numbers - Keypad Dot
+      (keycode >= KC_KP_SLASH && keycode <= KC_KP_COMMA) ||  // Keypad slash - Keypad Dot
       (keycode >= KC_F1 && keycode <= KC_F12)) { // F1 - F12
         if (record->event.pressed) {
             // Display tap frames

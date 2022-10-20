@@ -1,4 +1,4 @@
-// Copyright 2022 Arturo Avila (@ADPenrose)
+// Copyright 2022 Arturo Avila (@ADPenrose), Christopher Courtney/Drashna Jael're (@drashna)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
@@ -79,7 +79,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
-/* Setting layout options and debuggin text */
+/* Setting layout options and debugging text indicators */
 void via_set_layout_options_kb(uint32_t value) { 
   via_layouts.raw = value;
   #ifdef CONSOLE_ENABLE
