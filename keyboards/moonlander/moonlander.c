@@ -321,7 +321,7 @@ bool music_mask_kb(uint16_t keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case AU_ON ... MUV_DE:
         case QK_BOOT:
-        case EEP_RST:
+        case QK_CLEAR_EEPROM:
             return false;
         default:
             return music_mask_user(keycode);

@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS,KC_WINLCK,KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_NO,   KC_NO,   KC_HOME, KC_PGDN, KC_END
     ),
     [_LOWER] = LAYOUT(
-    EEP_RST, KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_TRNS, KC_DEL,
+    EE_CLR,  KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_TRNS, KC_DEL,
     RGB_HUI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, EMO_TEARS, EMO_SAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_TOG,
     RGB_HUD, KC_NO,   KC_NO,   EMO_SHRUG,KC_NO,  KC_NO,   KC_NO,   KC_NO,   EMO_JOY, KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_TRNS,
              KC_NO,   KC_NO,   KC_NO,   EMO_CONFUSE,KC_NO,KC_NO,KC_TRNS,EMO_NERVOUS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_MOD, KC_TRNS,

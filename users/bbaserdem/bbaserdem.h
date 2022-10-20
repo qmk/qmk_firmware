@@ -531,7 +531,7 @@ enum userspace_layers {
  *                   └─────┴─────┴─────┘
  */
 #define _FU1_5_ KC_F1,  KC_F2,  KC_F3,  KC_F4,  RESET
-#define _FU2_5_ KC_F5,  KC_F6,  KC_F7,  KC_F8,  EEP_RST
+#define _FU2_5_ KC_F5,  KC_F6,  KC_F7,  KC_F8,  EE_CLR
 #define _FU3_5_ KC_F9,  KC_F10, KC_F11, KC_F12, BB_GAME
 #define _FU4_3_ KC_DEL, KC_TAB, KC_SPC
 

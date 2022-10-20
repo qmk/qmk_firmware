@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | Mouse  |      |      |Dvorak|      |      |                              | TOG  | SAI  | HUI  | VAI  | MOD  | Debug  |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |Nav Perm|      |      |Colmak|      |      |      |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD | EEP_RST|
+ * |Nav Perm|      |      |Colmak|      |      |      |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD | EE_CLR |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -230,8 +230,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_ADJUST] = LAYOUT(
       NUMPAD , _______, _______, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, QK_BOOT,
-      MOUSE  , _______, _______, DVORAK , _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, DB_TOGG  ,
-      DNAV   , _______, _______, COLEMAK, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, EEPROM_RESET,
+      MOUSE  , _______, _______, DVORAK , _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, DB_TOGG,
+      DNAV   , _______, _______, COLEMAK, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, EE_CLR,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
 

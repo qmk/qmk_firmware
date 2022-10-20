@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_ADJUST] = LAYOUT_ortho_4x12_wrapper(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        KC_CAPS, QK_BOOT, EEP_RST, _______, _______, _______, GAME,    QWERTY,  WORKMAN, COLEMAK, DVORAK,  _______,
+        KC_CAPS, QK_BOOT, EE_CLR,  _______, _______, _______, GAME,    QWERTY,  WORKMAN, COLEMAK, DVORAK,  _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
