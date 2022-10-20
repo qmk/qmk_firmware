@@ -1,6 +1,11 @@
 {
     "keyboard_name": "Bolsalice",
     "manufacturer": "BolsaSupply",
+    "usb": {
+        "pid": "0x414C",
+        "vid": "0x4253",
+        "device_version": "0.0.1"
+    },
     "url": "",
     "maintainer": "qmk",
     "layouts": {
