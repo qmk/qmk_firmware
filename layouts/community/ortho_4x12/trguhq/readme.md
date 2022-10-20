@@ -4,7 +4,8 @@
 
 * Layout Maintainer: [trguhq](https://github.com/trguhq)
 
-Types unicode runes. 
+Types unicode runes on ortholinear QMK keyboard. Legacy Latin letter
+layers left for user but have been marked red as irrelevant.
 
 ## OS specific
 
@@ -21,8 +22,8 @@ See [QMK docs](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_unic
 
 ### macOS
 
-On macOS this will have to be enabled in keyboard
-settings as a Unicode Hex Input Keyboard Source and selected under the
+On macOS this will have to be enabled in keyboard settings as a 
+Unicode Hex Input Keyboard Source and selected under the
 keyboard layouts icon on the menu bar.
 
 ### Linux
