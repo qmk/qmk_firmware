@@ -8,6 +8,10 @@
         "pid": "0x6050",
         "device_version": "1.0.4"
     },
+    "community_layouts": [
+        "fullsize_ansi",
+        "fullsize_iso"
+    ],
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [
