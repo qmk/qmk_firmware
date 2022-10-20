@@ -4,10 +4,6 @@
 
 // Deprecated Quantum keycodes
 
-#define GRAVE_ESC    QK_GRAVE_ESCAPE
-
-#define KC_GESC QK_GRAVE_ESCAPE
-
 #define TERM_ON _Static_assert(false, "The Terminal feature has been removed from QMK. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 #define TERM_OFF _Static_assert(false, "The Terminal feature has been removed from QMK.. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 // #define RESET _Static_assert(false, "The RESET keycode has been removed from QMK.. Please remove use from your keymap.")
