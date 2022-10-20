@@ -15,15 +15,16 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "config.h"
 
 // These are all aliases for the function layers.
-#define _BASE 0
-#define _PROG 1
-#define _GAME 2
-#define _FN   7
-#define _FN1  8
-#define _NUM  9
+enum custom_layers {
+    _BASE,
+    _PROG,
+    _GAME,
+    _FN,
+    _FN1,
+    _NUM
+};
 
 
 // Tap Dance
