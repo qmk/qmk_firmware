@@ -136,14 +136,18 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
     keymap_dir = keymap_output / 'src'
     keymap_json = keymap_dir / 'keymap.json'
 
+    if clean:
+        if keyboard_output.exists():
+            shutil.rmtree(keyboard_output)
+        if keymap_output.exists():
+            shutil.rmtree(keymap_output)
+
     # begin with making the deepest folder in the tree
     keymap_dir.mkdir(exist_ok=True, parents=True)
 
     # Compare minified to ensure consistent comparison
     new_content = json.dumps(user_keymap, separators=(',', ':'))
-    if clean:
-        print("Trigger clean build...")
-    elif keymap_json.exists():
+    if keymap_json.exists():
         old_content = json.dumps(json.loads(keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
         if old_content == new_content:
             new_content = None
