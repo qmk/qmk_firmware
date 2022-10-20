@@ -23,7 +23,7 @@
 #define HOME_R LALT_T(KC_R)
 #define HOME_T LCTL_T(KC_T)
 #define HOME_N RCTL_T(KC_N)
-#define HOME_E RALT_T(KC_E)
+#define HOME_E LALT_T(KC_E)
 
 
 enum planck_layers {
