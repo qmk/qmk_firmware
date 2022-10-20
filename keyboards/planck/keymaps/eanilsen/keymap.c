@@ -19,6 +19,7 @@
 #define BSP_DWRD LT(0,KC_BSPC)
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
+#define SWAPPWIN_TAB LT(0,KC_TAB)
 /* Home row mods */
 #define HOME_R LALT_T(KC_R)
 #define HOME_T LCTL_T(KC_T)
@@ -58,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    KC_TAB,  KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
-    KC_ESC,  KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
-    KC_LSFT, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
-    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI, MEH_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
+    SWAPPWIN_TAB, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
+    KC_ESC,       KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
+    KC_LSFT,      KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
+    CAPSWRD,      KC_LCTL, KC_LALT, KC_LGUI, MEH_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   /* SYMBOL
@@ -143,9 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Returns the value set by CG_TOGG
 bool is_mac_the_default(void) { return keymap_config.swap_lctl_lgui; }
-
-bool sw_app_active = false;
-bool sw_win_active = false;
+bool is_shift_held(void) { return (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; }
+bool is_ctrl_held(void) { return (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL; }
 
 void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed)
 {
@@ -159,14 +159,13 @@ void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool is_pressed)
 
 void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_pressed)
 {
-  const uint8_t mods = get_mods();
-  const uint8_t oneshot_mods = get_oneshot_mods();
   if (is_pressed) {
+    const uint8_t mods = get_mods();
     del_mods(MOD_MASK_SHIFT);
     del_oneshot_mods(MOD_MASK_SHIFT);
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
-    if ((mods | oneshot_mods) & MOD_MASK_SHIFT) tap_code16(shifted_keycode);
+    if (is_shift_held()) tap_code16(shifted_keycode);
     else tap_code16(keycode);
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
@@ -174,12 +173,14 @@ void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_p
   }
 }
 
+bool sw_app_active = false;
+bool sw_win_active = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   bool isPressed = record->event.pressed;
   bool isHeld = !record->tap.count && isPressed;
   const uint8_t mods = get_mods();
-  const uint8_t oneshot_mods = get_oneshot_mods();
 
   {
     uint16_t mod = is_mac_the_default() ? KC_LGUI : KC_LALT;
@@ -190,6 +191,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
+  case SWAPPWIN_TAB:
+    if (isHeld) {
+      /* process_record_user(SW_APP, record); */
+      return false;
+    } else if (is_shift_held()) {
+      process_record_user(SW_WIN, record);
+      return false;
+    }
+    return true;
   case SW_WIN:
     // Only applicable on mac
     if (is_mac_the_default()) SEND_STRING(SS_LGUI(SS_TAP(X_GRV)));
@@ -213,7 +223,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     return false;
   case GRAVE:
     if (isPressed) {
-      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+      if (is_shift_held()) {
 	del_mods(MOD_MASK_SHIFT);
 	del_oneshot_mods(MOD_MASK_SHIFT);
 	for (uint8_t i = 0; i < 3; i++) tap_code16(KC_GRV);
@@ -234,7 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     return false;
   case ARROW:
     if (isPressed) {
-      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+      if (is_shift_held()) {
 	del_mods(MOD_MASK_SHIFT);
 	del_oneshot_mods(MOD_MASK_SHIFT);
 	SEND_STRING("=>");
