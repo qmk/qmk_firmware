@@ -347,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     XXXXXXX,
-      MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EEP_RST,   _______,
+      MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EE_CLR, _______,
     CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, CSYSFBS, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, RGB_MOD, RGB_TOG,
       XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH
   )
@@ -417,7 +417,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {87,  1, HSV_SPRINGGREEN}, //  MIDI Oct
                                                                          {88,  1, HSV_GREEN},       //  MIDI Oct
                                                                          {89,  1, HSV_CHARTREUSE},  //  MIDI Oct
-                                                                         {96,  1, HSV_PINK},        //  EEP_RST
+                                                                         {96,  1, HSV_PINK},        //  EE_CLR
                                                                          {98,  7, HSV_ORANGE},      //  MIDI layouts
                                                                          {107, 1, HSV_YELLOW},      //  MI_VELD
                                                                          {108, 1, HSV_GREEN},       //  MI_VELU
@@ -512,7 +512,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(28, RGB_DARKSPRINGGREEN); //  MIDI Oct
                 rgb_matrix_set_color(29, RGB_DARKGREEN);       //  MIDI Oct
                 rgb_matrix_set_color(30, RGB_DARKCHARTREUSE);  //  MIDI Oct
-                rgb_matrix_set_color(37, RGB_DARKPINK);        //  EEP_RST
+                rgb_matrix_set_color(37, RGB_DARKPINK);        //  EE_CLR
                 rgb_matrix_set_color(41, RGB_DARKYELLOW);      //  MI_VELD
                 rgb_matrix_set_color(40, RGB_DARKGREEN);       //  MI_VELU
                 rgb_matrix_set_color(39, RGB_DARKBLUE);        //  RGB_MOD

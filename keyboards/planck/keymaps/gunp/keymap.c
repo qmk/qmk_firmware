@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY_1101] = LAYOUT_gunp(
   SANDBOX,   XXXXXXX,    AU_TOG,       KC_LOCK,    RGB_TOG,       QK_BOOT,
   KC_WAKE,   KC_CAPS,    USER_NAME,    USER_EMAIL, RGB_MOD,       DB_TOGG,
-  KC_SLEP,   KC_NUM,     DM_REC1,      DM_PLY1,    XXXXXXX,       EEP_RST,
+  KC_SLEP,   KC_NUM,     DM_REC1,      DM_PLY1,    XXXXXXX,       EE_CLR,
   KC_PWR,    KC_SCRL,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT
 ),
 [LY_1111] = LAYOUT_gunp(

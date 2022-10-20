@@ -653,7 +653,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        UC_M_WC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        TO(TINY),KC_F21, KC_F22, KC_F23,KC_F24, MAGIC_TOGGLE_NKRO,
        TO(FULL),KC_PAUSE,KC_PSCR,KC_SCRL,KC_NO,KC_NO,KC_NO,
-          EEP_RST,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
+          EE_CLR,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
                                        KC_NO,KC_NO,
                                                KC_NO,
                                KC_NO,KC_NO,KC_NO,

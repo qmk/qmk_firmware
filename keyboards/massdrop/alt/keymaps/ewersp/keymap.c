@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE,
         _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SCRL, KC_PAUS, _______, KC_END,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU,
-        _______, RGB_TOG, _______, _______, EEP_RST, MD_BOOT, NK_TOGG, DBG_TOG, _______, TG(ALT), _______, _______,          KC_PGUP, KC_VOLD,
+        _______, RGB_TOG, _______, _______, EE_CLR,  MD_BOOT, NK_TOGG, DBG_TOG, _______, TG(ALT), _______, _______,          KC_PGUP, KC_VOLD,
         _______, _______, KC_LALT,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END
     ),
     [SUPR] = LAYOUT_65_ansi_blocker(
@@ -196,7 +196,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case EEP_RST:
+        case QK_CLEAR_EEPROM:
             if (record->event.pressed) {
                 key_timer = timer_read32();
             } else {

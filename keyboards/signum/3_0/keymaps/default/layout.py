@@ -370,7 +370,7 @@ qmk_dict = {
     ">>|": "KC_MNXT", "|<<": "KC_MPRV", "play/ps": "KC_MPLY",
     "Bri +": "KC_BRIU", "Bri -": "KC_BRID",
     # Quantum Keycodes
-    "_reset": "QK_BOOT", "_debug": "DB_TOGG", "_eep_re": "EEP_RST",
+    "_reset": "QK_BOOT", "_debug": "DB_TOGG", "_eep_re": "EE_CLR",
     # Audio Keys missing
     # Backlighting
     "Led 0": "BL_TOGG", "Led +": "BL_INC", "Led -": "BL_DEC", "Led ~": "BL_BRTG",

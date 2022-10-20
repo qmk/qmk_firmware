@@ -348,6 +348,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        XXXXXXX, XXXXXXX, EEP_RST
+        XXXXXXX, XXXXXXX, EE_CLR
     )
 };
