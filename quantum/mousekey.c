@@ -123,24 +123,23 @@ static int8_t move_unit(uint8_t axis) {
     if (mousekey_frame == 0) { // first frame
         unit = dir * MOUSEKEY_MOVE_DELTA;
         if (unit) mousekey_frame++;
-    } else if (inertia > mk_time_to_max) { // should never happen
-        unit = mk_max_speed;
-    } else if (inertia < -mk_time_to_max) { // should never happen
-        unit = -mk_max_speed;
     } else { // acceleration
         // linear acceleration
         // unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * inertia) / mk_time_to_max;
 
         // x**2 acceleration (more precise for short movements)
-        float percent = (float)inertia / (float)mk_time_to_max;
-        percent       = percent * percent;
+        int16_t percent = (inertia << 8) / mk_time_to_max;
+        percent         = (percent * percent) >> 8;
         if (inertia < 0) percent = -percent;
-        unit = 0;
+
         if (inertia > 0)
             unit = 1;
         else if (inertia < 0)
             unit = -1;
-        unit = unit + (mk_max_speed * percent);
+        else
+            unit = 0;
+
+        unit = unit + ((mk_max_speed * percent) >> 8);
     }
 
     if (unit > MOUSEKEY_MOVE_MAX)
