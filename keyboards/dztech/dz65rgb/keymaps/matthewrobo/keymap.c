@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_FNC]    = LAYOUT_65_ansi(
 		_______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,  _______, KC_ASTG, \
 		_______, RGB_MOD,  RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT,  RGB_RMOD, RGB_MOD, _______, KC_MPRV, \
-		_______, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP,  _______,           EEP_RST, KC_MNXT, \
+		_______, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP,  _______,           EE_CLR,  KC_MNXT, \
 		_______, RGB_TOG,  _______, _______, REEPROM, REBOOT,  TG_NKRO, MAS_YEL, MAS_GRN, MAS_CRM, _______,  _______,           KC_VOLU, KC_MUTE, \
 		_______, _______,  _______,                  _______,                             _______, _V_V_V_,  _______,  RGB_SPD, KC_VOLD, RGB_SPI  \
 	),
