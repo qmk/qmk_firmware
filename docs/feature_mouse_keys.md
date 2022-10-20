@@ -187,16 +187,18 @@ Recommended settings in your keymap’s `config.h` file:
 |`MOUSEKEY_INERTIA`          |undefined|Enable Inertia mode                                        |
 |`MOUSEKEY_DELAY`            |150      |Delay between pressing a movement key and cursor movement  |
 |`MOUSEKEY_INTERVAL`         |16       |Time between cursor movements in milliseconds (16 = 60fps) |
-|`MOUSEKEY_TIME_TO_MAX`      |32       |Number of frames until maximum cursor speed is reached     |
 |`MOUSEKEY_MAX_SPEED`        |32       |Maximum cursor speed at which acceleration stops           |
+|`MOUSEKEY_TIME_TO_MAX`      |32       |Number of frames until maximum cursor speed is reached     |
+|`MOUSEKEY_FRICTION`         |24       |How quickly the cursor stops after releasing a key         |
 |`MOUSEKEY_MOVE_DELTA`       |1        |How much to move on first frame (1 strongly recommended)   |
 
 Tips:
 
 * Set `MOUSEKEY_DELAY` to roughly the same value as your host computer's key repeat delay, in ms.  Recommended values are 100 to 300.
 * Set `MOUSEKEY_INTERVAL` to a value of 1000 / your monitor's FPS.  For 60 FPS, 1000/60 = 16.
-* Set `MOUSEKEY_TIME_TO_MAX` to a value of approximately FPS / 2, to make it reach full speed in half a second (or so).
 * Set `MOUSEKEY_MAX_SPEED` based on your screen resolution and refresh rate, like Width / FPS.  For example, 1920 pixels / 60 FPS = 32 pixels per frame.
+* Set `MOUSEKEY_TIME_TO_MAX` to a value of approximately FPS / 2, to make it reach full speed in half a second (or so).
+* Set `MOUSEKEY_FRICTION` to something between 1 and 255.  Lower makes the cursor glide longer. Values from 8 to 40 are the most effective.
 * Keep `MOUSEKEY_MOVE_DELTA` at 1.  This allows precise movements before the gliding effect starts.
 * Mouse wheel options are the same as the default accelerated mode, and do not use inertia.
 

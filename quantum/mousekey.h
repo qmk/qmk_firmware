@@ -92,6 +92,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #    endif
 
+#    ifndef MOUSEKEY_FRICTION
+#        define MOUSEKEY_FRICTION 24 // 0 to 255
+#    endif
 #    ifndef MOUSEKEY_INITIAL_SPEED
 #        define MOUSEKEY_INITIAL_SPEED 100
 #    endif
