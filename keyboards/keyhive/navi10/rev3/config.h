@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID           0xFEED
-#define PRODUCT_ID          0x0000
-#define DEVICE_VER          0x0003
-#define MANUFACTURER        emdarcher
-#define PRODUCT             Navi10
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3
@@ -35,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B6, B2, B3, B4 }
 #define MATRIX_COL_PINS \
     { D4, E6, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

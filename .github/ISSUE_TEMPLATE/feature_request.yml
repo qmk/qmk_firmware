@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest a new feature or changes to existing features.
+title: "[Feature Request] "
+labels: ["enhancement", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Provide a general summary of the changes you want in the title above.
+  - type: checkboxes
+    attributes:
+      label: Feature Request Type
+      options:
+        - label: Core functionality
+        - label: Add-on hardware support (eg. audio, RGB, OLED screen, etc.)
+        - label: Alteration (enhancement/optimization) of existing feature(s)
+        - label: New behavior
+  - type: textarea
+    attributes:
+      label: Description
+      description: A few sentences describing what it is that you'd like to see in QMK. Additional information (such as links to spec sheets, licensing info, other related issues or PRs, etc) would be helpful.

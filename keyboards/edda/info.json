@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Edda",
+    "manufacturer": "Mekanisk",
     "url": "https://mekanisk.com",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4D45",
+        "pid": "0x4544",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

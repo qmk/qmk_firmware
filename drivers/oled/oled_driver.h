@@ -260,7 +260,7 @@ void oled_write_ln_P(const char *data, bool invert);
 void oled_write_raw_P(const char *data, uint16_t size);
 #else
 #    define oled_write_P(data, invert) oled_write(data, invert)
-#    define oled_write_ln_P(data, invert) oled_write(data, invert)
+#    define oled_write_ln_P(data, invert) oled_write_ln(data, invert)
 #    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif // defined(__AVR__)
 

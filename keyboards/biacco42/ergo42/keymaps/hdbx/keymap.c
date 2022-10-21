@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-------------------------------------------------------.   ,-------------------------------------------------------.
    * |RGB_TOG| MCR1  | MCR2  | MCR3  |XXXXXXX|XXXXXXX|XXXXXXX|   |XXXXXXX|PLAY_M1|PLAY_M2|REC_M1 |REC_M2 |STP_REC| BSPC  |
    * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
-   * | RESET |       |       |       |       |       |       |   |XXXXXXX|XXXXXXX|QWERTY | GAME  |XXXXXXX|XXXXXXX|XXXXXXX|
+   * | QK_BOOT |       |       |       |       |       |       |   |XXXXXXX|XXXXXXX|QWERTY | GAME  |XXXXXXX|XXXXXXX|XXXXXXX|
    * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
    * | Shift |       |       |       |       |       |       |   |XXXXXXX| M-PLAY|M-MUTE |VOL_DWN|VOL_UP |PREV_TR|NEXT_TR|
    * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] = LAYOUT( \
     RGB_TOG,  MCR1,    MCR2,    MCR3,    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, KC_BSPC, \
-    RESET,    RGB_MOD, RGB_M_P, RGB_M_B, RGB_HUI, RGB_SAI, RGB_VAI,   XXXXXXX, XXXXXXX, QWERTY,  GAME,   XXXXXXX, XXXXXXX, XXXXXXX, \
+    QK_BOOT,  RGB_MOD, RGB_M_P, RGB_M_B, RGB_HUI, RGB_SAI, RGB_VAI,   XXXXXXX, XXXXXXX, QWERTY,  GAME,   XXXXXXX, XXXXXXX, XXXXXXX, \
     KC_LSFT,  RGB_M_R, RGB_M_SN,RGB_M_G, RGB_HUD, RGB_SAD, RGB_VAD,   XXXXXXX, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MNXT, \
     DEBUG,    XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
   ),
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // RGB Underglow使用時のレイヤー毎のカラー切り替え
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
@@ -148,7 +148,7 @@ void matrix_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #ifdef RGBLIGHT_ENABLE
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
       rgblight_setrgb_chartreuse(); // RAISE:シャルトリューズ
       break;

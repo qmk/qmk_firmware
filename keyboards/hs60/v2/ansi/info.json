@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "HS60v2",
-  "maintainer": "yiancar",
+  "keyboard_name": "HS60 V2",
+  "manufacturer": "Yiancar-Designs",
   "url": "",
+  "maintainer": "yiancar",
+  "usb": {
+    "vid": "0x8968",
+    "pid": "0x4854",
+    "device_version": "0.0.2"
+  },
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

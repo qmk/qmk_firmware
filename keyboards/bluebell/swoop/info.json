@@ -1,0 +1,53 @@
+{
+  "keyboard_name": "Swoop",
+  "url": "https://github.com/jimmerricks/swoop",
+  "maintainer": "jmnw",
+  "manufacturer": "jmnw",
+  "usb": {
+    "vid": "0x1804",
+    "pid": "0x3046",
+    "device_version": "1.0.0"
+  },
+  "layouts": {
+    "LAYOUT_split_3x5_3": {
+      "layout": [
+        {"label":"SW1",  "x":0, "y":0.375},
+        {"label":"SW2",  "x":1, "y":0.125},
+        {"label":"SW3",  "x":2, "y":0},
+        {"label":"SW4",  "x":3, "y":0.125},
+        {"label":"SW5",  "x":4, "y":0.25},
+        {"label":"SW19", "x":8, "y":0.25},
+        {"label":"SW20", "x":9, "y":0.125},
+        {"label":"SW21", "x":10, "y":0},
+        {"label":"SW22", "x":11, "y":0.125},
+        {"label":"SW23", "x":12, "y":0.375},
+        {"label":"SW6",  "x":0, "y":1.375},
+        {"label":"SW7",  "x":1, "y":1.125},
+        {"label":"SW8", "x":2, "y":1},
+        {"label":"SW9", "x":3, "y":1.125},
+        {"label":"SW10", "x":4, "y":1.25},
+        {"label":"SW24", "x":8, "y":1.25},
+        {"label":"SW25", "x":9,  "y":1.125},
+        {"label":"SW26", "x":10, "y":1},
+        {"label":"SW27", "x":11, "y":1.125},
+        {"label":"SW28", "x":12, "y":1.375},
+        {"label":"SW11", "x":0, "y":2.375},
+        {"label":"SW12", "x":1, "y":2.125},
+        {"label":"SW13", "x":2, "y":2},
+        {"label":"SW14", "x":3, "y":2.125},
+        {"label":"SW15", "x":4, "y":2.25},
+        {"label":"SW29", "x":8, "y":2.25},
+        {"label":"SW30", "x":9,  "y":2.125},
+        {"label":"SW31", "x":10, "y":2},
+        {"label":"SW32", "x":11, "y":2.125},
+        {"label":"SW33", "x":12, "y":2.375},
+        {"label":"SW16", "x":2.875, "y":3.25},
+        {"label":"SW17", "x":4, "y":3.375},
+        {"label":"SW28", "x":5.125, "y":3.625},
+        {"label":"SW34", "x":6.875, "y":3.625},
+        {"label":"SW35", "x":8, "y":3.375},
+        {"label":"SW36", "x":9.125, "y":3.25}
+      ]
+    }
+  }
+}

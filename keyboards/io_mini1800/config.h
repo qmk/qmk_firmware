@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER jpuerto96
-#define PRODUCT      io_mini1800
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10
@@ -28,7 +21,6 @@
  */
 #define MATRIX_ROW_PINS { D6, D7, B4, B5, D4, E6, B3, D2, D5, D3 }
 #define MATRIX_COL_PINS { D1, D0, B7, B2, F0, F1, F7, F6, F4, F5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

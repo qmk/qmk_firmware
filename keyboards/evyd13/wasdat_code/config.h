@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0xB00E
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         Wasdat Code
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { E6, C7, C6, B6, B5, B4, D7, D6 }
 #define MATRIX_COL_PINS { F7, F5, F6, F1, F4, F0, NO_PIN, D5, D3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN } // Columns 6 and 9-15 controlled by demux
-#define UNUSED_PINS
 
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 #define SN74X138_E3_PIN D4

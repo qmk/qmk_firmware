@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "PloopyCo Mouse",
+    "keyboard_name": "Mouse",
+    "manufacturer": "PloopyCo",
     "url": "www.ploopy.co",
     "maintainer": "drashna",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x4D6F",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

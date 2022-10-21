@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // 'KP' kopibeng  
-#define PRODUCT_ID      0x0651 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    kopibeng
-#define PRODUCT         MNK65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -39,6 +32,7 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
+
 #define MATRIX_ROW_PINS { B3, D0, F6, F4, F1 }
 #define MATRIX_COL_PINS { B7, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1, F5 }
 #define UNUSED_PINS
