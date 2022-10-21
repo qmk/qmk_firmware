@@ -2,13 +2,13 @@
 
 ## Keymap
 
-This is mostly based on the `default` layout, with an extra layer to closer match the labels on the keys, and a few modifications to better match my usage patterns.
+This is mostly based on the `default` layout, with two extra layers to closer match the labels on the keys, and a few modifications to better match my usage patterns.
 
 ### Default layer (QWERTY)
 
 ```
 ,-------------------------------------------------------------------------------------------------------------------.
-| Esc    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F8  |  F9  |  F10 |  F12 | PSCR | SCRL | PAUS |KEYPAD|  BOOT  |
+| Esc    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F8  |  F9  |  F10 |  F12 | PSCR | SCRL | PAUS |KEYPAD|PROGRAM |
 |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
 | =+     |  1!  |  2@  |  3#  |  4$  |  5%  |                           |  6^  |  7&  |  8*  |  9(  |  0)  | -_     |
 |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
@@ -36,6 +36,7 @@ This is mostly based on the `default` layout, with an extra layer to closer matc
 - Right <kbd>Control</kbd> was replaced with <kbd>Alt Gr</kbd> to enable third and fourth key layers, useful to access English layout symbols on layouts for European languages.
 - <kbd>Alt Gr</kbd> doubles as <kbd>Menu</kbd> key when [tapped](https://docs.qmk.fm/#/mod_tap).
 - Previously unmapped key tap-toggles the Keypad layer.
+- Bootloader mode is activated with <kbd>Program</kbd>+<kbd>F9</kbd> (Reset) rather than just <kbd>Program</kbd> key.
 
 ### L1: Keypad + Media layer
 
@@ -63,6 +64,14 @@ This is mostly based on the `default` layout, with an extra layer to closer matc
                                 `--------------------'         `--------------------'
 ```
 
+### L2: Program layer
+
+```
+,-------------------------------------------------------------------------------------------------------------------.
+|        |      |      |      |      |      |      | BOOT |      |      |      |      |      |      |      |        |
+|--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
+```
+
 ## Setting up
 
 Run
@@ -80,4 +89,4 @@ Run
 nix-shell -I 'nixpkgs=channel:nixos-unstable' -p qmk --run 'qmk flash'
 ```
 
-Then, after being asked, press <kbd>progm</kbd> key.
+Then, after being asked, press <kbd>progm</kbd>+<kbd>F9</kbd> (RESET).
