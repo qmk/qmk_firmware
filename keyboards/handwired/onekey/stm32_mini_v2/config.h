@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey STM32 Mini v2 STM32F103RC
-
-/* Key matrix pins */
-#define MATRIX_COL_PINS { B0 }
-#define MATRIX_ROW_PINS { B1 }
-#define UNUSED_PINS
-
 // SPI configuration
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
@@ -48,12 +41,11 @@
 
 #ifdef BACKLIGHT_ENABLE
     /* Backlight config */
-    #define BACKLIGHT_PIN         A0
     #define BACKLIGHT_PWM_DRIVER  PWMD2
     #define BACKLIGHT_PWM_CHANNEL 1
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
-    #define RGB_DI_PIN A1
+    #define RGB_CI_PIN A2
 #endif

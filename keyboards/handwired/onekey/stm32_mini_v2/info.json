@@ -1,0 +1,15 @@
+{
+    "keyboard_name": "Onekey STM32 Mini v2 STM32F103RC",
+    "processor": "STM32F103",
+    "board": "STM32_F103_STM32DUINO",
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["B1"]
+    },
+    "backlight": {
+        "pin": "A0"
+    },
+    "rgblight": {
+        "pin": "A1"
+    }
+}
