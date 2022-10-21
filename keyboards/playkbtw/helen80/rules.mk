@@ -18,6 +18,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
-KEY_LOCK_ENABLE = no      # Enable KC_LOCK support
+KEY_LOCK_ENABLE = no
 
 LAYOUTS = tkl_ansi
