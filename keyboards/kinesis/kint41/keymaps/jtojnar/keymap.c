@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
                  KC_UP   ,KC_DOWN ,KC_LBRC ,KC_RBRC ,
         // Right Thumb
-        KC_LGUI ,KC_RALT ,
+        KC_LGUI ,RALT_T(KC_APP),
         KC_PGUP ,
         KC_PGDN ,KC_ENTER,KC_SPC
     ),

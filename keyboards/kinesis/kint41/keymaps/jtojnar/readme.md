@@ -22,6 +22,7 @@ This is based on the `default` layout, with a few modifications to better match 
          `---------------------------'                                         `---------------------------'
                                        ,-------------.         ,-------------.
                                        | Ctrl | Alt  |         | Gui  |Alt Gr|
+                                       |      |      |         |      | Menu |
                                 ,------|------|------|         |------+------+------.
                                 |      |      | Home |         | PgUp |      |      |
                                 | BkSp |  Del |------|         |------|Return| Space|
@@ -33,6 +34,7 @@ This is based on the `default` layout, with a few modifications to better match 
 
 - Right <kbd>Super</kbd> in the right thumb cluster was changed to left <kbd>Super</kbd>, to allow opening Activities view in GNOME Shell.
 - Right <kbd>Control</kbd> was replaced with <kbd>Alt Gr</kbd> to enable third and fourth key layers, useful to access English layout symbols on layouts for European languages.
+- <kbd>Alt Gr</kbd> doubles as <kbd>Menu</kbd> key when [tapped](https://docs.qmk.fm/#/mod_tap).
 
 ## Setting up
 
