@@ -49,10 +49,12 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
 def generate_rules_mk(cli):
     """Generates a rules.mk file from info.json.
     """
+    converter = None
     # Determine our keyboard/keymap
     if cli.args.filename:
         user_keymap = parse_configurator_json(cli.args.filename)
-        kb_info_json = user_keymap.get('config', {})
+        kb_info_json = dotty(user_keymap.get('config', {}))
+        converter = user_keymap.get('converter', None)
     elif cli.args.keyboard:
         kb_info_json = dotty(info_json(cli.args.keyboard))
     else:
@@ -87,6 +89,9 @@ def generate_rules_mk(cli):
             rules_mk_lines.append('CUSTOM_MATRIX ?= lite')
         else:
             rules_mk_lines.append('CUSTOM_MATRIX ?= yes')
+
+    if converter:
+        rules_mk_lines.append(f'CONVERT_TO ?= {converter}')
 
     # Show the results
     dump_lines(cli.args.output, rules_mk_lines)
