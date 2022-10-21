@@ -1,6 +1,6 @@
 # MNK65
 
-![MNK65](https://i.imgur.com/YTrMDHj.jpg)
+![MNK65](https://i.imgur.com/YTrMDHjh.jpg)
 
 A QMK-powered, VIA-enabled 65% PCB with support for ANSI/ISO layouts, split Backspace and various bottom row configurations.
 
