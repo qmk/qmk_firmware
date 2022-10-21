@@ -1,12 +1,4 @@
 # PHSC138's Layout for the atom47
-## Make
-```sh
-qmk make -kb evyd13/atom47/rev3 -km PHSC138
-```
-## Flash
-```sh
-qmk flash -kb evyd13/atom47/rev3 -km PHSC138
-```
 ## Layers
 <!-- TODO: pictures -->
 ```c
