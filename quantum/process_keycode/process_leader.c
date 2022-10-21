@@ -72,7 +72,7 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         } else {
-            if (keycode == KC_LEAD) {
+            if (keycode == QK_LEADER) {
                 qk_leader_start();
             }
         }

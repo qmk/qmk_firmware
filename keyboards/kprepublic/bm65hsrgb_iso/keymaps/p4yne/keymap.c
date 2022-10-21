@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       S(KC_GRV), _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______,                LGUI(KC_PAUSE),
       QK_BOOT,     TO(_LVL2_), TO(_LVL3_), TO(_LVL4_), TO(_LVL5_), TO(_LVL6_), TO(_LVL7_), _______, _______, _______, KC_BRIU, _______, KC_MUTE,    TO(_LVL0_), KC_VOLU,
       _______,   _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, KC_BRID, _______, S(KC_MUTE), KC_MPLY,    KC_VOLD,
-      _______,   _______,    _______,                            KC_LEAD,                                  _______, _______,          KC_MPRV,    KC_MSTP,    KC_MNXT
+      _______,   _______,    _______,                            QK_LEAD,                                  _______, _______,          KC_MPRV,    KC_MSTP,    KC_MNXT
       ),
   /* 2: Mouse layer and virtual/multiple desktop navigation */
   [_LVL2_] = LAYOUT_65_iso_blocker(
