@@ -290,7 +290,7 @@ lookup_table_t lookup_table[333] =
  {"RESET", QK_BOOT},
  {"DB_TOGG", DB_TOGG},
  {"MAGIC_TOGGLE_NKRO", MAGIC_TOGGLE_NKRO},
- {"KC_GESC", KC_GESC},
+ {"QK_GESC", QK_GESC},
  {"AU_ON", AU_ON},
  {"AU_OFF", AU_OFF},
  {"AU_TOG", AU_TOG},

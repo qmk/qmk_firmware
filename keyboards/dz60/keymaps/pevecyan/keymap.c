@@ -8,7 +8,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT( \
-    KC_GESC,SI_1,   SI_2,   SI_3,   SI_4,   SI_5,   SI_6,   SI_7,   SI_8,   SI_9,   SI_0,   SI_QUOT, SI_PLUS,XXXXXXX,KC_BSPC, \
+    QK_GESC,SI_1,   SI_2,   SI_3,   SI_4,   SI_5,   SI_6,   SI_7,   SI_8,   SI_9,   SI_0,   SI_QUOT, SI_PLUS,XXXXXXX,KC_BSPC, \
     KC_TAB,         SI_Q,   SI_W,   SI_E,   SI_R,   SI_T,   SI_Z,   SI_U,   SI_I,   SI_O,   SI_P,    SI_GRV, SI_TILD,CARON,   \
     MO(2),          SI_A,   SI_S,   SI_D,   SI_F,   SI_G,   SI_H,   SI_J,   SI_K,   SI_L,   KC_SCLN, KC_QUOT,KC_ENT,          \
     KC_LSFT,XXXXXXX,SI_Y,   SI_X,   SI_C,   SI_V,   SI_B,   SI_N,   SI_M,   SI_COMM,SI_DOT, SI_MINS,        KC_RSFT,XXXXXXX, \

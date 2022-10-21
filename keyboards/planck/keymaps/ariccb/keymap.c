@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------'
  */
 [_GAMING] = LAYOUT_planck_grid( /* GAMING */
-  KC_GESC, KC_1,  KC_2,  KC_3,    KC_4,    KC_5,   KC_6,   KC_7,  KC_P8,   KC_9,  KC_0,    EXT_GAMING,
+  QK_GESC, KC_1,  KC_2,  KC_3,    KC_4,    KC_5,   KC_6,   KC_7,  KC_P8,   KC_9,  KC_0,    EXT_GAMING,
   KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,   KC_I,   KC_P4, KC_P5,   KC_P6, KC_PMNS, KC_PPLS,
   KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,   KC_K,   KC_P1, KC_P2,   KC_P3, KC_PSLS, KC_PAST,
   KC_NO,   KC_NO, KC_NO, KC_LCTL, KC_LALT, KC_SPC, KC_SPC, KC_P0, KC_PDOT, KC_NO, KC_NO,   KC_NO

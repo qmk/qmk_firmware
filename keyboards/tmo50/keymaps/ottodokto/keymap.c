@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   // Numerals layer
   [1] = LAYOUT_all(
-		KC_BRIU, KC_GESC,  KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL, KC_DEL,
+		KC_BRIU, QK_GESC,  KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL, KC_DEL,
 		KC_BRID, KC_CAPS, _______, _______, _______, _______, _______, _______, KC_4, KC_5,    KC_6,   _______, _______, _______,
 		RGB_MOD, _______, _______, _______, _______, _______, KC_0, KC_1, KC_2, KC_3, _______, _______, _______, _______,
 		RGB_RMOD, _______, _______, _______, _______, _______, _______

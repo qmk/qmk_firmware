@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_preonic_grid_wrapper( \
-  KC_GESC, _________________SYMBOL_L1_________________,  _________________SYMBOL_R1_________________, _______, \
+  QK_GESC, _________________SYMBOL_L1_________________,  _________________SYMBOL_R1_________________, _______, \
   _______, _______, _______, KC_UP,   _______,  KC_GRV,  _______, ____CRBRACES____, KC_UNDS, _______, KC_PIPE, \
   _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  _____PARENS_____, KC_PLUS, KC_COLN, KC_DQT , \
   _______, KC_VOLD, KC_MRWD, KC_MPLY, KC_MFFD,  KC_VOLU, KC_MINS, ___SQBRACKETS___, _______, KC_QUES, _______, \
