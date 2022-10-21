@@ -23,6 +23,10 @@
         "pid": "0x0012",
         "vid": "0x4B42"
     },
+  "matrix_size": {
+     "cols": 6,
+     "rows": 4
+  },	
     "rgb_matrix": {
         "driver": "WS2812",		
         "layout": [
