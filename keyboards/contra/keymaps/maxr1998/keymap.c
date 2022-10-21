@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FN] = {
   {_______, _______, _______, _______, _______, _______, _______, DE_UDIA, _______, DE_ODIA, _______, KC_DEL },
-  {KC_LOCK, DE_ADIA, DE_SS,   _______, _______, G_1,     _______, RGB_M_P, RGB_M_B, RGB_M_SW,_______, _______},
+  {QK_LOCK, DE_ADIA, DE_SS,   _______, _______, G_1,     _______, RGB_M_P, RGB_M_B, RGB_M_SW,_______, _______},
   {_______, _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_TOG, RGB_HUI, KC_PGUP, _______},
   {_______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END }
 },

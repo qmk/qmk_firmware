@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG_GAME, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
     CAPWORD, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
              KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-    KC_LOCK, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+    QK_LOCK, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                       TAB_SFT, MO_FN,   KC_RALT, KC_RGUI, MO_SLED,
     KC_LEFT, KC_RGHT,
     KC_UP,
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC, KC_A,   KC_R,   KC_S,   KC_T,   _______,
     KC_LSFT,_______,_______,KC_C,   KC_D,   _______,_______,
     _______,_______,KC_TAB, KC_LALT,KC_LCTL,
-                                            KC_LOCK,_______,
+                                            QK_LOCK,_______,
                                                     _______,
                                     KC_SPC, KC_LSFT,_______,
 

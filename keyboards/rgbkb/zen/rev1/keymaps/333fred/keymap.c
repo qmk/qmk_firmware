@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______,        _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LCTL, _______,        _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LSFT, KC_Z,           _______, _______, _______, _______,                    _______, _______, _______, _______, _______, KC_LGUI, \
-    KC_ENT,  TG(GAME_ARROW), KC_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
+    KC_ENT,  TG(GAME_ARROW), QK_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
 ),
 /* Gaming Arrow mode (Raise)
  * Turns wasd into arrows
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, KC_UP,   _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LSFT, KC_Z,    _______, _______, _______, _______,                    _______, _______, _______, _______, _______, KC_LGUI, \
-    KC_ENT,  _______, KC_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
+    KC_ENT,  _______, QK_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
 )
 };
 
