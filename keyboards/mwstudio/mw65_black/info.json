@@ -8,8 +8,11 @@
         "pid": "0x6500",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"label":"ESC", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
