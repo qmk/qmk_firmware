@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY] = LAYOUT_wrapper(
                    _________________NUMBER_L__________________,
-       KC_GESC, KC_TAB, _________________QWERTY_L1_________________,
+       QK_GESC, KC_TAB, _________________QWERTY_L1_________________,
           KC_CAPS, _________________QWERTY_L2_________________, KC_H,
        KC_LSFT, _________________QWERTY_L3_________________, KC_N,
      KC_LCTL, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_COLEMAK] = LAYOUT_wrapper(
                    _________________NUMBER_L__________________,
-       KC_GESC, KC_TAB, _________________COLEMAK_L1________________,
+       QK_GESC, KC_TAB, _________________COLEMAK_L1________________,
           KC_LCTL, _________________COLEMAK_L2________________, KC_ENT,
        KC_LSFT, _________________COLEMAK_L3________________, KC_M,
      KC_CAPS, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
