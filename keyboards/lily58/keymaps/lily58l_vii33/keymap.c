@@ -38,21 +38,21 @@ enum layers {
 #define GAME TG(_GAME)
 
 // Key quick names
-#define QC_AT  S(KC_2)     // @
-#define QC_EUR ALGR(KC_5)  // €
-#define QC_SS  ALGR(KC_S)  // ß
+#define QC_AT   S(KC_2)     // @
+#define QC_EUR  ALGR(KC_5)  // €
+#define QC_SS   ALGR(KC_S)  // ß
 #define QC_SECT S(ALGR(KC_S))    // §
 #define QC_DEG  S(ALGR(KC_SCLN)) // °
 #define QC_HAT  S(KC_6)  // ^
 
 #define QC_UNDO LCTL(KC_Z)
 #define QC_REDO LCTL(KC_Y)
-#define QC_CTLX  KC_LCTL(KC_X)
-#define QC_CTLC  KC_LCTL(KC_C)
-#define QC_CTLV  KC_LCTL(KC_V)
-#define GMESCN LSFT(KC_F11)
+#define QC_CTLX LCTL(KC_X)
+#define QC_CTLC LCTL(KC_C)
+#define QC_CTLV LCTL(KC_V)
+#define GMESCN  LSFT(KC_F11)
 #define CTALDEL LCTL(LALT(KC_DEL))  // CTRL+ALT+DEL
-#define WINSCNS LSFT(KC_LGUI(KC_S))
+#define WINSCNS LSFT(LGUI(KC_S))
 
 // Custom Keycodes / Keys  https://docs.qmk.fm/#/custom_quantum_functions?id=defining-a-new-keycode
 enum custom_keycodes {
@@ -61,6 +61,7 @@ enum custom_keycodes {
     CC_UE,
     CC_BckDel,
     CC_SLH,
+    CC_QUOT,
     CC_APHO,
     CC_SCOLN,
     CC_COLN,
@@ -101,11 +102,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ),
 
 [_QWERTY] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,    KC_5,                           KC_6,   KC_7,   KC_8,     KC_9,    KC_0,    CC_BckDel, 
-  KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                           KC_Z,   KC_U,   KC_I,     KC_O,    KC_P,    CC_UE, 
-  KC_QUOT,  KC_A,   KC_S,   KC_D,    KC_F,    KC_G,                           KC_H,   KC_J,   KC_K,     KC_L,    CC_OE,   CC_AE, 
-  CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,     KC_B,  KC_MUTE,        _______, KC_N,   KC_M,   CC_SCOLN, CC_COLN, CC_EXLM, KC_MINS, 
-                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_ENT),  RAISE,  KC_DEL,   XXXXXXX
+  KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,    KC_5,                            KC_6,   KC_7,  KC_8,      KC_9,    KC_0,    CC_BckDel, 
+  KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                            KC_Z,   KC_U,  KC_I,      KC_O,    KC_P,    CC_UE, 
+  CC_QUOT,  KC_A,   KC_S,   KC_D,    KC_F,    KC_G,                            KC_H,   KC_J,  KC_K,      KC_L,    CC_OE,   CC_AE, 
+  CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,     KC_B,  KC_MUTE,        _______, KC_N,   KC_M,  CC_SCOLN,  CC_COLN, CC_EXLM, KC_MINS, 
+                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_ENT),  RAISE,  KC_DEL,    KC_BSPC
 ),
 
 
@@ -207,8 +208,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_1,  KC_2,  KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,   KC_0,     GAME, 
   KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,                     KC_Z,    KC_U,    KC_I,    KC_O,   KC_P,     KC_PGUP, 
   KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,   KC_GRV,   KC_PGDN, 
-  KC_LCTL, KC_Y,  KC_X,  KC_C,    KC_V,    KC_B,   GMESCN, KC_F12, KC_N,    KC_M,    KC_LEFT, KC_UP,  KC_RIGHT, KC_DOWN, 
-                         KC_CAPS, KC_LALT, KC_SPC, KC_SPC,   KC_ENT, _______, KC_HOME, KC_END
+  KC_LCTL, KC_Y,  KC_X,  KC_C,    KC_V,    KC_B,   GMESCN,   KC_F12, KC_N,    KC_M,    KC_LEFT, KC_UP,  KC_RIGHT, KC_DOWN, 
+                         KC_CAPS, KC_LALT, KC_SPC, KC_SPC,   KC_ENT, _______, _______, _______
 )
 
 };
@@ -343,7 +344,7 @@ void render_default_layer_state(void) {
             oled_write_P(PSTR("QRTY"), false);
             break;
         case _LOWER:
-            oled_write_ln_P(PSTR("LOWR"), false);
+            oled_write_P(PSTR("LOWR"), false);
             break;
         case _UPPER:
             oled_write_P(PSTR("UPPR"), false);
@@ -352,7 +353,7 @@ void render_default_layer_state(void) {
             oled_write_ln_P(PSTR("MOD"), false);
             break;
         case _GAME:
-        oled_write_ln_P(PSTR("GAME"), false);
+            oled_write_ln_P(PSTR("GAME"), false);
             break;
         default:
             oled_write_ln_P(PSTR("ndef"), false);
@@ -407,31 +408,85 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         add_keylog(keycode);
     }
-    
-            // ? Important: tapcode16() allows you to use modifiers!
+
     if (record->event.pressed) { // On key down
         switch (keycode) {
             case CC_BckDel:
                 if ( get_mods() & MOD_MASK_SHIFT ) {  // Shift pressed
-                    del_mods(MOD_MASK_SHIFT);  // cancel the shifts so they are not applied to the keycodes
-                    tap_code(KC_DEL);
-                    return false;
-                }
-                else { // No shift is pressed
+                    del_mods(MOD_MASK_SHIFT);           // cancel the shifts so they are not applied to the keycodes
+                    tap_code(KC_DEL);                 
+                }else {                               // No shift is pressed
                     tap_code(KC_BSPC);
-                    return false;
                 }
+                break;
             
             case CC_AE:
+                tap_code16(ALGR(KC_Q));   // tapcode16() allows you to use modifiers!
+                break;
+
             case CC_OE:
+                tap_code16(ALGR(KC_P));   
+                break;
+
             case CC_UE:
+                tap_code16(ALGR(KC_Y));   
+                break;
+                
             case CC_SLH:
+                if ( get_mods() & MOD_MASK_SHIFT ) {  
+                    del_mods(MOD_MASK_SHIFT);         
+                    tap_code(KC_BSLS);           // backslash      
+                }else {                               
+                    tap_code(KC_SLSH);          // /
+                }
+                break;
+
             case CC_APHO:
-            case CC_SCOLN:
+                if ( get_mods() & MOD_MASK_SHIFT ) {  
+                    del_mods(MOD_MASK_SHIFT);         
+                    tap_code(KC_GRV);              // ` grave     
+                }else {                               
+                    tap_code16(ALGR(KC_QUOT));     //  ´ aigu
+                }
+                break;
+
+            case CC_QUOT:
+                if ( get_mods() & MOD_MASK_SHIFT ) {  
+                    del_mods(MOD_MASK_SHIFT);         
+                    tap_code(KC_QUOT);             // "      
+                }else {                               
+                    tap_code16(LSFT(KC_QUOT));     // '
+                }
+                break;
+
             case CC_COLN:
+                if ( get_mods() & MOD_MASK_SHIFT ) {  
+                    //del_mods(MOD_MASK_SHIFT);         
+                    tap_code(KC_SCLN);             // :      
+                }else {                               
+                    tap_code(KC_DOT);              // . (dot)
+                }
+                break;
+
+            case CC_SCOLN:
+                if ( get_mods() & MOD_MASK_SHIFT ) {  
+                    del_mods(MOD_MASK_SHIFT);         
+                    tap_code(KC_SCLN);             // ;     
+                }else {                               
+                    tap_code(KC_COMM);             // , (comma)
+                }
+                break;
+
             case CC_EXLM:
+                if ( get_mods() & MOD_MASK_SHIFT ) {  
+                    del_mods(MOD_MASK_SHIFT);         
+                    tap_code16(KC_EXLM);             // !     
+                }else {                               
+                    tap_code16(KC_QUES);             // ? 
+                }
                 break;
         }
+        return false;
     }
 
             // SEND_STRING("BackDel Key pressed-");
@@ -453,9 +508,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(_MOD))          // _MOD LAYER
     {
         if (clockwise) {
-            tap_code(RGB_HUI);          // Increase Hue
+            tap_code16(RGB_HUI);          // Increase Hue
         } else {
-            tap_code(RGB_HUD);
+            tap_code16(RGB_HUD);
         }
     }
     else {                          // _QWERTY LAYER and others
@@ -477,9 +532,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     else if (IS_LAYER_ON(_MOD))     // _MOD LAYER
     {
         if (clockwise) {
-            tap_code(RGB_VAI);          // Increase Brightness
+            tap_code16(RGB_VAI);          // Increase Brightness
         } else {
-            tap_code(RGB_VAD);
+            tap_code16(RGB_VAD);
         }
     }
     else {                          // _QWERTY LAYER and others
