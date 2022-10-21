@@ -3,7 +3,7 @@
 # Features
 - Audio Click and Music Mode capabilities.
 - RGB Matrix Lighting (cycles left-right and up-down).
-- LEDs turn on and off depending on the layout selected on the UI.
+- LEDs turn on and off depending on the layout selected on the VIA UI.
 - Encoder Map feature.
 
 ## The star of the show: the "RGB matrix layout-dependant" capability

@@ -3,7 +3,7 @@
 # Features
 - Audio Click capabilitiy.
 - RGB Matrix Lighting (cycles left-right and up-down).
-- LEDs turn on and off depending on the layout selected on the UI.
+- LEDs turn on and off depending on the layout selected on the VIA UI.
 - Encoder Map feature.
 - Bongo Cat animation with WPM counter and Caps Lock/Num Lock indicators.
 
