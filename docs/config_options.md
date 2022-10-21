@@ -195,7 +195,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define COMBO_MUST_HOLD_MODS`
-  * Flag for enabling extending timeout on Combos containing modifers
+  * Flag for enabling extending timeout on Combos containing modifiers
 * `#define COMBO_MOD_TERM 200`
   * Allows for extending COMBO_TERM for mod keys while mid-combo.
 * `#define COMBO_MUST_HOLD_PER_COMBO`
