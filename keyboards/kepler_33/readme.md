@@ -1,12 +1,13 @@
 # Kepler-33
 
-[![Foo](kepler-33.png)](https://www.keyboard-layout-editor.com/#/gists/a456c2256174a2cfa0b4aea832e78d8e)
+![Kepler-33](https://i.imgur.com/zVvzBrO.png)
 
 *True 40% keyboard. The simple and symmetric.*
 
 * Keyboard Maintainer: [Yaya](https://github.com/seityaya)
 * Hardware Supported: *Kepler-33/proto, STM32F401*
 * Hardware Availability: *[Telegram](https://t.me/seityaya)*
+* Keyboard Layout Editor: [Kepler-33](http://www.keyboard-layout-editor.com/#/gists/a456c2256174a2cfa0b4aea832e78d8e)
 
 Make example for this keyboard (after setting up your build environment):
 
