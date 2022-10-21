@@ -15,7 +15,7 @@
 	},
   "matrix_size": {
      "cols": 6,
-     "rows": 10
+     "rows": 4
   },	
     "matrix_pins": {
         "cols": ["F4", "C7", "C6", "B6", "B5", "D7"],
