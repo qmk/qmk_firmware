@@ -1,0 +1,90 @@
+{
+    "manufacturer": "kbdfans",
+    "keyboard_name": "Kbdpadmk3",
+    "maintainer": "kbdfans",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+		"rgb_matrix":true
+	},
+    "matrix_pins": {
+        "cols": ["F4", "C7", "C6", "B6", "B5", "D7"],
+        "rows": ["F7", "F6", "D5", "D3"]
+    },
+    "processor": "atmega32u4",
+    "usb": {
+        "device_version": "3.0.0",
+        "pid": "0x0012",
+        "vid": "0x4B42"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",		
+        "layout": [
+      { "flags": 4, "matrix": [0, 0], "x": 0,   "y": 0 },
+      { "flags": 4, "matrix": [0, 1], "x": 75,  "y": 0 },
+      { "flags": 4, "matrix": [0, 2], "x": 150, "y": 0 },
+      { "flags": 4, "matrix": [0, 3], "x": 224, "y": 0 },
+	  
+      { "flags": 4, "matrix": [1, 0], "x": 224, "y": 12.8 },
+      { "flags": 4, "matrix": [1, 1], "x": 150, "y": 12.8 },
+      { "flags": 4, "matrix": [1, 2], "x": 75,  "y": 12.8 },
+      { "flags": 4, "matrix": [1, 3], "x": 0,   "y": 12.8 },
+	  
+      { "flags": 4, "matrix": [2, 0], "x": 0,   "y": 25.6 },
+      { "flags": 4, "matrix": [2, 1], "x": 75,  "y": 25.6 },
+      { "flags": 4, "matrix": [2, 2], "x": 150, "y": 25.6 },
+      { "flags": 4, "matrix": [2, 3], "x": 224, "y": 32 },
+	  
+      { "flags": 4, "matrix": [3, 0], "x": 150, "y": 38.4 },
+      { "flags": 4, "matrix": [3, 1], "x": 75,  "y": 38.4 },
+      { "flags": 4, "matrix": [3, 2], "x": 0,   "y": 38.4 },
+	  
+      { "flags": 4, "matrix": [4, 0], "x": 0,   "y": 51.2 },
+      { "flags": 4, "matrix": [4, 1], "x": 75,  "y": 51.2 }, 
+      { "flags": 4, "matrix": [4, 2], "x": 150, "y": 51.2 },
+      { "flags": 4, "matrix": [4, 3], "x": 224, "y": 57.6 },
+
+      { "flags": 4, "matrix": [5, 0], "x": 150,   "y": 64 },
+      { "flags": 4, "matrix": [5, 2], "x": 37.5,  "y": 64 },
+    ]
+  },	
+    "layouts": {
+        "LAYOUT_numpad_6x4": {
+            "key_count": 21,
+            "layout": [
+                {"matrix": [0, 0],"x":0, "y":0},
+                {"matrix": [0, 1],"x":1, "y":0},
+                {"matrix": [0, 2],"x":2, "y":0},
+                {"matrix": [0, 3],"x":3, "y":0},
+
+                {"matrix": [1, 0],"x":0, "y":1},
+                {"matrix": [1, 1],"x":1, "y":1},
+                {"matrix": [1, 2],"x":2, "y":1},
+                {"matrix": [1, 3],"x":3, "y":1},
+
+                {"matrix": [2, 0],"x":0, "y":2},
+                {"matrix": [2, 1],"x":1, "y":2},
+                {"matrix": [2, 2],"x":2, "y":2},
+
+                {"matrix": [3, 0],"x":0, "y":3},
+                {"matrix": [3, 1],"x":1, "y":3},
+                {"matrix": [3, 2],"x":2, "y":3},
+                {"matrix": [2, 3],"x":3, "y":2, "h":2},
+
+                {"matrix": [4, 0],"x":0, "y":4},
+                {"matrix": [4, 1],"x":1, "y":4},
+                {"matrix": [4, 2],"x":2, "y":4},
+                
+                {"matrix": [5, 0],"x":0, "y":5, "w":2},
+                {"matrix": [5, 2],"x":2, "y":5},
+                {"matrix": [4, 3],"x":3, "y":4, "h":2}
+            ]
+        }
+    }
+}
