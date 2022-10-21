@@ -159,17 +159,10 @@ bool oled_task_user(void) {
     render_anim();
     
     // WPM render
-    oled_set_cursor(0, 0);
-    uint8_t n = get_current_wpm();
-    char wpm_counter[6];
-    wpm_counter[5] = '\0';
-    wpm_counter[4] = '0' + n % 10;
-    wpm_counter[3] = '0' + (n /= 10) % 10;
-    wpm_counter[2] = '0' + n / 10 ;
-    wpm_counter[1] = '0';
-    wpm_counter[0] = '>';
-    oled_write_ln(wpm_counter, false);
-    
+    oled_set_cursor(1, 0);
+    oled_write_P(PSTR(">"), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
+
     // Host Keyboard LED Status
     led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0,14);
