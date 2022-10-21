@@ -1,7 +1,13 @@
 {
     "keyboard_name": "kt60-M",
+    "manufacturer": "keyten",
     "url": "",
     "maintainer": "key10iq",
+    "usb": {
+        "vid": "0xEB69",
+        "pid": "0x6001",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_tsangan_hhkb"
     },

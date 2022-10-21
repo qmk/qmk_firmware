@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MW65_BLACK",
+    "keyboard_name": "MW65 Black",
+    "manufacturer": "MWStudio",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7BA1",
+        "pid": "0x6500",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

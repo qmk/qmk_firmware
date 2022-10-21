@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_scan_user(void) {
-    uint32_t layer = layer_state;
+    layer_state_t layer = layer_state;
 
     if (layer & (1<<1)) {
         gh60_fn_led_on();

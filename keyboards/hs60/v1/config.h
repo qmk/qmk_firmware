@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0257
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         HS60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, F7 }
 #define MATRIX_COL_PINS { F1, F4, F5, E6, F0, B7, D2, D3, D5, D4, D6, D7, B4, B5 }
-#define UNUSED_PINS     { B6, C6, C7, F6 }
 
 /* bootloader configuration */
 

@@ -17,13 +17,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5350
-#define PRODUCT_ID      0x5B31
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SawnsProjects
-#define PRODUCT         Krush65 - Hotswap
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -31,7 +24,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B1, B2, D4, F1, F0 }
 #define MATRIX_COL_PINS { B7, B3, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D0, D5, D6, D3 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

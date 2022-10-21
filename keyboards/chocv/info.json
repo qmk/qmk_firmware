@@ -1,7 +1,13 @@
 {
   "keyboard_name": "chocV",
+  "manufacturer": "BrickBots Labs",
   "url": "https://github.com/brickbots/chocV",
   "maintainer": "Brickbots",
+  "usb": {
+    "vid": "0xBBB0",
+    "pid": "0x0002",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_split_3x5_3": {
       "layout": [

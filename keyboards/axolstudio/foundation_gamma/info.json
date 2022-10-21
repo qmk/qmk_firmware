@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Foundation Gamma", 
+    "manufacturer": "Axolstudio",
     "url": "https://axolstudio.ca/foundation-gamma", 
     "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0x525C",
+        "pid": "0xE3EB",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_ansi_tsangan": "LAYOUT_tkl_f13_ansi_tsangan",
         "LAYOUT_all": "LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift"

@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "latin17rgb",
+  "keyboard_name": "Latin17RGB",
+  "manufacturer": "18438880",
   "url": "",
   "maintainer": "18438880",
+  "usb": {
+    "vid": "0x7C88",
+    "pid": "0x7C97",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_numpad_5x4": {
       "layout": [
