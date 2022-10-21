@@ -21,7 +21,7 @@ This is based on the `default` layout, with a few modifications to better match 
          |  `~  | INS  | Left | Right|                                         |  Up  | Down |  [{  |  ]}  |
          `---------------------------'                                         `---------------------------'
                                        ,-------------.         ,-------------.
-                                       | Ctrl | Alt  |         | Gui  | Ctrl |
+                                       | Ctrl | Alt  |         | Gui  |Alt Gr|
                                 ,------|------|------|         |------+------+------.
                                 |      |      | Home |         | PgUp |      |      |
                                 | BkSp |  Del |------|         |------|Return| Space|
@@ -32,6 +32,7 @@ This is based on the `default` layout, with a few modifications to better match 
 #### Changes compared to `default`
 
 - Right <kbd>Super</kbd> in the right thumb cluster was changed to left <kbd>Super</kbd>, to allow opening Activities view in GNOME Shell.
+- Right <kbd>Control</kbd> was replaced with <kbd>Alt Gr</kbd> to enable third and fourth key layers, useful to access English layout symbols on layouts for European languages.
 
 ## Setting up
 
