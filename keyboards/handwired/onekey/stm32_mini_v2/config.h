@@ -45,7 +45,4 @@
     #define BACKLIGHT_PWM_CHANNEL 1
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-    /* RGB Matrix config */
-    #define RGB_CI_PIN A2
-#endif
+#define RGB_CI_PIN A2
